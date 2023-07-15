@@ -115,3 +115,12 @@
 [submodule "packages/gitopia/cosmos-proto"]
 	path = packages/gitopia/cosmos-proto
 	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/gravitybridge/Gravity-Bridge"]
+	path = packages/gravitybridge/Gravity-Bridge
+	url = https://github.com/Gravity-Bridge/Gravity-Bridge
+[submodule "packages/gravitybridge/cosmos-sdk"]
+	path = packages/gravitybridge/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/gravitybridge/cometbft"]
+	path = packages/gravitybridge/cometbft
+	url = https://github.com/cometbft/cometbft
