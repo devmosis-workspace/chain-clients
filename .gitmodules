@@ -145,3 +145,12 @@
 [submodule "packages/irisnet/cometbft"]
 	path = packages/irisnet/cometbft
 	url = https://github.com/cometbft/cometbft
+[submodule "packages/kava/kava"]
+	path = packages/kava/kava
+	url = https://github.com/kava-Labs/kava
+[submodule "packages/kava/kava-cosmos-sdk-dev"]
+	path = packages/kava/kava-cosmos-sdk-dev
+	url = https://github.com/devmosis-workspace/kava-cosmos-sdk-dev
+[submodule "packages/kava/cosmos-proto"]
+	path = packages/kava/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
