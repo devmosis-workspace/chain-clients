@@ -136,3 +136,12 @@
 [submodule "packages/injective/wasmd"]
 	path = packages/injective/wasmd
 	url = https://github.com/InjectiveLabs/wasmd
+[submodule "packages/irisnet/irishub"]
+	path = packages/irisnet/irishub
+	url = https://github.com/irisnet/irishub
+[submodule "packages/irisnet/cosmos-sdk"]
+	path = packages/irisnet/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/irisnet/cometbft"]
+	path = packages/irisnet/cometbft
+	url = https://github.com/cometbft/cometbft
