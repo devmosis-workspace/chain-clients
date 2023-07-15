@@ -43,3 +43,15 @@
 [submodule "packages/osmosis/tendermint"]
 	path = packages/osmosis/tendermint
 	url = https://github.com/tendermint/tendermint
+[submodule "packages/cosmoshub/gaia"]
+	path = packages/cosmoshub/gaia
+	url = https://github.com/cosmos/gaia
+[submodule "packages/cosmoshub/cosmos-sdk"]
+	path = packages/cosmoshub/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/cosmoshub/cosmos-proto"]
+	path = packages/cosmoshub/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/cosmoshub/cometbft"]
+	path = packages/cosmoshub/cometbft
+	url = https://github.com/cometbft/cometbft
