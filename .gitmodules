@@ -124,3 +124,15 @@
 [submodule "packages/gravitybridge/cometbft"]
 	path = packages/gravitybridge/cometbft
 	url = https://github.com/cometbft/cometbft
+[submodule "packages/injective/sdk-go"]
+	path = packages/injective/sdk-go
+	url = https://github.com/InjectiveLabs/sdk-go
+[submodule "packages/injective/cosmos-sdk"]
+	path = packages/injective/cosmos-sdk
+	url = https://github.com/InjectiveLabs/cosmos-sdk
+[submodule "packages/injective/cosmos-proto"]
+	path = packages/injective/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/injective/wasmd"]
+	path = packages/injective/wasmd
+	url = https://github.com/InjectiveLabs/wasmd
