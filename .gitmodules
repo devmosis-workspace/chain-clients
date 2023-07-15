@@ -79,3 +79,15 @@
 [submodule "packages/axelar/cosmos-sdk"]
 	path = packages/axelar/cosmos-sdk
 	url = https://github.com/axelarnetwork/cosmos-sdk
+[submodule "packages/cryptoorg/chain-main"]
+	path = packages/cryptoorg/chain-main
+	url = https://github.com/crypto-org-chain/chain-main
+[submodule "packages/cryptoorg/cosmos-sdk"]
+	path = packages/cryptoorg/cosmos-sdk
+	url = https://github.com/crypto-org-chain/cosmos-sdk
+[submodule "packages/cryptoorg/cosmos-proto"]
+	path = packages/cryptoorg/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/cryptoorg/ibc-go"]
+	path = packages/cryptoorg/ibc-go
+	url = https://github.com/cosmos/ibc-go
