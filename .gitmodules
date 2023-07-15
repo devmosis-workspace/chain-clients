@@ -154,3 +154,12 @@
 [submodule "packages/kava/cosmos-proto"]
 	path = packages/kava/cosmos-proto
 	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/kyve/chain"]
+	path = packages/kyve/chain
+	url = https://github.com/KYVENetwork/chain
+[submodule "packages/kyve/cosmos-sdk"]
+	path = packages/kyve/cosmos-sdk
+	url = https://github.com/KYVENetwork/cosmos-sdk
+[submodule "packages/kyve/cosmos-proto"]
+	path = packages/kyve/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
