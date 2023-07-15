@@ -40,6 +40,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/cryptoorg"\
       },\
       {\
+        "name": "@chain-clients/emoney",\
+        "reference": "workspace:packages/emoney"\
+      },\
+      {\
         "name": "@chain-clients/juno",\
         "reference": "workspace:packages/juno"\
       },\
@@ -65,6 +69,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@chain-clients/copy", ["workspace:packages/copy"]],\
       ["@chain-clients/cosmoshub", ["workspace:packages/cosmoshub"]],\
       ["@chain-clients/cryptoorg", ["workspace:packages/cryptoorg"]],\
+      ["@chain-clients/emoney", ["workspace:packages/emoney"]],\
       ["@chain-clients/juno", ["workspace:packages/juno"]],\
       ["@chain-clients/osmosis", ["workspace:packages/osmosis"]],\
       ["@chain-clients/stargaze", ["workspace:packages/stargaze"]],\
@@ -555,6 +560,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [\
         "@chain-clients/cryptoorg",\
         "workspace:packages/cryptoorg"\
+      ],\
+      [\
+        "@chain-clients/emoney",\
+        "workspace:packages/emoney"\
       ],\
       [\
         "@chain-clients/juno",\
@@ -6662,6 +6671,46 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/cryptoorg/",\
           "packageDependencies": [\
             ["@chain-clients/cryptoorg", "workspace:packages/cryptoorg"],\
+            ["@babel/cli", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.21.0"],\
+            ["@babel/core", "npm:7.21.4"],\
+            ["@babel/eslint-parser", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.22.9"],\
+            ["@babel/node", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.22.6"],\
+            ["@babel/plugin-proposal-class-properties", "virtual:322b9f409c88ac00d1a3772bef36844007ec81d992b99b84f4d50e268dbe7f77c7d26cc621a650372067cf499ceb137ad7160b6ffdaf5cf8e18b15e7707dcdd8#npm:7.18.6"],\
+            ["@babel/plugin-proposal-export-default-from", "virtual:322b9f409c88ac00d1a3772bef36844007ec81d992b99b84f4d50e268dbe7f77c7d26cc621a650372067cf499ceb137ad7160b6ffdaf5cf8e18b15e7707dcdd8#npm:7.18.10"],\
+            ["@babel/plugin-proposal-nullish-coalescing-operator", "virtual:458252ed612120de9e3fb4ac285066cff7a7e3a2271e39b13f6bc706de803ee9e84ba490fef0a541cdeec31db5ca905a0ecb3d91d3de7082c14f9105342aafdc#npm:7.18.6"],\
+            ["@babel/plugin-proposal-numeric-separator", "virtual:458252ed612120de9e3fb4ac285066cff7a7e3a2271e39b13f6bc706de803ee9e84ba490fef0a541cdeec31db5ca905a0ecb3d91d3de7082c14f9105342aafdc#npm:7.18.6"],\
+            ["@babel/plugin-proposal-object-rest-spread", "virtual:322b9f409c88ac00d1a3772bef36844007ec81d992b99b84f4d50e268dbe7f77c7d26cc621a650372067cf499ceb137ad7160b6ffdaf5cf8e18b15e7707dcdd8#npm:7.20.7"],\
+            ["@babel/plugin-proposal-optional-chaining", "virtual:458252ed612120de9e3fb4ac285066cff7a7e3a2271e39b13f6bc706de803ee9e84ba490fef0a541cdeec31db5ca905a0ecb3d91d3de7082c14f9105342aafdc#npm:7.21.0"],\
+            ["@babel/plugin-transform-runtime", "virtual:322b9f409c88ac00d1a3772bef36844007ec81d992b99b84f4d50e268dbe7f77c7d26cc621a650372067cf499ceb137ad7160b6ffdaf5cf8e18b15e7707dcdd8#npm:7.21.4"],\
+            ["@babel/preset-env", "virtual:322b9f409c88ac00d1a3772bef36844007ec81d992b99b84f4d50e268dbe7f77c7d26cc621a650372067cf499ceb137ad7160b6ffdaf5cf8e18b15e7707dcdd8#npm:7.21.4"],\
+            ["@babel/preset-typescript", "virtual:322b9f409c88ac00d1a3772bef36844007ec81d992b99b84f4d50e268dbe7f77c7d26cc621a650372067cf499ceb137ad7160b6ffdaf5cf8e18b15e7707dcdd8#npm:7.22.5"],\
+            ["@babel/runtime", "npm:7.22.6"],\
+            ["@cosmjs/amino", "npm:0.29.4"],\
+            ["@cosmjs/proto-signing", "npm:0.29.4"],\
+            ["@cosmjs/stargate", "npm:0.29.4"],\
+            ["@cosmjs/tendermint-rpc", "npm:0.29.5"],\
+            ["@osmonauts/telescope", "npm:0.96.0"],\
+            ["babel-core", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.0.0-bridge.0"],\
+            ["babel-watch", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.8.1"],\
+            ["cross-env", "npm:7.0.3"],\
+            ["eslint", "npm:8.38.0"],\
+            ["eslint-config-prettier", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:8.8.0"],\
+            ["eslint-plugin-prettier", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:4.2.1"],\
+            ["long", "npm:5.2.3"],\
+            ["prettier", "npm:2.8.8"],\
+            ["protobufjs", "npm:6.11.3"],\
+            ["regenerator-runtime", "npm:0.13.11"],\
+            ["rimraf", "npm:5.0.1"],\
+            ["typescript", "patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=5da071"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["@chain-clients/emoney", [\
+        ["workspace:packages/emoney", {\
+          "packageLocation": "./packages/emoney/",\
+          "packageDependencies": [\
+            ["@chain-clients/emoney", "workspace:packages/emoney"],\
             ["@babel/cli", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.21.0"],\
             ["@babel/core", "npm:7.21.4"],\
             ["@babel/eslint-parser", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.22.9"],\
