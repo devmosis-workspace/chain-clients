@@ -97,3 +97,12 @@
 [submodule "packages/emoney/cosmos-sdk"]
 	path = packages/emoney/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/evmos/evmos"]
+	path = packages/evmos/evmos
+	url = https://github.com/evmos/evmos
+[submodule "packages/evmos/cosmos-sdk"]
+	path = packages/evmos/cosmos-sdk
+	url = https://github.com/evmos/cosmos-sdk
+[submodule "packages/evmos/cosmos-proto"]
+	path = packages/evmos/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
