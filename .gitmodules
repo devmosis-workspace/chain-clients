@@ -73,3 +73,9 @@
 [submodule "packages/akash/tendermint"]
 	path = packages/akash/tendermint
 	url = https://github.com/akash-network/tendermint
+[submodule "packages/axelar/axelar-core"]
+	path = packages/axelar/axelar-core
+	url = https://github.com/axelarnetwork/axelar-core
+[submodule "packages/axelar/cosmos-sdk"]
+	path = packages/axelar/cosmos-sdk
+	url = https://github.com/axelarnetwork/cosmos-sdk
