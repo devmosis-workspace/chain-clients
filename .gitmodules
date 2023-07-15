@@ -1,0 +1,39 @@
+[submodule "packages/osmosis/osmosis"]
+	path = packages/osmosis/osmosis
+	url = https://github.com/osmosis-labs/osmosis
+[submodule "packages/osmosis/cosmos-proto"]
+	path = packages/osmosis/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/stride/stride"]
+	path = packages/stride/stride
+	url = https://github.com/Stride-Labs/stride
+[submodule "packages/stride/cosmos-sdk"]
+	path = packages/stride/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/stride/cosmos-proto"]
+	path = packages/stride/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/stargaze/stargaze"]
+	path = packages/stargaze/stargaze
+	url = https://github.com/public-awesome/stargaze
+[submodule "packages/stargaze/cosmos-sdk"]
+	path = packages/stargaze/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/stargaze/cosmos-proto"]
+	path = packages/stargaze/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/stargaze/tendermint"]
+	path = packages/stargaze/tendermint
+	url = https://github.com/tendermint/tendermint
+[submodule "packages/juno/juno"]
+	path = packages/juno/juno
+	url = https://github.com/CosmosContracts/juno
+[submodule "packages/juno/cosmos-sdk"]
+	path = packages/juno/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/juno/cosmos-proto"]
+	path = packages/juno/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/juno/mev-cometbft"]
+	path = packages/juno/mev-cometbft
+	url = https://github.com/skip-mev/mev-cometbft
