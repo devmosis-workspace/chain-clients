@@ -1,6 +1,6 @@
 import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
 import { Coin, CoinSDKType } from "../../base/v1beta1/coin";
-import { Params, ParamsSDKType, Metadata, MetadataSDKType, SendEnabled, SendEnabledSDKType } from "./bank";
+import { Params, ParamsSDKType, Metadata, MetadataSDKType } from "./bank";
 import * as _m0 from "protobufjs/minimal";
 import { isSet } from "../../../helpers";
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method. */
@@ -53,91 +53,6 @@ export interface QueryAllBalancesResponse {
 export interface QueryAllBalancesResponseSDKType {
   balances: CoinSDKType[];
   pagination?: PageResponseSDKType;
-}
-/**
- * QuerySpendableBalancesRequest defines the gRPC request structure for querying
- * an account's spendable balances.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface QuerySpendableBalancesRequest {
-  /** address is the address to query spendable balances for. */
-  address: string;
-  /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
-}
-/**
- * QuerySpendableBalancesRequest defines the gRPC request structure for querying
- * an account's spendable balances.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface QuerySpendableBalancesRequestSDKType {
-  address: string;
-  pagination?: PageRequestSDKType;
-}
-/**
- * QuerySpendableBalancesResponse defines the gRPC response structure for querying
- * an account's spendable balances.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface QuerySpendableBalancesResponse {
-  /** balances is the spendable balances of all the coins. */
-  balances: Coin[];
-  /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
-}
-/**
- * QuerySpendableBalancesResponse defines the gRPC response structure for querying
- * an account's spendable balances.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface QuerySpendableBalancesResponseSDKType {
-  balances: CoinSDKType[];
-  pagination?: PageResponseSDKType;
-}
-/**
- * QuerySpendableBalanceByDenomRequest defines the gRPC request structure for
- * querying an account's spendable balance for a specific denom.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface QuerySpendableBalanceByDenomRequest {
-  /** address is the address to query balances for. */
-  address: string;
-  /** denom is the coin denom to query balances for. */
-  denom: string;
-}
-/**
- * QuerySpendableBalanceByDenomRequest defines the gRPC request structure for
- * querying an account's spendable balance for a specific denom.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface QuerySpendableBalanceByDenomRequestSDKType {
-  address: string;
-  denom: string;
-}
-/**
- * QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
- * querying an account's spendable balance for a specific denom.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface QuerySpendableBalanceByDenomResponse {
-  /** balance is the balance of the coin. */
-  balance?: Coin;
-}
-/**
- * QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
- * querying an account's spendable balance for a specific denom.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface QuerySpendableBalanceByDenomResponseSDKType {
-  balance?: CoinSDKType;
 }
 /**
  * QueryTotalSupplyRequest is the request type for the Query/TotalSupply RPC
@@ -196,6 +111,65 @@ export interface QuerySupplyOfResponse {
 }
 /** QuerySupplyOfResponse is the response type for the Query/SupplyOf RPC method. */
 export interface QuerySupplyOfResponseSDKType {
+  amount?: CoinSDKType;
+}
+/**
+ * QueryTotalSupplyWithoutOffsetRequest is the request type for the Query/TotalSupplyWithoutOffset RPC
+ * method.
+ */
+export interface QueryTotalSupplyWithoutOffsetRequest {
+  /**
+   * pagination defines an optional pagination for the request.
+   * 
+   * Since: cosmos-sdk 0.43
+   */
+  pagination?: PageRequest;
+}
+/**
+ * QueryTotalSupplyWithoutOffsetRequest is the request type for the Query/TotalSupplyWithoutOffset RPC
+ * method.
+ */
+export interface QueryTotalSupplyWithoutOffsetRequestSDKType {
+  pagination?: PageRequestSDKType;
+}
+/**
+ * QueryTotalSupplyWithoutOffsetResponse is the response type for the Query/TotalSupplyWithoutOffset RPC
+ * method
+ */
+export interface QueryTotalSupplyWithoutOffsetResponse {
+  /** supply is the supply of the coins */
+  supply: Coin[];
+  /**
+   * pagination defines the pagination in the response.
+   * 
+   * Since: cosmos-sdk 0.43
+   */
+  pagination?: PageResponse;
+}
+/**
+ * QueryTotalSupplyWithoutOffsetResponse is the response type for the Query/TotalSupplyWithoutOffset RPC
+ * method
+ */
+export interface QueryTotalSupplyWithoutOffsetResponseSDKType {
+  supply: CoinSDKType[];
+  pagination?: PageResponseSDKType;
+}
+/** QuerySupplyOfWithoutOffsetRequest is the request type for the Query/SupplyOfWithoutOffset RPC method. */
+export interface QuerySupplyOfWithoutOffsetRequest {
+  /** denom is the coin denom to query balances for. */
+  denom: string;
+}
+/** QuerySupplyOfWithoutOffsetRequest is the request type for the Query/SupplyOfWithoutOffset RPC method. */
+export interface QuerySupplyOfWithoutOffsetRequestSDKType {
+  denom: string;
+}
+/** QuerySupplyOfWithoutOffsetResponse is the response type for the Query/SupplyOfWithoutOffset RPC method. */
+export interface QuerySupplyOfWithoutOffsetResponse {
+  /** amount is the supply of the coin. */
+  amount?: Coin;
+}
+/** QuerySupplyOfWithoutOffsetResponse is the response type for the Query/SupplyOfWithoutOffset RPC method. */
+export interface QuerySupplyOfWithoutOffsetResponseSDKType {
   amount?: CoinSDKType;
 }
 /** QueryParamsRequest defines the request type for querying x/bank parameters. */
@@ -261,113 +235,21 @@ export interface QueryDenomMetadataResponse {
 export interface QueryDenomMetadataResponseSDKType {
   metadata?: MetadataSDKType;
 }
-/**
- * QueryDenomOwnersRequest defines the request type for the DenomOwners RPC query,
- * which queries for a paginated set of all account holders of a particular
- * denomination.
- */
-export interface QueryDenomOwnersRequest {
-  /** denom defines the coin denomination to query all account holders for. */
+/** QueryBaseDenomRequest defines the request type for the BaseDenom gRPC method. */
+export interface QueryBaseDenomRequest {
   denom: string;
-  /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
 }
-/**
- * QueryDenomOwnersRequest defines the request type for the DenomOwners RPC query,
- * which queries for a paginated set of all account holders of a particular
- * denomination.
- */
-export interface QueryDenomOwnersRequestSDKType {
+/** QueryBaseDenomRequest defines the request type for the BaseDenom gRPC method. */
+export interface QueryBaseDenomRequestSDKType {
   denom: string;
-  pagination?: PageRequestSDKType;
 }
-/**
- * DenomOwner defines structure representing an account that owns or holds a
- * particular denominated token. It contains the account address and account
- * balance of the denominated token.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface DenomOwner {
-  /** address defines the address that owns a particular denomination. */
-  address: string;
-  /** balance is the balance of the denominated coin for an account. */
-  balance?: Coin;
+/** QueryBaseDenomResponse defines the response type for the BaseDenom gRPC method. */
+export interface QueryBaseDenomResponse {
+  baseDenom: string;
 }
-/**
- * DenomOwner defines structure representing an account that owns or holds a
- * particular denominated token. It contains the account address and account
- * balance of the denominated token.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface DenomOwnerSDKType {
-  address: string;
-  balance?: CoinSDKType;
-}
-/**
- * QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface QueryDenomOwnersResponse {
-  denomOwners: DenomOwner[];
-  /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
-}
-/**
- * QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface QueryDenomOwnersResponseSDKType {
-  denom_owners: DenomOwnerSDKType[];
-  pagination?: PageResponseSDKType;
-}
-/**
- * QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface QuerySendEnabledRequest {
-  /** denoms is the specific denoms you want look up. Leave empty to get all entries. */
-  denoms: string[];
-  /**
-   * pagination defines an optional pagination for the request. This field is
-   * only read if the denoms field is empty.
-   */
-  pagination?: PageRequest;
-}
-/**
- * QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface QuerySendEnabledRequestSDKType {
-  denoms: string[];
-  pagination?: PageRequestSDKType;
-}
-/**
- * QuerySendEnabledResponse defines the RPC response of a SendEnable query.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface QuerySendEnabledResponse {
-  sendEnabled: SendEnabled[];
-  /**
-   * pagination defines the pagination in the response. This field is only
-   * populated if the denoms field in the request is empty.
-   */
-  pagination?: PageResponse;
-}
-/**
- * QuerySendEnabledResponse defines the RPC response of a SendEnable query.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface QuerySendEnabledResponseSDKType {
-  send_enabled: SendEnabledSDKType[];
-  pagination?: PageResponseSDKType;
+/** QueryBaseDenomResponse defines the response type for the BaseDenom gRPC method. */
+export interface QueryBaseDenomResponseSDKType {
+  base_denom: string;
 }
 function createBaseQueryBalanceRequest(): QueryBalanceRequest {
   return {
@@ -479,116 +361,6 @@ export const QueryAllBalancesResponse = {
     return message;
   }
 };
-function createBaseQuerySpendableBalancesRequest(): QuerySpendableBalancesRequest {
-  return {
-    address: "",
-    pagination: undefined
-  };
-}
-export const QuerySpendableBalancesRequest = {
-  encode(message: QuerySpendableBalancesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
-    }
-    if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-  fromJSON(object: any): QuerySpendableBalancesRequest {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined
-    };
-  },
-  fromPartial(object: Partial<QuerySpendableBalancesRequest>): QuerySpendableBalancesRequest {
-    const message = createBaseQuerySpendableBalancesRequest();
-    message.address = object.address ?? "";
-    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
-    return message;
-  }
-};
-function createBaseQuerySpendableBalancesResponse(): QuerySpendableBalancesResponse {
-  return {
-    balances: [],
-    pagination: undefined
-  };
-}
-export const QuerySpendableBalancesResponse = {
-  encode(message: QuerySpendableBalancesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.balances) {
-      Coin.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.pagination !== undefined) {
-      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-  fromJSON(object: any): QuerySpendableBalancesResponse {
-    return {
-      balances: Array.isArray(object?.balances) ? object.balances.map((e: any) => Coin.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined
-    };
-  },
-  fromPartial(object: Partial<QuerySpendableBalancesResponse>): QuerySpendableBalancesResponse {
-    const message = createBaseQuerySpendableBalancesResponse();
-    message.balances = object.balances?.map(e => Coin.fromPartial(e)) || [];
-    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
-    return message;
-  }
-};
-function createBaseQuerySpendableBalanceByDenomRequest(): QuerySpendableBalanceByDenomRequest {
-  return {
-    address: "",
-    denom: ""
-  };
-}
-export const QuerySpendableBalanceByDenomRequest = {
-  encode(message: QuerySpendableBalanceByDenomRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
-    }
-    if (message.denom !== "") {
-      writer.uint32(18).string(message.denom);
-    }
-    return writer;
-  },
-  fromJSON(object: any): QuerySpendableBalanceByDenomRequest {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-      denom: isSet(object.denom) ? String(object.denom) : ""
-    };
-  },
-  fromPartial(object: Partial<QuerySpendableBalanceByDenomRequest>): QuerySpendableBalanceByDenomRequest {
-    const message = createBaseQuerySpendableBalanceByDenomRequest();
-    message.address = object.address ?? "";
-    message.denom = object.denom ?? "";
-    return message;
-  }
-};
-function createBaseQuerySpendableBalanceByDenomResponse(): QuerySpendableBalanceByDenomResponse {
-  return {
-    balance: undefined
-  };
-}
-export const QuerySpendableBalanceByDenomResponse = {
-  encode(message: QuerySpendableBalanceByDenomResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.balance !== undefined) {
-      Coin.encode(message.balance, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-  fromJSON(object: any): QuerySpendableBalanceByDenomResponse {
-    return {
-      balance: isSet(object.balance) ? Coin.fromJSON(object.balance) : undefined
-    };
-  },
-  fromPartial(object: Partial<QuerySpendableBalanceByDenomResponse>): QuerySpendableBalanceByDenomResponse {
-    const message = createBaseQuerySpendableBalanceByDenomResponse();
-    message.balance = object.balance !== undefined && object.balance !== null ? Coin.fromPartial(object.balance) : undefined;
-    return message;
-  }
-};
 function createBaseQueryTotalSupplyRequest(): QueryTotalSupplyRequest {
   return {
     pagination: undefined
@@ -683,6 +455,104 @@ export const QuerySupplyOfResponse = {
   },
   fromPartial(object: Partial<QuerySupplyOfResponse>): QuerySupplyOfResponse {
     const message = createBaseQuerySupplyOfResponse();
+    message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
+    return message;
+  }
+};
+function createBaseQueryTotalSupplyWithoutOffsetRequest(): QueryTotalSupplyWithoutOffsetRequest {
+  return {
+    pagination: undefined
+  };
+}
+export const QueryTotalSupplyWithoutOffsetRequest = {
+  encode(message: QueryTotalSupplyWithoutOffsetRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryTotalSupplyWithoutOffsetRequest {
+    return {
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryTotalSupplyWithoutOffsetRequest>): QueryTotalSupplyWithoutOffsetRequest {
+    const message = createBaseQueryTotalSupplyWithoutOffsetRequest();
+    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
+    return message;
+  }
+};
+function createBaseQueryTotalSupplyWithoutOffsetResponse(): QueryTotalSupplyWithoutOffsetResponse {
+  return {
+    supply: [],
+    pagination: undefined
+  };
+}
+export const QueryTotalSupplyWithoutOffsetResponse = {
+  encode(message: QueryTotalSupplyWithoutOffsetResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.supply) {
+      Coin.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryTotalSupplyWithoutOffsetResponse {
+    return {
+      supply: Array.isArray(object?.supply) ? object.supply.map((e: any) => Coin.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryTotalSupplyWithoutOffsetResponse>): QueryTotalSupplyWithoutOffsetResponse {
+    const message = createBaseQueryTotalSupplyWithoutOffsetResponse();
+    message.supply = object.supply?.map(e => Coin.fromPartial(e)) || [];
+    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
+    return message;
+  }
+};
+function createBaseQuerySupplyOfWithoutOffsetRequest(): QuerySupplyOfWithoutOffsetRequest {
+  return {
+    denom: ""
+  };
+}
+export const QuerySupplyOfWithoutOffsetRequest = {
+  encode(message: QuerySupplyOfWithoutOffsetRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.denom !== "") {
+      writer.uint32(10).string(message.denom);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QuerySupplyOfWithoutOffsetRequest {
+    return {
+      denom: isSet(object.denom) ? String(object.denom) : ""
+    };
+  },
+  fromPartial(object: Partial<QuerySupplyOfWithoutOffsetRequest>): QuerySupplyOfWithoutOffsetRequest {
+    const message = createBaseQuerySupplyOfWithoutOffsetRequest();
+    message.denom = object.denom ?? "";
+    return message;
+  }
+};
+function createBaseQuerySupplyOfWithoutOffsetResponse(): QuerySupplyOfWithoutOffsetResponse {
+  return {
+    amount: undefined
+  };
+}
+export const QuerySupplyOfWithoutOffsetResponse = {
+  encode(message: QuerySupplyOfWithoutOffsetResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.amount !== undefined) {
+      Coin.encode(message.amount, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QuerySupplyOfWithoutOffsetResponse {
+    return {
+      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined
+    };
+  },
+  fromPartial(object: Partial<QuerySupplyOfWithoutOffsetResponse>): QuerySupplyOfWithoutOffsetResponse {
+    const message = createBaseQuerySupplyOfWithoutOffsetResponse();
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     return message;
   }
@@ -823,148 +693,49 @@ export const QueryDenomMetadataResponse = {
     return message;
   }
 };
-function createBaseQueryDenomOwnersRequest(): QueryDenomOwnersRequest {
+function createBaseQueryBaseDenomRequest(): QueryBaseDenomRequest {
   return {
-    denom: "",
-    pagination: undefined
+    denom: ""
   };
 }
-export const QueryDenomOwnersRequest = {
-  encode(message: QueryDenomOwnersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const QueryBaseDenomRequest = {
+  encode(message: QueryBaseDenomRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
-    if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
-    }
     return writer;
   },
-  fromJSON(object: any): QueryDenomOwnersRequest {
+  fromJSON(object: any): QueryBaseDenomRequest {
     return {
-      denom: isSet(object.denom) ? String(object.denom) : "",
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined
+      denom: isSet(object.denom) ? String(object.denom) : ""
     };
   },
-  fromPartial(object: Partial<QueryDenomOwnersRequest>): QueryDenomOwnersRequest {
-    const message = createBaseQueryDenomOwnersRequest();
+  fromPartial(object: Partial<QueryBaseDenomRequest>): QueryBaseDenomRequest {
+    const message = createBaseQueryBaseDenomRequest();
     message.denom = object.denom ?? "";
-    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
     return message;
   }
 };
-function createBaseDenomOwner(): DenomOwner {
+function createBaseQueryBaseDenomResponse(): QueryBaseDenomResponse {
   return {
-    address: "",
-    balance: undefined
+    baseDenom: ""
   };
 }
-export const DenomOwner = {
-  encode(message: DenomOwner, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
-    }
-    if (message.balance !== undefined) {
-      Coin.encode(message.balance, writer.uint32(18).fork()).ldelim();
+export const QueryBaseDenomResponse = {
+  encode(message: QueryBaseDenomResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.baseDenom !== "") {
+      writer.uint32(10).string(message.baseDenom);
     }
     return writer;
   },
-  fromJSON(object: any): DenomOwner {
+  fromJSON(object: any): QueryBaseDenomResponse {
     return {
-      address: isSet(object.address) ? String(object.address) : "",
-      balance: isSet(object.balance) ? Coin.fromJSON(object.balance) : undefined
+      baseDenom: isSet(object.baseDenom) ? String(object.baseDenom) : ""
     };
   },
-  fromPartial(object: Partial<DenomOwner>): DenomOwner {
-    const message = createBaseDenomOwner();
-    message.address = object.address ?? "";
-    message.balance = object.balance !== undefined && object.balance !== null ? Coin.fromPartial(object.balance) : undefined;
-    return message;
-  }
-};
-function createBaseQueryDenomOwnersResponse(): QueryDenomOwnersResponse {
-  return {
-    denomOwners: [],
-    pagination: undefined
-  };
-}
-export const QueryDenomOwnersResponse = {
-  encode(message: QueryDenomOwnersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.denomOwners) {
-      DenomOwner.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.pagination !== undefined) {
-      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-  fromJSON(object: any): QueryDenomOwnersResponse {
-    return {
-      denomOwners: Array.isArray(object?.denomOwners) ? object.denomOwners.map((e: any) => DenomOwner.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined
-    };
-  },
-  fromPartial(object: Partial<QueryDenomOwnersResponse>): QueryDenomOwnersResponse {
-    const message = createBaseQueryDenomOwnersResponse();
-    message.denomOwners = object.denomOwners?.map(e => DenomOwner.fromPartial(e)) || [];
-    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
-    return message;
-  }
-};
-function createBaseQuerySendEnabledRequest(): QuerySendEnabledRequest {
-  return {
-    denoms: [],
-    pagination: undefined
-  };
-}
-export const QuerySendEnabledRequest = {
-  encode(message: QuerySendEnabledRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.denoms) {
-      writer.uint32(10).string(v!);
-    }
-    if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(794).fork()).ldelim();
-    }
-    return writer;
-  },
-  fromJSON(object: any): QuerySendEnabledRequest {
-    return {
-      denoms: Array.isArray(object?.denoms) ? object.denoms.map((e: any) => String(e)) : [],
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined
-    };
-  },
-  fromPartial(object: Partial<QuerySendEnabledRequest>): QuerySendEnabledRequest {
-    const message = createBaseQuerySendEnabledRequest();
-    message.denoms = object.denoms?.map(e => e) || [];
-    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
-    return message;
-  }
-};
-function createBaseQuerySendEnabledResponse(): QuerySendEnabledResponse {
-  return {
-    sendEnabled: [],
-    pagination: undefined
-  };
-}
-export const QuerySendEnabledResponse = {
-  encode(message: QuerySendEnabledResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.sendEnabled) {
-      SendEnabled.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.pagination !== undefined) {
-      PageResponse.encode(message.pagination, writer.uint32(794).fork()).ldelim();
-    }
-    return writer;
-  },
-  fromJSON(object: any): QuerySendEnabledResponse {
-    return {
-      sendEnabled: Array.isArray(object?.sendEnabled) ? object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined
-    };
-  },
-  fromPartial(object: Partial<QuerySendEnabledResponse>): QuerySendEnabledResponse {
-    const message = createBaseQuerySendEnabledResponse();
-    message.sendEnabled = object.sendEnabled?.map(e => SendEnabled.fromPartial(e)) || [];
-    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
+  fromPartial(object: Partial<QueryBaseDenomResponse>): QueryBaseDenomResponse {
+    const message = createBaseQueryBaseDenomResponse();
+    message.baseDenom = object.baseDenom ?? "";
     return message;
   }
 };

@@ -11,7 +11,6 @@ export interface BaseVestingAccount {
     originalVesting: Coin[];
     delegatedFree: Coin[];
     delegatedVesting: Coin[];
-    /** Vesting end time, as unix timestamp (in seconds). */
     endTime: Long;
 }
 /**
@@ -31,7 +30,6 @@ export interface BaseVestingAccountSDKType {
  */
 export interface ContinuousVestingAccount {
     baseVestingAccount?: BaseVestingAccount;
-    /** Vesting start time, as unix timestamp (in seconds). */
     startTime: Long;
 }
 /**
@@ -60,7 +58,6 @@ export interface DelayedVestingAccountSDKType {
 }
 /** Period defines a length of time and amount of coins that will vest. */
 export interface Period {
-    /** Period duration in seconds. */
     length: Long;
     amount: Coin[];
 }
@@ -107,6 +104,35 @@ export interface PermanentLockedAccount {
 export interface PermanentLockedAccountSDKType {
     base_vesting_account?: BaseVestingAccountSDKType;
 }
+/**
+ * ClawbackVestingAccount implements the VestingAccount interface. It provides
+ * an account that can hold contributions subject to "lockup" (like a
+ * PeriodicVestingAccount), or vesting which is subject to clawback
+ * of unvested tokens, or a combination (tokens vest, but are still locked).
+ */
+export interface ClawbackVestingAccount {
+    baseVestingAccount?: BaseVestingAccount;
+    /** funder_address specifies the account which can perform clawback. */
+    funderAddress: string;
+    startTime: Long;
+    /** unlocking schedule relative to the BaseVestingAccount start_time. */
+    lockupPeriods: Period[];
+    /** vesting (i.e. immunity from clawback) schedule relative to the BaseVestingAccount start_time. */
+    vestingPeriods: Period[];
+}
+/**
+ * ClawbackVestingAccount implements the VestingAccount interface. It provides
+ * an account that can hold contributions subject to "lockup" (like a
+ * PeriodicVestingAccount), or vesting which is subject to clawback
+ * of unvested tokens, or a combination (tokens vest, but are still locked).
+ */
+export interface ClawbackVestingAccountSDKType {
+    base_vesting_account?: BaseVestingAccountSDKType;
+    funder_address: string;
+    start_time: Long;
+    lockup_periods: PeriodSDKType[];
+    vesting_periods: PeriodSDKType[];
+}
 export declare const BaseVestingAccount: {
     encode(message: BaseVestingAccount, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): BaseVestingAccount;
@@ -136,4 +162,9 @@ export declare const PermanentLockedAccount: {
     encode(message: PermanentLockedAccount, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): PermanentLockedAccount;
     fromPartial(object: Partial<PermanentLockedAccount>): PermanentLockedAccount;
+};
+export declare const ClawbackVestingAccount: {
+    encode(message: ClawbackVestingAccount, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(object: any): ClawbackVestingAccount;
+    fromPartial(object: Partial<ClawbackVestingAccount>): ClawbackVestingAccount;
 };

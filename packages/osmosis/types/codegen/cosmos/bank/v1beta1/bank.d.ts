@@ -2,20 +2,11 @@ import { Coin, CoinSDKType } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
 /** Params defines the parameters for the bank module. */
 export interface Params {
-    /**
-     * Deprecated: Use of SendEnabled in params is deprecated.
-     * For genesis, use the newly added send_enabled field in the genesis object.
-     * Storage, lookup, and manipulation of this information is now in the keeper.
-     *
-     * As of cosmos-sdk 0.47, this only exists for backwards compatibility of genesis files.
-     */
-    /** @deprecated */
     sendEnabled: SendEnabled[];
     defaultSendEnabled: boolean;
 }
 /** Params defines the parameters for the bank module. */
 export interface ParamsSDKType {
-    /** @deprecated */
     send_enabled: SendEnabledSDKType[];
     default_send_enabled: boolean;
 }
@@ -83,7 +74,7 @@ export interface DenomUnit {
     /**
      * exponent represents power of 10 exponent that one must
      * raise the base_denom to in order to equal the given DenomUnit's denom
-     * 1 denom = 10^exponent base_denom
+     * 1 denom = 1^exponent base_denom
      * (e.g. with a base_denom of uatom, one can create a DenomUnit of 'atom' with
      * exponent = 6, thus: 1 atom = 10^6 uatom).
      */
@@ -128,19 +119,6 @@ export interface Metadata {
      * Since: cosmos-sdk 0.43
      */
     symbol: string;
-    /**
-     * URI to a document (on or off-chain) that contains additional information. Optional.
-     *
-     * Since: cosmos-sdk 0.46
-     */
-    uri: string;
-    /**
-     * URIHash is a sha256 hash of a document pointed by URI. It's used to verify that
-     * the document didn't change. Optional.
-     *
-     * Since: cosmos-sdk 0.46
-     */
-    uriHash: string;
 }
 /**
  * Metadata represents a struct that describes
@@ -153,8 +131,6 @@ export interface MetadataSDKType {
     display: string;
     name: string;
     symbol: string;
-    uri: string;
-    uri_hash: string;
 }
 export declare const Params: {
     encode(message: Params, writer?: _m0.Writer): _m0.Writer;

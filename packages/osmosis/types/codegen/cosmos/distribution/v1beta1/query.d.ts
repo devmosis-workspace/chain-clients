@@ -18,30 +18,6 @@ export interface QueryParamsResponse {
 export interface QueryParamsResponseSDKType {
     params?: ParamsSDKType;
 }
-/** QueryValidatorDistributionInfoRequest is the request type for the Query/ValidatorDistributionInfo RPC method. */
-export interface QueryValidatorDistributionInfoRequest {
-    /** validator_address defines the validator address to query for. */
-    validatorAddress: string;
-}
-/** QueryValidatorDistributionInfoRequest is the request type for the Query/ValidatorDistributionInfo RPC method. */
-export interface QueryValidatorDistributionInfoRequestSDKType {
-    validator_address: string;
-}
-/** QueryValidatorDistributionInfoResponse is the response type for the Query/ValidatorDistributionInfo RPC method. */
-export interface QueryValidatorDistributionInfoResponse {
-    /** operator_address defines the validator operator address. */
-    operatorAddress: string;
-    /** self_bond_rewards defines the self delegations rewards. */
-    selfBondRewards: DecCoin[];
-    /** commission defines the commission the validator received. */
-    commission: DecCoin[];
-}
-/** QueryValidatorDistributionInfoResponse is the response type for the Query/ValidatorDistributionInfo RPC method. */
-export interface QueryValidatorDistributionInfoResponseSDKType {
-    operator_address: string;
-    self_bond_rewards: DecCoinSDKType[];
-    commission: DecCoinSDKType[];
-}
 /**
  * QueryValidatorOutstandingRewardsRequest is the request type for the
  * Query/ValidatorOutstandingRewards RPC method.
@@ -91,7 +67,7 @@ export interface QueryValidatorCommissionRequestSDKType {
  * Query/ValidatorCommission RPC method
  */
 export interface QueryValidatorCommissionResponse {
-    /** commission defines the commission the validator received. */
+    /** commission defines the commision the validator received. */
     commission?: ValidatorAccumulatedCommission;
 }
 /**
@@ -305,16 +281,6 @@ export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): QueryParamsResponse;
     fromPartial(object: Partial<QueryParamsResponse>): QueryParamsResponse;
-};
-export declare const QueryValidatorDistributionInfoRequest: {
-    encode(message: QueryValidatorDistributionInfoRequest, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(object: any): QueryValidatorDistributionInfoRequest;
-    fromPartial(object: Partial<QueryValidatorDistributionInfoRequest>): QueryValidatorDistributionInfoRequest;
-};
-export declare const QueryValidatorDistributionInfoResponse: {
-    encode(message: QueryValidatorDistributionInfoResponse, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(object: any): QueryValidatorDistributionInfoResponse;
-    fromPartial(object: Partial<QueryValidatorDistributionInfoResponse>): QueryValidatorDistributionInfoResponse;
 };
 export declare const QueryValidatorOutstandingRewardsRequest: {
     encode(message: QueryValidatorOutstandingRewardsRequest, writer?: _m0.Writer): _m0.Writer;

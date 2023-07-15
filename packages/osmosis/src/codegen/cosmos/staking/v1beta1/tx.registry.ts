@@ -1,6 +1,6 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgCreateValidator, MsgEditValidator, MsgDelegate, MsgBeginRedelegate, MsgUndelegate, MsgCancelUnbondingDelegation, MsgUpdateParams } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/cosmos.staking.v1beta1.MsgCreateValidator", MsgCreateValidator], ["/cosmos.staking.v1beta1.MsgEditValidator", MsgEditValidator], ["/cosmos.staking.v1beta1.MsgDelegate", MsgDelegate], ["/cosmos.staking.v1beta1.MsgBeginRedelegate", MsgBeginRedelegate], ["/cosmos.staking.v1beta1.MsgUndelegate", MsgUndelegate], ["/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation", MsgCancelUnbondingDelegation], ["/cosmos.staking.v1beta1.MsgUpdateParams", MsgUpdateParams]];
+import { MsgCreateValidator, MsgEditValidator, MsgDelegate, MsgBeginRedelegate, MsgUndelegate } from "./tx";
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/cosmos.staking.v1beta1.MsgCreateValidator", MsgCreateValidator], ["/cosmos.staking.v1beta1.MsgEditValidator", MsgEditValidator], ["/cosmos.staking.v1beta1.MsgDelegate", MsgDelegate], ["/cosmos.staking.v1beta1.MsgBeginRedelegate", MsgBeginRedelegate], ["/cosmos.staking.v1beta1.MsgUndelegate", MsgUndelegate]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -37,18 +37,6 @@ export const MessageComposer = {
         typeUrl: "/cosmos.staking.v1beta1.MsgUndelegate",
         value: MsgUndelegate.encode(value).finish()
       };
-    },
-    cancelUnbondingDelegation(value: MsgCancelUnbondingDelegation) {
-      return {
-        typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation",
-        value: MsgCancelUnbondingDelegation.encode(value).finish()
-      };
-    },
-    updateParams(value: MsgUpdateParams) {
-      return {
-        typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParams",
-        value: MsgUpdateParams.encode(value).finish()
-      };
     }
   },
   withTypeUrl: {
@@ -79,18 +67,6 @@ export const MessageComposer = {
     undelegate(value: MsgUndelegate) {
       return {
         typeUrl: "/cosmos.staking.v1beta1.MsgUndelegate",
-        value
-      };
-    },
-    cancelUnbondingDelegation(value: MsgCancelUnbondingDelegation) {
-      return {
-        typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation",
-        value
-      };
-    },
-    updateParams(value: MsgUpdateParams) {
-      return {
-        typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParams",
         value
       };
     }
@@ -125,18 +101,6 @@ export const MessageComposer = {
         typeUrl: "/cosmos.staking.v1beta1.MsgUndelegate",
         value: MsgUndelegate.fromJSON(value)
       };
-    },
-    cancelUnbondingDelegation(value: any) {
-      return {
-        typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation",
-        value: MsgCancelUnbondingDelegation.fromJSON(value)
-      };
-    },
-    updateParams(value: any) {
-      return {
-        typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParams",
-        value: MsgUpdateParams.fromJSON(value)
-      };
     }
   },
   fromPartial: {
@@ -168,18 +132,6 @@ export const MessageComposer = {
       return {
         typeUrl: "/cosmos.staking.v1beta1.MsgUndelegate",
         value: MsgUndelegate.fromPartial(value)
-      };
-    },
-    cancelUnbondingDelegation(value: MsgCancelUnbondingDelegation) {
-      return {
-        typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation",
-        value: MsgCancelUnbondingDelegation.fromPartial(value)
-      };
-    },
-    updateParams(value: MsgUpdateParams) {
-      return {
-        typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParams",
-        value: MsgUpdateParams.fromPartial(value)
       };
     }
   }

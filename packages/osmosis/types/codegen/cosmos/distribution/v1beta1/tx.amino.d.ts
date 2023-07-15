@@ -1,5 +1,5 @@
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgSetWithdrawAddress, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission, MsgFundCommunityPool, MsgUpdateParams, MsgCommunityPoolSpend } from "./tx";
+import { MsgSetWithdrawAddress, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission, MsgFundCommunityPool } from "./tx";
 export interface MsgSetWithdrawAddressAminoType extends AminoMsg {
     type: "cosmos-sdk/MsgModifyWithdrawAddress";
     value: {
@@ -30,29 +30,6 @@ export interface MsgFundCommunityPoolAminoType extends AminoMsg {
         depositor: string;
     };
 }
-export interface MsgUpdateParamsAminoType extends AminoMsg {
-    type: "cosmos-sdk/distribution/MsgUpdateParams";
-    value: {
-        authority: string;
-        params: {
-            community_tax: string;
-            base_proposer_reward: string;
-            bonus_proposer_reward: string;
-            withdraw_addr_enabled: boolean;
-        };
-    };
-}
-export interface MsgCommunityPoolSpendAminoType extends AminoMsg {
-    type: "cosmos-sdk/distr/MsgCommunityPoolSpend";
-    value: {
-        authority: string;
-        recipient: string;
-        amount: {
-            denom: string;
-            amount: string;
-        }[];
-    };
-}
 export declare const AminoConverter: {
     "/cosmos.distribution.v1beta1.MsgSetWithdrawAddress": {
         aminoType: string;
@@ -73,15 +50,5 @@ export declare const AminoConverter: {
         aminoType: string;
         toAmino: ({ amount, depositor }: MsgFundCommunityPool) => MsgFundCommunityPoolAminoType["value"];
         fromAmino: ({ amount, depositor }: MsgFundCommunityPoolAminoType["value"]) => MsgFundCommunityPool;
-    };
-    "/cosmos.distribution.v1beta1.MsgUpdateParams": {
-        aminoType: string;
-        toAmino: ({ authority, params }: MsgUpdateParams) => MsgUpdateParamsAminoType["value"];
-        fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]) => MsgUpdateParams;
-    };
-    "/cosmos.distribution.v1beta1.MsgCommunityPoolSpend": {
-        aminoType: string;
-        toAmino: ({ authority, recipient, amount }: MsgCommunityPoolSpend) => MsgCommunityPoolSpendAminoType["value"];
-        fromAmino: ({ authority, recipient, amount }: MsgCommunityPoolSpendAminoType["value"]) => MsgCommunityPoolSpend;
     };
 };

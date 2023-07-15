@@ -35,29 +35,6 @@ export interface ModuleAccountSDKType {
     name: string;
     permissions: string[];
 }
-/**
- * ModuleCredential represents a unclaimable pubkey for base accounts controlled by modules.
- *
- * Since: cosmos-sdk 0.47
- */
-export interface ModuleCredential {
-    /** module_name is the name of the module used for address derivation (passed into address.Module). */
-    moduleName: string;
-    /**
-     * derivation_keys is for deriving a module account address (passed into address.Module)
-     * adding more keys creates sub-account addresses (passed into address.Derive)
-     */
-    derivationKeys: Uint8Array[];
-}
-/**
- * ModuleCredential represents a unclaimable pubkey for base accounts controlled by modules.
- *
- * Since: cosmos-sdk 0.47
- */
-export interface ModuleCredentialSDKType {
-    module_name: string;
-    derivation_keys: Uint8Array[];
-}
 /** Params defines the parameters for the auth module. */
 export interface Params {
     maxMemoCharacters: Long;
@@ -83,11 +60,6 @@ export declare const ModuleAccount: {
     encode(message: ModuleAccount, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): ModuleAccount;
     fromPartial(object: Partial<ModuleAccount>): ModuleAccount;
-};
-export declare const ModuleCredential: {
-    encode(message: ModuleCredential, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(object: any): ModuleCredential;
-    fromPartial(object: Partial<ModuleCredential>): ModuleCredential;
 };
 export declare const Params: {
     encode(message: Params, writer?: _m0.Writer): _m0.Writer;

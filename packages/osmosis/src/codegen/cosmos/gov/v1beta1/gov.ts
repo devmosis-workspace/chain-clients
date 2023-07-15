@@ -61,7 +61,7 @@ export function voteOptionToJSON(object: VoteOption): string {
 }
 /** ProposalStatus enumerates the valid statuses of a proposal. */
 export enum ProposalStatus {
-  /** PROPOSAL_STATUS_UNSPECIFIED - PROPOSAL_STATUS_UNSPECIFIED defines the default proposal status. */
+  /** PROPOSAL_STATUS_UNSPECIFIED - PROPOSAL_STATUS_UNSPECIFIED defines the default propopsal status. */
   PROPOSAL_STATUS_UNSPECIFIED = 0,
   /**
    * PROPOSAL_STATUS_DEPOSIT_PERIOD - PROPOSAL_STATUS_DEPOSIT_PERIOD defines a proposal status during the deposit
@@ -142,9 +142,7 @@ export function proposalStatusToJSON(object: ProposalStatus): string {
  * Since: cosmos-sdk 0.43
  */
 export interface WeightedVoteOption {
-  /** option defines the valid vote options, it must not contain duplicate vote options. */
   option: VoteOption;
-  /** weight is the vote weight associated with the vote option. */
   weight: string;
 }
 /**
@@ -161,9 +159,7 @@ export interface WeightedVoteOptionSDKType {
  * manually updated in case of approval.
  */
 export interface TextProposal {
-  /** title of the proposal. */
   title: string;
-  /** description associated with the proposal. */
   description: string;
 }
 /**
@@ -179,11 +175,8 @@ export interface TextProposalSDKType {
  * proposal.
  */
 export interface Deposit {
-  /** proposal_id defines the unique id of the proposal. */
   proposalId: Long;
-  /** depositor defines the deposit addresses from the proposals. */
   depositor: string;
-  /** amount to be deposited by depositor. */
   amount: Coin[];
 }
 /**
@@ -197,28 +190,16 @@ export interface DepositSDKType {
 }
 /** Proposal defines the core field members of a governance proposal. */
 export interface Proposal {
-  /** proposal_id defines the unique id of the proposal. */
   proposalId: Long;
-  /** content is the proposal's content. */
   content?: Any;
-  /** status defines the proposal status. */
   status: ProposalStatus;
-  /**
-   * final_tally_result is the final tally result of the proposal. When
-   * querying a proposal via gRPC, this field is not populated until the
-   * proposal's voting period has ended.
-   */
   finalTallyResult?: TallyResult;
-  /** submit_time is the time of proposal submission. */
   submitTime?: Timestamp;
-  /** deposit_end_time is the end time for deposition. */
   depositEndTime?: Timestamp;
-  /** total_deposit is the total deposit on the proposal. */
   totalDeposit: Coin[];
-  /** voting_start_time is the starting time to vote on a proposal. */
   votingStartTime?: Timestamp;
-  /** voting_end_time is the end time of voting on a proposal. */
   votingEndTime?: Timestamp;
+  isExpedited: boolean;
 }
 /** Proposal defines the core field members of a governance proposal. */
 export interface ProposalSDKType {
@@ -231,16 +212,13 @@ export interface ProposalSDKType {
   total_deposit: CoinSDKType[];
   voting_start_time?: TimestampSDKType;
   voting_end_time?: TimestampSDKType;
+  is_expedited: boolean;
 }
 /** TallyResult defines a standard tally for a governance proposal. */
 export interface TallyResult {
-  /** yes is the number of yes votes on a proposal. */
   yes: string;
-  /** abstain is the number of abstain votes on a proposal. */
   abstain: string;
-  /** no is the number of no votes on a proposal. */
   no: string;
-  /** no_with_veto is the number of no with veto votes on a proposal. */
   noWithVeto: string;
 }
 /** TallyResult defines a standard tally for a governance proposal. */
@@ -255,9 +233,7 @@ export interface TallyResultSDKType {
  * A Vote consists of a proposal ID, the voter, and the vote option.
  */
 export interface Vote {
-  /** proposal_id defines the unique id of the proposal. */
   proposalId: Long;
-  /** voter is the voter address of the proposal. */
   voter: string;
   /**
    * Deprecated: Prefer to use `options` instead. This field is set in queries
@@ -266,11 +242,7 @@ export interface Vote {
    */
   /** @deprecated */
   option: VoteOption;
-  /**
-   * options is the weighted vote options.
-   * 
-   * Since: cosmos-sdk 0.43
-   */
+  /** Since: cosmos-sdk 0.43 */
   options: WeightedVoteOption[];
 }
 /**
@@ -290,44 +262,79 @@ export interface DepositParams {
   minDeposit: Coin[];
   /**
    * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
-   * months.
+   *  months.
    */
   maxDepositPeriod?: Duration;
+  /** Minimum expedited deposit for a proposal to enter voting period. */
+  minExpeditedDeposit: Coin[];
+  /** The ratio representing the proportion of the deposit value that must be paid at proposal submission. */
+  minInitialDepositRatio: string;
 }
 /** DepositParams defines the params for deposits on governance proposals. */
 export interface DepositParamsSDKType {
   min_deposit: CoinSDKType[];
   max_deposit_period?: DurationSDKType;
+  min_expedited_deposit: CoinSDKType[];
+  min_initial_deposit_ratio: string;
 }
 /** VotingParams defines the params for voting on governance proposals. */
 export interface VotingParams {
-  /** Duration of the voting period. */
+  /** voting_period defines the length of the voting period. */
   votingPeriod?: Duration;
+  /** proposal_voting_periods defines custom voting periods for proposal types. */
+  proposalVotingPeriods: ProposalVotingPeriod[];
+  /** Length of the expedited voting period. */
+  expeditedVotingPeriod?: Duration;
 }
 /** VotingParams defines the params for voting on governance proposals. */
 export interface VotingParamsSDKType {
   voting_period?: DurationSDKType;
+  proposal_voting_periods: ProposalVotingPeriodSDKType[];
+  expedited_voting_period?: DurationSDKType;
 }
 /** TallyParams defines the params for tallying votes on governance proposals. */
 export interface TallyParams {
   /**
    * Minimum percentage of total stake needed to vote for a result to be
-   * considered valid.
+   *  considered valid.
    */
   quorum: Uint8Array;
   /** Minimum proportion of Yes votes for proposal to pass. Default value: 0.5. */
   threshold: Uint8Array;
   /**
    * Minimum value of Veto votes to Total votes ratio for proposal to be
-   * vetoed. Default value: 1/3.
+   *  vetoed. Default value: 1/3.
    */
   vetoThreshold: Uint8Array;
+  /** Minimum proportion of Yes votes for an expedited proposal to pass. Default value: 0.67. */
+  expeditedThreshold: Uint8Array;
+  /** Minimum proportion of Yes votes for an expedited proposal to reach quorum. Default value: 0.67. */
+  expeditedQuorum: Uint8Array;
 }
 /** TallyParams defines the params for tallying votes on governance proposals. */
 export interface TallyParamsSDKType {
   quorum: Uint8Array;
   threshold: Uint8Array;
   veto_threshold: Uint8Array;
+  expedited_threshold: Uint8Array;
+  expedited_quorum: Uint8Array;
+}
+/**
+ * ProposalVotingPeriod defines custom voting periods for a unique governance
+ * proposal type.
+ */
+export interface ProposalVotingPeriod {
+  /** e.g. "cosmos.params.v1beta1.ParameterChangeProposal" */
+  proposalType: string;
+  votingPeriod?: Duration;
+}
+/**
+ * ProposalVotingPeriod defines custom voting periods for a unique governance
+ * proposal type.
+ */
+export interface ProposalVotingPeriodSDKType {
+  proposal_type: string;
+  voting_period?: DurationSDKType;
 }
 function createBaseWeightedVoteOption(): WeightedVoteOption {
   return {
@@ -432,7 +439,8 @@ function createBaseProposal(): Proposal {
     depositEndTime: undefined,
     totalDeposit: [],
     votingStartTime: undefined,
-    votingEndTime: undefined
+    votingEndTime: undefined,
+    isExpedited: false
   };
 }
 export const Proposal = {
@@ -464,6 +472,9 @@ export const Proposal = {
     if (message.votingEndTime !== undefined) {
       Timestamp.encode(message.votingEndTime, writer.uint32(74).fork()).ldelim();
     }
+    if (message.isExpedited === true) {
+      writer.uint32(80).bool(message.isExpedited);
+    }
     return writer;
   },
   fromJSON(object: any): Proposal {
@@ -476,7 +487,8 @@ export const Proposal = {
       depositEndTime: isSet(object.depositEndTime) ? fromJsonTimestamp(object.depositEndTime) : undefined,
       totalDeposit: Array.isArray(object?.totalDeposit) ? object.totalDeposit.map((e: any) => Coin.fromJSON(e)) : [],
       votingStartTime: isSet(object.votingStartTime) ? fromJsonTimestamp(object.votingStartTime) : undefined,
-      votingEndTime: isSet(object.votingEndTime) ? fromJsonTimestamp(object.votingEndTime) : undefined
+      votingEndTime: isSet(object.votingEndTime) ? fromJsonTimestamp(object.votingEndTime) : undefined,
+      isExpedited: isSet(object.isExpedited) ? Boolean(object.isExpedited) : false
     };
   },
   fromPartial(object: Partial<Proposal>): Proposal {
@@ -490,6 +502,7 @@ export const Proposal = {
     message.totalDeposit = object.totalDeposit?.map(e => Coin.fromPartial(e)) || [];
     message.votingStartTime = object.votingStartTime !== undefined && object.votingStartTime !== null ? Timestamp.fromPartial(object.votingStartTime) : undefined;
     message.votingEndTime = object.votingEndTime !== undefined && object.votingEndTime !== null ? Timestamp.fromPartial(object.votingEndTime) : undefined;
+    message.isExpedited = object.isExpedited ?? false;
     return message;
   }
 };
@@ -578,7 +591,9 @@ export const Vote = {
 function createBaseDepositParams(): DepositParams {
   return {
     minDeposit: [],
-    maxDepositPeriod: undefined
+    maxDepositPeriod: undefined,
+    minExpeditedDeposit: [],
+    minInitialDepositRatio: ""
   };
 }
 export const DepositParams = {
@@ -589,24 +604,36 @@ export const DepositParams = {
     if (message.maxDepositPeriod !== undefined) {
       Duration.encode(message.maxDepositPeriod, writer.uint32(18).fork()).ldelim();
     }
+    for (const v of message.minExpeditedDeposit) {
+      Coin.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.minInitialDepositRatio !== "") {
+      writer.uint32(34).string(message.minInitialDepositRatio);
+    }
     return writer;
   },
   fromJSON(object: any): DepositParams {
     return {
       minDeposit: Array.isArray(object?.minDeposit) ? object.minDeposit.map((e: any) => Coin.fromJSON(e)) : [],
-      maxDepositPeriod: isSet(object.maxDepositPeriod) ? Duration.fromJSON(object.maxDepositPeriod) : undefined
+      maxDepositPeriod: isSet(object.maxDepositPeriod) ? Duration.fromJSON(object.maxDepositPeriod) : undefined,
+      minExpeditedDeposit: Array.isArray(object?.minExpeditedDeposit) ? object.minExpeditedDeposit.map((e: any) => Coin.fromJSON(e)) : [],
+      minInitialDepositRatio: isSet(object.minInitialDepositRatio) ? String(object.minInitialDepositRatio) : ""
     };
   },
   fromPartial(object: Partial<DepositParams>): DepositParams {
     const message = createBaseDepositParams();
     message.minDeposit = object.minDeposit?.map(e => Coin.fromPartial(e)) || [];
     message.maxDepositPeriod = object.maxDepositPeriod !== undefined && object.maxDepositPeriod !== null ? Duration.fromPartial(object.maxDepositPeriod) : undefined;
+    message.minExpeditedDeposit = object.minExpeditedDeposit?.map(e => Coin.fromPartial(e)) || [];
+    message.minInitialDepositRatio = object.minInitialDepositRatio ?? "";
     return message;
   }
 };
 function createBaseVotingParams(): VotingParams {
   return {
-    votingPeriod: undefined
+    votingPeriod: undefined,
+    proposalVotingPeriods: [],
+    expeditedVotingPeriod: undefined
   };
 }
 export const VotingParams = {
@@ -614,16 +641,26 @@ export const VotingParams = {
     if (message.votingPeriod !== undefined) {
       Duration.encode(message.votingPeriod, writer.uint32(10).fork()).ldelim();
     }
+    for (const v of message.proposalVotingPeriods) {
+      ProposalVotingPeriod.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.expeditedVotingPeriod !== undefined) {
+      Duration.encode(message.expeditedVotingPeriod, writer.uint32(26).fork()).ldelim();
+    }
     return writer;
   },
   fromJSON(object: any): VotingParams {
     return {
-      votingPeriod: isSet(object.votingPeriod) ? Duration.fromJSON(object.votingPeriod) : undefined
+      votingPeriod: isSet(object.votingPeriod) ? Duration.fromJSON(object.votingPeriod) : undefined,
+      proposalVotingPeriods: Array.isArray(object?.proposalVotingPeriods) ? object.proposalVotingPeriods.map((e: any) => ProposalVotingPeriod.fromJSON(e)) : [],
+      expeditedVotingPeriod: isSet(object.expeditedVotingPeriod) ? Duration.fromJSON(object.expeditedVotingPeriod) : undefined
     };
   },
   fromPartial(object: Partial<VotingParams>): VotingParams {
     const message = createBaseVotingParams();
     message.votingPeriod = object.votingPeriod !== undefined && object.votingPeriod !== null ? Duration.fromPartial(object.votingPeriod) : undefined;
+    message.proposalVotingPeriods = object.proposalVotingPeriods?.map(e => ProposalVotingPeriod.fromPartial(e)) || [];
+    message.expeditedVotingPeriod = object.expeditedVotingPeriod !== undefined && object.expeditedVotingPeriod !== null ? Duration.fromPartial(object.expeditedVotingPeriod) : undefined;
     return message;
   }
 };
@@ -631,7 +668,9 @@ function createBaseTallyParams(): TallyParams {
   return {
     quorum: new Uint8Array(),
     threshold: new Uint8Array(),
-    vetoThreshold: new Uint8Array()
+    vetoThreshold: new Uint8Array(),
+    expeditedThreshold: new Uint8Array(),
+    expeditedQuorum: new Uint8Array()
   };
 }
 export const TallyParams = {
@@ -645,13 +684,21 @@ export const TallyParams = {
     if (message.vetoThreshold.length !== 0) {
       writer.uint32(26).bytes(message.vetoThreshold);
     }
+    if (message.expeditedThreshold.length !== 0) {
+      writer.uint32(34).bytes(message.expeditedThreshold);
+    }
+    if (message.expeditedQuorum.length !== 0) {
+      writer.uint32(42).bytes(message.expeditedQuorum);
+    }
     return writer;
   },
   fromJSON(object: any): TallyParams {
     return {
       quorum: isSet(object.quorum) ? bytesFromBase64(object.quorum) : new Uint8Array(),
       threshold: isSet(object.threshold) ? bytesFromBase64(object.threshold) : new Uint8Array(),
-      vetoThreshold: isSet(object.vetoThreshold) ? bytesFromBase64(object.vetoThreshold) : new Uint8Array()
+      vetoThreshold: isSet(object.vetoThreshold) ? bytesFromBase64(object.vetoThreshold) : new Uint8Array(),
+      expeditedThreshold: isSet(object.expeditedThreshold) ? bytesFromBase64(object.expeditedThreshold) : new Uint8Array(),
+      expeditedQuorum: isSet(object.expeditedQuorum) ? bytesFromBase64(object.expeditedQuorum) : new Uint8Array()
     };
   },
   fromPartial(object: Partial<TallyParams>): TallyParams {
@@ -659,6 +706,37 @@ export const TallyParams = {
     message.quorum = object.quorum ?? new Uint8Array();
     message.threshold = object.threshold ?? new Uint8Array();
     message.vetoThreshold = object.vetoThreshold ?? new Uint8Array();
+    message.expeditedThreshold = object.expeditedThreshold ?? new Uint8Array();
+    message.expeditedQuorum = object.expeditedQuorum ?? new Uint8Array();
+    return message;
+  }
+};
+function createBaseProposalVotingPeriod(): ProposalVotingPeriod {
+  return {
+    proposalType: "",
+    votingPeriod: undefined
+  };
+}
+export const ProposalVotingPeriod = {
+  encode(message: ProposalVotingPeriod, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.proposalType !== "") {
+      writer.uint32(10).string(message.proposalType);
+    }
+    if (message.votingPeriod !== undefined) {
+      Duration.encode(message.votingPeriod, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): ProposalVotingPeriod {
+    return {
+      proposalType: isSet(object.proposalType) ? String(object.proposalType) : "",
+      votingPeriod: isSet(object.votingPeriod) ? Duration.fromJSON(object.votingPeriod) : undefined
+    };
+  },
+  fromPartial(object: Partial<ProposalVotingPeriod>): ProposalVotingPeriod {
+    const message = createBaseProposalVotingPeriod();
+    message.proposalType = object.proposalType ?? "";
+    message.votingPeriod = object.votingPeriod !== undefined && object.votingPeriod !== null ? Duration.fromPartial(object.votingPeriod) : undefined;
     return message;
   }
 };

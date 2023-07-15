@@ -1,10 +1,8 @@
 import { Tx, TxSDKType } from "./tx";
 import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
 import { TxResponse, TxResponseSDKType, GasInfo, GasInfoSDKType, Result, ResultSDKType } from "../../base/abci/v1beta1/abci";
-import { BlockID, BlockIDSDKType } from "../../../tendermint/types/types";
-import { Block, BlockSDKType } from "../../../tendermint/types/block";
-import { Long, isSet, bytesFromBase64 } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
+import { isSet, bytesFromBase64 } from "../../../helpers";
 /** OrderBy defines the sorting order */
 export enum OrderBy {
   /** ORDER_BY_UNSPECIFIED - ORDER_BY_UNSPECIFIED specifies an unknown sorting order. OrderBy defaults to ASC in this case. */
@@ -51,8 +49,8 @@ export enum BroadcastMode {
   /** BROADCAST_MODE_UNSPECIFIED - zero-value for mode ordering */
   BROADCAST_MODE_UNSPECIFIED = 0,
   /**
-   * BROADCAST_MODE_BLOCK - DEPRECATED: use BROADCAST_MODE_SYNC instead,
-   * BROADCAST_MODE_BLOCK is not supported by the SDK from v0.47.x onwards.
+   * BROADCAST_MODE_BLOCK - BROADCAST_MODE_BLOCK defines a tx broadcasting mode where the client waits for
+   * the tx to be committed in a block.
    */
   BROADCAST_MODE_BLOCK = 1,
   /**
@@ -110,20 +108,9 @@ export function broadcastModeToJSON(object: BroadcastMode): string {
 export interface GetTxsEventRequest {
   /** events is the list of transaction event type. */
   events: string[];
-  /**
-   * pagination defines a pagination for the request.
-   * Deprecated post v0.46.x: use page and limit instead.
-   */
-  /** @deprecated */
+  /** pagination defines an pagination for the request. */
   pagination?: PageRequest;
   orderBy: OrderBy;
-  /** page is the page number to query, starts at 1. If not provided, will default to first page. */
-  page: Long;
-  /**
-   * limit is the total number of results to be returned in the result page.
-   * If left empty it will default to a value to be set by each app.
-   */
-  limit: Long;
 }
 /**
  * GetTxsEventRequest is the request type for the Service.TxsByEvents
@@ -131,11 +118,8 @@ export interface GetTxsEventRequest {
  */
 export interface GetTxsEventRequestSDKType {
   events: string[];
-  /** @deprecated */
   pagination?: PageRequestSDKType;
   order_by: OrderBy;
-  page: Long;
-  limit: Long;
 }
 /**
  * GetTxsEventResponse is the response type for the Service.TxsByEvents
@@ -146,14 +130,8 @@ export interface GetTxsEventResponse {
   txs: Tx[];
   /** tx_responses is the list of queried TxResponses. */
   txResponses: TxResponse[];
-  /**
-   * pagination defines a pagination for the response.
-   * Deprecated post v0.46.x: use total instead.
-   */
-  /** @deprecated */
+  /** pagination defines an pagination for the response. */
   pagination?: PageResponse;
-  /** total is total number of results available */
-  total: Long;
 }
 /**
  * GetTxsEventResponse is the response type for the Service.TxsByEvents
@@ -162,9 +140,7 @@ export interface GetTxsEventResponse {
 export interface GetTxsEventResponseSDKType {
   txs: TxSDKType[];
   tx_responses: TxResponseSDKType[];
-  /** @deprecated */
   pagination?: PageResponseSDKType;
-  total: Long;
 }
 /**
  * BroadcastTxRequest is the request type for the Service.BroadcastTxRequest
@@ -270,207 +246,11 @@ export interface GetTxResponseSDKType {
   tx?: TxSDKType;
   tx_response?: TxResponseSDKType;
 }
-/**
- * GetBlockWithTxsRequest is the request type for the Service.GetBlockWithTxs
- * RPC method.
- * 
- * Since: cosmos-sdk 0.45.2
- */
-export interface GetBlockWithTxsRequest {
-  /** height is the height of the block to query. */
-  height: Long;
-  /** pagination defines a pagination for the request. */
-  pagination?: PageRequest;
-}
-/**
- * GetBlockWithTxsRequest is the request type for the Service.GetBlockWithTxs
- * RPC method.
- * 
- * Since: cosmos-sdk 0.45.2
- */
-export interface GetBlockWithTxsRequestSDKType {
-  height: Long;
-  pagination?: PageRequestSDKType;
-}
-/**
- * GetBlockWithTxsResponse is the response type for the Service.GetBlockWithTxs method.
- * 
- * Since: cosmos-sdk 0.45.2
- */
-export interface GetBlockWithTxsResponse {
-  /** txs are the transactions in the block. */
-  txs: Tx[];
-  blockId?: BlockID;
-  block?: Block;
-  /** pagination defines a pagination for the response. */
-  pagination?: PageResponse;
-}
-/**
- * GetBlockWithTxsResponse is the response type for the Service.GetBlockWithTxs method.
- * 
- * Since: cosmos-sdk 0.45.2
- */
-export interface GetBlockWithTxsResponseSDKType {
-  txs: TxSDKType[];
-  block_id?: BlockIDSDKType;
-  block?: BlockSDKType;
-  pagination?: PageResponseSDKType;
-}
-/**
- * TxDecodeRequest is the request type for the Service.TxDecode
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxDecodeRequest {
-  /** tx_bytes is the raw transaction. */
-  txBytes: Uint8Array;
-}
-/**
- * TxDecodeRequest is the request type for the Service.TxDecode
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxDecodeRequestSDKType {
-  tx_bytes: Uint8Array;
-}
-/**
- * TxDecodeResponse is the response type for the
- * Service.TxDecode method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxDecodeResponse {
-  /** tx is the decoded transaction. */
-  tx?: Tx;
-}
-/**
- * TxDecodeResponse is the response type for the
- * Service.TxDecode method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxDecodeResponseSDKType {
-  tx?: TxSDKType;
-}
-/**
- * TxEncodeRequest is the request type for the Service.TxEncode
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxEncodeRequest {
-  /** tx is the transaction to encode. */
-  tx?: Tx;
-}
-/**
- * TxEncodeRequest is the request type for the Service.TxEncode
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxEncodeRequestSDKType {
-  tx?: TxSDKType;
-}
-/**
- * TxEncodeResponse is the response type for the
- * Service.TxEncode method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxEncodeResponse {
-  /** tx_bytes is the encoded transaction bytes. */
-  txBytes: Uint8Array;
-}
-/**
- * TxEncodeResponse is the response type for the
- * Service.TxEncode method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxEncodeResponseSDKType {
-  tx_bytes: Uint8Array;
-}
-/**
- * TxEncodeAminoRequest is the request type for the Service.TxEncodeAmino
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxEncodeAminoRequest {
-  aminoJson: string;
-}
-/**
- * TxEncodeAminoRequest is the request type for the Service.TxEncodeAmino
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxEncodeAminoRequestSDKType {
-  amino_json: string;
-}
-/**
- * TxEncodeAminoResponse is the response type for the Service.TxEncodeAmino
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxEncodeAminoResponse {
-  aminoBinary: Uint8Array;
-}
-/**
- * TxEncodeAminoResponse is the response type for the Service.TxEncodeAmino
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxEncodeAminoResponseSDKType {
-  amino_binary: Uint8Array;
-}
-/**
- * TxDecodeAminoRequest is the request type for the Service.TxDecodeAmino
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxDecodeAminoRequest {
-  aminoBinary: Uint8Array;
-}
-/**
- * TxDecodeAminoRequest is the request type for the Service.TxDecodeAmino
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxDecodeAminoRequestSDKType {
-  amino_binary: Uint8Array;
-}
-/**
- * TxDecodeAminoResponse is the response type for the Service.TxDecodeAmino
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxDecodeAminoResponse {
-  aminoJson: string;
-}
-/**
- * TxDecodeAminoResponse is the response type for the Service.TxDecodeAmino
- * RPC method.
- * 
- * Since: cosmos-sdk 0.47
- */
-export interface TxDecodeAminoResponseSDKType {
-  amino_json: string;
-}
 function createBaseGetTxsEventRequest(): GetTxsEventRequest {
   return {
     events: [],
     pagination: undefined,
-    orderBy: 0,
-    page: Long.UZERO,
-    limit: Long.UZERO
+    orderBy: 0
   };
 }
 export const GetTxsEventRequest = {
@@ -484,21 +264,13 @@ export const GetTxsEventRequest = {
     if (message.orderBy !== 0) {
       writer.uint32(24).int32(message.orderBy);
     }
-    if (!message.page.isZero()) {
-      writer.uint32(32).uint64(message.page);
-    }
-    if (!message.limit.isZero()) {
-      writer.uint32(40).uint64(message.limit);
-    }
     return writer;
   },
   fromJSON(object: any): GetTxsEventRequest {
     return {
       events: Array.isArray(object?.events) ? object.events.map((e: any) => String(e)) : [],
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-      orderBy: isSet(object.orderBy) ? orderByFromJSON(object.orderBy) : 0,
-      page: isSet(object.page) ? Long.fromValue(object.page) : Long.UZERO,
-      limit: isSet(object.limit) ? Long.fromValue(object.limit) : Long.UZERO
+      orderBy: isSet(object.orderBy) ? orderByFromJSON(object.orderBy) : 0
     };
   },
   fromPartial(object: Partial<GetTxsEventRequest>): GetTxsEventRequest {
@@ -506,8 +278,6 @@ export const GetTxsEventRequest = {
     message.events = object.events?.map(e => e) || [];
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
     message.orderBy = object.orderBy ?? 0;
-    message.page = object.page !== undefined && object.page !== null ? Long.fromValue(object.page) : Long.UZERO;
-    message.limit = object.limit !== undefined && object.limit !== null ? Long.fromValue(object.limit) : Long.UZERO;
     return message;
   }
 };
@@ -515,8 +285,7 @@ function createBaseGetTxsEventResponse(): GetTxsEventResponse {
   return {
     txs: [],
     txResponses: [],
-    pagination: undefined,
-    total: Long.UZERO
+    pagination: undefined
   };
 }
 export const GetTxsEventResponse = {
@@ -530,17 +299,13 @@ export const GetTxsEventResponse = {
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(26).fork()).ldelim();
     }
-    if (!message.total.isZero()) {
-      writer.uint32(32).uint64(message.total);
-    }
     return writer;
   },
   fromJSON(object: any): GetTxsEventResponse {
     return {
       txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => Tx.fromJSON(e)) : [],
       txResponses: Array.isArray(object?.txResponses) ? object.txResponses.map((e: any) => TxResponse.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-      total: isSet(object.total) ? Long.fromValue(object.total) : Long.UZERO
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined
     };
   },
   fromPartial(object: Partial<GetTxsEventResponse>): GetTxsEventResponse {
@@ -548,7 +313,6 @@ export const GetTxsEventResponse = {
     message.txs = object.txs?.map(e => Tx.fromPartial(e)) || [];
     message.txResponses = object.txResponses?.map(e => TxResponse.fromPartial(e)) || [];
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
-    message.total = object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.UZERO;
     return message;
   }
 };
@@ -711,260 +475,6 @@ export const GetTxResponse = {
     const message = createBaseGetTxResponse();
     message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
     message.txResponse = object.txResponse !== undefined && object.txResponse !== null ? TxResponse.fromPartial(object.txResponse) : undefined;
-    return message;
-  }
-};
-function createBaseGetBlockWithTxsRequest(): GetBlockWithTxsRequest {
-  return {
-    height: Long.ZERO,
-    pagination: undefined
-  };
-}
-export const GetBlockWithTxsRequest = {
-  encode(message: GetBlockWithTxsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.height.isZero()) {
-      writer.uint32(8).int64(message.height);
-    }
-    if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-  fromJSON(object: any): GetBlockWithTxsRequest {
-    return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined
-    };
-  },
-  fromPartial(object: Partial<GetBlockWithTxsRequest>): GetBlockWithTxsRequest {
-    const message = createBaseGetBlockWithTxsRequest();
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
-    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
-    return message;
-  }
-};
-function createBaseGetBlockWithTxsResponse(): GetBlockWithTxsResponse {
-  return {
-    txs: [],
-    blockId: undefined,
-    block: undefined,
-    pagination: undefined
-  };
-}
-export const GetBlockWithTxsResponse = {
-  encode(message: GetBlockWithTxsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.txs) {
-      Tx.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.blockId !== undefined) {
-      BlockID.encode(message.blockId, writer.uint32(18).fork()).ldelim();
-    }
-    if (message.block !== undefined) {
-      Block.encode(message.block, writer.uint32(26).fork()).ldelim();
-    }
-    if (message.pagination !== undefined) {
-      PageResponse.encode(message.pagination, writer.uint32(34).fork()).ldelim();
-    }
-    return writer;
-  },
-  fromJSON(object: any): GetBlockWithTxsResponse {
-    return {
-      txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => Tx.fromJSON(e)) : [],
-      blockId: isSet(object.blockId) ? BlockID.fromJSON(object.blockId) : undefined,
-      block: isSet(object.block) ? Block.fromJSON(object.block) : undefined,
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined
-    };
-  },
-  fromPartial(object: Partial<GetBlockWithTxsResponse>): GetBlockWithTxsResponse {
-    const message = createBaseGetBlockWithTxsResponse();
-    message.txs = object.txs?.map(e => Tx.fromPartial(e)) || [];
-    message.blockId = object.blockId !== undefined && object.blockId !== null ? BlockID.fromPartial(object.blockId) : undefined;
-    message.block = object.block !== undefined && object.block !== null ? Block.fromPartial(object.block) : undefined;
-    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
-    return message;
-  }
-};
-function createBaseTxDecodeRequest(): TxDecodeRequest {
-  return {
-    txBytes: new Uint8Array()
-  };
-}
-export const TxDecodeRequest = {
-  encode(message: TxDecodeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.txBytes.length !== 0) {
-      writer.uint32(10).bytes(message.txBytes);
-    }
-    return writer;
-  },
-  fromJSON(object: any): TxDecodeRequest {
-    return {
-      txBytes: isSet(object.txBytes) ? bytesFromBase64(object.txBytes) : new Uint8Array()
-    };
-  },
-  fromPartial(object: Partial<TxDecodeRequest>): TxDecodeRequest {
-    const message = createBaseTxDecodeRequest();
-    message.txBytes = object.txBytes ?? new Uint8Array();
-    return message;
-  }
-};
-function createBaseTxDecodeResponse(): TxDecodeResponse {
-  return {
-    tx: undefined
-  };
-}
-export const TxDecodeResponse = {
-  encode(message: TxDecodeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.tx !== undefined) {
-      Tx.encode(message.tx, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-  fromJSON(object: any): TxDecodeResponse {
-    return {
-      tx: isSet(object.tx) ? Tx.fromJSON(object.tx) : undefined
-    };
-  },
-  fromPartial(object: Partial<TxDecodeResponse>): TxDecodeResponse {
-    const message = createBaseTxDecodeResponse();
-    message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
-    return message;
-  }
-};
-function createBaseTxEncodeRequest(): TxEncodeRequest {
-  return {
-    tx: undefined
-  };
-}
-export const TxEncodeRequest = {
-  encode(message: TxEncodeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.tx !== undefined) {
-      Tx.encode(message.tx, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-  fromJSON(object: any): TxEncodeRequest {
-    return {
-      tx: isSet(object.tx) ? Tx.fromJSON(object.tx) : undefined
-    };
-  },
-  fromPartial(object: Partial<TxEncodeRequest>): TxEncodeRequest {
-    const message = createBaseTxEncodeRequest();
-    message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
-    return message;
-  }
-};
-function createBaseTxEncodeResponse(): TxEncodeResponse {
-  return {
-    txBytes: new Uint8Array()
-  };
-}
-export const TxEncodeResponse = {
-  encode(message: TxEncodeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.txBytes.length !== 0) {
-      writer.uint32(10).bytes(message.txBytes);
-    }
-    return writer;
-  },
-  fromJSON(object: any): TxEncodeResponse {
-    return {
-      txBytes: isSet(object.txBytes) ? bytesFromBase64(object.txBytes) : new Uint8Array()
-    };
-  },
-  fromPartial(object: Partial<TxEncodeResponse>): TxEncodeResponse {
-    const message = createBaseTxEncodeResponse();
-    message.txBytes = object.txBytes ?? new Uint8Array();
-    return message;
-  }
-};
-function createBaseTxEncodeAminoRequest(): TxEncodeAminoRequest {
-  return {
-    aminoJson: ""
-  };
-}
-export const TxEncodeAminoRequest = {
-  encode(message: TxEncodeAminoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.aminoJson !== "") {
-      writer.uint32(10).string(message.aminoJson);
-    }
-    return writer;
-  },
-  fromJSON(object: any): TxEncodeAminoRequest {
-    return {
-      aminoJson: isSet(object.aminoJson) ? String(object.aminoJson) : ""
-    };
-  },
-  fromPartial(object: Partial<TxEncodeAminoRequest>): TxEncodeAminoRequest {
-    const message = createBaseTxEncodeAminoRequest();
-    message.aminoJson = object.aminoJson ?? "";
-    return message;
-  }
-};
-function createBaseTxEncodeAminoResponse(): TxEncodeAminoResponse {
-  return {
-    aminoBinary: new Uint8Array()
-  };
-}
-export const TxEncodeAminoResponse = {
-  encode(message: TxEncodeAminoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.aminoBinary.length !== 0) {
-      writer.uint32(10).bytes(message.aminoBinary);
-    }
-    return writer;
-  },
-  fromJSON(object: any): TxEncodeAminoResponse {
-    return {
-      aminoBinary: isSet(object.aminoBinary) ? bytesFromBase64(object.aminoBinary) : new Uint8Array()
-    };
-  },
-  fromPartial(object: Partial<TxEncodeAminoResponse>): TxEncodeAminoResponse {
-    const message = createBaseTxEncodeAminoResponse();
-    message.aminoBinary = object.aminoBinary ?? new Uint8Array();
-    return message;
-  }
-};
-function createBaseTxDecodeAminoRequest(): TxDecodeAminoRequest {
-  return {
-    aminoBinary: new Uint8Array()
-  };
-}
-export const TxDecodeAminoRequest = {
-  encode(message: TxDecodeAminoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.aminoBinary.length !== 0) {
-      writer.uint32(10).bytes(message.aminoBinary);
-    }
-    return writer;
-  },
-  fromJSON(object: any): TxDecodeAminoRequest {
-    return {
-      aminoBinary: isSet(object.aminoBinary) ? bytesFromBase64(object.aminoBinary) : new Uint8Array()
-    };
-  },
-  fromPartial(object: Partial<TxDecodeAminoRequest>): TxDecodeAminoRequest {
-    const message = createBaseTxDecodeAminoRequest();
-    message.aminoBinary = object.aminoBinary ?? new Uint8Array();
-    return message;
-  }
-};
-function createBaseTxDecodeAminoResponse(): TxDecodeAminoResponse {
-  return {
-    aminoJson: ""
-  };
-}
-export const TxDecodeAminoResponse = {
-  encode(message: TxDecodeAminoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.aminoJson !== "") {
-      writer.uint32(10).string(message.aminoJson);
-    }
-    return writer;
-  },
-  fromJSON(object: any): TxDecodeAminoResponse {
-    return {
-      aminoJson: isSet(object.aminoJson) ? String(object.aminoJson) : ""
-    };
-  },
-  fromPartial(object: Partial<TxDecodeAminoResponse>): TxDecodeAminoResponse {
-    const message = createBaseTxDecodeAminoResponse();
-    message.aminoJson = object.aminoJson ?? "";
     return message;
   }
 };

@@ -1,5 +1,5 @@
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgCreateValidator, MsgEditValidator, MsgDelegate, MsgBeginRedelegate, MsgUndelegate, MsgCancelUnbondingDelegation, MsgUpdateParams } from "./tx";
+import { MsgCreateValidator, MsgEditValidator, MsgDelegate, MsgBeginRedelegate, MsgUndelegate } from "./tx";
 export interface MsgCreateValidatorAminoType extends AminoMsg {
     type: "cosmos-sdk/MsgCreateValidator";
     value: {
@@ -77,35 +77,6 @@ export interface MsgUndelegateAminoType extends AminoMsg {
         };
     };
 }
-export interface MsgCancelUnbondingDelegationAminoType extends AminoMsg {
-    type: "cosmos-sdk/MsgCancelUnbondingDelegation";
-    value: {
-        delegator_address: string;
-        validator_address: string;
-        amount: {
-            denom: string;
-            amount: string;
-        };
-        creation_height: string;
-    };
-}
-export interface MsgUpdateParamsAminoType extends AminoMsg {
-    type: "cosmos-sdk/x/staking/MsgUpdateParams";
-    value: {
-        authority: string;
-        params: {
-            unbonding_time: {
-                seconds: string;
-                nanos: number;
-            };
-            max_validators: number;
-            max_entries: number;
-            historical_entries: number;
-            bond_denom: string;
-            min_commission_rate: string;
-        };
-    };
-}
 export declare const AminoConverter: {
     "/cosmos.staking.v1beta1.MsgCreateValidator": {
         aminoType: string;
@@ -131,15 +102,5 @@ export declare const AminoConverter: {
         aminoType: string;
         toAmino: ({ delegatorAddress, validatorAddress, amount }: MsgUndelegate) => MsgUndelegateAminoType["value"];
         fromAmino: ({ delegator_address, validator_address, amount }: MsgUndelegateAminoType["value"]) => MsgUndelegate;
-    };
-    "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation": {
-        aminoType: string;
-        toAmino: ({ delegatorAddress, validatorAddress, amount, creationHeight }: MsgCancelUnbondingDelegation) => MsgCancelUnbondingDelegationAminoType["value"];
-        fromAmino: ({ delegator_address, validator_address, amount, creation_height }: MsgCancelUnbondingDelegationAminoType["value"]) => MsgCancelUnbondingDelegation;
-    };
-    "/cosmos.staking.v1beta1.MsgUpdateParams": {
-        aminoType: string;
-        toAmino: ({ authority, params }: MsgUpdateParams) => MsgUpdateParamsAminoType["value"];
-        fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]) => MsgUpdateParams;
     };
 };

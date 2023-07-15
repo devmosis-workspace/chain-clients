@@ -1,7 +1,7 @@
 import { AminoMsg } from "@cosmjs/amino";
 import { MsgSubmitProposal, MsgVote, MsgVoteWeighted, MsgDeposit } from "./tx";
 export interface MsgSubmitProposalAminoType extends AminoMsg {
-    type: "cosmos-sdk/MsgSubmitProposal";
+    type: "cosmos-sdk/v1/MsgSubmitProposal";
     value: {
         content: {
             type_url: string;
@@ -12,10 +12,11 @@ export interface MsgSubmitProposalAminoType extends AminoMsg {
             amount: string;
         }[];
         proposer: string;
+        is_expedited: boolean;
     };
 }
 export interface MsgVoteAminoType extends AminoMsg {
-    type: "cosmos-sdk/MsgVote";
+    type: "cosmos-sdk/v1/MsgVote";
     value: {
         proposal_id: string;
         voter: string;
@@ -23,7 +24,7 @@ export interface MsgVoteAminoType extends AminoMsg {
     };
 }
 export interface MsgVoteWeightedAminoType extends AminoMsg {
-    type: "cosmos-sdk/MsgVoteWeighted";
+    type: "cosmos-sdk/v1/MsgVoteWeighted";
     value: {
         proposal_id: string;
         voter: string;
@@ -34,7 +35,7 @@ export interface MsgVoteWeightedAminoType extends AminoMsg {
     };
 }
 export interface MsgDepositAminoType extends AminoMsg {
-    type: "cosmos-sdk/MsgDeposit";
+    type: "cosmos-sdk/v1/MsgDeposit";
     value: {
         proposal_id: string;
         depositor: string;
@@ -47,8 +48,8 @@ export interface MsgDepositAminoType extends AminoMsg {
 export declare const AminoConverter: {
     "/cosmos.gov.v1beta1.MsgSubmitProposal": {
         aminoType: string;
-        toAmino: ({ content, initialDeposit, proposer }: MsgSubmitProposal) => MsgSubmitProposalAminoType["value"];
-        fromAmino: ({ content, initial_deposit, proposer }: MsgSubmitProposalAminoType["value"]) => MsgSubmitProposal;
+        toAmino: ({ content, initialDeposit, proposer, isExpedited }: MsgSubmitProposal) => MsgSubmitProposalAminoType["value"];
+        fromAmino: ({ content, initial_deposit, proposer, is_expedited }: MsgSubmitProposalAminoType["value"]) => MsgSubmitProposal;
     };
     "/cosmos.gov.v1beta1.MsgVote": {
         aminoType: string;

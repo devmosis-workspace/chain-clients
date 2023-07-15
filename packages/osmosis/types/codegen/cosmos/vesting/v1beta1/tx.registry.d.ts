@@ -1,5 +1,5 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgCreateVestingAccount, MsgCreatePermanentLockedAccount, MsgCreatePeriodicVestingAccount } from "./tx";
+import { MsgCreateVestingAccount, MsgCreateClawbackVestingAccount, MsgClawback } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
@@ -8,11 +8,11 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: Uint8Array;
         };
-        createPermanentLockedAccount(value: MsgCreatePermanentLockedAccount): {
+        createClawbackVestingAccount(value: MsgCreateClawbackVestingAccount): {
             typeUrl: string;
             value: Uint8Array;
         };
-        createPeriodicVestingAccount(value: MsgCreatePeriodicVestingAccount): {
+        clawback(value: MsgClawback): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -22,13 +22,13 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgCreateVestingAccount;
         };
-        createPermanentLockedAccount(value: MsgCreatePermanentLockedAccount): {
+        createClawbackVestingAccount(value: MsgCreateClawbackVestingAccount): {
             typeUrl: string;
-            value: MsgCreatePermanentLockedAccount;
+            value: MsgCreateClawbackVestingAccount;
         };
-        createPeriodicVestingAccount(value: MsgCreatePeriodicVestingAccount): {
+        clawback(value: MsgClawback): {
             typeUrl: string;
-            value: MsgCreatePeriodicVestingAccount;
+            value: MsgClawback;
         };
     };
     fromJSON: {
@@ -36,13 +36,13 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgCreateVestingAccount;
         };
-        createPermanentLockedAccount(value: any): {
+        createClawbackVestingAccount(value: any): {
             typeUrl: string;
-            value: MsgCreatePermanentLockedAccount;
+            value: MsgCreateClawbackVestingAccount;
         };
-        createPeriodicVestingAccount(value: any): {
+        clawback(value: any): {
             typeUrl: string;
-            value: MsgCreatePeriodicVestingAccount;
+            value: MsgClawback;
         };
     };
     fromPartial: {
@@ -50,13 +50,13 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgCreateVestingAccount;
         };
-        createPermanentLockedAccount(value: MsgCreatePermanentLockedAccount): {
+        createClawbackVestingAccount(value: MsgCreateClawbackVestingAccount): {
             typeUrl: string;
-            value: MsgCreatePermanentLockedAccount;
+            value: MsgCreateClawbackVestingAccount;
         };
-        createPeriodicVestingAccount(value: MsgCreatePeriodicVestingAccount): {
+        clawback(value: MsgClawback): {
             typeUrl: string;
-            value: MsgCreatePeriodicVestingAccount;
+            value: MsgClawback;
         };
     };
 };

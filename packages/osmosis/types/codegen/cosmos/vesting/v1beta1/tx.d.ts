@@ -10,7 +10,6 @@ export interface MsgCreateVestingAccount {
     fromAddress: string;
     toAddress: string;
     amount: Coin[];
-    /** end of vesting as unix time (in seconds). */
     endTime: Long;
     delayed: boolean;
 }
@@ -31,82 +30,81 @@ export interface MsgCreateVestingAccountResponse {
 /** MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount response type. */
 export interface MsgCreateVestingAccountResponseSDKType {
 }
-/**
- * MsgCreatePermanentLockedAccount defines a message that enables creating a permanent
- * locked account.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface MsgCreatePermanentLockedAccount {
+/** MsgCreateClawbackVestingAccount defines a message that enables creating a ClawbackVestingAccount. */
+export interface MsgCreateClawbackVestingAccount {
+    /**
+     * from_address specifies the account to provide the funds and sign the
+     * clawback request
+     */
     fromAddress: string;
+    /** to_address specifies the account to receive the funds */
     toAddress: string;
-    amount: Coin[];
-}
-/**
- * MsgCreatePermanentLockedAccount defines a message that enables creating a permanent
- * locked account.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface MsgCreatePermanentLockedAccountSDKType {
-    from_address: string;
-    to_address: string;
-    amount: CoinSDKType[];
-}
-/**
- * MsgCreatePermanentLockedAccountResponse defines the Msg/CreatePermanentLockedAccount response type.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface MsgCreatePermanentLockedAccountResponse {
-}
-/**
- * MsgCreatePermanentLockedAccountResponse defines the Msg/CreatePermanentLockedAccount response type.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface MsgCreatePermanentLockedAccountResponseSDKType {
-}
-/**
- * MsgCreateVestingAccount defines a message that enables creating a vesting
- * account.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface MsgCreatePeriodicVestingAccount {
-    fromAddress: string;
-    toAddress: string;
-    /** start of vesting as unix time (in seconds). */
+    /** start_time defines the time at which the vesting period begins */
     startTime: Long;
+    /** lockup_periods defines the unlocking schedule relative to the start_time */
+    lockupPeriods: Period[];
+    /** vesting_periods defines the vesting schedule relative to the start_time */
     vestingPeriods: Period[];
+    /**
+     * merge specifies a creation mechanism for existing
+     * ClawbackVestingAccounts. If true, merge this new grant into an existing
+     * ClawbackVestingAccount, or create it if it does not exist. If false,
+     * creates a new account. New grants to an existing account must be from the
+     * same from_address.
+     */
+    merge: boolean;
 }
-/**
- * MsgCreateVestingAccount defines a message that enables creating a vesting
- * account.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface MsgCreatePeriodicVestingAccountSDKType {
+/** MsgCreateClawbackVestingAccount defines a message that enables creating a ClawbackVestingAccount. */
+export interface MsgCreateClawbackVestingAccountSDKType {
     from_address: string;
     to_address: string;
     start_time: Long;
+    lockup_periods: PeriodSDKType[];
     vesting_periods: PeriodSDKType[];
+    merge: boolean;
 }
 /**
- * MsgCreateVestingAccountResponse defines the Msg/CreatePeriodicVestingAccount
- * response type.
- *
- * Since: cosmos-sdk 0.46
+ * MsgCreateClawbackVestingAccountResponse defines the
+ * MsgCreateClawbackVestingAccount response type.
  */
-export interface MsgCreatePeriodicVestingAccountResponse {
+export interface MsgCreateClawbackVestingAccountResponse {
 }
 /**
- * MsgCreateVestingAccountResponse defines the Msg/CreatePeriodicVestingAccount
- * response type.
- *
- * Since: cosmos-sdk 0.46
+ * MsgCreateClawbackVestingAccountResponse defines the
+ * MsgCreateClawbackVestingAccount response type.
  */
-export interface MsgCreatePeriodicVestingAccountResponseSDKType {
+export interface MsgCreateClawbackVestingAccountResponseSDKType {
+}
+/**
+ * MsgClawback defines a message that removes unvested tokens from a
+ * ClawbackVestingAccount.
+ */
+export interface MsgClawback {
+    /** funder_address is the address which funded the account */
+    funderAddress: string;
+    /** address is the address of the ClawbackVestingAccount to claw back from. */
+    address: string;
+    /**
+     * dest_address specifies where the clawed-back tokens should be transferred
+     * to. If empty, the tokens will be transferred back to the original funder of
+     * the account.
+     */
+    destAddress: string;
+}
+/**
+ * MsgClawback defines a message that removes unvested tokens from a
+ * ClawbackVestingAccount.
+ */
+export interface MsgClawbackSDKType {
+    funder_address: string;
+    address: string;
+    dest_address: string;
+}
+/** MsgClawbackResponse defines the MsgClawback response type. */
+export interface MsgClawbackResponse {
+}
+/** MsgClawbackResponse defines the MsgClawback response type. */
+export interface MsgClawbackResponseSDKType {
 }
 export declare const MsgCreateVestingAccount: {
     encode(message: MsgCreateVestingAccount, writer?: _m0.Writer): _m0.Writer;
@@ -118,23 +116,23 @@ export declare const MsgCreateVestingAccountResponse: {
     fromJSON(_: any): MsgCreateVestingAccountResponse;
     fromPartial(_: Partial<MsgCreateVestingAccountResponse>): MsgCreateVestingAccountResponse;
 };
-export declare const MsgCreatePermanentLockedAccount: {
-    encode(message: MsgCreatePermanentLockedAccount, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(object: any): MsgCreatePermanentLockedAccount;
-    fromPartial(object: Partial<MsgCreatePermanentLockedAccount>): MsgCreatePermanentLockedAccount;
+export declare const MsgCreateClawbackVestingAccount: {
+    encode(message: MsgCreateClawbackVestingAccount, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(object: any): MsgCreateClawbackVestingAccount;
+    fromPartial(object: Partial<MsgCreateClawbackVestingAccount>): MsgCreateClawbackVestingAccount;
 };
-export declare const MsgCreatePermanentLockedAccountResponse: {
-    encode(_: MsgCreatePermanentLockedAccountResponse, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(_: any): MsgCreatePermanentLockedAccountResponse;
-    fromPartial(_: Partial<MsgCreatePermanentLockedAccountResponse>): MsgCreatePermanentLockedAccountResponse;
+export declare const MsgCreateClawbackVestingAccountResponse: {
+    encode(_: MsgCreateClawbackVestingAccountResponse, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(_: any): MsgCreateClawbackVestingAccountResponse;
+    fromPartial(_: Partial<MsgCreateClawbackVestingAccountResponse>): MsgCreateClawbackVestingAccountResponse;
 };
-export declare const MsgCreatePeriodicVestingAccount: {
-    encode(message: MsgCreatePeriodicVestingAccount, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(object: any): MsgCreatePeriodicVestingAccount;
-    fromPartial(object: Partial<MsgCreatePeriodicVestingAccount>): MsgCreatePeriodicVestingAccount;
+export declare const MsgClawback: {
+    encode(message: MsgClawback, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(object: any): MsgClawback;
+    fromPartial(object: Partial<MsgClawback>): MsgClawback;
 };
-export declare const MsgCreatePeriodicVestingAccountResponse: {
-    encode(_: MsgCreatePeriodicVestingAccountResponse, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(_: any): MsgCreatePeriodicVestingAccountResponse;
-    fromPartial(_: Partial<MsgCreatePeriodicVestingAccountResponse>): MsgCreatePeriodicVestingAccountResponse;
+export declare const MsgClawbackResponse: {
+    encode(_: MsgClawbackResponse, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(_: any): MsgClawbackResponse;
+    fromPartial(_: Partial<MsgClawbackResponse>): MsgClawbackResponse;
 };

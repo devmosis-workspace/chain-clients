@@ -22,11 +22,6 @@ export interface GenericAuthorizationSDKType {
  */
 export interface Grant {
     authorization?: Any;
-    /**
-     * time when the grant will expire and will be pruned. If null, then the grant
-     * doesn't have a time expiration (other conditions  in `authorization`
-     * may apply to invalidate the grant)
-     */
     expiration?: Timestamp;
 }
 /**
@@ -57,15 +52,6 @@ export interface GrantAuthorizationSDKType {
     authorization?: AnySDKType;
     expiration?: TimestampSDKType;
 }
-/** GrantQueueItem contains the list of TypeURL of a sdk.Msg. */
-export interface GrantQueueItem {
-    /** msg_type_urls contains the list of TypeURL of a sdk.Msg. */
-    msgTypeUrls: string[];
-}
-/** GrantQueueItem contains the list of TypeURL of a sdk.Msg. */
-export interface GrantQueueItemSDKType {
-    msg_type_urls: string[];
-}
 export declare const GenericAuthorization: {
     encode(message: GenericAuthorization, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): GenericAuthorization;
@@ -80,9 +66,4 @@ export declare const GrantAuthorization: {
     encode(message: GrantAuthorization, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): GrantAuthorization;
     fromPartial(object: Partial<GrantAuthorization>): GrantAuthorization;
-};
-export declare const GrantQueueItem: {
-    encode(message: GrantQueueItem, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(object: any): GrantQueueItem;
-    fromPartial(object: Partial<GrantQueueItem>): GrantQueueItem;
 };

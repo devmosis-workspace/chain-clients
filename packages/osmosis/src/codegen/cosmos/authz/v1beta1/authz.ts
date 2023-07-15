@@ -23,11 +23,6 @@ export interface GenericAuthorizationSDKType {
  */
 export interface Grant {
   authorization?: Any;
-  /**
-   * time when the grant will expire and will be pruned. If null, then the grant
-   * doesn't have a time expiration (other conditions  in `authorization`
-   * may apply to invalidate the grant)
-   */
   expiration?: Timestamp;
 }
 /**
@@ -57,15 +52,6 @@ export interface GrantAuthorizationSDKType {
   grantee: string;
   authorization?: AnySDKType;
   expiration?: TimestampSDKType;
-}
-/** GrantQueueItem contains the list of TypeURL of a sdk.Msg. */
-export interface GrantQueueItem {
-  /** msg_type_urls contains the list of TypeURL of a sdk.Msg. */
-  msgTypeUrls: string[];
-}
-/** GrantQueueItem contains the list of TypeURL of a sdk.Msg. */
-export interface GrantQueueItemSDKType {
-  msg_type_urls: string[];
 }
 function createBaseGenericAuthorization(): GenericAuthorization {
   return {
@@ -157,29 +143,6 @@ export const GrantAuthorization = {
     message.grantee = object.grantee ?? "";
     message.authorization = object.authorization !== undefined && object.authorization !== null ? Any.fromPartial(object.authorization) : undefined;
     message.expiration = object.expiration !== undefined && object.expiration !== null ? Timestamp.fromPartial(object.expiration) : undefined;
-    return message;
-  }
-};
-function createBaseGrantQueueItem(): GrantQueueItem {
-  return {
-    msgTypeUrls: []
-  };
-}
-export const GrantQueueItem = {
-  encode(message: GrantQueueItem, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.msgTypeUrls) {
-      writer.uint32(10).string(v!);
-    }
-    return writer;
-  },
-  fromJSON(object: any): GrantQueueItem {
-    return {
-      msgTypeUrls: Array.isArray(object?.msgTypeUrls) ? object.msgTypeUrls.map((e: any) => String(e)) : []
-    };
-  },
-  fromPartial(object: Partial<GrantQueueItem>): GrantQueueItem {
-    const message = createBaseGrantQueueItem();
-    message.msgTypeUrls = object.msgTypeUrls?.map(e => e) || [];
     return message;
   }
 };

@@ -4,24 +4,12 @@ import * as _m0 from "protobufjs/minimal";
 import { isSet, bytesFromBase64 } from "../../../helpers";
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 export interface QueryEvidenceRequest {
-  /**
-   * evidence_hash defines the hash of the requested evidence.
-   * Deprecated: Use hash, a HEX encoded string, instead.
-   */
-  /** @deprecated */
+  /** evidence_hash defines the hash of the requested evidence. */
   evidenceHash: Uint8Array;
-  /**
-   * hash defines the evidence hash of the requested evidence.
-   * 
-   * Since: cosmos-sdk 0.47
-   */
-  hash: string;
 }
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 export interface QueryEvidenceRequestSDKType {
-  /** @deprecated */
   evidence_hash: Uint8Array;
-  hash: string;
 }
 /** QueryEvidenceResponse is the response type for the Query/Evidence RPC method. */
 export interface QueryEvidenceResponse {
@@ -67,8 +55,7 @@ export interface QueryAllEvidenceResponseSDKType {
 }
 function createBaseQueryEvidenceRequest(): QueryEvidenceRequest {
   return {
-    evidenceHash: new Uint8Array(),
-    hash: ""
+    evidenceHash: new Uint8Array()
   };
 }
 export const QueryEvidenceRequest = {
@@ -76,21 +63,16 @@ export const QueryEvidenceRequest = {
     if (message.evidenceHash.length !== 0) {
       writer.uint32(10).bytes(message.evidenceHash);
     }
-    if (message.hash !== "") {
-      writer.uint32(18).string(message.hash);
-    }
     return writer;
   },
   fromJSON(object: any): QueryEvidenceRequest {
     return {
-      evidenceHash: isSet(object.evidenceHash) ? bytesFromBase64(object.evidenceHash) : new Uint8Array(),
-      hash: isSet(object.hash) ? String(object.hash) : ""
+      evidenceHash: isSet(object.evidenceHash) ? bytesFromBase64(object.evidenceHash) : new Uint8Array()
     };
   },
   fromPartial(object: Partial<QueryEvidenceRequest>): QueryEvidenceRequest {
     const message = createBaseQueryEvidenceRequest();
     message.evidenceHash = object.evidenceHash ?? new Uint8Array();
-    message.hash = object.hash ?? "";
     return message;
   }
 };

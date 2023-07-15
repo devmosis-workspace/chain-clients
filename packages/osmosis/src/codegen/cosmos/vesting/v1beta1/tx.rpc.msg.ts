@@ -1,6 +1,6 @@
 import { Rpc } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
-import { MsgCreateVestingAccount, MsgCreateVestingAccountResponse, MsgCreatePermanentLockedAccount, MsgCreatePermanentLockedAccountResponse, MsgCreatePeriodicVestingAccount, MsgCreatePeriodicVestingAccountResponse } from "./tx";
+import { MsgCreateVestingAccount, MsgCreateVestingAccountResponse, MsgCreateClawbackVestingAccount, MsgCreateClawbackVestingAccountResponse, MsgClawback, MsgClawbackResponse } from "./tx";
 /** Msg defines the bank Msg service. */
 export interface Msg {
   /**
@@ -9,41 +9,34 @@ export interface Msg {
    */
   createVestingAccount(request: MsgCreateVestingAccount): Promise<MsgCreateVestingAccountResponse>;
   /**
-   * CreatePermanentLockedAccount defines a method that enables creating a permanent
-   * locked account.
-   * 
-   * Since: cosmos-sdk 0.46
+   * CreateClawbackVestingAccount creats a vesting account that is subject to
+   * clawback and the configuration of vesting and lockup schedules.
    */
-  createPermanentLockedAccount(request: MsgCreatePermanentLockedAccount): Promise<MsgCreatePermanentLockedAccountResponse>;
-  /**
-   * CreatePeriodicVestingAccount defines a method that enables creating a
-   * periodic vesting account.
-   * 
-   * Since: cosmos-sdk 0.46
-   */
-  createPeriodicVestingAccount(request: MsgCreatePeriodicVestingAccount): Promise<MsgCreatePeriodicVestingAccountResponse>;
+  createClawbackVestingAccount(request: MsgCreateClawbackVestingAccount): Promise<MsgCreateClawbackVestingAccountResponse>;
+  /** Clawback removes the unvested tokens from a ClawbackVestingAccount. */
+  clawback(request: MsgClawback): Promise<MsgClawbackResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.createVestingAccount = this.createVestingAccount.bind(this);
-    this.createPermanentLockedAccount = this.createPermanentLockedAccount.bind(this);
-    this.createPeriodicVestingAccount = this.createPeriodicVestingAccount.bind(this);
+    this.createClawbackVestingAccount = this.createClawbackVestingAccount.bind(this);
+    this.clawback = this.clawback.bind(this);
   }
   createVestingAccount(request: MsgCreateVestingAccount): Promise<MsgCreateVestingAccountResponse> {
     const data = MsgCreateVestingAccount.encode(request).finish();
     const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "CreateVestingAccount", data);
     return promise.then(data => MsgCreateVestingAccountResponse.decode(new _m0.Reader(data)));
   }
-  createPermanentLockedAccount(request: MsgCreatePermanentLockedAccount): Promise<MsgCreatePermanentLockedAccountResponse> {
-    const data = MsgCreatePermanentLockedAccount.encode(request).finish();
-    const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "CreatePermanentLockedAccount", data);
-    return promise.then(data => MsgCreatePermanentLockedAccountResponse.decode(new _m0.Reader(data)));
+  createClawbackVestingAccount(request: MsgCreateClawbackVestingAccount): Promise<MsgCreateClawbackVestingAccountResponse> {
+    const data = MsgCreateClawbackVestingAccount.encode(request).finish();
+    const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "CreateClawbackVestingAccount", data);
+    return promise.then(data => MsgCreateClawbackVestingAccountResponse.decode(new _m0.Reader(data)));
   }
-  createPeriodicVestingAccount(request: MsgCreatePeriodicVestingAccount): Promise<MsgCreatePeriodicVestingAccountResponse> {
-    const data = MsgCreatePeriodicVestingAccount.encode(request).finish();
-    const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "CreatePeriodicVestingAccount", data);
-    return promise.then(data => MsgCreatePeriodicVestingAccountResponse.decode(new _m0.Reader(data)));
+  clawback(request: MsgClawback): Promise<MsgClawbackResponse> {
+    const data = MsgClawback.encode(request).finish();
+    const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "Clawback", data);
+    return promise.then(data => MsgClawbackResponse.decode(new _m0.Reader(data)));
   }
 }

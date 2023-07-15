@@ -11,7 +11,6 @@ export interface BaseVestingAccount {
   originalVesting: Coin[];
   delegatedFree: Coin[];
   delegatedVesting: Coin[];
-  /** Vesting end time, as unix timestamp (in seconds). */
   endTime: Long;
 }
 /**
@@ -31,7 +30,6 @@ export interface BaseVestingAccountSDKType {
  */
 export interface ContinuousVestingAccount {
   baseVestingAccount?: BaseVestingAccount;
-  /** Vesting start time, as unix timestamp (in seconds). */
   startTime: Long;
 }
 /**
@@ -60,7 +58,6 @@ export interface DelayedVestingAccountSDKType {
 }
 /** Period defines a length of time and amount of coins that will vest. */
 export interface Period {
-  /** Period duration in seconds. */
   length: Long;
   amount: Coin[];
 }
@@ -106,6 +103,35 @@ export interface PermanentLockedAccount {
  */
 export interface PermanentLockedAccountSDKType {
   base_vesting_account?: BaseVestingAccountSDKType;
+}
+/**
+ * ClawbackVestingAccount implements the VestingAccount interface. It provides
+ * an account that can hold contributions subject to "lockup" (like a
+ * PeriodicVestingAccount), or vesting which is subject to clawback
+ * of unvested tokens, or a combination (tokens vest, but are still locked).
+ */
+export interface ClawbackVestingAccount {
+  baseVestingAccount?: BaseVestingAccount;
+  /** funder_address specifies the account which can perform clawback. */
+  funderAddress: string;
+  startTime: Long;
+  /** unlocking schedule relative to the BaseVestingAccount start_time. */
+  lockupPeriods: Period[];
+  /** vesting (i.e. immunity from clawback) schedule relative to the BaseVestingAccount start_time. */
+  vestingPeriods: Period[];
+}
+/**
+ * ClawbackVestingAccount implements the VestingAccount interface. It provides
+ * an account that can hold contributions subject to "lockup" (like a
+ * PeriodicVestingAccount), or vesting which is subject to clawback
+ * of unvested tokens, or a combination (tokens vest, but are still locked).
+ */
+export interface ClawbackVestingAccountSDKType {
+  base_vesting_account?: BaseVestingAccountSDKType;
+  funder_address: string;
+  start_time: Long;
+  lockup_periods: PeriodSDKType[];
+  vesting_periods: PeriodSDKType[];
 }
 function createBaseBaseVestingAccount(): BaseVestingAccount {
   return {
@@ -290,6 +316,53 @@ export const PermanentLockedAccount = {
   fromPartial(object: Partial<PermanentLockedAccount>): PermanentLockedAccount {
     const message = createBasePermanentLockedAccount();
     message.baseVestingAccount = object.baseVestingAccount !== undefined && object.baseVestingAccount !== null ? BaseVestingAccount.fromPartial(object.baseVestingAccount) : undefined;
+    return message;
+  }
+};
+function createBaseClawbackVestingAccount(): ClawbackVestingAccount {
+  return {
+    baseVestingAccount: undefined,
+    funderAddress: "",
+    startTime: Long.ZERO,
+    lockupPeriods: [],
+    vestingPeriods: []
+  };
+}
+export const ClawbackVestingAccount = {
+  encode(message: ClawbackVestingAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.baseVestingAccount !== undefined) {
+      BaseVestingAccount.encode(message.baseVestingAccount, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.funderAddress !== "") {
+      writer.uint32(18).string(message.funderAddress);
+    }
+    if (!message.startTime.isZero()) {
+      writer.uint32(24).int64(message.startTime);
+    }
+    for (const v of message.lockupPeriods) {
+      Period.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    for (const v of message.vestingPeriods) {
+      Period.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): ClawbackVestingAccount {
+    return {
+      baseVestingAccount: isSet(object.baseVestingAccount) ? BaseVestingAccount.fromJSON(object.baseVestingAccount) : undefined,
+      funderAddress: isSet(object.funderAddress) ? String(object.funderAddress) : "",
+      startTime: isSet(object.startTime) ? Long.fromValue(object.startTime) : Long.ZERO,
+      lockupPeriods: Array.isArray(object?.lockupPeriods) ? object.lockupPeriods.map((e: any) => Period.fromJSON(e)) : [],
+      vestingPeriods: Array.isArray(object?.vestingPeriods) ? object.vestingPeriods.map((e: any) => Period.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<ClawbackVestingAccount>): ClawbackVestingAccount {
+    const message = createBaseClawbackVestingAccount();
+    message.baseVestingAccount = object.baseVestingAccount !== undefined && object.baseVestingAccount !== null ? BaseVestingAccount.fromPartial(object.baseVestingAccount) : undefined;
+    message.funderAddress = object.funderAddress ?? "";
+    message.startTime = object.startTime !== undefined && object.startTime !== null ? Long.fromValue(object.startTime) : Long.ZERO;
+    message.lockupPeriods = object.lockupPeriods?.map(e => Period.fromPartial(e)) || [];
+    message.vestingPeriods = object.vestingPeriods?.map(e => Period.fromPartial(e)) || [];
     return message;
   }
 };

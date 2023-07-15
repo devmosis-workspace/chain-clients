@@ -167,8 +167,6 @@ export declare const osmosisAminoConverters: {
                 display: string;
                 name: string;
                 symbol: string;
-                uri: string;
-                uri_hash: string;
             };
         };
         fromAmino: ({ sender, metadata }: {
@@ -184,8 +182,6 @@ export declare const osmosisAminoConverters: {
                 display: string;
                 name: string;
                 symbol: string;
-                uri: string;
-                uri_hash: string;
             };
         }) => import("./tokenfactory/v1beta1/tx").MsgSetDenomMetadata;
     };

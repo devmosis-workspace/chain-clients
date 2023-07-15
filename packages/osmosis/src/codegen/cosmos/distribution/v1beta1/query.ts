@@ -16,30 +16,6 @@ export interface QueryParamsResponse {
 export interface QueryParamsResponseSDKType {
   params?: ParamsSDKType;
 }
-/** QueryValidatorDistributionInfoRequest is the request type for the Query/ValidatorDistributionInfo RPC method. */
-export interface QueryValidatorDistributionInfoRequest {
-  /** validator_address defines the validator address to query for. */
-  validatorAddress: string;
-}
-/** QueryValidatorDistributionInfoRequest is the request type for the Query/ValidatorDistributionInfo RPC method. */
-export interface QueryValidatorDistributionInfoRequestSDKType {
-  validator_address: string;
-}
-/** QueryValidatorDistributionInfoResponse is the response type for the Query/ValidatorDistributionInfo RPC method. */
-export interface QueryValidatorDistributionInfoResponse {
-  /** operator_address defines the validator operator address. */
-  operatorAddress: string;
-  /** self_bond_rewards defines the self delegations rewards. */
-  selfBondRewards: DecCoin[];
-  /** commission defines the commission the validator received. */
-  commission: DecCoin[];
-}
-/** QueryValidatorDistributionInfoResponse is the response type for the Query/ValidatorDistributionInfo RPC method. */
-export interface QueryValidatorDistributionInfoResponseSDKType {
-  operator_address: string;
-  self_bond_rewards: DecCoinSDKType[];
-  commission: DecCoinSDKType[];
-}
 /**
  * QueryValidatorOutstandingRewardsRequest is the request type for the
  * Query/ValidatorOutstandingRewards RPC method.
@@ -89,7 +65,7 @@ export interface QueryValidatorCommissionRequestSDKType {
  * Query/ValidatorCommission RPC method
  */
 export interface QueryValidatorCommissionResponse {
-  /** commission defines the commission the validator received. */
+  /** commission defines the commision the validator received. */
   commission?: ValidatorAccumulatedCommission;
 }
 /**
@@ -327,64 +303,6 @@ export const QueryParamsResponse = {
   fromPartial(object: Partial<QueryParamsResponse>): QueryParamsResponse {
     const message = createBaseQueryParamsResponse();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
-    return message;
-  }
-};
-function createBaseQueryValidatorDistributionInfoRequest(): QueryValidatorDistributionInfoRequest {
-  return {
-    validatorAddress: ""
-  };
-}
-export const QueryValidatorDistributionInfoRequest = {
-  encode(message: QueryValidatorDistributionInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.validatorAddress !== "") {
-      writer.uint32(10).string(message.validatorAddress);
-    }
-    return writer;
-  },
-  fromJSON(object: any): QueryValidatorDistributionInfoRequest {
-    return {
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : ""
-    };
-  },
-  fromPartial(object: Partial<QueryValidatorDistributionInfoRequest>): QueryValidatorDistributionInfoRequest {
-    const message = createBaseQueryValidatorDistributionInfoRequest();
-    message.validatorAddress = object.validatorAddress ?? "";
-    return message;
-  }
-};
-function createBaseQueryValidatorDistributionInfoResponse(): QueryValidatorDistributionInfoResponse {
-  return {
-    operatorAddress: "",
-    selfBondRewards: [],
-    commission: []
-  };
-}
-export const QueryValidatorDistributionInfoResponse = {
-  encode(message: QueryValidatorDistributionInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.operatorAddress !== "") {
-      writer.uint32(10).string(message.operatorAddress);
-    }
-    for (const v of message.selfBondRewards) {
-      DecCoin.encode(v!, writer.uint32(18).fork()).ldelim();
-    }
-    for (const v of message.commission) {
-      DecCoin.encode(v!, writer.uint32(26).fork()).ldelim();
-    }
-    return writer;
-  },
-  fromJSON(object: any): QueryValidatorDistributionInfoResponse {
-    return {
-      operatorAddress: isSet(object.operatorAddress) ? String(object.operatorAddress) : "",
-      selfBondRewards: Array.isArray(object?.selfBondRewards) ? object.selfBondRewards.map((e: any) => DecCoin.fromJSON(e)) : [],
-      commission: Array.isArray(object?.commission) ? object.commission.map((e: any) => DecCoin.fromJSON(e)) : []
-    };
-  },
-  fromPartial(object: Partial<QueryValidatorDistributionInfoResponse>): QueryValidatorDistributionInfoResponse {
-    const message = createBaseQueryValidatorDistributionInfoResponse();
-    message.operatorAddress = object.operatorAddress ?? "";
-    message.selfBondRewards = object.selfBondRewards?.map(e => DecCoin.fromPartial(e)) || [];
-    message.commission = object.commission?.map(e => DecCoin.fromPartial(e)) || [];
     return message;
   }
 };

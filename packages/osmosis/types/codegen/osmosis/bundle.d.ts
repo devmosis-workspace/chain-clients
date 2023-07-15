@@ -79,36 +79,36 @@ import * as _79 from "./txfees/v1beta1/query";
 import * as _80 from "./valset-pref/v1beta1/query";
 import * as _81 from "./valset-pref/v1beta1/state";
 import * as _82 from "./valset-pref/v1beta1/tx";
-import * as _250 from "./concentrated-liquidity/query.rpc.Query";
-import * as _251 from "./cosmwasmpool/v1beta1/query.rpc.Query";
-import * as _252 from "./downtime-detector/v1beta1/query.rpc.Query";
-import * as _253 from "./epochs/query.rpc.Query";
-import * as _254 from "./gamm/v1beta1/query.rpc.Query";
-import * as _255 from "./gamm/v2/query.rpc.Query";
-import * as _256 from "./ibc-rate-limit/v1beta1/query.rpc.Query";
-import * as _257 from "./incentives/query.rpc.Query";
-import * as _258 from "./lockup/query.rpc.Query";
-import * as _259 from "./mint/v1beta1/query.rpc.Query";
-import * as _260 from "./pool-incentives/v1beta1/query.rpc.Query";
-import * as _261 from "./poolmanager/v1beta1/query.rpc.Query";
-import * as _262 from "./protorev/v1beta1/query.rpc.Query";
-import * as _263 from "./superfluid/query.rpc.Query";
-import * as _264 from "./tokenfactory/v1beta1/query.rpc.Query";
-import * as _265 from "./twap/v1beta1/query.rpc.Query";
-import * as _266 from "./txfees/v1beta1/query.rpc.Query";
-import * as _267 from "./valset-pref/v1beta1/query.rpc.Query";
-import * as _268 from "./concentrated-liquidity/pool-model/concentrated/tx.rpc.msg";
-import * as _269 from "./concentrated-liquidity/tx.rpc.msg";
-import * as _270 from "./gamm/pool-models/balancer/tx/tx.rpc.msg";
-import * as _271 from "./gamm/pool-models/stableswap/tx.rpc.msg";
-import * as _272 from "./gamm/v1beta1/tx.rpc.msg";
-import * as _273 from "./incentives/tx.rpc.msg";
-import * as _274 from "./lockup/tx.rpc.msg";
-import * as _275 from "./poolmanager/v1beta1/tx.rpc.msg";
-import * as _276 from "./protorev/v1beta1/tx.rpc.msg";
-import * as _277 from "./superfluid/tx.rpc.msg";
-import * as _278 from "./tokenfactory/v1beta1/tx.rpc.msg";
-import * as _279 from "./valset-pref/v1beta1/tx.rpc.msg";
+import * as _208 from "./concentrated-liquidity/query.rpc.Query";
+import * as _209 from "./cosmwasmpool/v1beta1/query.rpc.Query";
+import * as _210 from "./downtime-detector/v1beta1/query.rpc.Query";
+import * as _211 from "./epochs/query.rpc.Query";
+import * as _212 from "./gamm/v1beta1/query.rpc.Query";
+import * as _213 from "./gamm/v2/query.rpc.Query";
+import * as _214 from "./ibc-rate-limit/v1beta1/query.rpc.Query";
+import * as _215 from "./incentives/query.rpc.Query";
+import * as _216 from "./lockup/query.rpc.Query";
+import * as _217 from "./mint/v1beta1/query.rpc.Query";
+import * as _218 from "./pool-incentives/v1beta1/query.rpc.Query";
+import * as _219 from "./poolmanager/v1beta1/query.rpc.Query";
+import * as _220 from "./protorev/v1beta1/query.rpc.Query";
+import * as _221 from "./superfluid/query.rpc.Query";
+import * as _222 from "./tokenfactory/v1beta1/query.rpc.Query";
+import * as _223 from "./twap/v1beta1/query.rpc.Query";
+import * as _224 from "./txfees/v1beta1/query.rpc.Query";
+import * as _225 from "./valset-pref/v1beta1/query.rpc.Query";
+import * as _226 from "./concentrated-liquidity/pool-model/concentrated/tx.rpc.msg";
+import * as _227 from "./concentrated-liquidity/tx.rpc.msg";
+import * as _228 from "./gamm/pool-models/balancer/tx/tx.rpc.msg";
+import * as _229 from "./gamm/pool-models/stableswap/tx.rpc.msg";
+import * as _230 from "./gamm/v1beta1/tx.rpc.msg";
+import * as _231 from "./incentives/tx.rpc.msg";
+import * as _232 from "./lockup/tx.rpc.msg";
+import * as _233 from "./poolmanager/v1beta1/tx.rpc.msg";
+import * as _234 from "./protorev/v1beta1/tx.rpc.msg";
+import * as _235 from "./superfluid/tx.rpc.msg";
+import * as _236 from "./tokenfactory/v1beta1/tx.rpc.msg";
+import * as _237 from "./valset-pref/v1beta1/tx.rpc.msg";
 export declare namespace osmosis {
     namespace accum {
         const v1beta1: {
@@ -133,7 +133,7 @@ export declare namespace osmosis {
         poolmodel: {
             concentrated: {
                 v1beta1: {
-                    MsgClientImpl: typeof _268.MsgClientImpl;
+                    MsgClientImpl: typeof _226.MsgClientImpl;
                     registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                     load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                     MessageComposer: {
@@ -185,8 +185,8 @@ export declare namespace osmosis {
             };
         };
         v1beta1: {
-            MsgClientImpl: typeof _269.MsgClientImpl;
-            QueryClientImpl: typeof _250.QueryClientImpl;
+            MsgClientImpl: typeof _227.MsgClientImpl;
+            QueryClientImpl: typeof _208.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 pools(request?: import("./concentrated-liquidity/query").PoolsRequest): Promise<import("./concentrated-liquidity/query").PoolsResponse>;
                 params(request?: import("./concentrated-liquidity/query").ParamsRequest): Promise<import("./concentrated-liquidity/query").ParamsResponse>;
@@ -387,7 +387,7 @@ export declare namespace osmosis {
     };
     namespace cosmwasmpool {
         const v1beta1: {
-            QueryClientImpl: typeof _251.QueryClientImpl;
+            QueryClientImpl: typeof _209.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 pools(request?: _13.PoolsRequest): Promise<_13.PoolsResponse>;
                 params(request?: _13.ParamsRequest): Promise<_13.ParamsResponse>;
@@ -602,7 +602,7 @@ export declare namespace osmosis {
     }
     namespace downtimedetector {
         const v1beta1: {
-            QueryClientImpl: typeof _252.QueryClientImpl;
+            QueryClientImpl: typeof _210.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 recoveredSinceDowntimeOfLength(request: _17.RecoveredSinceDowntimeOfLengthRequest): Promise<_17.RecoveredSinceDowntimeOfLengthResponse>;
             };
@@ -634,7 +634,7 @@ export declare namespace osmosis {
     }
     namespace epochs {
         const v1beta1: {
-            QueryClientImpl: typeof _253.QueryClientImpl;
+            QueryClientImpl: typeof _211.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 epochInfos(request?: _19.QueryEpochsInfoRequest): Promise<_19.QueryEpochsInfoResponse>;
                 currentEpoch(request: _19.QueryCurrentEpochRequest): Promise<_19.QueryCurrentEpochResponse>;
@@ -673,8 +673,8 @@ export declare namespace osmosis {
     }
     namespace gamm {
         const v1beta1: {
-            MsgClientImpl: typeof _272.MsgClientImpl;
-            QueryClientImpl: typeof _254.QueryClientImpl;
+            MsgClientImpl: typeof _230.MsgClientImpl;
+            QueryClientImpl: typeof _212.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 pools(request?: _23.QueryPoolsRequest): Promise<_23.QueryPoolsResponse>;
                 numPools(request?: _23.QueryNumPoolsRequest): Promise<_23.QueryNumPoolsResponse>;
@@ -1301,7 +1301,7 @@ export declare namespace osmosis {
         namespace poolmodels {
             namespace balancer {
                 const v1beta1: {
-                    MsgClientImpl: typeof _270.MsgClientImpl;
+                    MsgClientImpl: typeof _228.MsgClientImpl;
                     registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                     load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                     MessageComposer: {
@@ -1427,7 +1427,7 @@ export declare namespace osmosis {
             }
             namespace stableswap {
                 const v1beta1: {
-                    MsgClientImpl: typeof _271.MsgClientImpl;
+                    MsgClientImpl: typeof _229.MsgClientImpl;
                     registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                     load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                     MessageComposer: {
@@ -1552,7 +1552,7 @@ export declare namespace osmosis {
             }
         }
         const v2: {
-            QueryClientImpl: typeof _255.QueryClientImpl;
+            QueryClientImpl: typeof _213.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 spotPrice(request: _29.QuerySpotPriceRequest): Promise<_29.QuerySpotPriceResponse>;
             };
@@ -1570,7 +1570,7 @@ export declare namespace osmosis {
     }
     namespace ibcratelimit {
         const v1beta1: {
-            QueryClientImpl: typeof _256.QueryClientImpl;
+            QueryClientImpl: typeof _214.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _32.ParamsRequest): Promise<_32.ParamsResponse>;
             };
@@ -1597,8 +1597,8 @@ export declare namespace osmosis {
         };
     }
     const incentives: {
-        MsgClientImpl: typeof _273.MsgClientImpl;
-        QueryClientImpl: typeof _257.QueryClientImpl;
+        MsgClientImpl: typeof _231.MsgClientImpl;
+        QueryClientImpl: typeof _215.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             moduleToDistributeCoins(request?: _36.ModuleToDistributeCoinsRequest): Promise<_36.ModuleToDistributeCoinsResponse>;
             gaugeByID(request: _36.GaugeByIDRequest): Promise<_36.GaugeByIDResponse>;
@@ -1862,8 +1862,8 @@ export declare namespace osmosis {
         };
     };
     const lockup: {
-        MsgClientImpl: typeof _274.MsgClientImpl;
-        QueryClientImpl: typeof _258.QueryClientImpl;
+        MsgClientImpl: typeof _232.MsgClientImpl;
+        QueryClientImpl: typeof _216.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             moduleBalance(request?: _41.ModuleBalanceRequest): Promise<_41.ModuleBalanceResponse>;
             moduleLockedAmount(request?: _41.ModuleLockedAmountRequest): Promise<_41.ModuleLockedAmountResponse>;
@@ -2392,7 +2392,7 @@ export declare namespace osmosis {
     };
     namespace mint {
         const v1beta1: {
-            QueryClientImpl: typeof _259.QueryClientImpl;
+            QueryClientImpl: typeof _217.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _45.QueryParamsRequest): Promise<_45.QueryParamsResponse>;
                 epochProvisions(request?: _45.QueryEpochProvisionsRequest): Promise<_45.QueryEpochProvisionsResponse>;
@@ -2446,7 +2446,7 @@ export declare namespace osmosis {
     }
     namespace poolincentives {
         const v1beta1: {
-            QueryClientImpl: typeof _260.QueryClientImpl;
+            QueryClientImpl: typeof _218.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 gaugeIds(request: _49.QueryGaugeIdsRequest): Promise<_49.QueryGaugeIdsResponse>;
                 distrInfo(request?: _49.QueryDistrInfoRequest): Promise<_49.QueryDistrInfoResponse>;
@@ -2584,8 +2584,8 @@ export declare namespace osmosis {
     }
     namespace poolmanager {
         const v1beta1: {
-            MsgClientImpl: typeof _275.MsgClientImpl;
-            QueryClientImpl: typeof _261.QueryClientImpl;
+            MsgClientImpl: typeof _233.MsgClientImpl;
+            QueryClientImpl: typeof _219.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _53.ParamsRequest): Promise<_53.ParamsResponse>;
                 estimateSwapExactAmountIn(request: _53.EstimateSwapExactAmountInRequest): Promise<_53.EstimateSwapExactAmountInResponse>;
@@ -2968,8 +2968,8 @@ export declare namespace osmosis {
     }
     namespace protorev {
         const v1beta1: {
-            MsgClientImpl: typeof _276.MsgClientImpl;
-            QueryClientImpl: typeof _262.QueryClientImpl;
+            MsgClientImpl: typeof _234.MsgClientImpl;
+            QueryClientImpl: typeof _220.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _60.QueryParamsRequest): Promise<_60.QueryParamsResponse>;
                 getProtoRevNumberOfTrades(request?: _60.QueryGetProtoRevNumberOfTradesRequest): Promise<_60.QueryGetProtoRevNumberOfTradesResponse>;
@@ -3481,8 +3481,8 @@ export declare namespace osmosis {
         };
     }
     const superfluid: {
-        MsgClientImpl: typeof _277.MsgClientImpl;
-        QueryClientImpl: typeof _263.QueryClientImpl;
+        MsgClientImpl: typeof _235.MsgClientImpl;
+        QueryClientImpl: typeof _221.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _65.QueryParamsRequest): Promise<_65.QueryParamsResponse>;
             assetType(request: _65.AssetTypeRequest): Promise<_65.AssetTypeResponse>;
@@ -4141,8 +4141,8 @@ export declare namespace osmosis {
     };
     namespace tokenfactory {
         const v1beta1: {
-            MsgClientImpl: typeof _278.MsgClientImpl;
-            QueryClientImpl: typeof _264.QueryClientImpl;
+            MsgClientImpl: typeof _236.MsgClientImpl;
+            QueryClientImpl: typeof _222.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _71.QueryParamsRequest): Promise<_71.QueryParamsResponse>;
                 denomAuthorityMetadata(request: _71.QueryDenomAuthorityMetadataRequest): Promise<_71.QueryDenomAuthorityMetadataResponse>;
@@ -4334,8 +4334,6 @@ export declare namespace osmosis {
                             display: string;
                             name: string;
                             symbol: string;
-                            uri: string;
-                            uri_hash: string;
                         };
                     };
                     fromAmino: ({ sender, metadata }: {
@@ -4351,8 +4349,6 @@ export declare namespace osmosis {
                             display: string;
                             name: string;
                             symbol: string;
-                            uri: string;
-                            uri_hash: string;
                         };
                     }) => _72.MsgSetDenomMetadata;
                 };
@@ -4492,7 +4488,7 @@ export declare namespace osmosis {
     }
     namespace twap {
         const v1beta1: {
-            QueryClientImpl: typeof _265.QueryClientImpl;
+            QueryClientImpl: typeof _223.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _74.ParamsRequest): Promise<_74.ParamsResponse>;
                 arithmeticTwap(request: _74.ArithmeticTwapRequest): Promise<_74.ArithmeticTwapResponse>;
@@ -4569,7 +4565,7 @@ export declare namespace osmosis {
     }
     namespace txfees {
         const v1beta1: {
-            QueryClientImpl: typeof _266.QueryClientImpl;
+            QueryClientImpl: typeof _224.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 feeTokens(request?: _79.QueryFeeTokensRequest): Promise<_79.QueryFeeTokensResponse>;
                 denomSpotPrice(request: _79.QueryDenomSpotPriceRequest): Promise<_79.QueryDenomSpotPriceResponse>;
@@ -4635,8 +4631,8 @@ export declare namespace osmosis {
     }
     namespace valsetpref {
         const v1beta1: {
-            MsgClientImpl: typeof _279.MsgClientImpl;
-            QueryClientImpl: typeof _267.QueryClientImpl;
+            MsgClientImpl: typeof _237.MsgClientImpl;
+            QueryClientImpl: typeof _225.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 userValidatorPreferences(request: _80.UserValidatorPreferencesRequest): Promise<_80.UserValidatorPreferencesResponse>;
             };
@@ -4928,50 +4924,44 @@ export declare namespace osmosis {
                 concentratedliquidity: {
                     poolmodel: {
                         concentrated: {
-                            v1beta1: _268.MsgClientImpl;
+                            v1beta1: _226.MsgClientImpl;
                         };
                     };
-                    v1beta1: _269.MsgClientImpl;
+                    v1beta1: _227.MsgClientImpl;
                 };
                 gamm: {
                     poolmodels: {
                         balancer: {
-                            v1beta1: _270.MsgClientImpl;
+                            v1beta1: _228.MsgClientImpl;
                         };
                         stableswap: {
-                            v1beta1: _271.MsgClientImpl;
+                            v1beta1: _229.MsgClientImpl;
                         };
                     };
-                    v1beta1: _272.MsgClientImpl;
+                    v1beta1: _230.MsgClientImpl;
                 };
-                incentives: _273.MsgClientImpl;
-                lockup: _274.MsgClientImpl;
+                incentives: _231.MsgClientImpl;
+                lockup: _232.MsgClientImpl;
                 poolmanager: {
-                    v1beta1: _275.MsgClientImpl;
+                    v1beta1: _233.MsgClientImpl;
                 };
                 protorev: {
-                    v1beta1: _276.MsgClientImpl;
+                    v1beta1: _234.MsgClientImpl;
                 };
-                superfluid: _277.MsgClientImpl;
+                superfluid: _235.MsgClientImpl;
                 tokenfactory: {
-                    v1beta1: _278.MsgClientImpl;
+                    v1beta1: _236.MsgClientImpl;
                 };
                 valsetpref: {
-                    v1beta1: _279.MsgClientImpl;
+                    v1beta1: _237.MsgClientImpl;
                 };
             };
             cosmos: {
-                auth: {
-                    v1beta1: import("../cosmos/auth/v1beta1/tx.rpc.msg").MsgClientImpl;
-                };
                 authz: {
                     v1beta1: import("../cosmos/authz/v1beta1/tx.rpc.msg").MsgClientImpl;
                 };
                 bank: {
                     v1beta1: import("../cosmos/bank/v1beta1/tx.rpc.msg").MsgClientImpl;
-                };
-                consensus: {
-                    v1: import("../cosmos/consensus/v1/tx.rpc.msg").MsgClientImpl;
                 };
                 crisis: {
                     v1beta1: import("../cosmos/crisis/v1beta1/tx.rpc.msg").MsgClientImpl;
@@ -4986,26 +4976,13 @@ export declare namespace osmosis {
                     v1beta1: import("../cosmos/feegrant/v1beta1/tx.rpc.msg").MsgClientImpl;
                 };
                 gov: {
-                    v1: import("../cosmos/gov/v1/tx.rpc.msg").MsgClientImpl;
                     v1beta1: import("../cosmos/gov/v1beta1/tx.rpc.msg").MsgClientImpl;
-                };
-                group: {
-                    v1: import("../cosmos/group/v1/tx.rpc.msg").MsgClientImpl;
-                };
-                mint: {
-                    v1beta1: import("../cosmos/mint/v1beta1/tx.rpc.msg").MsgClientImpl;
-                };
-                nft: {
-                    v1beta1: import("../cosmos/nft/v1beta1/tx.rpc.msg").MsgClientImpl;
                 };
                 slashing: {
                     v1beta1: import("../cosmos/slashing/v1beta1/tx.rpc.msg").MsgClientImpl;
                 };
                 staking: {
                     v1beta1: import("../cosmos/staking/v1beta1/tx.rpc.msg").MsgClientImpl;
-                };
-                upgrade: {
-                    v1beta1: import("../cosmos/upgrade/v1beta1/tx.rpc.msg").MsgClientImpl;
                 };
                 vesting: {
                     v1beta1: import("../cosmos/vesting/v1beta1/tx.rpc.msg").MsgClientImpl;
@@ -5213,23 +5190,12 @@ export declare namespace osmosis {
                 };
             };
             cosmos: {
-                app: {
-                    v1alpha1: {
-                        config(request?: import("../cosmos/app/v1alpha1/query").QueryConfigRequest): Promise<import("../cosmos/app/v1alpha1/query").QueryConfigResponse>;
-                    };
-                };
                 auth: {
                     v1beta1: {
                         accounts(request?: import("../cosmos/auth/v1beta1/query").QueryAccountsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountsResponse>;
                         account(request: import("../cosmos/auth/v1beta1/query").QueryAccountRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountResponse>;
-                        accountAddressByID(request: import("../cosmos/auth/v1beta1/query").QueryAccountAddressByIDRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountAddressByIDResponse>;
                         params(request?: import("../cosmos/auth/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryParamsResponse>;
                         moduleAccounts(request?: import("../cosmos/auth/v1beta1/query").QueryModuleAccountsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryModuleAccountsResponse>;
-                        moduleAccountByName(request: import("../cosmos/auth/v1beta1/query").QueryModuleAccountByNameRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryModuleAccountByNameResponse>;
-                        bech32Prefix(request?: import("../cosmos/auth/v1beta1/query").Bech32PrefixRequest): Promise<import("../cosmos/auth/v1beta1/query").Bech32PrefixResponse>;
-                        addressBytesToString(request: import("../cosmos/auth/v1beta1/query").AddressBytesToStringRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressBytesToStringResponse>;
-                        addressStringToBytes(request: import("../cosmos/auth/v1beta1/query").AddressStringToBytesRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressStringToBytesResponse>;
-                        accountInfo(request: import("../cosmos/auth/v1beta1/query").QueryAccountInfoRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountInfoResponse>;
                     };
                 };
                 authz: {
@@ -5239,24 +5205,18 @@ export declare namespace osmosis {
                         granteeGrants(request: import("../cosmos/authz/v1beta1/query").QueryGranteeGrantsRequest): Promise<import("../cosmos/authz/v1beta1/query").QueryGranteeGrantsResponse>;
                     };
                 };
-                autocli: {
-                    v1: {
-                        appOptions(request?: import("../cosmos/autocli/v1/query").AppOptionsRequest): Promise<import("../cosmos/autocli/v1/query").AppOptionsResponse>;
-                    };
-                };
                 bank: {
                     v1beta1: {
                         balance(request: import("../cosmos/bank/v1beta1/query").QueryBalanceRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryBalanceResponse>;
                         allBalances(request: import("../cosmos/bank/v1beta1/query").QueryAllBalancesRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryAllBalancesResponse>;
-                        spendableBalances(request: import("../cosmos/bank/v1beta1/query").QuerySpendableBalancesRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySpendableBalancesResponse>;
-                        spendableBalanceByDenom(request: import("../cosmos/bank/v1beta1/query").QuerySpendableBalanceByDenomRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySpendableBalanceByDenomResponse>;
                         totalSupply(request?: import("../cosmos/bank/v1beta1/query").QueryTotalSupplyRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryTotalSupplyResponse>;
                         supplyOf(request: import("../cosmos/bank/v1beta1/query").QuerySupplyOfRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySupplyOfResponse>;
+                        totalSupplyWithoutOffset(request?: import("../cosmos/bank/v1beta1/query").QueryTotalSupplyWithoutOffsetRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryTotalSupplyWithoutOffsetResponse>;
+                        supplyOfWithoutOffset(request: import("../cosmos/bank/v1beta1/query").QuerySupplyOfWithoutOffsetRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySupplyOfWithoutOffsetResponse>;
                         params(request?: import("../cosmos/bank/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryParamsResponse>;
                         denomMetadata(request: import("../cosmos/bank/v1beta1/query").QueryDenomMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomMetadataResponse>;
                         denomsMetadata(request?: import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataResponse>;
-                        denomOwners(request: import("../cosmos/bank/v1beta1/query").QueryDenomOwnersRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomOwnersResponse>;
-                        sendEnabled(request: import("../cosmos/bank/v1beta1/query").QuerySendEnabledRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySendEnabledResponse>;
+                        baseDenom(request: import("../cosmos/bank/v1beta1/query").QueryBaseDenomRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryBaseDenomResponse>;
                     };
                 };
                 base: {
@@ -5273,19 +5233,12 @@ export declare namespace osmosis {
                             getBlockByHeight(request: import("../cosmos/base/tendermint/v1beta1/query").GetBlockByHeightRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetBlockByHeightResponse>;
                             getLatestValidatorSet(request?: import("../cosmos/base/tendermint/v1beta1/query").GetLatestValidatorSetRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetLatestValidatorSetResponse>;
                             getValidatorSetByHeight(request: import("../cosmos/base/tendermint/v1beta1/query").GetValidatorSetByHeightRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetValidatorSetByHeightResponse>;
-                            aBCIQuery(request: import("../cosmos/base/tendermint/v1beta1/query").ABCIQueryRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").ABCIQueryResponse>;
                         };
-                    };
-                };
-                consensus: {
-                    v1: {
-                        params(request?: import("../cosmos/consensus/v1/query").QueryParamsRequest): Promise<import("../cosmos/consensus/v1/query").QueryParamsResponse>;
                     };
                 };
                 distribution: {
                     v1beta1: {
                         params(request?: import("../cosmos/distribution/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryParamsResponse>;
-                        validatorDistributionInfo(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorDistributionInfoRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorDistributionInfoResponse>;
                         validatorOutstandingRewards(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorOutstandingRewardsRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorOutstandingRewardsResponse>;
                         validatorCommission(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorCommissionRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorCommissionResponse>;
                         validatorSlashes(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorSlashesRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorSlashesResponse>;
@@ -5306,20 +5259,9 @@ export declare namespace osmosis {
                     v1beta1: {
                         allowance(request: import("../cosmos/feegrant/v1beta1/query").QueryAllowanceRequest): Promise<import("../cosmos/feegrant/v1beta1/query").QueryAllowanceResponse>;
                         allowances(request: import("../cosmos/feegrant/v1beta1/query").QueryAllowancesRequest): Promise<import("../cosmos/feegrant/v1beta1/query").QueryAllowancesResponse>;
-                        allowancesByGranter(request: import("../cosmos/feegrant/v1beta1/query").QueryAllowancesByGranterRequest): Promise<import("../cosmos/feegrant/v1beta1/query").QueryAllowancesByGranterResponse>;
                     };
                 };
                 gov: {
-                    v1: {
-                        proposal(request: import("../cosmos/gov/v1/query").QueryProposalRequest): Promise<import("../cosmos/gov/v1/query").QueryProposalResponse>;
-                        proposals(request: import("../cosmos/gov/v1/query").QueryProposalsRequest): Promise<import("../cosmos/gov/v1/query").QueryProposalsResponse>;
-                        vote(request: import("../cosmos/gov/v1/query").QueryVoteRequest): Promise<import("../cosmos/gov/v1/query").QueryVoteResponse>;
-                        votes(request: import("../cosmos/gov/v1/query").QueryVotesRequest): Promise<import("../cosmos/gov/v1/query").QueryVotesResponse>;
-                        params(request: import("../cosmos/gov/v1/query").QueryParamsRequest): Promise<import("../cosmos/gov/v1/query").QueryParamsResponse>;
-                        deposit(request: import("../cosmos/gov/v1/query").QueryDepositRequest): Promise<import("../cosmos/gov/v1/query").QueryDepositResponse>;
-                        deposits(request: import("../cosmos/gov/v1/query").QueryDepositsRequest): Promise<import("../cosmos/gov/v1/query").QueryDepositsResponse>;
-                        tallyResult(request: import("../cosmos/gov/v1/query").QueryTallyResultRequest): Promise<import("../cosmos/gov/v1/query").QueryTallyResultResponse>;
-                    };
                     v1beta1: {
                         proposal(request: import("../cosmos/gov/v1beta1/query").QueryProposalRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryProposalResponse>;
                         proposals(request: import("../cosmos/gov/v1beta1/query").QueryProposalsRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryProposalsResponse>;
@@ -5331,24 +5273,6 @@ export declare namespace osmosis {
                         tallyResult(request: import("../cosmos/gov/v1beta1/query").QueryTallyResultRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryTallyResultResponse>;
                     };
                 };
-                group: {
-                    v1: {
-                        groupInfo(request: import("../cosmos/group/v1/query").QueryGroupInfoRequest): Promise<import("../cosmos/group/v1/query").QueryGroupInfoResponse>;
-                        groupPolicyInfo(request: import("../cosmos/group/v1/query").QueryGroupPolicyInfoRequest): Promise<import("../cosmos/group/v1/query").QueryGroupPolicyInfoResponse>;
-                        groupMembers(request: import("../cosmos/group/v1/query").QueryGroupMembersRequest): Promise<import("../cosmos/group/v1/query").QueryGroupMembersResponse>;
-                        groupsByAdmin(request: import("../cosmos/group/v1/query").QueryGroupsByAdminRequest): Promise<import("../cosmos/group/v1/query").QueryGroupsByAdminResponse>;
-                        groupPoliciesByGroup(request: import("../cosmos/group/v1/query").QueryGroupPoliciesByGroupRequest): Promise<import("../cosmos/group/v1/query").QueryGroupPoliciesByGroupResponse>;
-                        groupPoliciesByAdmin(request: import("../cosmos/group/v1/query").QueryGroupPoliciesByAdminRequest): Promise<import("../cosmos/group/v1/query").QueryGroupPoliciesByAdminResponse>;
-                        proposal(request: import("../cosmos/group/v1/query").QueryProposalRequest): Promise<import("../cosmos/group/v1/query").QueryProposalResponse>;
-                        proposalsByGroupPolicy(request: import("../cosmos/group/v1/query").QueryProposalsByGroupPolicyRequest): Promise<import("../cosmos/group/v1/query").QueryProposalsByGroupPolicyResponse>;
-                        voteByProposalVoter(request: import("../cosmos/group/v1/query").QueryVoteByProposalVoterRequest): Promise<import("../cosmos/group/v1/query").QueryVoteByProposalVoterResponse>;
-                        votesByProposal(request: import("../cosmos/group/v1/query").QueryVotesByProposalRequest): Promise<import("../cosmos/group/v1/query").QueryVotesByProposalResponse>;
-                        votesByVoter(request: import("../cosmos/group/v1/query").QueryVotesByVoterRequest): Promise<import("../cosmos/group/v1/query").QueryVotesByVoterResponse>;
-                        groupsByMember(request: import("../cosmos/group/v1/query").QueryGroupsByMemberRequest): Promise<import("../cosmos/group/v1/query").QueryGroupsByMemberResponse>;
-                        tallyResult(request: import("../cosmos/group/v1/query").QueryTallyResultRequest): Promise<import("../cosmos/group/v1/query").QueryTallyResultResponse>;
-                        groups(request?: import("../cosmos/group/v1/query").QueryGroupsRequest): Promise<import("../cosmos/group/v1/query").QueryGroupsResponse>;
-                    };
-                };
                 mint: {
                     v1beta1: {
                         params(request?: import("../cosmos/mint/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/mint/v1beta1/query").QueryParamsResponse>;
@@ -5356,29 +5280,9 @@ export declare namespace osmosis {
                         annualProvisions(request?: import("../cosmos/mint/v1beta1/query").QueryAnnualProvisionsRequest): Promise<import("../cosmos/mint/v1beta1/query").QueryAnnualProvisionsResponse>;
                     };
                 };
-                nft: {
-                    v1beta1: {
-                        balance(request: import("../cosmos/nft/v1beta1/query").QueryBalanceRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryBalanceResponse>;
-                        owner(request: import("../cosmos/nft/v1beta1/query").QueryOwnerRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryOwnerResponse>;
-                        supply(request: import("../cosmos/nft/v1beta1/query").QuerySupplyRequest): Promise<import("../cosmos/nft/v1beta1/query").QuerySupplyResponse>;
-                        nFTs(request: import("../cosmos/nft/v1beta1/query").QueryNFTsRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryNFTsResponse>;
-                        nFT(request: import("../cosmos/nft/v1beta1/query").QueryNFTRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryNFTResponse>;
-                        class(request: import("../cosmos/nft/v1beta1/query").QueryClassRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryClassResponse>;
-                        classes(request?: import("../cosmos/nft/v1beta1/query").QueryClassesRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryClassesResponse>;
-                    };
-                };
-                orm: {
-                    query: {
-                        v1alpha1: {
-                            get(request: import("../cosmos/orm/query/v1alpha1/query").GetRequest): Promise<import("../cosmos/orm/query/v1alpha1/query").GetResponse>;
-                            list(request: import("../cosmos/orm/query/v1alpha1/query").ListRequest): Promise<import("../cosmos/orm/query/v1alpha1/query").ListResponse>;
-                        };
-                    };
-                };
                 params: {
                     v1beta1: {
                         params(request: import("../cosmos/params/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/params/v1beta1/query").QueryParamsResponse>;
-                        subspaces(request?: import("../cosmos/params/v1beta1/query").QuerySubspacesRequest): Promise<import("../cosmos/params/v1beta1/query").QuerySubspacesResponse>;
                     };
                 };
                 slashing: {
@@ -5412,11 +5316,6 @@ export declare namespace osmosis {
                         getTx(request: import("../cosmos/tx/v1beta1/service").GetTxRequest): Promise<import("../cosmos/tx/v1beta1/service").GetTxResponse>;
                         broadcastTx(request: import("../cosmos/tx/v1beta1/service").BroadcastTxRequest): Promise<import("../cosmos/tx/v1beta1/service").BroadcastTxResponse>;
                         getTxsEvent(request: import("../cosmos/tx/v1beta1/service").GetTxsEventRequest): Promise<import("../cosmos/tx/v1beta1/service").GetTxsEventResponse>;
-                        getBlockWithTxs(request: import("../cosmos/tx/v1beta1/service").GetBlockWithTxsRequest): Promise<import("../cosmos/tx/v1beta1/service").GetBlockWithTxsResponse>;
-                        txDecode(request: import("../cosmos/tx/v1beta1/service").TxDecodeRequest): Promise<import("../cosmos/tx/v1beta1/service").TxDecodeResponse>;
-                        txEncode(request: import("../cosmos/tx/v1beta1/service").TxEncodeRequest): Promise<import("../cosmos/tx/v1beta1/service").TxEncodeResponse>;
-                        txEncodeAmino(request: import("../cosmos/tx/v1beta1/service").TxEncodeAminoRequest): Promise<import("../cosmos/tx/v1beta1/service").TxEncodeAminoResponse>;
-                        txDecodeAmino(request: import("../cosmos/tx/v1beta1/service").TxDecodeAminoRequest): Promise<import("../cosmos/tx/v1beta1/service").TxDecodeAminoResponse>;
                     };
                 };
                 upgrade: {
@@ -5425,7 +5324,6 @@ export declare namespace osmosis {
                         appliedPlan(request: import("../cosmos/upgrade/v1beta1/query").QueryAppliedPlanRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryAppliedPlanResponse>;
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
-                        authority(request?: import("../cosmos/upgrade/v1beta1/query").QueryAuthorityRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryAuthorityResponse>;
                     };
                 };
             };

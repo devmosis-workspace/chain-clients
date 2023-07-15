@@ -1,10 +1,10 @@
-import { Params, ParamsSDKType, Metadata, MetadataSDKType, SendEnabled, SendEnabledSDKType } from "./bank";
+import { Params, ParamsSDKType, Metadata, MetadataSDKType } from "./bank";
 import { Coin, CoinSDKType } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
 import { isSet } from "../../../helpers";
 /** GenesisState defines the bank module's genesis state. */
 export interface GenesisState {
-  /** params defines all the parameters of the module. */
+  /** params defines all the paramaters of the module. */
   params?: Params;
   /** balances is an array containing the balances of all the accounts. */
   balances: Balance[];
@@ -13,14 +13,10 @@ export interface GenesisState {
    * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
    */
   supply: Coin[];
-  /** denom_metadata defines the metadata of the different coins. */
+  /** denom_metadata defines the metadata of the differents coins. */
   denomMetadata: Metadata[];
-  /**
-   * send_enabled defines the denoms where send is enabled or disabled.
-   * 
-   * Since: cosmos-sdk 0.47
-   */
-  sendEnabled: SendEnabled[];
+  /** supply_offsets defines the amount of supply offset. */
+  supplyOffsets: GenesisSupplyOffset[];
 }
 /** GenesisState defines the bank module's genesis state. */
 export interface GenesisStateSDKType {
@@ -28,7 +24,7 @@ export interface GenesisStateSDKType {
   balances: BalanceSDKType[];
   supply: CoinSDKType[];
   denom_metadata: MetadataSDKType[];
-  send_enabled: SendEnabledSDKType[];
+  supply_offsets: GenesisSupplyOffsetSDKType[];
 }
 /**
  * Balance defines an account address and balance pair used in the bank module's
@@ -48,13 +44,31 @@ export interface BalanceSDKType {
   address: string;
   coins: CoinSDKType[];
 }
+/**
+ * GenesisSupplyOffset encodes the supply offsets, just for genesis.
+ * The offsets are serialized directly by denom in state.
+ */
+export interface GenesisSupplyOffset {
+  /** Denom */
+  denom: string;
+  /** SupplyOffset */
+  offset: string;
+}
+/**
+ * GenesisSupplyOffset encodes the supply offsets, just for genesis.
+ * The offsets are serialized directly by denom in state.
+ */
+export interface GenesisSupplyOffsetSDKType {
+  denom: string;
+  offset: string;
+}
 function createBaseGenesisState(): GenesisState {
   return {
     params: undefined,
     balances: [],
     supply: [],
     denomMetadata: [],
-    sendEnabled: []
+    supplyOffsets: []
   };
 }
 export const GenesisState = {
@@ -71,8 +85,8 @@ export const GenesisState = {
     for (const v of message.denomMetadata) {
       Metadata.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    for (const v of message.sendEnabled) {
-      SendEnabled.encode(v!, writer.uint32(42).fork()).ldelim();
+    for (const v of message.supplyOffsets) {
+      GenesisSupplyOffset.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -82,7 +96,7 @@ export const GenesisState = {
       balances: Array.isArray(object?.balances) ? object.balances.map((e: any) => Balance.fromJSON(e)) : [],
       supply: Array.isArray(object?.supply) ? object.supply.map((e: any) => Coin.fromJSON(e)) : [],
       denomMetadata: Array.isArray(object?.denomMetadata) ? object.denomMetadata.map((e: any) => Metadata.fromJSON(e)) : [],
-      sendEnabled: Array.isArray(object?.sendEnabled) ? object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e)) : []
+      supplyOffsets: Array.isArray(object?.supplyOffsets) ? object.supplyOffsets.map((e: any) => GenesisSupplyOffset.fromJSON(e)) : []
     };
   },
   fromPartial(object: Partial<GenesisState>): GenesisState {
@@ -91,7 +105,7 @@ export const GenesisState = {
     message.balances = object.balances?.map(e => Balance.fromPartial(e)) || [];
     message.supply = object.supply?.map(e => Coin.fromPartial(e)) || [];
     message.denomMetadata = object.denomMetadata?.map(e => Metadata.fromPartial(e)) || [];
-    message.sendEnabled = object.sendEnabled?.map(e => SendEnabled.fromPartial(e)) || [];
+    message.supplyOffsets = object.supplyOffsets?.map(e => GenesisSupplyOffset.fromPartial(e)) || [];
     return message;
   }
 };
@@ -121,6 +135,35 @@ export const Balance = {
     const message = createBaseBalance();
     message.address = object.address ?? "";
     message.coins = object.coins?.map(e => Coin.fromPartial(e)) || [];
+    return message;
+  }
+};
+function createBaseGenesisSupplyOffset(): GenesisSupplyOffset {
+  return {
+    denom: "",
+    offset: ""
+  };
+}
+export const GenesisSupplyOffset = {
+  encode(message: GenesisSupplyOffset, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.denom !== "") {
+      writer.uint32(10).string(message.denom);
+    }
+    if (message.offset !== "") {
+      writer.uint32(18).string(message.offset);
+    }
+    return writer;
+  },
+  fromJSON(object: any): GenesisSupplyOffset {
+    return {
+      denom: isSet(object.denom) ? String(object.denom) : "",
+      offset: isSet(object.offset) ? String(object.offset) : ""
+    };
+  },
+  fromPartial(object: Partial<GenesisSupplyOffset>): GenesisSupplyOffset {
+    const message = createBaseGenesisSupplyOffset();
+    message.denom = object.denom ?? "";
+    message.offset = object.offset ?? "";
     return message;
   }
 };

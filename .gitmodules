@@ -37,3 +37,9 @@
 [submodule "packages/juno/mev-cometbft"]
 	path = packages/juno/mev-cometbft
 	url = https://github.com/skip-mev/mev-cometbft
+[submodule "packages/osmosis/cosmos-sdk"]
+	path = packages/osmosis/cosmos-sdk
+	url = https://github.com/osmosis-labs/cosmos-sdk
+[submodule "packages/osmosis/tendermint"]
+	path = packages/osmosis/tendermint
+	url = https://github.com/tendermint/tendermint

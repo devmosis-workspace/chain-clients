@@ -3,7 +3,7 @@ import { AminoMsg } from "@cosmjs/amino";
 import { Long } from "../../../helpers";
 import { MsgSubmitProposal, MsgVote, MsgVoteWeighted, MsgDeposit } from "./tx";
 export interface MsgSubmitProposalAminoType extends AminoMsg {
-  type: "cosmos-sdk/MsgSubmitProposal";
+  type: "cosmos-sdk/v1/MsgSubmitProposal";
   value: {
     content: {
       type_url: string;
@@ -14,10 +14,11 @@ export interface MsgSubmitProposalAminoType extends AminoMsg {
       amount: string;
     }[];
     proposer: string;
+    is_expedited: boolean;
   };
 }
 export interface MsgVoteAminoType extends AminoMsg {
-  type: "cosmos-sdk/MsgVote";
+  type: "cosmos-sdk/v1/MsgVote";
   value: {
     proposal_id: string;
     voter: string;
@@ -25,7 +26,7 @@ export interface MsgVoteAminoType extends AminoMsg {
   };
 }
 export interface MsgVoteWeightedAminoType extends AminoMsg {
-  type: "cosmos-sdk/MsgVoteWeighted";
+  type: "cosmos-sdk/v1/MsgVoteWeighted";
   value: {
     proposal_id: string;
     voter: string;
@@ -36,7 +37,7 @@ export interface MsgVoteWeightedAminoType extends AminoMsg {
   };
 }
 export interface MsgDepositAminoType extends AminoMsg {
-  type: "cosmos-sdk/MsgDeposit";
+  type: "cosmos-sdk/v1/MsgDeposit";
   value: {
     proposal_id: string;
     depositor: string;
@@ -48,11 +49,12 @@ export interface MsgDepositAminoType extends AminoMsg {
 }
 export const AminoConverter = {
   "/cosmos.gov.v1beta1.MsgSubmitProposal": {
-    aminoType: "cosmos-sdk/MsgSubmitProposal",
+    aminoType: "cosmos-sdk/v1/MsgSubmitProposal",
     toAmino: ({
       content,
       initialDeposit,
-      proposer
+      proposer,
+      isExpedited
     }: MsgSubmitProposal): MsgSubmitProposalAminoType["value"] => {
       return {
         content: {
@@ -63,13 +65,15 @@ export const AminoConverter = {
           denom: el0.denom,
           amount: el0.amount
         })),
-        proposer
+        proposer,
+        is_expedited: isExpedited
       };
     },
     fromAmino: ({
       content,
       initial_deposit,
-      proposer
+      proposer,
+      is_expedited
     }: MsgSubmitProposalAminoType["value"]): MsgSubmitProposal => {
       return {
         content: {
@@ -80,12 +84,13 @@ export const AminoConverter = {
           denom: el0.denom,
           amount: el0.amount
         })),
-        proposer
+        proposer,
+        isExpedited: is_expedited
       };
     }
   },
   "/cosmos.gov.v1beta1.MsgVote": {
-    aminoType: "cosmos-sdk/MsgVote",
+    aminoType: "cosmos-sdk/v1/MsgVote",
     toAmino: ({
       proposalId,
       voter,
@@ -110,7 +115,7 @@ export const AminoConverter = {
     }
   },
   "/cosmos.gov.v1beta1.MsgVoteWeighted": {
-    aminoType: "cosmos-sdk/MsgVoteWeighted",
+    aminoType: "cosmos-sdk/v1/MsgVoteWeighted",
     toAmino: ({
       proposalId,
       voter,
@@ -141,7 +146,7 @@ export const AminoConverter = {
     }
   },
   "/cosmos.gov.v1beta1.MsgDeposit": {
-    aminoType: "cosmos-sdk/MsgDeposit",
+    aminoType: "cosmos-sdk/v1/MsgDeposit",
     toAmino: ({
       proposalId,
       depositor,

@@ -135,34 +135,6 @@ export interface QueryModuleVersionsResponse {
 export interface QueryModuleVersionsResponseSDKType {
   module_versions: ModuleVersionSDKType[];
 }
-/**
- * QueryAuthorityRequest is the request type for Query/Authority
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface QueryAuthorityRequest {}
-/**
- * QueryAuthorityRequest is the request type for Query/Authority
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface QueryAuthorityRequestSDKType {}
-/**
- * QueryAuthorityResponse is the response type for Query/Authority
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface QueryAuthorityResponse {
-  address: string;
-}
-/**
- * QueryAuthorityResponse is the response type for Query/Authority
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface QueryAuthorityResponseSDKType {
-  address: string;
-}
 function createBaseQueryCurrentPlanRequest(): QueryCurrentPlanRequest {
   return {};
 }
@@ -336,44 +308,6 @@ export const QueryModuleVersionsResponse = {
   fromPartial(object: Partial<QueryModuleVersionsResponse>): QueryModuleVersionsResponse {
     const message = createBaseQueryModuleVersionsResponse();
     message.moduleVersions = object.moduleVersions?.map(e => ModuleVersion.fromPartial(e)) || [];
-    return message;
-  }
-};
-function createBaseQueryAuthorityRequest(): QueryAuthorityRequest {
-  return {};
-}
-export const QueryAuthorityRequest = {
-  encode(_: QueryAuthorityRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    return writer;
-  },
-  fromJSON(_: any): QueryAuthorityRequest {
-    return {};
-  },
-  fromPartial(_: Partial<QueryAuthorityRequest>): QueryAuthorityRequest {
-    const message = createBaseQueryAuthorityRequest();
-    return message;
-  }
-};
-function createBaseQueryAuthorityResponse(): QueryAuthorityResponse {
-  return {
-    address: ""
-  };
-}
-export const QueryAuthorityResponse = {
-  encode(message: QueryAuthorityResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
-    }
-    return writer;
-  },
-  fromJSON(object: any): QueryAuthorityResponse {
-    return {
-      address: isSet(object.address) ? String(object.address) : ""
-    };
-  },
-  fromPartial(object: Partial<QueryAuthorityResponse>): QueryAuthorityResponse {
-    const message = createBaseQueryAuthorityResponse();
-    message.address = object.address ?? "";
     return message;
   }
 };

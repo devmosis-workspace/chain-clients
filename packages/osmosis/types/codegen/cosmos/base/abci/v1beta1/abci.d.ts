@@ -41,7 +41,7 @@ export interface TxResponse {
     /**
      * Events defines all the events emitted by processing a transaction. Note,
      * these events include those emitted by processing all the messages and those
-     * emitted from the ante. Whereas Logs contains the events, with
+     * emitted from the ante handler. Whereas Logs contains the events, with
      * additional metadata, emitted only by processing the messages.
      *
      * Since: cosmos-sdk 0.42.11, 0.44.5, 0.45
@@ -132,10 +132,7 @@ export interface Result {
     /**
      * Data is any data returned from message or handler execution. It MUST be
      * length prefixed in order to separate data from multiple message executions.
-     * Deprecated. This field is still populated, but prefer msg_response instead
-     * because it also contains the Msg response typeURL.
      */
-    /** @deprecated */
     data: Uint8Array;
     /** Log contains the log information from message or handler execution. */
     log: string;
@@ -144,20 +141,12 @@ export interface Result {
      * or handler execution.
      */
     events: Event[];
-    /**
-     * msg_responses contains the Msg handler responses type packed in Anys.
-     *
-     * Since: cosmos-sdk 0.46
-     */
-    msgResponses: Any[];
 }
 /** Result is the union of ResponseFormat and ResponseCheckTx. */
 export interface ResultSDKType {
-    /** @deprecated */
     data: Uint8Array;
     log: string;
     events: EventSDKType[];
-    msg_responses: AnySDKType[];
 }
 /**
  * SimulationResponse defines the response generated when a transaction is
@@ -179,7 +168,6 @@ export interface SimulationResponseSDKType {
  * MsgData defines the data returned in a Result object during message
  * execution.
  */
-/** @deprecated */
 export interface MsgData {
     msgType: string;
     data: Uint8Array;
@@ -188,7 +176,6 @@ export interface MsgData {
  * MsgData defines the data returned in a Result object during message
  * execution.
  */
-/** @deprecated */
 export interface MsgDataSDKType {
     msg_type: string;
     data: Uint8Array;
@@ -198,24 +185,14 @@ export interface MsgDataSDKType {
  * for each message.
  */
 export interface TxMsgData {
-    /** data field is deprecated and not populated. */
-    /** @deprecated */
     data: MsgData[];
-    /**
-     * msg_responses contains the Msg handler responses packed into Anys.
-     *
-     * Since: cosmos-sdk 0.46
-     */
-    msgResponses: Any[];
 }
 /**
  * TxMsgData defines a list of MsgData. A transaction will have a MsgData object
  * for each message.
  */
 export interface TxMsgDataSDKType {
-    /** @deprecated */
     data: MsgDataSDKType[];
-    msg_responses: AnySDKType[];
 }
 /** SearchTxsResult defines a structure for querying txs pageable */
 export interface SearchTxsResult {

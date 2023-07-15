@@ -1,5 +1,5 @@
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgCreateVestingAccount, MsgCreatePermanentLockedAccount, MsgCreatePeriodicVestingAccount } from "./tx";
+import { MsgCreateVestingAccount, MsgCreateClawbackVestingAccount, MsgClawback } from "./tx";
 export interface MsgCreateVestingAccountAminoType extends AminoMsg {
     type: "cosmos-sdk/MsgCreateVestingAccount";
     value: {
@@ -13,23 +13,19 @@ export interface MsgCreateVestingAccountAminoType extends AminoMsg {
         delayed: boolean;
     };
 }
-export interface MsgCreatePermanentLockedAccountAminoType extends AminoMsg {
-    type: "cosmos-sdk/MsgCreatePermLockedAccount";
-    value: {
-        from_address: string;
-        to_address: string;
-        amount: {
-            denom: string;
-            amount: string;
-        }[];
-    };
-}
-export interface MsgCreatePeriodicVestingAccountAminoType extends AminoMsg {
-    type: "cosmos-sdk/MsgCreatePeriodicVestingAccount";
+export interface MsgCreateClawbackVestingAccountAminoType extends AminoMsg {
+    type: "cosmos-sdk/MsgCreateClawbackVestingAccount";
     value: {
         from_address: string;
         to_address: string;
         start_time: string;
+        lockup_periods: {
+            length: string;
+            amount: {
+                denom: string;
+                amount: string;
+            }[];
+        }[];
         vesting_periods: {
             length: string;
             amount: {
@@ -37,6 +33,15 @@ export interface MsgCreatePeriodicVestingAccountAminoType extends AminoMsg {
                 amount: string;
             }[];
         }[];
+        merge: boolean;
+    };
+}
+export interface MsgClawbackAminoType extends AminoMsg {
+    type: "cosmos-sdk/MsgClawback";
+    value: {
+        funder_address: string;
+        address: string;
+        dest_address: string;
     };
 }
 export declare const AminoConverter: {
@@ -45,14 +50,14 @@ export declare const AminoConverter: {
         toAmino: ({ fromAddress, toAddress, amount, endTime, delayed }: MsgCreateVestingAccount) => MsgCreateVestingAccountAminoType["value"];
         fromAmino: ({ from_address, to_address, amount, end_time, delayed }: MsgCreateVestingAccountAminoType["value"]) => MsgCreateVestingAccount;
     };
-    "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount": {
+    "/cosmos.vesting.v1beta1.MsgCreateClawbackVestingAccount": {
         aminoType: string;
-        toAmino: ({ fromAddress, toAddress, amount }: MsgCreatePermanentLockedAccount) => MsgCreatePermanentLockedAccountAminoType["value"];
-        fromAmino: ({ from_address, to_address, amount }: MsgCreatePermanentLockedAccountAminoType["value"]) => MsgCreatePermanentLockedAccount;
+        toAmino: ({ fromAddress, toAddress, startTime, lockupPeriods, vestingPeriods, merge }: MsgCreateClawbackVestingAccount) => MsgCreateClawbackVestingAccountAminoType["value"];
+        fromAmino: ({ from_address, to_address, start_time, lockup_periods, vesting_periods, merge }: MsgCreateClawbackVestingAccountAminoType["value"]) => MsgCreateClawbackVestingAccount;
     };
-    "/cosmos.vesting.v1beta1.MsgCreatePeriodicVestingAccount": {
+    "/cosmos.vesting.v1beta1.MsgClawback": {
         aminoType: string;
-        toAmino: ({ fromAddress, toAddress, startTime, vestingPeriods }: MsgCreatePeriodicVestingAccount) => MsgCreatePeriodicVestingAccountAminoType["value"];
-        fromAmino: ({ from_address, to_address, start_time, vesting_periods }: MsgCreatePeriodicVestingAccountAminoType["value"]) => MsgCreatePeriodicVestingAccount;
+        toAmino: ({ funderAddress, address, destAddress }: MsgClawback) => MsgClawbackAminoType["value"];
+        fromAmino: ({ funder_address, address, dest_address }: MsgClawbackAminoType["value"]) => MsgClawback;
     };
 };

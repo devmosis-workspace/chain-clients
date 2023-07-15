@@ -137,36 +137,6 @@ export interface QueryModuleVersionsResponse {
 export interface QueryModuleVersionsResponseSDKType {
     module_versions: ModuleVersionSDKType[];
 }
-/**
- * QueryAuthorityRequest is the request type for Query/Authority
- *
- * Since: cosmos-sdk 0.46
- */
-export interface QueryAuthorityRequest {
-}
-/**
- * QueryAuthorityRequest is the request type for Query/Authority
- *
- * Since: cosmos-sdk 0.46
- */
-export interface QueryAuthorityRequestSDKType {
-}
-/**
- * QueryAuthorityResponse is the response type for Query/Authority
- *
- * Since: cosmos-sdk 0.46
- */
-export interface QueryAuthorityResponse {
-    address: string;
-}
-/**
- * QueryAuthorityResponse is the response type for Query/Authority
- *
- * Since: cosmos-sdk 0.46
- */
-export interface QueryAuthorityResponseSDKType {
-    address: string;
-}
 export declare const QueryCurrentPlanRequest: {
     encode(_: QueryCurrentPlanRequest, writer?: _m0.Writer): _m0.Writer;
     fromJSON(_: any): QueryCurrentPlanRequest;
@@ -206,14 +176,4 @@ export declare const QueryModuleVersionsResponse: {
     encode(message: QueryModuleVersionsResponse, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): QueryModuleVersionsResponse;
     fromPartial(object: Partial<QueryModuleVersionsResponse>): QueryModuleVersionsResponse;
-};
-export declare const QueryAuthorityRequest: {
-    encode(_: QueryAuthorityRequest, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(_: any): QueryAuthorityRequest;
-    fromPartial(_: Partial<QueryAuthorityRequest>): QueryAuthorityRequest;
-};
-export declare const QueryAuthorityResponse: {
-    encode(message: QueryAuthorityResponse, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(object: any): QueryAuthorityResponse;
-    fromPartial(object: Partial<QueryAuthorityResponse>): QueryAuthorityResponse;
 };

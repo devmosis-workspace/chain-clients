@@ -53,8 +53,6 @@ export interface MsgSetDenomMetadataAminoType extends AminoMsg {
       display: string;
       name: string;
       symbol: string;
-      uri: string;
-      uri_hash: string;
     };
   };
 }
@@ -197,9 +195,7 @@ export const AminoConverter = {
           base: metadata.base,
           display: metadata.display,
           name: metadata.name,
-          symbol: metadata.symbol,
-          uri: metadata.uri,
-          uri_hash: metadata.uriHash
+          symbol: metadata.symbol
         }
       };
     },
@@ -219,9 +215,7 @@ export const AminoConverter = {
           base: metadata.base,
           display: metadata.display,
           name: metadata.name,
-          symbol: metadata.symbol,
-          uri: metadata.uri,
-          uriHash: metadata.uri_hash
+          symbol: metadata.symbol
         }
       };
     }

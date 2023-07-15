@@ -91,54 +91,6 @@ export interface SignDocSDKType {
     chain_id: string;
     account_number: Long;
 }
-/**
- * SignDocDirectAux is the type used for generating sign bytes for
- * SIGN_MODE_DIRECT_AUX.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface SignDocDirectAux {
-    /**
-     * body_bytes is protobuf serialization of a TxBody that matches the
-     * representation in TxRaw.
-     */
-    bodyBytes: Uint8Array;
-    /** public_key is the public key of the signing account. */
-    publicKey?: Any;
-    /**
-     * chain_id is the identifier of the chain this transaction targets.
-     * It prevents signed transactions from being used on another chain by an
-     * attacker.
-     */
-    chainId: string;
-    /** account_number is the account number of the account in state. */
-    accountNumber: Long;
-    /** sequence is the sequence number of the signing account. */
-    sequence: Long;
-    /**
-     * Tip is the optional tip used for transactions fees paid in another denom.
-     * It should be left empty if the signer is not the tipper for this
-     * transaction.
-     *
-     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-     * `TipDecorator` in its posthandler.
-     */
-    tip?: Tip;
-}
-/**
- * SignDocDirectAux is the type used for generating sign bytes for
- * SIGN_MODE_DIRECT_AUX.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface SignDocDirectAuxSDKType {
-    body_bytes: Uint8Array;
-    public_key?: AnySDKType;
-    chain_id: string;
-    account_number: Long;
-    sequence: Long;
-    tip?: TipSDKType;
-}
 /** TxBody is the body of a transaction that all signers sign over. */
 export interface TxBody {
     /**
@@ -202,15 +154,6 @@ export interface AuthInfo {
      * of the signers. This can be estimated via simulation.
      */
     fee?: Fee;
-    /**
-     * Tip is the optional tip used for transactions fees paid in another denom.
-     *
-     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-     * `TipDecorator` in its posthandler.
-     *
-     * Since: cosmos-sdk 0.46
-     */
-    tip?: Tip;
 }
 /**
  * AuthInfo describes the fee and signer modes that are used to sign a
@@ -219,7 +162,6 @@ export interface AuthInfo {
 export interface AuthInfoSDKType {
     signer_infos: SignerInfoSDKType[];
     fee?: FeeSDKType;
-    tip?: TipSDKType;
 }
 /**
  * SignerInfo describes the public key and signing mode of a single top-level
@@ -334,66 +276,6 @@ export interface FeeSDKType {
     payer: string;
     granter: string;
 }
-/**
- * Tip is the tip used for meta-transactions.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface Tip {
-    /** amount is the amount of the tip */
-    amount: Coin[];
-    /** tipper is the address of the account paying for the tip */
-    tipper: string;
-}
-/**
- * Tip is the tip used for meta-transactions.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface TipSDKType {
-    amount: CoinSDKType[];
-    tipper: string;
-}
-/**
- * AuxSignerData is the intermediary format that an auxiliary signer (e.g. a
- * tipper) builds and sends to the fee payer (who will build and broadcast the
- * actual tx). AuxSignerData is not a valid tx in itself, and will be rejected
- * by the node if sent directly as-is.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface AuxSignerData {
-    /**
-     * address is the bech32-encoded address of the auxiliary signer. If using
-     * AuxSignerData across different chains, the bech32 prefix of the target
-     * chain (where the final transaction is broadcasted) should be used.
-     */
-    address: string;
-    /**
-     * sign_doc is the SIGN_MODE_DIRECT_AUX sign doc that the auxiliary signer
-     * signs. Note: we use the same sign doc even if we're signing with
-     * LEGACY_AMINO_JSON.
-     */
-    signDoc?: SignDocDirectAux;
-    /** mode is the signing mode of the single signer. */
-    mode: SignMode;
-    /** sig is the signature of the sign doc. */
-    sig: Uint8Array;
-}
-/**
- * AuxSignerData is the intermediary format that an auxiliary signer (e.g. a
- * tipper) builds and sends to the fee payer (who will build and broadcast the
- * actual tx). AuxSignerData is not a valid tx in itself, and will be rejected
- * by the node if sent directly as-is.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface AuxSignerDataSDKType {
-    address: string;
-    sign_doc?: SignDocDirectAuxSDKType;
-    mode: SignMode;
-    sig: Uint8Array;
-}
 export declare const Tx: {
     encode(message: Tx, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): Tx;
@@ -408,11 +290,6 @@ export declare const SignDoc: {
     encode(message: SignDoc, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): SignDoc;
     fromPartial(object: Partial<SignDoc>): SignDoc;
-};
-export declare const SignDocDirectAux: {
-    encode(message: SignDocDirectAux, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(object: any): SignDocDirectAux;
-    fromPartial(object: Partial<SignDocDirectAux>): SignDocDirectAux;
 };
 export declare const TxBody: {
     encode(message: TxBody, writer?: _m0.Writer): _m0.Writer;
@@ -448,14 +325,4 @@ export declare const Fee: {
     encode(message: Fee, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): Fee;
     fromPartial(object: Partial<Fee>): Fee;
-};
-export declare const Tip: {
-    encode(message: Tip, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(object: any): Tip;
-    fromPartial(object: Partial<Tip>): Tip;
-};
-export declare const AuxSignerData: {
-    encode(message: AuxSignerData, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(object: any): AuxSignerData;
-    fromPartial(object: Partial<AuxSignerData>): AuxSignerData;
 };

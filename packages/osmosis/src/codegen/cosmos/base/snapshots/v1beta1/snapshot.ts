@@ -25,57 +25,31 @@ export interface Metadata {
 export interface MetadataSDKType {
   chunk_hashes: Uint8Array[];
 }
-/**
- * SnapshotItem is an item contained in a rootmulti.Store snapshot.
- * 
- * Since: cosmos-sdk 0.46
- */
+/** SnapshotItem is an item contained in a rootmulti.Store snapshot. */
 export interface SnapshotItem {
   store?: SnapshotStoreItem;
   iavl?: SnapshotIAVLItem;
   extension?: SnapshotExtensionMeta;
   extensionPayload?: SnapshotExtensionPayload;
-  /** @deprecated */
-  kv?: SnapshotKVItem;
-  /** @deprecated */
-  schema?: SnapshotSchema;
+  appVersion?: SnapshotAppVersion;
 }
-/**
- * SnapshotItem is an item contained in a rootmulti.Store snapshot.
- * 
- * Since: cosmos-sdk 0.46
- */
+/** SnapshotItem is an item contained in a rootmulti.Store snapshot. */
 export interface SnapshotItemSDKType {
   store?: SnapshotStoreItemSDKType;
   iavl?: SnapshotIAVLItemSDKType;
   extension?: SnapshotExtensionMetaSDKType;
   extension_payload?: SnapshotExtensionPayloadSDKType;
-  /** @deprecated */
-  kv?: SnapshotKVItemSDKType;
-  /** @deprecated */
-  schema?: SnapshotSchemaSDKType;
+  app_version?: SnapshotAppVersionSDKType;
 }
-/**
- * SnapshotStoreItem contains metadata about a snapshotted store.
- * 
- * Since: cosmos-sdk 0.46
- */
+/** SnapshotStoreItem contains metadata about a snapshotted store. */
 export interface SnapshotStoreItem {
   name: string;
 }
-/**
- * SnapshotStoreItem contains metadata about a snapshotted store.
- * 
- * Since: cosmos-sdk 0.46
- */
+/** SnapshotStoreItem contains metadata about a snapshotted store. */
 export interface SnapshotStoreItemSDKType {
   name: string;
 }
-/**
- * SnapshotIAVLItem is an exported IAVL node.
- * 
- * Since: cosmos-sdk 0.46
- */
+/** SnapshotIAVLItem is an exported IAVL node. */
 export interface SnapshotIAVLItem {
   key: Uint8Array;
   value: Uint8Array;
@@ -84,92 +58,38 @@ export interface SnapshotIAVLItem {
   /** height is depth of the tree. */
   height: number;
 }
-/**
- * SnapshotIAVLItem is an exported IAVL node.
- * 
- * Since: cosmos-sdk 0.46
- */
+/** SnapshotIAVLItem is an exported IAVL node. */
 export interface SnapshotIAVLItemSDKType {
   key: Uint8Array;
   value: Uint8Array;
   version: Long;
   height: number;
 }
-/**
- * SnapshotExtensionMeta contains metadata about an external snapshotter.
- * 
- * Since: cosmos-sdk 0.46
- */
+/** SnapshotExtensionMeta contains metadata about an external snapshotter. */
 export interface SnapshotExtensionMeta {
   name: string;
   format: number;
 }
-/**
- * SnapshotExtensionMeta contains metadata about an external snapshotter.
- * 
- * Since: cosmos-sdk 0.46
- */
+/** SnapshotExtensionMeta contains metadata about an external snapshotter. */
 export interface SnapshotExtensionMetaSDKType {
   name: string;
   format: number;
 }
-/**
- * SnapshotExtensionPayload contains payloads of an external snapshotter.
- * 
- * Since: cosmos-sdk 0.46
- */
+/** SnapshotExtensionPayload contains payloads of an external snapshotter. */
 export interface SnapshotExtensionPayload {
   payload: Uint8Array;
 }
-/**
- * SnapshotExtensionPayload contains payloads of an external snapshotter.
- * 
- * Since: cosmos-sdk 0.46
- */
+/** SnapshotExtensionPayload contains payloads of an external snapshotter. */
 export interface SnapshotExtensionPayloadSDKType {
   payload: Uint8Array;
 }
-/**
- * SnapshotKVItem is an exported Key/Value Pair
- * 
- * Since: cosmos-sdk 0.46
- * Deprecated: This message was part of store/v2alpha1 which has been deleted from v0.47.
- */
-/** @deprecated */
-export interface SnapshotKVItem {
-  key: Uint8Array;
-  value: Uint8Array;
+/** SnapshotAppVersion contains the app version. */
+export interface SnapshotAppVersion {
+  version: Long;
 }
-/**
- * SnapshotKVItem is an exported Key/Value Pair
- * 
- * Since: cosmos-sdk 0.46
- * Deprecated: This message was part of store/v2alpha1 which has been deleted from v0.47.
- */
-/** @deprecated */
-export interface SnapshotKVItemSDKType {
-  key: Uint8Array;
-  value: Uint8Array;
-}
-/**
- * SnapshotSchema is an exported schema of smt store
- * 
- * Since: cosmos-sdk 0.46
- * Deprecated: This message was part of store/v2alpha1 which has been deleted from v0.47.
- */
-/** @deprecated */
-export interface SnapshotSchema {
-  keys: Uint8Array[];
-}
-/**
- * SnapshotSchema is an exported schema of smt store
- * 
- * Since: cosmos-sdk 0.46
- * Deprecated: This message was part of store/v2alpha1 which has been deleted from v0.47.
- */
-/** @deprecated */
-export interface SnapshotSchemaSDKType {
-  keys: Uint8Array[];
+/** SnapshotAppVersion contains the app version. */
+export interface SnapshotAppVersionSDKType {
+  version: Long;
 }
 function createBaseSnapshot(): Snapshot {
   return {
@@ -247,8 +167,7 @@ function createBaseSnapshotItem(): SnapshotItem {
     iavl: undefined,
     extension: undefined,
     extensionPayload: undefined,
-    kv: undefined,
-    schema: undefined
+    appVersion: undefined
   };
 }
 export const SnapshotItem = {
@@ -265,11 +184,8 @@ export const SnapshotItem = {
     if (message.extensionPayload !== undefined) {
       SnapshotExtensionPayload.encode(message.extensionPayload, writer.uint32(34).fork()).ldelim();
     }
-    if (message.kv !== undefined) {
-      SnapshotKVItem.encode(message.kv, writer.uint32(42).fork()).ldelim();
-    }
-    if (message.schema !== undefined) {
-      SnapshotSchema.encode(message.schema, writer.uint32(50).fork()).ldelim();
+    if (message.appVersion !== undefined) {
+      SnapshotAppVersion.encode(message.appVersion, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -279,8 +195,7 @@ export const SnapshotItem = {
       iavl: isSet(object.iavl) ? SnapshotIAVLItem.fromJSON(object.iavl) : undefined,
       extension: isSet(object.extension) ? SnapshotExtensionMeta.fromJSON(object.extension) : undefined,
       extensionPayload: isSet(object.extensionPayload) ? SnapshotExtensionPayload.fromJSON(object.extensionPayload) : undefined,
-      kv: isSet(object.kv) ? SnapshotKVItem.fromJSON(object.kv) : undefined,
-      schema: isSet(object.schema) ? SnapshotSchema.fromJSON(object.schema) : undefined
+      appVersion: isSet(object.appVersion) ? SnapshotAppVersion.fromJSON(object.appVersion) : undefined
     };
   },
   fromPartial(object: Partial<SnapshotItem>): SnapshotItem {
@@ -289,8 +204,7 @@ export const SnapshotItem = {
     message.iavl = object.iavl !== undefined && object.iavl !== null ? SnapshotIAVLItem.fromPartial(object.iavl) : undefined;
     message.extension = object.extension !== undefined && object.extension !== null ? SnapshotExtensionMeta.fromPartial(object.extension) : undefined;
     message.extensionPayload = object.extensionPayload !== undefined && object.extensionPayload !== null ? SnapshotExtensionPayload.fromPartial(object.extensionPayload) : undefined;
-    message.kv = object.kv !== undefined && object.kv !== null ? SnapshotKVItem.fromPartial(object.kv) : undefined;
-    message.schema = object.schema !== undefined && object.schema !== null ? SnapshotSchema.fromPartial(object.schema) : undefined;
+    message.appVersion = object.appVersion !== undefined && object.appVersion !== null ? SnapshotAppVersion.fromPartial(object.appVersion) : undefined;
     return message;
   }
 };
@@ -410,55 +324,26 @@ export const SnapshotExtensionPayload = {
     return message;
   }
 };
-function createBaseSnapshotKVItem(): SnapshotKVItem {
+function createBaseSnapshotAppVersion(): SnapshotAppVersion {
   return {
-    key: new Uint8Array(),
-    value: new Uint8Array()
+    version: Long.UZERO
   };
 }
-export const SnapshotKVItem = {
-  encode(message: SnapshotKVItem, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.key.length !== 0) {
-      writer.uint32(10).bytes(message.key);
-    }
-    if (message.value.length !== 0) {
-      writer.uint32(18).bytes(message.value);
+export const SnapshotAppVersion = {
+  encode(message: SnapshotAppVersion, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.version.isZero()) {
+      writer.uint32(8).uint64(message.version);
     }
     return writer;
   },
-  fromJSON(object: any): SnapshotKVItem {
+  fromJSON(object: any): SnapshotAppVersion {
     return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array()
+      version: isSet(object.version) ? Long.fromValue(object.version) : Long.UZERO
     };
   },
-  fromPartial(object: Partial<SnapshotKVItem>): SnapshotKVItem {
-    const message = createBaseSnapshotKVItem();
-    message.key = object.key ?? new Uint8Array();
-    message.value = object.value ?? new Uint8Array();
-    return message;
-  }
-};
-function createBaseSnapshotSchema(): SnapshotSchema {
-  return {
-    keys: []
-  };
-}
-export const SnapshotSchema = {
-  encode(message: SnapshotSchema, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.keys) {
-      writer.uint32(10).bytes(v!);
-    }
-    return writer;
-  },
-  fromJSON(object: any): SnapshotSchema {
-    return {
-      keys: Array.isArray(object?.keys) ? object.keys.map((e: any) => bytesFromBase64(e)) : []
-    };
-  },
-  fromPartial(object: Partial<SnapshotSchema>): SnapshotSchema {
-    const message = createBaseSnapshotSchema();
-    message.keys = object.keys?.map(e => e) || [];
+  fromPartial(object: Partial<SnapshotAppVersion>): SnapshotAppVersion {
+    const message = createBaseSnapshotAppVersion();
+    message.version = object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.UZERO;
     return message;
   }
 };
