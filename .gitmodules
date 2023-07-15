@@ -64,3 +64,12 @@
 [submodule "packages/agoric/tendermint"]
 	path = packages/agoric/tendermint
 	url = https://github.com/agoric-labs/tendermint
+[submodule "packages/akash/node"]
+	path = packages/akash/node
+	url = https://github.com/akash-network/node
+[submodule "packages/akash/cosmos-sdk"]
+	path = packages/akash/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/akash/tendermint"]
+	path = packages/akash/tendermint
+	url = https://github.com/akash-network/tendermint
