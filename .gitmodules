@@ -163,3 +163,9 @@
 [submodule "packages/kyve/cosmos-proto"]
 	path = packages/kyve/cosmos-proto
 	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/likecoin/likecoin-chain"]
+	path = packages/likecoin/likecoin-chain
+	url = https://github.com/likecoin/likecoin-chain
+[submodule "packages/likecoin/cosmos-sdk"]
+	path = packages/likecoin/cosmos-sdk
+	url = https://github.com/likecoin/cosmos-sdk
