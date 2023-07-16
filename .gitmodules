@@ -169,3 +169,12 @@
 [submodule "packages/likecoin/cosmos-sdk"]
 	path = packages/likecoin/cosmos-sdk
 	url = https://github.com/likecoin/cosmos-sdk
+[submodule "packages/mars/hub"]
+	path = packages/mars/hub
+	url = https://github.com/mars-protocol/hub
+[submodule "packages/mars/cosmos-sdk"]
+	path = packages/mars/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/mars/cosmos-proto"]
+	path = packages/mars/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
