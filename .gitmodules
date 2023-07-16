@@ -193,3 +193,12 @@
 [submodule "packages/neutron/mev-cometbft"]
 	path = packages/neutron/mev-cometbft
 	url = https://github.com/skip-mev/mev-cometbft
+[submodule "packages/noble/noble"]
+	path = packages/noble/noble
+	url = https://github.com/strangelove-ventures/noble
+[submodule "packages/noble/cosmos-sdk"]
+	path = packages/noble/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/noble/cometbft"]
+	path = packages/noble/cometbft
+	url = https://github.com/cometbft/cometbft
