@@ -208,3 +208,9 @@
 [submodule "packages/omniflixhub/cosmos-sdk"]
 	path = packages/omniflixhub/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/persistence/cosmos-sdk"]
+	path = packages/persistence/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/persistence/persistence-sdk"]
+	path = packages/persistence/persistence-sdk
+	url = https://github.com/persistenceOne/persistence-sdk
