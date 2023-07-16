@@ -178,3 +178,18 @@
 [submodule "packages/mars/cosmos-proto"]
 	path = packages/mars/cosmos-proto
 	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/neutron/neutron"]
+	path = packages/neutron/neutron
+	url = https://github.com/neutron-org/neutron
+[submodule "packages/neutron/cosmos-sdk"]
+	path = packages/neutron/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/neutron/cosmos-proto"]
+	path = packages/neutron/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/neutron/ibc-go"]
+	path = packages/neutron/ibc-go
+	url = https://github.com/cosmos/ibc-go
+[submodule "packages/neutron/mev-cometbft"]
+	path = packages/neutron/mev-cometbft
+	url = https://github.com/skip-mev/mev-cometbft
