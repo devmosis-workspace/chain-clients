@@ -202,3 +202,9 @@
 [submodule "packages/noble/cometbft"]
 	path = packages/noble/cometbft
 	url = https://github.com/cometbft/cometbft
+[submodule "packages/omniflixhub/omniflixhub"]
+	path = packages/omniflixhub/omniflixhub
+	url = https://github.com/OmniFlix/omniflixhub
+[submodule "packages/omniflixhub/cosmos-sdk"]
+	path = packages/omniflixhub/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
