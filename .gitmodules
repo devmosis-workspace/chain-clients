@@ -232,3 +232,9 @@
 [submodule "packages/sommelier/tendermint"]
 	path = packages/sommelier/tendermint
 	url = https://github.com/informalsystems/tendermint
+[submodule "packages/starname/starnamed"]
+	path = packages/starname/starnamed
+	url = https://github.com/iov-one/starnamed
+[submodule "packages/starname/cosmos-sdk"]
+	path = packages/starname/cosmos-sdk
+	url = https://github.com/iov-one/cosmos-sdk
