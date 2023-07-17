@@ -238,3 +238,12 @@
 [submodule "packages/starname/cosmos-sdk"]
 	path = packages/starname/cosmos-sdk
 	url = https://github.com/iov-one/cosmos-sdk
+[submodule "packages/terra2/core"]
+	path = packages/terra2/core
+	url = https://github.com/terra-money/core
+[submodule "packages/terra2/cosmos-sdk"]
+	path = packages/terra2/cosmos-sdk
+	url = https://github.com/terra-money/cosmos-sdk
+[submodule "packages/terra2/cosmos-proto"]
+	path = packages/terra2/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
