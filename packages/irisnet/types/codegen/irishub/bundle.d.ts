@@ -5,16 +5,19 @@ import * as _3 from "../guardian/tx";
 import * as _4 from "../mint/genesis";
 import * as _5 from "../mint/mint";
 import * as _6 from "../mint/query";
-import * as _136 from "../guardian/query.rpc.Query";
-import * as _137 from "../mint/query.rpc.Query";
-import * as _138 from "../guardian/tx.rpc.msg";
+import * as _136 from "../guardian/query.lcd";
+import * as _137 from "../mint/query.lcd";
+import * as _138 from "../guardian/query.rpc.Query";
+import * as _139 from "../mint/query.rpc.Query";
+import * as _140 from "../guardian/tx.rpc.msg";
 export declare namespace irishub {
     const guardian: {
-        MsgClientImpl: typeof _138.MsgClientImpl;
-        QueryClientImpl: typeof _136.QueryClientImpl;
+        MsgClientImpl: typeof _140.MsgClientImpl;
+        QueryClientImpl: typeof _138.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             supers(request?: _2.QuerySupersRequest): Promise<_2.QuerySupersResponse>;
         };
+        LCDQueryClient: typeof _136.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -131,10 +134,11 @@ export declare namespace irishub {
         };
     };
     const mint: {
-        QueryClientImpl: typeof _137.QueryClientImpl;
+        QueryClientImpl: typeof _139.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _6.QueryParamsRequest): Promise<_6.QueryParamsResponse>;
         };
+        LCDQueryClient: typeof _137.LCDQueryClient;
         QueryParamsRequest: {
             encode(_: _6.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
             fromJSON(_: any): _6.QueryParamsRequest;
@@ -166,7 +170,7 @@ export declare namespace irishub {
             rpc: import("../helpers").Rpc;
         }) => Promise<{
             irishub: {
-                guardian: _138.MsgClientImpl;
+                guardian: _140.MsgClientImpl;
             };
             cosmos: {
                 authz: {
@@ -411,6 +415,70 @@ export declare namespace irishub {
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                         authority(request?: import("../cosmos/upgrade/v1beta1/query").QueryAuthorityRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryAuthorityResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            irishub: {
+                guardian: _136.LCDQueryClient;
+                mint: _137.LCDQueryClient;
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1: import("../cosmos/gov/v1/query.lcd").LCDQueryClient;
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                group: {
+                    v1: import("../cosmos/group/v1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                nft: {
+                    v1beta1: import("../cosmos/nft/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

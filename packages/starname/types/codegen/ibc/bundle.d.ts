@@ -19,25 +19,30 @@ import * as _119 from "./core/types/v1/genesis";
 import * as _120 from "./lightclients/localhost/v1/localhost";
 import * as _121 from "./lightclients/solomachine/v1/solomachine";
 import * as _122 from "./lightclients/tendermint/v1/tendermint";
-import * as _199 from "./applications/transfer/v1/query.rpc.Query";
-import * as _200 from "./core/channel/v1/query.rpc.Query";
-import * as _201 from "./core/client/v1/query.rpc.Query";
-import * as _202 from "./core/connection/v1/query.rpc.Query";
-import * as _203 from "./applications/transfer/v1/tx.rpc.msg";
-import * as _204 from "./core/channel/v1/tx.rpc.msg";
-import * as _205 from "./core/client/v1/tx.rpc.msg";
-import * as _206 from "./core/connection/v1/tx.rpc.msg";
+import * as _217 from "./applications/transfer/v1/query.lcd";
+import * as _218 from "./core/channel/v1/query.lcd";
+import * as _219 from "./core/client/v1/query.lcd";
+import * as _220 from "./core/connection/v1/query.lcd";
+import * as _221 from "./applications/transfer/v1/query.rpc.Query";
+import * as _222 from "./core/channel/v1/query.rpc.Query";
+import * as _223 from "./core/client/v1/query.rpc.Query";
+import * as _224 from "./core/connection/v1/query.rpc.Query";
+import * as _225 from "./applications/transfer/v1/tx.rpc.msg";
+import * as _226 from "./core/channel/v1/tx.rpc.msg";
+import * as _227 from "./core/client/v1/tx.rpc.msg";
+import * as _228 from "./core/connection/v1/tx.rpc.msg";
 export declare namespace ibc {
     namespace applications {
         namespace transfer {
             const v1: {
-                MsgClientImpl: typeof _203.MsgClientImpl;
-                QueryClientImpl: typeof _199.QueryClientImpl;
+                MsgClientImpl: typeof _225.MsgClientImpl;
+                QueryClientImpl: typeof _221.QueryClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     denomTrace(request: _103.QueryDenomTraceRequest): Promise<_103.QueryDenomTraceResponse>;
                     denomTraces(request?: _103.QueryDenomTracesRequest): Promise<_103.QueryDenomTracesResponse>;
                     params(request?: _103.QueryParamsRequest): Promise<_103.QueryParamsResponse>;
                 };
+                LCDQueryClient: typeof _217.LCDQueryClient;
                 registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                 load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                 MessageComposer: {
@@ -161,8 +166,8 @@ export declare namespace ibc {
     namespace core {
         namespace channel {
             const v1: {
-                MsgClientImpl: typeof _204.MsgClientImpl;
-                QueryClientImpl: typeof _200.QueryClientImpl;
+                MsgClientImpl: typeof _226.MsgClientImpl;
+                QueryClientImpl: typeof _222.QueryClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     channel(request: _108.QueryChannelRequest): Promise<_108.QueryChannelResponse>;
                     channels(request?: _108.QueryChannelsRequest): Promise<_108.QueryChannelsResponse>;
@@ -178,6 +183,7 @@ export declare namespace ibc {
                     unreceivedAcks(request: _108.QueryUnreceivedAcksRequest): Promise<_108.QueryUnreceivedAcksResponse>;
                     nextSequenceReceive(request: _108.QueryNextSequenceReceiveRequest): Promise<_108.QueryNextSequenceReceiveResponse>;
                 };
+                LCDQueryClient: typeof _218.LCDQueryClient;
                 registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                 load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                 MessageComposer: {
@@ -912,8 +918,8 @@ export declare namespace ibc {
         }
         namespace client {
             const v1: {
-                MsgClientImpl: typeof _205.MsgClientImpl;
-                QueryClientImpl: typeof _201.QueryClientImpl;
+                MsgClientImpl: typeof _227.MsgClientImpl;
+                QueryClientImpl: typeof _223.QueryClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     clientState(request: _112.QueryClientStateRequest): Promise<_112.QueryClientStateResponse>;
                     clientStates(request?: _112.QueryClientStatesRequest): Promise<_112.QueryClientStatesResponse>;
@@ -921,6 +927,7 @@ export declare namespace ibc {
                     consensusStates(request: _112.QueryConsensusStatesRequest): Promise<_112.QueryConsensusStatesResponse>;
                     clientParams(request?: _112.QueryClientParamsRequest): Promise<_112.QueryClientParamsResponse>;
                 };
+                LCDQueryClient: typeof _219.LCDQueryClient;
                 registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                 load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                 MessageComposer: {
@@ -1256,8 +1263,8 @@ export declare namespace ibc {
         }
         namespace connection {
             const v1: {
-                MsgClientImpl: typeof _206.MsgClientImpl;
-                QueryClientImpl: typeof _202.QueryClientImpl;
+                MsgClientImpl: typeof _228.MsgClientImpl;
+                QueryClientImpl: typeof _224.QueryClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     connection(request: _117.QueryConnectionRequest): Promise<_117.QueryConnectionResponse>;
                     connections(request?: _117.QueryConnectionsRequest): Promise<_117.QueryConnectionsResponse>;
@@ -1265,6 +1272,7 @@ export declare namespace ibc {
                     connectionClientState(request: _117.QueryConnectionClientStateRequest): Promise<_117.QueryConnectionClientStateResponse>;
                     connectionConsensusState(request: _117.QueryConnectionConsensusStateRequest): Promise<_117.QueryConnectionConsensusStateResponse>;
                 };
+                LCDQueryClient: typeof _220.LCDQueryClient;
                 registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                 load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                 MessageComposer: {
@@ -1795,18 +1803,18 @@ export declare namespace ibc {
             ibc: {
                 applications: {
                     transfer: {
-                        v1: _203.MsgClientImpl;
+                        v1: _225.MsgClientImpl;
                     };
                 };
                 core: {
                     channel: {
-                        v1: _204.MsgClientImpl;
+                        v1: _226.MsgClientImpl;
                     };
                     client: {
-                        v1: _205.MsgClientImpl;
+                        v1: _227.MsgClientImpl;
                     };
                     connection: {
-                        v1: _206.MsgClientImpl;
+                        v1: _228.MsgClientImpl;
                     };
                 };
             };
@@ -1991,6 +1999,74 @@ export declare namespace ibc {
                             connectionClientState(request: _117.QueryConnectionClientStateRequest): Promise<_117.QueryConnectionClientStateResponse>;
                             connectionConsensusState(request: _117.QueryConnectionConsensusStateRequest): Promise<_117.QueryConnectionConsensusStateResponse>;
                         };
+                    };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
+                };
+            };
+            ibc: {
+                applications: {
+                    transfer: {
+                        v1: _217.LCDQueryClient;
+                    };
+                };
+                core: {
+                    channel: {
+                        v1: _218.LCDQueryClient;
+                    };
+                    client: {
+                        v1: _219.LCDQueryClient;
+                    };
+                    connection: {
+                        v1: _220.LCDQueryClient;
                     };
                 };
             };

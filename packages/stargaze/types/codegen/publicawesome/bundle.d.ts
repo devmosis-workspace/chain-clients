@@ -15,22 +15,27 @@ import * as _17 from "../stargaze/globalfee/v1/globalfee";
 import * as _18 from "../stargaze/globalfee/v1/proposal";
 import * as _19 from "../stargaze/globalfee/v1/query";
 import * as _20 from "../stargaze/globalfee/v1/tx";
-import * as _135 from "../stargaze/alloc/v1beta1/query.rpc.Query";
-import * as _136 from "../stargaze/claim/v1beta1/query.rpc.Query";
-import * as _137 from "../stargaze/cron/v1/query.rpc.Query";
-import * as _138 from "../stargaze/globalfee/v1/query.rpc.Query";
-import * as _139 from "../stargaze/alloc/v1beta1/tx.rpc.msg";
-import * as _140 from "../stargaze/claim/v1beta1/tx.rpc.msg";
-import * as _141 from "../stargaze/globalfee/v1/tx.rpc.msg";
+import * as _136 from "../stargaze/alloc/v1beta1/query.lcd";
+import * as _137 from "../stargaze/claim/v1beta1/query.lcd";
+import * as _138 from "../stargaze/cron/v1/query.lcd";
+import * as _139 from "../stargaze/globalfee/v1/query.lcd";
+import * as _140 from "../stargaze/alloc/v1beta1/query.rpc.Query";
+import * as _141 from "../stargaze/claim/v1beta1/query.rpc.Query";
+import * as _142 from "../stargaze/cron/v1/query.rpc.Query";
+import * as _143 from "../stargaze/globalfee/v1/query.rpc.Query";
+import * as _144 from "../stargaze/alloc/v1beta1/tx.rpc.msg";
+import * as _145 from "../stargaze/claim/v1beta1/tx.rpc.msg";
+import * as _146 from "../stargaze/globalfee/v1/tx.rpc.msg";
 export declare namespace publicawesome {
     namespace stargaze {
         namespace alloc {
             const v1beta1: {
-                MsgClientImpl: typeof _139.MsgClientImpl;
-                QueryClientImpl: typeof _135.QueryClientImpl;
+                MsgClientImpl: typeof _144.MsgClientImpl;
+                QueryClientImpl: typeof _140.QueryClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     params(request?: _6.QueryParamsRequest): Promise<_6.QueryParamsResponse>;
                 };
+                LCDQueryClient: typeof _136.LCDQueryClient;
                 registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                 load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                 MessageComposer: {
@@ -173,8 +178,8 @@ export declare namespace publicawesome {
         }
         namespace claim {
             const v1beta1: {
-                MsgClientImpl: typeof _140.MsgClientImpl;
-                QueryClientImpl: typeof _136.QueryClientImpl;
+                MsgClientImpl: typeof _145.MsgClientImpl;
+                QueryClientImpl: typeof _141.QueryClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     moduleAccountBalance(request?: _11.QueryModuleAccountBalanceRequest): Promise<_11.QueryModuleAccountBalanceResponse>;
                     params(request?: _11.QueryParamsRequest): Promise<_11.QueryParamsResponse>;
@@ -182,6 +187,7 @@ export declare namespace publicawesome {
                     claimableForAction(request: _11.QueryClaimableForActionRequest): Promise<_11.QueryClaimableForActionResponse>;
                     totalClaimable(request: _11.QueryTotalClaimableRequest): Promise<_11.QueryTotalClaimableResponse>;
                 };
+                LCDQueryClient: typeof _137.LCDQueryClient;
                 registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                 load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                 MessageComposer: {
@@ -348,10 +354,11 @@ export declare namespace publicawesome {
         }
         namespace cron {
             const v1: {
-                QueryClientImpl: typeof _137.QueryClientImpl;
+                QueryClientImpl: typeof _142.QueryClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     listPrivileged(request?: _15.QueryListPrivilegedRequest): Promise<_15.QueryListPrivilegedResponse>;
                 };
+                LCDQueryClient: typeof _138.LCDQueryClient;
                 QueryListPrivilegedRequest: {
                     encode(_: _15.QueryListPrivilegedRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                     fromJSON(_: any): _15.QueryListPrivilegedRequest;
@@ -381,14 +388,15 @@ export declare namespace publicawesome {
         }
         namespace globalfee {
             const v1: {
-                MsgClientImpl: typeof _141.MsgClientImpl;
-                QueryClientImpl: typeof _138.QueryClientImpl;
+                MsgClientImpl: typeof _146.MsgClientImpl;
+                QueryClientImpl: typeof _143.QueryClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     codeAuthorization(request: _19.QueryCodeAuthorizationRequest): Promise<_19.QueryCodeAuthorizationResponse>;
                     contractAuthorization(request: _19.QueryContractAuthorizationRequest): Promise<_19.QueryContractAuthorizationResponse>;
                     params(request?: _19.QueryParamsRequest): Promise<_19.QueryParamsResponse>;
                     authorizations(request?: _19.QueryAuthorizationsRequest): Promise<_19.QueryAuthorizationsResponse>;
                 };
+                LCDQueryClient: typeof _139.LCDQueryClient;
                 registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                 load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                 MessageComposer: {
@@ -653,13 +661,13 @@ export declare namespace publicawesome {
             publicawesome: {
                 stargaze: {
                     alloc: {
-                        v1beta1: _139.MsgClientImpl;
+                        v1beta1: _144.MsgClientImpl;
                     };
                     claim: {
-                        v1beta1: _140.MsgClientImpl;
+                        v1beta1: _145.MsgClientImpl;
                     };
                     globalfee: {
-                        v1: _141.MsgClientImpl;
+                        v1: _146.MsgClientImpl;
                     };
                 };
             };
@@ -866,6 +874,75 @@ export declare namespace publicawesome {
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            publicawesome: {
+                stargaze: {
+                    alloc: {
+                        v1beta1: _136.LCDQueryClient;
+                    };
+                    claim: {
+                        v1beta1: _137.LCDQueryClient;
+                    };
+                    cron: {
+                        v1: _138.LCDQueryClient;
+                    };
+                    globalfee: {
+                        v1: _139.LCDQueryClient;
+                    };
+                };
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

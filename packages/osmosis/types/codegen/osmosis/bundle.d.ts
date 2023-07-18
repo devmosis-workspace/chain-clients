@@ -79,36 +79,54 @@ import * as _79 from "./txfees/v1beta1/query";
 import * as _80 from "./valset-pref/v1beta1/query";
 import * as _81 from "./valset-pref/v1beta1/state";
 import * as _82 from "./valset-pref/v1beta1/tx";
-import * as _208 from "./concentrated-liquidity/query.rpc.Query";
-import * as _209 from "./cosmwasmpool/v1beta1/query.rpc.Query";
-import * as _210 from "./downtime-detector/v1beta1/query.rpc.Query";
-import * as _211 from "./epochs/query.rpc.Query";
-import * as _212 from "./gamm/v1beta1/query.rpc.Query";
-import * as _213 from "./gamm/v2/query.rpc.Query";
-import * as _214 from "./ibc-rate-limit/v1beta1/query.rpc.Query";
-import * as _215 from "./incentives/query.rpc.Query";
-import * as _216 from "./lockup/query.rpc.Query";
-import * as _217 from "./mint/v1beta1/query.rpc.Query";
-import * as _218 from "./pool-incentives/v1beta1/query.rpc.Query";
-import * as _219 from "./poolmanager/v1beta1/query.rpc.Query";
-import * as _220 from "./protorev/v1beta1/query.rpc.Query";
-import * as _221 from "./superfluid/query.rpc.Query";
-import * as _222 from "./tokenfactory/v1beta1/query.rpc.Query";
-import * as _223 from "./twap/v1beta1/query.rpc.Query";
-import * as _224 from "./txfees/v1beta1/query.rpc.Query";
-import * as _225 from "./valset-pref/v1beta1/query.rpc.Query";
-import * as _226 from "./concentrated-liquidity/pool-model/concentrated/tx.rpc.msg";
-import * as _227 from "./concentrated-liquidity/tx.rpc.msg";
-import * as _228 from "./gamm/pool-models/balancer/tx/tx.rpc.msg";
-import * as _229 from "./gamm/pool-models/stableswap/tx.rpc.msg";
-import * as _230 from "./gamm/v1beta1/tx.rpc.msg";
-import * as _231 from "./incentives/tx.rpc.msg";
-import * as _232 from "./lockup/tx.rpc.msg";
-import * as _233 from "./poolmanager/v1beta1/tx.rpc.msg";
-import * as _234 from "./protorev/v1beta1/tx.rpc.msg";
-import * as _235 from "./superfluid/tx.rpc.msg";
-import * as _236 from "./tokenfactory/v1beta1/tx.rpc.msg";
-import * as _237 from "./valset-pref/v1beta1/tx.rpc.msg";
+import * as _208 from "./concentrated-liquidity/query.lcd";
+import * as _209 from "./cosmwasmpool/v1beta1/query.lcd";
+import * as _210 from "./downtime-detector/v1beta1/query.lcd";
+import * as _211 from "./epochs/query.lcd";
+import * as _212 from "./gamm/v1beta1/query.lcd";
+import * as _213 from "./gamm/v2/query.lcd";
+import * as _214 from "./ibc-rate-limit/v1beta1/query.lcd";
+import * as _215 from "./incentives/query.lcd";
+import * as _216 from "./lockup/query.lcd";
+import * as _217 from "./mint/v1beta1/query.lcd";
+import * as _218 from "./pool-incentives/v1beta1/query.lcd";
+import * as _219 from "./poolmanager/v1beta1/query.lcd";
+import * as _220 from "./protorev/v1beta1/query.lcd";
+import * as _221 from "./superfluid/query.lcd";
+import * as _222 from "./tokenfactory/v1beta1/query.lcd";
+import * as _223 from "./twap/v1beta1/query.lcd";
+import * as _224 from "./txfees/v1beta1/query.lcd";
+import * as _225 from "./valset-pref/v1beta1/query.lcd";
+import * as _226 from "./concentrated-liquidity/query.rpc.Query";
+import * as _227 from "./cosmwasmpool/v1beta1/query.rpc.Query";
+import * as _228 from "./downtime-detector/v1beta1/query.rpc.Query";
+import * as _229 from "./epochs/query.rpc.Query";
+import * as _230 from "./gamm/v1beta1/query.rpc.Query";
+import * as _231 from "./gamm/v2/query.rpc.Query";
+import * as _232 from "./ibc-rate-limit/v1beta1/query.rpc.Query";
+import * as _233 from "./incentives/query.rpc.Query";
+import * as _234 from "./lockup/query.rpc.Query";
+import * as _235 from "./mint/v1beta1/query.rpc.Query";
+import * as _236 from "./pool-incentives/v1beta1/query.rpc.Query";
+import * as _237 from "./poolmanager/v1beta1/query.rpc.Query";
+import * as _238 from "./protorev/v1beta1/query.rpc.Query";
+import * as _239 from "./superfluid/query.rpc.Query";
+import * as _240 from "./tokenfactory/v1beta1/query.rpc.Query";
+import * as _241 from "./twap/v1beta1/query.rpc.Query";
+import * as _242 from "./txfees/v1beta1/query.rpc.Query";
+import * as _243 from "./valset-pref/v1beta1/query.rpc.Query";
+import * as _244 from "./concentrated-liquidity/pool-model/concentrated/tx.rpc.msg";
+import * as _245 from "./concentrated-liquidity/tx.rpc.msg";
+import * as _246 from "./gamm/pool-models/balancer/tx/tx.rpc.msg";
+import * as _247 from "./gamm/pool-models/stableswap/tx.rpc.msg";
+import * as _248 from "./gamm/v1beta1/tx.rpc.msg";
+import * as _249 from "./incentives/tx.rpc.msg";
+import * as _250 from "./lockup/tx.rpc.msg";
+import * as _251 from "./poolmanager/v1beta1/tx.rpc.msg";
+import * as _252 from "./protorev/v1beta1/tx.rpc.msg";
+import * as _253 from "./superfluid/tx.rpc.msg";
+import * as _254 from "./tokenfactory/v1beta1/tx.rpc.msg";
+import * as _255 from "./valset-pref/v1beta1/tx.rpc.msg";
 export declare namespace osmosis {
     namespace accum {
         const v1beta1: {
@@ -133,7 +151,7 @@ export declare namespace osmosis {
         poolmodel: {
             concentrated: {
                 v1beta1: {
-                    MsgClientImpl: typeof _226.MsgClientImpl;
+                    MsgClientImpl: typeof _244.MsgClientImpl;
                     registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                     load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                     MessageComposer: {
@@ -185,8 +203,8 @@ export declare namespace osmosis {
             };
         };
         v1beta1: {
-            MsgClientImpl: typeof _227.MsgClientImpl;
-            QueryClientImpl: typeof _208.QueryClientImpl;
+            MsgClientImpl: typeof _245.MsgClientImpl;
+            QueryClientImpl: typeof _226.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 pools(request?: import("./concentrated-liquidity/query").PoolsRequest): Promise<import("./concentrated-liquidity/query").PoolsResponse>;
                 params(request?: import("./concentrated-liquidity/query").ParamsRequest): Promise<import("./concentrated-liquidity/query").ParamsResponse>;
@@ -203,6 +221,7 @@ export declare namespace osmosis {
                 userUnbondingPositions(request: import("./concentrated-liquidity/query").UserUnbondingPositionsRequest): Promise<import("./concentrated-liquidity/query").UserUnbondingPositionsResponse>;
                 getTotalLiquidity(request?: import("./concentrated-liquidity/query").GetTotalLiquidityRequest): Promise<import("./concentrated-liquidity/query").GetTotalLiquidityResponse>;
             };
+            LCDQueryClient: typeof _208.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -387,12 +406,13 @@ export declare namespace osmosis {
     };
     namespace cosmwasmpool {
         const v1beta1: {
-            QueryClientImpl: typeof _209.QueryClientImpl;
+            QueryClientImpl: typeof _227.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 pools(request?: _13.PoolsRequest): Promise<_13.PoolsResponse>;
                 params(request?: _13.ParamsRequest): Promise<_13.ParamsResponse>;
                 contractInfoByPoolId(request: _13.ContractInfoByPoolIdRequest): Promise<_13.ContractInfoByPoolIdResponse>;
             };
+            LCDQueryClient: typeof _209.LCDQueryClient;
             ParamsRequest: {
                 encode(_: _13.ParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(_: any): _13.ParamsRequest;
@@ -602,10 +622,11 @@ export declare namespace osmosis {
     }
     namespace downtimedetector {
         const v1beta1: {
-            QueryClientImpl: typeof _210.QueryClientImpl;
+            QueryClientImpl: typeof _228.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 recoveredSinceDowntimeOfLength(request: _17.RecoveredSinceDowntimeOfLengthRequest): Promise<_17.RecoveredSinceDowntimeOfLengthResponse>;
             };
+            LCDQueryClient: typeof _210.LCDQueryClient;
             RecoveredSinceDowntimeOfLengthRequest: {
                 encode(message: _17.RecoveredSinceDowntimeOfLengthRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(object: any): _17.RecoveredSinceDowntimeOfLengthRequest;
@@ -634,11 +655,12 @@ export declare namespace osmosis {
     }
     namespace epochs {
         const v1beta1: {
-            QueryClientImpl: typeof _211.QueryClientImpl;
+            QueryClientImpl: typeof _229.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 epochInfos(request?: _19.QueryEpochsInfoRequest): Promise<_19.QueryEpochsInfoResponse>;
                 currentEpoch(request: _19.QueryCurrentEpochRequest): Promise<_19.QueryCurrentEpochResponse>;
             };
+            LCDQueryClient: typeof _211.LCDQueryClient;
             QueryEpochsInfoRequest: {
                 encode(_: _19.QueryEpochsInfoRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(_: any): _19.QueryEpochsInfoRequest;
@@ -673,8 +695,8 @@ export declare namespace osmosis {
     }
     namespace gamm {
         const v1beta1: {
-            MsgClientImpl: typeof _230.MsgClientImpl;
-            QueryClientImpl: typeof _212.QueryClientImpl;
+            MsgClientImpl: typeof _248.MsgClientImpl;
+            QueryClientImpl: typeof _230.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 pools(request?: _23.QueryPoolsRequest): Promise<_23.QueryPoolsResponse>;
                 numPools(request?: _23.QueryNumPoolsRequest): Promise<_23.QueryNumPoolsResponse>;
@@ -693,6 +715,7 @@ export declare namespace osmosis {
                 estimateSwapExactAmountOut(request: _23.QuerySwapExactAmountOutRequest): Promise<_23.QuerySwapExactAmountOutResponse>;
                 concentratedPoolIdLinkFromCFMM(request: _23.QueryConcentratedPoolIdLinkFromCFMMRequest): Promise<_23.QueryConcentratedPoolIdLinkFromCFMMResponse>;
             };
+            LCDQueryClient: typeof _212.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -1301,7 +1324,7 @@ export declare namespace osmosis {
         namespace poolmodels {
             namespace balancer {
                 const v1beta1: {
-                    MsgClientImpl: typeof _228.MsgClientImpl;
+                    MsgClientImpl: typeof _246.MsgClientImpl;
                     registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                     load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                     MessageComposer: {
@@ -1427,7 +1450,7 @@ export declare namespace osmosis {
             }
             namespace stableswap {
                 const v1beta1: {
-                    MsgClientImpl: typeof _229.MsgClientImpl;
+                    MsgClientImpl: typeof _247.MsgClientImpl;
                     registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                     load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                     MessageComposer: {
@@ -1552,10 +1575,11 @@ export declare namespace osmosis {
             }
         }
         const v2: {
-            QueryClientImpl: typeof _213.QueryClientImpl;
+            QueryClientImpl: typeof _231.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 spotPrice(request: _29.QuerySpotPriceRequest): Promise<_29.QuerySpotPriceResponse>;
             };
+            LCDQueryClient: typeof _213.LCDQueryClient;
             QuerySpotPriceRequest: {
                 encode(message: _29.QuerySpotPriceRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(object: any): _29.QuerySpotPriceRequest;
@@ -1570,10 +1594,11 @@ export declare namespace osmosis {
     }
     namespace ibcratelimit {
         const v1beta1: {
-            QueryClientImpl: typeof _214.QueryClientImpl;
+            QueryClientImpl: typeof _232.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _32.ParamsRequest): Promise<_32.ParamsResponse>;
             };
+            LCDQueryClient: typeof _214.LCDQueryClient;
             ParamsRequest: {
                 encode(_: _32.ParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(_: any): _32.ParamsRequest;
@@ -1597,8 +1622,8 @@ export declare namespace osmosis {
         };
     }
     const incentives: {
-        MsgClientImpl: typeof _231.MsgClientImpl;
-        QueryClientImpl: typeof _215.QueryClientImpl;
+        MsgClientImpl: typeof _249.MsgClientImpl;
+        QueryClientImpl: typeof _233.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             moduleToDistributeCoins(request?: _36.ModuleToDistributeCoinsRequest): Promise<_36.ModuleToDistributeCoinsResponse>;
             gaugeByID(request: _36.GaugeByIDRequest): Promise<_36.GaugeByIDResponse>;
@@ -1610,6 +1635,7 @@ export declare namespace osmosis {
             rewardsEst(request: _36.RewardsEstRequest): Promise<_36.RewardsEstResponse>;
             lockableDurations(request?: _36.QueryLockableDurationsRequest): Promise<_36.QueryLockableDurationsResponse>;
         };
+        LCDQueryClient: typeof _215.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -1862,8 +1888,8 @@ export declare namespace osmosis {
         };
     };
     const lockup: {
-        MsgClientImpl: typeof _232.MsgClientImpl;
-        QueryClientImpl: typeof _216.QueryClientImpl;
+        MsgClientImpl: typeof _250.MsgClientImpl;
+        QueryClientImpl: typeof _234.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             moduleBalance(request?: _41.ModuleBalanceRequest): Promise<_41.ModuleBalanceResponse>;
             moduleLockedAmount(request?: _41.ModuleLockedAmountRequest): Promise<_41.ModuleLockedAmountResponse>;
@@ -1886,6 +1912,7 @@ export declare namespace osmosis {
             accountLockedLongerDurationDenom(request: _41.AccountLockedLongerDurationDenomRequest): Promise<_41.AccountLockedLongerDurationDenomResponse>;
             params(request?: _41.QueryParamsRequest): Promise<_41.QueryParamsResponse>;
         };
+        LCDQueryClient: typeof _216.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -2392,11 +2419,12 @@ export declare namespace osmosis {
     };
     namespace mint {
         const v1beta1: {
-            QueryClientImpl: typeof _217.QueryClientImpl;
+            QueryClientImpl: typeof _235.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _45.QueryParamsRequest): Promise<_45.QueryParamsResponse>;
                 epochProvisions(request?: _45.QueryEpochProvisionsRequest): Promise<_45.QueryEpochProvisionsResponse>;
             };
+            LCDQueryClient: typeof _217.LCDQueryClient;
             QueryParamsRequest: {
                 encode(_: _45.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(_: any): _45.QueryParamsRequest;
@@ -2446,7 +2474,7 @@ export declare namespace osmosis {
     }
     namespace poolincentives {
         const v1beta1: {
-            QueryClientImpl: typeof _218.QueryClientImpl;
+            QueryClientImpl: typeof _236.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 gaugeIds(request: _49.QueryGaugeIdsRequest): Promise<_49.QueryGaugeIdsResponse>;
                 distrInfo(request?: _49.QueryDistrInfoRequest): Promise<_49.QueryDistrInfoResponse>;
@@ -2455,6 +2483,7 @@ export declare namespace osmosis {
                 incentivizedPools(request?: _49.QueryIncentivizedPoolsRequest): Promise<_49.QueryIncentivizedPoolsResponse>;
                 externalIncentiveGauges(request?: _49.QueryExternalIncentiveGaugesRequest): Promise<_49.QueryExternalIncentiveGaugesResponse>;
             };
+            LCDQueryClient: typeof _218.LCDQueryClient;
             MigrationRecords: {
                 encode(message: _50.MigrationRecords, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(object: any): _50.MigrationRecords;
@@ -2584,8 +2613,8 @@ export declare namespace osmosis {
     }
     namespace poolmanager {
         const v1beta1: {
-            MsgClientImpl: typeof _233.MsgClientImpl;
-            QueryClientImpl: typeof _219.QueryClientImpl;
+            MsgClientImpl: typeof _251.MsgClientImpl;
+            QueryClientImpl: typeof _237.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _53.ParamsRequest): Promise<_53.ParamsResponse>;
                 estimateSwapExactAmountIn(request: _53.EstimateSwapExactAmountInRequest): Promise<_53.EstimateSwapExactAmountInResponse>;
@@ -2599,6 +2628,7 @@ export declare namespace osmosis {
                 totalPoolLiquidity(request: _53.TotalPoolLiquidityRequest): Promise<_53.TotalPoolLiquidityResponse>;
                 totalLiquidity(request?: _53.TotalLiquidityRequest): Promise<_53.TotalLiquidityResponse>;
             };
+            LCDQueryClient: typeof _219.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -2968,8 +2998,8 @@ export declare namespace osmosis {
     }
     namespace protorev {
         const v1beta1: {
-            MsgClientImpl: typeof _234.MsgClientImpl;
-            QueryClientImpl: typeof _220.QueryClientImpl;
+            MsgClientImpl: typeof _252.MsgClientImpl;
+            QueryClientImpl: typeof _238.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _60.QueryParamsRequest): Promise<_60.QueryParamsResponse>;
                 getProtoRevNumberOfTrades(request?: _60.QueryGetProtoRevNumberOfTradesRequest): Promise<_60.QueryGetProtoRevNumberOfTradesResponse>;
@@ -2987,6 +3017,7 @@ export declare namespace osmosis {
                 getProtoRevEnabled(request?: _60.QueryGetProtoRevEnabledRequest): Promise<_60.QueryGetProtoRevEnabledResponse>;
                 getProtoRevPool(request: _60.QueryGetProtoRevPoolRequest): Promise<_60.QueryGetProtoRevPoolResponse>;
             };
+            LCDQueryClient: typeof _220.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -3481,8 +3512,8 @@ export declare namespace osmosis {
         };
     }
     const superfluid: {
-        MsgClientImpl: typeof _235.MsgClientImpl;
-        QueryClientImpl: typeof _221.QueryClientImpl;
+        MsgClientImpl: typeof _253.MsgClientImpl;
+        QueryClientImpl: typeof _239.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _65.QueryParamsRequest): Promise<_65.QueryParamsResponse>;
             assetType(request: _65.AssetTypeRequest): Promise<_65.AssetTypeResponse>;
@@ -3502,6 +3533,7 @@ export declare namespace osmosis {
             userConcentratedSuperfluidPositionsDelegated(request: _65.UserConcentratedSuperfluidPositionsDelegatedRequest): Promise<_65.UserConcentratedSuperfluidPositionsDelegatedResponse>;
             userConcentratedSuperfluidPositionsUndelegating(request: _65.UserConcentratedSuperfluidPositionsUndelegatingRequest): Promise<_65.UserConcentratedSuperfluidPositionsUndelegatingResponse>;
         };
+        LCDQueryClient: typeof _221.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -4141,13 +4173,14 @@ export declare namespace osmosis {
     };
     namespace tokenfactory {
         const v1beta1: {
-            MsgClientImpl: typeof _236.MsgClientImpl;
-            QueryClientImpl: typeof _222.QueryClientImpl;
+            MsgClientImpl: typeof _254.MsgClientImpl;
+            QueryClientImpl: typeof _240.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _71.QueryParamsRequest): Promise<_71.QueryParamsResponse>;
                 denomAuthorityMetadata(request: _71.QueryDenomAuthorityMetadataRequest): Promise<_71.QueryDenomAuthorityMetadataResponse>;
                 denomsFromCreator(request: _71.QueryDenomsFromCreatorRequest): Promise<_71.QueryDenomsFromCreatorResponse>;
             };
+            LCDQueryClient: typeof _222.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -4488,7 +4521,7 @@ export declare namespace osmosis {
     }
     namespace twap {
         const v1beta1: {
-            QueryClientImpl: typeof _223.QueryClientImpl;
+            QueryClientImpl: typeof _241.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _74.ParamsRequest): Promise<_74.ParamsResponse>;
                 arithmeticTwap(request: _74.ArithmeticTwapRequest): Promise<_74.ArithmeticTwapResponse>;
@@ -4496,6 +4529,7 @@ export declare namespace osmosis {
                 geometricTwap(request: _74.GeometricTwapRequest): Promise<_74.GeometricTwapResponse>;
                 geometricTwapToNow(request: _74.GeometricTwapToNowRequest): Promise<_74.GeometricTwapToNowResponse>;
             };
+            LCDQueryClient: typeof _223.LCDQueryClient;
             TwapRecord: {
                 encode(message: _75.TwapRecord, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(object: any): _75.TwapRecord;
@@ -4565,13 +4599,14 @@ export declare namespace osmosis {
     }
     namespace txfees {
         const v1beta1: {
-            QueryClientImpl: typeof _224.QueryClientImpl;
+            QueryClientImpl: typeof _242.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 feeTokens(request?: _79.QueryFeeTokensRequest): Promise<_79.QueryFeeTokensResponse>;
                 denomSpotPrice(request: _79.QueryDenomSpotPriceRequest): Promise<_79.QueryDenomSpotPriceResponse>;
                 denomPoolId(request: _79.QueryDenomPoolIdRequest): Promise<_79.QueryDenomPoolIdResponse>;
                 baseDenom(request?: _79.QueryBaseDenomRequest): Promise<_79.QueryBaseDenomResponse>;
             };
+            LCDQueryClient: typeof _224.LCDQueryClient;
             QueryFeeTokensRequest: {
                 encode(_: _79.QueryFeeTokensRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(_: any): _79.QueryFeeTokensRequest;
@@ -4631,11 +4666,12 @@ export declare namespace osmosis {
     }
     namespace valsetpref {
         const v1beta1: {
-            MsgClientImpl: typeof _237.MsgClientImpl;
-            QueryClientImpl: typeof _225.QueryClientImpl;
+            MsgClientImpl: typeof _255.MsgClientImpl;
+            QueryClientImpl: typeof _243.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 userValidatorPreferences(request: _80.UserValidatorPreferencesRequest): Promise<_80.UserValidatorPreferencesResponse>;
             };
+            LCDQueryClient: typeof _225.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -4924,36 +4960,36 @@ export declare namespace osmosis {
                 concentratedliquidity: {
                     poolmodel: {
                         concentrated: {
-                            v1beta1: _226.MsgClientImpl;
+                            v1beta1: _244.MsgClientImpl;
                         };
                     };
-                    v1beta1: _227.MsgClientImpl;
+                    v1beta1: _245.MsgClientImpl;
                 };
                 gamm: {
                     poolmodels: {
                         balancer: {
-                            v1beta1: _228.MsgClientImpl;
+                            v1beta1: _246.MsgClientImpl;
                         };
                         stableswap: {
-                            v1beta1: _229.MsgClientImpl;
+                            v1beta1: _247.MsgClientImpl;
                         };
                     };
-                    v1beta1: _230.MsgClientImpl;
+                    v1beta1: _248.MsgClientImpl;
                 };
-                incentives: _231.MsgClientImpl;
-                lockup: _232.MsgClientImpl;
+                incentives: _249.MsgClientImpl;
+                lockup: _250.MsgClientImpl;
                 poolmanager: {
-                    v1beta1: _233.MsgClientImpl;
+                    v1beta1: _251.MsgClientImpl;
                 };
                 protorev: {
-                    v1beta1: _234.MsgClientImpl;
+                    v1beta1: _252.MsgClientImpl;
                 };
-                superfluid: _235.MsgClientImpl;
+                superfluid: _253.MsgClientImpl;
                 tokenfactory: {
-                    v1beta1: _236.MsgClientImpl;
+                    v1beta1: _254.MsgClientImpl;
                 };
                 valsetpref: {
-                    v1beta1: _237.MsgClientImpl;
+                    v1beta1: _255.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -5325,6 +5361,107 @@ export declare namespace osmosis {
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            osmosis: {
+                concentratedliquidity: {
+                    v1beta1: _208.LCDQueryClient;
+                };
+                cosmwasmpool: {
+                    v1beta1: _209.LCDQueryClient;
+                };
+                downtimedetector: {
+                    v1beta1: _210.LCDQueryClient;
+                };
+                epochs: {
+                    v1beta1: _211.LCDQueryClient;
+                };
+                gamm: {
+                    v1beta1: _212.LCDQueryClient;
+                    v2: _213.LCDQueryClient;
+                };
+                ibcratelimit: {
+                    v1beta1: _214.LCDQueryClient;
+                };
+                incentives: _215.LCDQueryClient;
+                lockup: _216.LCDQueryClient;
+                mint: {
+                    v1beta1: _217.LCDQueryClient;
+                };
+                poolincentives: {
+                    v1beta1: _218.LCDQueryClient;
+                };
+                poolmanager: {
+                    v1beta1: _219.LCDQueryClient;
+                };
+                protorev: {
+                    v1beta1: _220.LCDQueryClient;
+                };
+                superfluid: _221.LCDQueryClient;
+                tokenfactory: {
+                    v1beta1: _222.LCDQueryClient;
+                };
+                twap: {
+                    v1beta1: _223.LCDQueryClient;
+                };
+                txfees: {
+                    v1beta1: _224.LCDQueryClient;
+                };
+                valsetpref: {
+                    v1beta1: _225.LCDQueryClient;
+                };
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

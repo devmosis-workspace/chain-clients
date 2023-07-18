@@ -67,31 +67,40 @@ import * as _165 from "./deployment/v1beta2/service.registry";
 import * as _166 from "./market/v1beta2/service.registry";
 import * as _167 from "./provider/v1beta1/provider.registry";
 import * as _168 from "./provider/v1beta2/provider.registry";
-import * as _169 from "./audit/v1beta2/query.rpc.Query";
-import * as _170 from "./cert/v1beta2/query.rpc.Query";
-import * as _171 from "./deployment/v1beta1/query.rpc.Query";
-import * as _172 from "./deployment/v1beta2/query.rpc.Query";
-import * as _173 from "./escrow/v1beta1/query.rpc.Query";
-import * as _174 from "./escrow/v1beta2/query.rpc.Query";
-import * as _175 from "./market/v1beta2/query.rpc.Query";
-import * as _176 from "./provider/v1beta2/query.rpc.Query";
-import * as _177 from "./audit/v1beta1/audit.rpc.msg";
-import * as _178 from "./audit/v1beta2/audit.rpc.msg";
-import * as _179 from "./cert/v1beta2/cert.rpc.msg";
-import * as _180 from "./deployment/v1beta1/deployment.rpc.msg";
-import * as _181 from "./deployment/v1beta2/service.rpc.msg";
-import * as _182 from "./market/v1beta2/service.rpc.msg";
-import * as _183 from "./provider/v1beta1/provider.rpc.msg";
-import * as _184 from "./provider/v1beta2/provider.rpc.msg";
-import * as _229 from "./rpc.query";
-import * as _230 from "./rpc.tx";
+import * as _169 from "./audit/v1beta2/query.lcd";
+import * as _170 from "./cert/v1beta2/query.lcd";
+import * as _171 from "./deployment/v1beta1/query.lcd";
+import * as _172 from "./deployment/v1beta2/query.lcd";
+import * as _173 from "./escrow/v1beta1/query.lcd";
+import * as _174 from "./escrow/v1beta2/query.lcd";
+import * as _175 from "./market/v1beta2/query.lcd";
+import * as _176 from "./provider/v1beta2/query.lcd";
+import * as _177 from "./audit/v1beta2/query.rpc.Query";
+import * as _178 from "./cert/v1beta2/query.rpc.Query";
+import * as _179 from "./deployment/v1beta1/query.rpc.Query";
+import * as _180 from "./deployment/v1beta2/query.rpc.Query";
+import * as _181 from "./escrow/v1beta1/query.rpc.Query";
+import * as _182 from "./escrow/v1beta2/query.rpc.Query";
+import * as _183 from "./market/v1beta2/query.rpc.Query";
+import * as _184 from "./provider/v1beta2/query.rpc.Query";
+import * as _185 from "./audit/v1beta1/audit.rpc.msg";
+import * as _186 from "./audit/v1beta2/audit.rpc.msg";
+import * as _187 from "./cert/v1beta2/cert.rpc.msg";
+import * as _188 from "./deployment/v1beta1/deployment.rpc.msg";
+import * as _189 from "./deployment/v1beta2/service.rpc.msg";
+import * as _190 from "./market/v1beta2/service.rpc.msg";
+import * as _191 from "./provider/v1beta1/provider.rpc.msg";
+import * as _192 from "./provider/v1beta2/provider.rpc.msg";
+import * as _251 from "./lcd";
+import * as _252 from "./rpc.query";
+import * as _253 from "./rpc.tx";
 export namespace akash {
   export namespace audit {
     export const v1beta1 = {
       ..._0,
       ..._153,
       ..._161,
-      ..._177
+      ..._185
     };
     export const v1beta2 = {
       ..._1,
@@ -100,7 +109,8 @@ export namespace akash {
       ..._154,
       ..._162,
       ..._169,
-      ..._178
+      ..._177,
+      ..._186
     };
   }
   export namespace base {
@@ -126,7 +136,8 @@ export namespace akash {
       ..._155,
       ..._163,
       ..._170,
-      ..._179
+      ..._178,
+      ..._187
     };
   }
   export namespace deployment {
@@ -140,7 +151,8 @@ export namespace akash {
       ..._156,
       ..._164,
       ..._171,
-      ..._180
+      ..._179,
+      ..._188
     };
     export const v1beta2 = {
       ..._22,
@@ -158,7 +170,8 @@ export namespace akash {
       ..._157,
       ..._165,
       ..._172,
-      ..._181
+      ..._180,
+      ..._189
     };
   }
   export namespace escrow {
@@ -166,13 +179,15 @@ export namespace akash {
       ..._34,
       ..._35,
       ..._36,
-      ..._173
+      ..._173,
+      ..._181
     };
     export const v1beta2 = {
       ..._37,
       ..._38,
       ..._39,
-      ..._174
+      ..._174,
+      ..._182
     };
   }
   export namespace inflation {
@@ -193,7 +208,8 @@ export namespace akash {
       ..._158,
       ..._166,
       ..._175,
-      ..._182
+      ..._183,
+      ..._190
     };
   }
   export namespace provider {
@@ -201,7 +217,7 @@ export namespace akash {
       ..._49,
       ..._159,
       ..._167,
-      ..._183
+      ..._191
     };
     export const v1beta2 = {
       ..._50,
@@ -210,11 +226,13 @@ export namespace akash {
       ..._160,
       ..._168,
       ..._176,
-      ..._184
+      ..._184,
+      ..._192
     };
   }
   export const ClientFactory = {
-    ..._229,
-    ..._230
+    ..._251,
+    ..._252,
+    ..._253
   };
 }

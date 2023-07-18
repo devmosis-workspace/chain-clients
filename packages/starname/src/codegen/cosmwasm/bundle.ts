@@ -6,10 +6,12 @@ import * as _4 from "./wasm/v1/tx";
 import * as _5 from "./wasm/v1/types";
 import * as _134 from "./wasm/v1/tx.amino";
 import * as _135 from "./wasm/v1/tx.registry";
-import * as _136 from "./wasm/v1/query.rpc.Query";
-import * as _137 from "./wasm/v1/tx.rpc.msg";
-import * as _207 from "./rpc.query";
-import * as _208 from "./rpc.tx";
+import * as _136 from "./wasm/v1/query.lcd";
+import * as _137 from "./wasm/v1/query.rpc.Query";
+import * as _138 from "./wasm/v1/tx.rpc.msg";
+import * as _229 from "./lcd";
+import * as _230 from "./rpc.query";
+import * as _231 from "./rpc.tx";
 export namespace cosmwasm {
   export namespace wasm {
     export const v1 = {
@@ -22,11 +24,13 @@ export namespace cosmwasm {
       ..._134,
       ..._135,
       ..._136,
-      ..._137
+      ..._137,
+      ..._138
     };
   }
   export const ClientFactory = {
-    ..._207,
-    ..._208
+    ..._229,
+    ..._230,
+    ..._231
   };
 }

@@ -21,24 +21,31 @@ import * as _20 from "../interchaintxs/v1/genesis";
 import * as _21 from "../interchaintxs/v1/params";
 import * as _22 from "../interchaintxs/v1/query";
 import * as _24 from "../transfer/v1/tx";
-import * as _176 from "../contractmanager/query.rpc.Query";
-import * as _177 from "../cron/query.rpc.Query";
-import * as _178 from "../feeburner/query.rpc.Query";
-import * as _179 from "../feerefunder/query.rpc.Query";
-import * as _180 from "../interchainqueries/query.rpc.Query";
-import * as _181 from "../interchaintxs/v1/query.rpc.Query";
-import * as _182 from "../transfer/v1/query.rpc.Query";
-import * as _183 from "../interchainqueries/tx.rpc.msg";
-import * as _184 from "../interchaintxs/v1/tx.rpc.msg";
-import * as _185 from "../transfer/v1/tx.rpc.msg";
+import * as _176 from "../contractmanager/query.lcd";
+import * as _177 from "../cron/query.lcd";
+import * as _178 from "../feeburner/query.lcd";
+import * as _179 from "../feerefunder/query.lcd";
+import * as _180 from "../interchainqueries/query.lcd";
+import * as _181 from "../transfer/v1/query.lcd";
+import * as _182 from "../contractmanager/query.rpc.Query";
+import * as _183 from "../cron/query.rpc.Query";
+import * as _184 from "../feeburner/query.rpc.Query";
+import * as _185 from "../feerefunder/query.rpc.Query";
+import * as _186 from "../interchainqueries/query.rpc.Query";
+import * as _187 from "../interchaintxs/v1/query.rpc.Query";
+import * as _188 from "../transfer/v1/query.rpc.Query";
+import * as _189 from "../interchainqueries/tx.rpc.msg";
+import * as _190 from "../interchaintxs/v1/tx.rpc.msg";
+import * as _191 from "../transfer/v1/tx.rpc.msg";
 export declare namespace neutron {
     const contractmanager: {
-        QueryClientImpl: typeof _176.QueryClientImpl;
+        QueryClientImpl: typeof _182.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _2.QueryParamsRequest): Promise<_2.QueryParamsResponse>;
             addressFailures(request: _2.QueryFailuresRequest): Promise<_2.QueryFailuresResponse>;
             failures(request: _2.QueryFailuresRequest): Promise<_2.QueryFailuresResponse>;
         };
+        LCDQueryClient: typeof _176.LCDQueryClient;
         QueryParamsRequest: {
             encode(_: _2.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
             fromJSON(_: any): _2.QueryParamsRequest;
@@ -76,12 +83,13 @@ export declare namespace neutron {
         };
     };
     const cron: {
-        QueryClientImpl: typeof _177.QueryClientImpl;
+        QueryClientImpl: typeof _183.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _5.QueryParamsRequest): Promise<_5.QueryParamsResponse>;
             schedule(request: _5.QueryGetScheduleRequest): Promise<_5.QueryGetScheduleResponse>;
             schedules(request?: _5.QuerySchedulesRequest): Promise<_5.QuerySchedulesResponse>;
         };
+        LCDQueryClient: typeof _177.LCDQueryClient;
         Schedule: {
             encode(message: _6.Schedule, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
             fromJSON(object: any): _6.Schedule;
@@ -139,11 +147,12 @@ export declare namespace neutron {
         };
     };
     const feeburner: {
-        QueryClientImpl: typeof _178.QueryClientImpl;
+        QueryClientImpl: typeof _184.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _10.QueryParamsRequest): Promise<_10.QueryParamsResponse>;
             totalBurnedNeutronsAmount(request?: _10.QueryTotalBurnedNeutronsAmountRequest): Promise<_10.QueryTotalBurnedNeutronsAmountResponse>;
         };
+        LCDQueryClient: typeof _178.LCDQueryClient;
         TotalBurnedNeutronsAmount: {
             encode(message: _11.TotalBurnedNeutronsAmount, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
             fromJSON(object: any): _11.TotalBurnedNeutronsAmount;
@@ -181,11 +190,12 @@ export declare namespace neutron {
         };
     };
     const feerefunder: {
-        QueryClientImpl: typeof _179.QueryClientImpl;
+        QueryClientImpl: typeof _185.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _15.QueryParamsRequest): Promise<_15.QueryParamsResponse>;
             feeInfo(request: _15.FeeInfoRequest): Promise<_15.FeeInfoResponse>;
         };
+        LCDQueryClient: typeof _179.LCDQueryClient;
         QueryParamsRequest: {
             encode(_: _15.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
             fromJSON(_: any): _15.QueryParamsRequest;
@@ -233,8 +243,8 @@ export declare namespace neutron {
         };
     };
     const interchainqueries: {
-        MsgClientImpl: typeof _183.MsgClientImpl;
-        QueryClientImpl: typeof _180.QueryClientImpl;
+        MsgClientImpl: typeof _189.MsgClientImpl;
+        QueryClientImpl: typeof _186.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _18.QueryParamsRequest): Promise<_18.QueryParamsResponse>;
             registeredQueries(request: _18.QueryRegisteredQueriesRequest): Promise<_18.QueryRegisteredQueriesResponse>;
@@ -242,6 +252,7 @@ export declare namespace neutron {
             queryResult(request: _18.QueryRegisteredQueryResultRequest): Promise<_18.QueryRegisteredQueryResultResponse>;
             lastRemoteHeight(request: _18.QueryLastRemoteHeight): Promise<_18.QueryLastRemoteHeightResponse>;
         };
+        LCDQueryClient: typeof _180.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -648,7 +659,7 @@ export declare namespace neutron {
     };
     const interchaintxs: {
         v1: {
-            MsgClientImpl: typeof _184.MsgClientImpl;
+            MsgClientImpl: typeof _190.MsgClientImpl;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -762,7 +773,7 @@ export declare namespace neutron {
                 };
             };
         };
-        QueryClientImpl: typeof _181.QueryClientImpl;
+        QueryClientImpl: typeof _187.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _22.QueryParamsRequest): Promise<_22.QueryParamsResponse>;
             interchainAccountAddress(request: _22.QueryInterchainAccountAddressRequest): Promise<_22.QueryInterchainAccountAddressResponse>;
@@ -799,14 +810,15 @@ export declare namespace neutron {
         };
     };
     const transfer: {
-        MsgClientImpl: typeof _185.MsgClientImpl;
-        QueryClientImpl: typeof _182.QueryClientImpl;
+        MsgClientImpl: typeof _191.MsgClientImpl;
+        QueryClientImpl: typeof _188.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             denomTrace(request: ibc.applications.transfer.v1.QueryDenomTraceRequest): Promise<ibc.applications.transfer.v1.QueryDenomTraceResponse>;
             denomTraces(request?: ibc.applications.transfer.v1.QueryDenomTracesRequest): Promise<ibc.applications.transfer.v1.QueryDenomTracesResponse>;
             params(request?: ibc.applications.transfer.v1.QueryParamsRequest): Promise<ibc.applications.transfer.v1.QueryParamsResponse>;
             denomHash(request: ibc.applications.transfer.v1.QueryDenomHashRequest): Promise<ibc.applications.transfer.v1.QueryDenomHashResponse>;
         };
+        LCDQueryClient: typeof _181.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -910,11 +922,11 @@ export declare namespace neutron {
             rpc: import("../helpers").Rpc;
         }) => Promise<{
             neutron: {
-                interchainqueries: _183.MsgClientImpl;
+                interchainqueries: _189.MsgClientImpl;
                 interchaintxs: {
-                    v1: _184.MsgClientImpl;
+                    v1: _190.MsgClientImpl;
                 };
-                transfer: _185.MsgClientImpl;
+                transfer: _191.MsgClientImpl;
             };
             cosmos: {
                 authz: {
@@ -1125,6 +1137,67 @@ export declare namespace neutron {
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            neutron: {
+                contractmanager: _176.LCDQueryClient;
+                cron: _177.LCDQueryClient;
+                feeburner: _178.LCDQueryClient;
+                feerefunder: _179.LCDQueryClient;
+                interchainqueries: _180.LCDQueryClient;
+                transfer: _181.LCDQueryClient;
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

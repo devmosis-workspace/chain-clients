@@ -7,11 +7,14 @@ import * as _5 from "./mint/mint";
 import * as _6 from "./mint/query";
 import * as _108 from "./feeshare/v1/tx.amino";
 import * as _109 from "./feeshare/v1/tx.registry";
-import * as _110 from "./feeshare/v1/query.rpc.Query";
-import * as _111 from "./mint/query.rpc.Query";
-import * as _112 from "./feeshare/v1/tx.rpc.msg";
-import * as _158 from "./rpc.query";
-import * as _159 from "./rpc.tx";
+import * as _110 from "./feeshare/v1/query.lcd";
+import * as _111 from "./mint/query.lcd";
+import * as _112 from "./feeshare/v1/query.rpc.Query";
+import * as _113 from "./mint/query.rpc.Query";
+import * as _114 from "./feeshare/v1/tx.rpc.msg";
+import * as _175 from "./lcd";
+import * as _176 from "./rpc.query";
+import * as _177 from "./rpc.tx";
 export namespace juno {
   export namespace feeshare {
     export const v1 = {
@@ -22,17 +25,20 @@ export namespace juno {
       ..._108,
       ..._109,
       ..._110,
-      ..._112
+      ..._112,
+      ..._114
     };
   }
   export const mint = {
     ..._4,
     ..._5,
     ..._6,
-    ..._111
+    ..._111,
+    ..._113
   };
   export const ClientFactory = {
-    ..._158,
-    ..._159
+    ..._175,
+    ..._176,
+    ..._177
   };
 }

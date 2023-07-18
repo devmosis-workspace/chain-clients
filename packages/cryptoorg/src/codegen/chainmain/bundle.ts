@@ -21,15 +21,20 @@ import * as _172 from "../nft/v1/tx.amino";
 import * as _173 from "../icaauth/v1/tx.registry";
 import * as _174 from "../nft_transfer/v1/tx.registry";
 import * as _175 from "../nft/v1/tx.registry";
-import * as _176 from "../icaauth/v1/query.rpc.Query";
-import * as _177 from "../nft_transfer/v1/query.rpc.Query";
-import * as _178 from "../nft/v1/query.rpc.Query";
-import * as _179 from "../supply/v1/query.rpc.Query";
-import * as _180 from "../icaauth/v1/tx.rpc.msg";
-import * as _181 from "../nft_transfer/v1/tx.rpc.msg";
-import * as _182 from "../nft/v1/tx.rpc.msg";
-import * as _266 from "./rpc.query";
-import * as _267 from "./rpc.tx";
+import * as _176 from "../icaauth/v1/query.lcd";
+import * as _177 from "../nft_transfer/v1/query.lcd";
+import * as _178 from "../nft/v1/query.lcd";
+import * as _179 from "../supply/v1/query.lcd";
+import * as _180 from "../icaauth/v1/query.rpc.Query";
+import * as _181 from "../nft_transfer/v1/query.rpc.Query";
+import * as _182 from "../nft/v1/query.rpc.Query";
+import * as _183 from "../supply/v1/query.rpc.Query";
+import * as _184 from "../icaauth/v1/tx.rpc.msg";
+import * as _185 from "../nft_transfer/v1/tx.rpc.msg";
+import * as _186 from "../nft/v1/tx.rpc.msg";
+import * as _295 from "./lcd";
+import * as _296 from "./rpc.query";
+import * as _297 from "./rpc.tx";
 export namespace chainmain {
   export namespace chainmain {
     export const v1 = {
@@ -45,7 +50,8 @@ export namespace chainmain {
       ..._170,
       ..._173,
       ..._176,
-      ..._180
+      ..._180,
+      ..._184
     };
   }
   export namespace nft_transfer {
@@ -58,7 +64,8 @@ export namespace chainmain {
       ..._171,
       ..._174,
       ..._177,
-      ..._181
+      ..._181,
+      ..._185
     };
   }
   export namespace nft {
@@ -70,7 +77,8 @@ export namespace chainmain {
       ..._172,
       ..._175,
       ..._178,
-      ..._182
+      ..._182,
+      ..._186
     };
   }
   export namespace supply {
@@ -78,11 +86,13 @@ export namespace chainmain {
       ..._14,
       ..._15,
       ..._16,
-      ..._179
+      ..._179,
+      ..._183
     };
   }
   export const ClientFactory = {
-    ..._266,
-    ..._267
+    ..._295,
+    ..._296,
+    ..._297
   };
 }

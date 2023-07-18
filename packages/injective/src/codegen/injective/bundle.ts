@@ -65,24 +65,33 @@ import * as _215 from "./oracle/v1beta1/tx.registry";
 import * as _216 from "./peggy/v1/msgs.registry";
 import * as _217 from "./tokenfactory/v1beta1/tx.registry";
 import * as _218 from "./wasmx/v1/tx.registry";
-import * as _219 from "./auction/v1beta1/query.rpc.Query";
-import * as _220 from "./exchange/v1beta1/query.rpc.Query";
-import * as _221 from "./insurance/v1beta1/query.rpc.Query";
-import * as _222 from "./ocr/v1beta1/query.rpc.Query";
-import * as _223 from "./oracle/v1beta1/query.rpc.Query";
-import * as _224 from "./peggy/v1/query.rpc.Query";
-import * as _225 from "./tokenfactory/v1beta1/query.rpc.Query";
-import * as _226 from "./wasmx/v1/query.rpc.Query";
-import * as _227 from "./auction/v1beta1/tx.rpc.msg";
-import * as _228 from "./exchange/v1beta1/tx.rpc.msg";
-import * as _229 from "./insurance/v1beta1/tx.rpc.msg";
-import * as _230 from "./ocr/v1beta1/tx.rpc.msg";
-import * as _231 from "./oracle/v1beta1/tx.rpc.msg";
-import * as _232 from "./peggy/v1/msgs.rpc.msg";
-import * as _233 from "./tokenfactory/v1beta1/tx.rpc.msg";
-import * as _234 from "./wasmx/v1/tx.rpc.msg";
-import * as _312 from "./rpc.query";
-import * as _313 from "./rpc.tx";
+import * as _219 from "./auction/v1beta1/query.lcd";
+import * as _220 from "./exchange/v1beta1/query.lcd";
+import * as _221 from "./insurance/v1beta1/query.lcd";
+import * as _222 from "./ocr/v1beta1/query.lcd";
+import * as _223 from "./oracle/v1beta1/query.lcd";
+import * as _224 from "./peggy/v1/query.lcd";
+import * as _225 from "./tokenfactory/v1beta1/query.lcd";
+import * as _226 from "./wasmx/v1/query.lcd";
+import * as _227 from "./auction/v1beta1/query.rpc.Query";
+import * as _228 from "./exchange/v1beta1/query.rpc.Query";
+import * as _229 from "./insurance/v1beta1/query.rpc.Query";
+import * as _230 from "./ocr/v1beta1/query.rpc.Query";
+import * as _231 from "./oracle/v1beta1/query.rpc.Query";
+import * as _232 from "./peggy/v1/query.rpc.Query";
+import * as _233 from "./tokenfactory/v1beta1/query.rpc.Query";
+import * as _234 from "./wasmx/v1/query.rpc.Query";
+import * as _235 from "./auction/v1beta1/tx.rpc.msg";
+import * as _236 from "./exchange/v1beta1/tx.rpc.msg";
+import * as _237 from "./insurance/v1beta1/tx.rpc.msg";
+import * as _238 from "./ocr/v1beta1/tx.rpc.msg";
+import * as _239 from "./oracle/v1beta1/tx.rpc.msg";
+import * as _240 from "./peggy/v1/msgs.rpc.msg";
+import * as _241 from "./tokenfactory/v1beta1/tx.rpc.msg";
+import * as _242 from "./wasmx/v1/tx.rpc.msg";
+import * as _340 from "./lcd";
+import * as _341 from "./rpc.query";
+import * as _342 from "./rpc.tx";
 export namespace injective {
   export namespace auction {
     export const v1beta1 = {
@@ -93,7 +102,8 @@ export namespace injective {
       ..._203,
       ..._211,
       ..._219,
-      ..._227
+      ..._227,
+      ..._235
     };
   }
   export namespace crypto {
@@ -114,7 +124,8 @@ export namespace injective {
       ..._204,
       ..._212,
       ..._220,
-      ..._228
+      ..._228,
+      ..._236
     };
   }
   export namespace insurance {
@@ -126,7 +137,8 @@ export namespace injective {
       ..._205,
       ..._213,
       ..._221,
-      ..._229
+      ..._229,
+      ..._237
     };
   }
   export namespace ocr {
@@ -138,7 +150,8 @@ export namespace injective {
       ..._206,
       ..._214,
       ..._222,
-      ..._230
+      ..._230,
+      ..._238
     };
   }
   export namespace oracle {
@@ -152,7 +165,8 @@ export namespace injective {
       ..._207,
       ..._215,
       ..._223,
-      ..._231
+      ..._231,
+      ..._239
     };
   }
   export namespace peggy {
@@ -171,7 +185,8 @@ export namespace injective {
       ..._208,
       ..._216,
       ..._224,
-      ..._232
+      ..._232,
+      ..._240
     };
   }
   export namespace tokenfactory {
@@ -185,7 +200,8 @@ export namespace injective {
       ..._209,
       ..._217,
       ..._225,
-      ..._233
+      ..._233,
+      ..._241
     };
   }
   export namespace types {
@@ -206,11 +222,13 @@ export namespace injective {
       ..._210,
       ..._218,
       ..._226,
-      ..._234
+      ..._234,
+      ..._242
     };
   }
   export const ClientFactory = {
-    ..._312,
-    ..._313
+    ..._340,
+    ..._341,
+    ..._342
   };
 }

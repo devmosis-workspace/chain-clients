@@ -6,17 +6,20 @@ import * as _4 from "./halving/v1beta1/query";
 import * as _5 from "./interchainquery/v1beta1/genesis";
 import * as _6 from "./interchainquery/v1beta1/messages";
 import * as _7 from "./interchainquery/v1beta1/query";
-import * as _133 from "./epochs/v1beta1/query.rpc.Query";
-import * as _134 from "./halving/v1beta1/query.rpc.Query";
-import * as _135 from "./interchainquery/v1beta1/messages.rpc.msg";
+import * as _133 from "./epochs/v1beta1/query.lcd";
+import * as _134 from "./halving/v1beta1/query.lcd";
+import * as _135 from "./epochs/v1beta1/query.rpc.Query";
+import * as _136 from "./halving/v1beta1/query.rpc.Query";
+import * as _137 from "./interchainquery/v1beta1/messages.rpc.msg";
 export declare namespace persistence {
     namespace epochs {
         const v1beta1: {
-            QueryClientImpl: typeof _133.QueryClientImpl;
+            QueryClientImpl: typeof _135.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 epochInfos(request?: _1.QueryEpochsInfoRequest): Promise<_1.QueryEpochsInfoResponse>;
                 currentEpoch(request: _1.QueryCurrentEpochRequest): Promise<_1.QueryCurrentEpochResponse>;
             };
+            LCDQueryClient: typeof _133.LCDQueryClient;
             QueryEpochsInfoRequest: {
                 encode(_: _1.QueryEpochsInfoRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(_: any): _1.QueryEpochsInfoRequest;
@@ -51,10 +54,11 @@ export declare namespace persistence {
     }
     namespace halving {
         const v1beta1: {
-            QueryClientImpl: typeof _134.QueryClientImpl;
+            QueryClientImpl: typeof _136.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _4.QueryParamsRequest): Promise<_4.QueryParamsResponse>;
             };
+            LCDQueryClient: typeof _134.LCDQueryClient;
             QueryParamsRequest: {
                 encode(_: _4.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(_: any): _4.QueryParamsRequest;
@@ -79,7 +83,7 @@ export declare namespace persistence {
     }
     namespace interchainquery {
         const v1beta1: {
-            MsgClientImpl: typeof _135.MsgClientImpl;
+            MsgClientImpl: typeof _137.MsgClientImpl;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -189,7 +193,7 @@ export declare namespace persistence {
         }) => Promise<{
             persistence: {
                 interchainquery: {
-                    v1beta1: _135.MsgClientImpl;
+                    v1beta1: _137.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -377,6 +381,67 @@ export declare namespace persistence {
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            persistence: {
+                epochs: {
+                    v1beta1: _133.LCDQueryClient;
+                };
+                halving: {
+                    v1beta1: _134.LCDQueryClient;
+                };
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

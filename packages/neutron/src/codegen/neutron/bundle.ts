@@ -29,24 +29,32 @@ import * as _172 from "../transfer/v1/tx.amino";
 import * as _173 from "../interchainqueries/tx.registry";
 import * as _174 from "../interchaintxs/v1/tx.registry";
 import * as _175 from "../transfer/v1/tx.registry";
-import * as _176 from "../contractmanager/query.rpc.Query";
-import * as _177 from "../cron/query.rpc.Query";
-import * as _178 from "../feeburner/query.rpc.Query";
-import * as _179 from "../feerefunder/query.rpc.Query";
-import * as _180 from "../interchainqueries/query.rpc.Query";
-import * as _181 from "../interchaintxs/v1/query.rpc.Query";
-import * as _182 from "../transfer/v1/query.rpc.Query";
-import * as _183 from "../interchainqueries/tx.rpc.msg";
-import * as _184 from "../interchaintxs/v1/tx.rpc.msg";
-import * as _185 from "../transfer/v1/tx.rpc.msg";
-import * as _257 from "./rpc.query";
-import * as _258 from "./rpc.tx";
+import * as _176 from "../contractmanager/query.lcd";
+import * as _177 from "../cron/query.lcd";
+import * as _178 from "../feeburner/query.lcd";
+import * as _179 from "../feerefunder/query.lcd";
+import * as _180 from "../interchainqueries/query.lcd";
+import * as _181 from "../transfer/v1/query.lcd";
+import * as _182 from "../contractmanager/query.rpc.Query";
+import * as _183 from "../cron/query.rpc.Query";
+import * as _184 from "../feeburner/query.rpc.Query";
+import * as _185 from "../feerefunder/query.rpc.Query";
+import * as _186 from "../interchainqueries/query.rpc.Query";
+import * as _187 from "../interchaintxs/v1/query.rpc.Query";
+import * as _188 from "../transfer/v1/query.rpc.Query";
+import * as _189 from "../interchainqueries/tx.rpc.msg";
+import * as _190 from "../interchaintxs/v1/tx.rpc.msg";
+import * as _191 from "../transfer/v1/tx.rpc.msg";
+import * as _286 from "./lcd";
+import * as _287 from "./rpc.query";
+import * as _288 from "./rpc.tx";
 export namespace neutron {
   export const contractmanager = {
     ..._0,
     ..._1,
     ..._2,
-    ..._176
+    ..._176,
+    ..._182
   };
   export const cron = {
     ..._3,
@@ -54,21 +62,24 @@ export namespace neutron {
     ..._5,
     ..._6,
     ..._7,
-    ..._177
+    ..._177,
+    ..._183
   };
   export const feeburner = {
     ..._8,
     ..._9,
     ..._10,
     ..._11,
-    ..._178
+    ..._178,
+    ..._184
   };
   export const feerefunder = {
     ..._12,
     ..._13,
     ..._14,
     ..._15,
-    ..._179
+    ..._179,
+    ..._185
   };
   export const interchainqueries = {
     ..._16,
@@ -78,17 +89,18 @@ export namespace neutron {
     ..._170,
     ..._173,
     ..._180,
-    ..._183
+    ..._186,
+    ..._189
   };
   export const interchaintxs = {
     ..._20,
     ..._21,
     ..._22,
-    ..._181,
+    ..._187,
     v1: {
       ..._171,
       ..._174,
-      ..._184
+      ..._190
     }
   };
   export const transfer = {
@@ -96,11 +108,13 @@ export namespace neutron {
     ..._24,
     ..._172,
     ..._175,
-    ..._182,
-    ..._185
+    ..._181,
+    ..._188,
+    ..._191
   };
   export const ClientFactory = {
-    ..._257,
-    ..._258
+    ..._286,
+    ..._287,
+    ..._288
   };
 }

@@ -214,15 +214,6 @@
 [submodule "packages/persistence/persistence-sdk"]
 	path = packages/persistence/persistence-sdk
 	url = https://github.com/persistenceOne/persistence-sdk
-[submodule "packages/sifchain/sifnode"]
-	path = packages/sifchain/sifnode
-	url = https://github.com/Sifchain/sifnode
-[submodule "packages/sifchain/cosmos-sdk"]
-	path = packages/sifchain/cosmos-sdk
-	url = https://github.com/cosmos/cosmos-sdk
-[submodule "packages/sifchain/tendermint"]
-	path = packages/sifchain/tendermint
-	url = https://github.com/tendermint/tendermint
 [submodule "packages/sommelier/sommelier"]
 	path = packages/sommelier/sommelier
 	url = https://github.com/PeggyJV/sommelier

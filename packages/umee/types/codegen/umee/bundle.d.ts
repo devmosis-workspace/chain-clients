@@ -21,21 +21,26 @@ import * as _19 from "./uibc/v1/genesis";
 import * as _20 from "./uibc/v1/query";
 import * as _21 from "./uibc/v1/quota";
 import * as _22 from "./uibc/v1/tx";
-import * as _147 from "./incentive/v1/query.rpc.Query";
-import * as _148 from "./leverage/v1/query.rpc.Query";
-import * as _149 from "./oracle/v1/query.rpc.Query";
-import * as _150 from "./ugov/v1/query.rpc.Query";
-import * as _151 from "./uibc/v1/query.rpc.Query";
-import * as _152 from "./incentive/v1/tx.rpc.msg";
-import * as _153 from "./leverage/v1/tx.rpc.msg";
-import * as _154 from "./oracle/v1/tx.rpc.msg";
-import * as _155 from "./ugov/v1/tx.rpc.msg";
-import * as _156 from "./uibc/v1/tx.rpc.msg";
+import * as _147 from "./incentive/v1/query.lcd";
+import * as _148 from "./leverage/v1/query.lcd";
+import * as _149 from "./oracle/v1/query.lcd";
+import * as _150 from "./ugov/v1/query.lcd";
+import * as _151 from "./uibc/v1/query.lcd";
+import * as _152 from "./incentive/v1/query.rpc.Query";
+import * as _153 from "./leverage/v1/query.rpc.Query";
+import * as _154 from "./oracle/v1/query.rpc.Query";
+import * as _155 from "./ugov/v1/query.rpc.Query";
+import * as _156 from "./uibc/v1/query.rpc.Query";
+import * as _157 from "./incentive/v1/tx.rpc.msg";
+import * as _158 from "./leverage/v1/tx.rpc.msg";
+import * as _159 from "./oracle/v1/tx.rpc.msg";
+import * as _160 from "./ugov/v1/tx.rpc.msg";
+import * as _161 from "./uibc/v1/tx.rpc.msg";
 export declare namespace umee {
     namespace incentive {
         const v1: {
-            MsgClientImpl: typeof _152.MsgClientImpl;
-            QueryClientImpl: typeof _147.QueryClientImpl;
+            MsgClientImpl: typeof _157.MsgClientImpl;
+            QueryClientImpl: typeof _152.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _2.QueryParams): Promise<_2.QueryParamsResponse>;
                 totalBonded(request: _2.QueryTotalBonded): Promise<_2.QueryTotalBondedResponse>;
@@ -50,6 +55,7 @@ export declare namespace umee {
                 actualRates(request: _2.QueryActualRates): Promise<_2.QueryActualRatesResponse>;
                 lastRewardTime(request?: _2.QueryLastRewardTime): Promise<_2.QueryLastRewardTimeResponse>;
             };
+            LCDQueryClient: typeof _147.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -541,8 +547,8 @@ export declare namespace umee {
     }
     namespace leverage {
         const v1: {
-            MsgClientImpl: typeof _153.MsgClientImpl;
-            QueryClientImpl: typeof _148.QueryClientImpl;
+            MsgClientImpl: typeof _158.MsgClientImpl;
+            QueryClientImpl: typeof _153.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _7.QueryParams): Promise<_7.QueryParamsResponse>;
                 registeredTokens(request: _7.QueryRegisteredTokens): Promise<_7.QueryRegisteredTokensResponse>;
@@ -555,6 +561,7 @@ export declare namespace umee {
                 maxBorrow(request: _7.QueryMaxBorrow): Promise<_7.QueryMaxBorrowResponse>;
                 inspect(request: _7.QueryInspect): Promise<_7.QueryInspectResponse>;
             };
+            LCDQueryClient: typeof _148.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -1364,8 +1371,8 @@ export declare namespace umee {
     }
     namespace oracle {
         const v1: {
-            MsgClientImpl: typeof _154.MsgClientImpl;
-            QueryClientImpl: typeof _149.QueryClientImpl;
+            MsgClientImpl: typeof _159.MsgClientImpl;
+            QueryClientImpl: typeof _154.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 exchangeRates(request: _12.QueryExchangeRates): Promise<_12.QueryExchangeRatesResponse>;
                 activeExchangeRates(request?: _12.QueryActiveExchangeRates): Promise<_12.QueryActiveExchangeRatesResponse>;
@@ -1381,6 +1388,7 @@ export declare namespace umee {
                 medianDeviations(request: _12.QueryMedianDeviations): Promise<_12.QueryMedianDeviationsResponse>;
                 avgPrice(request: _12.QueryAvgPrice): Promise<_12.QueryAvgPriceResponse>;
             };
+            LCDQueryClient: typeof _149.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -1706,11 +1714,12 @@ export declare namespace umee {
     }
     namespace ugov {
         const v1: {
-            MsgClientImpl: typeof _155.MsgClientImpl;
-            QueryClientImpl: typeof _150.QueryClientImpl;
+            MsgClientImpl: typeof _160.MsgClientImpl;
+            QueryClientImpl: typeof _155.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 minGasPrice(request?: _16.QueryMinGasPrice): Promise<_16.QueryMinGasPriceResponse>;
             };
+            LCDQueryClient: typeof _150.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -1792,13 +1801,14 @@ export declare namespace umee {
     }
     namespace uibc {
         const v1: {
-            MsgClientImpl: typeof _156.MsgClientImpl;
-            QueryClientImpl: typeof _151.QueryClientImpl;
+            MsgClientImpl: typeof _161.MsgClientImpl;
+            QueryClientImpl: typeof _156.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _20.QueryParams): Promise<_20.QueryParamsResponse>;
                 outflows(request: _20.QueryOutflows): Promise<_20.QueryOutflowsResponse>;
                 allOutflows(request?: _20.QueryAllOutflows): Promise<_20.QueryAllOutflowsResponse>;
             };
+            LCDQueryClient: typeof _151.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -1967,19 +1977,19 @@ export declare namespace umee {
         }) => Promise<{
             umee: {
                 incentive: {
-                    v1: _152.MsgClientImpl;
+                    v1: _157.MsgClientImpl;
                 };
                 leverage: {
-                    v1: _153.MsgClientImpl;
+                    v1: _158.MsgClientImpl;
                 };
                 oracle: {
-                    v1: _154.MsgClientImpl;
+                    v1: _159.MsgClientImpl;
                 };
                 ugov: {
-                    v1: _155.MsgClientImpl;
+                    v1: _160.MsgClientImpl;
                 };
                 uibc: {
-                    v1: _156.MsgClientImpl;
+                    v1: _161.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -2278,6 +2288,83 @@ export declare namespace umee {
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                         authority(request?: import("../cosmos/upgrade/v1beta1/query").QueryAuthorityRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryAuthorityResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            umee: {
+                incentive: {
+                    v1: _147.LCDQueryClient;
+                };
+                leverage: {
+                    v1: _148.LCDQueryClient;
+                };
+                oracle: {
+                    v1: _149.LCDQueryClient;
+                };
+                ugov: {
+                    v1: _150.LCDQueryClient;
+                };
+                uibc: {
+                    v1: _151.LCDQueryClient;
+                };
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1: import("../cosmos/gov/v1/query.lcd").LCDQueryClient;
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                group: {
+                    v1: import("../cosmos/group/v1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                nft: {
+                    v1beta1: import("../cosmos/nft/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

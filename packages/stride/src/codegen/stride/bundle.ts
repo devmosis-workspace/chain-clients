@@ -48,25 +48,35 @@ import * as _190 from "./stakeibc/tx.amino";
 import * as _191 from "./claim/tx.registry";
 import * as _192 from "./interchainquery/v1/messages.registry";
 import * as _193 from "./stakeibc/tx.registry";
-import * as _194 from "./autopilot/query.rpc.Query";
-import * as _195 from "./claim/query.rpc.Query";
-import * as _196 from "./epochs/query.rpc.Query";
-import * as _197 from "./icacallbacks/query.rpc.Query";
-import * as _198 from "./mint/v1beta1/query.rpc.Query";
-import * as _199 from "./ratelimit/query.rpc.Query";
-import * as _200 from "./records/query.rpc.Query";
-import * as _201 from "./stakeibc/query.rpc.Query";
-import * as _202 from "./claim/tx.rpc.msg";
-import * as _203 from "./interchainquery/v1/messages.rpc.msg";
-import * as _204 from "./stakeibc/tx.rpc.msg";
-import * as _278 from "./rpc.query";
-import * as _279 from "./rpc.tx";
+import * as _194 from "./autopilot/query.lcd";
+import * as _195 from "./claim/query.lcd";
+import * as _196 from "./epochs/query.lcd";
+import * as _197 from "./icacallbacks/query.lcd";
+import * as _198 from "./mint/v1beta1/query.lcd";
+import * as _199 from "./ratelimit/query.lcd";
+import * as _200 from "./records/query.lcd";
+import * as _201 from "./stakeibc/query.lcd";
+import * as _202 from "./autopilot/query.rpc.Query";
+import * as _203 from "./claim/query.rpc.Query";
+import * as _204 from "./epochs/query.rpc.Query";
+import * as _205 from "./icacallbacks/query.rpc.Query";
+import * as _206 from "./mint/v1beta1/query.rpc.Query";
+import * as _207 from "./ratelimit/query.rpc.Query";
+import * as _208 from "./records/query.rpc.Query";
+import * as _209 from "./stakeibc/query.rpc.Query";
+import * as _210 from "./claim/tx.rpc.msg";
+import * as _211 from "./interchainquery/v1/messages.rpc.msg";
+import * as _212 from "./stakeibc/tx.rpc.msg";
+import * as _305 from "./lcd";
+import * as _306 from "./rpc.query";
+import * as _307 from "./rpc.tx";
 export namespace stride {
   export const autopilot = {
     ..._0,
     ..._1,
     ..._2,
-    ..._194
+    ..._194,
+    ..._202
   };
   export const claim = {
     ..._3,
@@ -77,12 +87,14 @@ export namespace stride {
     ..._188,
     ..._191,
     ..._195,
-    ..._202
+    ..._203,
+    ..._210
   };
   export const epochs = {
     ..._8,
     ..._9,
-    ..._196
+    ..._196,
+    ..._204
   };
   export const icacallbacks = {
     ..._10,
@@ -91,7 +103,8 @@ export namespace stride {
     ..._13,
     ..._14,
     ..._15,
-    ..._197
+    ..._197,
+    ..._205
   };
   export namespace interchainquery {
     export const v1 = {
@@ -100,7 +113,7 @@ export namespace stride {
       ..._18,
       ..._189,
       ..._192,
-      ..._203
+      ..._211
     };
   }
   export namespace mint {
@@ -108,7 +121,8 @@ export namespace stride {
       ..._19,
       ..._20,
       ..._21,
-      ..._198
+      ..._198,
+      ..._206
     };
   }
   export const ratelimit = {
@@ -117,13 +131,15 @@ export namespace stride {
     ..._24,
     ..._25,
     ..._26,
-    ..._199
+    ..._199,
+    ..._207
   };
   export const records = {
     ..._27,
     ..._28,
     ..._29,
-    ..._200
+    ..._200,
+    ..._208
   };
   export const stakeibc = {
     ..._30,
@@ -141,14 +157,16 @@ export namespace stride {
     ..._190,
     ..._193,
     ..._201,
-    ..._204
+    ..._209,
+    ..._212
   };
   export const vesting = {
     ..._42,
     ..._43
   };
   export const ClientFactory = {
-    ..._278,
-    ..._279
+    ..._305,
+    ..._306,
+    ..._307
   };
 }

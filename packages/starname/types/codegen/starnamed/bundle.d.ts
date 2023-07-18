@@ -12,20 +12,24 @@ import * as _16 from "../iov/starname/v1beta1/genesis";
 import * as _17 from "../iov/starname/v1beta1/query";
 import * as _18 from "../iov/starname/v1beta1/tx";
 import * as _19 from "../iov/starname/v1beta1/types";
-import * as _142 from "../iov/configuration/v1beta1/query.rpc.Query";
-import * as _143 from "../iov/escrow/v1beta1/query.rpc.Query";
-import * as _144 from "../iov/starname/v1beta1/query.rpc.Query";
-import * as _145 from "../iov/escrow/v1beta1/tx.rpc.msg";
-import * as _146 from "../iov/starname/v1beta1/tx.rpc.msg";
+import * as _143 from "../iov/configuration/v1beta1/query.lcd";
+import * as _144 from "../iov/escrow/v1beta1/query.lcd";
+import * as _145 from "../iov/starname/v1beta1/query.lcd";
+import * as _146 from "../iov/configuration/v1beta1/query.rpc.Query";
+import * as _147 from "../iov/escrow/v1beta1/query.rpc.Query";
+import * as _148 from "../iov/starname/v1beta1/query.rpc.Query";
+import * as _149 from "../iov/escrow/v1beta1/tx.rpc.msg";
+import * as _150 from "../iov/starname/v1beta1/tx.rpc.msg";
 export declare namespace starnamed {
     namespace x {
         namespace configuration {
             const v1beta1: {
-                QueryClientImpl: typeof _142.QueryClientImpl;
+                QueryClientImpl: typeof _146.QueryClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     config(request?: _7.QueryConfigRequest): Promise<_7.QueryConfigResponse>;
                     fees(request?: _7.QueryFeesRequest): Promise<_7.QueryFeesResponse>;
                 };
+                LCDQueryClient: typeof _143.LCDQueryClient;
                 Config: {
                     encode(message: _8.Config, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                     fromJSON(object: any): _8.Config;
@@ -75,12 +79,13 @@ export declare namespace starnamed {
         }
         namespace escrow {
             const v1beta1: {
-                MsgClientImpl: typeof _145.MsgClientImpl;
-                QueryClientImpl: typeof _143.QueryClientImpl;
+                MsgClientImpl: typeof _149.MsgClientImpl;
+                QueryClientImpl: typeof _147.QueryClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     escrow(request: _12.QueryEscrowRequest): Promise<_12.QueryEscrowResponse>;
                     escrows(request: _12.QueryEscrowsRequest): Promise<_12.QueryEscrowsResponse>;
                 };
+                LCDQueryClient: typeof _144.LCDQueryClient;
                 registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                 load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                 MessageComposer: {
@@ -360,8 +365,8 @@ export declare namespace starnamed {
         }
         namespace starname {
             const v1beta1: {
-                MsgClientImpl: typeof _146.MsgClientImpl;
-                QueryClientImpl: typeof _144.QueryClientImpl;
+                MsgClientImpl: typeof _150.MsgClientImpl;
+                QueryClientImpl: typeof _148.QueryClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     domain(request: _17.QueryDomainRequest): Promise<_17.QueryDomainResponse>;
                     domainAccounts(request: _17.QueryDomainAccountsRequest): Promise<_17.QueryDomainAccountsResponse>;
@@ -373,6 +378,7 @@ export declare namespace starnamed {
                     brokerDomains(request: _17.QueryBrokerDomainsRequest): Promise<_17.QueryBrokerDomainsResponse>;
                     yield(request?: _17.QueryYieldRequest): Promise<_17.QueryYieldResponse>;
                 };
+                LCDQueryClient: typeof _145.LCDQueryClient;
                 registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
                 load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
                 MessageComposer: {
@@ -1029,10 +1035,10 @@ export declare namespace starnamed {
             starnamed: {
                 x: {
                     escrow: {
-                        v1beta1: _145.MsgClientImpl;
+                        v1beta1: _149.MsgClientImpl;
                     };
                     starname: {
-                        v1beta1: _146.MsgClientImpl;
+                        v1beta1: _150.MsgClientImpl;
                     };
                 };
             };
@@ -1231,6 +1237,69 @@ export declare namespace starnamed {
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            starnamed: {
+                x: {
+                    configuration: {
+                        v1beta1: _143.LCDQueryClient;
+                    };
+                    escrow: {
+                        v1beta1: _144.LCDQueryClient;
+                    };
+                    starname: {
+                        v1beta1: _145.LCDQueryClient;
+                    };
+                };
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

@@ -19,15 +19,20 @@ import * as _161 from "./intertx/v1beta1/tx.amino";
 import * as _162 from "./compute/v1beta1/msg.registry";
 import * as _163 from "./emergencybutton/v1beta1/tx.registry";
 import * as _164 from "./intertx/v1beta1/tx.registry";
-import * as _165 from "./compute/v1beta1/query.rpc.Query";
-import * as _166 from "./emergencybutton/v1beta1/query.rpc.Query";
-import * as _167 from "./intertx/v1beta1/query.rpc.Query";
-import * as _168 from "./registration/v1beta1/query.rpc.Query";
-import * as _169 from "./compute/v1beta1/msg.rpc.msg";
-import * as _170 from "./emergencybutton/v1beta1/tx.rpc.msg";
-import * as _171 from "./intertx/v1beta1/tx.rpc.msg";
-import * as _240 from "./rpc.query";
-import * as _241 from "./rpc.tx";
+import * as _165 from "./compute/v1beta1/query.lcd";
+import * as _166 from "./emergencybutton/v1beta1/query.lcd";
+import * as _167 from "./intertx/v1beta1/query.lcd";
+import * as _168 from "./registration/v1beta1/query.lcd";
+import * as _169 from "./compute/v1beta1/query.rpc.Query";
+import * as _170 from "./emergencybutton/v1beta1/query.rpc.Query";
+import * as _171 from "./intertx/v1beta1/query.rpc.Query";
+import * as _172 from "./registration/v1beta1/query.rpc.Query";
+import * as _173 from "./compute/v1beta1/msg.rpc.msg";
+import * as _174 from "./emergencybutton/v1beta1/tx.rpc.msg";
+import * as _175 from "./intertx/v1beta1/tx.rpc.msg";
+import * as _267 from "./lcd";
+import * as _268 from "./rpc.query";
+import * as _269 from "./rpc.tx";
 export namespace secret {
   export namespace compute {
     export const v1beta1 = {
@@ -38,7 +43,8 @@ export namespace secret {
       ..._159,
       ..._162,
       ..._165,
-      ..._169
+      ..._169,
+      ..._173
     };
   }
   export namespace emergencybutton {
@@ -50,7 +56,8 @@ export namespace secret {
       ..._160,
       ..._163,
       ..._166,
-      ..._170
+      ..._170,
+      ..._174
     };
   }
   export namespace intertx {
@@ -60,7 +67,8 @@ export namespace secret {
       ..._161,
       ..._164,
       ..._167,
-      ..._171
+      ..._171,
+      ..._175
     };
   }
   export namespace registration {
@@ -69,7 +77,8 @@ export namespace secret {
       ..._11,
       ..._12,
       ..._13,
-      ..._168
+      ..._168,
+      ..._172
     };
     export namespace remote_attestation {
       export const v1beta1 = {
@@ -78,7 +87,8 @@ export namespace secret {
     }
   }
   export const ClientFactory = {
-    ..._240,
-    ..._241
+    ..._267,
+    ..._268,
+    ..._269
   };
 }

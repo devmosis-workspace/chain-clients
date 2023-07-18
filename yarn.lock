@@ -1709,6 +1709,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -1747,6 +1748,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -1785,6 +1787,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -1801,9 +1804,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@chain-clients/copy@workspace:packages/copy":
+"@chain-clients/copy@workspace:examples/copy":
   version: 0.0.0-use.local
-  resolution: "@chain-clients/copy@workspace:packages/copy"
+  resolution: "@chain-clients/copy@workspace:examples/copy"
   dependencies:
     "@babel/cli": 7.21.0
     "@babel/core": 7.21.4
@@ -1823,6 +1826,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -1861,6 +1865,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -1899,6 +1904,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -1937,6 +1943,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -1975,6 +1982,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2013,6 +2021,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2051,6 +2060,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2089,6 +2099,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2127,6 +2138,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2165,6 +2177,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2203,6 +2216,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2241,6 +2255,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2279,6 +2294,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2317,6 +2333,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2355,6 +2372,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2393,6 +2411,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2431,6 +2450,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2447,7 +2467,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@chain-clients/osmosis@workspace:packages/osmosis":
+"@chain-clients/osmosis@workspace:^, @chain-clients/osmosis@workspace:packages/osmosis":
   version: 0.0.0-use.local
   resolution: "@chain-clients/osmosis@workspace:packages/osmosis"
   dependencies:
@@ -2469,6 +2489,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2507,6 +2528,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2545,44 +2567,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
-    "@osmonauts/telescope": ^0.96.0
-    babel-core: 7.0.0-bridge.0
-    babel-watch: ^7.7.2
-    cross-env: ^7.0.2
-    eslint: 8.38.0
-    eslint-config-prettier: ^8.8.0
-    eslint-plugin-prettier: ^4.2.1
-    long: ^5.2.1
-    prettier: ^2.8.7
-    protobufjs: ^6.11.2
-    regenerator-runtime: ^0.13.11
-    rimraf: ^5.0.0
-    typescript: ^5.0.4
-  languageName: unknown
-  linkType: soft
-
-"@chain-clients/sifchain@workspace:packages/sifchain":
-  version: 0.0.0-use.local
-  resolution: "@chain-clients/sifchain@workspace:packages/sifchain"
-  dependencies:
-    "@babel/cli": 7.21.0
-    "@babel/core": 7.21.4
-    "@babel/eslint-parser": ^7.21.3
-    "@babel/node": ^7.20.7
-    "@babel/plugin-proposal-class-properties": 7.18.6
-    "@babel/plugin-proposal-export-default-from": 7.18.10
-    "@babel/plugin-proposal-nullish-coalescing-operator": 7.18.6
-    "@babel/plugin-proposal-numeric-separator": 7.18.6
-    "@babel/plugin-proposal-object-rest-spread": 7.20.7
-    "@babel/plugin-proposal-optional-chaining": 7.21.0
-    "@babel/plugin-transform-runtime": 7.21.4
-    "@babel/preset-env": 7.21.4
-    "@babel/preset-typescript": ^7.21.4
-    "@babel/runtime": ^7.21.0
-    "@cosmjs/amino": 0.29.4
-    "@cosmjs/proto-signing": 0.29.4
-    "@cosmjs/stargate": 0.29.4
-    "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2621,6 +2606,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2659,6 +2645,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2697,6 +2684,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2735,6 +2723,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2773,6 +2762,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -2811,6 +2801,7 @@ __metadata:
     "@cosmjs/proto-signing": 0.29.4
     "@cosmjs/stargate": 0.29.4
     "@cosmjs/tendermint-rpc": ^0.29.4
+    "@osmonauts/lcd": ^0.11.1
     "@osmonauts/telescope": ^0.96.0
     babel-core: 7.0.0-bridge.0
     babel-watch: ^7.7.2
@@ -3314,6 +3305,16 @@ __metadata:
     case: 1.6.3
     dotty: 0.1.2
   checksum: 539e420e3497508220638460dca0c144800706d08bb3ffd6d81c0e830ec7478d2304fd0bdccc8e03a0e6a982abde494b4ef535a0469e581bf3713dd648d82f44
+  languageName: node
+  linkType: hard
+
+"@osmonauts/lcd@npm:^0.11.1":
+  version: 0.11.1
+  resolution: "@osmonauts/lcd@npm:0.11.1"
+  dependencies:
+    "@babel/runtime": ^7.21.0
+    axios: 0.27.2
+  checksum: d2c92a7030cd04c95c1ad0155c7bc24824a85c57cda20d7be27b1c079bda639cfc3ef16797dfaf8f0a41681f56b32dd35e5ee689790fba32e4510e75492f10d7
   languageName: node
   linkType: hard
 
@@ -3886,10 +3887,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"asynckit@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "asynckit@npm:0.4.0"
+  checksum: 7b78c451df768adba04e2d02e63e2d0bf3b07adcd6e42b4cf665cb7ce899bedd344c69a1dcbce355b5f972d597b25aaa1c1742b52cffd9caccb22f348114f6be
+  languageName: node
+  linkType: hard
+
 "available-typed-arrays@npm:^1.0.5":
   version: 1.0.5
   resolution: "available-typed-arrays@npm:1.0.5"
   checksum: 20eb47b3cefd7db027b9bbb993c658abd36d4edd3fe1060e83699a03ee275b0c9b216cc076ff3f2db29073225fb70e7613987af14269ac1fe2a19803ccc97f1a
+  languageName: node
+  linkType: hard
+
+"axios@npm:0.27.2":
+  version: 0.27.2
+  resolution: "axios@npm:0.27.2"
+  dependencies:
+    follow-redirects: ^1.14.9
+    form-data: ^4.0.0
+  checksum: 38cb7540465fe8c4102850c4368053c21683af85c5fdf0ea619f9628abbcb59415d1e22ebc8a6390d2bbc9b58a9806c874f139767389c862ec9b772235f06854
   languageName: node
   linkType: hard
 
@@ -4169,6 +4187,8 @@ __metadata:
 "chain-clients@workspace:.":
   version: 0.0.0-use.local
   resolution: "chain-clients@workspace:."
+  dependencies:
+    typescript: ^5.0.4
   languageName: unknown
   linkType: soft
 
@@ -4348,6 +4368,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"combined-stream@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "combined-stream@npm:1.0.8"
+  dependencies:
+    delayed-stream: ~1.0.0
+  checksum: 49fa4aeb4916567e33ea81d088f6584749fc90c7abec76fd516bf1c5aa5c79f3584b5ba3de6b86d26ddd64bae5329c4c7479343250cfe71c75bb366eae53bb7c
+  languageName: node
+  linkType: hard
+
 "commander@npm:^4.0.1":
   version: 4.1.1
   resolution: "commander@npm:4.1.1"
@@ -4496,6 +4525,13 @@ __metadata:
     has-property-descriptors: ^1.0.0
     object-keys: ^1.1.1
   checksum: e60aee6a19b102df4e2b1f301816804e81ab48bb91f00d0d935f269bf4b3f79c88b39e4f89eaa132890d23267335fd1140dfcd8d5ccd61031a0a2c41a54e33a6
+  languageName: node
+  linkType: hard
+
+"delayed-stream@npm:~1.0.0":
+  version: 1.0.0
+  resolution: "delayed-stream@npm:1.0.0"
+  checksum: 46fe6e83e2cb1d85ba50bd52803c68be9bd953282fa7096f51fc29edd5d67ff84ff753c51966061e5ba7cb5e47ef6d36a91924eddb7f3f3483b1c560f77a0020
   languageName: node
   linkType: hard
 
@@ -5080,7 +5116,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.14.0":
+"follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.14.9":
   version: 1.15.2
   resolution: "follow-redirects@npm:1.15.2"
   peerDependenciesMeta:
@@ -5106,6 +5142,17 @@ __metadata:
     cross-spawn: ^7.0.0
     signal-exit: ^4.0.1
   checksum: 139d270bc82dc9e6f8bc045fe2aae4001dc2472157044fdfad376d0a3457f77857fa883c1c8b21b491c6caade9a926a4bed3d3d2e8d3c9202b151a4cbbd0bcd5
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "form-data@npm:4.0.0"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.8
+    mime-types: ^2.1.12
+  checksum: 01135bf8675f9d5c61ff18e2e2932f719ca4de964e3be90ef4c36aacfc7b9cb2fceb5eca0b7e0190e3383fe51c5b37f4cb80b62ca06a99aaabfcfd6ac7c9328c
   languageName: node
   linkType: hard
 
@@ -6308,6 +6355,22 @@ __metadata:
     braces: ^3.0.2
     picomatch: ^2.3.1
   checksum: 02a17b671c06e8fefeeb6ef996119c1e597c942e632a21ef589154f23898c9c6a9858526246abb14f8bca6e77734aa9dcf65476fca47cedfb80d9577d52843fc
+  languageName: node
+  linkType: hard
+
+"mime-db@npm:1.52.0":
+  version: 1.52.0
+  resolution: "mime-db@npm:1.52.0"
+  checksum: 0d99a03585f8b39d68182803b12ac601d9c01abfa28ec56204fa330bc9f3d1c5e14beb049bafadb3dbdf646dfb94b87e24d4ec7b31b7279ef906a8ea9b6a513f
+  languageName: node
+  linkType: hard
+
+"mime-types@npm:^2.1.12":
+  version: 2.1.35
+  resolution: "mime-types@npm:2.1.35"
+  dependencies:
+    mime-db: 1.52.0
+  checksum: 89a5b7f1def9f3af5dad6496c5ed50191ae4331cc5389d7c521c8ad28d5fdad2d06fd81baf38fed813dc4e46bb55c8145bb0ff406330818c9cf712fb2e9b3836
   languageName: node
   linkType: hard
 
@@ -7594,6 +7657,14 @@ __metadata:
   checksum: 3b34a3d77165a2cb82b34014b3aba93b1c4637a5011807557dc2f3da826c59975a5ccad765721c4648b39817e3472789f9b0fa98fc854c5c1c7a1e632aacdc28
   languageName: node
   linkType: hard
+
+"test@workspace:examples/test":
+  version: 0.0.0-use.local
+  resolution: "test@workspace:examples/test"
+  dependencies:
+    "@chain-clients/osmosis": "workspace:^"
+  languageName: unknown
+  linkType: soft
 
 "text-table@npm:^0.2.0":
   version: 0.2.0

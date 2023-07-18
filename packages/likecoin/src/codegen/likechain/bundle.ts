@@ -28,12 +28,15 @@ import * as _140 from "./iscn/tx.amino";
 import * as _141 from "./likenft/v1/tx.amino";
 import * as _142 from "./iscn/tx.registry";
 import * as _143 from "./likenft/v1/tx.registry";
-import * as _144 from "./iscn/query.rpc.Query";
-import * as _145 from "./likenft/v1/query.rpc.Query";
-import * as _146 from "./iscn/tx.rpc.msg";
-import * as _147 from "./likenft/v1/tx.rpc.msg";
-import * as _209 from "./rpc.query";
-import * as _210 from "./rpc.tx";
+import * as _144 from "./iscn/query.lcd";
+import * as _145 from "./likenft/v1/query.lcd";
+import * as _146 from "./iscn/query.rpc.Query";
+import * as _147 from "./likenft/v1/query.rpc.Query";
+import * as _148 from "./iscn/tx.rpc.msg";
+import * as _149 from "./likenft/v1/tx.rpc.msg";
+import * as _229 from "./lcd";
+import * as _230 from "./rpc.query";
+import * as _231 from "./rpc.tx";
 export namespace likechain {
   export const iscn = {
     ..._0,
@@ -46,7 +49,8 @@ export namespace likechain {
     ..._140,
     ..._142,
     ..._144,
-    ..._146
+    ..._146,
+    ..._148
   };
   export namespace likenft {
     export const v1 = {
@@ -72,11 +76,13 @@ export namespace likechain {
       ..._141,
       ..._143,
       ..._145,
-      ..._147
+      ..._147,
+      ..._149
     };
   }
   export const ClientFactory = {
-    ..._209,
-    ..._210
+    ..._229,
+    ..._230,
+    ..._231
   };
 }

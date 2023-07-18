@@ -12,17 +12,21 @@ import * as _16 from "../iov/starname/v1beta1/genesis";
 import * as _17 from "../iov/starname/v1beta1/query";
 import * as _18 from "../iov/starname/v1beta1/tx";
 import * as _19 from "../iov/starname/v1beta1/types";
-import * as _138 from "../iov/escrow/v1beta1/tx.amino";
-import * as _139 from "../iov/starname/v1beta1/tx.amino";
-import * as _140 from "../iov/escrow/v1beta1/tx.registry";
-import * as _141 from "../iov/starname/v1beta1/tx.registry";
-import * as _142 from "../iov/configuration/v1beta1/query.rpc.Query";
-import * as _143 from "../iov/escrow/v1beta1/query.rpc.Query";
-import * as _144 from "../iov/starname/v1beta1/query.rpc.Query";
-import * as _145 from "../iov/escrow/v1beta1/tx.rpc.msg";
-import * as _146 from "../iov/starname/v1beta1/tx.rpc.msg";
-import * as _209 from "./rpc.query";
-import * as _210 from "./rpc.tx";
+import * as _139 from "../iov/escrow/v1beta1/tx.amino";
+import * as _140 from "../iov/starname/v1beta1/tx.amino";
+import * as _141 from "../iov/escrow/v1beta1/tx.registry";
+import * as _142 from "../iov/starname/v1beta1/tx.registry";
+import * as _143 from "../iov/configuration/v1beta1/query.lcd";
+import * as _144 from "../iov/escrow/v1beta1/query.lcd";
+import * as _145 from "../iov/starname/v1beta1/query.lcd";
+import * as _146 from "../iov/configuration/v1beta1/query.rpc.Query";
+import * as _147 from "../iov/escrow/v1beta1/query.rpc.Query";
+import * as _148 from "../iov/starname/v1beta1/query.rpc.Query";
+import * as _149 from "../iov/escrow/v1beta1/tx.rpc.msg";
+import * as _150 from "../iov/starname/v1beta1/tx.rpc.msg";
+import * as _232 from "./lcd";
+import * as _233 from "./rpc.query";
+import * as _234 from "./rpc.tx";
 export namespace starnamed {
   export namespace x {
     export namespace configuration {
@@ -30,7 +34,8 @@ export namespace starnamed {
         ..._6,
         ..._7,
         ..._8,
-        ..._142
+        ..._143,
+        ..._146
       };
     }
     export namespace escrow {
@@ -42,10 +47,11 @@ export namespace starnamed {
         ..._13,
         ..._14,
         ..._15,
-        ..._138,
-        ..._140,
-        ..._143,
-        ..._145
+        ..._139,
+        ..._141,
+        ..._144,
+        ..._147,
+        ..._149
       };
     }
     export namespace starname {
@@ -54,15 +60,17 @@ export namespace starnamed {
         ..._17,
         ..._18,
         ..._19,
-        ..._139,
-        ..._141,
-        ..._144,
-        ..._146
+        ..._140,
+        ..._142,
+        ..._145,
+        ..._148,
+        ..._150
       };
     }
   }
   export const ClientFactory = {
-    ..._209,
-    ..._210
+    ..._232,
+    ..._233,
+    ..._234
   };
 }

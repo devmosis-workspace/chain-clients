@@ -8,10 +8,12 @@ import * as _6 from "./v1/query";
 import * as _7 from "./v1/types";
 import * as _120 from "./v1/msgs.amino";
 import * as _121 from "./v1/msgs.registry";
-import * as _122 from "./v1/query.rpc.Query";
-import * as _123 from "./v1/msgs.rpc.msg";
-import * as _174 from "./rpc.query";
-import * as _175 from "./rpc.tx";
+import * as _122 from "./v1/query.lcd";
+import * as _123 from "./v1/query.rpc.Query";
+import * as _124 from "./v1/msgs.rpc.msg";
+import * as _192 from "./lcd";
+import * as _193 from "./rpc.query";
+import * as _194 from "./rpc.tx";
 export namespace gravity {
   export const v1 = {
     ..._0,
@@ -25,10 +27,12 @@ export namespace gravity {
     ..._120,
     ..._121,
     ..._122,
-    ..._123
+    ..._123,
+    ..._124
   };
   export const ClientFactory = {
-    ..._174,
-    ..._175
+    ..._192,
+    ..._193,
+    ..._194
   };
 }

@@ -13,18 +13,22 @@ import * as _11 from "./registration/v1beta1/msg";
 import * as _12 from "./registration/v1beta1/query";
 import * as _13 from "./registration/v1beta1/types";
 import * as _14 from "./registration/v1beta1/remote_attestation/types";
-import * as _165 from "./compute/v1beta1/query.rpc.Query";
-import * as _166 from "./emergencybutton/v1beta1/query.rpc.Query";
-import * as _167 from "./intertx/v1beta1/query.rpc.Query";
-import * as _168 from "./registration/v1beta1/query.rpc.Query";
-import * as _169 from "./compute/v1beta1/msg.rpc.msg";
-import * as _170 from "./emergencybutton/v1beta1/tx.rpc.msg";
-import * as _171 from "./intertx/v1beta1/tx.rpc.msg";
+import * as _165 from "./compute/v1beta1/query.lcd";
+import * as _166 from "./emergencybutton/v1beta1/query.lcd";
+import * as _167 from "./intertx/v1beta1/query.lcd";
+import * as _168 from "./registration/v1beta1/query.lcd";
+import * as _169 from "./compute/v1beta1/query.rpc.Query";
+import * as _170 from "./emergencybutton/v1beta1/query.rpc.Query";
+import * as _171 from "./intertx/v1beta1/query.rpc.Query";
+import * as _172 from "./registration/v1beta1/query.rpc.Query";
+import * as _173 from "./compute/v1beta1/msg.rpc.msg";
+import * as _174 from "./emergencybutton/v1beta1/tx.rpc.msg";
+import * as _175 from "./intertx/v1beta1/tx.rpc.msg";
 export declare namespace secret {
     namespace compute {
         const v1beta1: {
-            MsgClientImpl: typeof _169.MsgClientImpl;
-            QueryClientImpl: typeof _165.QueryClientImpl;
+            MsgClientImpl: typeof _173.MsgClientImpl;
+            QueryClientImpl: typeof _169.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 contractInfo(request: _2.QueryByContractAddressRequest): Promise<_2.QueryContractInfoResponse>;
                 contractsByCodeId(request: _2.QueryByCodeIdRequest): Promise<_2.QueryContractsByCodeIdResponse>;
@@ -36,6 +40,7 @@ export declare namespace secret {
                 labelByAddress(request: _2.QueryByContractAddressRequest): Promise<_2.QueryContractLabelResponse>;
                 addressByLabel(request: _2.QueryByLabelRequest): Promise<_2.QueryContractAddressResponse>;
             };
+            LCDQueryClient: typeof _165.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -333,11 +338,12 @@ export declare namespace secret {
     }
     namespace emergencybutton {
         const v1beta1: {
-            MsgClientImpl: typeof _170.MsgClientImpl;
-            QueryClientImpl: typeof _166.QueryClientImpl;
+            MsgClientImpl: typeof _174.MsgClientImpl;
+            QueryClientImpl: typeof _170.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _6.ParamsRequest): Promise<_6.ParamsResponse>;
             };
+            LCDQueryClient: typeof _166.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -411,11 +417,12 @@ export declare namespace secret {
     }
     namespace intertx {
         const v1beta1: {
-            MsgClientImpl: typeof _171.MsgClientImpl;
-            QueryClientImpl: typeof _167.QueryClientImpl;
+            MsgClientImpl: typeof _175.MsgClientImpl;
+            QueryClientImpl: typeof _171.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 interchainAccountFromAddress(request: _8.QueryInterchainAccountFromAddressRequest): Promise<_8.QueryInterchainAccountFromAddressResponse>;
             };
+            LCDQueryClient: typeof _167.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -528,12 +535,13 @@ export declare namespace secret {
     }
     namespace registration {
         const v1beta1: {
-            QueryClientImpl: typeof _168.QueryClientImpl;
+            QueryClientImpl: typeof _172.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 txKey(request?: google.protobuf.Empty): Promise<_11.Key>;
                 registrationKey(request?: google.protobuf.Empty): Promise<_11.Key>;
                 encryptedSeed(request: _12.QueryEncryptedSeedRequest): Promise<_12.QueryEncryptedSeedResponse>;
             };
+            LCDQueryClient: typeof _168.LCDQueryClient;
             SeedConfig: {
                 encode(message: _13.SeedConfig, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(object: any): _13.SeedConfig;
@@ -621,13 +629,13 @@ export declare namespace secret {
         }) => Promise<{
             secret: {
                 compute: {
-                    v1beta1: _169.MsgClientImpl;
+                    v1beta1: _173.MsgClientImpl;
                 };
                 emergencybutton: {
-                    v1beta1: _170.MsgClientImpl;
+                    v1beta1: _174.MsgClientImpl;
                 };
                 intertx: {
-                    v1beta1: _171.MsgClientImpl;
+                    v1beta1: _175.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -837,6 +845,73 @@ export declare namespace secret {
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            secret: {
+                compute: {
+                    v1beta1: _165.LCDQueryClient;
+                };
+                emergencybutton: {
+                    v1beta1: _166.LCDQueryClient;
+                };
+                intertx: {
+                    v1beta1: _167.LCDQueryClient;
+                };
+                registration: {
+                    v1beta1: _168.LCDQueryClient;
+                };
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

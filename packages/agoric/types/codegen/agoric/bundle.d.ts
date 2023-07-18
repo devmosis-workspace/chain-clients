@@ -11,11 +11,14 @@ import * as _10 from "./vibc/msgs";
 import * as _11 from "./vstorage/genesis";
 import * as _12 from "./vstorage/query";
 import * as _13 from "./vstorage/vstorage";
-import * as _123 from "./swingset/query.rpc.Query";
-import * as _124 from "./vbank/query.rpc.Query";
-import * as _125 from "./vstorage/query.rpc.Query";
-import * as _126 from "./swingset/msgs.rpc.msg";
-import * as _127 from "./vibc/msgs.rpc.msg";
+import * as _123 from "./swingset/query.lcd";
+import * as _124 from "./vbank/query.lcd";
+import * as _125 from "./vstorage/query.lcd";
+import * as _126 from "./swingset/query.rpc.Query";
+import * as _127 from "./vbank/query.rpc.Query";
+import * as _128 from "./vstorage/query.rpc.Query";
+import * as _129 from "./swingset/msgs.rpc.msg";
+import * as _130 from "./vibc/msgs.rpc.msg";
 export declare namespace agoric {
     const lien: {
         Lien: {
@@ -35,13 +38,14 @@ export declare namespace agoric {
         };
     };
     const swingset: {
-        MsgClientImpl: typeof _126.MsgClientImpl;
-        QueryClientImpl: typeof _123.QueryClientImpl;
+        MsgClientImpl: typeof _129.MsgClientImpl;
+        QueryClientImpl: typeof _126.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _4.QueryParamsRequest): Promise<_4.QueryParamsResponse>;
             egress(request: _4.QueryEgressRequest): Promise<_4.QueryEgressResponse>;
             mailbox(request: _4.QueryMailboxRequest): Promise<_4.QueryMailboxResponse>;
         };
+        LCDQueryClient: typeof _123.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -335,11 +339,12 @@ export declare namespace agoric {
         };
     };
     const vbank: {
-        QueryClientImpl: typeof _124.QueryClientImpl;
+        QueryClientImpl: typeof _127.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _8.QueryParamsRequest): Promise<_8.QueryParamsResponse>;
             state(request?: _8.QueryStateRequest): Promise<_8.QueryStateResponse>;
         };
+        LCDQueryClient: typeof _124.LCDQueryClient;
         Params: {
             encode(message: _9.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
             fromJSON(object: any): _9.Params;
@@ -377,7 +382,7 @@ export declare namespace agoric {
         };
     };
     const vibc: {
-        MsgClientImpl: typeof _127.MsgClientImpl;
+        MsgClientImpl: typeof _130.MsgClientImpl;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -449,11 +454,12 @@ export declare namespace agoric {
         };
     };
     const vstorage: {
-        QueryClientImpl: typeof _125.QueryClientImpl;
+        QueryClientImpl: typeof _128.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             data(request: _12.QueryDataRequest): Promise<_12.QueryDataResponse>;
             children(request: _12.QueryChildrenRequest): Promise<_12.QueryChildrenResponse>;
         };
+        LCDQueryClient: typeof _125.LCDQueryClient;
         Data: {
             encode(message: _13.Data, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
             fromJSON(object: any): _13.Data;
@@ -500,8 +506,8 @@ export declare namespace agoric {
             rpc: import("../helpers").Rpc;
         }) => Promise<{
             agoric: {
-                swingset: _126.MsgClientImpl;
-                vibc: _127.MsgClientImpl;
+                swingset: _129.MsgClientImpl;
+                vibc: _130.MsgClientImpl;
             };
             cosmos: {
                 authz: {
@@ -690,6 +696,64 @@ export declare namespace agoric {
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            agoric: {
+                swingset: _123.LCDQueryClient;
+                vbank: _124.LCDQueryClient;
+                vstorage: _125.LCDQueryClient;
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

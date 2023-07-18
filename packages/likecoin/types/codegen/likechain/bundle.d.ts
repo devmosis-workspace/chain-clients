@@ -24,14 +24,16 @@ import * as _22 from "./likenft/v1/params";
 import * as _23 from "./likenft/v1/query";
 import * as _24 from "./likenft/v1/royalty_config";
 import * as _25 from "./likenft/v1/tx";
-import * as _144 from "./iscn/query.rpc.Query";
-import * as _145 from "./likenft/v1/query.rpc.Query";
-import * as _146 from "./iscn/tx.rpc.msg";
-import * as _147 from "./likenft/v1/tx.rpc.msg";
+import * as _144 from "./iscn/query.lcd";
+import * as _145 from "./likenft/v1/query.lcd";
+import * as _146 from "./iscn/query.rpc.Query";
+import * as _147 from "./likenft/v1/query.rpc.Query";
+import * as _148 from "./iscn/tx.rpc.msg";
+import * as _149 from "./likenft/v1/tx.rpc.msg";
 export declare namespace likechain {
     const iscn: {
-        MsgClientImpl: typeof _146.MsgClientImpl;
-        QueryClientImpl: typeof _144.QueryClientImpl;
+        MsgClientImpl: typeof _148.MsgClientImpl;
+        QueryClientImpl: typeof _146.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             recordsById(request: _4.QueryRecordsByIdRequest): Promise<_4.QueryRecordsByIdResponse>;
             recordsByFingerprint(request: _4.QueryRecordsByFingerprintRequest): Promise<_4.QueryRecordsByFingerprintResponse>;
@@ -41,6 +43,7 @@ export declare namespace likechain {
             hasCid(request: _4.QueryHasCidRequest): Promise<_4.QueryHasCidResponse>;
             getCidSize(request: _4.QueryGetCidSizeRequest): Promise<_4.QueryGetCidSizeResponse>;
         };
+        LCDQueryClient: typeof _144.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -315,8 +318,8 @@ export declare namespace likechain {
     };
     namespace likenft {
         const v1: {
-            MsgClientImpl: typeof _147.MsgClientImpl;
-            QueryClientImpl: typeof _145.QueryClientImpl;
+            MsgClientImpl: typeof _149.MsgClientImpl;
+            QueryClientImpl: typeof _147.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _23.QueryParamsRequest): Promise<_23.QueryParamsResponse>;
                 classesByISCN(request: _23.QueryClassesByISCNRequest): Promise<_23.QueryClassesByISCNResponse>;
@@ -339,6 +342,7 @@ export declare namespace likechain {
                 royaltyConfig(request: _23.QueryRoyaltyConfigRequest): Promise<_23.QueryRoyaltyConfigResponse>;
                 royaltyConfigIndex(request?: _23.QueryRoyaltyConfigIndexRequest): Promise<_23.QueryRoyaltyConfigIndexResponse>;
             };
+            LCDQueryClient: typeof _145.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -1788,9 +1792,9 @@ export declare namespace likechain {
             rpc: import("../helpers").Rpc;
         }) => Promise<{
             likechain: {
-                iscn: _146.MsgClientImpl;
+                iscn: _148.MsgClientImpl;
                 likenft: {
-                    v1: _147.MsgClientImpl;
+                    v1: _149.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -2063,6 +2067,72 @@ export declare namespace likechain {
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                         authority(request?: import("../cosmos/upgrade/v1beta1/query").QueryAuthorityRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryAuthorityResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            likechain: {
+                iscn: _144.LCDQueryClient;
+                likenft: {
+                    v1: _145.LCDQueryClient;
+                };
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1: import("../cosmos/gov/v1/query.lcd").LCDQueryClient;
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                group: {
+                    v1: import("../cosmos/group/v1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                nft: {
+                    v1beta1: import("../cosmos/nft/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

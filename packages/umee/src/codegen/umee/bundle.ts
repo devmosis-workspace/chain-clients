@@ -31,18 +31,24 @@ import * as _143 from "./leverage/v1/tx.registry";
 import * as _144 from "./oracle/v1/tx.registry";
 import * as _145 from "./ugov/v1/tx.registry";
 import * as _146 from "./uibc/v1/tx.registry";
-import * as _147 from "./incentive/v1/query.rpc.Query";
-import * as _148 from "./leverage/v1/query.rpc.Query";
-import * as _149 from "./oracle/v1/query.rpc.Query";
-import * as _150 from "./ugov/v1/query.rpc.Query";
-import * as _151 from "./uibc/v1/query.rpc.Query";
-import * as _152 from "./incentive/v1/tx.rpc.msg";
-import * as _153 from "./leverage/v1/tx.rpc.msg";
-import * as _154 from "./oracle/v1/tx.rpc.msg";
-import * as _155 from "./ugov/v1/tx.rpc.msg";
-import * as _156 from "./uibc/v1/tx.rpc.msg";
-import * as _218 from "./rpc.query";
-import * as _219 from "./rpc.tx";
+import * as _147 from "./incentive/v1/query.lcd";
+import * as _148 from "./leverage/v1/query.lcd";
+import * as _149 from "./oracle/v1/query.lcd";
+import * as _150 from "./ugov/v1/query.lcd";
+import * as _151 from "./uibc/v1/query.lcd";
+import * as _152 from "./incentive/v1/query.rpc.Query";
+import * as _153 from "./leverage/v1/query.rpc.Query";
+import * as _154 from "./oracle/v1/query.rpc.Query";
+import * as _155 from "./ugov/v1/query.rpc.Query";
+import * as _156 from "./uibc/v1/query.rpc.Query";
+import * as _157 from "./incentive/v1/tx.rpc.msg";
+import * as _158 from "./leverage/v1/tx.rpc.msg";
+import * as _159 from "./oracle/v1/tx.rpc.msg";
+import * as _160 from "./ugov/v1/tx.rpc.msg";
+import * as _161 from "./uibc/v1/tx.rpc.msg";
+import * as _241 from "./lcd";
+import * as _242 from "./rpc.query";
+import * as _243 from "./rpc.tx";
 export namespace umee {
   export namespace incentive {
     export const v1 = {
@@ -53,7 +59,8 @@ export namespace umee {
       ..._137,
       ..._142,
       ..._147,
-      ..._152
+      ..._152,
+      ..._157
     };
   }
   export namespace leverage {
@@ -66,7 +73,8 @@ export namespace umee {
       ..._138,
       ..._143,
       ..._148,
-      ..._153
+      ..._153,
+      ..._158
     };
   }
   export namespace oracle {
@@ -79,7 +87,8 @@ export namespace umee {
       ..._139,
       ..._144,
       ..._149,
-      ..._154
+      ..._154,
+      ..._159
     };
   }
   export namespace ugov {
@@ -91,7 +100,8 @@ export namespace umee {
       ..._140,
       ..._145,
       ..._150,
-      ..._155
+      ..._155,
+      ..._160
     };
   }
   export namespace uibc {
@@ -104,11 +114,13 @@ export namespace umee {
       ..._141,
       ..._146,
       ..._151,
-      ..._156
+      ..._156,
+      ..._161
     };
   }
   export const ClientFactory = {
-    ..._218,
-    ..._219
+    ..._241,
+    ..._242,
+    ..._243
   };
 }

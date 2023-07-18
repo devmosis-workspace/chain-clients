@@ -28,15 +28,18 @@ import * as _26 from "../tokenfactory/paused";
 import * as _27 from "../tokenfactory/pauser";
 import * as _28 from "../tokenfactory/query";
 import * as _29 from "../tokenfactory/tx";
-import * as _137 from "../fiattokenfactory/query.rpc.Query";
-import * as _138 from "../globalfee/query.rpc.Query";
-import * as _139 from "../tokenfactory/query.rpc.Query";
-import * as _140 from "../fiattokenfactory/tx.rpc.msg";
-import * as _141 from "../tokenfactory/tx.rpc.msg";
+import * as _137 from "../fiattokenfactory/query.lcd";
+import * as _138 from "../globalfee/query.lcd";
+import * as _139 from "../tokenfactory/query.lcd";
+import * as _140 from "../fiattokenfactory/query.rpc.Query";
+import * as _141 from "../globalfee/query.rpc.Query";
+import * as _142 from "../tokenfactory/query.rpc.Query";
+import * as _143 from "../fiattokenfactory/tx.rpc.msg";
+import * as _144 from "../tokenfactory/tx.rpc.msg";
 export declare namespace noble {
     const fiattokenfactory: {
-        MsgClientImpl: typeof _140.MsgClientImpl;
-        QueryClientImpl: typeof _137.QueryClientImpl;
+        MsgClientImpl: typeof _143.MsgClientImpl;
+        QueryClientImpl: typeof _140.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _11.QueryParamsRequest): Promise<_11.QueryParamsResponse>;
             blacklisted(request: _11.QueryGetBlacklistedRequest): Promise<_11.QueryGetBlacklistedResponse>;
@@ -52,6 +55,7 @@ export declare namespace noble {
             minterControllerAll(request?: _11.QueryAllMinterControllerRequest): Promise<_11.QueryAllMinterControllerResponse>;
             mintingDenom(request?: _11.QueryGetMintingDenomRequest): Promise<_11.QueryGetMintingDenomResponse>;
         };
+        LCDQueryClient: typeof _137.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -826,10 +830,11 @@ export declare namespace noble {
         };
     };
     const globalfee: {
-        QueryClientImpl: typeof _138.QueryClientImpl;
+        QueryClientImpl: typeof _141.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _14.QueryParamsRequest): Promise<_13.Params>;
         };
+        LCDQueryClient: typeof _138.LCDQueryClient;
         QueryParamsRequest: {
             encode(_: _14.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
             fromJSON(_: any): _14.QueryParamsRequest;
@@ -864,8 +869,8 @@ export declare namespace noble {
         };
     };
     const tokenfactory: {
-        MsgClientImpl: typeof _141.MsgClientImpl;
-        QueryClientImpl: typeof _139.QueryClientImpl;
+        MsgClientImpl: typeof _144.MsgClientImpl;
+        QueryClientImpl: typeof _142.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _28.QueryParamsRequest): Promise<_28.QueryParamsResponse>;
             blacklisted(request: _28.QueryGetBlacklistedRequest): Promise<_28.QueryGetBlacklistedResponse>;
@@ -881,6 +886,7 @@ export declare namespace noble {
             minterControllerAll(request?: _28.QueryAllMinterControllerRequest): Promise<_28.QueryAllMinterControllerResponse>;
             mintingDenom(request?: _28.QueryGetMintingDenomRequest): Promise<_28.QueryGetMintingDenomResponse>;
         };
+        LCDQueryClient: typeof _139.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -1659,8 +1665,8 @@ export declare namespace noble {
             rpc: import("../helpers").Rpc;
         }) => Promise<{
             noble: {
-                fiattokenfactory: _140.MsgClientImpl;
-                tokenfactory: _141.MsgClientImpl;
+                fiattokenfactory: _143.MsgClientImpl;
+                tokenfactory: _144.MsgClientImpl;
             };
             cosmos: {
                 authz: {
@@ -1869,6 +1875,64 @@ export declare namespace noble {
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            noble: {
+                fiattokenfactory: _137.LCDQueryClient;
+                globalfee: _138.LCDQueryClient;
+                tokenfactory: _139.LCDQueryClient;
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

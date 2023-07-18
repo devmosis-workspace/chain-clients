@@ -6,20 +6,24 @@ import * as _91 from "./core/client/v1/client";
 import * as _92 from "./core/client/v1/query";
 import * as _93 from "./core/commitment/v1/commitment";
 import * as _94 from "./lightclients/tendermint/v1/tendermint";
-import * as _169 from "./core/channel/v1/tx.amino";
-import * as _170 from "./core/channel/v1/tx.registry";
-import * as _171 from "./applications/transfer/v1/query.rpc.Query";
-import * as _172 from "./core/client/v1/query.rpc.Query";
-import * as _173 from "./core/channel/v1/tx.rpc.msg";
-import * as _178 from "./rpc.query";
-import * as _179 from "./rpc.tx";
+import * as _185 from "./core/channel/v1/tx.amino";
+import * as _186 from "./core/channel/v1/tx.registry";
+import * as _187 from "./applications/transfer/v1/query.lcd";
+import * as _188 from "./core/client/v1/query.lcd";
+import * as _189 from "./applications/transfer/v1/query.rpc.Query";
+import * as _190 from "./core/client/v1/query.rpc.Query";
+import * as _191 from "./core/channel/v1/tx.rpc.msg";
+import * as _198 from "./lcd";
+import * as _199 from "./rpc.query";
+import * as _200 from "./rpc.tx";
 export namespace ibc {
   export namespace applications {
     export namespace transfer {
       export const v1 = {
         ..._87,
         ..._88,
-        ..._171
+        ..._187,
+        ..._189
       };
     }
   }
@@ -28,16 +32,17 @@ export namespace ibc {
       export const v1 = {
         ..._89,
         ..._90,
-        ..._169,
-        ..._170,
-        ..._173
+        ..._185,
+        ..._186,
+        ..._191
       };
     }
     export namespace client {
       export const v1 = {
         ..._91,
         ..._92,
-        ..._172
+        ..._188,
+        ..._190
       };
     }
     export namespace commitment {
@@ -54,7 +59,8 @@ export namespace ibc {
     }
   }
   export const ClientFactory = {
-    ..._178,
-    ..._179
+    ..._198,
+    ..._199,
+    ..._200
   };
 }

@@ -69,10 +69,12 @@ import * as _67 from "./vote/v1beta1/tx";
 import * as _68 from "./vote/v1beta1/types";
 import * as _182 from "./permission/v1beta1/service.amino";
 import * as _183 from "./permission/v1beta1/service.registry";
-import * as _184 from "./permission/v1beta1/service.rpc.Query";
-import * as _185 from "./permission/v1beta1/service.rpc.msg";
-import * as _247 from "./rpc.query";
-import * as _248 from "./rpc.tx";
+import * as _184 from "./permission/v1beta1/service.lcd";
+import * as _185 from "./permission/v1beta1/service.rpc.Query";
+import * as _186 from "./permission/v1beta1/service.rpc.msg";
+import * as _267 from "./lcd";
+import * as _268 from "./rpc.query";
+import * as _269 from "./rpc.tx";
 export namespace axelar {
   export namespace axelarnet {
     export const v1beta1 = {
@@ -144,7 +146,8 @@ export namespace axelar {
       ..._182,
       ..._183,
       ..._184,
-      ..._185
+      ..._185,
+      ..._186
     };
   }
   export namespace reward {
@@ -216,7 +219,8 @@ export namespace axelar {
     };
   }
   export const ClientFactory = {
-    ..._247,
-    ..._248
+    ..._267,
+    ..._268,
+    ..._269
   };
 }

@@ -11,5 +11,8 @@
     "packages/*",
     "examples/*"
   ],
-  "packageManager": "yarn@3.6.1"
+  "packageManager": "yarn@3.6.1",
+  "dependencies": {
+    "typescript": "^5.0.4"
+  }
 }

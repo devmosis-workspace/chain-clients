@@ -32,13 +32,17 @@ import * as _133 from "../fiattokenfactory/tx.amino";
 import * as _134 from "../tokenfactory/tx.amino";
 import * as _135 from "../fiattokenfactory/tx.registry";
 import * as _136 from "../tokenfactory/tx.registry";
-import * as _137 from "../fiattokenfactory/query.rpc.Query";
-import * as _138 from "../globalfee/query.rpc.Query";
-import * as _139 from "../tokenfactory/query.rpc.Query";
-import * as _140 from "../fiattokenfactory/tx.rpc.msg";
-import * as _141 from "../tokenfactory/tx.rpc.msg";
-import * as _187 from "./rpc.query";
-import * as _188 from "./rpc.tx";
+import * as _137 from "../fiattokenfactory/query.lcd";
+import * as _138 from "../globalfee/query.lcd";
+import * as _139 from "../tokenfactory/query.lcd";
+import * as _140 from "../fiattokenfactory/query.rpc.Query";
+import * as _141 from "../globalfee/query.rpc.Query";
+import * as _142 from "../tokenfactory/query.rpc.Query";
+import * as _143 from "../fiattokenfactory/tx.rpc.msg";
+import * as _144 from "../tokenfactory/tx.rpc.msg";
+import * as _205 from "./lcd";
+import * as _206 from "./rpc.query";
+import * as _207 from "./rpc.tx";
 export namespace noble {
   export const fiattokenfactory = {
     ..._0,
@@ -57,12 +61,14 @@ export namespace noble {
     ..._133,
     ..._135,
     ..._137,
-    ..._140
+    ..._140,
+    ..._143
   };
   export const globalfee = {
     ..._13,
     ..._14,
-    ..._138
+    ..._138,
+    ..._141
   };
   export const tariff = {
     ..._15,
@@ -85,10 +91,12 @@ export namespace noble {
     ..._134,
     ..._136,
     ..._139,
-    ..._141
+    ..._142,
+    ..._144
   };
   export const ClientFactory = {
-    ..._187,
-    ..._188
+    ..._205,
+    ..._206,
+    ..._207
   };
 }

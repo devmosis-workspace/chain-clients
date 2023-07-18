@@ -27,19 +27,27 @@ import * as _123 from "./authority/v1/tx.registry";
 import * as _124 from "./issuer/v1/tx.registry";
 import * as _125 from "./liquidityprovider/v1/tx.registry";
 import * as _126 from "./market/v1/tx.registry";
-import * as _127 from "./authority/v1/query.rpc.Query";
-import * as _128 from "./buyback/v1/query.rpc.Query";
-import * as _129 from "./inflation/v1/query.rpc.Query";
-import * as _130 from "./issuer/v1/query.rpc.Query";
-import * as _131 from "./liquidityprovider/v1/query.rpc.Query";
-import * as _132 from "./market/v1/query.rpc.Query";
-import * as _133 from "./queries/v1/query.rpc.Query";
-import * as _134 from "./authority/v1/tx.rpc.msg";
-import * as _135 from "./issuer/v1/tx.rpc.msg";
-import * as _136 from "./liquidityprovider/v1/tx.rpc.msg";
-import * as _137 from "./market/v1/tx.rpc.msg";
-import * as _190 from "./rpc.query";
-import * as _191 from "./rpc.tx";
+import * as _127 from "./authority/v1/query.lcd";
+import * as _128 from "./buyback/v1/query.lcd";
+import * as _129 from "./inflation/v1/query.lcd";
+import * as _130 from "./issuer/v1/query.lcd";
+import * as _131 from "./liquidityprovider/v1/query.lcd";
+import * as _132 from "./market/v1/query.lcd";
+import * as _133 from "./queries/v1/query.lcd";
+import * as _134 from "./authority/v1/query.rpc.Query";
+import * as _135 from "./buyback/v1/query.rpc.Query";
+import * as _136 from "./inflation/v1/query.rpc.Query";
+import * as _137 from "./issuer/v1/query.rpc.Query";
+import * as _138 from "./liquidityprovider/v1/query.rpc.Query";
+import * as _139 from "./market/v1/query.rpc.Query";
+import * as _140 from "./queries/v1/query.rpc.Query";
+import * as _141 from "./authority/v1/tx.rpc.msg";
+import * as _142 from "./issuer/v1/tx.rpc.msg";
+import * as _143 from "./liquidityprovider/v1/tx.rpc.msg";
+import * as _144 from "./market/v1/tx.rpc.msg";
+import * as _213 from "./lcd";
+import * as _214 from "./rpc.query";
+import * as _215 from "./rpc.tx";
 export namespace em {
   export namespace authority {
     export const v1 = {
@@ -50,14 +58,16 @@ export namespace em {
       ..._119,
       ..._123,
       ..._127,
-      ..._134
+      ..._134,
+      ..._141
     };
   }
   export namespace buyback {
     export const v1 = {
       ..._4,
       ..._5,
-      ..._128
+      ..._128,
+      ..._135
     };
   }
   export namespace inflation {
@@ -65,7 +75,8 @@ export namespace em {
       ..._6,
       ..._7,
       ..._8,
-      ..._129
+      ..._129,
+      ..._136
     };
   }
   export namespace issuer {
@@ -77,7 +88,8 @@ export namespace em {
       ..._120,
       ..._124,
       ..._130,
-      ..._135
+      ..._137,
+      ..._142
     };
   }
   export namespace liquidityprovider {
@@ -89,7 +101,8 @@ export namespace em {
       ..._121,
       ..._125,
       ..._131,
-      ..._136
+      ..._138,
+      ..._143
     };
   }
   export namespace market {
@@ -100,17 +113,20 @@ export namespace em {
       ..._122,
       ..._126,
       ..._132,
-      ..._137
+      ..._139,
+      ..._144
     };
   }
   export namespace queries {
     export const v1 = {
       ..._20,
-      ..._133
+      ..._133,
+      ..._140
     };
   }
   export const ClientFactory = {
-    ..._190,
-    ..._191
+    ..._213,
+    ..._214,
+    ..._215
   };
 }

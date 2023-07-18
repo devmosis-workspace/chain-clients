@@ -3,18 +3,20 @@ import * as _26 from "./tokenfactory/v1beta1/genesis";
 import * as _27 from "./tokenfactory/v1beta1/params";
 import * as _28 from "./tokenfactory/v1beta1/query";
 import * as _29 from "./tokenfactory/v1beta1/tx";
-import * as _188 from "./tokenfactory/v1beta1/query.rpc.Query";
-import * as _189 from "./tokenfactory/v1beta1/tx.rpc.msg";
+import * as _194 from "./tokenfactory/v1beta1/query.lcd";
+import * as _195 from "./tokenfactory/v1beta1/query.rpc.Query";
+import * as _196 from "./tokenfactory/v1beta1/tx.rpc.msg";
 export declare namespace osmosis {
     namespace tokenfactory {
         const v1beta1: {
-            MsgClientImpl: typeof _189.MsgClientImpl;
-            QueryClientImpl: typeof _188.QueryClientImpl;
+            MsgClientImpl: typeof _196.MsgClientImpl;
+            QueryClientImpl: typeof _195.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _28.QueryParamsRequest): Promise<_28.QueryParamsResponse>;
                 denomAuthorityMetadata(request: _28.QueryDenomAuthorityMetadataRequest): Promise<_28.QueryDenomAuthorityMetadataResponse>;
                 denomsFromCreator(request: _28.QueryDenomsFromCreatorRequest): Promise<_28.QueryDenomsFromCreatorResponse>;
             };
+            LCDQueryClient: typeof _194.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -249,7 +251,7 @@ export declare namespace osmosis {
         }) => Promise<{
             osmosis: {
                 tokenfactory: {
-                    v1beta1: _189.MsgClientImpl;
+                    v1beta1: _196.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -433,6 +435,64 @@ export declare namespace osmosis {
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            osmosis: {
+                tokenfactory: {
+                    v1beta1: _194.LCDQueryClient;
+                };
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

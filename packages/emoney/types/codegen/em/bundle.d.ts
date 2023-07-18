@@ -19,26 +19,34 @@ import * as _17 from "./market/v1/market";
 import * as _18 from "./market/v1/query";
 import * as _19 from "./market/v1/tx";
 import * as _20 from "./queries/v1/query";
-import * as _127 from "./authority/v1/query.rpc.Query";
-import * as _128 from "./buyback/v1/query.rpc.Query";
-import * as _129 from "./inflation/v1/query.rpc.Query";
-import * as _130 from "./issuer/v1/query.rpc.Query";
-import * as _131 from "./liquidityprovider/v1/query.rpc.Query";
-import * as _132 from "./market/v1/query.rpc.Query";
-import * as _133 from "./queries/v1/query.rpc.Query";
-import * as _134 from "./authority/v1/tx.rpc.msg";
-import * as _135 from "./issuer/v1/tx.rpc.msg";
-import * as _136 from "./liquidityprovider/v1/tx.rpc.msg";
-import * as _137 from "./market/v1/tx.rpc.msg";
+import * as _127 from "./authority/v1/query.lcd";
+import * as _128 from "./buyback/v1/query.lcd";
+import * as _129 from "./inflation/v1/query.lcd";
+import * as _130 from "./issuer/v1/query.lcd";
+import * as _131 from "./liquidityprovider/v1/query.lcd";
+import * as _132 from "./market/v1/query.lcd";
+import * as _133 from "./queries/v1/query.lcd";
+import * as _134 from "./authority/v1/query.rpc.Query";
+import * as _135 from "./buyback/v1/query.rpc.Query";
+import * as _136 from "./inflation/v1/query.rpc.Query";
+import * as _137 from "./issuer/v1/query.rpc.Query";
+import * as _138 from "./liquidityprovider/v1/query.rpc.Query";
+import * as _139 from "./market/v1/query.rpc.Query";
+import * as _140 from "./queries/v1/query.rpc.Query";
+import * as _141 from "./authority/v1/tx.rpc.msg";
+import * as _142 from "./issuer/v1/tx.rpc.msg";
+import * as _143 from "./liquidityprovider/v1/tx.rpc.msg";
+import * as _144 from "./market/v1/tx.rpc.msg";
 export declare namespace em {
     namespace authority {
         const v1: {
-            MsgClientImpl: typeof _134.MsgClientImpl;
-            QueryClientImpl: typeof _127.QueryClientImpl;
+            MsgClientImpl: typeof _141.MsgClientImpl;
+            QueryClientImpl: typeof _134.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 gasPrices(request?: _2.QueryGasPricesRequest): Promise<_2.QueryGasPricesResponse>;
                 upgradePlan(request?: _2.QueryUpgradePlanRequest): Promise<_2.QueryUpgradePlanResponse>;
             };
+            LCDQueryClient: typeof _127.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -367,11 +375,12 @@ export declare namespace em {
     }
     namespace buyback {
         const v1: {
-            QueryClientImpl: typeof _128.QueryClientImpl;
+            QueryClientImpl: typeof _135.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 balance(request?: _5.QueryBalanceRequest): Promise<_5.QueryBalanceResponse>;
                 buybackTime(request?: _5.QueryBuybackTimeRequest): Promise<_5.QueryBuybackTimeResponse>;
             };
+            LCDQueryClient: typeof _128.LCDQueryClient;
             QueryBalanceRequest: {
                 encode(_: _5.QueryBalanceRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(_: any): _5.QueryBalanceRequest;
@@ -401,10 +410,11 @@ export declare namespace em {
     }
     namespace inflation {
         const v1: {
-            QueryClientImpl: typeof _129.QueryClientImpl;
+            QueryClientImpl: typeof _136.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 inflation(request?: _8.QueryInflationRequest): Promise<_8.QueryInflationResponse>;
             };
+            LCDQueryClient: typeof _129.LCDQueryClient;
             QueryInflationRequest: {
                 encode(_: _8.QueryInflationRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(_: any): _8.QueryInflationRequest;
@@ -434,11 +444,12 @@ export declare namespace em {
     }
     namespace issuer {
         const v1: {
-            MsgClientImpl: typeof _135.MsgClientImpl;
-            QueryClientImpl: typeof _130.QueryClientImpl;
+            MsgClientImpl: typeof _142.MsgClientImpl;
+            QueryClientImpl: typeof _137.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 issuers(request?: _11.QueryIssuersRequest): Promise<_11.QueryIssuersResponse>;
             };
+            LCDQueryClient: typeof _130.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -648,12 +659,13 @@ export declare namespace em {
     }
     namespace liquidityprovider {
         const v1: {
-            MsgClientImpl: typeof _136.MsgClientImpl;
-            QueryClientImpl: typeof _131.QueryClientImpl;
+            MsgClientImpl: typeof _143.MsgClientImpl;
+            QueryClientImpl: typeof _138.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 list(request?: _15.QueryListRequest): Promise<_15.QueryListResponse>;
                 mintable(request: _15.QueryMintableRequest): Promise<_15.QueryMintableResponse>;
             };
+            LCDQueryClient: typeof _131.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -793,13 +805,14 @@ export declare namespace em {
     }
     namespace market {
         const v1: {
-            MsgClientImpl: typeof _137.MsgClientImpl;
-            QueryClientImpl: typeof _132.QueryClientImpl;
+            MsgClientImpl: typeof _144.MsgClientImpl;
+            QueryClientImpl: typeof _139.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 byAccount(request: _18.QueryByAccountRequest): Promise<_18.QueryByAccountResponse>;
                 instruments(request?: _18.QueryInstrumentsRequest): Promise<_18.QueryInstrumentsResponse>;
                 instrument(request: _18.QueryInstrumentRequest): Promise<_18.QueryInstrumentResponse>;
             };
+            LCDQueryClient: typeof _132.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -1135,12 +1148,13 @@ export declare namespace em {
     }
     namespace queries {
         const v1: {
-            QueryClientImpl: typeof _133.QueryClientImpl;
+            QueryClientImpl: typeof _140.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 circulating(request?: _20.QueryCirculatingRequest): Promise<_20.QueryCirculatingResponse>;
                 missedBlocks(request: _20.QueryMissedBlocksRequest): Promise<_20.QueryMissedBlocksResponse>;
                 spendable(request: _20.QuerySpendableRequest): Promise<_20.QuerySpendableResponse>;
             };
+            LCDQueryClient: typeof _133.LCDQueryClient;
             QueryCirculatingRequest: {
                 encode(_: _20.QueryCirculatingRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(_: any): _20.QueryCirculatingRequest;
@@ -1184,16 +1198,16 @@ export declare namespace em {
         }) => Promise<{
             em: {
                 authority: {
-                    v1: _134.MsgClientImpl;
+                    v1: _141.MsgClientImpl;
                 };
                 issuer: {
-                    v1: _135.MsgClientImpl;
+                    v1: _142.MsgClientImpl;
                 };
                 liquidityprovider: {
-                    v1: _136.MsgClientImpl;
+                    v1: _143.MsgClientImpl;
                 };
                 market: {
-                    v1: _137.MsgClientImpl;
+                    v1: _144.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -1382,6 +1396,73 @@ export declare namespace em {
                         appliedPlan(request: import("../cosmos/upgrade/v1beta1/query").QueryAppliedPlanRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryAppliedPlanResponse>;
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            em: {
+                authority: {
+                    v1: _127.LCDQueryClient;
+                };
+                buyback: {
+                    v1: _128.LCDQueryClient;
+                };
+                inflation: {
+                    v1: _129.LCDQueryClient;
+                };
+                issuer: {
+                    v1: _130.LCDQueryClient;
+                };
+                liquidityprovider: {
+                    v1: _131.LCDQueryClient;
+                };
+                market: {
+                    v1: _132.LCDQueryClient;
+                };
+                queries: {
+                    v1: _133.LCDQueryClient;
+                };
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

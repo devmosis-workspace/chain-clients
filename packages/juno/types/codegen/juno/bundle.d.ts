@@ -5,14 +5,16 @@ import * as _3 from "./feeshare/v1/tx";
 import * as _4 from "./mint/genesis";
 import * as _5 from "./mint/mint";
 import * as _6 from "./mint/query";
-import * as _110 from "./feeshare/v1/query.rpc.Query";
-import * as _111 from "./mint/query.rpc.Query";
-import * as _112 from "./feeshare/v1/tx.rpc.msg";
+import * as _110 from "./feeshare/v1/query.lcd";
+import * as _111 from "./mint/query.lcd";
+import * as _112 from "./feeshare/v1/query.rpc.Query";
+import * as _113 from "./mint/query.rpc.Query";
+import * as _114 from "./feeshare/v1/tx.rpc.msg";
 export declare namespace juno {
     namespace feeshare {
         const v1: {
-            MsgClientImpl: typeof _112.MsgClientImpl;
-            QueryClientImpl: typeof _110.QueryClientImpl;
+            MsgClientImpl: typeof _114.MsgClientImpl;
+            QueryClientImpl: typeof _112.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 feeShares(request?: _2.QueryFeeSharesRequest): Promise<_2.QueryFeeSharesResponse>;
                 feeShare(request: _2.QueryFeeShareRequest): Promise<_2.QueryFeeShareResponse>;
@@ -20,6 +22,7 @@ export declare namespace juno {
                 deployerFeeShares(request: _2.QueryDeployerFeeSharesRequest): Promise<_2.QueryDeployerFeeSharesResponse>;
                 withdrawerFeeShares(request: _2.QueryWithdrawerFeeSharesRequest): Promise<_2.QueryWithdrawerFeeSharesResponse>;
             };
+            LCDQueryClient: typeof _110.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -217,12 +220,13 @@ export declare namespace juno {
         };
     }
     const mint: {
-        QueryClientImpl: typeof _111.QueryClientImpl;
+        QueryClientImpl: typeof _113.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _6.QueryParamsRequest): Promise<_6.QueryParamsResponse>;
             inflation(request?: _6.QueryInflationRequest): Promise<_6.QueryInflationResponse>;
             annualProvisions(request?: _6.QueryAnnualProvisionsRequest): Promise<_6.QueryAnnualProvisionsResponse>;
         };
+        LCDQueryClient: typeof _111.LCDQueryClient;
         QueryParamsRequest: {
             encode(_: _6.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
             fromJSON(_: any): _6.QueryParamsRequest;
@@ -275,7 +279,7 @@ export declare namespace juno {
         }) => Promise<{
             juno: {
                 feeshare: {
-                    v1: _112.MsgClientImpl;
+                    v1: _114.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -466,6 +470,65 @@ export declare namespace juno {
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            juno: {
+                feeshare: {
+                    v1: _110.LCDQueryClient;
+                };
+                mint: _111.LCDQueryClient;
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

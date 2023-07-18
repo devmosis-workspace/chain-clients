@@ -15,13 +15,17 @@ import * as _13 from "../nft/v1/tx";
 import * as _14 from "../supply/v1/accounts";
 import * as _15 from "../supply/v1/genesis";
 import * as _16 from "../supply/v1/query";
-import * as _176 from "../icaauth/v1/query.rpc.Query";
-import * as _177 from "../nft_transfer/v1/query.rpc.Query";
-import * as _178 from "../nft/v1/query.rpc.Query";
-import * as _179 from "../supply/v1/query.rpc.Query";
-import * as _180 from "../icaauth/v1/tx.rpc.msg";
-import * as _181 from "../nft_transfer/v1/tx.rpc.msg";
-import * as _182 from "../nft/v1/tx.rpc.msg";
+import * as _176 from "../icaauth/v1/query.lcd";
+import * as _177 from "../nft_transfer/v1/query.lcd";
+import * as _178 from "../nft/v1/query.lcd";
+import * as _179 from "../supply/v1/query.lcd";
+import * as _180 from "../icaauth/v1/query.rpc.Query";
+import * as _181 from "../nft_transfer/v1/query.rpc.Query";
+import * as _182 from "../nft/v1/query.rpc.Query";
+import * as _183 from "../supply/v1/query.rpc.Query";
+import * as _184 from "../icaauth/v1/tx.rpc.msg";
+import * as _185 from "../nft_transfer/v1/tx.rpc.msg";
+import * as _186 from "../nft/v1/tx.rpc.msg";
 export declare namespace chainmain {
     namespace chainmain {
         const v1: {
@@ -34,12 +38,13 @@ export declare namespace chainmain {
     }
     namespace icaauth {
         const v1: {
-            MsgClientImpl: typeof _180.MsgClientImpl;
-            QueryClientImpl: typeof _176.QueryClientImpl;
+            MsgClientImpl: typeof _184.MsgClientImpl;
+            QueryClientImpl: typeof _180.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _3.QueryParamsRequest): Promise<_3.QueryParamsResponse>;
                 interchainAccountAddress(request: _3.QueryInterchainAccountAddressRequest): Promise<_3.QueryInterchainAccountAddressResponse>;
             };
+            LCDQueryClient: typeof _176.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -180,14 +185,15 @@ export declare namespace chainmain {
     }
     namespace nft_transfer {
         const v1: {
-            MsgClientImpl: typeof _181.MsgClientImpl;
-            QueryClientImpl: typeof _177.QueryClientImpl;
+            MsgClientImpl: typeof _185.MsgClientImpl;
+            QueryClientImpl: typeof _181.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 classTrace(request: _7.QueryClassTraceRequest): Promise<_7.QueryClassTraceResponse>;
                 classTraces(request?: _7.QueryClassTracesRequest): Promise<_7.QueryClassTracesResponse>;
                 classHash(request: _7.QueryClassHashRequest): Promise<_7.QueryClassHashResponse>;
                 escrowAddress(request: _7.QueryEscrowAddressRequest): Promise<_7.QueryEscrowAddressResponse>;
             };
+            LCDQueryClient: typeof _177.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -310,8 +316,8 @@ export declare namespace chainmain {
     }
     namespace nft {
         const v1: {
-            MsgClientImpl: typeof _182.MsgClientImpl;
-            QueryClientImpl: typeof _178.QueryClientImpl;
+            MsgClientImpl: typeof _186.MsgClientImpl;
+            QueryClientImpl: typeof _182.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 supply(request: _12.QuerySupplyRequest): Promise<_12.QuerySupplyResponse>;
                 owner(request: _12.QueryOwnerRequest): Promise<_12.QueryOwnerResponse>;
@@ -321,6 +327,7 @@ export declare namespace chainmain {
                 denoms(request?: _12.QueryDenomsRequest): Promise<_12.QueryDenomsResponse>;
                 nFT(request: _12.QueryNFTRequest): Promise<_12.QueryNFTResponse>;
             };
+            LCDQueryClient: typeof _178.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -654,11 +661,12 @@ export declare namespace chainmain {
     }
     namespace supply {
         const v1: {
-            QueryClientImpl: typeof _179.QueryClientImpl;
+            QueryClientImpl: typeof _183.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 totalSupply(request?: _16.SupplyRequest): Promise<_16.SupplyResponse>;
                 liquidSupply(request?: _16.SupplyRequest): Promise<_16.SupplyResponse>;
             };
+            LCDQueryClient: typeof _179.LCDQueryClient;
             SupplyRequest: {
                 encode(_: _16.SupplyRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(_: any): _16.SupplyRequest;
@@ -687,13 +695,13 @@ export declare namespace chainmain {
         }) => Promise<{
             chainmain: {
                 icaauth: {
-                    v1: _180.MsgClientImpl;
+                    v1: _184.MsgClientImpl;
                 };
                 nft_transfer: {
-                    v1: _181.MsgClientImpl;
+                    v1: _185.MsgClientImpl;
                 };
                 nft: {
-                    v1: _182.MsgClientImpl;
+                    v1: _186.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -964,6 +972,80 @@ export declare namespace chainmain {
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                         authority(request?: import("../cosmos/upgrade/v1beta1/query").QueryAuthorityRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryAuthorityResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            chainmain: {
+                icaauth: {
+                    v1: _176.LCDQueryClient;
+                };
+                nft_transfer: {
+                    v1: _177.LCDQueryClient;
+                };
+                nft: {
+                    v1: _178.LCDQueryClient;
+                };
+                supply: {
+                    v1: _179.LCDQueryClient;
+                };
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1: import("../cosmos/gov/v1/query.lcd").LCDQueryClient;
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                group: {
+                    v1: import("../cosmos/group/v1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                nft: {
+                    v1beta1: import("../cosmos/nft/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;

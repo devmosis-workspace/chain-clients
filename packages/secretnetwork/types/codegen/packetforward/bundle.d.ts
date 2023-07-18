@@ -1,12 +1,14 @@
 import * as _133 from "../ibc/applications/packetforward/v1/genesis";
 import * as _134 from "../ibc/applications/packetforward/v1/query";
-import * as _239 from "../ibc/applications/packetforward/v1/query.rpc.Query";
+import * as _265 from "../ibc/applications/packetforward/v1/query.lcd";
+import * as _266 from "../ibc/applications/packetforward/v1/query.rpc.Query";
 export declare namespace packetforward {
     const v1: {
-        QueryClientImpl: typeof _239.QueryClientImpl;
+        QueryClientImpl: typeof _266.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _134.QueryParamsRequest): Promise<_134.QueryParamsResponse>;
         };
+        LCDQueryClient: typeof _265.LCDQueryClient;
         QueryParamsRequest: {
             encode(_: _134.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
             fromJSON(_: any): _134.QueryParamsRequest;
@@ -187,6 +189,62 @@ export declare namespace packetforward {
                 v1: {
                     params(request?: _134.QueryParamsRequest): Promise<_134.QueryParamsResponse>;
                 };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
+                };
+            };
+            packetforward: {
+                v1: _265.LCDQueryClient;
             };
         }>;
     };

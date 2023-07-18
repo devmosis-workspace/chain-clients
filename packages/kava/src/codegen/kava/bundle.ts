@@ -92,38 +92,54 @@ import * as _204 from "./pricefeed/v1beta1/tx.registry";
 import * as _205 from "./router/v1beta1/tx.registry";
 import * as _206 from "./savings/v1beta1/tx.registry";
 import * as _207 from "./swap/v1beta1/tx.registry";
-import * as _208 from "./auction/v1beta1/query.rpc.Query";
-import * as _209 from "./bep3/v1beta1/query.rpc.Query";
-import * as _210 from "./cdp/v1beta1/query.rpc.Query";
-import * as _211 from "./committee/v1beta1/query.rpc.Query";
-import * as _212 from "./community/v1beta1/query.rpc.Query";
-import * as _213 from "./earn/v1beta1/query.rpc.Query";
-import * as _214 from "./evmutil/v1beta1/query.rpc.Query";
-import * as _215 from "./hard/v1beta1/query.rpc.Query";
-import * as _216 from "./incentive/v1beta1/query.rpc.Query";
-import * as _217 from "./issuance/v1beta1/query.rpc.Query";
-import * as _218 from "./kavadist/v1beta1/query.rpc.Query";
-import * as _219 from "./liquid/v1beta1/query.rpc.Query";
-import * as _220 from "./pricefeed/v1beta1/query.rpc.Query";
-import * as _221 from "./savings/v1beta1/query.rpc.Query";
-import * as _222 from "./swap/v1beta1/query.rpc.Query";
-import * as _223 from "./auction/v1beta1/tx.rpc.msg";
-import * as _224 from "./bep3/v1beta1/tx.rpc.msg";
-import * as _225 from "./cdp/v1beta1/tx.rpc.msg";
-import * as _226 from "./committee/v1beta1/tx.rpc.msg";
-import * as _227 from "./community/v1beta1/tx.rpc.msg";
-import * as _228 from "./earn/v1beta1/tx.rpc.msg";
-import * as _229 from "./evmutil/v1beta1/tx.rpc.msg";
-import * as _230 from "./hard/v1beta1/tx.rpc.msg";
-import * as _231 from "./incentive/v1beta1/tx.rpc.msg";
-import * as _232 from "./issuance/v1beta1/tx.rpc.msg";
-import * as _233 from "./liquid/v1beta1/tx.rpc.msg";
-import * as _234 from "./pricefeed/v1beta1/tx.rpc.msg";
-import * as _235 from "./router/v1beta1/tx.rpc.msg";
-import * as _236 from "./savings/v1beta1/tx.rpc.msg";
-import * as _237 from "./swap/v1beta1/tx.rpc.msg";
-import * as _299 from "./rpc.query";
-import * as _300 from "./rpc.tx";
+import * as _208 from "./auction/v1beta1/query.lcd";
+import * as _209 from "./bep3/v1beta1/query.lcd";
+import * as _210 from "./cdp/v1beta1/query.lcd";
+import * as _211 from "./committee/v1beta1/query.lcd";
+import * as _212 from "./community/v1beta1/query.lcd";
+import * as _213 from "./earn/v1beta1/query.lcd";
+import * as _214 from "./evmutil/v1beta1/query.lcd";
+import * as _215 from "./hard/v1beta1/query.lcd";
+import * as _216 from "./incentive/v1beta1/query.lcd";
+import * as _217 from "./issuance/v1beta1/query.lcd";
+import * as _218 from "./kavadist/v1beta1/query.lcd";
+import * as _219 from "./liquid/v1beta1/query.lcd";
+import * as _220 from "./pricefeed/v1beta1/query.lcd";
+import * as _221 from "./savings/v1beta1/query.lcd";
+import * as _222 from "./swap/v1beta1/query.lcd";
+import * as _223 from "./auction/v1beta1/query.rpc.Query";
+import * as _224 from "./bep3/v1beta1/query.rpc.Query";
+import * as _225 from "./cdp/v1beta1/query.rpc.Query";
+import * as _226 from "./committee/v1beta1/query.rpc.Query";
+import * as _227 from "./community/v1beta1/query.rpc.Query";
+import * as _228 from "./earn/v1beta1/query.rpc.Query";
+import * as _229 from "./evmutil/v1beta1/query.rpc.Query";
+import * as _230 from "./hard/v1beta1/query.rpc.Query";
+import * as _231 from "./incentive/v1beta1/query.rpc.Query";
+import * as _232 from "./issuance/v1beta1/query.rpc.Query";
+import * as _233 from "./kavadist/v1beta1/query.rpc.Query";
+import * as _234 from "./liquid/v1beta1/query.rpc.Query";
+import * as _235 from "./pricefeed/v1beta1/query.rpc.Query";
+import * as _236 from "./savings/v1beta1/query.rpc.Query";
+import * as _237 from "./swap/v1beta1/query.rpc.Query";
+import * as _238 from "./auction/v1beta1/tx.rpc.msg";
+import * as _239 from "./bep3/v1beta1/tx.rpc.msg";
+import * as _240 from "./cdp/v1beta1/tx.rpc.msg";
+import * as _241 from "./committee/v1beta1/tx.rpc.msg";
+import * as _242 from "./community/v1beta1/tx.rpc.msg";
+import * as _243 from "./earn/v1beta1/tx.rpc.msg";
+import * as _244 from "./evmutil/v1beta1/tx.rpc.msg";
+import * as _245 from "./hard/v1beta1/tx.rpc.msg";
+import * as _246 from "./incentive/v1beta1/tx.rpc.msg";
+import * as _247 from "./issuance/v1beta1/tx.rpc.msg";
+import * as _248 from "./liquid/v1beta1/tx.rpc.msg";
+import * as _249 from "./pricefeed/v1beta1/tx.rpc.msg";
+import * as _250 from "./router/v1beta1/tx.rpc.msg";
+import * as _251 from "./savings/v1beta1/tx.rpc.msg";
+import * as _252 from "./swap/v1beta1/tx.rpc.msg";
+import * as _332 from "./lcd";
+import * as _333 from "./rpc.query";
+import * as _334 from "./rpc.tx";
 export namespace kava {
   export namespace auction {
     export const v1beta1 = {
@@ -134,7 +150,8 @@ export namespace kava {
       ..._178,
       ..._193,
       ..._208,
-      ..._223
+      ..._223,
+      ..._238
     };
   }
   export namespace bep3 {
@@ -146,7 +163,8 @@ export namespace kava {
       ..._179,
       ..._194,
       ..._209,
-      ..._224
+      ..._224,
+      ..._239
     };
   }
   export namespace cdp {
@@ -158,7 +176,8 @@ export namespace kava {
       ..._180,
       ..._195,
       ..._210,
-      ..._225
+      ..._225,
+      ..._240
     };
   }
   export namespace committee {
@@ -172,7 +191,8 @@ export namespace kava {
       ..._181,
       ..._196,
       ..._211,
-      ..._226
+      ..._226,
+      ..._241
     };
   }
   export namespace community {
@@ -183,7 +203,8 @@ export namespace kava {
       ..._182,
       ..._197,
       ..._212,
-      ..._227
+      ..._227,
+      ..._242
     };
   }
   export namespace earn {
@@ -198,7 +219,8 @@ export namespace kava {
       ..._183,
       ..._198,
       ..._213,
-      ..._228
+      ..._228,
+      ..._243
     };
   }
   export namespace evmutil {
@@ -210,7 +232,8 @@ export namespace kava {
       ..._184,
       ..._199,
       ..._214,
-      ..._229
+      ..._229,
+      ..._244
     };
   }
   export namespace hard {
@@ -222,7 +245,8 @@ export namespace kava {
       ..._185,
       ..._200,
       ..._215,
-      ..._230
+      ..._230,
+      ..._245
     };
   }
   export namespace incentive {
@@ -236,7 +260,8 @@ export namespace kava {
       ..._186,
       ..._201,
       ..._216,
-      ..._231
+      ..._231,
+      ..._246
     };
   }
   export namespace issuance {
@@ -247,7 +272,8 @@ export namespace kava {
       ..._187,
       ..._202,
       ..._217,
-      ..._232
+      ..._232,
+      ..._247
     };
   }
   export namespace kavadist {
@@ -256,7 +282,8 @@ export namespace kava {
       ..._46,
       ..._47,
       ..._48,
-      ..._218
+      ..._218,
+      ..._233
     };
   }
   export namespace liquid {
@@ -266,7 +293,8 @@ export namespace kava {
       ..._188,
       ..._203,
       ..._219,
-      ..._233
+      ..._234,
+      ..._248
     };
   }
   export namespace pricefeed {
@@ -278,7 +306,8 @@ export namespace kava {
       ..._189,
       ..._204,
       ..._220,
-      ..._234
+      ..._235,
+      ..._249
     };
   }
   export namespace router {
@@ -286,7 +315,7 @@ export namespace kava {
       ..._55,
       ..._190,
       ..._205,
-      ..._235
+      ..._250
     };
   }
   export namespace savings {
@@ -298,7 +327,8 @@ export namespace kava {
       ..._191,
       ..._206,
       ..._221,
-      ..._236
+      ..._236,
+      ..._251
     };
   }
   export namespace swap {
@@ -310,11 +340,13 @@ export namespace kava {
       ..._192,
       ..._207,
       ..._222,
-      ..._237
+      ..._237,
+      ..._252
     };
   }
   export const ClientFactory = {
-    ..._299,
-    ..._300
+    ..._332,
+    ..._333,
+    ..._334
   };
 }

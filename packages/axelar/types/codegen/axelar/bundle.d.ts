@@ -58,8 +58,9 @@ import * as _64 from "./vote/v1beta1/genesis";
 import * as _65 from "./vote/v1beta1/params";
 import * as _67 from "./vote/v1beta1/tx";
 import * as _68 from "./vote/v1beta1/types";
-import * as _184 from "./permission/v1beta1/service.rpc.Query";
-import * as _185 from "./permission/v1beta1/service.rpc.msg";
+import * as _184 from "./permission/v1beta1/service.lcd";
+import * as _185 from "./permission/v1beta1/service.rpc.Query";
+import * as _186 from "./permission/v1beta1/service.rpc.msg";
 export declare namespace axelar {
     namespace axelarnet {
         const v1beta1: {
@@ -1430,11 +1431,12 @@ export declare namespace axelar {
             };
         }
         const v1beta1: {
-            MsgClientImpl: typeof _185.MsgClientImpl;
-            QueryClientImpl: typeof _184.QueryClientImpl;
+            MsgClientImpl: typeof _186.MsgClientImpl;
+            QueryClientImpl: typeof _185.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 governanceKey(request?: _33.QueryGovernanceKeyRequest): Promise<_33.QueryGovernanceKeyResponse>;
             };
+            LCDQueryClient: typeof _184.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -2129,7 +2131,7 @@ export declare namespace axelar {
         }) => Promise<{
             axelar: {
                 permission: {
-                    v1beta1: _185.MsgClientImpl;
+                    v1beta1: _186.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -2311,6 +2313,64 @@ export declare namespace axelar {
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
                     };
+                };
+            };
+        }>;
+        createLCDClient: ({ restEndpoint }: {
+            restEndpoint: string;
+        }) => Promise<{
+            axelar: {
+                permission: {
+                    v1beta1: _184.LCDQueryClient;
+                };
+            };
+            cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/query.lcd").LCDQueryClient;
+                };
+                authz: {
+                    v1beta1: import("../cosmos/authz/v1beta1/query.lcd").LCDQueryClient;
+                };
+                bank: {
+                    v1beta1: import("../cosmos/bank/v1beta1/query.lcd").LCDQueryClient;
+                };
+                base: {
+                    node: {
+                        v1beta1: import("../cosmos/base/node/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                    tendermint: {
+                        v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
+                    };
+                };
+                distribution: {
+                    v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;
+                };
+                evidence: {
+                    v1beta1: import("../cosmos/evidence/v1beta1/query.lcd").LCDQueryClient;
+                };
+                feegrant: {
+                    v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
+                };
+                gov: {
+                    v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                params: {
+                    v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: import("../cosmos/slashing/v1beta1/query.lcd").LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: import("../cosmos/staking/v1beta1/query.lcd").LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: import("../cosmos/tx/v1beta1/service.lcd").LCDQueryClient;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/query.lcd").LCDQueryClient;
                 };
             };
         }>;
