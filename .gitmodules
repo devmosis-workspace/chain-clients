@@ -106,9 +106,6 @@
 [submodule "packages/evmos/cosmos-proto"]
 	path = packages/evmos/cosmos-proto
 	url = https://github.com/cosmos/cosmos-proto
-[submodule "packages/gitopia/gitopia-go"]
-	path = packages/gitopia/gitopia-go
-	url = https://github.com/gitopia/gitopia-go
 [submodule "packages/gitopia/cosmos-sdk"]
 	path = packages/gitopia/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
@@ -247,3 +244,6 @@
 [submodule "packages/umee/cosmos-proto"]
 	path = packages/umee/cosmos-proto
 	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/gitopia/gitopia"]
+	path = packages/gitopia/gitopia
+	url = https://github.com/gitopia/gitopia
