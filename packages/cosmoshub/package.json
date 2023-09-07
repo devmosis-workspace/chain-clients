@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/cosmoshub",
-  "version": "10.0.2-4",
+  "version": "10.0.2-5",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

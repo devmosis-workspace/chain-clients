@@ -18,6 +18,9 @@ export const createRPCQueryClient = async ({
       global: {
         v1beta1: (await import("./global/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
       },
+      pool: {
+        v1beta1: (await import("./pool/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
       stakers: {
         v1beta1: (await import("./stakers/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
       },

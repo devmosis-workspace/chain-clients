@@ -1,15 +1,15 @@
 import { Rpc } from "../../../helpers";
 import { QueryClient } from "@cosmjs/stargate";
-import { QueryParamsRequest, QueryParamsResponse } from "./query";
+import { QueryMinimumGasPricesRequest, QueryMinimumGasPricesResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
-    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    minimumGasPrices(request?: QueryMinimumGasPricesRequest): Promise<QueryMinimumGasPricesResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
-    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    minimumGasPrices(request?: QueryMinimumGasPricesRequest): Promise<QueryMinimumGasPricesResponse>;
 }
 export declare const createRpcQueryExtension: (base: QueryClient) => {
-    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    minimumGasPrices(request?: QueryMinimumGasPricesRequest): Promise<QueryMinimumGasPricesResponse>;
 };

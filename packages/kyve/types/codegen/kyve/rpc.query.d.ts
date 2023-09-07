@@ -18,6 +18,11 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 params(request?: import("./global/v1beta1/query").QueryParamsRequest): Promise<import("./global/v1beta1/query").QueryParamsResponse>;
             };
         };
+        pool: {
+            v1beta1: {
+                params(request?: import("./pool/v1beta1/query").QueryParamsRequest): Promise<import("./pool/v1beta1/query").QueryParamsResponse>;
+            };
+        };
         stakers: {
             v1beta1: {
                 params(request?: import("./stakers/v1beta1/query").QueryParamsRequest): Promise<import("./stakers/v1beta1/query").QueryParamsResponse>;

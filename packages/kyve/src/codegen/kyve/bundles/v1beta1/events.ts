@@ -133,6 +133,10 @@ export interface EventBundleFinalized {
   total: Long;
   /** status of the finalized bundle */
   status: BundleStatus;
+  /** amount which funders provided to the total bundle reward (in ukyve) */
+  fundersPayout: Long;
+  /** amount which the inflation pool provided to the total reward (in ukyve) */
+  inflationPayout: Long;
   /** rewards transferred to treasury (in ukyve) */
   rewardTreasury: Long;
   /** rewardUploader rewards directly transferred to uploader (in ukyve) */
@@ -160,6 +164,8 @@ export interface EventBundleFinalizedSDKType {
   abstain: Long;
   total: Long;
   status: BundleStatus;
+  funders_payout: Long;
+  inflation_payout: Long;
   reward_treasury: Long;
   reward_uploader: Long;
   reward_delegation: Long;
@@ -441,6 +447,8 @@ function createBaseEventBundleFinalized(): EventBundleFinalized {
     abstain: Long.UZERO,
     total: Long.UZERO,
     status: 0,
+    fundersPayout: Long.UZERO,
+    inflationPayout: Long.UZERO,
     rewardTreasury: Long.UZERO,
     rewardUploader: Long.UZERO,
     rewardDelegation: Long.UZERO,
@@ -473,26 +481,32 @@ export const EventBundleFinalized = {
     if (message.status !== 0) {
       writer.uint32(56).int32(message.status);
     }
+    if (!message.fundersPayout.isZero()) {
+      writer.uint32(64).uint64(message.fundersPayout);
+    }
+    if (!message.inflationPayout.isZero()) {
+      writer.uint32(72).uint64(message.inflationPayout);
+    }
     if (!message.rewardTreasury.isZero()) {
-      writer.uint32(64).uint64(message.rewardTreasury);
+      writer.uint32(80).uint64(message.rewardTreasury);
     }
     if (!message.rewardUploader.isZero()) {
-      writer.uint32(72).uint64(message.rewardUploader);
+      writer.uint32(88).uint64(message.rewardUploader);
     }
     if (!message.rewardDelegation.isZero()) {
-      writer.uint32(80).uint64(message.rewardDelegation);
+      writer.uint32(96).uint64(message.rewardDelegation);
     }
     if (!message.rewardTotal.isZero()) {
-      writer.uint32(88).uint64(message.rewardTotal);
+      writer.uint32(104).uint64(message.rewardTotal);
     }
     if (!message.finalizedAt.isZero()) {
-      writer.uint32(96).uint64(message.finalizedAt);
+      writer.uint32(112).uint64(message.finalizedAt);
     }
     if (message.uploader !== "") {
-      writer.uint32(106).string(message.uploader);
+      writer.uint32(122).string(message.uploader);
     }
     if (message.nextUploader !== "") {
-      writer.uint32(114).string(message.nextUploader);
+      writer.uint32(130).string(message.nextUploader);
     }
     return writer;
   },
@@ -505,6 +519,8 @@ export const EventBundleFinalized = {
       abstain: isSet(object.abstain) ? Long.fromValue(object.abstain) : Long.UZERO,
       total: isSet(object.total) ? Long.fromValue(object.total) : Long.UZERO,
       status: isSet(object.status) ? bundleStatusFromJSON(object.status) : 0,
+      fundersPayout: isSet(object.fundersPayout) ? Long.fromValue(object.fundersPayout) : Long.UZERO,
+      inflationPayout: isSet(object.inflationPayout) ? Long.fromValue(object.inflationPayout) : Long.UZERO,
       rewardTreasury: isSet(object.rewardTreasury) ? Long.fromValue(object.rewardTreasury) : Long.UZERO,
       rewardUploader: isSet(object.rewardUploader) ? Long.fromValue(object.rewardUploader) : Long.UZERO,
       rewardDelegation: isSet(object.rewardDelegation) ? Long.fromValue(object.rewardDelegation) : Long.UZERO,
@@ -523,6 +539,8 @@ export const EventBundleFinalized = {
     message.abstain = object.abstain !== undefined && object.abstain !== null ? Long.fromValue(object.abstain) : Long.UZERO;
     message.total = object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.UZERO;
     message.status = object.status ?? 0;
+    message.fundersPayout = object.fundersPayout !== undefined && object.fundersPayout !== null ? Long.fromValue(object.fundersPayout) : Long.UZERO;
+    message.inflationPayout = object.inflationPayout !== undefined && object.inflationPayout !== null ? Long.fromValue(object.inflationPayout) : Long.UZERO;
     message.rewardTreasury = object.rewardTreasury !== undefined && object.rewardTreasury !== null ? Long.fromValue(object.rewardTreasury) : Long.UZERO;
     message.rewardUploader = object.rewardUploader !== undefined && object.rewardUploader !== null ? Long.fromValue(object.rewardUploader) : Long.UZERO;
     message.rewardDelegation = object.rewardDelegation !== undefined && object.rewardDelegation !== null ? Long.fromValue(object.rewardDelegation) : Long.UZERO;

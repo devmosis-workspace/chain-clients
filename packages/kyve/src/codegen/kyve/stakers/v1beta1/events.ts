@@ -92,6 +92,24 @@ export interface EventUpdateCommissionSDKType {
   commission: string;
 }
 /**
+ * EventClaimCommissionRewards ...
+ * emitted_by: MsgClaimCommissionRewards
+ */
+export interface EventClaimCommissionRewards {
+  /** staker is the account address of the protocol node. */
+  staker: string;
+  /** amount ... */
+  amount: Long;
+}
+/**
+ * EventClaimCommissionRewards ...
+ * emitted_by: MsgClaimCommissionRewards
+ */
+export interface EventClaimCommissionRewardsSDKType {
+  staker: string;
+  amount: Long;
+}
+/**
  * EventJoinPool ...
  * emitted_by: MsgJoinPool
  */
@@ -285,6 +303,35 @@ export const EventUpdateCommission = {
     const message = createBaseEventUpdateCommission();
     message.staker = object.staker ?? "";
     message.commission = object.commission ?? "";
+    return message;
+  }
+};
+function createBaseEventClaimCommissionRewards(): EventClaimCommissionRewards {
+  return {
+    staker: "",
+    amount: Long.UZERO
+  };
+}
+export const EventClaimCommissionRewards = {
+  encode(message: EventClaimCommissionRewards, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.staker !== "") {
+      writer.uint32(10).string(message.staker);
+    }
+    if (!message.amount.isZero()) {
+      writer.uint32(16).uint64(message.amount);
+    }
+    return writer;
+  },
+  fromJSON(object: any): EventClaimCommissionRewards {
+    return {
+      staker: isSet(object.staker) ? String(object.staker) : "",
+      amount: isSet(object.amount) ? Long.fromValue(object.amount) : Long.UZERO
+    };
+  },
+  fromPartial(object: Partial<EventClaimCommissionRewards>): EventClaimCommissionRewards {
+    const message = createBaseEventClaimCommissionRewards();
+    message.staker = object.staker ?? "";
+    message.amount = object.amount !== undefined && object.amount !== null ? Long.fromValue(object.amount) : Long.UZERO;
     return message;
   }
 };

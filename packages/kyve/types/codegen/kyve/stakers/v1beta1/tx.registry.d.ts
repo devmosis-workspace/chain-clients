@@ -1,5 +1,5 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgCreateStaker, MsgUpdateMetadata, MsgUpdateCommission, MsgJoinPool, MsgLeavePool, MsgUpdateParams } from "./tx";
+import { MsgCreateStaker, MsgUpdateMetadata, MsgUpdateCommission, MsgClaimCommissionRewards, MsgJoinPool, MsgLeavePool, MsgUpdateParams } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
@@ -13,6 +13,10 @@ export declare const MessageComposer: {
             value: Uint8Array;
         };
         updateCommission(value: MsgUpdateCommission): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        claimCommissionRewards(value: MsgClaimCommissionRewards): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -42,6 +46,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgUpdateCommission;
         };
+        claimCommissionRewards(value: MsgClaimCommissionRewards): {
+            typeUrl: string;
+            value: MsgClaimCommissionRewards;
+        };
         joinPool(value: MsgJoinPool): {
             typeUrl: string;
             value: MsgJoinPool;
@@ -68,6 +76,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgUpdateCommission;
         };
+        claimCommissionRewards(value: any): {
+            typeUrl: string;
+            value: MsgClaimCommissionRewards;
+        };
         joinPool(value: any): {
             typeUrl: string;
             value: MsgJoinPool;
@@ -93,6 +105,10 @@ export declare const MessageComposer: {
         updateCommission(value: MsgUpdateCommission): {
             typeUrl: string;
             value: MsgUpdateCommission;
+        };
+        claimCommissionRewards(value: MsgClaimCommissionRewards): {
+            typeUrl: string;
+            value: MsgClaimCommissionRewards;
         };
         joinPool(value: MsgJoinPool): {
             typeUrl: string;

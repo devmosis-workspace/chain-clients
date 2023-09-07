@@ -1,38 +1,38 @@
-import { Params, ParamsSDKType } from "./genesis";
+import { DecCoin, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
 /**
  * QueryMinimumGasPricesRequest is the request type for the
  * Query/MinimumGasPrices RPC method.
  */
-export interface QueryParamsRequest {
+export interface QueryMinimumGasPricesRequest {
 }
 /**
  * QueryMinimumGasPricesRequest is the request type for the
  * Query/MinimumGasPrices RPC method.
  */
-export interface QueryParamsRequestSDKType {
+export interface QueryMinimumGasPricesRequestSDKType {
 }
 /**
  * QueryMinimumGasPricesResponse is the response type for the
  * Query/MinimumGasPrices RPC method.
  */
-export interface QueryParamsResponse {
-    params?: Params;
+export interface QueryMinimumGasPricesResponse {
+    minimumGasPrices: DecCoin[];
 }
 /**
  * QueryMinimumGasPricesResponse is the response type for the
  * Query/MinimumGasPrices RPC method.
  */
-export interface QueryParamsResponseSDKType {
-    params?: ParamsSDKType;
+export interface QueryMinimumGasPricesResponseSDKType {
+    minimum_gas_prices: DecCoinSDKType[];
 }
-export declare const QueryParamsRequest: {
-    encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(_: any): QueryParamsRequest;
-    fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest;
+export declare const QueryMinimumGasPricesRequest: {
+    encode(_: QueryMinimumGasPricesRequest, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(_: any): QueryMinimumGasPricesRequest;
+    fromPartial(_: Partial<QueryMinimumGasPricesRequest>): QueryMinimumGasPricesRequest;
 };
-export declare const QueryParamsResponse: {
-    encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    fromJSON(object: any): QueryParamsResponse;
-    fromPartial(object: Partial<QueryParamsResponse>): QueryParamsResponse;
+export declare const QueryMinimumGasPricesResponse: {
+    encode(message: QueryMinimumGasPricesResponse, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(object: any): QueryMinimumGasPricesResponse;
+    fromPartial(object: Partial<QueryMinimumGasPricesResponse>): QueryMinimumGasPricesResponse;
 };

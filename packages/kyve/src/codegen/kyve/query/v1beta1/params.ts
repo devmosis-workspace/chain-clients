@@ -8,6 +8,8 @@ import { QueryParamsResponse as QueryParamsResponse1 } from "../../../cosmos/gov
 import { QueryParamsResponseSDKType as QueryParamsResponse1SDKType } from "../../../cosmos/gov/v1/query";
 import { Params as Params4 } from "../../stakers/v1beta1/params";
 import { ParamsSDKType as Params4SDKType } from "../../stakers/v1beta1/params";
+import { Params as Params5 } from "../../pool/v1beta1/params";
+import { ParamsSDKType as Params5SDKType } from "../../pool/v1beta1/params";
 import * as _m0 from "protobufjs/minimal";
 import { isSet } from "../../../helpers";
 /** QueryParamsRequest ... */
@@ -26,6 +28,8 @@ export interface QueryParamsResponse {
   govParams?: QueryParamsResponse1;
   /** stakers_params ... */
   stakersParams?: Params4;
+  /** pool_params ... */
+  poolParams?: Params5;
 }
 /** QueryParamsResponse ... */
 export interface QueryParamsResponseSDKType {
@@ -34,6 +38,7 @@ export interface QueryParamsResponseSDKType {
   global_params?: Params3SDKType;
   gov_params?: QueryParamsResponse1SDKType;
   stakers_params?: Params4SDKType;
+  pool_params?: Params5SDKType;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -56,7 +61,8 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     delegationParams: undefined,
     globalParams: undefined,
     govParams: undefined,
-    stakersParams: undefined
+    stakersParams: undefined,
+    poolParams: undefined
   };
 }
 export const QueryParamsResponse = {
@@ -76,6 +82,9 @@ export const QueryParamsResponse = {
     if (message.stakersParams !== undefined) {
       Params4.encode(message.stakersParams, writer.uint32(42).fork()).ldelim();
     }
+    if (message.poolParams !== undefined) {
+      Params5.encode(message.poolParams, writer.uint32(50).fork()).ldelim();
+    }
     return writer;
   },
   fromJSON(object: any): QueryParamsResponse {
@@ -84,7 +93,8 @@ export const QueryParamsResponse = {
       delegationParams: isSet(object.delegationParams) ? Params2.fromJSON(object.delegationParams) : undefined,
       globalParams: isSet(object.globalParams) ? Params3.fromJSON(object.globalParams) : undefined,
       govParams: isSet(object.govParams) ? QueryParamsResponse1.fromJSON(object.govParams) : undefined,
-      stakersParams: isSet(object.stakersParams) ? Params4.fromJSON(object.stakersParams) : undefined
+      stakersParams: isSet(object.stakersParams) ? Params4.fromJSON(object.stakersParams) : undefined,
+      poolParams: isSet(object.poolParams) ? Params5.fromJSON(object.poolParams) : undefined
     };
   },
   fromPartial(object: Partial<QueryParamsResponse>): QueryParamsResponse {
@@ -94,6 +104,7 @@ export const QueryParamsResponse = {
     message.globalParams = object.globalParams !== undefined && object.globalParams !== null ? Params3.fromPartial(object.globalParams) : undefined;
     message.govParams = object.govParams !== undefined && object.govParams !== null ? QueryParamsResponse1.fromPartial(object.govParams) : undefined;
     message.stakersParams = object.stakersParams !== undefined && object.stakersParams !== null ? Params4.fromPartial(object.stakersParams) : undefined;
+    message.poolParams = object.poolParams !== undefined && object.poolParams !== null ? Params5.fromPartial(object.poolParams) : undefined;
     return message;
   }
 };

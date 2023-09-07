@@ -1,5 +1,5 @@
 import { LCDClient } from "@osmonauts/lcd";
-import { QueryParamsRequest, QueryParamsResponseSDKType } from "./query";
+import { QueryMinimumGasPricesRequest, QueryMinimumGasPricesResponseSDKType } from "./query";
 export class LCDQueryClient {
   req: LCDClient;
   constructor({
@@ -8,11 +8,11 @@ export class LCDQueryClient {
     requestClient: LCDClient;
   }) {
     this.req = requestClient;
-    this.params = this.params.bind(this);
+    this.minimumGasPrices = this.minimumGasPrices.bind(this);
   }
-  /* Params */
-  async params(_params: QueryParamsRequest = {}): Promise<QueryParamsResponseSDKType> {
-    const endpoint = `gaia/globalfee/v1beta1/params`;
-    return await this.req.get<QueryParamsResponseSDKType>(endpoint);
+  /* MinimumGasPrices */
+  async minimumGasPrices(_params: QueryMinimumGasPricesRequest = {}): Promise<QueryMinimumGasPricesResponseSDKType> {
+    const endpoint = `gaia/globalfee/v1beta1/minimum_gas_prices`;
+    return await this.req.get<QueryMinimumGasPricesResponseSDKType>(endpoint);
   }
 }

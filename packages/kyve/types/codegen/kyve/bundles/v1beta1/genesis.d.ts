@@ -1,5 +1,5 @@
 import { Params, ParamsSDKType } from "./params";
-import { BundleProposal, BundleProposalSDKType, FinalizedBundle, FinalizedBundleSDKType } from "./bundles";
+import { BundleProposal, BundleProposalSDKType, FinalizedBundle, FinalizedBundleSDKType, RoundRobinProgress, RoundRobinProgressSDKType } from "./bundles";
 import * as _m0 from "protobufjs/minimal";
 /** GenesisState defines the bundles module's genesis state. */
 export interface GenesisState {
@@ -9,12 +9,15 @@ export interface GenesisState {
     bundleProposalList: BundleProposal[];
     /** finalized_bundle_list ... */
     finalizedBundleList: FinalizedBundle[];
+    /** round_robin_progress_list ... */
+    roundRobinProgressList: RoundRobinProgress[];
 }
 /** GenesisState defines the bundles module's genesis state. */
 export interface GenesisStateSDKType {
     params?: ParamsSDKType;
     bundle_proposal_list: BundleProposalSDKType[];
     finalized_bundle_list: FinalizedBundleSDKType[];
+    round_robin_progress_list: RoundRobinProgressSDKType[];
 }
 export declare const GenesisState: {
     encode(message: GenesisState, writer?: _m0.Writer): _m0.Writer;

@@ -1,6 +1,6 @@
 import { Rpc } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
-import { MsgFundPool, MsgFundPoolResponse, MsgDefundPool, MsgDefundPoolResponse, MsgCreatePool, MsgCreatePoolResponse, MsgUpdatePool, MsgUpdatePoolResponse, MsgDisablePool, MsgDisablePoolResponse, MsgEnablePool, MsgEnablePoolResponse, MsgScheduleRuntimeUpgrade, MsgScheduleRuntimeUpgradeResponse, MsgCancelRuntimeUpgrade, MsgCancelRuntimeUpgradeResponse } from "./tx";
+import { MsgFundPool, MsgFundPoolResponse, MsgDefundPool, MsgDefundPoolResponse, MsgCreatePool, MsgCreatePoolResponse, MsgUpdatePool, MsgUpdatePoolResponse, MsgDisablePool, MsgDisablePoolResponse, MsgEnablePool, MsgEnablePoolResponse, MsgScheduleRuntimeUpgrade, MsgScheduleRuntimeUpgradeResponse, MsgCancelRuntimeUpgrade, MsgCancelRuntimeUpgradeResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the Msg service. */
 export interface Msg {
   /** FundPool ... */
@@ -37,6 +37,11 @@ export interface Msg {
    * The authority is hard-coded to the x/gov module account.
    */
   cancelRuntimeUpgrade(request: MsgCancelRuntimeUpgrade): Promise<MsgCancelRuntimeUpgradeResponse>;
+  /**
+   * UpdateParams defines a governance operation for updating the x/pool module
+   * parameters. The authority is hard-coded to the x/gov module account.
+   */
+  updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
@@ -50,6 +55,7 @@ export class MsgClientImpl implements Msg {
     this.enablePool = this.enablePool.bind(this);
     this.scheduleRuntimeUpgrade = this.scheduleRuntimeUpgrade.bind(this);
     this.cancelRuntimeUpgrade = this.cancelRuntimeUpgrade.bind(this);
+    this.updateParams = this.updateParams.bind(this);
   }
   fundPool(request: MsgFundPool): Promise<MsgFundPoolResponse> {
     const data = MsgFundPool.encode(request).finish();
@@ -90,5 +96,10 @@ export class MsgClientImpl implements Msg {
     const data = MsgCancelRuntimeUpgrade.encode(request).finish();
     const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "CancelRuntimeUpgrade", data);
     return promise.then(data => MsgCancelRuntimeUpgradeResponse.decode(new _m0.Reader(data)));
+  }
+  updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
+    const data = MsgUpdateParams.encode(request).finish();
+    const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "UpdateParams", data);
+    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
   }
 }

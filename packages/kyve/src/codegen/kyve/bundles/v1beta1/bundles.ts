@@ -156,6 +156,8 @@ export interface FinalizedBundle {
   storageProviderId: number;
   /** compression_id the id of the compression type with which the data was compressed */
   compressionId: number;
+  /** stake_security */
+  stakeSecurity?: StakeSecurity;
 }
 /**
  * FinalizedBundle represents a bundle proposal where the majority
@@ -175,6 +177,7 @@ export interface FinalizedBundleSDKType {
   from_key: string;
   storage_provider_id: number;
   compression_id: number;
+  stake_security?: StakeSecuritySDKType;
 }
 /** FinalizedAt ... */
 export interface FinalizedAt {
@@ -188,14 +191,14 @@ export interface FinalizedAtSDKType {
   height: Long;
   timestamp: Long;
 }
-/** FinalizedAt ... */
+/** StakeSecurity stores information about total stake and valid votes with which the bundle got finalized. */
 export interface StakeSecurity {
-  /** valid_vote_power ... */
+  /** valid_vote_power is the total amount of stake of all pool stakers which voted valid for the given bundle. */
   validVotePower: Long;
-  /** total_vote_power ... */
+  /** total_vote_power is the total amount of stake that was present during the finalization of the bundle */
   totalVotePower: Long;
 }
-/** FinalizedAt ... */
+/** StakeSecurity stores information about total stake and valid votes with which the bundle got finalized. */
 export interface StakeSecuritySDKType {
   valid_vote_power: Long;
   total_vote_power: Long;
@@ -220,6 +223,30 @@ export interface BundleVersionMap {
 /** BundleVersionMap ... */
 export interface BundleVersionMapSDKType {
   versions: BundleVersionEntrySDKType[];
+}
+/** RoundRobinSingleValidatorProgress ... */
+export interface RoundRobinSingleValidatorProgress {
+  /** address ... */
+  address: string;
+  /** progress ... */
+  progress: Long;
+}
+/** RoundRobinSingleValidatorProgress ... */
+export interface RoundRobinSingleValidatorProgressSDKType {
+  address: string;
+  progress: Long;
+}
+/** RoundRobinProgress ... */
+export interface RoundRobinProgress {
+  /** pool_id ... */
+  poolId: Long;
+  /** progress_list ... */
+  progressList: RoundRobinSingleValidatorProgress[];
+}
+/** RoundRobinProgress ... */
+export interface RoundRobinProgressSDKType {
+  pool_id: Long;
+  progress_list: RoundRobinSingleValidatorProgressSDKType[];
 }
 function createBaseBundleProposal(): BundleProposal {
   return {
@@ -348,7 +375,8 @@ function createBaseFinalizedBundle(): FinalizedBundle {
     finalizedAt: undefined,
     fromKey: "",
     storageProviderId: 0,
-    compressionId: 0
+    compressionId: 0,
+    stakeSecurity: undefined
   };
 }
 export const FinalizedBundle = {
@@ -392,6 +420,9 @@ export const FinalizedBundle = {
     if (message.compressionId !== 0) {
       writer.uint32(104).uint32(message.compressionId);
     }
+    if (message.stakeSecurity !== undefined) {
+      StakeSecurity.encode(message.stakeSecurity, writer.uint32(114).fork()).ldelim();
+    }
     return writer;
   },
   fromJSON(object: any): FinalizedBundle {
@@ -408,7 +439,8 @@ export const FinalizedBundle = {
       finalizedAt: isSet(object.finalizedAt) ? FinalizedAt.fromJSON(object.finalizedAt) : undefined,
       fromKey: isSet(object.fromKey) ? String(object.fromKey) : "",
       storageProviderId: isSet(object.storageProviderId) ? Number(object.storageProviderId) : 0,
-      compressionId: isSet(object.compressionId) ? Number(object.compressionId) : 0
+      compressionId: isSet(object.compressionId) ? Number(object.compressionId) : 0,
+      stakeSecurity: isSet(object.stakeSecurity) ? StakeSecurity.fromJSON(object.stakeSecurity) : undefined
     };
   },
   fromPartial(object: Partial<FinalizedBundle>): FinalizedBundle {
@@ -426,6 +458,7 @@ export const FinalizedBundle = {
     message.fromKey = object.fromKey ?? "";
     message.storageProviderId = object.storageProviderId ?? 0;
     message.compressionId = object.compressionId ?? 0;
+    message.stakeSecurity = object.stakeSecurity !== undefined && object.stakeSecurity !== null ? StakeSecurity.fromPartial(object.stakeSecurity) : undefined;
     return message;
   }
 };
@@ -536,6 +569,64 @@ export const BundleVersionMap = {
   fromPartial(object: Partial<BundleVersionMap>): BundleVersionMap {
     const message = createBaseBundleVersionMap();
     message.versions = object.versions?.map(e => BundleVersionEntry.fromPartial(e)) || [];
+    return message;
+  }
+};
+function createBaseRoundRobinSingleValidatorProgress(): RoundRobinSingleValidatorProgress {
+  return {
+    address: "",
+    progress: Long.ZERO
+  };
+}
+export const RoundRobinSingleValidatorProgress = {
+  encode(message: RoundRobinSingleValidatorProgress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+    if (!message.progress.isZero()) {
+      writer.uint32(16).int64(message.progress);
+    }
+    return writer;
+  },
+  fromJSON(object: any): RoundRobinSingleValidatorProgress {
+    return {
+      address: isSet(object.address) ? String(object.address) : "",
+      progress: isSet(object.progress) ? Long.fromValue(object.progress) : Long.ZERO
+    };
+  },
+  fromPartial(object: Partial<RoundRobinSingleValidatorProgress>): RoundRobinSingleValidatorProgress {
+    const message = createBaseRoundRobinSingleValidatorProgress();
+    message.address = object.address ?? "";
+    message.progress = object.progress !== undefined && object.progress !== null ? Long.fromValue(object.progress) : Long.ZERO;
+    return message;
+  }
+};
+function createBaseRoundRobinProgress(): RoundRobinProgress {
+  return {
+    poolId: Long.UZERO,
+    progressList: []
+  };
+}
+export const RoundRobinProgress = {
+  encode(message: RoundRobinProgress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.poolId.isZero()) {
+      writer.uint32(8).uint64(message.poolId);
+    }
+    for (const v of message.progressList) {
+      RoundRobinSingleValidatorProgress.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): RoundRobinProgress {
+    return {
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      progressList: Array.isArray(object?.progressList) ? object.progressList.map((e: any) => RoundRobinSingleValidatorProgress.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<RoundRobinProgress>): RoundRobinProgress {
+    const message = createBaseRoundRobinProgress();
+    message.poolId = object.poolId !== undefined && object.poolId !== null ? Long.fromValue(object.poolId) : Long.UZERO;
+    message.progressList = object.progressList?.map(e => RoundRobinSingleValidatorProgress.fromPartial(e)) || [];
     return message;
   }
 };

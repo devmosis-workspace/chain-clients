@@ -129,6 +129,8 @@ export interface StakerMetadata {
    * if they not agree with the new commission.
    */
   pendingCommissionChange?: CommissionChangeEntry;
+  /** commission_rewards are the rewards in $KYVE earned through commission */
+  commissionRewards: Long;
 }
 /** StakerMetadata contains static information for a staker */
 export interface StakerMetadataSDKType {
@@ -139,6 +141,7 @@ export interface StakerMetadataSDKType {
   security_contact: string;
   details: string;
   pending_commission_change?: CommissionChangeEntrySDKType;
+  commission_rewards: Long;
 }
 /**
  * CommissionChangeEntry shows when the old commission
@@ -346,7 +349,8 @@ function createBaseStakerMetadata(): StakerMetadata {
     identity: "",
     securityContact: "",
     details: "",
-    pendingCommissionChange: undefined
+    pendingCommissionChange: undefined,
+    commissionRewards: Long.UZERO
   };
 }
 export const StakerMetadata = {
@@ -372,6 +376,9 @@ export const StakerMetadata = {
     if (message.pendingCommissionChange !== undefined) {
       CommissionChangeEntry.encode(message.pendingCommissionChange, writer.uint32(58).fork()).ldelim();
     }
+    if (!message.commissionRewards.isZero()) {
+      writer.uint32(64).uint64(message.commissionRewards);
+    }
     return writer;
   },
   fromJSON(object: any): StakerMetadata {
@@ -382,7 +389,8 @@ export const StakerMetadata = {
       identity: isSet(object.identity) ? String(object.identity) : "",
       securityContact: isSet(object.securityContact) ? String(object.securityContact) : "",
       details: isSet(object.details) ? String(object.details) : "",
-      pendingCommissionChange: isSet(object.pendingCommissionChange) ? CommissionChangeEntry.fromJSON(object.pendingCommissionChange) : undefined
+      pendingCommissionChange: isSet(object.pendingCommissionChange) ? CommissionChangeEntry.fromJSON(object.pendingCommissionChange) : undefined,
+      commissionRewards: isSet(object.commissionRewards) ? Long.fromValue(object.commissionRewards) : Long.UZERO
     };
   },
   fromPartial(object: Partial<StakerMetadata>): StakerMetadata {
@@ -394,6 +402,7 @@ export const StakerMetadata = {
     message.securityContact = object.securityContact ?? "";
     message.details = object.details ?? "";
     message.pendingCommissionChange = object.pendingCommissionChange !== undefined && object.pendingCommissionChange !== null ? CommissionChangeEntry.fromPartial(object.pendingCommissionChange) : undefined;
+    message.commissionRewards = object.commissionRewards !== undefined && object.commissionRewards !== null ? Long.fromValue(object.commissionRewards) : Long.UZERO;
     return message;
   }
 };

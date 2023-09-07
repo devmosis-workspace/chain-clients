@@ -1,6 +1,6 @@
 import { AminoMsg } from "@cosmjs/amino";
 import { Long } from "../../../helpers";
-import { MsgCreateStaker, MsgUpdateMetadata, MsgUpdateCommission, MsgJoinPool, MsgLeavePool, MsgUpdateParams } from "./tx";
+import { MsgCreateStaker, MsgUpdateMetadata, MsgUpdateCommission, MsgClaimCommissionRewards, MsgJoinPool, MsgLeavePool, MsgUpdateParams } from "./tx";
 export interface MsgCreateStakerAminoType extends AminoMsg {
   type: "/kyve.stakers.v1beta1.MsgCreateStaker";
   value: {
@@ -25,6 +25,13 @@ export interface MsgUpdateCommissionAminoType extends AminoMsg {
   value: {
     creator: string;
     commission: string;
+  };
+}
+export interface MsgClaimCommissionRewardsAminoType extends AminoMsg {
+  type: "/kyve.stakers.v1beta1.MsgClaimCommissionRewards";
+  value: {
+    creator: string;
+    amount: string;
   };
 }
 export interface MsgJoinPoolAminoType extends AminoMsg {
@@ -131,6 +138,27 @@ export const AminoConverter = {
       return {
         creator,
         commission
+      };
+    }
+  },
+  "/kyve.stakers.v1beta1.MsgClaimCommissionRewards": {
+    aminoType: "/kyve.stakers.v1beta1.MsgClaimCommissionRewards",
+    toAmino: ({
+      creator,
+      amount
+    }: MsgClaimCommissionRewards): MsgClaimCommissionRewardsAminoType["value"] => {
+      return {
+        creator,
+        amount: amount.toString()
+      };
+    },
+    fromAmino: ({
+      creator,
+      amount
+    }: MsgClaimCommissionRewardsAminoType["value"]): MsgClaimCommissionRewards => {
+      return {
+        creator,
+        amount: Long.fromString(amount)
       };
     }
   },

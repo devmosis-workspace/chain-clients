@@ -52,6 +52,10 @@ export interface PoolResponse {
     totalDelegation: Long;
     /** status ... */
     status: PoolStatus;
+    /** account ... */
+    account: string;
+    /** account_balance ... */
+    accountBalance: Long;
 }
 /** PoolResponse ... */
 export interface PoolResponseSDKType {
@@ -62,6 +66,8 @@ export interface PoolResponseSDKType {
     total_self_delegation: Long;
     total_delegation: Long;
     status: PoolStatus;
+    account: string;
+    account_balance: Long;
 }
 /** QueryPoolRequest is the request type for the Query/Pool RPC method. */
 export interface QueryPoolRequest {

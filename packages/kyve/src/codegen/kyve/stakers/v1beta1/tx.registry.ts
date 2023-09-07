@@ -1,6 +1,6 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgCreateStaker, MsgUpdateMetadata, MsgUpdateCommission, MsgJoinPool, MsgLeavePool, MsgUpdateParams } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/kyve.stakers.v1beta1.MsgCreateStaker", MsgCreateStaker], ["/kyve.stakers.v1beta1.MsgUpdateMetadata", MsgUpdateMetadata], ["/kyve.stakers.v1beta1.MsgUpdateCommission", MsgUpdateCommission], ["/kyve.stakers.v1beta1.MsgJoinPool", MsgJoinPool], ["/kyve.stakers.v1beta1.MsgLeavePool", MsgLeavePool], ["/kyve.stakers.v1beta1.MsgUpdateParams", MsgUpdateParams]];
+import { MsgCreateStaker, MsgUpdateMetadata, MsgUpdateCommission, MsgClaimCommissionRewards, MsgJoinPool, MsgLeavePool, MsgUpdateParams } from "./tx";
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/kyve.stakers.v1beta1.MsgCreateStaker", MsgCreateStaker], ["/kyve.stakers.v1beta1.MsgUpdateMetadata", MsgUpdateMetadata], ["/kyve.stakers.v1beta1.MsgUpdateCommission", MsgUpdateCommission], ["/kyve.stakers.v1beta1.MsgClaimCommissionRewards", MsgClaimCommissionRewards], ["/kyve.stakers.v1beta1.MsgJoinPool", MsgJoinPool], ["/kyve.stakers.v1beta1.MsgLeavePool", MsgLeavePool], ["/kyve.stakers.v1beta1.MsgUpdateParams", MsgUpdateParams]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -24,6 +24,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/kyve.stakers.v1beta1.MsgUpdateCommission",
         value: MsgUpdateCommission.encode(value).finish()
+      };
+    },
+    claimCommissionRewards(value: MsgClaimCommissionRewards) {
+      return {
+        typeUrl: "/kyve.stakers.v1beta1.MsgClaimCommissionRewards",
+        value: MsgClaimCommissionRewards.encode(value).finish()
       };
     },
     joinPool(value: MsgJoinPool) {
@@ -61,6 +67,12 @@ export const MessageComposer = {
     updateCommission(value: MsgUpdateCommission) {
       return {
         typeUrl: "/kyve.stakers.v1beta1.MsgUpdateCommission",
+        value
+      };
+    },
+    claimCommissionRewards(value: MsgClaimCommissionRewards) {
+      return {
+        typeUrl: "/kyve.stakers.v1beta1.MsgClaimCommissionRewards",
         value
       };
     },
@@ -102,6 +114,12 @@ export const MessageComposer = {
         value: MsgUpdateCommission.fromJSON(value)
       };
     },
+    claimCommissionRewards(value: any) {
+      return {
+        typeUrl: "/kyve.stakers.v1beta1.MsgClaimCommissionRewards",
+        value: MsgClaimCommissionRewards.fromJSON(value)
+      };
+    },
     joinPool(value: any) {
       return {
         typeUrl: "/kyve.stakers.v1beta1.MsgJoinPool",
@@ -138,6 +156,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/kyve.stakers.v1beta1.MsgUpdateCommission",
         value: MsgUpdateCommission.fromPartial(value)
+      };
+    },
+    claimCommissionRewards(value: MsgClaimCommissionRewards) {
+      return {
+        typeUrl: "/kyve.stakers.v1beta1.MsgClaimCommissionRewards",
+        value: MsgClaimCommissionRewards.fromPartial(value)
       };
     },
     joinPool(value: MsgJoinPool) {

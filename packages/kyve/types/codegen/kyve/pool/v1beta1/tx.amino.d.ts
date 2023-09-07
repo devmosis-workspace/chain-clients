@@ -1,5 +1,5 @@
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgFundPool, MsgDefundPool, MsgCreatePool, MsgUpdatePool, MsgDisablePool, MsgEnablePool, MsgScheduleRuntimeUpgrade, MsgCancelRuntimeUpgrade } from "./tx";
+import { MsgFundPool, MsgDefundPool, MsgCreatePool, MsgUpdatePool, MsgDisablePool, MsgEnablePool, MsgScheduleRuntimeUpgrade, MsgCancelRuntimeUpgrade, MsgUpdateParams } from "./tx";
 export interface MsgFundPoolAminoType extends AminoMsg {
     type: "/kyve.pool.v1beta1.MsgFundPool";
     value: {
@@ -75,6 +75,13 @@ export interface MsgCancelRuntimeUpgradeAminoType extends AminoMsg {
         runtime: string;
     };
 }
+export interface MsgUpdateParamsAminoType extends AminoMsg {
+    type: "/kyve.pool.v1beta1.MsgUpdateParams";
+    value: {
+        authority: string;
+        payload: string;
+    };
+}
 export declare const AminoConverter: {
     "/kyve.pool.v1beta1.MsgFundPool": {
         aminoType: string;
@@ -115,5 +122,10 @@ export declare const AminoConverter: {
         aminoType: string;
         toAmino: ({ authority, runtime }: MsgCancelRuntimeUpgrade) => MsgCancelRuntimeUpgradeAminoType["value"];
         fromAmino: ({ authority, runtime }: MsgCancelRuntimeUpgradeAminoType["value"]) => MsgCancelRuntimeUpgrade;
+    };
+    "/kyve.pool.v1beta1.MsgUpdateParams": {
+        aminoType: string;
+        toAmino: ({ authority, payload }: MsgUpdateParams) => MsgUpdateParamsAminoType["value"];
+        fromAmino: ({ authority, payload }: MsgUpdateParamsAminoType["value"]) => MsgUpdateParams;
     };
 };

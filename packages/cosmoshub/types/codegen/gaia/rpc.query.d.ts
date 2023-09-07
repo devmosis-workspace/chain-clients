@@ -5,7 +5,7 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
     gaia: {
         globalfee: {
             v1beta1: {
-                params(request?: import("./globalfee/v1beta1/query").QueryParamsRequest): Promise<import("./globalfee/v1beta1/query").QueryParamsResponse>;
+                minimumGasPrices(request?: import("./globalfee/v1beta1/query").QueryMinimumGasPricesRequest): Promise<import("./globalfee/v1beta1/query").QueryMinimumGasPricesResponse>;
             };
         };
     };

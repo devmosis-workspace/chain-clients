@@ -1,8 +1,11 @@
+import { Params, ParamsSDKType } from "./params";
 import { Pool, PoolSDKType } from "./pool";
 import { Long } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 /** GenesisState defines the pool module's genesis state. */
 export interface GenesisState {
+    /** params ... */
+    params?: Params;
     /** pool_list ... */
     poolList: Pool[];
     /** pool_count ... */
@@ -10,6 +13,7 @@ export interface GenesisState {
 }
 /** GenesisState defines the pool module's genesis state. */
 export interface GenesisStateSDKType {
+    params?: ParamsSDKType;
     pool_list: PoolSDKType[];
     pool_count: Long;
 }

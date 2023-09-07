@@ -92,6 +92,24 @@ export interface EventUpdateCommissionSDKType {
     commission: string;
 }
 /**
+ * EventClaimCommissionRewards ...
+ * emitted_by: MsgClaimCommissionRewards
+ */
+export interface EventClaimCommissionRewards {
+    /** staker is the account address of the protocol node. */
+    staker: string;
+    /** amount ... */
+    amount: Long;
+}
+/**
+ * EventClaimCommissionRewards ...
+ * emitted_by: MsgClaimCommissionRewards
+ */
+export interface EventClaimCommissionRewardsSDKType {
+    staker: string;
+    amount: Long;
+}
+/**
  * EventJoinPool ...
  * emitted_by: MsgJoinPool
  */
@@ -155,6 +173,11 @@ export declare const EventUpdateCommission: {
     encode(message: EventUpdateCommission, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): EventUpdateCommission;
     fromPartial(object: Partial<EventUpdateCommission>): EventUpdateCommission;
+};
+export declare const EventClaimCommissionRewards: {
+    encode(message: EventClaimCommissionRewards, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(object: any): EventClaimCommissionRewards;
+    fromPartial(object: Partial<EventClaimCommissionRewards>): EventClaimCommissionRewards;
 };
 export declare const EventJoinPool: {
     encode(message: EventJoinPool, writer?: _m0.Writer): _m0.Writer;

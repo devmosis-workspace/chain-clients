@@ -1,5 +1,5 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgFundPool, MsgDefundPool, MsgCreatePool, MsgUpdatePool, MsgDisablePool, MsgEnablePool, MsgScheduleRuntimeUpgrade, MsgCancelRuntimeUpgrade } from "./tx";
+import { MsgFundPool, MsgDefundPool, MsgCreatePool, MsgUpdatePool, MsgDisablePool, MsgEnablePool, MsgScheduleRuntimeUpgrade, MsgCancelRuntimeUpgrade, MsgUpdateParams } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
@@ -33,6 +33,10 @@ export declare const MessageComposer: {
             value: Uint8Array;
         };
         cancelRuntimeUpgrade(value: MsgCancelRuntimeUpgrade): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        updateParams(value: MsgUpdateParams): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -70,6 +74,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgCancelRuntimeUpgrade;
         };
+        updateParams(value: MsgUpdateParams): {
+            typeUrl: string;
+            value: MsgUpdateParams;
+        };
     };
     fromJSON: {
         fundPool(value: any): {
@@ -104,6 +112,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgCancelRuntimeUpgrade;
         };
+        updateParams(value: any): {
+            typeUrl: string;
+            value: MsgUpdateParams;
+        };
     };
     fromPartial: {
         fundPool(value: MsgFundPool): {
@@ -137,6 +149,10 @@ export declare const MessageComposer: {
         cancelRuntimeUpgrade(value: MsgCancelRuntimeUpgrade): {
             typeUrl: string;
             value: MsgCancelRuntimeUpgrade;
+        };
+        updateParams(value: MsgUpdateParams): {
+            typeUrl: string;
+            value: MsgUpdateParams;
         };
     };
 };

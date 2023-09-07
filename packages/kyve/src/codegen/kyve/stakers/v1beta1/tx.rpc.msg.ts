@@ -1,6 +1,6 @@
 import { Rpc } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
-import { MsgCreateStaker, MsgCreateStakerResponse, MsgUpdateMetadata, MsgUpdateMetadataResponse, MsgUpdateCommission, MsgUpdateCommissionResponse, MsgJoinPool, MsgJoinPoolResponse, MsgLeavePool, MsgLeavePoolResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
+import { MsgCreateStaker, MsgCreateStakerResponse, MsgUpdateMetadata, MsgUpdateMetadataResponse, MsgUpdateCommission, MsgUpdateCommissionResponse, MsgClaimCommissionRewards, MsgClaimCommissionRewardsResponse, MsgJoinPool, MsgJoinPoolResponse, MsgLeavePool, MsgLeavePoolResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the Msg service. */
 export interface Msg {
   /** CreateStaker ... */
@@ -9,6 +9,8 @@ export interface Msg {
   updateMetadata(request: MsgUpdateMetadata): Promise<MsgUpdateMetadataResponse>;
   /** UpdateCommission ... */
   updateCommission(request: MsgUpdateCommission): Promise<MsgUpdateCommissionResponse>;
+  /** ClaimCommissionRewards ... */
+  claimCommissionRewards(request: MsgClaimCommissionRewards): Promise<MsgClaimCommissionRewardsResponse>;
   /** JoinPool ... */
   joinPool(request: MsgJoinPool): Promise<MsgJoinPoolResponse>;
   /** LeavePool ... */
@@ -26,6 +28,7 @@ export class MsgClientImpl implements Msg {
     this.createStaker = this.createStaker.bind(this);
     this.updateMetadata = this.updateMetadata.bind(this);
     this.updateCommission = this.updateCommission.bind(this);
+    this.claimCommissionRewards = this.claimCommissionRewards.bind(this);
     this.joinPool = this.joinPool.bind(this);
     this.leavePool = this.leavePool.bind(this);
     this.updateParams = this.updateParams.bind(this);
@@ -44,6 +47,11 @@ export class MsgClientImpl implements Msg {
     const data = MsgUpdateCommission.encode(request).finish();
     const promise = this.rpc.request("kyve.stakers.v1beta1.Msg", "UpdateCommission", data);
     return promise.then(data => MsgUpdateCommissionResponse.decode(new _m0.Reader(data)));
+  }
+  claimCommissionRewards(request: MsgClaimCommissionRewards): Promise<MsgClaimCommissionRewardsResponse> {
+    const data = MsgClaimCommissionRewards.encode(request).finish();
+    const promise = this.rpc.request("kyve.stakers.v1beta1.Msg", "ClaimCommissionRewards", data);
+    return promise.then(data => MsgClaimCommissionRewardsResponse.decode(new _m0.Reader(data)));
   }
   joinPool(request: MsgJoinPool): Promise<MsgJoinPoolResponse> {
     const data = MsgJoinPool.encode(request).finish();

@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import { MsgCreateStaker, MsgCreateStakerResponse, MsgUpdateMetadata, MsgUpdateMetadataResponse, MsgUpdateCommission, MsgUpdateCommissionResponse, MsgJoinPool, MsgJoinPoolResponse, MsgLeavePool, MsgLeavePoolResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
+import { MsgCreateStaker, MsgCreateStakerResponse, MsgUpdateMetadata, MsgUpdateMetadataResponse, MsgUpdateCommission, MsgUpdateCommissionResponse, MsgClaimCommissionRewards, MsgClaimCommissionRewardsResponse, MsgJoinPool, MsgJoinPoolResponse, MsgLeavePool, MsgLeavePoolResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the Msg service. */
 export interface Msg {
     /** CreateStaker ... */
@@ -8,6 +8,8 @@ export interface Msg {
     updateMetadata(request: MsgUpdateMetadata): Promise<MsgUpdateMetadataResponse>;
     /** UpdateCommission ... */
     updateCommission(request: MsgUpdateCommission): Promise<MsgUpdateCommissionResponse>;
+    /** ClaimCommissionRewards ... */
+    claimCommissionRewards(request: MsgClaimCommissionRewards): Promise<MsgClaimCommissionRewardsResponse>;
     /** JoinPool ... */
     joinPool(request: MsgJoinPool): Promise<MsgJoinPoolResponse>;
     /** LeavePool ... */
@@ -24,6 +26,7 @@ export declare class MsgClientImpl implements Msg {
     createStaker(request: MsgCreateStaker): Promise<MsgCreateStakerResponse>;
     updateMetadata(request: MsgUpdateMetadata): Promise<MsgUpdateMetadataResponse>;
     updateCommission(request: MsgUpdateCommission): Promise<MsgUpdateCommissionResponse>;
+    claimCommissionRewards(request: MsgClaimCommissionRewards): Promise<MsgClaimCommissionRewardsResponse>;
     joinPool(request: MsgJoinPool): Promise<MsgJoinPoolResponse>;
     leavePool(request: MsgLeavePool): Promise<MsgLeavePoolResponse>;
     updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;

@@ -8,6 +8,8 @@ import { QueryParamsResponse as QueryParamsResponse1 } from "../../../cosmos/gov
 import { QueryParamsResponseSDKType as QueryParamsResponse1SDKType } from "../../../cosmos/gov/v1/query";
 import { Params as Params4 } from "../../stakers/v1beta1/params";
 import { ParamsSDKType as Params4SDKType } from "../../stakers/v1beta1/params";
+import { Params as Params5 } from "../../pool/v1beta1/params";
+import { ParamsSDKType as Params5SDKType } from "../../pool/v1beta1/params";
 import * as _m0 from "protobufjs/minimal";
 /** QueryParamsRequest ... */
 export interface QueryParamsRequest {
@@ -27,6 +29,8 @@ export interface QueryParamsResponse {
     govParams?: QueryParamsResponse1;
     /** stakers_params ... */
     stakersParams?: Params4;
+    /** pool_params ... */
+    poolParams?: Params5;
 }
 /** QueryParamsResponse ... */
 export interface QueryParamsResponseSDKType {
@@ -35,6 +39,7 @@ export interface QueryParamsResponseSDKType {
     global_params?: Params3SDKType;
     gov_params?: QueryParamsResponse1SDKType;
     stakers_params?: Params4SDKType;
+    pool_params?: Params5SDKType;
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;

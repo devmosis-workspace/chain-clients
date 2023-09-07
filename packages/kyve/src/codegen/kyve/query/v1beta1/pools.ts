@@ -52,6 +52,10 @@ export interface PoolResponse {
   totalDelegation: Long;
   /** status ... */
   status: PoolStatus;
+  /** account ... */
+  account: string;
+  /** account_balance ... */
+  accountBalance: Long;
 }
 /** PoolResponse ... */
 export interface PoolResponseSDKType {
@@ -62,6 +66,8 @@ export interface PoolResponseSDKType {
   total_self_delegation: Long;
   total_delegation: Long;
   status: PoolStatus;
+  account: string;
+  account_balance: Long;
 }
 /** QueryPoolRequest is the request type for the Query/Pool RPC method. */
 export interface QueryPoolRequest {
@@ -165,7 +171,9 @@ function createBasePoolResponse(): PoolResponse {
     stakers: [],
     totalSelfDelegation: Long.UZERO,
     totalDelegation: Long.UZERO,
-    status: 0
+    status: 0,
+    account: "",
+    accountBalance: Long.UZERO
   };
 }
 export const PoolResponse = {
@@ -191,6 +199,12 @@ export const PoolResponse = {
     if (message.status !== 0) {
       writer.uint32(56).int32(message.status);
     }
+    if (message.account !== "") {
+      writer.uint32(66).string(message.account);
+    }
+    if (!message.accountBalance.isZero()) {
+      writer.uint32(72).uint64(message.accountBalance);
+    }
     return writer;
   },
   fromJSON(object: any): PoolResponse {
@@ -201,7 +215,9 @@ export const PoolResponse = {
       stakers: Array.isArray(object?.stakers) ? object.stakers.map((e: any) => String(e)) : [],
       totalSelfDelegation: isSet(object.totalSelfDelegation) ? Long.fromValue(object.totalSelfDelegation) : Long.UZERO,
       totalDelegation: isSet(object.totalDelegation) ? Long.fromValue(object.totalDelegation) : Long.UZERO,
-      status: isSet(object.status) ? poolStatusFromJSON(object.status) : 0
+      status: isSet(object.status) ? poolStatusFromJSON(object.status) : 0,
+      account: isSet(object.account) ? String(object.account) : "",
+      accountBalance: isSet(object.accountBalance) ? Long.fromValue(object.accountBalance) : Long.UZERO
     };
   },
   fromPartial(object: Partial<PoolResponse>): PoolResponse {
@@ -213,6 +229,8 @@ export const PoolResponse = {
     message.totalSelfDelegation = object.totalSelfDelegation !== undefined && object.totalSelfDelegation !== null ? Long.fromValue(object.totalSelfDelegation) : Long.UZERO;
     message.totalDelegation = object.totalDelegation !== undefined && object.totalDelegation !== null ? Long.fromValue(object.totalDelegation) : Long.UZERO;
     message.status = object.status ?? 0;
+    message.account = object.account ?? "";
+    message.accountBalance = object.accountBalance !== undefined && object.accountBalance !== null ? Long.fromValue(object.accountBalance) : Long.UZERO;
     return message;
   }
 };

@@ -66,6 +66,22 @@ export interface MsgUpdateCommissionSDKType {
 export interface MsgUpdateCommissionResponse {}
 /** MsgUpdateCommissionResponse ... */
 export interface MsgUpdateCommissionResponseSDKType {}
+/** MsgClaimCommissionRewards ... */
+export interface MsgClaimCommissionRewards {
+  /** creator ... */
+  creator: string;
+  /** amount ... */
+  amount: Long;
+}
+/** MsgClaimCommissionRewards ... */
+export interface MsgClaimCommissionRewardsSDKType {
+  creator: string;
+  amount: Long;
+}
+/** MsgClaimCommissionRewardsResponse ... */
+export interface MsgClaimCommissionRewardsResponse {}
+/** MsgClaimCommissionRewardsResponse ... */
+export interface MsgClaimCommissionRewardsResponseSDKType {}
 /** MsgJoinPool ... */
 export interface MsgJoinPool {
   /** creator ... */
@@ -279,6 +295,50 @@ export const MsgUpdateCommissionResponse = {
   },
   fromPartial(_: Partial<MsgUpdateCommissionResponse>): MsgUpdateCommissionResponse {
     const message = createBaseMsgUpdateCommissionResponse();
+    return message;
+  }
+};
+function createBaseMsgClaimCommissionRewards(): MsgClaimCommissionRewards {
+  return {
+    creator: "",
+    amount: Long.UZERO
+  };
+}
+export const MsgClaimCommissionRewards = {
+  encode(message: MsgClaimCommissionRewards, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (!message.amount.isZero()) {
+      writer.uint32(16).uint64(message.amount);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgClaimCommissionRewards {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      amount: isSet(object.amount) ? Long.fromValue(object.amount) : Long.UZERO
+    };
+  },
+  fromPartial(object: Partial<MsgClaimCommissionRewards>): MsgClaimCommissionRewards {
+    const message = createBaseMsgClaimCommissionRewards();
+    message.creator = object.creator ?? "";
+    message.amount = object.amount !== undefined && object.amount !== null ? Long.fromValue(object.amount) : Long.UZERO;
+    return message;
+  }
+};
+function createBaseMsgClaimCommissionRewardsResponse(): MsgClaimCommissionRewardsResponse {
+  return {};
+}
+export const MsgClaimCommissionRewardsResponse = {
+  encode(_: MsgClaimCommissionRewardsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+  fromJSON(_: any): MsgClaimCommissionRewardsResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgClaimCommissionRewardsResponse>): MsgClaimCommissionRewardsResponse {
+    const message = createBaseMsgClaimCommissionRewardsResponse();
     return message;
   }
 };

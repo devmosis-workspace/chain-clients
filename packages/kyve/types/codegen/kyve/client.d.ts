@@ -114,6 +114,17 @@ export declare const kyveAminoConverters: {
             commission: string;
         }) => import("./stakers/v1beta1/tx").MsgUpdateCommission;
     };
+    "/kyve.stakers.v1beta1.MsgClaimCommissionRewards": {
+        aminoType: string;
+        toAmino: ({ creator, amount }: import("./stakers/v1beta1/tx").MsgClaimCommissionRewards) => {
+            creator: string;
+            amount: string;
+        };
+        fromAmino: ({ creator, amount }: {
+            creator: string;
+            amount: string;
+        }) => import("./stakers/v1beta1/tx").MsgClaimCommissionRewards;
+    };
     "/kyve.stakers.v1beta1.MsgJoinPool": {
         aminoType: string;
         toAmino: ({ creator, poolId, valaddress, amount }: import("./stakers/v1beta1/tx").MsgJoinPool) => {
@@ -276,6 +287,17 @@ export declare const kyveAminoConverters: {
             authority: string;
             runtime: string;
         }) => import("./pool/v1beta1/tx").MsgCancelRuntimeUpgrade;
+    };
+    "/kyve.pool.v1beta1.MsgUpdateParams": {
+        aminoType: string;
+        toAmino: ({ authority, payload }: import("./pool/v1beta1/tx").MsgUpdateParams) => {
+            authority: string;
+            payload: string;
+        };
+        fromAmino: ({ authority, payload }: {
+            authority: string;
+            payload: string;
+        }) => import("./pool/v1beta1/tx").MsgUpdateParams;
     };
     "/kyve.global.v1beta1.MsgUpdateParams": {
         aminoType: string;

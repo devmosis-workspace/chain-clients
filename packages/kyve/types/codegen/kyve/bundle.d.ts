@@ -17,51 +17,55 @@ import * as _15 from "./global/v1beta1/query";
 import * as _16 from "./global/v1beta1/tx";
 import * as _17 from "./pool/v1beta1/events";
 import * as _18 from "./pool/v1beta1/genesis";
-import * as _19 from "./pool/v1beta1/pool";
-import * as _20 from "./pool/v1beta1/tx";
-import * as _21 from "./query/v1beta1/account";
-import * as _22 from "./query/v1beta1/bundles";
-import * as _23 from "./query/v1beta1/delegation";
-import * as _24 from "./query/v1beta1/params";
-import * as _25 from "./query/v1beta1/pools";
-import * as _26 from "./query/v1beta1/query";
-import * as _27 from "./query/v1beta1/stakers";
-import * as _28 from "./stakers/v1beta1/events";
-import * as _29 from "./stakers/v1beta1/genesis";
-import * as _30 from "./stakers/v1beta1/params";
-import * as _31 from "./stakers/v1beta1/query";
-import * as _32 from "./stakers/v1beta1/stakers";
-import * as _33 from "./stakers/v1beta1/tx";
-import * as _34 from "./team/v1beta1/events";
-import * as _35 from "./team/v1beta1/genesis";
-import * as _36 from "./team/v1beta1/query";
-import * as _37 from "./team/v1beta1/team";
-import * as _38 from "./team/v1beta1/tx";
-import * as _165 from "./bundles/v1beta1/query.lcd";
-import * as _166 from "./delegation/v1beta1/query.lcd";
-import * as _167 from "./global/v1beta1/query.lcd";
-import * as _168 from "./stakers/v1beta1/query.lcd";
-import * as _169 from "./team/v1beta1/query.lcd";
-import * as _170 from "./bundles/v1beta1/query.rpc.Query";
-import * as _171 from "./delegation/v1beta1/query.rpc.Query";
-import * as _172 from "./global/v1beta1/query.rpc.Query";
-import * as _173 from "./stakers/v1beta1/query.rpc.Query";
-import * as _174 from "./team/v1beta1/query.rpc.Query";
-import * as _175 from "./bundles/v1beta1/tx.rpc.msg";
-import * as _176 from "./delegation/v1beta1/tx.rpc.msg";
-import * as _177 from "./global/v1beta1/tx.rpc.msg";
-import * as _178 from "./pool/v1beta1/tx.rpc.msg";
-import * as _179 from "./stakers/v1beta1/tx.rpc.msg";
-import * as _180 from "./team/v1beta1/tx.rpc.msg";
+import * as _19 from "./pool/v1beta1/params";
+import * as _20 from "./pool/v1beta1/pool";
+import * as _21 from "./pool/v1beta1/query";
+import * as _22 from "./pool/v1beta1/tx";
+import * as _23 from "./query/v1beta1/account";
+import * as _24 from "./query/v1beta1/bundles";
+import * as _25 from "./query/v1beta1/delegation";
+import * as _26 from "./query/v1beta1/params";
+import * as _27 from "./query/v1beta1/pools";
+import * as _28 from "./query/v1beta1/query";
+import * as _29 from "./query/v1beta1/stakers";
+import * as _30 from "./stakers/v1beta1/events";
+import * as _31 from "./stakers/v1beta1/genesis";
+import * as _32 from "./stakers/v1beta1/params";
+import * as _33 from "./stakers/v1beta1/query";
+import * as _34 from "./stakers/v1beta1/stakers";
+import * as _35 from "./stakers/v1beta1/tx";
+import * as _36 from "./team/v1beta1/events";
+import * as _37 from "./team/v1beta1/genesis";
+import * as _38 from "./team/v1beta1/query";
+import * as _39 from "./team/v1beta1/team";
+import * as _40 from "./team/v1beta1/tx";
+import * as _167 from "./bundles/v1beta1/query.lcd";
+import * as _168 from "./delegation/v1beta1/query.lcd";
+import * as _169 from "./global/v1beta1/query.lcd";
+import * as _170 from "./pool/v1beta1/query.lcd";
+import * as _171 from "./stakers/v1beta1/query.lcd";
+import * as _172 from "./team/v1beta1/query.lcd";
+import * as _173 from "./bundles/v1beta1/query.rpc.Query";
+import * as _174 from "./delegation/v1beta1/query.rpc.Query";
+import * as _175 from "./global/v1beta1/query.rpc.Query";
+import * as _176 from "./pool/v1beta1/query.rpc.Query";
+import * as _177 from "./stakers/v1beta1/query.rpc.Query";
+import * as _178 from "./team/v1beta1/query.rpc.Query";
+import * as _179 from "./bundles/v1beta1/tx.rpc.msg";
+import * as _180 from "./delegation/v1beta1/tx.rpc.msg";
+import * as _181 from "./global/v1beta1/tx.rpc.msg";
+import * as _182 from "./pool/v1beta1/tx.rpc.msg";
+import * as _183 from "./stakers/v1beta1/tx.rpc.msg";
+import * as _184 from "./team/v1beta1/tx.rpc.msg";
 export declare namespace kyve {
     namespace bundles {
         const v1beta1: {
-            MsgClientImpl: typeof _175.MsgClientImpl;
-            QueryClientImpl: typeof _170.QueryClientImpl;
+            MsgClientImpl: typeof _179.MsgClientImpl;
+            QueryClientImpl: typeof _173.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _4.QueryParamsRequest): Promise<_4.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _165.LCDQueryClient;
+            LCDQueryClient: typeof _167.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -389,16 +393,26 @@ export declare namespace kyve {
                 fromJSON(object: any): _0.BundleVersionMap;
                 fromPartial(object: Partial<_0.BundleVersionMap>): _0.BundleVersionMap;
             };
+            RoundRobinSingleValidatorProgress: {
+                encode(message: _0.RoundRobinSingleValidatorProgress, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _0.RoundRobinSingleValidatorProgress;
+                fromPartial(object: Partial<_0.RoundRobinSingleValidatorProgress>): _0.RoundRobinSingleValidatorProgress;
+            };
+            RoundRobinProgress: {
+                encode(message: _0.RoundRobinProgress, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _0.RoundRobinProgress;
+                fromPartial(object: Partial<_0.RoundRobinProgress>): _0.RoundRobinProgress;
+            };
         };
     }
     namespace delegation {
         const v1beta1: {
-            MsgClientImpl: typeof _176.MsgClientImpl;
-            QueryClientImpl: typeof _171.QueryClientImpl;
+            MsgClientImpl: typeof _180.MsgClientImpl;
+            QueryClientImpl: typeof _174.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _10.QueryParamsRequest): Promise<_10.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _166.LCDQueryClient;
+            LCDQueryClient: typeof _168.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -704,12 +718,12 @@ export declare namespace kyve {
     }
     namespace global {
         const v1beta1: {
-            MsgClientImpl: typeof _177.MsgClientImpl;
-            QueryClientImpl: typeof _172.QueryClientImpl;
+            MsgClientImpl: typeof _181.MsgClientImpl;
+            QueryClientImpl: typeof _175.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _15.QueryParamsRequest): Promise<_15.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _167.LCDQueryClient;
+            LCDQueryClient: typeof _169.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -800,151 +814,172 @@ export declare namespace kyve {
     }
     namespace pool {
         const v1beta1: {
-            MsgClientImpl: typeof _178.MsgClientImpl;
+            MsgClientImpl: typeof _182.MsgClientImpl;
+            QueryClientImpl: typeof _176.QueryClientImpl;
+            createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+                params(request?: _21.QueryParamsRequest): Promise<_21.QueryParamsResponse>;
+            };
+            LCDQueryClient: typeof _170.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
                 encoded: {
-                    fundPool(value: _20.MsgFundPool): {
+                    fundPool(value: _22.MsgFundPool): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    defundPool(value: _20.MsgDefundPool): {
+                    defundPool(value: _22.MsgDefundPool): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    createPool(value: _20.MsgCreatePool): {
+                    createPool(value: _22.MsgCreatePool): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    updatePool(value: _20.MsgUpdatePool): {
+                    updatePool(value: _22.MsgUpdatePool): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    disablePool(value: _20.MsgDisablePool): {
+                    disablePool(value: _22.MsgDisablePool): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    enablePool(value: _20.MsgEnablePool): {
+                    enablePool(value: _22.MsgEnablePool): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    scheduleRuntimeUpgrade(value: _20.MsgScheduleRuntimeUpgrade): {
+                    scheduleRuntimeUpgrade(value: _22.MsgScheduleRuntimeUpgrade): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    cancelRuntimeUpgrade(value: _20.MsgCancelRuntimeUpgrade): {
+                    cancelRuntimeUpgrade(value: _22.MsgCancelRuntimeUpgrade): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    updateParams(value: _22.MsgUpdateParams): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
                 };
                 withTypeUrl: {
-                    fundPool(value: _20.MsgFundPool): {
+                    fundPool(value: _22.MsgFundPool): {
                         typeUrl: string;
-                        value: _20.MsgFundPool;
+                        value: _22.MsgFundPool;
                     };
-                    defundPool(value: _20.MsgDefundPool): {
+                    defundPool(value: _22.MsgDefundPool): {
                         typeUrl: string;
-                        value: _20.MsgDefundPool;
+                        value: _22.MsgDefundPool;
                     };
-                    createPool(value: _20.MsgCreatePool): {
+                    createPool(value: _22.MsgCreatePool): {
                         typeUrl: string;
-                        value: _20.MsgCreatePool;
+                        value: _22.MsgCreatePool;
                     };
-                    updatePool(value: _20.MsgUpdatePool): {
+                    updatePool(value: _22.MsgUpdatePool): {
                         typeUrl: string;
-                        value: _20.MsgUpdatePool;
+                        value: _22.MsgUpdatePool;
                     };
-                    disablePool(value: _20.MsgDisablePool): {
+                    disablePool(value: _22.MsgDisablePool): {
                         typeUrl: string;
-                        value: _20.MsgDisablePool;
+                        value: _22.MsgDisablePool;
                     };
-                    enablePool(value: _20.MsgEnablePool): {
+                    enablePool(value: _22.MsgEnablePool): {
                         typeUrl: string;
-                        value: _20.MsgEnablePool;
+                        value: _22.MsgEnablePool;
                     };
-                    scheduleRuntimeUpgrade(value: _20.MsgScheduleRuntimeUpgrade): {
+                    scheduleRuntimeUpgrade(value: _22.MsgScheduleRuntimeUpgrade): {
                         typeUrl: string;
-                        value: _20.MsgScheduleRuntimeUpgrade;
+                        value: _22.MsgScheduleRuntimeUpgrade;
                     };
-                    cancelRuntimeUpgrade(value: _20.MsgCancelRuntimeUpgrade): {
+                    cancelRuntimeUpgrade(value: _22.MsgCancelRuntimeUpgrade): {
                         typeUrl: string;
-                        value: _20.MsgCancelRuntimeUpgrade;
+                        value: _22.MsgCancelRuntimeUpgrade;
+                    };
+                    updateParams(value: _22.MsgUpdateParams): {
+                        typeUrl: string;
+                        value: _22.MsgUpdateParams;
                     };
                 };
                 fromJSON: {
                     fundPool(value: any): {
                         typeUrl: string;
-                        value: _20.MsgFundPool;
+                        value: _22.MsgFundPool;
                     };
                     defundPool(value: any): {
                         typeUrl: string;
-                        value: _20.MsgDefundPool;
+                        value: _22.MsgDefundPool;
                     };
                     createPool(value: any): {
                         typeUrl: string;
-                        value: _20.MsgCreatePool;
+                        value: _22.MsgCreatePool;
                     };
                     updatePool(value: any): {
                         typeUrl: string;
-                        value: _20.MsgUpdatePool;
+                        value: _22.MsgUpdatePool;
                     };
                     disablePool(value: any): {
                         typeUrl: string;
-                        value: _20.MsgDisablePool;
+                        value: _22.MsgDisablePool;
                     };
                     enablePool(value: any): {
                         typeUrl: string;
-                        value: _20.MsgEnablePool;
+                        value: _22.MsgEnablePool;
                     };
                     scheduleRuntimeUpgrade(value: any): {
                         typeUrl: string;
-                        value: _20.MsgScheduleRuntimeUpgrade;
+                        value: _22.MsgScheduleRuntimeUpgrade;
                     };
                     cancelRuntimeUpgrade(value: any): {
                         typeUrl: string;
-                        value: _20.MsgCancelRuntimeUpgrade;
+                        value: _22.MsgCancelRuntimeUpgrade;
+                    };
+                    updateParams(value: any): {
+                        typeUrl: string;
+                        value: _22.MsgUpdateParams;
                     };
                 };
                 fromPartial: {
-                    fundPool(value: _20.MsgFundPool): {
+                    fundPool(value: _22.MsgFundPool): {
                         typeUrl: string;
-                        value: _20.MsgFundPool;
+                        value: _22.MsgFundPool;
                     };
-                    defundPool(value: _20.MsgDefundPool): {
+                    defundPool(value: _22.MsgDefundPool): {
                         typeUrl: string;
-                        value: _20.MsgDefundPool;
+                        value: _22.MsgDefundPool;
                     };
-                    createPool(value: _20.MsgCreatePool): {
+                    createPool(value: _22.MsgCreatePool): {
                         typeUrl: string;
-                        value: _20.MsgCreatePool;
+                        value: _22.MsgCreatePool;
                     };
-                    updatePool(value: _20.MsgUpdatePool): {
+                    updatePool(value: _22.MsgUpdatePool): {
                         typeUrl: string;
-                        value: _20.MsgUpdatePool;
+                        value: _22.MsgUpdatePool;
                     };
-                    disablePool(value: _20.MsgDisablePool): {
+                    disablePool(value: _22.MsgDisablePool): {
                         typeUrl: string;
-                        value: _20.MsgDisablePool;
+                        value: _22.MsgDisablePool;
                     };
-                    enablePool(value: _20.MsgEnablePool): {
+                    enablePool(value: _22.MsgEnablePool): {
                         typeUrl: string;
-                        value: _20.MsgEnablePool;
+                        value: _22.MsgEnablePool;
                     };
-                    scheduleRuntimeUpgrade(value: _20.MsgScheduleRuntimeUpgrade): {
+                    scheduleRuntimeUpgrade(value: _22.MsgScheduleRuntimeUpgrade): {
                         typeUrl: string;
-                        value: _20.MsgScheduleRuntimeUpgrade;
+                        value: _22.MsgScheduleRuntimeUpgrade;
                     };
-                    cancelRuntimeUpgrade(value: _20.MsgCancelRuntimeUpgrade): {
+                    cancelRuntimeUpgrade(value: _22.MsgCancelRuntimeUpgrade): {
                         typeUrl: string;
-                        value: _20.MsgCancelRuntimeUpgrade;
+                        value: _22.MsgCancelRuntimeUpgrade;
+                    };
+                    updateParams(value: _22.MsgUpdateParams): {
+                        typeUrl: string;
+                        value: _22.MsgUpdateParams;
                     };
                 };
             };
             AminoConverter: {
                 "/kyve.pool.v1beta1.MsgFundPool": {
                     aminoType: string;
-                    toAmino: ({ creator, id, amount }: _20.MsgFundPool) => {
+                    toAmino: ({ creator, id, amount }: _22.MsgFundPool) => {
                         creator: string;
                         id: string;
                         amount: string;
@@ -953,11 +988,11 @@ export declare namespace kyve {
                         creator: string;
                         id: string;
                         amount: string;
-                    }) => _20.MsgFundPool;
+                    }) => _22.MsgFundPool;
                 };
                 "/kyve.pool.v1beta1.MsgDefundPool": {
                     aminoType: string;
-                    toAmino: ({ creator, id, amount }: _20.MsgDefundPool) => {
+                    toAmino: ({ creator, id, amount }: _22.MsgDefundPool) => {
                         creator: string;
                         id: string;
                         amount: string;
@@ -966,11 +1001,11 @@ export declare namespace kyve {
                         creator: string;
                         id: string;
                         amount: string;
-                    }) => _20.MsgDefundPool;
+                    }) => _22.MsgDefundPool;
                 };
                 "/kyve.pool.v1beta1.MsgCreatePool": {
                     aminoType: string;
-                    toAmino: ({ authority, name, runtime, logo, config, startKey, uploadInterval, operatingCost, minDelegation, maxBundleSize, version, binaries, storageProviderId, compressionId }: _20.MsgCreatePool) => {
+                    toAmino: ({ authority, name, runtime, logo, config, startKey, uploadInterval, operatingCost, minDelegation, maxBundleSize, version, binaries, storageProviderId, compressionId }: _22.MsgCreatePool) => {
                         authority: string;
                         name: string;
                         runtime: string;
@@ -1001,11 +1036,11 @@ export declare namespace kyve {
                         binaries: string;
                         storage_provider_id: number;
                         compression_id: number;
-                    }) => _20.MsgCreatePool;
+                    }) => _22.MsgCreatePool;
                 };
                 "/kyve.pool.v1beta1.MsgUpdatePool": {
                     aminoType: string;
-                    toAmino: ({ authority, id, payload }: _20.MsgUpdatePool) => {
+                    toAmino: ({ authority, id, payload }: _22.MsgUpdatePool) => {
                         authority: string;
                         id: string;
                         payload: string;
@@ -1014,33 +1049,33 @@ export declare namespace kyve {
                         authority: string;
                         id: string;
                         payload: string;
-                    }) => _20.MsgUpdatePool;
+                    }) => _22.MsgUpdatePool;
                 };
                 "/kyve.pool.v1beta1.MsgDisablePool": {
                     aminoType: string;
-                    toAmino: ({ authority, id }: _20.MsgDisablePool) => {
+                    toAmino: ({ authority, id }: _22.MsgDisablePool) => {
                         authority: string;
                         id: string;
                     };
                     fromAmino: ({ authority, id }: {
                         authority: string;
                         id: string;
-                    }) => _20.MsgDisablePool;
+                    }) => _22.MsgDisablePool;
                 };
                 "/kyve.pool.v1beta1.MsgEnablePool": {
                     aminoType: string;
-                    toAmino: ({ authority, id }: _20.MsgEnablePool) => {
+                    toAmino: ({ authority, id }: _22.MsgEnablePool) => {
                         authority: string;
                         id: string;
                     };
                     fromAmino: ({ authority, id }: {
                         authority: string;
                         id: string;
-                    }) => _20.MsgEnablePool;
+                    }) => _22.MsgEnablePool;
                 };
                 "/kyve.pool.v1beta1.MsgScheduleRuntimeUpgrade": {
                     aminoType: string;
-                    toAmino: ({ authority, runtime, version, scheduledAt, duration, binaries }: _20.MsgScheduleRuntimeUpgrade) => {
+                    toAmino: ({ authority, runtime, version, scheduledAt, duration, binaries }: _22.MsgScheduleRuntimeUpgrade) => {
                         authority: string;
                         runtime: string;
                         version: string;
@@ -1055,128 +1090,169 @@ export declare namespace kyve {
                         scheduled_at: string;
                         duration: string;
                         binaries: string;
-                    }) => _20.MsgScheduleRuntimeUpgrade;
+                    }) => _22.MsgScheduleRuntimeUpgrade;
                 };
                 "/kyve.pool.v1beta1.MsgCancelRuntimeUpgrade": {
                     aminoType: string;
-                    toAmino: ({ authority, runtime }: _20.MsgCancelRuntimeUpgrade) => {
+                    toAmino: ({ authority, runtime }: _22.MsgCancelRuntimeUpgrade) => {
                         authority: string;
                         runtime: string;
                     };
                     fromAmino: ({ authority, runtime }: {
                         authority: string;
                         runtime: string;
-                    }) => _20.MsgCancelRuntimeUpgrade;
+                    }) => _22.MsgCancelRuntimeUpgrade;
+                };
+                "/kyve.pool.v1beta1.MsgUpdateParams": {
+                    aminoType: string;
+                    toAmino: ({ authority, payload }: _22.MsgUpdateParams) => {
+                        authority: string;
+                        payload: string;
+                    };
+                    fromAmino: ({ authority, payload }: {
+                        authority: string;
+                        payload: string;
+                    }) => _22.MsgUpdateParams;
                 };
             };
             MsgFundPool: {
-                encode(message: _20.MsgFundPool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _20.MsgFundPool;
-                fromPartial(object: Partial<_20.MsgFundPool>): _20.MsgFundPool;
+                encode(message: _22.MsgFundPool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _22.MsgFundPool;
+                fromPartial(object: Partial<_22.MsgFundPool>): _22.MsgFundPool;
             };
             MsgFundPoolResponse: {
-                encode(_: _20.MsgFundPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _20.MsgFundPoolResponse;
-                fromPartial(_: Partial<_20.MsgFundPoolResponse>): _20.MsgFundPoolResponse;
+                encode(_: _22.MsgFundPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _22.MsgFundPoolResponse;
+                fromPartial(_: Partial<_22.MsgFundPoolResponse>): _22.MsgFundPoolResponse;
             };
             MsgDefundPool: {
-                encode(message: _20.MsgDefundPool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _20.MsgDefundPool;
-                fromPartial(object: Partial<_20.MsgDefundPool>): _20.MsgDefundPool;
+                encode(message: _22.MsgDefundPool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _22.MsgDefundPool;
+                fromPartial(object: Partial<_22.MsgDefundPool>): _22.MsgDefundPool;
             };
             MsgDefundPoolResponse: {
-                encode(_: _20.MsgDefundPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _20.MsgDefundPoolResponse;
-                fromPartial(_: Partial<_20.MsgDefundPoolResponse>): _20.MsgDefundPoolResponse;
+                encode(_: _22.MsgDefundPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _22.MsgDefundPoolResponse;
+                fromPartial(_: Partial<_22.MsgDefundPoolResponse>): _22.MsgDefundPoolResponse;
             };
             MsgCreatePool: {
-                encode(message: _20.MsgCreatePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _20.MsgCreatePool;
-                fromPartial(object: Partial<_20.MsgCreatePool>): _20.MsgCreatePool;
+                encode(message: _22.MsgCreatePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _22.MsgCreatePool;
+                fromPartial(object: Partial<_22.MsgCreatePool>): _22.MsgCreatePool;
             };
             MsgCreatePoolResponse: {
-                encode(_: _20.MsgCreatePoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _20.MsgCreatePoolResponse;
-                fromPartial(_: Partial<_20.MsgCreatePoolResponse>): _20.MsgCreatePoolResponse;
+                encode(_: _22.MsgCreatePoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _22.MsgCreatePoolResponse;
+                fromPartial(_: Partial<_22.MsgCreatePoolResponse>): _22.MsgCreatePoolResponse;
             };
             MsgUpdatePool: {
-                encode(message: _20.MsgUpdatePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _20.MsgUpdatePool;
-                fromPartial(object: Partial<_20.MsgUpdatePool>): _20.MsgUpdatePool;
+                encode(message: _22.MsgUpdatePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _22.MsgUpdatePool;
+                fromPartial(object: Partial<_22.MsgUpdatePool>): _22.MsgUpdatePool;
             };
             MsgUpdatePoolResponse: {
-                encode(_: _20.MsgUpdatePoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _20.MsgUpdatePoolResponse;
-                fromPartial(_: Partial<_20.MsgUpdatePoolResponse>): _20.MsgUpdatePoolResponse;
+                encode(_: _22.MsgUpdatePoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _22.MsgUpdatePoolResponse;
+                fromPartial(_: Partial<_22.MsgUpdatePoolResponse>): _22.MsgUpdatePoolResponse;
             };
             MsgDisablePool: {
-                encode(message: _20.MsgDisablePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _20.MsgDisablePool;
-                fromPartial(object: Partial<_20.MsgDisablePool>): _20.MsgDisablePool;
+                encode(message: _22.MsgDisablePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _22.MsgDisablePool;
+                fromPartial(object: Partial<_22.MsgDisablePool>): _22.MsgDisablePool;
             };
             MsgDisablePoolResponse: {
-                encode(_: _20.MsgDisablePoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _20.MsgDisablePoolResponse;
-                fromPartial(_: Partial<_20.MsgDisablePoolResponse>): _20.MsgDisablePoolResponse;
+                encode(_: _22.MsgDisablePoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _22.MsgDisablePoolResponse;
+                fromPartial(_: Partial<_22.MsgDisablePoolResponse>): _22.MsgDisablePoolResponse;
             };
             MsgEnablePool: {
-                encode(message: _20.MsgEnablePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _20.MsgEnablePool;
-                fromPartial(object: Partial<_20.MsgEnablePool>): _20.MsgEnablePool;
+                encode(message: _22.MsgEnablePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _22.MsgEnablePool;
+                fromPartial(object: Partial<_22.MsgEnablePool>): _22.MsgEnablePool;
             };
             MsgEnablePoolResponse: {
-                encode(_: _20.MsgEnablePoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _20.MsgEnablePoolResponse;
-                fromPartial(_: Partial<_20.MsgEnablePoolResponse>): _20.MsgEnablePoolResponse;
+                encode(_: _22.MsgEnablePoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _22.MsgEnablePoolResponse;
+                fromPartial(_: Partial<_22.MsgEnablePoolResponse>): _22.MsgEnablePoolResponse;
             };
             MsgScheduleRuntimeUpgrade: {
-                encode(message: _20.MsgScheduleRuntimeUpgrade, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _20.MsgScheduleRuntimeUpgrade;
-                fromPartial(object: Partial<_20.MsgScheduleRuntimeUpgrade>): _20.MsgScheduleRuntimeUpgrade;
+                encode(message: _22.MsgScheduleRuntimeUpgrade, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _22.MsgScheduleRuntimeUpgrade;
+                fromPartial(object: Partial<_22.MsgScheduleRuntimeUpgrade>): _22.MsgScheduleRuntimeUpgrade;
             };
             MsgScheduleRuntimeUpgradeResponse: {
-                encode(_: _20.MsgScheduleRuntimeUpgradeResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _20.MsgScheduleRuntimeUpgradeResponse;
-                fromPartial(_: Partial<_20.MsgScheduleRuntimeUpgradeResponse>): _20.MsgScheduleRuntimeUpgradeResponse;
+                encode(_: _22.MsgScheduleRuntimeUpgradeResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _22.MsgScheduleRuntimeUpgradeResponse;
+                fromPartial(_: Partial<_22.MsgScheduleRuntimeUpgradeResponse>): _22.MsgScheduleRuntimeUpgradeResponse;
             };
             MsgCancelRuntimeUpgrade: {
-                encode(message: _20.MsgCancelRuntimeUpgrade, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _20.MsgCancelRuntimeUpgrade;
-                fromPartial(object: Partial<_20.MsgCancelRuntimeUpgrade>): _20.MsgCancelRuntimeUpgrade;
+                encode(message: _22.MsgCancelRuntimeUpgrade, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _22.MsgCancelRuntimeUpgrade;
+                fromPartial(object: Partial<_22.MsgCancelRuntimeUpgrade>): _22.MsgCancelRuntimeUpgrade;
             };
             MsgCancelRuntimeUpgradeResponse: {
-                encode(_: _20.MsgCancelRuntimeUpgradeResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _20.MsgCancelRuntimeUpgradeResponse;
-                fromPartial(_: Partial<_20.MsgCancelRuntimeUpgradeResponse>): _20.MsgCancelRuntimeUpgradeResponse;
+                encode(_: _22.MsgCancelRuntimeUpgradeResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _22.MsgCancelRuntimeUpgradeResponse;
+                fromPartial(_: Partial<_22.MsgCancelRuntimeUpgradeResponse>): _22.MsgCancelRuntimeUpgradeResponse;
             };
-            poolStatusFromJSON(object: any): _19.PoolStatus;
-            poolStatusToJSON(object: _19.PoolStatus): string;
-            PoolStatus: typeof _19.PoolStatus;
-            PoolStatusSDKType: typeof _19.PoolStatus;
+            MsgUpdateParams: {
+                encode(message: _22.MsgUpdateParams, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _22.MsgUpdateParams;
+                fromPartial(object: Partial<_22.MsgUpdateParams>): _22.MsgUpdateParams;
+            };
+            MsgUpdateParamsResponse: {
+                encode(_: _22.MsgUpdateParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _22.MsgUpdateParamsResponse;
+                fromPartial(_: Partial<_22.MsgUpdateParamsResponse>): _22.MsgUpdateParamsResponse;
+            };
+            QueryParamsRequest: {
+                encode(_: _21.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _21.QueryParamsRequest;
+                fromPartial(_: Partial<_21.QueryParamsRequest>): _21.QueryParamsRequest;
+            };
+            QueryParamsResponse: {
+                encode(message: _21.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _21.QueryParamsResponse;
+                fromPartial(object: Partial<_21.QueryParamsResponse>): _21.QueryParamsResponse;
+            };
+            poolStatusFromJSON(object: any): _20.PoolStatus;
+            poolStatusToJSON(object: _20.PoolStatus): string;
+            PoolStatus: typeof _20.PoolStatus;
+            PoolStatusSDKType: typeof _20.PoolStatus;
             Protocol: {
-                encode(message: _19.Protocol, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _19.Protocol;
-                fromPartial(object: Partial<_19.Protocol>): _19.Protocol;
+                encode(message: _20.Protocol, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _20.Protocol;
+                fromPartial(object: Partial<_20.Protocol>): _20.Protocol;
             };
             UpgradePlan: {
-                encode(message: _19.UpgradePlan, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _19.UpgradePlan;
-                fromPartial(object: Partial<_19.UpgradePlan>): _19.UpgradePlan;
+                encode(message: _20.UpgradePlan, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _20.UpgradePlan;
+                fromPartial(object: Partial<_20.UpgradePlan>): _20.UpgradePlan;
             };
             Funder: {
-                encode(message: _19.Funder, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _19.Funder;
-                fromPartial(object: Partial<_19.Funder>): _19.Funder;
+                encode(message: _20.Funder, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _20.Funder;
+                fromPartial(object: Partial<_20.Funder>): _20.Funder;
             };
             Pool: {
-                encode(message: _19.Pool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _19.Pool;
-                fromPartial(object: Partial<_19.Pool>): _19.Pool;
+                encode(message: _20.Pool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _20.Pool;
+                fromPartial(object: Partial<_20.Pool>): _20.Pool;
+            };
+            Params: {
+                encode(message: _19.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _19.Params;
+                fromPartial(object: Partial<_19.Params>): _19.Params;
             };
             GenesisState: {
                 encode(message: _18.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                 fromJSON(object: any): _18.GenesisState;
                 fromPartial(object: Partial<_18.GenesisState>): _18.GenesisState;
+            };
+            EventUpdateParams: {
+                encode(message: _17.EventUpdateParams, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _17.EventUpdateParams;
+                fromPartial(object: Partial<_17.EventUpdateParams>): _17.EventUpdateParams;
             };
             EventCreatePool: {
                 encode(message: _17.EventCreatePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
@@ -1232,407 +1308,423 @@ export declare namespace kyve {
     }
     namespace query {
         const v1beta1: {
-            stakerStatusFromJSON(object: any): _27.StakerStatus;
-            stakerStatusToJSON(object: _27.StakerStatus): string;
-            StakerStatus: typeof _27.StakerStatus;
-            StakerStatusSDKType: typeof _27.StakerStatus;
+            stakerStatusFromJSON(object: any): _29.StakerStatus;
+            stakerStatusToJSON(object: _29.StakerStatus): string;
+            StakerStatus: typeof _29.StakerStatus;
+            StakerStatusSDKType: typeof _29.StakerStatus;
             QueryStakersRequest: {
-                encode(message: _27.QueryStakersRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _27.QueryStakersRequest;
-                fromPartial(object: Partial<_27.QueryStakersRequest>): _27.QueryStakersRequest;
+                encode(message: _29.QueryStakersRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _29.QueryStakersRequest;
+                fromPartial(object: Partial<_29.QueryStakersRequest>): _29.QueryStakersRequest;
             };
             QueryStakersResponse: {
-                encode(message: _27.QueryStakersResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _27.QueryStakersResponse;
-                fromPartial(object: Partial<_27.QueryStakersResponse>): _27.QueryStakersResponse;
+                encode(message: _29.QueryStakersResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _29.QueryStakersResponse;
+                fromPartial(object: Partial<_29.QueryStakersResponse>): _29.QueryStakersResponse;
             };
             QueryStakerRequest: {
-                encode(message: _27.QueryStakerRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _27.QueryStakerRequest;
-                fromPartial(object: Partial<_27.QueryStakerRequest>): _27.QueryStakerRequest;
+                encode(message: _29.QueryStakerRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _29.QueryStakerRequest;
+                fromPartial(object: Partial<_29.QueryStakerRequest>): _29.QueryStakerRequest;
             };
             QueryStakerResponse: {
-                encode(message: _27.QueryStakerResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _27.QueryStakerResponse;
-                fromPartial(object: Partial<_27.QueryStakerResponse>): _27.QueryStakerResponse;
+                encode(message: _29.QueryStakerResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _29.QueryStakerResponse;
+                fromPartial(object: Partial<_29.QueryStakerResponse>): _29.QueryStakerResponse;
             };
             QueryStakersByPoolRequest: {
-                encode(message: _27.QueryStakersByPoolRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _27.QueryStakersByPoolRequest;
-                fromPartial(object: Partial<_27.QueryStakersByPoolRequest>): _27.QueryStakersByPoolRequest;
+                encode(message: _29.QueryStakersByPoolRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _29.QueryStakersByPoolRequest;
+                fromPartial(object: Partial<_29.QueryStakersByPoolRequest>): _29.QueryStakersByPoolRequest;
             };
             QueryStakersByPoolResponse: {
-                encode(message: _27.QueryStakersByPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _27.QueryStakersByPoolResponse;
-                fromPartial(object: Partial<_27.QueryStakersByPoolResponse>): _27.QueryStakersByPoolResponse;
+                encode(message: _29.QueryStakersByPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _29.QueryStakersByPoolResponse;
+                fromPartial(object: Partial<_29.QueryStakersByPoolResponse>): _29.QueryStakersByPoolResponse;
             };
             StakerPoolResponse: {
-                encode(message: _27.StakerPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _27.StakerPoolResponse;
-                fromPartial(object: Partial<_27.StakerPoolResponse>): _27.StakerPoolResponse;
+                encode(message: _29.StakerPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _29.StakerPoolResponse;
+                fromPartial(object: Partial<_29.StakerPoolResponse>): _29.StakerPoolResponse;
             };
             QueryStakersByPoolCountRequest: {
-                encode(message: _27.QueryStakersByPoolCountRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _27.QueryStakersByPoolCountRequest;
-                fromPartial(object: Partial<_27.QueryStakersByPoolCountRequest>): _27.QueryStakersByPoolCountRequest;
+                encode(message: _29.QueryStakersByPoolCountRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _29.QueryStakersByPoolCountRequest;
+                fromPartial(object: Partial<_29.QueryStakersByPoolCountRequest>): _29.QueryStakersByPoolCountRequest;
             };
             QueryStakersByPoolCountResponse: {
-                encode(message: _27.QueryStakersByPoolCountResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _27.QueryStakersByPoolCountResponse;
-                fromPartial(object: Partial<_27.QueryStakersByPoolCountResponse>): _27.QueryStakersByPoolCountResponse;
+                encode(message: _29.QueryStakersByPoolCountResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _29.QueryStakersByPoolCountResponse;
+                fromPartial(object: Partial<_29.QueryStakersByPoolCountResponse>): _29.QueryStakersByPoolCountResponse;
             };
             BasicPool: {
-                encode(message: _26.BasicPool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _26.BasicPool;
-                fromPartial(object: Partial<_26.BasicPool>): _26.BasicPool;
+                encode(message: _28.BasicPool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _28.BasicPool;
+                fromPartial(object: Partial<_28.BasicPool>): _28.BasicPool;
             };
             FullStaker: {
-                encode(message: _26.FullStaker, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _26.FullStaker;
-                fromPartial(object: Partial<_26.FullStaker>): _26.FullStaker;
+                encode(message: _28.FullStaker, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _28.FullStaker;
+                fromPartial(object: Partial<_28.FullStaker>): _28.FullStaker;
             };
             StakerMetadata: {
-                encode(message: _26.StakerMetadata, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _26.StakerMetadata;
-                fromPartial(object: Partial<_26.StakerMetadata>): _26.StakerMetadata;
+                encode(message: _28.StakerMetadata, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _28.StakerMetadata;
+                fromPartial(object: Partial<_28.StakerMetadata>): _28.StakerMetadata;
             };
             CommissionChangeEntry: {
-                encode(message: _26.CommissionChangeEntry, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _26.CommissionChangeEntry;
-                fromPartial(object: Partial<_26.CommissionChangeEntry>): _26.CommissionChangeEntry;
+                encode(message: _28.CommissionChangeEntry, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _28.CommissionChangeEntry;
+                fromPartial(object: Partial<_28.CommissionChangeEntry>): _28.CommissionChangeEntry;
             };
             PoolMembership: {
-                encode(message: _26.PoolMembership, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _26.PoolMembership;
-                fromPartial(object: Partial<_26.PoolMembership>): _26.PoolMembership;
+                encode(message: _28.PoolMembership, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _28.PoolMembership;
+                fromPartial(object: Partial<_28.PoolMembership>): _28.PoolMembership;
             };
             QueryPoolsRequest: {
-                encode(message: _25.QueryPoolsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _25.QueryPoolsRequest;
-                fromPartial(object: Partial<_25.QueryPoolsRequest>): _25.QueryPoolsRequest;
+                encode(message: _27.QueryPoolsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _27.QueryPoolsRequest;
+                fromPartial(object: Partial<_27.QueryPoolsRequest>): _27.QueryPoolsRequest;
             };
             QueryPoolsResponse: {
-                encode(message: _25.QueryPoolsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _25.QueryPoolsResponse;
-                fromPartial(object: Partial<_25.QueryPoolsResponse>): _25.QueryPoolsResponse;
+                encode(message: _27.QueryPoolsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _27.QueryPoolsResponse;
+                fromPartial(object: Partial<_27.QueryPoolsResponse>): _27.QueryPoolsResponse;
             };
             PoolResponse: {
-                encode(message: _25.PoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _25.PoolResponse;
-                fromPartial(object: Partial<_25.PoolResponse>): _25.PoolResponse;
+                encode(message: _27.PoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _27.PoolResponse;
+                fromPartial(object: Partial<_27.PoolResponse>): _27.PoolResponse;
             };
             QueryPoolRequest: {
-                encode(message: _25.QueryPoolRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _25.QueryPoolRequest;
-                fromPartial(object: Partial<_25.QueryPoolRequest>): _25.QueryPoolRequest;
+                encode(message: _27.QueryPoolRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _27.QueryPoolRequest;
+                fromPartial(object: Partial<_27.QueryPoolRequest>): _27.QueryPoolRequest;
             };
             QueryPoolResponse: {
-                encode(message: _25.QueryPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _25.QueryPoolResponse;
-                fromPartial(object: Partial<_25.QueryPoolResponse>): _25.QueryPoolResponse;
+                encode(message: _27.QueryPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _27.QueryPoolResponse;
+                fromPartial(object: Partial<_27.QueryPoolResponse>): _27.QueryPoolResponse;
             };
             QueryParamsRequest: {
-                encode(_: _24.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _24.QueryParamsRequest;
-                fromPartial(_: Partial<_24.QueryParamsRequest>): _24.QueryParamsRequest;
+                encode(_: _26.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _26.QueryParamsRequest;
+                fromPartial(_: Partial<_26.QueryParamsRequest>): _26.QueryParamsRequest;
             };
             QueryParamsResponse: {
-                encode(message: _24.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _24.QueryParamsResponse;
-                fromPartial(object: Partial<_24.QueryParamsResponse>): _24.QueryParamsResponse;
+                encode(message: _26.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _26.QueryParamsResponse;
+                fromPartial(object: Partial<_26.QueryParamsResponse>): _26.QueryParamsResponse;
             };
             QueryDelegatorRequest: {
-                encode(message: _23.QueryDelegatorRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _23.QueryDelegatorRequest;
-                fromPartial(object: Partial<_23.QueryDelegatorRequest>): _23.QueryDelegatorRequest;
+                encode(message: _25.QueryDelegatorRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _25.QueryDelegatorRequest;
+                fromPartial(object: Partial<_25.QueryDelegatorRequest>): _25.QueryDelegatorRequest;
             };
             QueryDelegatorResponse: {
-                encode(message: _23.QueryDelegatorResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _23.QueryDelegatorResponse;
-                fromPartial(object: Partial<_23.QueryDelegatorResponse>): _23.QueryDelegatorResponse;
+                encode(message: _25.QueryDelegatorResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _25.QueryDelegatorResponse;
+                fromPartial(object: Partial<_25.QueryDelegatorResponse>): _25.QueryDelegatorResponse;
             };
             StakerDelegatorResponse: {
-                encode(message: _23.StakerDelegatorResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _23.StakerDelegatorResponse;
-                fromPartial(object: Partial<_23.StakerDelegatorResponse>): _23.StakerDelegatorResponse;
+                encode(message: _25.StakerDelegatorResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _25.StakerDelegatorResponse;
+                fromPartial(object: Partial<_25.StakerDelegatorResponse>): _25.StakerDelegatorResponse;
             };
             QueryDelegatorsByStakerRequest: {
-                encode(message: _23.QueryDelegatorsByStakerRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _23.QueryDelegatorsByStakerRequest;
-                fromPartial(object: Partial<_23.QueryDelegatorsByStakerRequest>): _23.QueryDelegatorsByStakerRequest;
+                encode(message: _25.QueryDelegatorsByStakerRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _25.QueryDelegatorsByStakerRequest;
+                fromPartial(object: Partial<_25.QueryDelegatorsByStakerRequest>): _25.QueryDelegatorsByStakerRequest;
             };
             QueryDelegatorsByStakerResponse: {
-                encode(message: _23.QueryDelegatorsByStakerResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _23.QueryDelegatorsByStakerResponse;
-                fromPartial(object: Partial<_23.QueryDelegatorsByStakerResponse>): _23.QueryDelegatorsByStakerResponse;
+                encode(message: _25.QueryDelegatorsByStakerResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _25.QueryDelegatorsByStakerResponse;
+                fromPartial(object: Partial<_25.QueryDelegatorsByStakerResponse>): _25.QueryDelegatorsByStakerResponse;
             };
             QueryStakersByDelegatorRequest: {
-                encode(message: _23.QueryStakersByDelegatorRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _23.QueryStakersByDelegatorRequest;
-                fromPartial(object: Partial<_23.QueryStakersByDelegatorRequest>): _23.QueryStakersByDelegatorRequest;
+                encode(message: _25.QueryStakersByDelegatorRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _25.QueryStakersByDelegatorRequest;
+                fromPartial(object: Partial<_25.QueryStakersByDelegatorRequest>): _25.QueryStakersByDelegatorRequest;
             };
             QueryStakersByDelegatorResponse: {
-                encode(message: _23.QueryStakersByDelegatorResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _23.QueryStakersByDelegatorResponse;
-                fromPartial(object: Partial<_23.QueryStakersByDelegatorResponse>): _23.QueryStakersByDelegatorResponse;
+                encode(message: _25.QueryStakersByDelegatorResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _25.QueryStakersByDelegatorResponse;
+                fromPartial(object: Partial<_25.QueryStakersByDelegatorResponse>): _25.QueryStakersByDelegatorResponse;
             };
             DelegationForStakerResponse: {
-                encode(message: _23.DelegationForStakerResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _23.DelegationForStakerResponse;
-                fromPartial(object: Partial<_23.DelegationForStakerResponse>): _23.DelegationForStakerResponse;
+                encode(message: _25.DelegationForStakerResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _25.DelegationForStakerResponse;
+                fromPartial(object: Partial<_25.DelegationForStakerResponse>): _25.DelegationForStakerResponse;
             };
             FinalizedBundle: {
-                encode(message: _22.FinalizedBundle, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.FinalizedBundle;
-                fromPartial(object: Partial<_22.FinalizedBundle>): _22.FinalizedBundle;
+                encode(message: _24.FinalizedBundle, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.FinalizedBundle;
+                fromPartial(object: Partial<_24.FinalizedBundle>): _24.FinalizedBundle;
             };
             FinalizedAt: {
-                encode(message: _22.FinalizedAt, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.FinalizedAt;
-                fromPartial(object: Partial<_22.FinalizedAt>): _22.FinalizedAt;
+                encode(message: _24.FinalizedAt, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.FinalizedAt;
+                fromPartial(object: Partial<_24.FinalizedAt>): _24.FinalizedAt;
             };
             StakeSecurity: {
-                encode(message: _22.StakeSecurity, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.StakeSecurity;
-                fromPartial(object: Partial<_22.StakeSecurity>): _22.StakeSecurity;
+                encode(message: _24.StakeSecurity, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.StakeSecurity;
+                fromPartial(object: Partial<_24.StakeSecurity>): _24.StakeSecurity;
             };
             QueryFinalizedBundlesRequest: {
-                encode(message: _22.QueryFinalizedBundlesRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryFinalizedBundlesRequest;
-                fromPartial(object: Partial<_22.QueryFinalizedBundlesRequest>): _22.QueryFinalizedBundlesRequest;
+                encode(message: _24.QueryFinalizedBundlesRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryFinalizedBundlesRequest;
+                fromPartial(object: Partial<_24.QueryFinalizedBundlesRequest>): _24.QueryFinalizedBundlesRequest;
             };
             QueryFinalizedBundlesResponse: {
-                encode(message: _22.QueryFinalizedBundlesResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryFinalizedBundlesResponse;
-                fromPartial(object: Partial<_22.QueryFinalizedBundlesResponse>): _22.QueryFinalizedBundlesResponse;
+                encode(message: _24.QueryFinalizedBundlesResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryFinalizedBundlesResponse;
+                fromPartial(object: Partial<_24.QueryFinalizedBundlesResponse>): _24.QueryFinalizedBundlesResponse;
             };
             QueryFinalizedBundleRequest: {
-                encode(message: _22.QueryFinalizedBundleRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryFinalizedBundleRequest;
-                fromPartial(object: Partial<_22.QueryFinalizedBundleRequest>): _22.QueryFinalizedBundleRequest;
+                encode(message: _24.QueryFinalizedBundleRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryFinalizedBundleRequest;
+                fromPartial(object: Partial<_24.QueryFinalizedBundleRequest>): _24.QueryFinalizedBundleRequest;
             };
             QueryFinalizedBundleResponse: {
-                encode(message: _22.QueryFinalizedBundleResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryFinalizedBundleResponse;
-                fromPartial(object: Partial<_22.QueryFinalizedBundleResponse>): _22.QueryFinalizedBundleResponse;
+                encode(message: _24.QueryFinalizedBundleResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryFinalizedBundleResponse;
+                fromPartial(object: Partial<_24.QueryFinalizedBundleResponse>): _24.QueryFinalizedBundleResponse;
             };
             QueryCurrentVoteStatusRequest: {
-                encode(message: _22.QueryCurrentVoteStatusRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryCurrentVoteStatusRequest;
-                fromPartial(object: Partial<_22.QueryCurrentVoteStatusRequest>): _22.QueryCurrentVoteStatusRequest;
+                encode(message: _24.QueryCurrentVoteStatusRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryCurrentVoteStatusRequest;
+                fromPartial(object: Partial<_24.QueryCurrentVoteStatusRequest>): _24.QueryCurrentVoteStatusRequest;
             };
             QueryCurrentVoteStatusResponse: {
-                encode(message: _22.QueryCurrentVoteStatusResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryCurrentVoteStatusResponse;
-                fromPartial(object: Partial<_22.QueryCurrentVoteStatusResponse>): _22.QueryCurrentVoteStatusResponse;
+                encode(message: _24.QueryCurrentVoteStatusResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryCurrentVoteStatusResponse;
+                fromPartial(object: Partial<_24.QueryCurrentVoteStatusResponse>): _24.QueryCurrentVoteStatusResponse;
             };
             QueryCanValidateRequest: {
-                encode(message: _22.QueryCanValidateRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryCanValidateRequest;
-                fromPartial(object: Partial<_22.QueryCanValidateRequest>): _22.QueryCanValidateRequest;
+                encode(message: _24.QueryCanValidateRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryCanValidateRequest;
+                fromPartial(object: Partial<_24.QueryCanValidateRequest>): _24.QueryCanValidateRequest;
             };
             QueryCanValidateResponse: {
-                encode(message: _22.QueryCanValidateResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryCanValidateResponse;
-                fromPartial(object: Partial<_22.QueryCanValidateResponse>): _22.QueryCanValidateResponse;
+                encode(message: _24.QueryCanValidateResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryCanValidateResponse;
+                fromPartial(object: Partial<_24.QueryCanValidateResponse>): _24.QueryCanValidateResponse;
             };
             QueryCanProposeRequest: {
-                encode(message: _22.QueryCanProposeRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryCanProposeRequest;
-                fromPartial(object: Partial<_22.QueryCanProposeRequest>): _22.QueryCanProposeRequest;
+                encode(message: _24.QueryCanProposeRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryCanProposeRequest;
+                fromPartial(object: Partial<_24.QueryCanProposeRequest>): _24.QueryCanProposeRequest;
             };
             QueryCanProposeResponse: {
-                encode(message: _22.QueryCanProposeResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryCanProposeResponse;
-                fromPartial(object: Partial<_22.QueryCanProposeResponse>): _22.QueryCanProposeResponse;
+                encode(message: _24.QueryCanProposeResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryCanProposeResponse;
+                fromPartial(object: Partial<_24.QueryCanProposeResponse>): _24.QueryCanProposeResponse;
             };
             QueryCanVoteRequest: {
-                encode(message: _22.QueryCanVoteRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryCanVoteRequest;
-                fromPartial(object: Partial<_22.QueryCanVoteRequest>): _22.QueryCanVoteRequest;
+                encode(message: _24.QueryCanVoteRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryCanVoteRequest;
+                fromPartial(object: Partial<_24.QueryCanVoteRequest>): _24.QueryCanVoteRequest;
             };
             QueryCanVoteResponse: {
-                encode(message: _22.QueryCanVoteResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _22.QueryCanVoteResponse;
-                fromPartial(object: Partial<_22.QueryCanVoteResponse>): _22.QueryCanVoteResponse;
+                encode(message: _24.QueryCanVoteResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _24.QueryCanVoteResponse;
+                fromPartial(object: Partial<_24.QueryCanVoteResponse>): _24.QueryCanVoteResponse;
             };
             QueryAccountAssetsRequest: {
-                encode(message: _21.QueryAccountAssetsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _21.QueryAccountAssetsRequest;
-                fromPartial(object: Partial<_21.QueryAccountAssetsRequest>): _21.QueryAccountAssetsRequest;
+                encode(message: _23.QueryAccountAssetsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _23.QueryAccountAssetsRequest;
+                fromPartial(object: Partial<_23.QueryAccountAssetsRequest>): _23.QueryAccountAssetsRequest;
             };
             QueryAccountAssetsResponse: {
-                encode(message: _21.QueryAccountAssetsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _21.QueryAccountAssetsResponse;
-                fromPartial(object: Partial<_21.QueryAccountAssetsResponse>): _21.QueryAccountAssetsResponse;
+                encode(message: _23.QueryAccountAssetsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _23.QueryAccountAssetsResponse;
+                fromPartial(object: Partial<_23.QueryAccountAssetsResponse>): _23.QueryAccountAssetsResponse;
             };
             QueryAccountDelegationUnbondingsRequest: {
-                encode(message: _21.QueryAccountDelegationUnbondingsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _21.QueryAccountDelegationUnbondingsRequest;
-                fromPartial(object: Partial<_21.QueryAccountDelegationUnbondingsRequest>): _21.QueryAccountDelegationUnbondingsRequest;
+                encode(message: _23.QueryAccountDelegationUnbondingsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _23.QueryAccountDelegationUnbondingsRequest;
+                fromPartial(object: Partial<_23.QueryAccountDelegationUnbondingsRequest>): _23.QueryAccountDelegationUnbondingsRequest;
             };
             QueryAccountDelegationUnbondingsResponse: {
-                encode(message: _21.QueryAccountDelegationUnbondingsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _21.QueryAccountDelegationUnbondingsResponse;
-                fromPartial(object: Partial<_21.QueryAccountDelegationUnbondingsResponse>): _21.QueryAccountDelegationUnbondingsResponse;
+                encode(message: _23.QueryAccountDelegationUnbondingsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _23.QueryAccountDelegationUnbondingsResponse;
+                fromPartial(object: Partial<_23.QueryAccountDelegationUnbondingsResponse>): _23.QueryAccountDelegationUnbondingsResponse;
             };
             DelegationUnbonding: {
-                encode(message: _21.DelegationUnbonding, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _21.DelegationUnbonding;
-                fromPartial(object: Partial<_21.DelegationUnbonding>): _21.DelegationUnbonding;
+                encode(message: _23.DelegationUnbonding, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _23.DelegationUnbonding;
+                fromPartial(object: Partial<_23.DelegationUnbonding>): _23.DelegationUnbonding;
             };
             QueryAccountFundedListRequest: {
-                encode(message: _21.QueryAccountFundedListRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _21.QueryAccountFundedListRequest;
-                fromPartial(object: Partial<_21.QueryAccountFundedListRequest>): _21.QueryAccountFundedListRequest;
+                encode(message: _23.QueryAccountFundedListRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _23.QueryAccountFundedListRequest;
+                fromPartial(object: Partial<_23.QueryAccountFundedListRequest>): _23.QueryAccountFundedListRequest;
             };
             QueryAccountFundedListResponse: {
-                encode(message: _21.QueryAccountFundedListResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _21.QueryAccountFundedListResponse;
-                fromPartial(object: Partial<_21.QueryAccountFundedListResponse>): _21.QueryAccountFundedListResponse;
+                encode(message: _23.QueryAccountFundedListResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _23.QueryAccountFundedListResponse;
+                fromPartial(object: Partial<_23.QueryAccountFundedListResponse>): _23.QueryAccountFundedListResponse;
             };
             Funded: {
-                encode(message: _21.Funded, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _21.Funded;
-                fromPartial(object: Partial<_21.Funded>): _21.Funded;
+                encode(message: _23.Funded, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _23.Funded;
+                fromPartial(object: Partial<_23.Funded>): _23.Funded;
             };
             QueryAccountRedelegationRequest: {
-                encode(message: _21.QueryAccountRedelegationRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _21.QueryAccountRedelegationRequest;
-                fromPartial(object: Partial<_21.QueryAccountRedelegationRequest>): _21.QueryAccountRedelegationRequest;
+                encode(message: _23.QueryAccountRedelegationRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _23.QueryAccountRedelegationRequest;
+                fromPartial(object: Partial<_23.QueryAccountRedelegationRequest>): _23.QueryAccountRedelegationRequest;
             };
             QueryAccountRedelegationResponse: {
-                encode(message: _21.QueryAccountRedelegationResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _21.QueryAccountRedelegationResponse;
-                fromPartial(object: Partial<_21.QueryAccountRedelegationResponse>): _21.QueryAccountRedelegationResponse;
+                encode(message: _23.QueryAccountRedelegationResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _23.QueryAccountRedelegationResponse;
+                fromPartial(object: Partial<_23.QueryAccountRedelegationResponse>): _23.QueryAccountRedelegationResponse;
             };
             RedelegationEntry: {
-                encode(message: _21.RedelegationEntry, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _21.RedelegationEntry;
-                fromPartial(object: Partial<_21.RedelegationEntry>): _21.RedelegationEntry;
+                encode(message: _23.RedelegationEntry, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _23.RedelegationEntry;
+                fromPartial(object: Partial<_23.RedelegationEntry>): _23.RedelegationEntry;
             };
         };
     }
     namespace stakers {
         const v1beta1: {
-            MsgClientImpl: typeof _179.MsgClientImpl;
-            QueryClientImpl: typeof _173.QueryClientImpl;
+            MsgClientImpl: typeof _183.MsgClientImpl;
+            QueryClientImpl: typeof _177.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
-                params(request?: _31.QueryParamsRequest): Promise<_31.QueryParamsResponse>;
+                params(request?: _33.QueryParamsRequest): Promise<_33.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _168.LCDQueryClient;
+            LCDQueryClient: typeof _171.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
                 encoded: {
-                    createStaker(value: _33.MsgCreateStaker): {
+                    createStaker(value: _35.MsgCreateStaker): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    updateMetadata(value: _33.MsgUpdateMetadata): {
+                    updateMetadata(value: _35.MsgUpdateMetadata): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    updateCommission(value: _33.MsgUpdateCommission): {
+                    updateCommission(value: _35.MsgUpdateCommission): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    joinPool(value: _33.MsgJoinPool): {
+                    claimCommissionRewards(value: _35.MsgClaimCommissionRewards): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    leavePool(value: _33.MsgLeavePool): {
+                    joinPool(value: _35.MsgJoinPool): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    updateParams(value: _33.MsgUpdateParams): {
+                    leavePool(value: _35.MsgLeavePool): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    updateParams(value: _35.MsgUpdateParams): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
                 };
                 withTypeUrl: {
-                    createStaker(value: _33.MsgCreateStaker): {
+                    createStaker(value: _35.MsgCreateStaker): {
                         typeUrl: string;
-                        value: _33.MsgCreateStaker;
+                        value: _35.MsgCreateStaker;
                     };
-                    updateMetadata(value: _33.MsgUpdateMetadata): {
+                    updateMetadata(value: _35.MsgUpdateMetadata): {
                         typeUrl: string;
-                        value: _33.MsgUpdateMetadata;
+                        value: _35.MsgUpdateMetadata;
                     };
-                    updateCommission(value: _33.MsgUpdateCommission): {
+                    updateCommission(value: _35.MsgUpdateCommission): {
                         typeUrl: string;
-                        value: _33.MsgUpdateCommission;
+                        value: _35.MsgUpdateCommission;
                     };
-                    joinPool(value: _33.MsgJoinPool): {
+                    claimCommissionRewards(value: _35.MsgClaimCommissionRewards): {
                         typeUrl: string;
-                        value: _33.MsgJoinPool;
+                        value: _35.MsgClaimCommissionRewards;
                     };
-                    leavePool(value: _33.MsgLeavePool): {
+                    joinPool(value: _35.MsgJoinPool): {
                         typeUrl: string;
-                        value: _33.MsgLeavePool;
+                        value: _35.MsgJoinPool;
                     };
-                    updateParams(value: _33.MsgUpdateParams): {
+                    leavePool(value: _35.MsgLeavePool): {
                         typeUrl: string;
-                        value: _33.MsgUpdateParams;
+                        value: _35.MsgLeavePool;
+                    };
+                    updateParams(value: _35.MsgUpdateParams): {
+                        typeUrl: string;
+                        value: _35.MsgUpdateParams;
                     };
                 };
                 fromJSON: {
                     createStaker(value: any): {
                         typeUrl: string;
-                        value: _33.MsgCreateStaker;
+                        value: _35.MsgCreateStaker;
                     };
                     updateMetadata(value: any): {
                         typeUrl: string;
-                        value: _33.MsgUpdateMetadata;
+                        value: _35.MsgUpdateMetadata;
                     };
                     updateCommission(value: any): {
                         typeUrl: string;
-                        value: _33.MsgUpdateCommission;
+                        value: _35.MsgUpdateCommission;
+                    };
+                    claimCommissionRewards(value: any): {
+                        typeUrl: string;
+                        value: _35.MsgClaimCommissionRewards;
                     };
                     joinPool(value: any): {
                         typeUrl: string;
-                        value: _33.MsgJoinPool;
+                        value: _35.MsgJoinPool;
                     };
                     leavePool(value: any): {
                         typeUrl: string;
-                        value: _33.MsgLeavePool;
+                        value: _35.MsgLeavePool;
                     };
                     updateParams(value: any): {
                         typeUrl: string;
-                        value: _33.MsgUpdateParams;
+                        value: _35.MsgUpdateParams;
                     };
                 };
                 fromPartial: {
-                    createStaker(value: _33.MsgCreateStaker): {
+                    createStaker(value: _35.MsgCreateStaker): {
                         typeUrl: string;
-                        value: _33.MsgCreateStaker;
+                        value: _35.MsgCreateStaker;
                     };
-                    updateMetadata(value: _33.MsgUpdateMetadata): {
+                    updateMetadata(value: _35.MsgUpdateMetadata): {
                         typeUrl: string;
-                        value: _33.MsgUpdateMetadata;
+                        value: _35.MsgUpdateMetadata;
                     };
-                    updateCommission(value: _33.MsgUpdateCommission): {
+                    updateCommission(value: _35.MsgUpdateCommission): {
                         typeUrl: string;
-                        value: _33.MsgUpdateCommission;
+                        value: _35.MsgUpdateCommission;
                     };
-                    joinPool(value: _33.MsgJoinPool): {
+                    claimCommissionRewards(value: _35.MsgClaimCommissionRewards): {
                         typeUrl: string;
-                        value: _33.MsgJoinPool;
+                        value: _35.MsgClaimCommissionRewards;
                     };
-                    leavePool(value: _33.MsgLeavePool): {
+                    joinPool(value: _35.MsgJoinPool): {
                         typeUrl: string;
-                        value: _33.MsgLeavePool;
+                        value: _35.MsgJoinPool;
                     };
-                    updateParams(value: _33.MsgUpdateParams): {
+                    leavePool(value: _35.MsgLeavePool): {
                         typeUrl: string;
-                        value: _33.MsgUpdateParams;
+                        value: _35.MsgLeavePool;
+                    };
+                    updateParams(value: _35.MsgUpdateParams): {
+                        typeUrl: string;
+                        value: _35.MsgUpdateParams;
                     };
                 };
             };
             AminoConverter: {
                 "/kyve.stakers.v1beta1.MsgCreateStaker": {
                     aminoType: string;
-                    toAmino: ({ creator, amount, commission }: _33.MsgCreateStaker) => {
+                    toAmino: ({ creator, amount, commission }: _35.MsgCreateStaker) => {
                         creator: string;
                         amount: string;
                         commission: string;
@@ -1641,11 +1733,11 @@ export declare namespace kyve {
                         creator: string;
                         amount: string;
                         commission: string;
-                    }) => _33.MsgCreateStaker;
+                    }) => _35.MsgCreateStaker;
                 };
                 "/kyve.stakers.v1beta1.MsgUpdateMetadata": {
                     aminoType: string;
-                    toAmino: ({ creator, moniker, website, identity, securityContact, details }: _33.MsgUpdateMetadata) => {
+                    toAmino: ({ creator, moniker, website, identity, securityContact, details }: _35.MsgUpdateMetadata) => {
                         creator: string;
                         moniker: string;
                         website: string;
@@ -1660,22 +1752,33 @@ export declare namespace kyve {
                         identity: string;
                         security_contact: string;
                         details: string;
-                    }) => _33.MsgUpdateMetadata;
+                    }) => _35.MsgUpdateMetadata;
                 };
                 "/kyve.stakers.v1beta1.MsgUpdateCommission": {
                     aminoType: string;
-                    toAmino: ({ creator, commission }: _33.MsgUpdateCommission) => {
+                    toAmino: ({ creator, commission }: _35.MsgUpdateCommission) => {
                         creator: string;
                         commission: string;
                     };
                     fromAmino: ({ creator, commission }: {
                         creator: string;
                         commission: string;
-                    }) => _33.MsgUpdateCommission;
+                    }) => _35.MsgUpdateCommission;
+                };
+                "/kyve.stakers.v1beta1.MsgClaimCommissionRewards": {
+                    aminoType: string;
+                    toAmino: ({ creator, amount }: _35.MsgClaimCommissionRewards) => {
+                        creator: string;
+                        amount: string;
+                    };
+                    fromAmino: ({ creator, amount }: {
+                        creator: string;
+                        amount: string;
+                    }) => _35.MsgClaimCommissionRewards;
                 };
                 "/kyve.stakers.v1beta1.MsgJoinPool": {
                     aminoType: string;
-                    toAmino: ({ creator, poolId, valaddress, amount }: _33.MsgJoinPool) => {
+                    toAmino: ({ creator, poolId, valaddress, amount }: _35.MsgJoinPool) => {
                         creator: string;
                         pool_id: string;
                         valaddress: string;
@@ -1686,276 +1789,291 @@ export declare namespace kyve {
                         pool_id: string;
                         valaddress: string;
                         amount: string;
-                    }) => _33.MsgJoinPool;
+                    }) => _35.MsgJoinPool;
                 };
                 "/kyve.stakers.v1beta1.MsgLeavePool": {
                     aminoType: string;
-                    toAmino: ({ creator, poolId }: _33.MsgLeavePool) => {
+                    toAmino: ({ creator, poolId }: _35.MsgLeavePool) => {
                         creator: string;
                         pool_id: string;
                     };
                     fromAmino: ({ creator, pool_id }: {
                         creator: string;
                         pool_id: string;
-                    }) => _33.MsgLeavePool;
+                    }) => _35.MsgLeavePool;
                 };
                 "/kyve.stakers.v1beta1.MsgUpdateParams": {
                     aminoType: string;
-                    toAmino: ({ authority, payload }: _33.MsgUpdateParams) => {
+                    toAmino: ({ authority, payload }: _35.MsgUpdateParams) => {
                         authority: string;
                         payload: string;
                     };
                     fromAmino: ({ authority, payload }: {
                         authority: string;
                         payload: string;
-                    }) => _33.MsgUpdateParams;
+                    }) => _35.MsgUpdateParams;
                 };
             };
             MsgCreateStaker: {
-                encode(message: _33.MsgCreateStaker, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _33.MsgCreateStaker;
-                fromPartial(object: Partial<_33.MsgCreateStaker>): _33.MsgCreateStaker;
+                encode(message: _35.MsgCreateStaker, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _35.MsgCreateStaker;
+                fromPartial(object: Partial<_35.MsgCreateStaker>): _35.MsgCreateStaker;
             };
             MsgCreateStakerResponse: {
-                encode(_: _33.MsgCreateStakerResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _33.MsgCreateStakerResponse;
-                fromPartial(_: Partial<_33.MsgCreateStakerResponse>): _33.MsgCreateStakerResponse;
+                encode(_: _35.MsgCreateStakerResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _35.MsgCreateStakerResponse;
+                fromPartial(_: Partial<_35.MsgCreateStakerResponse>): _35.MsgCreateStakerResponse;
             };
             MsgUpdateMetadata: {
-                encode(message: _33.MsgUpdateMetadata, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _33.MsgUpdateMetadata;
-                fromPartial(object: Partial<_33.MsgUpdateMetadata>): _33.MsgUpdateMetadata;
+                encode(message: _35.MsgUpdateMetadata, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _35.MsgUpdateMetadata;
+                fromPartial(object: Partial<_35.MsgUpdateMetadata>): _35.MsgUpdateMetadata;
             };
             MsgUpdateMetadataResponse: {
-                encode(_: _33.MsgUpdateMetadataResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _33.MsgUpdateMetadataResponse;
-                fromPartial(_: Partial<_33.MsgUpdateMetadataResponse>): _33.MsgUpdateMetadataResponse;
+                encode(_: _35.MsgUpdateMetadataResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _35.MsgUpdateMetadataResponse;
+                fromPartial(_: Partial<_35.MsgUpdateMetadataResponse>): _35.MsgUpdateMetadataResponse;
             };
             MsgUpdateCommission: {
-                encode(message: _33.MsgUpdateCommission, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _33.MsgUpdateCommission;
-                fromPartial(object: Partial<_33.MsgUpdateCommission>): _33.MsgUpdateCommission;
+                encode(message: _35.MsgUpdateCommission, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _35.MsgUpdateCommission;
+                fromPartial(object: Partial<_35.MsgUpdateCommission>): _35.MsgUpdateCommission;
             };
             MsgUpdateCommissionResponse: {
-                encode(_: _33.MsgUpdateCommissionResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _33.MsgUpdateCommissionResponse;
-                fromPartial(_: Partial<_33.MsgUpdateCommissionResponse>): _33.MsgUpdateCommissionResponse;
+                encode(_: _35.MsgUpdateCommissionResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _35.MsgUpdateCommissionResponse;
+                fromPartial(_: Partial<_35.MsgUpdateCommissionResponse>): _35.MsgUpdateCommissionResponse;
+            };
+            MsgClaimCommissionRewards: {
+                encode(message: _35.MsgClaimCommissionRewards, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _35.MsgClaimCommissionRewards;
+                fromPartial(object: Partial<_35.MsgClaimCommissionRewards>): _35.MsgClaimCommissionRewards;
+            };
+            MsgClaimCommissionRewardsResponse: {
+                encode(_: _35.MsgClaimCommissionRewardsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _35.MsgClaimCommissionRewardsResponse;
+                fromPartial(_: Partial<_35.MsgClaimCommissionRewardsResponse>): _35.MsgClaimCommissionRewardsResponse;
             };
             MsgJoinPool: {
-                encode(message: _33.MsgJoinPool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _33.MsgJoinPool;
-                fromPartial(object: Partial<_33.MsgJoinPool>): _33.MsgJoinPool;
+                encode(message: _35.MsgJoinPool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _35.MsgJoinPool;
+                fromPartial(object: Partial<_35.MsgJoinPool>): _35.MsgJoinPool;
             };
             MsgJoinPoolResponse: {
-                encode(_: _33.MsgJoinPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _33.MsgJoinPoolResponse;
-                fromPartial(_: Partial<_33.MsgJoinPoolResponse>): _33.MsgJoinPoolResponse;
+                encode(_: _35.MsgJoinPoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _35.MsgJoinPoolResponse;
+                fromPartial(_: Partial<_35.MsgJoinPoolResponse>): _35.MsgJoinPoolResponse;
             };
             MsgLeavePool: {
-                encode(message: _33.MsgLeavePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _33.MsgLeavePool;
-                fromPartial(object: Partial<_33.MsgLeavePool>): _33.MsgLeavePool;
+                encode(message: _35.MsgLeavePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _35.MsgLeavePool;
+                fromPartial(object: Partial<_35.MsgLeavePool>): _35.MsgLeavePool;
             };
             MsgLeavePoolResponse: {
-                encode(_: _33.MsgLeavePoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _33.MsgLeavePoolResponse;
-                fromPartial(_: Partial<_33.MsgLeavePoolResponse>): _33.MsgLeavePoolResponse;
+                encode(_: _35.MsgLeavePoolResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _35.MsgLeavePoolResponse;
+                fromPartial(_: Partial<_35.MsgLeavePoolResponse>): _35.MsgLeavePoolResponse;
             };
             MsgUpdateParams: {
-                encode(message: _33.MsgUpdateParams, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _33.MsgUpdateParams;
-                fromPartial(object: Partial<_33.MsgUpdateParams>): _33.MsgUpdateParams;
+                encode(message: _35.MsgUpdateParams, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _35.MsgUpdateParams;
+                fromPartial(object: Partial<_35.MsgUpdateParams>): _35.MsgUpdateParams;
             };
             MsgUpdateParamsResponse: {
-                encode(_: _33.MsgUpdateParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _33.MsgUpdateParamsResponse;
-                fromPartial(_: Partial<_33.MsgUpdateParamsResponse>): _33.MsgUpdateParamsResponse;
+                encode(_: _35.MsgUpdateParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _35.MsgUpdateParamsResponse;
+                fromPartial(_: Partial<_35.MsgUpdateParamsResponse>): _35.MsgUpdateParamsResponse;
             };
             Staker: {
-                encode(message: _32.Staker, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _32.Staker;
-                fromPartial(object: Partial<_32.Staker>): _32.Staker;
+                encode(message: _34.Staker, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _34.Staker;
+                fromPartial(object: Partial<_34.Staker>): _34.Staker;
             };
             Valaccount: {
-                encode(message: _32.Valaccount, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _32.Valaccount;
-                fromPartial(object: Partial<_32.Valaccount>): _32.Valaccount;
+                encode(message: _34.Valaccount, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _34.Valaccount;
+                fromPartial(object: Partial<_34.Valaccount>): _34.Valaccount;
             };
             CommissionChangeEntry: {
-                encode(message: _32.CommissionChangeEntry, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _32.CommissionChangeEntry;
-                fromPartial(object: Partial<_32.CommissionChangeEntry>): _32.CommissionChangeEntry;
+                encode(message: _34.CommissionChangeEntry, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _34.CommissionChangeEntry;
+                fromPartial(object: Partial<_34.CommissionChangeEntry>): _34.CommissionChangeEntry;
             };
             LeavePoolEntry: {
-                encode(message: _32.LeavePoolEntry, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _32.LeavePoolEntry;
-                fromPartial(object: Partial<_32.LeavePoolEntry>): _32.LeavePoolEntry;
+                encode(message: _34.LeavePoolEntry, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _34.LeavePoolEntry;
+                fromPartial(object: Partial<_34.LeavePoolEntry>): _34.LeavePoolEntry;
             };
             QueueState: {
-                encode(message: _32.QueueState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _32.QueueState;
-                fromPartial(object: Partial<_32.QueueState>): _32.QueueState;
+                encode(message: _34.QueueState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _34.QueueState;
+                fromPartial(object: Partial<_34.QueueState>): _34.QueueState;
             };
             QueryParamsRequest: {
-                encode(_: _31.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _31.QueryParamsRequest;
-                fromPartial(_: Partial<_31.QueryParamsRequest>): _31.QueryParamsRequest;
+                encode(_: _33.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _33.QueryParamsRequest;
+                fromPartial(_: Partial<_33.QueryParamsRequest>): _33.QueryParamsRequest;
             };
             QueryParamsResponse: {
-                encode(message: _31.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _31.QueryParamsResponse;
-                fromPartial(object: Partial<_31.QueryParamsResponse>): _31.QueryParamsResponse;
+                encode(message: _33.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _33.QueryParamsResponse;
+                fromPartial(object: Partial<_33.QueryParamsResponse>): _33.QueryParamsResponse;
             };
             Params: {
-                encode(message: _30.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _30.Params;
-                fromPartial(object: Partial<_30.Params>): _30.Params;
+                encode(message: _32.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _32.Params;
+                fromPartial(object: Partial<_32.Params>): _32.Params;
             };
             GenesisState: {
-                encode(message: _29.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _29.GenesisState;
-                fromPartial(object: Partial<_29.GenesisState>): _29.GenesisState;
+                encode(message: _31.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _31.GenesisState;
+                fromPartial(object: Partial<_31.GenesisState>): _31.GenesisState;
             };
             EventUpdateParams: {
-                encode(message: _28.EventUpdateParams, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _28.EventUpdateParams;
-                fromPartial(object: Partial<_28.EventUpdateParams>): _28.EventUpdateParams;
+                encode(message: _30.EventUpdateParams, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _30.EventUpdateParams;
+                fromPartial(object: Partial<_30.EventUpdateParams>): _30.EventUpdateParams;
             };
             EventCreateStaker: {
-                encode(message: _28.EventCreateStaker, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _28.EventCreateStaker;
-                fromPartial(object: Partial<_28.EventCreateStaker>): _28.EventCreateStaker;
+                encode(message: _30.EventCreateStaker, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _30.EventCreateStaker;
+                fromPartial(object: Partial<_30.EventCreateStaker>): _30.EventCreateStaker;
             };
             EventUpdateMetadata: {
-                encode(message: _28.EventUpdateMetadata, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _28.EventUpdateMetadata;
-                fromPartial(object: Partial<_28.EventUpdateMetadata>): _28.EventUpdateMetadata;
+                encode(message: _30.EventUpdateMetadata, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _30.EventUpdateMetadata;
+                fromPartial(object: Partial<_30.EventUpdateMetadata>): _30.EventUpdateMetadata;
             };
             EventUpdateCommission: {
-                encode(message: _28.EventUpdateCommission, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _28.EventUpdateCommission;
-                fromPartial(object: Partial<_28.EventUpdateCommission>): _28.EventUpdateCommission;
+                encode(message: _30.EventUpdateCommission, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _30.EventUpdateCommission;
+                fromPartial(object: Partial<_30.EventUpdateCommission>): _30.EventUpdateCommission;
+            };
+            EventClaimCommissionRewards: {
+                encode(message: _30.EventClaimCommissionRewards, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _30.EventClaimCommissionRewards;
+                fromPartial(object: Partial<_30.EventClaimCommissionRewards>): _30.EventClaimCommissionRewards;
             };
             EventJoinPool: {
-                encode(message: _28.EventJoinPool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _28.EventJoinPool;
-                fromPartial(object: Partial<_28.EventJoinPool>): _28.EventJoinPool;
+                encode(message: _30.EventJoinPool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _30.EventJoinPool;
+                fromPartial(object: Partial<_30.EventJoinPool>): _30.EventJoinPool;
             };
             EventLeavePool: {
-                encode(message: _28.EventLeavePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _28.EventLeavePool;
-                fromPartial(object: Partial<_28.EventLeavePool>): _28.EventLeavePool;
+                encode(message: _30.EventLeavePool, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _30.EventLeavePool;
+                fromPartial(object: Partial<_30.EventLeavePool>): _30.EventLeavePool;
             };
         };
     }
     namespace team {
         const v1beta1: {
-            MsgClientImpl: typeof _180.MsgClientImpl;
-            QueryClientImpl: typeof _174.QueryClientImpl;
+            MsgClientImpl: typeof _184.MsgClientImpl;
+            QueryClientImpl: typeof _178.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
-                teamInfo(request?: _36.QueryTeamInfoRequest): Promise<_36.QueryTeamInfoResponse>;
-                teamVestingAccounts(request?: _36.QueryTeamVestingAccountsRequest): Promise<_36.QueryTeamVestingAccountsResponse>;
-                teamVestingAccount(request: _36.QueryTeamVestingAccountRequest): Promise<_36.QueryTeamVestingAccountResponse>;
-                teamVestingStatus(request: _36.QueryTeamVestingStatusRequest): Promise<_36.QueryTeamVestingStatusResponse>;
-                teamVestingStatusByTime(request: _36.QueryTeamVestingStatusByTimeRequest): Promise<_36.QueryTeamVestingStatusByTimeResponse>;
+                teamInfo(request?: _38.QueryTeamInfoRequest): Promise<_38.QueryTeamInfoResponse>;
+                teamVestingAccounts(request?: _38.QueryTeamVestingAccountsRequest): Promise<_38.QueryTeamVestingAccountsResponse>;
+                teamVestingAccount(request: _38.QueryTeamVestingAccountRequest): Promise<_38.QueryTeamVestingAccountResponse>;
+                teamVestingStatus(request: _38.QueryTeamVestingStatusRequest): Promise<_38.QueryTeamVestingStatusResponse>;
+                teamVestingStatusByTime(request: _38.QueryTeamVestingStatusByTimeRequest): Promise<_38.QueryTeamVestingStatusByTimeResponse>;
             };
-            LCDQueryClient: typeof _169.LCDQueryClient;
+            LCDQueryClient: typeof _172.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
                 encoded: {
-                    claimUnlocked(value: _38.MsgClaimUnlocked): {
+                    claimUnlocked(value: _40.MsgClaimUnlocked): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    clawback(value: _38.MsgClawback): {
+                    clawback(value: _40.MsgClawback): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    createTeamVestingAccount(value: _38.MsgCreateTeamVestingAccount): {
+                    createTeamVestingAccount(value: _40.MsgCreateTeamVestingAccount): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    claimAuthorityRewards(value: _38.MsgClaimAuthorityRewards): {
+                    claimAuthorityRewards(value: _40.MsgClaimAuthorityRewards): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    claimAccountRewards(value: _38.MsgClaimAccountRewards): {
+                    claimAccountRewards(value: _40.MsgClaimAccountRewards): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
                 };
                 withTypeUrl: {
-                    claimUnlocked(value: _38.MsgClaimUnlocked): {
+                    claimUnlocked(value: _40.MsgClaimUnlocked): {
                         typeUrl: string;
-                        value: _38.MsgClaimUnlocked;
+                        value: _40.MsgClaimUnlocked;
                     };
-                    clawback(value: _38.MsgClawback): {
+                    clawback(value: _40.MsgClawback): {
                         typeUrl: string;
-                        value: _38.MsgClawback;
+                        value: _40.MsgClawback;
                     };
-                    createTeamVestingAccount(value: _38.MsgCreateTeamVestingAccount): {
+                    createTeamVestingAccount(value: _40.MsgCreateTeamVestingAccount): {
                         typeUrl: string;
-                        value: _38.MsgCreateTeamVestingAccount;
+                        value: _40.MsgCreateTeamVestingAccount;
                     };
-                    claimAuthorityRewards(value: _38.MsgClaimAuthorityRewards): {
+                    claimAuthorityRewards(value: _40.MsgClaimAuthorityRewards): {
                         typeUrl: string;
-                        value: _38.MsgClaimAuthorityRewards;
+                        value: _40.MsgClaimAuthorityRewards;
                     };
-                    claimAccountRewards(value: _38.MsgClaimAccountRewards): {
+                    claimAccountRewards(value: _40.MsgClaimAccountRewards): {
                         typeUrl: string;
-                        value: _38.MsgClaimAccountRewards;
+                        value: _40.MsgClaimAccountRewards;
                     };
                 };
                 fromJSON: {
                     claimUnlocked(value: any): {
                         typeUrl: string;
-                        value: _38.MsgClaimUnlocked;
+                        value: _40.MsgClaimUnlocked;
                     };
                     clawback(value: any): {
                         typeUrl: string;
-                        value: _38.MsgClawback;
+                        value: _40.MsgClawback;
                     };
                     createTeamVestingAccount(value: any): {
                         typeUrl: string;
-                        value: _38.MsgCreateTeamVestingAccount;
+                        value: _40.MsgCreateTeamVestingAccount;
                     };
                     claimAuthorityRewards(value: any): {
                         typeUrl: string;
-                        value: _38.MsgClaimAuthorityRewards;
+                        value: _40.MsgClaimAuthorityRewards;
                     };
                     claimAccountRewards(value: any): {
                         typeUrl: string;
-                        value: _38.MsgClaimAccountRewards;
+                        value: _40.MsgClaimAccountRewards;
                     };
                 };
                 fromPartial: {
-                    claimUnlocked(value: _38.MsgClaimUnlocked): {
+                    claimUnlocked(value: _40.MsgClaimUnlocked): {
                         typeUrl: string;
-                        value: _38.MsgClaimUnlocked;
+                        value: _40.MsgClaimUnlocked;
                     };
-                    clawback(value: _38.MsgClawback): {
+                    clawback(value: _40.MsgClawback): {
                         typeUrl: string;
-                        value: _38.MsgClawback;
+                        value: _40.MsgClawback;
                     };
-                    createTeamVestingAccount(value: _38.MsgCreateTeamVestingAccount): {
+                    createTeamVestingAccount(value: _40.MsgCreateTeamVestingAccount): {
                         typeUrl: string;
-                        value: _38.MsgCreateTeamVestingAccount;
+                        value: _40.MsgCreateTeamVestingAccount;
                     };
-                    claimAuthorityRewards(value: _38.MsgClaimAuthorityRewards): {
+                    claimAuthorityRewards(value: _40.MsgClaimAuthorityRewards): {
                         typeUrl: string;
-                        value: _38.MsgClaimAuthorityRewards;
+                        value: _40.MsgClaimAuthorityRewards;
                     };
-                    claimAccountRewards(value: _38.MsgClaimAccountRewards): {
+                    claimAccountRewards(value: _40.MsgClaimAccountRewards): {
                         typeUrl: string;
-                        value: _38.MsgClaimAccountRewards;
+                        value: _40.MsgClaimAccountRewards;
                     };
                 };
             };
             AminoConverter: {
                 "/kyve.team.v1beta1.MsgClaimUnlocked": {
                     aminoType: string;
-                    toAmino: ({ authority, id, amount, recipient }: _38.MsgClaimUnlocked) => {
+                    toAmino: ({ authority, id, amount, recipient }: _40.MsgClaimUnlocked) => {
                         authority: string;
                         id: string;
                         amount: string;
@@ -1966,11 +2084,11 @@ export declare namespace kyve {
                         id: string;
                         amount: string;
                         recipient: string;
-                    }) => _38.MsgClaimUnlocked;
+                    }) => _40.MsgClaimUnlocked;
                 };
                 "/kyve.team.v1beta1.MsgClawback": {
                     aminoType: string;
-                    toAmino: ({ authority, id, clawback }: _38.MsgClawback) => {
+                    toAmino: ({ authority, id, clawback }: _40.MsgClawback) => {
                         authority: string;
                         id: string;
                         clawback: string;
@@ -1979,11 +2097,11 @@ export declare namespace kyve {
                         authority: string;
                         id: string;
                         clawback: string;
-                    }) => _38.MsgClawback;
+                    }) => _40.MsgClawback;
                 };
                 "/kyve.team.v1beta1.MsgCreateTeamVestingAccount": {
                     aminoType: string;
-                    toAmino: ({ authority, totalAllocation, commencement }: _38.MsgCreateTeamVestingAccount) => {
+                    toAmino: ({ authority, totalAllocation, commencement }: _40.MsgCreateTeamVestingAccount) => {
                         authority: string;
                         total_allocation: string;
                         commencement: string;
@@ -1992,11 +2110,11 @@ export declare namespace kyve {
                         authority: string;
                         total_allocation: string;
                         commencement: string;
-                    }) => _38.MsgCreateTeamVestingAccount;
+                    }) => _40.MsgCreateTeamVestingAccount;
                 };
                 "/kyve.team.v1beta1.MsgClaimAuthorityRewards": {
                     aminoType: string;
-                    toAmino: ({ authority, amount, recipient }: _38.MsgClaimAuthorityRewards) => {
+                    toAmino: ({ authority, amount, recipient }: _40.MsgClaimAuthorityRewards) => {
                         authority: string;
                         amount: string;
                         recipient: string;
@@ -2005,11 +2123,11 @@ export declare namespace kyve {
                         authority: string;
                         amount: string;
                         recipient: string;
-                    }) => _38.MsgClaimAuthorityRewards;
+                    }) => _40.MsgClaimAuthorityRewards;
                 };
                 "/kyve.team.v1beta1.MsgClaimAccountRewards": {
                     aminoType: string;
-                    toAmino: ({ authority, id, amount, recipient }: _38.MsgClaimAccountRewards) => {
+                    toAmino: ({ authority, id, amount, recipient }: _40.MsgClaimAccountRewards) => {
                         authority: string;
                         id: string;
                         amount: string;
@@ -2020,158 +2138,158 @@ export declare namespace kyve {
                         id: string;
                         amount: string;
                         recipient: string;
-                    }) => _38.MsgClaimAccountRewards;
+                    }) => _40.MsgClaimAccountRewards;
                 };
             };
             MsgClaimUnlocked: {
-                encode(message: _38.MsgClaimUnlocked, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _38.MsgClaimUnlocked;
-                fromPartial(object: Partial<_38.MsgClaimUnlocked>): _38.MsgClaimUnlocked;
+                encode(message: _40.MsgClaimUnlocked, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _40.MsgClaimUnlocked;
+                fromPartial(object: Partial<_40.MsgClaimUnlocked>): _40.MsgClaimUnlocked;
             };
             MsgClaimUnlockedResponse: {
-                encode(_: _38.MsgClaimUnlockedResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _38.MsgClaimUnlockedResponse;
-                fromPartial(_: Partial<_38.MsgClaimUnlockedResponse>): _38.MsgClaimUnlockedResponse;
+                encode(_: _40.MsgClaimUnlockedResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _40.MsgClaimUnlockedResponse;
+                fromPartial(_: Partial<_40.MsgClaimUnlockedResponse>): _40.MsgClaimUnlockedResponse;
             };
             MsgClaimAuthorityRewards: {
-                encode(message: _38.MsgClaimAuthorityRewards, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _38.MsgClaimAuthorityRewards;
-                fromPartial(object: Partial<_38.MsgClaimAuthorityRewards>): _38.MsgClaimAuthorityRewards;
+                encode(message: _40.MsgClaimAuthorityRewards, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _40.MsgClaimAuthorityRewards;
+                fromPartial(object: Partial<_40.MsgClaimAuthorityRewards>): _40.MsgClaimAuthorityRewards;
             };
             MsgClaimAuthorityRewardsResponse: {
-                encode(_: _38.MsgClaimAuthorityRewardsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _38.MsgClaimAuthorityRewardsResponse;
-                fromPartial(_: Partial<_38.MsgClaimAuthorityRewardsResponse>): _38.MsgClaimAuthorityRewardsResponse;
+                encode(_: _40.MsgClaimAuthorityRewardsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _40.MsgClaimAuthorityRewardsResponse;
+                fromPartial(_: Partial<_40.MsgClaimAuthorityRewardsResponse>): _40.MsgClaimAuthorityRewardsResponse;
             };
             MsgClaimAccountRewards: {
-                encode(message: _38.MsgClaimAccountRewards, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _38.MsgClaimAccountRewards;
-                fromPartial(object: Partial<_38.MsgClaimAccountRewards>): _38.MsgClaimAccountRewards;
+                encode(message: _40.MsgClaimAccountRewards, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _40.MsgClaimAccountRewards;
+                fromPartial(object: Partial<_40.MsgClaimAccountRewards>): _40.MsgClaimAccountRewards;
             };
             MsgClaimAccountRewardsResponse: {
-                encode(_: _38.MsgClaimAccountRewardsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _38.MsgClaimAccountRewardsResponse;
-                fromPartial(_: Partial<_38.MsgClaimAccountRewardsResponse>): _38.MsgClaimAccountRewardsResponse;
+                encode(_: _40.MsgClaimAccountRewardsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _40.MsgClaimAccountRewardsResponse;
+                fromPartial(_: Partial<_40.MsgClaimAccountRewardsResponse>): _40.MsgClaimAccountRewardsResponse;
             };
             MsgClawback: {
-                encode(message: _38.MsgClawback, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _38.MsgClawback;
-                fromPartial(object: Partial<_38.MsgClawback>): _38.MsgClawback;
+                encode(message: _40.MsgClawback, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _40.MsgClawback;
+                fromPartial(object: Partial<_40.MsgClawback>): _40.MsgClawback;
             };
             MsgClawbackResponse: {
-                encode(_: _38.MsgClawbackResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _38.MsgClawbackResponse;
-                fromPartial(_: Partial<_38.MsgClawbackResponse>): _38.MsgClawbackResponse;
+                encode(_: _40.MsgClawbackResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _40.MsgClawbackResponse;
+                fromPartial(_: Partial<_40.MsgClawbackResponse>): _40.MsgClawbackResponse;
             };
             MsgCreateTeamVestingAccount: {
-                encode(message: _38.MsgCreateTeamVestingAccount, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _38.MsgCreateTeamVestingAccount;
-                fromPartial(object: Partial<_38.MsgCreateTeamVestingAccount>): _38.MsgCreateTeamVestingAccount;
+                encode(message: _40.MsgCreateTeamVestingAccount, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _40.MsgCreateTeamVestingAccount;
+                fromPartial(object: Partial<_40.MsgCreateTeamVestingAccount>): _40.MsgCreateTeamVestingAccount;
             };
             MsgCreateTeamVestingAccountResponse: {
-                encode(_: _38.MsgCreateTeamVestingAccountResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _38.MsgCreateTeamVestingAccountResponse;
-                fromPartial(_: Partial<_38.MsgCreateTeamVestingAccountResponse>): _38.MsgCreateTeamVestingAccountResponse;
+                encode(_: _40.MsgCreateTeamVestingAccountResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _40.MsgCreateTeamVestingAccountResponse;
+                fromPartial(_: Partial<_40.MsgCreateTeamVestingAccountResponse>): _40.MsgCreateTeamVestingAccountResponse;
             };
             Authority: {
-                encode(message: _37.Authority, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _37.Authority;
-                fromPartial(object: Partial<_37.Authority>): _37.Authority;
+                encode(message: _39.Authority, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _39.Authority;
+                fromPartial(object: Partial<_39.Authority>): _39.Authority;
             };
             TeamVestingAccount: {
-                encode(message: _37.TeamVestingAccount, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _37.TeamVestingAccount;
-                fromPartial(object: Partial<_37.TeamVestingAccount>): _37.TeamVestingAccount;
+                encode(message: _39.TeamVestingAccount, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _39.TeamVestingAccount;
+                fromPartial(object: Partial<_39.TeamVestingAccount>): _39.TeamVestingAccount;
             };
             QueryTeamInfoRequest: {
-                encode(_: _36.QueryTeamInfoRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _36.QueryTeamInfoRequest;
-                fromPartial(_: Partial<_36.QueryTeamInfoRequest>): _36.QueryTeamInfoRequest;
+                encode(_: _38.QueryTeamInfoRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _38.QueryTeamInfoRequest;
+                fromPartial(_: Partial<_38.QueryTeamInfoRequest>): _38.QueryTeamInfoRequest;
             };
             QueryTeamInfoResponse: {
-                encode(message: _36.QueryTeamInfoResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _36.QueryTeamInfoResponse;
-                fromPartial(object: Partial<_36.QueryTeamInfoResponse>): _36.QueryTeamInfoResponse;
+                encode(message: _38.QueryTeamInfoResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _38.QueryTeamInfoResponse;
+                fromPartial(object: Partial<_38.QueryTeamInfoResponse>): _38.QueryTeamInfoResponse;
             };
             QueryTeamVestingAccountsRequest: {
-                encode(_: _36.QueryTeamVestingAccountsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _36.QueryTeamVestingAccountsRequest;
-                fromPartial(_: Partial<_36.QueryTeamVestingAccountsRequest>): _36.QueryTeamVestingAccountsRequest;
+                encode(_: _38.QueryTeamVestingAccountsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _38.QueryTeamVestingAccountsRequest;
+                fromPartial(_: Partial<_38.QueryTeamVestingAccountsRequest>): _38.QueryTeamVestingAccountsRequest;
             };
             QueryTeamVestingAccountsResponse: {
-                encode(message: _36.QueryTeamVestingAccountsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _36.QueryTeamVestingAccountsResponse;
-                fromPartial(object: Partial<_36.QueryTeamVestingAccountsResponse>): _36.QueryTeamVestingAccountsResponse;
+                encode(message: _38.QueryTeamVestingAccountsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _38.QueryTeamVestingAccountsResponse;
+                fromPartial(object: Partial<_38.QueryTeamVestingAccountsResponse>): _38.QueryTeamVestingAccountsResponse;
             };
             QueryTeamVestingAccountRequest: {
-                encode(message: _36.QueryTeamVestingAccountRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _36.QueryTeamVestingAccountRequest;
-                fromPartial(object: Partial<_36.QueryTeamVestingAccountRequest>): _36.QueryTeamVestingAccountRequest;
+                encode(message: _38.QueryTeamVestingAccountRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _38.QueryTeamVestingAccountRequest;
+                fromPartial(object: Partial<_38.QueryTeamVestingAccountRequest>): _38.QueryTeamVestingAccountRequest;
             };
             QueryTeamVestingAccountResponse: {
-                encode(message: _36.QueryTeamVestingAccountResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _36.QueryTeamVestingAccountResponse;
-                fromPartial(object: Partial<_36.QueryTeamVestingAccountResponse>): _36.QueryTeamVestingAccountResponse;
+                encode(message: _38.QueryTeamVestingAccountResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _38.QueryTeamVestingAccountResponse;
+                fromPartial(object: Partial<_38.QueryTeamVestingAccountResponse>): _38.QueryTeamVestingAccountResponse;
             };
             QueryTeamVestingStatusRequest: {
-                encode(message: _36.QueryTeamVestingStatusRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _36.QueryTeamVestingStatusRequest;
-                fromPartial(object: Partial<_36.QueryTeamVestingStatusRequest>): _36.QueryTeamVestingStatusRequest;
+                encode(message: _38.QueryTeamVestingStatusRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _38.QueryTeamVestingStatusRequest;
+                fromPartial(object: Partial<_38.QueryTeamVestingStatusRequest>): _38.QueryTeamVestingStatusRequest;
             };
             QueryTeamVestingStatusResponse: {
-                encode(message: _36.QueryTeamVestingStatusResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _36.QueryTeamVestingStatusResponse;
-                fromPartial(object: Partial<_36.QueryTeamVestingStatusResponse>): _36.QueryTeamVestingStatusResponse;
+                encode(message: _38.QueryTeamVestingStatusResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _38.QueryTeamVestingStatusResponse;
+                fromPartial(object: Partial<_38.QueryTeamVestingStatusResponse>): _38.QueryTeamVestingStatusResponse;
             };
             QueryTeamVestingStatusByTimeRequest: {
-                encode(message: _36.QueryTeamVestingStatusByTimeRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _36.QueryTeamVestingStatusByTimeRequest;
-                fromPartial(object: Partial<_36.QueryTeamVestingStatusByTimeRequest>): _36.QueryTeamVestingStatusByTimeRequest;
+                encode(message: _38.QueryTeamVestingStatusByTimeRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _38.QueryTeamVestingStatusByTimeRequest;
+                fromPartial(object: Partial<_38.QueryTeamVestingStatusByTimeRequest>): _38.QueryTeamVestingStatusByTimeRequest;
             };
             QueryTeamVestingStatusByTimeResponse: {
-                encode(message: _36.QueryTeamVestingStatusByTimeResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _36.QueryTeamVestingStatusByTimeResponse;
-                fromPartial(object: Partial<_36.QueryTeamVestingStatusByTimeResponse>): _36.QueryTeamVestingStatusByTimeResponse;
+                encode(message: _38.QueryTeamVestingStatusByTimeResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _38.QueryTeamVestingStatusByTimeResponse;
+                fromPartial(object: Partial<_38.QueryTeamVestingStatusByTimeResponse>): _38.QueryTeamVestingStatusByTimeResponse;
             };
             QueryVestingStatus: {
-                encode(message: _36.QueryVestingStatus, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _36.QueryVestingStatus;
-                fromPartial(object: Partial<_36.QueryVestingStatus>): _36.QueryVestingStatus;
+                encode(message: _38.QueryVestingStatus, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _38.QueryVestingStatus;
+                fromPartial(object: Partial<_38.QueryVestingStatus>): _38.QueryVestingStatus;
             };
             QueryVestingPlan: {
-                encode(message: _36.QueryVestingPlan, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _36.QueryVestingPlan;
-                fromPartial(object: Partial<_36.QueryVestingPlan>): _36.QueryVestingPlan;
+                encode(message: _38.QueryVestingPlan, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _38.QueryVestingPlan;
+                fromPartial(object: Partial<_38.QueryVestingPlan>): _38.QueryVestingPlan;
             };
             GenesisState: {
-                encode(message: _35.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _35.GenesisState;
-                fromPartial(object: Partial<_35.GenesisState>): _35.GenesisState;
+                encode(message: _37.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _37.GenesisState;
+                fromPartial(object: Partial<_37.GenesisState>): _37.GenesisState;
             };
             EventCreateTeamVestingAccount: {
-                encode(message: _34.EventCreateTeamVestingAccount, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _34.EventCreateTeamVestingAccount;
-                fromPartial(object: Partial<_34.EventCreateTeamVestingAccount>): _34.EventCreateTeamVestingAccount;
+                encode(message: _36.EventCreateTeamVestingAccount, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _36.EventCreateTeamVestingAccount;
+                fromPartial(object: Partial<_36.EventCreateTeamVestingAccount>): _36.EventCreateTeamVestingAccount;
             };
             EventClawback: {
-                encode(message: _34.EventClawback, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _34.EventClawback;
-                fromPartial(object: Partial<_34.EventClawback>): _34.EventClawback;
+                encode(message: _36.EventClawback, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _36.EventClawback;
+                fromPartial(object: Partial<_36.EventClawback>): _36.EventClawback;
             };
             EventClaimedUnlocked: {
-                encode(message: _34.EventClaimedUnlocked, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _34.EventClaimedUnlocked;
-                fromPartial(object: Partial<_34.EventClaimedUnlocked>): _34.EventClaimedUnlocked;
+                encode(message: _36.EventClaimedUnlocked, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _36.EventClaimedUnlocked;
+                fromPartial(object: Partial<_36.EventClaimedUnlocked>): _36.EventClaimedUnlocked;
             };
             EventClaimInflationRewards: {
-                encode(message: _34.EventClaimInflationRewards, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _34.EventClaimInflationRewards;
-                fromPartial(object: Partial<_34.EventClaimInflationRewards>): _34.EventClaimInflationRewards;
+                encode(message: _36.EventClaimInflationRewards, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _36.EventClaimInflationRewards;
+                fromPartial(object: Partial<_36.EventClaimInflationRewards>): _36.EventClaimInflationRewards;
             };
             EventClaimAuthorityRewards: {
-                encode(message: _34.EventClaimAuthorityRewards, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _34.EventClaimAuthorityRewards;
-                fromPartial(object: Partial<_34.EventClaimAuthorityRewards>): _34.EventClaimAuthorityRewards;
+                encode(message: _36.EventClaimAuthorityRewards, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _36.EventClaimAuthorityRewards;
+                fromPartial(object: Partial<_36.EventClaimAuthorityRewards>): _36.EventClaimAuthorityRewards;
             };
         };
     }
@@ -2181,22 +2299,22 @@ export declare namespace kyve {
         }) => Promise<{
             kyve: {
                 bundles: {
-                    v1beta1: _175.MsgClientImpl;
-                };
-                delegation: {
-                    v1beta1: _176.MsgClientImpl;
-                };
-                global: {
-                    v1beta1: _177.MsgClientImpl;
-                };
-                pool: {
-                    v1beta1: _178.MsgClientImpl;
-                };
-                stakers: {
                     v1beta1: _179.MsgClientImpl;
                 };
-                team: {
+                delegation: {
                     v1beta1: _180.MsgClientImpl;
+                };
+                global: {
+                    v1beta1: _181.MsgClientImpl;
+                };
+                pool: {
+                    v1beta1: _182.MsgClientImpl;
+                };
+                stakers: {
+                    v1beta1: _183.MsgClientImpl;
+                };
+                team: {
+                    v1beta1: _184.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -2261,18 +2379,23 @@ export declare namespace kyve {
                         params(request?: _15.QueryParamsRequest): Promise<_15.QueryParamsResponse>;
                     };
                 };
+                pool: {
+                    v1beta1: {
+                        params(request?: _21.QueryParamsRequest): Promise<_21.QueryParamsResponse>;
+                    };
+                };
                 stakers: {
                     v1beta1: {
-                        params(request?: _31.QueryParamsRequest): Promise<_31.QueryParamsResponse>;
+                        params(request?: _33.QueryParamsRequest): Promise<_33.QueryParamsResponse>;
                     };
                 };
                 team: {
                     v1beta1: {
-                        teamInfo(request?: _36.QueryTeamInfoRequest): Promise<_36.QueryTeamInfoResponse>;
-                        teamVestingAccounts(request?: _36.QueryTeamVestingAccountsRequest): Promise<_36.QueryTeamVestingAccountsResponse>;
-                        teamVestingAccount(request: _36.QueryTeamVestingAccountRequest): Promise<_36.QueryTeamVestingAccountResponse>;
-                        teamVestingStatus(request: _36.QueryTeamVestingStatusRequest): Promise<_36.QueryTeamVestingStatusResponse>;
-                        teamVestingStatusByTime(request: _36.QueryTeamVestingStatusByTimeRequest): Promise<_36.QueryTeamVestingStatusByTimeResponse>;
+                        teamInfo(request?: _38.QueryTeamInfoRequest): Promise<_38.QueryTeamInfoResponse>;
+                        teamVestingAccounts(request?: _38.QueryTeamVestingAccountsRequest): Promise<_38.QueryTeamVestingAccountsResponse>;
+                        teamVestingAccount(request: _38.QueryTeamVestingAccountRequest): Promise<_38.QueryTeamVestingAccountResponse>;
+                        teamVestingStatus(request: _38.QueryTeamVestingStatusRequest): Promise<_38.QueryTeamVestingStatusResponse>;
+                        teamVestingStatusByTime(request: _38.QueryTeamVestingStatusByTimeRequest): Promise<_38.QueryTeamVestingStatusByTimeResponse>;
                     };
                 };
             };
@@ -2473,19 +2596,22 @@ export declare namespace kyve {
         }) => Promise<{
             kyve: {
                 bundles: {
-                    v1beta1: _165.LCDQueryClient;
-                };
-                delegation: {
-                    v1beta1: _166.LCDQueryClient;
-                };
-                global: {
                     v1beta1: _167.LCDQueryClient;
                 };
-                stakers: {
+                delegation: {
                     v1beta1: _168.LCDQueryClient;
                 };
-                team: {
+                global: {
                     v1beta1: _169.LCDQueryClient;
+                };
+                pool: {
+                    v1beta1: _170.LCDQueryClient;
+                };
+                stakers: {
+                    v1beta1: _171.LCDQueryClient;
+                };
+                team: {
+                    v1beta1: _172.LCDQueryClient;
                 };
             };
             cosmos: {

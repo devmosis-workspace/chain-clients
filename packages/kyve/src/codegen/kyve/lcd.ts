@@ -24,6 +24,11 @@ export const createLCDClient = async ({
           requestClient
         })
       },
+      pool: {
+        v1beta1: new (await import("./pool/v1beta1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
       stakers: {
         v1beta1: new (await import("./stakers/v1beta1/query.lcd")).LCDQueryClient({
           requestClient

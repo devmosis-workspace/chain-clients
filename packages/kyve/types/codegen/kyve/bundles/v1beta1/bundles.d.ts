@@ -113,6 +113,8 @@ export interface FinalizedBundle {
     storageProviderId: number;
     /** compression_id the id of the compression type with which the data was compressed */
     compressionId: number;
+    /** stake_security */
+    stakeSecurity?: StakeSecurity;
 }
 /**
  * FinalizedBundle represents a bundle proposal where the majority
@@ -132,6 +134,7 @@ export interface FinalizedBundleSDKType {
     from_key: string;
     storage_provider_id: number;
     compression_id: number;
+    stake_security?: StakeSecuritySDKType;
 }
 /** FinalizedAt ... */
 export interface FinalizedAt {
@@ -145,14 +148,14 @@ export interface FinalizedAtSDKType {
     height: Long;
     timestamp: Long;
 }
-/** FinalizedAt ... */
+/** StakeSecurity stores information about total stake and valid votes with which the bundle got finalized. */
 export interface StakeSecurity {
-    /** valid_vote_power ... */
+    /** valid_vote_power is the total amount of stake of all pool stakers which voted valid for the given bundle. */
     validVotePower: Long;
-    /** total_vote_power ... */
+    /** total_vote_power is the total amount of stake that was present during the finalization of the bundle */
     totalVotePower: Long;
 }
-/** FinalizedAt ... */
+/** StakeSecurity stores information about total stake and valid votes with which the bundle got finalized. */
 export interface StakeSecuritySDKType {
     valid_vote_power: Long;
     total_vote_power: Long;
@@ -177,6 +180,30 @@ export interface BundleVersionMap {
 /** BundleVersionMap ... */
 export interface BundleVersionMapSDKType {
     versions: BundleVersionEntrySDKType[];
+}
+/** RoundRobinSingleValidatorProgress ... */
+export interface RoundRobinSingleValidatorProgress {
+    /** address ... */
+    address: string;
+    /** progress ... */
+    progress: Long;
+}
+/** RoundRobinSingleValidatorProgress ... */
+export interface RoundRobinSingleValidatorProgressSDKType {
+    address: string;
+    progress: Long;
+}
+/** RoundRobinProgress ... */
+export interface RoundRobinProgress {
+    /** pool_id ... */
+    poolId: Long;
+    /** progress_list ... */
+    progressList: RoundRobinSingleValidatorProgress[];
+}
+/** RoundRobinProgress ... */
+export interface RoundRobinProgressSDKType {
+    pool_id: Long;
+    progress_list: RoundRobinSingleValidatorProgressSDKType[];
 }
 export declare const BundleProposal: {
     encode(message: BundleProposal, writer?: _m0.Writer): _m0.Writer;
@@ -207,4 +234,14 @@ export declare const BundleVersionMap: {
     encode(message: BundleVersionMap, writer?: _m0.Writer): _m0.Writer;
     fromJSON(object: any): BundleVersionMap;
     fromPartial(object: Partial<BundleVersionMap>): BundleVersionMap;
+};
+export declare const RoundRobinSingleValidatorProgress: {
+    encode(message: RoundRobinSingleValidatorProgress, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(object: any): RoundRobinSingleValidatorProgress;
+    fromPartial(object: Partial<RoundRobinSingleValidatorProgress>): RoundRobinSingleValidatorProgress;
+};
+export declare const RoundRobinProgress: {
+    encode(message: RoundRobinProgress, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(object: any): RoundRobinProgress;
+    fromPartial(object: Partial<RoundRobinProgress>): RoundRobinProgress;
 };

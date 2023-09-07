@@ -133,6 +133,10 @@ export interface EventBundleFinalized {
     total: Long;
     /** status of the finalized bundle */
     status: BundleStatus;
+    /** amount which funders provided to the total bundle reward (in ukyve) */
+    fundersPayout: Long;
+    /** amount which the inflation pool provided to the total reward (in ukyve) */
+    inflationPayout: Long;
     /** rewards transferred to treasury (in ukyve) */
     rewardTreasury: Long;
     /** rewardUploader rewards directly transferred to uploader (in ukyve) */
@@ -160,6 +164,8 @@ export interface EventBundleFinalizedSDKType {
     abstain: Long;
     total: Long;
     status: BundleStatus;
+    funders_payout: Long;
+    inflation_payout: Long;
     reward_treasury: Long;
     reward_uploader: Long;
     reward_delegation: Long;

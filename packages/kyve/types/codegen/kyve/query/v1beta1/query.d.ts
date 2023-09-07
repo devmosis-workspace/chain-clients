@@ -129,6 +129,8 @@ export interface StakerMetadata {
      * if they not agree with the new commission.
      */
     pendingCommissionChange?: CommissionChangeEntry;
+    /** commission_rewards are the rewards in $KYVE earned through commission */
+    commissionRewards: Long;
 }
 /** StakerMetadata contains static information for a staker */
 export interface StakerMetadataSDKType {
@@ -139,6 +141,7 @@ export interface StakerMetadataSDKType {
     security_contact: string;
     details: string;
     pending_commission_change?: CommissionChangeEntrySDKType;
+    commission_rewards: Long;
 }
 /**
  * CommissionChangeEntry shows when the old commission

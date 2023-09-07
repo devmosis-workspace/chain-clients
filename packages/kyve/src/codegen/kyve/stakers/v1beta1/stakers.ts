@@ -19,6 +19,8 @@ export interface Staker {
   securityContact: string;
   /** details are some additional notes the staker finds important */
   details: string;
+  /** commission_rewards are the rewards in $KYVE earned through commission */
+  commissionRewards: Long;
 }
 /**
  * Staker contains all metadata for a staker
@@ -32,6 +34,7 @@ export interface StakerSDKType {
   identity: string;
   security_contact: string;
   details: string;
+  commission_rewards: Long;
 }
 /**
  * Valaccount gets authorized by a staker to
@@ -170,7 +173,8 @@ function createBaseStaker(): Staker {
     website: "",
     identity: "",
     securityContact: "",
-    details: ""
+    details: "",
+    commissionRewards: Long.UZERO
   };
 }
 export const Staker = {
@@ -196,6 +200,9 @@ export const Staker = {
     if (message.details !== "") {
       writer.uint32(58).string(message.details);
     }
+    if (!message.commissionRewards.isZero()) {
+      writer.uint32(64).uint64(message.commissionRewards);
+    }
     return writer;
   },
   fromJSON(object: any): Staker {
@@ -206,7 +213,8 @@ export const Staker = {
       website: isSet(object.website) ? String(object.website) : "",
       identity: isSet(object.identity) ? String(object.identity) : "",
       securityContact: isSet(object.securityContact) ? String(object.securityContact) : "",
-      details: isSet(object.details) ? String(object.details) : ""
+      details: isSet(object.details) ? String(object.details) : "",
+      commissionRewards: isSet(object.commissionRewards) ? Long.fromValue(object.commissionRewards) : Long.UZERO
     };
   },
   fromPartial(object: Partial<Staker>): Staker {
@@ -218,6 +226,7 @@ export const Staker = {
     message.identity = object.identity ?? "";
     message.securityContact = object.securityContact ?? "";
     message.details = object.details ?? "";
+    message.commissionRewards = object.commissionRewards !== undefined && object.commissionRewards !== null ? Long.fromValue(object.commissionRewards) : Long.UZERO;
     return message;
   }
 };

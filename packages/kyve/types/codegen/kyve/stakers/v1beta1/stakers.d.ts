@@ -19,6 +19,8 @@ export interface Staker {
     securityContact: string;
     /** details are some additional notes the staker finds important */
     details: string;
+    /** commission_rewards are the rewards in $KYVE earned through commission */
+    commissionRewards: Long;
 }
 /**
  * Staker contains all metadata for a staker
@@ -32,6 +34,7 @@ export interface StakerSDKType {
     identity: string;
     security_contact: string;
     details: string;
+    commission_rewards: Long;
 }
 /**
  * Valaccount gets authorized by a staker to

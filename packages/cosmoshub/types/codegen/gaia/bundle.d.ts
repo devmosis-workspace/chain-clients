@@ -7,18 +7,18 @@ export declare namespace gaia {
         const v1beta1: {
             QueryClientImpl: typeof _104.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
-                params(request?: _1.QueryParamsRequest): Promise<_1.QueryParamsResponse>;
+                minimumGasPrices(request?: _1.QueryMinimumGasPricesRequest): Promise<_1.QueryMinimumGasPricesResponse>;
             };
             LCDQueryClient: typeof _103.LCDQueryClient;
-            QueryParamsRequest: {
-                encode(_: _1.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _1.QueryParamsRequest;
-                fromPartial(_: Partial<_1.QueryParamsRequest>): _1.QueryParamsRequest;
+            QueryMinimumGasPricesRequest: {
+                encode(_: _1.QueryMinimumGasPricesRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(_: any): _1.QueryMinimumGasPricesRequest;
+                fromPartial(_: Partial<_1.QueryMinimumGasPricesRequest>): _1.QueryMinimumGasPricesRequest;
             };
-            QueryParamsResponse: {
-                encode(message: _1.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _1.QueryParamsResponse;
-                fromPartial(object: Partial<_1.QueryParamsResponse>): _1.QueryParamsResponse;
+            QueryMinimumGasPricesResponse: {
+                encode(message: _1.QueryMinimumGasPricesResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                fromJSON(object: any): _1.QueryMinimumGasPricesResponse;
+                fromPartial(object: Partial<_1.QueryMinimumGasPricesResponse>): _1.QueryMinimumGasPricesResponse;
             };
             GenesisState: {
                 encode(message: _0.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
@@ -39,7 +39,7 @@ export declare namespace gaia {
             gaia: {
                 globalfee: {
                     v1beta1: {
-                        params(request?: _1.QueryParamsRequest): Promise<_1.QueryParamsResponse>;
+                        minimumGasPrices(request?: _1.QueryMinimumGasPricesRequest): Promise<_1.QueryMinimumGasPricesResponse>;
                     };
                 };
             };

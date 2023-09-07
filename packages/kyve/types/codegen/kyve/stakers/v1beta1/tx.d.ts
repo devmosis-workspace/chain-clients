@@ -72,6 +72,24 @@ export interface MsgUpdateCommissionResponse {
 /** MsgUpdateCommissionResponse ... */
 export interface MsgUpdateCommissionResponseSDKType {
 }
+/** MsgClaimCommissionRewards ... */
+export interface MsgClaimCommissionRewards {
+    /** creator ... */
+    creator: string;
+    /** amount ... */
+    amount: Long;
+}
+/** MsgClaimCommissionRewards ... */
+export interface MsgClaimCommissionRewardsSDKType {
+    creator: string;
+    amount: Long;
+}
+/** MsgClaimCommissionRewardsResponse ... */
+export interface MsgClaimCommissionRewardsResponse {
+}
+/** MsgClaimCommissionRewardsResponse ... */
+export interface MsgClaimCommissionRewardsResponseSDKType {
+}
 /** MsgJoinPool ... */
 export interface MsgJoinPool {
     /** creator ... */
@@ -161,6 +179,16 @@ export declare const MsgUpdateCommissionResponse: {
     encode(_: MsgUpdateCommissionResponse, writer?: _m0.Writer): _m0.Writer;
     fromJSON(_: any): MsgUpdateCommissionResponse;
     fromPartial(_: Partial<MsgUpdateCommissionResponse>): MsgUpdateCommissionResponse;
+};
+export declare const MsgClaimCommissionRewards: {
+    encode(message: MsgClaimCommissionRewards, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(object: any): MsgClaimCommissionRewards;
+    fromPartial(object: Partial<MsgClaimCommissionRewards>): MsgClaimCommissionRewards;
+};
+export declare const MsgClaimCommissionRewardsResponse: {
+    encode(_: MsgClaimCommissionRewardsResponse, writer?: _m0.Writer): _m0.Writer;
+    fromJSON(_: any): MsgClaimCommissionRewardsResponse;
+    fromPartial(_: Partial<MsgClaimCommissionRewardsResponse>): MsgClaimCommissionRewardsResponse;
 };
 export declare const MsgJoinPool: {
     encode(message: MsgJoinPool, writer?: _m0.Writer): _m0.Writer;

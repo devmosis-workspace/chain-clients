@@ -11,6 +11,9 @@ export declare const createLCDClient: ({ restEndpoint }: {
         global: {
             v1beta1: import("./global/v1beta1/query.lcd").LCDQueryClient;
         };
+        pool: {
+            v1beta1: import("./pool/v1beta1/query.lcd").LCDQueryClient;
+        };
         stakers: {
             v1beta1: import("./stakers/v1beta1/query.lcd").LCDQueryClient;
         };
