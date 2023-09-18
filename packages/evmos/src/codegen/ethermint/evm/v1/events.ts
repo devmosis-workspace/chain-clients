@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** EventEthereumTx defines the event for an Ethereum transaction */
 export interface EventEthereumTx {
@@ -17,6 +17,31 @@ export interface EventEthereumTx {
   /** eth_tx_failed contains a VM error should it occur */
   ethTxFailed: string;
 }
+export interface EventEthereumTxProtoMsg {
+  typeUrl: "/ethermint.evm.v1.EventEthereumTx";
+  value: Uint8Array;
+}
+/** EventEthereumTx defines the event for an Ethereum transaction */
+export interface EventEthereumTxAmino {
+  /** amount */
+  amount: string;
+  /** eth_hash is the Ethereum hash of the transaction */
+  eth_hash: string;
+  /** index of the transaction in the block */
+  index: string;
+  /** gas_used is the amount of gas used by the transaction */
+  gas_used: string;
+  /** hash is the Tendermint hash of the transaction */
+  hash: string;
+  /** recipient of the transaction */
+  recipient: string;
+  /** eth_tx_failed contains a VM error should it occur */
+  eth_tx_failed: string;
+}
+export interface EventEthereumTxAminoMsg {
+  type: "/ethermint.evm.v1.EventEthereumTx";
+  value: EventEthereumTxAmino;
+}
 /** EventEthereumTx defines the event for an Ethereum transaction */
 export interface EventEthereumTxSDKType {
   amount: string;
@@ -32,6 +57,19 @@ export interface EventTxLog {
   /** tx_logs is an array of transaction logs */
   txLogs: string[];
 }
+export interface EventTxLogProtoMsg {
+  typeUrl: "/ethermint.evm.v1.EventTxLog";
+  value: Uint8Array;
+}
+/** EventTxLog defines the event for an Ethereum transaction log */
+export interface EventTxLogAmino {
+  /** tx_logs is an array of transaction logs */
+  tx_logs: string[];
+}
+export interface EventTxLogAminoMsg {
+  type: "/ethermint.evm.v1.EventTxLog";
+  value: EventTxLogAmino;
+}
 /** EventTxLog defines the event for an Ethereum transaction log */
 export interface EventTxLogSDKType {
   tx_logs: string[];
@@ -45,6 +83,23 @@ export interface EventMessage {
   /** tx_type is the type of the message */
   txType: string;
 }
+export interface EventMessageProtoMsg {
+  typeUrl: "/ethermint.evm.v1.EventMessage";
+  value: Uint8Array;
+}
+/** EventMessage */
+export interface EventMessageAmino {
+  /** module which emits the event */
+  module: string;
+  /** sender of the message */
+  sender: string;
+  /** tx_type is the type of the message */
+  tx_type: string;
+}
+export interface EventMessageAminoMsg {
+  type: "/ethermint.evm.v1.EventMessage";
+  value: EventMessageAmino;
+}
 /** EventMessage */
 export interface EventMessageSDKType {
   module: string;
@@ -55,6 +110,19 @@ export interface EventMessageSDKType {
 export interface EventBlockBloom {
   /** bloom is the bloom filter of the block */
   bloom: string;
+}
+export interface EventBlockBloomProtoMsg {
+  typeUrl: "/ethermint.evm.v1.EventBlockBloom";
+  value: Uint8Array;
+}
+/** EventBlockBloom defines an Ethereum block bloom filter event */
+export interface EventBlockBloomAmino {
+  /** bloom is the bloom filter of the block */
+  bloom: string;
+}
+export interface EventBlockBloomAminoMsg {
+  type: "/ethermint.evm.v1.EventBlockBloom";
+  value: EventBlockBloomAmino;
 }
 /** EventBlockBloom defines an Ethereum block bloom filter event */
 export interface EventBlockBloomSDKType {
@@ -72,7 +140,8 @@ function createBaseEventEthereumTx(): EventEthereumTx {
   };
 }
 export const EventEthereumTx = {
-  encode(message: EventEthereumTx, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/ethermint.evm.v1.EventEthereumTx",
+  encode(message: EventEthereumTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.amount !== "") {
       writer.uint32(10).string(message.amount);
     }
@@ -117,6 +186,43 @@ export const EventEthereumTx = {
     message.recipient = object.recipient ?? "";
     message.ethTxFailed = object.ethTxFailed ?? "";
     return message;
+  },
+  fromAmino(object: EventEthereumTxAmino): EventEthereumTx {
+    return {
+      amount: object.amount,
+      ethHash: object.eth_hash,
+      index: object.index,
+      gasUsed: object.gas_used,
+      hash: object.hash,
+      recipient: object.recipient,
+      ethTxFailed: object.eth_tx_failed
+    };
+  },
+  toAmino(message: EventEthereumTx): EventEthereumTxAmino {
+    const obj: any = {};
+    obj.amount = message.amount;
+    obj.eth_hash = message.ethHash;
+    obj.index = message.index;
+    obj.gas_used = message.gasUsed;
+    obj.hash = message.hash;
+    obj.recipient = message.recipient;
+    obj.eth_tx_failed = message.ethTxFailed;
+    return obj;
+  },
+  fromAminoMsg(object: EventEthereumTxAminoMsg): EventEthereumTx {
+    return EventEthereumTx.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventEthereumTxProtoMsg): EventEthereumTx {
+    return EventEthereumTx.decode(message.value);
+  },
+  toProto(message: EventEthereumTx): Uint8Array {
+    return EventEthereumTx.encode(message).finish();
+  },
+  toProtoMsg(message: EventEthereumTx): EventEthereumTxProtoMsg {
+    return {
+      typeUrl: "/ethermint.evm.v1.EventEthereumTx",
+      value: EventEthereumTx.encode(message).finish()
+    };
   }
 };
 function createBaseEventTxLog(): EventTxLog {
@@ -125,7 +231,8 @@ function createBaseEventTxLog(): EventTxLog {
   };
 }
 export const EventTxLog = {
-  encode(message: EventTxLog, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/ethermint.evm.v1.EventTxLog",
+  encode(message: EventTxLog, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.txLogs) {
       writer.uint32(10).string(v!);
     }
@@ -140,6 +247,35 @@ export const EventTxLog = {
     const message = createBaseEventTxLog();
     message.txLogs = object.txLogs?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: EventTxLogAmino): EventTxLog {
+    return {
+      txLogs: Array.isArray(object?.tx_logs) ? object.tx_logs.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: EventTxLog): EventTxLogAmino {
+    const obj: any = {};
+    if (message.txLogs) {
+      obj.tx_logs = message.txLogs.map(e => e);
+    } else {
+      obj.tx_logs = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EventTxLogAminoMsg): EventTxLog {
+    return EventTxLog.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventTxLogProtoMsg): EventTxLog {
+    return EventTxLog.decode(message.value);
+  },
+  toProto(message: EventTxLog): Uint8Array {
+    return EventTxLog.encode(message).finish();
+  },
+  toProtoMsg(message: EventTxLog): EventTxLogProtoMsg {
+    return {
+      typeUrl: "/ethermint.evm.v1.EventTxLog",
+      value: EventTxLog.encode(message).finish()
+    };
   }
 };
 function createBaseEventMessage(): EventMessage {
@@ -150,7 +286,8 @@ function createBaseEventMessage(): EventMessage {
   };
 }
 export const EventMessage = {
-  encode(message: EventMessage, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/ethermint.evm.v1.EventMessage",
+  encode(message: EventMessage, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
     }
@@ -175,6 +312,35 @@ export const EventMessage = {
     message.sender = object.sender ?? "";
     message.txType = object.txType ?? "";
     return message;
+  },
+  fromAmino(object: EventMessageAmino): EventMessage {
+    return {
+      module: object.module,
+      sender: object.sender,
+      txType: object.tx_type
+    };
+  },
+  toAmino(message: EventMessage): EventMessageAmino {
+    const obj: any = {};
+    obj.module = message.module;
+    obj.sender = message.sender;
+    obj.tx_type = message.txType;
+    return obj;
+  },
+  fromAminoMsg(object: EventMessageAminoMsg): EventMessage {
+    return EventMessage.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventMessageProtoMsg): EventMessage {
+    return EventMessage.decode(message.value);
+  },
+  toProto(message: EventMessage): Uint8Array {
+    return EventMessage.encode(message).finish();
+  },
+  toProtoMsg(message: EventMessage): EventMessageProtoMsg {
+    return {
+      typeUrl: "/ethermint.evm.v1.EventMessage",
+      value: EventMessage.encode(message).finish()
+    };
   }
 };
 function createBaseEventBlockBloom(): EventBlockBloom {
@@ -183,7 +349,8 @@ function createBaseEventBlockBloom(): EventBlockBloom {
   };
 }
 export const EventBlockBloom = {
-  encode(message: EventBlockBloom, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/ethermint.evm.v1.EventBlockBloom",
+  encode(message: EventBlockBloom, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.bloom !== "") {
       writer.uint32(10).string(message.bloom);
     }
@@ -198,5 +365,30 @@ export const EventBlockBloom = {
     const message = createBaseEventBlockBloom();
     message.bloom = object.bloom ?? "";
     return message;
+  },
+  fromAmino(object: EventBlockBloomAmino): EventBlockBloom {
+    return {
+      bloom: object.bloom
+    };
+  },
+  toAmino(message: EventBlockBloom): EventBlockBloomAmino {
+    const obj: any = {};
+    obj.bloom = message.bloom;
+    return obj;
+  },
+  fromAminoMsg(object: EventBlockBloomAminoMsg): EventBlockBloom {
+    return EventBlockBloom.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventBlockBloomProtoMsg): EventBlockBloom {
+    return EventBlockBloom.decode(message.value);
+  },
+  toProto(message: EventBlockBloom): Uint8Array {
+    return EventBlockBloom.encode(message).finish();
+  },
+  toProtoMsg(message: EventBlockBloom): EventBlockBloomProtoMsg {
+    return {
+      typeUrl: "/ethermint.evm.v1.EventBlockBloom",
+      value: EventBlockBloom.encode(message).finish()
+    };
   }
 };

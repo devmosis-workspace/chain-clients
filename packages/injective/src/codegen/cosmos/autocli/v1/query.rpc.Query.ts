@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { AppOptionsRequest, AppOptionsResponse } from "./query";
 /** RemoteInfoService provides clients with the information they need
@@ -17,7 +17,7 @@ export class QueryClientImpl implements Query {
   appOptions(request: AppOptionsRequest = {}): Promise<AppOptionsResponse> {
     const data = AppOptionsRequest.encode(request).finish();
     const promise = this.rpc.request("cosmos.autocli.v1.Query", "AppOptions", data);
-    return promise.then(data => AppOptionsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => AppOptionsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

@@ -1,10 +1,9 @@
-import { Params, ParamsSDKType, Validator, ValidatorSDKType, Delegation, DelegationSDKType, UnbondingDelegation, UnbondingDelegationSDKType, Redelegation, RedelegationSDKType } from "./staking";
-import { Long } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType, Validator, ValidatorAmino, ValidatorSDKType, Delegation, DelegationAmino, DelegationSDKType, UnbondingDelegation, UnbondingDelegationAmino, UnbondingDelegationSDKType, Redelegation, RedelegationAmino, RedelegationSDKType } from "./staking";
+import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the staking module's genesis state. */
 export interface GenesisState {
     /** params defines all the parameters of related to deposit. */
-    params?: Params;
+    params: Params;
     /**
      * last_total_power tracks the total amounts of bonded tokens recorded during
      * the previous end block.
@@ -25,9 +24,41 @@ export interface GenesisState {
     redelegations: Redelegation[];
     exported: boolean;
 }
+export interface GenesisStateProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.GenesisState";
+    value: Uint8Array;
+}
+/** GenesisState defines the staking module's genesis state. */
+export interface GenesisStateAmino {
+    /** params defines all the parameters of related to deposit. */
+    params?: ParamsAmino;
+    /**
+     * last_total_power tracks the total amounts of bonded tokens recorded during
+     * the previous end block.
+     */
+    last_total_power: Uint8Array;
+    /**
+     * last_validator_powers is a special index that provides a historical list
+     * of the last-block's bonded validators.
+     */
+    last_validator_powers: LastValidatorPowerAmino[];
+    /** delegations defines the validator set at genesis. */
+    validators: ValidatorAmino[];
+    /** delegations defines the delegations active at genesis. */
+    delegations: DelegationAmino[];
+    /** unbonding_delegations defines the unbonding delegations active at genesis. */
+    unbonding_delegations: UnbondingDelegationAmino[];
+    /** redelegations defines the redelegations active at genesis. */
+    redelegations: RedelegationAmino[];
+    exported: boolean;
+}
+export interface GenesisStateAminoMsg {
+    type: "cosmos-sdk/GenesisState";
+    value: GenesisStateAmino;
+}
 /** GenesisState defines the staking module's genesis state. */
 export interface GenesisStateSDKType {
-    params?: ParamsSDKType;
+    params: ParamsSDKType;
     last_total_power: Uint8Array;
     last_validator_powers: LastValidatorPowerSDKType[];
     validators: ValidatorSDKType[];
@@ -41,20 +72,51 @@ export interface LastValidatorPower {
     /** address is the address of the validator. */
     address: string;
     /** power defines the power of the validator. */
-    power: Long;
+    power: bigint;
+}
+export interface LastValidatorPowerProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.LastValidatorPower";
+    value: Uint8Array;
+}
+/** LastValidatorPower required for validator set update logic. */
+export interface LastValidatorPowerAmino {
+    /** address is the address of the validator. */
+    address: string;
+    /** power defines the power of the validator. */
+    power: string;
+}
+export interface LastValidatorPowerAminoMsg {
+    type: "cosmos-sdk/LastValidatorPower";
+    value: LastValidatorPowerAmino;
 }
 /** LastValidatorPower required for validator set update logic. */
 export interface LastValidatorPowerSDKType {
     address: string;
-    power: Long;
+    power: bigint;
 }
 export declare const GenesisState: {
-    encode(message: GenesisState, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: GenesisState, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): GenesisState;
     fromPartial(object: Partial<GenesisState>): GenesisState;
+    fromAmino(object: GenesisStateAmino): GenesisState;
+    toAmino(message: GenesisState): GenesisStateAmino;
+    fromAminoMsg(object: GenesisStateAminoMsg): GenesisState;
+    toAminoMsg(message: GenesisState): GenesisStateAminoMsg;
+    fromProtoMsg(message: GenesisStateProtoMsg): GenesisState;
+    toProto(message: GenesisState): Uint8Array;
+    toProtoMsg(message: GenesisState): GenesisStateProtoMsg;
 };
 export declare const LastValidatorPower: {
-    encode(message: LastValidatorPower, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: LastValidatorPower, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): LastValidatorPower;
     fromPartial(object: Partial<LastValidatorPower>): LastValidatorPower;
+    fromAmino(object: LastValidatorPowerAmino): LastValidatorPower;
+    toAmino(message: LastValidatorPower): LastValidatorPowerAmino;
+    fromAminoMsg(object: LastValidatorPowerAminoMsg): LastValidatorPower;
+    toAminoMsg(message: LastValidatorPower): LastValidatorPowerAminoMsg;
+    fromProtoMsg(message: LastValidatorPowerProtoMsg): LastValidatorPower;
+    toProto(message: LastValidatorPower): Uint8Array;
+    toProtoMsg(message: LastValidatorPower): LastValidatorPowerProtoMsg;
 };

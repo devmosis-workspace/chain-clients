@@ -1,5 +1,4 @@
-import { Long } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
 export interface AddRateLimitProposal {
     title: string;
     description: string;
@@ -7,8 +6,26 @@ export interface AddRateLimitProposal {
     channelId: string;
     maxPercentSend: string;
     maxPercentRecv: string;
-    durationHours: Long;
+    durationHours: bigint;
     deposit: string;
+}
+export interface AddRateLimitProposalProtoMsg {
+    typeUrl: "/stride.ratelimit.AddRateLimitProposal";
+    value: Uint8Array;
+}
+export interface AddRateLimitProposalAmino {
+    title: string;
+    description: string;
+    denom: string;
+    channel_id: string;
+    max_percent_send: string;
+    max_percent_recv: string;
+    duration_hours: string;
+    deposit: string;
+}
+export interface AddRateLimitProposalAminoMsg {
+    type: "/stride.ratelimit.AddRateLimitProposal";
+    value: AddRateLimitProposalAmino;
 }
 export interface AddRateLimitProposalSDKType {
     title: string;
@@ -17,7 +34,7 @@ export interface AddRateLimitProposalSDKType {
     channel_id: string;
     max_percent_send: string;
     max_percent_recv: string;
-    duration_hours: Long;
+    duration_hours: bigint;
     deposit: string;
 }
 export interface UpdateRateLimitProposal {
@@ -27,8 +44,26 @@ export interface UpdateRateLimitProposal {
     channelId: string;
     maxPercentSend: string;
     maxPercentRecv: string;
-    durationHours: Long;
+    durationHours: bigint;
     deposit: string;
+}
+export interface UpdateRateLimitProposalProtoMsg {
+    typeUrl: "/stride.ratelimit.UpdateRateLimitProposal";
+    value: Uint8Array;
+}
+export interface UpdateRateLimitProposalAmino {
+    title: string;
+    description: string;
+    denom: string;
+    channel_id: string;
+    max_percent_send: string;
+    max_percent_recv: string;
+    duration_hours: string;
+    deposit: string;
+}
+export interface UpdateRateLimitProposalAminoMsg {
+    type: "/stride.ratelimit.UpdateRateLimitProposal";
+    value: UpdateRateLimitProposalAmino;
 }
 export interface UpdateRateLimitProposalSDKType {
     title: string;
@@ -37,7 +72,7 @@ export interface UpdateRateLimitProposalSDKType {
     channel_id: string;
     max_percent_send: string;
     max_percent_recv: string;
-    duration_hours: Long;
+    duration_hours: bigint;
     deposit: string;
 }
 export interface RemoveRateLimitProposal {
@@ -46,6 +81,21 @@ export interface RemoveRateLimitProposal {
     denom: string;
     channelId: string;
     deposit: string;
+}
+export interface RemoveRateLimitProposalProtoMsg {
+    typeUrl: "/stride.ratelimit.RemoveRateLimitProposal";
+    value: Uint8Array;
+}
+export interface RemoveRateLimitProposalAmino {
+    title: string;
+    description: string;
+    denom: string;
+    channel_id: string;
+    deposit: string;
+}
+export interface RemoveRateLimitProposalAminoMsg {
+    type: "/stride.ratelimit.RemoveRateLimitProposal";
+    value: RemoveRateLimitProposalAmino;
 }
 export interface RemoveRateLimitProposalSDKType {
     title: string;
@@ -61,6 +111,21 @@ export interface ResetRateLimitProposal {
     channelId: string;
     deposit: string;
 }
+export interface ResetRateLimitProposalProtoMsg {
+    typeUrl: "/stride.ratelimit.ResetRateLimitProposal";
+    value: Uint8Array;
+}
+export interface ResetRateLimitProposalAmino {
+    title: string;
+    description: string;
+    denom: string;
+    channel_id: string;
+    deposit: string;
+}
+export interface ResetRateLimitProposalAminoMsg {
+    type: "/stride.ratelimit.ResetRateLimitProposal";
+    value: ResetRateLimitProposalAmino;
+}
 export interface ResetRateLimitProposalSDKType {
     title: string;
     description: string;
@@ -69,22 +134,50 @@ export interface ResetRateLimitProposalSDKType {
     deposit: string;
 }
 export declare const AddRateLimitProposal: {
-    encode(message: AddRateLimitProposal, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: AddRateLimitProposal, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): AddRateLimitProposal;
     fromPartial(object: Partial<AddRateLimitProposal>): AddRateLimitProposal;
+    fromAmino(object: AddRateLimitProposalAmino): AddRateLimitProposal;
+    toAmino(message: AddRateLimitProposal): AddRateLimitProposalAmino;
+    fromAminoMsg(object: AddRateLimitProposalAminoMsg): AddRateLimitProposal;
+    fromProtoMsg(message: AddRateLimitProposalProtoMsg): AddRateLimitProposal;
+    toProto(message: AddRateLimitProposal): Uint8Array;
+    toProtoMsg(message: AddRateLimitProposal): AddRateLimitProposalProtoMsg;
 };
 export declare const UpdateRateLimitProposal: {
-    encode(message: UpdateRateLimitProposal, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: UpdateRateLimitProposal, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): UpdateRateLimitProposal;
     fromPartial(object: Partial<UpdateRateLimitProposal>): UpdateRateLimitProposal;
+    fromAmino(object: UpdateRateLimitProposalAmino): UpdateRateLimitProposal;
+    toAmino(message: UpdateRateLimitProposal): UpdateRateLimitProposalAmino;
+    fromAminoMsg(object: UpdateRateLimitProposalAminoMsg): UpdateRateLimitProposal;
+    fromProtoMsg(message: UpdateRateLimitProposalProtoMsg): UpdateRateLimitProposal;
+    toProto(message: UpdateRateLimitProposal): Uint8Array;
+    toProtoMsg(message: UpdateRateLimitProposal): UpdateRateLimitProposalProtoMsg;
 };
 export declare const RemoveRateLimitProposal: {
-    encode(message: RemoveRateLimitProposal, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: RemoveRateLimitProposal, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): RemoveRateLimitProposal;
     fromPartial(object: Partial<RemoveRateLimitProposal>): RemoveRateLimitProposal;
+    fromAmino(object: RemoveRateLimitProposalAmino): RemoveRateLimitProposal;
+    toAmino(message: RemoveRateLimitProposal): RemoveRateLimitProposalAmino;
+    fromAminoMsg(object: RemoveRateLimitProposalAminoMsg): RemoveRateLimitProposal;
+    fromProtoMsg(message: RemoveRateLimitProposalProtoMsg): RemoveRateLimitProposal;
+    toProto(message: RemoveRateLimitProposal): Uint8Array;
+    toProtoMsg(message: RemoveRateLimitProposal): RemoveRateLimitProposalProtoMsg;
 };
 export declare const ResetRateLimitProposal: {
-    encode(message: ResetRateLimitProposal, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ResetRateLimitProposal, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ResetRateLimitProposal;
     fromPartial(object: Partial<ResetRateLimitProposal>): ResetRateLimitProposal;
+    fromAmino(object: ResetRateLimitProposalAmino): ResetRateLimitProposal;
+    toAmino(message: ResetRateLimitProposal): ResetRateLimitProposalAmino;
+    fromAminoMsg(object: ResetRateLimitProposalAminoMsg): ResetRateLimitProposal;
+    fromProtoMsg(message: ResetRateLimitProposalProtoMsg): ResetRateLimitProposal;
+    toProto(message: ResetRateLimitProposal): Uint8Array;
+    toProtoMsg(message: ResetRateLimitProposal): ResetRateLimitProposalProtoMsg;
 };

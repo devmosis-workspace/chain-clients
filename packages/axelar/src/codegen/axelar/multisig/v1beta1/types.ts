@@ -1,12 +1,24 @@
-import { Snapshot, SnapshotSDKType } from "../../snapshot/exported/v1beta1/types";
-import { Threshold, ThresholdSDKType } from "../../utils/v1beta1/threshold";
+import { Snapshot, SnapshotAmino, SnapshotSDKType } from "../../snapshot/exported/v1beta1/types";
+import { Threshold, ThresholdAmino, ThresholdSDKType } from "../../utils/v1beta1/threshold";
 import { KeyState, MultisigState, keyStateFromJSON, multisigStateFromJSON } from "../exported/v1beta1/types";
-import { Any, AnySDKType } from "../../../google/protobuf/any";
-import { Long, isSet, bytesFromBase64, isObject } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { isSet, bytesFromBase64, isObject } from "../../../helpers";
 export interface Key_PubKeysEntry {
   key: string;
   value: Uint8Array;
+}
+export interface Key_PubKeysEntryProtoMsg {
+  typeUrl: string;
+  value: Uint8Array;
+}
+export interface Key_PubKeysEntryAmino {
+  key: string;
+  value: Uint8Array;
+}
+export interface Key_PubKeysEntryAminoMsg {
+  type: string;
+  value: Key_PubKeysEntryAmino;
 }
 export interface Key_PubKeysEntrySDKType {
   key: string;
@@ -14,55 +26,115 @@ export interface Key_PubKeysEntrySDKType {
 }
 export interface Key {
   id: string;
-  snapshot?: Snapshot;
+  snapshot: Snapshot;
   pubKeys: {
     [key: string]: Uint8Array;
   };
-  signingThreshold?: Threshold;
+  signingThreshold: Threshold;
   state: KeyState;
 }
-export interface KeySDKType {
+export interface KeyProtoMsg {
+  typeUrl: "/axelar.multisig.v1beta1.Key";
+  value: Uint8Array;
+}
+export interface KeyAmino {
   id: string;
-  snapshot?: SnapshotSDKType;
+  snapshot?: SnapshotAmino;
   pub_keys: {
     [key: string]: Uint8Array;
   };
-  signing_threshold?: ThresholdSDKType;
+  signing_threshold?: ThresholdAmino;
+  state: KeyState;
+}
+export interface KeyAminoMsg {
+  type: "/axelar.multisig.v1beta1.Key";
+  value: KeyAmino;
+}
+export interface KeySDKType {
+  id: string;
+  snapshot: SnapshotSDKType;
+  pub_keys: {
+    [key: string]: Uint8Array;
+  };
+  signing_threshold: ThresholdSDKType;
   state: KeyState;
 }
 export interface KeygenSession_IsPubKeyReceivedEntry {
   key: string;
   value: boolean;
 }
+export interface KeygenSession_IsPubKeyReceivedEntryProtoMsg {
+  typeUrl: string;
+  value: Uint8Array;
+}
+export interface KeygenSession_IsPubKeyReceivedEntryAmino {
+  key: string;
+  value: boolean;
+}
+export interface KeygenSession_IsPubKeyReceivedEntryAminoMsg {
+  type: string;
+  value: KeygenSession_IsPubKeyReceivedEntryAmino;
+}
 export interface KeygenSession_IsPubKeyReceivedEntrySDKType {
   key: string;
   value: boolean;
 }
 export interface KeygenSession {
-  key?: Key;
+  key: Key;
   state: MultisigState;
-  keygenThreshold?: Threshold;
-  expiresAt: Long;
-  completedAt: Long;
+  keygenThreshold: Threshold;
+  expiresAt: bigint;
+  completedAt: bigint;
   isPubKeyReceived: {
     [key: string]: boolean;
   };
-  gracePeriod: Long;
+  gracePeriod: bigint;
 }
-export interface KeygenSessionSDKType {
-  key?: KeySDKType;
+export interface KeygenSessionProtoMsg {
+  typeUrl: "/axelar.multisig.v1beta1.KeygenSession";
+  value: Uint8Array;
+}
+export interface KeygenSessionAmino {
+  key?: KeyAmino;
   state: MultisigState;
-  keygen_threshold?: ThresholdSDKType;
-  expires_at: Long;
-  completed_at: Long;
+  keygen_threshold?: ThresholdAmino;
+  expires_at: string;
+  completed_at: string;
   is_pub_key_received: {
     [key: string]: boolean;
   };
-  grace_period: Long;
+  grace_period: string;
+}
+export interface KeygenSessionAminoMsg {
+  type: "/axelar.multisig.v1beta1.KeygenSession";
+  value: KeygenSessionAmino;
+}
+export interface KeygenSessionSDKType {
+  key: KeySDKType;
+  state: MultisigState;
+  keygen_threshold: ThresholdSDKType;
+  expires_at: bigint;
+  completed_at: bigint;
+  is_pub_key_received: {
+    [key: string]: boolean;
+  };
+  grace_period: bigint;
 }
 export interface MultiSig_SigsEntry {
   key: string;
   value: Uint8Array;
+}
+export interface MultiSig_SigsEntryProtoMsg {
+  typeUrl: string;
+  value: Uint8Array;
+}
+export interface MultiSig_SigsEntryAmino {
+  key: string;
+  value: Uint8Array;
+}
+export interface MultiSig_SigsEntryAminoMsg {
+  type: string;
+  value: MultiSig_SigsEntryAmino;
 }
 export interface MultiSig_SigsEntrySDKType {
   key: string;
@@ -75,6 +147,21 @@ export interface MultiSig {
     [key: string]: Uint8Array;
   };
 }
+export interface MultiSigProtoMsg {
+  typeUrl: "/axelar.multisig.v1beta1.MultiSig";
+  value: Uint8Array;
+}
+export interface MultiSigAmino {
+  key_id: string;
+  payload_hash: Uint8Array;
+  sigs: {
+    [key: string]: Uint8Array;
+  };
+}
+export interface MultiSigAminoMsg {
+  type: "/axelar.multisig.v1beta1.MultiSig";
+  value: MultiSigAmino;
+}
 export interface MultiSigSDKType {
   key_id: string;
   payload_hash: Uint8Array;
@@ -83,34 +170,69 @@ export interface MultiSigSDKType {
   };
 }
 export interface SigningSession {
-  id: Long;
-  multiSig?: MultiSig;
+  id: bigint;
+  multiSig: MultiSig;
   state: MultisigState;
-  key?: Key;
-  expiresAt: Long;
-  completedAt: Long;
-  gracePeriod: Long;
+  key: Key;
+  expiresAt: bigint;
+  completedAt: bigint;
+  gracePeriod: bigint;
   module: string;
-  moduleMetadata?: Any;
+  moduleMetadata: (Any) | undefined;
+}
+export interface SigningSessionProtoMsg {
+  typeUrl: "/axelar.multisig.v1beta1.SigningSession";
+  value: Uint8Array;
+}
+export type SigningSessionEncoded = Omit<SigningSession, "moduleMetadata"> & {
+  moduleMetadata?: AnyProtoMsg | undefined;
+};
+export interface SigningSessionAmino {
+  id: string;
+  multi_sig?: MultiSigAmino;
+  state: MultisigState;
+  key?: KeyAmino;
+  expires_at: string;
+  completed_at: string;
+  grace_period: string;
+  module: string;
+  module_metadata?: AnyAmino;
+}
+export interface SigningSessionAminoMsg {
+  type: "/axelar.multisig.v1beta1.SigningSession";
+  value: SigningSessionAmino;
 }
 export interface SigningSessionSDKType {
-  id: Long;
-  multi_sig?: MultiSigSDKType;
+  id: bigint;
+  multi_sig: MultiSigSDKType;
   state: MultisigState;
-  key?: KeySDKType;
-  expires_at: Long;
-  completed_at: Long;
-  grace_period: Long;
+  key: KeySDKType;
+  expires_at: bigint;
+  completed_at: bigint;
+  grace_period: bigint;
   module: string;
-  module_metadata?: AnySDKType;
+  module_metadata: AnySDKType | undefined;
 }
 export interface KeyEpoch {
-  epoch: Long;
+  epoch: bigint;
   chain: string;
   keyId: string;
 }
+export interface KeyEpochProtoMsg {
+  typeUrl: "/axelar.multisig.v1beta1.KeyEpoch";
+  value: Uint8Array;
+}
+export interface KeyEpochAmino {
+  epoch: string;
+  chain: string;
+  key_id: string;
+}
+export interface KeyEpochAminoMsg {
+  type: "/axelar.multisig.v1beta1.KeyEpoch";
+  value: KeyEpochAmino;
+}
 export interface KeyEpochSDKType {
-  epoch: Long;
+  epoch: bigint;
   chain: string;
   key_id: string;
 }
@@ -121,7 +243,7 @@ function createBaseKey_PubKeysEntry(): Key_PubKeysEntry {
   };
 }
 export const Key_PubKeysEntry = {
-  encode(message: Key_PubKeysEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: Key_PubKeysEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -141,19 +263,41 @@ export const Key_PubKeysEntry = {
     message.key = object.key ?? "";
     message.value = object.value ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: Key_PubKeysEntryAmino): Key_PubKeysEntry {
+    return {
+      key: object.key,
+      value: object.value
+    };
+  },
+  toAmino(message: Key_PubKeysEntry): Key_PubKeysEntryAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: Key_PubKeysEntryAminoMsg): Key_PubKeysEntry {
+    return Key_PubKeysEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: Key_PubKeysEntryProtoMsg): Key_PubKeysEntry {
+    return Key_PubKeysEntry.decode(message.value);
+  },
+  toProto(message: Key_PubKeysEntry): Uint8Array {
+    return Key_PubKeysEntry.encode(message).finish();
   }
 };
 function createBaseKey(): Key {
   return {
     id: "",
-    snapshot: undefined,
+    snapshot: Snapshot.fromPartial({}),
     pubKeys: {},
-    signingThreshold: undefined,
+    signingThreshold: Threshold.fromPartial({}),
     state: 0
   };
 }
 export const Key = {
-  encode(message: Key, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.multisig.v1beta1.Key",
+  encode(message: Key, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -185,7 +329,7 @@ export const Key = {
         return acc;
       }, {}) : {},
       signingThreshold: isSet(object.signingThreshold) ? Threshold.fromJSON(object.signingThreshold) : undefined,
-      state: isSet(object.state) ? keyStateFromJSON(object.state) : 0
+      state: isSet(object.state) ? keyStateFromJSON(object.state) : -1
     };
   },
   fromPartial(object: Partial<Key>): Key {
@@ -203,6 +347,49 @@ export const Key = {
     message.signingThreshold = object.signingThreshold !== undefined && object.signingThreshold !== null ? Threshold.fromPartial(object.signingThreshold) : undefined;
     message.state = object.state ?? 0;
     return message;
+  },
+  fromAmino(object: KeyAmino): Key {
+    return {
+      id: object.id,
+      snapshot: object?.snapshot ? Snapshot.fromAmino(object.snapshot) : undefined,
+      pubKeys: isObject(object.pub_keys) ? Object.entries(object.pub_keys).reduce<{
+        [key: string]: bytes;
+      }>((acc, [key, value]) => {
+        acc[key] = bytes.fromAmino(value);
+        return acc;
+      }, {}) : {},
+      signingThreshold: object?.signing_threshold ? Threshold.fromAmino(object.signing_threshold) : undefined,
+      state: isSet(object.state) ? keyStateFromJSON(object.state) : -1
+    };
+  },
+  toAmino(message: Key): KeyAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.snapshot = message.snapshot ? Snapshot.toAmino(message.snapshot) : undefined;
+    obj.pub_keys = {};
+    if (message.pubKeys) {
+      Object.entries(message.pubKeys).forEach(([k, v]) => {
+        obj.pub_keys[k] = bytes.toAmino(v);
+      });
+    }
+    obj.signing_threshold = message.signingThreshold ? Threshold.toAmino(message.signingThreshold) : undefined;
+    obj.state = message.state;
+    return obj;
+  },
+  fromAminoMsg(object: KeyAminoMsg): Key {
+    return Key.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeyProtoMsg): Key {
+    return Key.decode(message.value);
+  },
+  toProto(message: Key): Uint8Array {
+    return Key.encode(message).finish();
+  },
+  toProtoMsg(message: Key): KeyProtoMsg {
+    return {
+      typeUrl: "/axelar.multisig.v1beta1.Key",
+      value: Key.encode(message).finish()
+    };
   }
 };
 function createBaseKeygenSession_IsPubKeyReceivedEntry(): KeygenSession_IsPubKeyReceivedEntry {
@@ -212,7 +399,7 @@ function createBaseKeygenSession_IsPubKeyReceivedEntry(): KeygenSession_IsPubKey
   };
 }
 export const KeygenSession_IsPubKeyReceivedEntry = {
-  encode(message: KeygenSession_IsPubKeyReceivedEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: KeygenSession_IsPubKeyReceivedEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -232,21 +419,43 @@ export const KeygenSession_IsPubKeyReceivedEntry = {
     message.key = object.key ?? "";
     message.value = object.value ?? false;
     return message;
+  },
+  fromAmino(object: KeygenSession_IsPubKeyReceivedEntryAmino): KeygenSession_IsPubKeyReceivedEntry {
+    return {
+      key: object.key,
+      value: object.value
+    };
+  },
+  toAmino(message: KeygenSession_IsPubKeyReceivedEntry): KeygenSession_IsPubKeyReceivedEntryAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: KeygenSession_IsPubKeyReceivedEntryAminoMsg): KeygenSession_IsPubKeyReceivedEntry {
+    return KeygenSession_IsPubKeyReceivedEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeygenSession_IsPubKeyReceivedEntryProtoMsg): KeygenSession_IsPubKeyReceivedEntry {
+    return KeygenSession_IsPubKeyReceivedEntry.decode(message.value);
+  },
+  toProto(message: KeygenSession_IsPubKeyReceivedEntry): Uint8Array {
+    return KeygenSession_IsPubKeyReceivedEntry.encode(message).finish();
   }
 };
 function createBaseKeygenSession(): KeygenSession {
   return {
-    key: undefined,
+    key: Key.fromPartial({}),
     state: 0,
-    keygenThreshold: undefined,
-    expiresAt: Long.ZERO,
-    completedAt: Long.ZERO,
+    keygenThreshold: Threshold.fromPartial({}),
+    expiresAt: BigInt(0),
+    completedAt: BigInt(0),
     isPubKeyReceived: {},
-    gracePeriod: Long.ZERO
+    gracePeriod: BigInt(0)
   };
 }
 export const KeygenSession = {
-  encode(message: KeygenSession, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.multisig.v1beta1.KeygenSession",
+  encode(message: KeygenSession, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== undefined) {
       Key.encode(message.key, writer.uint32(10).fork()).ldelim();
     }
@@ -256,10 +465,10 @@ export const KeygenSession = {
     if (message.keygenThreshold !== undefined) {
       Threshold.encode(message.keygenThreshold, writer.uint32(26).fork()).ldelim();
     }
-    if (!message.expiresAt.isZero()) {
+    if (message.expiresAt !== BigInt(0)) {
       writer.uint32(32).int64(message.expiresAt);
     }
-    if (!message.completedAt.isZero()) {
+    if (message.completedAt !== BigInt(0)) {
       writer.uint32(40).int64(message.completedAt);
     }
     Object.entries(message.isPubKeyReceived).forEach(([key, value]) => {
@@ -268,7 +477,7 @@ export const KeygenSession = {
         value
       }, writer.uint32(48).fork()).ldelim();
     });
-    if (!message.gracePeriod.isZero()) {
+    if (message.gracePeriod !== BigInt(0)) {
       writer.uint32(56).int64(message.gracePeriod);
     }
     return writer;
@@ -276,17 +485,17 @@ export const KeygenSession = {
   fromJSON(object: any): KeygenSession {
     return {
       key: isSet(object.key) ? Key.fromJSON(object.key) : undefined,
-      state: isSet(object.state) ? multisigStateFromJSON(object.state) : 0,
+      state: isSet(object.state) ? multisigStateFromJSON(object.state) : -1,
       keygenThreshold: isSet(object.keygenThreshold) ? Threshold.fromJSON(object.keygenThreshold) : undefined,
-      expiresAt: isSet(object.expiresAt) ? Long.fromValue(object.expiresAt) : Long.ZERO,
-      completedAt: isSet(object.completedAt) ? Long.fromValue(object.completedAt) : Long.ZERO,
+      expiresAt: isSet(object.expiresAt) ? BigInt(object.expiresAt.toString()) : BigInt(0),
+      completedAt: isSet(object.completedAt) ? BigInt(object.completedAt.toString()) : BigInt(0),
       isPubKeyReceived: isObject(object.isPubKeyReceived) ? Object.entries(object.isPubKeyReceived).reduce<{
         [key: string]: bool;
       }>((acc, [key, value]) => {
         acc[key] = bool.fromJSON(value);
         return acc;
       }, {}) : {},
-      gracePeriod: isSet(object.gracePeriod) ? Long.fromValue(object.gracePeriod) : Long.ZERO
+      gracePeriod: isSet(object.gracePeriod) ? BigInt(object.gracePeriod.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<KeygenSession>): KeygenSession {
@@ -294,8 +503,8 @@ export const KeygenSession = {
     message.key = object.key !== undefined && object.key !== null ? Key.fromPartial(object.key) : undefined;
     message.state = object.state ?? 0;
     message.keygenThreshold = object.keygenThreshold !== undefined && object.keygenThreshold !== null ? Threshold.fromPartial(object.keygenThreshold) : undefined;
-    message.expiresAt = object.expiresAt !== undefined && object.expiresAt !== null ? Long.fromValue(object.expiresAt) : Long.ZERO;
-    message.completedAt = object.completedAt !== undefined && object.completedAt !== null ? Long.fromValue(object.completedAt) : Long.ZERO;
+    message.expiresAt = object.expiresAt !== undefined && object.expiresAt !== null ? BigInt(object.expiresAt.toString()) : BigInt(0);
+    message.completedAt = object.completedAt !== undefined && object.completedAt !== null ? BigInt(object.completedAt.toString()) : BigInt(0);
     message.isPubKeyReceived = Object.entries(object.isPubKeyReceived ?? {}).reduce<{
       [key: string]: bool;
     }>((acc, [key, value]) => {
@@ -304,8 +513,55 @@ export const KeygenSession = {
       }
       return acc;
     }, {});
-    message.gracePeriod = object.gracePeriod !== undefined && object.gracePeriod !== null ? Long.fromValue(object.gracePeriod) : Long.ZERO;
+    message.gracePeriod = object.gracePeriod !== undefined && object.gracePeriod !== null ? BigInt(object.gracePeriod.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: KeygenSessionAmino): KeygenSession {
+    return {
+      key: object?.key ? Key.fromAmino(object.key) : undefined,
+      state: isSet(object.state) ? multisigStateFromJSON(object.state) : -1,
+      keygenThreshold: object?.keygen_threshold ? Threshold.fromAmino(object.keygen_threshold) : undefined,
+      expiresAt: BigInt(object.expires_at),
+      completedAt: BigInt(object.completed_at),
+      isPubKeyReceived: isObject(object.is_pub_key_received) ? Object.entries(object.is_pub_key_received).reduce<{
+        [key: string]: bool;
+      }>((acc, [key, value]) => {
+        acc[key] = bool.fromAmino(value);
+        return acc;
+      }, {}) : {},
+      gracePeriod: BigInt(object.grace_period)
+    };
+  },
+  toAmino(message: KeygenSession): KeygenSessionAmino {
+    const obj: any = {};
+    obj.key = message.key ? Key.toAmino(message.key) : undefined;
+    obj.state = message.state;
+    obj.keygen_threshold = message.keygenThreshold ? Threshold.toAmino(message.keygenThreshold) : undefined;
+    obj.expires_at = message.expiresAt ? message.expiresAt.toString() : undefined;
+    obj.completed_at = message.completedAt ? message.completedAt.toString() : undefined;
+    obj.is_pub_key_received = {};
+    if (message.isPubKeyReceived) {
+      Object.entries(message.isPubKeyReceived).forEach(([k, v]) => {
+        obj.is_pub_key_received[k] = bool.toAmino(v);
+      });
+    }
+    obj.grace_period = message.gracePeriod ? message.gracePeriod.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: KeygenSessionAminoMsg): KeygenSession {
+    return KeygenSession.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeygenSessionProtoMsg): KeygenSession {
+    return KeygenSession.decode(message.value);
+  },
+  toProto(message: KeygenSession): Uint8Array {
+    return KeygenSession.encode(message).finish();
+  },
+  toProtoMsg(message: KeygenSession): KeygenSessionProtoMsg {
+    return {
+      typeUrl: "/axelar.multisig.v1beta1.KeygenSession",
+      value: KeygenSession.encode(message).finish()
+    };
   }
 };
 function createBaseMultiSig_SigsEntry(): MultiSig_SigsEntry {
@@ -315,7 +571,7 @@ function createBaseMultiSig_SigsEntry(): MultiSig_SigsEntry {
   };
 }
 export const MultiSig_SigsEntry = {
-  encode(message: MultiSig_SigsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: MultiSig_SigsEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -335,6 +591,27 @@ export const MultiSig_SigsEntry = {
     message.key = object.key ?? "";
     message.value = object.value ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: MultiSig_SigsEntryAmino): MultiSig_SigsEntry {
+    return {
+      key: object.key,
+      value: object.value
+    };
+  },
+  toAmino(message: MultiSig_SigsEntry): MultiSig_SigsEntryAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: MultiSig_SigsEntryAminoMsg): MultiSig_SigsEntry {
+    return MultiSig_SigsEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MultiSig_SigsEntryProtoMsg): MultiSig_SigsEntry {
+    return MultiSig_SigsEntry.decode(message.value);
+  },
+  toProto(message: MultiSig_SigsEntry): Uint8Array {
+    return MultiSig_SigsEntry.encode(message).finish();
   }
 };
 function createBaseMultiSig(): MultiSig {
@@ -345,7 +622,8 @@ function createBaseMultiSig(): MultiSig {
   };
 }
 export const MultiSig = {
-  encode(message: MultiSig, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.multisig.v1beta1.MultiSig",
+  encode(message: MultiSig, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.keyId !== "") {
       writer.uint32(10).string(message.keyId);
     }
@@ -385,24 +663,64 @@ export const MultiSig = {
       return acc;
     }, {});
     return message;
+  },
+  fromAmino(object: MultiSigAmino): MultiSig {
+    return {
+      keyId: object.key_id,
+      payloadHash: object.payload_hash,
+      sigs: isObject(object.sigs) ? Object.entries(object.sigs).reduce<{
+        [key: string]: bytes;
+      }>((acc, [key, value]) => {
+        acc[key] = bytes.fromAmino(value);
+        return acc;
+      }, {}) : {}
+    };
+  },
+  toAmino(message: MultiSig): MultiSigAmino {
+    const obj: any = {};
+    obj.key_id = message.keyId;
+    obj.payload_hash = message.payloadHash;
+    obj.sigs = {};
+    if (message.sigs) {
+      Object.entries(message.sigs).forEach(([k, v]) => {
+        obj.sigs[k] = bytes.toAmino(v);
+      });
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MultiSigAminoMsg): MultiSig {
+    return MultiSig.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MultiSigProtoMsg): MultiSig {
+    return MultiSig.decode(message.value);
+  },
+  toProto(message: MultiSig): Uint8Array {
+    return MultiSig.encode(message).finish();
+  },
+  toProtoMsg(message: MultiSig): MultiSigProtoMsg {
+    return {
+      typeUrl: "/axelar.multisig.v1beta1.MultiSig",
+      value: MultiSig.encode(message).finish()
+    };
   }
 };
 function createBaseSigningSession(): SigningSession {
   return {
-    id: Long.UZERO,
-    multiSig: undefined,
+    id: BigInt(0),
+    multiSig: MultiSig.fromPartial({}),
     state: 0,
-    key: undefined,
-    expiresAt: Long.ZERO,
-    completedAt: Long.ZERO,
-    gracePeriod: Long.ZERO,
+    key: Key.fromPartial({}),
+    expiresAt: BigInt(0),
+    completedAt: BigInt(0),
+    gracePeriod: BigInt(0),
     module: "",
-    moduleMetadata: undefined
+    moduleMetadata: Any.fromPartial({})
   };
 }
 export const SigningSession = {
-  encode(message: SigningSession, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.id.isZero()) {
+  typeUrl: "/axelar.multisig.v1beta1.SigningSession",
+  encode(message: SigningSession, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.id !== BigInt(0)) {
       writer.uint32(8).uint64(message.id);
     }
     if (message.multiSig !== undefined) {
@@ -414,60 +732,102 @@ export const SigningSession = {
     if (message.key !== undefined) {
       Key.encode(message.key, writer.uint32(34).fork()).ldelim();
     }
-    if (!message.expiresAt.isZero()) {
+    if (message.expiresAt !== BigInt(0)) {
       writer.uint32(40).int64(message.expiresAt);
     }
-    if (!message.completedAt.isZero()) {
+    if (message.completedAt !== BigInt(0)) {
       writer.uint32(48).int64(message.completedAt);
     }
-    if (!message.gracePeriod.isZero()) {
+    if (message.gracePeriod !== BigInt(0)) {
       writer.uint32(56).int64(message.gracePeriod);
     }
     if (message.module !== "") {
       writer.uint32(66).string(message.module);
     }
     if (message.moduleMetadata !== undefined) {
-      Any.encode(message.moduleMetadata, writer.uint32(74).fork()).ldelim();
+      Any.encode((message.moduleMetadata as Any), writer.uint32(74).fork()).ldelim();
     }
     return writer;
   },
   fromJSON(object: any): SigningSession {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      id: isSet(object.id) ? BigInt(object.id.toString()) : BigInt(0),
       multiSig: isSet(object.multiSig) ? MultiSig.fromJSON(object.multiSig) : undefined,
-      state: isSet(object.state) ? multisigStateFromJSON(object.state) : 0,
+      state: isSet(object.state) ? multisigStateFromJSON(object.state) : -1,
       key: isSet(object.key) ? Key.fromJSON(object.key) : undefined,
-      expiresAt: isSet(object.expiresAt) ? Long.fromValue(object.expiresAt) : Long.ZERO,
-      completedAt: isSet(object.completedAt) ? Long.fromValue(object.completedAt) : Long.ZERO,
-      gracePeriod: isSet(object.gracePeriod) ? Long.fromValue(object.gracePeriod) : Long.ZERO,
+      expiresAt: isSet(object.expiresAt) ? BigInt(object.expiresAt.toString()) : BigInt(0),
+      completedAt: isSet(object.completedAt) ? BigInt(object.completedAt.toString()) : BigInt(0),
+      gracePeriod: isSet(object.gracePeriod) ? BigInt(object.gracePeriod.toString()) : BigInt(0),
       module: isSet(object.module) ? String(object.module) : "",
       moduleMetadata: isSet(object.moduleMetadata) ? Any.fromJSON(object.moduleMetadata) : undefined
     };
   },
   fromPartial(object: Partial<SigningSession>): SigningSession {
     const message = createBaseSigningSession();
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
+    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
     message.multiSig = object.multiSig !== undefined && object.multiSig !== null ? MultiSig.fromPartial(object.multiSig) : undefined;
     message.state = object.state ?? 0;
     message.key = object.key !== undefined && object.key !== null ? Key.fromPartial(object.key) : undefined;
-    message.expiresAt = object.expiresAt !== undefined && object.expiresAt !== null ? Long.fromValue(object.expiresAt) : Long.ZERO;
-    message.completedAt = object.completedAt !== undefined && object.completedAt !== null ? Long.fromValue(object.completedAt) : Long.ZERO;
-    message.gracePeriod = object.gracePeriod !== undefined && object.gracePeriod !== null ? Long.fromValue(object.gracePeriod) : Long.ZERO;
+    message.expiresAt = object.expiresAt !== undefined && object.expiresAt !== null ? BigInt(object.expiresAt.toString()) : BigInt(0);
+    message.completedAt = object.completedAt !== undefined && object.completedAt !== null ? BigInt(object.completedAt.toString()) : BigInt(0);
+    message.gracePeriod = object.gracePeriod !== undefined && object.gracePeriod !== null ? BigInt(object.gracePeriod.toString()) : BigInt(0);
     message.module = object.module ?? "";
     message.moduleMetadata = object.moduleMetadata !== undefined && object.moduleMetadata !== null ? Any.fromPartial(object.moduleMetadata) : undefined;
     return message;
+  },
+  fromAmino(object: SigningSessionAmino): SigningSession {
+    return {
+      id: BigInt(object.id),
+      multiSig: object?.multi_sig ? MultiSig.fromAmino(object.multi_sig) : undefined,
+      state: isSet(object.state) ? multisigStateFromJSON(object.state) : -1,
+      key: object?.key ? Key.fromAmino(object.key) : undefined,
+      expiresAt: BigInt(object.expires_at),
+      completedAt: BigInt(object.completed_at),
+      gracePeriod: BigInt(object.grace_period),
+      module: object.module,
+      moduleMetadata: object?.module_metadata ? Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.module_metadata) : undefined
+    };
+  },
+  toAmino(message: SigningSession): SigningSessionAmino {
+    const obj: any = {};
+    obj.id = message.id ? message.id.toString() : undefined;
+    obj.multi_sig = message.multiSig ? MultiSig.toAmino(message.multiSig) : undefined;
+    obj.state = message.state;
+    obj.key = message.key ? Key.toAmino(message.key) : undefined;
+    obj.expires_at = message.expiresAt ? message.expiresAt.toString() : undefined;
+    obj.completed_at = message.completedAt ? message.completedAt.toString() : undefined;
+    obj.grace_period = message.gracePeriod ? message.gracePeriod.toString() : undefined;
+    obj.module = message.module;
+    obj.module_metadata = message.moduleMetadata ? Github_com_cosmos_codec_ProtoMarshaler_ToAmino((message.moduleMetadata as Any)) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SigningSessionAminoMsg): SigningSession {
+    return SigningSession.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SigningSessionProtoMsg): SigningSession {
+    return SigningSession.decode(message.value);
+  },
+  toProto(message: SigningSession): Uint8Array {
+    return SigningSession.encode(message).finish();
+  },
+  toProtoMsg(message: SigningSession): SigningSessionProtoMsg {
+    return {
+      typeUrl: "/axelar.multisig.v1beta1.SigningSession",
+      value: SigningSession.encode(message).finish()
+    };
   }
 };
 function createBaseKeyEpoch(): KeyEpoch {
   return {
-    epoch: Long.UZERO,
+    epoch: BigInt(0),
     chain: "",
     keyId: ""
   };
 }
 export const KeyEpoch = {
-  encode(message: KeyEpoch, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.epoch.isZero()) {
+  typeUrl: "/axelar.multisig.v1beta1.KeyEpoch",
+  encode(message: KeyEpoch, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.epoch !== BigInt(0)) {
       writer.uint32(8).uint64(message.epoch);
     }
     if (message.chain !== "") {
@@ -480,16 +840,59 @@ export const KeyEpoch = {
   },
   fromJSON(object: any): KeyEpoch {
     return {
-      epoch: isSet(object.epoch) ? Long.fromValue(object.epoch) : Long.UZERO,
+      epoch: isSet(object.epoch) ? BigInt(object.epoch.toString()) : BigInt(0),
       chain: isSet(object.chain) ? String(object.chain) : "",
       keyId: isSet(object.keyId) ? String(object.keyId) : ""
     };
   },
   fromPartial(object: Partial<KeyEpoch>): KeyEpoch {
     const message = createBaseKeyEpoch();
-    message.epoch = object.epoch !== undefined && object.epoch !== null ? Long.fromValue(object.epoch) : Long.UZERO;
+    message.epoch = object.epoch !== undefined && object.epoch !== null ? BigInt(object.epoch.toString()) : BigInt(0);
     message.chain = object.chain ?? "";
     message.keyId = object.keyId ?? "";
     return message;
+  },
+  fromAmino(object: KeyEpochAmino): KeyEpoch {
+    return {
+      epoch: BigInt(object.epoch),
+      chain: object.chain,
+      keyId: object.key_id
+    };
+  },
+  toAmino(message: KeyEpoch): KeyEpochAmino {
+    const obj: any = {};
+    obj.epoch = message.epoch ? message.epoch.toString() : undefined;
+    obj.chain = message.chain;
+    obj.key_id = message.keyId;
+    return obj;
+  },
+  fromAminoMsg(object: KeyEpochAminoMsg): KeyEpoch {
+    return KeyEpoch.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeyEpochProtoMsg): KeyEpoch {
+    return KeyEpoch.decode(message.value);
+  },
+  toProto(message: KeyEpoch): Uint8Array {
+    return KeyEpoch.encode(message).finish();
+  },
+  toProtoMsg(message: KeyEpoch): KeyEpochProtoMsg {
+    return {
+      typeUrl: "/axelar.multisig.v1beta1.KeyEpoch",
+      value: KeyEpoch.encode(message).finish()
+    };
   }
+};
+export const Github_com_cosmos_codec_ProtoMarshaler_InterfaceDecoder = (input: BinaryReader | Uint8Array): Any => {
+  const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  const data = Any.decode(reader, reader.uint32());
+  switch (data.typeUrl) {
+    default:
+      return data;
+  }
+};
+export const Github_com_cosmos_codec_ProtoMarshaler_FromAmino = (content: AnyAmino) => {
+  return Any.fromAmino(content);
+};
+export const Github_com_cosmos_codec_ProtoMarshaler_ToAmino = (content: Any) => {
+  return Any.toAmino(content);
 };

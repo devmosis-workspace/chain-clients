@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryCurrentValsetRequest, QueryCurrentValsetResponse, QueryValsetRequestRequest, QueryValsetRequestResponse, QueryValsetConfirmRequest, QueryValsetConfirmResponse, QueryValsetConfirmsByNonceRequest, QueryValsetConfirmsByNonceResponse, QueryLastValsetRequestsRequest, QueryLastValsetRequestsResponse, QueryLastPendingValsetRequestByAddrRequest, QueryLastPendingValsetRequestByAddrResponse, QueryLastPendingBatchRequestByAddrRequest, QueryLastPendingBatchRequestByAddrResponse, QueryLastPendingLogicCallByAddrRequest, QueryLastPendingLogicCallByAddrResponse, QueryLastEventNonceByAddrRequest, QueryLastEventNonceByAddrResponse, QueryBatchFeeRequest, QueryBatchFeeResponse, QueryOutgoingTxBatchesRequest, QueryOutgoingTxBatchesResponse, QueryOutgoingLogicCallsRequest, QueryOutgoingLogicCallsResponse, QueryBatchRequestByNonceRequest, QueryBatchRequestByNonceResponse, QueryBatchConfirmsRequest, QueryBatchConfirmsResponse, QueryLogicConfirmsRequest, QueryLogicConfirmsResponse, QueryERC20ToDenomRequest, QueryERC20ToDenomResponse, QueryDenomToERC20Request, QueryDenomToERC20Response, QueryLastObservedEthBlockRequest, QueryLastObservedEthBlockResponse, QueryLastObservedEthNonceRequest, QueryLastObservedEthNonceResponse, QueryAttestationsRequest, QueryAttestationsResponse, QueryDelegateKeysByValidatorAddress, QueryDelegateKeysByValidatorAddressResponse, QueryDelegateKeysByEthAddress, QueryDelegateKeysByEthAddressResponse, QueryDelegateKeysByOrchestratorAddress, QueryDelegateKeysByOrchestratorAddressResponse, QueryPendingSendToEth, QueryPendingSendToEthResponse, QueryPendingIbcAutoForwards, QueryPendingIbcAutoForwardsResponse } from "./query";
 /** Query defines the gRPC querier service */
@@ -66,132 +66,132 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   currentValset(request: QueryCurrentValsetRequest = {}): Promise<QueryCurrentValsetResponse> {
     const data = QueryCurrentValsetRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "CurrentValset", data);
-    return promise.then(data => QueryCurrentValsetResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCurrentValsetResponse.decode(new BinaryReader(data)));
   }
   valsetRequest(request: QueryValsetRequestRequest): Promise<QueryValsetRequestResponse> {
     const data = QueryValsetRequestRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "ValsetRequest", data);
-    return promise.then(data => QueryValsetRequestResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryValsetRequestResponse.decode(new BinaryReader(data)));
   }
   valsetConfirm(request: QueryValsetConfirmRequest): Promise<QueryValsetConfirmResponse> {
     const data = QueryValsetConfirmRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "ValsetConfirm", data);
-    return promise.then(data => QueryValsetConfirmResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryValsetConfirmResponse.decode(new BinaryReader(data)));
   }
   valsetConfirmsByNonce(request: QueryValsetConfirmsByNonceRequest): Promise<QueryValsetConfirmsByNonceResponse> {
     const data = QueryValsetConfirmsByNonceRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "ValsetConfirmsByNonce", data);
-    return promise.then(data => QueryValsetConfirmsByNonceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryValsetConfirmsByNonceResponse.decode(new BinaryReader(data)));
   }
   lastValsetRequests(request: QueryLastValsetRequestsRequest = {}): Promise<QueryLastValsetRequestsResponse> {
     const data = QueryLastValsetRequestsRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "LastValsetRequests", data);
-    return promise.then(data => QueryLastValsetRequestsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLastValsetRequestsResponse.decode(new BinaryReader(data)));
   }
   lastPendingValsetRequestByAddr(request: QueryLastPendingValsetRequestByAddrRequest): Promise<QueryLastPendingValsetRequestByAddrResponse> {
     const data = QueryLastPendingValsetRequestByAddrRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "LastPendingValsetRequestByAddr", data);
-    return promise.then(data => QueryLastPendingValsetRequestByAddrResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLastPendingValsetRequestByAddrResponse.decode(new BinaryReader(data)));
   }
   lastPendingBatchRequestByAddr(request: QueryLastPendingBatchRequestByAddrRequest): Promise<QueryLastPendingBatchRequestByAddrResponse> {
     const data = QueryLastPendingBatchRequestByAddrRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "LastPendingBatchRequestByAddr", data);
-    return promise.then(data => QueryLastPendingBatchRequestByAddrResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLastPendingBatchRequestByAddrResponse.decode(new BinaryReader(data)));
   }
   lastPendingLogicCallByAddr(request: QueryLastPendingLogicCallByAddrRequest): Promise<QueryLastPendingLogicCallByAddrResponse> {
     const data = QueryLastPendingLogicCallByAddrRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "LastPendingLogicCallByAddr", data);
-    return promise.then(data => QueryLastPendingLogicCallByAddrResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLastPendingLogicCallByAddrResponse.decode(new BinaryReader(data)));
   }
   lastEventNonceByAddr(request: QueryLastEventNonceByAddrRequest): Promise<QueryLastEventNonceByAddrResponse> {
     const data = QueryLastEventNonceByAddrRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "LastEventNonceByAddr", data);
-    return promise.then(data => QueryLastEventNonceByAddrResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLastEventNonceByAddrResponse.decode(new BinaryReader(data)));
   }
   batchFees(request: QueryBatchFeeRequest = {}): Promise<QueryBatchFeeResponse> {
     const data = QueryBatchFeeRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "BatchFees", data);
-    return promise.then(data => QueryBatchFeeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBatchFeeResponse.decode(new BinaryReader(data)));
   }
   outgoingTxBatches(request: QueryOutgoingTxBatchesRequest = {}): Promise<QueryOutgoingTxBatchesResponse> {
     const data = QueryOutgoingTxBatchesRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "OutgoingTxBatches", data);
-    return promise.then(data => QueryOutgoingTxBatchesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOutgoingTxBatchesResponse.decode(new BinaryReader(data)));
   }
   outgoingLogicCalls(request: QueryOutgoingLogicCallsRequest = {}): Promise<QueryOutgoingLogicCallsResponse> {
     const data = QueryOutgoingLogicCallsRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "OutgoingLogicCalls", data);
-    return promise.then(data => QueryOutgoingLogicCallsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOutgoingLogicCallsResponse.decode(new BinaryReader(data)));
   }
   batchRequestByNonce(request: QueryBatchRequestByNonceRequest): Promise<QueryBatchRequestByNonceResponse> {
     const data = QueryBatchRequestByNonceRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "BatchRequestByNonce", data);
-    return promise.then(data => QueryBatchRequestByNonceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBatchRequestByNonceResponse.decode(new BinaryReader(data)));
   }
   batchConfirms(request: QueryBatchConfirmsRequest): Promise<QueryBatchConfirmsResponse> {
     const data = QueryBatchConfirmsRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "BatchConfirms", data);
-    return promise.then(data => QueryBatchConfirmsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBatchConfirmsResponse.decode(new BinaryReader(data)));
   }
   logicConfirms(request: QueryLogicConfirmsRequest): Promise<QueryLogicConfirmsResponse> {
     const data = QueryLogicConfirmsRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "LogicConfirms", data);
-    return promise.then(data => QueryLogicConfirmsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLogicConfirmsResponse.decode(new BinaryReader(data)));
   }
   eRC20ToDenom(request: QueryERC20ToDenomRequest): Promise<QueryERC20ToDenomResponse> {
     const data = QueryERC20ToDenomRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "ERC20ToDenom", data);
-    return promise.then(data => QueryERC20ToDenomResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryERC20ToDenomResponse.decode(new BinaryReader(data)));
   }
   denomToERC20(request: QueryDenomToERC20Request): Promise<QueryDenomToERC20Response> {
     const data = QueryDenomToERC20Request.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "DenomToERC20", data);
-    return promise.then(data => QueryDenomToERC20Response.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDenomToERC20Response.decode(new BinaryReader(data)));
   }
   getLastObservedEthBlock(request: QueryLastObservedEthBlockRequest): Promise<QueryLastObservedEthBlockResponse> {
     const data = QueryLastObservedEthBlockRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "GetLastObservedEthBlock", data);
-    return promise.then(data => QueryLastObservedEthBlockResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLastObservedEthBlockResponse.decode(new BinaryReader(data)));
   }
   getLastObservedEthNonce(request: QueryLastObservedEthNonceRequest): Promise<QueryLastObservedEthNonceResponse> {
     const data = QueryLastObservedEthNonceRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "GetLastObservedEthNonce", data);
-    return promise.then(data => QueryLastObservedEthNonceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLastObservedEthNonceResponse.decode(new BinaryReader(data)));
   }
   getAttestations(request: QueryAttestationsRequest): Promise<QueryAttestationsResponse> {
     const data = QueryAttestationsRequest.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "GetAttestations", data);
-    return promise.then(data => QueryAttestationsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAttestationsResponse.decode(new BinaryReader(data)));
   }
   getDelegateKeyByValidator(request: QueryDelegateKeysByValidatorAddress): Promise<QueryDelegateKeysByValidatorAddressResponse> {
     const data = QueryDelegateKeysByValidatorAddress.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "GetDelegateKeyByValidator", data);
-    return promise.then(data => QueryDelegateKeysByValidatorAddressResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDelegateKeysByValidatorAddressResponse.decode(new BinaryReader(data)));
   }
   getDelegateKeyByEth(request: QueryDelegateKeysByEthAddress): Promise<QueryDelegateKeysByEthAddressResponse> {
     const data = QueryDelegateKeysByEthAddress.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "GetDelegateKeyByEth", data);
-    return promise.then(data => QueryDelegateKeysByEthAddressResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDelegateKeysByEthAddressResponse.decode(new BinaryReader(data)));
   }
   getDelegateKeyByOrchestrator(request: QueryDelegateKeysByOrchestratorAddress): Promise<QueryDelegateKeysByOrchestratorAddressResponse> {
     const data = QueryDelegateKeysByOrchestratorAddress.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "GetDelegateKeyByOrchestrator", data);
-    return promise.then(data => QueryDelegateKeysByOrchestratorAddressResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDelegateKeysByOrchestratorAddressResponse.decode(new BinaryReader(data)));
   }
   getPendingSendToEth(request: QueryPendingSendToEth): Promise<QueryPendingSendToEthResponse> {
     const data = QueryPendingSendToEth.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "GetPendingSendToEth", data);
-    return promise.then(data => QueryPendingSendToEthResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPendingSendToEthResponse.decode(new BinaryReader(data)));
   }
   getPendingIbcAutoForwards(request: QueryPendingIbcAutoForwards): Promise<QueryPendingIbcAutoForwardsResponse> {
     const data = QueryPendingIbcAutoForwards.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Query", "GetPendingIbcAutoForwards", data);
-    return promise.then(data => QueryPendingIbcAutoForwardsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPendingIbcAutoForwardsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

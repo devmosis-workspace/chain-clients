@@ -1,26 +1,63 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet, isObject, bytesFromBase64 } from "../../../helpers";
 export interface QueueState_ItemsEntry {
   key: string;
-  value?: Item;
+  value: Item;
+}
+export interface QueueState_ItemsEntryProtoMsg {
+  typeUrl: string;
+  value: Uint8Array;
+}
+export interface QueueState_ItemsEntryAmino {
+  key: string;
+  value?: ItemAmino;
+}
+export interface QueueState_ItemsEntryAminoMsg {
+  type: string;
+  value: QueueState_ItemsEntryAmino;
 }
 export interface QueueState_ItemsEntrySDKType {
   key: string;
-  value?: ItemSDKType;
+  value: ItemSDKType;
 }
 export interface QueueState {
-  items?: {
+  items: {
     [key: string]: QueueState_Item;
   };
 }
-export interface QueueStateSDKType {
+export interface QueueStateProtoMsg {
+  typeUrl: "/axelar.utils.v1beta1.QueueState";
+  value: Uint8Array;
+}
+export interface QueueStateAmino {
   items?: {
+    [key: string]: QueueState_ItemAmino;
+  };
+}
+export interface QueueStateAminoMsg {
+  type: "/axelar.utils.v1beta1.QueueState";
+  value: QueueStateAmino;
+}
+export interface QueueStateSDKType {
+  items: {
     [key: string]: QueueState_ItemSDKType;
   };
 }
 export interface QueueState_Item {
   key: Uint8Array;
   value: Uint8Array;
+}
+export interface QueueState_ItemProtoMsg {
+  typeUrl: "/axelar.utils.v1beta1.Item";
+  value: Uint8Array;
+}
+export interface QueueState_ItemAmino {
+  key: Uint8Array;
+  value: Uint8Array;
+}
+export interface QueueState_ItemAminoMsg {
+  type: "/axelar.utils.v1beta1.Item";
+  value: QueueState_ItemAmino;
 }
 export interface QueueState_ItemSDKType {
   key: Uint8Array;
@@ -29,11 +66,11 @@ export interface QueueState_ItemSDKType {
 function createBaseQueueState_ItemsEntry(): QueueState_ItemsEntry {
   return {
     key: "",
-    value: undefined
+    value: Item.fromPartial({})
   };
 }
 export const QueueState_ItemsEntry = {
-  encode(message: QueueState_ItemsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueueState_ItemsEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -53,6 +90,27 @@ export const QueueState_ItemsEntry = {
     message.key = object.key ?? "";
     message.value = object.value !== undefined && object.value !== null ? Item.fromPartial(object.value) : undefined;
     return message;
+  },
+  fromAmino(object: QueueState_ItemsEntryAmino): QueueState_ItemsEntry {
+    return {
+      key: object.key,
+      value: object?.value ? Item.fromAmino(object.value) : undefined
+    };
+  },
+  toAmino(message: QueueState_ItemsEntry): QueueState_ItemsEntryAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value ? Item.toAmino(message.value) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueueState_ItemsEntryAminoMsg): QueueState_ItemsEntry {
+    return QueueState_ItemsEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueueState_ItemsEntryProtoMsg): QueueState_ItemsEntry {
+    return QueueState_ItemsEntry.decode(message.value);
+  },
+  toProto(message: QueueState_ItemsEntry): Uint8Array {
+    return QueueState_ItemsEntry.encode(message).finish();
   }
 };
 function createBaseQueueState(): QueueState {
@@ -61,7 +119,8 @@ function createBaseQueueState(): QueueState {
   };
 }
 export const QueueState = {
-  encode(message: QueueState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.utils.v1beta1.QueueState",
+  encode(message: QueueState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     Object.entries(message.items).forEach(([key, value]) => {
       QueueState_ItemsEntry.encode({
         key: (key as any),
@@ -91,6 +150,41 @@ export const QueueState = {
       return acc;
     }, {});
     return message;
+  },
+  fromAmino(object: QueueStateAmino): QueueState {
+    return {
+      items: isObject(object.items) ? Object.entries(object.items).reduce<{
+        [key: string]: Item;
+      }>((acc, [key, value]) => {
+        acc[key] = Item.fromAmino(value);
+        return acc;
+      }, {}) : {}
+    };
+  },
+  toAmino(message: QueueState): QueueStateAmino {
+    const obj: any = {};
+    obj.items = {};
+    if (message.items) {
+      Object.entries(message.items).forEach(([k, v]) => {
+        obj.items[k] = Item.toAmino(v);
+      });
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueueStateAminoMsg): QueueState {
+    return QueueState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueueStateProtoMsg): QueueState {
+    return QueueState.decode(message.value);
+  },
+  toProto(message: QueueState): Uint8Array {
+    return QueueState.encode(message).finish();
+  },
+  toProtoMsg(message: QueueState): QueueStateProtoMsg {
+    return {
+      typeUrl: "/axelar.utils.v1beta1.QueueState",
+      value: QueueState.encode(message).finish()
+    };
   }
 };
 function createBaseQueueState_Item(): QueueState_Item {
@@ -100,7 +194,8 @@ function createBaseQueueState_Item(): QueueState_Item {
   };
 }
 export const QueueState_Item = {
-  encode(message: QueueState_Item, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.utils.v1beta1.Item",
+  encode(message: QueueState_Item, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
@@ -120,5 +215,32 @@ export const QueueState_Item = {
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: QueueState_ItemAmino): QueueState_Item {
+    return {
+      key: object.key,
+      value: object.value
+    };
+  },
+  toAmino(message: QueueState_Item): QueueState_ItemAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: QueueState_ItemAminoMsg): QueueState_Item {
+    return QueueState_Item.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueueState_ItemProtoMsg): QueueState_Item {
+    return QueueState_Item.decode(message.value);
+  },
+  toProto(message: QueueState_Item): Uint8Array {
+    return QueueState_Item.encode(message).finish();
+  },
+  toProtoMsg(message: QueueState_Item): QueueState_ItemProtoMsg {
+    return {
+      typeUrl: "/axelar.utils.v1beta1.Item",
+      value: QueueState_Item.encode(message).finish()
+    };
   }
 };

@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryAllRateLimitsRequest, QueryAllRateLimitsResponse, QueryRateLimitRequest, QueryRateLimitResponse, QueryRateLimitsByChainIdRequest, QueryRateLimitsByChainIdResponse, QueryRateLimitsByChannelIdRequest, QueryRateLimitsByChannelIdResponse, QueryAllBlacklistedDenomsRequest, QueryAllBlacklistedDenomsResponse, QueryAllWhitelistedAddressesRequest, QueryAllWhitelistedAddressesResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -25,32 +25,32 @@ export class QueryClientImpl implements Query {
   allRateLimits(request: QueryAllRateLimitsRequest = {}): Promise<QueryAllRateLimitsResponse> {
     const data = QueryAllRateLimitsRequest.encode(request).finish();
     const promise = this.rpc.request("stride.ratelimit.Query", "AllRateLimits", data);
-    return promise.then(data => QueryAllRateLimitsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAllRateLimitsResponse.decode(new BinaryReader(data)));
   }
   rateLimit(request: QueryRateLimitRequest): Promise<QueryRateLimitResponse> {
     const data = QueryRateLimitRequest.encode(request).finish();
     const promise = this.rpc.request("stride.ratelimit.Query", "RateLimit", data);
-    return promise.then(data => QueryRateLimitResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRateLimitResponse.decode(new BinaryReader(data)));
   }
   rateLimitsByChainId(request: QueryRateLimitsByChainIdRequest): Promise<QueryRateLimitsByChainIdResponse> {
     const data = QueryRateLimitsByChainIdRequest.encode(request).finish();
     const promise = this.rpc.request("stride.ratelimit.Query", "RateLimitsByChainId", data);
-    return promise.then(data => QueryRateLimitsByChainIdResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRateLimitsByChainIdResponse.decode(new BinaryReader(data)));
   }
   rateLimitsByChannelId(request: QueryRateLimitsByChannelIdRequest): Promise<QueryRateLimitsByChannelIdResponse> {
     const data = QueryRateLimitsByChannelIdRequest.encode(request).finish();
     const promise = this.rpc.request("stride.ratelimit.Query", "RateLimitsByChannelId", data);
-    return promise.then(data => QueryRateLimitsByChannelIdResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRateLimitsByChannelIdResponse.decode(new BinaryReader(data)));
   }
   allBlacklistedDenoms(request: QueryAllBlacklistedDenomsRequest = {}): Promise<QueryAllBlacklistedDenomsResponse> {
     const data = QueryAllBlacklistedDenomsRequest.encode(request).finish();
     const promise = this.rpc.request("stride.ratelimit.Query", "AllBlacklistedDenoms", data);
-    return promise.then(data => QueryAllBlacklistedDenomsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAllBlacklistedDenomsResponse.decode(new BinaryReader(data)));
   }
   allWhitelistedAddresses(request: QueryAllWhitelistedAddressesRequest = {}): Promise<QueryAllWhitelistedAddressesResponse> {
     const data = QueryAllWhitelistedAddressesRequest.encode(request).finish();
     const promise = this.rpc.request("stride.ratelimit.Query", "AllWhitelistedAddresses", data);
-    return promise.then(data => QueryAllWhitelistedAddressesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAllWhitelistedAddressesResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

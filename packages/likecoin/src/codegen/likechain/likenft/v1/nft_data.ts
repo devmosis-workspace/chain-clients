@@ -1,25 +1,39 @@
-import { ClassParent, ClassParentSDKType } from "./class_data";
-import * as _m0 from "protobufjs/minimal";
+import { ClassParent, ClassParentAmino, ClassParentSDKType } from "./class_data";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64 } from "../../../helpers";
 export interface NFTData {
   metadata: Uint8Array;
-  classParent?: ClassParent;
+  classParent: ClassParent;
   toBeRevealed: boolean;
+}
+export interface NFTDataProtoMsg {
+  typeUrl: "/likechain.likenft.v1.NFTData";
+  value: Uint8Array;
+}
+export interface NFTDataAmino {
+  metadata: Uint8Array;
+  class_parent?: ClassParentAmino;
+  to_be_revealed: boolean;
+}
+export interface NFTDataAminoMsg {
+  type: "/likechain.likenft.v1.NFTData";
+  value: NFTDataAmino;
 }
 export interface NFTDataSDKType {
   metadata: Uint8Array;
-  class_parent?: ClassParentSDKType;
+  class_parent: ClassParentSDKType;
   to_be_revealed: boolean;
 }
 function createBaseNFTData(): NFTData {
   return {
     metadata: new Uint8Array(),
-    classParent: undefined,
+    classParent: ClassParent.fromPartial({}),
     toBeRevealed: false
   };
 }
 export const NFTData = {
-  encode(message: NFTData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.likenft.v1.NFTData",
+  encode(message: NFTData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.metadata.length !== 0) {
       writer.uint32(10).bytes(message.metadata);
     }
@@ -44,5 +58,34 @@ export const NFTData = {
     message.classParent = object.classParent !== undefined && object.classParent !== null ? ClassParent.fromPartial(object.classParent) : undefined;
     message.toBeRevealed = object.toBeRevealed ?? false;
     return message;
+  },
+  fromAmino(object: NFTDataAmino): NFTData {
+    return {
+      metadata: object.metadata,
+      classParent: object?.class_parent ? ClassParent.fromAmino(object.class_parent) : undefined,
+      toBeRevealed: object.to_be_revealed
+    };
+  },
+  toAmino(message: NFTData): NFTDataAmino {
+    const obj: any = {};
+    obj.metadata = message.metadata;
+    obj.class_parent = message.classParent ? ClassParent.toAmino(message.classParent) : undefined;
+    obj.to_be_revealed = message.toBeRevealed;
+    return obj;
+  },
+  fromAminoMsg(object: NFTDataAminoMsg): NFTData {
+    return NFTData.fromAmino(object.value);
+  },
+  fromProtoMsg(message: NFTDataProtoMsg): NFTData {
+    return NFTData.decode(message.value);
+  },
+  toProto(message: NFTData): Uint8Array {
+    return NFTData.encode(message).finish();
+  },
+  toProtoMsg(message: NFTData): NFTDataProtoMsg {
+    return {
+      typeUrl: "/likechain.likenft.v1.NFTData",
+      value: NFTData.encode(message).finish()
+    };
   }
 };

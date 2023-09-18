@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgRegisterRevenue, MsgRegisterRevenueResponse, MsgUpdateRevenue, MsgUpdateRevenueResponse, MsgCancelRevenue, MsgCancelRevenueResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the fees Msg service. */
 export interface Msg {
@@ -30,21 +30,21 @@ export class MsgClientImpl implements Msg {
   registerRevenue(request: MsgRegisterRevenue): Promise<MsgRegisterRevenueResponse> {
     const data = MsgRegisterRevenue.encode(request).finish();
     const promise = this.rpc.request("evmos.revenue.v1.Msg", "RegisterRevenue", data);
-    return promise.then(data => MsgRegisterRevenueResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRegisterRevenueResponse.decode(new BinaryReader(data)));
   }
   updateRevenue(request: MsgUpdateRevenue): Promise<MsgUpdateRevenueResponse> {
     const data = MsgUpdateRevenue.encode(request).finish();
     const promise = this.rpc.request("evmos.revenue.v1.Msg", "UpdateRevenue", data);
-    return promise.then(data => MsgUpdateRevenueResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateRevenueResponse.decode(new BinaryReader(data)));
   }
   cancelRevenue(request: MsgCancelRevenue): Promise<MsgCancelRevenueResponse> {
     const data = MsgCancelRevenue.encode(request).finish();
     const promise = this.rpc.request("evmos.revenue.v1.Msg", "CancelRevenue", data);
-    return promise.then(data => MsgCancelRevenueResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCancelRevenueResponse.decode(new BinaryReader(data)));
   }
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("evmos.revenue.v1.Msg", "UpdateParams", data);
-    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }

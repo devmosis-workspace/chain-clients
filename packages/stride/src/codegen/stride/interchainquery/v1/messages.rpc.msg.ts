@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgSubmitQueryResponse, MsgSubmitQueryResponseResponse } from "./messages";
 /** Msg defines the interchainquery Msg service. */
 export interface Msg {
@@ -15,6 +15,6 @@ export class MsgClientImpl implements Msg {
   submitQueryResponse(request: MsgSubmitQueryResponse): Promise<MsgSubmitQueryResponseResponse> {
     const data = MsgSubmitQueryResponse.encode(request).finish();
     const promise = this.rpc.request("stride.interchainquery.v1.Msg", "SubmitQueryResponse", data);
-    return promise.then(data => MsgSubmitQueryResponseResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSubmitQueryResponseResponse.decode(new BinaryReader(data)));
   }
 }

@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgIssueTokens, MsgIssueTokensResponse, MsgRedeemTokens, MsgRedeemTokensResponse, MsgBlockAddress, MsgBlockAddressResponse, MsgUnblockAddress, MsgUnblockAddressResponse, MsgSetPauseStatus, MsgSetPauseStatusResponse } from "./tx";
 /** Msg defines the issuance Msg service. */
 export interface Msg {
@@ -27,26 +27,26 @@ export class MsgClientImpl implements Msg {
   issueTokens(request: MsgIssueTokens): Promise<MsgIssueTokensResponse> {
     const data = MsgIssueTokens.encode(request).finish();
     const promise = this.rpc.request("kava.issuance.v1beta1.Msg", "IssueTokens", data);
-    return promise.then(data => MsgIssueTokensResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgIssueTokensResponse.decode(new BinaryReader(data)));
   }
   redeemTokens(request: MsgRedeemTokens): Promise<MsgRedeemTokensResponse> {
     const data = MsgRedeemTokens.encode(request).finish();
     const promise = this.rpc.request("kava.issuance.v1beta1.Msg", "RedeemTokens", data);
-    return promise.then(data => MsgRedeemTokensResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRedeemTokensResponse.decode(new BinaryReader(data)));
   }
   blockAddress(request: MsgBlockAddress): Promise<MsgBlockAddressResponse> {
     const data = MsgBlockAddress.encode(request).finish();
     const promise = this.rpc.request("kava.issuance.v1beta1.Msg", "BlockAddress", data);
-    return promise.then(data => MsgBlockAddressResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBlockAddressResponse.decode(new BinaryReader(data)));
   }
   unblockAddress(request: MsgUnblockAddress): Promise<MsgUnblockAddressResponse> {
     const data = MsgUnblockAddress.encode(request).finish();
     const promise = this.rpc.request("kava.issuance.v1beta1.Msg", "UnblockAddress", data);
-    return promise.then(data => MsgUnblockAddressResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUnblockAddressResponse.decode(new BinaryReader(data)));
   }
   setPauseStatus(request: MsgSetPauseStatus): Promise<MsgSetPauseStatusResponse> {
     const data = MsgSetPauseStatus.encode(request).finish();
     const promise = this.rpc.request("kava.issuance.v1beta1.Msg", "SetPauseStatus", data);
-    return promise.then(data => MsgSetPauseStatusResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSetPauseStatusResponse.decode(new BinaryReader(data)));
   }
 }

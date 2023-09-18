@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryScheduleRequest, QueryScheduleResponse, QuerySchedulesRequest, QuerySchedulesResponse } from "./query";
 /** Query defines the gRPC querier service for the incentives module */
@@ -19,14 +19,14 @@ export class QueryClientImpl implements Query {
   schedule(request: QueryScheduleRequest): Promise<QueryScheduleResponse> {
     const data = QueryScheduleRequest.encode(request).finish();
     const promise = this.rpc.request("mars.incentives.v1beta1.Query", "Schedule", data);
-    return promise.then(data => QueryScheduleResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryScheduleResponse.decode(new BinaryReader(data)));
   }
   schedules(request: QuerySchedulesRequest = {
     pagination: undefined
   }): Promise<QuerySchedulesResponse> {
     const data = QuerySchedulesRequest.encode(request).finish();
     const promise = this.rpc.request("mars.incentives.v1beta1.Query", "Schedules", data);
-    return promise.then(data => QuerySchedulesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySchedulesResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

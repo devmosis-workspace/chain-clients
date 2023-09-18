@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgCreateClawbackVestingAccount, MsgCreateClawbackVestingAccountResponse, MsgClawback, MsgClawbackResponse, MsgUpdateVestingFunder, MsgUpdateVestingFunderResponse, MsgConvertVestingAccount, MsgConvertVestingAccountResponse } from "./tx";
 /** Msg defines the vesting Msg service. */
 export interface Msg {
@@ -30,21 +30,21 @@ export class MsgClientImpl implements Msg {
   createClawbackVestingAccount(request: MsgCreateClawbackVestingAccount): Promise<MsgCreateClawbackVestingAccountResponse> {
     const data = MsgCreateClawbackVestingAccount.encode(request).finish();
     const promise = this.rpc.request("evmos.vesting.v1.Msg", "CreateClawbackVestingAccount", data);
-    return promise.then(data => MsgCreateClawbackVestingAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateClawbackVestingAccountResponse.decode(new BinaryReader(data)));
   }
   clawback(request: MsgClawback): Promise<MsgClawbackResponse> {
     const data = MsgClawback.encode(request).finish();
     const promise = this.rpc.request("evmos.vesting.v1.Msg", "Clawback", data);
-    return promise.then(data => MsgClawbackResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgClawbackResponse.decode(new BinaryReader(data)));
   }
   updateVestingFunder(request: MsgUpdateVestingFunder): Promise<MsgUpdateVestingFunderResponse> {
     const data = MsgUpdateVestingFunder.encode(request).finish();
     const promise = this.rpc.request("evmos.vesting.v1.Msg", "UpdateVestingFunder", data);
-    return promise.then(data => MsgUpdateVestingFunderResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateVestingFunderResponse.decode(new BinaryReader(data)));
   }
   convertVestingAccount(request: MsgConvertVestingAccount): Promise<MsgConvertVestingAccountResponse> {
     const data = MsgConvertVestingAccount.encode(request).finish();
     const promise = this.rpc.request("evmos.vesting.v1.Msg", "ConvertVestingAccount", data);
-    return promise.then(data => MsgConvertVestingAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgConvertVestingAccountResponse.decode(new BinaryReader(data)));
   }
 }

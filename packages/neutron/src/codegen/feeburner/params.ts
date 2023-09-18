@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../binary";
 import { isSet } from "../helpers";
 /** Params defines the parameters for the module. */
 export interface Params {
@@ -11,6 +11,26 @@ export interface Params {
   reserveAddress: string;
   /** Defines treasury address */
   treasuryAddress: string;
+}
+export interface ParamsProtoMsg {
+  typeUrl: "/neutron.feeburner.Params";
+  value: Uint8Array;
+}
+/** Params defines the parameters for the module. */
+export interface ParamsAmino {
+  /**
+   * Defines Neutron denom, which will be burned during fee processing, any
+   * other denom will be sent to Treasury
+   */
+  neutron_denom: string;
+  /** Deprecated in v0.4.4. Is not used anymore */
+  reserve_address: string;
+  /** Defines treasury address */
+  treasury_address: string;
+}
+export interface ParamsAminoMsg {
+  type: "/neutron.feeburner.Params";
+  value: ParamsAmino;
 }
 /** Params defines the parameters for the module. */
 export interface ParamsSDKType {
@@ -26,7 +46,8 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/neutron.feeburner.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.neutronDenom !== "") {
       writer.uint32(10).string(message.neutronDenom);
     }
@@ -51,5 +72,34 @@ export const Params = {
     message.reserveAddress = object.reserveAddress ?? "";
     message.treasuryAddress = object.treasuryAddress ?? "";
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      neutronDenom: object.neutron_denom,
+      reserveAddress: object.reserve_address,
+      treasuryAddress: object.treasury_address
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.neutron_denom = message.neutronDenom;
+    obj.reserve_address = message.reserveAddress;
+    obj.treasury_address = message.treasuryAddress;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/neutron.feeburner.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };

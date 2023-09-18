@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../../binary";
 import { isSet, bytesFromBase64 } from "../../../../helpers";
 /** IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware */
 export interface IncentivizedAcknowledgement {
@@ -8,6 +8,23 @@ export interface IncentivizedAcknowledgement {
   forwardRelayerAddress: string;
   /** success flag of the base application callback */
   underlyingAppSuccess: boolean;
+}
+export interface IncentivizedAcknowledgementProtoMsg {
+  typeUrl: "/ibc.applications.fee.v1.IncentivizedAcknowledgement";
+  value: Uint8Array;
+}
+/** IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware */
+export interface IncentivizedAcknowledgementAmino {
+  /** the underlying app acknowledgement bytes */
+  app_acknowledgement: Uint8Array;
+  /** the relayer address which submits the recv packet message */
+  forward_relayer_address: string;
+  /** success flag of the base application callback */
+  underlying_app_success: boolean;
+}
+export interface IncentivizedAcknowledgementAminoMsg {
+  type: "cosmos-sdk/IncentivizedAcknowledgement";
+  value: IncentivizedAcknowledgementAmino;
 }
 /** IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware */
 export interface IncentivizedAcknowledgementSDKType {
@@ -23,7 +40,8 @@ function createBaseIncentivizedAcknowledgement(): IncentivizedAcknowledgement {
   };
 }
 export const IncentivizedAcknowledgement = {
-  encode(message: IncentivizedAcknowledgement, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/ibc.applications.fee.v1.IncentivizedAcknowledgement",
+  encode(message: IncentivizedAcknowledgement, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.appAcknowledgement.length !== 0) {
       writer.uint32(10).bytes(message.appAcknowledgement);
     }
@@ -48,5 +66,40 @@ export const IncentivizedAcknowledgement = {
     message.forwardRelayerAddress = object.forwardRelayerAddress ?? "";
     message.underlyingAppSuccess = object.underlyingAppSuccess ?? false;
     return message;
+  },
+  fromAmino(object: IncentivizedAcknowledgementAmino): IncentivizedAcknowledgement {
+    return {
+      appAcknowledgement: object.app_acknowledgement,
+      forwardRelayerAddress: object.forward_relayer_address,
+      underlyingAppSuccess: object.underlying_app_success
+    };
+  },
+  toAmino(message: IncentivizedAcknowledgement): IncentivizedAcknowledgementAmino {
+    const obj: any = {};
+    obj.app_acknowledgement = message.appAcknowledgement;
+    obj.forward_relayer_address = message.forwardRelayerAddress;
+    obj.underlying_app_success = message.underlyingAppSuccess;
+    return obj;
+  },
+  fromAminoMsg(object: IncentivizedAcknowledgementAminoMsg): IncentivizedAcknowledgement {
+    return IncentivizedAcknowledgement.fromAmino(object.value);
+  },
+  toAminoMsg(message: IncentivizedAcknowledgement): IncentivizedAcknowledgementAminoMsg {
+    return {
+      type: "cosmos-sdk/IncentivizedAcknowledgement",
+      value: IncentivizedAcknowledgement.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: IncentivizedAcknowledgementProtoMsg): IncentivizedAcknowledgement {
+    return IncentivizedAcknowledgement.decode(message.value);
+  },
+  toProto(message: IncentivizedAcknowledgement): Uint8Array {
+    return IncentivizedAcknowledgement.encode(message).finish();
+  },
+  toProtoMsg(message: IncentivizedAcknowledgement): IncentivizedAcknowledgementProtoMsg {
+    return {
+      typeUrl: "/ibc.applications.fee.v1.IncentivizedAcknowledgement",
+      value: IncentivizedAcknowledgement.encode(message).finish()
+    };
   }
 };

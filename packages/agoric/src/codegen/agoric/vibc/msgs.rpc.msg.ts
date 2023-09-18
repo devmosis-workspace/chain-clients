@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { MsgSendPacket, MsgSendPacketResponse } from "./msgs";
 /** The module transactions. */
 export interface Msg {
@@ -15,6 +15,6 @@ export class MsgClientImpl implements Msg {
   sendPacket(request: MsgSendPacket): Promise<MsgSendPacketResponse> {
     const data = MsgSendPacket.encode(request).finish();
     const promise = this.rpc.request("agoric.vibc.Msg", "SendPacket", data);
-    return promise.then(data => MsgSendPacketResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSendPacketResponse.decode(new BinaryReader(data)));
   }
 }

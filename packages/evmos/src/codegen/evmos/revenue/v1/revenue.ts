@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /**
  * Revenue defines an instance that organizes fee distribution conditions for
@@ -18,6 +18,32 @@ export interface Revenue {
    */
   withdrawerAddress: string;
 }
+export interface RevenueProtoMsg {
+  typeUrl: "/evmos.revenue.v1.Revenue";
+  value: Uint8Array;
+}
+/**
+ * Revenue defines an instance that organizes fee distribution conditions for
+ * the owner of a given smart contract
+ */
+export interface RevenueAmino {
+  /** contract_address is the hex address of a registered contract */
+  contract_address: string;
+  /**
+   * deployer_address is the bech32 address of message sender. It must be the same as the origin EOA
+   * sending the transaction which deploys the contract
+   */
+  deployer_address: string;
+  /**
+   * withdrawer_address is the bech32 address of account receiving the transaction fees it defaults to
+   * deployer_address
+   */
+  withdrawer_address: string;
+}
+export interface RevenueAminoMsg {
+  type: "/evmos.revenue.v1.Revenue";
+  value: RevenueAmino;
+}
 /**
  * Revenue defines an instance that organizes fee distribution conditions for
  * the owner of a given smart contract
@@ -35,7 +61,8 @@ function createBaseRevenue(): Revenue {
   };
 }
 export const Revenue = {
-  encode(message: Revenue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.revenue.v1.Revenue",
+  encode(message: Revenue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.contractAddress !== "") {
       writer.uint32(10).string(message.contractAddress);
     }
@@ -60,5 +87,34 @@ export const Revenue = {
     message.deployerAddress = object.deployerAddress ?? "";
     message.withdrawerAddress = object.withdrawerAddress ?? "";
     return message;
+  },
+  fromAmino(object: RevenueAmino): Revenue {
+    return {
+      contractAddress: object.contract_address,
+      deployerAddress: object.deployer_address,
+      withdrawerAddress: object.withdrawer_address
+    };
+  },
+  toAmino(message: Revenue): RevenueAmino {
+    const obj: any = {};
+    obj.contract_address = message.contractAddress;
+    obj.deployer_address = message.deployerAddress;
+    obj.withdrawer_address = message.withdrawerAddress;
+    return obj;
+  },
+  fromAminoMsg(object: RevenueAminoMsg): Revenue {
+    return Revenue.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RevenueProtoMsg): Revenue {
+    return Revenue.decode(message.value);
+  },
+  toProto(message: Revenue): Uint8Array {
+    return Revenue.encode(message).finish();
+  },
+  toProtoMsg(message: Revenue): RevenueProtoMsg {
+    return {
+      typeUrl: "/evmos.revenue.v1.Revenue",
+      value: Revenue.encode(message).finish()
+    };
   }
 };

@@ -1,9 +1,22 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** QueryInterchainAccountFromAddressRequest is the request type for the Query/InterchainAccountAddress RPC */
 export interface QueryInterchainAccountFromAddressRequest {
   owner: string;
   connectionId: string;
+}
+export interface QueryInterchainAccountFromAddressRequestProtoMsg {
+  typeUrl: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressRequest";
+  value: Uint8Array;
+}
+/** QueryInterchainAccountFromAddressRequest is the request type for the Query/InterchainAccountAddress RPC */
+export interface QueryInterchainAccountFromAddressRequestAmino {
+  owner: string;
+  connection_id: string;
+}
+export interface QueryInterchainAccountFromAddressRequestAminoMsg {
+  type: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressRequest";
+  value: QueryInterchainAccountFromAddressRequestAmino;
 }
 /** QueryInterchainAccountFromAddressRequest is the request type for the Query/InterchainAccountAddress RPC */
 export interface QueryInterchainAccountFromAddressRequestSDKType {
@@ -13,6 +26,18 @@ export interface QueryInterchainAccountFromAddressRequestSDKType {
 /** QueryInterchainAccountFromAddressResponse the response type for the Query/InterchainAccountAddress RPC */
 export interface QueryInterchainAccountFromAddressResponse {
   interchainAccountAddress: string;
+}
+export interface QueryInterchainAccountFromAddressResponseProtoMsg {
+  typeUrl: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressResponse";
+  value: Uint8Array;
+}
+/** QueryInterchainAccountFromAddressResponse the response type for the Query/InterchainAccountAddress RPC */
+export interface QueryInterchainAccountFromAddressResponseAmino {
+  interchain_account_address: string;
+}
+export interface QueryInterchainAccountFromAddressResponseAminoMsg {
+  type: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressResponse";
+  value: QueryInterchainAccountFromAddressResponseAmino;
 }
 /** QueryInterchainAccountFromAddressResponse the response type for the Query/InterchainAccountAddress RPC */
 export interface QueryInterchainAccountFromAddressResponseSDKType {
@@ -25,7 +50,8 @@ function createBaseQueryInterchainAccountFromAddressRequest(): QueryInterchainAc
   };
 }
 export const QueryInterchainAccountFromAddressRequest = {
-  encode(message: QueryInterchainAccountFromAddressRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressRequest",
+  encode(message: QueryInterchainAccountFromAddressRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -45,6 +71,33 @@ export const QueryInterchainAccountFromAddressRequest = {
     message.owner = object.owner ?? "";
     message.connectionId = object.connectionId ?? "";
     return message;
+  },
+  fromAmino(object: QueryInterchainAccountFromAddressRequestAmino): QueryInterchainAccountFromAddressRequest {
+    return {
+      owner: object.owner,
+      connectionId: object.connection_id
+    };
+  },
+  toAmino(message: QueryInterchainAccountFromAddressRequest): QueryInterchainAccountFromAddressRequestAmino {
+    const obj: any = {};
+    obj.owner = message.owner;
+    obj.connection_id = message.connectionId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryInterchainAccountFromAddressRequestAminoMsg): QueryInterchainAccountFromAddressRequest {
+    return QueryInterchainAccountFromAddressRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryInterchainAccountFromAddressRequestProtoMsg): QueryInterchainAccountFromAddressRequest {
+    return QueryInterchainAccountFromAddressRequest.decode(message.value);
+  },
+  toProto(message: QueryInterchainAccountFromAddressRequest): Uint8Array {
+    return QueryInterchainAccountFromAddressRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryInterchainAccountFromAddressRequest): QueryInterchainAccountFromAddressRequestProtoMsg {
+    return {
+      typeUrl: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressRequest",
+      value: QueryInterchainAccountFromAddressRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryInterchainAccountFromAddressResponse(): QueryInterchainAccountFromAddressResponse {
@@ -53,7 +106,8 @@ function createBaseQueryInterchainAccountFromAddressResponse(): QueryInterchainA
   };
 }
 export const QueryInterchainAccountFromAddressResponse = {
-  encode(message: QueryInterchainAccountFromAddressResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressResponse",
+  encode(message: QueryInterchainAccountFromAddressResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.interchainAccountAddress !== "") {
       writer.uint32(10).string(message.interchainAccountAddress);
     }
@@ -68,5 +122,30 @@ export const QueryInterchainAccountFromAddressResponse = {
     const message = createBaseQueryInterchainAccountFromAddressResponse();
     message.interchainAccountAddress = object.interchainAccountAddress ?? "";
     return message;
+  },
+  fromAmino(object: QueryInterchainAccountFromAddressResponseAmino): QueryInterchainAccountFromAddressResponse {
+    return {
+      interchainAccountAddress: object.interchain_account_address
+    };
+  },
+  toAmino(message: QueryInterchainAccountFromAddressResponse): QueryInterchainAccountFromAddressResponseAmino {
+    const obj: any = {};
+    obj.interchain_account_address = message.interchainAccountAddress;
+    return obj;
+  },
+  fromAminoMsg(object: QueryInterchainAccountFromAddressResponseAminoMsg): QueryInterchainAccountFromAddressResponse {
+    return QueryInterchainAccountFromAddressResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryInterchainAccountFromAddressResponseProtoMsg): QueryInterchainAccountFromAddressResponse {
+    return QueryInterchainAccountFromAddressResponse.decode(message.value);
+  },
+  toProto(message: QueryInterchainAccountFromAddressResponse): Uint8Array {
+    return QueryInterchainAccountFromAddressResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryInterchainAccountFromAddressResponse): QueryInterchainAccountFromAddressResponseProtoMsg {
+    return {
+      typeUrl: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressResponse",
+      value: QueryInterchainAccountFromAddressResponse.encode(message).finish()
+    };
   }
 };

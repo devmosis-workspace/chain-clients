@@ -1,9 +1,21 @@
 import { Role, roleFromJSON } from "../exported/v1beta1/types";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64 } from "../../../helpers";
 export interface GovAccount {
   address: Uint8Array;
   role: Role;
+}
+export interface GovAccountProtoMsg {
+  typeUrl: "/axelar.permission.v1beta1.GovAccount";
+  value: Uint8Array;
+}
+export interface GovAccountAmino {
+  address: Uint8Array;
+  role: Role;
+}
+export interface GovAccountAminoMsg {
+  type: "/axelar.permission.v1beta1.GovAccount";
+  value: GovAccountAmino;
 }
 export interface GovAccountSDKType {
   address: Uint8Array;
@@ -16,7 +28,8 @@ function createBaseGovAccount(): GovAccount {
   };
 }
 export const GovAccount = {
-  encode(message: GovAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.permission.v1beta1.GovAccount",
+  encode(message: GovAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
     }
@@ -28,7 +41,7 @@ export const GovAccount = {
   fromJSON(object: any): GovAccount {
     return {
       address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(),
-      role: isSet(object.role) ? roleFromJSON(object.role) : 0
+      role: isSet(object.role) ? roleFromJSON(object.role) : -1
     };
   },
   fromPartial(object: Partial<GovAccount>): GovAccount {
@@ -36,5 +49,32 @@ export const GovAccount = {
     message.address = object.address ?? new Uint8Array();
     message.role = object.role ?? 0;
     return message;
+  },
+  fromAmino(object: GovAccountAmino): GovAccount {
+    return {
+      address: object.address,
+      role: isSet(object.role) ? roleFromJSON(object.role) : -1
+    };
+  },
+  toAmino(message: GovAccount): GovAccountAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.role = message.role;
+    return obj;
+  },
+  fromAminoMsg(object: GovAccountAminoMsg): GovAccount {
+    return GovAccount.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GovAccountProtoMsg): GovAccount {
+    return GovAccount.decode(message.value);
+  },
+  toProto(message: GovAccount): Uint8Array {
+    return GovAccount.encode(message).finish();
+  },
+  toProtoMsg(message: GovAccount): GovAccountProtoMsg {
+    return {
+      typeUrl: "/axelar.permission.v1beta1.GovAccount",
+      value: GovAccount.encode(message).finish()
+    };
   }
 };

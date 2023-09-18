@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgConvertCoin, MsgConvertCoinResponse, MsgConvertERC20, MsgConvertERC20Response, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the erc20 Msg service. */
 export interface Msg {
@@ -30,16 +30,16 @@ export class MsgClientImpl implements Msg {
   convertCoin(request: MsgConvertCoin): Promise<MsgConvertCoinResponse> {
     const data = MsgConvertCoin.encode(request).finish();
     const promise = this.rpc.request("evmos.erc20.v1.Msg", "ConvertCoin", data);
-    return promise.then(data => MsgConvertCoinResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgConvertCoinResponse.decode(new BinaryReader(data)));
   }
   convertERC20(request: MsgConvertERC20): Promise<MsgConvertERC20Response> {
     const data = MsgConvertERC20.encode(request).finish();
     const promise = this.rpc.request("evmos.erc20.v1.Msg", "ConvertERC20", data);
-    return promise.then(data => MsgConvertERC20Response.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgConvertERC20Response.decode(new BinaryReader(data)));
   }
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("evmos.erc20.v1.Msg", "UpdateParams", data);
-    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }

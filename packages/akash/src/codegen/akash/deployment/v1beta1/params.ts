@@ -1,21 +1,34 @@
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** Params defines the parameters for the x/deployment package */
 export interface Params {
-  deploymentMinDeposit?: Coin;
+  deploymentMinDeposit: Coin;
+}
+export interface ParamsProtoMsg {
+  typeUrl: "/akash.deployment.v1beta1.Params";
+  value: Uint8Array;
+}
+/** Params defines the parameters for the x/deployment package */
+export interface ParamsAmino {
+  deployment_min_deposit?: CoinAmino;
+}
+export interface ParamsAminoMsg {
+  type: "/akash.deployment.v1beta1.Params";
+  value: ParamsAmino;
 }
 /** Params defines the parameters for the x/deployment package */
 export interface ParamsSDKType {
-  deployment_min_deposit?: CoinSDKType;
+  deployment_min_deposit: CoinSDKType;
 }
 function createBaseParams(): Params {
   return {
-    deploymentMinDeposit: undefined
+    deploymentMinDeposit: Coin.fromPartial({})
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/akash.deployment.v1beta1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.deploymentMinDeposit !== undefined) {
       Coin.encode(message.deploymentMinDeposit, writer.uint32(10).fork()).ldelim();
     }
@@ -30,5 +43,30 @@ export const Params = {
     const message = createBaseParams();
     message.deploymentMinDeposit = object.deploymentMinDeposit !== undefined && object.deploymentMinDeposit !== null ? Coin.fromPartial(object.deploymentMinDeposit) : undefined;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      deploymentMinDeposit: object?.deployment_min_deposit ? Coin.fromAmino(object.deployment_min_deposit) : undefined
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.deployment_min_deposit = message.deploymentMinDeposit ? Coin.toAmino(message.deploymentMinDeposit) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/akash.deployment.v1beta1.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };

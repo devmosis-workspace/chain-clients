@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QuerySubmittedCorksRequest, QuerySubmittedCorksResponse, QueryCommitPeriodRequest, QueryCommitPeriodResponse, QueryCellarIDsRequest, QueryCellarIDsResponse, QueryScheduledCorksRequest, QueryScheduledCorksResponse, QueryScheduledBlockHeightsRequest, QueryScheduledBlockHeightsResponse, QueryScheduledCorksByBlockHeightRequest, QueryScheduledCorksByBlockHeightResponse } from "./query";
 /** Query defines the gRPC query service for the cork module. */
@@ -34,37 +34,37 @@ export class QueryClientImpl implements Query {
   queryParams(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("cork.v1.Query", "QueryParams", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   querySubmittedCorks(request: QuerySubmittedCorksRequest = {}): Promise<QuerySubmittedCorksResponse> {
     const data = QuerySubmittedCorksRequest.encode(request).finish();
     const promise = this.rpc.request("cork.v1.Query", "QuerySubmittedCorks", data);
-    return promise.then(data => QuerySubmittedCorksResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySubmittedCorksResponse.decode(new BinaryReader(data)));
   }
   queryCommitPeriod(request: QueryCommitPeriodRequest = {}): Promise<QueryCommitPeriodResponse> {
     const data = QueryCommitPeriodRequest.encode(request).finish();
     const promise = this.rpc.request("cork.v1.Query", "QueryCommitPeriod", data);
-    return promise.then(data => QueryCommitPeriodResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCommitPeriodResponse.decode(new BinaryReader(data)));
   }
   queryCellarIDs(request: QueryCellarIDsRequest = {}): Promise<QueryCellarIDsResponse> {
     const data = QueryCellarIDsRequest.encode(request).finish();
     const promise = this.rpc.request("cork.v1.Query", "QueryCellarIDs", data);
-    return promise.then(data => QueryCellarIDsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCellarIDsResponse.decode(new BinaryReader(data)));
   }
   queryScheduledCorks(request: QueryScheduledCorksRequest = {}): Promise<QueryScheduledCorksResponse> {
     const data = QueryScheduledCorksRequest.encode(request).finish();
     const promise = this.rpc.request("cork.v1.Query", "QueryScheduledCorks", data);
-    return promise.then(data => QueryScheduledCorksResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryScheduledCorksResponse.decode(new BinaryReader(data)));
   }
   queryScheduledBlockHeights(request: QueryScheduledBlockHeightsRequest = {}): Promise<QueryScheduledBlockHeightsResponse> {
     const data = QueryScheduledBlockHeightsRequest.encode(request).finish();
     const promise = this.rpc.request("cork.v1.Query", "QueryScheduledBlockHeights", data);
-    return promise.then(data => QueryScheduledBlockHeightsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryScheduledBlockHeightsResponse.decode(new BinaryReader(data)));
   }
   queryScheduledCorksByBlockHeight(request: QueryScheduledCorksByBlockHeightRequest): Promise<QueryScheduledCorksByBlockHeightResponse> {
     const data = QueryScheduledCorksByBlockHeightRequest.encode(request).finish();
     const promise = this.rpc.request("cork.v1.Query", "QueryScheduledCorksByBlockHeight", data);
-    return promise.then(data => QueryScheduledCorksByBlockHeightResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryScheduledCorksByBlockHeightResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

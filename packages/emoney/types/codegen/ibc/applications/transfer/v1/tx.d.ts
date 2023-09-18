@@ -1,7 +1,6 @@
-import { Coin, CoinSDKType } from "../../../../cosmos/base/v1beta1/coin";
-import { Height, HeightSDKType } from "../../../core/client/v1/client";
-import { Long } from "../../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../../../cosmos/base/v1beta1/coin";
+import { Height, HeightAmino, HeightSDKType } from "../../../core/client/v1/client";
+import { BinaryWriter } from "../../../../binary";
 /**
  * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
  * ICS20 enabled chains. See ICS Spec here:
@@ -13,7 +12,7 @@ export interface MsgTransfer {
     /** the channel by which the packet will be sent */
     sourceChannel: string;
     /** the tokens to be transferred */
-    token?: Coin;
+    token: Coin;
     /** the sender address */
     sender: string;
     /** the recipient address on the destination chain */
@@ -22,12 +21,47 @@ export interface MsgTransfer {
      * Timeout height relative to the current block height.
      * The timeout is disabled when set to 0.
      */
-    timeoutHeight?: Height;
+    timeoutHeight: Height;
     /**
      * Timeout timestamp (in nanoseconds) relative to the current block timestamp.
      * The timeout is disabled when set to 0.
      */
-    timeoutTimestamp: Long;
+    timeoutTimestamp: bigint;
+}
+export interface MsgTransferProtoMsg {
+    typeUrl: "/ibc.applications.transfer.v1.MsgTransfer";
+    value: Uint8Array;
+}
+/**
+ * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
+ * ICS20 enabled chains. See ICS Spec here:
+ * https://github.com/cosmos/ics/tree/master/spec/ics-020-fungible-token-transfer#data-structures
+ */
+export interface MsgTransferAmino {
+    /** the port on which the packet will be sent */
+    source_port: string;
+    /** the channel by which the packet will be sent */
+    source_channel: string;
+    /** the tokens to be transferred */
+    token?: CoinAmino;
+    /** the sender address */
+    sender: string;
+    /** the recipient address on the destination chain */
+    receiver: string;
+    /**
+     * Timeout height relative to the current block height.
+     * The timeout is disabled when set to 0.
+     */
+    timeout_height?: HeightAmino;
+    /**
+     * Timeout timestamp (in nanoseconds) relative to the current block timestamp.
+     * The timeout is disabled when set to 0.
+     */
+    timeout_timestamp: string;
+}
+export interface MsgTransferAminoMsg {
+    type: "cosmos-sdk/MsgTransfer";
+    value: MsgTransferAmino;
 }
 /**
  * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
@@ -37,25 +71,52 @@ export interface MsgTransfer {
 export interface MsgTransferSDKType {
     source_port: string;
     source_channel: string;
-    token?: CoinSDKType;
+    token: CoinSDKType;
     sender: string;
     receiver: string;
-    timeout_height?: HeightSDKType;
-    timeout_timestamp: Long;
+    timeout_height: HeightSDKType;
+    timeout_timestamp: bigint;
 }
 /** MsgTransferResponse defines the Msg/Transfer response type. */
 export interface MsgTransferResponse {
+}
+export interface MsgTransferResponseProtoMsg {
+    typeUrl: "/ibc.applications.transfer.v1.MsgTransferResponse";
+    value: Uint8Array;
+}
+/** MsgTransferResponse defines the Msg/Transfer response type. */
+export interface MsgTransferResponseAmino {
+}
+export interface MsgTransferResponseAminoMsg {
+    type: "cosmos-sdk/MsgTransferResponse";
+    value: MsgTransferResponseAmino;
 }
 /** MsgTransferResponse defines the Msg/Transfer response type. */
 export interface MsgTransferResponseSDKType {
 }
 export declare const MsgTransfer: {
-    encode(message: MsgTransfer, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgTransfer, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgTransfer;
     fromPartial(object: Partial<MsgTransfer>): MsgTransfer;
+    fromAmino(object: MsgTransferAmino): MsgTransfer;
+    toAmino(message: MsgTransfer): MsgTransferAmino;
+    fromAminoMsg(object: MsgTransferAminoMsg): MsgTransfer;
+    toAminoMsg(message: MsgTransfer): MsgTransferAminoMsg;
+    fromProtoMsg(message: MsgTransferProtoMsg): MsgTransfer;
+    toProto(message: MsgTransfer): Uint8Array;
+    toProtoMsg(message: MsgTransfer): MsgTransferProtoMsg;
 };
 export declare const MsgTransferResponse: {
-    encode(_: MsgTransferResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgTransferResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgTransferResponse;
     fromPartial(_: Partial<MsgTransferResponse>): MsgTransferResponse;
+    fromAmino(_: MsgTransferResponseAmino): MsgTransferResponse;
+    toAmino(_: MsgTransferResponse): MsgTransferResponseAmino;
+    fromAminoMsg(object: MsgTransferResponseAminoMsg): MsgTransferResponse;
+    toAminoMsg(message: MsgTransferResponse): MsgTransferResponseAminoMsg;
+    fromProtoMsg(message: MsgTransferResponseProtoMsg): MsgTransferResponse;
+    toProto(message: MsgTransferResponse): Uint8Array;
+    toProtoMsg(message: MsgTransferResponse): MsgTransferResponseProtoMsg;
 };

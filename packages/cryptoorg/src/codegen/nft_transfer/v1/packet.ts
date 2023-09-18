@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
  * NonFungibleTokenPacketData defines a struct for the packet payload
@@ -18,6 +18,33 @@ export interface NonFungibleTokenPacketData {
   sender: string;
   /** the recipient address on the destination chain */
   receiver: string;
+}
+export interface NonFungibleTokenPacketDataProtoMsg {
+  typeUrl: "/chainmain.nft_transfer.v1.NonFungibleTokenPacketData";
+  value: Uint8Array;
+}
+/**
+ * NonFungibleTokenPacketData defines a struct for the packet payload
+ * See NonFungibleTokenPacketData spec:
+ * https://github.com/cosmos/ibc/tree/master/spec/app/ics-721-nft-transfer#data-structures
+ */
+export interface NonFungibleTokenPacketDataAmino {
+  /** the class_id of tokens to be transferred */
+  class_id: string;
+  /** the class_uri of tokens to be transferred */
+  class_uri: string;
+  /** the non fungible tokens to be transferred (count should be equal to token_uris) */
+  token_ids: string[];
+  /** the non fungible tokens's uri to be transferred (count should be equal to token ids) */
+  token_uris: string[];
+  /** the sender address */
+  sender: string;
+  /** the recipient address on the destination chain */
+  receiver: string;
+}
+export interface NonFungibleTokenPacketDataAminoMsg {
+  type: "/chainmain.nft_transfer.v1.NonFungibleTokenPacketData";
+  value: NonFungibleTokenPacketDataAmino;
 }
 /**
  * NonFungibleTokenPacketData defines a struct for the packet payload
@@ -43,7 +70,8 @@ function createBaseNonFungibleTokenPacketData(): NonFungibleTokenPacketData {
   };
 }
 export const NonFungibleTokenPacketData = {
-  encode(message: NonFungibleTokenPacketData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/chainmain.nft_transfer.v1.NonFungibleTokenPacketData",
+  encode(message: NonFungibleTokenPacketData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.classId !== "") {
       writer.uint32(10).string(message.classId);
     }
@@ -83,5 +111,48 @@ export const NonFungibleTokenPacketData = {
     message.sender = object.sender ?? "";
     message.receiver = object.receiver ?? "";
     return message;
+  },
+  fromAmino(object: NonFungibleTokenPacketDataAmino): NonFungibleTokenPacketData {
+    return {
+      classId: object.class_id,
+      classUri: object.class_uri,
+      tokenIds: Array.isArray(object?.token_ids) ? object.token_ids.map((e: any) => e) : [],
+      tokenUris: Array.isArray(object?.token_uris) ? object.token_uris.map((e: any) => e) : [],
+      sender: object.sender,
+      receiver: object.receiver
+    };
+  },
+  toAmino(message: NonFungibleTokenPacketData): NonFungibleTokenPacketDataAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    obj.class_uri = message.classUri;
+    if (message.tokenIds) {
+      obj.token_ids = message.tokenIds.map(e => e);
+    } else {
+      obj.token_ids = [];
+    }
+    if (message.tokenUris) {
+      obj.token_uris = message.tokenUris.map(e => e);
+    } else {
+      obj.token_uris = [];
+    }
+    obj.sender = message.sender;
+    obj.receiver = message.receiver;
+    return obj;
+  },
+  fromAminoMsg(object: NonFungibleTokenPacketDataAminoMsg): NonFungibleTokenPacketData {
+    return NonFungibleTokenPacketData.fromAmino(object.value);
+  },
+  fromProtoMsg(message: NonFungibleTokenPacketDataProtoMsg): NonFungibleTokenPacketData {
+    return NonFungibleTokenPacketData.decode(message.value);
+  },
+  toProto(message: NonFungibleTokenPacketData): Uint8Array {
+    return NonFungibleTokenPacketData.encode(message).finish();
+  },
+  toProtoMsg(message: NonFungibleTokenPacketData): NonFungibleTokenPacketDataProtoMsg {
+    return {
+      typeUrl: "/chainmain.nft_transfer.v1.NonFungibleTokenPacketData",
+      value: NonFungibleTokenPacketData.encode(message).finish()
+    };
   }
 };

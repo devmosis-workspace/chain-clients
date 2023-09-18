@@ -1,11 +1,24 @@
-import { LegacyAminoPubKey, LegacyAminoPubKeySDKType } from "../../../cosmos/crypto/multisig/keys";
-import * as _m0 from "protobufjs/minimal";
+import { LegacyAminoPubKey, LegacyAminoPubKeyAmino, LegacyAminoPubKeySDKType } from "../../../cosmos/crypto/multisig/keys";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /**
  * QueryGovernanceKeyRequest is the request type for the
  * Query/GovernanceKey RPC method
  */
 export interface QueryGovernanceKeyRequest {}
+export interface QueryGovernanceKeyRequestProtoMsg {
+  typeUrl: "/axelar.permission.v1beta1.QueryGovernanceKeyRequest";
+  value: Uint8Array;
+}
+/**
+ * QueryGovernanceKeyRequest is the request type for the
+ * Query/GovernanceKey RPC method
+ */
+export interface QueryGovernanceKeyRequestAmino {}
+export interface QueryGovernanceKeyRequestAminoMsg {
+  type: "/axelar.permission.v1beta1.QueryGovernanceKeyRequest";
+  value: QueryGovernanceKeyRequestAmino;
+}
 /**
  * QueryGovernanceKeyRequest is the request type for the
  * Query/GovernanceKey RPC method
@@ -16,20 +29,36 @@ export interface QueryGovernanceKeyRequestSDKType {}
  * Query/GovernanceKey RPC method
  */
 export interface QueryGovernanceKeyResponse {
-  governanceKey?: LegacyAminoPubKey;
+  governanceKey: LegacyAminoPubKey;
+}
+export interface QueryGovernanceKeyResponseProtoMsg {
+  typeUrl: "/axelar.permission.v1beta1.QueryGovernanceKeyResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryGovernanceKeyResponse is the response type for the
+ * Query/GovernanceKey RPC method
+ */
+export interface QueryGovernanceKeyResponseAmino {
+  governance_key?: LegacyAminoPubKeyAmino;
+}
+export interface QueryGovernanceKeyResponseAminoMsg {
+  type: "/axelar.permission.v1beta1.QueryGovernanceKeyResponse";
+  value: QueryGovernanceKeyResponseAmino;
 }
 /**
  * QueryGovernanceKeyResponse is the response type for the
  * Query/GovernanceKey RPC method
  */
 export interface QueryGovernanceKeyResponseSDKType {
-  governance_key?: LegacyAminoPubKeySDKType;
+  governance_key: LegacyAminoPubKeySDKType;
 }
 function createBaseQueryGovernanceKeyRequest(): QueryGovernanceKeyRequest {
   return {};
 }
 export const QueryGovernanceKeyRequest = {
-  encode(_: QueryGovernanceKeyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.permission.v1beta1.QueryGovernanceKeyRequest",
+  encode(_: QueryGovernanceKeyRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryGovernanceKeyRequest {
@@ -38,15 +67,38 @@ export const QueryGovernanceKeyRequest = {
   fromPartial(_: Partial<QueryGovernanceKeyRequest>): QueryGovernanceKeyRequest {
     const message = createBaseQueryGovernanceKeyRequest();
     return message;
+  },
+  fromAmino(_: QueryGovernanceKeyRequestAmino): QueryGovernanceKeyRequest {
+    return {};
+  },
+  toAmino(_: QueryGovernanceKeyRequest): QueryGovernanceKeyRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryGovernanceKeyRequestAminoMsg): QueryGovernanceKeyRequest {
+    return QueryGovernanceKeyRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGovernanceKeyRequestProtoMsg): QueryGovernanceKeyRequest {
+    return QueryGovernanceKeyRequest.decode(message.value);
+  },
+  toProto(message: QueryGovernanceKeyRequest): Uint8Array {
+    return QueryGovernanceKeyRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGovernanceKeyRequest): QueryGovernanceKeyRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.permission.v1beta1.QueryGovernanceKeyRequest",
+      value: QueryGovernanceKeyRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryGovernanceKeyResponse(): QueryGovernanceKeyResponse {
   return {
-    governanceKey: undefined
+    governanceKey: LegacyAminoPubKey.fromPartial({})
   };
 }
 export const QueryGovernanceKeyResponse = {
-  encode(message: QueryGovernanceKeyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.permission.v1beta1.QueryGovernanceKeyResponse",
+  encode(message: QueryGovernanceKeyResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.governanceKey !== undefined) {
       LegacyAminoPubKey.encode(message.governanceKey, writer.uint32(10).fork()).ldelim();
     }
@@ -61,5 +113,30 @@ export const QueryGovernanceKeyResponse = {
     const message = createBaseQueryGovernanceKeyResponse();
     message.governanceKey = object.governanceKey !== undefined && object.governanceKey !== null ? LegacyAminoPubKey.fromPartial(object.governanceKey) : undefined;
     return message;
+  },
+  fromAmino(object: QueryGovernanceKeyResponseAmino): QueryGovernanceKeyResponse {
+    return {
+      governanceKey: object?.governance_key ? LegacyAminoPubKey.fromAmino(object.governance_key) : undefined
+    };
+  },
+  toAmino(message: QueryGovernanceKeyResponse): QueryGovernanceKeyResponseAmino {
+    const obj: any = {};
+    obj.governance_key = message.governanceKey ? LegacyAminoPubKey.toAmino(message.governanceKey) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGovernanceKeyResponseAminoMsg): QueryGovernanceKeyResponse {
+    return QueryGovernanceKeyResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGovernanceKeyResponseProtoMsg): QueryGovernanceKeyResponse {
+    return QueryGovernanceKeyResponse.decode(message.value);
+  },
+  toProto(message: QueryGovernanceKeyResponse): Uint8Array {
+    return QueryGovernanceKeyResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGovernanceKeyResponse): QueryGovernanceKeyResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.permission.v1beta1.QueryGovernanceKeyResponse",
+      value: QueryGovernanceKeyResponse.encode(message).finish()
+    };
   }
 };

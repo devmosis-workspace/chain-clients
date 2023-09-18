@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryTeamInfoRequest, QueryTeamInfoResponse, QueryTeamVestingAccountsRequest, QueryTeamVestingAccountsResponse, QueryTeamVestingAccountRequest, QueryTeamVestingAccountResponse, QueryTeamVestingStatusRequest, QueryTeamVestingStatusResponse, QueryTeamVestingStatusByTimeRequest, QueryTeamVestingStatusByTimeResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -28,27 +28,27 @@ export class QueryClientImpl implements Query {
   teamInfo(request: QueryTeamInfoRequest = {}): Promise<QueryTeamInfoResponse> {
     const data = QueryTeamInfoRequest.encode(request).finish();
     const promise = this.rpc.request("kyve.team.v1beta1.Query", "TeamInfo", data);
-    return promise.then(data => QueryTeamInfoResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTeamInfoResponse.decode(new BinaryReader(data)));
   }
   teamVestingAccounts(request: QueryTeamVestingAccountsRequest = {}): Promise<QueryTeamVestingAccountsResponse> {
     const data = QueryTeamVestingAccountsRequest.encode(request).finish();
     const promise = this.rpc.request("kyve.team.v1beta1.Query", "TeamVestingAccounts", data);
-    return promise.then(data => QueryTeamVestingAccountsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTeamVestingAccountsResponse.decode(new BinaryReader(data)));
   }
   teamVestingAccount(request: QueryTeamVestingAccountRequest): Promise<QueryTeamVestingAccountResponse> {
     const data = QueryTeamVestingAccountRequest.encode(request).finish();
     const promise = this.rpc.request("kyve.team.v1beta1.Query", "TeamVestingAccount", data);
-    return promise.then(data => QueryTeamVestingAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTeamVestingAccountResponse.decode(new BinaryReader(data)));
   }
   teamVestingStatus(request: QueryTeamVestingStatusRequest): Promise<QueryTeamVestingStatusResponse> {
     const data = QueryTeamVestingStatusRequest.encode(request).finish();
     const promise = this.rpc.request("kyve.team.v1beta1.Query", "TeamVestingStatus", data);
-    return promise.then(data => QueryTeamVestingStatusResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTeamVestingStatusResponse.decode(new BinaryReader(data)));
   }
   teamVestingStatusByTime(request: QueryTeamVestingStatusByTimeRequest): Promise<QueryTeamVestingStatusByTimeResponse> {
     const data = QueryTeamVestingStatusByTimeRequest.encode(request).finish();
     const promise = this.rpc.request("kyve.team.v1beta1.Query", "TeamVestingStatusByTime", data);
-    return promise.then(data => QueryTeamVestingStatusByTimeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTeamVestingStatusByTimeResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

@@ -27,5 +27,6 @@ export declare enum Downtime {
     UNRECOGNIZED = -1
 }
 export declare const DowntimeSDKType: typeof Downtime;
+export declare const DowntimeAmino: typeof Downtime;
 export declare function downtimeFromJSON(object: any): Downtime;
 export declare function downtimeToJSON(object: Downtime): string;

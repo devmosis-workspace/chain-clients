@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgSignProviderAttributes, MsgSignProviderAttributesResponse, MsgDeleteProviderAttributes, MsgDeleteProviderAttributesResponse } from "./audit";
 /** Msg defines the provider Msg service */
 export interface Msg {
@@ -18,11 +18,11 @@ export class MsgClientImpl implements Msg {
   signProviderAttributes(request: MsgSignProviderAttributes): Promise<MsgSignProviderAttributesResponse> {
     const data = MsgSignProviderAttributes.encode(request).finish();
     const promise = this.rpc.request("akash.audit.v1beta2.Msg", "SignProviderAttributes", data);
-    return promise.then(data => MsgSignProviderAttributesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSignProviderAttributesResponse.decode(new BinaryReader(data)));
   }
   deleteProviderAttributes(request: MsgDeleteProviderAttributes): Promise<MsgDeleteProviderAttributesResponse> {
     const data = MsgDeleteProviderAttributes.encode(request).finish();
     const promise = this.rpc.request("akash.audit.v1beta2.Msg", "DeleteProviderAttributes", data);
-    return promise.then(data => MsgDeleteProviderAttributesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDeleteProviderAttributesResponse.decode(new BinaryReader(data)));
   }
 }

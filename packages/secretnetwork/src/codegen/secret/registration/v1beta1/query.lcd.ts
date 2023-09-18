@@ -1,4 +1,4 @@
-import { LCDClient } from "@osmonauts/lcd";
+import { LCDClient } from "@cosmology/lcd";
 import { Empty } from "../../../google/protobuf/empty";
 import { KeySDKType } from "./msg";
 import { QueryEncryptedSeedRequest, QueryEncryptedSeedResponseSDKType } from "./query";

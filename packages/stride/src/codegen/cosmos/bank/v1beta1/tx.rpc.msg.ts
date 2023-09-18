@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgSend, MsgSendResponse, MsgMultiSend, MsgMultiSendResponse, MsgUpdateParams, MsgUpdateParamsResponse, MsgSetSendEnabled, MsgSetSendEnabledResponse } from "./tx";
 /** Msg defines the bank Msg service. */
 export interface Msg {
@@ -36,21 +36,21 @@ export class MsgClientImpl implements Msg {
   send(request: MsgSend): Promise<MsgSendResponse> {
     const data = MsgSend.encode(request).finish();
     const promise = this.rpc.request("cosmos.bank.v1beta1.Msg", "Send", data);
-    return promise.then(data => MsgSendResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSendResponse.decode(new BinaryReader(data)));
   }
   multiSend(request: MsgMultiSend): Promise<MsgMultiSendResponse> {
     const data = MsgMultiSend.encode(request).finish();
     const promise = this.rpc.request("cosmos.bank.v1beta1.Msg", "MultiSend", data);
-    return promise.then(data => MsgMultiSendResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgMultiSendResponse.decode(new BinaryReader(data)));
   }
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("cosmos.bank.v1beta1.Msg", "UpdateParams", data);
-    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
   setSendEnabled(request: MsgSetSendEnabled): Promise<MsgSetSendEnabledResponse> {
     const data = MsgSetSendEnabled.encode(request).finish();
     const promise = this.rpc.request("cosmos.bank.v1beta1.Msg", "SetSendEnabled", data);
-    return promise.then(data => MsgSetSendEnabledResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSetSendEnabledResponse.decode(new BinaryReader(data)));
   }
 }

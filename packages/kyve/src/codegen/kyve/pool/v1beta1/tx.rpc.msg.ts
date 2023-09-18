@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgFundPool, MsgFundPoolResponse, MsgDefundPool, MsgDefundPoolResponse, MsgCreatePool, MsgCreatePoolResponse, MsgUpdatePool, MsgUpdatePoolResponse, MsgDisablePool, MsgDisablePoolResponse, MsgEnablePool, MsgEnablePoolResponse, MsgScheduleRuntimeUpgrade, MsgScheduleRuntimeUpgradeResponse, MsgCancelRuntimeUpgrade, MsgCancelRuntimeUpgradeResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the Msg service. */
 export interface Msg {
@@ -60,46 +60,46 @@ export class MsgClientImpl implements Msg {
   fundPool(request: MsgFundPool): Promise<MsgFundPoolResponse> {
     const data = MsgFundPool.encode(request).finish();
     const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "FundPool", data);
-    return promise.then(data => MsgFundPoolResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgFundPoolResponse.decode(new BinaryReader(data)));
   }
   defundPool(request: MsgDefundPool): Promise<MsgDefundPoolResponse> {
     const data = MsgDefundPool.encode(request).finish();
     const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "DefundPool", data);
-    return promise.then(data => MsgDefundPoolResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDefundPoolResponse.decode(new BinaryReader(data)));
   }
   createPool(request: MsgCreatePool): Promise<MsgCreatePoolResponse> {
     const data = MsgCreatePool.encode(request).finish();
     const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "CreatePool", data);
-    return promise.then(data => MsgCreatePoolResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreatePoolResponse.decode(new BinaryReader(data)));
   }
   updatePool(request: MsgUpdatePool): Promise<MsgUpdatePoolResponse> {
     const data = MsgUpdatePool.encode(request).finish();
     const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "UpdatePool", data);
-    return promise.then(data => MsgUpdatePoolResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdatePoolResponse.decode(new BinaryReader(data)));
   }
   disablePool(request: MsgDisablePool): Promise<MsgDisablePoolResponse> {
     const data = MsgDisablePool.encode(request).finish();
     const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "DisablePool", data);
-    return promise.then(data => MsgDisablePoolResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDisablePoolResponse.decode(new BinaryReader(data)));
   }
   enablePool(request: MsgEnablePool): Promise<MsgEnablePoolResponse> {
     const data = MsgEnablePool.encode(request).finish();
     const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "EnablePool", data);
-    return promise.then(data => MsgEnablePoolResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgEnablePoolResponse.decode(new BinaryReader(data)));
   }
   scheduleRuntimeUpgrade(request: MsgScheduleRuntimeUpgrade): Promise<MsgScheduleRuntimeUpgradeResponse> {
     const data = MsgScheduleRuntimeUpgrade.encode(request).finish();
     const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "ScheduleRuntimeUpgrade", data);
-    return promise.then(data => MsgScheduleRuntimeUpgradeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgScheduleRuntimeUpgradeResponse.decode(new BinaryReader(data)));
   }
   cancelRuntimeUpgrade(request: MsgCancelRuntimeUpgrade): Promise<MsgCancelRuntimeUpgradeResponse> {
     const data = MsgCancelRuntimeUpgrade.encode(request).finish();
     const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "CancelRuntimeUpgrade", data);
-    return promise.then(data => MsgCancelRuntimeUpgradeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCancelRuntimeUpgradeResponse.decode(new BinaryReader(data)));
   }
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "UpdateParams", data);
-    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }

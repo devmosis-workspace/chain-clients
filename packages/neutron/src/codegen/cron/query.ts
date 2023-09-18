@@ -1,48 +1,115 @@
-import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../cosmos/base/query/v1beta1/pagination";
-import { Params, ParamsSDKType } from "./params";
-import { Schedule, ScheduleSDKType } from "./schedule";
-import * as _m0 from "protobufjs/minimal";
+import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../cosmos/base/query/v1beta1/pagination";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { Schedule, ScheduleAmino, ScheduleSDKType } from "./schedule";
+import { BinaryWriter } from "../binary";
 import { isSet } from "../helpers";
 export interface QueryParamsRequest {}
+export interface QueryParamsRequestProtoMsg {
+  typeUrl: "/neutron.cron.QueryParamsRequest";
+  value: Uint8Array;
+}
+export interface QueryParamsRequestAmino {}
+export interface QueryParamsRequestAminoMsg {
+  type: "/neutron.cron.QueryParamsRequest";
+  value: QueryParamsRequestAmino;
+}
 export interface QueryParamsRequestSDKType {}
 export interface QueryParamsResponse {
   /** params holds all the parameters of this module. */
-  params?: Params;
+  params: Params;
+}
+export interface QueryParamsResponseProtoMsg {
+  typeUrl: "/neutron.cron.QueryParamsResponse";
+  value: Uint8Array;
+}
+export interface QueryParamsResponseAmino {
+  /** params holds all the parameters of this module. */
+  params?: ParamsAmino;
+}
+export interface QueryParamsResponseAminoMsg {
+  type: "/neutron.cron.QueryParamsResponse";
+  value: QueryParamsResponseAmino;
 }
 export interface QueryParamsResponseSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
 }
 export interface QueryGetScheduleRequest {
   name: string;
+}
+export interface QueryGetScheduleRequestProtoMsg {
+  typeUrl: "/neutron.cron.QueryGetScheduleRequest";
+  value: Uint8Array;
+}
+export interface QueryGetScheduleRequestAmino {
+  name: string;
+}
+export interface QueryGetScheduleRequestAminoMsg {
+  type: "/neutron.cron.QueryGetScheduleRequest";
+  value: QueryGetScheduleRequestAmino;
 }
 export interface QueryGetScheduleRequestSDKType {
   name: string;
 }
 export interface QueryGetScheduleResponse {
-  schedule?: Schedule;
+  schedule: Schedule;
+}
+export interface QueryGetScheduleResponseProtoMsg {
+  typeUrl: "/neutron.cron.QueryGetScheduleResponse";
+  value: Uint8Array;
+}
+export interface QueryGetScheduleResponseAmino {
+  schedule?: ScheduleAmino;
+}
+export interface QueryGetScheduleResponseAminoMsg {
+  type: "/neutron.cron.QueryGetScheduleResponse";
+  value: QueryGetScheduleResponseAmino;
 }
 export interface QueryGetScheduleResponseSDKType {
-  schedule?: ScheduleSDKType;
+  schedule: ScheduleSDKType;
 }
 export interface QuerySchedulesRequest {
-  pagination?: PageRequest;
+  pagination: PageRequest;
+}
+export interface QuerySchedulesRequestProtoMsg {
+  typeUrl: "/neutron.cron.QuerySchedulesRequest";
+  value: Uint8Array;
+}
+export interface QuerySchedulesRequestAmino {
+  pagination?: PageRequestAmino;
+}
+export interface QuerySchedulesRequestAminoMsg {
+  type: "/neutron.cron.QuerySchedulesRequest";
+  value: QuerySchedulesRequestAmino;
 }
 export interface QuerySchedulesRequestSDKType {
-  pagination?: PageRequestSDKType;
+  pagination: PageRequestSDKType;
 }
 export interface QuerySchedulesResponse {
   schedules: Schedule[];
-  pagination?: PageResponse;
+  pagination: PageResponse;
+}
+export interface QuerySchedulesResponseProtoMsg {
+  typeUrl: "/neutron.cron.QuerySchedulesResponse";
+  value: Uint8Array;
+}
+export interface QuerySchedulesResponseAmino {
+  schedules: ScheduleAmino[];
+  pagination?: PageResponseAmino;
+}
+export interface QuerySchedulesResponseAminoMsg {
+  type: "/neutron.cron.QuerySchedulesResponse";
+  value: QuerySchedulesResponseAmino;
 }
 export interface QuerySchedulesResponseSDKType {
   schedules: ScheduleSDKType[];
-  pagination?: PageResponseSDKType;
+  pagination: PageResponseSDKType;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
 export const QueryParamsRequest = {
-  encode(_: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/neutron.cron.QueryParamsRequest",
+  encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryParamsRequest {
@@ -51,15 +118,38 @@ export const QueryParamsRequest = {
   fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
+  },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsRequestProtoMsg): QueryParamsRequest {
+    return QueryParamsRequest.decode(message.value);
+  },
+  toProto(message: QueryParamsRequest): Uint8Array {
+    return QueryParamsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsRequest): QueryParamsRequestProtoMsg {
+    return {
+      typeUrl: "/neutron.cron.QueryParamsRequest",
+      value: QueryParamsRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: undefined
+    params: Params.fromPartial({})
   };
 }
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/neutron.cron.QueryParamsResponse",
+  encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -74,6 +164,31 @@ export const QueryParamsResponse = {
     const message = createBaseQueryParamsResponse();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsResponseProtoMsg): QueryParamsResponse {
+    return QueryParamsResponse.decode(message.value);
+  },
+  toProto(message: QueryParamsResponse): Uint8Array {
+    return QueryParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg {
+    return {
+      typeUrl: "/neutron.cron.QueryParamsResponse",
+      value: QueryParamsResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryGetScheduleRequest(): QueryGetScheduleRequest {
@@ -82,7 +197,8 @@ function createBaseQueryGetScheduleRequest(): QueryGetScheduleRequest {
   };
 }
 export const QueryGetScheduleRequest = {
-  encode(message: QueryGetScheduleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/neutron.cron.QueryGetScheduleRequest",
+  encode(message: QueryGetScheduleRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -97,15 +213,41 @@ export const QueryGetScheduleRequest = {
     const message = createBaseQueryGetScheduleRequest();
     message.name = object.name ?? "";
     return message;
+  },
+  fromAmino(object: QueryGetScheduleRequestAmino): QueryGetScheduleRequest {
+    return {
+      name: object.name
+    };
+  },
+  toAmino(message: QueryGetScheduleRequest): QueryGetScheduleRequestAmino {
+    const obj: any = {};
+    obj.name = message.name;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGetScheduleRequestAminoMsg): QueryGetScheduleRequest {
+    return QueryGetScheduleRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGetScheduleRequestProtoMsg): QueryGetScheduleRequest {
+    return QueryGetScheduleRequest.decode(message.value);
+  },
+  toProto(message: QueryGetScheduleRequest): Uint8Array {
+    return QueryGetScheduleRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGetScheduleRequest): QueryGetScheduleRequestProtoMsg {
+    return {
+      typeUrl: "/neutron.cron.QueryGetScheduleRequest",
+      value: QueryGetScheduleRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryGetScheduleResponse(): QueryGetScheduleResponse {
   return {
-    schedule: undefined
+    schedule: Schedule.fromPartial({})
   };
 }
 export const QueryGetScheduleResponse = {
-  encode(message: QueryGetScheduleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/neutron.cron.QueryGetScheduleResponse",
+  encode(message: QueryGetScheduleResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.schedule !== undefined) {
       Schedule.encode(message.schedule, writer.uint32(10).fork()).ldelim();
     }
@@ -120,15 +262,41 @@ export const QueryGetScheduleResponse = {
     const message = createBaseQueryGetScheduleResponse();
     message.schedule = object.schedule !== undefined && object.schedule !== null ? Schedule.fromPartial(object.schedule) : undefined;
     return message;
+  },
+  fromAmino(object: QueryGetScheduleResponseAmino): QueryGetScheduleResponse {
+    return {
+      schedule: object?.schedule ? Schedule.fromAmino(object.schedule) : undefined
+    };
+  },
+  toAmino(message: QueryGetScheduleResponse): QueryGetScheduleResponseAmino {
+    const obj: any = {};
+    obj.schedule = message.schedule ? Schedule.toAmino(message.schedule) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGetScheduleResponseAminoMsg): QueryGetScheduleResponse {
+    return QueryGetScheduleResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGetScheduleResponseProtoMsg): QueryGetScheduleResponse {
+    return QueryGetScheduleResponse.decode(message.value);
+  },
+  toProto(message: QueryGetScheduleResponse): Uint8Array {
+    return QueryGetScheduleResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGetScheduleResponse): QueryGetScheduleResponseProtoMsg {
+    return {
+      typeUrl: "/neutron.cron.QueryGetScheduleResponse",
+      value: QueryGetScheduleResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQuerySchedulesRequest(): QuerySchedulesRequest {
   return {
-    pagination: undefined
+    pagination: PageRequest.fromPartial({})
   };
 }
 export const QuerySchedulesRequest = {
-  encode(message: QuerySchedulesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/neutron.cron.QuerySchedulesRequest",
+  encode(message: QuerySchedulesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
@@ -143,16 +311,42 @@ export const QuerySchedulesRequest = {
     const message = createBaseQuerySchedulesRequest();
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
     return message;
+  },
+  fromAmino(object: QuerySchedulesRequestAmino): QuerySchedulesRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
+    };
+  },
+  toAmino(message: QuerySchedulesRequest): QuerySchedulesRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySchedulesRequestAminoMsg): QuerySchedulesRequest {
+    return QuerySchedulesRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QuerySchedulesRequestProtoMsg): QuerySchedulesRequest {
+    return QuerySchedulesRequest.decode(message.value);
+  },
+  toProto(message: QuerySchedulesRequest): Uint8Array {
+    return QuerySchedulesRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QuerySchedulesRequest): QuerySchedulesRequestProtoMsg {
+    return {
+      typeUrl: "/neutron.cron.QuerySchedulesRequest",
+      value: QuerySchedulesRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQuerySchedulesResponse(): QuerySchedulesResponse {
   return {
     schedules: [],
-    pagination: undefined
+    pagination: PageResponse.fromPartial({})
   };
 }
 export const QuerySchedulesResponse = {
-  encode(message: QuerySchedulesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/neutron.cron.QuerySchedulesResponse",
+  encode(message: QuerySchedulesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.schedules) {
       Schedule.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -172,5 +366,36 @@ export const QuerySchedulesResponse = {
     message.schedules = object.schedules?.map(e => Schedule.fromPartial(e)) || [];
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
     return message;
+  },
+  fromAmino(object: QuerySchedulesResponseAmino): QuerySchedulesResponse {
+    return {
+      schedules: Array.isArray(object?.schedules) ? object.schedules.map((e: any) => Schedule.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
+    };
+  },
+  toAmino(message: QuerySchedulesResponse): QuerySchedulesResponseAmino {
+    const obj: any = {};
+    if (message.schedules) {
+      obj.schedules = message.schedules.map(e => e ? Schedule.toAmino(e) : undefined);
+    } else {
+      obj.schedules = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySchedulesResponseAminoMsg): QuerySchedulesResponse {
+    return QuerySchedulesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QuerySchedulesResponseProtoMsg): QuerySchedulesResponse {
+    return QuerySchedulesResponse.decode(message.value);
+  },
+  toProto(message: QuerySchedulesResponse): Uint8Array {
+    return QuerySchedulesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QuerySchedulesResponse): QuerySchedulesResponseProtoMsg {
+    return {
+      typeUrl: "/neutron.cron.QuerySchedulesResponse",
+      value: QuerySchedulesResponse.encode(message).finish()
+    };
   }
 };

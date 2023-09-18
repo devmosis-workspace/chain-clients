@@ -1,5 +1,5 @@
 import { Rpc } from "../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryGetBlacklistedRequest, QueryGetBlacklistedResponse, QueryAllBlacklistedRequest, QueryAllBlacklistedResponse, QueryGetPausedRequest, QueryGetPausedResponse, QueryGetMasterMinterRequest, QueryGetMasterMinterResponse, QueryGetMintersRequest, QueryGetMintersResponse, QueryAllMintersRequest, QueryAllMintersResponse, QueryGetPauserRequest, QueryGetPauserResponse, QueryGetBlacklisterRequest, QueryGetBlacklisterResponse, QueryGetOwnerRequest, QueryGetOwnerResponse, QueryGetMinterControllerRequest, QueryGetMinterControllerResponse, QueryAllMinterControllerRequest, QueryAllMinterControllerResponse, QueryGetMintingDenomRequest, QueryGetMintingDenomResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -52,73 +52,73 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   blacklisted(request: QueryGetBlacklistedRequest): Promise<QueryGetBlacklistedResponse> {
     const data = QueryGetBlacklistedRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "Blacklisted", data);
-    return promise.then(data => QueryGetBlacklistedResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetBlacklistedResponse.decode(new BinaryReader(data)));
   }
   blacklistedAll(request: QueryAllBlacklistedRequest = {
     pagination: undefined
   }): Promise<QueryAllBlacklistedResponse> {
     const data = QueryAllBlacklistedRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "BlacklistedAll", data);
-    return promise.then(data => QueryAllBlacklistedResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAllBlacklistedResponse.decode(new BinaryReader(data)));
   }
   paused(request: QueryGetPausedRequest = {}): Promise<QueryGetPausedResponse> {
     const data = QueryGetPausedRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "Paused", data);
-    return promise.then(data => QueryGetPausedResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetPausedResponse.decode(new BinaryReader(data)));
   }
   masterMinter(request: QueryGetMasterMinterRequest = {}): Promise<QueryGetMasterMinterResponse> {
     const data = QueryGetMasterMinterRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "MasterMinter", data);
-    return promise.then(data => QueryGetMasterMinterResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetMasterMinterResponse.decode(new BinaryReader(data)));
   }
   minters(request: QueryGetMintersRequest): Promise<QueryGetMintersResponse> {
     const data = QueryGetMintersRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "Minters", data);
-    return promise.then(data => QueryGetMintersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetMintersResponse.decode(new BinaryReader(data)));
   }
   mintersAll(request: QueryAllMintersRequest = {
     pagination: undefined
   }): Promise<QueryAllMintersResponse> {
     const data = QueryAllMintersRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "MintersAll", data);
-    return promise.then(data => QueryAllMintersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAllMintersResponse.decode(new BinaryReader(data)));
   }
   pauser(request: QueryGetPauserRequest = {}): Promise<QueryGetPauserResponse> {
     const data = QueryGetPauserRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "Pauser", data);
-    return promise.then(data => QueryGetPauserResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetPauserResponse.decode(new BinaryReader(data)));
   }
   blacklister(request: QueryGetBlacklisterRequest = {}): Promise<QueryGetBlacklisterResponse> {
     const data = QueryGetBlacklisterRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "Blacklister", data);
-    return promise.then(data => QueryGetBlacklisterResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetBlacklisterResponse.decode(new BinaryReader(data)));
   }
   owner(request: QueryGetOwnerRequest = {}): Promise<QueryGetOwnerResponse> {
     const data = QueryGetOwnerRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "Owner", data);
-    return promise.then(data => QueryGetOwnerResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetOwnerResponse.decode(new BinaryReader(data)));
   }
   minterController(request: QueryGetMinterControllerRequest): Promise<QueryGetMinterControllerResponse> {
     const data = QueryGetMinterControllerRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "MinterController", data);
-    return promise.then(data => QueryGetMinterControllerResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetMinterControllerResponse.decode(new BinaryReader(data)));
   }
   minterControllerAll(request: QueryAllMinterControllerRequest = {
     pagination: undefined
   }): Promise<QueryAllMinterControllerResponse> {
     const data = QueryAllMinterControllerRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "MinterControllerAll", data);
-    return promise.then(data => QueryAllMinterControllerResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAllMinterControllerResponse.decode(new BinaryReader(data)));
   }
   mintingDenom(request: QueryGetMintingDenomRequest = {}): Promise<QueryGetMintingDenomResponse> {
     const data = QueryGetMintingDenomRequest.encode(request).finish();
     const promise = this.rpc.request("noble.tokenfactory.Query", "MintingDenom", data);
-    return promise.then(data => QueryGetMintingDenomResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetMintingDenomResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

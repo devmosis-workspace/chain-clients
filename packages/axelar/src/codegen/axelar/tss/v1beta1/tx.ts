@@ -1,26 +1,62 @@
-import { KeyInfo, KeyInfoSDKType } from "./types";
-import { KeyRole, SigKeyPair, SigKeyPairSDKType, keyRoleFromJSON } from "../exported/v1beta1/types";
-import { TrafficOut, TrafficOutSDKType, MessageOut_KeygenResult, MessageOut_SignResult } from "../tofnd/v1beta1/tofnd";
-import { PollKey, PollKeySDKType } from "../../vote/exported/v1beta1/types";
-import * as _m0 from "protobufjs/minimal";
+import { KeyInfo, KeyInfoAmino, KeyInfoSDKType } from "./types";
+import { KeyRole, SigKeyPair, SigKeyPairAmino, SigKeyPairSDKType, keyRoleFromJSON } from "../exported/v1beta1/types";
+import { TrafficOut, TrafficOutAmino, TrafficOutSDKType, MessageOut_KeygenResult, MessageOut_SignResult } from "../tofnd/v1beta1/tofnd";
+import { PollKey, PollKeyAmino, PollKeySDKType } from "../../vote/exported/v1beta1/types";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64 } from "../../../helpers";
 /** StartKeygenRequest indicate the start of keygen */
 export interface StartKeygenRequest {
   sender: string;
-  keyInfo?: KeyInfo;
+  keyInfo: KeyInfo;
+}
+export interface StartKeygenRequestProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.StartKeygenRequest";
+  value: Uint8Array;
+}
+/** StartKeygenRequest indicate the start of keygen */
+export interface StartKeygenRequestAmino {
+  sender: string;
+  key_info?: KeyInfoAmino;
+}
+export interface StartKeygenRequestAminoMsg {
+  type: "/axelar.tss.v1beta1.StartKeygenRequest";
+  value: StartKeygenRequestAmino;
 }
 /** StartKeygenRequest indicate the start of keygen */
 export interface StartKeygenRequestSDKType {
   sender: string;
-  key_info?: KeyInfoSDKType;
+  key_info: KeyInfoSDKType;
 }
 export interface StartKeygenResponse {}
+export interface StartKeygenResponseProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.StartKeygenResponse";
+  value: Uint8Array;
+}
+export interface StartKeygenResponseAmino {}
+export interface StartKeygenResponseAminoMsg {
+  type: "/axelar.tss.v1beta1.StartKeygenResponse";
+  value: StartKeygenResponseAmino;
+}
 export interface StartKeygenResponseSDKType {}
 export interface RotateKeyRequest {
   sender: Uint8Array;
   chain: string;
   keyRole: KeyRole;
   keyId: string;
+}
+export interface RotateKeyRequestProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.RotateKeyRequest";
+  value: Uint8Array;
+}
+export interface RotateKeyRequestAmino {
+  sender: Uint8Array;
+  chain: string;
+  key_role: KeyRole;
+  key_id: string;
+}
+export interface RotateKeyRequestAminoMsg {
+  type: "/axelar.tss.v1beta1.RotateKeyRequest";
+  value: RotateKeyRequestAmino;
 }
 export interface RotateKeyRequestSDKType {
   sender: Uint8Array;
@@ -29,49 +65,129 @@ export interface RotateKeyRequestSDKType {
   key_id: string;
 }
 export interface RotateKeyResponse {}
+export interface RotateKeyResponseProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.RotateKeyResponse";
+  value: Uint8Array;
+}
+export interface RotateKeyResponseAmino {}
+export interface RotateKeyResponseAminoMsg {
+  type: "/axelar.tss.v1beta1.RotateKeyResponse";
+  value: RotateKeyResponseAmino;
+}
 export interface RotateKeyResponseSDKType {}
 /** ProcessKeygenTrafficRequest protocol message */
 export interface ProcessKeygenTrafficRequest {
   sender: Uint8Array;
   sessionId: string;
-  payload?: TrafficOut;
+  payload: TrafficOut;
+}
+export interface ProcessKeygenTrafficRequestProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.ProcessKeygenTrafficRequest";
+  value: Uint8Array;
+}
+/** ProcessKeygenTrafficRequest protocol message */
+export interface ProcessKeygenTrafficRequestAmino {
+  sender: Uint8Array;
+  session_id: string;
+  payload?: TrafficOutAmino;
+}
+export interface ProcessKeygenTrafficRequestAminoMsg {
+  type: "/axelar.tss.v1beta1.ProcessKeygenTrafficRequest";
+  value: ProcessKeygenTrafficRequestAmino;
 }
 /** ProcessKeygenTrafficRequest protocol message */
 export interface ProcessKeygenTrafficRequestSDKType {
   sender: Uint8Array;
   session_id: string;
-  payload?: TrafficOutSDKType;
+  payload: TrafficOutSDKType;
 }
 export interface ProcessKeygenTrafficResponse {}
+export interface ProcessKeygenTrafficResponseProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.ProcessKeygenTrafficResponse";
+  value: Uint8Array;
+}
+export interface ProcessKeygenTrafficResponseAmino {}
+export interface ProcessKeygenTrafficResponseAminoMsg {
+  type: "/axelar.tss.v1beta1.ProcessKeygenTrafficResponse";
+  value: ProcessKeygenTrafficResponseAmino;
+}
 export interface ProcessKeygenTrafficResponseSDKType {}
 /** ProcessSignTrafficRequest protocol message */
 export interface ProcessSignTrafficRequest {
   sender: Uint8Array;
   sessionId: string;
-  payload?: TrafficOut;
+  payload: TrafficOut;
+}
+export interface ProcessSignTrafficRequestProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.ProcessSignTrafficRequest";
+  value: Uint8Array;
+}
+/** ProcessSignTrafficRequest protocol message */
+export interface ProcessSignTrafficRequestAmino {
+  sender: Uint8Array;
+  session_id: string;
+  payload?: TrafficOutAmino;
+}
+export interface ProcessSignTrafficRequestAminoMsg {
+  type: "/axelar.tss.v1beta1.ProcessSignTrafficRequest";
+  value: ProcessSignTrafficRequestAmino;
 }
 /** ProcessSignTrafficRequest protocol message */
 export interface ProcessSignTrafficRequestSDKType {
   sender: Uint8Array;
   session_id: string;
-  payload?: TrafficOutSDKType;
+  payload: TrafficOutSDKType;
 }
 export interface ProcessSignTrafficResponse {}
+export interface ProcessSignTrafficResponseProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.ProcessSignTrafficResponse";
+  value: Uint8Array;
+}
+export interface ProcessSignTrafficResponseAmino {}
+export interface ProcessSignTrafficResponseAminoMsg {
+  type: "/axelar.tss.v1beta1.ProcessSignTrafficResponse";
+  value: ProcessSignTrafficResponseAmino;
+}
 export interface ProcessSignTrafficResponseSDKType {}
 /** VotePubKeyRequest represents the message to vote on a public key */
 export interface VotePubKeyRequest {
   sender: Uint8Array;
-  pollKey?: PollKey;
-  result?: MessageOut_KeygenResult;
+  pollKey: PollKey;
+  result: MessageOut_KeygenResult;
+}
+export interface VotePubKeyRequestProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.VotePubKeyRequest";
+  value: Uint8Array;
+}
+/** VotePubKeyRequest represents the message to vote on a public key */
+export interface VotePubKeyRequestAmino {
+  sender: Uint8Array;
+  poll_key?: PollKeyAmino;
+  result?: MessageOut_KeygenResultAmino;
+}
+export interface VotePubKeyRequestAminoMsg {
+  type: "/axelar.tss.v1beta1.VotePubKeyRequest";
+  value: VotePubKeyRequestAmino;
 }
 /** VotePubKeyRequest represents the message to vote on a public key */
 export interface VotePubKeyRequestSDKType {
   sender: Uint8Array;
-  poll_key?: PollKeySDKType;
-  result?: MessageOut_KeygenResultSDKType;
+  poll_key: PollKeySDKType;
+  result: MessageOut_KeygenResultSDKType;
 }
 export interface VotePubKeyResponse {
   log: string;
+}
+export interface VotePubKeyResponseProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.VotePubKeyResponse";
+  value: Uint8Array;
+}
+export interface VotePubKeyResponseAmino {
+  log: string;
+}
+export interface VotePubKeyResponseAminoMsg {
+  type: "/axelar.tss.v1beta1.VotePubKeyResponse";
+  value: VotePubKeyResponseAmino;
 }
 export interface VotePubKeyResponseSDKType {
   log: string;
@@ -79,17 +195,42 @@ export interface VotePubKeyResponseSDKType {
 /** VoteSigRequest represents a message to vote for a signature */
 export interface VoteSigRequest {
   sender: Uint8Array;
-  pollKey?: PollKey;
-  result?: MessageOut_SignResult;
+  pollKey: PollKey;
+  result: MessageOut_SignResult;
+}
+export interface VoteSigRequestProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.VoteSigRequest";
+  value: Uint8Array;
+}
+/** VoteSigRequest represents a message to vote for a signature */
+export interface VoteSigRequestAmino {
+  sender: Uint8Array;
+  poll_key?: PollKeyAmino;
+  result?: MessageOut_SignResultAmino;
+}
+export interface VoteSigRequestAminoMsg {
+  type: "/axelar.tss.v1beta1.VoteSigRequest";
+  value: VoteSigRequestAmino;
 }
 /** VoteSigRequest represents a message to vote for a signature */
 export interface VoteSigRequestSDKType {
   sender: Uint8Array;
-  poll_key?: PollKeySDKType;
-  result?: MessageOut_SignResultSDKType;
+  poll_key: PollKeySDKType;
+  result: MessageOut_SignResultSDKType;
 }
 export interface VoteSigResponse {
   log: string;
+}
+export interface VoteSigResponseProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.VoteSigResponse";
+  value: Uint8Array;
+}
+export interface VoteSigResponseAmino {
+  log: string;
+}
+export interface VoteSigResponseAminoMsg {
+  type: "/axelar.tss.v1beta1.VoteSigResponse";
+  value: VoteSigResponseAmino;
 }
 export interface VoteSigResponseSDKType {
   log: string;
@@ -98,16 +239,50 @@ export interface HeartBeatRequest {
   sender: Uint8Array;
   keyIds: string[];
 }
+export interface HeartBeatRequestProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.HeartBeatRequest";
+  value: Uint8Array;
+}
+export interface HeartBeatRequestAmino {
+  sender: Uint8Array;
+  key_ids: string[];
+}
+export interface HeartBeatRequestAminoMsg {
+  type: "/axelar.tss.v1beta1.HeartBeatRequest";
+  value: HeartBeatRequestAmino;
+}
 export interface HeartBeatRequestSDKType {
   sender: Uint8Array;
   key_ids: string[];
 }
 export interface HeartBeatResponse {}
+export interface HeartBeatResponseProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.HeartBeatResponse";
+  value: Uint8Array;
+}
+export interface HeartBeatResponseAmino {}
+export interface HeartBeatResponseAminoMsg {
+  type: "/axelar.tss.v1beta1.HeartBeatResponse";
+  value: HeartBeatResponseAmino;
+}
 export interface HeartBeatResponseSDKType {}
 export interface RegisterExternalKeysRequest {
   sender: Uint8Array;
   chain: string;
   externalKeys: RegisterExternalKeysRequest_ExternalKey[];
+}
+export interface RegisterExternalKeysRequestProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.RegisterExternalKeysRequest";
+  value: Uint8Array;
+}
+export interface RegisterExternalKeysRequestAmino {
+  sender: Uint8Array;
+  chain: string;
+  external_keys: RegisterExternalKeysRequest_ExternalKeyAmino[];
+}
+export interface RegisterExternalKeysRequestAminoMsg {
+  type: "/axelar.tss.v1beta1.RegisterExternalKeysRequest";
+  value: RegisterExternalKeysRequestAmino;
 }
 export interface RegisterExternalKeysRequestSDKType {
   sender: Uint8Array;
@@ -118,16 +293,50 @@ export interface RegisterExternalKeysRequest_ExternalKey {
   id: string;
   pubKey: Uint8Array;
 }
+export interface RegisterExternalKeysRequest_ExternalKeyProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.ExternalKey";
+  value: Uint8Array;
+}
+export interface RegisterExternalKeysRequest_ExternalKeyAmino {
+  id: string;
+  pub_key: Uint8Array;
+}
+export interface RegisterExternalKeysRequest_ExternalKeyAminoMsg {
+  type: "/axelar.tss.v1beta1.ExternalKey";
+  value: RegisterExternalKeysRequest_ExternalKeyAmino;
+}
 export interface RegisterExternalKeysRequest_ExternalKeySDKType {
   id: string;
   pub_key: Uint8Array;
 }
 export interface RegisterExternalKeysResponse {}
+export interface RegisterExternalKeysResponseProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.RegisterExternalKeysResponse";
+  value: Uint8Array;
+}
+export interface RegisterExternalKeysResponseAmino {}
+export interface RegisterExternalKeysResponseAminoMsg {
+  type: "/axelar.tss.v1beta1.RegisterExternalKeysResponse";
+  value: RegisterExternalKeysResponseAmino;
+}
 export interface RegisterExternalKeysResponseSDKType {}
 export interface SubmitMultisigPubKeysRequest {
   sender: Uint8Array;
   keyId: string;
   sigKeyPairs: SigKeyPair[];
+}
+export interface SubmitMultisigPubKeysRequestProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.SubmitMultisigPubKeysRequest";
+  value: Uint8Array;
+}
+export interface SubmitMultisigPubKeysRequestAmino {
+  sender: Uint8Array;
+  key_id: string;
+  sig_key_pairs: SigKeyPairAmino[];
+}
+export interface SubmitMultisigPubKeysRequestAminoMsg {
+  type: "/axelar.tss.v1beta1.SubmitMultisigPubKeysRequest";
+  value: SubmitMultisigPubKeysRequestAmino;
 }
 export interface SubmitMultisigPubKeysRequestSDKType {
   sender: Uint8Array;
@@ -135,11 +344,33 @@ export interface SubmitMultisigPubKeysRequestSDKType {
   sig_key_pairs: SigKeyPairSDKType[];
 }
 export interface SubmitMultisigPubKeysResponse {}
+export interface SubmitMultisigPubKeysResponseProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.SubmitMultisigPubKeysResponse";
+  value: Uint8Array;
+}
+export interface SubmitMultisigPubKeysResponseAmino {}
+export interface SubmitMultisigPubKeysResponseAminoMsg {
+  type: "/axelar.tss.v1beta1.SubmitMultisigPubKeysResponse";
+  value: SubmitMultisigPubKeysResponseAmino;
+}
 export interface SubmitMultisigPubKeysResponseSDKType {}
 export interface SubmitMultisigSignaturesRequest {
   sender: Uint8Array;
   sigId: string;
   signatures: Uint8Array[];
+}
+export interface SubmitMultisigSignaturesRequestProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.SubmitMultisigSignaturesRequest";
+  value: Uint8Array;
+}
+export interface SubmitMultisigSignaturesRequestAmino {
+  sender: Uint8Array;
+  sig_id: string;
+  signatures: Uint8Array[];
+}
+export interface SubmitMultisigSignaturesRequestAminoMsg {
+  type: "/axelar.tss.v1beta1.SubmitMultisigSignaturesRequest";
+  value: SubmitMultisigSignaturesRequestAmino;
 }
 export interface SubmitMultisigSignaturesRequestSDKType {
   sender: Uint8Array;
@@ -147,15 +378,25 @@ export interface SubmitMultisigSignaturesRequestSDKType {
   signatures: Uint8Array[];
 }
 export interface SubmitMultisigSignaturesResponse {}
+export interface SubmitMultisigSignaturesResponseProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.SubmitMultisigSignaturesResponse";
+  value: Uint8Array;
+}
+export interface SubmitMultisigSignaturesResponseAmino {}
+export interface SubmitMultisigSignaturesResponseAminoMsg {
+  type: "/axelar.tss.v1beta1.SubmitMultisigSignaturesResponse";
+  value: SubmitMultisigSignaturesResponseAmino;
+}
 export interface SubmitMultisigSignaturesResponseSDKType {}
 function createBaseStartKeygenRequest(): StartKeygenRequest {
   return {
     sender: "",
-    keyInfo: undefined
+    keyInfo: KeyInfo.fromPartial({})
   };
 }
 export const StartKeygenRequest = {
-  encode(message: StartKeygenRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.StartKeygenRequest",
+  encode(message: StartKeygenRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
@@ -175,13 +416,41 @@ export const StartKeygenRequest = {
     message.sender = object.sender ?? "";
     message.keyInfo = object.keyInfo !== undefined && object.keyInfo !== null ? KeyInfo.fromPartial(object.keyInfo) : undefined;
     return message;
+  },
+  fromAmino(object: StartKeygenRequestAmino): StartKeygenRequest {
+    return {
+      sender: object.sender,
+      keyInfo: object?.key_info ? KeyInfo.fromAmino(object.key_info) : undefined
+    };
+  },
+  toAmino(message: StartKeygenRequest): StartKeygenRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.key_info = message.keyInfo ? KeyInfo.toAmino(message.keyInfo) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: StartKeygenRequestAminoMsg): StartKeygenRequest {
+    return StartKeygenRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: StartKeygenRequestProtoMsg): StartKeygenRequest {
+    return StartKeygenRequest.decode(message.value);
+  },
+  toProto(message: StartKeygenRequest): Uint8Array {
+    return StartKeygenRequest.encode(message).finish();
+  },
+  toProtoMsg(message: StartKeygenRequest): StartKeygenRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.StartKeygenRequest",
+      value: StartKeygenRequest.encode(message).finish()
+    };
   }
 };
 function createBaseStartKeygenResponse(): StartKeygenResponse {
   return {};
 }
 export const StartKeygenResponse = {
-  encode(_: StartKeygenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.StartKeygenResponse",
+  encode(_: StartKeygenResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): StartKeygenResponse {
@@ -190,6 +459,28 @@ export const StartKeygenResponse = {
   fromPartial(_: Partial<StartKeygenResponse>): StartKeygenResponse {
     const message = createBaseStartKeygenResponse();
     return message;
+  },
+  fromAmino(_: StartKeygenResponseAmino): StartKeygenResponse {
+    return {};
+  },
+  toAmino(_: StartKeygenResponse): StartKeygenResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: StartKeygenResponseAminoMsg): StartKeygenResponse {
+    return StartKeygenResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: StartKeygenResponseProtoMsg): StartKeygenResponse {
+    return StartKeygenResponse.decode(message.value);
+  },
+  toProto(message: StartKeygenResponse): Uint8Array {
+    return StartKeygenResponse.encode(message).finish();
+  },
+  toProtoMsg(message: StartKeygenResponse): StartKeygenResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.StartKeygenResponse",
+      value: StartKeygenResponse.encode(message).finish()
+    };
   }
 };
 function createBaseRotateKeyRequest(): RotateKeyRequest {
@@ -201,7 +492,8 @@ function createBaseRotateKeyRequest(): RotateKeyRequest {
   };
 }
 export const RotateKeyRequest = {
-  encode(message: RotateKeyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.RotateKeyRequest",
+  encode(message: RotateKeyRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -220,7 +512,7 @@ export const RotateKeyRequest = {
     return {
       sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
-      keyRole: isSet(object.keyRole) ? keyRoleFromJSON(object.keyRole) : 0,
+      keyRole: isSet(object.keyRole) ? keyRoleFromJSON(object.keyRole) : -1,
       keyId: isSet(object.keyId) ? String(object.keyId) : ""
     };
   },
@@ -231,13 +523,45 @@ export const RotateKeyRequest = {
     message.keyRole = object.keyRole ?? 0;
     message.keyId = object.keyId ?? "";
     return message;
+  },
+  fromAmino(object: RotateKeyRequestAmino): RotateKeyRequest {
+    return {
+      sender: object.sender,
+      chain: object.chain,
+      keyRole: isSet(object.key_role) ? keyRoleFromJSON(object.key_role) : -1,
+      keyId: object.key_id
+    };
+  },
+  toAmino(message: RotateKeyRequest): RotateKeyRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.chain = message.chain;
+    obj.key_role = message.keyRole;
+    obj.key_id = message.keyId;
+    return obj;
+  },
+  fromAminoMsg(object: RotateKeyRequestAminoMsg): RotateKeyRequest {
+    return RotateKeyRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RotateKeyRequestProtoMsg): RotateKeyRequest {
+    return RotateKeyRequest.decode(message.value);
+  },
+  toProto(message: RotateKeyRequest): Uint8Array {
+    return RotateKeyRequest.encode(message).finish();
+  },
+  toProtoMsg(message: RotateKeyRequest): RotateKeyRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.RotateKeyRequest",
+      value: RotateKeyRequest.encode(message).finish()
+    };
   }
 };
 function createBaseRotateKeyResponse(): RotateKeyResponse {
   return {};
 }
 export const RotateKeyResponse = {
-  encode(_: RotateKeyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.RotateKeyResponse",
+  encode(_: RotateKeyResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): RotateKeyResponse {
@@ -246,17 +570,40 @@ export const RotateKeyResponse = {
   fromPartial(_: Partial<RotateKeyResponse>): RotateKeyResponse {
     const message = createBaseRotateKeyResponse();
     return message;
+  },
+  fromAmino(_: RotateKeyResponseAmino): RotateKeyResponse {
+    return {};
+  },
+  toAmino(_: RotateKeyResponse): RotateKeyResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: RotateKeyResponseAminoMsg): RotateKeyResponse {
+    return RotateKeyResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RotateKeyResponseProtoMsg): RotateKeyResponse {
+    return RotateKeyResponse.decode(message.value);
+  },
+  toProto(message: RotateKeyResponse): Uint8Array {
+    return RotateKeyResponse.encode(message).finish();
+  },
+  toProtoMsg(message: RotateKeyResponse): RotateKeyResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.RotateKeyResponse",
+      value: RotateKeyResponse.encode(message).finish()
+    };
   }
 };
 function createBaseProcessKeygenTrafficRequest(): ProcessKeygenTrafficRequest {
   return {
     sender: new Uint8Array(),
     sessionId: "",
-    payload: undefined
+    payload: TrafficOut.fromPartial({})
   };
 }
 export const ProcessKeygenTrafficRequest = {
-  encode(message: ProcessKeygenTrafficRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.ProcessKeygenTrafficRequest",
+  encode(message: ProcessKeygenTrafficRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -281,13 +628,43 @@ export const ProcessKeygenTrafficRequest = {
     message.sessionId = object.sessionId ?? "";
     message.payload = object.payload !== undefined && object.payload !== null ? TrafficOut.fromPartial(object.payload) : undefined;
     return message;
+  },
+  fromAmino(object: ProcessKeygenTrafficRequestAmino): ProcessKeygenTrafficRequest {
+    return {
+      sender: object.sender,
+      sessionId: object.session_id,
+      payload: object?.payload ? TrafficOut.fromAmino(object.payload) : undefined
+    };
+  },
+  toAmino(message: ProcessKeygenTrafficRequest): ProcessKeygenTrafficRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.session_id = message.sessionId;
+    obj.payload = message.payload ? TrafficOut.toAmino(message.payload) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ProcessKeygenTrafficRequestAminoMsg): ProcessKeygenTrafficRequest {
+    return ProcessKeygenTrafficRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ProcessKeygenTrafficRequestProtoMsg): ProcessKeygenTrafficRequest {
+    return ProcessKeygenTrafficRequest.decode(message.value);
+  },
+  toProto(message: ProcessKeygenTrafficRequest): Uint8Array {
+    return ProcessKeygenTrafficRequest.encode(message).finish();
+  },
+  toProtoMsg(message: ProcessKeygenTrafficRequest): ProcessKeygenTrafficRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.ProcessKeygenTrafficRequest",
+      value: ProcessKeygenTrafficRequest.encode(message).finish()
+    };
   }
 };
 function createBaseProcessKeygenTrafficResponse(): ProcessKeygenTrafficResponse {
   return {};
 }
 export const ProcessKeygenTrafficResponse = {
-  encode(_: ProcessKeygenTrafficResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.ProcessKeygenTrafficResponse",
+  encode(_: ProcessKeygenTrafficResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): ProcessKeygenTrafficResponse {
@@ -296,17 +673,40 @@ export const ProcessKeygenTrafficResponse = {
   fromPartial(_: Partial<ProcessKeygenTrafficResponse>): ProcessKeygenTrafficResponse {
     const message = createBaseProcessKeygenTrafficResponse();
     return message;
+  },
+  fromAmino(_: ProcessKeygenTrafficResponseAmino): ProcessKeygenTrafficResponse {
+    return {};
+  },
+  toAmino(_: ProcessKeygenTrafficResponse): ProcessKeygenTrafficResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ProcessKeygenTrafficResponseAminoMsg): ProcessKeygenTrafficResponse {
+    return ProcessKeygenTrafficResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ProcessKeygenTrafficResponseProtoMsg): ProcessKeygenTrafficResponse {
+    return ProcessKeygenTrafficResponse.decode(message.value);
+  },
+  toProto(message: ProcessKeygenTrafficResponse): Uint8Array {
+    return ProcessKeygenTrafficResponse.encode(message).finish();
+  },
+  toProtoMsg(message: ProcessKeygenTrafficResponse): ProcessKeygenTrafficResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.ProcessKeygenTrafficResponse",
+      value: ProcessKeygenTrafficResponse.encode(message).finish()
+    };
   }
 };
 function createBaseProcessSignTrafficRequest(): ProcessSignTrafficRequest {
   return {
     sender: new Uint8Array(),
     sessionId: "",
-    payload: undefined
+    payload: TrafficOut.fromPartial({})
   };
 }
 export const ProcessSignTrafficRequest = {
-  encode(message: ProcessSignTrafficRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.ProcessSignTrafficRequest",
+  encode(message: ProcessSignTrafficRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -331,13 +731,43 @@ export const ProcessSignTrafficRequest = {
     message.sessionId = object.sessionId ?? "";
     message.payload = object.payload !== undefined && object.payload !== null ? TrafficOut.fromPartial(object.payload) : undefined;
     return message;
+  },
+  fromAmino(object: ProcessSignTrafficRequestAmino): ProcessSignTrafficRequest {
+    return {
+      sender: object.sender,
+      sessionId: object.session_id,
+      payload: object?.payload ? TrafficOut.fromAmino(object.payload) : undefined
+    };
+  },
+  toAmino(message: ProcessSignTrafficRequest): ProcessSignTrafficRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.session_id = message.sessionId;
+    obj.payload = message.payload ? TrafficOut.toAmino(message.payload) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ProcessSignTrafficRequestAminoMsg): ProcessSignTrafficRequest {
+    return ProcessSignTrafficRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ProcessSignTrafficRequestProtoMsg): ProcessSignTrafficRequest {
+    return ProcessSignTrafficRequest.decode(message.value);
+  },
+  toProto(message: ProcessSignTrafficRequest): Uint8Array {
+    return ProcessSignTrafficRequest.encode(message).finish();
+  },
+  toProtoMsg(message: ProcessSignTrafficRequest): ProcessSignTrafficRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.ProcessSignTrafficRequest",
+      value: ProcessSignTrafficRequest.encode(message).finish()
+    };
   }
 };
 function createBaseProcessSignTrafficResponse(): ProcessSignTrafficResponse {
   return {};
 }
 export const ProcessSignTrafficResponse = {
-  encode(_: ProcessSignTrafficResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.ProcessSignTrafficResponse",
+  encode(_: ProcessSignTrafficResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): ProcessSignTrafficResponse {
@@ -346,17 +776,40 @@ export const ProcessSignTrafficResponse = {
   fromPartial(_: Partial<ProcessSignTrafficResponse>): ProcessSignTrafficResponse {
     const message = createBaseProcessSignTrafficResponse();
     return message;
+  },
+  fromAmino(_: ProcessSignTrafficResponseAmino): ProcessSignTrafficResponse {
+    return {};
+  },
+  toAmino(_: ProcessSignTrafficResponse): ProcessSignTrafficResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ProcessSignTrafficResponseAminoMsg): ProcessSignTrafficResponse {
+    return ProcessSignTrafficResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ProcessSignTrafficResponseProtoMsg): ProcessSignTrafficResponse {
+    return ProcessSignTrafficResponse.decode(message.value);
+  },
+  toProto(message: ProcessSignTrafficResponse): Uint8Array {
+    return ProcessSignTrafficResponse.encode(message).finish();
+  },
+  toProtoMsg(message: ProcessSignTrafficResponse): ProcessSignTrafficResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.ProcessSignTrafficResponse",
+      value: ProcessSignTrafficResponse.encode(message).finish()
+    };
   }
 };
 function createBaseVotePubKeyRequest(): VotePubKeyRequest {
   return {
     sender: new Uint8Array(),
-    pollKey: undefined,
-    result: undefined
+    pollKey: PollKey.fromPartial({}),
+    result: MessageOut_KeygenResult.fromPartial({})
   };
 }
 export const VotePubKeyRequest = {
-  encode(message: VotePubKeyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.VotePubKeyRequest",
+  encode(message: VotePubKeyRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -381,6 +834,35 @@ export const VotePubKeyRequest = {
     message.pollKey = object.pollKey !== undefined && object.pollKey !== null ? PollKey.fromPartial(object.pollKey) : undefined;
     message.result = object.result !== undefined && object.result !== null ? MessageOut_KeygenResult.fromPartial(object.result) : undefined;
     return message;
+  },
+  fromAmino(object: VotePubKeyRequestAmino): VotePubKeyRequest {
+    return {
+      sender: object.sender,
+      pollKey: object?.poll_key ? PollKey.fromAmino(object.poll_key) : undefined,
+      result: object?.result ? MessageOut_KeygenResult.fromAmino(object.result) : undefined
+    };
+  },
+  toAmino(message: VotePubKeyRequest): VotePubKeyRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.poll_key = message.pollKey ? PollKey.toAmino(message.pollKey) : undefined;
+    obj.result = message.result ? MessageOut_KeygenResult.toAmino(message.result) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: VotePubKeyRequestAminoMsg): VotePubKeyRequest {
+    return VotePubKeyRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: VotePubKeyRequestProtoMsg): VotePubKeyRequest {
+    return VotePubKeyRequest.decode(message.value);
+  },
+  toProto(message: VotePubKeyRequest): Uint8Array {
+    return VotePubKeyRequest.encode(message).finish();
+  },
+  toProtoMsg(message: VotePubKeyRequest): VotePubKeyRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.VotePubKeyRequest",
+      value: VotePubKeyRequest.encode(message).finish()
+    };
   }
 };
 function createBaseVotePubKeyResponse(): VotePubKeyResponse {
@@ -389,7 +871,8 @@ function createBaseVotePubKeyResponse(): VotePubKeyResponse {
   };
 }
 export const VotePubKeyResponse = {
-  encode(message: VotePubKeyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.VotePubKeyResponse",
+  encode(message: VotePubKeyResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.log !== "") {
       writer.uint32(10).string(message.log);
     }
@@ -404,17 +887,43 @@ export const VotePubKeyResponse = {
     const message = createBaseVotePubKeyResponse();
     message.log = object.log ?? "";
     return message;
+  },
+  fromAmino(object: VotePubKeyResponseAmino): VotePubKeyResponse {
+    return {
+      log: object.log
+    };
+  },
+  toAmino(message: VotePubKeyResponse): VotePubKeyResponseAmino {
+    const obj: any = {};
+    obj.log = message.log;
+    return obj;
+  },
+  fromAminoMsg(object: VotePubKeyResponseAminoMsg): VotePubKeyResponse {
+    return VotePubKeyResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: VotePubKeyResponseProtoMsg): VotePubKeyResponse {
+    return VotePubKeyResponse.decode(message.value);
+  },
+  toProto(message: VotePubKeyResponse): Uint8Array {
+    return VotePubKeyResponse.encode(message).finish();
+  },
+  toProtoMsg(message: VotePubKeyResponse): VotePubKeyResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.VotePubKeyResponse",
+      value: VotePubKeyResponse.encode(message).finish()
+    };
   }
 };
 function createBaseVoteSigRequest(): VoteSigRequest {
   return {
     sender: new Uint8Array(),
-    pollKey: undefined,
-    result: undefined
+    pollKey: PollKey.fromPartial({}),
+    result: MessageOut_SignResult.fromPartial({})
   };
 }
 export const VoteSigRequest = {
-  encode(message: VoteSigRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.VoteSigRequest",
+  encode(message: VoteSigRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -439,6 +948,35 @@ export const VoteSigRequest = {
     message.pollKey = object.pollKey !== undefined && object.pollKey !== null ? PollKey.fromPartial(object.pollKey) : undefined;
     message.result = object.result !== undefined && object.result !== null ? MessageOut_SignResult.fromPartial(object.result) : undefined;
     return message;
+  },
+  fromAmino(object: VoteSigRequestAmino): VoteSigRequest {
+    return {
+      sender: object.sender,
+      pollKey: object?.poll_key ? PollKey.fromAmino(object.poll_key) : undefined,
+      result: object?.result ? MessageOut_SignResult.fromAmino(object.result) : undefined
+    };
+  },
+  toAmino(message: VoteSigRequest): VoteSigRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.poll_key = message.pollKey ? PollKey.toAmino(message.pollKey) : undefined;
+    obj.result = message.result ? MessageOut_SignResult.toAmino(message.result) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: VoteSigRequestAminoMsg): VoteSigRequest {
+    return VoteSigRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: VoteSigRequestProtoMsg): VoteSigRequest {
+    return VoteSigRequest.decode(message.value);
+  },
+  toProto(message: VoteSigRequest): Uint8Array {
+    return VoteSigRequest.encode(message).finish();
+  },
+  toProtoMsg(message: VoteSigRequest): VoteSigRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.VoteSigRequest",
+      value: VoteSigRequest.encode(message).finish()
+    };
   }
 };
 function createBaseVoteSigResponse(): VoteSigResponse {
@@ -447,7 +985,8 @@ function createBaseVoteSigResponse(): VoteSigResponse {
   };
 }
 export const VoteSigResponse = {
-  encode(message: VoteSigResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.VoteSigResponse",
+  encode(message: VoteSigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.log !== "") {
       writer.uint32(10).string(message.log);
     }
@@ -462,6 +1001,31 @@ export const VoteSigResponse = {
     const message = createBaseVoteSigResponse();
     message.log = object.log ?? "";
     return message;
+  },
+  fromAmino(object: VoteSigResponseAmino): VoteSigResponse {
+    return {
+      log: object.log
+    };
+  },
+  toAmino(message: VoteSigResponse): VoteSigResponseAmino {
+    const obj: any = {};
+    obj.log = message.log;
+    return obj;
+  },
+  fromAminoMsg(object: VoteSigResponseAminoMsg): VoteSigResponse {
+    return VoteSigResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: VoteSigResponseProtoMsg): VoteSigResponse {
+    return VoteSigResponse.decode(message.value);
+  },
+  toProto(message: VoteSigResponse): Uint8Array {
+    return VoteSigResponse.encode(message).finish();
+  },
+  toProtoMsg(message: VoteSigResponse): VoteSigResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.VoteSigResponse",
+      value: VoteSigResponse.encode(message).finish()
+    };
   }
 };
 function createBaseHeartBeatRequest(): HeartBeatRequest {
@@ -471,7 +1035,8 @@ function createBaseHeartBeatRequest(): HeartBeatRequest {
   };
 }
 export const HeartBeatRequest = {
-  encode(message: HeartBeatRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.HeartBeatRequest",
+  encode(message: HeartBeatRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -491,13 +1056,45 @@ export const HeartBeatRequest = {
     message.sender = object.sender ?? new Uint8Array();
     message.keyIds = object.keyIds?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: HeartBeatRequestAmino): HeartBeatRequest {
+    return {
+      sender: object.sender,
+      keyIds: Array.isArray(object?.key_ids) ? object.key_ids.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: HeartBeatRequest): HeartBeatRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    if (message.keyIds) {
+      obj.key_ids = message.keyIds.map(e => e);
+    } else {
+      obj.key_ids = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: HeartBeatRequestAminoMsg): HeartBeatRequest {
+    return HeartBeatRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: HeartBeatRequestProtoMsg): HeartBeatRequest {
+    return HeartBeatRequest.decode(message.value);
+  },
+  toProto(message: HeartBeatRequest): Uint8Array {
+    return HeartBeatRequest.encode(message).finish();
+  },
+  toProtoMsg(message: HeartBeatRequest): HeartBeatRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.HeartBeatRequest",
+      value: HeartBeatRequest.encode(message).finish()
+    };
   }
 };
 function createBaseHeartBeatResponse(): HeartBeatResponse {
   return {};
 }
 export const HeartBeatResponse = {
-  encode(_: HeartBeatResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.HeartBeatResponse",
+  encode(_: HeartBeatResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): HeartBeatResponse {
@@ -506,6 +1103,28 @@ export const HeartBeatResponse = {
   fromPartial(_: Partial<HeartBeatResponse>): HeartBeatResponse {
     const message = createBaseHeartBeatResponse();
     return message;
+  },
+  fromAmino(_: HeartBeatResponseAmino): HeartBeatResponse {
+    return {};
+  },
+  toAmino(_: HeartBeatResponse): HeartBeatResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: HeartBeatResponseAminoMsg): HeartBeatResponse {
+    return HeartBeatResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: HeartBeatResponseProtoMsg): HeartBeatResponse {
+    return HeartBeatResponse.decode(message.value);
+  },
+  toProto(message: HeartBeatResponse): Uint8Array {
+    return HeartBeatResponse.encode(message).finish();
+  },
+  toProtoMsg(message: HeartBeatResponse): HeartBeatResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.HeartBeatResponse",
+      value: HeartBeatResponse.encode(message).finish()
+    };
   }
 };
 function createBaseRegisterExternalKeysRequest(): RegisterExternalKeysRequest {
@@ -516,7 +1135,8 @@ function createBaseRegisterExternalKeysRequest(): RegisterExternalKeysRequest {
   };
 }
 export const RegisterExternalKeysRequest = {
-  encode(message: RegisterExternalKeysRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.RegisterExternalKeysRequest",
+  encode(message: RegisterExternalKeysRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -541,6 +1161,39 @@ export const RegisterExternalKeysRequest = {
     message.chain = object.chain ?? "";
     message.externalKeys = object.externalKeys?.map(e => RegisterExternalKeysRequest_ExternalKey.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: RegisterExternalKeysRequestAmino): RegisterExternalKeysRequest {
+    return {
+      sender: object.sender,
+      chain: object.chain,
+      externalKeys: Array.isArray(object?.external_keys) ? object.external_keys.map((e: any) => RegisterExternalKeysRequest_ExternalKey.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: RegisterExternalKeysRequest): RegisterExternalKeysRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.chain = message.chain;
+    if (message.externalKeys) {
+      obj.external_keys = message.externalKeys.map(e => e ? RegisterExternalKeysRequest_ExternalKey.toAmino(e) : undefined);
+    } else {
+      obj.external_keys = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: RegisterExternalKeysRequestAminoMsg): RegisterExternalKeysRequest {
+    return RegisterExternalKeysRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RegisterExternalKeysRequestProtoMsg): RegisterExternalKeysRequest {
+    return RegisterExternalKeysRequest.decode(message.value);
+  },
+  toProto(message: RegisterExternalKeysRequest): Uint8Array {
+    return RegisterExternalKeysRequest.encode(message).finish();
+  },
+  toProtoMsg(message: RegisterExternalKeysRequest): RegisterExternalKeysRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.RegisterExternalKeysRequest",
+      value: RegisterExternalKeysRequest.encode(message).finish()
+    };
   }
 };
 function createBaseRegisterExternalKeysRequest_ExternalKey(): RegisterExternalKeysRequest_ExternalKey {
@@ -550,7 +1203,8 @@ function createBaseRegisterExternalKeysRequest_ExternalKey(): RegisterExternalKe
   };
 }
 export const RegisterExternalKeysRequest_ExternalKey = {
-  encode(message: RegisterExternalKeysRequest_ExternalKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.ExternalKey",
+  encode(message: RegisterExternalKeysRequest_ExternalKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -570,13 +1224,41 @@ export const RegisterExternalKeysRequest_ExternalKey = {
     message.id = object.id ?? "";
     message.pubKey = object.pubKey ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: RegisterExternalKeysRequest_ExternalKeyAmino): RegisterExternalKeysRequest_ExternalKey {
+    return {
+      id: object.id,
+      pubKey: object.pub_key
+    };
+  },
+  toAmino(message: RegisterExternalKeysRequest_ExternalKey): RegisterExternalKeysRequest_ExternalKeyAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.pub_key = message.pubKey;
+    return obj;
+  },
+  fromAminoMsg(object: RegisterExternalKeysRequest_ExternalKeyAminoMsg): RegisterExternalKeysRequest_ExternalKey {
+    return RegisterExternalKeysRequest_ExternalKey.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RegisterExternalKeysRequest_ExternalKeyProtoMsg): RegisterExternalKeysRequest_ExternalKey {
+    return RegisterExternalKeysRequest_ExternalKey.decode(message.value);
+  },
+  toProto(message: RegisterExternalKeysRequest_ExternalKey): Uint8Array {
+    return RegisterExternalKeysRequest_ExternalKey.encode(message).finish();
+  },
+  toProtoMsg(message: RegisterExternalKeysRequest_ExternalKey): RegisterExternalKeysRequest_ExternalKeyProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.ExternalKey",
+      value: RegisterExternalKeysRequest_ExternalKey.encode(message).finish()
+    };
   }
 };
 function createBaseRegisterExternalKeysResponse(): RegisterExternalKeysResponse {
   return {};
 }
 export const RegisterExternalKeysResponse = {
-  encode(_: RegisterExternalKeysResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.RegisterExternalKeysResponse",
+  encode(_: RegisterExternalKeysResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): RegisterExternalKeysResponse {
@@ -585,6 +1267,28 @@ export const RegisterExternalKeysResponse = {
   fromPartial(_: Partial<RegisterExternalKeysResponse>): RegisterExternalKeysResponse {
     const message = createBaseRegisterExternalKeysResponse();
     return message;
+  },
+  fromAmino(_: RegisterExternalKeysResponseAmino): RegisterExternalKeysResponse {
+    return {};
+  },
+  toAmino(_: RegisterExternalKeysResponse): RegisterExternalKeysResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: RegisterExternalKeysResponseAminoMsg): RegisterExternalKeysResponse {
+    return RegisterExternalKeysResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RegisterExternalKeysResponseProtoMsg): RegisterExternalKeysResponse {
+    return RegisterExternalKeysResponse.decode(message.value);
+  },
+  toProto(message: RegisterExternalKeysResponse): Uint8Array {
+    return RegisterExternalKeysResponse.encode(message).finish();
+  },
+  toProtoMsg(message: RegisterExternalKeysResponse): RegisterExternalKeysResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.RegisterExternalKeysResponse",
+      value: RegisterExternalKeysResponse.encode(message).finish()
+    };
   }
 };
 function createBaseSubmitMultisigPubKeysRequest(): SubmitMultisigPubKeysRequest {
@@ -595,7 +1299,8 @@ function createBaseSubmitMultisigPubKeysRequest(): SubmitMultisigPubKeysRequest 
   };
 }
 export const SubmitMultisigPubKeysRequest = {
-  encode(message: SubmitMultisigPubKeysRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.SubmitMultisigPubKeysRequest",
+  encode(message: SubmitMultisigPubKeysRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -620,13 +1325,47 @@ export const SubmitMultisigPubKeysRequest = {
     message.keyId = object.keyId ?? "";
     message.sigKeyPairs = object.sigKeyPairs?.map(e => SigKeyPair.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: SubmitMultisigPubKeysRequestAmino): SubmitMultisigPubKeysRequest {
+    return {
+      sender: object.sender,
+      keyId: object.key_id,
+      sigKeyPairs: Array.isArray(object?.sig_key_pairs) ? object.sig_key_pairs.map((e: any) => SigKeyPair.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: SubmitMultisigPubKeysRequest): SubmitMultisigPubKeysRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.key_id = message.keyId;
+    if (message.sigKeyPairs) {
+      obj.sig_key_pairs = message.sigKeyPairs.map(e => e ? SigKeyPair.toAmino(e) : undefined);
+    } else {
+      obj.sig_key_pairs = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SubmitMultisigPubKeysRequestAminoMsg): SubmitMultisigPubKeysRequest {
+    return SubmitMultisigPubKeysRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SubmitMultisigPubKeysRequestProtoMsg): SubmitMultisigPubKeysRequest {
+    return SubmitMultisigPubKeysRequest.decode(message.value);
+  },
+  toProto(message: SubmitMultisigPubKeysRequest): Uint8Array {
+    return SubmitMultisigPubKeysRequest.encode(message).finish();
+  },
+  toProtoMsg(message: SubmitMultisigPubKeysRequest): SubmitMultisigPubKeysRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.SubmitMultisigPubKeysRequest",
+      value: SubmitMultisigPubKeysRequest.encode(message).finish()
+    };
   }
 };
 function createBaseSubmitMultisigPubKeysResponse(): SubmitMultisigPubKeysResponse {
   return {};
 }
 export const SubmitMultisigPubKeysResponse = {
-  encode(_: SubmitMultisigPubKeysResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.SubmitMultisigPubKeysResponse",
+  encode(_: SubmitMultisigPubKeysResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): SubmitMultisigPubKeysResponse {
@@ -635,6 +1374,28 @@ export const SubmitMultisigPubKeysResponse = {
   fromPartial(_: Partial<SubmitMultisigPubKeysResponse>): SubmitMultisigPubKeysResponse {
     const message = createBaseSubmitMultisigPubKeysResponse();
     return message;
+  },
+  fromAmino(_: SubmitMultisigPubKeysResponseAmino): SubmitMultisigPubKeysResponse {
+    return {};
+  },
+  toAmino(_: SubmitMultisigPubKeysResponse): SubmitMultisigPubKeysResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: SubmitMultisigPubKeysResponseAminoMsg): SubmitMultisigPubKeysResponse {
+    return SubmitMultisigPubKeysResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SubmitMultisigPubKeysResponseProtoMsg): SubmitMultisigPubKeysResponse {
+    return SubmitMultisigPubKeysResponse.decode(message.value);
+  },
+  toProto(message: SubmitMultisigPubKeysResponse): Uint8Array {
+    return SubmitMultisigPubKeysResponse.encode(message).finish();
+  },
+  toProtoMsg(message: SubmitMultisigPubKeysResponse): SubmitMultisigPubKeysResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.SubmitMultisigPubKeysResponse",
+      value: SubmitMultisigPubKeysResponse.encode(message).finish()
+    };
   }
 };
 function createBaseSubmitMultisigSignaturesRequest(): SubmitMultisigSignaturesRequest {
@@ -645,7 +1406,8 @@ function createBaseSubmitMultisigSignaturesRequest(): SubmitMultisigSignaturesRe
   };
 }
 export const SubmitMultisigSignaturesRequest = {
-  encode(message: SubmitMultisigSignaturesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.SubmitMultisigSignaturesRequest",
+  encode(message: SubmitMultisigSignaturesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -670,13 +1432,47 @@ export const SubmitMultisigSignaturesRequest = {
     message.sigId = object.sigId ?? "";
     message.signatures = object.signatures?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: SubmitMultisigSignaturesRequestAmino): SubmitMultisigSignaturesRequest {
+    return {
+      sender: object.sender,
+      sigId: object.sig_id,
+      signatures: Array.isArray(object?.signatures) ? object.signatures.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: SubmitMultisigSignaturesRequest): SubmitMultisigSignaturesRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.sig_id = message.sigId;
+    if (message.signatures) {
+      obj.signatures = message.signatures.map(e => e);
+    } else {
+      obj.signatures = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SubmitMultisigSignaturesRequestAminoMsg): SubmitMultisigSignaturesRequest {
+    return SubmitMultisigSignaturesRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SubmitMultisigSignaturesRequestProtoMsg): SubmitMultisigSignaturesRequest {
+    return SubmitMultisigSignaturesRequest.decode(message.value);
+  },
+  toProto(message: SubmitMultisigSignaturesRequest): Uint8Array {
+    return SubmitMultisigSignaturesRequest.encode(message).finish();
+  },
+  toProtoMsg(message: SubmitMultisigSignaturesRequest): SubmitMultisigSignaturesRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.SubmitMultisigSignaturesRequest",
+      value: SubmitMultisigSignaturesRequest.encode(message).finish()
+    };
   }
 };
 function createBaseSubmitMultisigSignaturesResponse(): SubmitMultisigSignaturesResponse {
   return {};
 }
 export const SubmitMultisigSignaturesResponse = {
-  encode(_: SubmitMultisigSignaturesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.SubmitMultisigSignaturesResponse",
+  encode(_: SubmitMultisigSignaturesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): SubmitMultisigSignaturesResponse {
@@ -685,5 +1481,27 @@ export const SubmitMultisigSignaturesResponse = {
   fromPartial(_: Partial<SubmitMultisigSignaturesResponse>): SubmitMultisigSignaturesResponse {
     const message = createBaseSubmitMultisigSignaturesResponse();
     return message;
+  },
+  fromAmino(_: SubmitMultisigSignaturesResponseAmino): SubmitMultisigSignaturesResponse {
+    return {};
+  },
+  toAmino(_: SubmitMultisigSignaturesResponse): SubmitMultisigSignaturesResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: SubmitMultisigSignaturesResponseAminoMsg): SubmitMultisigSignaturesResponse {
+    return SubmitMultisigSignaturesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SubmitMultisigSignaturesResponseProtoMsg): SubmitMultisigSignaturesResponse {
+    return SubmitMultisigSignaturesResponse.decode(message.value);
+  },
+  toProto(message: SubmitMultisigSignaturesResponse): Uint8Array {
+    return SubmitMultisigSignaturesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: SubmitMultisigSignaturesResponse): SubmitMultisigSignaturesResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.SubmitMultisigSignaturesResponse",
+      value: SubmitMultisigSignaturesResponse.encode(message).finish()
+    };
   }
 };

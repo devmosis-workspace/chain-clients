@@ -1,4 +1,4 @@
-import { LCDClient } from "@osmonauts/lcd";
+import { LCDClient } from "@cosmology/lcd";
 import { QueryDomainRequest, QueryDomainResponseSDKType, QueryDomainAccountsRequest, QueryDomainAccountsResponseSDKType, QueryStarnameRequest, QueryStarnameResponseSDKType, QueryOwnerAccountsRequest, QueryOwnerAccountsResponseSDKType, QueryOwnerDomainsRequest, QueryOwnerDomainsResponseSDKType, QueryResourceAccountsRequest, QueryResourceAccountsResponseSDKType, QueryBrokerAccountsRequest, QueryBrokerAccountsResponseSDKType, QueryBrokerDomainsRequest, QueryBrokerDomainsResponseSDKType, QueryYieldRequest, QueryYieldResponseSDKType } from "./query";
 export declare class LCDQueryClient {
     req: LCDClient;

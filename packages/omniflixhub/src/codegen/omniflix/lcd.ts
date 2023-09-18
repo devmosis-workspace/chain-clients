@@ -1,4 +1,4 @@
-import { LCDClient } from "@osmonauts/lcd";
+import { LCDClient } from "@cosmology/lcd";
 export const createLCDClient = async ({
   restEndpoint
 }: {
@@ -11,6 +11,11 @@ export const createLCDClient = async ({
     OmniFlix: {
       itc: {
         v1: new (await import("../omniflix/itc/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      marketplace: {
+        v1beta1: new (await import("../omniflix/marketplace/v1beta1/query.lcd")).LCDQueryClient({
           requestClient
         })
       }

@@ -1,13 +1,14 @@
 import { PoolStatus, poolStatusFromJSON } from "../../pool/v1beta1/pool";
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
+import { Decimal } from "@cosmjs/math";
 /**
  * BasicPool contains the necessary properties need for a pool
  * to be displayed in the UI
  */
 export interface BasicPool {
   /** id is the ID of the pool */
-  id: Long;
+  id: bigint;
   /** name of the pool */
   name: string;
   /**
@@ -18,35 +19,76 @@ export interface BasicPool {
   /** logo of the pool */
   logo: string;
   /** operating_cost is the base payout for each bundle reward */
-  operatingCost: Long;
+  operatingCost: bigint;
   /** upload_interval is the interval bundles get created */
-  uploadInterval: Long;
+  uploadInterval: bigint;
   /**
    * total_funds of the pool. If the pool runs
    * out of funds no more bundles will be produced
    */
-  totalFunds: Long;
+  totalFunds: bigint;
   /** total_delegation of the pool */
-  totalDelegation: Long;
+  totalDelegation: bigint;
   /**
    * status of the pool if pool is able
    * to produce bundles, etc.
    */
   status: PoolStatus;
 }
+export interface BasicPoolProtoMsg {
+  typeUrl: "/kyve.query.v1beta1.BasicPool";
+  value: Uint8Array;
+}
+/**
+ * BasicPool contains the necessary properties need for a pool
+ * to be displayed in the UI
+ */
+export interface BasicPoolAmino {
+  /** id is the ID of the pool */
+  id: string;
+  /** name of the pool */
+  name: string;
+  /**
+   * runtime for the protocol nodes
+   * like evm, bitcoin, etc.
+   */
+  runtime: string;
+  /** logo of the pool */
+  logo: string;
+  /** operating_cost is the base payout for each bundle reward */
+  operating_cost: string;
+  /** upload_interval is the interval bundles get created */
+  upload_interval: string;
+  /**
+   * total_funds of the pool. If the pool runs
+   * out of funds no more bundles will be produced
+   */
+  total_funds: string;
+  /** total_delegation of the pool */
+  total_delegation: string;
+  /**
+   * status of the pool if pool is able
+   * to produce bundles, etc.
+   */
+  status: PoolStatus;
+}
+export interface BasicPoolAminoMsg {
+  type: "/kyve.query.v1beta1.BasicPool";
+  value: BasicPoolAmino;
+}
 /**
  * BasicPool contains the necessary properties need for a pool
  * to be displayed in the UI
  */
 export interface BasicPoolSDKType {
-  id: Long;
+  id: bigint;
   name: string;
   runtime: string;
   logo: string;
-  operating_cost: Long;
-  upload_interval: Long;
-  total_funds: Long;
-  total_delegation: Long;
+  operating_cost: bigint;
+  upload_interval: bigint;
+  total_funds: bigint;
+  total_delegation: bigint;
   status: PoolStatus;
 }
 /**
@@ -58,9 +100,9 @@ export interface FullStaker {
   /** address of the staker */
   address: string;
   /** metadata as logo, moniker, etc. */
-  metadata?: StakerMetadata;
+  metadata: StakerMetadata;
   /** amount the staker has delegated to himself */
-  selfDelegation: Long;
+  selfDelegation: bigint;
   /**
    * unbonding_amount is the amount the staker is currently unbonding
    * from the self-delegation.
@@ -69,22 +111,67 @@ export interface FullStaker {
    * the unbonding period this amount is double checked with the
    * remaining amount.
    */
-  selfDelegationUnbonding: Long;
+  selfDelegationUnbonding: bigint;
   /**
    * total_delegation returns the sum of all $KYVE users
    * have delegated to this staker
    */
-  totalDelegation: Long;
+  totalDelegation: bigint;
   /**
    * delegator_count is the total number of individual
    * delegator addresses for that user.
    */
-  delegatorCount: Long;
+  delegatorCount: bigint;
   /**
    * pools is a list of all pools the staker is currently
    * participating, i.e. allowed to vote and upload data.
    */
   pools: PoolMembership[];
+}
+export interface FullStakerProtoMsg {
+  typeUrl: "/kyve.query.v1beta1.FullStaker";
+  value: Uint8Array;
+}
+/**
+ * FullStaker aggregates information from the staker and its delegators
+ * as well as pending queue entries into one object.
+ * It contains almost all needed information for a convenient usage
+ */
+export interface FullStakerAmino {
+  /** address of the staker */
+  address: string;
+  /** metadata as logo, moniker, etc. */
+  metadata?: StakerMetadataAmino;
+  /** amount the staker has delegated to himself */
+  self_delegation: string;
+  /**
+   * unbonding_amount is the amount the staker is currently unbonding
+   * from the self-delegation.
+   * This amount can be larger than `amount` when the staker
+   * got slashed during unbonding. However, at the end of
+   * the unbonding period this amount is double checked with the
+   * remaining amount.
+   */
+  self_delegation_unbonding: string;
+  /**
+   * total_delegation returns the sum of all $KYVE users
+   * have delegated to this staker
+   */
+  total_delegation: string;
+  /**
+   * delegator_count is the total number of individual
+   * delegator addresses for that user.
+   */
+  delegator_count: string;
+  /**
+   * pools is a list of all pools the staker is currently
+   * participating, i.e. allowed to vote and upload data.
+   */
+  pools: PoolMembershipAmino[];
+}
+export interface FullStakerAminoMsg {
+  type: "/kyve.query.v1beta1.FullStaker";
+  value: FullStakerAmino;
 }
 /**
  * FullStaker aggregates information from the staker and its delegators
@@ -93,11 +180,11 @@ export interface FullStaker {
  */
 export interface FullStakerSDKType {
   address: string;
-  metadata?: StakerMetadataSDKType;
-  self_delegation: Long;
-  self_delegation_unbonding: Long;
-  total_delegation: Long;
-  delegator_count: Long;
+  metadata: StakerMetadataSDKType;
+  self_delegation: bigint;
+  self_delegation_unbonding: bigint;
+  total_delegation: bigint;
+  delegator_count: bigint;
   pools: PoolMembershipSDKType[];
 }
 /** StakerMetadata contains static information for a staker */
@@ -128,9 +215,49 @@ export interface StakerMetadata {
    * the commission is applied. Users have time to redelegate
    * if they not agree with the new commission.
    */
-  pendingCommissionChange?: CommissionChangeEntry;
+  pendingCommissionChange: CommissionChangeEntry;
   /** commission_rewards are the rewards in $KYVE earned through commission */
-  commissionRewards: Long;
+  commissionRewards: bigint;
+}
+export interface StakerMetadataProtoMsg {
+  typeUrl: "/kyve.query.v1beta1.StakerMetadata";
+  value: Uint8Array;
+}
+/** StakerMetadata contains static information for a staker */
+export interface StakerMetadataAmino {
+  /**
+   * commission is the percentage of the rewards that will
+   * get transferred to the staker before the remaining
+   * rewards are split across all delegators
+   */
+  commission: string;
+  /**
+   * moniker is a human-readable name for displaying
+   * the staker in the UI
+   */
+  moniker: string;
+  /** website is a https-link to the website of the staker */
+  website: string;
+  /** identity from keybase.io */
+  identity: string;
+  /** security_contact ... */
+  security_contact: string;
+  /** details ... */
+  details: string;
+  /**
+   * pending_commission_change shows if the staker plans
+   * to change its commission. Delegators will see a warning in
+   * the UI. A Commission change takes some time until
+   * the commission is applied. Users have time to redelegate
+   * if they not agree with the new commission.
+   */
+  pending_commission_change?: CommissionChangeEntryAmino;
+  /** commission_rewards are the rewards in $KYVE earned through commission */
+  commission_rewards: string;
+}
+export interface StakerMetadataAminoMsg {
+  type: "/kyve.query.v1beta1.StakerMetadata";
+  value: StakerMetadataAmino;
 }
 /** StakerMetadata contains static information for a staker */
 export interface StakerMetadataSDKType {
@@ -140,8 +267,8 @@ export interface StakerMetadataSDKType {
   identity: string;
   security_contact: string;
   details: string;
-  pending_commission_change?: CommissionChangeEntrySDKType;
-  commission_rewards: Long;
+  pending_commission_change: CommissionChangeEntrySDKType;
+  commission_rewards: bigint;
 }
 /**
  * CommissionChangeEntry shows when the old commission
@@ -157,7 +284,31 @@ export interface CommissionChangeEntry {
    * creation_date is the UNIX-timestamp (in seconds)
    * of when the entry was created.
    */
-  creationDate: Long;
+  creationDate: bigint;
+}
+export interface CommissionChangeEntryProtoMsg {
+  typeUrl: "/kyve.query.v1beta1.CommissionChangeEntry";
+  value: Uint8Array;
+}
+/**
+ * CommissionChangeEntry shows when the old commission
+ * of a staker will change to the new commission
+ */
+export interface CommissionChangeEntryAmino {
+  /**
+   * commission is the new commission that will
+   * become active once the change-time is over
+   */
+  commission: string;
+  /**
+   * creation_date is the UNIX-timestamp (in seconds)
+   * of when the entry was created.
+   */
+  creation_date: string;
+}
+export interface CommissionChangeEntryAminoMsg {
+  type: "/kyve.query.v1beta1.CommissionChangeEntry";
+  value: CommissionChangeEntryAmino;
 }
 /**
  * CommissionChangeEntry shows when the old commission
@@ -165,7 +316,7 @@ export interface CommissionChangeEntry {
  */
 export interface CommissionChangeEntrySDKType {
   commission: string;
-  creation_date: Long;
+  creation_date: bigint;
 }
 /**
  * PoolMembership shows in which pool the staker
@@ -173,14 +324,14 @@ export interface CommissionChangeEntrySDKType {
  */
 export interface PoolMembership {
   /** pool contains useful information about the pool */
-  pool?: BasicPool;
+  pool: BasicPool;
   /**
    * points indicates if the staker is inactive
    * If the staker misses a vote, a point is added.
    * After 5 points the staker is removed from
    * the stakers set.
    */
-  points: Long;
+  points: bigint;
   /**
    * is_leaving indicates if a user has scheduled a
    * a PoolLeave entry. After the leave-time is over
@@ -198,35 +349,77 @@ export interface PoolMembership {
    * whether or not the valaccount needs additional funds to
    * pay for gas fees
    */
-  balance: Long;
+  balance: bigint;
+}
+export interface PoolMembershipProtoMsg {
+  typeUrl: "/kyve.query.v1beta1.PoolMembership";
+  value: Uint8Array;
+}
+/**
+ * PoolMembership shows in which pool the staker
+ * is participating
+ */
+export interface PoolMembershipAmino {
+  /** pool contains useful information about the pool */
+  pool?: BasicPoolAmino;
+  /**
+   * points indicates if the staker is inactive
+   * If the staker misses a vote, a point is added.
+   * After 5 points the staker is removed from
+   * the stakers set.
+   */
+  points: string;
+  /**
+   * is_leaving indicates if a user has scheduled a
+   * a PoolLeave entry. After the leave-time is over
+   * the staker will no longer participate in that pool
+   */
+  is_leaving: boolean;
+  /**
+   * Valaddress is the address which is authorized to vote
+   * and submit bundles. If the server gets compromised
+   * the staker can just change the valaddress.
+   */
+  valaddress: string;
+  /**
+   * balance is the valaddress account balance and indicates
+   * whether or not the valaccount needs additional funds to
+   * pay for gas fees
+   */
+  balance: string;
+}
+export interface PoolMembershipAminoMsg {
+  type: "/kyve.query.v1beta1.PoolMembership";
+  value: PoolMembershipAmino;
 }
 /**
  * PoolMembership shows in which pool the staker
  * is participating
  */
 export interface PoolMembershipSDKType {
-  pool?: BasicPoolSDKType;
-  points: Long;
+  pool: BasicPoolSDKType;
+  points: bigint;
   is_leaving: boolean;
   valaddress: string;
-  balance: Long;
+  balance: bigint;
 }
 function createBaseBasicPool(): BasicPool {
   return {
-    id: Long.UZERO,
+    id: BigInt(0),
     name: "",
     runtime: "",
     logo: "",
-    operatingCost: Long.UZERO,
-    uploadInterval: Long.UZERO,
-    totalFunds: Long.UZERO,
-    totalDelegation: Long.UZERO,
+    operatingCost: BigInt(0),
+    uploadInterval: BigInt(0),
+    totalFunds: BigInt(0),
+    totalDelegation: BigInt(0),
     status: 0
   };
 }
 export const BasicPool = {
-  encode(message: BasicPool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.id.isZero()) {
+  typeUrl: "/kyve.query.v1beta1.BasicPool",
+  encode(message: BasicPool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.id !== BigInt(0)) {
       writer.uint32(8).uint64(message.id);
     }
     if (message.name !== "") {
@@ -238,16 +431,16 @@ export const BasicPool = {
     if (message.logo !== "") {
       writer.uint32(34).string(message.logo);
     }
-    if (!message.operatingCost.isZero()) {
+    if (message.operatingCost !== BigInt(0)) {
       writer.uint32(40).uint64(message.operatingCost);
     }
-    if (!message.uploadInterval.isZero()) {
+    if (message.uploadInterval !== BigInt(0)) {
       writer.uint32(48).uint64(message.uploadInterval);
     }
-    if (!message.totalFunds.isZero()) {
+    if (message.totalFunds !== BigInt(0)) {
       writer.uint32(56).uint64(message.totalFunds);
     }
-    if (!message.totalDelegation.isZero()) {
+    if (message.totalDelegation !== BigInt(0)) {
       writer.uint32(64).uint64(message.totalDelegation);
     }
     if (message.status !== 0) {
@@ -257,60 +450,102 @@ export const BasicPool = {
   },
   fromJSON(object: any): BasicPool {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      id: isSet(object.id) ? BigInt(object.id.toString()) : BigInt(0),
       name: isSet(object.name) ? String(object.name) : "",
       runtime: isSet(object.runtime) ? String(object.runtime) : "",
       logo: isSet(object.logo) ? String(object.logo) : "",
-      operatingCost: isSet(object.operatingCost) ? Long.fromValue(object.operatingCost) : Long.UZERO,
-      uploadInterval: isSet(object.uploadInterval) ? Long.fromValue(object.uploadInterval) : Long.UZERO,
-      totalFunds: isSet(object.totalFunds) ? Long.fromValue(object.totalFunds) : Long.UZERO,
-      totalDelegation: isSet(object.totalDelegation) ? Long.fromValue(object.totalDelegation) : Long.UZERO,
-      status: isSet(object.status) ? poolStatusFromJSON(object.status) : 0
+      operatingCost: isSet(object.operatingCost) ? BigInt(object.operatingCost.toString()) : BigInt(0),
+      uploadInterval: isSet(object.uploadInterval) ? BigInt(object.uploadInterval.toString()) : BigInt(0),
+      totalFunds: isSet(object.totalFunds) ? BigInt(object.totalFunds.toString()) : BigInt(0),
+      totalDelegation: isSet(object.totalDelegation) ? BigInt(object.totalDelegation.toString()) : BigInt(0),
+      status: isSet(object.status) ? poolStatusFromJSON(object.status) : -1
     };
   },
   fromPartial(object: Partial<BasicPool>): BasicPool {
     const message = createBaseBasicPool();
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
+    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
     message.name = object.name ?? "";
     message.runtime = object.runtime ?? "";
     message.logo = object.logo ?? "";
-    message.operatingCost = object.operatingCost !== undefined && object.operatingCost !== null ? Long.fromValue(object.operatingCost) : Long.UZERO;
-    message.uploadInterval = object.uploadInterval !== undefined && object.uploadInterval !== null ? Long.fromValue(object.uploadInterval) : Long.UZERO;
-    message.totalFunds = object.totalFunds !== undefined && object.totalFunds !== null ? Long.fromValue(object.totalFunds) : Long.UZERO;
-    message.totalDelegation = object.totalDelegation !== undefined && object.totalDelegation !== null ? Long.fromValue(object.totalDelegation) : Long.UZERO;
+    message.operatingCost = object.operatingCost !== undefined && object.operatingCost !== null ? BigInt(object.operatingCost.toString()) : BigInt(0);
+    message.uploadInterval = object.uploadInterval !== undefined && object.uploadInterval !== null ? BigInt(object.uploadInterval.toString()) : BigInt(0);
+    message.totalFunds = object.totalFunds !== undefined && object.totalFunds !== null ? BigInt(object.totalFunds.toString()) : BigInt(0);
+    message.totalDelegation = object.totalDelegation !== undefined && object.totalDelegation !== null ? BigInt(object.totalDelegation.toString()) : BigInt(0);
     message.status = object.status ?? 0;
     return message;
+  },
+  fromAmino(object: BasicPoolAmino): BasicPool {
+    return {
+      id: BigInt(object.id),
+      name: object.name,
+      runtime: object.runtime,
+      logo: object.logo,
+      operatingCost: BigInt(object.operating_cost),
+      uploadInterval: BigInt(object.upload_interval),
+      totalFunds: BigInt(object.total_funds),
+      totalDelegation: BigInt(object.total_delegation),
+      status: isSet(object.status) ? poolStatusFromJSON(object.status) : -1
+    };
+  },
+  toAmino(message: BasicPool): BasicPoolAmino {
+    const obj: any = {};
+    obj.id = message.id ? message.id.toString() : undefined;
+    obj.name = message.name;
+    obj.runtime = message.runtime;
+    obj.logo = message.logo;
+    obj.operating_cost = message.operatingCost ? message.operatingCost.toString() : undefined;
+    obj.upload_interval = message.uploadInterval ? message.uploadInterval.toString() : undefined;
+    obj.total_funds = message.totalFunds ? message.totalFunds.toString() : undefined;
+    obj.total_delegation = message.totalDelegation ? message.totalDelegation.toString() : undefined;
+    obj.status = message.status;
+    return obj;
+  },
+  fromAminoMsg(object: BasicPoolAminoMsg): BasicPool {
+    return BasicPool.fromAmino(object.value);
+  },
+  fromProtoMsg(message: BasicPoolProtoMsg): BasicPool {
+    return BasicPool.decode(message.value);
+  },
+  toProto(message: BasicPool): Uint8Array {
+    return BasicPool.encode(message).finish();
+  },
+  toProtoMsg(message: BasicPool): BasicPoolProtoMsg {
+    return {
+      typeUrl: "/kyve.query.v1beta1.BasicPool",
+      value: BasicPool.encode(message).finish()
+    };
   }
 };
 function createBaseFullStaker(): FullStaker {
   return {
     address: "",
-    metadata: undefined,
-    selfDelegation: Long.UZERO,
-    selfDelegationUnbonding: Long.UZERO,
-    totalDelegation: Long.UZERO,
-    delegatorCount: Long.UZERO,
+    metadata: StakerMetadata.fromPartial({}),
+    selfDelegation: BigInt(0),
+    selfDelegationUnbonding: BigInt(0),
+    totalDelegation: BigInt(0),
+    delegatorCount: BigInt(0),
     pools: []
   };
 }
 export const FullStaker = {
-  encode(message: FullStaker, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.query.v1beta1.FullStaker",
+  encode(message: FullStaker, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
     if (message.metadata !== undefined) {
       StakerMetadata.encode(message.metadata, writer.uint32(18).fork()).ldelim();
     }
-    if (!message.selfDelegation.isZero()) {
+    if (message.selfDelegation !== BigInt(0)) {
       writer.uint32(24).uint64(message.selfDelegation);
     }
-    if (!message.selfDelegationUnbonding.isZero()) {
+    if (message.selfDelegationUnbonding !== BigInt(0)) {
       writer.uint32(32).uint64(message.selfDelegationUnbonding);
     }
-    if (!message.totalDelegation.isZero()) {
+    if (message.totalDelegation !== BigInt(0)) {
       writer.uint32(40).uint64(message.totalDelegation);
     }
-    if (!message.delegatorCount.isZero()) {
+    if (message.delegatorCount !== BigInt(0)) {
       writer.uint32(48).uint64(message.delegatorCount);
     }
     for (const v of message.pools) {
@@ -322,10 +557,10 @@ export const FullStaker = {
     return {
       address: isSet(object.address) ? String(object.address) : "",
       metadata: isSet(object.metadata) ? StakerMetadata.fromJSON(object.metadata) : undefined,
-      selfDelegation: isSet(object.selfDelegation) ? Long.fromValue(object.selfDelegation) : Long.UZERO,
-      selfDelegationUnbonding: isSet(object.selfDelegationUnbonding) ? Long.fromValue(object.selfDelegationUnbonding) : Long.UZERO,
-      totalDelegation: isSet(object.totalDelegation) ? Long.fromValue(object.totalDelegation) : Long.UZERO,
-      delegatorCount: isSet(object.delegatorCount) ? Long.fromValue(object.delegatorCount) : Long.UZERO,
+      selfDelegation: isSet(object.selfDelegation) ? BigInt(object.selfDelegation.toString()) : BigInt(0),
+      selfDelegationUnbonding: isSet(object.selfDelegationUnbonding) ? BigInt(object.selfDelegationUnbonding.toString()) : BigInt(0),
+      totalDelegation: isSet(object.totalDelegation) ? BigInt(object.totalDelegation.toString()) : BigInt(0),
+      delegatorCount: isSet(object.delegatorCount) ? BigInt(object.delegatorCount.toString()) : BigInt(0),
       pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => PoolMembership.fromJSON(e)) : []
     };
   },
@@ -333,12 +568,53 @@ export const FullStaker = {
     const message = createBaseFullStaker();
     message.address = object.address ?? "";
     message.metadata = object.metadata !== undefined && object.metadata !== null ? StakerMetadata.fromPartial(object.metadata) : undefined;
-    message.selfDelegation = object.selfDelegation !== undefined && object.selfDelegation !== null ? Long.fromValue(object.selfDelegation) : Long.UZERO;
-    message.selfDelegationUnbonding = object.selfDelegationUnbonding !== undefined && object.selfDelegationUnbonding !== null ? Long.fromValue(object.selfDelegationUnbonding) : Long.UZERO;
-    message.totalDelegation = object.totalDelegation !== undefined && object.totalDelegation !== null ? Long.fromValue(object.totalDelegation) : Long.UZERO;
-    message.delegatorCount = object.delegatorCount !== undefined && object.delegatorCount !== null ? Long.fromValue(object.delegatorCount) : Long.UZERO;
+    message.selfDelegation = object.selfDelegation !== undefined && object.selfDelegation !== null ? BigInt(object.selfDelegation.toString()) : BigInt(0);
+    message.selfDelegationUnbonding = object.selfDelegationUnbonding !== undefined && object.selfDelegationUnbonding !== null ? BigInt(object.selfDelegationUnbonding.toString()) : BigInt(0);
+    message.totalDelegation = object.totalDelegation !== undefined && object.totalDelegation !== null ? BigInt(object.totalDelegation.toString()) : BigInt(0);
+    message.delegatorCount = object.delegatorCount !== undefined && object.delegatorCount !== null ? BigInt(object.delegatorCount.toString()) : BigInt(0);
     message.pools = object.pools?.map(e => PoolMembership.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: FullStakerAmino): FullStaker {
+    return {
+      address: object.address,
+      metadata: object?.metadata ? StakerMetadata.fromAmino(object.metadata) : undefined,
+      selfDelegation: BigInt(object.self_delegation),
+      selfDelegationUnbonding: BigInt(object.self_delegation_unbonding),
+      totalDelegation: BigInt(object.total_delegation),
+      delegatorCount: BigInt(object.delegator_count),
+      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => PoolMembership.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: FullStaker): FullStakerAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.metadata = message.metadata ? StakerMetadata.toAmino(message.metadata) : undefined;
+    obj.self_delegation = message.selfDelegation ? message.selfDelegation.toString() : undefined;
+    obj.self_delegation_unbonding = message.selfDelegationUnbonding ? message.selfDelegationUnbonding.toString() : undefined;
+    obj.total_delegation = message.totalDelegation ? message.totalDelegation.toString() : undefined;
+    obj.delegator_count = message.delegatorCount ? message.delegatorCount.toString() : undefined;
+    if (message.pools) {
+      obj.pools = message.pools.map(e => e ? PoolMembership.toAmino(e) : undefined);
+    } else {
+      obj.pools = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: FullStakerAminoMsg): FullStaker {
+    return FullStaker.fromAmino(object.value);
+  },
+  fromProtoMsg(message: FullStakerProtoMsg): FullStaker {
+    return FullStaker.decode(message.value);
+  },
+  toProto(message: FullStaker): Uint8Array {
+    return FullStaker.encode(message).finish();
+  },
+  toProtoMsg(message: FullStaker): FullStakerProtoMsg {
+    return {
+      typeUrl: "/kyve.query.v1beta1.FullStaker",
+      value: FullStaker.encode(message).finish()
+    };
   }
 };
 function createBaseStakerMetadata(): StakerMetadata {
@@ -349,14 +625,15 @@ function createBaseStakerMetadata(): StakerMetadata {
     identity: "",
     securityContact: "",
     details: "",
-    pendingCommissionChange: undefined,
-    commissionRewards: Long.UZERO
+    pendingCommissionChange: CommissionChangeEntry.fromPartial({}),
+    commissionRewards: BigInt(0)
   };
 }
 export const StakerMetadata = {
-  encode(message: StakerMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.query.v1beta1.StakerMetadata",
+  encode(message: StakerMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.commission !== "") {
-      writer.uint32(10).string(message.commission);
+      writer.uint32(10).string(Decimal.fromUserInput(message.commission, 18).atomics);
     }
     if (message.moniker !== "") {
       writer.uint32(18).string(message.moniker);
@@ -376,7 +653,7 @@ export const StakerMetadata = {
     if (message.pendingCommissionChange !== undefined) {
       CommissionChangeEntry.encode(message.pendingCommissionChange, writer.uint32(58).fork()).ldelim();
     }
-    if (!message.commissionRewards.isZero()) {
+    if (message.commissionRewards !== BigInt(0)) {
       writer.uint32(64).uint64(message.commissionRewards);
     }
     return writer;
@@ -390,7 +667,7 @@ export const StakerMetadata = {
       securityContact: isSet(object.securityContact) ? String(object.securityContact) : "",
       details: isSet(object.details) ? String(object.details) : "",
       pendingCommissionChange: isSet(object.pendingCommissionChange) ? CommissionChangeEntry.fromJSON(object.pendingCommissionChange) : undefined,
-      commissionRewards: isSet(object.commissionRewards) ? Long.fromValue(object.commissionRewards) : Long.UZERO
+      commissionRewards: isSet(object.commissionRewards) ? BigInt(object.commissionRewards.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<StakerMetadata>): StakerMetadata {
@@ -402,22 +679,62 @@ export const StakerMetadata = {
     message.securityContact = object.securityContact ?? "";
     message.details = object.details ?? "";
     message.pendingCommissionChange = object.pendingCommissionChange !== undefined && object.pendingCommissionChange !== null ? CommissionChangeEntry.fromPartial(object.pendingCommissionChange) : undefined;
-    message.commissionRewards = object.commissionRewards !== undefined && object.commissionRewards !== null ? Long.fromValue(object.commissionRewards) : Long.UZERO;
+    message.commissionRewards = object.commissionRewards !== undefined && object.commissionRewards !== null ? BigInt(object.commissionRewards.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: StakerMetadataAmino): StakerMetadata {
+    return {
+      commission: object.commission,
+      moniker: object.moniker,
+      website: object.website,
+      identity: object.identity,
+      securityContact: object.security_contact,
+      details: object.details,
+      pendingCommissionChange: object?.pending_commission_change ? CommissionChangeEntry.fromAmino(object.pending_commission_change) : undefined,
+      commissionRewards: BigInt(object.commission_rewards)
+    };
+  },
+  toAmino(message: StakerMetadata): StakerMetadataAmino {
+    const obj: any = {};
+    obj.commission = message.commission;
+    obj.moniker = message.moniker;
+    obj.website = message.website;
+    obj.identity = message.identity;
+    obj.security_contact = message.securityContact;
+    obj.details = message.details;
+    obj.pending_commission_change = message.pendingCommissionChange ? CommissionChangeEntry.toAmino(message.pendingCommissionChange) : undefined;
+    obj.commission_rewards = message.commissionRewards ? message.commissionRewards.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: StakerMetadataAminoMsg): StakerMetadata {
+    return StakerMetadata.fromAmino(object.value);
+  },
+  fromProtoMsg(message: StakerMetadataProtoMsg): StakerMetadata {
+    return StakerMetadata.decode(message.value);
+  },
+  toProto(message: StakerMetadata): Uint8Array {
+    return StakerMetadata.encode(message).finish();
+  },
+  toProtoMsg(message: StakerMetadata): StakerMetadataProtoMsg {
+    return {
+      typeUrl: "/kyve.query.v1beta1.StakerMetadata",
+      value: StakerMetadata.encode(message).finish()
+    };
   }
 };
 function createBaseCommissionChangeEntry(): CommissionChangeEntry {
   return {
     commission: "",
-    creationDate: Long.ZERO
+    creationDate: BigInt(0)
   };
 }
 export const CommissionChangeEntry = {
-  encode(message: CommissionChangeEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.query.v1beta1.CommissionChangeEntry",
+  encode(message: CommissionChangeEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.commission !== "") {
-      writer.uint32(10).string(message.commission);
+      writer.uint32(10).string(Decimal.fromUserInput(message.commission, 18).atomics);
     }
-    if (!message.creationDate.isZero()) {
+    if (message.creationDate !== BigInt(0)) {
       writer.uint32(16).int64(message.creationDate);
     }
     return writer;
@@ -425,31 +742,59 @@ export const CommissionChangeEntry = {
   fromJSON(object: any): CommissionChangeEntry {
     return {
       commission: isSet(object.commission) ? String(object.commission) : "",
-      creationDate: isSet(object.creationDate) ? Long.fromValue(object.creationDate) : Long.ZERO
+      creationDate: isSet(object.creationDate) ? BigInt(object.creationDate.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<CommissionChangeEntry>): CommissionChangeEntry {
     const message = createBaseCommissionChangeEntry();
     message.commission = object.commission ?? "";
-    message.creationDate = object.creationDate !== undefined && object.creationDate !== null ? Long.fromValue(object.creationDate) : Long.ZERO;
+    message.creationDate = object.creationDate !== undefined && object.creationDate !== null ? BigInt(object.creationDate.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: CommissionChangeEntryAmino): CommissionChangeEntry {
+    return {
+      commission: object.commission,
+      creationDate: BigInt(object.creation_date)
+    };
+  },
+  toAmino(message: CommissionChangeEntry): CommissionChangeEntryAmino {
+    const obj: any = {};
+    obj.commission = message.commission;
+    obj.creation_date = message.creationDate ? message.creationDate.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: CommissionChangeEntryAminoMsg): CommissionChangeEntry {
+    return CommissionChangeEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CommissionChangeEntryProtoMsg): CommissionChangeEntry {
+    return CommissionChangeEntry.decode(message.value);
+  },
+  toProto(message: CommissionChangeEntry): Uint8Array {
+    return CommissionChangeEntry.encode(message).finish();
+  },
+  toProtoMsg(message: CommissionChangeEntry): CommissionChangeEntryProtoMsg {
+    return {
+      typeUrl: "/kyve.query.v1beta1.CommissionChangeEntry",
+      value: CommissionChangeEntry.encode(message).finish()
+    };
   }
 };
 function createBasePoolMembership(): PoolMembership {
   return {
-    pool: undefined,
-    points: Long.UZERO,
+    pool: BasicPool.fromPartial({}),
+    points: BigInt(0),
     isLeaving: false,
     valaddress: "",
-    balance: Long.UZERO
+    balance: BigInt(0)
   };
 }
 export const PoolMembership = {
-  encode(message: PoolMembership, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.query.v1beta1.PoolMembership",
+  encode(message: PoolMembership, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pool !== undefined) {
       BasicPool.encode(message.pool, writer.uint32(10).fork()).ldelim();
     }
-    if (!message.points.isZero()) {
+    if (message.points !== BigInt(0)) {
       writer.uint32(16).uint64(message.points);
     }
     if (message.isLeaving === true) {
@@ -458,7 +803,7 @@ export const PoolMembership = {
     if (message.valaddress !== "") {
       writer.uint32(34).string(message.valaddress);
     }
-    if (!message.balance.isZero()) {
+    if (message.balance !== BigInt(0)) {
       writer.uint32(40).uint64(message.balance);
     }
     return writer;
@@ -466,19 +811,52 @@ export const PoolMembership = {
   fromJSON(object: any): PoolMembership {
     return {
       pool: isSet(object.pool) ? BasicPool.fromJSON(object.pool) : undefined,
-      points: isSet(object.points) ? Long.fromValue(object.points) : Long.UZERO,
+      points: isSet(object.points) ? BigInt(object.points.toString()) : BigInt(0),
       isLeaving: isSet(object.isLeaving) ? Boolean(object.isLeaving) : false,
       valaddress: isSet(object.valaddress) ? String(object.valaddress) : "",
-      balance: isSet(object.balance) ? Long.fromValue(object.balance) : Long.UZERO
+      balance: isSet(object.balance) ? BigInt(object.balance.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<PoolMembership>): PoolMembership {
     const message = createBasePoolMembership();
     message.pool = object.pool !== undefined && object.pool !== null ? BasicPool.fromPartial(object.pool) : undefined;
-    message.points = object.points !== undefined && object.points !== null ? Long.fromValue(object.points) : Long.UZERO;
+    message.points = object.points !== undefined && object.points !== null ? BigInt(object.points.toString()) : BigInt(0);
     message.isLeaving = object.isLeaving ?? false;
     message.valaddress = object.valaddress ?? "";
-    message.balance = object.balance !== undefined && object.balance !== null ? Long.fromValue(object.balance) : Long.UZERO;
+    message.balance = object.balance !== undefined && object.balance !== null ? BigInt(object.balance.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: PoolMembershipAmino): PoolMembership {
+    return {
+      pool: object?.pool ? BasicPool.fromAmino(object.pool) : undefined,
+      points: BigInt(object.points),
+      isLeaving: object.is_leaving,
+      valaddress: object.valaddress,
+      balance: BigInt(object.balance)
+    };
+  },
+  toAmino(message: PoolMembership): PoolMembershipAmino {
+    const obj: any = {};
+    obj.pool = message.pool ? BasicPool.toAmino(message.pool) : undefined;
+    obj.points = message.points ? message.points.toString() : undefined;
+    obj.is_leaving = message.isLeaving;
+    obj.valaddress = message.valaddress;
+    obj.balance = message.balance ? message.balance.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PoolMembershipAminoMsg): PoolMembership {
+    return PoolMembership.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PoolMembershipProtoMsg): PoolMembership {
+    return PoolMembership.decode(message.value);
+  },
+  toProto(message: PoolMembership): Uint8Array {
+    return PoolMembership.encode(message).finish();
+  },
+  toProtoMsg(message: PoolMembership): PoolMembershipProtoMsg {
+    return {
+      typeUrl: "/kyve.query.v1beta1.PoolMembership",
+      value: PoolMembership.encode(message).finish()
+    };
   }
 };

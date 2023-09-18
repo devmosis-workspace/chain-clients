@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { MsgValsetConfirm, MsgValsetConfirmResponse, MsgSendToEth, MsgSendToEthResponse, MsgRequestBatch, MsgRequestBatchResponse, MsgConfirmBatch, MsgConfirmBatchResponse, MsgConfirmLogicCall, MsgConfirmLogicCallResponse, MsgSendToCosmosClaim, MsgSendToCosmosClaimResponse, MsgExecuteIbcAutoForwards, MsgExecuteIbcAutoForwardsResponse, MsgBatchSendToEthClaim, MsgBatchSendToEthClaimResponse, MsgValsetUpdatedClaim, MsgValsetUpdatedClaimResponse, MsgERC20DeployedClaim, MsgERC20DeployedClaimResponse, MsgLogicCallExecutedClaim, MsgLogicCallExecutedClaimResponse, MsgSetOrchestratorAddress, MsgSetOrchestratorAddressResponse, MsgCancelSendToEth, MsgCancelSendToEthResponse, MsgSubmitBadSignatureEvidence, MsgSubmitBadSignatureEvidenceResponse } from "./msgs";
 /** Msg defines the state transitions possible within gravity */
 export interface Msg {
@@ -40,71 +40,71 @@ export class MsgClientImpl implements Msg {
   valsetConfirm(request: MsgValsetConfirm): Promise<MsgValsetConfirmResponse> {
     const data = MsgValsetConfirm.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "ValsetConfirm", data);
-    return promise.then(data => MsgValsetConfirmResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgValsetConfirmResponse.decode(new BinaryReader(data)));
   }
   sendToEth(request: MsgSendToEth): Promise<MsgSendToEthResponse> {
     const data = MsgSendToEth.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "SendToEth", data);
-    return promise.then(data => MsgSendToEthResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSendToEthResponse.decode(new BinaryReader(data)));
   }
   requestBatch(request: MsgRequestBatch): Promise<MsgRequestBatchResponse> {
     const data = MsgRequestBatch.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "RequestBatch", data);
-    return promise.then(data => MsgRequestBatchResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRequestBatchResponse.decode(new BinaryReader(data)));
   }
   confirmBatch(request: MsgConfirmBatch): Promise<MsgConfirmBatchResponse> {
     const data = MsgConfirmBatch.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "ConfirmBatch", data);
-    return promise.then(data => MsgConfirmBatchResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgConfirmBatchResponse.decode(new BinaryReader(data)));
   }
   confirmLogicCall(request: MsgConfirmLogicCall): Promise<MsgConfirmLogicCallResponse> {
     const data = MsgConfirmLogicCall.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "ConfirmLogicCall", data);
-    return promise.then(data => MsgConfirmLogicCallResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgConfirmLogicCallResponse.decode(new BinaryReader(data)));
   }
   sendToCosmosClaim(request: MsgSendToCosmosClaim): Promise<MsgSendToCosmosClaimResponse> {
     const data = MsgSendToCosmosClaim.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "SendToCosmosClaim", data);
-    return promise.then(data => MsgSendToCosmosClaimResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSendToCosmosClaimResponse.decode(new BinaryReader(data)));
   }
   executeIbcAutoForwards(request: MsgExecuteIbcAutoForwards): Promise<MsgExecuteIbcAutoForwardsResponse> {
     const data = MsgExecuteIbcAutoForwards.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "ExecuteIbcAutoForwards", data);
-    return promise.then(data => MsgExecuteIbcAutoForwardsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgExecuteIbcAutoForwardsResponse.decode(new BinaryReader(data)));
   }
   batchSendToEthClaim(request: MsgBatchSendToEthClaim): Promise<MsgBatchSendToEthClaimResponse> {
     const data = MsgBatchSendToEthClaim.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "BatchSendToEthClaim", data);
-    return promise.then(data => MsgBatchSendToEthClaimResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBatchSendToEthClaimResponse.decode(new BinaryReader(data)));
   }
   valsetUpdateClaim(request: MsgValsetUpdatedClaim): Promise<MsgValsetUpdatedClaimResponse> {
     const data = MsgValsetUpdatedClaim.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "ValsetUpdateClaim", data);
-    return promise.then(data => MsgValsetUpdatedClaimResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgValsetUpdatedClaimResponse.decode(new BinaryReader(data)));
   }
   eRC20DeployedClaim(request: MsgERC20DeployedClaim): Promise<MsgERC20DeployedClaimResponse> {
     const data = MsgERC20DeployedClaim.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "ERC20DeployedClaim", data);
-    return promise.then(data => MsgERC20DeployedClaimResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgERC20DeployedClaimResponse.decode(new BinaryReader(data)));
   }
   logicCallExecutedClaim(request: MsgLogicCallExecutedClaim): Promise<MsgLogicCallExecutedClaimResponse> {
     const data = MsgLogicCallExecutedClaim.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "LogicCallExecutedClaim", data);
-    return promise.then(data => MsgLogicCallExecutedClaimResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgLogicCallExecutedClaimResponse.decode(new BinaryReader(data)));
   }
   setOrchestratorAddress(request: MsgSetOrchestratorAddress): Promise<MsgSetOrchestratorAddressResponse> {
     const data = MsgSetOrchestratorAddress.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "SetOrchestratorAddress", data);
-    return promise.then(data => MsgSetOrchestratorAddressResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSetOrchestratorAddressResponse.decode(new BinaryReader(data)));
   }
   cancelSendToEth(request: MsgCancelSendToEth): Promise<MsgCancelSendToEthResponse> {
     const data = MsgCancelSendToEth.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "CancelSendToEth", data);
-    return promise.then(data => MsgCancelSendToEthResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCancelSendToEthResponse.decode(new BinaryReader(data)));
   }
   submitBadSignatureEvidence(request: MsgSubmitBadSignatureEvidence): Promise<MsgSubmitBadSignatureEvidenceResponse> {
     const data = MsgSubmitBadSignatureEvidence.encode(request).finish();
     const promise = this.rpc.request("gravity.v1.Msg", "SubmitBadSignatureEvidence", data);
-    return promise.then(data => MsgSubmitBadSignatureEvidenceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSubmitBadSignatureEvidenceResponse.decode(new BinaryReader(data)));
   }
 }

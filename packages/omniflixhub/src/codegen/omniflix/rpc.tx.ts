@@ -7,6 +7,9 @@ export const createRPCMsgClient = async ({
   OmniFlix: {
     itc: {
       v1: new (await import("../omniflix/itc/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    marketplace: {
+      v1beta1: new (await import("../omniflix/marketplace/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)
     }
   },
   cosmos: {

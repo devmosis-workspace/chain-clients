@@ -1,8 +1,20 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64 } from "../../../helpers";
 /** EventSetBalance is an event that tracks the latest bank balance. */
 export interface EventSetBalances {
   balanceUpdates: BalanceUpdate[];
+}
+export interface EventSetBalancesProtoMsg {
+  typeUrl: "/cosmos.bank.v1beta1.EventSetBalances";
+  value: Uint8Array;
+}
+/** EventSetBalance is an event that tracks the latest bank balance. */
+export interface EventSetBalancesAmino {
+  balance_updates: BalanceUpdateAmino[];
+}
+export interface EventSetBalancesAminoMsg {
+  type: "cosmos-sdk/EventSetBalances";
+  value: EventSetBalancesAmino;
 }
 /** EventSetBalance is an event that tracks the latest bank balance. */
 export interface EventSetBalancesSDKType {
@@ -14,6 +26,21 @@ export interface BalanceUpdate {
   denom: Uint8Array;
   /** the latest amount */
   amt: string;
+}
+export interface BalanceUpdateProtoMsg {
+  typeUrl: "/cosmos.bank.v1beta1.BalanceUpdate";
+  value: Uint8Array;
+}
+/** BalanceUpdate contains a given address's latest balance */
+export interface BalanceUpdateAmino {
+  addr: Uint8Array;
+  denom: Uint8Array;
+  /** the latest amount */
+  amt: string;
+}
+export interface BalanceUpdateAminoMsg {
+  type: "cosmos-sdk/BalanceUpdate";
+  value: BalanceUpdateAmino;
 }
 /** BalanceUpdate contains a given address's latest balance */
 export interface BalanceUpdateSDKType {
@@ -27,7 +54,8 @@ function createBaseEventSetBalances(): EventSetBalances {
   };
 }
 export const EventSetBalances = {
-  encode(message: EventSetBalances, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.bank.v1beta1.EventSetBalances",
+  encode(message: EventSetBalances, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.balanceUpdates) {
       BalanceUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -42,6 +70,41 @@ export const EventSetBalances = {
     const message = createBaseEventSetBalances();
     message.balanceUpdates = object.balanceUpdates?.map(e => BalanceUpdate.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: EventSetBalancesAmino): EventSetBalances {
+    return {
+      balanceUpdates: Array.isArray(object?.balance_updates) ? object.balance_updates.map((e: any) => BalanceUpdate.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: EventSetBalances): EventSetBalancesAmino {
+    const obj: any = {};
+    if (message.balanceUpdates) {
+      obj.balance_updates = message.balanceUpdates.map(e => e ? BalanceUpdate.toAmino(e) : undefined);
+    } else {
+      obj.balance_updates = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EventSetBalancesAminoMsg): EventSetBalances {
+    return EventSetBalances.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventSetBalances): EventSetBalancesAminoMsg {
+    return {
+      type: "cosmos-sdk/EventSetBalances",
+      value: EventSetBalances.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: EventSetBalancesProtoMsg): EventSetBalances {
+    return EventSetBalances.decode(message.value);
+  },
+  toProto(message: EventSetBalances): Uint8Array {
+    return EventSetBalances.encode(message).finish();
+  },
+  toProtoMsg(message: EventSetBalances): EventSetBalancesProtoMsg {
+    return {
+      typeUrl: "/cosmos.bank.v1beta1.EventSetBalances",
+      value: EventSetBalances.encode(message).finish()
+    };
   }
 };
 function createBaseBalanceUpdate(): BalanceUpdate {
@@ -52,7 +115,8 @@ function createBaseBalanceUpdate(): BalanceUpdate {
   };
 }
 export const BalanceUpdate = {
-  encode(message: BalanceUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.bank.v1beta1.BalanceUpdate",
+  encode(message: BalanceUpdate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.addr.length !== 0) {
       writer.uint32(10).bytes(message.addr);
     }
@@ -77,5 +141,40 @@ export const BalanceUpdate = {
     message.denom = object.denom ?? new Uint8Array();
     message.amt = object.amt ?? "";
     return message;
+  },
+  fromAmino(object: BalanceUpdateAmino): BalanceUpdate {
+    return {
+      addr: object.addr,
+      denom: object.denom,
+      amt: object.amt
+    };
+  },
+  toAmino(message: BalanceUpdate): BalanceUpdateAmino {
+    const obj: any = {};
+    obj.addr = message.addr;
+    obj.denom = message.denom;
+    obj.amt = message.amt;
+    return obj;
+  },
+  fromAminoMsg(object: BalanceUpdateAminoMsg): BalanceUpdate {
+    return BalanceUpdate.fromAmino(object.value);
+  },
+  toAminoMsg(message: BalanceUpdate): BalanceUpdateAminoMsg {
+    return {
+      type: "cosmos-sdk/BalanceUpdate",
+      value: BalanceUpdate.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: BalanceUpdateProtoMsg): BalanceUpdate {
+    return BalanceUpdate.decode(message.value);
+  },
+  toProto(message: BalanceUpdate): Uint8Array {
+    return BalanceUpdate.encode(message).finish();
+  },
+  toProtoMsg(message: BalanceUpdate): BalanceUpdateProtoMsg {
+    return {
+      typeUrl: "/cosmos.bank.v1beta1.BalanceUpdate",
+      value: BalanceUpdate.encode(message).finish()
+    };
   }
 };

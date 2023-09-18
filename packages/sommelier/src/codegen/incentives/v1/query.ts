@@ -1,26 +1,71 @@
-import { Params, ParamsSDKType } from "./genesis";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./genesis";
+import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** QueryParamsRequest is the request type for the QueryParams gRPC method. */
 export interface QueryParamsRequest {}
+export interface QueryParamsRequestProtoMsg {
+  typeUrl: "/incentives.v1.QueryParamsRequest";
+  value: Uint8Array;
+}
+/** QueryParamsRequest is the request type for the QueryParams gRPC method. */
+export interface QueryParamsRequestAmino {}
+export interface QueryParamsRequestAminoMsg {
+  type: "/incentives.v1.QueryParamsRequest";
+  value: QueryParamsRequestAmino;
+}
 /** QueryParamsRequest is the request type for the QueryParams gRPC method. */
 export interface QueryParamsRequestSDKType {}
 /** QueryParamsRequest is the response type for the QueryParams gRPC method. */
 export interface QueryParamsResponse {
   /** allocation parameters */
-  params?: Params;
+  params: Params;
+}
+export interface QueryParamsResponseProtoMsg {
+  typeUrl: "/incentives.v1.QueryParamsResponse";
+  value: Uint8Array;
+}
+/** QueryParamsRequest is the response type for the QueryParams gRPC method. */
+export interface QueryParamsResponseAmino {
+  /** allocation parameters */
+  params?: ParamsAmino;
+}
+export interface QueryParamsResponseAminoMsg {
+  type: "/incentives.v1.QueryParamsResponse";
+  value: QueryParamsResponseAmino;
 }
 /** QueryParamsRequest is the response type for the QueryParams gRPC method. */
 export interface QueryParamsResponseSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
 }
 /** QueryAPYRequest is the request type for the QueryAPY gRPC method. */
 export interface QueryAPYRequest {}
+export interface QueryAPYRequestProtoMsg {
+  typeUrl: "/incentives.v1.QueryAPYRequest";
+  value: Uint8Array;
+}
+/** QueryAPYRequest is the request type for the QueryAPY gRPC method. */
+export interface QueryAPYRequestAmino {}
+export interface QueryAPYRequestAminoMsg {
+  type: "/incentives.v1.QueryAPYRequest";
+  value: QueryAPYRequestAmino;
+}
 /** QueryAPYRequest is the request type for the QueryAPY gRPC method. */
 export interface QueryAPYRequestSDKType {}
 /** QueryAPYRequest is the response type for the QueryAPY gRPC method. */
 export interface QueryAPYResponse {
   apy: string;
+}
+export interface QueryAPYResponseProtoMsg {
+  typeUrl: "/incentives.v1.QueryAPYResponse";
+  value: Uint8Array;
+}
+/** QueryAPYRequest is the response type for the QueryAPY gRPC method. */
+export interface QueryAPYResponseAmino {
+  apy: string;
+}
+export interface QueryAPYResponseAminoMsg {
+  type: "/incentives.v1.QueryAPYResponse";
+  value: QueryAPYResponseAmino;
 }
 /** QueryAPYRequest is the response type for the QueryAPY gRPC method. */
 export interface QueryAPYResponseSDKType {
@@ -30,7 +75,8 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
 export const QueryParamsRequest = {
-  encode(_: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/incentives.v1.QueryParamsRequest",
+  encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryParamsRequest {
@@ -39,15 +85,38 @@ export const QueryParamsRequest = {
   fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
+  },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsRequestProtoMsg): QueryParamsRequest {
+    return QueryParamsRequest.decode(message.value);
+  },
+  toProto(message: QueryParamsRequest): Uint8Array {
+    return QueryParamsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsRequest): QueryParamsRequestProtoMsg {
+    return {
+      typeUrl: "/incentives.v1.QueryParamsRequest",
+      value: QueryParamsRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: undefined
+    params: Params.fromPartial({})
   };
 }
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/incentives.v1.QueryParamsResponse",
+  encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -62,13 +131,39 @@ export const QueryParamsResponse = {
     const message = createBaseQueryParamsResponse();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsResponseProtoMsg): QueryParamsResponse {
+    return QueryParamsResponse.decode(message.value);
+  },
+  toProto(message: QueryParamsResponse): Uint8Array {
+    return QueryParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg {
+    return {
+      typeUrl: "/incentives.v1.QueryParamsResponse",
+      value: QueryParamsResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAPYRequest(): QueryAPYRequest {
   return {};
 }
 export const QueryAPYRequest = {
-  encode(_: QueryAPYRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/incentives.v1.QueryAPYRequest",
+  encode(_: QueryAPYRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryAPYRequest {
@@ -77,6 +172,28 @@ export const QueryAPYRequest = {
   fromPartial(_: Partial<QueryAPYRequest>): QueryAPYRequest {
     const message = createBaseQueryAPYRequest();
     return message;
+  },
+  fromAmino(_: QueryAPYRequestAmino): QueryAPYRequest {
+    return {};
+  },
+  toAmino(_: QueryAPYRequest): QueryAPYRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryAPYRequestAminoMsg): QueryAPYRequest {
+    return QueryAPYRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAPYRequestProtoMsg): QueryAPYRequest {
+    return QueryAPYRequest.decode(message.value);
+  },
+  toProto(message: QueryAPYRequest): Uint8Array {
+    return QueryAPYRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAPYRequest): QueryAPYRequestProtoMsg {
+    return {
+      typeUrl: "/incentives.v1.QueryAPYRequest",
+      value: QueryAPYRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAPYResponse(): QueryAPYResponse {
@@ -85,7 +202,8 @@ function createBaseQueryAPYResponse(): QueryAPYResponse {
   };
 }
 export const QueryAPYResponse = {
-  encode(message: QueryAPYResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/incentives.v1.QueryAPYResponse",
+  encode(message: QueryAPYResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.apy !== "") {
       writer.uint32(10).string(message.apy);
     }
@@ -100,5 +218,30 @@ export const QueryAPYResponse = {
     const message = createBaseQueryAPYResponse();
     message.apy = object.apy ?? "";
     return message;
+  },
+  fromAmino(object: QueryAPYResponseAmino): QueryAPYResponse {
+    return {
+      apy: object.apy
+    };
+  },
+  toAmino(message: QueryAPYResponse): QueryAPYResponseAmino {
+    const obj: any = {};
+    obj.apy = message.apy;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAPYResponseAminoMsg): QueryAPYResponse {
+    return QueryAPYResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAPYResponseProtoMsg): QueryAPYResponse {
+    return QueryAPYResponse.decode(message.value);
+  },
+  toProto(message: QueryAPYResponse): Uint8Array {
+    return QueryAPYResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAPYResponse): QueryAPYResponseProtoMsg {
+    return {
+      typeUrl: "/incentives.v1.QueryAPYResponse",
+      value: QueryAPYResponse.encode(message).finish()
+    };
   }
 };

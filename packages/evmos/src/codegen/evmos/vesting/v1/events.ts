@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /**
  * EventCreateClawbackVestingAccount defines the event type
@@ -15,6 +15,30 @@ export interface EventCreateClawbackVestingAccount {
   merge: string;
   /** account address of recipient */
   account: string;
+}
+export interface EventCreateClawbackVestingAccountProtoMsg {
+  typeUrl: "/evmos.vesting.v1.EventCreateClawbackVestingAccount";
+  value: Uint8Array;
+}
+/**
+ * EventCreateClawbackVestingAccount defines the event type
+ * for creating a clawback vesting account
+ */
+export interface EventCreateClawbackVestingAccountAmino {
+  /** sender is the address of the sender */
+  sender: string;
+  /** coins to be vested */
+  coins: string;
+  /** start_time is the time when the coins start to vest */
+  start_time: string;
+  /** merge */
+  merge: string;
+  /** account address of recipient */
+  account: string;
+}
+export interface EventCreateClawbackVestingAccountAminoMsg {
+  type: "/evmos.vesting.v1.EventCreateClawbackVestingAccount";
+  value: EventCreateClawbackVestingAccountAmino;
 }
 /**
  * EventCreateClawbackVestingAccount defines the event type
@@ -36,6 +60,23 @@ export interface EventClawback {
   /** destination is the address of the destination */
   destination: string;
 }
+export interface EventClawbackProtoMsg {
+  typeUrl: "/evmos.vesting.v1.EventClawback";
+  value: Uint8Array;
+}
+/** EventClawback defines the event type for clawback */
+export interface EventClawbackAmino {
+  /** funder is the address of the funder */
+  funder: string;
+  /** account is the address of the account */
+  account: string;
+  /** destination is the address of the destination */
+  destination: string;
+}
+export interface EventClawbackAminoMsg {
+  type: "/evmos.vesting.v1.EventClawback";
+  value: EventClawbackAmino;
+}
 /** EventClawback defines the event type for clawback */
 export interface EventClawbackSDKType {
   funder: string;
@@ -50,6 +91,23 @@ export interface EventUpdateVestingFunder {
   account: string;
   /** new_funder is the address of the new funder */
   newFunder: string;
+}
+export interface EventUpdateVestingFunderProtoMsg {
+  typeUrl: "/evmos.vesting.v1.EventUpdateVestingFunder";
+  value: Uint8Array;
+}
+/** EventUpdateVestingFunder defines the event type for updating the vesting funder */
+export interface EventUpdateVestingFunderAmino {
+  /** funder is the address of the funder */
+  funder: string;
+  /** account is the address of the account */
+  account: string;
+  /** new_funder is the address of the new funder */
+  new_funder: string;
+}
+export interface EventUpdateVestingFunderAminoMsg {
+  type: "/evmos.vesting.v1.EventUpdateVestingFunder";
+  value: EventUpdateVestingFunderAmino;
 }
 /** EventUpdateVestingFunder defines the event type for updating the vesting funder */
 export interface EventUpdateVestingFunderSDKType {
@@ -67,7 +125,8 @@ function createBaseEventCreateClawbackVestingAccount(): EventCreateClawbackVesti
   };
 }
 export const EventCreateClawbackVestingAccount = {
-  encode(message: EventCreateClawbackVestingAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.vesting.v1.EventCreateClawbackVestingAccount",
+  encode(message: EventCreateClawbackVestingAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
@@ -102,6 +161,39 @@ export const EventCreateClawbackVestingAccount = {
     message.merge = object.merge ?? "";
     message.account = object.account ?? "";
     return message;
+  },
+  fromAmino(object: EventCreateClawbackVestingAccountAmino): EventCreateClawbackVestingAccount {
+    return {
+      sender: object.sender,
+      coins: object.coins,
+      startTime: object.start_time,
+      merge: object.merge,
+      account: object.account
+    };
+  },
+  toAmino(message: EventCreateClawbackVestingAccount): EventCreateClawbackVestingAccountAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.coins = message.coins;
+    obj.start_time = message.startTime;
+    obj.merge = message.merge;
+    obj.account = message.account;
+    return obj;
+  },
+  fromAminoMsg(object: EventCreateClawbackVestingAccountAminoMsg): EventCreateClawbackVestingAccount {
+    return EventCreateClawbackVestingAccount.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventCreateClawbackVestingAccountProtoMsg): EventCreateClawbackVestingAccount {
+    return EventCreateClawbackVestingAccount.decode(message.value);
+  },
+  toProto(message: EventCreateClawbackVestingAccount): Uint8Array {
+    return EventCreateClawbackVestingAccount.encode(message).finish();
+  },
+  toProtoMsg(message: EventCreateClawbackVestingAccount): EventCreateClawbackVestingAccountProtoMsg {
+    return {
+      typeUrl: "/evmos.vesting.v1.EventCreateClawbackVestingAccount",
+      value: EventCreateClawbackVestingAccount.encode(message).finish()
+    };
   }
 };
 function createBaseEventClawback(): EventClawback {
@@ -112,7 +204,8 @@ function createBaseEventClawback(): EventClawback {
   };
 }
 export const EventClawback = {
-  encode(message: EventClawback, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.vesting.v1.EventClawback",
+  encode(message: EventClawback, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.funder !== "") {
       writer.uint32(10).string(message.funder);
     }
@@ -137,6 +230,35 @@ export const EventClawback = {
     message.account = object.account ?? "";
     message.destination = object.destination ?? "";
     return message;
+  },
+  fromAmino(object: EventClawbackAmino): EventClawback {
+    return {
+      funder: object.funder,
+      account: object.account,
+      destination: object.destination
+    };
+  },
+  toAmino(message: EventClawback): EventClawbackAmino {
+    const obj: any = {};
+    obj.funder = message.funder;
+    obj.account = message.account;
+    obj.destination = message.destination;
+    return obj;
+  },
+  fromAminoMsg(object: EventClawbackAminoMsg): EventClawback {
+    return EventClawback.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventClawbackProtoMsg): EventClawback {
+    return EventClawback.decode(message.value);
+  },
+  toProto(message: EventClawback): Uint8Array {
+    return EventClawback.encode(message).finish();
+  },
+  toProtoMsg(message: EventClawback): EventClawbackProtoMsg {
+    return {
+      typeUrl: "/evmos.vesting.v1.EventClawback",
+      value: EventClawback.encode(message).finish()
+    };
   }
 };
 function createBaseEventUpdateVestingFunder(): EventUpdateVestingFunder {
@@ -147,7 +269,8 @@ function createBaseEventUpdateVestingFunder(): EventUpdateVestingFunder {
   };
 }
 export const EventUpdateVestingFunder = {
-  encode(message: EventUpdateVestingFunder, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.vesting.v1.EventUpdateVestingFunder",
+  encode(message: EventUpdateVestingFunder, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.funder !== "") {
       writer.uint32(10).string(message.funder);
     }
@@ -172,5 +295,34 @@ export const EventUpdateVestingFunder = {
     message.account = object.account ?? "";
     message.newFunder = object.newFunder ?? "";
     return message;
+  },
+  fromAmino(object: EventUpdateVestingFunderAmino): EventUpdateVestingFunder {
+    return {
+      funder: object.funder,
+      account: object.account,
+      newFunder: object.new_funder
+    };
+  },
+  toAmino(message: EventUpdateVestingFunder): EventUpdateVestingFunderAmino {
+    const obj: any = {};
+    obj.funder = message.funder;
+    obj.account = message.account;
+    obj.new_funder = message.newFunder;
+    return obj;
+  },
+  fromAminoMsg(object: EventUpdateVestingFunderAminoMsg): EventUpdateVestingFunder {
+    return EventUpdateVestingFunder.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventUpdateVestingFunderProtoMsg): EventUpdateVestingFunder {
+    return EventUpdateVestingFunder.decode(message.value);
+  },
+  toProto(message: EventUpdateVestingFunder): Uint8Array {
+    return EventUpdateVestingFunder.encode(message).finish();
+  },
+  toProtoMsg(message: EventUpdateVestingFunder): EventUpdateVestingFunderProtoMsg {
+    return {
+      typeUrl: "/evmos.vesting.v1.EventUpdateVestingFunder",
+      value: EventUpdateVestingFunder.encode(message).finish()
+    };
   }
 };

@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgDeposit, MsgDepositResponse, MsgWithdraw, MsgWithdrawResponse, MsgInstantSpotMarketLaunch, MsgInstantSpotMarketLaunchResponse, MsgInstantPerpetualMarketLaunch, MsgInstantPerpetualMarketLaunchResponse, MsgInstantExpiryFuturesMarketLaunch, MsgInstantExpiryFuturesMarketLaunchResponse, MsgCreateSpotLimitOrder, MsgCreateSpotLimitOrderResponse, MsgBatchCreateSpotLimitOrders, MsgBatchCreateSpotLimitOrdersResponse, MsgCreateSpotMarketOrder, MsgCreateSpotMarketOrderResponse, MsgCancelSpotOrder, MsgCancelSpotOrderResponse, MsgBatchCancelSpotOrders, MsgBatchCancelSpotOrdersResponse, MsgBatchUpdateOrders, MsgBatchUpdateOrdersResponse, MsgPrivilegedExecuteContract, MsgPrivilegedExecuteContractResponse, MsgCreateDerivativeLimitOrder, MsgCreateDerivativeLimitOrderResponse, MsgBatchCreateDerivativeLimitOrders, MsgBatchCreateDerivativeLimitOrdersResponse, MsgCreateDerivativeMarketOrder, MsgCreateDerivativeMarketOrderResponse, MsgCancelDerivativeOrder, MsgCancelDerivativeOrderResponse, MsgBatchCancelDerivativeOrders, MsgBatchCancelDerivativeOrdersResponse, MsgInstantBinaryOptionsMarketLaunch, MsgInstantBinaryOptionsMarketLaunchResponse, MsgCreateBinaryOptionsLimitOrder, MsgCreateBinaryOptionsLimitOrderResponse, MsgCreateBinaryOptionsMarketOrder, MsgCreateBinaryOptionsMarketOrderResponse, MsgCancelBinaryOptionsOrder, MsgCancelBinaryOptionsOrderResponse, MsgBatchCancelBinaryOptionsOrders, MsgBatchCancelBinaryOptionsOrdersResponse, MsgSubaccountTransfer, MsgSubaccountTransferResponse, MsgExternalTransfer, MsgExternalTransferResponse, MsgLiquidatePosition, MsgLiquidatePositionResponse, MsgIncreasePositionMargin, MsgIncreasePositionMarginResponse, MsgRewardsOptOut, MsgRewardsOptOutResponse, MsgAdminUpdateBinaryOptionsMarket, MsgAdminUpdateBinaryOptionsMarketResponse, MsgReclaimLockedFunds, MsgReclaimLockedFundsResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the exchange Msg service. */
 export interface Msg {
@@ -160,151 +160,151 @@ export class MsgClientImpl implements Msg {
   deposit(request: MsgDeposit): Promise<MsgDepositResponse> {
     const data = MsgDeposit.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "Deposit", data);
-    return promise.then(data => MsgDepositResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDepositResponse.decode(new BinaryReader(data)));
   }
   withdraw(request: MsgWithdraw): Promise<MsgWithdrawResponse> {
     const data = MsgWithdraw.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "Withdraw", data);
-    return promise.then(data => MsgWithdrawResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgWithdrawResponse.decode(new BinaryReader(data)));
   }
   instantSpotMarketLaunch(request: MsgInstantSpotMarketLaunch): Promise<MsgInstantSpotMarketLaunchResponse> {
     const data = MsgInstantSpotMarketLaunch.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "InstantSpotMarketLaunch", data);
-    return promise.then(data => MsgInstantSpotMarketLaunchResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgInstantSpotMarketLaunchResponse.decode(new BinaryReader(data)));
   }
   instantPerpetualMarketLaunch(request: MsgInstantPerpetualMarketLaunch): Promise<MsgInstantPerpetualMarketLaunchResponse> {
     const data = MsgInstantPerpetualMarketLaunch.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "InstantPerpetualMarketLaunch", data);
-    return promise.then(data => MsgInstantPerpetualMarketLaunchResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgInstantPerpetualMarketLaunchResponse.decode(new BinaryReader(data)));
   }
   instantExpiryFuturesMarketLaunch(request: MsgInstantExpiryFuturesMarketLaunch): Promise<MsgInstantExpiryFuturesMarketLaunchResponse> {
     const data = MsgInstantExpiryFuturesMarketLaunch.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "InstantExpiryFuturesMarketLaunch", data);
-    return promise.then(data => MsgInstantExpiryFuturesMarketLaunchResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgInstantExpiryFuturesMarketLaunchResponse.decode(new BinaryReader(data)));
   }
   createSpotLimitOrder(request: MsgCreateSpotLimitOrder): Promise<MsgCreateSpotLimitOrderResponse> {
     const data = MsgCreateSpotLimitOrder.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "CreateSpotLimitOrder", data);
-    return promise.then(data => MsgCreateSpotLimitOrderResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateSpotLimitOrderResponse.decode(new BinaryReader(data)));
   }
   batchCreateSpotLimitOrders(request: MsgBatchCreateSpotLimitOrders): Promise<MsgBatchCreateSpotLimitOrdersResponse> {
     const data = MsgBatchCreateSpotLimitOrders.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "BatchCreateSpotLimitOrders", data);
-    return promise.then(data => MsgBatchCreateSpotLimitOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBatchCreateSpotLimitOrdersResponse.decode(new BinaryReader(data)));
   }
   createSpotMarketOrder(request: MsgCreateSpotMarketOrder): Promise<MsgCreateSpotMarketOrderResponse> {
     const data = MsgCreateSpotMarketOrder.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "CreateSpotMarketOrder", data);
-    return promise.then(data => MsgCreateSpotMarketOrderResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateSpotMarketOrderResponse.decode(new BinaryReader(data)));
   }
   cancelSpotOrder(request: MsgCancelSpotOrder): Promise<MsgCancelSpotOrderResponse> {
     const data = MsgCancelSpotOrder.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "CancelSpotOrder", data);
-    return promise.then(data => MsgCancelSpotOrderResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCancelSpotOrderResponse.decode(new BinaryReader(data)));
   }
   batchCancelSpotOrders(request: MsgBatchCancelSpotOrders): Promise<MsgBatchCancelSpotOrdersResponse> {
     const data = MsgBatchCancelSpotOrders.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "BatchCancelSpotOrders", data);
-    return promise.then(data => MsgBatchCancelSpotOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBatchCancelSpotOrdersResponse.decode(new BinaryReader(data)));
   }
   batchUpdateOrders(request: MsgBatchUpdateOrders): Promise<MsgBatchUpdateOrdersResponse> {
     const data = MsgBatchUpdateOrders.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "BatchUpdateOrders", data);
-    return promise.then(data => MsgBatchUpdateOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBatchUpdateOrdersResponse.decode(new BinaryReader(data)));
   }
   privilegedExecuteContract(request: MsgPrivilegedExecuteContract): Promise<MsgPrivilegedExecuteContractResponse> {
     const data = MsgPrivilegedExecuteContract.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "PrivilegedExecuteContract", data);
-    return promise.then(data => MsgPrivilegedExecuteContractResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgPrivilegedExecuteContractResponse.decode(new BinaryReader(data)));
   }
   createDerivativeLimitOrder(request: MsgCreateDerivativeLimitOrder): Promise<MsgCreateDerivativeLimitOrderResponse> {
     const data = MsgCreateDerivativeLimitOrder.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "CreateDerivativeLimitOrder", data);
-    return promise.then(data => MsgCreateDerivativeLimitOrderResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateDerivativeLimitOrderResponse.decode(new BinaryReader(data)));
   }
   batchCreateDerivativeLimitOrders(request: MsgBatchCreateDerivativeLimitOrders): Promise<MsgBatchCreateDerivativeLimitOrdersResponse> {
     const data = MsgBatchCreateDerivativeLimitOrders.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "BatchCreateDerivativeLimitOrders", data);
-    return promise.then(data => MsgBatchCreateDerivativeLimitOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBatchCreateDerivativeLimitOrdersResponse.decode(new BinaryReader(data)));
   }
   createDerivativeMarketOrder(request: MsgCreateDerivativeMarketOrder): Promise<MsgCreateDerivativeMarketOrderResponse> {
     const data = MsgCreateDerivativeMarketOrder.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "CreateDerivativeMarketOrder", data);
-    return promise.then(data => MsgCreateDerivativeMarketOrderResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateDerivativeMarketOrderResponse.decode(new BinaryReader(data)));
   }
   cancelDerivativeOrder(request: MsgCancelDerivativeOrder): Promise<MsgCancelDerivativeOrderResponse> {
     const data = MsgCancelDerivativeOrder.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "CancelDerivativeOrder", data);
-    return promise.then(data => MsgCancelDerivativeOrderResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCancelDerivativeOrderResponse.decode(new BinaryReader(data)));
   }
   batchCancelDerivativeOrders(request: MsgBatchCancelDerivativeOrders): Promise<MsgBatchCancelDerivativeOrdersResponse> {
     const data = MsgBatchCancelDerivativeOrders.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "BatchCancelDerivativeOrders", data);
-    return promise.then(data => MsgBatchCancelDerivativeOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBatchCancelDerivativeOrdersResponse.decode(new BinaryReader(data)));
   }
   instantBinaryOptionsMarketLaunch(request: MsgInstantBinaryOptionsMarketLaunch): Promise<MsgInstantBinaryOptionsMarketLaunchResponse> {
     const data = MsgInstantBinaryOptionsMarketLaunch.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "InstantBinaryOptionsMarketLaunch", data);
-    return promise.then(data => MsgInstantBinaryOptionsMarketLaunchResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgInstantBinaryOptionsMarketLaunchResponse.decode(new BinaryReader(data)));
   }
   createBinaryOptionsLimitOrder(request: MsgCreateBinaryOptionsLimitOrder): Promise<MsgCreateBinaryOptionsLimitOrderResponse> {
     const data = MsgCreateBinaryOptionsLimitOrder.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "CreateBinaryOptionsLimitOrder", data);
-    return promise.then(data => MsgCreateBinaryOptionsLimitOrderResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateBinaryOptionsLimitOrderResponse.decode(new BinaryReader(data)));
   }
   createBinaryOptionsMarketOrder(request: MsgCreateBinaryOptionsMarketOrder): Promise<MsgCreateBinaryOptionsMarketOrderResponse> {
     const data = MsgCreateBinaryOptionsMarketOrder.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "CreateBinaryOptionsMarketOrder", data);
-    return promise.then(data => MsgCreateBinaryOptionsMarketOrderResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateBinaryOptionsMarketOrderResponse.decode(new BinaryReader(data)));
   }
   cancelBinaryOptionsOrder(request: MsgCancelBinaryOptionsOrder): Promise<MsgCancelBinaryOptionsOrderResponse> {
     const data = MsgCancelBinaryOptionsOrder.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "CancelBinaryOptionsOrder", data);
-    return promise.then(data => MsgCancelBinaryOptionsOrderResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCancelBinaryOptionsOrderResponse.decode(new BinaryReader(data)));
   }
   batchCancelBinaryOptionsOrders(request: MsgBatchCancelBinaryOptionsOrders): Promise<MsgBatchCancelBinaryOptionsOrdersResponse> {
     const data = MsgBatchCancelBinaryOptionsOrders.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "BatchCancelBinaryOptionsOrders", data);
-    return promise.then(data => MsgBatchCancelBinaryOptionsOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBatchCancelBinaryOptionsOrdersResponse.decode(new BinaryReader(data)));
   }
   subaccountTransfer(request: MsgSubaccountTransfer): Promise<MsgSubaccountTransferResponse> {
     const data = MsgSubaccountTransfer.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "SubaccountTransfer", data);
-    return promise.then(data => MsgSubaccountTransferResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSubaccountTransferResponse.decode(new BinaryReader(data)));
   }
   externalTransfer(request: MsgExternalTransfer): Promise<MsgExternalTransferResponse> {
     const data = MsgExternalTransfer.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "ExternalTransfer", data);
-    return promise.then(data => MsgExternalTransferResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgExternalTransferResponse.decode(new BinaryReader(data)));
   }
   liquidatePosition(request: MsgLiquidatePosition): Promise<MsgLiquidatePositionResponse> {
     const data = MsgLiquidatePosition.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "LiquidatePosition", data);
-    return promise.then(data => MsgLiquidatePositionResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgLiquidatePositionResponse.decode(new BinaryReader(data)));
   }
   increasePositionMargin(request: MsgIncreasePositionMargin): Promise<MsgIncreasePositionMarginResponse> {
     const data = MsgIncreasePositionMargin.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "IncreasePositionMargin", data);
-    return promise.then(data => MsgIncreasePositionMarginResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgIncreasePositionMarginResponse.decode(new BinaryReader(data)));
   }
   rewardsOptOut(request: MsgRewardsOptOut): Promise<MsgRewardsOptOutResponse> {
     const data = MsgRewardsOptOut.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "RewardsOptOut", data);
-    return promise.then(data => MsgRewardsOptOutResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRewardsOptOutResponse.decode(new BinaryReader(data)));
   }
   adminUpdateBinaryOptionsMarket(request: MsgAdminUpdateBinaryOptionsMarket): Promise<MsgAdminUpdateBinaryOptionsMarketResponse> {
     const data = MsgAdminUpdateBinaryOptionsMarket.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "AdminUpdateBinaryOptionsMarket", data);
-    return promise.then(data => MsgAdminUpdateBinaryOptionsMarketResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgAdminUpdateBinaryOptionsMarketResponse.decode(new BinaryReader(data)));
   }
   reclaimLockedFunds(request: MsgReclaimLockedFunds): Promise<MsgReclaimLockedFundsResponse> {
     const data = MsgReclaimLockedFunds.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "ReclaimLockedFunds", data);
-    return promise.then(data => MsgReclaimLockedFundsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgReclaimLockedFundsResponse.decode(new BinaryReader(data)));
   }
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Msg", "UpdateParams", data);
-    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }

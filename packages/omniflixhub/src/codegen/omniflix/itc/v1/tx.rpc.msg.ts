@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgCreateCampaign, MsgCreateCampaignResponse, MsgCancelCampaign, MsgCancelCampaignResponse, MsgClaim, MsgClaimResponse, MsgDepositCampaign, MsgDepositCampaignResponse } from "./tx";
 export interface Msg {
   createCampaign(request: MsgCreateCampaign): Promise<MsgCreateCampaignResponse>;
@@ -19,21 +19,21 @@ export class MsgClientImpl implements Msg {
   createCampaign(request: MsgCreateCampaign): Promise<MsgCreateCampaignResponse> {
     const data = MsgCreateCampaign.encode(request).finish();
     const promise = this.rpc.request("OmniFlix.itc.v1.Msg", "CreateCampaign", data);
-    return promise.then(data => MsgCreateCampaignResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateCampaignResponse.decode(new BinaryReader(data)));
   }
   cancelCampaign(request: MsgCancelCampaign): Promise<MsgCancelCampaignResponse> {
     const data = MsgCancelCampaign.encode(request).finish();
     const promise = this.rpc.request("OmniFlix.itc.v1.Msg", "CancelCampaign", data);
-    return promise.then(data => MsgCancelCampaignResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCancelCampaignResponse.decode(new BinaryReader(data)));
   }
   claim(request: MsgClaim): Promise<MsgClaimResponse> {
     const data = MsgClaim.encode(request).finish();
     const promise = this.rpc.request("OmniFlix.itc.v1.Msg", "Claim", data);
-    return promise.then(data => MsgClaimResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgClaimResponse.decode(new BinaryReader(data)));
   }
   depositCampaign(request: MsgDepositCampaign): Promise<MsgDepositCampaignResponse> {
     const data = MsgDepositCampaign.encode(request).finish();
     const promise = this.rpc.request("OmniFlix.itc.v1.Msg", "DepositCampaign", data);
-    return promise.then(data => MsgDepositCampaignResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDepositCampaignResponse.decode(new BinaryReader(data)));
   }
 }

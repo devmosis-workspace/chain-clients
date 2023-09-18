@@ -1,5 +1,5 @@
-import { ClassConfig, ClassConfigSDKType, ClassParentType, classParentTypeFromJSON } from "./class_data";
-import * as _m0 from "protobufjs/minimal";
+import { ClassConfig, ClassConfigAmino, ClassConfigSDKType, ClassParentType, classParentTypeFromJSON } from "./class_data";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64 } from "../../../helpers";
 export interface ClassInput {
   name: string;
@@ -8,7 +8,24 @@ export interface ClassInput {
   uri: string;
   uriHash: string;
   metadata: Uint8Array;
-  config?: ClassConfig;
+  config: ClassConfig;
+}
+export interface ClassInputProtoMsg {
+  typeUrl: "/likechain.likenft.v1.ClassInput";
+  value: Uint8Array;
+}
+export interface ClassInputAmino {
+  name: string;
+  symbol: string;
+  description: string;
+  uri: string;
+  uri_hash: string;
+  metadata: Uint8Array;
+  config?: ClassConfigAmino;
+}
+export interface ClassInputAminoMsg {
+  type: "/likechain.likenft.v1.ClassInput";
+  value: ClassInputAmino;
 }
 export interface ClassInputSDKType {
   name: string;
@@ -17,15 +34,27 @@ export interface ClassInputSDKType {
   uri: string;
   uri_hash: string;
   metadata: Uint8Array;
-  config?: ClassConfigSDKType;
+  config: ClassConfigSDKType;
 }
 export interface ClassParentInput {
   type: ClassParentType;
-  iscnIdPrefix: string;
+  iscnIdPrefix?: string;
+}
+export interface ClassParentInputProtoMsg {
+  typeUrl: "/likechain.likenft.v1.ClassParentInput";
+  value: Uint8Array;
+}
+export interface ClassParentInputAmino {
+  type: ClassParentType;
+  iscn_id_prefix: string;
+}
+export interface ClassParentInputAminoMsg {
+  type: "/likechain.likenft.v1.ClassParentInput";
+  value: ClassParentInputAmino;
 }
 export interface ClassParentInputSDKType {
   type: ClassParentType;
-  iscn_id_prefix: string;
+  iscn_id_prefix?: string;
 }
 function createBaseClassInput(): ClassInput {
   return {
@@ -35,11 +64,12 @@ function createBaseClassInput(): ClassInput {
     uri: "",
     uriHash: "",
     metadata: new Uint8Array(),
-    config: undefined
+    config: ClassConfig.fromPartial({})
   };
 }
 export const ClassInput = {
-  encode(message: ClassInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.likenft.v1.ClassInput",
+  encode(message: ClassInput, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -84,6 +114,43 @@ export const ClassInput = {
     message.metadata = object.metadata ?? new Uint8Array();
     message.config = object.config !== undefined && object.config !== null ? ClassConfig.fromPartial(object.config) : undefined;
     return message;
+  },
+  fromAmino(object: ClassInputAmino): ClassInput {
+    return {
+      name: object.name,
+      symbol: object.symbol,
+      description: object.description,
+      uri: object.uri,
+      uriHash: object.uri_hash,
+      metadata: object.metadata,
+      config: object?.config ? ClassConfig.fromAmino(object.config) : undefined
+    };
+  },
+  toAmino(message: ClassInput): ClassInputAmino {
+    const obj: any = {};
+    obj.name = message.name;
+    obj.symbol = message.symbol;
+    obj.description = message.description;
+    obj.uri = message.uri;
+    obj.uri_hash = message.uriHash;
+    obj.metadata = message.metadata;
+    obj.config = message.config ? ClassConfig.toAmino(message.config) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ClassInputAminoMsg): ClassInput {
+    return ClassInput.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ClassInputProtoMsg): ClassInput {
+    return ClassInput.decode(message.value);
+  },
+  toProto(message: ClassInput): Uint8Array {
+    return ClassInput.encode(message).finish();
+  },
+  toProtoMsg(message: ClassInput): ClassInputProtoMsg {
+    return {
+      typeUrl: "/likechain.likenft.v1.ClassInput",
+      value: ClassInput.encode(message).finish()
+    };
   }
 };
 function createBaseClassParentInput(): ClassParentInput {
@@ -93,7 +160,8 @@ function createBaseClassParentInput(): ClassParentInput {
   };
 }
 export const ClassParentInput = {
-  encode(message: ClassParentInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.likenft.v1.ClassParentInput",
+  encode(message: ClassParentInput, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
     }
@@ -104,7 +172,7 @@ export const ClassParentInput = {
   },
   fromJSON(object: any): ClassParentInput {
     return {
-      type: isSet(object.type) ? classParentTypeFromJSON(object.type) : 0,
+      type: isSet(object.type) ? classParentTypeFromJSON(object.type) : -1,
       iscnIdPrefix: isSet(object.iscnIdPrefix) ? String(object.iscnIdPrefix) : undefined
     };
   },
@@ -113,5 +181,32 @@ export const ClassParentInput = {
     message.type = object.type ?? 0;
     message.iscnIdPrefix = object.iscnIdPrefix ?? undefined;
     return message;
+  },
+  fromAmino(object: ClassParentInputAmino): ClassParentInput {
+    return {
+      type: isSet(object.type) ? classParentTypeFromJSON(object.type) : -1,
+      iscnIdPrefix: object?.iscn_id_prefix
+    };
+  },
+  toAmino(message: ClassParentInput): ClassParentInputAmino {
+    const obj: any = {};
+    obj.type = message.type;
+    obj.iscn_id_prefix = message.iscnIdPrefix;
+    return obj;
+  },
+  fromAminoMsg(object: ClassParentInputAminoMsg): ClassParentInput {
+    return ClassParentInput.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ClassParentInputProtoMsg): ClassParentInput {
+    return ClassParentInput.decode(message.value);
+  },
+  toProto(message: ClassParentInput): Uint8Array {
+    return ClassParentInput.encode(message).finish();
+  },
+  toProtoMsg(message: ClassParentInput): ClassParentInputProtoMsg {
+    return {
+      typeUrl: "/likechain.likenft.v1.ClassParentInput",
+      value: ClassParentInput.encode(message).finish()
+    };
   }
 };

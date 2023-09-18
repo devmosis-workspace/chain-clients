@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryGasPricesRequest, QueryGasPricesResponse, QueryUpgradePlanRequest, QueryUpgradePlanResponse } from "./query";
 export interface Query {
@@ -16,12 +16,12 @@ export class QueryClientImpl implements Query {
   gasPrices(request: QueryGasPricesRequest = {}): Promise<QueryGasPricesResponse> {
     const data = QueryGasPricesRequest.encode(request).finish();
     const promise = this.rpc.request("em.authority.v1.Query", "GasPrices", data);
-    return promise.then(data => QueryGasPricesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGasPricesResponse.decode(new BinaryReader(data)));
   }
   upgradePlan(request: QueryUpgradePlanRequest = {}): Promise<QueryUpgradePlanResponse> {
     const data = QueryUpgradePlanRequest.encode(request).finish();
     const promise = this.rpc.request("em.authority.v1.Query", "UpgradePlan", data);
-    return promise.then(data => QueryUpgradePlanResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryUpgradePlanResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

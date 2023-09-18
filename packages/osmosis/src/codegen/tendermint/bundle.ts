@@ -1,82 +1,82 @@
-import * as _154 from "./abci/types";
-import * as _155 from "./blocksync/types";
-import * as _156 from "./consensus/types";
-import * as _157 from "./consensus/wal";
-import * as _158 from "./crypto/keys";
-import * as _159 from "./crypto/proof";
-import * as _160 from "./libs/bits/types";
-import * as _161 from "./mempool/types";
-import * as _162 from "./p2p/conn";
-import * as _163 from "./p2p/pex";
-import * as _164 from "./p2p/types";
-import * as _165 from "./privval/types";
-import * as _166 from "./rpc/grpc/types";
-import * as _167 from "./state/types";
-import * as _168 from "./statesync/types";
-import * as _169 from "./store/types";
-import * as _170 from "./types/block";
-import * as _171 from "./types/canonical";
-import * as _172 from "./types/events";
-import * as _173 from "./types/evidence";
-import * as _174 from "./types/params";
-import * as _175 from "./types/types";
-import * as _176 from "./types/validator";
-import * as _177 from "./version/types";
+import * as _158 from "./abci/types";
+import * as _159 from "./blocksync/types";
+import * as _160 from "./consensus/types";
+import * as _161 from "./consensus/wal";
+import * as _162 from "./crypto/keys";
+import * as _163 from "./crypto/proof";
+import * as _164 from "./libs/bits/types";
+import * as _165 from "./mempool/types";
+import * as _166 from "./p2p/conn";
+import * as _167 from "./p2p/pex";
+import * as _168 from "./p2p/types";
+import * as _169 from "./privval/types";
+import * as _170 from "./rpc/grpc/types";
+import * as _171 from "./state/types";
+import * as _172 from "./statesync/types";
+import * as _173 from "./store/types";
+import * as _174 from "./types/block";
+import * as _175 from "./types/canonical";
+import * as _176 from "./types/events";
+import * as _177 from "./types/evidence";
+import * as _178 from "./types/params";
+import * as _179 from "./types/types";
+import * as _180 from "./types/validator";
+import * as _181 from "./version/types";
 export namespace tendermint {
   export const abci = {
-    ..._154
+    ..._158
   };
   export const blocksync = {
-    ..._155
+    ..._159
   };
   export const consensus = {
-    ..._156,
-    ..._157
+    ..._160,
+    ..._161
   };
   export const crypto = {
-    ..._158,
-    ..._159
+    ..._162,
+    ..._163
   };
   export namespace libs {
     export const bits = {
-      ..._160
+      ..._164
     };
   }
   export const mempool = {
-    ..._161
+    ..._165
   };
   export const p2p = {
-    ..._162,
-    ..._163,
-    ..._164
+    ..._166,
+    ..._167,
+    ..._168
   };
   export const privval = {
-    ..._165
+    ..._169
   };
   export namespace rpc {
     export const grpc = {
-      ..._166
+      ..._170
     };
   }
   export const state = {
-    ..._167
+    ..._171
   };
   export const statesync = {
-    ..._168
+    ..._172
   };
   export const store = {
-    ..._169
+    ..._173
   };
   export const types = {
-    ..._170,
-    ..._171,
-    ..._172,
-    ..._173,
     ..._174,
     ..._175,
-    ..._176
+    ..._176,
+    ..._177,
+    ..._178,
+    ..._179,
+    ..._180
   };
   export const version = {
-    ..._177
+    ..._181
   };
 }

@@ -1,34 +1,62 @@
 import * as _0 from "./globalfee/v1beta1/genesis";
 import * as _1 from "./globalfee/v1beta1/query";
-import * as _103 from "./globalfee/v1beta1/query.lcd";
-import * as _104 from "./globalfee/v1beta1/query.rpc.Query";
+import * as _104 from "./globalfee/v1beta1/query.lcd";
+import * as _105 from "./globalfee/v1beta1/query.rpc.Query";
 export declare namespace gaia {
     namespace globalfee {
         const v1beta1: {
-            QueryClientImpl: typeof _104.QueryClientImpl;
+            QueryClientImpl: typeof _105.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
-                minimumGasPrices(request?: _1.QueryMinimumGasPricesRequest): Promise<_1.QueryMinimumGasPricesResponse>;
+                params(request?: _1.QueryParamsRequest): Promise<_1.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _103.LCDQueryClient;
-            QueryMinimumGasPricesRequest: {
-                encode(_: _1.QueryMinimumGasPricesRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(_: any): _1.QueryMinimumGasPricesRequest;
-                fromPartial(_: Partial<_1.QueryMinimumGasPricesRequest>): _1.QueryMinimumGasPricesRequest;
+            LCDQueryClient: typeof _104.LCDQueryClient;
+            QueryParamsRequest: {
+                typeUrl: string;
+                encode(_: _1.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _1.QueryParamsRequest;
+                fromPartial(_: Partial<_1.QueryParamsRequest>): _1.QueryParamsRequest;
+                fromAmino(_: _1.QueryParamsRequestAmino): _1.QueryParamsRequest;
+                toAmino(_: _1.QueryParamsRequest): _1.QueryParamsRequestAmino;
+                fromAminoMsg(object: _1.QueryParamsRequestAminoMsg): _1.QueryParamsRequest;
+                fromProtoMsg(message: _1.QueryParamsRequestProtoMsg): _1.QueryParamsRequest;
+                toProto(message: _1.QueryParamsRequest): Uint8Array;
+                toProtoMsg(message: _1.QueryParamsRequest): _1.QueryParamsRequestProtoMsg;
             };
-            QueryMinimumGasPricesResponse: {
-                encode(message: _1.QueryMinimumGasPricesResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
-                fromJSON(object: any): _1.QueryMinimumGasPricesResponse;
-                fromPartial(object: Partial<_1.QueryMinimumGasPricesResponse>): _1.QueryMinimumGasPricesResponse;
+            QueryParamsResponse: {
+                typeUrl: string;
+                encode(message: _1.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _1.QueryParamsResponse;
+                fromPartial(object: Partial<_1.QueryParamsResponse>): _1.QueryParamsResponse;
+                fromAmino(object: _1.QueryParamsResponseAmino): _1.QueryParamsResponse;
+                toAmino(message: _1.QueryParamsResponse): _1.QueryParamsResponseAmino;
+                fromAminoMsg(object: _1.QueryParamsResponseAminoMsg): _1.QueryParamsResponse;
+                fromProtoMsg(message: _1.QueryParamsResponseProtoMsg): _1.QueryParamsResponse;
+                toProto(message: _1.QueryParamsResponse): Uint8Array;
+                toProtoMsg(message: _1.QueryParamsResponse): _1.QueryParamsResponseProtoMsg;
             };
             GenesisState: {
-                encode(message: _0.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _0.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _0.GenesisState;
                 fromPartial(object: Partial<_0.GenesisState>): _0.GenesisState;
+                fromAmino(object: _0.GenesisStateAmino): _0.GenesisState;
+                toAmino(message: _0.GenesisState): _0.GenesisStateAmino;
+                fromAminoMsg(object: _0.GenesisStateAminoMsg): _0.GenesisState;
+                fromProtoMsg(message: _0.GenesisStateProtoMsg): _0.GenesisState;
+                toProto(message: _0.GenesisState): Uint8Array;
+                toProtoMsg(message: _0.GenesisState): _0.GenesisStateProtoMsg;
             };
             Params: {
-                encode(message: _0.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _0.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _0.Params;
                 fromPartial(object: Partial<_0.Params>): _0.Params;
+                fromAmino(object: _0.ParamsAmino): _0.Params;
+                toAmino(message: _0.Params): _0.ParamsAmino;
+                fromAminoMsg(object: _0.ParamsAminoMsg): _0.Params;
+                fromProtoMsg(message: _0.ParamsProtoMsg): _0.Params;
+                toProto(message: _0.Params): Uint8Array;
+                toProtoMsg(message: _0.Params): _0.ParamsProtoMsg;
             };
         };
     }
@@ -39,7 +67,7 @@ export declare namespace gaia {
             gaia: {
                 globalfee: {
                     v1beta1: {
-                        minimumGasPrices(request?: _1.QueryMinimumGasPricesRequest): Promise<_1.QueryMinimumGasPricesResponse>;
+                        params(request?: _1.QueryParamsRequest): Promise<_1.QueryParamsResponse>;
                     };
                 };
             };
@@ -187,7 +215,7 @@ export declare namespace gaia {
         }) => Promise<{
             gaia: {
                 globalfee: {
-                    v1beta1: _103.LCDQueryClient;
+                    v1beta1: _104.LCDQueryClient;
                 };
             };
             cosmos: {

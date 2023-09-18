@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64 } from "../../../helpers";
 /**
  * ConversionPair defines a Kava ERC20 address and corresponding denom that is
@@ -9,6 +9,24 @@ export interface ConversionPair {
   kavaErc20Address: Uint8Array;
   /** Denom of the corresponding sdk.Coin */
   denom: string;
+}
+export interface ConversionPairProtoMsg {
+  typeUrl: "/kava.evmutil.v1beta1.ConversionPair";
+  value: Uint8Array;
+}
+/**
+ * ConversionPair defines a Kava ERC20 address and corresponding denom that is
+ * allowed to be converted between ERC20 and sdk.Coin
+ */
+export interface ConversionPairAmino {
+  /** ERC20 address of the token on the Kava EVM */
+  kava_erc20_address: Uint8Array;
+  /** Denom of the corresponding sdk.Coin */
+  denom: string;
+}
+export interface ConversionPairAminoMsg {
+  type: "/kava.evmutil.v1beta1.ConversionPair";
+  value: ConversionPairAmino;
 }
 /**
  * ConversionPair defines a Kava ERC20 address and corresponding denom that is
@@ -34,6 +52,30 @@ export interface AllowedCosmosCoinERC20Token {
   /** Number of decimals ERC20 contract is deployed with. */
   decimals: number;
 }
+export interface AllowedCosmosCoinERC20TokenProtoMsg {
+  typeUrl: "/kava.evmutil.v1beta1.AllowedCosmosCoinERC20Token";
+  value: Uint8Array;
+}
+/**
+ * AllowedCosmosCoinERC20Token defines allowed cosmos-sdk denom & metadata
+ * for evm token representations of sdk assets.
+ * NOTE: once evm token contracts are deployed, changes to metadata for a given
+ * cosmos_denom will not change metadata of deployed contract.
+ */
+export interface AllowedCosmosCoinERC20TokenAmino {
+  /** Denom of the sdk.Coin */
+  cosmos_denom: string;
+  /** Name of ERC20 contract */
+  name: string;
+  /** Symbol of ERC20 contract */
+  symbol: string;
+  /** Number of decimals ERC20 contract is deployed with. */
+  decimals: number;
+}
+export interface AllowedCosmosCoinERC20TokenAminoMsg {
+  type: "/kava.evmutil.v1beta1.AllowedCosmosCoinERC20Token";
+  value: AllowedCosmosCoinERC20TokenAmino;
+}
 /**
  * AllowedCosmosCoinERC20Token defines allowed cosmos-sdk denom & metadata
  * for evm token representations of sdk assets.
@@ -53,7 +95,8 @@ function createBaseConversionPair(): ConversionPair {
   };
 }
 export const ConversionPair = {
-  encode(message: ConversionPair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.evmutil.v1beta1.ConversionPair",
+  encode(message: ConversionPair, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.kavaErc20Address.length !== 0) {
       writer.uint32(10).bytes(message.kavaErc20Address);
     }
@@ -73,6 +116,33 @@ export const ConversionPair = {
     message.kavaErc20Address = object.kavaErc20Address ?? new Uint8Array();
     message.denom = object.denom ?? "";
     return message;
+  },
+  fromAmino(object: ConversionPairAmino): ConversionPair {
+    return {
+      kavaErc20Address: object.kava_erc20_address,
+      denom: object.denom
+    };
+  },
+  toAmino(message: ConversionPair): ConversionPairAmino {
+    const obj: any = {};
+    obj.kava_erc20_address = message.kavaErc20Address;
+    obj.denom = message.denom;
+    return obj;
+  },
+  fromAminoMsg(object: ConversionPairAminoMsg): ConversionPair {
+    return ConversionPair.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ConversionPairProtoMsg): ConversionPair {
+    return ConversionPair.decode(message.value);
+  },
+  toProto(message: ConversionPair): Uint8Array {
+    return ConversionPair.encode(message).finish();
+  },
+  toProtoMsg(message: ConversionPair): ConversionPairProtoMsg {
+    return {
+      typeUrl: "/kava.evmutil.v1beta1.ConversionPair",
+      value: ConversionPair.encode(message).finish()
+    };
   }
 };
 function createBaseAllowedCosmosCoinERC20Token(): AllowedCosmosCoinERC20Token {
@@ -84,7 +154,8 @@ function createBaseAllowedCosmosCoinERC20Token(): AllowedCosmosCoinERC20Token {
   };
 }
 export const AllowedCosmosCoinERC20Token = {
-  encode(message: AllowedCosmosCoinERC20Token, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.evmutil.v1beta1.AllowedCosmosCoinERC20Token",
+  encode(message: AllowedCosmosCoinERC20Token, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.cosmosDenom !== "") {
       writer.uint32(10).string(message.cosmosDenom);
     }
@@ -114,5 +185,36 @@ export const AllowedCosmosCoinERC20Token = {
     message.symbol = object.symbol ?? "";
     message.decimals = object.decimals ?? 0;
     return message;
+  },
+  fromAmino(object: AllowedCosmosCoinERC20TokenAmino): AllowedCosmosCoinERC20Token {
+    return {
+      cosmosDenom: object.cosmos_denom,
+      name: object.name,
+      symbol: object.symbol,
+      decimals: object.decimals
+    };
+  },
+  toAmino(message: AllowedCosmosCoinERC20Token): AllowedCosmosCoinERC20TokenAmino {
+    const obj: any = {};
+    obj.cosmos_denom = message.cosmosDenom;
+    obj.name = message.name;
+    obj.symbol = message.symbol;
+    obj.decimals = message.decimals;
+    return obj;
+  },
+  fromAminoMsg(object: AllowedCosmosCoinERC20TokenAminoMsg): AllowedCosmosCoinERC20Token {
+    return AllowedCosmosCoinERC20Token.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AllowedCosmosCoinERC20TokenProtoMsg): AllowedCosmosCoinERC20Token {
+    return AllowedCosmosCoinERC20Token.decode(message.value);
+  },
+  toProto(message: AllowedCosmosCoinERC20Token): Uint8Array {
+    return AllowedCosmosCoinERC20Token.encode(message).finish();
+  },
+  toProtoMsg(message: AllowedCosmosCoinERC20Token): AllowedCosmosCoinERC20TokenProtoMsg {
+    return {
+      typeUrl: "/kava.evmutil.v1beta1.AllowedCosmosCoinERC20Token",
+      value: AllowedCosmosCoinERC20Token.encode(message).finish()
+    };
   }
 };

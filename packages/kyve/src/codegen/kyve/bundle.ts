@@ -39,39 +39,39 @@ import * as _37 from "./team/v1beta1/genesis";
 import * as _38 from "./team/v1beta1/query";
 import * as _39 from "./team/v1beta1/team";
 import * as _40 from "./team/v1beta1/tx";
-import * as _155 from "./bundles/v1beta1/tx.amino";
-import * as _156 from "./delegation/v1beta1/tx.amino";
-import * as _157 from "./global/v1beta1/tx.amino";
-import * as _158 from "./pool/v1beta1/tx.amino";
-import * as _159 from "./stakers/v1beta1/tx.amino";
-import * as _160 from "./team/v1beta1/tx.amino";
-import * as _161 from "./bundles/v1beta1/tx.registry";
-import * as _162 from "./delegation/v1beta1/tx.registry";
-import * as _163 from "./global/v1beta1/tx.registry";
-import * as _164 from "./pool/v1beta1/tx.registry";
-import * as _165 from "./stakers/v1beta1/tx.registry";
-import * as _166 from "./team/v1beta1/tx.registry";
-import * as _167 from "./bundles/v1beta1/query.lcd";
-import * as _168 from "./delegation/v1beta1/query.lcd";
-import * as _169 from "./global/v1beta1/query.lcd";
-import * as _170 from "./pool/v1beta1/query.lcd";
-import * as _171 from "./stakers/v1beta1/query.lcd";
-import * as _172 from "./team/v1beta1/query.lcd";
-import * as _173 from "./bundles/v1beta1/query.rpc.Query";
-import * as _174 from "./delegation/v1beta1/query.rpc.Query";
-import * as _175 from "./global/v1beta1/query.rpc.Query";
-import * as _176 from "./pool/v1beta1/query.rpc.Query";
-import * as _177 from "./stakers/v1beta1/query.rpc.Query";
-import * as _178 from "./team/v1beta1/query.rpc.Query";
-import * as _179 from "./bundles/v1beta1/tx.rpc.msg";
-import * as _180 from "./delegation/v1beta1/tx.rpc.msg";
-import * as _181 from "./global/v1beta1/tx.rpc.msg";
-import * as _182 from "./pool/v1beta1/tx.rpc.msg";
-import * as _183 from "./stakers/v1beta1/tx.rpc.msg";
-import * as _184 from "./team/v1beta1/tx.rpc.msg";
-import * as _264 from "./lcd";
-import * as _265 from "./rpc.query";
-import * as _266 from "./rpc.tx";
+import * as _156 from "./bundles/v1beta1/tx.amino";
+import * as _157 from "./delegation/v1beta1/tx.amino";
+import * as _158 from "./global/v1beta1/tx.amino";
+import * as _159 from "./pool/v1beta1/tx.amino";
+import * as _160 from "./stakers/v1beta1/tx.amino";
+import * as _161 from "./team/v1beta1/tx.amino";
+import * as _162 from "./bundles/v1beta1/tx.registry";
+import * as _163 from "./delegation/v1beta1/tx.registry";
+import * as _164 from "./global/v1beta1/tx.registry";
+import * as _165 from "./pool/v1beta1/tx.registry";
+import * as _166 from "./stakers/v1beta1/tx.registry";
+import * as _167 from "./team/v1beta1/tx.registry";
+import * as _168 from "./bundles/v1beta1/query.lcd";
+import * as _169 from "./delegation/v1beta1/query.lcd";
+import * as _170 from "./global/v1beta1/query.lcd";
+import * as _171 from "./pool/v1beta1/query.lcd";
+import * as _172 from "./stakers/v1beta1/query.lcd";
+import * as _173 from "./team/v1beta1/query.lcd";
+import * as _174 from "./bundles/v1beta1/query.rpc.Query";
+import * as _175 from "./delegation/v1beta1/query.rpc.Query";
+import * as _176 from "./global/v1beta1/query.rpc.Query";
+import * as _177 from "./pool/v1beta1/query.rpc.Query";
+import * as _178 from "./stakers/v1beta1/query.rpc.Query";
+import * as _179 from "./team/v1beta1/query.rpc.Query";
+import * as _180 from "./bundles/v1beta1/tx.rpc.msg";
+import * as _181 from "./delegation/v1beta1/tx.rpc.msg";
+import * as _182 from "./global/v1beta1/tx.rpc.msg";
+import * as _183 from "./pool/v1beta1/tx.rpc.msg";
+import * as _184 from "./stakers/v1beta1/tx.rpc.msg";
+import * as _185 from "./team/v1beta1/tx.rpc.msg";
+import * as _265 from "./lcd";
+import * as _266 from "./rpc.query";
+import * as _267 from "./rpc.tx";
 export namespace kyve {
   export namespace bundles {
     export const v1beta1 = {
@@ -81,11 +81,11 @@ export namespace kyve {
       ..._3,
       ..._4,
       ..._5,
-      ..._155,
-      ..._161,
-      ..._167,
-      ..._173,
-      ..._179
+      ..._156,
+      ..._162,
+      ..._168,
+      ..._174,
+      ..._180
     };
   }
   export namespace delegation {
@@ -96,11 +96,11 @@ export namespace kyve {
       ..._9,
       ..._10,
       ..._11,
-      ..._156,
-      ..._162,
-      ..._168,
-      ..._174,
-      ..._180
+      ..._157,
+      ..._163,
+      ..._169,
+      ..._175,
+      ..._181
     };
   }
   export namespace global {
@@ -110,11 +110,11 @@ export namespace kyve {
       ..._14,
       ..._15,
       ..._16,
-      ..._157,
-      ..._163,
-      ..._169,
-      ..._175,
-      ..._181
+      ..._158,
+      ..._164,
+      ..._170,
+      ..._176,
+      ..._182
     };
   }
   export namespace pool {
@@ -125,11 +125,11 @@ export namespace kyve {
       ..._20,
       ..._21,
       ..._22,
-      ..._158,
-      ..._164,
-      ..._170,
-      ..._176,
-      ..._182
+      ..._159,
+      ..._165,
+      ..._171,
+      ..._177,
+      ..._183
     };
   }
   export namespace query {
@@ -151,11 +151,11 @@ export namespace kyve {
       ..._33,
       ..._34,
       ..._35,
-      ..._159,
-      ..._165,
-      ..._171,
-      ..._177,
-      ..._183
+      ..._160,
+      ..._166,
+      ..._172,
+      ..._178,
+      ..._184
     };
   }
   export namespace team {
@@ -165,16 +165,16 @@ export namespace kyve {
       ..._38,
       ..._39,
       ..._40,
-      ..._160,
-      ..._166,
-      ..._172,
-      ..._178,
-      ..._184
+      ..._161,
+      ..._167,
+      ..._173,
+      ..._179,
+      ..._185
     };
   }
   export const ClientFactory = {
-    ..._264,
     ..._265,
-    ..._266
+    ..._266,
+    ..._267
   };
 }

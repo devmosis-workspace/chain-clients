@@ -6,6 +6,7 @@ export enum Role {
   UNRECOGNIZED = -1,
 }
 export const RoleSDKType = Role;
+export const RoleAmino = Role;
 export function roleFromJSON(object: any): Role {
   switch (object) {
     case 0:

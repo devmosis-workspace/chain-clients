@@ -1,9 +1,21 @@
-import { Timestamp, TimestampSDKType } from "../../../../google/protobuf/timestamp";
-import { Long, isSet, bytesFromBase64, fromJsonTimestamp, isObject } from "../../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../../google/protobuf/timestamp";
+import { BinaryWriter } from "../../../../binary";
+import { isSet, bytesFromBase64, fromJsonTimestamp, isObject } from "../../../../helpers";
 export interface Participant {
   address: Uint8Array;
   weight: Uint8Array;
+}
+export interface ParticipantProtoMsg {
+  typeUrl: "/axelar.snapshot.exported.v1beta1.Participant";
+  value: Uint8Array;
+}
+export interface ParticipantAmino {
+  address: Uint8Array;
+  weight: Uint8Array;
+}
+export interface ParticipantAminoMsg {
+  type: "/axelar.snapshot.exported.v1beta1.Participant";
+  value: ParticipantAmino;
 }
 export interface ParticipantSDKType {
   address: Uint8Array;
@@ -11,24 +23,52 @@ export interface ParticipantSDKType {
 }
 export interface Snapshot_ParticipantsEntry {
   key: string;
-  value?: Participant;
+  value: Participant;
+}
+export interface Snapshot_ParticipantsEntryProtoMsg {
+  typeUrl: string;
+  value: Uint8Array;
+}
+export interface Snapshot_ParticipantsEntryAmino {
+  key: string;
+  value?: ParticipantAmino;
+}
+export interface Snapshot_ParticipantsEntryAminoMsg {
+  type: string;
+  value: Snapshot_ParticipantsEntryAmino;
 }
 export interface Snapshot_ParticipantsEntrySDKType {
   key: string;
-  value?: ParticipantSDKType;
+  value: ParticipantSDKType;
 }
 export interface Snapshot {
-  timestamp?: Timestamp;
-  height: Long;
-  participants?: {
+  timestamp: Timestamp;
+  height: bigint;
+  participants: {
     [key: string]: Participant;
   };
   bondedWeight: Uint8Array;
 }
-export interface SnapshotSDKType {
-  timestamp?: TimestampSDKType;
-  height: Long;
+export interface SnapshotProtoMsg {
+  typeUrl: "/axelar.snapshot.exported.v1beta1.Snapshot";
+  value: Uint8Array;
+}
+export interface SnapshotAmino {
+  timestamp?: TimestampAmino;
+  height: string;
   participants?: {
+    [key: string]: ParticipantAmino;
+  };
+  bonded_weight: Uint8Array;
+}
+export interface SnapshotAminoMsg {
+  type: "/axelar.snapshot.exported.v1beta1.Snapshot";
+  value: SnapshotAmino;
+}
+export interface SnapshotSDKType {
+  timestamp: TimestampSDKType;
+  height: bigint;
+  participants: {
     [key: string]: ParticipantSDKType;
   };
   bonded_weight: Uint8Array;
@@ -40,7 +80,8 @@ function createBaseParticipant(): Participant {
   };
 }
 export const Participant = {
-  encode(message: Participant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.snapshot.exported.v1beta1.Participant",
+  encode(message: Participant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
     }
@@ -60,16 +101,43 @@ export const Participant = {
     message.address = object.address ?? new Uint8Array();
     message.weight = object.weight ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: ParticipantAmino): Participant {
+    return {
+      address: object.address,
+      weight: object.weight
+    };
+  },
+  toAmino(message: Participant): ParticipantAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.weight = message.weight;
+    return obj;
+  },
+  fromAminoMsg(object: ParticipantAminoMsg): Participant {
+    return Participant.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParticipantProtoMsg): Participant {
+    return Participant.decode(message.value);
+  },
+  toProto(message: Participant): Uint8Array {
+    return Participant.encode(message).finish();
+  },
+  toProtoMsg(message: Participant): ParticipantProtoMsg {
+    return {
+      typeUrl: "/axelar.snapshot.exported.v1beta1.Participant",
+      value: Participant.encode(message).finish()
+    };
   }
 };
 function createBaseSnapshot_ParticipantsEntry(): Snapshot_ParticipantsEntry {
   return {
     key: "",
-    value: undefined
+    value: Participant.fromPartial({})
   };
 }
 export const Snapshot_ParticipantsEntry = {
-  encode(message: Snapshot_ParticipantsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: Snapshot_ParticipantsEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -89,22 +157,44 @@ export const Snapshot_ParticipantsEntry = {
     message.key = object.key ?? "";
     message.value = object.value !== undefined && object.value !== null ? Participant.fromPartial(object.value) : undefined;
     return message;
+  },
+  fromAmino(object: Snapshot_ParticipantsEntryAmino): Snapshot_ParticipantsEntry {
+    return {
+      key: object.key,
+      value: object?.value ? Participant.fromAmino(object.value) : undefined
+    };
+  },
+  toAmino(message: Snapshot_ParticipantsEntry): Snapshot_ParticipantsEntryAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value ? Participant.toAmino(message.value) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: Snapshot_ParticipantsEntryAminoMsg): Snapshot_ParticipantsEntry {
+    return Snapshot_ParticipantsEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: Snapshot_ParticipantsEntryProtoMsg): Snapshot_ParticipantsEntry {
+    return Snapshot_ParticipantsEntry.decode(message.value);
+  },
+  toProto(message: Snapshot_ParticipantsEntry): Uint8Array {
+    return Snapshot_ParticipantsEntry.encode(message).finish();
   }
 };
 function createBaseSnapshot(): Snapshot {
   return {
-    timestamp: undefined,
-    height: Long.ZERO,
+    timestamp: Timestamp.fromPartial({}),
+    height: BigInt(0),
     participants: {},
     bondedWeight: new Uint8Array()
   };
 }
 export const Snapshot = {
-  encode(message: Snapshot, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.snapshot.exported.v1beta1.Snapshot",
+  encode(message: Snapshot, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.timestamp !== undefined) {
       Timestamp.encode(message.timestamp, writer.uint32(18).fork()).ldelim();
     }
-    if (!message.height.isZero()) {
+    if (message.height !== BigInt(0)) {
       writer.uint32(24).int64(message.height);
     }
     Object.entries(message.participants).forEach(([key, value]) => {
@@ -121,7 +211,7 @@ export const Snapshot = {
   fromJSON(object: any): Snapshot {
     return {
       timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0),
       participants: isObject(object.participants) ? Object.entries(object.participants).reduce<{
         [key: string]: Participant;
       }>((acc, [key, value]) => {
@@ -134,7 +224,7 @@ export const Snapshot = {
   fromPartial(object: Partial<Snapshot>): Snapshot {
     const message = createBaseSnapshot();
     message.timestamp = object.timestamp !== undefined && object.timestamp !== null ? Timestamp.fromPartial(object.timestamp) : undefined;
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.participants = Object.entries(object.participants ?? {}).reduce<{
       [key: string]: Participant;
     }>((acc, [key, value]) => {
@@ -145,5 +235,46 @@ export const Snapshot = {
     }, {});
     message.bondedWeight = object.bondedWeight ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: SnapshotAmino): Snapshot {
+    return {
+      timestamp: object.timestamp,
+      height: BigInt(object.height),
+      participants: isObject(object.participants) ? Object.entries(object.participants).reduce<{
+        [key: string]: Participant;
+      }>((acc, [key, value]) => {
+        acc[key] = Participant.fromAmino(value);
+        return acc;
+      }, {}) : {},
+      bondedWeight: object.bonded_weight
+    };
+  },
+  toAmino(message: Snapshot): SnapshotAmino {
+    const obj: any = {};
+    obj.timestamp = message.timestamp;
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.participants = {};
+    if (message.participants) {
+      Object.entries(message.participants).forEach(([k, v]) => {
+        obj.participants[k] = Participant.toAmino(v);
+      });
+    }
+    obj.bonded_weight = message.bondedWeight;
+    return obj;
+  },
+  fromAminoMsg(object: SnapshotAminoMsg): Snapshot {
+    return Snapshot.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SnapshotProtoMsg): Snapshot {
+    return Snapshot.decode(message.value);
+  },
+  toProto(message: Snapshot): Uint8Array {
+    return Snapshot.encode(message).finish();
+  },
+  toProtoMsg(message: Snapshot): SnapshotProtoMsg {
+    return {
+      typeUrl: "/axelar.snapshot.exported.v1beta1.Snapshot",
+      value: Snapshot.encode(message).finish()
+    };
   }
 };

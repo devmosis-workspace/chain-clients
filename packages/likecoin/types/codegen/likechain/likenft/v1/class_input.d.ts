@@ -1,5 +1,5 @@
-import { ClassConfig, ClassConfigSDKType, ClassParentType } from "./class_data";
-import * as _m0 from "protobufjs/minimal";
+import { ClassConfig, ClassConfigAmino, ClassConfigSDKType, ClassParentType } from "./class_data";
+import { BinaryWriter } from "../../../binary";
 export interface ClassInput {
     name: string;
     symbol: string;
@@ -7,7 +7,24 @@ export interface ClassInput {
     uri: string;
     uriHash: string;
     metadata: Uint8Array;
-    config?: ClassConfig;
+    config: ClassConfig;
+}
+export interface ClassInputProtoMsg {
+    typeUrl: "/likechain.likenft.v1.ClassInput";
+    value: Uint8Array;
+}
+export interface ClassInputAmino {
+    name: string;
+    symbol: string;
+    description: string;
+    uri: string;
+    uri_hash: string;
+    metadata: Uint8Array;
+    config?: ClassConfigAmino;
+}
+export interface ClassInputAminoMsg {
+    type: "/likechain.likenft.v1.ClassInput";
+    value: ClassInputAmino;
 }
 export interface ClassInputSDKType {
     name: string;
@@ -16,23 +33,49 @@ export interface ClassInputSDKType {
     uri: string;
     uri_hash: string;
     metadata: Uint8Array;
-    config?: ClassConfigSDKType;
+    config: ClassConfigSDKType;
 }
 export interface ClassParentInput {
     type: ClassParentType;
-    iscnIdPrefix: string;
+    iscnIdPrefix?: string;
 }
-export interface ClassParentInputSDKType {
+export interface ClassParentInputProtoMsg {
+    typeUrl: "/likechain.likenft.v1.ClassParentInput";
+    value: Uint8Array;
+}
+export interface ClassParentInputAmino {
     type: ClassParentType;
     iscn_id_prefix: string;
 }
+export interface ClassParentInputAminoMsg {
+    type: "/likechain.likenft.v1.ClassParentInput";
+    value: ClassParentInputAmino;
+}
+export interface ClassParentInputSDKType {
+    type: ClassParentType;
+    iscn_id_prefix?: string;
+}
 export declare const ClassInput: {
-    encode(message: ClassInput, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ClassInput, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ClassInput;
     fromPartial(object: Partial<ClassInput>): ClassInput;
+    fromAmino(object: ClassInputAmino): ClassInput;
+    toAmino(message: ClassInput): ClassInputAmino;
+    fromAminoMsg(object: ClassInputAminoMsg): ClassInput;
+    fromProtoMsg(message: ClassInputProtoMsg): ClassInput;
+    toProto(message: ClassInput): Uint8Array;
+    toProtoMsg(message: ClassInput): ClassInputProtoMsg;
 };
 export declare const ClassParentInput: {
-    encode(message: ClassParentInput, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ClassParentInput, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ClassParentInput;
     fromPartial(object: Partial<ClassParentInput>): ClassParentInput;
+    fromAmino(object: ClassParentInputAmino): ClassParentInput;
+    toAmino(message: ClassParentInput): ClassParentInputAmino;
+    fromAminoMsg(object: ClassParentInputAminoMsg): ClassParentInput;
+    fromProtoMsg(message: ClassParentInputProtoMsg): ClassParentInput;
+    toProto(message: ClassParentInput): Uint8Array;
+    toProtoMsg(message: ClassParentInput): ClassParentInputProtoMsg;
 };

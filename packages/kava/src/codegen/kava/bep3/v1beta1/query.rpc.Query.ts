@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryAssetSupplyRequest, QueryAssetSupplyResponse, QueryAssetSuppliesRequest, QueryAssetSuppliesResponse, QueryAtomicSwapRequest, QueryAtomicSwapResponse, QueryAtomicSwapsRequest, QueryAtomicSwapsResponse } from "./query";
 /** Query defines the gRPC querier service for bep3 module */
@@ -28,27 +28,27 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.bep3.v1beta1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   assetSupply(request: QueryAssetSupplyRequest): Promise<QueryAssetSupplyResponse> {
     const data = QueryAssetSupplyRequest.encode(request).finish();
     const promise = this.rpc.request("kava.bep3.v1beta1.Query", "AssetSupply", data);
-    return promise.then(data => QueryAssetSupplyResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAssetSupplyResponse.decode(new BinaryReader(data)));
   }
   assetSupplies(request: QueryAssetSuppliesRequest = {}): Promise<QueryAssetSuppliesResponse> {
     const data = QueryAssetSuppliesRequest.encode(request).finish();
     const promise = this.rpc.request("kava.bep3.v1beta1.Query", "AssetSupplies", data);
-    return promise.then(data => QueryAssetSuppliesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAssetSuppliesResponse.decode(new BinaryReader(data)));
   }
   atomicSwap(request: QueryAtomicSwapRequest): Promise<QueryAtomicSwapResponse> {
     const data = QueryAtomicSwapRequest.encode(request).finish();
     const promise = this.rpc.request("kava.bep3.v1beta1.Query", "AtomicSwap", data);
-    return promise.then(data => QueryAtomicSwapResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAtomicSwapResponse.decode(new BinaryReader(data)));
   }
   atomicSwaps(request: QueryAtomicSwapsRequest): Promise<QueryAtomicSwapsResponse> {
     const data = QueryAtomicSwapsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.bep3.v1beta1.Query", "AtomicSwaps", data);
-    return promise.then(data => QueryAtomicSwapsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAtomicSwapsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

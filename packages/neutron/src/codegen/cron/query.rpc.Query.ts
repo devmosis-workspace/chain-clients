@@ -1,5 +1,5 @@
 import { Rpc } from "../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryGetScheduleRequest, QueryGetScheduleResponse, QuerySchedulesRequest, QuerySchedulesResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -22,19 +22,19 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.cron.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   schedule(request: QueryGetScheduleRequest): Promise<QueryGetScheduleResponse> {
     const data = QueryGetScheduleRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.cron.Query", "Schedule", data);
-    return promise.then(data => QueryGetScheduleResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetScheduleResponse.decode(new BinaryReader(data)));
   }
   schedules(request: QuerySchedulesRequest = {
     pagination: undefined
   }): Promise<QuerySchedulesResponse> {
     const data = QuerySchedulesRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.cron.Query", "Schedules", data);
-    return promise.then(data => QuerySchedulesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySchedulesResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

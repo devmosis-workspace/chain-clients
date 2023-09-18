@@ -4,27 +4,13 @@ import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const irishubAminoConverters: {
     "/irishub.guardian.MsgAddSuper": {
         aminoType: string;
-        toAmino: ({ description, address, addedBy }: import("../guardian/tx").MsgAddSuper) => {
-            description: string;
-            address: string;
-            added_by: string;
-        };
-        fromAmino: ({ description, address, added_by }: {
-            description: string;
-            address: string;
-            added_by: string;
-        }) => import("../guardian/tx").MsgAddSuper;
+        toAmino: (message: import("../guardian/tx").MsgAddSuper) => import("../guardian/tx").MsgAddSuperAmino;
+        fromAmino: (object: import("../guardian/tx").MsgAddSuperAmino) => import("../guardian/tx").MsgAddSuper;
     };
     "/irishub.guardian.MsgDeleteSuper": {
         aminoType: string;
-        toAmino: ({ address, deletedBy }: import("../guardian/tx").MsgDeleteSuper) => {
-            address: string;
-            deleted_by: string;
-        };
-        fromAmino: ({ address, deleted_by }: {
-            address: string;
-            deleted_by: string;
-        }) => import("../guardian/tx").MsgDeleteSuper;
+        toAmino: (message: import("../guardian/tx").MsgDeleteSuper) => import("../guardian/tx").MsgDeleteSuperAmino;
+        fromAmino: (object: import("../guardian/tx").MsgDeleteSuperAmino) => import("../guardian/tx").MsgDeleteSuper;
     };
 };
 export declare const irishubProtoRegistry: ReadonlyArray<[string, GeneratedType]>;

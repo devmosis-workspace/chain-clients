@@ -1,9 +1,21 @@
-import { Params, ParamsSDKType } from "./slashing";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./slashing";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** MsgUnjail defines the Msg/Unjail request type */
 export interface MsgUnjail {
   validatorAddr: string;
+}
+export interface MsgUnjailProtoMsg {
+  typeUrl: "/cosmos.slashing.v1beta1.MsgUnjail";
+  value: Uint8Array;
+}
+/** MsgUnjail defines the Msg/Unjail request type */
+export interface MsgUnjailAmino {
+  validator_addr: string;
+}
+export interface MsgUnjailAminoMsg {
+  type: "cosmos-sdk/MsgUnjail";
+  value: MsgUnjailAmino;
 }
 /** MsgUnjail defines the Msg/Unjail request type */
 export interface MsgUnjailSDKType {
@@ -11,6 +23,16 @@ export interface MsgUnjailSDKType {
 }
 /** MsgUnjailResponse defines the Msg/Unjail response type */
 export interface MsgUnjailResponse {}
+export interface MsgUnjailResponseProtoMsg {
+  typeUrl: "/cosmos.slashing.v1beta1.MsgUnjailResponse";
+  value: Uint8Array;
+}
+/** MsgUnjailResponse defines the Msg/Unjail response type */
+export interface MsgUnjailResponseAmino {}
+export interface MsgUnjailResponseAminoMsg {
+  type: "cosmos-sdk/MsgUnjailResponse";
+  value: MsgUnjailResponseAmino;
+}
 /** MsgUnjailResponse defines the Msg/Unjail response type */
 export interface MsgUnjailResponseSDKType {}
 /**
@@ -26,7 +48,30 @@ export interface MsgUpdateParams {
    * 
    * NOTE: All parameters must be supplied.
    */
-  params?: Params;
+  params: Params;
+}
+export interface MsgUpdateParamsProtoMsg {
+  typeUrl: "/cosmos.slashing.v1beta1.MsgUpdateParams";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsAmino {
+  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  authority: string;
+  /**
+   * params defines the x/slashing parameters to update.
+   * 
+   * NOTE: All parameters must be supplied.
+   */
+  params?: ParamsAmino;
+}
+export interface MsgUpdateParamsAminoMsg {
+  type: "cosmos-sdk/x/slashing/MsgUpdateParams";
+  value: MsgUpdateParamsAmino;
 }
 /**
  * MsgUpdateParams is the Msg/UpdateParams request type.
@@ -35,7 +80,7 @@ export interface MsgUpdateParams {
  */
 export interface MsgUpdateParamsSDKType {
   authority: string;
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
@@ -44,6 +89,21 @@ export interface MsgUpdateParamsSDKType {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {}
+export interface MsgUpdateParamsResponseProtoMsg {
+  typeUrl: "/cosmos.slashing.v1beta1.MsgUpdateParamsResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseAmino {}
+export interface MsgUpdateParamsResponseAminoMsg {
+  type: "cosmos-sdk/MsgUpdateParamsResponse";
+  value: MsgUpdateParamsResponseAmino;
+}
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
@@ -57,7 +117,8 @@ function createBaseMsgUnjail(): MsgUnjail {
   };
 }
 export const MsgUnjail = {
-  encode(message: MsgUnjail, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.slashing.v1beta1.MsgUnjail",
+  encode(message: MsgUnjail, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validatorAddr !== "") {
       writer.uint32(10).string(message.validatorAddr);
     }
@@ -72,13 +133,45 @@ export const MsgUnjail = {
     const message = createBaseMsgUnjail();
     message.validatorAddr = object.validatorAddr ?? "";
     return message;
+  },
+  fromAmino(object: MsgUnjailAmino): MsgUnjail {
+    return {
+      validatorAddr: object.validator_addr
+    };
+  },
+  toAmino(message: MsgUnjail): MsgUnjailAmino {
+    const obj: any = {};
+    obj.validator_addr = message.validatorAddr;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUnjailAminoMsg): MsgUnjail {
+    return MsgUnjail.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUnjail): MsgUnjailAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgUnjail",
+      value: MsgUnjail.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgUnjailProtoMsg): MsgUnjail {
+    return MsgUnjail.decode(message.value);
+  },
+  toProto(message: MsgUnjail): Uint8Array {
+    return MsgUnjail.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUnjail): MsgUnjailProtoMsg {
+    return {
+      typeUrl: "/cosmos.slashing.v1beta1.MsgUnjail",
+      value: MsgUnjail.encode(message).finish()
+    };
   }
 };
 function createBaseMsgUnjailResponse(): MsgUnjailResponse {
   return {};
 }
 export const MsgUnjailResponse = {
-  encode(_: MsgUnjailResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.slashing.v1beta1.MsgUnjailResponse",
+  encode(_: MsgUnjailResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgUnjailResponse {
@@ -87,16 +180,45 @@ export const MsgUnjailResponse = {
   fromPartial(_: Partial<MsgUnjailResponse>): MsgUnjailResponse {
     const message = createBaseMsgUnjailResponse();
     return message;
+  },
+  fromAmino(_: MsgUnjailResponseAmino): MsgUnjailResponse {
+    return {};
+  },
+  toAmino(_: MsgUnjailResponse): MsgUnjailResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUnjailResponseAminoMsg): MsgUnjailResponse {
+    return MsgUnjailResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUnjailResponse): MsgUnjailResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgUnjailResponse",
+      value: MsgUnjailResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgUnjailResponseProtoMsg): MsgUnjailResponse {
+    return MsgUnjailResponse.decode(message.value);
+  },
+  toProto(message: MsgUnjailResponse): Uint8Array {
+    return MsgUnjailResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUnjailResponse): MsgUnjailResponseProtoMsg {
+    return {
+      typeUrl: "/cosmos.slashing.v1beta1.MsgUnjailResponse",
+      value: MsgUnjailResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
-    params: undefined
+    params: Params.fromPartial({})
   };
 }
 export const MsgUpdateParams = {
-  encode(message: MsgUpdateParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.slashing.v1beta1.MsgUpdateParams",
+  encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
@@ -116,13 +238,47 @@ export const MsgUpdateParams = {
     message.authority = object.authority ?? "";
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    return {
+      authority: object.authority,
+      params: object?.params ? Params.fromAmino(object.params) : undefined
+    };
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/x/slashing/MsgUpdateParams",
+      value: MsgUpdateParams.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams {
+    return MsgUpdateParams.decode(message.value);
+  },
+  toProto(message: MsgUpdateParams): Uint8Array {
+    return MsgUpdateParams.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg {
+    return {
+      typeUrl: "/cosmos.slashing.v1beta1.MsgUpdateParams",
+      value: MsgUpdateParams.encode(message).finish()
+    };
   }
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
 export const MsgUpdateParamsResponse = {
-  encode(_: MsgUpdateParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.slashing.v1beta1.MsgUpdateParamsResponse",
+  encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgUpdateParamsResponse {
@@ -131,5 +287,33 @@ export const MsgUpdateParamsResponse = {
   fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    return {};
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgUpdateParamsResponse",
+      value: MsgUpdateParamsResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.decode(message.value);
+  },
+  toProto(message: MsgUpdateParamsResponse): Uint8Array {
+    return MsgUpdateParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg {
+    return {
+      typeUrl: "/cosmos.slashing.v1beta1.MsgUpdateParamsResponse",
+      value: MsgUpdateParamsResponse.encode(message).finish()
+    };
   }
 };

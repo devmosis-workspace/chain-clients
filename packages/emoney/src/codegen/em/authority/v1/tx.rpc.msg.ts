@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgCreateIssuer, MsgCreateIssuerResponse, MsgDestroyIssuer, MsgDestroyIssuerResponse, MsgSetGasPrices, MsgSetGasPricesResponse, MsgReplaceAuthority, MsgReplaceAuthorityResponse, MsgScheduleUpgrade, MsgScheduleUpgradeResponse, MsgSetParameters, MsgSetParametersResponse } from "./tx";
 export interface Msg {
   createIssuer(request: MsgCreateIssuer): Promise<MsgCreateIssuerResponse>;
@@ -23,31 +23,31 @@ export class MsgClientImpl implements Msg {
   createIssuer(request: MsgCreateIssuer): Promise<MsgCreateIssuerResponse> {
     const data = MsgCreateIssuer.encode(request).finish();
     const promise = this.rpc.request("em.authority.v1.Msg", "CreateIssuer", data);
-    return promise.then(data => MsgCreateIssuerResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateIssuerResponse.decode(new BinaryReader(data)));
   }
   destroyIssuer(request: MsgDestroyIssuer): Promise<MsgDestroyIssuerResponse> {
     const data = MsgDestroyIssuer.encode(request).finish();
     const promise = this.rpc.request("em.authority.v1.Msg", "DestroyIssuer", data);
-    return promise.then(data => MsgDestroyIssuerResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDestroyIssuerResponse.decode(new BinaryReader(data)));
   }
   setGasPrices(request: MsgSetGasPrices): Promise<MsgSetGasPricesResponse> {
     const data = MsgSetGasPrices.encode(request).finish();
     const promise = this.rpc.request("em.authority.v1.Msg", "SetGasPrices", data);
-    return promise.then(data => MsgSetGasPricesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSetGasPricesResponse.decode(new BinaryReader(data)));
   }
   replaceAuthority(request: MsgReplaceAuthority): Promise<MsgReplaceAuthorityResponse> {
     const data = MsgReplaceAuthority.encode(request).finish();
     const promise = this.rpc.request("em.authority.v1.Msg", "ReplaceAuthority", data);
-    return promise.then(data => MsgReplaceAuthorityResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgReplaceAuthorityResponse.decode(new BinaryReader(data)));
   }
   scheduleUpgrade(request: MsgScheduleUpgrade): Promise<MsgScheduleUpgradeResponse> {
     const data = MsgScheduleUpgrade.encode(request).finish();
     const promise = this.rpc.request("em.authority.v1.Msg", "ScheduleUpgrade", data);
-    return promise.then(data => MsgScheduleUpgradeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgScheduleUpgradeResponse.decode(new BinaryReader(data)));
   }
   setParameters(request: MsgSetParameters): Promise<MsgSetParametersResponse> {
     const data = MsgSetParameters.encode(request).finish();
     const promise = this.rpc.request("em.authority.v1.Msg", "SetParameters", data);
-    return promise.then(data => MsgSetParametersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSetParametersResponse.decode(new BinaryReader(data)));
   }
 }

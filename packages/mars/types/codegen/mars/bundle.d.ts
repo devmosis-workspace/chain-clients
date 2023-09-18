@@ -5,22 +5,22 @@ import * as _3 from "./incentives/v1beta1/tx";
 import * as _4 from "./safety/v1beta1/genesis";
 import * as _5 from "./safety/v1beta1/query";
 import * as _6 from "./safety/v1beta1/tx";
-import * as _125 from "./incentives/v1beta1/query.lcd";
-import * as _126 from "./safety/v1beta1/query.lcd";
-import * as _127 from "./incentives/v1beta1/query.rpc.Query";
-import * as _128 from "./safety/v1beta1/query.rpc.Query";
-import * as _129 from "./incentives/v1beta1/tx.rpc.msg";
-import * as _130 from "./safety/v1beta1/tx.rpc.msg";
+import * as _126 from "./incentives/v1beta1/query.lcd";
+import * as _127 from "./safety/v1beta1/query.lcd";
+import * as _128 from "./incentives/v1beta1/query.rpc.Query";
+import * as _129 from "./safety/v1beta1/query.rpc.Query";
+import * as _130 from "./incentives/v1beta1/tx.rpc.msg";
+import * as _131 from "./safety/v1beta1/tx.rpc.msg";
 export declare namespace mars {
     namespace incentives {
         const v1beta1: {
-            MsgClientImpl: typeof _129.MsgClientImpl;
-            QueryClientImpl: typeof _127.QueryClientImpl;
+            MsgClientImpl: typeof _130.MsgClientImpl;
+            QueryClientImpl: typeof _128.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 schedule(request: _1.QueryScheduleRequest): Promise<_1.QueryScheduleResponse>;
                 schedules(request?: _1.QuerySchedulesRequest): Promise<_1.QuerySchedulesResponse>;
             };
-            LCDQueryClient: typeof _125.LCDQueryClient;
+            LCDQueryClient: typeof _126.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -68,109 +68,145 @@ export declare namespace mars {
             AminoConverter: {
                 "/mars.incentives.v1beta1.MsgCreateSchedule": {
                     aminoType: string;
-                    toAmino: ({ authority, startTime, endTime, amount }: _3.MsgCreateSchedule) => {
-                        authority: string;
-                        start_time: {
-                            seconds: string;
-                            nanos: number;
-                        };
-                        end_time: {
-                            seconds: string;
-                            nanos: number;
-                        };
-                        amount: {
-                            denom: string;
-                            amount: string;
-                        }[];
-                    };
-                    fromAmino: ({ authority, start_time, end_time, amount }: {
-                        authority: string;
-                        start_time: {
-                            seconds: string;
-                            nanos: number;
-                        };
-                        end_time: {
-                            seconds: string;
-                            nanos: number;
-                        };
-                        amount: {
-                            denom: string;
-                            amount: string;
-                        }[];
-                    }) => _3.MsgCreateSchedule;
+                    toAmino: (message: _3.MsgCreateSchedule) => _3.MsgCreateScheduleAmino;
+                    fromAmino: (object: _3.MsgCreateScheduleAmino) => _3.MsgCreateSchedule;
                 };
                 "/mars.incentives.v1beta1.MsgTerminateSchedules": {
                     aminoType: string;
-                    toAmino: ({ authority, ids }: _3.MsgTerminateSchedules) => {
-                        authority: string;
-                        ids: string[];
-                    };
-                    fromAmino: ({ authority, ids }: {
-                        authority: string;
-                        ids: string[];
-                    }) => _3.MsgTerminateSchedules;
+                    toAmino: (message: _3.MsgTerminateSchedules) => _3.MsgTerminateSchedulesAmino;
+                    fromAmino: (object: _3.MsgTerminateSchedulesAmino) => _3.MsgTerminateSchedules;
                 };
             };
             MsgCreateSchedule: {
-                encode(message: _3.MsgCreateSchedule, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgCreateSchedule, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgCreateSchedule;
                 fromPartial(object: Partial<_3.MsgCreateSchedule>): _3.MsgCreateSchedule;
+                fromAmino(object: _3.MsgCreateScheduleAmino): _3.MsgCreateSchedule;
+                toAmino(message: _3.MsgCreateSchedule): _3.MsgCreateScheduleAmino;
+                fromAminoMsg(object: _3.MsgCreateScheduleAminoMsg): _3.MsgCreateSchedule;
+                fromProtoMsg(message: _3.MsgCreateScheduleProtoMsg): _3.MsgCreateSchedule;
+                toProto(message: _3.MsgCreateSchedule): Uint8Array;
+                toProtoMsg(message: _3.MsgCreateSchedule): _3.MsgCreateScheduleProtoMsg;
             };
             MsgCreateScheduleResponse: {
-                encode(_: _3.MsgCreateScheduleResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _3.MsgCreateScheduleResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _3.MsgCreateScheduleResponse;
                 fromPartial(_: Partial<_3.MsgCreateScheduleResponse>): _3.MsgCreateScheduleResponse;
+                fromAmino(_: _3.MsgCreateScheduleResponseAmino): _3.MsgCreateScheduleResponse;
+                toAmino(_: _3.MsgCreateScheduleResponse): _3.MsgCreateScheduleResponseAmino;
+                fromAminoMsg(object: _3.MsgCreateScheduleResponseAminoMsg): _3.MsgCreateScheduleResponse;
+                fromProtoMsg(message: _3.MsgCreateScheduleResponseProtoMsg): _3.MsgCreateScheduleResponse;
+                toProto(message: _3.MsgCreateScheduleResponse): Uint8Array;
+                toProtoMsg(message: _3.MsgCreateScheduleResponse): _3.MsgCreateScheduleResponseProtoMsg;
             };
             MsgTerminateSchedules: {
-                encode(message: _3.MsgTerminateSchedules, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgTerminateSchedules, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgTerminateSchedules;
                 fromPartial(object: Partial<_3.MsgTerminateSchedules>): _3.MsgTerminateSchedules;
+                fromAmino(object: _3.MsgTerminateSchedulesAmino): _3.MsgTerminateSchedules;
+                toAmino(message: _3.MsgTerminateSchedules): _3.MsgTerminateSchedulesAmino;
+                fromAminoMsg(object: _3.MsgTerminateSchedulesAminoMsg): _3.MsgTerminateSchedules;
+                fromProtoMsg(message: _3.MsgTerminateSchedulesProtoMsg): _3.MsgTerminateSchedules;
+                toProto(message: _3.MsgTerminateSchedules): Uint8Array;
+                toProtoMsg(message: _3.MsgTerminateSchedules): _3.MsgTerminateSchedulesProtoMsg;
             };
             MsgTerminateSchedulesResponse: {
-                encode(message: _3.MsgTerminateSchedulesResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgTerminateSchedulesResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgTerminateSchedulesResponse;
                 fromPartial(object: Partial<_3.MsgTerminateSchedulesResponse>): _3.MsgTerminateSchedulesResponse;
+                fromAmino(object: _3.MsgTerminateSchedulesResponseAmino): _3.MsgTerminateSchedulesResponse;
+                toAmino(message: _3.MsgTerminateSchedulesResponse): _3.MsgTerminateSchedulesResponseAmino;
+                fromAminoMsg(object: _3.MsgTerminateSchedulesResponseAminoMsg): _3.MsgTerminateSchedulesResponse;
+                fromProtoMsg(message: _3.MsgTerminateSchedulesResponseProtoMsg): _3.MsgTerminateSchedulesResponse;
+                toProto(message: _3.MsgTerminateSchedulesResponse): Uint8Array;
+                toProtoMsg(message: _3.MsgTerminateSchedulesResponse): _3.MsgTerminateSchedulesResponseProtoMsg;
             };
             Schedule: {
-                encode(message: _2.Schedule, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.Schedule, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.Schedule;
                 fromPartial(object: Partial<_2.Schedule>): _2.Schedule;
+                fromAmino(object: _2.ScheduleAmino): _2.Schedule;
+                toAmino(message: _2.Schedule): _2.ScheduleAmino;
+                fromAminoMsg(object: _2.ScheduleAminoMsg): _2.Schedule;
+                fromProtoMsg(message: _2.ScheduleProtoMsg): _2.Schedule;
+                toProto(message: _2.Schedule): Uint8Array;
+                toProtoMsg(message: _2.Schedule): _2.ScheduleProtoMsg;
             };
             QueryScheduleRequest: {
-                encode(message: _1.QueryScheduleRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QueryScheduleRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QueryScheduleRequest;
                 fromPartial(object: Partial<_1.QueryScheduleRequest>): _1.QueryScheduleRequest;
+                fromAmino(object: _1.QueryScheduleRequestAmino): _1.QueryScheduleRequest;
+                toAmino(message: _1.QueryScheduleRequest): _1.QueryScheduleRequestAmino;
+                fromAminoMsg(object: _1.QueryScheduleRequestAminoMsg): _1.QueryScheduleRequest;
+                fromProtoMsg(message: _1.QueryScheduleRequestProtoMsg): _1.QueryScheduleRequest;
+                toProto(message: _1.QueryScheduleRequest): Uint8Array;
+                toProtoMsg(message: _1.QueryScheduleRequest): _1.QueryScheduleRequestProtoMsg;
             };
             QueryScheduleResponse: {
-                encode(message: _1.QueryScheduleResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QueryScheduleResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QueryScheduleResponse;
                 fromPartial(object: Partial<_1.QueryScheduleResponse>): _1.QueryScheduleResponse;
+                fromAmino(object: _1.QueryScheduleResponseAmino): _1.QueryScheduleResponse;
+                toAmino(message: _1.QueryScheduleResponse): _1.QueryScheduleResponseAmino;
+                fromAminoMsg(object: _1.QueryScheduleResponseAminoMsg): _1.QueryScheduleResponse;
+                fromProtoMsg(message: _1.QueryScheduleResponseProtoMsg): _1.QueryScheduleResponse;
+                toProto(message: _1.QueryScheduleResponse): Uint8Array;
+                toProtoMsg(message: _1.QueryScheduleResponse): _1.QueryScheduleResponseProtoMsg;
             };
             QuerySchedulesRequest: {
-                encode(message: _1.QuerySchedulesRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QuerySchedulesRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QuerySchedulesRequest;
                 fromPartial(object: Partial<_1.QuerySchedulesRequest>): _1.QuerySchedulesRequest;
+                fromAmino(object: _1.QuerySchedulesRequestAmino): _1.QuerySchedulesRequest;
+                toAmino(message: _1.QuerySchedulesRequest): _1.QuerySchedulesRequestAmino;
+                fromAminoMsg(object: _1.QuerySchedulesRequestAminoMsg): _1.QuerySchedulesRequest;
+                fromProtoMsg(message: _1.QuerySchedulesRequestProtoMsg): _1.QuerySchedulesRequest;
+                toProto(message: _1.QuerySchedulesRequest): Uint8Array;
+                toProtoMsg(message: _1.QuerySchedulesRequest): _1.QuerySchedulesRequestProtoMsg;
             };
             QuerySchedulesResponse: {
-                encode(message: _1.QuerySchedulesResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QuerySchedulesResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QuerySchedulesResponse;
                 fromPartial(object: Partial<_1.QuerySchedulesResponse>): _1.QuerySchedulesResponse;
+                fromAmino(object: _1.QuerySchedulesResponseAmino): _1.QuerySchedulesResponse;
+                toAmino(message: _1.QuerySchedulesResponse): _1.QuerySchedulesResponseAmino;
+                fromAminoMsg(object: _1.QuerySchedulesResponseAminoMsg): _1.QuerySchedulesResponse;
+                fromProtoMsg(message: _1.QuerySchedulesResponseProtoMsg): _1.QuerySchedulesResponse;
+                toProto(message: _1.QuerySchedulesResponse): Uint8Array;
+                toProtoMsg(message: _1.QuerySchedulesResponse): _1.QuerySchedulesResponseProtoMsg;
             };
             GenesisState: {
-                encode(message: _0.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _0.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _0.GenesisState;
                 fromPartial(object: Partial<_0.GenesisState>): _0.GenesisState;
+                fromAmino(object: _0.GenesisStateAmino): _0.GenesisState;
+                toAmino(message: _0.GenesisState): _0.GenesisStateAmino;
+                fromAminoMsg(object: _0.GenesisStateAminoMsg): _0.GenesisState;
+                fromProtoMsg(message: _0.GenesisStateProtoMsg): _0.GenesisState;
+                toProto(message: _0.GenesisState): Uint8Array;
+                toProtoMsg(message: _0.GenesisState): _0.GenesisStateProtoMsg;
             };
         };
     }
     namespace safety {
         const v1beta1: {
-            MsgClientImpl: typeof _130.MsgClientImpl;
-            QueryClientImpl: typeof _128.QueryClientImpl;
+            MsgClientImpl: typeof _131.MsgClientImpl;
+            QueryClientImpl: typeof _129.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 balances(request?: _5.QueryBalancesRequest): Promise<_5.QueryBalancesResponse>;
             };
-            LCDQueryClient: typeof _126.LCDQueryClient;
+            LCDQueryClient: typeof _127.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -202,48 +238,69 @@ export declare namespace mars {
             AminoConverter: {
                 "/mars.safety.v1beta1.MsgSafetyFundSpend": {
                     aminoType: string;
-                    toAmino: ({ authority, recipient, amount }: _6.MsgSafetyFundSpend) => {
-                        authority: string;
-                        recipient: string;
-                        amount: {
-                            denom: string;
-                            amount: string;
-                        }[];
-                    };
-                    fromAmino: ({ authority, recipient, amount }: {
-                        authority: string;
-                        recipient: string;
-                        amount: {
-                            denom: string;
-                            amount: string;
-                        }[];
-                    }) => _6.MsgSafetyFundSpend;
+                    toAmino: (message: _6.MsgSafetyFundSpend) => _6.MsgSafetyFundSpendAmino;
+                    fromAmino: (object: _6.MsgSafetyFundSpendAmino) => _6.MsgSafetyFundSpend;
                 };
             };
             MsgSafetyFundSpend: {
-                encode(message: _6.MsgSafetyFundSpend, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _6.MsgSafetyFundSpend, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _6.MsgSafetyFundSpend;
                 fromPartial(object: Partial<_6.MsgSafetyFundSpend>): _6.MsgSafetyFundSpend;
+                fromAmino(object: _6.MsgSafetyFundSpendAmino): _6.MsgSafetyFundSpend;
+                toAmino(message: _6.MsgSafetyFundSpend): _6.MsgSafetyFundSpendAmino;
+                fromAminoMsg(object: _6.MsgSafetyFundSpendAminoMsg): _6.MsgSafetyFundSpend;
+                fromProtoMsg(message: _6.MsgSafetyFundSpendProtoMsg): _6.MsgSafetyFundSpend;
+                toProto(message: _6.MsgSafetyFundSpend): Uint8Array;
+                toProtoMsg(message: _6.MsgSafetyFundSpend): _6.MsgSafetyFundSpendProtoMsg;
             };
             MsgSafetyFundSpendResponse: {
-                encode(_: _6.MsgSafetyFundSpendResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _6.MsgSafetyFundSpendResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _6.MsgSafetyFundSpendResponse;
                 fromPartial(_: Partial<_6.MsgSafetyFundSpendResponse>): _6.MsgSafetyFundSpendResponse;
+                fromAmino(_: _6.MsgSafetyFundSpendResponseAmino): _6.MsgSafetyFundSpendResponse;
+                toAmino(_: _6.MsgSafetyFundSpendResponse): _6.MsgSafetyFundSpendResponseAmino;
+                fromAminoMsg(object: _6.MsgSafetyFundSpendResponseAminoMsg): _6.MsgSafetyFundSpendResponse;
+                fromProtoMsg(message: _6.MsgSafetyFundSpendResponseProtoMsg): _6.MsgSafetyFundSpendResponse;
+                toProto(message: _6.MsgSafetyFundSpendResponse): Uint8Array;
+                toProtoMsg(message: _6.MsgSafetyFundSpendResponse): _6.MsgSafetyFundSpendResponseProtoMsg;
             };
             QueryBalancesRequest: {
-                encode(_: _5.QueryBalancesRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _5.QueryBalancesRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _5.QueryBalancesRequest;
                 fromPartial(_: Partial<_5.QueryBalancesRequest>): _5.QueryBalancesRequest;
+                fromAmino(_: _5.QueryBalancesRequestAmino): _5.QueryBalancesRequest;
+                toAmino(_: _5.QueryBalancesRequest): _5.QueryBalancesRequestAmino;
+                fromAminoMsg(object: _5.QueryBalancesRequestAminoMsg): _5.QueryBalancesRequest;
+                fromProtoMsg(message: _5.QueryBalancesRequestProtoMsg): _5.QueryBalancesRequest;
+                toProto(message: _5.QueryBalancesRequest): Uint8Array;
+                toProtoMsg(message: _5.QueryBalancesRequest): _5.QueryBalancesRequestProtoMsg;
             };
             QueryBalancesResponse: {
-                encode(message: _5.QueryBalancesResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _5.QueryBalancesResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _5.QueryBalancesResponse;
                 fromPartial(object: Partial<_5.QueryBalancesResponse>): _5.QueryBalancesResponse;
+                fromAmino(object: _5.QueryBalancesResponseAmino): _5.QueryBalancesResponse;
+                toAmino(message: _5.QueryBalancesResponse): _5.QueryBalancesResponseAmino;
+                fromAminoMsg(object: _5.QueryBalancesResponseAminoMsg): _5.QueryBalancesResponse;
+                fromProtoMsg(message: _5.QueryBalancesResponseProtoMsg): _5.QueryBalancesResponse;
+                toProto(message: _5.QueryBalancesResponse): Uint8Array;
+                toProtoMsg(message: _5.QueryBalancesResponse): _5.QueryBalancesResponseProtoMsg;
             };
             GenesisState: {
-                encode(_: _4.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _4.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _4.GenesisState;
                 fromPartial(_: Partial<_4.GenesisState>): _4.GenesisState;
+                fromAmino(_: _4.GenesisStateAmino): _4.GenesisState;
+                toAmino(_: _4.GenesisState): _4.GenesisStateAmino;
+                fromAminoMsg(object: _4.GenesisStateAminoMsg): _4.GenesisState;
+                fromProtoMsg(message: _4.GenesisStateProtoMsg): _4.GenesisState;
+                toProto(message: _4.GenesisState): Uint8Array;
+                toProtoMsg(message: _4.GenesisState): _4.GenesisStateProtoMsg;
             };
         };
     }
@@ -253,10 +310,10 @@ export declare namespace mars {
         }) => Promise<{
             mars: {
                 incentives: {
-                    v1beta1: _129.MsgClientImpl;
+                    v1beta1: _130.MsgClientImpl;
                 };
                 safety: {
-                    v1beta1: _130.MsgClientImpl;
+                    v1beta1: _131.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -515,10 +572,10 @@ export declare namespace mars {
         }) => Promise<{
             mars: {
                 incentives: {
-                    v1beta1: _125.LCDQueryClient;
+                    v1beta1: _126.LCDQueryClient;
                 };
                 safety: {
-                    v1beta1: _126.LCDQueryClient;
+                    v1beta1: _127.LCDQueryClient;
                 };
             };
             cosmos: {

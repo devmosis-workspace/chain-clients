@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryMinGasPrice, QueryMinGasPriceResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -16,7 +16,7 @@ export class QueryClientImpl implements Query {
   minGasPrice(request: QueryMinGasPrice = {}): Promise<QueryMinGasPriceResponse> {
     const data = QueryMinGasPrice.encode(request).finish();
     const promise = this.rpc.request("umee.ugov.v1.Query", "MinGasPrice", data);
-    return promise.then(data => QueryMinGasPriceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMinGasPriceResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

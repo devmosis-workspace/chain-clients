@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryRevenuesRequest, QueryRevenuesResponse, QueryRevenueRequest, QueryRevenueResponse, QueryParamsRequest, QueryParamsResponse, QueryDeployerRevenuesRequest, QueryDeployerRevenuesResponse, QueryWithdrawerRevenuesRequest, QueryWithdrawerRevenuesResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -36,27 +36,27 @@ export class QueryClientImpl implements Query {
   }): Promise<QueryRevenuesResponse> {
     const data = QueryRevenuesRequest.encode(request).finish();
     const promise = this.rpc.request("evmos.revenue.v1.Query", "Revenues", data);
-    return promise.then(data => QueryRevenuesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRevenuesResponse.decode(new BinaryReader(data)));
   }
   revenue(request: QueryRevenueRequest): Promise<QueryRevenueResponse> {
     const data = QueryRevenueRequest.encode(request).finish();
     const promise = this.rpc.request("evmos.revenue.v1.Query", "Revenue", data);
-    return promise.then(data => QueryRevenueResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRevenueResponse.decode(new BinaryReader(data)));
   }
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("evmos.revenue.v1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   deployerRevenues(request: QueryDeployerRevenuesRequest): Promise<QueryDeployerRevenuesResponse> {
     const data = QueryDeployerRevenuesRequest.encode(request).finish();
     const promise = this.rpc.request("evmos.revenue.v1.Query", "DeployerRevenues", data);
-    return promise.then(data => QueryDeployerRevenuesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDeployerRevenuesResponse.decode(new BinaryReader(data)));
   }
   withdrawerRevenues(request: QueryWithdrawerRevenuesRequest): Promise<QueryWithdrawerRevenuesResponse> {
     const data = QueryWithdrawerRevenuesRequest.encode(request).finish();
     const promise = this.rpc.request("evmos.revenue.v1.Query", "WithdrawerRevenues", data);
-    return promise.then(data => QueryWithdrawerRevenuesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryWithdrawerRevenuesResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

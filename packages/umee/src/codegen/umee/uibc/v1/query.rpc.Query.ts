@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParams, QueryParamsResponse, QueryOutflows, QueryOutflowsResponse, QueryAllOutflows, QueryAllOutflowsResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -25,17 +25,17 @@ export class QueryClientImpl implements Query {
   params(request: QueryParams = {}): Promise<QueryParamsResponse> {
     const data = QueryParams.encode(request).finish();
     const promise = this.rpc.request("umee.uibc.v1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   outflows(request: QueryOutflows): Promise<QueryOutflowsResponse> {
     const data = QueryOutflows.encode(request).finish();
     const promise = this.rpc.request("umee.uibc.v1.Query", "Outflows", data);
-    return promise.then(data => QueryOutflowsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOutflowsResponse.decode(new BinaryReader(data)));
   }
   allOutflows(request: QueryAllOutflows = {}): Promise<QueryAllOutflowsResponse> {
     const data = QueryAllOutflows.encode(request).finish();
     const promise = this.rpc.request("umee.uibc.v1.Query", "AllOutflows", data);
-    return promise.then(data => QueryAllOutflowsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAllOutflowsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

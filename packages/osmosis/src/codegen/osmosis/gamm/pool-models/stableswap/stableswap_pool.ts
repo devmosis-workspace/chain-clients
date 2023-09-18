@@ -1,6 +1,7 @@
-import { Coin, CoinSDKType } from "../../../../cosmos/base/v1beta1/coin";
-import { Long, isSet } from "../../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../../../binary";
+import { Decimal } from "@cosmjs/math";
+import { isSet } from "../../../../helpers";
 /**
  * PoolParams defined the parameters that will be managed by the pool
  * governance in the future. This params are not managed by the chain
@@ -16,6 +17,29 @@ export interface PoolParams {
    */
   exitFee: string;
 }
+export interface PoolParamsProtoMsg {
+  typeUrl: "/osmosis.gamm.poolmodels.stableswap.v1beta1.PoolParams";
+  value: Uint8Array;
+}
+/**
+ * PoolParams defined the parameters that will be managed by the pool
+ * governance in the future. This params are not managed by the chain
+ * governance. Instead they will be managed by the token holders of the pool.
+ * The pool's token holders are specified in future_pool_governor.
+ */
+export interface PoolParamsAmino {
+  swap_fee: string;
+  /**
+   * N.B.: exit fee is disabled during pool creation in x/poolmanager. While old
+   * pools can maintain a non-zero fee. No new pool can be created with non-zero
+   * fee anymore
+   */
+  exit_fee: string;
+}
+export interface PoolParamsAminoMsg {
+  type: "osmosis/gamm/StableswapPoolParams";
+  value: PoolParamsAmino;
+}
 /**
  * PoolParams defined the parameters that will be managed by the pool
  * governance in the future. This params are not managed by the chain
@@ -28,9 +52,10 @@ export interface PoolParamsSDKType {
 }
 /** Pool is the stableswap Pool struct */
 export interface Pool {
+  $typeUrl?: string;
   address: string;
-  id: Long;
-  poolParams?: PoolParams;
+  id: bigint;
+  poolParams: PoolParams;
   /**
    * This string specifies who will govern the pool in the future.
    * Valid forms of this are:
@@ -43,23 +68,57 @@ export interface Pool {
    */
   futurePoolGovernor: string;
   /** sum of all LP shares */
-  totalShares?: Coin;
+  totalShares: Coin;
   /** assets in the pool */
   poolLiquidity: Coin[];
   /** for calculation amognst assets with different precisions */
-  scalingFactors: Long[];
+  scalingFactors: bigint[];
   /** scaling_factor_controller is the address can adjust pool scaling factors */
   scalingFactorController: string;
 }
+export interface PoolProtoMsg {
+  typeUrl: "/osmosis.gamm.poolmodels.stableswap.v1beta1.Pool";
+  value: Uint8Array;
+}
+/** Pool is the stableswap Pool struct */
+export interface PoolAmino {
+  address: string;
+  id: string;
+  pool_params?: PoolParamsAmino;
+  /**
+   * This string specifies who will govern the pool in the future.
+   * Valid forms of this are:
+   * {token name},{duration}
+   * {duration}
+   * where {token name} if specified is the token which determines the
+   * governor, and if not specified is the LP token for this pool.duration is
+   * a time specified as 0w,1w,2w, etc. which specifies how long the token
+   * would need to be locked up to count in governance. 0w means no lockup.
+   */
+  future_pool_governor: string;
+  /** sum of all LP shares */
+  total_shares?: CoinAmino;
+  /** assets in the pool */
+  pool_liquidity: CoinAmino[];
+  /** for calculation amognst assets with different precisions */
+  scaling_factors: string[];
+  /** scaling_factor_controller is the address can adjust pool scaling factors */
+  scaling_factor_controller: string;
+}
+export interface PoolAminoMsg {
+  type: "osmosis/gamm/StableswapPool";
+  value: PoolAmino;
+}
 /** Pool is the stableswap Pool struct */
 export interface PoolSDKType {
+  $typeUrl?: string;
   address: string;
-  id: Long;
-  pool_params?: PoolParamsSDKType;
+  id: bigint;
+  pool_params: PoolParamsSDKType;
   future_pool_governor: string;
-  total_shares?: CoinSDKType;
+  total_shares: CoinSDKType;
   pool_liquidity: CoinSDKType[];
-  scaling_factors: Long[];
+  scaling_factors: bigint[];
   scaling_factor_controller: string;
 }
 function createBasePoolParams(): PoolParams {
@@ -69,12 +128,13 @@ function createBasePoolParams(): PoolParams {
   };
 }
 export const PoolParams = {
-  encode(message: PoolParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/osmosis.gamm.poolmodels.stableswap.v1beta1.PoolParams",
+  encode(message: PoolParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.swapFee !== "") {
-      writer.uint32(10).string(message.swapFee);
+      writer.uint32(10).string(Decimal.fromUserInput(message.swapFee, 18).atomics);
     }
     if (message.exitFee !== "") {
-      writer.uint32(18).string(message.exitFee);
+      writer.uint32(18).string(Decimal.fromUserInput(message.exitFee, 18).atomics);
     }
     return writer;
   },
@@ -89,26 +149,61 @@ export const PoolParams = {
     message.swapFee = object.swapFee ?? "";
     message.exitFee = object.exitFee ?? "";
     return message;
+  },
+  fromAmino(object: PoolParamsAmino): PoolParams {
+    return {
+      swapFee: object.swap_fee,
+      exitFee: object.exit_fee
+    };
+  },
+  toAmino(message: PoolParams): PoolParamsAmino {
+    const obj: any = {};
+    obj.swap_fee = message.swapFee;
+    obj.exit_fee = message.exitFee;
+    return obj;
+  },
+  fromAminoMsg(object: PoolParamsAminoMsg): PoolParams {
+    return PoolParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: PoolParams): PoolParamsAminoMsg {
+    return {
+      type: "osmosis/gamm/StableswapPoolParams",
+      value: PoolParams.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: PoolParamsProtoMsg): PoolParams {
+    return PoolParams.decode(message.value);
+  },
+  toProto(message: PoolParams): Uint8Array {
+    return PoolParams.encode(message).finish();
+  },
+  toProtoMsg(message: PoolParams): PoolParamsProtoMsg {
+    return {
+      typeUrl: "/osmosis.gamm.poolmodels.stableswap.v1beta1.PoolParams",
+      value: PoolParams.encode(message).finish()
+    };
   }
 };
 function createBasePool(): Pool {
   return {
+    $typeUrl: "/osmosis.gamm.poolmodels.stableswap.v1beta1.Pool",
     address: "",
-    id: Long.UZERO,
-    poolParams: undefined,
+    id: BigInt(0),
+    poolParams: PoolParams.fromPartial({}),
     futurePoolGovernor: "",
-    totalShares: undefined,
+    totalShares: Coin.fromPartial({}),
     poolLiquidity: [],
     scalingFactors: [],
     scalingFactorController: ""
   };
 }
 export const Pool = {
-  encode(message: Pool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/osmosis.gamm.poolmodels.stableswap.v1beta1.Pool",
+  encode(message: Pool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
-    if (!message.id.isZero()) {
+    if (message.id !== BigInt(0)) {
       writer.uint32(16).uint64(message.id);
     }
     if (message.poolParams !== undefined) {
@@ -136,25 +231,78 @@ export const Pool = {
   fromJSON(object: any): Pool {
     return {
       address: isSet(object.address) ? String(object.address) : "",
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      id: isSet(object.id) ? BigInt(object.id.toString()) : BigInt(0),
       poolParams: isSet(object.poolParams) ? PoolParams.fromJSON(object.poolParams) : undefined,
       futurePoolGovernor: isSet(object.futurePoolGovernor) ? String(object.futurePoolGovernor) : "",
       totalShares: isSet(object.totalShares) ? Coin.fromJSON(object.totalShares) : undefined,
       poolLiquidity: Array.isArray(object?.poolLiquidity) ? object.poolLiquidity.map((e: any) => Coin.fromJSON(e)) : [],
-      scalingFactors: Array.isArray(object?.scalingFactors) ? object.scalingFactors.map((e: any) => Long.fromValue(e)) : [],
+      scalingFactors: Array.isArray(object?.scalingFactors) ? object.scalingFactors.map((e: any) => BigInt(e.toString())) : [],
       scalingFactorController: isSet(object.scalingFactorController) ? String(object.scalingFactorController) : ""
     };
   },
   fromPartial(object: Partial<Pool>): Pool {
     const message = createBasePool();
     message.address = object.address ?? "";
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
+    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
     message.poolParams = object.poolParams !== undefined && object.poolParams !== null ? PoolParams.fromPartial(object.poolParams) : undefined;
     message.futurePoolGovernor = object.futurePoolGovernor ?? "";
     message.totalShares = object.totalShares !== undefined && object.totalShares !== null ? Coin.fromPartial(object.totalShares) : undefined;
     message.poolLiquidity = object.poolLiquidity?.map(e => Coin.fromPartial(e)) || [];
-    message.scalingFactors = object.scalingFactors?.map(e => Long.fromValue(e)) || [];
+    message.scalingFactors = object.scalingFactors?.map(e => BigInt(e.toString())) || [];
     message.scalingFactorController = object.scalingFactorController ?? "";
     return message;
+  },
+  fromAmino(object: PoolAmino): Pool {
+    return {
+      address: object.address,
+      id: BigInt(object.id),
+      poolParams: object?.pool_params ? PoolParams.fromAmino(object.pool_params) : undefined,
+      futurePoolGovernor: object.future_pool_governor,
+      totalShares: object?.total_shares ? Coin.fromAmino(object.total_shares) : undefined,
+      poolLiquidity: Array.isArray(object?.pool_liquidity) ? object.pool_liquidity.map((e: any) => Coin.fromAmino(e)) : [],
+      scalingFactors: Array.isArray(object?.scaling_factors) ? object.scaling_factors.map((e: any) => BigInt(e)) : [],
+      scalingFactorController: object.scaling_factor_controller
+    };
+  },
+  toAmino(message: Pool): PoolAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.id = message.id ? message.id.toString() : undefined;
+    obj.pool_params = message.poolParams ? PoolParams.toAmino(message.poolParams) : undefined;
+    obj.future_pool_governor = message.futurePoolGovernor;
+    obj.total_shares = message.totalShares ? Coin.toAmino(message.totalShares) : undefined;
+    if (message.poolLiquidity) {
+      obj.pool_liquidity = message.poolLiquidity.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.pool_liquidity = [];
+    }
+    if (message.scalingFactors) {
+      obj.scaling_factors = message.scalingFactors.map(e => e.toString());
+    } else {
+      obj.scaling_factors = [];
+    }
+    obj.scaling_factor_controller = message.scalingFactorController;
+    return obj;
+  },
+  fromAminoMsg(object: PoolAminoMsg): Pool {
+    return Pool.fromAmino(object.value);
+  },
+  toAminoMsg(message: Pool): PoolAminoMsg {
+    return {
+      type: "osmosis/gamm/StableswapPool",
+      value: Pool.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: PoolProtoMsg): Pool {
+    return Pool.decode(message.value);
+  },
+  toProto(message: Pool): Uint8Array {
+    return Pool.encode(message).finish();
+  },
+  toProtoMsg(message: Pool): PoolProtoMsg {
+    return {
+      typeUrl: "/osmosis.gamm.poolmodels.stableswap.v1beta1.Pool",
+      value: Pool.encode(message).finish()
+    };
   }
 };

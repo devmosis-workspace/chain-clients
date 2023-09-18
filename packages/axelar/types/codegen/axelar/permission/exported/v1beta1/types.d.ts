@@ -6,5 +6,6 @@ export declare enum Role {
     UNRECOGNIZED = -1
 }
 export declare const RoleSDKType: typeof Role;
+export declare const RoleAmino: typeof Role;
 export declare function roleFromJSON(object: any): Role;
 export declare function roleToJSON(object: Role): string;

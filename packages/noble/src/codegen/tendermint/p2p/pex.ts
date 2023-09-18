@@ -1,10 +1,30 @@
-import { NetAddress, NetAddressSDKType } from "./types";
-import * as _m0 from "protobufjs/minimal";
+import { NetAddress, NetAddressAmino, NetAddressSDKType } from "./types";
+import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 export interface PexRequest {}
+export interface PexRequestProtoMsg {
+  typeUrl: "/tendermint.p2p.PexRequest";
+  value: Uint8Array;
+}
+export interface PexRequestAmino {}
+export interface PexRequestAminoMsg {
+  type: "/tendermint.p2p.PexRequest";
+  value: PexRequestAmino;
+}
 export interface PexRequestSDKType {}
 export interface PexAddrs {
   addrs: NetAddress[];
+}
+export interface PexAddrsProtoMsg {
+  typeUrl: "/tendermint.p2p.PexAddrs";
+  value: Uint8Array;
+}
+export interface PexAddrsAmino {
+  addrs: NetAddressAmino[];
+}
+export interface PexAddrsAminoMsg {
+  type: "/tendermint.p2p.PexAddrs";
+  value: PexAddrsAmino;
 }
 export interface PexAddrsSDKType {
   addrs: NetAddressSDKType[];
@@ -12,6 +32,18 @@ export interface PexAddrsSDKType {
 export interface Message {
   pexRequest?: PexRequest;
   pexAddrs?: PexAddrs;
+}
+export interface MessageProtoMsg {
+  typeUrl: "/tendermint.p2p.Message";
+  value: Uint8Array;
+}
+export interface MessageAmino {
+  pex_request?: PexRequestAmino;
+  pex_addrs?: PexAddrsAmino;
+}
+export interface MessageAminoMsg {
+  type: "/tendermint.p2p.Message";
+  value: MessageAmino;
 }
 export interface MessageSDKType {
   pex_request?: PexRequestSDKType;
@@ -21,7 +53,8 @@ function createBasePexRequest(): PexRequest {
   return {};
 }
 export const PexRequest = {
-  encode(_: PexRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.p2p.PexRequest",
+  encode(_: PexRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): PexRequest {
@@ -30,6 +63,28 @@ export const PexRequest = {
   fromPartial(_: Partial<PexRequest>): PexRequest {
     const message = createBasePexRequest();
     return message;
+  },
+  fromAmino(_: PexRequestAmino): PexRequest {
+    return {};
+  },
+  toAmino(_: PexRequest): PexRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: PexRequestAminoMsg): PexRequest {
+    return PexRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PexRequestProtoMsg): PexRequest {
+    return PexRequest.decode(message.value);
+  },
+  toProto(message: PexRequest): Uint8Array {
+    return PexRequest.encode(message).finish();
+  },
+  toProtoMsg(message: PexRequest): PexRequestProtoMsg {
+    return {
+      typeUrl: "/tendermint.p2p.PexRequest",
+      value: PexRequest.encode(message).finish()
+    };
   }
 };
 function createBasePexAddrs(): PexAddrs {
@@ -38,7 +93,8 @@ function createBasePexAddrs(): PexAddrs {
   };
 }
 export const PexAddrs = {
-  encode(message: PexAddrs, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.p2p.PexAddrs",
+  encode(message: PexAddrs, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.addrs) {
       NetAddress.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -53,6 +109,35 @@ export const PexAddrs = {
     const message = createBasePexAddrs();
     message.addrs = object.addrs?.map(e => NetAddress.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: PexAddrsAmino): PexAddrs {
+    return {
+      addrs: Array.isArray(object?.addrs) ? object.addrs.map((e: any) => NetAddress.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: PexAddrs): PexAddrsAmino {
+    const obj: any = {};
+    if (message.addrs) {
+      obj.addrs = message.addrs.map(e => e ? NetAddress.toAmino(e) : undefined);
+    } else {
+      obj.addrs = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: PexAddrsAminoMsg): PexAddrs {
+    return PexAddrs.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PexAddrsProtoMsg): PexAddrs {
+    return PexAddrs.decode(message.value);
+  },
+  toProto(message: PexAddrs): Uint8Array {
+    return PexAddrs.encode(message).finish();
+  },
+  toProtoMsg(message: PexAddrs): PexAddrsProtoMsg {
+    return {
+      typeUrl: "/tendermint.p2p.PexAddrs",
+      value: PexAddrs.encode(message).finish()
+    };
   }
 };
 function createBaseMessage(): Message {
@@ -62,7 +147,8 @@ function createBaseMessage(): Message {
   };
 }
 export const Message = {
-  encode(message: Message, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.p2p.Message",
+  encode(message: Message, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pexRequest !== undefined) {
       PexRequest.encode(message.pexRequest, writer.uint32(10).fork()).ldelim();
     }
@@ -82,5 +168,32 @@ export const Message = {
     message.pexRequest = object.pexRequest !== undefined && object.pexRequest !== null ? PexRequest.fromPartial(object.pexRequest) : undefined;
     message.pexAddrs = object.pexAddrs !== undefined && object.pexAddrs !== null ? PexAddrs.fromPartial(object.pexAddrs) : undefined;
     return message;
+  },
+  fromAmino(object: MessageAmino): Message {
+    return {
+      pexRequest: object?.pex_request ? PexRequest.fromAmino(object.pex_request) : undefined,
+      pexAddrs: object?.pex_addrs ? PexAddrs.fromAmino(object.pex_addrs) : undefined
+    };
+  },
+  toAmino(message: Message): MessageAmino {
+    const obj: any = {};
+    obj.pex_request = message.pexRequest ? PexRequest.toAmino(message.pexRequest) : undefined;
+    obj.pex_addrs = message.pexAddrs ? PexAddrs.toAmino(message.pexAddrs) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MessageAminoMsg): Message {
+    return Message.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MessageProtoMsg): Message {
+    return Message.decode(message.value);
+  },
+  toProto(message: Message): Uint8Array {
+    return Message.encode(message).finish();
+  },
+  toProtoMsg(message: Message): MessageProtoMsg {
+    return {
+      typeUrl: "/tendermint.p2p.Message",
+      value: Message.encode(message).finish()
+    };
   }
 };

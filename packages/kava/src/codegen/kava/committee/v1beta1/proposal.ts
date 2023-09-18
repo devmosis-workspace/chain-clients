@@ -1,39 +1,77 @@
-import { Any, AnySDKType } from "../../../google/protobuf/any";
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { BaseCommittee, BaseCommitteeProtoMsg, BaseCommitteeSDKType, MemberCommittee, MemberCommitteeProtoMsg, MemberCommitteeSDKType, TokenCommittee, TokenCommitteeProtoMsg, TokenCommitteeSDKType } from "./committee";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
 /** CommitteeChangeProposal is a gov proposal for creating a new committee or modifying an existing one. */
 export interface CommitteeChangeProposal {
+  $typeUrl?: string;
   title: string;
   description: string;
-  newCommittee?: Any;
+  newCommittee: (BaseCommittee & MemberCommittee & TokenCommittee & Any) | undefined;
+}
+export interface CommitteeChangeProposalProtoMsg {
+  typeUrl: "/kava.committee.v1beta1.CommitteeChangeProposal";
+  value: Uint8Array;
+}
+export type CommitteeChangeProposalEncoded = Omit<CommitteeChangeProposal, "newCommittee"> & {
+  newCommittee?: BaseCommitteeProtoMsg | MemberCommitteeProtoMsg | TokenCommitteeProtoMsg | AnyProtoMsg | undefined;
+};
+/** CommitteeChangeProposal is a gov proposal for creating a new committee or modifying an existing one. */
+export interface CommitteeChangeProposalAmino {
+  title: string;
+  description: string;
+  new_committee?: AnyAmino;
+}
+export interface CommitteeChangeProposalAminoMsg {
+  type: "/kava.committee.v1beta1.CommitteeChangeProposal";
+  value: CommitteeChangeProposalAmino;
 }
 /** CommitteeChangeProposal is a gov proposal for creating a new committee or modifying an existing one. */
 export interface CommitteeChangeProposalSDKType {
+  $typeUrl?: string;
   title: string;
   description: string;
-  new_committee?: AnySDKType;
+  new_committee: BaseCommitteeSDKType | MemberCommitteeSDKType | TokenCommitteeSDKType | AnySDKType | undefined;
 }
 /** CommitteeDeleteProposal is a gov proposal for removing a committee. */
 export interface CommitteeDeleteProposal {
+  $typeUrl?: string;
   title: string;
   description: string;
-  committeeId: Long;
+  committeeId: bigint;
+}
+export interface CommitteeDeleteProposalProtoMsg {
+  typeUrl: "/kava.committee.v1beta1.CommitteeDeleteProposal";
+  value: Uint8Array;
+}
+/** CommitteeDeleteProposal is a gov proposal for removing a committee. */
+export interface CommitteeDeleteProposalAmino {
+  title: string;
+  description: string;
+  committee_id: string;
+}
+export interface CommitteeDeleteProposalAminoMsg {
+  type: "/kava.committee.v1beta1.CommitteeDeleteProposal";
+  value: CommitteeDeleteProposalAmino;
 }
 /** CommitteeDeleteProposal is a gov proposal for removing a committee. */
 export interface CommitteeDeleteProposalSDKType {
+  $typeUrl?: string;
   title: string;
   description: string;
-  committee_id: Long;
+  committee_id: bigint;
 }
 function createBaseCommitteeChangeProposal(): CommitteeChangeProposal {
   return {
+    $typeUrl: "/kava.committee.v1beta1.CommitteeChangeProposal",
     title: "",
     description: "",
-    newCommittee: undefined
+    newCommittee: Any.fromPartial({})
   };
 }
 export const CommitteeChangeProposal = {
-  encode(message: CommitteeChangeProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.committee.v1beta1.CommitteeChangeProposal",
+  encode(message: CommitteeChangeProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -41,7 +79,7 @@ export const CommitteeChangeProposal = {
       writer.uint32(18).string(message.description);
     }
     if (message.newCommittee !== undefined) {
-      Any.encode(message.newCommittee, writer.uint32(26).fork()).ldelim();
+      Any.encode((message.newCommittee as Any), writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -58,24 +96,55 @@ export const CommitteeChangeProposal = {
     message.description = object.description ?? "";
     message.newCommittee = object.newCommittee !== undefined && object.newCommittee !== null ? Any.fromPartial(object.newCommittee) : undefined;
     return message;
+  },
+  fromAmino(object: CommitteeChangeProposalAmino): CommitteeChangeProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      newCommittee: object?.new_committee ? Committee_FromAmino(object.new_committee) : undefined
+    };
+  },
+  toAmino(message: CommitteeChangeProposal): CommitteeChangeProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.new_committee = message.newCommittee ? Committee_ToAmino((message.newCommittee as Any)) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: CommitteeChangeProposalAminoMsg): CommitteeChangeProposal {
+    return CommitteeChangeProposal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CommitteeChangeProposalProtoMsg): CommitteeChangeProposal {
+    return CommitteeChangeProposal.decode(message.value);
+  },
+  toProto(message: CommitteeChangeProposal): Uint8Array {
+    return CommitteeChangeProposal.encode(message).finish();
+  },
+  toProtoMsg(message: CommitteeChangeProposal): CommitteeChangeProposalProtoMsg {
+    return {
+      typeUrl: "/kava.committee.v1beta1.CommitteeChangeProposal",
+      value: CommitteeChangeProposal.encode(message).finish()
+    };
   }
 };
 function createBaseCommitteeDeleteProposal(): CommitteeDeleteProposal {
   return {
+    $typeUrl: "/kava.committee.v1beta1.CommitteeDeleteProposal",
     title: "",
     description: "",
-    committeeId: Long.UZERO
+    committeeId: BigInt(0)
   };
 }
 export const CommitteeDeleteProposal = {
-  encode(message: CommitteeDeleteProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.committee.v1beta1.CommitteeDeleteProposal",
+  encode(message: CommitteeDeleteProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
-    if (!message.committeeId.isZero()) {
+    if (message.committeeId !== BigInt(0)) {
       writer.uint32(24).uint64(message.committeeId);
     }
     return writer;
@@ -84,14 +153,99 @@ export const CommitteeDeleteProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      committeeId: isSet(object.committeeId) ? Long.fromValue(object.committeeId) : Long.UZERO
+      committeeId: isSet(object.committeeId) ? BigInt(object.committeeId.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<CommitteeDeleteProposal>): CommitteeDeleteProposal {
     const message = createBaseCommitteeDeleteProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.committeeId = object.committeeId !== undefined && object.committeeId !== null ? Long.fromValue(object.committeeId) : Long.UZERO;
+    message.committeeId = object.committeeId !== undefined && object.committeeId !== null ? BigInt(object.committeeId.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: CommitteeDeleteProposalAmino): CommitteeDeleteProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      committeeId: BigInt(object.committee_id)
+    };
+  },
+  toAmino(message: CommitteeDeleteProposal): CommitteeDeleteProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.committee_id = message.committeeId ? message.committeeId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: CommitteeDeleteProposalAminoMsg): CommitteeDeleteProposal {
+    return CommitteeDeleteProposal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CommitteeDeleteProposalProtoMsg): CommitteeDeleteProposal {
+    return CommitteeDeleteProposal.decode(message.value);
+  },
+  toProto(message: CommitteeDeleteProposal): Uint8Array {
+    return CommitteeDeleteProposal.encode(message).finish();
+  },
+  toProtoMsg(message: CommitteeDeleteProposal): CommitteeDeleteProposalProtoMsg {
+    return {
+      typeUrl: "/kava.committee.v1beta1.CommitteeDeleteProposal",
+      value: CommitteeDeleteProposal.encode(message).finish()
+    };
+  }
+};
+export const Committee_InterfaceDecoder = (input: BinaryReader | Uint8Array): BaseCommittee | MemberCommittee | TokenCommittee | Any => {
+  const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  const data = Any.decode(reader, reader.uint32());
+  switch (data.typeUrl) {
+    case "/kava.committee.v1beta1.BaseCommittee":
+      return BaseCommittee.decode(data.value);
+    case "/kava.committee.v1beta1.MemberCommittee":
+      return MemberCommittee.decode(data.value);
+    case "/kava.committee.v1beta1.TokenCommittee":
+      return TokenCommittee.decode(data.value);
+    default:
+      return data;
+  }
+};
+export const Committee_FromAmino = (content: AnyAmino) => {
+  switch (content.type) {
+    case "/kava.committee.v1beta1.BaseCommittee":
+      return Any.fromPartial({
+        typeUrl: "/kava.committee.v1beta1.BaseCommittee",
+        value: BaseCommittee.encode(BaseCommittee.fromPartial(BaseCommittee.fromAmino(content.value))).finish()
+      });
+    case "/kava.committee.v1beta1.MemberCommittee":
+      return Any.fromPartial({
+        typeUrl: "/kava.committee.v1beta1.MemberCommittee",
+        value: MemberCommittee.encode(MemberCommittee.fromPartial(MemberCommittee.fromAmino(content.value))).finish()
+      });
+    case "/kava.committee.v1beta1.TokenCommittee":
+      return Any.fromPartial({
+        typeUrl: "/kava.committee.v1beta1.TokenCommittee",
+        value: TokenCommittee.encode(TokenCommittee.fromPartial(TokenCommittee.fromAmino(content.value))).finish()
+      });
+    default:
+      return Any.fromAmino(content);
+  }
+};
+export const Committee_ToAmino = (content: Any) => {
+  switch (content.typeUrl) {
+    case "/kava.committee.v1beta1.BaseCommittee":
+      return {
+        type: "/kava.committee.v1beta1.BaseCommittee",
+        value: BaseCommittee.toAmino(BaseCommittee.decode(content.value))
+      };
+    case "/kava.committee.v1beta1.MemberCommittee":
+      return {
+        type: "/kava.committee.v1beta1.MemberCommittee",
+        value: MemberCommittee.toAmino(MemberCommittee.decode(content.value))
+      };
+    case "/kava.committee.v1beta1.TokenCommittee":
+      return {
+        type: "/kava.committee.v1beta1.TokenCommittee",
+        value: TokenCommittee.toAmino(TokenCommittee.decode(content.value))
+      };
+    default:
+      return Any.toAmino(content);
   }
 };

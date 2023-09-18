@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryCertificatesRequest, QueryCertificatesResponse } from "./query";
 /** Query defines the gRPC querier service */
@@ -16,7 +16,7 @@ export class QueryClientImpl implements Query {
   certificates(request: QueryCertificatesRequest): Promise<QueryCertificatesResponse> {
     const data = QueryCertificatesRequest.encode(request).finish();
     const promise = this.rpc.request("akash.cert.v1beta2.Query", "Certificates", data);
-    return promise.then(data => QueryCertificatesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCertificatesResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

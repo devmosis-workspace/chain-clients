@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryClassesByISCNRequest, QueryClassesByISCNResponse, QueryClassesByISCNIndexRequest, QueryClassesByISCNIndexResponse, QueryISCNByClassRequest, QueryISCNByClassResponse, QueryClassesByAccountRequest, QueryClassesByAccountResponse, QueryClassesByAccountIndexRequest, QueryClassesByAccountIndexResponse, QueryAccountByClassRequest, QueryAccountByClassResponse, QueryBlindBoxContentRequest, QueryBlindBoxContentResponse, QueryBlindBoxContentIndexRequest, QueryBlindBoxContentIndexResponse, QueryBlindBoxContentsRequest, QueryBlindBoxContentsResponse, QueryOfferRequest, QueryOfferResponse, QueryOfferIndexRequest, QueryOfferIndexResponse, QueryOffersByClassRequest, QueryOffersByClassResponse, QueryOffersByNFTRequest, QueryOffersByNFTResponse, QueryListingRequest, QueryListingResponse, QueryListingIndexRequest, QueryListingIndexResponse, QueryListingsByClassRequest, QueryListingsByClassResponse, QueryListingsByNFTRequest, QueryListingsByNFTResponse, QueryRoyaltyConfigRequest, QueryRoyaltyConfigResponse, QueryRoyaltyConfigIndexRequest, QueryRoyaltyConfigIndexResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -73,114 +73,114 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   classesByISCN(request: QueryClassesByISCNRequest): Promise<QueryClassesByISCNResponse> {
     const data = QueryClassesByISCNRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "ClassesByISCN", data);
-    return promise.then(data => QueryClassesByISCNResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryClassesByISCNResponse.decode(new BinaryReader(data)));
   }
   classesByISCNIndex(request: QueryClassesByISCNIndexRequest = {
     pagination: undefined
   }): Promise<QueryClassesByISCNIndexResponse> {
     const data = QueryClassesByISCNIndexRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "ClassesByISCNIndex", data);
-    return promise.then(data => QueryClassesByISCNIndexResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryClassesByISCNIndexResponse.decode(new BinaryReader(data)));
   }
   iSCNByClass(request: QueryISCNByClassRequest): Promise<QueryISCNByClassResponse> {
     const data = QueryISCNByClassRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "ISCNByClass", data);
-    return promise.then(data => QueryISCNByClassResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryISCNByClassResponse.decode(new BinaryReader(data)));
   }
   classesByAccount(request: QueryClassesByAccountRequest): Promise<QueryClassesByAccountResponse> {
     const data = QueryClassesByAccountRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "ClassesByAccount", data);
-    return promise.then(data => QueryClassesByAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryClassesByAccountResponse.decode(new BinaryReader(data)));
   }
   classesByAccountIndex(request: QueryClassesByAccountIndexRequest = {
     pagination: undefined
   }): Promise<QueryClassesByAccountIndexResponse> {
     const data = QueryClassesByAccountIndexRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "ClassesByAccountIndex", data);
-    return promise.then(data => QueryClassesByAccountIndexResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryClassesByAccountIndexResponse.decode(new BinaryReader(data)));
   }
   accountByClass(request: QueryAccountByClassRequest): Promise<QueryAccountByClassResponse> {
     const data = QueryAccountByClassRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "AccountByClass", data);
-    return promise.then(data => QueryAccountByClassResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAccountByClassResponse.decode(new BinaryReader(data)));
   }
   blindBoxContent(request: QueryBlindBoxContentRequest): Promise<QueryBlindBoxContentResponse> {
     const data = QueryBlindBoxContentRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "BlindBoxContent", data);
-    return promise.then(data => QueryBlindBoxContentResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBlindBoxContentResponse.decode(new BinaryReader(data)));
   }
   blindBoxContentIndex(request: QueryBlindBoxContentIndexRequest = {
     pagination: undefined
   }): Promise<QueryBlindBoxContentIndexResponse> {
     const data = QueryBlindBoxContentIndexRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "BlindBoxContentIndex", data);
-    return promise.then(data => QueryBlindBoxContentIndexResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBlindBoxContentIndexResponse.decode(new BinaryReader(data)));
   }
   blindBoxContents(request: QueryBlindBoxContentsRequest): Promise<QueryBlindBoxContentsResponse> {
     const data = QueryBlindBoxContentsRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "BlindBoxContents", data);
-    return promise.then(data => QueryBlindBoxContentsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBlindBoxContentsResponse.decode(new BinaryReader(data)));
   }
   offer(request: QueryOfferRequest): Promise<QueryOfferResponse> {
     const data = QueryOfferRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "Offer", data);
-    return promise.then(data => QueryOfferResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOfferResponse.decode(new BinaryReader(data)));
   }
   offerIndex(request: QueryOfferIndexRequest = {
     pagination: undefined
   }): Promise<QueryOfferIndexResponse> {
     const data = QueryOfferIndexRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "OfferIndex", data);
-    return promise.then(data => QueryOfferIndexResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOfferIndexResponse.decode(new BinaryReader(data)));
   }
   offersByClass(request: QueryOffersByClassRequest): Promise<QueryOffersByClassResponse> {
     const data = QueryOffersByClassRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "OffersByClass", data);
-    return promise.then(data => QueryOffersByClassResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOffersByClassResponse.decode(new BinaryReader(data)));
   }
   offersByNFT(request: QueryOffersByNFTRequest): Promise<QueryOffersByNFTResponse> {
     const data = QueryOffersByNFTRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "OffersByNFT", data);
-    return promise.then(data => QueryOffersByNFTResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOffersByNFTResponse.decode(new BinaryReader(data)));
   }
   listing(request: QueryListingRequest): Promise<QueryListingResponse> {
     const data = QueryListingRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "Listing", data);
-    return promise.then(data => QueryListingResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryListingResponse.decode(new BinaryReader(data)));
   }
   listingIndex(request: QueryListingIndexRequest = {
     pagination: undefined
   }): Promise<QueryListingIndexResponse> {
     const data = QueryListingIndexRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "ListingIndex", data);
-    return promise.then(data => QueryListingIndexResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryListingIndexResponse.decode(new BinaryReader(data)));
   }
   listingsByClass(request: QueryListingsByClassRequest): Promise<QueryListingsByClassResponse> {
     const data = QueryListingsByClassRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "ListingsByClass", data);
-    return promise.then(data => QueryListingsByClassResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryListingsByClassResponse.decode(new BinaryReader(data)));
   }
   listingsByNFT(request: QueryListingsByNFTRequest): Promise<QueryListingsByNFTResponse> {
     const data = QueryListingsByNFTRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "ListingsByNFT", data);
-    return promise.then(data => QueryListingsByNFTResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryListingsByNFTResponse.decode(new BinaryReader(data)));
   }
   royaltyConfig(request: QueryRoyaltyConfigRequest): Promise<QueryRoyaltyConfigResponse> {
     const data = QueryRoyaltyConfigRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "RoyaltyConfig", data);
-    return promise.then(data => QueryRoyaltyConfigResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRoyaltyConfigResponse.decode(new BinaryReader(data)));
   }
   royaltyConfigIndex(request: QueryRoyaltyConfigIndexRequest = {
     pagination: undefined
   }): Promise<QueryRoyaltyConfigIndexResponse> {
     const data = QueryRoyaltyConfigIndexRequest.encode(request).finish();
     const promise = this.rpc.request("likechain.likenft.v1.Query", "RoyaltyConfigIndex", data);
-    return promise.then(data => QueryRoyaltyConfigIndexResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRoyaltyConfigIndexResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

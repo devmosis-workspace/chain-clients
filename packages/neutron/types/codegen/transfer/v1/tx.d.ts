@@ -1,15 +1,14 @@
-import { Coin, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
-import { Height, HeightSDKType } from "../../ibc/core/client/v1/client";
-import { Fee, FeeSDKType } from "../../feerefunder/fee";
-import { Long } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
+import { Height, HeightAmino, HeightSDKType } from "../../ibc/core/client/v1/client";
+import { Fee, FeeAmino, FeeSDKType } from "../../feerefunder/fee";
+import { BinaryWriter } from "../../binary";
 export interface MsgTransfer {
     /** the port on which the packet will be sent */
     sourcePort: string;
     /** the channel by which the packet will be sent */
     sourceChannel: string;
     /** the tokens to be transferred */
-    token?: Coin;
+    token: Coin;
     /** the sender address */
     sender: string;
     /** the recipient address on the destination chain */
@@ -18,25 +17,57 @@ export interface MsgTransfer {
      * Timeout height relative to the current block height.
      * The timeout is disabled when set to 0.
      */
-    timeoutHeight?: Height;
+    timeoutHeight: Height;
     /**
      * Timeout timestamp in absolute nanoseconds since unix epoch.
      * The timeout is disabled when set to 0.
      */
-    timeoutTimestamp: Long;
+    timeoutTimestamp: bigint;
     memo: string;
-    fee?: Fee;
+    fee: Fee;
+}
+export interface MsgTransferProtoMsg {
+    typeUrl: "/neutron.transfer.MsgTransfer";
+    value: Uint8Array;
+}
+export interface MsgTransferAmino {
+    /** the port on which the packet will be sent */
+    source_port: string;
+    /** the channel by which the packet will be sent */
+    source_channel: string;
+    /** the tokens to be transferred */
+    token?: CoinAmino;
+    /** the sender address */
+    sender: string;
+    /** the recipient address on the destination chain */
+    receiver: string;
+    /**
+     * Timeout height relative to the current block height.
+     * The timeout is disabled when set to 0.
+     */
+    timeout_height?: HeightAmino;
+    /**
+     * Timeout timestamp in absolute nanoseconds since unix epoch.
+     * The timeout is disabled when set to 0.
+     */
+    timeout_timestamp: string;
+    memo: string;
+    fee?: FeeAmino;
+}
+export interface MsgTransferAminoMsg {
+    type: "/neutron.transfer.MsgTransfer";
+    value: MsgTransferAmino;
 }
 export interface MsgTransferSDKType {
     source_port: string;
     source_channel: string;
-    token?: CoinSDKType;
+    token: CoinSDKType;
     sender: string;
     receiver: string;
-    timeout_height?: HeightSDKType;
-    timeout_timestamp: Long;
+    timeout_height: HeightSDKType;
+    timeout_timestamp: bigint;
     memo: string;
-    fee?: FeeSDKType;
+    fee: FeeSDKType;
 }
 /**
  * MsgTransferResponse is the modified response type for
@@ -44,25 +75,57 @@ export interface MsgTransferSDKType {
  */
 export interface MsgTransferResponse {
     /** channel's sequence_id for outgoing ibc packet. Unique per a channel. */
-    sequenceId: Long;
+    sequenceId: bigint;
     /** channel src channel on neutron side trasaction was submitted from */
     channel: string;
+}
+export interface MsgTransferResponseProtoMsg {
+    typeUrl: "/neutron.transfer.MsgTransferResponse";
+    value: Uint8Array;
+}
+/**
+ * MsgTransferResponse is the modified response type for
+ * ibc-go MsgTransfer.
+ */
+export interface MsgTransferResponseAmino {
+    /** channel's sequence_id for outgoing ibc packet. Unique per a channel. */
+    sequence_id: string;
+    /** channel src channel on neutron side trasaction was submitted from */
+    channel: string;
+}
+export interface MsgTransferResponseAminoMsg {
+    type: "/neutron.transfer.MsgTransferResponse";
+    value: MsgTransferResponseAmino;
 }
 /**
  * MsgTransferResponse is the modified response type for
  * ibc-go MsgTransfer.
  */
 export interface MsgTransferResponseSDKType {
-    sequence_id: Long;
+    sequence_id: bigint;
     channel: string;
 }
 export declare const MsgTransfer: {
-    encode(message: MsgTransfer, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgTransfer, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgTransfer;
     fromPartial(object: Partial<MsgTransfer>): MsgTransfer;
+    fromAmino(object: MsgTransferAmino): MsgTransfer;
+    toAmino(message: MsgTransfer): MsgTransferAmino;
+    fromAminoMsg(object: MsgTransferAminoMsg): MsgTransfer;
+    fromProtoMsg(message: MsgTransferProtoMsg): MsgTransfer;
+    toProto(message: MsgTransfer): Uint8Array;
+    toProtoMsg(message: MsgTransfer): MsgTransferProtoMsg;
 };
 export declare const MsgTransferResponse: {
-    encode(message: MsgTransferResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgTransferResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgTransferResponse;
     fromPartial(object: Partial<MsgTransferResponse>): MsgTransferResponse;
+    fromAmino(object: MsgTransferResponseAmino): MsgTransferResponse;
+    toAmino(message: MsgTransferResponse): MsgTransferResponseAmino;
+    fromAminoMsg(object: MsgTransferResponseAminoMsg): MsgTransferResponse;
+    fromProtoMsg(message: MsgTransferResponseProtoMsg): MsgTransferResponse;
+    toProto(message: MsgTransferResponse): Uint8Array;
+    toProtoMsg(message: MsgTransferResponse): MsgTransferResponseProtoMsg;
 };

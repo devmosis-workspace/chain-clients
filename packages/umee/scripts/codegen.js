@@ -1,5 +1,5 @@
 import { join } from 'path';
-import telescope from '@osmonauts/telescope';
+import telescope from '@cosmology/telescope';
 import { rimrafSync as rimraf } from 'rimraf';
 
 const protoDirs = [join(__dirname, '/../umee/proto'), join(__dirname, '/../cosmos-sdk/proto'), join(__dirname, '/../cosmos-proto/proto'), join(__dirname, '/../proto')];
@@ -11,7 +11,6 @@ telescope({
   outPath,
   options: {
     removeUnusedImports: true,
-    experimentalGlobalProtoNamespace: true,
     prototypes: {
       includePackageVar: false,
       typingsFormat: {

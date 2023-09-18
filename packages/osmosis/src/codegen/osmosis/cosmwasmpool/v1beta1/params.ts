@@ -1,51 +1,111 @@
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
 export interface Params {
   /**
    * code_ide_whitelist contains the list of code ids that are allowed to be
    * instantiated.
    */
-  codeIdWhitelist: Long[];
+  codeIdWhitelist: bigint[];
   /**
    * pool_migration_limit is the maximum number of pools that can be migrated
    * at once via governance proposal. This is to have a constant bound on the
    * number of pools that can be migrated at once and remove the possibility
    * of an unlikely scenario of causing a chain halt due to a large migration.
    */
-  poolMigrationLimit: Long;
+  poolMigrationLimit: bigint;
+}
+export interface ParamsProtoMsg {
+  typeUrl: "/osmosis.cosmwasmpool.v1beta1.Params";
+  value: Uint8Array;
+}
+export interface ParamsAmino {
+  /**
+   * code_ide_whitelist contains the list of code ids that are allowed to be
+   * instantiated.
+   */
+  code_id_whitelist: string[];
+  /**
+   * pool_migration_limit is the maximum number of pools that can be migrated
+   * at once via governance proposal. This is to have a constant bound on the
+   * number of pools that can be migrated at once and remove the possibility
+   * of an unlikely scenario of causing a chain halt due to a large migration.
+   */
+  pool_migration_limit: string;
+}
+export interface ParamsAminoMsg {
+  type: "osmosis/cosmwasmpool/params";
+  value: ParamsAmino;
 }
 export interface ParamsSDKType {
-  code_id_whitelist: Long[];
-  pool_migration_limit: Long;
+  code_id_whitelist: bigint[];
+  pool_migration_limit: bigint;
 }
 function createBaseParams(): Params {
   return {
     codeIdWhitelist: [],
-    poolMigrationLimit: Long.UZERO
+    poolMigrationLimit: BigInt(0)
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/osmosis.cosmwasmpool.v1beta1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     writer.uint32(10).fork();
     for (const v of message.codeIdWhitelist) {
       writer.uint64(v);
     }
     writer.ldelim();
-    if (!message.poolMigrationLimit.isZero()) {
+    if (message.poolMigrationLimit !== BigInt(0)) {
       writer.uint32(16).uint64(message.poolMigrationLimit);
     }
     return writer;
   },
   fromJSON(object: any): Params {
     return {
-      codeIdWhitelist: Array.isArray(object?.codeIdWhitelist) ? object.codeIdWhitelist.map((e: any) => Long.fromValue(e)) : [],
-      poolMigrationLimit: isSet(object.poolMigrationLimit) ? Long.fromValue(object.poolMigrationLimit) : Long.UZERO
+      codeIdWhitelist: Array.isArray(object?.codeIdWhitelist) ? object.codeIdWhitelist.map((e: any) => BigInt(e.toString())) : [],
+      poolMigrationLimit: isSet(object.poolMigrationLimit) ? BigInt(object.poolMigrationLimit.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<Params>): Params {
     const message = createBaseParams();
-    message.codeIdWhitelist = object.codeIdWhitelist?.map(e => Long.fromValue(e)) || [];
-    message.poolMigrationLimit = object.poolMigrationLimit !== undefined && object.poolMigrationLimit !== null ? Long.fromValue(object.poolMigrationLimit) : Long.UZERO;
+    message.codeIdWhitelist = object.codeIdWhitelist?.map(e => BigInt(e.toString())) || [];
+    message.poolMigrationLimit = object.poolMigrationLimit !== undefined && object.poolMigrationLimit !== null ? BigInt(object.poolMigrationLimit.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      codeIdWhitelist: Array.isArray(object?.code_id_whitelist) ? object.code_id_whitelist.map((e: any) => BigInt(e)) : [],
+      poolMigrationLimit: BigInt(object.pool_migration_limit)
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.codeIdWhitelist) {
+      obj.code_id_whitelist = message.codeIdWhitelist.map(e => e.toString());
+    } else {
+      obj.code_id_whitelist = [];
+    }
+    obj.pool_migration_limit = message.poolMigrationLimit ? message.poolMigrationLimit.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "osmosis/cosmwasmpool/params",
+      value: Params.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/osmosis.cosmwasmpool.v1beta1.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };

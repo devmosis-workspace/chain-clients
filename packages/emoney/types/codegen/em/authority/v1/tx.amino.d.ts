@@ -1,100 +1,33 @@
-import { AminoMsg } from "@cosmjs/amino";
 import { MsgCreateIssuer, MsgDestroyIssuer, MsgSetGasPrices, MsgReplaceAuthority, MsgScheduleUpgrade, MsgSetParameters } from "./tx";
-export interface MsgCreateIssuerAminoType extends AminoMsg {
-    type: "/em.authority.v1.MsgCreateIssuer";
-    value: {
-        authority: string;
-        issuer: string;
-        denominations: {
-            base: string;
-            display: string;
-            description: string;
-        }[];
-    };
-}
-export interface MsgDestroyIssuerAminoType extends AminoMsg {
-    type: "/em.authority.v1.MsgDestroyIssuer";
-    value: {
-        authority: string;
-        issuer: string;
-    };
-}
-export interface MsgSetGasPricesAminoType extends AminoMsg {
-    type: "/em.authority.v1.MsgSetGasPrices";
-    value: {
-        authority: string;
-        gas_prices: {
-            denom: string;
-            amount: string;
-        }[];
-    };
-}
-export interface MsgReplaceAuthorityAminoType extends AminoMsg {
-    type: "/em.authority.v1.MsgReplaceAuthority";
-    value: {
-        authority: string;
-        new_authority: string;
-    };
-}
-export interface MsgScheduleUpgradeAminoType extends AminoMsg {
-    type: "/em.authority.v1.MsgScheduleUpgrade";
-    value: {
-        authority: string;
-        plan: {
-            name: string;
-            time: {
-                seconds: string;
-                nanos: number;
-            };
-            height: string;
-            info: string;
-            upgraded_client_state: {
-                type_url: string;
-                value: Uint8Array;
-            };
-        };
-    };
-}
-export interface MsgSetParametersAminoType extends AminoMsg {
-    type: "/em.authority.v1.MsgSetParameters";
-    value: {
-        authority: string;
-        changes: {
-            subspace: string;
-            key: string;
-            value: string;
-        }[];
-    };
-}
 export declare const AminoConverter: {
     "/em.authority.v1.MsgCreateIssuer": {
         aminoType: string;
-        toAmino: ({ authority, issuer, denominations }: MsgCreateIssuer) => MsgCreateIssuerAminoType["value"];
-        fromAmino: ({ authority, issuer, denominations }: MsgCreateIssuerAminoType["value"]) => MsgCreateIssuer;
+        toAmino: (message: MsgCreateIssuer) => import("./tx").MsgCreateIssuerAmino;
+        fromAmino: (object: import("./tx").MsgCreateIssuerAmino) => MsgCreateIssuer;
     };
     "/em.authority.v1.MsgDestroyIssuer": {
         aminoType: string;
-        toAmino: ({ authority, issuer }: MsgDestroyIssuer) => MsgDestroyIssuerAminoType["value"];
-        fromAmino: ({ authority, issuer }: MsgDestroyIssuerAminoType["value"]) => MsgDestroyIssuer;
+        toAmino: (message: MsgDestroyIssuer) => import("./tx").MsgDestroyIssuerAmino;
+        fromAmino: (object: import("./tx").MsgDestroyIssuerAmino) => MsgDestroyIssuer;
     };
     "/em.authority.v1.MsgSetGasPrices": {
         aminoType: string;
-        toAmino: ({ authority, gasPrices }: MsgSetGasPrices) => MsgSetGasPricesAminoType["value"];
-        fromAmino: ({ authority, gas_prices }: MsgSetGasPricesAminoType["value"]) => MsgSetGasPrices;
+        toAmino: (message: MsgSetGasPrices) => import("./tx").MsgSetGasPricesAmino;
+        fromAmino: (object: import("./tx").MsgSetGasPricesAmino) => MsgSetGasPrices;
     };
     "/em.authority.v1.MsgReplaceAuthority": {
         aminoType: string;
-        toAmino: ({ authority, newAuthority }: MsgReplaceAuthority) => MsgReplaceAuthorityAminoType["value"];
-        fromAmino: ({ authority, new_authority }: MsgReplaceAuthorityAminoType["value"]) => MsgReplaceAuthority;
+        toAmino: (message: MsgReplaceAuthority) => import("./tx").MsgReplaceAuthorityAmino;
+        fromAmino: (object: import("./tx").MsgReplaceAuthorityAmino) => MsgReplaceAuthority;
     };
     "/em.authority.v1.MsgScheduleUpgrade": {
         aminoType: string;
-        toAmino: ({ authority, plan }: MsgScheduleUpgrade) => MsgScheduleUpgradeAminoType["value"];
-        fromAmino: ({ authority, plan }: MsgScheduleUpgradeAminoType["value"]) => MsgScheduleUpgrade;
+        toAmino: (message: MsgScheduleUpgrade) => import("./tx").MsgScheduleUpgradeAmino;
+        fromAmino: (object: import("./tx").MsgScheduleUpgradeAmino) => MsgScheduleUpgrade;
     };
     "/em.authority.v1.MsgSetParameters": {
         aminoType: string;
-        toAmino: ({ authority, changes }: MsgSetParameters) => MsgSetParametersAminoType["value"];
-        fromAmino: ({ authority, changes }: MsgSetParametersAminoType["value"]) => MsgSetParameters;
+        toAmino: (message: MsgSetParameters) => import("./tx").MsgSetParametersAmino;
+        fromAmino: (object: import("./tx").MsgSetParametersAmino) => MsgSetParameters;
     };
 };

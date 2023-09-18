@@ -1,8 +1,8 @@
-import { Chain, ChainSDKType, Asset, AssetSDKType } from "../../nexus/exported/v1beta1/types";
-import { Duration, DurationSDKType } from "../../../google/protobuf/duration";
-import { Fee, FeeSDKType } from "./types";
-import { Long, isSet, bytesFromBase64 } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Chain, ChainAmino, ChainSDKType, Asset, AssetAmino, AssetSDKType } from "../../nexus/exported/v1beta1/types";
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { Fee, FeeAmino, FeeSDKType } from "./types";
+import { BinaryWriter } from "../../../binary";
+import { isSet, bytesFromBase64 } from "../../../helpers";
 /**
  * MsgLink represents a message to link a cross-chain address to an Axelar
  * address
@@ -12,6 +12,24 @@ export interface LinkRequest {
   recipientAddr: string;
   recipientChain: string;
   asset: string;
+}
+export interface LinkRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.LinkRequest";
+  value: Uint8Array;
+}
+/**
+ * MsgLink represents a message to link a cross-chain address to an Axelar
+ * address
+ */
+export interface LinkRequestAmino {
+  sender: Uint8Array;
+  recipient_addr: string;
+  recipient_chain: string;
+  asset: string;
+}
+export interface LinkRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.LinkRequest";
+  value: LinkRequestAmino;
 }
 /**
  * MsgLink represents a message to link a cross-chain address to an Axelar
@@ -26,6 +44,17 @@ export interface LinkRequestSDKType {
 export interface LinkResponse {
   depositAddr: string;
 }
+export interface LinkResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.LinkResponse";
+  value: Uint8Array;
+}
+export interface LinkResponseAmino {
+  deposit_addr: string;
+}
+export interface LinkResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.LinkResponse";
+  value: LinkResponseAmino;
+}
 export interface LinkResponseSDKType {
   deposit_addr: string;
 }
@@ -35,6 +64,20 @@ export interface ConfirmDepositRequest {
   depositAddress: Uint8Array;
   denom: string;
 }
+export interface ConfirmDepositRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.ConfirmDepositRequest";
+  value: Uint8Array;
+}
+/** MsgConfirmDeposit represents a deposit confirmation message */
+export interface ConfirmDepositRequestAmino {
+  sender: Uint8Array;
+  deposit_address: Uint8Array;
+  denom: string;
+}
+export interface ConfirmDepositRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.ConfirmDepositRequest";
+  value: ConfirmDepositRequestAmino;
+}
 /** MsgConfirmDeposit represents a deposit confirmation message */
 export interface ConfirmDepositRequestSDKType {
   sender: Uint8Array;
@@ -42,6 +85,15 @@ export interface ConfirmDepositRequestSDKType {
   denom: string;
 }
 export interface ConfirmDepositResponse {}
+export interface ConfirmDepositResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.ConfirmDepositResponse";
+  value: Uint8Array;
+}
+export interface ConfirmDepositResponseAmino {}
+export interface ConfirmDepositResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.ConfirmDepositResponse";
+  value: ConfirmDepositResponseAmino;
+}
 export interface ConfirmDepositResponseSDKType {}
 /**
  * MsgExecutePendingTransfers represents a message to trigger transfer all
@@ -49,6 +101,21 @@ export interface ConfirmDepositResponseSDKType {}
  */
 export interface ExecutePendingTransfersRequest {
   sender: Uint8Array;
+}
+export interface ExecutePendingTransfersRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest";
+  value: Uint8Array;
+}
+/**
+ * MsgExecutePendingTransfers represents a message to trigger transfer all
+ * pending transfers
+ */
+export interface ExecutePendingTransfersRequestAmino {
+  sender: Uint8Array;
+}
+export interface ExecutePendingTransfersRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest";
+  value: ExecutePendingTransfersRequestAmino;
 }
 /**
  * MsgExecutePendingTransfers represents a message to trigger transfer all
@@ -58,6 +125,15 @@ export interface ExecutePendingTransfersRequestSDKType {
   sender: Uint8Array;
 }
 export interface ExecutePendingTransfersResponse {}
+export interface ExecutePendingTransfersResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersResponse";
+  value: Uint8Array;
+}
+export interface ExecutePendingTransfersResponseAmino {}
+export interface ExecutePendingTransfersResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersResponse";
+  value: ExecutePendingTransfersResponseAmino;
+}
 export interface ExecutePendingTransfersResponseSDKType {}
 /**
  * MSgRegisterIBCPath represents a message to register an IBC tracing path for
@@ -68,6 +144,24 @@ export interface RegisterIBCPathRequest {
   sender: Uint8Array;
   chain: string;
   path: string;
+}
+export interface RegisterIBCPathRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterIBCPathRequest";
+  value: Uint8Array;
+}
+/**
+ * MSgRegisterIBCPath represents a message to register an IBC tracing path for
+ * a cosmos chain
+ */
+/** @deprecated */
+export interface RegisterIBCPathRequestAmino {
+  sender: Uint8Array;
+  chain: string;
+  path: string;
+}
+export interface RegisterIBCPathRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RegisterIBCPathRequest";
+  value: RegisterIBCPathRequestAmino;
 }
 /**
  * MSgRegisterIBCPath represents a message to register an IBC tracing path for
@@ -80,6 +174,15 @@ export interface RegisterIBCPathRequestSDKType {
   path: string;
 }
 export interface RegisterIBCPathResponse {}
+export interface RegisterIBCPathResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterIBCPathResponse";
+  value: Uint8Array;
+}
+export interface RegisterIBCPathResponseAmino {}
+export interface RegisterIBCPathResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RegisterIBCPathResponse";
+  value: RegisterIBCPathResponseAmino;
+}
 export interface RegisterIBCPathResponseSDKType {}
 /**
  * MsgAddCosmosBasedChain represents a message to register a cosmos based chain
@@ -88,12 +191,34 @@ export interface RegisterIBCPathResponseSDKType {}
 export interface AddCosmosBasedChainRequest {
   sender: Uint8Array;
   /** @deprecated */
-  chain?: Chain;
+  chain: Chain;
   addrPrefix: string;
   /** @deprecated */
   nativeAssets: Asset[];
   cosmosChain: string;
   ibcPath: string;
+}
+export interface AddCosmosBasedChainRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest";
+  value: Uint8Array;
+}
+/**
+ * MsgAddCosmosBasedChain represents a message to register a cosmos based chain
+ * to nexus
+ */
+export interface AddCosmosBasedChainRequestAmino {
+  sender: Uint8Array;
+  /** @deprecated */
+  chain?: ChainAmino;
+  addr_prefix: string;
+  /** @deprecated */
+  native_assets: AssetAmino[];
+  cosmos_chain: string;
+  ibc_path: string;
+}
+export interface AddCosmosBasedChainRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest";
+  value: AddCosmosBasedChainRequestAmino;
 }
 /**
  * MsgAddCosmosBasedChain represents a message to register a cosmos based chain
@@ -102,7 +227,7 @@ export interface AddCosmosBasedChainRequest {
 export interface AddCosmosBasedChainRequestSDKType {
   sender: Uint8Array;
   /** @deprecated */
-  chain?: ChainSDKType;
+  chain: ChainSDKType;
   addr_prefix: string;
   /** @deprecated */
   native_assets: AssetSDKType[];
@@ -110,6 +235,15 @@ export interface AddCosmosBasedChainRequestSDKType {
   ibc_path: string;
 }
 export interface AddCosmosBasedChainResponse {}
+export interface AddCosmosBasedChainResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainResponse";
+  value: Uint8Array;
+}
+export interface AddCosmosBasedChainResponseAmino {}
+export interface AddCosmosBasedChainResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainResponse";
+  value: AddCosmosBasedChainResponseAmino;
+}
 export interface AddCosmosBasedChainResponseSDKType {}
 /**
  * RegisterAssetRequest represents a message to register an asset to a cosmos
@@ -118,9 +252,28 @@ export interface AddCosmosBasedChainResponseSDKType {}
 export interface RegisterAssetRequest {
   sender: Uint8Array;
   chain: string;
-  asset?: Asset;
+  asset: Asset;
   limit: Uint8Array;
-  window?: Duration;
+  window: Duration;
+}
+export interface RegisterAssetRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterAssetRequest";
+  value: Uint8Array;
+}
+/**
+ * RegisterAssetRequest represents a message to register an asset to a cosmos
+ * based chain
+ */
+export interface RegisterAssetRequestAmino {
+  sender: Uint8Array;
+  chain: string;
+  asset?: AssetAmino;
+  limit: Uint8Array;
+  window?: DurationAmino;
+}
+export interface RegisterAssetRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RegisterAssetRequest";
+  value: RegisterAssetRequestAmino;
 }
 /**
  * RegisterAssetRequest represents a message to register an asset to a cosmos
@@ -129,11 +282,20 @@ export interface RegisterAssetRequest {
 export interface RegisterAssetRequestSDKType {
   sender: Uint8Array;
   chain: string;
-  asset?: AssetSDKType;
+  asset: AssetSDKType;
   limit: Uint8Array;
-  window?: DurationSDKType;
+  window: DurationSDKType;
 }
 export interface RegisterAssetResponse {}
+export interface RegisterAssetResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterAssetResponse";
+  value: Uint8Array;
+}
+export interface RegisterAssetResponseAmino {}
+export interface RegisterAssetResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RegisterAssetResponse";
+  value: RegisterAssetResponseAmino;
+}
 export interface RegisterAssetResponseSDKType {}
 /**
  * RouteIBCTransfersRequest represents a message to route pending transfers to
@@ -141,6 +303,21 @@ export interface RegisterAssetResponseSDKType {}
  */
 export interface RouteIBCTransfersRequest {
   sender: Uint8Array;
+}
+export interface RouteIBCTransfersRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RouteIBCTransfersRequest";
+  value: Uint8Array;
+}
+/**
+ * RouteIBCTransfersRequest represents a message to route pending transfers to
+ * cosmos based chains
+ */
+export interface RouteIBCTransfersRequestAmino {
+  sender: Uint8Array;
+}
+export interface RouteIBCTransfersRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RouteIBCTransfersRequest";
+  value: RouteIBCTransfersRequestAmino;
 }
 /**
  * RouteIBCTransfersRequest represents a message to route pending transfers to
@@ -150,6 +327,15 @@ export interface RouteIBCTransfersRequestSDKType {
   sender: Uint8Array;
 }
 export interface RouteIBCTransfersResponse {}
+export interface RouteIBCTransfersResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RouteIBCTransfersResponse";
+  value: Uint8Array;
+}
+export interface RouteIBCTransfersResponseAmino {}
+export interface RouteIBCTransfersResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RouteIBCTransfersResponse";
+  value: RouteIBCTransfersResponseAmino;
+}
 export interface RouteIBCTransfersResponseSDKType {}
 /**
  * RegisterFeeCollectorRequest represents a message to register axelarnet fee
@@ -158,6 +344,22 @@ export interface RouteIBCTransfersResponseSDKType {}
 export interface RegisterFeeCollectorRequest {
   sender: Uint8Array;
   feeCollector: Uint8Array;
+}
+export interface RegisterFeeCollectorRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest";
+  value: Uint8Array;
+}
+/**
+ * RegisterFeeCollectorRequest represents a message to register axelarnet fee
+ * collector account
+ */
+export interface RegisterFeeCollectorRequestAmino {
+  sender: Uint8Array;
+  fee_collector: Uint8Array;
+}
+export interface RegisterFeeCollectorRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest";
+  value: RegisterFeeCollectorRequestAmino;
 }
 /**
  * RegisterFeeCollectorRequest represents a message to register axelarnet fee
@@ -168,23 +370,67 @@ export interface RegisterFeeCollectorRequestSDKType {
   fee_collector: Uint8Array;
 }
 export interface RegisterFeeCollectorResponse {}
+export interface RegisterFeeCollectorResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorResponse";
+  value: Uint8Array;
+}
+export interface RegisterFeeCollectorResponseAmino {}
+export interface RegisterFeeCollectorResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorResponse";
+  value: RegisterFeeCollectorResponseAmino;
+}
 export interface RegisterFeeCollectorResponseSDKType {}
 export interface RetryIBCTransferRequest {
   sender: Uint8Array;
   chain: string;
-  id: Long;
+  id: bigint;
+}
+export interface RetryIBCTransferRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RetryIBCTransferRequest";
+  value: Uint8Array;
+}
+export interface RetryIBCTransferRequestAmino {
+  sender: Uint8Array;
+  chain: string;
+  id: string;
+}
+export interface RetryIBCTransferRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RetryIBCTransferRequest";
+  value: RetryIBCTransferRequestAmino;
 }
 export interface RetryIBCTransferRequestSDKType {
   sender: Uint8Array;
   chain: string;
-  id: Long;
+  id: bigint;
 }
 export interface RetryIBCTransferResponse {}
+export interface RetryIBCTransferResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RetryIBCTransferResponse";
+  value: Uint8Array;
+}
+export interface RetryIBCTransferResponseAmino {}
+export interface RetryIBCTransferResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RetryIBCTransferResponse";
+  value: RetryIBCTransferResponseAmino;
+}
 export interface RetryIBCTransferResponseSDKType {}
 export interface RouteMessageRequest {
   sender: Uint8Array;
   id: string;
   payload: Uint8Array;
+}
+export interface RouteMessageRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RouteMessageRequest";
+  value: Uint8Array;
+}
+export interface RouteMessageRequestAmino {
+  sender: Uint8Array;
+  id: string;
+  payload: Uint8Array;
+}
+export interface RouteMessageRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RouteMessageRequest";
+  value: RouteMessageRequestAmino;
 }
 export interface RouteMessageRequestSDKType {
   sender: Uint8Array;
@@ -192,22 +438,55 @@ export interface RouteMessageRequestSDKType {
   payload: Uint8Array;
 }
 export interface RouteMessageResponse {}
+export interface RouteMessageResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.RouteMessageResponse";
+  value: Uint8Array;
+}
+export interface RouteMessageResponseAmino {}
+export interface RouteMessageResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.RouteMessageResponse";
+  value: RouteMessageResponseAmino;
+}
 export interface RouteMessageResponseSDKType {}
 export interface CallContractRequest {
   sender: Uint8Array;
   chain: string;
   contractAddress: string;
   payload: Uint8Array;
-  fee?: Fee;
+  fee: Fee;
+}
+export interface CallContractRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.CallContractRequest";
+  value: Uint8Array;
+}
+export interface CallContractRequestAmino {
+  sender: Uint8Array;
+  chain: string;
+  contract_address: string;
+  payload: Uint8Array;
+  fee?: FeeAmino;
+}
+export interface CallContractRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.CallContractRequest";
+  value: CallContractRequestAmino;
 }
 export interface CallContractRequestSDKType {
   sender: Uint8Array;
   chain: string;
   contract_address: string;
   payload: Uint8Array;
-  fee?: FeeSDKType;
+  fee: FeeSDKType;
 }
 export interface CallContractResponse {}
+export interface CallContractResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.CallContractResponse";
+  value: Uint8Array;
+}
+export interface CallContractResponseAmino {}
+export interface CallContractResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.CallContractResponse";
+  value: CallContractResponseAmino;
+}
 export interface CallContractResponseSDKType {}
 function createBaseLinkRequest(): LinkRequest {
   return {
@@ -218,7 +497,8 @@ function createBaseLinkRequest(): LinkRequest {
   };
 }
 export const LinkRequest = {
-  encode(message: LinkRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.LinkRequest",
+  encode(message: LinkRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -248,6 +528,37 @@ export const LinkRequest = {
     message.recipientChain = object.recipientChain ?? "";
     message.asset = object.asset ?? "";
     return message;
+  },
+  fromAmino(object: LinkRequestAmino): LinkRequest {
+    return {
+      sender: object.sender,
+      recipientAddr: object.recipient_addr,
+      recipientChain: object.recipient_chain,
+      asset: object.asset
+    };
+  },
+  toAmino(message: LinkRequest): LinkRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.recipient_addr = message.recipientAddr;
+    obj.recipient_chain = message.recipientChain;
+    obj.asset = message.asset;
+    return obj;
+  },
+  fromAminoMsg(object: LinkRequestAminoMsg): LinkRequest {
+    return LinkRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: LinkRequestProtoMsg): LinkRequest {
+    return LinkRequest.decode(message.value);
+  },
+  toProto(message: LinkRequest): Uint8Array {
+    return LinkRequest.encode(message).finish();
+  },
+  toProtoMsg(message: LinkRequest): LinkRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.LinkRequest",
+      value: LinkRequest.encode(message).finish()
+    };
   }
 };
 function createBaseLinkResponse(): LinkResponse {
@@ -256,7 +567,8 @@ function createBaseLinkResponse(): LinkResponse {
   };
 }
 export const LinkResponse = {
-  encode(message: LinkResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.LinkResponse",
+  encode(message: LinkResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.depositAddr !== "") {
       writer.uint32(10).string(message.depositAddr);
     }
@@ -271,6 +583,31 @@ export const LinkResponse = {
     const message = createBaseLinkResponse();
     message.depositAddr = object.depositAddr ?? "";
     return message;
+  },
+  fromAmino(object: LinkResponseAmino): LinkResponse {
+    return {
+      depositAddr: object.deposit_addr
+    };
+  },
+  toAmino(message: LinkResponse): LinkResponseAmino {
+    const obj: any = {};
+    obj.deposit_addr = message.depositAddr;
+    return obj;
+  },
+  fromAminoMsg(object: LinkResponseAminoMsg): LinkResponse {
+    return LinkResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: LinkResponseProtoMsg): LinkResponse {
+    return LinkResponse.decode(message.value);
+  },
+  toProto(message: LinkResponse): Uint8Array {
+    return LinkResponse.encode(message).finish();
+  },
+  toProtoMsg(message: LinkResponse): LinkResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.LinkResponse",
+      value: LinkResponse.encode(message).finish()
+    };
   }
 };
 function createBaseConfirmDepositRequest(): ConfirmDepositRequest {
@@ -281,7 +618,8 @@ function createBaseConfirmDepositRequest(): ConfirmDepositRequest {
   };
 }
 export const ConfirmDepositRequest = {
-  encode(message: ConfirmDepositRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.ConfirmDepositRequest",
+  encode(message: ConfirmDepositRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -306,13 +644,43 @@ export const ConfirmDepositRequest = {
     message.depositAddress = object.depositAddress ?? new Uint8Array();
     message.denom = object.denom ?? "";
     return message;
+  },
+  fromAmino(object: ConfirmDepositRequestAmino): ConfirmDepositRequest {
+    return {
+      sender: object.sender,
+      depositAddress: object.deposit_address,
+      denom: object.denom
+    };
+  },
+  toAmino(message: ConfirmDepositRequest): ConfirmDepositRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.deposit_address = message.depositAddress;
+    obj.denom = message.denom;
+    return obj;
+  },
+  fromAminoMsg(object: ConfirmDepositRequestAminoMsg): ConfirmDepositRequest {
+    return ConfirmDepositRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ConfirmDepositRequestProtoMsg): ConfirmDepositRequest {
+    return ConfirmDepositRequest.decode(message.value);
+  },
+  toProto(message: ConfirmDepositRequest): Uint8Array {
+    return ConfirmDepositRequest.encode(message).finish();
+  },
+  toProtoMsg(message: ConfirmDepositRequest): ConfirmDepositRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.ConfirmDepositRequest",
+      value: ConfirmDepositRequest.encode(message).finish()
+    };
   }
 };
 function createBaseConfirmDepositResponse(): ConfirmDepositResponse {
   return {};
 }
 export const ConfirmDepositResponse = {
-  encode(_: ConfirmDepositResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.ConfirmDepositResponse",
+  encode(_: ConfirmDepositResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): ConfirmDepositResponse {
@@ -321,6 +689,28 @@ export const ConfirmDepositResponse = {
   fromPartial(_: Partial<ConfirmDepositResponse>): ConfirmDepositResponse {
     const message = createBaseConfirmDepositResponse();
     return message;
+  },
+  fromAmino(_: ConfirmDepositResponseAmino): ConfirmDepositResponse {
+    return {};
+  },
+  toAmino(_: ConfirmDepositResponse): ConfirmDepositResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ConfirmDepositResponseAminoMsg): ConfirmDepositResponse {
+    return ConfirmDepositResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ConfirmDepositResponseProtoMsg): ConfirmDepositResponse {
+    return ConfirmDepositResponse.decode(message.value);
+  },
+  toProto(message: ConfirmDepositResponse): Uint8Array {
+    return ConfirmDepositResponse.encode(message).finish();
+  },
+  toProtoMsg(message: ConfirmDepositResponse): ConfirmDepositResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.ConfirmDepositResponse",
+      value: ConfirmDepositResponse.encode(message).finish()
+    };
   }
 };
 function createBaseExecutePendingTransfersRequest(): ExecutePendingTransfersRequest {
@@ -329,7 +719,8 @@ function createBaseExecutePendingTransfersRequest(): ExecutePendingTransfersRequ
   };
 }
 export const ExecutePendingTransfersRequest = {
-  encode(message: ExecutePendingTransfersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest",
+  encode(message: ExecutePendingTransfersRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -344,13 +735,39 @@ export const ExecutePendingTransfersRequest = {
     const message = createBaseExecutePendingTransfersRequest();
     message.sender = object.sender ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: ExecutePendingTransfersRequestAmino): ExecutePendingTransfersRequest {
+    return {
+      sender: object.sender
+    };
+  },
+  toAmino(message: ExecutePendingTransfersRequest): ExecutePendingTransfersRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    return obj;
+  },
+  fromAminoMsg(object: ExecutePendingTransfersRequestAminoMsg): ExecutePendingTransfersRequest {
+    return ExecutePendingTransfersRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ExecutePendingTransfersRequestProtoMsg): ExecutePendingTransfersRequest {
+    return ExecutePendingTransfersRequest.decode(message.value);
+  },
+  toProto(message: ExecutePendingTransfersRequest): Uint8Array {
+    return ExecutePendingTransfersRequest.encode(message).finish();
+  },
+  toProtoMsg(message: ExecutePendingTransfersRequest): ExecutePendingTransfersRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest",
+      value: ExecutePendingTransfersRequest.encode(message).finish()
+    };
   }
 };
 function createBaseExecutePendingTransfersResponse(): ExecutePendingTransfersResponse {
   return {};
 }
 export const ExecutePendingTransfersResponse = {
-  encode(_: ExecutePendingTransfersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersResponse",
+  encode(_: ExecutePendingTransfersResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): ExecutePendingTransfersResponse {
@@ -359,6 +776,28 @@ export const ExecutePendingTransfersResponse = {
   fromPartial(_: Partial<ExecutePendingTransfersResponse>): ExecutePendingTransfersResponse {
     const message = createBaseExecutePendingTransfersResponse();
     return message;
+  },
+  fromAmino(_: ExecutePendingTransfersResponseAmino): ExecutePendingTransfersResponse {
+    return {};
+  },
+  toAmino(_: ExecutePendingTransfersResponse): ExecutePendingTransfersResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ExecutePendingTransfersResponseAminoMsg): ExecutePendingTransfersResponse {
+    return ExecutePendingTransfersResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ExecutePendingTransfersResponseProtoMsg): ExecutePendingTransfersResponse {
+    return ExecutePendingTransfersResponse.decode(message.value);
+  },
+  toProto(message: ExecutePendingTransfersResponse): Uint8Array {
+    return ExecutePendingTransfersResponse.encode(message).finish();
+  },
+  toProtoMsg(message: ExecutePendingTransfersResponse): ExecutePendingTransfersResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersResponse",
+      value: ExecutePendingTransfersResponse.encode(message).finish()
+    };
   }
 };
 function createBaseRegisterIBCPathRequest(): RegisterIBCPathRequest {
@@ -369,7 +808,8 @@ function createBaseRegisterIBCPathRequest(): RegisterIBCPathRequest {
   };
 }
 export const RegisterIBCPathRequest = {
-  encode(message: RegisterIBCPathRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterIBCPathRequest",
+  encode(message: RegisterIBCPathRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -394,13 +834,43 @@ export const RegisterIBCPathRequest = {
     message.chain = object.chain ?? "";
     message.path = object.path ?? "";
     return message;
+  },
+  fromAmino(object: RegisterIBCPathRequestAmino): RegisterIBCPathRequest {
+    return {
+      sender: object.sender,
+      chain: object.chain,
+      path: object.path
+    };
+  },
+  toAmino(message: RegisterIBCPathRequest): RegisterIBCPathRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.chain = message.chain;
+    obj.path = message.path;
+    return obj;
+  },
+  fromAminoMsg(object: RegisterIBCPathRequestAminoMsg): RegisterIBCPathRequest {
+    return RegisterIBCPathRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RegisterIBCPathRequestProtoMsg): RegisterIBCPathRequest {
+    return RegisterIBCPathRequest.decode(message.value);
+  },
+  toProto(message: RegisterIBCPathRequest): Uint8Array {
+    return RegisterIBCPathRequest.encode(message).finish();
+  },
+  toProtoMsg(message: RegisterIBCPathRequest): RegisterIBCPathRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RegisterIBCPathRequest",
+      value: RegisterIBCPathRequest.encode(message).finish()
+    };
   }
 };
 function createBaseRegisterIBCPathResponse(): RegisterIBCPathResponse {
   return {};
 }
 export const RegisterIBCPathResponse = {
-  encode(_: RegisterIBCPathResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterIBCPathResponse",
+  encode(_: RegisterIBCPathResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): RegisterIBCPathResponse {
@@ -409,12 +879,34 @@ export const RegisterIBCPathResponse = {
   fromPartial(_: Partial<RegisterIBCPathResponse>): RegisterIBCPathResponse {
     const message = createBaseRegisterIBCPathResponse();
     return message;
+  },
+  fromAmino(_: RegisterIBCPathResponseAmino): RegisterIBCPathResponse {
+    return {};
+  },
+  toAmino(_: RegisterIBCPathResponse): RegisterIBCPathResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: RegisterIBCPathResponseAminoMsg): RegisterIBCPathResponse {
+    return RegisterIBCPathResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RegisterIBCPathResponseProtoMsg): RegisterIBCPathResponse {
+    return RegisterIBCPathResponse.decode(message.value);
+  },
+  toProto(message: RegisterIBCPathResponse): Uint8Array {
+    return RegisterIBCPathResponse.encode(message).finish();
+  },
+  toProtoMsg(message: RegisterIBCPathResponse): RegisterIBCPathResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RegisterIBCPathResponse",
+      value: RegisterIBCPathResponse.encode(message).finish()
+    };
   }
 };
 function createBaseAddCosmosBasedChainRequest(): AddCosmosBasedChainRequest {
   return {
     sender: new Uint8Array(),
-    chain: undefined,
+    chain: Chain.fromPartial({}),
     addrPrefix: "",
     nativeAssets: [],
     cosmosChain: "",
@@ -422,7 +914,8 @@ function createBaseAddCosmosBasedChainRequest(): AddCosmosBasedChainRequest {
   };
 }
 export const AddCosmosBasedChainRequest = {
-  encode(message: AddCosmosBasedChainRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest",
+  encode(message: AddCosmosBasedChainRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -462,13 +955,53 @@ export const AddCosmosBasedChainRequest = {
     message.cosmosChain = object.cosmosChain ?? "";
     message.ibcPath = object.ibcPath ?? "";
     return message;
+  },
+  fromAmino(object: AddCosmosBasedChainRequestAmino): AddCosmosBasedChainRequest {
+    return {
+      sender: object.sender,
+      chain: object?.chain ? Chain.fromAmino(object.chain) : undefined,
+      addrPrefix: object.addr_prefix,
+      nativeAssets: Array.isArray(object?.native_assets) ? object.native_assets.map((e: any) => Asset.fromAmino(e)) : [],
+      cosmosChain: object.cosmos_chain,
+      ibcPath: object.ibc_path
+    };
+  },
+  toAmino(message: AddCosmosBasedChainRequest): AddCosmosBasedChainRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.chain = message.chain ? Chain.toAmino(message.chain) : undefined;
+    obj.addr_prefix = message.addrPrefix;
+    if (message.nativeAssets) {
+      obj.native_assets = message.nativeAssets.map(e => e ? Asset.toAmino(e) : undefined);
+    } else {
+      obj.native_assets = [];
+    }
+    obj.cosmos_chain = message.cosmosChain;
+    obj.ibc_path = message.ibcPath;
+    return obj;
+  },
+  fromAminoMsg(object: AddCosmosBasedChainRequestAminoMsg): AddCosmosBasedChainRequest {
+    return AddCosmosBasedChainRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AddCosmosBasedChainRequestProtoMsg): AddCosmosBasedChainRequest {
+    return AddCosmosBasedChainRequest.decode(message.value);
+  },
+  toProto(message: AddCosmosBasedChainRequest): Uint8Array {
+    return AddCosmosBasedChainRequest.encode(message).finish();
+  },
+  toProtoMsg(message: AddCosmosBasedChainRequest): AddCosmosBasedChainRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest",
+      value: AddCosmosBasedChainRequest.encode(message).finish()
+    };
   }
 };
 function createBaseAddCosmosBasedChainResponse(): AddCosmosBasedChainResponse {
   return {};
 }
 export const AddCosmosBasedChainResponse = {
-  encode(_: AddCosmosBasedChainResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainResponse",
+  encode(_: AddCosmosBasedChainResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): AddCosmosBasedChainResponse {
@@ -477,19 +1010,42 @@ export const AddCosmosBasedChainResponse = {
   fromPartial(_: Partial<AddCosmosBasedChainResponse>): AddCosmosBasedChainResponse {
     const message = createBaseAddCosmosBasedChainResponse();
     return message;
+  },
+  fromAmino(_: AddCosmosBasedChainResponseAmino): AddCosmosBasedChainResponse {
+    return {};
+  },
+  toAmino(_: AddCosmosBasedChainResponse): AddCosmosBasedChainResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: AddCosmosBasedChainResponseAminoMsg): AddCosmosBasedChainResponse {
+    return AddCosmosBasedChainResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AddCosmosBasedChainResponseProtoMsg): AddCosmosBasedChainResponse {
+    return AddCosmosBasedChainResponse.decode(message.value);
+  },
+  toProto(message: AddCosmosBasedChainResponse): Uint8Array {
+    return AddCosmosBasedChainResponse.encode(message).finish();
+  },
+  toProtoMsg(message: AddCosmosBasedChainResponse): AddCosmosBasedChainResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainResponse",
+      value: AddCosmosBasedChainResponse.encode(message).finish()
+    };
   }
 };
 function createBaseRegisterAssetRequest(): RegisterAssetRequest {
   return {
     sender: new Uint8Array(),
     chain: "",
-    asset: undefined,
+    asset: Asset.fromPartial({}),
     limit: new Uint8Array(),
-    window: undefined
+    window: Duration.fromPartial({})
   };
 }
 export const RegisterAssetRequest = {
-  encode(message: RegisterAssetRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterAssetRequest",
+  encode(message: RegisterAssetRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -524,13 +1080,47 @@ export const RegisterAssetRequest = {
     message.limit = object.limit ?? new Uint8Array();
     message.window = object.window !== undefined && object.window !== null ? Duration.fromPartial(object.window) : undefined;
     return message;
+  },
+  fromAmino(object: RegisterAssetRequestAmino): RegisterAssetRequest {
+    return {
+      sender: object.sender,
+      chain: object.chain,
+      asset: object?.asset ? Asset.fromAmino(object.asset) : undefined,
+      limit: object.limit,
+      window: object?.window ? Duration.fromAmino(object.window) : undefined
+    };
+  },
+  toAmino(message: RegisterAssetRequest): RegisterAssetRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.chain = message.chain;
+    obj.asset = message.asset ? Asset.toAmino(message.asset) : undefined;
+    obj.limit = message.limit;
+    obj.window = message.window ? Duration.toAmino(message.window) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: RegisterAssetRequestAminoMsg): RegisterAssetRequest {
+    return RegisterAssetRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RegisterAssetRequestProtoMsg): RegisterAssetRequest {
+    return RegisterAssetRequest.decode(message.value);
+  },
+  toProto(message: RegisterAssetRequest): Uint8Array {
+    return RegisterAssetRequest.encode(message).finish();
+  },
+  toProtoMsg(message: RegisterAssetRequest): RegisterAssetRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RegisterAssetRequest",
+      value: RegisterAssetRequest.encode(message).finish()
+    };
   }
 };
 function createBaseRegisterAssetResponse(): RegisterAssetResponse {
   return {};
 }
 export const RegisterAssetResponse = {
-  encode(_: RegisterAssetResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterAssetResponse",
+  encode(_: RegisterAssetResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): RegisterAssetResponse {
@@ -539,6 +1129,28 @@ export const RegisterAssetResponse = {
   fromPartial(_: Partial<RegisterAssetResponse>): RegisterAssetResponse {
     const message = createBaseRegisterAssetResponse();
     return message;
+  },
+  fromAmino(_: RegisterAssetResponseAmino): RegisterAssetResponse {
+    return {};
+  },
+  toAmino(_: RegisterAssetResponse): RegisterAssetResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: RegisterAssetResponseAminoMsg): RegisterAssetResponse {
+    return RegisterAssetResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RegisterAssetResponseProtoMsg): RegisterAssetResponse {
+    return RegisterAssetResponse.decode(message.value);
+  },
+  toProto(message: RegisterAssetResponse): Uint8Array {
+    return RegisterAssetResponse.encode(message).finish();
+  },
+  toProtoMsg(message: RegisterAssetResponse): RegisterAssetResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RegisterAssetResponse",
+      value: RegisterAssetResponse.encode(message).finish()
+    };
   }
 };
 function createBaseRouteIBCTransfersRequest(): RouteIBCTransfersRequest {
@@ -547,7 +1159,8 @@ function createBaseRouteIBCTransfersRequest(): RouteIBCTransfersRequest {
   };
 }
 export const RouteIBCTransfersRequest = {
-  encode(message: RouteIBCTransfersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RouteIBCTransfersRequest",
+  encode(message: RouteIBCTransfersRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -562,13 +1175,39 @@ export const RouteIBCTransfersRequest = {
     const message = createBaseRouteIBCTransfersRequest();
     message.sender = object.sender ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: RouteIBCTransfersRequestAmino): RouteIBCTransfersRequest {
+    return {
+      sender: object.sender
+    };
+  },
+  toAmino(message: RouteIBCTransfersRequest): RouteIBCTransfersRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    return obj;
+  },
+  fromAminoMsg(object: RouteIBCTransfersRequestAminoMsg): RouteIBCTransfersRequest {
+    return RouteIBCTransfersRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RouteIBCTransfersRequestProtoMsg): RouteIBCTransfersRequest {
+    return RouteIBCTransfersRequest.decode(message.value);
+  },
+  toProto(message: RouteIBCTransfersRequest): Uint8Array {
+    return RouteIBCTransfersRequest.encode(message).finish();
+  },
+  toProtoMsg(message: RouteIBCTransfersRequest): RouteIBCTransfersRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RouteIBCTransfersRequest",
+      value: RouteIBCTransfersRequest.encode(message).finish()
+    };
   }
 };
 function createBaseRouteIBCTransfersResponse(): RouteIBCTransfersResponse {
   return {};
 }
 export const RouteIBCTransfersResponse = {
-  encode(_: RouteIBCTransfersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RouteIBCTransfersResponse",
+  encode(_: RouteIBCTransfersResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): RouteIBCTransfersResponse {
@@ -577,6 +1216,28 @@ export const RouteIBCTransfersResponse = {
   fromPartial(_: Partial<RouteIBCTransfersResponse>): RouteIBCTransfersResponse {
     const message = createBaseRouteIBCTransfersResponse();
     return message;
+  },
+  fromAmino(_: RouteIBCTransfersResponseAmino): RouteIBCTransfersResponse {
+    return {};
+  },
+  toAmino(_: RouteIBCTransfersResponse): RouteIBCTransfersResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: RouteIBCTransfersResponseAminoMsg): RouteIBCTransfersResponse {
+    return RouteIBCTransfersResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RouteIBCTransfersResponseProtoMsg): RouteIBCTransfersResponse {
+    return RouteIBCTransfersResponse.decode(message.value);
+  },
+  toProto(message: RouteIBCTransfersResponse): Uint8Array {
+    return RouteIBCTransfersResponse.encode(message).finish();
+  },
+  toProtoMsg(message: RouteIBCTransfersResponse): RouteIBCTransfersResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RouteIBCTransfersResponse",
+      value: RouteIBCTransfersResponse.encode(message).finish()
+    };
   }
 };
 function createBaseRegisterFeeCollectorRequest(): RegisterFeeCollectorRequest {
@@ -586,7 +1247,8 @@ function createBaseRegisterFeeCollectorRequest(): RegisterFeeCollectorRequest {
   };
 }
 export const RegisterFeeCollectorRequest = {
-  encode(message: RegisterFeeCollectorRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest",
+  encode(message: RegisterFeeCollectorRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -606,13 +1268,41 @@ export const RegisterFeeCollectorRequest = {
     message.sender = object.sender ?? new Uint8Array();
     message.feeCollector = object.feeCollector ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: RegisterFeeCollectorRequestAmino): RegisterFeeCollectorRequest {
+    return {
+      sender: object.sender,
+      feeCollector: object.fee_collector
+    };
+  },
+  toAmino(message: RegisterFeeCollectorRequest): RegisterFeeCollectorRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.fee_collector = message.feeCollector;
+    return obj;
+  },
+  fromAminoMsg(object: RegisterFeeCollectorRequestAminoMsg): RegisterFeeCollectorRequest {
+    return RegisterFeeCollectorRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RegisterFeeCollectorRequestProtoMsg): RegisterFeeCollectorRequest {
+    return RegisterFeeCollectorRequest.decode(message.value);
+  },
+  toProto(message: RegisterFeeCollectorRequest): Uint8Array {
+    return RegisterFeeCollectorRequest.encode(message).finish();
+  },
+  toProtoMsg(message: RegisterFeeCollectorRequest): RegisterFeeCollectorRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest",
+      value: RegisterFeeCollectorRequest.encode(message).finish()
+    };
   }
 };
 function createBaseRegisterFeeCollectorResponse(): RegisterFeeCollectorResponse {
   return {};
 }
 export const RegisterFeeCollectorResponse = {
-  encode(_: RegisterFeeCollectorResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorResponse",
+  encode(_: RegisterFeeCollectorResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): RegisterFeeCollectorResponse {
@@ -621,24 +1311,47 @@ export const RegisterFeeCollectorResponse = {
   fromPartial(_: Partial<RegisterFeeCollectorResponse>): RegisterFeeCollectorResponse {
     const message = createBaseRegisterFeeCollectorResponse();
     return message;
+  },
+  fromAmino(_: RegisterFeeCollectorResponseAmino): RegisterFeeCollectorResponse {
+    return {};
+  },
+  toAmino(_: RegisterFeeCollectorResponse): RegisterFeeCollectorResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: RegisterFeeCollectorResponseAminoMsg): RegisterFeeCollectorResponse {
+    return RegisterFeeCollectorResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RegisterFeeCollectorResponseProtoMsg): RegisterFeeCollectorResponse {
+    return RegisterFeeCollectorResponse.decode(message.value);
+  },
+  toProto(message: RegisterFeeCollectorResponse): Uint8Array {
+    return RegisterFeeCollectorResponse.encode(message).finish();
+  },
+  toProtoMsg(message: RegisterFeeCollectorResponse): RegisterFeeCollectorResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorResponse",
+      value: RegisterFeeCollectorResponse.encode(message).finish()
+    };
   }
 };
 function createBaseRetryIBCTransferRequest(): RetryIBCTransferRequest {
   return {
     sender: new Uint8Array(),
     chain: "",
-    id: Long.UZERO
+    id: BigInt(0)
   };
 }
 export const RetryIBCTransferRequest = {
-  encode(message: RetryIBCTransferRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RetryIBCTransferRequest",
+  encode(message: RetryIBCTransferRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
     }
-    if (!message.id.isZero()) {
+    if (message.id !== BigInt(0)) {
       writer.uint32(24).uint64(message.id);
     }
     return writer;
@@ -647,22 +1360,52 @@ export const RetryIBCTransferRequest = {
     return {
       sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO
+      id: isSet(object.id) ? BigInt(object.id.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<RetryIBCTransferRequest>): RetryIBCTransferRequest {
     const message = createBaseRetryIBCTransferRequest();
     message.sender = object.sender ?? new Uint8Array();
     message.chain = object.chain ?? "";
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
+    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: RetryIBCTransferRequestAmino): RetryIBCTransferRequest {
+    return {
+      sender: object.sender,
+      chain: object.chain,
+      id: BigInt(object.id)
+    };
+  },
+  toAmino(message: RetryIBCTransferRequest): RetryIBCTransferRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.chain = message.chain;
+    obj.id = message.id ? message.id.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: RetryIBCTransferRequestAminoMsg): RetryIBCTransferRequest {
+    return RetryIBCTransferRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RetryIBCTransferRequestProtoMsg): RetryIBCTransferRequest {
+    return RetryIBCTransferRequest.decode(message.value);
+  },
+  toProto(message: RetryIBCTransferRequest): Uint8Array {
+    return RetryIBCTransferRequest.encode(message).finish();
+  },
+  toProtoMsg(message: RetryIBCTransferRequest): RetryIBCTransferRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RetryIBCTransferRequest",
+      value: RetryIBCTransferRequest.encode(message).finish()
+    };
   }
 };
 function createBaseRetryIBCTransferResponse(): RetryIBCTransferResponse {
   return {};
 }
 export const RetryIBCTransferResponse = {
-  encode(_: RetryIBCTransferResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RetryIBCTransferResponse",
+  encode(_: RetryIBCTransferResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): RetryIBCTransferResponse {
@@ -671,6 +1414,28 @@ export const RetryIBCTransferResponse = {
   fromPartial(_: Partial<RetryIBCTransferResponse>): RetryIBCTransferResponse {
     const message = createBaseRetryIBCTransferResponse();
     return message;
+  },
+  fromAmino(_: RetryIBCTransferResponseAmino): RetryIBCTransferResponse {
+    return {};
+  },
+  toAmino(_: RetryIBCTransferResponse): RetryIBCTransferResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: RetryIBCTransferResponseAminoMsg): RetryIBCTransferResponse {
+    return RetryIBCTransferResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RetryIBCTransferResponseProtoMsg): RetryIBCTransferResponse {
+    return RetryIBCTransferResponse.decode(message.value);
+  },
+  toProto(message: RetryIBCTransferResponse): Uint8Array {
+    return RetryIBCTransferResponse.encode(message).finish();
+  },
+  toProtoMsg(message: RetryIBCTransferResponse): RetryIBCTransferResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RetryIBCTransferResponse",
+      value: RetryIBCTransferResponse.encode(message).finish()
+    };
   }
 };
 function createBaseRouteMessageRequest(): RouteMessageRequest {
@@ -681,7 +1446,8 @@ function createBaseRouteMessageRequest(): RouteMessageRequest {
   };
 }
 export const RouteMessageRequest = {
-  encode(message: RouteMessageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RouteMessageRequest",
+  encode(message: RouteMessageRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -706,13 +1472,43 @@ export const RouteMessageRequest = {
     message.id = object.id ?? "";
     message.payload = object.payload ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: RouteMessageRequestAmino): RouteMessageRequest {
+    return {
+      sender: object.sender,
+      id: object.id,
+      payload: object.payload
+    };
+  },
+  toAmino(message: RouteMessageRequest): RouteMessageRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.id = message.id;
+    obj.payload = message.payload;
+    return obj;
+  },
+  fromAminoMsg(object: RouteMessageRequestAminoMsg): RouteMessageRequest {
+    return RouteMessageRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RouteMessageRequestProtoMsg): RouteMessageRequest {
+    return RouteMessageRequest.decode(message.value);
+  },
+  toProto(message: RouteMessageRequest): Uint8Array {
+    return RouteMessageRequest.encode(message).finish();
+  },
+  toProtoMsg(message: RouteMessageRequest): RouteMessageRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RouteMessageRequest",
+      value: RouteMessageRequest.encode(message).finish()
+    };
   }
 };
 function createBaseRouteMessageResponse(): RouteMessageResponse {
   return {};
 }
 export const RouteMessageResponse = {
-  encode(_: RouteMessageResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.RouteMessageResponse",
+  encode(_: RouteMessageResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): RouteMessageResponse {
@@ -721,6 +1517,28 @@ export const RouteMessageResponse = {
   fromPartial(_: Partial<RouteMessageResponse>): RouteMessageResponse {
     const message = createBaseRouteMessageResponse();
     return message;
+  },
+  fromAmino(_: RouteMessageResponseAmino): RouteMessageResponse {
+    return {};
+  },
+  toAmino(_: RouteMessageResponse): RouteMessageResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: RouteMessageResponseAminoMsg): RouteMessageResponse {
+    return RouteMessageResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RouteMessageResponseProtoMsg): RouteMessageResponse {
+    return RouteMessageResponse.decode(message.value);
+  },
+  toProto(message: RouteMessageResponse): Uint8Array {
+    return RouteMessageResponse.encode(message).finish();
+  },
+  toProtoMsg(message: RouteMessageResponse): RouteMessageResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.RouteMessageResponse",
+      value: RouteMessageResponse.encode(message).finish()
+    };
   }
 };
 function createBaseCallContractRequest(): CallContractRequest {
@@ -729,11 +1547,12 @@ function createBaseCallContractRequest(): CallContractRequest {
     chain: "",
     contractAddress: "",
     payload: new Uint8Array(),
-    fee: undefined
+    fee: Fee.fromPartial({})
   };
 }
 export const CallContractRequest = {
-  encode(message: CallContractRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.CallContractRequest",
+  encode(message: CallContractRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -768,13 +1587,47 @@ export const CallContractRequest = {
     message.payload = object.payload ?? new Uint8Array();
     message.fee = object.fee !== undefined && object.fee !== null ? Fee.fromPartial(object.fee) : undefined;
     return message;
+  },
+  fromAmino(object: CallContractRequestAmino): CallContractRequest {
+    return {
+      sender: object.sender,
+      chain: object.chain,
+      contractAddress: object.contract_address,
+      payload: object.payload,
+      fee: object?.fee ? Fee.fromAmino(object.fee) : undefined
+    };
+  },
+  toAmino(message: CallContractRequest): CallContractRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.chain = message.chain;
+    obj.contract_address = message.contractAddress;
+    obj.payload = message.payload;
+    obj.fee = message.fee ? Fee.toAmino(message.fee) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: CallContractRequestAminoMsg): CallContractRequest {
+    return CallContractRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CallContractRequestProtoMsg): CallContractRequest {
+    return CallContractRequest.decode(message.value);
+  },
+  toProto(message: CallContractRequest): Uint8Array {
+    return CallContractRequest.encode(message).finish();
+  },
+  toProtoMsg(message: CallContractRequest): CallContractRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.CallContractRequest",
+      value: CallContractRequest.encode(message).finish()
+    };
   }
 };
 function createBaseCallContractResponse(): CallContractResponse {
   return {};
 }
 export const CallContractResponse = {
-  encode(_: CallContractResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.CallContractResponse",
+  encode(_: CallContractResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): CallContractResponse {
@@ -783,5 +1636,27 @@ export const CallContractResponse = {
   fromPartial(_: Partial<CallContractResponse>): CallContractResponse {
     const message = createBaseCallContractResponse();
     return message;
+  },
+  fromAmino(_: CallContractResponseAmino): CallContractResponse {
+    return {};
+  },
+  toAmino(_: CallContractResponse): CallContractResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: CallContractResponseAminoMsg): CallContractResponse {
+    return CallContractResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CallContractResponseProtoMsg): CallContractResponse {
+    return CallContractResponse.decode(message.value);
+  },
+  toProto(message: CallContractResponse): Uint8Array {
+    return CallContractResponse.encode(message).finish();
+  },
+  toProtoMsg(message: CallContractResponse): CallContractResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.CallContractResponse",
+      value: CallContractResponse.encode(message).finish()
+    };
   }
 };

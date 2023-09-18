@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryDeploymentsRequest, QueryDeploymentsResponse, QueryDeploymentRequest, QueryDeploymentResponse, QueryGroupRequest, QueryGroupResponse } from "./query";
 /** Query defines the gRPC querier service */
@@ -22,17 +22,17 @@ export class QueryClientImpl implements Query {
   deployments(request: QueryDeploymentsRequest): Promise<QueryDeploymentsResponse> {
     const data = QueryDeploymentsRequest.encode(request).finish();
     const promise = this.rpc.request("akash.deployment.v1beta2.Query", "Deployments", data);
-    return promise.then(data => QueryDeploymentsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDeploymentsResponse.decode(new BinaryReader(data)));
   }
   deployment(request: QueryDeploymentRequest): Promise<QueryDeploymentResponse> {
     const data = QueryDeploymentRequest.encode(request).finish();
     const promise = this.rpc.request("akash.deployment.v1beta2.Query", "Deployment", data);
-    return promise.then(data => QueryDeploymentResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDeploymentResponse.decode(new BinaryReader(data)));
   }
   group(request: QueryGroupRequest): Promise<QueryGroupResponse> {
     const data = QueryGroupRequest.encode(request).finish();
     const promise = this.rpc.request("akash.deployment.v1beta2.Query", "Group", data);
-    return promise.then(data => QueryGroupResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGroupResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

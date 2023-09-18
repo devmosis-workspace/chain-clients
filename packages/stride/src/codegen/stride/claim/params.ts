@@ -1,11 +1,24 @@
-import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
-import { Duration, DurationSDKType } from "../../google/protobuf/duration";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { BinaryWriter } from "../../binary";
 import { isSet, fromJsonTimestamp } from "../../helpers";
 /** Params defines the claim module's parameters. */
 export interface Params {
   /** Params defines the claim module's parameters. */
   airdrops: Airdrop[];
+}
+export interface ParamsProtoMsg {
+  typeUrl: "/stride.claim.Params";
+  value: Uint8Array;
+}
+/** Params defines the claim module's parameters. */
+export interface ParamsAmino {
+  /** Params defines the claim module's parameters. */
+  airdrops: AirdropAmino[];
+}
+export interface ParamsAminoMsg {
+  type: "/stride.claim.Params";
+  value: ParamsAmino;
 }
 /** Params defines the claim module's parameters. */
 export interface ParamsSDKType {
@@ -15,9 +28,9 @@ export interface Airdrop {
   airdropIdentifier: string;
   chainId: string;
   /** seconds */
-  airdropStartTime?: Timestamp;
+  airdropStartTime: Timestamp;
   /** seconds */
-  airdropDuration?: Duration;
+  airdropDuration: Duration;
   /** denom of claimable asset */
   claimDenom: string;
   /** airdrop distribution account */
@@ -27,11 +40,35 @@ export interface Airdrop {
   /** indicates the airdrop should be claimed via autopilot */
   autopilotEnabled: boolean;
 }
+export interface AirdropProtoMsg {
+  typeUrl: "/stride.claim.Airdrop";
+  value: Uint8Array;
+}
+export interface AirdropAmino {
+  airdrop_identifier: string;
+  chain_id: string;
+  /** seconds */
+  airdrop_start_time?: TimestampAmino;
+  /** seconds */
+  airdrop_duration?: DurationAmino;
+  /** denom of claimable asset */
+  claim_denom: string;
+  /** airdrop distribution account */
+  distributor_address: string;
+  /** ustrd tokens claimed so far in the current period */
+  claimed_so_far: string;
+  /** indicates the airdrop should be claimed via autopilot */
+  autopilot_enabled: boolean;
+}
+export interface AirdropAminoMsg {
+  type: "/stride.claim.Airdrop";
+  value: AirdropAmino;
+}
 export interface AirdropSDKType {
   airdrop_identifier: string;
   chain_id: string;
-  airdrop_start_time?: TimestampSDKType;
-  airdrop_duration?: DurationSDKType;
+  airdrop_start_time: TimestampSDKType;
+  airdrop_duration: DurationSDKType;
   claim_denom: string;
   distributor_address: string;
   claimed_so_far: string;
@@ -43,7 +80,8 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.claim.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.airdrops) {
       Airdrop.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -58,14 +96,43 @@ export const Params = {
     const message = createBaseParams();
     message.airdrops = object.airdrops?.map(e => Airdrop.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      airdrops: Array.isArray(object?.airdrops) ? object.airdrops.map((e: any) => Airdrop.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.airdrops) {
+      obj.airdrops = message.airdrops.map(e => e ? Airdrop.toAmino(e) : undefined);
+    } else {
+      obj.airdrops = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/stride.claim.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };
 function createBaseAirdrop(): Airdrop {
   return {
     airdropIdentifier: "",
     chainId: "",
-    airdropStartTime: undefined,
-    airdropDuration: undefined,
+    airdropStartTime: Timestamp.fromPartial({}),
+    airdropDuration: Duration.fromPartial({}),
     claimDenom: "",
     distributorAddress: "",
     claimedSoFar: "",
@@ -73,7 +140,8 @@ function createBaseAirdrop(): Airdrop {
   };
 }
 export const Airdrop = {
-  encode(message: Airdrop, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.claim.Airdrop",
+  encode(message: Airdrop, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.airdropIdentifier !== "") {
       writer.uint32(10).string(message.airdropIdentifier);
     }
@@ -123,5 +191,44 @@ export const Airdrop = {
     message.claimedSoFar = object.claimedSoFar ?? "";
     message.autopilotEnabled = object.autopilotEnabled ?? false;
     return message;
+  },
+  fromAmino(object: AirdropAmino): Airdrop {
+    return {
+      airdropIdentifier: object.airdrop_identifier,
+      chainId: object.chain_id,
+      airdropStartTime: object.airdrop_start_time,
+      airdropDuration: object?.airdrop_duration ? Duration.fromAmino(object.airdrop_duration) : undefined,
+      claimDenom: object.claim_denom,
+      distributorAddress: object.distributor_address,
+      claimedSoFar: object.claimed_so_far,
+      autopilotEnabled: object.autopilot_enabled
+    };
+  },
+  toAmino(message: Airdrop): AirdropAmino {
+    const obj: any = {};
+    obj.airdrop_identifier = message.airdropIdentifier;
+    obj.chain_id = message.chainId;
+    obj.airdrop_start_time = message.airdropStartTime;
+    obj.airdrop_duration = message.airdropDuration ? Duration.toAmino(message.airdropDuration) : undefined;
+    obj.claim_denom = message.claimDenom;
+    obj.distributor_address = message.distributorAddress;
+    obj.claimed_so_far = message.claimedSoFar;
+    obj.autopilot_enabled = message.autopilotEnabled;
+    return obj;
+  },
+  fromAminoMsg(object: AirdropAminoMsg): Airdrop {
+    return Airdrop.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AirdropProtoMsg): Airdrop {
+    return Airdrop.decode(message.value);
+  },
+  toProto(message: Airdrop): Uint8Array {
+    return Airdrop.encode(message).finish();
+  },
+  toProtoMsg(message: Airdrop): AirdropProtoMsg {
+    return {
+      typeUrl: "/stride.claim.Airdrop",
+      value: Airdrop.encode(message).finish()
+    };
   }
 };

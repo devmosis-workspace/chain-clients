@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgPlaceBid, MsgPlaceBidResponse } from "./tx";
 /** Msg defines the auction Msg service. */
 export interface Msg {
@@ -15,6 +15,6 @@ export class MsgClientImpl implements Msg {
   placeBid(request: MsgPlaceBid): Promise<MsgPlaceBidResponse> {
     const data = MsgPlaceBid.encode(request).finish();
     const promise = this.rpc.request("kava.auction.v1beta1.Msg", "PlaceBid", data);
-    return promise.then(data => MsgPlaceBidResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgPlaceBidResponse.decode(new BinaryReader(data)));
   }
 }

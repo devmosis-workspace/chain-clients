@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 export enum ICAAccountType {
   DELEGATION = 0,
@@ -8,6 +8,7 @@ export enum ICAAccountType {
   UNRECOGNIZED = -1,
 }
 export const ICAAccountTypeSDKType = ICAAccountType;
+export const ICAAccountTypeAmino = ICAAccountType;
 export function iCAAccountTypeFromJSON(object: any): ICAAccountType {
   switch (object) {
     case 0:
@@ -47,6 +48,18 @@ export interface ICAAccount {
   address: string;
   target: ICAAccountType;
 }
+export interface ICAAccountProtoMsg {
+  typeUrl: "/stride.stakeibc.ICAAccount";
+  value: Uint8Array;
+}
+export interface ICAAccountAmino {
+  address: string;
+  target: ICAAccountType;
+}
+export interface ICAAccountAminoMsg {
+  type: "/stride.stakeibc.ICAAccount";
+  value: ICAAccountAmino;
+}
 export interface ICAAccountSDKType {
   address: string;
   target: ICAAccountType;
@@ -58,7 +71,8 @@ function createBaseICAAccount(): ICAAccount {
   };
 }
 export const ICAAccount = {
-  encode(message: ICAAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.ICAAccount",
+  encode(message: ICAAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
@@ -70,7 +84,7 @@ export const ICAAccount = {
   fromJSON(object: any): ICAAccount {
     return {
       address: isSet(object.address) ? String(object.address) : "",
-      target: isSet(object.target) ? iCAAccountTypeFromJSON(object.target) : 0
+      target: isSet(object.target) ? iCAAccountTypeFromJSON(object.target) : -1
     };
   },
   fromPartial(object: Partial<ICAAccount>): ICAAccount {
@@ -78,5 +92,32 @@ export const ICAAccount = {
     message.address = object.address ?? "";
     message.target = object.target ?? 0;
     return message;
+  },
+  fromAmino(object: ICAAccountAmino): ICAAccount {
+    return {
+      address: object.address,
+      target: isSet(object.target) ? iCAAccountTypeFromJSON(object.target) : -1
+    };
+  },
+  toAmino(message: ICAAccount): ICAAccountAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.target = message.target;
+    return obj;
+  },
+  fromAminoMsg(object: ICAAccountAminoMsg): ICAAccount {
+    return ICAAccount.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ICAAccountProtoMsg): ICAAccount {
+    return ICAAccount.decode(message.value);
+  },
+  toProto(message: ICAAccount): Uint8Array {
+    return ICAAccount.encode(message).finish();
+  },
+  toProtoMsg(message: ICAAccount): ICAAccountProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.ICAAccount",
+      value: ICAAccount.encode(message).finish()
+    };
   }
 };

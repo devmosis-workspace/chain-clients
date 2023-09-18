@@ -1,9 +1,19 @@
-import { Coin, CoinSDKType } from "../../base/v1beta1/coin";
-import { Any, AnySDKType } from "../../../google/protobuf/any";
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import { Duration, DurationSDKType } from "../../../google/protobuf/duration";
-import { Long, isSet, fromJsonTimestamp, bytesFromBase64 } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../base/v1beta1/coin";
+import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { SpotMarketParamUpdateProposal, SpotMarketParamUpdateProposalProtoMsg, SpotMarketParamUpdateProposalSDKType, BatchExchangeModificationProposal, BatchExchangeModificationProposalProtoMsg, BatchExchangeModificationProposalSDKType, SpotMarketLaunchProposal, SpotMarketLaunchProposalProtoMsg, SpotMarketLaunchProposalSDKType, PerpetualMarketLaunchProposal, PerpetualMarketLaunchProposalProtoMsg, PerpetualMarketLaunchProposalSDKType, BinaryOptionsMarketLaunchProposal, BinaryOptionsMarketLaunchProposalProtoMsg, BinaryOptionsMarketLaunchProposalSDKType, ExpiryFuturesMarketLaunchProposal, ExpiryFuturesMarketLaunchProposalProtoMsg, ExpiryFuturesMarketLaunchProposalSDKType, DerivativeMarketParamUpdateProposal, DerivativeMarketParamUpdateProposalProtoMsg, DerivativeMarketParamUpdateProposalSDKType, MarketForcedSettlementProposal, MarketForcedSettlementProposalProtoMsg, MarketForcedSettlementProposalSDKType, UpdateDenomDecimalsProposal, UpdateDenomDecimalsProposalProtoMsg, UpdateDenomDecimalsProposalSDKType, BinaryOptionsMarketParamUpdateProposal, BinaryOptionsMarketParamUpdateProposalProtoMsg, BinaryOptionsMarketParamUpdateProposalSDKType, TradingRewardCampaignLaunchProposal, TradingRewardCampaignLaunchProposalProtoMsg, TradingRewardCampaignLaunchProposalSDKType, TradingRewardCampaignUpdateProposal, TradingRewardCampaignUpdateProposalProtoMsg, TradingRewardCampaignUpdateProposalSDKType, TradingRewardPendingPointsUpdateProposal, TradingRewardPendingPointsUpdateProposalProtoMsg, TradingRewardPendingPointsUpdateProposalSDKType, FeeDiscountProposal, FeeDiscountProposalProtoMsg, FeeDiscountProposalSDKType, BatchCommunityPoolSpendProposal, BatchCommunityPoolSpendProposalProtoMsg, BatchCommunityPoolSpendProposalSDKType, AtomicMarketOrderFeeMultiplierScheduleProposal, AtomicMarketOrderFeeMultiplierScheduleProposalProtoMsg, AtomicMarketOrderFeeMultiplierScheduleProposalSDKType } from "../../../injective/exchange/v1beta1/tx";
+import { SetConfigProposal, SetConfigProposalProtoMsg, SetConfigProposalSDKType, SetBatchConfigProposal, SetBatchConfigProposalProtoMsg, SetBatchConfigProposalSDKType } from "../../../injective/ocr/v1beta1/ocr";
+import { GrantBandOraclePrivilegeProposal, GrantBandOraclePrivilegeProposalProtoMsg, GrantBandOraclePrivilegeProposalSDKType, RevokeBandOraclePrivilegeProposal, RevokeBandOraclePrivilegeProposalProtoMsg, RevokeBandOraclePrivilegeProposalSDKType, GrantPriceFeederPrivilegeProposal, GrantPriceFeederPrivilegeProposalProtoMsg, GrantPriceFeederPrivilegeProposalSDKType, GrantProviderPrivilegeProposal, GrantProviderPrivilegeProposalProtoMsg, GrantProviderPrivilegeProposalSDKType, RevokeProviderPrivilegeProposal, RevokeProviderPrivilegeProposalProtoMsg, RevokeProviderPrivilegeProposalSDKType, RevokePriceFeederPrivilegeProposal, RevokePriceFeederPrivilegeProposalProtoMsg, RevokePriceFeederPrivilegeProposalSDKType, AuthorizeBandOracleRequestProposal, AuthorizeBandOracleRequestProposalProtoMsg, AuthorizeBandOracleRequestProposalSDKType, UpdateBandOracleRequestProposal, UpdateBandOracleRequestProposalProtoMsg, UpdateBandOracleRequestProposalSDKType, EnableBandIBCProposal, EnableBandIBCProposalProtoMsg, EnableBandIBCProposalSDKType } from "../../../injective/oracle/v1beta1/proposal";
+import { BlacklistEthereumAddressesProposal, BlacklistEthereumAddressesProposalProtoMsg, BlacklistEthereumAddressesProposalSDKType, RevokeEthereumBlacklistProposal, RevokeEthereumBlacklistProposalProtoMsg, RevokeEthereumBlacklistProposalSDKType } from "../../../injective/peggy/v1/proposal";
+import { ContractRegistrationRequestProposal, ContractRegistrationRequestProposalProtoMsg, ContractRegistrationRequestProposalSDKType, BatchContractRegistrationRequestProposal, BatchContractRegistrationRequestProposalProtoMsg, BatchContractRegistrationRequestProposalSDKType, BatchContractDeregistrationProposal, BatchContractDeregistrationProposalProtoMsg, BatchContractDeregistrationProposalSDKType, ContractRegistrationRequest, ContractRegistrationRequestProtoMsg, ContractRegistrationRequestSDKType, BatchStoreCodeProposal, BatchStoreCodeProposalProtoMsg, BatchStoreCodeProposalSDKType } from "../../../injective/wasmx/v1/proposal";
+import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalSDKType, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg, CommunityPoolSpendProposalWithDepositSDKType } from "../../distribution/v1beta1/distribution";
+import { ParameterChangeProposal, ParameterChangeProposalProtoMsg, ParameterChangeProposalSDKType } from "../../params/v1beta1/params";
+import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, SoftwareUpgradeProposalSDKType, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposalSDKType } from "../../upgrade/v1beta1/upgrade";
+import { StoreCodeProposal, StoreCodeProposalProtoMsg, StoreCodeProposalSDKType, InstantiateContractProposal, InstantiateContractProposalProtoMsg, InstantiateContractProposalSDKType, InstantiateContract2Proposal, InstantiateContract2ProposalProtoMsg, InstantiateContract2ProposalSDKType, MigrateContractProposal, MigrateContractProposalProtoMsg, MigrateContractProposalSDKType, SudoContractProposal, SudoContractProposalProtoMsg, SudoContractProposalSDKType, ExecuteContractProposal, ExecuteContractProposalProtoMsg, ExecuteContractProposalSDKType, UpdateAdminProposal, UpdateAdminProposalProtoMsg, UpdateAdminProposalSDKType, ClearAdminProposal, ClearAdminProposalProtoMsg, ClearAdminProposalSDKType, PinCodesProposal, PinCodesProposalProtoMsg, PinCodesProposalSDKType, UnpinCodesProposal, UnpinCodesProposalProtoMsg, UnpinCodesProposalSDKType, UpdateInstantiateConfigProposal, UpdateInstantiateConfigProposalProtoMsg, UpdateInstantiateConfigProposalSDKType, StoreAndInstantiateContractProposal, StoreAndInstantiateContractProposalProtoMsg, StoreAndInstantiateContractProposalSDKType } from "../../../cosmwasm/wasm/v1/proposal";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Decimal } from "@cosmjs/math";
+import { isSet, fromJsonTimestamp, bytesFromBase64 } from "../../../helpers";
 /** VoteOption enumerates the valid vote options for a given governance proposal. */
 export enum VoteOption {
   /** VOTE_OPTION_UNSPECIFIED - VOTE_OPTION_UNSPECIFIED defines a no-op vote option. */
@@ -19,6 +29,7 @@ export enum VoteOption {
   UNRECOGNIZED = -1,
 }
 export const VoteOptionSDKType = VoteOption;
+export const VoteOptionAmino = VoteOption;
 export function voteOptionFromJSON(object: any): VoteOption {
   switch (object) {
     case 0:
@@ -91,6 +102,7 @@ export enum ProposalStatus {
   UNRECOGNIZED = -1,
 }
 export const ProposalStatusSDKType = ProposalStatus;
+export const ProposalStatusAmino = ProposalStatus;
 export function proposalStatusFromJSON(object: any): ProposalStatus {
   switch (object) {
     case 0:
@@ -147,6 +159,25 @@ export interface WeightedVoteOption {
   /** weight is the vote weight associated with the vote option. */
   weight: string;
 }
+export interface WeightedVoteOptionProtoMsg {
+  typeUrl: "/cosmos.gov.v1beta1.WeightedVoteOption";
+  value: Uint8Array;
+}
+/**
+ * WeightedVoteOption defines a unit of vote for vote split.
+ * 
+ * Since: cosmos-sdk 0.43
+ */
+export interface WeightedVoteOptionAmino {
+  /** option defines the valid vote options, it must not contain duplicate vote options. */
+  option: VoteOption;
+  /** weight is the vote weight associated with the vote option. */
+  weight: string;
+}
+export interface WeightedVoteOptionAminoMsg {
+  type: "cosmos-sdk/WeightedVoteOption";
+  value: WeightedVoteOptionAmino;
+}
 /**
  * WeightedVoteOption defines a unit of vote for vote split.
  * 
@@ -161,16 +192,36 @@ export interface WeightedVoteOptionSDKType {
  * manually updated in case of approval.
  */
 export interface TextProposal {
+  $typeUrl?: string;
   /** title of the proposal. */
   title: string;
   /** description associated with the proposal. */
   description: string;
+}
+export interface TextProposalProtoMsg {
+  typeUrl: "/cosmos.gov.v1beta1.TextProposal";
+  value: Uint8Array;
+}
+/**
+ * TextProposal defines a standard text proposal whose changes need to be
+ * manually updated in case of approval.
+ */
+export interface TextProposalAmino {
+  /** title of the proposal. */
+  title: string;
+  /** description associated with the proposal. */
+  description: string;
+}
+export interface TextProposalAminoMsg {
+  type: "cosmos-sdk/TextProposal";
+  value: TextProposalAmino;
 }
 /**
  * TextProposal defines a standard text proposal whose changes need to be
  * manually updated in case of approval.
  */
 export interface TextProposalSDKType {
+  $typeUrl?: string;
   title: string;
   description: string;
 }
@@ -180,27 +231,47 @@ export interface TextProposalSDKType {
  */
 export interface Deposit {
   /** proposal_id defines the unique id of the proposal. */
-  proposalId: Long;
+  proposalId: bigint;
   /** depositor defines the deposit addresses from the proposals. */
   depositor: string;
   /** amount to be deposited by depositor. */
   amount: Coin[];
+}
+export interface DepositProtoMsg {
+  typeUrl: "/cosmos.gov.v1beta1.Deposit";
+  value: Uint8Array;
+}
+/**
+ * Deposit defines an amount deposited by an account address to an active
+ * proposal.
+ */
+export interface DepositAmino {
+  /** proposal_id defines the unique id of the proposal. */
+  proposal_id: string;
+  /** depositor defines the deposit addresses from the proposals. */
+  depositor: string;
+  /** amount to be deposited by depositor. */
+  amount: CoinAmino[];
+}
+export interface DepositAminoMsg {
+  type: "cosmos-sdk/Deposit";
+  value: DepositAmino;
 }
 /**
  * Deposit defines an amount deposited by an account address to an active
  * proposal.
  */
 export interface DepositSDKType {
-  proposal_id: Long;
+  proposal_id: bigint;
   depositor: string;
   amount: CoinSDKType[];
 }
 /** Proposal defines the core field members of a governance proposal. */
 export interface Proposal {
   /** proposal_id defines the unique id of the proposal. */
-  proposalId: Long;
+  proposalId: bigint;
   /** content is the proposal's content. */
-  content?: Any;
+  content: (TextProposal & SpotMarketParamUpdateProposal & BatchExchangeModificationProposal & SpotMarketLaunchProposal & PerpetualMarketLaunchProposal & BinaryOptionsMarketLaunchProposal & ExpiryFuturesMarketLaunchProposal & DerivativeMarketParamUpdateProposal & MarketForcedSettlementProposal & UpdateDenomDecimalsProposal & BinaryOptionsMarketParamUpdateProposal & TradingRewardCampaignLaunchProposal & TradingRewardCampaignUpdateProposal & TradingRewardPendingPointsUpdateProposal & FeeDiscountProposal & BatchCommunityPoolSpendProposal & AtomicMarketOrderFeeMultiplierScheduleProposal & SetConfigProposal & SetBatchConfigProposal & GrantBandOraclePrivilegeProposal & RevokeBandOraclePrivilegeProposal & GrantPriceFeederPrivilegeProposal & GrantProviderPrivilegeProposal & RevokeProviderPrivilegeProposal & RevokePriceFeederPrivilegeProposal & AuthorizeBandOracleRequestProposal & UpdateBandOracleRequestProposal & EnableBandIBCProposal & BlacklistEthereumAddressesProposal & RevokeEthereumBlacklistProposal & ContractRegistrationRequestProposal & BatchContractRegistrationRequestProposal & BatchContractDeregistrationProposal & ContractRegistrationRequest & BatchStoreCodeProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & StoreCodeProposal & InstantiateContractProposal & InstantiateContract2Proposal & MigrateContractProposal & SudoContractProposal & ExecuteContractProposal & UpdateAdminProposal & ClearAdminProposal & PinCodesProposal & UnpinCodesProposal & UpdateInstantiateConfigProposal & StoreAndInstantiateContractProposal & Any) | undefined;
   /** status defines the proposal status. */
   status: ProposalStatus;
   /**
@@ -208,29 +279,65 @@ export interface Proposal {
    * querying a proposal via gRPC, this field is not populated until the
    * proposal's voting period has ended.
    */
-  finalTallyResult?: TallyResult;
+  finalTallyResult: TallyResult;
   /** submit_time is the time of proposal submission. */
-  submitTime?: Timestamp;
+  submitTime: Timestamp;
   /** deposit_end_time is the end time for deposition. */
-  depositEndTime?: Timestamp;
+  depositEndTime: Timestamp;
   /** total_deposit is the total deposit on the proposal. */
   totalDeposit: Coin[];
   /** voting_start_time is the starting time to vote on a proposal. */
-  votingStartTime?: Timestamp;
+  votingStartTime: Timestamp;
   /** voting_end_time is the end time of voting on a proposal. */
-  votingEndTime?: Timestamp;
+  votingEndTime: Timestamp;
+}
+export interface ProposalProtoMsg {
+  typeUrl: "/cosmos.gov.v1beta1.Proposal";
+  value: Uint8Array;
+}
+export type ProposalEncoded = Omit<Proposal, "content"> & {
+  /** content is the proposal's content. */content?: TextProposalProtoMsg | SpotMarketParamUpdateProposalProtoMsg | BatchExchangeModificationProposalProtoMsg | SpotMarketLaunchProposalProtoMsg | PerpetualMarketLaunchProposalProtoMsg | BinaryOptionsMarketLaunchProposalProtoMsg | ExpiryFuturesMarketLaunchProposalProtoMsg | DerivativeMarketParamUpdateProposalProtoMsg | MarketForcedSettlementProposalProtoMsg | UpdateDenomDecimalsProposalProtoMsg | BinaryOptionsMarketParamUpdateProposalProtoMsg | TradingRewardCampaignLaunchProposalProtoMsg | TradingRewardCampaignUpdateProposalProtoMsg | TradingRewardPendingPointsUpdateProposalProtoMsg | FeeDiscountProposalProtoMsg | BatchCommunityPoolSpendProposalProtoMsg | AtomicMarketOrderFeeMultiplierScheduleProposalProtoMsg | SetConfigProposalProtoMsg | SetBatchConfigProposalProtoMsg | GrantBandOraclePrivilegeProposalProtoMsg | RevokeBandOraclePrivilegeProposalProtoMsg | GrantPriceFeederPrivilegeProposalProtoMsg | GrantProviderPrivilegeProposalProtoMsg | RevokeProviderPrivilegeProposalProtoMsg | RevokePriceFeederPrivilegeProposalProtoMsg | AuthorizeBandOracleRequestProposalProtoMsg | UpdateBandOracleRequestProposalProtoMsg | EnableBandIBCProposalProtoMsg | BlacklistEthereumAddressesProposalProtoMsg | RevokeEthereumBlacklistProposalProtoMsg | ContractRegistrationRequestProposalProtoMsg | BatchContractRegistrationRequestProposalProtoMsg | BatchContractDeregistrationProposalProtoMsg | ContractRegistrationRequestProtoMsg | BatchStoreCodeProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | StoreCodeProposalProtoMsg | InstantiateContractProposalProtoMsg | InstantiateContract2ProposalProtoMsg | MigrateContractProposalProtoMsg | SudoContractProposalProtoMsg | ExecuteContractProposalProtoMsg | UpdateAdminProposalProtoMsg | ClearAdminProposalProtoMsg | PinCodesProposalProtoMsg | UnpinCodesProposalProtoMsg | UpdateInstantiateConfigProposalProtoMsg | StoreAndInstantiateContractProposalProtoMsg | AnyProtoMsg | undefined;
+};
+/** Proposal defines the core field members of a governance proposal. */
+export interface ProposalAmino {
+  /** proposal_id defines the unique id of the proposal. */
+  proposal_id: string;
+  /** content is the proposal's content. */
+  content?: AnyAmino;
+  /** status defines the proposal status. */
+  status: ProposalStatus;
+  /**
+   * final_tally_result is the final tally result of the proposal. When
+   * querying a proposal via gRPC, this field is not populated until the
+   * proposal's voting period has ended.
+   */
+  final_tally_result?: TallyResultAmino;
+  /** submit_time is the time of proposal submission. */
+  submit_time?: TimestampAmino;
+  /** deposit_end_time is the end time for deposition. */
+  deposit_end_time?: TimestampAmino;
+  /** total_deposit is the total deposit on the proposal. */
+  total_deposit: CoinAmino[];
+  /** voting_start_time is the starting time to vote on a proposal. */
+  voting_start_time?: TimestampAmino;
+  /** voting_end_time is the end time of voting on a proposal. */
+  voting_end_time?: TimestampAmino;
+}
+export interface ProposalAminoMsg {
+  type: "cosmos-sdk/Proposal";
+  value: ProposalAmino;
 }
 /** Proposal defines the core field members of a governance proposal. */
 export interface ProposalSDKType {
-  proposal_id: Long;
-  content?: AnySDKType;
+  proposal_id: bigint;
+  content: TextProposalSDKType | SpotMarketParamUpdateProposalSDKType | BatchExchangeModificationProposalSDKType | SpotMarketLaunchProposalSDKType | PerpetualMarketLaunchProposalSDKType | BinaryOptionsMarketLaunchProposalSDKType | ExpiryFuturesMarketLaunchProposalSDKType | DerivativeMarketParamUpdateProposalSDKType | MarketForcedSettlementProposalSDKType | UpdateDenomDecimalsProposalSDKType | BinaryOptionsMarketParamUpdateProposalSDKType | TradingRewardCampaignLaunchProposalSDKType | TradingRewardCampaignUpdateProposalSDKType | TradingRewardPendingPointsUpdateProposalSDKType | FeeDiscountProposalSDKType | BatchCommunityPoolSpendProposalSDKType | AtomicMarketOrderFeeMultiplierScheduleProposalSDKType | SetConfigProposalSDKType | SetBatchConfigProposalSDKType | GrantBandOraclePrivilegeProposalSDKType | RevokeBandOraclePrivilegeProposalSDKType | GrantPriceFeederPrivilegeProposalSDKType | GrantProviderPrivilegeProposalSDKType | RevokeProviderPrivilegeProposalSDKType | RevokePriceFeederPrivilegeProposalSDKType | AuthorizeBandOracleRequestProposalSDKType | UpdateBandOracleRequestProposalSDKType | EnableBandIBCProposalSDKType | BlacklistEthereumAddressesProposalSDKType | RevokeEthereumBlacklistProposalSDKType | ContractRegistrationRequestProposalSDKType | BatchContractRegistrationRequestProposalSDKType | BatchContractDeregistrationProposalSDKType | ContractRegistrationRequestSDKType | BatchStoreCodeProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | StoreCodeProposalSDKType | InstantiateContractProposalSDKType | InstantiateContract2ProposalSDKType | MigrateContractProposalSDKType | SudoContractProposalSDKType | ExecuteContractProposalSDKType | UpdateAdminProposalSDKType | ClearAdminProposalSDKType | PinCodesProposalSDKType | UnpinCodesProposalSDKType | UpdateInstantiateConfigProposalSDKType | StoreAndInstantiateContractProposalSDKType | AnySDKType | undefined;
   status: ProposalStatus;
-  final_tally_result?: TallyResultSDKType;
-  submit_time?: TimestampSDKType;
-  deposit_end_time?: TimestampSDKType;
+  final_tally_result: TallyResultSDKType;
+  submit_time: TimestampSDKType;
+  deposit_end_time: TimestampSDKType;
   total_deposit: CoinSDKType[];
-  voting_start_time?: TimestampSDKType;
-  voting_end_time?: TimestampSDKType;
+  voting_start_time: TimestampSDKType;
+  voting_end_time: TimestampSDKType;
 }
 /** TallyResult defines a standard tally for a governance proposal. */
 export interface TallyResult {
@@ -242,6 +349,25 @@ export interface TallyResult {
   no: string;
   /** no_with_veto is the number of no with veto votes on a proposal. */
   noWithVeto: string;
+}
+export interface TallyResultProtoMsg {
+  typeUrl: "/cosmos.gov.v1beta1.TallyResult";
+  value: Uint8Array;
+}
+/** TallyResult defines a standard tally for a governance proposal. */
+export interface TallyResultAmino {
+  /** yes is the number of yes votes on a proposal. */
+  yes: string;
+  /** abstain is the number of abstain votes on a proposal. */
+  abstain: string;
+  /** no is the number of no votes on a proposal. */
+  no: string;
+  /** no_with_veto is the number of no with veto votes on a proposal. */
+  no_with_veto: string;
+}
+export interface TallyResultAminoMsg {
+  type: "cosmos-sdk/TallyResult";
+  value: TallyResultAmino;
 }
 /** TallyResult defines a standard tally for a governance proposal. */
 export interface TallyResultSDKType {
@@ -256,7 +382,7 @@ export interface TallyResultSDKType {
  */
 export interface Vote {
   /** proposal_id defines the unique id of the proposal. */
-  proposalId: Long;
+  proposalId: bigint;
   /** voter is the voter address of the proposal. */
   voter: string;
   /**
@@ -273,12 +399,43 @@ export interface Vote {
    */
   options: WeightedVoteOption[];
 }
+export interface VoteProtoMsg {
+  typeUrl: "/cosmos.gov.v1beta1.Vote";
+  value: Uint8Array;
+}
+/**
+ * Vote defines a vote on a governance proposal.
+ * A Vote consists of a proposal ID, the voter, and the vote option.
+ */
+export interface VoteAmino {
+  /** proposal_id defines the unique id of the proposal. */
+  proposal_id: string;
+  /** voter is the voter address of the proposal. */
+  voter: string;
+  /**
+   * Deprecated: Prefer to use `options` instead. This field is set in queries
+   * if and only if `len(options) == 1` and that option has weight 1. In all
+   * other cases, this field will default to VOTE_OPTION_UNSPECIFIED.
+   */
+  /** @deprecated */
+  option: VoteOption;
+  /**
+   * options is the weighted vote options.
+   * 
+   * Since: cosmos-sdk 0.43
+   */
+  options: WeightedVoteOptionAmino[];
+}
+export interface VoteAminoMsg {
+  type: "cosmos-sdk/Vote";
+  value: VoteAmino;
+}
 /**
  * Vote defines a vote on a governance proposal.
  * A Vote consists of a proposal ID, the voter, and the vote option.
  */
 export interface VoteSDKType {
-  proposal_id: Long;
+  proposal_id: bigint;
   voter: string;
   /** @deprecated */
   option: VoteOption;
@@ -292,21 +449,52 @@ export interface DepositParams {
    * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
    * months.
    */
-  maxDepositPeriod?: Duration;
+  maxDepositPeriod: Duration;
+}
+export interface DepositParamsProtoMsg {
+  typeUrl: "/cosmos.gov.v1beta1.DepositParams";
+  value: Uint8Array;
+}
+/** DepositParams defines the params for deposits on governance proposals. */
+export interface DepositParamsAmino {
+  /** Minimum deposit for a proposal to enter voting period. */
+  min_deposit: CoinAmino[];
+  /**
+   * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
+   * months.
+   */
+  max_deposit_period?: DurationAmino;
+}
+export interface DepositParamsAminoMsg {
+  type: "cosmos-sdk/DepositParams";
+  value: DepositParamsAmino;
 }
 /** DepositParams defines the params for deposits on governance proposals. */
 export interface DepositParamsSDKType {
   min_deposit: CoinSDKType[];
-  max_deposit_period?: DurationSDKType;
+  max_deposit_period: DurationSDKType;
 }
 /** VotingParams defines the params for voting on governance proposals. */
 export interface VotingParams {
   /** Duration of the voting period. */
-  votingPeriod?: Duration;
+  votingPeriod: Duration;
+}
+export interface VotingParamsProtoMsg {
+  typeUrl: "/cosmos.gov.v1beta1.VotingParams";
+  value: Uint8Array;
+}
+/** VotingParams defines the params for voting on governance proposals. */
+export interface VotingParamsAmino {
+  /** Duration of the voting period. */
+  voting_period?: DurationAmino;
+}
+export interface VotingParamsAminoMsg {
+  type: "cosmos-sdk/VotingParams";
+  value: VotingParamsAmino;
 }
 /** VotingParams defines the params for voting on governance proposals. */
 export interface VotingParamsSDKType {
-  voting_period?: DurationSDKType;
+  voting_period: DurationSDKType;
 }
 /** TallyParams defines the params for tallying votes on governance proposals. */
 export interface TallyParams {
@@ -323,6 +511,29 @@ export interface TallyParams {
    */
   vetoThreshold: Uint8Array;
 }
+export interface TallyParamsProtoMsg {
+  typeUrl: "/cosmos.gov.v1beta1.TallyParams";
+  value: Uint8Array;
+}
+/** TallyParams defines the params for tallying votes on governance proposals. */
+export interface TallyParamsAmino {
+  /**
+   * Minimum percentage of total stake needed to vote for a result to be
+   * considered valid.
+   */
+  quorum: Uint8Array;
+  /** Minimum proportion of Yes votes for proposal to pass. Default value: 0.5. */
+  threshold: Uint8Array;
+  /**
+   * Minimum value of Veto votes to Total votes ratio for proposal to be
+   * vetoed. Default value: 1/3.
+   */
+  veto_threshold: Uint8Array;
+}
+export interface TallyParamsAminoMsg {
+  type: "cosmos-sdk/TallyParams";
+  value: TallyParamsAmino;
+}
 /** TallyParams defines the params for tallying votes on governance proposals. */
 export interface TallyParamsSDKType {
   quorum: Uint8Array;
@@ -336,18 +547,19 @@ function createBaseWeightedVoteOption(): WeightedVoteOption {
   };
 }
 export const WeightedVoteOption = {
-  encode(message: WeightedVoteOption, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.gov.v1beta1.WeightedVoteOption",
+  encode(message: WeightedVoteOption, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.option !== 0) {
       writer.uint32(8).int32(message.option);
     }
     if (message.weight !== "") {
-      writer.uint32(18).string(message.weight);
+      writer.uint32(18).string(Decimal.fromUserInput(message.weight, 18).atomics);
     }
     return writer;
   },
   fromJSON(object: any): WeightedVoteOption {
     return {
-      option: isSet(object.option) ? voteOptionFromJSON(object.option) : 0,
+      option: isSet(object.option) ? voteOptionFromJSON(object.option) : -1,
       weight: isSet(object.weight) ? String(object.weight) : ""
     };
   },
@@ -356,16 +568,51 @@ export const WeightedVoteOption = {
     message.option = object.option ?? 0;
     message.weight = object.weight ?? "";
     return message;
+  },
+  fromAmino(object: WeightedVoteOptionAmino): WeightedVoteOption {
+    return {
+      option: isSet(object.option) ? voteOptionFromJSON(object.option) : -1,
+      weight: object.weight
+    };
+  },
+  toAmino(message: WeightedVoteOption): WeightedVoteOptionAmino {
+    const obj: any = {};
+    obj.option = message.option;
+    obj.weight = message.weight;
+    return obj;
+  },
+  fromAminoMsg(object: WeightedVoteOptionAminoMsg): WeightedVoteOption {
+    return WeightedVoteOption.fromAmino(object.value);
+  },
+  toAminoMsg(message: WeightedVoteOption): WeightedVoteOptionAminoMsg {
+    return {
+      type: "cosmos-sdk/WeightedVoteOption",
+      value: WeightedVoteOption.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: WeightedVoteOptionProtoMsg): WeightedVoteOption {
+    return WeightedVoteOption.decode(message.value);
+  },
+  toProto(message: WeightedVoteOption): Uint8Array {
+    return WeightedVoteOption.encode(message).finish();
+  },
+  toProtoMsg(message: WeightedVoteOption): WeightedVoteOptionProtoMsg {
+    return {
+      typeUrl: "/cosmos.gov.v1beta1.WeightedVoteOption",
+      value: WeightedVoteOption.encode(message).finish()
+    };
   }
 };
 function createBaseTextProposal(): TextProposal {
   return {
+    $typeUrl: "/cosmos.gov.v1beta1.TextProposal",
     title: "",
     description: ""
   };
 }
 export const TextProposal = {
-  encode(message: TextProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.gov.v1beta1.TextProposal",
+  encode(message: TextProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -385,18 +632,52 @@ export const TextProposal = {
     message.title = object.title ?? "";
     message.description = object.description ?? "";
     return message;
+  },
+  fromAmino(object: TextProposalAmino): TextProposal {
+    return {
+      title: object.title,
+      description: object.description
+    };
+  },
+  toAmino(message: TextProposal): TextProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    return obj;
+  },
+  fromAminoMsg(object: TextProposalAminoMsg): TextProposal {
+    return TextProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: TextProposal): TextProposalAminoMsg {
+    return {
+      type: "cosmos-sdk/TextProposal",
+      value: TextProposal.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: TextProposalProtoMsg): TextProposal {
+    return TextProposal.decode(message.value);
+  },
+  toProto(message: TextProposal): Uint8Array {
+    return TextProposal.encode(message).finish();
+  },
+  toProtoMsg(message: TextProposal): TextProposalProtoMsg {
+    return {
+      typeUrl: "/cosmos.gov.v1beta1.TextProposal",
+      value: TextProposal.encode(message).finish()
+    };
   }
 };
 function createBaseDeposit(): Deposit {
   return {
-    proposalId: Long.UZERO,
+    proposalId: BigInt(0),
     depositor: "",
     amount: []
   };
 }
 export const Deposit = {
-  encode(message: Deposit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.proposalId.isZero()) {
+  typeUrl: "/cosmos.gov.v1beta1.Deposit",
+  encode(message: Deposit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
     }
     if (message.depositor !== "") {
@@ -409,39 +690,79 @@ export const Deposit = {
   },
   fromJSON(object: any): Deposit {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? BigInt(object.proposalId.toString()) : BigInt(0),
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
       amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : []
     };
   },
   fromPartial(object: Partial<Deposit>): Deposit {
     const message = createBaseDeposit();
-    message.proposalId = object.proposalId !== undefined && object.proposalId !== null ? Long.fromValue(object.proposalId) : Long.UZERO;
+    message.proposalId = object.proposalId !== undefined && object.proposalId !== null ? BigInt(object.proposalId.toString()) : BigInt(0);
     message.depositor = object.depositor ?? "";
     message.amount = object.amount?.map(e => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: DepositAmino): Deposit {
+    return {
+      proposalId: BigInt(object.proposal_id),
+      depositor: object.depositor,
+      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: Deposit): DepositAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    obj.depositor = message.depositor;
+    if (message.amount) {
+      obj.amount = message.amount.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.amount = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: DepositAminoMsg): Deposit {
+    return Deposit.fromAmino(object.value);
+  },
+  toAminoMsg(message: Deposit): DepositAminoMsg {
+    return {
+      type: "cosmos-sdk/Deposit",
+      value: Deposit.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: DepositProtoMsg): Deposit {
+    return Deposit.decode(message.value);
+  },
+  toProto(message: Deposit): Uint8Array {
+    return Deposit.encode(message).finish();
+  },
+  toProtoMsg(message: Deposit): DepositProtoMsg {
+    return {
+      typeUrl: "/cosmos.gov.v1beta1.Deposit",
+      value: Deposit.encode(message).finish()
+    };
   }
 };
 function createBaseProposal(): Proposal {
   return {
-    proposalId: Long.UZERO,
-    content: undefined,
+    proposalId: BigInt(0),
+    content: Any.fromPartial({}),
     status: 0,
-    finalTallyResult: undefined,
-    submitTime: undefined,
-    depositEndTime: undefined,
+    finalTallyResult: TallyResult.fromPartial({}),
+    submitTime: Timestamp.fromPartial({}),
+    depositEndTime: Timestamp.fromPartial({}),
     totalDeposit: [],
-    votingStartTime: undefined,
-    votingEndTime: undefined
+    votingStartTime: Timestamp.fromPartial({}),
+    votingEndTime: Timestamp.fromPartial({})
   };
 }
 export const Proposal = {
-  encode(message: Proposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.proposalId.isZero()) {
+  typeUrl: "/cosmos.gov.v1beta1.Proposal",
+  encode(message: Proposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
     }
     if (message.content !== undefined) {
-      Any.encode(message.content, writer.uint32(18).fork()).ldelim();
+      Any.encode((message.content as Any), writer.uint32(18).fork()).ldelim();
     }
     if (message.status !== 0) {
       writer.uint32(24).int32(message.status);
@@ -468,9 +789,9 @@ export const Proposal = {
   },
   fromJSON(object: any): Proposal {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? BigInt(object.proposalId.toString()) : BigInt(0),
       content: isSet(object.content) ? Any.fromJSON(object.content) : undefined,
-      status: isSet(object.status) ? proposalStatusFromJSON(object.status) : 0,
+      status: isSet(object.status) ? proposalStatusFromJSON(object.status) : -1,
       finalTallyResult: isSet(object.finalTallyResult) ? TallyResult.fromJSON(object.finalTallyResult) : undefined,
       submitTime: isSet(object.submitTime) ? fromJsonTimestamp(object.submitTime) : undefined,
       depositEndTime: isSet(object.depositEndTime) ? fromJsonTimestamp(object.depositEndTime) : undefined,
@@ -481,7 +802,7 @@ export const Proposal = {
   },
   fromPartial(object: Partial<Proposal>): Proposal {
     const message = createBaseProposal();
-    message.proposalId = object.proposalId !== undefined && object.proposalId !== null ? Long.fromValue(object.proposalId) : Long.UZERO;
+    message.proposalId = object.proposalId !== undefined && object.proposalId !== null ? BigInt(object.proposalId.toString()) : BigInt(0);
     message.content = object.content !== undefined && object.content !== null ? Any.fromPartial(object.content) : undefined;
     message.status = object.status ?? 0;
     message.finalTallyResult = object.finalTallyResult !== undefined && object.finalTallyResult !== null ? TallyResult.fromPartial(object.finalTallyResult) : undefined;
@@ -491,6 +812,57 @@ export const Proposal = {
     message.votingStartTime = object.votingStartTime !== undefined && object.votingStartTime !== null ? Timestamp.fromPartial(object.votingStartTime) : undefined;
     message.votingEndTime = object.votingEndTime !== undefined && object.votingEndTime !== null ? Timestamp.fromPartial(object.votingEndTime) : undefined;
     return message;
+  },
+  fromAmino(object: ProposalAmino): Proposal {
+    return {
+      proposalId: BigInt(object.proposal_id),
+      content: object?.content ? Cosmos_govv1beta1Content_FromAmino(object.content) : undefined,
+      status: isSet(object.status) ? proposalStatusFromJSON(object.status) : -1,
+      finalTallyResult: object?.final_tally_result ? TallyResult.fromAmino(object.final_tally_result) : undefined,
+      submitTime: object.submit_time,
+      depositEndTime: object.deposit_end_time,
+      totalDeposit: Array.isArray(object?.total_deposit) ? object.total_deposit.map((e: any) => Coin.fromAmino(e)) : [],
+      votingStartTime: object.voting_start_time,
+      votingEndTime: object.voting_end_time
+    };
+  },
+  toAmino(message: Proposal): ProposalAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    obj.content = message.content ? Cosmos_govv1beta1Content_ToAmino((message.content as Any)) : undefined;
+    obj.status = message.status;
+    obj.final_tally_result = message.finalTallyResult ? TallyResult.toAmino(message.finalTallyResult) : undefined;
+    obj.submit_time = message.submitTime;
+    obj.deposit_end_time = message.depositEndTime;
+    if (message.totalDeposit) {
+      obj.total_deposit = message.totalDeposit.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.total_deposit = [];
+    }
+    obj.voting_start_time = message.votingStartTime;
+    obj.voting_end_time = message.votingEndTime;
+    return obj;
+  },
+  fromAminoMsg(object: ProposalAminoMsg): Proposal {
+    return Proposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: Proposal): ProposalAminoMsg {
+    return {
+      type: "cosmos-sdk/Proposal",
+      value: Proposal.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: ProposalProtoMsg): Proposal {
+    return Proposal.decode(message.value);
+  },
+  toProto(message: Proposal): Uint8Array {
+    return Proposal.encode(message).finish();
+  },
+  toProtoMsg(message: Proposal): ProposalProtoMsg {
+    return {
+      typeUrl: "/cosmos.gov.v1beta1.Proposal",
+      value: Proposal.encode(message).finish()
+    };
   }
 };
 function createBaseTallyResult(): TallyResult {
@@ -502,7 +874,8 @@ function createBaseTallyResult(): TallyResult {
   };
 }
 export const TallyResult = {
-  encode(message: TallyResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.gov.v1beta1.TallyResult",
+  encode(message: TallyResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.yes !== "") {
       writer.uint32(10).string(message.yes);
     }
@@ -532,19 +905,57 @@ export const TallyResult = {
     message.no = object.no ?? "";
     message.noWithVeto = object.noWithVeto ?? "";
     return message;
+  },
+  fromAmino(object: TallyResultAmino): TallyResult {
+    return {
+      yes: object.yes,
+      abstain: object.abstain,
+      no: object.no,
+      noWithVeto: object.no_with_veto
+    };
+  },
+  toAmino(message: TallyResult): TallyResultAmino {
+    const obj: any = {};
+    obj.yes = message.yes;
+    obj.abstain = message.abstain;
+    obj.no = message.no;
+    obj.no_with_veto = message.noWithVeto;
+    return obj;
+  },
+  fromAminoMsg(object: TallyResultAminoMsg): TallyResult {
+    return TallyResult.fromAmino(object.value);
+  },
+  toAminoMsg(message: TallyResult): TallyResultAminoMsg {
+    return {
+      type: "cosmos-sdk/TallyResult",
+      value: TallyResult.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: TallyResultProtoMsg): TallyResult {
+    return TallyResult.decode(message.value);
+  },
+  toProto(message: TallyResult): Uint8Array {
+    return TallyResult.encode(message).finish();
+  },
+  toProtoMsg(message: TallyResult): TallyResultProtoMsg {
+    return {
+      typeUrl: "/cosmos.gov.v1beta1.TallyResult",
+      value: TallyResult.encode(message).finish()
+    };
   }
 };
 function createBaseVote(): Vote {
   return {
-    proposalId: Long.UZERO,
+    proposalId: BigInt(0),
     voter: "",
     option: 0,
     options: []
   };
 }
 export const Vote = {
-  encode(message: Vote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.proposalId.isZero()) {
+  typeUrl: "/cosmos.gov.v1beta1.Vote",
+  encode(message: Vote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
     }
     if (message.voter !== "") {
@@ -560,29 +971,71 @@ export const Vote = {
   },
   fromJSON(object: any): Vote {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? BigInt(object.proposalId.toString()) : BigInt(0),
       voter: isSet(object.voter) ? String(object.voter) : "",
-      option: isSet(object.option) ? voteOptionFromJSON(object.option) : 0,
+      option: isSet(object.option) ? voteOptionFromJSON(object.option) : -1,
       options: Array.isArray(object?.options) ? object.options.map((e: any) => WeightedVoteOption.fromJSON(e)) : []
     };
   },
   fromPartial(object: Partial<Vote>): Vote {
     const message = createBaseVote();
-    message.proposalId = object.proposalId !== undefined && object.proposalId !== null ? Long.fromValue(object.proposalId) : Long.UZERO;
+    message.proposalId = object.proposalId !== undefined && object.proposalId !== null ? BigInt(object.proposalId.toString()) : BigInt(0);
     message.voter = object.voter ?? "";
     message.option = object.option ?? 0;
     message.options = object.options?.map(e => WeightedVoteOption.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: VoteAmino): Vote {
+    return {
+      proposalId: BigInt(object.proposal_id),
+      voter: object.voter,
+      option: isSet(object.option) ? voteOptionFromJSON(object.option) : -1,
+      options: Array.isArray(object?.options) ? object.options.map((e: any) => WeightedVoteOption.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: Vote): VoteAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    obj.voter = message.voter;
+    obj.option = message.option;
+    if (message.options) {
+      obj.options = message.options.map(e => e ? WeightedVoteOption.toAmino(e) : undefined);
+    } else {
+      obj.options = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: VoteAminoMsg): Vote {
+    return Vote.fromAmino(object.value);
+  },
+  toAminoMsg(message: Vote): VoteAminoMsg {
+    return {
+      type: "cosmos-sdk/Vote",
+      value: Vote.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: VoteProtoMsg): Vote {
+    return Vote.decode(message.value);
+  },
+  toProto(message: Vote): Uint8Array {
+    return Vote.encode(message).finish();
+  },
+  toProtoMsg(message: Vote): VoteProtoMsg {
+    return {
+      typeUrl: "/cosmos.gov.v1beta1.Vote",
+      value: Vote.encode(message).finish()
+    };
   }
 };
 function createBaseDepositParams(): DepositParams {
   return {
     minDeposit: [],
-    maxDepositPeriod: undefined
+    maxDepositPeriod: Duration.fromPartial({})
   };
 }
 export const DepositParams = {
-  encode(message: DepositParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.gov.v1beta1.DepositParams",
+  encode(message: DepositParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.minDeposit) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -602,15 +1055,53 @@ export const DepositParams = {
     message.minDeposit = object.minDeposit?.map(e => Coin.fromPartial(e)) || [];
     message.maxDepositPeriod = object.maxDepositPeriod !== undefined && object.maxDepositPeriod !== null ? Duration.fromPartial(object.maxDepositPeriod) : undefined;
     return message;
+  },
+  fromAmino(object: DepositParamsAmino): DepositParams {
+    return {
+      minDeposit: Array.isArray(object?.min_deposit) ? object.min_deposit.map((e: any) => Coin.fromAmino(e)) : [],
+      maxDepositPeriod: object?.max_deposit_period ? Duration.fromAmino(object.max_deposit_period) : undefined
+    };
+  },
+  toAmino(message: DepositParams): DepositParamsAmino {
+    const obj: any = {};
+    if (message.minDeposit) {
+      obj.min_deposit = message.minDeposit.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.min_deposit = [];
+    }
+    obj.max_deposit_period = message.maxDepositPeriod ? Duration.toAmino(message.maxDepositPeriod) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: DepositParamsAminoMsg): DepositParams {
+    return DepositParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: DepositParams): DepositParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/DepositParams",
+      value: DepositParams.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: DepositParamsProtoMsg): DepositParams {
+    return DepositParams.decode(message.value);
+  },
+  toProto(message: DepositParams): Uint8Array {
+    return DepositParams.encode(message).finish();
+  },
+  toProtoMsg(message: DepositParams): DepositParamsProtoMsg {
+    return {
+      typeUrl: "/cosmos.gov.v1beta1.DepositParams",
+      value: DepositParams.encode(message).finish()
+    };
   }
 };
 function createBaseVotingParams(): VotingParams {
   return {
-    votingPeriod: undefined
+    votingPeriod: Duration.fromPartial({})
   };
 }
 export const VotingParams = {
-  encode(message: VotingParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.gov.v1beta1.VotingParams",
+  encode(message: VotingParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.votingPeriod !== undefined) {
       Duration.encode(message.votingPeriod, writer.uint32(10).fork()).ldelim();
     }
@@ -625,6 +1116,37 @@ export const VotingParams = {
     const message = createBaseVotingParams();
     message.votingPeriod = object.votingPeriod !== undefined && object.votingPeriod !== null ? Duration.fromPartial(object.votingPeriod) : undefined;
     return message;
+  },
+  fromAmino(object: VotingParamsAmino): VotingParams {
+    return {
+      votingPeriod: object?.voting_period ? Duration.fromAmino(object.voting_period) : undefined
+    };
+  },
+  toAmino(message: VotingParams): VotingParamsAmino {
+    const obj: any = {};
+    obj.voting_period = message.votingPeriod ? Duration.toAmino(message.votingPeriod) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: VotingParamsAminoMsg): VotingParams {
+    return VotingParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: VotingParams): VotingParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/VotingParams",
+      value: VotingParams.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: VotingParamsProtoMsg): VotingParams {
+    return VotingParams.decode(message.value);
+  },
+  toProto(message: VotingParams): Uint8Array {
+    return VotingParams.encode(message).finish();
+  },
+  toProtoMsg(message: VotingParams): VotingParamsProtoMsg {
+    return {
+      typeUrl: "/cosmos.gov.v1beta1.VotingParams",
+      value: VotingParams.encode(message).finish()
+    };
   }
 };
 function createBaseTallyParams(): TallyParams {
@@ -635,7 +1157,8 @@ function createBaseTallyParams(): TallyParams {
   };
 }
 export const TallyParams = {
-  encode(message: TallyParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.gov.v1beta1.TallyParams",
+  encode(message: TallyParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.quorum.length !== 0) {
       writer.uint32(10).bytes(message.quorum);
     }
@@ -660,5 +1183,684 @@ export const TallyParams = {
     message.threshold = object.threshold ?? new Uint8Array();
     message.vetoThreshold = object.vetoThreshold ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: TallyParamsAmino): TallyParams {
+    return {
+      quorum: object.quorum,
+      threshold: object.threshold,
+      vetoThreshold: object.veto_threshold
+    };
+  },
+  toAmino(message: TallyParams): TallyParamsAmino {
+    const obj: any = {};
+    obj.quorum = message.quorum;
+    obj.threshold = message.threshold;
+    obj.veto_threshold = message.vetoThreshold;
+    return obj;
+  },
+  fromAminoMsg(object: TallyParamsAminoMsg): TallyParams {
+    return TallyParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: TallyParams): TallyParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/TallyParams",
+      value: TallyParams.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: TallyParamsProtoMsg): TallyParams {
+    return TallyParams.decode(message.value);
+  },
+  toProto(message: TallyParams): Uint8Array {
+    return TallyParams.encode(message).finish();
+  },
+  toProtoMsg(message: TallyParams): TallyParamsProtoMsg {
+    return {
+      typeUrl: "/cosmos.gov.v1beta1.TallyParams",
+      value: TallyParams.encode(message).finish()
+    };
+  }
+};
+export const Cosmos_govv1beta1Content_InterfaceDecoder = (input: BinaryReader | Uint8Array): SpotMarketParamUpdateProposal | BatchExchangeModificationProposal | SpotMarketLaunchProposal | PerpetualMarketLaunchProposal | BinaryOptionsMarketLaunchProposal | ExpiryFuturesMarketLaunchProposal | DerivativeMarketParamUpdateProposal | MarketForcedSettlementProposal | UpdateDenomDecimalsProposal | BinaryOptionsMarketParamUpdateProposal | TradingRewardCampaignLaunchProposal | TradingRewardCampaignUpdateProposal | TradingRewardPendingPointsUpdateProposal | FeeDiscountProposal | BatchCommunityPoolSpendProposal | AtomicMarketOrderFeeMultiplierScheduleProposal | SetConfigProposal | SetBatchConfigProposal | GrantBandOraclePrivilegeProposal | RevokeBandOraclePrivilegeProposal | GrantPriceFeederPrivilegeProposal | GrantProviderPrivilegeProposal | RevokeProviderPrivilegeProposal | RevokePriceFeederPrivilegeProposal | AuthorizeBandOracleRequestProposal | UpdateBandOracleRequestProposal | EnableBandIBCProposal | BlacklistEthereumAddressesProposal | RevokeEthereumBlacklistProposal | ContractRegistrationRequestProposal | BatchContractRegistrationRequestProposal | BatchContractDeregistrationProposal | ContractRegistrationRequest | BatchStoreCodeProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | StoreCodeProposal | InstantiateContractProposal | InstantiateContract2Proposal | MigrateContractProposal | SudoContractProposal | ExecuteContractProposal | UpdateAdminProposal | ClearAdminProposal | PinCodesProposal | UnpinCodesProposal | UpdateInstantiateConfigProposal | StoreAndInstantiateContractProposal | Any => {
+  const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  const data = Any.decode(reader, reader.uint32());
+  switch (data.typeUrl) {
+    case "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal":
+      return SpotMarketParamUpdateProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.BatchExchangeModificationProposal":
+      return BatchExchangeModificationProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.SpotMarketLaunchProposal":
+      return SpotMarketLaunchProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.PerpetualMarketLaunchProposal":
+      return PerpetualMarketLaunchProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal":
+      return BinaryOptionsMarketLaunchProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal":
+      return ExpiryFuturesMarketLaunchProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal":
+      return DerivativeMarketParamUpdateProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.MarketForcedSettlementProposal":
+      return MarketForcedSettlementProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.UpdateDenomDecimalsProposal":
+      return UpdateDenomDecimalsProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal":
+      return BinaryOptionsMarketParamUpdateProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal":
+      return TradingRewardCampaignLaunchProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal":
+      return TradingRewardCampaignUpdateProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal":
+      return TradingRewardPendingPointsUpdateProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.FeeDiscountProposal":
+      return FeeDiscountProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal":
+      return BatchCommunityPoolSpendProposal.decode(data.value);
+    case "/injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal":
+      return AtomicMarketOrderFeeMultiplierScheduleProposal.decode(data.value);
+    case "/injective.ocr.v1beta1.SetConfigProposal":
+      return SetConfigProposal.decode(data.value);
+    case "/injective.ocr.v1beta1.SetBatchConfigProposal":
+      return SetBatchConfigProposal.decode(data.value);
+    case "/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal":
+      return GrantBandOraclePrivilegeProposal.decode(data.value);
+    case "/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal":
+      return RevokeBandOraclePrivilegeProposal.decode(data.value);
+    case "/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal":
+      return GrantPriceFeederPrivilegeProposal.decode(data.value);
+    case "/injective.oracle.v1beta1.GrantProviderPrivilegeProposal":
+      return GrantProviderPrivilegeProposal.decode(data.value);
+    case "/injective.oracle.v1beta1.RevokeProviderPrivilegeProposal":
+      return RevokeProviderPrivilegeProposal.decode(data.value);
+    case "/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal":
+      return RevokePriceFeederPrivilegeProposal.decode(data.value);
+    case "/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal":
+      return AuthorizeBandOracleRequestProposal.decode(data.value);
+    case "/injective.oracle.v1beta1.UpdateBandOracleRequestProposal":
+      return UpdateBandOracleRequestProposal.decode(data.value);
+    case "/injective.oracle.v1beta1.EnableBandIBCProposal":
+      return EnableBandIBCProposal.decode(data.value);
+    case "/injective.peggy.v1.BlacklistEthereumAddressesProposal":
+      return BlacklistEthereumAddressesProposal.decode(data.value);
+    case "/injective.peggy.v1.RevokeEthereumBlacklistProposal":
+      return RevokeEthereumBlacklistProposal.decode(data.value);
+    case "/injective.wasmx.v1.ContractRegistrationRequestProposal":
+      return ContractRegistrationRequestProposal.decode(data.value);
+    case "/injective.wasmx.v1.BatchContractRegistrationRequestProposal":
+      return BatchContractRegistrationRequestProposal.decode(data.value);
+    case "/injective.wasmx.v1.BatchContractDeregistrationProposal":
+      return BatchContractDeregistrationProposal.decode(data.value);
+    case "/injective.wasmx.v1.ContractRegistrationRequest":
+      return ContractRegistrationRequest.decode(data.value);
+    case "/injective.wasmx.v1.BatchStoreCodeProposal":
+      return BatchStoreCodeProposal.decode(data.value);
+    case "/cosmos.distribution.v1beta1.CommunityPoolSpendProposal":
+      return CommunityPoolSpendProposal.decode(data.value);
+    case "/cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit":
+      return CommunityPoolSpendProposalWithDeposit.decode(data.value);
+    case "/cosmos.gov.v1beta1.TextProposal":
+      return TextProposal.decode(data.value);
+    case "/cosmos.params.v1beta1.ParameterChangeProposal":
+      return ParameterChangeProposal.decode(data.value);
+    case "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal":
+      return SoftwareUpgradeProposal.decode(data.value);
+    case "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal":
+      return CancelSoftwareUpgradeProposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.StoreCodeProposal":
+      return StoreCodeProposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.InstantiateContractProposal":
+      return InstantiateContractProposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.InstantiateContract2Proposal":
+      return InstantiateContract2Proposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.MigrateContractProposal":
+      return MigrateContractProposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.SudoContractProposal":
+      return SudoContractProposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.ExecuteContractProposal":
+      return ExecuteContractProposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.UpdateAdminProposal":
+      return UpdateAdminProposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.ClearAdminProposal":
+      return ClearAdminProposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.PinCodesProposal":
+      return PinCodesProposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.UnpinCodesProposal":
+      return UnpinCodesProposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.UpdateInstantiateConfigProposal":
+      return UpdateInstantiateConfigProposal.decode(data.value);
+    case "/cosmwasm.wasm.v1.StoreAndInstantiateContractProposal":
+      return StoreAndInstantiateContractProposal.decode(data.value);
+    default:
+      return data;
+  }
+};
+export const Cosmos_govv1beta1Content_FromAmino = (content: AnyAmino) => {
+  switch (content.type) {
+    case "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal",
+        value: SpotMarketParamUpdateProposal.encode(SpotMarketParamUpdateProposal.fromPartial(SpotMarketParamUpdateProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.BatchExchangeModificationProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.BatchExchangeModificationProposal",
+        value: BatchExchangeModificationProposal.encode(BatchExchangeModificationProposal.fromPartial(BatchExchangeModificationProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.SpotMarketLaunchProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.SpotMarketLaunchProposal",
+        value: SpotMarketLaunchProposal.encode(SpotMarketLaunchProposal.fromPartial(SpotMarketLaunchProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.PerpetualMarketLaunchProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.PerpetualMarketLaunchProposal",
+        value: PerpetualMarketLaunchProposal.encode(PerpetualMarketLaunchProposal.fromPartial(PerpetualMarketLaunchProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal",
+        value: BinaryOptionsMarketLaunchProposal.encode(BinaryOptionsMarketLaunchProposal.fromPartial(BinaryOptionsMarketLaunchProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal",
+        value: ExpiryFuturesMarketLaunchProposal.encode(ExpiryFuturesMarketLaunchProposal.fromPartial(ExpiryFuturesMarketLaunchProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal",
+        value: DerivativeMarketParamUpdateProposal.encode(DerivativeMarketParamUpdateProposal.fromPartial(DerivativeMarketParamUpdateProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.MarketForcedSettlementProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.MarketForcedSettlementProposal",
+        value: MarketForcedSettlementProposal.encode(MarketForcedSettlementProposal.fromPartial(MarketForcedSettlementProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.UpdateDenomDecimalsProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.UpdateDenomDecimalsProposal",
+        value: UpdateDenomDecimalsProposal.encode(UpdateDenomDecimalsProposal.fromPartial(UpdateDenomDecimalsProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal",
+        value: BinaryOptionsMarketParamUpdateProposal.encode(BinaryOptionsMarketParamUpdateProposal.fromPartial(BinaryOptionsMarketParamUpdateProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal",
+        value: TradingRewardCampaignLaunchProposal.encode(TradingRewardCampaignLaunchProposal.fromPartial(TradingRewardCampaignLaunchProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal",
+        value: TradingRewardCampaignUpdateProposal.encode(TradingRewardCampaignUpdateProposal.fromPartial(TradingRewardCampaignUpdateProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal",
+        value: TradingRewardPendingPointsUpdateProposal.encode(TradingRewardPendingPointsUpdateProposal.fromPartial(TradingRewardPendingPointsUpdateProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.FeeDiscountProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.FeeDiscountProposal",
+        value: FeeDiscountProposal.encode(FeeDiscountProposal.fromPartial(FeeDiscountProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal",
+        value: BatchCommunityPoolSpendProposal.encode(BatchCommunityPoolSpendProposal.fromPartial(BatchCommunityPoolSpendProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal",
+        value: AtomicMarketOrderFeeMultiplierScheduleProposal.encode(AtomicMarketOrderFeeMultiplierScheduleProposal.fromPartial(AtomicMarketOrderFeeMultiplierScheduleProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.ocr.v1beta1.SetConfigProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.ocr.v1beta1.SetConfigProposal",
+        value: SetConfigProposal.encode(SetConfigProposal.fromPartial(SetConfigProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.ocr.v1beta1.SetBatchConfigProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.ocr.v1beta1.SetBatchConfigProposal",
+        value: SetBatchConfigProposal.encode(SetBatchConfigProposal.fromPartial(SetBatchConfigProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal",
+        value: GrantBandOraclePrivilegeProposal.encode(GrantBandOraclePrivilegeProposal.fromPartial(GrantBandOraclePrivilegeProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal",
+        value: RevokeBandOraclePrivilegeProposal.encode(RevokeBandOraclePrivilegeProposal.fromPartial(RevokeBandOraclePrivilegeProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal",
+        value: GrantPriceFeederPrivilegeProposal.encode(GrantPriceFeederPrivilegeProposal.fromPartial(GrantPriceFeederPrivilegeProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.oracle.v1beta1.GrantProviderPrivilegeProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.oracle.v1beta1.GrantProviderPrivilegeProposal",
+        value: GrantProviderPrivilegeProposal.encode(GrantProviderPrivilegeProposal.fromPartial(GrantProviderPrivilegeProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.oracle.v1beta1.RevokeProviderPrivilegeProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.oracle.v1beta1.RevokeProviderPrivilegeProposal",
+        value: RevokeProviderPrivilegeProposal.encode(RevokeProviderPrivilegeProposal.fromPartial(RevokeProviderPrivilegeProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal",
+        value: RevokePriceFeederPrivilegeProposal.encode(RevokePriceFeederPrivilegeProposal.fromPartial(RevokePriceFeederPrivilegeProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal",
+        value: AuthorizeBandOracleRequestProposal.encode(AuthorizeBandOracleRequestProposal.fromPartial(AuthorizeBandOracleRequestProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.oracle.v1beta1.UpdateBandOracleRequestProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.oracle.v1beta1.UpdateBandOracleRequestProposal",
+        value: UpdateBandOracleRequestProposal.encode(UpdateBandOracleRequestProposal.fromPartial(UpdateBandOracleRequestProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.oracle.v1beta1.EnableBandIBCProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.oracle.v1beta1.EnableBandIBCProposal",
+        value: EnableBandIBCProposal.encode(EnableBandIBCProposal.fromPartial(EnableBandIBCProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.peggy.v1.BlacklistEthereumAddressesProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.peggy.v1.BlacklistEthereumAddressesProposal",
+        value: BlacklistEthereumAddressesProposal.encode(BlacklistEthereumAddressesProposal.fromPartial(BlacklistEthereumAddressesProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.peggy.v1.RevokeEthereumBlacklistProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.peggy.v1.RevokeEthereumBlacklistProposal",
+        value: RevokeEthereumBlacklistProposal.encode(RevokeEthereumBlacklistProposal.fromPartial(RevokeEthereumBlacklistProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.wasmx.v1.ContractRegistrationRequestProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.wasmx.v1.ContractRegistrationRequestProposal",
+        value: ContractRegistrationRequestProposal.encode(ContractRegistrationRequestProposal.fromPartial(ContractRegistrationRequestProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.wasmx.v1.BatchContractRegistrationRequestProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.wasmx.v1.BatchContractRegistrationRequestProposal",
+        value: BatchContractRegistrationRequestProposal.encode(BatchContractRegistrationRequestProposal.fromPartial(BatchContractRegistrationRequestProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.wasmx.v1.BatchContractDeregistrationProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.wasmx.v1.BatchContractDeregistrationProposal",
+        value: BatchContractDeregistrationProposal.encode(BatchContractDeregistrationProposal.fromPartial(BatchContractDeregistrationProposal.fromAmino(content.value))).finish()
+      });
+    case "/injective.wasmx.v1.ContractRegistrationRequest":
+      return Any.fromPartial({
+        typeUrl: "/injective.wasmx.v1.ContractRegistrationRequest",
+        value: ContractRegistrationRequest.encode(ContractRegistrationRequest.fromPartial(ContractRegistrationRequest.fromAmino(content.value))).finish()
+      });
+    case "/injective.wasmx.v1.BatchStoreCodeProposal":
+      return Any.fromPartial({
+        typeUrl: "/injective.wasmx.v1.BatchStoreCodeProposal",
+        value: BatchStoreCodeProposal.encode(BatchStoreCodeProposal.fromPartial(BatchStoreCodeProposal.fromAmino(content.value))).finish()
+      });
+    case "cosmos-sdk/CommunityPoolSpendProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmos.distribution.v1beta1.CommunityPoolSpendProposal",
+        value: CommunityPoolSpendProposal.encode(CommunityPoolSpendProposal.fromPartial(CommunityPoolSpendProposal.fromAmino(content.value))).finish()
+      });
+    case "cosmos-sdk/CommunityPoolSpendProposalWithDeposit":
+      return Any.fromPartial({
+        typeUrl: "/cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit",
+        value: CommunityPoolSpendProposalWithDeposit.encode(CommunityPoolSpendProposalWithDeposit.fromPartial(CommunityPoolSpendProposalWithDeposit.fromAmino(content.value))).finish()
+      });
+    case "cosmos-sdk/TextProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmos.gov.v1beta1.TextProposal",
+        value: TextProposal.encode(TextProposal.fromPartial(TextProposal.fromAmino(content.value))).finish()
+      });
+    case "cosmos-sdk/ParameterChangeProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmos.params.v1beta1.ParameterChangeProposal",
+        value: ParameterChangeProposal.encode(ParameterChangeProposal.fromPartial(ParameterChangeProposal.fromAmino(content.value))).finish()
+      });
+    case "cosmos-sdk/SoftwareUpgradeProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal",
+        value: SoftwareUpgradeProposal.encode(SoftwareUpgradeProposal.fromPartial(SoftwareUpgradeProposal.fromAmino(content.value))).finish()
+      });
+    case "cosmos-sdk/CancelSoftwareUpgradeProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal",
+        value: CancelSoftwareUpgradeProposal.encode(CancelSoftwareUpgradeProposal.fromPartial(CancelSoftwareUpgradeProposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/StoreCodeProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.StoreCodeProposal",
+        value: StoreCodeProposal.encode(StoreCodeProposal.fromPartial(StoreCodeProposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/InstantiateContractProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.InstantiateContractProposal",
+        value: InstantiateContractProposal.encode(InstantiateContractProposal.fromPartial(InstantiateContractProposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/InstantiateContract2Proposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.InstantiateContract2Proposal",
+        value: InstantiateContract2Proposal.encode(InstantiateContract2Proposal.fromPartial(InstantiateContract2Proposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/MigrateContractProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.MigrateContractProposal",
+        value: MigrateContractProposal.encode(MigrateContractProposal.fromPartial(MigrateContractProposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/SudoContractProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.SudoContractProposal",
+        value: SudoContractProposal.encode(SudoContractProposal.fromPartial(SudoContractProposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/ExecuteContractProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.ExecuteContractProposal",
+        value: ExecuteContractProposal.encode(ExecuteContractProposal.fromPartial(ExecuteContractProposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/UpdateAdminProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.UpdateAdminProposal",
+        value: UpdateAdminProposal.encode(UpdateAdminProposal.fromPartial(UpdateAdminProposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/ClearAdminProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.ClearAdminProposal",
+        value: ClearAdminProposal.encode(ClearAdminProposal.fromPartial(ClearAdminProposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/PinCodesProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.PinCodesProposal",
+        value: PinCodesProposal.encode(PinCodesProposal.fromPartial(PinCodesProposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/UnpinCodesProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.UnpinCodesProposal",
+        value: UnpinCodesProposal.encode(UnpinCodesProposal.fromPartial(UnpinCodesProposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/UpdateInstantiateConfigProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.UpdateInstantiateConfigProposal",
+        value: UpdateInstantiateConfigProposal.encode(UpdateInstantiateConfigProposal.fromPartial(UpdateInstantiateConfigProposal.fromAmino(content.value))).finish()
+      });
+    case "wasm/StoreAndInstantiateContractProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmwasm.wasm.v1.StoreAndInstantiateContractProposal",
+        value: StoreAndInstantiateContractProposal.encode(StoreAndInstantiateContractProposal.fromPartial(StoreAndInstantiateContractProposal.fromAmino(content.value))).finish()
+      });
+    default:
+      return Any.fromAmino(content);
+  }
+};
+export const Cosmos_govv1beta1Content_ToAmino = (content: Any) => {
+  switch (content.typeUrl) {
+    case "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal":
+      return {
+        type: "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal",
+        value: SpotMarketParamUpdateProposal.toAmino(SpotMarketParamUpdateProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.BatchExchangeModificationProposal":
+      return {
+        type: "/injective.exchange.v1beta1.BatchExchangeModificationProposal",
+        value: BatchExchangeModificationProposal.toAmino(BatchExchangeModificationProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.SpotMarketLaunchProposal":
+      return {
+        type: "/injective.exchange.v1beta1.SpotMarketLaunchProposal",
+        value: SpotMarketLaunchProposal.toAmino(SpotMarketLaunchProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.PerpetualMarketLaunchProposal":
+      return {
+        type: "/injective.exchange.v1beta1.PerpetualMarketLaunchProposal",
+        value: PerpetualMarketLaunchProposal.toAmino(PerpetualMarketLaunchProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal":
+      return {
+        type: "/injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal",
+        value: BinaryOptionsMarketLaunchProposal.toAmino(BinaryOptionsMarketLaunchProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal":
+      return {
+        type: "/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal",
+        value: ExpiryFuturesMarketLaunchProposal.toAmino(ExpiryFuturesMarketLaunchProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal":
+      return {
+        type: "/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal",
+        value: DerivativeMarketParamUpdateProposal.toAmino(DerivativeMarketParamUpdateProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.MarketForcedSettlementProposal":
+      return {
+        type: "/injective.exchange.v1beta1.MarketForcedSettlementProposal",
+        value: MarketForcedSettlementProposal.toAmino(MarketForcedSettlementProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.UpdateDenomDecimalsProposal":
+      return {
+        type: "/injective.exchange.v1beta1.UpdateDenomDecimalsProposal",
+        value: UpdateDenomDecimalsProposal.toAmino(UpdateDenomDecimalsProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal":
+      return {
+        type: "/injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal",
+        value: BinaryOptionsMarketParamUpdateProposal.toAmino(BinaryOptionsMarketParamUpdateProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal":
+      return {
+        type: "/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal",
+        value: TradingRewardCampaignLaunchProposal.toAmino(TradingRewardCampaignLaunchProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal":
+      return {
+        type: "/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal",
+        value: TradingRewardCampaignUpdateProposal.toAmino(TradingRewardCampaignUpdateProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal":
+      return {
+        type: "/injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal",
+        value: TradingRewardPendingPointsUpdateProposal.toAmino(TradingRewardPendingPointsUpdateProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.FeeDiscountProposal":
+      return {
+        type: "/injective.exchange.v1beta1.FeeDiscountProposal",
+        value: FeeDiscountProposal.toAmino(FeeDiscountProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal":
+      return {
+        type: "/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal",
+        value: BatchCommunityPoolSpendProposal.toAmino(BatchCommunityPoolSpendProposal.decode(content.value))
+      };
+    case "/injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal":
+      return {
+        type: "/injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal",
+        value: AtomicMarketOrderFeeMultiplierScheduleProposal.toAmino(AtomicMarketOrderFeeMultiplierScheduleProposal.decode(content.value))
+      };
+    case "/injective.ocr.v1beta1.SetConfigProposal":
+      return {
+        type: "/injective.ocr.v1beta1.SetConfigProposal",
+        value: SetConfigProposal.toAmino(SetConfigProposal.decode(content.value))
+      };
+    case "/injective.ocr.v1beta1.SetBatchConfigProposal":
+      return {
+        type: "/injective.ocr.v1beta1.SetBatchConfigProposal",
+        value: SetBatchConfigProposal.toAmino(SetBatchConfigProposal.decode(content.value))
+      };
+    case "/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal":
+      return {
+        type: "/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal",
+        value: GrantBandOraclePrivilegeProposal.toAmino(GrantBandOraclePrivilegeProposal.decode(content.value))
+      };
+    case "/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal":
+      return {
+        type: "/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal",
+        value: RevokeBandOraclePrivilegeProposal.toAmino(RevokeBandOraclePrivilegeProposal.decode(content.value))
+      };
+    case "/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal":
+      return {
+        type: "/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal",
+        value: GrantPriceFeederPrivilegeProposal.toAmino(GrantPriceFeederPrivilegeProposal.decode(content.value))
+      };
+    case "/injective.oracle.v1beta1.GrantProviderPrivilegeProposal":
+      return {
+        type: "/injective.oracle.v1beta1.GrantProviderPrivilegeProposal",
+        value: GrantProviderPrivilegeProposal.toAmino(GrantProviderPrivilegeProposal.decode(content.value))
+      };
+    case "/injective.oracle.v1beta1.RevokeProviderPrivilegeProposal":
+      return {
+        type: "/injective.oracle.v1beta1.RevokeProviderPrivilegeProposal",
+        value: RevokeProviderPrivilegeProposal.toAmino(RevokeProviderPrivilegeProposal.decode(content.value))
+      };
+    case "/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal":
+      return {
+        type: "/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal",
+        value: RevokePriceFeederPrivilegeProposal.toAmino(RevokePriceFeederPrivilegeProposal.decode(content.value))
+      };
+    case "/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal":
+      return {
+        type: "/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal",
+        value: AuthorizeBandOracleRequestProposal.toAmino(AuthorizeBandOracleRequestProposal.decode(content.value))
+      };
+    case "/injective.oracle.v1beta1.UpdateBandOracleRequestProposal":
+      return {
+        type: "/injective.oracle.v1beta1.UpdateBandOracleRequestProposal",
+        value: UpdateBandOracleRequestProposal.toAmino(UpdateBandOracleRequestProposal.decode(content.value))
+      };
+    case "/injective.oracle.v1beta1.EnableBandIBCProposal":
+      return {
+        type: "/injective.oracle.v1beta1.EnableBandIBCProposal",
+        value: EnableBandIBCProposal.toAmino(EnableBandIBCProposal.decode(content.value))
+      };
+    case "/injective.peggy.v1.BlacklistEthereumAddressesProposal":
+      return {
+        type: "/injective.peggy.v1.BlacklistEthereumAddressesProposal",
+        value: BlacklistEthereumAddressesProposal.toAmino(BlacklistEthereumAddressesProposal.decode(content.value))
+      };
+    case "/injective.peggy.v1.RevokeEthereumBlacklistProposal":
+      return {
+        type: "/injective.peggy.v1.RevokeEthereumBlacklistProposal",
+        value: RevokeEthereumBlacklistProposal.toAmino(RevokeEthereumBlacklistProposal.decode(content.value))
+      };
+    case "/injective.wasmx.v1.ContractRegistrationRequestProposal":
+      return {
+        type: "/injective.wasmx.v1.ContractRegistrationRequestProposal",
+        value: ContractRegistrationRequestProposal.toAmino(ContractRegistrationRequestProposal.decode(content.value))
+      };
+    case "/injective.wasmx.v1.BatchContractRegistrationRequestProposal":
+      return {
+        type: "/injective.wasmx.v1.BatchContractRegistrationRequestProposal",
+        value: BatchContractRegistrationRequestProposal.toAmino(BatchContractRegistrationRequestProposal.decode(content.value))
+      };
+    case "/injective.wasmx.v1.BatchContractDeregistrationProposal":
+      return {
+        type: "/injective.wasmx.v1.BatchContractDeregistrationProposal",
+        value: BatchContractDeregistrationProposal.toAmino(BatchContractDeregistrationProposal.decode(content.value))
+      };
+    case "/injective.wasmx.v1.ContractRegistrationRequest":
+      return {
+        type: "/injective.wasmx.v1.ContractRegistrationRequest",
+        value: ContractRegistrationRequest.toAmino(ContractRegistrationRequest.decode(content.value))
+      };
+    case "/injective.wasmx.v1.BatchStoreCodeProposal":
+      return {
+        type: "/injective.wasmx.v1.BatchStoreCodeProposal",
+        value: BatchStoreCodeProposal.toAmino(BatchStoreCodeProposal.decode(content.value))
+      };
+    case "/cosmos.distribution.v1beta1.CommunityPoolSpendProposal":
+      return {
+        type: "cosmos-sdk/CommunityPoolSpendProposal",
+        value: CommunityPoolSpendProposal.toAmino(CommunityPoolSpendProposal.decode(content.value))
+      };
+    case "/cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit":
+      return {
+        type: "cosmos-sdk/CommunityPoolSpendProposalWithDeposit",
+        value: CommunityPoolSpendProposalWithDeposit.toAmino(CommunityPoolSpendProposalWithDeposit.decode(content.value))
+      };
+    case "/cosmos.gov.v1beta1.TextProposal":
+      return {
+        type: "cosmos-sdk/TextProposal",
+        value: TextProposal.toAmino(TextProposal.decode(content.value))
+      };
+    case "/cosmos.params.v1beta1.ParameterChangeProposal":
+      return {
+        type: "cosmos-sdk/ParameterChangeProposal",
+        value: ParameterChangeProposal.toAmino(ParameterChangeProposal.decode(content.value))
+      };
+    case "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal":
+      return {
+        type: "cosmos-sdk/SoftwareUpgradeProposal",
+        value: SoftwareUpgradeProposal.toAmino(SoftwareUpgradeProposal.decode(content.value))
+      };
+    case "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal":
+      return {
+        type: "cosmos-sdk/CancelSoftwareUpgradeProposal",
+        value: CancelSoftwareUpgradeProposal.toAmino(CancelSoftwareUpgradeProposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.StoreCodeProposal":
+      return {
+        type: "wasm/StoreCodeProposal",
+        value: StoreCodeProposal.toAmino(StoreCodeProposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.InstantiateContractProposal":
+      return {
+        type: "wasm/InstantiateContractProposal",
+        value: InstantiateContractProposal.toAmino(InstantiateContractProposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.InstantiateContract2Proposal":
+      return {
+        type: "wasm/InstantiateContract2Proposal",
+        value: InstantiateContract2Proposal.toAmino(InstantiateContract2Proposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.MigrateContractProposal":
+      return {
+        type: "wasm/MigrateContractProposal",
+        value: MigrateContractProposal.toAmino(MigrateContractProposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.SudoContractProposal":
+      return {
+        type: "wasm/SudoContractProposal",
+        value: SudoContractProposal.toAmino(SudoContractProposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.ExecuteContractProposal":
+      return {
+        type: "wasm/ExecuteContractProposal",
+        value: ExecuteContractProposal.toAmino(ExecuteContractProposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.UpdateAdminProposal":
+      return {
+        type: "wasm/UpdateAdminProposal",
+        value: UpdateAdminProposal.toAmino(UpdateAdminProposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.ClearAdminProposal":
+      return {
+        type: "wasm/ClearAdminProposal",
+        value: ClearAdminProposal.toAmino(ClearAdminProposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.PinCodesProposal":
+      return {
+        type: "wasm/PinCodesProposal",
+        value: PinCodesProposal.toAmino(PinCodesProposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.UnpinCodesProposal":
+      return {
+        type: "wasm/UnpinCodesProposal",
+        value: UnpinCodesProposal.toAmino(UnpinCodesProposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.UpdateInstantiateConfigProposal":
+      return {
+        type: "wasm/UpdateInstantiateConfigProposal",
+        value: UpdateInstantiateConfigProposal.toAmino(UpdateInstantiateConfigProposal.decode(content.value))
+      };
+    case "/cosmwasm.wasm.v1.StoreAndInstantiateContractProposal":
+      return {
+        type: "wasm/StoreAndInstantiateContractProposal",
+        value: StoreAndInstantiateContractProposal.toAmino(StoreAndInstantiateContractProposal.decode(content.value))
+      };
+    default:
+      return Any.toAmino(content);
   }
 };

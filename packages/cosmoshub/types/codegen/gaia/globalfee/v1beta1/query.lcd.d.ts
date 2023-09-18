@@ -1,9 +1,9 @@
-import { LCDClient } from "@osmonauts/lcd";
-import { QueryMinimumGasPricesRequest, QueryMinimumGasPricesResponseSDKType } from "./query";
+import { LCDClient } from "@cosmology/lcd";
+import { QueryParamsRequest, QueryParamsResponseSDKType } from "./query";
 export declare class LCDQueryClient {
     req: LCDClient;
     constructor({ requestClient }: {
         requestClient: LCDClient;
     });
-    minimumGasPrices(_params?: QueryMinimumGasPricesRequest): Promise<QueryMinimumGasPricesResponseSDKType>;
+    params(_params?: QueryParamsRequest): Promise<QueryParamsResponseSDKType>;
 }

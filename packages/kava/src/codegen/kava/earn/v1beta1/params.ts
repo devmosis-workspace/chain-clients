@@ -1,8 +1,20 @@
-import { AllowedVault, AllowedVaultSDKType } from "./vault";
-import * as _m0 from "protobufjs/minimal";
+import { AllowedVault, AllowedVaultAmino, AllowedVaultSDKType } from "./vault";
+import { BinaryWriter } from "../../../binary";
 /** Params defines the parameters of the earn module. */
 export interface Params {
   allowedVaults: AllowedVault[];
+}
+export interface ParamsProtoMsg {
+  typeUrl: "/kava.earn.v1beta1.Params";
+  value: Uint8Array;
+}
+/** Params defines the parameters of the earn module. */
+export interface ParamsAmino {
+  allowed_vaults: AllowedVaultAmino[];
+}
+export interface ParamsAminoMsg {
+  type: "/kava.earn.v1beta1.Params";
+  value: ParamsAmino;
 }
 /** Params defines the parameters of the earn module. */
 export interface ParamsSDKType {
@@ -14,7 +26,8 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.earn.v1beta1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.allowedVaults) {
       AllowedVault.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -29,5 +42,34 @@ export const Params = {
     const message = createBaseParams();
     message.allowedVaults = object.allowedVaults?.map(e => AllowedVault.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      allowedVaults: Array.isArray(object?.allowed_vaults) ? object.allowed_vaults.map((e: any) => AllowedVault.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.allowedVaults) {
+      obj.allowed_vaults = message.allowedVaults.map(e => e ? AllowedVault.toAmino(e) : undefined);
+    } else {
+      obj.allowed_vaults = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/kava.earn.v1beta1.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };

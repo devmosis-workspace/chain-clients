@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgRelayProviderPrices, MsgRelayProviderPricesResponse, MsgRelayPriceFeedPrice, MsgRelayPriceFeedPriceResponse, MsgRelayBandRates, MsgRelayBandRatesResponse, MsgRequestBandIBCRates, MsgRequestBandIBCRatesResponse, MsgRelayCoinbaseMessages, MsgRelayCoinbaseMessagesResponse, MsgRelayPythPrices, MsgRelayPythPricesResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the oracle Msg service. */
 export interface Msg {
@@ -42,36 +42,36 @@ export class MsgClientImpl implements Msg {
   relayProviderPrices(request: MsgRelayProviderPrices): Promise<MsgRelayProviderPricesResponse> {
     const data = MsgRelayProviderPrices.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Msg", "RelayProviderPrices", data);
-    return promise.then(data => MsgRelayProviderPricesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRelayProviderPricesResponse.decode(new BinaryReader(data)));
   }
   relayPriceFeedPrice(request: MsgRelayPriceFeedPrice): Promise<MsgRelayPriceFeedPriceResponse> {
     const data = MsgRelayPriceFeedPrice.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Msg", "RelayPriceFeedPrice", data);
-    return promise.then(data => MsgRelayPriceFeedPriceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRelayPriceFeedPriceResponse.decode(new BinaryReader(data)));
   }
   relayBandRates(request: MsgRelayBandRates): Promise<MsgRelayBandRatesResponse> {
     const data = MsgRelayBandRates.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Msg", "RelayBandRates", data);
-    return promise.then(data => MsgRelayBandRatesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRelayBandRatesResponse.decode(new BinaryReader(data)));
   }
   requestBandIBCRates(request: MsgRequestBandIBCRates): Promise<MsgRequestBandIBCRatesResponse> {
     const data = MsgRequestBandIBCRates.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Msg", "RequestBandIBCRates", data);
-    return promise.then(data => MsgRequestBandIBCRatesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRequestBandIBCRatesResponse.decode(new BinaryReader(data)));
   }
   relayCoinbaseMessages(request: MsgRelayCoinbaseMessages): Promise<MsgRelayCoinbaseMessagesResponse> {
     const data = MsgRelayCoinbaseMessages.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Msg", "RelayCoinbaseMessages", data);
-    return promise.then(data => MsgRelayCoinbaseMessagesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRelayCoinbaseMessagesResponse.decode(new BinaryReader(data)));
   }
   relayPythPrices(request: MsgRelayPythPrices): Promise<MsgRelayPythPricesResponse> {
     const data = MsgRelayPythPrices.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Msg", "RelayPythPrices", data);
-    return promise.then(data => MsgRelayPythPricesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRelayPythPricesResponse.decode(new BinaryReader(data)));
   }
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Msg", "UpdateParams", data);
-    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }

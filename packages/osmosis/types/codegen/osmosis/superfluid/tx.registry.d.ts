@@ -1,5 +1,5 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgSuperfluidDelegate, MsgSuperfluidUndelegate, MsgSuperfluidUnbondLock, MsgSuperfluidUndelegateAndUnbondLock, MsgLockAndSuperfluidDelegate, MsgCreateFullRangePositionAndSuperfluidDelegate, MsgUnPoolWhitelistedPool, MsgUnlockAndMigrateSharesToFullRangeConcentratedPosition, MsgAddToConcentratedLiquiditySuperfluidPosition } from "./tx";
+import { MsgSuperfluidDelegate, MsgSuperfluidUndelegate, MsgSuperfluidUnbondLock, MsgSuperfluidUndelegateAndUnbondLock, MsgLockAndSuperfluidDelegate, MsgCreateFullRangePositionAndSuperfluidDelegate, MsgUnPoolWhitelistedPool, MsgUnlockAndMigrateSharesToFullRangeConcentratedPosition, MsgAddToConcentratedLiquiditySuperfluidPosition, MsgUnbondConvertAndStake } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
@@ -37,6 +37,10 @@ export declare const MessageComposer: {
             value: Uint8Array;
         };
         addToConcentratedLiquiditySuperfluidPosition(value: MsgAddToConcentratedLiquiditySuperfluidPosition): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        unbondConvertAndStake(value: MsgUnbondConvertAndStake): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -78,6 +82,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgAddToConcentratedLiquiditySuperfluidPosition;
         };
+        unbondConvertAndStake(value: MsgUnbondConvertAndStake): {
+            typeUrl: string;
+            value: MsgUnbondConvertAndStake;
+        };
     };
     fromJSON: {
         superfluidDelegate(value: any): {
@@ -116,6 +124,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgAddToConcentratedLiquiditySuperfluidPosition;
         };
+        unbondConvertAndStake(value: any): {
+            typeUrl: string;
+            value: MsgUnbondConvertAndStake;
+        };
     };
     fromPartial: {
         superfluidDelegate(value: MsgSuperfluidDelegate): {
@@ -153,6 +165,10 @@ export declare const MessageComposer: {
         addToConcentratedLiquiditySuperfluidPosition(value: MsgAddToConcentratedLiquiditySuperfluidPosition): {
             typeUrl: string;
             value: MsgAddToConcentratedLiquiditySuperfluidPosition;
+        };
+        unbondConvertAndStake(value: MsgUnbondConvertAndStake): {
+            typeUrl: string;
+            value: MsgUnbondConvertAndStake;
         };
     };
 };

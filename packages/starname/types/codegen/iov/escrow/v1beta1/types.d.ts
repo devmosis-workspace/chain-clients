@@ -1,7 +1,6 @@
-import { Any, AnySDKType } from "../../../google/protobuf/any";
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Long } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryReader, BinaryWriter } from "../../../binary";
 /** EscrowState defines the state of an escrow */
 export declare enum EscrowState {
     /**
@@ -18,13 +17,14 @@ export declare enum EscrowState {
     UNRECOGNIZED = -1
 }
 export declare const EscrowStateSDKType: typeof EscrowState;
+export declare const EscrowStateAmino: typeof EscrowState;
 export declare function escrowStateFromJSON(object: any): EscrowState;
 export declare function escrowStateToJSON(object: EscrowState): string;
 /** Escrow defines the struct of an escrow */
 export interface Escrow {
     id: string;
     seller: string;
-    object?: Any;
+    object: (Any) | undefined;
     /**
      * TODO: refactor this to use sdk.Coin instead of sdk.Coins
      * Although the price contains multiple coins, for now we enforce a specific
@@ -32,23 +32,60 @@ export interface Escrow {
      */
     price: Coin[];
     state: EscrowState;
-    deadline: Long;
+    deadline: bigint;
     brokerAddress: string;
     brokerCommission: string;
+}
+export interface EscrowProtoMsg {
+    typeUrl: "/starnamed.x.escrow.v1beta1.Escrow";
+    value: Uint8Array;
+}
+export type EscrowEncoded = Omit<Escrow, "object"> & {
+    object?: AnyProtoMsg | undefined;
+};
+/** Escrow defines the struct of an escrow */
+export interface EscrowAmino {
+    id: string;
+    seller: string;
+    object?: AnyAmino;
+    /**
+     * TODO: refactor this to use sdk.Coin instead of sdk.Coins
+     * Although the price contains multiple coins, for now we enforce a specific
+     * denomination, so there will be only one coin type in a valid escrow
+     */
+    price: CoinAmino[];
+    state: EscrowState;
+    deadline: string;
+    broker_address: string;
+    broker_commission: string;
+}
+export interface EscrowAminoMsg {
+    type: "/starnamed.x.escrow.v1beta1.Escrow";
+    value: EscrowAmino;
 }
 /** Escrow defines the struct of an escrow */
 export interface EscrowSDKType {
     id: string;
     seller: string;
-    object?: AnySDKType;
+    object: AnySDKType | undefined;
     price: CoinSDKType[];
     state: EscrowState;
-    deadline: Long;
+    deadline: bigint;
     broker_address: string;
     broker_commission: string;
 }
 export declare const Escrow: {
-    encode(message: Escrow, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Escrow, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Escrow;
     fromPartial(object: Partial<Escrow>): Escrow;
+    fromAmino(object: EscrowAmino): Escrow;
+    toAmino(message: Escrow): EscrowAmino;
+    fromAminoMsg(object: EscrowAminoMsg): Escrow;
+    fromProtoMsg(message: EscrowProtoMsg): Escrow;
+    toProto(message: Escrow): Uint8Array;
+    toProtoMsg(message: Escrow): EscrowProtoMsg;
 };
+export declare const TransferableObject_InterfaceDecoder: (input: BinaryReader | Uint8Array) => Any;
+export declare const TransferableObject_FromAmino: (content: AnyAmino) => Any;
+export declare const TransferableObject_ToAmino: (content: Any) => AnyAmino;

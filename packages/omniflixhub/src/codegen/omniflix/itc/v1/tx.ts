@@ -1,24 +1,48 @@
-import { InteractionType, ClaimType, NFTDetails, NFTDetailsSDKType, Distribution, DistributionSDKType, interactionTypeFromJSON, claimTypeFromJSON } from "./itc";
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import { Duration, DurationSDKType } from "../../../google/protobuf/duration";
-import { Long, isSet, fromJsonTimestamp } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { InteractionType, ClaimType, NFTDetails, NFTDetailsAmino, NFTDetailsSDKType, Distribution, DistributionAmino, DistributionSDKType, interactionTypeFromJSON, claimTypeFromJSON } from "./itc";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { BinaryWriter } from "../../../binary";
+import { isSet, fromJsonTimestamp } from "../../../helpers";
 export interface MsgCreateCampaign {
   name: string;
   description: string;
   interaction: InteractionType;
   claimType: ClaimType;
   nftDenomId: string;
-  tokensPerClaim?: Coin;
-  maxAllowedClaims: Long;
-  deposit?: Coin;
-  nftMintDetails?: NFTDetails;
-  startTime?: Timestamp;
-  duration?: Duration;
-  distribution?: Distribution;
+  tokensPerClaim: Coin;
+  maxAllowedClaims: bigint;
+  deposit: Coin;
+  nftMintDetails: NFTDetails;
+  startTime: Timestamp;
+  duration: Duration;
+  distribution: Distribution;
   creator: string;
-  creationFee?: Coin;
+  creationFee: Coin;
+}
+export interface MsgCreateCampaignProtoMsg {
+  typeUrl: "/OmniFlix.itc.v1.MsgCreateCampaign";
+  value: Uint8Array;
+}
+export interface MsgCreateCampaignAmino {
+  name: string;
+  description: string;
+  interaction: InteractionType;
+  claim_type: ClaimType;
+  nft_denom_id: string;
+  tokens_per_claim?: CoinAmino;
+  max_allowed_claims: string;
+  deposit?: CoinAmino;
+  nft_mint_details?: NFTDetailsAmino;
+  start_time?: TimestampAmino;
+  duration?: DurationAmino;
+  distribution?: DistributionAmino;
+  creator: string;
+  creation_fee?: CoinAmino;
+}
+export interface MsgCreateCampaignAminoMsg {
+  type: "/OmniFlix.itc.v1.MsgCreateCampaign";
+  value: MsgCreateCampaignAmino;
 }
 export interface MsgCreateCampaignSDKType {
   name: string;
@@ -26,53 +50,128 @@ export interface MsgCreateCampaignSDKType {
   interaction: InteractionType;
   claim_type: ClaimType;
   nft_denom_id: string;
-  tokens_per_claim?: CoinSDKType;
-  max_allowed_claims: Long;
-  deposit?: CoinSDKType;
-  nft_mint_details?: NFTDetailsSDKType;
-  start_time?: TimestampSDKType;
-  duration?: DurationSDKType;
-  distribution?: DistributionSDKType;
+  tokens_per_claim: CoinSDKType;
+  max_allowed_claims: bigint;
+  deposit: CoinSDKType;
+  nft_mint_details: NFTDetailsSDKType;
+  start_time: TimestampSDKType;
+  duration: DurationSDKType;
+  distribution: DistributionSDKType;
   creator: string;
-  creation_fee?: CoinSDKType;
+  creation_fee: CoinSDKType;
 }
 export interface MsgCreateCampaignResponse {}
+export interface MsgCreateCampaignResponseProtoMsg {
+  typeUrl: "/OmniFlix.itc.v1.MsgCreateCampaignResponse";
+  value: Uint8Array;
+}
+export interface MsgCreateCampaignResponseAmino {}
+export interface MsgCreateCampaignResponseAminoMsg {
+  type: "/OmniFlix.itc.v1.MsgCreateCampaignResponse";
+  value: MsgCreateCampaignResponseAmino;
+}
 export interface MsgCreateCampaignResponseSDKType {}
 export interface MsgCancelCampaign {
-  campaignId: Long;
+  campaignId: bigint;
   creator: string;
 }
+export interface MsgCancelCampaignProtoMsg {
+  typeUrl: "/OmniFlix.itc.v1.MsgCancelCampaign";
+  value: Uint8Array;
+}
+export interface MsgCancelCampaignAmino {
+  campaign_id: string;
+  creator: string;
+}
+export interface MsgCancelCampaignAminoMsg {
+  type: "/OmniFlix.itc.v1.MsgCancelCampaign";
+  value: MsgCancelCampaignAmino;
+}
 export interface MsgCancelCampaignSDKType {
-  campaign_id: Long;
+  campaign_id: bigint;
   creator: string;
 }
 export interface MsgCancelCampaignResponse {}
+export interface MsgCancelCampaignResponseProtoMsg {
+  typeUrl: "/OmniFlix.itc.v1.MsgCancelCampaignResponse";
+  value: Uint8Array;
+}
+export interface MsgCancelCampaignResponseAmino {}
+export interface MsgCancelCampaignResponseAminoMsg {
+  type: "/OmniFlix.itc.v1.MsgCancelCampaignResponse";
+  value: MsgCancelCampaignResponseAmino;
+}
 export interface MsgCancelCampaignResponseSDKType {}
 export interface MsgClaim {
-  campaignId: Long;
+  campaignId: bigint;
   nftId: string;
   interaction: InteractionType;
   claimer: string;
 }
+export interface MsgClaimProtoMsg {
+  typeUrl: "/OmniFlix.itc.v1.MsgClaim";
+  value: Uint8Array;
+}
+export interface MsgClaimAmino {
+  campaign_id: string;
+  nft_id: string;
+  interaction: InteractionType;
+  claimer: string;
+}
+export interface MsgClaimAminoMsg {
+  type: "/OmniFlix.itc.v1.MsgClaim";
+  value: MsgClaimAmino;
+}
 export interface MsgClaimSDKType {
-  campaign_id: Long;
+  campaign_id: bigint;
   nft_id: string;
   interaction: InteractionType;
   claimer: string;
 }
 export interface MsgClaimResponse {}
+export interface MsgClaimResponseProtoMsg {
+  typeUrl: "/OmniFlix.itc.v1.MsgClaimResponse";
+  value: Uint8Array;
+}
+export interface MsgClaimResponseAmino {}
+export interface MsgClaimResponseAminoMsg {
+  type: "/OmniFlix.itc.v1.MsgClaimResponse";
+  value: MsgClaimResponseAmino;
+}
 export interface MsgClaimResponseSDKType {}
 export interface MsgDepositCampaign {
-  campaignId: Long;
-  amount?: Coin;
+  campaignId: bigint;
+  amount: Coin;
   depositor: string;
 }
+export interface MsgDepositCampaignProtoMsg {
+  typeUrl: "/OmniFlix.itc.v1.MsgDepositCampaign";
+  value: Uint8Array;
+}
+export interface MsgDepositCampaignAmino {
+  campaign_id: string;
+  amount?: CoinAmino;
+  depositor: string;
+}
+export interface MsgDepositCampaignAminoMsg {
+  type: "/OmniFlix.itc.v1.MsgDepositCampaign";
+  value: MsgDepositCampaignAmino;
+}
 export interface MsgDepositCampaignSDKType {
-  campaign_id: Long;
-  amount?: CoinSDKType;
+  campaign_id: bigint;
+  amount: CoinSDKType;
   depositor: string;
 }
 export interface MsgDepositCampaignResponse {}
+export interface MsgDepositCampaignResponseProtoMsg {
+  typeUrl: "/OmniFlix.itc.v1.MsgDepositCampaignResponse";
+  value: Uint8Array;
+}
+export interface MsgDepositCampaignResponseAmino {}
+export interface MsgDepositCampaignResponseAminoMsg {
+  type: "/OmniFlix.itc.v1.MsgDepositCampaignResponse";
+  value: MsgDepositCampaignResponseAmino;
+}
 export interface MsgDepositCampaignResponseSDKType {}
 function createBaseMsgCreateCampaign(): MsgCreateCampaign {
   return {
@@ -81,19 +180,20 @@ function createBaseMsgCreateCampaign(): MsgCreateCampaign {
     interaction: 0,
     claimType: 0,
     nftDenomId: "",
-    tokensPerClaim: undefined,
-    maxAllowedClaims: Long.UZERO,
-    deposit: undefined,
-    nftMintDetails: undefined,
-    startTime: undefined,
-    duration: undefined,
-    distribution: undefined,
+    tokensPerClaim: Coin.fromPartial({}),
+    maxAllowedClaims: BigInt(0),
+    deposit: Coin.fromPartial({}),
+    nftMintDetails: NFTDetails.fromPartial({}),
+    startTime: Timestamp.fromPartial({}),
+    duration: Duration.fromPartial({}),
+    distribution: Distribution.fromPartial({}),
     creator: "",
-    creationFee: undefined
+    creationFee: Coin.fromPartial({})
   };
 }
 export const MsgCreateCampaign = {
-  encode(message: MsgCreateCampaign, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/OmniFlix.itc.v1.MsgCreateCampaign",
+  encode(message: MsgCreateCampaign, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -112,7 +212,7 @@ export const MsgCreateCampaign = {
     if (message.tokensPerClaim !== undefined) {
       Coin.encode(message.tokensPerClaim, writer.uint32(50).fork()).ldelim();
     }
-    if (!message.maxAllowedClaims.isZero()) {
+    if (message.maxAllowedClaims !== BigInt(0)) {
       writer.uint32(56).uint64(message.maxAllowedClaims);
     }
     if (message.deposit !== undefined) {
@@ -142,11 +242,11 @@ export const MsgCreateCampaign = {
     return {
       name: isSet(object.name) ? String(object.name) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      interaction: isSet(object.interaction) ? interactionTypeFromJSON(object.interaction) : 0,
-      claimType: isSet(object.claimType) ? claimTypeFromJSON(object.claimType) : 0,
+      interaction: isSet(object.interaction) ? interactionTypeFromJSON(object.interaction) : -1,
+      claimType: isSet(object.claimType) ? claimTypeFromJSON(object.claimType) : -1,
       nftDenomId: isSet(object.nftDenomId) ? String(object.nftDenomId) : "",
       tokensPerClaim: isSet(object.tokensPerClaim) ? Coin.fromJSON(object.tokensPerClaim) : undefined,
-      maxAllowedClaims: isSet(object.maxAllowedClaims) ? Long.fromValue(object.maxAllowedClaims) : Long.UZERO,
+      maxAllowedClaims: isSet(object.maxAllowedClaims) ? BigInt(object.maxAllowedClaims.toString()) : BigInt(0),
       deposit: isSet(object.deposit) ? Coin.fromJSON(object.deposit) : undefined,
       nftMintDetails: isSet(object.nftMintDetails) ? NFTDetails.fromJSON(object.nftMintDetails) : undefined,
       startTime: isSet(object.startTime) ? fromJsonTimestamp(object.startTime) : undefined,
@@ -164,7 +264,7 @@ export const MsgCreateCampaign = {
     message.claimType = object.claimType ?? 0;
     message.nftDenomId = object.nftDenomId ?? "";
     message.tokensPerClaim = object.tokensPerClaim !== undefined && object.tokensPerClaim !== null ? Coin.fromPartial(object.tokensPerClaim) : undefined;
-    message.maxAllowedClaims = object.maxAllowedClaims !== undefined && object.maxAllowedClaims !== null ? Long.fromValue(object.maxAllowedClaims) : Long.UZERO;
+    message.maxAllowedClaims = object.maxAllowedClaims !== undefined && object.maxAllowedClaims !== null ? BigInt(object.maxAllowedClaims.toString()) : BigInt(0);
     message.deposit = object.deposit !== undefined && object.deposit !== null ? Coin.fromPartial(object.deposit) : undefined;
     message.nftMintDetails = object.nftMintDetails !== undefined && object.nftMintDetails !== null ? NFTDetails.fromPartial(object.nftMintDetails) : undefined;
     message.startTime = object.startTime !== undefined && object.startTime !== null ? Timestamp.fromPartial(object.startTime) : undefined;
@@ -173,13 +273,65 @@ export const MsgCreateCampaign = {
     message.creator = object.creator ?? "";
     message.creationFee = object.creationFee !== undefined && object.creationFee !== null ? Coin.fromPartial(object.creationFee) : undefined;
     return message;
+  },
+  fromAmino(object: MsgCreateCampaignAmino): MsgCreateCampaign {
+    return {
+      name: object.name,
+      description: object.description,
+      interaction: isSet(object.interaction) ? interactionTypeFromJSON(object.interaction) : -1,
+      claimType: isSet(object.claim_type) ? claimTypeFromJSON(object.claim_type) : -1,
+      nftDenomId: object.nft_denom_id,
+      tokensPerClaim: object?.tokens_per_claim ? Coin.fromAmino(object.tokens_per_claim) : undefined,
+      maxAllowedClaims: BigInt(object.max_allowed_claims),
+      deposit: object?.deposit ? Coin.fromAmino(object.deposit) : undefined,
+      nftMintDetails: object?.nft_mint_details ? NFTDetails.fromAmino(object.nft_mint_details) : undefined,
+      startTime: object.start_time,
+      duration: object?.duration ? Duration.fromAmino(object.duration) : undefined,
+      distribution: object?.distribution ? Distribution.fromAmino(object.distribution) : undefined,
+      creator: object.creator,
+      creationFee: object?.creation_fee ? Coin.fromAmino(object.creation_fee) : undefined
+    };
+  },
+  toAmino(message: MsgCreateCampaign): MsgCreateCampaignAmino {
+    const obj: any = {};
+    obj.name = message.name;
+    obj.description = message.description;
+    obj.interaction = message.interaction;
+    obj.claim_type = message.claimType;
+    obj.nft_denom_id = message.nftDenomId;
+    obj.tokens_per_claim = message.tokensPerClaim ? Coin.toAmino(message.tokensPerClaim) : undefined;
+    obj.max_allowed_claims = message.maxAllowedClaims ? message.maxAllowedClaims.toString() : undefined;
+    obj.deposit = message.deposit ? Coin.toAmino(message.deposit) : undefined;
+    obj.nft_mint_details = message.nftMintDetails ? NFTDetails.toAmino(message.nftMintDetails) : undefined;
+    obj.start_time = message.startTime;
+    obj.duration = message.duration ? Duration.toAmino(message.duration) : undefined;
+    obj.distribution = message.distribution ? Distribution.toAmino(message.distribution) : undefined;
+    obj.creator = message.creator;
+    obj.creation_fee = message.creationFee ? Coin.toAmino(message.creationFee) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateCampaignAminoMsg): MsgCreateCampaign {
+    return MsgCreateCampaign.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCreateCampaignProtoMsg): MsgCreateCampaign {
+    return MsgCreateCampaign.decode(message.value);
+  },
+  toProto(message: MsgCreateCampaign): Uint8Array {
+    return MsgCreateCampaign.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateCampaign): MsgCreateCampaignProtoMsg {
+    return {
+      typeUrl: "/OmniFlix.itc.v1.MsgCreateCampaign",
+      value: MsgCreateCampaign.encode(message).finish()
+    };
   }
 };
 function createBaseMsgCreateCampaignResponse(): MsgCreateCampaignResponse {
   return {};
 }
 export const MsgCreateCampaignResponse = {
-  encode(_: MsgCreateCampaignResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/OmniFlix.itc.v1.MsgCreateCampaignResponse",
+  encode(_: MsgCreateCampaignResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgCreateCampaignResponse {
@@ -188,17 +340,40 @@ export const MsgCreateCampaignResponse = {
   fromPartial(_: Partial<MsgCreateCampaignResponse>): MsgCreateCampaignResponse {
     const message = createBaseMsgCreateCampaignResponse();
     return message;
+  },
+  fromAmino(_: MsgCreateCampaignResponseAmino): MsgCreateCampaignResponse {
+    return {};
+  },
+  toAmino(_: MsgCreateCampaignResponse): MsgCreateCampaignResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateCampaignResponseAminoMsg): MsgCreateCampaignResponse {
+    return MsgCreateCampaignResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCreateCampaignResponseProtoMsg): MsgCreateCampaignResponse {
+    return MsgCreateCampaignResponse.decode(message.value);
+  },
+  toProto(message: MsgCreateCampaignResponse): Uint8Array {
+    return MsgCreateCampaignResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateCampaignResponse): MsgCreateCampaignResponseProtoMsg {
+    return {
+      typeUrl: "/OmniFlix.itc.v1.MsgCreateCampaignResponse",
+      value: MsgCreateCampaignResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgCancelCampaign(): MsgCancelCampaign {
   return {
-    campaignId: Long.UZERO,
+    campaignId: BigInt(0),
     creator: ""
   };
 }
 export const MsgCancelCampaign = {
-  encode(message: MsgCancelCampaign, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.campaignId.isZero()) {
+  typeUrl: "/OmniFlix.itc.v1.MsgCancelCampaign",
+  encode(message: MsgCancelCampaign, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.campaignId !== BigInt(0)) {
       writer.uint32(8).uint64(message.campaignId);
     }
     if (message.creator !== "") {
@@ -208,22 +383,50 @@ export const MsgCancelCampaign = {
   },
   fromJSON(object: any): MsgCancelCampaign {
     return {
-      campaignId: isSet(object.campaignId) ? Long.fromValue(object.campaignId) : Long.UZERO,
+      campaignId: isSet(object.campaignId) ? BigInt(object.campaignId.toString()) : BigInt(0),
       creator: isSet(object.creator) ? String(object.creator) : ""
     };
   },
   fromPartial(object: Partial<MsgCancelCampaign>): MsgCancelCampaign {
     const message = createBaseMsgCancelCampaign();
-    message.campaignId = object.campaignId !== undefined && object.campaignId !== null ? Long.fromValue(object.campaignId) : Long.UZERO;
+    message.campaignId = object.campaignId !== undefined && object.campaignId !== null ? BigInt(object.campaignId.toString()) : BigInt(0);
     message.creator = object.creator ?? "";
     return message;
+  },
+  fromAmino(object: MsgCancelCampaignAmino): MsgCancelCampaign {
+    return {
+      campaignId: BigInt(object.campaign_id),
+      creator: object.creator
+    };
+  },
+  toAmino(message: MsgCancelCampaign): MsgCancelCampaignAmino {
+    const obj: any = {};
+    obj.campaign_id = message.campaignId ? message.campaignId.toString() : undefined;
+    obj.creator = message.creator;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCancelCampaignAminoMsg): MsgCancelCampaign {
+    return MsgCancelCampaign.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCancelCampaignProtoMsg): MsgCancelCampaign {
+    return MsgCancelCampaign.decode(message.value);
+  },
+  toProto(message: MsgCancelCampaign): Uint8Array {
+    return MsgCancelCampaign.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCancelCampaign): MsgCancelCampaignProtoMsg {
+    return {
+      typeUrl: "/OmniFlix.itc.v1.MsgCancelCampaign",
+      value: MsgCancelCampaign.encode(message).finish()
+    };
   }
 };
 function createBaseMsgCancelCampaignResponse(): MsgCancelCampaignResponse {
   return {};
 }
 export const MsgCancelCampaignResponse = {
-  encode(_: MsgCancelCampaignResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/OmniFlix.itc.v1.MsgCancelCampaignResponse",
+  encode(_: MsgCancelCampaignResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgCancelCampaignResponse {
@@ -232,19 +435,42 @@ export const MsgCancelCampaignResponse = {
   fromPartial(_: Partial<MsgCancelCampaignResponse>): MsgCancelCampaignResponse {
     const message = createBaseMsgCancelCampaignResponse();
     return message;
+  },
+  fromAmino(_: MsgCancelCampaignResponseAmino): MsgCancelCampaignResponse {
+    return {};
+  },
+  toAmino(_: MsgCancelCampaignResponse): MsgCancelCampaignResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgCancelCampaignResponseAminoMsg): MsgCancelCampaignResponse {
+    return MsgCancelCampaignResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCancelCampaignResponseProtoMsg): MsgCancelCampaignResponse {
+    return MsgCancelCampaignResponse.decode(message.value);
+  },
+  toProto(message: MsgCancelCampaignResponse): Uint8Array {
+    return MsgCancelCampaignResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCancelCampaignResponse): MsgCancelCampaignResponseProtoMsg {
+    return {
+      typeUrl: "/OmniFlix.itc.v1.MsgCancelCampaignResponse",
+      value: MsgCancelCampaignResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgClaim(): MsgClaim {
   return {
-    campaignId: Long.UZERO,
+    campaignId: BigInt(0),
     nftId: "",
     interaction: 0,
     claimer: ""
   };
 }
 export const MsgClaim = {
-  encode(message: MsgClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.campaignId.isZero()) {
+  typeUrl: "/OmniFlix.itc.v1.MsgClaim",
+  encode(message: MsgClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.campaignId !== BigInt(0)) {
       writer.uint32(8).uint64(message.campaignId);
     }
     if (message.nftId !== "") {
@@ -260,26 +486,58 @@ export const MsgClaim = {
   },
   fromJSON(object: any): MsgClaim {
     return {
-      campaignId: isSet(object.campaignId) ? Long.fromValue(object.campaignId) : Long.UZERO,
+      campaignId: isSet(object.campaignId) ? BigInt(object.campaignId.toString()) : BigInt(0),
       nftId: isSet(object.nftId) ? String(object.nftId) : "",
-      interaction: isSet(object.interaction) ? interactionTypeFromJSON(object.interaction) : 0,
+      interaction: isSet(object.interaction) ? interactionTypeFromJSON(object.interaction) : -1,
       claimer: isSet(object.claimer) ? String(object.claimer) : ""
     };
   },
   fromPartial(object: Partial<MsgClaim>): MsgClaim {
     const message = createBaseMsgClaim();
-    message.campaignId = object.campaignId !== undefined && object.campaignId !== null ? Long.fromValue(object.campaignId) : Long.UZERO;
+    message.campaignId = object.campaignId !== undefined && object.campaignId !== null ? BigInt(object.campaignId.toString()) : BigInt(0);
     message.nftId = object.nftId ?? "";
     message.interaction = object.interaction ?? 0;
     message.claimer = object.claimer ?? "";
     return message;
+  },
+  fromAmino(object: MsgClaimAmino): MsgClaim {
+    return {
+      campaignId: BigInt(object.campaign_id),
+      nftId: object.nft_id,
+      interaction: isSet(object.interaction) ? interactionTypeFromJSON(object.interaction) : -1,
+      claimer: object.claimer
+    };
+  },
+  toAmino(message: MsgClaim): MsgClaimAmino {
+    const obj: any = {};
+    obj.campaign_id = message.campaignId ? message.campaignId.toString() : undefined;
+    obj.nft_id = message.nftId;
+    obj.interaction = message.interaction;
+    obj.claimer = message.claimer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgClaimAminoMsg): MsgClaim {
+    return MsgClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgClaimProtoMsg): MsgClaim {
+    return MsgClaim.decode(message.value);
+  },
+  toProto(message: MsgClaim): Uint8Array {
+    return MsgClaim.encode(message).finish();
+  },
+  toProtoMsg(message: MsgClaim): MsgClaimProtoMsg {
+    return {
+      typeUrl: "/OmniFlix.itc.v1.MsgClaim",
+      value: MsgClaim.encode(message).finish()
+    };
   }
 };
 function createBaseMsgClaimResponse(): MsgClaimResponse {
   return {};
 }
 export const MsgClaimResponse = {
-  encode(_: MsgClaimResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/OmniFlix.itc.v1.MsgClaimResponse",
+  encode(_: MsgClaimResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgClaimResponse {
@@ -288,18 +546,41 @@ export const MsgClaimResponse = {
   fromPartial(_: Partial<MsgClaimResponse>): MsgClaimResponse {
     const message = createBaseMsgClaimResponse();
     return message;
+  },
+  fromAmino(_: MsgClaimResponseAmino): MsgClaimResponse {
+    return {};
+  },
+  toAmino(_: MsgClaimResponse): MsgClaimResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgClaimResponseAminoMsg): MsgClaimResponse {
+    return MsgClaimResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgClaimResponseProtoMsg): MsgClaimResponse {
+    return MsgClaimResponse.decode(message.value);
+  },
+  toProto(message: MsgClaimResponse): Uint8Array {
+    return MsgClaimResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgClaimResponse): MsgClaimResponseProtoMsg {
+    return {
+      typeUrl: "/OmniFlix.itc.v1.MsgClaimResponse",
+      value: MsgClaimResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgDepositCampaign(): MsgDepositCampaign {
   return {
-    campaignId: Long.UZERO,
-    amount: undefined,
+    campaignId: BigInt(0),
+    amount: Coin.fromPartial({}),
     depositor: ""
   };
 }
 export const MsgDepositCampaign = {
-  encode(message: MsgDepositCampaign, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.campaignId.isZero()) {
+  typeUrl: "/OmniFlix.itc.v1.MsgDepositCampaign",
+  encode(message: MsgDepositCampaign, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.campaignId !== BigInt(0)) {
       writer.uint32(8).uint64(message.campaignId);
     }
     if (message.amount !== undefined) {
@@ -312,24 +593,54 @@ export const MsgDepositCampaign = {
   },
   fromJSON(object: any): MsgDepositCampaign {
     return {
-      campaignId: isSet(object.campaignId) ? Long.fromValue(object.campaignId) : Long.UZERO,
+      campaignId: isSet(object.campaignId) ? BigInt(object.campaignId.toString()) : BigInt(0),
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
       depositor: isSet(object.depositor) ? String(object.depositor) : ""
     };
   },
   fromPartial(object: Partial<MsgDepositCampaign>): MsgDepositCampaign {
     const message = createBaseMsgDepositCampaign();
-    message.campaignId = object.campaignId !== undefined && object.campaignId !== null ? Long.fromValue(object.campaignId) : Long.UZERO;
+    message.campaignId = object.campaignId !== undefined && object.campaignId !== null ? BigInt(object.campaignId.toString()) : BigInt(0);
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     message.depositor = object.depositor ?? "";
     return message;
+  },
+  fromAmino(object: MsgDepositCampaignAmino): MsgDepositCampaign {
+    return {
+      campaignId: BigInt(object.campaign_id),
+      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
+      depositor: object.depositor
+    };
+  },
+  toAmino(message: MsgDepositCampaign): MsgDepositCampaignAmino {
+    const obj: any = {};
+    obj.campaign_id = message.campaignId ? message.campaignId.toString() : undefined;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.depositor = message.depositor;
+    return obj;
+  },
+  fromAminoMsg(object: MsgDepositCampaignAminoMsg): MsgDepositCampaign {
+    return MsgDepositCampaign.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgDepositCampaignProtoMsg): MsgDepositCampaign {
+    return MsgDepositCampaign.decode(message.value);
+  },
+  toProto(message: MsgDepositCampaign): Uint8Array {
+    return MsgDepositCampaign.encode(message).finish();
+  },
+  toProtoMsg(message: MsgDepositCampaign): MsgDepositCampaignProtoMsg {
+    return {
+      typeUrl: "/OmniFlix.itc.v1.MsgDepositCampaign",
+      value: MsgDepositCampaign.encode(message).finish()
+    };
   }
 };
 function createBaseMsgDepositCampaignResponse(): MsgDepositCampaignResponse {
   return {};
 }
 export const MsgDepositCampaignResponse = {
-  encode(_: MsgDepositCampaignResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/OmniFlix.itc.v1.MsgDepositCampaignResponse",
+  encode(_: MsgDepositCampaignResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgDepositCampaignResponse {
@@ -338,5 +649,27 @@ export const MsgDepositCampaignResponse = {
   fromPartial(_: Partial<MsgDepositCampaignResponse>): MsgDepositCampaignResponse {
     const message = createBaseMsgDepositCampaignResponse();
     return message;
+  },
+  fromAmino(_: MsgDepositCampaignResponseAmino): MsgDepositCampaignResponse {
+    return {};
+  },
+  toAmino(_: MsgDepositCampaignResponse): MsgDepositCampaignResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgDepositCampaignResponseAminoMsg): MsgDepositCampaignResponse {
+    return MsgDepositCampaignResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgDepositCampaignResponseProtoMsg): MsgDepositCampaignResponse {
+    return MsgDepositCampaignResponse.decode(message.value);
+  },
+  toProto(message: MsgDepositCampaignResponse): Uint8Array {
+    return MsgDepositCampaignResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgDepositCampaignResponse): MsgDepositCampaignResponseProtoMsg {
+    return {
+      typeUrl: "/OmniFlix.itc.v1.MsgDepositCampaignResponse",
+      value: MsgDepositCampaignResponse.encode(message).finish()
+    };
   }
 };

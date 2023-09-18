@@ -21,34 +21,76 @@ export declare namespace persistence {
             };
             LCDQueryClient: typeof _133.LCDQueryClient;
             QueryEpochsInfoRequest: {
-                encode(_: _1.QueryEpochsInfoRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _1.QueryEpochsInfoRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _1.QueryEpochsInfoRequest;
                 fromPartial(_: Partial<_1.QueryEpochsInfoRequest>): _1.QueryEpochsInfoRequest;
+                fromAmino(_: _1.QueryEpochsInfoRequestAmino): _1.QueryEpochsInfoRequest;
+                toAmino(_: _1.QueryEpochsInfoRequest): _1.QueryEpochsInfoRequestAmino;
+                fromAminoMsg(object: _1.QueryEpochsInfoRequestAminoMsg): _1.QueryEpochsInfoRequest;
+                fromProtoMsg(message: _1.QueryEpochsInfoRequestProtoMsg): _1.QueryEpochsInfoRequest;
+                toProto(message: _1.QueryEpochsInfoRequest): Uint8Array;
+                toProtoMsg(message: _1.QueryEpochsInfoRequest): _1.QueryEpochsInfoRequestProtoMsg;
             };
             QueryEpochsInfoResponse: {
-                encode(message: _1.QueryEpochsInfoResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QueryEpochsInfoResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QueryEpochsInfoResponse;
                 fromPartial(object: Partial<_1.QueryEpochsInfoResponse>): _1.QueryEpochsInfoResponse;
+                fromAmino(object: _1.QueryEpochsInfoResponseAmino): _1.QueryEpochsInfoResponse;
+                toAmino(message: _1.QueryEpochsInfoResponse): _1.QueryEpochsInfoResponseAmino;
+                fromAminoMsg(object: _1.QueryEpochsInfoResponseAminoMsg): _1.QueryEpochsInfoResponse;
+                fromProtoMsg(message: _1.QueryEpochsInfoResponseProtoMsg): _1.QueryEpochsInfoResponse;
+                toProto(message: _1.QueryEpochsInfoResponse): Uint8Array;
+                toProtoMsg(message: _1.QueryEpochsInfoResponse): _1.QueryEpochsInfoResponseProtoMsg;
             };
             QueryCurrentEpochRequest: {
-                encode(message: _1.QueryCurrentEpochRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QueryCurrentEpochRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QueryCurrentEpochRequest;
                 fromPartial(object: Partial<_1.QueryCurrentEpochRequest>): _1.QueryCurrentEpochRequest;
+                fromAmino(object: _1.QueryCurrentEpochRequestAmino): _1.QueryCurrentEpochRequest;
+                toAmino(message: _1.QueryCurrentEpochRequest): _1.QueryCurrentEpochRequestAmino;
+                fromAminoMsg(object: _1.QueryCurrentEpochRequestAminoMsg): _1.QueryCurrentEpochRequest;
+                fromProtoMsg(message: _1.QueryCurrentEpochRequestProtoMsg): _1.QueryCurrentEpochRequest;
+                toProto(message: _1.QueryCurrentEpochRequest): Uint8Array;
+                toProtoMsg(message: _1.QueryCurrentEpochRequest): _1.QueryCurrentEpochRequestProtoMsg;
             };
             QueryCurrentEpochResponse: {
-                encode(message: _1.QueryCurrentEpochResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QueryCurrentEpochResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QueryCurrentEpochResponse;
                 fromPartial(object: Partial<_1.QueryCurrentEpochResponse>): _1.QueryCurrentEpochResponse;
+                fromAmino(object: _1.QueryCurrentEpochResponseAmino): _1.QueryCurrentEpochResponse;
+                toAmino(message: _1.QueryCurrentEpochResponse): _1.QueryCurrentEpochResponseAmino;
+                fromAminoMsg(object: _1.QueryCurrentEpochResponseAminoMsg): _1.QueryCurrentEpochResponse;
+                fromProtoMsg(message: _1.QueryCurrentEpochResponseProtoMsg): _1.QueryCurrentEpochResponse;
+                toProto(message: _1.QueryCurrentEpochResponse): Uint8Array;
+                toProtoMsg(message: _1.QueryCurrentEpochResponse): _1.QueryCurrentEpochResponseProtoMsg;
             };
             EpochInfo: {
-                encode(message: _0.EpochInfo, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _0.EpochInfo, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _0.EpochInfo;
                 fromPartial(object: Partial<_0.EpochInfo>): _0.EpochInfo;
+                fromAmino(object: _0.EpochInfoAmino): _0.EpochInfo;
+                toAmino(message: _0.EpochInfo): _0.EpochInfoAmino;
+                fromAminoMsg(object: _0.EpochInfoAminoMsg): _0.EpochInfo;
+                fromProtoMsg(message: _0.EpochInfoProtoMsg): _0.EpochInfo;
+                toProto(message: _0.EpochInfo): Uint8Array;
+                toProtoMsg(message: _0.EpochInfo): _0.EpochInfoProtoMsg;
             };
             GenesisState: {
-                encode(message: _0.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _0.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _0.GenesisState;
                 fromPartial(object: Partial<_0.GenesisState>): _0.GenesisState;
+                fromAmino(object: _0.GenesisStateAmino): _0.GenesisState;
+                toAmino(message: _0.GenesisState): _0.GenesisStateAmino;
+                fromAminoMsg(object: _0.GenesisStateAminoMsg): _0.GenesisState;
+                fromProtoMsg(message: _0.GenesisStateProtoMsg): _0.GenesisState;
+                toProto(message: _0.GenesisState): Uint8Array;
+                toProtoMsg(message: _0.GenesisState): _0.GenesisStateProtoMsg;
             };
         };
     }
@@ -60,24 +102,52 @@ export declare namespace persistence {
             };
             LCDQueryClient: typeof _134.LCDQueryClient;
             QueryParamsRequest: {
-                encode(_: _4.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _4.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _4.QueryParamsRequest;
                 fromPartial(_: Partial<_4.QueryParamsRequest>): _4.QueryParamsRequest;
+                fromAmino(_: _4.QueryParamsRequestAmino): _4.QueryParamsRequest;
+                toAmino(_: _4.QueryParamsRequest): _4.QueryParamsRequestAmino;
+                fromAminoMsg(object: _4.QueryParamsRequestAminoMsg): _4.QueryParamsRequest;
+                fromProtoMsg(message: _4.QueryParamsRequestProtoMsg): _4.QueryParamsRequest;
+                toProto(message: _4.QueryParamsRequest): Uint8Array;
+                toProtoMsg(message: _4.QueryParamsRequest): _4.QueryParamsRequestProtoMsg;
             };
             QueryParamsResponse: {
-                encode(message: _4.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _4.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _4.QueryParamsResponse;
                 fromPartial(object: Partial<_4.QueryParamsResponse>): _4.QueryParamsResponse;
+                fromAmino(object: _4.QueryParamsResponseAmino): _4.QueryParamsResponse;
+                toAmino(message: _4.QueryParamsResponse): _4.QueryParamsResponseAmino;
+                fromAminoMsg(object: _4.QueryParamsResponseAminoMsg): _4.QueryParamsResponse;
+                fromProtoMsg(message: _4.QueryParamsResponseProtoMsg): _4.QueryParamsResponse;
+                toProto(message: _4.QueryParamsResponse): Uint8Array;
+                toProtoMsg(message: _4.QueryParamsResponse): _4.QueryParamsResponseProtoMsg;
             };
             Params: {
-                encode(message: _3.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.Params;
                 fromPartial(object: Partial<_3.Params>): _3.Params;
+                fromAmino(object: _3.ParamsAmino): _3.Params;
+                toAmino(message: _3.Params): _3.ParamsAmino;
+                fromAminoMsg(object: _3.ParamsAminoMsg): _3.Params;
+                fromProtoMsg(message: _3.ParamsProtoMsg): _3.Params;
+                toProto(message: _3.Params): Uint8Array;
+                toProtoMsg(message: _3.Params): _3.ParamsProtoMsg;
             };
             GenesisState: {
-                encode(message: _2.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.GenesisState;
                 fromPartial(object: Partial<_2.GenesisState>): _2.GenesisState;
+                fromAmino(object: _2.GenesisStateAmino): _2.GenesisState;
+                toAmino(message: _2.GenesisState): _2.GenesisStateAmino;
+                fromAminoMsg(object: _2.GenesisStateAminoMsg): _2.GenesisState;
+                fromProtoMsg(message: _2.GenesisStateProtoMsg): _2.GenesisState;
+                toProto(message: _2.GenesisState): Uint8Array;
+                toProtoMsg(message: _2.GenesisState): _2.GenesisStateProtoMsg;
             };
         };
     }
@@ -115,75 +185,105 @@ export declare namespace persistence {
             AminoConverter: {
                 "/persistence.interchainquery.v1beta1.MsgSubmitQueryResponse": {
                     aminoType: string;
-                    toAmino: ({ chainId, queryId, result, proofOps, height, fromAddress }: _6.MsgSubmitQueryResponse) => {
-                        chain_id: string;
-                        query_id: string;
-                        result: Uint8Array;
-                        proof_ops: {
-                            ops: {
-                                type: string;
-                                key: Uint8Array;
-                                data: Uint8Array;
-                            }[];
-                        };
-                        height: string;
-                        from_address: string;
-                    };
-                    fromAmino: ({ chain_id, query_id, result, proof_ops, height, from_address }: {
-                        chain_id: string;
-                        query_id: string;
-                        result: Uint8Array;
-                        proof_ops: {
-                            ops: {
-                                type: string;
-                                key: Uint8Array;
-                                data: Uint8Array;
-                            }[];
-                        };
-                        height: string;
-                        from_address: string;
-                    }) => _6.MsgSubmitQueryResponse;
+                    toAmino: (message: _6.MsgSubmitQueryResponse) => _6.MsgSubmitQueryResponseAmino;
+                    fromAmino: (object: _6.MsgSubmitQueryResponseAmino) => _6.MsgSubmitQueryResponse;
                 };
             };
             QueryRequestsRequest: {
-                encode(message: _7.QueryRequestsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _7.QueryRequestsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _7.QueryRequestsRequest;
                 fromPartial(object: Partial<_7.QueryRequestsRequest>): _7.QueryRequestsRequest;
+                fromAmino(object: _7.QueryRequestsRequestAmino): _7.QueryRequestsRequest;
+                toAmino(message: _7.QueryRequestsRequest): _7.QueryRequestsRequestAmino;
+                fromAminoMsg(object: _7.QueryRequestsRequestAminoMsg): _7.QueryRequestsRequest;
+                fromProtoMsg(message: _7.QueryRequestsRequestProtoMsg): _7.QueryRequestsRequest;
+                toProto(message: _7.QueryRequestsRequest): Uint8Array;
+                toProtoMsg(message: _7.QueryRequestsRequest): _7.QueryRequestsRequestProtoMsg;
             };
             QueryRequestsResponse: {
-                encode(message: _7.QueryRequestsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _7.QueryRequestsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _7.QueryRequestsResponse;
                 fromPartial(object: Partial<_7.QueryRequestsResponse>): _7.QueryRequestsResponse;
+                fromAmino(object: _7.QueryRequestsResponseAmino): _7.QueryRequestsResponse;
+                toAmino(message: _7.QueryRequestsResponse): _7.QueryRequestsResponseAmino;
+                fromAminoMsg(object: _7.QueryRequestsResponseAminoMsg): _7.QueryRequestsResponse;
+                fromProtoMsg(message: _7.QueryRequestsResponseProtoMsg): _7.QueryRequestsResponse;
+                toProto(message: _7.QueryRequestsResponse): Uint8Array;
+                toProtoMsg(message: _7.QueryRequestsResponse): _7.QueryRequestsResponseProtoMsg;
             };
             GetTxWithProofResponse: {
-                encode(message: _7.GetTxWithProofResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _7.GetTxWithProofResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _7.GetTxWithProofResponse;
                 fromPartial(object: Partial<_7.GetTxWithProofResponse>): _7.GetTxWithProofResponse;
+                fromAmino(object: _7.GetTxWithProofResponseAmino): _7.GetTxWithProofResponse;
+                toAmino(message: _7.GetTxWithProofResponse): _7.GetTxWithProofResponseAmino;
+                fromAminoMsg(object: _7.GetTxWithProofResponseAminoMsg): _7.GetTxWithProofResponse;
+                fromProtoMsg(message: _7.GetTxWithProofResponseProtoMsg): _7.GetTxWithProofResponse;
+                toProto(message: _7.GetTxWithProofResponse): Uint8Array;
+                toProtoMsg(message: _7.GetTxWithProofResponse): _7.GetTxWithProofResponseProtoMsg;
             };
             MsgSubmitQueryResponse: {
-                encode(message: _6.MsgSubmitQueryResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _6.MsgSubmitQueryResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _6.MsgSubmitQueryResponse;
                 fromPartial(object: Partial<_6.MsgSubmitQueryResponse>): _6.MsgSubmitQueryResponse;
+                fromAmino(object: _6.MsgSubmitQueryResponseAmino): _6.MsgSubmitQueryResponse;
+                toAmino(message: _6.MsgSubmitQueryResponse): _6.MsgSubmitQueryResponseAmino;
+                fromAminoMsg(object: _6.MsgSubmitQueryResponseAminoMsg): _6.MsgSubmitQueryResponse;
+                fromProtoMsg(message: _6.MsgSubmitQueryResponseProtoMsg): _6.MsgSubmitQueryResponse;
+                toProto(message: _6.MsgSubmitQueryResponse): Uint8Array;
+                toProtoMsg(message: _6.MsgSubmitQueryResponse): _6.MsgSubmitQueryResponseProtoMsg;
             };
             MsgSubmitQueryResponseResponse: {
-                encode(_: _6.MsgSubmitQueryResponseResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _6.MsgSubmitQueryResponseResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _6.MsgSubmitQueryResponseResponse;
                 fromPartial(_: Partial<_6.MsgSubmitQueryResponseResponse>): _6.MsgSubmitQueryResponseResponse;
+                fromAmino(_: _6.MsgSubmitQueryResponseResponseAmino): _6.MsgSubmitQueryResponseResponse;
+                toAmino(_: _6.MsgSubmitQueryResponseResponse): _6.MsgSubmitQueryResponseResponseAmino;
+                fromAminoMsg(object: _6.MsgSubmitQueryResponseResponseAminoMsg): _6.MsgSubmitQueryResponseResponse;
+                fromProtoMsg(message: _6.MsgSubmitQueryResponseResponseProtoMsg): _6.MsgSubmitQueryResponseResponse;
+                toProto(message: _6.MsgSubmitQueryResponseResponse): Uint8Array;
+                toProtoMsg(message: _6.MsgSubmitQueryResponseResponse): _6.MsgSubmitQueryResponseResponseProtoMsg;
             };
             Query: {
-                encode(message: _5.Query, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _5.Query, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _5.Query;
                 fromPartial(object: Partial<_5.Query>): _5.Query;
+                fromAmino(object: _5.QueryAmino): _5.Query;
+                toAmino(message: _5.Query): _5.QueryAmino;
+                fromAminoMsg(object: _5.QueryAminoMsg): _5.Query;
+                fromProtoMsg(message: _5.QueryProtoMsg): _5.Query;
+                toProto(message: _5.Query): Uint8Array;
+                toProtoMsg(message: _5.Query): _5.QueryProtoMsg;
             };
             DataPoint: {
-                encode(message: _5.DataPoint, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _5.DataPoint, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _5.DataPoint;
                 fromPartial(object: Partial<_5.DataPoint>): _5.DataPoint;
+                fromAmino(object: _5.DataPointAmino): _5.DataPoint;
+                toAmino(message: _5.DataPoint): _5.DataPointAmino;
+                fromAminoMsg(object: _5.DataPointAminoMsg): _5.DataPoint;
+                fromProtoMsg(message: _5.DataPointProtoMsg): _5.DataPoint;
+                toProto(message: _5.DataPoint): Uint8Array;
+                toProtoMsg(message: _5.DataPoint): _5.DataPointProtoMsg;
             };
             GenesisState: {
-                encode(message: _5.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _5.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _5.GenesisState;
                 fromPartial(object: Partial<_5.GenesisState>): _5.GenesisState;
+                fromAmino(object: _5.GenesisStateAmino): _5.GenesisState;
+                toAmino(message: _5.GenesisState): _5.GenesisStateAmino;
+                fromAminoMsg(object: _5.GenesisStateAminoMsg): _5.GenesisState;
+                fromProtoMsg(message: _5.GenesisStateProtoMsg): _5.GenesisState;
+                toProto(message: _5.GenesisState): Uint8Array;
+                toProtoMsg(message: _5.GenesisState): _5.GenesisStateProtoMsg;
             };
         };
     }

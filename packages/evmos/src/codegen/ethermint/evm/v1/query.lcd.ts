@@ -1,5 +1,5 @@
 import { MsgEthereumTxResponseSDKType } from "./tx";
-import { LCDClient } from "@osmonauts/lcd";
+import { LCDClient } from "@cosmology/lcd";
 import { QueryAccountRequest, QueryAccountResponseSDKType, QueryCosmosAccountRequest, QueryCosmosAccountResponseSDKType, QueryValidatorAccountRequest, QueryValidatorAccountResponseSDKType, QueryBalanceRequest, QueryBalanceResponseSDKType, QueryStorageRequest, QueryStorageResponseSDKType, QueryCodeRequest, QueryCodeResponseSDKType, QueryParamsRequest, QueryParamsResponseSDKType, EthCallRequest, EstimateGasResponseSDKType, QueryTraceTxRequest, QueryTraceTxResponseSDKType, QueryTraceBlockRequest, QueryTraceBlockResponseSDKType, QueryBaseFeeRequest, QueryBaseFeeResponseSDKType } from "./query";
 export class LCDQueryClient {
   req: LCDClient;

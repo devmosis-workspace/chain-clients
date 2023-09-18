@@ -1,6 +1,5 @@
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Long } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
 /** Params defines the parameters for the tokenfactory module. */
 export interface Params {
     /**
@@ -15,15 +14,47 @@ export interface Params {
      *
      * See: https://github.com/CosmWasm/token-factory/issues/11
      */
-    denomCreationGasConsume: Long;
+    denomCreationGasConsume?: bigint;
+}
+export interface ParamsProtoMsg {
+    typeUrl: "/osmosis.tokenfactory.v1beta1.Params";
+    value: Uint8Array;
+}
+/** Params defines the parameters for the tokenfactory module. */
+export interface ParamsAmino {
+    /**
+     * DenomCreationFee defines the fee to be charged on the creation of a new
+     * denom. The fee is drawn from the MsgCreateDenom's sender account, and
+     * transferred to the community pool.
+     */
+    denom_creation_fee: CoinAmino[];
+    /**
+     * DenomCreationGasConsume defines the gas cost for creating a new denom.
+     * This is intended as a spam deterrence mechanism.
+     *
+     * See: https://github.com/CosmWasm/token-factory/issues/11
+     */
+    denom_creation_gas_consume: string;
+}
+export interface ParamsAminoMsg {
+    type: "osmosis/tokenfactory/params";
+    value: ParamsAmino;
 }
 /** Params defines the parameters for the tokenfactory module. */
 export interface ParamsSDKType {
     denom_creation_fee: CoinSDKType[];
-    denom_creation_gas_consume: Long;
+    denom_creation_gas_consume?: bigint;
 }
 export declare const Params: {
-    encode(message: Params, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Params, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Params;
     fromPartial(object: Partial<Params>): Params;
+    fromAmino(object: ParamsAmino): Params;
+    toAmino(message: Params): ParamsAmino;
+    fromAminoMsg(object: ParamsAminoMsg): Params;
+    toAminoMsg(message: Params): ParamsAminoMsg;
+    fromProtoMsg(message: ParamsProtoMsg): Params;
+    toProto(message: Params): Uint8Array;
+    toProtoMsg(message: Params): ParamsProtoMsg;
 };

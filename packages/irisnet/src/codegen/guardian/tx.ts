@@ -1,10 +1,24 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../binary";
 import { isSet } from "../helpers";
 /** MsgAddSuper defines the properties of add super account message */
 export interface MsgAddSuper {
   description: string;
   address: string;
   addedBy: string;
+}
+export interface MsgAddSuperProtoMsg {
+  typeUrl: "/irishub.guardian.MsgAddSuper";
+  value: Uint8Array;
+}
+/** MsgAddSuper defines the properties of add super account message */
+export interface MsgAddSuperAmino {
+  description: string;
+  address: string;
+  added_by: string;
+}
+export interface MsgAddSuperAminoMsg {
+  type: "/irishub.guardian.MsgAddSuper";
+  value: MsgAddSuperAmino;
 }
 /** MsgAddSuper defines the properties of add super account message */
 export interface MsgAddSuperSDKType {
@@ -14,12 +28,35 @@ export interface MsgAddSuperSDKType {
 }
 /** MsgAddSuperResponse defines the Msg/AddSuper response type */
 export interface MsgAddSuperResponse {}
+export interface MsgAddSuperResponseProtoMsg {
+  typeUrl: "/irishub.guardian.MsgAddSuperResponse";
+  value: Uint8Array;
+}
+/** MsgAddSuperResponse defines the Msg/AddSuper response type */
+export interface MsgAddSuperResponseAmino {}
+export interface MsgAddSuperResponseAminoMsg {
+  type: "/irishub.guardian.MsgAddSuperResponse";
+  value: MsgAddSuperResponseAmino;
+}
 /** MsgAddSuperResponse defines the Msg/AddSuper response type */
 export interface MsgAddSuperResponseSDKType {}
 /** MsgDeleteSuper defines the properties of delete super account message */
 export interface MsgDeleteSuper {
   address: string;
   deletedBy: string;
+}
+export interface MsgDeleteSuperProtoMsg {
+  typeUrl: "/irishub.guardian.MsgDeleteSuper";
+  value: Uint8Array;
+}
+/** MsgDeleteSuper defines the properties of delete super account message */
+export interface MsgDeleteSuperAmino {
+  address: string;
+  deleted_by: string;
+}
+export interface MsgDeleteSuperAminoMsg {
+  type: "/irishub.guardian.MsgDeleteSuper";
+  value: MsgDeleteSuperAmino;
 }
 /** MsgDeleteSuper defines the properties of delete super account message */
 export interface MsgDeleteSuperSDKType {
@@ -28,6 +65,16 @@ export interface MsgDeleteSuperSDKType {
 }
 /** MsgDeleteSuperResponse defines the Msg/DeleteSuper response type */
 export interface MsgDeleteSuperResponse {}
+export interface MsgDeleteSuperResponseProtoMsg {
+  typeUrl: "/irishub.guardian.MsgDeleteSuperResponse";
+  value: Uint8Array;
+}
+/** MsgDeleteSuperResponse defines the Msg/DeleteSuper response type */
+export interface MsgDeleteSuperResponseAmino {}
+export interface MsgDeleteSuperResponseAminoMsg {
+  type: "/irishub.guardian.MsgDeleteSuperResponse";
+  value: MsgDeleteSuperResponseAmino;
+}
 /** MsgDeleteSuperResponse defines the Msg/DeleteSuper response type */
 export interface MsgDeleteSuperResponseSDKType {}
 function createBaseMsgAddSuper(): MsgAddSuper {
@@ -38,7 +85,8 @@ function createBaseMsgAddSuper(): MsgAddSuper {
   };
 }
 export const MsgAddSuper = {
-  encode(message: MsgAddSuper, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/irishub.guardian.MsgAddSuper",
+  encode(message: MsgAddSuper, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.description !== "") {
       writer.uint32(10).string(message.description);
     }
@@ -63,13 +111,43 @@ export const MsgAddSuper = {
     message.address = object.address ?? "";
     message.addedBy = object.addedBy ?? "";
     return message;
+  },
+  fromAmino(object: MsgAddSuperAmino): MsgAddSuper {
+    return {
+      description: object.description,
+      address: object.address,
+      addedBy: object.added_by
+    };
+  },
+  toAmino(message: MsgAddSuper): MsgAddSuperAmino {
+    const obj: any = {};
+    obj.description = message.description;
+    obj.address = message.address;
+    obj.added_by = message.addedBy;
+    return obj;
+  },
+  fromAminoMsg(object: MsgAddSuperAminoMsg): MsgAddSuper {
+    return MsgAddSuper.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgAddSuperProtoMsg): MsgAddSuper {
+    return MsgAddSuper.decode(message.value);
+  },
+  toProto(message: MsgAddSuper): Uint8Array {
+    return MsgAddSuper.encode(message).finish();
+  },
+  toProtoMsg(message: MsgAddSuper): MsgAddSuperProtoMsg {
+    return {
+      typeUrl: "/irishub.guardian.MsgAddSuper",
+      value: MsgAddSuper.encode(message).finish()
+    };
   }
 };
 function createBaseMsgAddSuperResponse(): MsgAddSuperResponse {
   return {};
 }
 export const MsgAddSuperResponse = {
-  encode(_: MsgAddSuperResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/irishub.guardian.MsgAddSuperResponse",
+  encode(_: MsgAddSuperResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgAddSuperResponse {
@@ -78,6 +156,28 @@ export const MsgAddSuperResponse = {
   fromPartial(_: Partial<MsgAddSuperResponse>): MsgAddSuperResponse {
     const message = createBaseMsgAddSuperResponse();
     return message;
+  },
+  fromAmino(_: MsgAddSuperResponseAmino): MsgAddSuperResponse {
+    return {};
+  },
+  toAmino(_: MsgAddSuperResponse): MsgAddSuperResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgAddSuperResponseAminoMsg): MsgAddSuperResponse {
+    return MsgAddSuperResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgAddSuperResponseProtoMsg): MsgAddSuperResponse {
+    return MsgAddSuperResponse.decode(message.value);
+  },
+  toProto(message: MsgAddSuperResponse): Uint8Array {
+    return MsgAddSuperResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgAddSuperResponse): MsgAddSuperResponseProtoMsg {
+    return {
+      typeUrl: "/irishub.guardian.MsgAddSuperResponse",
+      value: MsgAddSuperResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgDeleteSuper(): MsgDeleteSuper {
@@ -87,7 +187,8 @@ function createBaseMsgDeleteSuper(): MsgDeleteSuper {
   };
 }
 export const MsgDeleteSuper = {
-  encode(message: MsgDeleteSuper, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/irishub.guardian.MsgDeleteSuper",
+  encode(message: MsgDeleteSuper, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(18).string(message.address);
     }
@@ -107,13 +208,41 @@ export const MsgDeleteSuper = {
     message.address = object.address ?? "";
     message.deletedBy = object.deletedBy ?? "";
     return message;
+  },
+  fromAmino(object: MsgDeleteSuperAmino): MsgDeleteSuper {
+    return {
+      address: object.address,
+      deletedBy: object.deleted_by
+    };
+  },
+  toAmino(message: MsgDeleteSuper): MsgDeleteSuperAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.deleted_by = message.deletedBy;
+    return obj;
+  },
+  fromAminoMsg(object: MsgDeleteSuperAminoMsg): MsgDeleteSuper {
+    return MsgDeleteSuper.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgDeleteSuperProtoMsg): MsgDeleteSuper {
+    return MsgDeleteSuper.decode(message.value);
+  },
+  toProto(message: MsgDeleteSuper): Uint8Array {
+    return MsgDeleteSuper.encode(message).finish();
+  },
+  toProtoMsg(message: MsgDeleteSuper): MsgDeleteSuperProtoMsg {
+    return {
+      typeUrl: "/irishub.guardian.MsgDeleteSuper",
+      value: MsgDeleteSuper.encode(message).finish()
+    };
   }
 };
 function createBaseMsgDeleteSuperResponse(): MsgDeleteSuperResponse {
   return {};
 }
 export const MsgDeleteSuperResponse = {
-  encode(_: MsgDeleteSuperResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/irishub.guardian.MsgDeleteSuperResponse",
+  encode(_: MsgDeleteSuperResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgDeleteSuperResponse {
@@ -122,5 +251,27 @@ export const MsgDeleteSuperResponse = {
   fromPartial(_: Partial<MsgDeleteSuperResponse>): MsgDeleteSuperResponse {
     const message = createBaseMsgDeleteSuperResponse();
     return message;
+  },
+  fromAmino(_: MsgDeleteSuperResponseAmino): MsgDeleteSuperResponse {
+    return {};
+  },
+  toAmino(_: MsgDeleteSuperResponse): MsgDeleteSuperResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgDeleteSuperResponseAminoMsg): MsgDeleteSuperResponse {
+    return MsgDeleteSuperResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgDeleteSuperResponseProtoMsg): MsgDeleteSuperResponse {
+    return MsgDeleteSuperResponse.decode(message.value);
+  },
+  toProto(message: MsgDeleteSuperResponse): Uint8Array {
+    return MsgDeleteSuperResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgDeleteSuperResponse): MsgDeleteSuperResponseProtoMsg {
+    return {
+      typeUrl: "/irishub.guardian.MsgDeleteSuperResponse",
+      value: MsgDeleteSuperResponse.encode(message).finish()
+    };
   }
 };

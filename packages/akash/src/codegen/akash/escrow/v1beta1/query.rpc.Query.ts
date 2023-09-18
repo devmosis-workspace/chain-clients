@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryAccountsRequest, QueryAccountsResponse, QueryPaymentsRequest, QueryPaymentsResponse } from "./query";
 /** Query defines the gRPC querier service */
@@ -27,12 +27,12 @@ export class QueryClientImpl implements Query {
   accounts(request: QueryAccountsRequest): Promise<QueryAccountsResponse> {
     const data = QueryAccountsRequest.encode(request).finish();
     const promise = this.rpc.request("akash.escrow.v1beta1.Query", "Accounts", data);
-    return promise.then(data => QueryAccountsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAccountsResponse.decode(new BinaryReader(data)));
   }
   payments(request: QueryPaymentsRequest): Promise<QueryPaymentsResponse> {
     const data = QueryPaymentsRequest.encode(request).finish();
     const promise = this.rpc.request("akash.escrow.v1beta1.Query", "Payments", data);
-    return promise.then(data => QueryPaymentsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPaymentsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

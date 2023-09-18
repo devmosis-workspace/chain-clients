@@ -1,33 +1,59 @@
-import { IscnId, IscnIdSDKType } from "./iscnid";
-import { Long, isSet, bytesFromBase64 } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { IscnId, IscnIdAmino, IscnIdSDKType } from "./iscnid";
+import { BinaryWriter } from "../../binary";
+import { isSet, bytesFromBase64 } from "../../helpers";
 export interface StoreRecord {
-  iscnId?: IscnId;
+  iscnId: IscnId;
   cidBytes: Uint8Array;
   data: Uint8Array;
 }
+export interface StoreRecordProtoMsg {
+  typeUrl: "/likechain.iscn.StoreRecord";
+  value: Uint8Array;
+}
+export interface StoreRecordAmino {
+  iscn_id?: IscnIdAmino;
+  cid_bytes: Uint8Array;
+  data: Uint8Array;
+}
+export interface StoreRecordAminoMsg {
+  type: "/likechain.iscn.StoreRecord";
+  value: StoreRecordAmino;
+}
 export interface StoreRecordSDKType {
-  iscn_id?: IscnIdSDKType;
+  iscn_id: IscnIdSDKType;
   cid_bytes: Uint8Array;
   data: Uint8Array;
 }
 export interface ContentIdRecord {
   ownerAddressBytes: Uint8Array;
-  latestVersion: Long;
+  latestVersion: bigint;
+}
+export interface ContentIdRecordProtoMsg {
+  typeUrl: "/likechain.iscn.ContentIdRecord";
+  value: Uint8Array;
+}
+export interface ContentIdRecordAmino {
+  owner_address_bytes: Uint8Array;
+  latest_version: string;
+}
+export interface ContentIdRecordAminoMsg {
+  type: "/likechain.iscn.ContentIdRecord";
+  value: ContentIdRecordAmino;
 }
 export interface ContentIdRecordSDKType {
   owner_address_bytes: Uint8Array;
-  latest_version: Long;
+  latest_version: bigint;
 }
 function createBaseStoreRecord(): StoreRecord {
   return {
-    iscnId: undefined,
+    iscnId: IscnId.fromPartial({}),
     cidBytes: new Uint8Array(),
     data: new Uint8Array()
   };
 }
 export const StoreRecord = {
-  encode(message: StoreRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.iscn.StoreRecord",
+  encode(message: StoreRecord, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.iscnId !== undefined) {
       IscnId.encode(message.iscnId, writer.uint32(10).fork()).ldelim();
     }
@@ -52,20 +78,50 @@ export const StoreRecord = {
     message.cidBytes = object.cidBytes ?? new Uint8Array();
     message.data = object.data ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: StoreRecordAmino): StoreRecord {
+    return {
+      iscnId: object?.iscn_id ? IscnId.fromAmino(object.iscn_id) : undefined,
+      cidBytes: object.cid_bytes,
+      data: object.data
+    };
+  },
+  toAmino(message: StoreRecord): StoreRecordAmino {
+    const obj: any = {};
+    obj.iscn_id = message.iscnId ? IscnId.toAmino(message.iscnId) : undefined;
+    obj.cid_bytes = message.cidBytes;
+    obj.data = message.data;
+    return obj;
+  },
+  fromAminoMsg(object: StoreRecordAminoMsg): StoreRecord {
+    return StoreRecord.fromAmino(object.value);
+  },
+  fromProtoMsg(message: StoreRecordProtoMsg): StoreRecord {
+    return StoreRecord.decode(message.value);
+  },
+  toProto(message: StoreRecord): Uint8Array {
+    return StoreRecord.encode(message).finish();
+  },
+  toProtoMsg(message: StoreRecord): StoreRecordProtoMsg {
+    return {
+      typeUrl: "/likechain.iscn.StoreRecord",
+      value: StoreRecord.encode(message).finish()
+    };
   }
 };
 function createBaseContentIdRecord(): ContentIdRecord {
   return {
     ownerAddressBytes: new Uint8Array(),
-    latestVersion: Long.UZERO
+    latestVersion: BigInt(0)
   };
 }
 export const ContentIdRecord = {
-  encode(message: ContentIdRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.iscn.ContentIdRecord",
+  encode(message: ContentIdRecord, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.ownerAddressBytes.length !== 0) {
       writer.uint32(10).bytes(message.ownerAddressBytes);
     }
-    if (!message.latestVersion.isZero()) {
+    if (message.latestVersion !== BigInt(0)) {
       writer.uint32(16).uint64(message.latestVersion);
     }
     return writer;
@@ -73,13 +129,40 @@ export const ContentIdRecord = {
   fromJSON(object: any): ContentIdRecord {
     return {
       ownerAddressBytes: isSet(object.ownerAddressBytes) ? bytesFromBase64(object.ownerAddressBytes) : new Uint8Array(),
-      latestVersion: isSet(object.latestVersion) ? Long.fromValue(object.latestVersion) : Long.UZERO
+      latestVersion: isSet(object.latestVersion) ? BigInt(object.latestVersion.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<ContentIdRecord>): ContentIdRecord {
     const message = createBaseContentIdRecord();
     message.ownerAddressBytes = object.ownerAddressBytes ?? new Uint8Array();
-    message.latestVersion = object.latestVersion !== undefined && object.latestVersion !== null ? Long.fromValue(object.latestVersion) : Long.UZERO;
+    message.latestVersion = object.latestVersion !== undefined && object.latestVersion !== null ? BigInt(object.latestVersion.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: ContentIdRecordAmino): ContentIdRecord {
+    return {
+      ownerAddressBytes: object.owner_address_bytes,
+      latestVersion: BigInt(object.latest_version)
+    };
+  },
+  toAmino(message: ContentIdRecord): ContentIdRecordAmino {
+    const obj: any = {};
+    obj.owner_address_bytes = message.ownerAddressBytes;
+    obj.latest_version = message.latestVersion ? message.latestVersion.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ContentIdRecordAminoMsg): ContentIdRecord {
+    return ContentIdRecord.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ContentIdRecordProtoMsg): ContentIdRecord {
+    return ContentIdRecord.decode(message.value);
+  },
+  toProto(message: ContentIdRecord): Uint8Array {
+    return ContentIdRecord.encode(message).finish();
+  },
+  toProtoMsg(message: ContentIdRecord): ContentIdRecordProtoMsg {
+    return {
+      typeUrl: "/likechain.iscn.ContentIdRecord",
+      value: ContentIdRecord.encode(message).finish()
+    };
   }
 };

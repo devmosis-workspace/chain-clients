@@ -1,4 +1,5 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
+import { Decimal } from "@cosmjs/math";
 import { isSet } from "../../../helpers";
 /**
  * Apy contains the calculated APY for a given collateral type at a specific
@@ -7,6 +8,22 @@ import { isSet } from "../../../helpers";
 export interface Apy {
   collateralType: string;
   apy: string;
+}
+export interface ApyProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.Apy";
+  value: Uint8Array;
+}
+/**
+ * Apy contains the calculated APY for a given collateral type at a specific
+ * instant in time.
+ */
+export interface ApyAmino {
+  collateral_type: string;
+  apy: string;
+}
+export interface ApyAminoMsg {
+  type: "/kava.incentive.v1beta1.Apy";
+  value: ApyAmino;
 }
 /**
  * Apy contains the calculated APY for a given collateral type at a specific
@@ -23,12 +40,13 @@ function createBaseApy(): Apy {
   };
 }
 export const Apy = {
-  encode(message: Apy, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.Apy",
+  encode(message: Apy, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.collateralType !== "") {
       writer.uint32(10).string(message.collateralType);
     }
     if (message.apy !== "") {
-      writer.uint32(18).string(message.apy);
+      writer.uint32(18).string(Decimal.fromUserInput(message.apy, 18).atomics);
     }
     return writer;
   },
@@ -43,5 +61,32 @@ export const Apy = {
     message.collateralType = object.collateralType ?? "";
     message.apy = object.apy ?? "";
     return message;
+  },
+  fromAmino(object: ApyAmino): Apy {
+    return {
+      collateralType: object.collateral_type,
+      apy: object.apy
+    };
+  },
+  toAmino(message: Apy): ApyAmino {
+    const obj: any = {};
+    obj.collateral_type = message.collateralType;
+    obj.apy = message.apy;
+    return obj;
+  },
+  fromAminoMsg(object: ApyAminoMsg): Apy {
+    return Apy.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ApyProtoMsg): Apy {
+    return Apy.decode(message.value);
+  },
+  toProto(message: Apy): Uint8Array {
+    return Apy.encode(message).finish();
+  },
+  toProtoMsg(message: Apy): ApyProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.Apy",
+      value: Apy.encode(message).finish()
+    };
   }
 };

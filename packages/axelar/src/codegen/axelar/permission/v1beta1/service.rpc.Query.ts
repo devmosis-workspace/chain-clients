@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryGovernanceKeyRequest, QueryGovernanceKeyResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -16,7 +16,7 @@ export class QueryClientImpl implements Query {
   governanceKey(request: QueryGovernanceKeyRequest = {}): Promise<QueryGovernanceKeyResponse> {
     const data = QueryGovernanceKeyRequest.encode(request).finish();
     const promise = this.rpc.request("axelar.permission.v1beta1.Query", "GovernanceKey", data);
-    return promise.then(data => QueryGovernanceKeyResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGovernanceKeyResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

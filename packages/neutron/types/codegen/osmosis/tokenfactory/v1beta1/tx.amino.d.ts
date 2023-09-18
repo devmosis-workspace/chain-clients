@@ -1,59 +1,23 @@
-import { AminoMsg } from "@cosmjs/amino";
 import { MsgCreateDenom, MsgMint, MsgBurn, MsgChangeAdmin } from "./tx";
-export interface MsgCreateDenomAminoType extends AminoMsg {
-    type: "osmosis/tokenfactory/create-denom";
-    value: {
-        sender: string;
-        subdenom: string;
-    };
-}
-export interface MsgMintAminoType extends AminoMsg {
-    type: "osmosis/tokenfactory/mint";
-    value: {
-        sender: string;
-        amount: {
-            denom: string;
-            amount: string;
-        };
-    };
-}
-export interface MsgBurnAminoType extends AminoMsg {
-    type: "osmosis/tokenfactory/burn";
-    value: {
-        sender: string;
-        amount: {
-            denom: string;
-            amount: string;
-        };
-    };
-}
-export interface MsgChangeAdminAminoType extends AminoMsg {
-    type: "osmosis/tokenfactory/change-admin";
-    value: {
-        sender: string;
-        denom: string;
-        newAdmin: string;
-    };
-}
 export declare const AminoConverter: {
     "/osmosis.tokenfactory.v1beta1.MsgCreateDenom": {
         aminoType: string;
-        toAmino: ({ sender, subdenom }: MsgCreateDenom) => MsgCreateDenomAminoType["value"];
-        fromAmino: ({ sender, subdenom }: MsgCreateDenomAminoType["value"]) => MsgCreateDenom;
+        toAmino: (message: MsgCreateDenom) => import("./tx").MsgCreateDenomAmino;
+        fromAmino: (object: import("./tx").MsgCreateDenomAmino) => MsgCreateDenom;
     };
     "/osmosis.tokenfactory.v1beta1.MsgMint": {
         aminoType: string;
-        toAmino: ({ sender, amount }: MsgMint) => MsgMintAminoType["value"];
-        fromAmino: ({ sender, amount }: MsgMintAminoType["value"]) => MsgMint;
+        toAmino: (message: MsgMint) => import("./tx").MsgMintAmino;
+        fromAmino: (object: import("./tx").MsgMintAmino) => MsgMint;
     };
     "/osmosis.tokenfactory.v1beta1.MsgBurn": {
         aminoType: string;
-        toAmino: ({ sender, amount }: MsgBurn) => MsgBurnAminoType["value"];
-        fromAmino: ({ sender, amount }: MsgBurnAminoType["value"]) => MsgBurn;
+        toAmino: (message: MsgBurn) => import("./tx").MsgBurnAmino;
+        fromAmino: (object: import("./tx").MsgBurnAmino) => MsgBurn;
     };
     "/osmosis.tokenfactory.v1beta1.MsgChangeAdmin": {
         aminoType: string;
-        toAmino: ({ sender, denom, newAdmin }: MsgChangeAdmin) => MsgChangeAdminAminoType["value"];
-        fromAmino: ({ sender, denom, newAdmin }: MsgChangeAdminAminoType["value"]) => MsgChangeAdmin;
+        toAmino: (message: MsgChangeAdmin) => import("./tx").MsgChangeAdminAmino;
+        fromAmino: (object: import("./tx").MsgChangeAdminAmino) => MsgChangeAdmin;
     };
 };

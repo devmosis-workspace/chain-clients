@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryBalanceRequest, QueryBalanceResponse, QueryBuybackTimeRequest, QueryBuybackTimeResponse } from "./query";
 export interface Query {
@@ -18,12 +18,12 @@ export class QueryClientImpl implements Query {
   balance(request: QueryBalanceRequest = {}): Promise<QueryBalanceResponse> {
     const data = QueryBalanceRequest.encode(request).finish();
     const promise = this.rpc.request("em.buyback.v1.Query", "Balance", data);
-    return promise.then(data => QueryBalanceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBalanceResponse.decode(new BinaryReader(data)));
   }
   buybackTime(request: QueryBuybackTimeRequest = {}): Promise<QueryBuybackTimeResponse> {
     const data = QueryBuybackTimeRequest.encode(request).finish();
     const promise = this.rpc.request("em.buyback.v1.Query", "BuybackTime", data);
-    return promise.then(data => QueryBuybackTimeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBuybackTimeResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

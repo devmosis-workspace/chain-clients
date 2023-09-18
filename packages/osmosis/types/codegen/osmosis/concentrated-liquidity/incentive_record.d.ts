@@ -1,8 +1,7 @@
-import { Duration, DurationSDKType } from "../../google/protobuf/duration";
-import { DecCoin, DecCoinSDKType } from "../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
-import { Long } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { DecCoin, DecCoinAmino, DecCoinSDKType } from "../../cosmos/base/v1beta1/coin";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { BinaryWriter } from "../../binary";
 /**
  * IncentiveRecord is the high-level struct we use to deal with an independent
  * incentive being distributed on a pool. Note that PoolId, Denom, and MinUptime
@@ -11,16 +10,43 @@ import * as _m0 from "protobufjs/minimal";
  */
 export interface IncentiveRecord {
     /** incentive_id is the id uniquely identifying this incentive record. */
-    incentiveId: Long;
-    poolId: Long;
+    incentiveId: bigint;
+    poolId: bigint;
     /** incentive record body holds necessary */
-    incentiveRecordBody?: IncentiveRecordBody;
+    incentiveRecordBody: IncentiveRecordBody;
     /**
      * min_uptime is the minimum uptime required for liquidity to qualify for this
      * incentive. It should be always be one of the supported uptimes in
      * types.SupportedUptimes
      */
-    minUptime?: Duration;
+    minUptime: Duration;
+}
+export interface IncentiveRecordProtoMsg {
+    typeUrl: "/osmosis.concentratedliquidity.v1beta1.IncentiveRecord";
+    value: Uint8Array;
+}
+/**
+ * IncentiveRecord is the high-level struct we use to deal with an independent
+ * incentive being distributed on a pool. Note that PoolId, Denom, and MinUptime
+ * are included in the key so we avoid storing them in state, hence the
+ * distinction between IncentiveRecord and IncentiveRecordBody.
+ */
+export interface IncentiveRecordAmino {
+    /** incentive_id is the id uniquely identifying this incentive record. */
+    incentive_id: string;
+    pool_id: string;
+    /** incentive record body holds necessary */
+    incentive_record_body?: IncentiveRecordBodyAmino;
+    /**
+     * min_uptime is the minimum uptime required for liquidity to qualify for this
+     * incentive. It should be always be one of the supported uptimes in
+     * types.SupportedUptimes
+     */
+    min_uptime?: DurationAmino;
+}
+export interface IncentiveRecordAminoMsg {
+    type: "osmosis/concentratedliquidity/incentive-record";
+    value: IncentiveRecordAmino;
 }
 /**
  * IncentiveRecord is the high-level struct we use to deal with an independent
@@ -29,10 +55,10 @@ export interface IncentiveRecord {
  * distinction between IncentiveRecord and IncentiveRecordBody.
  */
 export interface IncentiveRecordSDKType {
-    incentive_id: Long;
-    pool_id: Long;
-    incentive_record_body?: IncentiveRecordBodySDKType;
-    min_uptime?: DurationSDKType;
+    incentive_id: bigint;
+    pool_id: bigint;
+    incentive_record_body: IncentiveRecordBodySDKType;
+    min_uptime: DurationSDKType;
 }
 /**
  * IncentiveRecordBody represents the body stored in state for each individual
@@ -40,28 +66,64 @@ export interface IncentiveRecordSDKType {
  */
 export interface IncentiveRecordBody {
     /** remaining_coin is the total amount of incentives to be distributed */
-    remainingCoin?: DecCoin;
+    remainingCoin: DecCoin;
     /** emission_rate is the incentive emission rate per second */
     emissionRate: string;
     /** start_time is the time when the incentive starts distributing */
-    startTime?: Timestamp;
+    startTime: Timestamp;
+}
+export interface IncentiveRecordBodyProtoMsg {
+    typeUrl: "/osmosis.concentratedliquidity.v1beta1.IncentiveRecordBody";
+    value: Uint8Array;
+}
+/**
+ * IncentiveRecordBody represents the body stored in state for each individual
+ * record.
+ */
+export interface IncentiveRecordBodyAmino {
+    /** remaining_coin is the total amount of incentives to be distributed */
+    remaining_coin?: DecCoinAmino;
+    /** emission_rate is the incentive emission rate per second */
+    emission_rate: string;
+    /** start_time is the time when the incentive starts distributing */
+    start_time?: TimestampAmino;
+}
+export interface IncentiveRecordBodyAminoMsg {
+    type: "osmosis/concentratedliquidity/incentive-record-body";
+    value: IncentiveRecordBodyAmino;
 }
 /**
  * IncentiveRecordBody represents the body stored in state for each individual
  * record.
  */
 export interface IncentiveRecordBodySDKType {
-    remaining_coin?: DecCoinSDKType;
+    remaining_coin: DecCoinSDKType;
     emission_rate: string;
-    start_time?: TimestampSDKType;
+    start_time: TimestampSDKType;
 }
 export declare const IncentiveRecord: {
-    encode(message: IncentiveRecord, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: IncentiveRecord, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): IncentiveRecord;
     fromPartial(object: Partial<IncentiveRecord>): IncentiveRecord;
+    fromAmino(object: IncentiveRecordAmino): IncentiveRecord;
+    toAmino(message: IncentiveRecord): IncentiveRecordAmino;
+    fromAminoMsg(object: IncentiveRecordAminoMsg): IncentiveRecord;
+    toAminoMsg(message: IncentiveRecord): IncentiveRecordAminoMsg;
+    fromProtoMsg(message: IncentiveRecordProtoMsg): IncentiveRecord;
+    toProto(message: IncentiveRecord): Uint8Array;
+    toProtoMsg(message: IncentiveRecord): IncentiveRecordProtoMsg;
 };
 export declare const IncentiveRecordBody: {
-    encode(message: IncentiveRecordBody, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: IncentiveRecordBody, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): IncentiveRecordBody;
     fromPartial(object: Partial<IncentiveRecordBody>): IncentiveRecordBody;
+    fromAmino(object: IncentiveRecordBodyAmino): IncentiveRecordBody;
+    toAmino(message: IncentiveRecordBody): IncentiveRecordBodyAmino;
+    fromAminoMsg(object: IncentiveRecordBodyAminoMsg): IncentiveRecordBody;
+    toAminoMsg(message: IncentiveRecordBody): IncentiveRecordBodyAminoMsg;
+    fromProtoMsg(message: IncentiveRecordBodyProtoMsg): IncentiveRecordBody;
+    toProto(message: IncentiveRecordBody): Uint8Array;
+    toProtoMsg(message: IncentiveRecordBody): IncentiveRecordBodyProtoMsg;
 };

@@ -1,48 +1,78 @@
-import { Params, ParamsSDKType } from "./params";
-import { CosmosChain, CosmosChainSDKType, IBCTransfer, IBCTransferSDKType } from "./types";
-import { QueueState, QueueStateSDKType } from "../../utils/v1beta1/queuer";
-import { Long, isSet, bytesFromBase64, isObject } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { CosmosChain, CosmosChainAmino, CosmosChainSDKType, IBCTransfer, IBCTransferAmino, IBCTransferSDKType } from "./types";
+import { QueueState, QueueStateAmino, QueueStateSDKType } from "../../utils/v1beta1/queuer";
+import { BinaryWriter } from "../../../binary";
+import { isSet, bytesFromBase64, isObject } from "../../../helpers";
 export interface GenesisState_SeqIdMappingEntry {
   key: string;
-  value: Long;
+  value: bigint;
+}
+export interface GenesisState_SeqIdMappingEntryProtoMsg {
+  typeUrl: string;
+  value: Uint8Array;
+}
+export interface GenesisState_SeqIdMappingEntryAmino {
+  key: string;
+  value: string;
+}
+export interface GenesisState_SeqIdMappingEntryAminoMsg {
+  type: string;
+  value: GenesisState_SeqIdMappingEntryAmino;
 }
 export interface GenesisState_SeqIdMappingEntrySDKType {
   key: string;
-  value: Long;
+  value: bigint;
 }
 export interface GenesisState {
-  params?: Params;
+  params: Params;
   collectorAddress: Uint8Array;
   chains: CosmosChain[];
-  transferQueue?: QueueState;
+  transferQueue: QueueState;
   ibcTransfers: IBCTransfer[];
   seqIdMapping: {
-    [key: string]: Long;
+    [key: string]: bigint;
   };
 }
+export interface GenesisStateProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.GenesisState";
+  value: Uint8Array;
+}
+export interface GenesisStateAmino {
+  params?: ParamsAmino;
+  collector_address: Uint8Array;
+  chains: CosmosChainAmino[];
+  transfer_queue?: QueueStateAmino;
+  ibc_transfers: IBCTransferAmino[];
+  seq_id_mapping: {
+    [key: string]: string;
+  };
+}
+export interface GenesisStateAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.GenesisState";
+  value: GenesisStateAmino;
+}
 export interface GenesisStateSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
   collector_address: Uint8Array;
   chains: CosmosChainSDKType[];
-  transfer_queue?: QueueStateSDKType;
+  transfer_queue: QueueStateSDKType;
   ibc_transfers: IBCTransferSDKType[];
   seq_id_mapping: {
-    [key: string]: Long;
+    [key: string]: bigint;
   };
 }
 function createBaseGenesisState_SeqIdMappingEntry(): GenesisState_SeqIdMappingEntry {
   return {
     key: "",
-    value: Long.UZERO
+    value: BigInt(0)
   };
 }
 export const GenesisState_SeqIdMappingEntry = {
-  encode(message: GenesisState_SeqIdMappingEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: GenesisState_SeqIdMappingEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
-    if (!message.value.isZero()) {
+    if (message.value !== BigInt(0)) {
       writer.uint32(16).uint64(message.value);
     }
     return writer;
@@ -50,28 +80,50 @@ export const GenesisState_SeqIdMappingEntry = {
   fromJSON(object: any): GenesisState_SeqIdMappingEntry {
     return {
       key: isSet(object.key) ? String(object.key) : "",
-      value: isSet(object.value) ? Long.fromValue(object.value) : Long.UZERO
+      value: isSet(object.value) ? BigInt(object.value.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<GenesisState_SeqIdMappingEntry>): GenesisState_SeqIdMappingEntry {
     const message = createBaseGenesisState_SeqIdMappingEntry();
     message.key = object.key ?? "";
-    message.value = object.value !== undefined && object.value !== null ? Long.fromValue(object.value) : Long.UZERO;
+    message.value = object.value !== undefined && object.value !== null ? BigInt(object.value.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: GenesisState_SeqIdMappingEntryAmino): GenesisState_SeqIdMappingEntry {
+    return {
+      key: object.key,
+      value: BigInt(object.value)
+    };
+  },
+  toAmino(message: GenesisState_SeqIdMappingEntry): GenesisState_SeqIdMappingEntryAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value ? message.value.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisState_SeqIdMappingEntryAminoMsg): GenesisState_SeqIdMappingEntry {
+    return GenesisState_SeqIdMappingEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisState_SeqIdMappingEntryProtoMsg): GenesisState_SeqIdMappingEntry {
+    return GenesisState_SeqIdMappingEntry.decode(message.value);
+  },
+  toProto(message: GenesisState_SeqIdMappingEntry): Uint8Array {
+    return GenesisState_SeqIdMappingEntry.encode(message).finish();
   }
 };
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     collectorAddress: new Uint8Array(),
     chains: [],
-    transferQueue: undefined,
+    transferQueue: QueueState.fromPartial({}),
     ibcTransfers: [],
     seqIdMapping: {}
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -103,9 +155,9 @@ export const GenesisState = {
       transferQueue: isSet(object.transferQueue) ? QueueState.fromJSON(object.transferQueue) : undefined,
       ibcTransfers: Array.isArray(object?.ibcTransfers) ? object.ibcTransfers.map((e: any) => IBCTransfer.fromJSON(e)) : [],
       seqIdMapping: isObject(object.seqIdMapping) ? Object.entries(object.seqIdMapping).reduce<{
-        [key: string]: Long;
+        [key: string]: bigint;
       }>((acc, [key, value]) => {
-        acc[key] = Long.fromValue((value as Long | string));
+        acc[key] = BigInt((value as bigint | string).toString());
         return acc;
       }, {}) : {}
     };
@@ -118,13 +170,66 @@ export const GenesisState = {
     message.transferQueue = object.transferQueue !== undefined && object.transferQueue !== null ? QueueState.fromPartial(object.transferQueue) : undefined;
     message.ibcTransfers = object.ibcTransfers?.map(e => IBCTransfer.fromPartial(e)) || [];
     message.seqIdMapping = Object.entries(object.seqIdMapping ?? {}).reduce<{
-      [key: string]: Long;
+      [key: string]: bigint;
     }>((acc, [key, value]) => {
       if (value !== undefined) {
-        acc[key] = Long.fromValue(value);
+        acc[key] = BigInt(value.toString());
       }
       return acc;
     }, {});
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+      collectorAddress: object.collector_address,
+      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => CosmosChain.fromAmino(e)) : [],
+      transferQueue: object?.transfer_queue ? QueueState.fromAmino(object.transfer_queue) : undefined,
+      ibcTransfers: Array.isArray(object?.ibc_transfers) ? object.ibc_transfers.map((e: any) => IBCTransfer.fromAmino(e)) : [],
+      seqIdMapping: isObject(object.seq_id_mapping) ? Object.entries(object.seq_id_mapping).reduce<{
+        [key: string]: bigint;
+      }>((acc, [key, value]) => {
+        acc[key] = BigInt((value as bigint | string).toString());
+        return acc;
+      }, {}) : {}
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    obj.collector_address = message.collectorAddress;
+    if (message.chains) {
+      obj.chains = message.chains.map(e => e ? CosmosChain.toAmino(e) : undefined);
+    } else {
+      obj.chains = [];
+    }
+    obj.transfer_queue = message.transferQueue ? QueueState.toAmino(message.transferQueue) : undefined;
+    if (message.ibcTransfers) {
+      obj.ibc_transfers = message.ibcTransfers.map(e => e ? IBCTransfer.toAmino(e) : undefined);
+    } else {
+      obj.ibc_transfers = [];
+    }
+    obj.seq_id_mapping = {};
+    if (message.seqIdMapping) {
+      Object.entries(message.seqIdMapping).forEach(([k, v]) => {
+        obj.seq_id_mapping[k] = v.toString();
+      });
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };

@@ -1,8 +1,9 @@
-import { DecCoin, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { AggregateExchangeRatePrevote, AggregateExchangeRatePrevoteSDKType, AggregateExchangeRateVote, AggregateExchangeRateVoteSDKType, Params, ParamsSDKType } from "./oracle";
-import { Price, PriceSDKType } from "./genesis";
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { AggregateExchangeRatePrevote, AggregateExchangeRatePrevoteAmino, AggregateExchangeRatePrevoteSDKType, AggregateExchangeRateVote, AggregateExchangeRateVoteAmino, AggregateExchangeRateVoteSDKType, Params, ParamsAmino, ParamsSDKType } from "./oracle";
+import { Price, PriceAmino, PriceSDKType } from "./genesis";
+import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
+import { Decimal } from "@cosmjs/math";
 /**
  * QueryExchangeRates is the request type for the Query/ExchangeRate RPC
  * method.
@@ -10,6 +11,22 @@ import * as _m0 from "protobufjs/minimal";
 export interface QueryExchangeRates {
   /** denom defines the denomination to query for. */
   denom: string;
+}
+export interface QueryExchangeRatesProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryExchangeRates";
+  value: Uint8Array;
+}
+/**
+ * QueryExchangeRates is the request type for the Query/ExchangeRate RPC
+ * method.
+ */
+export interface QueryExchangeRatesAmino {
+  /** denom defines the denomination to query for. */
+  denom: string;
+}
+export interface QueryExchangeRatesAminoMsg {
+  type: "/umee.oracle.v1.QueryExchangeRates";
+  value: QueryExchangeRatesAmino;
 }
 /**
  * QueryExchangeRates is the request type for the Query/ExchangeRate RPC
@@ -29,6 +46,25 @@ export interface QueryExchangeRatesResponse {
    */
   exchangeRates: DecCoin[];
 }
+export interface QueryExchangeRatesResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryExchangeRatesResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryExchangeRatesResponse is response type for the
+ * Query/ExchangeRates RPC method.
+ */
+export interface QueryExchangeRatesResponseAmino {
+  /**
+   * exchange_rates defines a list of the exchange rate for all whitelisted
+   * denoms.
+   */
+  exchange_rates: DecCoinAmino[];
+}
+export interface QueryExchangeRatesResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryExchangeRatesResponse";
+  value: QueryExchangeRatesResponseAmino;
+}
 /**
  * QueryExchangeRatesResponse is response type for the
  * Query/ExchangeRates RPC method.
@@ -41,6 +77,19 @@ export interface QueryExchangeRatesResponseSDKType {
  * Query/ActiveExchangeRates RPC method.
  */
 export interface QueryActiveExchangeRates {}
+export interface QueryActiveExchangeRatesProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryActiveExchangeRates";
+  value: Uint8Array;
+}
+/**
+ * QueryActiveExchangeRates is the request type for the
+ * Query/ActiveExchangeRates RPC method.
+ */
+export interface QueryActiveExchangeRatesAmino {}
+export interface QueryActiveExchangeRatesAminoMsg {
+  type: "/umee.oracle.v1.QueryActiveExchangeRates";
+  value: QueryActiveExchangeRatesAmino;
+}
 /**
  * QueryActiveExchangeRates is the request type for the
  * Query/ActiveExchangeRates RPC method.
@@ -57,6 +106,25 @@ export interface QueryActiveExchangeRatesResponse {
    */
   activeRates: string[];
 }
+export interface QueryActiveExchangeRatesResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryActiveExchangeRatesResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryActiveExchangeRatesResponse is response type for the
+ * Query/ActiveExchangeRates RPC method.
+ */
+export interface QueryActiveExchangeRatesResponseAmino {
+  /**
+   * activeRates defines a list of the denomination which oracle prices agreed
+   * upon.
+   */
+  active_rates: string[];
+}
+export interface QueryActiveExchangeRatesResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryActiveExchangeRatesResponse";
+  value: QueryActiveExchangeRatesResponseAmino;
+}
 /**
  * QueryActiveExchangeRatesResponse is response type for the
  * Query/ActiveExchangeRates RPC method.
@@ -71,6 +139,22 @@ export interface QueryActiveExchangeRatesResponseSDKType {
 export interface QueryFeederDelegation {
   /** validator defines the validator address to query for. */
   validatorAddr: string;
+}
+export interface QueryFeederDelegationProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryFeederDelegation";
+  value: Uint8Array;
+}
+/**
+ * QueryFeederDelegation is the request type for the
+ * Query/FeederDelegation RPC method.
+ */
+export interface QueryFeederDelegationAmino {
+  /** validator defines the validator address to query for. */
+  validator_addr: string;
+}
+export interface QueryFeederDelegationAminoMsg {
+  type: "/umee.oracle.v1.QueryFeederDelegation";
+  value: QueryFeederDelegationAmino;
 }
 /**
  * QueryFeederDelegation is the request type for the
@@ -87,6 +171,22 @@ export interface QueryFeederDelegationResponse {
   /** feeder_addr defines the feeder delegation of a validator */
   feederAddr: string;
 }
+export interface QueryFeederDelegationResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryFeederDelegationResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryFeederDelegationResponse is response type for the
+ * Query/FeederDelegation RPC method.
+ */
+export interface QueryFeederDelegationResponseAmino {
+  /** feeder_addr defines the feeder delegation of a validator */
+  feeder_addr: string;
+}
+export interface QueryFeederDelegationResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryFeederDelegationResponse";
+  value: QueryFeederDelegationResponseAmino;
+}
 /**
  * QueryFeederDelegationResponse is response type for the
  * Query/FeederDelegation RPC method.
@@ -102,6 +202,22 @@ export interface QueryMissCounter {
   /** validator defines the validator address to query for. */
   validatorAddr: string;
 }
+export interface QueryMissCounterProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryMissCounter";
+  value: Uint8Array;
+}
+/**
+ * QueryMissCounter is the request type for the Query/MissCounter RPC
+ * method.
+ */
+export interface QueryMissCounterAmino {
+  /** validator defines the validator address to query for. */
+  validator_addr: string;
+}
+export interface QueryMissCounterAminoMsg {
+  type: "/umee.oracle.v1.QueryMissCounter";
+  value: QueryMissCounterAmino;
+}
 /**
  * QueryMissCounter is the request type for the Query/MissCounter RPC
  * method.
@@ -115,20 +231,49 @@ export interface QueryMissCounterSDKType {
  */
 export interface QueryMissCounterResponse {
   /** miss_counter defines the oracle miss counter of a validator */
-  missCounter: Long;
+  missCounter: bigint;
+}
+export interface QueryMissCounterResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryMissCounterResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryMissCounterResponse is response type for the
+ * Query/MissCounter RPC method.
+ */
+export interface QueryMissCounterResponseAmino {
+  /** miss_counter defines the oracle miss counter of a validator */
+  miss_counter: string;
+}
+export interface QueryMissCounterResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryMissCounterResponse";
+  value: QueryMissCounterResponseAmino;
 }
 /**
  * QueryMissCounterResponse is response type for the
  * Query/MissCounter RPC method.
  */
 export interface QueryMissCounterResponseSDKType {
-  miss_counter: Long;
+  miss_counter: bigint;
 }
 /**
  * QuerySlashWindow is the request type for the
  * Query/SlashWindow RPC method.
  */
 export interface QuerySlashWindow {}
+export interface QuerySlashWindowProtoMsg {
+  typeUrl: "/umee.oracle.v1.QuerySlashWindow";
+  value: Uint8Array;
+}
+/**
+ * QuerySlashWindow is the request type for the
+ * Query/SlashWindow RPC method.
+ */
+export interface QuerySlashWindowAmino {}
+export interface QuerySlashWindowAminoMsg {
+  type: "/umee.oracle.v1.QuerySlashWindow";
+  value: QuerySlashWindowAmino;
+}
 /**
  * QuerySlashWindow is the request type for the
  * Query/SlashWindow RPC method.
@@ -143,14 +288,33 @@ export interface QuerySlashWindowResponse {
    * window_progress defines the number of voting periods
    * since the last slashing event would have taken place.
    */
-  windowProgress: Long;
+  windowProgress: bigint;
+}
+export interface QuerySlashWindowResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QuerySlashWindowResponse";
+  value: Uint8Array;
+}
+/**
+ * QuerySlashWindowResponse is response type for the
+ * Query/SlashWindow RPC method.
+ */
+export interface QuerySlashWindowResponseAmino {
+  /**
+   * window_progress defines the number of voting periods
+   * since the last slashing event would have taken place.
+   */
+  window_progress: string;
+}
+export interface QuerySlashWindowResponseAminoMsg {
+  type: "/umee.oracle.v1.QuerySlashWindowResponse";
+  value: QuerySlashWindowResponseAmino;
 }
 /**
  * QuerySlashWindowResponse is response type for the
  * Query/SlashWindow RPC method.
  */
 export interface QuerySlashWindowResponseSDKType {
-  window_progress: Long;
+  window_progress: bigint;
 }
 /**
  * QueryAggregatePrevote is the request type for the
@@ -159,6 +323,22 @@ export interface QuerySlashWindowResponseSDKType {
 export interface QueryAggregatePrevote {
   /** validator defines the validator address to query for. */
   validatorAddr: string;
+}
+export interface QueryAggregatePrevoteProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryAggregatePrevote";
+  value: Uint8Array;
+}
+/**
+ * QueryAggregatePrevote is the request type for the
+ * Query/AggregatePrevote RPC method.
+ */
+export interface QueryAggregatePrevoteAmino {
+  /** validator defines the validator address to query for. */
+  validator_addr: string;
+}
+export interface QueryAggregatePrevoteAminoMsg {
+  type: "/umee.oracle.v1.QueryAggregatePrevote";
+  value: QueryAggregatePrevoteAmino;
 }
 /**
  * QueryAggregatePrevote is the request type for the
@@ -176,20 +356,52 @@ export interface QueryAggregatePrevoteResponse {
    * aggregate_prevote defines oracle aggregate prevote submitted by a validator
    * in the current vote period
    */
-  aggregatePrevote?: AggregateExchangeRatePrevote;
+  aggregatePrevote: AggregateExchangeRatePrevote;
+}
+export interface QueryAggregatePrevoteResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryAggregatePrevoteResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryAggregatePrevoteResponse is response type for the
+ * Query/AggregatePrevote RPC method.
+ */
+export interface QueryAggregatePrevoteResponseAmino {
+  /**
+   * aggregate_prevote defines oracle aggregate prevote submitted by a validator
+   * in the current vote period
+   */
+  aggregate_prevote?: AggregateExchangeRatePrevoteAmino;
+}
+export interface QueryAggregatePrevoteResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryAggregatePrevoteResponse";
+  value: QueryAggregatePrevoteResponseAmino;
 }
 /**
  * QueryAggregatePrevoteResponse is response type for the
  * Query/AggregatePrevote RPC method.
  */
 export interface QueryAggregatePrevoteResponseSDKType {
-  aggregate_prevote?: AggregateExchangeRatePrevoteSDKType;
+  aggregate_prevote: AggregateExchangeRatePrevoteSDKType;
 }
 /**
  * QueryAggregatePrevotes is the request type for the
  * Query/AggregatePrevotes RPC method.
  */
 export interface QueryAggregatePrevotes {}
+export interface QueryAggregatePrevotesProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryAggregatePrevotes";
+  value: Uint8Array;
+}
+/**
+ * QueryAggregatePrevotes is the request type for the
+ * Query/AggregatePrevotes RPC method.
+ */
+export interface QueryAggregatePrevotesAmino {}
+export interface QueryAggregatePrevotesAminoMsg {
+  type: "/umee.oracle.v1.QueryAggregatePrevotes";
+  value: QueryAggregatePrevotesAmino;
+}
 /**
  * QueryAggregatePrevotes is the request type for the
  * Query/AggregatePrevotes RPC method.
@@ -206,6 +418,25 @@ export interface QueryAggregatePrevotesResponse {
    */
   aggregatePrevotes: AggregateExchangeRatePrevote[];
 }
+export interface QueryAggregatePrevotesResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryAggregatePrevotesResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryAggregatePrevotesResponse is response type for the
+ * Query/AggregatePrevotes RPC method.
+ */
+export interface QueryAggregatePrevotesResponseAmino {
+  /**
+   * aggregate_prevotes defines all oracle aggregate prevotes submitted in the
+   * current vote period
+   */
+  aggregate_prevotes: AggregateExchangeRatePrevoteAmino[];
+}
+export interface QueryAggregatePrevotesResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryAggregatePrevotesResponse";
+  value: QueryAggregatePrevotesResponseAmino;
+}
 /**
  * QueryAggregatePrevotesResponse is response type for the
  * Query/AggregatePrevotes RPC method.
@@ -220,6 +451,22 @@ export interface QueryAggregatePrevotesResponseSDKType {
 export interface QueryAggregateVote {
   /** validator defines the validator address to query for. */
   validatorAddr: string;
+}
+export interface QueryAggregateVoteProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryAggregateVote";
+  value: Uint8Array;
+}
+/**
+ * QueryAggregateVote is the request type for the Query/AggregateVote RPC
+ * method.
+ */
+export interface QueryAggregateVoteAmino {
+  /** validator defines the validator address to query for. */
+  validator_addr: string;
+}
+export interface QueryAggregateVoteAminoMsg {
+  type: "/umee.oracle.v1.QueryAggregateVote";
+  value: QueryAggregateVoteAmino;
 }
 /**
  * QueryAggregateVote is the request type for the Query/AggregateVote RPC
@@ -237,20 +484,52 @@ export interface QueryAggregateVoteResponse {
    * aggregate_vote defines oracle aggregate vote submitted by a validator in
    * the current vote period
    */
-  aggregateVote?: AggregateExchangeRateVote;
+  aggregateVote: AggregateExchangeRateVote;
+}
+export interface QueryAggregateVoteResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryAggregateVoteResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryAggregateVoteResponse is response type for the
+ * Query/AggregateVote RPC method.
+ */
+export interface QueryAggregateVoteResponseAmino {
+  /**
+   * aggregate_vote defines oracle aggregate vote submitted by a validator in
+   * the current vote period
+   */
+  aggregate_vote?: AggregateExchangeRateVoteAmino;
+}
+export interface QueryAggregateVoteResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryAggregateVoteResponse";
+  value: QueryAggregateVoteResponseAmino;
 }
 /**
  * QueryAggregateVoteResponse is response type for the
  * Query/AggregateVote RPC method.
  */
 export interface QueryAggregateVoteResponseSDKType {
-  aggregate_vote?: AggregateExchangeRateVoteSDKType;
+  aggregate_vote: AggregateExchangeRateVoteSDKType;
 }
 /**
  * QueryAggregateVotes is the request type for the Query/AggregateVotes
  * RPC method.
  */
 export interface QueryAggregateVotes {}
+export interface QueryAggregateVotesProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryAggregateVotes";
+  value: Uint8Array;
+}
+/**
+ * QueryAggregateVotes is the request type for the Query/AggregateVotes
+ * RPC method.
+ */
+export interface QueryAggregateVotesAmino {}
+export interface QueryAggregateVotesAminoMsg {
+  type: "/umee.oracle.v1.QueryAggregateVotes";
+  value: QueryAggregateVotesAmino;
+}
 /**
  * QueryAggregateVotes is the request type for the Query/AggregateVotes
  * RPC method.
@@ -267,6 +546,25 @@ export interface QueryAggregateVotesResponse {
    */
   aggregateVotes: AggregateExchangeRateVote[];
 }
+export interface QueryAggregateVotesResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryAggregateVotesResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryAggregateVotesResponse is response type for the
+ * Query/AggregateVotes RPC method.
+ */
+export interface QueryAggregateVotesResponseAmino {
+  /**
+   * aggregate_votes defines all oracle aggregate votes submitted in the current
+   * vote period
+   */
+  aggregate_votes: AggregateExchangeRateVoteAmino[];
+}
+export interface QueryAggregateVotesResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryAggregateVotesResponse";
+  value: QueryAggregateVotesResponseAmino;
+}
 /**
  * QueryAggregateVotesResponse is response type for the
  * Query/AggregateVotes RPC method.
@@ -276,16 +574,39 @@ export interface QueryAggregateVotesResponseSDKType {
 }
 /** QueryParams is the request type for the Query/Params RPC method. */
 export interface QueryParams {}
+export interface QueryParamsProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryParams";
+  value: Uint8Array;
+}
+/** QueryParams is the request type for the Query/Params RPC method. */
+export interface QueryParamsAmino {}
+export interface QueryParamsAminoMsg {
+  type: "/umee.oracle.v1.QueryParams";
+  value: QueryParamsAmino;
+}
 /** QueryParams is the request type for the Query/Params RPC method. */
 export interface QueryParamsSDKType {}
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
-  params?: Params;
+  params: Params;
+}
+export interface QueryParamsResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryParamsResponse";
+  value: Uint8Array;
+}
+/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+export interface QueryParamsResponseAmino {
+  /** params defines the parameters of the module. */
+  params?: ParamsAmino;
+}
+export interface QueryParamsResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryParamsResponse";
+  value: QueryParamsResponseAmino;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
 }
 /** QueryMedians is the request type for the Query/Medians RPC Response. */
 export interface QueryMedians {
@@ -296,6 +617,24 @@ export interface QueryMedians {
    * must be greater than 0.
    */
   numStamps: number;
+}
+export interface QueryMediansProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryMedians";
+  value: Uint8Array;
+}
+/** QueryMedians is the request type for the Query/Medians RPC Response. */
+export interface QueryMediansAmino {
+  /** denom defines the denomination to query for. */
+  denom: string;
+  /**
+   * numStamps defines the number of median stamps to query for. numStamps
+   * must be greater than 0.
+   */
+  numStamps: number;
+}
+export interface QueryMediansAminoMsg {
+  type: "/umee.oracle.v1.QueryMedians";
+  value: QueryMediansAmino;
 }
 /** QueryMedians is the request type for the Query/Medians RPC Response. */
 export interface QueryMediansSDKType {
@@ -310,6 +649,22 @@ export interface QueryMediansResponse {
   /** medians defines a list of the medians for all stamped denoms. */
   medians: Price[];
 }
+export interface QueryMediansResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryMediansResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryMediansResponse is response type for the
+ * Query/Medians RPC method.
+ */
+export interface QueryMediansResponseAmino {
+  /** medians defines a list of the medians for all stamped denoms. */
+  medians: PriceAmino[];
+}
+export interface QueryMediansResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryMediansResponse";
+  value: QueryMediansResponseAmino;
+}
 /**
  * QueryMediansResponse is response type for the
  * Query/Medians RPC method.
@@ -321,6 +676,19 @@ export interface QueryMediansResponseSDKType {
 export interface QueryMedianDeviations {
   /** denom defines the denomination to query for. */
   denom: string;
+}
+export interface QueryMedianDeviationsProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryMedianDeviations";
+  value: Uint8Array;
+}
+/** QueryMedianDeviations is the request type for the Query/MedianDeviations RPC Response. */
+export interface QueryMedianDeviationsAmino {
+  /** denom defines the denomination to query for. */
+  denom: string;
+}
+export interface QueryMedianDeviationsAminoMsg {
+  type: "/umee.oracle.v1.QueryMedianDeviations";
+  value: QueryMedianDeviationsAmino;
 }
 /** QueryMedianDeviations is the request type for the Query/MedianDeviations RPC Response. */
 export interface QueryMedianDeviationsSDKType {
@@ -334,6 +702,22 @@ export interface QueryMedianDeviationsResponse {
   /** medians defines a list of the median deviations for all stamped denoms. */
   medianDeviations: Price[];
 }
+export interface QueryMedianDeviationsResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryMedianDeviationsResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryMedianDeviationsResponse is response type for the
+ * Query/MedianDeviations RPC method.
+ */
+export interface QueryMedianDeviationsResponseAmino {
+  /** medians defines a list of the median deviations for all stamped denoms. */
+  medianDeviations: PriceAmino[];
+}
+export interface QueryMedianDeviationsResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryMedianDeviationsResponse";
+  value: QueryMedianDeviationsResponseAmino;
+}
 /**
  * QueryMedianDeviationsResponse is response type for the
  * Query/MedianDeviations RPC method.
@@ -345,6 +729,18 @@ export interface QueryMedianDeviationsResponseSDKType {
 export interface QueryAvgPrice {
   denom: string;
 }
+export interface QueryAvgPriceProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryAvgPrice";
+  value: Uint8Array;
+}
+/** QueryAvgPrice is a request type for AvgPrice method */
+export interface QueryAvgPriceAmino {
+  denom: string;
+}
+export interface QueryAvgPriceAminoMsg {
+  type: "/umee.oracle.v1.QueryAvgPrice";
+  value: QueryAvgPriceAmino;
+}
 /** QueryAvgPrice is a request type for AvgPrice method */
 export interface QueryAvgPriceSDKType {
   denom: string;
@@ -352,6 +748,18 @@ export interface QueryAvgPriceSDKType {
 /** QueryAvgPriceResponse is a response type for AvgPrice method */
 export interface QueryAvgPriceResponse {
   price: string;
+}
+export interface QueryAvgPriceResponseProtoMsg {
+  typeUrl: "/umee.oracle.v1.QueryAvgPriceResponse";
+  value: Uint8Array;
+}
+/** QueryAvgPriceResponse is a response type for AvgPrice method */
+export interface QueryAvgPriceResponseAmino {
+  price: string;
+}
+export interface QueryAvgPriceResponseAminoMsg {
+  type: "/umee.oracle.v1.QueryAvgPriceResponse";
+  value: QueryAvgPriceResponseAmino;
 }
 /** QueryAvgPriceResponse is a response type for AvgPrice method */
 export interface QueryAvgPriceResponseSDKType {
@@ -363,7 +771,8 @@ function createBaseQueryExchangeRates(): QueryExchangeRates {
   };
 }
 export const QueryExchangeRates = {
-  encode(message: QueryExchangeRates, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryExchangeRates",
+  encode(message: QueryExchangeRates, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -378,6 +787,31 @@ export const QueryExchangeRates = {
     const message = createBaseQueryExchangeRates();
     message.denom = object.denom ?? "";
     return message;
+  },
+  fromAmino(object: QueryExchangeRatesAmino): QueryExchangeRates {
+    return {
+      denom: object.denom
+    };
+  },
+  toAmino(message: QueryExchangeRates): QueryExchangeRatesAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    return obj;
+  },
+  fromAminoMsg(object: QueryExchangeRatesAminoMsg): QueryExchangeRates {
+    return QueryExchangeRates.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryExchangeRatesProtoMsg): QueryExchangeRates {
+    return QueryExchangeRates.decode(message.value);
+  },
+  toProto(message: QueryExchangeRates): Uint8Array {
+    return QueryExchangeRates.encode(message).finish();
+  },
+  toProtoMsg(message: QueryExchangeRates): QueryExchangeRatesProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryExchangeRates",
+      value: QueryExchangeRates.encode(message).finish()
+    };
   }
 };
 function createBaseQueryExchangeRatesResponse(): QueryExchangeRatesResponse {
@@ -386,7 +820,8 @@ function createBaseQueryExchangeRatesResponse(): QueryExchangeRatesResponse {
   };
 }
 export const QueryExchangeRatesResponse = {
-  encode(message: QueryExchangeRatesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryExchangeRatesResponse",
+  encode(message: QueryExchangeRatesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.exchangeRates) {
       DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -401,13 +836,43 @@ export const QueryExchangeRatesResponse = {
     const message = createBaseQueryExchangeRatesResponse();
     message.exchangeRates = object.exchangeRates?.map(e => DecCoin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryExchangeRatesResponseAmino): QueryExchangeRatesResponse {
+    return {
+      exchangeRates: Array.isArray(object?.exchange_rates) ? object.exchange_rates.map((e: any) => DecCoin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: QueryExchangeRatesResponse): QueryExchangeRatesResponseAmino {
+    const obj: any = {};
+    if (message.exchangeRates) {
+      obj.exchange_rates = message.exchangeRates.map(e => e ? DecCoin.toAmino(e) : undefined);
+    } else {
+      obj.exchange_rates = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryExchangeRatesResponseAminoMsg): QueryExchangeRatesResponse {
+    return QueryExchangeRatesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryExchangeRatesResponseProtoMsg): QueryExchangeRatesResponse {
+    return QueryExchangeRatesResponse.decode(message.value);
+  },
+  toProto(message: QueryExchangeRatesResponse): Uint8Array {
+    return QueryExchangeRatesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryExchangeRatesResponse): QueryExchangeRatesResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryExchangeRatesResponse",
+      value: QueryExchangeRatesResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryActiveExchangeRates(): QueryActiveExchangeRates {
   return {};
 }
 export const QueryActiveExchangeRates = {
-  encode(_: QueryActiveExchangeRates, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryActiveExchangeRates",
+  encode(_: QueryActiveExchangeRates, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryActiveExchangeRates {
@@ -416,6 +881,28 @@ export const QueryActiveExchangeRates = {
   fromPartial(_: Partial<QueryActiveExchangeRates>): QueryActiveExchangeRates {
     const message = createBaseQueryActiveExchangeRates();
     return message;
+  },
+  fromAmino(_: QueryActiveExchangeRatesAmino): QueryActiveExchangeRates {
+    return {};
+  },
+  toAmino(_: QueryActiveExchangeRates): QueryActiveExchangeRatesAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryActiveExchangeRatesAminoMsg): QueryActiveExchangeRates {
+    return QueryActiveExchangeRates.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryActiveExchangeRatesProtoMsg): QueryActiveExchangeRates {
+    return QueryActiveExchangeRates.decode(message.value);
+  },
+  toProto(message: QueryActiveExchangeRates): Uint8Array {
+    return QueryActiveExchangeRates.encode(message).finish();
+  },
+  toProtoMsg(message: QueryActiveExchangeRates): QueryActiveExchangeRatesProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryActiveExchangeRates",
+      value: QueryActiveExchangeRates.encode(message).finish()
+    };
   }
 };
 function createBaseQueryActiveExchangeRatesResponse(): QueryActiveExchangeRatesResponse {
@@ -424,7 +911,8 @@ function createBaseQueryActiveExchangeRatesResponse(): QueryActiveExchangeRatesR
   };
 }
 export const QueryActiveExchangeRatesResponse = {
-  encode(message: QueryActiveExchangeRatesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryActiveExchangeRatesResponse",
+  encode(message: QueryActiveExchangeRatesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.activeRates) {
       writer.uint32(10).string(v!);
     }
@@ -439,6 +927,35 @@ export const QueryActiveExchangeRatesResponse = {
     const message = createBaseQueryActiveExchangeRatesResponse();
     message.activeRates = object.activeRates?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: QueryActiveExchangeRatesResponseAmino): QueryActiveExchangeRatesResponse {
+    return {
+      activeRates: Array.isArray(object?.active_rates) ? object.active_rates.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: QueryActiveExchangeRatesResponse): QueryActiveExchangeRatesResponseAmino {
+    const obj: any = {};
+    if (message.activeRates) {
+      obj.active_rates = message.activeRates.map(e => e);
+    } else {
+      obj.active_rates = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryActiveExchangeRatesResponseAminoMsg): QueryActiveExchangeRatesResponse {
+    return QueryActiveExchangeRatesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryActiveExchangeRatesResponseProtoMsg): QueryActiveExchangeRatesResponse {
+    return QueryActiveExchangeRatesResponse.decode(message.value);
+  },
+  toProto(message: QueryActiveExchangeRatesResponse): Uint8Array {
+    return QueryActiveExchangeRatesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryActiveExchangeRatesResponse): QueryActiveExchangeRatesResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryActiveExchangeRatesResponse",
+      value: QueryActiveExchangeRatesResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryFeederDelegation(): QueryFeederDelegation {
@@ -447,7 +964,8 @@ function createBaseQueryFeederDelegation(): QueryFeederDelegation {
   };
 }
 export const QueryFeederDelegation = {
-  encode(message: QueryFeederDelegation, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryFeederDelegation",
+  encode(message: QueryFeederDelegation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validatorAddr !== "") {
       writer.uint32(10).string(message.validatorAddr);
     }
@@ -462,6 +980,31 @@ export const QueryFeederDelegation = {
     const message = createBaseQueryFeederDelegation();
     message.validatorAddr = object.validatorAddr ?? "";
     return message;
+  },
+  fromAmino(object: QueryFeederDelegationAmino): QueryFeederDelegation {
+    return {
+      validatorAddr: object.validator_addr
+    };
+  },
+  toAmino(message: QueryFeederDelegation): QueryFeederDelegationAmino {
+    const obj: any = {};
+    obj.validator_addr = message.validatorAddr;
+    return obj;
+  },
+  fromAminoMsg(object: QueryFeederDelegationAminoMsg): QueryFeederDelegation {
+    return QueryFeederDelegation.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryFeederDelegationProtoMsg): QueryFeederDelegation {
+    return QueryFeederDelegation.decode(message.value);
+  },
+  toProto(message: QueryFeederDelegation): Uint8Array {
+    return QueryFeederDelegation.encode(message).finish();
+  },
+  toProtoMsg(message: QueryFeederDelegation): QueryFeederDelegationProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryFeederDelegation",
+      value: QueryFeederDelegation.encode(message).finish()
+    };
   }
 };
 function createBaseQueryFeederDelegationResponse(): QueryFeederDelegationResponse {
@@ -470,7 +1013,8 @@ function createBaseQueryFeederDelegationResponse(): QueryFeederDelegationRespons
   };
 }
 export const QueryFeederDelegationResponse = {
-  encode(message: QueryFeederDelegationResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryFeederDelegationResponse",
+  encode(message: QueryFeederDelegationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.feederAddr !== "") {
       writer.uint32(10).string(message.feederAddr);
     }
@@ -485,6 +1029,31 @@ export const QueryFeederDelegationResponse = {
     const message = createBaseQueryFeederDelegationResponse();
     message.feederAddr = object.feederAddr ?? "";
     return message;
+  },
+  fromAmino(object: QueryFeederDelegationResponseAmino): QueryFeederDelegationResponse {
+    return {
+      feederAddr: object.feeder_addr
+    };
+  },
+  toAmino(message: QueryFeederDelegationResponse): QueryFeederDelegationResponseAmino {
+    const obj: any = {};
+    obj.feeder_addr = message.feederAddr;
+    return obj;
+  },
+  fromAminoMsg(object: QueryFeederDelegationResponseAminoMsg): QueryFeederDelegationResponse {
+    return QueryFeederDelegationResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryFeederDelegationResponseProtoMsg): QueryFeederDelegationResponse {
+    return QueryFeederDelegationResponse.decode(message.value);
+  },
+  toProto(message: QueryFeederDelegationResponse): Uint8Array {
+    return QueryFeederDelegationResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryFeederDelegationResponse): QueryFeederDelegationResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryFeederDelegationResponse",
+      value: QueryFeederDelegationResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryMissCounter(): QueryMissCounter {
@@ -493,7 +1062,8 @@ function createBaseQueryMissCounter(): QueryMissCounter {
   };
 }
 export const QueryMissCounter = {
-  encode(message: QueryMissCounter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryMissCounter",
+  encode(message: QueryMissCounter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validatorAddr !== "") {
       writer.uint32(10).string(message.validatorAddr);
     }
@@ -508,36 +1078,88 @@ export const QueryMissCounter = {
     const message = createBaseQueryMissCounter();
     message.validatorAddr = object.validatorAddr ?? "";
     return message;
+  },
+  fromAmino(object: QueryMissCounterAmino): QueryMissCounter {
+    return {
+      validatorAddr: object.validator_addr
+    };
+  },
+  toAmino(message: QueryMissCounter): QueryMissCounterAmino {
+    const obj: any = {};
+    obj.validator_addr = message.validatorAddr;
+    return obj;
+  },
+  fromAminoMsg(object: QueryMissCounterAminoMsg): QueryMissCounter {
+    return QueryMissCounter.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMissCounterProtoMsg): QueryMissCounter {
+    return QueryMissCounter.decode(message.value);
+  },
+  toProto(message: QueryMissCounter): Uint8Array {
+    return QueryMissCounter.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMissCounter): QueryMissCounterProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryMissCounter",
+      value: QueryMissCounter.encode(message).finish()
+    };
   }
 };
 function createBaseQueryMissCounterResponse(): QueryMissCounterResponse {
   return {
-    missCounter: Long.UZERO
+    missCounter: BigInt(0)
   };
 }
 export const QueryMissCounterResponse = {
-  encode(message: QueryMissCounterResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.missCounter.isZero()) {
+  typeUrl: "/umee.oracle.v1.QueryMissCounterResponse",
+  encode(message: QueryMissCounterResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.missCounter !== BigInt(0)) {
       writer.uint32(8).uint64(message.missCounter);
     }
     return writer;
   },
   fromJSON(object: any): QueryMissCounterResponse {
     return {
-      missCounter: isSet(object.missCounter) ? Long.fromValue(object.missCounter) : Long.UZERO
+      missCounter: isSet(object.missCounter) ? BigInt(object.missCounter.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<QueryMissCounterResponse>): QueryMissCounterResponse {
     const message = createBaseQueryMissCounterResponse();
-    message.missCounter = object.missCounter !== undefined && object.missCounter !== null ? Long.fromValue(object.missCounter) : Long.UZERO;
+    message.missCounter = object.missCounter !== undefined && object.missCounter !== null ? BigInt(object.missCounter.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: QueryMissCounterResponseAmino): QueryMissCounterResponse {
+    return {
+      missCounter: BigInt(object.miss_counter)
+    };
+  },
+  toAmino(message: QueryMissCounterResponse): QueryMissCounterResponseAmino {
+    const obj: any = {};
+    obj.miss_counter = message.missCounter ? message.missCounter.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryMissCounterResponseAminoMsg): QueryMissCounterResponse {
+    return QueryMissCounterResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMissCounterResponseProtoMsg): QueryMissCounterResponse {
+    return QueryMissCounterResponse.decode(message.value);
+  },
+  toProto(message: QueryMissCounterResponse): Uint8Array {
+    return QueryMissCounterResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMissCounterResponse): QueryMissCounterResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryMissCounterResponse",
+      value: QueryMissCounterResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQuerySlashWindow(): QuerySlashWindow {
   return {};
 }
 export const QuerySlashWindow = {
-  encode(_: QuerySlashWindow, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QuerySlashWindow",
+  encode(_: QuerySlashWindow, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QuerySlashWindow {
@@ -546,29 +1168,77 @@ export const QuerySlashWindow = {
   fromPartial(_: Partial<QuerySlashWindow>): QuerySlashWindow {
     const message = createBaseQuerySlashWindow();
     return message;
+  },
+  fromAmino(_: QuerySlashWindowAmino): QuerySlashWindow {
+    return {};
+  },
+  toAmino(_: QuerySlashWindow): QuerySlashWindowAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QuerySlashWindowAminoMsg): QuerySlashWindow {
+    return QuerySlashWindow.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QuerySlashWindowProtoMsg): QuerySlashWindow {
+    return QuerySlashWindow.decode(message.value);
+  },
+  toProto(message: QuerySlashWindow): Uint8Array {
+    return QuerySlashWindow.encode(message).finish();
+  },
+  toProtoMsg(message: QuerySlashWindow): QuerySlashWindowProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QuerySlashWindow",
+      value: QuerySlashWindow.encode(message).finish()
+    };
   }
 };
 function createBaseQuerySlashWindowResponse(): QuerySlashWindowResponse {
   return {
-    windowProgress: Long.UZERO
+    windowProgress: BigInt(0)
   };
 }
 export const QuerySlashWindowResponse = {
-  encode(message: QuerySlashWindowResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.windowProgress.isZero()) {
+  typeUrl: "/umee.oracle.v1.QuerySlashWindowResponse",
+  encode(message: QuerySlashWindowResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.windowProgress !== BigInt(0)) {
       writer.uint32(8).uint64(message.windowProgress);
     }
     return writer;
   },
   fromJSON(object: any): QuerySlashWindowResponse {
     return {
-      windowProgress: isSet(object.windowProgress) ? Long.fromValue(object.windowProgress) : Long.UZERO
+      windowProgress: isSet(object.windowProgress) ? BigInt(object.windowProgress.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<QuerySlashWindowResponse>): QuerySlashWindowResponse {
     const message = createBaseQuerySlashWindowResponse();
-    message.windowProgress = object.windowProgress !== undefined && object.windowProgress !== null ? Long.fromValue(object.windowProgress) : Long.UZERO;
+    message.windowProgress = object.windowProgress !== undefined && object.windowProgress !== null ? BigInt(object.windowProgress.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: QuerySlashWindowResponseAmino): QuerySlashWindowResponse {
+    return {
+      windowProgress: BigInt(object.window_progress)
+    };
+  },
+  toAmino(message: QuerySlashWindowResponse): QuerySlashWindowResponseAmino {
+    const obj: any = {};
+    obj.window_progress = message.windowProgress ? message.windowProgress.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySlashWindowResponseAminoMsg): QuerySlashWindowResponse {
+    return QuerySlashWindowResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QuerySlashWindowResponseProtoMsg): QuerySlashWindowResponse {
+    return QuerySlashWindowResponse.decode(message.value);
+  },
+  toProto(message: QuerySlashWindowResponse): Uint8Array {
+    return QuerySlashWindowResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QuerySlashWindowResponse): QuerySlashWindowResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QuerySlashWindowResponse",
+      value: QuerySlashWindowResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAggregatePrevote(): QueryAggregatePrevote {
@@ -577,7 +1247,8 @@ function createBaseQueryAggregatePrevote(): QueryAggregatePrevote {
   };
 }
 export const QueryAggregatePrevote = {
-  encode(message: QueryAggregatePrevote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryAggregatePrevote",
+  encode(message: QueryAggregatePrevote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validatorAddr !== "") {
       writer.uint32(10).string(message.validatorAddr);
     }
@@ -592,15 +1263,41 @@ export const QueryAggregatePrevote = {
     const message = createBaseQueryAggregatePrevote();
     message.validatorAddr = object.validatorAddr ?? "";
     return message;
+  },
+  fromAmino(object: QueryAggregatePrevoteAmino): QueryAggregatePrevote {
+    return {
+      validatorAddr: object.validator_addr
+    };
+  },
+  toAmino(message: QueryAggregatePrevote): QueryAggregatePrevoteAmino {
+    const obj: any = {};
+    obj.validator_addr = message.validatorAddr;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAggregatePrevoteAminoMsg): QueryAggregatePrevote {
+    return QueryAggregatePrevote.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAggregatePrevoteProtoMsg): QueryAggregatePrevote {
+    return QueryAggregatePrevote.decode(message.value);
+  },
+  toProto(message: QueryAggregatePrevote): Uint8Array {
+    return QueryAggregatePrevote.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAggregatePrevote): QueryAggregatePrevoteProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryAggregatePrevote",
+      value: QueryAggregatePrevote.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAggregatePrevoteResponse(): QueryAggregatePrevoteResponse {
   return {
-    aggregatePrevote: undefined
+    aggregatePrevote: AggregateExchangeRatePrevote.fromPartial({})
   };
 }
 export const QueryAggregatePrevoteResponse = {
-  encode(message: QueryAggregatePrevoteResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryAggregatePrevoteResponse",
+  encode(message: QueryAggregatePrevoteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.aggregatePrevote !== undefined) {
       AggregateExchangeRatePrevote.encode(message.aggregatePrevote, writer.uint32(10).fork()).ldelim();
     }
@@ -615,13 +1312,39 @@ export const QueryAggregatePrevoteResponse = {
     const message = createBaseQueryAggregatePrevoteResponse();
     message.aggregatePrevote = object.aggregatePrevote !== undefined && object.aggregatePrevote !== null ? AggregateExchangeRatePrevote.fromPartial(object.aggregatePrevote) : undefined;
     return message;
+  },
+  fromAmino(object: QueryAggregatePrevoteResponseAmino): QueryAggregatePrevoteResponse {
+    return {
+      aggregatePrevote: object?.aggregate_prevote ? AggregateExchangeRatePrevote.fromAmino(object.aggregate_prevote) : undefined
+    };
+  },
+  toAmino(message: QueryAggregatePrevoteResponse): QueryAggregatePrevoteResponseAmino {
+    const obj: any = {};
+    obj.aggregate_prevote = message.aggregatePrevote ? AggregateExchangeRatePrevote.toAmino(message.aggregatePrevote) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAggregatePrevoteResponseAminoMsg): QueryAggregatePrevoteResponse {
+    return QueryAggregatePrevoteResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAggregatePrevoteResponseProtoMsg): QueryAggregatePrevoteResponse {
+    return QueryAggregatePrevoteResponse.decode(message.value);
+  },
+  toProto(message: QueryAggregatePrevoteResponse): Uint8Array {
+    return QueryAggregatePrevoteResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAggregatePrevoteResponse): QueryAggregatePrevoteResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryAggregatePrevoteResponse",
+      value: QueryAggregatePrevoteResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAggregatePrevotes(): QueryAggregatePrevotes {
   return {};
 }
 export const QueryAggregatePrevotes = {
-  encode(_: QueryAggregatePrevotes, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryAggregatePrevotes",
+  encode(_: QueryAggregatePrevotes, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryAggregatePrevotes {
@@ -630,6 +1353,28 @@ export const QueryAggregatePrevotes = {
   fromPartial(_: Partial<QueryAggregatePrevotes>): QueryAggregatePrevotes {
     const message = createBaseQueryAggregatePrevotes();
     return message;
+  },
+  fromAmino(_: QueryAggregatePrevotesAmino): QueryAggregatePrevotes {
+    return {};
+  },
+  toAmino(_: QueryAggregatePrevotes): QueryAggregatePrevotesAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryAggregatePrevotesAminoMsg): QueryAggregatePrevotes {
+    return QueryAggregatePrevotes.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAggregatePrevotesProtoMsg): QueryAggregatePrevotes {
+    return QueryAggregatePrevotes.decode(message.value);
+  },
+  toProto(message: QueryAggregatePrevotes): Uint8Array {
+    return QueryAggregatePrevotes.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAggregatePrevotes): QueryAggregatePrevotesProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryAggregatePrevotes",
+      value: QueryAggregatePrevotes.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAggregatePrevotesResponse(): QueryAggregatePrevotesResponse {
@@ -638,7 +1383,8 @@ function createBaseQueryAggregatePrevotesResponse(): QueryAggregatePrevotesRespo
   };
 }
 export const QueryAggregatePrevotesResponse = {
-  encode(message: QueryAggregatePrevotesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryAggregatePrevotesResponse",
+  encode(message: QueryAggregatePrevotesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.aggregatePrevotes) {
       AggregateExchangeRatePrevote.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -653,6 +1399,35 @@ export const QueryAggregatePrevotesResponse = {
     const message = createBaseQueryAggregatePrevotesResponse();
     message.aggregatePrevotes = object.aggregatePrevotes?.map(e => AggregateExchangeRatePrevote.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryAggregatePrevotesResponseAmino): QueryAggregatePrevotesResponse {
+    return {
+      aggregatePrevotes: Array.isArray(object?.aggregate_prevotes) ? object.aggregate_prevotes.map((e: any) => AggregateExchangeRatePrevote.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: QueryAggregatePrevotesResponse): QueryAggregatePrevotesResponseAmino {
+    const obj: any = {};
+    if (message.aggregatePrevotes) {
+      obj.aggregate_prevotes = message.aggregatePrevotes.map(e => e ? AggregateExchangeRatePrevote.toAmino(e) : undefined);
+    } else {
+      obj.aggregate_prevotes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryAggregatePrevotesResponseAminoMsg): QueryAggregatePrevotesResponse {
+    return QueryAggregatePrevotesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAggregatePrevotesResponseProtoMsg): QueryAggregatePrevotesResponse {
+    return QueryAggregatePrevotesResponse.decode(message.value);
+  },
+  toProto(message: QueryAggregatePrevotesResponse): Uint8Array {
+    return QueryAggregatePrevotesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAggregatePrevotesResponse): QueryAggregatePrevotesResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryAggregatePrevotesResponse",
+      value: QueryAggregatePrevotesResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAggregateVote(): QueryAggregateVote {
@@ -661,7 +1436,8 @@ function createBaseQueryAggregateVote(): QueryAggregateVote {
   };
 }
 export const QueryAggregateVote = {
-  encode(message: QueryAggregateVote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryAggregateVote",
+  encode(message: QueryAggregateVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validatorAddr !== "") {
       writer.uint32(10).string(message.validatorAddr);
     }
@@ -676,15 +1452,41 @@ export const QueryAggregateVote = {
     const message = createBaseQueryAggregateVote();
     message.validatorAddr = object.validatorAddr ?? "";
     return message;
+  },
+  fromAmino(object: QueryAggregateVoteAmino): QueryAggregateVote {
+    return {
+      validatorAddr: object.validator_addr
+    };
+  },
+  toAmino(message: QueryAggregateVote): QueryAggregateVoteAmino {
+    const obj: any = {};
+    obj.validator_addr = message.validatorAddr;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAggregateVoteAminoMsg): QueryAggregateVote {
+    return QueryAggregateVote.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAggregateVoteProtoMsg): QueryAggregateVote {
+    return QueryAggregateVote.decode(message.value);
+  },
+  toProto(message: QueryAggregateVote): Uint8Array {
+    return QueryAggregateVote.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAggregateVote): QueryAggregateVoteProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryAggregateVote",
+      value: QueryAggregateVote.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAggregateVoteResponse(): QueryAggregateVoteResponse {
   return {
-    aggregateVote: undefined
+    aggregateVote: AggregateExchangeRateVote.fromPartial({})
   };
 }
 export const QueryAggregateVoteResponse = {
-  encode(message: QueryAggregateVoteResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryAggregateVoteResponse",
+  encode(message: QueryAggregateVoteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.aggregateVote !== undefined) {
       AggregateExchangeRateVote.encode(message.aggregateVote, writer.uint32(10).fork()).ldelim();
     }
@@ -699,13 +1501,39 @@ export const QueryAggregateVoteResponse = {
     const message = createBaseQueryAggregateVoteResponse();
     message.aggregateVote = object.aggregateVote !== undefined && object.aggregateVote !== null ? AggregateExchangeRateVote.fromPartial(object.aggregateVote) : undefined;
     return message;
+  },
+  fromAmino(object: QueryAggregateVoteResponseAmino): QueryAggregateVoteResponse {
+    return {
+      aggregateVote: object?.aggregate_vote ? AggregateExchangeRateVote.fromAmino(object.aggregate_vote) : undefined
+    };
+  },
+  toAmino(message: QueryAggregateVoteResponse): QueryAggregateVoteResponseAmino {
+    const obj: any = {};
+    obj.aggregate_vote = message.aggregateVote ? AggregateExchangeRateVote.toAmino(message.aggregateVote) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAggregateVoteResponseAminoMsg): QueryAggregateVoteResponse {
+    return QueryAggregateVoteResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAggregateVoteResponseProtoMsg): QueryAggregateVoteResponse {
+    return QueryAggregateVoteResponse.decode(message.value);
+  },
+  toProto(message: QueryAggregateVoteResponse): Uint8Array {
+    return QueryAggregateVoteResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAggregateVoteResponse): QueryAggregateVoteResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryAggregateVoteResponse",
+      value: QueryAggregateVoteResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAggregateVotes(): QueryAggregateVotes {
   return {};
 }
 export const QueryAggregateVotes = {
-  encode(_: QueryAggregateVotes, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryAggregateVotes",
+  encode(_: QueryAggregateVotes, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryAggregateVotes {
@@ -714,6 +1542,28 @@ export const QueryAggregateVotes = {
   fromPartial(_: Partial<QueryAggregateVotes>): QueryAggregateVotes {
     const message = createBaseQueryAggregateVotes();
     return message;
+  },
+  fromAmino(_: QueryAggregateVotesAmino): QueryAggregateVotes {
+    return {};
+  },
+  toAmino(_: QueryAggregateVotes): QueryAggregateVotesAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryAggregateVotesAminoMsg): QueryAggregateVotes {
+    return QueryAggregateVotes.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAggregateVotesProtoMsg): QueryAggregateVotes {
+    return QueryAggregateVotes.decode(message.value);
+  },
+  toProto(message: QueryAggregateVotes): Uint8Array {
+    return QueryAggregateVotes.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAggregateVotes): QueryAggregateVotesProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryAggregateVotes",
+      value: QueryAggregateVotes.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAggregateVotesResponse(): QueryAggregateVotesResponse {
@@ -722,7 +1572,8 @@ function createBaseQueryAggregateVotesResponse(): QueryAggregateVotesResponse {
   };
 }
 export const QueryAggregateVotesResponse = {
-  encode(message: QueryAggregateVotesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryAggregateVotesResponse",
+  encode(message: QueryAggregateVotesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.aggregateVotes) {
       AggregateExchangeRateVote.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -737,13 +1588,43 @@ export const QueryAggregateVotesResponse = {
     const message = createBaseQueryAggregateVotesResponse();
     message.aggregateVotes = object.aggregateVotes?.map(e => AggregateExchangeRateVote.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryAggregateVotesResponseAmino): QueryAggregateVotesResponse {
+    return {
+      aggregateVotes: Array.isArray(object?.aggregate_votes) ? object.aggregate_votes.map((e: any) => AggregateExchangeRateVote.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: QueryAggregateVotesResponse): QueryAggregateVotesResponseAmino {
+    const obj: any = {};
+    if (message.aggregateVotes) {
+      obj.aggregate_votes = message.aggregateVotes.map(e => e ? AggregateExchangeRateVote.toAmino(e) : undefined);
+    } else {
+      obj.aggregate_votes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryAggregateVotesResponseAminoMsg): QueryAggregateVotesResponse {
+    return QueryAggregateVotesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAggregateVotesResponseProtoMsg): QueryAggregateVotesResponse {
+    return QueryAggregateVotesResponse.decode(message.value);
+  },
+  toProto(message: QueryAggregateVotesResponse): Uint8Array {
+    return QueryAggregateVotesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAggregateVotesResponse): QueryAggregateVotesResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryAggregateVotesResponse",
+      value: QueryAggregateVotesResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryParams(): QueryParams {
   return {};
 }
 export const QueryParams = {
-  encode(_: QueryParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryParams",
+  encode(_: QueryParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryParams {
@@ -752,15 +1633,38 @@ export const QueryParams = {
   fromPartial(_: Partial<QueryParams>): QueryParams {
     const message = createBaseQueryParams();
     return message;
+  },
+  fromAmino(_: QueryParamsAmino): QueryParams {
+    return {};
+  },
+  toAmino(_: QueryParams): QueryParamsAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsAminoMsg): QueryParams {
+    return QueryParams.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsProtoMsg): QueryParams {
+    return QueryParams.decode(message.value);
+  },
+  toProto(message: QueryParams): Uint8Array {
+    return QueryParams.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParams): QueryParamsProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryParams",
+      value: QueryParams.encode(message).finish()
+    };
   }
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: undefined
+    params: Params.fromPartial({})
   };
 }
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryParamsResponse",
+  encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -775,6 +1679,31 @@ export const QueryParamsResponse = {
     const message = createBaseQueryParamsResponse();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsResponseProtoMsg): QueryParamsResponse {
+    return QueryParamsResponse.decode(message.value);
+  },
+  toProto(message: QueryParamsResponse): Uint8Array {
+    return QueryParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryParamsResponse",
+      value: QueryParamsResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryMedians(): QueryMedians {
@@ -784,7 +1713,8 @@ function createBaseQueryMedians(): QueryMedians {
   };
 }
 export const QueryMedians = {
-  encode(message: QueryMedians, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryMedians",
+  encode(message: QueryMedians, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -804,6 +1734,33 @@ export const QueryMedians = {
     message.denom = object.denom ?? "";
     message.numStamps = object.numStamps ?? 0;
     return message;
+  },
+  fromAmino(object: QueryMediansAmino): QueryMedians {
+    return {
+      denom: object.denom,
+      numStamps: object.numStamps
+    };
+  },
+  toAmino(message: QueryMedians): QueryMediansAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.numStamps = message.numStamps;
+    return obj;
+  },
+  fromAminoMsg(object: QueryMediansAminoMsg): QueryMedians {
+    return QueryMedians.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMediansProtoMsg): QueryMedians {
+    return QueryMedians.decode(message.value);
+  },
+  toProto(message: QueryMedians): Uint8Array {
+    return QueryMedians.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMedians): QueryMediansProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryMedians",
+      value: QueryMedians.encode(message).finish()
+    };
   }
 };
 function createBaseQueryMediansResponse(): QueryMediansResponse {
@@ -812,7 +1769,8 @@ function createBaseQueryMediansResponse(): QueryMediansResponse {
   };
 }
 export const QueryMediansResponse = {
-  encode(message: QueryMediansResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryMediansResponse",
+  encode(message: QueryMediansResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.medians) {
       Price.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -827,6 +1785,35 @@ export const QueryMediansResponse = {
     const message = createBaseQueryMediansResponse();
     message.medians = object.medians?.map(e => Price.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryMediansResponseAmino): QueryMediansResponse {
+    return {
+      medians: Array.isArray(object?.medians) ? object.medians.map((e: any) => Price.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: QueryMediansResponse): QueryMediansResponseAmino {
+    const obj: any = {};
+    if (message.medians) {
+      obj.medians = message.medians.map(e => e ? Price.toAmino(e) : undefined);
+    } else {
+      obj.medians = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryMediansResponseAminoMsg): QueryMediansResponse {
+    return QueryMediansResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMediansResponseProtoMsg): QueryMediansResponse {
+    return QueryMediansResponse.decode(message.value);
+  },
+  toProto(message: QueryMediansResponse): Uint8Array {
+    return QueryMediansResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMediansResponse): QueryMediansResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryMediansResponse",
+      value: QueryMediansResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryMedianDeviations(): QueryMedianDeviations {
@@ -835,7 +1822,8 @@ function createBaseQueryMedianDeviations(): QueryMedianDeviations {
   };
 }
 export const QueryMedianDeviations = {
-  encode(message: QueryMedianDeviations, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryMedianDeviations",
+  encode(message: QueryMedianDeviations, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -850,6 +1838,31 @@ export const QueryMedianDeviations = {
     const message = createBaseQueryMedianDeviations();
     message.denom = object.denom ?? "";
     return message;
+  },
+  fromAmino(object: QueryMedianDeviationsAmino): QueryMedianDeviations {
+    return {
+      denom: object.denom
+    };
+  },
+  toAmino(message: QueryMedianDeviations): QueryMedianDeviationsAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    return obj;
+  },
+  fromAminoMsg(object: QueryMedianDeviationsAminoMsg): QueryMedianDeviations {
+    return QueryMedianDeviations.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMedianDeviationsProtoMsg): QueryMedianDeviations {
+    return QueryMedianDeviations.decode(message.value);
+  },
+  toProto(message: QueryMedianDeviations): Uint8Array {
+    return QueryMedianDeviations.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMedianDeviations): QueryMedianDeviationsProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryMedianDeviations",
+      value: QueryMedianDeviations.encode(message).finish()
+    };
   }
 };
 function createBaseQueryMedianDeviationsResponse(): QueryMedianDeviationsResponse {
@@ -858,7 +1871,8 @@ function createBaseQueryMedianDeviationsResponse(): QueryMedianDeviationsRespons
   };
 }
 export const QueryMedianDeviationsResponse = {
-  encode(message: QueryMedianDeviationsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryMedianDeviationsResponse",
+  encode(message: QueryMedianDeviationsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.medianDeviations) {
       Price.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -873,6 +1887,35 @@ export const QueryMedianDeviationsResponse = {
     const message = createBaseQueryMedianDeviationsResponse();
     message.medianDeviations = object.medianDeviations?.map(e => Price.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryMedianDeviationsResponseAmino): QueryMedianDeviationsResponse {
+    return {
+      medianDeviations: Array.isArray(object?.medianDeviations) ? object.medianDeviations.map((e: any) => Price.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: QueryMedianDeviationsResponse): QueryMedianDeviationsResponseAmino {
+    const obj: any = {};
+    if (message.medianDeviations) {
+      obj.medianDeviations = message.medianDeviations.map(e => e ? Price.toAmino(e) : undefined);
+    } else {
+      obj.medianDeviations = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryMedianDeviationsResponseAminoMsg): QueryMedianDeviationsResponse {
+    return QueryMedianDeviationsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMedianDeviationsResponseProtoMsg): QueryMedianDeviationsResponse {
+    return QueryMedianDeviationsResponse.decode(message.value);
+  },
+  toProto(message: QueryMedianDeviationsResponse): Uint8Array {
+    return QueryMedianDeviationsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMedianDeviationsResponse): QueryMedianDeviationsResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryMedianDeviationsResponse",
+      value: QueryMedianDeviationsResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAvgPrice(): QueryAvgPrice {
@@ -881,7 +1924,8 @@ function createBaseQueryAvgPrice(): QueryAvgPrice {
   };
 }
 export const QueryAvgPrice = {
-  encode(message: QueryAvgPrice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryAvgPrice",
+  encode(message: QueryAvgPrice, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -896,6 +1940,31 @@ export const QueryAvgPrice = {
     const message = createBaseQueryAvgPrice();
     message.denom = object.denom ?? "";
     return message;
+  },
+  fromAmino(object: QueryAvgPriceAmino): QueryAvgPrice {
+    return {
+      denom: object.denom
+    };
+  },
+  toAmino(message: QueryAvgPrice): QueryAvgPriceAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAvgPriceAminoMsg): QueryAvgPrice {
+    return QueryAvgPrice.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAvgPriceProtoMsg): QueryAvgPrice {
+    return QueryAvgPrice.decode(message.value);
+  },
+  toProto(message: QueryAvgPrice): Uint8Array {
+    return QueryAvgPrice.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAvgPrice): QueryAvgPriceProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryAvgPrice",
+      value: QueryAvgPrice.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAvgPriceResponse(): QueryAvgPriceResponse {
@@ -904,9 +1973,10 @@ function createBaseQueryAvgPriceResponse(): QueryAvgPriceResponse {
   };
 }
 export const QueryAvgPriceResponse = {
-  encode(message: QueryAvgPriceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.oracle.v1.QueryAvgPriceResponse",
+  encode(message: QueryAvgPriceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.price !== "") {
-      writer.uint32(10).string(message.price);
+      writer.uint32(10).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     return writer;
   },
@@ -919,5 +1989,30 @@ export const QueryAvgPriceResponse = {
     const message = createBaseQueryAvgPriceResponse();
     message.price = object.price ?? "";
     return message;
+  },
+  fromAmino(object: QueryAvgPriceResponseAmino): QueryAvgPriceResponse {
+    return {
+      price: object.price
+    };
+  },
+  toAmino(message: QueryAvgPriceResponse): QueryAvgPriceResponseAmino {
+    const obj: any = {};
+    obj.price = message.price;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAvgPriceResponseAminoMsg): QueryAvgPriceResponse {
+    return QueryAvgPriceResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAvgPriceResponseProtoMsg): QueryAvgPriceResponse {
+    return QueryAvgPriceResponse.decode(message.value);
+  },
+  toProto(message: QueryAvgPriceResponse): Uint8Array {
+    return QueryAvgPriceResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAvgPriceResponse): QueryAvgPriceResponseProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.QueryAvgPriceResponse",
+      value: QueryAvgPriceResponse.encode(message).finish()
+    };
   }
 };

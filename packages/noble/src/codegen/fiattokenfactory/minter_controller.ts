@@ -1,8 +1,20 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../binary";
 import { isSet } from "../helpers";
 export interface MinterController {
   minter: string;
   controller: string;
+}
+export interface MinterControllerProtoMsg {
+  typeUrl: "/noble.fiattokenfactory.MinterController";
+  value: Uint8Array;
+}
+export interface MinterControllerAmino {
+  minter: string;
+  controller: string;
+}
+export interface MinterControllerAminoMsg {
+  type: "/noble.fiattokenfactory.MinterController";
+  value: MinterControllerAmino;
 }
 export interface MinterControllerSDKType {
   minter: string;
@@ -15,7 +27,8 @@ function createBaseMinterController(): MinterController {
   };
 }
 export const MinterController = {
-  encode(message: MinterController, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/noble.fiattokenfactory.MinterController",
+  encode(message: MinterController, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.minter !== "") {
       writer.uint32(10).string(message.minter);
     }
@@ -35,5 +48,32 @@ export const MinterController = {
     message.minter = object.minter ?? "";
     message.controller = object.controller ?? "";
     return message;
+  },
+  fromAmino(object: MinterControllerAmino): MinterController {
+    return {
+      minter: object.minter,
+      controller: object.controller
+    };
+  },
+  toAmino(message: MinterController): MinterControllerAmino {
+    const obj: any = {};
+    obj.minter = message.minter;
+    obj.controller = message.controller;
+    return obj;
+  },
+  fromAminoMsg(object: MinterControllerAminoMsg): MinterController {
+    return MinterController.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MinterControllerProtoMsg): MinterController {
+    return MinterController.decode(message.value);
+  },
+  toProto(message: MinterController): Uint8Array {
+    return MinterController.encode(message).finish();
+  },
+  toProtoMsg(message: MinterController): MinterControllerProtoMsg {
+    return {
+      typeUrl: "/noble.fiattokenfactory.MinterController",
+      value: MinterController.encode(message).finish()
+    };
   }
 };

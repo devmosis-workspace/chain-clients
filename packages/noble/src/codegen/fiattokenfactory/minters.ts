@@ -1,22 +1,35 @@
-import { Coin, CoinSDKType } from "../cosmos/base/v1beta1/coin";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../binary";
 import { isSet } from "../helpers";
 export interface Minters {
   address: string;
-  allowance?: Coin;
+  allowance: Coin;
+}
+export interface MintersProtoMsg {
+  typeUrl: "/noble.fiattokenfactory.Minters";
+  value: Uint8Array;
+}
+export interface MintersAmino {
+  address: string;
+  allowance?: CoinAmino;
+}
+export interface MintersAminoMsg {
+  type: "/noble.fiattokenfactory.Minters";
+  value: MintersAmino;
 }
 export interface MintersSDKType {
   address: string;
-  allowance?: CoinSDKType;
+  allowance: CoinSDKType;
 }
 function createBaseMinters(): Minters {
   return {
     address: "",
-    allowance: undefined
+    allowance: Coin.fromPartial({})
   };
 }
 export const Minters = {
-  encode(message: Minters, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/noble.fiattokenfactory.Minters",
+  encode(message: Minters, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
@@ -36,5 +49,32 @@ export const Minters = {
     message.address = object.address ?? "";
     message.allowance = object.allowance !== undefined && object.allowance !== null ? Coin.fromPartial(object.allowance) : undefined;
     return message;
+  },
+  fromAmino(object: MintersAmino): Minters {
+    return {
+      address: object.address,
+      allowance: object?.allowance ? Coin.fromAmino(object.allowance) : undefined
+    };
+  },
+  toAmino(message: Minters): MintersAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.allowance = message.allowance ? Coin.toAmino(message.allowance) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MintersAminoMsg): Minters {
+    return Minters.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MintersProtoMsg): Minters {
+    return Minters.decode(message.value);
+  },
+  toProto(message: Minters): Uint8Array {
+    return Minters.encode(message).finish();
+  },
+  toProtoMsg(message: Minters): MintersProtoMsg {
+    return {
+      typeUrl: "/noble.fiattokenfactory.Minters",
+      value: Minters.encode(message).finish()
+    };
   }
 };

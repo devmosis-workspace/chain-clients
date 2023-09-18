@@ -1,9 +1,22 @@
-import { Long, isSet, bytesFromBase64 } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
+import { isSet, bytesFromBase64 } from "../../helpers";
 export interface NetAddress {
   id: string;
   ip: string;
   port: number;
+}
+export interface NetAddressProtoMsg {
+  typeUrl: "/tendermint.p2p.NetAddress";
+  value: Uint8Array;
+}
+export interface NetAddressAmino {
+  id: string;
+  ip: string;
+  port: number;
+}
+export interface NetAddressAminoMsg {
+  type: "/tendermint.p2p.NetAddress";
+  value: NetAddressAmino;
 }
 export interface NetAddressSDKType {
   id: string;
@@ -11,38 +24,81 @@ export interface NetAddressSDKType {
   port: number;
 }
 export interface ProtocolVersion {
-  p2p: Long;
-  block: Long;
-  app: Long;
+  p2p: bigint;
+  block: bigint;
+  app: bigint;
+}
+export interface ProtocolVersionProtoMsg {
+  typeUrl: "/tendermint.p2p.ProtocolVersion";
+  value: Uint8Array;
+}
+export interface ProtocolVersionAmino {
+  p2p: string;
+  block: string;
+  app: string;
+}
+export interface ProtocolVersionAminoMsg {
+  type: "/tendermint.p2p.ProtocolVersion";
+  value: ProtocolVersionAmino;
 }
 export interface ProtocolVersionSDKType {
-  p2p: Long;
-  block: Long;
-  app: Long;
+  p2p: bigint;
+  block: bigint;
+  app: bigint;
 }
 export interface DefaultNodeInfo {
-  protocolVersion?: ProtocolVersion;
+  protocolVersion: ProtocolVersion;
   defaultNodeId: string;
   listenAddr: string;
   network: string;
   version: string;
   channels: Uint8Array;
   moniker: string;
-  other?: DefaultNodeInfoOther;
+  other: DefaultNodeInfoOther;
 }
-export interface DefaultNodeInfoSDKType {
-  protocol_version?: ProtocolVersionSDKType;
+export interface DefaultNodeInfoProtoMsg {
+  typeUrl: "/tendermint.p2p.DefaultNodeInfo";
+  value: Uint8Array;
+}
+export interface DefaultNodeInfoAmino {
+  protocol_version?: ProtocolVersionAmino;
   default_node_id: string;
   listen_addr: string;
   network: string;
   version: string;
   channels: Uint8Array;
   moniker: string;
-  other?: DefaultNodeInfoOtherSDKType;
+  other?: DefaultNodeInfoOtherAmino;
+}
+export interface DefaultNodeInfoAminoMsg {
+  type: "/tendermint.p2p.DefaultNodeInfo";
+  value: DefaultNodeInfoAmino;
+}
+export interface DefaultNodeInfoSDKType {
+  protocol_version: ProtocolVersionSDKType;
+  default_node_id: string;
+  listen_addr: string;
+  network: string;
+  version: string;
+  channels: Uint8Array;
+  moniker: string;
+  other: DefaultNodeInfoOtherSDKType;
 }
 export interface DefaultNodeInfoOther {
   txIndex: string;
   rpcAddress: string;
+}
+export interface DefaultNodeInfoOtherProtoMsg {
+  typeUrl: "/tendermint.p2p.DefaultNodeInfoOther";
+  value: Uint8Array;
+}
+export interface DefaultNodeInfoOtherAmino {
+  tx_index: string;
+  rpc_address: string;
+}
+export interface DefaultNodeInfoOtherAminoMsg {
+  type: "/tendermint.p2p.DefaultNodeInfoOther";
+  value: DefaultNodeInfoOtherAmino;
 }
 export interface DefaultNodeInfoOtherSDKType {
   tx_index: string;
@@ -56,7 +112,8 @@ function createBaseNetAddress(): NetAddress {
   };
 }
 export const NetAddress = {
-  encode(message: NetAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.p2p.NetAddress",
+  encode(message: NetAddress, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -81,57 +138,117 @@ export const NetAddress = {
     message.ip = object.ip ?? "";
     message.port = object.port ?? 0;
     return message;
+  },
+  fromAmino(object: NetAddressAmino): NetAddress {
+    return {
+      id: object.id,
+      ip: object.ip,
+      port: object.port
+    };
+  },
+  toAmino(message: NetAddress): NetAddressAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.ip = message.ip;
+    obj.port = message.port;
+    return obj;
+  },
+  fromAminoMsg(object: NetAddressAminoMsg): NetAddress {
+    return NetAddress.fromAmino(object.value);
+  },
+  fromProtoMsg(message: NetAddressProtoMsg): NetAddress {
+    return NetAddress.decode(message.value);
+  },
+  toProto(message: NetAddress): Uint8Array {
+    return NetAddress.encode(message).finish();
+  },
+  toProtoMsg(message: NetAddress): NetAddressProtoMsg {
+    return {
+      typeUrl: "/tendermint.p2p.NetAddress",
+      value: NetAddress.encode(message).finish()
+    };
   }
 };
 function createBaseProtocolVersion(): ProtocolVersion {
   return {
-    p2p: Long.UZERO,
-    block: Long.UZERO,
-    app: Long.UZERO
+    p2p: BigInt(0),
+    block: BigInt(0),
+    app: BigInt(0)
   };
 }
 export const ProtocolVersion = {
-  encode(message: ProtocolVersion, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.p2p.isZero()) {
+  typeUrl: "/tendermint.p2p.ProtocolVersion",
+  encode(message: ProtocolVersion, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.p2p !== BigInt(0)) {
       writer.uint32(8).uint64(message.p2p);
     }
-    if (!message.block.isZero()) {
+    if (message.block !== BigInt(0)) {
       writer.uint32(16).uint64(message.block);
     }
-    if (!message.app.isZero()) {
+    if (message.app !== BigInt(0)) {
       writer.uint32(24).uint64(message.app);
     }
     return writer;
   },
   fromJSON(object: any): ProtocolVersion {
     return {
-      p2p: isSet(object.p2p) ? Long.fromValue(object.p2p) : Long.UZERO,
-      block: isSet(object.block) ? Long.fromValue(object.block) : Long.UZERO,
-      app: isSet(object.app) ? Long.fromValue(object.app) : Long.UZERO
+      p2p: isSet(object.p2p) ? BigInt(object.p2p.toString()) : BigInt(0),
+      block: isSet(object.block) ? BigInt(object.block.toString()) : BigInt(0),
+      app: isSet(object.app) ? BigInt(object.app.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<ProtocolVersion>): ProtocolVersion {
     const message = createBaseProtocolVersion();
-    message.p2p = object.p2p !== undefined && object.p2p !== null ? Long.fromValue(object.p2p) : Long.UZERO;
-    message.block = object.block !== undefined && object.block !== null ? Long.fromValue(object.block) : Long.UZERO;
-    message.app = object.app !== undefined && object.app !== null ? Long.fromValue(object.app) : Long.UZERO;
+    message.p2p = object.p2p !== undefined && object.p2p !== null ? BigInt(object.p2p.toString()) : BigInt(0);
+    message.block = object.block !== undefined && object.block !== null ? BigInt(object.block.toString()) : BigInt(0);
+    message.app = object.app !== undefined && object.app !== null ? BigInt(object.app.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: ProtocolVersionAmino): ProtocolVersion {
+    return {
+      p2p: BigInt(object.p2p),
+      block: BigInt(object.block),
+      app: BigInt(object.app)
+    };
+  },
+  toAmino(message: ProtocolVersion): ProtocolVersionAmino {
+    const obj: any = {};
+    obj.p2p = message.p2p ? message.p2p.toString() : undefined;
+    obj.block = message.block ? message.block.toString() : undefined;
+    obj.app = message.app ? message.app.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ProtocolVersionAminoMsg): ProtocolVersion {
+    return ProtocolVersion.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ProtocolVersionProtoMsg): ProtocolVersion {
+    return ProtocolVersion.decode(message.value);
+  },
+  toProto(message: ProtocolVersion): Uint8Array {
+    return ProtocolVersion.encode(message).finish();
+  },
+  toProtoMsg(message: ProtocolVersion): ProtocolVersionProtoMsg {
+    return {
+      typeUrl: "/tendermint.p2p.ProtocolVersion",
+      value: ProtocolVersion.encode(message).finish()
+    };
   }
 };
 function createBaseDefaultNodeInfo(): DefaultNodeInfo {
   return {
-    protocolVersion: undefined,
+    protocolVersion: ProtocolVersion.fromPartial({}),
     defaultNodeId: "",
     listenAddr: "",
     network: "",
     version: "",
     channels: new Uint8Array(),
     moniker: "",
-    other: undefined
+    other: DefaultNodeInfoOther.fromPartial({})
   };
 }
 export const DefaultNodeInfo = {
-  encode(message: DefaultNodeInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.p2p.DefaultNodeInfo",
+  encode(message: DefaultNodeInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.protocolVersion !== undefined) {
       ProtocolVersion.encode(message.protocolVersion, writer.uint32(10).fork()).ldelim();
     }
@@ -181,6 +298,45 @@ export const DefaultNodeInfo = {
     message.moniker = object.moniker ?? "";
     message.other = object.other !== undefined && object.other !== null ? DefaultNodeInfoOther.fromPartial(object.other) : undefined;
     return message;
+  },
+  fromAmino(object: DefaultNodeInfoAmino): DefaultNodeInfo {
+    return {
+      protocolVersion: object?.protocol_version ? ProtocolVersion.fromAmino(object.protocol_version) : undefined,
+      defaultNodeId: object.default_node_id,
+      listenAddr: object.listen_addr,
+      network: object.network,
+      version: object.version,
+      channels: object.channels,
+      moniker: object.moniker,
+      other: object?.other ? DefaultNodeInfoOther.fromAmino(object.other) : undefined
+    };
+  },
+  toAmino(message: DefaultNodeInfo): DefaultNodeInfoAmino {
+    const obj: any = {};
+    obj.protocol_version = message.protocolVersion ? ProtocolVersion.toAmino(message.protocolVersion) : undefined;
+    obj.default_node_id = message.defaultNodeId;
+    obj.listen_addr = message.listenAddr;
+    obj.network = message.network;
+    obj.version = message.version;
+    obj.channels = message.channels;
+    obj.moniker = message.moniker;
+    obj.other = message.other ? DefaultNodeInfoOther.toAmino(message.other) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: DefaultNodeInfoAminoMsg): DefaultNodeInfo {
+    return DefaultNodeInfo.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DefaultNodeInfoProtoMsg): DefaultNodeInfo {
+    return DefaultNodeInfo.decode(message.value);
+  },
+  toProto(message: DefaultNodeInfo): Uint8Array {
+    return DefaultNodeInfo.encode(message).finish();
+  },
+  toProtoMsg(message: DefaultNodeInfo): DefaultNodeInfoProtoMsg {
+    return {
+      typeUrl: "/tendermint.p2p.DefaultNodeInfo",
+      value: DefaultNodeInfo.encode(message).finish()
+    };
   }
 };
 function createBaseDefaultNodeInfoOther(): DefaultNodeInfoOther {
@@ -190,7 +346,8 @@ function createBaseDefaultNodeInfoOther(): DefaultNodeInfoOther {
   };
 }
 export const DefaultNodeInfoOther = {
-  encode(message: DefaultNodeInfoOther, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.p2p.DefaultNodeInfoOther",
+  encode(message: DefaultNodeInfoOther, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.txIndex !== "") {
       writer.uint32(10).string(message.txIndex);
     }
@@ -210,5 +367,32 @@ export const DefaultNodeInfoOther = {
     message.txIndex = object.txIndex ?? "";
     message.rpcAddress = object.rpcAddress ?? "";
     return message;
+  },
+  fromAmino(object: DefaultNodeInfoOtherAmino): DefaultNodeInfoOther {
+    return {
+      txIndex: object.tx_index,
+      rpcAddress: object.rpc_address
+    };
+  },
+  toAmino(message: DefaultNodeInfoOther): DefaultNodeInfoOtherAmino {
+    const obj: any = {};
+    obj.tx_index = message.txIndex;
+    obj.rpc_address = message.rpcAddress;
+    return obj;
+  },
+  fromAminoMsg(object: DefaultNodeInfoOtherAminoMsg): DefaultNodeInfoOther {
+    return DefaultNodeInfoOther.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DefaultNodeInfoOtherProtoMsg): DefaultNodeInfoOther {
+    return DefaultNodeInfoOther.decode(message.value);
+  },
+  toProto(message: DefaultNodeInfoOther): Uint8Array {
+    return DefaultNodeInfoOther.encode(message).finish();
+  },
+  toProtoMsg(message: DefaultNodeInfoOther): DefaultNodeInfoOtherProtoMsg {
+    return {
+      typeUrl: "/tendermint.p2p.DefaultNodeInfoOther",
+      value: DefaultNodeInfoOther.encode(message).finish()
+    };
   }
 };

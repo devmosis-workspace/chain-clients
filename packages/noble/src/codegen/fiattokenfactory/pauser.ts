@@ -1,7 +1,18 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../binary";
 import { isSet } from "../helpers";
 export interface Pauser {
   address: string;
+}
+export interface PauserProtoMsg {
+  typeUrl: "/noble.fiattokenfactory.Pauser";
+  value: Uint8Array;
+}
+export interface PauserAmino {
+  address: string;
+}
+export interface PauserAminoMsg {
+  type: "/noble.fiattokenfactory.Pauser";
+  value: PauserAmino;
 }
 export interface PauserSDKType {
   address: string;
@@ -12,7 +23,8 @@ function createBasePauser(): Pauser {
   };
 }
 export const Pauser = {
-  encode(message: Pauser, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/noble.fiattokenfactory.Pauser",
+  encode(message: Pauser, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
@@ -27,5 +39,30 @@ export const Pauser = {
     const message = createBasePauser();
     message.address = object.address ?? "";
     return message;
+  },
+  fromAmino(object: PauserAmino): Pauser {
+    return {
+      address: object.address
+    };
+  },
+  toAmino(message: Pauser): PauserAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    return obj;
+  },
+  fromAminoMsg(object: PauserAminoMsg): Pauser {
+    return Pauser.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PauserProtoMsg): Pauser {
+    return Pauser.decode(message.value);
+  },
+  toProto(message: Pauser): Uint8Array {
+    return Pauser.encode(message).finish();
+  },
+  toProtoMsg(message: Pauser): PauserProtoMsg {
+    return {
+      typeUrl: "/noble.fiattokenfactory.Pauser",
+      value: Pauser.encode(message).finish()
+    };
   }
 };

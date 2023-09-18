@@ -1,9 +1,22 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** EventFeeMarket is the event type for the fee market module */
 export interface EventFeeMarket {
   /** base_fee for EIP-1559 blocks */
   baseFee: string;
+}
+export interface EventFeeMarketProtoMsg {
+  typeUrl: "/ethermint.feemarket.v1.EventFeeMarket";
+  value: Uint8Array;
+}
+/** EventFeeMarket is the event type for the fee market module */
+export interface EventFeeMarketAmino {
+  /** base_fee for EIP-1559 blocks */
+  base_fee: string;
+}
+export interface EventFeeMarketAminoMsg {
+  type: "/ethermint.feemarket.v1.EventFeeMarket";
+  value: EventFeeMarketAmino;
 }
 /** EventFeeMarket is the event type for the fee market module */
 export interface EventFeeMarketSDKType {
@@ -16,6 +29,21 @@ export interface EventBlockGas {
   /** amount of gas wanted by the block */
   amount: string;
 }
+export interface EventBlockGasProtoMsg {
+  typeUrl: "/ethermint.feemarket.v1.EventBlockGas";
+  value: Uint8Array;
+}
+/** EventBlockGas defines an Ethereum block gas event */
+export interface EventBlockGasAmino {
+  /** height of the block */
+  height: string;
+  /** amount of gas wanted by the block */
+  amount: string;
+}
+export interface EventBlockGasAminoMsg {
+  type: "/ethermint.feemarket.v1.EventBlockGas";
+  value: EventBlockGasAmino;
+}
 /** EventBlockGas defines an Ethereum block gas event */
 export interface EventBlockGasSDKType {
   height: string;
@@ -27,7 +55,8 @@ function createBaseEventFeeMarket(): EventFeeMarket {
   };
 }
 export const EventFeeMarket = {
-  encode(message: EventFeeMarket, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/ethermint.feemarket.v1.EventFeeMarket",
+  encode(message: EventFeeMarket, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.baseFee !== "") {
       writer.uint32(10).string(message.baseFee);
     }
@@ -42,6 +71,31 @@ export const EventFeeMarket = {
     const message = createBaseEventFeeMarket();
     message.baseFee = object.baseFee ?? "";
     return message;
+  },
+  fromAmino(object: EventFeeMarketAmino): EventFeeMarket {
+    return {
+      baseFee: object.base_fee
+    };
+  },
+  toAmino(message: EventFeeMarket): EventFeeMarketAmino {
+    const obj: any = {};
+    obj.base_fee = message.baseFee;
+    return obj;
+  },
+  fromAminoMsg(object: EventFeeMarketAminoMsg): EventFeeMarket {
+    return EventFeeMarket.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventFeeMarketProtoMsg): EventFeeMarket {
+    return EventFeeMarket.decode(message.value);
+  },
+  toProto(message: EventFeeMarket): Uint8Array {
+    return EventFeeMarket.encode(message).finish();
+  },
+  toProtoMsg(message: EventFeeMarket): EventFeeMarketProtoMsg {
+    return {
+      typeUrl: "/ethermint.feemarket.v1.EventFeeMarket",
+      value: EventFeeMarket.encode(message).finish()
+    };
   }
 };
 function createBaseEventBlockGas(): EventBlockGas {
@@ -51,7 +105,8 @@ function createBaseEventBlockGas(): EventBlockGas {
   };
 }
 export const EventBlockGas = {
-  encode(message: EventBlockGas, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/ethermint.feemarket.v1.EventBlockGas",
+  encode(message: EventBlockGas, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== "") {
       writer.uint32(10).string(message.height);
     }
@@ -71,5 +126,32 @@ export const EventBlockGas = {
     message.height = object.height ?? "";
     message.amount = object.amount ?? "";
     return message;
+  },
+  fromAmino(object: EventBlockGasAmino): EventBlockGas {
+    return {
+      height: object.height,
+      amount: object.amount
+    };
+  },
+  toAmino(message: EventBlockGas): EventBlockGasAmino {
+    const obj: any = {};
+    obj.height = message.height;
+    obj.amount = message.amount;
+    return obj;
+  },
+  fromAminoMsg(object: EventBlockGasAminoMsg): EventBlockGas {
+    return EventBlockGas.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventBlockGasProtoMsg): EventBlockGas {
+    return EventBlockGas.decode(message.value);
+  },
+  toProto(message: EventBlockGas): Uint8Array {
+    return EventBlockGas.encode(message).finish();
+  },
+  toProtoMsg(message: EventBlockGas): EventBlockGasProtoMsg {
+    return {
+      typeUrl: "/ethermint.feemarket.v1.EventBlockGas",
+      value: EventBlockGas.encode(message).finish()
+    };
   }
 };

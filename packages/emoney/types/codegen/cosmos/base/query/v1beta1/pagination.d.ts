@@ -1,5 +1,4 @@
-import { Long } from "../../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../../binary";
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
  * pagination. Ex:
@@ -21,12 +20,12 @@ export interface PageRequest {
      * It is less efficient than using key. Only one of offset or key should
      * be set.
      */
-    offset: Long;
+    offset: bigint;
     /**
      * limit is the total number of results to be returned in the result page.
      * If left empty it will default to a value to be set by each app.
      */
-    limit: Long;
+    limit: bigint;
     /**
      * count_total is set to true  to indicate that the result set should include
      * a count of the total number of items available for pagination in UIs.
@@ -34,6 +33,49 @@ export interface PageRequest {
      * is set.
      */
     countTotal: boolean;
+}
+export interface PageRequestProtoMsg {
+    typeUrl: "/cosmos.base.query.v1beta1.PageRequest";
+    value: Uint8Array;
+}
+/**
+ * PageRequest is to be embedded in gRPC request messages for efficient
+ * pagination. Ex:
+ *
+ *  message SomeRequest {
+ *          Foo some_parameter = 1;
+ *          PageRequest pagination = 2;
+ *  }
+ */
+export interface PageRequestAmino {
+    /**
+     * key is a value returned in PageResponse.next_key to begin
+     * querying the next page most efficiently. Only one of offset or key
+     * should be set.
+     */
+    key: Uint8Array;
+    /**
+     * offset is a numeric offset that can be used when key is unavailable.
+     * It is less efficient than using key. Only one of offset or key should
+     * be set.
+     */
+    offset: string;
+    /**
+     * limit is the total number of results to be returned in the result page.
+     * If left empty it will default to a value to be set by each app.
+     */
+    limit: string;
+    /**
+     * count_total is set to true  to indicate that the result set should include
+     * a count of the total number of items available for pagination in UIs.
+     * count_total is only respected when offset is used. It is ignored when key
+     * is set.
+     */
+    count_total: boolean;
+}
+export interface PageRequestAminoMsg {
+    type: "cosmos-sdk/PageRequest";
+    value: PageRequestAmino;
 }
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
@@ -46,8 +88,8 @@ export interface PageRequest {
  */
 export interface PageRequestSDKType {
     key: Uint8Array;
-    offset: Long;
-    limit: Long;
+    offset: bigint;
+    limit: bigint;
     count_total: boolean;
 }
 /**
@@ -69,7 +111,36 @@ export interface PageResponse {
      * total is total number of results available if PageRequest.count_total
      * was set, its value is undefined otherwise
      */
-    total: Long;
+    total: bigint;
+}
+export interface PageResponseProtoMsg {
+    typeUrl: "/cosmos.base.query.v1beta1.PageResponse";
+    value: Uint8Array;
+}
+/**
+ * PageResponse is to be embedded in gRPC response messages where the
+ * corresponding request message has used PageRequest.
+ *
+ *  message SomeResponse {
+ *          repeated Bar results = 1;
+ *          PageResponse page = 2;
+ *  }
+ */
+export interface PageResponseAmino {
+    /**
+     * next_key is the key to be passed to PageRequest.key to
+     * query the next page most efficiently
+     */
+    next_key: Uint8Array;
+    /**
+     * total is total number of results available if PageRequest.count_total
+     * was set, its value is undefined otherwise
+     */
+    total: string;
+}
+export interface PageResponseAminoMsg {
+    type: "cosmos-sdk/PageResponse";
+    value: PageResponseAmino;
 }
 /**
  * PageResponse is to be embedded in gRPC response messages where the
@@ -82,15 +153,31 @@ export interface PageResponse {
  */
 export interface PageResponseSDKType {
     next_key: Uint8Array;
-    total: Long;
+    total: bigint;
 }
 export declare const PageRequest: {
-    encode(message: PageRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: PageRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): PageRequest;
     fromPartial(object: Partial<PageRequest>): PageRequest;
+    fromAmino(object: PageRequestAmino): PageRequest;
+    toAmino(message: PageRequest): PageRequestAmino;
+    fromAminoMsg(object: PageRequestAminoMsg): PageRequest;
+    toAminoMsg(message: PageRequest): PageRequestAminoMsg;
+    fromProtoMsg(message: PageRequestProtoMsg): PageRequest;
+    toProto(message: PageRequest): Uint8Array;
+    toProtoMsg(message: PageRequest): PageRequestProtoMsg;
 };
 export declare const PageResponse: {
-    encode(message: PageResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: PageResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): PageResponse;
     fromPartial(object: Partial<PageResponse>): PageResponse;
+    fromAmino(object: PageResponseAmino): PageResponse;
+    toAmino(message: PageResponse): PageResponseAmino;
+    fromAminoMsg(object: PageResponseAminoMsg): PageResponse;
+    toAminoMsg(message: PageResponse): PageResponseAminoMsg;
+    fromProtoMsg(message: PageResponseProtoMsg): PageResponse;
+    toProto(message: PageResponse): Uint8Array;
+    toProtoMsg(message: PageResponse): PageResponseProtoMsg;
 };

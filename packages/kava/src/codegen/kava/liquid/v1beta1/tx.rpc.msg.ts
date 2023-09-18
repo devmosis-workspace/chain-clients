@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgMintDerivative, MsgMintDerivativeResponse, MsgBurnDerivative, MsgBurnDerivativeResponse } from "./tx";
 /** Msg defines the liquid Msg service. */
 export interface Msg {
@@ -18,11 +18,11 @@ export class MsgClientImpl implements Msg {
   mintDerivative(request: MsgMintDerivative): Promise<MsgMintDerivativeResponse> {
     const data = MsgMintDerivative.encode(request).finish();
     const promise = this.rpc.request("kava.liquid.v1beta1.Msg", "MintDerivative", data);
-    return promise.then(data => MsgMintDerivativeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgMintDerivativeResponse.decode(new BinaryReader(data)));
   }
   burnDerivative(request: MsgBurnDerivative): Promise<MsgBurnDerivativeResponse> {
     const data = MsgBurnDerivative.encode(request).finish();
     const promise = this.rpc.request("kava.liquid.v1beta1.Msg", "BurnDerivative", data);
-    return promise.then(data => MsgBurnDerivativeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBurnDerivativeResponse.decode(new BinaryReader(data)));
   }
 }

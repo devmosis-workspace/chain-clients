@@ -1,65 +1,136 @@
 import { ClaimType, claimTypeFromJSON } from "./attestation";
-import { BridgeValidator, BridgeValidatorSDKType } from "./types";
-import { Long, isSet, bytesFromBase64 } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BridgeValidator, BridgeValidatorAmino, BridgeValidatorSDKType } from "./types";
+import { BinaryWriter } from "../../../binary";
+import { isSet, bytesFromBase64 } from "../../../helpers";
 export interface EventAttestationObserved {
   attestationType: ClaimType;
   bridgeContract: string;
-  bridgeChainId: Long;
+  bridgeChainId: bigint;
   attestationId: Uint8Array;
-  nonce: Long;
+  nonce: bigint;
+}
+export interface EventAttestationObservedProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventAttestationObserved";
+  value: Uint8Array;
+}
+export interface EventAttestationObservedAmino {
+  attestation_type: ClaimType;
+  bridge_contract: string;
+  bridge_chain_id: string;
+  attestation_id: Uint8Array;
+  nonce: string;
+}
+export interface EventAttestationObservedAminoMsg {
+  type: "/injective.peggy.v1.EventAttestationObserved";
+  value: EventAttestationObservedAmino;
 }
 export interface EventAttestationObservedSDKType {
   attestation_type: ClaimType;
   bridge_contract: string;
-  bridge_chain_id: Long;
+  bridge_chain_id: bigint;
   attestation_id: Uint8Array;
-  nonce: Long;
+  nonce: bigint;
 }
 export interface EventBridgeWithdrawCanceled {
   bridgeContract: string;
-  bridgeChainId: Long;
+  bridgeChainId: bigint;
+}
+export interface EventBridgeWithdrawCanceledProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventBridgeWithdrawCanceled";
+  value: Uint8Array;
+}
+export interface EventBridgeWithdrawCanceledAmino {
+  bridge_contract: string;
+  bridge_chain_id: string;
+}
+export interface EventBridgeWithdrawCanceledAminoMsg {
+  type: "/injective.peggy.v1.EventBridgeWithdrawCanceled";
+  value: EventBridgeWithdrawCanceledAmino;
 }
 export interface EventBridgeWithdrawCanceledSDKType {
   bridge_contract: string;
-  bridge_chain_id: Long;
+  bridge_chain_id: bigint;
 }
 export interface EventOutgoingBatch {
   denom: string;
   orchestratorAddress: string;
-  batchNonce: Long;
-  batchTimeout: Long;
-  batchTxIds: Long[];
+  batchNonce: bigint;
+  batchTimeout: bigint;
+  batchTxIds: bigint[];
+}
+export interface EventOutgoingBatchProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventOutgoingBatch";
+  value: Uint8Array;
+}
+export interface EventOutgoingBatchAmino {
+  denom: string;
+  orchestrator_address: string;
+  batch_nonce: string;
+  batch_timeout: string;
+  batch_tx_ids: string[];
+}
+export interface EventOutgoingBatchAminoMsg {
+  type: "/injective.peggy.v1.EventOutgoingBatch";
+  value: EventOutgoingBatchAmino;
 }
 export interface EventOutgoingBatchSDKType {
   denom: string;
   orchestrator_address: string;
-  batch_nonce: Long;
-  batch_timeout: Long;
-  batch_tx_ids: Long[];
+  batch_nonce: bigint;
+  batch_timeout: bigint;
+  batch_tx_ids: bigint[];
 }
 export interface EventOutgoingBatchCanceled {
   bridgeContract: string;
-  bridgeChainId: Long;
-  batchId: Long;
-  nonce: Long;
+  bridgeChainId: bigint;
+  batchId: bigint;
+  nonce: bigint;
+}
+export interface EventOutgoingBatchCanceledProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventOutgoingBatchCanceled";
+  value: Uint8Array;
+}
+export interface EventOutgoingBatchCanceledAmino {
+  bridge_contract: string;
+  bridge_chain_id: string;
+  batch_id: string;
+  nonce: string;
+}
+export interface EventOutgoingBatchCanceledAminoMsg {
+  type: "/injective.peggy.v1.EventOutgoingBatchCanceled";
+  value: EventOutgoingBatchCanceledAmino;
 }
 export interface EventOutgoingBatchCanceledSDKType {
   bridge_contract: string;
-  bridge_chain_id: Long;
-  batch_id: Long;
-  nonce: Long;
+  bridge_chain_id: bigint;
+  batch_id: bigint;
+  nonce: bigint;
 }
 export interface EventValsetUpdateRequest {
-  valsetNonce: Long;
-  valsetHeight: Long;
+  valsetNonce: bigint;
+  valsetHeight: bigint;
   valsetMembers: BridgeValidator[];
   rewardAmount: string;
   rewardToken: string;
 }
+export interface EventValsetUpdateRequestProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventValsetUpdateRequest";
+  value: Uint8Array;
+}
+export interface EventValsetUpdateRequestAmino {
+  valset_nonce: string;
+  valset_height: string;
+  valset_members: BridgeValidatorAmino[];
+  reward_amount: string;
+  reward_token: string;
+}
+export interface EventValsetUpdateRequestAminoMsg {
+  type: "/injective.peggy.v1.EventValsetUpdateRequest";
+  value: EventValsetUpdateRequestAmino;
+}
 export interface EventValsetUpdateRequestSDKType {
-  valset_nonce: Long;
-  valset_height: Long;
+  valset_nonce: bigint;
+  valset_height: bigint;
   valset_members: BridgeValidatorSDKType[];
   reward_amount: string;
   reward_token: string;
@@ -69,54 +140,119 @@ export interface EventSetOrchestratorAddresses {
   orchestratorAddress: string;
   operatorEthAddress: string;
 }
+export interface EventSetOrchestratorAddressesProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventSetOrchestratorAddresses";
+  value: Uint8Array;
+}
+export interface EventSetOrchestratorAddressesAmino {
+  validator_address: string;
+  orchestrator_address: string;
+  operator_eth_address: string;
+}
+export interface EventSetOrchestratorAddressesAminoMsg {
+  type: "/injective.peggy.v1.EventSetOrchestratorAddresses";
+  value: EventSetOrchestratorAddressesAmino;
+}
 export interface EventSetOrchestratorAddressesSDKType {
   validator_address: string;
   orchestrator_address: string;
   operator_eth_address: string;
 }
 export interface EventValsetConfirm {
-  valsetNonce: Long;
+  valsetNonce: bigint;
   orchestratorAddress: string;
 }
+export interface EventValsetConfirmProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventValsetConfirm";
+  value: Uint8Array;
+}
+export interface EventValsetConfirmAmino {
+  valset_nonce: string;
+  orchestrator_address: string;
+}
+export interface EventValsetConfirmAminoMsg {
+  type: "/injective.peggy.v1.EventValsetConfirm";
+  value: EventValsetConfirmAmino;
+}
 export interface EventValsetConfirmSDKType {
-  valset_nonce: Long;
+  valset_nonce: bigint;
   orchestrator_address: string;
 }
 export interface EventSendToEth {
-  outgoingTxId: Long;
+  outgoingTxId: bigint;
   sender: string;
   receiver: string;
   amount: string;
   bridgeFee: string;
 }
+export interface EventSendToEthProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventSendToEth";
+  value: Uint8Array;
+}
+export interface EventSendToEthAmino {
+  outgoing_tx_id: string;
+  sender: string;
+  receiver: string;
+  amount: string;
+  bridge_fee: string;
+}
+export interface EventSendToEthAminoMsg {
+  type: "/injective.peggy.v1.EventSendToEth";
+  value: EventSendToEthAmino;
+}
 export interface EventSendToEthSDKType {
-  outgoing_tx_id: Long;
+  outgoing_tx_id: bigint;
   sender: string;
   receiver: string;
   amount: string;
   bridge_fee: string;
 }
 export interface EventConfirmBatch {
-  batchNonce: Long;
+  batchNonce: bigint;
   orchestratorAddress: string;
 }
+export interface EventConfirmBatchProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventConfirmBatch";
+  value: Uint8Array;
+}
+export interface EventConfirmBatchAmino {
+  batch_nonce: string;
+  orchestrator_address: string;
+}
+export interface EventConfirmBatchAminoMsg {
+  type: "/injective.peggy.v1.EventConfirmBatch";
+  value: EventConfirmBatchAmino;
+}
 export interface EventConfirmBatchSDKType {
-  batch_nonce: Long;
+  batch_nonce: bigint;
   orchestrator_address: string;
 }
 export interface EventAttestationVote {
-  eventNonce: Long;
+  eventNonce: bigint;
   attestationId: Uint8Array;
   voter: string;
 }
+export interface EventAttestationVoteProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventAttestationVote";
+  value: Uint8Array;
+}
+export interface EventAttestationVoteAmino {
+  event_nonce: string;
+  attestation_id: Uint8Array;
+  voter: string;
+}
+export interface EventAttestationVoteAminoMsg {
+  type: "/injective.peggy.v1.EventAttestationVote";
+  value: EventAttestationVoteAmino;
+}
 export interface EventAttestationVoteSDKType {
-  event_nonce: Long;
+  event_nonce: bigint;
   attestation_id: Uint8Array;
   voter: string;
 }
 export interface EventDepositClaim {
-  eventNonce: Long;
-  eventHeight: Long;
+  eventNonce: bigint;
+  eventHeight: bigint;
   attestationId: Uint8Array;
   ethereumSender: string;
   cosmosReceiver: string;
@@ -125,9 +261,28 @@ export interface EventDepositClaim {
   orchestratorAddress: string;
   data: string;
 }
+export interface EventDepositClaimProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventDepositClaim";
+  value: Uint8Array;
+}
+export interface EventDepositClaimAmino {
+  event_nonce: string;
+  event_height: string;
+  attestation_id: Uint8Array;
+  ethereum_sender: string;
+  cosmos_receiver: string;
+  token_contract: string;
+  amount: string;
+  orchestrator_address: string;
+  data: string;
+}
+export interface EventDepositClaimAminoMsg {
+  type: "/injective.peggy.v1.EventDepositClaim";
+  value: EventDepositClaimAmino;
+}
 export interface EventDepositClaimSDKType {
-  event_nonce: Long;
-  event_height: Long;
+  event_nonce: bigint;
+  event_height: bigint;
   attestation_id: Uint8Array;
   ethereum_sender: string;
   cosmos_receiver: string;
@@ -137,86 +292,177 @@ export interface EventDepositClaimSDKType {
   data: string;
 }
 export interface EventWithdrawClaim {
-  eventNonce: Long;
-  eventHeight: Long;
+  eventNonce: bigint;
+  eventHeight: bigint;
   attestationId: Uint8Array;
-  batchNonce: Long;
+  batchNonce: bigint;
   tokenContract: string;
   orchestratorAddress: string;
 }
-export interface EventWithdrawClaimSDKType {
-  event_nonce: Long;
-  event_height: Long;
+export interface EventWithdrawClaimProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventWithdrawClaim";
+  value: Uint8Array;
+}
+export interface EventWithdrawClaimAmino {
+  event_nonce: string;
+  event_height: string;
   attestation_id: Uint8Array;
-  batch_nonce: Long;
+  batch_nonce: string;
+  token_contract: string;
+  orchestrator_address: string;
+}
+export interface EventWithdrawClaimAminoMsg {
+  type: "/injective.peggy.v1.EventWithdrawClaim";
+  value: EventWithdrawClaimAmino;
+}
+export interface EventWithdrawClaimSDKType {
+  event_nonce: bigint;
+  event_height: bigint;
+  attestation_id: Uint8Array;
+  batch_nonce: bigint;
   token_contract: string;
   orchestrator_address: string;
 }
 export interface EventERC20DeployedClaim {
-  eventNonce: Long;
-  eventHeight: Long;
+  eventNonce: bigint;
+  eventHeight: bigint;
   attestationId: Uint8Array;
   cosmosDenom: string;
   tokenContract: string;
   name: string;
   symbol: string;
-  decimals: Long;
+  decimals: bigint;
   orchestratorAddress: string;
 }
-export interface EventERC20DeployedClaimSDKType {
-  event_nonce: Long;
-  event_height: Long;
+export interface EventERC20DeployedClaimProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventERC20DeployedClaim";
+  value: Uint8Array;
+}
+export interface EventERC20DeployedClaimAmino {
+  event_nonce: string;
+  event_height: string;
   attestation_id: Uint8Array;
   cosmos_denom: string;
   token_contract: string;
   name: string;
   symbol: string;
-  decimals: Long;
+  decimals: string;
+  orchestrator_address: string;
+}
+export interface EventERC20DeployedClaimAminoMsg {
+  type: "/injective.peggy.v1.EventERC20DeployedClaim";
+  value: EventERC20DeployedClaimAmino;
+}
+export interface EventERC20DeployedClaimSDKType {
+  event_nonce: bigint;
+  event_height: bigint;
+  attestation_id: Uint8Array;
+  cosmos_denom: string;
+  token_contract: string;
+  name: string;
+  symbol: string;
+  decimals: bigint;
   orchestrator_address: string;
 }
 export interface EventValsetUpdateClaim {
-  eventNonce: Long;
-  eventHeight: Long;
+  eventNonce: bigint;
+  eventHeight: bigint;
   attestationId: Uint8Array;
-  valsetNonce: Long;
+  valsetNonce: bigint;
   valsetMembers: BridgeValidator[];
   rewardAmount: string;
   rewardToken: string;
   orchestratorAddress: string;
 }
-export interface EventValsetUpdateClaimSDKType {
-  event_nonce: Long;
-  event_height: Long;
+export interface EventValsetUpdateClaimProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventValsetUpdateClaim";
+  value: Uint8Array;
+}
+export interface EventValsetUpdateClaimAmino {
+  event_nonce: string;
+  event_height: string;
   attestation_id: Uint8Array;
-  valset_nonce: Long;
+  valset_nonce: string;
+  valset_members: BridgeValidatorAmino[];
+  reward_amount: string;
+  reward_token: string;
+  orchestrator_address: string;
+}
+export interface EventValsetUpdateClaimAminoMsg {
+  type: "/injective.peggy.v1.EventValsetUpdateClaim";
+  value: EventValsetUpdateClaimAmino;
+}
+export interface EventValsetUpdateClaimSDKType {
+  event_nonce: bigint;
+  event_height: bigint;
+  attestation_id: Uint8Array;
+  valset_nonce: bigint;
   valset_members: BridgeValidatorSDKType[];
   reward_amount: string;
   reward_token: string;
   orchestrator_address: string;
 }
 export interface EventCancelSendToEth {
-  outgoingTxId: Long;
+  outgoingTxId: bigint;
+}
+export interface EventCancelSendToEthProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventCancelSendToEth";
+  value: Uint8Array;
+}
+export interface EventCancelSendToEthAmino {
+  outgoing_tx_id: string;
+}
+export interface EventCancelSendToEthAminoMsg {
+  type: "/injective.peggy.v1.EventCancelSendToEth";
+  value: EventCancelSendToEthAmino;
 }
 export interface EventCancelSendToEthSDKType {
-  outgoing_tx_id: Long;
+  outgoing_tx_id: bigint;
 }
 export interface EventSubmitBadSignatureEvidence {
   badEthSignature: string;
   badEthSignatureSubject: string;
+}
+export interface EventSubmitBadSignatureEvidenceProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventSubmitBadSignatureEvidence";
+  value: Uint8Array;
+}
+export interface EventSubmitBadSignatureEvidenceAmino {
+  bad_eth_signature: string;
+  bad_eth_signature_subject: string;
+}
+export interface EventSubmitBadSignatureEvidenceAminoMsg {
+  type: "/injective.peggy.v1.EventSubmitBadSignatureEvidence";
+  value: EventSubmitBadSignatureEvidenceAmino;
 }
 export interface EventSubmitBadSignatureEvidenceSDKType {
   bad_eth_signature: string;
   bad_eth_signature_subject: string;
 }
 export interface EventValidatorSlash {
-  power: Long;
+  power: bigint;
   reason: string;
   consensusAddress: string;
   operatorAddress: string;
   moniker: string;
 }
+export interface EventValidatorSlashProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventValidatorSlash";
+  value: Uint8Array;
+}
+export interface EventValidatorSlashAmino {
+  power: string;
+  reason: string;
+  consensus_address: string;
+  operator_address: string;
+  moniker: string;
+}
+export interface EventValidatorSlashAminoMsg {
+  type: "/injective.peggy.v1.EventValidatorSlash";
+  value: EventValidatorSlashAmino;
+}
 export interface EventValidatorSlashSDKType {
-  power: Long;
+  power: bigint;
   reason: string;
   consensus_address: string;
   operator_address: string;
@@ -226,61 +472,96 @@ function createBaseEventAttestationObserved(): EventAttestationObserved {
   return {
     attestationType: 0,
     bridgeContract: "",
-    bridgeChainId: Long.UZERO,
+    bridgeChainId: BigInt(0),
     attestationId: new Uint8Array(),
-    nonce: Long.UZERO
+    nonce: BigInt(0)
   };
 }
 export const EventAttestationObserved = {
-  encode(message: EventAttestationObserved, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.peggy.v1.EventAttestationObserved",
+  encode(message: EventAttestationObserved, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.attestationType !== 0) {
       writer.uint32(8).int32(message.attestationType);
     }
     if (message.bridgeContract !== "") {
       writer.uint32(18).string(message.bridgeContract);
     }
-    if (!message.bridgeChainId.isZero()) {
+    if (message.bridgeChainId !== BigInt(0)) {
       writer.uint32(24).uint64(message.bridgeChainId);
     }
     if (message.attestationId.length !== 0) {
       writer.uint32(34).bytes(message.attestationId);
     }
-    if (!message.nonce.isZero()) {
+    if (message.nonce !== BigInt(0)) {
       writer.uint32(40).uint64(message.nonce);
     }
     return writer;
   },
   fromJSON(object: any): EventAttestationObserved {
     return {
-      attestationType: isSet(object.attestationType) ? claimTypeFromJSON(object.attestationType) : 0,
+      attestationType: isSet(object.attestationType) ? claimTypeFromJSON(object.attestationType) : -1,
       bridgeContract: isSet(object.bridgeContract) ? String(object.bridgeContract) : "",
-      bridgeChainId: isSet(object.bridgeChainId) ? Long.fromValue(object.bridgeChainId) : Long.UZERO,
+      bridgeChainId: isSet(object.bridgeChainId) ? BigInt(object.bridgeChainId.toString()) : BigInt(0),
       attestationId: isSet(object.attestationId) ? bytesFromBase64(object.attestationId) : new Uint8Array(),
-      nonce: isSet(object.nonce) ? Long.fromValue(object.nonce) : Long.UZERO
+      nonce: isSet(object.nonce) ? BigInt(object.nonce.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<EventAttestationObserved>): EventAttestationObserved {
     const message = createBaseEventAttestationObserved();
     message.attestationType = object.attestationType ?? 0;
     message.bridgeContract = object.bridgeContract ?? "";
-    message.bridgeChainId = object.bridgeChainId !== undefined && object.bridgeChainId !== null ? Long.fromValue(object.bridgeChainId) : Long.UZERO;
+    message.bridgeChainId = object.bridgeChainId !== undefined && object.bridgeChainId !== null ? BigInt(object.bridgeChainId.toString()) : BigInt(0);
     message.attestationId = object.attestationId ?? new Uint8Array();
-    message.nonce = object.nonce !== undefined && object.nonce !== null ? Long.fromValue(object.nonce) : Long.UZERO;
+    message.nonce = object.nonce !== undefined && object.nonce !== null ? BigInt(object.nonce.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: EventAttestationObservedAmino): EventAttestationObserved {
+    return {
+      attestationType: isSet(object.attestation_type) ? claimTypeFromJSON(object.attestation_type) : -1,
+      bridgeContract: object.bridge_contract,
+      bridgeChainId: BigInt(object.bridge_chain_id),
+      attestationId: object.attestation_id,
+      nonce: BigInt(object.nonce)
+    };
+  },
+  toAmino(message: EventAttestationObserved): EventAttestationObservedAmino {
+    const obj: any = {};
+    obj.attestation_type = message.attestationType;
+    obj.bridge_contract = message.bridgeContract;
+    obj.bridge_chain_id = message.bridgeChainId ? message.bridgeChainId.toString() : undefined;
+    obj.attestation_id = message.attestationId;
+    obj.nonce = message.nonce ? message.nonce.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventAttestationObservedAminoMsg): EventAttestationObserved {
+    return EventAttestationObserved.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventAttestationObservedProtoMsg): EventAttestationObserved {
+    return EventAttestationObserved.decode(message.value);
+  },
+  toProto(message: EventAttestationObserved): Uint8Array {
+    return EventAttestationObserved.encode(message).finish();
+  },
+  toProtoMsg(message: EventAttestationObserved): EventAttestationObservedProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventAttestationObserved",
+      value: EventAttestationObserved.encode(message).finish()
+    };
   }
 };
 function createBaseEventBridgeWithdrawCanceled(): EventBridgeWithdrawCanceled {
   return {
     bridgeContract: "",
-    bridgeChainId: Long.UZERO
+    bridgeChainId: BigInt(0)
   };
 }
 export const EventBridgeWithdrawCanceled = {
-  encode(message: EventBridgeWithdrawCanceled, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.peggy.v1.EventBridgeWithdrawCanceled",
+  encode(message: EventBridgeWithdrawCanceled, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.bridgeContract !== "") {
       writer.uint32(10).string(message.bridgeContract);
     }
-    if (!message.bridgeChainId.isZero()) {
+    if (message.bridgeChainId !== BigInt(0)) {
       writer.uint32(16).uint64(message.bridgeChainId);
     }
     return writer;
@@ -288,37 +569,65 @@ export const EventBridgeWithdrawCanceled = {
   fromJSON(object: any): EventBridgeWithdrawCanceled {
     return {
       bridgeContract: isSet(object.bridgeContract) ? String(object.bridgeContract) : "",
-      bridgeChainId: isSet(object.bridgeChainId) ? Long.fromValue(object.bridgeChainId) : Long.UZERO
+      bridgeChainId: isSet(object.bridgeChainId) ? BigInt(object.bridgeChainId.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<EventBridgeWithdrawCanceled>): EventBridgeWithdrawCanceled {
     const message = createBaseEventBridgeWithdrawCanceled();
     message.bridgeContract = object.bridgeContract ?? "";
-    message.bridgeChainId = object.bridgeChainId !== undefined && object.bridgeChainId !== null ? Long.fromValue(object.bridgeChainId) : Long.UZERO;
+    message.bridgeChainId = object.bridgeChainId !== undefined && object.bridgeChainId !== null ? BigInt(object.bridgeChainId.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: EventBridgeWithdrawCanceledAmino): EventBridgeWithdrawCanceled {
+    return {
+      bridgeContract: object.bridge_contract,
+      bridgeChainId: BigInt(object.bridge_chain_id)
+    };
+  },
+  toAmino(message: EventBridgeWithdrawCanceled): EventBridgeWithdrawCanceledAmino {
+    const obj: any = {};
+    obj.bridge_contract = message.bridgeContract;
+    obj.bridge_chain_id = message.bridgeChainId ? message.bridgeChainId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventBridgeWithdrawCanceledAminoMsg): EventBridgeWithdrawCanceled {
+    return EventBridgeWithdrawCanceled.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventBridgeWithdrawCanceledProtoMsg): EventBridgeWithdrawCanceled {
+    return EventBridgeWithdrawCanceled.decode(message.value);
+  },
+  toProto(message: EventBridgeWithdrawCanceled): Uint8Array {
+    return EventBridgeWithdrawCanceled.encode(message).finish();
+  },
+  toProtoMsg(message: EventBridgeWithdrawCanceled): EventBridgeWithdrawCanceledProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventBridgeWithdrawCanceled",
+      value: EventBridgeWithdrawCanceled.encode(message).finish()
+    };
   }
 };
 function createBaseEventOutgoingBatch(): EventOutgoingBatch {
   return {
     denom: "",
     orchestratorAddress: "",
-    batchNonce: Long.UZERO,
-    batchTimeout: Long.UZERO,
+    batchNonce: BigInt(0),
+    batchTimeout: BigInt(0),
     batchTxIds: []
   };
 }
 export const EventOutgoingBatch = {
-  encode(message: EventOutgoingBatch, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.peggy.v1.EventOutgoingBatch",
+  encode(message: EventOutgoingBatch, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
     if (message.orchestratorAddress !== "") {
       writer.uint32(18).string(message.orchestratorAddress);
     }
-    if (!message.batchNonce.isZero()) {
+    if (message.batchNonce !== BigInt(0)) {
       writer.uint32(24).uint64(message.batchNonce);
     }
-    if (!message.batchTimeout.isZero()) {
+    if (message.batchTimeout !== BigInt(0)) {
       writer.uint32(32).uint64(message.batchTimeout);
     }
     writer.uint32(42).fork();
@@ -332,41 +641,79 @@ export const EventOutgoingBatch = {
     return {
       denom: isSet(object.denom) ? String(object.denom) : "",
       orchestratorAddress: isSet(object.orchestratorAddress) ? String(object.orchestratorAddress) : "",
-      batchNonce: isSet(object.batchNonce) ? Long.fromValue(object.batchNonce) : Long.UZERO,
-      batchTimeout: isSet(object.batchTimeout) ? Long.fromValue(object.batchTimeout) : Long.UZERO,
-      batchTxIds: Array.isArray(object?.batchTxIds) ? object.batchTxIds.map((e: any) => Long.fromValue(e)) : []
+      batchNonce: isSet(object.batchNonce) ? BigInt(object.batchNonce.toString()) : BigInt(0),
+      batchTimeout: isSet(object.batchTimeout) ? BigInt(object.batchTimeout.toString()) : BigInt(0),
+      batchTxIds: Array.isArray(object?.batchTxIds) ? object.batchTxIds.map((e: any) => BigInt(e.toString())) : []
     };
   },
   fromPartial(object: Partial<EventOutgoingBatch>): EventOutgoingBatch {
     const message = createBaseEventOutgoingBatch();
     message.denom = object.denom ?? "";
     message.orchestratorAddress = object.orchestratorAddress ?? "";
-    message.batchNonce = object.batchNonce !== undefined && object.batchNonce !== null ? Long.fromValue(object.batchNonce) : Long.UZERO;
-    message.batchTimeout = object.batchTimeout !== undefined && object.batchTimeout !== null ? Long.fromValue(object.batchTimeout) : Long.UZERO;
-    message.batchTxIds = object.batchTxIds?.map(e => Long.fromValue(e)) || [];
+    message.batchNonce = object.batchNonce !== undefined && object.batchNonce !== null ? BigInt(object.batchNonce.toString()) : BigInt(0);
+    message.batchTimeout = object.batchTimeout !== undefined && object.batchTimeout !== null ? BigInt(object.batchTimeout.toString()) : BigInt(0);
+    message.batchTxIds = object.batchTxIds?.map(e => BigInt(e.toString())) || [];
     return message;
+  },
+  fromAmino(object: EventOutgoingBatchAmino): EventOutgoingBatch {
+    return {
+      denom: object.denom,
+      orchestratorAddress: object.orchestrator_address,
+      batchNonce: BigInt(object.batch_nonce),
+      batchTimeout: BigInt(object.batch_timeout),
+      batchTxIds: Array.isArray(object?.batch_tx_ids) ? object.batch_tx_ids.map((e: any) => BigInt(e)) : []
+    };
+  },
+  toAmino(message: EventOutgoingBatch): EventOutgoingBatchAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.orchestrator_address = message.orchestratorAddress;
+    obj.batch_nonce = message.batchNonce ? message.batchNonce.toString() : undefined;
+    obj.batch_timeout = message.batchTimeout ? message.batchTimeout.toString() : undefined;
+    if (message.batchTxIds) {
+      obj.batch_tx_ids = message.batchTxIds.map(e => e.toString());
+    } else {
+      obj.batch_tx_ids = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EventOutgoingBatchAminoMsg): EventOutgoingBatch {
+    return EventOutgoingBatch.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventOutgoingBatchProtoMsg): EventOutgoingBatch {
+    return EventOutgoingBatch.decode(message.value);
+  },
+  toProto(message: EventOutgoingBatch): Uint8Array {
+    return EventOutgoingBatch.encode(message).finish();
+  },
+  toProtoMsg(message: EventOutgoingBatch): EventOutgoingBatchProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventOutgoingBatch",
+      value: EventOutgoingBatch.encode(message).finish()
+    };
   }
 };
 function createBaseEventOutgoingBatchCanceled(): EventOutgoingBatchCanceled {
   return {
     bridgeContract: "",
-    bridgeChainId: Long.UZERO,
-    batchId: Long.UZERO,
-    nonce: Long.UZERO
+    bridgeChainId: BigInt(0),
+    batchId: BigInt(0),
+    nonce: BigInt(0)
   };
 }
 export const EventOutgoingBatchCanceled = {
-  encode(message: EventOutgoingBatchCanceled, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.peggy.v1.EventOutgoingBatchCanceled",
+  encode(message: EventOutgoingBatchCanceled, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.bridgeContract !== "") {
       writer.uint32(10).string(message.bridgeContract);
     }
-    if (!message.bridgeChainId.isZero()) {
+    if (message.bridgeChainId !== BigInt(0)) {
       writer.uint32(16).uint64(message.bridgeChainId);
     }
-    if (!message.batchId.isZero()) {
+    if (message.batchId !== BigInt(0)) {
       writer.uint32(24).uint64(message.batchId);
     }
-    if (!message.nonce.isZero()) {
+    if (message.nonce !== BigInt(0)) {
       writer.uint32(32).uint64(message.nonce);
     }
     return writer;
@@ -374,35 +721,67 @@ export const EventOutgoingBatchCanceled = {
   fromJSON(object: any): EventOutgoingBatchCanceled {
     return {
       bridgeContract: isSet(object.bridgeContract) ? String(object.bridgeContract) : "",
-      bridgeChainId: isSet(object.bridgeChainId) ? Long.fromValue(object.bridgeChainId) : Long.UZERO,
-      batchId: isSet(object.batchId) ? Long.fromValue(object.batchId) : Long.UZERO,
-      nonce: isSet(object.nonce) ? Long.fromValue(object.nonce) : Long.UZERO
+      bridgeChainId: isSet(object.bridgeChainId) ? BigInt(object.bridgeChainId.toString()) : BigInt(0),
+      batchId: isSet(object.batchId) ? BigInt(object.batchId.toString()) : BigInt(0),
+      nonce: isSet(object.nonce) ? BigInt(object.nonce.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<EventOutgoingBatchCanceled>): EventOutgoingBatchCanceled {
     const message = createBaseEventOutgoingBatchCanceled();
     message.bridgeContract = object.bridgeContract ?? "";
-    message.bridgeChainId = object.bridgeChainId !== undefined && object.bridgeChainId !== null ? Long.fromValue(object.bridgeChainId) : Long.UZERO;
-    message.batchId = object.batchId !== undefined && object.batchId !== null ? Long.fromValue(object.batchId) : Long.UZERO;
-    message.nonce = object.nonce !== undefined && object.nonce !== null ? Long.fromValue(object.nonce) : Long.UZERO;
+    message.bridgeChainId = object.bridgeChainId !== undefined && object.bridgeChainId !== null ? BigInt(object.bridgeChainId.toString()) : BigInt(0);
+    message.batchId = object.batchId !== undefined && object.batchId !== null ? BigInt(object.batchId.toString()) : BigInt(0);
+    message.nonce = object.nonce !== undefined && object.nonce !== null ? BigInt(object.nonce.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: EventOutgoingBatchCanceledAmino): EventOutgoingBatchCanceled {
+    return {
+      bridgeContract: object.bridge_contract,
+      bridgeChainId: BigInt(object.bridge_chain_id),
+      batchId: BigInt(object.batch_id),
+      nonce: BigInt(object.nonce)
+    };
+  },
+  toAmino(message: EventOutgoingBatchCanceled): EventOutgoingBatchCanceledAmino {
+    const obj: any = {};
+    obj.bridge_contract = message.bridgeContract;
+    obj.bridge_chain_id = message.bridgeChainId ? message.bridgeChainId.toString() : undefined;
+    obj.batch_id = message.batchId ? message.batchId.toString() : undefined;
+    obj.nonce = message.nonce ? message.nonce.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventOutgoingBatchCanceledAminoMsg): EventOutgoingBatchCanceled {
+    return EventOutgoingBatchCanceled.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventOutgoingBatchCanceledProtoMsg): EventOutgoingBatchCanceled {
+    return EventOutgoingBatchCanceled.decode(message.value);
+  },
+  toProto(message: EventOutgoingBatchCanceled): Uint8Array {
+    return EventOutgoingBatchCanceled.encode(message).finish();
+  },
+  toProtoMsg(message: EventOutgoingBatchCanceled): EventOutgoingBatchCanceledProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventOutgoingBatchCanceled",
+      value: EventOutgoingBatchCanceled.encode(message).finish()
+    };
   }
 };
 function createBaseEventValsetUpdateRequest(): EventValsetUpdateRequest {
   return {
-    valsetNonce: Long.UZERO,
-    valsetHeight: Long.UZERO,
+    valsetNonce: BigInt(0),
+    valsetHeight: BigInt(0),
     valsetMembers: [],
     rewardAmount: "",
     rewardToken: ""
   };
 }
 export const EventValsetUpdateRequest = {
-  encode(message: EventValsetUpdateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.valsetNonce.isZero()) {
+  typeUrl: "/injective.peggy.v1.EventValsetUpdateRequest",
+  encode(message: EventValsetUpdateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.valsetNonce !== BigInt(0)) {
       writer.uint32(8).uint64(message.valsetNonce);
     }
-    if (!message.valsetHeight.isZero()) {
+    if (message.valsetHeight !== BigInt(0)) {
       writer.uint32(16).uint64(message.valsetHeight);
     }
     for (const v of message.valsetMembers) {
@@ -418,8 +797,8 @@ export const EventValsetUpdateRequest = {
   },
   fromJSON(object: any): EventValsetUpdateRequest {
     return {
-      valsetNonce: isSet(object.valsetNonce) ? Long.fromValue(object.valsetNonce) : Long.UZERO,
-      valsetHeight: isSet(object.valsetHeight) ? Long.fromValue(object.valsetHeight) : Long.UZERO,
+      valsetNonce: isSet(object.valsetNonce) ? BigInt(object.valsetNonce.toString()) : BigInt(0),
+      valsetHeight: isSet(object.valsetHeight) ? BigInt(object.valsetHeight.toString()) : BigInt(0),
       valsetMembers: Array.isArray(object?.valsetMembers) ? object.valsetMembers.map((e: any) => BridgeValidator.fromJSON(e)) : [],
       rewardAmount: isSet(object.rewardAmount) ? String(object.rewardAmount) : "",
       rewardToken: isSet(object.rewardToken) ? String(object.rewardToken) : ""
@@ -427,12 +806,49 @@ export const EventValsetUpdateRequest = {
   },
   fromPartial(object: Partial<EventValsetUpdateRequest>): EventValsetUpdateRequest {
     const message = createBaseEventValsetUpdateRequest();
-    message.valsetNonce = object.valsetNonce !== undefined && object.valsetNonce !== null ? Long.fromValue(object.valsetNonce) : Long.UZERO;
-    message.valsetHeight = object.valsetHeight !== undefined && object.valsetHeight !== null ? Long.fromValue(object.valsetHeight) : Long.UZERO;
+    message.valsetNonce = object.valsetNonce !== undefined && object.valsetNonce !== null ? BigInt(object.valsetNonce.toString()) : BigInt(0);
+    message.valsetHeight = object.valsetHeight !== undefined && object.valsetHeight !== null ? BigInt(object.valsetHeight.toString()) : BigInt(0);
     message.valsetMembers = object.valsetMembers?.map(e => BridgeValidator.fromPartial(e)) || [];
     message.rewardAmount = object.rewardAmount ?? "";
     message.rewardToken = object.rewardToken ?? "";
     return message;
+  },
+  fromAmino(object: EventValsetUpdateRequestAmino): EventValsetUpdateRequest {
+    return {
+      valsetNonce: BigInt(object.valset_nonce),
+      valsetHeight: BigInt(object.valset_height),
+      valsetMembers: Array.isArray(object?.valset_members) ? object.valset_members.map((e: any) => BridgeValidator.fromAmino(e)) : [],
+      rewardAmount: object.reward_amount,
+      rewardToken: object.reward_token
+    };
+  },
+  toAmino(message: EventValsetUpdateRequest): EventValsetUpdateRequestAmino {
+    const obj: any = {};
+    obj.valset_nonce = message.valsetNonce ? message.valsetNonce.toString() : undefined;
+    obj.valset_height = message.valsetHeight ? message.valsetHeight.toString() : undefined;
+    if (message.valsetMembers) {
+      obj.valset_members = message.valsetMembers.map(e => e ? BridgeValidator.toAmino(e) : undefined);
+    } else {
+      obj.valset_members = [];
+    }
+    obj.reward_amount = message.rewardAmount;
+    obj.reward_token = message.rewardToken;
+    return obj;
+  },
+  fromAminoMsg(object: EventValsetUpdateRequestAminoMsg): EventValsetUpdateRequest {
+    return EventValsetUpdateRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventValsetUpdateRequestProtoMsg): EventValsetUpdateRequest {
+    return EventValsetUpdateRequest.decode(message.value);
+  },
+  toProto(message: EventValsetUpdateRequest): Uint8Array {
+    return EventValsetUpdateRequest.encode(message).finish();
+  },
+  toProtoMsg(message: EventValsetUpdateRequest): EventValsetUpdateRequestProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventValsetUpdateRequest",
+      value: EventValsetUpdateRequest.encode(message).finish()
+    };
   }
 };
 function createBaseEventSetOrchestratorAddresses(): EventSetOrchestratorAddresses {
@@ -443,7 +859,8 @@ function createBaseEventSetOrchestratorAddresses(): EventSetOrchestratorAddresse
   };
 }
 export const EventSetOrchestratorAddresses = {
-  encode(message: EventSetOrchestratorAddresses, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.peggy.v1.EventSetOrchestratorAddresses",
+  encode(message: EventSetOrchestratorAddresses, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validatorAddress !== "") {
       writer.uint32(10).string(message.validatorAddress);
     }
@@ -468,17 +885,47 @@ export const EventSetOrchestratorAddresses = {
     message.orchestratorAddress = object.orchestratorAddress ?? "";
     message.operatorEthAddress = object.operatorEthAddress ?? "";
     return message;
+  },
+  fromAmino(object: EventSetOrchestratorAddressesAmino): EventSetOrchestratorAddresses {
+    return {
+      validatorAddress: object.validator_address,
+      orchestratorAddress: object.orchestrator_address,
+      operatorEthAddress: object.operator_eth_address
+    };
+  },
+  toAmino(message: EventSetOrchestratorAddresses): EventSetOrchestratorAddressesAmino {
+    const obj: any = {};
+    obj.validator_address = message.validatorAddress;
+    obj.orchestrator_address = message.orchestratorAddress;
+    obj.operator_eth_address = message.operatorEthAddress;
+    return obj;
+  },
+  fromAminoMsg(object: EventSetOrchestratorAddressesAminoMsg): EventSetOrchestratorAddresses {
+    return EventSetOrchestratorAddresses.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventSetOrchestratorAddressesProtoMsg): EventSetOrchestratorAddresses {
+    return EventSetOrchestratorAddresses.decode(message.value);
+  },
+  toProto(message: EventSetOrchestratorAddresses): Uint8Array {
+    return EventSetOrchestratorAddresses.encode(message).finish();
+  },
+  toProtoMsg(message: EventSetOrchestratorAddresses): EventSetOrchestratorAddressesProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventSetOrchestratorAddresses",
+      value: EventSetOrchestratorAddresses.encode(message).finish()
+    };
   }
 };
 function createBaseEventValsetConfirm(): EventValsetConfirm {
   return {
-    valsetNonce: Long.UZERO,
+    valsetNonce: BigInt(0),
     orchestratorAddress: ""
   };
 }
 export const EventValsetConfirm = {
-  encode(message: EventValsetConfirm, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.valsetNonce.isZero()) {
+  typeUrl: "/injective.peggy.v1.EventValsetConfirm",
+  encode(message: EventValsetConfirm, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.valsetNonce !== BigInt(0)) {
       writer.uint32(8).uint64(message.valsetNonce);
     }
     if (message.orchestratorAddress !== "") {
@@ -488,20 +935,47 @@ export const EventValsetConfirm = {
   },
   fromJSON(object: any): EventValsetConfirm {
     return {
-      valsetNonce: isSet(object.valsetNonce) ? Long.fromValue(object.valsetNonce) : Long.UZERO,
+      valsetNonce: isSet(object.valsetNonce) ? BigInt(object.valsetNonce.toString()) : BigInt(0),
       orchestratorAddress: isSet(object.orchestratorAddress) ? String(object.orchestratorAddress) : ""
     };
   },
   fromPartial(object: Partial<EventValsetConfirm>): EventValsetConfirm {
     const message = createBaseEventValsetConfirm();
-    message.valsetNonce = object.valsetNonce !== undefined && object.valsetNonce !== null ? Long.fromValue(object.valsetNonce) : Long.UZERO;
+    message.valsetNonce = object.valsetNonce !== undefined && object.valsetNonce !== null ? BigInt(object.valsetNonce.toString()) : BigInt(0);
     message.orchestratorAddress = object.orchestratorAddress ?? "";
     return message;
+  },
+  fromAmino(object: EventValsetConfirmAmino): EventValsetConfirm {
+    return {
+      valsetNonce: BigInt(object.valset_nonce),
+      orchestratorAddress: object.orchestrator_address
+    };
+  },
+  toAmino(message: EventValsetConfirm): EventValsetConfirmAmino {
+    const obj: any = {};
+    obj.valset_nonce = message.valsetNonce ? message.valsetNonce.toString() : undefined;
+    obj.orchestrator_address = message.orchestratorAddress;
+    return obj;
+  },
+  fromAminoMsg(object: EventValsetConfirmAminoMsg): EventValsetConfirm {
+    return EventValsetConfirm.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventValsetConfirmProtoMsg): EventValsetConfirm {
+    return EventValsetConfirm.decode(message.value);
+  },
+  toProto(message: EventValsetConfirm): Uint8Array {
+    return EventValsetConfirm.encode(message).finish();
+  },
+  toProtoMsg(message: EventValsetConfirm): EventValsetConfirmProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventValsetConfirm",
+      value: EventValsetConfirm.encode(message).finish()
+    };
   }
 };
 function createBaseEventSendToEth(): EventSendToEth {
   return {
-    outgoingTxId: Long.UZERO,
+    outgoingTxId: BigInt(0),
     sender: "",
     receiver: "",
     amount: "",
@@ -509,8 +983,9 @@ function createBaseEventSendToEth(): EventSendToEth {
   };
 }
 export const EventSendToEth = {
-  encode(message: EventSendToEth, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.outgoingTxId.isZero()) {
+  typeUrl: "/injective.peggy.v1.EventSendToEth",
+  encode(message: EventSendToEth, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.outgoingTxId !== BigInt(0)) {
       writer.uint32(8).uint64(message.outgoingTxId);
     }
     if (message.sender !== "") {
@@ -529,7 +1004,7 @@ export const EventSendToEth = {
   },
   fromJSON(object: any): EventSendToEth {
     return {
-      outgoingTxId: isSet(object.outgoingTxId) ? Long.fromValue(object.outgoingTxId) : Long.UZERO,
+      outgoingTxId: isSet(object.outgoingTxId) ? BigInt(object.outgoingTxId.toString()) : BigInt(0),
       sender: isSet(object.sender) ? String(object.sender) : "",
       receiver: isSet(object.receiver) ? String(object.receiver) : "",
       amount: isSet(object.amount) ? String(object.amount) : "",
@@ -538,23 +1013,57 @@ export const EventSendToEth = {
   },
   fromPartial(object: Partial<EventSendToEth>): EventSendToEth {
     const message = createBaseEventSendToEth();
-    message.outgoingTxId = object.outgoingTxId !== undefined && object.outgoingTxId !== null ? Long.fromValue(object.outgoingTxId) : Long.UZERO;
+    message.outgoingTxId = object.outgoingTxId !== undefined && object.outgoingTxId !== null ? BigInt(object.outgoingTxId.toString()) : BigInt(0);
     message.sender = object.sender ?? "";
     message.receiver = object.receiver ?? "";
     message.amount = object.amount ?? "";
     message.bridgeFee = object.bridgeFee ?? "";
     return message;
+  },
+  fromAmino(object: EventSendToEthAmino): EventSendToEth {
+    return {
+      outgoingTxId: BigInt(object.outgoing_tx_id),
+      sender: object.sender,
+      receiver: object.receiver,
+      amount: object.amount,
+      bridgeFee: object.bridge_fee
+    };
+  },
+  toAmino(message: EventSendToEth): EventSendToEthAmino {
+    const obj: any = {};
+    obj.outgoing_tx_id = message.outgoingTxId ? message.outgoingTxId.toString() : undefined;
+    obj.sender = message.sender;
+    obj.receiver = message.receiver;
+    obj.amount = message.amount;
+    obj.bridge_fee = message.bridgeFee;
+    return obj;
+  },
+  fromAminoMsg(object: EventSendToEthAminoMsg): EventSendToEth {
+    return EventSendToEth.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventSendToEthProtoMsg): EventSendToEth {
+    return EventSendToEth.decode(message.value);
+  },
+  toProto(message: EventSendToEth): Uint8Array {
+    return EventSendToEth.encode(message).finish();
+  },
+  toProtoMsg(message: EventSendToEth): EventSendToEthProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventSendToEth",
+      value: EventSendToEth.encode(message).finish()
+    };
   }
 };
 function createBaseEventConfirmBatch(): EventConfirmBatch {
   return {
-    batchNonce: Long.UZERO,
+    batchNonce: BigInt(0),
     orchestratorAddress: ""
   };
 }
 export const EventConfirmBatch = {
-  encode(message: EventConfirmBatch, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.batchNonce.isZero()) {
+  typeUrl: "/injective.peggy.v1.EventConfirmBatch",
+  encode(message: EventConfirmBatch, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.batchNonce !== BigInt(0)) {
       writer.uint32(8).uint64(message.batchNonce);
     }
     if (message.orchestratorAddress !== "") {
@@ -564,27 +1073,55 @@ export const EventConfirmBatch = {
   },
   fromJSON(object: any): EventConfirmBatch {
     return {
-      batchNonce: isSet(object.batchNonce) ? Long.fromValue(object.batchNonce) : Long.UZERO,
+      batchNonce: isSet(object.batchNonce) ? BigInt(object.batchNonce.toString()) : BigInt(0),
       orchestratorAddress: isSet(object.orchestratorAddress) ? String(object.orchestratorAddress) : ""
     };
   },
   fromPartial(object: Partial<EventConfirmBatch>): EventConfirmBatch {
     const message = createBaseEventConfirmBatch();
-    message.batchNonce = object.batchNonce !== undefined && object.batchNonce !== null ? Long.fromValue(object.batchNonce) : Long.UZERO;
+    message.batchNonce = object.batchNonce !== undefined && object.batchNonce !== null ? BigInt(object.batchNonce.toString()) : BigInt(0);
     message.orchestratorAddress = object.orchestratorAddress ?? "";
     return message;
+  },
+  fromAmino(object: EventConfirmBatchAmino): EventConfirmBatch {
+    return {
+      batchNonce: BigInt(object.batch_nonce),
+      orchestratorAddress: object.orchestrator_address
+    };
+  },
+  toAmino(message: EventConfirmBatch): EventConfirmBatchAmino {
+    const obj: any = {};
+    obj.batch_nonce = message.batchNonce ? message.batchNonce.toString() : undefined;
+    obj.orchestrator_address = message.orchestratorAddress;
+    return obj;
+  },
+  fromAminoMsg(object: EventConfirmBatchAminoMsg): EventConfirmBatch {
+    return EventConfirmBatch.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventConfirmBatchProtoMsg): EventConfirmBatch {
+    return EventConfirmBatch.decode(message.value);
+  },
+  toProto(message: EventConfirmBatch): Uint8Array {
+    return EventConfirmBatch.encode(message).finish();
+  },
+  toProtoMsg(message: EventConfirmBatch): EventConfirmBatchProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventConfirmBatch",
+      value: EventConfirmBatch.encode(message).finish()
+    };
   }
 };
 function createBaseEventAttestationVote(): EventAttestationVote {
   return {
-    eventNonce: Long.UZERO,
+    eventNonce: BigInt(0),
     attestationId: new Uint8Array(),
     voter: ""
   };
 }
 export const EventAttestationVote = {
-  encode(message: EventAttestationVote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.eventNonce.isZero()) {
+  typeUrl: "/injective.peggy.v1.EventAttestationVote",
+  encode(message: EventAttestationVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.eventNonce !== BigInt(0)) {
       writer.uint32(8).uint64(message.eventNonce);
     }
     if (message.attestationId.length !== 0) {
@@ -597,23 +1134,52 @@ export const EventAttestationVote = {
   },
   fromJSON(object: any): EventAttestationVote {
     return {
-      eventNonce: isSet(object.eventNonce) ? Long.fromValue(object.eventNonce) : Long.UZERO,
+      eventNonce: isSet(object.eventNonce) ? BigInt(object.eventNonce.toString()) : BigInt(0),
       attestationId: isSet(object.attestationId) ? bytesFromBase64(object.attestationId) : new Uint8Array(),
       voter: isSet(object.voter) ? String(object.voter) : ""
     };
   },
   fromPartial(object: Partial<EventAttestationVote>): EventAttestationVote {
     const message = createBaseEventAttestationVote();
-    message.eventNonce = object.eventNonce !== undefined && object.eventNonce !== null ? Long.fromValue(object.eventNonce) : Long.UZERO;
+    message.eventNonce = object.eventNonce !== undefined && object.eventNonce !== null ? BigInt(object.eventNonce.toString()) : BigInt(0);
     message.attestationId = object.attestationId ?? new Uint8Array();
     message.voter = object.voter ?? "";
     return message;
+  },
+  fromAmino(object: EventAttestationVoteAmino): EventAttestationVote {
+    return {
+      eventNonce: BigInt(object.event_nonce),
+      attestationId: object.attestation_id,
+      voter: object.voter
+    };
+  },
+  toAmino(message: EventAttestationVote): EventAttestationVoteAmino {
+    const obj: any = {};
+    obj.event_nonce = message.eventNonce ? message.eventNonce.toString() : undefined;
+    obj.attestation_id = message.attestationId;
+    obj.voter = message.voter;
+    return obj;
+  },
+  fromAminoMsg(object: EventAttestationVoteAminoMsg): EventAttestationVote {
+    return EventAttestationVote.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventAttestationVoteProtoMsg): EventAttestationVote {
+    return EventAttestationVote.decode(message.value);
+  },
+  toProto(message: EventAttestationVote): Uint8Array {
+    return EventAttestationVote.encode(message).finish();
+  },
+  toProtoMsg(message: EventAttestationVote): EventAttestationVoteProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventAttestationVote",
+      value: EventAttestationVote.encode(message).finish()
+    };
   }
 };
 function createBaseEventDepositClaim(): EventDepositClaim {
   return {
-    eventNonce: Long.UZERO,
-    eventHeight: Long.UZERO,
+    eventNonce: BigInt(0),
+    eventHeight: BigInt(0),
     attestationId: new Uint8Array(),
     ethereumSender: "",
     cosmosReceiver: "",
@@ -624,11 +1190,12 @@ function createBaseEventDepositClaim(): EventDepositClaim {
   };
 }
 export const EventDepositClaim = {
-  encode(message: EventDepositClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.eventNonce.isZero()) {
+  typeUrl: "/injective.peggy.v1.EventDepositClaim",
+  encode(message: EventDepositClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.eventNonce !== BigInt(0)) {
       writer.uint32(8).uint64(message.eventNonce);
     }
-    if (!message.eventHeight.isZero()) {
+    if (message.eventHeight !== BigInt(0)) {
       writer.uint32(16).uint64(message.eventHeight);
     }
     if (message.attestationId.length !== 0) {
@@ -656,8 +1223,8 @@ export const EventDepositClaim = {
   },
   fromJSON(object: any): EventDepositClaim {
     return {
-      eventNonce: isSet(object.eventNonce) ? Long.fromValue(object.eventNonce) : Long.UZERO,
-      eventHeight: isSet(object.eventHeight) ? Long.fromValue(object.eventHeight) : Long.UZERO,
+      eventNonce: isSet(object.eventNonce) ? BigInt(object.eventNonce.toString()) : BigInt(0),
+      eventHeight: isSet(object.eventHeight) ? BigInt(object.eventHeight.toString()) : BigInt(0),
       attestationId: isSet(object.attestationId) ? bytesFromBase64(object.attestationId) : new Uint8Array(),
       ethereumSender: isSet(object.ethereumSender) ? String(object.ethereumSender) : "",
       cosmosReceiver: isSet(object.cosmosReceiver) ? String(object.cosmosReceiver) : "",
@@ -669,8 +1236,8 @@ export const EventDepositClaim = {
   },
   fromPartial(object: Partial<EventDepositClaim>): EventDepositClaim {
     const message = createBaseEventDepositClaim();
-    message.eventNonce = object.eventNonce !== undefined && object.eventNonce !== null ? Long.fromValue(object.eventNonce) : Long.UZERO;
-    message.eventHeight = object.eventHeight !== undefined && object.eventHeight !== null ? Long.fromValue(object.eventHeight) : Long.UZERO;
+    message.eventNonce = object.eventNonce !== undefined && object.eventNonce !== null ? BigInt(object.eventNonce.toString()) : BigInt(0);
+    message.eventHeight = object.eventHeight !== undefined && object.eventHeight !== null ? BigInt(object.eventHeight.toString()) : BigInt(0);
     message.attestationId = object.attestationId ?? new Uint8Array();
     message.ethereumSender = object.ethereumSender ?? "";
     message.cosmosReceiver = object.cosmosReceiver ?? "";
@@ -679,30 +1246,72 @@ export const EventDepositClaim = {
     message.orchestratorAddress = object.orchestratorAddress ?? "";
     message.data = object.data ?? "";
     return message;
+  },
+  fromAmino(object: EventDepositClaimAmino): EventDepositClaim {
+    return {
+      eventNonce: BigInt(object.event_nonce),
+      eventHeight: BigInt(object.event_height),
+      attestationId: object.attestation_id,
+      ethereumSender: object.ethereum_sender,
+      cosmosReceiver: object.cosmos_receiver,
+      tokenContract: object.token_contract,
+      amount: object.amount,
+      orchestratorAddress: object.orchestrator_address,
+      data: object.data
+    };
+  },
+  toAmino(message: EventDepositClaim): EventDepositClaimAmino {
+    const obj: any = {};
+    obj.event_nonce = message.eventNonce ? message.eventNonce.toString() : undefined;
+    obj.event_height = message.eventHeight ? message.eventHeight.toString() : undefined;
+    obj.attestation_id = message.attestationId;
+    obj.ethereum_sender = message.ethereumSender;
+    obj.cosmos_receiver = message.cosmosReceiver;
+    obj.token_contract = message.tokenContract;
+    obj.amount = message.amount;
+    obj.orchestrator_address = message.orchestratorAddress;
+    obj.data = message.data;
+    return obj;
+  },
+  fromAminoMsg(object: EventDepositClaimAminoMsg): EventDepositClaim {
+    return EventDepositClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventDepositClaimProtoMsg): EventDepositClaim {
+    return EventDepositClaim.decode(message.value);
+  },
+  toProto(message: EventDepositClaim): Uint8Array {
+    return EventDepositClaim.encode(message).finish();
+  },
+  toProtoMsg(message: EventDepositClaim): EventDepositClaimProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventDepositClaim",
+      value: EventDepositClaim.encode(message).finish()
+    };
   }
 };
 function createBaseEventWithdrawClaim(): EventWithdrawClaim {
   return {
-    eventNonce: Long.UZERO,
-    eventHeight: Long.UZERO,
+    eventNonce: BigInt(0),
+    eventHeight: BigInt(0),
     attestationId: new Uint8Array(),
-    batchNonce: Long.UZERO,
+    batchNonce: BigInt(0),
     tokenContract: "",
     orchestratorAddress: ""
   };
 }
 export const EventWithdrawClaim = {
-  encode(message: EventWithdrawClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.eventNonce.isZero()) {
+  typeUrl: "/injective.peggy.v1.EventWithdrawClaim",
+  encode(message: EventWithdrawClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.eventNonce !== BigInt(0)) {
       writer.uint32(8).uint64(message.eventNonce);
     }
-    if (!message.eventHeight.isZero()) {
+    if (message.eventHeight !== BigInt(0)) {
       writer.uint32(16).uint64(message.eventHeight);
     }
     if (message.attestationId.length !== 0) {
       writer.uint32(26).bytes(message.attestationId);
     }
-    if (!message.batchNonce.isZero()) {
+    if (message.batchNonce !== BigInt(0)) {
       writer.uint32(32).uint64(message.batchNonce);
     }
     if (message.tokenContract !== "") {
@@ -715,44 +1324,80 @@ export const EventWithdrawClaim = {
   },
   fromJSON(object: any): EventWithdrawClaim {
     return {
-      eventNonce: isSet(object.eventNonce) ? Long.fromValue(object.eventNonce) : Long.UZERO,
-      eventHeight: isSet(object.eventHeight) ? Long.fromValue(object.eventHeight) : Long.UZERO,
+      eventNonce: isSet(object.eventNonce) ? BigInt(object.eventNonce.toString()) : BigInt(0),
+      eventHeight: isSet(object.eventHeight) ? BigInt(object.eventHeight.toString()) : BigInt(0),
       attestationId: isSet(object.attestationId) ? bytesFromBase64(object.attestationId) : new Uint8Array(),
-      batchNonce: isSet(object.batchNonce) ? Long.fromValue(object.batchNonce) : Long.UZERO,
+      batchNonce: isSet(object.batchNonce) ? BigInt(object.batchNonce.toString()) : BigInt(0),
       tokenContract: isSet(object.tokenContract) ? String(object.tokenContract) : "",
       orchestratorAddress: isSet(object.orchestratorAddress) ? String(object.orchestratorAddress) : ""
     };
   },
   fromPartial(object: Partial<EventWithdrawClaim>): EventWithdrawClaim {
     const message = createBaseEventWithdrawClaim();
-    message.eventNonce = object.eventNonce !== undefined && object.eventNonce !== null ? Long.fromValue(object.eventNonce) : Long.UZERO;
-    message.eventHeight = object.eventHeight !== undefined && object.eventHeight !== null ? Long.fromValue(object.eventHeight) : Long.UZERO;
+    message.eventNonce = object.eventNonce !== undefined && object.eventNonce !== null ? BigInt(object.eventNonce.toString()) : BigInt(0);
+    message.eventHeight = object.eventHeight !== undefined && object.eventHeight !== null ? BigInt(object.eventHeight.toString()) : BigInt(0);
     message.attestationId = object.attestationId ?? new Uint8Array();
-    message.batchNonce = object.batchNonce !== undefined && object.batchNonce !== null ? Long.fromValue(object.batchNonce) : Long.UZERO;
+    message.batchNonce = object.batchNonce !== undefined && object.batchNonce !== null ? BigInt(object.batchNonce.toString()) : BigInt(0);
     message.tokenContract = object.tokenContract ?? "";
     message.orchestratorAddress = object.orchestratorAddress ?? "";
     return message;
+  },
+  fromAmino(object: EventWithdrawClaimAmino): EventWithdrawClaim {
+    return {
+      eventNonce: BigInt(object.event_nonce),
+      eventHeight: BigInt(object.event_height),
+      attestationId: object.attestation_id,
+      batchNonce: BigInt(object.batch_nonce),
+      tokenContract: object.token_contract,
+      orchestratorAddress: object.orchestrator_address
+    };
+  },
+  toAmino(message: EventWithdrawClaim): EventWithdrawClaimAmino {
+    const obj: any = {};
+    obj.event_nonce = message.eventNonce ? message.eventNonce.toString() : undefined;
+    obj.event_height = message.eventHeight ? message.eventHeight.toString() : undefined;
+    obj.attestation_id = message.attestationId;
+    obj.batch_nonce = message.batchNonce ? message.batchNonce.toString() : undefined;
+    obj.token_contract = message.tokenContract;
+    obj.orchestrator_address = message.orchestratorAddress;
+    return obj;
+  },
+  fromAminoMsg(object: EventWithdrawClaimAminoMsg): EventWithdrawClaim {
+    return EventWithdrawClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventWithdrawClaimProtoMsg): EventWithdrawClaim {
+    return EventWithdrawClaim.decode(message.value);
+  },
+  toProto(message: EventWithdrawClaim): Uint8Array {
+    return EventWithdrawClaim.encode(message).finish();
+  },
+  toProtoMsg(message: EventWithdrawClaim): EventWithdrawClaimProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventWithdrawClaim",
+      value: EventWithdrawClaim.encode(message).finish()
+    };
   }
 };
 function createBaseEventERC20DeployedClaim(): EventERC20DeployedClaim {
   return {
-    eventNonce: Long.UZERO,
-    eventHeight: Long.UZERO,
+    eventNonce: BigInt(0),
+    eventHeight: BigInt(0),
     attestationId: new Uint8Array(),
     cosmosDenom: "",
     tokenContract: "",
     name: "",
     symbol: "",
-    decimals: Long.UZERO,
+    decimals: BigInt(0),
     orchestratorAddress: ""
   };
 }
 export const EventERC20DeployedClaim = {
-  encode(message: EventERC20DeployedClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.eventNonce.isZero()) {
+  typeUrl: "/injective.peggy.v1.EventERC20DeployedClaim",
+  encode(message: EventERC20DeployedClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.eventNonce !== BigInt(0)) {
       writer.uint32(8).uint64(message.eventNonce);
     }
-    if (!message.eventHeight.isZero()) {
+    if (message.eventHeight !== BigInt(0)) {
       writer.uint32(16).uint64(message.eventHeight);
     }
     if (message.attestationId.length !== 0) {
@@ -770,7 +1415,7 @@ export const EventERC20DeployedClaim = {
     if (message.symbol !== "") {
       writer.uint32(58).string(message.symbol);
     }
-    if (!message.decimals.isZero()) {
+    if (message.decimals !== BigInt(0)) {
       writer.uint32(64).uint64(message.decimals);
     }
     if (message.orchestratorAddress !== "") {
@@ -780,37 +1425,78 @@ export const EventERC20DeployedClaim = {
   },
   fromJSON(object: any): EventERC20DeployedClaim {
     return {
-      eventNonce: isSet(object.eventNonce) ? Long.fromValue(object.eventNonce) : Long.UZERO,
-      eventHeight: isSet(object.eventHeight) ? Long.fromValue(object.eventHeight) : Long.UZERO,
+      eventNonce: isSet(object.eventNonce) ? BigInt(object.eventNonce.toString()) : BigInt(0),
+      eventHeight: isSet(object.eventHeight) ? BigInt(object.eventHeight.toString()) : BigInt(0),
       attestationId: isSet(object.attestationId) ? bytesFromBase64(object.attestationId) : new Uint8Array(),
       cosmosDenom: isSet(object.cosmosDenom) ? String(object.cosmosDenom) : "",
       tokenContract: isSet(object.tokenContract) ? String(object.tokenContract) : "",
       name: isSet(object.name) ? String(object.name) : "",
       symbol: isSet(object.symbol) ? String(object.symbol) : "",
-      decimals: isSet(object.decimals) ? Long.fromValue(object.decimals) : Long.UZERO,
+      decimals: isSet(object.decimals) ? BigInt(object.decimals.toString()) : BigInt(0),
       orchestratorAddress: isSet(object.orchestratorAddress) ? String(object.orchestratorAddress) : ""
     };
   },
   fromPartial(object: Partial<EventERC20DeployedClaim>): EventERC20DeployedClaim {
     const message = createBaseEventERC20DeployedClaim();
-    message.eventNonce = object.eventNonce !== undefined && object.eventNonce !== null ? Long.fromValue(object.eventNonce) : Long.UZERO;
-    message.eventHeight = object.eventHeight !== undefined && object.eventHeight !== null ? Long.fromValue(object.eventHeight) : Long.UZERO;
+    message.eventNonce = object.eventNonce !== undefined && object.eventNonce !== null ? BigInt(object.eventNonce.toString()) : BigInt(0);
+    message.eventHeight = object.eventHeight !== undefined && object.eventHeight !== null ? BigInt(object.eventHeight.toString()) : BigInt(0);
     message.attestationId = object.attestationId ?? new Uint8Array();
     message.cosmosDenom = object.cosmosDenom ?? "";
     message.tokenContract = object.tokenContract ?? "";
     message.name = object.name ?? "";
     message.symbol = object.symbol ?? "";
-    message.decimals = object.decimals !== undefined && object.decimals !== null ? Long.fromValue(object.decimals) : Long.UZERO;
+    message.decimals = object.decimals !== undefined && object.decimals !== null ? BigInt(object.decimals.toString()) : BigInt(0);
     message.orchestratorAddress = object.orchestratorAddress ?? "";
     return message;
+  },
+  fromAmino(object: EventERC20DeployedClaimAmino): EventERC20DeployedClaim {
+    return {
+      eventNonce: BigInt(object.event_nonce),
+      eventHeight: BigInt(object.event_height),
+      attestationId: object.attestation_id,
+      cosmosDenom: object.cosmos_denom,
+      tokenContract: object.token_contract,
+      name: object.name,
+      symbol: object.symbol,
+      decimals: BigInt(object.decimals),
+      orchestratorAddress: object.orchestrator_address
+    };
+  },
+  toAmino(message: EventERC20DeployedClaim): EventERC20DeployedClaimAmino {
+    const obj: any = {};
+    obj.event_nonce = message.eventNonce ? message.eventNonce.toString() : undefined;
+    obj.event_height = message.eventHeight ? message.eventHeight.toString() : undefined;
+    obj.attestation_id = message.attestationId;
+    obj.cosmos_denom = message.cosmosDenom;
+    obj.token_contract = message.tokenContract;
+    obj.name = message.name;
+    obj.symbol = message.symbol;
+    obj.decimals = message.decimals ? message.decimals.toString() : undefined;
+    obj.orchestrator_address = message.orchestratorAddress;
+    return obj;
+  },
+  fromAminoMsg(object: EventERC20DeployedClaimAminoMsg): EventERC20DeployedClaim {
+    return EventERC20DeployedClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventERC20DeployedClaimProtoMsg): EventERC20DeployedClaim {
+    return EventERC20DeployedClaim.decode(message.value);
+  },
+  toProto(message: EventERC20DeployedClaim): Uint8Array {
+    return EventERC20DeployedClaim.encode(message).finish();
+  },
+  toProtoMsg(message: EventERC20DeployedClaim): EventERC20DeployedClaimProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventERC20DeployedClaim",
+      value: EventERC20DeployedClaim.encode(message).finish()
+    };
   }
 };
 function createBaseEventValsetUpdateClaim(): EventValsetUpdateClaim {
   return {
-    eventNonce: Long.UZERO,
-    eventHeight: Long.UZERO,
+    eventNonce: BigInt(0),
+    eventHeight: BigInt(0),
     attestationId: new Uint8Array(),
-    valsetNonce: Long.UZERO,
+    valsetNonce: BigInt(0),
     valsetMembers: [],
     rewardAmount: "",
     rewardToken: "",
@@ -818,17 +1504,18 @@ function createBaseEventValsetUpdateClaim(): EventValsetUpdateClaim {
   };
 }
 export const EventValsetUpdateClaim = {
-  encode(message: EventValsetUpdateClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.eventNonce.isZero()) {
+  typeUrl: "/injective.peggy.v1.EventValsetUpdateClaim",
+  encode(message: EventValsetUpdateClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.eventNonce !== BigInt(0)) {
       writer.uint32(8).uint64(message.eventNonce);
     }
-    if (!message.eventHeight.isZero()) {
+    if (message.eventHeight !== BigInt(0)) {
       writer.uint32(16).uint64(message.eventHeight);
     }
     if (message.attestationId.length !== 0) {
       writer.uint32(26).bytes(message.attestationId);
     }
-    if (!message.valsetNonce.isZero()) {
+    if (message.valsetNonce !== BigInt(0)) {
       writer.uint32(32).uint64(message.valsetNonce);
     }
     for (const v of message.valsetMembers) {
@@ -847,10 +1534,10 @@ export const EventValsetUpdateClaim = {
   },
   fromJSON(object: any): EventValsetUpdateClaim {
     return {
-      eventNonce: isSet(object.eventNonce) ? Long.fromValue(object.eventNonce) : Long.UZERO,
-      eventHeight: isSet(object.eventHeight) ? Long.fromValue(object.eventHeight) : Long.UZERO,
+      eventNonce: isSet(object.eventNonce) ? BigInt(object.eventNonce.toString()) : BigInt(0),
+      eventHeight: isSet(object.eventHeight) ? BigInt(object.eventHeight.toString()) : BigInt(0),
       attestationId: isSet(object.attestationId) ? bytesFromBase64(object.attestationId) : new Uint8Array(),
-      valsetNonce: isSet(object.valsetNonce) ? Long.fromValue(object.valsetNonce) : Long.UZERO,
+      valsetNonce: isSet(object.valsetNonce) ? BigInt(object.valsetNonce.toString()) : BigInt(0),
       valsetMembers: Array.isArray(object?.valsetMembers) ? object.valsetMembers.map((e: any) => BridgeValidator.fromJSON(e)) : [],
       rewardAmount: isSet(object.rewardAmount) ? String(object.rewardAmount) : "",
       rewardToken: isSet(object.rewardToken) ? String(object.rewardToken) : "",
@@ -859,38 +1546,107 @@ export const EventValsetUpdateClaim = {
   },
   fromPartial(object: Partial<EventValsetUpdateClaim>): EventValsetUpdateClaim {
     const message = createBaseEventValsetUpdateClaim();
-    message.eventNonce = object.eventNonce !== undefined && object.eventNonce !== null ? Long.fromValue(object.eventNonce) : Long.UZERO;
-    message.eventHeight = object.eventHeight !== undefined && object.eventHeight !== null ? Long.fromValue(object.eventHeight) : Long.UZERO;
+    message.eventNonce = object.eventNonce !== undefined && object.eventNonce !== null ? BigInt(object.eventNonce.toString()) : BigInt(0);
+    message.eventHeight = object.eventHeight !== undefined && object.eventHeight !== null ? BigInt(object.eventHeight.toString()) : BigInt(0);
     message.attestationId = object.attestationId ?? new Uint8Array();
-    message.valsetNonce = object.valsetNonce !== undefined && object.valsetNonce !== null ? Long.fromValue(object.valsetNonce) : Long.UZERO;
+    message.valsetNonce = object.valsetNonce !== undefined && object.valsetNonce !== null ? BigInt(object.valsetNonce.toString()) : BigInt(0);
     message.valsetMembers = object.valsetMembers?.map(e => BridgeValidator.fromPartial(e)) || [];
     message.rewardAmount = object.rewardAmount ?? "";
     message.rewardToken = object.rewardToken ?? "";
     message.orchestratorAddress = object.orchestratorAddress ?? "";
     return message;
+  },
+  fromAmino(object: EventValsetUpdateClaimAmino): EventValsetUpdateClaim {
+    return {
+      eventNonce: BigInt(object.event_nonce),
+      eventHeight: BigInt(object.event_height),
+      attestationId: object.attestation_id,
+      valsetNonce: BigInt(object.valset_nonce),
+      valsetMembers: Array.isArray(object?.valset_members) ? object.valset_members.map((e: any) => BridgeValidator.fromAmino(e)) : [],
+      rewardAmount: object.reward_amount,
+      rewardToken: object.reward_token,
+      orchestratorAddress: object.orchestrator_address
+    };
+  },
+  toAmino(message: EventValsetUpdateClaim): EventValsetUpdateClaimAmino {
+    const obj: any = {};
+    obj.event_nonce = message.eventNonce ? message.eventNonce.toString() : undefined;
+    obj.event_height = message.eventHeight ? message.eventHeight.toString() : undefined;
+    obj.attestation_id = message.attestationId;
+    obj.valset_nonce = message.valsetNonce ? message.valsetNonce.toString() : undefined;
+    if (message.valsetMembers) {
+      obj.valset_members = message.valsetMembers.map(e => e ? BridgeValidator.toAmino(e) : undefined);
+    } else {
+      obj.valset_members = [];
+    }
+    obj.reward_amount = message.rewardAmount;
+    obj.reward_token = message.rewardToken;
+    obj.orchestrator_address = message.orchestratorAddress;
+    return obj;
+  },
+  fromAminoMsg(object: EventValsetUpdateClaimAminoMsg): EventValsetUpdateClaim {
+    return EventValsetUpdateClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventValsetUpdateClaimProtoMsg): EventValsetUpdateClaim {
+    return EventValsetUpdateClaim.decode(message.value);
+  },
+  toProto(message: EventValsetUpdateClaim): Uint8Array {
+    return EventValsetUpdateClaim.encode(message).finish();
+  },
+  toProtoMsg(message: EventValsetUpdateClaim): EventValsetUpdateClaimProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventValsetUpdateClaim",
+      value: EventValsetUpdateClaim.encode(message).finish()
+    };
   }
 };
 function createBaseEventCancelSendToEth(): EventCancelSendToEth {
   return {
-    outgoingTxId: Long.UZERO
+    outgoingTxId: BigInt(0)
   };
 }
 export const EventCancelSendToEth = {
-  encode(message: EventCancelSendToEth, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.outgoingTxId.isZero()) {
+  typeUrl: "/injective.peggy.v1.EventCancelSendToEth",
+  encode(message: EventCancelSendToEth, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.outgoingTxId !== BigInt(0)) {
       writer.uint32(8).uint64(message.outgoingTxId);
     }
     return writer;
   },
   fromJSON(object: any): EventCancelSendToEth {
     return {
-      outgoingTxId: isSet(object.outgoingTxId) ? Long.fromValue(object.outgoingTxId) : Long.UZERO
+      outgoingTxId: isSet(object.outgoingTxId) ? BigInt(object.outgoingTxId.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<EventCancelSendToEth>): EventCancelSendToEth {
     const message = createBaseEventCancelSendToEth();
-    message.outgoingTxId = object.outgoingTxId !== undefined && object.outgoingTxId !== null ? Long.fromValue(object.outgoingTxId) : Long.UZERO;
+    message.outgoingTxId = object.outgoingTxId !== undefined && object.outgoingTxId !== null ? BigInt(object.outgoingTxId.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: EventCancelSendToEthAmino): EventCancelSendToEth {
+    return {
+      outgoingTxId: BigInt(object.outgoing_tx_id)
+    };
+  },
+  toAmino(message: EventCancelSendToEth): EventCancelSendToEthAmino {
+    const obj: any = {};
+    obj.outgoing_tx_id = message.outgoingTxId ? message.outgoingTxId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventCancelSendToEthAminoMsg): EventCancelSendToEth {
+    return EventCancelSendToEth.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventCancelSendToEthProtoMsg): EventCancelSendToEth {
+    return EventCancelSendToEth.decode(message.value);
+  },
+  toProto(message: EventCancelSendToEth): Uint8Array {
+    return EventCancelSendToEth.encode(message).finish();
+  },
+  toProtoMsg(message: EventCancelSendToEth): EventCancelSendToEthProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventCancelSendToEth",
+      value: EventCancelSendToEth.encode(message).finish()
+    };
   }
 };
 function createBaseEventSubmitBadSignatureEvidence(): EventSubmitBadSignatureEvidence {
@@ -900,7 +1656,8 @@ function createBaseEventSubmitBadSignatureEvidence(): EventSubmitBadSignatureEvi
   };
 }
 export const EventSubmitBadSignatureEvidence = {
-  encode(message: EventSubmitBadSignatureEvidence, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.peggy.v1.EventSubmitBadSignatureEvidence",
+  encode(message: EventSubmitBadSignatureEvidence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.badEthSignature !== "") {
       writer.uint32(10).string(message.badEthSignature);
     }
@@ -920,11 +1677,38 @@ export const EventSubmitBadSignatureEvidence = {
     message.badEthSignature = object.badEthSignature ?? "";
     message.badEthSignatureSubject = object.badEthSignatureSubject ?? "";
     return message;
+  },
+  fromAmino(object: EventSubmitBadSignatureEvidenceAmino): EventSubmitBadSignatureEvidence {
+    return {
+      badEthSignature: object.bad_eth_signature,
+      badEthSignatureSubject: object.bad_eth_signature_subject
+    };
+  },
+  toAmino(message: EventSubmitBadSignatureEvidence): EventSubmitBadSignatureEvidenceAmino {
+    const obj: any = {};
+    obj.bad_eth_signature = message.badEthSignature;
+    obj.bad_eth_signature_subject = message.badEthSignatureSubject;
+    return obj;
+  },
+  fromAminoMsg(object: EventSubmitBadSignatureEvidenceAminoMsg): EventSubmitBadSignatureEvidence {
+    return EventSubmitBadSignatureEvidence.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventSubmitBadSignatureEvidenceProtoMsg): EventSubmitBadSignatureEvidence {
+    return EventSubmitBadSignatureEvidence.decode(message.value);
+  },
+  toProto(message: EventSubmitBadSignatureEvidence): Uint8Array {
+    return EventSubmitBadSignatureEvidence.encode(message).finish();
+  },
+  toProtoMsg(message: EventSubmitBadSignatureEvidence): EventSubmitBadSignatureEvidenceProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventSubmitBadSignatureEvidence",
+      value: EventSubmitBadSignatureEvidence.encode(message).finish()
+    };
   }
 };
 function createBaseEventValidatorSlash(): EventValidatorSlash {
   return {
-    power: Long.ZERO,
+    power: BigInt(0),
     reason: "",
     consensusAddress: "",
     operatorAddress: "",
@@ -932,8 +1716,9 @@ function createBaseEventValidatorSlash(): EventValidatorSlash {
   };
 }
 export const EventValidatorSlash = {
-  encode(message: EventValidatorSlash, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.power.isZero()) {
+  typeUrl: "/injective.peggy.v1.EventValidatorSlash",
+  encode(message: EventValidatorSlash, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.power !== BigInt(0)) {
       writer.uint32(8).int64(message.power);
     }
     if (message.reason !== "") {
@@ -952,7 +1737,7 @@ export const EventValidatorSlash = {
   },
   fromJSON(object: any): EventValidatorSlash {
     return {
-      power: isSet(object.power) ? Long.fromValue(object.power) : Long.ZERO,
+      power: isSet(object.power) ? BigInt(object.power.toString()) : BigInt(0),
       reason: isSet(object.reason) ? String(object.reason) : "",
       consensusAddress: isSet(object.consensusAddress) ? String(object.consensusAddress) : "",
       operatorAddress: isSet(object.operatorAddress) ? String(object.operatorAddress) : "",
@@ -961,11 +1746,44 @@ export const EventValidatorSlash = {
   },
   fromPartial(object: Partial<EventValidatorSlash>): EventValidatorSlash {
     const message = createBaseEventValidatorSlash();
-    message.power = object.power !== undefined && object.power !== null ? Long.fromValue(object.power) : Long.ZERO;
+    message.power = object.power !== undefined && object.power !== null ? BigInt(object.power.toString()) : BigInt(0);
     message.reason = object.reason ?? "";
     message.consensusAddress = object.consensusAddress ?? "";
     message.operatorAddress = object.operatorAddress ?? "";
     message.moniker = object.moniker ?? "";
     return message;
+  },
+  fromAmino(object: EventValidatorSlashAmino): EventValidatorSlash {
+    return {
+      power: BigInt(object.power),
+      reason: object.reason,
+      consensusAddress: object.consensus_address,
+      operatorAddress: object.operator_address,
+      moniker: object.moniker
+    };
+  },
+  toAmino(message: EventValidatorSlash): EventValidatorSlashAmino {
+    const obj: any = {};
+    obj.power = message.power ? message.power.toString() : undefined;
+    obj.reason = message.reason;
+    obj.consensus_address = message.consensusAddress;
+    obj.operator_address = message.operatorAddress;
+    obj.moniker = message.moniker;
+    return obj;
+  },
+  fromAminoMsg(object: EventValidatorSlashAminoMsg): EventValidatorSlash {
+    return EventValidatorSlash.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventValidatorSlashProtoMsg): EventValidatorSlash {
+    return EventValidatorSlash.decode(message.value);
+  },
+  toProto(message: EventValidatorSlash): Uint8Array {
+    return EventValidatorSlash.encode(message).finish();
+  },
+  toProtoMsg(message: EventValidatorSlash): EventValidatorSlashProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventValidatorSlash",
+      value: EventValidatorSlash.encode(message).finish()
+    };
   }
 };

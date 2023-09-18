@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 export interface Voted {
   module: string;
@@ -6,6 +6,21 @@ export interface Voted {
   poll: string;
   voter: string;
   state: string;
+}
+export interface VotedProtoMsg {
+  typeUrl: "/axelar.vote.v1beta1.Voted";
+  value: Uint8Array;
+}
+export interface VotedAmino {
+  module: string;
+  action: string;
+  poll: string;
+  voter: string;
+  state: string;
+}
+export interface VotedAminoMsg {
+  type: "/axelar.vote.v1beta1.Voted";
+  value: VotedAmino;
 }
 export interface VotedSDKType {
   module: string;
@@ -24,7 +39,8 @@ function createBaseVoted(): Voted {
   };
 }
 export const Voted = {
-  encode(message: Voted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.vote.v1beta1.Voted",
+  encode(message: Voted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
     }
@@ -59,5 +75,38 @@ export const Voted = {
     message.voter = object.voter ?? "";
     message.state = object.state ?? "";
     return message;
+  },
+  fromAmino(object: VotedAmino): Voted {
+    return {
+      module: object.module,
+      action: object.action,
+      poll: object.poll,
+      voter: object.voter,
+      state: object.state
+    };
+  },
+  toAmino(message: Voted): VotedAmino {
+    const obj: any = {};
+    obj.module = message.module;
+    obj.action = message.action;
+    obj.poll = message.poll;
+    obj.voter = message.voter;
+    obj.state = message.state;
+    return obj;
+  },
+  fromAminoMsg(object: VotedAminoMsg): Voted {
+    return Voted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: VotedProtoMsg): Voted {
+    return Voted.decode(message.value);
+  },
+  toProto(message: Voted): Uint8Array {
+    return Voted.encode(message).finish();
+  },
+  toProtoMsg(message: Voted): VotedProtoMsg {
+    return {
+      typeUrl: "/axelar.vote.v1beta1.Voted",
+      value: Voted.encode(message).finish()
+    };
   }
 };

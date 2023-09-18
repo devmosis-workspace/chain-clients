@@ -1,11 +1,12 @@
-import { Long, isSet } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
+import { isSet } from "../../helpers";
 export enum PacketDirection {
   PACKET_SEND = 0,
   PACKET_RECV = 1,
   UNRECOGNIZED = -1,
 }
 export const PacketDirectionSDKType = PacketDirection;
+export const PacketDirectionAmino = PacketDirection;
 export function packetDirectionFromJSON(object: any): PacketDirection {
   switch (object) {
     case 0:
@@ -35,6 +36,18 @@ export interface Path {
   denom: string;
   channelId: string;
 }
+export interface PathProtoMsg {
+  typeUrl: "/stride.ratelimit.Path";
+  value: Uint8Array;
+}
+export interface PathAmino {
+  denom: string;
+  channel_id: string;
+}
+export interface PathAminoMsg {
+  type: "/stride.ratelimit.Path";
+  value: PathAmino;
+}
 export interface PathSDKType {
   denom: string;
   channel_id: string;
@@ -42,17 +55,43 @@ export interface PathSDKType {
 export interface Quota {
   maxPercentSend: string;
   maxPercentRecv: string;
-  durationHours: Long;
+  durationHours: bigint;
+}
+export interface QuotaProtoMsg {
+  typeUrl: "/stride.ratelimit.Quota";
+  value: Uint8Array;
+}
+export interface QuotaAmino {
+  max_percent_send: string;
+  max_percent_recv: string;
+  duration_hours: string;
+}
+export interface QuotaAminoMsg {
+  type: "/stride.ratelimit.Quota";
+  value: QuotaAmino;
 }
 export interface QuotaSDKType {
   max_percent_send: string;
   max_percent_recv: string;
-  duration_hours: Long;
+  duration_hours: bigint;
 }
 export interface Flow {
   inflow: string;
   outflow: string;
   channelValue: string;
+}
+export interface FlowProtoMsg {
+  typeUrl: "/stride.ratelimit.Flow";
+  value: Uint8Array;
+}
+export interface FlowAmino {
+  inflow: string;
+  outflow: string;
+  channel_value: string;
+}
+export interface FlowAminoMsg {
+  type: "/stride.ratelimit.Flow";
+  value: FlowAmino;
 }
 export interface FlowSDKType {
   inflow: string;
@@ -60,18 +99,43 @@ export interface FlowSDKType {
   channel_value: string;
 }
 export interface RateLimit {
-  path?: Path;
-  quota?: Quota;
-  flow?: Flow;
+  path: Path;
+  quota: Quota;
+  flow: Flow;
+}
+export interface RateLimitProtoMsg {
+  typeUrl: "/stride.ratelimit.RateLimit";
+  value: Uint8Array;
+}
+export interface RateLimitAmino {
+  path?: PathAmino;
+  quota?: QuotaAmino;
+  flow?: FlowAmino;
+}
+export interface RateLimitAminoMsg {
+  type: "/stride.ratelimit.RateLimit";
+  value: RateLimitAmino;
 }
 export interface RateLimitSDKType {
-  path?: PathSDKType;
-  quota?: QuotaSDKType;
-  flow?: FlowSDKType;
+  path: PathSDKType;
+  quota: QuotaSDKType;
+  flow: FlowSDKType;
 }
 export interface WhitelistedAddressPair {
   sender: string;
   receiver: string;
+}
+export interface WhitelistedAddressPairProtoMsg {
+  typeUrl: "/stride.ratelimit.WhitelistedAddressPair";
+  value: Uint8Array;
+}
+export interface WhitelistedAddressPairAmino {
+  sender: string;
+  receiver: string;
+}
+export interface WhitelistedAddressPairAminoMsg {
+  type: "/stride.ratelimit.WhitelistedAddressPair";
+  value: WhitelistedAddressPairAmino;
 }
 export interface WhitelistedAddressPairSDKType {
   sender: string;
@@ -84,7 +148,8 @@ function createBasePath(): Path {
   };
 }
 export const Path = {
-  encode(message: Path, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.ratelimit.Path",
+  encode(message: Path, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -104,24 +169,52 @@ export const Path = {
     message.denom = object.denom ?? "";
     message.channelId = object.channelId ?? "";
     return message;
+  },
+  fromAmino(object: PathAmino): Path {
+    return {
+      denom: object.denom,
+      channelId: object.channel_id
+    };
+  },
+  toAmino(message: Path): PathAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.channel_id = message.channelId;
+    return obj;
+  },
+  fromAminoMsg(object: PathAminoMsg): Path {
+    return Path.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PathProtoMsg): Path {
+    return Path.decode(message.value);
+  },
+  toProto(message: Path): Uint8Array {
+    return Path.encode(message).finish();
+  },
+  toProtoMsg(message: Path): PathProtoMsg {
+    return {
+      typeUrl: "/stride.ratelimit.Path",
+      value: Path.encode(message).finish()
+    };
   }
 };
 function createBaseQuota(): Quota {
   return {
     maxPercentSend: "",
     maxPercentRecv: "",
-    durationHours: Long.UZERO
+    durationHours: BigInt(0)
   };
 }
 export const Quota = {
-  encode(message: Quota, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.ratelimit.Quota",
+  encode(message: Quota, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.maxPercentSend !== "") {
       writer.uint32(10).string(message.maxPercentSend);
     }
     if (message.maxPercentRecv !== "") {
       writer.uint32(18).string(message.maxPercentRecv);
     }
-    if (!message.durationHours.isZero()) {
+    if (message.durationHours !== BigInt(0)) {
       writer.uint32(24).uint64(message.durationHours);
     }
     return writer;
@@ -130,15 +223,44 @@ export const Quota = {
     return {
       maxPercentSend: isSet(object.maxPercentSend) ? String(object.maxPercentSend) : "",
       maxPercentRecv: isSet(object.maxPercentRecv) ? String(object.maxPercentRecv) : "",
-      durationHours: isSet(object.durationHours) ? Long.fromValue(object.durationHours) : Long.UZERO
+      durationHours: isSet(object.durationHours) ? BigInt(object.durationHours.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<Quota>): Quota {
     const message = createBaseQuota();
     message.maxPercentSend = object.maxPercentSend ?? "";
     message.maxPercentRecv = object.maxPercentRecv ?? "";
-    message.durationHours = object.durationHours !== undefined && object.durationHours !== null ? Long.fromValue(object.durationHours) : Long.UZERO;
+    message.durationHours = object.durationHours !== undefined && object.durationHours !== null ? BigInt(object.durationHours.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: QuotaAmino): Quota {
+    return {
+      maxPercentSend: object.max_percent_send,
+      maxPercentRecv: object.max_percent_recv,
+      durationHours: BigInt(object.duration_hours)
+    };
+  },
+  toAmino(message: Quota): QuotaAmino {
+    const obj: any = {};
+    obj.max_percent_send = message.maxPercentSend;
+    obj.max_percent_recv = message.maxPercentRecv;
+    obj.duration_hours = message.durationHours ? message.durationHours.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QuotaAminoMsg): Quota {
+    return Quota.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QuotaProtoMsg): Quota {
+    return Quota.decode(message.value);
+  },
+  toProto(message: Quota): Uint8Array {
+    return Quota.encode(message).finish();
+  },
+  toProtoMsg(message: Quota): QuotaProtoMsg {
+    return {
+      typeUrl: "/stride.ratelimit.Quota",
+      value: Quota.encode(message).finish()
+    };
   }
 };
 function createBaseFlow(): Flow {
@@ -149,7 +271,8 @@ function createBaseFlow(): Flow {
   };
 }
 export const Flow = {
-  encode(message: Flow, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.ratelimit.Flow",
+  encode(message: Flow, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.inflow !== "") {
       writer.uint32(10).string(message.inflow);
     }
@@ -174,17 +297,47 @@ export const Flow = {
     message.outflow = object.outflow ?? "";
     message.channelValue = object.channelValue ?? "";
     return message;
+  },
+  fromAmino(object: FlowAmino): Flow {
+    return {
+      inflow: object.inflow,
+      outflow: object.outflow,
+      channelValue: object.channel_value
+    };
+  },
+  toAmino(message: Flow): FlowAmino {
+    const obj: any = {};
+    obj.inflow = message.inflow;
+    obj.outflow = message.outflow;
+    obj.channel_value = message.channelValue;
+    return obj;
+  },
+  fromAminoMsg(object: FlowAminoMsg): Flow {
+    return Flow.fromAmino(object.value);
+  },
+  fromProtoMsg(message: FlowProtoMsg): Flow {
+    return Flow.decode(message.value);
+  },
+  toProto(message: Flow): Uint8Array {
+    return Flow.encode(message).finish();
+  },
+  toProtoMsg(message: Flow): FlowProtoMsg {
+    return {
+      typeUrl: "/stride.ratelimit.Flow",
+      value: Flow.encode(message).finish()
+    };
   }
 };
 function createBaseRateLimit(): RateLimit {
   return {
-    path: undefined,
-    quota: undefined,
-    flow: undefined
+    path: Path.fromPartial({}),
+    quota: Quota.fromPartial({}),
+    flow: Flow.fromPartial({})
   };
 }
 export const RateLimit = {
-  encode(message: RateLimit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.ratelimit.RateLimit",
+  encode(message: RateLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.path !== undefined) {
       Path.encode(message.path, writer.uint32(10).fork()).ldelim();
     }
@@ -209,6 +362,35 @@ export const RateLimit = {
     message.quota = object.quota !== undefined && object.quota !== null ? Quota.fromPartial(object.quota) : undefined;
     message.flow = object.flow !== undefined && object.flow !== null ? Flow.fromPartial(object.flow) : undefined;
     return message;
+  },
+  fromAmino(object: RateLimitAmino): RateLimit {
+    return {
+      path: object?.path ? Path.fromAmino(object.path) : undefined,
+      quota: object?.quota ? Quota.fromAmino(object.quota) : undefined,
+      flow: object?.flow ? Flow.fromAmino(object.flow) : undefined
+    };
+  },
+  toAmino(message: RateLimit): RateLimitAmino {
+    const obj: any = {};
+    obj.path = message.path ? Path.toAmino(message.path) : undefined;
+    obj.quota = message.quota ? Quota.toAmino(message.quota) : undefined;
+    obj.flow = message.flow ? Flow.toAmino(message.flow) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: RateLimitAminoMsg): RateLimit {
+    return RateLimit.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RateLimitProtoMsg): RateLimit {
+    return RateLimit.decode(message.value);
+  },
+  toProto(message: RateLimit): Uint8Array {
+    return RateLimit.encode(message).finish();
+  },
+  toProtoMsg(message: RateLimit): RateLimitProtoMsg {
+    return {
+      typeUrl: "/stride.ratelimit.RateLimit",
+      value: RateLimit.encode(message).finish()
+    };
   }
 };
 function createBaseWhitelistedAddressPair(): WhitelistedAddressPair {
@@ -218,7 +400,8 @@ function createBaseWhitelistedAddressPair(): WhitelistedAddressPair {
   };
 }
 export const WhitelistedAddressPair = {
-  encode(message: WhitelistedAddressPair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.ratelimit.WhitelistedAddressPair",
+  encode(message: WhitelistedAddressPair, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
@@ -238,5 +421,32 @@ export const WhitelistedAddressPair = {
     message.sender = object.sender ?? "";
     message.receiver = object.receiver ?? "";
     return message;
+  },
+  fromAmino(object: WhitelistedAddressPairAmino): WhitelistedAddressPair {
+    return {
+      sender: object.sender,
+      receiver: object.receiver
+    };
+  },
+  toAmino(message: WhitelistedAddressPair): WhitelistedAddressPairAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.receiver = message.receiver;
+    return obj;
+  },
+  fromAminoMsg(object: WhitelistedAddressPairAminoMsg): WhitelistedAddressPair {
+    return WhitelistedAddressPair.fromAmino(object.value);
+  },
+  fromProtoMsg(message: WhitelistedAddressPairProtoMsg): WhitelistedAddressPair {
+    return WhitelistedAddressPair.decode(message.value);
+  },
+  toProto(message: WhitelistedAddressPair): Uint8Array {
+    return WhitelistedAddressPair.encode(message).finish();
+  },
+  toProtoMsg(message: WhitelistedAddressPair): WhitelistedAddressPairProtoMsg {
+    return {
+      typeUrl: "/stride.ratelimit.WhitelistedAddressPair",
+      value: WhitelistedAddressPair.encode(message).finish()
+    };
   }
 };

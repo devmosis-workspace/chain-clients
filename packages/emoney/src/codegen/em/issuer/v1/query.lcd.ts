@@ -1,4 +1,4 @@
-import { LCDClient } from "@osmonauts/lcd";
+import { LCDClient } from "@cosmology/lcd";
 import { QueryIssuersRequest, QueryIssuersResponseSDKType } from "./query";
 export class LCDQueryClient {
   req: LCDClient;

@@ -1,5 +1,5 @@
 import { Rpc } from "../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryFailuresRequest, QueryFailuresResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -22,17 +22,17 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.contractmanager.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   addressFailures(request: QueryFailuresRequest): Promise<QueryFailuresResponse> {
     const data = QueryFailuresRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.contractmanager.Query", "AddressFailures", data);
-    return promise.then(data => QueryFailuresResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryFailuresResponse.decode(new BinaryReader(data)));
   }
   failures(request: QueryFailuresRequest): Promise<QueryFailuresResponse> {
     const data = QueryFailuresRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.contractmanager.Query", "Failures", data);
-    return promise.then(data => QueryFailuresResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryFailuresResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

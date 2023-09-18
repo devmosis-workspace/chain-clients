@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryGetValidatorsRequest, QueryGetValidatorsResponse, QueryGetHostZoneRequest, QueryGetHostZoneResponse, QueryAllHostZoneRequest, QueryAllHostZoneResponse, QueryModuleAddressRequest, QueryModuleAddressResponse, QueryInterchainAccountFromAddressRequest, QueryInterchainAccountFromAddressResponse, QueryGetEpochTrackerRequest, QueryGetEpochTrackerResponse, QueryAllEpochTrackerRequest, QueryAllEpochTrackerResponse, QueryGetNextPacketSequenceRequest, QueryGetNextPacketSequenceResponse, QueryAddressUnbondings, QueryAddressUnbondingsResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -46,54 +46,54 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("stride.stakeibc.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   validators(request: QueryGetValidatorsRequest): Promise<QueryGetValidatorsResponse> {
     const data = QueryGetValidatorsRequest.encode(request).finish();
     const promise = this.rpc.request("stride.stakeibc.Query", "Validators", data);
-    return promise.then(data => QueryGetValidatorsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetValidatorsResponse.decode(new BinaryReader(data)));
   }
   hostZone(request: QueryGetHostZoneRequest): Promise<QueryGetHostZoneResponse> {
     const data = QueryGetHostZoneRequest.encode(request).finish();
     const promise = this.rpc.request("stride.stakeibc.Query", "HostZone", data);
-    return promise.then(data => QueryGetHostZoneResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetHostZoneResponse.decode(new BinaryReader(data)));
   }
   hostZoneAll(request: QueryAllHostZoneRequest = {
     pagination: undefined
   }): Promise<QueryAllHostZoneResponse> {
     const data = QueryAllHostZoneRequest.encode(request).finish();
     const promise = this.rpc.request("stride.stakeibc.Query", "HostZoneAll", data);
-    return promise.then(data => QueryAllHostZoneResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAllHostZoneResponse.decode(new BinaryReader(data)));
   }
   moduleAddress(request: QueryModuleAddressRequest): Promise<QueryModuleAddressResponse> {
     const data = QueryModuleAddressRequest.encode(request).finish();
     const promise = this.rpc.request("stride.stakeibc.Query", "ModuleAddress", data);
-    return promise.then(data => QueryModuleAddressResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryModuleAddressResponse.decode(new BinaryReader(data)));
   }
   interchainAccountFromAddress(request: QueryInterchainAccountFromAddressRequest): Promise<QueryInterchainAccountFromAddressResponse> {
     const data = QueryInterchainAccountFromAddressRequest.encode(request).finish();
     const promise = this.rpc.request("stride.stakeibc.Query", "InterchainAccountFromAddress", data);
-    return promise.then(data => QueryInterchainAccountFromAddressResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryInterchainAccountFromAddressResponse.decode(new BinaryReader(data)));
   }
   epochTracker(request: QueryGetEpochTrackerRequest): Promise<QueryGetEpochTrackerResponse> {
     const data = QueryGetEpochTrackerRequest.encode(request).finish();
     const promise = this.rpc.request("stride.stakeibc.Query", "EpochTracker", data);
-    return promise.then(data => QueryGetEpochTrackerResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetEpochTrackerResponse.decode(new BinaryReader(data)));
   }
   epochTrackerAll(request: QueryAllEpochTrackerRequest = {}): Promise<QueryAllEpochTrackerResponse> {
     const data = QueryAllEpochTrackerRequest.encode(request).finish();
     const promise = this.rpc.request("stride.stakeibc.Query", "EpochTrackerAll", data);
-    return promise.then(data => QueryAllEpochTrackerResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAllEpochTrackerResponse.decode(new BinaryReader(data)));
   }
   nextPacketSequence(request: QueryGetNextPacketSequenceRequest): Promise<QueryGetNextPacketSequenceResponse> {
     const data = QueryGetNextPacketSequenceRequest.encode(request).finish();
     const promise = this.rpc.request("stride.stakeibc.Query", "NextPacketSequence", data);
-    return promise.then(data => QueryGetNextPacketSequenceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetNextPacketSequenceResponse.decode(new BinaryReader(data)));
   }
   addressUnbondings(request: QueryAddressUnbondings): Promise<QueryAddressUnbondingsResponse> {
     const data = QueryAddressUnbondings.encode(request).finish();
     const promise = this.rpc.request("stride.stakeibc.Query", "AddressUnbondings", data);
-    return promise.then(data => QueryAddressUnbondingsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAddressUnbondingsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

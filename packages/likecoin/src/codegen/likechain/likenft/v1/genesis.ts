@@ -1,18 +1,18 @@
-import { Params, ParamsSDKType } from "./params";
-import { ClassesByISCN, ClassesByISCNSDKType } from "./classes_by_iscn";
-import { ClassesByAccount, ClassesByAccountSDKType } from "./classes_by_account";
-import { BlindBoxContent, BlindBoxContentSDKType } from "./blind_box_content";
-import { ClassRevealQueueEntry, ClassRevealQueueEntrySDKType } from "./class_reveal_queue";
-import { Offer, OfferSDKType } from "./offer";
-import { Listing, ListingSDKType } from "./listing";
-import { OfferExpireQueueEntry, OfferExpireQueueEntrySDKType } from "./offer_expire_queue";
-import { ListingExpireQueueEntry, ListingExpireQueueEntrySDKType } from "./listing_expire_queue";
-import { RoyaltyConfigByClass, RoyaltyConfigByClassSDKType } from "./royalty_config";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { ClassesByISCN, ClassesByISCNAmino, ClassesByISCNSDKType } from "./classes_by_iscn";
+import { ClassesByAccount, ClassesByAccountAmino, ClassesByAccountSDKType } from "./classes_by_account";
+import { BlindBoxContent, BlindBoxContentAmino, BlindBoxContentSDKType } from "./blind_box_content";
+import { ClassRevealQueueEntry, ClassRevealQueueEntryAmino, ClassRevealQueueEntrySDKType } from "./class_reveal_queue";
+import { Offer, OfferAmino, OfferSDKType } from "./offer";
+import { Listing, ListingAmino, ListingSDKType } from "./listing";
+import { OfferExpireQueueEntry, OfferExpireQueueEntryAmino, OfferExpireQueueEntrySDKType } from "./offer_expire_queue";
+import { ListingExpireQueueEntry, ListingExpireQueueEntryAmino, ListingExpireQueueEntrySDKType } from "./listing_expire_queue";
+import { RoyaltyConfigByClass, RoyaltyConfigByClassAmino, RoyaltyConfigByClassSDKType } from "./royalty_config";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** GenesisState defines the likenft module's genesis state. */
 export interface GenesisState {
-  params?: Params;
+  params: Params;
   classesByIscnList: ClassesByISCN[];
   classesByAccountList: ClassesByAccount[];
   blindBoxContentList: BlindBoxContent[];
@@ -23,9 +23,30 @@ export interface GenesisState {
   listingExpireQueue: ListingExpireQueueEntry[];
   royaltyConfigByClassList: RoyaltyConfigByClass[];
 }
+export interface GenesisStateProtoMsg {
+  typeUrl: "/likechain.likenft.v1.GenesisState";
+  value: Uint8Array;
+}
+/** GenesisState defines the likenft module's genesis state. */
+export interface GenesisStateAmino {
+  params?: ParamsAmino;
+  classes_by_iscn_list: ClassesByISCNAmino[];
+  classes_by_account_list: ClassesByAccountAmino[];
+  blind_box_content_list: BlindBoxContentAmino[];
+  class_reveal_queue: ClassRevealQueueEntryAmino[];
+  offer_list: OfferAmino[];
+  listing_list: ListingAmino[];
+  offer_expire_queue: OfferExpireQueueEntryAmino[];
+  listing_expire_queue: ListingExpireQueueEntryAmino[];
+  royalty_config_by_class_list: RoyaltyConfigByClassAmino[];
+}
+export interface GenesisStateAminoMsg {
+  type: "/likechain.likenft.v1.GenesisState";
+  value: GenesisStateAmino;
+}
 /** GenesisState defines the likenft module's genesis state. */
 export interface GenesisStateSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
   classes_by_iscn_list: ClassesByISCNSDKType[];
   classes_by_account_list: ClassesByAccountSDKType[];
   blind_box_content_list: BlindBoxContentSDKType[];
@@ -38,7 +59,7 @@ export interface GenesisStateSDKType {
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     classesByIscnList: [],
     classesByAccountList: [],
     blindBoxContentList: [],
@@ -51,7 +72,8 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.likenft.v1.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -111,5 +133,84 @@ export const GenesisState = {
     message.listingExpireQueue = object.listingExpireQueue?.map(e => ListingExpireQueueEntry.fromPartial(e)) || [];
     message.royaltyConfigByClassList = object.royaltyConfigByClassList?.map(e => RoyaltyConfigByClass.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+      classesByIscnList: Array.isArray(object?.classes_by_iscn_list) ? object.classes_by_iscn_list.map((e: any) => ClassesByISCN.fromAmino(e)) : [],
+      classesByAccountList: Array.isArray(object?.classes_by_account_list) ? object.classes_by_account_list.map((e: any) => ClassesByAccount.fromAmino(e)) : [],
+      blindBoxContentList: Array.isArray(object?.blind_box_content_list) ? object.blind_box_content_list.map((e: any) => BlindBoxContent.fromAmino(e)) : [],
+      classRevealQueue: Array.isArray(object?.class_reveal_queue) ? object.class_reveal_queue.map((e: any) => ClassRevealQueueEntry.fromAmino(e)) : [],
+      offerList: Array.isArray(object?.offer_list) ? object.offer_list.map((e: any) => Offer.fromAmino(e)) : [],
+      listingList: Array.isArray(object?.listing_list) ? object.listing_list.map((e: any) => Listing.fromAmino(e)) : [],
+      offerExpireQueue: Array.isArray(object?.offer_expire_queue) ? object.offer_expire_queue.map((e: any) => OfferExpireQueueEntry.fromAmino(e)) : [],
+      listingExpireQueue: Array.isArray(object?.listing_expire_queue) ? object.listing_expire_queue.map((e: any) => ListingExpireQueueEntry.fromAmino(e)) : [],
+      royaltyConfigByClassList: Array.isArray(object?.royalty_config_by_class_list) ? object.royalty_config_by_class_list.map((e: any) => RoyaltyConfigByClass.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    if (message.classesByIscnList) {
+      obj.classes_by_iscn_list = message.classesByIscnList.map(e => e ? ClassesByISCN.toAmino(e) : undefined);
+    } else {
+      obj.classes_by_iscn_list = [];
+    }
+    if (message.classesByAccountList) {
+      obj.classes_by_account_list = message.classesByAccountList.map(e => e ? ClassesByAccount.toAmino(e) : undefined);
+    } else {
+      obj.classes_by_account_list = [];
+    }
+    if (message.blindBoxContentList) {
+      obj.blind_box_content_list = message.blindBoxContentList.map(e => e ? BlindBoxContent.toAmino(e) : undefined);
+    } else {
+      obj.blind_box_content_list = [];
+    }
+    if (message.classRevealQueue) {
+      obj.class_reveal_queue = message.classRevealQueue.map(e => e ? ClassRevealQueueEntry.toAmino(e) : undefined);
+    } else {
+      obj.class_reveal_queue = [];
+    }
+    if (message.offerList) {
+      obj.offer_list = message.offerList.map(e => e ? Offer.toAmino(e) : undefined);
+    } else {
+      obj.offer_list = [];
+    }
+    if (message.listingList) {
+      obj.listing_list = message.listingList.map(e => e ? Listing.toAmino(e) : undefined);
+    } else {
+      obj.listing_list = [];
+    }
+    if (message.offerExpireQueue) {
+      obj.offer_expire_queue = message.offerExpireQueue.map(e => e ? OfferExpireQueueEntry.toAmino(e) : undefined);
+    } else {
+      obj.offer_expire_queue = [];
+    }
+    if (message.listingExpireQueue) {
+      obj.listing_expire_queue = message.listingExpireQueue.map(e => e ? ListingExpireQueueEntry.toAmino(e) : undefined);
+    } else {
+      obj.listing_expire_queue = [];
+    }
+    if (message.royaltyConfigByClassList) {
+      obj.royalty_config_by_class_list = message.royaltyConfigByClassList.map(e => e ? RoyaltyConfigByClass.toAmino(e) : undefined);
+    } else {
+      obj.royalty_config_by_class_list = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/likechain.likenft.v1.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };

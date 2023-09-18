@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryDelegatedBalanceRequest, QueryDelegatedBalanceResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse } from "./query";
 /** Query defines the gRPC querier service for liquid module */
@@ -22,12 +22,12 @@ export class QueryClientImpl implements Query {
   delegatedBalance(request: QueryDelegatedBalanceRequest): Promise<QueryDelegatedBalanceResponse> {
     const data = QueryDelegatedBalanceRequest.encode(request).finish();
     const promise = this.rpc.request("kava.liquid.v1beta1.Query", "DelegatedBalance", data);
-    return promise.then(data => QueryDelegatedBalanceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDelegatedBalanceResponse.decode(new BinaryReader(data)));
   }
   totalSupply(request: QueryTotalSupplyRequest = {}): Promise<QueryTotalSupplyResponse> {
     const data = QueryTotalSupplyRequest.encode(request).finish();
     const promise = this.rpc.request("kava.liquid.v1beta1.Query", "TotalSupply", data);
-    return promise.then(data => QueryTotalSupplyResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTotalSupplyResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

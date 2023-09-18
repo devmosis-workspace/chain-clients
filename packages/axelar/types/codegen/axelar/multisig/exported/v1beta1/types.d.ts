@@ -5,6 +5,7 @@ export declare enum MultisigState {
     UNRECOGNIZED = -1
 }
 export declare const MultisigStateSDKType: typeof MultisigState;
+export declare const MultisigStateAmino: typeof MultisigState;
 export declare function multisigStateFromJSON(object: any): MultisigState;
 export declare function multisigStateToJSON(object: MultisigState): string;
 export declare enum KeyState {
@@ -14,5 +15,6 @@ export declare enum KeyState {
     UNRECOGNIZED = -1
 }
 export declare const KeyStateSDKType: typeof KeyState;
+export declare const KeyStateAmino: typeof KeyState;
 export declare function keyStateFromJSON(object: any): KeyState;
 export declare function keyStateToJSON(object: KeyState): string;

@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgSafetyFundSpend, MsgSafetyFundSpendResponse } from "./tx";
 /** Msg defines the safety module's Msg service */
 export interface Msg {
@@ -28,6 +28,6 @@ export class MsgClientImpl implements Msg {
   safetyFundSpend(request: MsgSafetyFundSpend): Promise<MsgSafetyFundSpendResponse> {
     const data = MsgSafetyFundSpend.encode(request).finish();
     const promise = this.rpc.request("mars.safety.v1beta1.Msg", "SafetyFundSpend", data);
-    return promise.then(data => MsgSafetyFundSpendResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSafetyFundSpendResponse.decode(new BinaryReader(data)));
   }
 }

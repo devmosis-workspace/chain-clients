@@ -11,6 +11,9 @@ export const createRPCQueryClient = async ({
     OmniFlix: {
       itc: {
         v1: (await import("../omniflix/itc/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      marketplace: {
+        v1beta1: (await import("../omniflix/marketplace/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
       }
     },
     cosmos: {

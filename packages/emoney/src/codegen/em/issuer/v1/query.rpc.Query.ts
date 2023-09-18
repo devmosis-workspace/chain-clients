@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryIssuersRequest, QueryIssuersResponse } from "./query";
 export interface Query {
@@ -14,7 +14,7 @@ export class QueryClientImpl implements Query {
   issuers(request: QueryIssuersRequest = {}): Promise<QueryIssuersResponse> {
     const data = QueryIssuersRequest.encode(request).finish();
     const promise = this.rpc.request("em.issuer.v1.Query", "Issuers", data);
-    return promise.then(data => QueryIssuersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryIssuersResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

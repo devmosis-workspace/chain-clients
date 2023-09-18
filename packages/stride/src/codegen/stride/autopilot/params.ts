@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
  * Params defines the parameters for the module.
@@ -8,6 +8,23 @@ export interface Params {
   /** optionally, turn off each module */
   stakeibcActive: boolean;
   claimActive: boolean;
+}
+export interface ParamsProtoMsg {
+  typeUrl: "/stride.autopilot.Params";
+  value: Uint8Array;
+}
+/**
+ * Params defines the parameters for the module.
+ * next id: 1
+ */
+export interface ParamsAmino {
+  /** optionally, turn off each module */
+  stakeibc_active: boolean;
+  claim_active: boolean;
+}
+export interface ParamsAminoMsg {
+  type: "/stride.autopilot.Params";
+  value: ParamsAmino;
 }
 /**
  * Params defines the parameters for the module.
@@ -24,7 +41,8 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.autopilot.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.stakeibcActive === true) {
       writer.uint32(8).bool(message.stakeibcActive);
     }
@@ -44,5 +62,32 @@ export const Params = {
     message.stakeibcActive = object.stakeibcActive ?? false;
     message.claimActive = object.claimActive ?? false;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      stakeibcActive: object.stakeibc_active,
+      claimActive: object.claim_active
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.stakeibc_active = message.stakeibcActive;
+    obj.claim_active = message.claimActive;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/stride.autopilot.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };

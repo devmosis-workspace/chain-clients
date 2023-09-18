@@ -1,5 +1,5 @@
-import { Params, ParamsSDKType } from "./global";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./global";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /**
  * EventUpdateParams is an event emitted when the module parameters are updated.
@@ -7,30 +7,51 @@ import { isSet } from "../../../helpers";
  */
 export interface EventUpdateParams {
   /** old_params is the module's old parameters. */
-  oldParams?: Params;
+  oldParams: Params;
   /** new_params is the module's new parameters. */
-  newParams?: Params;
+  newParams: Params;
   /** payload is the parameter updates that were performed. */
   payload: string;
+}
+export interface EventUpdateParamsProtoMsg {
+  typeUrl: "/kyve.global.v1beta1.EventUpdateParams";
+  value: Uint8Array;
+}
+/**
+ * EventUpdateParams is an event emitted when the module parameters are updated.
+ * emitted_by: MsgUpdateParams
+ */
+export interface EventUpdateParamsAmino {
+  /** old_params is the module's old parameters. */
+  old_params?: ParamsAmino;
+  /** new_params is the module's new parameters. */
+  new_params?: ParamsAmino;
+  /** payload is the parameter updates that were performed. */
+  payload: string;
+}
+export interface EventUpdateParamsAminoMsg {
+  type: "/kyve.global.v1beta1.EventUpdateParams";
+  value: EventUpdateParamsAmino;
 }
 /**
  * EventUpdateParams is an event emitted when the module parameters are updated.
  * emitted_by: MsgUpdateParams
  */
 export interface EventUpdateParamsSDKType {
-  old_params?: ParamsSDKType;
-  new_params?: ParamsSDKType;
+  old_params: ParamsSDKType;
+  new_params: ParamsSDKType;
   payload: string;
 }
 function createBaseEventUpdateParams(): EventUpdateParams {
   return {
-    oldParams: undefined,
-    newParams: undefined,
+    oldParams: Params.fromPartial({}),
+    newParams: Params.fromPartial({}),
     payload: ""
   };
 }
 export const EventUpdateParams = {
-  encode(message: EventUpdateParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.global.v1beta1.EventUpdateParams",
+  encode(message: EventUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.oldParams !== undefined) {
       Params.encode(message.oldParams, writer.uint32(10).fork()).ldelim();
     }
@@ -55,5 +76,34 @@ export const EventUpdateParams = {
     message.newParams = object.newParams !== undefined && object.newParams !== null ? Params.fromPartial(object.newParams) : undefined;
     message.payload = object.payload ?? "";
     return message;
+  },
+  fromAmino(object: EventUpdateParamsAmino): EventUpdateParams {
+    return {
+      oldParams: object?.old_params ? Params.fromAmino(object.old_params) : undefined,
+      newParams: object?.new_params ? Params.fromAmino(object.new_params) : undefined,
+      payload: object.payload
+    };
+  },
+  toAmino(message: EventUpdateParams): EventUpdateParamsAmino {
+    const obj: any = {};
+    obj.old_params = message.oldParams ? Params.toAmino(message.oldParams) : undefined;
+    obj.new_params = message.newParams ? Params.toAmino(message.newParams) : undefined;
+    obj.payload = message.payload;
+    return obj;
+  },
+  fromAminoMsg(object: EventUpdateParamsAminoMsg): EventUpdateParams {
+    return EventUpdateParams.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventUpdateParamsProtoMsg): EventUpdateParams {
+    return EventUpdateParams.decode(message.value);
+  },
+  toProto(message: EventUpdateParams): Uint8Array {
+    return EventUpdateParams.encode(message).finish();
+  },
+  toProtoMsg(message: EventUpdateParams): EventUpdateParamsProtoMsg {
+    return {
+      typeUrl: "/kyve.global.v1beta1.EventUpdateParams",
+      value: EventUpdateParams.encode(message).finish()
+    };
   }
 };

@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryCampaignsRequest, QueryCampaignsResponse, QueryCampaignRequest, QueryCampaignResponse, QueryClaimsRequest, QueryClaimsResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -21,22 +21,22 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("OmniFlix.itc.v1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   campaigns(request: QueryCampaignsRequest): Promise<QueryCampaignsResponse> {
     const data = QueryCampaignsRequest.encode(request).finish();
     const promise = this.rpc.request("OmniFlix.itc.v1.Query", "Campaigns", data);
-    return promise.then(data => QueryCampaignsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCampaignsResponse.decode(new BinaryReader(data)));
   }
   campaign(request: QueryCampaignRequest): Promise<QueryCampaignResponse> {
     const data = QueryCampaignRequest.encode(request).finish();
     const promise = this.rpc.request("OmniFlix.itc.v1.Query", "Campaign", data);
-    return promise.then(data => QueryCampaignResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCampaignResponse.decode(new BinaryReader(data)));
   }
   claims(request: QueryClaimsRequest): Promise<QueryClaimsResponse> {
     const data = QueryClaimsRequest.encode(request).finish();
     const promise = this.rpc.request("OmniFlix.itc.v1.Query", "Claims", data);
-    return promise.then(data => QueryClaimsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryClaimsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

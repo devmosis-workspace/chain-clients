@@ -1,19 +1,35 @@
-import { Duration, DurationSDKType } from "../../../google/protobuf/duration";
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { OracleType, oracleTypeFromJSON } from "../../oracle/v1beta1/oracle";
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Long, isSet, fromJsonTimestamp } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
+import { isSet, fromJsonTimestamp } from "../../../helpers";
 export interface Params {
   /**
    * default_redemption_notice_period_duration defines the default minimum
    * notice period duration that must pass after an underwriter sends a
    * redemption request before the underwriter can claim his tokens
    */
-  defaultRedemptionNoticePeriodDuration?: Duration;
+  defaultRedemptionNoticePeriodDuration: Duration;
+}
+export interface ParamsProtoMsg {
+  typeUrl: "/injective.insurance.v1beta1.Params";
+  value: Uint8Array;
+}
+export interface ParamsAmino {
+  /**
+   * default_redemption_notice_period_duration defines the default minimum
+   * notice period duration that must pass after an underwriter sends a
+   * redemption request before the underwriter can claim his tokens
+   */
+  default_redemption_notice_period_duration?: DurationAmino;
+}
+export interface ParamsAminoMsg {
+  type: "/injective.insurance.v1beta1.Params";
+  value: ParamsAmino;
 }
 export interface ParamsSDKType {
-  default_redemption_notice_period_duration?: DurationSDKType;
+  default_redemption_notice_period_duration: DurationSDKType;
 }
 export interface InsuranceFund {
   /** deposit denomination for the given insurance fund */
@@ -25,7 +41,7 @@ export interface InsuranceFund {
    * duration that must pass after an underwriter sends a redemption request
    * before the underwriter can claim his tokens
    */
-  redemptionNoticePeriodDuration?: Duration;
+  redemptionNoticePeriodDuration: Duration;
   /** balance of fund */
   balance: string;
   /** total share tokens minted */
@@ -50,12 +66,57 @@ export interface InsuranceFund {
    * Expiration time of the derivative market. Should be -1 for perpetual or -2
    * for binary options markets.
    */
-  expiry: Long;
+  expiry: bigint;
+}
+export interface InsuranceFundProtoMsg {
+  typeUrl: "/injective.insurance.v1beta1.InsuranceFund";
+  value: Uint8Array;
+}
+export interface InsuranceFundAmino {
+  /** deposit denomination for the given insurance fund */
+  deposit_denom: string;
+  /** insurance fund pool token denomination for the given insurance fund */
+  insurance_pool_token_denom: string;
+  /**
+   * redemption_notice_period_duration defines the minimum notice period
+   * duration that must pass after an underwriter sends a redemption request
+   * before the underwriter can claim his tokens
+   */
+  redemption_notice_period_duration?: DurationAmino;
+  /** balance of fund */
+  balance: string;
+  /** total share tokens minted */
+  total_share: string;
+  /** marketID of the derivative market */
+  market_id: string;
+  /** ticker of the derivative market */
+  market_ticker: string;
+  /**
+   * Oracle base currency of the derivative market OR the oracle symbol for the
+   * binary options market.
+   */
+  oracle_base: string;
+  /**
+   * Oracle quote currency of the derivative market OR the oracle provider for
+   * the binary options market.
+   */
+  oracle_quote: string;
+  /** Oracle type of the binary options or derivative market */
+  oracle_type: OracleType;
+  /**
+   * Expiration time of the derivative market. Should be -1 for perpetual or -2
+   * for binary options markets.
+   */
+  expiry: string;
+}
+export interface InsuranceFundAminoMsg {
+  type: "/injective.insurance.v1beta1.InsuranceFund";
+  value: InsuranceFundAmino;
 }
 export interface InsuranceFundSDKType {
   deposit_denom: string;
   insurance_pool_token_denom: string;
-  redemption_notice_period_duration?: DurationSDKType;
+  redemption_notice_period_duration: DurationSDKType;
   balance: string;
   total_share: string;
   market_id: string;
@@ -63,48 +124,104 @@ export interface InsuranceFundSDKType {
   oracle_base: string;
   oracle_quote: string;
   oracle_type: OracleType;
-  expiry: Long;
+  expiry: bigint;
 }
 export interface RedemptionSchedule {
   /** id of redemption schedule */
-  id: Long;
+  id: bigint;
   /** marketId of insurance fund for the redemption */
   marketId: string;
   /** address of the redeemer */
   redeemer: string;
   /** the time after which the redemption can be claimed */
-  claimableRedemptionTime?: Timestamp;
+  claimableRedemptionTime: Timestamp;
   /** the insurance_pool_token amount to redeem */
-  redemptionAmount?: Coin;
+  redemptionAmount: Coin;
+}
+export interface RedemptionScheduleProtoMsg {
+  typeUrl: "/injective.insurance.v1beta1.RedemptionSchedule";
+  value: Uint8Array;
+}
+export interface RedemptionScheduleAmino {
+  /** id of redemption schedule */
+  id: string;
+  /** marketId of insurance fund for the redemption */
+  marketId: string;
+  /** address of the redeemer */
+  redeemer: string;
+  /** the time after which the redemption can be claimed */
+  claimable_redemption_time?: TimestampAmino;
+  /** the insurance_pool_token amount to redeem */
+  redemption_amount?: CoinAmino;
+}
+export interface RedemptionScheduleAminoMsg {
+  type: "/injective.insurance.v1beta1.RedemptionSchedule";
+  value: RedemptionScheduleAmino;
 }
 export interface RedemptionScheduleSDKType {
-  id: Long;
+  id: bigint;
   marketId: string;
   redeemer: string;
-  claimable_redemption_time?: TimestampSDKType;
-  redemption_amount?: CoinSDKType;
+  claimable_redemption_time: TimestampSDKType;
+  redemption_amount: CoinSDKType;
 }
 export interface EventInsuranceFundUpdate {
-  fund?: InsuranceFund;
+  fund: InsuranceFund;
+}
+export interface EventInsuranceFundUpdateProtoMsg {
+  typeUrl: "/injective.insurance.v1beta1.EventInsuranceFundUpdate";
+  value: Uint8Array;
+}
+export interface EventInsuranceFundUpdateAmino {
+  fund?: InsuranceFundAmino;
+}
+export interface EventInsuranceFundUpdateAminoMsg {
+  type: "/injective.insurance.v1beta1.EventInsuranceFundUpdate";
+  value: EventInsuranceFundUpdateAmino;
 }
 export interface EventInsuranceFundUpdateSDKType {
-  fund?: InsuranceFundSDKType;
+  fund: InsuranceFundSDKType;
 }
 export interface EventRequestRedemption {
-  schedule?: RedemptionSchedule;
+  schedule: RedemptionSchedule;
+}
+export interface EventRequestRedemptionProtoMsg {
+  typeUrl: "/injective.insurance.v1beta1.EventRequestRedemption";
+  value: Uint8Array;
+}
+export interface EventRequestRedemptionAmino {
+  schedule?: RedemptionScheduleAmino;
+}
+export interface EventRequestRedemptionAminoMsg {
+  type: "/injective.insurance.v1beta1.EventRequestRedemption";
+  value: EventRequestRedemptionAmino;
 }
 export interface EventRequestRedemptionSDKType {
-  schedule?: RedemptionScheduleSDKType;
+  schedule: RedemptionScheduleSDKType;
 }
 export interface EventWithdrawRedemption {
   /** redemption schedule triggered withdraw */
-  schedule?: RedemptionSchedule;
+  schedule: RedemptionSchedule;
   /** redeem coin amount in base_currency */
-  redeemCoin?: Coin;
+  redeemCoin: Coin;
+}
+export interface EventWithdrawRedemptionProtoMsg {
+  typeUrl: "/injective.insurance.v1beta1.EventWithdrawRedemption";
+  value: Uint8Array;
+}
+export interface EventWithdrawRedemptionAmino {
+  /** redemption schedule triggered withdraw */
+  schedule?: RedemptionScheduleAmino;
+  /** redeem coin amount in base_currency */
+  redeem_coin?: CoinAmino;
+}
+export interface EventWithdrawRedemptionAminoMsg {
+  type: "/injective.insurance.v1beta1.EventWithdrawRedemption";
+  value: EventWithdrawRedemptionAmino;
 }
 export interface EventWithdrawRedemptionSDKType {
-  schedule?: RedemptionScheduleSDKType;
-  redeem_coin?: CoinSDKType;
+  schedule: RedemptionScheduleSDKType;
+  redeem_coin: CoinSDKType;
 }
 export interface EventUnderwrite {
   /** address of the underwriter */
@@ -112,23 +229,42 @@ export interface EventUnderwrite {
   /** marketId of insurance fund for the redemption */
   marketId: string;
   /** deposit coin amount */
-  deposit?: Coin;
+  deposit: Coin;
   /** share coin amount */
-  shares?: Coin;
+  shares: Coin;
+}
+export interface EventUnderwriteProtoMsg {
+  typeUrl: "/injective.insurance.v1beta1.EventUnderwrite";
+  value: Uint8Array;
+}
+export interface EventUnderwriteAmino {
+  /** address of the underwriter */
+  underwriter: string;
+  /** marketId of insurance fund for the redemption */
+  marketId: string;
+  /** deposit coin amount */
+  deposit?: CoinAmino;
+  /** share coin amount */
+  shares?: CoinAmino;
+}
+export interface EventUnderwriteAminoMsg {
+  type: "/injective.insurance.v1beta1.EventUnderwrite";
+  value: EventUnderwriteAmino;
 }
 export interface EventUnderwriteSDKType {
   underwriter: string;
   marketId: string;
-  deposit?: CoinSDKType;
-  shares?: CoinSDKType;
+  deposit: CoinSDKType;
+  shares: CoinSDKType;
 }
 function createBaseParams(): Params {
   return {
-    defaultRedemptionNoticePeriodDuration: undefined
+    defaultRedemptionNoticePeriodDuration: Duration.fromPartial({})
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.insurance.v1beta1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.defaultRedemptionNoticePeriodDuration !== undefined) {
       Duration.encode(message.defaultRedemptionNoticePeriodDuration, writer.uint32(10).fork()).ldelim();
     }
@@ -143,13 +279,38 @@ export const Params = {
     const message = createBaseParams();
     message.defaultRedemptionNoticePeriodDuration = object.defaultRedemptionNoticePeriodDuration !== undefined && object.defaultRedemptionNoticePeriodDuration !== null ? Duration.fromPartial(object.defaultRedemptionNoticePeriodDuration) : undefined;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      defaultRedemptionNoticePeriodDuration: object?.default_redemption_notice_period_duration ? Duration.fromAmino(object.default_redemption_notice_period_duration) : undefined
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.default_redemption_notice_period_duration = message.defaultRedemptionNoticePeriodDuration ? Duration.toAmino(message.defaultRedemptionNoticePeriodDuration) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/injective.insurance.v1beta1.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };
 function createBaseInsuranceFund(): InsuranceFund {
   return {
     depositDenom: "",
     insurancePoolTokenDenom: "",
-    redemptionNoticePeriodDuration: undefined,
+    redemptionNoticePeriodDuration: Duration.fromPartial({}),
     balance: "",
     totalShare: "",
     marketId: "",
@@ -157,11 +318,12 @@ function createBaseInsuranceFund(): InsuranceFund {
     oracleBase: "",
     oracleQuote: "",
     oracleType: 0,
-    expiry: Long.ZERO
+    expiry: BigInt(0)
   };
 }
 export const InsuranceFund = {
-  encode(message: InsuranceFund, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.insurance.v1beta1.InsuranceFund",
+  encode(message: InsuranceFund, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.depositDenom !== "") {
       writer.uint32(10).string(message.depositDenom);
     }
@@ -192,7 +354,7 @@ export const InsuranceFund = {
     if (message.oracleType !== 0) {
       writer.uint32(80).int32(message.oracleType);
     }
-    if (!message.expiry.isZero()) {
+    if (message.expiry !== BigInt(0)) {
       writer.uint32(88).int64(message.expiry);
     }
     return writer;
@@ -208,8 +370,8 @@ export const InsuranceFund = {
       marketTicker: isSet(object.marketTicker) ? String(object.marketTicker) : "",
       oracleBase: isSet(object.oracleBase) ? String(object.oracleBase) : "",
       oracleQuote: isSet(object.oracleQuote) ? String(object.oracleQuote) : "",
-      oracleType: isSet(object.oracleType) ? oracleTypeFromJSON(object.oracleType) : 0,
-      expiry: isSet(object.expiry) ? Long.fromValue(object.expiry) : Long.ZERO
+      oracleType: isSet(object.oracleType) ? oracleTypeFromJSON(object.oracleType) : -1,
+      expiry: isSet(object.expiry) ? BigInt(object.expiry.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<InsuranceFund>): InsuranceFund {
@@ -224,22 +386,68 @@ export const InsuranceFund = {
     message.oracleBase = object.oracleBase ?? "";
     message.oracleQuote = object.oracleQuote ?? "";
     message.oracleType = object.oracleType ?? 0;
-    message.expiry = object.expiry !== undefined && object.expiry !== null ? Long.fromValue(object.expiry) : Long.ZERO;
+    message.expiry = object.expiry !== undefined && object.expiry !== null ? BigInt(object.expiry.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: InsuranceFundAmino): InsuranceFund {
+    return {
+      depositDenom: object.deposit_denom,
+      insurancePoolTokenDenom: object.insurance_pool_token_denom,
+      redemptionNoticePeriodDuration: object?.redemption_notice_period_duration ? Duration.fromAmino(object.redemption_notice_period_duration) : undefined,
+      balance: object.balance,
+      totalShare: object.total_share,
+      marketId: object.market_id,
+      marketTicker: object.market_ticker,
+      oracleBase: object.oracle_base,
+      oracleQuote: object.oracle_quote,
+      oracleType: isSet(object.oracle_type) ? oracleTypeFromJSON(object.oracle_type) : -1,
+      expiry: BigInt(object.expiry)
+    };
+  },
+  toAmino(message: InsuranceFund): InsuranceFundAmino {
+    const obj: any = {};
+    obj.deposit_denom = message.depositDenom;
+    obj.insurance_pool_token_denom = message.insurancePoolTokenDenom;
+    obj.redemption_notice_period_duration = message.redemptionNoticePeriodDuration ? Duration.toAmino(message.redemptionNoticePeriodDuration) : undefined;
+    obj.balance = message.balance;
+    obj.total_share = message.totalShare;
+    obj.market_id = message.marketId;
+    obj.market_ticker = message.marketTicker;
+    obj.oracle_base = message.oracleBase;
+    obj.oracle_quote = message.oracleQuote;
+    obj.oracle_type = message.oracleType;
+    obj.expiry = message.expiry ? message.expiry.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: InsuranceFundAminoMsg): InsuranceFund {
+    return InsuranceFund.fromAmino(object.value);
+  },
+  fromProtoMsg(message: InsuranceFundProtoMsg): InsuranceFund {
+    return InsuranceFund.decode(message.value);
+  },
+  toProto(message: InsuranceFund): Uint8Array {
+    return InsuranceFund.encode(message).finish();
+  },
+  toProtoMsg(message: InsuranceFund): InsuranceFundProtoMsg {
+    return {
+      typeUrl: "/injective.insurance.v1beta1.InsuranceFund",
+      value: InsuranceFund.encode(message).finish()
+    };
   }
 };
 function createBaseRedemptionSchedule(): RedemptionSchedule {
   return {
-    id: Long.UZERO,
+    id: BigInt(0),
     marketId: "",
     redeemer: "",
-    claimableRedemptionTime: undefined,
-    redemptionAmount: undefined
+    claimableRedemptionTime: Timestamp.fromPartial({}),
+    redemptionAmount: Coin.fromPartial({})
   };
 }
 export const RedemptionSchedule = {
-  encode(message: RedemptionSchedule, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.id.isZero()) {
+  typeUrl: "/injective.insurance.v1beta1.RedemptionSchedule",
+  encode(message: RedemptionSchedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.id !== BigInt(0)) {
       writer.uint32(8).uint64(message.id);
     }
     if (message.marketId !== "") {
@@ -258,7 +466,7 @@ export const RedemptionSchedule = {
   },
   fromJSON(object: any): RedemptionSchedule {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      id: isSet(object.id) ? BigInt(object.id.toString()) : BigInt(0),
       marketId: isSet(object.marketId) ? String(object.marketId) : "",
       redeemer: isSet(object.redeemer) ? String(object.redeemer) : "",
       claimableRedemptionTime: isSet(object.claimableRedemptionTime) ? fromJsonTimestamp(object.claimableRedemptionTime) : undefined,
@@ -267,21 +475,55 @@ export const RedemptionSchedule = {
   },
   fromPartial(object: Partial<RedemptionSchedule>): RedemptionSchedule {
     const message = createBaseRedemptionSchedule();
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
+    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
     message.marketId = object.marketId ?? "";
     message.redeemer = object.redeemer ?? "";
     message.claimableRedemptionTime = object.claimableRedemptionTime !== undefined && object.claimableRedemptionTime !== null ? Timestamp.fromPartial(object.claimableRedemptionTime) : undefined;
     message.redemptionAmount = object.redemptionAmount !== undefined && object.redemptionAmount !== null ? Coin.fromPartial(object.redemptionAmount) : undefined;
     return message;
+  },
+  fromAmino(object: RedemptionScheduleAmino): RedemptionSchedule {
+    return {
+      id: BigInt(object.id),
+      marketId: object.marketId,
+      redeemer: object.redeemer,
+      claimableRedemptionTime: object.claimable_redemption_time,
+      redemptionAmount: object?.redemption_amount ? Coin.fromAmino(object.redemption_amount) : undefined
+    };
+  },
+  toAmino(message: RedemptionSchedule): RedemptionScheduleAmino {
+    const obj: any = {};
+    obj.id = message.id ? message.id.toString() : undefined;
+    obj.marketId = message.marketId;
+    obj.redeemer = message.redeemer;
+    obj.claimable_redemption_time = message.claimableRedemptionTime;
+    obj.redemption_amount = message.redemptionAmount ? Coin.toAmino(message.redemptionAmount) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: RedemptionScheduleAminoMsg): RedemptionSchedule {
+    return RedemptionSchedule.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RedemptionScheduleProtoMsg): RedemptionSchedule {
+    return RedemptionSchedule.decode(message.value);
+  },
+  toProto(message: RedemptionSchedule): Uint8Array {
+    return RedemptionSchedule.encode(message).finish();
+  },
+  toProtoMsg(message: RedemptionSchedule): RedemptionScheduleProtoMsg {
+    return {
+      typeUrl: "/injective.insurance.v1beta1.RedemptionSchedule",
+      value: RedemptionSchedule.encode(message).finish()
+    };
   }
 };
 function createBaseEventInsuranceFundUpdate(): EventInsuranceFundUpdate {
   return {
-    fund: undefined
+    fund: InsuranceFund.fromPartial({})
   };
 }
 export const EventInsuranceFundUpdate = {
-  encode(message: EventInsuranceFundUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.insurance.v1beta1.EventInsuranceFundUpdate",
+  encode(message: EventInsuranceFundUpdate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.fund !== undefined) {
       InsuranceFund.encode(message.fund, writer.uint32(10).fork()).ldelim();
     }
@@ -296,15 +538,41 @@ export const EventInsuranceFundUpdate = {
     const message = createBaseEventInsuranceFundUpdate();
     message.fund = object.fund !== undefined && object.fund !== null ? InsuranceFund.fromPartial(object.fund) : undefined;
     return message;
+  },
+  fromAmino(object: EventInsuranceFundUpdateAmino): EventInsuranceFundUpdate {
+    return {
+      fund: object?.fund ? InsuranceFund.fromAmino(object.fund) : undefined
+    };
+  },
+  toAmino(message: EventInsuranceFundUpdate): EventInsuranceFundUpdateAmino {
+    const obj: any = {};
+    obj.fund = message.fund ? InsuranceFund.toAmino(message.fund) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventInsuranceFundUpdateAminoMsg): EventInsuranceFundUpdate {
+    return EventInsuranceFundUpdate.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventInsuranceFundUpdateProtoMsg): EventInsuranceFundUpdate {
+    return EventInsuranceFundUpdate.decode(message.value);
+  },
+  toProto(message: EventInsuranceFundUpdate): Uint8Array {
+    return EventInsuranceFundUpdate.encode(message).finish();
+  },
+  toProtoMsg(message: EventInsuranceFundUpdate): EventInsuranceFundUpdateProtoMsg {
+    return {
+      typeUrl: "/injective.insurance.v1beta1.EventInsuranceFundUpdate",
+      value: EventInsuranceFundUpdate.encode(message).finish()
+    };
   }
 };
 function createBaseEventRequestRedemption(): EventRequestRedemption {
   return {
-    schedule: undefined
+    schedule: RedemptionSchedule.fromPartial({})
   };
 }
 export const EventRequestRedemption = {
-  encode(message: EventRequestRedemption, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.insurance.v1beta1.EventRequestRedemption",
+  encode(message: EventRequestRedemption, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.schedule !== undefined) {
       RedemptionSchedule.encode(message.schedule, writer.uint32(10).fork()).ldelim();
     }
@@ -319,16 +587,42 @@ export const EventRequestRedemption = {
     const message = createBaseEventRequestRedemption();
     message.schedule = object.schedule !== undefined && object.schedule !== null ? RedemptionSchedule.fromPartial(object.schedule) : undefined;
     return message;
+  },
+  fromAmino(object: EventRequestRedemptionAmino): EventRequestRedemption {
+    return {
+      schedule: object?.schedule ? RedemptionSchedule.fromAmino(object.schedule) : undefined
+    };
+  },
+  toAmino(message: EventRequestRedemption): EventRequestRedemptionAmino {
+    const obj: any = {};
+    obj.schedule = message.schedule ? RedemptionSchedule.toAmino(message.schedule) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventRequestRedemptionAminoMsg): EventRequestRedemption {
+    return EventRequestRedemption.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventRequestRedemptionProtoMsg): EventRequestRedemption {
+    return EventRequestRedemption.decode(message.value);
+  },
+  toProto(message: EventRequestRedemption): Uint8Array {
+    return EventRequestRedemption.encode(message).finish();
+  },
+  toProtoMsg(message: EventRequestRedemption): EventRequestRedemptionProtoMsg {
+    return {
+      typeUrl: "/injective.insurance.v1beta1.EventRequestRedemption",
+      value: EventRequestRedemption.encode(message).finish()
+    };
   }
 };
 function createBaseEventWithdrawRedemption(): EventWithdrawRedemption {
   return {
-    schedule: undefined,
-    redeemCoin: undefined
+    schedule: RedemptionSchedule.fromPartial({}),
+    redeemCoin: Coin.fromPartial({})
   };
 }
 export const EventWithdrawRedemption = {
-  encode(message: EventWithdrawRedemption, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.insurance.v1beta1.EventWithdrawRedemption",
+  encode(message: EventWithdrawRedemption, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.schedule !== undefined) {
       RedemptionSchedule.encode(message.schedule, writer.uint32(10).fork()).ldelim();
     }
@@ -348,18 +642,46 @@ export const EventWithdrawRedemption = {
     message.schedule = object.schedule !== undefined && object.schedule !== null ? RedemptionSchedule.fromPartial(object.schedule) : undefined;
     message.redeemCoin = object.redeemCoin !== undefined && object.redeemCoin !== null ? Coin.fromPartial(object.redeemCoin) : undefined;
     return message;
+  },
+  fromAmino(object: EventWithdrawRedemptionAmino): EventWithdrawRedemption {
+    return {
+      schedule: object?.schedule ? RedemptionSchedule.fromAmino(object.schedule) : undefined,
+      redeemCoin: object?.redeem_coin ? Coin.fromAmino(object.redeem_coin) : undefined
+    };
+  },
+  toAmino(message: EventWithdrawRedemption): EventWithdrawRedemptionAmino {
+    const obj: any = {};
+    obj.schedule = message.schedule ? RedemptionSchedule.toAmino(message.schedule) : undefined;
+    obj.redeem_coin = message.redeemCoin ? Coin.toAmino(message.redeemCoin) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventWithdrawRedemptionAminoMsg): EventWithdrawRedemption {
+    return EventWithdrawRedemption.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventWithdrawRedemptionProtoMsg): EventWithdrawRedemption {
+    return EventWithdrawRedemption.decode(message.value);
+  },
+  toProto(message: EventWithdrawRedemption): Uint8Array {
+    return EventWithdrawRedemption.encode(message).finish();
+  },
+  toProtoMsg(message: EventWithdrawRedemption): EventWithdrawRedemptionProtoMsg {
+    return {
+      typeUrl: "/injective.insurance.v1beta1.EventWithdrawRedemption",
+      value: EventWithdrawRedemption.encode(message).finish()
+    };
   }
 };
 function createBaseEventUnderwrite(): EventUnderwrite {
   return {
     underwriter: "",
     marketId: "",
-    deposit: undefined,
-    shares: undefined
+    deposit: Coin.fromPartial({}),
+    shares: Coin.fromPartial({})
   };
 }
 export const EventUnderwrite = {
-  encode(message: EventUnderwrite, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.insurance.v1beta1.EventUnderwrite",
+  encode(message: EventUnderwrite, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.underwriter !== "") {
       writer.uint32(10).string(message.underwriter);
     }
@@ -389,5 +711,36 @@ export const EventUnderwrite = {
     message.deposit = object.deposit !== undefined && object.deposit !== null ? Coin.fromPartial(object.deposit) : undefined;
     message.shares = object.shares !== undefined && object.shares !== null ? Coin.fromPartial(object.shares) : undefined;
     return message;
+  },
+  fromAmino(object: EventUnderwriteAmino): EventUnderwrite {
+    return {
+      underwriter: object.underwriter,
+      marketId: object.marketId,
+      deposit: object?.deposit ? Coin.fromAmino(object.deposit) : undefined,
+      shares: object?.shares ? Coin.fromAmino(object.shares) : undefined
+    };
+  },
+  toAmino(message: EventUnderwrite): EventUnderwriteAmino {
+    const obj: any = {};
+    obj.underwriter = message.underwriter;
+    obj.marketId = message.marketId;
+    obj.deposit = message.deposit ? Coin.toAmino(message.deposit) : undefined;
+    obj.shares = message.shares ? Coin.toAmino(message.shares) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventUnderwriteAminoMsg): EventUnderwrite {
+    return EventUnderwrite.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventUnderwriteProtoMsg): EventUnderwrite {
+    return EventUnderwrite.decode(message.value);
+  },
+  toProto(message: EventUnderwrite): Uint8Array {
+    return EventUnderwrite.encode(message).finish();
+  },
+  toProtoMsg(message: EventUnderwrite): EventUnderwriteProtoMsg {
+    return {
+      typeUrl: "/injective.insurance.v1beta1.EventUnderwrite",
+      value: EventUnderwrite.encode(message).finish()
+    };
   }
 };

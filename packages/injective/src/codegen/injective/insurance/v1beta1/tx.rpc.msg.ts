@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgCreateInsuranceFund, MsgCreateInsuranceFundResponse, MsgUnderwrite, MsgUnderwriteResponse, MsgRequestRedemption, MsgRequestRedemptionResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the insurance Msg service. */
 export interface Msg {
@@ -29,21 +29,21 @@ export class MsgClientImpl implements Msg {
   createInsuranceFund(request: MsgCreateInsuranceFund): Promise<MsgCreateInsuranceFundResponse> {
     const data = MsgCreateInsuranceFund.encode(request).finish();
     const promise = this.rpc.request("injective.insurance.v1beta1.Msg", "CreateInsuranceFund", data);
-    return promise.then(data => MsgCreateInsuranceFundResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateInsuranceFundResponse.decode(new BinaryReader(data)));
   }
   underwrite(request: MsgUnderwrite): Promise<MsgUnderwriteResponse> {
     const data = MsgUnderwrite.encode(request).finish();
     const promise = this.rpc.request("injective.insurance.v1beta1.Msg", "Underwrite", data);
-    return promise.then(data => MsgUnderwriteResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUnderwriteResponse.decode(new BinaryReader(data)));
   }
   requestRedemption(request: MsgRequestRedemption): Promise<MsgRequestRedemptionResponse> {
     const data = MsgRequestRedemption.encode(request).finish();
     const promise = this.rpc.request("injective.insurance.v1beta1.Msg", "RequestRedemption", data);
-    return promise.then(data => MsgRequestRedemptionResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRequestRedemptionResponse.decode(new BinaryReader(data)));
   }
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("injective.insurance.v1beta1.Msg", "UpdateParams", data);
-    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }

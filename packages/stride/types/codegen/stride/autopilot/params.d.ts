@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
 /**
  * Params defines the parameters for the module.
  * next id: 1
@@ -7,6 +7,23 @@ export interface Params {
     /** optionally, turn off each module */
     stakeibcActive: boolean;
     claimActive: boolean;
+}
+export interface ParamsProtoMsg {
+    typeUrl: "/stride.autopilot.Params";
+    value: Uint8Array;
+}
+/**
+ * Params defines the parameters for the module.
+ * next id: 1
+ */
+export interface ParamsAmino {
+    /** optionally, turn off each module */
+    stakeibc_active: boolean;
+    claim_active: boolean;
+}
+export interface ParamsAminoMsg {
+    type: "/stride.autopilot.Params";
+    value: ParamsAmino;
 }
 /**
  * Params defines the parameters for the module.
@@ -17,7 +34,14 @@ export interface ParamsSDKType {
     claim_active: boolean;
 }
 export declare const Params: {
-    encode(message: Params, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Params, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Params;
     fromPartial(object: Partial<Params>): Params;
+    fromAmino(object: ParamsAmino): Params;
+    toAmino(message: Params): ParamsAmino;
+    fromAminoMsg(object: ParamsAminoMsg): Params;
+    fromProtoMsg(message: ParamsProtoMsg): Params;
+    toProto(message: Params): Uint8Array;
+    toProtoMsg(message: Params): ParamsProtoMsg;
 };

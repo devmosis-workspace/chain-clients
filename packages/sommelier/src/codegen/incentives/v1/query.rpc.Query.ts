@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryAPYRequest, QueryAPYResponse } from "./query";
 /** Query defines the gRPC query service for the cork module. */
@@ -19,12 +19,12 @@ export class QueryClientImpl implements Query {
   queryParams(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("incentives.v1.Query", "QueryParams", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   queryAPY(request: QueryAPYRequest = {}): Promise<QueryAPYResponse> {
     const data = QueryAPYRequest.encode(request).finish();
     const promise = this.rpc.request("incentives.v1.Query", "QueryAPY", data);
-    return promise.then(data => QueryAPYResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAPYResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

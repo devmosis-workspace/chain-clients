@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** EventRegisterPair is an event emitted when a coin is registered. */
 export interface EventRegisterPair {
@@ -6,6 +6,21 @@ export interface EventRegisterPair {
   denom: string;
   /** erc20_address is the ERC20 contract address. */
   erc20Address: string;
+}
+export interface EventRegisterPairProtoMsg {
+  typeUrl: "/evmos.erc20.v1.EventRegisterPair";
+  value: Uint8Array;
+}
+/** EventRegisterPair is an event emitted when a coin is registered. */
+export interface EventRegisterPairAmino {
+  /** denom is the coin's denomination. */
+  denom: string;
+  /** erc20_address is the ERC20 contract address. */
+  erc20_address: string;
+}
+export interface EventRegisterPairAminoMsg {
+  type: "/evmos.erc20.v1.EventRegisterPair";
+  value: EventRegisterPairAmino;
 }
 /** EventRegisterPair is an event emitted when a coin is registered. */
 export interface EventRegisterPairSDKType {
@@ -18,6 +33,21 @@ export interface EventToggleTokenConversion {
   denom: string;
   /** erc20_address is the ERC20 contract address. */
   erc20Address: string;
+}
+export interface EventToggleTokenConversionProtoMsg {
+  typeUrl: "/evmos.erc20.v1.EventToggleTokenConversion";
+  value: Uint8Array;
+}
+/** EventToggleTokenConversion is an event emitted when a coin's token conversion is toggled. */
+export interface EventToggleTokenConversionAmino {
+  /** denom is the coin's denomination. */
+  denom: string;
+  /** erc20_address is the ERC20 contract address. */
+  erc20_address: string;
+}
+export interface EventToggleTokenConversionAminoMsg {
+  type: "/evmos.erc20.v1.EventToggleTokenConversion";
+  value: EventToggleTokenConversionAmino;
 }
 /** EventToggleTokenConversion is an event emitted when a coin's token conversion is toggled. */
 export interface EventToggleTokenConversionSDKType {
@@ -36,6 +66,27 @@ export interface EventConvertCoin {
   denom: string;
   /** erc20_address is the ERC20 contract address. */
   erc20Address: string;
+}
+export interface EventConvertCoinProtoMsg {
+  typeUrl: "/evmos.erc20.v1.EventConvertCoin";
+  value: Uint8Array;
+}
+/** EventConvertCoin is an event emitted when a coin is converted. */
+export interface EventConvertCoinAmino {
+  /** sender is the sender's address. */
+  sender: string;
+  /** receiver is the receiver's address. */
+  receiver: string;
+  /** amount is the amount of coins to be converted. */
+  amount: string;
+  /** denom is the coin's denomination. */
+  denom: string;
+  /** erc20_address is the ERC20 contract address. */
+  erc20_address: string;
+}
+export interface EventConvertCoinAminoMsg {
+  type: "/evmos.erc20.v1.EventConvertCoin";
+  value: EventConvertCoinAmino;
 }
 /** EventConvertCoin is an event emitted when a coin is converted. */
 export interface EventConvertCoinSDKType {
@@ -58,6 +109,27 @@ export interface EventConvertERC20 {
   /** contract_address of an ERC20 token contract, that is registered in a token pair */
   contractAddress: string;
 }
+export interface EventConvertERC20ProtoMsg {
+  typeUrl: "/evmos.erc20.v1.EventConvertERC20";
+  value: Uint8Array;
+}
+/** EventConvertERC20 is an event emitted when an ERC20 is converted. */
+export interface EventConvertERC20Amino {
+  /** sender is the sender's address. */
+  sender: string;
+  /** receiver is the receiver's address. */
+  receiver: string;
+  /** amount is the amount of coins to be converted. */
+  amount: string;
+  /** denom is the coin's denomination. */
+  denom: string;
+  /** contract_address of an ERC20 token contract, that is registered in a token pair */
+  contract_address: string;
+}
+export interface EventConvertERC20AminoMsg {
+  type: "/evmos.erc20.v1.EventConvertERC20";
+  value: EventConvertERC20Amino;
+}
 /** EventConvertERC20 is an event emitted when an ERC20 is converted. */
 export interface EventConvertERC20SDKType {
   sender: string;
@@ -73,7 +145,8 @@ function createBaseEventRegisterPair(): EventRegisterPair {
   };
 }
 export const EventRegisterPair = {
-  encode(message: EventRegisterPair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.erc20.v1.EventRegisterPair",
+  encode(message: EventRegisterPair, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -93,6 +166,33 @@ export const EventRegisterPair = {
     message.denom = object.denom ?? "";
     message.erc20Address = object.erc20Address ?? "";
     return message;
+  },
+  fromAmino(object: EventRegisterPairAmino): EventRegisterPair {
+    return {
+      denom: object.denom,
+      erc20Address: object.erc20_address
+    };
+  },
+  toAmino(message: EventRegisterPair): EventRegisterPairAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.erc20_address = message.erc20Address;
+    return obj;
+  },
+  fromAminoMsg(object: EventRegisterPairAminoMsg): EventRegisterPair {
+    return EventRegisterPair.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventRegisterPairProtoMsg): EventRegisterPair {
+    return EventRegisterPair.decode(message.value);
+  },
+  toProto(message: EventRegisterPair): Uint8Array {
+    return EventRegisterPair.encode(message).finish();
+  },
+  toProtoMsg(message: EventRegisterPair): EventRegisterPairProtoMsg {
+    return {
+      typeUrl: "/evmos.erc20.v1.EventRegisterPair",
+      value: EventRegisterPair.encode(message).finish()
+    };
   }
 };
 function createBaseEventToggleTokenConversion(): EventToggleTokenConversion {
@@ -102,7 +202,8 @@ function createBaseEventToggleTokenConversion(): EventToggleTokenConversion {
   };
 }
 export const EventToggleTokenConversion = {
-  encode(message: EventToggleTokenConversion, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.erc20.v1.EventToggleTokenConversion",
+  encode(message: EventToggleTokenConversion, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -122,6 +223,33 @@ export const EventToggleTokenConversion = {
     message.denom = object.denom ?? "";
     message.erc20Address = object.erc20Address ?? "";
     return message;
+  },
+  fromAmino(object: EventToggleTokenConversionAmino): EventToggleTokenConversion {
+    return {
+      denom: object.denom,
+      erc20Address: object.erc20_address
+    };
+  },
+  toAmino(message: EventToggleTokenConversion): EventToggleTokenConversionAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.erc20_address = message.erc20Address;
+    return obj;
+  },
+  fromAminoMsg(object: EventToggleTokenConversionAminoMsg): EventToggleTokenConversion {
+    return EventToggleTokenConversion.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventToggleTokenConversionProtoMsg): EventToggleTokenConversion {
+    return EventToggleTokenConversion.decode(message.value);
+  },
+  toProto(message: EventToggleTokenConversion): Uint8Array {
+    return EventToggleTokenConversion.encode(message).finish();
+  },
+  toProtoMsg(message: EventToggleTokenConversion): EventToggleTokenConversionProtoMsg {
+    return {
+      typeUrl: "/evmos.erc20.v1.EventToggleTokenConversion",
+      value: EventToggleTokenConversion.encode(message).finish()
+    };
   }
 };
 function createBaseEventConvertCoin(): EventConvertCoin {
@@ -134,7 +262,8 @@ function createBaseEventConvertCoin(): EventConvertCoin {
   };
 }
 export const EventConvertCoin = {
-  encode(message: EventConvertCoin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.erc20.v1.EventConvertCoin",
+  encode(message: EventConvertCoin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
@@ -169,6 +298,39 @@ export const EventConvertCoin = {
     message.denom = object.denom ?? "";
     message.erc20Address = object.erc20Address ?? "";
     return message;
+  },
+  fromAmino(object: EventConvertCoinAmino): EventConvertCoin {
+    return {
+      sender: object.sender,
+      receiver: object.receiver,
+      amount: object.amount,
+      denom: object.denom,
+      erc20Address: object.erc20_address
+    };
+  },
+  toAmino(message: EventConvertCoin): EventConvertCoinAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.receiver = message.receiver;
+    obj.amount = message.amount;
+    obj.denom = message.denom;
+    obj.erc20_address = message.erc20Address;
+    return obj;
+  },
+  fromAminoMsg(object: EventConvertCoinAminoMsg): EventConvertCoin {
+    return EventConvertCoin.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventConvertCoinProtoMsg): EventConvertCoin {
+    return EventConvertCoin.decode(message.value);
+  },
+  toProto(message: EventConvertCoin): Uint8Array {
+    return EventConvertCoin.encode(message).finish();
+  },
+  toProtoMsg(message: EventConvertCoin): EventConvertCoinProtoMsg {
+    return {
+      typeUrl: "/evmos.erc20.v1.EventConvertCoin",
+      value: EventConvertCoin.encode(message).finish()
+    };
   }
 };
 function createBaseEventConvertERC20(): EventConvertERC20 {
@@ -181,7 +343,8 @@ function createBaseEventConvertERC20(): EventConvertERC20 {
   };
 }
 export const EventConvertERC20 = {
-  encode(message: EventConvertERC20, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.erc20.v1.EventConvertERC20",
+  encode(message: EventConvertERC20, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
@@ -216,5 +379,38 @@ export const EventConvertERC20 = {
     message.denom = object.denom ?? "";
     message.contractAddress = object.contractAddress ?? "";
     return message;
+  },
+  fromAmino(object: EventConvertERC20Amino): EventConvertERC20 {
+    return {
+      sender: object.sender,
+      receiver: object.receiver,
+      amount: object.amount,
+      denom: object.denom,
+      contractAddress: object.contract_address
+    };
+  },
+  toAmino(message: EventConvertERC20): EventConvertERC20Amino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.receiver = message.receiver;
+    obj.amount = message.amount;
+    obj.denom = message.denom;
+    obj.contract_address = message.contractAddress;
+    return obj;
+  },
+  fromAminoMsg(object: EventConvertERC20AminoMsg): EventConvertERC20 {
+    return EventConvertERC20.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventConvertERC20ProtoMsg): EventConvertERC20 {
+    return EventConvertERC20.decode(message.value);
+  },
+  toProto(message: EventConvertERC20): Uint8Array {
+    return EventConvertERC20.encode(message).finish();
+  },
+  toProtoMsg(message: EventConvertERC20): EventConvertERC20ProtoMsg {
+    return {
+      typeUrl: "/evmos.erc20.v1.EventConvertERC20",
+      value: EventConvertERC20.encode(message).finish()
+    };
   }
 };

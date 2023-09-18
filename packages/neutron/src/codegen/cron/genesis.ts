@@ -1,25 +1,39 @@
-import { Schedule, ScheduleSDKType } from "./schedule";
-import { Params, ParamsSDKType } from "./params";
-import * as _m0 from "protobufjs/minimal";
+import { Schedule, ScheduleAmino, ScheduleSDKType } from "./schedule";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { BinaryWriter } from "../binary";
 import { isSet } from "../helpers";
 /** GenesisState defines the cron module's genesis state. */
 export interface GenesisState {
   scheduleList: Schedule[];
-  params?: Params;
+  params: Params;
+}
+export interface GenesisStateProtoMsg {
+  typeUrl: "/neutron.cron.GenesisState";
+  value: Uint8Array;
+}
+/** GenesisState defines the cron module's genesis state. */
+export interface GenesisStateAmino {
+  scheduleList: ScheduleAmino[];
+  params?: ParamsAmino;
+}
+export interface GenesisStateAminoMsg {
+  type: "/neutron.cron.GenesisState";
+  value: GenesisStateAmino;
 }
 /** GenesisState defines the cron module's genesis state. */
 export interface GenesisStateSDKType {
   scheduleList: ScheduleSDKType[];
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
 }
 function createBaseGenesisState(): GenesisState {
   return {
     scheduleList: [],
-    params: undefined
+    params: Params.fromPartial({})
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/neutron.cron.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.scheduleList) {
       Schedule.encode(v!, writer.uint32(18).fork()).ldelim();
     }
@@ -39,5 +53,36 @@ export const GenesisState = {
     message.scheduleList = object.scheduleList?.map(e => Schedule.fromPartial(e)) || [];
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      scheduleList: Array.isArray(object?.scheduleList) ? object.scheduleList.map((e: any) => Schedule.fromAmino(e)) : [],
+      params: object?.params ? Params.fromAmino(object.params) : undefined
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    if (message.scheduleList) {
+      obj.scheduleList = message.scheduleList.map(e => e ? Schedule.toAmino(e) : undefined);
+    } else {
+      obj.scheduleList = [];
+    }
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/neutron.cron.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };

@@ -1,12 +1,32 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 export interface StakeibcPacketData {
   noData?: NoData;
+}
+export interface StakeibcPacketDataProtoMsg {
+  typeUrl: "/stride.stakeibc.StakeibcPacketData";
+  value: Uint8Array;
+}
+export interface StakeibcPacketDataAmino {
+  no_data?: NoDataAmino;
+}
+export interface StakeibcPacketDataAminoMsg {
+  type: "/stride.stakeibc.StakeibcPacketData";
+  value: StakeibcPacketDataAmino;
 }
 export interface StakeibcPacketDataSDKType {
   no_data?: NoDataSDKType;
 }
 export interface NoData {}
+export interface NoDataProtoMsg {
+  typeUrl: "/stride.stakeibc.NoData";
+  value: Uint8Array;
+}
+export interface NoDataAmino {}
+export interface NoDataAminoMsg {
+  type: "/stride.stakeibc.NoData";
+  value: NoDataAmino;
+}
 export interface NoDataSDKType {}
 function createBaseStakeibcPacketData(): StakeibcPacketData {
   return {
@@ -14,7 +34,8 @@ function createBaseStakeibcPacketData(): StakeibcPacketData {
   };
 }
 export const StakeibcPacketData = {
-  encode(message: StakeibcPacketData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.StakeibcPacketData",
+  encode(message: StakeibcPacketData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.noData !== undefined) {
       NoData.encode(message.noData, writer.uint32(10).fork()).ldelim();
     }
@@ -29,13 +50,39 @@ export const StakeibcPacketData = {
     const message = createBaseStakeibcPacketData();
     message.noData = object.noData !== undefined && object.noData !== null ? NoData.fromPartial(object.noData) : undefined;
     return message;
+  },
+  fromAmino(object: StakeibcPacketDataAmino): StakeibcPacketData {
+    return {
+      noData: object?.no_data ? NoData.fromAmino(object.no_data) : undefined
+    };
+  },
+  toAmino(message: StakeibcPacketData): StakeibcPacketDataAmino {
+    const obj: any = {};
+    obj.no_data = message.noData ? NoData.toAmino(message.noData) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: StakeibcPacketDataAminoMsg): StakeibcPacketData {
+    return StakeibcPacketData.fromAmino(object.value);
+  },
+  fromProtoMsg(message: StakeibcPacketDataProtoMsg): StakeibcPacketData {
+    return StakeibcPacketData.decode(message.value);
+  },
+  toProto(message: StakeibcPacketData): Uint8Array {
+    return StakeibcPacketData.encode(message).finish();
+  },
+  toProtoMsg(message: StakeibcPacketData): StakeibcPacketDataProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.StakeibcPacketData",
+      value: StakeibcPacketData.encode(message).finish()
+    };
   }
 };
 function createBaseNoData(): NoData {
   return {};
 }
 export const NoData = {
-  encode(_: NoData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.NoData",
+  encode(_: NoData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): NoData {
@@ -44,5 +91,27 @@ export const NoData = {
   fromPartial(_: Partial<NoData>): NoData {
     const message = createBaseNoData();
     return message;
+  },
+  fromAmino(_: NoDataAmino): NoData {
+    return {};
+  },
+  toAmino(_: NoData): NoDataAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: NoDataAminoMsg): NoData {
+    return NoData.fromAmino(object.value);
+  },
+  fromProtoMsg(message: NoDataProtoMsg): NoData {
+    return NoData.decode(message.value);
+  },
+  toProto(message: NoData): Uint8Array {
+    return NoData.encode(message).finish();
+  },
+  toProtoMsg(message: NoData): NoDataProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.NoData",
+      value: NoData.encode(message).finish()
+    };
   }
 };

@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgCreateVestingAccount, MsgCreateVestingAccountResponse, MsgCreateClawbackVestingAccount, MsgCreateClawbackVestingAccountResponse, MsgClawback, MsgClawbackResponse } from "./tx";
 /** Msg defines the bank Msg service. */
 export interface Msg {
@@ -27,16 +27,16 @@ export class MsgClientImpl implements Msg {
   createVestingAccount(request: MsgCreateVestingAccount): Promise<MsgCreateVestingAccountResponse> {
     const data = MsgCreateVestingAccount.encode(request).finish();
     const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "CreateVestingAccount", data);
-    return promise.then(data => MsgCreateVestingAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateVestingAccountResponse.decode(new BinaryReader(data)));
   }
   createClawbackVestingAccount(request: MsgCreateClawbackVestingAccount): Promise<MsgCreateClawbackVestingAccountResponse> {
     const data = MsgCreateClawbackVestingAccount.encode(request).finish();
     const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "CreateClawbackVestingAccount", data);
-    return promise.then(data => MsgCreateClawbackVestingAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateClawbackVestingAccountResponse.decode(new BinaryReader(data)));
   }
   clawback(request: MsgClawback): Promise<MsgClawbackResponse> {
     const data = MsgClawback.encode(request).finish();
     const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "Clawback", data);
-    return promise.then(data => MsgClawbackResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgClawbackResponse.decode(new BinaryReader(data)));
   }
 }

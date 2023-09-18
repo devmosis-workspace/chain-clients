@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgGovUpdateQuota, MsgGovUpdateQuotaResponse, MsgGovSetIBCStatus, MsgGovSetIBCStatusResponse } from "./tx";
 /** Msg defines the x/uibc module's Msg service. */
 export interface Msg {
@@ -21,11 +21,11 @@ export class MsgClientImpl implements Msg {
   govUpdateQuota(request: MsgGovUpdateQuota): Promise<MsgGovUpdateQuotaResponse> {
     const data = MsgGovUpdateQuota.encode(request).finish();
     const promise = this.rpc.request("umee.uibc.v1.Msg", "GovUpdateQuota", data);
-    return promise.then(data => MsgGovUpdateQuotaResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgGovUpdateQuotaResponse.decode(new BinaryReader(data)));
   }
   govSetIBCStatus(request: MsgGovSetIBCStatus): Promise<MsgGovSetIBCStatusResponse> {
     const data = MsgGovSetIBCStatus.encode(request).finish();
     const promise = this.rpc.request("umee.uibc.v1.Msg", "GovSetIBCStatus", data);
-    return promise.then(data => MsgGovSetIBCStatusResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgGovSetIBCStatusResponse.decode(new BinaryReader(data)));
   }
 }

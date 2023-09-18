@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../../binary";
 import { isSet, bytesFromBase64 } from "../../../../helpers";
 /**
  * PubKey defines a type alias for an ecdsa.PublicKey that implements
@@ -7,6 +7,22 @@ import { isSet, bytesFromBase64 } from "../../../../helpers";
  */
 export interface PubKey {
   key: Uint8Array;
+}
+export interface PubKeyProtoMsg {
+  typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PubKey";
+  value: Uint8Array;
+}
+/**
+ * PubKey defines a type alias for an ecdsa.PublicKey that implements
+ * Tendermint's PubKey interface. It represents the 33-byte compressed public
+ * key format.
+ */
+export interface PubKeyAmino {
+  key: Uint8Array;
+}
+export interface PubKeyAminoMsg {
+  type: "/injective.crypto.v1beta1.ethsecp256k1.PubKey";
+  value: PubKeyAmino;
 }
 /**
  * PubKey defines a type alias for an ecdsa.PublicKey that implements
@@ -27,6 +43,25 @@ export interface PrivKey {
    */
   key: Uint8Array;
 }
+export interface PrivKeyProtoMsg {
+  typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PrivKey";
+  value: Uint8Array;
+}
+/**
+ * PrivKey defines a type alias for an ecdsa.PrivateKey that implements
+ * Tendermint's PrivateKey interface.
+ */
+export interface PrivKeyAmino {
+  /**
+   * PrivKey defines a type alias for an ecdsa.PrivateKey that implements
+   * Tendermint's PrivateKey interface.
+   */
+  key: Uint8Array;
+}
+export interface PrivKeyAminoMsg {
+  type: "/injective.crypto.v1beta1.ethsecp256k1.PrivKey";
+  value: PrivKeyAmino;
+}
 /**
  * PrivKey defines a type alias for an ecdsa.PrivateKey that implements
  * Tendermint's PrivateKey interface.
@@ -40,7 +75,8 @@ function createBasePubKey(): PubKey {
   };
 }
 export const PubKey = {
-  encode(message: PubKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PubKey",
+  encode(message: PubKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
@@ -55,6 +91,31 @@ export const PubKey = {
     const message = createBasePubKey();
     message.key = object.key ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: PubKeyAmino): PubKey {
+    return {
+      key: object.key
+    };
+  },
+  toAmino(message: PubKey): PubKeyAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    return obj;
+  },
+  fromAminoMsg(object: PubKeyAminoMsg): PubKey {
+    return PubKey.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PubKeyProtoMsg): PubKey {
+    return PubKey.decode(message.value);
+  },
+  toProto(message: PubKey): Uint8Array {
+    return PubKey.encode(message).finish();
+  },
+  toProtoMsg(message: PubKey): PubKeyProtoMsg {
+    return {
+      typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PubKey",
+      value: PubKey.encode(message).finish()
+    };
   }
 };
 function createBasePrivKey(): PrivKey {
@@ -63,7 +124,8 @@ function createBasePrivKey(): PrivKey {
   };
 }
 export const PrivKey = {
-  encode(message: PrivKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PrivKey",
+  encode(message: PrivKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
@@ -78,5 +140,30 @@ export const PrivKey = {
     const message = createBasePrivKey();
     message.key = object.key ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: PrivKeyAmino): PrivKey {
+    return {
+      key: object.key
+    };
+  },
+  toAmino(message: PrivKey): PrivKeyAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    return obj;
+  },
+  fromAminoMsg(object: PrivKeyAminoMsg): PrivKey {
+    return PrivKey.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PrivKeyProtoMsg): PrivKey {
+    return PrivKey.decode(message.value);
+  },
+  toProto(message: PrivKey): Uint8Array {
+    return PrivKey.encode(message).finish();
+  },
+  toProtoMsg(message: PrivKey): PrivKeyProtoMsg {
+    return {
+      typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PrivKey",
+      value: PrivKey.encode(message).finish()
+    };
   }
 };

@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParams, QueryParamsResponse, QueryRegisteredTokens, QueryRegisteredTokensResponse, QueryMarketSummary, QueryMarketSummaryResponse, QueryAccountBalances, QueryAccountBalancesResponse, QueryAccountSummary, QueryAccountSummaryResponse, QueryLiquidationTargets, QueryLiquidationTargetsResponse, QueryBadDebts, QueryBadDebtsResponse, QueryMaxWithdraw, QueryMaxWithdrawResponse, QueryMaxBorrow, QueryMaxBorrowResponse, QueryInspect, QueryInspectResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -50,52 +50,52 @@ export class QueryClientImpl implements Query {
   params(request: QueryParams = {}): Promise<QueryParamsResponse> {
     const data = QueryParams.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   registeredTokens(request: QueryRegisteredTokens): Promise<QueryRegisteredTokensResponse> {
     const data = QueryRegisteredTokens.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Query", "RegisteredTokens", data);
-    return promise.then(data => QueryRegisteredTokensResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRegisteredTokensResponse.decode(new BinaryReader(data)));
   }
   marketSummary(request: QueryMarketSummary): Promise<QueryMarketSummaryResponse> {
     const data = QueryMarketSummary.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Query", "MarketSummary", data);
-    return promise.then(data => QueryMarketSummaryResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMarketSummaryResponse.decode(new BinaryReader(data)));
   }
   accountBalances(request: QueryAccountBalances): Promise<QueryAccountBalancesResponse> {
     const data = QueryAccountBalances.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Query", "AccountBalances", data);
-    return promise.then(data => QueryAccountBalancesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAccountBalancesResponse.decode(new BinaryReader(data)));
   }
   accountSummary(request: QueryAccountSummary): Promise<QueryAccountSummaryResponse> {
     const data = QueryAccountSummary.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Query", "AccountSummary", data);
-    return promise.then(data => QueryAccountSummaryResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAccountSummaryResponse.decode(new BinaryReader(data)));
   }
   liquidationTargets(request: QueryLiquidationTargets = {}): Promise<QueryLiquidationTargetsResponse> {
     const data = QueryLiquidationTargets.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Query", "LiquidationTargets", data);
-    return promise.then(data => QueryLiquidationTargetsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLiquidationTargetsResponse.decode(new BinaryReader(data)));
   }
   badDebts(request: QueryBadDebts = {}): Promise<QueryBadDebtsResponse> {
     const data = QueryBadDebts.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Query", "BadDebts", data);
-    return promise.then(data => QueryBadDebtsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBadDebtsResponse.decode(new BinaryReader(data)));
   }
   maxWithdraw(request: QueryMaxWithdraw): Promise<QueryMaxWithdrawResponse> {
     const data = QueryMaxWithdraw.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Query", "MaxWithdraw", data);
-    return promise.then(data => QueryMaxWithdrawResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMaxWithdrawResponse.decode(new BinaryReader(data)));
   }
   maxBorrow(request: QueryMaxBorrow): Promise<QueryMaxBorrowResponse> {
     const data = QueryMaxBorrow.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Query", "MaxBorrow", data);
-    return promise.then(data => QueryMaxBorrowResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMaxBorrowResponse.decode(new BinaryReader(data)));
   }
   inspect(request: QueryInspect): Promise<QueryInspectResponse> {
     const data = QueryInspect.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Query", "Inspect", data);
-    return promise.then(data => QueryInspectResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryInspectResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

@@ -1,6 +1,6 @@
-import { Any, AnySDKType } from "../../../google/protobuf/any";
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Any, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
 /**
  * ClaimType is the cosmos type of an event from the counterpart chain that can
  * be handled
@@ -14,6 +14,7 @@ export enum ClaimType {
   UNRECOGNIZED = -1,
 }
 export const ClaimTypeSDKType = ClaimType;
+export const ClaimTypeAmino = ClaimType;
 export function claimTypeFromJSON(object: any): ClaimType {
   switch (object) {
     case 0:
@@ -74,8 +75,39 @@ export function claimTypeToJSON(object: ClaimType): string {
 export interface Attestation {
   observed: boolean;
   votes: string[];
-  height: Long;
-  claim?: Any;
+  height: bigint;
+  claim: Any;
+}
+export interface AttestationProtoMsg {
+  typeUrl: "/injective.peggy.v1.Attestation";
+  value: Uint8Array;
+}
+/**
+ * Attestation is an aggregate of `claims` that eventually becomes `observed` by
+ * all orchestrators
+ * EVENT_NONCE:
+ * EventNonce a nonce provided by the peggy contract that is unique per event
+ * fired These event nonces must be relayed in order. This is a correctness
+ * issue, if relaying out of order transaction replay attacks become possible
+ * OBSERVED:
+ * Observed indicates that >67% of validators have attested to the event,
+ * and that the event should be executed by the peggy state machine
+ * 
+ * The actual content of the claims is passed in with the transaction making the
+ * claim and then passed through the call stack alongside the attestation while
+ * it is processed the key in which the attestation is stored is keyed on the
+ * exact details of the claim but there is no reason to store those exact
+ * details becuause the next message sender will kindly provide you with them.
+ */
+export interface AttestationAmino {
+  observed: boolean;
+  votes: string[];
+  height: string;
+  claim?: AnyAmino;
+}
+export interface AttestationAminoMsg {
+  type: "/injective.peggy.v1.Attestation";
+  value: AttestationAmino;
 }
 /**
  * Attestation is an aggregate of `claims` that eventually becomes `observed` by
@@ -97,8 +129,8 @@ export interface Attestation {
 export interface AttestationSDKType {
   observed: boolean;
   votes: string[];
-  height: Long;
-  claim?: AnySDKType;
+  height: bigint;
+  claim: AnySDKType;
 }
 /**
  * ERC20Token unique identifier for an Ethereum ERC20 token.
@@ -111,6 +143,26 @@ export interface AttestationSDKType {
 export interface ERC20Token {
   contract: string;
   amount: string;
+}
+export interface ERC20TokenProtoMsg {
+  typeUrl: "/injective.peggy.v1.ERC20Token";
+  value: Uint8Array;
+}
+/**
+ * ERC20Token unique identifier for an Ethereum ERC20 token.
+ * CONTRACT:
+ * The contract address on ETH of the token, this could be a Cosmos
+ * originated token, if so it will be the ERC20 address of the representation
+ * (note: developers should look up the token symbol using the address on ETH to
+ * display for UI)
+ */
+export interface ERC20TokenAmino {
+  contract: string;
+  amount: string;
+}
+export interface ERC20TokenAminoMsg {
+  type: "/injective.peggy.v1.ERC20Token";
+  value: ERC20TokenAmino;
 }
 /**
  * ERC20Token unique identifier for an Ethereum ERC20 token.
@@ -128,19 +180,20 @@ function createBaseAttestation(): Attestation {
   return {
     observed: false,
     votes: [],
-    height: Long.UZERO,
-    claim: undefined
+    height: BigInt(0),
+    claim: Any.fromPartial({})
   };
 }
 export const Attestation = {
-  encode(message: Attestation, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.peggy.v1.Attestation",
+  encode(message: Attestation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.observed === true) {
       writer.uint32(8).bool(message.observed);
     }
     for (const v of message.votes) {
       writer.uint32(18).string(v!);
     }
-    if (!message.height.isZero()) {
+    if (message.height !== BigInt(0)) {
       writer.uint32(24).uint64(message.height);
     }
     if (message.claim !== undefined) {
@@ -152,7 +205,7 @@ export const Attestation = {
     return {
       observed: isSet(object.observed) ? Boolean(object.observed) : false,
       votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => String(e)) : [],
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.UZERO,
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0),
       claim: isSet(object.claim) ? Any.fromJSON(object.claim) : undefined
     };
   },
@@ -160,9 +213,44 @@ export const Attestation = {
     const message = createBaseAttestation();
     message.observed = object.observed ?? false;
     message.votes = object.votes?.map(e => e) || [];
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.claim = object.claim !== undefined && object.claim !== null ? Any.fromPartial(object.claim) : undefined;
     return message;
+  },
+  fromAmino(object: AttestationAmino): Attestation {
+    return {
+      observed: object.observed,
+      votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => e) : [],
+      height: BigInt(object.height),
+      claim: object?.claim ? Any.fromAmino(object.claim) : undefined
+    };
+  },
+  toAmino(message: Attestation): AttestationAmino {
+    const obj: any = {};
+    obj.observed = message.observed;
+    if (message.votes) {
+      obj.votes = message.votes.map(e => e);
+    } else {
+      obj.votes = [];
+    }
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.claim = message.claim ? Any.toAmino(message.claim) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: AttestationAminoMsg): Attestation {
+    return Attestation.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AttestationProtoMsg): Attestation {
+    return Attestation.decode(message.value);
+  },
+  toProto(message: Attestation): Uint8Array {
+    return Attestation.encode(message).finish();
+  },
+  toProtoMsg(message: Attestation): AttestationProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.Attestation",
+      value: Attestation.encode(message).finish()
+    };
   }
 };
 function createBaseERC20Token(): ERC20Token {
@@ -172,7 +260,8 @@ function createBaseERC20Token(): ERC20Token {
   };
 }
 export const ERC20Token = {
-  encode(message: ERC20Token, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.peggy.v1.ERC20Token",
+  encode(message: ERC20Token, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.contract !== "") {
       writer.uint32(10).string(message.contract);
     }
@@ -192,5 +281,32 @@ export const ERC20Token = {
     message.contract = object.contract ?? "";
     message.amount = object.amount ?? "";
     return message;
+  },
+  fromAmino(object: ERC20TokenAmino): ERC20Token {
+    return {
+      contract: object.contract,
+      amount: object.amount
+    };
+  },
+  toAmino(message: ERC20Token): ERC20TokenAmino {
+    const obj: any = {};
+    obj.contract = message.contract;
+    obj.amount = message.amount;
+    return obj;
+  },
+  fromAminoMsg(object: ERC20TokenAminoMsg): ERC20Token {
+    return ERC20Token.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ERC20TokenProtoMsg): ERC20Token {
+    return ERC20Token.decode(message.value);
+  },
+  toProto(message: ERC20Token): Uint8Array {
+    return ERC20Token.encode(message).finish();
+  },
+  toProtoMsg(message: ERC20Token): ERC20TokenProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.ERC20Token",
+      value: ERC20Token.encode(message).finish()
+    };
   }
 };

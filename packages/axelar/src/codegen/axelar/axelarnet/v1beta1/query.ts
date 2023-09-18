@@ -1,10 +1,31 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet, isObject } from "../../../helpers";
 export interface PendingIBCTransferCountRequest {}
+export interface PendingIBCTransferCountRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.PendingIBCTransferCountRequest";
+  value: Uint8Array;
+}
+export interface PendingIBCTransferCountRequestAmino {}
+export interface PendingIBCTransferCountRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.PendingIBCTransferCountRequest";
+  value: PendingIBCTransferCountRequestAmino;
+}
 export interface PendingIBCTransferCountRequestSDKType {}
 export interface PendingIBCTransferCountResponse_TransfersByChainEntry {
   key: string;
   value: number;
+}
+export interface PendingIBCTransferCountResponse_TransfersByChainEntryProtoMsg {
+  typeUrl: string;
+  value: Uint8Array;
+}
+export interface PendingIBCTransferCountResponse_TransfersByChainEntryAmino {
+  key: string;
+  value: number;
+}
+export interface PendingIBCTransferCountResponse_TransfersByChainEntryAminoMsg {
+  type: string;
+  value: PendingIBCTransferCountResponse_TransfersByChainEntryAmino;
 }
 export interface PendingIBCTransferCountResponse_TransfersByChainEntrySDKType {
   key: string;
@@ -15,6 +36,19 @@ export interface PendingIBCTransferCountResponse {
     [key: string]: number;
   };
 }
+export interface PendingIBCTransferCountResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse";
+  value: Uint8Array;
+}
+export interface PendingIBCTransferCountResponseAmino {
+  transfers_by_chain: {
+    [key: string]: number;
+  };
+}
+export interface PendingIBCTransferCountResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse";
+  value: PendingIBCTransferCountResponseAmino;
+}
 export interface PendingIBCTransferCountResponseSDKType {
   transfers_by_chain: {
     [key: string]: number;
@@ -24,7 +58,8 @@ function createBasePendingIBCTransferCountRequest(): PendingIBCTransferCountRequ
   return {};
 }
 export const PendingIBCTransferCountRequest = {
-  encode(_: PendingIBCTransferCountRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.PendingIBCTransferCountRequest",
+  encode(_: PendingIBCTransferCountRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): PendingIBCTransferCountRequest {
@@ -33,6 +68,28 @@ export const PendingIBCTransferCountRequest = {
   fromPartial(_: Partial<PendingIBCTransferCountRequest>): PendingIBCTransferCountRequest {
     const message = createBasePendingIBCTransferCountRequest();
     return message;
+  },
+  fromAmino(_: PendingIBCTransferCountRequestAmino): PendingIBCTransferCountRequest {
+    return {};
+  },
+  toAmino(_: PendingIBCTransferCountRequest): PendingIBCTransferCountRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: PendingIBCTransferCountRequestAminoMsg): PendingIBCTransferCountRequest {
+    return PendingIBCTransferCountRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PendingIBCTransferCountRequestProtoMsg): PendingIBCTransferCountRequest {
+    return PendingIBCTransferCountRequest.decode(message.value);
+  },
+  toProto(message: PendingIBCTransferCountRequest): Uint8Array {
+    return PendingIBCTransferCountRequest.encode(message).finish();
+  },
+  toProtoMsg(message: PendingIBCTransferCountRequest): PendingIBCTransferCountRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.PendingIBCTransferCountRequest",
+      value: PendingIBCTransferCountRequest.encode(message).finish()
+    };
   }
 };
 function createBasePendingIBCTransferCountResponse_TransfersByChainEntry(): PendingIBCTransferCountResponse_TransfersByChainEntry {
@@ -42,7 +99,7 @@ function createBasePendingIBCTransferCountResponse_TransfersByChainEntry(): Pend
   };
 }
 export const PendingIBCTransferCountResponse_TransfersByChainEntry = {
-  encode(message: PendingIBCTransferCountResponse_TransfersByChainEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: PendingIBCTransferCountResponse_TransfersByChainEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -62,6 +119,27 @@ export const PendingIBCTransferCountResponse_TransfersByChainEntry = {
     message.key = object.key ?? "";
     message.value = object.value ?? 0;
     return message;
+  },
+  fromAmino(object: PendingIBCTransferCountResponse_TransfersByChainEntryAmino): PendingIBCTransferCountResponse_TransfersByChainEntry {
+    return {
+      key: object.key,
+      value: object.value
+    };
+  },
+  toAmino(message: PendingIBCTransferCountResponse_TransfersByChainEntry): PendingIBCTransferCountResponse_TransfersByChainEntryAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: PendingIBCTransferCountResponse_TransfersByChainEntryAminoMsg): PendingIBCTransferCountResponse_TransfersByChainEntry {
+    return PendingIBCTransferCountResponse_TransfersByChainEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PendingIBCTransferCountResponse_TransfersByChainEntryProtoMsg): PendingIBCTransferCountResponse_TransfersByChainEntry {
+    return PendingIBCTransferCountResponse_TransfersByChainEntry.decode(message.value);
+  },
+  toProto(message: PendingIBCTransferCountResponse_TransfersByChainEntry): Uint8Array {
+    return PendingIBCTransferCountResponse_TransfersByChainEntry.encode(message).finish();
   }
 };
 function createBasePendingIBCTransferCountResponse(): PendingIBCTransferCountResponse {
@@ -70,7 +148,8 @@ function createBasePendingIBCTransferCountResponse(): PendingIBCTransferCountRes
   };
 }
 export const PendingIBCTransferCountResponse = {
-  encode(message: PendingIBCTransferCountResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse",
+  encode(message: PendingIBCTransferCountResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     Object.entries(message.transfersByChain).forEach(([key, value]) => {
       PendingIBCTransferCountResponse_TransfersByChainEntry.encode({
         key: (key as any),
@@ -100,5 +179,40 @@ export const PendingIBCTransferCountResponse = {
       return acc;
     }, {});
     return message;
+  },
+  fromAmino(object: PendingIBCTransferCountResponseAmino): PendingIBCTransferCountResponse {
+    return {
+      transfersByChain: isObject(object.transfers_by_chain) ? Object.entries(object.transfers_by_chain).reduce<{
+        [key: string]: number;
+      }>((acc, [key, value]) => {
+        acc[key] = Number(value);
+        return acc;
+      }, {}) : {}
+    };
+  },
+  toAmino(message: PendingIBCTransferCountResponse): PendingIBCTransferCountResponseAmino {
+    const obj: any = {};
+    obj.transfers_by_chain = {};
+    if (message.transfersByChain) {
+      Object.entries(message.transfersByChain).forEach(([k, v]) => {
+        obj.transfers_by_chain[k] = Math.round(v);
+      });
+    }
+    return obj;
+  },
+  fromAminoMsg(object: PendingIBCTransferCountResponseAminoMsg): PendingIBCTransferCountResponse {
+    return PendingIBCTransferCountResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PendingIBCTransferCountResponseProtoMsg): PendingIBCTransferCountResponse {
+    return PendingIBCTransferCountResponse.decode(message.value);
+  },
+  toProto(message: PendingIBCTransferCountResponse): Uint8Array {
+    return PendingIBCTransferCountResponse.encode(message).finish();
+  },
+  toProtoMsg(message: PendingIBCTransferCountResponse): PendingIBCTransferCountResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse",
+      value: PendingIBCTransferCountResponse.encode(message).finish()
+    };
   }
 };

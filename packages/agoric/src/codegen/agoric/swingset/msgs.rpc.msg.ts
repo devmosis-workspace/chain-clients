@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { MsgInstallBundle, MsgInstallBundleResponse, MsgDeliverInbound, MsgDeliverInboundResponse, MsgWalletAction, MsgWalletActionResponse, MsgWalletSpendAction, MsgWalletSpendActionResponse, MsgProvision, MsgProvisionResponse } from "./msgs";
 /** Transactions. */
 export interface Msg {
@@ -27,26 +27,26 @@ export class MsgClientImpl implements Msg {
   installBundle(request: MsgInstallBundle): Promise<MsgInstallBundleResponse> {
     const data = MsgInstallBundle.encode(request).finish();
     const promise = this.rpc.request("agoric.swingset.Msg", "InstallBundle", data);
-    return promise.then(data => MsgInstallBundleResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgInstallBundleResponse.decode(new BinaryReader(data)));
   }
   deliverInbound(request: MsgDeliverInbound): Promise<MsgDeliverInboundResponse> {
     const data = MsgDeliverInbound.encode(request).finish();
     const promise = this.rpc.request("agoric.swingset.Msg", "DeliverInbound", data);
-    return promise.then(data => MsgDeliverInboundResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDeliverInboundResponse.decode(new BinaryReader(data)));
   }
   walletAction(request: MsgWalletAction): Promise<MsgWalletActionResponse> {
     const data = MsgWalletAction.encode(request).finish();
     const promise = this.rpc.request("agoric.swingset.Msg", "WalletAction", data);
-    return promise.then(data => MsgWalletActionResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgWalletActionResponse.decode(new BinaryReader(data)));
   }
   walletSpendAction(request: MsgWalletSpendAction): Promise<MsgWalletSpendActionResponse> {
     const data = MsgWalletSpendAction.encode(request).finish();
     const promise = this.rpc.request("agoric.swingset.Msg", "WalletSpendAction", data);
-    return promise.then(data => MsgWalletSpendActionResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgWalletSpendActionResponse.decode(new BinaryReader(data)));
   }
   provision(request: MsgProvision): Promise<MsgProvisionResponse> {
     const data = MsgProvision.encode(request).finish();
     const promise = this.rpc.request("agoric.swingset.Msg", "Provision", data);
-    return promise.then(data => MsgProvisionResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgProvisionResponse.decode(new BinaryReader(data)));
   }
 }

@@ -1,8 +1,20 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64 } from "../../../helpers";
 export interface ClassesByAccount {
   account: string;
   classIds: string[];
+}
+export interface ClassesByAccountProtoMsg {
+  typeUrl: "/likechain.likenft.v1.ClassesByAccount";
+  value: Uint8Array;
+}
+export interface ClassesByAccountAmino {
+  account: string;
+  class_ids: string[];
+}
+export interface ClassesByAccountAminoMsg {
+  type: "/likechain.likenft.v1.ClassesByAccount";
+  value: ClassesByAccountAmino;
 }
 export interface ClassesByAccountSDKType {
   account: string;
@@ -11,6 +23,18 @@ export interface ClassesByAccountSDKType {
 export interface ClassesByAccountStoreRecord {
   accAddress: Uint8Array;
   classIds: string[];
+}
+export interface ClassesByAccountStoreRecordProtoMsg {
+  typeUrl: "/likechain.likenft.v1.ClassesByAccountStoreRecord";
+  value: Uint8Array;
+}
+export interface ClassesByAccountStoreRecordAmino {
+  acc_address: Uint8Array;
+  class_ids: string[];
+}
+export interface ClassesByAccountStoreRecordAminoMsg {
+  type: "/likechain.likenft.v1.ClassesByAccountStoreRecord";
+  value: ClassesByAccountStoreRecordAmino;
 }
 export interface ClassesByAccountStoreRecordSDKType {
   acc_address: Uint8Array;
@@ -23,7 +47,8 @@ function createBaseClassesByAccount(): ClassesByAccount {
   };
 }
 export const ClassesByAccount = {
-  encode(message: ClassesByAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.likenft.v1.ClassesByAccount",
+  encode(message: ClassesByAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.account !== "") {
       writer.uint32(10).string(message.account);
     }
@@ -43,6 +68,37 @@ export const ClassesByAccount = {
     message.account = object.account ?? "";
     message.classIds = object.classIds?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: ClassesByAccountAmino): ClassesByAccount {
+    return {
+      account: object.account,
+      classIds: Array.isArray(object?.class_ids) ? object.class_ids.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: ClassesByAccount): ClassesByAccountAmino {
+    const obj: any = {};
+    obj.account = message.account;
+    if (message.classIds) {
+      obj.class_ids = message.classIds.map(e => e);
+    } else {
+      obj.class_ids = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ClassesByAccountAminoMsg): ClassesByAccount {
+    return ClassesByAccount.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ClassesByAccountProtoMsg): ClassesByAccount {
+    return ClassesByAccount.decode(message.value);
+  },
+  toProto(message: ClassesByAccount): Uint8Array {
+    return ClassesByAccount.encode(message).finish();
+  },
+  toProtoMsg(message: ClassesByAccount): ClassesByAccountProtoMsg {
+    return {
+      typeUrl: "/likechain.likenft.v1.ClassesByAccount",
+      value: ClassesByAccount.encode(message).finish()
+    };
   }
 };
 function createBaseClassesByAccountStoreRecord(): ClassesByAccountStoreRecord {
@@ -52,7 +108,8 @@ function createBaseClassesByAccountStoreRecord(): ClassesByAccountStoreRecord {
   };
 }
 export const ClassesByAccountStoreRecord = {
-  encode(message: ClassesByAccountStoreRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.likenft.v1.ClassesByAccountStoreRecord",
+  encode(message: ClassesByAccountStoreRecord, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.accAddress.length !== 0) {
       writer.uint32(10).bytes(message.accAddress);
     }
@@ -72,5 +129,36 @@ export const ClassesByAccountStoreRecord = {
     message.accAddress = object.accAddress ?? new Uint8Array();
     message.classIds = object.classIds?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: ClassesByAccountStoreRecordAmino): ClassesByAccountStoreRecord {
+    return {
+      accAddress: object.acc_address,
+      classIds: Array.isArray(object?.class_ids) ? object.class_ids.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: ClassesByAccountStoreRecord): ClassesByAccountStoreRecordAmino {
+    const obj: any = {};
+    obj.acc_address = message.accAddress;
+    if (message.classIds) {
+      obj.class_ids = message.classIds.map(e => e);
+    } else {
+      obj.class_ids = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ClassesByAccountStoreRecordAminoMsg): ClassesByAccountStoreRecord {
+    return ClassesByAccountStoreRecord.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ClassesByAccountStoreRecordProtoMsg): ClassesByAccountStoreRecord {
+    return ClassesByAccountStoreRecord.decode(message.value);
+  },
+  toProto(message: ClassesByAccountStoreRecord): Uint8Array {
+    return ClassesByAccountStoreRecord.encode(message).finish();
+  },
+  toProtoMsg(message: ClassesByAccountStoreRecord): ClassesByAccountStoreRecordProtoMsg {
+    return {
+      typeUrl: "/likechain.likenft.v1.ClassesByAccountStoreRecord",
+      value: ClassesByAccountStoreRecord.encode(message).finish()
+    };
   }
 };

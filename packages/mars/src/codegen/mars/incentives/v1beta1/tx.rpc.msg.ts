@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgCreateSchedule, MsgCreateScheduleResponse, MsgTerminateSchedules, MsgTerminateSchedulesResponse } from "./tx";
 /** Msg defines the incentives module's Msg service */
 export interface Msg {
@@ -24,11 +24,11 @@ export class MsgClientImpl implements Msg {
   createSchedule(request: MsgCreateSchedule): Promise<MsgCreateScheduleResponse> {
     const data = MsgCreateSchedule.encode(request).finish();
     const promise = this.rpc.request("mars.incentives.v1beta1.Msg", "CreateSchedule", data);
-    return promise.then(data => MsgCreateScheduleResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateScheduleResponse.decode(new BinaryReader(data)));
   }
   terminateSchedules(request: MsgTerminateSchedules): Promise<MsgTerminateSchedulesResponse> {
     const data = MsgTerminateSchedules.encode(request).finish();
     const promise = this.rpc.request("mars.incentives.v1beta1.Msg", "TerminateSchedules", data);
-    return promise.then(data => MsgTerminateSchedulesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgTerminateSchedulesResponse.decode(new BinaryReader(data)));
   }
 }

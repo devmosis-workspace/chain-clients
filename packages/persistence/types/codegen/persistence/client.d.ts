@@ -4,34 +4,8 @@ import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const persistenceAminoConverters: {
     "/persistence.interchainquery.v1beta1.MsgSubmitQueryResponse": {
         aminoType: string;
-        toAmino: ({ chainId, queryId, result, proofOps, height, fromAddress }: import("./interchainquery/v1beta1/messages").MsgSubmitQueryResponse) => {
-            chain_id: string;
-            query_id: string;
-            result: Uint8Array;
-            proof_ops: {
-                ops: {
-                    type: string;
-                    key: Uint8Array;
-                    data: Uint8Array;
-                }[];
-            };
-            height: string;
-            from_address: string;
-        };
-        fromAmino: ({ chain_id, query_id, result, proof_ops, height, from_address }: {
-            chain_id: string;
-            query_id: string;
-            result: Uint8Array;
-            proof_ops: {
-                ops: {
-                    type: string;
-                    key: Uint8Array;
-                    data: Uint8Array;
-                }[];
-            };
-            height: string;
-            from_address: string;
-        }) => import("./interchainquery/v1beta1/messages").MsgSubmitQueryResponse;
+        toAmino: (message: import("./interchainquery/v1beta1/messages").MsgSubmitQueryResponse) => import("./interchainquery/v1beta1/messages").MsgSubmitQueryResponseAmino;
+        fromAmino: (object: import("./interchainquery/v1beta1/messages").MsgSubmitQueryResponseAmino) => import("./interchainquery/v1beta1/messages").MsgSubmitQueryResponse;
     };
 };
 export declare const persistenceProtoRegistry: ReadonlyArray<[string, GeneratedType]>;

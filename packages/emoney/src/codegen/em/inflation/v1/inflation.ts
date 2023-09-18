@@ -1,10 +1,24 @@
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { BinaryWriter } from "../../../binary";
+import { Decimal } from "@cosmjs/math";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 export interface InflationAsset {
   denom: string;
   inflation: string;
   accum: string;
+}
+export interface InflationAssetProtoMsg {
+  typeUrl: "/em.inflation.v1.InflationAsset";
+  value: Uint8Array;
+}
+export interface InflationAssetAmino {
+  denom: string;
+  inflation: string;
+  accum: string;
+}
+export interface InflationAssetAminoMsg {
+  type: "/em.inflation.v1.InflationAsset";
+  value: InflationAssetAmino;
 }
 export interface InflationAssetSDKType {
   denom: string;
@@ -12,12 +26,25 @@ export interface InflationAssetSDKType {
   accum: string;
 }
 export interface InflationState {
-  lastApplied?: Timestamp;
+  lastApplied: Timestamp;
   lastAppliedHeight: string;
   assets: InflationAsset[];
 }
+export interface InflationStateProtoMsg {
+  typeUrl: "/em.inflation.v1.InflationState";
+  value: Uint8Array;
+}
+export interface InflationStateAmino {
+  last_applied?: TimestampAmino;
+  last_applied_height: string;
+  assets: InflationAssetAmino[];
+}
+export interface InflationStateAminoMsg {
+  type: "/em.inflation.v1.InflationState";
+  value: InflationStateAmino;
+}
 export interface InflationStateSDKType {
-  last_applied?: TimestampSDKType;
+  last_applied: TimestampSDKType;
   last_applied_height: string;
   assets: InflationAssetSDKType[];
 }
@@ -29,15 +56,16 @@ function createBaseInflationAsset(): InflationAsset {
   };
 }
 export const InflationAsset = {
-  encode(message: InflationAsset, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.inflation.v1.InflationAsset",
+  encode(message: InflationAsset, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
     if (message.inflation !== "") {
-      writer.uint32(18).string(message.inflation);
+      writer.uint32(18).string(Decimal.fromUserInput(message.inflation, 18).atomics);
     }
     if (message.accum !== "") {
-      writer.uint32(26).string(message.accum);
+      writer.uint32(26).string(Decimal.fromUserInput(message.accum, 18).atomics);
     }
     return writer;
   },
@@ -54,17 +82,47 @@ export const InflationAsset = {
     message.inflation = object.inflation ?? "";
     message.accum = object.accum ?? "";
     return message;
+  },
+  fromAmino(object: InflationAssetAmino): InflationAsset {
+    return {
+      denom: object.denom,
+      inflation: object.inflation,
+      accum: object.accum
+    };
+  },
+  toAmino(message: InflationAsset): InflationAssetAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.inflation = message.inflation;
+    obj.accum = message.accum;
+    return obj;
+  },
+  fromAminoMsg(object: InflationAssetAminoMsg): InflationAsset {
+    return InflationAsset.fromAmino(object.value);
+  },
+  fromProtoMsg(message: InflationAssetProtoMsg): InflationAsset {
+    return InflationAsset.decode(message.value);
+  },
+  toProto(message: InflationAsset): Uint8Array {
+    return InflationAsset.encode(message).finish();
+  },
+  toProtoMsg(message: InflationAsset): InflationAssetProtoMsg {
+    return {
+      typeUrl: "/em.inflation.v1.InflationAsset",
+      value: InflationAsset.encode(message).finish()
+    };
   }
 };
 function createBaseInflationState(): InflationState {
   return {
-    lastApplied: undefined,
+    lastApplied: Timestamp.fromPartial({}),
     lastAppliedHeight: "",
     assets: []
   };
 }
 export const InflationState = {
-  encode(message: InflationState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.inflation.v1.InflationState",
+  encode(message: InflationState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.lastApplied !== undefined) {
       Timestamp.encode(message.lastApplied, writer.uint32(10).fork()).ldelim();
     }
@@ -89,5 +147,38 @@ export const InflationState = {
     message.lastAppliedHeight = object.lastAppliedHeight ?? "";
     message.assets = object.assets?.map(e => InflationAsset.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: InflationStateAmino): InflationState {
+    return {
+      lastApplied: object.last_applied,
+      lastAppliedHeight: object.last_applied_height,
+      assets: Array.isArray(object?.assets) ? object.assets.map((e: any) => InflationAsset.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: InflationState): InflationStateAmino {
+    const obj: any = {};
+    obj.last_applied = message.lastApplied;
+    obj.last_applied_height = message.lastAppliedHeight;
+    if (message.assets) {
+      obj.assets = message.assets.map(e => e ? InflationAsset.toAmino(e) : undefined);
+    } else {
+      obj.assets = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: InflationStateAminoMsg): InflationState {
+    return InflationState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: InflationStateProtoMsg): InflationState {
+    return InflationState.decode(message.value);
+  },
+  toProto(message: InflationState): Uint8Array {
+    return InflationState.encode(message).finish();
+  },
+  toProtoMsg(message: InflationState): InflationStateProtoMsg {
+    return {
+      typeUrl: "/em.inflation.v1.InflationState",
+      value: InflationState.encode(message).finish()
+    };
   }
 };

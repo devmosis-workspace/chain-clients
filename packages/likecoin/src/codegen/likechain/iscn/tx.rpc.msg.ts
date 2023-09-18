@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { MsgCreateIscnRecord, MsgCreateIscnRecordResponse, MsgUpdateIscnRecord, MsgUpdateIscnRecordResponse, MsgChangeIscnRecordOwnership, MsgChangeIscnRecordOwnershipResponse } from "./tx";
 /** Msg defines the bank Msg service. */
 export interface Msg {
@@ -21,16 +21,16 @@ export class MsgClientImpl implements Msg {
   createIscnRecord(request: MsgCreateIscnRecord): Promise<MsgCreateIscnRecordResponse> {
     const data = MsgCreateIscnRecord.encode(request).finish();
     const promise = this.rpc.request("likechain.iscn.Msg", "CreateIscnRecord", data);
-    return promise.then(data => MsgCreateIscnRecordResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateIscnRecordResponse.decode(new BinaryReader(data)));
   }
   updateIscnRecord(request: MsgUpdateIscnRecord): Promise<MsgUpdateIscnRecordResponse> {
     const data = MsgUpdateIscnRecord.encode(request).finish();
     const promise = this.rpc.request("likechain.iscn.Msg", "UpdateIscnRecord", data);
-    return promise.then(data => MsgUpdateIscnRecordResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateIscnRecordResponse.decode(new BinaryReader(data)));
   }
   changeIscnRecordOwnership(request: MsgChangeIscnRecordOwnership): Promise<MsgChangeIscnRecordOwnershipResponse> {
     const data = MsgChangeIscnRecordOwnership.encode(request).finish();
     const promise = this.rpc.request("likechain.iscn.Msg", "ChangeIscnRecordOwnership", data);
-    return promise.then(data => MsgChangeIscnRecordOwnershipResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgChangeIscnRecordOwnershipResponse.decode(new BinaryReader(data)));
   }
 }

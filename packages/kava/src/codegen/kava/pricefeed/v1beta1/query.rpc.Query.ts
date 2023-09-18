@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryPriceRequest, QueryPriceResponse, QueryPricesRequest, QueryPricesResponse, QueryRawPricesRequest, QueryRawPricesResponse, QueryOraclesRequest, QueryOraclesResponse, QueryMarketsRequest, QueryMarketsResponse } from "./query";
 /** Query defines the gRPC querier service for pricefeed module */
@@ -31,32 +31,32 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.pricefeed.v1beta1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   price(request: QueryPriceRequest): Promise<QueryPriceResponse> {
     const data = QueryPriceRequest.encode(request).finish();
     const promise = this.rpc.request("kava.pricefeed.v1beta1.Query", "Price", data);
-    return promise.then(data => QueryPriceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPriceResponse.decode(new BinaryReader(data)));
   }
   prices(request: QueryPricesRequest = {}): Promise<QueryPricesResponse> {
     const data = QueryPricesRequest.encode(request).finish();
     const promise = this.rpc.request("kava.pricefeed.v1beta1.Query", "Prices", data);
-    return promise.then(data => QueryPricesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPricesResponse.decode(new BinaryReader(data)));
   }
   rawPrices(request: QueryRawPricesRequest): Promise<QueryRawPricesResponse> {
     const data = QueryRawPricesRequest.encode(request).finish();
     const promise = this.rpc.request("kava.pricefeed.v1beta1.Query", "RawPrices", data);
-    return promise.then(data => QueryRawPricesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRawPricesResponse.decode(new BinaryReader(data)));
   }
   oracles(request: QueryOraclesRequest): Promise<QueryOraclesResponse> {
     const data = QueryOraclesRequest.encode(request).finish();
     const promise = this.rpc.request("kava.pricefeed.v1beta1.Query", "Oracles", data);
-    return promise.then(data => QueryOraclesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOraclesResponse.decode(new BinaryReader(data)));
   }
   markets(request: QueryMarketsRequest = {}): Promise<QueryMarketsResponse> {
     const data = QueryMarketsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.pricefeed.v1beta1.Query", "Markets", data);
-    return promise.then(data => QueryMarketsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMarketsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

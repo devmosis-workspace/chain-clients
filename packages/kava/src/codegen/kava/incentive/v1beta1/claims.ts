@@ -1,23 +1,53 @@
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64 } from "../../../helpers";
 /** BaseClaim is a claim with a single reward coin types */
 export interface BaseClaim {
+  $typeUrl?: string;
   owner: Uint8Array;
-  reward?: Coin;
+  reward: Coin;
+}
+export interface BaseClaimProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.BaseClaim";
+  value: Uint8Array;
+}
+/** BaseClaim is a claim with a single reward coin types */
+export interface BaseClaimAmino {
+  owner: Uint8Array;
+  reward?: CoinAmino;
+}
+export interface BaseClaimAminoMsg {
+  type: "/kava.incentive.v1beta1.BaseClaim";
+  value: BaseClaimAmino;
 }
 /** BaseClaim is a claim with a single reward coin types */
 export interface BaseClaimSDKType {
+  $typeUrl?: string;
   owner: Uint8Array;
-  reward?: CoinSDKType;
+  reward: CoinSDKType;
 }
 /** BaseMultiClaim is a claim with multiple reward coin types */
 export interface BaseMultiClaim {
+  $typeUrl?: string;
   owner: Uint8Array;
   reward: Coin[];
 }
+export interface BaseMultiClaimProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.BaseMultiClaim";
+  value: Uint8Array;
+}
+/** BaseMultiClaim is a claim with multiple reward coin types */
+export interface BaseMultiClaimAmino {
+  owner: Uint8Array;
+  reward: CoinAmino[];
+}
+export interface BaseMultiClaimAminoMsg {
+  type: "/kava.incentive.v1beta1.BaseMultiClaim";
+  value: BaseMultiClaimAmino;
+}
 /** BaseMultiClaim is a claim with multiple reward coin types */
 export interface BaseMultiClaimSDKType {
+  $typeUrl?: string;
   owner: Uint8Array;
   reward: CoinSDKType[];
 }
@@ -25,6 +55,19 @@ export interface BaseMultiClaimSDKType {
 export interface RewardIndex {
   collateralType: string;
   rewardFactor: Uint8Array;
+}
+export interface RewardIndexProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.RewardIndex";
+  value: Uint8Array;
+}
+/** RewardIndex stores reward accumulation information */
+export interface RewardIndexAmino {
+  collateral_type: string;
+  reward_factor: Uint8Array;
+}
+export interface RewardIndexAminoMsg {
+  type: "/kava.incentive.v1beta1.RewardIndex";
+  value: RewardIndexAmino;
 }
 /** RewardIndex stores reward accumulation information */
 export interface RewardIndexSDKType {
@@ -35,6 +78,18 @@ export interface RewardIndexSDKType {
 export interface RewardIndexesProto {
   rewardIndexes: RewardIndex[];
 }
+export interface RewardIndexesProtoProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.RewardIndexesProto";
+  value: Uint8Array;
+}
+/** RewardIndexesProto defines a Protobuf wrapper around a RewardIndexes slice */
+export interface RewardIndexesProtoAmino {
+  reward_indexes: RewardIndexAmino[];
+}
+export interface RewardIndexesProtoAminoMsg {
+  type: "/kava.incentive.v1beta1.RewardIndexesProto";
+  value: RewardIndexesProtoAmino;
+}
 /** RewardIndexesProto defines a Protobuf wrapper around a RewardIndexes slice */
 export interface RewardIndexesProtoSDKType {
   reward_indexes: RewardIndexSDKType[];
@@ -43,6 +98,19 @@ export interface RewardIndexesProtoSDKType {
 export interface MultiRewardIndex {
   collateralType: string;
   rewardIndexes: RewardIndex[];
+}
+export interface MultiRewardIndexProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.MultiRewardIndex";
+  value: Uint8Array;
+}
+/** MultiRewardIndex stores reward accumulation information on multiple reward types */
+export interface MultiRewardIndexAmino {
+  collateral_type: string;
+  reward_indexes: RewardIndexAmino[];
+}
+export interface MultiRewardIndexAminoMsg {
+  type: "/kava.incentive.v1beta1.MultiRewardIndex";
+  value: MultiRewardIndexAmino;
 }
 /** MultiRewardIndex stores reward accumulation information on multiple reward types */
 export interface MultiRewardIndexSDKType {
@@ -53,80 +121,185 @@ export interface MultiRewardIndexSDKType {
 export interface MultiRewardIndexesProto {
   multiRewardIndexes: MultiRewardIndex[];
 }
+export interface MultiRewardIndexesProtoProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.MultiRewardIndexesProto";
+  value: Uint8Array;
+}
+/** MultiRewardIndexesProto defines a Protobuf wrapper around a MultiRewardIndexes slice */
+export interface MultiRewardIndexesProtoAmino {
+  multi_reward_indexes: MultiRewardIndexAmino[];
+}
+export interface MultiRewardIndexesProtoAminoMsg {
+  type: "/kava.incentive.v1beta1.MultiRewardIndexesProto";
+  value: MultiRewardIndexesProtoAmino;
+}
 /** MultiRewardIndexesProto defines a Protobuf wrapper around a MultiRewardIndexes slice */
 export interface MultiRewardIndexesProtoSDKType {
   multi_reward_indexes: MultiRewardIndexSDKType[];
 }
 /** USDXMintingClaim is for USDX minting rewards */
 export interface USDXMintingClaim {
-  baseClaim?: BaseClaim;
+  $typeUrl?: string;
+  baseClaim: BaseClaim;
   rewardIndexes: RewardIndex[];
+}
+export interface USDXMintingClaimProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.USDXMintingClaim";
+  value: Uint8Array;
+}
+/** USDXMintingClaim is for USDX minting rewards */
+export interface USDXMintingClaimAmino {
+  base_claim?: BaseClaimAmino;
+  reward_indexes: RewardIndexAmino[];
+}
+export interface USDXMintingClaimAminoMsg {
+  type: "/kava.incentive.v1beta1.USDXMintingClaim";
+  value: USDXMintingClaimAmino;
 }
 /** USDXMintingClaim is for USDX minting rewards */
 export interface USDXMintingClaimSDKType {
-  base_claim?: BaseClaimSDKType;
+  $typeUrl?: string;
+  base_claim: BaseClaimSDKType;
   reward_indexes: RewardIndexSDKType[];
 }
 /** HardLiquidityProviderClaim stores the hard liquidity provider rewards that can be claimed by owner */
 export interface HardLiquidityProviderClaim {
-  baseClaim?: BaseMultiClaim;
+  $typeUrl?: string;
+  baseClaim: BaseMultiClaim;
   supplyRewardIndexes: MultiRewardIndex[];
   borrowRewardIndexes: MultiRewardIndex[];
 }
+export interface HardLiquidityProviderClaimProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.HardLiquidityProviderClaim";
+  value: Uint8Array;
+}
+/** HardLiquidityProviderClaim stores the hard liquidity provider rewards that can be claimed by owner */
+export interface HardLiquidityProviderClaimAmino {
+  base_claim?: BaseMultiClaimAmino;
+  supply_reward_indexes: MultiRewardIndexAmino[];
+  borrow_reward_indexes: MultiRewardIndexAmino[];
+}
+export interface HardLiquidityProviderClaimAminoMsg {
+  type: "/kava.incentive.v1beta1.HardLiquidityProviderClaim";
+  value: HardLiquidityProviderClaimAmino;
+}
 /** HardLiquidityProviderClaim stores the hard liquidity provider rewards that can be claimed by owner */
 export interface HardLiquidityProviderClaimSDKType {
-  base_claim?: BaseMultiClaimSDKType;
+  $typeUrl?: string;
+  base_claim: BaseMultiClaimSDKType;
   supply_reward_indexes: MultiRewardIndexSDKType[];
   borrow_reward_indexes: MultiRewardIndexSDKType[];
 }
 /** DelegatorClaim stores delegation rewards that can be claimed by owner */
 export interface DelegatorClaim {
-  baseClaim?: BaseMultiClaim;
+  $typeUrl?: string;
+  baseClaim: BaseMultiClaim;
   rewardIndexes: MultiRewardIndex[];
+}
+export interface DelegatorClaimProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.DelegatorClaim";
+  value: Uint8Array;
+}
+/** DelegatorClaim stores delegation rewards that can be claimed by owner */
+export interface DelegatorClaimAmino {
+  base_claim?: BaseMultiClaimAmino;
+  reward_indexes: MultiRewardIndexAmino[];
+}
+export interface DelegatorClaimAminoMsg {
+  type: "/kava.incentive.v1beta1.DelegatorClaim";
+  value: DelegatorClaimAmino;
 }
 /** DelegatorClaim stores delegation rewards that can be claimed by owner */
 export interface DelegatorClaimSDKType {
-  base_claim?: BaseMultiClaimSDKType;
+  $typeUrl?: string;
+  base_claim: BaseMultiClaimSDKType;
   reward_indexes: MultiRewardIndexSDKType[];
 }
 /** SwapClaim stores the swap rewards that can be claimed by owner */
 export interface SwapClaim {
-  baseClaim?: BaseMultiClaim;
+  $typeUrl?: string;
+  baseClaim: BaseMultiClaim;
   rewardIndexes: MultiRewardIndex[];
+}
+export interface SwapClaimProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.SwapClaim";
+  value: Uint8Array;
+}
+/** SwapClaim stores the swap rewards that can be claimed by owner */
+export interface SwapClaimAmino {
+  base_claim?: BaseMultiClaimAmino;
+  reward_indexes: MultiRewardIndexAmino[];
+}
+export interface SwapClaimAminoMsg {
+  type: "/kava.incentive.v1beta1.SwapClaim";
+  value: SwapClaimAmino;
 }
 /** SwapClaim stores the swap rewards that can be claimed by owner */
 export interface SwapClaimSDKType {
-  base_claim?: BaseMultiClaimSDKType;
+  $typeUrl?: string;
+  base_claim: BaseMultiClaimSDKType;
   reward_indexes: MultiRewardIndexSDKType[];
 }
 /** SavingsClaim stores the savings rewards that can be claimed by owner */
 export interface SavingsClaim {
-  baseClaim?: BaseMultiClaim;
+  $typeUrl?: string;
+  baseClaim: BaseMultiClaim;
   rewardIndexes: MultiRewardIndex[];
+}
+export interface SavingsClaimProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.SavingsClaim";
+  value: Uint8Array;
+}
+/** SavingsClaim stores the savings rewards that can be claimed by owner */
+export interface SavingsClaimAmino {
+  base_claim?: BaseMultiClaimAmino;
+  reward_indexes: MultiRewardIndexAmino[];
+}
+export interface SavingsClaimAminoMsg {
+  type: "/kava.incentive.v1beta1.SavingsClaim";
+  value: SavingsClaimAmino;
 }
 /** SavingsClaim stores the savings rewards that can be claimed by owner */
 export interface SavingsClaimSDKType {
-  base_claim?: BaseMultiClaimSDKType;
+  $typeUrl?: string;
+  base_claim: BaseMultiClaimSDKType;
   reward_indexes: MultiRewardIndexSDKType[];
 }
 /** EarnClaim stores the earn rewards that can be claimed by owner */
 export interface EarnClaim {
-  baseClaim?: BaseMultiClaim;
+  $typeUrl?: string;
+  baseClaim: BaseMultiClaim;
   rewardIndexes: MultiRewardIndex[];
+}
+export interface EarnClaimProtoMsg {
+  typeUrl: "/kava.incentive.v1beta1.EarnClaim";
+  value: Uint8Array;
+}
+/** EarnClaim stores the earn rewards that can be claimed by owner */
+export interface EarnClaimAmino {
+  base_claim?: BaseMultiClaimAmino;
+  reward_indexes: MultiRewardIndexAmino[];
+}
+export interface EarnClaimAminoMsg {
+  type: "/kava.incentive.v1beta1.EarnClaim";
+  value: EarnClaimAmino;
 }
 /** EarnClaim stores the earn rewards that can be claimed by owner */
 export interface EarnClaimSDKType {
-  base_claim?: BaseMultiClaimSDKType;
+  $typeUrl?: string;
+  base_claim: BaseMultiClaimSDKType;
   reward_indexes: MultiRewardIndexSDKType[];
 }
 function createBaseBaseClaim(): BaseClaim {
   return {
+    $typeUrl: "/kava.incentive.v1beta1.BaseClaim",
     owner: new Uint8Array(),
-    reward: undefined
+    reward: Coin.fromPartial({})
   };
 }
 export const BaseClaim = {
-  encode(message: BaseClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.BaseClaim",
+  encode(message: BaseClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.owner.length !== 0) {
       writer.uint32(10).bytes(message.owner);
     }
@@ -146,16 +319,45 @@ export const BaseClaim = {
     message.owner = object.owner ?? new Uint8Array();
     message.reward = object.reward !== undefined && object.reward !== null ? Coin.fromPartial(object.reward) : undefined;
     return message;
+  },
+  fromAmino(object: BaseClaimAmino): BaseClaim {
+    return {
+      owner: object.owner,
+      reward: object?.reward ? Coin.fromAmino(object.reward) : undefined
+    };
+  },
+  toAmino(message: BaseClaim): BaseClaimAmino {
+    const obj: any = {};
+    obj.owner = message.owner;
+    obj.reward = message.reward ? Coin.toAmino(message.reward) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BaseClaimAminoMsg): BaseClaim {
+    return BaseClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: BaseClaimProtoMsg): BaseClaim {
+    return BaseClaim.decode(message.value);
+  },
+  toProto(message: BaseClaim): Uint8Array {
+    return BaseClaim.encode(message).finish();
+  },
+  toProtoMsg(message: BaseClaim): BaseClaimProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.BaseClaim",
+      value: BaseClaim.encode(message).finish()
+    };
   }
 };
 function createBaseBaseMultiClaim(): BaseMultiClaim {
   return {
+    $typeUrl: "/kava.incentive.v1beta1.BaseMultiClaim",
     owner: new Uint8Array(),
     reward: []
   };
 }
 export const BaseMultiClaim = {
-  encode(message: BaseMultiClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.BaseMultiClaim",
+  encode(message: BaseMultiClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.owner.length !== 0) {
       writer.uint32(10).bytes(message.owner);
     }
@@ -175,6 +377,37 @@ export const BaseMultiClaim = {
     message.owner = object.owner ?? new Uint8Array();
     message.reward = object.reward?.map(e => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: BaseMultiClaimAmino): BaseMultiClaim {
+    return {
+      owner: object.owner,
+      reward: Array.isArray(object?.reward) ? object.reward.map((e: any) => Coin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: BaseMultiClaim): BaseMultiClaimAmino {
+    const obj: any = {};
+    obj.owner = message.owner;
+    if (message.reward) {
+      obj.reward = message.reward.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.reward = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: BaseMultiClaimAminoMsg): BaseMultiClaim {
+    return BaseMultiClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: BaseMultiClaimProtoMsg): BaseMultiClaim {
+    return BaseMultiClaim.decode(message.value);
+  },
+  toProto(message: BaseMultiClaim): Uint8Array {
+    return BaseMultiClaim.encode(message).finish();
+  },
+  toProtoMsg(message: BaseMultiClaim): BaseMultiClaimProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.BaseMultiClaim",
+      value: BaseMultiClaim.encode(message).finish()
+    };
   }
 };
 function createBaseRewardIndex(): RewardIndex {
@@ -184,7 +417,8 @@ function createBaseRewardIndex(): RewardIndex {
   };
 }
 export const RewardIndex = {
-  encode(message: RewardIndex, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.RewardIndex",
+  encode(message: RewardIndex, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.collateralType !== "") {
       writer.uint32(10).string(message.collateralType);
     }
@@ -204,6 +438,33 @@ export const RewardIndex = {
     message.collateralType = object.collateralType ?? "";
     message.rewardFactor = object.rewardFactor ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: RewardIndexAmino): RewardIndex {
+    return {
+      collateralType: object.collateral_type,
+      rewardFactor: object.reward_factor
+    };
+  },
+  toAmino(message: RewardIndex): RewardIndexAmino {
+    const obj: any = {};
+    obj.collateral_type = message.collateralType;
+    obj.reward_factor = message.rewardFactor;
+    return obj;
+  },
+  fromAminoMsg(object: RewardIndexAminoMsg): RewardIndex {
+    return RewardIndex.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RewardIndexProtoMsg): RewardIndex {
+    return RewardIndex.decode(message.value);
+  },
+  toProto(message: RewardIndex): Uint8Array {
+    return RewardIndex.encode(message).finish();
+  },
+  toProtoMsg(message: RewardIndex): RewardIndexProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.RewardIndex",
+      value: RewardIndex.encode(message).finish()
+    };
   }
 };
 function createBaseRewardIndexesProto(): RewardIndexesProto {
@@ -212,7 +473,8 @@ function createBaseRewardIndexesProto(): RewardIndexesProto {
   };
 }
 export const RewardIndexesProto = {
-  encode(message: RewardIndexesProto, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.RewardIndexesProto",
+  encode(message: RewardIndexesProto, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.rewardIndexes) {
       RewardIndex.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -227,6 +489,35 @@ export const RewardIndexesProto = {
     const message = createBaseRewardIndexesProto();
     message.rewardIndexes = object.rewardIndexes?.map(e => RewardIndex.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: RewardIndexesProtoAmino): RewardIndexesProto {
+    return {
+      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => RewardIndex.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: RewardIndexesProto): RewardIndexesProtoAmino {
+    const obj: any = {};
+    if (message.rewardIndexes) {
+      obj.reward_indexes = message.rewardIndexes.map(e => e ? RewardIndex.toAmino(e) : undefined);
+    } else {
+      obj.reward_indexes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: RewardIndexesProtoAminoMsg): RewardIndexesProto {
+    return RewardIndexesProto.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RewardIndexesProtoProtoMsg): RewardIndexesProto {
+    return RewardIndexesProto.decode(message.value);
+  },
+  toProto(message: RewardIndexesProto): Uint8Array {
+    return RewardIndexesProto.encode(message).finish();
+  },
+  toProtoMsg(message: RewardIndexesProto): RewardIndexesProtoProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.RewardIndexesProto",
+      value: RewardIndexesProto.encode(message).finish()
+    };
   }
 };
 function createBaseMultiRewardIndex(): MultiRewardIndex {
@@ -236,7 +527,8 @@ function createBaseMultiRewardIndex(): MultiRewardIndex {
   };
 }
 export const MultiRewardIndex = {
-  encode(message: MultiRewardIndex, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.MultiRewardIndex",
+  encode(message: MultiRewardIndex, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.collateralType !== "") {
       writer.uint32(10).string(message.collateralType);
     }
@@ -256,6 +548,37 @@ export const MultiRewardIndex = {
     message.collateralType = object.collateralType ?? "";
     message.rewardIndexes = object.rewardIndexes?.map(e => RewardIndex.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MultiRewardIndexAmino): MultiRewardIndex {
+    return {
+      collateralType: object.collateral_type,
+      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => RewardIndex.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: MultiRewardIndex): MultiRewardIndexAmino {
+    const obj: any = {};
+    obj.collateral_type = message.collateralType;
+    if (message.rewardIndexes) {
+      obj.reward_indexes = message.rewardIndexes.map(e => e ? RewardIndex.toAmino(e) : undefined);
+    } else {
+      obj.reward_indexes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MultiRewardIndexAminoMsg): MultiRewardIndex {
+    return MultiRewardIndex.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MultiRewardIndexProtoMsg): MultiRewardIndex {
+    return MultiRewardIndex.decode(message.value);
+  },
+  toProto(message: MultiRewardIndex): Uint8Array {
+    return MultiRewardIndex.encode(message).finish();
+  },
+  toProtoMsg(message: MultiRewardIndex): MultiRewardIndexProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.MultiRewardIndex",
+      value: MultiRewardIndex.encode(message).finish()
+    };
   }
 };
 function createBaseMultiRewardIndexesProto(): MultiRewardIndexesProto {
@@ -264,7 +587,8 @@ function createBaseMultiRewardIndexesProto(): MultiRewardIndexesProto {
   };
 }
 export const MultiRewardIndexesProto = {
-  encode(message: MultiRewardIndexesProto, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.MultiRewardIndexesProto",
+  encode(message: MultiRewardIndexesProto, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.multiRewardIndexes) {
       MultiRewardIndex.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -279,16 +603,47 @@ export const MultiRewardIndexesProto = {
     const message = createBaseMultiRewardIndexesProto();
     message.multiRewardIndexes = object.multiRewardIndexes?.map(e => MultiRewardIndex.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MultiRewardIndexesProtoAmino): MultiRewardIndexesProto {
+    return {
+      multiRewardIndexes: Array.isArray(object?.multi_reward_indexes) ? object.multi_reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: MultiRewardIndexesProto): MultiRewardIndexesProtoAmino {
+    const obj: any = {};
+    if (message.multiRewardIndexes) {
+      obj.multi_reward_indexes = message.multiRewardIndexes.map(e => e ? MultiRewardIndex.toAmino(e) : undefined);
+    } else {
+      obj.multi_reward_indexes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MultiRewardIndexesProtoAminoMsg): MultiRewardIndexesProto {
+    return MultiRewardIndexesProto.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MultiRewardIndexesProtoProtoMsg): MultiRewardIndexesProto {
+    return MultiRewardIndexesProto.decode(message.value);
+  },
+  toProto(message: MultiRewardIndexesProto): Uint8Array {
+    return MultiRewardIndexesProto.encode(message).finish();
+  },
+  toProtoMsg(message: MultiRewardIndexesProto): MultiRewardIndexesProtoProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.MultiRewardIndexesProto",
+      value: MultiRewardIndexesProto.encode(message).finish()
+    };
   }
 };
 function createBaseUSDXMintingClaim(): USDXMintingClaim {
   return {
-    baseClaim: undefined,
+    $typeUrl: "/kava.incentive.v1beta1.USDXMintingClaim",
+    baseClaim: BaseClaim.fromPartial({}),
     rewardIndexes: []
   };
 }
 export const USDXMintingClaim = {
-  encode(message: USDXMintingClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.USDXMintingClaim",
+  encode(message: USDXMintingClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.baseClaim !== undefined) {
       BaseClaim.encode(message.baseClaim, writer.uint32(10).fork()).ldelim();
     }
@@ -308,17 +663,50 @@ export const USDXMintingClaim = {
     message.baseClaim = object.baseClaim !== undefined && object.baseClaim !== null ? BaseClaim.fromPartial(object.baseClaim) : undefined;
     message.rewardIndexes = object.rewardIndexes?.map(e => RewardIndex.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: USDXMintingClaimAmino): USDXMintingClaim {
+    return {
+      baseClaim: object?.base_claim ? BaseClaim.fromAmino(object.base_claim) : undefined,
+      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => RewardIndex.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: USDXMintingClaim): USDXMintingClaimAmino {
+    const obj: any = {};
+    obj.base_claim = message.baseClaim ? BaseClaim.toAmino(message.baseClaim) : undefined;
+    if (message.rewardIndexes) {
+      obj.reward_indexes = message.rewardIndexes.map(e => e ? RewardIndex.toAmino(e) : undefined);
+    } else {
+      obj.reward_indexes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: USDXMintingClaimAminoMsg): USDXMintingClaim {
+    return USDXMintingClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: USDXMintingClaimProtoMsg): USDXMintingClaim {
+    return USDXMintingClaim.decode(message.value);
+  },
+  toProto(message: USDXMintingClaim): Uint8Array {
+    return USDXMintingClaim.encode(message).finish();
+  },
+  toProtoMsg(message: USDXMintingClaim): USDXMintingClaimProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.USDXMintingClaim",
+      value: USDXMintingClaim.encode(message).finish()
+    };
   }
 };
 function createBaseHardLiquidityProviderClaim(): HardLiquidityProviderClaim {
   return {
-    baseClaim: undefined,
+    $typeUrl: "/kava.incentive.v1beta1.HardLiquidityProviderClaim",
+    baseClaim: BaseMultiClaim.fromPartial({}),
     supplyRewardIndexes: [],
     borrowRewardIndexes: []
   };
 }
 export const HardLiquidityProviderClaim = {
-  encode(message: HardLiquidityProviderClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.HardLiquidityProviderClaim",
+  encode(message: HardLiquidityProviderClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.baseClaim !== undefined) {
       BaseMultiClaim.encode(message.baseClaim, writer.uint32(10).fork()).ldelim();
     }
@@ -343,16 +731,55 @@ export const HardLiquidityProviderClaim = {
     message.supplyRewardIndexes = object.supplyRewardIndexes?.map(e => MultiRewardIndex.fromPartial(e)) || [];
     message.borrowRewardIndexes = object.borrowRewardIndexes?.map(e => MultiRewardIndex.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: HardLiquidityProviderClaimAmino): HardLiquidityProviderClaim {
+    return {
+      baseClaim: object?.base_claim ? BaseMultiClaim.fromAmino(object.base_claim) : undefined,
+      supplyRewardIndexes: Array.isArray(object?.supply_reward_indexes) ? object.supply_reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : [],
+      borrowRewardIndexes: Array.isArray(object?.borrow_reward_indexes) ? object.borrow_reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: HardLiquidityProviderClaim): HardLiquidityProviderClaimAmino {
+    const obj: any = {};
+    obj.base_claim = message.baseClaim ? BaseMultiClaim.toAmino(message.baseClaim) : undefined;
+    if (message.supplyRewardIndexes) {
+      obj.supply_reward_indexes = message.supplyRewardIndexes.map(e => e ? MultiRewardIndex.toAmino(e) : undefined);
+    } else {
+      obj.supply_reward_indexes = [];
+    }
+    if (message.borrowRewardIndexes) {
+      obj.borrow_reward_indexes = message.borrowRewardIndexes.map(e => e ? MultiRewardIndex.toAmino(e) : undefined);
+    } else {
+      obj.borrow_reward_indexes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: HardLiquidityProviderClaimAminoMsg): HardLiquidityProviderClaim {
+    return HardLiquidityProviderClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: HardLiquidityProviderClaimProtoMsg): HardLiquidityProviderClaim {
+    return HardLiquidityProviderClaim.decode(message.value);
+  },
+  toProto(message: HardLiquidityProviderClaim): Uint8Array {
+    return HardLiquidityProviderClaim.encode(message).finish();
+  },
+  toProtoMsg(message: HardLiquidityProviderClaim): HardLiquidityProviderClaimProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.HardLiquidityProviderClaim",
+      value: HardLiquidityProviderClaim.encode(message).finish()
+    };
   }
 };
 function createBaseDelegatorClaim(): DelegatorClaim {
   return {
-    baseClaim: undefined,
+    $typeUrl: "/kava.incentive.v1beta1.DelegatorClaim",
+    baseClaim: BaseMultiClaim.fromPartial({}),
     rewardIndexes: []
   };
 }
 export const DelegatorClaim = {
-  encode(message: DelegatorClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.DelegatorClaim",
+  encode(message: DelegatorClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.baseClaim !== undefined) {
       BaseMultiClaim.encode(message.baseClaim, writer.uint32(10).fork()).ldelim();
     }
@@ -372,16 +799,49 @@ export const DelegatorClaim = {
     message.baseClaim = object.baseClaim !== undefined && object.baseClaim !== null ? BaseMultiClaim.fromPartial(object.baseClaim) : undefined;
     message.rewardIndexes = object.rewardIndexes?.map(e => MultiRewardIndex.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: DelegatorClaimAmino): DelegatorClaim {
+    return {
+      baseClaim: object?.base_claim ? BaseMultiClaim.fromAmino(object.base_claim) : undefined,
+      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: DelegatorClaim): DelegatorClaimAmino {
+    const obj: any = {};
+    obj.base_claim = message.baseClaim ? BaseMultiClaim.toAmino(message.baseClaim) : undefined;
+    if (message.rewardIndexes) {
+      obj.reward_indexes = message.rewardIndexes.map(e => e ? MultiRewardIndex.toAmino(e) : undefined);
+    } else {
+      obj.reward_indexes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: DelegatorClaimAminoMsg): DelegatorClaim {
+    return DelegatorClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DelegatorClaimProtoMsg): DelegatorClaim {
+    return DelegatorClaim.decode(message.value);
+  },
+  toProto(message: DelegatorClaim): Uint8Array {
+    return DelegatorClaim.encode(message).finish();
+  },
+  toProtoMsg(message: DelegatorClaim): DelegatorClaimProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.DelegatorClaim",
+      value: DelegatorClaim.encode(message).finish()
+    };
   }
 };
 function createBaseSwapClaim(): SwapClaim {
   return {
-    baseClaim: undefined,
+    $typeUrl: "/kava.incentive.v1beta1.SwapClaim",
+    baseClaim: BaseMultiClaim.fromPartial({}),
     rewardIndexes: []
   };
 }
 export const SwapClaim = {
-  encode(message: SwapClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.SwapClaim",
+  encode(message: SwapClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.baseClaim !== undefined) {
       BaseMultiClaim.encode(message.baseClaim, writer.uint32(10).fork()).ldelim();
     }
@@ -401,16 +861,49 @@ export const SwapClaim = {
     message.baseClaim = object.baseClaim !== undefined && object.baseClaim !== null ? BaseMultiClaim.fromPartial(object.baseClaim) : undefined;
     message.rewardIndexes = object.rewardIndexes?.map(e => MultiRewardIndex.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: SwapClaimAmino): SwapClaim {
+    return {
+      baseClaim: object?.base_claim ? BaseMultiClaim.fromAmino(object.base_claim) : undefined,
+      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: SwapClaim): SwapClaimAmino {
+    const obj: any = {};
+    obj.base_claim = message.baseClaim ? BaseMultiClaim.toAmino(message.baseClaim) : undefined;
+    if (message.rewardIndexes) {
+      obj.reward_indexes = message.rewardIndexes.map(e => e ? MultiRewardIndex.toAmino(e) : undefined);
+    } else {
+      obj.reward_indexes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SwapClaimAminoMsg): SwapClaim {
+    return SwapClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SwapClaimProtoMsg): SwapClaim {
+    return SwapClaim.decode(message.value);
+  },
+  toProto(message: SwapClaim): Uint8Array {
+    return SwapClaim.encode(message).finish();
+  },
+  toProtoMsg(message: SwapClaim): SwapClaimProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.SwapClaim",
+      value: SwapClaim.encode(message).finish()
+    };
   }
 };
 function createBaseSavingsClaim(): SavingsClaim {
   return {
-    baseClaim: undefined,
+    $typeUrl: "/kava.incentive.v1beta1.SavingsClaim",
+    baseClaim: BaseMultiClaim.fromPartial({}),
     rewardIndexes: []
   };
 }
 export const SavingsClaim = {
-  encode(message: SavingsClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.SavingsClaim",
+  encode(message: SavingsClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.baseClaim !== undefined) {
       BaseMultiClaim.encode(message.baseClaim, writer.uint32(10).fork()).ldelim();
     }
@@ -430,16 +923,49 @@ export const SavingsClaim = {
     message.baseClaim = object.baseClaim !== undefined && object.baseClaim !== null ? BaseMultiClaim.fromPartial(object.baseClaim) : undefined;
     message.rewardIndexes = object.rewardIndexes?.map(e => MultiRewardIndex.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: SavingsClaimAmino): SavingsClaim {
+    return {
+      baseClaim: object?.base_claim ? BaseMultiClaim.fromAmino(object.base_claim) : undefined,
+      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: SavingsClaim): SavingsClaimAmino {
+    const obj: any = {};
+    obj.base_claim = message.baseClaim ? BaseMultiClaim.toAmino(message.baseClaim) : undefined;
+    if (message.rewardIndexes) {
+      obj.reward_indexes = message.rewardIndexes.map(e => e ? MultiRewardIndex.toAmino(e) : undefined);
+    } else {
+      obj.reward_indexes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SavingsClaimAminoMsg): SavingsClaim {
+    return SavingsClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SavingsClaimProtoMsg): SavingsClaim {
+    return SavingsClaim.decode(message.value);
+  },
+  toProto(message: SavingsClaim): Uint8Array {
+    return SavingsClaim.encode(message).finish();
+  },
+  toProtoMsg(message: SavingsClaim): SavingsClaimProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.SavingsClaim",
+      value: SavingsClaim.encode(message).finish()
+    };
   }
 };
 function createBaseEarnClaim(): EarnClaim {
   return {
-    baseClaim: undefined,
+    $typeUrl: "/kava.incentive.v1beta1.EarnClaim",
+    baseClaim: BaseMultiClaim.fromPartial({}),
     rewardIndexes: []
   };
 }
 export const EarnClaim = {
-  encode(message: EarnClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.incentive.v1beta1.EarnClaim",
+  encode(message: EarnClaim, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.baseClaim !== undefined) {
       BaseMultiClaim.encode(message.baseClaim, writer.uint32(10).fork()).ldelim();
     }
@@ -459,5 +985,36 @@ export const EarnClaim = {
     message.baseClaim = object.baseClaim !== undefined && object.baseClaim !== null ? BaseMultiClaim.fromPartial(object.baseClaim) : undefined;
     message.rewardIndexes = object.rewardIndexes?.map(e => MultiRewardIndex.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: EarnClaimAmino): EarnClaim {
+    return {
+      baseClaim: object?.base_claim ? BaseMultiClaim.fromAmino(object.base_claim) : undefined,
+      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: EarnClaim): EarnClaimAmino {
+    const obj: any = {};
+    obj.base_claim = message.baseClaim ? BaseMultiClaim.toAmino(message.baseClaim) : undefined;
+    if (message.rewardIndexes) {
+      obj.reward_indexes = message.rewardIndexes.map(e => e ? MultiRewardIndex.toAmino(e) : undefined);
+    } else {
+      obj.reward_indexes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EarnClaimAminoMsg): EarnClaim {
+    return EarnClaim.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EarnClaimProtoMsg): EarnClaim {
+    return EarnClaim.decode(message.value);
+  },
+  toProto(message: EarnClaim): Uint8Array {
+    return EarnClaim.encode(message).finish();
+  },
+  toProtoMsg(message: EarnClaim): EarnClaimProtoMsg {
+    return {
+      typeUrl: "/kava.incentive.v1beta1.EarnClaim",
+      value: EarnClaim.encode(message).finish()
+    };
   }
 };

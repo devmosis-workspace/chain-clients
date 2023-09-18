@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgUpdateContract, MsgUpdateContractResponse, MsgActivateContract, MsgActivateContractResponse, MsgDeactivateContract, MsgDeactivateContractResponse, MsgExecuteContractCompat, MsgExecuteContractCompatResponse, MsgUpdateParams, MsgUpdateParamsResponse, MsgRegisterContract, MsgRegisterContractResponse } from "./tx";
 /** Msg defines the wasmx Msg service. */
 export interface Msg {
@@ -24,31 +24,31 @@ export class MsgClientImpl implements Msg {
   updateRegistryContractParams(request: MsgUpdateContract): Promise<MsgUpdateContractResponse> {
     const data = MsgUpdateContract.encode(request).finish();
     const promise = this.rpc.request("injective.wasmx.v1.Msg", "UpdateRegistryContractParams", data);
-    return promise.then(data => MsgUpdateContractResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateContractResponse.decode(new BinaryReader(data)));
   }
   activateRegistryContract(request: MsgActivateContract): Promise<MsgActivateContractResponse> {
     const data = MsgActivateContract.encode(request).finish();
     const promise = this.rpc.request("injective.wasmx.v1.Msg", "ActivateRegistryContract", data);
-    return promise.then(data => MsgActivateContractResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgActivateContractResponse.decode(new BinaryReader(data)));
   }
   deactivateRegistryContract(request: MsgDeactivateContract): Promise<MsgDeactivateContractResponse> {
     const data = MsgDeactivateContract.encode(request).finish();
     const promise = this.rpc.request("injective.wasmx.v1.Msg", "DeactivateRegistryContract", data);
-    return promise.then(data => MsgDeactivateContractResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDeactivateContractResponse.decode(new BinaryReader(data)));
   }
   executeContractCompat(request: MsgExecuteContractCompat): Promise<MsgExecuteContractCompatResponse> {
     const data = MsgExecuteContractCompat.encode(request).finish();
     const promise = this.rpc.request("injective.wasmx.v1.Msg", "ExecuteContractCompat", data);
-    return promise.then(data => MsgExecuteContractCompatResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgExecuteContractCompatResponse.decode(new BinaryReader(data)));
   }
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("injective.wasmx.v1.Msg", "UpdateParams", data);
-    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
   registerContract(request: MsgRegisterContract): Promise<MsgRegisterContractResponse> {
     const data = MsgRegisterContract.encode(request).finish();
     const promise = this.rpc.request("injective.wasmx.v1.Msg", "RegisterContract", data);
-    return promise.then(data => MsgRegisterContractResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRegisterContractResponse.decode(new BinaryReader(data)));
   }
 }

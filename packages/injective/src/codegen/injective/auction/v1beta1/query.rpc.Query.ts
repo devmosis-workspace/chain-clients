@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryAuctionParamsRequest, QueryAuctionParamsResponse, QueryCurrentAuctionBasketRequest, QueryCurrentAuctionBasketResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -22,17 +22,17 @@ export class QueryClientImpl implements Query {
   auctionParams(request: QueryAuctionParamsRequest = {}): Promise<QueryAuctionParamsResponse> {
     const data = QueryAuctionParamsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.auction.v1beta1.Query", "AuctionParams", data);
-    return promise.then(data => QueryAuctionParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAuctionParamsResponse.decode(new BinaryReader(data)));
   }
   currentAuctionBasket(request: QueryCurrentAuctionBasketRequest = {}): Promise<QueryCurrentAuctionBasketResponse> {
     const data = QueryCurrentAuctionBasketRequest.encode(request).finish();
     const promise = this.rpc.request("injective.auction.v1beta1.Query", "CurrentAuctionBasket", data);
-    return promise.then(data => QueryCurrentAuctionBasketResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCurrentAuctionBasketResponse.decode(new BinaryReader(data)));
   }
   auctionModuleState(request: QueryModuleStateRequest = {}): Promise<QueryModuleStateResponse> {
     const data = QueryModuleStateRequest.encode(request).finish();
     const promise = this.rpc.request("injective.auction.v1beta1.Query", "AuctionModuleState", data);
-    return promise.then(data => QueryModuleStateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryModuleStateResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

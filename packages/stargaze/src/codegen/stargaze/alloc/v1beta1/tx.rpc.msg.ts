@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgCreateVestingAccount, MsgCreateVestingAccountResponse, MsgFundFairburnPool, MsgFundFairburnPoolResponse } from "./tx";
 /** Msg defines the alloc Msg service. */
 export interface Msg {
@@ -24,11 +24,11 @@ export class MsgClientImpl implements Msg {
   createVestingAccount(request: MsgCreateVestingAccount): Promise<MsgCreateVestingAccountResponse> {
     const data = MsgCreateVestingAccount.encode(request).finish();
     const promise = this.rpc.request("publicawesome.stargaze.alloc.v1beta1.Msg", "CreateVestingAccount", data);
-    return promise.then(data => MsgCreateVestingAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateVestingAccountResponse.decode(new BinaryReader(data)));
   }
   fundFairburnPool(request: MsgFundFairburnPool): Promise<MsgFundFairburnPoolResponse> {
     const data = MsgFundFairburnPool.encode(request).finish();
     const promise = this.rpc.request("publicawesome.stargaze.alloc.v1beta1.Msg", "FundFairburnPool", data);
-    return promise.then(data => MsgFundFairburnPoolResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgFundFairburnPoolResponse.decode(new BinaryReader(data)));
   }
 }

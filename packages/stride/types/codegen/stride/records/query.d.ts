@@ -1,9 +1,19 @@
-import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { Params, ParamsSDKType, DepositRecord, DepositRecordSDKType, UserRedemptionRecord, UserRedemptionRecordSDKType, EpochUnbondingRecord, EpochUnbondingRecordSDKType } from "./genesis";
-import { Long } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
+import { Params, ParamsAmino, ParamsSDKType, DepositRecord, DepositRecordAmino, DepositRecordSDKType, UserRedemptionRecord, UserRedemptionRecordAmino, UserRedemptionRecordSDKType, EpochUnbondingRecord, EpochUnbondingRecordAmino, EpochUnbondingRecordSDKType } from "./genesis";
+import { BinaryWriter } from "../../binary";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
+}
+export interface QueryParamsRequestProtoMsg {
+    typeUrl: "/stride.records.QueryParamsRequest";
+    value: Uint8Array;
+}
+/** QueryParamsRequest is request type for the Query/Params RPC method. */
+export interface QueryParamsRequestAmino {
+}
+export interface QueryParamsRequestAminoMsg {
+    type: "/stride.records.QueryParamsRequest";
+    value: QueryParamsRequestAmino;
 }
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequestSDKType {
@@ -11,40 +21,109 @@ export interface QueryParamsRequestSDKType {
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
     /** params holds all the parameters of this module. */
-    params?: Params;
+    params: Params;
+}
+export interface QueryParamsResponseProtoMsg {
+    typeUrl: "/stride.records.QueryParamsResponse";
+    value: Uint8Array;
+}
+/** QueryParamsResponse is response type for the Query/Params RPC method. */
+export interface QueryParamsResponseAmino {
+    /** params holds all the parameters of this module. */
+    params?: ParamsAmino;
+}
+export interface QueryParamsResponseAminoMsg {
+    type: "/stride.records.QueryParamsResponse";
+    value: QueryParamsResponseAmino;
 }
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponseSDKType {
-    params?: ParamsSDKType;
+    params: ParamsSDKType;
 }
 export interface QueryGetDepositRecordRequest {
-    id: Long;
+    id: bigint;
+}
+export interface QueryGetDepositRecordRequestProtoMsg {
+    typeUrl: "/stride.records.QueryGetDepositRecordRequest";
+    value: Uint8Array;
+}
+export interface QueryGetDepositRecordRequestAmino {
+    id: string;
+}
+export interface QueryGetDepositRecordRequestAminoMsg {
+    type: "/stride.records.QueryGetDepositRecordRequest";
+    value: QueryGetDepositRecordRequestAmino;
 }
 export interface QueryGetDepositRecordRequestSDKType {
-    id: Long;
+    id: bigint;
 }
 export interface QueryGetDepositRecordResponse {
-    depositRecord?: DepositRecord;
+    depositRecord: DepositRecord;
+}
+export interface QueryGetDepositRecordResponseProtoMsg {
+    typeUrl: "/stride.records.QueryGetDepositRecordResponse";
+    value: Uint8Array;
+}
+export interface QueryGetDepositRecordResponseAmino {
+    deposit_record?: DepositRecordAmino;
+}
+export interface QueryGetDepositRecordResponseAminoMsg {
+    type: "/stride.records.QueryGetDepositRecordResponse";
+    value: QueryGetDepositRecordResponseAmino;
 }
 export interface QueryGetDepositRecordResponseSDKType {
-    deposit_record?: DepositRecordSDKType;
+    deposit_record: DepositRecordSDKType;
 }
 export interface QueryAllDepositRecordRequest {
-    pagination?: PageRequest;
+    pagination: PageRequest;
+}
+export interface QueryAllDepositRecordRequestProtoMsg {
+    typeUrl: "/stride.records.QueryAllDepositRecordRequest";
+    value: Uint8Array;
+}
+export interface QueryAllDepositRecordRequestAmino {
+    pagination?: PageRequestAmino;
+}
+export interface QueryAllDepositRecordRequestAminoMsg {
+    type: "/stride.records.QueryAllDepositRecordRequest";
+    value: QueryAllDepositRecordRequestAmino;
 }
 export interface QueryAllDepositRecordRequestSDKType {
-    pagination?: PageRequestSDKType;
+    pagination: PageRequestSDKType;
 }
 export interface QueryAllDepositRecordResponse {
     depositRecord: DepositRecord[];
-    pagination?: PageResponse;
+    pagination: PageResponse;
+}
+export interface QueryAllDepositRecordResponseProtoMsg {
+    typeUrl: "/stride.records.QueryAllDepositRecordResponse";
+    value: Uint8Array;
+}
+export interface QueryAllDepositRecordResponseAmino {
+    deposit_record: DepositRecordAmino[];
+    pagination?: PageResponseAmino;
+}
+export interface QueryAllDepositRecordResponseAminoMsg {
+    type: "/stride.records.QueryAllDepositRecordResponse";
+    value: QueryAllDepositRecordResponseAmino;
 }
 export interface QueryAllDepositRecordResponseSDKType {
     deposit_record: DepositRecordSDKType[];
-    pagination?: PageResponseSDKType;
+    pagination: PageResponseSDKType;
 }
 export interface QueryDepositRecordByHostRequest {
     hostZoneId: string;
+}
+export interface QueryDepositRecordByHostRequestProtoMsg {
+    typeUrl: "/stride.records.QueryDepositRecordByHostRequest";
+    value: Uint8Array;
+}
+export interface QueryDepositRecordByHostRequestAmino {
+    host_zone_id: string;
+}
+export interface QueryDepositRecordByHostRequestAminoMsg {
+    type: "/stride.records.QueryDepositRecordByHostRequest";
+    value: QueryDepositRecordByHostRequestAmino;
 }
 export interface QueryDepositRecordByHostRequestSDKType {
     host_zone_id: string;
@@ -52,172 +131,427 @@ export interface QueryDepositRecordByHostRequestSDKType {
 export interface QueryDepositRecordByHostResponse {
     depositRecord: DepositRecord[];
 }
+export interface QueryDepositRecordByHostResponseProtoMsg {
+    typeUrl: "/stride.records.QueryDepositRecordByHostResponse";
+    value: Uint8Array;
+}
+export interface QueryDepositRecordByHostResponseAmino {
+    deposit_record: DepositRecordAmino[];
+}
+export interface QueryDepositRecordByHostResponseAminoMsg {
+    type: "/stride.records.QueryDepositRecordByHostResponse";
+    value: QueryDepositRecordByHostResponseAmino;
+}
 export interface QueryDepositRecordByHostResponseSDKType {
     deposit_record: DepositRecordSDKType[];
 }
 export interface QueryGetUserRedemptionRecordRequest {
     id: string;
 }
+export interface QueryGetUserRedemptionRecordRequestProtoMsg {
+    typeUrl: "/stride.records.QueryGetUserRedemptionRecordRequest";
+    value: Uint8Array;
+}
+export interface QueryGetUserRedemptionRecordRequestAmino {
+    id: string;
+}
+export interface QueryGetUserRedemptionRecordRequestAminoMsg {
+    type: "/stride.records.QueryGetUserRedemptionRecordRequest";
+    value: QueryGetUserRedemptionRecordRequestAmino;
+}
 export interface QueryGetUserRedemptionRecordRequestSDKType {
     id: string;
 }
 export interface QueryGetUserRedemptionRecordResponse {
-    userRedemptionRecord?: UserRedemptionRecord;
+    userRedemptionRecord: UserRedemptionRecord;
+}
+export interface QueryGetUserRedemptionRecordResponseProtoMsg {
+    typeUrl: "/stride.records.QueryGetUserRedemptionRecordResponse";
+    value: Uint8Array;
+}
+export interface QueryGetUserRedemptionRecordResponseAmino {
+    user_redemption_record?: UserRedemptionRecordAmino;
+}
+export interface QueryGetUserRedemptionRecordResponseAminoMsg {
+    type: "/stride.records.QueryGetUserRedemptionRecordResponse";
+    value: QueryGetUserRedemptionRecordResponseAmino;
 }
 export interface QueryGetUserRedemptionRecordResponseSDKType {
-    user_redemption_record?: UserRedemptionRecordSDKType;
+    user_redemption_record: UserRedemptionRecordSDKType;
 }
 export interface QueryAllUserRedemptionRecordRequest {
-    pagination?: PageRequest;
+    pagination: PageRequest;
+}
+export interface QueryAllUserRedemptionRecordRequestProtoMsg {
+    typeUrl: "/stride.records.QueryAllUserRedemptionRecordRequest";
+    value: Uint8Array;
+}
+export interface QueryAllUserRedemptionRecordRequestAmino {
+    pagination?: PageRequestAmino;
+}
+export interface QueryAllUserRedemptionRecordRequestAminoMsg {
+    type: "/stride.records.QueryAllUserRedemptionRecordRequest";
+    value: QueryAllUserRedemptionRecordRequestAmino;
 }
 export interface QueryAllUserRedemptionRecordRequestSDKType {
-    pagination?: PageRequestSDKType;
+    pagination: PageRequestSDKType;
 }
 export interface QueryAllUserRedemptionRecordResponse {
     userRedemptionRecord: UserRedemptionRecord[];
-    pagination?: PageResponse;
+    pagination: PageResponse;
+}
+export interface QueryAllUserRedemptionRecordResponseProtoMsg {
+    typeUrl: "/stride.records.QueryAllUserRedemptionRecordResponse";
+    value: Uint8Array;
+}
+export interface QueryAllUserRedemptionRecordResponseAmino {
+    user_redemption_record: UserRedemptionRecordAmino[];
+    pagination?: PageResponseAmino;
+}
+export interface QueryAllUserRedemptionRecordResponseAminoMsg {
+    type: "/stride.records.QueryAllUserRedemptionRecordResponse";
+    value: QueryAllUserRedemptionRecordResponseAmino;
 }
 export interface QueryAllUserRedemptionRecordResponseSDKType {
     user_redemption_record: UserRedemptionRecordSDKType[];
-    pagination?: PageResponseSDKType;
+    pagination: PageResponseSDKType;
 }
 /** Query UserRedemptionRecords by chainId / userId pair */
 export interface QueryAllUserRedemptionRecordForUserRequest {
     chainId: string;
-    day: Long;
+    day: bigint;
     address: string;
-    limit: Long;
-    pagination?: PageRequest;
+    limit: bigint;
+    pagination: PageRequest;
+}
+export interface QueryAllUserRedemptionRecordForUserRequestProtoMsg {
+    typeUrl: "/stride.records.QueryAllUserRedemptionRecordForUserRequest";
+    value: Uint8Array;
+}
+/** Query UserRedemptionRecords by chainId / userId pair */
+export interface QueryAllUserRedemptionRecordForUserRequestAmino {
+    chain_id: string;
+    day: string;
+    address: string;
+    limit: string;
+    pagination?: PageRequestAmino;
+}
+export interface QueryAllUserRedemptionRecordForUserRequestAminoMsg {
+    type: "/stride.records.QueryAllUserRedemptionRecordForUserRequest";
+    value: QueryAllUserRedemptionRecordForUserRequestAmino;
 }
 /** Query UserRedemptionRecords by chainId / userId pair */
 export interface QueryAllUserRedemptionRecordForUserRequestSDKType {
     chain_id: string;
-    day: Long;
+    day: bigint;
     address: string;
-    limit: Long;
-    pagination?: PageRequestSDKType;
+    limit: bigint;
+    pagination: PageRequestSDKType;
 }
 export interface QueryAllUserRedemptionRecordForUserResponse {
     userRedemptionRecord: UserRedemptionRecord[];
-    pagination?: PageResponse;
+    pagination: PageResponse;
+}
+export interface QueryAllUserRedemptionRecordForUserResponseProtoMsg {
+    typeUrl: "/stride.records.QueryAllUserRedemptionRecordForUserResponse";
+    value: Uint8Array;
+}
+export interface QueryAllUserRedemptionRecordForUserResponseAmino {
+    user_redemption_record: UserRedemptionRecordAmino[];
+    pagination?: PageResponseAmino;
+}
+export interface QueryAllUserRedemptionRecordForUserResponseAminoMsg {
+    type: "/stride.records.QueryAllUserRedemptionRecordForUserResponse";
+    value: QueryAllUserRedemptionRecordForUserResponseAmino;
 }
 export interface QueryAllUserRedemptionRecordForUserResponseSDKType {
     user_redemption_record: UserRedemptionRecordSDKType[];
-    pagination?: PageResponseSDKType;
+    pagination: PageResponseSDKType;
 }
 export interface QueryGetEpochUnbondingRecordRequest {
-    epochNumber: Long;
+    epochNumber: bigint;
+}
+export interface QueryGetEpochUnbondingRecordRequestProtoMsg {
+    typeUrl: "/stride.records.QueryGetEpochUnbondingRecordRequest";
+    value: Uint8Array;
+}
+export interface QueryGetEpochUnbondingRecordRequestAmino {
+    epoch_number: string;
+}
+export interface QueryGetEpochUnbondingRecordRequestAminoMsg {
+    type: "/stride.records.QueryGetEpochUnbondingRecordRequest";
+    value: QueryGetEpochUnbondingRecordRequestAmino;
 }
 export interface QueryGetEpochUnbondingRecordRequestSDKType {
-    epoch_number: Long;
+    epoch_number: bigint;
 }
 export interface QueryGetEpochUnbondingRecordResponse {
-    epochUnbondingRecord?: EpochUnbondingRecord;
+    epochUnbondingRecord: EpochUnbondingRecord;
+}
+export interface QueryGetEpochUnbondingRecordResponseProtoMsg {
+    typeUrl: "/stride.records.QueryGetEpochUnbondingRecordResponse";
+    value: Uint8Array;
+}
+export interface QueryGetEpochUnbondingRecordResponseAmino {
+    epoch_unbonding_record?: EpochUnbondingRecordAmino;
+}
+export interface QueryGetEpochUnbondingRecordResponseAminoMsg {
+    type: "/stride.records.QueryGetEpochUnbondingRecordResponse";
+    value: QueryGetEpochUnbondingRecordResponseAmino;
 }
 export interface QueryGetEpochUnbondingRecordResponseSDKType {
-    epoch_unbonding_record?: EpochUnbondingRecordSDKType;
+    epoch_unbonding_record: EpochUnbondingRecordSDKType;
 }
 export interface QueryAllEpochUnbondingRecordRequest {
-    pagination?: PageRequest;
+    pagination: PageRequest;
+}
+export interface QueryAllEpochUnbondingRecordRequestProtoMsg {
+    typeUrl: "/stride.records.QueryAllEpochUnbondingRecordRequest";
+    value: Uint8Array;
+}
+export interface QueryAllEpochUnbondingRecordRequestAmino {
+    pagination?: PageRequestAmino;
+}
+export interface QueryAllEpochUnbondingRecordRequestAminoMsg {
+    type: "/stride.records.QueryAllEpochUnbondingRecordRequest";
+    value: QueryAllEpochUnbondingRecordRequestAmino;
 }
 export interface QueryAllEpochUnbondingRecordRequestSDKType {
-    pagination?: PageRequestSDKType;
+    pagination: PageRequestSDKType;
 }
 export interface QueryAllEpochUnbondingRecordResponse {
     epochUnbondingRecord: EpochUnbondingRecord[];
-    pagination?: PageResponse;
+    pagination: PageResponse;
+}
+export interface QueryAllEpochUnbondingRecordResponseProtoMsg {
+    typeUrl: "/stride.records.QueryAllEpochUnbondingRecordResponse";
+    value: Uint8Array;
+}
+export interface QueryAllEpochUnbondingRecordResponseAmino {
+    epoch_unbonding_record: EpochUnbondingRecordAmino[];
+    pagination?: PageResponseAmino;
+}
+export interface QueryAllEpochUnbondingRecordResponseAminoMsg {
+    type: "/stride.records.QueryAllEpochUnbondingRecordResponse";
+    value: QueryAllEpochUnbondingRecordResponseAmino;
 }
 export interface QueryAllEpochUnbondingRecordResponseSDKType {
     epoch_unbonding_record: EpochUnbondingRecordSDKType[];
-    pagination?: PageResponseSDKType;
+    pagination: PageResponseSDKType;
 }
 export declare const QueryParamsRequest: {
-    encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: QueryParamsRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): QueryParamsRequest;
     fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest;
+    fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest;
+    toAmino(_: QueryParamsRequest): QueryParamsRequestAmino;
+    fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest;
+    fromProtoMsg(message: QueryParamsRequestProtoMsg): QueryParamsRequest;
+    toProto(message: QueryParamsRequest): Uint8Array;
+    toProtoMsg(message: QueryParamsRequest): QueryParamsRequestProtoMsg;
 };
 export declare const QueryParamsResponse: {
-    encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryParamsResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryParamsResponse;
     fromPartial(object: Partial<QueryParamsResponse>): QueryParamsResponse;
+    fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse;
+    toAmino(message: QueryParamsResponse): QueryParamsResponseAmino;
+    fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse;
+    fromProtoMsg(message: QueryParamsResponseProtoMsg): QueryParamsResponse;
+    toProto(message: QueryParamsResponse): Uint8Array;
+    toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg;
 };
 export declare const QueryGetDepositRecordRequest: {
-    encode(message: QueryGetDepositRecordRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryGetDepositRecordRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryGetDepositRecordRequest;
     fromPartial(object: Partial<QueryGetDepositRecordRequest>): QueryGetDepositRecordRequest;
+    fromAmino(object: QueryGetDepositRecordRequestAmino): QueryGetDepositRecordRequest;
+    toAmino(message: QueryGetDepositRecordRequest): QueryGetDepositRecordRequestAmino;
+    fromAminoMsg(object: QueryGetDepositRecordRequestAminoMsg): QueryGetDepositRecordRequest;
+    fromProtoMsg(message: QueryGetDepositRecordRequestProtoMsg): QueryGetDepositRecordRequest;
+    toProto(message: QueryGetDepositRecordRequest): Uint8Array;
+    toProtoMsg(message: QueryGetDepositRecordRequest): QueryGetDepositRecordRequestProtoMsg;
 };
 export declare const QueryGetDepositRecordResponse: {
-    encode(message: QueryGetDepositRecordResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryGetDepositRecordResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryGetDepositRecordResponse;
     fromPartial(object: Partial<QueryGetDepositRecordResponse>): QueryGetDepositRecordResponse;
+    fromAmino(object: QueryGetDepositRecordResponseAmino): QueryGetDepositRecordResponse;
+    toAmino(message: QueryGetDepositRecordResponse): QueryGetDepositRecordResponseAmino;
+    fromAminoMsg(object: QueryGetDepositRecordResponseAminoMsg): QueryGetDepositRecordResponse;
+    fromProtoMsg(message: QueryGetDepositRecordResponseProtoMsg): QueryGetDepositRecordResponse;
+    toProto(message: QueryGetDepositRecordResponse): Uint8Array;
+    toProtoMsg(message: QueryGetDepositRecordResponse): QueryGetDepositRecordResponseProtoMsg;
 };
 export declare const QueryAllDepositRecordRequest: {
-    encode(message: QueryAllDepositRecordRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryAllDepositRecordRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryAllDepositRecordRequest;
     fromPartial(object: Partial<QueryAllDepositRecordRequest>): QueryAllDepositRecordRequest;
+    fromAmino(object: QueryAllDepositRecordRequestAmino): QueryAllDepositRecordRequest;
+    toAmino(message: QueryAllDepositRecordRequest): QueryAllDepositRecordRequestAmino;
+    fromAminoMsg(object: QueryAllDepositRecordRequestAminoMsg): QueryAllDepositRecordRequest;
+    fromProtoMsg(message: QueryAllDepositRecordRequestProtoMsg): QueryAllDepositRecordRequest;
+    toProto(message: QueryAllDepositRecordRequest): Uint8Array;
+    toProtoMsg(message: QueryAllDepositRecordRequest): QueryAllDepositRecordRequestProtoMsg;
 };
 export declare const QueryAllDepositRecordResponse: {
-    encode(message: QueryAllDepositRecordResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryAllDepositRecordResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryAllDepositRecordResponse;
     fromPartial(object: Partial<QueryAllDepositRecordResponse>): QueryAllDepositRecordResponse;
+    fromAmino(object: QueryAllDepositRecordResponseAmino): QueryAllDepositRecordResponse;
+    toAmino(message: QueryAllDepositRecordResponse): QueryAllDepositRecordResponseAmino;
+    fromAminoMsg(object: QueryAllDepositRecordResponseAminoMsg): QueryAllDepositRecordResponse;
+    fromProtoMsg(message: QueryAllDepositRecordResponseProtoMsg): QueryAllDepositRecordResponse;
+    toProto(message: QueryAllDepositRecordResponse): Uint8Array;
+    toProtoMsg(message: QueryAllDepositRecordResponse): QueryAllDepositRecordResponseProtoMsg;
 };
 export declare const QueryDepositRecordByHostRequest: {
-    encode(message: QueryDepositRecordByHostRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryDepositRecordByHostRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryDepositRecordByHostRequest;
     fromPartial(object: Partial<QueryDepositRecordByHostRequest>): QueryDepositRecordByHostRequest;
+    fromAmino(object: QueryDepositRecordByHostRequestAmino): QueryDepositRecordByHostRequest;
+    toAmino(message: QueryDepositRecordByHostRequest): QueryDepositRecordByHostRequestAmino;
+    fromAminoMsg(object: QueryDepositRecordByHostRequestAminoMsg): QueryDepositRecordByHostRequest;
+    fromProtoMsg(message: QueryDepositRecordByHostRequestProtoMsg): QueryDepositRecordByHostRequest;
+    toProto(message: QueryDepositRecordByHostRequest): Uint8Array;
+    toProtoMsg(message: QueryDepositRecordByHostRequest): QueryDepositRecordByHostRequestProtoMsg;
 };
 export declare const QueryDepositRecordByHostResponse: {
-    encode(message: QueryDepositRecordByHostResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryDepositRecordByHostResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryDepositRecordByHostResponse;
     fromPartial(object: Partial<QueryDepositRecordByHostResponse>): QueryDepositRecordByHostResponse;
+    fromAmino(object: QueryDepositRecordByHostResponseAmino): QueryDepositRecordByHostResponse;
+    toAmino(message: QueryDepositRecordByHostResponse): QueryDepositRecordByHostResponseAmino;
+    fromAminoMsg(object: QueryDepositRecordByHostResponseAminoMsg): QueryDepositRecordByHostResponse;
+    fromProtoMsg(message: QueryDepositRecordByHostResponseProtoMsg): QueryDepositRecordByHostResponse;
+    toProto(message: QueryDepositRecordByHostResponse): Uint8Array;
+    toProtoMsg(message: QueryDepositRecordByHostResponse): QueryDepositRecordByHostResponseProtoMsg;
 };
 export declare const QueryGetUserRedemptionRecordRequest: {
-    encode(message: QueryGetUserRedemptionRecordRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryGetUserRedemptionRecordRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryGetUserRedemptionRecordRequest;
     fromPartial(object: Partial<QueryGetUserRedemptionRecordRequest>): QueryGetUserRedemptionRecordRequest;
+    fromAmino(object: QueryGetUserRedemptionRecordRequestAmino): QueryGetUserRedemptionRecordRequest;
+    toAmino(message: QueryGetUserRedemptionRecordRequest): QueryGetUserRedemptionRecordRequestAmino;
+    fromAminoMsg(object: QueryGetUserRedemptionRecordRequestAminoMsg): QueryGetUserRedemptionRecordRequest;
+    fromProtoMsg(message: QueryGetUserRedemptionRecordRequestProtoMsg): QueryGetUserRedemptionRecordRequest;
+    toProto(message: QueryGetUserRedemptionRecordRequest): Uint8Array;
+    toProtoMsg(message: QueryGetUserRedemptionRecordRequest): QueryGetUserRedemptionRecordRequestProtoMsg;
 };
 export declare const QueryGetUserRedemptionRecordResponse: {
-    encode(message: QueryGetUserRedemptionRecordResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryGetUserRedemptionRecordResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryGetUserRedemptionRecordResponse;
     fromPartial(object: Partial<QueryGetUserRedemptionRecordResponse>): QueryGetUserRedemptionRecordResponse;
+    fromAmino(object: QueryGetUserRedemptionRecordResponseAmino): QueryGetUserRedemptionRecordResponse;
+    toAmino(message: QueryGetUserRedemptionRecordResponse): QueryGetUserRedemptionRecordResponseAmino;
+    fromAminoMsg(object: QueryGetUserRedemptionRecordResponseAminoMsg): QueryGetUserRedemptionRecordResponse;
+    fromProtoMsg(message: QueryGetUserRedemptionRecordResponseProtoMsg): QueryGetUserRedemptionRecordResponse;
+    toProto(message: QueryGetUserRedemptionRecordResponse): Uint8Array;
+    toProtoMsg(message: QueryGetUserRedemptionRecordResponse): QueryGetUserRedemptionRecordResponseProtoMsg;
 };
 export declare const QueryAllUserRedemptionRecordRequest: {
-    encode(message: QueryAllUserRedemptionRecordRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryAllUserRedemptionRecordRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryAllUserRedemptionRecordRequest;
     fromPartial(object: Partial<QueryAllUserRedemptionRecordRequest>): QueryAllUserRedemptionRecordRequest;
+    fromAmino(object: QueryAllUserRedemptionRecordRequestAmino): QueryAllUserRedemptionRecordRequest;
+    toAmino(message: QueryAllUserRedemptionRecordRequest): QueryAllUserRedemptionRecordRequestAmino;
+    fromAminoMsg(object: QueryAllUserRedemptionRecordRequestAminoMsg): QueryAllUserRedemptionRecordRequest;
+    fromProtoMsg(message: QueryAllUserRedemptionRecordRequestProtoMsg): QueryAllUserRedemptionRecordRequest;
+    toProto(message: QueryAllUserRedemptionRecordRequest): Uint8Array;
+    toProtoMsg(message: QueryAllUserRedemptionRecordRequest): QueryAllUserRedemptionRecordRequestProtoMsg;
 };
 export declare const QueryAllUserRedemptionRecordResponse: {
-    encode(message: QueryAllUserRedemptionRecordResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryAllUserRedemptionRecordResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryAllUserRedemptionRecordResponse;
     fromPartial(object: Partial<QueryAllUserRedemptionRecordResponse>): QueryAllUserRedemptionRecordResponse;
+    fromAmino(object: QueryAllUserRedemptionRecordResponseAmino): QueryAllUserRedemptionRecordResponse;
+    toAmino(message: QueryAllUserRedemptionRecordResponse): QueryAllUserRedemptionRecordResponseAmino;
+    fromAminoMsg(object: QueryAllUserRedemptionRecordResponseAminoMsg): QueryAllUserRedemptionRecordResponse;
+    fromProtoMsg(message: QueryAllUserRedemptionRecordResponseProtoMsg): QueryAllUserRedemptionRecordResponse;
+    toProto(message: QueryAllUserRedemptionRecordResponse): Uint8Array;
+    toProtoMsg(message: QueryAllUserRedemptionRecordResponse): QueryAllUserRedemptionRecordResponseProtoMsg;
 };
 export declare const QueryAllUserRedemptionRecordForUserRequest: {
-    encode(message: QueryAllUserRedemptionRecordForUserRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryAllUserRedemptionRecordForUserRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryAllUserRedemptionRecordForUserRequest;
     fromPartial(object: Partial<QueryAllUserRedemptionRecordForUserRequest>): QueryAllUserRedemptionRecordForUserRequest;
+    fromAmino(object: QueryAllUserRedemptionRecordForUserRequestAmino): QueryAllUserRedemptionRecordForUserRequest;
+    toAmino(message: QueryAllUserRedemptionRecordForUserRequest): QueryAllUserRedemptionRecordForUserRequestAmino;
+    fromAminoMsg(object: QueryAllUserRedemptionRecordForUserRequestAminoMsg): QueryAllUserRedemptionRecordForUserRequest;
+    fromProtoMsg(message: QueryAllUserRedemptionRecordForUserRequestProtoMsg): QueryAllUserRedemptionRecordForUserRequest;
+    toProto(message: QueryAllUserRedemptionRecordForUserRequest): Uint8Array;
+    toProtoMsg(message: QueryAllUserRedemptionRecordForUserRequest): QueryAllUserRedemptionRecordForUserRequestProtoMsg;
 };
 export declare const QueryAllUserRedemptionRecordForUserResponse: {
-    encode(message: QueryAllUserRedemptionRecordForUserResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryAllUserRedemptionRecordForUserResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryAllUserRedemptionRecordForUserResponse;
     fromPartial(object: Partial<QueryAllUserRedemptionRecordForUserResponse>): QueryAllUserRedemptionRecordForUserResponse;
+    fromAmino(object: QueryAllUserRedemptionRecordForUserResponseAmino): QueryAllUserRedemptionRecordForUserResponse;
+    toAmino(message: QueryAllUserRedemptionRecordForUserResponse): QueryAllUserRedemptionRecordForUserResponseAmino;
+    fromAminoMsg(object: QueryAllUserRedemptionRecordForUserResponseAminoMsg): QueryAllUserRedemptionRecordForUserResponse;
+    fromProtoMsg(message: QueryAllUserRedemptionRecordForUserResponseProtoMsg): QueryAllUserRedemptionRecordForUserResponse;
+    toProto(message: QueryAllUserRedemptionRecordForUserResponse): Uint8Array;
+    toProtoMsg(message: QueryAllUserRedemptionRecordForUserResponse): QueryAllUserRedemptionRecordForUserResponseProtoMsg;
 };
 export declare const QueryGetEpochUnbondingRecordRequest: {
-    encode(message: QueryGetEpochUnbondingRecordRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryGetEpochUnbondingRecordRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryGetEpochUnbondingRecordRequest;
     fromPartial(object: Partial<QueryGetEpochUnbondingRecordRequest>): QueryGetEpochUnbondingRecordRequest;
+    fromAmino(object: QueryGetEpochUnbondingRecordRequestAmino): QueryGetEpochUnbondingRecordRequest;
+    toAmino(message: QueryGetEpochUnbondingRecordRequest): QueryGetEpochUnbondingRecordRequestAmino;
+    fromAminoMsg(object: QueryGetEpochUnbondingRecordRequestAminoMsg): QueryGetEpochUnbondingRecordRequest;
+    fromProtoMsg(message: QueryGetEpochUnbondingRecordRequestProtoMsg): QueryGetEpochUnbondingRecordRequest;
+    toProto(message: QueryGetEpochUnbondingRecordRequest): Uint8Array;
+    toProtoMsg(message: QueryGetEpochUnbondingRecordRequest): QueryGetEpochUnbondingRecordRequestProtoMsg;
 };
 export declare const QueryGetEpochUnbondingRecordResponse: {
-    encode(message: QueryGetEpochUnbondingRecordResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryGetEpochUnbondingRecordResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryGetEpochUnbondingRecordResponse;
     fromPartial(object: Partial<QueryGetEpochUnbondingRecordResponse>): QueryGetEpochUnbondingRecordResponse;
+    fromAmino(object: QueryGetEpochUnbondingRecordResponseAmino): QueryGetEpochUnbondingRecordResponse;
+    toAmino(message: QueryGetEpochUnbondingRecordResponse): QueryGetEpochUnbondingRecordResponseAmino;
+    fromAminoMsg(object: QueryGetEpochUnbondingRecordResponseAminoMsg): QueryGetEpochUnbondingRecordResponse;
+    fromProtoMsg(message: QueryGetEpochUnbondingRecordResponseProtoMsg): QueryGetEpochUnbondingRecordResponse;
+    toProto(message: QueryGetEpochUnbondingRecordResponse): Uint8Array;
+    toProtoMsg(message: QueryGetEpochUnbondingRecordResponse): QueryGetEpochUnbondingRecordResponseProtoMsg;
 };
 export declare const QueryAllEpochUnbondingRecordRequest: {
-    encode(message: QueryAllEpochUnbondingRecordRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryAllEpochUnbondingRecordRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryAllEpochUnbondingRecordRequest;
     fromPartial(object: Partial<QueryAllEpochUnbondingRecordRequest>): QueryAllEpochUnbondingRecordRequest;
+    fromAmino(object: QueryAllEpochUnbondingRecordRequestAmino): QueryAllEpochUnbondingRecordRequest;
+    toAmino(message: QueryAllEpochUnbondingRecordRequest): QueryAllEpochUnbondingRecordRequestAmino;
+    fromAminoMsg(object: QueryAllEpochUnbondingRecordRequestAminoMsg): QueryAllEpochUnbondingRecordRequest;
+    fromProtoMsg(message: QueryAllEpochUnbondingRecordRequestProtoMsg): QueryAllEpochUnbondingRecordRequest;
+    toProto(message: QueryAllEpochUnbondingRecordRequest): Uint8Array;
+    toProtoMsg(message: QueryAllEpochUnbondingRecordRequest): QueryAllEpochUnbondingRecordRequestProtoMsg;
 };
 export declare const QueryAllEpochUnbondingRecordResponse: {
-    encode(message: QueryAllEpochUnbondingRecordResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryAllEpochUnbondingRecordResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryAllEpochUnbondingRecordResponse;
     fromPartial(object: Partial<QueryAllEpochUnbondingRecordResponse>): QueryAllEpochUnbondingRecordResponse;
+    fromAmino(object: QueryAllEpochUnbondingRecordResponseAmino): QueryAllEpochUnbondingRecordResponse;
+    toAmino(message: QueryAllEpochUnbondingRecordResponse): QueryAllEpochUnbondingRecordResponseAmino;
+    fromAminoMsg(object: QueryAllEpochUnbondingRecordResponseAminoMsg): QueryAllEpochUnbondingRecordResponse;
+    fromProtoMsg(message: QueryAllEpochUnbondingRecordResponseProtoMsg): QueryAllEpochUnbondingRecordResponse;
+    toProto(message: QueryAllEpochUnbondingRecordResponse): Uint8Array;
+    toProtoMsg(message: QueryAllEpochUnbondingRecordResponse): QueryAllEpochUnbondingRecordResponseProtoMsg;
 };

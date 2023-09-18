@@ -10,34 +10,74 @@ export declare namespace packetforward {
         };
         LCDQueryClient: typeof _265.LCDQueryClient;
         QueryParamsRequest: {
-            encode(_: _134.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _134.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _134.QueryParamsRequest;
             fromPartial(_: Partial<_134.QueryParamsRequest>): _134.QueryParamsRequest;
+            fromAmino(_: _134.QueryParamsRequestAmino): _134.QueryParamsRequest;
+            toAmino(_: _134.QueryParamsRequest): _134.QueryParamsRequestAmino;
+            fromAminoMsg(object: _134.QueryParamsRequestAminoMsg): _134.QueryParamsRequest;
+            fromProtoMsg(message: _134.QueryParamsRequestProtoMsg): _134.QueryParamsRequest;
+            toProto(message: _134.QueryParamsRequest): Uint8Array;
+            toProtoMsg(message: _134.QueryParamsRequest): _134.QueryParamsRequestProtoMsg;
         };
         QueryParamsResponse: {
-            encode(message: _134.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _134.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _134.QueryParamsResponse;
             fromPartial(object: Partial<_134.QueryParamsResponse>): _134.QueryParamsResponse;
+            fromAmino(object: _134.QueryParamsResponseAmino): _134.QueryParamsResponse;
+            toAmino(message: _134.QueryParamsResponse): _134.QueryParamsResponseAmino;
+            fromAminoMsg(object: _134.QueryParamsResponseAminoMsg): _134.QueryParamsResponse;
+            fromProtoMsg(message: _134.QueryParamsResponseProtoMsg): _134.QueryParamsResponse;
+            toProto(message: _134.QueryParamsResponse): Uint8Array;
+            toProtoMsg(message: _134.QueryParamsResponse): _134.QueryParamsResponseProtoMsg;
         };
         GenesisState_InFlightPacketsEntry: {
-            encode(message: _133.GenesisState_InFlightPacketsEntry, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            encode(message: _133.GenesisState_InFlightPacketsEntry, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _133.GenesisState_InFlightPacketsEntry;
             fromPartial(object: Partial<_133.GenesisState_InFlightPacketsEntry>): _133.GenesisState_InFlightPacketsEntry;
+            fromAmino(object: _133.GenesisState_InFlightPacketsEntryAmino): _133.GenesisState_InFlightPacketsEntry;
+            toAmino(message: _133.GenesisState_InFlightPacketsEntry): _133.GenesisState_InFlightPacketsEntryAmino;
+            fromAminoMsg(object: _133.GenesisState_InFlightPacketsEntryAminoMsg): _133.GenesisState_InFlightPacketsEntry;
+            fromProtoMsg(message: _133.GenesisState_InFlightPacketsEntryProtoMsg): _133.GenesisState_InFlightPacketsEntry;
+            toProto(message: _133.GenesisState_InFlightPacketsEntry): Uint8Array;
         };
         GenesisState: {
-            encode(message: _133.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _133.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _133.GenesisState;
             fromPartial(object: Partial<_133.GenesisState>): _133.GenesisState;
+            fromAmino(object: _133.GenesisStateAmino): _133.GenesisState;
+            toAmino(message: _133.GenesisState): _133.GenesisStateAmino;
+            fromAminoMsg(object: _133.GenesisStateAminoMsg): _133.GenesisState;
+            fromProtoMsg(message: _133.GenesisStateProtoMsg): _133.GenesisState;
+            toProto(message: _133.GenesisState): Uint8Array;
+            toProtoMsg(message: _133.GenesisState): _133.GenesisStateProtoMsg;
         };
         Params: {
-            encode(message: _133.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _133.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _133.Params;
             fromPartial(object: Partial<_133.Params>): _133.Params;
+            fromAmino(object: _133.ParamsAmino): _133.Params;
+            toAmino(message: _133.Params): _133.ParamsAmino;
+            fromAminoMsg(object: _133.ParamsAminoMsg): _133.Params;
+            fromProtoMsg(message: _133.ParamsProtoMsg): _133.Params;
+            toProto(message: _133.Params): Uint8Array;
+            toProtoMsg(message: _133.Params): _133.ParamsProtoMsg;
         };
         InFlightPacket: {
-            encode(message: _133.InFlightPacket, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _133.InFlightPacket, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _133.InFlightPacket;
             fromPartial(object: Partial<_133.InFlightPacket>): _133.InFlightPacket;
+            fromAmino(object: _133.InFlightPacketAmino): _133.InFlightPacket;
+            toAmino(message: _133.InFlightPacket): _133.InFlightPacketAmino;
+            fromAminoMsg(object: _133.InFlightPacketAminoMsg): _133.InFlightPacket;
+            fromProtoMsg(message: _133.InFlightPacketProtoMsg): _133.InFlightPacket;
+            toProto(message: _133.InFlightPacket): Uint8Array;
+            toProtoMsg(message: _133.InFlightPacket): _133.InFlightPacketProtoMsg;
         };
     };
     const ClientFactory: {

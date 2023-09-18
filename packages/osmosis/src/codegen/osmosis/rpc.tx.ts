@@ -24,6 +24,7 @@ export const createRPCMsgClient = async ({
       },
       v1beta1: new (await import("./gamm/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
+    ibchooks: new (await import("./ibc-hooks/tx.rpc.msg")).MsgClientImpl(rpc),
     incentives: new (await import("./incentives/tx.rpc.msg")).MsgClientImpl(rpc),
     lockup: new (await import("./lockup/tx.rpc.msg")).MsgClientImpl(rpc),
     poolmanager: {

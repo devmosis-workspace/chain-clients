@@ -67,180 +67,350 @@ export declare namespace cork {
         AminoConverter: {
             "/cork.v1.MsgSubmitCorkRequest": {
                 aminoType: string;
-                toAmino: ({ cork, signer }: _7.MsgSubmitCorkRequest) => {
-                    cork: {
-                        encoded_contract_call: Uint8Array;
-                        target_contract_address: string;
-                    };
-                    signer: string;
-                };
-                fromAmino: ({ cork, signer }: {
-                    cork: {
-                        encoded_contract_call: Uint8Array;
-                        target_contract_address: string;
-                    };
-                    signer: string;
-                }) => _7.MsgSubmitCorkRequest;
+                toAmino: (message: _7.MsgSubmitCorkRequest) => _7.MsgSubmitCorkRequestAmino;
+                fromAmino: (object: _7.MsgSubmitCorkRequestAmino) => _7.MsgSubmitCorkRequest;
             };
             "/cork.v1.MsgScheduleCorkRequest": {
                 aminoType: string;
-                toAmino: ({ cork, blockHeight, signer }: _7.MsgScheduleCorkRequest) => {
-                    cork: {
-                        encoded_contract_call: Uint8Array;
-                        target_contract_address: string;
-                    };
-                    block_height: string;
-                    signer: string;
-                };
-                fromAmino: ({ cork, block_height, signer }: {
-                    cork: {
-                        encoded_contract_call: Uint8Array;
-                        target_contract_address: string;
-                    };
-                    block_height: string;
-                    signer: string;
-                }) => _7.MsgScheduleCorkRequest;
+                toAmino: (message: _7.MsgScheduleCorkRequest) => _7.MsgScheduleCorkRequestAmino;
+                fromAmino: (object: _7.MsgScheduleCorkRequestAmino) => _7.MsgScheduleCorkRequest;
             };
         };
         MsgSubmitCorkRequest: {
-            encode(message: _7.MsgSubmitCorkRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _7.MsgSubmitCorkRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _7.MsgSubmitCorkRequest;
             fromPartial(object: Partial<_7.MsgSubmitCorkRequest>): _7.MsgSubmitCorkRequest;
+            fromAmino(object: _7.MsgSubmitCorkRequestAmino): _7.MsgSubmitCorkRequest;
+            toAmino(message: _7.MsgSubmitCorkRequest): _7.MsgSubmitCorkRequestAmino;
+            fromAminoMsg(object: _7.MsgSubmitCorkRequestAminoMsg): _7.MsgSubmitCorkRequest;
+            fromProtoMsg(message: _7.MsgSubmitCorkRequestProtoMsg): _7.MsgSubmitCorkRequest;
+            toProto(message: _7.MsgSubmitCorkRequest): Uint8Array;
+            toProtoMsg(message: _7.MsgSubmitCorkRequest): _7.MsgSubmitCorkRequestProtoMsg;
         };
         MsgSubmitCorkResponse: {
-            encode(_: _7.MsgSubmitCorkResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _7.MsgSubmitCorkResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _7.MsgSubmitCorkResponse;
             fromPartial(_: Partial<_7.MsgSubmitCorkResponse>): _7.MsgSubmitCorkResponse;
+            fromAmino(_: _7.MsgSubmitCorkResponseAmino): _7.MsgSubmitCorkResponse;
+            toAmino(_: _7.MsgSubmitCorkResponse): _7.MsgSubmitCorkResponseAmino;
+            fromAminoMsg(object: _7.MsgSubmitCorkResponseAminoMsg): _7.MsgSubmitCorkResponse;
+            fromProtoMsg(message: _7.MsgSubmitCorkResponseProtoMsg): _7.MsgSubmitCorkResponse;
+            toProto(message: _7.MsgSubmitCorkResponse): Uint8Array;
+            toProtoMsg(message: _7.MsgSubmitCorkResponse): _7.MsgSubmitCorkResponseProtoMsg;
         };
         MsgScheduleCorkRequest: {
-            encode(message: _7.MsgScheduleCorkRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _7.MsgScheduleCorkRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _7.MsgScheduleCorkRequest;
             fromPartial(object: Partial<_7.MsgScheduleCorkRequest>): _7.MsgScheduleCorkRequest;
+            fromAmino(object: _7.MsgScheduleCorkRequestAmino): _7.MsgScheduleCorkRequest;
+            toAmino(message: _7.MsgScheduleCorkRequest): _7.MsgScheduleCorkRequestAmino;
+            fromAminoMsg(object: _7.MsgScheduleCorkRequestAminoMsg): _7.MsgScheduleCorkRequest;
+            fromProtoMsg(message: _7.MsgScheduleCorkRequestProtoMsg): _7.MsgScheduleCorkRequest;
+            toProto(message: _7.MsgScheduleCorkRequest): Uint8Array;
+            toProtoMsg(message: _7.MsgScheduleCorkRequest): _7.MsgScheduleCorkRequestProtoMsg;
         };
         MsgScheduleCorkResponse: {
-            encode(_: _7.MsgScheduleCorkResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _7.MsgScheduleCorkResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _7.MsgScheduleCorkResponse;
             fromPartial(_: Partial<_7.MsgScheduleCorkResponse>): _7.MsgScheduleCorkResponse;
+            fromAmino(_: _7.MsgScheduleCorkResponseAmino): _7.MsgScheduleCorkResponse;
+            toAmino(_: _7.MsgScheduleCorkResponse): _7.MsgScheduleCorkResponseAmino;
+            fromAminoMsg(object: _7.MsgScheduleCorkResponseAminoMsg): _7.MsgScheduleCorkResponse;
+            fromProtoMsg(message: _7.MsgScheduleCorkResponseProtoMsg): _7.MsgScheduleCorkResponse;
+            toProto(message: _7.MsgScheduleCorkResponse): Uint8Array;
+            toProtoMsg(message: _7.MsgScheduleCorkResponse): _7.MsgScheduleCorkResponseProtoMsg;
         };
         QueryParamsRequest: {
-            encode(_: _6.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _6.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _6.QueryParamsRequest;
             fromPartial(_: Partial<_6.QueryParamsRequest>): _6.QueryParamsRequest;
+            fromAmino(_: _6.QueryParamsRequestAmino): _6.QueryParamsRequest;
+            toAmino(_: _6.QueryParamsRequest): _6.QueryParamsRequestAmino;
+            fromAminoMsg(object: _6.QueryParamsRequestAminoMsg): _6.QueryParamsRequest;
+            fromProtoMsg(message: _6.QueryParamsRequestProtoMsg): _6.QueryParamsRequest;
+            toProto(message: _6.QueryParamsRequest): Uint8Array;
+            toProtoMsg(message: _6.QueryParamsRequest): _6.QueryParamsRequestProtoMsg;
         };
         QueryParamsResponse: {
-            encode(message: _6.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QueryParamsResponse;
             fromPartial(object: Partial<_6.QueryParamsResponse>): _6.QueryParamsResponse;
+            fromAmino(object: _6.QueryParamsResponseAmino): _6.QueryParamsResponse;
+            toAmino(message: _6.QueryParamsResponse): _6.QueryParamsResponseAmino;
+            fromAminoMsg(object: _6.QueryParamsResponseAminoMsg): _6.QueryParamsResponse;
+            fromProtoMsg(message: _6.QueryParamsResponseProtoMsg): _6.QueryParamsResponse;
+            toProto(message: _6.QueryParamsResponse): Uint8Array;
+            toProtoMsg(message: _6.QueryParamsResponse): _6.QueryParamsResponseProtoMsg;
         };
         QuerySubmittedCorksRequest: {
-            encode(_: _6.QuerySubmittedCorksRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _6.QuerySubmittedCorksRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _6.QuerySubmittedCorksRequest;
             fromPartial(_: Partial<_6.QuerySubmittedCorksRequest>): _6.QuerySubmittedCorksRequest;
+            fromAmino(_: _6.QuerySubmittedCorksRequestAmino): _6.QuerySubmittedCorksRequest;
+            toAmino(_: _6.QuerySubmittedCorksRequest): _6.QuerySubmittedCorksRequestAmino;
+            fromAminoMsg(object: _6.QuerySubmittedCorksRequestAminoMsg): _6.QuerySubmittedCorksRequest;
+            fromProtoMsg(message: _6.QuerySubmittedCorksRequestProtoMsg): _6.QuerySubmittedCorksRequest;
+            toProto(message: _6.QuerySubmittedCorksRequest): Uint8Array;
+            toProtoMsg(message: _6.QuerySubmittedCorksRequest): _6.QuerySubmittedCorksRequestProtoMsg;
         };
         QuerySubmittedCorksResponse: {
-            encode(message: _6.QuerySubmittedCorksResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QuerySubmittedCorksResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QuerySubmittedCorksResponse;
             fromPartial(object: Partial<_6.QuerySubmittedCorksResponse>): _6.QuerySubmittedCorksResponse;
+            fromAmino(object: _6.QuerySubmittedCorksResponseAmino): _6.QuerySubmittedCorksResponse;
+            toAmino(message: _6.QuerySubmittedCorksResponse): _6.QuerySubmittedCorksResponseAmino;
+            fromAminoMsg(object: _6.QuerySubmittedCorksResponseAminoMsg): _6.QuerySubmittedCorksResponse;
+            fromProtoMsg(message: _6.QuerySubmittedCorksResponseProtoMsg): _6.QuerySubmittedCorksResponse;
+            toProto(message: _6.QuerySubmittedCorksResponse): Uint8Array;
+            toProtoMsg(message: _6.QuerySubmittedCorksResponse): _6.QuerySubmittedCorksResponseProtoMsg;
         };
         QueryCommitPeriodRequest: {
-            encode(_: _6.QueryCommitPeriodRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _6.QueryCommitPeriodRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _6.QueryCommitPeriodRequest;
             fromPartial(_: Partial<_6.QueryCommitPeriodRequest>): _6.QueryCommitPeriodRequest;
+            fromAmino(_: _6.QueryCommitPeriodRequestAmino): _6.QueryCommitPeriodRequest;
+            toAmino(_: _6.QueryCommitPeriodRequest): _6.QueryCommitPeriodRequestAmino;
+            fromAminoMsg(object: _6.QueryCommitPeriodRequestAminoMsg): _6.QueryCommitPeriodRequest;
+            fromProtoMsg(message: _6.QueryCommitPeriodRequestProtoMsg): _6.QueryCommitPeriodRequest;
+            toProto(message: _6.QueryCommitPeriodRequest): Uint8Array;
+            toProtoMsg(message: _6.QueryCommitPeriodRequest): _6.QueryCommitPeriodRequestProtoMsg;
         };
         QueryCommitPeriodResponse: {
-            encode(message: _6.QueryCommitPeriodResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QueryCommitPeriodResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QueryCommitPeriodResponse;
             fromPartial(object: Partial<_6.QueryCommitPeriodResponse>): _6.QueryCommitPeriodResponse;
+            fromAmino(object: _6.QueryCommitPeriodResponseAmino): _6.QueryCommitPeriodResponse;
+            toAmino(message: _6.QueryCommitPeriodResponse): _6.QueryCommitPeriodResponseAmino;
+            fromAminoMsg(object: _6.QueryCommitPeriodResponseAminoMsg): _6.QueryCommitPeriodResponse;
+            fromProtoMsg(message: _6.QueryCommitPeriodResponseProtoMsg): _6.QueryCommitPeriodResponse;
+            toProto(message: _6.QueryCommitPeriodResponse): Uint8Array;
+            toProtoMsg(message: _6.QueryCommitPeriodResponse): _6.QueryCommitPeriodResponseProtoMsg;
         };
         QueryCellarIDsRequest: {
-            encode(_: _6.QueryCellarIDsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _6.QueryCellarIDsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _6.QueryCellarIDsRequest;
             fromPartial(_: Partial<_6.QueryCellarIDsRequest>): _6.QueryCellarIDsRequest;
+            fromAmino(_: _6.QueryCellarIDsRequestAmino): _6.QueryCellarIDsRequest;
+            toAmino(_: _6.QueryCellarIDsRequest): _6.QueryCellarIDsRequestAmino;
+            fromAminoMsg(object: _6.QueryCellarIDsRequestAminoMsg): _6.QueryCellarIDsRequest;
+            fromProtoMsg(message: _6.QueryCellarIDsRequestProtoMsg): _6.QueryCellarIDsRequest;
+            toProto(message: _6.QueryCellarIDsRequest): Uint8Array;
+            toProtoMsg(message: _6.QueryCellarIDsRequest): _6.QueryCellarIDsRequestProtoMsg;
         };
         QueryCellarIDsResponse: {
-            encode(message: _6.QueryCellarIDsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QueryCellarIDsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QueryCellarIDsResponse;
             fromPartial(object: Partial<_6.QueryCellarIDsResponse>): _6.QueryCellarIDsResponse;
+            fromAmino(object: _6.QueryCellarIDsResponseAmino): _6.QueryCellarIDsResponse;
+            toAmino(message: _6.QueryCellarIDsResponse): _6.QueryCellarIDsResponseAmino;
+            fromAminoMsg(object: _6.QueryCellarIDsResponseAminoMsg): _6.QueryCellarIDsResponse;
+            fromProtoMsg(message: _6.QueryCellarIDsResponseProtoMsg): _6.QueryCellarIDsResponse;
+            toProto(message: _6.QueryCellarIDsResponse): Uint8Array;
+            toProtoMsg(message: _6.QueryCellarIDsResponse): _6.QueryCellarIDsResponseProtoMsg;
         };
         QueryScheduledCorksRequest: {
-            encode(_: _6.QueryScheduledCorksRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _6.QueryScheduledCorksRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _6.QueryScheduledCorksRequest;
             fromPartial(_: Partial<_6.QueryScheduledCorksRequest>): _6.QueryScheduledCorksRequest;
+            fromAmino(_: _6.QueryScheduledCorksRequestAmino): _6.QueryScheduledCorksRequest;
+            toAmino(_: _6.QueryScheduledCorksRequest): _6.QueryScheduledCorksRequestAmino;
+            fromAminoMsg(object: _6.QueryScheduledCorksRequestAminoMsg): _6.QueryScheduledCorksRequest;
+            fromProtoMsg(message: _6.QueryScheduledCorksRequestProtoMsg): _6.QueryScheduledCorksRequest;
+            toProto(message: _6.QueryScheduledCorksRequest): Uint8Array;
+            toProtoMsg(message: _6.QueryScheduledCorksRequest): _6.QueryScheduledCorksRequestProtoMsg;
         };
         QueryScheduledCorksResponse: {
-            encode(message: _6.QueryScheduledCorksResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QueryScheduledCorksResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QueryScheduledCorksResponse;
             fromPartial(object: Partial<_6.QueryScheduledCorksResponse>): _6.QueryScheduledCorksResponse;
+            fromAmino(object: _6.QueryScheduledCorksResponseAmino): _6.QueryScheduledCorksResponse;
+            toAmino(message: _6.QueryScheduledCorksResponse): _6.QueryScheduledCorksResponseAmino;
+            fromAminoMsg(object: _6.QueryScheduledCorksResponseAminoMsg): _6.QueryScheduledCorksResponse;
+            fromProtoMsg(message: _6.QueryScheduledCorksResponseProtoMsg): _6.QueryScheduledCorksResponse;
+            toProto(message: _6.QueryScheduledCorksResponse): Uint8Array;
+            toProtoMsg(message: _6.QueryScheduledCorksResponse): _6.QueryScheduledCorksResponseProtoMsg;
         };
         QueryScheduledBlockHeightsRequest: {
-            encode(_: _6.QueryScheduledBlockHeightsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _6.QueryScheduledBlockHeightsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _6.QueryScheduledBlockHeightsRequest;
             fromPartial(_: Partial<_6.QueryScheduledBlockHeightsRequest>): _6.QueryScheduledBlockHeightsRequest;
+            fromAmino(_: _6.QueryScheduledBlockHeightsRequestAmino): _6.QueryScheduledBlockHeightsRequest;
+            toAmino(_: _6.QueryScheduledBlockHeightsRequest): _6.QueryScheduledBlockHeightsRequestAmino;
+            fromAminoMsg(object: _6.QueryScheduledBlockHeightsRequestAminoMsg): _6.QueryScheduledBlockHeightsRequest;
+            fromProtoMsg(message: _6.QueryScheduledBlockHeightsRequestProtoMsg): _6.QueryScheduledBlockHeightsRequest;
+            toProto(message: _6.QueryScheduledBlockHeightsRequest): Uint8Array;
+            toProtoMsg(message: _6.QueryScheduledBlockHeightsRequest): _6.QueryScheduledBlockHeightsRequestProtoMsg;
         };
         QueryScheduledBlockHeightsResponse: {
-            encode(message: _6.QueryScheduledBlockHeightsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QueryScheduledBlockHeightsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QueryScheduledBlockHeightsResponse;
             fromPartial(object: Partial<_6.QueryScheduledBlockHeightsResponse>): _6.QueryScheduledBlockHeightsResponse;
+            fromAmino(object: _6.QueryScheduledBlockHeightsResponseAmino): _6.QueryScheduledBlockHeightsResponse;
+            toAmino(message: _6.QueryScheduledBlockHeightsResponse): _6.QueryScheduledBlockHeightsResponseAmino;
+            fromAminoMsg(object: _6.QueryScheduledBlockHeightsResponseAminoMsg): _6.QueryScheduledBlockHeightsResponse;
+            fromProtoMsg(message: _6.QueryScheduledBlockHeightsResponseProtoMsg): _6.QueryScheduledBlockHeightsResponse;
+            toProto(message: _6.QueryScheduledBlockHeightsResponse): Uint8Array;
+            toProtoMsg(message: _6.QueryScheduledBlockHeightsResponse): _6.QueryScheduledBlockHeightsResponseProtoMsg;
         };
         QueryScheduledCorksByBlockHeightRequest: {
-            encode(message: _6.QueryScheduledCorksByBlockHeightRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QueryScheduledCorksByBlockHeightRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QueryScheduledCorksByBlockHeightRequest;
             fromPartial(object: Partial<_6.QueryScheduledCorksByBlockHeightRequest>): _6.QueryScheduledCorksByBlockHeightRequest;
+            fromAmino(object: _6.QueryScheduledCorksByBlockHeightRequestAmino): _6.QueryScheduledCorksByBlockHeightRequest;
+            toAmino(message: _6.QueryScheduledCorksByBlockHeightRequest): _6.QueryScheduledCorksByBlockHeightRequestAmino;
+            fromAminoMsg(object: _6.QueryScheduledCorksByBlockHeightRequestAminoMsg): _6.QueryScheduledCorksByBlockHeightRequest;
+            fromProtoMsg(message: _6.QueryScheduledCorksByBlockHeightRequestProtoMsg): _6.QueryScheduledCorksByBlockHeightRequest;
+            toProto(message: _6.QueryScheduledCorksByBlockHeightRequest): Uint8Array;
+            toProtoMsg(message: _6.QueryScheduledCorksByBlockHeightRequest): _6.QueryScheduledCorksByBlockHeightRequestProtoMsg;
         };
         QueryScheduledCorksByBlockHeightResponse: {
-            encode(message: _6.QueryScheduledCorksByBlockHeightResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QueryScheduledCorksByBlockHeightResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QueryScheduledCorksByBlockHeightResponse;
             fromPartial(object: Partial<_6.QueryScheduledCorksByBlockHeightResponse>): _6.QueryScheduledCorksByBlockHeightResponse;
+            fromAmino(object: _6.QueryScheduledCorksByBlockHeightResponseAmino): _6.QueryScheduledCorksByBlockHeightResponse;
+            toAmino(message: _6.QueryScheduledCorksByBlockHeightResponse): _6.QueryScheduledCorksByBlockHeightResponseAmino;
+            fromAminoMsg(object: _6.QueryScheduledCorksByBlockHeightResponseAminoMsg): _6.QueryScheduledCorksByBlockHeightResponse;
+            fromProtoMsg(message: _6.QueryScheduledCorksByBlockHeightResponseProtoMsg): _6.QueryScheduledCorksByBlockHeightResponse;
+            toProto(message: _6.QueryScheduledCorksByBlockHeightResponse): Uint8Array;
+            toProtoMsg(message: _6.QueryScheduledCorksByBlockHeightResponse): _6.QueryScheduledCorksByBlockHeightResponseProtoMsg;
         };
         AddManagedCellarIDsProposal: {
-            encode(message: _5.AddManagedCellarIDsProposal, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _5.AddManagedCellarIDsProposal, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _5.AddManagedCellarIDsProposal;
             fromPartial(object: Partial<_5.AddManagedCellarIDsProposal>): _5.AddManagedCellarIDsProposal;
+            fromAmino(object: _5.AddManagedCellarIDsProposalAmino): _5.AddManagedCellarIDsProposal;
+            toAmino(message: _5.AddManagedCellarIDsProposal): _5.AddManagedCellarIDsProposalAmino;
+            fromAminoMsg(object: _5.AddManagedCellarIDsProposalAminoMsg): _5.AddManagedCellarIDsProposal;
+            fromProtoMsg(message: _5.AddManagedCellarIDsProposalProtoMsg): _5.AddManagedCellarIDsProposal;
+            toProto(message: _5.AddManagedCellarIDsProposal): Uint8Array;
+            toProtoMsg(message: _5.AddManagedCellarIDsProposal): _5.AddManagedCellarIDsProposalProtoMsg;
         };
         AddManagedCellarIDsProposalWithDeposit: {
-            encode(message: _5.AddManagedCellarIDsProposalWithDeposit, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _5.AddManagedCellarIDsProposalWithDeposit, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _5.AddManagedCellarIDsProposalWithDeposit;
             fromPartial(object: Partial<_5.AddManagedCellarIDsProposalWithDeposit>): _5.AddManagedCellarIDsProposalWithDeposit;
+            fromAmino(object: _5.AddManagedCellarIDsProposalWithDepositAmino): _5.AddManagedCellarIDsProposalWithDeposit;
+            toAmino(message: _5.AddManagedCellarIDsProposalWithDeposit): _5.AddManagedCellarIDsProposalWithDepositAmino;
+            fromAminoMsg(object: _5.AddManagedCellarIDsProposalWithDepositAminoMsg): _5.AddManagedCellarIDsProposalWithDeposit;
+            fromProtoMsg(message: _5.AddManagedCellarIDsProposalWithDepositProtoMsg): _5.AddManagedCellarIDsProposalWithDeposit;
+            toProto(message: _5.AddManagedCellarIDsProposalWithDeposit): Uint8Array;
+            toProtoMsg(message: _5.AddManagedCellarIDsProposalWithDeposit): _5.AddManagedCellarIDsProposalWithDepositProtoMsg;
         };
         RemoveManagedCellarIDsProposal: {
-            encode(message: _5.RemoveManagedCellarIDsProposal, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _5.RemoveManagedCellarIDsProposal, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _5.RemoveManagedCellarIDsProposal;
             fromPartial(object: Partial<_5.RemoveManagedCellarIDsProposal>): _5.RemoveManagedCellarIDsProposal;
+            fromAmino(object: _5.RemoveManagedCellarIDsProposalAmino): _5.RemoveManagedCellarIDsProposal;
+            toAmino(message: _5.RemoveManagedCellarIDsProposal): _5.RemoveManagedCellarIDsProposalAmino;
+            fromAminoMsg(object: _5.RemoveManagedCellarIDsProposalAminoMsg): _5.RemoveManagedCellarIDsProposal;
+            fromProtoMsg(message: _5.RemoveManagedCellarIDsProposalProtoMsg): _5.RemoveManagedCellarIDsProposal;
+            toProto(message: _5.RemoveManagedCellarIDsProposal): Uint8Array;
+            toProtoMsg(message: _5.RemoveManagedCellarIDsProposal): _5.RemoveManagedCellarIDsProposalProtoMsg;
         };
         RemoveManagedCellarIDsProposalWithDeposit: {
-            encode(message: _5.RemoveManagedCellarIDsProposalWithDeposit, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _5.RemoveManagedCellarIDsProposalWithDeposit, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _5.RemoveManagedCellarIDsProposalWithDeposit;
             fromPartial(object: Partial<_5.RemoveManagedCellarIDsProposalWithDeposit>): _5.RemoveManagedCellarIDsProposalWithDeposit;
+            fromAmino(object: _5.RemoveManagedCellarIDsProposalWithDepositAmino): _5.RemoveManagedCellarIDsProposalWithDeposit;
+            toAmino(message: _5.RemoveManagedCellarIDsProposalWithDeposit): _5.RemoveManagedCellarIDsProposalWithDepositAmino;
+            fromAminoMsg(object: _5.RemoveManagedCellarIDsProposalWithDepositAminoMsg): _5.RemoveManagedCellarIDsProposalWithDeposit;
+            fromProtoMsg(message: _5.RemoveManagedCellarIDsProposalWithDepositProtoMsg): _5.RemoveManagedCellarIDsProposalWithDeposit;
+            toProto(message: _5.RemoveManagedCellarIDsProposalWithDeposit): Uint8Array;
+            toProtoMsg(message: _5.RemoveManagedCellarIDsProposalWithDeposit): _5.RemoveManagedCellarIDsProposalWithDepositProtoMsg;
         };
         GenesisState: {
-            encode(message: _4.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _4.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _4.GenesisState;
             fromPartial(object: Partial<_4.GenesisState>): _4.GenesisState;
+            fromAmino(object: _4.GenesisStateAmino): _4.GenesisState;
+            toAmino(message: _4.GenesisState): _4.GenesisStateAmino;
+            fromAminoMsg(object: _4.GenesisStateAminoMsg): _4.GenesisState;
+            fromProtoMsg(message: _4.GenesisStateProtoMsg): _4.GenesisState;
+            toProto(message: _4.GenesisState): Uint8Array;
+            toProtoMsg(message: _4.GenesisState): _4.GenesisStateProtoMsg;
         };
         Params: {
-            encode(message: _4.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _4.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _4.Params;
             fromPartial(object: Partial<_4.Params>): _4.Params;
+            fromAmino(object: _4.ParamsAmino): _4.Params;
+            toAmino(message: _4.Params): _4.ParamsAmino;
+            fromAminoMsg(object: _4.ParamsAminoMsg): _4.Params;
+            fromProtoMsg(message: _4.ParamsProtoMsg): _4.Params;
+            toProto(message: _4.Params): Uint8Array;
+            toProtoMsg(message: _4.Params): _4.ParamsProtoMsg;
         };
         Cork: {
-            encode(message: _3.Cork, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _3.Cork, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _3.Cork;
             fromPartial(object: Partial<_3.Cork>): _3.Cork;
+            fromAmino(object: _3.CorkAmino): _3.Cork;
+            toAmino(message: _3.Cork): _3.CorkAmino;
+            fromAminoMsg(object: _3.CorkAminoMsg): _3.Cork;
+            fromProtoMsg(message: _3.CorkProtoMsg): _3.Cork;
+            toProto(message: _3.Cork): Uint8Array;
+            toProtoMsg(message: _3.Cork): _3.CorkProtoMsg;
         };
         ValidatorCork: {
-            encode(message: _3.ValidatorCork, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _3.ValidatorCork, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _3.ValidatorCork;
             fromPartial(object: Partial<_3.ValidatorCork>): _3.ValidatorCork;
+            fromAmino(object: _3.ValidatorCorkAmino): _3.ValidatorCork;
+            toAmino(message: _3.ValidatorCork): _3.ValidatorCorkAmino;
+            fromAminoMsg(object: _3.ValidatorCorkAminoMsg): _3.ValidatorCork;
+            fromProtoMsg(message: _3.ValidatorCorkProtoMsg): _3.ValidatorCork;
+            toProto(message: _3.ValidatorCork): Uint8Array;
+            toProtoMsg(message: _3.ValidatorCork): _3.ValidatorCorkProtoMsg;
         };
         ScheduledCork: {
-            encode(message: _3.ScheduledCork, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _3.ScheduledCork, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _3.ScheduledCork;
             fromPartial(object: Partial<_3.ScheduledCork>): _3.ScheduledCork;
+            fromAmino(object: _3.ScheduledCorkAmino): _3.ScheduledCork;
+            toAmino(message: _3.ScheduledCork): _3.ScheduledCorkAmino;
+            fromAminoMsg(object: _3.ScheduledCorkAminoMsg): _3.ScheduledCork;
+            fromProtoMsg(message: _3.ScheduledCorkProtoMsg): _3.ScheduledCork;
+            toProto(message: _3.ScheduledCork): Uint8Array;
+            toProtoMsg(message: _3.ScheduledCork): _3.ScheduledCorkProtoMsg;
         };
         CellarIDSet: {
-            encode(message: _3.CellarIDSet, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _3.CellarIDSet, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _3.CellarIDSet;
             fromPartial(object: Partial<_3.CellarIDSet>): _3.CellarIDSet;
+            fromAmino(object: _3.CellarIDSetAmino): _3.CellarIDSet;
+            toAmino(message: _3.CellarIDSet): _3.CellarIDSetAmino;
+            fromAminoMsg(object: _3.CellarIDSetAminoMsg): _3.CellarIDSet;
+            fromProtoMsg(message: _3.CellarIDSetProtoMsg): _3.CellarIDSet;
+            toProto(message: _3.CellarIDSet): Uint8Array;
+            toProtoMsg(message: _3.CellarIDSet): _3.CellarIDSetProtoMsg;
         };
     };
     const ClientFactory: {

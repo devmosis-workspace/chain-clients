@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgCreateEscrow, MsgCreateEscrowResponse, MsgUpdateEscrow, MsgUpdateEscrowResponse, MsgTransferToEscrow, MsgTransferToEscrowResponse, MsgRefundEscrow, MsgRefundEscrowResponse } from "./tx";
 /** Msg defines the escrow Msg service */
 export interface Msg {
@@ -30,21 +30,21 @@ export class MsgClientImpl implements Msg {
   createEscrow(request: MsgCreateEscrow): Promise<MsgCreateEscrowResponse> {
     const data = MsgCreateEscrow.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.escrow.v1beta1.Msg", "CreateEscrow", data);
-    return promise.then(data => MsgCreateEscrowResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateEscrowResponse.decode(new BinaryReader(data)));
   }
   updateEscrow(request: MsgUpdateEscrow): Promise<MsgUpdateEscrowResponse> {
     const data = MsgUpdateEscrow.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.escrow.v1beta1.Msg", "UpdateEscrow", data);
-    return promise.then(data => MsgUpdateEscrowResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateEscrowResponse.decode(new BinaryReader(data)));
   }
   transferToEscrow(request: MsgTransferToEscrow): Promise<MsgTransferToEscrowResponse> {
     const data = MsgTransferToEscrow.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.escrow.v1beta1.Msg", "TransferToEscrow", data);
-    return promise.then(data => MsgTransferToEscrowResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgTransferToEscrowResponse.decode(new BinaryReader(data)));
   }
   refundEscrow(request: MsgRefundEscrow): Promise<MsgRefundEscrowResponse> {
     const data = MsgRefundEscrow.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.escrow.v1beta1.Msg", "RefundEscrow", data);
-    return promise.then(data => MsgRefundEscrowResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRefundEscrowResponse.decode(new BinaryReader(data)));
   }
 }

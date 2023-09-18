@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryDeployedCosmosCoinContractsRequest, QueryDeployedCosmosCoinContractsResponse } from "./query";
 /** Query defines the gRPC querier service for evmutil module */
@@ -19,12 +19,12 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.evmutil.v1beta1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   deployedCosmosCoinContracts(request: QueryDeployedCosmosCoinContractsRequest): Promise<QueryDeployedCosmosCoinContractsResponse> {
     const data = QueryDeployedCosmosCoinContractsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.evmutil.v1beta1.Query", "DeployedCosmosCoinContracts", data);
-    return promise.then(data => QueryDeployedCosmosCoinContractsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDeployedCosmosCoinContractsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

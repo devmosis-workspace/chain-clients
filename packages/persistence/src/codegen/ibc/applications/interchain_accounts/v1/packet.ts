@@ -1,5 +1,5 @@
-import { Any, AnySDKType } from "../../../../google/protobuf/any";
-import * as _m0 from "protobufjs/minimal";
+import { Any, AnyAmino, AnySDKType } from "../../../../google/protobuf/any";
+import { BinaryWriter } from "../../../../binary";
 import { isSet, bytesFromBase64 } from "../../../../helpers";
 /**
  * Type defines a classification of message issued from a controller chain to its associated interchain accounts
@@ -13,6 +13,7 @@ export enum Type {
   UNRECOGNIZED = -1,
 }
 export const TypeSDKType = Type;
+export const TypeAmino = Type;
 export function typeFromJSON(object: any): Type {
   switch (object) {
     case 0:
@@ -44,6 +45,20 @@ export interface InterchainAccountPacketData {
   data: Uint8Array;
   memo: string;
 }
+export interface InterchainAccountPacketDataProtoMsg {
+  typeUrl: "/ibc.applications.interchain_accounts.v1.InterchainAccountPacketData";
+  value: Uint8Array;
+}
+/** InterchainAccountPacketData is comprised of a raw transaction, type of transaction and optional memo field. */
+export interface InterchainAccountPacketDataAmino {
+  type: Type;
+  data: Uint8Array;
+  memo: string;
+}
+export interface InterchainAccountPacketDataAminoMsg {
+  type: "cosmos-sdk/InterchainAccountPacketData";
+  value: InterchainAccountPacketDataAmino;
+}
 /** InterchainAccountPacketData is comprised of a raw transaction, type of transaction and optional memo field. */
 export interface InterchainAccountPacketDataSDKType {
   type: Type;
@@ -53,6 +68,18 @@ export interface InterchainAccountPacketDataSDKType {
 /** CosmosTx contains a list of sdk.Msg's. It should be used when sending transactions to an SDK host chain. */
 export interface CosmosTx {
   messages: Any[];
+}
+export interface CosmosTxProtoMsg {
+  typeUrl: "/ibc.applications.interchain_accounts.v1.CosmosTx";
+  value: Uint8Array;
+}
+/** CosmosTx contains a list of sdk.Msg's. It should be used when sending transactions to an SDK host chain. */
+export interface CosmosTxAmino {
+  messages: AnyAmino[];
+}
+export interface CosmosTxAminoMsg {
+  type: "cosmos-sdk/CosmosTx";
+  value: CosmosTxAmino;
 }
 /** CosmosTx contains a list of sdk.Msg's. It should be used when sending transactions to an SDK host chain. */
 export interface CosmosTxSDKType {
@@ -66,7 +93,8 @@ function createBaseInterchainAccountPacketData(): InterchainAccountPacketData {
   };
 }
 export const InterchainAccountPacketData = {
-  encode(message: InterchainAccountPacketData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/ibc.applications.interchain_accounts.v1.InterchainAccountPacketData",
+  encode(message: InterchainAccountPacketData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
     }
@@ -80,7 +108,7 @@ export const InterchainAccountPacketData = {
   },
   fromJSON(object: any): InterchainAccountPacketData {
     return {
-      type: isSet(object.type) ? typeFromJSON(object.type) : 0,
+      type: isSet(object.type) ? typeFromJSON(object.type) : -1,
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
       memo: isSet(object.memo) ? String(object.memo) : ""
     };
@@ -91,6 +119,41 @@ export const InterchainAccountPacketData = {
     message.data = object.data ?? new Uint8Array();
     message.memo = object.memo ?? "";
     return message;
+  },
+  fromAmino(object: InterchainAccountPacketDataAmino): InterchainAccountPacketData {
+    return {
+      type: isSet(object.type) ? typeFromJSON(object.type) : -1,
+      data: object.data,
+      memo: object.memo
+    };
+  },
+  toAmino(message: InterchainAccountPacketData): InterchainAccountPacketDataAmino {
+    const obj: any = {};
+    obj.type = message.type;
+    obj.data = message.data;
+    obj.memo = message.memo;
+    return obj;
+  },
+  fromAminoMsg(object: InterchainAccountPacketDataAminoMsg): InterchainAccountPacketData {
+    return InterchainAccountPacketData.fromAmino(object.value);
+  },
+  toAminoMsg(message: InterchainAccountPacketData): InterchainAccountPacketDataAminoMsg {
+    return {
+      type: "cosmos-sdk/InterchainAccountPacketData",
+      value: InterchainAccountPacketData.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: InterchainAccountPacketDataProtoMsg): InterchainAccountPacketData {
+    return InterchainAccountPacketData.decode(message.value);
+  },
+  toProto(message: InterchainAccountPacketData): Uint8Array {
+    return InterchainAccountPacketData.encode(message).finish();
+  },
+  toProtoMsg(message: InterchainAccountPacketData): InterchainAccountPacketDataProtoMsg {
+    return {
+      typeUrl: "/ibc.applications.interchain_accounts.v1.InterchainAccountPacketData",
+      value: InterchainAccountPacketData.encode(message).finish()
+    };
   }
 };
 function createBaseCosmosTx(): CosmosTx {
@@ -99,7 +162,8 @@ function createBaseCosmosTx(): CosmosTx {
   };
 }
 export const CosmosTx = {
-  encode(message: CosmosTx, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/ibc.applications.interchain_accounts.v1.CosmosTx",
+  encode(message: CosmosTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.messages) {
       Any.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -114,5 +178,40 @@ export const CosmosTx = {
     const message = createBaseCosmosTx();
     message.messages = object.messages?.map(e => Any.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: CosmosTxAmino): CosmosTx {
+    return {
+      messages: Array.isArray(object?.messages) ? object.messages.map((e: any) => Any.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: CosmosTx): CosmosTxAmino {
+    const obj: any = {};
+    if (message.messages) {
+      obj.messages = message.messages.map(e => e ? Any.toAmino(e) : undefined);
+    } else {
+      obj.messages = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: CosmosTxAminoMsg): CosmosTx {
+    return CosmosTx.fromAmino(object.value);
+  },
+  toAminoMsg(message: CosmosTx): CosmosTxAminoMsg {
+    return {
+      type: "cosmos-sdk/CosmosTx",
+      value: CosmosTx.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: CosmosTxProtoMsg): CosmosTx {
+    return CosmosTx.decode(message.value);
+  },
+  toProto(message: CosmosTx): Uint8Array {
+    return CosmosTx.encode(message).finish();
+  },
+  toProtoMsg(message: CosmosTx): CosmosTxProtoMsg {
+    return {
+      typeUrl: "/ibc.applications.interchain_accounts.v1.CosmosTx",
+      value: CosmosTx.encode(message).finish()
+    };
   }
 };

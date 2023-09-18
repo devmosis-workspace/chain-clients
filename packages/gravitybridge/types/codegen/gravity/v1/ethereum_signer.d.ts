@@ -9,5 +9,6 @@ export declare enum SignType {
     UNRECOGNIZED = -1
 }
 export declare const SignTypeSDKType: typeof SignType;
+export declare const SignTypeAmino: typeof SignType;
 export declare function signTypeFromJSON(object: any): SignType;
 export declare function signTypeToJSON(object: SignType): string;

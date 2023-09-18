@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryCommitteesRequest, QueryCommitteesResponse, QueryCommitteeRequest, QueryCommitteeResponse, QueryProposalsRequest, QueryProposalsResponse, QueryProposalRequest, QueryProposalResponse, QueryNextProposalIDRequest, QueryNextProposalIDResponse, QueryVotesRequest, QueryVotesResponse, QueryVoteRequest, QueryVoteResponse, QueryTallyRequest, QueryTallyResponse, QueryRawParamsRequest, QueryRawParamsResponse } from "./query";
 /** Query defines the gRPC querier service for committee module */
@@ -40,47 +40,47 @@ export class QueryClientImpl implements Query {
   committees(request: QueryCommitteesRequest = {}): Promise<QueryCommitteesResponse> {
     const data = QueryCommitteesRequest.encode(request).finish();
     const promise = this.rpc.request("kava.committee.v1beta1.Query", "Committees", data);
-    return promise.then(data => QueryCommitteesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCommitteesResponse.decode(new BinaryReader(data)));
   }
   committee(request: QueryCommitteeRequest): Promise<QueryCommitteeResponse> {
     const data = QueryCommitteeRequest.encode(request).finish();
     const promise = this.rpc.request("kava.committee.v1beta1.Query", "Committee", data);
-    return promise.then(data => QueryCommitteeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCommitteeResponse.decode(new BinaryReader(data)));
   }
   proposals(request: QueryProposalsRequest): Promise<QueryProposalsResponse> {
     const data = QueryProposalsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.committee.v1beta1.Query", "Proposals", data);
-    return promise.then(data => QueryProposalsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryProposalsResponse.decode(new BinaryReader(data)));
   }
   proposal(request: QueryProposalRequest): Promise<QueryProposalResponse> {
     const data = QueryProposalRequest.encode(request).finish();
     const promise = this.rpc.request("kava.committee.v1beta1.Query", "Proposal", data);
-    return promise.then(data => QueryProposalResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryProposalResponse.decode(new BinaryReader(data)));
   }
   nextProposalID(request: QueryNextProposalIDRequest = {}): Promise<QueryNextProposalIDResponse> {
     const data = QueryNextProposalIDRequest.encode(request).finish();
     const promise = this.rpc.request("kava.committee.v1beta1.Query", "NextProposalID", data);
-    return promise.then(data => QueryNextProposalIDResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryNextProposalIDResponse.decode(new BinaryReader(data)));
   }
   votes(request: QueryVotesRequest): Promise<QueryVotesResponse> {
     const data = QueryVotesRequest.encode(request).finish();
     const promise = this.rpc.request("kava.committee.v1beta1.Query", "Votes", data);
-    return promise.then(data => QueryVotesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryVotesResponse.decode(new BinaryReader(data)));
   }
   vote(request: QueryVoteRequest): Promise<QueryVoteResponse> {
     const data = QueryVoteRequest.encode(request).finish();
     const promise = this.rpc.request("kava.committee.v1beta1.Query", "Vote", data);
-    return promise.then(data => QueryVoteResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryVoteResponse.decode(new BinaryReader(data)));
   }
   tally(request: QueryTallyRequest): Promise<QueryTallyResponse> {
     const data = QueryTallyRequest.encode(request).finish();
     const promise = this.rpc.request("kava.committee.v1beta1.Query", "Tally", data);
-    return promise.then(data => QueryTallyResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTallyResponse.decode(new BinaryReader(data)));
   }
   rawParams(request: QueryRawParamsRequest): Promise<QueryRawParamsResponse> {
     const data = QueryRawParamsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.committee.v1beta1.Query", "RawParams", data);
-    return promise.then(data => QueryRawParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRawParamsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

@@ -1,25 +1,44 @@
-import { Params, ParamsSDKType } from "./params";
-import { Long } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { BinaryWriter } from "../../../binary";
 /**
  * EventUpdateParams is an event emitted when the module parameters are updated.
  * emitted_by: MsgUpdateParams
  */
 export interface EventUpdateParams {
     /** old_params is the module's old parameters. */
-    oldParams?: Params;
+    oldParams: Params;
     /** new_params is the module's new parameters. */
-    newParams?: Params;
+    newParams: Params;
     /** payload is the parameter updates that were performed. */
     payload: string;
+}
+export interface EventUpdateParamsProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.EventUpdateParams";
+    value: Uint8Array;
+}
+/**
+ * EventUpdateParams is an event emitted when the module parameters are updated.
+ * emitted_by: MsgUpdateParams
+ */
+export interface EventUpdateParamsAmino {
+    /** old_params is the module's old parameters. */
+    old_params?: ParamsAmino;
+    /** new_params is the module's new parameters. */
+    new_params?: ParamsAmino;
+    /** payload is the parameter updates that were performed. */
+    payload: string;
+}
+export interface EventUpdateParamsAminoMsg {
+    type: "/kyve.pool.v1beta1.EventUpdateParams";
+    value: EventUpdateParamsAmino;
 }
 /**
  * EventUpdateParams is an event emitted when the module parameters are updated.
  * emitted_by: MsgUpdateParams
  */
 export interface EventUpdateParamsSDKType {
-    old_params?: ParamsSDKType;
-    new_params?: ParamsSDKType;
+    old_params: ParamsSDKType;
+    new_params: ParamsSDKType;
     payload: string;
 }
 /**
@@ -28,7 +47,7 @@ export interface EventUpdateParamsSDKType {
  */
 export interface EventCreatePool {
     /** id is the unique ID of the pool. */
-    id: Long;
+    id: bigint;
     /** name is the human readable name of the pool */
     name: string;
     /** runtime is the runtime name of the pool */
@@ -49,22 +68,22 @@ export interface EventCreatePool {
      * upload_interval is the interval the pool should validate
      * bundles with
      */
-    uploadInterval: Long;
+    uploadInterval: bigint;
     /**
      * operating_cost is the fixed cost which gets paid out
      * to every successful uploader
      */
-    operatingCost: Long;
+    operatingCost: bigint;
     /**
      * min_delegation is the minimum amount of $KYVE the pool has
      * to have in order to produce bundles
      */
-    minDelegation: Long;
+    minDelegation: bigint;
     /**
      * max_bundle_size is the max size a data bundle can have
      * (amount of data items)
      */
-    maxBundleSize: Long;
+    maxBundleSize: bigint;
     /** version is the current version of the protocol nodes */
     version: string;
     /** binaries points to the current binaries of the protocol node */
@@ -80,21 +99,87 @@ export interface EventCreatePool {
      */
     compressionId: number;
 }
+export interface EventCreatePoolProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.EventCreatePool";
+    value: Uint8Array;
+}
+/**
+ * EventCreatePool ...
+ * emitted_by: EndBlock(gov)
+ */
+export interface EventCreatePoolAmino {
+    /** id is the unique ID of the pool. */
+    id: string;
+    /** name is the human readable name of the pool */
+    name: string;
+    /** runtime is the runtime name of the pool */
+    runtime: string;
+    /** logo is the logo url of the pool */
+    logo: string;
+    /**
+     * config is either a json stringified config or an
+     * external link pointing to the config
+     */
+    config: string;
+    /**
+     * start_key is the first key the pool should start
+     * indexing
+     */
+    start_key: string;
+    /**
+     * upload_interval is the interval the pool should validate
+     * bundles with
+     */
+    upload_interval: string;
+    /**
+     * operating_cost is the fixed cost which gets paid out
+     * to every successful uploader
+     */
+    operating_cost: string;
+    /**
+     * min_delegation is the minimum amount of $KYVE the pool has
+     * to have in order to produce bundles
+     */
+    min_delegation: string;
+    /**
+     * max_bundle_size is the max size a data bundle can have
+     * (amount of data items)
+     */
+    max_bundle_size: string;
+    /** version is the current version of the protocol nodes */
+    version: string;
+    /** binaries points to the current binaries of the protocol node */
+    binaries: string;
+    /**
+     * storage_provider_id is the unique id of the storage provider
+     * the pool is archiving the data on
+     */
+    storage_provider_id: number;
+    /**
+     * compression_id is the unique id of the compression type the bundles
+     * get compressed with
+     */
+    compression_id: number;
+}
+export interface EventCreatePoolAminoMsg {
+    type: "/kyve.pool.v1beta1.EventCreatePool";
+    value: EventCreatePoolAmino;
+}
 /**
  * EventCreatePool ...
  * emitted_by: EndBlock(gov)
  */
 export interface EventCreatePoolSDKType {
-    id: Long;
+    id: bigint;
     name: string;
     runtime: string;
     logo: string;
     config: string;
     start_key: string;
-    upload_interval: Long;
-    operating_cost: Long;
-    min_delegation: Long;
-    max_bundle_size: Long;
+    upload_interval: bigint;
+    operating_cost: bigint;
+    min_delegation: bigint;
+    max_bundle_size: bigint;
     version: string;
     binaries: string;
     storage_provider_id: number;
@@ -106,14 +191,30 @@ export interface EventCreatePoolSDKType {
  */
 export interface EventPoolEnabled {
     /** id is the unique ID of the affected pool. */
-    id: Long;
+    id: bigint;
+}
+export interface EventPoolEnabledProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.EventPoolEnabled";
+    value: Uint8Array;
+}
+/**
+ * EventPoolEnabled ...
+ * emitted_by: EndBlock(gov)
+ */
+export interface EventPoolEnabledAmino {
+    /** id is the unique ID of the affected pool. */
+    id: string;
+}
+export interface EventPoolEnabledAminoMsg {
+    type: "/kyve.pool.v1beta1.EventPoolEnabled";
+    value: EventPoolEnabledAmino;
 }
 /**
  * EventPoolEnabled ...
  * emitted_by: EndBlock(gov)
  */
 export interface EventPoolEnabledSDKType {
-    id: Long;
+    id: bigint;
 }
 /**
  * EventPoolDisabled ...
@@ -121,14 +222,30 @@ export interface EventPoolEnabledSDKType {
  */
 export interface EventPoolDisabled {
     /** id is the unique ID of the affected pool. */
-    id: Long;
+    id: bigint;
+}
+export interface EventPoolDisabledProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.EventPoolDisabled";
+    value: Uint8Array;
+}
+/**
+ * EventPoolDisabled ...
+ * emitted_by: EndBlock(gov)
+ */
+export interface EventPoolDisabledAmino {
+    /** id is the unique ID of the affected pool. */
+    id: string;
+}
+export interface EventPoolDisabledAminoMsg {
+    type: "/kyve.pool.v1beta1.EventPoolDisabled";
+    value: EventPoolDisabledAmino;
 }
 /**
  * EventPoolDisabled ...
  * emitted_by: EndBlock(gov)
  */
 export interface EventPoolDisabledSDKType {
-    id: Long;
+    id: bigint;
 }
 /**
  * EventRuntimeUpgradeScheduled ...
@@ -140,17 +257,47 @@ export interface EventRuntimeUpgradeScheduled {
     /** version is the new version that the runtime will be upgraded to. */
     version: string;
     /** scheduled_at is the time in UNIX seconds when the upgrade will occur. */
-    scheduledAt: Long;
+    scheduledAt: bigint;
     /**
      * duration is the amount of seconds the pool will be paused after the
      * scheduled time is reached. This will give node operators time to upgrade
      * their node.
      */
-    duration: Long;
+    duration: bigint;
     /** binaries contain download links for prebuilt binaries (in JSON format). */
     binaries: string;
     /** affected_pools contains all IDs of pools that will be affected by this runtime upgrade. */
-    affectedPools: Long[];
+    affectedPools: bigint[];
+}
+export interface EventRuntimeUpgradeScheduledProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.EventRuntimeUpgradeScheduled";
+    value: Uint8Array;
+}
+/**
+ * EventRuntimeUpgradeScheduled ...
+ * emitted_by: EndBlock(gov)
+ */
+export interface EventRuntimeUpgradeScheduledAmino {
+    /** runtime is the name of the runtime that will be upgraded. */
+    runtime: string;
+    /** version is the new version that the runtime will be upgraded to. */
+    version: string;
+    /** scheduled_at is the time in UNIX seconds when the upgrade will occur. */
+    scheduled_at: string;
+    /**
+     * duration is the amount of seconds the pool will be paused after the
+     * scheduled time is reached. This will give node operators time to upgrade
+     * their node.
+     */
+    duration: string;
+    /** binaries contain download links for prebuilt binaries (in JSON format). */
+    binaries: string;
+    /** affected_pools contains all IDs of pools that will be affected by this runtime upgrade. */
+    affected_pools: string[];
+}
+export interface EventRuntimeUpgradeScheduledAminoMsg {
+    type: "/kyve.pool.v1beta1.EventRuntimeUpgradeScheduled";
+    value: EventRuntimeUpgradeScheduledAmino;
 }
 /**
  * EventRuntimeUpgradeScheduled ...
@@ -159,10 +306,10 @@ export interface EventRuntimeUpgradeScheduled {
 export interface EventRuntimeUpgradeScheduledSDKType {
     runtime: string;
     version: string;
-    scheduled_at: Long;
-    duration: Long;
+    scheduled_at: bigint;
+    duration: bigint;
     binaries: string;
-    affected_pools: Long[];
+    affected_pools: bigint[];
 }
 /**
  * EventRuntimeUpgradeCancelled ...
@@ -175,7 +322,28 @@ export interface EventRuntimeUpgradeCancelled {
      * affected_pools contains all IDs of pools that are affected by the
      * cancellation of this runtime upgrade.
      */
-    affectedPools: Long[];
+    affectedPools: bigint[];
+}
+export interface EventRuntimeUpgradeCancelledProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.EventRuntimeUpgradeCancelled";
+    value: Uint8Array;
+}
+/**
+ * EventRuntimeUpgradeCancelled ...
+ * emitted_by: EndBlock(gov)
+ */
+export interface EventRuntimeUpgradeCancelledAmino {
+    /** runtime is the name of the runtime that will be upgraded. */
+    runtime: string;
+    /**
+     * affected_pools contains all IDs of pools that are affected by the
+     * cancellation of this runtime upgrade.
+     */
+    affected_pools: string[];
+}
+export interface EventRuntimeUpgradeCancelledAminoMsg {
+    type: "/kyve.pool.v1beta1.EventRuntimeUpgradeCancelled";
+    value: EventRuntimeUpgradeCancelledAmino;
 }
 /**
  * EventRuntimeUpgradeCancelled ...
@@ -183,7 +351,7 @@ export interface EventRuntimeUpgradeCancelled {
  */
 export interface EventRuntimeUpgradeCancelledSDKType {
     runtime: string;
-    affected_pools: Long[];
+    affected_pools: bigint[];
 }
 /**
  * EventPoolUpdated ...
@@ -191,7 +359,7 @@ export interface EventRuntimeUpgradeCancelledSDKType {
  */
 export interface EventPoolUpdated {
     /** id is the unique ID of the pool. */
-    id: Long;
+    id: bigint;
     /** raw update string */
     rawUpdateString: string;
     /** name is the human readable name of the pool */
@@ -209,22 +377,22 @@ export interface EventPoolUpdated {
      * upload_interval is the interval the pool should validate
      * bundles with
      */
-    uploadInterval: Long;
+    uploadInterval: bigint;
     /**
      * operating_cost is the fixed cost which gets paid out
      * to every successful uploader
      */
-    operatingCost: Long;
+    operatingCost: bigint;
     /**
      * min_delegation is the minimum amount of $KYVE the pool has
      * to have in order to produce bundles
      */
-    minDelegation: Long;
+    minDelegation: bigint;
     /**
      * max_bundle_size is the max size a data bundle can have
      * (amount of data items)
      */
-    maxBundleSize: Long;
+    maxBundleSize: bigint;
     /**
      * storage_provider_id is the unique id of the storage provider
      * the pool is archiving the data on
@@ -236,21 +404,80 @@ export interface EventPoolUpdated {
      */
     compressionId: number;
 }
+export interface EventPoolUpdatedProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.EventPoolUpdated";
+    value: Uint8Array;
+}
+/**
+ * EventPoolUpdated ...
+ * emitted_by: EndBlock(gov)
+ */
+export interface EventPoolUpdatedAmino {
+    /** id is the unique ID of the pool. */
+    id: string;
+    /** raw update string */
+    raw_update_string: string;
+    /** name is the human readable name of the pool */
+    name: string;
+    /** runtime is the runtime name of the pool */
+    runtime: string;
+    /** logo is the logo url of the pool */
+    logo: string;
+    /**
+     * config is either a json stringified config or an
+     * external link pointing to the config
+     */
+    config: string;
+    /**
+     * upload_interval is the interval the pool should validate
+     * bundles with
+     */
+    upload_interval: string;
+    /**
+     * operating_cost is the fixed cost which gets paid out
+     * to every successful uploader
+     */
+    operating_cost: string;
+    /**
+     * min_delegation is the minimum amount of $KYVE the pool has
+     * to have in order to produce bundles
+     */
+    min_delegation: string;
+    /**
+     * max_bundle_size is the max size a data bundle can have
+     * (amount of data items)
+     */
+    max_bundle_size: string;
+    /**
+     * storage_provider_id is the unique id of the storage provider
+     * the pool is archiving the data on
+     */
+    storage_provider_id: number;
+    /**
+     * compression_id is the unique id of the compression type the bundles
+     * get compressed with
+     */
+    compression_id: number;
+}
+export interface EventPoolUpdatedAminoMsg {
+    type: "/kyve.pool.v1beta1.EventPoolUpdated";
+    value: EventPoolUpdatedAmino;
+}
 /**
  * EventPoolUpdated ...
  * emitted_by: EndBlock(gov)
  */
 export interface EventPoolUpdatedSDKType {
-    id: Long;
+    id: bigint;
     raw_update_string: string;
     name: string;
     runtime: string;
     logo: string;
     config: string;
-    upload_interval: Long;
-    operating_cost: Long;
-    min_delegation: Long;
-    max_bundle_size: Long;
+    upload_interval: bigint;
+    operating_cost: bigint;
+    min_delegation: bigint;
+    max_bundle_size: bigint;
     storage_provider_id: number;
     compression_id: number;
 }
@@ -260,20 +487,40 @@ export interface EventPoolUpdatedSDKType {
  */
 export interface EventFundPool {
     /** pool_id is the unique ID of the pool. */
-    poolId: Long;
+    poolId: bigint;
     /** address is the account address of the pool funder. */
     address: string;
     /** amount is the amount in ukyve the funder has funded */
-    amount: Long;
+    amount: bigint;
+}
+export interface EventFundPoolProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.EventFundPool";
+    value: Uint8Array;
+}
+/**
+ * EventFundPool is an event emitted when a pool is funded.
+ * emitted_by: MsgFundPool
+ */
+export interface EventFundPoolAmino {
+    /** pool_id is the unique ID of the pool. */
+    pool_id: string;
+    /** address is the account address of the pool funder. */
+    address: string;
+    /** amount is the amount in ukyve the funder has funded */
+    amount: string;
+}
+export interface EventFundPoolAminoMsg {
+    type: "/kyve.pool.v1beta1.EventFundPool";
+    value: EventFundPoolAmino;
 }
 /**
  * EventFundPool is an event emitted when a pool is funded.
  * emitted_by: MsgFundPool
  */
 export interface EventFundPoolSDKType {
-    pool_id: Long;
+    pool_id: bigint;
     address: string;
-    amount: Long;
+    amount: bigint;
 }
 /**
  * EventDefundPool is an event emitted when a pool is defunded.
@@ -281,20 +528,40 @@ export interface EventFundPoolSDKType {
  */
 export interface EventDefundPool {
     /** pool_id is the unique ID of the pool. */
-    poolId: Long;
+    poolId: bigint;
     /** address is the account address of the pool funder. */
     address: string;
     /** amount is the amount in ukyve the funder has defunded */
-    amount: Long;
+    amount: bigint;
+}
+export interface EventDefundPoolProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.EventDefundPool";
+    value: Uint8Array;
+}
+/**
+ * EventDefundPool is an event emitted when a pool is defunded.
+ * emitted_by: MsgDefundPool
+ */
+export interface EventDefundPoolAmino {
+    /** pool_id is the unique ID of the pool. */
+    pool_id: string;
+    /** address is the account address of the pool funder. */
+    address: string;
+    /** amount is the amount in ukyve the funder has defunded */
+    amount: string;
+}
+export interface EventDefundPoolAminoMsg {
+    type: "/kyve.pool.v1beta1.EventDefundPool";
+    value: EventDefundPoolAmino;
 }
 /**
  * EventDefundPool is an event emitted when a pool is defunded.
  * emitted_by: MsgDefundPool
  */
 export interface EventDefundPoolSDKType {
-    pool_id: Long;
+    pool_id: bigint;
     address: string;
-    amount: Long;
+    amount: bigint;
 }
 /**
  * EventDefundPool is an event emitted when a pool is defunded.
@@ -302,20 +569,40 @@ export interface EventDefundPoolSDKType {
  */
 export interface EventPoolFundsSlashed {
     /** pool_id is the unique ID of the pool. */
-    poolId: Long;
+    poolId: bigint;
     /** address is the account address of the pool funder. */
     address: string;
     /** amount is the amount in ukyve the validator has lost due to the slash */
-    amount: Long;
+    amount: bigint;
+}
+export interface EventPoolFundsSlashedProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.EventPoolFundsSlashed";
+    value: Uint8Array;
+}
+/**
+ * EventDefundPool is an event emitted when a pool is defunded.
+ * emitted_by: MsgSubmitBundleProposal
+ */
+export interface EventPoolFundsSlashedAmino {
+    /** pool_id is the unique ID of the pool. */
+    pool_id: string;
+    /** address is the account address of the pool funder. */
+    address: string;
+    /** amount is the amount in ukyve the validator has lost due to the slash */
+    amount: string;
+}
+export interface EventPoolFundsSlashedAminoMsg {
+    type: "/kyve.pool.v1beta1.EventPoolFundsSlashed";
+    value: EventPoolFundsSlashedAmino;
 }
 /**
  * EventDefundPool is an event emitted when a pool is defunded.
  * emitted_by: MsgSubmitBundleProposal
  */
 export interface EventPoolFundsSlashedSDKType {
-    pool_id: Long;
+    pool_id: bigint;
     address: string;
-    amount: Long;
+    amount: bigint;
 }
 /**
  * EventPoolOutOfFunds is an event emitted when a pool has run out of funds
@@ -323,67 +610,160 @@ export interface EventPoolFundsSlashedSDKType {
  */
 export interface EventPoolOutOfFunds {
     /** pool_id is the unique ID of the pool. */
-    poolId: Long;
+    poolId: bigint;
+}
+export interface EventPoolOutOfFundsProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.EventPoolOutOfFunds";
+    value: Uint8Array;
+}
+/**
+ * EventPoolOutOfFunds is an event emitted when a pool has run out of funds
+ * emitted_by: MsgSubmitBundleProposal
+ */
+export interface EventPoolOutOfFundsAmino {
+    /** pool_id is the unique ID of the pool. */
+    pool_id: string;
+}
+export interface EventPoolOutOfFundsAminoMsg {
+    type: "/kyve.pool.v1beta1.EventPoolOutOfFunds";
+    value: EventPoolOutOfFundsAmino;
 }
 /**
  * EventPoolOutOfFunds is an event emitted when a pool has run out of funds
  * emitted_by: MsgSubmitBundleProposal
  */
 export interface EventPoolOutOfFundsSDKType {
-    pool_id: Long;
+    pool_id: bigint;
 }
 export declare const EventUpdateParams: {
-    encode(message: EventUpdateParams, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventUpdateParams, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventUpdateParams;
     fromPartial(object: Partial<EventUpdateParams>): EventUpdateParams;
+    fromAmino(object: EventUpdateParamsAmino): EventUpdateParams;
+    toAmino(message: EventUpdateParams): EventUpdateParamsAmino;
+    fromAminoMsg(object: EventUpdateParamsAminoMsg): EventUpdateParams;
+    fromProtoMsg(message: EventUpdateParamsProtoMsg): EventUpdateParams;
+    toProto(message: EventUpdateParams): Uint8Array;
+    toProtoMsg(message: EventUpdateParams): EventUpdateParamsProtoMsg;
 };
 export declare const EventCreatePool: {
-    encode(message: EventCreatePool, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventCreatePool, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventCreatePool;
     fromPartial(object: Partial<EventCreatePool>): EventCreatePool;
+    fromAmino(object: EventCreatePoolAmino): EventCreatePool;
+    toAmino(message: EventCreatePool): EventCreatePoolAmino;
+    fromAminoMsg(object: EventCreatePoolAminoMsg): EventCreatePool;
+    fromProtoMsg(message: EventCreatePoolProtoMsg): EventCreatePool;
+    toProto(message: EventCreatePool): Uint8Array;
+    toProtoMsg(message: EventCreatePool): EventCreatePoolProtoMsg;
 };
 export declare const EventPoolEnabled: {
-    encode(message: EventPoolEnabled, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventPoolEnabled, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventPoolEnabled;
     fromPartial(object: Partial<EventPoolEnabled>): EventPoolEnabled;
+    fromAmino(object: EventPoolEnabledAmino): EventPoolEnabled;
+    toAmino(message: EventPoolEnabled): EventPoolEnabledAmino;
+    fromAminoMsg(object: EventPoolEnabledAminoMsg): EventPoolEnabled;
+    fromProtoMsg(message: EventPoolEnabledProtoMsg): EventPoolEnabled;
+    toProto(message: EventPoolEnabled): Uint8Array;
+    toProtoMsg(message: EventPoolEnabled): EventPoolEnabledProtoMsg;
 };
 export declare const EventPoolDisabled: {
-    encode(message: EventPoolDisabled, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventPoolDisabled, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventPoolDisabled;
     fromPartial(object: Partial<EventPoolDisabled>): EventPoolDisabled;
+    fromAmino(object: EventPoolDisabledAmino): EventPoolDisabled;
+    toAmino(message: EventPoolDisabled): EventPoolDisabledAmino;
+    fromAminoMsg(object: EventPoolDisabledAminoMsg): EventPoolDisabled;
+    fromProtoMsg(message: EventPoolDisabledProtoMsg): EventPoolDisabled;
+    toProto(message: EventPoolDisabled): Uint8Array;
+    toProtoMsg(message: EventPoolDisabled): EventPoolDisabledProtoMsg;
 };
 export declare const EventRuntimeUpgradeScheduled: {
-    encode(message: EventRuntimeUpgradeScheduled, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventRuntimeUpgradeScheduled, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventRuntimeUpgradeScheduled;
     fromPartial(object: Partial<EventRuntimeUpgradeScheduled>): EventRuntimeUpgradeScheduled;
+    fromAmino(object: EventRuntimeUpgradeScheduledAmino): EventRuntimeUpgradeScheduled;
+    toAmino(message: EventRuntimeUpgradeScheduled): EventRuntimeUpgradeScheduledAmino;
+    fromAminoMsg(object: EventRuntimeUpgradeScheduledAminoMsg): EventRuntimeUpgradeScheduled;
+    fromProtoMsg(message: EventRuntimeUpgradeScheduledProtoMsg): EventRuntimeUpgradeScheduled;
+    toProto(message: EventRuntimeUpgradeScheduled): Uint8Array;
+    toProtoMsg(message: EventRuntimeUpgradeScheduled): EventRuntimeUpgradeScheduledProtoMsg;
 };
 export declare const EventRuntimeUpgradeCancelled: {
-    encode(message: EventRuntimeUpgradeCancelled, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventRuntimeUpgradeCancelled, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventRuntimeUpgradeCancelled;
     fromPartial(object: Partial<EventRuntimeUpgradeCancelled>): EventRuntimeUpgradeCancelled;
+    fromAmino(object: EventRuntimeUpgradeCancelledAmino): EventRuntimeUpgradeCancelled;
+    toAmino(message: EventRuntimeUpgradeCancelled): EventRuntimeUpgradeCancelledAmino;
+    fromAminoMsg(object: EventRuntimeUpgradeCancelledAminoMsg): EventRuntimeUpgradeCancelled;
+    fromProtoMsg(message: EventRuntimeUpgradeCancelledProtoMsg): EventRuntimeUpgradeCancelled;
+    toProto(message: EventRuntimeUpgradeCancelled): Uint8Array;
+    toProtoMsg(message: EventRuntimeUpgradeCancelled): EventRuntimeUpgradeCancelledProtoMsg;
 };
 export declare const EventPoolUpdated: {
-    encode(message: EventPoolUpdated, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventPoolUpdated, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventPoolUpdated;
     fromPartial(object: Partial<EventPoolUpdated>): EventPoolUpdated;
+    fromAmino(object: EventPoolUpdatedAmino): EventPoolUpdated;
+    toAmino(message: EventPoolUpdated): EventPoolUpdatedAmino;
+    fromAminoMsg(object: EventPoolUpdatedAminoMsg): EventPoolUpdated;
+    fromProtoMsg(message: EventPoolUpdatedProtoMsg): EventPoolUpdated;
+    toProto(message: EventPoolUpdated): Uint8Array;
+    toProtoMsg(message: EventPoolUpdated): EventPoolUpdatedProtoMsg;
 };
 export declare const EventFundPool: {
-    encode(message: EventFundPool, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventFundPool, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventFundPool;
     fromPartial(object: Partial<EventFundPool>): EventFundPool;
+    fromAmino(object: EventFundPoolAmino): EventFundPool;
+    toAmino(message: EventFundPool): EventFundPoolAmino;
+    fromAminoMsg(object: EventFundPoolAminoMsg): EventFundPool;
+    fromProtoMsg(message: EventFundPoolProtoMsg): EventFundPool;
+    toProto(message: EventFundPool): Uint8Array;
+    toProtoMsg(message: EventFundPool): EventFundPoolProtoMsg;
 };
 export declare const EventDefundPool: {
-    encode(message: EventDefundPool, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventDefundPool, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventDefundPool;
     fromPartial(object: Partial<EventDefundPool>): EventDefundPool;
+    fromAmino(object: EventDefundPoolAmino): EventDefundPool;
+    toAmino(message: EventDefundPool): EventDefundPoolAmino;
+    fromAminoMsg(object: EventDefundPoolAminoMsg): EventDefundPool;
+    fromProtoMsg(message: EventDefundPoolProtoMsg): EventDefundPool;
+    toProto(message: EventDefundPool): Uint8Array;
+    toProtoMsg(message: EventDefundPool): EventDefundPoolProtoMsg;
 };
 export declare const EventPoolFundsSlashed: {
-    encode(message: EventPoolFundsSlashed, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventPoolFundsSlashed, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventPoolFundsSlashed;
     fromPartial(object: Partial<EventPoolFundsSlashed>): EventPoolFundsSlashed;
+    fromAmino(object: EventPoolFundsSlashedAmino): EventPoolFundsSlashed;
+    toAmino(message: EventPoolFundsSlashed): EventPoolFundsSlashedAmino;
+    fromAminoMsg(object: EventPoolFundsSlashedAminoMsg): EventPoolFundsSlashed;
+    fromProtoMsg(message: EventPoolFundsSlashedProtoMsg): EventPoolFundsSlashed;
+    toProto(message: EventPoolFundsSlashed): Uint8Array;
+    toProtoMsg(message: EventPoolFundsSlashed): EventPoolFundsSlashedProtoMsg;
 };
 export declare const EventPoolOutOfFunds: {
-    encode(message: EventPoolOutOfFunds, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventPoolOutOfFunds, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventPoolOutOfFunds;
     fromPartial(object: Partial<EventPoolOutOfFunds>): EventPoolOutOfFunds;
+    fromAmino(object: EventPoolOutOfFundsAmino): EventPoolOutOfFunds;
+    toAmino(message: EventPoolOutOfFunds): EventPoolOutOfFundsAmino;
+    fromAminoMsg(object: EventPoolOutOfFundsAminoMsg): EventPoolOutOfFunds;
+    fromProtoMsg(message: EventPoolOutOfFundsProtoMsg): EventPoolOutOfFunds;
+    toProto(message: EventPoolOutOfFunds): Uint8Array;
+    toProtoMsg(message: EventPoolOutOfFunds): EventPoolOutOfFundsProtoMsg;
 };

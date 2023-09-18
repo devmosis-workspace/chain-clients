@@ -1,58 +1,105 @@
-import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Query, QuerySDKType } from "./genesis";
-import { Tx, TxSDKType } from "../../../cosmos/tx/v1beta1/tx";
-import { TxResponse, TxResponseSDKType } from "../../../cosmos/base/abci/v1beta1/abci";
-import { TxProof, TxProofSDKType } from "../../../tendermint/types/types";
-import { Header, HeaderSDKType } from "../../../ibc/lightclients/tendermint/v1/tendermint";
-import * as _m0 from "protobufjs/minimal";
+import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
+import { Query, QueryAmino, QuerySDKType } from "./genesis";
+import { Tx, TxAmino, TxSDKType } from "../../../cosmos/tx/v1beta1/tx";
+import { TxResponse, TxResponseAmino, TxResponseSDKType } from "../../../cosmos/base/abci/v1beta1/abci";
+import { TxProof, TxProofAmino, TxProofSDKType } from "../../../tendermint/types/types";
+import { Header, HeaderAmino, HeaderSDKType } from "../../../ibc/lightclients/tendermint/v1/tendermint";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryRequestsRequest {
-  pagination?: PageRequest;
+  pagination: PageRequest;
   chainId: string;
+}
+export interface QueryRequestsRequestProtoMsg {
+  typeUrl: "/persistence.interchainquery.v1beta1.QueryRequestsRequest";
+  value: Uint8Array;
+}
+/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+export interface QueryRequestsRequestAmino {
+  pagination?: PageRequestAmino;
+  chain_id: string;
+}
+export interface QueryRequestsRequestAminoMsg {
+  type: "/persistence.interchainquery.v1beta1.QueryRequestsRequest";
+  value: QueryRequestsRequestAmino;
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryRequestsRequestSDKType {
-  pagination?: PageRequestSDKType;
+  pagination: PageRequestSDKType;
   chain_id: string;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryRequestsResponse {
   /** params defines the parameters of the module. */
   queries: Query[];
-  pagination?: PageResponse;
+  pagination: PageResponse;
+}
+export interface QueryRequestsResponseProtoMsg {
+  typeUrl: "/persistence.interchainquery.v1beta1.QueryRequestsResponse";
+  value: Uint8Array;
+}
+/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+export interface QueryRequestsResponseAmino {
+  /** params defines the parameters of the module. */
+  queries: QueryAmino[];
+  pagination?: PageResponseAmino;
+}
+export interface QueryRequestsResponseAminoMsg {
+  type: "/persistence.interchainquery.v1beta1.QueryRequestsResponse";
+  value: QueryRequestsResponseAmino;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryRequestsResponseSDKType {
   queries: QuerySDKType[];
-  pagination?: PageResponseSDKType;
+  pagination: PageResponseSDKType;
 }
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxWithProofResponse {
   /** tx is the queried transaction. */
-  tx?: Tx;
+  tx: Tx;
   /** tx_response is the queried TxResponses. */
-  txResponse?: TxResponse;
+  txResponse: TxResponse;
   /** proof is the tmproto.TxProof for the queried tx */
-  proof?: TxProof;
+  proof: TxProof;
   /** ibc-go header to validate txs */
-  header?: Header;
+  header: Header;
+}
+export interface GetTxWithProofResponseProtoMsg {
+  typeUrl: "/persistence.interchainquery.v1beta1.GetTxWithProofResponse";
+  value: Uint8Array;
+}
+/** GetTxResponse is the response type for the Service.GetTx method. */
+export interface GetTxWithProofResponseAmino {
+  /** tx is the queried transaction. */
+  tx?: TxAmino;
+  /** tx_response is the queried TxResponses. */
+  tx_response?: TxResponseAmino;
+  /** proof is the tmproto.TxProof for the queried tx */
+  proof?: TxProofAmino;
+  /** ibc-go header to validate txs */
+  header?: HeaderAmino;
+}
+export interface GetTxWithProofResponseAminoMsg {
+  type: "/persistence.interchainquery.v1beta1.GetTxWithProofResponse";
+  value: GetTxWithProofResponseAmino;
 }
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxWithProofResponseSDKType {
-  tx?: TxSDKType;
-  tx_response?: TxResponseSDKType;
-  proof?: TxProofSDKType;
-  header?: HeaderSDKType;
+  tx: TxSDKType;
+  tx_response: TxResponseSDKType;
+  proof: TxProofSDKType;
+  header: HeaderSDKType;
 }
 function createBaseQueryRequestsRequest(): QueryRequestsRequest {
   return {
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
     chainId: ""
   };
 }
 export const QueryRequestsRequest = {
-  encode(message: QueryRequestsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/persistence.interchainquery.v1beta1.QueryRequestsRequest",
+  encode(message: QueryRequestsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
@@ -72,16 +119,44 @@ export const QueryRequestsRequest = {
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
     message.chainId = object.chainId ?? "";
     return message;
+  },
+  fromAmino(object: QueryRequestsRequestAmino): QueryRequestsRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+      chainId: object.chain_id
+    };
+  },
+  toAmino(message: QueryRequestsRequest): QueryRequestsRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    obj.chain_id = message.chainId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryRequestsRequestAminoMsg): QueryRequestsRequest {
+    return QueryRequestsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryRequestsRequestProtoMsg): QueryRequestsRequest {
+    return QueryRequestsRequest.decode(message.value);
+  },
+  toProto(message: QueryRequestsRequest): Uint8Array {
+    return QueryRequestsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryRequestsRequest): QueryRequestsRequestProtoMsg {
+    return {
+      typeUrl: "/persistence.interchainquery.v1beta1.QueryRequestsRequest",
+      value: QueryRequestsRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryRequestsResponse(): QueryRequestsResponse {
   return {
     queries: [],
-    pagination: undefined
+    pagination: PageResponse.fromPartial({})
   };
 }
 export const QueryRequestsResponse = {
-  encode(message: QueryRequestsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/persistence.interchainquery.v1beta1.QueryRequestsResponse",
+  encode(message: QueryRequestsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.queries) {
       Query.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -101,18 +176,50 @@ export const QueryRequestsResponse = {
     message.queries = object.queries?.map(e => Query.fromPartial(e)) || [];
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
     return message;
+  },
+  fromAmino(object: QueryRequestsResponseAmino): QueryRequestsResponse {
+    return {
+      queries: Array.isArray(object?.queries) ? object.queries.map((e: any) => Query.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
+    };
+  },
+  toAmino(message: QueryRequestsResponse): QueryRequestsResponseAmino {
+    const obj: any = {};
+    if (message.queries) {
+      obj.queries = message.queries.map(e => e ? Query.toAmino(e) : undefined);
+    } else {
+      obj.queries = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryRequestsResponseAminoMsg): QueryRequestsResponse {
+    return QueryRequestsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryRequestsResponseProtoMsg): QueryRequestsResponse {
+    return QueryRequestsResponse.decode(message.value);
+  },
+  toProto(message: QueryRequestsResponse): Uint8Array {
+    return QueryRequestsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryRequestsResponse): QueryRequestsResponseProtoMsg {
+    return {
+      typeUrl: "/persistence.interchainquery.v1beta1.QueryRequestsResponse",
+      value: QueryRequestsResponse.encode(message).finish()
+    };
   }
 };
 function createBaseGetTxWithProofResponse(): GetTxWithProofResponse {
   return {
-    tx: undefined,
-    txResponse: undefined,
-    proof: undefined,
-    header: undefined
+    tx: Tx.fromPartial({}),
+    txResponse: TxResponse.fromPartial({}),
+    proof: TxProof.fromPartial({}),
+    header: Header.fromPartial({})
   };
 }
 export const GetTxWithProofResponse = {
-  encode(message: GetTxWithProofResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/persistence.interchainquery.v1beta1.GetTxWithProofResponse",
+  encode(message: GetTxWithProofResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.tx !== undefined) {
       Tx.encode(message.tx, writer.uint32(10).fork()).ldelim();
     }
@@ -142,5 +249,36 @@ export const GetTxWithProofResponse = {
     message.proof = object.proof !== undefined && object.proof !== null ? TxProof.fromPartial(object.proof) : undefined;
     message.header = object.header !== undefined && object.header !== null ? Header.fromPartial(object.header) : undefined;
     return message;
+  },
+  fromAmino(object: GetTxWithProofResponseAmino): GetTxWithProofResponse {
+    return {
+      tx: object?.tx ? Tx.fromAmino(object.tx) : undefined,
+      txResponse: object?.tx_response ? TxResponse.fromAmino(object.tx_response) : undefined,
+      proof: object?.proof ? TxProof.fromAmino(object.proof) : undefined,
+      header: object?.header ? Header.fromAmino(object.header) : undefined
+    };
+  },
+  toAmino(message: GetTxWithProofResponse): GetTxWithProofResponseAmino {
+    const obj: any = {};
+    obj.tx = message.tx ? Tx.toAmino(message.tx) : undefined;
+    obj.tx_response = message.txResponse ? TxResponse.toAmino(message.txResponse) : undefined;
+    obj.proof = message.proof ? TxProof.toAmino(message.proof) : undefined;
+    obj.header = message.header ? Header.toAmino(message.header) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GetTxWithProofResponseAminoMsg): GetTxWithProofResponse {
+    return GetTxWithProofResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GetTxWithProofResponseProtoMsg): GetTxWithProofResponse {
+    return GetTxWithProofResponse.decode(message.value);
+  },
+  toProto(message: GetTxWithProofResponse): Uint8Array {
+    return GetTxWithProofResponse.encode(message).finish();
+  },
+  toProtoMsg(message: GetTxWithProofResponse): GetTxWithProofResponseProtoMsg {
+    return {
+      typeUrl: "/persistence.interchainquery.v1beta1.GetTxWithProofResponse",
+      value: GetTxWithProofResponse.encode(message).finish()
+    };
   }
 };

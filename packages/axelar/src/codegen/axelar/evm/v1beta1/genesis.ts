@@ -1,41 +1,75 @@
-import { Params, ParamsSDKType } from "./params";
-import { BurnerInfo, BurnerInfoSDKType, ERC20Deposit, ERC20DepositSDKType, CommandBatchMetadata, CommandBatchMetadataSDKType, Gateway, GatewaySDKType, ERC20TokenMetadata, ERC20TokenMetadataSDKType, Event, EventSDKType } from "./types";
-import { QueueState, QueueStateSDKType } from "../../utils/v1beta1/queuer";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { BurnerInfo, BurnerInfoAmino, BurnerInfoSDKType, ERC20Deposit, ERC20DepositAmino, ERC20DepositSDKType, CommandBatchMetadata, CommandBatchMetadataAmino, CommandBatchMetadataSDKType, Gateway, GatewayAmino, GatewaySDKType, ERC20TokenMetadata, ERC20TokenMetadataAmino, ERC20TokenMetadataSDKType, Event, EventAmino, EventSDKType } from "./types";
+import { QueueState, QueueStateAmino, QueueStateSDKType } from "../../utils/v1beta1/queuer";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** GenesisState represents the genesis state */
 export interface GenesisState {
   chains: GenesisState_Chain[];
+}
+export interface GenesisStateProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.GenesisState";
+  value: Uint8Array;
+}
+/** GenesisState represents the genesis state */
+export interface GenesisStateAmino {
+  chains: GenesisState_ChainAmino[];
+}
+export interface GenesisStateAminoMsg {
+  type: "/axelar.evm.v1beta1.GenesisState";
+  value: GenesisStateAmino;
 }
 /** GenesisState represents the genesis state */
 export interface GenesisStateSDKType {
   chains: GenesisState_ChainSDKType[];
 }
 export interface GenesisState_Chain {
-  params?: Params;
+  params: Params;
   burnerInfos: BurnerInfo[];
-  commandQueue?: QueueState;
+  commandQueue: QueueState;
   confirmedDeposits: ERC20Deposit[];
   burnedDeposits: ERC20Deposit[];
   commandBatches: CommandBatchMetadata[];
-  gateway?: Gateway;
+  gateway: Gateway;
   tokens: ERC20TokenMetadata[];
   events: Event[];
-  confirmedEventQueue?: QueueState;
+  confirmedEventQueue: QueueState;
   legacyConfirmedDeposits: ERC20Deposit[];
   legacyBurnedDeposits: ERC20Deposit[];
 }
+export interface GenesisState_ChainProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.Chain";
+  value: Uint8Array;
+}
+export interface GenesisState_ChainAmino {
+  params?: ParamsAmino;
+  burner_infos: BurnerInfoAmino[];
+  command_queue?: QueueStateAmino;
+  confirmed_deposits: ERC20DepositAmino[];
+  burned_deposits: ERC20DepositAmino[];
+  command_batches: CommandBatchMetadataAmino[];
+  gateway?: GatewayAmino;
+  tokens: ERC20TokenMetadataAmino[];
+  events: EventAmino[];
+  confirmed_event_queue?: QueueStateAmino;
+  legacy_confirmed_deposits: ERC20DepositAmino[];
+  legacy_burned_deposits: ERC20DepositAmino[];
+}
+export interface GenesisState_ChainAminoMsg {
+  type: "/axelar.evm.v1beta1.Chain";
+  value: GenesisState_ChainAmino;
+}
 export interface GenesisState_ChainSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
   burner_infos: BurnerInfoSDKType[];
-  command_queue?: QueueStateSDKType;
+  command_queue: QueueStateSDKType;
   confirmed_deposits: ERC20DepositSDKType[];
   burned_deposits: ERC20DepositSDKType[];
   command_batches: CommandBatchMetadataSDKType[];
-  gateway?: GatewaySDKType;
+  gateway: GatewaySDKType;
   tokens: ERC20TokenMetadataSDKType[];
   events: EventSDKType[];
-  confirmed_event_queue?: QueueStateSDKType;
+  confirmed_event_queue: QueueStateSDKType;
   legacy_confirmed_deposits: ERC20DepositSDKType[];
   legacy_burned_deposits: ERC20DepositSDKType[];
 }
@@ -45,7 +79,8 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.chains) {
       GenesisState_Chain.encode(v!, writer.uint32(26).fork()).ldelim();
     }
@@ -60,26 +95,56 @@ export const GenesisState = {
     const message = createBaseGenesisState();
     message.chains = object.chains?.map(e => GenesisState_Chain.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => GenesisState_Chain.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    if (message.chains) {
+      obj.chains = message.chains.map(e => e ? GenesisState_Chain.toAmino(e) : undefined);
+    } else {
+      obj.chains = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };
 function createBaseGenesisState_Chain(): GenesisState_Chain {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     burnerInfos: [],
-    commandQueue: undefined,
+    commandQueue: QueueState.fromPartial({}),
     confirmedDeposits: [],
     burnedDeposits: [],
     commandBatches: [],
-    gateway: undefined,
+    gateway: Gateway.fromPartial({}),
     tokens: [],
     events: [],
-    confirmedEventQueue: undefined,
+    confirmedEventQueue: QueueState.fromPartial({}),
     legacyConfirmedDeposits: [],
     legacyBurnedDeposits: []
   };
 }
 export const GenesisState_Chain = {
-  encode(message: GenesisState_Chain, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.Chain",
+  encode(message: GenesisState_Chain, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -149,5 +214,84 @@ export const GenesisState_Chain = {
     message.legacyConfirmedDeposits = object.legacyConfirmedDeposits?.map(e => ERC20Deposit.fromPartial(e)) || [];
     message.legacyBurnedDeposits = object.legacyBurnedDeposits?.map(e => ERC20Deposit.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisState_ChainAmino): GenesisState_Chain {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+      burnerInfos: Array.isArray(object?.burner_infos) ? object.burner_infos.map((e: any) => BurnerInfo.fromAmino(e)) : [],
+      commandQueue: object?.command_queue ? QueueState.fromAmino(object.command_queue) : undefined,
+      confirmedDeposits: Array.isArray(object?.confirmed_deposits) ? object.confirmed_deposits.map((e: any) => ERC20Deposit.fromAmino(e)) : [],
+      burnedDeposits: Array.isArray(object?.burned_deposits) ? object.burned_deposits.map((e: any) => ERC20Deposit.fromAmino(e)) : [],
+      commandBatches: Array.isArray(object?.command_batches) ? object.command_batches.map((e: any) => CommandBatchMetadata.fromAmino(e)) : [],
+      gateway: object?.gateway ? Gateway.fromAmino(object.gateway) : undefined,
+      tokens: Array.isArray(object?.tokens) ? object.tokens.map((e: any) => ERC20TokenMetadata.fromAmino(e)) : [],
+      events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromAmino(e)) : [],
+      confirmedEventQueue: object?.confirmed_event_queue ? QueueState.fromAmino(object.confirmed_event_queue) : undefined,
+      legacyConfirmedDeposits: Array.isArray(object?.legacy_confirmed_deposits) ? object.legacy_confirmed_deposits.map((e: any) => ERC20Deposit.fromAmino(e)) : [],
+      legacyBurnedDeposits: Array.isArray(object?.legacy_burned_deposits) ? object.legacy_burned_deposits.map((e: any) => ERC20Deposit.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: GenesisState_Chain): GenesisState_ChainAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    if (message.burnerInfos) {
+      obj.burner_infos = message.burnerInfos.map(e => e ? BurnerInfo.toAmino(e) : undefined);
+    } else {
+      obj.burner_infos = [];
+    }
+    obj.command_queue = message.commandQueue ? QueueState.toAmino(message.commandQueue) : undefined;
+    if (message.confirmedDeposits) {
+      obj.confirmed_deposits = message.confirmedDeposits.map(e => e ? ERC20Deposit.toAmino(e) : undefined);
+    } else {
+      obj.confirmed_deposits = [];
+    }
+    if (message.burnedDeposits) {
+      obj.burned_deposits = message.burnedDeposits.map(e => e ? ERC20Deposit.toAmino(e) : undefined);
+    } else {
+      obj.burned_deposits = [];
+    }
+    if (message.commandBatches) {
+      obj.command_batches = message.commandBatches.map(e => e ? CommandBatchMetadata.toAmino(e) : undefined);
+    } else {
+      obj.command_batches = [];
+    }
+    obj.gateway = message.gateway ? Gateway.toAmino(message.gateway) : undefined;
+    if (message.tokens) {
+      obj.tokens = message.tokens.map(e => e ? ERC20TokenMetadata.toAmino(e) : undefined);
+    } else {
+      obj.tokens = [];
+    }
+    if (message.events) {
+      obj.events = message.events.map(e => e ? Event.toAmino(e) : undefined);
+    } else {
+      obj.events = [];
+    }
+    obj.confirmed_event_queue = message.confirmedEventQueue ? QueueState.toAmino(message.confirmedEventQueue) : undefined;
+    if (message.legacyConfirmedDeposits) {
+      obj.legacy_confirmed_deposits = message.legacyConfirmedDeposits.map(e => e ? ERC20Deposit.toAmino(e) : undefined);
+    } else {
+      obj.legacy_confirmed_deposits = [];
+    }
+    if (message.legacyBurnedDeposits) {
+      obj.legacy_burned_deposits = message.legacyBurnedDeposits.map(e => e ? ERC20Deposit.toAmino(e) : undefined);
+    } else {
+      obj.legacy_burned_deposits = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisState_ChainAminoMsg): GenesisState_Chain {
+    return GenesisState_Chain.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisState_ChainProtoMsg): GenesisState_Chain {
+    return GenesisState_Chain.decode(message.value);
+  },
+  toProto(message: GenesisState_Chain): Uint8Array {
+    return GenesisState_Chain.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState_Chain): GenesisState_ChainProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.Chain",
+      value: GenesisState_Chain.encode(message).finish()
+    };
   }
 };

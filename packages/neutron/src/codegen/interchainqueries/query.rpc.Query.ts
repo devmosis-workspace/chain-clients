@@ -1,5 +1,5 @@
 import { Rpc } from "../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryRegisteredQueriesRequest, QueryRegisteredQueriesResponse, QueryRegisteredQueryRequest, QueryRegisteredQueryResponse, QueryRegisteredQueryResultRequest, QueryRegisteredQueryResultResponse, QueryLastRemoteHeight, QueryLastRemoteHeightResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -24,27 +24,27 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.interchainqueries.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   registeredQueries(request: QueryRegisteredQueriesRequest): Promise<QueryRegisteredQueriesResponse> {
     const data = QueryRegisteredQueriesRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.interchainqueries.Query", "RegisteredQueries", data);
-    return promise.then(data => QueryRegisteredQueriesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRegisteredQueriesResponse.decode(new BinaryReader(data)));
   }
   registeredQuery(request: QueryRegisteredQueryRequest): Promise<QueryRegisteredQueryResponse> {
     const data = QueryRegisteredQueryRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.interchainqueries.Query", "RegisteredQuery", data);
-    return promise.then(data => QueryRegisteredQueryResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRegisteredQueryResponse.decode(new BinaryReader(data)));
   }
   queryResult(request: QueryRegisteredQueryResultRequest): Promise<QueryRegisteredQueryResultResponse> {
     const data = QueryRegisteredQueryResultRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.interchainqueries.Query", "QueryResult", data);
-    return promise.then(data => QueryRegisteredQueryResultResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRegisteredQueryResultResponse.decode(new BinaryReader(data)));
   }
   lastRemoteHeight(request: QueryLastRemoteHeight): Promise<QueryLastRemoteHeightResponse> {
     const data = QueryLastRemoteHeight.encode(request).finish();
     const promise = this.rpc.request("neutron.interchainqueries.Query", "LastRemoteHeight", data);
-    return promise.then(data => QueryLastRemoteHeightResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLastRemoteHeightResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
 export declare enum Action {
     ACTION_FREE = 0,
     ACTION_LIQUID_STAKE = 1,
@@ -6,6 +6,7 @@ export declare enum Action {
     UNRECOGNIZED = -1
 }
 export declare const ActionSDKType: typeof Action;
+export declare const ActionAmino: typeof Action;
 export declare function actionFromJSON(object: any): Action;
 export declare function actionToJSON(object: Action): string;
 /** A Claim Records is the metadata of claim data per address */
@@ -22,6 +23,28 @@ export interface ClaimRecord {
      */
     actionCompleted: boolean[];
 }
+export interface ClaimRecordProtoMsg {
+    typeUrl: "/stride.claim.ClaimRecord";
+    value: Uint8Array;
+}
+/** A Claim Records is the metadata of claim data per address */
+export interface ClaimRecordAmino {
+    /** airdrop identifier */
+    airdrop_identifier: string;
+    /** address of claim user */
+    address: string;
+    /** weight that represent the portion from total allocation */
+    weight: string;
+    /**
+     * true if action is completed
+     * index of bool in array refers to action enum #
+     */
+    action_completed: boolean[];
+}
+export interface ClaimRecordAminoMsg {
+    type: "/stride.claim.ClaimRecord";
+    value: ClaimRecordAmino;
+}
 /** A Claim Records is the metadata of claim data per address */
 export interface ClaimRecordSDKType {
     airdrop_identifier: string;
@@ -30,7 +53,14 @@ export interface ClaimRecordSDKType {
     action_completed: boolean[];
 }
 export declare const ClaimRecord: {
-    encode(message: ClaimRecord, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ClaimRecord, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ClaimRecord;
     fromPartial(object: Partial<ClaimRecord>): ClaimRecord;
+    fromAmino(object: ClaimRecordAmino): ClaimRecord;
+    toAmino(message: ClaimRecord): ClaimRecordAmino;
+    fromAminoMsg(object: ClaimRecordAminoMsg): ClaimRecord;
+    fromProtoMsg(message: ClaimRecordProtoMsg): ClaimRecord;
+    toProto(message: ClaimRecord): Uint8Array;
+    toProtoMsg(message: ClaimRecord): ClaimRecordProtoMsg;
 };

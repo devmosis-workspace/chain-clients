@@ -1,85 +1,155 @@
-import { Any, AnySDKType } from "../../../google/protobuf/any";
-import { Duration, DurationSDKType } from "../../../google/protobuf/duration";
-import { Long, isSet, bytesFromBase64 } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { isSet, bytesFromBase64 } from "../../../helpers";
 /** GenesisState defines the auction module's genesis state. */
 export interface GenesisState {
-  nextAuctionId: Long;
-  params?: Params;
+  nextAuctionId: bigint;
+  params: Params;
   /** Genesis auctions */
-  auctions: Any[];
+  auctions: (Any)[] | Any[];
+}
+export interface GenesisStateProtoMsg {
+  typeUrl: "/kava.auction.v1beta1.GenesisState";
+  value: Uint8Array;
+}
+export type GenesisStateEncoded = Omit<GenesisState, "auctions"> & {
+  /** Genesis auctions */auctions: (AnyProtoMsg)[];
+};
+/** GenesisState defines the auction module's genesis state. */
+export interface GenesisStateAmino {
+  next_auction_id: string;
+  params?: ParamsAmino;
+  /** Genesis auctions */
+  auctions: AnyAmino[];
+}
+export interface GenesisStateAminoMsg {
+  type: "/kava.auction.v1beta1.GenesisState";
+  value: GenesisStateAmino;
 }
 /** GenesisState defines the auction module's genesis state. */
 export interface GenesisStateSDKType {
-  next_auction_id: Long;
-  params?: ParamsSDKType;
-  auctions: AnySDKType[];
+  next_auction_id: bigint;
+  params: ParamsSDKType;
+  auctions: (AnySDKType)[];
 }
 /** Params defines the parameters for the issuance module. */
 export interface Params {
-  maxAuctionDuration?: Duration;
-  forwardBidDuration?: Duration;
-  reverseBidDuration?: Duration;
+  maxAuctionDuration: Duration;
+  forwardBidDuration: Duration;
+  reverseBidDuration: Duration;
   incrementSurplus: Uint8Array;
   incrementDebt: Uint8Array;
   incrementCollateral: Uint8Array;
 }
+export interface ParamsProtoMsg {
+  typeUrl: "/kava.auction.v1beta1.Params";
+  value: Uint8Array;
+}
+/** Params defines the parameters for the issuance module. */
+export interface ParamsAmino {
+  max_auction_duration?: DurationAmino;
+  forward_bid_duration?: DurationAmino;
+  reverse_bid_duration?: DurationAmino;
+  increment_surplus: Uint8Array;
+  increment_debt: Uint8Array;
+  increment_collateral: Uint8Array;
+}
+export interface ParamsAminoMsg {
+  type: "/kava.auction.v1beta1.Params";
+  value: ParamsAmino;
+}
 /** Params defines the parameters for the issuance module. */
 export interface ParamsSDKType {
-  max_auction_duration?: DurationSDKType;
-  forward_bid_duration?: DurationSDKType;
-  reverse_bid_duration?: DurationSDKType;
+  max_auction_duration: DurationSDKType;
+  forward_bid_duration: DurationSDKType;
+  reverse_bid_duration: DurationSDKType;
   increment_surplus: Uint8Array;
   increment_debt: Uint8Array;
   increment_collateral: Uint8Array;
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    nextAuctionId: Long.UZERO,
-    params: undefined,
+    nextAuctionId: BigInt(0),
+    params: Params.fromPartial({}),
     auctions: []
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.nextAuctionId.isZero()) {
+  typeUrl: "/kava.auction.v1beta1.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.nextAuctionId !== BigInt(0)) {
       writer.uint32(8).uint64(message.nextAuctionId);
     }
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(18).fork()).ldelim();
     }
     for (const v of message.auctions) {
-      Any.encode(v!, writer.uint32(26).fork()).ldelim();
+      Any.encode((v! as Any), writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
   fromJSON(object: any): GenesisState {
     return {
-      nextAuctionId: isSet(object.nextAuctionId) ? Long.fromValue(object.nextAuctionId) : Long.UZERO,
+      nextAuctionId: isSet(object.nextAuctionId) ? BigInt(object.nextAuctionId.toString()) : BigInt(0),
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       auctions: Array.isArray(object?.auctions) ? object.auctions.map((e: any) => Any.fromJSON(e)) : []
     };
   },
   fromPartial(object: Partial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
-    message.nextAuctionId = object.nextAuctionId !== undefined && object.nextAuctionId !== null ? Long.fromValue(object.nextAuctionId) : Long.UZERO;
+    message.nextAuctionId = object.nextAuctionId !== undefined && object.nextAuctionId !== null ? BigInt(object.nextAuctionId.toString()) : BigInt(0);
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     message.auctions = object.auctions?.map(e => Any.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      nextAuctionId: BigInt(object.next_auction_id),
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+      auctions: Array.isArray(object?.auctions) ? object.auctions.map((e: any) => GenesisAuction_FromAmino(e)) : []
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.next_auction_id = message.nextAuctionId ? message.nextAuctionId.toString() : undefined;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    if (message.auctions) {
+      obj.auctions = message.auctions.map(e => e ? GenesisAuction_ToAmino((e as Any)) : undefined);
+    } else {
+      obj.auctions = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/kava.auction.v1beta1.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };
 function createBaseParams(): Params {
   return {
-    maxAuctionDuration: undefined,
-    forwardBidDuration: undefined,
-    reverseBidDuration: undefined,
+    maxAuctionDuration: Duration.fromPartial({}),
+    forwardBidDuration: Duration.fromPartial({}),
+    reverseBidDuration: Duration.fromPartial({}),
     incrementSurplus: new Uint8Array(),
     incrementDebt: new Uint8Array(),
     incrementCollateral: new Uint8Array()
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.auction.v1beta1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.maxAuctionDuration !== undefined) {
       Duration.encode(message.maxAuctionDuration, writer.uint32(10).fork()).ldelim();
     }
@@ -119,5 +189,54 @@ export const Params = {
     message.incrementDebt = object.incrementDebt ?? new Uint8Array();
     message.incrementCollateral = object.incrementCollateral ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      maxAuctionDuration: object?.max_auction_duration ? Duration.fromAmino(object.max_auction_duration) : undefined,
+      forwardBidDuration: object?.forward_bid_duration ? Duration.fromAmino(object.forward_bid_duration) : undefined,
+      reverseBidDuration: object?.reverse_bid_duration ? Duration.fromAmino(object.reverse_bid_duration) : undefined,
+      incrementSurplus: object.increment_surplus,
+      incrementDebt: object.increment_debt,
+      incrementCollateral: object.increment_collateral
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.max_auction_duration = message.maxAuctionDuration ? Duration.toAmino(message.maxAuctionDuration) : undefined;
+    obj.forward_bid_duration = message.forwardBidDuration ? Duration.toAmino(message.forwardBidDuration) : undefined;
+    obj.reverse_bid_duration = message.reverseBidDuration ? Duration.toAmino(message.reverseBidDuration) : undefined;
+    obj.increment_surplus = message.incrementSurplus;
+    obj.increment_debt = message.incrementDebt;
+    obj.increment_collateral = message.incrementCollateral;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/kava.auction.v1beta1.Params",
+      value: Params.encode(message).finish()
+    };
   }
+};
+export const GenesisAuction_InterfaceDecoder = (input: BinaryReader | Uint8Array): Any => {
+  const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  const data = Any.decode(reader, reader.uint32());
+  switch (data.typeUrl) {
+    default:
+      return data;
+  }
+};
+export const GenesisAuction_FromAmino = (content: AnyAmino) => {
+  return Any.fromAmino(content);
+};
+export const GenesisAuction_ToAmino = (content: Any) => {
+  return Any.toAmino(content);
 };

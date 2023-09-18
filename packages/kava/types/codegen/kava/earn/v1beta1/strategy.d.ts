@@ -15,5 +15,6 @@ export declare enum StrategyType {
     UNRECOGNIZED = -1
 }
 export declare const StrategyTypeSDKType: typeof StrategyType;
+export declare const StrategyTypeAmino: typeof StrategyType;
 export declare function strategyTypeFromJSON(object: any): StrategyType;
 export declare function strategyTypeToJSON(object: StrategyType): string;

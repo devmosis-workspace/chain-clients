@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryInflationRequest, QueryInflationResponse } from "./query";
 export interface Query {
@@ -14,7 +14,7 @@ export class QueryClientImpl implements Query {
   inflation(request: QueryInflationRequest = {}): Promise<QueryInflationResponse> {
     const data = QueryInflationRequest.encode(request).finish();
     const promise = this.rpc.request("em.inflation.v1.Query", "Inflation", data);
-    return promise.then(data => QueryInflationResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryInflationResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

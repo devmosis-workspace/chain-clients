@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgMintDeposit, MsgMintDepositResponse, MsgDelegateMintDeposit, MsgDelegateMintDepositResponse, MsgWithdrawBurn, MsgWithdrawBurnResponse, MsgWithdrawBurnUndelegate, MsgWithdrawBurnUndelegateResponse } from "./tx";
 /** Msg defines the router Msg service. */
 export interface Msg {
@@ -30,21 +30,21 @@ export class MsgClientImpl implements Msg {
   mintDeposit(request: MsgMintDeposit): Promise<MsgMintDepositResponse> {
     const data = MsgMintDeposit.encode(request).finish();
     const promise = this.rpc.request("kava.router.v1beta1.Msg", "MintDeposit", data);
-    return promise.then(data => MsgMintDepositResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgMintDepositResponse.decode(new BinaryReader(data)));
   }
   delegateMintDeposit(request: MsgDelegateMintDeposit): Promise<MsgDelegateMintDepositResponse> {
     const data = MsgDelegateMintDeposit.encode(request).finish();
     const promise = this.rpc.request("kava.router.v1beta1.Msg", "DelegateMintDeposit", data);
-    return promise.then(data => MsgDelegateMintDepositResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDelegateMintDepositResponse.decode(new BinaryReader(data)));
   }
   withdrawBurn(request: MsgWithdrawBurn): Promise<MsgWithdrawBurnResponse> {
     const data = MsgWithdrawBurn.encode(request).finish();
     const promise = this.rpc.request("kava.router.v1beta1.Msg", "WithdrawBurn", data);
-    return promise.then(data => MsgWithdrawBurnResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgWithdrawBurnResponse.decode(new BinaryReader(data)));
   }
   withdrawBurnUndelegate(request: MsgWithdrawBurnUndelegate): Promise<MsgWithdrawBurnUndelegateResponse> {
     const data = MsgWithdrawBurnUndelegate.encode(request).finish();
     const promise = this.rpc.request("kava.router.v1beta1.Msg", "WithdrawBurnUndelegate", data);
-    return promise.then(data => MsgWithdrawBurnUndelegateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgWithdrawBurnUndelegateResponse.decode(new BinaryReader(data)));
   }
 }

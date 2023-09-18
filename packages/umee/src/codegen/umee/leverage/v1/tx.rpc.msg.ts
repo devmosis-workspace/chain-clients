@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgSupply, MsgSupplyResponse, MsgWithdraw, MsgWithdrawResponse, MsgMaxWithdraw, MsgMaxWithdrawResponse, MsgCollateralize, MsgCollateralizeResponse, MsgDecollateralize, MsgDecollateralizeResponse, MsgBorrow, MsgBorrowResponse, MsgMaxBorrow, MsgMaxBorrowResponse, MsgRepay, MsgRepayResponse, MsgLiquidate, MsgLiquidateResponse, MsgLeveragedLiquidate, MsgLeveragedLiquidateResponse, MsgSupplyCollateral, MsgSupplyCollateralResponse, MsgGovUpdateRegistry, MsgGovUpdateRegistryResponse } from "./tx";
 /** Msg defines the x/leverage module's Msg service. */
 export interface Msg {
@@ -81,61 +81,61 @@ export class MsgClientImpl implements Msg {
   supply(request: MsgSupply): Promise<MsgSupplyResponse> {
     const data = MsgSupply.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "Supply", data);
-    return promise.then(data => MsgSupplyResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSupplyResponse.decode(new BinaryReader(data)));
   }
   withdraw(request: MsgWithdraw): Promise<MsgWithdrawResponse> {
     const data = MsgWithdraw.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "Withdraw", data);
-    return promise.then(data => MsgWithdrawResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgWithdrawResponse.decode(new BinaryReader(data)));
   }
   maxWithdraw(request: MsgMaxWithdraw): Promise<MsgMaxWithdrawResponse> {
     const data = MsgMaxWithdraw.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "MaxWithdraw", data);
-    return promise.then(data => MsgMaxWithdrawResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgMaxWithdrawResponse.decode(new BinaryReader(data)));
   }
   collateralize(request: MsgCollateralize): Promise<MsgCollateralizeResponse> {
     const data = MsgCollateralize.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "Collateralize", data);
-    return promise.then(data => MsgCollateralizeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCollateralizeResponse.decode(new BinaryReader(data)));
   }
   decollateralize(request: MsgDecollateralize): Promise<MsgDecollateralizeResponse> {
     const data = MsgDecollateralize.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "Decollateralize", data);
-    return promise.then(data => MsgDecollateralizeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDecollateralizeResponse.decode(new BinaryReader(data)));
   }
   borrow(request: MsgBorrow): Promise<MsgBorrowResponse> {
     const data = MsgBorrow.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "Borrow", data);
-    return promise.then(data => MsgBorrowResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBorrowResponse.decode(new BinaryReader(data)));
   }
   maxBorrow(request: MsgMaxBorrow): Promise<MsgMaxBorrowResponse> {
     const data = MsgMaxBorrow.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "MaxBorrow", data);
-    return promise.then(data => MsgMaxBorrowResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgMaxBorrowResponse.decode(new BinaryReader(data)));
   }
   repay(request: MsgRepay): Promise<MsgRepayResponse> {
     const data = MsgRepay.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "Repay", data);
-    return promise.then(data => MsgRepayResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRepayResponse.decode(new BinaryReader(data)));
   }
   liquidate(request: MsgLiquidate): Promise<MsgLiquidateResponse> {
     const data = MsgLiquidate.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "Liquidate", data);
-    return promise.then(data => MsgLiquidateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgLiquidateResponse.decode(new BinaryReader(data)));
   }
   leveragedLiquidate(request: MsgLeveragedLiquidate): Promise<MsgLeveragedLiquidateResponse> {
     const data = MsgLeveragedLiquidate.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "LeveragedLiquidate", data);
-    return promise.then(data => MsgLeveragedLiquidateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgLeveragedLiquidateResponse.decode(new BinaryReader(data)));
   }
   supplyCollateral(request: MsgSupplyCollateral): Promise<MsgSupplyCollateralResponse> {
     const data = MsgSupplyCollateral.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "SupplyCollateral", data);
-    return promise.then(data => MsgSupplyCollateralResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSupplyCollateralResponse.decode(new BinaryReader(data)));
   }
   govUpdateRegistry(request: MsgGovUpdateRegistry): Promise<MsgGovUpdateRegistryResponse> {
     const data = MsgGovUpdateRegistry.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Msg", "GovUpdateRegistry", data);
-    return promise.then(data => MsgGovUpdateRegistryResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgGovUpdateRegistryResponse.decode(new BinaryReader(data)));
   }
 }

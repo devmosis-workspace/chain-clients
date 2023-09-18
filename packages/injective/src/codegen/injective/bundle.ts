@@ -49,49 +49,49 @@ import * as _47 from "./wasmx/v1/proposal";
 import * as _48 from "./wasmx/v1/query";
 import * as _49 from "./wasmx/v1/tx";
 import * as _50 from "./wasmx/v1/wasmx";
-import * as _203 from "./auction/v1beta1/tx.amino";
-import * as _204 from "./exchange/v1beta1/tx.amino";
-import * as _205 from "./insurance/v1beta1/tx.amino";
-import * as _206 from "./ocr/v1beta1/tx.amino";
-import * as _207 from "./oracle/v1beta1/tx.amino";
-import * as _208 from "./peggy/v1/msgs.amino";
-import * as _209 from "./tokenfactory/v1beta1/tx.amino";
-import * as _210 from "./wasmx/v1/tx.amino";
-import * as _211 from "./auction/v1beta1/tx.registry";
-import * as _212 from "./exchange/v1beta1/tx.registry";
-import * as _213 from "./insurance/v1beta1/tx.registry";
-import * as _214 from "./ocr/v1beta1/tx.registry";
-import * as _215 from "./oracle/v1beta1/tx.registry";
-import * as _216 from "./peggy/v1/msgs.registry";
-import * as _217 from "./tokenfactory/v1beta1/tx.registry";
-import * as _218 from "./wasmx/v1/tx.registry";
-import * as _219 from "./auction/v1beta1/query.lcd";
-import * as _220 from "./exchange/v1beta1/query.lcd";
-import * as _221 from "./insurance/v1beta1/query.lcd";
-import * as _222 from "./ocr/v1beta1/query.lcd";
-import * as _223 from "./oracle/v1beta1/query.lcd";
-import * as _224 from "./peggy/v1/query.lcd";
-import * as _225 from "./tokenfactory/v1beta1/query.lcd";
-import * as _226 from "./wasmx/v1/query.lcd";
-import * as _227 from "./auction/v1beta1/query.rpc.Query";
-import * as _228 from "./exchange/v1beta1/query.rpc.Query";
-import * as _229 from "./insurance/v1beta1/query.rpc.Query";
-import * as _230 from "./ocr/v1beta1/query.rpc.Query";
-import * as _231 from "./oracle/v1beta1/query.rpc.Query";
-import * as _232 from "./peggy/v1/query.rpc.Query";
-import * as _233 from "./tokenfactory/v1beta1/query.rpc.Query";
-import * as _234 from "./wasmx/v1/query.rpc.Query";
-import * as _235 from "./auction/v1beta1/tx.rpc.msg";
-import * as _236 from "./exchange/v1beta1/tx.rpc.msg";
-import * as _237 from "./insurance/v1beta1/tx.rpc.msg";
-import * as _238 from "./ocr/v1beta1/tx.rpc.msg";
-import * as _239 from "./oracle/v1beta1/tx.rpc.msg";
-import * as _240 from "./peggy/v1/msgs.rpc.msg";
-import * as _241 from "./tokenfactory/v1beta1/tx.rpc.msg";
-import * as _242 from "./wasmx/v1/tx.rpc.msg";
-import * as _340 from "./lcd";
-import * as _341 from "./rpc.query";
-import * as _342 from "./rpc.tx";
+import * as _204 from "./auction/v1beta1/tx.amino";
+import * as _205 from "./exchange/v1beta1/tx.amino";
+import * as _206 from "./insurance/v1beta1/tx.amino";
+import * as _207 from "./ocr/v1beta1/tx.amino";
+import * as _208 from "./oracle/v1beta1/tx.amino";
+import * as _209 from "./peggy/v1/msgs.amino";
+import * as _210 from "./tokenfactory/v1beta1/tx.amino";
+import * as _211 from "./wasmx/v1/tx.amino";
+import * as _212 from "./auction/v1beta1/tx.registry";
+import * as _213 from "./exchange/v1beta1/tx.registry";
+import * as _214 from "./insurance/v1beta1/tx.registry";
+import * as _215 from "./ocr/v1beta1/tx.registry";
+import * as _216 from "./oracle/v1beta1/tx.registry";
+import * as _217 from "./peggy/v1/msgs.registry";
+import * as _218 from "./tokenfactory/v1beta1/tx.registry";
+import * as _219 from "./wasmx/v1/tx.registry";
+import * as _220 from "./auction/v1beta1/query.lcd";
+import * as _221 from "./exchange/v1beta1/query.lcd";
+import * as _222 from "./insurance/v1beta1/query.lcd";
+import * as _223 from "./ocr/v1beta1/query.lcd";
+import * as _224 from "./oracle/v1beta1/query.lcd";
+import * as _225 from "./peggy/v1/query.lcd";
+import * as _226 from "./tokenfactory/v1beta1/query.lcd";
+import * as _227 from "./wasmx/v1/query.lcd";
+import * as _228 from "./auction/v1beta1/query.rpc.Query";
+import * as _229 from "./exchange/v1beta1/query.rpc.Query";
+import * as _230 from "./insurance/v1beta1/query.rpc.Query";
+import * as _231 from "./ocr/v1beta1/query.rpc.Query";
+import * as _232 from "./oracle/v1beta1/query.rpc.Query";
+import * as _233 from "./peggy/v1/query.rpc.Query";
+import * as _234 from "./tokenfactory/v1beta1/query.rpc.Query";
+import * as _235 from "./wasmx/v1/query.rpc.Query";
+import * as _236 from "./auction/v1beta1/tx.rpc.msg";
+import * as _237 from "./exchange/v1beta1/tx.rpc.msg";
+import * as _238 from "./insurance/v1beta1/tx.rpc.msg";
+import * as _239 from "./ocr/v1beta1/tx.rpc.msg";
+import * as _240 from "./oracle/v1beta1/tx.rpc.msg";
+import * as _241 from "./peggy/v1/msgs.rpc.msg";
+import * as _242 from "./tokenfactory/v1beta1/tx.rpc.msg";
+import * as _243 from "./wasmx/v1/tx.rpc.msg";
+import * as _341 from "./lcd";
+import * as _342 from "./rpc.query";
+import * as _343 from "./rpc.tx";
 export namespace injective {
   export namespace auction {
     export const v1beta1 = {
@@ -99,11 +99,11 @@ export namespace injective {
       ..._1,
       ..._2,
       ..._3,
-      ..._203,
-      ..._211,
-      ..._219,
-      ..._227,
-      ..._235
+      ..._204,
+      ..._212,
+      ..._220,
+      ..._228,
+      ..._236
     };
   }
   export namespace crypto {
@@ -121,11 +121,11 @@ export namespace injective {
       ..._8,
       ..._9,
       ..._10,
-      ..._204,
-      ..._212,
-      ..._220,
-      ..._228,
-      ..._236
+      ..._205,
+      ..._213,
+      ..._221,
+      ..._229,
+      ..._237
     };
   }
   export namespace insurance {
@@ -134,11 +134,11 @@ export namespace injective {
       ..._12,
       ..._13,
       ..._14,
-      ..._205,
-      ..._213,
-      ..._221,
-      ..._229,
-      ..._237
+      ..._206,
+      ..._214,
+      ..._222,
+      ..._230,
+      ..._238
     };
   }
   export namespace ocr {
@@ -147,11 +147,11 @@ export namespace injective {
       ..._16,
       ..._17,
       ..._18,
-      ..._206,
-      ..._214,
-      ..._222,
-      ..._230,
-      ..._238
+      ..._207,
+      ..._215,
+      ..._223,
+      ..._231,
+      ..._239
     };
   }
   export namespace oracle {
@@ -162,11 +162,11 @@ export namespace injective {
       ..._22,
       ..._23,
       ..._24,
-      ..._207,
-      ..._215,
-      ..._223,
-      ..._231,
-      ..._239
+      ..._208,
+      ..._216,
+      ..._224,
+      ..._232,
+      ..._240
     };
   }
   export namespace peggy {
@@ -182,11 +182,11 @@ export namespace injective {
       ..._33,
       ..._34,
       ..._35,
-      ..._208,
-      ..._216,
-      ..._224,
-      ..._232,
-      ..._240
+      ..._209,
+      ..._217,
+      ..._225,
+      ..._233,
+      ..._241
     };
   }
   export namespace tokenfactory {
@@ -197,11 +197,11 @@ export namespace injective {
       ..._39,
       ..._40,
       ..._41,
-      ..._209,
-      ..._217,
-      ..._225,
-      ..._233,
-      ..._241
+      ..._210,
+      ..._218,
+      ..._226,
+      ..._234,
+      ..._242
     };
   }
   export namespace types {
@@ -219,16 +219,16 @@ export namespace injective {
       ..._48,
       ..._49,
       ..._50,
-      ..._210,
-      ..._218,
-      ..._226,
-      ..._234,
-      ..._242
+      ..._211,
+      ..._219,
+      ..._227,
+      ..._235,
+      ..._243
     };
   }
   export const ClientFactory = {
-    ..._340,
     ..._341,
-    ..._342
+    ..._342,
+    ..._343
   };
 }

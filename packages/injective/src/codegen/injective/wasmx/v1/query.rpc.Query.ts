@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryWasmxParamsRequest, QueryWasmxParamsResponse, QueryContractRegistrationInfoRequest, QueryContractRegistrationInfoResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -22,17 +22,17 @@ export class QueryClientImpl implements Query {
   wasmxParams(request: QueryWasmxParamsRequest = {}): Promise<QueryWasmxParamsResponse> {
     const data = QueryWasmxParamsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.wasmx.v1.Query", "WasmxParams", data);
-    return promise.then(data => QueryWasmxParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryWasmxParamsResponse.decode(new BinaryReader(data)));
   }
   contractRegistrationInfo(request: QueryContractRegistrationInfoRequest): Promise<QueryContractRegistrationInfoResponse> {
     const data = QueryContractRegistrationInfoRequest.encode(request).finish();
     const promise = this.rpc.request("injective.wasmx.v1.Query", "ContractRegistrationInfo", data);
-    return promise.then(data => QueryContractRegistrationInfoResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryContractRegistrationInfoResponse.decode(new BinaryReader(data)));
   }
   wasmxModuleState(request: QueryModuleStateRequest = {}): Promise<QueryModuleStateResponse> {
     const data = QueryModuleStateRequest.encode(request).finish();
     const promise = this.rpc.request("injective.wasmx.v1.Query", "WasmxModuleState", data);
-    return promise.then(data => QueryModuleStateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryModuleStateResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

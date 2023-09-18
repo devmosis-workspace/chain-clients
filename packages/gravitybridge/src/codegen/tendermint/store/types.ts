@@ -1,39 +1,79 @@
-import { Long, isSet } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
+import { isSet } from "../../helpers";
 export interface BlockStoreState {
-  base: Long;
-  height: Long;
+  base: bigint;
+  height: bigint;
+}
+export interface BlockStoreStateProtoMsg {
+  typeUrl: "/tendermint.store.BlockStoreState";
+  value: Uint8Array;
+}
+export interface BlockStoreStateAmino {
+  base: string;
+  height: string;
+}
+export interface BlockStoreStateAminoMsg {
+  type: "/tendermint.store.BlockStoreState";
+  value: BlockStoreStateAmino;
 }
 export interface BlockStoreStateSDKType {
-  base: Long;
-  height: Long;
+  base: bigint;
+  height: bigint;
 }
 function createBaseBlockStoreState(): BlockStoreState {
   return {
-    base: Long.ZERO,
-    height: Long.ZERO
+    base: BigInt(0),
+    height: BigInt(0)
   };
 }
 export const BlockStoreState = {
-  encode(message: BlockStoreState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.base.isZero()) {
+  typeUrl: "/tendermint.store.BlockStoreState",
+  encode(message: BlockStoreState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.base !== BigInt(0)) {
       writer.uint32(8).int64(message.base);
     }
-    if (!message.height.isZero()) {
+    if (message.height !== BigInt(0)) {
       writer.uint32(16).int64(message.height);
     }
     return writer;
   },
   fromJSON(object: any): BlockStoreState {
     return {
-      base: isSet(object.base) ? Long.fromValue(object.base) : Long.ZERO,
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO
+      base: isSet(object.base) ? BigInt(object.base.toString()) : BigInt(0),
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<BlockStoreState>): BlockStoreState {
     const message = createBaseBlockStoreState();
-    message.base = object.base !== undefined && object.base !== null ? Long.fromValue(object.base) : Long.ZERO;
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.base = object.base !== undefined && object.base !== null ? BigInt(object.base.toString()) : BigInt(0);
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: BlockStoreStateAmino): BlockStoreState {
+    return {
+      base: BigInt(object.base),
+      height: BigInt(object.height)
+    };
+  },
+  toAmino(message: BlockStoreState): BlockStoreStateAmino {
+    const obj: any = {};
+    obj.base = message.base ? message.base.toString() : undefined;
+    obj.height = message.height ? message.height.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockStoreStateAminoMsg): BlockStoreState {
+    return BlockStoreState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: BlockStoreStateProtoMsg): BlockStoreState {
+    return BlockStoreState.decode(message.value);
+  },
+  toProto(message: BlockStoreState): Uint8Array {
+    return BlockStoreState.encode(message).finish();
+  },
+  toProtoMsg(message: BlockStoreState): BlockStoreStateProtoMsg {
+    return {
+      typeUrl: "/tendermint.store.BlockStoreState",
+      value: BlockStoreState.encode(message).finish()
+    };
   }
 };

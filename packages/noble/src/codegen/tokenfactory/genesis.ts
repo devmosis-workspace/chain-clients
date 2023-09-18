@@ -1,57 +1,79 @@
-import { Params, ParamsSDKType } from "./params";
-import { Blacklisted, BlacklistedSDKType } from "./blacklisted";
-import { Paused, PausedSDKType } from "./paused";
-import { MasterMinter, MasterMinterSDKType } from "./master_minter";
-import { Minters, MintersSDKType } from "./minters";
-import { Pauser, PauserSDKType } from "./pauser";
-import { Blacklister, BlacklisterSDKType } from "./blacklister";
-import { Owner, OwnerSDKType } from "./owner";
-import { MinterController, MinterControllerSDKType } from "./minter_controller";
-import { MintingDenom, MintingDenomSDKType } from "./minting_denom";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { Blacklisted, BlacklistedAmino, BlacklistedSDKType } from "./blacklisted";
+import { Paused, PausedAmino, PausedSDKType } from "./paused";
+import { MasterMinter, MasterMinterAmino, MasterMinterSDKType } from "./master_minter";
+import { Minters, MintersAmino, MintersSDKType } from "./minters";
+import { Pauser, PauserAmino, PauserSDKType } from "./pauser";
+import { Blacklister, BlacklisterAmino, BlacklisterSDKType } from "./blacklister";
+import { Owner, OwnerAmino, OwnerSDKType } from "./owner";
+import { MinterController, MinterControllerAmino, MinterControllerSDKType } from "./minter_controller";
+import { MintingDenom, MintingDenomAmino, MintingDenomSDKType } from "./minting_denom";
+import { BinaryWriter } from "../binary";
 import { isSet } from "../helpers";
 /** GenesisState defines the tokenfactory module's genesis state. */
 export interface GenesisState {
-  params?: Params;
+  params: Params;
   blacklistedList: Blacklisted[];
-  paused?: Paused;
-  masterMinter?: MasterMinter;
+  paused: Paused;
+  masterMinter: MasterMinter;
   mintersList: Minters[];
-  pauser?: Pauser;
-  blacklister?: Blacklister;
-  owner?: Owner;
+  pauser: Pauser;
+  blacklister: Blacklister;
+  owner: Owner;
   minterControllerList: MinterController[];
-  mintingDenom?: MintingDenom;
+  mintingDenom: MintingDenom;
+}
+export interface GenesisStateProtoMsg {
+  typeUrl: "/noble.tokenfactory.GenesisState";
+  value: Uint8Array;
+}
+/** GenesisState defines the tokenfactory module's genesis state. */
+export interface GenesisStateAmino {
+  params?: ParamsAmino;
+  blacklistedList: BlacklistedAmino[];
+  paused?: PausedAmino;
+  masterMinter?: MasterMinterAmino;
+  mintersList: MintersAmino[];
+  pauser?: PauserAmino;
+  blacklister?: BlacklisterAmino;
+  owner?: OwnerAmino;
+  minterControllerList: MinterControllerAmino[];
+  mintingDenom?: MintingDenomAmino;
+}
+export interface GenesisStateAminoMsg {
+  type: "/noble.tokenfactory.GenesisState";
+  value: GenesisStateAmino;
 }
 /** GenesisState defines the tokenfactory module's genesis state. */
 export interface GenesisStateSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
   blacklistedList: BlacklistedSDKType[];
-  paused?: PausedSDKType;
-  masterMinter?: MasterMinterSDKType;
+  paused: PausedSDKType;
+  masterMinter: MasterMinterSDKType;
   mintersList: MintersSDKType[];
-  pauser?: PauserSDKType;
-  blacklister?: BlacklisterSDKType;
-  owner?: OwnerSDKType;
+  pauser: PauserSDKType;
+  blacklister: BlacklisterSDKType;
+  owner: OwnerSDKType;
   minterControllerList: MinterControllerSDKType[];
-  mintingDenom?: MintingDenomSDKType;
+  mintingDenom: MintingDenomSDKType;
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     blacklistedList: [],
-    paused: undefined,
-    masterMinter: undefined,
+    paused: Paused.fromPartial({}),
+    masterMinter: MasterMinter.fromPartial({}),
     mintersList: [],
-    pauser: undefined,
-    blacklister: undefined,
-    owner: undefined,
+    pauser: Pauser.fromPartial({}),
+    blacklister: Blacklister.fromPartial({}),
+    owner: Owner.fromPartial({}),
     minterControllerList: [],
-    mintingDenom: undefined
+    mintingDenom: MintingDenom.fromPartial({})
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/noble.tokenfactory.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -111,5 +133,60 @@ export const GenesisState = {
     message.minterControllerList = object.minterControllerList?.map(e => MinterController.fromPartial(e)) || [];
     message.mintingDenom = object.mintingDenom !== undefined && object.mintingDenom !== null ? MintingDenom.fromPartial(object.mintingDenom) : undefined;
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+      blacklistedList: Array.isArray(object?.blacklistedList) ? object.blacklistedList.map((e: any) => Blacklisted.fromAmino(e)) : [],
+      paused: object?.paused ? Paused.fromAmino(object.paused) : undefined,
+      masterMinter: object?.masterMinter ? MasterMinter.fromAmino(object.masterMinter) : undefined,
+      mintersList: Array.isArray(object?.mintersList) ? object.mintersList.map((e: any) => Minters.fromAmino(e)) : [],
+      pauser: object?.pauser ? Pauser.fromAmino(object.pauser) : undefined,
+      blacklister: object?.blacklister ? Blacklister.fromAmino(object.blacklister) : undefined,
+      owner: object?.owner ? Owner.fromAmino(object.owner) : undefined,
+      minterControllerList: Array.isArray(object?.minterControllerList) ? object.minterControllerList.map((e: any) => MinterController.fromAmino(e)) : [],
+      mintingDenom: object?.mintingDenom ? MintingDenom.fromAmino(object.mintingDenom) : undefined
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    if (message.blacklistedList) {
+      obj.blacklistedList = message.blacklistedList.map(e => e ? Blacklisted.toAmino(e) : undefined);
+    } else {
+      obj.blacklistedList = [];
+    }
+    obj.paused = message.paused ? Paused.toAmino(message.paused) : undefined;
+    obj.masterMinter = message.masterMinter ? MasterMinter.toAmino(message.masterMinter) : undefined;
+    if (message.mintersList) {
+      obj.mintersList = message.mintersList.map(e => e ? Minters.toAmino(e) : undefined);
+    } else {
+      obj.mintersList = [];
+    }
+    obj.pauser = message.pauser ? Pauser.toAmino(message.pauser) : undefined;
+    obj.blacklister = message.blacklister ? Blacklister.toAmino(message.blacklister) : undefined;
+    obj.owner = message.owner ? Owner.toAmino(message.owner) : undefined;
+    if (message.minterControllerList) {
+      obj.minterControllerList = message.minterControllerList.map(e => e ? MinterController.toAmino(e) : undefined);
+    } else {
+      obj.minterControllerList = [];
+    }
+    obj.mintingDenom = message.mintingDenom ? MintingDenom.toAmino(message.mintingDenom) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/noble.tokenfactory.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };

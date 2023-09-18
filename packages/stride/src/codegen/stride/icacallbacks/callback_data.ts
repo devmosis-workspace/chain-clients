@@ -1,18 +1,34 @@
-import { Long, isSet, bytesFromBase64 } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
+import { isSet, bytesFromBase64 } from "../../helpers";
 export interface CallbackData {
   callbackKey: string;
   portId: string;
   channelId: string;
-  sequence: Long;
+  sequence: bigint;
   callbackId: string;
   callbackArgs: Uint8Array;
+}
+export interface CallbackDataProtoMsg {
+  typeUrl: "/stride.icacallbacks.CallbackData";
+  value: Uint8Array;
+}
+export interface CallbackDataAmino {
+  callback_key: string;
+  port_id: string;
+  channel_id: string;
+  sequence: string;
+  callback_id: string;
+  callback_args: Uint8Array;
+}
+export interface CallbackDataAminoMsg {
+  type: "/stride.icacallbacks.CallbackData";
+  value: CallbackDataAmino;
 }
 export interface CallbackDataSDKType {
   callback_key: string;
   port_id: string;
   channel_id: string;
-  sequence: Long;
+  sequence: bigint;
   callback_id: string;
   callback_args: Uint8Array;
 }
@@ -21,13 +37,14 @@ function createBaseCallbackData(): CallbackData {
     callbackKey: "",
     portId: "",
     channelId: "",
-    sequence: Long.UZERO,
+    sequence: BigInt(0),
     callbackId: "",
     callbackArgs: new Uint8Array()
   };
 }
 export const CallbackData = {
-  encode(message: CallbackData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.icacallbacks.CallbackData",
+  encode(message: CallbackData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.callbackKey !== "") {
       writer.uint32(10).string(message.callbackKey);
     }
@@ -37,7 +54,7 @@ export const CallbackData = {
     if (message.channelId !== "") {
       writer.uint32(26).string(message.channelId);
     }
-    if (!message.sequence.isZero()) {
+    if (message.sequence !== BigInt(0)) {
       writer.uint32(32).uint64(message.sequence);
     }
     if (message.callbackId !== "") {
@@ -53,7 +70,7 @@ export const CallbackData = {
       callbackKey: isSet(object.callbackKey) ? String(object.callbackKey) : "",
       portId: isSet(object.portId) ? String(object.portId) : "",
       channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
+      sequence: isSet(object.sequence) ? BigInt(object.sequence.toString()) : BigInt(0),
       callbackId: isSet(object.callbackId) ? String(object.callbackId) : "",
       callbackArgs: isSet(object.callbackArgs) ? bytesFromBase64(object.callbackArgs) : new Uint8Array()
     };
@@ -63,9 +80,44 @@ export const CallbackData = {
     message.callbackKey = object.callbackKey ?? "";
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
-    message.sequence = object.sequence !== undefined && object.sequence !== null ? Long.fromValue(object.sequence) : Long.UZERO;
+    message.sequence = object.sequence !== undefined && object.sequence !== null ? BigInt(object.sequence.toString()) : BigInt(0);
     message.callbackId = object.callbackId ?? "";
     message.callbackArgs = object.callbackArgs ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: CallbackDataAmino): CallbackData {
+    return {
+      callbackKey: object.callback_key,
+      portId: object.port_id,
+      channelId: object.channel_id,
+      sequence: BigInt(object.sequence),
+      callbackId: object.callback_id,
+      callbackArgs: object.callback_args
+    };
+  },
+  toAmino(message: CallbackData): CallbackDataAmino {
+    const obj: any = {};
+    obj.callback_key = message.callbackKey;
+    obj.port_id = message.portId;
+    obj.channel_id = message.channelId;
+    obj.sequence = message.sequence ? message.sequence.toString() : undefined;
+    obj.callback_id = message.callbackId;
+    obj.callback_args = message.callbackArgs;
+    return obj;
+  },
+  fromAminoMsg(object: CallbackDataAminoMsg): CallbackData {
+    return CallbackData.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CallbackDataProtoMsg): CallbackData {
+    return CallbackData.decode(message.value);
+  },
+  toProto(message: CallbackData): Uint8Array {
+    return CallbackData.encode(message).finish();
+  },
+  toProtoMsg(message: CallbackData): CallbackDataProtoMsg {
+    return {
+      typeUrl: "/stride.icacallbacks.CallbackData",
+      value: CallbackData.encode(message).finish()
+    };
   }
 };

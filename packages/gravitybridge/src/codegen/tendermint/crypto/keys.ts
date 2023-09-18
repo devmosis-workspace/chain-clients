@@ -1,8 +1,20 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
 import { isSet, bytesFromBase64 } from "../../helpers";
 /** PublicKey defines the keys available for use with Tendermint Validators */
 export interface PublicKey {
   ed25519?: Uint8Array;
+}
+export interface PublicKeyProtoMsg {
+  typeUrl: "/tendermint.crypto.PublicKey";
+  value: Uint8Array;
+}
+/** PublicKey defines the keys available for use with Tendermint Validators */
+export interface PublicKeyAmino {
+  ed25519?: Uint8Array;
+}
+export interface PublicKeyAminoMsg {
+  type: "/tendermint.crypto.PublicKey";
+  value: PublicKeyAmino;
 }
 /** PublicKey defines the keys available for use with Tendermint Validators */
 export interface PublicKeySDKType {
@@ -14,6 +26,21 @@ export interface PublicKeySDKType {
  */
 export interface PrivateKey {
   ed25519?: Uint8Array;
+}
+export interface PrivateKeyProtoMsg {
+  typeUrl: "/tendermint.crypto.PrivateKey";
+  value: Uint8Array;
+}
+/**
+ * PrivateKey defines the keys available for use with Tendermint Validators
+ * WARNING PrivateKey is used for internal purposes only
+ */
+export interface PrivateKeyAmino {
+  ed25519?: Uint8Array;
+}
+export interface PrivateKeyAminoMsg {
+  type: "/tendermint.crypto.PrivateKey";
+  value: PrivateKeyAmino;
 }
 /**
  * PrivateKey defines the keys available for use with Tendermint Validators
@@ -28,7 +55,8 @@ function createBasePublicKey(): PublicKey {
   };
 }
 export const PublicKey = {
-  encode(message: PublicKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.crypto.PublicKey",
+  encode(message: PublicKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.ed25519 !== undefined) {
       writer.uint32(10).bytes(message.ed25519);
     }
@@ -43,6 +71,31 @@ export const PublicKey = {
     const message = createBasePublicKey();
     message.ed25519 = object.ed25519 ?? undefined;
     return message;
+  },
+  fromAmino(object: PublicKeyAmino): PublicKey {
+    return {
+      ed25519: object?.ed25519
+    };
+  },
+  toAmino(message: PublicKey): PublicKeyAmino {
+    const obj: any = {};
+    obj.ed25519 = message.ed25519;
+    return obj;
+  },
+  fromAminoMsg(object: PublicKeyAminoMsg): PublicKey {
+    return PublicKey.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PublicKeyProtoMsg): PublicKey {
+    return PublicKey.decode(message.value);
+  },
+  toProto(message: PublicKey): Uint8Array {
+    return PublicKey.encode(message).finish();
+  },
+  toProtoMsg(message: PublicKey): PublicKeyProtoMsg {
+    return {
+      typeUrl: "/tendermint.crypto.PublicKey",
+      value: PublicKey.encode(message).finish()
+    };
   }
 };
 function createBasePrivateKey(): PrivateKey {
@@ -51,7 +104,8 @@ function createBasePrivateKey(): PrivateKey {
   };
 }
 export const PrivateKey = {
-  encode(message: PrivateKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.crypto.PrivateKey",
+  encode(message: PrivateKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.ed25519 !== undefined) {
       writer.uint32(10).bytes(message.ed25519);
     }
@@ -66,5 +120,30 @@ export const PrivateKey = {
     const message = createBasePrivateKey();
     message.ed25519 = object.ed25519 ?? undefined;
     return message;
+  },
+  fromAmino(object: PrivateKeyAmino): PrivateKey {
+    return {
+      ed25519: object?.ed25519
+    };
+  },
+  toAmino(message: PrivateKey): PrivateKeyAmino {
+    const obj: any = {};
+    obj.ed25519 = message.ed25519;
+    return obj;
+  },
+  fromAminoMsg(object: PrivateKeyAminoMsg): PrivateKey {
+    return PrivateKey.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PrivateKeyProtoMsg): PrivateKey {
+    return PrivateKey.decode(message.value);
+  },
+  toProto(message: PrivateKey): Uint8Array {
+    return PrivateKey.encode(message).finish();
+  },
+  toProtoMsg(message: PrivateKey): PrivateKeyProtoMsg {
+    return {
+      typeUrl: "/tendermint.crypto.PrivateKey",
+      value: PrivateKey.encode(message).finish()
+    };
   }
 };

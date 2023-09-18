@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryBandRelayersRequest, QueryBandRelayersResponse, QueryBandPriceStatesRequest, QueryBandPriceStatesResponse, QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse, QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse, QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse, QueryPythPriceStatesRequest, QueryPythPriceStatesResponse, QueryProviderPriceStateRequest, QueryProviderPriceStateResponse, QueryModuleStateRequest, QueryModuleStateResponse, QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse, QueryOracleVolatilityRequest, QueryOracleVolatilityResponse, QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponse, QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponse, QueryOraclePriceRequest, QueryOraclePriceResponse, QueryPythPriceRequest, QueryPythPriceResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -54,77 +54,77 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   bandRelayers(request: QueryBandRelayersRequest = {}): Promise<QueryBandRelayersResponse> {
     const data = QueryBandRelayersRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "BandRelayers", data);
-    return promise.then(data => QueryBandRelayersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBandRelayersResponse.decode(new BinaryReader(data)));
   }
   bandPriceStates(request: QueryBandPriceStatesRequest = {}): Promise<QueryBandPriceStatesResponse> {
     const data = QueryBandPriceStatesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "BandPriceStates", data);
-    return promise.then(data => QueryBandPriceStatesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBandPriceStatesResponse.decode(new BinaryReader(data)));
   }
   bandIBCPriceStates(request: QueryBandIBCPriceStatesRequest = {}): Promise<QueryBandIBCPriceStatesResponse> {
     const data = QueryBandIBCPriceStatesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "BandIBCPriceStates", data);
-    return promise.then(data => QueryBandIBCPriceStatesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBandIBCPriceStatesResponse.decode(new BinaryReader(data)));
   }
   priceFeedPriceStates(request: QueryPriceFeedPriceStatesRequest = {}): Promise<QueryPriceFeedPriceStatesResponse> {
     const data = QueryPriceFeedPriceStatesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "PriceFeedPriceStates", data);
-    return promise.then(data => QueryPriceFeedPriceStatesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPriceFeedPriceStatesResponse.decode(new BinaryReader(data)));
   }
   coinbasePriceStates(request: QueryCoinbasePriceStatesRequest = {}): Promise<QueryCoinbasePriceStatesResponse> {
     const data = QueryCoinbasePriceStatesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "CoinbasePriceStates", data);
-    return promise.then(data => QueryCoinbasePriceStatesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCoinbasePriceStatesResponse.decode(new BinaryReader(data)));
   }
   pythPriceStates(request: QueryPythPriceStatesRequest = {}): Promise<QueryPythPriceStatesResponse> {
     const data = QueryPythPriceStatesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "PythPriceStates", data);
-    return promise.then(data => QueryPythPriceStatesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPythPriceStatesResponse.decode(new BinaryReader(data)));
   }
   providerPriceState(request: QueryProviderPriceStateRequest): Promise<QueryProviderPriceStateResponse> {
     const data = QueryProviderPriceStateRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "ProviderPriceState", data);
-    return promise.then(data => QueryProviderPriceStateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryProviderPriceStateResponse.decode(new BinaryReader(data)));
   }
   oracleModuleState(request: QueryModuleStateRequest = {}): Promise<QueryModuleStateResponse> {
     const data = QueryModuleStateRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "OracleModuleState", data);
-    return promise.then(data => QueryModuleStateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryModuleStateResponse.decode(new BinaryReader(data)));
   }
   historicalPriceRecords(request: QueryHistoricalPriceRecordsRequest): Promise<QueryHistoricalPriceRecordsResponse> {
     const data = QueryHistoricalPriceRecordsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "HistoricalPriceRecords", data);
-    return promise.then(data => QueryHistoricalPriceRecordsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryHistoricalPriceRecordsResponse.decode(new BinaryReader(data)));
   }
   oracleVolatility(request: QueryOracleVolatilityRequest): Promise<QueryOracleVolatilityResponse> {
     const data = QueryOracleVolatilityRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "OracleVolatility", data);
-    return promise.then(data => QueryOracleVolatilityResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOracleVolatilityResponse.decode(new BinaryReader(data)));
   }
   oracleProvidersInfo(request: QueryOracleProvidersInfoRequest = {}): Promise<QueryOracleProvidersInfoResponse> {
     const data = QueryOracleProvidersInfoRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "OracleProvidersInfo", data);
-    return promise.then(data => QueryOracleProvidersInfoResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOracleProvidersInfoResponse.decode(new BinaryReader(data)));
   }
   oracleProviderPrices(request: QueryOracleProviderPricesRequest): Promise<QueryOracleProviderPricesResponse> {
     const data = QueryOracleProviderPricesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "OracleProviderPrices", data);
-    return promise.then(data => QueryOracleProviderPricesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOracleProviderPricesResponse.decode(new BinaryReader(data)));
   }
   oraclePrice(request: QueryOraclePriceRequest): Promise<QueryOraclePriceResponse> {
     const data = QueryOraclePriceRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "OraclePrice", data);
-    return promise.then(data => QueryOraclePriceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOraclePriceResponse.decode(new BinaryReader(data)));
   }
   pythPrice(request: QueryPythPriceRequest): Promise<QueryPythPriceResponse> {
     const data = QueryPythPriceRequest.encode(request).finish();
     const promise = this.rpc.request("injective.oracle.v1beta1.Query", "PythPrice", data);
-    return promise.then(data => QueryPythPriceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPythPriceResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

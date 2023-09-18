@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryClassTraceRequest, QueryClassTraceResponse, QueryClassTracesRequest, QueryClassTracesResponse, QueryClassHashRequest, QueryClassHashResponse, QueryEscrowAddressRequest, QueryEscrowAddressResponse } from "./query";
 /** Query provides defines the gRPC querier service. */
@@ -25,24 +25,24 @@ export class QueryClientImpl implements Query {
   classTrace(request: QueryClassTraceRequest): Promise<QueryClassTraceResponse> {
     const data = QueryClassTraceRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft_transfer.v1.Query", "ClassTrace", data);
-    return promise.then(data => QueryClassTraceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryClassTraceResponse.decode(new BinaryReader(data)));
   }
   classTraces(request: QueryClassTracesRequest = {
     pagination: undefined
   }): Promise<QueryClassTracesResponse> {
     const data = QueryClassTracesRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft_transfer.v1.Query", "ClassTraces", data);
-    return promise.then(data => QueryClassTracesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryClassTracesResponse.decode(new BinaryReader(data)));
   }
   classHash(request: QueryClassHashRequest): Promise<QueryClassHashResponse> {
     const data = QueryClassHashRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft_transfer.v1.Query", "ClassHash", data);
-    return promise.then(data => QueryClassHashResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryClassHashResponse.decode(new BinaryReader(data)));
   }
   escrowAddress(request: QueryEscrowAddressRequest): Promise<QueryEscrowAddressResponse> {
     const data = QueryEscrowAddressRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft_transfer.v1.Query", "EscrowAddress", data);
-    return promise.then(data => QueryEscrowAddressResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryEscrowAddressResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

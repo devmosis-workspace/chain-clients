@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgSubmitBundleProposal, MsgSubmitBundleProposalResponse, MsgVoteBundleProposal, MsgVoteBundleProposalResponse, MsgClaimUploaderRole, MsgClaimUploaderRoleResponse, MsgSkipUploaderRole, MsgSkipUploaderRoleResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the Msg service. */
 export interface Msg {
@@ -30,26 +30,26 @@ export class MsgClientImpl implements Msg {
   submitBundleProposal(request: MsgSubmitBundleProposal): Promise<MsgSubmitBundleProposalResponse> {
     const data = MsgSubmitBundleProposal.encode(request).finish();
     const promise = this.rpc.request("kyve.bundles.v1beta1.Msg", "SubmitBundleProposal", data);
-    return promise.then(data => MsgSubmitBundleProposalResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSubmitBundleProposalResponse.decode(new BinaryReader(data)));
   }
   voteBundleProposal(request: MsgVoteBundleProposal): Promise<MsgVoteBundleProposalResponse> {
     const data = MsgVoteBundleProposal.encode(request).finish();
     const promise = this.rpc.request("kyve.bundles.v1beta1.Msg", "VoteBundleProposal", data);
-    return promise.then(data => MsgVoteBundleProposalResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgVoteBundleProposalResponse.decode(new BinaryReader(data)));
   }
   claimUploaderRole(request: MsgClaimUploaderRole): Promise<MsgClaimUploaderRoleResponse> {
     const data = MsgClaimUploaderRole.encode(request).finish();
     const promise = this.rpc.request("kyve.bundles.v1beta1.Msg", "ClaimUploaderRole", data);
-    return promise.then(data => MsgClaimUploaderRoleResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgClaimUploaderRoleResponse.decode(new BinaryReader(data)));
   }
   skipUploaderRole(request: MsgSkipUploaderRole): Promise<MsgSkipUploaderRoleResponse> {
     const data = MsgSkipUploaderRole.encode(request).finish();
     const promise = this.rpc.request("kyve.bundles.v1beta1.Msg", "SkipUploaderRole", data);
-    return promise.then(data => MsgSkipUploaderRoleResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSkipUploaderRoleResponse.decode(new BinaryReader(data)));
   }
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("kyve.bundles.v1beta1.Msg", "UpdateParams", data);
-    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }

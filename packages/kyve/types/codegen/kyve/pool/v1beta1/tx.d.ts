@@ -1,22 +1,49 @@
-import { Long } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 /** MsgFundPool defines a SDK message for funding a pool. */
 export interface MsgFundPool {
     /** creator ... */
     creator: string;
     /** id ... */
-    id: Long;
+    id: bigint;
     /** amount ... */
-    amount: Long;
+    amount: bigint;
+}
+export interface MsgFundPoolProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgFundPool";
+    value: Uint8Array;
+}
+/** MsgFundPool defines a SDK message for funding a pool. */
+export interface MsgFundPoolAmino {
+    /** creator ... */
+    creator: string;
+    /** id ... */
+    id: string;
+    /** amount ... */
+    amount: string;
+}
+export interface MsgFundPoolAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgFundPool";
+    value: MsgFundPoolAmino;
 }
 /** MsgFundPool defines a SDK message for funding a pool. */
 export interface MsgFundPoolSDKType {
     creator: string;
-    id: Long;
-    amount: Long;
+    id: bigint;
+    amount: bigint;
 }
 /** MsgFundPoolResponse defines the Msg/DefundPool response type. */
 export interface MsgFundPoolResponse {
+}
+export interface MsgFundPoolResponseProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgFundPoolResponse";
+    value: Uint8Array;
+}
+/** MsgFundPoolResponse defines the Msg/DefundPool response type. */
+export interface MsgFundPoolResponseAmino {
+}
+export interface MsgFundPoolResponseAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgFundPoolResponse";
+    value: MsgFundPoolResponseAmino;
 }
 /** MsgFundPoolResponse defines the Msg/DefundPool response type. */
 export interface MsgFundPoolResponseSDKType {
@@ -26,18 +53,46 @@ export interface MsgDefundPool {
     /** creator ... */
     creator: string;
     /** id ... */
-    id: Long;
+    id: bigint;
     /** amount ... */
-    amount: Long;
+    amount: bigint;
+}
+export interface MsgDefundPoolProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgDefundPool";
+    value: Uint8Array;
+}
+/** MsgDefundPool defines a SDK message for defunding a pool. */
+export interface MsgDefundPoolAmino {
+    /** creator ... */
+    creator: string;
+    /** id ... */
+    id: string;
+    /** amount ... */
+    amount: string;
+}
+export interface MsgDefundPoolAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgDefundPool";
+    value: MsgDefundPoolAmino;
 }
 /** MsgDefundPool defines a SDK message for defunding a pool. */
 export interface MsgDefundPoolSDKType {
     creator: string;
-    id: Long;
-    amount: Long;
+    id: bigint;
+    amount: bigint;
 }
 /** MsgDefundPoolResponse defines the Msg/DefundPool response type. */
 export interface MsgDefundPoolResponse {
+}
+export interface MsgDefundPoolResponseProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgDefundPoolResponse";
+    value: Uint8Array;
+}
+/** MsgDefundPoolResponse defines the Msg/DefundPool response type. */
+export interface MsgDefundPoolResponseAmino {
+}
+export interface MsgDefundPoolResponseAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgDefundPoolResponse";
+    value: MsgDefundPoolResponseAmino;
 }
 /** MsgDefundPoolResponse defines the Msg/DefundPool response type. */
 export interface MsgDefundPoolResponseSDKType {
@@ -57,13 +112,13 @@ export interface MsgCreatePool {
     /** start_key ... */
     startKey: string;
     /** upload_interval ... */
-    uploadInterval: Long;
+    uploadInterval: bigint;
     /** operating_cost ... */
-    operatingCost: Long;
+    operatingCost: bigint;
     /** min_delegation ... */
-    minDelegation: Long;
+    minDelegation: bigint;
     /** max_bundle_size ... */
-    maxBundleSize: Long;
+    maxBundleSize: bigint;
     /** version ... */
     version: string;
     /** binaries ... */
@@ -73,6 +128,45 @@ export interface MsgCreatePool {
     /** compression_id ... */
     compressionId: number;
 }
+export interface MsgCreatePoolProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgCreatePool";
+    value: Uint8Array;
+}
+/** MsgCreatePool defines a SDK message for creating a new pool. */
+export interface MsgCreatePoolAmino {
+    /** authority is the address of the governance account. */
+    authority: string;
+    /** name ... */
+    name: string;
+    /** runtime ... */
+    runtime: string;
+    /** logo ... */
+    logo: string;
+    /** config ... */
+    config: string;
+    /** start_key ... */
+    start_key: string;
+    /** upload_interval ... */
+    upload_interval: string;
+    /** operating_cost ... */
+    operating_cost: string;
+    /** min_delegation ... */
+    min_delegation: string;
+    /** max_bundle_size ... */
+    max_bundle_size: string;
+    /** version ... */
+    version: string;
+    /** binaries ... */
+    binaries: string;
+    /** storage_provider_id ... */
+    storage_provider_id: number;
+    /** compression_id ... */
+    compression_id: number;
+}
+export interface MsgCreatePoolAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgCreatePool";
+    value: MsgCreatePoolAmino;
+}
 /** MsgCreatePool defines a SDK message for creating a new pool. */
 export interface MsgCreatePoolSDKType {
     authority: string;
@@ -81,10 +175,10 @@ export interface MsgCreatePoolSDKType {
     logo: string;
     config: string;
     start_key: string;
-    upload_interval: Long;
-    operating_cost: Long;
-    min_delegation: Long;
-    max_bundle_size: Long;
+    upload_interval: bigint;
+    operating_cost: bigint;
+    min_delegation: bigint;
+    max_bundle_size: bigint;
     version: string;
     binaries: string;
     storage_provider_id: number;
@@ -92,6 +186,17 @@ export interface MsgCreatePoolSDKType {
 }
 /** MsgCreatePoolResponse defines the Msg/CreatePool response type. */
 export interface MsgCreatePoolResponse {
+}
+export interface MsgCreatePoolResponseProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgCreatePoolResponse";
+    value: Uint8Array;
+}
+/** MsgCreatePoolResponse defines the Msg/CreatePool response type. */
+export interface MsgCreatePoolResponseAmino {
+}
+export interface MsgCreatePoolResponseAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgCreatePoolResponse";
+    value: MsgCreatePoolResponseAmino;
 }
 /** MsgCreatePoolResponse defines the Msg/CreatePool response type. */
 export interface MsgCreatePoolResponseSDKType {
@@ -101,18 +206,46 @@ export interface MsgUpdatePool {
     /** authority is the address of the governance account. */
     authority: string;
     /** id ... */
-    id: Long;
+    id: bigint;
     /** payload ... */
     payload: string;
+}
+export interface MsgUpdatePoolProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgUpdatePool";
+    value: Uint8Array;
+}
+/** MsgUpdatePool defines a SDK message for updating an existing pool. */
+export interface MsgUpdatePoolAmino {
+    /** authority is the address of the governance account. */
+    authority: string;
+    /** id ... */
+    id: string;
+    /** payload ... */
+    payload: string;
+}
+export interface MsgUpdatePoolAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgUpdatePool";
+    value: MsgUpdatePoolAmino;
 }
 /** MsgUpdatePool defines a SDK message for updating an existing pool. */
 export interface MsgUpdatePoolSDKType {
     authority: string;
-    id: Long;
+    id: bigint;
     payload: string;
 }
 /** MsgUpdatePoolResponse defines the Msg/UpdatePool response type. */
 export interface MsgUpdatePoolResponse {
+}
+export interface MsgUpdatePoolResponseProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgUpdatePoolResponse";
+    value: Uint8Array;
+}
+/** MsgUpdatePoolResponse defines the Msg/UpdatePool response type. */
+export interface MsgUpdatePoolResponseAmino {
+}
+export interface MsgUpdatePoolResponseAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgUpdatePoolResponse";
+    value: MsgUpdatePoolResponseAmino;
 }
 /** MsgUpdatePoolResponse defines the Msg/UpdatePool response type. */
 export interface MsgUpdatePoolResponseSDKType {
@@ -122,15 +255,41 @@ export interface MsgDisablePool {
     /** authority is the address of the governance account. */
     authority: string;
     /** id ... */
-    id: Long;
+    id: bigint;
+}
+export interface MsgDisablePoolProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgDisablePool";
+    value: Uint8Array;
+}
+/** MsgDisablePool defines a SDK message for disabling an existing pool. */
+export interface MsgDisablePoolAmino {
+    /** authority is the address of the governance account. */
+    authority: string;
+    /** id ... */
+    id: string;
+}
+export interface MsgDisablePoolAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgDisablePool";
+    value: MsgDisablePoolAmino;
 }
 /** MsgDisablePool defines a SDK message for disabling an existing pool. */
 export interface MsgDisablePoolSDKType {
     authority: string;
-    id: Long;
+    id: bigint;
 }
 /** MsgDisablePoolResponse defines the Msg/DisablePool response type. */
 export interface MsgDisablePoolResponse {
+}
+export interface MsgDisablePoolResponseProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgDisablePoolResponse";
+    value: Uint8Array;
+}
+/** MsgDisablePoolResponse defines the Msg/DisablePool response type. */
+export interface MsgDisablePoolResponseAmino {
+}
+export interface MsgDisablePoolResponseAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgDisablePoolResponse";
+    value: MsgDisablePoolResponseAmino;
 }
 /** MsgDisablePoolResponse defines the Msg/DisablePool response type. */
 export interface MsgDisablePoolResponseSDKType {
@@ -140,15 +299,41 @@ export interface MsgEnablePool {
     /** authority is the address of the governance account. */
     authority: string;
     /** id ... */
-    id: Long;
+    id: bigint;
+}
+export interface MsgEnablePoolProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgEnablePool";
+    value: Uint8Array;
+}
+/** MsgEnablePool defines a SDK message for enabling an existing pool. */
+export interface MsgEnablePoolAmino {
+    /** authority is the address of the governance account. */
+    authority: string;
+    /** id ... */
+    id: string;
+}
+export interface MsgEnablePoolAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgEnablePool";
+    value: MsgEnablePoolAmino;
 }
 /** MsgEnablePool defines a SDK message for enabling an existing pool. */
 export interface MsgEnablePoolSDKType {
     authority: string;
-    id: Long;
+    id: bigint;
 }
 /** MsgEnablePoolResponse defines the Msg/EnablePool response type. */
 export interface MsgEnablePoolResponse {
+}
+export interface MsgEnablePoolResponseProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgEnablePoolResponse";
+    value: Uint8Array;
+}
+/** MsgEnablePoolResponse defines the Msg/EnablePool response type. */
+export interface MsgEnablePoolResponseAmino {
+}
+export interface MsgEnablePoolResponseAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgEnablePoolResponse";
+    value: MsgEnablePoolResponseAmino;
 }
 /** MsgEnablePoolResponse defines the Msg/EnablePool response type. */
 export interface MsgEnablePoolResponseSDKType {
@@ -162,23 +347,57 @@ export interface MsgScheduleRuntimeUpgrade {
     /** version ... */
     version: string;
     /** scheduled_at ... */
-    scheduledAt: Long;
+    scheduledAt: bigint;
     /** duration ... */
-    duration: Long;
+    duration: bigint;
     /** binaries ... */
     binaries: string;
+}
+export interface MsgScheduleRuntimeUpgradeProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgScheduleRuntimeUpgrade";
+    value: Uint8Array;
+}
+/** MsgScheduleRuntimeUpgrade defines a SDK message for scheduling a runtime upgrade. */
+export interface MsgScheduleRuntimeUpgradeAmino {
+    /** authority is the address of the governance account. */
+    authority: string;
+    /** runtime ... */
+    runtime: string;
+    /** version ... */
+    version: string;
+    /** scheduled_at ... */
+    scheduled_at: string;
+    /** duration ... */
+    duration: string;
+    /** binaries ... */
+    binaries: string;
+}
+export interface MsgScheduleRuntimeUpgradeAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgScheduleRuntimeUpgrade";
+    value: MsgScheduleRuntimeUpgradeAmino;
 }
 /** MsgScheduleRuntimeUpgrade defines a SDK message for scheduling a runtime upgrade. */
 export interface MsgScheduleRuntimeUpgradeSDKType {
     authority: string;
     runtime: string;
     version: string;
-    scheduled_at: Long;
-    duration: Long;
+    scheduled_at: bigint;
+    duration: bigint;
     binaries: string;
 }
 /** MsgScheduleRuntimeUpgradeResponse defines the Msg/ScheduleRuntimeUpgrade response type. */
 export interface MsgScheduleRuntimeUpgradeResponse {
+}
+export interface MsgScheduleRuntimeUpgradeResponseProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgScheduleRuntimeUpgradeResponse";
+    value: Uint8Array;
+}
+/** MsgScheduleRuntimeUpgradeResponse defines the Msg/ScheduleRuntimeUpgrade response type. */
+export interface MsgScheduleRuntimeUpgradeResponseAmino {
+}
+export interface MsgScheduleRuntimeUpgradeResponseAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgScheduleRuntimeUpgradeResponse";
+    value: MsgScheduleRuntimeUpgradeResponseAmino;
 }
 /** MsgScheduleRuntimeUpgradeResponse defines the Msg/ScheduleRuntimeUpgrade response type. */
 export interface MsgScheduleRuntimeUpgradeResponseSDKType {
@@ -190,6 +409,21 @@ export interface MsgCancelRuntimeUpgrade {
     /** runtime ... */
     runtime: string;
 }
+export interface MsgCancelRuntimeUpgradeProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgCancelRuntimeUpgrade";
+    value: Uint8Array;
+}
+/** MsgCancelRuntimeUpgrade defines a SDK message for cancelling a runtime upgrade. */
+export interface MsgCancelRuntimeUpgradeAmino {
+    /** authority is the address of the governance account. */
+    authority: string;
+    /** runtime ... */
+    runtime: string;
+}
+export interface MsgCancelRuntimeUpgradeAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgCancelRuntimeUpgrade";
+    value: MsgCancelRuntimeUpgradeAmino;
+}
 /** MsgCancelRuntimeUpgrade defines a SDK message for cancelling a runtime upgrade. */
 export interface MsgCancelRuntimeUpgradeSDKType {
     authority: string;
@@ -197,6 +431,17 @@ export interface MsgCancelRuntimeUpgradeSDKType {
 }
 /** MsgCancelRuntimeUpgradeResponse defines the Msg/CancelRuntimeUpgrade response type. */
 export interface MsgCancelRuntimeUpgradeResponse {
+}
+export interface MsgCancelRuntimeUpgradeResponseProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgCancelRuntimeUpgradeResponse";
+    value: Uint8Array;
+}
+/** MsgCancelRuntimeUpgradeResponse defines the Msg/CancelRuntimeUpgrade response type. */
+export interface MsgCancelRuntimeUpgradeResponseAmino {
+}
+export interface MsgCancelRuntimeUpgradeResponseAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgCancelRuntimeUpgradeResponse";
+    value: MsgCancelRuntimeUpgradeResponseAmino;
 }
 /** MsgCancelRuntimeUpgradeResponse defines the Msg/CancelRuntimeUpgrade response type. */
 export interface MsgCancelRuntimeUpgradeResponseSDKType {
@@ -208,6 +453,21 @@ export interface MsgUpdateParams {
     /** payload defines the x/stakers parameters to update. */
     payload: string;
 }
+export interface MsgUpdateParamsProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgUpdateParams";
+    value: Uint8Array;
+}
+/** MsgUpdateParams defines a SDK message for updating the module parameters. */
+export interface MsgUpdateParamsAmino {
+    /** authority is the address of the governance account. */
+    authority: string;
+    /** payload defines the x/stakers parameters to update. */
+    payload: string;
+}
+export interface MsgUpdateParamsAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgUpdateParams";
+    value: MsgUpdateParamsAmino;
+}
 /** MsgUpdateParams defines a SDK message for updating the module parameters. */
 export interface MsgUpdateParamsSDKType {
     authority: string;
@@ -216,96 +476,233 @@ export interface MsgUpdateParamsSDKType {
 /** MsgUpdateParamsResponse defines the Msg/UpdateParams response type. */
 export interface MsgUpdateParamsResponse {
 }
+export interface MsgUpdateParamsResponseProtoMsg {
+    typeUrl: "/kyve.pool.v1beta1.MsgUpdateParamsResponse";
+    value: Uint8Array;
+}
+/** MsgUpdateParamsResponse defines the Msg/UpdateParams response type. */
+export interface MsgUpdateParamsResponseAmino {
+}
+export interface MsgUpdateParamsResponseAminoMsg {
+    type: "/kyve.pool.v1beta1.MsgUpdateParamsResponse";
+    value: MsgUpdateParamsResponseAmino;
+}
 /** MsgUpdateParamsResponse defines the Msg/UpdateParams response type. */
 export interface MsgUpdateParamsResponseSDKType {
 }
 export declare const MsgFundPool: {
-    encode(message: MsgFundPool, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgFundPool, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgFundPool;
     fromPartial(object: Partial<MsgFundPool>): MsgFundPool;
+    fromAmino(object: MsgFundPoolAmino): MsgFundPool;
+    toAmino(message: MsgFundPool): MsgFundPoolAmino;
+    fromAminoMsg(object: MsgFundPoolAminoMsg): MsgFundPool;
+    fromProtoMsg(message: MsgFundPoolProtoMsg): MsgFundPool;
+    toProto(message: MsgFundPool): Uint8Array;
+    toProtoMsg(message: MsgFundPool): MsgFundPoolProtoMsg;
 };
 export declare const MsgFundPoolResponse: {
-    encode(_: MsgFundPoolResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgFundPoolResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgFundPoolResponse;
     fromPartial(_: Partial<MsgFundPoolResponse>): MsgFundPoolResponse;
+    fromAmino(_: MsgFundPoolResponseAmino): MsgFundPoolResponse;
+    toAmino(_: MsgFundPoolResponse): MsgFundPoolResponseAmino;
+    fromAminoMsg(object: MsgFundPoolResponseAminoMsg): MsgFundPoolResponse;
+    fromProtoMsg(message: MsgFundPoolResponseProtoMsg): MsgFundPoolResponse;
+    toProto(message: MsgFundPoolResponse): Uint8Array;
+    toProtoMsg(message: MsgFundPoolResponse): MsgFundPoolResponseProtoMsg;
 };
 export declare const MsgDefundPool: {
-    encode(message: MsgDefundPool, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgDefundPool, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgDefundPool;
     fromPartial(object: Partial<MsgDefundPool>): MsgDefundPool;
+    fromAmino(object: MsgDefundPoolAmino): MsgDefundPool;
+    toAmino(message: MsgDefundPool): MsgDefundPoolAmino;
+    fromAminoMsg(object: MsgDefundPoolAminoMsg): MsgDefundPool;
+    fromProtoMsg(message: MsgDefundPoolProtoMsg): MsgDefundPool;
+    toProto(message: MsgDefundPool): Uint8Array;
+    toProtoMsg(message: MsgDefundPool): MsgDefundPoolProtoMsg;
 };
 export declare const MsgDefundPoolResponse: {
-    encode(_: MsgDefundPoolResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgDefundPoolResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgDefundPoolResponse;
     fromPartial(_: Partial<MsgDefundPoolResponse>): MsgDefundPoolResponse;
+    fromAmino(_: MsgDefundPoolResponseAmino): MsgDefundPoolResponse;
+    toAmino(_: MsgDefundPoolResponse): MsgDefundPoolResponseAmino;
+    fromAminoMsg(object: MsgDefundPoolResponseAminoMsg): MsgDefundPoolResponse;
+    fromProtoMsg(message: MsgDefundPoolResponseProtoMsg): MsgDefundPoolResponse;
+    toProto(message: MsgDefundPoolResponse): Uint8Array;
+    toProtoMsg(message: MsgDefundPoolResponse): MsgDefundPoolResponseProtoMsg;
 };
 export declare const MsgCreatePool: {
-    encode(message: MsgCreatePool, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgCreatePool, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgCreatePool;
     fromPartial(object: Partial<MsgCreatePool>): MsgCreatePool;
+    fromAmino(object: MsgCreatePoolAmino): MsgCreatePool;
+    toAmino(message: MsgCreatePool): MsgCreatePoolAmino;
+    fromAminoMsg(object: MsgCreatePoolAminoMsg): MsgCreatePool;
+    fromProtoMsg(message: MsgCreatePoolProtoMsg): MsgCreatePool;
+    toProto(message: MsgCreatePool): Uint8Array;
+    toProtoMsg(message: MsgCreatePool): MsgCreatePoolProtoMsg;
 };
 export declare const MsgCreatePoolResponse: {
-    encode(_: MsgCreatePoolResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgCreatePoolResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgCreatePoolResponse;
     fromPartial(_: Partial<MsgCreatePoolResponse>): MsgCreatePoolResponse;
+    fromAmino(_: MsgCreatePoolResponseAmino): MsgCreatePoolResponse;
+    toAmino(_: MsgCreatePoolResponse): MsgCreatePoolResponseAmino;
+    fromAminoMsg(object: MsgCreatePoolResponseAminoMsg): MsgCreatePoolResponse;
+    fromProtoMsg(message: MsgCreatePoolResponseProtoMsg): MsgCreatePoolResponse;
+    toProto(message: MsgCreatePoolResponse): Uint8Array;
+    toProtoMsg(message: MsgCreatePoolResponse): MsgCreatePoolResponseProtoMsg;
 };
 export declare const MsgUpdatePool: {
-    encode(message: MsgUpdatePool, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgUpdatePool, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgUpdatePool;
     fromPartial(object: Partial<MsgUpdatePool>): MsgUpdatePool;
+    fromAmino(object: MsgUpdatePoolAmino): MsgUpdatePool;
+    toAmino(message: MsgUpdatePool): MsgUpdatePoolAmino;
+    fromAminoMsg(object: MsgUpdatePoolAminoMsg): MsgUpdatePool;
+    fromProtoMsg(message: MsgUpdatePoolProtoMsg): MsgUpdatePool;
+    toProto(message: MsgUpdatePool): Uint8Array;
+    toProtoMsg(message: MsgUpdatePool): MsgUpdatePoolProtoMsg;
 };
 export declare const MsgUpdatePoolResponse: {
-    encode(_: MsgUpdatePoolResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgUpdatePoolResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgUpdatePoolResponse;
     fromPartial(_: Partial<MsgUpdatePoolResponse>): MsgUpdatePoolResponse;
+    fromAmino(_: MsgUpdatePoolResponseAmino): MsgUpdatePoolResponse;
+    toAmino(_: MsgUpdatePoolResponse): MsgUpdatePoolResponseAmino;
+    fromAminoMsg(object: MsgUpdatePoolResponseAminoMsg): MsgUpdatePoolResponse;
+    fromProtoMsg(message: MsgUpdatePoolResponseProtoMsg): MsgUpdatePoolResponse;
+    toProto(message: MsgUpdatePoolResponse): Uint8Array;
+    toProtoMsg(message: MsgUpdatePoolResponse): MsgUpdatePoolResponseProtoMsg;
 };
 export declare const MsgDisablePool: {
-    encode(message: MsgDisablePool, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgDisablePool, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgDisablePool;
     fromPartial(object: Partial<MsgDisablePool>): MsgDisablePool;
+    fromAmino(object: MsgDisablePoolAmino): MsgDisablePool;
+    toAmino(message: MsgDisablePool): MsgDisablePoolAmino;
+    fromAminoMsg(object: MsgDisablePoolAminoMsg): MsgDisablePool;
+    fromProtoMsg(message: MsgDisablePoolProtoMsg): MsgDisablePool;
+    toProto(message: MsgDisablePool): Uint8Array;
+    toProtoMsg(message: MsgDisablePool): MsgDisablePoolProtoMsg;
 };
 export declare const MsgDisablePoolResponse: {
-    encode(_: MsgDisablePoolResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgDisablePoolResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgDisablePoolResponse;
     fromPartial(_: Partial<MsgDisablePoolResponse>): MsgDisablePoolResponse;
+    fromAmino(_: MsgDisablePoolResponseAmino): MsgDisablePoolResponse;
+    toAmino(_: MsgDisablePoolResponse): MsgDisablePoolResponseAmino;
+    fromAminoMsg(object: MsgDisablePoolResponseAminoMsg): MsgDisablePoolResponse;
+    fromProtoMsg(message: MsgDisablePoolResponseProtoMsg): MsgDisablePoolResponse;
+    toProto(message: MsgDisablePoolResponse): Uint8Array;
+    toProtoMsg(message: MsgDisablePoolResponse): MsgDisablePoolResponseProtoMsg;
 };
 export declare const MsgEnablePool: {
-    encode(message: MsgEnablePool, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgEnablePool, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgEnablePool;
     fromPartial(object: Partial<MsgEnablePool>): MsgEnablePool;
+    fromAmino(object: MsgEnablePoolAmino): MsgEnablePool;
+    toAmino(message: MsgEnablePool): MsgEnablePoolAmino;
+    fromAminoMsg(object: MsgEnablePoolAminoMsg): MsgEnablePool;
+    fromProtoMsg(message: MsgEnablePoolProtoMsg): MsgEnablePool;
+    toProto(message: MsgEnablePool): Uint8Array;
+    toProtoMsg(message: MsgEnablePool): MsgEnablePoolProtoMsg;
 };
 export declare const MsgEnablePoolResponse: {
-    encode(_: MsgEnablePoolResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgEnablePoolResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgEnablePoolResponse;
     fromPartial(_: Partial<MsgEnablePoolResponse>): MsgEnablePoolResponse;
+    fromAmino(_: MsgEnablePoolResponseAmino): MsgEnablePoolResponse;
+    toAmino(_: MsgEnablePoolResponse): MsgEnablePoolResponseAmino;
+    fromAminoMsg(object: MsgEnablePoolResponseAminoMsg): MsgEnablePoolResponse;
+    fromProtoMsg(message: MsgEnablePoolResponseProtoMsg): MsgEnablePoolResponse;
+    toProto(message: MsgEnablePoolResponse): Uint8Array;
+    toProtoMsg(message: MsgEnablePoolResponse): MsgEnablePoolResponseProtoMsg;
 };
 export declare const MsgScheduleRuntimeUpgrade: {
-    encode(message: MsgScheduleRuntimeUpgrade, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgScheduleRuntimeUpgrade, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgScheduleRuntimeUpgrade;
     fromPartial(object: Partial<MsgScheduleRuntimeUpgrade>): MsgScheduleRuntimeUpgrade;
+    fromAmino(object: MsgScheduleRuntimeUpgradeAmino): MsgScheduleRuntimeUpgrade;
+    toAmino(message: MsgScheduleRuntimeUpgrade): MsgScheduleRuntimeUpgradeAmino;
+    fromAminoMsg(object: MsgScheduleRuntimeUpgradeAminoMsg): MsgScheduleRuntimeUpgrade;
+    fromProtoMsg(message: MsgScheduleRuntimeUpgradeProtoMsg): MsgScheduleRuntimeUpgrade;
+    toProto(message: MsgScheduleRuntimeUpgrade): Uint8Array;
+    toProtoMsg(message: MsgScheduleRuntimeUpgrade): MsgScheduleRuntimeUpgradeProtoMsg;
 };
 export declare const MsgScheduleRuntimeUpgradeResponse: {
-    encode(_: MsgScheduleRuntimeUpgradeResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgScheduleRuntimeUpgradeResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgScheduleRuntimeUpgradeResponse;
     fromPartial(_: Partial<MsgScheduleRuntimeUpgradeResponse>): MsgScheduleRuntimeUpgradeResponse;
+    fromAmino(_: MsgScheduleRuntimeUpgradeResponseAmino): MsgScheduleRuntimeUpgradeResponse;
+    toAmino(_: MsgScheduleRuntimeUpgradeResponse): MsgScheduleRuntimeUpgradeResponseAmino;
+    fromAminoMsg(object: MsgScheduleRuntimeUpgradeResponseAminoMsg): MsgScheduleRuntimeUpgradeResponse;
+    fromProtoMsg(message: MsgScheduleRuntimeUpgradeResponseProtoMsg): MsgScheduleRuntimeUpgradeResponse;
+    toProto(message: MsgScheduleRuntimeUpgradeResponse): Uint8Array;
+    toProtoMsg(message: MsgScheduleRuntimeUpgradeResponse): MsgScheduleRuntimeUpgradeResponseProtoMsg;
 };
 export declare const MsgCancelRuntimeUpgrade: {
-    encode(message: MsgCancelRuntimeUpgrade, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgCancelRuntimeUpgrade, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgCancelRuntimeUpgrade;
     fromPartial(object: Partial<MsgCancelRuntimeUpgrade>): MsgCancelRuntimeUpgrade;
+    fromAmino(object: MsgCancelRuntimeUpgradeAmino): MsgCancelRuntimeUpgrade;
+    toAmino(message: MsgCancelRuntimeUpgrade): MsgCancelRuntimeUpgradeAmino;
+    fromAminoMsg(object: MsgCancelRuntimeUpgradeAminoMsg): MsgCancelRuntimeUpgrade;
+    fromProtoMsg(message: MsgCancelRuntimeUpgradeProtoMsg): MsgCancelRuntimeUpgrade;
+    toProto(message: MsgCancelRuntimeUpgrade): Uint8Array;
+    toProtoMsg(message: MsgCancelRuntimeUpgrade): MsgCancelRuntimeUpgradeProtoMsg;
 };
 export declare const MsgCancelRuntimeUpgradeResponse: {
-    encode(_: MsgCancelRuntimeUpgradeResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgCancelRuntimeUpgradeResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgCancelRuntimeUpgradeResponse;
     fromPartial(_: Partial<MsgCancelRuntimeUpgradeResponse>): MsgCancelRuntimeUpgradeResponse;
+    fromAmino(_: MsgCancelRuntimeUpgradeResponseAmino): MsgCancelRuntimeUpgradeResponse;
+    toAmino(_: MsgCancelRuntimeUpgradeResponse): MsgCancelRuntimeUpgradeResponseAmino;
+    fromAminoMsg(object: MsgCancelRuntimeUpgradeResponseAminoMsg): MsgCancelRuntimeUpgradeResponse;
+    fromProtoMsg(message: MsgCancelRuntimeUpgradeResponseProtoMsg): MsgCancelRuntimeUpgradeResponse;
+    toProto(message: MsgCancelRuntimeUpgradeResponse): Uint8Array;
+    toProtoMsg(message: MsgCancelRuntimeUpgradeResponse): MsgCancelRuntimeUpgradeResponseProtoMsg;
 };
 export declare const MsgUpdateParams: {
-    encode(message: MsgUpdateParams, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgUpdateParams, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgUpdateParams;
     fromPartial(object: Partial<MsgUpdateParams>): MsgUpdateParams;
+    fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams;
+    toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino;
+    fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams;
+    fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams;
+    toProto(message: MsgUpdateParams): Uint8Array;
+    toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg;
 };
 export declare const MsgUpdateParamsResponse: {
-    encode(_: MsgUpdateParamsResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgUpdateParamsResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgUpdateParamsResponse;
     fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse;
+    fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse;
+    toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino;
+    fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse;
+    fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse;
+    toProto(message: MsgUpdateParamsResponse): Uint8Array;
+    toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg;
 };

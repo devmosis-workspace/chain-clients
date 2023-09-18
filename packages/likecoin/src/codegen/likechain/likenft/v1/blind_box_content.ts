@@ -1,25 +1,39 @@
-import { NFTInput, NFTInputSDKType } from "./nft_input";
-import * as _m0 from "protobufjs/minimal";
+import { NFTInput, NFTInputAmino, NFTInputSDKType } from "./nft_input";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 export interface BlindBoxContent {
   classId: string;
   id: string;
-  input?: NFTInput;
+  input: NFTInput;
+}
+export interface BlindBoxContentProtoMsg {
+  typeUrl: "/likechain.likenft.v1.BlindBoxContent";
+  value: Uint8Array;
+}
+export interface BlindBoxContentAmino {
+  class_id: string;
+  id: string;
+  input?: NFTInputAmino;
+}
+export interface BlindBoxContentAminoMsg {
+  type: "/likechain.likenft.v1.BlindBoxContent";
+  value: BlindBoxContentAmino;
 }
 export interface BlindBoxContentSDKType {
   class_id: string;
   id: string;
-  input?: NFTInputSDKType;
+  input: NFTInputSDKType;
 }
 function createBaseBlindBoxContent(): BlindBoxContent {
   return {
     classId: "",
     id: "",
-    input: undefined
+    input: NFTInput.fromPartial({})
   };
 }
 export const BlindBoxContent = {
-  encode(message: BlindBoxContent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.likenft.v1.BlindBoxContent",
+  encode(message: BlindBoxContent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.classId !== "") {
       writer.uint32(10).string(message.classId);
     }
@@ -44,5 +58,34 @@ export const BlindBoxContent = {
     message.id = object.id ?? "";
     message.input = object.input !== undefined && object.input !== null ? NFTInput.fromPartial(object.input) : undefined;
     return message;
+  },
+  fromAmino(object: BlindBoxContentAmino): BlindBoxContent {
+    return {
+      classId: object.class_id,
+      id: object.id,
+      input: object?.input ? NFTInput.fromAmino(object.input) : undefined
+    };
+  },
+  toAmino(message: BlindBoxContent): BlindBoxContentAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    obj.id = message.id;
+    obj.input = message.input ? NFTInput.toAmino(message.input) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlindBoxContentAminoMsg): BlindBoxContent {
+    return BlindBoxContent.fromAmino(object.value);
+  },
+  fromProtoMsg(message: BlindBoxContentProtoMsg): BlindBoxContent {
+    return BlindBoxContent.decode(message.value);
+  },
+  toProto(message: BlindBoxContent): Uint8Array {
+    return BlindBoxContent.encode(message).finish();
+  },
+  toProtoMsg(message: BlindBoxContent): BlindBoxContentProtoMsg {
+    return {
+      typeUrl: "/likechain.likenft.v1.BlindBoxContent",
+      value: BlindBoxContent.encode(message).finish()
+    };
   }
 };

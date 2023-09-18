@@ -1,5 +1,5 @@
-import { Coin, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../binary";
 import { isSet, bytesFromBase64 } from "../../helpers";
 /**
  * CoreEvalProposal is a gov Content type for evaluating code in the SwingSet
@@ -14,6 +14,28 @@ export interface CoreEvalProposal {
    * can return a Promise.
    */
   evals: CoreEval[];
+}
+export interface CoreEvalProposalProtoMsg {
+  typeUrl: "/agoric.swingset.CoreEvalProposal";
+  value: Uint8Array;
+}
+/**
+ * CoreEvalProposal is a gov Content type for evaluating code in the SwingSet
+ * core.
+ * See `agoric-sdk/packages/vats/src/core/eval.js`.
+ */
+export interface CoreEvalProposalAmino {
+  title: string;
+  description: string;
+  /**
+   * Although evals are sequential, they may run concurrently, since they each
+   * can return a Promise.
+   */
+  evals: CoreEvalAmino[];
+}
+export interface CoreEvalProposalAminoMsg {
+  type: "/agoric.swingset.CoreEvalProposal";
+  value: CoreEvalProposalAmino;
 }
 /**
  * CoreEvalProposal is a gov Content type for evaluating code in the SwingSet
@@ -40,6 +62,30 @@ export interface CoreEval {
    * well as some powerless helpers.
    */
   jsCode: string;
+}
+export interface CoreEvalProtoMsg {
+  typeUrl: "/agoric.swingset.CoreEval";
+  value: Uint8Array;
+}
+/**
+ * CoreEval defines an individual SwingSet core evaluation, for use in
+ * CoreEvalProposal.
+ */
+export interface CoreEvalAmino {
+  /**
+   * Grant these JSON-stringified core bootstrap permits to the jsCode, as the
+   * `powers` endowment.
+   */
+  json_permits: string;
+  /**
+   * Evaluate this JavaScript code in a Compartment endowed with `powers` as
+   * well as some powerless helpers.
+   */
+  js_code: string;
+}
+export interface CoreEvalAminoMsg {
+  type: "/agoric.swingset.CoreEval";
+  value: CoreEvalAmino;
 }
 /**
  * CoreEval defines an individual SwingSet core evaluation, for use in
@@ -94,6 +140,59 @@ export interface Params {
    */
   queueMax: QueueSize[];
 }
+export interface ParamsProtoMsg {
+  typeUrl: "/agoric.swingset.Params";
+  value: Uint8Array;
+}
+/** Params are the swingset configuration/governance parameters. */
+export interface ParamsAmino {
+  /**
+   * Map from unit name to a value in SwingSet "beans".
+   * Must not be negative.
+   * 
+   * These values are used by SwingSet to normalize named per-resource charges
+   * (maybe rent) in a single Nat usage unit, the "bean".
+   * 
+   * There is no required order to this list of entries, but all the chain
+   * nodes must all serialize and deserialize the existing order without
+   * permuting it.
+   */
+  beans_per_unit: StringBeansAmino[];
+  /**
+   * The price in Coins per the unit named "fee".  This value is used by
+   * cosmic-swingset JS code to decide how many tokens to charge.
+   * 
+   * cost = beans_used * fee_unit_price / beans_per_unit["fee"]
+   */
+  fee_unit_price: CoinAmino[];
+  /**
+   * The SwingSet bootstrap vat configuration file.  Not usefully modifiable
+   * via governance as it is only referenced by the chain's initial
+   * construction.
+   */
+  bootstrap_vat_config: string;
+  /**
+   * If the provision submitter doesn't hold a provisionpass, their requested
+   * power flags are looked up in this fee menu (first match wins) and the sum
+   * is charged.  If any power flag is not found in this menu, the request is
+   * rejected.
+   */
+  power_flag_fees: PowerFlagFeeAmino[];
+  /**
+   * Maximum sizes for queues.
+   * These values are used by SwingSet to compute how many messages should be
+   * accepted in a block.
+   * 
+   * There is no required order to this list of entries, but all the chain
+   * nodes must all serialize and deserialize the existing order without
+   * permuting it.
+   */
+  queue_max: QueueSizeAmino[];
+}
+export interface ParamsAminoMsg {
+  type: "/agoric.swingset.Params";
+  value: ParamsAmino;
+}
 /** Params are the swingset configuration/governance parameters. */
 export interface ParamsSDKType {
   beans_per_unit: StringBeansSDKType[];
@@ -110,6 +209,22 @@ export interface State {
    */
   queueAllowed: QueueSize[];
 }
+export interface StateProtoMsg {
+  typeUrl: "/agoric.swingset.State";
+  value: Uint8Array;
+}
+/** The current state of the module. */
+export interface StateAmino {
+  /**
+   * The allowed number of items to add to queues, as determined by SwingSet.
+   * Transactions which attempt to enqueue more should be rejected.
+   */
+  queue_allowed: QueueSizeAmino[];
+}
+export interface StateAminoMsg {
+  type: "/agoric.swingset.State";
+  value: StateAmino;
+}
 /** The current state of the module. */
 export interface StateSDKType {
   queue_allowed: QueueSizeSDKType[];
@@ -121,6 +236,21 @@ export interface StringBeans {
   /** The actual bean value. */
   beans: string;
 }
+export interface StringBeansProtoMsg {
+  typeUrl: "/agoric.swingset.StringBeans";
+  value: Uint8Array;
+}
+/** Map element of a string key to a Nat bean count. */
+export interface StringBeansAmino {
+  /** What the beans are for. */
+  key: string;
+  /** The actual bean value. */
+  beans: string;
+}
+export interface StringBeansAminoMsg {
+  type: "/agoric.swingset.StringBeans";
+  value: StringBeansAmino;
+}
 /** Map element of a string key to a Nat bean count. */
 export interface StringBeansSDKType {
   key: string;
@@ -130,6 +260,19 @@ export interface StringBeansSDKType {
 export interface PowerFlagFee {
   powerFlag: string;
   fee: Coin[];
+}
+export interface PowerFlagFeeProtoMsg {
+  typeUrl: "/agoric.swingset.PowerFlagFee";
+  value: Uint8Array;
+}
+/** Map a provisioning power flag to its corresponding fee. */
+export interface PowerFlagFeeAmino {
+  power_flag: string;
+  fee: CoinAmino[];
+}
+export interface PowerFlagFeeAminoMsg {
+  type: "/agoric.swingset.PowerFlagFee";
+  value: PowerFlagFeeAmino;
 }
 /** Map a provisioning power flag to its corresponding fee. */
 export interface PowerFlagFeeSDKType {
@@ -143,6 +286,21 @@ export interface QueueSize {
   /** The actual size value. */
   size: number;
 }
+export interface QueueSizeProtoMsg {
+  typeUrl: "/agoric.swingset.QueueSize";
+  value: Uint8Array;
+}
+/** Map element of a string key to a size. */
+export interface QueueSizeAmino {
+  /** What the size is for. */
+  key: string;
+  /** The actual size value. */
+  size: number;
+}
+export interface QueueSizeAminoMsg {
+  type: "/agoric.swingset.QueueSize";
+  value: QueueSizeAmino;
+}
 /** Map element of a string key to a size. */
 export interface QueueSizeSDKType {
   key: string;
@@ -155,6 +313,21 @@ export interface Egress {
   /** TODO: Remove these power flags as they are deprecated and have no effect. */
   powerFlags: string[];
 }
+export interface EgressProtoMsg {
+  typeUrl: "/agoric.swingset.Egress";
+  value: Uint8Array;
+}
+/** Egress is the format for a swingset egress. */
+export interface EgressAmino {
+  nickname: string;
+  peer: Uint8Array;
+  /** TODO: Remove these power flags as they are deprecated and have no effect. */
+  power_flags: string[];
+}
+export interface EgressAminoMsg {
+  type: "/agoric.swingset.Egress";
+  value: EgressAmino;
+}
 /** Egress is the format for a swingset egress. */
 export interface EgressSDKType {
   nickname: string;
@@ -165,6 +338,19 @@ export interface EgressSDKType {
 export interface ExtensionSnapshotterArtifactPayload {
   name: string;
   data: Uint8Array;
+}
+export interface ExtensionSnapshotterArtifactPayloadProtoMsg {
+  typeUrl: "/agoric.swingset.ExtensionSnapshotterArtifactPayload";
+  value: Uint8Array;
+}
+/** The payload messages used by swingset state-sync */
+export interface ExtensionSnapshotterArtifactPayloadAmino {
+  name: string;
+  data: Uint8Array;
+}
+export interface ExtensionSnapshotterArtifactPayloadAminoMsg {
+  type: "/agoric.swingset.ExtensionSnapshotterArtifactPayload";
+  value: ExtensionSnapshotterArtifactPayloadAmino;
 }
 /** The payload messages used by swingset state-sync */
 export interface ExtensionSnapshotterArtifactPayloadSDKType {
@@ -179,7 +365,8 @@ function createBaseCoreEvalProposal(): CoreEvalProposal {
   };
 }
 export const CoreEvalProposal = {
-  encode(message: CoreEvalProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/agoric.swingset.CoreEvalProposal",
+  encode(message: CoreEvalProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -204,6 +391,39 @@ export const CoreEvalProposal = {
     message.description = object.description ?? "";
     message.evals = object.evals?.map(e => CoreEval.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: CoreEvalProposalAmino): CoreEvalProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      evals: Array.isArray(object?.evals) ? object.evals.map((e: any) => CoreEval.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: CoreEvalProposal): CoreEvalProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    if (message.evals) {
+      obj.evals = message.evals.map(e => e ? CoreEval.toAmino(e) : undefined);
+    } else {
+      obj.evals = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: CoreEvalProposalAminoMsg): CoreEvalProposal {
+    return CoreEvalProposal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CoreEvalProposalProtoMsg): CoreEvalProposal {
+    return CoreEvalProposal.decode(message.value);
+  },
+  toProto(message: CoreEvalProposal): Uint8Array {
+    return CoreEvalProposal.encode(message).finish();
+  },
+  toProtoMsg(message: CoreEvalProposal): CoreEvalProposalProtoMsg {
+    return {
+      typeUrl: "/agoric.swingset.CoreEvalProposal",
+      value: CoreEvalProposal.encode(message).finish()
+    };
   }
 };
 function createBaseCoreEval(): CoreEval {
@@ -213,7 +433,8 @@ function createBaseCoreEval(): CoreEval {
   };
 }
 export const CoreEval = {
-  encode(message: CoreEval, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/agoric.swingset.CoreEval",
+  encode(message: CoreEval, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.jsonPermits !== "") {
       writer.uint32(10).string(message.jsonPermits);
     }
@@ -233,6 +454,33 @@ export const CoreEval = {
     message.jsonPermits = object.jsonPermits ?? "";
     message.jsCode = object.jsCode ?? "";
     return message;
+  },
+  fromAmino(object: CoreEvalAmino): CoreEval {
+    return {
+      jsonPermits: object.json_permits,
+      jsCode: object.js_code
+    };
+  },
+  toAmino(message: CoreEval): CoreEvalAmino {
+    const obj: any = {};
+    obj.json_permits = message.jsonPermits;
+    obj.js_code = message.jsCode;
+    return obj;
+  },
+  fromAminoMsg(object: CoreEvalAminoMsg): CoreEval {
+    return CoreEval.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CoreEvalProtoMsg): CoreEval {
+    return CoreEval.decode(message.value);
+  },
+  toProto(message: CoreEval): Uint8Array {
+    return CoreEval.encode(message).finish();
+  },
+  toProtoMsg(message: CoreEval): CoreEvalProtoMsg {
+    return {
+      typeUrl: "/agoric.swingset.CoreEval",
+      value: CoreEval.encode(message).finish()
+    };
   }
 };
 function createBaseParams(): Params {
@@ -245,7 +493,8 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/agoric.swingset.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.beansPerUnit) {
       StringBeans.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -280,6 +529,55 @@ export const Params = {
     message.powerFlagFees = object.powerFlagFees?.map(e => PowerFlagFee.fromPartial(e)) || [];
     message.queueMax = object.queueMax?.map(e => QueueSize.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      beansPerUnit: Array.isArray(object?.beans_per_unit) ? object.beans_per_unit.map((e: any) => StringBeans.fromAmino(e)) : [],
+      feeUnitPrice: Array.isArray(object?.fee_unit_price) ? object.fee_unit_price.map((e: any) => Coin.fromAmino(e)) : [],
+      bootstrapVatConfig: object.bootstrap_vat_config,
+      powerFlagFees: Array.isArray(object?.power_flag_fees) ? object.power_flag_fees.map((e: any) => PowerFlagFee.fromAmino(e)) : [],
+      queueMax: Array.isArray(object?.queue_max) ? object.queue_max.map((e: any) => QueueSize.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.beansPerUnit) {
+      obj.beans_per_unit = message.beansPerUnit.map(e => e ? StringBeans.toAmino(e) : undefined);
+    } else {
+      obj.beans_per_unit = [];
+    }
+    if (message.feeUnitPrice) {
+      obj.fee_unit_price = message.feeUnitPrice.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.fee_unit_price = [];
+    }
+    obj.bootstrap_vat_config = message.bootstrapVatConfig;
+    if (message.powerFlagFees) {
+      obj.power_flag_fees = message.powerFlagFees.map(e => e ? PowerFlagFee.toAmino(e) : undefined);
+    } else {
+      obj.power_flag_fees = [];
+    }
+    if (message.queueMax) {
+      obj.queue_max = message.queueMax.map(e => e ? QueueSize.toAmino(e) : undefined);
+    } else {
+      obj.queue_max = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/agoric.swingset.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };
 function createBaseState(): State {
@@ -288,7 +586,8 @@ function createBaseState(): State {
   };
 }
 export const State = {
-  encode(message: State, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/agoric.swingset.State",
+  encode(message: State, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.queueAllowed) {
       QueueSize.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -303,6 +602,35 @@ export const State = {
     const message = createBaseState();
     message.queueAllowed = object.queueAllowed?.map(e => QueueSize.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: StateAmino): State {
+    return {
+      queueAllowed: Array.isArray(object?.queue_allowed) ? object.queue_allowed.map((e: any) => QueueSize.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: State): StateAmino {
+    const obj: any = {};
+    if (message.queueAllowed) {
+      obj.queue_allowed = message.queueAllowed.map(e => e ? QueueSize.toAmino(e) : undefined);
+    } else {
+      obj.queue_allowed = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: StateAminoMsg): State {
+    return State.fromAmino(object.value);
+  },
+  fromProtoMsg(message: StateProtoMsg): State {
+    return State.decode(message.value);
+  },
+  toProto(message: State): Uint8Array {
+    return State.encode(message).finish();
+  },
+  toProtoMsg(message: State): StateProtoMsg {
+    return {
+      typeUrl: "/agoric.swingset.State",
+      value: State.encode(message).finish()
+    };
   }
 };
 function createBaseStringBeans(): StringBeans {
@@ -312,7 +640,8 @@ function createBaseStringBeans(): StringBeans {
   };
 }
 export const StringBeans = {
-  encode(message: StringBeans, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/agoric.swingset.StringBeans",
+  encode(message: StringBeans, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -332,6 +661,33 @@ export const StringBeans = {
     message.key = object.key ?? "";
     message.beans = object.beans ?? "";
     return message;
+  },
+  fromAmino(object: StringBeansAmino): StringBeans {
+    return {
+      key: object.key,
+      beans: object.beans
+    };
+  },
+  toAmino(message: StringBeans): StringBeansAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.beans = message.beans;
+    return obj;
+  },
+  fromAminoMsg(object: StringBeansAminoMsg): StringBeans {
+    return StringBeans.fromAmino(object.value);
+  },
+  fromProtoMsg(message: StringBeansProtoMsg): StringBeans {
+    return StringBeans.decode(message.value);
+  },
+  toProto(message: StringBeans): Uint8Array {
+    return StringBeans.encode(message).finish();
+  },
+  toProtoMsg(message: StringBeans): StringBeansProtoMsg {
+    return {
+      typeUrl: "/agoric.swingset.StringBeans",
+      value: StringBeans.encode(message).finish()
+    };
   }
 };
 function createBasePowerFlagFee(): PowerFlagFee {
@@ -341,7 +697,8 @@ function createBasePowerFlagFee(): PowerFlagFee {
   };
 }
 export const PowerFlagFee = {
-  encode(message: PowerFlagFee, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/agoric.swingset.PowerFlagFee",
+  encode(message: PowerFlagFee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.powerFlag !== "") {
       writer.uint32(10).string(message.powerFlag);
     }
@@ -361,6 +718,37 @@ export const PowerFlagFee = {
     message.powerFlag = object.powerFlag ?? "";
     message.fee = object.fee?.map(e => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: PowerFlagFeeAmino): PowerFlagFee {
+    return {
+      powerFlag: object.power_flag,
+      fee: Array.isArray(object?.fee) ? object.fee.map((e: any) => Coin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: PowerFlagFee): PowerFlagFeeAmino {
+    const obj: any = {};
+    obj.power_flag = message.powerFlag;
+    if (message.fee) {
+      obj.fee = message.fee.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.fee = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: PowerFlagFeeAminoMsg): PowerFlagFee {
+    return PowerFlagFee.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PowerFlagFeeProtoMsg): PowerFlagFee {
+    return PowerFlagFee.decode(message.value);
+  },
+  toProto(message: PowerFlagFee): Uint8Array {
+    return PowerFlagFee.encode(message).finish();
+  },
+  toProtoMsg(message: PowerFlagFee): PowerFlagFeeProtoMsg {
+    return {
+      typeUrl: "/agoric.swingset.PowerFlagFee",
+      value: PowerFlagFee.encode(message).finish()
+    };
   }
 };
 function createBaseQueueSize(): QueueSize {
@@ -370,7 +758,8 @@ function createBaseQueueSize(): QueueSize {
   };
 }
 export const QueueSize = {
-  encode(message: QueueSize, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/agoric.swingset.QueueSize",
+  encode(message: QueueSize, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -390,6 +779,33 @@ export const QueueSize = {
     message.key = object.key ?? "";
     message.size = object.size ?? 0;
     return message;
+  },
+  fromAmino(object: QueueSizeAmino): QueueSize {
+    return {
+      key: object.key,
+      size: object.size
+    };
+  },
+  toAmino(message: QueueSize): QueueSizeAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.size = message.size;
+    return obj;
+  },
+  fromAminoMsg(object: QueueSizeAminoMsg): QueueSize {
+    return QueueSize.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueueSizeProtoMsg): QueueSize {
+    return QueueSize.decode(message.value);
+  },
+  toProto(message: QueueSize): Uint8Array {
+    return QueueSize.encode(message).finish();
+  },
+  toProtoMsg(message: QueueSize): QueueSizeProtoMsg {
+    return {
+      typeUrl: "/agoric.swingset.QueueSize",
+      value: QueueSize.encode(message).finish()
+    };
   }
 };
 function createBaseEgress(): Egress {
@@ -400,7 +816,8 @@ function createBaseEgress(): Egress {
   };
 }
 export const Egress = {
-  encode(message: Egress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/agoric.swingset.Egress",
+  encode(message: Egress, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.nickname !== "") {
       writer.uint32(10).string(message.nickname);
     }
@@ -425,6 +842,39 @@ export const Egress = {
     message.peer = object.peer ?? new Uint8Array();
     message.powerFlags = object.powerFlags?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: EgressAmino): Egress {
+    return {
+      nickname: object.nickname,
+      peer: object.peer,
+      powerFlags: Array.isArray(object?.power_flags) ? object.power_flags.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: Egress): EgressAmino {
+    const obj: any = {};
+    obj.nickname = message.nickname;
+    obj.peer = message.peer;
+    if (message.powerFlags) {
+      obj.power_flags = message.powerFlags.map(e => e);
+    } else {
+      obj.power_flags = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EgressAminoMsg): Egress {
+    return Egress.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EgressProtoMsg): Egress {
+    return Egress.decode(message.value);
+  },
+  toProto(message: Egress): Uint8Array {
+    return Egress.encode(message).finish();
+  },
+  toProtoMsg(message: Egress): EgressProtoMsg {
+    return {
+      typeUrl: "/agoric.swingset.Egress",
+      value: Egress.encode(message).finish()
+    };
   }
 };
 function createBaseExtensionSnapshotterArtifactPayload(): ExtensionSnapshotterArtifactPayload {
@@ -434,7 +884,8 @@ function createBaseExtensionSnapshotterArtifactPayload(): ExtensionSnapshotterAr
   };
 }
 export const ExtensionSnapshotterArtifactPayload = {
-  encode(message: ExtensionSnapshotterArtifactPayload, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/agoric.swingset.ExtensionSnapshotterArtifactPayload",
+  encode(message: ExtensionSnapshotterArtifactPayload, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -454,5 +905,32 @@ export const ExtensionSnapshotterArtifactPayload = {
     message.name = object.name ?? "";
     message.data = object.data ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: ExtensionSnapshotterArtifactPayloadAmino): ExtensionSnapshotterArtifactPayload {
+    return {
+      name: object.name,
+      data: object.data
+    };
+  },
+  toAmino(message: ExtensionSnapshotterArtifactPayload): ExtensionSnapshotterArtifactPayloadAmino {
+    const obj: any = {};
+    obj.name = message.name;
+    obj.data = message.data;
+    return obj;
+  },
+  fromAminoMsg(object: ExtensionSnapshotterArtifactPayloadAminoMsg): ExtensionSnapshotterArtifactPayload {
+    return ExtensionSnapshotterArtifactPayload.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ExtensionSnapshotterArtifactPayloadProtoMsg): ExtensionSnapshotterArtifactPayload {
+    return ExtensionSnapshotterArtifactPayload.decode(message.value);
+  },
+  toProto(message: ExtensionSnapshotterArtifactPayload): Uint8Array {
+    return ExtensionSnapshotterArtifactPayload.encode(message).finish();
+  },
+  toProtoMsg(message: ExtensionSnapshotterArtifactPayload): ExtensionSnapshotterArtifactPayloadProtoMsg {
+    return {
+      typeUrl: "/agoric.swingset.ExtensionSnapshotterArtifactPayload",
+      value: ExtensionSnapshotterArtifactPayload.encode(message).finish()
+    };
   }
 };

@@ -27,6 +27,7 @@ export enum Downtime {
   UNRECOGNIZED = -1,
 }
 export const DowntimeSDKType = Downtime;
+export const DowntimeAmino = Downtime;
 export function downtimeFromJSON(object: any): Downtime {
   switch (object) {
     case 0:

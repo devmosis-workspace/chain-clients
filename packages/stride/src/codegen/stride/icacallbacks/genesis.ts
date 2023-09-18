@@ -1,28 +1,43 @@
-import { Params, ParamsSDKType } from "./params";
-import { CallbackData, CallbackDataSDKType } from "./callback_data";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { CallbackData, CallbackDataAmino, CallbackDataSDKType } from "./callback_data";
+import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** GenesisState defines the icacallbacks module's genesis state. */
 export interface GenesisState {
-  params?: Params;
+  params: Params;
   portId: string;
   callbackDataList: CallbackData[];
 }
+export interface GenesisStateProtoMsg {
+  typeUrl: "/stride.icacallbacks.GenesisState";
+  value: Uint8Array;
+}
+/** GenesisState defines the icacallbacks module's genesis state. */
+export interface GenesisStateAmino {
+  params?: ParamsAmino;
+  port_id: string;
+  callback_data_list: CallbackDataAmino[];
+}
+export interface GenesisStateAminoMsg {
+  type: "/stride.icacallbacks.GenesisState";
+  value: GenesisStateAmino;
+}
 /** GenesisState defines the icacallbacks module's genesis state. */
 export interface GenesisStateSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
   port_id: string;
   callback_data_list: CallbackDataSDKType[];
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     portId: "",
     callbackDataList: []
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.icacallbacks.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -47,5 +62,38 @@ export const GenesisState = {
     message.portId = object.portId ?? "";
     message.callbackDataList = object.callbackDataList?.map(e => CallbackData.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+      portId: object.port_id,
+      callbackDataList: Array.isArray(object?.callback_data_list) ? object.callback_data_list.map((e: any) => CallbackData.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    obj.port_id = message.portId;
+    if (message.callbackDataList) {
+      obj.callback_data_list = message.callbackDataList.map(e => e ? CallbackData.toAmino(e) : undefined);
+    } else {
+      obj.callback_data_list = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/stride.icacallbacks.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };

@@ -4,48 +4,18 @@ import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const axelarAminoConverters: {
     "/axelar.permission.v1beta1.RegisterControllerRequest": {
         aminoType: string;
-        toAmino: ({ sender, controller }: import("./permission/v1beta1/tx").RegisterControllerRequest) => {
-            sender: Uint8Array;
-            controller: Uint8Array;
-        };
-        fromAmino: ({ sender, controller }: {
-            sender: Uint8Array;
-            controller: Uint8Array;
-        }) => import("./permission/v1beta1/tx").RegisterControllerRequest;
+        toAmino: (message: import("./permission/v1beta1/tx").RegisterControllerRequest) => import("./permission/v1beta1/tx").RegisterControllerRequestAmino;
+        fromAmino: (object: import("./permission/v1beta1/tx").RegisterControllerRequestAmino) => import("./permission/v1beta1/tx").RegisterControllerRequest;
     };
     "/axelar.permission.v1beta1.DeregisterControllerRequest": {
         aminoType: string;
-        toAmino: ({ sender, controller }: import("./permission/v1beta1/tx").DeregisterControllerRequest) => {
-            sender: Uint8Array;
-            controller: Uint8Array;
-        };
-        fromAmino: ({ sender, controller }: {
-            sender: Uint8Array;
-            controller: Uint8Array;
-        }) => import("./permission/v1beta1/tx").DeregisterControllerRequest;
+        toAmino: (message: import("./permission/v1beta1/tx").DeregisterControllerRequest) => import("./permission/v1beta1/tx").DeregisterControllerRequestAmino;
+        fromAmino: (object: import("./permission/v1beta1/tx").DeregisterControllerRequestAmino) => import("./permission/v1beta1/tx").DeregisterControllerRequest;
     };
     "/axelar.permission.v1beta1.UpdateGovernanceKeyRequest": {
         aminoType: string;
-        toAmino: ({ sender, governanceKey }: import("./permission/v1beta1/tx").UpdateGovernanceKeyRequest) => {
-            sender: Uint8Array;
-            governance_key: {
-                threshold: number;
-                public_keys: {
-                    type_url: string;
-                    value: Uint8Array;
-                }[];
-            };
-        };
-        fromAmino: ({ sender, governance_key }: {
-            sender: Uint8Array;
-            governance_key: {
-                threshold: number;
-                public_keys: {
-                    type_url: string;
-                    value: Uint8Array;
-                }[];
-            };
-        }) => import("./permission/v1beta1/tx").UpdateGovernanceKeyRequest;
+        toAmino: (message: import("./permission/v1beta1/tx").UpdateGovernanceKeyRequest) => import("./permission/v1beta1/tx").UpdateGovernanceKeyRequestAmino;
+        fromAmino: (object: import("./permission/v1beta1/tx").UpdateGovernanceKeyRequestAmino) => import("./permission/v1beta1/tx").UpdateGovernanceKeyRequest;
     };
 };
 export declare const axelarProtoRegistry: ReadonlyArray<[string, GeneratedType]>;

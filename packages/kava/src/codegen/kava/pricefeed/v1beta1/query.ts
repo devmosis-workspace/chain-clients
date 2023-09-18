@@ -1,12 +1,26 @@
-import { Params, ParamsSDKType } from "./store";
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./store";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
+import { Decimal } from "@cosmjs/math";
 /**
  * QueryParamsRequest defines the request type for querying x/pricefeed
  * parameters.
  */
 export interface QueryParamsRequest {}
+export interface QueryParamsRequestProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryParamsRequest";
+  value: Uint8Array;
+}
+/**
+ * QueryParamsRequest defines the request type for querying x/pricefeed
+ * parameters.
+ */
+export interface QueryParamsRequestAmino {}
+export interface QueryParamsRequestAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryParamsRequest";
+  value: QueryParamsRequestAmino;
+}
 /**
  * QueryParamsRequest defines the request type for querying x/pricefeed
  * parameters.
@@ -17,18 +31,45 @@ export interface QueryParamsRequestSDKType {}
  * parameters.
  */
 export interface QueryParamsResponse {
-  params?: Params;
+  params: Params;
+}
+export interface QueryParamsResponseProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryParamsResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryParamsResponse defines the response type for querying x/pricefeed
+ * parameters.
+ */
+export interface QueryParamsResponseAmino {
+  params?: ParamsAmino;
+}
+export interface QueryParamsResponseAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryParamsResponse";
+  value: QueryParamsResponseAmino;
 }
 /**
  * QueryParamsResponse defines the response type for querying x/pricefeed
  * parameters.
  */
 export interface QueryParamsResponseSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
 }
 /** QueryPriceRequest is the request type for the Query/PriceRequest RPC method. */
 export interface QueryPriceRequest {
   marketId: string;
+}
+export interface QueryPriceRequestProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryPriceRequest";
+  value: Uint8Array;
+}
+/** QueryPriceRequest is the request type for the Query/PriceRequest RPC method. */
+export interface QueryPriceRequestAmino {
+  market_id: string;
+}
+export interface QueryPriceRequestAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryPriceRequest";
+  value: QueryPriceRequestAmino;
 }
 /** QueryPriceRequest is the request type for the Query/PriceRequest RPC method. */
 export interface QueryPriceRequestSDKType {
@@ -36,19 +77,53 @@ export interface QueryPriceRequestSDKType {
 }
 /** QueryPriceResponse is the response type for the Query/Prices RPC method. */
 export interface QueryPriceResponse {
-  price?: CurrentPriceResponse;
+  price: CurrentPriceResponse;
+}
+export interface QueryPriceResponseProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryPriceResponse";
+  value: Uint8Array;
+}
+/** QueryPriceResponse is the response type for the Query/Prices RPC method. */
+export interface QueryPriceResponseAmino {
+  price?: CurrentPriceResponseAmino;
+}
+export interface QueryPriceResponseAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryPriceResponse";
+  value: QueryPriceResponseAmino;
 }
 /** QueryPriceResponse is the response type for the Query/Prices RPC method. */
 export interface QueryPriceResponseSDKType {
-  price?: CurrentPriceResponseSDKType;
+  price: CurrentPriceResponseSDKType;
 }
 /** QueryPricesRequest is the request type for the Query/Prices RPC method. */
 export interface QueryPricesRequest {}
+export interface QueryPricesRequestProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryPricesRequest";
+  value: Uint8Array;
+}
+/** QueryPricesRequest is the request type for the Query/Prices RPC method. */
+export interface QueryPricesRequestAmino {}
+export interface QueryPricesRequestAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryPricesRequest";
+  value: QueryPricesRequestAmino;
+}
 /** QueryPricesRequest is the request type for the Query/Prices RPC method. */
 export interface QueryPricesRequestSDKType {}
 /** QueryPricesResponse is the response type for the Query/Prices RPC method. */
 export interface QueryPricesResponse {
   prices: CurrentPriceResponse[];
+}
+export interface QueryPricesResponseProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryPricesResponse";
+  value: Uint8Array;
+}
+/** QueryPricesResponse is the response type for the Query/Prices RPC method. */
+export interface QueryPricesResponseAmino {
+  prices: CurrentPriceResponseAmino[];
+}
+export interface QueryPricesResponseAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryPricesResponse";
+  value: QueryPricesResponseAmino;
 }
 /** QueryPricesResponse is the response type for the Query/Prices RPC method. */
 export interface QueryPricesResponseSDKType {
@@ -57,6 +132,18 @@ export interface QueryPricesResponseSDKType {
 /** QueryRawPricesRequest is the request type for the Query/RawPrices RPC method. */
 export interface QueryRawPricesRequest {
   marketId: string;
+}
+export interface QueryRawPricesRequestProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryRawPricesRequest";
+  value: Uint8Array;
+}
+/** QueryRawPricesRequest is the request type for the Query/RawPrices RPC method. */
+export interface QueryRawPricesRequestAmino {
+  market_id: string;
+}
+export interface QueryRawPricesRequestAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryRawPricesRequest";
+  value: QueryRawPricesRequestAmino;
 }
 /** QueryRawPricesRequest is the request type for the Query/RawPrices RPC method. */
 export interface QueryRawPricesRequestSDKType {
@@ -69,6 +156,21 @@ export interface QueryRawPricesRequestSDKType {
 export interface QueryRawPricesResponse {
   rawPrices: PostedPriceResponse[];
 }
+export interface QueryRawPricesResponseProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryRawPricesResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryRawPricesResponse is the response type for the Query/RawPrices RPC
+ * method.
+ */
+export interface QueryRawPricesResponseAmino {
+  raw_prices: PostedPriceResponseAmino[];
+}
+export interface QueryRawPricesResponseAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryRawPricesResponse";
+  value: QueryRawPricesResponseAmino;
+}
 /**
  * QueryRawPricesResponse is the response type for the Query/RawPrices RPC
  * method.
@@ -80,6 +182,18 @@ export interface QueryRawPricesResponseSDKType {
 export interface QueryOraclesRequest {
   marketId: string;
 }
+export interface QueryOraclesRequestProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryOraclesRequest";
+  value: Uint8Array;
+}
+/** QueryOraclesRequest is the request type for the Query/Oracles RPC method. */
+export interface QueryOraclesRequestAmino {
+  market_id: string;
+}
+export interface QueryOraclesRequestAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryOraclesRequest";
+  value: QueryOraclesRequestAmino;
+}
 /** QueryOraclesRequest is the request type for the Query/Oracles RPC method. */
 export interface QueryOraclesRequestSDKType {
   market_id: string;
@@ -89,18 +203,54 @@ export interface QueryOraclesResponse {
   /** List of oracle addresses */
   oracles: string[];
 }
+export interface QueryOraclesResponseProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryOraclesResponse";
+  value: Uint8Array;
+}
+/** QueryOraclesResponse is the response type for the Query/Oracles RPC method. */
+export interface QueryOraclesResponseAmino {
+  /** List of oracle addresses */
+  oracles: string[];
+}
+export interface QueryOraclesResponseAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryOraclesResponse";
+  value: QueryOraclesResponseAmino;
+}
 /** QueryOraclesResponse is the response type for the Query/Oracles RPC method. */
 export interface QueryOraclesResponseSDKType {
   oracles: string[];
 }
 /** QueryMarketsRequest is the request type for the Query/Markets RPC method. */
 export interface QueryMarketsRequest {}
+export interface QueryMarketsRequestProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryMarketsRequest";
+  value: Uint8Array;
+}
+/** QueryMarketsRequest is the request type for the Query/Markets RPC method. */
+export interface QueryMarketsRequestAmino {}
+export interface QueryMarketsRequestAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryMarketsRequest";
+  value: QueryMarketsRequestAmino;
+}
 /** QueryMarketsRequest is the request type for the Query/Markets RPC method. */
 export interface QueryMarketsRequestSDKType {}
 /** QueryMarketsResponse is the response type for the Query/Markets RPC method. */
 export interface QueryMarketsResponse {
   /** List of markets */
   markets: MarketResponse[];
+}
+export interface QueryMarketsResponseProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryMarketsResponse";
+  value: Uint8Array;
+}
+/** QueryMarketsResponse is the response type for the Query/Markets RPC method. */
+export interface QueryMarketsResponseAmino {
+  /** List of markets */
+  markets: MarketResponseAmino[];
+}
+export interface QueryMarketsResponseAminoMsg {
+  type: "/kava.pricefeed.v1beta1.QueryMarketsResponse";
+  value: QueryMarketsResponseAmino;
 }
 /** QueryMarketsResponse is the response type for the Query/Markets RPC method. */
 export interface QueryMarketsResponseSDKType {
@@ -111,14 +261,29 @@ export interface PostedPriceResponse {
   marketId: string;
   oracleAddress: string;
   price: string;
-  expiry?: Timestamp;
+  expiry: Timestamp;
+}
+export interface PostedPriceResponseProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.PostedPriceResponse";
+  value: Uint8Array;
+}
+/** PostedPriceResponse defines a price for market posted by a specific oracle. */
+export interface PostedPriceResponseAmino {
+  market_id: string;
+  oracle_address: string;
+  price: string;
+  expiry?: TimestampAmino;
+}
+export interface PostedPriceResponseAminoMsg {
+  type: "/kava.pricefeed.v1beta1.PostedPriceResponse";
+  value: PostedPriceResponseAmino;
 }
 /** PostedPriceResponse defines a price for market posted by a specific oracle. */
 export interface PostedPriceResponseSDKType {
   market_id: string;
   oracle_address: string;
   price: string;
-  expiry?: TimestampSDKType;
+  expiry: TimestampSDKType;
 }
 /**
  * CurrentPriceResponse defines a current price for a particular market in the pricefeed
@@ -127,6 +292,22 @@ export interface PostedPriceResponseSDKType {
 export interface CurrentPriceResponse {
   marketId: string;
   price: string;
+}
+export interface CurrentPriceResponseProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.CurrentPriceResponse";
+  value: Uint8Array;
+}
+/**
+ * CurrentPriceResponse defines a current price for a particular market in the pricefeed
+ * module.
+ */
+export interface CurrentPriceResponseAmino {
+  market_id: string;
+  price: string;
+}
+export interface CurrentPriceResponseAminoMsg {
+  type: "/kava.pricefeed.v1beta1.CurrentPriceResponse";
+  value: CurrentPriceResponseAmino;
 }
 /**
  * CurrentPriceResponse defines a current price for a particular market in the pricefeed
@@ -144,6 +325,22 @@ export interface MarketResponse {
   oracles: string[];
   active: boolean;
 }
+export interface MarketResponseProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.MarketResponse";
+  value: Uint8Array;
+}
+/** MarketResponse defines an asset in the pricefeed. */
+export interface MarketResponseAmino {
+  market_id: string;
+  base_asset: string;
+  quote_asset: string;
+  oracles: string[];
+  active: boolean;
+}
+export interface MarketResponseAminoMsg {
+  type: "/kava.pricefeed.v1beta1.MarketResponse";
+  value: MarketResponseAmino;
+}
 /** MarketResponse defines an asset in the pricefeed. */
 export interface MarketResponseSDKType {
   market_id: string;
@@ -156,7 +353,8 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
 export const QueryParamsRequest = {
-  encode(_: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryParamsRequest",
+  encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryParamsRequest {
@@ -165,15 +363,38 @@ export const QueryParamsRequest = {
   fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
+  },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsRequestProtoMsg): QueryParamsRequest {
+    return QueryParamsRequest.decode(message.value);
+  },
+  toProto(message: QueryParamsRequest): Uint8Array {
+    return QueryParamsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsRequest): QueryParamsRequestProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryParamsRequest",
+      value: QueryParamsRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: undefined
+    params: Params.fromPartial({})
   };
 }
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryParamsResponse",
+  encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -188,6 +409,31 @@ export const QueryParamsResponse = {
     const message = createBaseQueryParamsResponse();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsResponseProtoMsg): QueryParamsResponse {
+    return QueryParamsResponse.decode(message.value);
+  },
+  toProto(message: QueryParamsResponse): Uint8Array {
+    return QueryParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryParamsResponse",
+      value: QueryParamsResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryPriceRequest(): QueryPriceRequest {
@@ -196,7 +442,8 @@ function createBaseQueryPriceRequest(): QueryPriceRequest {
   };
 }
 export const QueryPriceRequest = {
-  encode(message: QueryPriceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryPriceRequest",
+  encode(message: QueryPriceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.marketId !== "") {
       writer.uint32(10).string(message.marketId);
     }
@@ -211,15 +458,41 @@ export const QueryPriceRequest = {
     const message = createBaseQueryPriceRequest();
     message.marketId = object.marketId ?? "";
     return message;
+  },
+  fromAmino(object: QueryPriceRequestAmino): QueryPriceRequest {
+    return {
+      marketId: object.market_id
+    };
+  },
+  toAmino(message: QueryPriceRequest): QueryPriceRequestAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPriceRequestAminoMsg): QueryPriceRequest {
+    return QueryPriceRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPriceRequestProtoMsg): QueryPriceRequest {
+    return QueryPriceRequest.decode(message.value);
+  },
+  toProto(message: QueryPriceRequest): Uint8Array {
+    return QueryPriceRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPriceRequest): QueryPriceRequestProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryPriceRequest",
+      value: QueryPriceRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryPriceResponse(): QueryPriceResponse {
   return {
-    price: undefined
+    price: CurrentPriceResponse.fromPartial({})
   };
 }
 export const QueryPriceResponse = {
-  encode(message: QueryPriceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryPriceResponse",
+  encode(message: QueryPriceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.price !== undefined) {
       CurrentPriceResponse.encode(message.price, writer.uint32(10).fork()).ldelim();
     }
@@ -234,13 +507,39 @@ export const QueryPriceResponse = {
     const message = createBaseQueryPriceResponse();
     message.price = object.price !== undefined && object.price !== null ? CurrentPriceResponse.fromPartial(object.price) : undefined;
     return message;
+  },
+  fromAmino(object: QueryPriceResponseAmino): QueryPriceResponse {
+    return {
+      price: object?.price ? CurrentPriceResponse.fromAmino(object.price) : undefined
+    };
+  },
+  toAmino(message: QueryPriceResponse): QueryPriceResponseAmino {
+    const obj: any = {};
+    obj.price = message.price ? CurrentPriceResponse.toAmino(message.price) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPriceResponseAminoMsg): QueryPriceResponse {
+    return QueryPriceResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPriceResponseProtoMsg): QueryPriceResponse {
+    return QueryPriceResponse.decode(message.value);
+  },
+  toProto(message: QueryPriceResponse): Uint8Array {
+    return QueryPriceResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPriceResponse): QueryPriceResponseProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryPriceResponse",
+      value: QueryPriceResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryPricesRequest(): QueryPricesRequest {
   return {};
 }
 export const QueryPricesRequest = {
-  encode(_: QueryPricesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryPricesRequest",
+  encode(_: QueryPricesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryPricesRequest {
@@ -249,6 +548,28 @@ export const QueryPricesRequest = {
   fromPartial(_: Partial<QueryPricesRequest>): QueryPricesRequest {
     const message = createBaseQueryPricesRequest();
     return message;
+  },
+  fromAmino(_: QueryPricesRequestAmino): QueryPricesRequest {
+    return {};
+  },
+  toAmino(_: QueryPricesRequest): QueryPricesRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryPricesRequestAminoMsg): QueryPricesRequest {
+    return QueryPricesRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPricesRequestProtoMsg): QueryPricesRequest {
+    return QueryPricesRequest.decode(message.value);
+  },
+  toProto(message: QueryPricesRequest): Uint8Array {
+    return QueryPricesRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPricesRequest): QueryPricesRequestProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryPricesRequest",
+      value: QueryPricesRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryPricesResponse(): QueryPricesResponse {
@@ -257,7 +578,8 @@ function createBaseQueryPricesResponse(): QueryPricesResponse {
   };
 }
 export const QueryPricesResponse = {
-  encode(message: QueryPricesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryPricesResponse",
+  encode(message: QueryPricesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.prices) {
       CurrentPriceResponse.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -272,6 +594,35 @@ export const QueryPricesResponse = {
     const message = createBaseQueryPricesResponse();
     message.prices = object.prices?.map(e => CurrentPriceResponse.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryPricesResponseAmino): QueryPricesResponse {
+    return {
+      prices: Array.isArray(object?.prices) ? object.prices.map((e: any) => CurrentPriceResponse.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: QueryPricesResponse): QueryPricesResponseAmino {
+    const obj: any = {};
+    if (message.prices) {
+      obj.prices = message.prices.map(e => e ? CurrentPriceResponse.toAmino(e) : undefined);
+    } else {
+      obj.prices = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryPricesResponseAminoMsg): QueryPricesResponse {
+    return QueryPricesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPricesResponseProtoMsg): QueryPricesResponse {
+    return QueryPricesResponse.decode(message.value);
+  },
+  toProto(message: QueryPricesResponse): Uint8Array {
+    return QueryPricesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPricesResponse): QueryPricesResponseProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryPricesResponse",
+      value: QueryPricesResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryRawPricesRequest(): QueryRawPricesRequest {
@@ -280,7 +631,8 @@ function createBaseQueryRawPricesRequest(): QueryRawPricesRequest {
   };
 }
 export const QueryRawPricesRequest = {
-  encode(message: QueryRawPricesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryRawPricesRequest",
+  encode(message: QueryRawPricesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.marketId !== "") {
       writer.uint32(10).string(message.marketId);
     }
@@ -295,6 +647,31 @@ export const QueryRawPricesRequest = {
     const message = createBaseQueryRawPricesRequest();
     message.marketId = object.marketId ?? "";
     return message;
+  },
+  fromAmino(object: QueryRawPricesRequestAmino): QueryRawPricesRequest {
+    return {
+      marketId: object.market_id
+    };
+  },
+  toAmino(message: QueryRawPricesRequest): QueryRawPricesRequestAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryRawPricesRequestAminoMsg): QueryRawPricesRequest {
+    return QueryRawPricesRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryRawPricesRequestProtoMsg): QueryRawPricesRequest {
+    return QueryRawPricesRequest.decode(message.value);
+  },
+  toProto(message: QueryRawPricesRequest): Uint8Array {
+    return QueryRawPricesRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryRawPricesRequest): QueryRawPricesRequestProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryRawPricesRequest",
+      value: QueryRawPricesRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryRawPricesResponse(): QueryRawPricesResponse {
@@ -303,7 +680,8 @@ function createBaseQueryRawPricesResponse(): QueryRawPricesResponse {
   };
 }
 export const QueryRawPricesResponse = {
-  encode(message: QueryRawPricesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryRawPricesResponse",
+  encode(message: QueryRawPricesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.rawPrices) {
       PostedPriceResponse.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -318,6 +696,35 @@ export const QueryRawPricesResponse = {
     const message = createBaseQueryRawPricesResponse();
     message.rawPrices = object.rawPrices?.map(e => PostedPriceResponse.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryRawPricesResponseAmino): QueryRawPricesResponse {
+    return {
+      rawPrices: Array.isArray(object?.raw_prices) ? object.raw_prices.map((e: any) => PostedPriceResponse.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: QueryRawPricesResponse): QueryRawPricesResponseAmino {
+    const obj: any = {};
+    if (message.rawPrices) {
+      obj.raw_prices = message.rawPrices.map(e => e ? PostedPriceResponse.toAmino(e) : undefined);
+    } else {
+      obj.raw_prices = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryRawPricesResponseAminoMsg): QueryRawPricesResponse {
+    return QueryRawPricesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryRawPricesResponseProtoMsg): QueryRawPricesResponse {
+    return QueryRawPricesResponse.decode(message.value);
+  },
+  toProto(message: QueryRawPricesResponse): Uint8Array {
+    return QueryRawPricesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryRawPricesResponse): QueryRawPricesResponseProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryRawPricesResponse",
+      value: QueryRawPricesResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryOraclesRequest(): QueryOraclesRequest {
@@ -326,7 +733,8 @@ function createBaseQueryOraclesRequest(): QueryOraclesRequest {
   };
 }
 export const QueryOraclesRequest = {
-  encode(message: QueryOraclesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryOraclesRequest",
+  encode(message: QueryOraclesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.marketId !== "") {
       writer.uint32(10).string(message.marketId);
     }
@@ -341,6 +749,31 @@ export const QueryOraclesRequest = {
     const message = createBaseQueryOraclesRequest();
     message.marketId = object.marketId ?? "";
     return message;
+  },
+  fromAmino(object: QueryOraclesRequestAmino): QueryOraclesRequest {
+    return {
+      marketId: object.market_id
+    };
+  },
+  toAmino(message: QueryOraclesRequest): QueryOraclesRequestAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryOraclesRequestAminoMsg): QueryOraclesRequest {
+    return QueryOraclesRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryOraclesRequestProtoMsg): QueryOraclesRequest {
+    return QueryOraclesRequest.decode(message.value);
+  },
+  toProto(message: QueryOraclesRequest): Uint8Array {
+    return QueryOraclesRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryOraclesRequest): QueryOraclesRequestProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryOraclesRequest",
+      value: QueryOraclesRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryOraclesResponse(): QueryOraclesResponse {
@@ -349,7 +782,8 @@ function createBaseQueryOraclesResponse(): QueryOraclesResponse {
   };
 }
 export const QueryOraclesResponse = {
-  encode(message: QueryOraclesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryOraclesResponse",
+  encode(message: QueryOraclesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.oracles) {
       writer.uint32(10).string(v!);
     }
@@ -364,13 +798,43 @@ export const QueryOraclesResponse = {
     const message = createBaseQueryOraclesResponse();
     message.oracles = object.oracles?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: QueryOraclesResponseAmino): QueryOraclesResponse {
+    return {
+      oracles: Array.isArray(object?.oracles) ? object.oracles.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: QueryOraclesResponse): QueryOraclesResponseAmino {
+    const obj: any = {};
+    if (message.oracles) {
+      obj.oracles = message.oracles.map(e => e);
+    } else {
+      obj.oracles = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryOraclesResponseAminoMsg): QueryOraclesResponse {
+    return QueryOraclesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryOraclesResponseProtoMsg): QueryOraclesResponse {
+    return QueryOraclesResponse.decode(message.value);
+  },
+  toProto(message: QueryOraclesResponse): Uint8Array {
+    return QueryOraclesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryOraclesResponse): QueryOraclesResponseProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryOraclesResponse",
+      value: QueryOraclesResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryMarketsRequest(): QueryMarketsRequest {
   return {};
 }
 export const QueryMarketsRequest = {
-  encode(_: QueryMarketsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryMarketsRequest",
+  encode(_: QueryMarketsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryMarketsRequest {
@@ -379,6 +843,28 @@ export const QueryMarketsRequest = {
   fromPartial(_: Partial<QueryMarketsRequest>): QueryMarketsRequest {
     const message = createBaseQueryMarketsRequest();
     return message;
+  },
+  fromAmino(_: QueryMarketsRequestAmino): QueryMarketsRequest {
+    return {};
+  },
+  toAmino(_: QueryMarketsRequest): QueryMarketsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryMarketsRequestAminoMsg): QueryMarketsRequest {
+    return QueryMarketsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMarketsRequestProtoMsg): QueryMarketsRequest {
+    return QueryMarketsRequest.decode(message.value);
+  },
+  toProto(message: QueryMarketsRequest): Uint8Array {
+    return QueryMarketsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMarketsRequest): QueryMarketsRequestProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryMarketsRequest",
+      value: QueryMarketsRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryMarketsResponse(): QueryMarketsResponse {
@@ -387,7 +873,8 @@ function createBaseQueryMarketsResponse(): QueryMarketsResponse {
   };
 }
 export const QueryMarketsResponse = {
-  encode(message: QueryMarketsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.QueryMarketsResponse",
+  encode(message: QueryMarketsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.markets) {
       MarketResponse.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -402,6 +889,35 @@ export const QueryMarketsResponse = {
     const message = createBaseQueryMarketsResponse();
     message.markets = object.markets?.map(e => MarketResponse.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryMarketsResponseAmino): QueryMarketsResponse {
+    return {
+      markets: Array.isArray(object?.markets) ? object.markets.map((e: any) => MarketResponse.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: QueryMarketsResponse): QueryMarketsResponseAmino {
+    const obj: any = {};
+    if (message.markets) {
+      obj.markets = message.markets.map(e => e ? MarketResponse.toAmino(e) : undefined);
+    } else {
+      obj.markets = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryMarketsResponseAminoMsg): QueryMarketsResponse {
+    return QueryMarketsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMarketsResponseProtoMsg): QueryMarketsResponse {
+    return QueryMarketsResponse.decode(message.value);
+  },
+  toProto(message: QueryMarketsResponse): Uint8Array {
+    return QueryMarketsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMarketsResponse): QueryMarketsResponseProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.QueryMarketsResponse",
+      value: QueryMarketsResponse.encode(message).finish()
+    };
   }
 };
 function createBasePostedPriceResponse(): PostedPriceResponse {
@@ -409,11 +925,12 @@ function createBasePostedPriceResponse(): PostedPriceResponse {
     marketId: "",
     oracleAddress: "",
     price: "",
-    expiry: undefined
+    expiry: Timestamp.fromPartial({})
   };
 }
 export const PostedPriceResponse = {
-  encode(message: PostedPriceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.PostedPriceResponse",
+  encode(message: PostedPriceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.marketId !== "") {
       writer.uint32(10).string(message.marketId);
     }
@@ -421,7 +938,7 @@ export const PostedPriceResponse = {
       writer.uint32(18).string(message.oracleAddress);
     }
     if (message.price !== "") {
-      writer.uint32(26).string(message.price);
+      writer.uint32(26).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.expiry !== undefined) {
       Timestamp.encode(message.expiry, writer.uint32(34).fork()).ldelim();
@@ -443,6 +960,37 @@ export const PostedPriceResponse = {
     message.price = object.price ?? "";
     message.expiry = object.expiry !== undefined && object.expiry !== null ? Timestamp.fromPartial(object.expiry) : undefined;
     return message;
+  },
+  fromAmino(object: PostedPriceResponseAmino): PostedPriceResponse {
+    return {
+      marketId: object.market_id,
+      oracleAddress: object.oracle_address,
+      price: object.price,
+      expiry: object.expiry
+    };
+  },
+  toAmino(message: PostedPriceResponse): PostedPriceResponseAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId;
+    obj.oracle_address = message.oracleAddress;
+    obj.price = message.price;
+    obj.expiry = message.expiry;
+    return obj;
+  },
+  fromAminoMsg(object: PostedPriceResponseAminoMsg): PostedPriceResponse {
+    return PostedPriceResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PostedPriceResponseProtoMsg): PostedPriceResponse {
+    return PostedPriceResponse.decode(message.value);
+  },
+  toProto(message: PostedPriceResponse): Uint8Array {
+    return PostedPriceResponse.encode(message).finish();
+  },
+  toProtoMsg(message: PostedPriceResponse): PostedPriceResponseProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.PostedPriceResponse",
+      value: PostedPriceResponse.encode(message).finish()
+    };
   }
 };
 function createBaseCurrentPriceResponse(): CurrentPriceResponse {
@@ -452,12 +1000,13 @@ function createBaseCurrentPriceResponse(): CurrentPriceResponse {
   };
 }
 export const CurrentPriceResponse = {
-  encode(message: CurrentPriceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.CurrentPriceResponse",
+  encode(message: CurrentPriceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.marketId !== "") {
       writer.uint32(10).string(message.marketId);
     }
     if (message.price !== "") {
-      writer.uint32(18).string(message.price);
+      writer.uint32(18).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     return writer;
   },
@@ -472,6 +1021,33 @@ export const CurrentPriceResponse = {
     message.marketId = object.marketId ?? "";
     message.price = object.price ?? "";
     return message;
+  },
+  fromAmino(object: CurrentPriceResponseAmino): CurrentPriceResponse {
+    return {
+      marketId: object.market_id,
+      price: object.price
+    };
+  },
+  toAmino(message: CurrentPriceResponse): CurrentPriceResponseAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId;
+    obj.price = message.price;
+    return obj;
+  },
+  fromAminoMsg(object: CurrentPriceResponseAminoMsg): CurrentPriceResponse {
+    return CurrentPriceResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CurrentPriceResponseProtoMsg): CurrentPriceResponse {
+    return CurrentPriceResponse.decode(message.value);
+  },
+  toProto(message: CurrentPriceResponse): Uint8Array {
+    return CurrentPriceResponse.encode(message).finish();
+  },
+  toProtoMsg(message: CurrentPriceResponse): CurrentPriceResponseProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.CurrentPriceResponse",
+      value: CurrentPriceResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMarketResponse(): MarketResponse {
@@ -484,7 +1060,8 @@ function createBaseMarketResponse(): MarketResponse {
   };
 }
 export const MarketResponse = {
-  encode(message: MarketResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.MarketResponse",
+  encode(message: MarketResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.marketId !== "") {
       writer.uint32(10).string(message.marketId);
     }
@@ -519,5 +1096,42 @@ export const MarketResponse = {
     message.oracles = object.oracles?.map(e => e) || [];
     message.active = object.active ?? false;
     return message;
+  },
+  fromAmino(object: MarketResponseAmino): MarketResponse {
+    return {
+      marketId: object.market_id,
+      baseAsset: object.base_asset,
+      quoteAsset: object.quote_asset,
+      oracles: Array.isArray(object?.oracles) ? object.oracles.map((e: any) => e) : [],
+      active: object.active
+    };
+  },
+  toAmino(message: MarketResponse): MarketResponseAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId;
+    obj.base_asset = message.baseAsset;
+    obj.quote_asset = message.quoteAsset;
+    if (message.oracles) {
+      obj.oracles = message.oracles.map(e => e);
+    } else {
+      obj.oracles = [];
+    }
+    obj.active = message.active;
+    return obj;
+  },
+  fromAminoMsg(object: MarketResponseAminoMsg): MarketResponse {
+    return MarketResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MarketResponseProtoMsg): MarketResponse {
+    return MarketResponse.decode(message.value);
+  },
+  toProto(message: MarketResponse): Uint8Array {
+    return MarketResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MarketResponse): MarketResponseProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.MarketResponse",
+      value: MarketResponse.encode(message).finish()
+    };
   }
 };

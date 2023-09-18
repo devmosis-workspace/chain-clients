@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryExchangeRates, QueryExchangeRatesResponse, QueryActiveExchangeRates, QueryActiveExchangeRatesResponse, QueryFeederDelegation, QueryFeederDelegationResponse, QueryMissCounter, QueryMissCounterResponse, QuerySlashWindow, QuerySlashWindowResponse, QueryAggregatePrevote, QueryAggregatePrevoteResponse, QueryAggregatePrevotes, QueryAggregatePrevotesResponse, QueryAggregateVote, QueryAggregateVoteResponse, QueryAggregateVotes, QueryAggregateVotesResponse, QueryParams, QueryParamsResponse, QueryMedians, QueryMediansResponse, QueryMedianDeviations, QueryMedianDeviationsResponse, QueryAvgPrice, QueryAvgPriceResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -61,67 +61,67 @@ export class QueryClientImpl implements Query {
   exchangeRates(request: QueryExchangeRates): Promise<QueryExchangeRatesResponse> {
     const data = QueryExchangeRates.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "ExchangeRates", data);
-    return promise.then(data => QueryExchangeRatesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryExchangeRatesResponse.decode(new BinaryReader(data)));
   }
   activeExchangeRates(request: QueryActiveExchangeRates = {}): Promise<QueryActiveExchangeRatesResponse> {
     const data = QueryActiveExchangeRates.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "ActiveExchangeRates", data);
-    return promise.then(data => QueryActiveExchangeRatesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryActiveExchangeRatesResponse.decode(new BinaryReader(data)));
   }
   feederDelegation(request: QueryFeederDelegation): Promise<QueryFeederDelegationResponse> {
     const data = QueryFeederDelegation.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "FeederDelegation", data);
-    return promise.then(data => QueryFeederDelegationResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryFeederDelegationResponse.decode(new BinaryReader(data)));
   }
   missCounter(request: QueryMissCounter): Promise<QueryMissCounterResponse> {
     const data = QueryMissCounter.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "MissCounter", data);
-    return promise.then(data => QueryMissCounterResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMissCounterResponse.decode(new BinaryReader(data)));
   }
   slashWindow(request: QuerySlashWindow = {}): Promise<QuerySlashWindowResponse> {
     const data = QuerySlashWindow.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "SlashWindow", data);
-    return promise.then(data => QuerySlashWindowResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySlashWindowResponse.decode(new BinaryReader(data)));
   }
   aggregatePrevote(request: QueryAggregatePrevote): Promise<QueryAggregatePrevoteResponse> {
     const data = QueryAggregatePrevote.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "AggregatePrevote", data);
-    return promise.then(data => QueryAggregatePrevoteResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAggregatePrevoteResponse.decode(new BinaryReader(data)));
   }
   aggregatePrevotes(request: QueryAggregatePrevotes = {}): Promise<QueryAggregatePrevotesResponse> {
     const data = QueryAggregatePrevotes.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "AggregatePrevotes", data);
-    return promise.then(data => QueryAggregatePrevotesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAggregatePrevotesResponse.decode(new BinaryReader(data)));
   }
   aggregateVote(request: QueryAggregateVote): Promise<QueryAggregateVoteResponse> {
     const data = QueryAggregateVote.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "AggregateVote", data);
-    return promise.then(data => QueryAggregateVoteResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAggregateVoteResponse.decode(new BinaryReader(data)));
   }
   aggregateVotes(request: QueryAggregateVotes = {}): Promise<QueryAggregateVotesResponse> {
     const data = QueryAggregateVotes.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "AggregateVotes", data);
-    return promise.then(data => QueryAggregateVotesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAggregateVotesResponse.decode(new BinaryReader(data)));
   }
   params(request: QueryParams = {}): Promise<QueryParamsResponse> {
     const data = QueryParams.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   medians(request: QueryMedians): Promise<QueryMediansResponse> {
     const data = QueryMedians.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "Medians", data);
-    return promise.then(data => QueryMediansResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMediansResponse.decode(new BinaryReader(data)));
   }
   medianDeviations(request: QueryMedianDeviations): Promise<QueryMedianDeviationsResponse> {
     const data = QueryMedianDeviations.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "MedianDeviations", data);
-    return promise.then(data => QueryMedianDeviationsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMedianDeviationsResponse.decode(new BinaryReader(data)));
   }
   avgPrice(request: QueryAvgPrice): Promise<QueryAvgPriceResponse> {
     const data = QueryAvgPrice.encode(request).finish();
     const promise = this.rpc.request("umee.oracle.v1.Query", "AvgPrice", data);
-    return promise.then(data => QueryAvgPriceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAvgPriceResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

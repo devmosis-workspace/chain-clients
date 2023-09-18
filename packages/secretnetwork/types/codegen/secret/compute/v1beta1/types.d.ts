@@ -1,5 +1,4 @@
-import { Long } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 export declare enum AccessType {
     UNDEFINED = 0,
     NOBODY = 1,
@@ -8,10 +7,22 @@ export declare enum AccessType {
     UNRECOGNIZED = -1
 }
 export declare const AccessTypeSDKType: typeof AccessType;
+export declare const AccessTypeAmino: typeof AccessType;
 export declare function accessTypeFromJSON(object: any): AccessType;
 export declare function accessTypeToJSON(object: AccessType): string;
 export interface AccessTypeParam {
     value: AccessType;
+}
+export interface AccessTypeParamProtoMsg {
+    typeUrl: "/secret.compute.v1beta1.AccessTypeParam";
+    value: Uint8Array;
+}
+export interface AccessTypeParamAmino {
+    value: AccessType;
+}
+export interface AccessTypeParamAminoMsg {
+    type: "/secret.compute.v1beta1.AccessTypeParam";
+    value: AccessTypeParamAmino;
 }
 export interface AccessTypeParamSDKType {
     value: AccessType;
@@ -22,6 +33,21 @@ export interface CodeInfo {
     creator: Uint8Array;
     source: string;
     builder: string;
+}
+export interface CodeInfoProtoMsg {
+    typeUrl: "/secret.compute.v1beta1.CodeInfo";
+    value: Uint8Array;
+}
+/** CodeInfo is data for the uploaded contract WASM code */
+export interface CodeInfoAmino {
+    code_hash: Uint8Array;
+    creator: Uint8Array;
+    source: string;
+    builder: string;
+}
+export interface CodeInfoAminoMsg {
+    type: "/secret.compute.v1beta1.CodeInfo";
+    value: CodeInfoAmino;
 }
 /** CodeInfo is data for the uploaded contract WASM code */
 export interface CodeInfoSDKType {
@@ -34,41 +60,88 @@ export interface ContractCustomInfo {
     enclaveKey: Uint8Array;
     label: string;
 }
+export interface ContractCustomInfoProtoMsg {
+    typeUrl: "/secret.compute.v1beta1.ContractCustomInfo";
+    value: Uint8Array;
+}
+export interface ContractCustomInfoAmino {
+    enclave_key: Uint8Array;
+    label: string;
+}
+export interface ContractCustomInfoAminoMsg {
+    type: "/secret.compute.v1beta1.ContractCustomInfo";
+    value: ContractCustomInfoAmino;
+}
 export interface ContractCustomInfoSDKType {
     enclave_key: Uint8Array;
     label: string;
 }
 /** ContractInfo stores a WASM contract instance */
 export interface ContractInfo {
-    codeId: Long;
+    codeId: bigint;
     creator: Uint8Array;
     label: string;
     /**
      * never show this in query results, just use for sorting
      * (Note: when using json tag "-" amino refused to serialize it...)
      */
-    created?: AbsoluteTxPosition;
+    created: AbsoluteTxPosition;
     ibcPortId: string;
+}
+export interface ContractInfoProtoMsg {
+    typeUrl: "/secret.compute.v1beta1.ContractInfo";
+    value: Uint8Array;
+}
+/** ContractInfo stores a WASM contract instance */
+export interface ContractInfoAmino {
+    code_id: string;
+    creator: Uint8Array;
+    label: string;
+    /**
+     * never show this in query results, just use for sorting
+     * (Note: when using json tag "-" amino refused to serialize it...)
+     */
+    created?: AbsoluteTxPositionAmino;
+    ibc_port_id: string;
+}
+export interface ContractInfoAminoMsg {
+    type: "/secret.compute.v1beta1.ContractInfo";
+    value: ContractInfoAmino;
 }
 /** ContractInfo stores a WASM contract instance */
 export interface ContractInfoSDKType {
-    code_id: Long;
+    code_id: bigint;
     creator: Uint8Array;
     label: string;
-    created?: AbsoluteTxPositionSDKType;
+    created: AbsoluteTxPositionSDKType;
     ibc_port_id: string;
 }
 /** AbsoluteTxPosition can be used to sort contracts */
 export interface AbsoluteTxPosition {
     /** BlockHeight is the block the contract was created at */
-    blockHeight: Long;
+    blockHeight: bigint;
     /** TxIndex is a monotonic counter within the block (actual transaction index, or gas consumed) */
-    txIndex: Long;
+    txIndex: bigint;
+}
+export interface AbsoluteTxPositionProtoMsg {
+    typeUrl: "/secret.compute.v1beta1.AbsoluteTxPosition";
+    value: Uint8Array;
+}
+/** AbsoluteTxPosition can be used to sort contracts */
+export interface AbsoluteTxPositionAmino {
+    /** BlockHeight is the block the contract was created at */
+    block_height: string;
+    /** TxIndex is a monotonic counter within the block (actual transaction index, or gas consumed) */
+    tx_index: string;
+}
+export interface AbsoluteTxPositionAminoMsg {
+    type: "/secret.compute.v1beta1.AbsoluteTxPosition";
+    value: AbsoluteTxPositionAmino;
 }
 /** AbsoluteTxPosition can be used to sort contracts */
 export interface AbsoluteTxPositionSDKType {
-    block_height: Long;
-    tx_index: Long;
+    block_height: bigint;
+    tx_index: bigint;
 }
 /** Model is a struct that holds a KV pair */
 export interface Model {
@@ -77,38 +150,95 @@ export interface Model {
     /** base64-encode raw value */
     Value: Uint8Array;
 }
+export interface ModelProtoMsg {
+    typeUrl: "/secret.compute.v1beta1.Model";
+    value: Uint8Array;
+}
+/** Model is a struct that holds a KV pair */
+export interface ModelAmino {
+    /** hex-encode key to read it better (this is often ascii) */
+    Key: Uint8Array;
+    /** base64-encode raw value */
+    Value: Uint8Array;
+}
+export interface ModelAminoMsg {
+    type: "/secret.compute.v1beta1.Model";
+    value: ModelAmino;
+}
 /** Model is a struct that holds a KV pair */
 export interface ModelSDKType {
     Key: Uint8Array;
     Value: Uint8Array;
 }
 export declare const AccessTypeParam: {
-    encode(message: AccessTypeParam, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: AccessTypeParam, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): AccessTypeParam;
     fromPartial(object: Partial<AccessTypeParam>): AccessTypeParam;
+    fromAmino(object: AccessTypeParamAmino): AccessTypeParam;
+    toAmino(message: AccessTypeParam): AccessTypeParamAmino;
+    fromAminoMsg(object: AccessTypeParamAminoMsg): AccessTypeParam;
+    fromProtoMsg(message: AccessTypeParamProtoMsg): AccessTypeParam;
+    toProto(message: AccessTypeParam): Uint8Array;
+    toProtoMsg(message: AccessTypeParam): AccessTypeParamProtoMsg;
 };
 export declare const CodeInfo: {
-    encode(message: CodeInfo, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: CodeInfo, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): CodeInfo;
     fromPartial(object: Partial<CodeInfo>): CodeInfo;
+    fromAmino(object: CodeInfoAmino): CodeInfo;
+    toAmino(message: CodeInfo): CodeInfoAmino;
+    fromAminoMsg(object: CodeInfoAminoMsg): CodeInfo;
+    fromProtoMsg(message: CodeInfoProtoMsg): CodeInfo;
+    toProto(message: CodeInfo): Uint8Array;
+    toProtoMsg(message: CodeInfo): CodeInfoProtoMsg;
 };
 export declare const ContractCustomInfo: {
-    encode(message: ContractCustomInfo, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ContractCustomInfo, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ContractCustomInfo;
     fromPartial(object: Partial<ContractCustomInfo>): ContractCustomInfo;
+    fromAmino(object: ContractCustomInfoAmino): ContractCustomInfo;
+    toAmino(message: ContractCustomInfo): ContractCustomInfoAmino;
+    fromAminoMsg(object: ContractCustomInfoAminoMsg): ContractCustomInfo;
+    fromProtoMsg(message: ContractCustomInfoProtoMsg): ContractCustomInfo;
+    toProto(message: ContractCustomInfo): Uint8Array;
+    toProtoMsg(message: ContractCustomInfo): ContractCustomInfoProtoMsg;
 };
 export declare const ContractInfo: {
-    encode(message: ContractInfo, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ContractInfo, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ContractInfo;
     fromPartial(object: Partial<ContractInfo>): ContractInfo;
+    fromAmino(object: ContractInfoAmino): ContractInfo;
+    toAmino(message: ContractInfo): ContractInfoAmino;
+    fromAminoMsg(object: ContractInfoAminoMsg): ContractInfo;
+    fromProtoMsg(message: ContractInfoProtoMsg): ContractInfo;
+    toProto(message: ContractInfo): Uint8Array;
+    toProtoMsg(message: ContractInfo): ContractInfoProtoMsg;
 };
 export declare const AbsoluteTxPosition: {
-    encode(message: AbsoluteTxPosition, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: AbsoluteTxPosition, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): AbsoluteTxPosition;
     fromPartial(object: Partial<AbsoluteTxPosition>): AbsoluteTxPosition;
+    fromAmino(object: AbsoluteTxPositionAmino): AbsoluteTxPosition;
+    toAmino(message: AbsoluteTxPosition): AbsoluteTxPositionAmino;
+    fromAminoMsg(object: AbsoluteTxPositionAminoMsg): AbsoluteTxPosition;
+    fromProtoMsg(message: AbsoluteTxPositionProtoMsg): AbsoluteTxPosition;
+    toProto(message: AbsoluteTxPosition): Uint8Array;
+    toProtoMsg(message: AbsoluteTxPosition): AbsoluteTxPositionProtoMsg;
 };
 export declare const Model: {
-    encode(message: Model, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Model, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Model;
     fromPartial(object: Partial<Model>): Model;
+    fromAmino(object: ModelAmino): Model;
+    toAmino(message: Model): ModelAmino;
+    fromAminoMsg(object: ModelAminoMsg): Model;
+    fromProtoMsg(message: ModelProtoMsg): Model;
+    toProto(message: Model): Uint8Array;
+    toProtoMsg(message: Model): ModelProtoMsg;
 };

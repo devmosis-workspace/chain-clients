@@ -1,43 +1,102 @@
-import { Block, BlockSDKType } from "../types/block";
-import { Long, isSet } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Block, BlockAmino, BlockSDKType } from "../types/block";
+import { BinaryWriter } from "../../binary";
+import { isSet } from "../../helpers";
 /** BlockRequest requests a block for a specific height */
 export interface BlockRequest {
-  height: Long;
+  height: bigint;
+}
+export interface BlockRequestProtoMsg {
+  typeUrl: "/tendermint.blocksync.BlockRequest";
+  value: Uint8Array;
+}
+/** BlockRequest requests a block for a specific height */
+export interface BlockRequestAmino {
+  height: string;
+}
+export interface BlockRequestAminoMsg {
+  type: "/tendermint.blocksync.BlockRequest";
+  value: BlockRequestAmino;
 }
 /** BlockRequest requests a block for a specific height */
 export interface BlockRequestSDKType {
-  height: Long;
+  height: bigint;
 }
 /** NoBlockResponse informs the node that the peer does not have block at the requested height */
 export interface NoBlockResponse {
-  height: Long;
+  height: bigint;
+}
+export interface NoBlockResponseProtoMsg {
+  typeUrl: "/tendermint.blocksync.NoBlockResponse";
+  value: Uint8Array;
+}
+/** NoBlockResponse informs the node that the peer does not have block at the requested height */
+export interface NoBlockResponseAmino {
+  height: string;
+}
+export interface NoBlockResponseAminoMsg {
+  type: "/tendermint.blocksync.NoBlockResponse";
+  value: NoBlockResponseAmino;
 }
 /** NoBlockResponse informs the node that the peer does not have block at the requested height */
 export interface NoBlockResponseSDKType {
-  height: Long;
+  height: bigint;
 }
 /** BlockResponse returns block to the requested */
 export interface BlockResponse {
-  block?: Block;
+  block: Block;
+}
+export interface BlockResponseProtoMsg {
+  typeUrl: "/tendermint.blocksync.BlockResponse";
+  value: Uint8Array;
+}
+/** BlockResponse returns block to the requested */
+export interface BlockResponseAmino {
+  block?: BlockAmino;
+}
+export interface BlockResponseAminoMsg {
+  type: "/tendermint.blocksync.BlockResponse";
+  value: BlockResponseAmino;
 }
 /** BlockResponse returns block to the requested */
 export interface BlockResponseSDKType {
-  block?: BlockSDKType;
+  block: BlockSDKType;
 }
 /** StatusRequest requests the status of a peer. */
 export interface StatusRequest {}
+export interface StatusRequestProtoMsg {
+  typeUrl: "/tendermint.blocksync.StatusRequest";
+  value: Uint8Array;
+}
+/** StatusRequest requests the status of a peer. */
+export interface StatusRequestAmino {}
+export interface StatusRequestAminoMsg {
+  type: "/tendermint.blocksync.StatusRequest";
+  value: StatusRequestAmino;
+}
 /** StatusRequest requests the status of a peer. */
 export interface StatusRequestSDKType {}
 /** StatusResponse is a peer response to inform their status. */
 export interface StatusResponse {
-  height: Long;
-  base: Long;
+  height: bigint;
+  base: bigint;
+}
+export interface StatusResponseProtoMsg {
+  typeUrl: "/tendermint.blocksync.StatusResponse";
+  value: Uint8Array;
+}
+/** StatusResponse is a peer response to inform their status. */
+export interface StatusResponseAmino {
+  height: string;
+  base: string;
+}
+export interface StatusResponseAminoMsg {
+  type: "/tendermint.blocksync.StatusResponse";
+  value: StatusResponseAmino;
 }
 /** StatusResponse is a peer response to inform their status. */
 export interface StatusResponseSDKType {
-  height: Long;
-  base: Long;
+  height: bigint;
+  base: bigint;
 }
 export interface Message {
   blockRequest?: BlockRequest;
@@ -45,6 +104,21 @@ export interface Message {
   blockResponse?: BlockResponse;
   statusRequest?: StatusRequest;
   statusResponse?: StatusResponse;
+}
+export interface MessageProtoMsg {
+  typeUrl: "/tendermint.blocksync.Message";
+  value: Uint8Array;
+}
+export interface MessageAmino {
+  block_request?: BlockRequestAmino;
+  no_block_response?: NoBlockResponseAmino;
+  block_response?: BlockResponseAmino;
+  status_request?: StatusRequestAmino;
+  status_response?: StatusResponseAmino;
+}
+export interface MessageAminoMsg {
+  type: "/tendermint.blocksync.Message";
+  value: MessageAmino;
 }
 export interface MessageSDKType {
   block_request?: BlockRequestSDKType;
@@ -55,57 +129,110 @@ export interface MessageSDKType {
 }
 function createBaseBlockRequest(): BlockRequest {
   return {
-    height: Long.ZERO
+    height: BigInt(0)
   };
 }
 export const BlockRequest = {
-  encode(message: BlockRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.height.isZero()) {
+  typeUrl: "/tendermint.blocksync.BlockRequest",
+  encode(message: BlockRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
     }
     return writer;
   },
   fromJSON(object: any): BlockRequest {
     return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<BlockRequest>): BlockRequest {
     const message = createBaseBlockRequest();
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: BlockRequestAmino): BlockRequest {
+    return {
+      height: BigInt(object.height)
+    };
+  },
+  toAmino(message: BlockRequest): BlockRequestAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockRequestAminoMsg): BlockRequest {
+    return BlockRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: BlockRequestProtoMsg): BlockRequest {
+    return BlockRequest.decode(message.value);
+  },
+  toProto(message: BlockRequest): Uint8Array {
+    return BlockRequest.encode(message).finish();
+  },
+  toProtoMsg(message: BlockRequest): BlockRequestProtoMsg {
+    return {
+      typeUrl: "/tendermint.blocksync.BlockRequest",
+      value: BlockRequest.encode(message).finish()
+    };
   }
 };
 function createBaseNoBlockResponse(): NoBlockResponse {
   return {
-    height: Long.ZERO
+    height: BigInt(0)
   };
 }
 export const NoBlockResponse = {
-  encode(message: NoBlockResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.height.isZero()) {
+  typeUrl: "/tendermint.blocksync.NoBlockResponse",
+  encode(message: NoBlockResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
     }
     return writer;
   },
   fromJSON(object: any): NoBlockResponse {
     return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<NoBlockResponse>): NoBlockResponse {
     const message = createBaseNoBlockResponse();
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: NoBlockResponseAmino): NoBlockResponse {
+    return {
+      height: BigInt(object.height)
+    };
+  },
+  toAmino(message: NoBlockResponse): NoBlockResponseAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: NoBlockResponseAminoMsg): NoBlockResponse {
+    return NoBlockResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: NoBlockResponseProtoMsg): NoBlockResponse {
+    return NoBlockResponse.decode(message.value);
+  },
+  toProto(message: NoBlockResponse): Uint8Array {
+    return NoBlockResponse.encode(message).finish();
+  },
+  toProtoMsg(message: NoBlockResponse): NoBlockResponseProtoMsg {
+    return {
+      typeUrl: "/tendermint.blocksync.NoBlockResponse",
+      value: NoBlockResponse.encode(message).finish()
+    };
   }
 };
 function createBaseBlockResponse(): BlockResponse {
   return {
-    block: undefined
+    block: Block.fromPartial({})
   };
 }
 export const BlockResponse = {
-  encode(message: BlockResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.blocksync.BlockResponse",
+  encode(message: BlockResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.block !== undefined) {
       Block.encode(message.block, writer.uint32(10).fork()).ldelim();
     }
@@ -120,13 +247,39 @@ export const BlockResponse = {
     const message = createBaseBlockResponse();
     message.block = object.block !== undefined && object.block !== null ? Block.fromPartial(object.block) : undefined;
     return message;
+  },
+  fromAmino(object: BlockResponseAmino): BlockResponse {
+    return {
+      block: object?.block ? Block.fromAmino(object.block) : undefined
+    };
+  },
+  toAmino(message: BlockResponse): BlockResponseAmino {
+    const obj: any = {};
+    obj.block = message.block ? Block.toAmino(message.block) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockResponseAminoMsg): BlockResponse {
+    return BlockResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: BlockResponseProtoMsg): BlockResponse {
+    return BlockResponse.decode(message.value);
+  },
+  toProto(message: BlockResponse): Uint8Array {
+    return BlockResponse.encode(message).finish();
+  },
+  toProtoMsg(message: BlockResponse): BlockResponseProtoMsg {
+    return {
+      typeUrl: "/tendermint.blocksync.BlockResponse",
+      value: BlockResponse.encode(message).finish()
+    };
   }
 };
 function createBaseStatusRequest(): StatusRequest {
   return {};
 }
 export const StatusRequest = {
-  encode(_: StatusRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.blocksync.StatusRequest",
+  encode(_: StatusRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): StatusRequest {
@@ -135,35 +288,85 @@ export const StatusRequest = {
   fromPartial(_: Partial<StatusRequest>): StatusRequest {
     const message = createBaseStatusRequest();
     return message;
+  },
+  fromAmino(_: StatusRequestAmino): StatusRequest {
+    return {};
+  },
+  toAmino(_: StatusRequest): StatusRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: StatusRequestAminoMsg): StatusRequest {
+    return StatusRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: StatusRequestProtoMsg): StatusRequest {
+    return StatusRequest.decode(message.value);
+  },
+  toProto(message: StatusRequest): Uint8Array {
+    return StatusRequest.encode(message).finish();
+  },
+  toProtoMsg(message: StatusRequest): StatusRequestProtoMsg {
+    return {
+      typeUrl: "/tendermint.blocksync.StatusRequest",
+      value: StatusRequest.encode(message).finish()
+    };
   }
 };
 function createBaseStatusResponse(): StatusResponse {
   return {
-    height: Long.ZERO,
-    base: Long.ZERO
+    height: BigInt(0),
+    base: BigInt(0)
   };
 }
 export const StatusResponse = {
-  encode(message: StatusResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.height.isZero()) {
+  typeUrl: "/tendermint.blocksync.StatusResponse",
+  encode(message: StatusResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
     }
-    if (!message.base.isZero()) {
+    if (message.base !== BigInt(0)) {
       writer.uint32(16).int64(message.base);
     }
     return writer;
   },
   fromJSON(object: any): StatusResponse {
     return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-      base: isSet(object.base) ? Long.fromValue(object.base) : Long.ZERO
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0),
+      base: isSet(object.base) ? BigInt(object.base.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<StatusResponse>): StatusResponse {
     const message = createBaseStatusResponse();
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
-    message.base = object.base !== undefined && object.base !== null ? Long.fromValue(object.base) : Long.ZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
+    message.base = object.base !== undefined && object.base !== null ? BigInt(object.base.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: StatusResponseAmino): StatusResponse {
+    return {
+      height: BigInt(object.height),
+      base: BigInt(object.base)
+    };
+  },
+  toAmino(message: StatusResponse): StatusResponseAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.base = message.base ? message.base.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: StatusResponseAminoMsg): StatusResponse {
+    return StatusResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: StatusResponseProtoMsg): StatusResponse {
+    return StatusResponse.decode(message.value);
+  },
+  toProto(message: StatusResponse): Uint8Array {
+    return StatusResponse.encode(message).finish();
+  },
+  toProtoMsg(message: StatusResponse): StatusResponseProtoMsg {
+    return {
+      typeUrl: "/tendermint.blocksync.StatusResponse",
+      value: StatusResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMessage(): Message {
@@ -176,7 +379,8 @@ function createBaseMessage(): Message {
   };
 }
 export const Message = {
-  encode(message: Message, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.blocksync.Message",
+  encode(message: Message, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.blockRequest !== undefined) {
       BlockRequest.encode(message.blockRequest, writer.uint32(10).fork()).ldelim();
     }
@@ -211,5 +415,38 @@ export const Message = {
     message.statusRequest = object.statusRequest !== undefined && object.statusRequest !== null ? StatusRequest.fromPartial(object.statusRequest) : undefined;
     message.statusResponse = object.statusResponse !== undefined && object.statusResponse !== null ? StatusResponse.fromPartial(object.statusResponse) : undefined;
     return message;
+  },
+  fromAmino(object: MessageAmino): Message {
+    return {
+      blockRequest: object?.block_request ? BlockRequest.fromAmino(object.block_request) : undefined,
+      noBlockResponse: object?.no_block_response ? NoBlockResponse.fromAmino(object.no_block_response) : undefined,
+      blockResponse: object?.block_response ? BlockResponse.fromAmino(object.block_response) : undefined,
+      statusRequest: object?.status_request ? StatusRequest.fromAmino(object.status_request) : undefined,
+      statusResponse: object?.status_response ? StatusResponse.fromAmino(object.status_response) : undefined
+    };
+  },
+  toAmino(message: Message): MessageAmino {
+    const obj: any = {};
+    obj.block_request = message.blockRequest ? BlockRequest.toAmino(message.blockRequest) : undefined;
+    obj.no_block_response = message.noBlockResponse ? NoBlockResponse.toAmino(message.noBlockResponse) : undefined;
+    obj.block_response = message.blockResponse ? BlockResponse.toAmino(message.blockResponse) : undefined;
+    obj.status_request = message.statusRequest ? StatusRequest.toAmino(message.statusRequest) : undefined;
+    obj.status_response = message.statusResponse ? StatusResponse.toAmino(message.statusResponse) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MessageAminoMsg): Message {
+    return Message.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MessageProtoMsg): Message {
+    return Message.decode(message.value);
+  },
+  toProto(message: Message): Uint8Array {
+    return Message.encode(message).finish();
+  },
+  toProtoMsg(message: Message): MessageProtoMsg {
+    return {
+      typeUrl: "/tendermint.blocksync.Message",
+      value: Message.encode(message).finish()
+    };
   }
 };

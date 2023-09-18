@@ -6,6 +6,7 @@ export enum SignType {
   UNRECOGNIZED = -1,
 }
 export const SignTypeSDKType = SignType;
+export const SignTypeAmino = SignType;
 export function signTypeFromJSON(object: any): SignType {
   switch (object) {
     case 0:

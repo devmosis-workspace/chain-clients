@@ -2,20 +2,20 @@ import * as _0 from "./tokenfactory/v1beta1/genesis";
 import * as _1 from "./tokenfactory/v1beta1/query";
 import * as _2 from "./tokenfactory/v1beta1/tokenfactory";
 import * as _3 from "./tokenfactory/v1beta1/tx";
-import * as _127 from "./tokenfactory/v1beta1/query.lcd";
-import * as _128 from "./tokenfactory/v1beta1/query.rpc.Query";
-import * as _129 from "./tokenfactory/v1beta1/tx.rpc.msg";
+import * as _128 from "./tokenfactory/v1beta1/query.lcd";
+import * as _129 from "./tokenfactory/v1beta1/query.rpc.Query";
+import * as _130 from "./tokenfactory/v1beta1/tx.rpc.msg";
 export declare namespace osmosis {
     namespace tokenfactory {
         const v1beta1: {
-            MsgClientImpl: typeof _129.MsgClientImpl;
-            QueryClientImpl: typeof _128.QueryClientImpl;
+            MsgClientImpl: typeof _130.MsgClientImpl;
+            QueryClientImpl: typeof _129.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _1.QueryParamsRequest): Promise<_1.QueryParamsResponse>;
                 denomAuthorityMetadata(request: _1.QueryDenomAuthorityMetadataRequest): Promise<_1.QueryDenomAuthorityMetadataResponse>;
                 denomsFromCreator(request: _1.QueryDenomsFromCreatorRequest): Promise<_1.QueryDenomsFromCreatorResponse>;
             };
-            LCDQueryClient: typeof _127.LCDQueryClient;
+            LCDQueryClient: typeof _128.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -111,199 +111,289 @@ export declare namespace osmosis {
             AminoConverter: {
                 "/osmosis.tokenfactory.v1beta1.MsgCreateDenom": {
                     aminoType: string;
-                    toAmino: ({ sender, subdenom }: _3.MsgCreateDenom) => {
-                        sender: string;
-                        subdenom: string;
-                    };
-                    fromAmino: ({ sender, subdenom }: {
-                        sender: string;
-                        subdenom: string;
-                    }) => _3.MsgCreateDenom;
+                    toAmino: (message: _3.MsgCreateDenom) => _3.MsgCreateDenomAmino;
+                    fromAmino: (object: _3.MsgCreateDenomAmino) => _3.MsgCreateDenom;
                 };
                 "/osmosis.tokenfactory.v1beta1.MsgMint": {
                     aminoType: string;
-                    toAmino: ({ sender, amount, mintToAddress }: _3.MsgMint) => {
-                        sender: string;
-                        amount: {
-                            denom: string;
-                            amount: string;
-                        };
-                        mintToAddress: string;
-                    };
-                    fromAmino: ({ sender, amount, mintToAddress }: {
-                        sender: string;
-                        amount: {
-                            denom: string;
-                            amount: string;
-                        };
-                        mintToAddress: string;
-                    }) => _3.MsgMint;
+                    toAmino: (message: _3.MsgMint) => _3.MsgMintAmino;
+                    fromAmino: (object: _3.MsgMintAmino) => _3.MsgMint;
                 };
                 "/osmosis.tokenfactory.v1beta1.MsgBurn": {
                     aminoType: string;
-                    toAmino: ({ sender, amount, burnFromAddress }: _3.MsgBurn) => {
-                        sender: string;
-                        amount: {
-                            denom: string;
-                            amount: string;
-                        };
-                        burnFromAddress: string;
-                    };
-                    fromAmino: ({ sender, amount, burnFromAddress }: {
-                        sender: string;
-                        amount: {
-                            denom: string;
-                            amount: string;
-                        };
-                        burnFromAddress: string;
-                    }) => _3.MsgBurn;
+                    toAmino: (message: _3.MsgBurn) => _3.MsgBurnAmino;
+                    fromAmino: (object: _3.MsgBurnAmino) => _3.MsgBurn;
                 };
                 "/osmosis.tokenfactory.v1beta1.MsgChangeAdmin": {
                     aminoType: string;
-                    toAmino: ({ sender, denom, newAdmin }: _3.MsgChangeAdmin) => {
-                        sender: string;
-                        denom: string;
-                        new_admin: string;
-                    };
-                    fromAmino: ({ sender, denom, new_admin }: {
-                        sender: string;
-                        denom: string;
-                        new_admin: string;
-                    }) => _3.MsgChangeAdmin;
+                    toAmino: (message: _3.MsgChangeAdmin) => _3.MsgChangeAdminAmino;
+                    fromAmino: (object: _3.MsgChangeAdminAmino) => _3.MsgChangeAdmin;
                 };
                 "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata": {
                     aminoType: string;
-                    toAmino: ({ sender, metadata }: _3.MsgSetDenomMetadata) => {
-                        sender: string;
-                        metadata: {
-                            description: string;
-                            denom_units: {
-                                denom: string;
-                                exponent: number;
-                                aliases: string[];
-                            }[];
-                            base: string;
-                            display: string;
-                            name: string;
-                            symbol: string;
-                        };
-                    };
-                    fromAmino: ({ sender, metadata }: {
-                        sender: string;
-                        metadata: {
-                            description: string;
-                            denom_units: {
-                                denom: string;
-                                exponent: number;
-                                aliases: string[];
-                            }[];
-                            base: string;
-                            display: string;
-                            name: string;
-                            symbol: string;
-                        };
-                    }) => _3.MsgSetDenomMetadata;
+                    toAmino: (message: _3.MsgSetDenomMetadata) => _3.MsgSetDenomMetadataAmino;
+                    fromAmino: (object: _3.MsgSetDenomMetadataAmino) => _3.MsgSetDenomMetadata;
                 };
             };
             MsgCreateDenom: {
-                encode(message: _3.MsgCreateDenom, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgCreateDenom, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgCreateDenom;
                 fromPartial(object: Partial<_3.MsgCreateDenom>): _3.MsgCreateDenom;
+                fromAmino(object: _3.MsgCreateDenomAmino): _3.MsgCreateDenom;
+                toAmino(message: _3.MsgCreateDenom): _3.MsgCreateDenomAmino;
+                fromAminoMsg(object: _3.MsgCreateDenomAminoMsg): _3.MsgCreateDenom;
+                toAminoMsg(message: _3.MsgCreateDenom): _3.MsgCreateDenomAminoMsg;
+                fromProtoMsg(message: _3.MsgCreateDenomProtoMsg): _3.MsgCreateDenom;
+                toProto(message: _3.MsgCreateDenom): Uint8Array;
+                toProtoMsg(message: _3.MsgCreateDenom): _3.MsgCreateDenomProtoMsg;
             };
             MsgCreateDenomResponse: {
-                encode(message: _3.MsgCreateDenomResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgCreateDenomResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgCreateDenomResponse;
                 fromPartial(object: Partial<_3.MsgCreateDenomResponse>): _3.MsgCreateDenomResponse;
+                fromAmino(object: _3.MsgCreateDenomResponseAmino): _3.MsgCreateDenomResponse;
+                toAmino(message: _3.MsgCreateDenomResponse): _3.MsgCreateDenomResponseAmino;
+                fromAminoMsg(object: _3.MsgCreateDenomResponseAminoMsg): _3.MsgCreateDenomResponse;
+                toAminoMsg(message: _3.MsgCreateDenomResponse): _3.MsgCreateDenomResponseAminoMsg;
+                fromProtoMsg(message: _3.MsgCreateDenomResponseProtoMsg): _3.MsgCreateDenomResponse;
+                toProto(message: _3.MsgCreateDenomResponse): Uint8Array;
+                toProtoMsg(message: _3.MsgCreateDenomResponse): _3.MsgCreateDenomResponseProtoMsg;
             };
             MsgMint: {
-                encode(message: _3.MsgMint, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgMint, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgMint;
                 fromPartial(object: Partial<_3.MsgMint>): _3.MsgMint;
+                fromAmino(object: _3.MsgMintAmino): _3.MsgMint;
+                toAmino(message: _3.MsgMint): _3.MsgMintAmino;
+                fromAminoMsg(object: _3.MsgMintAminoMsg): _3.MsgMint;
+                toAminoMsg(message: _3.MsgMint): _3.MsgMintAminoMsg;
+                fromProtoMsg(message: _3.MsgMintProtoMsg): _3.MsgMint;
+                toProto(message: _3.MsgMint): Uint8Array;
+                toProtoMsg(message: _3.MsgMint): _3.MsgMintProtoMsg;
             };
             MsgMintResponse: {
-                encode(_: _3.MsgMintResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _3.MsgMintResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _3.MsgMintResponse;
                 fromPartial(_: Partial<_3.MsgMintResponse>): _3.MsgMintResponse;
+                fromAmino(_: _3.MsgMintResponseAmino): _3.MsgMintResponse;
+                toAmino(_: _3.MsgMintResponse): _3.MsgMintResponseAmino;
+                fromAminoMsg(object: _3.MsgMintResponseAminoMsg): _3.MsgMintResponse;
+                toAminoMsg(message: _3.MsgMintResponse): _3.MsgMintResponseAminoMsg;
+                fromProtoMsg(message: _3.MsgMintResponseProtoMsg): _3.MsgMintResponse;
+                toProto(message: _3.MsgMintResponse): Uint8Array;
+                toProtoMsg(message: _3.MsgMintResponse): _3.MsgMintResponseProtoMsg;
             };
             MsgBurn: {
-                encode(message: _3.MsgBurn, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgBurn, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgBurn;
                 fromPartial(object: Partial<_3.MsgBurn>): _3.MsgBurn;
+                fromAmino(object: _3.MsgBurnAmino): _3.MsgBurn;
+                toAmino(message: _3.MsgBurn): _3.MsgBurnAmino;
+                fromAminoMsg(object: _3.MsgBurnAminoMsg): _3.MsgBurn;
+                toAminoMsg(message: _3.MsgBurn): _3.MsgBurnAminoMsg;
+                fromProtoMsg(message: _3.MsgBurnProtoMsg): _3.MsgBurn;
+                toProto(message: _3.MsgBurn): Uint8Array;
+                toProtoMsg(message: _3.MsgBurn): _3.MsgBurnProtoMsg;
             };
             MsgBurnResponse: {
-                encode(_: _3.MsgBurnResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _3.MsgBurnResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _3.MsgBurnResponse;
                 fromPartial(_: Partial<_3.MsgBurnResponse>): _3.MsgBurnResponse;
+                fromAmino(_: _3.MsgBurnResponseAmino): _3.MsgBurnResponse;
+                toAmino(_: _3.MsgBurnResponse): _3.MsgBurnResponseAmino;
+                fromAminoMsg(object: _3.MsgBurnResponseAminoMsg): _3.MsgBurnResponse;
+                toAminoMsg(message: _3.MsgBurnResponse): _3.MsgBurnResponseAminoMsg;
+                fromProtoMsg(message: _3.MsgBurnResponseProtoMsg): _3.MsgBurnResponse;
+                toProto(message: _3.MsgBurnResponse): Uint8Array;
+                toProtoMsg(message: _3.MsgBurnResponse): _3.MsgBurnResponseProtoMsg;
             };
             MsgChangeAdmin: {
-                encode(message: _3.MsgChangeAdmin, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgChangeAdmin, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgChangeAdmin;
                 fromPartial(object: Partial<_3.MsgChangeAdmin>): _3.MsgChangeAdmin;
+                fromAmino(object: _3.MsgChangeAdminAmino): _3.MsgChangeAdmin;
+                toAmino(message: _3.MsgChangeAdmin): _3.MsgChangeAdminAmino;
+                fromAminoMsg(object: _3.MsgChangeAdminAminoMsg): _3.MsgChangeAdmin;
+                toAminoMsg(message: _3.MsgChangeAdmin): _3.MsgChangeAdminAminoMsg;
+                fromProtoMsg(message: _3.MsgChangeAdminProtoMsg): _3.MsgChangeAdmin;
+                toProto(message: _3.MsgChangeAdmin): Uint8Array;
+                toProtoMsg(message: _3.MsgChangeAdmin): _3.MsgChangeAdminProtoMsg;
             };
             MsgChangeAdminResponse: {
-                encode(_: _3.MsgChangeAdminResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _3.MsgChangeAdminResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _3.MsgChangeAdminResponse;
                 fromPartial(_: Partial<_3.MsgChangeAdminResponse>): _3.MsgChangeAdminResponse;
+                fromAmino(_: _3.MsgChangeAdminResponseAmino): _3.MsgChangeAdminResponse;
+                toAmino(_: _3.MsgChangeAdminResponse): _3.MsgChangeAdminResponseAmino;
+                fromAminoMsg(object: _3.MsgChangeAdminResponseAminoMsg): _3.MsgChangeAdminResponse;
+                toAminoMsg(message: _3.MsgChangeAdminResponse): _3.MsgChangeAdminResponseAminoMsg;
+                fromProtoMsg(message: _3.MsgChangeAdminResponseProtoMsg): _3.MsgChangeAdminResponse;
+                toProto(message: _3.MsgChangeAdminResponse): Uint8Array;
+                toProtoMsg(message: _3.MsgChangeAdminResponse): _3.MsgChangeAdminResponseProtoMsg;
             };
             MsgSetDenomMetadata: {
-                encode(message: _3.MsgSetDenomMetadata, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgSetDenomMetadata, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgSetDenomMetadata;
                 fromPartial(object: Partial<_3.MsgSetDenomMetadata>): _3.MsgSetDenomMetadata;
+                fromAmino(object: _3.MsgSetDenomMetadataAmino): _3.MsgSetDenomMetadata;
+                toAmino(message: _3.MsgSetDenomMetadata): _3.MsgSetDenomMetadataAmino;
+                fromAminoMsg(object: _3.MsgSetDenomMetadataAminoMsg): _3.MsgSetDenomMetadata;
+                toAminoMsg(message: _3.MsgSetDenomMetadata): _3.MsgSetDenomMetadataAminoMsg;
+                fromProtoMsg(message: _3.MsgSetDenomMetadataProtoMsg): _3.MsgSetDenomMetadata;
+                toProto(message: _3.MsgSetDenomMetadata): Uint8Array;
+                toProtoMsg(message: _3.MsgSetDenomMetadata): _3.MsgSetDenomMetadataProtoMsg;
             };
             MsgSetDenomMetadataResponse: {
-                encode(_: _3.MsgSetDenomMetadataResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _3.MsgSetDenomMetadataResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _3.MsgSetDenomMetadataResponse;
                 fromPartial(_: Partial<_3.MsgSetDenomMetadataResponse>): _3.MsgSetDenomMetadataResponse;
+                fromAmino(_: _3.MsgSetDenomMetadataResponseAmino): _3.MsgSetDenomMetadataResponse;
+                toAmino(_: _3.MsgSetDenomMetadataResponse): _3.MsgSetDenomMetadataResponseAmino;
+                fromAminoMsg(object: _3.MsgSetDenomMetadataResponseAminoMsg): _3.MsgSetDenomMetadataResponse;
+                toAminoMsg(message: _3.MsgSetDenomMetadataResponse): _3.MsgSetDenomMetadataResponseAminoMsg;
+                fromProtoMsg(message: _3.MsgSetDenomMetadataResponseProtoMsg): _3.MsgSetDenomMetadataResponse;
+                toProto(message: _3.MsgSetDenomMetadataResponse): Uint8Array;
+                toProtoMsg(message: _3.MsgSetDenomMetadataResponse): _3.MsgSetDenomMetadataResponseProtoMsg;
             };
             DenomAuthorityMetadata: {
-                encode(message: _2.DenomAuthorityMetadata, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.DenomAuthorityMetadata, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.DenomAuthorityMetadata;
                 fromPartial(object: Partial<_2.DenomAuthorityMetadata>): _2.DenomAuthorityMetadata;
+                fromAmino(object: _2.DenomAuthorityMetadataAmino): _2.DenomAuthorityMetadata;
+                toAmino(message: _2.DenomAuthorityMetadata): _2.DenomAuthorityMetadataAmino;
+                fromAminoMsg(object: _2.DenomAuthorityMetadataAminoMsg): _2.DenomAuthorityMetadata;
+                toAminoMsg(message: _2.DenomAuthorityMetadata): _2.DenomAuthorityMetadataAminoMsg;
+                fromProtoMsg(message: _2.DenomAuthorityMetadataProtoMsg): _2.DenomAuthorityMetadata;
+                toProto(message: _2.DenomAuthorityMetadata): Uint8Array;
+                toProtoMsg(message: _2.DenomAuthorityMetadata): _2.DenomAuthorityMetadataProtoMsg;
             };
             Params: {
-                encode(message: _2.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.Params;
                 fromPartial(object: Partial<_2.Params>): _2.Params;
+                fromAmino(object: _2.ParamsAmino): _2.Params;
+                toAmino(message: _2.Params): _2.ParamsAmino;
+                fromAminoMsg(object: _2.ParamsAminoMsg): _2.Params;
+                toAminoMsg(message: _2.Params): _2.ParamsAminoMsg;
+                fromProtoMsg(message: _2.ParamsProtoMsg): _2.Params;
+                toProto(message: _2.Params): Uint8Array;
+                toProtoMsg(message: _2.Params): _2.ParamsProtoMsg;
             };
             QueryParamsRequest: {
-                encode(_: _1.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _1.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _1.QueryParamsRequest;
                 fromPartial(_: Partial<_1.QueryParamsRequest>): _1.QueryParamsRequest;
+                fromAmino(_: _1.QueryParamsRequestAmino): _1.QueryParamsRequest;
+                toAmino(_: _1.QueryParamsRequest): _1.QueryParamsRequestAmino;
+                fromAminoMsg(object: _1.QueryParamsRequestAminoMsg): _1.QueryParamsRequest;
+                toAminoMsg(message: _1.QueryParamsRequest): _1.QueryParamsRequestAminoMsg;
+                fromProtoMsg(message: _1.QueryParamsRequestProtoMsg): _1.QueryParamsRequest;
+                toProto(message: _1.QueryParamsRequest): Uint8Array;
+                toProtoMsg(message: _1.QueryParamsRequest): _1.QueryParamsRequestProtoMsg;
             };
             QueryParamsResponse: {
-                encode(message: _1.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QueryParamsResponse;
                 fromPartial(object: Partial<_1.QueryParamsResponse>): _1.QueryParamsResponse;
+                fromAmino(object: _1.QueryParamsResponseAmino): _1.QueryParamsResponse;
+                toAmino(message: _1.QueryParamsResponse): _1.QueryParamsResponseAmino;
+                fromAminoMsg(object: _1.QueryParamsResponseAminoMsg): _1.QueryParamsResponse;
+                toAminoMsg(message: _1.QueryParamsResponse): _1.QueryParamsResponseAminoMsg;
+                fromProtoMsg(message: _1.QueryParamsResponseProtoMsg): _1.QueryParamsResponse;
+                toProto(message: _1.QueryParamsResponse): Uint8Array;
+                toProtoMsg(message: _1.QueryParamsResponse): _1.QueryParamsResponseProtoMsg;
             };
             QueryDenomAuthorityMetadataRequest: {
-                encode(message: _1.QueryDenomAuthorityMetadataRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QueryDenomAuthorityMetadataRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QueryDenomAuthorityMetadataRequest;
                 fromPartial(object: Partial<_1.QueryDenomAuthorityMetadataRequest>): _1.QueryDenomAuthorityMetadataRequest;
+                fromAmino(object: _1.QueryDenomAuthorityMetadataRequestAmino): _1.QueryDenomAuthorityMetadataRequest;
+                toAmino(message: _1.QueryDenomAuthorityMetadataRequest): _1.QueryDenomAuthorityMetadataRequestAmino;
+                fromAminoMsg(object: _1.QueryDenomAuthorityMetadataRequestAminoMsg): _1.QueryDenomAuthorityMetadataRequest;
+                toAminoMsg(message: _1.QueryDenomAuthorityMetadataRequest): _1.QueryDenomAuthorityMetadataRequestAminoMsg;
+                fromProtoMsg(message: _1.QueryDenomAuthorityMetadataRequestProtoMsg): _1.QueryDenomAuthorityMetadataRequest;
+                toProto(message: _1.QueryDenomAuthorityMetadataRequest): Uint8Array;
+                toProtoMsg(message: _1.QueryDenomAuthorityMetadataRequest): _1.QueryDenomAuthorityMetadataRequestProtoMsg;
             };
             QueryDenomAuthorityMetadataResponse: {
-                encode(message: _1.QueryDenomAuthorityMetadataResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QueryDenomAuthorityMetadataResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QueryDenomAuthorityMetadataResponse;
                 fromPartial(object: Partial<_1.QueryDenomAuthorityMetadataResponse>): _1.QueryDenomAuthorityMetadataResponse;
+                fromAmino(object: _1.QueryDenomAuthorityMetadataResponseAmino): _1.QueryDenomAuthorityMetadataResponse;
+                toAmino(message: _1.QueryDenomAuthorityMetadataResponse): _1.QueryDenomAuthorityMetadataResponseAmino;
+                fromAminoMsg(object: _1.QueryDenomAuthorityMetadataResponseAminoMsg): _1.QueryDenomAuthorityMetadataResponse;
+                toAminoMsg(message: _1.QueryDenomAuthorityMetadataResponse): _1.QueryDenomAuthorityMetadataResponseAminoMsg;
+                fromProtoMsg(message: _1.QueryDenomAuthorityMetadataResponseProtoMsg): _1.QueryDenomAuthorityMetadataResponse;
+                toProto(message: _1.QueryDenomAuthorityMetadataResponse): Uint8Array;
+                toProtoMsg(message: _1.QueryDenomAuthorityMetadataResponse): _1.QueryDenomAuthorityMetadataResponseProtoMsg;
             };
             QueryDenomsFromCreatorRequest: {
-                encode(message: _1.QueryDenomsFromCreatorRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QueryDenomsFromCreatorRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QueryDenomsFromCreatorRequest;
                 fromPartial(object: Partial<_1.QueryDenomsFromCreatorRequest>): _1.QueryDenomsFromCreatorRequest;
+                fromAmino(object: _1.QueryDenomsFromCreatorRequestAmino): _1.QueryDenomsFromCreatorRequest;
+                toAmino(message: _1.QueryDenomsFromCreatorRequest): _1.QueryDenomsFromCreatorRequestAmino;
+                fromAminoMsg(object: _1.QueryDenomsFromCreatorRequestAminoMsg): _1.QueryDenomsFromCreatorRequest;
+                toAminoMsg(message: _1.QueryDenomsFromCreatorRequest): _1.QueryDenomsFromCreatorRequestAminoMsg;
+                fromProtoMsg(message: _1.QueryDenomsFromCreatorRequestProtoMsg): _1.QueryDenomsFromCreatorRequest;
+                toProto(message: _1.QueryDenomsFromCreatorRequest): Uint8Array;
+                toProtoMsg(message: _1.QueryDenomsFromCreatorRequest): _1.QueryDenomsFromCreatorRequestProtoMsg;
             };
             QueryDenomsFromCreatorResponse: {
-                encode(message: _1.QueryDenomsFromCreatorResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.QueryDenomsFromCreatorResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.QueryDenomsFromCreatorResponse;
                 fromPartial(object: Partial<_1.QueryDenomsFromCreatorResponse>): _1.QueryDenomsFromCreatorResponse;
+                fromAmino(object: _1.QueryDenomsFromCreatorResponseAmino): _1.QueryDenomsFromCreatorResponse;
+                toAmino(message: _1.QueryDenomsFromCreatorResponse): _1.QueryDenomsFromCreatorResponseAmino;
+                fromAminoMsg(object: _1.QueryDenomsFromCreatorResponseAminoMsg): _1.QueryDenomsFromCreatorResponse;
+                toAminoMsg(message: _1.QueryDenomsFromCreatorResponse): _1.QueryDenomsFromCreatorResponseAminoMsg;
+                fromProtoMsg(message: _1.QueryDenomsFromCreatorResponseProtoMsg): _1.QueryDenomsFromCreatorResponse;
+                toProto(message: _1.QueryDenomsFromCreatorResponse): Uint8Array;
+                toProtoMsg(message: _1.QueryDenomsFromCreatorResponse): _1.QueryDenomsFromCreatorResponseProtoMsg;
             };
             GenesisState: {
-                encode(message: _0.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _0.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _0.GenesisState;
                 fromPartial(object: Partial<_0.GenesisState>): _0.GenesisState;
+                fromAmino(object: _0.GenesisStateAmino): _0.GenesisState;
+                toAmino(message: _0.GenesisState): _0.GenesisStateAmino;
+                fromAminoMsg(object: _0.GenesisStateAminoMsg): _0.GenesisState;
+                toAminoMsg(message: _0.GenesisState): _0.GenesisStateAminoMsg;
+                fromProtoMsg(message: _0.GenesisStateProtoMsg): _0.GenesisState;
+                toProto(message: _0.GenesisState): Uint8Array;
+                toProtoMsg(message: _0.GenesisState): _0.GenesisStateProtoMsg;
             };
             GenesisDenom: {
-                encode(message: _0.GenesisDenom, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _0.GenesisDenom, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _0.GenesisDenom;
                 fromPartial(object: Partial<_0.GenesisDenom>): _0.GenesisDenom;
+                fromAmino(object: _0.GenesisDenomAmino): _0.GenesisDenom;
+                toAmino(message: _0.GenesisDenom): _0.GenesisDenomAmino;
+                fromAminoMsg(object: _0.GenesisDenomAminoMsg): _0.GenesisDenom;
+                toAminoMsg(message: _0.GenesisDenom): _0.GenesisDenomAminoMsg;
+                fromProtoMsg(message: _0.GenesisDenomProtoMsg): _0.GenesisDenom;
+                toProto(message: _0.GenesisDenom): Uint8Array;
+                toProtoMsg(message: _0.GenesisDenom): _0.GenesisDenomProtoMsg;
             };
         };
     }
@@ -313,7 +403,7 @@ export declare namespace osmosis {
         }) => Promise<{
             osmosis: {
                 tokenfactory: {
-                    v1beta1: _129.MsgClientImpl;
+                    v1beta1: _130.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -505,7 +595,7 @@ export declare namespace osmosis {
         }) => Promise<{
             osmosis: {
                 tokenfactory: {
-                    v1beta1: _127.LCDQueryClient;
+                    v1beta1: _128.LCDQueryClient;
                 };
             };
             cosmos: {

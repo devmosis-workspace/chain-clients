@@ -1,5 +1,5 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgSwapExactAmountIn, MsgSwapExactAmountOut, MsgSplitRouteSwapExactAmountIn, MsgSplitRouteSwapExactAmountOut } from "./tx";
+import { MsgSwapExactAmountIn, MsgSwapExactAmountOut, MsgSplitRouteSwapExactAmountIn, MsgSplitRouteSwapExactAmountOut, MsgSetDenomPairTakerFee } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
@@ -17,6 +17,10 @@ export declare const MessageComposer: {
             value: Uint8Array;
         };
         splitRouteSwapExactAmountOut(value: MsgSplitRouteSwapExactAmountOut): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        setDenomPairTakerFee(value: MsgSetDenomPairTakerFee): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -38,6 +42,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgSplitRouteSwapExactAmountOut;
         };
+        setDenomPairTakerFee(value: MsgSetDenomPairTakerFee): {
+            typeUrl: string;
+            value: MsgSetDenomPairTakerFee;
+        };
     };
     fromJSON: {
         swapExactAmountIn(value: any): {
@@ -56,6 +64,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgSplitRouteSwapExactAmountOut;
         };
+        setDenomPairTakerFee(value: any): {
+            typeUrl: string;
+            value: MsgSetDenomPairTakerFee;
+        };
     };
     fromPartial: {
         swapExactAmountIn(value: MsgSwapExactAmountIn): {
@@ -73,6 +85,10 @@ export declare const MessageComposer: {
         splitRouteSwapExactAmountOut(value: MsgSplitRouteSwapExactAmountOut): {
             typeUrl: string;
             value: MsgSplitRouteSwapExactAmountOut;
+        };
+        setDenomPairTakerFee(value: MsgSetDenomPairTakerFee): {
+            typeUrl: string;
+            value: MsgSetDenomPairTakerFee;
         };
     };
 };

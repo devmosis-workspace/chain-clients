@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryBalanceRequest, QueryBalanceResponse, QueryTotalBalanceRequest, QueryTotalBalanceResponse } from "./query";
 /** Query defines the gRPC querier service for x/community. */
@@ -22,12 +22,12 @@ export class QueryClientImpl implements Query {
   balance(request: QueryBalanceRequest = {}): Promise<QueryBalanceResponse> {
     const data = QueryBalanceRequest.encode(request).finish();
     const promise = this.rpc.request("kava.community.v1beta1.Query", "Balance", data);
-    return promise.then(data => QueryBalanceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBalanceResponse.decode(new BinaryReader(data)));
   }
   totalBalance(request: QueryTotalBalanceRequest = {}): Promise<QueryTotalBalanceResponse> {
     const data = QueryTotalBalanceRequest.encode(request).finish();
     const promise = this.rpc.request("kava.community.v1beta1.Query", "TotalBalance", data);
-    return promise.then(data => QueryTotalBalanceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTotalBalanceResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

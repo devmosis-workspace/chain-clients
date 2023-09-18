@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgDeposit, MsgDepositResponse, MsgWithdraw, MsgWithdrawResponse } from "./tx";
 /** Msg defines the earn Msg service. */
 export interface Msg {
@@ -18,11 +18,11 @@ export class MsgClientImpl implements Msg {
   deposit(request: MsgDeposit): Promise<MsgDepositResponse> {
     const data = MsgDeposit.encode(request).finish();
     const promise = this.rpc.request("kava.earn.v1beta1.Msg", "Deposit", data);
-    return promise.then(data => MsgDepositResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDepositResponse.decode(new BinaryReader(data)));
   }
   withdraw(request: MsgWithdraw): Promise<MsgWithdrawResponse> {
     const data = MsgWithdraw.encode(request).finish();
     const promise = this.rpc.request("kava.earn.v1beta1.Msg", "Withdraw", data);
-    return promise.then(data => MsgWithdrawResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgWithdrawResponse.decode(new BinaryReader(data)));
   }
 }

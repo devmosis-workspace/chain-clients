@@ -1,5 +1,5 @@
 import { Rpc } from "../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QuerySupersRequest, QuerySupersResponse } from "./query";
 /** Query creates service with guardian as RPC */
@@ -18,7 +18,7 @@ export class QueryClientImpl implements Query {
   }): Promise<QuerySupersResponse> {
     const data = QuerySupersRequest.encode(request).finish();
     const promise = this.rpc.request("irishub.guardian.Query", "Supers", data);
-    return promise.then(data => QuerySupersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySupersResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

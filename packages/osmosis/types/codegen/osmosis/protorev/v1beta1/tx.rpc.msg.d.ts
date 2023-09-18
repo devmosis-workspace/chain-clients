@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import { MsgSetHotRoutes, MsgSetHotRoutesResponse, MsgSetDeveloperAccount, MsgSetDeveloperAccountResponse, MsgSetMaxPoolPointsPerTx, MsgSetMaxPoolPointsPerTxResponse, MsgSetMaxPoolPointsPerBlock, MsgSetMaxPoolPointsPerBlockResponse, MsgSetPoolWeights, MsgSetPoolWeightsResponse, MsgSetBaseDenoms, MsgSetBaseDenomsResponse } from "./tx";
+import { MsgSetHotRoutes, MsgSetHotRoutesResponse, MsgSetDeveloperAccount, MsgSetDeveloperAccountResponse, MsgSetMaxPoolPointsPerTx, MsgSetMaxPoolPointsPerTxResponse, MsgSetMaxPoolPointsPerBlock, MsgSetMaxPoolPointsPerBlockResponse, MsgSetInfoByPoolType, MsgSetInfoByPoolTypeResponse, MsgSetBaseDenoms, MsgSetBaseDenomsResponse } from "./tx";
 export interface Msg {
     /**
      * SetHotRoutes sets the hot routes that will be explored when creating
@@ -22,10 +22,10 @@ export interface Msg {
      */
     setMaxPoolPointsPerBlock(request: MsgSetMaxPoolPointsPerBlock): Promise<MsgSetMaxPoolPointsPerBlockResponse>;
     /**
-     * SetPoolWeights sets the weights of each pool type in the store. Can only be
-     * called by the admin account.
+     * SetInfoByPoolType sets the pool type information needed to make smart
+     * assumptions about swapping on different pool types
      */
-    setPoolWeights(request: MsgSetPoolWeights): Promise<MsgSetPoolWeightsResponse>;
+    setInfoByPoolType(request: MsgSetInfoByPoolType): Promise<MsgSetInfoByPoolTypeResponse>;
     /**
      * SetBaseDenoms sets the base denoms that will be used to create cyclic
      * arbitrage routes. Can only be called by the admin account.
@@ -39,6 +39,6 @@ export declare class MsgClientImpl implements Msg {
     setDeveloperAccount(request: MsgSetDeveloperAccount): Promise<MsgSetDeveloperAccountResponse>;
     setMaxPoolPointsPerTx(request: MsgSetMaxPoolPointsPerTx): Promise<MsgSetMaxPoolPointsPerTxResponse>;
     setMaxPoolPointsPerBlock(request: MsgSetMaxPoolPointsPerBlock): Promise<MsgSetMaxPoolPointsPerBlockResponse>;
-    setPoolWeights(request: MsgSetPoolWeights): Promise<MsgSetPoolWeightsResponse>;
+    setInfoByPoolType(request: MsgSetInfoByPoolType): Promise<MsgSetInfoByPoolTypeResponse>;
     setBaseDenoms(request: MsgSetBaseDenoms): Promise<MsgSetBaseDenomsResponse>;
 }

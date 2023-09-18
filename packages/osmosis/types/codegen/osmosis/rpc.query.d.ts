@@ -57,6 +57,7 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 estimateSwapExactAmountIn(request: import("./gamm/v1beta1/query").QuerySwapExactAmountInRequest): Promise<import("./gamm/v1beta1/query").QuerySwapExactAmountInResponse>;
                 estimateSwapExactAmountOut(request: import("./gamm/v1beta1/query").QuerySwapExactAmountOutRequest): Promise<import("./gamm/v1beta1/query").QuerySwapExactAmountOutResponse>;
                 concentratedPoolIdLinkFromCFMM(request: import("./gamm/v1beta1/query").QueryConcentratedPoolIdLinkFromCFMMRequest): Promise<import("./gamm/v1beta1/query").QueryConcentratedPoolIdLinkFromCFMMResponse>;
+                cFMMConcentratedPoolLinks(request?: import("./gamm/v1beta1/query").QueryCFMMConcentratedPoolLinksRequest): Promise<import("./gamm/v1beta1/query").QueryCFMMConcentratedPoolLinksResponse>;
             };
             v2: {
                 spotPrice(request: import("./gamm/v2/query").QuerySpotPriceRequest): Promise<import("./gamm/v2/query").QuerySpotPriceResponse>;
@@ -120,8 +121,10 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
             v1beta1: {
                 params(request?: import("./poolmanager/v1beta1/query").ParamsRequest): Promise<import("./poolmanager/v1beta1/query").ParamsResponse>;
                 estimateSwapExactAmountIn(request: import("./poolmanager/v1beta1/query").EstimateSwapExactAmountInRequest): Promise<import("./poolmanager/v1beta1/query").EstimateSwapExactAmountInResponse>;
+                estimateSwapExactAmountInWithPrimitiveTypes(request: import("./poolmanager/v1beta1/query").EstimateSwapExactAmountInWithPrimitiveTypesRequest): Promise<import("./poolmanager/v1beta1/query").EstimateSwapExactAmountInResponse>;
                 estimateSinglePoolSwapExactAmountIn(request: import("./poolmanager/v1beta1/query").EstimateSinglePoolSwapExactAmountInRequest): Promise<import("./poolmanager/v1beta1/query").EstimateSwapExactAmountInResponse>;
                 estimateSwapExactAmountOut(request: import("./poolmanager/v1beta1/query").EstimateSwapExactAmountOutRequest): Promise<import("./poolmanager/v1beta1/query").EstimateSwapExactAmountOutResponse>;
+                estimateSwapExactAmountOutWithPrimitiveTypes(request: import("./poolmanager/v1beta1/query").EstimateSwapExactAmountOutWithPrimitiveTypesRequest): Promise<import("./poolmanager/v1beta1/query").EstimateSwapExactAmountOutResponse>;
                 estimateSinglePoolSwapExactAmountOut(request: import("./poolmanager/v1beta1/query").EstimateSinglePoolSwapExactAmountOutRequest): Promise<import("./poolmanager/v1beta1/query").EstimateSwapExactAmountOutResponse>;
                 numPools(request?: import("./poolmanager/v1beta1/query").NumPoolsRequest): Promise<import("./poolmanager/v1beta1/query").NumPoolsResponse>;
                 pool(request: import("./poolmanager/v1beta1/query").PoolRequest): Promise<import("./poolmanager/v1beta1/query").PoolResponse>;
@@ -142,7 +145,7 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 getProtoRevTokenPairArbRoutes(request?: import("./protorev/v1beta1/query").QueryGetProtoRevTokenPairArbRoutesRequest): Promise<import("./protorev/v1beta1/query").QueryGetProtoRevTokenPairArbRoutesResponse>;
                 getProtoRevAdminAccount(request?: import("./protorev/v1beta1/query").QueryGetProtoRevAdminAccountRequest): Promise<import("./protorev/v1beta1/query").QueryGetProtoRevAdminAccountResponse>;
                 getProtoRevDeveloperAccount(request?: import("./protorev/v1beta1/query").QueryGetProtoRevDeveloperAccountRequest): Promise<import("./protorev/v1beta1/query").QueryGetProtoRevDeveloperAccountResponse>;
-                getProtoRevPoolWeights(request?: import("./protorev/v1beta1/query").QueryGetProtoRevPoolWeightsRequest): Promise<import("./protorev/v1beta1/query").QueryGetProtoRevPoolWeightsResponse>;
+                getProtoRevInfoByPoolType(request?: import("./protorev/v1beta1/query").QueryGetProtoRevInfoByPoolTypeRequest): Promise<import("./protorev/v1beta1/query").QueryGetProtoRevInfoByPoolTypeResponse>;
                 getProtoRevMaxPoolPointsPerTx(request?: import("./protorev/v1beta1/query").QueryGetProtoRevMaxPoolPointsPerTxRequest): Promise<import("./protorev/v1beta1/query").QueryGetProtoRevMaxPoolPointsPerTxResponse>;
                 getProtoRevMaxPoolPointsPerBlock(request?: import("./protorev/v1beta1/query").QueryGetProtoRevMaxPoolPointsPerBlockRequest): Promise<import("./protorev/v1beta1/query").QueryGetProtoRevMaxPoolPointsPerBlockResponse>;
                 getProtoRevBaseDenoms(request?: import("./protorev/v1beta1/query").QueryGetProtoRevBaseDenomsRequest): Promise<import("./protorev/v1beta1/query").QueryGetProtoRevBaseDenomsResponse>;
@@ -174,6 +177,7 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 params(request?: import("./tokenfactory/v1beta1/query").QueryParamsRequest): Promise<import("./tokenfactory/v1beta1/query").QueryParamsResponse>;
                 denomAuthorityMetadata(request: import("./tokenfactory/v1beta1/query").QueryDenomAuthorityMetadataRequest): Promise<import("./tokenfactory/v1beta1/query").QueryDenomAuthorityMetadataResponse>;
                 denomsFromCreator(request: import("./tokenfactory/v1beta1/query").QueryDenomsFromCreatorRequest): Promise<import("./tokenfactory/v1beta1/query").QueryDenomsFromCreatorResponse>;
+                beforeSendHookAddress(request: import("./tokenfactory/v1beta1/query").QueryBeforeSendHookAddressRequest): Promise<import("./tokenfactory/v1beta1/query").QueryBeforeSendHookAddressResponse>;
             };
         };
         twap: {

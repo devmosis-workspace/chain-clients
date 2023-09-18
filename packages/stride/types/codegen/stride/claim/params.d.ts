@@ -1,10 +1,23 @@
-import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
-import { Duration, DurationSDKType } from "../../google/protobuf/duration";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { BinaryWriter } from "../../binary";
 /** Params defines the claim module's parameters. */
 export interface Params {
     /** Params defines the claim module's parameters. */
     airdrops: Airdrop[];
+}
+export interface ParamsProtoMsg {
+    typeUrl: "/stride.claim.Params";
+    value: Uint8Array;
+}
+/** Params defines the claim module's parameters. */
+export interface ParamsAmino {
+    /** Params defines the claim module's parameters. */
+    airdrops: AirdropAmino[];
+}
+export interface ParamsAminoMsg {
+    type: "/stride.claim.Params";
+    value: ParamsAmino;
 }
 /** Params defines the claim module's parameters. */
 export interface ParamsSDKType {
@@ -14,9 +27,9 @@ export interface Airdrop {
     airdropIdentifier: string;
     chainId: string;
     /** seconds */
-    airdropStartTime?: Timestamp;
+    airdropStartTime: Timestamp;
     /** seconds */
-    airdropDuration?: Duration;
+    airdropDuration: Duration;
     /** denom of claimable asset */
     claimDenom: string;
     /** airdrop distribution account */
@@ -26,23 +39,61 @@ export interface Airdrop {
     /** indicates the airdrop should be claimed via autopilot */
     autopilotEnabled: boolean;
 }
+export interface AirdropProtoMsg {
+    typeUrl: "/stride.claim.Airdrop";
+    value: Uint8Array;
+}
+export interface AirdropAmino {
+    airdrop_identifier: string;
+    chain_id: string;
+    /** seconds */
+    airdrop_start_time?: TimestampAmino;
+    /** seconds */
+    airdrop_duration?: DurationAmino;
+    /** denom of claimable asset */
+    claim_denom: string;
+    /** airdrop distribution account */
+    distributor_address: string;
+    /** ustrd tokens claimed so far in the current period */
+    claimed_so_far: string;
+    /** indicates the airdrop should be claimed via autopilot */
+    autopilot_enabled: boolean;
+}
+export interface AirdropAminoMsg {
+    type: "/stride.claim.Airdrop";
+    value: AirdropAmino;
+}
 export interface AirdropSDKType {
     airdrop_identifier: string;
     chain_id: string;
-    airdrop_start_time?: TimestampSDKType;
-    airdrop_duration?: DurationSDKType;
+    airdrop_start_time: TimestampSDKType;
+    airdrop_duration: DurationSDKType;
     claim_denom: string;
     distributor_address: string;
     claimed_so_far: string;
     autopilot_enabled: boolean;
 }
 export declare const Params: {
-    encode(message: Params, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Params, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Params;
     fromPartial(object: Partial<Params>): Params;
+    fromAmino(object: ParamsAmino): Params;
+    toAmino(message: Params): ParamsAmino;
+    fromAminoMsg(object: ParamsAminoMsg): Params;
+    fromProtoMsg(message: ParamsProtoMsg): Params;
+    toProto(message: Params): Uint8Array;
+    toProtoMsg(message: Params): ParamsProtoMsg;
 };
 export declare const Airdrop: {
-    encode(message: Airdrop, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Airdrop, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Airdrop;
     fromPartial(object: Partial<Airdrop>): Airdrop;
+    fromAmino(object: AirdropAmino): Airdrop;
+    toAmino(message: Airdrop): AirdropAmino;
+    fromAminoMsg(object: AirdropAminoMsg): Airdrop;
+    fromProtoMsg(message: AirdropProtoMsg): Airdrop;
+    toProto(message: Airdrop): Uint8Array;
+    toProtoMsg(message: Airdrop): AirdropProtoMsg;
 };

@@ -1,11 +1,11 @@
-import { Params, ParamsSDKType } from "./params";
-import { Delegator, DelegatorSDKType, DelegationEntry, DelegationEntrySDKType, DelegationData, DelegationDataSDKType, DelegationSlash, DelegationSlashSDKType, UndelegationQueueEntry, UndelegationQueueEntrySDKType, QueueState, QueueStateSDKType, RedelegationCooldown, RedelegationCooldownSDKType } from "./delegation";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { Delegator, DelegatorAmino, DelegatorSDKType, DelegationEntry, DelegationEntryAmino, DelegationEntrySDKType, DelegationData, DelegationDataAmino, DelegationDataSDKType, DelegationSlash, DelegationSlashAmino, DelegationSlashSDKType, UndelegationQueueEntry, UndelegationQueueEntryAmino, UndelegationQueueEntrySDKType, QueueState, QueueStateAmino, QueueStateSDKType, RedelegationCooldown, RedelegationCooldownAmino, RedelegationCooldownSDKType } from "./delegation";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** GenesisState defines the delegation module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of the module. */
-  params?: Params;
+  params: Params;
   /** delegator_list ... */
   delegatorList: Delegator[];
   /** delegation_entry_list ... */
@@ -17,35 +17,63 @@ export interface GenesisState {
   /** undelegation_queue_entry_list ... */
   undelegationQueueEntryList: UndelegationQueueEntry[];
   /** queue_state_undelegation ... */
-  queueStateUndelegation?: QueueState;
+  queueStateUndelegation: QueueState;
   /** redelegation_cooldown_list ... */
   redelegationCooldownList: RedelegationCooldown[];
 }
+export interface GenesisStateProtoMsg {
+  typeUrl: "/kyve.delegation.v1beta1.GenesisState";
+  value: Uint8Array;
+}
+/** GenesisState defines the delegation module's genesis state. */
+export interface GenesisStateAmino {
+  /** params defines all the parameters of the module. */
+  params?: ParamsAmino;
+  /** delegator_list ... */
+  delegator_list: DelegatorAmino[];
+  /** delegation_entry_list ... */
+  delegation_entry_list: DelegationEntryAmino[];
+  /** delegation_data_list ... */
+  delegation_data_list: DelegationDataAmino[];
+  /** delegation_slash_list ... */
+  delegation_slash_list: DelegationSlashAmino[];
+  /** undelegation_queue_entry_list ... */
+  undelegation_queue_entry_list: UndelegationQueueEntryAmino[];
+  /** queue_state_undelegation ... */
+  queue_state_undelegation?: QueueStateAmino;
+  /** redelegation_cooldown_list ... */
+  redelegation_cooldown_list: RedelegationCooldownAmino[];
+}
+export interface GenesisStateAminoMsg {
+  type: "/kyve.delegation.v1beta1.GenesisState";
+  value: GenesisStateAmino;
+}
 /** GenesisState defines the delegation module's genesis state. */
 export interface GenesisStateSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
   delegator_list: DelegatorSDKType[];
   delegation_entry_list: DelegationEntrySDKType[];
   delegation_data_list: DelegationDataSDKType[];
   delegation_slash_list: DelegationSlashSDKType[];
   undelegation_queue_entry_list: UndelegationQueueEntrySDKType[];
-  queue_state_undelegation?: QueueStateSDKType;
+  queue_state_undelegation: QueueStateSDKType;
   redelegation_cooldown_list: RedelegationCooldownSDKType[];
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     delegatorList: [],
     delegationEntryList: [],
     delegationDataList: [],
     delegationSlashList: [],
     undelegationQueueEntryList: [],
-    queueStateUndelegation: undefined,
+    queueStateUndelegation: QueueState.fromPartial({}),
     redelegationCooldownList: []
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.delegation.v1beta1.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -95,5 +123,68 @@ export const GenesisState = {
     message.queueStateUndelegation = object.queueStateUndelegation !== undefined && object.queueStateUndelegation !== null ? QueueState.fromPartial(object.queueStateUndelegation) : undefined;
     message.redelegationCooldownList = object.redelegationCooldownList?.map(e => RedelegationCooldown.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+      delegatorList: Array.isArray(object?.delegator_list) ? object.delegator_list.map((e: any) => Delegator.fromAmino(e)) : [],
+      delegationEntryList: Array.isArray(object?.delegation_entry_list) ? object.delegation_entry_list.map((e: any) => DelegationEntry.fromAmino(e)) : [],
+      delegationDataList: Array.isArray(object?.delegation_data_list) ? object.delegation_data_list.map((e: any) => DelegationData.fromAmino(e)) : [],
+      delegationSlashList: Array.isArray(object?.delegation_slash_list) ? object.delegation_slash_list.map((e: any) => DelegationSlash.fromAmino(e)) : [],
+      undelegationQueueEntryList: Array.isArray(object?.undelegation_queue_entry_list) ? object.undelegation_queue_entry_list.map((e: any) => UndelegationQueueEntry.fromAmino(e)) : [],
+      queueStateUndelegation: object?.queue_state_undelegation ? QueueState.fromAmino(object.queue_state_undelegation) : undefined,
+      redelegationCooldownList: Array.isArray(object?.redelegation_cooldown_list) ? object.redelegation_cooldown_list.map((e: any) => RedelegationCooldown.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    if (message.delegatorList) {
+      obj.delegator_list = message.delegatorList.map(e => e ? Delegator.toAmino(e) : undefined);
+    } else {
+      obj.delegator_list = [];
+    }
+    if (message.delegationEntryList) {
+      obj.delegation_entry_list = message.delegationEntryList.map(e => e ? DelegationEntry.toAmino(e) : undefined);
+    } else {
+      obj.delegation_entry_list = [];
+    }
+    if (message.delegationDataList) {
+      obj.delegation_data_list = message.delegationDataList.map(e => e ? DelegationData.toAmino(e) : undefined);
+    } else {
+      obj.delegation_data_list = [];
+    }
+    if (message.delegationSlashList) {
+      obj.delegation_slash_list = message.delegationSlashList.map(e => e ? DelegationSlash.toAmino(e) : undefined);
+    } else {
+      obj.delegation_slash_list = [];
+    }
+    if (message.undelegationQueueEntryList) {
+      obj.undelegation_queue_entry_list = message.undelegationQueueEntryList.map(e => e ? UndelegationQueueEntry.toAmino(e) : undefined);
+    } else {
+      obj.undelegation_queue_entry_list = [];
+    }
+    obj.queue_state_undelegation = message.queueStateUndelegation ? QueueState.toAmino(message.queueStateUndelegation) : undefined;
+    if (message.redelegationCooldownList) {
+      obj.redelegation_cooldown_list = message.redelegationCooldownList.map(e => e ? RedelegationCooldown.toAmino(e) : undefined);
+    } else {
+      obj.redelegation_cooldown_list = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/kyve.delegation.v1beta1.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };

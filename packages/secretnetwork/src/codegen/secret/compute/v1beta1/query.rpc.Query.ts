@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryByContractAddressRequest, QueryContractInfoResponse, QueryByCodeIdRequest, QueryContractsByCodeIdResponse, QuerySecretContractRequest, QuerySecretContractResponse, QueryCodeResponse, QueryCodesResponse, QueryCodeHashResponse, QueryContractLabelResponse, QueryByLabelRequest, QueryContractAddressResponse } from "./query";
 import { Empty } from "../../../google/protobuf/empty";
@@ -41,47 +41,47 @@ export class QueryClientImpl implements Query {
   contractInfo(request: QueryByContractAddressRequest): Promise<QueryContractInfoResponse> {
     const data = QueryByContractAddressRequest.encode(request).finish();
     const promise = this.rpc.request("secret.compute.v1beta1.Query", "ContractInfo", data);
-    return promise.then(data => QueryContractInfoResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryContractInfoResponse.decode(new BinaryReader(data)));
   }
   contractsByCodeId(request: QueryByCodeIdRequest): Promise<QueryContractsByCodeIdResponse> {
     const data = QueryByCodeIdRequest.encode(request).finish();
     const promise = this.rpc.request("secret.compute.v1beta1.Query", "ContractsByCodeId", data);
-    return promise.then(data => QueryContractsByCodeIdResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryContractsByCodeIdResponse.decode(new BinaryReader(data)));
   }
   querySecretContract(request: QuerySecretContractRequest): Promise<QuerySecretContractResponse> {
     const data = QuerySecretContractRequest.encode(request).finish();
     const promise = this.rpc.request("secret.compute.v1beta1.Query", "QuerySecretContract", data);
-    return promise.then(data => QuerySecretContractResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySecretContractResponse.decode(new BinaryReader(data)));
   }
   code(request: QueryByCodeIdRequest): Promise<QueryCodeResponse> {
     const data = QueryByCodeIdRequest.encode(request).finish();
     const promise = this.rpc.request("secret.compute.v1beta1.Query", "Code", data);
-    return promise.then(data => QueryCodeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCodeResponse.decode(new BinaryReader(data)));
   }
   codes(request: google.protobuf.Empty = {}): Promise<QueryCodesResponse> {
     const data = google.protobuf.Empty.encode(request).finish();
     const promise = this.rpc.request("secret.compute.v1beta1.Query", "Codes", data);
-    return promise.then(data => QueryCodesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCodesResponse.decode(new BinaryReader(data)));
   }
   codeHashByContractAddress(request: QueryByContractAddressRequest): Promise<QueryCodeHashResponse> {
     const data = QueryByContractAddressRequest.encode(request).finish();
     const promise = this.rpc.request("secret.compute.v1beta1.Query", "CodeHashByContractAddress", data);
-    return promise.then(data => QueryCodeHashResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCodeHashResponse.decode(new BinaryReader(data)));
   }
   codeHashByCodeId(request: QueryByCodeIdRequest): Promise<QueryCodeHashResponse> {
     const data = QueryByCodeIdRequest.encode(request).finish();
     const promise = this.rpc.request("secret.compute.v1beta1.Query", "CodeHashByCodeId", data);
-    return promise.then(data => QueryCodeHashResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCodeHashResponse.decode(new BinaryReader(data)));
   }
   labelByAddress(request: QueryByContractAddressRequest): Promise<QueryContractLabelResponse> {
     const data = QueryByContractAddressRequest.encode(request).finish();
     const promise = this.rpc.request("secret.compute.v1beta1.Query", "LabelByAddress", data);
-    return promise.then(data => QueryContractLabelResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryContractLabelResponse.decode(new BinaryReader(data)));
   }
   addressByLabel(request: QueryByLabelRequest): Promise<QueryContractAddressResponse> {
     const data = QueryByLabelRequest.encode(request).finish();
     const promise = this.rpc.request("secret.compute.v1beta1.Query", "AddressByLabel", data);
-    return promise.then(data => QueryContractAddressResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryContractAddressResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

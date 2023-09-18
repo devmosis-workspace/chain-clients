@@ -1,7 +1,7 @@
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Long, isSet, fromJsonTimestamp } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
+import { isSet, fromJsonTimestamp } from "../../../helpers";
 /**
  * MsgCreateSchedule defines the message for creating a new incentives schedule.
  * 
@@ -15,14 +15,44 @@ export interface MsgCreateSchedule {
    */
   authority: string;
   /** StartTime is the timestamp at which this incentives schedule shall begin. */
-  startTime?: Timestamp;
+  startTime: Timestamp;
   /** EndTime is the timestamp at which this incentives schedule shall finish. */
-  endTime?: Timestamp;
+  endTime: Timestamp;
   /**
    * Amount is the total amount of coins that shall be released to stakers
    * throughout the span of this incentives schedule.
    */
   amount: Coin[];
+}
+export interface MsgCreateScheduleProtoMsg {
+  typeUrl: "/mars.incentives.v1beta1.MsgCreateSchedule";
+  value: Uint8Array;
+}
+/**
+ * MsgCreateSchedule defines the message for creating a new incentives schedule.
+ * 
+ * This message is typically executed via a governance proposal with the gov
+ * module being the executing authority.
+ */
+export interface MsgCreateScheduleAmino {
+  /**
+   * Authority is the account executing the safety fund spend.
+   * It should be the gov module account.
+   */
+  authority: string;
+  /** StartTime is the timestamp at which this incentives schedule shall begin. */
+  start_time?: TimestampAmino;
+  /** EndTime is the timestamp at which this incentives schedule shall finish. */
+  end_time?: TimestampAmino;
+  /**
+   * Amount is the total amount of coins that shall be released to stakers
+   * throughout the span of this incentives schedule.
+   */
+  amount: CoinAmino[];
+}
+export interface MsgCreateScheduleAminoMsg {
+  type: "/mars.incentives.v1beta1.MsgCreateSchedule";
+  value: MsgCreateScheduleAmino;
 }
 /**
  * MsgCreateSchedule defines the message for creating a new incentives schedule.
@@ -32,8 +62,8 @@ export interface MsgCreateSchedule {
  */
 export interface MsgCreateScheduleSDKType {
   authority: string;
-  start_time?: TimestampSDKType;
-  end_time?: TimestampSDKType;
+  start_time: TimestampSDKType;
+  end_time: TimestampSDKType;
   amount: CoinSDKType[];
 }
 /**
@@ -41,6 +71,19 @@ export interface MsgCreateScheduleSDKType {
  * MsgCreateSchedule message.
  */
 export interface MsgCreateScheduleResponse {}
+export interface MsgCreateScheduleResponseProtoMsg {
+  typeUrl: "/mars.incentives.v1beta1.MsgCreateScheduleResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgCreateScheduleResponse defines the response to executing a
+ * MsgCreateSchedule message.
+ */
+export interface MsgCreateScheduleResponseAmino {}
+export interface MsgCreateScheduleResponseAminoMsg {
+  type: "/mars.incentives.v1beta1.MsgCreateScheduleResponse";
+  value: MsgCreateScheduleResponseAmino;
+}
 /**
  * MsgCreateScheduleResponse defines the response to executing a
  * MsgCreateSchedule message.
@@ -63,7 +106,34 @@ export interface MsgTerminateSchedules {
    * Ids is the array of identifiers of the incentives schedules which are to be
    * terminated.
    */
-  ids: Long[];
+  ids: bigint[];
+}
+export interface MsgTerminateSchedulesProtoMsg {
+  typeUrl: "/mars.incentives.v1beta1.MsgTerminateSchedules";
+  value: Uint8Array;
+}
+/**
+ * MsgTerminateSchedules defines the message for terminating one or more
+ * existing incentives schedules.
+ * 
+ * This message is typically executed via a governance proposal with the gov
+ * module being the executing authority.
+ */
+export interface MsgTerminateSchedulesAmino {
+  /**
+   * Authority is the account executing the safety fund spend.
+   * It should be the gov module account.
+   */
+  authority: string;
+  /**
+   * Ids is the array of identifiers of the incentives schedules which are to be
+   * terminated.
+   */
+  ids: string[];
+}
+export interface MsgTerminateSchedulesAminoMsg {
+  type: "/mars.incentives.v1beta1.MsgTerminateSchedules";
+  value: MsgTerminateSchedulesAmino;
 }
 /**
  * MsgTerminateSchedules defines the message for terminating one or more
@@ -74,7 +144,7 @@ export interface MsgTerminateSchedules {
  */
 export interface MsgTerminateSchedulesSDKType {
   authority: string;
-  ids: Long[];
+  ids: bigint[];
 }
 /**
  * MsgTerminateSchedulesResponse defines the response to executing a
@@ -87,6 +157,25 @@ export interface MsgTerminateSchedulesResponse {
    */
   refundedAmount: Coin[];
 }
+export interface MsgTerminateSchedulesResponseProtoMsg {
+  typeUrl: "/mars.incentives.v1beta1.MsgTerminateSchedulesResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgTerminateSchedulesResponse defines the response to executing a
+ * MsgTerminateSchedules message.
+ */
+export interface MsgTerminateSchedulesResponseAmino {
+  /**
+   * RefundedAmount is the unreleased incentives that were refunded to the
+   * community pool.
+   */
+  refunded_amount: CoinAmino[];
+}
+export interface MsgTerminateSchedulesResponseAminoMsg {
+  type: "/mars.incentives.v1beta1.MsgTerminateSchedulesResponse";
+  value: MsgTerminateSchedulesResponseAmino;
+}
 /**
  * MsgTerminateSchedulesResponse defines the response to executing a
  * MsgTerminateSchedules message.
@@ -97,13 +186,14 @@ export interface MsgTerminateSchedulesResponseSDKType {
 function createBaseMsgCreateSchedule(): MsgCreateSchedule {
   return {
     authority: "",
-    startTime: undefined,
-    endTime: undefined,
+    startTime: Timestamp.fromPartial({}),
+    endTime: Timestamp.fromPartial({}),
     amount: []
   };
 }
 export const MsgCreateSchedule = {
-  encode(message: MsgCreateSchedule, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/mars.incentives.v1beta1.MsgCreateSchedule",
+  encode(message: MsgCreateSchedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
@@ -133,13 +223,49 @@ export const MsgCreateSchedule = {
     message.endTime = object.endTime !== undefined && object.endTime !== null ? Timestamp.fromPartial(object.endTime) : undefined;
     message.amount = object.amount?.map(e => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MsgCreateScheduleAmino): MsgCreateSchedule {
+    return {
+      authority: object.authority,
+      startTime: object.start_time,
+      endTime: object.end_time,
+      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: MsgCreateSchedule): MsgCreateScheduleAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.start_time = message.startTime;
+    obj.end_time = message.endTime;
+    if (message.amount) {
+      obj.amount = message.amount.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.amount = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateScheduleAminoMsg): MsgCreateSchedule {
+    return MsgCreateSchedule.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCreateScheduleProtoMsg): MsgCreateSchedule {
+    return MsgCreateSchedule.decode(message.value);
+  },
+  toProto(message: MsgCreateSchedule): Uint8Array {
+    return MsgCreateSchedule.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateSchedule): MsgCreateScheduleProtoMsg {
+    return {
+      typeUrl: "/mars.incentives.v1beta1.MsgCreateSchedule",
+      value: MsgCreateSchedule.encode(message).finish()
+    };
   }
 };
 function createBaseMsgCreateScheduleResponse(): MsgCreateScheduleResponse {
   return {};
 }
 export const MsgCreateScheduleResponse = {
-  encode(_: MsgCreateScheduleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/mars.incentives.v1beta1.MsgCreateScheduleResponse",
+  encode(_: MsgCreateScheduleResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgCreateScheduleResponse {
@@ -148,6 +274,28 @@ export const MsgCreateScheduleResponse = {
   fromPartial(_: Partial<MsgCreateScheduleResponse>): MsgCreateScheduleResponse {
     const message = createBaseMsgCreateScheduleResponse();
     return message;
+  },
+  fromAmino(_: MsgCreateScheduleResponseAmino): MsgCreateScheduleResponse {
+    return {};
+  },
+  toAmino(_: MsgCreateScheduleResponse): MsgCreateScheduleResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateScheduleResponseAminoMsg): MsgCreateScheduleResponse {
+    return MsgCreateScheduleResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCreateScheduleResponseProtoMsg): MsgCreateScheduleResponse {
+    return MsgCreateScheduleResponse.decode(message.value);
+  },
+  toProto(message: MsgCreateScheduleResponse): Uint8Array {
+    return MsgCreateScheduleResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateScheduleResponse): MsgCreateScheduleResponseProtoMsg {
+    return {
+      typeUrl: "/mars.incentives.v1beta1.MsgCreateScheduleResponse",
+      value: MsgCreateScheduleResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgTerminateSchedules(): MsgTerminateSchedules {
@@ -157,7 +305,8 @@ function createBaseMsgTerminateSchedules(): MsgTerminateSchedules {
   };
 }
 export const MsgTerminateSchedules = {
-  encode(message: MsgTerminateSchedules, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/mars.incentives.v1beta1.MsgTerminateSchedules",
+  encode(message: MsgTerminateSchedules, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
@@ -171,14 +320,45 @@ export const MsgTerminateSchedules = {
   fromJSON(object: any): MsgTerminateSchedules {
     return {
       authority: isSet(object.authority) ? String(object.authority) : "",
-      ids: Array.isArray(object?.ids) ? object.ids.map((e: any) => Long.fromValue(e)) : []
+      ids: Array.isArray(object?.ids) ? object.ids.map((e: any) => BigInt(e.toString())) : []
     };
   },
   fromPartial(object: Partial<MsgTerminateSchedules>): MsgTerminateSchedules {
     const message = createBaseMsgTerminateSchedules();
     message.authority = object.authority ?? "";
-    message.ids = object.ids?.map(e => Long.fromValue(e)) || [];
+    message.ids = object.ids?.map(e => BigInt(e.toString())) || [];
     return message;
+  },
+  fromAmino(object: MsgTerminateSchedulesAmino): MsgTerminateSchedules {
+    return {
+      authority: object.authority,
+      ids: Array.isArray(object?.ids) ? object.ids.map((e: any) => BigInt(e)) : []
+    };
+  },
+  toAmino(message: MsgTerminateSchedules): MsgTerminateSchedulesAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    if (message.ids) {
+      obj.ids = message.ids.map(e => e.toString());
+    } else {
+      obj.ids = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgTerminateSchedulesAminoMsg): MsgTerminateSchedules {
+    return MsgTerminateSchedules.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgTerminateSchedulesProtoMsg): MsgTerminateSchedules {
+    return MsgTerminateSchedules.decode(message.value);
+  },
+  toProto(message: MsgTerminateSchedules): Uint8Array {
+    return MsgTerminateSchedules.encode(message).finish();
+  },
+  toProtoMsg(message: MsgTerminateSchedules): MsgTerminateSchedulesProtoMsg {
+    return {
+      typeUrl: "/mars.incentives.v1beta1.MsgTerminateSchedules",
+      value: MsgTerminateSchedules.encode(message).finish()
+    };
   }
 };
 function createBaseMsgTerminateSchedulesResponse(): MsgTerminateSchedulesResponse {
@@ -187,7 +367,8 @@ function createBaseMsgTerminateSchedulesResponse(): MsgTerminateSchedulesRespons
   };
 }
 export const MsgTerminateSchedulesResponse = {
-  encode(message: MsgTerminateSchedulesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/mars.incentives.v1beta1.MsgTerminateSchedulesResponse",
+  encode(message: MsgTerminateSchedulesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.refundedAmount) {
       Coin.encode(v!, writer.uint32(42).fork()).ldelim();
     }
@@ -202,5 +383,34 @@ export const MsgTerminateSchedulesResponse = {
     const message = createBaseMsgTerminateSchedulesResponse();
     message.refundedAmount = object.refundedAmount?.map(e => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MsgTerminateSchedulesResponseAmino): MsgTerminateSchedulesResponse {
+    return {
+      refundedAmount: Array.isArray(object?.refunded_amount) ? object.refunded_amount.map((e: any) => Coin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: MsgTerminateSchedulesResponse): MsgTerminateSchedulesResponseAmino {
+    const obj: any = {};
+    if (message.refundedAmount) {
+      obj.refunded_amount = message.refundedAmount.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.refunded_amount = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgTerminateSchedulesResponseAminoMsg): MsgTerminateSchedulesResponse {
+    return MsgTerminateSchedulesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgTerminateSchedulesResponseProtoMsg): MsgTerminateSchedulesResponse {
+    return MsgTerminateSchedulesResponse.decode(message.value);
+  },
+  toProto(message: MsgTerminateSchedulesResponse): Uint8Array {
+    return MsgTerminateSchedulesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgTerminateSchedulesResponse): MsgTerminateSchedulesResponseProtoMsg {
+    return {
+      typeUrl: "/mars.incentives.v1beta1.MsgTerminateSchedulesResponse",
+      value: MsgTerminateSchedulesResponse.encode(message).finish()
+    };
   }
 };

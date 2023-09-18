@@ -1,26 +1,42 @@
-import { Params, ParamsSDKType, State, StateSDKType } from "./vbank";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType, State, StateAmino, StateSDKType } from "./vbank";
+import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** The initial and exported module state. */
 export interface GenesisState {
   /** parms defines all the parameters of the module. */
-  params?: Params;
+  params: Params;
   /** state is the current operation state. */
-  state?: State;
+  state: State;
+}
+export interface GenesisStateProtoMsg {
+  typeUrl: "/agoric.vbank.GenesisState";
+  value: Uint8Array;
+}
+/** The initial and exported module state. */
+export interface GenesisStateAmino {
+  /** parms defines all the parameters of the module. */
+  params?: ParamsAmino;
+  /** state is the current operation state. */
+  state?: StateAmino;
+}
+export interface GenesisStateAminoMsg {
+  type: "/agoric.vbank.GenesisState";
+  value: GenesisStateAmino;
 }
 /** The initial and exported module state. */
 export interface GenesisStateSDKType {
-  params?: ParamsSDKType;
-  state?: StateSDKType;
+  params: ParamsSDKType;
+  state: StateSDKType;
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
-    state: undefined
+    params: Params.fromPartial({}),
+    state: State.fromPartial({})
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/agoric.vbank.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -40,5 +56,32 @@ export const GenesisState = {
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     message.state = object.state !== undefined && object.state !== null ? State.fromPartial(object.state) : undefined;
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+      state: object?.state ? State.fromAmino(object.state) : undefined
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    obj.state = message.state ? State.toAmino(message.state) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/agoric.vbank.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };

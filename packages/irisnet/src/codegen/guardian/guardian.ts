@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../binary";
 import { isSet } from "../helpers";
 /** AccountType defines the super account type */
 export enum AccountType {
@@ -9,6 +9,7 @@ export enum AccountType {
   UNRECOGNIZED = -1,
 }
 export const AccountTypeSDKType = AccountType;
+export const AccountTypeAmino = AccountType;
 export function accountTypeFromJSON(object: any): AccountType {
   switch (object) {
     case 0:
@@ -41,6 +42,21 @@ export interface Super {
   address: string;
   addedBy: string;
 }
+export interface SuperProtoMsg {
+  typeUrl: "/irishub.guardian.Super";
+  value: Uint8Array;
+}
+/** Super defines the super standard */
+export interface SuperAmino {
+  description: string;
+  account_type: AccountType;
+  address: string;
+  added_by: string;
+}
+export interface SuperAminoMsg {
+  type: "/irishub.guardian.Super";
+  value: SuperAmino;
+}
 /** Super defines the super standard */
 export interface SuperSDKType {
   description: string;
@@ -57,7 +73,8 @@ function createBaseSuper(): Super {
   };
 }
 export const Super = {
-  encode(message: Super, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/irishub.guardian.Super",
+  encode(message: Super, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.description !== "") {
       writer.uint32(10).string(message.description);
     }
@@ -75,7 +92,7 @@ export const Super = {
   fromJSON(object: any): Super {
     return {
       description: isSet(object.description) ? String(object.description) : "",
-      accountType: isSet(object.accountType) ? accountTypeFromJSON(object.accountType) : 0,
+      accountType: isSet(object.accountType) ? accountTypeFromJSON(object.accountType) : -1,
       address: isSet(object.address) ? String(object.address) : "",
       addedBy: isSet(object.addedBy) ? String(object.addedBy) : ""
     };
@@ -87,5 +104,36 @@ export const Super = {
     message.address = object.address ?? "";
     message.addedBy = object.addedBy ?? "";
     return message;
+  },
+  fromAmino(object: SuperAmino): Super {
+    return {
+      description: object.description,
+      accountType: isSet(object.account_type) ? accountTypeFromJSON(object.account_type) : -1,
+      address: object.address,
+      addedBy: object.added_by
+    };
+  },
+  toAmino(message: Super): SuperAmino {
+    const obj: any = {};
+    obj.description = message.description;
+    obj.account_type = message.accountType;
+    obj.address = message.address;
+    obj.added_by = message.addedBy;
+    return obj;
+  },
+  fromAminoMsg(object: SuperAminoMsg): Super {
+    return Super.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SuperProtoMsg): Super {
+    return Super.decode(message.value);
+  },
+  toProto(message: Super): Uint8Array {
+    return Super.encode(message).finish();
+  },
+  toProtoMsg(message: Super): SuperProtoMsg {
+    return {
+      typeUrl: "/irishub.guardian.Super",
+      value: Super.encode(message).finish()
+    };
   }
 };

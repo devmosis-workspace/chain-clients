@@ -1,6 +1,6 @@
-import { Params, ParamsSDKType } from "./genesis";
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./genesis";
+import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
 /** MsgRegisterRevenue defines a message that registers a Revenue */
 export interface MsgRegisterRevenue {
   /** contract_address in hex format */
@@ -17,17 +17,53 @@ export interface MsgRegisterRevenue {
    * that determines the contract's address - it can be an EOA nonce or a
    * factory contract nonce
    */
-  nonces: Long[];
+  nonces: bigint[];
+}
+export interface MsgRegisterRevenueProtoMsg {
+  typeUrl: "/evmos.revenue.v1.MsgRegisterRevenue";
+  value: Uint8Array;
+}
+/** MsgRegisterRevenue defines a message that registers a Revenue */
+export interface MsgRegisterRevenueAmino {
+  /** contract_address in hex format */
+  contract_address: string;
+  /**
+   * deployer_address is the bech32 address of message sender. It must be the same as the origin EOA
+   * sending the transaction which deploys the contract
+   */
+  deployer_address: string;
+  /** withdrawer_address is the bech32 address of account receiving the transaction fees */
+  withdrawer_address: string;
+  /**
+   * nonces is an array of nonces from the address path, where the last nonce is the nonce
+   * that determines the contract's address - it can be an EOA nonce or a
+   * factory contract nonce
+   */
+  nonces: string[];
+}
+export interface MsgRegisterRevenueAminoMsg {
+  type: "/evmos.revenue.v1.MsgRegisterRevenue";
+  value: MsgRegisterRevenueAmino;
 }
 /** MsgRegisterRevenue defines a message that registers a Revenue */
 export interface MsgRegisterRevenueSDKType {
   contract_address: string;
   deployer_address: string;
   withdrawer_address: string;
-  nonces: Long[];
+  nonces: bigint[];
 }
 /** MsgRegisterRevenueResponse defines the MsgRegisterRevenue response type */
 export interface MsgRegisterRevenueResponse {}
+export interface MsgRegisterRevenueResponseProtoMsg {
+  typeUrl: "/evmos.revenue.v1.MsgRegisterRevenueResponse";
+  value: Uint8Array;
+}
+/** MsgRegisterRevenueResponse defines the MsgRegisterRevenue response type */
+export interface MsgRegisterRevenueResponseAmino {}
+export interface MsgRegisterRevenueResponseAminoMsg {
+  type: "/evmos.revenue.v1.MsgRegisterRevenueResponse";
+  value: MsgRegisterRevenueResponseAmino;
+}
 /** MsgRegisterRevenueResponse defines the MsgRegisterRevenue response type */
 export interface MsgRegisterRevenueResponseSDKType {}
 /**
@@ -45,6 +81,29 @@ export interface MsgUpdateRevenue {
   /** withdrawer_address is the bech32 address of account receiving the transaction fees */
   withdrawerAddress: string;
 }
+export interface MsgUpdateRevenueProtoMsg {
+  typeUrl: "/evmos.revenue.v1.MsgUpdateRevenue";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateRevenue defines a message that updates the withdrawer address for a
+ * registered Revenue
+ */
+export interface MsgUpdateRevenueAmino {
+  /** contract_address in hex format */
+  contract_address: string;
+  /**
+   * deployer_address is the bech32 address of message sender. It must be the same as the origin EOA
+   * sending the transaction which deploys the contract
+   */
+  deployer_address: string;
+  /** withdrawer_address is the bech32 address of account receiving the transaction fees */
+  withdrawer_address: string;
+}
+export interface MsgUpdateRevenueAminoMsg {
+  type: "/evmos.revenue.v1.MsgUpdateRevenue";
+  value: MsgUpdateRevenueAmino;
+}
 /**
  * MsgUpdateRevenue defines a message that updates the withdrawer address for a
  * registered Revenue
@@ -56,6 +115,16 @@ export interface MsgUpdateRevenueSDKType {
 }
 /** MsgUpdateRevenueResponse defines the MsgUpdateRevenue response type */
 export interface MsgUpdateRevenueResponse {}
+export interface MsgUpdateRevenueResponseProtoMsg {
+  typeUrl: "/evmos.revenue.v1.MsgUpdateRevenueResponse";
+  value: Uint8Array;
+}
+/** MsgUpdateRevenueResponse defines the MsgUpdateRevenue response type */
+export interface MsgUpdateRevenueResponseAmino {}
+export interface MsgUpdateRevenueResponseAminoMsg {
+  type: "/evmos.revenue.v1.MsgUpdateRevenueResponse";
+  value: MsgUpdateRevenueResponseAmino;
+}
 /** MsgUpdateRevenueResponse defines the MsgUpdateRevenue response type */
 export interface MsgUpdateRevenueResponseSDKType {}
 /** MsgCancelRevenue defines a message that cancels a registered Revenue */
@@ -68,6 +137,24 @@ export interface MsgCancelRevenue {
    */
   deployerAddress: string;
 }
+export interface MsgCancelRevenueProtoMsg {
+  typeUrl: "/evmos.revenue.v1.MsgCancelRevenue";
+  value: Uint8Array;
+}
+/** MsgCancelRevenue defines a message that cancels a registered Revenue */
+export interface MsgCancelRevenueAmino {
+  /** contract_address in hex format */
+  contract_address: string;
+  /**
+   * deployer_address is the bech32 address of message sender. It must be the same as the origin EOA
+   * sending the transaction which deploys the contract
+   */
+  deployer_address: string;
+}
+export interface MsgCancelRevenueAminoMsg {
+  type: "/evmos.revenue.v1.MsgCancelRevenue";
+  value: MsgCancelRevenueAmino;
+}
 /** MsgCancelRevenue defines a message that cancels a registered Revenue */
 export interface MsgCancelRevenueSDKType {
   contract_address: string;
@@ -75,6 +162,16 @@ export interface MsgCancelRevenueSDKType {
 }
 /** MsgCancelRevenueResponse defines the MsgCancelRevenue response type */
 export interface MsgCancelRevenueResponse {}
+export interface MsgCancelRevenueResponseProtoMsg {
+  typeUrl: "/evmos.revenue.v1.MsgCancelRevenueResponse";
+  value: Uint8Array;
+}
+/** MsgCancelRevenueResponse defines the MsgCancelRevenue response type */
+export interface MsgCancelRevenueResponseAmino {}
+export interface MsgCancelRevenueResponseAminoMsg {
+  type: "/evmos.revenue.v1.MsgCancelRevenueResponse";
+  value: MsgCancelRevenueResponseAmino;
+}
 /** MsgCancelRevenueResponse defines the MsgCancelRevenue response type */
 export interface MsgCancelRevenueResponseSDKType {}
 /** MsgUpdateParams defines a Msg for updating the x/revenue module parameters. */
@@ -85,18 +182,49 @@ export interface MsgUpdateParams {
    * params defines the x/revenue parameters to update.
    * NOTE: All parameters must be supplied.
    */
-  params?: Params;
+  params: Params;
+}
+export interface MsgUpdateParamsProtoMsg {
+  typeUrl: "/evmos.revenue.v1.MsgUpdateParams";
+  value: Uint8Array;
+}
+/** MsgUpdateParams defines a Msg for updating the x/revenue module parameters. */
+export interface MsgUpdateParamsAmino {
+  /** authority is the address of the governance account. */
+  authority: string;
+  /**
+   * params defines the x/revenue parameters to update.
+   * NOTE: All parameters must be supplied.
+   */
+  params?: ParamsAmino;
+}
+export interface MsgUpdateParamsAminoMsg {
+  type: "/evmos.revenue.v1.MsgUpdateParams";
+  value: MsgUpdateParamsAmino;
 }
 /** MsgUpdateParams defines a Msg for updating the x/revenue module parameters. */
 export interface MsgUpdateParamsSDKType {
   authority: string;
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
  */
 export interface MsgUpdateParamsResponse {}
+export interface MsgUpdateParamsResponseProtoMsg {
+  typeUrl: "/evmos.revenue.v1.MsgUpdateParamsResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ */
+export interface MsgUpdateParamsResponseAmino {}
+export interface MsgUpdateParamsResponseAminoMsg {
+  type: "/evmos.revenue.v1.MsgUpdateParamsResponse";
+  value: MsgUpdateParamsResponseAmino;
+}
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
@@ -111,7 +239,8 @@ function createBaseMsgRegisterRevenue(): MsgRegisterRevenue {
   };
 }
 export const MsgRegisterRevenue = {
-  encode(message: MsgRegisterRevenue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.revenue.v1.MsgRegisterRevenue",
+  encode(message: MsgRegisterRevenue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.contractAddress !== "") {
       writer.uint32(10).string(message.contractAddress);
     }
@@ -133,7 +262,7 @@ export const MsgRegisterRevenue = {
       contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
       deployerAddress: isSet(object.deployerAddress) ? String(object.deployerAddress) : "",
       withdrawerAddress: isSet(object.withdrawerAddress) ? String(object.withdrawerAddress) : "",
-      nonces: Array.isArray(object?.nonces) ? object.nonces.map((e: any) => Long.fromValue(e)) : []
+      nonces: Array.isArray(object?.nonces) ? object.nonces.map((e: any) => BigInt(e.toString())) : []
     };
   },
   fromPartial(object: Partial<MsgRegisterRevenue>): MsgRegisterRevenue {
@@ -141,15 +270,51 @@ export const MsgRegisterRevenue = {
     message.contractAddress = object.contractAddress ?? "";
     message.deployerAddress = object.deployerAddress ?? "";
     message.withdrawerAddress = object.withdrawerAddress ?? "";
-    message.nonces = object.nonces?.map(e => Long.fromValue(e)) || [];
+    message.nonces = object.nonces?.map(e => BigInt(e.toString())) || [];
     return message;
+  },
+  fromAmino(object: MsgRegisterRevenueAmino): MsgRegisterRevenue {
+    return {
+      contractAddress: object.contract_address,
+      deployerAddress: object.deployer_address,
+      withdrawerAddress: object.withdrawer_address,
+      nonces: Array.isArray(object?.nonces) ? object.nonces.map((e: any) => BigInt(e)) : []
+    };
+  },
+  toAmino(message: MsgRegisterRevenue): MsgRegisterRevenueAmino {
+    const obj: any = {};
+    obj.contract_address = message.contractAddress;
+    obj.deployer_address = message.deployerAddress;
+    obj.withdrawer_address = message.withdrawerAddress;
+    if (message.nonces) {
+      obj.nonces = message.nonces.map(e => e.toString());
+    } else {
+      obj.nonces = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgRegisterRevenueAminoMsg): MsgRegisterRevenue {
+    return MsgRegisterRevenue.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgRegisterRevenueProtoMsg): MsgRegisterRevenue {
+    return MsgRegisterRevenue.decode(message.value);
+  },
+  toProto(message: MsgRegisterRevenue): Uint8Array {
+    return MsgRegisterRevenue.encode(message).finish();
+  },
+  toProtoMsg(message: MsgRegisterRevenue): MsgRegisterRevenueProtoMsg {
+    return {
+      typeUrl: "/evmos.revenue.v1.MsgRegisterRevenue",
+      value: MsgRegisterRevenue.encode(message).finish()
+    };
   }
 };
 function createBaseMsgRegisterRevenueResponse(): MsgRegisterRevenueResponse {
   return {};
 }
 export const MsgRegisterRevenueResponse = {
-  encode(_: MsgRegisterRevenueResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.revenue.v1.MsgRegisterRevenueResponse",
+  encode(_: MsgRegisterRevenueResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgRegisterRevenueResponse {
@@ -158,6 +323,28 @@ export const MsgRegisterRevenueResponse = {
   fromPartial(_: Partial<MsgRegisterRevenueResponse>): MsgRegisterRevenueResponse {
     const message = createBaseMsgRegisterRevenueResponse();
     return message;
+  },
+  fromAmino(_: MsgRegisterRevenueResponseAmino): MsgRegisterRevenueResponse {
+    return {};
+  },
+  toAmino(_: MsgRegisterRevenueResponse): MsgRegisterRevenueResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgRegisterRevenueResponseAminoMsg): MsgRegisterRevenueResponse {
+    return MsgRegisterRevenueResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgRegisterRevenueResponseProtoMsg): MsgRegisterRevenueResponse {
+    return MsgRegisterRevenueResponse.decode(message.value);
+  },
+  toProto(message: MsgRegisterRevenueResponse): Uint8Array {
+    return MsgRegisterRevenueResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgRegisterRevenueResponse): MsgRegisterRevenueResponseProtoMsg {
+    return {
+      typeUrl: "/evmos.revenue.v1.MsgRegisterRevenueResponse",
+      value: MsgRegisterRevenueResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgUpdateRevenue(): MsgUpdateRevenue {
@@ -168,7 +355,8 @@ function createBaseMsgUpdateRevenue(): MsgUpdateRevenue {
   };
 }
 export const MsgUpdateRevenue = {
-  encode(message: MsgUpdateRevenue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.revenue.v1.MsgUpdateRevenue",
+  encode(message: MsgUpdateRevenue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.contractAddress !== "") {
       writer.uint32(10).string(message.contractAddress);
     }
@@ -193,13 +381,43 @@ export const MsgUpdateRevenue = {
     message.deployerAddress = object.deployerAddress ?? "";
     message.withdrawerAddress = object.withdrawerAddress ?? "";
     return message;
+  },
+  fromAmino(object: MsgUpdateRevenueAmino): MsgUpdateRevenue {
+    return {
+      contractAddress: object.contract_address,
+      deployerAddress: object.deployer_address,
+      withdrawerAddress: object.withdrawer_address
+    };
+  },
+  toAmino(message: MsgUpdateRevenue): MsgUpdateRevenueAmino {
+    const obj: any = {};
+    obj.contract_address = message.contractAddress;
+    obj.deployer_address = message.deployerAddress;
+    obj.withdrawer_address = message.withdrawerAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateRevenueAminoMsg): MsgUpdateRevenue {
+    return MsgUpdateRevenue.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateRevenueProtoMsg): MsgUpdateRevenue {
+    return MsgUpdateRevenue.decode(message.value);
+  },
+  toProto(message: MsgUpdateRevenue): Uint8Array {
+    return MsgUpdateRevenue.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateRevenue): MsgUpdateRevenueProtoMsg {
+    return {
+      typeUrl: "/evmos.revenue.v1.MsgUpdateRevenue",
+      value: MsgUpdateRevenue.encode(message).finish()
+    };
   }
 };
 function createBaseMsgUpdateRevenueResponse(): MsgUpdateRevenueResponse {
   return {};
 }
 export const MsgUpdateRevenueResponse = {
-  encode(_: MsgUpdateRevenueResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.revenue.v1.MsgUpdateRevenueResponse",
+  encode(_: MsgUpdateRevenueResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgUpdateRevenueResponse {
@@ -208,6 +426,28 @@ export const MsgUpdateRevenueResponse = {
   fromPartial(_: Partial<MsgUpdateRevenueResponse>): MsgUpdateRevenueResponse {
     const message = createBaseMsgUpdateRevenueResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateRevenueResponseAmino): MsgUpdateRevenueResponse {
+    return {};
+  },
+  toAmino(_: MsgUpdateRevenueResponse): MsgUpdateRevenueResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateRevenueResponseAminoMsg): MsgUpdateRevenueResponse {
+    return MsgUpdateRevenueResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateRevenueResponseProtoMsg): MsgUpdateRevenueResponse {
+    return MsgUpdateRevenueResponse.decode(message.value);
+  },
+  toProto(message: MsgUpdateRevenueResponse): Uint8Array {
+    return MsgUpdateRevenueResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateRevenueResponse): MsgUpdateRevenueResponseProtoMsg {
+    return {
+      typeUrl: "/evmos.revenue.v1.MsgUpdateRevenueResponse",
+      value: MsgUpdateRevenueResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgCancelRevenue(): MsgCancelRevenue {
@@ -217,7 +457,8 @@ function createBaseMsgCancelRevenue(): MsgCancelRevenue {
   };
 }
 export const MsgCancelRevenue = {
-  encode(message: MsgCancelRevenue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.revenue.v1.MsgCancelRevenue",
+  encode(message: MsgCancelRevenue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.contractAddress !== "") {
       writer.uint32(10).string(message.contractAddress);
     }
@@ -237,13 +478,41 @@ export const MsgCancelRevenue = {
     message.contractAddress = object.contractAddress ?? "";
     message.deployerAddress = object.deployerAddress ?? "";
     return message;
+  },
+  fromAmino(object: MsgCancelRevenueAmino): MsgCancelRevenue {
+    return {
+      contractAddress: object.contract_address,
+      deployerAddress: object.deployer_address
+    };
+  },
+  toAmino(message: MsgCancelRevenue): MsgCancelRevenueAmino {
+    const obj: any = {};
+    obj.contract_address = message.contractAddress;
+    obj.deployer_address = message.deployerAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCancelRevenueAminoMsg): MsgCancelRevenue {
+    return MsgCancelRevenue.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCancelRevenueProtoMsg): MsgCancelRevenue {
+    return MsgCancelRevenue.decode(message.value);
+  },
+  toProto(message: MsgCancelRevenue): Uint8Array {
+    return MsgCancelRevenue.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCancelRevenue): MsgCancelRevenueProtoMsg {
+    return {
+      typeUrl: "/evmos.revenue.v1.MsgCancelRevenue",
+      value: MsgCancelRevenue.encode(message).finish()
+    };
   }
 };
 function createBaseMsgCancelRevenueResponse(): MsgCancelRevenueResponse {
   return {};
 }
 export const MsgCancelRevenueResponse = {
-  encode(_: MsgCancelRevenueResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.revenue.v1.MsgCancelRevenueResponse",
+  encode(_: MsgCancelRevenueResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgCancelRevenueResponse {
@@ -252,16 +521,39 @@ export const MsgCancelRevenueResponse = {
   fromPartial(_: Partial<MsgCancelRevenueResponse>): MsgCancelRevenueResponse {
     const message = createBaseMsgCancelRevenueResponse();
     return message;
+  },
+  fromAmino(_: MsgCancelRevenueResponseAmino): MsgCancelRevenueResponse {
+    return {};
+  },
+  toAmino(_: MsgCancelRevenueResponse): MsgCancelRevenueResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgCancelRevenueResponseAminoMsg): MsgCancelRevenueResponse {
+    return MsgCancelRevenueResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCancelRevenueResponseProtoMsg): MsgCancelRevenueResponse {
+    return MsgCancelRevenueResponse.decode(message.value);
+  },
+  toProto(message: MsgCancelRevenueResponse): Uint8Array {
+    return MsgCancelRevenueResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCancelRevenueResponse): MsgCancelRevenueResponseProtoMsg {
+    return {
+      typeUrl: "/evmos.revenue.v1.MsgCancelRevenueResponse",
+      value: MsgCancelRevenueResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
-    params: undefined
+    params: Params.fromPartial({})
   };
 }
 export const MsgUpdateParams = {
-  encode(message: MsgUpdateParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.revenue.v1.MsgUpdateParams",
+  encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
@@ -281,13 +573,41 @@ export const MsgUpdateParams = {
     message.authority = object.authority ?? "";
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    return {
+      authority: object.authority,
+      params: object?.params ? Params.fromAmino(object.params) : undefined
+    };
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams {
+    return MsgUpdateParams.decode(message.value);
+  },
+  toProto(message: MsgUpdateParams): Uint8Array {
+    return MsgUpdateParams.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg {
+    return {
+      typeUrl: "/evmos.revenue.v1.MsgUpdateParams",
+      value: MsgUpdateParams.encode(message).finish()
+    };
   }
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
 export const MsgUpdateParamsResponse = {
-  encode(_: MsgUpdateParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.revenue.v1.MsgUpdateParamsResponse",
+  encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgUpdateParamsResponse {
@@ -296,5 +616,27 @@ export const MsgUpdateParamsResponse = {
   fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    return {};
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.decode(message.value);
+  },
+  toProto(message: MsgUpdateParamsResponse): Uint8Array {
+    return MsgUpdateParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg {
+    return {
+      typeUrl: "/evmos.revenue.v1.MsgUpdateParamsResponse",
+      value: MsgUpdateParamsResponse.encode(message).finish()
+    };
   }
 };

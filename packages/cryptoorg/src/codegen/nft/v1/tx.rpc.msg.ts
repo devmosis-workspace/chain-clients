@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { MsgIssueDenom, MsgIssueDenomResponse, MsgMintNFT, MsgMintNFTResponse, MsgEditNFT, MsgEditNFTResponse, MsgTransferNFT, MsgTransferNFTResponse, MsgBurnNFT, MsgBurnNFTResponse } from "./tx";
 /** Msg defines the NFT Msg service. */
 export interface Msg {
@@ -27,26 +27,26 @@ export class MsgClientImpl implements Msg {
   issueDenom(request: MsgIssueDenom): Promise<MsgIssueDenomResponse> {
     const data = MsgIssueDenom.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Msg", "IssueDenom", data);
-    return promise.then(data => MsgIssueDenomResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgIssueDenomResponse.decode(new BinaryReader(data)));
   }
   mintNFT(request: MsgMintNFT): Promise<MsgMintNFTResponse> {
     const data = MsgMintNFT.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Msg", "MintNFT", data);
-    return promise.then(data => MsgMintNFTResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgMintNFTResponse.decode(new BinaryReader(data)));
   }
   editNFT(request: MsgEditNFT): Promise<MsgEditNFTResponse> {
     const data = MsgEditNFT.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Msg", "EditNFT", data);
-    return promise.then(data => MsgEditNFTResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgEditNFTResponse.decode(new BinaryReader(data)));
   }
   transferNFT(request: MsgTransferNFT): Promise<MsgTransferNFTResponse> {
     const data = MsgTransferNFT.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Msg", "TransferNFT", data);
-    return promise.then(data => MsgTransferNFTResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgTransferNFTResponse.decode(new BinaryReader(data)));
   }
   burnNFT(request: MsgBurnNFT): Promise<MsgBurnNFTResponse> {
     const data = MsgBurnNFT.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Msg", "BurnNFT", data);
-    return promise.then(data => MsgBurnNFTResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBurnNFTResponse.decode(new BinaryReader(data)));
   }
 }

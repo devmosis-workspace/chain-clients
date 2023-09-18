@@ -5,6 +5,7 @@ export enum MultisigState {
   UNRECOGNIZED = -1,
 }
 export const MultisigStateSDKType = MultisigState;
+export const MultisigStateAmino = MultisigState;
 export function multisigStateFromJSON(object: any): MultisigState {
   switch (object) {
     case 0:
@@ -42,6 +43,7 @@ export enum KeyState {
   UNRECOGNIZED = -1,
 }
 export const KeyStateSDKType = KeyState;
+export const KeyStateAmino = KeyState;
 export function keyStateFromJSON(object: any): KeyState {
   switch (object) {
     case 0:

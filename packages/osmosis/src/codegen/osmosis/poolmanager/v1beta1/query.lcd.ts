@@ -1,5 +1,5 @@
-import { LCDClient } from "@osmonauts/lcd";
-import { ParamsRequest, ParamsResponseSDKType, EstimateSwapExactAmountInRequest, EstimateSwapExactAmountInResponseSDKType, EstimateSinglePoolSwapExactAmountInRequest, EstimateSwapExactAmountOutRequest, EstimateSwapExactAmountOutResponseSDKType, EstimateSinglePoolSwapExactAmountOutRequest, NumPoolsRequest, NumPoolsResponseSDKType, PoolRequest, PoolResponseSDKType, AllPoolsRequest, AllPoolsResponseSDKType, SpotPriceRequest, SpotPriceResponseSDKType, TotalPoolLiquidityRequest, TotalPoolLiquidityResponseSDKType, TotalLiquidityRequest, TotalLiquidityResponseSDKType } from "./query";
+import { LCDClient } from "@cosmology/lcd";
+import { ParamsRequest, ParamsResponseSDKType, EstimateSwapExactAmountInRequest, EstimateSwapExactAmountInResponseSDKType, EstimateSwapExactAmountInWithPrimitiveTypesRequest, EstimateSinglePoolSwapExactAmountInRequest, EstimateSwapExactAmountOutRequest, EstimateSwapExactAmountOutResponseSDKType, EstimateSwapExactAmountOutWithPrimitiveTypesRequest, EstimateSinglePoolSwapExactAmountOutRequest, NumPoolsRequest, NumPoolsResponseSDKType, PoolRequest, PoolResponseSDKType, AllPoolsRequest, AllPoolsResponseSDKType, SpotPriceRequest, SpotPriceResponseSDKType, TotalPoolLiquidityRequest, TotalPoolLiquidityResponseSDKType, TotalLiquidityRequest, TotalLiquidityResponseSDKType } from "./query";
 export class LCDQueryClient {
   req: LCDClient;
   constructor({
@@ -10,8 +10,10 @@ export class LCDQueryClient {
     this.req = requestClient;
     this.params = this.params.bind(this);
     this.estimateSwapExactAmountIn = this.estimateSwapExactAmountIn.bind(this);
+    this.estimateSwapExactAmountInWithPrimitiveTypes = this.estimateSwapExactAmountInWithPrimitiveTypes.bind(this);
     this.estimateSinglePoolSwapExactAmountIn = this.estimateSinglePoolSwapExactAmountIn.bind(this);
     this.estimateSwapExactAmountOut = this.estimateSwapExactAmountOut.bind(this);
+    this.estimateSwapExactAmountOutWithPrimitiveTypes = this.estimateSwapExactAmountOutWithPrimitiveTypes.bind(this);
     this.estimateSinglePoolSwapExactAmountOut = this.estimateSinglePoolSwapExactAmountOut.bind(this);
     this.numPools = this.numPools.bind(this);
     this.pool = this.pool.bind(this);
@@ -37,6 +39,32 @@ export class LCDQueryClient {
       options.params.routes = params.routes;
     }
     const endpoint = `osmosis/poolmanager/v1beta1/${params.poolId}/estimate/swap_exact_amount_in`;
+    return await this.req.get<EstimateSwapExactAmountInResponseSDKType>(endpoint, options);
+  }
+  /* EstimateSwapExactAmountInWithPrimitiveTypes is an alternative query for
+   EstimateSwapExactAmountIn. Supports query via GRPC-Gateway by using
+   primitive types instead of repeated structs. Each index in the
+   routes_pool_id field corresponds to the respective routes_token_out_denom
+   value, thus they are required to have the same length and are grouped
+   together as pairs.
+   example usage:
+   http://0.0.0.0:1317/osmosis/poolmanager/v1beta1/1/estimate/
+   swap_exact_amount_in_with_primitive_types?token_in=100000stake&routes_token_out_denom=uatom
+   &routes_token_out_denom=uion&routes_pool_id=1&routes_pool_id=2 */
+  async estimateSwapExactAmountInWithPrimitiveTypes(params: EstimateSwapExactAmountInWithPrimitiveTypesRequest): Promise<EstimateSwapExactAmountInResponseSDKType> {
+    const options: any = {
+      params: {}
+    };
+    if (typeof params?.tokenIn !== "undefined") {
+      options.params.token_in = params.tokenIn;
+    }
+    if (typeof params?.routesPoolId !== "undefined") {
+      options.params.routes_pool_id = params.routesPoolId;
+    }
+    if (typeof params?.routesTokenOutDenom !== "undefined") {
+      options.params.routes_token_out_denom = params.routesTokenOutDenom;
+    }
+    const endpoint = `osmosis/poolmanager/v1beta1/${params.poolId}/estimate/swap_exact_amount_in_with_primitive_types`;
     return await this.req.get<EstimateSwapExactAmountInResponseSDKType>(endpoint, options);
   }
   /* EstimateSinglePoolSwapExactAmountIn */
@@ -65,6 +93,23 @@ export class LCDQueryClient {
       options.params.token_out = params.tokenOut;
     }
     const endpoint = `osmosis/poolmanager/v1beta1/${params.poolId}/estimate/swap_exact_amount_out`;
+    return await this.req.get<EstimateSwapExactAmountOutResponseSDKType>(endpoint, options);
+  }
+  /* Estimates swap amount in given out. */
+  async estimateSwapExactAmountOutWithPrimitiveTypes(params: EstimateSwapExactAmountOutWithPrimitiveTypesRequest): Promise<EstimateSwapExactAmountOutResponseSDKType> {
+    const options: any = {
+      params: {}
+    };
+    if (typeof params?.routesPoolId !== "undefined") {
+      options.params.routes_pool_id = params.routesPoolId;
+    }
+    if (typeof params?.routesTokenInDenom !== "undefined") {
+      options.params.routes_token_in_denom = params.routesTokenInDenom;
+    }
+    if (typeof params?.tokenOut !== "undefined") {
+      options.params.token_out = params.tokenOut;
+    }
+    const endpoint = `osmosis/poolmanager/v1beta1/${params.poolId}/estimate/swap_exact_amount_out_with_primitive_types`;
     return await this.req.get<EstimateSwapExactAmountOutResponseSDKType>(endpoint, options);
   }
   /* EstimateSinglePoolSwapExactAmountOut */

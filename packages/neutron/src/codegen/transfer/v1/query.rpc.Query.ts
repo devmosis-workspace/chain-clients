@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryDenomTraceRequest, QueryDenomTraceResponse, QueryDenomTracesRequest, QueryDenomTracesResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomHashRequest, QueryDenomHashResponse } from "../../ibc/applications/transfer/v1/query";
 /** Query provides defines the gRPC querier service. */
@@ -25,24 +25,24 @@ export class QueryClientImpl implements Query {
   denomTrace(request: ibc.applications.transfer.v1.QueryDenomTraceRequest): Promise<QueryDenomTraceResponse> {
     const data = ibc.applications.transfer.v1.QueryDenomTraceRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.transfer.Query", "DenomTrace", data);
-    return promise.then(data => QueryDenomTraceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDenomTraceResponse.decode(new BinaryReader(data)));
   }
   denomTraces(request: ibc.applications.transfer.v1.QueryDenomTracesRequest = {
     pagination: undefined
   }): Promise<QueryDenomTracesResponse> {
     const data = ibc.applications.transfer.v1.QueryDenomTracesRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.transfer.Query", "DenomTraces", data);
-    return promise.then(data => QueryDenomTracesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDenomTracesResponse.decode(new BinaryReader(data)));
   }
   params(request: ibc.applications.transfer.v1.QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = ibc.applications.transfer.v1.QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.transfer.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   denomHash(request: ibc.applications.transfer.v1.QueryDenomHashRequest): Promise<QueryDenomHashResponse> {
     const data = ibc.applications.transfer.v1.QueryDenomHashRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.transfer.Query", "DenomHash", data);
-    return promise.then(data => QueryDenomHashResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDenomHashResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

@@ -1,64 +1,142 @@
-import { DecCoin, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./genesis";
+import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
 /**
  * QueryMinimumGasPricesRequest is the request type for the
  * Query/MinimumGasPrices RPC method.
  */
-export interface QueryMinimumGasPricesRequest {}
+export interface QueryParamsRequest {}
+export interface QueryParamsRequestProtoMsg {
+  typeUrl: "/gaia.globalfee.v1beta1.QueryParamsRequest";
+  value: Uint8Array;
+}
 /**
  * QueryMinimumGasPricesRequest is the request type for the
  * Query/MinimumGasPrices RPC method.
  */
-export interface QueryMinimumGasPricesRequestSDKType {}
+export interface QueryParamsRequestAmino {}
+export interface QueryParamsRequestAminoMsg {
+  type: "/gaia.globalfee.v1beta1.QueryParamsRequest";
+  value: QueryParamsRequestAmino;
+}
+/**
+ * QueryMinimumGasPricesRequest is the request type for the
+ * Query/MinimumGasPrices RPC method.
+ */
+export interface QueryParamsRequestSDKType {}
 /**
  * QueryMinimumGasPricesResponse is the response type for the
  * Query/MinimumGasPrices RPC method.
  */
-export interface QueryMinimumGasPricesResponse {
-  minimumGasPrices: DecCoin[];
+export interface QueryParamsResponse {
+  params: Params;
+}
+export interface QueryParamsResponseProtoMsg {
+  typeUrl: "/gaia.globalfee.v1beta1.QueryParamsResponse";
+  value: Uint8Array;
 }
 /**
  * QueryMinimumGasPricesResponse is the response type for the
  * Query/MinimumGasPrices RPC method.
  */
-export interface QueryMinimumGasPricesResponseSDKType {
-  minimum_gas_prices: DecCoinSDKType[];
+export interface QueryParamsResponseAmino {
+  params?: ParamsAmino;
 }
-function createBaseQueryMinimumGasPricesRequest(): QueryMinimumGasPricesRequest {
+export interface QueryParamsResponseAminoMsg {
+  type: "/gaia.globalfee.v1beta1.QueryParamsResponse";
+  value: QueryParamsResponseAmino;
+}
+/**
+ * QueryMinimumGasPricesResponse is the response type for the
+ * Query/MinimumGasPrices RPC method.
+ */
+export interface QueryParamsResponseSDKType {
+  params: ParamsSDKType;
+}
+function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
-export const QueryMinimumGasPricesRequest = {
-  encode(_: QueryMinimumGasPricesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const QueryParamsRequest = {
+  typeUrl: "/gaia.globalfee.v1beta1.QueryParamsRequest",
+  encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  fromJSON(_: any): QueryMinimumGasPricesRequest {
+  fromJSON(_: any): QueryParamsRequest {
     return {};
   },
-  fromPartial(_: Partial<QueryMinimumGasPricesRequest>): QueryMinimumGasPricesRequest {
-    const message = createBaseQueryMinimumGasPricesRequest();
+  fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest {
+    const message = createBaseQueryParamsRequest();
     return message;
+  },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsRequestProtoMsg): QueryParamsRequest {
+    return QueryParamsRequest.decode(message.value);
+  },
+  toProto(message: QueryParamsRequest): Uint8Array {
+    return QueryParamsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsRequest): QueryParamsRequestProtoMsg {
+    return {
+      typeUrl: "/gaia.globalfee.v1beta1.QueryParamsRequest",
+      value: QueryParamsRequest.encode(message).finish()
+    };
   }
 };
-function createBaseQueryMinimumGasPricesResponse(): QueryMinimumGasPricesResponse {
+function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    minimumGasPrices: []
+    params: Params.fromPartial({})
   };
 }
-export const QueryMinimumGasPricesResponse = {
-  encode(message: QueryMinimumGasPricesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.minimumGasPrices) {
-      DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
+export const QueryParamsResponse = {
+  typeUrl: "/gaia.globalfee.v1beta1.QueryParamsResponse",
+  encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
-  fromJSON(object: any): QueryMinimumGasPricesResponse {
+  fromJSON(object: any): QueryParamsResponse {
     return {
-      minimumGasPrices: Array.isArray(object?.minimumGasPrices) ? object.minimumGasPrices.map((e: any) => DecCoin.fromJSON(e)) : []
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined
     };
   },
-  fromPartial(object: Partial<QueryMinimumGasPricesResponse>): QueryMinimumGasPricesResponse {
-    const message = createBaseQueryMinimumGasPricesResponse();
-    message.minimumGasPrices = object.minimumGasPrices?.map(e => DecCoin.fromPartial(e)) || [];
+  fromPartial(object: Partial<QueryParamsResponse>): QueryParamsResponse {
+    const message = createBaseQueryParamsResponse();
+    message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsResponseProtoMsg): QueryParamsResponse {
+    return QueryParamsResponse.decode(message.value);
+  },
+  toProto(message: QueryParamsResponse): Uint8Array {
+    return QueryParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg {
+    return {
+      typeUrl: "/gaia.globalfee.v1beta1.QueryParamsResponse",
+      value: QueryParamsResponse.encode(message).finish()
+    };
   }
 };

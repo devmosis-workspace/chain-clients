@@ -1,61 +1,128 @@
-import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Query, QuerySDKType } from "./genesis";
-import { Tx, TxSDKType } from "../../../cosmos/tx/v1beta1/tx";
-import { TxResponse, TxResponseSDKType } from "../../../cosmos/base/abci/v1beta1/abci";
-import { TxProof, TxProofSDKType } from "../../../tendermint/types/types";
-import { Header, HeaderSDKType } from "../../../ibc/lightclients/tendermint/v1/tendermint";
-import * as _m0 from "protobufjs/minimal";
+import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
+import { Query, QueryAmino, QuerySDKType } from "./genesis";
+import { Tx, TxAmino, TxSDKType } from "../../../cosmos/tx/v1beta1/tx";
+import { TxResponse, TxResponseAmino, TxResponseSDKType } from "../../../cosmos/base/abci/v1beta1/abci";
+import { TxProof, TxProofAmino, TxProofSDKType } from "../../../tendermint/types/types";
+import { Header, HeaderAmino, HeaderSDKType } from "../../../ibc/lightclients/tendermint/v1/tendermint";
+import { BinaryWriter } from "../../../binary";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryRequestsRequest {
-    pagination?: PageRequest;
+    pagination: PageRequest;
     chainId: string;
+}
+export interface QueryRequestsRequestProtoMsg {
+    typeUrl: "/persistence.interchainquery.v1beta1.QueryRequestsRequest";
+    value: Uint8Array;
+}
+/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+export interface QueryRequestsRequestAmino {
+    pagination?: PageRequestAmino;
+    chain_id: string;
+}
+export interface QueryRequestsRequestAminoMsg {
+    type: "/persistence.interchainquery.v1beta1.QueryRequestsRequest";
+    value: QueryRequestsRequestAmino;
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryRequestsRequestSDKType {
-    pagination?: PageRequestSDKType;
+    pagination: PageRequestSDKType;
     chain_id: string;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryRequestsResponse {
     /** params defines the parameters of the module. */
     queries: Query[];
-    pagination?: PageResponse;
+    pagination: PageResponse;
+}
+export interface QueryRequestsResponseProtoMsg {
+    typeUrl: "/persistence.interchainquery.v1beta1.QueryRequestsResponse";
+    value: Uint8Array;
+}
+/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+export interface QueryRequestsResponseAmino {
+    /** params defines the parameters of the module. */
+    queries: QueryAmino[];
+    pagination?: PageResponseAmino;
+}
+export interface QueryRequestsResponseAminoMsg {
+    type: "/persistence.interchainquery.v1beta1.QueryRequestsResponse";
+    value: QueryRequestsResponseAmino;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryRequestsResponseSDKType {
     queries: QuerySDKType[];
-    pagination?: PageResponseSDKType;
+    pagination: PageResponseSDKType;
 }
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxWithProofResponse {
     /** tx is the queried transaction. */
-    tx?: Tx;
+    tx: Tx;
     /** tx_response is the queried TxResponses. */
-    txResponse?: TxResponse;
+    txResponse: TxResponse;
     /** proof is the tmproto.TxProof for the queried tx */
-    proof?: TxProof;
+    proof: TxProof;
     /** ibc-go header to validate txs */
-    header?: Header;
+    header: Header;
+}
+export interface GetTxWithProofResponseProtoMsg {
+    typeUrl: "/persistence.interchainquery.v1beta1.GetTxWithProofResponse";
+    value: Uint8Array;
+}
+/** GetTxResponse is the response type for the Service.GetTx method. */
+export interface GetTxWithProofResponseAmino {
+    /** tx is the queried transaction. */
+    tx?: TxAmino;
+    /** tx_response is the queried TxResponses. */
+    tx_response?: TxResponseAmino;
+    /** proof is the tmproto.TxProof for the queried tx */
+    proof?: TxProofAmino;
+    /** ibc-go header to validate txs */
+    header?: HeaderAmino;
+}
+export interface GetTxWithProofResponseAminoMsg {
+    type: "/persistence.interchainquery.v1beta1.GetTxWithProofResponse";
+    value: GetTxWithProofResponseAmino;
 }
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxWithProofResponseSDKType {
-    tx?: TxSDKType;
-    tx_response?: TxResponseSDKType;
-    proof?: TxProofSDKType;
-    header?: HeaderSDKType;
+    tx: TxSDKType;
+    tx_response: TxResponseSDKType;
+    proof: TxProofSDKType;
+    header: HeaderSDKType;
 }
 export declare const QueryRequestsRequest: {
-    encode(message: QueryRequestsRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryRequestsRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryRequestsRequest;
     fromPartial(object: Partial<QueryRequestsRequest>): QueryRequestsRequest;
+    fromAmino(object: QueryRequestsRequestAmino): QueryRequestsRequest;
+    toAmino(message: QueryRequestsRequest): QueryRequestsRequestAmino;
+    fromAminoMsg(object: QueryRequestsRequestAminoMsg): QueryRequestsRequest;
+    fromProtoMsg(message: QueryRequestsRequestProtoMsg): QueryRequestsRequest;
+    toProto(message: QueryRequestsRequest): Uint8Array;
+    toProtoMsg(message: QueryRequestsRequest): QueryRequestsRequestProtoMsg;
 };
 export declare const QueryRequestsResponse: {
-    encode(message: QueryRequestsResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryRequestsResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryRequestsResponse;
     fromPartial(object: Partial<QueryRequestsResponse>): QueryRequestsResponse;
+    fromAmino(object: QueryRequestsResponseAmino): QueryRequestsResponse;
+    toAmino(message: QueryRequestsResponse): QueryRequestsResponseAmino;
+    fromAminoMsg(object: QueryRequestsResponseAminoMsg): QueryRequestsResponse;
+    fromProtoMsg(message: QueryRequestsResponseProtoMsg): QueryRequestsResponse;
+    toProto(message: QueryRequestsResponse): Uint8Array;
+    toProtoMsg(message: QueryRequestsResponse): QueryRequestsResponseProtoMsg;
 };
 export declare const GetTxWithProofResponse: {
-    encode(message: GetTxWithProofResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: GetTxWithProofResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): GetTxWithProofResponse;
     fromPartial(object: Partial<GetTxWithProofResponse>): GetTxWithProofResponse;
+    fromAmino(object: GetTxWithProofResponseAmino): GetTxWithProofResponse;
+    toAmino(message: GetTxWithProofResponse): GetTxWithProofResponseAmino;
+    fromAminoMsg(object: GetTxWithProofResponseAminoMsg): GetTxWithProofResponse;
+    fromProtoMsg(message: GetTxWithProofResponseProtoMsg): GetTxWithProofResponse;
+    toProto(message: GetTxWithProofResponse): Uint8Array;
+    toProtoMsg(message: GetTxWithProofResponse): GetTxWithProofResponseProtoMsg;
 };

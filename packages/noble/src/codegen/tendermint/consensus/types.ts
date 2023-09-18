@@ -1,31 +1,52 @@
-import { PartSetHeader, PartSetHeaderSDKType, Part, PartSDKType, SignedMsgType, BlockID, BlockIDSDKType, signedMsgTypeFromJSON } from "../types/types";
+import { PartSetHeader, PartSetHeaderAmino, PartSetHeaderSDKType, Part, PartAmino, PartSDKType, SignedMsgType, BlockID, BlockIDAmino, BlockIDSDKType, signedMsgTypeFromJSON } from "../types/types";
 import { Proposal as Proposal1 } from "../types/types";
+import { ProposalAmino as Proposal1Amino } from "../types/types";
 import { ProposalSDKType as Proposal1SDKType } from "../types/types";
 import { Vote as Vote1 } from "../types/types";
+import { VoteAmino as Vote1Amino } from "../types/types";
 import { VoteSDKType as Vote1SDKType } from "../types/types";
-import { BitArray, BitArraySDKType } from "../libs/bits/types";
-import { Long, isSet } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BitArray, BitArrayAmino, BitArraySDKType } from "../libs/bits/types";
+import { BinaryWriter } from "../../binary";
+import { isSet } from "../../helpers";
 /**
  * NewRoundStep is sent for every step taken in the ConsensusState.
  * For every height/round/step transition
  */
 export interface NewRoundStep {
-  height: Long;
+  height: bigint;
   round: number;
   step: number;
-  secondsSinceStartTime: Long;
+  secondsSinceStartTime: bigint;
   lastCommitRound: number;
+}
+export interface NewRoundStepProtoMsg {
+  typeUrl: "/tendermint.consensus.NewRoundStep";
+  value: Uint8Array;
+}
+/**
+ * NewRoundStep is sent for every step taken in the ConsensusState.
+ * For every height/round/step transition
+ */
+export interface NewRoundStepAmino {
+  height: string;
+  round: number;
+  step: number;
+  seconds_since_start_time: string;
+  last_commit_round: number;
+}
+export interface NewRoundStepAminoMsg {
+  type: "/tendermint.consensus.NewRoundStep";
+  value: NewRoundStepAmino;
 }
 /**
  * NewRoundStep is sent for every step taken in the ConsensusState.
  * For every height/round/step transition
  */
 export interface NewRoundStepSDKType {
-  height: Long;
+  height: bigint;
   round: number;
   step: number;
-  seconds_since_start_time: Long;
+  seconds_since_start_time: bigint;
   last_commit_round: number;
 }
 /**
@@ -34,11 +55,31 @@ export interface NewRoundStepSDKType {
  * In case the block is also committed, then IsCommit flag is set to true.
  */
 export interface NewValidBlock {
-  height: Long;
+  height: bigint;
   round: number;
-  blockPartSetHeader?: PartSetHeader;
-  blockParts?: BitArray;
+  blockPartSetHeader: PartSetHeader;
+  blockParts: BitArray;
   isCommit: boolean;
+}
+export interface NewValidBlockProtoMsg {
+  typeUrl: "/tendermint.consensus.NewValidBlock";
+  value: Uint8Array;
+}
+/**
+ * NewValidBlock is sent when a validator observes a valid block B in some round r,
+ * i.e., there is a Proposal for block B and 2/3+ prevotes for the block B in the round r.
+ * In case the block is also committed, then IsCommit flag is set to true.
+ */
+export interface NewValidBlockAmino {
+  height: string;
+  round: number;
+  block_part_set_header?: PartSetHeaderAmino;
+  block_parts?: BitArrayAmino;
+  is_commit: boolean;
+}
+export interface NewValidBlockAminoMsg {
+  type: "/tendermint.consensus.NewValidBlock";
+  value: NewValidBlockAmino;
 }
 /**
  * NewValidBlock is sent when a validator observes a valid block B in some round r,
@@ -46,95 +87,193 @@ export interface NewValidBlock {
  * In case the block is also committed, then IsCommit flag is set to true.
  */
 export interface NewValidBlockSDKType {
-  height: Long;
+  height: bigint;
   round: number;
-  block_part_set_header?: PartSetHeaderSDKType;
-  block_parts?: BitArraySDKType;
+  block_part_set_header: PartSetHeaderSDKType;
+  block_parts: BitArraySDKType;
   is_commit: boolean;
 }
 /** Proposal is sent when a new block is proposed. */
 export interface Proposal {
-  proposal?: Proposal1;
+  proposal: Proposal1;
+}
+export interface ProposalProtoMsg {
+  typeUrl: "/tendermint.consensus.Proposal";
+  value: Uint8Array;
+}
+/** Proposal is sent when a new block is proposed. */
+export interface ProposalAmino {
+  proposal?: Proposal1Amino;
+}
+export interface ProposalAminoMsg {
+  type: "/tendermint.consensus.Proposal";
+  value: ProposalAmino;
 }
 /** Proposal is sent when a new block is proposed. */
 export interface ProposalSDKType {
-  proposal?: Proposal1SDKType;
+  proposal: Proposal1SDKType;
 }
 /** ProposalPOL is sent when a previous proposal is re-proposed. */
 export interface ProposalPOL {
-  height: Long;
+  height: bigint;
   proposalPolRound: number;
-  proposalPol?: BitArray;
+  proposalPol: BitArray;
+}
+export interface ProposalPOLProtoMsg {
+  typeUrl: "/tendermint.consensus.ProposalPOL";
+  value: Uint8Array;
+}
+/** ProposalPOL is sent when a previous proposal is re-proposed. */
+export interface ProposalPOLAmino {
+  height: string;
+  proposal_pol_round: number;
+  proposal_pol?: BitArrayAmino;
+}
+export interface ProposalPOLAminoMsg {
+  type: "/tendermint.consensus.ProposalPOL";
+  value: ProposalPOLAmino;
 }
 /** ProposalPOL is sent when a previous proposal is re-proposed. */
 export interface ProposalPOLSDKType {
-  height: Long;
+  height: bigint;
   proposal_pol_round: number;
-  proposal_pol?: BitArraySDKType;
+  proposal_pol: BitArraySDKType;
 }
 /** BlockPart is sent when gossipping a piece of the proposed block. */
 export interface BlockPart {
-  height: Long;
+  height: bigint;
   round: number;
-  part?: Part;
+  part: Part;
+}
+export interface BlockPartProtoMsg {
+  typeUrl: "/tendermint.consensus.BlockPart";
+  value: Uint8Array;
+}
+/** BlockPart is sent when gossipping a piece of the proposed block. */
+export interface BlockPartAmino {
+  height: string;
+  round: number;
+  part?: PartAmino;
+}
+export interface BlockPartAminoMsg {
+  type: "/tendermint.consensus.BlockPart";
+  value: BlockPartAmino;
 }
 /** BlockPart is sent when gossipping a piece of the proposed block. */
 export interface BlockPartSDKType {
-  height: Long;
+  height: bigint;
   round: number;
-  part?: PartSDKType;
+  part: PartSDKType;
 }
 /** Vote is sent when voting for a proposal (or lack thereof). */
 export interface Vote {
-  vote?: Vote1;
+  vote: Vote1;
+}
+export interface VoteProtoMsg {
+  typeUrl: "/tendermint.consensus.Vote";
+  value: Uint8Array;
+}
+/** Vote is sent when voting for a proposal (or lack thereof). */
+export interface VoteAmino {
+  vote?: Vote1Amino;
+}
+export interface VoteAminoMsg {
+  type: "/tendermint.consensus.Vote";
+  value: VoteAmino;
 }
 /** Vote is sent when voting for a proposal (or lack thereof). */
 export interface VoteSDKType {
-  vote?: Vote1SDKType;
+  vote: Vote1SDKType;
 }
 /** HasVote is sent to indicate that a particular vote has been received. */
 export interface HasVote {
-  height: Long;
+  height: bigint;
   round: number;
   type: SignedMsgType;
   index: number;
 }
+export interface HasVoteProtoMsg {
+  typeUrl: "/tendermint.consensus.HasVote";
+  value: Uint8Array;
+}
+/** HasVote is sent to indicate that a particular vote has been received. */
+export interface HasVoteAmino {
+  height: string;
+  round: number;
+  type: SignedMsgType;
+  index: number;
+}
+export interface HasVoteAminoMsg {
+  type: "/tendermint.consensus.HasVote";
+  value: HasVoteAmino;
+}
 /** HasVote is sent to indicate that a particular vote has been received. */
 export interface HasVoteSDKType {
-  height: Long;
+  height: bigint;
   round: number;
   type: SignedMsgType;
   index: number;
 }
 /** VoteSetMaj23 is sent to indicate that a given BlockID has seen +2/3 votes. */
 export interface VoteSetMaj23 {
-  height: Long;
+  height: bigint;
   round: number;
   type: SignedMsgType;
-  blockId?: BlockID;
+  blockId: BlockID;
+}
+export interface VoteSetMaj23ProtoMsg {
+  typeUrl: "/tendermint.consensus.VoteSetMaj23";
+  value: Uint8Array;
+}
+/** VoteSetMaj23 is sent to indicate that a given BlockID has seen +2/3 votes. */
+export interface VoteSetMaj23Amino {
+  height: string;
+  round: number;
+  type: SignedMsgType;
+  block_id?: BlockIDAmino;
+}
+export interface VoteSetMaj23AminoMsg {
+  type: "/tendermint.consensus.VoteSetMaj23";
+  value: VoteSetMaj23Amino;
 }
 /** VoteSetMaj23 is sent to indicate that a given BlockID has seen +2/3 votes. */
 export interface VoteSetMaj23SDKType {
-  height: Long;
+  height: bigint;
   round: number;
   type: SignedMsgType;
-  block_id?: BlockIDSDKType;
+  block_id: BlockIDSDKType;
 }
 /** VoteSetBits is sent to communicate the bit-array of votes seen for the BlockID. */
 export interface VoteSetBits {
-  height: Long;
+  height: bigint;
   round: number;
   type: SignedMsgType;
-  blockId?: BlockID;
-  votes?: BitArray;
+  blockId: BlockID;
+  votes: BitArray;
+}
+export interface VoteSetBitsProtoMsg {
+  typeUrl: "/tendermint.consensus.VoteSetBits";
+  value: Uint8Array;
+}
+/** VoteSetBits is sent to communicate the bit-array of votes seen for the BlockID. */
+export interface VoteSetBitsAmino {
+  height: string;
+  round: number;
+  type: SignedMsgType;
+  block_id?: BlockIDAmino;
+  votes?: BitArrayAmino;
+}
+export interface VoteSetBitsAminoMsg {
+  type: "/tendermint.consensus.VoteSetBits";
+  value: VoteSetBitsAmino;
 }
 /** VoteSetBits is sent to communicate the bit-array of votes seen for the BlockID. */
 export interface VoteSetBitsSDKType {
-  height: Long;
+  height: bigint;
   round: number;
   type: SignedMsgType;
-  block_id?: BlockIDSDKType;
-  votes?: BitArraySDKType;
+  block_id: BlockIDSDKType;
+  votes: BitArraySDKType;
 }
 export interface Message {
   newRoundStep?: NewRoundStep;
@@ -146,6 +285,25 @@ export interface Message {
   hasVote?: HasVote;
   voteSetMaj23?: VoteSetMaj23;
   voteSetBits?: VoteSetBits;
+}
+export interface MessageProtoMsg {
+  typeUrl: "/tendermint.consensus.Message";
+  value: Uint8Array;
+}
+export interface MessageAmino {
+  new_round_step?: NewRoundStepAmino;
+  new_valid_block?: NewValidBlockAmino;
+  proposal?: ProposalAmino;
+  proposal_pol?: ProposalPOLAmino;
+  block_part?: BlockPartAmino;
+  vote?: VoteAmino;
+  has_vote?: HasVoteAmino;
+  vote_set_maj23?: VoteSetMaj23Amino;
+  vote_set_bits?: VoteSetBitsAmino;
+}
+export interface MessageAminoMsg {
+  type: "/tendermint.consensus.Message";
+  value: MessageAmino;
 }
 export interface MessageSDKType {
   new_round_step?: NewRoundStepSDKType;
@@ -160,16 +318,17 @@ export interface MessageSDKType {
 }
 function createBaseNewRoundStep(): NewRoundStep {
   return {
-    height: Long.ZERO,
+    height: BigInt(0),
     round: 0,
     step: 0,
-    secondsSinceStartTime: Long.ZERO,
+    secondsSinceStartTime: BigInt(0),
     lastCommitRound: 0
   };
 }
 export const NewRoundStep = {
-  encode(message: NewRoundStep, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.height.isZero()) {
+  typeUrl: "/tendermint.consensus.NewRoundStep",
+  encode(message: NewRoundStep, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
     }
     if (message.round !== 0) {
@@ -178,7 +337,7 @@ export const NewRoundStep = {
     if (message.step !== 0) {
       writer.uint32(24).uint32(message.step);
     }
-    if (!message.secondsSinceStartTime.isZero()) {
+    if (message.secondsSinceStartTime !== BigInt(0)) {
       writer.uint32(32).int64(message.secondsSinceStartTime);
     }
     if (message.lastCommitRound !== 0) {
@@ -188,35 +347,69 @@ export const NewRoundStep = {
   },
   fromJSON(object: any): NewRoundStep {
     return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0),
       round: isSet(object.round) ? Number(object.round) : 0,
       step: isSet(object.step) ? Number(object.step) : 0,
-      secondsSinceStartTime: isSet(object.secondsSinceStartTime) ? Long.fromValue(object.secondsSinceStartTime) : Long.ZERO,
+      secondsSinceStartTime: isSet(object.secondsSinceStartTime) ? BigInt(object.secondsSinceStartTime.toString()) : BigInt(0),
       lastCommitRound: isSet(object.lastCommitRound) ? Number(object.lastCommitRound) : 0
     };
   },
   fromPartial(object: Partial<NewRoundStep>): NewRoundStep {
     const message = createBaseNewRoundStep();
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.round = object.round ?? 0;
     message.step = object.step ?? 0;
-    message.secondsSinceStartTime = object.secondsSinceStartTime !== undefined && object.secondsSinceStartTime !== null ? Long.fromValue(object.secondsSinceStartTime) : Long.ZERO;
+    message.secondsSinceStartTime = object.secondsSinceStartTime !== undefined && object.secondsSinceStartTime !== null ? BigInt(object.secondsSinceStartTime.toString()) : BigInt(0);
     message.lastCommitRound = object.lastCommitRound ?? 0;
     return message;
+  },
+  fromAmino(object: NewRoundStepAmino): NewRoundStep {
+    return {
+      height: BigInt(object.height),
+      round: object.round,
+      step: object.step,
+      secondsSinceStartTime: BigInt(object.seconds_since_start_time),
+      lastCommitRound: object.last_commit_round
+    };
+  },
+  toAmino(message: NewRoundStep): NewRoundStepAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.round = message.round;
+    obj.step = message.step;
+    obj.seconds_since_start_time = message.secondsSinceStartTime ? message.secondsSinceStartTime.toString() : undefined;
+    obj.last_commit_round = message.lastCommitRound;
+    return obj;
+  },
+  fromAminoMsg(object: NewRoundStepAminoMsg): NewRoundStep {
+    return NewRoundStep.fromAmino(object.value);
+  },
+  fromProtoMsg(message: NewRoundStepProtoMsg): NewRoundStep {
+    return NewRoundStep.decode(message.value);
+  },
+  toProto(message: NewRoundStep): Uint8Array {
+    return NewRoundStep.encode(message).finish();
+  },
+  toProtoMsg(message: NewRoundStep): NewRoundStepProtoMsg {
+    return {
+      typeUrl: "/tendermint.consensus.NewRoundStep",
+      value: NewRoundStep.encode(message).finish()
+    };
   }
 };
 function createBaseNewValidBlock(): NewValidBlock {
   return {
-    height: Long.ZERO,
+    height: BigInt(0),
     round: 0,
-    blockPartSetHeader: undefined,
-    blockParts: undefined,
+    blockPartSetHeader: PartSetHeader.fromPartial({}),
+    blockParts: BitArray.fromPartial({}),
     isCommit: false
   };
 }
 export const NewValidBlock = {
-  encode(message: NewValidBlock, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.height.isZero()) {
+  typeUrl: "/tendermint.consensus.NewValidBlock",
+  encode(message: NewValidBlock, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
     }
     if (message.round !== 0) {
@@ -235,7 +428,7 @@ export const NewValidBlock = {
   },
   fromJSON(object: any): NewValidBlock {
     return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0),
       round: isSet(object.round) ? Number(object.round) : 0,
       blockPartSetHeader: isSet(object.blockPartSetHeader) ? PartSetHeader.fromJSON(object.blockPartSetHeader) : undefined,
       blockParts: isSet(object.blockParts) ? BitArray.fromJSON(object.blockParts) : undefined,
@@ -244,21 +437,55 @@ export const NewValidBlock = {
   },
   fromPartial(object: Partial<NewValidBlock>): NewValidBlock {
     const message = createBaseNewValidBlock();
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.round = object.round ?? 0;
     message.blockPartSetHeader = object.blockPartSetHeader !== undefined && object.blockPartSetHeader !== null ? PartSetHeader.fromPartial(object.blockPartSetHeader) : undefined;
     message.blockParts = object.blockParts !== undefined && object.blockParts !== null ? BitArray.fromPartial(object.blockParts) : undefined;
     message.isCommit = object.isCommit ?? false;
     return message;
+  },
+  fromAmino(object: NewValidBlockAmino): NewValidBlock {
+    return {
+      height: BigInt(object.height),
+      round: object.round,
+      blockPartSetHeader: object?.block_part_set_header ? PartSetHeader.fromAmino(object.block_part_set_header) : undefined,
+      blockParts: object?.block_parts ? BitArray.fromAmino(object.block_parts) : undefined,
+      isCommit: object.is_commit
+    };
+  },
+  toAmino(message: NewValidBlock): NewValidBlockAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.round = message.round;
+    obj.block_part_set_header = message.blockPartSetHeader ? PartSetHeader.toAmino(message.blockPartSetHeader) : undefined;
+    obj.block_parts = message.blockParts ? BitArray.toAmino(message.blockParts) : undefined;
+    obj.is_commit = message.isCommit;
+    return obj;
+  },
+  fromAminoMsg(object: NewValidBlockAminoMsg): NewValidBlock {
+    return NewValidBlock.fromAmino(object.value);
+  },
+  fromProtoMsg(message: NewValidBlockProtoMsg): NewValidBlock {
+    return NewValidBlock.decode(message.value);
+  },
+  toProto(message: NewValidBlock): Uint8Array {
+    return NewValidBlock.encode(message).finish();
+  },
+  toProtoMsg(message: NewValidBlock): NewValidBlockProtoMsg {
+    return {
+      typeUrl: "/tendermint.consensus.NewValidBlock",
+      value: NewValidBlock.encode(message).finish()
+    };
   }
 };
 function createBaseProposal(): Proposal {
   return {
-    proposal: undefined
+    proposal: Proposal1.fromPartial({})
   };
 }
 export const Proposal = {
-  encode(message: Proposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.consensus.Proposal",
+  encode(message: Proposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposal !== undefined) {
       Proposal1.encode(message.proposal, writer.uint32(10).fork()).ldelim();
     }
@@ -273,18 +500,44 @@ export const Proposal = {
     const message = createBaseProposal();
     message.proposal = object.proposal !== undefined && object.proposal !== null ? Proposal1.fromPartial(object.proposal) : undefined;
     return message;
+  },
+  fromAmino(object: ProposalAmino): Proposal {
+    return {
+      proposal: object?.proposal ? Proposal1.fromAmino(object.proposal) : undefined
+    };
+  },
+  toAmino(message: Proposal): ProposalAmino {
+    const obj: any = {};
+    obj.proposal = message.proposal ? Proposal1.toAmino(message.proposal) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ProposalAminoMsg): Proposal {
+    return Proposal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ProposalProtoMsg): Proposal {
+    return Proposal.decode(message.value);
+  },
+  toProto(message: Proposal): Uint8Array {
+    return Proposal.encode(message).finish();
+  },
+  toProtoMsg(message: Proposal): ProposalProtoMsg {
+    return {
+      typeUrl: "/tendermint.consensus.Proposal",
+      value: Proposal.encode(message).finish()
+    };
   }
 };
 function createBaseProposalPOL(): ProposalPOL {
   return {
-    height: Long.ZERO,
+    height: BigInt(0),
     proposalPolRound: 0,
-    proposalPol: undefined
+    proposalPol: BitArray.fromPartial({})
   };
 }
 export const ProposalPOL = {
-  encode(message: ProposalPOL, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.height.isZero()) {
+  typeUrl: "/tendermint.consensus.ProposalPOL",
+  encode(message: ProposalPOL, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
     }
     if (message.proposalPolRound !== 0) {
@@ -297,29 +550,59 @@ export const ProposalPOL = {
   },
   fromJSON(object: any): ProposalPOL {
     return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0),
       proposalPolRound: isSet(object.proposalPolRound) ? Number(object.proposalPolRound) : 0,
       proposalPol: isSet(object.proposalPol) ? BitArray.fromJSON(object.proposalPol) : undefined
     };
   },
   fromPartial(object: Partial<ProposalPOL>): ProposalPOL {
     const message = createBaseProposalPOL();
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.proposalPolRound = object.proposalPolRound ?? 0;
     message.proposalPol = object.proposalPol !== undefined && object.proposalPol !== null ? BitArray.fromPartial(object.proposalPol) : undefined;
     return message;
+  },
+  fromAmino(object: ProposalPOLAmino): ProposalPOL {
+    return {
+      height: BigInt(object.height),
+      proposalPolRound: object.proposal_pol_round,
+      proposalPol: object?.proposal_pol ? BitArray.fromAmino(object.proposal_pol) : undefined
+    };
+  },
+  toAmino(message: ProposalPOL): ProposalPOLAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.proposal_pol_round = message.proposalPolRound;
+    obj.proposal_pol = message.proposalPol ? BitArray.toAmino(message.proposalPol) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ProposalPOLAminoMsg): ProposalPOL {
+    return ProposalPOL.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ProposalPOLProtoMsg): ProposalPOL {
+    return ProposalPOL.decode(message.value);
+  },
+  toProto(message: ProposalPOL): Uint8Array {
+    return ProposalPOL.encode(message).finish();
+  },
+  toProtoMsg(message: ProposalPOL): ProposalPOLProtoMsg {
+    return {
+      typeUrl: "/tendermint.consensus.ProposalPOL",
+      value: ProposalPOL.encode(message).finish()
+    };
   }
 };
 function createBaseBlockPart(): BlockPart {
   return {
-    height: Long.ZERO,
+    height: BigInt(0),
     round: 0,
-    part: undefined
+    part: Part.fromPartial({})
   };
 }
 export const BlockPart = {
-  encode(message: BlockPart, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.height.isZero()) {
+  typeUrl: "/tendermint.consensus.BlockPart",
+  encode(message: BlockPart, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
     }
     if (message.round !== 0) {
@@ -332,26 +615,56 @@ export const BlockPart = {
   },
   fromJSON(object: any): BlockPart {
     return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0),
       round: isSet(object.round) ? Number(object.round) : 0,
       part: isSet(object.part) ? Part.fromJSON(object.part) : undefined
     };
   },
   fromPartial(object: Partial<BlockPart>): BlockPart {
     const message = createBaseBlockPart();
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.round = object.round ?? 0;
     message.part = object.part !== undefined && object.part !== null ? Part.fromPartial(object.part) : undefined;
     return message;
+  },
+  fromAmino(object: BlockPartAmino): BlockPart {
+    return {
+      height: BigInt(object.height),
+      round: object.round,
+      part: object?.part ? Part.fromAmino(object.part) : undefined
+    };
+  },
+  toAmino(message: BlockPart): BlockPartAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.round = message.round;
+    obj.part = message.part ? Part.toAmino(message.part) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockPartAminoMsg): BlockPart {
+    return BlockPart.fromAmino(object.value);
+  },
+  fromProtoMsg(message: BlockPartProtoMsg): BlockPart {
+    return BlockPart.decode(message.value);
+  },
+  toProto(message: BlockPart): Uint8Array {
+    return BlockPart.encode(message).finish();
+  },
+  toProtoMsg(message: BlockPart): BlockPartProtoMsg {
+    return {
+      typeUrl: "/tendermint.consensus.BlockPart",
+      value: BlockPart.encode(message).finish()
+    };
   }
 };
 function createBaseVote(): Vote {
   return {
-    vote: undefined
+    vote: Vote1.fromPartial({})
   };
 }
 export const Vote = {
-  encode(message: Vote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.consensus.Vote",
+  encode(message: Vote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.vote !== undefined) {
       Vote1.encode(message.vote, writer.uint32(10).fork()).ldelim();
     }
@@ -366,19 +679,45 @@ export const Vote = {
     const message = createBaseVote();
     message.vote = object.vote !== undefined && object.vote !== null ? Vote1.fromPartial(object.vote) : undefined;
     return message;
+  },
+  fromAmino(object: VoteAmino): Vote {
+    return {
+      vote: object?.vote ? Vote1.fromAmino(object.vote) : undefined
+    };
+  },
+  toAmino(message: Vote): VoteAmino {
+    const obj: any = {};
+    obj.vote = message.vote ? Vote1.toAmino(message.vote) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: VoteAminoMsg): Vote {
+    return Vote.fromAmino(object.value);
+  },
+  fromProtoMsg(message: VoteProtoMsg): Vote {
+    return Vote.decode(message.value);
+  },
+  toProto(message: Vote): Uint8Array {
+    return Vote.encode(message).finish();
+  },
+  toProtoMsg(message: Vote): VoteProtoMsg {
+    return {
+      typeUrl: "/tendermint.consensus.Vote",
+      value: Vote.encode(message).finish()
+    };
   }
 };
 function createBaseHasVote(): HasVote {
   return {
-    height: Long.ZERO,
+    height: BigInt(0),
     round: 0,
     type: 0,
     index: 0
   };
 }
 export const HasVote = {
-  encode(message: HasVote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.height.isZero()) {
+  typeUrl: "/tendermint.consensus.HasVote",
+  encode(message: HasVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
     }
     if (message.round !== 0) {
@@ -394,32 +733,64 @@ export const HasVote = {
   },
   fromJSON(object: any): HasVote {
     return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0),
       round: isSet(object.round) ? Number(object.round) : 0,
-      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : 0,
+      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : -1,
       index: isSet(object.index) ? Number(object.index) : 0
     };
   },
   fromPartial(object: Partial<HasVote>): HasVote {
     const message = createBaseHasVote();
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.round = object.round ?? 0;
     message.type = object.type ?? 0;
     message.index = object.index ?? 0;
     return message;
+  },
+  fromAmino(object: HasVoteAmino): HasVote {
+    return {
+      height: BigInt(object.height),
+      round: object.round,
+      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : -1,
+      index: object.index
+    };
+  },
+  toAmino(message: HasVote): HasVoteAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.round = message.round;
+    obj.type = message.type;
+    obj.index = message.index;
+    return obj;
+  },
+  fromAminoMsg(object: HasVoteAminoMsg): HasVote {
+    return HasVote.fromAmino(object.value);
+  },
+  fromProtoMsg(message: HasVoteProtoMsg): HasVote {
+    return HasVote.decode(message.value);
+  },
+  toProto(message: HasVote): Uint8Array {
+    return HasVote.encode(message).finish();
+  },
+  toProtoMsg(message: HasVote): HasVoteProtoMsg {
+    return {
+      typeUrl: "/tendermint.consensus.HasVote",
+      value: HasVote.encode(message).finish()
+    };
   }
 };
 function createBaseVoteSetMaj23(): VoteSetMaj23 {
   return {
-    height: Long.ZERO,
+    height: BigInt(0),
     round: 0,
     type: 0,
-    blockId: undefined
+    blockId: BlockID.fromPartial({})
   };
 }
 export const VoteSetMaj23 = {
-  encode(message: VoteSetMaj23, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.height.isZero()) {
+  typeUrl: "/tendermint.consensus.VoteSetMaj23",
+  encode(message: VoteSetMaj23, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
     }
     if (message.round !== 0) {
@@ -435,33 +806,65 @@ export const VoteSetMaj23 = {
   },
   fromJSON(object: any): VoteSetMaj23 {
     return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0),
       round: isSet(object.round) ? Number(object.round) : 0,
-      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : 0,
+      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : -1,
       blockId: isSet(object.blockId) ? BlockID.fromJSON(object.blockId) : undefined
     };
   },
   fromPartial(object: Partial<VoteSetMaj23>): VoteSetMaj23 {
     const message = createBaseVoteSetMaj23();
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.round = object.round ?? 0;
     message.type = object.type ?? 0;
     message.blockId = object.blockId !== undefined && object.blockId !== null ? BlockID.fromPartial(object.blockId) : undefined;
     return message;
+  },
+  fromAmino(object: VoteSetMaj23Amino): VoteSetMaj23 {
+    return {
+      height: BigInt(object.height),
+      round: object.round,
+      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : -1,
+      blockId: object?.block_id ? BlockID.fromAmino(object.block_id) : undefined
+    };
+  },
+  toAmino(message: VoteSetMaj23): VoteSetMaj23Amino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.round = message.round;
+    obj.type = message.type;
+    obj.block_id = message.blockId ? BlockID.toAmino(message.blockId) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: VoteSetMaj23AminoMsg): VoteSetMaj23 {
+    return VoteSetMaj23.fromAmino(object.value);
+  },
+  fromProtoMsg(message: VoteSetMaj23ProtoMsg): VoteSetMaj23 {
+    return VoteSetMaj23.decode(message.value);
+  },
+  toProto(message: VoteSetMaj23): Uint8Array {
+    return VoteSetMaj23.encode(message).finish();
+  },
+  toProtoMsg(message: VoteSetMaj23): VoteSetMaj23ProtoMsg {
+    return {
+      typeUrl: "/tendermint.consensus.VoteSetMaj23",
+      value: VoteSetMaj23.encode(message).finish()
+    };
   }
 };
 function createBaseVoteSetBits(): VoteSetBits {
   return {
-    height: Long.ZERO,
+    height: BigInt(0),
     round: 0,
     type: 0,
-    blockId: undefined,
-    votes: undefined
+    blockId: BlockID.fromPartial({}),
+    votes: BitArray.fromPartial({})
   };
 }
 export const VoteSetBits = {
-  encode(message: VoteSetBits, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.height.isZero()) {
+  typeUrl: "/tendermint.consensus.VoteSetBits",
+  encode(message: VoteSetBits, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
     }
     if (message.round !== 0) {
@@ -480,21 +883,54 @@ export const VoteSetBits = {
   },
   fromJSON(object: any): VoteSetBits {
     return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      height: isSet(object.height) ? BigInt(object.height.toString()) : BigInt(0),
       round: isSet(object.round) ? Number(object.round) : 0,
-      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : 0,
+      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : -1,
       blockId: isSet(object.blockId) ? BlockID.fromJSON(object.blockId) : undefined,
       votes: isSet(object.votes) ? BitArray.fromJSON(object.votes) : undefined
     };
   },
   fromPartial(object: Partial<VoteSetBits>): VoteSetBits {
     const message = createBaseVoteSetBits();
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.round = object.round ?? 0;
     message.type = object.type ?? 0;
     message.blockId = object.blockId !== undefined && object.blockId !== null ? BlockID.fromPartial(object.blockId) : undefined;
     message.votes = object.votes !== undefined && object.votes !== null ? BitArray.fromPartial(object.votes) : undefined;
     return message;
+  },
+  fromAmino(object: VoteSetBitsAmino): VoteSetBits {
+    return {
+      height: BigInt(object.height),
+      round: object.round,
+      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : -1,
+      blockId: object?.block_id ? BlockID.fromAmino(object.block_id) : undefined,
+      votes: object?.votes ? BitArray.fromAmino(object.votes) : undefined
+    };
+  },
+  toAmino(message: VoteSetBits): VoteSetBitsAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.round = message.round;
+    obj.type = message.type;
+    obj.block_id = message.blockId ? BlockID.toAmino(message.blockId) : undefined;
+    obj.votes = message.votes ? BitArray.toAmino(message.votes) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: VoteSetBitsAminoMsg): VoteSetBits {
+    return VoteSetBits.fromAmino(object.value);
+  },
+  fromProtoMsg(message: VoteSetBitsProtoMsg): VoteSetBits {
+    return VoteSetBits.decode(message.value);
+  },
+  toProto(message: VoteSetBits): Uint8Array {
+    return VoteSetBits.encode(message).finish();
+  },
+  toProtoMsg(message: VoteSetBits): VoteSetBitsProtoMsg {
+    return {
+      typeUrl: "/tendermint.consensus.VoteSetBits",
+      value: VoteSetBits.encode(message).finish()
+    };
   }
 };
 function createBaseMessage(): Message {
@@ -511,7 +947,8 @@ function createBaseMessage(): Message {
   };
 }
 export const Message = {
-  encode(message: Message, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/tendermint.consensus.Message",
+  encode(message: Message, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.newRoundStep !== undefined) {
       NewRoundStep.encode(message.newRoundStep, writer.uint32(10).fork()).ldelim();
     }
@@ -566,5 +1003,46 @@ export const Message = {
     message.voteSetMaj23 = object.voteSetMaj23 !== undefined && object.voteSetMaj23 !== null ? VoteSetMaj23.fromPartial(object.voteSetMaj23) : undefined;
     message.voteSetBits = object.voteSetBits !== undefined && object.voteSetBits !== null ? VoteSetBits.fromPartial(object.voteSetBits) : undefined;
     return message;
+  },
+  fromAmino(object: MessageAmino): Message {
+    return {
+      newRoundStep: object?.new_round_step ? NewRoundStep.fromAmino(object.new_round_step) : undefined,
+      newValidBlock: object?.new_valid_block ? NewValidBlock.fromAmino(object.new_valid_block) : undefined,
+      proposal: object?.proposal ? Proposal.fromAmino(object.proposal) : undefined,
+      proposalPol: object?.proposal_pol ? ProposalPOL.fromAmino(object.proposal_pol) : undefined,
+      blockPart: object?.block_part ? BlockPart.fromAmino(object.block_part) : undefined,
+      vote: object?.vote ? Vote.fromAmino(object.vote) : undefined,
+      hasVote: object?.has_vote ? HasVote.fromAmino(object.has_vote) : undefined,
+      voteSetMaj23: object?.vote_set_maj23 ? VoteSetMaj23.fromAmino(object.vote_set_maj23) : undefined,
+      voteSetBits: object?.vote_set_bits ? VoteSetBits.fromAmino(object.vote_set_bits) : undefined
+    };
+  },
+  toAmino(message: Message): MessageAmino {
+    const obj: any = {};
+    obj.new_round_step = message.newRoundStep ? NewRoundStep.toAmino(message.newRoundStep) : undefined;
+    obj.new_valid_block = message.newValidBlock ? NewValidBlock.toAmino(message.newValidBlock) : undefined;
+    obj.proposal = message.proposal ? Proposal.toAmino(message.proposal) : undefined;
+    obj.proposal_pol = message.proposalPol ? ProposalPOL.toAmino(message.proposalPol) : undefined;
+    obj.block_part = message.blockPart ? BlockPart.toAmino(message.blockPart) : undefined;
+    obj.vote = message.vote ? Vote.toAmino(message.vote) : undefined;
+    obj.has_vote = message.hasVote ? HasVote.toAmino(message.hasVote) : undefined;
+    obj.vote_set_maj23 = message.voteSetMaj23 ? VoteSetMaj23.toAmino(message.voteSetMaj23) : undefined;
+    obj.vote_set_bits = message.voteSetBits ? VoteSetBits.toAmino(message.voteSetBits) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MessageAminoMsg): Message {
+    return Message.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MessageProtoMsg): Message {
+    return Message.decode(message.value);
+  },
+  toProto(message: Message): Uint8Array {
+    return Message.encode(message).finish();
+  },
+  toProtoMsg(message: Message): MessageProtoMsg {
+    return {
+      typeUrl: "/tendermint.consensus.Message",
+      value: Message.encode(message).finish()
+    };
   }
 };

@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgAddAccountCertificate, MsgAddAccountCertificateResponse, MsgDeleteAccount, MsgDeleteAccountResponse, MsgDeleteAccountCertificate, MsgDeleteAccountCertificateResponse, MsgDeleteDomain, MsgDeleteDomainResponse, MsgRegisterAccount, MsgRegisterAccountResponse, MsgRegisterDomain, MsgRegisterDomainResponse, MsgRenewAccount, MsgRenewAccountResponse, MsgRenewDomain, MsgRenewDomainResponse, MsgReplaceAccountMetadata, MsgReplaceAccountMetadataResponse, MsgReplaceAccountResources, MsgReplaceAccountResourcesResponse, MsgTransferAccount, MsgTransferAccountResponse, MsgTransferDomain, MsgTransferDomainResponse } from "./tx";
 /** Msg defines the starname Msg service. */
 export interface Msg {
@@ -48,61 +48,61 @@ export class MsgClientImpl implements Msg {
   addAccountCertificate(request: MsgAddAccountCertificate): Promise<MsgAddAccountCertificateResponse> {
     const data = MsgAddAccountCertificate.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "AddAccountCertificate", data);
-    return promise.then(data => MsgAddAccountCertificateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgAddAccountCertificateResponse.decode(new BinaryReader(data)));
   }
   deleteAccount(request: MsgDeleteAccount): Promise<MsgDeleteAccountResponse> {
     const data = MsgDeleteAccount.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "DeleteAccount", data);
-    return promise.then(data => MsgDeleteAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDeleteAccountResponse.decode(new BinaryReader(data)));
   }
   deleteAccountCertificate(request: MsgDeleteAccountCertificate): Promise<MsgDeleteAccountCertificateResponse> {
     const data = MsgDeleteAccountCertificate.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "DeleteAccountCertificate", data);
-    return promise.then(data => MsgDeleteAccountCertificateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDeleteAccountCertificateResponse.decode(new BinaryReader(data)));
   }
   deleteDomain(request: MsgDeleteDomain): Promise<MsgDeleteDomainResponse> {
     const data = MsgDeleteDomain.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "DeleteDomain", data);
-    return promise.then(data => MsgDeleteDomainResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDeleteDomainResponse.decode(new BinaryReader(data)));
   }
   registerAccount(request: MsgRegisterAccount): Promise<MsgRegisterAccountResponse> {
     const data = MsgRegisterAccount.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "RegisterAccount", data);
-    return promise.then(data => MsgRegisterAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRegisterAccountResponse.decode(new BinaryReader(data)));
   }
   registerDomain(request: MsgRegisterDomain): Promise<MsgRegisterDomainResponse> {
     const data = MsgRegisterDomain.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "RegisterDomain", data);
-    return promise.then(data => MsgRegisterDomainResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRegisterDomainResponse.decode(new BinaryReader(data)));
   }
   renewAccount(request: MsgRenewAccount): Promise<MsgRenewAccountResponse> {
     const data = MsgRenewAccount.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "RenewAccount", data);
-    return promise.then(data => MsgRenewAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRenewAccountResponse.decode(new BinaryReader(data)));
   }
   renewDomain(request: MsgRenewDomain): Promise<MsgRenewDomainResponse> {
     const data = MsgRenewDomain.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "RenewDomain", data);
-    return promise.then(data => MsgRenewDomainResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRenewDomainResponse.decode(new BinaryReader(data)));
   }
   replaceAccountMetadata(request: MsgReplaceAccountMetadata): Promise<MsgReplaceAccountMetadataResponse> {
     const data = MsgReplaceAccountMetadata.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "ReplaceAccountMetadata", data);
-    return promise.then(data => MsgReplaceAccountMetadataResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgReplaceAccountMetadataResponse.decode(new BinaryReader(data)));
   }
   replaceAccountResources(request: MsgReplaceAccountResources): Promise<MsgReplaceAccountResourcesResponse> {
     const data = MsgReplaceAccountResources.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "ReplaceAccountResources", data);
-    return promise.then(data => MsgReplaceAccountResourcesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgReplaceAccountResourcesResponse.decode(new BinaryReader(data)));
   }
   transferAccount(request: MsgTransferAccount): Promise<MsgTransferAccountResponse> {
     const data = MsgTransferAccount.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "TransferAccount", data);
-    return promise.then(data => MsgTransferAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgTransferAccountResponse.decode(new BinaryReader(data)));
   }
   transferDomain(request: MsgTransferDomain): Promise<MsgTransferDomainResponse> {
     const data = MsgTransferDomain.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Msg", "TransferDomain", data);
-    return promise.then(data => MsgTransferDomainResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgTransferDomainResponse.decode(new BinaryReader(data)));
   }
 }

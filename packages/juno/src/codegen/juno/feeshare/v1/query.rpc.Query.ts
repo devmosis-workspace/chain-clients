@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryFeeSharesRequest, QueryFeeSharesResponse, QueryFeeShareRequest, QueryFeeShareResponse, QueryParamsRequest, QueryParamsResponse, QueryDeployerFeeSharesRequest, QueryDeployerFeeSharesResponse, QueryWithdrawerFeeSharesRequest, QueryWithdrawerFeeSharesResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -36,27 +36,27 @@ export class QueryClientImpl implements Query {
   }): Promise<QueryFeeSharesResponse> {
     const data = QueryFeeSharesRequest.encode(request).finish();
     const promise = this.rpc.request("juno.feeshare.v1.Query", "FeeShares", data);
-    return promise.then(data => QueryFeeSharesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryFeeSharesResponse.decode(new BinaryReader(data)));
   }
   feeShare(request: QueryFeeShareRequest): Promise<QueryFeeShareResponse> {
     const data = QueryFeeShareRequest.encode(request).finish();
     const promise = this.rpc.request("juno.feeshare.v1.Query", "FeeShare", data);
-    return promise.then(data => QueryFeeShareResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryFeeShareResponse.decode(new BinaryReader(data)));
   }
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("juno.feeshare.v1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   deployerFeeShares(request: QueryDeployerFeeSharesRequest): Promise<QueryDeployerFeeSharesResponse> {
     const data = QueryDeployerFeeSharesRequest.encode(request).finish();
     const promise = this.rpc.request("juno.feeshare.v1.Query", "DeployerFeeShares", data);
-    return promise.then(data => QueryDeployerFeeSharesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDeployerFeeSharesResponse.decode(new BinaryReader(data)));
   }
   withdrawerFeeShares(request: QueryWithdrawerFeeSharesRequest): Promise<QueryWithdrawerFeeSharesResponse> {
     const data = QueryWithdrawerFeeSharesRequest.encode(request).finish();
     const promise = this.rpc.request("juno.feeshare.v1.Query", "WithdrawerFeeShares", data);
-    return promise.then(data => QueryWithdrawerFeeSharesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryWithdrawerFeeSharesResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

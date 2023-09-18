@@ -1,20 +1,44 @@
-import { Long, isSet } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
+import { isSet } from "../../helpers";
 export interface IscnIdPrefix {
   registryName: string;
   contentId: string;
+}
+export interface IscnIdPrefixProtoMsg {
+  typeUrl: "/likechain.iscn.IscnIdPrefix";
+  value: Uint8Array;
+}
+export interface IscnIdPrefixAmino {
+  registry_name: string;
+  content_id: string;
+}
+export interface IscnIdPrefixAminoMsg {
+  type: "/likechain.iscn.IscnIdPrefix";
+  value: IscnIdPrefixAmino;
 }
 export interface IscnIdPrefixSDKType {
   registry_name: string;
   content_id: string;
 }
 export interface IscnId {
-  prefix?: IscnIdPrefix;
-  version: Long;
+  prefix: IscnIdPrefix;
+  version: bigint;
+}
+export interface IscnIdProtoMsg {
+  typeUrl: "/likechain.iscn.IscnId";
+  value: Uint8Array;
+}
+export interface IscnIdAmino {
+  prefix?: IscnIdPrefixAmino;
+  version: string;
+}
+export interface IscnIdAminoMsg {
+  type: "/likechain.iscn.IscnId";
+  value: IscnIdAmino;
 }
 export interface IscnIdSDKType {
-  prefix?: IscnIdPrefixSDKType;
-  version: Long;
+  prefix: IscnIdPrefixSDKType;
+  version: bigint;
 }
 function createBaseIscnIdPrefix(): IscnIdPrefix {
   return {
@@ -23,7 +47,8 @@ function createBaseIscnIdPrefix(): IscnIdPrefix {
   };
 }
 export const IscnIdPrefix = {
-  encode(message: IscnIdPrefix, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.iscn.IscnIdPrefix",
+  encode(message: IscnIdPrefix, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.registryName !== "") {
       writer.uint32(10).string(message.registryName);
     }
@@ -43,20 +68,48 @@ export const IscnIdPrefix = {
     message.registryName = object.registryName ?? "";
     message.contentId = object.contentId ?? "";
     return message;
+  },
+  fromAmino(object: IscnIdPrefixAmino): IscnIdPrefix {
+    return {
+      registryName: object.registry_name,
+      contentId: object.content_id
+    };
+  },
+  toAmino(message: IscnIdPrefix): IscnIdPrefixAmino {
+    const obj: any = {};
+    obj.registry_name = message.registryName;
+    obj.content_id = message.contentId;
+    return obj;
+  },
+  fromAminoMsg(object: IscnIdPrefixAminoMsg): IscnIdPrefix {
+    return IscnIdPrefix.fromAmino(object.value);
+  },
+  fromProtoMsg(message: IscnIdPrefixProtoMsg): IscnIdPrefix {
+    return IscnIdPrefix.decode(message.value);
+  },
+  toProto(message: IscnIdPrefix): Uint8Array {
+    return IscnIdPrefix.encode(message).finish();
+  },
+  toProtoMsg(message: IscnIdPrefix): IscnIdPrefixProtoMsg {
+    return {
+      typeUrl: "/likechain.iscn.IscnIdPrefix",
+      value: IscnIdPrefix.encode(message).finish()
+    };
   }
 };
 function createBaseIscnId(): IscnId {
   return {
-    prefix: undefined,
-    version: Long.UZERO
+    prefix: IscnIdPrefix.fromPartial({}),
+    version: BigInt(0)
   };
 }
 export const IscnId = {
-  encode(message: IscnId, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.iscn.IscnId",
+  encode(message: IscnId, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.prefix !== undefined) {
       IscnIdPrefix.encode(message.prefix, writer.uint32(10).fork()).ldelim();
     }
-    if (!message.version.isZero()) {
+    if (message.version !== BigInt(0)) {
       writer.uint32(16).uint64(message.version);
     }
     return writer;
@@ -64,13 +117,40 @@ export const IscnId = {
   fromJSON(object: any): IscnId {
     return {
       prefix: isSet(object.prefix) ? IscnIdPrefix.fromJSON(object.prefix) : undefined,
-      version: isSet(object.version) ? Long.fromValue(object.version) : Long.UZERO
+      version: isSet(object.version) ? BigInt(object.version.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<IscnId>): IscnId {
     const message = createBaseIscnId();
     message.prefix = object.prefix !== undefined && object.prefix !== null ? IscnIdPrefix.fromPartial(object.prefix) : undefined;
-    message.version = object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.UZERO;
+    message.version = object.version !== undefined && object.version !== null ? BigInt(object.version.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: IscnIdAmino): IscnId {
+    return {
+      prefix: object?.prefix ? IscnIdPrefix.fromAmino(object.prefix) : undefined,
+      version: BigInt(object.version)
+    };
+  },
+  toAmino(message: IscnId): IscnIdAmino {
+    const obj: any = {};
+    obj.prefix = message.prefix ? IscnIdPrefix.toAmino(message.prefix) : undefined;
+    obj.version = message.version ? message.version.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: IscnIdAminoMsg): IscnId {
+    return IscnId.fromAmino(object.value);
+  },
+  fromProtoMsg(message: IscnIdProtoMsg): IscnId {
+    return IscnId.decode(message.value);
+  },
+  toProto(message: IscnId): Uint8Array {
+    return IscnId.encode(message).finish();
+  },
+  toProtoMsg(message: IscnId): IscnIdProtoMsg {
+    return {
+      typeUrl: "/likechain.iscn.IscnId",
+      value: IscnId.encode(message).finish()
+    };
   }
 };

@@ -1,15 +1,34 @@
-import { Fee, FeeSDKType } from "./fee";
-import * as _m0 from "protobufjs/minimal";
+import { Fee, FeeAmino, FeeSDKType } from "./fee";
+import { BinaryWriter } from "../binary";
 /** Params defines the parameters for the module. */
 export interface Params {
-    minFee?: Fee;
+    minFee: Fee;
+}
+export interface ParamsProtoMsg {
+    typeUrl: "/neutron.feerefunder.Params";
+    value: Uint8Array;
+}
+/** Params defines the parameters for the module. */
+export interface ParamsAmino {
+    min_fee?: FeeAmino;
+}
+export interface ParamsAminoMsg {
+    type: "/neutron.feerefunder.Params";
+    value: ParamsAmino;
 }
 /** Params defines the parameters for the module. */
 export interface ParamsSDKType {
-    min_fee?: FeeSDKType;
+    min_fee: FeeSDKType;
 }
 export declare const Params: {
-    encode(message: Params, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Params, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Params;
     fromPartial(object: Partial<Params>): Params;
+    fromAmino(object: ParamsAmino): Params;
+    toAmino(message: Params): ParamsAmino;
+    fromAminoMsg(object: ParamsAminoMsg): Params;
+    fromProtoMsg(message: ParamsProtoMsg): Params;
+    toProto(message: Params): Uint8Array;
+    toProtoMsg(message: Params): ParamsProtoMsg;
 };

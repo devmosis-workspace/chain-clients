@@ -1,5 +1,5 @@
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
 /**
  * MigrationRecords contains all the links between balancer and concentrated
  * pools.
@@ -9,6 +9,24 @@ import * as _m0 from "protobufjs/minimal";
  */
 export interface MigrationRecords {
   balancerToConcentratedPoolLinks: BalancerToConcentratedPoolLink[];
+}
+export interface MigrationRecordsProtoMsg {
+  typeUrl: "/osmosis.poolincentives.v1beta1.MigrationRecords";
+  value: Uint8Array;
+}
+/**
+ * MigrationRecords contains all the links between balancer and concentrated
+ * pools.
+ * 
+ * This is copied over from the gamm proto file in order to circumnavigate
+ * the circular dependency between the two modules.
+ */
+export interface MigrationRecordsAmino {
+  balancer_to_concentrated_pool_links: BalancerToConcentratedPoolLinkAmino[];
+}
+export interface MigrationRecordsAminoMsg {
+  type: "osmosis/poolincentives/migration-records";
+  value: MigrationRecordsAmino;
 }
 /**
  * MigrationRecords contains all the links between balancer and concentrated
@@ -32,8 +50,31 @@ export interface MigrationRecordsSDKType {
  * the circular dependency between the two modules.
  */
 export interface BalancerToConcentratedPoolLink {
-  balancerPoolId: Long;
-  clPoolId: Long;
+  balancerPoolId: bigint;
+  clPoolId: bigint;
+}
+export interface BalancerToConcentratedPoolLinkProtoMsg {
+  typeUrl: "/osmosis.poolincentives.v1beta1.BalancerToConcentratedPoolLink";
+  value: Uint8Array;
+}
+/**
+ * BalancerToConcentratedPoolLink defines a single link between a single
+ * balancer pool and a single concentrated liquidity pool. This link is used to
+ * allow a balancer pool to migrate to a single canonical full range
+ * concentrated liquidity pool position
+ * A balancer pool can be linked to a maximum of one cl pool, and a cl pool can
+ * be linked to a maximum of one balancer pool.
+ * 
+ * This is copied over from the gamm proto file in order to circumnavigate
+ * the circular dependency between the two modules.
+ */
+export interface BalancerToConcentratedPoolLinkAmino {
+  balancer_pool_id: string;
+  cl_pool_id: string;
+}
+export interface BalancerToConcentratedPoolLinkAminoMsg {
+  type: "osmosis/poolincentives/balancer-to-concentrated-pool-link";
+  value: BalancerToConcentratedPoolLinkAmino;
 }
 /**
  * BalancerToConcentratedPoolLink defines a single link between a single
@@ -47,8 +88,8 @@ export interface BalancerToConcentratedPoolLink {
  * the circular dependency between the two modules.
  */
 export interface BalancerToConcentratedPoolLinkSDKType {
-  balancer_pool_id: Long;
-  cl_pool_id: Long;
+  balancer_pool_id: bigint;
+  cl_pool_id: bigint;
 }
 function createBaseMigrationRecords(): MigrationRecords {
   return {
@@ -56,7 +97,8 @@ function createBaseMigrationRecords(): MigrationRecords {
   };
 }
 export const MigrationRecords = {
-  encode(message: MigrationRecords, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/osmosis.poolincentives.v1beta1.MigrationRecords",
+  encode(message: MigrationRecords, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.balancerToConcentratedPoolLinks) {
       BalancerToConcentratedPoolLink.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -71,34 +113,103 @@ export const MigrationRecords = {
     const message = createBaseMigrationRecords();
     message.balancerToConcentratedPoolLinks = object.balancerToConcentratedPoolLinks?.map(e => BalancerToConcentratedPoolLink.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MigrationRecordsAmino): MigrationRecords {
+    return {
+      balancerToConcentratedPoolLinks: Array.isArray(object?.balancer_to_concentrated_pool_links) ? object.balancer_to_concentrated_pool_links.map((e: any) => BalancerToConcentratedPoolLink.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: MigrationRecords): MigrationRecordsAmino {
+    const obj: any = {};
+    if (message.balancerToConcentratedPoolLinks) {
+      obj.balancer_to_concentrated_pool_links = message.balancerToConcentratedPoolLinks.map(e => e ? BalancerToConcentratedPoolLink.toAmino(e) : undefined);
+    } else {
+      obj.balancer_to_concentrated_pool_links = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MigrationRecordsAminoMsg): MigrationRecords {
+    return MigrationRecords.fromAmino(object.value);
+  },
+  toAminoMsg(message: MigrationRecords): MigrationRecordsAminoMsg {
+    return {
+      type: "osmosis/poolincentives/migration-records",
+      value: MigrationRecords.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MigrationRecordsProtoMsg): MigrationRecords {
+    return MigrationRecords.decode(message.value);
+  },
+  toProto(message: MigrationRecords): Uint8Array {
+    return MigrationRecords.encode(message).finish();
+  },
+  toProtoMsg(message: MigrationRecords): MigrationRecordsProtoMsg {
+    return {
+      typeUrl: "/osmosis.poolincentives.v1beta1.MigrationRecords",
+      value: MigrationRecords.encode(message).finish()
+    };
   }
 };
 function createBaseBalancerToConcentratedPoolLink(): BalancerToConcentratedPoolLink {
   return {
-    balancerPoolId: Long.UZERO,
-    clPoolId: Long.UZERO
+    balancerPoolId: BigInt(0),
+    clPoolId: BigInt(0)
   };
 }
 export const BalancerToConcentratedPoolLink = {
-  encode(message: BalancerToConcentratedPoolLink, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.balancerPoolId.isZero()) {
+  typeUrl: "/osmosis.poolincentives.v1beta1.BalancerToConcentratedPoolLink",
+  encode(message: BalancerToConcentratedPoolLink, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.balancerPoolId !== BigInt(0)) {
       writer.uint32(8).uint64(message.balancerPoolId);
     }
-    if (!message.clPoolId.isZero()) {
+    if (message.clPoolId !== BigInt(0)) {
       writer.uint32(16).uint64(message.clPoolId);
     }
     return writer;
   },
   fromJSON(object: any): BalancerToConcentratedPoolLink {
     return {
-      balancerPoolId: isSet(object.balancerPoolId) ? Long.fromValue(object.balancerPoolId) : Long.UZERO,
-      clPoolId: isSet(object.clPoolId) ? Long.fromValue(object.clPoolId) : Long.UZERO
+      balancerPoolId: isSet(object.balancerPoolId) ? BigInt(object.balancerPoolId.toString()) : BigInt(0),
+      clPoolId: isSet(object.clPoolId) ? BigInt(object.clPoolId.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<BalancerToConcentratedPoolLink>): BalancerToConcentratedPoolLink {
     const message = createBaseBalancerToConcentratedPoolLink();
-    message.balancerPoolId = object.balancerPoolId !== undefined && object.balancerPoolId !== null ? Long.fromValue(object.balancerPoolId) : Long.UZERO;
-    message.clPoolId = object.clPoolId !== undefined && object.clPoolId !== null ? Long.fromValue(object.clPoolId) : Long.UZERO;
+    message.balancerPoolId = object.balancerPoolId !== undefined && object.balancerPoolId !== null ? BigInt(object.balancerPoolId.toString()) : BigInt(0);
+    message.clPoolId = object.clPoolId !== undefined && object.clPoolId !== null ? BigInt(object.clPoolId.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: BalancerToConcentratedPoolLinkAmino): BalancerToConcentratedPoolLink {
+    return {
+      balancerPoolId: BigInt(object.balancer_pool_id),
+      clPoolId: BigInt(object.cl_pool_id)
+    };
+  },
+  toAmino(message: BalancerToConcentratedPoolLink): BalancerToConcentratedPoolLinkAmino {
+    const obj: any = {};
+    obj.balancer_pool_id = message.balancerPoolId ? message.balancerPoolId.toString() : undefined;
+    obj.cl_pool_id = message.clPoolId ? message.clPoolId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BalancerToConcentratedPoolLinkAminoMsg): BalancerToConcentratedPoolLink {
+    return BalancerToConcentratedPoolLink.fromAmino(object.value);
+  },
+  toAminoMsg(message: BalancerToConcentratedPoolLink): BalancerToConcentratedPoolLinkAminoMsg {
+    return {
+      type: "osmosis/poolincentives/balancer-to-concentrated-pool-link",
+      value: BalancerToConcentratedPoolLink.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: BalancerToConcentratedPoolLinkProtoMsg): BalancerToConcentratedPoolLink {
+    return BalancerToConcentratedPoolLink.decode(message.value);
+  },
+  toProto(message: BalancerToConcentratedPoolLink): Uint8Array {
+    return BalancerToConcentratedPoolLink.encode(message).finish();
+  },
+  toProtoMsg(message: BalancerToConcentratedPoolLink): BalancerToConcentratedPoolLinkProtoMsg {
+    return {
+      typeUrl: "/osmosis.poolincentives.v1beta1.BalancerToConcentratedPoolLink",
+      value: BalancerToConcentratedPoolLink.encode(message).finish()
+    };
   }
 };

@@ -1,5 +1,6 @@
-import { Duration, DurationSDKType } from "../../../google/protobuf/duration";
-import * as _m0 from "protobufjs/minimal";
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { BinaryWriter } from "../../../binary";
+import { Decimal } from "@cosmjs/math";
 import { isSet } from "../../../helpers";
 /** IBCTransferStatus status of ibc-transfer quota check for inflow and outflow */
 export enum IBCTransferStatus {
@@ -18,6 +19,7 @@ export enum IBCTransferStatus {
   UNRECOGNIZED = -1,
 }
 export const IBCTransferStatusSDKType = IBCTransferStatus;
+export const IBCTransferStatusAmino = IBCTransferStatus;
 export function iBCTransferStatusFromJSON(object: any): IBCTransferStatus {
   switch (object) {
     case 0:
@@ -72,33 +74,53 @@ export interface Params {
   /** token_quota defines the outflow limit per token in USD */
   tokenQuota: string;
   /** quota_duration defines quota expires for each ibc-transfer denom in seconds */
-  quotaDuration?: Duration;
+  quotaDuration: Duration;
+}
+export interface ParamsProtoMsg {
+  typeUrl: "/umee.uibc.v1.Params";
+  value: Uint8Array;
+}
+/** Params of x/uibc module */
+export interface ParamsAmino {
+  /** ibc_status defines the IBC ICS20 status (transfer quota or transfers disabled). */
+  ibc_status: IBCTransferStatus;
+  /** total_quota defines the total outflow limit of ibc-transfer in USD */
+  total_quota: string;
+  /** token_quota defines the outflow limit per token in USD */
+  token_quota: string;
+  /** quota_duration defines quota expires for each ibc-transfer denom in seconds */
+  quota_duration?: DurationAmino;
+}
+export interface ParamsAminoMsg {
+  type: "/umee.uibc.v1.Params";
+  value: ParamsAmino;
 }
 /** Params of x/uibc module */
 export interface ParamsSDKType {
   ibc_status: IBCTransferStatus;
   total_quota: string;
   token_quota: string;
-  quota_duration?: DurationSDKType;
+  quota_duration: DurationSDKType;
 }
 function createBaseParams(): Params {
   return {
     ibcStatus: 0,
     totalQuota: "",
     tokenQuota: "",
-    quotaDuration: undefined
+    quotaDuration: Duration.fromPartial({})
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/umee.uibc.v1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.ibcStatus !== 0) {
       writer.uint32(8).int32(message.ibcStatus);
     }
     if (message.totalQuota !== "") {
-      writer.uint32(18).string(message.totalQuota);
+      writer.uint32(18).string(Decimal.fromUserInput(message.totalQuota, 18).atomics);
     }
     if (message.tokenQuota !== "") {
-      writer.uint32(26).string(message.tokenQuota);
+      writer.uint32(26).string(Decimal.fromUserInput(message.tokenQuota, 18).atomics);
     }
     if (message.quotaDuration !== undefined) {
       Duration.encode(message.quotaDuration, writer.uint32(34).fork()).ldelim();
@@ -107,7 +129,7 @@ export const Params = {
   },
   fromJSON(object: any): Params {
     return {
-      ibcStatus: isSet(object.ibcStatus) ? iBCTransferStatusFromJSON(object.ibcStatus) : 0,
+      ibcStatus: isSet(object.ibcStatus) ? iBCTransferStatusFromJSON(object.ibcStatus) : -1,
       totalQuota: isSet(object.totalQuota) ? String(object.totalQuota) : "",
       tokenQuota: isSet(object.tokenQuota) ? String(object.tokenQuota) : "",
       quotaDuration: isSet(object.quotaDuration) ? Duration.fromJSON(object.quotaDuration) : undefined
@@ -120,5 +142,36 @@ export const Params = {
     message.tokenQuota = object.tokenQuota ?? "";
     message.quotaDuration = object.quotaDuration !== undefined && object.quotaDuration !== null ? Duration.fromPartial(object.quotaDuration) : undefined;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      ibcStatus: isSet(object.ibc_status) ? iBCTransferStatusFromJSON(object.ibc_status) : -1,
+      totalQuota: object.total_quota,
+      tokenQuota: object.token_quota,
+      quotaDuration: object?.quota_duration ? Duration.fromAmino(object.quota_duration) : undefined
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.ibc_status = message.ibcStatus;
+    obj.total_quota = message.totalQuota;
+    obj.token_quota = message.tokenQuota;
+    obj.quota_duration = message.quotaDuration ? Duration.toAmino(message.quotaDuration) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/umee.uibc.v1.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };

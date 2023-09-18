@@ -1,26 +1,47 @@
-import { CDP, CDPSDKType, Deposit, DepositSDKType } from "./cdp";
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import { Long, isSet, fromJsonTimestamp } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { CDP, CDPAmino, CDPSDKType, Deposit, DepositAmino, DepositSDKType } from "./cdp";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { BinaryWriter } from "../../../binary";
+import { isSet, fromJsonTimestamp } from "../../../helpers";
+import { Decimal } from "@cosmjs/math";
 /** GenesisState defines the cdp module's genesis state. */
 export interface GenesisState {
   /** params defines all the paramaters of the module. */
-  params?: Params;
+  params: Params;
   cdps: CDP[];
   deposits: Deposit[];
-  startingCdpId: Long;
+  startingCdpId: bigint;
   debtDenom: string;
   govDenom: string;
   previousAccumulationTimes: GenesisAccumulationTime[];
   totalPrincipals: GenesisTotalPrincipal[];
 }
+export interface GenesisStateProtoMsg {
+  typeUrl: "/kava.cdp.v1beta1.GenesisState";
+  value: Uint8Array;
+}
+/** GenesisState defines the cdp module's genesis state. */
+export interface GenesisStateAmino {
+  /** params defines all the paramaters of the module. */
+  params?: ParamsAmino;
+  cdps: CDPAmino[];
+  deposits: DepositAmino[];
+  starting_cdp_id: string;
+  debt_denom: string;
+  gov_denom: string;
+  previous_accumulation_times: GenesisAccumulationTimeAmino[];
+  total_principals: GenesisTotalPrincipalAmino[];
+}
+export interface GenesisStateAminoMsg {
+  type: "/kava.cdp.v1beta1.GenesisState";
+  value: GenesisStateAmino;
+}
 /** GenesisState defines the cdp module's genesis state. */
 export interface GenesisStateSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
   cdps: CDPSDKType[];
   deposits: DepositSDKType[];
-  starting_cdp_id: Long;
+  starting_cdp_id: bigint;
   debt_denom: string;
   gov_denom: string;
   previous_accumulation_times: GenesisAccumulationTimeSDKType[];
@@ -29,19 +50,38 @@ export interface GenesisStateSDKType {
 /** Params defines the parameters for the cdp module. */
 export interface Params {
   collateralParams: CollateralParam[];
-  debtParam?: DebtParam;
-  globalDebtLimit?: Coin;
+  debtParam: DebtParam;
+  globalDebtLimit: Coin;
   surplusAuctionThreshold: string;
   surplusAuctionLot: string;
   debtAuctionThreshold: string;
   debtAuctionLot: string;
   circuitBreaker: boolean;
 }
+export interface ParamsProtoMsg {
+  typeUrl: "/kava.cdp.v1beta1.Params";
+  value: Uint8Array;
+}
+/** Params defines the parameters for the cdp module. */
+export interface ParamsAmino {
+  collateral_params: CollateralParamAmino[];
+  debt_param?: DebtParamAmino;
+  global_debt_limit?: CoinAmino;
+  surplus_auction_threshold: string;
+  surplus_auction_lot: string;
+  debt_auction_threshold: string;
+  debt_auction_lot: string;
+  circuit_breaker: boolean;
+}
+export interface ParamsAminoMsg {
+  type: "/kava.cdp.v1beta1.Params";
+  value: ParamsAmino;
+}
 /** Params defines the parameters for the cdp module. */
 export interface ParamsSDKType {
   collateral_params: CollateralParamSDKType[];
-  debt_param?: DebtParamSDKType;
-  global_debt_limit?: CoinSDKType;
+  debt_param: DebtParamSDKType;
+  global_debt_limit: CoinSDKType;
   surplus_auction_threshold: string;
   surplus_auction_lot: string;
   debt_auction_threshold: string;
@@ -55,6 +95,21 @@ export interface DebtParam {
   conversionFactor: string;
   debtFloor: string;
 }
+export interface DebtParamProtoMsg {
+  typeUrl: "/kava.cdp.v1beta1.DebtParam";
+  value: Uint8Array;
+}
+/** DebtParam defines governance params for debt assets */
+export interface DebtParamAmino {
+  denom: string;
+  reference_asset: string;
+  conversion_factor: string;
+  debt_floor: string;
+}
+export interface DebtParamAminoMsg {
+  type: "/kava.cdp.v1beta1.DebtParam";
+  value: DebtParamAmino;
+}
 /** DebtParam defines governance params for debt assets */
 export interface DebtParamSDKType {
   denom: string;
@@ -67,7 +122,7 @@ export interface CollateralParam {
   denom: string;
   type: string;
   liquidationRatio: string;
-  debtLimit?: Coin;
+  debtLimit: Coin;
   stabilityFee: string;
   auctionSize: string;
   liquidationPenalty: string;
@@ -77,12 +132,35 @@ export interface CollateralParam {
   checkCollateralizationIndexCount: string;
   conversionFactor: string;
 }
+export interface CollateralParamProtoMsg {
+  typeUrl: "/kava.cdp.v1beta1.CollateralParam";
+  value: Uint8Array;
+}
+/** CollateralParam defines governance parameters for each collateral type within the cdp module */
+export interface CollateralParamAmino {
+  denom: string;
+  type: string;
+  liquidation_ratio: string;
+  debt_limit?: CoinAmino;
+  stability_fee: string;
+  auction_size: string;
+  liquidation_penalty: string;
+  spot_market_id: string;
+  liquidation_market_id: string;
+  keeper_reward_percentage: string;
+  check_collateralization_index_count: string;
+  conversion_factor: string;
+}
+export interface CollateralParamAminoMsg {
+  type: "/kava.cdp.v1beta1.CollateralParam";
+  value: CollateralParamAmino;
+}
 /** CollateralParam defines governance parameters for each collateral type within the cdp module */
 export interface CollateralParamSDKType {
   denom: string;
   type: string;
   liquidation_ratio: string;
-  debt_limit?: CoinSDKType;
+  debt_limit: CoinSDKType;
   stability_fee: string;
   auction_size: string;
   liquidation_penalty: string;
@@ -95,19 +173,46 @@ export interface CollateralParamSDKType {
 /** GenesisAccumulationTime defines the previous distribution time and its corresponding denom */
 export interface GenesisAccumulationTime {
   collateralType: string;
-  previousAccumulationTime?: Timestamp;
+  previousAccumulationTime: Timestamp;
   interestFactor: string;
+}
+export interface GenesisAccumulationTimeProtoMsg {
+  typeUrl: "/kava.cdp.v1beta1.GenesisAccumulationTime";
+  value: Uint8Array;
+}
+/** GenesisAccumulationTime defines the previous distribution time and its corresponding denom */
+export interface GenesisAccumulationTimeAmino {
+  collateral_type: string;
+  previous_accumulation_time?: TimestampAmino;
+  interest_factor: string;
+}
+export interface GenesisAccumulationTimeAminoMsg {
+  type: "/kava.cdp.v1beta1.GenesisAccumulationTime";
+  value: GenesisAccumulationTimeAmino;
 }
 /** GenesisAccumulationTime defines the previous distribution time and its corresponding denom */
 export interface GenesisAccumulationTimeSDKType {
   collateral_type: string;
-  previous_accumulation_time?: TimestampSDKType;
+  previous_accumulation_time: TimestampSDKType;
   interest_factor: string;
 }
 /** GenesisTotalPrincipal defines the total principal and its corresponding collateral type */
 export interface GenesisTotalPrincipal {
   collateralType: string;
   totalPrincipal: string;
+}
+export interface GenesisTotalPrincipalProtoMsg {
+  typeUrl: "/kava.cdp.v1beta1.GenesisTotalPrincipal";
+  value: Uint8Array;
+}
+/** GenesisTotalPrincipal defines the total principal and its corresponding collateral type */
+export interface GenesisTotalPrincipalAmino {
+  collateral_type: string;
+  total_principal: string;
+}
+export interface GenesisTotalPrincipalAminoMsg {
+  type: "/kava.cdp.v1beta1.GenesisTotalPrincipal";
+  value: GenesisTotalPrincipalAmino;
 }
 /** GenesisTotalPrincipal defines the total principal and its corresponding collateral type */
 export interface GenesisTotalPrincipalSDKType {
@@ -116,10 +221,10 @@ export interface GenesisTotalPrincipalSDKType {
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     cdps: [],
     deposits: [],
-    startingCdpId: Long.UZERO,
+    startingCdpId: BigInt(0),
     debtDenom: "",
     govDenom: "",
     previousAccumulationTimes: [],
@@ -127,7 +232,8 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.cdp.v1beta1.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -137,7 +243,7 @@ export const GenesisState = {
     for (const v of message.deposits) {
       Deposit.encode(v!, writer.uint32(26).fork()).ldelim();
     }
-    if (!message.startingCdpId.isZero()) {
+    if (message.startingCdpId !== BigInt(0)) {
       writer.uint32(32).uint64(message.startingCdpId);
     }
     if (message.debtDenom !== "") {
@@ -159,7 +265,7 @@ export const GenesisState = {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       cdps: Array.isArray(object?.cdps) ? object.cdps.map((e: any) => CDP.fromJSON(e)) : [],
       deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromJSON(e)) : [],
-      startingCdpId: isSet(object.startingCdpId) ? Long.fromValue(object.startingCdpId) : Long.UZERO,
+      startingCdpId: isSet(object.startingCdpId) ? BigInt(object.startingCdpId.toString()) : BigInt(0),
       debtDenom: isSet(object.debtDenom) ? String(object.debtDenom) : "",
       govDenom: isSet(object.govDenom) ? String(object.govDenom) : "",
       previousAccumulationTimes: Array.isArray(object?.previousAccumulationTimes) ? object.previousAccumulationTimes.map((e: any) => GenesisAccumulationTime.fromJSON(e)) : [],
@@ -171,19 +277,74 @@ export const GenesisState = {
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     message.cdps = object.cdps?.map(e => CDP.fromPartial(e)) || [];
     message.deposits = object.deposits?.map(e => Deposit.fromPartial(e)) || [];
-    message.startingCdpId = object.startingCdpId !== undefined && object.startingCdpId !== null ? Long.fromValue(object.startingCdpId) : Long.UZERO;
+    message.startingCdpId = object.startingCdpId !== undefined && object.startingCdpId !== null ? BigInt(object.startingCdpId.toString()) : BigInt(0);
     message.debtDenom = object.debtDenom ?? "";
     message.govDenom = object.govDenom ?? "";
     message.previousAccumulationTimes = object.previousAccumulationTimes?.map(e => GenesisAccumulationTime.fromPartial(e)) || [];
     message.totalPrincipals = object.totalPrincipals?.map(e => GenesisTotalPrincipal.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+      cdps: Array.isArray(object?.cdps) ? object.cdps.map((e: any) => CDP.fromAmino(e)) : [],
+      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromAmino(e)) : [],
+      startingCdpId: BigInt(object.starting_cdp_id),
+      debtDenom: object.debt_denom,
+      govDenom: object.gov_denom,
+      previousAccumulationTimes: Array.isArray(object?.previous_accumulation_times) ? object.previous_accumulation_times.map((e: any) => GenesisAccumulationTime.fromAmino(e)) : [],
+      totalPrincipals: Array.isArray(object?.total_principals) ? object.total_principals.map((e: any) => GenesisTotalPrincipal.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    if (message.cdps) {
+      obj.cdps = message.cdps.map(e => e ? CDP.toAmino(e) : undefined);
+    } else {
+      obj.cdps = [];
+    }
+    if (message.deposits) {
+      obj.deposits = message.deposits.map(e => e ? Deposit.toAmino(e) : undefined);
+    } else {
+      obj.deposits = [];
+    }
+    obj.starting_cdp_id = message.startingCdpId ? message.startingCdpId.toString() : undefined;
+    obj.debt_denom = message.debtDenom;
+    obj.gov_denom = message.govDenom;
+    if (message.previousAccumulationTimes) {
+      obj.previous_accumulation_times = message.previousAccumulationTimes.map(e => e ? GenesisAccumulationTime.toAmino(e) : undefined);
+    } else {
+      obj.previous_accumulation_times = [];
+    }
+    if (message.totalPrincipals) {
+      obj.total_principals = message.totalPrincipals.map(e => e ? GenesisTotalPrincipal.toAmino(e) : undefined);
+    } else {
+      obj.total_principals = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/kava.cdp.v1beta1.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };
 function createBaseParams(): Params {
   return {
     collateralParams: [],
-    debtParam: undefined,
-    globalDebtLimit: undefined,
+    debtParam: DebtParam.fromPartial({}),
+    globalDebtLimit: Coin.fromPartial({}),
     surplusAuctionThreshold: "",
     surplusAuctionLot: "",
     debtAuctionThreshold: "",
@@ -192,7 +353,8 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.cdp.v1beta1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.collateralParams) {
       CollateralParam.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -242,6 +404,49 @@ export const Params = {
     message.debtAuctionLot = object.debtAuctionLot ?? "";
     message.circuitBreaker = object.circuitBreaker ?? false;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      collateralParams: Array.isArray(object?.collateral_params) ? object.collateral_params.map((e: any) => CollateralParam.fromAmino(e)) : [],
+      debtParam: object?.debt_param ? DebtParam.fromAmino(object.debt_param) : undefined,
+      globalDebtLimit: object?.global_debt_limit ? Coin.fromAmino(object.global_debt_limit) : undefined,
+      surplusAuctionThreshold: object.surplus_auction_threshold,
+      surplusAuctionLot: object.surplus_auction_lot,
+      debtAuctionThreshold: object.debt_auction_threshold,
+      debtAuctionLot: object.debt_auction_lot,
+      circuitBreaker: object.circuit_breaker
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.collateralParams) {
+      obj.collateral_params = message.collateralParams.map(e => e ? CollateralParam.toAmino(e) : undefined);
+    } else {
+      obj.collateral_params = [];
+    }
+    obj.debt_param = message.debtParam ? DebtParam.toAmino(message.debtParam) : undefined;
+    obj.global_debt_limit = message.globalDebtLimit ? Coin.toAmino(message.globalDebtLimit) : undefined;
+    obj.surplus_auction_threshold = message.surplusAuctionThreshold;
+    obj.surplus_auction_lot = message.surplusAuctionLot;
+    obj.debt_auction_threshold = message.debtAuctionThreshold;
+    obj.debt_auction_lot = message.debtAuctionLot;
+    obj.circuit_breaker = message.circuitBreaker;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/kava.cdp.v1beta1.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };
 function createBaseDebtParam(): DebtParam {
@@ -253,7 +458,8 @@ function createBaseDebtParam(): DebtParam {
   };
 }
 export const DebtParam = {
-  encode(message: DebtParam, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.cdp.v1beta1.DebtParam",
+  encode(message: DebtParam, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -283,6 +489,37 @@ export const DebtParam = {
     message.conversionFactor = object.conversionFactor ?? "";
     message.debtFloor = object.debtFloor ?? "";
     return message;
+  },
+  fromAmino(object: DebtParamAmino): DebtParam {
+    return {
+      denom: object.denom,
+      referenceAsset: object.reference_asset,
+      conversionFactor: object.conversion_factor,
+      debtFloor: object.debt_floor
+    };
+  },
+  toAmino(message: DebtParam): DebtParamAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.reference_asset = message.referenceAsset;
+    obj.conversion_factor = message.conversionFactor;
+    obj.debt_floor = message.debtFloor;
+    return obj;
+  },
+  fromAminoMsg(object: DebtParamAminoMsg): DebtParam {
+    return DebtParam.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DebtParamProtoMsg): DebtParam {
+    return DebtParam.decode(message.value);
+  },
+  toProto(message: DebtParam): Uint8Array {
+    return DebtParam.encode(message).finish();
+  },
+  toProtoMsg(message: DebtParam): DebtParamProtoMsg {
+    return {
+      typeUrl: "/kava.cdp.v1beta1.DebtParam",
+      value: DebtParam.encode(message).finish()
+    };
   }
 };
 function createBaseCollateralParam(): CollateralParam {
@@ -290,7 +527,7 @@ function createBaseCollateralParam(): CollateralParam {
     denom: "",
     type: "",
     liquidationRatio: "",
-    debtLimit: undefined,
+    debtLimit: Coin.fromPartial({}),
     stabilityFee: "",
     auctionSize: "",
     liquidationPenalty: "",
@@ -302,7 +539,8 @@ function createBaseCollateralParam(): CollateralParam {
   };
 }
 export const CollateralParam = {
-  encode(message: CollateralParam, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.cdp.v1beta1.CollateralParam",
+  encode(message: CollateralParam, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -310,19 +548,19 @@ export const CollateralParam = {
       writer.uint32(18).string(message.type);
     }
     if (message.liquidationRatio !== "") {
-      writer.uint32(26).string(message.liquidationRatio);
+      writer.uint32(26).string(Decimal.fromUserInput(message.liquidationRatio, 18).atomics);
     }
     if (message.debtLimit !== undefined) {
       Coin.encode(message.debtLimit, writer.uint32(34).fork()).ldelim();
     }
     if (message.stabilityFee !== "") {
-      writer.uint32(42).string(message.stabilityFee);
+      writer.uint32(42).string(Decimal.fromUserInput(message.stabilityFee, 18).atomics);
     }
     if (message.auctionSize !== "") {
       writer.uint32(50).string(message.auctionSize);
     }
     if (message.liquidationPenalty !== "") {
-      writer.uint32(58).string(message.liquidationPenalty);
+      writer.uint32(58).string(Decimal.fromUserInput(message.liquidationPenalty, 18).atomics);
     }
     if (message.spotMarketId !== "") {
       writer.uint32(66).string(message.spotMarketId);
@@ -331,7 +569,7 @@ export const CollateralParam = {
       writer.uint32(74).string(message.liquidationMarketId);
     }
     if (message.keeperRewardPercentage !== "") {
-      writer.uint32(82).string(message.keeperRewardPercentage);
+      writer.uint32(82).string(Decimal.fromUserInput(message.keeperRewardPercentage, 18).atomics);
     }
     if (message.checkCollateralizationIndexCount !== "") {
       writer.uint32(90).string(message.checkCollateralizationIndexCount);
@@ -372,17 +610,65 @@ export const CollateralParam = {
     message.checkCollateralizationIndexCount = object.checkCollateralizationIndexCount ?? "";
     message.conversionFactor = object.conversionFactor ?? "";
     return message;
+  },
+  fromAmino(object: CollateralParamAmino): CollateralParam {
+    return {
+      denom: object.denom,
+      type: object.type,
+      liquidationRatio: object.liquidation_ratio,
+      debtLimit: object?.debt_limit ? Coin.fromAmino(object.debt_limit) : undefined,
+      stabilityFee: object.stability_fee,
+      auctionSize: object.auction_size,
+      liquidationPenalty: object.liquidation_penalty,
+      spotMarketId: object.spot_market_id,
+      liquidationMarketId: object.liquidation_market_id,
+      keeperRewardPercentage: object.keeper_reward_percentage,
+      checkCollateralizationIndexCount: object.check_collateralization_index_count,
+      conversionFactor: object.conversion_factor
+    };
+  },
+  toAmino(message: CollateralParam): CollateralParamAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.type = message.type;
+    obj.liquidation_ratio = message.liquidationRatio;
+    obj.debt_limit = message.debtLimit ? Coin.toAmino(message.debtLimit) : undefined;
+    obj.stability_fee = message.stabilityFee;
+    obj.auction_size = message.auctionSize;
+    obj.liquidation_penalty = message.liquidationPenalty;
+    obj.spot_market_id = message.spotMarketId;
+    obj.liquidation_market_id = message.liquidationMarketId;
+    obj.keeper_reward_percentage = message.keeperRewardPercentage;
+    obj.check_collateralization_index_count = message.checkCollateralizationIndexCount;
+    obj.conversion_factor = message.conversionFactor;
+    return obj;
+  },
+  fromAminoMsg(object: CollateralParamAminoMsg): CollateralParam {
+    return CollateralParam.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CollateralParamProtoMsg): CollateralParam {
+    return CollateralParam.decode(message.value);
+  },
+  toProto(message: CollateralParam): Uint8Array {
+    return CollateralParam.encode(message).finish();
+  },
+  toProtoMsg(message: CollateralParam): CollateralParamProtoMsg {
+    return {
+      typeUrl: "/kava.cdp.v1beta1.CollateralParam",
+      value: CollateralParam.encode(message).finish()
+    };
   }
 };
 function createBaseGenesisAccumulationTime(): GenesisAccumulationTime {
   return {
     collateralType: "",
-    previousAccumulationTime: undefined,
+    previousAccumulationTime: Timestamp.fromPartial({}),
     interestFactor: ""
   };
 }
 export const GenesisAccumulationTime = {
-  encode(message: GenesisAccumulationTime, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.cdp.v1beta1.GenesisAccumulationTime",
+  encode(message: GenesisAccumulationTime, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.collateralType !== "") {
       writer.uint32(10).string(message.collateralType);
     }
@@ -390,7 +676,7 @@ export const GenesisAccumulationTime = {
       Timestamp.encode(message.previousAccumulationTime, writer.uint32(18).fork()).ldelim();
     }
     if (message.interestFactor !== "") {
-      writer.uint32(26).string(message.interestFactor);
+      writer.uint32(26).string(Decimal.fromUserInput(message.interestFactor, 18).atomics);
     }
     return writer;
   },
@@ -407,6 +693,35 @@ export const GenesisAccumulationTime = {
     message.previousAccumulationTime = object.previousAccumulationTime !== undefined && object.previousAccumulationTime !== null ? Timestamp.fromPartial(object.previousAccumulationTime) : undefined;
     message.interestFactor = object.interestFactor ?? "";
     return message;
+  },
+  fromAmino(object: GenesisAccumulationTimeAmino): GenesisAccumulationTime {
+    return {
+      collateralType: object.collateral_type,
+      previousAccumulationTime: object.previous_accumulation_time,
+      interestFactor: object.interest_factor
+    };
+  },
+  toAmino(message: GenesisAccumulationTime): GenesisAccumulationTimeAmino {
+    const obj: any = {};
+    obj.collateral_type = message.collateralType;
+    obj.previous_accumulation_time = message.previousAccumulationTime;
+    obj.interest_factor = message.interestFactor;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisAccumulationTimeAminoMsg): GenesisAccumulationTime {
+    return GenesisAccumulationTime.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisAccumulationTimeProtoMsg): GenesisAccumulationTime {
+    return GenesisAccumulationTime.decode(message.value);
+  },
+  toProto(message: GenesisAccumulationTime): Uint8Array {
+    return GenesisAccumulationTime.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisAccumulationTime): GenesisAccumulationTimeProtoMsg {
+    return {
+      typeUrl: "/kava.cdp.v1beta1.GenesisAccumulationTime",
+      value: GenesisAccumulationTime.encode(message).finish()
+    };
   }
 };
 function createBaseGenesisTotalPrincipal(): GenesisTotalPrincipal {
@@ -416,7 +731,8 @@ function createBaseGenesisTotalPrincipal(): GenesisTotalPrincipal {
   };
 }
 export const GenesisTotalPrincipal = {
-  encode(message: GenesisTotalPrincipal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.cdp.v1beta1.GenesisTotalPrincipal",
+  encode(message: GenesisTotalPrincipal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.collateralType !== "") {
       writer.uint32(10).string(message.collateralType);
     }
@@ -436,5 +752,32 @@ export const GenesisTotalPrincipal = {
     message.collateralType = object.collateralType ?? "";
     message.totalPrincipal = object.totalPrincipal ?? "";
     return message;
+  },
+  fromAmino(object: GenesisTotalPrincipalAmino): GenesisTotalPrincipal {
+    return {
+      collateralType: object.collateral_type,
+      totalPrincipal: object.total_principal
+    };
+  },
+  toAmino(message: GenesisTotalPrincipal): GenesisTotalPrincipalAmino {
+    const obj: any = {};
+    obj.collateral_type = message.collateralType;
+    obj.total_principal = message.totalPrincipal;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisTotalPrincipalAminoMsg): GenesisTotalPrincipal {
+    return GenesisTotalPrincipal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisTotalPrincipalProtoMsg): GenesisTotalPrincipal {
+    return GenesisTotalPrincipal.decode(message.value);
+  },
+  toProto(message: GenesisTotalPrincipal): Uint8Array {
+    return GenesisTotalPrincipal.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisTotalPrincipal): GenesisTotalPrincipalProtoMsg {
+    return {
+      typeUrl: "/kava.cdp.v1beta1.GenesisTotalPrincipal",
+      value: GenesisTotalPrincipal.encode(message).finish()
+    };
   }
 };

@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryAllProvidersAttributesRequest, QueryProvidersResponse, QueryProviderAttributesRequest, QueryProviderAuditorRequest, QueryAuditorAttributesRequest } from "./query";
 /** Query defines the gRPC querier service */
@@ -43,22 +43,22 @@ export class QueryClientImpl implements Query {
   }): Promise<QueryProvidersResponse> {
     const data = QueryAllProvidersAttributesRequest.encode(request).finish();
     const promise = this.rpc.request("akash.audit.v1beta2.Query", "AllProvidersAttributes", data);
-    return promise.then(data => QueryProvidersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryProvidersResponse.decode(new BinaryReader(data)));
   }
   providerAttributes(request: QueryProviderAttributesRequest): Promise<QueryProvidersResponse> {
     const data = QueryProviderAttributesRequest.encode(request).finish();
     const promise = this.rpc.request("akash.audit.v1beta2.Query", "ProviderAttributes", data);
-    return promise.then(data => QueryProvidersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryProvidersResponse.decode(new BinaryReader(data)));
   }
   providerAuditorAttributes(request: QueryProviderAuditorRequest): Promise<QueryProvidersResponse> {
     const data = QueryProviderAuditorRequest.encode(request).finish();
     const promise = this.rpc.request("akash.audit.v1beta2.Query", "ProviderAuditorAttributes", data);
-    return promise.then(data => QueryProvidersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryProvidersResponse.decode(new BinaryReader(data)));
   }
   auditorAttributes(request: QueryAuditorAttributesRequest): Promise<QueryProvidersResponse> {
     const data = QueryAuditorAttributesRequest.encode(request).finish();
     const promise = this.rpc.request("akash.audit.v1beta2.Query", "AuditorAttributes", data);
-    return promise.then(data => QueryProvidersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryProvidersResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

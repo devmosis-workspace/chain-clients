@@ -1,24 +1,53 @@
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64, fromJsonTimestamp } from "../../../helpers";
+import { Decimal } from "@cosmjs/math";
 /** Params governance parameters for kavadist module */
 export interface Params {
   active: boolean;
   periods: Period[];
-  infrastructureParams?: InfrastructureParams;
+  infrastructureParams: InfrastructureParams;
+}
+export interface ParamsProtoMsg {
+  typeUrl: "/kava.kavadist.v1beta1.Params";
+  value: Uint8Array;
+}
+/** Params governance parameters for kavadist module */
+export interface ParamsAmino {
+  active: boolean;
+  periods: PeriodAmino[];
+  infrastructure_params?: InfrastructureParamsAmino;
+}
+export interface ParamsAminoMsg {
+  type: "/kava.kavadist.v1beta1.Params";
+  value: ParamsAmino;
 }
 /** Params governance parameters for kavadist module */
 export interface ParamsSDKType {
   active: boolean;
   periods: PeriodSDKType[];
-  infrastructure_params?: InfrastructureParamsSDKType;
+  infrastructure_params: InfrastructureParamsSDKType;
 }
 /** InfrastructureParams define the parameters for infrastructure rewards. */
 export interface InfrastructureParams {
   infrastructurePeriods: Period[];
   coreRewards: CoreReward[];
   partnerRewards: PartnerReward[];
+}
+export interface InfrastructureParamsProtoMsg {
+  typeUrl: "/kava.kavadist.v1beta1.InfrastructureParams";
+  value: Uint8Array;
+}
+/** InfrastructureParams define the parameters for infrastructure rewards. */
+export interface InfrastructureParamsAmino {
+  infrastructure_periods: PeriodAmino[];
+  core_rewards: CoreRewardAmino[];
+  partner_rewards: PartnerRewardAmino[];
+}
+export interface InfrastructureParamsAminoMsg {
+  type: "/kava.kavadist.v1beta1.InfrastructureParams";
+  value: InfrastructureParamsAmino;
 }
 /** InfrastructureParams define the parameters for infrastructure rewards. */
 export interface InfrastructureParamsSDKType {
@@ -31,6 +60,19 @@ export interface CoreReward {
   address: Uint8Array;
   weight: string;
 }
+export interface CoreRewardProtoMsg {
+  typeUrl: "/kava.kavadist.v1beta1.CoreReward";
+  value: Uint8Array;
+}
+/** CoreReward defines the reward weights for core infrastructure providers. */
+export interface CoreRewardAmino {
+  address: Uint8Array;
+  weight: string;
+}
+export interface CoreRewardAminoMsg {
+  type: "/kava.kavadist.v1beta1.CoreReward";
+  value: CoreRewardAmino;
+}
 /** CoreReward defines the reward weights for core infrastructure providers. */
 export interface CoreRewardSDKType {
   address: Uint8Array;
@@ -39,12 +81,25 @@ export interface CoreRewardSDKType {
 /** PartnerRewards defines the reward schedule for partner infrastructure providers. */
 export interface PartnerReward {
   address: Uint8Array;
-  rewardsPerSecond?: Coin;
+  rewardsPerSecond: Coin;
+}
+export interface PartnerRewardProtoMsg {
+  typeUrl: "/kava.kavadist.v1beta1.PartnerReward";
+  value: Uint8Array;
+}
+/** PartnerRewards defines the reward schedule for partner infrastructure providers. */
+export interface PartnerRewardAmino {
+  address: Uint8Array;
+  rewards_per_second?: CoinAmino;
+}
+export interface PartnerRewardAminoMsg {
+  type: "/kava.kavadist.v1beta1.PartnerReward";
+  value: PartnerRewardAmino;
 }
 /** PartnerRewards defines the reward schedule for partner infrastructure providers. */
 export interface PartnerRewardSDKType {
   address: Uint8Array;
-  rewards_per_second?: CoinSDKType;
+  rewards_per_second: CoinSDKType;
 }
 /**
  * Period stores the specified start and end dates, and the inflation, expressed as a decimal
@@ -52,30 +107,51 @@ export interface PartnerRewardSDKType {
  */
 export interface Period {
   /** example "2020-03-01T15:20:00Z" */
-  start?: Timestamp;
+  start: Timestamp;
   /** example "2020-06-01T15:20:00Z" */
-  end?: Timestamp;
+  end: Timestamp;
   /** example "1.000000003022265980"  - 10% inflation */
   inflation: Uint8Array;
+}
+export interface PeriodProtoMsg {
+  typeUrl: "/kava.kavadist.v1beta1.Period";
+  value: Uint8Array;
+}
+/**
+ * Period stores the specified start and end dates, and the inflation, expressed as a decimal
+ * representing the yearly APR of KAVA tokens that will be minted during that period
+ */
+export interface PeriodAmino {
+  /** example "2020-03-01T15:20:00Z" */
+  start?: TimestampAmino;
+  /** example "2020-06-01T15:20:00Z" */
+  end?: TimestampAmino;
+  /** example "1.000000003022265980"  - 10% inflation */
+  inflation: Uint8Array;
+}
+export interface PeriodAminoMsg {
+  type: "/kava.kavadist.v1beta1.Period";
+  value: PeriodAmino;
 }
 /**
  * Period stores the specified start and end dates, and the inflation, expressed as a decimal
  * representing the yearly APR of KAVA tokens that will be minted during that period
  */
 export interface PeriodSDKType {
-  start?: TimestampSDKType;
-  end?: TimestampSDKType;
+  start: TimestampSDKType;
+  end: TimestampSDKType;
   inflation: Uint8Array;
 }
 function createBaseParams(): Params {
   return {
     active: false,
     periods: [],
-    infrastructureParams: undefined
+    infrastructureParams: InfrastructureParams.fromPartial({})
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.kavadist.v1beta1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.active === true) {
       writer.uint32(8).bool(message.active);
     }
@@ -100,6 +176,39 @@ export const Params = {
     message.periods = object.periods?.map(e => Period.fromPartial(e)) || [];
     message.infrastructureParams = object.infrastructureParams !== undefined && object.infrastructureParams !== null ? InfrastructureParams.fromPartial(object.infrastructureParams) : undefined;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      active: object.active,
+      periods: Array.isArray(object?.periods) ? object.periods.map((e: any) => Period.fromAmino(e)) : [],
+      infrastructureParams: object?.infrastructure_params ? InfrastructureParams.fromAmino(object.infrastructure_params) : undefined
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.active = message.active;
+    if (message.periods) {
+      obj.periods = message.periods.map(e => e ? Period.toAmino(e) : undefined);
+    } else {
+      obj.periods = [];
+    }
+    obj.infrastructure_params = message.infrastructureParams ? InfrastructureParams.toAmino(message.infrastructureParams) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/kava.kavadist.v1beta1.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };
 function createBaseInfrastructureParams(): InfrastructureParams {
@@ -110,7 +219,8 @@ function createBaseInfrastructureParams(): InfrastructureParams {
   };
 }
 export const InfrastructureParams = {
-  encode(message: InfrastructureParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.kavadist.v1beta1.InfrastructureParams",
+  encode(message: InfrastructureParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.infrastructurePeriods) {
       Period.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -135,6 +245,47 @@ export const InfrastructureParams = {
     message.coreRewards = object.coreRewards?.map(e => CoreReward.fromPartial(e)) || [];
     message.partnerRewards = object.partnerRewards?.map(e => PartnerReward.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: InfrastructureParamsAmino): InfrastructureParams {
+    return {
+      infrastructurePeriods: Array.isArray(object?.infrastructure_periods) ? object.infrastructure_periods.map((e: any) => Period.fromAmino(e)) : [],
+      coreRewards: Array.isArray(object?.core_rewards) ? object.core_rewards.map((e: any) => CoreReward.fromAmino(e)) : [],
+      partnerRewards: Array.isArray(object?.partner_rewards) ? object.partner_rewards.map((e: any) => PartnerReward.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: InfrastructureParams): InfrastructureParamsAmino {
+    const obj: any = {};
+    if (message.infrastructurePeriods) {
+      obj.infrastructure_periods = message.infrastructurePeriods.map(e => e ? Period.toAmino(e) : undefined);
+    } else {
+      obj.infrastructure_periods = [];
+    }
+    if (message.coreRewards) {
+      obj.core_rewards = message.coreRewards.map(e => e ? CoreReward.toAmino(e) : undefined);
+    } else {
+      obj.core_rewards = [];
+    }
+    if (message.partnerRewards) {
+      obj.partner_rewards = message.partnerRewards.map(e => e ? PartnerReward.toAmino(e) : undefined);
+    } else {
+      obj.partner_rewards = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: InfrastructureParamsAminoMsg): InfrastructureParams {
+    return InfrastructureParams.fromAmino(object.value);
+  },
+  fromProtoMsg(message: InfrastructureParamsProtoMsg): InfrastructureParams {
+    return InfrastructureParams.decode(message.value);
+  },
+  toProto(message: InfrastructureParams): Uint8Array {
+    return InfrastructureParams.encode(message).finish();
+  },
+  toProtoMsg(message: InfrastructureParams): InfrastructureParamsProtoMsg {
+    return {
+      typeUrl: "/kava.kavadist.v1beta1.InfrastructureParams",
+      value: InfrastructureParams.encode(message).finish()
+    };
   }
 };
 function createBaseCoreReward(): CoreReward {
@@ -144,12 +295,13 @@ function createBaseCoreReward(): CoreReward {
   };
 }
 export const CoreReward = {
-  encode(message: CoreReward, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.kavadist.v1beta1.CoreReward",
+  encode(message: CoreReward, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
     }
     if (message.weight !== "") {
-      writer.uint32(18).string(message.weight);
+      writer.uint32(18).string(Decimal.fromUserInput(message.weight, 18).atomics);
     }
     return writer;
   },
@@ -164,16 +316,44 @@ export const CoreReward = {
     message.address = object.address ?? new Uint8Array();
     message.weight = object.weight ?? "";
     return message;
+  },
+  fromAmino(object: CoreRewardAmino): CoreReward {
+    return {
+      address: object.address,
+      weight: object.weight
+    };
+  },
+  toAmino(message: CoreReward): CoreRewardAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.weight = message.weight;
+    return obj;
+  },
+  fromAminoMsg(object: CoreRewardAminoMsg): CoreReward {
+    return CoreReward.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CoreRewardProtoMsg): CoreReward {
+    return CoreReward.decode(message.value);
+  },
+  toProto(message: CoreReward): Uint8Array {
+    return CoreReward.encode(message).finish();
+  },
+  toProtoMsg(message: CoreReward): CoreRewardProtoMsg {
+    return {
+      typeUrl: "/kava.kavadist.v1beta1.CoreReward",
+      value: CoreReward.encode(message).finish()
+    };
   }
 };
 function createBasePartnerReward(): PartnerReward {
   return {
     address: new Uint8Array(),
-    rewardsPerSecond: undefined
+    rewardsPerSecond: Coin.fromPartial({})
   };
 }
 export const PartnerReward = {
-  encode(message: PartnerReward, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.kavadist.v1beta1.PartnerReward",
+  encode(message: PartnerReward, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
     }
@@ -193,17 +373,45 @@ export const PartnerReward = {
     message.address = object.address ?? new Uint8Array();
     message.rewardsPerSecond = object.rewardsPerSecond !== undefined && object.rewardsPerSecond !== null ? Coin.fromPartial(object.rewardsPerSecond) : undefined;
     return message;
+  },
+  fromAmino(object: PartnerRewardAmino): PartnerReward {
+    return {
+      address: object.address,
+      rewardsPerSecond: object?.rewards_per_second ? Coin.fromAmino(object.rewards_per_second) : undefined
+    };
+  },
+  toAmino(message: PartnerReward): PartnerRewardAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.rewards_per_second = message.rewardsPerSecond ? Coin.toAmino(message.rewardsPerSecond) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PartnerRewardAminoMsg): PartnerReward {
+    return PartnerReward.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PartnerRewardProtoMsg): PartnerReward {
+    return PartnerReward.decode(message.value);
+  },
+  toProto(message: PartnerReward): Uint8Array {
+    return PartnerReward.encode(message).finish();
+  },
+  toProtoMsg(message: PartnerReward): PartnerRewardProtoMsg {
+    return {
+      typeUrl: "/kava.kavadist.v1beta1.PartnerReward",
+      value: PartnerReward.encode(message).finish()
+    };
   }
 };
 function createBasePeriod(): Period {
   return {
-    start: undefined,
-    end: undefined,
+    start: Timestamp.fromPartial({}),
+    end: Timestamp.fromPartial({}),
     inflation: new Uint8Array()
   };
 }
 export const Period = {
-  encode(message: Period, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.kavadist.v1beta1.Period",
+  encode(message: Period, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.start !== undefined) {
       Timestamp.encode(message.start, writer.uint32(10).fork()).ldelim();
     }
@@ -228,5 +436,34 @@ export const Period = {
     message.end = object.end !== undefined && object.end !== null ? Timestamp.fromPartial(object.end) : undefined;
     message.inflation = object.inflation ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: PeriodAmino): Period {
+    return {
+      start: object.start,
+      end: object.end,
+      inflation: object.inflation
+    };
+  },
+  toAmino(message: Period): PeriodAmino {
+    const obj: any = {};
+    obj.start = message.start;
+    obj.end = message.end;
+    obj.inflation = message.inflation;
+    return obj;
+  },
+  fromAminoMsg(object: PeriodAminoMsg): Period {
+    return Period.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PeriodProtoMsg): Period {
+    return Period.decode(message.value);
+  },
+  toProto(message: Period): Uint8Array {
+    return Period.encode(message).finish();
+  },
+  toProtoMsg(message: Period): PeriodProtoMsg {
+    return {
+      typeUrl: "/kava.kavadist.v1beta1.Period",
+      value: Period.encode(message).finish()
+    };
   }
 };

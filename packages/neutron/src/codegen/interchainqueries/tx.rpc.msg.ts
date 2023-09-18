@@ -1,5 +1,5 @@
 import { Rpc } from "../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../binary";
 import { MsgRegisterInterchainQuery, MsgRegisterInterchainQueryResponse, MsgSubmitQueryResult, MsgSubmitQueryResultResponse, MsgRemoveInterchainQueryRequest, MsgRemoveInterchainQueryResponse, MsgUpdateInterchainQueryRequest, MsgUpdateInterchainQueryResponse } from "./tx";
 /** Msg defines the Msg service. */
 export interface Msg {
@@ -20,21 +20,21 @@ export class MsgClientImpl implements Msg {
   registerInterchainQuery(request: MsgRegisterInterchainQuery): Promise<MsgRegisterInterchainQueryResponse> {
     const data = MsgRegisterInterchainQuery.encode(request).finish();
     const promise = this.rpc.request("neutron.interchainqueries.Msg", "RegisterInterchainQuery", data);
-    return promise.then(data => MsgRegisterInterchainQueryResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRegisterInterchainQueryResponse.decode(new BinaryReader(data)));
   }
   submitQueryResult(request: MsgSubmitQueryResult): Promise<MsgSubmitQueryResultResponse> {
     const data = MsgSubmitQueryResult.encode(request).finish();
     const promise = this.rpc.request("neutron.interchainqueries.Msg", "SubmitQueryResult", data);
-    return promise.then(data => MsgSubmitQueryResultResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSubmitQueryResultResponse.decode(new BinaryReader(data)));
   }
   removeInterchainQuery(request: MsgRemoveInterchainQueryRequest): Promise<MsgRemoveInterchainQueryResponse> {
     const data = MsgRemoveInterchainQueryRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.interchainqueries.Msg", "RemoveInterchainQuery", data);
-    return promise.then(data => MsgRemoveInterchainQueryResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRemoveInterchainQueryResponse.decode(new BinaryReader(data)));
   }
   updateInterchainQuery(request: MsgUpdateInterchainQueryRequest): Promise<MsgUpdateInterchainQueryResponse> {
     const data = MsgUpdateInterchainQueryRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.interchainqueries.Msg", "UpdateInterchainQuery", data);
-    return promise.then(data => MsgUpdateInterchainQueryResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateInterchainQueryResponse.decode(new BinaryReader(data)));
   }
 }

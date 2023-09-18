@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryInsuranceParamsRequest, QueryInsuranceParamsResponse, QueryInsuranceFundRequest, QueryInsuranceFundResponse, QueryInsuranceFundsRequest, QueryInsuranceFundsResponse, QueryEstimatedRedemptionsRequest, QueryEstimatedRedemptionsResponse, QueryPendingRedemptionsRequest, QueryPendingRedemptionsResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -34,32 +34,32 @@ export class QueryClientImpl implements Query {
   insuranceParams(request: QueryInsuranceParamsRequest = {}): Promise<QueryInsuranceParamsResponse> {
     const data = QueryInsuranceParamsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.insurance.v1beta1.Query", "InsuranceParams", data);
-    return promise.then(data => QueryInsuranceParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryInsuranceParamsResponse.decode(new BinaryReader(data)));
   }
   insuranceFund(request: QueryInsuranceFundRequest): Promise<QueryInsuranceFundResponse> {
     const data = QueryInsuranceFundRequest.encode(request).finish();
     const promise = this.rpc.request("injective.insurance.v1beta1.Query", "InsuranceFund", data);
-    return promise.then(data => QueryInsuranceFundResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryInsuranceFundResponse.decode(new BinaryReader(data)));
   }
   insuranceFunds(request: QueryInsuranceFundsRequest = {}): Promise<QueryInsuranceFundsResponse> {
     const data = QueryInsuranceFundsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.insurance.v1beta1.Query", "InsuranceFunds", data);
-    return promise.then(data => QueryInsuranceFundsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryInsuranceFundsResponse.decode(new BinaryReader(data)));
   }
   estimatedRedemptions(request: QueryEstimatedRedemptionsRequest): Promise<QueryEstimatedRedemptionsResponse> {
     const data = QueryEstimatedRedemptionsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.insurance.v1beta1.Query", "EstimatedRedemptions", data);
-    return promise.then(data => QueryEstimatedRedemptionsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryEstimatedRedemptionsResponse.decode(new BinaryReader(data)));
   }
   pendingRedemptions(request: QueryPendingRedemptionsRequest): Promise<QueryPendingRedemptionsResponse> {
     const data = QueryPendingRedemptionsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.insurance.v1beta1.Query", "PendingRedemptions", data);
-    return promise.then(data => QueryPendingRedemptionsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPendingRedemptionsResponse.decode(new BinaryReader(data)));
   }
   insuranceModuleState(request: QueryModuleStateRequest = {}): Promise<QueryModuleStateResponse> {
     const data = QueryModuleStateRequest.encode(request).finish();
     const promise = this.rpc.request("injective.insurance.v1beta1.Query", "InsuranceModuleState", data);
-    return promise.then(data => QueryModuleStateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryModuleStateResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

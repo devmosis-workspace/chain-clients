@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryExchangeParamsRequest, QueryExchangeParamsResponse, QuerySubaccountDepositsRequest, QuerySubaccountDepositsResponse, QuerySubaccountDepositRequest, QuerySubaccountDepositResponse, QueryExchangeBalancesRequest, QueryExchangeBalancesResponse, QueryAggregateVolumeRequest, QueryAggregateVolumeResponse, QueryAggregateVolumesRequest, QueryAggregateVolumesResponse, QueryAggregateMarketVolumeRequest, QueryAggregateMarketVolumeResponse, QueryAggregateMarketVolumesRequest, QueryAggregateMarketVolumesResponse, QueryDenomDecimalRequest, QueryDenomDecimalResponse, QueryDenomDecimalsRequest, QueryDenomDecimalsResponse, QuerySpotMarketsRequest, QuerySpotMarketsResponse, QuerySpotMarketRequest, QuerySpotMarketResponse, QueryFullSpotMarketsRequest, QueryFullSpotMarketsResponse, QueryFullSpotMarketRequest, QueryFullSpotMarketResponse, QuerySpotOrderbookRequest, QuerySpotOrderbookResponse, QueryTraderSpotOrdersRequest, QueryTraderSpotOrdersResponse, QueryAccountAddressSpotOrdersRequest, QueryAccountAddressSpotOrdersResponse, QuerySpotOrdersByHashesRequest, QuerySpotOrdersByHashesResponse, QuerySubaccountOrdersRequest, QuerySubaccountOrdersResponse, QuerySpotMidPriceAndTOBRequest, QuerySpotMidPriceAndTOBResponse, QueryDerivativeMidPriceAndTOBRequest, QueryDerivativeMidPriceAndTOBResponse, QueryDerivativeOrderbookRequest, QueryDerivativeOrderbookResponse, QueryTraderDerivativeOrdersRequest, QueryTraderDerivativeOrdersResponse, QueryAccountAddressDerivativeOrdersRequest, QueryAccountAddressDerivativeOrdersResponse, QueryDerivativeOrdersByHashesRequest, QueryDerivativeOrdersByHashesResponse, QueryDerivativeMarketsRequest, QueryDerivativeMarketsResponse, QueryDerivativeMarketRequest, QueryDerivativeMarketResponse, QueryDerivativeMarketAddressRequest, QueryDerivativeMarketAddressResponse, QuerySubaccountTradeNonceRequest, QuerySubaccountTradeNonceResponse, QueryModuleStateRequest, QueryModuleStateResponse, QueryPositionsRequest, QueryPositionsResponse, QuerySubaccountPositionsRequest, QuerySubaccountPositionsResponse, QuerySubaccountPositionInMarketRequest, QuerySubaccountPositionInMarketResponse, QuerySubaccountEffectivePositionInMarketRequest, QuerySubaccountEffectivePositionInMarketResponse, QueryPerpetualMarketInfoRequest, QueryPerpetualMarketInfoResponse, QueryExpiryFuturesMarketInfoRequest, QueryExpiryFuturesMarketInfoResponse, QueryPerpetualMarketFundingRequest, QueryPerpetualMarketFundingResponse, QuerySubaccountOrderMetadataRequest, QuerySubaccountOrderMetadataResponse, QueryTradeRewardPointsRequest, QueryTradeRewardPointsResponse, QueryTradeRewardCampaignRequest, QueryTradeRewardCampaignResponse, QueryFeeDiscountAccountInfoRequest, QueryFeeDiscountAccountInfoResponse, QueryFeeDiscountScheduleRequest, QueryFeeDiscountScheduleResponse, QueryBalanceMismatchesRequest, QueryBalanceMismatchesResponse, QueryBalanceWithBalanceHoldsRequest, QueryBalanceWithBalanceHoldsResponse, QueryFeeDiscountTierStatisticsRequest, QueryFeeDiscountTierStatisticsResponse, MitoVaultInfosRequest, MitoVaultInfosResponse, QueryMarketIDFromVaultRequest, QueryMarketIDFromVaultResponse, QueryHistoricalTradeRecordsRequest, QueryHistoricalTradeRecordsResponse, QueryIsOptedOutOfRewardsRequest, QueryIsOptedOutOfRewardsResponse, QueryOptedOutOfRewardsAccountsRequest, QueryOptedOutOfRewardsAccountsResponse, QueryMarketVolatilityRequest, QueryMarketVolatilityResponse, QueryBinaryMarketsRequest, QueryBinaryMarketsResponse, QueryTraderDerivativeConditionalOrdersRequest, QueryTraderDerivativeConditionalOrdersResponse, QueryMarketAtomicExecutionFeeMultiplierRequest, QueryMarketAtomicExecutionFeeMultiplierResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -195,287 +195,287 @@ export class QueryClientImpl implements Query {
   queryExchangeParams(request: QueryExchangeParamsRequest = {}): Promise<QueryExchangeParamsResponse> {
     const data = QueryExchangeParamsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "QueryExchangeParams", data);
-    return promise.then(data => QueryExchangeParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryExchangeParamsResponse.decode(new BinaryReader(data)));
   }
   subaccountDeposits(request: QuerySubaccountDepositsRequest): Promise<QuerySubaccountDepositsResponse> {
     const data = QuerySubaccountDepositsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SubaccountDeposits", data);
-    return promise.then(data => QuerySubaccountDepositsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySubaccountDepositsResponse.decode(new BinaryReader(data)));
   }
   subaccountDeposit(request: QuerySubaccountDepositRequest): Promise<QuerySubaccountDepositResponse> {
     const data = QuerySubaccountDepositRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SubaccountDeposit", data);
-    return promise.then(data => QuerySubaccountDepositResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySubaccountDepositResponse.decode(new BinaryReader(data)));
   }
   exchangeBalances(request: QueryExchangeBalancesRequest = {}): Promise<QueryExchangeBalancesResponse> {
     const data = QueryExchangeBalancesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "ExchangeBalances", data);
-    return promise.then(data => QueryExchangeBalancesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryExchangeBalancesResponse.decode(new BinaryReader(data)));
   }
   aggregateVolume(request: QueryAggregateVolumeRequest): Promise<QueryAggregateVolumeResponse> {
     const data = QueryAggregateVolumeRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "AggregateVolume", data);
-    return promise.then(data => QueryAggregateVolumeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAggregateVolumeResponse.decode(new BinaryReader(data)));
   }
   aggregateVolumes(request: QueryAggregateVolumesRequest): Promise<QueryAggregateVolumesResponse> {
     const data = QueryAggregateVolumesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "AggregateVolumes", data);
-    return promise.then(data => QueryAggregateVolumesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAggregateVolumesResponse.decode(new BinaryReader(data)));
   }
   aggregateMarketVolume(request: QueryAggregateMarketVolumeRequest): Promise<QueryAggregateMarketVolumeResponse> {
     const data = QueryAggregateMarketVolumeRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "AggregateMarketVolume", data);
-    return promise.then(data => QueryAggregateMarketVolumeResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAggregateMarketVolumeResponse.decode(new BinaryReader(data)));
   }
   aggregateMarketVolumes(request: QueryAggregateMarketVolumesRequest): Promise<QueryAggregateMarketVolumesResponse> {
     const data = QueryAggregateMarketVolumesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "AggregateMarketVolumes", data);
-    return promise.then(data => QueryAggregateMarketVolumesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAggregateMarketVolumesResponse.decode(new BinaryReader(data)));
   }
   denomDecimal(request: QueryDenomDecimalRequest): Promise<QueryDenomDecimalResponse> {
     const data = QueryDenomDecimalRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "DenomDecimal", data);
-    return promise.then(data => QueryDenomDecimalResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDenomDecimalResponse.decode(new BinaryReader(data)));
   }
   denomDecimals(request: QueryDenomDecimalsRequest): Promise<QueryDenomDecimalsResponse> {
     const data = QueryDenomDecimalsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "DenomDecimals", data);
-    return promise.then(data => QueryDenomDecimalsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDenomDecimalsResponse.decode(new BinaryReader(data)));
   }
   spotMarkets(request: QuerySpotMarketsRequest): Promise<QuerySpotMarketsResponse> {
     const data = QuerySpotMarketsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SpotMarkets", data);
-    return promise.then(data => QuerySpotMarketsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySpotMarketsResponse.decode(new BinaryReader(data)));
   }
   spotMarket(request: QuerySpotMarketRequest): Promise<QuerySpotMarketResponse> {
     const data = QuerySpotMarketRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SpotMarket", data);
-    return promise.then(data => QuerySpotMarketResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySpotMarketResponse.decode(new BinaryReader(data)));
   }
   fullSpotMarkets(request: QueryFullSpotMarketsRequest): Promise<QueryFullSpotMarketsResponse> {
     const data = QueryFullSpotMarketsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "FullSpotMarkets", data);
-    return promise.then(data => QueryFullSpotMarketsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryFullSpotMarketsResponse.decode(new BinaryReader(data)));
   }
   fullSpotMarket(request: QueryFullSpotMarketRequest): Promise<QueryFullSpotMarketResponse> {
     const data = QueryFullSpotMarketRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "FullSpotMarket", data);
-    return promise.then(data => QueryFullSpotMarketResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryFullSpotMarketResponse.decode(new BinaryReader(data)));
   }
   spotOrderbook(request: QuerySpotOrderbookRequest): Promise<QuerySpotOrderbookResponse> {
     const data = QuerySpotOrderbookRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SpotOrderbook", data);
-    return promise.then(data => QuerySpotOrderbookResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySpotOrderbookResponse.decode(new BinaryReader(data)));
   }
   traderSpotOrders(request: QueryTraderSpotOrdersRequest): Promise<QueryTraderSpotOrdersResponse> {
     const data = QueryTraderSpotOrdersRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "TraderSpotOrders", data);
-    return promise.then(data => QueryTraderSpotOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTraderSpotOrdersResponse.decode(new BinaryReader(data)));
   }
   accountAddressSpotOrders(request: QueryAccountAddressSpotOrdersRequest): Promise<QueryAccountAddressSpotOrdersResponse> {
     const data = QueryAccountAddressSpotOrdersRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "AccountAddressSpotOrders", data);
-    return promise.then(data => QueryAccountAddressSpotOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAccountAddressSpotOrdersResponse.decode(new BinaryReader(data)));
   }
   spotOrdersByHashes(request: QuerySpotOrdersByHashesRequest): Promise<QuerySpotOrdersByHashesResponse> {
     const data = QuerySpotOrdersByHashesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SpotOrdersByHashes", data);
-    return promise.then(data => QuerySpotOrdersByHashesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySpotOrdersByHashesResponse.decode(new BinaryReader(data)));
   }
   subaccountOrders(request: QuerySubaccountOrdersRequest): Promise<QuerySubaccountOrdersResponse> {
     const data = QuerySubaccountOrdersRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SubaccountOrders", data);
-    return promise.then(data => QuerySubaccountOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySubaccountOrdersResponse.decode(new BinaryReader(data)));
   }
   traderSpotTransientOrders(request: QueryTraderSpotOrdersRequest): Promise<QueryTraderSpotOrdersResponse> {
     const data = QueryTraderSpotOrdersRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "TraderSpotTransientOrders", data);
-    return promise.then(data => QueryTraderSpotOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTraderSpotOrdersResponse.decode(new BinaryReader(data)));
   }
   spotMidPriceAndTOB(request: QuerySpotMidPriceAndTOBRequest): Promise<QuerySpotMidPriceAndTOBResponse> {
     const data = QuerySpotMidPriceAndTOBRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SpotMidPriceAndTOB", data);
-    return promise.then(data => QuerySpotMidPriceAndTOBResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySpotMidPriceAndTOBResponse.decode(new BinaryReader(data)));
   }
   derivativeMidPriceAndTOB(request: QueryDerivativeMidPriceAndTOBRequest): Promise<QueryDerivativeMidPriceAndTOBResponse> {
     const data = QueryDerivativeMidPriceAndTOBRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "DerivativeMidPriceAndTOB", data);
-    return promise.then(data => QueryDerivativeMidPriceAndTOBResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDerivativeMidPriceAndTOBResponse.decode(new BinaryReader(data)));
   }
   derivativeOrderbook(request: QueryDerivativeOrderbookRequest): Promise<QueryDerivativeOrderbookResponse> {
     const data = QueryDerivativeOrderbookRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "DerivativeOrderbook", data);
-    return promise.then(data => QueryDerivativeOrderbookResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDerivativeOrderbookResponse.decode(new BinaryReader(data)));
   }
   traderDerivativeOrders(request: QueryTraderDerivativeOrdersRequest): Promise<QueryTraderDerivativeOrdersResponse> {
     const data = QueryTraderDerivativeOrdersRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "TraderDerivativeOrders", data);
-    return promise.then(data => QueryTraderDerivativeOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTraderDerivativeOrdersResponse.decode(new BinaryReader(data)));
   }
   accountAddressDerivativeOrders(request: QueryAccountAddressDerivativeOrdersRequest): Promise<QueryAccountAddressDerivativeOrdersResponse> {
     const data = QueryAccountAddressDerivativeOrdersRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "AccountAddressDerivativeOrders", data);
-    return promise.then(data => QueryAccountAddressDerivativeOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAccountAddressDerivativeOrdersResponse.decode(new BinaryReader(data)));
   }
   derivativeOrdersByHashes(request: QueryDerivativeOrdersByHashesRequest): Promise<QueryDerivativeOrdersByHashesResponse> {
     const data = QueryDerivativeOrdersByHashesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "DerivativeOrdersByHashes", data);
-    return promise.then(data => QueryDerivativeOrdersByHashesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDerivativeOrdersByHashesResponse.decode(new BinaryReader(data)));
   }
   traderDerivativeTransientOrders(request: QueryTraderDerivativeOrdersRequest): Promise<QueryTraderDerivativeOrdersResponse> {
     const data = QueryTraderDerivativeOrdersRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "TraderDerivativeTransientOrders", data);
-    return promise.then(data => QueryTraderDerivativeOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTraderDerivativeOrdersResponse.decode(new BinaryReader(data)));
   }
   derivativeMarkets(request: QueryDerivativeMarketsRequest): Promise<QueryDerivativeMarketsResponse> {
     const data = QueryDerivativeMarketsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "DerivativeMarkets", data);
-    return promise.then(data => QueryDerivativeMarketsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDerivativeMarketsResponse.decode(new BinaryReader(data)));
   }
   derivativeMarket(request: QueryDerivativeMarketRequest): Promise<QueryDerivativeMarketResponse> {
     const data = QueryDerivativeMarketRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "DerivativeMarket", data);
-    return promise.then(data => QueryDerivativeMarketResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDerivativeMarketResponse.decode(new BinaryReader(data)));
   }
   derivativeMarketAddress(request: QueryDerivativeMarketAddressRequest): Promise<QueryDerivativeMarketAddressResponse> {
     const data = QueryDerivativeMarketAddressRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "DerivativeMarketAddress", data);
-    return promise.then(data => QueryDerivativeMarketAddressResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDerivativeMarketAddressResponse.decode(new BinaryReader(data)));
   }
   subaccountTradeNonce(request: QuerySubaccountTradeNonceRequest): Promise<QuerySubaccountTradeNonceResponse> {
     const data = QuerySubaccountTradeNonceRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SubaccountTradeNonce", data);
-    return promise.then(data => QuerySubaccountTradeNonceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySubaccountTradeNonceResponse.decode(new BinaryReader(data)));
   }
   exchangeModuleState(request: QueryModuleStateRequest = {}): Promise<QueryModuleStateResponse> {
     const data = QueryModuleStateRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "ExchangeModuleState", data);
-    return promise.then(data => QueryModuleStateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryModuleStateResponse.decode(new BinaryReader(data)));
   }
   positions(request: QueryPositionsRequest = {}): Promise<QueryPositionsResponse> {
     const data = QueryPositionsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "Positions", data);
-    return promise.then(data => QueryPositionsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPositionsResponse.decode(new BinaryReader(data)));
   }
   subaccountPositions(request: QuerySubaccountPositionsRequest): Promise<QuerySubaccountPositionsResponse> {
     const data = QuerySubaccountPositionsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SubaccountPositions", data);
-    return promise.then(data => QuerySubaccountPositionsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySubaccountPositionsResponse.decode(new BinaryReader(data)));
   }
   subaccountPositionInMarket(request: QuerySubaccountPositionInMarketRequest): Promise<QuerySubaccountPositionInMarketResponse> {
     const data = QuerySubaccountPositionInMarketRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SubaccountPositionInMarket", data);
-    return promise.then(data => QuerySubaccountPositionInMarketResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySubaccountPositionInMarketResponse.decode(new BinaryReader(data)));
   }
   subaccountEffectivePositionInMarket(request: QuerySubaccountEffectivePositionInMarketRequest): Promise<QuerySubaccountEffectivePositionInMarketResponse> {
     const data = QuerySubaccountEffectivePositionInMarketRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SubaccountEffectivePositionInMarket", data);
-    return promise.then(data => QuerySubaccountEffectivePositionInMarketResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySubaccountEffectivePositionInMarketResponse.decode(new BinaryReader(data)));
   }
   perpetualMarketInfo(request: QueryPerpetualMarketInfoRequest): Promise<QueryPerpetualMarketInfoResponse> {
     const data = QueryPerpetualMarketInfoRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "PerpetualMarketInfo", data);
-    return promise.then(data => QueryPerpetualMarketInfoResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPerpetualMarketInfoResponse.decode(new BinaryReader(data)));
   }
   expiryFuturesMarketInfo(request: QueryExpiryFuturesMarketInfoRequest): Promise<QueryExpiryFuturesMarketInfoResponse> {
     const data = QueryExpiryFuturesMarketInfoRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "ExpiryFuturesMarketInfo", data);
-    return promise.then(data => QueryExpiryFuturesMarketInfoResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryExpiryFuturesMarketInfoResponse.decode(new BinaryReader(data)));
   }
   perpetualMarketFunding(request: QueryPerpetualMarketFundingRequest): Promise<QueryPerpetualMarketFundingResponse> {
     const data = QueryPerpetualMarketFundingRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "PerpetualMarketFunding", data);
-    return promise.then(data => QueryPerpetualMarketFundingResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryPerpetualMarketFundingResponse.decode(new BinaryReader(data)));
   }
   subaccountOrderMetadata(request: QuerySubaccountOrderMetadataRequest): Promise<QuerySubaccountOrderMetadataResponse> {
     const data = QuerySubaccountOrderMetadataRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "SubaccountOrderMetadata", data);
-    return promise.then(data => QuerySubaccountOrderMetadataResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySubaccountOrderMetadataResponse.decode(new BinaryReader(data)));
   }
   tradeRewardPoints(request: QueryTradeRewardPointsRequest): Promise<QueryTradeRewardPointsResponse> {
     const data = QueryTradeRewardPointsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "TradeRewardPoints", data);
-    return promise.then(data => QueryTradeRewardPointsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTradeRewardPointsResponse.decode(new BinaryReader(data)));
   }
   pendingTradeRewardPoints(request: QueryTradeRewardPointsRequest): Promise<QueryTradeRewardPointsResponse> {
     const data = QueryTradeRewardPointsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "PendingTradeRewardPoints", data);
-    return promise.then(data => QueryTradeRewardPointsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTradeRewardPointsResponse.decode(new BinaryReader(data)));
   }
   tradeRewardCampaign(request: QueryTradeRewardCampaignRequest = {}): Promise<QueryTradeRewardCampaignResponse> {
     const data = QueryTradeRewardCampaignRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "TradeRewardCampaign", data);
-    return promise.then(data => QueryTradeRewardCampaignResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTradeRewardCampaignResponse.decode(new BinaryReader(data)));
   }
   feeDiscountAccountInfo(request: QueryFeeDiscountAccountInfoRequest): Promise<QueryFeeDiscountAccountInfoResponse> {
     const data = QueryFeeDiscountAccountInfoRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "FeeDiscountAccountInfo", data);
-    return promise.then(data => QueryFeeDiscountAccountInfoResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryFeeDiscountAccountInfoResponse.decode(new BinaryReader(data)));
   }
   feeDiscountSchedule(request: QueryFeeDiscountScheduleRequest = {}): Promise<QueryFeeDiscountScheduleResponse> {
     const data = QueryFeeDiscountScheduleRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "FeeDiscountSchedule", data);
-    return promise.then(data => QueryFeeDiscountScheduleResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryFeeDiscountScheduleResponse.decode(new BinaryReader(data)));
   }
   balanceMismatches(request: QueryBalanceMismatchesRequest): Promise<QueryBalanceMismatchesResponse> {
     const data = QueryBalanceMismatchesRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "BalanceMismatches", data);
-    return promise.then(data => QueryBalanceMismatchesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBalanceMismatchesResponse.decode(new BinaryReader(data)));
   }
   balanceWithBalanceHolds(request: QueryBalanceWithBalanceHoldsRequest = {}): Promise<QueryBalanceWithBalanceHoldsResponse> {
     const data = QueryBalanceWithBalanceHoldsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "BalanceWithBalanceHolds", data);
-    return promise.then(data => QueryBalanceWithBalanceHoldsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBalanceWithBalanceHoldsResponse.decode(new BinaryReader(data)));
   }
   feeDiscountTierStatistics(request: QueryFeeDiscountTierStatisticsRequest = {}): Promise<QueryFeeDiscountTierStatisticsResponse> {
     const data = QueryFeeDiscountTierStatisticsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "FeeDiscountTierStatistics", data);
-    return promise.then(data => QueryFeeDiscountTierStatisticsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryFeeDiscountTierStatisticsResponse.decode(new BinaryReader(data)));
   }
   mitoVaultInfos(request: MitoVaultInfosRequest = {}): Promise<MitoVaultInfosResponse> {
     const data = MitoVaultInfosRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "MitoVaultInfos", data);
-    return promise.then(data => MitoVaultInfosResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MitoVaultInfosResponse.decode(new BinaryReader(data)));
   }
   queryMarketIDFromVault(request: QueryMarketIDFromVaultRequest): Promise<QueryMarketIDFromVaultResponse> {
     const data = QueryMarketIDFromVaultRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "QueryMarketIDFromVault", data);
-    return promise.then(data => QueryMarketIDFromVaultResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMarketIDFromVaultResponse.decode(new BinaryReader(data)));
   }
   historicalTradeRecords(request: QueryHistoricalTradeRecordsRequest): Promise<QueryHistoricalTradeRecordsResponse> {
     const data = QueryHistoricalTradeRecordsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "HistoricalTradeRecords", data);
-    return promise.then(data => QueryHistoricalTradeRecordsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryHistoricalTradeRecordsResponse.decode(new BinaryReader(data)));
   }
   isOptedOutOfRewards(request: QueryIsOptedOutOfRewardsRequest): Promise<QueryIsOptedOutOfRewardsResponse> {
     const data = QueryIsOptedOutOfRewardsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "IsOptedOutOfRewards", data);
-    return promise.then(data => QueryIsOptedOutOfRewardsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryIsOptedOutOfRewardsResponse.decode(new BinaryReader(data)));
   }
   optedOutOfRewardsAccounts(request: QueryOptedOutOfRewardsAccountsRequest = {}): Promise<QueryOptedOutOfRewardsAccountsResponse> {
     const data = QueryOptedOutOfRewardsAccountsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "OptedOutOfRewardsAccounts", data);
-    return promise.then(data => QueryOptedOutOfRewardsAccountsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOptedOutOfRewardsAccountsResponse.decode(new BinaryReader(data)));
   }
   marketVolatility(request: QueryMarketVolatilityRequest): Promise<QueryMarketVolatilityResponse> {
     const data = QueryMarketVolatilityRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "MarketVolatility", data);
-    return promise.then(data => QueryMarketVolatilityResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMarketVolatilityResponse.decode(new BinaryReader(data)));
   }
   binaryOptionsMarkets(request: QueryBinaryMarketsRequest): Promise<QueryBinaryMarketsResponse> {
     const data = QueryBinaryMarketsRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "BinaryOptionsMarkets", data);
-    return promise.then(data => QueryBinaryMarketsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBinaryMarketsResponse.decode(new BinaryReader(data)));
   }
   traderDerivativeConditionalOrders(request: QueryTraderDerivativeConditionalOrdersRequest): Promise<QueryTraderDerivativeConditionalOrdersResponse> {
     const data = QueryTraderDerivativeConditionalOrdersRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "TraderDerivativeConditionalOrders", data);
-    return promise.then(data => QueryTraderDerivativeConditionalOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTraderDerivativeConditionalOrdersResponse.decode(new BinaryReader(data)));
   }
   marketAtomicExecutionFeeMultiplier(request: QueryMarketAtomicExecutionFeeMultiplierRequest): Promise<QueryMarketAtomicExecutionFeeMultiplierResponse> {
     const data = QueryMarketAtomicExecutionFeeMultiplierRequest.encode(request).finish();
     const promise = this.rpc.request("injective.exchange.v1beta1.Query", "MarketAtomicExecutionFeeMultiplier", data);
-    return promise.then(data => QueryMarketAtomicExecutionFeeMultiplierResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMarketAtomicExecutionFeeMultiplierResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

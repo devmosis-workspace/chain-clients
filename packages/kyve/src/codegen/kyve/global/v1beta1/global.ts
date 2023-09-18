@@ -1,5 +1,6 @@
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
+import { Decimal } from "@cosmjs/math";
+import { isSet } from "../../../helpers";
 /** Params defines the global module parameters. */
 export interface Params {
   /** min_gas_price defines the minimum gas price value for all transactions. */
@@ -26,6 +27,40 @@ export interface Params {
    */
   minInitialDepositRatio: string;
 }
+export interface ParamsProtoMsg {
+  typeUrl: "/kyve.global.v1beta1.Params";
+  value: Uint8Array;
+}
+/** Params defines the global module parameters. */
+export interface ParamsAmino {
+  /** min_gas_price defines the minimum gas price value for all transactions. */
+  min_gas_price: string;
+  /** burn_ratio defines the ratio of transaction fees burnt. */
+  burn_ratio: string;
+  /**
+   * gas_adjustments can add a constant amount of gas to a specific message type.
+   * This gives more control to make certain messages more expensive to avoid spamming
+   * of certain types of messages.
+   */
+  gas_adjustments: GasAdjustmentAmino[];
+  /**
+   * gas_refunds lets the governance specify a fraction of how much gas
+   * a user gets refunded for a certain type of transaction.
+   * This could be used to make transactions which support to network cheaper.
+   * Gas refunds only work if the transaction only included one message.
+   */
+  gas_refunds: GasRefundAmino[];
+  /**
+   * min_initial_deposit_ratio sets a minimum fraction of initial deposit for a
+   * governance proposal. This is used to avoid spamming of proposals and
+   * polluting the proposals page.
+   */
+  min_initial_deposit_ratio: string;
+}
+export interface ParamsAminoMsg {
+  type: "/kyve.global.v1beta1.Params";
+  value: ParamsAmino;
+}
 /** Params defines the global module parameters. */
 export interface ParamsSDKType {
   min_gas_price: string;
@@ -42,7 +77,25 @@ export interface GasAdjustment {
   /** type of the sdk-message */
   type: string;
   /** amount of gas which is added to the message */
-  amount: Long;
+  amount: bigint;
+}
+export interface GasAdjustmentProtoMsg {
+  typeUrl: "/kyve.global.v1beta1.GasAdjustment";
+  value: Uint8Array;
+}
+/**
+ * GasAdjustment stores for every message type a fixed amount
+ * of gas which is added to the message
+ */
+export interface GasAdjustmentAmino {
+  /** type of the sdk-message */
+  type: string;
+  /** amount of gas which is added to the message */
+  amount: string;
+}
+export interface GasAdjustmentAminoMsg {
+  type: "/kyve.global.v1beta1.GasAdjustment";
+  value: GasAdjustmentAmino;
 }
 /**
  * GasAdjustment stores for every message type a fixed amount
@@ -50,7 +103,7 @@ export interface GasAdjustment {
  */
 export interface GasAdjustmentSDKType {
   type: string;
-  amount: Long;
+  amount: bigint;
 }
 /**
  * GasRefund stores the fraction of gas which will be refunded for a given
@@ -62,6 +115,25 @@ export interface GasRefund {
   type: string;
   /** fraction in decimal representation between 0 and 1 */
   fraction: string;
+}
+export interface GasRefundProtoMsg {
+  typeUrl: "/kyve.global.v1beta1.GasRefund";
+  value: Uint8Array;
+}
+/**
+ * GasRefund stores the fraction of gas which will be refunded for a given
+ * type of message.
+ * This only works if the transaction only includes one message.
+ */
+export interface GasRefundAmino {
+  /** type of the sdk-message */
+  type: string;
+  /** fraction in decimal representation between 0 and 1 */
+  fraction: string;
+}
+export interface GasRefundAminoMsg {
+  type: "/kyve.global.v1beta1.GasRefund";
+  value: GasRefundAmino;
 }
 /**
  * GasRefund stores the fraction of gas which will be refunded for a given
@@ -82,12 +154,13 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.global.v1beta1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.minGasPrice !== "") {
-      writer.uint32(10).string(message.minGasPrice);
+      writer.uint32(10).string(Decimal.fromUserInput(message.minGasPrice, 18).atomics);
     }
     if (message.burnRatio !== "") {
-      writer.uint32(18).string(message.burnRatio);
+      writer.uint32(18).string(Decimal.fromUserInput(message.burnRatio, 18).atomics);
     }
     for (const v of message.gasAdjustments) {
       GasAdjustment.encode(v!, writer.uint32(26).fork()).ldelim();
@@ -96,7 +169,7 @@ export const Params = {
       GasRefund.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     if (message.minInitialDepositRatio !== "") {
-      writer.uint32(42).string(message.minInitialDepositRatio);
+      writer.uint32(42).string(Decimal.fromUserInput(message.minInitialDepositRatio, 18).atomics);
     }
     return writer;
   },
@@ -117,20 +190,62 @@ export const Params = {
     message.gasRefunds = object.gasRefunds?.map(e => GasRefund.fromPartial(e)) || [];
     message.minInitialDepositRatio = object.minInitialDepositRatio ?? "";
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      minGasPrice: object.min_gas_price,
+      burnRatio: object.burn_ratio,
+      gasAdjustments: Array.isArray(object?.gas_adjustments) ? object.gas_adjustments.map((e: any) => GasAdjustment.fromAmino(e)) : [],
+      gasRefunds: Array.isArray(object?.gas_refunds) ? object.gas_refunds.map((e: any) => GasRefund.fromAmino(e)) : [],
+      minInitialDepositRatio: object.min_initial_deposit_ratio
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.min_gas_price = message.minGasPrice;
+    obj.burn_ratio = message.burnRatio;
+    if (message.gasAdjustments) {
+      obj.gas_adjustments = message.gasAdjustments.map(e => e ? GasAdjustment.toAmino(e) : undefined);
+    } else {
+      obj.gas_adjustments = [];
+    }
+    if (message.gasRefunds) {
+      obj.gas_refunds = message.gasRefunds.map(e => e ? GasRefund.toAmino(e) : undefined);
+    } else {
+      obj.gas_refunds = [];
+    }
+    obj.min_initial_deposit_ratio = message.minInitialDepositRatio;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/kyve.global.v1beta1.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };
 function createBaseGasAdjustment(): GasAdjustment {
   return {
     type: "",
-    amount: Long.UZERO
+    amount: BigInt(0)
   };
 }
 export const GasAdjustment = {
-  encode(message: GasAdjustment, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.global.v1beta1.GasAdjustment",
+  encode(message: GasAdjustment, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.type !== "") {
       writer.uint32(10).string(message.type);
     }
-    if (!message.amount.isZero()) {
+    if (message.amount !== BigInt(0)) {
       writer.uint32(16).uint64(message.amount);
     }
     return writer;
@@ -138,14 +253,41 @@ export const GasAdjustment = {
   fromJSON(object: any): GasAdjustment {
     return {
       type: isSet(object.type) ? String(object.type) : "",
-      amount: isSet(object.amount) ? Long.fromValue(object.amount) : Long.UZERO
+      amount: isSet(object.amount) ? BigInt(object.amount.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<GasAdjustment>): GasAdjustment {
     const message = createBaseGasAdjustment();
     message.type = object.type ?? "";
-    message.amount = object.amount !== undefined && object.amount !== null ? Long.fromValue(object.amount) : Long.UZERO;
+    message.amount = object.amount !== undefined && object.amount !== null ? BigInt(object.amount.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: GasAdjustmentAmino): GasAdjustment {
+    return {
+      type: object.type,
+      amount: BigInt(object.amount)
+    };
+  },
+  toAmino(message: GasAdjustment): GasAdjustmentAmino {
+    const obj: any = {};
+    obj.type = message.type;
+    obj.amount = message.amount ? message.amount.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GasAdjustmentAminoMsg): GasAdjustment {
+    return GasAdjustment.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GasAdjustmentProtoMsg): GasAdjustment {
+    return GasAdjustment.decode(message.value);
+  },
+  toProto(message: GasAdjustment): Uint8Array {
+    return GasAdjustment.encode(message).finish();
+  },
+  toProtoMsg(message: GasAdjustment): GasAdjustmentProtoMsg {
+    return {
+      typeUrl: "/kyve.global.v1beta1.GasAdjustment",
+      value: GasAdjustment.encode(message).finish()
+    };
   }
 };
 function createBaseGasRefund(): GasRefund {
@@ -155,12 +297,13 @@ function createBaseGasRefund(): GasRefund {
   };
 }
 export const GasRefund = {
-  encode(message: GasRefund, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.global.v1beta1.GasRefund",
+  encode(message: GasRefund, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.type !== "") {
       writer.uint32(10).string(message.type);
     }
     if (message.fraction !== "") {
-      writer.uint32(18).string(message.fraction);
+      writer.uint32(18).string(Decimal.fromUserInput(message.fraction, 18).atomics);
     }
     return writer;
   },
@@ -175,5 +318,32 @@ export const GasRefund = {
     message.type = object.type ?? "";
     message.fraction = object.fraction ?? "";
     return message;
+  },
+  fromAmino(object: GasRefundAmino): GasRefund {
+    return {
+      type: object.type,
+      fraction: object.fraction
+    };
+  },
+  toAmino(message: GasRefund): GasRefundAmino {
+    const obj: any = {};
+    obj.type = message.type;
+    obj.fraction = message.fraction;
+    return obj;
+  },
+  fromAminoMsg(object: GasRefundAminoMsg): GasRefund {
+    return GasRefund.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GasRefundProtoMsg): GasRefund {
+    return GasRefund.decode(message.value);
+  },
+  toProto(message: GasRefund): Uint8Array {
+    return GasRefund.encode(message).finish();
+  },
+  toProtoMsg(message: GasRefund): GasRefundProtoMsg {
+    return {
+      typeUrl: "/kyve.global.v1beta1.GasRefund",
+      value: GasRefund.encode(message).finish()
+    };
   }
 };

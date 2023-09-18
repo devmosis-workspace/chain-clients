@@ -1,5 +1,5 @@
 import { Rpc } from "../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest } from "./query";
 import { Params } from "./genesis";
@@ -16,7 +16,7 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<Params> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("noble.globalfee.Query", "Params", data);
-    return promise.then(data => Params.decode(new _m0.Reader(data)));
+    return promise.then(data => Params.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

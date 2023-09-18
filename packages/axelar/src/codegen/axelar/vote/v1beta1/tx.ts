@@ -1,18 +1,45 @@
-import { Any, AnySDKType } from "../../../google/protobuf/any";
-import { Long, isSet, bytesFromBase64 } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { isSet, bytesFromBase64 } from "../../../helpers";
 export interface VoteRequest {
   sender: Uint8Array;
-  pollId: Long;
-  vote?: Any;
+  pollId: bigint;
+  vote: (Any) | undefined;
+}
+export interface VoteRequestProtoMsg {
+  typeUrl: "/axelar.vote.v1beta1.VoteRequest";
+  value: Uint8Array;
+}
+export type VoteRequestEncoded = Omit<VoteRequest, "vote"> & {
+  vote?: AnyProtoMsg | undefined;
+};
+export interface VoteRequestAmino {
+  sender: Uint8Array;
+  poll_id: string;
+  vote?: AnyAmino;
+}
+export interface VoteRequestAminoMsg {
+  type: "/axelar.vote.v1beta1.VoteRequest";
+  value: VoteRequestAmino;
 }
 export interface VoteRequestSDKType {
   sender: Uint8Array;
-  poll_id: Long;
-  vote?: AnySDKType;
+  poll_id: bigint;
+  vote: AnySDKType | undefined;
 }
 export interface VoteResponse {
   log: string;
+}
+export interface VoteResponseProtoMsg {
+  typeUrl: "/axelar.vote.v1beta1.VoteResponse";
+  value: Uint8Array;
+}
+export interface VoteResponseAmino {
+  log: string;
+}
+export interface VoteResponseAminoMsg {
+  type: "/axelar.vote.v1beta1.VoteResponse";
+  value: VoteResponseAmino;
 }
 export interface VoteResponseSDKType {
   log: string;
@@ -20,36 +47,66 @@ export interface VoteResponseSDKType {
 function createBaseVoteRequest(): VoteRequest {
   return {
     sender: new Uint8Array(),
-    pollId: Long.UZERO,
-    vote: undefined
+    pollId: BigInt(0),
+    vote: Any.fromPartial({})
   };
 }
 export const VoteRequest = {
-  encode(message: VoteRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.vote.v1beta1.VoteRequest",
+  encode(message: VoteRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
-    if (!message.pollId.isZero()) {
+    if (message.pollId !== BigInt(0)) {
       writer.uint32(32).uint64(message.pollId);
     }
     if (message.vote !== undefined) {
-      Any.encode(message.vote, writer.uint32(42).fork()).ldelim();
+      Any.encode((message.vote as Any), writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
   fromJSON(object: any): VoteRequest {
     return {
       sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
-      pollId: isSet(object.pollId) ? Long.fromValue(object.pollId) : Long.UZERO,
+      pollId: isSet(object.pollId) ? BigInt(object.pollId.toString()) : BigInt(0),
       vote: isSet(object.vote) ? Any.fromJSON(object.vote) : undefined
     };
   },
   fromPartial(object: Partial<VoteRequest>): VoteRequest {
     const message = createBaseVoteRequest();
     message.sender = object.sender ?? new Uint8Array();
-    message.pollId = object.pollId !== undefined && object.pollId !== null ? Long.fromValue(object.pollId) : Long.UZERO;
+    message.pollId = object.pollId !== undefined && object.pollId !== null ? BigInt(object.pollId.toString()) : BigInt(0);
     message.vote = object.vote !== undefined && object.vote !== null ? Any.fromPartial(object.vote) : undefined;
     return message;
+  },
+  fromAmino(object: VoteRequestAmino): VoteRequest {
+    return {
+      sender: object.sender,
+      pollId: BigInt(object.poll_id),
+      vote: object?.vote ? Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.vote) : undefined
+    };
+  },
+  toAmino(message: VoteRequest): VoteRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
+    obj.vote = message.vote ? Github_com_cosmos_codec_ProtoMarshaler_ToAmino((message.vote as Any)) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: VoteRequestAminoMsg): VoteRequest {
+    return VoteRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: VoteRequestProtoMsg): VoteRequest {
+    return VoteRequest.decode(message.value);
+  },
+  toProto(message: VoteRequest): Uint8Array {
+    return VoteRequest.encode(message).finish();
+  },
+  toProtoMsg(message: VoteRequest): VoteRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.vote.v1beta1.VoteRequest",
+      value: VoteRequest.encode(message).finish()
+    };
   }
 };
 function createBaseVoteResponse(): VoteResponse {
@@ -58,7 +115,8 @@ function createBaseVoteResponse(): VoteResponse {
   };
 }
 export const VoteResponse = {
-  encode(message: VoteResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.vote.v1beta1.VoteResponse",
+  encode(message: VoteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.log !== "") {
       writer.uint32(10).string(message.log);
     }
@@ -73,5 +131,44 @@ export const VoteResponse = {
     const message = createBaseVoteResponse();
     message.log = object.log ?? "";
     return message;
+  },
+  fromAmino(object: VoteResponseAmino): VoteResponse {
+    return {
+      log: object.log
+    };
+  },
+  toAmino(message: VoteResponse): VoteResponseAmino {
+    const obj: any = {};
+    obj.log = message.log;
+    return obj;
+  },
+  fromAminoMsg(object: VoteResponseAminoMsg): VoteResponse {
+    return VoteResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: VoteResponseProtoMsg): VoteResponse {
+    return VoteResponse.decode(message.value);
+  },
+  toProto(message: VoteResponse): Uint8Array {
+    return VoteResponse.encode(message).finish();
+  },
+  toProtoMsg(message: VoteResponse): VoteResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.vote.v1beta1.VoteResponse",
+      value: VoteResponse.encode(message).finish()
+    };
   }
+};
+export const Github_com_cosmos_codec_ProtoMarshaler_InterfaceDecoder = (input: BinaryReader | Uint8Array): Any => {
+  const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  const data = Any.decode(reader, reader.uint32());
+  switch (data.typeUrl) {
+    default:
+      return data;
+  }
+};
+export const Github_com_cosmos_codec_ProtoMarshaler_FromAmino = (content: AnyAmino) => {
+  return Any.fromAmino(content);
+};
+export const Github_com_cosmos_codec_ProtoMarshaler_ToAmino = (content: Any) => {
+  return Any.toAmino(content);
 };

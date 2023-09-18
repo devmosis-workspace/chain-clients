@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryAuctionRequest, QueryAuctionResponse, QueryAuctionsRequest, QueryAuctionsResponse, QueryNextAuctionIDRequest, QueryNextAuctionIDResponse } from "./query";
 /** Query defines the gRPC querier service for auction module */
@@ -25,22 +25,22 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.auction.v1beta1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   auction(request: QueryAuctionRequest): Promise<QueryAuctionResponse> {
     const data = QueryAuctionRequest.encode(request).finish();
     const promise = this.rpc.request("kava.auction.v1beta1.Query", "Auction", data);
-    return promise.then(data => QueryAuctionResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAuctionResponse.decode(new BinaryReader(data)));
   }
   auctions(request: QueryAuctionsRequest): Promise<QueryAuctionsResponse> {
     const data = QueryAuctionsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.auction.v1beta1.Query", "Auctions", data);
-    return promise.then(data => QueryAuctionsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAuctionsResponse.decode(new BinaryReader(data)));
   }
   nextAuctionID(request: QueryNextAuctionIDRequest = {}): Promise<QueryNextAuctionIDResponse> {
     const data = QueryNextAuctionIDRequest.encode(request).finish();
     const promise = this.rpc.request("kava.auction.v1beta1.Query", "NextAuctionID", data);
-    return promise.then(data => QueryNextAuctionIDResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryNextAuctionIDResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

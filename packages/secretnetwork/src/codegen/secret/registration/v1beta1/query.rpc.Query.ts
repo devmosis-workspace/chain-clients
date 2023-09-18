@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { Empty } from "../../../google/protobuf/empty";
 import { Key } from "./msg";
@@ -24,17 +24,17 @@ export class QueryClientImpl implements Query {
   txKey(request: google.protobuf.Empty = {}): Promise<Key> {
     const data = google.protobuf.Empty.encode(request).finish();
     const promise = this.rpc.request("secret.registration.v1beta1.Query", "TxKey", data);
-    return promise.then(data => Key.decode(new _m0.Reader(data)));
+    return promise.then(data => Key.decode(new BinaryReader(data)));
   }
   registrationKey(request: google.protobuf.Empty = {}): Promise<Key> {
     const data = google.protobuf.Empty.encode(request).finish();
     const promise = this.rpc.request("secret.registration.v1beta1.Query", "RegistrationKey", data);
-    return promise.then(data => Key.decode(new _m0.Reader(data)));
+    return promise.then(data => Key.decode(new BinaryReader(data)));
   }
   encryptedSeed(request: QueryEncryptedSeedRequest): Promise<QueryEncryptedSeedResponse> {
     const data = QueryEncryptedSeedRequest.encode(request).finish();
     const promise = this.rpc.request("secret.registration.v1beta1.Query", "EncryptedSeed", data);
-    return promise.then(data => QueryEncryptedSeedResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryEncryptedSeedResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

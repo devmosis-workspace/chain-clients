@@ -5,16 +5,16 @@ import * as _3 from "./feeshare/v1/tx";
 import * as _4 from "./mint/genesis";
 import * as _5 from "./mint/mint";
 import * as _6 from "./mint/query";
-import * as _110 from "./feeshare/v1/query.lcd";
-import * as _111 from "./mint/query.lcd";
-import * as _112 from "./feeshare/v1/query.rpc.Query";
-import * as _113 from "./mint/query.rpc.Query";
-import * as _114 from "./feeshare/v1/tx.rpc.msg";
+import * as _111 from "./feeshare/v1/query.lcd";
+import * as _112 from "./mint/query.lcd";
+import * as _113 from "./feeshare/v1/query.rpc.Query";
+import * as _114 from "./mint/query.rpc.Query";
+import * as _115 from "./feeshare/v1/tx.rpc.msg";
 export declare namespace juno {
     namespace feeshare {
         const v1: {
-            MsgClientImpl: typeof _114.MsgClientImpl;
-            QueryClientImpl: typeof _112.QueryClientImpl;
+            MsgClientImpl: typeof _115.MsgClientImpl;
+            QueryClientImpl: typeof _113.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 feeShares(request?: _2.QueryFeeSharesRequest): Promise<_2.QueryFeeSharesResponse>;
                 feeShare(request: _2.QueryFeeShareRequest): Promise<_2.QueryFeeShareResponse>;
@@ -22,7 +22,7 @@ export declare namespace juno {
                 deployerFeeShares(request: _2.QueryDeployerFeeSharesRequest): Promise<_2.QueryDeployerFeeSharesResponse>;
                 withdrawerFeeShares(request: _2.QueryWithdrawerFeeSharesRequest): Promise<_2.QueryWithdrawerFeeSharesResponse>;
             };
-            LCDQueryClient: typeof _110.LCDQueryClient;
+            LCDQueryClient: typeof _111.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -86,191 +86,365 @@ export declare namespace juno {
             AminoConverter: {
                 "/juno.feeshare.v1.MsgRegisterFeeShare": {
                     aminoType: string;
-                    toAmino: ({ contractAddress, deployerAddress, withdrawerAddress }: _3.MsgRegisterFeeShare) => {
-                        contract_address: string;
-                        deployer_address: string;
-                        withdrawer_address: string;
-                    };
-                    fromAmino: ({ contract_address, deployer_address, withdrawer_address }: {
-                        contract_address: string;
-                        deployer_address: string;
-                        withdrawer_address: string;
-                    }) => _3.MsgRegisterFeeShare;
+                    toAmino: (message: _3.MsgRegisterFeeShare) => _3.MsgRegisterFeeShareAmino;
+                    fromAmino: (object: _3.MsgRegisterFeeShareAmino) => _3.MsgRegisterFeeShare;
                 };
                 "/juno.feeshare.v1.MsgUpdateFeeShare": {
                     aminoType: string;
-                    toAmino: ({ contractAddress, deployerAddress, withdrawerAddress }: _3.MsgUpdateFeeShare) => {
-                        contract_address: string;
-                        deployer_address: string;
-                        withdrawer_address: string;
-                    };
-                    fromAmino: ({ contract_address, deployer_address, withdrawer_address }: {
-                        contract_address: string;
-                        deployer_address: string;
-                        withdrawer_address: string;
-                    }) => _3.MsgUpdateFeeShare;
+                    toAmino: (message: _3.MsgUpdateFeeShare) => _3.MsgUpdateFeeShareAmino;
+                    fromAmino: (object: _3.MsgUpdateFeeShareAmino) => _3.MsgUpdateFeeShare;
                 };
                 "/juno.feeshare.v1.MsgCancelFeeShare": {
                     aminoType: string;
-                    toAmino: ({ contractAddress, deployerAddress }: _3.MsgCancelFeeShare) => {
-                        contract_address: string;
-                        deployer_address: string;
-                    };
-                    fromAmino: ({ contract_address, deployer_address }: {
-                        contract_address: string;
-                        deployer_address: string;
-                    }) => _3.MsgCancelFeeShare;
+                    toAmino: (message: _3.MsgCancelFeeShare) => _3.MsgCancelFeeShareAmino;
+                    fromAmino: (object: _3.MsgCancelFeeShareAmino) => _3.MsgCancelFeeShare;
                 };
             };
             MsgRegisterFeeShare: {
-                encode(message: _3.MsgRegisterFeeShare, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgRegisterFeeShare, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgRegisterFeeShare;
                 fromPartial(object: Partial<_3.MsgRegisterFeeShare>): _3.MsgRegisterFeeShare;
+                fromAmino(object: _3.MsgRegisterFeeShareAmino): _3.MsgRegisterFeeShare;
+                toAmino(message: _3.MsgRegisterFeeShare): _3.MsgRegisterFeeShareAmino;
+                fromAminoMsg(object: _3.MsgRegisterFeeShareAminoMsg): _3.MsgRegisterFeeShare;
+                fromProtoMsg(message: _3.MsgRegisterFeeShareProtoMsg): _3.MsgRegisterFeeShare;
+                toProto(message: _3.MsgRegisterFeeShare): Uint8Array;
+                toProtoMsg(message: _3.MsgRegisterFeeShare): _3.MsgRegisterFeeShareProtoMsg;
             };
             MsgRegisterFeeShareResponse: {
-                encode(_: _3.MsgRegisterFeeShareResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _3.MsgRegisterFeeShareResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _3.MsgRegisterFeeShareResponse;
                 fromPartial(_: Partial<_3.MsgRegisterFeeShareResponse>): _3.MsgRegisterFeeShareResponse;
+                fromAmino(_: _3.MsgRegisterFeeShareResponseAmino): _3.MsgRegisterFeeShareResponse;
+                toAmino(_: _3.MsgRegisterFeeShareResponse): _3.MsgRegisterFeeShareResponseAmino;
+                fromAminoMsg(object: _3.MsgRegisterFeeShareResponseAminoMsg): _3.MsgRegisterFeeShareResponse;
+                fromProtoMsg(message: _3.MsgRegisterFeeShareResponseProtoMsg): _3.MsgRegisterFeeShareResponse;
+                toProto(message: _3.MsgRegisterFeeShareResponse): Uint8Array;
+                toProtoMsg(message: _3.MsgRegisterFeeShareResponse): _3.MsgRegisterFeeShareResponseProtoMsg;
             };
             MsgUpdateFeeShare: {
-                encode(message: _3.MsgUpdateFeeShare, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgUpdateFeeShare, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgUpdateFeeShare;
                 fromPartial(object: Partial<_3.MsgUpdateFeeShare>): _3.MsgUpdateFeeShare;
+                fromAmino(object: _3.MsgUpdateFeeShareAmino): _3.MsgUpdateFeeShare;
+                toAmino(message: _3.MsgUpdateFeeShare): _3.MsgUpdateFeeShareAmino;
+                fromAminoMsg(object: _3.MsgUpdateFeeShareAminoMsg): _3.MsgUpdateFeeShare;
+                fromProtoMsg(message: _3.MsgUpdateFeeShareProtoMsg): _3.MsgUpdateFeeShare;
+                toProto(message: _3.MsgUpdateFeeShare): Uint8Array;
+                toProtoMsg(message: _3.MsgUpdateFeeShare): _3.MsgUpdateFeeShareProtoMsg;
             };
             MsgUpdateFeeShareResponse: {
-                encode(_: _3.MsgUpdateFeeShareResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _3.MsgUpdateFeeShareResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _3.MsgUpdateFeeShareResponse;
                 fromPartial(_: Partial<_3.MsgUpdateFeeShareResponse>): _3.MsgUpdateFeeShareResponse;
+                fromAmino(_: _3.MsgUpdateFeeShareResponseAmino): _3.MsgUpdateFeeShareResponse;
+                toAmino(_: _3.MsgUpdateFeeShareResponse): _3.MsgUpdateFeeShareResponseAmino;
+                fromAminoMsg(object: _3.MsgUpdateFeeShareResponseAminoMsg): _3.MsgUpdateFeeShareResponse;
+                fromProtoMsg(message: _3.MsgUpdateFeeShareResponseProtoMsg): _3.MsgUpdateFeeShareResponse;
+                toProto(message: _3.MsgUpdateFeeShareResponse): Uint8Array;
+                toProtoMsg(message: _3.MsgUpdateFeeShareResponse): _3.MsgUpdateFeeShareResponseProtoMsg;
             };
             MsgCancelFeeShare: {
-                encode(message: _3.MsgCancelFeeShare, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _3.MsgCancelFeeShare, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _3.MsgCancelFeeShare;
                 fromPartial(object: Partial<_3.MsgCancelFeeShare>): _3.MsgCancelFeeShare;
+                fromAmino(object: _3.MsgCancelFeeShareAmino): _3.MsgCancelFeeShare;
+                toAmino(message: _3.MsgCancelFeeShare): _3.MsgCancelFeeShareAmino;
+                fromAminoMsg(object: _3.MsgCancelFeeShareAminoMsg): _3.MsgCancelFeeShare;
+                fromProtoMsg(message: _3.MsgCancelFeeShareProtoMsg): _3.MsgCancelFeeShare;
+                toProto(message: _3.MsgCancelFeeShare): Uint8Array;
+                toProtoMsg(message: _3.MsgCancelFeeShare): _3.MsgCancelFeeShareProtoMsg;
             };
             MsgCancelFeeShareResponse: {
-                encode(_: _3.MsgCancelFeeShareResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _3.MsgCancelFeeShareResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _3.MsgCancelFeeShareResponse;
                 fromPartial(_: Partial<_3.MsgCancelFeeShareResponse>): _3.MsgCancelFeeShareResponse;
+                fromAmino(_: _3.MsgCancelFeeShareResponseAmino): _3.MsgCancelFeeShareResponse;
+                toAmino(_: _3.MsgCancelFeeShareResponse): _3.MsgCancelFeeShareResponseAmino;
+                fromAminoMsg(object: _3.MsgCancelFeeShareResponseAminoMsg): _3.MsgCancelFeeShareResponse;
+                fromProtoMsg(message: _3.MsgCancelFeeShareResponseProtoMsg): _3.MsgCancelFeeShareResponse;
+                toProto(message: _3.MsgCancelFeeShareResponse): Uint8Array;
+                toProtoMsg(message: _3.MsgCancelFeeShareResponse): _3.MsgCancelFeeShareResponseProtoMsg;
             };
             QueryFeeSharesRequest: {
-                encode(message: _2.QueryFeeSharesRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.QueryFeeSharesRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.QueryFeeSharesRequest;
                 fromPartial(object: Partial<_2.QueryFeeSharesRequest>): _2.QueryFeeSharesRequest;
+                fromAmino(object: _2.QueryFeeSharesRequestAmino): _2.QueryFeeSharesRequest;
+                toAmino(message: _2.QueryFeeSharesRequest): _2.QueryFeeSharesRequestAmino;
+                fromAminoMsg(object: _2.QueryFeeSharesRequestAminoMsg): _2.QueryFeeSharesRequest;
+                fromProtoMsg(message: _2.QueryFeeSharesRequestProtoMsg): _2.QueryFeeSharesRequest;
+                toProto(message: _2.QueryFeeSharesRequest): Uint8Array;
+                toProtoMsg(message: _2.QueryFeeSharesRequest): _2.QueryFeeSharesRequestProtoMsg;
             };
             QueryFeeSharesResponse: {
-                encode(message: _2.QueryFeeSharesResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.QueryFeeSharesResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.QueryFeeSharesResponse;
                 fromPartial(object: Partial<_2.QueryFeeSharesResponse>): _2.QueryFeeSharesResponse;
+                fromAmino(object: _2.QueryFeeSharesResponseAmino): _2.QueryFeeSharesResponse;
+                toAmino(message: _2.QueryFeeSharesResponse): _2.QueryFeeSharesResponseAmino;
+                fromAminoMsg(object: _2.QueryFeeSharesResponseAminoMsg): _2.QueryFeeSharesResponse;
+                fromProtoMsg(message: _2.QueryFeeSharesResponseProtoMsg): _2.QueryFeeSharesResponse;
+                toProto(message: _2.QueryFeeSharesResponse): Uint8Array;
+                toProtoMsg(message: _2.QueryFeeSharesResponse): _2.QueryFeeSharesResponseProtoMsg;
             };
             QueryFeeShareRequest: {
-                encode(message: _2.QueryFeeShareRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.QueryFeeShareRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.QueryFeeShareRequest;
                 fromPartial(object: Partial<_2.QueryFeeShareRequest>): _2.QueryFeeShareRequest;
+                fromAmino(object: _2.QueryFeeShareRequestAmino): _2.QueryFeeShareRequest;
+                toAmino(message: _2.QueryFeeShareRequest): _2.QueryFeeShareRequestAmino;
+                fromAminoMsg(object: _2.QueryFeeShareRequestAminoMsg): _2.QueryFeeShareRequest;
+                fromProtoMsg(message: _2.QueryFeeShareRequestProtoMsg): _2.QueryFeeShareRequest;
+                toProto(message: _2.QueryFeeShareRequest): Uint8Array;
+                toProtoMsg(message: _2.QueryFeeShareRequest): _2.QueryFeeShareRequestProtoMsg;
             };
             QueryFeeShareResponse: {
-                encode(message: _2.QueryFeeShareResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.QueryFeeShareResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.QueryFeeShareResponse;
                 fromPartial(object: Partial<_2.QueryFeeShareResponse>): _2.QueryFeeShareResponse;
+                fromAmino(object: _2.QueryFeeShareResponseAmino): _2.QueryFeeShareResponse;
+                toAmino(message: _2.QueryFeeShareResponse): _2.QueryFeeShareResponseAmino;
+                fromAminoMsg(object: _2.QueryFeeShareResponseAminoMsg): _2.QueryFeeShareResponse;
+                fromProtoMsg(message: _2.QueryFeeShareResponseProtoMsg): _2.QueryFeeShareResponse;
+                toProto(message: _2.QueryFeeShareResponse): Uint8Array;
+                toProtoMsg(message: _2.QueryFeeShareResponse): _2.QueryFeeShareResponseProtoMsg;
             };
             QueryParamsRequest: {
-                encode(_: _2.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _2.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _2.QueryParamsRequest;
                 fromPartial(_: Partial<_2.QueryParamsRequest>): _2.QueryParamsRequest;
+                fromAmino(_: _2.QueryParamsRequestAmino): _2.QueryParamsRequest;
+                toAmino(_: _2.QueryParamsRequest): _2.QueryParamsRequestAmino;
+                fromAminoMsg(object: _2.QueryParamsRequestAminoMsg): _2.QueryParamsRequest;
+                fromProtoMsg(message: _2.QueryParamsRequestProtoMsg): _2.QueryParamsRequest;
+                toProto(message: _2.QueryParamsRequest): Uint8Array;
+                toProtoMsg(message: _2.QueryParamsRequest): _2.QueryParamsRequestProtoMsg;
             };
             QueryParamsResponse: {
-                encode(message: _2.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.QueryParamsResponse;
                 fromPartial(object: Partial<_2.QueryParamsResponse>): _2.QueryParamsResponse;
+                fromAmino(object: _2.QueryParamsResponseAmino): _2.QueryParamsResponse;
+                toAmino(message: _2.QueryParamsResponse): _2.QueryParamsResponseAmino;
+                fromAminoMsg(object: _2.QueryParamsResponseAminoMsg): _2.QueryParamsResponse;
+                fromProtoMsg(message: _2.QueryParamsResponseProtoMsg): _2.QueryParamsResponse;
+                toProto(message: _2.QueryParamsResponse): Uint8Array;
+                toProtoMsg(message: _2.QueryParamsResponse): _2.QueryParamsResponseProtoMsg;
             };
             QueryDeployerFeeSharesRequest: {
-                encode(message: _2.QueryDeployerFeeSharesRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.QueryDeployerFeeSharesRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.QueryDeployerFeeSharesRequest;
                 fromPartial(object: Partial<_2.QueryDeployerFeeSharesRequest>): _2.QueryDeployerFeeSharesRequest;
+                fromAmino(object: _2.QueryDeployerFeeSharesRequestAmino): _2.QueryDeployerFeeSharesRequest;
+                toAmino(message: _2.QueryDeployerFeeSharesRequest): _2.QueryDeployerFeeSharesRequestAmino;
+                fromAminoMsg(object: _2.QueryDeployerFeeSharesRequestAminoMsg): _2.QueryDeployerFeeSharesRequest;
+                fromProtoMsg(message: _2.QueryDeployerFeeSharesRequestProtoMsg): _2.QueryDeployerFeeSharesRequest;
+                toProto(message: _2.QueryDeployerFeeSharesRequest): Uint8Array;
+                toProtoMsg(message: _2.QueryDeployerFeeSharesRequest): _2.QueryDeployerFeeSharesRequestProtoMsg;
             };
             QueryDeployerFeeSharesResponse: {
-                encode(message: _2.QueryDeployerFeeSharesResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.QueryDeployerFeeSharesResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.QueryDeployerFeeSharesResponse;
                 fromPartial(object: Partial<_2.QueryDeployerFeeSharesResponse>): _2.QueryDeployerFeeSharesResponse;
+                fromAmino(object: _2.QueryDeployerFeeSharesResponseAmino): _2.QueryDeployerFeeSharesResponse;
+                toAmino(message: _2.QueryDeployerFeeSharesResponse): _2.QueryDeployerFeeSharesResponseAmino;
+                fromAminoMsg(object: _2.QueryDeployerFeeSharesResponseAminoMsg): _2.QueryDeployerFeeSharesResponse;
+                fromProtoMsg(message: _2.QueryDeployerFeeSharesResponseProtoMsg): _2.QueryDeployerFeeSharesResponse;
+                toProto(message: _2.QueryDeployerFeeSharesResponse): Uint8Array;
+                toProtoMsg(message: _2.QueryDeployerFeeSharesResponse): _2.QueryDeployerFeeSharesResponseProtoMsg;
             };
             QueryWithdrawerFeeSharesRequest: {
-                encode(message: _2.QueryWithdrawerFeeSharesRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.QueryWithdrawerFeeSharesRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.QueryWithdrawerFeeSharesRequest;
                 fromPartial(object: Partial<_2.QueryWithdrawerFeeSharesRequest>): _2.QueryWithdrawerFeeSharesRequest;
+                fromAmino(object: _2.QueryWithdrawerFeeSharesRequestAmino): _2.QueryWithdrawerFeeSharesRequest;
+                toAmino(message: _2.QueryWithdrawerFeeSharesRequest): _2.QueryWithdrawerFeeSharesRequestAmino;
+                fromAminoMsg(object: _2.QueryWithdrawerFeeSharesRequestAminoMsg): _2.QueryWithdrawerFeeSharesRequest;
+                fromProtoMsg(message: _2.QueryWithdrawerFeeSharesRequestProtoMsg): _2.QueryWithdrawerFeeSharesRequest;
+                toProto(message: _2.QueryWithdrawerFeeSharesRequest): Uint8Array;
+                toProtoMsg(message: _2.QueryWithdrawerFeeSharesRequest): _2.QueryWithdrawerFeeSharesRequestProtoMsg;
             };
             QueryWithdrawerFeeSharesResponse: {
-                encode(message: _2.QueryWithdrawerFeeSharesResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _2.QueryWithdrawerFeeSharesResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _2.QueryWithdrawerFeeSharesResponse;
                 fromPartial(object: Partial<_2.QueryWithdrawerFeeSharesResponse>): _2.QueryWithdrawerFeeSharesResponse;
+                fromAmino(object: _2.QueryWithdrawerFeeSharesResponseAmino): _2.QueryWithdrawerFeeSharesResponse;
+                toAmino(message: _2.QueryWithdrawerFeeSharesResponse): _2.QueryWithdrawerFeeSharesResponseAmino;
+                fromAminoMsg(object: _2.QueryWithdrawerFeeSharesResponseAminoMsg): _2.QueryWithdrawerFeeSharesResponse;
+                fromProtoMsg(message: _2.QueryWithdrawerFeeSharesResponseProtoMsg): _2.QueryWithdrawerFeeSharesResponse;
+                toProto(message: _2.QueryWithdrawerFeeSharesResponse): Uint8Array;
+                toProtoMsg(message: _2.QueryWithdrawerFeeSharesResponse): _2.QueryWithdrawerFeeSharesResponseProtoMsg;
             };
             GenesisState: {
-                encode(message: _1.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.GenesisState;
                 fromPartial(object: Partial<_1.GenesisState>): _1.GenesisState;
+                fromAmino(object: _1.GenesisStateAmino): _1.GenesisState;
+                toAmino(message: _1.GenesisState): _1.GenesisStateAmino;
+                fromAminoMsg(object: _1.GenesisStateAminoMsg): _1.GenesisState;
+                fromProtoMsg(message: _1.GenesisStateProtoMsg): _1.GenesisState;
+                toProto(message: _1.GenesisState): Uint8Array;
+                toProtoMsg(message: _1.GenesisState): _1.GenesisStateProtoMsg;
             };
             Params: {
-                encode(message: _1.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _1.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _1.Params;
                 fromPartial(object: Partial<_1.Params>): _1.Params;
+                fromAmino(object: _1.ParamsAmino): _1.Params;
+                toAmino(message: _1.Params): _1.ParamsAmino;
+                fromAminoMsg(object: _1.ParamsAminoMsg): _1.Params;
+                fromProtoMsg(message: _1.ParamsProtoMsg): _1.Params;
+                toProto(message: _1.Params): Uint8Array;
+                toProtoMsg(message: _1.Params): _1.ParamsProtoMsg;
             };
             FeeShare: {
-                encode(message: _0.FeeShare, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _0.FeeShare, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _0.FeeShare;
                 fromPartial(object: Partial<_0.FeeShare>): _0.FeeShare;
+                fromAmino(object: _0.FeeShareAmino): _0.FeeShare;
+                toAmino(message: _0.FeeShare): _0.FeeShareAmino;
+                fromAminoMsg(object: _0.FeeShareAminoMsg): _0.FeeShare;
+                fromProtoMsg(message: _0.FeeShareProtoMsg): _0.FeeShare;
+                toProto(message: _0.FeeShare): Uint8Array;
+                toProtoMsg(message: _0.FeeShare): _0.FeeShareProtoMsg;
             };
         };
     }
     const mint: {
-        QueryClientImpl: typeof _113.QueryClientImpl;
+        QueryClientImpl: typeof _114.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _6.QueryParamsRequest): Promise<_6.QueryParamsResponse>;
             inflation(request?: _6.QueryInflationRequest): Promise<_6.QueryInflationResponse>;
             annualProvisions(request?: _6.QueryAnnualProvisionsRequest): Promise<_6.QueryAnnualProvisionsResponse>;
         };
-        LCDQueryClient: typeof _111.LCDQueryClient;
+        LCDQueryClient: typeof _112.LCDQueryClient;
         QueryParamsRequest: {
-            encode(_: _6.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _6.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _6.QueryParamsRequest;
             fromPartial(_: Partial<_6.QueryParamsRequest>): _6.QueryParamsRequest;
+            fromAmino(_: _6.QueryParamsRequestAmino): _6.QueryParamsRequest;
+            toAmino(_: _6.QueryParamsRequest): _6.QueryParamsRequestAmino;
+            fromAminoMsg(object: _6.QueryParamsRequestAminoMsg): _6.QueryParamsRequest;
+            fromProtoMsg(message: _6.QueryParamsRequestProtoMsg): _6.QueryParamsRequest;
+            toProto(message: _6.QueryParamsRequest): Uint8Array;
+            toProtoMsg(message: _6.QueryParamsRequest): _6.QueryParamsRequestProtoMsg;
         };
         QueryParamsResponse: {
-            encode(message: _6.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QueryParamsResponse;
             fromPartial(object: Partial<_6.QueryParamsResponse>): _6.QueryParamsResponse;
+            fromAmino(object: _6.QueryParamsResponseAmino): _6.QueryParamsResponse;
+            toAmino(message: _6.QueryParamsResponse): _6.QueryParamsResponseAmino;
+            fromAminoMsg(object: _6.QueryParamsResponseAminoMsg): _6.QueryParamsResponse;
+            fromProtoMsg(message: _6.QueryParamsResponseProtoMsg): _6.QueryParamsResponse;
+            toProto(message: _6.QueryParamsResponse): Uint8Array;
+            toProtoMsg(message: _6.QueryParamsResponse): _6.QueryParamsResponseProtoMsg;
         };
         QueryInflationRequest: {
-            encode(_: _6.QueryInflationRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _6.QueryInflationRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _6.QueryInflationRequest;
             fromPartial(_: Partial<_6.QueryInflationRequest>): _6.QueryInflationRequest;
+            fromAmino(_: _6.QueryInflationRequestAmino): _6.QueryInflationRequest;
+            toAmino(_: _6.QueryInflationRequest): _6.QueryInflationRequestAmino;
+            fromAminoMsg(object: _6.QueryInflationRequestAminoMsg): _6.QueryInflationRequest;
+            fromProtoMsg(message: _6.QueryInflationRequestProtoMsg): _6.QueryInflationRequest;
+            toProto(message: _6.QueryInflationRequest): Uint8Array;
+            toProtoMsg(message: _6.QueryInflationRequest): _6.QueryInflationRequestProtoMsg;
         };
         QueryInflationResponse: {
-            encode(message: _6.QueryInflationResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QueryInflationResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QueryInflationResponse;
             fromPartial(object: Partial<_6.QueryInflationResponse>): _6.QueryInflationResponse;
+            fromAmino(object: _6.QueryInflationResponseAmino): _6.QueryInflationResponse;
+            toAmino(message: _6.QueryInflationResponse): _6.QueryInflationResponseAmino;
+            fromAminoMsg(object: _6.QueryInflationResponseAminoMsg): _6.QueryInflationResponse;
+            fromProtoMsg(message: _6.QueryInflationResponseProtoMsg): _6.QueryInflationResponse;
+            toProto(message: _6.QueryInflationResponse): Uint8Array;
+            toProtoMsg(message: _6.QueryInflationResponse): _6.QueryInflationResponseProtoMsg;
         };
         QueryAnnualProvisionsRequest: {
-            encode(_: _6.QueryAnnualProvisionsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _6.QueryAnnualProvisionsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _6.QueryAnnualProvisionsRequest;
             fromPartial(_: Partial<_6.QueryAnnualProvisionsRequest>): _6.QueryAnnualProvisionsRequest;
+            fromAmino(_: _6.QueryAnnualProvisionsRequestAmino): _6.QueryAnnualProvisionsRequest;
+            toAmino(_: _6.QueryAnnualProvisionsRequest): _6.QueryAnnualProvisionsRequestAmino;
+            fromAminoMsg(object: _6.QueryAnnualProvisionsRequestAminoMsg): _6.QueryAnnualProvisionsRequest;
+            fromProtoMsg(message: _6.QueryAnnualProvisionsRequestProtoMsg): _6.QueryAnnualProvisionsRequest;
+            toProto(message: _6.QueryAnnualProvisionsRequest): Uint8Array;
+            toProtoMsg(message: _6.QueryAnnualProvisionsRequest): _6.QueryAnnualProvisionsRequestProtoMsg;
         };
         QueryAnnualProvisionsResponse: {
-            encode(message: _6.QueryAnnualProvisionsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QueryAnnualProvisionsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QueryAnnualProvisionsResponse;
             fromPartial(object: Partial<_6.QueryAnnualProvisionsResponse>): _6.QueryAnnualProvisionsResponse;
+            fromAmino(object: _6.QueryAnnualProvisionsResponseAmino): _6.QueryAnnualProvisionsResponse;
+            toAmino(message: _6.QueryAnnualProvisionsResponse): _6.QueryAnnualProvisionsResponseAmino;
+            fromAminoMsg(object: _6.QueryAnnualProvisionsResponseAminoMsg): _6.QueryAnnualProvisionsResponse;
+            fromProtoMsg(message: _6.QueryAnnualProvisionsResponseProtoMsg): _6.QueryAnnualProvisionsResponse;
+            toProto(message: _6.QueryAnnualProvisionsResponse): Uint8Array;
+            toProtoMsg(message: _6.QueryAnnualProvisionsResponse): _6.QueryAnnualProvisionsResponseProtoMsg;
         };
         Minter: {
-            encode(message: _5.Minter, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _5.Minter, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _5.Minter;
             fromPartial(object: Partial<_5.Minter>): _5.Minter;
+            fromAmino(object: _5.MinterAmino): _5.Minter;
+            toAmino(message: _5.Minter): _5.MinterAmino;
+            fromAminoMsg(object: _5.MinterAminoMsg): _5.Minter;
+            fromProtoMsg(message: _5.MinterProtoMsg): _5.Minter;
+            toProto(message: _5.Minter): Uint8Array;
+            toProtoMsg(message: _5.Minter): _5.MinterProtoMsg;
         };
         Params: {
-            encode(message: _5.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _5.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _5.Params;
             fromPartial(object: Partial<_5.Params>): _5.Params;
+            fromAmino(object: _5.ParamsAmino): _5.Params;
+            toAmino(message: _5.Params): _5.ParamsAmino;
+            fromAminoMsg(object: _5.ParamsAminoMsg): _5.Params;
+            fromProtoMsg(message: _5.ParamsProtoMsg): _5.Params;
+            toProto(message: _5.Params): Uint8Array;
+            toProtoMsg(message: _5.Params): _5.ParamsProtoMsg;
         };
         GenesisState: {
-            encode(message: _4.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _4.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _4.GenesisState;
             fromPartial(object: Partial<_4.GenesisState>): _4.GenesisState;
+            fromAmino(object: _4.GenesisStateAmino): _4.GenesisState;
+            toAmino(message: _4.GenesisState): _4.GenesisStateAmino;
+            fromAminoMsg(object: _4.GenesisStateAminoMsg): _4.GenesisState;
+            fromProtoMsg(message: _4.GenesisStateProtoMsg): _4.GenesisState;
+            toProto(message: _4.GenesisState): Uint8Array;
+            toProtoMsg(message: _4.GenesisState): _4.GenesisStateProtoMsg;
         };
     };
     const ClientFactory: {
@@ -279,7 +453,7 @@ export declare namespace juno {
         }) => Promise<{
             juno: {
                 feeshare: {
-                    v1: _114.MsgClientImpl;
+                    v1: _115.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -478,9 +652,9 @@ export declare namespace juno {
         }) => Promise<{
             juno: {
                 feeshare: {
-                    v1: _110.LCDQueryClient;
+                    v1: _111.LCDQueryClient;
                 };
-                mint: _111.LCDQueryClient;
+                mint: _112.LCDQueryClient;
             };
             cosmos: {
                 auth: {

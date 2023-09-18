@@ -1,25 +1,42 @@
-import { Duration, DurationSDKType } from "../../google/protobuf/duration";
-import { Long } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { BinaryWriter } from "../../binary";
 /**
  * ConsensusParams contains consensus critical parameters that determine the
  * validity of blocks.
  */
 export interface ConsensusParams {
-    block?: BlockParams;
-    evidence?: EvidenceParams;
-    validator?: ValidatorParams;
-    version?: VersionParams;
+    block: BlockParams;
+    evidence: EvidenceParams;
+    validator: ValidatorParams;
+    version: VersionParams;
+}
+export interface ConsensusParamsProtoMsg {
+    typeUrl: "/tendermint.types.ConsensusParams";
+    value: Uint8Array;
+}
+/**
+ * ConsensusParams contains consensus critical parameters that determine the
+ * validity of blocks.
+ */
+export interface ConsensusParamsAmino {
+    block?: BlockParamsAmino;
+    evidence?: EvidenceParamsAmino;
+    validator?: ValidatorParamsAmino;
+    version?: VersionParamsAmino;
+}
+export interface ConsensusParamsAminoMsg {
+    type: "/tendermint.types.ConsensusParams";
+    value: ConsensusParamsAmino;
 }
 /**
  * ConsensusParams contains consensus critical parameters that determine the
  * validity of blocks.
  */
 export interface ConsensusParamsSDKType {
-    block?: BlockParamsSDKType;
-    evidence?: EvidenceParamsSDKType;
-    validator?: ValidatorParamsSDKType;
-    version?: VersionParamsSDKType;
+    block: BlockParamsSDKType;
+    evidence: EvidenceParamsSDKType;
+    validator: ValidatorParamsSDKType;
+    version: VersionParamsSDKType;
 }
 /** BlockParams contains limits on the block size. */
 export interface BlockParams {
@@ -27,25 +44,53 @@ export interface BlockParams {
      * Max block size, in bytes.
      * Note: must be greater than 0
      */
-    maxBytes: Long;
+    maxBytes: bigint;
     /**
      * Max gas per block.
      * Note: must be greater or equal to -1
      */
-    maxGas: Long;
+    maxGas: bigint;
     /**
      * Minimum time increment between consecutive blocks (in milliseconds) If the
      * block header timestamp is ahead of the system clock, decrease this value.
      *
      * Not exposed to the application.
      */
-    timeIotaMs: Long;
+    timeIotaMs: bigint;
+}
+export interface BlockParamsProtoMsg {
+    typeUrl: "/tendermint.types.BlockParams";
+    value: Uint8Array;
+}
+/** BlockParams contains limits on the block size. */
+export interface BlockParamsAmino {
+    /**
+     * Max block size, in bytes.
+     * Note: must be greater than 0
+     */
+    max_bytes: string;
+    /**
+     * Max gas per block.
+     * Note: must be greater or equal to -1
+     */
+    max_gas: string;
+    /**
+     * Minimum time increment between consecutive blocks (in milliseconds) If the
+     * block header timestamp is ahead of the system clock, decrease this value.
+     *
+     * Not exposed to the application.
+     */
+    time_iota_ms: string;
+}
+export interface BlockParamsAminoMsg {
+    type: "/tendermint.types.BlockParams";
+    value: BlockParamsAmino;
 }
 /** BlockParams contains limits on the block size. */
 export interface BlockParamsSDKType {
-    max_bytes: Long;
-    max_gas: Long;
-    time_iota_ms: Long;
+    max_bytes: bigint;
+    max_gas: bigint;
+    time_iota_ms: bigint;
 }
 /** EvidenceParams determine how we handle evidence of malfeasance. */
 export interface EvidenceParams {
@@ -55,7 +100,7 @@ export interface EvidenceParams {
      * The basic formula for calculating this is: MaxAgeDuration / {average block
      * time}.
      */
-    maxAgeNumBlocks: Long;
+    maxAgeNumBlocks: bigint;
     /**
      * Max age of evidence, in time.
      *
@@ -63,19 +108,51 @@ export interface EvidenceParams {
      * mechanism for handling [Nothing-At-Stake
      * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
      */
-    maxAgeDuration?: Duration;
+    maxAgeDuration: Duration;
     /**
      * This sets the maximum size of total evidence in bytes that can be committed in a single block.
      * and should fall comfortably under the max block bytes.
      * Default is 1048576 or 1MB
      */
-    maxBytes: Long;
+    maxBytes: bigint;
+}
+export interface EvidenceParamsProtoMsg {
+    typeUrl: "/tendermint.types.EvidenceParams";
+    value: Uint8Array;
+}
+/** EvidenceParams determine how we handle evidence of malfeasance. */
+export interface EvidenceParamsAmino {
+    /**
+     * Max age of evidence, in blocks.
+     *
+     * The basic formula for calculating this is: MaxAgeDuration / {average block
+     * time}.
+     */
+    max_age_num_blocks: string;
+    /**
+     * Max age of evidence, in time.
+     *
+     * It should correspond with an app's "unbonding period" or other similar
+     * mechanism for handling [Nothing-At-Stake
+     * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+     */
+    max_age_duration?: DurationAmino;
+    /**
+     * This sets the maximum size of total evidence in bytes that can be committed in a single block.
+     * and should fall comfortably under the max block bytes.
+     * Default is 1048576 or 1MB
+     */
+    max_bytes: string;
+}
+export interface EvidenceParamsAminoMsg {
+    type: "/tendermint.types.EvidenceParams";
+    value: EvidenceParamsAmino;
 }
 /** EvidenceParams determine how we handle evidence of malfeasance. */
 export interface EvidenceParamsSDKType {
-    max_age_num_blocks: Long;
-    max_age_duration?: DurationSDKType;
-    max_bytes: Long;
+    max_age_num_blocks: bigint;
+    max_age_duration: DurationSDKType;
+    max_bytes: bigint;
 }
 /**
  * ValidatorParams restrict the public key types validators can use.
@@ -83,6 +160,21 @@ export interface EvidenceParamsSDKType {
  */
 export interface ValidatorParams {
     pubKeyTypes: string[];
+}
+export interface ValidatorParamsProtoMsg {
+    typeUrl: "/tendermint.types.ValidatorParams";
+    value: Uint8Array;
+}
+/**
+ * ValidatorParams restrict the public key types validators can use.
+ * NOTE: uses ABCI pubkey naming, not Amino names.
+ */
+export interface ValidatorParamsAmino {
+    pub_key_types: string[];
+}
+export interface ValidatorParamsAminoMsg {
+    type: "/tendermint.types.ValidatorParams";
+    value: ValidatorParamsAmino;
 }
 /**
  * ValidatorParams restrict the public key types validators can use.
@@ -93,11 +185,23 @@ export interface ValidatorParamsSDKType {
 }
 /** VersionParams contains the ABCI application version. */
 export interface VersionParams {
-    appVersion: Long;
+    appVersion: bigint;
+}
+export interface VersionParamsProtoMsg {
+    typeUrl: "/tendermint.types.VersionParams";
+    value: Uint8Array;
+}
+/** VersionParams contains the ABCI application version. */
+export interface VersionParamsAmino {
+    app_version: string;
+}
+export interface VersionParamsAminoMsg {
+    type: "/tendermint.types.VersionParams";
+    value: VersionParamsAmino;
 }
 /** VersionParams contains the ABCI application version. */
 export interface VersionParamsSDKType {
-    app_version: Long;
+    app_version: bigint;
 }
 /**
  * HashedParams is a subset of ConsensusParams.
@@ -105,8 +209,25 @@ export interface VersionParamsSDKType {
  * It is hashed into the Header.ConsensusHash.
  */
 export interface HashedParams {
-    blockMaxBytes: Long;
-    blockMaxGas: Long;
+    blockMaxBytes: bigint;
+    blockMaxGas: bigint;
+}
+export interface HashedParamsProtoMsg {
+    typeUrl: "/tendermint.types.HashedParams";
+    value: Uint8Array;
+}
+/**
+ * HashedParams is a subset of ConsensusParams.
+ *
+ * It is hashed into the Header.ConsensusHash.
+ */
+export interface HashedParamsAmino {
+    block_max_bytes: string;
+    block_max_gas: string;
+}
+export interface HashedParamsAminoMsg {
+    type: "/tendermint.types.HashedParams";
+    value: HashedParamsAmino;
 }
 /**
  * HashedParams is a subset of ConsensusParams.
@@ -114,36 +235,78 @@ export interface HashedParams {
  * It is hashed into the Header.ConsensusHash.
  */
 export interface HashedParamsSDKType {
-    block_max_bytes: Long;
-    block_max_gas: Long;
+    block_max_bytes: bigint;
+    block_max_gas: bigint;
 }
 export declare const ConsensusParams: {
-    encode(message: ConsensusParams, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ConsensusParams, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ConsensusParams;
     fromPartial(object: Partial<ConsensusParams>): ConsensusParams;
+    fromAmino(object: ConsensusParamsAmino): ConsensusParams;
+    toAmino(message: ConsensusParams): ConsensusParamsAmino;
+    fromAminoMsg(object: ConsensusParamsAminoMsg): ConsensusParams;
+    fromProtoMsg(message: ConsensusParamsProtoMsg): ConsensusParams;
+    toProto(message: ConsensusParams): Uint8Array;
+    toProtoMsg(message: ConsensusParams): ConsensusParamsProtoMsg;
 };
 export declare const BlockParams: {
-    encode(message: BlockParams, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: BlockParams, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): BlockParams;
     fromPartial(object: Partial<BlockParams>): BlockParams;
+    fromAmino(object: BlockParamsAmino): BlockParams;
+    toAmino(message: BlockParams): BlockParamsAmino;
+    fromAminoMsg(object: BlockParamsAminoMsg): BlockParams;
+    fromProtoMsg(message: BlockParamsProtoMsg): BlockParams;
+    toProto(message: BlockParams): Uint8Array;
+    toProtoMsg(message: BlockParams): BlockParamsProtoMsg;
 };
 export declare const EvidenceParams: {
-    encode(message: EvidenceParams, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EvidenceParams, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EvidenceParams;
     fromPartial(object: Partial<EvidenceParams>): EvidenceParams;
+    fromAmino(object: EvidenceParamsAmino): EvidenceParams;
+    toAmino(message: EvidenceParams): EvidenceParamsAmino;
+    fromAminoMsg(object: EvidenceParamsAminoMsg): EvidenceParams;
+    fromProtoMsg(message: EvidenceParamsProtoMsg): EvidenceParams;
+    toProto(message: EvidenceParams): Uint8Array;
+    toProtoMsg(message: EvidenceParams): EvidenceParamsProtoMsg;
 };
 export declare const ValidatorParams: {
-    encode(message: ValidatorParams, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ValidatorParams, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ValidatorParams;
     fromPartial(object: Partial<ValidatorParams>): ValidatorParams;
+    fromAmino(object: ValidatorParamsAmino): ValidatorParams;
+    toAmino(message: ValidatorParams): ValidatorParamsAmino;
+    fromAminoMsg(object: ValidatorParamsAminoMsg): ValidatorParams;
+    fromProtoMsg(message: ValidatorParamsProtoMsg): ValidatorParams;
+    toProto(message: ValidatorParams): Uint8Array;
+    toProtoMsg(message: ValidatorParams): ValidatorParamsProtoMsg;
 };
 export declare const VersionParams: {
-    encode(message: VersionParams, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: VersionParams, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): VersionParams;
     fromPartial(object: Partial<VersionParams>): VersionParams;
+    fromAmino(object: VersionParamsAmino): VersionParams;
+    toAmino(message: VersionParams): VersionParamsAmino;
+    fromAminoMsg(object: VersionParamsAminoMsg): VersionParams;
+    fromProtoMsg(message: VersionParamsProtoMsg): VersionParams;
+    toProto(message: VersionParams): Uint8Array;
+    toProtoMsg(message: VersionParams): VersionParamsProtoMsg;
 };
 export declare const HashedParams: {
-    encode(message: HashedParams, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: HashedParams, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): HashedParams;
     fromPartial(object: Partial<HashedParams>): HashedParams;
+    fromAmino(object: HashedParamsAmino): HashedParams;
+    toAmino(message: HashedParams): HashedParamsAmino;
+    fromAminoMsg(object: HashedParamsAminoMsg): HashedParams;
+    fromProtoMsg(message: HashedParamsProtoMsg): HashedParams;
+    toProto(message: HashedParams): Uint8Array;
+    toProtoMsg(message: HashedParams): HashedParamsProtoMsg;
 };

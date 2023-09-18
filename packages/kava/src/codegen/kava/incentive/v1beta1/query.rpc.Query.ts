@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryRewardsRequest, QueryRewardsResponse, QueryRewardFactorsRequest, QueryRewardFactorsResponse, QueryApyRequest, QueryApyResponse } from "./query";
 /** Query defines the gRPC querier service for incentive module. */
@@ -25,22 +25,22 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.incentive.v1beta1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   rewards(request: QueryRewardsRequest): Promise<QueryRewardsResponse> {
     const data = QueryRewardsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.incentive.v1beta1.Query", "Rewards", data);
-    return promise.then(data => QueryRewardsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRewardsResponse.decode(new BinaryReader(data)));
   }
   rewardFactors(request: QueryRewardFactorsRequest = {}): Promise<QueryRewardFactorsResponse> {
     const data = QueryRewardFactorsRequest.encode(request).finish();
     const promise = this.rpc.request("kava.incentive.v1beta1.Query", "RewardFactors", data);
-    return promise.then(data => QueryRewardFactorsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryRewardFactorsResponse.decode(new BinaryReader(data)));
   }
   apy(request: QueryApyRequest = {}): Promise<QueryApyResponse> {
     const data = QueryApyRequest.encode(request).finish();
     const promise = this.rpc.request("kava.incentive.v1beta1.Query", "Apy", data);
-    return promise.then(data => QueryApyResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryApyResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

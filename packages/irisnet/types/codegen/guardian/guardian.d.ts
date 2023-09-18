@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../binary";
 /** AccountType defines the super account type */
 export declare enum AccountType {
     /** GENESIS - GENESIS defines a genesis account type */
@@ -8,6 +8,7 @@ export declare enum AccountType {
     UNRECOGNIZED = -1
 }
 export declare const AccountTypeSDKType: typeof AccountType;
+export declare const AccountTypeAmino: typeof AccountType;
 export declare function accountTypeFromJSON(object: any): AccountType;
 export declare function accountTypeToJSON(object: AccountType): string;
 /** Super defines the super standard */
@@ -17,6 +18,21 @@ export interface Super {
     address: string;
     addedBy: string;
 }
+export interface SuperProtoMsg {
+    typeUrl: "/irishub.guardian.Super";
+    value: Uint8Array;
+}
+/** Super defines the super standard */
+export interface SuperAmino {
+    description: string;
+    account_type: AccountType;
+    address: string;
+    added_by: string;
+}
+export interface SuperAminoMsg {
+    type: "/irishub.guardian.Super";
+    value: SuperAmino;
+}
 /** Super defines the super standard */
 export interface SuperSDKType {
     description: string;
@@ -25,7 +41,14 @@ export interface SuperSDKType {
     added_by: string;
 }
 export declare const Super: {
-    encode(message: Super, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Super, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Super;
     fromPartial(object: Partial<Super>): Super;
+    fromAmino(object: SuperAmino): Super;
+    toAmino(message: Super): SuperAmino;
+    fromAminoMsg(object: SuperAminoMsg): Super;
+    fromProtoMsg(message: SuperProtoMsg): Super;
+    toProto(message: Super): Uint8Array;
+    toProtoMsg(message: Super): SuperProtoMsg;
 };

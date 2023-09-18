@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryStateRequest, QueryStateResponse } from "./query";
 /** Query defines the gRPC querier service for vbank module. */
@@ -19,12 +19,12 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("agoric.vbank.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   state(request: QueryStateRequest = {}): Promise<QueryStateResponse> {
     const data = QueryStateRequest.encode(request).finish();
     const promise = this.rpc.request("agoric.vbank.Query", "State", data);
-    return promise.then(data => QueryStateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryStateResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

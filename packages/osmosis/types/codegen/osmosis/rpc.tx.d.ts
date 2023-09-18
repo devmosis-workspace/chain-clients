@@ -22,6 +22,7 @@ export declare const createRPCMsgClient: ({ rpc }: {
             };
             v1beta1: import("./gamm/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
+        ibchooks: import("./ibc-hooks/tx.rpc.msg").MsgClientImpl;
         incentives: import("./incentives/tx.rpc.msg").MsgClientImpl;
         lockup: import("./lockup/tx.rpc.msg").MsgClientImpl;
         poolmanager: {

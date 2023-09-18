@@ -1,16 +1,32 @@
-import { Timestamp, TimestampSDKType } from "../google/protobuf/timestamp";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../google/protobuf/timestamp";
+import { BinaryWriter } from "../binary";
 import { isSet, fromJsonTimestamp } from "../helpers";
+import { Decimal } from "@cosmjs/math";
 /** Minter represents the minting state */
 export interface Minter {
   /** time which the last update was made to the minter */
-  lastUpdate?: Timestamp;
+  lastUpdate: Timestamp;
   /** base inflation */
   inflationBase: string;
 }
+export interface MinterProtoMsg {
+  typeUrl: "/irishub.mint.Minter";
+  value: Uint8Array;
+}
+/** Minter represents the minting state */
+export interface MinterAmino {
+  /** time which the last update was made to the minter */
+  last_update?: TimestampAmino;
+  /** base inflation */
+  inflation_base: string;
+}
+export interface MinterAminoMsg {
+  type: "/irishub.mint.Minter";
+  value: MinterAmino;
+}
 /** Minter represents the minting state */
 export interface MinterSDKType {
-  last_update?: TimestampSDKType;
+  last_update: TimestampSDKType;
   inflation_base: string;
 }
 /** Params defines mint module's parameters */
@@ -20,6 +36,21 @@ export interface Params {
   /** inflation rate */
   inflation: string;
 }
+export interface ParamsProtoMsg {
+  typeUrl: "/irishub.mint.Params";
+  value: Uint8Array;
+}
+/** Params defines mint module's parameters */
+export interface ParamsAmino {
+  /** type of coin to mint */
+  mint_denom: string;
+  /** inflation rate */
+  inflation: string;
+}
+export interface ParamsAminoMsg {
+  type: "/irishub.mint.Params";
+  value: ParamsAmino;
+}
 /** Params defines mint module's parameters */
 export interface ParamsSDKType {
   mint_denom: string;
@@ -27,12 +58,13 @@ export interface ParamsSDKType {
 }
 function createBaseMinter(): Minter {
   return {
-    lastUpdate: undefined,
+    lastUpdate: Timestamp.fromPartial({}),
     inflationBase: ""
   };
 }
 export const Minter = {
-  encode(message: Minter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/irishub.mint.Minter",
+  encode(message: Minter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.lastUpdate !== undefined) {
       Timestamp.encode(message.lastUpdate, writer.uint32(10).fork()).ldelim();
     }
@@ -52,6 +84,33 @@ export const Minter = {
     message.lastUpdate = object.lastUpdate !== undefined && object.lastUpdate !== null ? Timestamp.fromPartial(object.lastUpdate) : undefined;
     message.inflationBase = object.inflationBase ?? "";
     return message;
+  },
+  fromAmino(object: MinterAmino): Minter {
+    return {
+      lastUpdate: object.last_update,
+      inflationBase: object.inflation_base
+    };
+  },
+  toAmino(message: Minter): MinterAmino {
+    const obj: any = {};
+    obj.last_update = message.lastUpdate;
+    obj.inflation_base = message.inflationBase;
+    return obj;
+  },
+  fromAminoMsg(object: MinterAminoMsg): Minter {
+    return Minter.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MinterProtoMsg): Minter {
+    return Minter.decode(message.value);
+  },
+  toProto(message: Minter): Uint8Array {
+    return Minter.encode(message).finish();
+  },
+  toProtoMsg(message: Minter): MinterProtoMsg {
+    return {
+      typeUrl: "/irishub.mint.Minter",
+      value: Minter.encode(message).finish()
+    };
   }
 };
 function createBaseParams(): Params {
@@ -61,12 +120,13 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/irishub.mint.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.mintDenom !== "") {
       writer.uint32(10).string(message.mintDenom);
     }
     if (message.inflation !== "") {
-      writer.uint32(18).string(message.inflation);
+      writer.uint32(18).string(Decimal.fromUserInput(message.inflation, 18).atomics);
     }
     return writer;
   },
@@ -81,5 +141,32 @@ export const Params = {
     message.mintDenom = object.mintDenom ?? "";
     message.inflation = object.inflation ?? "";
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      mintDenom: object.mint_denom,
+      inflation: object.inflation
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.mint_denom = message.mintDenom;
+    obj.inflation = message.inflation;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/irishub.mint.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };

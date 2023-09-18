@@ -1,12 +1,25 @@
-import { DecCoin, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Plan, PlanSDKType } from "../../../cosmos/upgrade/v1beta1/upgrade";
-import { ParamChange, ParamChangeSDKType } from "../../../cosmos/params/v1beta1/params";
-import * as _m0 from "protobufjs/minimal";
+import { DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { Plan, PlanAmino, PlanSDKType } from "../../../cosmos/upgrade/v1beta1/upgrade";
+import { ParamChange, ParamChangeAmino, ParamChangeSDKType } from "../../../cosmos/params/v1beta1/params";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 export interface MsgCreateIssuer {
   authority: string;
   issuer: string;
   denominations: Denomination[];
+}
+export interface MsgCreateIssuerProtoMsg {
+  typeUrl: "/em.authority.v1.MsgCreateIssuer";
+  value: Uint8Array;
+}
+export interface MsgCreateIssuerAmino {
+  authority: string;
+  issuer: string;
+  denominations: DenominationAmino[];
+}
+export interface MsgCreateIssuerAminoMsg {
+  type: "/em.authority.v1.MsgCreateIssuer";
+  value: MsgCreateIssuerAmino;
 }
 export interface MsgCreateIssuerSDKType {
   authority: string;
@@ -23,36 +36,117 @@ export interface Denomination {
   display: string;
   description: string;
 }
+export interface DenominationProtoMsg {
+  typeUrl: "/em.authority.v1.Denomination";
+  value: Uint8Array;
+}
+export interface DenominationAmino {
+  /** base represents the base denom (should be the DenomUnit with exponent = 0). */
+  base: string;
+  /**
+   * display indicates the suggested denom that should be
+   * displayed in clients.
+   */
+  display: string;
+  description: string;
+}
+export interface DenominationAminoMsg {
+  type: "/em.authority.v1.Denomination";
+  value: DenominationAmino;
+}
 export interface DenominationSDKType {
   base: string;
   display: string;
   description: string;
 }
 export interface MsgCreateIssuerResponse {}
+export interface MsgCreateIssuerResponseProtoMsg {
+  typeUrl: "/em.authority.v1.MsgCreateIssuerResponse";
+  value: Uint8Array;
+}
+export interface MsgCreateIssuerResponseAmino {}
+export interface MsgCreateIssuerResponseAminoMsg {
+  type: "/em.authority.v1.MsgCreateIssuerResponse";
+  value: MsgCreateIssuerResponseAmino;
+}
 export interface MsgCreateIssuerResponseSDKType {}
 export interface MsgDestroyIssuer {
   authority: string;
   issuer: string;
+}
+export interface MsgDestroyIssuerProtoMsg {
+  typeUrl: "/em.authority.v1.MsgDestroyIssuer";
+  value: Uint8Array;
+}
+export interface MsgDestroyIssuerAmino {
+  authority: string;
+  issuer: string;
+}
+export interface MsgDestroyIssuerAminoMsg {
+  type: "/em.authority.v1.MsgDestroyIssuer";
+  value: MsgDestroyIssuerAmino;
 }
 export interface MsgDestroyIssuerSDKType {
   authority: string;
   issuer: string;
 }
 export interface MsgDestroyIssuerResponse {}
+export interface MsgDestroyIssuerResponseProtoMsg {
+  typeUrl: "/em.authority.v1.MsgDestroyIssuerResponse";
+  value: Uint8Array;
+}
+export interface MsgDestroyIssuerResponseAmino {}
+export interface MsgDestroyIssuerResponseAminoMsg {
+  type: "/em.authority.v1.MsgDestroyIssuerResponse";
+  value: MsgDestroyIssuerResponseAmino;
+}
 export interface MsgDestroyIssuerResponseSDKType {}
 export interface MsgSetGasPrices {
   authority: string;
   gasPrices: DecCoin[];
+}
+export interface MsgSetGasPricesProtoMsg {
+  typeUrl: "/em.authority.v1.MsgSetGasPrices";
+  value: Uint8Array;
+}
+export interface MsgSetGasPricesAmino {
+  authority: string;
+  gas_prices: DecCoinAmino[];
+}
+export interface MsgSetGasPricesAminoMsg {
+  type: "/em.authority.v1.MsgSetGasPrices";
+  value: MsgSetGasPricesAmino;
 }
 export interface MsgSetGasPricesSDKType {
   authority: string;
   gas_prices: DecCoinSDKType[];
 }
 export interface MsgSetGasPricesResponse {}
+export interface MsgSetGasPricesResponseProtoMsg {
+  typeUrl: "/em.authority.v1.MsgSetGasPricesResponse";
+  value: Uint8Array;
+}
+export interface MsgSetGasPricesResponseAmino {}
+export interface MsgSetGasPricesResponseAminoMsg {
+  type: "/em.authority.v1.MsgSetGasPricesResponse";
+  value: MsgSetGasPricesResponseAmino;
+}
 export interface MsgSetGasPricesResponseSDKType {}
 export interface MsgReplaceAuthority {
   authority: string;
   newAuthority: string;
+}
+export interface MsgReplaceAuthorityProtoMsg {
+  typeUrl: "/em.authority.v1.MsgReplaceAuthority";
+  value: Uint8Array;
+}
+export interface MsgReplaceAuthorityAmino {
+  authority: string;
+  new_authority: string;
+}
+export interface MsgReplaceAuthorityAminoMsg {
+  type: "/em.authority.v1.MsgReplaceAuthority";
+  value: MsgReplaceAuthorityAmino;
 }
 export interface MsgReplaceAuthoritySDKType {
   authority: string;
@@ -61,28 +155,81 @@ export interface MsgReplaceAuthoritySDKType {
 export interface MsgReplaceAuthorityResponse {
   newAuthorityAddress: string;
 }
+export interface MsgReplaceAuthorityResponseProtoMsg {
+  typeUrl: "/em.authority.v1.MsgReplaceAuthorityResponse";
+  value: Uint8Array;
+}
+export interface MsgReplaceAuthorityResponseAmino {
+  new_authority_address: string;
+}
+export interface MsgReplaceAuthorityResponseAminoMsg {
+  type: "/em.authority.v1.MsgReplaceAuthorityResponse";
+  value: MsgReplaceAuthorityResponseAmino;
+}
 export interface MsgReplaceAuthorityResponseSDKType {
   new_authority_address: string;
 }
 export interface MsgScheduleUpgrade {
   authority: string;
-  plan?: Plan;
+  plan: Plan;
+}
+export interface MsgScheduleUpgradeProtoMsg {
+  typeUrl: "/em.authority.v1.MsgScheduleUpgrade";
+  value: Uint8Array;
+}
+export interface MsgScheduleUpgradeAmino {
+  authority: string;
+  plan?: PlanAmino;
+}
+export interface MsgScheduleUpgradeAminoMsg {
+  type: "/em.authority.v1.MsgScheduleUpgrade";
+  value: MsgScheduleUpgradeAmino;
 }
 export interface MsgScheduleUpgradeSDKType {
   authority: string;
-  plan?: PlanSDKType;
+  plan: PlanSDKType;
 }
 export interface MsgScheduleUpgradeResponse {}
+export interface MsgScheduleUpgradeResponseProtoMsg {
+  typeUrl: "/em.authority.v1.MsgScheduleUpgradeResponse";
+  value: Uint8Array;
+}
+export interface MsgScheduleUpgradeResponseAmino {}
+export interface MsgScheduleUpgradeResponseAminoMsg {
+  type: "/em.authority.v1.MsgScheduleUpgradeResponse";
+  value: MsgScheduleUpgradeResponseAmino;
+}
 export interface MsgScheduleUpgradeResponseSDKType {}
 export interface MsgSetParameters {
   authority: string;
   changes: ParamChange[];
+}
+export interface MsgSetParametersProtoMsg {
+  typeUrl: "/em.authority.v1.MsgSetParameters";
+  value: Uint8Array;
+}
+export interface MsgSetParametersAmino {
+  authority: string;
+  changes: ParamChangeAmino[];
+}
+export interface MsgSetParametersAminoMsg {
+  type: "/em.authority.v1.MsgSetParameters";
+  value: MsgSetParametersAmino;
 }
 export interface MsgSetParametersSDKType {
   authority: string;
   changes: ParamChangeSDKType[];
 }
 export interface MsgSetParametersResponse {}
+export interface MsgSetParametersResponseProtoMsg {
+  typeUrl: "/em.authority.v1.MsgSetParametersResponse";
+  value: Uint8Array;
+}
+export interface MsgSetParametersResponseAmino {}
+export interface MsgSetParametersResponseAminoMsg {
+  type: "/em.authority.v1.MsgSetParametersResponse";
+  value: MsgSetParametersResponseAmino;
+}
 export interface MsgSetParametersResponseSDKType {}
 function createBaseMsgCreateIssuer(): MsgCreateIssuer {
   return {
@@ -92,7 +239,8 @@ function createBaseMsgCreateIssuer(): MsgCreateIssuer {
   };
 }
 export const MsgCreateIssuer = {
-  encode(message: MsgCreateIssuer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgCreateIssuer",
+  encode(message: MsgCreateIssuer, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
@@ -117,6 +265,39 @@ export const MsgCreateIssuer = {
     message.issuer = object.issuer ?? "";
     message.denominations = object.denominations?.map(e => Denomination.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MsgCreateIssuerAmino): MsgCreateIssuer {
+    return {
+      authority: object.authority,
+      issuer: object.issuer,
+      denominations: Array.isArray(object?.denominations) ? object.denominations.map((e: any) => Denomination.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: MsgCreateIssuer): MsgCreateIssuerAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.issuer = message.issuer;
+    if (message.denominations) {
+      obj.denominations = message.denominations.map(e => e ? Denomination.toAmino(e) : undefined);
+    } else {
+      obj.denominations = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateIssuerAminoMsg): MsgCreateIssuer {
+    return MsgCreateIssuer.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCreateIssuerProtoMsg): MsgCreateIssuer {
+    return MsgCreateIssuer.decode(message.value);
+  },
+  toProto(message: MsgCreateIssuer): Uint8Array {
+    return MsgCreateIssuer.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateIssuer): MsgCreateIssuerProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgCreateIssuer",
+      value: MsgCreateIssuer.encode(message).finish()
+    };
   }
 };
 function createBaseDenomination(): Denomination {
@@ -127,7 +308,8 @@ function createBaseDenomination(): Denomination {
   };
 }
 export const Denomination = {
-  encode(message: Denomination, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.Denomination",
+  encode(message: Denomination, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.base !== "") {
       writer.uint32(10).string(message.base);
     }
@@ -152,13 +334,43 @@ export const Denomination = {
     message.display = object.display ?? "";
     message.description = object.description ?? "";
     return message;
+  },
+  fromAmino(object: DenominationAmino): Denomination {
+    return {
+      base: object.base,
+      display: object.display,
+      description: object.description
+    };
+  },
+  toAmino(message: Denomination): DenominationAmino {
+    const obj: any = {};
+    obj.base = message.base;
+    obj.display = message.display;
+    obj.description = message.description;
+    return obj;
+  },
+  fromAminoMsg(object: DenominationAminoMsg): Denomination {
+    return Denomination.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DenominationProtoMsg): Denomination {
+    return Denomination.decode(message.value);
+  },
+  toProto(message: Denomination): Uint8Array {
+    return Denomination.encode(message).finish();
+  },
+  toProtoMsg(message: Denomination): DenominationProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.Denomination",
+      value: Denomination.encode(message).finish()
+    };
   }
 };
 function createBaseMsgCreateIssuerResponse(): MsgCreateIssuerResponse {
   return {};
 }
 export const MsgCreateIssuerResponse = {
-  encode(_: MsgCreateIssuerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgCreateIssuerResponse",
+  encode(_: MsgCreateIssuerResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgCreateIssuerResponse {
@@ -167,6 +379,28 @@ export const MsgCreateIssuerResponse = {
   fromPartial(_: Partial<MsgCreateIssuerResponse>): MsgCreateIssuerResponse {
     const message = createBaseMsgCreateIssuerResponse();
     return message;
+  },
+  fromAmino(_: MsgCreateIssuerResponseAmino): MsgCreateIssuerResponse {
+    return {};
+  },
+  toAmino(_: MsgCreateIssuerResponse): MsgCreateIssuerResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateIssuerResponseAminoMsg): MsgCreateIssuerResponse {
+    return MsgCreateIssuerResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCreateIssuerResponseProtoMsg): MsgCreateIssuerResponse {
+    return MsgCreateIssuerResponse.decode(message.value);
+  },
+  toProto(message: MsgCreateIssuerResponse): Uint8Array {
+    return MsgCreateIssuerResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateIssuerResponse): MsgCreateIssuerResponseProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgCreateIssuerResponse",
+      value: MsgCreateIssuerResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgDestroyIssuer(): MsgDestroyIssuer {
@@ -176,7 +410,8 @@ function createBaseMsgDestroyIssuer(): MsgDestroyIssuer {
   };
 }
 export const MsgDestroyIssuer = {
-  encode(message: MsgDestroyIssuer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgDestroyIssuer",
+  encode(message: MsgDestroyIssuer, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
@@ -196,13 +431,41 @@ export const MsgDestroyIssuer = {
     message.authority = object.authority ?? "";
     message.issuer = object.issuer ?? "";
     return message;
+  },
+  fromAmino(object: MsgDestroyIssuerAmino): MsgDestroyIssuer {
+    return {
+      authority: object.authority,
+      issuer: object.issuer
+    };
+  },
+  toAmino(message: MsgDestroyIssuer): MsgDestroyIssuerAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.issuer = message.issuer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgDestroyIssuerAminoMsg): MsgDestroyIssuer {
+    return MsgDestroyIssuer.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgDestroyIssuerProtoMsg): MsgDestroyIssuer {
+    return MsgDestroyIssuer.decode(message.value);
+  },
+  toProto(message: MsgDestroyIssuer): Uint8Array {
+    return MsgDestroyIssuer.encode(message).finish();
+  },
+  toProtoMsg(message: MsgDestroyIssuer): MsgDestroyIssuerProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgDestroyIssuer",
+      value: MsgDestroyIssuer.encode(message).finish()
+    };
   }
 };
 function createBaseMsgDestroyIssuerResponse(): MsgDestroyIssuerResponse {
   return {};
 }
 export const MsgDestroyIssuerResponse = {
-  encode(_: MsgDestroyIssuerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgDestroyIssuerResponse",
+  encode(_: MsgDestroyIssuerResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgDestroyIssuerResponse {
@@ -211,6 +474,28 @@ export const MsgDestroyIssuerResponse = {
   fromPartial(_: Partial<MsgDestroyIssuerResponse>): MsgDestroyIssuerResponse {
     const message = createBaseMsgDestroyIssuerResponse();
     return message;
+  },
+  fromAmino(_: MsgDestroyIssuerResponseAmino): MsgDestroyIssuerResponse {
+    return {};
+  },
+  toAmino(_: MsgDestroyIssuerResponse): MsgDestroyIssuerResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgDestroyIssuerResponseAminoMsg): MsgDestroyIssuerResponse {
+    return MsgDestroyIssuerResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgDestroyIssuerResponseProtoMsg): MsgDestroyIssuerResponse {
+    return MsgDestroyIssuerResponse.decode(message.value);
+  },
+  toProto(message: MsgDestroyIssuerResponse): Uint8Array {
+    return MsgDestroyIssuerResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgDestroyIssuerResponse): MsgDestroyIssuerResponseProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgDestroyIssuerResponse",
+      value: MsgDestroyIssuerResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgSetGasPrices(): MsgSetGasPrices {
@@ -220,7 +505,8 @@ function createBaseMsgSetGasPrices(): MsgSetGasPrices {
   };
 }
 export const MsgSetGasPrices = {
-  encode(message: MsgSetGasPrices, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgSetGasPrices",
+  encode(message: MsgSetGasPrices, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
@@ -240,13 +526,45 @@ export const MsgSetGasPrices = {
     message.authority = object.authority ?? "";
     message.gasPrices = object.gasPrices?.map(e => DecCoin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MsgSetGasPricesAmino): MsgSetGasPrices {
+    return {
+      authority: object.authority,
+      gasPrices: Array.isArray(object?.gas_prices) ? object.gas_prices.map((e: any) => DecCoin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: MsgSetGasPrices): MsgSetGasPricesAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    if (message.gasPrices) {
+      obj.gas_prices = message.gasPrices.map(e => e ? DecCoin.toAmino(e) : undefined);
+    } else {
+      obj.gas_prices = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetGasPricesAminoMsg): MsgSetGasPrices {
+    return MsgSetGasPrices.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSetGasPricesProtoMsg): MsgSetGasPrices {
+    return MsgSetGasPrices.decode(message.value);
+  },
+  toProto(message: MsgSetGasPrices): Uint8Array {
+    return MsgSetGasPrices.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSetGasPrices): MsgSetGasPricesProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgSetGasPrices",
+      value: MsgSetGasPrices.encode(message).finish()
+    };
   }
 };
 function createBaseMsgSetGasPricesResponse(): MsgSetGasPricesResponse {
   return {};
 }
 export const MsgSetGasPricesResponse = {
-  encode(_: MsgSetGasPricesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgSetGasPricesResponse",
+  encode(_: MsgSetGasPricesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgSetGasPricesResponse {
@@ -255,6 +573,28 @@ export const MsgSetGasPricesResponse = {
   fromPartial(_: Partial<MsgSetGasPricesResponse>): MsgSetGasPricesResponse {
     const message = createBaseMsgSetGasPricesResponse();
     return message;
+  },
+  fromAmino(_: MsgSetGasPricesResponseAmino): MsgSetGasPricesResponse {
+    return {};
+  },
+  toAmino(_: MsgSetGasPricesResponse): MsgSetGasPricesResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetGasPricesResponseAminoMsg): MsgSetGasPricesResponse {
+    return MsgSetGasPricesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSetGasPricesResponseProtoMsg): MsgSetGasPricesResponse {
+    return MsgSetGasPricesResponse.decode(message.value);
+  },
+  toProto(message: MsgSetGasPricesResponse): Uint8Array {
+    return MsgSetGasPricesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSetGasPricesResponse): MsgSetGasPricesResponseProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgSetGasPricesResponse",
+      value: MsgSetGasPricesResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgReplaceAuthority(): MsgReplaceAuthority {
@@ -264,7 +604,8 @@ function createBaseMsgReplaceAuthority(): MsgReplaceAuthority {
   };
 }
 export const MsgReplaceAuthority = {
-  encode(message: MsgReplaceAuthority, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgReplaceAuthority",
+  encode(message: MsgReplaceAuthority, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
@@ -284,6 +625,33 @@ export const MsgReplaceAuthority = {
     message.authority = object.authority ?? "";
     message.newAuthority = object.newAuthority ?? "";
     return message;
+  },
+  fromAmino(object: MsgReplaceAuthorityAmino): MsgReplaceAuthority {
+    return {
+      authority: object.authority,
+      newAuthority: object.new_authority
+    };
+  },
+  toAmino(message: MsgReplaceAuthority): MsgReplaceAuthorityAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.new_authority = message.newAuthority;
+    return obj;
+  },
+  fromAminoMsg(object: MsgReplaceAuthorityAminoMsg): MsgReplaceAuthority {
+    return MsgReplaceAuthority.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgReplaceAuthorityProtoMsg): MsgReplaceAuthority {
+    return MsgReplaceAuthority.decode(message.value);
+  },
+  toProto(message: MsgReplaceAuthority): Uint8Array {
+    return MsgReplaceAuthority.encode(message).finish();
+  },
+  toProtoMsg(message: MsgReplaceAuthority): MsgReplaceAuthorityProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgReplaceAuthority",
+      value: MsgReplaceAuthority.encode(message).finish()
+    };
   }
 };
 function createBaseMsgReplaceAuthorityResponse(): MsgReplaceAuthorityResponse {
@@ -292,7 +660,8 @@ function createBaseMsgReplaceAuthorityResponse(): MsgReplaceAuthorityResponse {
   };
 }
 export const MsgReplaceAuthorityResponse = {
-  encode(message: MsgReplaceAuthorityResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgReplaceAuthorityResponse",
+  encode(message: MsgReplaceAuthorityResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.newAuthorityAddress !== "") {
       writer.uint32(10).string(message.newAuthorityAddress);
     }
@@ -307,16 +676,42 @@ export const MsgReplaceAuthorityResponse = {
     const message = createBaseMsgReplaceAuthorityResponse();
     message.newAuthorityAddress = object.newAuthorityAddress ?? "";
     return message;
+  },
+  fromAmino(object: MsgReplaceAuthorityResponseAmino): MsgReplaceAuthorityResponse {
+    return {
+      newAuthorityAddress: object.new_authority_address
+    };
+  },
+  toAmino(message: MsgReplaceAuthorityResponse): MsgReplaceAuthorityResponseAmino {
+    const obj: any = {};
+    obj.new_authority_address = message.newAuthorityAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgReplaceAuthorityResponseAminoMsg): MsgReplaceAuthorityResponse {
+    return MsgReplaceAuthorityResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgReplaceAuthorityResponseProtoMsg): MsgReplaceAuthorityResponse {
+    return MsgReplaceAuthorityResponse.decode(message.value);
+  },
+  toProto(message: MsgReplaceAuthorityResponse): Uint8Array {
+    return MsgReplaceAuthorityResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgReplaceAuthorityResponse): MsgReplaceAuthorityResponseProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgReplaceAuthorityResponse",
+      value: MsgReplaceAuthorityResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgScheduleUpgrade(): MsgScheduleUpgrade {
   return {
     authority: "",
-    plan: undefined
+    plan: Plan.fromPartial({})
   };
 }
 export const MsgScheduleUpgrade = {
-  encode(message: MsgScheduleUpgrade, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgScheduleUpgrade",
+  encode(message: MsgScheduleUpgrade, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
@@ -336,13 +731,41 @@ export const MsgScheduleUpgrade = {
     message.authority = object.authority ?? "";
     message.plan = object.plan !== undefined && object.plan !== null ? Plan.fromPartial(object.plan) : undefined;
     return message;
+  },
+  fromAmino(object: MsgScheduleUpgradeAmino): MsgScheduleUpgrade {
+    return {
+      authority: object.authority,
+      plan: object?.plan ? Plan.fromAmino(object.plan) : undefined
+    };
+  },
+  toAmino(message: MsgScheduleUpgrade): MsgScheduleUpgradeAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.plan = message.plan ? Plan.toAmino(message.plan) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgScheduleUpgradeAminoMsg): MsgScheduleUpgrade {
+    return MsgScheduleUpgrade.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgScheduleUpgradeProtoMsg): MsgScheduleUpgrade {
+    return MsgScheduleUpgrade.decode(message.value);
+  },
+  toProto(message: MsgScheduleUpgrade): Uint8Array {
+    return MsgScheduleUpgrade.encode(message).finish();
+  },
+  toProtoMsg(message: MsgScheduleUpgrade): MsgScheduleUpgradeProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgScheduleUpgrade",
+      value: MsgScheduleUpgrade.encode(message).finish()
+    };
   }
 };
 function createBaseMsgScheduleUpgradeResponse(): MsgScheduleUpgradeResponse {
   return {};
 }
 export const MsgScheduleUpgradeResponse = {
-  encode(_: MsgScheduleUpgradeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgScheduleUpgradeResponse",
+  encode(_: MsgScheduleUpgradeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgScheduleUpgradeResponse {
@@ -351,6 +774,28 @@ export const MsgScheduleUpgradeResponse = {
   fromPartial(_: Partial<MsgScheduleUpgradeResponse>): MsgScheduleUpgradeResponse {
     const message = createBaseMsgScheduleUpgradeResponse();
     return message;
+  },
+  fromAmino(_: MsgScheduleUpgradeResponseAmino): MsgScheduleUpgradeResponse {
+    return {};
+  },
+  toAmino(_: MsgScheduleUpgradeResponse): MsgScheduleUpgradeResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgScheduleUpgradeResponseAminoMsg): MsgScheduleUpgradeResponse {
+    return MsgScheduleUpgradeResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgScheduleUpgradeResponseProtoMsg): MsgScheduleUpgradeResponse {
+    return MsgScheduleUpgradeResponse.decode(message.value);
+  },
+  toProto(message: MsgScheduleUpgradeResponse): Uint8Array {
+    return MsgScheduleUpgradeResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgScheduleUpgradeResponse): MsgScheduleUpgradeResponseProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgScheduleUpgradeResponse",
+      value: MsgScheduleUpgradeResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgSetParameters(): MsgSetParameters {
@@ -360,7 +805,8 @@ function createBaseMsgSetParameters(): MsgSetParameters {
   };
 }
 export const MsgSetParameters = {
-  encode(message: MsgSetParameters, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgSetParameters",
+  encode(message: MsgSetParameters, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
@@ -380,13 +826,45 @@ export const MsgSetParameters = {
     message.authority = object.authority ?? "";
     message.changes = object.changes?.map(e => ParamChange.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MsgSetParametersAmino): MsgSetParameters {
+    return {
+      authority: object.authority,
+      changes: Array.isArray(object?.changes) ? object.changes.map((e: any) => ParamChange.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: MsgSetParameters): MsgSetParametersAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    if (message.changes) {
+      obj.changes = message.changes.map(e => e ? ParamChange.toAmino(e) : undefined);
+    } else {
+      obj.changes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetParametersAminoMsg): MsgSetParameters {
+    return MsgSetParameters.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSetParametersProtoMsg): MsgSetParameters {
+    return MsgSetParameters.decode(message.value);
+  },
+  toProto(message: MsgSetParameters): Uint8Array {
+    return MsgSetParameters.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSetParameters): MsgSetParametersProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgSetParameters",
+      value: MsgSetParameters.encode(message).finish()
+    };
   }
 };
 function createBaseMsgSetParametersResponse(): MsgSetParametersResponse {
   return {};
 }
 export const MsgSetParametersResponse = {
-  encode(_: MsgSetParametersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.authority.v1.MsgSetParametersResponse",
+  encode(_: MsgSetParametersResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgSetParametersResponse {
@@ -395,5 +873,27 @@ export const MsgSetParametersResponse = {
   fromPartial(_: Partial<MsgSetParametersResponse>): MsgSetParametersResponse {
     const message = createBaseMsgSetParametersResponse();
     return message;
+  },
+  fromAmino(_: MsgSetParametersResponseAmino): MsgSetParametersResponse {
+    return {};
+  },
+  toAmino(_: MsgSetParametersResponse): MsgSetParametersResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetParametersResponseAminoMsg): MsgSetParametersResponse {
+    return MsgSetParametersResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSetParametersResponseProtoMsg): MsgSetParametersResponse {
+    return MsgSetParametersResponse.decode(message.value);
+  },
+  toProto(message: MsgSetParametersResponse): Uint8Array {
+    return MsgSetParametersResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSetParametersResponse): MsgSetParametersResponseProtoMsg {
+    return {
+      typeUrl: "/em.authority.v1.MsgSetParametersResponse",
+      value: MsgSetParametersResponse.encode(message).finish()
+    };
   }
 };

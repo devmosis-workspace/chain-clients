@@ -4,40 +4,18 @@ import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const junoAminoConverters: {
     "/juno.feeshare.v1.MsgRegisterFeeShare": {
         aminoType: string;
-        toAmino: ({ contractAddress, deployerAddress, withdrawerAddress }: import("./feeshare/v1/tx").MsgRegisterFeeShare) => {
-            contract_address: string;
-            deployer_address: string;
-            withdrawer_address: string;
-        };
-        fromAmino: ({ contract_address, deployer_address, withdrawer_address }: {
-            contract_address: string;
-            deployer_address: string;
-            withdrawer_address: string;
-        }) => import("./feeshare/v1/tx").MsgRegisterFeeShare;
+        toAmino: (message: import("./feeshare/v1/tx").MsgRegisterFeeShare) => import("./feeshare/v1/tx").MsgRegisterFeeShareAmino;
+        fromAmino: (object: import("./feeshare/v1/tx").MsgRegisterFeeShareAmino) => import("./feeshare/v1/tx").MsgRegisterFeeShare;
     };
     "/juno.feeshare.v1.MsgUpdateFeeShare": {
         aminoType: string;
-        toAmino: ({ contractAddress, deployerAddress, withdrawerAddress }: import("./feeshare/v1/tx").MsgUpdateFeeShare) => {
-            contract_address: string;
-            deployer_address: string;
-            withdrawer_address: string;
-        };
-        fromAmino: ({ contract_address, deployer_address, withdrawer_address }: {
-            contract_address: string;
-            deployer_address: string;
-            withdrawer_address: string;
-        }) => import("./feeshare/v1/tx").MsgUpdateFeeShare;
+        toAmino: (message: import("./feeshare/v1/tx").MsgUpdateFeeShare) => import("./feeshare/v1/tx").MsgUpdateFeeShareAmino;
+        fromAmino: (object: import("./feeshare/v1/tx").MsgUpdateFeeShareAmino) => import("./feeshare/v1/tx").MsgUpdateFeeShare;
     };
     "/juno.feeshare.v1.MsgCancelFeeShare": {
         aminoType: string;
-        toAmino: ({ contractAddress, deployerAddress }: import("./feeshare/v1/tx").MsgCancelFeeShare) => {
-            contract_address: string;
-            deployer_address: string;
-        };
-        fromAmino: ({ contract_address, deployer_address }: {
-            contract_address: string;
-            deployer_address: string;
-        }) => import("./feeshare/v1/tx").MsgCancelFeeShare;
+        toAmino: (message: import("./feeshare/v1/tx").MsgCancelFeeShare) => import("./feeshare/v1/tx").MsgCancelFeeShareAmino;
+        fromAmino: (object: import("./feeshare/v1/tx").MsgCancelFeeShareAmino) => import("./feeshare/v1/tx").MsgCancelFeeShare;
     };
 };
 export declare const junoProtoRegistry: ReadonlyArray<[string, GeneratedType]>;

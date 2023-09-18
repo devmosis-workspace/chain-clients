@@ -5,6 +5,9 @@ export declare const createLCDClient: ({ restEndpoint }: {
         itc: {
             v1: import("../omniflix/itc/v1/query.lcd").LCDQueryClient;
         };
+        marketplace: {
+            v1beta1: import("../omniflix/marketplace/v1beta1/query.lcd").LCDQueryClient;
+        };
     };
     cosmos: {
         auth: {

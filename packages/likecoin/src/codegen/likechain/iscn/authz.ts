@@ -1,18 +1,33 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 export interface UpdateAuthorization {
+  $typeUrl?: string;
   iscnIdPrefix: string;
 }
+export interface UpdateAuthorizationProtoMsg {
+  typeUrl: "/likechain.iscn.UpdateAuthorization";
+  value: Uint8Array;
+}
+export interface UpdateAuthorizationAmino {
+  iscn_id_prefix: string;
+}
+export interface UpdateAuthorizationAminoMsg {
+  type: "/likechain.iscn.UpdateAuthorization";
+  value: UpdateAuthorizationAmino;
+}
 export interface UpdateAuthorizationSDKType {
+  $typeUrl?: string;
   iscn_id_prefix: string;
 }
 function createBaseUpdateAuthorization(): UpdateAuthorization {
   return {
+    $typeUrl: "/likechain.iscn.UpdateAuthorization",
     iscnIdPrefix: ""
   };
 }
 export const UpdateAuthorization = {
-  encode(message: UpdateAuthorization, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.iscn.UpdateAuthorization",
+  encode(message: UpdateAuthorization, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.iscnIdPrefix !== "") {
       writer.uint32(10).string(message.iscnIdPrefix);
     }
@@ -27,5 +42,30 @@ export const UpdateAuthorization = {
     const message = createBaseUpdateAuthorization();
     message.iscnIdPrefix = object.iscnIdPrefix ?? "";
     return message;
+  },
+  fromAmino(object: UpdateAuthorizationAmino): UpdateAuthorization {
+    return {
+      iscnIdPrefix: object.iscn_id_prefix
+    };
+  },
+  toAmino(message: UpdateAuthorization): UpdateAuthorizationAmino {
+    const obj: any = {};
+    obj.iscn_id_prefix = message.iscnIdPrefix;
+    return obj;
+  },
+  fromAminoMsg(object: UpdateAuthorizationAminoMsg): UpdateAuthorization {
+    return UpdateAuthorization.fromAmino(object.value);
+  },
+  fromProtoMsg(message: UpdateAuthorizationProtoMsg): UpdateAuthorization {
+    return UpdateAuthorization.decode(message.value);
+  },
+  toProto(message: UpdateAuthorization): Uint8Array {
+    return UpdateAuthorization.encode(message).finish();
+  },
+  toProtoMsg(message: UpdateAuthorization): UpdateAuthorizationProtoMsg {
+    return {
+      typeUrl: "/likechain.iscn.UpdateAuthorization",
+      value: UpdateAuthorization.encode(message).finish()
+    };
   }
 };

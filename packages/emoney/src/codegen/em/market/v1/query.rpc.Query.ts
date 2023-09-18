@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryByAccountRequest, QueryByAccountResponse, QueryInstrumentsRequest, QueryInstrumentsResponse, QueryInstrumentRequest, QueryInstrumentResponse } from "./query";
 export interface Query {
@@ -18,17 +18,17 @@ export class QueryClientImpl implements Query {
   byAccount(request: QueryByAccountRequest): Promise<QueryByAccountResponse> {
     const data = QueryByAccountRequest.encode(request).finish();
     const promise = this.rpc.request("em.market.v1.Query", "ByAccount", data);
-    return promise.then(data => QueryByAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryByAccountResponse.decode(new BinaryReader(data)));
   }
   instruments(request: QueryInstrumentsRequest = {}): Promise<QueryInstrumentsResponse> {
     const data = QueryInstrumentsRequest.encode(request).finish();
     const promise = this.rpc.request("em.market.v1.Query", "Instruments", data);
-    return promise.then(data => QueryInstrumentsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryInstrumentsResponse.decode(new BinaryReader(data)));
   }
   instrument(request: QueryInstrumentRequest): Promise<QueryInstrumentResponse> {
     const data = QueryInstrumentRequest.encode(request).finish();
     const promise = this.rpc.request("em.market.v1.Query", "Instrument", data);
-    return promise.then(data => QueryInstrumentResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryInstrumentResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

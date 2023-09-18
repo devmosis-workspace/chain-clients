@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgRegisterFeeShare, MsgRegisterFeeShareResponse, MsgUpdateFeeShare, MsgUpdateFeeShareResponse, MsgCancelFeeShare, MsgCancelFeeShareResponse } from "./tx";
 /** Msg defines the fees Msg service. */
 export interface Msg {
@@ -24,16 +24,16 @@ export class MsgClientImpl implements Msg {
   registerFeeShare(request: MsgRegisterFeeShare): Promise<MsgRegisterFeeShareResponse> {
     const data = MsgRegisterFeeShare.encode(request).finish();
     const promise = this.rpc.request("juno.feeshare.v1.Msg", "RegisterFeeShare", data);
-    return promise.then(data => MsgRegisterFeeShareResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRegisterFeeShareResponse.decode(new BinaryReader(data)));
   }
   updateFeeShare(request: MsgUpdateFeeShare): Promise<MsgUpdateFeeShareResponse> {
     const data = MsgUpdateFeeShare.encode(request).finish();
     const promise = this.rpc.request("juno.feeshare.v1.Msg", "UpdateFeeShare", data);
-    return promise.then(data => MsgUpdateFeeShareResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateFeeShareResponse.decode(new BinaryReader(data)));
   }
   cancelFeeShare(request: MsgCancelFeeShare): Promise<MsgCancelFeeShareResponse> {
     const data = MsgCancelFeeShare.encode(request).finish();
     const promise = this.rpc.request("juno.feeshare.v1.Msg", "CancelFeeShare", data);
-    return promise.then(data => MsgCancelFeeShareResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCancelFeeShareResponse.decode(new BinaryReader(data)));
   }
 }

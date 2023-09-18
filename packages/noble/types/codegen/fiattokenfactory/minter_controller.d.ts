@@ -1,14 +1,33 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../binary";
 export interface MinterController {
     minter: string;
     controller: string;
+}
+export interface MinterControllerProtoMsg {
+    typeUrl: "/noble.fiattokenfactory.MinterController";
+    value: Uint8Array;
+}
+export interface MinterControllerAmino {
+    minter: string;
+    controller: string;
+}
+export interface MinterControllerAminoMsg {
+    type: "/noble.fiattokenfactory.MinterController";
+    value: MinterControllerAmino;
 }
 export interface MinterControllerSDKType {
     minter: string;
     controller: string;
 }
 export declare const MinterController: {
-    encode(message: MinterController, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MinterController, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MinterController;
     fromPartial(object: Partial<MinterController>): MinterController;
+    fromAmino(object: MinterControllerAmino): MinterController;
+    toAmino(message: MinterController): MinterControllerAmino;
+    fromAminoMsg(object: MinterControllerAminoMsg): MinterController;
+    fromProtoMsg(message: MinterControllerProtoMsg): MinterController;
+    toProto(message: MinterController): Uint8Array;
+    toProtoMsg(message: MinterController): MinterControllerProtoMsg;
 };

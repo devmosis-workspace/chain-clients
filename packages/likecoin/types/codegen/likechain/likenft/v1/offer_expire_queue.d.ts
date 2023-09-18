@@ -1,15 +1,34 @@
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { BinaryWriter } from "../../../binary";
 export interface OfferExpireQueueEntry {
-    expireTime?: Timestamp;
+    expireTime: Timestamp;
     offerKey: Uint8Array;
 }
+export interface OfferExpireQueueEntryProtoMsg {
+    typeUrl: "/likechain.likenft.v1.OfferExpireQueueEntry";
+    value: Uint8Array;
+}
+export interface OfferExpireQueueEntryAmino {
+    expire_time?: TimestampAmino;
+    offer_key: Uint8Array;
+}
+export interface OfferExpireQueueEntryAminoMsg {
+    type: "/likechain.likenft.v1.OfferExpireQueueEntry";
+    value: OfferExpireQueueEntryAmino;
+}
 export interface OfferExpireQueueEntrySDKType {
-    expire_time?: TimestampSDKType;
+    expire_time: TimestampSDKType;
     offer_key: Uint8Array;
 }
 export declare const OfferExpireQueueEntry: {
-    encode(message: OfferExpireQueueEntry, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: OfferExpireQueueEntry, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): OfferExpireQueueEntry;
     fromPartial(object: Partial<OfferExpireQueueEntry>): OfferExpireQueueEntry;
+    fromAmino(object: OfferExpireQueueEntryAmino): OfferExpireQueueEntry;
+    toAmino(message: OfferExpireQueueEntry): OfferExpireQueueEntryAmino;
+    fromAminoMsg(object: OfferExpireQueueEntryAminoMsg): OfferExpireQueueEntry;
+    fromProtoMsg(message: OfferExpireQueueEntryProtoMsg): OfferExpireQueueEntry;
+    toProto(message: OfferExpireQueueEntry): Uint8Array;
+    toProtoMsg(message: OfferExpireQueueEntry): OfferExpireQueueEntryProtoMsg;
 };

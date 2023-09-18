@@ -1,7 +1,8 @@
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Any, AnySDKType } from "../../../google/protobuf/any";
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Decimal } from "@cosmjs/math";
+import { isSet } from "../../../helpers";
 /** EventCreatedEscrow is emitted when an escrow is created */
 export interface EventCreatedEscrow {
   id: string;
@@ -10,9 +11,32 @@ export interface EventCreatedEscrow {
   brokerAddress: string;
   brokerCommission: string;
   price: Coin[];
-  object?: Any;
-  deadline: Long;
+  object: (Any) | undefined;
+  deadline: bigint;
   fees: Coin[];
+}
+export interface EventCreatedEscrowProtoMsg {
+  typeUrl: "/starnamed.x.escrow.v1beta1.EventCreatedEscrow";
+  value: Uint8Array;
+}
+export type EventCreatedEscrowEncoded = Omit<EventCreatedEscrow, "object"> & {
+  object?: AnyProtoMsg | undefined;
+};
+/** EventCreatedEscrow is emitted when an escrow is created */
+export interface EventCreatedEscrowAmino {
+  id: string;
+  seller: string;
+  fee_payer: string;
+  broker_address: string;
+  broker_commission: string;
+  price: CoinAmino[];
+  object?: AnyAmino;
+  deadline: string;
+  fees: CoinAmino[];
+}
+export interface EventCreatedEscrowAminoMsg {
+  type: "/starnamed.x.escrow.v1beta1.EventCreatedEscrow";
+  value: EventCreatedEscrowAmino;
 }
 /** EventCreatedEscrow is emitted when an escrow is created */
 export interface EventCreatedEscrowSDKType {
@@ -22,8 +46,8 @@ export interface EventCreatedEscrowSDKType {
   broker_address: string;
   broker_commission: string;
   price: CoinSDKType[];
-  object?: AnySDKType;
-  deadline: Long;
+  object: AnySDKType | undefined;
+  deadline: bigint;
   fees: CoinSDKType[];
 }
 /** EventUpdatedEscrow is emitted when an escrow is updated */
@@ -33,8 +57,26 @@ export interface EventUpdatedEscrow {
   feePayer: string;
   newSeller: string;
   newPrice: Coin[];
-  newDeadline: Long;
+  newDeadline: bigint;
   fees: Coin[];
+}
+export interface EventUpdatedEscrowProtoMsg {
+  typeUrl: "/starnamed.x.escrow.v1beta1.EventUpdatedEscrow";
+  value: Uint8Array;
+}
+/** EventUpdatedEscrow is emitted when an escrow is updated */
+export interface EventUpdatedEscrowAmino {
+  id: string;
+  updater: string;
+  fee_payer: string;
+  new_seller: string;
+  new_price: CoinAmino[];
+  new_deadline: string;
+  fees: CoinAmino[];
+}
+export interface EventUpdatedEscrowAminoMsg {
+  type: "/starnamed.x.escrow.v1beta1.EventUpdatedEscrow";
+  value: EventUpdatedEscrowAmino;
 }
 /** EventUpdatedEscrow is emitted when an escrow is updated */
 export interface EventUpdatedEscrowSDKType {
@@ -43,7 +85,7 @@ export interface EventUpdatedEscrowSDKType {
   fee_payer: string;
   new_seller: string;
   new_price: CoinSDKType[];
-  new_deadline: Long;
+  new_deadline: bigint;
   fees: CoinSDKType[];
 }
 /** EventCompletedEscrow is emitted when an escrow is completed */
@@ -52,6 +94,21 @@ export interface EventCompletedEscrow {
   feePayer: string;
   buyer: string;
   fees: Coin[];
+}
+export interface EventCompletedEscrowProtoMsg {
+  typeUrl: "/starnamed.x.escrow.v1beta1.EventCompletedEscrow";
+  value: Uint8Array;
+}
+/** EventCompletedEscrow is emitted when an escrow is completed */
+export interface EventCompletedEscrowAmino {
+  id: string;
+  fee_payer: string;
+  buyer: string;
+  fees: CoinAmino[];
+}
+export interface EventCompletedEscrowAminoMsg {
+  type: "/starnamed.x.escrow.v1beta1.EventCompletedEscrow";
+  value: EventCompletedEscrowAmino;
 }
 /** EventCompletedEscrow is emitted when an escrow is completed */
 export interface EventCompletedEscrowSDKType {
@@ -66,6 +123,21 @@ export interface EventRefundedEscrow {
   feePayer: string;
   sender: string;
   fees: Coin[];
+}
+export interface EventRefundedEscrowProtoMsg {
+  typeUrl: "/starnamed.x.escrow.v1beta1.EventRefundedEscrow";
+  value: Uint8Array;
+}
+/** EventRefundedEscrow is emitted when an escrow is refunded */
+export interface EventRefundedEscrowAmino {
+  id: string;
+  fee_payer: string;
+  sender: string;
+  fees: CoinAmino[];
+}
+export interface EventRefundedEscrowAminoMsg {
+  type: "/starnamed.x.escrow.v1beta1.EventRefundedEscrow";
+  value: EventRefundedEscrowAmino;
 }
 /** EventRefundedEscrow is emitted when an escrow is refunded */
 export interface EventRefundedEscrowSDKType {
@@ -82,13 +154,14 @@ function createBaseEventCreatedEscrow(): EventCreatedEscrow {
     brokerAddress: "",
     brokerCommission: "",
     price: [],
-    object: undefined,
-    deadline: Long.UZERO,
+    object: Any.fromPartial({}),
+    deadline: BigInt(0),
     fees: []
   };
 }
 export const EventCreatedEscrow = {
-  encode(message: EventCreatedEscrow, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/starnamed.x.escrow.v1beta1.EventCreatedEscrow",
+  encode(message: EventCreatedEscrow, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -102,15 +175,15 @@ export const EventCreatedEscrow = {
       writer.uint32(34).string(message.brokerAddress);
     }
     if (message.brokerCommission !== "") {
-      writer.uint32(42).string(message.brokerCommission);
+      writer.uint32(42).string(Decimal.fromUserInput(message.brokerCommission, 18).atomics);
     }
     for (const v of message.price) {
       Coin.encode(v!, writer.uint32(50).fork()).ldelim();
     }
     if (message.object !== undefined) {
-      Any.encode(message.object, writer.uint32(58).fork()).ldelim();
+      Any.encode((message.object as Any), writer.uint32(58).fork()).ldelim();
     }
-    if (!message.deadline.isZero()) {
+    if (message.deadline !== BigInt(0)) {
       writer.uint32(64).uint64(message.deadline);
     }
     for (const v of message.fees) {
@@ -127,7 +200,7 @@ export const EventCreatedEscrow = {
       brokerCommission: isSet(object.brokerCommission) ? String(object.brokerCommission) : "",
       price: Array.isArray(object?.price) ? object.price.map((e: any) => Coin.fromJSON(e)) : [],
       object: isSet(object.object) ? Any.fromJSON(object.object) : undefined,
-      deadline: isSet(object.deadline) ? Long.fromValue(object.deadline) : Long.UZERO,
+      deadline: isSet(object.deadline) ? BigInt(object.deadline.toString()) : BigInt(0),
       fees: Array.isArray(object?.fees) ? object.fees.map((e: any) => Coin.fromJSON(e)) : []
     };
   },
@@ -140,9 +213,58 @@ export const EventCreatedEscrow = {
     message.brokerCommission = object.brokerCommission ?? "";
     message.price = object.price?.map(e => Coin.fromPartial(e)) || [];
     message.object = object.object !== undefined && object.object !== null ? Any.fromPartial(object.object) : undefined;
-    message.deadline = object.deadline !== undefined && object.deadline !== null ? Long.fromValue(object.deadline) : Long.UZERO;
+    message.deadline = object.deadline !== undefined && object.deadline !== null ? BigInt(object.deadline.toString()) : BigInt(0);
     message.fees = object.fees?.map(e => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: EventCreatedEscrowAmino): EventCreatedEscrow {
+    return {
+      id: object.id,
+      seller: object.seller,
+      feePayer: object.fee_payer,
+      brokerAddress: object.broker_address,
+      brokerCommission: object.broker_commission,
+      price: Array.isArray(object?.price) ? object.price.map((e: any) => Coin.fromAmino(e)) : [],
+      object: object?.object ? TransferableObject_FromAmino(object.object) : undefined,
+      deadline: BigInt(object.deadline),
+      fees: Array.isArray(object?.fees) ? object.fees.map((e: any) => Coin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: EventCreatedEscrow): EventCreatedEscrowAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.seller = message.seller;
+    obj.fee_payer = message.feePayer;
+    obj.broker_address = message.brokerAddress;
+    obj.broker_commission = message.brokerCommission;
+    if (message.price) {
+      obj.price = message.price.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.price = [];
+    }
+    obj.object = message.object ? TransferableObject_ToAmino((message.object as Any)) : undefined;
+    obj.deadline = message.deadline ? message.deadline.toString() : undefined;
+    if (message.fees) {
+      obj.fees = message.fees.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.fees = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EventCreatedEscrowAminoMsg): EventCreatedEscrow {
+    return EventCreatedEscrow.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventCreatedEscrowProtoMsg): EventCreatedEscrow {
+    return EventCreatedEscrow.decode(message.value);
+  },
+  toProto(message: EventCreatedEscrow): Uint8Array {
+    return EventCreatedEscrow.encode(message).finish();
+  },
+  toProtoMsg(message: EventCreatedEscrow): EventCreatedEscrowProtoMsg {
+    return {
+      typeUrl: "/starnamed.x.escrow.v1beta1.EventCreatedEscrow",
+      value: EventCreatedEscrow.encode(message).finish()
+    };
   }
 };
 function createBaseEventUpdatedEscrow(): EventUpdatedEscrow {
@@ -152,12 +274,13 @@ function createBaseEventUpdatedEscrow(): EventUpdatedEscrow {
     feePayer: "",
     newSeller: "",
     newPrice: [],
-    newDeadline: Long.UZERO,
+    newDeadline: BigInt(0),
     fees: []
   };
 }
 export const EventUpdatedEscrow = {
-  encode(message: EventUpdatedEscrow, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/starnamed.x.escrow.v1beta1.EventUpdatedEscrow",
+  encode(message: EventUpdatedEscrow, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -173,7 +296,7 @@ export const EventUpdatedEscrow = {
     for (const v of message.newPrice) {
       Coin.encode(v!, writer.uint32(42).fork()).ldelim();
     }
-    if (!message.newDeadline.isZero()) {
+    if (message.newDeadline !== BigInt(0)) {
       writer.uint32(48).uint64(message.newDeadline);
     }
     for (const v of message.fees) {
@@ -188,7 +311,7 @@ export const EventUpdatedEscrow = {
       feePayer: isSet(object.feePayer) ? String(object.feePayer) : "",
       newSeller: isSet(object.newSeller) ? String(object.newSeller) : "",
       newPrice: Array.isArray(object?.newPrice) ? object.newPrice.map((e: any) => Coin.fromJSON(e)) : [],
-      newDeadline: isSet(object.newDeadline) ? Long.fromValue(object.newDeadline) : Long.UZERO,
+      newDeadline: isSet(object.newDeadline) ? BigInt(object.newDeadline.toString()) : BigInt(0),
       fees: Array.isArray(object?.fees) ? object.fees.map((e: any) => Coin.fromJSON(e)) : []
     };
   },
@@ -199,9 +322,54 @@ export const EventUpdatedEscrow = {
     message.feePayer = object.feePayer ?? "";
     message.newSeller = object.newSeller ?? "";
     message.newPrice = object.newPrice?.map(e => Coin.fromPartial(e)) || [];
-    message.newDeadline = object.newDeadline !== undefined && object.newDeadline !== null ? Long.fromValue(object.newDeadline) : Long.UZERO;
+    message.newDeadline = object.newDeadline !== undefined && object.newDeadline !== null ? BigInt(object.newDeadline.toString()) : BigInt(0);
     message.fees = object.fees?.map(e => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: EventUpdatedEscrowAmino): EventUpdatedEscrow {
+    return {
+      id: object.id,
+      updater: object.updater,
+      feePayer: object.fee_payer,
+      newSeller: object.new_seller,
+      newPrice: Array.isArray(object?.new_price) ? object.new_price.map((e: any) => Coin.fromAmino(e)) : [],
+      newDeadline: BigInt(object.new_deadline),
+      fees: Array.isArray(object?.fees) ? object.fees.map((e: any) => Coin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: EventUpdatedEscrow): EventUpdatedEscrowAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.updater = message.updater;
+    obj.fee_payer = message.feePayer;
+    obj.new_seller = message.newSeller;
+    if (message.newPrice) {
+      obj.new_price = message.newPrice.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.new_price = [];
+    }
+    obj.new_deadline = message.newDeadline ? message.newDeadline.toString() : undefined;
+    if (message.fees) {
+      obj.fees = message.fees.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.fees = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EventUpdatedEscrowAminoMsg): EventUpdatedEscrow {
+    return EventUpdatedEscrow.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventUpdatedEscrowProtoMsg): EventUpdatedEscrow {
+    return EventUpdatedEscrow.decode(message.value);
+  },
+  toProto(message: EventUpdatedEscrow): Uint8Array {
+    return EventUpdatedEscrow.encode(message).finish();
+  },
+  toProtoMsg(message: EventUpdatedEscrow): EventUpdatedEscrowProtoMsg {
+    return {
+      typeUrl: "/starnamed.x.escrow.v1beta1.EventUpdatedEscrow",
+      value: EventUpdatedEscrow.encode(message).finish()
+    };
   }
 };
 function createBaseEventCompletedEscrow(): EventCompletedEscrow {
@@ -213,7 +381,8 @@ function createBaseEventCompletedEscrow(): EventCompletedEscrow {
   };
 }
 export const EventCompletedEscrow = {
-  encode(message: EventCompletedEscrow, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/starnamed.x.escrow.v1beta1.EventCompletedEscrow",
+  encode(message: EventCompletedEscrow, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -243,6 +412,41 @@ export const EventCompletedEscrow = {
     message.buyer = object.buyer ?? "";
     message.fees = object.fees?.map(e => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: EventCompletedEscrowAmino): EventCompletedEscrow {
+    return {
+      id: object.id,
+      feePayer: object.fee_payer,
+      buyer: object.buyer,
+      fees: Array.isArray(object?.fees) ? object.fees.map((e: any) => Coin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: EventCompletedEscrow): EventCompletedEscrowAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.fee_payer = message.feePayer;
+    obj.buyer = message.buyer;
+    if (message.fees) {
+      obj.fees = message.fees.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.fees = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EventCompletedEscrowAminoMsg): EventCompletedEscrow {
+    return EventCompletedEscrow.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventCompletedEscrowProtoMsg): EventCompletedEscrow {
+    return EventCompletedEscrow.decode(message.value);
+  },
+  toProto(message: EventCompletedEscrow): Uint8Array {
+    return EventCompletedEscrow.encode(message).finish();
+  },
+  toProtoMsg(message: EventCompletedEscrow): EventCompletedEscrowProtoMsg {
+    return {
+      typeUrl: "/starnamed.x.escrow.v1beta1.EventCompletedEscrow",
+      value: EventCompletedEscrow.encode(message).finish()
+    };
   }
 };
 function createBaseEventRefundedEscrow(): EventRefundedEscrow {
@@ -254,7 +458,8 @@ function createBaseEventRefundedEscrow(): EventRefundedEscrow {
   };
 }
 export const EventRefundedEscrow = {
-  encode(message: EventRefundedEscrow, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/starnamed.x.escrow.v1beta1.EventRefundedEscrow",
+  encode(message: EventRefundedEscrow, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -284,5 +489,54 @@ export const EventRefundedEscrow = {
     message.sender = object.sender ?? "";
     message.fees = object.fees?.map(e => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: EventRefundedEscrowAmino): EventRefundedEscrow {
+    return {
+      id: object.id,
+      feePayer: object.fee_payer,
+      sender: object.sender,
+      fees: Array.isArray(object?.fees) ? object.fees.map((e: any) => Coin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: EventRefundedEscrow): EventRefundedEscrowAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.fee_payer = message.feePayer;
+    obj.sender = message.sender;
+    if (message.fees) {
+      obj.fees = message.fees.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.fees = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EventRefundedEscrowAminoMsg): EventRefundedEscrow {
+    return EventRefundedEscrow.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventRefundedEscrowProtoMsg): EventRefundedEscrow {
+    return EventRefundedEscrow.decode(message.value);
+  },
+  toProto(message: EventRefundedEscrow): Uint8Array {
+    return EventRefundedEscrow.encode(message).finish();
+  },
+  toProtoMsg(message: EventRefundedEscrow): EventRefundedEscrowProtoMsg {
+    return {
+      typeUrl: "/starnamed.x.escrow.v1beta1.EventRefundedEscrow",
+      value: EventRefundedEscrow.encode(message).finish()
+    };
   }
+};
+export const TransferableObject_InterfaceDecoder = (input: BinaryReader | Uint8Array): Any => {
+  const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  const data = Any.decode(reader, reader.uint32());
+  switch (data.typeUrl) {
+    default:
+      return data;
+  }
+};
+export const TransferableObject_FromAmino = (content: AnyAmino) => {
+  return Any.fromAmino(content);
+};
+export const TransferableObject_ToAmino = (content: Any) => {
+  return Any.toAmino(content);
 };

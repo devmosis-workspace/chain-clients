@@ -1,5 +1,5 @@
-import { Long, isSet } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
+import { isSet } from "../../helpers";
 export interface AddRateLimitProposal {
   title: string;
   description: string;
@@ -7,8 +7,26 @@ export interface AddRateLimitProposal {
   channelId: string;
   maxPercentSend: string;
   maxPercentRecv: string;
-  durationHours: Long;
+  durationHours: bigint;
   deposit: string;
+}
+export interface AddRateLimitProposalProtoMsg {
+  typeUrl: "/stride.ratelimit.AddRateLimitProposal";
+  value: Uint8Array;
+}
+export interface AddRateLimitProposalAmino {
+  title: string;
+  description: string;
+  denom: string;
+  channel_id: string;
+  max_percent_send: string;
+  max_percent_recv: string;
+  duration_hours: string;
+  deposit: string;
+}
+export interface AddRateLimitProposalAminoMsg {
+  type: "/stride.ratelimit.AddRateLimitProposal";
+  value: AddRateLimitProposalAmino;
 }
 export interface AddRateLimitProposalSDKType {
   title: string;
@@ -17,7 +35,7 @@ export interface AddRateLimitProposalSDKType {
   channel_id: string;
   max_percent_send: string;
   max_percent_recv: string;
-  duration_hours: Long;
+  duration_hours: bigint;
   deposit: string;
 }
 export interface UpdateRateLimitProposal {
@@ -27,8 +45,26 @@ export interface UpdateRateLimitProposal {
   channelId: string;
   maxPercentSend: string;
   maxPercentRecv: string;
-  durationHours: Long;
+  durationHours: bigint;
   deposit: string;
+}
+export interface UpdateRateLimitProposalProtoMsg {
+  typeUrl: "/stride.ratelimit.UpdateRateLimitProposal";
+  value: Uint8Array;
+}
+export interface UpdateRateLimitProposalAmino {
+  title: string;
+  description: string;
+  denom: string;
+  channel_id: string;
+  max_percent_send: string;
+  max_percent_recv: string;
+  duration_hours: string;
+  deposit: string;
+}
+export interface UpdateRateLimitProposalAminoMsg {
+  type: "/stride.ratelimit.UpdateRateLimitProposal";
+  value: UpdateRateLimitProposalAmino;
 }
 export interface UpdateRateLimitProposalSDKType {
   title: string;
@@ -37,7 +73,7 @@ export interface UpdateRateLimitProposalSDKType {
   channel_id: string;
   max_percent_send: string;
   max_percent_recv: string;
-  duration_hours: Long;
+  duration_hours: bigint;
   deposit: string;
 }
 export interface RemoveRateLimitProposal {
@@ -46,6 +82,21 @@ export interface RemoveRateLimitProposal {
   denom: string;
   channelId: string;
   deposit: string;
+}
+export interface RemoveRateLimitProposalProtoMsg {
+  typeUrl: "/stride.ratelimit.RemoveRateLimitProposal";
+  value: Uint8Array;
+}
+export interface RemoveRateLimitProposalAmino {
+  title: string;
+  description: string;
+  denom: string;
+  channel_id: string;
+  deposit: string;
+}
+export interface RemoveRateLimitProposalAminoMsg {
+  type: "/stride.ratelimit.RemoveRateLimitProposal";
+  value: RemoveRateLimitProposalAmino;
 }
 export interface RemoveRateLimitProposalSDKType {
   title: string;
@@ -60,6 +111,21 @@ export interface ResetRateLimitProposal {
   denom: string;
   channelId: string;
   deposit: string;
+}
+export interface ResetRateLimitProposalProtoMsg {
+  typeUrl: "/stride.ratelimit.ResetRateLimitProposal";
+  value: Uint8Array;
+}
+export interface ResetRateLimitProposalAmino {
+  title: string;
+  description: string;
+  denom: string;
+  channel_id: string;
+  deposit: string;
+}
+export interface ResetRateLimitProposalAminoMsg {
+  type: "/stride.ratelimit.ResetRateLimitProposal";
+  value: ResetRateLimitProposalAmino;
 }
 export interface ResetRateLimitProposalSDKType {
   title: string;
@@ -76,12 +142,13 @@ function createBaseAddRateLimitProposal(): AddRateLimitProposal {
     channelId: "",
     maxPercentSend: "",
     maxPercentRecv: "",
-    durationHours: Long.UZERO,
+    durationHours: BigInt(0),
     deposit: ""
   };
 }
 export const AddRateLimitProposal = {
-  encode(message: AddRateLimitProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.ratelimit.AddRateLimitProposal",
+  encode(message: AddRateLimitProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -100,7 +167,7 @@ export const AddRateLimitProposal = {
     if (message.maxPercentRecv !== "") {
       writer.uint32(50).string(message.maxPercentRecv);
     }
-    if (!message.durationHours.isZero()) {
+    if (message.durationHours !== BigInt(0)) {
       writer.uint32(56).uint64(message.durationHours);
     }
     if (message.deposit !== "") {
@@ -116,7 +183,7 @@ export const AddRateLimitProposal = {
       channelId: isSet(object.channelId) ? String(object.channelId) : "",
       maxPercentSend: isSet(object.maxPercentSend) ? String(object.maxPercentSend) : "",
       maxPercentRecv: isSet(object.maxPercentRecv) ? String(object.maxPercentRecv) : "",
-      durationHours: isSet(object.durationHours) ? Long.fromValue(object.durationHours) : Long.UZERO,
+      durationHours: isSet(object.durationHours) ? BigInt(object.durationHours.toString()) : BigInt(0),
       deposit: isSet(object.deposit) ? String(object.deposit) : ""
     };
   },
@@ -128,9 +195,48 @@ export const AddRateLimitProposal = {
     message.channelId = object.channelId ?? "";
     message.maxPercentSend = object.maxPercentSend ?? "";
     message.maxPercentRecv = object.maxPercentRecv ?? "";
-    message.durationHours = object.durationHours !== undefined && object.durationHours !== null ? Long.fromValue(object.durationHours) : Long.UZERO;
+    message.durationHours = object.durationHours !== undefined && object.durationHours !== null ? BigInt(object.durationHours.toString()) : BigInt(0);
     message.deposit = object.deposit ?? "";
     return message;
+  },
+  fromAmino(object: AddRateLimitProposalAmino): AddRateLimitProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      denom: object.denom,
+      channelId: object.channel_id,
+      maxPercentSend: object.max_percent_send,
+      maxPercentRecv: object.max_percent_recv,
+      durationHours: BigInt(object.duration_hours),
+      deposit: object.deposit
+    };
+  },
+  toAmino(message: AddRateLimitProposal): AddRateLimitProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.denom = message.denom;
+    obj.channel_id = message.channelId;
+    obj.max_percent_send = message.maxPercentSend;
+    obj.max_percent_recv = message.maxPercentRecv;
+    obj.duration_hours = message.durationHours ? message.durationHours.toString() : undefined;
+    obj.deposit = message.deposit;
+    return obj;
+  },
+  fromAminoMsg(object: AddRateLimitProposalAminoMsg): AddRateLimitProposal {
+    return AddRateLimitProposal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AddRateLimitProposalProtoMsg): AddRateLimitProposal {
+    return AddRateLimitProposal.decode(message.value);
+  },
+  toProto(message: AddRateLimitProposal): Uint8Array {
+    return AddRateLimitProposal.encode(message).finish();
+  },
+  toProtoMsg(message: AddRateLimitProposal): AddRateLimitProposalProtoMsg {
+    return {
+      typeUrl: "/stride.ratelimit.AddRateLimitProposal",
+      value: AddRateLimitProposal.encode(message).finish()
+    };
   }
 };
 function createBaseUpdateRateLimitProposal(): UpdateRateLimitProposal {
@@ -141,12 +247,13 @@ function createBaseUpdateRateLimitProposal(): UpdateRateLimitProposal {
     channelId: "",
     maxPercentSend: "",
     maxPercentRecv: "",
-    durationHours: Long.UZERO,
+    durationHours: BigInt(0),
     deposit: ""
   };
 }
 export const UpdateRateLimitProposal = {
-  encode(message: UpdateRateLimitProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.ratelimit.UpdateRateLimitProposal",
+  encode(message: UpdateRateLimitProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -165,7 +272,7 @@ export const UpdateRateLimitProposal = {
     if (message.maxPercentRecv !== "") {
       writer.uint32(50).string(message.maxPercentRecv);
     }
-    if (!message.durationHours.isZero()) {
+    if (message.durationHours !== BigInt(0)) {
       writer.uint32(56).uint64(message.durationHours);
     }
     if (message.deposit !== "") {
@@ -181,7 +288,7 @@ export const UpdateRateLimitProposal = {
       channelId: isSet(object.channelId) ? String(object.channelId) : "",
       maxPercentSend: isSet(object.maxPercentSend) ? String(object.maxPercentSend) : "",
       maxPercentRecv: isSet(object.maxPercentRecv) ? String(object.maxPercentRecv) : "",
-      durationHours: isSet(object.durationHours) ? Long.fromValue(object.durationHours) : Long.UZERO,
+      durationHours: isSet(object.durationHours) ? BigInt(object.durationHours.toString()) : BigInt(0),
       deposit: isSet(object.deposit) ? String(object.deposit) : ""
     };
   },
@@ -193,9 +300,48 @@ export const UpdateRateLimitProposal = {
     message.channelId = object.channelId ?? "";
     message.maxPercentSend = object.maxPercentSend ?? "";
     message.maxPercentRecv = object.maxPercentRecv ?? "";
-    message.durationHours = object.durationHours !== undefined && object.durationHours !== null ? Long.fromValue(object.durationHours) : Long.UZERO;
+    message.durationHours = object.durationHours !== undefined && object.durationHours !== null ? BigInt(object.durationHours.toString()) : BigInt(0);
     message.deposit = object.deposit ?? "";
     return message;
+  },
+  fromAmino(object: UpdateRateLimitProposalAmino): UpdateRateLimitProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      denom: object.denom,
+      channelId: object.channel_id,
+      maxPercentSend: object.max_percent_send,
+      maxPercentRecv: object.max_percent_recv,
+      durationHours: BigInt(object.duration_hours),
+      deposit: object.deposit
+    };
+  },
+  toAmino(message: UpdateRateLimitProposal): UpdateRateLimitProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.denom = message.denom;
+    obj.channel_id = message.channelId;
+    obj.max_percent_send = message.maxPercentSend;
+    obj.max_percent_recv = message.maxPercentRecv;
+    obj.duration_hours = message.durationHours ? message.durationHours.toString() : undefined;
+    obj.deposit = message.deposit;
+    return obj;
+  },
+  fromAminoMsg(object: UpdateRateLimitProposalAminoMsg): UpdateRateLimitProposal {
+    return UpdateRateLimitProposal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: UpdateRateLimitProposalProtoMsg): UpdateRateLimitProposal {
+    return UpdateRateLimitProposal.decode(message.value);
+  },
+  toProto(message: UpdateRateLimitProposal): Uint8Array {
+    return UpdateRateLimitProposal.encode(message).finish();
+  },
+  toProtoMsg(message: UpdateRateLimitProposal): UpdateRateLimitProposalProtoMsg {
+    return {
+      typeUrl: "/stride.ratelimit.UpdateRateLimitProposal",
+      value: UpdateRateLimitProposal.encode(message).finish()
+    };
   }
 };
 function createBaseRemoveRateLimitProposal(): RemoveRateLimitProposal {
@@ -208,7 +354,8 @@ function createBaseRemoveRateLimitProposal(): RemoveRateLimitProposal {
   };
 }
 export const RemoveRateLimitProposal = {
-  encode(message: RemoveRateLimitProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.ratelimit.RemoveRateLimitProposal",
+  encode(message: RemoveRateLimitProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -243,6 +390,39 @@ export const RemoveRateLimitProposal = {
     message.channelId = object.channelId ?? "";
     message.deposit = object.deposit ?? "";
     return message;
+  },
+  fromAmino(object: RemoveRateLimitProposalAmino): RemoveRateLimitProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      denom: object.denom,
+      channelId: object.channel_id,
+      deposit: object.deposit
+    };
+  },
+  toAmino(message: RemoveRateLimitProposal): RemoveRateLimitProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.denom = message.denom;
+    obj.channel_id = message.channelId;
+    obj.deposit = message.deposit;
+    return obj;
+  },
+  fromAminoMsg(object: RemoveRateLimitProposalAminoMsg): RemoveRateLimitProposal {
+    return RemoveRateLimitProposal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RemoveRateLimitProposalProtoMsg): RemoveRateLimitProposal {
+    return RemoveRateLimitProposal.decode(message.value);
+  },
+  toProto(message: RemoveRateLimitProposal): Uint8Array {
+    return RemoveRateLimitProposal.encode(message).finish();
+  },
+  toProtoMsg(message: RemoveRateLimitProposal): RemoveRateLimitProposalProtoMsg {
+    return {
+      typeUrl: "/stride.ratelimit.RemoveRateLimitProposal",
+      value: RemoveRateLimitProposal.encode(message).finish()
+    };
   }
 };
 function createBaseResetRateLimitProposal(): ResetRateLimitProposal {
@@ -255,7 +435,8 @@ function createBaseResetRateLimitProposal(): ResetRateLimitProposal {
   };
 }
 export const ResetRateLimitProposal = {
-  encode(message: ResetRateLimitProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.ratelimit.ResetRateLimitProposal",
+  encode(message: ResetRateLimitProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -290,5 +471,38 @@ export const ResetRateLimitProposal = {
     message.channelId = object.channelId ?? "";
     message.deposit = object.deposit ?? "";
     return message;
+  },
+  fromAmino(object: ResetRateLimitProposalAmino): ResetRateLimitProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      denom: object.denom,
+      channelId: object.channel_id,
+      deposit: object.deposit
+    };
+  },
+  toAmino(message: ResetRateLimitProposal): ResetRateLimitProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.denom = message.denom;
+    obj.channel_id = message.channelId;
+    obj.deposit = message.deposit;
+    return obj;
+  },
+  fromAminoMsg(object: ResetRateLimitProposalAminoMsg): ResetRateLimitProposal {
+    return ResetRateLimitProposal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ResetRateLimitProposalProtoMsg): ResetRateLimitProposal {
+    return ResetRateLimitProposal.decode(message.value);
+  },
+  toProto(message: ResetRateLimitProposal): Uint8Array {
+    return ResetRateLimitProposal.encode(message).finish();
+  },
+  toProtoMsg(message: ResetRateLimitProposal): ResetRateLimitProposalProtoMsg {
+    return {
+      typeUrl: "/stride.ratelimit.ResetRateLimitProposal",
+      value: ResetRateLimitProposal.encode(message).finish()
+    };
   }
 };

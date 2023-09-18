@@ -1,5 +1,5 @@
-import { Long, isSet, bytesFromBase64 } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
+import { isSet, bytesFromBase64 } from "../../../helpers";
 export interface Query {
   id: string;
   connectionId: string;
@@ -7,8 +7,26 @@ export interface Query {
   queryType: string;
   request: Uint8Array;
   callbackId: string;
-  ttl: Long;
+  ttl: bigint;
   requestSent: boolean;
+}
+export interface QueryProtoMsg {
+  typeUrl: "/stride.interchainquery.v1.Query";
+  value: Uint8Array;
+}
+export interface QueryAmino {
+  id: string;
+  connection_id: string;
+  chain_id: string;
+  query_type: string;
+  request: Uint8Array;
+  callback_id: string;
+  ttl: string;
+  request_sent: boolean;
+}
+export interface QueryAminoMsg {
+  type: "/stride.interchainquery.v1.Query";
+  value: QueryAmino;
 }
 export interface QuerySDKType {
   id: string;
@@ -17,7 +35,7 @@ export interface QuerySDKType {
   query_type: string;
   request: Uint8Array;
   callback_id: string;
-  ttl: Long;
+  ttl: bigint;
   request_sent: boolean;
 }
 export interface DataPoint {
@@ -25,6 +43,20 @@ export interface DataPoint {
   remoteHeight: string;
   localHeight: string;
   value: Uint8Array;
+}
+export interface DataPointProtoMsg {
+  typeUrl: "/stride.interchainquery.v1.DataPoint";
+  value: Uint8Array;
+}
+export interface DataPointAmino {
+  id: string;
+  remote_height: string;
+  local_height: string;
+  value: Uint8Array;
+}
+export interface DataPointAminoMsg {
+  type: "/stride.interchainquery.v1.DataPoint";
+  value: DataPointAmino;
 }
 export interface DataPointSDKType {
   id: string;
@@ -35,6 +67,18 @@ export interface DataPointSDKType {
 /** GenesisState defines the epochs module's genesis state. */
 export interface GenesisState {
   queries: Query[];
+}
+export interface GenesisStateProtoMsg {
+  typeUrl: "/stride.interchainquery.v1.GenesisState";
+  value: Uint8Array;
+}
+/** GenesisState defines the epochs module's genesis state. */
+export interface GenesisStateAmino {
+  queries: QueryAmino[];
+}
+export interface GenesisStateAminoMsg {
+  type: "/stride.interchainquery.v1.GenesisState";
+  value: GenesisStateAmino;
 }
 /** GenesisState defines the epochs module's genesis state. */
 export interface GenesisStateSDKType {
@@ -48,12 +92,13 @@ function createBaseQuery(): Query {
     queryType: "",
     request: new Uint8Array(),
     callbackId: "",
-    ttl: Long.UZERO,
+    ttl: BigInt(0),
     requestSent: false
   };
 }
 export const Query = {
-  encode(message: Query, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.interchainquery.v1.Query",
+  encode(message: Query, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -72,7 +117,7 @@ export const Query = {
     if (message.callbackId !== "") {
       writer.uint32(66).string(message.callbackId);
     }
-    if (!message.ttl.isZero()) {
+    if (message.ttl !== BigInt(0)) {
       writer.uint32(72).uint64(message.ttl);
     }
     if (message.requestSent === true) {
@@ -88,7 +133,7 @@ export const Query = {
       queryType: isSet(object.queryType) ? String(object.queryType) : "",
       request: isSet(object.request) ? bytesFromBase64(object.request) : new Uint8Array(),
       callbackId: isSet(object.callbackId) ? String(object.callbackId) : "",
-      ttl: isSet(object.ttl) ? Long.fromValue(object.ttl) : Long.UZERO,
+      ttl: isSet(object.ttl) ? BigInt(object.ttl.toString()) : BigInt(0),
       requestSent: isSet(object.requestSent) ? Boolean(object.requestSent) : false
     };
   },
@@ -100,9 +145,48 @@ export const Query = {
     message.queryType = object.queryType ?? "";
     message.request = object.request ?? new Uint8Array();
     message.callbackId = object.callbackId ?? "";
-    message.ttl = object.ttl !== undefined && object.ttl !== null ? Long.fromValue(object.ttl) : Long.UZERO;
+    message.ttl = object.ttl !== undefined && object.ttl !== null ? BigInt(object.ttl.toString()) : BigInt(0);
     message.requestSent = object.requestSent ?? false;
     return message;
+  },
+  fromAmino(object: QueryAmino): Query {
+    return {
+      id: object.id,
+      connectionId: object.connection_id,
+      chainId: object.chain_id,
+      queryType: object.query_type,
+      request: object.request,
+      callbackId: object.callback_id,
+      ttl: BigInt(object.ttl),
+      requestSent: object.request_sent
+    };
+  },
+  toAmino(message: Query): QueryAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.connection_id = message.connectionId;
+    obj.chain_id = message.chainId;
+    obj.query_type = message.queryType;
+    obj.request = message.request;
+    obj.callback_id = message.callbackId;
+    obj.ttl = message.ttl ? message.ttl.toString() : undefined;
+    obj.request_sent = message.requestSent;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAminoMsg): Query {
+    return Query.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryProtoMsg): Query {
+    return Query.decode(message.value);
+  },
+  toProto(message: Query): Uint8Array {
+    return Query.encode(message).finish();
+  },
+  toProtoMsg(message: Query): QueryProtoMsg {
+    return {
+      typeUrl: "/stride.interchainquery.v1.Query",
+      value: Query.encode(message).finish()
+    };
   }
 };
 function createBaseDataPoint(): DataPoint {
@@ -114,7 +198,8 @@ function createBaseDataPoint(): DataPoint {
   };
 }
 export const DataPoint = {
-  encode(message: DataPoint, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.interchainquery.v1.DataPoint",
+  encode(message: DataPoint, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -144,6 +229,37 @@ export const DataPoint = {
     message.localHeight = object.localHeight ?? "";
     message.value = object.value ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: DataPointAmino): DataPoint {
+    return {
+      id: object.id,
+      remoteHeight: object.remote_height,
+      localHeight: object.local_height,
+      value: object.value
+    };
+  },
+  toAmino(message: DataPoint): DataPointAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.remote_height = message.remoteHeight;
+    obj.local_height = message.localHeight;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: DataPointAminoMsg): DataPoint {
+    return DataPoint.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DataPointProtoMsg): DataPoint {
+    return DataPoint.decode(message.value);
+  },
+  toProto(message: DataPoint): Uint8Array {
+    return DataPoint.encode(message).finish();
+  },
+  toProtoMsg(message: DataPoint): DataPointProtoMsg {
+    return {
+      typeUrl: "/stride.interchainquery.v1.DataPoint",
+      value: DataPoint.encode(message).finish()
+    };
   }
 };
 function createBaseGenesisState(): GenesisState {
@@ -152,7 +268,8 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.interchainquery.v1.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.queries) {
       Query.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -167,5 +284,34 @@ export const GenesisState = {
     const message = createBaseGenesisState();
     message.queries = object.queries?.map(e => Query.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      queries: Array.isArray(object?.queries) ? object.queries.map((e: any) => Query.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    if (message.queries) {
+      obj.queries = message.queries.map(e => e ? Query.toAmino(e) : undefined);
+    } else {
+      obj.queries = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/stride.interchainquery.v1.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };

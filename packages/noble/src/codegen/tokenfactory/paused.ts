@@ -1,7 +1,18 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../binary";
 import { isSet } from "../helpers";
 export interface Paused {
   paused: boolean;
+}
+export interface PausedProtoMsg {
+  typeUrl: "/noble.tokenfactory.Paused";
+  value: Uint8Array;
+}
+export interface PausedAmino {
+  paused: boolean;
+}
+export interface PausedAminoMsg {
+  type: "/noble.tokenfactory.Paused";
+  value: PausedAmino;
 }
 export interface PausedSDKType {
   paused: boolean;
@@ -12,7 +23,8 @@ function createBasePaused(): Paused {
   };
 }
 export const Paused = {
-  encode(message: Paused, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/noble.tokenfactory.Paused",
+  encode(message: Paused, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.paused === true) {
       writer.uint32(8).bool(message.paused);
     }
@@ -27,5 +39,30 @@ export const Paused = {
     const message = createBasePaused();
     message.paused = object.paused ?? false;
     return message;
+  },
+  fromAmino(object: PausedAmino): Paused {
+    return {
+      paused: object.paused
+    };
+  },
+  toAmino(message: Paused): PausedAmino {
+    const obj: any = {};
+    obj.paused = message.paused;
+    return obj;
+  },
+  fromAminoMsg(object: PausedAminoMsg): Paused {
+    return Paused.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PausedProtoMsg): Paused {
+    return Paused.decode(message.value);
+  },
+  toProto(message: Paused): Uint8Array {
+    return Paused.encode(message).finish();
+  },
+  toProtoMsg(message: Paused): PausedProtoMsg {
+    return {
+      typeUrl: "/noble.tokenfactory.Paused",
+      value: Paused.encode(message).finish()
+    };
   }
 };

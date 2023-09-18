@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryDomainRequest, QueryDomainResponse, QueryDomainAccountsRequest, QueryDomainAccountsResponse, QueryStarnameRequest, QueryStarnameResponse, QueryOwnerAccountsRequest, QueryOwnerAccountsResponse, QueryOwnerDomainsRequest, QueryOwnerDomainsResponse, QueryResourceAccountsRequest, QueryResourceAccountsResponse, QueryBrokerAccountsRequest, QueryBrokerAccountsResponse, QueryBrokerDomainsRequest, QueryBrokerDomainsResponse, QueryYieldRequest, QueryYieldResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -40,47 +40,47 @@ export class QueryClientImpl implements Query {
   domain(request: QueryDomainRequest): Promise<QueryDomainResponse> {
     const data = QueryDomainRequest.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Query", "Domain", data);
-    return promise.then(data => QueryDomainResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDomainResponse.decode(new BinaryReader(data)));
   }
   domainAccounts(request: QueryDomainAccountsRequest): Promise<QueryDomainAccountsResponse> {
     const data = QueryDomainAccountsRequest.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Query", "DomainAccounts", data);
-    return promise.then(data => QueryDomainAccountsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDomainAccountsResponse.decode(new BinaryReader(data)));
   }
   starname(request: QueryStarnameRequest): Promise<QueryStarnameResponse> {
     const data = QueryStarnameRequest.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Query", "Starname", data);
-    return promise.then(data => QueryStarnameResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryStarnameResponse.decode(new BinaryReader(data)));
   }
   ownerAccounts(request: QueryOwnerAccountsRequest): Promise<QueryOwnerAccountsResponse> {
     const data = QueryOwnerAccountsRequest.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Query", "OwnerAccounts", data);
-    return promise.then(data => QueryOwnerAccountsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOwnerAccountsResponse.decode(new BinaryReader(data)));
   }
   ownerDomains(request: QueryOwnerDomainsRequest): Promise<QueryOwnerDomainsResponse> {
     const data = QueryOwnerDomainsRequest.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Query", "OwnerDomains", data);
-    return promise.then(data => QueryOwnerDomainsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOwnerDomainsResponse.decode(new BinaryReader(data)));
   }
   resourceAccounts(request: QueryResourceAccountsRequest): Promise<QueryResourceAccountsResponse> {
     const data = QueryResourceAccountsRequest.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Query", "ResourceAccounts", data);
-    return promise.then(data => QueryResourceAccountsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryResourceAccountsResponse.decode(new BinaryReader(data)));
   }
   brokerAccounts(request: QueryBrokerAccountsRequest): Promise<QueryBrokerAccountsResponse> {
     const data = QueryBrokerAccountsRequest.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Query", "BrokerAccounts", data);
-    return promise.then(data => QueryBrokerAccountsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBrokerAccountsResponse.decode(new BinaryReader(data)));
   }
   brokerDomains(request: QueryBrokerDomainsRequest): Promise<QueryBrokerDomainsResponse> {
     const data = QueryBrokerDomainsRequest.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Query", "BrokerDomains", data);
-    return promise.then(data => QueryBrokerDomainsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBrokerDomainsResponse.decode(new BinaryReader(data)));
   }
   yield(request: QueryYieldRequest = {}): Promise<QueryYieldResponse> {
     const data = QueryYieldRequest.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.starname.v1beta1.Query", "Yield", data);
-    return promise.then(data => QueryYieldResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryYieldResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

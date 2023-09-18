@@ -1,7 +1,7 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryParamsRequest, QueryParamsResponse, QueryGetProtoRevNumberOfTradesRequest, QueryGetProtoRevNumberOfTradesResponse, QueryGetProtoRevProfitsByDenomRequest, QueryGetProtoRevProfitsByDenomResponse, QueryGetProtoRevAllProfitsRequest, QueryGetProtoRevAllProfitsResponse, QueryGetProtoRevStatisticsByRouteRequest, QueryGetProtoRevStatisticsByRouteResponse, QueryGetProtoRevAllRouteStatisticsRequest, QueryGetProtoRevAllRouteStatisticsResponse, QueryGetProtoRevTokenPairArbRoutesRequest, QueryGetProtoRevTokenPairArbRoutesResponse, QueryGetProtoRevAdminAccountRequest, QueryGetProtoRevAdminAccountResponse, QueryGetProtoRevDeveloperAccountRequest, QueryGetProtoRevDeveloperAccountResponse, QueryGetProtoRevPoolWeightsRequest, QueryGetProtoRevPoolWeightsResponse, QueryGetProtoRevMaxPoolPointsPerTxRequest, QueryGetProtoRevMaxPoolPointsPerTxResponse, QueryGetProtoRevMaxPoolPointsPerBlockRequest, QueryGetProtoRevMaxPoolPointsPerBlockResponse, QueryGetProtoRevBaseDenomsRequest, QueryGetProtoRevBaseDenomsResponse, QueryGetProtoRevEnabledRequest, QueryGetProtoRevEnabledResponse, QueryGetProtoRevPoolRequest, QueryGetProtoRevPoolResponse } from "./query";
+import { QueryParamsRequest, QueryParamsResponse, QueryGetProtoRevNumberOfTradesRequest, QueryGetProtoRevNumberOfTradesResponse, QueryGetProtoRevProfitsByDenomRequest, QueryGetProtoRevProfitsByDenomResponse, QueryGetProtoRevAllProfitsRequest, QueryGetProtoRevAllProfitsResponse, QueryGetProtoRevStatisticsByRouteRequest, QueryGetProtoRevStatisticsByRouteResponse, QueryGetProtoRevAllRouteStatisticsRequest, QueryGetProtoRevAllRouteStatisticsResponse, QueryGetProtoRevTokenPairArbRoutesRequest, QueryGetProtoRevTokenPairArbRoutesResponse, QueryGetProtoRevAdminAccountRequest, QueryGetProtoRevAdminAccountResponse, QueryGetProtoRevDeveloperAccountRequest, QueryGetProtoRevDeveloperAccountResponse, QueryGetProtoRevInfoByPoolTypeRequest, QueryGetProtoRevInfoByPoolTypeResponse, QueryGetProtoRevMaxPoolPointsPerTxRequest, QueryGetProtoRevMaxPoolPointsPerTxResponse, QueryGetProtoRevMaxPoolPointsPerBlockRequest, QueryGetProtoRevMaxPoolPointsPerBlockResponse, QueryGetProtoRevBaseDenomsRequest, QueryGetProtoRevBaseDenomsResponse, QueryGetProtoRevEnabledRequest, QueryGetProtoRevEnabledResponse, QueryGetProtoRevPoolRequest, QueryGetProtoRevPoolResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Params queries the parameters of the module. */
@@ -36,10 +36,10 @@ export interface Query {
   /** GetProtoRevDeveloperAccount queries the developer account of the module */
   getProtoRevDeveloperAccount(request?: QueryGetProtoRevDeveloperAccountRequest): Promise<QueryGetProtoRevDeveloperAccountResponse>;
   /**
-   * GetProtoRevPoolWeights queries the weights of each pool type currently
-   * being used by the module
+   * GetProtoRevInfoByPoolType queries pool type information that is currently
+   * being utilized by the module
    */
-  getProtoRevPoolWeights(request?: QueryGetProtoRevPoolWeightsRequest): Promise<QueryGetProtoRevPoolWeightsResponse>;
+  getProtoRevInfoByPoolType(request?: QueryGetProtoRevInfoByPoolTypeRequest): Promise<QueryGetProtoRevInfoByPoolTypeResponse>;
   /**
    * GetProtoRevMaxPoolPointsPerTx queries the maximum number of pool points
    * that can be consumed per transaction
@@ -76,7 +76,7 @@ export class QueryClientImpl implements Query {
     this.getProtoRevTokenPairArbRoutes = this.getProtoRevTokenPairArbRoutes.bind(this);
     this.getProtoRevAdminAccount = this.getProtoRevAdminAccount.bind(this);
     this.getProtoRevDeveloperAccount = this.getProtoRevDeveloperAccount.bind(this);
-    this.getProtoRevPoolWeights = this.getProtoRevPoolWeights.bind(this);
+    this.getProtoRevInfoByPoolType = this.getProtoRevInfoByPoolType.bind(this);
     this.getProtoRevMaxPoolPointsPerTx = this.getProtoRevMaxPoolPointsPerTx.bind(this);
     this.getProtoRevMaxPoolPointsPerBlock = this.getProtoRevMaxPoolPointsPerBlock.bind(this);
     this.getProtoRevBaseDenoms = this.getProtoRevBaseDenoms.bind(this);
@@ -86,77 +86,77 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   getProtoRevNumberOfTrades(request: QueryGetProtoRevNumberOfTradesRequest = {}): Promise<QueryGetProtoRevNumberOfTradesResponse> {
     const data = QueryGetProtoRevNumberOfTradesRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevNumberOfTrades", data);
-    return promise.then(data => QueryGetProtoRevNumberOfTradesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevNumberOfTradesResponse.decode(new BinaryReader(data)));
   }
   getProtoRevProfitsByDenom(request: QueryGetProtoRevProfitsByDenomRequest): Promise<QueryGetProtoRevProfitsByDenomResponse> {
     const data = QueryGetProtoRevProfitsByDenomRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevProfitsByDenom", data);
-    return promise.then(data => QueryGetProtoRevProfitsByDenomResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevProfitsByDenomResponse.decode(new BinaryReader(data)));
   }
   getProtoRevAllProfits(request: QueryGetProtoRevAllProfitsRequest = {}): Promise<QueryGetProtoRevAllProfitsResponse> {
     const data = QueryGetProtoRevAllProfitsRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevAllProfits", data);
-    return promise.then(data => QueryGetProtoRevAllProfitsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevAllProfitsResponse.decode(new BinaryReader(data)));
   }
   getProtoRevStatisticsByRoute(request: QueryGetProtoRevStatisticsByRouteRequest): Promise<QueryGetProtoRevStatisticsByRouteResponse> {
     const data = QueryGetProtoRevStatisticsByRouteRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevStatisticsByRoute", data);
-    return promise.then(data => QueryGetProtoRevStatisticsByRouteResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevStatisticsByRouteResponse.decode(new BinaryReader(data)));
   }
   getProtoRevAllRouteStatistics(request: QueryGetProtoRevAllRouteStatisticsRequest = {}): Promise<QueryGetProtoRevAllRouteStatisticsResponse> {
     const data = QueryGetProtoRevAllRouteStatisticsRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevAllRouteStatistics", data);
-    return promise.then(data => QueryGetProtoRevAllRouteStatisticsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevAllRouteStatisticsResponse.decode(new BinaryReader(data)));
   }
   getProtoRevTokenPairArbRoutes(request: QueryGetProtoRevTokenPairArbRoutesRequest = {}): Promise<QueryGetProtoRevTokenPairArbRoutesResponse> {
     const data = QueryGetProtoRevTokenPairArbRoutesRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevTokenPairArbRoutes", data);
-    return promise.then(data => QueryGetProtoRevTokenPairArbRoutesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevTokenPairArbRoutesResponse.decode(new BinaryReader(data)));
   }
   getProtoRevAdminAccount(request: QueryGetProtoRevAdminAccountRequest = {}): Promise<QueryGetProtoRevAdminAccountResponse> {
     const data = QueryGetProtoRevAdminAccountRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevAdminAccount", data);
-    return promise.then(data => QueryGetProtoRevAdminAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevAdminAccountResponse.decode(new BinaryReader(data)));
   }
   getProtoRevDeveloperAccount(request: QueryGetProtoRevDeveloperAccountRequest = {}): Promise<QueryGetProtoRevDeveloperAccountResponse> {
     const data = QueryGetProtoRevDeveloperAccountRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevDeveloperAccount", data);
-    return promise.then(data => QueryGetProtoRevDeveloperAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevDeveloperAccountResponse.decode(new BinaryReader(data)));
   }
-  getProtoRevPoolWeights(request: QueryGetProtoRevPoolWeightsRequest = {}): Promise<QueryGetProtoRevPoolWeightsResponse> {
-    const data = QueryGetProtoRevPoolWeightsRequest.encode(request).finish();
-    const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevPoolWeights", data);
-    return promise.then(data => QueryGetProtoRevPoolWeightsResponse.decode(new _m0.Reader(data)));
+  getProtoRevInfoByPoolType(request: QueryGetProtoRevInfoByPoolTypeRequest = {}): Promise<QueryGetProtoRevInfoByPoolTypeResponse> {
+    const data = QueryGetProtoRevInfoByPoolTypeRequest.encode(request).finish();
+    const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevInfoByPoolType", data);
+    return promise.then(data => QueryGetProtoRevInfoByPoolTypeResponse.decode(new BinaryReader(data)));
   }
   getProtoRevMaxPoolPointsPerTx(request: QueryGetProtoRevMaxPoolPointsPerTxRequest = {}): Promise<QueryGetProtoRevMaxPoolPointsPerTxResponse> {
     const data = QueryGetProtoRevMaxPoolPointsPerTxRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevMaxPoolPointsPerTx", data);
-    return promise.then(data => QueryGetProtoRevMaxPoolPointsPerTxResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevMaxPoolPointsPerTxResponse.decode(new BinaryReader(data)));
   }
   getProtoRevMaxPoolPointsPerBlock(request: QueryGetProtoRevMaxPoolPointsPerBlockRequest = {}): Promise<QueryGetProtoRevMaxPoolPointsPerBlockResponse> {
     const data = QueryGetProtoRevMaxPoolPointsPerBlockRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevMaxPoolPointsPerBlock", data);
-    return promise.then(data => QueryGetProtoRevMaxPoolPointsPerBlockResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevMaxPoolPointsPerBlockResponse.decode(new BinaryReader(data)));
   }
   getProtoRevBaseDenoms(request: QueryGetProtoRevBaseDenomsRequest = {}): Promise<QueryGetProtoRevBaseDenomsResponse> {
     const data = QueryGetProtoRevBaseDenomsRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevBaseDenoms", data);
-    return promise.then(data => QueryGetProtoRevBaseDenomsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevBaseDenomsResponse.decode(new BinaryReader(data)));
   }
   getProtoRevEnabled(request: QueryGetProtoRevEnabledRequest = {}): Promise<QueryGetProtoRevEnabledResponse> {
     const data = QueryGetProtoRevEnabledRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevEnabled", data);
-    return promise.then(data => QueryGetProtoRevEnabledResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevEnabledResponse.decode(new BinaryReader(data)));
   }
   getProtoRevPool(request: QueryGetProtoRevPoolRequest): Promise<QueryGetProtoRevPoolResponse> {
     const data = QueryGetProtoRevPoolRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.protorev.v1beta1.Query", "GetProtoRevPool", data);
-    return promise.then(data => QueryGetProtoRevPoolResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetProtoRevPoolResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {
@@ -190,8 +190,8 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     getProtoRevDeveloperAccount(request?: QueryGetProtoRevDeveloperAccountRequest): Promise<QueryGetProtoRevDeveloperAccountResponse> {
       return queryService.getProtoRevDeveloperAccount(request);
     },
-    getProtoRevPoolWeights(request?: QueryGetProtoRevPoolWeightsRequest): Promise<QueryGetProtoRevPoolWeightsResponse> {
-      return queryService.getProtoRevPoolWeights(request);
+    getProtoRevInfoByPoolType(request?: QueryGetProtoRevInfoByPoolTypeRequest): Promise<QueryGetProtoRevInfoByPoolTypeResponse> {
+      return queryService.getProtoRevInfoByPoolType(request);
     },
     getProtoRevMaxPoolPointsPerTx(request?: QueryGetProtoRevMaxPoolPointsPerTxRequest): Promise<QueryGetProtoRevMaxPoolPointsPerTxResponse> {
       return queryService.getProtoRevMaxPoolPointsPerTx(request);

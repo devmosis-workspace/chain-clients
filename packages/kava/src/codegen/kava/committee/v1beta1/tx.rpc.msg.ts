@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgSubmitProposal, MsgSubmitProposalResponse, MsgVote, MsgVoteResponse } from "./tx";
 /** Msg defines the committee Msg service */
 export interface Msg {
@@ -18,11 +18,11 @@ export class MsgClientImpl implements Msg {
   submitProposal(request: MsgSubmitProposal): Promise<MsgSubmitProposalResponse> {
     const data = MsgSubmitProposal.encode(request).finish();
     const promise = this.rpc.request("kava.committee.v1beta1.Msg", "SubmitProposal", data);
-    return promise.then(data => MsgSubmitProposalResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSubmitProposalResponse.decode(new BinaryReader(data)));
   }
   vote(request: MsgVote): Promise<MsgVoteResponse> {
     const data = MsgVote.encode(request).finish();
     const promise = this.rpc.request("kava.committee.v1beta1.Msg", "Vote", data);
-    return promise.then(data => MsgVoteResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgVoteResponse.decode(new BinaryReader(data)));
   }
 }

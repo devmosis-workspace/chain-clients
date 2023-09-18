@@ -9,6 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@chain-clients/osmosis": "workspace:^"
+    "@chain-clients/osmosis": "workspace:^",
+    "@cosmjs/encoding": "^0.31.1",
+    "@cosmjs/math": "^0.31.1",
+    "@cosmology/lcd": "^0.13.0",
+    "long": "^5.2.3"
+  },
+  "devDependencies": {
+    "@cosmology/telescope": "^1.0.1"
   }
 }

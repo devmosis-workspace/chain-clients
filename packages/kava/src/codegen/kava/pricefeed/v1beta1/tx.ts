@@ -1,5 +1,6 @@
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { BinaryWriter } from "../../../binary";
+import { Decimal } from "@cosmjs/math";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 /** MsgPostPrice represents a method for creating a new post price */
 export interface MsgPostPrice {
@@ -7,17 +8,43 @@ export interface MsgPostPrice {
   from: string;
   marketId: string;
   price: string;
-  expiry?: Timestamp;
+  expiry: Timestamp;
+}
+export interface MsgPostPriceProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.MsgPostPrice";
+  value: Uint8Array;
+}
+/** MsgPostPrice represents a method for creating a new post price */
+export interface MsgPostPriceAmino {
+  /** address of client */
+  from: string;
+  market_id: string;
+  price: string;
+  expiry?: TimestampAmino;
+}
+export interface MsgPostPriceAminoMsg {
+  type: "/kava.pricefeed.v1beta1.MsgPostPrice";
+  value: MsgPostPriceAmino;
 }
 /** MsgPostPrice represents a method for creating a new post price */
 export interface MsgPostPriceSDKType {
   from: string;
   market_id: string;
   price: string;
-  expiry?: TimestampSDKType;
+  expiry: TimestampSDKType;
 }
 /** MsgPostPriceResponse defines the Msg/PostPrice response type. */
 export interface MsgPostPriceResponse {}
+export interface MsgPostPriceResponseProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.MsgPostPriceResponse";
+  value: Uint8Array;
+}
+/** MsgPostPriceResponse defines the Msg/PostPrice response type. */
+export interface MsgPostPriceResponseAmino {}
+export interface MsgPostPriceResponseAminoMsg {
+  type: "/kava.pricefeed.v1beta1.MsgPostPriceResponse";
+  value: MsgPostPriceResponseAmino;
+}
 /** MsgPostPriceResponse defines the Msg/PostPrice response type. */
 export interface MsgPostPriceResponseSDKType {}
 function createBaseMsgPostPrice(): MsgPostPrice {
@@ -25,11 +52,12 @@ function createBaseMsgPostPrice(): MsgPostPrice {
     from: "",
     marketId: "",
     price: "",
-    expiry: undefined
+    expiry: Timestamp.fromPartial({})
   };
 }
 export const MsgPostPrice = {
-  encode(message: MsgPostPrice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.MsgPostPrice",
+  encode(message: MsgPostPrice, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -37,7 +65,7 @@ export const MsgPostPrice = {
       writer.uint32(18).string(message.marketId);
     }
     if (message.price !== "") {
-      writer.uint32(26).string(message.price);
+      writer.uint32(26).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.expiry !== undefined) {
       Timestamp.encode(message.expiry, writer.uint32(34).fork()).ldelim();
@@ -59,13 +87,45 @@ export const MsgPostPrice = {
     message.price = object.price ?? "";
     message.expiry = object.expiry !== undefined && object.expiry !== null ? Timestamp.fromPartial(object.expiry) : undefined;
     return message;
+  },
+  fromAmino(object: MsgPostPriceAmino): MsgPostPrice {
+    return {
+      from: object.from,
+      marketId: object.market_id,
+      price: object.price,
+      expiry: object.expiry
+    };
+  },
+  toAmino(message: MsgPostPrice): MsgPostPriceAmino {
+    const obj: any = {};
+    obj.from = message.from;
+    obj.market_id = message.marketId;
+    obj.price = message.price;
+    obj.expiry = message.expiry;
+    return obj;
+  },
+  fromAminoMsg(object: MsgPostPriceAminoMsg): MsgPostPrice {
+    return MsgPostPrice.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgPostPriceProtoMsg): MsgPostPrice {
+    return MsgPostPrice.decode(message.value);
+  },
+  toProto(message: MsgPostPrice): Uint8Array {
+    return MsgPostPrice.encode(message).finish();
+  },
+  toProtoMsg(message: MsgPostPrice): MsgPostPriceProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.MsgPostPrice",
+      value: MsgPostPrice.encode(message).finish()
+    };
   }
 };
 function createBaseMsgPostPriceResponse(): MsgPostPriceResponse {
   return {};
 }
 export const MsgPostPriceResponse = {
-  encode(_: MsgPostPriceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.MsgPostPriceResponse",
+  encode(_: MsgPostPriceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgPostPriceResponse {
@@ -74,5 +134,27 @@ export const MsgPostPriceResponse = {
   fromPartial(_: Partial<MsgPostPriceResponse>): MsgPostPriceResponse {
     const message = createBaseMsgPostPriceResponse();
     return message;
+  },
+  fromAmino(_: MsgPostPriceResponseAmino): MsgPostPriceResponse {
+    return {};
+  },
+  toAmino(_: MsgPostPriceResponse): MsgPostPriceResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgPostPriceResponseAminoMsg): MsgPostPriceResponse {
+    return MsgPostPriceResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgPostPriceResponseProtoMsg): MsgPostPriceResponse {
+    return MsgPostPriceResponse.decode(message.value);
+  },
+  toProto(message: MsgPostPriceResponse): Uint8Array {
+    return MsgPostPriceResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgPostPriceResponse): MsgPostPriceResponseProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.MsgPostPriceResponse",
+      value: MsgPostPriceResponse.encode(message).finish()
+    };
   }
 };

@@ -1,35 +1,133 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** GodPermission allows any governance proposal. It is used mainly for testing. */
-export interface GodPermission {}
+export interface GodPermission {
+  $typeUrl?: string;
+}
+export interface GodPermissionProtoMsg {
+  typeUrl: "/kava.committee.v1beta1.GodPermission";
+  value: Uint8Array;
+}
 /** GodPermission allows any governance proposal. It is used mainly for testing. */
-export interface GodPermissionSDKType {}
+export interface GodPermissionAmino {}
+export interface GodPermissionAminoMsg {
+  type: "/kava.committee.v1beta1.GodPermission";
+  value: GodPermissionAmino;
+}
+/** GodPermission allows any governance proposal. It is used mainly for testing. */
+export interface GodPermissionSDKType {
+  $typeUrl?: string;
+}
 /** SoftwareUpgradePermission permission type for software upgrade proposals */
-export interface SoftwareUpgradePermission {}
+export interface SoftwareUpgradePermission {
+  $typeUrl?: string;
+}
+export interface SoftwareUpgradePermissionProtoMsg {
+  typeUrl: "/kava.committee.v1beta1.SoftwareUpgradePermission";
+  value: Uint8Array;
+}
 /** SoftwareUpgradePermission permission type for software upgrade proposals */
-export interface SoftwareUpgradePermissionSDKType {}
+export interface SoftwareUpgradePermissionAmino {}
+export interface SoftwareUpgradePermissionAminoMsg {
+  type: "/kava.committee.v1beta1.SoftwareUpgradePermission";
+  value: SoftwareUpgradePermissionAmino;
+}
+/** SoftwareUpgradePermission permission type for software upgrade proposals */
+export interface SoftwareUpgradePermissionSDKType {
+  $typeUrl?: string;
+}
 /** TextPermission allows any text governance proposal. */
-export interface TextPermission {}
+export interface TextPermission {
+  $typeUrl?: string;
+}
+export interface TextPermissionProtoMsg {
+  typeUrl: "/kava.committee.v1beta1.TextPermission";
+  value: Uint8Array;
+}
 /** TextPermission allows any text governance proposal. */
-export interface TextPermissionSDKType {}
+export interface TextPermissionAmino {}
+export interface TextPermissionAminoMsg {
+  type: "/kava.committee.v1beta1.TextPermission";
+  value: TextPermissionAmino;
+}
+/** TextPermission allows any text governance proposal. */
+export interface TextPermissionSDKType {
+  $typeUrl?: string;
+}
 /** CommunityCDPRepayDebtPermission allows submission of CommunityCDPRepayDebtProposal */
-export interface CommunityCDPRepayDebtPermission {}
+export interface CommunityCDPRepayDebtPermission {
+  $typeUrl?: string;
+}
+export interface CommunityCDPRepayDebtPermissionProtoMsg {
+  typeUrl: "/kava.committee.v1beta1.CommunityCDPRepayDebtPermission";
+  value: Uint8Array;
+}
 /** CommunityCDPRepayDebtPermission allows submission of CommunityCDPRepayDebtProposal */
-export interface CommunityCDPRepayDebtPermissionSDKType {}
+export interface CommunityCDPRepayDebtPermissionAmino {}
+export interface CommunityCDPRepayDebtPermissionAminoMsg {
+  type: "/kava.committee.v1beta1.CommunityCDPRepayDebtPermission";
+  value: CommunityCDPRepayDebtPermissionAmino;
+}
+/** CommunityCDPRepayDebtPermission allows submission of CommunityCDPRepayDebtProposal */
+export interface CommunityCDPRepayDebtPermissionSDKType {
+  $typeUrl?: string;
+}
 /** CommunityCDPWithdrawCollateralPermission allows submission of CommunityCDPWithdrawCollateralProposal */
-export interface CommunityCDPWithdrawCollateralPermission {}
+export interface CommunityCDPWithdrawCollateralPermission {
+  $typeUrl?: string;
+}
+export interface CommunityCDPWithdrawCollateralPermissionProtoMsg {
+  typeUrl: "/kava.committee.v1beta1.CommunityCDPWithdrawCollateralPermission";
+  value: Uint8Array;
+}
 /** CommunityCDPWithdrawCollateralPermission allows submission of CommunityCDPWithdrawCollateralProposal */
-export interface CommunityCDPWithdrawCollateralPermissionSDKType {}
+export interface CommunityCDPWithdrawCollateralPermissionAmino {}
+export interface CommunityCDPWithdrawCollateralPermissionAminoMsg {
+  type: "/kava.committee.v1beta1.CommunityCDPWithdrawCollateralPermission";
+  value: CommunityCDPWithdrawCollateralPermissionAmino;
+}
+/** CommunityCDPWithdrawCollateralPermission allows submission of CommunityCDPWithdrawCollateralProposal */
+export interface CommunityCDPWithdrawCollateralPermissionSDKType {
+  $typeUrl?: string;
+}
 /** CommunityPoolLendWithdrawPermission allows submission of CommunityPoolLendWithdrawProposal */
-export interface CommunityPoolLendWithdrawPermission {}
+export interface CommunityPoolLendWithdrawPermission {
+  $typeUrl?: string;
+}
+export interface CommunityPoolLendWithdrawPermissionProtoMsg {
+  typeUrl: "/kava.committee.v1beta1.CommunityPoolLendWithdrawPermission";
+  value: Uint8Array;
+}
 /** CommunityPoolLendWithdrawPermission allows submission of CommunityPoolLendWithdrawProposal */
-export interface CommunityPoolLendWithdrawPermissionSDKType {}
+export interface CommunityPoolLendWithdrawPermissionAmino {}
+export interface CommunityPoolLendWithdrawPermissionAminoMsg {
+  type: "/kava.committee.v1beta1.CommunityPoolLendWithdrawPermission";
+  value: CommunityPoolLendWithdrawPermissionAmino;
+}
+/** CommunityPoolLendWithdrawPermission allows submission of CommunityPoolLendWithdrawProposal */
+export interface CommunityPoolLendWithdrawPermissionSDKType {
+  $typeUrl?: string;
+}
 /** ParamsChangePermission allows any parameter or sub parameter change proposal. */
 export interface ParamsChangePermission {
+  $typeUrl?: string;
   allowedParamsChanges: AllowedParamsChange[];
+}
+export interface ParamsChangePermissionProtoMsg {
+  typeUrl: "/kava.committee.v1beta1.ParamsChangePermission";
+  value: Uint8Array;
+}
+/** ParamsChangePermission allows any parameter or sub parameter change proposal. */
+export interface ParamsChangePermissionAmino {
+  allowed_params_changes: AllowedParamsChangeAmino[];
+}
+export interface ParamsChangePermissionAminoMsg {
+  type: "/kava.committee.v1beta1.ParamsChangePermission";
+  value: ParamsChangePermissionAmino;
 }
 /** ParamsChangePermission allows any parameter or sub parameter change proposal. */
 export interface ParamsChangePermissionSDKType {
+  $typeUrl?: string;
   allowed_params_changes: AllowedParamsChangeSDKType[];
 }
 /** AllowedParamsChange contains data on the allowed parameter changes for subspace, key, and sub params requirements. */
@@ -47,6 +145,29 @@ export interface AllowedParamsChange {
    */
   multiSubparamsRequirements: SubparamRequirement[];
 }
+export interface AllowedParamsChangeProtoMsg {
+  typeUrl: "/kava.committee.v1beta1.AllowedParamsChange";
+  value: Uint8Array;
+}
+/** AllowedParamsChange contains data on the allowed parameter changes for subspace, key, and sub params requirements. */
+export interface AllowedParamsChangeAmino {
+  subspace: string;
+  key: string;
+  /**
+   * Requirements for when the subparam value is a single record. This contains list of allowed attribute keys that can
+   * be changed on the subparam record.
+   */
+  single_subparam_allowed_attrs: string[];
+  /**
+   * Requirements for when the subparam value is a list of records. The requirements contains requirements for each
+   * record in the list.
+   */
+  multi_subparams_requirements: SubparamRequirementAmino[];
+}
+export interface AllowedParamsChangeAminoMsg {
+  type: "/kava.committee.v1beta1.AllowedParamsChange";
+  value: AllowedParamsChangeAmino;
+}
 /** AllowedParamsChange contains data on the allowed parameter changes for subspace, key, and sub params requirements. */
 export interface AllowedParamsChangeSDKType {
   subspace: string;
@@ -63,6 +184,23 @@ export interface SubparamRequirement {
   /** The sub param attrs that are allowed to be changed. */
   allowedSubparamAttrChanges: string[];
 }
+export interface SubparamRequirementProtoMsg {
+  typeUrl: "/kava.committee.v1beta1.SubparamRequirement";
+  value: Uint8Array;
+}
+/** SubparamRequirement contains requirements for a single record in a subparam value list */
+export interface SubparamRequirementAmino {
+  /** The required attr key of the param record. */
+  key: string;
+  /** The required param value for the param record key. The key and value is used to match to the target param record. */
+  val: string;
+  /** The sub param attrs that are allowed to be changed. */
+  allowed_subparam_attr_changes: string[];
+}
+export interface SubparamRequirementAminoMsg {
+  type: "/kava.committee.v1beta1.SubparamRequirement";
+  value: SubparamRequirementAmino;
+}
 /** SubparamRequirement contains requirements for a single record in a subparam value list */
 export interface SubparamRequirementSDKType {
   key: string;
@@ -70,10 +208,13 @@ export interface SubparamRequirementSDKType {
   allowed_subparam_attr_changes: string[];
 }
 function createBaseGodPermission(): GodPermission {
-  return {};
+  return {
+    $typeUrl: "/kava.committee.v1beta1.GodPermission"
+  };
 }
 export const GodPermission = {
-  encode(_: GodPermission, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.committee.v1beta1.GodPermission",
+  encode(_: GodPermission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): GodPermission {
@@ -82,13 +223,38 @@ export const GodPermission = {
   fromPartial(_: Partial<GodPermission>): GodPermission {
     const message = createBaseGodPermission();
     return message;
+  },
+  fromAmino(_: GodPermissionAmino): GodPermission {
+    return {};
+  },
+  toAmino(_: GodPermission): GodPermissionAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: GodPermissionAminoMsg): GodPermission {
+    return GodPermission.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GodPermissionProtoMsg): GodPermission {
+    return GodPermission.decode(message.value);
+  },
+  toProto(message: GodPermission): Uint8Array {
+    return GodPermission.encode(message).finish();
+  },
+  toProtoMsg(message: GodPermission): GodPermissionProtoMsg {
+    return {
+      typeUrl: "/kava.committee.v1beta1.GodPermission",
+      value: GodPermission.encode(message).finish()
+    };
   }
 };
 function createBaseSoftwareUpgradePermission(): SoftwareUpgradePermission {
-  return {};
+  return {
+    $typeUrl: "/kava.committee.v1beta1.SoftwareUpgradePermission"
+  };
 }
 export const SoftwareUpgradePermission = {
-  encode(_: SoftwareUpgradePermission, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.committee.v1beta1.SoftwareUpgradePermission",
+  encode(_: SoftwareUpgradePermission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): SoftwareUpgradePermission {
@@ -97,13 +263,38 @@ export const SoftwareUpgradePermission = {
   fromPartial(_: Partial<SoftwareUpgradePermission>): SoftwareUpgradePermission {
     const message = createBaseSoftwareUpgradePermission();
     return message;
+  },
+  fromAmino(_: SoftwareUpgradePermissionAmino): SoftwareUpgradePermission {
+    return {};
+  },
+  toAmino(_: SoftwareUpgradePermission): SoftwareUpgradePermissionAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: SoftwareUpgradePermissionAminoMsg): SoftwareUpgradePermission {
+    return SoftwareUpgradePermission.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SoftwareUpgradePermissionProtoMsg): SoftwareUpgradePermission {
+    return SoftwareUpgradePermission.decode(message.value);
+  },
+  toProto(message: SoftwareUpgradePermission): Uint8Array {
+    return SoftwareUpgradePermission.encode(message).finish();
+  },
+  toProtoMsg(message: SoftwareUpgradePermission): SoftwareUpgradePermissionProtoMsg {
+    return {
+      typeUrl: "/kava.committee.v1beta1.SoftwareUpgradePermission",
+      value: SoftwareUpgradePermission.encode(message).finish()
+    };
   }
 };
 function createBaseTextPermission(): TextPermission {
-  return {};
+  return {
+    $typeUrl: "/kava.committee.v1beta1.TextPermission"
+  };
 }
 export const TextPermission = {
-  encode(_: TextPermission, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.committee.v1beta1.TextPermission",
+  encode(_: TextPermission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): TextPermission {
@@ -112,13 +303,38 @@ export const TextPermission = {
   fromPartial(_: Partial<TextPermission>): TextPermission {
     const message = createBaseTextPermission();
     return message;
+  },
+  fromAmino(_: TextPermissionAmino): TextPermission {
+    return {};
+  },
+  toAmino(_: TextPermission): TextPermissionAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: TextPermissionAminoMsg): TextPermission {
+    return TextPermission.fromAmino(object.value);
+  },
+  fromProtoMsg(message: TextPermissionProtoMsg): TextPermission {
+    return TextPermission.decode(message.value);
+  },
+  toProto(message: TextPermission): Uint8Array {
+    return TextPermission.encode(message).finish();
+  },
+  toProtoMsg(message: TextPermission): TextPermissionProtoMsg {
+    return {
+      typeUrl: "/kava.committee.v1beta1.TextPermission",
+      value: TextPermission.encode(message).finish()
+    };
   }
 };
 function createBaseCommunityCDPRepayDebtPermission(): CommunityCDPRepayDebtPermission {
-  return {};
+  return {
+    $typeUrl: "/kava.committee.v1beta1.CommunityCDPRepayDebtPermission"
+  };
 }
 export const CommunityCDPRepayDebtPermission = {
-  encode(_: CommunityCDPRepayDebtPermission, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.committee.v1beta1.CommunityCDPRepayDebtPermission",
+  encode(_: CommunityCDPRepayDebtPermission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): CommunityCDPRepayDebtPermission {
@@ -127,13 +343,38 @@ export const CommunityCDPRepayDebtPermission = {
   fromPartial(_: Partial<CommunityCDPRepayDebtPermission>): CommunityCDPRepayDebtPermission {
     const message = createBaseCommunityCDPRepayDebtPermission();
     return message;
+  },
+  fromAmino(_: CommunityCDPRepayDebtPermissionAmino): CommunityCDPRepayDebtPermission {
+    return {};
+  },
+  toAmino(_: CommunityCDPRepayDebtPermission): CommunityCDPRepayDebtPermissionAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: CommunityCDPRepayDebtPermissionAminoMsg): CommunityCDPRepayDebtPermission {
+    return CommunityCDPRepayDebtPermission.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CommunityCDPRepayDebtPermissionProtoMsg): CommunityCDPRepayDebtPermission {
+    return CommunityCDPRepayDebtPermission.decode(message.value);
+  },
+  toProto(message: CommunityCDPRepayDebtPermission): Uint8Array {
+    return CommunityCDPRepayDebtPermission.encode(message).finish();
+  },
+  toProtoMsg(message: CommunityCDPRepayDebtPermission): CommunityCDPRepayDebtPermissionProtoMsg {
+    return {
+      typeUrl: "/kava.committee.v1beta1.CommunityCDPRepayDebtPermission",
+      value: CommunityCDPRepayDebtPermission.encode(message).finish()
+    };
   }
 };
 function createBaseCommunityCDPWithdrawCollateralPermission(): CommunityCDPWithdrawCollateralPermission {
-  return {};
+  return {
+    $typeUrl: "/kava.committee.v1beta1.CommunityCDPWithdrawCollateralPermission"
+  };
 }
 export const CommunityCDPWithdrawCollateralPermission = {
-  encode(_: CommunityCDPWithdrawCollateralPermission, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.committee.v1beta1.CommunityCDPWithdrawCollateralPermission",
+  encode(_: CommunityCDPWithdrawCollateralPermission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): CommunityCDPWithdrawCollateralPermission {
@@ -142,13 +383,38 @@ export const CommunityCDPWithdrawCollateralPermission = {
   fromPartial(_: Partial<CommunityCDPWithdrawCollateralPermission>): CommunityCDPWithdrawCollateralPermission {
     const message = createBaseCommunityCDPWithdrawCollateralPermission();
     return message;
+  },
+  fromAmino(_: CommunityCDPWithdrawCollateralPermissionAmino): CommunityCDPWithdrawCollateralPermission {
+    return {};
+  },
+  toAmino(_: CommunityCDPWithdrawCollateralPermission): CommunityCDPWithdrawCollateralPermissionAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: CommunityCDPWithdrawCollateralPermissionAminoMsg): CommunityCDPWithdrawCollateralPermission {
+    return CommunityCDPWithdrawCollateralPermission.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CommunityCDPWithdrawCollateralPermissionProtoMsg): CommunityCDPWithdrawCollateralPermission {
+    return CommunityCDPWithdrawCollateralPermission.decode(message.value);
+  },
+  toProto(message: CommunityCDPWithdrawCollateralPermission): Uint8Array {
+    return CommunityCDPWithdrawCollateralPermission.encode(message).finish();
+  },
+  toProtoMsg(message: CommunityCDPWithdrawCollateralPermission): CommunityCDPWithdrawCollateralPermissionProtoMsg {
+    return {
+      typeUrl: "/kava.committee.v1beta1.CommunityCDPWithdrawCollateralPermission",
+      value: CommunityCDPWithdrawCollateralPermission.encode(message).finish()
+    };
   }
 };
 function createBaseCommunityPoolLendWithdrawPermission(): CommunityPoolLendWithdrawPermission {
-  return {};
+  return {
+    $typeUrl: "/kava.committee.v1beta1.CommunityPoolLendWithdrawPermission"
+  };
 }
 export const CommunityPoolLendWithdrawPermission = {
-  encode(_: CommunityPoolLendWithdrawPermission, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.committee.v1beta1.CommunityPoolLendWithdrawPermission",
+  encode(_: CommunityPoolLendWithdrawPermission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): CommunityPoolLendWithdrawPermission {
@@ -157,15 +423,39 @@ export const CommunityPoolLendWithdrawPermission = {
   fromPartial(_: Partial<CommunityPoolLendWithdrawPermission>): CommunityPoolLendWithdrawPermission {
     const message = createBaseCommunityPoolLendWithdrawPermission();
     return message;
+  },
+  fromAmino(_: CommunityPoolLendWithdrawPermissionAmino): CommunityPoolLendWithdrawPermission {
+    return {};
+  },
+  toAmino(_: CommunityPoolLendWithdrawPermission): CommunityPoolLendWithdrawPermissionAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: CommunityPoolLendWithdrawPermissionAminoMsg): CommunityPoolLendWithdrawPermission {
+    return CommunityPoolLendWithdrawPermission.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CommunityPoolLendWithdrawPermissionProtoMsg): CommunityPoolLendWithdrawPermission {
+    return CommunityPoolLendWithdrawPermission.decode(message.value);
+  },
+  toProto(message: CommunityPoolLendWithdrawPermission): Uint8Array {
+    return CommunityPoolLendWithdrawPermission.encode(message).finish();
+  },
+  toProtoMsg(message: CommunityPoolLendWithdrawPermission): CommunityPoolLendWithdrawPermissionProtoMsg {
+    return {
+      typeUrl: "/kava.committee.v1beta1.CommunityPoolLendWithdrawPermission",
+      value: CommunityPoolLendWithdrawPermission.encode(message).finish()
+    };
   }
 };
 function createBaseParamsChangePermission(): ParamsChangePermission {
   return {
+    $typeUrl: "/kava.committee.v1beta1.ParamsChangePermission",
     allowedParamsChanges: []
   };
 }
 export const ParamsChangePermission = {
-  encode(message: ParamsChangePermission, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.committee.v1beta1.ParamsChangePermission",
+  encode(message: ParamsChangePermission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.allowedParamsChanges) {
       AllowedParamsChange.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -180,6 +470,35 @@ export const ParamsChangePermission = {
     const message = createBaseParamsChangePermission();
     message.allowedParamsChanges = object.allowedParamsChanges?.map(e => AllowedParamsChange.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: ParamsChangePermissionAmino): ParamsChangePermission {
+    return {
+      allowedParamsChanges: Array.isArray(object?.allowed_params_changes) ? object.allowed_params_changes.map((e: any) => AllowedParamsChange.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: ParamsChangePermission): ParamsChangePermissionAmino {
+    const obj: any = {};
+    if (message.allowedParamsChanges) {
+      obj.allowed_params_changes = message.allowedParamsChanges.map(e => e ? AllowedParamsChange.toAmino(e) : undefined);
+    } else {
+      obj.allowed_params_changes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ParamsChangePermissionAminoMsg): ParamsChangePermission {
+    return ParamsChangePermission.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsChangePermissionProtoMsg): ParamsChangePermission {
+    return ParamsChangePermission.decode(message.value);
+  },
+  toProto(message: ParamsChangePermission): Uint8Array {
+    return ParamsChangePermission.encode(message).finish();
+  },
+  toProtoMsg(message: ParamsChangePermission): ParamsChangePermissionProtoMsg {
+    return {
+      typeUrl: "/kava.committee.v1beta1.ParamsChangePermission",
+      value: ParamsChangePermission.encode(message).finish()
+    };
   }
 };
 function createBaseAllowedParamsChange(): AllowedParamsChange {
@@ -191,7 +510,8 @@ function createBaseAllowedParamsChange(): AllowedParamsChange {
   };
 }
 export const AllowedParamsChange = {
-  encode(message: AllowedParamsChange, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.committee.v1beta1.AllowedParamsChange",
+  encode(message: AllowedParamsChange, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.subspace !== "") {
       writer.uint32(10).string(message.subspace);
     }
@@ -221,6 +541,45 @@ export const AllowedParamsChange = {
     message.singleSubparamAllowedAttrs = object.singleSubparamAllowedAttrs?.map(e => e) || [];
     message.multiSubparamsRequirements = object.multiSubparamsRequirements?.map(e => SubparamRequirement.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: AllowedParamsChangeAmino): AllowedParamsChange {
+    return {
+      subspace: object.subspace,
+      key: object.key,
+      singleSubparamAllowedAttrs: Array.isArray(object?.single_subparam_allowed_attrs) ? object.single_subparam_allowed_attrs.map((e: any) => e) : [],
+      multiSubparamsRequirements: Array.isArray(object?.multi_subparams_requirements) ? object.multi_subparams_requirements.map((e: any) => SubparamRequirement.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: AllowedParamsChange): AllowedParamsChangeAmino {
+    const obj: any = {};
+    obj.subspace = message.subspace;
+    obj.key = message.key;
+    if (message.singleSubparamAllowedAttrs) {
+      obj.single_subparam_allowed_attrs = message.singleSubparamAllowedAttrs.map(e => e);
+    } else {
+      obj.single_subparam_allowed_attrs = [];
+    }
+    if (message.multiSubparamsRequirements) {
+      obj.multi_subparams_requirements = message.multiSubparamsRequirements.map(e => e ? SubparamRequirement.toAmino(e) : undefined);
+    } else {
+      obj.multi_subparams_requirements = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: AllowedParamsChangeAminoMsg): AllowedParamsChange {
+    return AllowedParamsChange.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AllowedParamsChangeProtoMsg): AllowedParamsChange {
+    return AllowedParamsChange.decode(message.value);
+  },
+  toProto(message: AllowedParamsChange): Uint8Array {
+    return AllowedParamsChange.encode(message).finish();
+  },
+  toProtoMsg(message: AllowedParamsChange): AllowedParamsChangeProtoMsg {
+    return {
+      typeUrl: "/kava.committee.v1beta1.AllowedParamsChange",
+      value: AllowedParamsChange.encode(message).finish()
+    };
   }
 };
 function createBaseSubparamRequirement(): SubparamRequirement {
@@ -231,7 +590,8 @@ function createBaseSubparamRequirement(): SubparamRequirement {
   };
 }
 export const SubparamRequirement = {
-  encode(message: SubparamRequirement, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.committee.v1beta1.SubparamRequirement",
+  encode(message: SubparamRequirement, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -256,5 +616,38 @@ export const SubparamRequirement = {
     message.val = object.val ?? "";
     message.allowedSubparamAttrChanges = object.allowedSubparamAttrChanges?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: SubparamRequirementAmino): SubparamRequirement {
+    return {
+      key: object.key,
+      val: object.val,
+      allowedSubparamAttrChanges: Array.isArray(object?.allowed_subparam_attr_changes) ? object.allowed_subparam_attr_changes.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: SubparamRequirement): SubparamRequirementAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.val = message.val;
+    if (message.allowedSubparamAttrChanges) {
+      obj.allowed_subparam_attr_changes = message.allowedSubparamAttrChanges.map(e => e);
+    } else {
+      obj.allowed_subparam_attr_changes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SubparamRequirementAminoMsg): SubparamRequirement {
+    return SubparamRequirement.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SubparamRequirementProtoMsg): SubparamRequirement {
+    return SubparamRequirement.decode(message.value);
+  },
+  toProto(message: SubparamRequirement): Uint8Array {
+    return SubparamRequirement.encode(message).finish();
+  },
+  toProtoMsg(message: SubparamRequirement): SubparamRequirementProtoMsg {
+    return {
+      typeUrl: "/kava.committee.v1beta1.SubparamRequirement",
+      value: SubparamRequirement.encode(message).finish()
+    };
   }
 };

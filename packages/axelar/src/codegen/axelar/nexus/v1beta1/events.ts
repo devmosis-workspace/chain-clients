@@ -1,60 +1,128 @@
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Duration, DurationSDKType } from "../../../google/protobuf/duration";
-import { CrossChainAddress, CrossChainAddressSDKType } from "../exported/v1beta1/types";
-import { Long, isSet, bytesFromBase64 } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { CrossChainAddress, CrossChainAddressAmino, CrossChainAddressSDKType } from "../exported/v1beta1/types";
+import { BinaryWriter } from "../../../binary";
+import { isSet, bytesFromBase64 } from "../../../helpers";
 export interface FeeDeducted {
-  transferId: Long;
+  transferId: bigint;
   recipientChain: string;
   recipientAddress: string;
-  amount?: Coin;
-  fee?: Coin;
+  amount: Coin;
+  fee: Coin;
+}
+export interface FeeDeductedProtoMsg {
+  typeUrl: "/axelar.nexus.v1beta1.FeeDeducted";
+  value: Uint8Array;
+}
+export interface FeeDeductedAmino {
+  transfer_id: string;
+  recipient_chain: string;
+  recipient_address: string;
+  amount?: CoinAmino;
+  fee?: CoinAmino;
+}
+export interface FeeDeductedAminoMsg {
+  type: "/axelar.nexus.v1beta1.FeeDeducted";
+  value: FeeDeductedAmino;
 }
 export interface FeeDeductedSDKType {
-  transfer_id: Long;
+  transfer_id: bigint;
   recipient_chain: string;
   recipient_address: string;
-  amount?: CoinSDKType;
-  fee?: CoinSDKType;
+  amount: CoinSDKType;
+  fee: CoinSDKType;
 }
 export interface InsufficientFee {
-  transferId: Long;
+  transferId: bigint;
   recipientChain: string;
   recipientAddress: string;
-  amount?: Coin;
-  fee?: Coin;
+  amount: Coin;
+  fee: Coin;
 }
-export interface InsufficientFeeSDKType {
-  transfer_id: Long;
+export interface InsufficientFeeProtoMsg {
+  typeUrl: "/axelar.nexus.v1beta1.InsufficientFee";
+  value: Uint8Array;
+}
+export interface InsufficientFeeAmino {
+  transfer_id: string;
   recipient_chain: string;
   recipient_address: string;
-  amount?: CoinSDKType;
-  fee?: CoinSDKType;
+  amount?: CoinAmino;
+  fee?: CoinAmino;
+}
+export interface InsufficientFeeAminoMsg {
+  type: "/axelar.nexus.v1beta1.InsufficientFee";
+  value: InsufficientFeeAmino;
+}
+export interface InsufficientFeeSDKType {
+  transfer_id: bigint;
+  recipient_chain: string;
+  recipient_address: string;
+  amount: CoinSDKType;
+  fee: CoinSDKType;
 }
 export interface RateLimitUpdated {
   chain: string;
-  limit?: Coin;
-  window?: Duration;
+  limit: Coin;
+  window: Duration;
+}
+export interface RateLimitUpdatedProtoMsg {
+  typeUrl: "/axelar.nexus.v1beta1.RateLimitUpdated";
+  value: Uint8Array;
+}
+export interface RateLimitUpdatedAmino {
+  chain: string;
+  limit?: CoinAmino;
+  window?: DurationAmino;
+}
+export interface RateLimitUpdatedAminoMsg {
+  type: "/axelar.nexus.v1beta1.RateLimitUpdated";
+  value: RateLimitUpdatedAmino;
 }
 export interface RateLimitUpdatedSDKType {
   chain: string;
-  limit?: CoinSDKType;
-  window?: DurationSDKType;
+  limit: CoinSDKType;
+  window: DurationSDKType;
 }
 export interface MessageReceived {
   id: string;
   payloadHash: Uint8Array;
-  sender?: CrossChainAddress;
-  recipient?: CrossChainAddress;
+  sender: CrossChainAddress;
+  recipient: CrossChainAddress;
+}
+export interface MessageReceivedProtoMsg {
+  typeUrl: "/axelar.nexus.v1beta1.MessageReceived";
+  value: Uint8Array;
+}
+export interface MessageReceivedAmino {
+  id: string;
+  payload_hash: Uint8Array;
+  sender?: CrossChainAddressAmino;
+  recipient?: CrossChainAddressAmino;
+}
+export interface MessageReceivedAminoMsg {
+  type: "/axelar.nexus.v1beta1.MessageReceived";
+  value: MessageReceivedAmino;
 }
 export interface MessageReceivedSDKType {
   id: string;
   payload_hash: Uint8Array;
-  sender?: CrossChainAddressSDKType;
-  recipient?: CrossChainAddressSDKType;
+  sender: CrossChainAddressSDKType;
+  recipient: CrossChainAddressSDKType;
 }
 export interface MessageProcessing {
   id: string;
+}
+export interface MessageProcessingProtoMsg {
+  typeUrl: "/axelar.nexus.v1beta1.MessageProcessing";
+  value: Uint8Array;
+}
+export interface MessageProcessingAmino {
+  id: string;
+}
+export interface MessageProcessingAminoMsg {
+  type: "/axelar.nexus.v1beta1.MessageProcessing";
+  value: MessageProcessingAmino;
 }
 export interface MessageProcessingSDKType {
   id: string;
@@ -62,27 +130,50 @@ export interface MessageProcessingSDKType {
 export interface MessageExecuted {
   id: string;
 }
+export interface MessageExecutedProtoMsg {
+  typeUrl: "/axelar.nexus.v1beta1.MessageExecuted";
+  value: Uint8Array;
+}
+export interface MessageExecutedAmino {
+  id: string;
+}
+export interface MessageExecutedAminoMsg {
+  type: "/axelar.nexus.v1beta1.MessageExecuted";
+  value: MessageExecutedAmino;
+}
 export interface MessageExecutedSDKType {
   id: string;
 }
 export interface MessageFailed {
   id: string;
 }
+export interface MessageFailedProtoMsg {
+  typeUrl: "/axelar.nexus.v1beta1.MessageFailed";
+  value: Uint8Array;
+}
+export interface MessageFailedAmino {
+  id: string;
+}
+export interface MessageFailedAminoMsg {
+  type: "/axelar.nexus.v1beta1.MessageFailed";
+  value: MessageFailedAmino;
+}
 export interface MessageFailedSDKType {
   id: string;
 }
 function createBaseFeeDeducted(): FeeDeducted {
   return {
-    transferId: Long.UZERO,
+    transferId: BigInt(0),
     recipientChain: "",
     recipientAddress: "",
-    amount: undefined,
-    fee: undefined
+    amount: Coin.fromPartial({}),
+    fee: Coin.fromPartial({})
   };
 }
 export const FeeDeducted = {
-  encode(message: FeeDeducted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.transferId.isZero()) {
+  typeUrl: "/axelar.nexus.v1beta1.FeeDeducted",
+  encode(message: FeeDeducted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.transferId !== BigInt(0)) {
       writer.uint32(8).uint64(message.transferId);
     }
     if (message.recipientChain !== "") {
@@ -101,7 +192,7 @@ export const FeeDeducted = {
   },
   fromJSON(object: any): FeeDeducted {
     return {
-      transferId: isSet(object.transferId) ? Long.fromValue(object.transferId) : Long.UZERO,
+      transferId: isSet(object.transferId) ? BigInt(object.transferId.toString()) : BigInt(0),
       recipientChain: isSet(object.recipientChain) ? String(object.recipientChain) : "",
       recipientAddress: isSet(object.recipientAddress) ? String(object.recipientAddress) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
@@ -110,26 +201,60 @@ export const FeeDeducted = {
   },
   fromPartial(object: Partial<FeeDeducted>): FeeDeducted {
     const message = createBaseFeeDeducted();
-    message.transferId = object.transferId !== undefined && object.transferId !== null ? Long.fromValue(object.transferId) : Long.UZERO;
+    message.transferId = object.transferId !== undefined && object.transferId !== null ? BigInt(object.transferId.toString()) : BigInt(0);
     message.recipientChain = object.recipientChain ?? "";
     message.recipientAddress = object.recipientAddress ?? "";
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     message.fee = object.fee !== undefined && object.fee !== null ? Coin.fromPartial(object.fee) : undefined;
     return message;
+  },
+  fromAmino(object: FeeDeductedAmino): FeeDeducted {
+    return {
+      transferId: BigInt(object.transfer_id),
+      recipientChain: object.recipient_chain,
+      recipientAddress: object.recipient_address,
+      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
+      fee: object?.fee ? Coin.fromAmino(object.fee) : undefined
+    };
+  },
+  toAmino(message: FeeDeducted): FeeDeductedAmino {
+    const obj: any = {};
+    obj.transfer_id = message.transferId ? message.transferId.toString() : undefined;
+    obj.recipient_chain = message.recipientChain;
+    obj.recipient_address = message.recipientAddress;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.fee = message.fee ? Coin.toAmino(message.fee) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: FeeDeductedAminoMsg): FeeDeducted {
+    return FeeDeducted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: FeeDeductedProtoMsg): FeeDeducted {
+    return FeeDeducted.decode(message.value);
+  },
+  toProto(message: FeeDeducted): Uint8Array {
+    return FeeDeducted.encode(message).finish();
+  },
+  toProtoMsg(message: FeeDeducted): FeeDeductedProtoMsg {
+    return {
+      typeUrl: "/axelar.nexus.v1beta1.FeeDeducted",
+      value: FeeDeducted.encode(message).finish()
+    };
   }
 };
 function createBaseInsufficientFee(): InsufficientFee {
   return {
-    transferId: Long.UZERO,
+    transferId: BigInt(0),
     recipientChain: "",
     recipientAddress: "",
-    amount: undefined,
-    fee: undefined
+    amount: Coin.fromPartial({}),
+    fee: Coin.fromPartial({})
   };
 }
 export const InsufficientFee = {
-  encode(message: InsufficientFee, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.transferId.isZero()) {
+  typeUrl: "/axelar.nexus.v1beta1.InsufficientFee",
+  encode(message: InsufficientFee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.transferId !== BigInt(0)) {
       writer.uint32(8).uint64(message.transferId);
     }
     if (message.recipientChain !== "") {
@@ -148,7 +273,7 @@ export const InsufficientFee = {
   },
   fromJSON(object: any): InsufficientFee {
     return {
-      transferId: isSet(object.transferId) ? Long.fromValue(object.transferId) : Long.UZERO,
+      transferId: isSet(object.transferId) ? BigInt(object.transferId.toString()) : BigInt(0),
       recipientChain: isSet(object.recipientChain) ? String(object.recipientChain) : "",
       recipientAddress: isSet(object.recipientAddress) ? String(object.recipientAddress) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
@@ -157,23 +282,57 @@ export const InsufficientFee = {
   },
   fromPartial(object: Partial<InsufficientFee>): InsufficientFee {
     const message = createBaseInsufficientFee();
-    message.transferId = object.transferId !== undefined && object.transferId !== null ? Long.fromValue(object.transferId) : Long.UZERO;
+    message.transferId = object.transferId !== undefined && object.transferId !== null ? BigInt(object.transferId.toString()) : BigInt(0);
     message.recipientChain = object.recipientChain ?? "";
     message.recipientAddress = object.recipientAddress ?? "";
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     message.fee = object.fee !== undefined && object.fee !== null ? Coin.fromPartial(object.fee) : undefined;
     return message;
+  },
+  fromAmino(object: InsufficientFeeAmino): InsufficientFee {
+    return {
+      transferId: BigInt(object.transfer_id),
+      recipientChain: object.recipient_chain,
+      recipientAddress: object.recipient_address,
+      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
+      fee: object?.fee ? Coin.fromAmino(object.fee) : undefined
+    };
+  },
+  toAmino(message: InsufficientFee): InsufficientFeeAmino {
+    const obj: any = {};
+    obj.transfer_id = message.transferId ? message.transferId.toString() : undefined;
+    obj.recipient_chain = message.recipientChain;
+    obj.recipient_address = message.recipientAddress;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.fee = message.fee ? Coin.toAmino(message.fee) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: InsufficientFeeAminoMsg): InsufficientFee {
+    return InsufficientFee.fromAmino(object.value);
+  },
+  fromProtoMsg(message: InsufficientFeeProtoMsg): InsufficientFee {
+    return InsufficientFee.decode(message.value);
+  },
+  toProto(message: InsufficientFee): Uint8Array {
+    return InsufficientFee.encode(message).finish();
+  },
+  toProtoMsg(message: InsufficientFee): InsufficientFeeProtoMsg {
+    return {
+      typeUrl: "/axelar.nexus.v1beta1.InsufficientFee",
+      value: InsufficientFee.encode(message).finish()
+    };
   }
 };
 function createBaseRateLimitUpdated(): RateLimitUpdated {
   return {
     chain: "",
-    limit: undefined,
-    window: undefined
+    limit: Coin.fromPartial({}),
+    window: Duration.fromPartial({})
   };
 }
 export const RateLimitUpdated = {
-  encode(message: RateLimitUpdated, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.nexus.v1beta1.RateLimitUpdated",
+  encode(message: RateLimitUpdated, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -198,18 +357,48 @@ export const RateLimitUpdated = {
     message.limit = object.limit !== undefined && object.limit !== null ? Coin.fromPartial(object.limit) : undefined;
     message.window = object.window !== undefined && object.window !== null ? Duration.fromPartial(object.window) : undefined;
     return message;
+  },
+  fromAmino(object: RateLimitUpdatedAmino): RateLimitUpdated {
+    return {
+      chain: object.chain,
+      limit: object?.limit ? Coin.fromAmino(object.limit) : undefined,
+      window: object?.window ? Duration.fromAmino(object.window) : undefined
+    };
+  },
+  toAmino(message: RateLimitUpdated): RateLimitUpdatedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.limit = message.limit ? Coin.toAmino(message.limit) : undefined;
+    obj.window = message.window ? Duration.toAmino(message.window) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: RateLimitUpdatedAminoMsg): RateLimitUpdated {
+    return RateLimitUpdated.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RateLimitUpdatedProtoMsg): RateLimitUpdated {
+    return RateLimitUpdated.decode(message.value);
+  },
+  toProto(message: RateLimitUpdated): Uint8Array {
+    return RateLimitUpdated.encode(message).finish();
+  },
+  toProtoMsg(message: RateLimitUpdated): RateLimitUpdatedProtoMsg {
+    return {
+      typeUrl: "/axelar.nexus.v1beta1.RateLimitUpdated",
+      value: RateLimitUpdated.encode(message).finish()
+    };
   }
 };
 function createBaseMessageReceived(): MessageReceived {
   return {
     id: "",
     payloadHash: new Uint8Array(),
-    sender: undefined,
-    recipient: undefined
+    sender: CrossChainAddress.fromPartial({}),
+    recipient: CrossChainAddress.fromPartial({})
   };
 }
 export const MessageReceived = {
-  encode(message: MessageReceived, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.nexus.v1beta1.MessageReceived",
+  encode(message: MessageReceived, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -239,6 +428,37 @@ export const MessageReceived = {
     message.sender = object.sender !== undefined && object.sender !== null ? CrossChainAddress.fromPartial(object.sender) : undefined;
     message.recipient = object.recipient !== undefined && object.recipient !== null ? CrossChainAddress.fromPartial(object.recipient) : undefined;
     return message;
+  },
+  fromAmino(object: MessageReceivedAmino): MessageReceived {
+    return {
+      id: object.id,
+      payloadHash: object.payload_hash,
+      sender: object?.sender ? CrossChainAddress.fromAmino(object.sender) : undefined,
+      recipient: object?.recipient ? CrossChainAddress.fromAmino(object.recipient) : undefined
+    };
+  },
+  toAmino(message: MessageReceived): MessageReceivedAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.payload_hash = message.payloadHash;
+    obj.sender = message.sender ? CrossChainAddress.toAmino(message.sender) : undefined;
+    obj.recipient = message.recipient ? CrossChainAddress.toAmino(message.recipient) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MessageReceivedAminoMsg): MessageReceived {
+    return MessageReceived.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MessageReceivedProtoMsg): MessageReceived {
+    return MessageReceived.decode(message.value);
+  },
+  toProto(message: MessageReceived): Uint8Array {
+    return MessageReceived.encode(message).finish();
+  },
+  toProtoMsg(message: MessageReceived): MessageReceivedProtoMsg {
+    return {
+      typeUrl: "/axelar.nexus.v1beta1.MessageReceived",
+      value: MessageReceived.encode(message).finish()
+    };
   }
 };
 function createBaseMessageProcessing(): MessageProcessing {
@@ -247,7 +467,8 @@ function createBaseMessageProcessing(): MessageProcessing {
   };
 }
 export const MessageProcessing = {
-  encode(message: MessageProcessing, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.nexus.v1beta1.MessageProcessing",
+  encode(message: MessageProcessing, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -262,6 +483,31 @@ export const MessageProcessing = {
     const message = createBaseMessageProcessing();
     message.id = object.id ?? "";
     return message;
+  },
+  fromAmino(object: MessageProcessingAmino): MessageProcessing {
+    return {
+      id: object.id
+    };
+  },
+  toAmino(message: MessageProcessing): MessageProcessingAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    return obj;
+  },
+  fromAminoMsg(object: MessageProcessingAminoMsg): MessageProcessing {
+    return MessageProcessing.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MessageProcessingProtoMsg): MessageProcessing {
+    return MessageProcessing.decode(message.value);
+  },
+  toProto(message: MessageProcessing): Uint8Array {
+    return MessageProcessing.encode(message).finish();
+  },
+  toProtoMsg(message: MessageProcessing): MessageProcessingProtoMsg {
+    return {
+      typeUrl: "/axelar.nexus.v1beta1.MessageProcessing",
+      value: MessageProcessing.encode(message).finish()
+    };
   }
 };
 function createBaseMessageExecuted(): MessageExecuted {
@@ -270,7 +516,8 @@ function createBaseMessageExecuted(): MessageExecuted {
   };
 }
 export const MessageExecuted = {
-  encode(message: MessageExecuted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.nexus.v1beta1.MessageExecuted",
+  encode(message: MessageExecuted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -285,6 +532,31 @@ export const MessageExecuted = {
     const message = createBaseMessageExecuted();
     message.id = object.id ?? "";
     return message;
+  },
+  fromAmino(object: MessageExecutedAmino): MessageExecuted {
+    return {
+      id: object.id
+    };
+  },
+  toAmino(message: MessageExecuted): MessageExecutedAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    return obj;
+  },
+  fromAminoMsg(object: MessageExecutedAminoMsg): MessageExecuted {
+    return MessageExecuted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MessageExecutedProtoMsg): MessageExecuted {
+    return MessageExecuted.decode(message.value);
+  },
+  toProto(message: MessageExecuted): Uint8Array {
+    return MessageExecuted.encode(message).finish();
+  },
+  toProtoMsg(message: MessageExecuted): MessageExecutedProtoMsg {
+    return {
+      typeUrl: "/axelar.nexus.v1beta1.MessageExecuted",
+      value: MessageExecuted.encode(message).finish()
+    };
   }
 };
 function createBaseMessageFailed(): MessageFailed {
@@ -293,7 +565,8 @@ function createBaseMessageFailed(): MessageFailed {
   };
 }
 export const MessageFailed = {
-  encode(message: MessageFailed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.nexus.v1beta1.MessageFailed",
+  encode(message: MessageFailed, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
@@ -308,5 +581,30 @@ export const MessageFailed = {
     const message = createBaseMessageFailed();
     message.id = object.id ?? "";
     return message;
+  },
+  fromAmino(object: MessageFailedAmino): MessageFailed {
+    return {
+      id: object.id
+    };
+  },
+  toAmino(message: MessageFailed): MessageFailedAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    return obj;
+  },
+  fromAminoMsg(object: MessageFailedAminoMsg): MessageFailed {
+    return MessageFailed.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MessageFailedProtoMsg): MessageFailed {
+    return MessageFailed.decode(message.value);
+  },
+  toProto(message: MessageFailed): Uint8Array {
+    return MessageFailed.encode(message).finish();
+  },
+  toProtoMsg(message: MessageFailed): MessageFailedProtoMsg {
+    return {
+      typeUrl: "/axelar.nexus.v1beta1.MessageFailed",
+      value: MessageFailed.encode(message).finish()
+    };
   }
 };

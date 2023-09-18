@@ -1,6 +1,5 @@
-import { MerklePrefix, MerklePrefixSDKType } from "../../commitment/v1/commitment";
-import { Long } from "../../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { MerklePrefix, MerklePrefixAmino, MerklePrefixSDKType } from "../../commitment/v1/commitment";
+import { BinaryWriter } from "../../../../binary";
 /**
  * State defines if a connection is in one of the following states:
  * INIT, TRYOPEN, OPEN or UNINITIALIZED.
@@ -20,6 +19,7 @@ export declare enum State {
     UNRECOGNIZED = -1
 }
 export declare const StateSDKType: typeof State;
+export declare const StateAmino: typeof State;
 export declare function stateFromJSON(object: any): State;
 export declare function stateToJSON(object: State): string;
 /**
@@ -39,12 +39,44 @@ export interface ConnectionEnd {
     /** current state of the connection end. */
     state: State;
     /** counterparty chain associated with this connection. */
-    counterparty?: Counterparty;
+    counterparty: Counterparty;
     /**
      * delay period that must pass before a consensus state can be used for packet-verification
      * NOTE: delay period logic is only implemented by some clients.
      */
-    delayPeriod: Long;
+    delayPeriod: bigint;
+}
+export interface ConnectionEndProtoMsg {
+    typeUrl: "/ibc.core.connection.v1.ConnectionEnd";
+    value: Uint8Array;
+}
+/**
+ * ConnectionEnd defines a stateful object on a chain connected to another
+ * separate one.
+ * NOTE: there must only be 2 defined ConnectionEnds to establish
+ * a connection between two chains.
+ */
+export interface ConnectionEndAmino {
+    /** client associated with this connection. */
+    client_id: string;
+    /**
+     * IBC version which can be utilised to determine encodings or protocols for
+     * channels or packets utilising this connection.
+     */
+    versions: VersionAmino[];
+    /** current state of the connection end. */
+    state: State;
+    /** counterparty chain associated with this connection. */
+    counterparty?: CounterpartyAmino;
+    /**
+     * delay period that must pass before a consensus state can be used for packet-verification
+     * NOTE: delay period logic is only implemented by some clients.
+     */
+    delay_period: string;
+}
+export interface ConnectionEndAminoMsg {
+    type: "cosmos-sdk/ConnectionEnd";
+    value: ConnectionEndAmino;
 }
 /**
  * ConnectionEnd defines a stateful object on a chain connected to another
@@ -56,8 +88,8 @@ export interface ConnectionEndSDKType {
     client_id: string;
     versions: VersionSDKType[];
     state: State;
-    counterparty?: CounterpartySDKType;
-    delay_period: Long;
+    counterparty: CounterpartySDKType;
+    delay_period: bigint;
 }
 /**
  * IdentifiedConnection defines a connection with additional connection
@@ -76,9 +108,38 @@ export interface IdentifiedConnection {
     /** current state of the connection end. */
     state: State;
     /** counterparty chain associated with this connection. */
-    counterparty?: Counterparty;
+    counterparty: Counterparty;
     /** delay period associated with this connection. */
-    delayPeriod: Long;
+    delayPeriod: bigint;
+}
+export interface IdentifiedConnectionProtoMsg {
+    typeUrl: "/ibc.core.connection.v1.IdentifiedConnection";
+    value: Uint8Array;
+}
+/**
+ * IdentifiedConnection defines a connection with additional connection
+ * identifier field.
+ */
+export interface IdentifiedConnectionAmino {
+    /** connection identifier. */
+    id: string;
+    /** client associated with this connection. */
+    client_id: string;
+    /**
+     * IBC version which can be utilised to determine encodings or protocols for
+     * channels or packets utilising this connection
+     */
+    versions: VersionAmino[];
+    /** current state of the connection end. */
+    state: State;
+    /** counterparty chain associated with this connection. */
+    counterparty?: CounterpartyAmino;
+    /** delay period associated with this connection. */
+    delay_period: string;
+}
+export interface IdentifiedConnectionAminoMsg {
+    type: "cosmos-sdk/IdentifiedConnection";
+    value: IdentifiedConnectionAmino;
 }
 /**
  * IdentifiedConnection defines a connection with additional connection
@@ -89,8 +150,8 @@ export interface IdentifiedConnectionSDKType {
     client_id: string;
     versions: VersionSDKType[];
     state: State;
-    counterparty?: CounterpartySDKType;
-    delay_period: Long;
+    counterparty: CounterpartySDKType;
+    delay_period: bigint;
 }
 /** Counterparty defines the counterparty chain associated with a connection end. */
 export interface Counterparty {
@@ -105,18 +166,54 @@ export interface Counterparty {
      */
     connectionId: string;
     /** commitment merkle prefix of the counterparty chain. */
-    prefix?: MerklePrefix;
+    prefix: MerklePrefix;
+}
+export interface CounterpartyProtoMsg {
+    typeUrl: "/ibc.core.connection.v1.Counterparty";
+    value: Uint8Array;
+}
+/** Counterparty defines the counterparty chain associated with a connection end. */
+export interface CounterpartyAmino {
+    /**
+     * identifies the client on the counterparty chain associated with a given
+     * connection.
+     */
+    client_id: string;
+    /**
+     * identifies the connection end on the counterparty chain associated with a
+     * given connection.
+     */
+    connection_id: string;
+    /** commitment merkle prefix of the counterparty chain. */
+    prefix?: MerklePrefixAmino;
+}
+export interface CounterpartyAminoMsg {
+    type: "cosmos-sdk/Counterparty";
+    value: CounterpartyAmino;
 }
 /** Counterparty defines the counterparty chain associated with a connection end. */
 export interface CounterpartySDKType {
     client_id: string;
     connection_id: string;
-    prefix?: MerklePrefixSDKType;
+    prefix: MerklePrefixSDKType;
 }
 /** ClientPaths define all the connection paths for a client state. */
 export interface ClientPaths {
     /** list of connection paths */
     paths: string[];
+}
+export interface ClientPathsProtoMsg {
+    typeUrl: "/ibc.core.connection.v1.ClientPaths";
+    value: Uint8Array;
+}
+/** ClientPaths define all the connection paths for a client state. */
+export interface ClientPathsAmino {
+    /** list of connection paths */
+    paths: string[];
+}
+export interface ClientPathsAminoMsg {
+    type: "cosmos-sdk/ClientPaths";
+    value: ClientPathsAmino;
 }
 /** ClientPaths define all the connection paths for a client state. */
 export interface ClientPathsSDKType {
@@ -128,6 +225,21 @@ export interface ConnectionPaths {
     clientId: string;
     /** list of connection paths */
     paths: string[];
+}
+export interface ConnectionPathsProtoMsg {
+    typeUrl: "/ibc.core.connection.v1.ConnectionPaths";
+    value: Uint8Array;
+}
+/** ConnectionPaths define all the connection paths for a given client state. */
+export interface ConnectionPathsAmino {
+    /** client state unique identifier */
+    client_id: string;
+    /** list of connection paths */
+    paths: string[];
+}
+export interface ConnectionPathsAminoMsg {
+    type: "cosmos-sdk/ConnectionPaths";
+    value: ConnectionPathsAmino;
 }
 /** ConnectionPaths define all the connection paths for a given client state. */
 export interface ConnectionPathsSDKType {
@@ -144,6 +256,24 @@ export interface Version {
     /** list of features compatible with the specified identifier */
     features: string[];
 }
+export interface VersionProtoMsg {
+    typeUrl: "/ibc.core.connection.v1.Version";
+    value: Uint8Array;
+}
+/**
+ * Version defines the versioning scheme used to negotiate the IBC verison in
+ * the connection handshake.
+ */
+export interface VersionAmino {
+    /** unique version identifier */
+    identifier: string;
+    /** list of features compatible with the specified identifier */
+    features: string[];
+}
+export interface VersionAminoMsg {
+    type: "cosmos-sdk/Version";
+    value: VersionAmino;
+}
 /**
  * Version defines the versioning scheme used to negotiate the IBC verison in
  * the connection handshake.
@@ -153,32 +283,80 @@ export interface VersionSDKType {
     features: string[];
 }
 export declare const ConnectionEnd: {
-    encode(message: ConnectionEnd, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ConnectionEnd, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ConnectionEnd;
     fromPartial(object: Partial<ConnectionEnd>): ConnectionEnd;
+    fromAmino(object: ConnectionEndAmino): ConnectionEnd;
+    toAmino(message: ConnectionEnd): ConnectionEndAmino;
+    fromAminoMsg(object: ConnectionEndAminoMsg): ConnectionEnd;
+    toAminoMsg(message: ConnectionEnd): ConnectionEndAminoMsg;
+    fromProtoMsg(message: ConnectionEndProtoMsg): ConnectionEnd;
+    toProto(message: ConnectionEnd): Uint8Array;
+    toProtoMsg(message: ConnectionEnd): ConnectionEndProtoMsg;
 };
 export declare const IdentifiedConnection: {
-    encode(message: IdentifiedConnection, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: IdentifiedConnection, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): IdentifiedConnection;
     fromPartial(object: Partial<IdentifiedConnection>): IdentifiedConnection;
+    fromAmino(object: IdentifiedConnectionAmino): IdentifiedConnection;
+    toAmino(message: IdentifiedConnection): IdentifiedConnectionAmino;
+    fromAminoMsg(object: IdentifiedConnectionAminoMsg): IdentifiedConnection;
+    toAminoMsg(message: IdentifiedConnection): IdentifiedConnectionAminoMsg;
+    fromProtoMsg(message: IdentifiedConnectionProtoMsg): IdentifiedConnection;
+    toProto(message: IdentifiedConnection): Uint8Array;
+    toProtoMsg(message: IdentifiedConnection): IdentifiedConnectionProtoMsg;
 };
 export declare const Counterparty: {
-    encode(message: Counterparty, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Counterparty, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Counterparty;
     fromPartial(object: Partial<Counterparty>): Counterparty;
+    fromAmino(object: CounterpartyAmino): Counterparty;
+    toAmino(message: Counterparty): CounterpartyAmino;
+    fromAminoMsg(object: CounterpartyAminoMsg): Counterparty;
+    toAminoMsg(message: Counterparty): CounterpartyAminoMsg;
+    fromProtoMsg(message: CounterpartyProtoMsg): Counterparty;
+    toProto(message: Counterparty): Uint8Array;
+    toProtoMsg(message: Counterparty): CounterpartyProtoMsg;
 };
 export declare const ClientPaths: {
-    encode(message: ClientPaths, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ClientPaths, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ClientPaths;
     fromPartial(object: Partial<ClientPaths>): ClientPaths;
+    fromAmino(object: ClientPathsAmino): ClientPaths;
+    toAmino(message: ClientPaths): ClientPathsAmino;
+    fromAminoMsg(object: ClientPathsAminoMsg): ClientPaths;
+    toAminoMsg(message: ClientPaths): ClientPathsAminoMsg;
+    fromProtoMsg(message: ClientPathsProtoMsg): ClientPaths;
+    toProto(message: ClientPaths): Uint8Array;
+    toProtoMsg(message: ClientPaths): ClientPathsProtoMsg;
 };
 export declare const ConnectionPaths: {
-    encode(message: ConnectionPaths, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ConnectionPaths, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ConnectionPaths;
     fromPartial(object: Partial<ConnectionPaths>): ConnectionPaths;
+    fromAmino(object: ConnectionPathsAmino): ConnectionPaths;
+    toAmino(message: ConnectionPaths): ConnectionPathsAmino;
+    fromAminoMsg(object: ConnectionPathsAminoMsg): ConnectionPaths;
+    toAminoMsg(message: ConnectionPaths): ConnectionPathsAminoMsg;
+    fromProtoMsg(message: ConnectionPathsProtoMsg): ConnectionPaths;
+    toProto(message: ConnectionPaths): Uint8Array;
+    toProtoMsg(message: ConnectionPaths): ConnectionPathsProtoMsg;
 };
 export declare const Version: {
-    encode(message: Version, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Version, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Version;
     fromPartial(object: Partial<Version>): Version;
+    fromAmino(object: VersionAmino): Version;
+    toAmino(message: Version): VersionAmino;
+    fromAminoMsg(object: VersionAminoMsg): Version;
+    toAminoMsg(message: Version): VersionAminoMsg;
+    fromProtoMsg(message: VersionProtoMsg): Version;
+    toProto(message: Version): Uint8Array;
+    toProtoMsg(message: Version): VersionProtoMsg;
 };

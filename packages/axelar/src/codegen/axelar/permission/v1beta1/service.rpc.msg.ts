@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { RegisterControllerRequest, RegisterControllerResponse, DeregisterControllerRequest, DeregisterControllerResponse, UpdateGovernanceKeyRequest, UpdateGovernanceKeyResponse } from "./tx";
 /** Msg defines the gov Msg service. */
 export interface Msg {
@@ -18,16 +18,16 @@ export class MsgClientImpl implements Msg {
   registerController(request: axelar.permission.v1beta1.RegisterControllerRequest): Promise<RegisterControllerResponse> {
     const data = axelar.permission.v1beta1.RegisterControllerRequest.encode(request).finish();
     const promise = this.rpc.request("axelar.permission.v1beta1.Msg", "RegisterController", data);
-    return promise.then(data => RegisterControllerResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => RegisterControllerResponse.decode(new BinaryReader(data)));
   }
   deregisterController(request: axelar.permission.v1beta1.DeregisterControllerRequest): Promise<DeregisterControllerResponse> {
     const data = axelar.permission.v1beta1.DeregisterControllerRequest.encode(request).finish();
     const promise = this.rpc.request("axelar.permission.v1beta1.Msg", "DeregisterController", data);
-    return promise.then(data => DeregisterControllerResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => DeregisterControllerResponse.decode(new BinaryReader(data)));
   }
   updateGovernanceKey(request: axelar.permission.v1beta1.UpdateGovernanceKeyRequest): Promise<UpdateGovernanceKeyResponse> {
     const data = axelar.permission.v1beta1.UpdateGovernanceKeyRequest.encode(request).finish();
     const promise = this.rpc.request("axelar.permission.v1beta1.Msg", "UpdateGovernanceKey", data);
-    return promise.then(data => UpdateGovernanceKeyResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => UpdateGovernanceKeyResponse.decode(new BinaryReader(data)));
   }
 }

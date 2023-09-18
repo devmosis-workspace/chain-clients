@@ -1,5 +1,5 @@
-import { Long, isSet } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
+import { isSet } from "../../helpers";
 export interface AddressUnbonding {
   address: string;
   receiver: string;
@@ -7,7 +7,24 @@ export interface AddressUnbonding {
   amount: string;
   denom: string;
   claimIsPending: boolean;
-  epochNumber: Long;
+  epochNumber: bigint;
+}
+export interface AddressUnbondingProtoMsg {
+  typeUrl: "/stride.stakeibc.AddressUnbonding";
+  value: Uint8Array;
+}
+export interface AddressUnbondingAmino {
+  address: string;
+  receiver: string;
+  unbonding_estimated_time: string;
+  amount: string;
+  denom: string;
+  claim_is_pending: boolean;
+  epoch_number: string;
+}
+export interface AddressUnbondingAminoMsg {
+  type: "/stride.stakeibc.AddressUnbonding";
+  value: AddressUnbondingAmino;
 }
 export interface AddressUnbondingSDKType {
   address: string;
@@ -16,7 +33,7 @@ export interface AddressUnbondingSDKType {
   amount: string;
   denom: string;
   claim_is_pending: boolean;
-  epoch_number: Long;
+  epoch_number: bigint;
 }
 function createBaseAddressUnbonding(): AddressUnbonding {
   return {
@@ -26,11 +43,12 @@ function createBaseAddressUnbonding(): AddressUnbonding {
     amount: "",
     denom: "",
     claimIsPending: false,
-    epochNumber: Long.UZERO
+    epochNumber: BigInt(0)
   };
 }
 export const AddressUnbonding = {
-  encode(message: AddressUnbonding, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.AddressUnbonding",
+  encode(message: AddressUnbonding, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
@@ -49,7 +67,7 @@ export const AddressUnbonding = {
     if (message.claimIsPending === true) {
       writer.uint32(64).bool(message.claimIsPending);
     }
-    if (!message.epochNumber.isZero()) {
+    if (message.epochNumber !== BigInt(0)) {
       writer.uint32(72).uint64(message.epochNumber);
     }
     return writer;
@@ -62,7 +80,7 @@ export const AddressUnbonding = {
       amount: isSet(object.amount) ? String(object.amount) : "",
       denom: isSet(object.denom) ? String(object.denom) : "",
       claimIsPending: isSet(object.claimIsPending) ? Boolean(object.claimIsPending) : false,
-      epochNumber: isSet(object.epochNumber) ? Long.fromValue(object.epochNumber) : Long.UZERO
+      epochNumber: isSet(object.epochNumber) ? BigInt(object.epochNumber.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<AddressUnbonding>): AddressUnbonding {
@@ -73,7 +91,44 @@ export const AddressUnbonding = {
     message.amount = object.amount ?? "";
     message.denom = object.denom ?? "";
     message.claimIsPending = object.claimIsPending ?? false;
-    message.epochNumber = object.epochNumber !== undefined && object.epochNumber !== null ? Long.fromValue(object.epochNumber) : Long.UZERO;
+    message.epochNumber = object.epochNumber !== undefined && object.epochNumber !== null ? BigInt(object.epochNumber.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: AddressUnbondingAmino): AddressUnbonding {
+    return {
+      address: object.address,
+      receiver: object.receiver,
+      unbondingEstimatedTime: object.unbonding_estimated_time,
+      amount: object.amount,
+      denom: object.denom,
+      claimIsPending: object.claim_is_pending,
+      epochNumber: BigInt(object.epoch_number)
+    };
+  },
+  toAmino(message: AddressUnbonding): AddressUnbondingAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.receiver = message.receiver;
+    obj.unbonding_estimated_time = message.unbondingEstimatedTime;
+    obj.amount = message.amount;
+    obj.denom = message.denom;
+    obj.claim_is_pending = message.claimIsPending;
+    obj.epoch_number = message.epochNumber ? message.epochNumber.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: AddressUnbondingAminoMsg): AddressUnbonding {
+    return AddressUnbonding.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AddressUnbondingProtoMsg): AddressUnbonding {
+    return AddressUnbonding.decode(message.value);
+  },
+  toProto(message: AddressUnbonding): Uint8Array {
+    return AddressUnbonding.encode(message).finish();
+  },
+  toProtoMsg(message: AddressUnbonding): AddressUnbondingProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.AddressUnbonding",
+      value: AddressUnbonding.encode(message).finish()
+    };
   }
 };

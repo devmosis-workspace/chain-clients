@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** This describes how the endpoint is implemented when the lease is deployed */
 export enum Endpoint_Kind {
@@ -11,6 +11,7 @@ export enum Endpoint_Kind {
   UNRECOGNIZED = -1,
 }
 export const Endpoint_KindSDKType = Endpoint_Kind;
+export const Endpoint_KindAmino = Endpoint_Kind;
 export function endpoint_KindFromJSON(object: any): Endpoint_Kind {
   switch (object) {
     case 0:
@@ -46,6 +47,19 @@ export interface Endpoint {
   kind: Endpoint_Kind;
   sequenceNumber: number;
 }
+export interface EndpointProtoMsg {
+  typeUrl: "/akash.base.v1beta2.Endpoint";
+  value: Uint8Array;
+}
+/** Endpoint describes a publicly accessible IP service */
+export interface EndpointAmino {
+  kind: Endpoint_Kind;
+  sequence_number: number;
+}
+export interface EndpointAminoMsg {
+  type: "/akash.base.v1beta2.Endpoint";
+  value: EndpointAmino;
+}
 /** Endpoint describes a publicly accessible IP service */
 export interface EndpointSDKType {
   kind: Endpoint_Kind;
@@ -58,7 +72,8 @@ function createBaseEndpoint(): Endpoint {
   };
 }
 export const Endpoint = {
-  encode(message: Endpoint, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/akash.base.v1beta2.Endpoint",
+  encode(message: Endpoint, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.kind !== 0) {
       writer.uint32(8).int32(message.kind);
     }
@@ -69,7 +84,7 @@ export const Endpoint = {
   },
   fromJSON(object: any): Endpoint {
     return {
-      kind: isSet(object.kind) ? endpoint_KindFromJSON(object.kind) : 0,
+      kind: isSet(object.kind) ? endpoint_KindFromJSON(object.kind) : -1,
       sequenceNumber: isSet(object.sequenceNumber) ? Number(object.sequenceNumber) : 0
     };
   },
@@ -78,5 +93,32 @@ export const Endpoint = {
     message.kind = object.kind ?? 0;
     message.sequenceNumber = object.sequenceNumber ?? 0;
     return message;
+  },
+  fromAmino(object: EndpointAmino): Endpoint {
+    return {
+      kind: isSet(object.kind) ? endpoint_KindFromJSON(object.kind) : -1,
+      sequenceNumber: object.sequence_number
+    };
+  },
+  toAmino(message: Endpoint): EndpointAmino {
+    const obj: any = {};
+    obj.kind = message.kind;
+    obj.sequence_number = message.sequenceNumber;
+    return obj;
+  },
+  fromAminoMsg(object: EndpointAminoMsg): Endpoint {
+    return Endpoint.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EndpointProtoMsg): Endpoint {
+    return Endpoint.decode(message.value);
+  },
+  toProto(message: Endpoint): Uint8Array {
+    return Endpoint.encode(message).finish();
+  },
+  toProtoMsg(message: Endpoint): EndpointProtoMsg {
+    return {
+      typeUrl: "/akash.base.v1beta2.Endpoint",
+      value: Endpoint.encode(message).finish()
+    };
   }
 };

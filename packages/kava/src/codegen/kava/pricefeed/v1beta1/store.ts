@@ -1,9 +1,22 @@
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64, fromJsonTimestamp } from "../../../helpers";
+import { Decimal } from "@cosmjs/math";
 /** Params defines the parameters for the pricefeed module. */
 export interface Params {
   markets: Market[];
+}
+export interface ParamsProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.Params";
+  value: Uint8Array;
+}
+/** Params defines the parameters for the pricefeed module. */
+export interface ParamsAmino {
+  markets: MarketAmino[];
+}
+export interface ParamsAminoMsg {
+  type: "/kava.pricefeed.v1beta1.Params";
+  value: ParamsAmino;
 }
 /** Params defines the parameters for the pricefeed module. */
 export interface ParamsSDKType {
@@ -16,6 +29,22 @@ export interface Market {
   quoteAsset: string;
   oracles: Uint8Array[];
   active: boolean;
+}
+export interface MarketProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.Market";
+  value: Uint8Array;
+}
+/** Market defines an asset in the pricefeed. */
+export interface MarketAmino {
+  market_id: string;
+  base_asset: string;
+  quote_asset: string;
+  oracles: Uint8Array[];
+  active: boolean;
+}
+export interface MarketAminoMsg {
+  type: "/kava.pricefeed.v1beta1.Market";
+  value: MarketAmino;
 }
 /** Market defines an asset in the pricefeed. */
 export interface MarketSDKType {
@@ -30,14 +59,29 @@ export interface PostedPrice {
   marketId: string;
   oracleAddress: Uint8Array;
   price: string;
-  expiry?: Timestamp;
+  expiry: Timestamp;
+}
+export interface PostedPriceProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.PostedPrice";
+  value: Uint8Array;
+}
+/** PostedPrice defines a price for market posted by a specific oracle. */
+export interface PostedPriceAmino {
+  market_id: string;
+  oracle_address: Uint8Array;
+  price: string;
+  expiry?: TimestampAmino;
+}
+export interface PostedPriceAminoMsg {
+  type: "/kava.pricefeed.v1beta1.PostedPrice";
+  value: PostedPriceAmino;
 }
 /** PostedPrice defines a price for market posted by a specific oracle. */
 export interface PostedPriceSDKType {
   market_id: string;
   oracle_address: Uint8Array;
   price: string;
-  expiry?: TimestampSDKType;
+  expiry: TimestampSDKType;
 }
 /**
  * CurrentPrice defines a current price for a particular market in the pricefeed
@@ -46,6 +90,22 @@ export interface PostedPriceSDKType {
 export interface CurrentPrice {
   marketId: string;
   price: string;
+}
+export interface CurrentPriceProtoMsg {
+  typeUrl: "/kava.pricefeed.v1beta1.CurrentPrice";
+  value: Uint8Array;
+}
+/**
+ * CurrentPrice defines a current price for a particular market in the pricefeed
+ * module.
+ */
+export interface CurrentPriceAmino {
+  market_id: string;
+  price: string;
+}
+export interface CurrentPriceAminoMsg {
+  type: "/kava.pricefeed.v1beta1.CurrentPrice";
+  value: CurrentPriceAmino;
 }
 /**
  * CurrentPrice defines a current price for a particular market in the pricefeed
@@ -61,7 +121,8 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.markets) {
       Market.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -76,6 +137,35 @@ export const Params = {
     const message = createBaseParams();
     message.markets = object.markets?.map(e => Market.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      markets: Array.isArray(object?.markets) ? object.markets.map((e: any) => Market.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.markets) {
+      obj.markets = message.markets.map(e => e ? Market.toAmino(e) : undefined);
+    } else {
+      obj.markets = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };
 function createBaseMarket(): Market {
@@ -88,7 +178,8 @@ function createBaseMarket(): Market {
   };
 }
 export const Market = {
-  encode(message: Market, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.Market",
+  encode(message: Market, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.marketId !== "") {
       writer.uint32(10).string(message.marketId);
     }
@@ -123,6 +214,43 @@ export const Market = {
     message.oracles = object.oracles?.map(e => e) || [];
     message.active = object.active ?? false;
     return message;
+  },
+  fromAmino(object: MarketAmino): Market {
+    return {
+      marketId: object.market_id,
+      baseAsset: object.base_asset,
+      quoteAsset: object.quote_asset,
+      oracles: Array.isArray(object?.oracles) ? object.oracles.map((e: any) => e) : [],
+      active: object.active
+    };
+  },
+  toAmino(message: Market): MarketAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId;
+    obj.base_asset = message.baseAsset;
+    obj.quote_asset = message.quoteAsset;
+    if (message.oracles) {
+      obj.oracles = message.oracles.map(e => e);
+    } else {
+      obj.oracles = [];
+    }
+    obj.active = message.active;
+    return obj;
+  },
+  fromAminoMsg(object: MarketAminoMsg): Market {
+    return Market.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MarketProtoMsg): Market {
+    return Market.decode(message.value);
+  },
+  toProto(message: Market): Uint8Array {
+    return Market.encode(message).finish();
+  },
+  toProtoMsg(message: Market): MarketProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.Market",
+      value: Market.encode(message).finish()
+    };
   }
 };
 function createBasePostedPrice(): PostedPrice {
@@ -130,11 +258,12 @@ function createBasePostedPrice(): PostedPrice {
     marketId: "",
     oracleAddress: new Uint8Array(),
     price: "",
-    expiry: undefined
+    expiry: Timestamp.fromPartial({})
   };
 }
 export const PostedPrice = {
-  encode(message: PostedPrice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.PostedPrice",
+  encode(message: PostedPrice, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.marketId !== "") {
       writer.uint32(10).string(message.marketId);
     }
@@ -142,7 +271,7 @@ export const PostedPrice = {
       writer.uint32(18).bytes(message.oracleAddress);
     }
     if (message.price !== "") {
-      writer.uint32(26).string(message.price);
+      writer.uint32(26).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.expiry !== undefined) {
       Timestamp.encode(message.expiry, writer.uint32(34).fork()).ldelim();
@@ -164,6 +293,37 @@ export const PostedPrice = {
     message.price = object.price ?? "";
     message.expiry = object.expiry !== undefined && object.expiry !== null ? Timestamp.fromPartial(object.expiry) : undefined;
     return message;
+  },
+  fromAmino(object: PostedPriceAmino): PostedPrice {
+    return {
+      marketId: object.market_id,
+      oracleAddress: object.oracle_address,
+      price: object.price,
+      expiry: object.expiry
+    };
+  },
+  toAmino(message: PostedPrice): PostedPriceAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId;
+    obj.oracle_address = message.oracleAddress;
+    obj.price = message.price;
+    obj.expiry = message.expiry;
+    return obj;
+  },
+  fromAminoMsg(object: PostedPriceAminoMsg): PostedPrice {
+    return PostedPrice.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PostedPriceProtoMsg): PostedPrice {
+    return PostedPrice.decode(message.value);
+  },
+  toProto(message: PostedPrice): Uint8Array {
+    return PostedPrice.encode(message).finish();
+  },
+  toProtoMsg(message: PostedPrice): PostedPriceProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.PostedPrice",
+      value: PostedPrice.encode(message).finish()
+    };
   }
 };
 function createBaseCurrentPrice(): CurrentPrice {
@@ -173,12 +333,13 @@ function createBaseCurrentPrice(): CurrentPrice {
   };
 }
 export const CurrentPrice = {
-  encode(message: CurrentPrice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.pricefeed.v1beta1.CurrentPrice",
+  encode(message: CurrentPrice, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.marketId !== "") {
       writer.uint32(10).string(message.marketId);
     }
     if (message.price !== "") {
-      writer.uint32(18).string(message.price);
+      writer.uint32(18).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     return writer;
   },
@@ -193,5 +354,32 @@ export const CurrentPrice = {
     message.marketId = object.marketId ?? "";
     message.price = object.price ?? "";
     return message;
+  },
+  fromAmino(object: CurrentPriceAmino): CurrentPrice {
+    return {
+      marketId: object.market_id,
+      price: object.price
+    };
+  },
+  toAmino(message: CurrentPrice): CurrentPriceAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId;
+    obj.price = message.price;
+    return obj;
+  },
+  fromAminoMsg(object: CurrentPriceAminoMsg): CurrentPrice {
+    return CurrentPrice.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CurrentPriceProtoMsg): CurrentPrice {
+    return CurrentPrice.decode(message.value);
+  },
+  toProto(message: CurrentPrice): Uint8Array {
+    return CurrentPrice.encode(message).finish();
+  },
+  toProtoMsg(message: CurrentPrice): CurrentPriceProtoMsg {
+    return {
+      typeUrl: "/kava.pricefeed.v1beta1.CurrentPrice",
+      value: CurrentPrice.encode(message).finish()
+    };
   }
 };

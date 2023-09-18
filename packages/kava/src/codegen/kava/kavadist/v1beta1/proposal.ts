@@ -1,5 +1,5 @@
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /**
  * CommunityPoolMultiSpendProposal spends from the community pool by sending to one or more
@@ -9,6 +9,23 @@ export interface CommunityPoolMultiSpendProposal {
   title: string;
   description: string;
   recipientList: MultiSpendRecipient[];
+}
+export interface CommunityPoolMultiSpendProposalProtoMsg {
+  typeUrl: "/kava.kavadist.v1beta1.CommunityPoolMultiSpendProposal";
+  value: Uint8Array;
+}
+/**
+ * CommunityPoolMultiSpendProposal spends from the community pool by sending to one or more
+ * addresses
+ */
+export interface CommunityPoolMultiSpendProposalAmino {
+  title: string;
+  description: string;
+  recipient_list: MultiSpendRecipientAmino[];
+}
+export interface CommunityPoolMultiSpendProposalAminoMsg {
+  type: "/kava.kavadist.v1beta1.CommunityPoolMultiSpendProposal";
+  value: CommunityPoolMultiSpendProposalAmino;
 }
 /**
  * CommunityPoolMultiSpendProposal spends from the community pool by sending to one or more
@@ -26,6 +43,21 @@ export interface CommunityPoolMultiSpendProposalJSON {
   recipientList: MultiSpendRecipient[];
   deposit: Coin[];
 }
+export interface CommunityPoolMultiSpendProposalJSONProtoMsg {
+  typeUrl: "/kava.kavadist.v1beta1.CommunityPoolMultiSpendProposalJSON";
+  value: Uint8Array;
+}
+/** CommunityPoolMultiSpendProposalJSON defines a CommunityPoolMultiSpendProposal with a deposit */
+export interface CommunityPoolMultiSpendProposalJSONAmino {
+  title: string;
+  description: string;
+  recipient_list: MultiSpendRecipientAmino[];
+  deposit: CoinAmino[];
+}
+export interface CommunityPoolMultiSpendProposalJSONAminoMsg {
+  type: "/kava.kavadist.v1beta1.CommunityPoolMultiSpendProposalJSON";
+  value: CommunityPoolMultiSpendProposalJSONAmino;
+}
 /** CommunityPoolMultiSpendProposalJSON defines a CommunityPoolMultiSpendProposal with a deposit */
 export interface CommunityPoolMultiSpendProposalJSONSDKType {
   title: string;
@@ -37,6 +69,19 @@ export interface CommunityPoolMultiSpendProposalJSONSDKType {
 export interface MultiSpendRecipient {
   address: string;
   amount: Coin[];
+}
+export interface MultiSpendRecipientProtoMsg {
+  typeUrl: "/kava.kavadist.v1beta1.MultiSpendRecipient";
+  value: Uint8Array;
+}
+/** MultiSpendRecipient defines a recipient and the amount of coins they are receiving */
+export interface MultiSpendRecipientAmino {
+  address: string;
+  amount: CoinAmino[];
+}
+export interface MultiSpendRecipientAminoMsg {
+  type: "/kava.kavadist.v1beta1.MultiSpendRecipient";
+  value: MultiSpendRecipientAmino;
 }
 /** MultiSpendRecipient defines a recipient and the amount of coins they are receiving */
 export interface MultiSpendRecipientSDKType {
@@ -51,7 +96,8 @@ function createBaseCommunityPoolMultiSpendProposal(): CommunityPoolMultiSpendPro
   };
 }
 export const CommunityPoolMultiSpendProposal = {
-  encode(message: CommunityPoolMultiSpendProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.kavadist.v1beta1.CommunityPoolMultiSpendProposal",
+  encode(message: CommunityPoolMultiSpendProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -76,6 +122,39 @@ export const CommunityPoolMultiSpendProposal = {
     message.description = object.description ?? "";
     message.recipientList = object.recipientList?.map(e => MultiSpendRecipient.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: CommunityPoolMultiSpendProposalAmino): CommunityPoolMultiSpendProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      recipientList: Array.isArray(object?.recipient_list) ? object.recipient_list.map((e: any) => MultiSpendRecipient.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: CommunityPoolMultiSpendProposal): CommunityPoolMultiSpendProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    if (message.recipientList) {
+      obj.recipient_list = message.recipientList.map(e => e ? MultiSpendRecipient.toAmino(e) : undefined);
+    } else {
+      obj.recipient_list = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: CommunityPoolMultiSpendProposalAminoMsg): CommunityPoolMultiSpendProposal {
+    return CommunityPoolMultiSpendProposal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CommunityPoolMultiSpendProposalProtoMsg): CommunityPoolMultiSpendProposal {
+    return CommunityPoolMultiSpendProposal.decode(message.value);
+  },
+  toProto(message: CommunityPoolMultiSpendProposal): Uint8Array {
+    return CommunityPoolMultiSpendProposal.encode(message).finish();
+  },
+  toProtoMsg(message: CommunityPoolMultiSpendProposal): CommunityPoolMultiSpendProposalProtoMsg {
+    return {
+      typeUrl: "/kava.kavadist.v1beta1.CommunityPoolMultiSpendProposal",
+      value: CommunityPoolMultiSpendProposal.encode(message).finish()
+    };
   }
 };
 function createBaseCommunityPoolMultiSpendProposalJSON(): CommunityPoolMultiSpendProposalJSON {
@@ -87,7 +166,8 @@ function createBaseCommunityPoolMultiSpendProposalJSON(): CommunityPoolMultiSpen
   };
 }
 export const CommunityPoolMultiSpendProposalJSON = {
-  encode(message: CommunityPoolMultiSpendProposalJSON, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.kavadist.v1beta1.CommunityPoolMultiSpendProposalJSON",
+  encode(message: CommunityPoolMultiSpendProposalJSON, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -117,6 +197,45 @@ export const CommunityPoolMultiSpendProposalJSON = {
     message.recipientList = object.recipientList?.map(e => MultiSpendRecipient.fromPartial(e)) || [];
     message.deposit = object.deposit?.map(e => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: CommunityPoolMultiSpendProposalJSONAmino): CommunityPoolMultiSpendProposalJSON {
+    return {
+      title: object.title,
+      description: object.description,
+      recipientList: Array.isArray(object?.recipient_list) ? object.recipient_list.map((e: any) => MultiSpendRecipient.fromAmino(e)) : [],
+      deposit: Array.isArray(object?.deposit) ? object.deposit.map((e: any) => Coin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: CommunityPoolMultiSpendProposalJSON): CommunityPoolMultiSpendProposalJSONAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    if (message.recipientList) {
+      obj.recipient_list = message.recipientList.map(e => e ? MultiSpendRecipient.toAmino(e) : undefined);
+    } else {
+      obj.recipient_list = [];
+    }
+    if (message.deposit) {
+      obj.deposit = message.deposit.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.deposit = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: CommunityPoolMultiSpendProposalJSONAminoMsg): CommunityPoolMultiSpendProposalJSON {
+    return CommunityPoolMultiSpendProposalJSON.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CommunityPoolMultiSpendProposalJSONProtoMsg): CommunityPoolMultiSpendProposalJSON {
+    return CommunityPoolMultiSpendProposalJSON.decode(message.value);
+  },
+  toProto(message: CommunityPoolMultiSpendProposalJSON): Uint8Array {
+    return CommunityPoolMultiSpendProposalJSON.encode(message).finish();
+  },
+  toProtoMsg(message: CommunityPoolMultiSpendProposalJSON): CommunityPoolMultiSpendProposalJSONProtoMsg {
+    return {
+      typeUrl: "/kava.kavadist.v1beta1.CommunityPoolMultiSpendProposalJSON",
+      value: CommunityPoolMultiSpendProposalJSON.encode(message).finish()
+    };
   }
 };
 function createBaseMultiSpendRecipient(): MultiSpendRecipient {
@@ -126,7 +245,8 @@ function createBaseMultiSpendRecipient(): MultiSpendRecipient {
   };
 }
 export const MultiSpendRecipient = {
-  encode(message: MultiSpendRecipient, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kava.kavadist.v1beta1.MultiSpendRecipient",
+  encode(message: MultiSpendRecipient, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
@@ -146,5 +266,36 @@ export const MultiSpendRecipient = {
     message.address = object.address ?? "";
     message.amount = object.amount?.map(e => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MultiSpendRecipientAmino): MultiSpendRecipient {
+    return {
+      address: object.address,
+      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: MultiSpendRecipient): MultiSpendRecipientAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    if (message.amount) {
+      obj.amount = message.amount.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.amount = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MultiSpendRecipientAminoMsg): MultiSpendRecipient {
+    return MultiSpendRecipient.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MultiSpendRecipientProtoMsg): MultiSpendRecipient {
+    return MultiSpendRecipient.decode(message.value);
+  },
+  toProto(message: MultiSpendRecipient): Uint8Array {
+    return MultiSpendRecipient.encode(message).finish();
+  },
+  toProtoMsg(message: MultiSpendRecipient): MultiSpendRecipientProtoMsg {
+    return {
+      typeUrl: "/kava.kavadist.v1beta1.MultiSpendRecipient",
+      value: MultiSpendRecipient.encode(message).finish()
+    };
   }
 };

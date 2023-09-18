@@ -4,66 +4,18 @@ import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const marsAminoConverters: {
     "/mars.safety.v1beta1.MsgSafetyFundSpend": {
         aminoType: string;
-        toAmino: ({ authority, recipient, amount }: import("./safety/v1beta1/tx").MsgSafetyFundSpend) => {
-            authority: string;
-            recipient: string;
-            amount: {
-                denom: string;
-                amount: string;
-            }[];
-        };
-        fromAmino: ({ authority, recipient, amount }: {
-            authority: string;
-            recipient: string;
-            amount: {
-                denom: string;
-                amount: string;
-            }[];
-        }) => import("./safety/v1beta1/tx").MsgSafetyFundSpend;
+        toAmino: (message: import("./safety/v1beta1/tx").MsgSafetyFundSpend) => import("./safety/v1beta1/tx").MsgSafetyFundSpendAmino;
+        fromAmino: (object: import("./safety/v1beta1/tx").MsgSafetyFundSpendAmino) => import("./safety/v1beta1/tx").MsgSafetyFundSpend;
     };
     "/mars.incentives.v1beta1.MsgCreateSchedule": {
         aminoType: string;
-        toAmino: ({ authority, startTime, endTime, amount }: import("./incentives/v1beta1/tx").MsgCreateSchedule) => {
-            authority: string;
-            start_time: {
-                seconds: string;
-                nanos: number;
-            };
-            end_time: {
-                seconds: string;
-                nanos: number;
-            };
-            amount: {
-                denom: string;
-                amount: string;
-            }[];
-        };
-        fromAmino: ({ authority, start_time, end_time, amount }: {
-            authority: string;
-            start_time: {
-                seconds: string;
-                nanos: number;
-            };
-            end_time: {
-                seconds: string;
-                nanos: number;
-            };
-            amount: {
-                denom: string;
-                amount: string;
-            }[];
-        }) => import("./incentives/v1beta1/tx").MsgCreateSchedule;
+        toAmino: (message: import("./incentives/v1beta1/tx").MsgCreateSchedule) => import("./incentives/v1beta1/tx").MsgCreateScheduleAmino;
+        fromAmino: (object: import("./incentives/v1beta1/tx").MsgCreateScheduleAmino) => import("./incentives/v1beta1/tx").MsgCreateSchedule;
     };
     "/mars.incentives.v1beta1.MsgTerminateSchedules": {
         aminoType: string;
-        toAmino: ({ authority, ids }: import("./incentives/v1beta1/tx").MsgTerminateSchedules) => {
-            authority: string;
-            ids: string[];
-        };
-        fromAmino: ({ authority, ids }: {
-            authority: string;
-            ids: string[];
-        }) => import("./incentives/v1beta1/tx").MsgTerminateSchedules;
+        toAmino: (message: import("./incentives/v1beta1/tx").MsgTerminateSchedules) => import("./incentives/v1beta1/tx").MsgTerminateSchedulesAmino;
+        fromAmino: (object: import("./incentives/v1beta1/tx").MsgTerminateSchedulesAmino) => import("./incentives/v1beta1/tx").MsgTerminateSchedules;
     };
 };
 export declare const marsProtoRegistry: ReadonlyArray<[string, GeneratedType]>;

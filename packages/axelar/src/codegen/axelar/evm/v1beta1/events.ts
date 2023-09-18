@@ -1,92 +1,191 @@
-import { PollParticipants, PollParticipantsSDKType } from "../../vote/exported/v1beta1/types";
-import { TokenDetails, TokenDetailsSDKType } from "./types";
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Long, isSet, bytesFromBase64 } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { PollParticipants, PollParticipantsAmino, PollParticipantsSDKType } from "../../vote/exported/v1beta1/types";
+import { TokenDetails, TokenDetailsAmino, TokenDetailsSDKType } from "./types";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
+import { isSet, bytesFromBase64 } from "../../../helpers";
 export interface PollFailed {
   txId: Uint8Array;
   chain: string;
-  pollId: Long;
+  pollId: bigint;
+}
+export interface PollFailedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.PollFailed";
+  value: Uint8Array;
+}
+export interface PollFailedAmino {
+  tx_id: Uint8Array;
+  chain: string;
+  poll_id: string;
+}
+export interface PollFailedAminoMsg {
+  type: "/axelar.evm.v1beta1.PollFailed";
+  value: PollFailedAmino;
 }
 export interface PollFailedSDKType {
   tx_id: Uint8Array;
   chain: string;
-  poll_id: Long;
+  poll_id: bigint;
 }
 export interface PollExpired {
   txId: Uint8Array;
   chain: string;
-  pollId: Long;
+  pollId: bigint;
+}
+export interface PollExpiredProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.PollExpired";
+  value: Uint8Array;
+}
+export interface PollExpiredAmino {
+  tx_id: Uint8Array;
+  chain: string;
+  poll_id: string;
+}
+export interface PollExpiredAminoMsg {
+  type: "/axelar.evm.v1beta1.PollExpired";
+  value: PollExpiredAmino;
 }
 export interface PollExpiredSDKType {
   tx_id: Uint8Array;
   chain: string;
-  poll_id: Long;
+  poll_id: bigint;
 }
 export interface PollCompleted {
   txId: Uint8Array;
   chain: string;
-  pollId: Long;
+  pollId: bigint;
+}
+export interface PollCompletedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.PollCompleted";
+  value: Uint8Array;
+}
+export interface PollCompletedAmino {
+  tx_id: Uint8Array;
+  chain: string;
+  poll_id: string;
+}
+export interface PollCompletedAminoMsg {
+  type: "/axelar.evm.v1beta1.PollCompleted";
+  value: PollCompletedAmino;
 }
 export interface PollCompletedSDKType {
   tx_id: Uint8Array;
   chain: string;
-  poll_id: Long;
+  poll_id: bigint;
 }
 export interface NoEventsConfirmed {
   txId: Uint8Array;
   chain: string;
-  pollId: Long;
+  pollId: bigint;
+}
+export interface NoEventsConfirmedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.NoEventsConfirmed";
+  value: Uint8Array;
+}
+export interface NoEventsConfirmedAmino {
+  tx_id: Uint8Array;
+  chain: string;
+  poll_id: string;
+}
+export interface NoEventsConfirmedAminoMsg {
+  type: "/axelar.evm.v1beta1.NoEventsConfirmed";
+  value: NoEventsConfirmedAmino;
 }
 export interface NoEventsConfirmedSDKType {
   tx_id: Uint8Array;
   chain: string;
-  poll_id: Long;
+  poll_id: bigint;
 }
 export interface ConfirmKeyTransferStarted {
   chain: string;
   txId: Uint8Array;
   gatewayAddress: Uint8Array;
-  confirmationHeight: Long;
-  participants?: PollParticipants;
+  confirmationHeight: bigint;
+  participants: PollParticipants;
+}
+export interface ConfirmKeyTransferStartedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmKeyTransferStarted";
+  value: Uint8Array;
+}
+export interface ConfirmKeyTransferStartedAmino {
+  chain: string;
+  tx_id: Uint8Array;
+  gateway_address: Uint8Array;
+  confirmation_height: string;
+  participants?: PollParticipantsAmino;
+}
+export interface ConfirmKeyTransferStartedAminoMsg {
+  type: "/axelar.evm.v1beta1.ConfirmKeyTransferStarted";
+  value: ConfirmKeyTransferStartedAmino;
 }
 export interface ConfirmKeyTransferStartedSDKType {
   chain: string;
   tx_id: Uint8Array;
   gateway_address: Uint8Array;
-  confirmation_height: Long;
-  participants?: PollParticipantsSDKType;
+  confirmation_height: bigint;
+  participants: PollParticipantsSDKType;
 }
 export interface ConfirmGatewayTxStarted {
   txId: Uint8Array;
   chain: string;
   gatewayAddress: Uint8Array;
-  confirmationHeight: Long;
-  participants?: PollParticipants;
+  confirmationHeight: bigint;
+  participants: PollParticipants;
+}
+export interface ConfirmGatewayTxStartedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxStarted";
+  value: Uint8Array;
+}
+export interface ConfirmGatewayTxStartedAmino {
+  tx_id: Uint8Array;
+  chain: string;
+  gateway_address: Uint8Array;
+  confirmation_height: string;
+  participants?: PollParticipantsAmino;
+}
+export interface ConfirmGatewayTxStartedAminoMsg {
+  type: "/axelar.evm.v1beta1.ConfirmGatewayTxStarted";
+  value: ConfirmGatewayTxStartedAmino;
 }
 export interface ConfirmGatewayTxStartedSDKType {
   tx_id: Uint8Array;
   chain: string;
   gateway_address: Uint8Array;
-  confirmation_height: Long;
-  participants?: PollParticipantsSDKType;
+  confirmation_height: bigint;
+  participants: PollParticipantsSDKType;
 }
 export interface ConfirmDepositStarted {
   txId: Uint8Array;
   chain: string;
   depositAddress: Uint8Array;
   tokenAddress: Uint8Array;
-  confirmationHeight: Long;
-  participants?: PollParticipants;
+  confirmationHeight: bigint;
+  participants: PollParticipants;
   asset: string;
+}
+export interface ConfirmDepositStartedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmDepositStarted";
+  value: Uint8Array;
+}
+export interface ConfirmDepositStartedAmino {
+  tx_id: Uint8Array;
+  chain: string;
+  deposit_address: Uint8Array;
+  token_address: Uint8Array;
+  confirmation_height: string;
+  participants?: PollParticipantsAmino;
+  asset: string;
+}
+export interface ConfirmDepositStartedAminoMsg {
+  type: "/axelar.evm.v1beta1.ConfirmDepositStarted";
+  value: ConfirmDepositStartedAmino;
 }
 export interface ConfirmDepositStartedSDKType {
   tx_id: Uint8Array;
   chain: string;
   deposit_address: Uint8Array;
   token_address: Uint8Array;
-  confirmation_height: Long;
-  participants?: PollParticipantsSDKType;
+  confirmation_height: bigint;
+  participants: PollParticipantsSDKType;
   asset: string;
 }
 export interface ConfirmTokenStarted {
@@ -94,21 +193,49 @@ export interface ConfirmTokenStarted {
   chain: string;
   gatewayAddress: Uint8Array;
   tokenAddress: Uint8Array;
-  tokenDetails?: TokenDetails;
-  confirmationHeight: Long;
-  participants?: PollParticipants;
+  tokenDetails: TokenDetails;
+  confirmationHeight: bigint;
+  participants: PollParticipants;
+}
+export interface ConfirmTokenStartedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmTokenStarted";
+  value: Uint8Array;
+}
+export interface ConfirmTokenStartedAmino {
+  tx_id: Uint8Array;
+  chain: string;
+  gateway_address: Uint8Array;
+  token_address: Uint8Array;
+  token_details?: TokenDetailsAmino;
+  confirmation_height: string;
+  participants?: PollParticipantsAmino;
+}
+export interface ConfirmTokenStartedAminoMsg {
+  type: "/axelar.evm.v1beta1.ConfirmTokenStarted";
+  value: ConfirmTokenStartedAmino;
 }
 export interface ConfirmTokenStartedSDKType {
   tx_id: Uint8Array;
   chain: string;
   gateway_address: Uint8Array;
   token_address: Uint8Array;
-  token_details?: TokenDetailsSDKType;
-  confirmation_height: Long;
-  participants?: PollParticipantsSDKType;
+  token_details: TokenDetailsSDKType;
+  confirmation_height: bigint;
+  participants: PollParticipantsSDKType;
 }
 export interface ChainAdded {
   chain: string;
+}
+export interface ChainAddedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.ChainAdded";
+  value: Uint8Array;
+}
+export interface ChainAddedAmino {
+  chain: string;
+}
+export interface ChainAddedAminoMsg {
+  type: "/axelar.evm.v1beta1.ChainAdded";
+  value: ChainAddedAmino;
 }
 export interface ChainAddedSDKType {
   chain: string;
@@ -116,6 +243,18 @@ export interface ChainAddedSDKType {
 export interface CommandBatchSigned {
   chain: string;
   commandBatchId: Uint8Array;
+}
+export interface CommandBatchSignedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.CommandBatchSigned";
+  value: Uint8Array;
+}
+export interface CommandBatchSignedAmino {
+  chain: string;
+  command_batch_id: Uint8Array;
+}
+export interface CommandBatchSignedAminoMsg {
+  type: "/axelar.evm.v1beta1.CommandBatchSigned";
+  value: CommandBatchSignedAmino;
 }
 export interface CommandBatchSignedSDKType {
   chain: string;
@@ -125,6 +264,18 @@ export interface CommandBatchAborted {
   chain: string;
   commandBatchId: Uint8Array;
 }
+export interface CommandBatchAbortedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.CommandBatchAborted";
+  value: Uint8Array;
+}
+export interface CommandBatchAbortedAmino {
+  chain: string;
+  command_batch_id: Uint8Array;
+}
+export interface CommandBatchAbortedAminoMsg {
+  type: "/axelar.evm.v1beta1.CommandBatchAborted";
+  value: CommandBatchAbortedAmino;
+}
 export interface CommandBatchAbortedSDKType {
   chain: string;
   command_batch_id: Uint8Array;
@@ -133,6 +284,19 @@ export interface EVMEventConfirmed {
   chain: string;
   eventId: string;
   type: string;
+}
+export interface EVMEventConfirmedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.EVMEventConfirmed";
+  value: Uint8Array;
+}
+export interface EVMEventConfirmedAmino {
+  chain: string;
+  event_id: string;
+  type: string;
+}
+export interface EVMEventConfirmedAminoMsg {
+  type: "/axelar.evm.v1beta1.EVMEventConfirmed";
+  value: EVMEventConfirmedAmino;
 }
 export interface EVMEventConfirmedSDKType {
   chain: string;
@@ -144,6 +308,19 @@ export interface EVMEventCompleted {
   eventId: string;
   type: string;
 }
+export interface EVMEventCompletedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.EVMEventCompleted";
+  value: Uint8Array;
+}
+export interface EVMEventCompletedAmino {
+  chain: string;
+  event_id: string;
+  type: string;
+}
+export interface EVMEventCompletedAminoMsg {
+  type: "/axelar.evm.v1beta1.EVMEventCompleted";
+  value: EVMEventCompletedAmino;
+}
 export interface EVMEventCompletedSDKType {
   chain: string;
   event_id: string;
@@ -154,6 +331,19 @@ export interface EVMEventFailed {
   eventId: string;
   type: string;
 }
+export interface EVMEventFailedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.EVMEventFailed";
+  value: Uint8Array;
+}
+export interface EVMEventFailedAmino {
+  chain: string;
+  event_id: string;
+  type: string;
+}
+export interface EVMEventFailedAminoMsg {
+  type: "/axelar.evm.v1beta1.EVMEventFailed";
+  value: EVMEventFailedAmino;
+}
 export interface EVMEventFailedSDKType {
   chain: string;
   event_id: string;
@@ -163,6 +353,19 @@ export interface EVMEventRetryFailed {
   chain: string;
   eventId: string;
   type: string;
+}
+export interface EVMEventRetryFailedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.EVMEventRetryFailed";
+  value: Uint8Array;
+}
+export interface EVMEventRetryFailedAmino {
+  chain: string;
+  event_id: string;
+  type: string;
+}
+export interface EVMEventRetryFailedAminoMsg {
+  type: "/axelar.evm.v1beta1.EVMEventRetryFailed";
+  value: EVMEventRetryFailedAmino;
 }
 export interface EVMEventRetryFailedSDKType {
   chain: string;
@@ -178,6 +381,23 @@ export interface ContractCallApproved {
   contractAddress: string;
   payloadHash: Uint8Array;
 }
+export interface ContractCallApprovedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.ContractCallApproved";
+  value: Uint8Array;
+}
+export interface ContractCallApprovedAmino {
+  chain: string;
+  event_id: string;
+  command_id: Uint8Array;
+  sender: string;
+  destination_chain: string;
+  contract_address: string;
+  payload_hash: Uint8Array;
+}
+export interface ContractCallApprovedAminoMsg {
+  type: "/axelar.evm.v1beta1.ContractCallApproved";
+  value: ContractCallApprovedAmino;
+}
 export interface ContractCallApprovedSDKType {
   chain: string;
   event_id: string;
@@ -191,6 +411,18 @@ export interface ContractCallFailed {
   chain: string;
   msgId: string;
 }
+export interface ContractCallFailedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.ContractCallFailed";
+  value: Uint8Array;
+}
+export interface ContractCallFailedAmino {
+  chain: string;
+  msg_id: string;
+}
+export interface ContractCallFailedAminoMsg {
+  type: "/axelar.evm.v1beta1.ContractCallFailed";
+  value: ContractCallFailedAmino;
+}
 export interface ContractCallFailedSDKType {
   chain: string;
   msg_id: string;
@@ -203,7 +435,25 @@ export interface ContractCallWithMintApproved {
   destinationChain: string;
   contractAddress: string;
   payloadHash: Uint8Array;
-  asset?: Coin;
+  asset: Coin;
+}
+export interface ContractCallWithMintApprovedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.ContractCallWithMintApproved";
+  value: Uint8Array;
+}
+export interface ContractCallWithMintApprovedAmino {
+  chain: string;
+  event_id: string;
+  command_id: Uint8Array;
+  sender: string;
+  destination_chain: string;
+  contract_address: string;
+  payload_hash: Uint8Array;
+  asset?: CoinAmino;
+}
+export interface ContractCallWithMintApprovedAminoMsg {
+  type: "/axelar.evm.v1beta1.ContractCallWithMintApproved";
+  value: ContractCallWithMintApprovedAmino;
 }
 export interface ContractCallWithMintApprovedSDKType {
   chain: string;
@@ -213,41 +463,74 @@ export interface ContractCallWithMintApprovedSDKType {
   destination_chain: string;
   contract_address: string;
   payload_hash: Uint8Array;
-  asset?: CoinSDKType;
+  asset: CoinSDKType;
 }
 export interface TokenSent {
   chain: string;
   eventId: string;
-  transferId: Long;
+  transferId: bigint;
   sender: string;
   destinationChain: string;
   destinationAddress: string;
-  asset?: Coin;
+  asset: Coin;
+}
+export interface TokenSentProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.TokenSent";
+  value: Uint8Array;
+}
+export interface TokenSentAmino {
+  chain: string;
+  event_id: string;
+  transfer_id: string;
+  sender: string;
+  destination_chain: string;
+  destination_address: string;
+  asset?: CoinAmino;
+}
+export interface TokenSentAminoMsg {
+  type: "/axelar.evm.v1beta1.TokenSent";
+  value: TokenSentAmino;
 }
 export interface TokenSentSDKType {
   chain: string;
   event_id: string;
-  transfer_id: Long;
+  transfer_id: bigint;
   sender: string;
   destination_chain: string;
   destination_address: string;
-  asset?: CoinSDKType;
+  asset: CoinSDKType;
 }
 export interface MintCommand {
   chain: string;
-  transferId: Long;
+  transferId: bigint;
   commandId: Uint8Array;
   destinationChain: string;
   destinationAddress: string;
-  asset?: Coin;
+  asset: Coin;
 }
-export interface MintCommandSDKType {
+export interface MintCommandProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.MintCommand";
+  value: Uint8Array;
+}
+export interface MintCommandAmino {
   chain: string;
-  transfer_id: Long;
+  transfer_id: string;
   command_id: Uint8Array;
   destination_chain: string;
   destination_address: string;
-  asset?: CoinSDKType;
+  asset?: CoinAmino;
+}
+export interface MintCommandAminoMsg {
+  type: "/axelar.evm.v1beta1.MintCommand";
+  value: MintCommandAmino;
+}
+export interface MintCommandSDKType {
+  chain: string;
+  transfer_id: bigint;
+  command_id: Uint8Array;
+  destination_chain: string;
+  destination_address: string;
+  asset: CoinSDKType;
 }
 export interface BurnCommand {
   chain: string;
@@ -255,6 +538,21 @@ export interface BurnCommand {
   destinationChain: string;
   depositAddress: string;
   asset: string;
+}
+export interface BurnCommandProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.BurnCommand";
+  value: Uint8Array;
+}
+export interface BurnCommandAmino {
+  chain: string;
+  command_id: Uint8Array;
+  destination_chain: string;
+  deposit_address: string;
+  asset: string;
+}
+export interface BurnCommandAminoMsg {
+  type: "/axelar.evm.v1beta1.BurnCommand";
+  value: BurnCommandAmino;
 }
 export interface BurnCommandSDKType {
   chain: string;
@@ -267,18 +565,19 @@ function createBasePollFailed(): PollFailed {
   return {
     txId: new Uint8Array(),
     chain: "",
-    pollId: Long.UZERO
+    pollId: BigInt(0)
   };
 }
 export const PollFailed = {
-  encode(message: PollFailed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.PollFailed",
+  encode(message: PollFailed, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.txId.length !== 0) {
       writer.uint32(10).bytes(message.txId);
     }
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
     }
-    if (!message.pollId.isZero()) {
+    if (message.pollId !== BigInt(0)) {
       writer.uint32(24).uint64(message.pollId);
     }
     return writer;
@@ -287,33 +586,63 @@ export const PollFailed = {
     return {
       txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
-      pollId: isSet(object.pollId) ? Long.fromValue(object.pollId) : Long.UZERO
+      pollId: isSet(object.pollId) ? BigInt(object.pollId.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<PollFailed>): PollFailed {
     const message = createBasePollFailed();
     message.txId = object.txId ?? new Uint8Array();
     message.chain = object.chain ?? "";
-    message.pollId = object.pollId !== undefined && object.pollId !== null ? Long.fromValue(object.pollId) : Long.UZERO;
+    message.pollId = object.pollId !== undefined && object.pollId !== null ? BigInt(object.pollId.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: PollFailedAmino): PollFailed {
+    return {
+      txId: object.tx_id,
+      chain: object.chain,
+      pollId: BigInt(object.poll_id)
+    };
+  },
+  toAmino(message: PollFailed): PollFailedAmino {
+    const obj: any = {};
+    obj.tx_id = message.txId;
+    obj.chain = message.chain;
+    obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PollFailedAminoMsg): PollFailed {
+    return PollFailed.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PollFailedProtoMsg): PollFailed {
+    return PollFailed.decode(message.value);
+  },
+  toProto(message: PollFailed): Uint8Array {
+    return PollFailed.encode(message).finish();
+  },
+  toProtoMsg(message: PollFailed): PollFailedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.PollFailed",
+      value: PollFailed.encode(message).finish()
+    };
   }
 };
 function createBasePollExpired(): PollExpired {
   return {
     txId: new Uint8Array(),
     chain: "",
-    pollId: Long.UZERO
+    pollId: BigInt(0)
   };
 }
 export const PollExpired = {
-  encode(message: PollExpired, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.PollExpired",
+  encode(message: PollExpired, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.txId.length !== 0) {
       writer.uint32(10).bytes(message.txId);
     }
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
     }
-    if (!message.pollId.isZero()) {
+    if (message.pollId !== BigInt(0)) {
       writer.uint32(24).uint64(message.pollId);
     }
     return writer;
@@ -322,33 +651,63 @@ export const PollExpired = {
     return {
       txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
-      pollId: isSet(object.pollId) ? Long.fromValue(object.pollId) : Long.UZERO
+      pollId: isSet(object.pollId) ? BigInt(object.pollId.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<PollExpired>): PollExpired {
     const message = createBasePollExpired();
     message.txId = object.txId ?? new Uint8Array();
     message.chain = object.chain ?? "";
-    message.pollId = object.pollId !== undefined && object.pollId !== null ? Long.fromValue(object.pollId) : Long.UZERO;
+    message.pollId = object.pollId !== undefined && object.pollId !== null ? BigInt(object.pollId.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: PollExpiredAmino): PollExpired {
+    return {
+      txId: object.tx_id,
+      chain: object.chain,
+      pollId: BigInt(object.poll_id)
+    };
+  },
+  toAmino(message: PollExpired): PollExpiredAmino {
+    const obj: any = {};
+    obj.tx_id = message.txId;
+    obj.chain = message.chain;
+    obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PollExpiredAminoMsg): PollExpired {
+    return PollExpired.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PollExpiredProtoMsg): PollExpired {
+    return PollExpired.decode(message.value);
+  },
+  toProto(message: PollExpired): Uint8Array {
+    return PollExpired.encode(message).finish();
+  },
+  toProtoMsg(message: PollExpired): PollExpiredProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.PollExpired",
+      value: PollExpired.encode(message).finish()
+    };
   }
 };
 function createBasePollCompleted(): PollCompleted {
   return {
     txId: new Uint8Array(),
     chain: "",
-    pollId: Long.UZERO
+    pollId: BigInt(0)
   };
 }
 export const PollCompleted = {
-  encode(message: PollCompleted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.PollCompleted",
+  encode(message: PollCompleted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.txId.length !== 0) {
       writer.uint32(10).bytes(message.txId);
     }
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
     }
-    if (!message.pollId.isZero()) {
+    if (message.pollId !== BigInt(0)) {
       writer.uint32(24).uint64(message.pollId);
     }
     return writer;
@@ -357,33 +716,63 @@ export const PollCompleted = {
     return {
       txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
-      pollId: isSet(object.pollId) ? Long.fromValue(object.pollId) : Long.UZERO
+      pollId: isSet(object.pollId) ? BigInt(object.pollId.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<PollCompleted>): PollCompleted {
     const message = createBasePollCompleted();
     message.txId = object.txId ?? new Uint8Array();
     message.chain = object.chain ?? "";
-    message.pollId = object.pollId !== undefined && object.pollId !== null ? Long.fromValue(object.pollId) : Long.UZERO;
+    message.pollId = object.pollId !== undefined && object.pollId !== null ? BigInt(object.pollId.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: PollCompletedAmino): PollCompleted {
+    return {
+      txId: object.tx_id,
+      chain: object.chain,
+      pollId: BigInt(object.poll_id)
+    };
+  },
+  toAmino(message: PollCompleted): PollCompletedAmino {
+    const obj: any = {};
+    obj.tx_id = message.txId;
+    obj.chain = message.chain;
+    obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PollCompletedAminoMsg): PollCompleted {
+    return PollCompleted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PollCompletedProtoMsg): PollCompleted {
+    return PollCompleted.decode(message.value);
+  },
+  toProto(message: PollCompleted): Uint8Array {
+    return PollCompleted.encode(message).finish();
+  },
+  toProtoMsg(message: PollCompleted): PollCompletedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.PollCompleted",
+      value: PollCompleted.encode(message).finish()
+    };
   }
 };
 function createBaseNoEventsConfirmed(): NoEventsConfirmed {
   return {
     txId: new Uint8Array(),
     chain: "",
-    pollId: Long.UZERO
+    pollId: BigInt(0)
   };
 }
 export const NoEventsConfirmed = {
-  encode(message: NoEventsConfirmed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.NoEventsConfirmed",
+  encode(message: NoEventsConfirmed, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.txId.length !== 0) {
       writer.uint32(10).bytes(message.txId);
     }
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
     }
-    if (!message.pollId.isZero()) {
+    if (message.pollId !== BigInt(0)) {
       writer.uint32(24).uint64(message.pollId);
     }
     return writer;
@@ -392,15 +781,44 @@ export const NoEventsConfirmed = {
     return {
       txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
-      pollId: isSet(object.pollId) ? Long.fromValue(object.pollId) : Long.UZERO
+      pollId: isSet(object.pollId) ? BigInt(object.pollId.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<NoEventsConfirmed>): NoEventsConfirmed {
     const message = createBaseNoEventsConfirmed();
     message.txId = object.txId ?? new Uint8Array();
     message.chain = object.chain ?? "";
-    message.pollId = object.pollId !== undefined && object.pollId !== null ? Long.fromValue(object.pollId) : Long.UZERO;
+    message.pollId = object.pollId !== undefined && object.pollId !== null ? BigInt(object.pollId.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: NoEventsConfirmedAmino): NoEventsConfirmed {
+    return {
+      txId: object.tx_id,
+      chain: object.chain,
+      pollId: BigInt(object.poll_id)
+    };
+  },
+  toAmino(message: NoEventsConfirmed): NoEventsConfirmedAmino {
+    const obj: any = {};
+    obj.tx_id = message.txId;
+    obj.chain = message.chain;
+    obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: NoEventsConfirmedAminoMsg): NoEventsConfirmed {
+    return NoEventsConfirmed.fromAmino(object.value);
+  },
+  fromProtoMsg(message: NoEventsConfirmedProtoMsg): NoEventsConfirmed {
+    return NoEventsConfirmed.decode(message.value);
+  },
+  toProto(message: NoEventsConfirmed): Uint8Array {
+    return NoEventsConfirmed.encode(message).finish();
+  },
+  toProtoMsg(message: NoEventsConfirmed): NoEventsConfirmedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.NoEventsConfirmed",
+      value: NoEventsConfirmed.encode(message).finish()
+    };
   }
 };
 function createBaseConfirmKeyTransferStarted(): ConfirmKeyTransferStarted {
@@ -408,12 +826,13 @@ function createBaseConfirmKeyTransferStarted(): ConfirmKeyTransferStarted {
     chain: "",
     txId: new Uint8Array(),
     gatewayAddress: new Uint8Array(),
-    confirmationHeight: Long.UZERO,
-    participants: undefined
+    confirmationHeight: BigInt(0),
+    participants: PollParticipants.fromPartial({})
   };
 }
 export const ConfirmKeyTransferStarted = {
-  encode(message: ConfirmKeyTransferStarted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmKeyTransferStarted",
+  encode(message: ConfirmKeyTransferStarted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -423,7 +842,7 @@ export const ConfirmKeyTransferStarted = {
     if (message.gatewayAddress.length !== 0) {
       writer.uint32(26).bytes(message.gatewayAddress);
     }
-    if (!message.confirmationHeight.isZero()) {
+    if (message.confirmationHeight !== BigInt(0)) {
       writer.uint32(32).uint64(message.confirmationHeight);
     }
     if (message.participants !== undefined) {
@@ -436,7 +855,7 @@ export const ConfirmKeyTransferStarted = {
       chain: isSet(object.chain) ? String(object.chain) : "",
       txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(),
       gatewayAddress: isSet(object.gatewayAddress) ? bytesFromBase64(object.gatewayAddress) : new Uint8Array(),
-      confirmationHeight: isSet(object.confirmationHeight) ? Long.fromValue(object.confirmationHeight) : Long.UZERO,
+      confirmationHeight: isSet(object.confirmationHeight) ? BigInt(object.confirmationHeight.toString()) : BigInt(0),
       participants: isSet(object.participants) ? PollParticipants.fromJSON(object.participants) : undefined
     };
   },
@@ -445,9 +864,42 @@ export const ConfirmKeyTransferStarted = {
     message.chain = object.chain ?? "";
     message.txId = object.txId ?? new Uint8Array();
     message.gatewayAddress = object.gatewayAddress ?? new Uint8Array();
-    message.confirmationHeight = object.confirmationHeight !== undefined && object.confirmationHeight !== null ? Long.fromValue(object.confirmationHeight) : Long.UZERO;
+    message.confirmationHeight = object.confirmationHeight !== undefined && object.confirmationHeight !== null ? BigInt(object.confirmationHeight.toString()) : BigInt(0);
     message.participants = object.participants !== undefined && object.participants !== null ? PollParticipants.fromPartial(object.participants) : undefined;
     return message;
+  },
+  fromAmino(object: ConfirmKeyTransferStartedAmino): ConfirmKeyTransferStarted {
+    return {
+      chain: object.chain,
+      txId: object.tx_id,
+      gatewayAddress: object.gateway_address,
+      confirmationHeight: BigInt(object.confirmation_height),
+      participants: object?.participants ? PollParticipants.fromAmino(object.participants) : undefined
+    };
+  },
+  toAmino(message: ConfirmKeyTransferStarted): ConfirmKeyTransferStartedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.tx_id = message.txId;
+    obj.gateway_address = message.gatewayAddress;
+    obj.confirmation_height = message.confirmationHeight ? message.confirmationHeight.toString() : undefined;
+    obj.participants = message.participants ? PollParticipants.toAmino(message.participants) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ConfirmKeyTransferStartedAminoMsg): ConfirmKeyTransferStarted {
+    return ConfirmKeyTransferStarted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ConfirmKeyTransferStartedProtoMsg): ConfirmKeyTransferStarted {
+    return ConfirmKeyTransferStarted.decode(message.value);
+  },
+  toProto(message: ConfirmKeyTransferStarted): Uint8Array {
+    return ConfirmKeyTransferStarted.encode(message).finish();
+  },
+  toProtoMsg(message: ConfirmKeyTransferStarted): ConfirmKeyTransferStartedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.ConfirmKeyTransferStarted",
+      value: ConfirmKeyTransferStarted.encode(message).finish()
+    };
   }
 };
 function createBaseConfirmGatewayTxStarted(): ConfirmGatewayTxStarted {
@@ -455,12 +907,13 @@ function createBaseConfirmGatewayTxStarted(): ConfirmGatewayTxStarted {
     txId: new Uint8Array(),
     chain: "",
     gatewayAddress: new Uint8Array(),
-    confirmationHeight: Long.UZERO,
-    participants: undefined
+    confirmationHeight: BigInt(0),
+    participants: PollParticipants.fromPartial({})
   };
 }
 export const ConfirmGatewayTxStarted = {
-  encode(message: ConfirmGatewayTxStarted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxStarted",
+  encode(message: ConfirmGatewayTxStarted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.txId.length !== 0) {
       writer.uint32(10).bytes(message.txId);
     }
@@ -470,7 +923,7 @@ export const ConfirmGatewayTxStarted = {
     if (message.gatewayAddress.length !== 0) {
       writer.uint32(26).bytes(message.gatewayAddress);
     }
-    if (!message.confirmationHeight.isZero()) {
+    if (message.confirmationHeight !== BigInt(0)) {
       writer.uint32(32).uint64(message.confirmationHeight);
     }
     if (message.participants !== undefined) {
@@ -483,7 +936,7 @@ export const ConfirmGatewayTxStarted = {
       txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
       gatewayAddress: isSet(object.gatewayAddress) ? bytesFromBase64(object.gatewayAddress) : new Uint8Array(),
-      confirmationHeight: isSet(object.confirmationHeight) ? Long.fromValue(object.confirmationHeight) : Long.UZERO,
+      confirmationHeight: isSet(object.confirmationHeight) ? BigInt(object.confirmationHeight.toString()) : BigInt(0),
       participants: isSet(object.participants) ? PollParticipants.fromJSON(object.participants) : undefined
     };
   },
@@ -492,9 +945,42 @@ export const ConfirmGatewayTxStarted = {
     message.txId = object.txId ?? new Uint8Array();
     message.chain = object.chain ?? "";
     message.gatewayAddress = object.gatewayAddress ?? new Uint8Array();
-    message.confirmationHeight = object.confirmationHeight !== undefined && object.confirmationHeight !== null ? Long.fromValue(object.confirmationHeight) : Long.UZERO;
+    message.confirmationHeight = object.confirmationHeight !== undefined && object.confirmationHeight !== null ? BigInt(object.confirmationHeight.toString()) : BigInt(0);
     message.participants = object.participants !== undefined && object.participants !== null ? PollParticipants.fromPartial(object.participants) : undefined;
     return message;
+  },
+  fromAmino(object: ConfirmGatewayTxStartedAmino): ConfirmGatewayTxStarted {
+    return {
+      txId: object.tx_id,
+      chain: object.chain,
+      gatewayAddress: object.gateway_address,
+      confirmationHeight: BigInt(object.confirmation_height),
+      participants: object?.participants ? PollParticipants.fromAmino(object.participants) : undefined
+    };
+  },
+  toAmino(message: ConfirmGatewayTxStarted): ConfirmGatewayTxStartedAmino {
+    const obj: any = {};
+    obj.tx_id = message.txId;
+    obj.chain = message.chain;
+    obj.gateway_address = message.gatewayAddress;
+    obj.confirmation_height = message.confirmationHeight ? message.confirmationHeight.toString() : undefined;
+    obj.participants = message.participants ? PollParticipants.toAmino(message.participants) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ConfirmGatewayTxStartedAminoMsg): ConfirmGatewayTxStarted {
+    return ConfirmGatewayTxStarted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ConfirmGatewayTxStartedProtoMsg): ConfirmGatewayTxStarted {
+    return ConfirmGatewayTxStarted.decode(message.value);
+  },
+  toProto(message: ConfirmGatewayTxStarted): Uint8Array {
+    return ConfirmGatewayTxStarted.encode(message).finish();
+  },
+  toProtoMsg(message: ConfirmGatewayTxStarted): ConfirmGatewayTxStartedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxStarted",
+      value: ConfirmGatewayTxStarted.encode(message).finish()
+    };
   }
 };
 function createBaseConfirmDepositStarted(): ConfirmDepositStarted {
@@ -503,13 +989,14 @@ function createBaseConfirmDepositStarted(): ConfirmDepositStarted {
     chain: "",
     depositAddress: new Uint8Array(),
     tokenAddress: new Uint8Array(),
-    confirmationHeight: Long.UZERO,
-    participants: undefined,
+    confirmationHeight: BigInt(0),
+    participants: PollParticipants.fromPartial({}),
     asset: ""
   };
 }
 export const ConfirmDepositStarted = {
-  encode(message: ConfirmDepositStarted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmDepositStarted",
+  encode(message: ConfirmDepositStarted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.txId.length !== 0) {
       writer.uint32(10).bytes(message.txId);
     }
@@ -522,7 +1009,7 @@ export const ConfirmDepositStarted = {
     if (message.tokenAddress.length !== 0) {
       writer.uint32(34).bytes(message.tokenAddress);
     }
-    if (!message.confirmationHeight.isZero()) {
+    if (message.confirmationHeight !== BigInt(0)) {
       writer.uint32(40).uint64(message.confirmationHeight);
     }
     if (message.participants !== undefined) {
@@ -539,7 +1026,7 @@ export const ConfirmDepositStarted = {
       chain: isSet(object.chain) ? String(object.chain) : "",
       depositAddress: isSet(object.depositAddress) ? bytesFromBase64(object.depositAddress) : new Uint8Array(),
       tokenAddress: isSet(object.tokenAddress) ? bytesFromBase64(object.tokenAddress) : new Uint8Array(),
-      confirmationHeight: isSet(object.confirmationHeight) ? Long.fromValue(object.confirmationHeight) : Long.UZERO,
+      confirmationHeight: isSet(object.confirmationHeight) ? BigInt(object.confirmationHeight.toString()) : BigInt(0),
       participants: isSet(object.participants) ? PollParticipants.fromJSON(object.participants) : undefined,
       asset: isSet(object.asset) ? String(object.asset) : ""
     };
@@ -550,10 +1037,47 @@ export const ConfirmDepositStarted = {
     message.chain = object.chain ?? "";
     message.depositAddress = object.depositAddress ?? new Uint8Array();
     message.tokenAddress = object.tokenAddress ?? new Uint8Array();
-    message.confirmationHeight = object.confirmationHeight !== undefined && object.confirmationHeight !== null ? Long.fromValue(object.confirmationHeight) : Long.UZERO;
+    message.confirmationHeight = object.confirmationHeight !== undefined && object.confirmationHeight !== null ? BigInt(object.confirmationHeight.toString()) : BigInt(0);
     message.participants = object.participants !== undefined && object.participants !== null ? PollParticipants.fromPartial(object.participants) : undefined;
     message.asset = object.asset ?? "";
     return message;
+  },
+  fromAmino(object: ConfirmDepositStartedAmino): ConfirmDepositStarted {
+    return {
+      txId: object.tx_id,
+      chain: object.chain,
+      depositAddress: object.deposit_address,
+      tokenAddress: object.token_address,
+      confirmationHeight: BigInt(object.confirmation_height),
+      participants: object?.participants ? PollParticipants.fromAmino(object.participants) : undefined,
+      asset: object.asset
+    };
+  },
+  toAmino(message: ConfirmDepositStarted): ConfirmDepositStartedAmino {
+    const obj: any = {};
+    obj.tx_id = message.txId;
+    obj.chain = message.chain;
+    obj.deposit_address = message.depositAddress;
+    obj.token_address = message.tokenAddress;
+    obj.confirmation_height = message.confirmationHeight ? message.confirmationHeight.toString() : undefined;
+    obj.participants = message.participants ? PollParticipants.toAmino(message.participants) : undefined;
+    obj.asset = message.asset;
+    return obj;
+  },
+  fromAminoMsg(object: ConfirmDepositStartedAminoMsg): ConfirmDepositStarted {
+    return ConfirmDepositStarted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ConfirmDepositStartedProtoMsg): ConfirmDepositStarted {
+    return ConfirmDepositStarted.decode(message.value);
+  },
+  toProto(message: ConfirmDepositStarted): Uint8Array {
+    return ConfirmDepositStarted.encode(message).finish();
+  },
+  toProtoMsg(message: ConfirmDepositStarted): ConfirmDepositStartedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.ConfirmDepositStarted",
+      value: ConfirmDepositStarted.encode(message).finish()
+    };
   }
 };
 function createBaseConfirmTokenStarted(): ConfirmTokenStarted {
@@ -562,13 +1086,14 @@ function createBaseConfirmTokenStarted(): ConfirmTokenStarted {
     chain: "",
     gatewayAddress: new Uint8Array(),
     tokenAddress: new Uint8Array(),
-    tokenDetails: undefined,
-    confirmationHeight: Long.UZERO,
-    participants: undefined
+    tokenDetails: TokenDetails.fromPartial({}),
+    confirmationHeight: BigInt(0),
+    participants: PollParticipants.fromPartial({})
   };
 }
 export const ConfirmTokenStarted = {
-  encode(message: ConfirmTokenStarted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmTokenStarted",
+  encode(message: ConfirmTokenStarted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.txId.length !== 0) {
       writer.uint32(10).bytes(message.txId);
     }
@@ -584,7 +1109,7 @@ export const ConfirmTokenStarted = {
     if (message.tokenDetails !== undefined) {
       TokenDetails.encode(message.tokenDetails, writer.uint32(42).fork()).ldelim();
     }
-    if (!message.confirmationHeight.isZero()) {
+    if (message.confirmationHeight !== BigInt(0)) {
       writer.uint32(48).uint64(message.confirmationHeight);
     }
     if (message.participants !== undefined) {
@@ -599,7 +1124,7 @@ export const ConfirmTokenStarted = {
       gatewayAddress: isSet(object.gatewayAddress) ? bytesFromBase64(object.gatewayAddress) : new Uint8Array(),
       tokenAddress: isSet(object.tokenAddress) ? bytesFromBase64(object.tokenAddress) : new Uint8Array(),
       tokenDetails: isSet(object.tokenDetails) ? TokenDetails.fromJSON(object.tokenDetails) : undefined,
-      confirmationHeight: isSet(object.confirmationHeight) ? Long.fromValue(object.confirmationHeight) : Long.UZERO,
+      confirmationHeight: isSet(object.confirmationHeight) ? BigInt(object.confirmationHeight.toString()) : BigInt(0),
       participants: isSet(object.participants) ? PollParticipants.fromJSON(object.participants) : undefined
     };
   },
@@ -610,9 +1135,46 @@ export const ConfirmTokenStarted = {
     message.gatewayAddress = object.gatewayAddress ?? new Uint8Array();
     message.tokenAddress = object.tokenAddress ?? new Uint8Array();
     message.tokenDetails = object.tokenDetails !== undefined && object.tokenDetails !== null ? TokenDetails.fromPartial(object.tokenDetails) : undefined;
-    message.confirmationHeight = object.confirmationHeight !== undefined && object.confirmationHeight !== null ? Long.fromValue(object.confirmationHeight) : Long.UZERO;
+    message.confirmationHeight = object.confirmationHeight !== undefined && object.confirmationHeight !== null ? BigInt(object.confirmationHeight.toString()) : BigInt(0);
     message.participants = object.participants !== undefined && object.participants !== null ? PollParticipants.fromPartial(object.participants) : undefined;
     return message;
+  },
+  fromAmino(object: ConfirmTokenStartedAmino): ConfirmTokenStarted {
+    return {
+      txId: object.tx_id,
+      chain: object.chain,
+      gatewayAddress: object.gateway_address,
+      tokenAddress: object.token_address,
+      tokenDetails: object?.token_details ? TokenDetails.fromAmino(object.token_details) : undefined,
+      confirmationHeight: BigInt(object.confirmation_height),
+      participants: object?.participants ? PollParticipants.fromAmino(object.participants) : undefined
+    };
+  },
+  toAmino(message: ConfirmTokenStarted): ConfirmTokenStartedAmino {
+    const obj: any = {};
+    obj.tx_id = message.txId;
+    obj.chain = message.chain;
+    obj.gateway_address = message.gatewayAddress;
+    obj.token_address = message.tokenAddress;
+    obj.token_details = message.tokenDetails ? TokenDetails.toAmino(message.tokenDetails) : undefined;
+    obj.confirmation_height = message.confirmationHeight ? message.confirmationHeight.toString() : undefined;
+    obj.participants = message.participants ? PollParticipants.toAmino(message.participants) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ConfirmTokenStartedAminoMsg): ConfirmTokenStarted {
+    return ConfirmTokenStarted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ConfirmTokenStartedProtoMsg): ConfirmTokenStarted {
+    return ConfirmTokenStarted.decode(message.value);
+  },
+  toProto(message: ConfirmTokenStarted): Uint8Array {
+    return ConfirmTokenStarted.encode(message).finish();
+  },
+  toProtoMsg(message: ConfirmTokenStarted): ConfirmTokenStartedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.ConfirmTokenStarted",
+      value: ConfirmTokenStarted.encode(message).finish()
+    };
   }
 };
 function createBaseChainAdded(): ChainAdded {
@@ -621,7 +1183,8 @@ function createBaseChainAdded(): ChainAdded {
   };
 }
 export const ChainAdded = {
-  encode(message: ChainAdded, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.ChainAdded",
+  encode(message: ChainAdded, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -636,6 +1199,31 @@ export const ChainAdded = {
     const message = createBaseChainAdded();
     message.chain = object.chain ?? "";
     return message;
+  },
+  fromAmino(object: ChainAddedAmino): ChainAdded {
+    return {
+      chain: object.chain
+    };
+  },
+  toAmino(message: ChainAdded): ChainAddedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    return obj;
+  },
+  fromAminoMsg(object: ChainAddedAminoMsg): ChainAdded {
+    return ChainAdded.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ChainAddedProtoMsg): ChainAdded {
+    return ChainAdded.decode(message.value);
+  },
+  toProto(message: ChainAdded): Uint8Array {
+    return ChainAdded.encode(message).finish();
+  },
+  toProtoMsg(message: ChainAdded): ChainAddedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.ChainAdded",
+      value: ChainAdded.encode(message).finish()
+    };
   }
 };
 function createBaseCommandBatchSigned(): CommandBatchSigned {
@@ -645,7 +1233,8 @@ function createBaseCommandBatchSigned(): CommandBatchSigned {
   };
 }
 export const CommandBatchSigned = {
-  encode(message: CommandBatchSigned, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.CommandBatchSigned",
+  encode(message: CommandBatchSigned, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
     }
@@ -665,6 +1254,33 @@ export const CommandBatchSigned = {
     message.chain = object.chain ?? "";
     message.commandBatchId = object.commandBatchId ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: CommandBatchSignedAmino): CommandBatchSigned {
+    return {
+      chain: object.chain,
+      commandBatchId: object.command_batch_id
+    };
+  },
+  toAmino(message: CommandBatchSigned): CommandBatchSignedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.command_batch_id = message.commandBatchId;
+    return obj;
+  },
+  fromAminoMsg(object: CommandBatchSignedAminoMsg): CommandBatchSigned {
+    return CommandBatchSigned.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CommandBatchSignedProtoMsg): CommandBatchSigned {
+    return CommandBatchSigned.decode(message.value);
+  },
+  toProto(message: CommandBatchSigned): Uint8Array {
+    return CommandBatchSigned.encode(message).finish();
+  },
+  toProtoMsg(message: CommandBatchSigned): CommandBatchSignedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.CommandBatchSigned",
+      value: CommandBatchSigned.encode(message).finish()
+    };
   }
 };
 function createBaseCommandBatchAborted(): CommandBatchAborted {
@@ -674,7 +1290,8 @@ function createBaseCommandBatchAborted(): CommandBatchAborted {
   };
 }
 export const CommandBatchAborted = {
-  encode(message: CommandBatchAborted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.CommandBatchAborted",
+  encode(message: CommandBatchAborted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
     }
@@ -694,6 +1311,33 @@ export const CommandBatchAborted = {
     message.chain = object.chain ?? "";
     message.commandBatchId = object.commandBatchId ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: CommandBatchAbortedAmino): CommandBatchAborted {
+    return {
+      chain: object.chain,
+      commandBatchId: object.command_batch_id
+    };
+  },
+  toAmino(message: CommandBatchAborted): CommandBatchAbortedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.command_batch_id = message.commandBatchId;
+    return obj;
+  },
+  fromAminoMsg(object: CommandBatchAbortedAminoMsg): CommandBatchAborted {
+    return CommandBatchAborted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CommandBatchAbortedProtoMsg): CommandBatchAborted {
+    return CommandBatchAborted.decode(message.value);
+  },
+  toProto(message: CommandBatchAborted): Uint8Array {
+    return CommandBatchAborted.encode(message).finish();
+  },
+  toProtoMsg(message: CommandBatchAborted): CommandBatchAbortedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.CommandBatchAborted",
+      value: CommandBatchAborted.encode(message).finish()
+    };
   }
 };
 function createBaseEVMEventConfirmed(): EVMEventConfirmed {
@@ -704,7 +1348,8 @@ function createBaseEVMEventConfirmed(): EVMEventConfirmed {
   };
 }
 export const EVMEventConfirmed = {
-  encode(message: EVMEventConfirmed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.EVMEventConfirmed",
+  encode(message: EVMEventConfirmed, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -729,6 +1374,35 @@ export const EVMEventConfirmed = {
     message.eventId = object.eventId ?? "";
     message.type = object.type ?? "";
     return message;
+  },
+  fromAmino(object: EVMEventConfirmedAmino): EVMEventConfirmed {
+    return {
+      chain: object.chain,
+      eventId: object.event_id,
+      type: object.type
+    };
+  },
+  toAmino(message: EVMEventConfirmed): EVMEventConfirmedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.event_id = message.eventId;
+    obj.type = message.type;
+    return obj;
+  },
+  fromAminoMsg(object: EVMEventConfirmedAminoMsg): EVMEventConfirmed {
+    return EVMEventConfirmed.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EVMEventConfirmedProtoMsg): EVMEventConfirmed {
+    return EVMEventConfirmed.decode(message.value);
+  },
+  toProto(message: EVMEventConfirmed): Uint8Array {
+    return EVMEventConfirmed.encode(message).finish();
+  },
+  toProtoMsg(message: EVMEventConfirmed): EVMEventConfirmedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.EVMEventConfirmed",
+      value: EVMEventConfirmed.encode(message).finish()
+    };
   }
 };
 function createBaseEVMEventCompleted(): EVMEventCompleted {
@@ -739,7 +1413,8 @@ function createBaseEVMEventCompleted(): EVMEventCompleted {
   };
 }
 export const EVMEventCompleted = {
-  encode(message: EVMEventCompleted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.EVMEventCompleted",
+  encode(message: EVMEventCompleted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -764,6 +1439,35 @@ export const EVMEventCompleted = {
     message.eventId = object.eventId ?? "";
     message.type = object.type ?? "";
     return message;
+  },
+  fromAmino(object: EVMEventCompletedAmino): EVMEventCompleted {
+    return {
+      chain: object.chain,
+      eventId: object.event_id,
+      type: object.type
+    };
+  },
+  toAmino(message: EVMEventCompleted): EVMEventCompletedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.event_id = message.eventId;
+    obj.type = message.type;
+    return obj;
+  },
+  fromAminoMsg(object: EVMEventCompletedAminoMsg): EVMEventCompleted {
+    return EVMEventCompleted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EVMEventCompletedProtoMsg): EVMEventCompleted {
+    return EVMEventCompleted.decode(message.value);
+  },
+  toProto(message: EVMEventCompleted): Uint8Array {
+    return EVMEventCompleted.encode(message).finish();
+  },
+  toProtoMsg(message: EVMEventCompleted): EVMEventCompletedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.EVMEventCompleted",
+      value: EVMEventCompleted.encode(message).finish()
+    };
   }
 };
 function createBaseEVMEventFailed(): EVMEventFailed {
@@ -774,7 +1478,8 @@ function createBaseEVMEventFailed(): EVMEventFailed {
   };
 }
 export const EVMEventFailed = {
-  encode(message: EVMEventFailed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.EVMEventFailed",
+  encode(message: EVMEventFailed, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -799,6 +1504,35 @@ export const EVMEventFailed = {
     message.eventId = object.eventId ?? "";
     message.type = object.type ?? "";
     return message;
+  },
+  fromAmino(object: EVMEventFailedAmino): EVMEventFailed {
+    return {
+      chain: object.chain,
+      eventId: object.event_id,
+      type: object.type
+    };
+  },
+  toAmino(message: EVMEventFailed): EVMEventFailedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.event_id = message.eventId;
+    obj.type = message.type;
+    return obj;
+  },
+  fromAminoMsg(object: EVMEventFailedAminoMsg): EVMEventFailed {
+    return EVMEventFailed.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EVMEventFailedProtoMsg): EVMEventFailed {
+    return EVMEventFailed.decode(message.value);
+  },
+  toProto(message: EVMEventFailed): Uint8Array {
+    return EVMEventFailed.encode(message).finish();
+  },
+  toProtoMsg(message: EVMEventFailed): EVMEventFailedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.EVMEventFailed",
+      value: EVMEventFailed.encode(message).finish()
+    };
   }
 };
 function createBaseEVMEventRetryFailed(): EVMEventRetryFailed {
@@ -809,7 +1543,8 @@ function createBaseEVMEventRetryFailed(): EVMEventRetryFailed {
   };
 }
 export const EVMEventRetryFailed = {
-  encode(message: EVMEventRetryFailed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.EVMEventRetryFailed",
+  encode(message: EVMEventRetryFailed, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -834,6 +1569,35 @@ export const EVMEventRetryFailed = {
     message.eventId = object.eventId ?? "";
     message.type = object.type ?? "";
     return message;
+  },
+  fromAmino(object: EVMEventRetryFailedAmino): EVMEventRetryFailed {
+    return {
+      chain: object.chain,
+      eventId: object.event_id,
+      type: object.type
+    };
+  },
+  toAmino(message: EVMEventRetryFailed): EVMEventRetryFailedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.event_id = message.eventId;
+    obj.type = message.type;
+    return obj;
+  },
+  fromAminoMsg(object: EVMEventRetryFailedAminoMsg): EVMEventRetryFailed {
+    return EVMEventRetryFailed.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EVMEventRetryFailedProtoMsg): EVMEventRetryFailed {
+    return EVMEventRetryFailed.decode(message.value);
+  },
+  toProto(message: EVMEventRetryFailed): Uint8Array {
+    return EVMEventRetryFailed.encode(message).finish();
+  },
+  toProtoMsg(message: EVMEventRetryFailed): EVMEventRetryFailedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.EVMEventRetryFailed",
+      value: EVMEventRetryFailed.encode(message).finish()
+    };
   }
 };
 function createBaseContractCallApproved(): ContractCallApproved {
@@ -848,7 +1612,8 @@ function createBaseContractCallApproved(): ContractCallApproved {
   };
 }
 export const ContractCallApproved = {
-  encode(message: ContractCallApproved, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.ContractCallApproved",
+  encode(message: ContractCallApproved, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -893,6 +1658,43 @@ export const ContractCallApproved = {
     message.contractAddress = object.contractAddress ?? "";
     message.payloadHash = object.payloadHash ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: ContractCallApprovedAmino): ContractCallApproved {
+    return {
+      chain: object.chain,
+      eventId: object.event_id,
+      commandId: object.command_id,
+      sender: object.sender,
+      destinationChain: object.destination_chain,
+      contractAddress: object.contract_address,
+      payloadHash: object.payload_hash
+    };
+  },
+  toAmino(message: ContractCallApproved): ContractCallApprovedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.event_id = message.eventId;
+    obj.command_id = message.commandId;
+    obj.sender = message.sender;
+    obj.destination_chain = message.destinationChain;
+    obj.contract_address = message.contractAddress;
+    obj.payload_hash = message.payloadHash;
+    return obj;
+  },
+  fromAminoMsg(object: ContractCallApprovedAminoMsg): ContractCallApproved {
+    return ContractCallApproved.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ContractCallApprovedProtoMsg): ContractCallApproved {
+    return ContractCallApproved.decode(message.value);
+  },
+  toProto(message: ContractCallApproved): Uint8Array {
+    return ContractCallApproved.encode(message).finish();
+  },
+  toProtoMsg(message: ContractCallApproved): ContractCallApprovedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.ContractCallApproved",
+      value: ContractCallApproved.encode(message).finish()
+    };
   }
 };
 function createBaseContractCallFailed(): ContractCallFailed {
@@ -902,7 +1704,8 @@ function createBaseContractCallFailed(): ContractCallFailed {
   };
 }
 export const ContractCallFailed = {
-  encode(message: ContractCallFailed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.ContractCallFailed",
+  encode(message: ContractCallFailed, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -922,6 +1725,33 @@ export const ContractCallFailed = {
     message.chain = object.chain ?? "";
     message.msgId = object.msgId ?? "";
     return message;
+  },
+  fromAmino(object: ContractCallFailedAmino): ContractCallFailed {
+    return {
+      chain: object.chain,
+      msgId: object.msg_id
+    };
+  },
+  toAmino(message: ContractCallFailed): ContractCallFailedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.msg_id = message.msgId;
+    return obj;
+  },
+  fromAminoMsg(object: ContractCallFailedAminoMsg): ContractCallFailed {
+    return ContractCallFailed.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ContractCallFailedProtoMsg): ContractCallFailed {
+    return ContractCallFailed.decode(message.value);
+  },
+  toProto(message: ContractCallFailed): Uint8Array {
+    return ContractCallFailed.encode(message).finish();
+  },
+  toProtoMsg(message: ContractCallFailed): ContractCallFailedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.ContractCallFailed",
+      value: ContractCallFailed.encode(message).finish()
+    };
   }
 };
 function createBaseContractCallWithMintApproved(): ContractCallWithMintApproved {
@@ -933,11 +1763,12 @@ function createBaseContractCallWithMintApproved(): ContractCallWithMintApproved 
     destinationChain: "",
     contractAddress: "",
     payloadHash: new Uint8Array(),
-    asset: undefined
+    asset: Coin.fromPartial({})
   };
 }
 export const ContractCallWithMintApproved = {
-  encode(message: ContractCallWithMintApproved, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.ContractCallWithMintApproved",
+  encode(message: ContractCallWithMintApproved, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -987,28 +1818,68 @@ export const ContractCallWithMintApproved = {
     message.payloadHash = object.payloadHash ?? new Uint8Array();
     message.asset = object.asset !== undefined && object.asset !== null ? Coin.fromPartial(object.asset) : undefined;
     return message;
+  },
+  fromAmino(object: ContractCallWithMintApprovedAmino): ContractCallWithMintApproved {
+    return {
+      chain: object.chain,
+      eventId: object.event_id,
+      commandId: object.command_id,
+      sender: object.sender,
+      destinationChain: object.destination_chain,
+      contractAddress: object.contract_address,
+      payloadHash: object.payload_hash,
+      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
+    };
+  },
+  toAmino(message: ContractCallWithMintApproved): ContractCallWithMintApprovedAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.event_id = message.eventId;
+    obj.command_id = message.commandId;
+    obj.sender = message.sender;
+    obj.destination_chain = message.destinationChain;
+    obj.contract_address = message.contractAddress;
+    obj.payload_hash = message.payloadHash;
+    obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ContractCallWithMintApprovedAminoMsg): ContractCallWithMintApproved {
+    return ContractCallWithMintApproved.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ContractCallWithMintApprovedProtoMsg): ContractCallWithMintApproved {
+    return ContractCallWithMintApproved.decode(message.value);
+  },
+  toProto(message: ContractCallWithMintApproved): Uint8Array {
+    return ContractCallWithMintApproved.encode(message).finish();
+  },
+  toProtoMsg(message: ContractCallWithMintApproved): ContractCallWithMintApprovedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.ContractCallWithMintApproved",
+      value: ContractCallWithMintApproved.encode(message).finish()
+    };
   }
 };
 function createBaseTokenSent(): TokenSent {
   return {
     chain: "",
     eventId: "",
-    transferId: Long.UZERO,
+    transferId: BigInt(0),
     sender: "",
     destinationChain: "",
     destinationAddress: "",
-    asset: undefined
+    asset: Coin.fromPartial({})
   };
 }
 export const TokenSent = {
-  encode(message: TokenSent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.TokenSent",
+  encode(message: TokenSent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
     if (message.eventId !== "") {
       writer.uint32(18).string(message.eventId);
     }
-    if (!message.transferId.isZero()) {
+    if (message.transferId !== BigInt(0)) {
       writer.uint32(24).uint64(message.transferId);
     }
     if (message.sender !== "") {
@@ -1029,7 +1900,7 @@ export const TokenSent = {
     return {
       chain: isSet(object.chain) ? String(object.chain) : "",
       eventId: isSet(object.eventId) ? String(object.eventId) : "",
-      transferId: isSet(object.transferId) ? Long.fromValue(object.transferId) : Long.UZERO,
+      transferId: isSet(object.transferId) ? BigInt(object.transferId.toString()) : BigInt(0),
       sender: isSet(object.sender) ? String(object.sender) : "",
       destinationChain: isSet(object.destinationChain) ? String(object.destinationChain) : "",
       destinationAddress: isSet(object.destinationAddress) ? String(object.destinationAddress) : "",
@@ -1040,30 +1911,68 @@ export const TokenSent = {
     const message = createBaseTokenSent();
     message.chain = object.chain ?? "";
     message.eventId = object.eventId ?? "";
-    message.transferId = object.transferId !== undefined && object.transferId !== null ? Long.fromValue(object.transferId) : Long.UZERO;
+    message.transferId = object.transferId !== undefined && object.transferId !== null ? BigInt(object.transferId.toString()) : BigInt(0);
     message.sender = object.sender ?? "";
     message.destinationChain = object.destinationChain ?? "";
     message.destinationAddress = object.destinationAddress ?? "";
     message.asset = object.asset !== undefined && object.asset !== null ? Coin.fromPartial(object.asset) : undefined;
     return message;
+  },
+  fromAmino(object: TokenSentAmino): TokenSent {
+    return {
+      chain: object.chain,
+      eventId: object.event_id,
+      transferId: BigInt(object.transfer_id),
+      sender: object.sender,
+      destinationChain: object.destination_chain,
+      destinationAddress: object.destination_address,
+      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
+    };
+  },
+  toAmino(message: TokenSent): TokenSentAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.event_id = message.eventId;
+    obj.transfer_id = message.transferId ? message.transferId.toString() : undefined;
+    obj.sender = message.sender;
+    obj.destination_chain = message.destinationChain;
+    obj.destination_address = message.destinationAddress;
+    obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: TokenSentAminoMsg): TokenSent {
+    return TokenSent.fromAmino(object.value);
+  },
+  fromProtoMsg(message: TokenSentProtoMsg): TokenSent {
+    return TokenSent.decode(message.value);
+  },
+  toProto(message: TokenSent): Uint8Array {
+    return TokenSent.encode(message).finish();
+  },
+  toProtoMsg(message: TokenSent): TokenSentProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.TokenSent",
+      value: TokenSent.encode(message).finish()
+    };
   }
 };
 function createBaseMintCommand(): MintCommand {
   return {
     chain: "",
-    transferId: Long.UZERO,
+    transferId: BigInt(0),
     commandId: new Uint8Array(),
     destinationChain: "",
     destinationAddress: "",
-    asset: undefined
+    asset: Coin.fromPartial({})
   };
 }
 export const MintCommand = {
-  encode(message: MintCommand, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.MintCommand",
+  encode(message: MintCommand, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
-    if (!message.transferId.isZero()) {
+    if (message.transferId !== BigInt(0)) {
       writer.uint32(16).uint64(message.transferId);
     }
     if (message.commandId.length !== 0) {
@@ -1083,7 +1992,7 @@ export const MintCommand = {
   fromJSON(object: any): MintCommand {
     return {
       chain: isSet(object.chain) ? String(object.chain) : "",
-      transferId: isSet(object.transferId) ? Long.fromValue(object.transferId) : Long.UZERO,
+      transferId: isSet(object.transferId) ? BigInt(object.transferId.toString()) : BigInt(0),
       commandId: isSet(object.commandId) ? bytesFromBase64(object.commandId) : new Uint8Array(),
       destinationChain: isSet(object.destinationChain) ? String(object.destinationChain) : "",
       destinationAddress: isSet(object.destinationAddress) ? String(object.destinationAddress) : "",
@@ -1093,12 +2002,47 @@ export const MintCommand = {
   fromPartial(object: Partial<MintCommand>): MintCommand {
     const message = createBaseMintCommand();
     message.chain = object.chain ?? "";
-    message.transferId = object.transferId !== undefined && object.transferId !== null ? Long.fromValue(object.transferId) : Long.UZERO;
+    message.transferId = object.transferId !== undefined && object.transferId !== null ? BigInt(object.transferId.toString()) : BigInt(0);
     message.commandId = object.commandId ?? new Uint8Array();
     message.destinationChain = object.destinationChain ?? "";
     message.destinationAddress = object.destinationAddress ?? "";
     message.asset = object.asset !== undefined && object.asset !== null ? Coin.fromPartial(object.asset) : undefined;
     return message;
+  },
+  fromAmino(object: MintCommandAmino): MintCommand {
+    return {
+      chain: object.chain,
+      transferId: BigInt(object.transfer_id),
+      commandId: object.command_id,
+      destinationChain: object.destination_chain,
+      destinationAddress: object.destination_address,
+      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
+    };
+  },
+  toAmino(message: MintCommand): MintCommandAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.transfer_id = message.transferId ? message.transferId.toString() : undefined;
+    obj.command_id = message.commandId;
+    obj.destination_chain = message.destinationChain;
+    obj.destination_address = message.destinationAddress;
+    obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MintCommandAminoMsg): MintCommand {
+    return MintCommand.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MintCommandProtoMsg): MintCommand {
+    return MintCommand.decode(message.value);
+  },
+  toProto(message: MintCommand): Uint8Array {
+    return MintCommand.encode(message).finish();
+  },
+  toProtoMsg(message: MintCommand): MintCommandProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.MintCommand",
+      value: MintCommand.encode(message).finish()
+    };
   }
 };
 function createBaseBurnCommand(): BurnCommand {
@@ -1111,7 +2055,8 @@ function createBaseBurnCommand(): BurnCommand {
   };
 }
 export const BurnCommand = {
-  encode(message: BurnCommand, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.evm.v1beta1.BurnCommand",
+  encode(message: BurnCommand, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -1146,5 +2091,38 @@ export const BurnCommand = {
     message.depositAddress = object.depositAddress ?? "";
     message.asset = object.asset ?? "";
     return message;
+  },
+  fromAmino(object: BurnCommandAmino): BurnCommand {
+    return {
+      chain: object.chain,
+      commandId: object.command_id,
+      destinationChain: object.destination_chain,
+      depositAddress: object.deposit_address,
+      asset: object.asset
+    };
+  },
+  toAmino(message: BurnCommand): BurnCommandAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    obj.command_id = message.commandId;
+    obj.destination_chain = message.destinationChain;
+    obj.deposit_address = message.depositAddress;
+    obj.asset = message.asset;
+    return obj;
+  },
+  fromAminoMsg(object: BurnCommandAminoMsg): BurnCommand {
+    return BurnCommand.fromAmino(object.value);
+  },
+  fromProtoMsg(message: BurnCommandProtoMsg): BurnCommand {
+    return BurnCommand.decode(message.value);
+  },
+  toProto(message: BurnCommand): Uint8Array {
+    return BurnCommand.encode(message).finish();
+  },
+  toProtoMsg(message: BurnCommand): BurnCommandProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.BurnCommand",
+      value: BurnCommand.encode(message).finish()
+    };
   }
 };

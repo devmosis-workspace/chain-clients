@@ -1,19 +1,40 @@
-import { InflationState, InflationStateSDKType } from "./inflation";
-import * as _m0 from "protobufjs/minimal";
+import { InflationState, InflationStateAmino, InflationStateSDKType } from "./inflation";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 export interface QueryInflationRequest {}
+export interface QueryInflationRequestProtoMsg {
+  typeUrl: "/em.inflation.v1.QueryInflationRequest";
+  value: Uint8Array;
+}
+export interface QueryInflationRequestAmino {}
+export interface QueryInflationRequestAminoMsg {
+  type: "/em.inflation.v1.QueryInflationRequest";
+  value: QueryInflationRequestAmino;
+}
 export interface QueryInflationRequestSDKType {}
 export interface QueryInflationResponse {
-  state?: InflationState;
+  state: InflationState;
+}
+export interface QueryInflationResponseProtoMsg {
+  typeUrl: "/em.inflation.v1.QueryInflationResponse";
+  value: Uint8Array;
+}
+export interface QueryInflationResponseAmino {
+  state?: InflationStateAmino;
+}
+export interface QueryInflationResponseAminoMsg {
+  type: "/em.inflation.v1.QueryInflationResponse";
+  value: QueryInflationResponseAmino;
 }
 export interface QueryInflationResponseSDKType {
-  state?: InflationStateSDKType;
+  state: InflationStateSDKType;
 }
 function createBaseQueryInflationRequest(): QueryInflationRequest {
   return {};
 }
 export const QueryInflationRequest = {
-  encode(_: QueryInflationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.inflation.v1.QueryInflationRequest",
+  encode(_: QueryInflationRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryInflationRequest {
@@ -22,15 +43,38 @@ export const QueryInflationRequest = {
   fromPartial(_: Partial<QueryInflationRequest>): QueryInflationRequest {
     const message = createBaseQueryInflationRequest();
     return message;
+  },
+  fromAmino(_: QueryInflationRequestAmino): QueryInflationRequest {
+    return {};
+  },
+  toAmino(_: QueryInflationRequest): QueryInflationRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryInflationRequestAminoMsg): QueryInflationRequest {
+    return QueryInflationRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryInflationRequestProtoMsg): QueryInflationRequest {
+    return QueryInflationRequest.decode(message.value);
+  },
+  toProto(message: QueryInflationRequest): Uint8Array {
+    return QueryInflationRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryInflationRequest): QueryInflationRequestProtoMsg {
+    return {
+      typeUrl: "/em.inflation.v1.QueryInflationRequest",
+      value: QueryInflationRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryInflationResponse(): QueryInflationResponse {
   return {
-    state: undefined
+    state: InflationState.fromPartial({})
   };
 }
 export const QueryInflationResponse = {
-  encode(message: QueryInflationResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/em.inflation.v1.QueryInflationResponse",
+  encode(message: QueryInflationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.state !== undefined) {
       InflationState.encode(message.state, writer.uint32(10).fork()).ldelim();
     }
@@ -45,5 +89,30 @@ export const QueryInflationResponse = {
     const message = createBaseQueryInflationResponse();
     message.state = object.state !== undefined && object.state !== null ? InflationState.fromPartial(object.state) : undefined;
     return message;
+  },
+  fromAmino(object: QueryInflationResponseAmino): QueryInflationResponse {
+    return {
+      state: object?.state ? InflationState.fromAmino(object.state) : undefined
+    };
+  },
+  toAmino(message: QueryInflationResponse): QueryInflationResponseAmino {
+    const obj: any = {};
+    obj.state = message.state ? InflationState.toAmino(message.state) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryInflationResponseAminoMsg): QueryInflationResponse {
+    return QueryInflationResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryInflationResponseProtoMsg): QueryInflationResponse {
+    return QueryInflationResponse.decode(message.value);
+  },
+  toProto(message: QueryInflationResponse): Uint8Array {
+    return QueryInflationResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryInflationResponse): QueryInflationResponseProtoMsg {
+    return {
+      typeUrl: "/em.inflation.v1.QueryInflationResponse",
+      value: QueryInflationResponse.encode(message).finish()
+    };
   }
 };

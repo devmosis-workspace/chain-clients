@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgCreateStaker, MsgCreateStakerResponse, MsgUpdateMetadata, MsgUpdateMetadataResponse, MsgUpdateCommission, MsgUpdateCommissionResponse, MsgClaimCommissionRewards, MsgClaimCommissionRewardsResponse, MsgJoinPool, MsgJoinPoolResponse, MsgLeavePool, MsgLeavePoolResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the Msg service. */
 export interface Msg {
@@ -36,36 +36,36 @@ export class MsgClientImpl implements Msg {
   createStaker(request: MsgCreateStaker): Promise<MsgCreateStakerResponse> {
     const data = MsgCreateStaker.encode(request).finish();
     const promise = this.rpc.request("kyve.stakers.v1beta1.Msg", "CreateStaker", data);
-    return promise.then(data => MsgCreateStakerResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateStakerResponse.decode(new BinaryReader(data)));
   }
   updateMetadata(request: MsgUpdateMetadata): Promise<MsgUpdateMetadataResponse> {
     const data = MsgUpdateMetadata.encode(request).finish();
     const promise = this.rpc.request("kyve.stakers.v1beta1.Msg", "UpdateMetadata", data);
-    return promise.then(data => MsgUpdateMetadataResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateMetadataResponse.decode(new BinaryReader(data)));
   }
   updateCommission(request: MsgUpdateCommission): Promise<MsgUpdateCommissionResponse> {
     const data = MsgUpdateCommission.encode(request).finish();
     const promise = this.rpc.request("kyve.stakers.v1beta1.Msg", "UpdateCommission", data);
-    return promise.then(data => MsgUpdateCommissionResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateCommissionResponse.decode(new BinaryReader(data)));
   }
   claimCommissionRewards(request: MsgClaimCommissionRewards): Promise<MsgClaimCommissionRewardsResponse> {
     const data = MsgClaimCommissionRewards.encode(request).finish();
     const promise = this.rpc.request("kyve.stakers.v1beta1.Msg", "ClaimCommissionRewards", data);
-    return promise.then(data => MsgClaimCommissionRewardsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgClaimCommissionRewardsResponse.decode(new BinaryReader(data)));
   }
   joinPool(request: MsgJoinPool): Promise<MsgJoinPoolResponse> {
     const data = MsgJoinPool.encode(request).finish();
     const promise = this.rpc.request("kyve.stakers.v1beta1.Msg", "JoinPool", data);
-    return promise.then(data => MsgJoinPoolResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgJoinPoolResponse.decode(new BinaryReader(data)));
   }
   leavePool(request: MsgLeavePool): Promise<MsgLeavePoolResponse> {
     const data = MsgLeavePool.encode(request).finish();
     const promise = this.rpc.request("kyve.stakers.v1beta1.Msg", "LeavePool", data);
-    return promise.then(data => MsgLeavePoolResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgLeavePoolResponse.decode(new BinaryReader(data)));
   }
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("kyve.stakers.v1beta1.Msg", "UpdateParams", data);
-    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }

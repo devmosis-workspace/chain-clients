@@ -1,7 +1,18 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../binary";
 import { isSet } from "../helpers";
 export interface Owner {
   address: string;
+}
+export interface OwnerProtoMsg {
+  typeUrl: "/noble.fiattokenfactory.Owner";
+  value: Uint8Array;
+}
+export interface OwnerAmino {
+  address: string;
+}
+export interface OwnerAminoMsg {
+  type: "/noble.fiattokenfactory.Owner";
+  value: OwnerAmino;
 }
 export interface OwnerSDKType {
   address: string;
@@ -12,7 +23,8 @@ function createBaseOwner(): Owner {
   };
 }
 export const Owner = {
-  encode(message: Owner, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/noble.fiattokenfactory.Owner",
+  encode(message: Owner, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
@@ -27,5 +39,30 @@ export const Owner = {
     const message = createBaseOwner();
     message.address = object.address ?? "";
     return message;
+  },
+  fromAmino(object: OwnerAmino): Owner {
+    return {
+      address: object.address
+    };
+  },
+  toAmino(message: Owner): OwnerAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    return obj;
+  },
+  fromAminoMsg(object: OwnerAminoMsg): Owner {
+    return Owner.fromAmino(object.value);
+  },
+  fromProtoMsg(message: OwnerProtoMsg): Owner {
+    return Owner.decode(message.value);
+  },
+  toProto(message: Owner): Uint8Array {
+    return Owner.encode(message).finish();
+  },
+  toProtoMsg(message: Owner): OwnerProtoMsg {
+    return {
+      typeUrl: "/noble.fiattokenfactory.Owner",
+      value: Owner.encode(message).finish()
+    };
   }
 };

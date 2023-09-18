@@ -1,46 +1,63 @@
-import { DecCoin, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
 /** Params defines the parameters for the module. */
 export interface Params {
   priceDenom: string;
-  feePerByte?: DecCoin;
-  maxOfferDurationDays: Long;
-  maxListingDurationDays: Long;
-  maxRoyaltyBasisPoints: Long;
+  feePerByte: DecCoin;
+  maxOfferDurationDays: bigint;
+  maxListingDurationDays: bigint;
+  maxRoyaltyBasisPoints: bigint;
+}
+export interface ParamsProtoMsg {
+  typeUrl: "/likechain.likenft.v1.Params";
+  value: Uint8Array;
+}
+/** Params defines the parameters for the module. */
+export interface ParamsAmino {
+  price_denom: string;
+  fee_per_byte?: DecCoinAmino;
+  max_offer_duration_days: string;
+  max_listing_duration_days: string;
+  max_royalty_basis_points: string;
+}
+export interface ParamsAminoMsg {
+  type: "/likechain.likenft.v1.Params";
+  value: ParamsAmino;
 }
 /** Params defines the parameters for the module. */
 export interface ParamsSDKType {
   price_denom: string;
-  fee_per_byte?: DecCoinSDKType;
-  max_offer_duration_days: Long;
-  max_listing_duration_days: Long;
-  max_royalty_basis_points: Long;
+  fee_per_byte: DecCoinSDKType;
+  max_offer_duration_days: bigint;
+  max_listing_duration_days: bigint;
+  max_royalty_basis_points: bigint;
 }
 function createBaseParams(): Params {
   return {
     priceDenom: "",
-    feePerByte: undefined,
-    maxOfferDurationDays: Long.UZERO,
-    maxListingDurationDays: Long.UZERO,
-    maxRoyaltyBasisPoints: Long.UZERO
+    feePerByte: DecCoin.fromPartial({}),
+    maxOfferDurationDays: BigInt(0),
+    maxListingDurationDays: BigInt(0),
+    maxRoyaltyBasisPoints: BigInt(0)
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.likenft.v1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.priceDenom !== "") {
       writer.uint32(10).string(message.priceDenom);
     }
     if (message.feePerByte !== undefined) {
       DecCoin.encode(message.feePerByte, writer.uint32(18).fork()).ldelim();
     }
-    if (!message.maxOfferDurationDays.isZero()) {
+    if (message.maxOfferDurationDays !== BigInt(0)) {
       writer.uint32(24).uint64(message.maxOfferDurationDays);
     }
-    if (!message.maxListingDurationDays.isZero()) {
+    if (message.maxListingDurationDays !== BigInt(0)) {
       writer.uint32(32).uint64(message.maxListingDurationDays);
     }
-    if (!message.maxRoyaltyBasisPoints.isZero()) {
+    if (message.maxRoyaltyBasisPoints !== BigInt(0)) {
       writer.uint32(40).uint64(message.maxRoyaltyBasisPoints);
     }
     return writer;
@@ -49,18 +66,51 @@ export const Params = {
     return {
       priceDenom: isSet(object.priceDenom) ? String(object.priceDenom) : "",
       feePerByte: isSet(object.feePerByte) ? DecCoin.fromJSON(object.feePerByte) : undefined,
-      maxOfferDurationDays: isSet(object.maxOfferDurationDays) ? Long.fromValue(object.maxOfferDurationDays) : Long.UZERO,
-      maxListingDurationDays: isSet(object.maxListingDurationDays) ? Long.fromValue(object.maxListingDurationDays) : Long.UZERO,
-      maxRoyaltyBasisPoints: isSet(object.maxRoyaltyBasisPoints) ? Long.fromValue(object.maxRoyaltyBasisPoints) : Long.UZERO
+      maxOfferDurationDays: isSet(object.maxOfferDurationDays) ? BigInt(object.maxOfferDurationDays.toString()) : BigInt(0),
+      maxListingDurationDays: isSet(object.maxListingDurationDays) ? BigInt(object.maxListingDurationDays.toString()) : BigInt(0),
+      maxRoyaltyBasisPoints: isSet(object.maxRoyaltyBasisPoints) ? BigInt(object.maxRoyaltyBasisPoints.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<Params>): Params {
     const message = createBaseParams();
     message.priceDenom = object.priceDenom ?? "";
     message.feePerByte = object.feePerByte !== undefined && object.feePerByte !== null ? DecCoin.fromPartial(object.feePerByte) : undefined;
-    message.maxOfferDurationDays = object.maxOfferDurationDays !== undefined && object.maxOfferDurationDays !== null ? Long.fromValue(object.maxOfferDurationDays) : Long.UZERO;
-    message.maxListingDurationDays = object.maxListingDurationDays !== undefined && object.maxListingDurationDays !== null ? Long.fromValue(object.maxListingDurationDays) : Long.UZERO;
-    message.maxRoyaltyBasisPoints = object.maxRoyaltyBasisPoints !== undefined && object.maxRoyaltyBasisPoints !== null ? Long.fromValue(object.maxRoyaltyBasisPoints) : Long.UZERO;
+    message.maxOfferDurationDays = object.maxOfferDurationDays !== undefined && object.maxOfferDurationDays !== null ? BigInt(object.maxOfferDurationDays.toString()) : BigInt(0);
+    message.maxListingDurationDays = object.maxListingDurationDays !== undefined && object.maxListingDurationDays !== null ? BigInt(object.maxListingDurationDays.toString()) : BigInt(0);
+    message.maxRoyaltyBasisPoints = object.maxRoyaltyBasisPoints !== undefined && object.maxRoyaltyBasisPoints !== null ? BigInt(object.maxRoyaltyBasisPoints.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      priceDenom: object.price_denom,
+      feePerByte: object?.fee_per_byte ? DecCoin.fromAmino(object.fee_per_byte) : undefined,
+      maxOfferDurationDays: BigInt(object.max_offer_duration_days),
+      maxListingDurationDays: BigInt(object.max_listing_duration_days),
+      maxRoyaltyBasisPoints: BigInt(object.max_royalty_basis_points)
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.price_denom = message.priceDenom;
+    obj.fee_per_byte = message.feePerByte ? DecCoin.toAmino(message.feePerByte) : undefined;
+    obj.max_offer_duration_days = message.maxOfferDurationDays ? message.maxOfferDurationDays.toString() : undefined;
+    obj.max_listing_duration_days = message.maxListingDurationDays ? message.maxListingDurationDays.toString() : undefined;
+    obj.max_royalty_basis_points = message.maxRoyaltyBasisPoints ? message.maxRoyaltyBasisPoints.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsProtoMsg): Params {
+    return Params.decode(message.value);
+  },
+  toProto(message: Params): Uint8Array {
+    return Params.encode(message).finish();
+  },
+  toProtoMsg(message: Params): ParamsProtoMsg {
+    return {
+      typeUrl: "/likechain.likenft.v1.Params",
+      value: Params.encode(message).finish()
+    };
   }
 };

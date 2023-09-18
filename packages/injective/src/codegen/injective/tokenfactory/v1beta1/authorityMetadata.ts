@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /**
  * DenomAuthorityMetadata specifies metadata for addresses that have specific
@@ -8,6 +8,23 @@ import { isSet } from "../../../helpers";
 export interface DenomAuthorityMetadata {
   /** Can be empty for no admin, or a valid injective address */
   admin: string;
+}
+export interface DenomAuthorityMetadataProtoMsg {
+  typeUrl: "/injective.tokenfactory.v1beta1.DenomAuthorityMetadata";
+  value: Uint8Array;
+}
+/**
+ * DenomAuthorityMetadata specifies metadata for addresses that have specific
+ * capabilities over a token factory denom. Right now there is only one Admin
+ * permission, but is planned to be extended to the future.
+ */
+export interface DenomAuthorityMetadataAmino {
+  /** Can be empty for no admin, or a valid injective address */
+  admin: string;
+}
+export interface DenomAuthorityMetadataAminoMsg {
+  type: "/injective.tokenfactory.v1beta1.DenomAuthorityMetadata";
+  value: DenomAuthorityMetadataAmino;
 }
 /**
  * DenomAuthorityMetadata specifies metadata for addresses that have specific
@@ -23,7 +40,8 @@ function createBaseDenomAuthorityMetadata(): DenomAuthorityMetadata {
   };
 }
 export const DenomAuthorityMetadata = {
-  encode(message: DenomAuthorityMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.tokenfactory.v1beta1.DenomAuthorityMetadata",
+  encode(message: DenomAuthorityMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.admin !== "") {
       writer.uint32(10).string(message.admin);
     }
@@ -38,5 +56,30 @@ export const DenomAuthorityMetadata = {
     const message = createBaseDenomAuthorityMetadata();
     message.admin = object.admin ?? "";
     return message;
+  },
+  fromAmino(object: DenomAuthorityMetadataAmino): DenomAuthorityMetadata {
+    return {
+      admin: object.admin
+    };
+  },
+  toAmino(message: DenomAuthorityMetadata): DenomAuthorityMetadataAmino {
+    const obj: any = {};
+    obj.admin = message.admin;
+    return obj;
+  },
+  fromAminoMsg(object: DenomAuthorityMetadataAminoMsg): DenomAuthorityMetadata {
+    return DenomAuthorityMetadata.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DenomAuthorityMetadataProtoMsg): DenomAuthorityMetadata {
+    return DenomAuthorityMetadata.decode(message.value);
+  },
+  toProto(message: DenomAuthorityMetadata): Uint8Array {
+    return DenomAuthorityMetadata.encode(message).finish();
+  },
+  toProtoMsg(message: DenomAuthorityMetadata): DenomAuthorityMetadataProtoMsg {
+    return {
+      typeUrl: "/injective.tokenfactory.v1beta1.DenomAuthorityMetadata",
+      value: DenomAuthorityMetadata.encode(message).finish()
+    };
   }
 };

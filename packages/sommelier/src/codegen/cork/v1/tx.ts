@@ -1,45 +1,96 @@
-import { Cork, CorkSDKType } from "./cork";
-import { Long, isSet } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Cork, CorkAmino, CorkSDKType } from "./cork";
+import { BinaryWriter } from "../../binary";
+import { isSet } from "../../helpers";
 /** MsgSubmitCorkRequest - sdk.Msg for submitting calls to Ethereum through the gravity bridge contract */
 export interface MsgSubmitCorkRequest {
   /** the cork to send across the bridge */
-  cork?: Cork;
+  cork: Cork;
   /** signer account address */
   signer: string;
 }
+export interface MsgSubmitCorkRequestProtoMsg {
+  typeUrl: "/cork.v1.MsgSubmitCorkRequest";
+  value: Uint8Array;
+}
+/** MsgSubmitCorkRequest - sdk.Msg for submitting calls to Ethereum through the gravity bridge contract */
+export interface MsgSubmitCorkRequestAmino {
+  /** the cork to send across the bridge */
+  cork?: CorkAmino;
+  /** signer account address */
+  signer: string;
+}
+export interface MsgSubmitCorkRequestAminoMsg {
+  type: "/cork.v1.MsgSubmitCorkRequest";
+  value: MsgSubmitCorkRequestAmino;
+}
 /** MsgSubmitCorkRequest - sdk.Msg for submitting calls to Ethereum through the gravity bridge contract */
 export interface MsgSubmitCorkRequestSDKType {
-  cork?: CorkSDKType;
+  cork: CorkSDKType;
   signer: string;
 }
 export interface MsgSubmitCorkResponse {}
+export interface MsgSubmitCorkResponseProtoMsg {
+  typeUrl: "/cork.v1.MsgSubmitCorkResponse";
+  value: Uint8Array;
+}
+export interface MsgSubmitCorkResponseAmino {}
+export interface MsgSubmitCorkResponseAminoMsg {
+  type: "/cork.v1.MsgSubmitCorkResponse";
+  value: MsgSubmitCorkResponseAmino;
+}
 export interface MsgSubmitCorkResponseSDKType {}
 /** MsgScheduleCorkRequest - sdk.Msg for scheduling a cork request for on or after a specific block height */
 export interface MsgScheduleCorkRequest {
   /** the scheduled cork */
-  cork?: Cork;
+  cork: Cork;
   /** the block height that must be reached */
-  blockHeight: Long;
+  blockHeight: bigint;
   /** signer account address */
   signer: string;
 }
+export interface MsgScheduleCorkRequestProtoMsg {
+  typeUrl: "/cork.v1.MsgScheduleCorkRequest";
+  value: Uint8Array;
+}
+/** MsgScheduleCorkRequest - sdk.Msg for scheduling a cork request for on or after a specific block height */
+export interface MsgScheduleCorkRequestAmino {
+  /** the scheduled cork */
+  cork?: CorkAmino;
+  /** the block height that must be reached */
+  block_height: string;
+  /** signer account address */
+  signer: string;
+}
+export interface MsgScheduleCorkRequestAminoMsg {
+  type: "/cork.v1.MsgScheduleCorkRequest";
+  value: MsgScheduleCorkRequestAmino;
+}
 /** MsgScheduleCorkRequest - sdk.Msg for scheduling a cork request for on or after a specific block height */
 export interface MsgScheduleCorkRequestSDKType {
-  cork?: CorkSDKType;
-  block_height: Long;
+  cork: CorkSDKType;
+  block_height: bigint;
   signer: string;
 }
 export interface MsgScheduleCorkResponse {}
+export interface MsgScheduleCorkResponseProtoMsg {
+  typeUrl: "/cork.v1.MsgScheduleCorkResponse";
+  value: Uint8Array;
+}
+export interface MsgScheduleCorkResponseAmino {}
+export interface MsgScheduleCorkResponseAminoMsg {
+  type: "/cork.v1.MsgScheduleCorkResponse";
+  value: MsgScheduleCorkResponseAmino;
+}
 export interface MsgScheduleCorkResponseSDKType {}
 function createBaseMsgSubmitCorkRequest(): MsgSubmitCorkRequest {
   return {
-    cork: undefined,
+    cork: Cork.fromPartial({}),
     signer: ""
   };
 }
 export const MsgSubmitCorkRequest = {
-  encode(message: MsgSubmitCorkRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cork.v1.MsgSubmitCorkRequest",
+  encode(message: MsgSubmitCorkRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.cork !== undefined) {
       Cork.encode(message.cork, writer.uint32(10).fork()).ldelim();
     }
@@ -59,13 +110,41 @@ export const MsgSubmitCorkRequest = {
     message.cork = object.cork !== undefined && object.cork !== null ? Cork.fromPartial(object.cork) : undefined;
     message.signer = object.signer ?? "";
     return message;
+  },
+  fromAmino(object: MsgSubmitCorkRequestAmino): MsgSubmitCorkRequest {
+    return {
+      cork: object?.cork ? Cork.fromAmino(object.cork) : undefined,
+      signer: object.signer
+    };
+  },
+  toAmino(message: MsgSubmitCorkRequest): MsgSubmitCorkRequestAmino {
+    const obj: any = {};
+    obj.cork = message.cork ? Cork.toAmino(message.cork) : undefined;
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitCorkRequestAminoMsg): MsgSubmitCorkRequest {
+    return MsgSubmitCorkRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSubmitCorkRequestProtoMsg): MsgSubmitCorkRequest {
+    return MsgSubmitCorkRequest.decode(message.value);
+  },
+  toProto(message: MsgSubmitCorkRequest): Uint8Array {
+    return MsgSubmitCorkRequest.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSubmitCorkRequest): MsgSubmitCorkRequestProtoMsg {
+    return {
+      typeUrl: "/cork.v1.MsgSubmitCorkRequest",
+      value: MsgSubmitCorkRequest.encode(message).finish()
+    };
   }
 };
 function createBaseMsgSubmitCorkResponse(): MsgSubmitCorkResponse {
   return {};
 }
 export const MsgSubmitCorkResponse = {
-  encode(_: MsgSubmitCorkResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cork.v1.MsgSubmitCorkResponse",
+  encode(_: MsgSubmitCorkResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgSubmitCorkResponse {
@@ -74,21 +153,44 @@ export const MsgSubmitCorkResponse = {
   fromPartial(_: Partial<MsgSubmitCorkResponse>): MsgSubmitCorkResponse {
     const message = createBaseMsgSubmitCorkResponse();
     return message;
+  },
+  fromAmino(_: MsgSubmitCorkResponseAmino): MsgSubmitCorkResponse {
+    return {};
+  },
+  toAmino(_: MsgSubmitCorkResponse): MsgSubmitCorkResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitCorkResponseAminoMsg): MsgSubmitCorkResponse {
+    return MsgSubmitCorkResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSubmitCorkResponseProtoMsg): MsgSubmitCorkResponse {
+    return MsgSubmitCorkResponse.decode(message.value);
+  },
+  toProto(message: MsgSubmitCorkResponse): Uint8Array {
+    return MsgSubmitCorkResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSubmitCorkResponse): MsgSubmitCorkResponseProtoMsg {
+    return {
+      typeUrl: "/cork.v1.MsgSubmitCorkResponse",
+      value: MsgSubmitCorkResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgScheduleCorkRequest(): MsgScheduleCorkRequest {
   return {
-    cork: undefined,
-    blockHeight: Long.UZERO,
+    cork: Cork.fromPartial({}),
+    blockHeight: BigInt(0),
     signer: ""
   };
 }
 export const MsgScheduleCorkRequest = {
-  encode(message: MsgScheduleCorkRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cork.v1.MsgScheduleCorkRequest",
+  encode(message: MsgScheduleCorkRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.cork !== undefined) {
       Cork.encode(message.cork, writer.uint32(10).fork()).ldelim();
     }
-    if (!message.blockHeight.isZero()) {
+    if (message.blockHeight !== BigInt(0)) {
       writer.uint32(16).uint64(message.blockHeight);
     }
     if (message.signer !== "") {
@@ -99,23 +201,53 @@ export const MsgScheduleCorkRequest = {
   fromJSON(object: any): MsgScheduleCorkRequest {
     return {
       cork: isSet(object.cork) ? Cork.fromJSON(object.cork) : undefined,
-      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.UZERO,
+      blockHeight: isSet(object.blockHeight) ? BigInt(object.blockHeight.toString()) : BigInt(0),
       signer: isSet(object.signer) ? String(object.signer) : ""
     };
   },
   fromPartial(object: Partial<MsgScheduleCorkRequest>): MsgScheduleCorkRequest {
     const message = createBaseMsgScheduleCorkRequest();
     message.cork = object.cork !== undefined && object.cork !== null ? Cork.fromPartial(object.cork) : undefined;
-    message.blockHeight = object.blockHeight !== undefined && object.blockHeight !== null ? Long.fromValue(object.blockHeight) : Long.UZERO;
+    message.blockHeight = object.blockHeight !== undefined && object.blockHeight !== null ? BigInt(object.blockHeight.toString()) : BigInt(0);
     message.signer = object.signer ?? "";
     return message;
+  },
+  fromAmino(object: MsgScheduleCorkRequestAmino): MsgScheduleCorkRequest {
+    return {
+      cork: object?.cork ? Cork.fromAmino(object.cork) : undefined,
+      blockHeight: BigInt(object.block_height),
+      signer: object.signer
+    };
+  },
+  toAmino(message: MsgScheduleCorkRequest): MsgScheduleCorkRequestAmino {
+    const obj: any = {};
+    obj.cork = message.cork ? Cork.toAmino(message.cork) : undefined;
+    obj.block_height = message.blockHeight ? message.blockHeight.toString() : undefined;
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgScheduleCorkRequestAminoMsg): MsgScheduleCorkRequest {
+    return MsgScheduleCorkRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgScheduleCorkRequestProtoMsg): MsgScheduleCorkRequest {
+    return MsgScheduleCorkRequest.decode(message.value);
+  },
+  toProto(message: MsgScheduleCorkRequest): Uint8Array {
+    return MsgScheduleCorkRequest.encode(message).finish();
+  },
+  toProtoMsg(message: MsgScheduleCorkRequest): MsgScheduleCorkRequestProtoMsg {
+    return {
+      typeUrl: "/cork.v1.MsgScheduleCorkRequest",
+      value: MsgScheduleCorkRequest.encode(message).finish()
+    };
   }
 };
 function createBaseMsgScheduleCorkResponse(): MsgScheduleCorkResponse {
   return {};
 }
 export const MsgScheduleCorkResponse = {
-  encode(_: MsgScheduleCorkResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cork.v1.MsgScheduleCorkResponse",
+  encode(_: MsgScheduleCorkResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgScheduleCorkResponse {
@@ -124,5 +256,27 @@ export const MsgScheduleCorkResponse = {
   fromPartial(_: Partial<MsgScheduleCorkResponse>): MsgScheduleCorkResponse {
     const message = createBaseMsgScheduleCorkResponse();
     return message;
+  },
+  fromAmino(_: MsgScheduleCorkResponseAmino): MsgScheduleCorkResponse {
+    return {};
+  },
+  toAmino(_: MsgScheduleCorkResponse): MsgScheduleCorkResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgScheduleCorkResponseAminoMsg): MsgScheduleCorkResponse {
+    return MsgScheduleCorkResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgScheduleCorkResponseProtoMsg): MsgScheduleCorkResponse {
+    return MsgScheduleCorkResponse.decode(message.value);
+  },
+  toProto(message: MsgScheduleCorkResponse): Uint8Array {
+    return MsgScheduleCorkResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgScheduleCorkResponse): MsgScheduleCorkResponseProtoMsg {
+    return {
+      typeUrl: "/cork.v1.MsgScheduleCorkResponse",
+      value: MsgScheduleCorkResponse.encode(message).finish()
+    };
   }
 };

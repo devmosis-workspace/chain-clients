@@ -1,5 +1,5 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgSetHotRoutes, MsgSetDeveloperAccount, MsgSetMaxPoolPointsPerTx, MsgSetMaxPoolPointsPerBlock, MsgSetPoolWeights, MsgSetBaseDenoms } from "./tx";
+import { MsgSetHotRoutes, MsgSetDeveloperAccount, MsgSetMaxPoolPointsPerTx, MsgSetMaxPoolPointsPerBlock, MsgSetInfoByPoolType, MsgSetBaseDenoms } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
@@ -20,7 +20,7 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: Uint8Array;
         };
-        setPoolWeights(value: MsgSetPoolWeights): {
+        setInfoByPoolType(value: MsgSetInfoByPoolType): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -46,9 +46,9 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgSetMaxPoolPointsPerBlock;
         };
-        setPoolWeights(value: MsgSetPoolWeights): {
+        setInfoByPoolType(value: MsgSetInfoByPoolType): {
             typeUrl: string;
-            value: MsgSetPoolWeights;
+            value: MsgSetInfoByPoolType;
         };
         setBaseDenoms(value: MsgSetBaseDenoms): {
             typeUrl: string;
@@ -72,9 +72,9 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgSetMaxPoolPointsPerBlock;
         };
-        setPoolWeights(value: any): {
+        setInfoByPoolType(value: any): {
             typeUrl: string;
-            value: MsgSetPoolWeights;
+            value: MsgSetInfoByPoolType;
         };
         setBaseDenoms(value: any): {
             typeUrl: string;
@@ -98,9 +98,9 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgSetMaxPoolPointsPerBlock;
         };
-        setPoolWeights(value: MsgSetPoolWeights): {
+        setInfoByPoolType(value: MsgSetInfoByPoolType): {
             typeUrl: string;
-            value: MsgSetPoolWeights;
+            value: MsgSetInfoByPoolType;
         };
         setBaseDenoms(value: MsgSetBaseDenoms): {
             typeUrl: string;

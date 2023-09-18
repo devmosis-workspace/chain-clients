@@ -1,5 +1,5 @@
 import { Rpc } from "../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryTotalBurnedNeutronsAmountRequest, QueryTotalBurnedNeutronsAmountResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -19,12 +19,12 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.feeburner.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   totalBurnedNeutronsAmount(request: QueryTotalBurnedNeutronsAmountRequest = {}): Promise<QueryTotalBurnedNeutronsAmountResponse> {
     const data = QueryTotalBurnedNeutronsAmountRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.feeburner.Query", "TotalBurnedNeutronsAmount", data);
-    return promise.then(data => QueryTotalBurnedNeutronsAmountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryTotalBurnedNeutronsAmountResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

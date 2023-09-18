@@ -1,22 +1,35 @@
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp, bytesFromBase64 } from "../../../helpers";
 export interface OfferExpireQueueEntry {
-  expireTime?: Timestamp;
+  expireTime: Timestamp;
   offerKey: Uint8Array;
 }
+export interface OfferExpireQueueEntryProtoMsg {
+  typeUrl: "/likechain.likenft.v1.OfferExpireQueueEntry";
+  value: Uint8Array;
+}
+export interface OfferExpireQueueEntryAmino {
+  expire_time?: TimestampAmino;
+  offer_key: Uint8Array;
+}
+export interface OfferExpireQueueEntryAminoMsg {
+  type: "/likechain.likenft.v1.OfferExpireQueueEntry";
+  value: OfferExpireQueueEntryAmino;
+}
 export interface OfferExpireQueueEntrySDKType {
-  expire_time?: TimestampSDKType;
+  expire_time: TimestampSDKType;
   offer_key: Uint8Array;
 }
 function createBaseOfferExpireQueueEntry(): OfferExpireQueueEntry {
   return {
-    expireTime: undefined,
+    expireTime: Timestamp.fromPartial({}),
     offerKey: new Uint8Array()
   };
 }
 export const OfferExpireQueueEntry = {
-  encode(message: OfferExpireQueueEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.likenft.v1.OfferExpireQueueEntry",
+  encode(message: OfferExpireQueueEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.expireTime !== undefined) {
       Timestamp.encode(message.expireTime, writer.uint32(10).fork()).ldelim();
     }
@@ -36,5 +49,32 @@ export const OfferExpireQueueEntry = {
     message.expireTime = object.expireTime !== undefined && object.expireTime !== null ? Timestamp.fromPartial(object.expireTime) : undefined;
     message.offerKey = object.offerKey ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: OfferExpireQueueEntryAmino): OfferExpireQueueEntry {
+    return {
+      expireTime: object.expire_time,
+      offerKey: object.offer_key
+    };
+  },
+  toAmino(message: OfferExpireQueueEntry): OfferExpireQueueEntryAmino {
+    const obj: any = {};
+    obj.expire_time = message.expireTime;
+    obj.offer_key = message.offerKey;
+    return obj;
+  },
+  fromAminoMsg(object: OfferExpireQueueEntryAminoMsg): OfferExpireQueueEntry {
+    return OfferExpireQueueEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: OfferExpireQueueEntryProtoMsg): OfferExpireQueueEntry {
+    return OfferExpireQueueEntry.decode(message.value);
+  },
+  toProto(message: OfferExpireQueueEntry): Uint8Array {
+    return OfferExpireQueueEntry.encode(message).finish();
+  },
+  toProtoMsg(message: OfferExpireQueueEntry): OfferExpireQueueEntryProtoMsg {
+    return {
+      typeUrl: "/likechain.likenft.v1.OfferExpireQueueEntry",
+      value: OfferExpireQueueEntry.encode(message).finish()
+    };
   }
 };

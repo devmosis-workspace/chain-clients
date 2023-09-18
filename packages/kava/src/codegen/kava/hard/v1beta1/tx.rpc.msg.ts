@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgDeposit, MsgDepositResponse, MsgWithdraw, MsgWithdrawResponse, MsgBorrow, MsgBorrowResponse, MsgRepay, MsgRepayResponse, MsgLiquidate, MsgLiquidateResponse } from "./tx";
 /** Msg defines the hard Msg service. */
 export interface Msg {
@@ -27,26 +27,26 @@ export class MsgClientImpl implements Msg {
   deposit(request: MsgDeposit): Promise<MsgDepositResponse> {
     const data = MsgDeposit.encode(request).finish();
     const promise = this.rpc.request("kava.hard.v1beta1.Msg", "Deposit", data);
-    return promise.then(data => MsgDepositResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDepositResponse.decode(new BinaryReader(data)));
   }
   withdraw(request: MsgWithdraw): Promise<MsgWithdrawResponse> {
     const data = MsgWithdraw.encode(request).finish();
     const promise = this.rpc.request("kava.hard.v1beta1.Msg", "Withdraw", data);
-    return promise.then(data => MsgWithdrawResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgWithdrawResponse.decode(new BinaryReader(data)));
   }
   borrow(request: MsgBorrow): Promise<MsgBorrowResponse> {
     const data = MsgBorrow.encode(request).finish();
     const promise = this.rpc.request("kava.hard.v1beta1.Msg", "Borrow", data);
-    return promise.then(data => MsgBorrowResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBorrowResponse.decode(new BinaryReader(data)));
   }
   repay(request: MsgRepay): Promise<MsgRepayResponse> {
     const data = MsgRepay.encode(request).finish();
     const promise = this.rpc.request("kava.hard.v1beta1.Msg", "Repay", data);
-    return promise.then(data => MsgRepayResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRepayResponse.decode(new BinaryReader(data)));
   }
   liquidate(request: MsgLiquidate): Promise<MsgLiquidateResponse> {
     const data = MsgLiquidate.encode(request).finish();
     const promise = this.rpc.request("kava.hard.v1beta1.Msg", "Liquidate", data);
-    return promise.then(data => MsgLiquidateResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgLiquidateResponse.decode(new BinaryReader(data)));
   }
 }

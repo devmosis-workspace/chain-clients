@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryListRequest, QueryListResponse, QueryMintableRequest, QueryMintableResponse } from "./query";
 export interface Query {
@@ -16,12 +16,12 @@ export class QueryClientImpl implements Query {
   list(request: QueryListRequest = {}): Promise<QueryListResponse> {
     const data = QueryListRequest.encode(request).finish();
     const promise = this.rpc.request("em.liquidityprovider.v1.Query", "List", data);
-    return promise.then(data => QueryListResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryListResponse.decode(new BinaryReader(data)));
   }
   mintable(request: QueryMintableRequest): Promise<QueryMintableResponse> {
     const data = QueryMintableRequest.encode(request).finish();
     const promise = this.rpc.request("em.liquidityprovider.v1.Query", "Mintable", data);
-    return promise.then(data => QueryMintableResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryMintableResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

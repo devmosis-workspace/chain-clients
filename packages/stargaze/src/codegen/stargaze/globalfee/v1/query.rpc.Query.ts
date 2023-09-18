@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryCodeAuthorizationRequest, QueryCodeAuthorizationResponse, QueryContractAuthorizationRequest, QueryContractAuthorizationResponse, QueryParamsRequest, QueryParamsResponse, QueryAuthorizationsRequest, QueryAuthorizationsResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -21,22 +21,22 @@ export class QueryClientImpl implements Query {
   codeAuthorization(request: QueryCodeAuthorizationRequest): Promise<QueryCodeAuthorizationResponse> {
     const data = QueryCodeAuthorizationRequest.encode(request).finish();
     const promise = this.rpc.request("publicawesome.stargaze.globalfee.v1.Query", "CodeAuthorization", data);
-    return promise.then(data => QueryCodeAuthorizationResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCodeAuthorizationResponse.decode(new BinaryReader(data)));
   }
   contractAuthorization(request: QueryContractAuthorizationRequest): Promise<QueryContractAuthorizationResponse> {
     const data = QueryContractAuthorizationRequest.encode(request).finish();
     const promise = this.rpc.request("publicawesome.stargaze.globalfee.v1.Query", "ContractAuthorization", data);
-    return promise.then(data => QueryContractAuthorizationResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryContractAuthorizationResponse.decode(new BinaryReader(data)));
   }
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("publicawesome.stargaze.globalfee.v1.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   authorizations(request: QueryAuthorizationsRequest = {}): Promise<QueryAuthorizationsResponse> {
     const data = QueryAuthorizationsRequest.encode(request).finish();
     const promise = this.rpc.request("publicawesome.stargaze.globalfee.v1.Query", "Authorizations", data);
-    return promise.then(data => QueryAuthorizationsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAuthorizationsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

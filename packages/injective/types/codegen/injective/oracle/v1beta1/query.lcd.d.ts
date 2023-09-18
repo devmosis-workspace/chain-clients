@@ -1,4 +1,4 @@
-import { LCDClient } from "@osmonauts/lcd";
+import { LCDClient } from "@cosmology/lcd";
 import { QueryParamsRequest, QueryParamsResponseSDKType, QueryBandRelayersRequest, QueryBandRelayersResponseSDKType, QueryBandPriceStatesRequest, QueryBandPriceStatesResponseSDKType, QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponseSDKType, QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponseSDKType, QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponseSDKType, QueryPythPriceStatesRequest, QueryPythPriceStatesResponseSDKType, QueryProviderPriceStateRequest, QueryProviderPriceStateResponseSDKType, QueryModuleStateRequest, QueryModuleStateResponseSDKType, QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponseSDKType, QueryOracleVolatilityRequest, QueryOracleVolatilityResponseSDKType, QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponseSDKType, QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponseSDKType, QueryOraclePriceRequest, QueryOraclePriceResponseSDKType, QueryPythPriceRequest, QueryPythPriceResponseSDKType } from "./query";
 export declare class LCDQueryClient {
     req: LCDClient;

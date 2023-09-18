@@ -1,9 +1,22 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../../binary";
 import { isSet, bytesFromBase64 } from "../../../../helpers";
 export interface KeygenRequest {
   keyUid: string;
   /** used only for logging */
   partyUid: string;
+}
+export interface KeygenRequestProtoMsg {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.KeygenRequest";
+  value: Uint8Array;
+}
+export interface KeygenRequestAmino {
+  key_uid: string;
+  /** used only for logging */
+  party_uid: string;
+}
+export interface KeygenRequestAminoMsg {
+  type: "/axelar.tss.tofnd.v1beta1.KeygenRequest";
+  value: KeygenRequestAmino;
 }
 export interface KeygenRequestSDKType {
   key_uid: string;
@@ -14,6 +27,20 @@ export interface KeygenResponse {
   pubKey?: Uint8Array;
   /** reply with an error message if keygen fails */
   error?: string;
+}
+export interface KeygenResponseProtoMsg {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.KeygenResponse";
+  value: Uint8Array;
+}
+export interface KeygenResponseAmino {
+  /** SEC1-encoded compressed curve point */
+  pub_key?: Uint8Array;
+  /** reply with an error message if keygen fails */
+  error?: string;
+}
+export interface KeygenResponseAminoMsg {
+  type: "/axelar.tss.tofnd.v1beta1.KeygenResponse";
+  value: KeygenResponseAmino;
 }
 export interface KeygenResponseSDKType {
   pub_key?: Uint8Array;
@@ -31,6 +58,26 @@ export interface SignRequest {
    */
   pubKey: Uint8Array;
 }
+export interface SignRequestProtoMsg {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.SignRequest";
+  value: Uint8Array;
+}
+export interface SignRequestAmino {
+  key_uid: string;
+  /** 32-byte pre-hashed message digest */
+  msg_to_sign: Uint8Array;
+  /** used only for logging */
+  party_uid: string;
+  /**
+   * SEC1-encoded compressed pub key bytes to find the right
+   * mnemonic. Latest is used, if empty.
+   */
+  pub_key: Uint8Array;
+}
+export interface SignRequestAminoMsg {
+  type: "/axelar.tss.tofnd.v1beta1.SignRequest";
+  value: SignRequestAmino;
+}
 export interface SignRequestSDKType {
   key_uid: string;
   msg_to_sign: Uint8Array;
@@ -43,6 +90,20 @@ export interface SignResponse {
   /** reply with an error message if sign fails */
   error?: string;
 }
+export interface SignResponseProtoMsg {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.SignResponse";
+  value: Uint8Array;
+}
+export interface SignResponseAmino {
+  /** ASN.1 DER-encoded ECDSA signature */
+  signature?: Uint8Array;
+  /** reply with an error message if sign fails */
+  error?: string;
+}
+export interface SignResponseAminoMsg {
+  type: "/axelar.tss.tofnd.v1beta1.SignResponse";
+  value: SignResponseAmino;
+}
 export interface SignResponseSDKType {
   signature?: Uint8Array;
   error?: string;
@@ -54,7 +115,8 @@ function createBaseKeygenRequest(): KeygenRequest {
   };
 }
 export const KeygenRequest = {
-  encode(message: KeygenRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.KeygenRequest",
+  encode(message: KeygenRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.keyUid !== "") {
       writer.uint32(10).string(message.keyUid);
     }
@@ -74,6 +136,33 @@ export const KeygenRequest = {
     message.keyUid = object.keyUid ?? "";
     message.partyUid = object.partyUid ?? "";
     return message;
+  },
+  fromAmino(object: KeygenRequestAmino): KeygenRequest {
+    return {
+      keyUid: object.key_uid,
+      partyUid: object.party_uid
+    };
+  },
+  toAmino(message: KeygenRequest): KeygenRequestAmino {
+    const obj: any = {};
+    obj.key_uid = message.keyUid;
+    obj.party_uid = message.partyUid;
+    return obj;
+  },
+  fromAminoMsg(object: KeygenRequestAminoMsg): KeygenRequest {
+    return KeygenRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeygenRequestProtoMsg): KeygenRequest {
+    return KeygenRequest.decode(message.value);
+  },
+  toProto(message: KeygenRequest): Uint8Array {
+    return KeygenRequest.encode(message).finish();
+  },
+  toProtoMsg(message: KeygenRequest): KeygenRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.tofnd.v1beta1.KeygenRequest",
+      value: KeygenRequest.encode(message).finish()
+    };
   }
 };
 function createBaseKeygenResponse(): KeygenResponse {
@@ -83,7 +172,8 @@ function createBaseKeygenResponse(): KeygenResponse {
   };
 }
 export const KeygenResponse = {
-  encode(message: KeygenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.KeygenResponse",
+  encode(message: KeygenResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pubKey !== undefined) {
       writer.uint32(10).bytes(message.pubKey);
     }
@@ -103,6 +193,33 @@ export const KeygenResponse = {
     message.pubKey = object.pubKey ?? undefined;
     message.error = object.error ?? undefined;
     return message;
+  },
+  fromAmino(object: KeygenResponseAmino): KeygenResponse {
+    return {
+      pubKey: object?.pub_key,
+      error: object?.error
+    };
+  },
+  toAmino(message: KeygenResponse): KeygenResponseAmino {
+    const obj: any = {};
+    obj.pub_key = message.pubKey;
+    obj.error = message.error;
+    return obj;
+  },
+  fromAminoMsg(object: KeygenResponseAminoMsg): KeygenResponse {
+    return KeygenResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeygenResponseProtoMsg): KeygenResponse {
+    return KeygenResponse.decode(message.value);
+  },
+  toProto(message: KeygenResponse): Uint8Array {
+    return KeygenResponse.encode(message).finish();
+  },
+  toProtoMsg(message: KeygenResponse): KeygenResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.tofnd.v1beta1.KeygenResponse",
+      value: KeygenResponse.encode(message).finish()
+    };
   }
 };
 function createBaseSignRequest(): SignRequest {
@@ -114,7 +231,8 @@ function createBaseSignRequest(): SignRequest {
   };
 }
 export const SignRequest = {
-  encode(message: SignRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.SignRequest",
+  encode(message: SignRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.keyUid !== "") {
       writer.uint32(10).string(message.keyUid);
     }
@@ -144,6 +262,37 @@ export const SignRequest = {
     message.partyUid = object.partyUid ?? "";
     message.pubKey = object.pubKey ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: SignRequestAmino): SignRequest {
+    return {
+      keyUid: object.key_uid,
+      msgToSign: object.msg_to_sign,
+      partyUid: object.party_uid,
+      pubKey: object.pub_key
+    };
+  },
+  toAmino(message: SignRequest): SignRequestAmino {
+    const obj: any = {};
+    obj.key_uid = message.keyUid;
+    obj.msg_to_sign = message.msgToSign;
+    obj.party_uid = message.partyUid;
+    obj.pub_key = message.pubKey;
+    return obj;
+  },
+  fromAminoMsg(object: SignRequestAminoMsg): SignRequest {
+    return SignRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SignRequestProtoMsg): SignRequest {
+    return SignRequest.decode(message.value);
+  },
+  toProto(message: SignRequest): Uint8Array {
+    return SignRequest.encode(message).finish();
+  },
+  toProtoMsg(message: SignRequest): SignRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.tofnd.v1beta1.SignRequest",
+      value: SignRequest.encode(message).finish()
+    };
   }
 };
 function createBaseSignResponse(): SignResponse {
@@ -153,7 +302,8 @@ function createBaseSignResponse(): SignResponse {
   };
 }
 export const SignResponse = {
-  encode(message: SignResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.SignResponse",
+  encode(message: SignResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.signature !== undefined) {
       writer.uint32(10).bytes(message.signature);
     }
@@ -173,5 +323,32 @@ export const SignResponse = {
     message.signature = object.signature ?? undefined;
     message.error = object.error ?? undefined;
     return message;
+  },
+  fromAmino(object: SignResponseAmino): SignResponse {
+    return {
+      signature: object?.signature,
+      error: object?.error
+    };
+  },
+  toAmino(message: SignResponse): SignResponseAmino {
+    const obj: any = {};
+    obj.signature = message.signature;
+    obj.error = message.error;
+    return obj;
+  },
+  fromAminoMsg(object: SignResponseAminoMsg): SignResponse {
+    return SignResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SignResponseProtoMsg): SignResponse {
+    return SignResponse.decode(message.value);
+  },
+  toProto(message: SignResponse): Uint8Array {
+    return SignResponse.encode(message).finish();
+  },
+  toProtoMsg(message: SignResponse): SignResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.tofnd.v1beta1.SignResponse",
+      value: SignResponse.encode(message).finish()
+    };
   }
 };

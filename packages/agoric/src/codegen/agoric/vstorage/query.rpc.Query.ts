@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryDataRequest, QueryDataResponse, QueryChildrenRequest, QueryChildrenResponse } from "./query";
 /** Query defines the gRPC querier service */
@@ -19,12 +19,12 @@ export class QueryClientImpl implements Query {
   data(request: QueryDataRequest): Promise<QueryDataResponse> {
     const data = QueryDataRequest.encode(request).finish();
     const promise = this.rpc.request("agoric.vstorage.Query", "Data", data);
-    return promise.then(data => QueryDataResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDataResponse.decode(new BinaryReader(data)));
   }
   children(request: QueryChildrenRequest): Promise<QueryChildrenResponse> {
     const data = QueryChildrenRequest.encode(request).finish();
     const promise = this.rpc.request("agoric.vstorage.Query", "Children", data);
-    return promise.then(data => QueryChildrenResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryChildrenResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

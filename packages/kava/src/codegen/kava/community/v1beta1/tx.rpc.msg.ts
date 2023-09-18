@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgFundCommunityPool, MsgFundCommunityPoolResponse } from "./tx";
 /** Msg defines the community Msg service. */
 export interface Msg {
@@ -15,6 +15,6 @@ export class MsgClientImpl implements Msg {
   fundCommunityPool(request: MsgFundCommunityPool): Promise<MsgFundCommunityPoolResponse> {
     const data = MsgFundCommunityPool.encode(request).finish();
     const promise = this.rpc.request("kava.community.v1beta1.Msg", "FundCommunityPool", data);
-    return promise.then(data => MsgFundCommunityPoolResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgFundCommunityPoolResponse.decode(new BinaryReader(data)));
   }
 }

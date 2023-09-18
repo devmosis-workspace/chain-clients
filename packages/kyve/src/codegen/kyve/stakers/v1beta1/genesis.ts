@@ -1,11 +1,11 @@
-import { Params, ParamsSDKType } from "./params";
-import { Staker, StakerSDKType, Valaccount, ValaccountSDKType, CommissionChangeEntry, CommissionChangeEntrySDKType, QueueState, QueueStateSDKType, LeavePoolEntry, LeavePoolEntrySDKType } from "./stakers";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { Staker, StakerAmino, StakerSDKType, Valaccount, ValaccountAmino, ValaccountSDKType, CommissionChangeEntry, CommissionChangeEntryAmino, CommissionChangeEntrySDKType, QueueState, QueueStateAmino, QueueStateSDKType, LeavePoolEntry, LeavePoolEntryAmino, LeavePoolEntrySDKType } from "./stakers";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** GenesisState defines the stakers module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of the module. */
-  params?: Params;
+  params: Params;
   /** staker_list ... */
   stakerList: Staker[];
   /** valaccount_list ... */
@@ -13,35 +13,61 @@ export interface GenesisState {
   /** commission_change_entries ... */
   commissionChangeEntries: CommissionChangeEntry[];
   /** queue_state_commission ... */
-  queueStateCommission?: QueueState;
+  queueStateCommission: QueueState;
   /** leave_pool_entries ... */
   leavePoolEntries: LeavePoolEntry[];
   /** queue_state_leave ... */
-  queueStateLeave?: QueueState;
+  queueStateLeave: QueueState;
+}
+export interface GenesisStateProtoMsg {
+  typeUrl: "/kyve.stakers.v1beta1.GenesisState";
+  value: Uint8Array;
+}
+/** GenesisState defines the stakers module's genesis state. */
+export interface GenesisStateAmino {
+  /** params defines all the parameters of the module. */
+  params?: ParamsAmino;
+  /** staker_list ... */
+  staker_list: StakerAmino[];
+  /** valaccount_list ... */
+  valaccount_list: ValaccountAmino[];
+  /** commission_change_entries ... */
+  commission_change_entries: CommissionChangeEntryAmino[];
+  /** queue_state_commission ... */
+  queue_state_commission?: QueueStateAmino;
+  /** leave_pool_entries ... */
+  leave_pool_entries: LeavePoolEntryAmino[];
+  /** queue_state_leave ... */
+  queue_state_leave?: QueueStateAmino;
+}
+export interface GenesisStateAminoMsg {
+  type: "/kyve.stakers.v1beta1.GenesisState";
+  value: GenesisStateAmino;
 }
 /** GenesisState defines the stakers module's genesis state. */
 export interface GenesisStateSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
   staker_list: StakerSDKType[];
   valaccount_list: ValaccountSDKType[];
   commission_change_entries: CommissionChangeEntrySDKType[];
-  queue_state_commission?: QueueStateSDKType;
+  queue_state_commission: QueueStateSDKType;
   leave_pool_entries: LeavePoolEntrySDKType[];
-  queue_state_leave?: QueueStateSDKType;
+  queue_state_leave: QueueStateSDKType;
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     stakerList: [],
     valaccountList: [],
     commissionChangeEntries: [],
-    queueStateCommission: undefined,
+    queueStateCommission: QueueState.fromPartial({}),
     leavePoolEntries: [],
-    queueStateLeave: undefined
+    queueStateLeave: QueueState.fromPartial({})
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.stakers.v1beta1.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -86,5 +112,58 @@ export const GenesisState = {
     message.leavePoolEntries = object.leavePoolEntries?.map(e => LeavePoolEntry.fromPartial(e)) || [];
     message.queueStateLeave = object.queueStateLeave !== undefined && object.queueStateLeave !== null ? QueueState.fromPartial(object.queueStateLeave) : undefined;
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+      stakerList: Array.isArray(object?.staker_list) ? object.staker_list.map((e: any) => Staker.fromAmino(e)) : [],
+      valaccountList: Array.isArray(object?.valaccount_list) ? object.valaccount_list.map((e: any) => Valaccount.fromAmino(e)) : [],
+      commissionChangeEntries: Array.isArray(object?.commission_change_entries) ? object.commission_change_entries.map((e: any) => CommissionChangeEntry.fromAmino(e)) : [],
+      queueStateCommission: object?.queue_state_commission ? QueueState.fromAmino(object.queue_state_commission) : undefined,
+      leavePoolEntries: Array.isArray(object?.leave_pool_entries) ? object.leave_pool_entries.map((e: any) => LeavePoolEntry.fromAmino(e)) : [],
+      queueStateLeave: object?.queue_state_leave ? QueueState.fromAmino(object.queue_state_leave) : undefined
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    if (message.stakerList) {
+      obj.staker_list = message.stakerList.map(e => e ? Staker.toAmino(e) : undefined);
+    } else {
+      obj.staker_list = [];
+    }
+    if (message.valaccountList) {
+      obj.valaccount_list = message.valaccountList.map(e => e ? Valaccount.toAmino(e) : undefined);
+    } else {
+      obj.valaccount_list = [];
+    }
+    if (message.commissionChangeEntries) {
+      obj.commission_change_entries = message.commissionChangeEntries.map(e => e ? CommissionChangeEntry.toAmino(e) : undefined);
+    } else {
+      obj.commission_change_entries = [];
+    }
+    obj.queue_state_commission = message.queueStateCommission ? QueueState.toAmino(message.queueStateCommission) : undefined;
+    if (message.leavePoolEntries) {
+      obj.leave_pool_entries = message.leavePoolEntries.map(e => e ? LeavePoolEntry.toAmino(e) : undefined);
+    } else {
+      obj.leave_pool_entries = [];
+    }
+    obj.queue_state_leave = message.queueStateLeave ? QueueState.toAmino(message.queueStateLeave) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/kyve.stakers.v1beta1.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };

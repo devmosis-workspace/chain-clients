@@ -1,24 +1,51 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet, isObject } from "../../../helpers";
 /** ModuleOptions describes the CLI options for a Cosmos SDK module. */
 export interface ModuleOptions {
   /** tx describes the tx command for the module. */
-  tx?: ServiceCommandDescriptor;
+  tx: ServiceCommandDescriptor;
   /** query describes the tx command for the module. */
-  query?: ServiceCommandDescriptor;
+  query: ServiceCommandDescriptor;
+}
+export interface ModuleOptionsProtoMsg {
+  typeUrl: "/cosmos.autocli.v1.ModuleOptions";
+  value: Uint8Array;
+}
+/** ModuleOptions describes the CLI options for a Cosmos SDK module. */
+export interface ModuleOptionsAmino {
+  /** tx describes the tx command for the module. */
+  tx?: ServiceCommandDescriptorAmino;
+  /** query describes the tx command for the module. */
+  query?: ServiceCommandDescriptorAmino;
+}
+export interface ModuleOptionsAminoMsg {
+  type: "cosmos-sdk/ModuleOptions";
+  value: ModuleOptionsAmino;
 }
 /** ModuleOptions describes the CLI options for a Cosmos SDK module. */
 export interface ModuleOptionsSDKType {
-  tx?: ServiceCommandDescriptorSDKType;
-  query?: ServiceCommandDescriptorSDKType;
+  tx: ServiceCommandDescriptorSDKType;
+  query: ServiceCommandDescriptorSDKType;
 }
 export interface ServiceCommandDescriptor_SubCommandsEntry {
   key: string;
-  value?: ServiceCommandDescriptor;
+  value: ServiceCommandDescriptor;
+}
+export interface ServiceCommandDescriptor_SubCommandsEntryProtoMsg {
+  typeUrl: string;
+  value: Uint8Array;
+}
+export interface ServiceCommandDescriptor_SubCommandsEntryAmino {
+  key: string;
+  value?: ServiceCommandDescriptorAmino;
+}
+export interface ServiceCommandDescriptor_SubCommandsEntryAminoMsg {
+  type: string;
+  value: ServiceCommandDescriptor_SubCommandsEntryAmino;
 }
 export interface ServiceCommandDescriptor_SubCommandsEntrySDKType {
   key: string;
-  value?: ServiceCommandDescriptorSDKType;
+  value: ServiceCommandDescriptorSDKType;
 }
 /** ServiceCommandDescriptor describes a CLI command based on a protobuf service. */
 export interface ServiceCommandDescriptor {
@@ -39,25 +66,68 @@ export interface ServiceCommandDescriptor {
    * different protobuf services. The map key is used as the name of the
    * sub-command.
    */
-  subCommands?: {
+  subCommands: {
     [key: string]: ServiceCommandDescriptor;
   };
+}
+export interface ServiceCommandDescriptorProtoMsg {
+  typeUrl: "/cosmos.autocli.v1.ServiceCommandDescriptor";
+  value: Uint8Array;
+}
+/** ServiceCommandDescriptor describes a CLI command based on a protobuf service. */
+export interface ServiceCommandDescriptorAmino {
+  /**
+   * service is the fully qualified name of the protobuf service to build
+   * the command from. It can be left empty if sub_commands are used instead
+   * which may be the case if a module provides multiple tx and/or query services.
+   */
+  service: string;
+  /**
+   * rpc_command_options are options for commands generated from rpc methods.
+   * If no options are specified for a given rpc method on the service, a
+   * command will be generated for that method with the default options.
+   */
+  rpc_command_options: RpcCommandOptionsAmino[];
+  /**
+   * sub_commands is a map of optional sub-commands for this command based on
+   * different protobuf services. The map key is used as the name of the
+   * sub-command.
+   */
+  sub_commands?: {
+    [key: string]: ServiceCommandDescriptorAmino;
+  };
+}
+export interface ServiceCommandDescriptorAminoMsg {
+  type: "cosmos-sdk/ServiceCommandDescriptor";
+  value: ServiceCommandDescriptorAmino;
 }
 /** ServiceCommandDescriptor describes a CLI command based on a protobuf service. */
 export interface ServiceCommandDescriptorSDKType {
   service: string;
   rpc_command_options: RpcCommandOptionsSDKType[];
-  sub_commands?: {
+  sub_commands: {
     [key: string]: ServiceCommandDescriptorSDKType;
   };
 }
 export interface RpcCommandOptions_FlagOptionsEntry {
   key: string;
-  value?: FlagOptions;
+  value: FlagOptions;
+}
+export interface RpcCommandOptions_FlagOptionsEntryProtoMsg {
+  typeUrl: string;
+  value: Uint8Array;
+}
+export interface RpcCommandOptions_FlagOptionsEntryAmino {
+  key: string;
+  value?: FlagOptionsAmino;
+}
+export interface RpcCommandOptions_FlagOptionsEntryAminoMsg {
+  type: string;
+  value: RpcCommandOptions_FlagOptionsEntryAmino;
 }
 export interface RpcCommandOptions_FlagOptionsEntrySDKType {
   key: string;
-  value?: FlagOptionsSDKType;
+  value: FlagOptionsSDKType;
 }
 /**
  * RpcCommandOptions specifies options for commands generated from protobuf
@@ -104,13 +174,74 @@ export interface RpcCommandOptions {
    * By default all request fields are configured as flags. They can
    * also be configured as positional args instead using positional_args.
    */
-  flagOptions?: {
+  flagOptions: {
     [key: string]: FlagOptions;
   };
   /** positional_args specifies positional arguments for the command. */
   positionalArgs: PositionalArgDescriptor[];
   /** skip specifies whether to skip this rpc method when generating commands. */
   skip: boolean;
+}
+export interface RpcCommandOptionsProtoMsg {
+  typeUrl: "/cosmos.autocli.v1.RpcCommandOptions";
+  value: Uint8Array;
+}
+/**
+ * RpcCommandOptions specifies options for commands generated from protobuf
+ * rpc methods.
+ */
+export interface RpcCommandOptionsAmino {
+  /**
+   * rpc_method is short name of the protobuf rpc method that this command is
+   * generated from.
+   */
+  rpc_method: string;
+  /**
+   * use is the one-line usage method. It also allows specifying an alternate
+   * name for the command as the first word of the usage text.
+   * 
+   * By default the name of an rpc command is the kebab-case short name of the
+   * rpc method.
+   */
+  use: string;
+  /** long is the long message shown in the 'help <this-command>' output. */
+  long: string;
+  /** short is the short description shown in the 'help' output. */
+  short: string;
+  /** example is examples of how to use the command. */
+  example: string;
+  /** alias is an array of aliases that can be used instead of the first word in Use. */
+  alias: string[];
+  /**
+   * suggest_for is an array of command names for which this command will be suggested -
+   * similar to aliases but only suggests.
+   */
+  suggest_for: string[];
+  /** deprecated defines, if this command is deprecated and should print this string when used. */
+  deprecated: string;
+  /**
+   * version defines the version for this command. If this value is non-empty and the command does not
+   * define a "version" flag, a "version" boolean flag will be added to the command and, if specified,
+   * will print content of the "Version" variable. A shorthand "v" flag will also be added if the
+   * command does not define one.
+   */
+  version: string;
+  /**
+   * flag_options are options for flags generated from rpc request fields.
+   * By default all request fields are configured as flags. They can
+   * also be configured as positional args instead using positional_args.
+   */
+  flag_options?: {
+    [key: string]: FlagOptionsAmino;
+  };
+  /** positional_args specifies positional arguments for the command. */
+  positional_args: PositionalArgDescriptorAmino[];
+  /** skip specifies whether to skip this rpc method when generating commands. */
+  skip: boolean;
+}
+export interface RpcCommandOptionsAminoMsg {
+  type: "cosmos-sdk/RpcCommandOptions";
+  value: RpcCommandOptionsAmino;
 }
 /**
  * RpcCommandOptions specifies options for commands generated from protobuf
@@ -126,7 +257,7 @@ export interface RpcCommandOptionsSDKType {
   suggest_for: string[];
   deprecated: string;
   version: string;
-  flag_options?: {
+  flag_options: {
     [key: string]: FlagOptionsSDKType;
   };
   positional_args: PositionalArgDescriptorSDKType[];
@@ -155,6 +286,38 @@ export interface FlagOptions {
   shorthandDeprecated: string;
   /** hidden hides the flag from help/usage text */
   hidden: boolean;
+}
+export interface FlagOptionsProtoMsg {
+  typeUrl: "/cosmos.autocli.v1.FlagOptions";
+  value: Uint8Array;
+}
+/**
+ * FlagOptions are options for flags generated from rpc request fields.
+ * By default, all request fields are configured as flags based on the
+ * kebab-case name of the field. Fields can be turned into positional arguments
+ * instead by using RpcCommandOptions.positional_args.
+ */
+export interface FlagOptionsAmino {
+  /** name is an alternate name to use for the field flag. */
+  name: string;
+  /** shorthand is a one-letter abbreviated flag. */
+  shorthand: string;
+  /** usage is the help message. */
+  usage: string;
+  /** default_value is the default value as text. */
+  default_value: string;
+  /** default value is the default value as text if the flag is used without any value. */
+  no_opt_default_value: string;
+  /** deprecated is the usage text to show if this flag is deprecated. */
+  deprecated: string;
+  /** shorthand_deprecated is the usage text to show if the shorthand of this flag is deprecated. */
+  shorthand_deprecated: string;
+  /** hidden hides the flag from help/usage text */
+  hidden: boolean;
+}
+export interface FlagOptionsAminoMsg {
+  type: "cosmos-sdk/FlagOptions";
+  value: FlagOptionsAmino;
 }
 /**
  * FlagOptions are options for flags generated from rpc request fields.
@@ -186,6 +349,28 @@ export interface PositionalArgDescriptor {
    */
   varargs: boolean;
 }
+export interface PositionalArgDescriptorProtoMsg {
+  typeUrl: "/cosmos.autocli.v1.PositionalArgDescriptor";
+  value: Uint8Array;
+}
+/** PositionalArgDescriptor describes a positional argument. */
+export interface PositionalArgDescriptorAmino {
+  /**
+   * proto_field specifies the proto field to use as the positional arg. Any
+   * fields used as positional args will not have a flag generated.
+   */
+  proto_field: string;
+  /**
+   * varargs makes a positional parameter a varargs parameter. This can only be
+   * applied to last positional parameter and the proto_field must a repeated
+   * field.
+   */
+  varargs: boolean;
+}
+export interface PositionalArgDescriptorAminoMsg {
+  type: "cosmos-sdk/PositionalArgDescriptor";
+  value: PositionalArgDescriptorAmino;
+}
 /** PositionalArgDescriptor describes a positional argument. */
 export interface PositionalArgDescriptorSDKType {
   proto_field: string;
@@ -193,12 +378,13 @@ export interface PositionalArgDescriptorSDKType {
 }
 function createBaseModuleOptions(): ModuleOptions {
   return {
-    tx: undefined,
-    query: undefined
+    tx: ServiceCommandDescriptor.fromPartial({}),
+    query: ServiceCommandDescriptor.fromPartial({})
   };
 }
 export const ModuleOptions = {
-  encode(message: ModuleOptions, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.autocli.v1.ModuleOptions",
+  encode(message: ModuleOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.tx !== undefined) {
       ServiceCommandDescriptor.encode(message.tx, writer.uint32(10).fork()).ldelim();
     }
@@ -218,16 +404,49 @@ export const ModuleOptions = {
     message.tx = object.tx !== undefined && object.tx !== null ? ServiceCommandDescriptor.fromPartial(object.tx) : undefined;
     message.query = object.query !== undefined && object.query !== null ? ServiceCommandDescriptor.fromPartial(object.query) : undefined;
     return message;
+  },
+  fromAmino(object: ModuleOptionsAmino): ModuleOptions {
+    return {
+      tx: object?.tx ? ServiceCommandDescriptor.fromAmino(object.tx) : undefined,
+      query: object?.query ? ServiceCommandDescriptor.fromAmino(object.query) : undefined
+    };
+  },
+  toAmino(message: ModuleOptions): ModuleOptionsAmino {
+    const obj: any = {};
+    obj.tx = message.tx ? ServiceCommandDescriptor.toAmino(message.tx) : undefined;
+    obj.query = message.query ? ServiceCommandDescriptor.toAmino(message.query) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleOptionsAminoMsg): ModuleOptions {
+    return ModuleOptions.fromAmino(object.value);
+  },
+  toAminoMsg(message: ModuleOptions): ModuleOptionsAminoMsg {
+    return {
+      type: "cosmos-sdk/ModuleOptions",
+      value: ModuleOptions.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: ModuleOptionsProtoMsg): ModuleOptions {
+    return ModuleOptions.decode(message.value);
+  },
+  toProto(message: ModuleOptions): Uint8Array {
+    return ModuleOptions.encode(message).finish();
+  },
+  toProtoMsg(message: ModuleOptions): ModuleOptionsProtoMsg {
+    return {
+      typeUrl: "/cosmos.autocli.v1.ModuleOptions",
+      value: ModuleOptions.encode(message).finish()
+    };
   }
 };
 function createBaseServiceCommandDescriptor_SubCommandsEntry(): ServiceCommandDescriptor_SubCommandsEntry {
   return {
     key: "",
-    value: undefined
+    value: ServiceCommandDescriptor.fromPartial({})
   };
 }
 export const ServiceCommandDescriptor_SubCommandsEntry = {
-  encode(message: ServiceCommandDescriptor_SubCommandsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: ServiceCommandDescriptor_SubCommandsEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -247,6 +466,27 @@ export const ServiceCommandDescriptor_SubCommandsEntry = {
     message.key = object.key ?? "";
     message.value = object.value !== undefined && object.value !== null ? ServiceCommandDescriptor.fromPartial(object.value) : undefined;
     return message;
+  },
+  fromAmino(object: ServiceCommandDescriptor_SubCommandsEntryAmino): ServiceCommandDescriptor_SubCommandsEntry {
+    return {
+      key: object.key,
+      value: object?.value ? ServiceCommandDescriptor.fromAmino(object.value) : undefined
+    };
+  },
+  toAmino(message: ServiceCommandDescriptor_SubCommandsEntry): ServiceCommandDescriptor_SubCommandsEntryAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value ? ServiceCommandDescriptor.toAmino(message.value) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ServiceCommandDescriptor_SubCommandsEntryAminoMsg): ServiceCommandDescriptor_SubCommandsEntry {
+    return ServiceCommandDescriptor_SubCommandsEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ServiceCommandDescriptor_SubCommandsEntryProtoMsg): ServiceCommandDescriptor_SubCommandsEntry {
+    return ServiceCommandDescriptor_SubCommandsEntry.decode(message.value);
+  },
+  toProto(message: ServiceCommandDescriptor_SubCommandsEntry): Uint8Array {
+    return ServiceCommandDescriptor_SubCommandsEntry.encode(message).finish();
   }
 };
 function createBaseServiceCommandDescriptor(): ServiceCommandDescriptor {
@@ -257,7 +497,8 @@ function createBaseServiceCommandDescriptor(): ServiceCommandDescriptor {
   };
 }
 export const ServiceCommandDescriptor = {
-  encode(message: ServiceCommandDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.autocli.v1.ServiceCommandDescriptor",
+  encode(message: ServiceCommandDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.service !== "") {
       writer.uint32(10).string(message.service);
     }
@@ -297,16 +538,65 @@ export const ServiceCommandDescriptor = {
       return acc;
     }, {});
     return message;
+  },
+  fromAmino(object: ServiceCommandDescriptorAmino): ServiceCommandDescriptor {
+    return {
+      service: object.service,
+      rpcCommandOptions: Array.isArray(object?.rpc_command_options) ? object.rpc_command_options.map((e: any) => RpcCommandOptions.fromAmino(e)) : [],
+      subCommands: isObject(object.sub_commands) ? Object.entries(object.sub_commands).reduce<{
+        [key: string]: ServiceCommandDescriptor;
+      }>((acc, [key, value]) => {
+        acc[key] = ServiceCommandDescriptor.fromAmino(value);
+        return acc;
+      }, {}) : {}
+    };
+  },
+  toAmino(message: ServiceCommandDescriptor): ServiceCommandDescriptorAmino {
+    const obj: any = {};
+    obj.service = message.service;
+    if (message.rpcCommandOptions) {
+      obj.rpc_command_options = message.rpcCommandOptions.map(e => e ? RpcCommandOptions.toAmino(e) : undefined);
+    } else {
+      obj.rpc_command_options = [];
+    }
+    obj.sub_commands = {};
+    if (message.subCommands) {
+      Object.entries(message.subCommands).forEach(([k, v]) => {
+        obj.sub_commands[k] = ServiceCommandDescriptor.toAmino(v);
+      });
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ServiceCommandDescriptorAminoMsg): ServiceCommandDescriptor {
+    return ServiceCommandDescriptor.fromAmino(object.value);
+  },
+  toAminoMsg(message: ServiceCommandDescriptor): ServiceCommandDescriptorAminoMsg {
+    return {
+      type: "cosmos-sdk/ServiceCommandDescriptor",
+      value: ServiceCommandDescriptor.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: ServiceCommandDescriptorProtoMsg): ServiceCommandDescriptor {
+    return ServiceCommandDescriptor.decode(message.value);
+  },
+  toProto(message: ServiceCommandDescriptor): Uint8Array {
+    return ServiceCommandDescriptor.encode(message).finish();
+  },
+  toProtoMsg(message: ServiceCommandDescriptor): ServiceCommandDescriptorProtoMsg {
+    return {
+      typeUrl: "/cosmos.autocli.v1.ServiceCommandDescriptor",
+      value: ServiceCommandDescriptor.encode(message).finish()
+    };
   }
 };
 function createBaseRpcCommandOptions_FlagOptionsEntry(): RpcCommandOptions_FlagOptionsEntry {
   return {
     key: "",
-    value: undefined
+    value: FlagOptions.fromPartial({})
   };
 }
 export const RpcCommandOptions_FlagOptionsEntry = {
-  encode(message: RpcCommandOptions_FlagOptionsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: RpcCommandOptions_FlagOptionsEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -326,6 +616,27 @@ export const RpcCommandOptions_FlagOptionsEntry = {
     message.key = object.key ?? "";
     message.value = object.value !== undefined && object.value !== null ? FlagOptions.fromPartial(object.value) : undefined;
     return message;
+  },
+  fromAmino(object: RpcCommandOptions_FlagOptionsEntryAmino): RpcCommandOptions_FlagOptionsEntry {
+    return {
+      key: object.key,
+      value: object?.value ? FlagOptions.fromAmino(object.value) : undefined
+    };
+  },
+  toAmino(message: RpcCommandOptions_FlagOptionsEntry): RpcCommandOptions_FlagOptionsEntryAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value ? FlagOptions.toAmino(message.value) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: RpcCommandOptions_FlagOptionsEntryAminoMsg): RpcCommandOptions_FlagOptionsEntry {
+    return RpcCommandOptions_FlagOptionsEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RpcCommandOptions_FlagOptionsEntryProtoMsg): RpcCommandOptions_FlagOptionsEntry {
+    return RpcCommandOptions_FlagOptionsEntry.decode(message.value);
+  },
+  toProto(message: RpcCommandOptions_FlagOptionsEntry): Uint8Array {
+    return RpcCommandOptions_FlagOptionsEntry.encode(message).finish();
   }
 };
 function createBaseRpcCommandOptions(): RpcCommandOptions {
@@ -345,7 +656,8 @@ function createBaseRpcCommandOptions(): RpcCommandOptions {
   };
 }
 export const RpcCommandOptions = {
-  encode(message: RpcCommandOptions, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.autocli.v1.RpcCommandOptions",
+  encode(message: RpcCommandOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.rpcMethod !== "") {
       writer.uint32(10).string(message.rpcMethod);
     }
@@ -430,6 +742,81 @@ export const RpcCommandOptions = {
     message.positionalArgs = object.positionalArgs?.map(e => PositionalArgDescriptor.fromPartial(e)) || [];
     message.skip = object.skip ?? false;
     return message;
+  },
+  fromAmino(object: RpcCommandOptionsAmino): RpcCommandOptions {
+    return {
+      rpcMethod: object.rpc_method,
+      use: object.use,
+      long: object.long,
+      short: object.short,
+      example: object.example,
+      alias: Array.isArray(object?.alias) ? object.alias.map((e: any) => e) : [],
+      suggestFor: Array.isArray(object?.suggest_for) ? object.suggest_for.map((e: any) => e) : [],
+      deprecated: object.deprecated,
+      version: object.version,
+      flagOptions: isObject(object.flag_options) ? Object.entries(object.flag_options).reduce<{
+        [key: string]: FlagOptions;
+      }>((acc, [key, value]) => {
+        acc[key] = FlagOptions.fromAmino(value);
+        return acc;
+      }, {}) : {},
+      positionalArgs: Array.isArray(object?.positional_args) ? object.positional_args.map((e: any) => PositionalArgDescriptor.fromAmino(e)) : [],
+      skip: object.skip
+    };
+  },
+  toAmino(message: RpcCommandOptions): RpcCommandOptionsAmino {
+    const obj: any = {};
+    obj.rpc_method = message.rpcMethod;
+    obj.use = message.use;
+    obj.long = message.long;
+    obj.short = message.short;
+    obj.example = message.example;
+    if (message.alias) {
+      obj.alias = message.alias.map(e => e);
+    } else {
+      obj.alias = [];
+    }
+    if (message.suggestFor) {
+      obj.suggest_for = message.suggestFor.map(e => e);
+    } else {
+      obj.suggest_for = [];
+    }
+    obj.deprecated = message.deprecated;
+    obj.version = message.version;
+    obj.flag_options = {};
+    if (message.flagOptions) {
+      Object.entries(message.flagOptions).forEach(([k, v]) => {
+        obj.flag_options[k] = FlagOptions.toAmino(v);
+      });
+    }
+    if (message.positionalArgs) {
+      obj.positional_args = message.positionalArgs.map(e => e ? PositionalArgDescriptor.toAmino(e) : undefined);
+    } else {
+      obj.positional_args = [];
+    }
+    obj.skip = message.skip;
+    return obj;
+  },
+  fromAminoMsg(object: RpcCommandOptionsAminoMsg): RpcCommandOptions {
+    return RpcCommandOptions.fromAmino(object.value);
+  },
+  toAminoMsg(message: RpcCommandOptions): RpcCommandOptionsAminoMsg {
+    return {
+      type: "cosmos-sdk/RpcCommandOptions",
+      value: RpcCommandOptions.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: RpcCommandOptionsProtoMsg): RpcCommandOptions {
+    return RpcCommandOptions.decode(message.value);
+  },
+  toProto(message: RpcCommandOptions): Uint8Array {
+    return RpcCommandOptions.encode(message).finish();
+  },
+  toProtoMsg(message: RpcCommandOptions): RpcCommandOptionsProtoMsg {
+    return {
+      typeUrl: "/cosmos.autocli.v1.RpcCommandOptions",
+      value: RpcCommandOptions.encode(message).finish()
+    };
   }
 };
 function createBaseFlagOptions(): FlagOptions {
@@ -445,7 +832,8 @@ function createBaseFlagOptions(): FlagOptions {
   };
 }
 export const FlagOptions = {
-  encode(message: FlagOptions, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.autocli.v1.FlagOptions",
+  encode(message: FlagOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -495,6 +883,51 @@ export const FlagOptions = {
     message.shorthandDeprecated = object.shorthandDeprecated ?? "";
     message.hidden = object.hidden ?? false;
     return message;
+  },
+  fromAmino(object: FlagOptionsAmino): FlagOptions {
+    return {
+      name: object.name,
+      shorthand: object.shorthand,
+      usage: object.usage,
+      defaultValue: object.default_value,
+      noOptDefaultValue: object.no_opt_default_value,
+      deprecated: object.deprecated,
+      shorthandDeprecated: object.shorthand_deprecated,
+      hidden: object.hidden
+    };
+  },
+  toAmino(message: FlagOptions): FlagOptionsAmino {
+    const obj: any = {};
+    obj.name = message.name;
+    obj.shorthand = message.shorthand;
+    obj.usage = message.usage;
+    obj.default_value = message.defaultValue;
+    obj.no_opt_default_value = message.noOptDefaultValue;
+    obj.deprecated = message.deprecated;
+    obj.shorthand_deprecated = message.shorthandDeprecated;
+    obj.hidden = message.hidden;
+    return obj;
+  },
+  fromAminoMsg(object: FlagOptionsAminoMsg): FlagOptions {
+    return FlagOptions.fromAmino(object.value);
+  },
+  toAminoMsg(message: FlagOptions): FlagOptionsAminoMsg {
+    return {
+      type: "cosmos-sdk/FlagOptions",
+      value: FlagOptions.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: FlagOptionsProtoMsg): FlagOptions {
+    return FlagOptions.decode(message.value);
+  },
+  toProto(message: FlagOptions): Uint8Array {
+    return FlagOptions.encode(message).finish();
+  },
+  toProtoMsg(message: FlagOptions): FlagOptionsProtoMsg {
+    return {
+      typeUrl: "/cosmos.autocli.v1.FlagOptions",
+      value: FlagOptions.encode(message).finish()
+    };
   }
 };
 function createBasePositionalArgDescriptor(): PositionalArgDescriptor {
@@ -504,7 +937,8 @@ function createBasePositionalArgDescriptor(): PositionalArgDescriptor {
   };
 }
 export const PositionalArgDescriptor = {
-  encode(message: PositionalArgDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.autocli.v1.PositionalArgDescriptor",
+  encode(message: PositionalArgDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.protoField !== "") {
       writer.uint32(10).string(message.protoField);
     }
@@ -524,5 +958,38 @@ export const PositionalArgDescriptor = {
     message.protoField = object.protoField ?? "";
     message.varargs = object.varargs ?? false;
     return message;
+  },
+  fromAmino(object: PositionalArgDescriptorAmino): PositionalArgDescriptor {
+    return {
+      protoField: object.proto_field,
+      varargs: object.varargs
+    };
+  },
+  toAmino(message: PositionalArgDescriptor): PositionalArgDescriptorAmino {
+    const obj: any = {};
+    obj.proto_field = message.protoField;
+    obj.varargs = message.varargs;
+    return obj;
+  },
+  fromAminoMsg(object: PositionalArgDescriptorAminoMsg): PositionalArgDescriptor {
+    return PositionalArgDescriptor.fromAmino(object.value);
+  },
+  toAminoMsg(message: PositionalArgDescriptor): PositionalArgDescriptorAminoMsg {
+    return {
+      type: "cosmos-sdk/PositionalArgDescriptor",
+      value: PositionalArgDescriptor.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: PositionalArgDescriptorProtoMsg): PositionalArgDescriptor {
+    return PositionalArgDescriptor.decode(message.value);
+  },
+  toProto(message: PositionalArgDescriptor): Uint8Array {
+    return PositionalArgDescriptor.encode(message).finish();
+  },
+  toProtoMsg(message: PositionalArgDescriptor): PositionalArgDescriptorProtoMsg {
+    return {
+      typeUrl: "/cosmos.autocli.v1.PositionalArgDescriptor",
+      value: PositionalArgDescriptor.encode(message).finish()
+    };
   }
 };

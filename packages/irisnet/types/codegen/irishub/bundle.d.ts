@@ -5,19 +5,19 @@ import * as _3 from "../guardian/tx";
 import * as _4 from "../mint/genesis";
 import * as _5 from "../mint/mint";
 import * as _6 from "../mint/query";
-import * as _136 from "../guardian/query.lcd";
-import * as _137 from "../mint/query.lcd";
-import * as _138 from "../guardian/query.rpc.Query";
-import * as _139 from "../mint/query.rpc.Query";
-import * as _140 from "../guardian/tx.rpc.msg";
+import * as _137 from "../guardian/query.lcd";
+import * as _138 from "../mint/query.lcd";
+import * as _139 from "../guardian/query.rpc.Query";
+import * as _140 from "../mint/query.rpc.Query";
+import * as _141 from "../guardian/tx.rpc.msg";
 export declare namespace irishub {
     const guardian: {
-        MsgClientImpl: typeof _140.MsgClientImpl;
-        QueryClientImpl: typeof _138.QueryClientImpl;
+        MsgClientImpl: typeof _141.MsgClientImpl;
+        QueryClientImpl: typeof _139.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             supers(request?: _2.QuerySupersRequest): Promise<_2.QuerySupersResponse>;
         };
-        LCDQueryClient: typeof _136.LCDQueryClient;
+        LCDQueryClient: typeof _137.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -65,104 +65,182 @@ export declare namespace irishub {
         AminoConverter: {
             "/irishub.guardian.MsgAddSuper": {
                 aminoType: string;
-                toAmino: ({ description, address, addedBy }: _3.MsgAddSuper) => {
-                    description: string;
-                    address: string;
-                    added_by: string;
-                };
-                fromAmino: ({ description, address, added_by }: {
-                    description: string;
-                    address: string;
-                    added_by: string;
-                }) => _3.MsgAddSuper;
+                toAmino: (message: _3.MsgAddSuper) => _3.MsgAddSuperAmino;
+                fromAmino: (object: _3.MsgAddSuperAmino) => _3.MsgAddSuper;
             };
             "/irishub.guardian.MsgDeleteSuper": {
                 aminoType: string;
-                toAmino: ({ address, deletedBy }: _3.MsgDeleteSuper) => {
-                    address: string;
-                    deleted_by: string;
-                };
-                fromAmino: ({ address, deleted_by }: {
-                    address: string;
-                    deleted_by: string;
-                }) => _3.MsgDeleteSuper;
+                toAmino: (message: _3.MsgDeleteSuper) => _3.MsgDeleteSuperAmino;
+                fromAmino: (object: _3.MsgDeleteSuperAmino) => _3.MsgDeleteSuper;
             };
         };
         MsgAddSuper: {
-            encode(message: _3.MsgAddSuper, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _3.MsgAddSuper, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _3.MsgAddSuper;
             fromPartial(object: Partial<_3.MsgAddSuper>): _3.MsgAddSuper;
+            fromAmino(object: _3.MsgAddSuperAmino): _3.MsgAddSuper;
+            toAmino(message: _3.MsgAddSuper): _3.MsgAddSuperAmino;
+            fromAminoMsg(object: _3.MsgAddSuperAminoMsg): _3.MsgAddSuper;
+            fromProtoMsg(message: _3.MsgAddSuperProtoMsg): _3.MsgAddSuper;
+            toProto(message: _3.MsgAddSuper): Uint8Array;
+            toProtoMsg(message: _3.MsgAddSuper): _3.MsgAddSuperProtoMsg;
         };
         MsgAddSuperResponse: {
-            encode(_: _3.MsgAddSuperResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _3.MsgAddSuperResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _3.MsgAddSuperResponse;
             fromPartial(_: Partial<_3.MsgAddSuperResponse>): _3.MsgAddSuperResponse;
+            fromAmino(_: _3.MsgAddSuperResponseAmino): _3.MsgAddSuperResponse;
+            toAmino(_: _3.MsgAddSuperResponse): _3.MsgAddSuperResponseAmino;
+            fromAminoMsg(object: _3.MsgAddSuperResponseAminoMsg): _3.MsgAddSuperResponse;
+            fromProtoMsg(message: _3.MsgAddSuperResponseProtoMsg): _3.MsgAddSuperResponse;
+            toProto(message: _3.MsgAddSuperResponse): Uint8Array;
+            toProtoMsg(message: _3.MsgAddSuperResponse): _3.MsgAddSuperResponseProtoMsg;
         };
         MsgDeleteSuper: {
-            encode(message: _3.MsgDeleteSuper, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _3.MsgDeleteSuper, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _3.MsgDeleteSuper;
             fromPartial(object: Partial<_3.MsgDeleteSuper>): _3.MsgDeleteSuper;
+            fromAmino(object: _3.MsgDeleteSuperAmino): _3.MsgDeleteSuper;
+            toAmino(message: _3.MsgDeleteSuper): _3.MsgDeleteSuperAmino;
+            fromAminoMsg(object: _3.MsgDeleteSuperAminoMsg): _3.MsgDeleteSuper;
+            fromProtoMsg(message: _3.MsgDeleteSuperProtoMsg): _3.MsgDeleteSuper;
+            toProto(message: _3.MsgDeleteSuper): Uint8Array;
+            toProtoMsg(message: _3.MsgDeleteSuper): _3.MsgDeleteSuperProtoMsg;
         };
         MsgDeleteSuperResponse: {
-            encode(_: _3.MsgDeleteSuperResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _3.MsgDeleteSuperResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _3.MsgDeleteSuperResponse;
             fromPartial(_: Partial<_3.MsgDeleteSuperResponse>): _3.MsgDeleteSuperResponse;
+            fromAmino(_: _3.MsgDeleteSuperResponseAmino): _3.MsgDeleteSuperResponse;
+            toAmino(_: _3.MsgDeleteSuperResponse): _3.MsgDeleteSuperResponseAmino;
+            fromAminoMsg(object: _3.MsgDeleteSuperResponseAminoMsg): _3.MsgDeleteSuperResponse;
+            fromProtoMsg(message: _3.MsgDeleteSuperResponseProtoMsg): _3.MsgDeleteSuperResponse;
+            toProto(message: _3.MsgDeleteSuperResponse): Uint8Array;
+            toProtoMsg(message: _3.MsgDeleteSuperResponse): _3.MsgDeleteSuperResponseProtoMsg;
         };
         QuerySupersRequest: {
-            encode(message: _2.QuerySupersRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _2.QuerySupersRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _2.QuerySupersRequest;
             fromPartial(object: Partial<_2.QuerySupersRequest>): _2.QuerySupersRequest;
+            fromAmino(object: _2.QuerySupersRequestAmino): _2.QuerySupersRequest;
+            toAmino(message: _2.QuerySupersRequest): _2.QuerySupersRequestAmino;
+            fromAminoMsg(object: _2.QuerySupersRequestAminoMsg): _2.QuerySupersRequest;
+            fromProtoMsg(message: _2.QuerySupersRequestProtoMsg): _2.QuerySupersRequest;
+            toProto(message: _2.QuerySupersRequest): Uint8Array;
+            toProtoMsg(message: _2.QuerySupersRequest): _2.QuerySupersRequestProtoMsg;
         };
         QuerySupersResponse: {
-            encode(message: _2.QuerySupersResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _2.QuerySupersResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _2.QuerySupersResponse;
             fromPartial(object: Partial<_2.QuerySupersResponse>): _2.QuerySupersResponse;
+            fromAmino(object: _2.QuerySupersResponseAmino): _2.QuerySupersResponse;
+            toAmino(message: _2.QuerySupersResponse): _2.QuerySupersResponseAmino;
+            fromAminoMsg(object: _2.QuerySupersResponseAminoMsg): _2.QuerySupersResponse;
+            fromProtoMsg(message: _2.QuerySupersResponseProtoMsg): _2.QuerySupersResponse;
+            toProto(message: _2.QuerySupersResponse): Uint8Array;
+            toProtoMsg(message: _2.QuerySupersResponse): _2.QuerySupersResponseProtoMsg;
         };
         accountTypeFromJSON(object: any): _1.AccountType;
         accountTypeToJSON(object: _1.AccountType): string;
         AccountType: typeof _1.AccountType;
         AccountTypeSDKType: typeof _1.AccountType;
+        AccountTypeAmino: typeof _1.AccountType;
         Super: {
-            encode(message: _1.Super, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _1.Super, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _1.Super;
             fromPartial(object: Partial<_1.Super>): _1.Super;
+            fromAmino(object: _1.SuperAmino): _1.Super;
+            toAmino(message: _1.Super): _1.SuperAmino;
+            fromAminoMsg(object: _1.SuperAminoMsg): _1.Super;
+            fromProtoMsg(message: _1.SuperProtoMsg): _1.Super;
+            toProto(message: _1.Super): Uint8Array;
+            toProtoMsg(message: _1.Super): _1.SuperProtoMsg;
         };
         GenesisState: {
-            encode(message: _0.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _0.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _0.GenesisState;
             fromPartial(object: Partial<_0.GenesisState>): _0.GenesisState;
+            fromAmino(object: _0.GenesisStateAmino): _0.GenesisState;
+            toAmino(message: _0.GenesisState): _0.GenesisStateAmino;
+            fromAminoMsg(object: _0.GenesisStateAminoMsg): _0.GenesisState;
+            fromProtoMsg(message: _0.GenesisStateProtoMsg): _0.GenesisState;
+            toProto(message: _0.GenesisState): Uint8Array;
+            toProtoMsg(message: _0.GenesisState): _0.GenesisStateProtoMsg;
         };
     };
     const mint: {
-        QueryClientImpl: typeof _139.QueryClientImpl;
+        QueryClientImpl: typeof _140.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _6.QueryParamsRequest): Promise<_6.QueryParamsResponse>;
         };
-        LCDQueryClient: typeof _137.LCDQueryClient;
+        LCDQueryClient: typeof _138.LCDQueryClient;
         QueryParamsRequest: {
-            encode(_: _6.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(_: _6.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(_: any): _6.QueryParamsRequest;
             fromPartial(_: Partial<_6.QueryParamsRequest>): _6.QueryParamsRequest;
+            fromAmino(_: _6.QueryParamsRequestAmino): _6.QueryParamsRequest;
+            toAmino(_: _6.QueryParamsRequest): _6.QueryParamsRequestAmino;
+            fromAminoMsg(object: _6.QueryParamsRequestAminoMsg): _6.QueryParamsRequest;
+            fromProtoMsg(message: _6.QueryParamsRequestProtoMsg): _6.QueryParamsRequest;
+            toProto(message: _6.QueryParamsRequest): Uint8Array;
+            toProtoMsg(message: _6.QueryParamsRequest): _6.QueryParamsRequestProtoMsg;
         };
         QueryParamsResponse: {
-            encode(message: _6.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _6.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _6.QueryParamsResponse;
             fromPartial(object: Partial<_6.QueryParamsResponse>): _6.QueryParamsResponse;
+            fromAmino(object: _6.QueryParamsResponseAmino): _6.QueryParamsResponse;
+            toAmino(message: _6.QueryParamsResponse): _6.QueryParamsResponseAmino;
+            fromAminoMsg(object: _6.QueryParamsResponseAminoMsg): _6.QueryParamsResponse;
+            fromProtoMsg(message: _6.QueryParamsResponseProtoMsg): _6.QueryParamsResponse;
+            toProto(message: _6.QueryParamsResponse): Uint8Array;
+            toProtoMsg(message: _6.QueryParamsResponse): _6.QueryParamsResponseProtoMsg;
         };
         Minter: {
-            encode(message: _5.Minter, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _5.Minter, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _5.Minter;
             fromPartial(object: Partial<_5.Minter>): _5.Minter;
+            fromAmino(object: _5.MinterAmino): _5.Minter;
+            toAmino(message: _5.Minter): _5.MinterAmino;
+            fromAminoMsg(object: _5.MinterAminoMsg): _5.Minter;
+            fromProtoMsg(message: _5.MinterProtoMsg): _5.Minter;
+            toProto(message: _5.Minter): Uint8Array;
+            toProtoMsg(message: _5.Minter): _5.MinterProtoMsg;
         };
         Params: {
-            encode(message: _5.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _5.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _5.Params;
             fromPartial(object: Partial<_5.Params>): _5.Params;
+            fromAmino(object: _5.ParamsAmino): _5.Params;
+            toAmino(message: _5.Params): _5.ParamsAmino;
+            fromAminoMsg(object: _5.ParamsAminoMsg): _5.Params;
+            fromProtoMsg(message: _5.ParamsProtoMsg): _5.Params;
+            toProto(message: _5.Params): Uint8Array;
+            toProtoMsg(message: _5.Params): _5.ParamsProtoMsg;
         };
         GenesisState: {
-            encode(message: _4.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+            typeUrl: string;
+            encode(message: _4.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
             fromJSON(object: any): _4.GenesisState;
             fromPartial(object: Partial<_4.GenesisState>): _4.GenesisState;
+            fromAmino(object: _4.GenesisStateAmino): _4.GenesisState;
+            toAmino(message: _4.GenesisState): _4.GenesisStateAmino;
+            fromAminoMsg(object: _4.GenesisStateAminoMsg): _4.GenesisState;
+            fromProtoMsg(message: _4.GenesisStateProtoMsg): _4.GenesisState;
+            toProto(message: _4.GenesisState): Uint8Array;
+            toProtoMsg(message: _4.GenesisState): _4.GenesisStateProtoMsg;
         };
     };
     const ClientFactory: {
@@ -170,7 +248,7 @@ export declare namespace irishub {
             rpc: import("../helpers").Rpc;
         }) => Promise<{
             irishub: {
-                guardian: _140.MsgClientImpl;
+                guardian: _141.MsgClientImpl;
             };
             cosmos: {
                 authz: {
@@ -422,8 +500,8 @@ export declare namespace irishub {
             restEndpoint: string;
         }) => Promise<{
             irishub: {
-                guardian: _136.LCDQueryClient;
-                mint: _137.LCDQueryClient;
+                guardian: _137.LCDQueryClient;
+                mint: _138.LCDQueryClient;
             };
             cosmos: {
                 auth: {

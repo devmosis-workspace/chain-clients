@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgRegisterAccount, MsgRegisterAccountResponse, MsgSubmitTx, MsgSubmitTxResponse } from "./tx";
 /** Msg defines the ica-authentication Msg service. */
 export interface Msg {
@@ -17,11 +17,11 @@ export class MsgClientImpl implements Msg {
   registerAccount(request: MsgRegisterAccount): Promise<MsgRegisterAccountResponse> {
     const data = MsgRegisterAccount.encode(request).finish();
     const promise = this.rpc.request("secret.intertx.v1beta1.Msg", "RegisterAccount", data);
-    return promise.then(data => MsgRegisterAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgRegisterAccountResponse.decode(new BinaryReader(data)));
   }
   submitTx(request: MsgSubmitTx): Promise<MsgSubmitTxResponse> {
     const data = MsgSubmitTx.encode(request).finish();
     const promise = this.rpc.request("secret.intertx.v1beta1.Msg", "SubmitTx", data);
-    return promise.then(data => MsgSubmitTxResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSubmitTxResponse.decode(new BinaryReader(data)));
   }
 }

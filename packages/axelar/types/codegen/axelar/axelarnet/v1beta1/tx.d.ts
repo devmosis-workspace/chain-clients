@@ -1,8 +1,7 @@
-import { Chain, ChainSDKType, Asset, AssetSDKType } from "../../nexus/exported/v1beta1/types";
-import { Duration, DurationSDKType } from "../../../google/protobuf/duration";
-import { Fee, FeeSDKType } from "./types";
-import { Long } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Chain, ChainAmino, ChainSDKType, Asset, AssetAmino, AssetSDKType } from "../../nexus/exported/v1beta1/types";
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { Fee, FeeAmino, FeeSDKType } from "./types";
+import { BinaryWriter } from "../../../binary";
 /**
  * MsgLink represents a message to link a cross-chain address to an Axelar
  * address
@@ -12,6 +11,24 @@ export interface LinkRequest {
     recipientAddr: string;
     recipientChain: string;
     asset: string;
+}
+export interface LinkRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.LinkRequest";
+    value: Uint8Array;
+}
+/**
+ * MsgLink represents a message to link a cross-chain address to an Axelar
+ * address
+ */
+export interface LinkRequestAmino {
+    sender: Uint8Array;
+    recipient_addr: string;
+    recipient_chain: string;
+    asset: string;
+}
+export interface LinkRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.LinkRequest";
+    value: LinkRequestAmino;
 }
 /**
  * MsgLink represents a message to link a cross-chain address to an Axelar
@@ -26,6 +43,17 @@ export interface LinkRequestSDKType {
 export interface LinkResponse {
     depositAddr: string;
 }
+export interface LinkResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.LinkResponse";
+    value: Uint8Array;
+}
+export interface LinkResponseAmino {
+    deposit_addr: string;
+}
+export interface LinkResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.LinkResponse";
+    value: LinkResponseAmino;
+}
 export interface LinkResponseSDKType {
     deposit_addr: string;
 }
@@ -35,6 +63,20 @@ export interface ConfirmDepositRequest {
     depositAddress: Uint8Array;
     denom: string;
 }
+export interface ConfirmDepositRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.ConfirmDepositRequest";
+    value: Uint8Array;
+}
+/** MsgConfirmDeposit represents a deposit confirmation message */
+export interface ConfirmDepositRequestAmino {
+    sender: Uint8Array;
+    deposit_address: Uint8Array;
+    denom: string;
+}
+export interface ConfirmDepositRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.ConfirmDepositRequest";
+    value: ConfirmDepositRequestAmino;
+}
 /** MsgConfirmDeposit represents a deposit confirmation message */
 export interface ConfirmDepositRequestSDKType {
     sender: Uint8Array;
@@ -42,6 +84,16 @@ export interface ConfirmDepositRequestSDKType {
     denom: string;
 }
 export interface ConfirmDepositResponse {
+}
+export interface ConfirmDepositResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.ConfirmDepositResponse";
+    value: Uint8Array;
+}
+export interface ConfirmDepositResponseAmino {
+}
+export interface ConfirmDepositResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.ConfirmDepositResponse";
+    value: ConfirmDepositResponseAmino;
 }
 export interface ConfirmDepositResponseSDKType {
 }
@@ -52,6 +104,21 @@ export interface ConfirmDepositResponseSDKType {
 export interface ExecutePendingTransfersRequest {
     sender: Uint8Array;
 }
+export interface ExecutePendingTransfersRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest";
+    value: Uint8Array;
+}
+/**
+ * MsgExecutePendingTransfers represents a message to trigger transfer all
+ * pending transfers
+ */
+export interface ExecutePendingTransfersRequestAmino {
+    sender: Uint8Array;
+}
+export interface ExecutePendingTransfersRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest";
+    value: ExecutePendingTransfersRequestAmino;
+}
 /**
  * MsgExecutePendingTransfers represents a message to trigger transfer all
  * pending transfers
@@ -60,6 +127,16 @@ export interface ExecutePendingTransfersRequestSDKType {
     sender: Uint8Array;
 }
 export interface ExecutePendingTransfersResponse {
+}
+export interface ExecutePendingTransfersResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersResponse";
+    value: Uint8Array;
+}
+export interface ExecutePendingTransfersResponseAmino {
+}
+export interface ExecutePendingTransfersResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersResponse";
+    value: ExecutePendingTransfersResponseAmino;
 }
 export interface ExecutePendingTransfersResponseSDKType {
 }
@@ -73,6 +150,24 @@ export interface RegisterIBCPathRequest {
     chain: string;
     path: string;
 }
+export interface RegisterIBCPathRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RegisterIBCPathRequest";
+    value: Uint8Array;
+}
+/**
+ * MSgRegisterIBCPath represents a message to register an IBC tracing path for
+ * a cosmos chain
+ */
+/** @deprecated */
+export interface RegisterIBCPathRequestAmino {
+    sender: Uint8Array;
+    chain: string;
+    path: string;
+}
+export interface RegisterIBCPathRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RegisterIBCPathRequest";
+    value: RegisterIBCPathRequestAmino;
+}
 /**
  * MSgRegisterIBCPath represents a message to register an IBC tracing path for
  * a cosmos chain
@@ -85,6 +180,16 @@ export interface RegisterIBCPathRequestSDKType {
 }
 export interface RegisterIBCPathResponse {
 }
+export interface RegisterIBCPathResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RegisterIBCPathResponse";
+    value: Uint8Array;
+}
+export interface RegisterIBCPathResponseAmino {
+}
+export interface RegisterIBCPathResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RegisterIBCPathResponse";
+    value: RegisterIBCPathResponseAmino;
+}
 export interface RegisterIBCPathResponseSDKType {
 }
 /**
@@ -94,12 +199,34 @@ export interface RegisterIBCPathResponseSDKType {
 export interface AddCosmosBasedChainRequest {
     sender: Uint8Array;
     /** @deprecated */
-    chain?: Chain;
+    chain: Chain;
     addrPrefix: string;
     /** @deprecated */
     nativeAssets: Asset[];
     cosmosChain: string;
     ibcPath: string;
+}
+export interface AddCosmosBasedChainRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest";
+    value: Uint8Array;
+}
+/**
+ * MsgAddCosmosBasedChain represents a message to register a cosmos based chain
+ * to nexus
+ */
+export interface AddCosmosBasedChainRequestAmino {
+    sender: Uint8Array;
+    /** @deprecated */
+    chain?: ChainAmino;
+    addr_prefix: string;
+    /** @deprecated */
+    native_assets: AssetAmino[];
+    cosmos_chain: string;
+    ibc_path: string;
+}
+export interface AddCosmosBasedChainRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest";
+    value: AddCosmosBasedChainRequestAmino;
 }
 /**
  * MsgAddCosmosBasedChain represents a message to register a cosmos based chain
@@ -108,7 +235,7 @@ export interface AddCosmosBasedChainRequest {
 export interface AddCosmosBasedChainRequestSDKType {
     sender: Uint8Array;
     /** @deprecated */
-    chain?: ChainSDKType;
+    chain: ChainSDKType;
     addr_prefix: string;
     /** @deprecated */
     native_assets: AssetSDKType[];
@@ -116,6 +243,16 @@ export interface AddCosmosBasedChainRequestSDKType {
     ibc_path: string;
 }
 export interface AddCosmosBasedChainResponse {
+}
+export interface AddCosmosBasedChainResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainResponse";
+    value: Uint8Array;
+}
+export interface AddCosmosBasedChainResponseAmino {
+}
+export interface AddCosmosBasedChainResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainResponse";
+    value: AddCosmosBasedChainResponseAmino;
 }
 export interface AddCosmosBasedChainResponseSDKType {
 }
@@ -126,9 +263,28 @@ export interface AddCosmosBasedChainResponseSDKType {
 export interface RegisterAssetRequest {
     sender: Uint8Array;
     chain: string;
-    asset?: Asset;
+    asset: Asset;
     limit: Uint8Array;
-    window?: Duration;
+    window: Duration;
+}
+export interface RegisterAssetRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RegisterAssetRequest";
+    value: Uint8Array;
+}
+/**
+ * RegisterAssetRequest represents a message to register an asset to a cosmos
+ * based chain
+ */
+export interface RegisterAssetRequestAmino {
+    sender: Uint8Array;
+    chain: string;
+    asset?: AssetAmino;
+    limit: Uint8Array;
+    window?: DurationAmino;
+}
+export interface RegisterAssetRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RegisterAssetRequest";
+    value: RegisterAssetRequestAmino;
 }
 /**
  * RegisterAssetRequest represents a message to register an asset to a cosmos
@@ -137,11 +293,21 @@ export interface RegisterAssetRequest {
 export interface RegisterAssetRequestSDKType {
     sender: Uint8Array;
     chain: string;
-    asset?: AssetSDKType;
+    asset: AssetSDKType;
     limit: Uint8Array;
-    window?: DurationSDKType;
+    window: DurationSDKType;
 }
 export interface RegisterAssetResponse {
+}
+export interface RegisterAssetResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RegisterAssetResponse";
+    value: Uint8Array;
+}
+export interface RegisterAssetResponseAmino {
+}
+export interface RegisterAssetResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RegisterAssetResponse";
+    value: RegisterAssetResponseAmino;
 }
 export interface RegisterAssetResponseSDKType {
 }
@@ -152,6 +318,21 @@ export interface RegisterAssetResponseSDKType {
 export interface RouteIBCTransfersRequest {
     sender: Uint8Array;
 }
+export interface RouteIBCTransfersRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RouteIBCTransfersRequest";
+    value: Uint8Array;
+}
+/**
+ * RouteIBCTransfersRequest represents a message to route pending transfers to
+ * cosmos based chains
+ */
+export interface RouteIBCTransfersRequestAmino {
+    sender: Uint8Array;
+}
+export interface RouteIBCTransfersRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RouteIBCTransfersRequest";
+    value: RouteIBCTransfersRequestAmino;
+}
 /**
  * RouteIBCTransfersRequest represents a message to route pending transfers to
  * cosmos based chains
@@ -160,6 +341,16 @@ export interface RouteIBCTransfersRequestSDKType {
     sender: Uint8Array;
 }
 export interface RouteIBCTransfersResponse {
+}
+export interface RouteIBCTransfersResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RouteIBCTransfersResponse";
+    value: Uint8Array;
+}
+export interface RouteIBCTransfersResponseAmino {
+}
+export interface RouteIBCTransfersResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RouteIBCTransfersResponse";
+    value: RouteIBCTransfersResponseAmino;
 }
 export interface RouteIBCTransfersResponseSDKType {
 }
@@ -171,6 +362,22 @@ export interface RegisterFeeCollectorRequest {
     sender: Uint8Array;
     feeCollector: Uint8Array;
 }
+export interface RegisterFeeCollectorRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest";
+    value: Uint8Array;
+}
+/**
+ * RegisterFeeCollectorRequest represents a message to register axelarnet fee
+ * collector account
+ */
+export interface RegisterFeeCollectorRequestAmino {
+    sender: Uint8Array;
+    fee_collector: Uint8Array;
+}
+export interface RegisterFeeCollectorRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest";
+    value: RegisterFeeCollectorRequestAmino;
+}
 /**
  * RegisterFeeCollectorRequest represents a message to register axelarnet fee
  * collector account
@@ -181,19 +388,52 @@ export interface RegisterFeeCollectorRequestSDKType {
 }
 export interface RegisterFeeCollectorResponse {
 }
+export interface RegisterFeeCollectorResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorResponse";
+    value: Uint8Array;
+}
+export interface RegisterFeeCollectorResponseAmino {
+}
+export interface RegisterFeeCollectorResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorResponse";
+    value: RegisterFeeCollectorResponseAmino;
+}
 export interface RegisterFeeCollectorResponseSDKType {
 }
 export interface RetryIBCTransferRequest {
     sender: Uint8Array;
     chain: string;
-    id: Long;
+    id: bigint;
+}
+export interface RetryIBCTransferRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RetryIBCTransferRequest";
+    value: Uint8Array;
+}
+export interface RetryIBCTransferRequestAmino {
+    sender: Uint8Array;
+    chain: string;
+    id: string;
+}
+export interface RetryIBCTransferRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RetryIBCTransferRequest";
+    value: RetryIBCTransferRequestAmino;
 }
 export interface RetryIBCTransferRequestSDKType {
     sender: Uint8Array;
     chain: string;
-    id: Long;
+    id: bigint;
 }
 export interface RetryIBCTransferResponse {
+}
+export interface RetryIBCTransferResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RetryIBCTransferResponse";
+    value: Uint8Array;
+}
+export interface RetryIBCTransferResponseAmino {
+}
+export interface RetryIBCTransferResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RetryIBCTransferResponse";
+    value: RetryIBCTransferResponseAmino;
 }
 export interface RetryIBCTransferResponseSDKType {
 }
@@ -202,12 +442,35 @@ export interface RouteMessageRequest {
     id: string;
     payload: Uint8Array;
 }
+export interface RouteMessageRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RouteMessageRequest";
+    value: Uint8Array;
+}
+export interface RouteMessageRequestAmino {
+    sender: Uint8Array;
+    id: string;
+    payload: Uint8Array;
+}
+export interface RouteMessageRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RouteMessageRequest";
+    value: RouteMessageRequestAmino;
+}
 export interface RouteMessageRequestSDKType {
     sender: Uint8Array;
     id: string;
     payload: Uint8Array;
 }
 export interface RouteMessageResponse {
+}
+export interface RouteMessageResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.RouteMessageResponse";
+    value: Uint8Array;
+}
+export interface RouteMessageResponseAmino {
+}
+export interface RouteMessageResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.RouteMessageResponse";
+    value: RouteMessageResponseAmino;
 }
 export interface RouteMessageResponseSDKType {
 }
@@ -216,126 +479,305 @@ export interface CallContractRequest {
     chain: string;
     contractAddress: string;
     payload: Uint8Array;
-    fee?: Fee;
+    fee: Fee;
+}
+export interface CallContractRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.CallContractRequest";
+    value: Uint8Array;
+}
+export interface CallContractRequestAmino {
+    sender: Uint8Array;
+    chain: string;
+    contract_address: string;
+    payload: Uint8Array;
+    fee?: FeeAmino;
+}
+export interface CallContractRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.CallContractRequest";
+    value: CallContractRequestAmino;
 }
 export interface CallContractRequestSDKType {
     sender: Uint8Array;
     chain: string;
     contract_address: string;
     payload: Uint8Array;
-    fee?: FeeSDKType;
+    fee: FeeSDKType;
 }
 export interface CallContractResponse {
+}
+export interface CallContractResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.CallContractResponse";
+    value: Uint8Array;
+}
+export interface CallContractResponseAmino {
+}
+export interface CallContractResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.CallContractResponse";
+    value: CallContractResponseAmino;
 }
 export interface CallContractResponseSDKType {
 }
 export declare const LinkRequest: {
-    encode(message: LinkRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: LinkRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): LinkRequest;
     fromPartial(object: Partial<LinkRequest>): LinkRequest;
+    fromAmino(object: LinkRequestAmino): LinkRequest;
+    toAmino(message: LinkRequest): LinkRequestAmino;
+    fromAminoMsg(object: LinkRequestAminoMsg): LinkRequest;
+    fromProtoMsg(message: LinkRequestProtoMsg): LinkRequest;
+    toProto(message: LinkRequest): Uint8Array;
+    toProtoMsg(message: LinkRequest): LinkRequestProtoMsg;
 };
 export declare const LinkResponse: {
-    encode(message: LinkResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: LinkResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): LinkResponse;
     fromPartial(object: Partial<LinkResponse>): LinkResponse;
+    fromAmino(object: LinkResponseAmino): LinkResponse;
+    toAmino(message: LinkResponse): LinkResponseAmino;
+    fromAminoMsg(object: LinkResponseAminoMsg): LinkResponse;
+    fromProtoMsg(message: LinkResponseProtoMsg): LinkResponse;
+    toProto(message: LinkResponse): Uint8Array;
+    toProtoMsg(message: LinkResponse): LinkResponseProtoMsg;
 };
 export declare const ConfirmDepositRequest: {
-    encode(message: ConfirmDepositRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ConfirmDepositRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ConfirmDepositRequest;
     fromPartial(object: Partial<ConfirmDepositRequest>): ConfirmDepositRequest;
+    fromAmino(object: ConfirmDepositRequestAmino): ConfirmDepositRequest;
+    toAmino(message: ConfirmDepositRequest): ConfirmDepositRequestAmino;
+    fromAminoMsg(object: ConfirmDepositRequestAminoMsg): ConfirmDepositRequest;
+    fromProtoMsg(message: ConfirmDepositRequestProtoMsg): ConfirmDepositRequest;
+    toProto(message: ConfirmDepositRequest): Uint8Array;
+    toProtoMsg(message: ConfirmDepositRequest): ConfirmDepositRequestProtoMsg;
 };
 export declare const ConfirmDepositResponse: {
-    encode(_: ConfirmDepositResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: ConfirmDepositResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): ConfirmDepositResponse;
     fromPartial(_: Partial<ConfirmDepositResponse>): ConfirmDepositResponse;
+    fromAmino(_: ConfirmDepositResponseAmino): ConfirmDepositResponse;
+    toAmino(_: ConfirmDepositResponse): ConfirmDepositResponseAmino;
+    fromAminoMsg(object: ConfirmDepositResponseAminoMsg): ConfirmDepositResponse;
+    fromProtoMsg(message: ConfirmDepositResponseProtoMsg): ConfirmDepositResponse;
+    toProto(message: ConfirmDepositResponse): Uint8Array;
+    toProtoMsg(message: ConfirmDepositResponse): ConfirmDepositResponseProtoMsg;
 };
 export declare const ExecutePendingTransfersRequest: {
-    encode(message: ExecutePendingTransfersRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ExecutePendingTransfersRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ExecutePendingTransfersRequest;
     fromPartial(object: Partial<ExecutePendingTransfersRequest>): ExecutePendingTransfersRequest;
+    fromAmino(object: ExecutePendingTransfersRequestAmino): ExecutePendingTransfersRequest;
+    toAmino(message: ExecutePendingTransfersRequest): ExecutePendingTransfersRequestAmino;
+    fromAminoMsg(object: ExecutePendingTransfersRequestAminoMsg): ExecutePendingTransfersRequest;
+    fromProtoMsg(message: ExecutePendingTransfersRequestProtoMsg): ExecutePendingTransfersRequest;
+    toProto(message: ExecutePendingTransfersRequest): Uint8Array;
+    toProtoMsg(message: ExecutePendingTransfersRequest): ExecutePendingTransfersRequestProtoMsg;
 };
 export declare const ExecutePendingTransfersResponse: {
-    encode(_: ExecutePendingTransfersResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: ExecutePendingTransfersResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): ExecutePendingTransfersResponse;
     fromPartial(_: Partial<ExecutePendingTransfersResponse>): ExecutePendingTransfersResponse;
+    fromAmino(_: ExecutePendingTransfersResponseAmino): ExecutePendingTransfersResponse;
+    toAmino(_: ExecutePendingTransfersResponse): ExecutePendingTransfersResponseAmino;
+    fromAminoMsg(object: ExecutePendingTransfersResponseAminoMsg): ExecutePendingTransfersResponse;
+    fromProtoMsg(message: ExecutePendingTransfersResponseProtoMsg): ExecutePendingTransfersResponse;
+    toProto(message: ExecutePendingTransfersResponse): Uint8Array;
+    toProtoMsg(message: ExecutePendingTransfersResponse): ExecutePendingTransfersResponseProtoMsg;
 };
 export declare const RegisterIBCPathRequest: {
-    encode(message: RegisterIBCPathRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: RegisterIBCPathRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): RegisterIBCPathRequest;
     fromPartial(object: Partial<RegisterIBCPathRequest>): RegisterIBCPathRequest;
+    fromAmino(object: RegisterIBCPathRequestAmino): RegisterIBCPathRequest;
+    toAmino(message: RegisterIBCPathRequest): RegisterIBCPathRequestAmino;
+    fromAminoMsg(object: RegisterIBCPathRequestAminoMsg): RegisterIBCPathRequest;
+    fromProtoMsg(message: RegisterIBCPathRequestProtoMsg): RegisterIBCPathRequest;
+    toProto(message: RegisterIBCPathRequest): Uint8Array;
+    toProtoMsg(message: RegisterIBCPathRequest): RegisterIBCPathRequestProtoMsg;
 };
 export declare const RegisterIBCPathResponse: {
-    encode(_: RegisterIBCPathResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: RegisterIBCPathResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): RegisterIBCPathResponse;
     fromPartial(_: Partial<RegisterIBCPathResponse>): RegisterIBCPathResponse;
+    fromAmino(_: RegisterIBCPathResponseAmino): RegisterIBCPathResponse;
+    toAmino(_: RegisterIBCPathResponse): RegisterIBCPathResponseAmino;
+    fromAminoMsg(object: RegisterIBCPathResponseAminoMsg): RegisterIBCPathResponse;
+    fromProtoMsg(message: RegisterIBCPathResponseProtoMsg): RegisterIBCPathResponse;
+    toProto(message: RegisterIBCPathResponse): Uint8Array;
+    toProtoMsg(message: RegisterIBCPathResponse): RegisterIBCPathResponseProtoMsg;
 };
 export declare const AddCosmosBasedChainRequest: {
-    encode(message: AddCosmosBasedChainRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: AddCosmosBasedChainRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): AddCosmosBasedChainRequest;
     fromPartial(object: Partial<AddCosmosBasedChainRequest>): AddCosmosBasedChainRequest;
+    fromAmino(object: AddCosmosBasedChainRequestAmino): AddCosmosBasedChainRequest;
+    toAmino(message: AddCosmosBasedChainRequest): AddCosmosBasedChainRequestAmino;
+    fromAminoMsg(object: AddCosmosBasedChainRequestAminoMsg): AddCosmosBasedChainRequest;
+    fromProtoMsg(message: AddCosmosBasedChainRequestProtoMsg): AddCosmosBasedChainRequest;
+    toProto(message: AddCosmosBasedChainRequest): Uint8Array;
+    toProtoMsg(message: AddCosmosBasedChainRequest): AddCosmosBasedChainRequestProtoMsg;
 };
 export declare const AddCosmosBasedChainResponse: {
-    encode(_: AddCosmosBasedChainResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: AddCosmosBasedChainResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): AddCosmosBasedChainResponse;
     fromPartial(_: Partial<AddCosmosBasedChainResponse>): AddCosmosBasedChainResponse;
+    fromAmino(_: AddCosmosBasedChainResponseAmino): AddCosmosBasedChainResponse;
+    toAmino(_: AddCosmosBasedChainResponse): AddCosmosBasedChainResponseAmino;
+    fromAminoMsg(object: AddCosmosBasedChainResponseAminoMsg): AddCosmosBasedChainResponse;
+    fromProtoMsg(message: AddCosmosBasedChainResponseProtoMsg): AddCosmosBasedChainResponse;
+    toProto(message: AddCosmosBasedChainResponse): Uint8Array;
+    toProtoMsg(message: AddCosmosBasedChainResponse): AddCosmosBasedChainResponseProtoMsg;
 };
 export declare const RegisterAssetRequest: {
-    encode(message: RegisterAssetRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: RegisterAssetRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): RegisterAssetRequest;
     fromPartial(object: Partial<RegisterAssetRequest>): RegisterAssetRequest;
+    fromAmino(object: RegisterAssetRequestAmino): RegisterAssetRequest;
+    toAmino(message: RegisterAssetRequest): RegisterAssetRequestAmino;
+    fromAminoMsg(object: RegisterAssetRequestAminoMsg): RegisterAssetRequest;
+    fromProtoMsg(message: RegisterAssetRequestProtoMsg): RegisterAssetRequest;
+    toProto(message: RegisterAssetRequest): Uint8Array;
+    toProtoMsg(message: RegisterAssetRequest): RegisterAssetRequestProtoMsg;
 };
 export declare const RegisterAssetResponse: {
-    encode(_: RegisterAssetResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: RegisterAssetResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): RegisterAssetResponse;
     fromPartial(_: Partial<RegisterAssetResponse>): RegisterAssetResponse;
+    fromAmino(_: RegisterAssetResponseAmino): RegisterAssetResponse;
+    toAmino(_: RegisterAssetResponse): RegisterAssetResponseAmino;
+    fromAminoMsg(object: RegisterAssetResponseAminoMsg): RegisterAssetResponse;
+    fromProtoMsg(message: RegisterAssetResponseProtoMsg): RegisterAssetResponse;
+    toProto(message: RegisterAssetResponse): Uint8Array;
+    toProtoMsg(message: RegisterAssetResponse): RegisterAssetResponseProtoMsg;
 };
 export declare const RouteIBCTransfersRequest: {
-    encode(message: RouteIBCTransfersRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: RouteIBCTransfersRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): RouteIBCTransfersRequest;
     fromPartial(object: Partial<RouteIBCTransfersRequest>): RouteIBCTransfersRequest;
+    fromAmino(object: RouteIBCTransfersRequestAmino): RouteIBCTransfersRequest;
+    toAmino(message: RouteIBCTransfersRequest): RouteIBCTransfersRequestAmino;
+    fromAminoMsg(object: RouteIBCTransfersRequestAminoMsg): RouteIBCTransfersRequest;
+    fromProtoMsg(message: RouteIBCTransfersRequestProtoMsg): RouteIBCTransfersRequest;
+    toProto(message: RouteIBCTransfersRequest): Uint8Array;
+    toProtoMsg(message: RouteIBCTransfersRequest): RouteIBCTransfersRequestProtoMsg;
 };
 export declare const RouteIBCTransfersResponse: {
-    encode(_: RouteIBCTransfersResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: RouteIBCTransfersResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): RouteIBCTransfersResponse;
     fromPartial(_: Partial<RouteIBCTransfersResponse>): RouteIBCTransfersResponse;
+    fromAmino(_: RouteIBCTransfersResponseAmino): RouteIBCTransfersResponse;
+    toAmino(_: RouteIBCTransfersResponse): RouteIBCTransfersResponseAmino;
+    fromAminoMsg(object: RouteIBCTransfersResponseAminoMsg): RouteIBCTransfersResponse;
+    fromProtoMsg(message: RouteIBCTransfersResponseProtoMsg): RouteIBCTransfersResponse;
+    toProto(message: RouteIBCTransfersResponse): Uint8Array;
+    toProtoMsg(message: RouteIBCTransfersResponse): RouteIBCTransfersResponseProtoMsg;
 };
 export declare const RegisterFeeCollectorRequest: {
-    encode(message: RegisterFeeCollectorRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: RegisterFeeCollectorRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): RegisterFeeCollectorRequest;
     fromPartial(object: Partial<RegisterFeeCollectorRequest>): RegisterFeeCollectorRequest;
+    fromAmino(object: RegisterFeeCollectorRequestAmino): RegisterFeeCollectorRequest;
+    toAmino(message: RegisterFeeCollectorRequest): RegisterFeeCollectorRequestAmino;
+    fromAminoMsg(object: RegisterFeeCollectorRequestAminoMsg): RegisterFeeCollectorRequest;
+    fromProtoMsg(message: RegisterFeeCollectorRequestProtoMsg): RegisterFeeCollectorRequest;
+    toProto(message: RegisterFeeCollectorRequest): Uint8Array;
+    toProtoMsg(message: RegisterFeeCollectorRequest): RegisterFeeCollectorRequestProtoMsg;
 };
 export declare const RegisterFeeCollectorResponse: {
-    encode(_: RegisterFeeCollectorResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: RegisterFeeCollectorResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): RegisterFeeCollectorResponse;
     fromPartial(_: Partial<RegisterFeeCollectorResponse>): RegisterFeeCollectorResponse;
+    fromAmino(_: RegisterFeeCollectorResponseAmino): RegisterFeeCollectorResponse;
+    toAmino(_: RegisterFeeCollectorResponse): RegisterFeeCollectorResponseAmino;
+    fromAminoMsg(object: RegisterFeeCollectorResponseAminoMsg): RegisterFeeCollectorResponse;
+    fromProtoMsg(message: RegisterFeeCollectorResponseProtoMsg): RegisterFeeCollectorResponse;
+    toProto(message: RegisterFeeCollectorResponse): Uint8Array;
+    toProtoMsg(message: RegisterFeeCollectorResponse): RegisterFeeCollectorResponseProtoMsg;
 };
 export declare const RetryIBCTransferRequest: {
-    encode(message: RetryIBCTransferRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: RetryIBCTransferRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): RetryIBCTransferRequest;
     fromPartial(object: Partial<RetryIBCTransferRequest>): RetryIBCTransferRequest;
+    fromAmino(object: RetryIBCTransferRequestAmino): RetryIBCTransferRequest;
+    toAmino(message: RetryIBCTransferRequest): RetryIBCTransferRequestAmino;
+    fromAminoMsg(object: RetryIBCTransferRequestAminoMsg): RetryIBCTransferRequest;
+    fromProtoMsg(message: RetryIBCTransferRequestProtoMsg): RetryIBCTransferRequest;
+    toProto(message: RetryIBCTransferRequest): Uint8Array;
+    toProtoMsg(message: RetryIBCTransferRequest): RetryIBCTransferRequestProtoMsg;
 };
 export declare const RetryIBCTransferResponse: {
-    encode(_: RetryIBCTransferResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: RetryIBCTransferResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): RetryIBCTransferResponse;
     fromPartial(_: Partial<RetryIBCTransferResponse>): RetryIBCTransferResponse;
+    fromAmino(_: RetryIBCTransferResponseAmino): RetryIBCTransferResponse;
+    toAmino(_: RetryIBCTransferResponse): RetryIBCTransferResponseAmino;
+    fromAminoMsg(object: RetryIBCTransferResponseAminoMsg): RetryIBCTransferResponse;
+    fromProtoMsg(message: RetryIBCTransferResponseProtoMsg): RetryIBCTransferResponse;
+    toProto(message: RetryIBCTransferResponse): Uint8Array;
+    toProtoMsg(message: RetryIBCTransferResponse): RetryIBCTransferResponseProtoMsg;
 };
 export declare const RouteMessageRequest: {
-    encode(message: RouteMessageRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: RouteMessageRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): RouteMessageRequest;
     fromPartial(object: Partial<RouteMessageRequest>): RouteMessageRequest;
+    fromAmino(object: RouteMessageRequestAmino): RouteMessageRequest;
+    toAmino(message: RouteMessageRequest): RouteMessageRequestAmino;
+    fromAminoMsg(object: RouteMessageRequestAminoMsg): RouteMessageRequest;
+    fromProtoMsg(message: RouteMessageRequestProtoMsg): RouteMessageRequest;
+    toProto(message: RouteMessageRequest): Uint8Array;
+    toProtoMsg(message: RouteMessageRequest): RouteMessageRequestProtoMsg;
 };
 export declare const RouteMessageResponse: {
-    encode(_: RouteMessageResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: RouteMessageResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): RouteMessageResponse;
     fromPartial(_: Partial<RouteMessageResponse>): RouteMessageResponse;
+    fromAmino(_: RouteMessageResponseAmino): RouteMessageResponse;
+    toAmino(_: RouteMessageResponse): RouteMessageResponseAmino;
+    fromAminoMsg(object: RouteMessageResponseAminoMsg): RouteMessageResponse;
+    fromProtoMsg(message: RouteMessageResponseProtoMsg): RouteMessageResponse;
+    toProto(message: RouteMessageResponse): Uint8Array;
+    toProtoMsg(message: RouteMessageResponse): RouteMessageResponseProtoMsg;
 };
 export declare const CallContractRequest: {
-    encode(message: CallContractRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: CallContractRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): CallContractRequest;
     fromPartial(object: Partial<CallContractRequest>): CallContractRequest;
+    fromAmino(object: CallContractRequestAmino): CallContractRequest;
+    toAmino(message: CallContractRequest): CallContractRequestAmino;
+    fromAminoMsg(object: CallContractRequestAminoMsg): CallContractRequest;
+    fromProtoMsg(message: CallContractRequestProtoMsg): CallContractRequest;
+    toProto(message: CallContractRequest): Uint8Array;
+    toProtoMsg(message: CallContractRequest): CallContractRequestProtoMsg;
 };
 export declare const CallContractResponse: {
-    encode(_: CallContractResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: CallContractResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): CallContractResponse;
     fromPartial(_: Partial<CallContractResponse>): CallContractResponse;
+    fromAmino(_: CallContractResponseAmino): CallContractResponse;
+    toAmino(_: CallContractResponse): CallContractResponseAmino;
+    fromAminoMsg(object: CallContractResponseAminoMsg): CallContractResponse;
+    fromProtoMsg(message: CallContractResponseProtoMsg): CallContractResponse;
+    toProto(message: CallContractResponse): Uint8Array;
+    toProtoMsg(message: CallContractResponse): CallContractResponseProtoMsg;
 };

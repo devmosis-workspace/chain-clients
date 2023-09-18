@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryParamsRequest, QueryParamsResponse, QueryGetCallbackDataRequest, QueryGetCallbackDataResponse, QueryAllCallbackDataRequest, QueryAllCallbackDataResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -22,19 +22,19 @@ export class QueryClientImpl implements Query {
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("stride.icacallbacks.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
   callbackData(request: QueryGetCallbackDataRequest): Promise<QueryGetCallbackDataResponse> {
     const data = QueryGetCallbackDataRequest.encode(request).finish();
     const promise = this.rpc.request("stride.icacallbacks.Query", "CallbackData", data);
-    return promise.then(data => QueryGetCallbackDataResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryGetCallbackDataResponse.decode(new BinaryReader(data)));
   }
   callbackDataAll(request: QueryAllCallbackDataRequest = {
     pagination: undefined
   }): Promise<QueryAllCallbackDataResponse> {
     const data = QueryAllCallbackDataRequest.encode(request).finish();
     const promise = this.rpc.request("stride.icacallbacks.Query", "CallbackDataAll", data);
-    return promise.then(data => QueryAllCallbackDataResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryAllCallbackDataResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

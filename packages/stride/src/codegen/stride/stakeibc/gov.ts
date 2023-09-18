@@ -1,5 +1,5 @@
-import { Validator, ValidatorSDKType } from "./validator";
-import * as _m0 from "protobufjs/minimal";
+import { Validator, ValidatorAmino, ValidatorSDKType } from "./validator";
+import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 export interface AddValidatorsProposal {
   title: string;
@@ -7,6 +7,21 @@ export interface AddValidatorsProposal {
   hostZone: string;
   validators: Validator[];
   deposit: string;
+}
+export interface AddValidatorsProposalProtoMsg {
+  typeUrl: "/stride.stakeibc.AddValidatorsProposal";
+  value: Uint8Array;
+}
+export interface AddValidatorsProposalAmino {
+  title: string;
+  description: string;
+  host_zone: string;
+  validators: ValidatorAmino[];
+  deposit: string;
+}
+export interface AddValidatorsProposalAminoMsg {
+  type: "/stride.stakeibc.AddValidatorsProposal";
+  value: AddValidatorsProposalAmino;
 }
 export interface AddValidatorsProposalSDKType {
   title: string;
@@ -25,7 +40,8 @@ function createBaseAddValidatorsProposal(): AddValidatorsProposal {
   };
 }
 export const AddValidatorsProposal = {
-  encode(message: AddValidatorsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.AddValidatorsProposal",
+  encode(message: AddValidatorsProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -60,5 +76,42 @@ export const AddValidatorsProposal = {
     message.validators = object.validators?.map(e => Validator.fromPartial(e)) || [];
     message.deposit = object.deposit ?? "";
     return message;
+  },
+  fromAmino(object: AddValidatorsProposalAmino): AddValidatorsProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      hostZone: object.host_zone,
+      validators: Array.isArray(object?.validators) ? object.validators.map((e: any) => Validator.fromAmino(e)) : [],
+      deposit: object.deposit
+    };
+  },
+  toAmino(message: AddValidatorsProposal): AddValidatorsProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.host_zone = message.hostZone;
+    if (message.validators) {
+      obj.validators = message.validators.map(e => e ? Validator.toAmino(e) : undefined);
+    } else {
+      obj.validators = [];
+    }
+    obj.deposit = message.deposit;
+    return obj;
+  },
+  fromAminoMsg(object: AddValidatorsProposalAminoMsg): AddValidatorsProposal {
+    return AddValidatorsProposal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AddValidatorsProposalProtoMsg): AddValidatorsProposal {
+    return AddValidatorsProposal.decode(message.value);
+  },
+  toProto(message: AddValidatorsProposal): Uint8Array {
+    return AddValidatorsProposal.encode(message).finish();
+  },
+  toProtoMsg(message: AddValidatorsProposal): AddValidatorsProposalProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.AddValidatorsProposal",
+      value: AddValidatorsProposal.encode(message).finish()
+    };
   }
 };

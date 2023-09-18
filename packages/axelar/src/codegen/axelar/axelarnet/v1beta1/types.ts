@@ -1,6 +1,6 @@
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Long, isSet, bytesFromBase64 } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
+import { isSet, bytesFromBase64 } from "../../../helpers";
 export enum IBCTransfer_Status {
   STATUS_UNSPECIFIED = 0,
   STATUS_PENDING = 1,
@@ -9,6 +9,7 @@ export enum IBCTransfer_Status {
   UNRECOGNIZED = -1,
 }
 export const IBCTransfer_StatusSDKType = IBCTransfer_Status;
+export const IBCTransfer_StatusAmino = IBCTransfer_Status;
 export function iBCTransfer_StatusFromJSON(object: any): IBCTransfer_Status {
   switch (object) {
     case 0:
@@ -47,23 +48,42 @@ export function iBCTransfer_StatusToJSON(object: IBCTransfer_Status): string {
 export interface IBCTransfer {
   sender: Uint8Array;
   receiver: string;
-  token?: Coin;
+  token: Coin;
   portId: string;
   channelId: string;
   /** @deprecated */
-  sequence: Long;
-  id: Long;
+  sequence: bigint;
+  id: bigint;
   status: IBCTransfer_Status;
+}
+export interface IBCTransferProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.IBCTransfer";
+  value: Uint8Array;
+}
+export interface IBCTransferAmino {
+  sender: Uint8Array;
+  receiver: string;
+  token?: CoinAmino;
+  port_id: string;
+  channel_id: string;
+  /** @deprecated */
+  sequence: string;
+  id: string;
+  status: IBCTransfer_Status;
+}
+export interface IBCTransferAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.IBCTransfer";
+  value: IBCTransferAmino;
 }
 export interface IBCTransferSDKType {
   sender: Uint8Array;
   receiver: string;
-  token?: CoinSDKType;
+  token: CoinSDKType;
   port_id: string;
   channel_id: string;
   /** @deprecated */
-  sequence: Long;
-  id: Long;
+  sequence: bigint;
+  id: bigint;
   status: IBCTransfer_Status;
 }
 export interface CosmosChain {
@@ -72,6 +92,21 @@ export interface CosmosChain {
   /** @deprecated */
   assets: Asset[];
   addrPrefix: string;
+}
+export interface CosmosChainProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.CosmosChain";
+  value: Uint8Array;
+}
+export interface CosmosChainAmino {
+  name: string;
+  ibc_path: string;
+  /** @deprecated */
+  assets: AssetAmino[];
+  addr_prefix: string;
+}
+export interface CosmosChainAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.CosmosChain";
+  value: CosmosChainAmino;
 }
 export interface CosmosChainSDKType {
   name: string;
@@ -85,33 +120,59 @@ export interface Asset {
   denom: string;
   minAmount: Uint8Array;
 }
+export interface AssetProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.Asset";
+  value: Uint8Array;
+}
+/** @deprecated */
+export interface AssetAmino {
+  denom: string;
+  min_amount: Uint8Array;
+}
+export interface AssetAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.Asset";
+  value: AssetAmino;
+}
 /** @deprecated */
 export interface AssetSDKType {
   denom: string;
   min_amount: Uint8Array;
 }
 export interface Fee {
-  amount?: Coin;
+  amount: Coin;
   recipient: Uint8Array;
 }
+export interface FeeProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.Fee";
+  value: Uint8Array;
+}
+export interface FeeAmino {
+  amount?: CoinAmino;
+  recipient: Uint8Array;
+}
+export interface FeeAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.Fee";
+  value: FeeAmino;
+}
 export interface FeeSDKType {
-  amount?: CoinSDKType;
+  amount: CoinSDKType;
   recipient: Uint8Array;
 }
 function createBaseIBCTransfer(): IBCTransfer {
   return {
     sender: new Uint8Array(),
     receiver: "",
-    token: undefined,
+    token: Coin.fromPartial({}),
     portId: "",
     channelId: "",
-    sequence: Long.UZERO,
-    id: Long.UZERO,
+    sequence: BigInt(0),
+    id: BigInt(0),
     status: 0
   };
 }
 export const IBCTransfer = {
-  encode(message: IBCTransfer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.IBCTransfer",
+  encode(message: IBCTransfer, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
@@ -127,10 +188,10 @@ export const IBCTransfer = {
     if (message.channelId !== "") {
       writer.uint32(42).string(message.channelId);
     }
-    if (!message.sequence.isZero()) {
+    if (message.sequence !== BigInt(0)) {
       writer.uint32(48).uint64(message.sequence);
     }
-    if (!message.id.isZero()) {
+    if (message.id !== BigInt(0)) {
       writer.uint32(56).uint64(message.id);
     }
     if (message.status !== 0) {
@@ -145,9 +206,9 @@ export const IBCTransfer = {
       token: isSet(object.token) ? Coin.fromJSON(object.token) : undefined,
       portId: isSet(object.portId) ? String(object.portId) : "",
       channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      status: isSet(object.status) ? iBCTransfer_StatusFromJSON(object.status) : 0
+      sequence: isSet(object.sequence) ? BigInt(object.sequence.toString()) : BigInt(0),
+      id: isSet(object.id) ? BigInt(object.id.toString()) : BigInt(0),
+      status: isSet(object.status) ? iBCTransfer_StatusFromJSON(object.status) : -1
     };
   },
   fromPartial(object: Partial<IBCTransfer>): IBCTransfer {
@@ -157,10 +218,49 @@ export const IBCTransfer = {
     message.token = object.token !== undefined && object.token !== null ? Coin.fromPartial(object.token) : undefined;
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
-    message.sequence = object.sequence !== undefined && object.sequence !== null ? Long.fromValue(object.sequence) : Long.UZERO;
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
+    message.sequence = object.sequence !== undefined && object.sequence !== null ? BigInt(object.sequence.toString()) : BigInt(0);
+    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
     message.status = object.status ?? 0;
     return message;
+  },
+  fromAmino(object: IBCTransferAmino): IBCTransfer {
+    return {
+      sender: object.sender,
+      receiver: object.receiver,
+      token: object?.token ? Coin.fromAmino(object.token) : undefined,
+      portId: object.port_id,
+      channelId: object.channel_id,
+      sequence: BigInt(object.sequence),
+      id: BigInt(object.id),
+      status: isSet(object.status) ? iBCTransfer_StatusFromJSON(object.status) : -1
+    };
+  },
+  toAmino(message: IBCTransfer): IBCTransferAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.receiver = message.receiver;
+    obj.token = message.token ? Coin.toAmino(message.token) : undefined;
+    obj.port_id = message.portId;
+    obj.channel_id = message.channelId;
+    obj.sequence = message.sequence ? message.sequence.toString() : undefined;
+    obj.id = message.id ? message.id.toString() : undefined;
+    obj.status = message.status;
+    return obj;
+  },
+  fromAminoMsg(object: IBCTransferAminoMsg): IBCTransfer {
+    return IBCTransfer.fromAmino(object.value);
+  },
+  fromProtoMsg(message: IBCTransferProtoMsg): IBCTransfer {
+    return IBCTransfer.decode(message.value);
+  },
+  toProto(message: IBCTransfer): Uint8Array {
+    return IBCTransfer.encode(message).finish();
+  },
+  toProtoMsg(message: IBCTransfer): IBCTransferProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.IBCTransfer",
+      value: IBCTransfer.encode(message).finish()
+    };
   }
 };
 function createBaseCosmosChain(): CosmosChain {
@@ -172,7 +272,8 @@ function createBaseCosmosChain(): CosmosChain {
   };
 }
 export const CosmosChain = {
-  encode(message: CosmosChain, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.CosmosChain",
+  encode(message: CosmosChain, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -202,6 +303,41 @@ export const CosmosChain = {
     message.assets = object.assets?.map(e => Asset.fromPartial(e)) || [];
     message.addrPrefix = object.addrPrefix ?? "";
     return message;
+  },
+  fromAmino(object: CosmosChainAmino): CosmosChain {
+    return {
+      name: object.name,
+      ibcPath: object.ibc_path,
+      assets: Array.isArray(object?.assets) ? object.assets.map((e: any) => Asset.fromAmino(e)) : [],
+      addrPrefix: object.addr_prefix
+    };
+  },
+  toAmino(message: CosmosChain): CosmosChainAmino {
+    const obj: any = {};
+    obj.name = message.name;
+    obj.ibc_path = message.ibcPath;
+    if (message.assets) {
+      obj.assets = message.assets.map(e => e ? Asset.toAmino(e) : undefined);
+    } else {
+      obj.assets = [];
+    }
+    obj.addr_prefix = message.addrPrefix;
+    return obj;
+  },
+  fromAminoMsg(object: CosmosChainAminoMsg): CosmosChain {
+    return CosmosChain.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CosmosChainProtoMsg): CosmosChain {
+    return CosmosChain.decode(message.value);
+  },
+  toProto(message: CosmosChain): Uint8Array {
+    return CosmosChain.encode(message).finish();
+  },
+  toProtoMsg(message: CosmosChain): CosmosChainProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.CosmosChain",
+      value: CosmosChain.encode(message).finish()
+    };
   }
 };
 function createBaseAsset(): Asset {
@@ -211,7 +347,8 @@ function createBaseAsset(): Asset {
   };
 }
 export const Asset = {
-  encode(message: Asset, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.Asset",
+  encode(message: Asset, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -231,16 +368,44 @@ export const Asset = {
     message.denom = object.denom ?? "";
     message.minAmount = object.minAmount ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: AssetAmino): Asset {
+    return {
+      denom: object.denom,
+      minAmount: object.min_amount
+    };
+  },
+  toAmino(message: Asset): AssetAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.min_amount = message.minAmount;
+    return obj;
+  },
+  fromAminoMsg(object: AssetAminoMsg): Asset {
+    return Asset.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AssetProtoMsg): Asset {
+    return Asset.decode(message.value);
+  },
+  toProto(message: Asset): Uint8Array {
+    return Asset.encode(message).finish();
+  },
+  toProtoMsg(message: Asset): AssetProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.Asset",
+      value: Asset.encode(message).finish()
+    };
   }
 };
 function createBaseFee(): Fee {
   return {
-    amount: undefined,
+    amount: Coin.fromPartial({}),
     recipient: new Uint8Array()
   };
 }
 export const Fee = {
-  encode(message: Fee, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.axelarnet.v1beta1.Fee",
+  encode(message: Fee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(10).fork()).ldelim();
     }
@@ -260,5 +425,32 @@ export const Fee = {
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     message.recipient = object.recipient ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: FeeAmino): Fee {
+    return {
+      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
+      recipient: object.recipient
+    };
+  },
+  toAmino(message: Fee): FeeAmino {
+    const obj: any = {};
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.recipient = message.recipient;
+    return obj;
+  },
+  fromAminoMsg(object: FeeAminoMsg): Fee {
+    return Fee.fromAmino(object.value);
+  },
+  fromProtoMsg(message: FeeProtoMsg): Fee {
+    return Fee.decode(message.value);
+  },
+  toProto(message: Fee): Uint8Array {
+    return Fee.encode(message).finish();
+  },
+  toProtoMsg(message: Fee): FeeProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.Fee",
+      value: Fee.encode(message).finish()
+    };
   }
 };

@@ -1,7 +1,18 @@
-import { ConsensusParams, ConsensusParamsSDKType } from "../../../tendermint/types/params";
-import * as _m0 from "protobufjs/minimal";
+import { ConsensusParams, ConsensusParamsAmino, ConsensusParamsSDKType } from "../../../tendermint/types/params";
+import { BinaryWriter } from "../../../binary";
 /** QueryParamsRequest defines the request type for querying x/consensus parameters. */
 export interface QueryParamsRequest {
+}
+export interface QueryParamsRequestProtoMsg {
+    typeUrl: "/cosmos.consensus.v1.QueryParamsRequest";
+    value: Uint8Array;
+}
+/** QueryParamsRequest defines the request type for querying x/consensus parameters. */
+export interface QueryParamsRequestAmino {
+}
+export interface QueryParamsRequestAminoMsg {
+    type: "cosmos-sdk/QueryParamsRequest";
+    value: QueryParamsRequestAmino;
 }
 /** QueryParamsRequest defines the request type for querying x/consensus parameters. */
 export interface QueryParamsRequestSDKType {
@@ -13,19 +24,52 @@ export interface QueryParamsResponse {
      * Please note that `params.version` is not populated in this response, it is
      * tracked separately in the x/upgrade module.
      */
-    params?: ConsensusParams;
+    params: ConsensusParams;
+}
+export interface QueryParamsResponseProtoMsg {
+    typeUrl: "/cosmos.consensus.v1.QueryParamsResponse";
+    value: Uint8Array;
+}
+/** QueryParamsResponse defines the response type for querying x/consensus parameters. */
+export interface QueryParamsResponseAmino {
+    /**
+     * params are the tendermint consensus params stored in the consensus module.
+     * Please note that `params.version` is not populated in this response, it is
+     * tracked separately in the x/upgrade module.
+     */
+    params?: ConsensusParamsAmino;
+}
+export interface QueryParamsResponseAminoMsg {
+    type: "cosmos-sdk/QueryParamsResponse";
+    value: QueryParamsResponseAmino;
 }
 /** QueryParamsResponse defines the response type for querying x/consensus parameters. */
 export interface QueryParamsResponseSDKType {
-    params?: ConsensusParamsSDKType;
+    params: ConsensusParamsSDKType;
 }
 export declare const QueryParamsRequest: {
-    encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: QueryParamsRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): QueryParamsRequest;
     fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest;
+    fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest;
+    toAmino(_: QueryParamsRequest): QueryParamsRequestAmino;
+    fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest;
+    toAminoMsg(message: QueryParamsRequest): QueryParamsRequestAminoMsg;
+    fromProtoMsg(message: QueryParamsRequestProtoMsg): QueryParamsRequest;
+    toProto(message: QueryParamsRequest): Uint8Array;
+    toProtoMsg(message: QueryParamsRequest): QueryParamsRequestProtoMsg;
 };
 export declare const QueryParamsResponse: {
-    encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: QueryParamsResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): QueryParamsResponse;
     fromPartial(object: Partial<QueryParamsResponse>): QueryParamsResponse;
+    fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse;
+    toAmino(message: QueryParamsResponse): QueryParamsResponseAmino;
+    fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse;
+    toAminoMsg(message: QueryParamsResponse): QueryParamsResponseAminoMsg;
+    fromProtoMsg(message: QueryParamsResponseProtoMsg): QueryParamsResponse;
+    toProto(message: QueryParamsResponse): Uint8Array;
+    toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg;
 };

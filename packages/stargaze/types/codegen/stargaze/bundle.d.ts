@@ -1,51 +1,100 @@
 import * as _21 from "./mint/v1beta1/genesis";
 import * as _22 from "./mint/v1beta1/mint";
 import * as _23 from "./mint/v1beta1/query";
-import * as _147 from "./mint/v1beta1/query.lcd";
-import * as _148 from "./mint/v1beta1/query.rpc.Query";
+import * as _148 from "./mint/v1beta1/query.lcd";
+import * as _149 from "./mint/v1beta1/query.rpc.Query";
 export declare namespace stargaze {
     namespace mint {
         const v1beta1: {
-            QueryClientImpl: typeof _148.QueryClientImpl;
+            QueryClientImpl: typeof _149.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _23.QueryParamsRequest): Promise<_23.QueryParamsResponse>;
                 annualProvisions(request?: _23.QueryAnnualProvisionsRequest): Promise<_23.QueryAnnualProvisionsResponse>;
             };
-            LCDQueryClient: typeof _147.LCDQueryClient;
+            LCDQueryClient: typeof _148.LCDQueryClient;
             QueryParamsRequest: {
-                encode(_: _23.QueryParamsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _23.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _23.QueryParamsRequest;
                 fromPartial(_: Partial<_23.QueryParamsRequest>): _23.QueryParamsRequest;
+                fromAmino(_: _23.QueryParamsRequestAmino): _23.QueryParamsRequest;
+                toAmino(_: _23.QueryParamsRequest): _23.QueryParamsRequestAmino;
+                fromAminoMsg(object: _23.QueryParamsRequestAminoMsg): _23.QueryParamsRequest;
+                fromProtoMsg(message: _23.QueryParamsRequestProtoMsg): _23.QueryParamsRequest;
+                toProto(message: _23.QueryParamsRequest): Uint8Array;
+                toProtoMsg(message: _23.QueryParamsRequest): _23.QueryParamsRequestProtoMsg;
             };
             QueryParamsResponse: {
-                encode(message: _23.QueryParamsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _23.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _23.QueryParamsResponse;
                 fromPartial(object: Partial<_23.QueryParamsResponse>): _23.QueryParamsResponse;
+                fromAmino(object: _23.QueryParamsResponseAmino): _23.QueryParamsResponse;
+                toAmino(message: _23.QueryParamsResponse): _23.QueryParamsResponseAmino;
+                fromAminoMsg(object: _23.QueryParamsResponseAminoMsg): _23.QueryParamsResponse;
+                fromProtoMsg(message: _23.QueryParamsResponseProtoMsg): _23.QueryParamsResponse;
+                toProto(message: _23.QueryParamsResponse): Uint8Array;
+                toProtoMsg(message: _23.QueryParamsResponse): _23.QueryParamsResponseProtoMsg;
             };
             QueryAnnualProvisionsRequest: {
-                encode(_: _23.QueryAnnualProvisionsRequest, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(_: _23.QueryAnnualProvisionsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(_: any): _23.QueryAnnualProvisionsRequest;
                 fromPartial(_: Partial<_23.QueryAnnualProvisionsRequest>): _23.QueryAnnualProvisionsRequest;
+                fromAmino(_: _23.QueryAnnualProvisionsRequestAmino): _23.QueryAnnualProvisionsRequest;
+                toAmino(_: _23.QueryAnnualProvisionsRequest): _23.QueryAnnualProvisionsRequestAmino;
+                fromAminoMsg(object: _23.QueryAnnualProvisionsRequestAminoMsg): _23.QueryAnnualProvisionsRequest;
+                fromProtoMsg(message: _23.QueryAnnualProvisionsRequestProtoMsg): _23.QueryAnnualProvisionsRequest;
+                toProto(message: _23.QueryAnnualProvisionsRequest): Uint8Array;
+                toProtoMsg(message: _23.QueryAnnualProvisionsRequest): _23.QueryAnnualProvisionsRequestProtoMsg;
             };
             QueryAnnualProvisionsResponse: {
-                encode(message: _23.QueryAnnualProvisionsResponse, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _23.QueryAnnualProvisionsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _23.QueryAnnualProvisionsResponse;
                 fromPartial(object: Partial<_23.QueryAnnualProvisionsResponse>): _23.QueryAnnualProvisionsResponse;
+                fromAmino(object: _23.QueryAnnualProvisionsResponseAmino): _23.QueryAnnualProvisionsResponse;
+                toAmino(message: _23.QueryAnnualProvisionsResponse): _23.QueryAnnualProvisionsResponseAmino;
+                fromAminoMsg(object: _23.QueryAnnualProvisionsResponseAminoMsg): _23.QueryAnnualProvisionsResponse;
+                fromProtoMsg(message: _23.QueryAnnualProvisionsResponseProtoMsg): _23.QueryAnnualProvisionsResponse;
+                toProto(message: _23.QueryAnnualProvisionsResponse): Uint8Array;
+                toProtoMsg(message: _23.QueryAnnualProvisionsResponse): _23.QueryAnnualProvisionsResponseProtoMsg;
             };
             Minter: {
-                encode(message: _22.Minter, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _22.Minter, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _22.Minter;
                 fromPartial(object: Partial<_22.Minter>): _22.Minter;
+                fromAmino(object: _22.MinterAmino): _22.Minter;
+                toAmino(message: _22.Minter): _22.MinterAmino;
+                fromAminoMsg(object: _22.MinterAminoMsg): _22.Minter;
+                fromProtoMsg(message: _22.MinterProtoMsg): _22.Minter;
+                toProto(message: _22.Minter): Uint8Array;
+                toProtoMsg(message: _22.Minter): _22.MinterProtoMsg;
             };
             Params: {
-                encode(message: _22.Params, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _22.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _22.Params;
                 fromPartial(object: Partial<_22.Params>): _22.Params;
+                fromAmino(object: _22.ParamsAmino): _22.Params;
+                toAmino(message: _22.Params): _22.ParamsAmino;
+                fromAminoMsg(object: _22.ParamsAminoMsg): _22.Params;
+                fromProtoMsg(message: _22.ParamsProtoMsg): _22.Params;
+                toProto(message: _22.Params): Uint8Array;
+                toProtoMsg(message: _22.Params): _22.ParamsProtoMsg;
             };
             GenesisState: {
-                encode(message: _21.GenesisState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
+                typeUrl: string;
+                encode(message: _21.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
                 fromJSON(object: any): _21.GenesisState;
                 fromPartial(object: Partial<_21.GenesisState>): _21.GenesisState;
+                fromAmino(object: _21.GenesisStateAmino): _21.GenesisState;
+                toAmino(message: _21.GenesisState): _21.GenesisStateAmino;
+                fromAminoMsg(object: _21.GenesisStateAminoMsg): _21.GenesisState;
+                fromProtoMsg(message: _21.GenesisStateProtoMsg): _21.GenesisState;
+                toProto(message: _21.GenesisState): Uint8Array;
+                toProtoMsg(message: _21.GenesisState): _21.GenesisStateProtoMsg;
             };
         };
     }
@@ -205,7 +254,7 @@ export declare namespace stargaze {
         }) => Promise<{
             stargaze: {
                 mint: {
-                    v1beta1: _147.LCDQueryClient;
+                    v1beta1: _148.LCDQueryClient;
                 };
             };
             cosmos: {

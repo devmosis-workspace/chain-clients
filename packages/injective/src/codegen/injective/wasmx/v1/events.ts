@@ -1,9 +1,22 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64 } from "../../../helpers";
 export interface EventContractExecution {
   contractAddress: string;
   response: Uint8Array;
   error: string;
+}
+export interface EventContractExecutionProtoMsg {
+  typeUrl: "/injective.wasmx.v1.EventContractExecution";
+  value: Uint8Array;
+}
+export interface EventContractExecutionAmino {
+  contract_address: string;
+  response: Uint8Array;
+  error: string;
+}
+export interface EventContractExecutionAminoMsg {
+  type: "/injective.wasmx.v1.EventContractExecution";
+  value: EventContractExecutionAmino;
 }
 export interface EventContractExecutionSDKType {
   contract_address: string;
@@ -18,7 +31,8 @@ function createBaseEventContractExecution(): EventContractExecution {
   };
 }
 export const EventContractExecution = {
-  encode(message: EventContractExecution, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.wasmx.v1.EventContractExecution",
+  encode(message: EventContractExecution, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.contractAddress !== "") {
       writer.uint32(10).string(message.contractAddress);
     }
@@ -43,5 +57,34 @@ export const EventContractExecution = {
     message.response = object.response ?? new Uint8Array();
     message.error = object.error ?? "";
     return message;
+  },
+  fromAmino(object: EventContractExecutionAmino): EventContractExecution {
+    return {
+      contractAddress: object.contract_address,
+      response: object.response,
+      error: object.error
+    };
+  },
+  toAmino(message: EventContractExecution): EventContractExecutionAmino {
+    const obj: any = {};
+    obj.contract_address = message.contractAddress;
+    obj.response = message.response;
+    obj.error = message.error;
+    return obj;
+  },
+  fromAminoMsg(object: EventContractExecutionAminoMsg): EventContractExecution {
+    return EventContractExecution.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventContractExecutionProtoMsg): EventContractExecution {
+    return EventContractExecution.decode(message.value);
+  },
+  toProto(message: EventContractExecution): Uint8Array {
+    return EventContractExecution.encode(message).finish();
+  },
+  toProtoMsg(message: EventContractExecution): EventContractExecutionProtoMsg {
+    return {
+      typeUrl: "/injective.wasmx.v1.EventContractExecution",
+      value: EventContractExecution.encode(message).finish()
+    };
   }
 };

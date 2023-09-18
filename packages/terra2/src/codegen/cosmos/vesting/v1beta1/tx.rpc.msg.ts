@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgCreateVestingAccount, MsgCreateVestingAccountResponse, MsgCreatePermanentLockedAccount, MsgCreatePermanentLockedAccountResponse, MsgCreatePeriodicVestingAccount, MsgCreatePeriodicVestingAccountResponse, MsgDonateAllVestingTokens, MsgDonateAllVestingTokensResponse } from "./tx";
 /** Msg defines the bank Msg service. */
 export interface Msg {
@@ -40,21 +40,21 @@ export class MsgClientImpl implements Msg {
   createVestingAccount(request: MsgCreateVestingAccount): Promise<MsgCreateVestingAccountResponse> {
     const data = MsgCreateVestingAccount.encode(request).finish();
     const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "CreateVestingAccount", data);
-    return promise.then(data => MsgCreateVestingAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreateVestingAccountResponse.decode(new BinaryReader(data)));
   }
   createPermanentLockedAccount(request: MsgCreatePermanentLockedAccount): Promise<MsgCreatePermanentLockedAccountResponse> {
     const data = MsgCreatePermanentLockedAccount.encode(request).finish();
     const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "CreatePermanentLockedAccount", data);
-    return promise.then(data => MsgCreatePermanentLockedAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreatePermanentLockedAccountResponse.decode(new BinaryReader(data)));
   }
   createPeriodicVestingAccount(request: MsgCreatePeriodicVestingAccount): Promise<MsgCreatePeriodicVestingAccountResponse> {
     const data = MsgCreatePeriodicVestingAccount.encode(request).finish();
     const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "CreatePeriodicVestingAccount", data);
-    return promise.then(data => MsgCreatePeriodicVestingAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgCreatePeriodicVestingAccountResponse.decode(new BinaryReader(data)));
   }
   donateAllVestingTokens(request: MsgDonateAllVestingTokens): Promise<MsgDonateAllVestingTokensResponse> {
     const data = MsgDonateAllVestingTokens.encode(request).finish();
     const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "DonateAllVestingTokens", data);
-    return promise.then(data => MsgDonateAllVestingTokensResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDonateAllVestingTokensResponse.decode(new BinaryReader(data)));
   }
 }

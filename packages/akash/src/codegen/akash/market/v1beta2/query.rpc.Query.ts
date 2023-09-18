@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryOrdersRequest, QueryOrdersResponse, QueryOrderRequest, QueryOrderResponse, QueryBidsRequest, QueryBidsResponse, QueryBidRequest, QueryBidResponse, QueryLeasesRequest, QueryLeasesResponse, QueryLeaseRequest, QueryLeaseResponse } from "./query";
 /** Query defines the gRPC querier service */
@@ -31,32 +31,32 @@ export class QueryClientImpl implements Query {
   orders(request: QueryOrdersRequest): Promise<QueryOrdersResponse> {
     const data = QueryOrdersRequest.encode(request).finish();
     const promise = this.rpc.request("akash.market.v1beta2.Query", "Orders", data);
-    return promise.then(data => QueryOrdersResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOrdersResponse.decode(new BinaryReader(data)));
   }
   order(request: QueryOrderRequest): Promise<QueryOrderResponse> {
     const data = QueryOrderRequest.encode(request).finish();
     const promise = this.rpc.request("akash.market.v1beta2.Query", "Order", data);
-    return promise.then(data => QueryOrderResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOrderResponse.decode(new BinaryReader(data)));
   }
   bids(request: QueryBidsRequest): Promise<QueryBidsResponse> {
     const data = QueryBidsRequest.encode(request).finish();
     const promise = this.rpc.request("akash.market.v1beta2.Query", "Bids", data);
-    return promise.then(data => QueryBidsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBidsResponse.decode(new BinaryReader(data)));
   }
   bid(request: QueryBidRequest): Promise<QueryBidResponse> {
     const data = QueryBidRequest.encode(request).finish();
     const promise = this.rpc.request("akash.market.v1beta2.Query", "Bid", data);
-    return promise.then(data => QueryBidResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryBidResponse.decode(new BinaryReader(data)));
   }
   leases(request: QueryLeasesRequest): Promise<QueryLeasesResponse> {
     const data = QueryLeasesRequest.encode(request).finish();
     const promise = this.rpc.request("akash.market.v1beta2.Query", "Leases", data);
-    return promise.then(data => QueryLeasesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLeasesResponse.decode(new BinaryReader(data)));
   }
   lease(request: QueryLeaseRequest): Promise<QueryLeaseResponse> {
     const data = QueryLeaseRequest.encode(request).finish();
     const promise = this.rpc.request("akash.market.v1beta2.Query", "Lease", data);
-    return promise.then(data => QueryLeaseResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryLeaseResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

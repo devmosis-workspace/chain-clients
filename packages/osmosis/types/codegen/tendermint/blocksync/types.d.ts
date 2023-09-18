@@ -1,45 +1,104 @@
-import { Block, BlockSDKType } from "../types/block";
-import { Long } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Block, BlockAmino, BlockSDKType } from "../types/block";
+import { BinaryWriter } from "../../binary";
 /** BlockRequest requests a block for a specific height */
 export interface BlockRequest {
-    height: Long;
+    height: bigint;
+}
+export interface BlockRequestProtoMsg {
+    typeUrl: "/tendermint.blocksync.BlockRequest";
+    value: Uint8Array;
+}
+/** BlockRequest requests a block for a specific height */
+export interface BlockRequestAmino {
+    height: string;
+}
+export interface BlockRequestAminoMsg {
+    type: "/tendermint.blocksync.BlockRequest";
+    value: BlockRequestAmino;
 }
 /** BlockRequest requests a block for a specific height */
 export interface BlockRequestSDKType {
-    height: Long;
+    height: bigint;
 }
 /** NoBlockResponse informs the node that the peer does not have block at the requested height */
 export interface NoBlockResponse {
-    height: Long;
+    height: bigint;
+}
+export interface NoBlockResponseProtoMsg {
+    typeUrl: "/tendermint.blocksync.NoBlockResponse";
+    value: Uint8Array;
+}
+/** NoBlockResponse informs the node that the peer does not have block at the requested height */
+export interface NoBlockResponseAmino {
+    height: string;
+}
+export interface NoBlockResponseAminoMsg {
+    type: "/tendermint.blocksync.NoBlockResponse";
+    value: NoBlockResponseAmino;
 }
 /** NoBlockResponse informs the node that the peer does not have block at the requested height */
 export interface NoBlockResponseSDKType {
-    height: Long;
+    height: bigint;
 }
 /** BlockResponse returns block to the requested */
 export interface BlockResponse {
-    block?: Block;
+    block: Block;
+}
+export interface BlockResponseProtoMsg {
+    typeUrl: "/tendermint.blocksync.BlockResponse";
+    value: Uint8Array;
+}
+/** BlockResponse returns block to the requested */
+export interface BlockResponseAmino {
+    block?: BlockAmino;
+}
+export interface BlockResponseAminoMsg {
+    type: "/tendermint.blocksync.BlockResponse";
+    value: BlockResponseAmino;
 }
 /** BlockResponse returns block to the requested */
 export interface BlockResponseSDKType {
-    block?: BlockSDKType;
+    block: BlockSDKType;
 }
 /** StatusRequest requests the status of a peer. */
 export interface StatusRequest {
+}
+export interface StatusRequestProtoMsg {
+    typeUrl: "/tendermint.blocksync.StatusRequest";
+    value: Uint8Array;
+}
+/** StatusRequest requests the status of a peer. */
+export interface StatusRequestAmino {
+}
+export interface StatusRequestAminoMsg {
+    type: "/tendermint.blocksync.StatusRequest";
+    value: StatusRequestAmino;
 }
 /** StatusRequest requests the status of a peer. */
 export interface StatusRequestSDKType {
 }
 /** StatusResponse is a peer response to inform their status. */
 export interface StatusResponse {
-    height: Long;
-    base: Long;
+    height: bigint;
+    base: bigint;
+}
+export interface StatusResponseProtoMsg {
+    typeUrl: "/tendermint.blocksync.StatusResponse";
+    value: Uint8Array;
+}
+/** StatusResponse is a peer response to inform their status. */
+export interface StatusResponseAmino {
+    height: string;
+    base: string;
+}
+export interface StatusResponseAminoMsg {
+    type: "/tendermint.blocksync.StatusResponse";
+    value: StatusResponseAmino;
 }
 /** StatusResponse is a peer response to inform their status. */
 export interface StatusResponseSDKType {
-    height: Long;
-    base: Long;
+    height: bigint;
+    base: bigint;
 }
 export interface Message {
     blockRequest?: BlockRequest;
@@ -47,6 +106,21 @@ export interface Message {
     blockResponse?: BlockResponse;
     statusRequest?: StatusRequest;
     statusResponse?: StatusResponse;
+}
+export interface MessageProtoMsg {
+    typeUrl: "/tendermint.blocksync.Message";
+    value: Uint8Array;
+}
+export interface MessageAmino {
+    block_request?: BlockRequestAmino;
+    no_block_response?: NoBlockResponseAmino;
+    block_response?: BlockResponseAmino;
+    status_request?: StatusRequestAmino;
+    status_response?: StatusResponseAmino;
+}
+export interface MessageAminoMsg {
+    type: "/tendermint.blocksync.Message";
+    value: MessageAmino;
 }
 export interface MessageSDKType {
     block_request?: BlockRequestSDKType;
@@ -56,32 +130,74 @@ export interface MessageSDKType {
     status_response?: StatusResponseSDKType;
 }
 export declare const BlockRequest: {
-    encode(message: BlockRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: BlockRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): BlockRequest;
     fromPartial(object: Partial<BlockRequest>): BlockRequest;
+    fromAmino(object: BlockRequestAmino): BlockRequest;
+    toAmino(message: BlockRequest): BlockRequestAmino;
+    fromAminoMsg(object: BlockRequestAminoMsg): BlockRequest;
+    fromProtoMsg(message: BlockRequestProtoMsg): BlockRequest;
+    toProto(message: BlockRequest): Uint8Array;
+    toProtoMsg(message: BlockRequest): BlockRequestProtoMsg;
 };
 export declare const NoBlockResponse: {
-    encode(message: NoBlockResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: NoBlockResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): NoBlockResponse;
     fromPartial(object: Partial<NoBlockResponse>): NoBlockResponse;
+    fromAmino(object: NoBlockResponseAmino): NoBlockResponse;
+    toAmino(message: NoBlockResponse): NoBlockResponseAmino;
+    fromAminoMsg(object: NoBlockResponseAminoMsg): NoBlockResponse;
+    fromProtoMsg(message: NoBlockResponseProtoMsg): NoBlockResponse;
+    toProto(message: NoBlockResponse): Uint8Array;
+    toProtoMsg(message: NoBlockResponse): NoBlockResponseProtoMsg;
 };
 export declare const BlockResponse: {
-    encode(message: BlockResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: BlockResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): BlockResponse;
     fromPartial(object: Partial<BlockResponse>): BlockResponse;
+    fromAmino(object: BlockResponseAmino): BlockResponse;
+    toAmino(message: BlockResponse): BlockResponseAmino;
+    fromAminoMsg(object: BlockResponseAminoMsg): BlockResponse;
+    fromProtoMsg(message: BlockResponseProtoMsg): BlockResponse;
+    toProto(message: BlockResponse): Uint8Array;
+    toProtoMsg(message: BlockResponse): BlockResponseProtoMsg;
 };
 export declare const StatusRequest: {
-    encode(_: StatusRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: StatusRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): StatusRequest;
     fromPartial(_: Partial<StatusRequest>): StatusRequest;
+    fromAmino(_: StatusRequestAmino): StatusRequest;
+    toAmino(_: StatusRequest): StatusRequestAmino;
+    fromAminoMsg(object: StatusRequestAminoMsg): StatusRequest;
+    fromProtoMsg(message: StatusRequestProtoMsg): StatusRequest;
+    toProto(message: StatusRequest): Uint8Array;
+    toProtoMsg(message: StatusRequest): StatusRequestProtoMsg;
 };
 export declare const StatusResponse: {
-    encode(message: StatusResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: StatusResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): StatusResponse;
     fromPartial(object: Partial<StatusResponse>): StatusResponse;
+    fromAmino(object: StatusResponseAmino): StatusResponse;
+    toAmino(message: StatusResponse): StatusResponseAmino;
+    fromAminoMsg(object: StatusResponseAminoMsg): StatusResponse;
+    fromProtoMsg(message: StatusResponseProtoMsg): StatusResponse;
+    toProto(message: StatusResponse): Uint8Array;
+    toProtoMsg(message: StatusResponse): StatusResponseProtoMsg;
 };
 export declare const Message: {
-    encode(message: Message, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Message, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Message;
     fromPartial(object: Partial<Message>): Message;
+    fromAmino(object: MessageAmino): Message;
+    toAmino(message: Message): MessageAmino;
+    fromAminoMsg(object: MessageAminoMsg): Message;
+    fromProtoMsg(message: MessageProtoMsg): Message;
+    toProto(message: Message): Uint8Array;
+    toProtoMsg(message: Message): MessageProtoMsg;
 };

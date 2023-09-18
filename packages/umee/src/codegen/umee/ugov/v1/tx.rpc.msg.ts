@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgGovUpdateMinGasPrice, MsgGovUpdateMinGasPriceResponse } from "./tx";
 /** Msg defines the x/ugov module's Msg service. */
 export interface Msg {
@@ -15,6 +15,6 @@ export class MsgClientImpl implements Msg {
   govUpdateMinGasPrice(request: MsgGovUpdateMinGasPrice): Promise<MsgGovUpdateMinGasPriceResponse> {
     const data = MsgGovUpdateMinGasPrice.encode(request).finish();
     const promise = this.rpc.request("umee.ugov.v1.Msg", "GovUpdateMinGasPrice", data);
-    return promise.then(data => MsgGovUpdateMinGasPriceResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgGovUpdateMinGasPriceResponse.decode(new BinaryReader(data)));
   }
 }

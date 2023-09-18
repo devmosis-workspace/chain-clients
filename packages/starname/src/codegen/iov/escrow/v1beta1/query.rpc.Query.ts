@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QueryEscrowRequest, QueryEscrowResponse, QueryEscrowsRequest, QueryEscrowsResponse } from "./query";
 /** Query provides defines the gRPC querier service */
@@ -19,12 +19,12 @@ export class QueryClientImpl implements Query {
   escrow(request: QueryEscrowRequest): Promise<QueryEscrowResponse> {
     const data = QueryEscrowRequest.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.escrow.v1beta1.Query", "Escrow", data);
-    return promise.then(data => QueryEscrowResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryEscrowResponse.decode(new BinaryReader(data)));
   }
   escrows(request: QueryEscrowsRequest): Promise<QueryEscrowsResponse> {
     const data = QueryEscrowsRequest.encode(request).finish();
     const promise = this.rpc.request("starnamed.x.escrow.v1beta1.Query", "Escrows", data);
-    return promise.then(data => QueryEscrowsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryEscrowsResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

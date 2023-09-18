@@ -15,6 +15,7 @@ export enum StrategyType {
   UNRECOGNIZED = -1,
 }
 export const StrategyTypeSDKType = StrategyType;
+export const StrategyTypeAmino = StrategyType;
 export function strategyTypeFromJSON(object: any): StrategyType {
   switch (object) {
     case 0:

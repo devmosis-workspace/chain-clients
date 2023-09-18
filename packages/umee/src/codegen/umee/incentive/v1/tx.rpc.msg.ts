@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgClaim, MsgClaimResponse, MsgBond, MsgBondResponse, MsgBeginUnbonding, MsgBeginUnbondingResponse, MsgEmergencyUnbond, MsgEmergencyUnbondResponse, MsgSponsor, MsgSponsorResponse, MsgGovSetParams, MsgGovSetParamsResponse, MsgGovCreatePrograms, MsgGovCreateProgramsResponse } from "./tx";
 /** Msg defines the x/incentive module's Msg service. */
 export interface Msg {
@@ -42,36 +42,36 @@ export class MsgClientImpl implements Msg {
   claim(request: MsgClaim): Promise<MsgClaimResponse> {
     const data = MsgClaim.encode(request).finish();
     const promise = this.rpc.request("umee.incentive.v1.Msg", "Claim", data);
-    return promise.then(data => MsgClaimResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgClaimResponse.decode(new BinaryReader(data)));
   }
   bond(request: MsgBond): Promise<MsgBondResponse> {
     const data = MsgBond.encode(request).finish();
     const promise = this.rpc.request("umee.incentive.v1.Msg", "Bond", data);
-    return promise.then(data => MsgBondResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBondResponse.decode(new BinaryReader(data)));
   }
   beginUnbonding(request: MsgBeginUnbonding): Promise<MsgBeginUnbondingResponse> {
     const data = MsgBeginUnbonding.encode(request).finish();
     const promise = this.rpc.request("umee.incentive.v1.Msg", "BeginUnbonding", data);
-    return promise.then(data => MsgBeginUnbondingResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBeginUnbondingResponse.decode(new BinaryReader(data)));
   }
   emergencyUnbond(request: MsgEmergencyUnbond): Promise<MsgEmergencyUnbondResponse> {
     const data = MsgEmergencyUnbond.encode(request).finish();
     const promise = this.rpc.request("umee.incentive.v1.Msg", "EmergencyUnbond", data);
-    return promise.then(data => MsgEmergencyUnbondResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgEmergencyUnbondResponse.decode(new BinaryReader(data)));
   }
   sponsor(request: MsgSponsor): Promise<MsgSponsorResponse> {
     const data = MsgSponsor.encode(request).finish();
     const promise = this.rpc.request("umee.incentive.v1.Msg", "Sponsor", data);
-    return promise.then(data => MsgSponsorResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSponsorResponse.decode(new BinaryReader(data)));
   }
   govSetParams(request: MsgGovSetParams): Promise<MsgGovSetParamsResponse> {
     const data = MsgGovSetParams.encode(request).finish();
     const promise = this.rpc.request("umee.incentive.v1.Msg", "GovSetParams", data);
-    return promise.then(data => MsgGovSetParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgGovSetParamsResponse.decode(new BinaryReader(data)));
   }
   govCreatePrograms(request: MsgGovCreatePrograms): Promise<MsgGovCreateProgramsResponse> {
     const data = MsgGovCreatePrograms.encode(request).finish();
     const promise = this.rpc.request("umee.incentive.v1.Msg", "GovCreatePrograms", data);
-    return promise.then(data => MsgGovCreateProgramsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgGovCreateProgramsResponse.decode(new BinaryReader(data)));
   }
 }

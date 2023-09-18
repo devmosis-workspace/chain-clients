@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../binary";
 /** Params defines the parameters for the module. */
 export interface Params {
     /**
@@ -11,6 +11,26 @@ export interface Params {
     /** Defines treasury address */
     treasuryAddress: string;
 }
+export interface ParamsProtoMsg {
+    typeUrl: "/neutron.feeburner.Params";
+    value: Uint8Array;
+}
+/** Params defines the parameters for the module. */
+export interface ParamsAmino {
+    /**
+     * Defines Neutron denom, which will be burned during fee processing, any
+     * other denom will be sent to Treasury
+     */
+    neutron_denom: string;
+    /** Deprecated in v0.4.4. Is not used anymore */
+    reserve_address: string;
+    /** Defines treasury address */
+    treasury_address: string;
+}
+export interface ParamsAminoMsg {
+    type: "/neutron.feeburner.Params";
+    value: ParamsAmino;
+}
 /** Params defines the parameters for the module. */
 export interface ParamsSDKType {
     neutron_denom: string;
@@ -18,7 +38,14 @@ export interface ParamsSDKType {
     treasury_address: string;
 }
 export declare const Params: {
-    encode(message: Params, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Params, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Params;
     fromPartial(object: Partial<Params>): Params;
+    fromAmino(object: ParamsAmino): Params;
+    toAmino(message: Params): ParamsAmino;
+    fromAminoMsg(object: ParamsAminoMsg): Params;
+    fromProtoMsg(message: ParamsProtoMsg): Params;
+    toProto(message: Params): Uint8Array;
+    toProtoMsg(message: Params): ParamsProtoMsg;
 };

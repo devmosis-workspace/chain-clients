@@ -1,7 +1,18 @@
-import { Params, ParamsSDKType } from "./params";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { BinaryWriter } from "../../../binary";
 /** ParamsRequest is the request type for the Query/Params RPC method. */
 export interface ParamsRequest {
+}
+export interface ParamsRequestProtoMsg {
+    typeUrl: "/secret.emergencybutton.v1beta1.ParamsRequest";
+    value: Uint8Array;
+}
+/** ParamsRequest is the request type for the Query/Params RPC method. */
+export interface ParamsRequestAmino {
+}
+export interface ParamsRequestAminoMsg {
+    type: "/secret.emergencybutton.v1beta1.ParamsRequest";
+    value: ParamsRequestAmino;
 }
 /** ParamsRequest is the request type for the Query/Params RPC method. */
 export interface ParamsRequestSDKType {
@@ -9,19 +20,46 @@ export interface ParamsRequestSDKType {
 /** ParamsResponse is the response type for the Query/Params RPC method. */
 export interface ParamsResponse {
     /** params defines the parameters of the module. */
-    params?: Params;
+    params: Params;
+}
+export interface ParamsResponseProtoMsg {
+    typeUrl: "/secret.emergencybutton.v1beta1.ParamsResponse";
+    value: Uint8Array;
+}
+/** ParamsResponse is the response type for the Query/Params RPC method. */
+export interface ParamsResponseAmino {
+    /** params defines the parameters of the module. */
+    params?: ParamsAmino;
+}
+export interface ParamsResponseAminoMsg {
+    type: "/secret.emergencybutton.v1beta1.ParamsResponse";
+    value: ParamsResponseAmino;
 }
 /** ParamsResponse is the response type for the Query/Params RPC method. */
 export interface ParamsResponseSDKType {
-    params?: ParamsSDKType;
+    params: ParamsSDKType;
 }
 export declare const ParamsRequest: {
-    encode(_: ParamsRequest, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: ParamsRequest, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): ParamsRequest;
     fromPartial(_: Partial<ParamsRequest>): ParamsRequest;
+    fromAmino(_: ParamsRequestAmino): ParamsRequest;
+    toAmino(_: ParamsRequest): ParamsRequestAmino;
+    fromAminoMsg(object: ParamsRequestAminoMsg): ParamsRequest;
+    fromProtoMsg(message: ParamsRequestProtoMsg): ParamsRequest;
+    toProto(message: ParamsRequest): Uint8Array;
+    toProtoMsg(message: ParamsRequest): ParamsRequestProtoMsg;
 };
 export declare const ParamsResponse: {
-    encode(message: ParamsResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ParamsResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ParamsResponse;
     fromPartial(object: Partial<ParamsResponse>): ParamsResponse;
+    fromAmino(object: ParamsResponseAmino): ParamsResponse;
+    toAmino(message: ParamsResponse): ParamsResponseAmino;
+    fromAminoMsg(object: ParamsResponseAminoMsg): ParamsResponse;
+    fromProtoMsg(message: ParamsResponseProtoMsg): ParamsResponse;
+    toProto(message: ParamsResponse): Uint8Array;
+    toProtoMsg(message: ParamsResponse): ParamsResponseProtoMsg;
 };

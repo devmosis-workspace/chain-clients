@@ -1,20 +1,42 @@
-import { Any, AnySDKType } from "../../../google/protobuf/any";
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import * as _m0 from "protobufjs/minimal";
+import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { UpdateAuthorization, UpdateAuthorizationProtoMsg, UpdateAuthorizationSDKType } from "../../../likechain/iscn/authz";
+import { CreateRoyaltyConfigAuthorization, CreateRoyaltyConfigAuthorizationProtoMsg, CreateRoyaltyConfigAuthorizationSDKType, UpdateRoyaltyConfigAuthorization, UpdateRoyaltyConfigAuthorizationProtoMsg, UpdateRoyaltyConfigAuthorizationSDKType, DeleteRoyaltyConfigAuthorization, DeleteRoyaltyConfigAuthorizationProtoMsg, DeleteRoyaltyConfigAuthorizationSDKType, CreateListingAuthorization, CreateListingAuthorizationProtoMsg, CreateListingAuthorizationSDKType, UpdateListingAuthorization, UpdateListingAuthorizationProtoMsg, UpdateListingAuthorizationSDKType, DeleteListingAuthorization, DeleteListingAuthorizationProtoMsg, DeleteListingAuthorizationSDKType, CreateOfferAuthorization, CreateOfferAuthorizationProtoMsg, CreateOfferAuthorizationSDKType, UpdateOfferAuthorization, UpdateOfferAuthorizationProtoMsg, UpdateOfferAuthorizationSDKType, DeleteOfferAuthorization, DeleteOfferAuthorizationProtoMsg, DeleteOfferAuthorizationSDKType, NewClassAuthorization, NewClassAuthorizationProtoMsg, NewClassAuthorizationSDKType, UpdateClassAuthorization, UpdateClassAuthorizationProtoMsg, UpdateClassAuthorizationSDKType, MintNFTAuthorization, MintNFTAuthorizationProtoMsg, MintNFTAuthorizationSDKType, SendNFTAuthorization, SendNFTAuthorizationProtoMsg, SendNFTAuthorizationSDKType } from "../../../likechain/likenft/v1/authz";
+import { SendAuthorization, SendAuthorizationProtoMsg, SendAuthorizationSDKType } from "../../bank/v1beta1/authz";
+import { StakeAuthorization, StakeAuthorizationProtoMsg, StakeAuthorizationSDKType } from "../../staking/v1beta1/authz";
+import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 /**
  * GenericAuthorization gives the grantee unrestricted permissions to execute
  * the provided method on behalf of the granter's account.
  */
 export interface GenericAuthorization {
+  $typeUrl?: string;
   /** Msg, identified by it's type URL, to grant unrestricted permissions to execute */
   msg: string;
+}
+export interface GenericAuthorizationProtoMsg {
+  typeUrl: "/cosmos.authz.v1beta1.GenericAuthorization";
+  value: Uint8Array;
+}
+/**
+ * GenericAuthorization gives the grantee unrestricted permissions to execute
+ * the provided method on behalf of the granter's account.
+ */
+export interface GenericAuthorizationAmino {
+  /** Msg, identified by it's type URL, to grant unrestricted permissions to execute */
+  msg: string;
+}
+export interface GenericAuthorizationAminoMsg {
+  type: "cosmos-sdk/GenericAuthorization";
+  value: GenericAuthorizationAmino;
 }
 /**
  * GenericAuthorization gives the grantee unrestricted permissions to execute
  * the provided method on behalf of the granter's account.
  */
 export interface GenericAuthorizationSDKType {
+  $typeUrl?: string;
   msg: string;
 }
 /**
@@ -22,7 +44,7 @@ export interface GenericAuthorizationSDKType {
  * the provide method with expiration time.
  */
 export interface Grant {
-  authorization?: Any;
+  authorization: (GenericAuthorization & UpdateAuthorization & CreateRoyaltyConfigAuthorization & UpdateRoyaltyConfigAuthorization & DeleteRoyaltyConfigAuthorization & CreateListingAuthorization & UpdateListingAuthorization & DeleteListingAuthorization & CreateOfferAuthorization & UpdateOfferAuthorization & DeleteOfferAuthorization & NewClassAuthorization & UpdateClassAuthorization & MintNFTAuthorization & SendNFTAuthorization & SendAuthorization & StakeAuthorization & Any) | undefined;
   /**
    * time when the grant will expire and will be pruned. If null, then the grant
    * doesn't have a time expiration (other conditions  in `authorization`
@@ -30,12 +52,36 @@ export interface Grant {
    */
   expiration?: Timestamp;
 }
+export interface GrantProtoMsg {
+  typeUrl: "/cosmos.authz.v1beta1.Grant";
+  value: Uint8Array;
+}
+export type GrantEncoded = Omit<Grant, "authorization"> & {
+  authorization?: GenericAuthorizationProtoMsg | UpdateAuthorizationProtoMsg | CreateRoyaltyConfigAuthorizationProtoMsg | UpdateRoyaltyConfigAuthorizationProtoMsg | DeleteRoyaltyConfigAuthorizationProtoMsg | CreateListingAuthorizationProtoMsg | UpdateListingAuthorizationProtoMsg | DeleteListingAuthorizationProtoMsg | CreateOfferAuthorizationProtoMsg | UpdateOfferAuthorizationProtoMsg | DeleteOfferAuthorizationProtoMsg | NewClassAuthorizationProtoMsg | UpdateClassAuthorizationProtoMsg | MintNFTAuthorizationProtoMsg | SendNFTAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
+};
+/**
+ * Grant gives permissions to execute
+ * the provide method with expiration time.
+ */
+export interface GrantAmino {
+  authorization?: AnyAmino;
+  /**
+   * time when the grant will expire and will be pruned. If null, then the grant
+   * doesn't have a time expiration (other conditions  in `authorization`
+   * may apply to invalidate the grant)
+   */
+  expiration?: TimestampAmino;
+}
+export interface GrantAminoMsg {
+  type: "cosmos-sdk/Grant";
+  value: GrantAmino;
+}
 /**
  * Grant gives permissions to execute
  * the provide method with expiration time.
  */
 export interface GrantSDKType {
-  authorization?: AnySDKType;
+  authorization: GenericAuthorizationSDKType | UpdateAuthorizationSDKType | CreateRoyaltyConfigAuthorizationSDKType | UpdateRoyaltyConfigAuthorizationSDKType | DeleteRoyaltyConfigAuthorizationSDKType | CreateListingAuthorizationSDKType | UpdateListingAuthorizationSDKType | DeleteListingAuthorizationSDKType | CreateOfferAuthorizationSDKType | UpdateOfferAuthorizationSDKType | DeleteOfferAuthorizationSDKType | NewClassAuthorizationSDKType | UpdateClassAuthorizationSDKType | MintNFTAuthorizationSDKType | SendNFTAuthorizationSDKType | SendAuthorizationSDKType | StakeAuthorizationSDKType | AnySDKType | undefined;
   expiration?: TimestampSDKType;
 }
 /**
@@ -45,8 +91,29 @@ export interface GrantSDKType {
 export interface GrantAuthorization {
   granter: string;
   grantee: string;
-  authorization?: Any;
-  expiration?: Timestamp;
+  authorization: (GenericAuthorization & UpdateAuthorization & CreateRoyaltyConfigAuthorization & UpdateRoyaltyConfigAuthorization & DeleteRoyaltyConfigAuthorization & CreateListingAuthorization & UpdateListingAuthorization & DeleteListingAuthorization & CreateOfferAuthorization & UpdateOfferAuthorization & DeleteOfferAuthorization & NewClassAuthorization & UpdateClassAuthorization & MintNFTAuthorization & SendNFTAuthorization & SendAuthorization & StakeAuthorization & Any) | undefined;
+  expiration: Timestamp;
+}
+export interface GrantAuthorizationProtoMsg {
+  typeUrl: "/cosmos.authz.v1beta1.GrantAuthorization";
+  value: Uint8Array;
+}
+export type GrantAuthorizationEncoded = Omit<GrantAuthorization, "authorization"> & {
+  authorization?: GenericAuthorizationProtoMsg | UpdateAuthorizationProtoMsg | CreateRoyaltyConfigAuthorizationProtoMsg | UpdateRoyaltyConfigAuthorizationProtoMsg | DeleteRoyaltyConfigAuthorizationProtoMsg | CreateListingAuthorizationProtoMsg | UpdateListingAuthorizationProtoMsg | DeleteListingAuthorizationProtoMsg | CreateOfferAuthorizationProtoMsg | UpdateOfferAuthorizationProtoMsg | DeleteOfferAuthorizationProtoMsg | NewClassAuthorizationProtoMsg | UpdateClassAuthorizationProtoMsg | MintNFTAuthorizationProtoMsg | SendNFTAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
+};
+/**
+ * GrantAuthorization extends a grant with both the addresses of the grantee and granter.
+ * It is used in genesis.proto and query.proto
+ */
+export interface GrantAuthorizationAmino {
+  granter: string;
+  grantee: string;
+  authorization?: AnyAmino;
+  expiration?: TimestampAmino;
+}
+export interface GrantAuthorizationAminoMsg {
+  type: "cosmos-sdk/GrantAuthorization";
+  value: GrantAuthorizationAmino;
 }
 /**
  * GrantAuthorization extends a grant with both the addresses of the grantee and granter.
@@ -55,13 +122,26 @@ export interface GrantAuthorization {
 export interface GrantAuthorizationSDKType {
   granter: string;
   grantee: string;
-  authorization?: AnySDKType;
-  expiration?: TimestampSDKType;
+  authorization: GenericAuthorizationSDKType | UpdateAuthorizationSDKType | CreateRoyaltyConfigAuthorizationSDKType | UpdateRoyaltyConfigAuthorizationSDKType | DeleteRoyaltyConfigAuthorizationSDKType | CreateListingAuthorizationSDKType | UpdateListingAuthorizationSDKType | DeleteListingAuthorizationSDKType | CreateOfferAuthorizationSDKType | UpdateOfferAuthorizationSDKType | DeleteOfferAuthorizationSDKType | NewClassAuthorizationSDKType | UpdateClassAuthorizationSDKType | MintNFTAuthorizationSDKType | SendNFTAuthorizationSDKType | SendAuthorizationSDKType | StakeAuthorizationSDKType | AnySDKType | undefined;
+  expiration: TimestampSDKType;
 }
 /** GrantQueueItem contains the list of TypeURL of a sdk.Msg. */
 export interface GrantQueueItem {
   /** msg_type_urls contains the list of TypeURL of a sdk.Msg. */
   msgTypeUrls: string[];
+}
+export interface GrantQueueItemProtoMsg {
+  typeUrl: "/cosmos.authz.v1beta1.GrantQueueItem";
+  value: Uint8Array;
+}
+/** GrantQueueItem contains the list of TypeURL of a sdk.Msg. */
+export interface GrantQueueItemAmino {
+  /** msg_type_urls contains the list of TypeURL of a sdk.Msg. */
+  msg_type_urls: string[];
+}
+export interface GrantQueueItemAminoMsg {
+  type: "cosmos-sdk/GrantQueueItem";
+  value: GrantQueueItemAmino;
 }
 /** GrantQueueItem contains the list of TypeURL of a sdk.Msg. */
 export interface GrantQueueItemSDKType {
@@ -69,11 +149,13 @@ export interface GrantQueueItemSDKType {
 }
 function createBaseGenericAuthorization(): GenericAuthorization {
   return {
+    $typeUrl: "/cosmos.authz.v1beta1.GenericAuthorization",
     msg: ""
   };
 }
 export const GenericAuthorization = {
-  encode(message: GenericAuthorization, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.authz.v1beta1.GenericAuthorization",
+  encode(message: GenericAuthorization, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.msg !== "") {
       writer.uint32(10).string(message.msg);
     }
@@ -88,18 +170,50 @@ export const GenericAuthorization = {
     const message = createBaseGenericAuthorization();
     message.msg = object.msg ?? "";
     return message;
+  },
+  fromAmino(object: GenericAuthorizationAmino): GenericAuthorization {
+    return {
+      msg: object.msg
+    };
+  },
+  toAmino(message: GenericAuthorization): GenericAuthorizationAmino {
+    const obj: any = {};
+    obj.msg = message.msg;
+    return obj;
+  },
+  fromAminoMsg(object: GenericAuthorizationAminoMsg): GenericAuthorization {
+    return GenericAuthorization.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenericAuthorization): GenericAuthorizationAminoMsg {
+    return {
+      type: "cosmos-sdk/GenericAuthorization",
+      value: GenericAuthorization.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: GenericAuthorizationProtoMsg): GenericAuthorization {
+    return GenericAuthorization.decode(message.value);
+  },
+  toProto(message: GenericAuthorization): Uint8Array {
+    return GenericAuthorization.encode(message).finish();
+  },
+  toProtoMsg(message: GenericAuthorization): GenericAuthorizationProtoMsg {
+    return {
+      typeUrl: "/cosmos.authz.v1beta1.GenericAuthorization",
+      value: GenericAuthorization.encode(message).finish()
+    };
   }
 };
 function createBaseGrant(): Grant {
   return {
-    authorization: undefined,
+    authorization: Any.fromPartial({}),
     expiration: undefined
   };
 }
 export const Grant = {
-  encode(message: Grant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.authz.v1beta1.Grant",
+  encode(message: Grant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authorization !== undefined) {
-      Any.encode(message.authorization, writer.uint32(10).fork()).ldelim();
+      Any.encode((message.authorization as Any), writer.uint32(10).fork()).ldelim();
     }
     if (message.expiration !== undefined) {
       Timestamp.encode(message.expiration, writer.uint32(18).fork()).ldelim();
@@ -117,18 +231,52 @@ export const Grant = {
     message.authorization = object.authorization !== undefined && object.authorization !== null ? Any.fromPartial(object.authorization) : undefined;
     message.expiration = object.expiration !== undefined && object.expiration !== null ? Timestamp.fromPartial(object.expiration) : undefined;
     return message;
+  },
+  fromAmino(object: GrantAmino): Grant {
+    return {
+      authorization: object?.authorization ? Authorization_FromAmino(object.authorization) : undefined,
+      expiration: object?.expiration
+    };
+  },
+  toAmino(message: Grant): GrantAmino {
+    const obj: any = {};
+    obj.authorization = message.authorization ? Authorization_ToAmino((message.authorization as Any)) : undefined;
+    obj.expiration = message.expiration;
+    return obj;
+  },
+  fromAminoMsg(object: GrantAminoMsg): Grant {
+    return Grant.fromAmino(object.value);
+  },
+  toAminoMsg(message: Grant): GrantAminoMsg {
+    return {
+      type: "cosmos-sdk/Grant",
+      value: Grant.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: GrantProtoMsg): Grant {
+    return Grant.decode(message.value);
+  },
+  toProto(message: Grant): Uint8Array {
+    return Grant.encode(message).finish();
+  },
+  toProtoMsg(message: Grant): GrantProtoMsg {
+    return {
+      typeUrl: "/cosmos.authz.v1beta1.Grant",
+      value: Grant.encode(message).finish()
+    };
   }
 };
 function createBaseGrantAuthorization(): GrantAuthorization {
   return {
     granter: "",
     grantee: "",
-    authorization: undefined,
-    expiration: undefined
+    authorization: Any.fromPartial({}),
+    expiration: Timestamp.fromPartial({})
   };
 }
 export const GrantAuthorization = {
-  encode(message: GrantAuthorization, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.authz.v1beta1.GrantAuthorization",
+  encode(message: GrantAuthorization, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
@@ -136,7 +284,7 @@ export const GrantAuthorization = {
       writer.uint32(18).string(message.grantee);
     }
     if (message.authorization !== undefined) {
-      Any.encode(message.authorization, writer.uint32(26).fork()).ldelim();
+      Any.encode((message.authorization as Any), writer.uint32(26).fork()).ldelim();
     }
     if (message.expiration !== undefined) {
       Timestamp.encode(message.expiration, writer.uint32(34).fork()).ldelim();
@@ -158,6 +306,43 @@ export const GrantAuthorization = {
     message.authorization = object.authorization !== undefined && object.authorization !== null ? Any.fromPartial(object.authorization) : undefined;
     message.expiration = object.expiration !== undefined && object.expiration !== null ? Timestamp.fromPartial(object.expiration) : undefined;
     return message;
+  },
+  fromAmino(object: GrantAuthorizationAmino): GrantAuthorization {
+    return {
+      granter: object.granter,
+      grantee: object.grantee,
+      authorization: object?.authorization ? Authorization_FromAmino(object.authorization) : undefined,
+      expiration: object.expiration
+    };
+  },
+  toAmino(message: GrantAuthorization): GrantAuthorizationAmino {
+    const obj: any = {};
+    obj.granter = message.granter;
+    obj.grantee = message.grantee;
+    obj.authorization = message.authorization ? Authorization_ToAmino((message.authorization as Any)) : undefined;
+    obj.expiration = message.expiration;
+    return obj;
+  },
+  fromAminoMsg(object: GrantAuthorizationAminoMsg): GrantAuthorization {
+    return GrantAuthorization.fromAmino(object.value);
+  },
+  toAminoMsg(message: GrantAuthorization): GrantAuthorizationAminoMsg {
+    return {
+      type: "cosmos-sdk/GrantAuthorization",
+      value: GrantAuthorization.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: GrantAuthorizationProtoMsg): GrantAuthorization {
+    return GrantAuthorization.decode(message.value);
+  },
+  toProto(message: GrantAuthorization): Uint8Array {
+    return GrantAuthorization.encode(message).finish();
+  },
+  toProtoMsg(message: GrantAuthorization): GrantAuthorizationProtoMsg {
+    return {
+      typeUrl: "/cosmos.authz.v1beta1.GrantAuthorization",
+      value: GrantAuthorization.encode(message).finish()
+    };
   }
 };
 function createBaseGrantQueueItem(): GrantQueueItem {
@@ -166,7 +351,8 @@ function createBaseGrantQueueItem(): GrantQueueItem {
   };
 }
 export const GrantQueueItem = {
-  encode(message: GrantQueueItem, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.authz.v1beta1.GrantQueueItem",
+  encode(message: GrantQueueItem, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.msgTypeUrls) {
       writer.uint32(10).string(v!);
     }
@@ -181,5 +367,264 @@ export const GrantQueueItem = {
     const message = createBaseGrantQueueItem();
     message.msgTypeUrls = object.msgTypeUrls?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: GrantQueueItemAmino): GrantQueueItem {
+    return {
+      msgTypeUrls: Array.isArray(object?.msg_type_urls) ? object.msg_type_urls.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: GrantQueueItem): GrantQueueItemAmino {
+    const obj: any = {};
+    if (message.msgTypeUrls) {
+      obj.msg_type_urls = message.msgTypeUrls.map(e => e);
+    } else {
+      obj.msg_type_urls = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GrantQueueItemAminoMsg): GrantQueueItem {
+    return GrantQueueItem.fromAmino(object.value);
+  },
+  toAminoMsg(message: GrantQueueItem): GrantQueueItemAminoMsg {
+    return {
+      type: "cosmos-sdk/GrantQueueItem",
+      value: GrantQueueItem.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: GrantQueueItemProtoMsg): GrantQueueItem {
+    return GrantQueueItem.decode(message.value);
+  },
+  toProto(message: GrantQueueItem): Uint8Array {
+    return GrantQueueItem.encode(message).finish();
+  },
+  toProtoMsg(message: GrantQueueItem): GrantQueueItemProtoMsg {
+    return {
+      typeUrl: "/cosmos.authz.v1beta1.GrantQueueItem",
+      value: GrantQueueItem.encode(message).finish()
+    };
+  }
+};
+export const Authorization_InterfaceDecoder = (input: BinaryReader | Uint8Array): UpdateAuthorization | CreateRoyaltyConfigAuthorization | UpdateRoyaltyConfigAuthorization | DeleteRoyaltyConfigAuthorization | CreateListingAuthorization | UpdateListingAuthorization | DeleteListingAuthorization | CreateOfferAuthorization | UpdateOfferAuthorization | DeleteOfferAuthorization | NewClassAuthorization | UpdateClassAuthorization | MintNFTAuthorization | SendNFTAuthorization | GenericAuthorization | SendAuthorization | StakeAuthorization | Any => {
+  const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  const data = Any.decode(reader, reader.uint32());
+  switch (data.typeUrl) {
+    case "/likechain.iscn.UpdateAuthorization":
+      return UpdateAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.CreateRoyaltyConfigAuthorization":
+      return CreateRoyaltyConfigAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.UpdateRoyaltyConfigAuthorization":
+      return UpdateRoyaltyConfigAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.DeleteRoyaltyConfigAuthorization":
+      return DeleteRoyaltyConfigAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.CreateListingAuthorization":
+      return CreateListingAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.UpdateListingAuthorization":
+      return UpdateListingAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.DeleteListingAuthorization":
+      return DeleteListingAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.CreateOfferAuthorization":
+      return CreateOfferAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.UpdateOfferAuthorization":
+      return UpdateOfferAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.DeleteOfferAuthorization":
+      return DeleteOfferAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.NewClassAuthorization":
+      return NewClassAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.UpdateClassAuthorization":
+      return UpdateClassAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.MintNFTAuthorization":
+      return MintNFTAuthorization.decode(data.value);
+    case "/likechain.likenft.v1.SendNFTAuthorization":
+      return SendNFTAuthorization.decode(data.value);
+    case "/cosmos.authz.v1beta1.GenericAuthorization":
+      return GenericAuthorization.decode(data.value);
+    case "/cosmos.bank.v1beta1.SendAuthorization":
+      return SendAuthorization.decode(data.value);
+    case "/cosmos.staking.v1beta1.StakeAuthorization":
+      return StakeAuthorization.decode(data.value);
+    default:
+      return data;
+  }
+};
+export const Authorization_FromAmino = (content: AnyAmino) => {
+  switch (content.type) {
+    case "/likechain.iscn.UpdateAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.iscn.UpdateAuthorization",
+        value: UpdateAuthorization.encode(UpdateAuthorization.fromPartial(UpdateAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.CreateRoyaltyConfigAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.CreateRoyaltyConfigAuthorization",
+        value: CreateRoyaltyConfigAuthorization.encode(CreateRoyaltyConfigAuthorization.fromPartial(CreateRoyaltyConfigAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.UpdateRoyaltyConfigAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.UpdateRoyaltyConfigAuthorization",
+        value: UpdateRoyaltyConfigAuthorization.encode(UpdateRoyaltyConfigAuthorization.fromPartial(UpdateRoyaltyConfigAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.DeleteRoyaltyConfigAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.DeleteRoyaltyConfigAuthorization",
+        value: DeleteRoyaltyConfigAuthorization.encode(DeleteRoyaltyConfigAuthorization.fromPartial(DeleteRoyaltyConfigAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.CreateListingAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.CreateListingAuthorization",
+        value: CreateListingAuthorization.encode(CreateListingAuthorization.fromPartial(CreateListingAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.UpdateListingAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.UpdateListingAuthorization",
+        value: UpdateListingAuthorization.encode(UpdateListingAuthorization.fromPartial(UpdateListingAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.DeleteListingAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.DeleteListingAuthorization",
+        value: DeleteListingAuthorization.encode(DeleteListingAuthorization.fromPartial(DeleteListingAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.CreateOfferAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.CreateOfferAuthorization",
+        value: CreateOfferAuthorization.encode(CreateOfferAuthorization.fromPartial(CreateOfferAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.UpdateOfferAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.UpdateOfferAuthorization",
+        value: UpdateOfferAuthorization.encode(UpdateOfferAuthorization.fromPartial(UpdateOfferAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.DeleteOfferAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.DeleteOfferAuthorization",
+        value: DeleteOfferAuthorization.encode(DeleteOfferAuthorization.fromPartial(DeleteOfferAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.NewClassAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.NewClassAuthorization",
+        value: NewClassAuthorization.encode(NewClassAuthorization.fromPartial(NewClassAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.UpdateClassAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.UpdateClassAuthorization",
+        value: UpdateClassAuthorization.encode(UpdateClassAuthorization.fromPartial(UpdateClassAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.MintNFTAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.MintNFTAuthorization",
+        value: MintNFTAuthorization.encode(MintNFTAuthorization.fromPartial(MintNFTAuthorization.fromAmino(content.value))).finish()
+      });
+    case "/likechain.likenft.v1.SendNFTAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/likechain.likenft.v1.SendNFTAuthorization",
+        value: SendNFTAuthorization.encode(SendNFTAuthorization.fromPartial(SendNFTAuthorization.fromAmino(content.value))).finish()
+      });
+    case "cosmos-sdk/GenericAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/cosmos.authz.v1beta1.GenericAuthorization",
+        value: GenericAuthorization.encode(GenericAuthorization.fromPartial(GenericAuthorization.fromAmino(content.value))).finish()
+      });
+    case "cosmos-sdk/SendAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/cosmos.bank.v1beta1.SendAuthorization",
+        value: SendAuthorization.encode(SendAuthorization.fromPartial(SendAuthorization.fromAmino(content.value))).finish()
+      });
+    case "cosmos-sdk/StakeAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/cosmos.staking.v1beta1.StakeAuthorization",
+        value: StakeAuthorization.encode(StakeAuthorization.fromPartial(StakeAuthorization.fromAmino(content.value))).finish()
+      });
+    default:
+      return Any.fromAmino(content);
+  }
+};
+export const Authorization_ToAmino = (content: Any) => {
+  switch (content.typeUrl) {
+    case "/likechain.iscn.UpdateAuthorization":
+      return {
+        type: "/likechain.iscn.UpdateAuthorization",
+        value: UpdateAuthorization.toAmino(UpdateAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.CreateRoyaltyConfigAuthorization":
+      return {
+        type: "/likechain.likenft.v1.CreateRoyaltyConfigAuthorization",
+        value: CreateRoyaltyConfigAuthorization.toAmino(CreateRoyaltyConfigAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.UpdateRoyaltyConfigAuthorization":
+      return {
+        type: "/likechain.likenft.v1.UpdateRoyaltyConfigAuthorization",
+        value: UpdateRoyaltyConfigAuthorization.toAmino(UpdateRoyaltyConfigAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.DeleteRoyaltyConfigAuthorization":
+      return {
+        type: "/likechain.likenft.v1.DeleteRoyaltyConfigAuthorization",
+        value: DeleteRoyaltyConfigAuthorization.toAmino(DeleteRoyaltyConfigAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.CreateListingAuthorization":
+      return {
+        type: "/likechain.likenft.v1.CreateListingAuthorization",
+        value: CreateListingAuthorization.toAmino(CreateListingAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.UpdateListingAuthorization":
+      return {
+        type: "/likechain.likenft.v1.UpdateListingAuthorization",
+        value: UpdateListingAuthorization.toAmino(UpdateListingAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.DeleteListingAuthorization":
+      return {
+        type: "/likechain.likenft.v1.DeleteListingAuthorization",
+        value: DeleteListingAuthorization.toAmino(DeleteListingAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.CreateOfferAuthorization":
+      return {
+        type: "/likechain.likenft.v1.CreateOfferAuthorization",
+        value: CreateOfferAuthorization.toAmino(CreateOfferAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.UpdateOfferAuthorization":
+      return {
+        type: "/likechain.likenft.v1.UpdateOfferAuthorization",
+        value: UpdateOfferAuthorization.toAmino(UpdateOfferAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.DeleteOfferAuthorization":
+      return {
+        type: "/likechain.likenft.v1.DeleteOfferAuthorization",
+        value: DeleteOfferAuthorization.toAmino(DeleteOfferAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.NewClassAuthorization":
+      return {
+        type: "/likechain.likenft.v1.NewClassAuthorization",
+        value: NewClassAuthorization.toAmino(NewClassAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.UpdateClassAuthorization":
+      return {
+        type: "/likechain.likenft.v1.UpdateClassAuthorization",
+        value: UpdateClassAuthorization.toAmino(UpdateClassAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.MintNFTAuthorization":
+      return {
+        type: "/likechain.likenft.v1.MintNFTAuthorization",
+        value: MintNFTAuthorization.toAmino(MintNFTAuthorization.decode(content.value))
+      };
+    case "/likechain.likenft.v1.SendNFTAuthorization":
+      return {
+        type: "/likechain.likenft.v1.SendNFTAuthorization",
+        value: SendNFTAuthorization.toAmino(SendNFTAuthorization.decode(content.value))
+      };
+    case "/cosmos.authz.v1beta1.GenericAuthorization":
+      return {
+        type: "cosmos-sdk/GenericAuthorization",
+        value: GenericAuthorization.toAmino(GenericAuthorization.decode(content.value))
+      };
+    case "/cosmos.bank.v1beta1.SendAuthorization":
+      return {
+        type: "cosmos-sdk/SendAuthorization",
+        value: SendAuthorization.toAmino(SendAuthorization.decode(content.value))
+      };
+    case "/cosmos.staking.v1beta1.StakeAuthorization":
+      return {
+        type: "cosmos-sdk/StakeAuthorization",
+        value: StakeAuthorization.toAmino(StakeAuthorization.decode(content.value))
+      };
+    default:
+      return Any.toAmino(content);
   }
 };

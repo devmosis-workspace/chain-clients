@@ -1,12 +1,12 @@
-import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Pool, PoolSDKType, PoolStatus, poolStatusFromJSON } from "../../pool/v1beta1/pool";
-import { BundleProposal, BundleProposalSDKType } from "../../bundles/v1beta1/bundles";
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
+import { Pool, PoolAmino, PoolSDKType, PoolStatus, poolStatusFromJSON } from "../../pool/v1beta1/pool";
+import { BundleProposal, BundleProposalAmino, BundleProposalSDKType } from "../../bundles/v1beta1/bundles";
+import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
 /** QueryPoolsRequest is the request type for the Query/Pools RPC method. */
 export interface QueryPoolsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
   /** search ... */
   search: string;
   /** runtime ... */
@@ -16,9 +16,30 @@ export interface QueryPoolsRequest {
   /** storage_provider_id ... */
   storageProviderId: number;
 }
+export interface QueryPoolsRequestProtoMsg {
+  typeUrl: "/kyve.query.v1beta1.QueryPoolsRequest";
+  value: Uint8Array;
+}
+/** QueryPoolsRequest is the request type for the Query/Pools RPC method. */
+export interface QueryPoolsRequestAmino {
+  /** pagination defines an optional pagination for the request. */
+  pagination?: PageRequestAmino;
+  /** search ... */
+  search: string;
+  /** runtime ... */
+  runtime: string;
+  /** disabled ... */
+  disabled: boolean;
+  /** storage_provider_id ... */
+  storage_provider_id: number;
+}
+export interface QueryPoolsRequestAminoMsg {
+  type: "/kyve.query.v1beta1.QueryPoolsRequest";
+  value: QueryPoolsRequestAmino;
+}
 /** QueryPoolsRequest is the request type for the Query/Pools RPC method. */
 export interface QueryPoolsRequestSDKType {
-  pagination?: PageRequestSDKType;
+  pagination: PageRequestSDKType;
   search: string;
   runtime: string;
   disabled: boolean;
@@ -29,67 +50,137 @@ export interface QueryPoolsResponse {
   /** pools ... */
   pools: PoolResponse[];
   /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
+}
+export interface QueryPoolsResponseProtoMsg {
+  typeUrl: "/kyve.query.v1beta1.QueryPoolsResponse";
+  value: Uint8Array;
+}
+/** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
+export interface QueryPoolsResponseAmino {
+  /** pools ... */
+  pools: PoolResponseAmino[];
+  /** pagination defines the pagination in the response. */
+  pagination?: PageResponseAmino;
+}
+export interface QueryPoolsResponseAminoMsg {
+  type: "/kyve.query.v1beta1.QueryPoolsResponse";
+  value: QueryPoolsResponseAmino;
 }
 /** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
 export interface QueryPoolsResponseSDKType {
   pools: PoolResponseSDKType[];
-  pagination?: PageResponseSDKType;
+  pagination: PageResponseSDKType;
 }
 /** PoolResponse ... */
 export interface PoolResponse {
   /** id ... */
-  id: Long;
+  id: bigint;
   /** data ... */
-  data?: Pool;
+  data: Pool;
   /** bundle_proposal ... */
-  bundleProposal?: BundleProposal;
+  bundleProposal: BundleProposal;
   /** stakers ... */
   stakers: string[];
   /** total_stake ... */
-  totalSelfDelegation: Long;
+  totalSelfDelegation: bigint;
   /** total_delegation ... */
-  totalDelegation: Long;
+  totalDelegation: bigint;
   /** status ... */
   status: PoolStatus;
   /** account ... */
   account: string;
   /** account_balance ... */
-  accountBalance: Long;
+  accountBalance: bigint;
+}
+export interface PoolResponseProtoMsg {
+  typeUrl: "/kyve.query.v1beta1.PoolResponse";
+  value: Uint8Array;
+}
+/** PoolResponse ... */
+export interface PoolResponseAmino {
+  /** id ... */
+  id: string;
+  /** data ... */
+  data?: PoolAmino;
+  /** bundle_proposal ... */
+  bundle_proposal?: BundleProposalAmino;
+  /** stakers ... */
+  stakers: string[];
+  /** total_stake ... */
+  total_self_delegation: string;
+  /** total_delegation ... */
+  total_delegation: string;
+  /** status ... */
+  status: PoolStatus;
+  /** account ... */
+  account: string;
+  /** account_balance ... */
+  account_balance: string;
+}
+export interface PoolResponseAminoMsg {
+  type: "/kyve.query.v1beta1.PoolResponse";
+  value: PoolResponseAmino;
 }
 /** PoolResponse ... */
 export interface PoolResponseSDKType {
-  id: Long;
-  data?: PoolSDKType;
-  bundle_proposal?: BundleProposalSDKType;
+  id: bigint;
+  data: PoolSDKType;
+  bundle_proposal: BundleProposalSDKType;
   stakers: string[];
-  total_self_delegation: Long;
-  total_delegation: Long;
+  total_self_delegation: bigint;
+  total_delegation: bigint;
   status: PoolStatus;
   account: string;
-  account_balance: Long;
+  account_balance: bigint;
 }
 /** QueryPoolRequest is the request type for the Query/Pool RPC method. */
 export interface QueryPoolRequest {
   /** id defines the unique ID of the pool. */
-  id: Long;
+  id: bigint;
+}
+export interface QueryPoolRequestProtoMsg {
+  typeUrl: "/kyve.query.v1beta1.QueryPoolRequest";
+  value: Uint8Array;
+}
+/** QueryPoolRequest is the request type for the Query/Pool RPC method. */
+export interface QueryPoolRequestAmino {
+  /** id defines the unique ID of the pool. */
+  id: string;
+}
+export interface QueryPoolRequestAminoMsg {
+  type: "/kyve.query.v1beta1.QueryPoolRequest";
+  value: QueryPoolRequestAmino;
 }
 /** QueryPoolRequest is the request type for the Query/Pool RPC method. */
 export interface QueryPoolRequestSDKType {
-  id: Long;
+  id: bigint;
 }
 /** QueryPoolResponse is the response type for the Query/Pool RPC method. */
 export interface QueryPoolResponse {
   /** pool ... */
-  pool?: PoolResponse;
+  pool: PoolResponse;
+}
+export interface QueryPoolResponseProtoMsg {
+  typeUrl: "/kyve.query.v1beta1.QueryPoolResponse";
+  value: Uint8Array;
+}
+/** QueryPoolResponse is the response type for the Query/Pool RPC method. */
+export interface QueryPoolResponseAmino {
+  /** pool ... */
+  pool?: PoolResponseAmino;
+}
+export interface QueryPoolResponseAminoMsg {
+  type: "/kyve.query.v1beta1.QueryPoolResponse";
+  value: QueryPoolResponseAmino;
 }
 /** QueryPoolResponse is the response type for the Query/Pool RPC method. */
 export interface QueryPoolResponseSDKType {
-  pool?: PoolResponseSDKType;
+  pool: PoolResponseSDKType;
 }
 function createBaseQueryPoolsRequest(): QueryPoolsRequest {
   return {
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
     search: "",
     runtime: "",
     disabled: false,
@@ -97,7 +188,8 @@ function createBaseQueryPoolsRequest(): QueryPoolsRequest {
   };
 }
 export const QueryPoolsRequest = {
-  encode(message: QueryPoolsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.query.v1beta1.QueryPoolsRequest",
+  encode(message: QueryPoolsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
@@ -132,16 +224,50 @@ export const QueryPoolsRequest = {
     message.disabled = object.disabled ?? false;
     message.storageProviderId = object.storageProviderId ?? 0;
     return message;
+  },
+  fromAmino(object: QueryPoolsRequestAmino): QueryPoolsRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+      search: object.search,
+      runtime: object.runtime,
+      disabled: object.disabled,
+      storageProviderId: object.storage_provider_id
+    };
+  },
+  toAmino(message: QueryPoolsRequest): QueryPoolsRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    obj.search = message.search;
+    obj.runtime = message.runtime;
+    obj.disabled = message.disabled;
+    obj.storage_provider_id = message.storageProviderId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPoolsRequestAminoMsg): QueryPoolsRequest {
+    return QueryPoolsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPoolsRequestProtoMsg): QueryPoolsRequest {
+    return QueryPoolsRequest.decode(message.value);
+  },
+  toProto(message: QueryPoolsRequest): Uint8Array {
+    return QueryPoolsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPoolsRequest): QueryPoolsRequestProtoMsg {
+    return {
+      typeUrl: "/kyve.query.v1beta1.QueryPoolsRequest",
+      value: QueryPoolsRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryPoolsResponse(): QueryPoolsResponse {
   return {
     pools: [],
-    pagination: undefined
+    pagination: PageResponse.fromPartial({})
   };
 }
 export const QueryPoolsResponse = {
-  encode(message: QueryPoolsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.query.v1beta1.QueryPoolsResponse",
+  encode(message: QueryPoolsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.pools) {
       PoolResponse.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -161,24 +287,56 @@ export const QueryPoolsResponse = {
     message.pools = object.pools?.map(e => PoolResponse.fromPartial(e)) || [];
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
     return message;
+  },
+  fromAmino(object: QueryPoolsResponseAmino): QueryPoolsResponse {
+    return {
+      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => PoolResponse.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
+    };
+  },
+  toAmino(message: QueryPoolsResponse): QueryPoolsResponseAmino {
+    const obj: any = {};
+    if (message.pools) {
+      obj.pools = message.pools.map(e => e ? PoolResponse.toAmino(e) : undefined);
+    } else {
+      obj.pools = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPoolsResponseAminoMsg): QueryPoolsResponse {
+    return QueryPoolsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPoolsResponseProtoMsg): QueryPoolsResponse {
+    return QueryPoolsResponse.decode(message.value);
+  },
+  toProto(message: QueryPoolsResponse): Uint8Array {
+    return QueryPoolsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPoolsResponse): QueryPoolsResponseProtoMsg {
+    return {
+      typeUrl: "/kyve.query.v1beta1.QueryPoolsResponse",
+      value: QueryPoolsResponse.encode(message).finish()
+    };
   }
 };
 function createBasePoolResponse(): PoolResponse {
   return {
-    id: Long.UZERO,
-    data: undefined,
-    bundleProposal: undefined,
+    id: BigInt(0),
+    data: Pool.fromPartial({}),
+    bundleProposal: BundleProposal.fromPartial({}),
     stakers: [],
-    totalSelfDelegation: Long.UZERO,
-    totalDelegation: Long.UZERO,
+    totalSelfDelegation: BigInt(0),
+    totalDelegation: BigInt(0),
     status: 0,
     account: "",
-    accountBalance: Long.UZERO
+    accountBalance: BigInt(0)
   };
 }
 export const PoolResponse = {
-  encode(message: PoolResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.id.isZero()) {
+  typeUrl: "/kyve.query.v1beta1.PoolResponse",
+  encode(message: PoolResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.id !== BigInt(0)) {
       writer.uint32(8).uint64(message.id);
     }
     if (message.data !== undefined) {
@@ -190,10 +348,10 @@ export const PoolResponse = {
     for (const v of message.stakers) {
       writer.uint32(34).string(v!);
     }
-    if (!message.totalSelfDelegation.isZero()) {
+    if (message.totalSelfDelegation !== BigInt(0)) {
       writer.uint32(40).uint64(message.totalSelfDelegation);
     }
-    if (!message.totalDelegation.isZero()) {
+    if (message.totalDelegation !== BigInt(0)) {
       writer.uint32(48).uint64(message.totalDelegation);
     }
     if (message.status !== 0) {
@@ -202,68 +360,140 @@ export const PoolResponse = {
     if (message.account !== "") {
       writer.uint32(66).string(message.account);
     }
-    if (!message.accountBalance.isZero()) {
+    if (message.accountBalance !== BigInt(0)) {
       writer.uint32(72).uint64(message.accountBalance);
     }
     return writer;
   },
   fromJSON(object: any): PoolResponse {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      id: isSet(object.id) ? BigInt(object.id.toString()) : BigInt(0),
       data: isSet(object.data) ? Pool.fromJSON(object.data) : undefined,
       bundleProposal: isSet(object.bundleProposal) ? BundleProposal.fromJSON(object.bundleProposal) : undefined,
       stakers: Array.isArray(object?.stakers) ? object.stakers.map((e: any) => String(e)) : [],
-      totalSelfDelegation: isSet(object.totalSelfDelegation) ? Long.fromValue(object.totalSelfDelegation) : Long.UZERO,
-      totalDelegation: isSet(object.totalDelegation) ? Long.fromValue(object.totalDelegation) : Long.UZERO,
-      status: isSet(object.status) ? poolStatusFromJSON(object.status) : 0,
+      totalSelfDelegation: isSet(object.totalSelfDelegation) ? BigInt(object.totalSelfDelegation.toString()) : BigInt(0),
+      totalDelegation: isSet(object.totalDelegation) ? BigInt(object.totalDelegation.toString()) : BigInt(0),
+      status: isSet(object.status) ? poolStatusFromJSON(object.status) : -1,
       account: isSet(object.account) ? String(object.account) : "",
-      accountBalance: isSet(object.accountBalance) ? Long.fromValue(object.accountBalance) : Long.UZERO
+      accountBalance: isSet(object.accountBalance) ? BigInt(object.accountBalance.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<PoolResponse>): PoolResponse {
     const message = createBasePoolResponse();
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
+    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
     message.data = object.data !== undefined && object.data !== null ? Pool.fromPartial(object.data) : undefined;
     message.bundleProposal = object.bundleProposal !== undefined && object.bundleProposal !== null ? BundleProposal.fromPartial(object.bundleProposal) : undefined;
     message.stakers = object.stakers?.map(e => e) || [];
-    message.totalSelfDelegation = object.totalSelfDelegation !== undefined && object.totalSelfDelegation !== null ? Long.fromValue(object.totalSelfDelegation) : Long.UZERO;
-    message.totalDelegation = object.totalDelegation !== undefined && object.totalDelegation !== null ? Long.fromValue(object.totalDelegation) : Long.UZERO;
+    message.totalSelfDelegation = object.totalSelfDelegation !== undefined && object.totalSelfDelegation !== null ? BigInt(object.totalSelfDelegation.toString()) : BigInt(0);
+    message.totalDelegation = object.totalDelegation !== undefined && object.totalDelegation !== null ? BigInt(object.totalDelegation.toString()) : BigInt(0);
     message.status = object.status ?? 0;
     message.account = object.account ?? "";
-    message.accountBalance = object.accountBalance !== undefined && object.accountBalance !== null ? Long.fromValue(object.accountBalance) : Long.UZERO;
+    message.accountBalance = object.accountBalance !== undefined && object.accountBalance !== null ? BigInt(object.accountBalance.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: PoolResponseAmino): PoolResponse {
+    return {
+      id: BigInt(object.id),
+      data: object?.data ? Pool.fromAmino(object.data) : undefined,
+      bundleProposal: object?.bundle_proposal ? BundleProposal.fromAmino(object.bundle_proposal) : undefined,
+      stakers: Array.isArray(object?.stakers) ? object.stakers.map((e: any) => e) : [],
+      totalSelfDelegation: BigInt(object.total_self_delegation),
+      totalDelegation: BigInt(object.total_delegation),
+      status: isSet(object.status) ? poolStatusFromJSON(object.status) : -1,
+      account: object.account,
+      accountBalance: BigInt(object.account_balance)
+    };
+  },
+  toAmino(message: PoolResponse): PoolResponseAmino {
+    const obj: any = {};
+    obj.id = message.id ? message.id.toString() : undefined;
+    obj.data = message.data ? Pool.toAmino(message.data) : undefined;
+    obj.bundle_proposal = message.bundleProposal ? BundleProposal.toAmino(message.bundleProposal) : undefined;
+    if (message.stakers) {
+      obj.stakers = message.stakers.map(e => e);
+    } else {
+      obj.stakers = [];
+    }
+    obj.total_self_delegation = message.totalSelfDelegation ? message.totalSelfDelegation.toString() : undefined;
+    obj.total_delegation = message.totalDelegation ? message.totalDelegation.toString() : undefined;
+    obj.status = message.status;
+    obj.account = message.account;
+    obj.account_balance = message.accountBalance ? message.accountBalance.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PoolResponseAminoMsg): PoolResponse {
+    return PoolResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PoolResponseProtoMsg): PoolResponse {
+    return PoolResponse.decode(message.value);
+  },
+  toProto(message: PoolResponse): Uint8Array {
+    return PoolResponse.encode(message).finish();
+  },
+  toProtoMsg(message: PoolResponse): PoolResponseProtoMsg {
+    return {
+      typeUrl: "/kyve.query.v1beta1.PoolResponse",
+      value: PoolResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryPoolRequest(): QueryPoolRequest {
   return {
-    id: Long.UZERO
+    id: BigInt(0)
   };
 }
 export const QueryPoolRequest = {
-  encode(message: QueryPoolRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.id.isZero()) {
+  typeUrl: "/kyve.query.v1beta1.QueryPoolRequest",
+  encode(message: QueryPoolRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.id !== BigInt(0)) {
       writer.uint32(8).uint64(message.id);
     }
     return writer;
   },
   fromJSON(object: any): QueryPoolRequest {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO
+      id: isSet(object.id) ? BigInt(object.id.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<QueryPoolRequest>): QueryPoolRequest {
     const message = createBaseQueryPoolRequest();
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
+    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: QueryPoolRequestAmino): QueryPoolRequest {
+    return {
+      id: BigInt(object.id)
+    };
+  },
+  toAmino(message: QueryPoolRequest): QueryPoolRequestAmino {
+    const obj: any = {};
+    obj.id = message.id ? message.id.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPoolRequestAminoMsg): QueryPoolRequest {
+    return QueryPoolRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPoolRequestProtoMsg): QueryPoolRequest {
+    return QueryPoolRequest.decode(message.value);
+  },
+  toProto(message: QueryPoolRequest): Uint8Array {
+    return QueryPoolRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPoolRequest): QueryPoolRequestProtoMsg {
+    return {
+      typeUrl: "/kyve.query.v1beta1.QueryPoolRequest",
+      value: QueryPoolRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryPoolResponse(): QueryPoolResponse {
   return {
-    pool: undefined
+    pool: PoolResponse.fromPartial({})
   };
 }
 export const QueryPoolResponse = {
-  encode(message: QueryPoolResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/kyve.query.v1beta1.QueryPoolResponse",
+  encode(message: QueryPoolResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pool !== undefined) {
       PoolResponse.encode(message.pool, writer.uint32(10).fork()).ldelim();
     }
@@ -278,5 +508,30 @@ export const QueryPoolResponse = {
     const message = createBaseQueryPoolResponse();
     message.pool = object.pool !== undefined && object.pool !== null ? PoolResponse.fromPartial(object.pool) : undefined;
     return message;
+  },
+  fromAmino(object: QueryPoolResponseAmino): QueryPoolResponse {
+    return {
+      pool: object?.pool ? PoolResponse.fromAmino(object.pool) : undefined
+    };
+  },
+  toAmino(message: QueryPoolResponse): QueryPoolResponseAmino {
+    const obj: any = {};
+    obj.pool = message.pool ? PoolResponse.toAmino(message.pool) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPoolResponseAminoMsg): QueryPoolResponse {
+    return QueryPoolResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPoolResponseProtoMsg): QueryPoolResponse {
+    return QueryPoolResponse.decode(message.value);
+  },
+  toProto(message: QueryPoolResponse): Uint8Array {
+    return QueryPoolResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPoolResponse): QueryPoolResponseProtoMsg {
+    return {
+      typeUrl: "/kyve.query.v1beta1.QueryPoolResponse",
+      value: QueryPoolResponse.encode(message).finish()
+    };
   }
 };

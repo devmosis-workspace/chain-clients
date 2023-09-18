@@ -1,7 +1,6 @@
-import { Any, AnySDKType } from "../../../google/protobuf/any";
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Long } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryReader, BinaryWriter } from "../../../binary";
 /** AccessType permission types */
 export declare enum AccessType {
     /** ACCESS_TYPE_UNSPECIFIED - AccessTypeUnspecified placeholder for empty value */
@@ -20,6 +19,7 @@ export declare enum AccessType {
     UNRECOGNIZED = -1
 }
 export declare const AccessTypeSDKType: typeof AccessType;
+export declare const AccessTypeAmino: typeof AccessType;
 export declare function accessTypeFromJSON(object: any): AccessType;
 export declare function accessTypeToJSON(object: AccessType): string;
 /** ContractCodeHistoryOperationType actions that caused a code change */
@@ -35,11 +35,24 @@ export declare enum ContractCodeHistoryOperationType {
     UNRECOGNIZED = -1
 }
 export declare const ContractCodeHistoryOperationTypeSDKType: typeof ContractCodeHistoryOperationType;
+export declare const ContractCodeHistoryOperationTypeAmino: typeof ContractCodeHistoryOperationType;
 export declare function contractCodeHistoryOperationTypeFromJSON(object: any): ContractCodeHistoryOperationType;
 export declare function contractCodeHistoryOperationTypeToJSON(object: ContractCodeHistoryOperationType): string;
 /** AccessTypeParam */
 export interface AccessTypeParam {
     value: AccessType;
+}
+export interface AccessTypeParamProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.AccessTypeParam";
+    value: Uint8Array;
+}
+/** AccessTypeParam */
+export interface AccessTypeParamAmino {
+    value: AccessType;
+}
+export interface AccessTypeParamAminoMsg {
+    type: "wasm/AccessTypeParam";
+    value: AccessTypeParamAmino;
 }
 /** AccessTypeParam */
 export interface AccessTypeParamSDKType {
@@ -55,6 +68,24 @@ export interface AccessConfig {
     address: string;
     addresses: string[];
 }
+export interface AccessConfigProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.AccessConfig";
+    value: Uint8Array;
+}
+/** AccessConfig access control type. */
+export interface AccessConfigAmino {
+    permission: AccessType;
+    /**
+     * Address
+     * Deprecated: replaced by addresses
+     */
+    address: string;
+    addresses: string[];
+}
+export interface AccessConfigAminoMsg {
+    type: "wasm/AccessConfig";
+    value: AccessConfigAmino;
+}
 /** AccessConfig access control type. */
 export interface AccessConfigSDKType {
     permission: AccessType;
@@ -63,12 +94,25 @@ export interface AccessConfigSDKType {
 }
 /** Params defines the set of wasm parameters. */
 export interface Params {
-    codeUploadAccess?: AccessConfig;
+    codeUploadAccess: AccessConfig;
     instantiateDefaultPermission: AccessType;
+}
+export interface ParamsProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.Params";
+    value: Uint8Array;
+}
+/** Params defines the set of wasm parameters. */
+export interface ParamsAmino {
+    code_upload_access?: AccessConfigAmino;
+    instantiate_default_permission: AccessType;
+}
+export interface ParamsAminoMsg {
+    type: "wasm/Params";
+    value: ParamsAmino;
 }
 /** Params defines the set of wasm parameters. */
 export interface ParamsSDKType {
-    code_upload_access?: AccessConfigSDKType;
+    code_upload_access: AccessConfigSDKType;
     instantiate_default_permission: AccessType;
 }
 /** CodeInfo is data for the uploaded contract WASM code */
@@ -78,18 +122,35 @@ export interface CodeInfo {
     /** Creator address who initially stored the code */
     creator: string;
     /** InstantiateConfig access control to apply on contract creation, optional */
-    instantiateConfig?: AccessConfig;
+    instantiateConfig: AccessConfig;
+}
+export interface CodeInfoProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.CodeInfo";
+    value: Uint8Array;
+}
+/** CodeInfo is data for the uploaded contract WASM code */
+export interface CodeInfoAmino {
+    /** CodeHash is the unique identifier created by wasmvm */
+    code_hash: Uint8Array;
+    /** Creator address who initially stored the code */
+    creator: string;
+    /** InstantiateConfig access control to apply on contract creation, optional */
+    instantiate_config?: AccessConfigAmino;
+}
+export interface CodeInfoAminoMsg {
+    type: "wasm/CodeInfo";
+    value: CodeInfoAmino;
 }
 /** CodeInfo is data for the uploaded contract WASM code */
 export interface CodeInfoSDKType {
     code_hash: Uint8Array;
     creator: string;
-    instantiate_config?: AccessConfigSDKType;
+    instantiate_config: AccessConfigSDKType;
 }
 /** ContractInfo stores a WASM contract instance */
 export interface ContractInfo {
     /** CodeID is the reference to the stored Wasm code */
-    codeId: Long;
+    codeId: bigint;
     /** Creator address who initially instantiated the contract */
     creator: string;
     /** Admin is an optional address that can execute migrations */
@@ -97,38 +158,89 @@ export interface ContractInfo {
     /** Label is optional metadata to be stored with a contract instance. */
     label: string;
     /** Created Tx position when the contract was instantiated. */
-    created?: AbsoluteTxPosition;
+    created: AbsoluteTxPosition;
     ibcPortId: string;
     /**
      * Extension is an extension point to store custom metadata within the
      * persistence model.
      */
-    extension?: Any;
+    extension: (Any) | undefined;
+}
+export interface ContractInfoProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.ContractInfo";
+    value: Uint8Array;
+}
+export type ContractInfoEncoded = Omit<ContractInfo, "extension"> & {
+    /**
+     * Extension is an extension point to store custom metadata within the
+     * persistence model.
+     */
+    extension?: AnyProtoMsg | undefined;
+};
+/** ContractInfo stores a WASM contract instance */
+export interface ContractInfoAmino {
+    /** CodeID is the reference to the stored Wasm code */
+    code_id: string;
+    /** Creator address who initially instantiated the contract */
+    creator: string;
+    /** Admin is an optional address that can execute migrations */
+    admin: string;
+    /** Label is optional metadata to be stored with a contract instance. */
+    label: string;
+    /** Created Tx position when the contract was instantiated. */
+    created?: AbsoluteTxPositionAmino;
+    ibc_port_id: string;
+    /**
+     * Extension is an extension point to store custom metadata within the
+     * persistence model.
+     */
+    extension?: AnyAmino;
+}
+export interface ContractInfoAminoMsg {
+    type: "wasm/ContractInfo";
+    value: ContractInfoAmino;
 }
 /** ContractInfo stores a WASM contract instance */
 export interface ContractInfoSDKType {
-    code_id: Long;
+    code_id: bigint;
     creator: string;
     admin: string;
     label: string;
-    created?: AbsoluteTxPositionSDKType;
+    created: AbsoluteTxPositionSDKType;
     ibc_port_id: string;
-    extension?: AnySDKType;
+    extension: AnySDKType | undefined;
 }
 /** ContractCodeHistoryEntry metadata to a contract. */
 export interface ContractCodeHistoryEntry {
     operation: ContractCodeHistoryOperationType;
     /** CodeID is the reference to the stored WASM code */
-    codeId: Long;
+    codeId: bigint;
     /** Updated Tx position when the operation was executed. */
-    updated?: AbsoluteTxPosition;
+    updated: AbsoluteTxPosition;
     msg: Uint8Array;
+}
+export interface ContractCodeHistoryEntryProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.ContractCodeHistoryEntry";
+    value: Uint8Array;
+}
+/** ContractCodeHistoryEntry metadata to a contract. */
+export interface ContractCodeHistoryEntryAmino {
+    operation: ContractCodeHistoryOperationType;
+    /** CodeID is the reference to the stored WASM code */
+    code_id: string;
+    /** Updated Tx position when the operation was executed. */
+    updated?: AbsoluteTxPositionAmino;
+    msg: Uint8Array;
+}
+export interface ContractCodeHistoryEntryAminoMsg {
+    type: "wasm/ContractCodeHistoryEntry";
+    value: ContractCodeHistoryEntryAmino;
 }
 /** ContractCodeHistoryEntry metadata to a contract. */
 export interface ContractCodeHistoryEntrySDKType {
     operation: ContractCodeHistoryOperationType;
-    code_id: Long;
-    updated?: AbsoluteTxPositionSDKType;
+    code_id: bigint;
+    updated: AbsoluteTxPositionSDKType;
     msg: Uint8Array;
 }
 /**
@@ -137,20 +249,41 @@ export interface ContractCodeHistoryEntrySDKType {
  */
 export interface AbsoluteTxPosition {
     /** BlockHeight is the block the contract was created at */
-    blockHeight: Long;
+    blockHeight: bigint;
     /**
      * TxIndex is a monotonic counter within the block (actual transaction index,
      * or gas consumed)
      */
-    txIndex: Long;
+    txIndex: bigint;
+}
+export interface AbsoluteTxPositionProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.AbsoluteTxPosition";
+    value: Uint8Array;
+}
+/**
+ * AbsoluteTxPosition is a unique transaction position that allows for global
+ * ordering of transactions.
+ */
+export interface AbsoluteTxPositionAmino {
+    /** BlockHeight is the block the contract was created at */
+    block_height: string;
+    /**
+     * TxIndex is a monotonic counter within the block (actual transaction index,
+     * or gas consumed)
+     */
+    tx_index: string;
+}
+export interface AbsoluteTxPositionAminoMsg {
+    type: "wasm/AbsoluteTxPosition";
+    value: AbsoluteTxPositionAmino;
 }
 /**
  * AbsoluteTxPosition is a unique transaction position that allows for global
  * ordering of transactions.
  */
 export interface AbsoluteTxPositionSDKType {
-    block_height: Long;
-    tx_index: Long;
+    block_height: bigint;
+    tx_index: bigint;
 }
 /** Model is a struct that holds a KV pair */
 export interface Model {
@@ -158,6 +291,21 @@ export interface Model {
     key: Uint8Array;
     /** base64-encode raw value */
     value: Uint8Array;
+}
+export interface ModelProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.Model";
+    value: Uint8Array;
+}
+/** Model is a struct that holds a KV pair */
+export interface ModelAmino {
+    /** hex-encode key to read it better (this is often ascii) */
+    key: Uint8Array;
+    /** base64-encode raw value */
+    value: Uint8Array;
+}
+export interface ModelAminoMsg {
+    type: "wasm/Model";
+    value: ModelAmino;
 }
 /** Model is a struct that holds a KV pair */
 export interface ModelSDKType {
@@ -167,35 +315,71 @@ export interface ModelSDKType {
 /** EventCodeStored is emitted when contract code is checked and stored */
 export interface EventCodeStored {
     /** CodeID is the reference to the stored Wasm code */
-    codeId: Long;
+    codeId: bigint;
     /** Creator address who initially stored the code */
     creator: string;
-    accessConfig?: AccessConfig;
+    accessConfig: AccessConfig;
     checksum: Uint8Array;
+}
+export interface EventCodeStoredProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.EventCodeStored";
+    value: Uint8Array;
+}
+/** EventCodeStored is emitted when contract code is checked and stored */
+export interface EventCodeStoredAmino {
+    /** CodeID is the reference to the stored Wasm code */
+    code_id: string;
+    /** Creator address who initially stored the code */
+    creator: string;
+    access_config?: AccessConfigAmino;
+    checksum: Uint8Array;
+}
+export interface EventCodeStoredAminoMsg {
+    type: "wasm/EventCodeStored";
+    value: EventCodeStoredAmino;
 }
 /** EventCodeStored is emitted when contract code is checked and stored */
 export interface EventCodeStoredSDKType {
-    code_id: Long;
+    code_id: bigint;
     creator: string;
-    access_config?: AccessConfigSDKType;
+    access_config: AccessConfigSDKType;
     checksum: Uint8Array;
 }
 /** EventContractInstantiated is emitted when contract is instantiated */
 export interface EventContractInstantiated {
     contractAddress: string;
     admin: string;
-    codeId: Long;
+    codeId: bigint;
     /** Funds coins that are transferred to the contract on instantiation */
     funds: Coin[];
     msg: Uint8Array;
     label: string;
     creator: string;
 }
+export interface EventContractInstantiatedProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.EventContractInstantiated";
+    value: Uint8Array;
+}
+/** EventContractInstantiated is emitted when contract is instantiated */
+export interface EventContractInstantiatedAmino {
+    contract_address: string;
+    admin: string;
+    code_id: string;
+    /** Funds coins that are transferred to the contract on instantiation */
+    funds: CoinAmino[];
+    msg: Uint8Array;
+    label: string;
+    creator: string;
+}
+export interface EventContractInstantiatedAminoMsg {
+    type: "wasm/EventContractInstantiated";
+    value: EventContractInstantiatedAmino;
+}
 /** EventContractInstantiated is emitted when contract is instantiated */
 export interface EventContractInstantiatedSDKType {
     contract_address: string;
     admin: string;
-    code_id: Long;
+    code_id: bigint;
     funds: CoinSDKType[];
     msg: Uint8Array;
     label: string;
@@ -203,13 +387,27 @@ export interface EventContractInstantiatedSDKType {
 }
 /** EventContractMigrated is emitted when a contract get migrated to another code */
 export interface EventContractMigrated {
-    codeId: Long;
+    codeId: bigint;
     contractAddress: string;
     msg: Uint8Array;
 }
+export interface EventContractMigratedProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.EventContractMigrated";
+    value: Uint8Array;
+}
+/** EventContractMigrated is emitted when a contract get migrated to another code */
+export interface EventContractMigratedAmino {
+    code_id: string;
+    contract_address: string;
+    msg: Uint8Array;
+}
+export interface EventContractMigratedAminoMsg {
+    type: "wasm/EventContractMigrated";
+    value: EventContractMigratedAmino;
+}
 /** EventContractMigrated is emitted when a contract get migrated to another code */
 export interface EventContractMigratedSDKType {
-    code_id: Long;
+    code_id: bigint;
     contract_address: string;
     msg: Uint8Array;
 }
@@ -218,68 +416,180 @@ export interface EventContractAdminSet {
     contractAddress: string;
     newAdmin: string;
 }
+export interface EventContractAdminSetProtoMsg {
+    typeUrl: "/cosmwasm.wasm.v1.EventContractAdminSet";
+    value: Uint8Array;
+}
+/** EventContractAdminSet is emitted when new admin is set */
+export interface EventContractAdminSetAmino {
+    contract_address: string;
+    new_admin: string;
+}
+export interface EventContractAdminSetAminoMsg {
+    type: "wasm/EventContractAdminSet";
+    value: EventContractAdminSetAmino;
+}
 /** EventContractAdminSet is emitted when new admin is set */
 export interface EventContractAdminSetSDKType {
     contract_address: string;
     new_admin: string;
 }
 export declare const AccessTypeParam: {
-    encode(message: AccessTypeParam, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: AccessTypeParam, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): AccessTypeParam;
     fromPartial(object: Partial<AccessTypeParam>): AccessTypeParam;
+    fromAmino(object: AccessTypeParamAmino): AccessTypeParam;
+    toAmino(message: AccessTypeParam): AccessTypeParamAmino;
+    fromAminoMsg(object: AccessTypeParamAminoMsg): AccessTypeParam;
+    toAminoMsg(message: AccessTypeParam): AccessTypeParamAminoMsg;
+    fromProtoMsg(message: AccessTypeParamProtoMsg): AccessTypeParam;
+    toProto(message: AccessTypeParam): Uint8Array;
+    toProtoMsg(message: AccessTypeParam): AccessTypeParamProtoMsg;
 };
 export declare const AccessConfig: {
-    encode(message: AccessConfig, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: AccessConfig, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): AccessConfig;
     fromPartial(object: Partial<AccessConfig>): AccessConfig;
+    fromAmino(object: AccessConfigAmino): AccessConfig;
+    toAmino(message: AccessConfig): AccessConfigAmino;
+    fromAminoMsg(object: AccessConfigAminoMsg): AccessConfig;
+    toAminoMsg(message: AccessConfig): AccessConfigAminoMsg;
+    fromProtoMsg(message: AccessConfigProtoMsg): AccessConfig;
+    toProto(message: AccessConfig): Uint8Array;
+    toProtoMsg(message: AccessConfig): AccessConfigProtoMsg;
 };
 export declare const Params: {
-    encode(message: Params, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Params, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Params;
     fromPartial(object: Partial<Params>): Params;
+    fromAmino(object: ParamsAmino): Params;
+    toAmino(message: Params): ParamsAmino;
+    fromAminoMsg(object: ParamsAminoMsg): Params;
+    toAminoMsg(message: Params): ParamsAminoMsg;
+    fromProtoMsg(message: ParamsProtoMsg): Params;
+    toProto(message: Params): Uint8Array;
+    toProtoMsg(message: Params): ParamsProtoMsg;
 };
 export declare const CodeInfo: {
-    encode(message: CodeInfo, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: CodeInfo, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): CodeInfo;
     fromPartial(object: Partial<CodeInfo>): CodeInfo;
+    fromAmino(object: CodeInfoAmino): CodeInfo;
+    toAmino(message: CodeInfo): CodeInfoAmino;
+    fromAminoMsg(object: CodeInfoAminoMsg): CodeInfo;
+    toAminoMsg(message: CodeInfo): CodeInfoAminoMsg;
+    fromProtoMsg(message: CodeInfoProtoMsg): CodeInfo;
+    toProto(message: CodeInfo): Uint8Array;
+    toProtoMsg(message: CodeInfo): CodeInfoProtoMsg;
 };
 export declare const ContractInfo: {
-    encode(message: ContractInfo, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ContractInfo, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ContractInfo;
     fromPartial(object: Partial<ContractInfo>): ContractInfo;
+    fromAmino(object: ContractInfoAmino): ContractInfo;
+    toAmino(message: ContractInfo): ContractInfoAmino;
+    fromAminoMsg(object: ContractInfoAminoMsg): ContractInfo;
+    toAminoMsg(message: ContractInfo): ContractInfoAminoMsg;
+    fromProtoMsg(message: ContractInfoProtoMsg): ContractInfo;
+    toProto(message: ContractInfo): Uint8Array;
+    toProtoMsg(message: ContractInfo): ContractInfoProtoMsg;
 };
 export declare const ContractCodeHistoryEntry: {
-    encode(message: ContractCodeHistoryEntry, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: ContractCodeHistoryEntry, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): ContractCodeHistoryEntry;
     fromPartial(object: Partial<ContractCodeHistoryEntry>): ContractCodeHistoryEntry;
+    fromAmino(object: ContractCodeHistoryEntryAmino): ContractCodeHistoryEntry;
+    toAmino(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryAmino;
+    fromAminoMsg(object: ContractCodeHistoryEntryAminoMsg): ContractCodeHistoryEntry;
+    toAminoMsg(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryAminoMsg;
+    fromProtoMsg(message: ContractCodeHistoryEntryProtoMsg): ContractCodeHistoryEntry;
+    toProto(message: ContractCodeHistoryEntry): Uint8Array;
+    toProtoMsg(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryProtoMsg;
 };
 export declare const AbsoluteTxPosition: {
-    encode(message: AbsoluteTxPosition, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: AbsoluteTxPosition, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): AbsoluteTxPosition;
     fromPartial(object: Partial<AbsoluteTxPosition>): AbsoluteTxPosition;
+    fromAmino(object: AbsoluteTxPositionAmino): AbsoluteTxPosition;
+    toAmino(message: AbsoluteTxPosition): AbsoluteTxPositionAmino;
+    fromAminoMsg(object: AbsoluteTxPositionAminoMsg): AbsoluteTxPosition;
+    toAminoMsg(message: AbsoluteTxPosition): AbsoluteTxPositionAminoMsg;
+    fromProtoMsg(message: AbsoluteTxPositionProtoMsg): AbsoluteTxPosition;
+    toProto(message: AbsoluteTxPosition): Uint8Array;
+    toProtoMsg(message: AbsoluteTxPosition): AbsoluteTxPositionProtoMsg;
 };
 export declare const Model: {
-    encode(message: Model, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: Model, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): Model;
     fromPartial(object: Partial<Model>): Model;
+    fromAmino(object: ModelAmino): Model;
+    toAmino(message: Model): ModelAmino;
+    fromAminoMsg(object: ModelAminoMsg): Model;
+    toAminoMsg(message: Model): ModelAminoMsg;
+    fromProtoMsg(message: ModelProtoMsg): Model;
+    toProto(message: Model): Uint8Array;
+    toProtoMsg(message: Model): ModelProtoMsg;
 };
 export declare const EventCodeStored: {
-    encode(message: EventCodeStored, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventCodeStored, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventCodeStored;
     fromPartial(object: Partial<EventCodeStored>): EventCodeStored;
+    fromAmino(object: EventCodeStoredAmino): EventCodeStored;
+    toAmino(message: EventCodeStored): EventCodeStoredAmino;
+    fromAminoMsg(object: EventCodeStoredAminoMsg): EventCodeStored;
+    toAminoMsg(message: EventCodeStored): EventCodeStoredAminoMsg;
+    fromProtoMsg(message: EventCodeStoredProtoMsg): EventCodeStored;
+    toProto(message: EventCodeStored): Uint8Array;
+    toProtoMsg(message: EventCodeStored): EventCodeStoredProtoMsg;
 };
 export declare const EventContractInstantiated: {
-    encode(message: EventContractInstantiated, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventContractInstantiated, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventContractInstantiated;
     fromPartial(object: Partial<EventContractInstantiated>): EventContractInstantiated;
+    fromAmino(object: EventContractInstantiatedAmino): EventContractInstantiated;
+    toAmino(message: EventContractInstantiated): EventContractInstantiatedAmino;
+    fromAminoMsg(object: EventContractInstantiatedAminoMsg): EventContractInstantiated;
+    toAminoMsg(message: EventContractInstantiated): EventContractInstantiatedAminoMsg;
+    fromProtoMsg(message: EventContractInstantiatedProtoMsg): EventContractInstantiated;
+    toProto(message: EventContractInstantiated): Uint8Array;
+    toProtoMsg(message: EventContractInstantiated): EventContractInstantiatedProtoMsg;
 };
 export declare const EventContractMigrated: {
-    encode(message: EventContractMigrated, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventContractMigrated, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventContractMigrated;
     fromPartial(object: Partial<EventContractMigrated>): EventContractMigrated;
+    fromAmino(object: EventContractMigratedAmino): EventContractMigrated;
+    toAmino(message: EventContractMigrated): EventContractMigratedAmino;
+    fromAminoMsg(object: EventContractMigratedAminoMsg): EventContractMigrated;
+    toAminoMsg(message: EventContractMigrated): EventContractMigratedAminoMsg;
+    fromProtoMsg(message: EventContractMigratedProtoMsg): EventContractMigrated;
+    toProto(message: EventContractMigrated): Uint8Array;
+    toProtoMsg(message: EventContractMigrated): EventContractMigratedProtoMsg;
 };
 export declare const EventContractAdminSet: {
-    encode(message: EventContractAdminSet, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: EventContractAdminSet, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): EventContractAdminSet;
     fromPartial(object: Partial<EventContractAdminSet>): EventContractAdminSet;
+    fromAmino(object: EventContractAdminSetAmino): EventContractAdminSet;
+    toAmino(message: EventContractAdminSet): EventContractAdminSetAmino;
+    fromAminoMsg(object: EventContractAdminSetAminoMsg): EventContractAdminSet;
+    toAminoMsg(message: EventContractAdminSet): EventContractAdminSetAminoMsg;
+    fromProtoMsg(message: EventContractAdminSetProtoMsg): EventContractAdminSet;
+    toProto(message: EventContractAdminSet): Uint8Array;
+    toProtoMsg(message: EventContractAdminSet): EventContractAdminSetProtoMsg;
 };
+export declare const Cosmwasm_wasmv1ContractInfoExtension_InterfaceDecoder: (input: BinaryReader | Uint8Array) => Any;
+export declare const Cosmwasm_wasmv1ContractInfoExtension_FromAmino: (content: AnyAmino) => Any;
+export declare const Cosmwasm_wasmv1ContractInfoExtension_ToAmino: (content: Any) => AnyAmino;

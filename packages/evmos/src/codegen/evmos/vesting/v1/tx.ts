@@ -1,6 +1,6 @@
-import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import { Period, PeriodSDKType } from "../../../cosmos/vesting/v1beta1/vesting";
-import * as _m0 from "protobufjs/minimal";
+import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Period, PeriodAmino, PeriodSDKType } from "../../../cosmos/vesting/v1beta1/vesting";
+import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 /**
  * MsgCreateClawbackVestingAccount defines a message that enables creating a
@@ -15,7 +15,7 @@ export interface MsgCreateClawbackVestingAccount {
   /** to_address specifies the account to receive the funds */
   toAddress: string;
   /** start_time defines the time at which the vesting period begins */
-  startTime?: Timestamp;
+  startTime: Timestamp;
   /** lockup_periods defines the unlocking schedule relative to the start_time */
   lockupPeriods: Period[];
   /** vesting_periods defines the vesting schedule relative to the start_time */
@@ -29,6 +29,41 @@ export interface MsgCreateClawbackVestingAccount {
    */
   merge: boolean;
 }
+export interface MsgCreateClawbackVestingAccountProtoMsg {
+  typeUrl: "/evmos.vesting.v1.MsgCreateClawbackVestingAccount";
+  value: Uint8Array;
+}
+/**
+ * MsgCreateClawbackVestingAccount defines a message that enables creating a
+ * ClawbackVestingAccount.
+ */
+export interface MsgCreateClawbackVestingAccountAmino {
+  /**
+   * from_address specifies the account to provide the funds and sign the
+   * clawback request
+   */
+  from_address: string;
+  /** to_address specifies the account to receive the funds */
+  to_address: string;
+  /** start_time defines the time at which the vesting period begins */
+  start_time?: TimestampAmino;
+  /** lockup_periods defines the unlocking schedule relative to the start_time */
+  lockup_periods: PeriodAmino[];
+  /** vesting_periods defines the vesting schedule relative to the start_time */
+  vesting_periods: PeriodAmino[];
+  /**
+   * merge specifies a the creation mechanism for existing
+   * ClawbackVestingAccounts. If true, merge this new grant into an existing
+   * ClawbackVestingAccount, or create it if it does not exist. If false,
+   * creates a new account. New grants to an existing account must be from the
+   * same from_address.
+   */
+  merge: boolean;
+}
+export interface MsgCreateClawbackVestingAccountAminoMsg {
+  type: "/evmos.vesting.v1.MsgCreateClawbackVestingAccount";
+  value: MsgCreateClawbackVestingAccountAmino;
+}
 /**
  * MsgCreateClawbackVestingAccount defines a message that enables creating a
  * ClawbackVestingAccount.
@@ -36,7 +71,7 @@ export interface MsgCreateClawbackVestingAccount {
 export interface MsgCreateClawbackVestingAccountSDKType {
   from_address: string;
   to_address: string;
-  start_time?: TimestampSDKType;
+  start_time: TimestampSDKType;
   lockup_periods: PeriodSDKType[];
   vesting_periods: PeriodSDKType[];
   merge: boolean;
@@ -46,6 +81,19 @@ export interface MsgCreateClawbackVestingAccountSDKType {
  * MsgCreateClawbackVestingAccount response type.
  */
 export interface MsgCreateClawbackVestingAccountResponse {}
+export interface MsgCreateClawbackVestingAccountResponseProtoMsg {
+  typeUrl: "/evmos.vesting.v1.MsgCreateClawbackVestingAccountResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgCreateClawbackVestingAccountResponse defines the
+ * MsgCreateClawbackVestingAccount response type.
+ */
+export interface MsgCreateClawbackVestingAccountResponseAmino {}
+export interface MsgCreateClawbackVestingAccountResponseAminoMsg {
+  type: "/evmos.vesting.v1.MsgCreateClawbackVestingAccountResponse";
+  value: MsgCreateClawbackVestingAccountResponseAmino;
+}
 /**
  * MsgCreateClawbackVestingAccountResponse defines the
  * MsgCreateClawbackVestingAccount response type.
@@ -70,6 +118,33 @@ export interface MsgClawback {
    */
   destAddress: string;
 }
+export interface MsgClawbackProtoMsg {
+  typeUrl: "/evmos.vesting.v1.MsgClawback";
+  value: Uint8Array;
+}
+/**
+ * MsgClawback defines a message that removes unvested tokens from a
+ * ClawbackVestingAccount.
+ */
+export interface MsgClawbackAmino {
+  /** funder_address is the address which funded the account */
+  funder_address: string;
+  /**
+   * account_address is the address of the ClawbackVestingAccount to claw back
+   * from.
+   */
+  account_address: string;
+  /**
+   * dest_address specifies where the clawed-back tokens should be transferred
+   * to. If empty, the tokens will be transferred back to the original funder of
+   * the account.
+   */
+  dest_address: string;
+}
+export interface MsgClawbackAminoMsg {
+  type: "/evmos.vesting.v1.MsgClawback";
+  value: MsgClawbackAmino;
+}
 /**
  * MsgClawback defines a message that removes unvested tokens from a
  * ClawbackVestingAccount.
@@ -81,6 +156,16 @@ export interface MsgClawbackSDKType {
 }
 /** MsgClawbackResponse defines the MsgClawback response type. */
 export interface MsgClawbackResponse {}
+export interface MsgClawbackResponseProtoMsg {
+  typeUrl: "/evmos.vesting.v1.MsgClawbackResponse";
+  value: Uint8Array;
+}
+/** MsgClawbackResponse defines the MsgClawback response type. */
+export interface MsgClawbackResponseAmino {}
+export interface MsgClawbackResponseAminoMsg {
+  type: "/evmos.vesting.v1.MsgClawbackResponse";
+  value: MsgClawbackResponseAmino;
+}
 /** MsgClawbackResponse defines the MsgClawback response type. */
 export interface MsgClawbackResponseSDKType {}
 /**
@@ -94,6 +179,26 @@ export interface MsgUpdateVestingFunder {
   newFunderAddress: string;
   /** vesting_address is the address of the ClawbackVestingAccount being updated */
   vestingAddress: string;
+}
+export interface MsgUpdateVestingFunderProtoMsg {
+  typeUrl: "/evmos.vesting.v1.MsgUpdateVestingFunder";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateVestingFunder defines a message that updates the funder account of a
+ * ClawbackVestingAccount.
+ */
+export interface MsgUpdateVestingFunderAmino {
+  /** funder_address is the current funder address of the ClawbackVestingAccount */
+  funder_address: string;
+  /** new_funder_address is the new address to replace the existing funder_address */
+  new_funder_address: string;
+  /** vesting_address is the address of the ClawbackVestingAccount being updated */
+  vesting_address: string;
+}
+export interface MsgUpdateVestingFunderAminoMsg {
+  type: "/evmos.vesting.v1.MsgUpdateVestingFunder";
+  value: MsgUpdateVestingFunderAmino;
 }
 /**
  * MsgUpdateVestingFunder defines a message that updates the funder account of a
@@ -109,6 +214,19 @@ export interface MsgUpdateVestingFunderSDKType {
  * type.
  */
 export interface MsgUpdateVestingFunderResponse {}
+export interface MsgUpdateVestingFunderResponseProtoMsg {
+  typeUrl: "/evmos.vesting.v1.MsgUpdateVestingFunderResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateVestingFunderResponse defines the MsgUpdateVestingFunder response
+ * type.
+ */
+export interface MsgUpdateVestingFunderResponseAmino {}
+export interface MsgUpdateVestingFunderResponseAminoMsg {
+  type: "/evmos.vesting.v1.MsgUpdateVestingFunderResponse";
+  value: MsgUpdateVestingFunderResponseAmino;
+}
 /**
  * MsgUpdateVestingFunderResponse defines the MsgUpdateVestingFunder response
  * type.
@@ -119,26 +237,50 @@ export interface MsgConvertVestingAccount {
   /** vesting_address is the address of the vesting account to convert */
   vestingAddress: string;
 }
+export interface MsgConvertVestingAccountProtoMsg {
+  typeUrl: "/evmos.vesting.v1.MsgConvertVestingAccount";
+  value: Uint8Array;
+}
+/** MsgConvertVestingAccount defines a message that enables converting a vesting account to a eth account */
+export interface MsgConvertVestingAccountAmino {
+  /** vesting_address is the address of the vesting account to convert */
+  vesting_address: string;
+}
+export interface MsgConvertVestingAccountAminoMsg {
+  type: "/evmos.vesting.v1.MsgConvertVestingAccount";
+  value: MsgConvertVestingAccountAmino;
+}
 /** MsgConvertVestingAccount defines a message that enables converting a vesting account to a eth account */
 export interface MsgConvertVestingAccountSDKType {
   vesting_address: string;
 }
 /** MsgConvertVestingAccountResponse defines the MsgConvertVestingAccount response type. */
 export interface MsgConvertVestingAccountResponse {}
+export interface MsgConvertVestingAccountResponseProtoMsg {
+  typeUrl: "/evmos.vesting.v1.MsgConvertVestingAccountResponse";
+  value: Uint8Array;
+}
+/** MsgConvertVestingAccountResponse defines the MsgConvertVestingAccount response type. */
+export interface MsgConvertVestingAccountResponseAmino {}
+export interface MsgConvertVestingAccountResponseAminoMsg {
+  type: "/evmos.vesting.v1.MsgConvertVestingAccountResponse";
+  value: MsgConvertVestingAccountResponseAmino;
+}
 /** MsgConvertVestingAccountResponse defines the MsgConvertVestingAccount response type. */
 export interface MsgConvertVestingAccountResponseSDKType {}
 function createBaseMsgCreateClawbackVestingAccount(): MsgCreateClawbackVestingAccount {
   return {
     fromAddress: "",
     toAddress: "",
-    startTime: undefined,
+    startTime: Timestamp.fromPartial({}),
     lockupPeriods: [],
     vestingPeriods: [],
     merge: false
   };
 }
 export const MsgCreateClawbackVestingAccount = {
-  encode(message: MsgCreateClawbackVestingAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.vesting.v1.MsgCreateClawbackVestingAccount",
+  encode(message: MsgCreateClawbackVestingAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.fromAddress !== "") {
       writer.uint32(10).string(message.fromAddress);
     }
@@ -178,13 +320,57 @@ export const MsgCreateClawbackVestingAccount = {
     message.vestingPeriods = object.vestingPeriods?.map(e => Period.fromPartial(e)) || [];
     message.merge = object.merge ?? false;
     return message;
+  },
+  fromAmino(object: MsgCreateClawbackVestingAccountAmino): MsgCreateClawbackVestingAccount {
+    return {
+      fromAddress: object.from_address,
+      toAddress: object.to_address,
+      startTime: object.start_time,
+      lockupPeriods: Array.isArray(object?.lockup_periods) ? object.lockup_periods.map((e: any) => Period.fromAmino(e)) : [],
+      vestingPeriods: Array.isArray(object?.vesting_periods) ? object.vesting_periods.map((e: any) => Period.fromAmino(e)) : [],
+      merge: object.merge
+    };
+  },
+  toAmino(message: MsgCreateClawbackVestingAccount): MsgCreateClawbackVestingAccountAmino {
+    const obj: any = {};
+    obj.from_address = message.fromAddress;
+    obj.to_address = message.toAddress;
+    obj.start_time = message.startTime;
+    if (message.lockupPeriods) {
+      obj.lockup_periods = message.lockupPeriods.map(e => e ? Period.toAmino(e) : undefined);
+    } else {
+      obj.lockup_periods = [];
+    }
+    if (message.vestingPeriods) {
+      obj.vesting_periods = message.vestingPeriods.map(e => e ? Period.toAmino(e) : undefined);
+    } else {
+      obj.vesting_periods = [];
+    }
+    obj.merge = message.merge;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateClawbackVestingAccountAminoMsg): MsgCreateClawbackVestingAccount {
+    return MsgCreateClawbackVestingAccount.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCreateClawbackVestingAccountProtoMsg): MsgCreateClawbackVestingAccount {
+    return MsgCreateClawbackVestingAccount.decode(message.value);
+  },
+  toProto(message: MsgCreateClawbackVestingAccount): Uint8Array {
+    return MsgCreateClawbackVestingAccount.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateClawbackVestingAccount): MsgCreateClawbackVestingAccountProtoMsg {
+    return {
+      typeUrl: "/evmos.vesting.v1.MsgCreateClawbackVestingAccount",
+      value: MsgCreateClawbackVestingAccount.encode(message).finish()
+    };
   }
 };
 function createBaseMsgCreateClawbackVestingAccountResponse(): MsgCreateClawbackVestingAccountResponse {
   return {};
 }
 export const MsgCreateClawbackVestingAccountResponse = {
-  encode(_: MsgCreateClawbackVestingAccountResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.vesting.v1.MsgCreateClawbackVestingAccountResponse",
+  encode(_: MsgCreateClawbackVestingAccountResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgCreateClawbackVestingAccountResponse {
@@ -193,6 +379,28 @@ export const MsgCreateClawbackVestingAccountResponse = {
   fromPartial(_: Partial<MsgCreateClawbackVestingAccountResponse>): MsgCreateClawbackVestingAccountResponse {
     const message = createBaseMsgCreateClawbackVestingAccountResponse();
     return message;
+  },
+  fromAmino(_: MsgCreateClawbackVestingAccountResponseAmino): MsgCreateClawbackVestingAccountResponse {
+    return {};
+  },
+  toAmino(_: MsgCreateClawbackVestingAccountResponse): MsgCreateClawbackVestingAccountResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateClawbackVestingAccountResponseAminoMsg): MsgCreateClawbackVestingAccountResponse {
+    return MsgCreateClawbackVestingAccountResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCreateClawbackVestingAccountResponseProtoMsg): MsgCreateClawbackVestingAccountResponse {
+    return MsgCreateClawbackVestingAccountResponse.decode(message.value);
+  },
+  toProto(message: MsgCreateClawbackVestingAccountResponse): Uint8Array {
+    return MsgCreateClawbackVestingAccountResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateClawbackVestingAccountResponse): MsgCreateClawbackVestingAccountResponseProtoMsg {
+    return {
+      typeUrl: "/evmos.vesting.v1.MsgCreateClawbackVestingAccountResponse",
+      value: MsgCreateClawbackVestingAccountResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgClawback(): MsgClawback {
@@ -203,7 +411,8 @@ function createBaseMsgClawback(): MsgClawback {
   };
 }
 export const MsgClawback = {
-  encode(message: MsgClawback, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.vesting.v1.MsgClawback",
+  encode(message: MsgClawback, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.funderAddress !== "") {
       writer.uint32(10).string(message.funderAddress);
     }
@@ -228,13 +437,43 @@ export const MsgClawback = {
     message.accountAddress = object.accountAddress ?? "";
     message.destAddress = object.destAddress ?? "";
     return message;
+  },
+  fromAmino(object: MsgClawbackAmino): MsgClawback {
+    return {
+      funderAddress: object.funder_address,
+      accountAddress: object.account_address,
+      destAddress: object.dest_address
+    };
+  },
+  toAmino(message: MsgClawback): MsgClawbackAmino {
+    const obj: any = {};
+    obj.funder_address = message.funderAddress;
+    obj.account_address = message.accountAddress;
+    obj.dest_address = message.destAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgClawbackAminoMsg): MsgClawback {
+    return MsgClawback.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgClawbackProtoMsg): MsgClawback {
+    return MsgClawback.decode(message.value);
+  },
+  toProto(message: MsgClawback): Uint8Array {
+    return MsgClawback.encode(message).finish();
+  },
+  toProtoMsg(message: MsgClawback): MsgClawbackProtoMsg {
+    return {
+      typeUrl: "/evmos.vesting.v1.MsgClawback",
+      value: MsgClawback.encode(message).finish()
+    };
   }
 };
 function createBaseMsgClawbackResponse(): MsgClawbackResponse {
   return {};
 }
 export const MsgClawbackResponse = {
-  encode(_: MsgClawbackResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.vesting.v1.MsgClawbackResponse",
+  encode(_: MsgClawbackResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgClawbackResponse {
@@ -243,6 +482,28 @@ export const MsgClawbackResponse = {
   fromPartial(_: Partial<MsgClawbackResponse>): MsgClawbackResponse {
     const message = createBaseMsgClawbackResponse();
     return message;
+  },
+  fromAmino(_: MsgClawbackResponseAmino): MsgClawbackResponse {
+    return {};
+  },
+  toAmino(_: MsgClawbackResponse): MsgClawbackResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgClawbackResponseAminoMsg): MsgClawbackResponse {
+    return MsgClawbackResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgClawbackResponseProtoMsg): MsgClawbackResponse {
+    return MsgClawbackResponse.decode(message.value);
+  },
+  toProto(message: MsgClawbackResponse): Uint8Array {
+    return MsgClawbackResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgClawbackResponse): MsgClawbackResponseProtoMsg {
+    return {
+      typeUrl: "/evmos.vesting.v1.MsgClawbackResponse",
+      value: MsgClawbackResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgUpdateVestingFunder(): MsgUpdateVestingFunder {
@@ -253,7 +514,8 @@ function createBaseMsgUpdateVestingFunder(): MsgUpdateVestingFunder {
   };
 }
 export const MsgUpdateVestingFunder = {
-  encode(message: MsgUpdateVestingFunder, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.vesting.v1.MsgUpdateVestingFunder",
+  encode(message: MsgUpdateVestingFunder, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.funderAddress !== "") {
       writer.uint32(10).string(message.funderAddress);
     }
@@ -278,13 +540,43 @@ export const MsgUpdateVestingFunder = {
     message.newFunderAddress = object.newFunderAddress ?? "";
     message.vestingAddress = object.vestingAddress ?? "";
     return message;
+  },
+  fromAmino(object: MsgUpdateVestingFunderAmino): MsgUpdateVestingFunder {
+    return {
+      funderAddress: object.funder_address,
+      newFunderAddress: object.new_funder_address,
+      vestingAddress: object.vesting_address
+    };
+  },
+  toAmino(message: MsgUpdateVestingFunder): MsgUpdateVestingFunderAmino {
+    const obj: any = {};
+    obj.funder_address = message.funderAddress;
+    obj.new_funder_address = message.newFunderAddress;
+    obj.vesting_address = message.vestingAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateVestingFunderAminoMsg): MsgUpdateVestingFunder {
+    return MsgUpdateVestingFunder.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateVestingFunderProtoMsg): MsgUpdateVestingFunder {
+    return MsgUpdateVestingFunder.decode(message.value);
+  },
+  toProto(message: MsgUpdateVestingFunder): Uint8Array {
+    return MsgUpdateVestingFunder.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateVestingFunder): MsgUpdateVestingFunderProtoMsg {
+    return {
+      typeUrl: "/evmos.vesting.v1.MsgUpdateVestingFunder",
+      value: MsgUpdateVestingFunder.encode(message).finish()
+    };
   }
 };
 function createBaseMsgUpdateVestingFunderResponse(): MsgUpdateVestingFunderResponse {
   return {};
 }
 export const MsgUpdateVestingFunderResponse = {
-  encode(_: MsgUpdateVestingFunderResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.vesting.v1.MsgUpdateVestingFunderResponse",
+  encode(_: MsgUpdateVestingFunderResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgUpdateVestingFunderResponse {
@@ -293,6 +585,28 @@ export const MsgUpdateVestingFunderResponse = {
   fromPartial(_: Partial<MsgUpdateVestingFunderResponse>): MsgUpdateVestingFunderResponse {
     const message = createBaseMsgUpdateVestingFunderResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateVestingFunderResponseAmino): MsgUpdateVestingFunderResponse {
+    return {};
+  },
+  toAmino(_: MsgUpdateVestingFunderResponse): MsgUpdateVestingFunderResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateVestingFunderResponseAminoMsg): MsgUpdateVestingFunderResponse {
+    return MsgUpdateVestingFunderResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateVestingFunderResponseProtoMsg): MsgUpdateVestingFunderResponse {
+    return MsgUpdateVestingFunderResponse.decode(message.value);
+  },
+  toProto(message: MsgUpdateVestingFunderResponse): Uint8Array {
+    return MsgUpdateVestingFunderResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateVestingFunderResponse): MsgUpdateVestingFunderResponseProtoMsg {
+    return {
+      typeUrl: "/evmos.vesting.v1.MsgUpdateVestingFunderResponse",
+      value: MsgUpdateVestingFunderResponse.encode(message).finish()
+    };
   }
 };
 function createBaseMsgConvertVestingAccount(): MsgConvertVestingAccount {
@@ -301,7 +615,8 @@ function createBaseMsgConvertVestingAccount(): MsgConvertVestingAccount {
   };
 }
 export const MsgConvertVestingAccount = {
-  encode(message: MsgConvertVestingAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.vesting.v1.MsgConvertVestingAccount",
+  encode(message: MsgConvertVestingAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.vestingAddress !== "") {
       writer.uint32(10).string(message.vestingAddress);
     }
@@ -316,13 +631,39 @@ export const MsgConvertVestingAccount = {
     const message = createBaseMsgConvertVestingAccount();
     message.vestingAddress = object.vestingAddress ?? "";
     return message;
+  },
+  fromAmino(object: MsgConvertVestingAccountAmino): MsgConvertVestingAccount {
+    return {
+      vestingAddress: object.vesting_address
+    };
+  },
+  toAmino(message: MsgConvertVestingAccount): MsgConvertVestingAccountAmino {
+    const obj: any = {};
+    obj.vesting_address = message.vestingAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgConvertVestingAccountAminoMsg): MsgConvertVestingAccount {
+    return MsgConvertVestingAccount.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgConvertVestingAccountProtoMsg): MsgConvertVestingAccount {
+    return MsgConvertVestingAccount.decode(message.value);
+  },
+  toProto(message: MsgConvertVestingAccount): Uint8Array {
+    return MsgConvertVestingAccount.encode(message).finish();
+  },
+  toProtoMsg(message: MsgConvertVestingAccount): MsgConvertVestingAccountProtoMsg {
+    return {
+      typeUrl: "/evmos.vesting.v1.MsgConvertVestingAccount",
+      value: MsgConvertVestingAccount.encode(message).finish()
+    };
   }
 };
 function createBaseMsgConvertVestingAccountResponse(): MsgConvertVestingAccountResponse {
   return {};
 }
 export const MsgConvertVestingAccountResponse = {
-  encode(_: MsgConvertVestingAccountResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/evmos.vesting.v1.MsgConvertVestingAccountResponse",
+  encode(_: MsgConvertVestingAccountResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): MsgConvertVestingAccountResponse {
@@ -331,5 +672,27 @@ export const MsgConvertVestingAccountResponse = {
   fromPartial(_: Partial<MsgConvertVestingAccountResponse>): MsgConvertVestingAccountResponse {
     const message = createBaseMsgConvertVestingAccountResponse();
     return message;
+  },
+  fromAmino(_: MsgConvertVestingAccountResponseAmino): MsgConvertVestingAccountResponse {
+    return {};
+  },
+  toAmino(_: MsgConvertVestingAccountResponse): MsgConvertVestingAccountResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgConvertVestingAccountResponseAminoMsg): MsgConvertVestingAccountResponse {
+    return MsgConvertVestingAccountResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgConvertVestingAccountResponseProtoMsg): MsgConvertVestingAccountResponse {
+    return MsgConvertVestingAccountResponse.decode(message.value);
+  },
+  toProto(message: MsgConvertVestingAccountResponse): Uint8Array {
+    return MsgConvertVestingAccountResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgConvertVestingAccountResponse): MsgConvertVestingAccountResponseProtoMsg {
+    return {
+      typeUrl: "/evmos.vesting.v1.MsgConvertVestingAccountResponse",
+      value: MsgConvertVestingAccountResponse.encode(message).finish()
+    };
   }
 };

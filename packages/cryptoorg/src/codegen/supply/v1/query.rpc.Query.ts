@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { SupplyRequest, SupplyResponse } from "./query";
 /** Query defines the gRPC querier service. */
@@ -19,12 +19,12 @@ export class QueryClientImpl implements Query {
   totalSupply(request: SupplyRequest = {}): Promise<SupplyResponse> {
     const data = SupplyRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.supply.v1.Query", "TotalSupply", data);
-    return promise.then(data => SupplyResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => SupplyResponse.decode(new BinaryReader(data)));
   }
   liquidSupply(request: SupplyRequest = {}): Promise<SupplyResponse> {
     const data = SupplyRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.supply.v1.Query", "LiquidSupply", data);
-    return promise.then(data => SupplyResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => SupplyResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

@@ -1,4 +1,4 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../../binary";
 import { isSet, bytesFromBase64 } from "../../../../helpers";
 export enum KeyPresenceResponse_Response {
   RESPONSE_UNSPECIFIED = 0,
@@ -8,6 +8,7 @@ export enum KeyPresenceResponse_Response {
   UNRECOGNIZED = -1,
 }
 export const KeyPresenceResponse_ResponseSDKType = KeyPresenceResponse_Response;
+export const KeyPresenceResponse_ResponseAmino = KeyPresenceResponse_Response;
 export function keyPresenceResponse_ResponseFromJSON(object: any): KeyPresenceResponse_Response {
   switch (object) {
     case 0:
@@ -52,6 +53,23 @@ export interface KeyPresenceRequest {
    */
   pubKey: Uint8Array;
 }
+export interface KeyPresenceRequestProtoMsg {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.KeyPresenceRequest";
+  value: Uint8Array;
+}
+/** Key presence check types */
+export interface KeyPresenceRequestAmino {
+  key_uid: string;
+  /**
+   * SEC1-encoded compressed pub key bytes to find the right
+   * mnemonic. Latest is used, if empty.
+   */
+  pub_key: Uint8Array;
+}
+export interface KeyPresenceRequestAminoMsg {
+  type: "/axelar.tss.tofnd.v1beta1.KeyPresenceRequest";
+  value: KeyPresenceRequestAmino;
+}
 /** Key presence check types */
 export interface KeyPresenceRequestSDKType {
   key_uid: string;
@@ -59,6 +77,17 @@ export interface KeyPresenceRequestSDKType {
 }
 export interface KeyPresenceResponse {
   response: KeyPresenceResponse_Response;
+}
+export interface KeyPresenceResponseProtoMsg {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.KeyPresenceResponse";
+  value: Uint8Array;
+}
+export interface KeyPresenceResponseAmino {
+  response: KeyPresenceResponse_Response;
+}
+export interface KeyPresenceResponseAminoMsg {
+  type: "/axelar.tss.tofnd.v1beta1.KeyPresenceResponse";
+  value: KeyPresenceResponseAmino;
 }
 export interface KeyPresenceResponseSDKType {
   response: KeyPresenceResponse_Response;
@@ -70,7 +99,8 @@ function createBaseKeyPresenceRequest(): KeyPresenceRequest {
   };
 }
 export const KeyPresenceRequest = {
-  encode(message: KeyPresenceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.KeyPresenceRequest",
+  encode(message: KeyPresenceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.keyUid !== "") {
       writer.uint32(10).string(message.keyUid);
     }
@@ -90,6 +120,33 @@ export const KeyPresenceRequest = {
     message.keyUid = object.keyUid ?? "";
     message.pubKey = object.pubKey ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: KeyPresenceRequestAmino): KeyPresenceRequest {
+    return {
+      keyUid: object.key_uid,
+      pubKey: object.pub_key
+    };
+  },
+  toAmino(message: KeyPresenceRequest): KeyPresenceRequestAmino {
+    const obj: any = {};
+    obj.key_uid = message.keyUid;
+    obj.pub_key = message.pubKey;
+    return obj;
+  },
+  fromAminoMsg(object: KeyPresenceRequestAminoMsg): KeyPresenceRequest {
+    return KeyPresenceRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeyPresenceRequestProtoMsg): KeyPresenceRequest {
+    return KeyPresenceRequest.decode(message.value);
+  },
+  toProto(message: KeyPresenceRequest): Uint8Array {
+    return KeyPresenceRequest.encode(message).finish();
+  },
+  toProtoMsg(message: KeyPresenceRequest): KeyPresenceRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.tofnd.v1beta1.KeyPresenceRequest",
+      value: KeyPresenceRequest.encode(message).finish()
+    };
   }
 };
 function createBaseKeyPresenceResponse(): KeyPresenceResponse {
@@ -98,7 +155,8 @@ function createBaseKeyPresenceResponse(): KeyPresenceResponse {
   };
 }
 export const KeyPresenceResponse = {
-  encode(message: KeyPresenceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.tofnd.v1beta1.KeyPresenceResponse",
+  encode(message: KeyPresenceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.response !== 0) {
       writer.uint32(8).int32(message.response);
     }
@@ -106,12 +164,37 @@ export const KeyPresenceResponse = {
   },
   fromJSON(object: any): KeyPresenceResponse {
     return {
-      response: isSet(object.response) ? keyPresenceResponse_ResponseFromJSON(object.response) : 0
+      response: isSet(object.response) ? keyPresenceResponse_ResponseFromJSON(object.response) : -1
     };
   },
   fromPartial(object: Partial<KeyPresenceResponse>): KeyPresenceResponse {
     const message = createBaseKeyPresenceResponse();
     message.response = object.response ?? 0;
     return message;
+  },
+  fromAmino(object: KeyPresenceResponseAmino): KeyPresenceResponse {
+    return {
+      response: isSet(object.response) ? keyPresenceResponse_ResponseFromJSON(object.response) : -1
+    };
+  },
+  toAmino(message: KeyPresenceResponse): KeyPresenceResponseAmino {
+    const obj: any = {};
+    obj.response = message.response;
+    return obj;
+  },
+  fromAminoMsg(object: KeyPresenceResponseAminoMsg): KeyPresenceResponse {
+    return KeyPresenceResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeyPresenceResponseProtoMsg): KeyPresenceResponse {
+    return KeyPresenceResponse.decode(message.value);
+  },
+  toProto(message: KeyPresenceResponse): Uint8Array {
+    return KeyPresenceResponse.encode(message).finish();
+  },
+  toProtoMsg(message: KeyPresenceResponse): KeyPresenceResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.tofnd.v1beta1.KeyPresenceResponse",
+      value: KeyPresenceResponse.encode(message).finish()
+    };
   }
 };

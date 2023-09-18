@@ -1,15 +1,33 @@
-import { Long } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../binary";
 export interface BlockStoreState {
-    base: Long;
-    height: Long;
+    base: bigint;
+    height: bigint;
+}
+export interface BlockStoreStateProtoMsg {
+    typeUrl: "/tendermint.store.BlockStoreState";
+    value: Uint8Array;
+}
+export interface BlockStoreStateAmino {
+    base: string;
+    height: string;
+}
+export interface BlockStoreStateAminoMsg {
+    type: "/tendermint.store.BlockStoreState";
+    value: BlockStoreStateAmino;
 }
 export interface BlockStoreStateSDKType {
-    base: Long;
-    height: Long;
+    base: bigint;
+    height: bigint;
 }
 export declare const BlockStoreState: {
-    encode(message: BlockStoreState, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: BlockStoreState, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): BlockStoreState;
     fromPartial(object: Partial<BlockStoreState>): BlockStoreState;
+    fromAmino(object: BlockStoreStateAmino): BlockStoreState;
+    toAmino(message: BlockStoreState): BlockStoreStateAmino;
+    fromAminoMsg(object: BlockStoreStateAminoMsg): BlockStoreState;
+    fromProtoMsg(message: BlockStoreStateProtoMsg): BlockStoreState;
+    toProto(message: BlockStoreState): Uint8Array;
+    toProtoMsg(message: BlockStoreState): BlockStoreStateProtoMsg;
 };

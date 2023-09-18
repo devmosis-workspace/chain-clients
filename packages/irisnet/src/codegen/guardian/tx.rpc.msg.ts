@@ -1,5 +1,5 @@
 import { Rpc } from "../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../binary";
 import { MsgAddSuper, MsgAddSuperResponse, MsgDeleteSuper, MsgDeleteSuperResponse } from "./tx";
 /** Msg defines the guardian Msg service */
 export interface Msg {
@@ -18,11 +18,11 @@ export class MsgClientImpl implements Msg {
   addSuper(request: MsgAddSuper): Promise<MsgAddSuperResponse> {
     const data = MsgAddSuper.encode(request).finish();
     const promise = this.rpc.request("irishub.guardian.Msg", "AddSuper", data);
-    return promise.then(data => MsgAddSuperResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgAddSuperResponse.decode(new BinaryReader(data)));
   }
   deleteSuper(request: MsgDeleteSuper): Promise<MsgDeleteSuperResponse> {
     const data = MsgDeleteSuper.encode(request).finish();
     const promise = this.rpc.request("irishub.guardian.Msg", "DeleteSuper", data);
-    return promise.then(data => MsgDeleteSuperResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgDeleteSuperResponse.decode(new BinaryReader(data)));
   }
 }

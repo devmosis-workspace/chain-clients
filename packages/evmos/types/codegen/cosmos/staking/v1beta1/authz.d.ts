@@ -1,5 +1,5 @@
-import { Coin, CoinSDKType } from "../../base/v1beta1/coin";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
 /**
  * AuthorizationType defines the type of staking module authorization type
  *
@@ -19,6 +19,7 @@ export declare enum AuthorizationType {
     UNRECOGNIZED = -1
 }
 export declare const AuthorizationTypeSDKType: typeof AuthorizationType;
+export declare const AuthorizationTypeAmino: typeof AuthorizationType;
 export declare function authorizationTypeFromJSON(object: any): AuthorizationType;
 export declare function authorizationTypeToJSON(object: AuthorizationType): string;
 /**
@@ -27,11 +28,12 @@ export declare function authorizationTypeToJSON(object: AuthorizationType): stri
  * Since: cosmos-sdk 0.43
  */
 export interface StakeAuthorization {
+    $typeUrl?: string;
     /**
      * max_tokens specifies the maximum amount of tokens can be delegate to a validator. If it is
      * empty, there is no spend limit and any amount of coins can be delegated.
      */
-    maxTokens?: Coin;
+    maxTokens: Coin;
     /**
      * allow_list specifies list of validator addresses to whom grantee can delegate tokens on behalf of granter's
      * account.
@@ -42,13 +44,43 @@ export interface StakeAuthorization {
     /** authorization_type defines one of AuthorizationType. */
     authorizationType: AuthorizationType;
 }
+export interface StakeAuthorizationProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.StakeAuthorization";
+    value: Uint8Array;
+}
+/**
+ * StakeAuthorization defines authorization for delegate/undelegate/redelegate.
+ *
+ * Since: cosmos-sdk 0.43
+ */
+export interface StakeAuthorizationAmino {
+    /**
+     * max_tokens specifies the maximum amount of tokens can be delegate to a validator. If it is
+     * empty, there is no spend limit and any amount of coins can be delegated.
+     */
+    max_tokens?: CoinAmino;
+    /**
+     * allow_list specifies list of validator addresses to whom grantee can delegate tokens on behalf of granter's
+     * account.
+     */
+    allow_list?: StakeAuthorization_ValidatorsAmino;
+    /** deny_list specifies list of validator addresses to whom grantee can not delegate tokens. */
+    deny_list?: StakeAuthorization_ValidatorsAmino;
+    /** authorization_type defines one of AuthorizationType. */
+    authorization_type: AuthorizationType;
+}
+export interface StakeAuthorizationAminoMsg {
+    type: "cosmos-sdk/StakeAuthorization";
+    value: StakeAuthorizationAmino;
+}
 /**
  * StakeAuthorization defines authorization for delegate/undelegate/redelegate.
  *
  * Since: cosmos-sdk 0.43
  */
 export interface StakeAuthorizationSDKType {
-    max_tokens?: CoinSDKType;
+    $typeUrl?: string;
+    max_tokens: CoinSDKType;
     allow_list?: StakeAuthorization_ValidatorsSDKType;
     deny_list?: StakeAuthorization_ValidatorsSDKType;
     authorization_type: AuthorizationType;
@@ -57,17 +89,45 @@ export interface StakeAuthorizationSDKType {
 export interface StakeAuthorization_Validators {
     address: string[];
 }
+export interface StakeAuthorization_ValidatorsProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.Validators";
+    value: Uint8Array;
+}
+/** Validators defines list of validator addresses. */
+export interface StakeAuthorization_ValidatorsAmino {
+    address: string[];
+}
+export interface StakeAuthorization_ValidatorsAminoMsg {
+    type: "cosmos-sdk/Validators";
+    value: StakeAuthorization_ValidatorsAmino;
+}
 /** Validators defines list of validator addresses. */
 export interface StakeAuthorization_ValidatorsSDKType {
     address: string[];
 }
 export declare const StakeAuthorization: {
-    encode(message: StakeAuthorization, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: StakeAuthorization, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): StakeAuthorization;
     fromPartial(object: Partial<StakeAuthorization>): StakeAuthorization;
+    fromAmino(object: StakeAuthorizationAmino): StakeAuthorization;
+    toAmino(message: StakeAuthorization): StakeAuthorizationAmino;
+    fromAminoMsg(object: StakeAuthorizationAminoMsg): StakeAuthorization;
+    toAminoMsg(message: StakeAuthorization): StakeAuthorizationAminoMsg;
+    fromProtoMsg(message: StakeAuthorizationProtoMsg): StakeAuthorization;
+    toProto(message: StakeAuthorization): Uint8Array;
+    toProtoMsg(message: StakeAuthorization): StakeAuthorizationProtoMsg;
 };
 export declare const StakeAuthorization_Validators: {
-    encode(message: StakeAuthorization_Validators, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: StakeAuthorization_Validators, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): StakeAuthorization_Validators;
     fromPartial(object: Partial<StakeAuthorization_Validators>): StakeAuthorization_Validators;
+    fromAmino(object: StakeAuthorization_ValidatorsAmino): StakeAuthorization_Validators;
+    toAmino(message: StakeAuthorization_Validators): StakeAuthorization_ValidatorsAmino;
+    fromAminoMsg(object: StakeAuthorization_ValidatorsAminoMsg): StakeAuthorization_Validators;
+    toAminoMsg(message: StakeAuthorization_Validators): StakeAuthorization_ValidatorsAminoMsg;
+    fromProtoMsg(message: StakeAuthorization_ValidatorsProtoMsg): StakeAuthorization_Validators;
+    toProto(message: StakeAuthorization_Validators): Uint8Array;
+    toProtoMsg(message: StakeAuthorization_Validators): StakeAuthorization_ValidatorsProtoMsg;
 };

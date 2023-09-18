@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import { QuerySupplyRequest, QuerySupplyResponse, QueryOwnerRequest, QueryOwnerResponse, QueryCollectionRequest, QueryCollectionResponse, QueryDenomRequest, QueryDenomResponse, QueryDenomByNameRequest, QueryDenomByNameResponse, QueryDenomsRequest, QueryDenomsResponse, QueryNFTRequest, QueryNFTResponse } from "./query";
 /** Query defines the gRPC querier service for NFT module */
@@ -34,39 +34,39 @@ export class QueryClientImpl implements Query {
   supply(request: QuerySupplyRequest): Promise<QuerySupplyResponse> {
     const data = QuerySupplyRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Query", "Supply", data);
-    return promise.then(data => QuerySupplyResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QuerySupplyResponse.decode(new BinaryReader(data)));
   }
   owner(request: QueryOwnerRequest): Promise<QueryOwnerResponse> {
     const data = QueryOwnerRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Query", "Owner", data);
-    return promise.then(data => QueryOwnerResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryOwnerResponse.decode(new BinaryReader(data)));
   }
   collection(request: QueryCollectionRequest): Promise<QueryCollectionResponse> {
     const data = QueryCollectionRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Query", "Collection", data);
-    return promise.then(data => QueryCollectionResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryCollectionResponse.decode(new BinaryReader(data)));
   }
   denom(request: QueryDenomRequest): Promise<QueryDenomResponse> {
     const data = QueryDenomRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Query", "Denom", data);
-    return promise.then(data => QueryDenomResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDenomResponse.decode(new BinaryReader(data)));
   }
   denomByName(request: QueryDenomByNameRequest): Promise<QueryDenomByNameResponse> {
     const data = QueryDenomByNameRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Query", "DenomByName", data);
-    return promise.then(data => QueryDenomByNameResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDenomByNameResponse.decode(new BinaryReader(data)));
   }
   denoms(request: QueryDenomsRequest = {
     pagination: undefined
   }): Promise<QueryDenomsResponse> {
     const data = QueryDenomsRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Query", "Denoms", data);
-    return promise.then(data => QueryDenomsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryDenomsResponse.decode(new BinaryReader(data)));
   }
   nFT(request: QueryNFTRequest): Promise<QueryNFTResponse> {
     const data = QueryNFTRequest.encode(request).finish();
     const promise = this.rpc.request("chainmain.nft.v1.Query", "NFT", data);
-    return promise.then(data => QueryNFTResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => QueryNFTResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {

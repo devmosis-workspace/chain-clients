@@ -1,24 +1,48 @@
-import { Params, ParamsSDKType } from "./params";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** ParamsRequest is the request type for the Query/Params RPC method. */
 export interface ParamsRequest {}
+export interface ParamsRequestProtoMsg {
+  typeUrl: "/secret.emergencybutton.v1beta1.ParamsRequest";
+  value: Uint8Array;
+}
+/** ParamsRequest is the request type for the Query/Params RPC method. */
+export interface ParamsRequestAmino {}
+export interface ParamsRequestAminoMsg {
+  type: "/secret.emergencybutton.v1beta1.ParamsRequest";
+  value: ParamsRequestAmino;
+}
 /** ParamsRequest is the request type for the Query/Params RPC method. */
 export interface ParamsRequestSDKType {}
 /** ParamsResponse is the response type for the Query/Params RPC method. */
 export interface ParamsResponse {
   /** params defines the parameters of the module. */
-  params?: Params;
+  params: Params;
+}
+export interface ParamsResponseProtoMsg {
+  typeUrl: "/secret.emergencybutton.v1beta1.ParamsResponse";
+  value: Uint8Array;
+}
+/** ParamsResponse is the response type for the Query/Params RPC method. */
+export interface ParamsResponseAmino {
+  /** params defines the parameters of the module. */
+  params?: ParamsAmino;
+}
+export interface ParamsResponseAminoMsg {
+  type: "/secret.emergencybutton.v1beta1.ParamsResponse";
+  value: ParamsResponseAmino;
 }
 /** ParamsResponse is the response type for the Query/Params RPC method. */
 export interface ParamsResponseSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
 }
 function createBaseParamsRequest(): ParamsRequest {
   return {};
 }
 export const ParamsRequest = {
-  encode(_: ParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/secret.emergencybutton.v1beta1.ParamsRequest",
+  encode(_: ParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): ParamsRequest {
@@ -27,15 +51,38 @@ export const ParamsRequest = {
   fromPartial(_: Partial<ParamsRequest>): ParamsRequest {
     const message = createBaseParamsRequest();
     return message;
+  },
+  fromAmino(_: ParamsRequestAmino): ParamsRequest {
+    return {};
+  },
+  toAmino(_: ParamsRequest): ParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ParamsRequestAminoMsg): ParamsRequest {
+    return ParamsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsRequestProtoMsg): ParamsRequest {
+    return ParamsRequest.decode(message.value);
+  },
+  toProto(message: ParamsRequest): Uint8Array {
+    return ParamsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: ParamsRequest): ParamsRequestProtoMsg {
+    return {
+      typeUrl: "/secret.emergencybutton.v1beta1.ParamsRequest",
+      value: ParamsRequest.encode(message).finish()
+    };
   }
 };
 function createBaseParamsResponse(): ParamsResponse {
   return {
-    params: undefined
+    params: Params.fromPartial({})
   };
 }
 export const ParamsResponse = {
-  encode(message: ParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/secret.emergencybutton.v1beta1.ParamsResponse",
+  encode(message: ParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -50,5 +97,30 @@ export const ParamsResponse = {
     const message = createBaseParamsResponse();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: ParamsResponseAmino): ParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined
+    };
+  },
+  toAmino(message: ParamsResponse): ParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsResponseAminoMsg): ParamsResponse {
+    return ParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ParamsResponseProtoMsg): ParamsResponse {
+    return ParamsResponse.decode(message.value);
+  },
+  toProto(message: ParamsResponse): Uint8Array {
+    return ParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: ParamsResponse): ParamsResponseProtoMsg {
+    return {
+      typeUrl: "/secret.emergencybutton.v1beta1.ParamsResponse",
+      value: ParamsResponse.encode(message).finish()
+    };
   }
 };

@@ -1,9 +1,22 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64 } from "../../../helpers";
 export interface ProxiedValidator {
   validator: Uint8Array;
   proxy: Uint8Array;
   active: boolean;
+}
+export interface ProxiedValidatorProtoMsg {
+  typeUrl: "/axelar.snapshot.v1beta1.ProxiedValidator";
+  value: Uint8Array;
+}
+export interface ProxiedValidatorAmino {
+  validator: Uint8Array;
+  proxy: Uint8Array;
+  active: boolean;
+}
+export interface ProxiedValidatorAminoMsg {
+  type: "/axelar.snapshot.v1beta1.ProxiedValidator";
+  value: ProxiedValidatorAmino;
 }
 export interface ProxiedValidatorSDKType {
   validator: Uint8Array;
@@ -18,7 +31,8 @@ function createBaseProxiedValidator(): ProxiedValidator {
   };
 }
 export const ProxiedValidator = {
-  encode(message: ProxiedValidator, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.snapshot.v1beta1.ProxiedValidator",
+  encode(message: ProxiedValidator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validator.length !== 0) {
       writer.uint32(10).bytes(message.validator);
     }
@@ -43,5 +57,34 @@ export const ProxiedValidator = {
     message.proxy = object.proxy ?? new Uint8Array();
     message.active = object.active ?? false;
     return message;
+  },
+  fromAmino(object: ProxiedValidatorAmino): ProxiedValidator {
+    return {
+      validator: object.validator,
+      proxy: object.proxy,
+      active: object.active
+    };
+  },
+  toAmino(message: ProxiedValidator): ProxiedValidatorAmino {
+    const obj: any = {};
+    obj.validator = message.validator;
+    obj.proxy = message.proxy;
+    obj.active = message.active;
+    return obj;
+  },
+  fromAminoMsg(object: ProxiedValidatorAminoMsg): ProxiedValidator {
+    return ProxiedValidator.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ProxiedValidatorProtoMsg): ProxiedValidator {
+    return ProxiedValidator.decode(message.value);
+  },
+  toProto(message: ProxiedValidator): Uint8Array {
+    return ProxiedValidator.encode(message).finish();
+  },
+  toProtoMsg(message: ProxiedValidator): ProxiedValidatorProtoMsg {
+    return {
+      typeUrl: "/axelar.snapshot.v1beta1.ProxiedValidator",
+      value: ProxiedValidator.encode(message).finish()
+    };
   }
 };

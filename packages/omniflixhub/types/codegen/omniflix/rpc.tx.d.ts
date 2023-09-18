@@ -6,6 +6,9 @@ export declare const createRPCMsgClient: ({ rpc }: {
         itc: {
             v1: import("../omniflix/itc/v1/tx.rpc.msg").MsgClientImpl;
         };
+        marketplace: {
+            v1beta1: import("../omniflix/marketplace/v1beta1/tx.rpc.msg").MsgClientImpl;
+        };
     };
     cosmos: {
         authz: {

@@ -1,5 +1,5 @@
-import { Coin, CoinSDKType } from "../../base/v1beta1/coin";
-import * as _m0 from "protobufjs/minimal";
+import { Coin, CoinAmino, CoinSDKType } from "../../base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
 /** MsgVerifyInvariant represents a message to verify a particular invariance. */
 export interface MsgVerifyInvariant {
     /** sender is the account address of private key to send coins to fee collector account. */
@@ -9,6 +9,23 @@ export interface MsgVerifyInvariant {
     /** invariant_route is the msg's invariant route. */
     invariantRoute: string;
 }
+export interface MsgVerifyInvariantProtoMsg {
+    typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariant";
+    value: Uint8Array;
+}
+/** MsgVerifyInvariant represents a message to verify a particular invariance. */
+export interface MsgVerifyInvariantAmino {
+    /** sender is the account address of private key to send coins to fee collector account. */
+    sender: string;
+    /** name of the invariant module. */
+    invariant_module_name: string;
+    /** invariant_route is the msg's invariant route. */
+    invariant_route: string;
+}
+export interface MsgVerifyInvariantAminoMsg {
+    type: "cosmos-sdk/MsgVerifyInvariant";
+    value: MsgVerifyInvariantAmino;
+}
 /** MsgVerifyInvariant represents a message to verify a particular invariance. */
 export interface MsgVerifyInvariantSDKType {
     sender: string;
@@ -17,6 +34,17 @@ export interface MsgVerifyInvariantSDKType {
 }
 /** MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type. */
 export interface MsgVerifyInvariantResponse {
+}
+export interface MsgVerifyInvariantResponseProtoMsg {
+    typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariantResponse";
+    value: Uint8Array;
+}
+/** MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type. */
+export interface MsgVerifyInvariantResponseAmino {
+}
+export interface MsgVerifyInvariantResponseAminoMsg {
+    type: "cosmos-sdk/MsgVerifyInvariantResponse";
+    value: MsgVerifyInvariantResponseAmino;
 }
 /** MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type. */
 export interface MsgVerifyInvariantResponseSDKType {
@@ -30,7 +58,26 @@ export interface MsgUpdateParams {
     /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
     authority: string;
     /** constant_fee defines the x/crisis parameter. */
-    constantFee?: Coin;
+    constantFee: Coin;
+}
+export interface MsgUpdateParamsProtoMsg {
+    typeUrl: "/cosmos.crisis.v1beta1.MsgUpdateParams";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsAmino {
+    /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+    authority: string;
+    /** constant_fee defines the x/crisis parameter. */
+    constant_fee?: CoinAmino;
+}
+export interface MsgUpdateParamsAminoMsg {
+    type: "cosmos-sdk/x/crisis/MsgUpdateParams";
+    value: MsgUpdateParamsAmino;
 }
 /**
  * MsgUpdateParams is the Msg/UpdateParams request type.
@@ -39,7 +86,7 @@ export interface MsgUpdateParams {
  */
 export interface MsgUpdateParamsSDKType {
     authority: string;
-    constant_fee?: CoinSDKType;
+    constant_fee: CoinSDKType;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
@@ -48,6 +95,22 @@ export interface MsgUpdateParamsSDKType {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {
+}
+export interface MsgUpdateParamsResponseProtoMsg {
+    typeUrl: "/cosmos.crisis.v1beta1.MsgUpdateParamsResponse";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseAmino {
+}
+export interface MsgUpdateParamsResponseAminoMsg {
+    type: "cosmos-sdk/MsgUpdateParamsResponse";
+    value: MsgUpdateParamsResponseAmino;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
@@ -58,22 +121,54 @@ export interface MsgUpdateParamsResponse {
 export interface MsgUpdateParamsResponseSDKType {
 }
 export declare const MsgVerifyInvariant: {
-    encode(message: MsgVerifyInvariant, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgVerifyInvariant, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgVerifyInvariant;
     fromPartial(object: Partial<MsgVerifyInvariant>): MsgVerifyInvariant;
+    fromAmino(object: MsgVerifyInvariantAmino): MsgVerifyInvariant;
+    toAmino(message: MsgVerifyInvariant): MsgVerifyInvariantAmino;
+    fromAminoMsg(object: MsgVerifyInvariantAminoMsg): MsgVerifyInvariant;
+    toAminoMsg(message: MsgVerifyInvariant): MsgVerifyInvariantAminoMsg;
+    fromProtoMsg(message: MsgVerifyInvariantProtoMsg): MsgVerifyInvariant;
+    toProto(message: MsgVerifyInvariant): Uint8Array;
+    toProtoMsg(message: MsgVerifyInvariant): MsgVerifyInvariantProtoMsg;
 };
 export declare const MsgVerifyInvariantResponse: {
-    encode(_: MsgVerifyInvariantResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgVerifyInvariantResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgVerifyInvariantResponse;
     fromPartial(_: Partial<MsgVerifyInvariantResponse>): MsgVerifyInvariantResponse;
+    fromAmino(_: MsgVerifyInvariantResponseAmino): MsgVerifyInvariantResponse;
+    toAmino(_: MsgVerifyInvariantResponse): MsgVerifyInvariantResponseAmino;
+    fromAminoMsg(object: MsgVerifyInvariantResponseAminoMsg): MsgVerifyInvariantResponse;
+    toAminoMsg(message: MsgVerifyInvariantResponse): MsgVerifyInvariantResponseAminoMsg;
+    fromProtoMsg(message: MsgVerifyInvariantResponseProtoMsg): MsgVerifyInvariantResponse;
+    toProto(message: MsgVerifyInvariantResponse): Uint8Array;
+    toProtoMsg(message: MsgVerifyInvariantResponse): MsgVerifyInvariantResponseProtoMsg;
 };
 export declare const MsgUpdateParams: {
-    encode(message: MsgUpdateParams, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(message: MsgUpdateParams, writer?: BinaryWriter): BinaryWriter;
     fromJSON(object: any): MsgUpdateParams;
     fromPartial(object: Partial<MsgUpdateParams>): MsgUpdateParams;
+    fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams;
+    toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino;
+    fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams;
+    toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg;
+    fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams;
+    toProto(message: MsgUpdateParams): Uint8Array;
+    toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg;
 };
 export declare const MsgUpdateParamsResponse: {
-    encode(_: MsgUpdateParamsResponse, writer?: _m0.Writer): _m0.Writer;
+    typeUrl: string;
+    encode(_: MsgUpdateParamsResponse, writer?: BinaryWriter): BinaryWriter;
     fromJSON(_: any): MsgUpdateParamsResponse;
     fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse;
+    fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse;
+    toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino;
+    fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse;
+    toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg;
+    fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse;
+    toProto(message: MsgUpdateParamsResponse): Uint8Array;
+    toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg;
 };

@@ -1,8 +1,20 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 export interface ClassesByISCN {
   iscnIdPrefix: string;
   classIds: string[];
+}
+export interface ClassesByISCNProtoMsg {
+  typeUrl: "/likechain.likenft.v1.ClassesByISCN";
+  value: Uint8Array;
+}
+export interface ClassesByISCNAmino {
+  iscn_id_prefix: string;
+  class_ids: string[];
+}
+export interface ClassesByISCNAminoMsg {
+  type: "/likechain.likenft.v1.ClassesByISCN";
+  value: ClassesByISCNAmino;
 }
 export interface ClassesByISCNSDKType {
   iscn_id_prefix: string;
@@ -15,7 +27,8 @@ function createBaseClassesByISCN(): ClassesByISCN {
   };
 }
 export const ClassesByISCN = {
-  encode(message: ClassesByISCN, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/likechain.likenft.v1.ClassesByISCN",
+  encode(message: ClassesByISCN, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.iscnIdPrefix !== "") {
       writer.uint32(10).string(message.iscnIdPrefix);
     }
@@ -35,5 +48,36 @@ export const ClassesByISCN = {
     message.iscnIdPrefix = object.iscnIdPrefix ?? "";
     message.classIds = object.classIds?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: ClassesByISCNAmino): ClassesByISCN {
+    return {
+      iscnIdPrefix: object.iscn_id_prefix,
+      classIds: Array.isArray(object?.class_ids) ? object.class_ids.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: ClassesByISCN): ClassesByISCNAmino {
+    const obj: any = {};
+    obj.iscn_id_prefix = message.iscnIdPrefix;
+    if (message.classIds) {
+      obj.class_ids = message.classIds.map(e => e);
+    } else {
+      obj.class_ids = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ClassesByISCNAminoMsg): ClassesByISCN {
+    return ClassesByISCN.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ClassesByISCNProtoMsg): ClassesByISCN {
+    return ClassesByISCN.decode(message.value);
+  },
+  toProto(message: ClassesByISCN): Uint8Array {
+    return ClassesByISCN.encode(message).finish();
+  },
+  toProtoMsg(message: ClassesByISCN): ClassesByISCNProtoMsg {
+    return {
+      typeUrl: "/likechain.likenft.v1.ClassesByISCN",
+      value: ClassesByISCN.encode(message).finish()
+    };
   }
 };

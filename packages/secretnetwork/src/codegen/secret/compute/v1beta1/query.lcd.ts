@@ -1,4 +1,4 @@
-import { LCDClient } from "@osmonauts/lcd";
+import { LCDClient } from "@cosmology/lcd";
 import { QueryByContractAddressRequest, QueryContractInfoResponseSDKType, QueryByCodeIdRequest, QueryContractsByCodeIdResponseSDKType, QuerySecretContractRequest, QuerySecretContractResponseSDKType, QueryCodeResponseSDKType, QueryCodesResponseSDKType, QueryCodeHashResponseSDKType, QueryContractLabelResponseSDKType, QueryByLabelRequest, QueryContractAddressResponseSDKType } from "./query";
 import { Empty } from "../../../google/protobuf/empty";
 export class LCDQueryClient {

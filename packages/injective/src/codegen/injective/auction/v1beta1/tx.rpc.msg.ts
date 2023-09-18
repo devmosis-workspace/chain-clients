@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../../binary";
 import { MsgBid, MsgBidResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the auction Msg service. */
 export interface Msg {
@@ -17,11 +17,11 @@ export class MsgClientImpl implements Msg {
   bid(request: MsgBid): Promise<MsgBidResponse> {
     const data = MsgBid.encode(request).finish();
     const promise = this.rpc.request("injective.auction.v1beta1.Msg", "Bid", data);
-    return promise.then(data => MsgBidResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgBidResponse.decode(new BinaryReader(data)));
   }
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("injective.auction.v1beta1.Msg", "UpdateParams", data);
-    return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }

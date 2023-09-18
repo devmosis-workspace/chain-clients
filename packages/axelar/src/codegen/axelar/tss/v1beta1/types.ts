@@ -1,9 +1,21 @@
 import { KeyRole, KeyType, keyRoleFromJSON, keyTypeFromJSON } from "../exported/v1beta1/types";
-import { Long, isSet, bytesFromBase64, isObject } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
+import { isSet, bytesFromBase64, isObject } from "../../../helpers";
 export interface KeygenVoteData {
   pubKey: Uint8Array;
   groupRecoveryInfo: Uint8Array;
+}
+export interface KeygenVoteDataProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.KeygenVoteData";
+  value: Uint8Array;
+}
+export interface KeygenVoteDataAmino {
+  pub_key: Uint8Array;
+  group_recovery_info: Uint8Array;
+}
+export interface KeygenVoteDataAminoMsg {
+  type: "/axelar.tss.v1beta1.KeygenVoteData";
+  value: KeygenVoteDataAmino;
 }
 export interface KeygenVoteDataSDKType {
   pub_key: Uint8Array;
@@ -15,6 +27,20 @@ export interface KeyInfo {
   keyRole: KeyRole;
   keyType: KeyType;
 }
+export interface KeyInfoProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.KeyInfo";
+  value: Uint8Array;
+}
+/** KeyInfo holds information about a key */
+export interface KeyInfoAmino {
+  key_id: string;
+  key_role: KeyRole;
+  key_type: KeyType;
+}
+export interface KeyInfoAminoMsg {
+  type: "/axelar.tss.v1beta1.KeyInfo";
+  value: KeyInfoAmino;
+}
 /** KeyInfo holds information about a key */
 export interface KeyInfoSDKType {
   key_id: string;
@@ -23,19 +49,45 @@ export interface KeyInfoSDKType {
 }
 export interface MultisigInfo {
   id: string;
-  timeout: Long;
-  targetNum: Long;
+  timeout: bigint;
+  targetNum: bigint;
   infos: MultisigInfo_Info[];
+}
+export interface MultisigInfoProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.MultisigInfo";
+  value: Uint8Array;
+}
+export interface MultisigInfoAmino {
+  id: string;
+  timeout: string;
+  target_num: string;
+  infos: MultisigInfo_InfoAmino[];
+}
+export interface MultisigInfoAminoMsg {
+  type: "/axelar.tss.v1beta1.MultisigInfo";
+  value: MultisigInfoAmino;
 }
 export interface MultisigInfoSDKType {
   id: string;
-  timeout: Long;
-  target_num: Long;
+  timeout: bigint;
+  target_num: bigint;
   infos: MultisigInfo_InfoSDKType[];
 }
 export interface MultisigInfo_Info {
   participant: Uint8Array;
   data: Uint8Array[];
+}
+export interface MultisigInfo_InfoProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.Info";
+  value: Uint8Array;
+}
+export interface MultisigInfo_InfoAmino {
+  participant: Uint8Array;
+  data: Uint8Array[];
+}
+export interface MultisigInfo_InfoAminoMsg {
+  type: "/axelar.tss.v1beta1.Info";
+  value: MultisigInfo_InfoAmino;
 }
 export interface MultisigInfo_InfoSDKType {
   participant: Uint8Array;
@@ -44,6 +96,18 @@ export interface MultisigInfo_InfoSDKType {
 export interface KeyRecoveryInfo_PrivateEntry {
   key: string;
   value: Uint8Array;
+}
+export interface KeyRecoveryInfo_PrivateEntryProtoMsg {
+  typeUrl: string;
+  value: Uint8Array;
+}
+export interface KeyRecoveryInfo_PrivateEntryAmino {
+  key: string;
+  value: Uint8Array;
+}
+export interface KeyRecoveryInfo_PrivateEntryAminoMsg {
+  type: string;
+  value: KeyRecoveryInfo_PrivateEntryAmino;
 }
 export interface KeyRecoveryInfo_PrivateEntrySDKType {
   key: string;
@@ -56,6 +120,21 @@ export interface KeyRecoveryInfo {
     [key: string]: Uint8Array;
   };
 }
+export interface KeyRecoveryInfoProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.KeyRecoveryInfo";
+  value: Uint8Array;
+}
+export interface KeyRecoveryInfoAmino {
+  key_id: string;
+  public: Uint8Array;
+  private: {
+    [key: string]: Uint8Array;
+  };
+}
+export interface KeyRecoveryInfoAminoMsg {
+  type: "/axelar.tss.v1beta1.KeyRecoveryInfo";
+  value: KeyRecoveryInfoAmino;
+}
 export interface KeyRecoveryInfoSDKType {
   key_id: string;
   public: Uint8Array;
@@ -67,17 +146,41 @@ export interface ExternalKeys {
   chain: string;
   keyIds: string[];
 }
+export interface ExternalKeysProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.ExternalKeys";
+  value: Uint8Array;
+}
+export interface ExternalKeysAmino {
+  chain: string;
+  key_ids: string[];
+}
+export interface ExternalKeysAminoMsg {
+  type: "/axelar.tss.v1beta1.ExternalKeys";
+  value: ExternalKeysAmino;
+}
 export interface ExternalKeysSDKType {
   chain: string;
   key_ids: string[];
 }
 export interface ValidatorStatus {
   validator: Uint8Array;
-  suspendedUntil: Long;
+  suspendedUntil: bigint;
+}
+export interface ValidatorStatusProtoMsg {
+  typeUrl: "/axelar.tss.v1beta1.ValidatorStatus";
+  value: Uint8Array;
+}
+export interface ValidatorStatusAmino {
+  validator: Uint8Array;
+  suspended_until: string;
+}
+export interface ValidatorStatusAminoMsg {
+  type: "/axelar.tss.v1beta1.ValidatorStatus";
+  value: ValidatorStatusAmino;
 }
 export interface ValidatorStatusSDKType {
   validator: Uint8Array;
-  suspended_until: Long;
+  suspended_until: bigint;
 }
 function createBaseKeygenVoteData(): KeygenVoteData {
   return {
@@ -86,7 +189,8 @@ function createBaseKeygenVoteData(): KeygenVoteData {
   };
 }
 export const KeygenVoteData = {
-  encode(message: KeygenVoteData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.KeygenVoteData",
+  encode(message: KeygenVoteData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pubKey.length !== 0) {
       writer.uint32(10).bytes(message.pubKey);
     }
@@ -106,6 +210,33 @@ export const KeygenVoteData = {
     message.pubKey = object.pubKey ?? new Uint8Array();
     message.groupRecoveryInfo = object.groupRecoveryInfo ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: KeygenVoteDataAmino): KeygenVoteData {
+    return {
+      pubKey: object.pub_key,
+      groupRecoveryInfo: object.group_recovery_info
+    };
+  },
+  toAmino(message: KeygenVoteData): KeygenVoteDataAmino {
+    const obj: any = {};
+    obj.pub_key = message.pubKey;
+    obj.group_recovery_info = message.groupRecoveryInfo;
+    return obj;
+  },
+  fromAminoMsg(object: KeygenVoteDataAminoMsg): KeygenVoteData {
+    return KeygenVoteData.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeygenVoteDataProtoMsg): KeygenVoteData {
+    return KeygenVoteData.decode(message.value);
+  },
+  toProto(message: KeygenVoteData): Uint8Array {
+    return KeygenVoteData.encode(message).finish();
+  },
+  toProtoMsg(message: KeygenVoteData): KeygenVoteDataProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.KeygenVoteData",
+      value: KeygenVoteData.encode(message).finish()
+    };
   }
 };
 function createBaseKeyInfo(): KeyInfo {
@@ -116,7 +247,8 @@ function createBaseKeyInfo(): KeyInfo {
   };
 }
 export const KeyInfo = {
-  encode(message: KeyInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.KeyInfo",
+  encode(message: KeyInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.keyId !== "") {
       writer.uint32(10).string(message.keyId);
     }
@@ -131,8 +263,8 @@ export const KeyInfo = {
   fromJSON(object: any): KeyInfo {
     return {
       keyId: isSet(object.keyId) ? String(object.keyId) : "",
-      keyRole: isSet(object.keyRole) ? keyRoleFromJSON(object.keyRole) : 0,
-      keyType: isSet(object.keyType) ? keyTypeFromJSON(object.keyType) : 0
+      keyRole: isSet(object.keyRole) ? keyRoleFromJSON(object.keyRole) : -1,
+      keyType: isSet(object.keyType) ? keyTypeFromJSON(object.keyType) : -1
     };
   },
   fromPartial(object: Partial<KeyInfo>): KeyInfo {
@@ -141,25 +273,55 @@ export const KeyInfo = {
     message.keyRole = object.keyRole ?? 0;
     message.keyType = object.keyType ?? 0;
     return message;
+  },
+  fromAmino(object: KeyInfoAmino): KeyInfo {
+    return {
+      keyId: object.key_id,
+      keyRole: isSet(object.key_role) ? keyRoleFromJSON(object.key_role) : -1,
+      keyType: isSet(object.key_type) ? keyTypeFromJSON(object.key_type) : -1
+    };
+  },
+  toAmino(message: KeyInfo): KeyInfoAmino {
+    const obj: any = {};
+    obj.key_id = message.keyId;
+    obj.key_role = message.keyRole;
+    obj.key_type = message.keyType;
+    return obj;
+  },
+  fromAminoMsg(object: KeyInfoAminoMsg): KeyInfo {
+    return KeyInfo.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeyInfoProtoMsg): KeyInfo {
+    return KeyInfo.decode(message.value);
+  },
+  toProto(message: KeyInfo): Uint8Array {
+    return KeyInfo.encode(message).finish();
+  },
+  toProtoMsg(message: KeyInfo): KeyInfoProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.KeyInfo",
+      value: KeyInfo.encode(message).finish()
+    };
   }
 };
 function createBaseMultisigInfo(): MultisigInfo {
   return {
     id: "",
-    timeout: Long.ZERO,
-    targetNum: Long.ZERO,
+    timeout: BigInt(0),
+    targetNum: BigInt(0),
     infos: []
   };
 }
 export const MultisigInfo = {
-  encode(message: MultisigInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.MultisigInfo",
+  encode(message: MultisigInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
-    if (!message.timeout.isZero()) {
+    if (message.timeout !== BigInt(0)) {
       writer.uint32(16).int64(message.timeout);
     }
-    if (!message.targetNum.isZero()) {
+    if (message.targetNum !== BigInt(0)) {
       writer.uint32(24).int64(message.targetNum);
     }
     for (const v of message.infos) {
@@ -170,18 +332,53 @@ export const MultisigInfo = {
   fromJSON(object: any): MultisigInfo {
     return {
       id: isSet(object.id) ? String(object.id) : "",
-      timeout: isSet(object.timeout) ? Long.fromValue(object.timeout) : Long.ZERO,
-      targetNum: isSet(object.targetNum) ? Long.fromValue(object.targetNum) : Long.ZERO,
+      timeout: isSet(object.timeout) ? BigInt(object.timeout.toString()) : BigInt(0),
+      targetNum: isSet(object.targetNum) ? BigInt(object.targetNum.toString()) : BigInt(0),
       infos: Array.isArray(object?.infos) ? object.infos.map((e: any) => MultisigInfo_Info.fromJSON(e)) : []
     };
   },
   fromPartial(object: Partial<MultisigInfo>): MultisigInfo {
     const message = createBaseMultisigInfo();
     message.id = object.id ?? "";
-    message.timeout = object.timeout !== undefined && object.timeout !== null ? Long.fromValue(object.timeout) : Long.ZERO;
-    message.targetNum = object.targetNum !== undefined && object.targetNum !== null ? Long.fromValue(object.targetNum) : Long.ZERO;
+    message.timeout = object.timeout !== undefined && object.timeout !== null ? BigInt(object.timeout.toString()) : BigInt(0);
+    message.targetNum = object.targetNum !== undefined && object.targetNum !== null ? BigInt(object.targetNum.toString()) : BigInt(0);
     message.infos = object.infos?.map(e => MultisigInfo_Info.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MultisigInfoAmino): MultisigInfo {
+    return {
+      id: object.id,
+      timeout: BigInt(object.timeout),
+      targetNum: BigInt(object.target_num),
+      infos: Array.isArray(object?.infos) ? object.infos.map((e: any) => MultisigInfo_Info.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: MultisigInfo): MultisigInfoAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.timeout = message.timeout ? message.timeout.toString() : undefined;
+    obj.target_num = message.targetNum ? message.targetNum.toString() : undefined;
+    if (message.infos) {
+      obj.infos = message.infos.map(e => e ? MultisigInfo_Info.toAmino(e) : undefined);
+    } else {
+      obj.infos = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MultisigInfoAminoMsg): MultisigInfo {
+    return MultisigInfo.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MultisigInfoProtoMsg): MultisigInfo {
+    return MultisigInfo.decode(message.value);
+  },
+  toProto(message: MultisigInfo): Uint8Array {
+    return MultisigInfo.encode(message).finish();
+  },
+  toProtoMsg(message: MultisigInfo): MultisigInfoProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.MultisigInfo",
+      value: MultisigInfo.encode(message).finish()
+    };
   }
 };
 function createBaseMultisigInfo_Info(): MultisigInfo_Info {
@@ -191,7 +388,8 @@ function createBaseMultisigInfo_Info(): MultisigInfo_Info {
   };
 }
 export const MultisigInfo_Info = {
-  encode(message: MultisigInfo_Info, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.Info",
+  encode(message: MultisigInfo_Info, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.participant.length !== 0) {
       writer.uint32(10).bytes(message.participant);
     }
@@ -211,6 +409,37 @@ export const MultisigInfo_Info = {
     message.participant = object.participant ?? new Uint8Array();
     message.data = object.data?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: MultisigInfo_InfoAmino): MultisigInfo_Info {
+    return {
+      participant: object.participant,
+      data: Array.isArray(object?.data) ? object.data.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: MultisigInfo_Info): MultisigInfo_InfoAmino {
+    const obj: any = {};
+    obj.participant = message.participant;
+    if (message.data) {
+      obj.data = message.data.map(e => e);
+    } else {
+      obj.data = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MultisigInfo_InfoAminoMsg): MultisigInfo_Info {
+    return MultisigInfo_Info.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MultisigInfo_InfoProtoMsg): MultisigInfo_Info {
+    return MultisigInfo_Info.decode(message.value);
+  },
+  toProto(message: MultisigInfo_Info): Uint8Array {
+    return MultisigInfo_Info.encode(message).finish();
+  },
+  toProtoMsg(message: MultisigInfo_Info): MultisigInfo_InfoProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.Info",
+      value: MultisigInfo_Info.encode(message).finish()
+    };
   }
 };
 function createBaseKeyRecoveryInfo_PrivateEntry(): KeyRecoveryInfo_PrivateEntry {
@@ -220,7 +449,7 @@ function createBaseKeyRecoveryInfo_PrivateEntry(): KeyRecoveryInfo_PrivateEntry 
   };
 }
 export const KeyRecoveryInfo_PrivateEntry = {
-  encode(message: KeyRecoveryInfo_PrivateEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: KeyRecoveryInfo_PrivateEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -240,6 +469,27 @@ export const KeyRecoveryInfo_PrivateEntry = {
     message.key = object.key ?? "";
     message.value = object.value ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: KeyRecoveryInfo_PrivateEntryAmino): KeyRecoveryInfo_PrivateEntry {
+    return {
+      key: object.key,
+      value: object.value
+    };
+  },
+  toAmino(message: KeyRecoveryInfo_PrivateEntry): KeyRecoveryInfo_PrivateEntryAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: KeyRecoveryInfo_PrivateEntryAminoMsg): KeyRecoveryInfo_PrivateEntry {
+    return KeyRecoveryInfo_PrivateEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeyRecoveryInfo_PrivateEntryProtoMsg): KeyRecoveryInfo_PrivateEntry {
+    return KeyRecoveryInfo_PrivateEntry.decode(message.value);
+  },
+  toProto(message: KeyRecoveryInfo_PrivateEntry): Uint8Array {
+    return KeyRecoveryInfo_PrivateEntry.encode(message).finish();
   }
 };
 function createBaseKeyRecoveryInfo(): KeyRecoveryInfo {
@@ -250,7 +500,8 @@ function createBaseKeyRecoveryInfo(): KeyRecoveryInfo {
   };
 }
 export const KeyRecoveryInfo = {
-  encode(message: KeyRecoveryInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.KeyRecoveryInfo",
+  encode(message: KeyRecoveryInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.keyId !== "") {
       writer.uint32(10).string(message.keyId);
     }
@@ -290,6 +541,45 @@ export const KeyRecoveryInfo = {
       return acc;
     }, {});
     return message;
+  },
+  fromAmino(object: KeyRecoveryInfoAmino): KeyRecoveryInfo {
+    return {
+      keyId: object.key_id,
+      public: object.public,
+      private: isObject(object.private) ? Object.entries(object.private).reduce<{
+        [key: string]: bytes;
+      }>((acc, [key, value]) => {
+        acc[key] = bytes.fromAmino(value);
+        return acc;
+      }, {}) : {}
+    };
+  },
+  toAmino(message: KeyRecoveryInfo): KeyRecoveryInfoAmino {
+    const obj: any = {};
+    obj.key_id = message.keyId;
+    obj.public = message.public;
+    obj.private = {};
+    if (message.private) {
+      Object.entries(message.private).forEach(([k, v]) => {
+        obj.private[k] = bytes.toAmino(v);
+      });
+    }
+    return obj;
+  },
+  fromAminoMsg(object: KeyRecoveryInfoAminoMsg): KeyRecoveryInfo {
+    return KeyRecoveryInfo.fromAmino(object.value);
+  },
+  fromProtoMsg(message: KeyRecoveryInfoProtoMsg): KeyRecoveryInfo {
+    return KeyRecoveryInfo.decode(message.value);
+  },
+  toProto(message: KeyRecoveryInfo): Uint8Array {
+    return KeyRecoveryInfo.encode(message).finish();
+  },
+  toProtoMsg(message: KeyRecoveryInfo): KeyRecoveryInfoProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.KeyRecoveryInfo",
+      value: KeyRecoveryInfo.encode(message).finish()
+    };
   }
 };
 function createBaseExternalKeys(): ExternalKeys {
@@ -299,7 +589,8 @@ function createBaseExternalKeys(): ExternalKeys {
   };
 }
 export const ExternalKeys = {
-  encode(message: ExternalKeys, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.ExternalKeys",
+  encode(message: ExternalKeys, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
@@ -319,20 +610,52 @@ export const ExternalKeys = {
     message.chain = object.chain ?? "";
     message.keyIds = object.keyIds?.map(e => e) || [];
     return message;
+  },
+  fromAmino(object: ExternalKeysAmino): ExternalKeys {
+    return {
+      chain: object.chain,
+      keyIds: Array.isArray(object?.key_ids) ? object.key_ids.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: ExternalKeys): ExternalKeysAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    if (message.keyIds) {
+      obj.key_ids = message.keyIds.map(e => e);
+    } else {
+      obj.key_ids = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ExternalKeysAminoMsg): ExternalKeys {
+    return ExternalKeys.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ExternalKeysProtoMsg): ExternalKeys {
+    return ExternalKeys.decode(message.value);
+  },
+  toProto(message: ExternalKeys): Uint8Array {
+    return ExternalKeys.encode(message).finish();
+  },
+  toProtoMsg(message: ExternalKeys): ExternalKeysProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.ExternalKeys",
+      value: ExternalKeys.encode(message).finish()
+    };
   }
 };
 function createBaseValidatorStatus(): ValidatorStatus {
   return {
     validator: new Uint8Array(),
-    suspendedUntil: Long.UZERO
+    suspendedUntil: BigInt(0)
   };
 }
 export const ValidatorStatus = {
-  encode(message: ValidatorStatus, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/axelar.tss.v1beta1.ValidatorStatus",
+  encode(message: ValidatorStatus, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validator.length !== 0) {
       writer.uint32(10).bytes(message.validator);
     }
-    if (!message.suspendedUntil.isZero()) {
+    if (message.suspendedUntil !== BigInt(0)) {
       writer.uint32(16).uint64(message.suspendedUntil);
     }
     return writer;
@@ -340,13 +663,40 @@ export const ValidatorStatus = {
   fromJSON(object: any): ValidatorStatus {
     return {
       validator: isSet(object.validator) ? bytesFromBase64(object.validator) : new Uint8Array(),
-      suspendedUntil: isSet(object.suspendedUntil) ? Long.fromValue(object.suspendedUntil) : Long.UZERO
+      suspendedUntil: isSet(object.suspendedUntil) ? BigInt(object.suspendedUntil.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<ValidatorStatus>): ValidatorStatus {
     const message = createBaseValidatorStatus();
     message.validator = object.validator ?? new Uint8Array();
-    message.suspendedUntil = object.suspendedUntil !== undefined && object.suspendedUntil !== null ? Long.fromValue(object.suspendedUntil) : Long.UZERO;
+    message.suspendedUntil = object.suspendedUntil !== undefined && object.suspendedUntil !== null ? BigInt(object.suspendedUntil.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: ValidatorStatusAmino): ValidatorStatus {
+    return {
+      validator: object.validator,
+      suspendedUntil: BigInt(object.suspended_until)
+    };
+  },
+  toAmino(message: ValidatorStatus): ValidatorStatusAmino {
+    const obj: any = {};
+    obj.validator = message.validator;
+    obj.suspended_until = message.suspendedUntil ? message.suspendedUntil.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ValidatorStatusAminoMsg): ValidatorStatus {
+    return ValidatorStatus.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ValidatorStatusProtoMsg): ValidatorStatus {
+    return ValidatorStatus.decode(message.value);
+  },
+  toProto(message: ValidatorStatus): Uint8Array {
+    return ValidatorStatus.encode(message).finish();
+  },
+  toProtoMsg(message: ValidatorStatus): ValidatorStatusProtoMsg {
+    return {
+      typeUrl: "/axelar.tss.v1beta1.ValidatorStatus",
+      value: ValidatorStatus.encode(message).finish()
+    };
   }
 };

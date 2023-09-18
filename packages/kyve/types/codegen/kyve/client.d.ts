@@ -4,459 +4,163 @@ import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const kyveAminoConverters: {
     "/kyve.team.v1beta1.MsgClaimUnlocked": {
         aminoType: string;
-        toAmino: ({ authority, id, amount, recipient }: import("./team/v1beta1/tx").MsgClaimUnlocked) => {
-            authority: string;
-            id: string;
-            amount: string;
-            recipient: string;
-        };
-        fromAmino: ({ authority, id, amount, recipient }: {
-            authority: string;
-            id: string;
-            amount: string;
-            recipient: string;
-        }) => import("./team/v1beta1/tx").MsgClaimUnlocked;
+        toAmino: (message: import("./team/v1beta1/tx").MsgClaimUnlocked) => import("./team/v1beta1/tx").MsgClaimUnlockedAmino;
+        fromAmino: (object: import("./team/v1beta1/tx").MsgClaimUnlockedAmino) => import("./team/v1beta1/tx").MsgClaimUnlocked;
     };
     "/kyve.team.v1beta1.MsgClawback": {
         aminoType: string;
-        toAmino: ({ authority, id, clawback }: import("./team/v1beta1/tx").MsgClawback) => {
-            authority: string;
-            id: string;
-            clawback: string;
-        };
-        fromAmino: ({ authority, id, clawback }: {
-            authority: string;
-            id: string;
-            clawback: string;
-        }) => import("./team/v1beta1/tx").MsgClawback;
+        toAmino: (message: import("./team/v1beta1/tx").MsgClawback) => import("./team/v1beta1/tx").MsgClawbackAmino;
+        fromAmino: (object: import("./team/v1beta1/tx").MsgClawbackAmino) => import("./team/v1beta1/tx").MsgClawback;
     };
     "/kyve.team.v1beta1.MsgCreateTeamVestingAccount": {
         aminoType: string;
-        toAmino: ({ authority, totalAllocation, commencement }: import("./team/v1beta1/tx").MsgCreateTeamVestingAccount) => {
-            authority: string;
-            total_allocation: string;
-            commencement: string;
-        };
-        fromAmino: ({ authority, total_allocation, commencement }: {
-            authority: string;
-            total_allocation: string;
-            commencement: string;
-        }) => import("./team/v1beta1/tx").MsgCreateTeamVestingAccount;
+        toAmino: (message: import("./team/v1beta1/tx").MsgCreateTeamVestingAccount) => import("./team/v1beta1/tx").MsgCreateTeamVestingAccountAmino;
+        fromAmino: (object: import("./team/v1beta1/tx").MsgCreateTeamVestingAccountAmino) => import("./team/v1beta1/tx").MsgCreateTeamVestingAccount;
     };
     "/kyve.team.v1beta1.MsgClaimAuthorityRewards": {
         aminoType: string;
-        toAmino: ({ authority, amount, recipient }: import("./team/v1beta1/tx").MsgClaimAuthorityRewards) => {
-            authority: string;
-            amount: string;
-            recipient: string;
-        };
-        fromAmino: ({ authority, amount, recipient }: {
-            authority: string;
-            amount: string;
-            recipient: string;
-        }) => import("./team/v1beta1/tx").MsgClaimAuthorityRewards;
+        toAmino: (message: import("./team/v1beta1/tx").MsgClaimAuthorityRewards) => import("./team/v1beta1/tx").MsgClaimAuthorityRewardsAmino;
+        fromAmino: (object: import("./team/v1beta1/tx").MsgClaimAuthorityRewardsAmino) => import("./team/v1beta1/tx").MsgClaimAuthorityRewards;
     };
     "/kyve.team.v1beta1.MsgClaimAccountRewards": {
         aminoType: string;
-        toAmino: ({ authority, id, amount, recipient }: import("./team/v1beta1/tx").MsgClaimAccountRewards) => {
-            authority: string;
-            id: string;
-            amount: string;
-            recipient: string;
-        };
-        fromAmino: ({ authority, id, amount, recipient }: {
-            authority: string;
-            id: string;
-            amount: string;
-            recipient: string;
-        }) => import("./team/v1beta1/tx").MsgClaimAccountRewards;
+        toAmino: (message: import("./team/v1beta1/tx").MsgClaimAccountRewards) => import("./team/v1beta1/tx").MsgClaimAccountRewardsAmino;
+        fromAmino: (object: import("./team/v1beta1/tx").MsgClaimAccountRewardsAmino) => import("./team/v1beta1/tx").MsgClaimAccountRewards;
     };
     "/kyve.stakers.v1beta1.MsgCreateStaker": {
         aminoType: string;
-        toAmino: ({ creator, amount, commission }: import("./stakers/v1beta1/tx").MsgCreateStaker) => {
-            creator: string;
-            amount: string;
-            commission: string;
-        };
-        fromAmino: ({ creator, amount, commission }: {
-            creator: string;
-            amount: string;
-            commission: string;
-        }) => import("./stakers/v1beta1/tx").MsgCreateStaker;
+        toAmino: (message: import("./stakers/v1beta1/tx").MsgCreateStaker) => import("./stakers/v1beta1/tx").MsgCreateStakerAmino;
+        fromAmino: (object: import("./stakers/v1beta1/tx").MsgCreateStakerAmino) => import("./stakers/v1beta1/tx").MsgCreateStaker;
     };
     "/kyve.stakers.v1beta1.MsgUpdateMetadata": {
         aminoType: string;
-        toAmino: ({ creator, moniker, website, identity, securityContact, details }: import("./stakers/v1beta1/tx").MsgUpdateMetadata) => {
-            creator: string;
-            moniker: string;
-            website: string;
-            identity: string;
-            security_contact: string;
-            details: string;
-        };
-        fromAmino: ({ creator, moniker, website, identity, security_contact, details }: {
-            creator: string;
-            moniker: string;
-            website: string;
-            identity: string;
-            security_contact: string;
-            details: string;
-        }) => import("./stakers/v1beta1/tx").MsgUpdateMetadata;
+        toAmino: (message: import("./stakers/v1beta1/tx").MsgUpdateMetadata) => import("./stakers/v1beta1/tx").MsgUpdateMetadataAmino;
+        fromAmino: (object: import("./stakers/v1beta1/tx").MsgUpdateMetadataAmino) => import("./stakers/v1beta1/tx").MsgUpdateMetadata;
     };
     "/kyve.stakers.v1beta1.MsgUpdateCommission": {
         aminoType: string;
-        toAmino: ({ creator, commission }: import("./stakers/v1beta1/tx").MsgUpdateCommission) => {
-            creator: string;
-            commission: string;
-        };
-        fromAmino: ({ creator, commission }: {
-            creator: string;
-            commission: string;
-        }) => import("./stakers/v1beta1/tx").MsgUpdateCommission;
+        toAmino: (message: import("./stakers/v1beta1/tx").MsgUpdateCommission) => import("./stakers/v1beta1/tx").MsgUpdateCommissionAmino;
+        fromAmino: (object: import("./stakers/v1beta1/tx").MsgUpdateCommissionAmino) => import("./stakers/v1beta1/tx").MsgUpdateCommission;
     };
     "/kyve.stakers.v1beta1.MsgClaimCommissionRewards": {
         aminoType: string;
-        toAmino: ({ creator, amount }: import("./stakers/v1beta1/tx").MsgClaimCommissionRewards) => {
-            creator: string;
-            amount: string;
-        };
-        fromAmino: ({ creator, amount }: {
-            creator: string;
-            amount: string;
-        }) => import("./stakers/v1beta1/tx").MsgClaimCommissionRewards;
+        toAmino: (message: import("./stakers/v1beta1/tx").MsgClaimCommissionRewards) => import("./stakers/v1beta1/tx").MsgClaimCommissionRewardsAmino;
+        fromAmino: (object: import("./stakers/v1beta1/tx").MsgClaimCommissionRewardsAmino) => import("./stakers/v1beta1/tx").MsgClaimCommissionRewards;
     };
     "/kyve.stakers.v1beta1.MsgJoinPool": {
         aminoType: string;
-        toAmino: ({ creator, poolId, valaddress, amount }: import("./stakers/v1beta1/tx").MsgJoinPool) => {
-            creator: string;
-            pool_id: string;
-            valaddress: string;
-            amount: string;
-        };
-        fromAmino: ({ creator, pool_id, valaddress, amount }: {
-            creator: string;
-            pool_id: string;
-            valaddress: string;
-            amount: string;
-        }) => import("./stakers/v1beta1/tx").MsgJoinPool;
+        toAmino: (message: import("./stakers/v1beta1/tx").MsgJoinPool) => import("./stakers/v1beta1/tx").MsgJoinPoolAmino;
+        fromAmino: (object: import("./stakers/v1beta1/tx").MsgJoinPoolAmino) => import("./stakers/v1beta1/tx").MsgJoinPool;
     };
     "/kyve.stakers.v1beta1.MsgLeavePool": {
         aminoType: string;
-        toAmino: ({ creator, poolId }: import("./stakers/v1beta1/tx").MsgLeavePool) => {
-            creator: string;
-            pool_id: string;
-        };
-        fromAmino: ({ creator, pool_id }: {
-            creator: string;
-            pool_id: string;
-        }) => import("./stakers/v1beta1/tx").MsgLeavePool;
+        toAmino: (message: import("./stakers/v1beta1/tx").MsgLeavePool) => import("./stakers/v1beta1/tx").MsgLeavePoolAmino;
+        fromAmino: (object: import("./stakers/v1beta1/tx").MsgLeavePoolAmino) => import("./stakers/v1beta1/tx").MsgLeavePool;
     };
     "/kyve.stakers.v1beta1.MsgUpdateParams": {
         aminoType: string;
-        toAmino: ({ authority, payload }: import("./stakers/v1beta1/tx").MsgUpdateParams) => {
-            authority: string;
-            payload: string;
-        };
-        fromAmino: ({ authority, payload }: {
-            authority: string;
-            payload: string;
-        }) => import("./stakers/v1beta1/tx").MsgUpdateParams;
+        toAmino: (message: import("./stakers/v1beta1/tx").MsgUpdateParams) => import("./stakers/v1beta1/tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./stakers/v1beta1/tx").MsgUpdateParamsAmino) => import("./stakers/v1beta1/tx").MsgUpdateParams;
     };
     "/kyve.pool.v1beta1.MsgFundPool": {
         aminoType: string;
-        toAmino: ({ creator, id, amount }: import("./pool/v1beta1/tx").MsgFundPool) => {
-            creator: string;
-            id: string;
-            amount: string;
-        };
-        fromAmino: ({ creator, id, amount }: {
-            creator: string;
-            id: string;
-            amount: string;
-        }) => import("./pool/v1beta1/tx").MsgFundPool;
+        toAmino: (message: import("./pool/v1beta1/tx").MsgFundPool) => import("./pool/v1beta1/tx").MsgFundPoolAmino;
+        fromAmino: (object: import("./pool/v1beta1/tx").MsgFundPoolAmino) => import("./pool/v1beta1/tx").MsgFundPool;
     };
     "/kyve.pool.v1beta1.MsgDefundPool": {
         aminoType: string;
-        toAmino: ({ creator, id, amount }: import("./pool/v1beta1/tx").MsgDefundPool) => {
-            creator: string;
-            id: string;
-            amount: string;
-        };
-        fromAmino: ({ creator, id, amount }: {
-            creator: string;
-            id: string;
-            amount: string;
-        }) => import("./pool/v1beta1/tx").MsgDefundPool;
+        toAmino: (message: import("./pool/v1beta1/tx").MsgDefundPool) => import("./pool/v1beta1/tx").MsgDefundPoolAmino;
+        fromAmino: (object: import("./pool/v1beta1/tx").MsgDefundPoolAmino) => import("./pool/v1beta1/tx").MsgDefundPool;
     };
     "/kyve.pool.v1beta1.MsgCreatePool": {
         aminoType: string;
-        toAmino: ({ authority, name, runtime, logo, config, startKey, uploadInterval, operatingCost, minDelegation, maxBundleSize, version, binaries, storageProviderId, compressionId }: import("./pool/v1beta1/tx").MsgCreatePool) => {
-            authority: string;
-            name: string;
-            runtime: string;
-            logo: string;
-            config: string;
-            start_key: string;
-            upload_interval: string;
-            operating_cost: string;
-            min_delegation: string;
-            max_bundle_size: string;
-            version: string;
-            binaries: string;
-            storage_provider_id: number;
-            compression_id: number;
-        };
-        fromAmino: ({ authority, name, runtime, logo, config, start_key, upload_interval, operating_cost, min_delegation, max_bundle_size, version, binaries, storage_provider_id, compression_id }: {
-            authority: string;
-            name: string;
-            runtime: string;
-            logo: string;
-            config: string;
-            start_key: string;
-            upload_interval: string;
-            operating_cost: string;
-            min_delegation: string;
-            max_bundle_size: string;
-            version: string;
-            binaries: string;
-            storage_provider_id: number;
-            compression_id: number;
-        }) => import("./pool/v1beta1/tx").MsgCreatePool;
+        toAmino: (message: import("./pool/v1beta1/tx").MsgCreatePool) => import("./pool/v1beta1/tx").MsgCreatePoolAmino;
+        fromAmino: (object: import("./pool/v1beta1/tx").MsgCreatePoolAmino) => import("./pool/v1beta1/tx").MsgCreatePool;
     };
     "/kyve.pool.v1beta1.MsgUpdatePool": {
         aminoType: string;
-        toAmino: ({ authority, id, payload }: import("./pool/v1beta1/tx").MsgUpdatePool) => {
-            authority: string;
-            id: string;
-            payload: string;
-        };
-        fromAmino: ({ authority, id, payload }: {
-            authority: string;
-            id: string;
-            payload: string;
-        }) => import("./pool/v1beta1/tx").MsgUpdatePool;
+        toAmino: (message: import("./pool/v1beta1/tx").MsgUpdatePool) => import("./pool/v1beta1/tx").MsgUpdatePoolAmino;
+        fromAmino: (object: import("./pool/v1beta1/tx").MsgUpdatePoolAmino) => import("./pool/v1beta1/tx").MsgUpdatePool;
     };
     "/kyve.pool.v1beta1.MsgDisablePool": {
         aminoType: string;
-        toAmino: ({ authority, id }: import("./pool/v1beta1/tx").MsgDisablePool) => {
-            authority: string;
-            id: string;
-        };
-        fromAmino: ({ authority, id }: {
-            authority: string;
-            id: string;
-        }) => import("./pool/v1beta1/tx").MsgDisablePool;
+        toAmino: (message: import("./pool/v1beta1/tx").MsgDisablePool) => import("./pool/v1beta1/tx").MsgDisablePoolAmino;
+        fromAmino: (object: import("./pool/v1beta1/tx").MsgDisablePoolAmino) => import("./pool/v1beta1/tx").MsgDisablePool;
     };
     "/kyve.pool.v1beta1.MsgEnablePool": {
         aminoType: string;
-        toAmino: ({ authority, id }: import("./pool/v1beta1/tx").MsgEnablePool) => {
-            authority: string;
-            id: string;
-        };
-        fromAmino: ({ authority, id }: {
-            authority: string;
-            id: string;
-        }) => import("./pool/v1beta1/tx").MsgEnablePool;
+        toAmino: (message: import("./pool/v1beta1/tx").MsgEnablePool) => import("./pool/v1beta1/tx").MsgEnablePoolAmino;
+        fromAmino: (object: import("./pool/v1beta1/tx").MsgEnablePoolAmino) => import("./pool/v1beta1/tx").MsgEnablePool;
     };
     "/kyve.pool.v1beta1.MsgScheduleRuntimeUpgrade": {
         aminoType: string;
-        toAmino: ({ authority, runtime, version, scheduledAt, duration, binaries }: import("./pool/v1beta1/tx").MsgScheduleRuntimeUpgrade) => {
-            authority: string;
-            runtime: string;
-            version: string;
-            scheduled_at: string;
-            duration: string;
-            binaries: string;
-        };
-        fromAmino: ({ authority, runtime, version, scheduled_at, duration, binaries }: {
-            authority: string;
-            runtime: string;
-            version: string;
-            scheduled_at: string;
-            duration: string;
-            binaries: string;
-        }) => import("./pool/v1beta1/tx").MsgScheduleRuntimeUpgrade;
+        toAmino: (message: import("./pool/v1beta1/tx").MsgScheduleRuntimeUpgrade) => import("./pool/v1beta1/tx").MsgScheduleRuntimeUpgradeAmino;
+        fromAmino: (object: import("./pool/v1beta1/tx").MsgScheduleRuntimeUpgradeAmino) => import("./pool/v1beta1/tx").MsgScheduleRuntimeUpgrade;
     };
     "/kyve.pool.v1beta1.MsgCancelRuntimeUpgrade": {
         aminoType: string;
-        toAmino: ({ authority, runtime }: import("./pool/v1beta1/tx").MsgCancelRuntimeUpgrade) => {
-            authority: string;
-            runtime: string;
-        };
-        fromAmino: ({ authority, runtime }: {
-            authority: string;
-            runtime: string;
-        }) => import("./pool/v1beta1/tx").MsgCancelRuntimeUpgrade;
+        toAmino: (message: import("./pool/v1beta1/tx").MsgCancelRuntimeUpgrade) => import("./pool/v1beta1/tx").MsgCancelRuntimeUpgradeAmino;
+        fromAmino: (object: import("./pool/v1beta1/tx").MsgCancelRuntimeUpgradeAmino) => import("./pool/v1beta1/tx").MsgCancelRuntimeUpgrade;
     };
     "/kyve.pool.v1beta1.MsgUpdateParams": {
         aminoType: string;
-        toAmino: ({ authority, payload }: import("./pool/v1beta1/tx").MsgUpdateParams) => {
-            authority: string;
-            payload: string;
-        };
-        fromAmino: ({ authority, payload }: {
-            authority: string;
-            payload: string;
-        }) => import("./pool/v1beta1/tx").MsgUpdateParams;
+        toAmino: (message: import("./pool/v1beta1/tx").MsgUpdateParams) => import("./pool/v1beta1/tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./pool/v1beta1/tx").MsgUpdateParamsAmino) => import("./pool/v1beta1/tx").MsgUpdateParams;
     };
     "/kyve.global.v1beta1.MsgUpdateParams": {
         aminoType: string;
-        toAmino: ({ authority, payload }: import("./global/v1beta1/tx").MsgUpdateParams) => {
-            authority: string;
-            payload: string;
-        };
-        fromAmino: ({ authority, payload }: {
-            authority: string;
-            payload: string;
-        }) => import("./global/v1beta1/tx").MsgUpdateParams;
+        toAmino: (message: import("./global/v1beta1/tx").MsgUpdateParams) => import("./global/v1beta1/tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./global/v1beta1/tx").MsgUpdateParamsAmino) => import("./global/v1beta1/tx").MsgUpdateParams;
     };
     "/kyve.delegation.v1beta1.MsgDelegate": {
         aminoType: string;
-        toAmino: ({ creator, staker, amount }: import("./delegation/v1beta1/tx").MsgDelegate) => {
-            creator: string;
-            staker: string;
-            amount: string;
-        };
-        fromAmino: ({ creator, staker, amount }: {
-            creator: string;
-            staker: string;
-            amount: string;
-        }) => import("./delegation/v1beta1/tx").MsgDelegate;
+        toAmino: (message: import("./delegation/v1beta1/tx").MsgDelegate) => import("./delegation/v1beta1/tx").MsgDelegateAmino;
+        fromAmino: (object: import("./delegation/v1beta1/tx").MsgDelegateAmino) => import("./delegation/v1beta1/tx").MsgDelegate;
     };
     "/kyve.delegation.v1beta1.MsgWithdrawRewards": {
         aminoType: string;
-        toAmino: ({ creator, staker }: import("./delegation/v1beta1/tx").MsgWithdrawRewards) => {
-            creator: string;
-            staker: string;
-        };
-        fromAmino: ({ creator, staker }: {
-            creator: string;
-            staker: string;
-        }) => import("./delegation/v1beta1/tx").MsgWithdrawRewards;
+        toAmino: (message: import("./delegation/v1beta1/tx").MsgWithdrawRewards) => import("./delegation/v1beta1/tx").MsgWithdrawRewardsAmino;
+        fromAmino: (object: import("./delegation/v1beta1/tx").MsgWithdrawRewardsAmino) => import("./delegation/v1beta1/tx").MsgWithdrawRewards;
     };
     "/kyve.delegation.v1beta1.MsgUndelegate": {
         aminoType: string;
-        toAmino: ({ creator, staker, amount }: import("./delegation/v1beta1/tx").MsgUndelegate) => {
-            creator: string;
-            staker: string;
-            amount: string;
-        };
-        fromAmino: ({ creator, staker, amount }: {
-            creator: string;
-            staker: string;
-            amount: string;
-        }) => import("./delegation/v1beta1/tx").MsgUndelegate;
+        toAmino: (message: import("./delegation/v1beta1/tx").MsgUndelegate) => import("./delegation/v1beta1/tx").MsgUndelegateAmino;
+        fromAmino: (object: import("./delegation/v1beta1/tx").MsgUndelegateAmino) => import("./delegation/v1beta1/tx").MsgUndelegate;
     };
     "/kyve.delegation.v1beta1.MsgRedelegate": {
         aminoType: string;
-        toAmino: ({ creator, fromStaker, toStaker, amount }: import("./delegation/v1beta1/tx").MsgRedelegate) => {
-            creator: string;
-            from_staker: string;
-            to_staker: string;
-            amount: string;
-        };
-        fromAmino: ({ creator, from_staker, to_staker, amount }: {
-            creator: string;
-            from_staker: string;
-            to_staker: string;
-            amount: string;
-        }) => import("./delegation/v1beta1/tx").MsgRedelegate;
+        toAmino: (message: import("./delegation/v1beta1/tx").MsgRedelegate) => import("./delegation/v1beta1/tx").MsgRedelegateAmino;
+        fromAmino: (object: import("./delegation/v1beta1/tx").MsgRedelegateAmino) => import("./delegation/v1beta1/tx").MsgRedelegate;
     };
     "/kyve.delegation.v1beta1.MsgUpdateParams": {
         aminoType: string;
-        toAmino: ({ authority, payload }: import("./delegation/v1beta1/tx").MsgUpdateParams) => {
-            authority: string;
-            payload: string;
-        };
-        fromAmino: ({ authority, payload }: {
-            authority: string;
-            payload: string;
-        }) => import("./delegation/v1beta1/tx").MsgUpdateParams;
+        toAmino: (message: import("./delegation/v1beta1/tx").MsgUpdateParams) => import("./delegation/v1beta1/tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./delegation/v1beta1/tx").MsgUpdateParamsAmino) => import("./delegation/v1beta1/tx").MsgUpdateParams;
     };
     "/kyve.bundles.v1beta1.MsgSubmitBundleProposal": {
         aminoType: string;
-        toAmino: ({ creator, staker, poolId, storageId, dataSize, dataHash, fromIndex, bundleSize, fromKey, toKey, bundleSummary }: import("./bundles/v1beta1/tx").MsgSubmitBundleProposal) => {
-            creator: string;
-            staker: string;
-            pool_id: string;
-            storage_id: string;
-            data_size: string;
-            data_hash: string;
-            from_index: string;
-            bundle_size: string;
-            from_key: string;
-            to_key: string;
-            bundle_summary: string;
-        };
-        fromAmino: ({ creator, staker, pool_id, storage_id, data_size, data_hash, from_index, bundle_size, from_key, to_key, bundle_summary }: {
-            creator: string;
-            staker: string;
-            pool_id: string;
-            storage_id: string;
-            data_size: string;
-            data_hash: string;
-            from_index: string;
-            bundle_size: string;
-            from_key: string;
-            to_key: string;
-            bundle_summary: string;
-        }) => import("./bundles/v1beta1/tx").MsgSubmitBundleProposal;
+        toAmino: (message: import("./bundles/v1beta1/tx").MsgSubmitBundleProposal) => import("./bundles/v1beta1/tx").MsgSubmitBundleProposalAmino;
+        fromAmino: (object: import("./bundles/v1beta1/tx").MsgSubmitBundleProposalAmino) => import("./bundles/v1beta1/tx").MsgSubmitBundleProposal;
     };
     "/kyve.bundles.v1beta1.MsgVoteBundleProposal": {
         aminoType: string;
-        toAmino: ({ creator, staker, poolId, storageId, vote }: import("./bundles/v1beta1/tx").MsgVoteBundleProposal) => {
-            creator: string;
-            staker: string;
-            pool_id: string;
-            storage_id: string;
-            vote: number;
-        };
-        fromAmino: ({ creator, staker, pool_id, storage_id, vote }: {
-            creator: string;
-            staker: string;
-            pool_id: string;
-            storage_id: string;
-            vote: number;
-        }) => import("./bundles/v1beta1/tx").MsgVoteBundleProposal;
+        toAmino: (message: import("./bundles/v1beta1/tx").MsgVoteBundleProposal) => import("./bundles/v1beta1/tx").MsgVoteBundleProposalAmino;
+        fromAmino: (object: import("./bundles/v1beta1/tx").MsgVoteBundleProposalAmino) => import("./bundles/v1beta1/tx").MsgVoteBundleProposal;
     };
     "/kyve.bundles.v1beta1.MsgClaimUploaderRole": {
         aminoType: string;
-        toAmino: ({ creator, staker, poolId }: import("./bundles/v1beta1/tx").MsgClaimUploaderRole) => {
-            creator: string;
-            staker: string;
-            pool_id: string;
-        };
-        fromAmino: ({ creator, staker, pool_id }: {
-            creator: string;
-            staker: string;
-            pool_id: string;
-        }) => import("./bundles/v1beta1/tx").MsgClaimUploaderRole;
+        toAmino: (message: import("./bundles/v1beta1/tx").MsgClaimUploaderRole) => import("./bundles/v1beta1/tx").MsgClaimUploaderRoleAmino;
+        fromAmino: (object: import("./bundles/v1beta1/tx").MsgClaimUploaderRoleAmino) => import("./bundles/v1beta1/tx").MsgClaimUploaderRole;
     };
     "/kyve.bundles.v1beta1.MsgSkipUploaderRole": {
         aminoType: string;
-        toAmino: ({ creator, staker, poolId, fromIndex }: import("./bundles/v1beta1/tx").MsgSkipUploaderRole) => {
-            creator: string;
-            staker: string;
-            pool_id: string;
-            from_index: string;
-        };
-        fromAmino: ({ creator, staker, pool_id, from_index }: {
-            creator: string;
-            staker: string;
-            pool_id: string;
-            from_index: string;
-        }) => import("./bundles/v1beta1/tx").MsgSkipUploaderRole;
+        toAmino: (message: import("./bundles/v1beta1/tx").MsgSkipUploaderRole) => import("./bundles/v1beta1/tx").MsgSkipUploaderRoleAmino;
+        fromAmino: (object: import("./bundles/v1beta1/tx").MsgSkipUploaderRoleAmino) => import("./bundles/v1beta1/tx").MsgSkipUploaderRole;
     };
     "/kyve.bundles.v1beta1.MsgUpdateParams": {
         aminoType: string;
-        toAmino: ({ authority, payload }: import("./bundles/v1beta1/tx").MsgUpdateParams) => {
-            authority: string;
-            payload: string;
-        };
-        fromAmino: ({ authority, payload }: {
-            authority: string;
-            payload: string;
-        }) => import("./bundles/v1beta1/tx").MsgUpdateParams;
+        toAmino: (message: import("./bundles/v1beta1/tx").MsgUpdateParams) => import("./bundles/v1beta1/tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./bundles/v1beta1/tx").MsgUpdateParamsAmino) => import("./bundles/v1beta1/tx").MsgUpdateParams;
     };
 };
 export declare const kyveProtoRegistry: ReadonlyArray<[string, GeneratedType]>;

@@ -1,19 +1,38 @@
-import * as _m0 from "protobufjs/minimal";
+import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /**
  * SetProtoRevEnabledProposal is a gov Content type to update whether the
  * protorev module is enabled
  */
 export interface SetProtoRevEnabledProposal {
+  $typeUrl?: string;
   title: string;
   description: string;
   enabled: boolean;
+}
+export interface SetProtoRevEnabledProposalProtoMsg {
+  typeUrl: "/osmosis.protorev.v1beta1.SetProtoRevEnabledProposal";
+  value: Uint8Array;
+}
+/**
+ * SetProtoRevEnabledProposal is a gov Content type to update whether the
+ * protorev module is enabled
+ */
+export interface SetProtoRevEnabledProposalAmino {
+  title: string;
+  description: string;
+  enabled: boolean;
+}
+export interface SetProtoRevEnabledProposalAminoMsg {
+  type: "osmosis/SetProtoRevEnabledProposal";
+  value: SetProtoRevEnabledProposalAmino;
 }
 /**
  * SetProtoRevEnabledProposal is a gov Content type to update whether the
  * protorev module is enabled
  */
 export interface SetProtoRevEnabledProposalSDKType {
+  $typeUrl?: string;
   title: string;
   description: string;
   enabled: boolean;
@@ -24,9 +43,28 @@ export interface SetProtoRevEnabledProposalSDKType {
  * developer address that will be receiving a share of profits from the module
  */
 export interface SetProtoRevAdminAccountProposal {
+  $typeUrl?: string;
   title: string;
   description: string;
   account: string;
+}
+export interface SetProtoRevAdminAccountProposalProtoMsg {
+  typeUrl: "/osmosis.protorev.v1beta1.SetProtoRevAdminAccountProposal";
+  value: Uint8Array;
+}
+/**
+ * SetProtoRevAdminAccountProposal is a gov Content type to set the admin
+ * account that will receive permissions to alter hot routes and set the
+ * developer address that will be receiving a share of profits from the module
+ */
+export interface SetProtoRevAdminAccountProposalAmino {
+  title: string;
+  description: string;
+  account: string;
+}
+export interface SetProtoRevAdminAccountProposalAminoMsg {
+  type: "osmosis/SetProtoRevAdminAccountProposal";
+  value: SetProtoRevAdminAccountProposalAmino;
 }
 /**
  * SetProtoRevAdminAccountProposal is a gov Content type to set the admin
@@ -34,19 +72,22 @@ export interface SetProtoRevAdminAccountProposal {
  * developer address that will be receiving a share of profits from the module
  */
 export interface SetProtoRevAdminAccountProposalSDKType {
+  $typeUrl?: string;
   title: string;
   description: string;
   account: string;
 }
 function createBaseSetProtoRevEnabledProposal(): SetProtoRevEnabledProposal {
   return {
+    $typeUrl: "/osmosis.protorev.v1beta1.SetProtoRevEnabledProposal",
     title: "",
     description: "",
     enabled: false
   };
 }
 export const SetProtoRevEnabledProposal = {
-  encode(message: SetProtoRevEnabledProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/osmosis.protorev.v1beta1.SetProtoRevEnabledProposal",
+  encode(message: SetProtoRevEnabledProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -71,17 +112,54 @@ export const SetProtoRevEnabledProposal = {
     message.description = object.description ?? "";
     message.enabled = object.enabled ?? false;
     return message;
+  },
+  fromAmino(object: SetProtoRevEnabledProposalAmino): SetProtoRevEnabledProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      enabled: object.enabled
+    };
+  },
+  toAmino(message: SetProtoRevEnabledProposal): SetProtoRevEnabledProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.enabled = message.enabled;
+    return obj;
+  },
+  fromAminoMsg(object: SetProtoRevEnabledProposalAminoMsg): SetProtoRevEnabledProposal {
+    return SetProtoRevEnabledProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: SetProtoRevEnabledProposal): SetProtoRevEnabledProposalAminoMsg {
+    return {
+      type: "osmosis/SetProtoRevEnabledProposal",
+      value: SetProtoRevEnabledProposal.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: SetProtoRevEnabledProposalProtoMsg): SetProtoRevEnabledProposal {
+    return SetProtoRevEnabledProposal.decode(message.value);
+  },
+  toProto(message: SetProtoRevEnabledProposal): Uint8Array {
+    return SetProtoRevEnabledProposal.encode(message).finish();
+  },
+  toProtoMsg(message: SetProtoRevEnabledProposal): SetProtoRevEnabledProposalProtoMsg {
+    return {
+      typeUrl: "/osmosis.protorev.v1beta1.SetProtoRevEnabledProposal",
+      value: SetProtoRevEnabledProposal.encode(message).finish()
+    };
   }
 };
 function createBaseSetProtoRevAdminAccountProposal(): SetProtoRevAdminAccountProposal {
   return {
+    $typeUrl: "/osmosis.protorev.v1beta1.SetProtoRevAdminAccountProposal",
     title: "",
     description: "",
     account: ""
   };
 }
 export const SetProtoRevAdminAccountProposal = {
-  encode(message: SetProtoRevAdminAccountProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/osmosis.protorev.v1beta1.SetProtoRevAdminAccountProposal",
+  encode(message: SetProtoRevAdminAccountProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -106,5 +184,40 @@ export const SetProtoRevAdminAccountProposal = {
     message.description = object.description ?? "";
     message.account = object.account ?? "";
     return message;
+  },
+  fromAmino(object: SetProtoRevAdminAccountProposalAmino): SetProtoRevAdminAccountProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      account: object.account
+    };
+  },
+  toAmino(message: SetProtoRevAdminAccountProposal): SetProtoRevAdminAccountProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.account = message.account;
+    return obj;
+  },
+  fromAminoMsg(object: SetProtoRevAdminAccountProposalAminoMsg): SetProtoRevAdminAccountProposal {
+    return SetProtoRevAdminAccountProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: SetProtoRevAdminAccountProposal): SetProtoRevAdminAccountProposalAminoMsg {
+    return {
+      type: "osmosis/SetProtoRevAdminAccountProposal",
+      value: SetProtoRevAdminAccountProposal.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: SetProtoRevAdminAccountProposalProtoMsg): SetProtoRevAdminAccountProposal {
+    return SetProtoRevAdminAccountProposal.decode(message.value);
+  },
+  toProto(message: SetProtoRevAdminAccountProposal): Uint8Array {
+    return SetProtoRevAdminAccountProposal.encode(message).finish();
+  },
+  toProtoMsg(message: SetProtoRevAdminAccountProposal): SetProtoRevAdminAccountProposalProtoMsg {
+    return {
+      typeUrl: "/osmosis.protorev.v1beta1.SetProtoRevAdminAccountProposal",
+      value: SetProtoRevAdminAccountProposal.encode(message).finish()
+    };
   }
 };

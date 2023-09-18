@@ -11,6 +11,23 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 claims(request: import("../omniflix/itc/v1/query").QueryClaimsRequest): Promise<import("../omniflix/itc/v1/query").QueryClaimsResponse>;
             };
         };
+        marketplace: {
+            v1beta1: {
+                params(request?: import("../omniflix/marketplace/v1beta1/query").QueryParamsRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryParamsResponse>;
+                listings(request: import("../omniflix/marketplace/v1beta1/query").QueryListingsRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryListingsResponse>;
+                listing(request: import("../omniflix/marketplace/v1beta1/query").QueryListingRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryListingResponse>;
+                listingsByOwner(request: import("../omniflix/marketplace/v1beta1/query").QueryListingsByOwnerRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryListingsByOwnerResponse>;
+                listingsByPriceDenom(request: import("../omniflix/marketplace/v1beta1/query").QueryListingsByPriceDenomRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryListingsByPriceDenomResponse>;
+                listingByNftId(request: import("../omniflix/marketplace/v1beta1/query").QueryListingByNFTIDRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryListingResponse>;
+                auctions(request: import("../omniflix/marketplace/v1beta1/query").QueryAuctionsRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryAuctionsResponse>;
+                auction(request: import("../omniflix/marketplace/v1beta1/query").QueryAuctionRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryAuctionResponse>;
+                auctionsByOwner(request: import("../omniflix/marketplace/v1beta1/query").QueryAuctionsByOwnerRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryAuctionsResponse>;
+                auctionsByPriceDenom(request: import("../omniflix/marketplace/v1beta1/query").QueryAuctionsByPriceDenomRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryAuctionsResponse>;
+                auctionByNftId(request: import("../omniflix/marketplace/v1beta1/query").QueryAuctionByNFTIDRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryAuctionResponse>;
+                bids(request: import("../omniflix/marketplace/v1beta1/query").QueryBidsRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryBidsResponse>;
+                bid(request: import("../omniflix/marketplace/v1beta1/query").QueryBidRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryBidResponse>;
+            };
+        };
     };
     cosmos: {
         auth: {

@@ -1,11 +1,11 @@
-import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { Params, ParamsSDKType } from "./params";
-import { Validator, ValidatorSDKType } from "./validator";
-import { HostZone, HostZoneSDKType } from "./host_zone";
-import { EpochTracker, EpochTrackerSDKType } from "./epoch_tracker";
-import { AddressUnbonding, AddressUnbondingSDKType } from "./address_unbonding";
-import { Long, isSet } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { Validator, ValidatorAmino, ValidatorSDKType } from "./validator";
+import { HostZone, HostZoneAmino, HostZoneSDKType } from "./host_zone";
+import { EpochTracker, EpochTrackerAmino, EpochTrackerSDKType } from "./epoch_tracker";
+import { AddressUnbonding, AddressUnbondingAmino, AddressUnbondingSDKType } from "./address_unbonding";
+import { BinaryWriter } from "../../binary";
+import { isSet } from "../../helpers";
 /**
  * QueryInterchainAccountFromAddressRequest is the request type for the
  * Query/InterchainAccountAddress RPC
@@ -13,6 +13,22 @@ import * as _m0 from "protobufjs/minimal";
 export interface QueryInterchainAccountFromAddressRequest {
   owner: string;
   connectionId: string;
+}
+export interface QueryInterchainAccountFromAddressRequestProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryInterchainAccountFromAddressRequest";
+  value: Uint8Array;
+}
+/**
+ * QueryInterchainAccountFromAddressRequest is the request type for the
+ * Query/InterchainAccountAddress RPC
+ */
+export interface QueryInterchainAccountFromAddressRequestAmino {
+  owner: string;
+  connection_id: string;
+}
+export interface QueryInterchainAccountFromAddressRequestAminoMsg {
+  type: "/stride.stakeibc.QueryInterchainAccountFromAddressRequest";
+  value: QueryInterchainAccountFromAddressRequestAmino;
 }
 /**
  * QueryInterchainAccountFromAddressRequest is the request type for the
@@ -29,6 +45,21 @@ export interface QueryInterchainAccountFromAddressRequestSDKType {
 export interface QueryInterchainAccountFromAddressResponse {
   interchainAccountAddress: string;
 }
+export interface QueryInterchainAccountFromAddressResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryInterchainAccountFromAddressResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryInterchainAccountFromAddressResponse the response type for the
+ * Query/InterchainAccountAddress RPC
+ */
+export interface QueryInterchainAccountFromAddressResponseAmino {
+  interchain_account_address: string;
+}
+export interface QueryInterchainAccountFromAddressResponseAminoMsg {
+  type: "/stride.stakeibc.QueryInterchainAccountFromAddressResponse";
+  value: QueryInterchainAccountFromAddressResponseAmino;
+}
 /**
  * QueryInterchainAccountFromAddressResponse the response type for the
  * Query/InterchainAccountAddress RPC
@@ -38,19 +69,53 @@ export interface QueryInterchainAccountFromAddressResponseSDKType {
 }
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
+export interface QueryParamsRequestProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryParamsRequest";
+  value: Uint8Array;
+}
+/** QueryParamsRequest is request type for the Query/Params RPC method. */
+export interface QueryParamsRequestAmino {}
+export interface QueryParamsRequestAminoMsg {
+  type: "/stride.stakeibc.QueryParamsRequest";
+  value: QueryParamsRequestAmino;
+}
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequestSDKType {}
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** params holds all the parameters of this module. */
-  params?: Params;
+  params: Params;
+}
+export interface QueryParamsResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryParamsResponse";
+  value: Uint8Array;
+}
+/** QueryParamsResponse is response type for the Query/Params RPC method. */
+export interface QueryParamsResponseAmino {
+  /** params holds all the parameters of this module. */
+  params?: ParamsAmino;
+}
+export interface QueryParamsResponseAminoMsg {
+  type: "/stride.stakeibc.QueryParamsResponse";
+  value: QueryParamsResponseAmino;
 }
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponseSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
 }
 export interface QueryGetValidatorsRequest {
   chainId: string;
+}
+export interface QueryGetValidatorsRequestProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryGetValidatorsRequest";
+  value: Uint8Array;
+}
+export interface QueryGetValidatorsRequestAmino {
+  chain_id: string;
+}
+export interface QueryGetValidatorsRequestAminoMsg {
+  type: "/stride.stakeibc.QueryGetValidatorsRequest";
+  value: QueryGetValidatorsRequestAmino;
 }
 export interface QueryGetValidatorsRequestSDKType {
   chain_id: string;
@@ -58,37 +123,104 @@ export interface QueryGetValidatorsRequestSDKType {
 export interface QueryGetValidatorsResponse {
   validators: Validator[];
 }
+export interface QueryGetValidatorsResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryGetValidatorsResponse";
+  value: Uint8Array;
+}
+export interface QueryGetValidatorsResponseAmino {
+  validators: ValidatorAmino[];
+}
+export interface QueryGetValidatorsResponseAminoMsg {
+  type: "/stride.stakeibc.QueryGetValidatorsResponse";
+  value: QueryGetValidatorsResponseAmino;
+}
 export interface QueryGetValidatorsResponseSDKType {
   validators: ValidatorSDKType[];
 }
 export interface QueryGetHostZoneRequest {
   chainId: string;
 }
+export interface QueryGetHostZoneRequestProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryGetHostZoneRequest";
+  value: Uint8Array;
+}
+export interface QueryGetHostZoneRequestAmino {
+  chain_id: string;
+}
+export interface QueryGetHostZoneRequestAminoMsg {
+  type: "/stride.stakeibc.QueryGetHostZoneRequest";
+  value: QueryGetHostZoneRequestAmino;
+}
 export interface QueryGetHostZoneRequestSDKType {
   chain_id: string;
 }
 export interface QueryGetHostZoneResponse {
-  hostZone?: HostZone;
+  hostZone: HostZone;
+}
+export interface QueryGetHostZoneResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryGetHostZoneResponse";
+  value: Uint8Array;
+}
+export interface QueryGetHostZoneResponseAmino {
+  host_zone?: HostZoneAmino;
+}
+export interface QueryGetHostZoneResponseAminoMsg {
+  type: "/stride.stakeibc.QueryGetHostZoneResponse";
+  value: QueryGetHostZoneResponseAmino;
 }
 export interface QueryGetHostZoneResponseSDKType {
-  host_zone?: HostZoneSDKType;
+  host_zone: HostZoneSDKType;
 }
 export interface QueryAllHostZoneRequest {
-  pagination?: PageRequest;
+  pagination: PageRequest;
+}
+export interface QueryAllHostZoneRequestProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryAllHostZoneRequest";
+  value: Uint8Array;
+}
+export interface QueryAllHostZoneRequestAmino {
+  pagination?: PageRequestAmino;
+}
+export interface QueryAllHostZoneRequestAminoMsg {
+  type: "/stride.stakeibc.QueryAllHostZoneRequest";
+  value: QueryAllHostZoneRequestAmino;
 }
 export interface QueryAllHostZoneRequestSDKType {
-  pagination?: PageRequestSDKType;
+  pagination: PageRequestSDKType;
 }
 export interface QueryAllHostZoneResponse {
   hostZone: HostZone[];
-  pagination?: PageResponse;
+  pagination: PageResponse;
+}
+export interface QueryAllHostZoneResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryAllHostZoneResponse";
+  value: Uint8Array;
+}
+export interface QueryAllHostZoneResponseAmino {
+  host_zone: HostZoneAmino[];
+  pagination?: PageResponseAmino;
+}
+export interface QueryAllHostZoneResponseAminoMsg {
+  type: "/stride.stakeibc.QueryAllHostZoneResponse";
+  value: QueryAllHostZoneResponseAmino;
 }
 export interface QueryAllHostZoneResponseSDKType {
   host_zone: HostZoneSDKType[];
-  pagination?: PageResponseSDKType;
+  pagination: PageResponseSDKType;
 }
 export interface QueryModuleAddressRequest {
   name: string;
+}
+export interface QueryModuleAddressRequestProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryModuleAddressRequest";
+  value: Uint8Array;
+}
+export interface QueryModuleAddressRequestAmino {
+  name: string;
+}
+export interface QueryModuleAddressRequestAminoMsg {
+  type: "/stride.stakeibc.QueryModuleAddressRequest";
+  value: QueryModuleAddressRequestAmino;
 }
 export interface QueryModuleAddressRequestSDKType {
   name: string;
@@ -96,25 +228,78 @@ export interface QueryModuleAddressRequestSDKType {
 export interface QueryModuleAddressResponse {
   addr: string;
 }
+export interface QueryModuleAddressResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryModuleAddressResponse";
+  value: Uint8Array;
+}
+export interface QueryModuleAddressResponseAmino {
+  addr: string;
+}
+export interface QueryModuleAddressResponseAminoMsg {
+  type: "/stride.stakeibc.QueryModuleAddressResponse";
+  value: QueryModuleAddressResponseAmino;
+}
 export interface QueryModuleAddressResponseSDKType {
   addr: string;
 }
 export interface QueryGetEpochTrackerRequest {
   epochIdentifier: string;
 }
+export interface QueryGetEpochTrackerRequestProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryGetEpochTrackerRequest";
+  value: Uint8Array;
+}
+export interface QueryGetEpochTrackerRequestAmino {
+  epoch_identifier: string;
+}
+export interface QueryGetEpochTrackerRequestAminoMsg {
+  type: "/stride.stakeibc.QueryGetEpochTrackerRequest";
+  value: QueryGetEpochTrackerRequestAmino;
+}
 export interface QueryGetEpochTrackerRequestSDKType {
   epoch_identifier: string;
 }
 export interface QueryGetEpochTrackerResponse {
-  epochTracker?: EpochTracker;
+  epochTracker: EpochTracker;
+}
+export interface QueryGetEpochTrackerResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryGetEpochTrackerResponse";
+  value: Uint8Array;
+}
+export interface QueryGetEpochTrackerResponseAmino {
+  epoch_tracker?: EpochTrackerAmino;
+}
+export interface QueryGetEpochTrackerResponseAminoMsg {
+  type: "/stride.stakeibc.QueryGetEpochTrackerResponse";
+  value: QueryGetEpochTrackerResponseAmino;
 }
 export interface QueryGetEpochTrackerResponseSDKType {
-  epoch_tracker?: EpochTrackerSDKType;
+  epoch_tracker: EpochTrackerSDKType;
 }
 export interface QueryAllEpochTrackerRequest {}
+export interface QueryAllEpochTrackerRequestProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryAllEpochTrackerRequest";
+  value: Uint8Array;
+}
+export interface QueryAllEpochTrackerRequestAmino {}
+export interface QueryAllEpochTrackerRequestAminoMsg {
+  type: "/stride.stakeibc.QueryAllEpochTrackerRequest";
+  value: QueryAllEpochTrackerRequestAmino;
+}
 export interface QueryAllEpochTrackerRequestSDKType {}
 export interface QueryAllEpochTrackerResponse {
   epochTracker: EpochTracker[];
+}
+export interface QueryAllEpochTrackerResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryAllEpochTrackerResponse";
+  value: Uint8Array;
+}
+export interface QueryAllEpochTrackerResponseAmino {
+  epoch_tracker: EpochTrackerAmino[];
+}
+export interface QueryAllEpochTrackerResponseAminoMsg {
+  type: "/stride.stakeibc.QueryAllEpochTrackerResponse";
+  value: QueryAllEpochTrackerResponseAmino;
 }
 export interface QueryAllEpochTrackerResponseSDKType {
   epoch_tracker: EpochTrackerSDKType[];
@@ -123,24 +308,69 @@ export interface QueryGetNextPacketSequenceRequest {
   channelId: string;
   portId: string;
 }
+export interface QueryGetNextPacketSequenceRequestProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryGetNextPacketSequenceRequest";
+  value: Uint8Array;
+}
+export interface QueryGetNextPacketSequenceRequestAmino {
+  channel_id: string;
+  port_id: string;
+}
+export interface QueryGetNextPacketSequenceRequestAminoMsg {
+  type: "/stride.stakeibc.QueryGetNextPacketSequenceRequest";
+  value: QueryGetNextPacketSequenceRequestAmino;
+}
 export interface QueryGetNextPacketSequenceRequestSDKType {
   channel_id: string;
   port_id: string;
 }
 export interface QueryGetNextPacketSequenceResponse {
-  sequence: Long;
+  sequence: bigint;
+}
+export interface QueryGetNextPacketSequenceResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryGetNextPacketSequenceResponse";
+  value: Uint8Array;
+}
+export interface QueryGetNextPacketSequenceResponseAmino {
+  sequence: string;
+}
+export interface QueryGetNextPacketSequenceResponseAminoMsg {
+  type: "/stride.stakeibc.QueryGetNextPacketSequenceResponse";
+  value: QueryGetNextPacketSequenceResponseAmino;
 }
 export interface QueryGetNextPacketSequenceResponseSDKType {
-  sequence: Long;
+  sequence: bigint;
 }
 export interface QueryAddressUnbondings {
   address: string;
+}
+export interface QueryAddressUnbondingsProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryAddressUnbondings";
+  value: Uint8Array;
+}
+export interface QueryAddressUnbondingsAmino {
+  address: string;
+}
+export interface QueryAddressUnbondingsAminoMsg {
+  type: "/stride.stakeibc.QueryAddressUnbondings";
+  value: QueryAddressUnbondingsAmino;
 }
 export interface QueryAddressUnbondingsSDKType {
   address: string;
 }
 export interface QueryAddressUnbondingsResponse {
   addressUnbondings: AddressUnbonding[];
+}
+export interface QueryAddressUnbondingsResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryAddressUnbondingsResponse";
+  value: Uint8Array;
+}
+export interface QueryAddressUnbondingsResponseAmino {
+  address_unbondings: AddressUnbondingAmino[];
+}
+export interface QueryAddressUnbondingsResponseAminoMsg {
+  type: "/stride.stakeibc.QueryAddressUnbondingsResponse";
+  value: QueryAddressUnbondingsResponseAmino;
 }
 export interface QueryAddressUnbondingsResponseSDKType {
   address_unbondings: AddressUnbondingSDKType[];
@@ -152,7 +382,8 @@ function createBaseQueryInterchainAccountFromAddressRequest(): QueryInterchainAc
   };
 }
 export const QueryInterchainAccountFromAddressRequest = {
-  encode(message: QueryInterchainAccountFromAddressRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryInterchainAccountFromAddressRequest",
+  encode(message: QueryInterchainAccountFromAddressRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -172,6 +403,33 @@ export const QueryInterchainAccountFromAddressRequest = {
     message.owner = object.owner ?? "";
     message.connectionId = object.connectionId ?? "";
     return message;
+  },
+  fromAmino(object: QueryInterchainAccountFromAddressRequestAmino): QueryInterchainAccountFromAddressRequest {
+    return {
+      owner: object.owner,
+      connectionId: object.connection_id
+    };
+  },
+  toAmino(message: QueryInterchainAccountFromAddressRequest): QueryInterchainAccountFromAddressRequestAmino {
+    const obj: any = {};
+    obj.owner = message.owner;
+    obj.connection_id = message.connectionId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryInterchainAccountFromAddressRequestAminoMsg): QueryInterchainAccountFromAddressRequest {
+    return QueryInterchainAccountFromAddressRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryInterchainAccountFromAddressRequestProtoMsg): QueryInterchainAccountFromAddressRequest {
+    return QueryInterchainAccountFromAddressRequest.decode(message.value);
+  },
+  toProto(message: QueryInterchainAccountFromAddressRequest): Uint8Array {
+    return QueryInterchainAccountFromAddressRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryInterchainAccountFromAddressRequest): QueryInterchainAccountFromAddressRequestProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryInterchainAccountFromAddressRequest",
+      value: QueryInterchainAccountFromAddressRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryInterchainAccountFromAddressResponse(): QueryInterchainAccountFromAddressResponse {
@@ -180,7 +438,8 @@ function createBaseQueryInterchainAccountFromAddressResponse(): QueryInterchainA
   };
 }
 export const QueryInterchainAccountFromAddressResponse = {
-  encode(message: QueryInterchainAccountFromAddressResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryInterchainAccountFromAddressResponse",
+  encode(message: QueryInterchainAccountFromAddressResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.interchainAccountAddress !== "") {
       writer.uint32(10).string(message.interchainAccountAddress);
     }
@@ -195,13 +454,39 @@ export const QueryInterchainAccountFromAddressResponse = {
     const message = createBaseQueryInterchainAccountFromAddressResponse();
     message.interchainAccountAddress = object.interchainAccountAddress ?? "";
     return message;
+  },
+  fromAmino(object: QueryInterchainAccountFromAddressResponseAmino): QueryInterchainAccountFromAddressResponse {
+    return {
+      interchainAccountAddress: object.interchain_account_address
+    };
+  },
+  toAmino(message: QueryInterchainAccountFromAddressResponse): QueryInterchainAccountFromAddressResponseAmino {
+    const obj: any = {};
+    obj.interchain_account_address = message.interchainAccountAddress;
+    return obj;
+  },
+  fromAminoMsg(object: QueryInterchainAccountFromAddressResponseAminoMsg): QueryInterchainAccountFromAddressResponse {
+    return QueryInterchainAccountFromAddressResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryInterchainAccountFromAddressResponseProtoMsg): QueryInterchainAccountFromAddressResponse {
+    return QueryInterchainAccountFromAddressResponse.decode(message.value);
+  },
+  toProto(message: QueryInterchainAccountFromAddressResponse): Uint8Array {
+    return QueryInterchainAccountFromAddressResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryInterchainAccountFromAddressResponse): QueryInterchainAccountFromAddressResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryInterchainAccountFromAddressResponse",
+      value: QueryInterchainAccountFromAddressResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
 export const QueryParamsRequest = {
-  encode(_: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryParamsRequest",
+  encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryParamsRequest {
@@ -210,15 +495,38 @@ export const QueryParamsRequest = {
   fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
+  },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsRequestProtoMsg): QueryParamsRequest {
+    return QueryParamsRequest.decode(message.value);
+  },
+  toProto(message: QueryParamsRequest): Uint8Array {
+    return QueryParamsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsRequest): QueryParamsRequestProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryParamsRequest",
+      value: QueryParamsRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: undefined
+    params: Params.fromPartial({})
   };
 }
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryParamsResponse",
+  encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -233,6 +541,31 @@ export const QueryParamsResponse = {
     const message = createBaseQueryParamsResponse();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsResponseProtoMsg): QueryParamsResponse {
+    return QueryParamsResponse.decode(message.value);
+  },
+  toProto(message: QueryParamsResponse): Uint8Array {
+    return QueryParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryParamsResponse",
+      value: QueryParamsResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryGetValidatorsRequest(): QueryGetValidatorsRequest {
@@ -241,7 +574,8 @@ function createBaseQueryGetValidatorsRequest(): QueryGetValidatorsRequest {
   };
 }
 export const QueryGetValidatorsRequest = {
-  encode(message: QueryGetValidatorsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryGetValidatorsRequest",
+  encode(message: QueryGetValidatorsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chainId !== "") {
       writer.uint32(10).string(message.chainId);
     }
@@ -256,6 +590,31 @@ export const QueryGetValidatorsRequest = {
     const message = createBaseQueryGetValidatorsRequest();
     message.chainId = object.chainId ?? "";
     return message;
+  },
+  fromAmino(object: QueryGetValidatorsRequestAmino): QueryGetValidatorsRequest {
+    return {
+      chainId: object.chain_id
+    };
+  },
+  toAmino(message: QueryGetValidatorsRequest): QueryGetValidatorsRequestAmino {
+    const obj: any = {};
+    obj.chain_id = message.chainId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGetValidatorsRequestAminoMsg): QueryGetValidatorsRequest {
+    return QueryGetValidatorsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGetValidatorsRequestProtoMsg): QueryGetValidatorsRequest {
+    return QueryGetValidatorsRequest.decode(message.value);
+  },
+  toProto(message: QueryGetValidatorsRequest): Uint8Array {
+    return QueryGetValidatorsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGetValidatorsRequest): QueryGetValidatorsRequestProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryGetValidatorsRequest",
+      value: QueryGetValidatorsRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryGetValidatorsResponse(): QueryGetValidatorsResponse {
@@ -264,7 +623,8 @@ function createBaseQueryGetValidatorsResponse(): QueryGetValidatorsResponse {
   };
 }
 export const QueryGetValidatorsResponse = {
-  encode(message: QueryGetValidatorsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryGetValidatorsResponse",
+  encode(message: QueryGetValidatorsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.validators) {
       Validator.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -279,6 +639,35 @@ export const QueryGetValidatorsResponse = {
     const message = createBaseQueryGetValidatorsResponse();
     message.validators = object.validators?.map(e => Validator.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryGetValidatorsResponseAmino): QueryGetValidatorsResponse {
+    return {
+      validators: Array.isArray(object?.validators) ? object.validators.map((e: any) => Validator.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: QueryGetValidatorsResponse): QueryGetValidatorsResponseAmino {
+    const obj: any = {};
+    if (message.validators) {
+      obj.validators = message.validators.map(e => e ? Validator.toAmino(e) : undefined);
+    } else {
+      obj.validators = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryGetValidatorsResponseAminoMsg): QueryGetValidatorsResponse {
+    return QueryGetValidatorsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGetValidatorsResponseProtoMsg): QueryGetValidatorsResponse {
+    return QueryGetValidatorsResponse.decode(message.value);
+  },
+  toProto(message: QueryGetValidatorsResponse): Uint8Array {
+    return QueryGetValidatorsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGetValidatorsResponse): QueryGetValidatorsResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryGetValidatorsResponse",
+      value: QueryGetValidatorsResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryGetHostZoneRequest(): QueryGetHostZoneRequest {
@@ -287,7 +676,8 @@ function createBaseQueryGetHostZoneRequest(): QueryGetHostZoneRequest {
   };
 }
 export const QueryGetHostZoneRequest = {
-  encode(message: QueryGetHostZoneRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryGetHostZoneRequest",
+  encode(message: QueryGetHostZoneRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chainId !== "") {
       writer.uint32(10).string(message.chainId);
     }
@@ -302,15 +692,41 @@ export const QueryGetHostZoneRequest = {
     const message = createBaseQueryGetHostZoneRequest();
     message.chainId = object.chainId ?? "";
     return message;
+  },
+  fromAmino(object: QueryGetHostZoneRequestAmino): QueryGetHostZoneRequest {
+    return {
+      chainId: object.chain_id
+    };
+  },
+  toAmino(message: QueryGetHostZoneRequest): QueryGetHostZoneRequestAmino {
+    const obj: any = {};
+    obj.chain_id = message.chainId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGetHostZoneRequestAminoMsg): QueryGetHostZoneRequest {
+    return QueryGetHostZoneRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGetHostZoneRequestProtoMsg): QueryGetHostZoneRequest {
+    return QueryGetHostZoneRequest.decode(message.value);
+  },
+  toProto(message: QueryGetHostZoneRequest): Uint8Array {
+    return QueryGetHostZoneRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGetHostZoneRequest): QueryGetHostZoneRequestProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryGetHostZoneRequest",
+      value: QueryGetHostZoneRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryGetHostZoneResponse(): QueryGetHostZoneResponse {
   return {
-    hostZone: undefined
+    hostZone: HostZone.fromPartial({})
   };
 }
 export const QueryGetHostZoneResponse = {
-  encode(message: QueryGetHostZoneResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryGetHostZoneResponse",
+  encode(message: QueryGetHostZoneResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.hostZone !== undefined) {
       HostZone.encode(message.hostZone, writer.uint32(10).fork()).ldelim();
     }
@@ -325,15 +741,41 @@ export const QueryGetHostZoneResponse = {
     const message = createBaseQueryGetHostZoneResponse();
     message.hostZone = object.hostZone !== undefined && object.hostZone !== null ? HostZone.fromPartial(object.hostZone) : undefined;
     return message;
+  },
+  fromAmino(object: QueryGetHostZoneResponseAmino): QueryGetHostZoneResponse {
+    return {
+      hostZone: object?.host_zone ? HostZone.fromAmino(object.host_zone) : undefined
+    };
+  },
+  toAmino(message: QueryGetHostZoneResponse): QueryGetHostZoneResponseAmino {
+    const obj: any = {};
+    obj.host_zone = message.hostZone ? HostZone.toAmino(message.hostZone) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGetHostZoneResponseAminoMsg): QueryGetHostZoneResponse {
+    return QueryGetHostZoneResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGetHostZoneResponseProtoMsg): QueryGetHostZoneResponse {
+    return QueryGetHostZoneResponse.decode(message.value);
+  },
+  toProto(message: QueryGetHostZoneResponse): Uint8Array {
+    return QueryGetHostZoneResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGetHostZoneResponse): QueryGetHostZoneResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryGetHostZoneResponse",
+      value: QueryGetHostZoneResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAllHostZoneRequest(): QueryAllHostZoneRequest {
   return {
-    pagination: undefined
+    pagination: PageRequest.fromPartial({})
   };
 }
 export const QueryAllHostZoneRequest = {
-  encode(message: QueryAllHostZoneRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryAllHostZoneRequest",
+  encode(message: QueryAllHostZoneRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
@@ -348,16 +790,42 @@ export const QueryAllHostZoneRequest = {
     const message = createBaseQueryAllHostZoneRequest();
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
     return message;
+  },
+  fromAmino(object: QueryAllHostZoneRequestAmino): QueryAllHostZoneRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
+    };
+  },
+  toAmino(message: QueryAllHostZoneRequest): QueryAllHostZoneRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllHostZoneRequestAminoMsg): QueryAllHostZoneRequest {
+    return QueryAllHostZoneRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAllHostZoneRequestProtoMsg): QueryAllHostZoneRequest {
+    return QueryAllHostZoneRequest.decode(message.value);
+  },
+  toProto(message: QueryAllHostZoneRequest): Uint8Array {
+    return QueryAllHostZoneRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllHostZoneRequest): QueryAllHostZoneRequestProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryAllHostZoneRequest",
+      value: QueryAllHostZoneRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAllHostZoneResponse(): QueryAllHostZoneResponse {
   return {
     hostZone: [],
-    pagination: undefined
+    pagination: PageResponse.fromPartial({})
   };
 }
 export const QueryAllHostZoneResponse = {
-  encode(message: QueryAllHostZoneResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryAllHostZoneResponse",
+  encode(message: QueryAllHostZoneResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.hostZone) {
       HostZone.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -377,6 +845,37 @@ export const QueryAllHostZoneResponse = {
     message.hostZone = object.hostZone?.map(e => HostZone.fromPartial(e)) || [];
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
     return message;
+  },
+  fromAmino(object: QueryAllHostZoneResponseAmino): QueryAllHostZoneResponse {
+    return {
+      hostZone: Array.isArray(object?.host_zone) ? object.host_zone.map((e: any) => HostZone.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
+    };
+  },
+  toAmino(message: QueryAllHostZoneResponse): QueryAllHostZoneResponseAmino {
+    const obj: any = {};
+    if (message.hostZone) {
+      obj.host_zone = message.hostZone.map(e => e ? HostZone.toAmino(e) : undefined);
+    } else {
+      obj.host_zone = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllHostZoneResponseAminoMsg): QueryAllHostZoneResponse {
+    return QueryAllHostZoneResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAllHostZoneResponseProtoMsg): QueryAllHostZoneResponse {
+    return QueryAllHostZoneResponse.decode(message.value);
+  },
+  toProto(message: QueryAllHostZoneResponse): Uint8Array {
+    return QueryAllHostZoneResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllHostZoneResponse): QueryAllHostZoneResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryAllHostZoneResponse",
+      value: QueryAllHostZoneResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryModuleAddressRequest(): QueryModuleAddressRequest {
@@ -385,7 +884,8 @@ function createBaseQueryModuleAddressRequest(): QueryModuleAddressRequest {
   };
 }
 export const QueryModuleAddressRequest = {
-  encode(message: QueryModuleAddressRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryModuleAddressRequest",
+  encode(message: QueryModuleAddressRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -400,6 +900,31 @@ export const QueryModuleAddressRequest = {
     const message = createBaseQueryModuleAddressRequest();
     message.name = object.name ?? "";
     return message;
+  },
+  fromAmino(object: QueryModuleAddressRequestAmino): QueryModuleAddressRequest {
+    return {
+      name: object.name
+    };
+  },
+  toAmino(message: QueryModuleAddressRequest): QueryModuleAddressRequestAmino {
+    const obj: any = {};
+    obj.name = message.name;
+    return obj;
+  },
+  fromAminoMsg(object: QueryModuleAddressRequestAminoMsg): QueryModuleAddressRequest {
+    return QueryModuleAddressRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryModuleAddressRequestProtoMsg): QueryModuleAddressRequest {
+    return QueryModuleAddressRequest.decode(message.value);
+  },
+  toProto(message: QueryModuleAddressRequest): Uint8Array {
+    return QueryModuleAddressRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryModuleAddressRequest): QueryModuleAddressRequestProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryModuleAddressRequest",
+      value: QueryModuleAddressRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryModuleAddressResponse(): QueryModuleAddressResponse {
@@ -408,7 +933,8 @@ function createBaseQueryModuleAddressResponse(): QueryModuleAddressResponse {
   };
 }
 export const QueryModuleAddressResponse = {
-  encode(message: QueryModuleAddressResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryModuleAddressResponse",
+  encode(message: QueryModuleAddressResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.addr !== "") {
       writer.uint32(10).string(message.addr);
     }
@@ -423,6 +949,31 @@ export const QueryModuleAddressResponse = {
     const message = createBaseQueryModuleAddressResponse();
     message.addr = object.addr ?? "";
     return message;
+  },
+  fromAmino(object: QueryModuleAddressResponseAmino): QueryModuleAddressResponse {
+    return {
+      addr: object.addr
+    };
+  },
+  toAmino(message: QueryModuleAddressResponse): QueryModuleAddressResponseAmino {
+    const obj: any = {};
+    obj.addr = message.addr;
+    return obj;
+  },
+  fromAminoMsg(object: QueryModuleAddressResponseAminoMsg): QueryModuleAddressResponse {
+    return QueryModuleAddressResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryModuleAddressResponseProtoMsg): QueryModuleAddressResponse {
+    return QueryModuleAddressResponse.decode(message.value);
+  },
+  toProto(message: QueryModuleAddressResponse): Uint8Array {
+    return QueryModuleAddressResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryModuleAddressResponse): QueryModuleAddressResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryModuleAddressResponse",
+      value: QueryModuleAddressResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryGetEpochTrackerRequest(): QueryGetEpochTrackerRequest {
@@ -431,7 +982,8 @@ function createBaseQueryGetEpochTrackerRequest(): QueryGetEpochTrackerRequest {
   };
 }
 export const QueryGetEpochTrackerRequest = {
-  encode(message: QueryGetEpochTrackerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryGetEpochTrackerRequest",
+  encode(message: QueryGetEpochTrackerRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.epochIdentifier !== "") {
       writer.uint32(10).string(message.epochIdentifier);
     }
@@ -446,15 +998,41 @@ export const QueryGetEpochTrackerRequest = {
     const message = createBaseQueryGetEpochTrackerRequest();
     message.epochIdentifier = object.epochIdentifier ?? "";
     return message;
+  },
+  fromAmino(object: QueryGetEpochTrackerRequestAmino): QueryGetEpochTrackerRequest {
+    return {
+      epochIdentifier: object.epoch_identifier
+    };
+  },
+  toAmino(message: QueryGetEpochTrackerRequest): QueryGetEpochTrackerRequestAmino {
+    const obj: any = {};
+    obj.epoch_identifier = message.epochIdentifier;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGetEpochTrackerRequestAminoMsg): QueryGetEpochTrackerRequest {
+    return QueryGetEpochTrackerRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGetEpochTrackerRequestProtoMsg): QueryGetEpochTrackerRequest {
+    return QueryGetEpochTrackerRequest.decode(message.value);
+  },
+  toProto(message: QueryGetEpochTrackerRequest): Uint8Array {
+    return QueryGetEpochTrackerRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGetEpochTrackerRequest): QueryGetEpochTrackerRequestProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryGetEpochTrackerRequest",
+      value: QueryGetEpochTrackerRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryGetEpochTrackerResponse(): QueryGetEpochTrackerResponse {
   return {
-    epochTracker: undefined
+    epochTracker: EpochTracker.fromPartial({})
   };
 }
 export const QueryGetEpochTrackerResponse = {
-  encode(message: QueryGetEpochTrackerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryGetEpochTrackerResponse",
+  encode(message: QueryGetEpochTrackerResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.epochTracker !== undefined) {
       EpochTracker.encode(message.epochTracker, writer.uint32(10).fork()).ldelim();
     }
@@ -469,13 +1047,39 @@ export const QueryGetEpochTrackerResponse = {
     const message = createBaseQueryGetEpochTrackerResponse();
     message.epochTracker = object.epochTracker !== undefined && object.epochTracker !== null ? EpochTracker.fromPartial(object.epochTracker) : undefined;
     return message;
+  },
+  fromAmino(object: QueryGetEpochTrackerResponseAmino): QueryGetEpochTrackerResponse {
+    return {
+      epochTracker: object?.epoch_tracker ? EpochTracker.fromAmino(object.epoch_tracker) : undefined
+    };
+  },
+  toAmino(message: QueryGetEpochTrackerResponse): QueryGetEpochTrackerResponseAmino {
+    const obj: any = {};
+    obj.epoch_tracker = message.epochTracker ? EpochTracker.toAmino(message.epochTracker) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGetEpochTrackerResponseAminoMsg): QueryGetEpochTrackerResponse {
+    return QueryGetEpochTrackerResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGetEpochTrackerResponseProtoMsg): QueryGetEpochTrackerResponse {
+    return QueryGetEpochTrackerResponse.decode(message.value);
+  },
+  toProto(message: QueryGetEpochTrackerResponse): Uint8Array {
+    return QueryGetEpochTrackerResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGetEpochTrackerResponse): QueryGetEpochTrackerResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryGetEpochTrackerResponse",
+      value: QueryGetEpochTrackerResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAllEpochTrackerRequest(): QueryAllEpochTrackerRequest {
   return {};
 }
 export const QueryAllEpochTrackerRequest = {
-  encode(_: QueryAllEpochTrackerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryAllEpochTrackerRequest",
+  encode(_: QueryAllEpochTrackerRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   fromJSON(_: any): QueryAllEpochTrackerRequest {
@@ -484,6 +1088,28 @@ export const QueryAllEpochTrackerRequest = {
   fromPartial(_: Partial<QueryAllEpochTrackerRequest>): QueryAllEpochTrackerRequest {
     const message = createBaseQueryAllEpochTrackerRequest();
     return message;
+  },
+  fromAmino(_: QueryAllEpochTrackerRequestAmino): QueryAllEpochTrackerRequest {
+    return {};
+  },
+  toAmino(_: QueryAllEpochTrackerRequest): QueryAllEpochTrackerRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllEpochTrackerRequestAminoMsg): QueryAllEpochTrackerRequest {
+    return QueryAllEpochTrackerRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAllEpochTrackerRequestProtoMsg): QueryAllEpochTrackerRequest {
+    return QueryAllEpochTrackerRequest.decode(message.value);
+  },
+  toProto(message: QueryAllEpochTrackerRequest): Uint8Array {
+    return QueryAllEpochTrackerRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllEpochTrackerRequest): QueryAllEpochTrackerRequestProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryAllEpochTrackerRequest",
+      value: QueryAllEpochTrackerRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAllEpochTrackerResponse(): QueryAllEpochTrackerResponse {
@@ -492,7 +1118,8 @@ function createBaseQueryAllEpochTrackerResponse(): QueryAllEpochTrackerResponse 
   };
 }
 export const QueryAllEpochTrackerResponse = {
-  encode(message: QueryAllEpochTrackerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryAllEpochTrackerResponse",
+  encode(message: QueryAllEpochTrackerResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.epochTracker) {
       EpochTracker.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -507,6 +1134,35 @@ export const QueryAllEpochTrackerResponse = {
     const message = createBaseQueryAllEpochTrackerResponse();
     message.epochTracker = object.epochTracker?.map(e => EpochTracker.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryAllEpochTrackerResponseAmino): QueryAllEpochTrackerResponse {
+    return {
+      epochTracker: Array.isArray(object?.epoch_tracker) ? object.epoch_tracker.map((e: any) => EpochTracker.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: QueryAllEpochTrackerResponse): QueryAllEpochTrackerResponseAmino {
+    const obj: any = {};
+    if (message.epochTracker) {
+      obj.epoch_tracker = message.epochTracker.map(e => e ? EpochTracker.toAmino(e) : undefined);
+    } else {
+      obj.epoch_tracker = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllEpochTrackerResponseAminoMsg): QueryAllEpochTrackerResponse {
+    return QueryAllEpochTrackerResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAllEpochTrackerResponseProtoMsg): QueryAllEpochTrackerResponse {
+    return QueryAllEpochTrackerResponse.decode(message.value);
+  },
+  toProto(message: QueryAllEpochTrackerResponse): Uint8Array {
+    return QueryAllEpochTrackerResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllEpochTrackerResponse): QueryAllEpochTrackerResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryAllEpochTrackerResponse",
+      value: QueryAllEpochTrackerResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryGetNextPacketSequenceRequest(): QueryGetNextPacketSequenceRequest {
@@ -516,7 +1172,8 @@ function createBaseQueryGetNextPacketSequenceRequest(): QueryGetNextPacketSequen
   };
 }
 export const QueryGetNextPacketSequenceRequest = {
-  encode(message: QueryGetNextPacketSequenceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryGetNextPacketSequenceRequest",
+  encode(message: QueryGetNextPacketSequenceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.channelId !== "") {
       writer.uint32(10).string(message.channelId);
     }
@@ -536,29 +1193,82 @@ export const QueryGetNextPacketSequenceRequest = {
     message.channelId = object.channelId ?? "";
     message.portId = object.portId ?? "";
     return message;
+  },
+  fromAmino(object: QueryGetNextPacketSequenceRequestAmino): QueryGetNextPacketSequenceRequest {
+    return {
+      channelId: object.channel_id,
+      portId: object.port_id
+    };
+  },
+  toAmino(message: QueryGetNextPacketSequenceRequest): QueryGetNextPacketSequenceRequestAmino {
+    const obj: any = {};
+    obj.channel_id = message.channelId;
+    obj.port_id = message.portId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGetNextPacketSequenceRequestAminoMsg): QueryGetNextPacketSequenceRequest {
+    return QueryGetNextPacketSequenceRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGetNextPacketSequenceRequestProtoMsg): QueryGetNextPacketSequenceRequest {
+    return QueryGetNextPacketSequenceRequest.decode(message.value);
+  },
+  toProto(message: QueryGetNextPacketSequenceRequest): Uint8Array {
+    return QueryGetNextPacketSequenceRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGetNextPacketSequenceRequest): QueryGetNextPacketSequenceRequestProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryGetNextPacketSequenceRequest",
+      value: QueryGetNextPacketSequenceRequest.encode(message).finish()
+    };
   }
 };
 function createBaseQueryGetNextPacketSequenceResponse(): QueryGetNextPacketSequenceResponse {
   return {
-    sequence: Long.UZERO
+    sequence: BigInt(0)
   };
 }
 export const QueryGetNextPacketSequenceResponse = {
-  encode(message: QueryGetNextPacketSequenceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.sequence.isZero()) {
+  typeUrl: "/stride.stakeibc.QueryGetNextPacketSequenceResponse",
+  encode(message: QueryGetNextPacketSequenceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.sequence !== BigInt(0)) {
       writer.uint32(8).uint64(message.sequence);
     }
     return writer;
   },
   fromJSON(object: any): QueryGetNextPacketSequenceResponse {
     return {
-      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO
+      sequence: isSet(object.sequence) ? BigInt(object.sequence.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<QueryGetNextPacketSequenceResponse>): QueryGetNextPacketSequenceResponse {
     const message = createBaseQueryGetNextPacketSequenceResponse();
-    message.sequence = object.sequence !== undefined && object.sequence !== null ? Long.fromValue(object.sequence) : Long.UZERO;
+    message.sequence = object.sequence !== undefined && object.sequence !== null ? BigInt(object.sequence.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: QueryGetNextPacketSequenceResponseAmino): QueryGetNextPacketSequenceResponse {
+    return {
+      sequence: BigInt(object.sequence)
+    };
+  },
+  toAmino(message: QueryGetNextPacketSequenceResponse): QueryGetNextPacketSequenceResponseAmino {
+    const obj: any = {};
+    obj.sequence = message.sequence ? message.sequence.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGetNextPacketSequenceResponseAminoMsg): QueryGetNextPacketSequenceResponse {
+    return QueryGetNextPacketSequenceResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryGetNextPacketSequenceResponseProtoMsg): QueryGetNextPacketSequenceResponse {
+    return QueryGetNextPacketSequenceResponse.decode(message.value);
+  },
+  toProto(message: QueryGetNextPacketSequenceResponse): Uint8Array {
+    return QueryGetNextPacketSequenceResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGetNextPacketSequenceResponse): QueryGetNextPacketSequenceResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryGetNextPacketSequenceResponse",
+      value: QueryGetNextPacketSequenceResponse.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAddressUnbondings(): QueryAddressUnbondings {
@@ -567,7 +1277,8 @@ function createBaseQueryAddressUnbondings(): QueryAddressUnbondings {
   };
 }
 export const QueryAddressUnbondings = {
-  encode(message: QueryAddressUnbondings, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryAddressUnbondings",
+  encode(message: QueryAddressUnbondings, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
@@ -582,6 +1293,31 @@ export const QueryAddressUnbondings = {
     const message = createBaseQueryAddressUnbondings();
     message.address = object.address ?? "";
     return message;
+  },
+  fromAmino(object: QueryAddressUnbondingsAmino): QueryAddressUnbondings {
+    return {
+      address: object.address
+    };
+  },
+  toAmino(message: QueryAddressUnbondings): QueryAddressUnbondingsAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAddressUnbondingsAminoMsg): QueryAddressUnbondings {
+    return QueryAddressUnbondings.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAddressUnbondingsProtoMsg): QueryAddressUnbondings {
+    return QueryAddressUnbondings.decode(message.value);
+  },
+  toProto(message: QueryAddressUnbondings): Uint8Array {
+    return QueryAddressUnbondings.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAddressUnbondings): QueryAddressUnbondingsProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryAddressUnbondings",
+      value: QueryAddressUnbondings.encode(message).finish()
+    };
   }
 };
 function createBaseQueryAddressUnbondingsResponse(): QueryAddressUnbondingsResponse {
@@ -590,7 +1326,8 @@ function createBaseQueryAddressUnbondingsResponse(): QueryAddressUnbondingsRespo
   };
 }
 export const QueryAddressUnbondingsResponse = {
-  encode(message: QueryAddressUnbondingsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/stride.stakeibc.QueryAddressUnbondingsResponse",
+  encode(message: QueryAddressUnbondingsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.addressUnbondings) {
       AddressUnbonding.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -605,5 +1342,34 @@ export const QueryAddressUnbondingsResponse = {
     const message = createBaseQueryAddressUnbondingsResponse();
     message.addressUnbondings = object.addressUnbondings?.map(e => AddressUnbonding.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryAddressUnbondingsResponseAmino): QueryAddressUnbondingsResponse {
+    return {
+      addressUnbondings: Array.isArray(object?.address_unbondings) ? object.address_unbondings.map((e: any) => AddressUnbonding.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: QueryAddressUnbondingsResponse): QueryAddressUnbondingsResponseAmino {
+    const obj: any = {};
+    if (message.addressUnbondings) {
+      obj.address_unbondings = message.addressUnbondings.map(e => e ? AddressUnbonding.toAmino(e) : undefined);
+    } else {
+      obj.address_unbondings = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryAddressUnbondingsResponseAminoMsg): QueryAddressUnbondingsResponse {
+    return QueryAddressUnbondingsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAddressUnbondingsResponseProtoMsg): QueryAddressUnbondingsResponse {
+    return QueryAddressUnbondingsResponse.decode(message.value);
+  },
+  toProto(message: QueryAddressUnbondingsResponse): Uint8Array {
+    return QueryAddressUnbondingsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAddressUnbondingsResponse): QueryAddressUnbondingsResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryAddressUnbondingsResponse",
+      value: QueryAddressUnbondingsResponse.encode(message).finish()
+    };
   }
 };

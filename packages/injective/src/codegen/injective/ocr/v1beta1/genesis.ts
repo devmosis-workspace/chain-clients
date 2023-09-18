@@ -1,11 +1,11 @@
-import { Params, ParamsSDKType, FeedConfig, FeedConfigSDKType, Transmission, TransmissionSDKType, EpochAndRound, EpochAndRoundSDKType } from "./ocr";
-import { Coin, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Long, isSet } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { Params, ParamsAmino, ParamsSDKType, FeedConfig, FeedConfigAmino, FeedConfigSDKType, Transmission, TransmissionAmino, TransmissionSDKType, EpochAndRound, EpochAndRoundAmino, EpochAndRoundSDKType } from "./ocr";
+import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
 /** GenesisState defines the OCR module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of related to OCR. */
-  params?: Params;
+  params: Params;
   /** feed_configs stores all of the supported OCR feeds */
   feedConfigs: FeedConfig[];
   /** latest_epoch_and_rounds stores the latest epoch and round for each feedId */
@@ -26,9 +26,41 @@ export interface GenesisState {
   /** pending_payeeships stores the pending payeeships */
   pendingPayeeships: PendingPayeeship[];
 }
+export interface GenesisStateProtoMsg {
+  typeUrl: "/injective.ocr.v1beta1.GenesisState";
+  value: Uint8Array;
+}
+/** GenesisState defines the OCR module's genesis state. */
+export interface GenesisStateAmino {
+  /** params defines all the parameters of related to OCR. */
+  params?: ParamsAmino;
+  /** feed_configs stores all of the supported OCR feeds */
+  feed_configs: FeedConfigAmino[];
+  /** latest_epoch_and_rounds stores the latest epoch and round for each feedId */
+  latest_epoch_and_rounds: FeedEpochAndRoundAmino[];
+  /** feed_transmissions stores the last transmission for each feed */
+  feed_transmissions: FeedTransmissionAmino[];
+  /**
+   * latest_aggregator_round_ids stores the latest aggregator round ID for each
+   * feedId
+   */
+  latest_aggregator_round_ids: FeedLatestAggregatorRoundIDsAmino[];
+  /** reward_pools stores the reward pools */
+  reward_pools: RewardPoolAmino[];
+  /** feed_observation_counts stores the feed observation counts */
+  feed_observation_counts: FeedCountsAmino[];
+  /** feed_transmission_counts stores the feed transmission counts */
+  feed_transmission_counts: FeedCountsAmino[];
+  /** pending_payeeships stores the pending payeeships */
+  pending_payeeships: PendingPayeeshipAmino[];
+}
+export interface GenesisStateAminoMsg {
+  type: "/injective.ocr.v1beta1.GenesisState";
+  value: GenesisStateAmino;
+}
 /** GenesisState defines the OCR module's genesis state. */
 export interface GenesisStateSDKType {
-  params?: ParamsSDKType;
+  params: ParamsSDKType;
   feed_configs: FeedConfigSDKType[];
   latest_epoch_and_rounds: FeedEpochAndRoundSDKType[];
   feed_transmissions: FeedTransmissionSDKType[];
@@ -40,39 +72,99 @@ export interface GenesisStateSDKType {
 }
 export interface FeedTransmission {
   feedId: string;
-  transmission?: Transmission;
+  transmission: Transmission;
+}
+export interface FeedTransmissionProtoMsg {
+  typeUrl: "/injective.ocr.v1beta1.FeedTransmission";
+  value: Uint8Array;
+}
+export interface FeedTransmissionAmino {
+  feed_id: string;
+  transmission?: TransmissionAmino;
+}
+export interface FeedTransmissionAminoMsg {
+  type: "/injective.ocr.v1beta1.FeedTransmission";
+  value: FeedTransmissionAmino;
 }
 export interface FeedTransmissionSDKType {
   feed_id: string;
-  transmission?: TransmissionSDKType;
+  transmission: TransmissionSDKType;
 }
 export interface FeedEpochAndRound {
   feedId: string;
-  epochAndRound?: EpochAndRound;
+  epochAndRound: EpochAndRound;
+}
+export interface FeedEpochAndRoundProtoMsg {
+  typeUrl: "/injective.ocr.v1beta1.FeedEpochAndRound";
+  value: Uint8Array;
+}
+export interface FeedEpochAndRoundAmino {
+  feed_id: string;
+  epoch_and_round?: EpochAndRoundAmino;
+}
+export interface FeedEpochAndRoundAminoMsg {
+  type: "/injective.ocr.v1beta1.FeedEpochAndRound";
+  value: FeedEpochAndRoundAmino;
 }
 export interface FeedEpochAndRoundSDKType {
   feed_id: string;
-  epoch_and_round?: EpochAndRoundSDKType;
+  epoch_and_round: EpochAndRoundSDKType;
 }
 export interface FeedLatestAggregatorRoundIDs {
   feedId: string;
-  aggregatorRoundId: Long;
+  aggregatorRoundId: bigint;
+}
+export interface FeedLatestAggregatorRoundIDsProtoMsg {
+  typeUrl: "/injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs";
+  value: Uint8Array;
+}
+export interface FeedLatestAggregatorRoundIDsAmino {
+  feed_id: string;
+  aggregator_round_id: string;
+}
+export interface FeedLatestAggregatorRoundIDsAminoMsg {
+  type: "/injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs";
+  value: FeedLatestAggregatorRoundIDsAmino;
 }
 export interface FeedLatestAggregatorRoundIDsSDKType {
   feed_id: string;
-  aggregator_round_id: Long;
+  aggregator_round_id: bigint;
 }
 export interface RewardPool {
   feedId: string;
-  amount?: Coin;
+  amount: Coin;
+}
+export interface RewardPoolProtoMsg {
+  typeUrl: "/injective.ocr.v1beta1.RewardPool";
+  value: Uint8Array;
+}
+export interface RewardPoolAmino {
+  feed_id: string;
+  amount?: CoinAmino;
+}
+export interface RewardPoolAminoMsg {
+  type: "/injective.ocr.v1beta1.RewardPool";
+  value: RewardPoolAmino;
 }
 export interface RewardPoolSDKType {
   feed_id: string;
-  amount?: CoinSDKType;
+  amount: CoinSDKType;
 }
 export interface FeedCounts {
   feedId: string;
   counts: Count[];
+}
+export interface FeedCountsProtoMsg {
+  typeUrl: "/injective.ocr.v1beta1.FeedCounts";
+  value: Uint8Array;
+}
+export interface FeedCountsAmino {
+  feed_id: string;
+  counts: CountAmino[];
+}
+export interface FeedCountsAminoMsg {
+  type: "/injective.ocr.v1beta1.FeedCounts";
+  value: FeedCountsAmino;
 }
 export interface FeedCountsSDKType {
   feed_id: string;
@@ -80,16 +172,41 @@ export interface FeedCountsSDKType {
 }
 export interface Count {
   address: string;
-  count: Long;
+  count: bigint;
+}
+export interface CountProtoMsg {
+  typeUrl: "/injective.ocr.v1beta1.Count";
+  value: Uint8Array;
+}
+export interface CountAmino {
+  address: string;
+  count: string;
+}
+export interface CountAminoMsg {
+  type: "/injective.ocr.v1beta1.Count";
+  value: CountAmino;
 }
 export interface CountSDKType {
   address: string;
-  count: Long;
+  count: bigint;
 }
 export interface PendingPayeeship {
   feedId: string;
   transmitter: string;
   proposedPayee: string;
+}
+export interface PendingPayeeshipProtoMsg {
+  typeUrl: "/injective.ocr.v1beta1.PendingPayeeship";
+  value: Uint8Array;
+}
+export interface PendingPayeeshipAmino {
+  feed_id: string;
+  transmitter: string;
+  proposed_payee: string;
+}
+export interface PendingPayeeshipAminoMsg {
+  type: "/injective.ocr.v1beta1.PendingPayeeship";
+  value: PendingPayeeshipAmino;
 }
 export interface PendingPayeeshipSDKType {
   feed_id: string;
@@ -98,7 +215,7 @@ export interface PendingPayeeshipSDKType {
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     feedConfigs: [],
     latestEpochAndRounds: [],
     feedTransmissions: [],
@@ -110,7 +227,8 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.ocr.v1beta1.GenesisState",
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -165,16 +283,90 @@ export const GenesisState = {
     message.feedTransmissionCounts = object.feedTransmissionCounts?.map(e => FeedCounts.fromPartial(e)) || [];
     message.pendingPayeeships = object.pendingPayeeships?.map(e => PendingPayeeship.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+      feedConfigs: Array.isArray(object?.feed_configs) ? object.feed_configs.map((e: any) => FeedConfig.fromAmino(e)) : [],
+      latestEpochAndRounds: Array.isArray(object?.latest_epoch_and_rounds) ? object.latest_epoch_and_rounds.map((e: any) => FeedEpochAndRound.fromAmino(e)) : [],
+      feedTransmissions: Array.isArray(object?.feed_transmissions) ? object.feed_transmissions.map((e: any) => FeedTransmission.fromAmino(e)) : [],
+      latestAggregatorRoundIds: Array.isArray(object?.latest_aggregator_round_ids) ? object.latest_aggregator_round_ids.map((e: any) => FeedLatestAggregatorRoundIDs.fromAmino(e)) : [],
+      rewardPools: Array.isArray(object?.reward_pools) ? object.reward_pools.map((e: any) => RewardPool.fromAmino(e)) : [],
+      feedObservationCounts: Array.isArray(object?.feed_observation_counts) ? object.feed_observation_counts.map((e: any) => FeedCounts.fromAmino(e)) : [],
+      feedTransmissionCounts: Array.isArray(object?.feed_transmission_counts) ? object.feed_transmission_counts.map((e: any) => FeedCounts.fromAmino(e)) : [],
+      pendingPayeeships: Array.isArray(object?.pending_payeeships) ? object.pending_payeeships.map((e: any) => PendingPayeeship.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    if (message.feedConfigs) {
+      obj.feed_configs = message.feedConfigs.map(e => e ? FeedConfig.toAmino(e) : undefined);
+    } else {
+      obj.feed_configs = [];
+    }
+    if (message.latestEpochAndRounds) {
+      obj.latest_epoch_and_rounds = message.latestEpochAndRounds.map(e => e ? FeedEpochAndRound.toAmino(e) : undefined);
+    } else {
+      obj.latest_epoch_and_rounds = [];
+    }
+    if (message.feedTransmissions) {
+      obj.feed_transmissions = message.feedTransmissions.map(e => e ? FeedTransmission.toAmino(e) : undefined);
+    } else {
+      obj.feed_transmissions = [];
+    }
+    if (message.latestAggregatorRoundIds) {
+      obj.latest_aggregator_round_ids = message.latestAggregatorRoundIds.map(e => e ? FeedLatestAggregatorRoundIDs.toAmino(e) : undefined);
+    } else {
+      obj.latest_aggregator_round_ids = [];
+    }
+    if (message.rewardPools) {
+      obj.reward_pools = message.rewardPools.map(e => e ? RewardPool.toAmino(e) : undefined);
+    } else {
+      obj.reward_pools = [];
+    }
+    if (message.feedObservationCounts) {
+      obj.feed_observation_counts = message.feedObservationCounts.map(e => e ? FeedCounts.toAmino(e) : undefined);
+    } else {
+      obj.feed_observation_counts = [];
+    }
+    if (message.feedTransmissionCounts) {
+      obj.feed_transmission_counts = message.feedTransmissionCounts.map(e => e ? FeedCounts.toAmino(e) : undefined);
+    } else {
+      obj.feed_transmission_counts = [];
+    }
+    if (message.pendingPayeeships) {
+      obj.pending_payeeships = message.pendingPayeeships.map(e => e ? PendingPayeeship.toAmino(e) : undefined);
+    } else {
+      obj.pending_payeeships = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
+    return GenesisState.decode(message.value);
+  },
+  toProto(message: GenesisState): Uint8Array {
+    return GenesisState.encode(message).finish();
+  },
+  toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
+    return {
+      typeUrl: "/injective.ocr.v1beta1.GenesisState",
+      value: GenesisState.encode(message).finish()
+    };
   }
 };
 function createBaseFeedTransmission(): FeedTransmission {
   return {
     feedId: "",
-    transmission: undefined
+    transmission: Transmission.fromPartial({})
   };
 }
 export const FeedTransmission = {
-  encode(message: FeedTransmission, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.ocr.v1beta1.FeedTransmission",
+  encode(message: FeedTransmission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.feedId !== "") {
       writer.uint32(10).string(message.feedId);
     }
@@ -194,16 +386,44 @@ export const FeedTransmission = {
     message.feedId = object.feedId ?? "";
     message.transmission = object.transmission !== undefined && object.transmission !== null ? Transmission.fromPartial(object.transmission) : undefined;
     return message;
+  },
+  fromAmino(object: FeedTransmissionAmino): FeedTransmission {
+    return {
+      feedId: object.feed_id,
+      transmission: object?.transmission ? Transmission.fromAmino(object.transmission) : undefined
+    };
+  },
+  toAmino(message: FeedTransmission): FeedTransmissionAmino {
+    const obj: any = {};
+    obj.feed_id = message.feedId;
+    obj.transmission = message.transmission ? Transmission.toAmino(message.transmission) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: FeedTransmissionAminoMsg): FeedTransmission {
+    return FeedTransmission.fromAmino(object.value);
+  },
+  fromProtoMsg(message: FeedTransmissionProtoMsg): FeedTransmission {
+    return FeedTransmission.decode(message.value);
+  },
+  toProto(message: FeedTransmission): Uint8Array {
+    return FeedTransmission.encode(message).finish();
+  },
+  toProtoMsg(message: FeedTransmission): FeedTransmissionProtoMsg {
+    return {
+      typeUrl: "/injective.ocr.v1beta1.FeedTransmission",
+      value: FeedTransmission.encode(message).finish()
+    };
   }
 };
 function createBaseFeedEpochAndRound(): FeedEpochAndRound {
   return {
     feedId: "",
-    epochAndRound: undefined
+    epochAndRound: EpochAndRound.fromPartial({})
   };
 }
 export const FeedEpochAndRound = {
-  encode(message: FeedEpochAndRound, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.ocr.v1beta1.FeedEpochAndRound",
+  encode(message: FeedEpochAndRound, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.feedId !== "") {
       writer.uint32(10).string(message.feedId);
     }
@@ -223,20 +443,48 @@ export const FeedEpochAndRound = {
     message.feedId = object.feedId ?? "";
     message.epochAndRound = object.epochAndRound !== undefined && object.epochAndRound !== null ? EpochAndRound.fromPartial(object.epochAndRound) : undefined;
     return message;
+  },
+  fromAmino(object: FeedEpochAndRoundAmino): FeedEpochAndRound {
+    return {
+      feedId: object.feed_id,
+      epochAndRound: object?.epoch_and_round ? EpochAndRound.fromAmino(object.epoch_and_round) : undefined
+    };
+  },
+  toAmino(message: FeedEpochAndRound): FeedEpochAndRoundAmino {
+    const obj: any = {};
+    obj.feed_id = message.feedId;
+    obj.epoch_and_round = message.epochAndRound ? EpochAndRound.toAmino(message.epochAndRound) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: FeedEpochAndRoundAminoMsg): FeedEpochAndRound {
+    return FeedEpochAndRound.fromAmino(object.value);
+  },
+  fromProtoMsg(message: FeedEpochAndRoundProtoMsg): FeedEpochAndRound {
+    return FeedEpochAndRound.decode(message.value);
+  },
+  toProto(message: FeedEpochAndRound): Uint8Array {
+    return FeedEpochAndRound.encode(message).finish();
+  },
+  toProtoMsg(message: FeedEpochAndRound): FeedEpochAndRoundProtoMsg {
+    return {
+      typeUrl: "/injective.ocr.v1beta1.FeedEpochAndRound",
+      value: FeedEpochAndRound.encode(message).finish()
+    };
   }
 };
 function createBaseFeedLatestAggregatorRoundIDs(): FeedLatestAggregatorRoundIDs {
   return {
     feedId: "",
-    aggregatorRoundId: Long.UZERO
+    aggregatorRoundId: BigInt(0)
   };
 }
 export const FeedLatestAggregatorRoundIDs = {
-  encode(message: FeedLatestAggregatorRoundIDs, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs",
+  encode(message: FeedLatestAggregatorRoundIDs, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.feedId !== "") {
       writer.uint32(10).string(message.feedId);
     }
-    if (!message.aggregatorRoundId.isZero()) {
+    if (message.aggregatorRoundId !== BigInt(0)) {
       writer.uint32(16).uint64(message.aggregatorRoundId);
     }
     return writer;
@@ -244,24 +492,52 @@ export const FeedLatestAggregatorRoundIDs = {
   fromJSON(object: any): FeedLatestAggregatorRoundIDs {
     return {
       feedId: isSet(object.feedId) ? String(object.feedId) : "",
-      aggregatorRoundId: isSet(object.aggregatorRoundId) ? Long.fromValue(object.aggregatorRoundId) : Long.UZERO
+      aggregatorRoundId: isSet(object.aggregatorRoundId) ? BigInt(object.aggregatorRoundId.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<FeedLatestAggregatorRoundIDs>): FeedLatestAggregatorRoundIDs {
     const message = createBaseFeedLatestAggregatorRoundIDs();
     message.feedId = object.feedId ?? "";
-    message.aggregatorRoundId = object.aggregatorRoundId !== undefined && object.aggregatorRoundId !== null ? Long.fromValue(object.aggregatorRoundId) : Long.UZERO;
+    message.aggregatorRoundId = object.aggregatorRoundId !== undefined && object.aggregatorRoundId !== null ? BigInt(object.aggregatorRoundId.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: FeedLatestAggregatorRoundIDsAmino): FeedLatestAggregatorRoundIDs {
+    return {
+      feedId: object.feed_id,
+      aggregatorRoundId: BigInt(object.aggregator_round_id)
+    };
+  },
+  toAmino(message: FeedLatestAggregatorRoundIDs): FeedLatestAggregatorRoundIDsAmino {
+    const obj: any = {};
+    obj.feed_id = message.feedId;
+    obj.aggregator_round_id = message.aggregatorRoundId ? message.aggregatorRoundId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: FeedLatestAggregatorRoundIDsAminoMsg): FeedLatestAggregatorRoundIDs {
+    return FeedLatestAggregatorRoundIDs.fromAmino(object.value);
+  },
+  fromProtoMsg(message: FeedLatestAggregatorRoundIDsProtoMsg): FeedLatestAggregatorRoundIDs {
+    return FeedLatestAggregatorRoundIDs.decode(message.value);
+  },
+  toProto(message: FeedLatestAggregatorRoundIDs): Uint8Array {
+    return FeedLatestAggregatorRoundIDs.encode(message).finish();
+  },
+  toProtoMsg(message: FeedLatestAggregatorRoundIDs): FeedLatestAggregatorRoundIDsProtoMsg {
+    return {
+      typeUrl: "/injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs",
+      value: FeedLatestAggregatorRoundIDs.encode(message).finish()
+    };
   }
 };
 function createBaseRewardPool(): RewardPool {
   return {
     feedId: "",
-    amount: undefined
+    amount: Coin.fromPartial({})
   };
 }
 export const RewardPool = {
-  encode(message: RewardPool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.ocr.v1beta1.RewardPool",
+  encode(message: RewardPool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.feedId !== "") {
       writer.uint32(10).string(message.feedId);
     }
@@ -281,6 +557,33 @@ export const RewardPool = {
     message.feedId = object.feedId ?? "";
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     return message;
+  },
+  fromAmino(object: RewardPoolAmino): RewardPool {
+    return {
+      feedId: object.feed_id,
+      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
+    };
+  },
+  toAmino(message: RewardPool): RewardPoolAmino {
+    const obj: any = {};
+    obj.feed_id = message.feedId;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: RewardPoolAminoMsg): RewardPool {
+    return RewardPool.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RewardPoolProtoMsg): RewardPool {
+    return RewardPool.decode(message.value);
+  },
+  toProto(message: RewardPool): Uint8Array {
+    return RewardPool.encode(message).finish();
+  },
+  toProtoMsg(message: RewardPool): RewardPoolProtoMsg {
+    return {
+      typeUrl: "/injective.ocr.v1beta1.RewardPool",
+      value: RewardPool.encode(message).finish()
+    };
   }
 };
 function createBaseFeedCounts(): FeedCounts {
@@ -290,7 +593,8 @@ function createBaseFeedCounts(): FeedCounts {
   };
 }
 export const FeedCounts = {
-  encode(message: FeedCounts, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.ocr.v1beta1.FeedCounts",
+  encode(message: FeedCounts, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.feedId !== "") {
       writer.uint32(10).string(message.feedId);
     }
@@ -310,20 +614,52 @@ export const FeedCounts = {
     message.feedId = object.feedId ?? "";
     message.counts = object.counts?.map(e => Count.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: FeedCountsAmino): FeedCounts {
+    return {
+      feedId: object.feed_id,
+      counts: Array.isArray(object?.counts) ? object.counts.map((e: any) => Count.fromAmino(e)) : []
+    };
+  },
+  toAmino(message: FeedCounts): FeedCountsAmino {
+    const obj: any = {};
+    obj.feed_id = message.feedId;
+    if (message.counts) {
+      obj.counts = message.counts.map(e => e ? Count.toAmino(e) : undefined);
+    } else {
+      obj.counts = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: FeedCountsAminoMsg): FeedCounts {
+    return FeedCounts.fromAmino(object.value);
+  },
+  fromProtoMsg(message: FeedCountsProtoMsg): FeedCounts {
+    return FeedCounts.decode(message.value);
+  },
+  toProto(message: FeedCounts): Uint8Array {
+    return FeedCounts.encode(message).finish();
+  },
+  toProtoMsg(message: FeedCounts): FeedCountsProtoMsg {
+    return {
+      typeUrl: "/injective.ocr.v1beta1.FeedCounts",
+      value: FeedCounts.encode(message).finish()
+    };
   }
 };
 function createBaseCount(): Count {
   return {
     address: "",
-    count: Long.UZERO
+    count: BigInt(0)
   };
 }
 export const Count = {
-  encode(message: Count, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.ocr.v1beta1.Count",
+  encode(message: Count, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
-    if (!message.count.isZero()) {
+    if (message.count !== BigInt(0)) {
       writer.uint32(16).uint64(message.count);
     }
     return writer;
@@ -331,14 +667,41 @@ export const Count = {
   fromJSON(object: any): Count {
     return {
       address: isSet(object.address) ? String(object.address) : "",
-      count: isSet(object.count) ? Long.fromValue(object.count) : Long.UZERO
+      count: isSet(object.count) ? BigInt(object.count.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<Count>): Count {
     const message = createBaseCount();
     message.address = object.address ?? "";
-    message.count = object.count !== undefined && object.count !== null ? Long.fromValue(object.count) : Long.UZERO;
+    message.count = object.count !== undefined && object.count !== null ? BigInt(object.count.toString()) : BigInt(0);
     return message;
+  },
+  fromAmino(object: CountAmino): Count {
+    return {
+      address: object.address,
+      count: BigInt(object.count)
+    };
+  },
+  toAmino(message: Count): CountAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.count = message.count ? message.count.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: CountAminoMsg): Count {
+    return Count.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CountProtoMsg): Count {
+    return Count.decode(message.value);
+  },
+  toProto(message: Count): Uint8Array {
+    return Count.encode(message).finish();
+  },
+  toProtoMsg(message: Count): CountProtoMsg {
+    return {
+      typeUrl: "/injective.ocr.v1beta1.Count",
+      value: Count.encode(message).finish()
+    };
   }
 };
 function createBasePendingPayeeship(): PendingPayeeship {
@@ -349,7 +712,8 @@ function createBasePendingPayeeship(): PendingPayeeship {
   };
 }
 export const PendingPayeeship = {
-  encode(message: PendingPayeeship, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/injective.ocr.v1beta1.PendingPayeeship",
+  encode(message: PendingPayeeship, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.feedId !== "") {
       writer.uint32(10).string(message.feedId);
     }
@@ -374,5 +738,34 @@ export const PendingPayeeship = {
     message.transmitter = object.transmitter ?? "";
     message.proposedPayee = object.proposedPayee ?? "";
     return message;
+  },
+  fromAmino(object: PendingPayeeshipAmino): PendingPayeeship {
+    return {
+      feedId: object.feed_id,
+      transmitter: object.transmitter,
+      proposedPayee: object.proposed_payee
+    };
+  },
+  toAmino(message: PendingPayeeship): PendingPayeeshipAmino {
+    const obj: any = {};
+    obj.feed_id = message.feedId;
+    obj.transmitter = message.transmitter;
+    obj.proposed_payee = message.proposedPayee;
+    return obj;
+  },
+  fromAminoMsg(object: PendingPayeeshipAminoMsg): PendingPayeeship {
+    return PendingPayeeship.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PendingPayeeshipProtoMsg): PendingPayeeship {
+    return PendingPayeeship.decode(message.value);
+  },
+  toProto(message: PendingPayeeship): Uint8Array {
+    return PendingPayeeship.encode(message).finish();
+  },
+  toProtoMsg(message: PendingPayeeship): PendingPayeeshipProtoMsg {
+    return {
+      typeUrl: "/injective.ocr.v1beta1.PendingPayeeship",
+      value: PendingPayeeship.encode(message).finish()
+    };
   }
 };
