@@ -3,10 +3,9 @@
   * DO NOT MODIFY BY HAND. Instead, download the latest proto files for your chain
   * and run the transpile command or yarn proto command to regenerate this bundle.
   */
- 
+
 export * from "./omniflix/bundle";
-export * from "./OmniFlix/bundle";
-export * from "./OmniFlix/client";
+export * from "./omniflix/client";
 export * from "./cosmos/bundle";
 export * from "./cosmos/client";
 export * from "./ics23/bundle";

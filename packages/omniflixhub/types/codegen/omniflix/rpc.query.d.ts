@@ -5,27 +5,27 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
     OmniFlix: {
         itc: {
             v1: {
-                params(request?: import("../omniflix/itc/v1/query").QueryParamsRequest): Promise<import("../omniflix/itc/v1/query").QueryParamsResponse>;
-                campaigns(request: import("../omniflix/itc/v1/query").QueryCampaignsRequest): Promise<import("../omniflix/itc/v1/query").QueryCampaignsResponse>;
-                campaign(request: import("../omniflix/itc/v1/query").QueryCampaignRequest): Promise<import("../omniflix/itc/v1/query").QueryCampaignResponse>;
-                claims(request: import("../omniflix/itc/v1/query").QueryClaimsRequest): Promise<import("../omniflix/itc/v1/query").QueryClaimsResponse>;
+                params(request?: import("./itc/v1/query").QueryParamsRequest): Promise<import("./itc/v1/query").QueryParamsResponse>;
+                campaigns(request: import("./itc/v1/query").QueryCampaignsRequest): Promise<import("./itc/v1/query").QueryCampaignsResponse>;
+                campaign(request: import("./itc/v1/query").QueryCampaignRequest): Promise<import("./itc/v1/query").QueryCampaignResponse>;
+                claims(request: import("./itc/v1/query").QueryClaimsRequest): Promise<import("./itc/v1/query").QueryClaimsResponse>;
             };
         };
         marketplace: {
             v1beta1: {
-                params(request?: import("../omniflix/marketplace/v1beta1/query").QueryParamsRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryParamsResponse>;
-                listings(request: import("../omniflix/marketplace/v1beta1/query").QueryListingsRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryListingsResponse>;
-                listing(request: import("../omniflix/marketplace/v1beta1/query").QueryListingRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryListingResponse>;
-                listingsByOwner(request: import("../omniflix/marketplace/v1beta1/query").QueryListingsByOwnerRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryListingsByOwnerResponse>;
-                listingsByPriceDenom(request: import("../omniflix/marketplace/v1beta1/query").QueryListingsByPriceDenomRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryListingsByPriceDenomResponse>;
-                listingByNftId(request: import("../omniflix/marketplace/v1beta1/query").QueryListingByNFTIDRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryListingResponse>;
-                auctions(request: import("../omniflix/marketplace/v1beta1/query").QueryAuctionsRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryAuctionsResponse>;
-                auction(request: import("../omniflix/marketplace/v1beta1/query").QueryAuctionRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryAuctionResponse>;
-                auctionsByOwner(request: import("../omniflix/marketplace/v1beta1/query").QueryAuctionsByOwnerRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryAuctionsResponse>;
-                auctionsByPriceDenom(request: import("../omniflix/marketplace/v1beta1/query").QueryAuctionsByPriceDenomRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryAuctionsResponse>;
-                auctionByNftId(request: import("../omniflix/marketplace/v1beta1/query").QueryAuctionByNFTIDRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryAuctionResponse>;
-                bids(request: import("../omniflix/marketplace/v1beta1/query").QueryBidsRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryBidsResponse>;
-                bid(request: import("../omniflix/marketplace/v1beta1/query").QueryBidRequest): Promise<import("../omniflix/marketplace/v1beta1/query").QueryBidResponse>;
+                params(request?: import("./marketplace/v1beta1/query").QueryParamsRequest): Promise<import("./marketplace/v1beta1/query").QueryParamsResponse>;
+                listings(request: import("./marketplace/v1beta1/query").QueryListingsRequest): Promise<import("./marketplace/v1beta1/query").QueryListingsResponse>;
+                listing(request: import("./marketplace/v1beta1/query").QueryListingRequest): Promise<import("./marketplace/v1beta1/query").QueryListingResponse>;
+                listingsByOwner(request: import("./marketplace/v1beta1/query").QueryListingsByOwnerRequest): Promise<import("./marketplace/v1beta1/query").QueryListingsByOwnerResponse>;
+                listingsByPriceDenom(request: import("./marketplace/v1beta1/query").QueryListingsByPriceDenomRequest): Promise<import("./marketplace/v1beta1/query").QueryListingsByPriceDenomResponse>;
+                listingByNftId(request: import("./marketplace/v1beta1/query").QueryListingByNFTIDRequest): Promise<import("./marketplace/v1beta1/query").QueryListingResponse>;
+                auctions(request: import("./marketplace/v1beta1/query").QueryAuctionsRequest): Promise<import("./marketplace/v1beta1/query").QueryAuctionsResponse>;
+                auction(request: import("./marketplace/v1beta1/query").QueryAuctionRequest): Promise<import("./marketplace/v1beta1/query").QueryAuctionResponse>;
+                auctionsByOwner(request: import("./marketplace/v1beta1/query").QueryAuctionsByOwnerRequest): Promise<import("./marketplace/v1beta1/query").QueryAuctionsResponse>;
+                auctionsByPriceDenom(request: import("./marketplace/v1beta1/query").QueryAuctionsByPriceDenomRequest): Promise<import("./marketplace/v1beta1/query").QueryAuctionsResponse>;
+                auctionByNftId(request: import("./marketplace/v1beta1/query").QueryAuctionByNFTIDRequest): Promise<import("./marketplace/v1beta1/query").QueryAuctionResponse>;
+                bids(request: import("./marketplace/v1beta1/query").QueryBidsRequest): Promise<import("./marketplace/v1beta1/query").QueryBidsResponse>;
+                bid(request: import("./marketplace/v1beta1/query").QueryBidRequest): Promise<import("./marketplace/v1beta1/query").QueryBidResponse>;
             };
         };
     };
