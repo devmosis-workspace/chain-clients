@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/cryptoorg",
-  "version": "4.2.5-5",
+  "version": "4.2.5-6",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

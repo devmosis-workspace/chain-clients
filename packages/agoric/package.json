@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/agoric",
-  "version": "0.34.1-5",
+  "version": "0.34.1-6",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

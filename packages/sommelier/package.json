@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/sommelier",
-  "version": "6.0.0-5",
+  "version": "6.0.0-6",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

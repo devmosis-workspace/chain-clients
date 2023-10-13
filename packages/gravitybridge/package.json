@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/gravitybridge",
-  "version": "1.10.1-5",
+  "version": "1.10.1-6",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

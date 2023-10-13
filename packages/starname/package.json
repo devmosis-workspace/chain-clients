@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/starname",
-  "version": "0.11.7-5",
+  "version": "0.11.7-6",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

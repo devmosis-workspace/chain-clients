@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/emoney",
-  "version": "1.2.0-5",
+  "version": "1.2.0-6",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",
