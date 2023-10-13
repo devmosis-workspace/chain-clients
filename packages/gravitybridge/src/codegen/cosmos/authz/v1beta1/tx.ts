@@ -335,14 +335,14 @@ export const MsgExec = {
   fromAmino(object: MsgExecAmino): MsgExec {
     return {
       grantee: object.grantee,
-      msgs: Array.isArray(object?.msgs) ? object.msgs.map((e: any) => Sdk_MsgauthzAuthorization_FromAmino(e)) : []
+      msgs: Array.isArray(object?.msgs) ? object.msgs.map((e: any) => Authz_Authorization_FromAmino(e)) : []
     };
   },
   toAmino(message: MsgExec): MsgExecAmino {
     const obj: any = {};
     obj.grantee = message.grantee;
     if (message.msgs) {
-      obj.msgs = message.msgs.map(e => e ? Sdk_MsgauthzAuthorization_ToAmino((e as Any)) : undefined);
+      obj.msgs = message.msgs.map(e => e ? Authz_Authorization_ToAmino((e as Any)) : undefined);
     } else {
       obj.msgs = [];
     }
