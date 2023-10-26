@@ -247,3 +247,9 @@
 [submodule "packages/gitopia/gitopia"]
 	path = packages/gitopia/gitopia
 	url = https://github.com/gitopia/gitopia
+[submodule "packages/dydx/v4-chain"]
+	path = packages/dydx/v4-chain
+	url = https://github.com/dydxprotocol/v4-chain
+[submodule "packages/dydx/cosmos-sdk"]
+	path = packages/dydx/cosmos-sdk
+	url = https://github.com/dydxprotocol/cosmos-sdk
