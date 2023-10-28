@@ -253,3 +253,12 @@
 [submodule "packages/dydx/cosmos-sdk"]
 	path = packages/dydx/cosmos-sdk
 	url = https://github.com/dydxprotocol/cosmos-sdk
+[submodule "packages/celestia/cosmos-sdk"]
+	path = packages/celestia/cosmos-sdk
+	url = https://github.com/celestiaorg/cosmos-sdk
+[submodule "packages/celestia/cosmos-proto"]
+	path = packages/celestia/cosmos-proto
+	url = https://github.com/cosmos/cosmos-proto
+[submodule "packages/celestia/celestia-app"]
+	path = packages/celestia/celestia-app
+	url = https://github.com/celestiaorg/celestia-app
