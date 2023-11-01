@@ -5,7 +5,9 @@ import { isSet, bytesFromBase64 } from "../../../helpers";
  * InflationRateRequest represents a message that queries the Axelar specific
  * inflation RPC method.
  */
-export interface InflationRateRequest {}
+export interface InflationRateRequest {
+  validator: Uint8Array;
+}
 export interface InflationRateRequestProtoMsg {
   typeUrl: "/axelar.reward.v1beta1.InflationRateRequest";
   value: Uint8Array;
@@ -14,7 +16,9 @@ export interface InflationRateRequestProtoMsg {
  * InflationRateRequest represents a message that queries the Axelar specific
  * inflation RPC method.
  */
-export interface InflationRateRequestAmino {}
+export interface InflationRateRequestAmino {
+  validator: Uint8Array;
+}
 export interface InflationRateRequestAminoMsg {
   type: "/axelar.reward.v1beta1.InflationRateRequest";
   value: InflationRateRequestAmino;
@@ -23,7 +27,9 @@ export interface InflationRateRequestAminoMsg {
  * InflationRateRequest represents a message that queries the Axelar specific
  * inflation RPC method.
  */
-export interface InflationRateRequestSDKType {}
+export interface InflationRateRequestSDKType {
+  validator: Uint8Array;
+}
 export interface InflationRateResponse {
   inflationRate: Uint8Array;
 }
@@ -73,25 +79,36 @@ export interface ParamsResponseSDKType {
   params: ParamsSDKType;
 }
 function createBaseInflationRateRequest(): InflationRateRequest {
-  return {};
+  return {
+    validator: new Uint8Array()
+  };
 }
 export const InflationRateRequest = {
   typeUrl: "/axelar.reward.v1beta1.InflationRateRequest",
-  encode(_: InflationRateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+  encode(message: InflationRateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.validator.length !== 0) {
+      writer.uint32(10).bytes(message.validator);
+    }
     return writer;
   },
-  fromJSON(_: any): InflationRateRequest {
-    return {};
+  fromJSON(object: any): InflationRateRequest {
+    return {
+      validator: isSet(object.validator) ? bytesFromBase64(object.validator) : new Uint8Array()
+    };
   },
-  fromPartial(_: Partial<InflationRateRequest>): InflationRateRequest {
+  fromPartial(object: Partial<InflationRateRequest>): InflationRateRequest {
     const message = createBaseInflationRateRequest();
+    message.validator = object.validator ?? new Uint8Array();
     return message;
   },
-  fromAmino(_: InflationRateRequestAmino): InflationRateRequest {
-    return {};
+  fromAmino(object: InflationRateRequestAmino): InflationRateRequest {
+    return {
+      validator: object.validator
+    };
   },
-  toAmino(_: InflationRateRequest): InflationRateRequestAmino {
+  toAmino(message: InflationRateRequest): InflationRateRequestAmino {
     const obj: any = {};
+    obj.validator = message.validator;
     return obj;
   },
   fromAminoMsg(object: InflationRateRequestAminoMsg): InflationRateRequest {

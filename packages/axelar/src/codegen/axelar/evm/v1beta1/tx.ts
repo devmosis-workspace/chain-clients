@@ -36,6 +36,7 @@ export interface SetGatewayResponseAminoMsg {
   value: SetGatewayResponseAmino;
 }
 export interface SetGatewayResponseSDKType {}
+/** @deprecated */
 export interface ConfirmGatewayTxRequest {
   sender: Uint8Array;
   chain: string;
@@ -45,6 +46,7 @@ export interface ConfirmGatewayTxRequestProtoMsg {
   typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxRequest";
   value: Uint8Array;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxRequestAmino {
   sender: Uint8Array;
   chain: string;
@@ -54,22 +56,60 @@ export interface ConfirmGatewayTxRequestAminoMsg {
   type: "/axelar.evm.v1beta1.ConfirmGatewayTxRequest";
   value: ConfirmGatewayTxRequestAmino;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxRequestSDKType {
   sender: Uint8Array;
   chain: string;
   tx_id: Uint8Array;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxResponse {}
 export interface ConfirmGatewayTxResponseProtoMsg {
   typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxResponse";
   value: Uint8Array;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxResponseAmino {}
 export interface ConfirmGatewayTxResponseAminoMsg {
   type: "/axelar.evm.v1beta1.ConfirmGatewayTxResponse";
   value: ConfirmGatewayTxResponseAmino;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxResponseSDKType {}
+export interface ConfirmGatewayTxsRequest {
+  sender: Uint8Array;
+  chain: string;
+  txIds: Uint8Array[];
+}
+export interface ConfirmGatewayTxsRequestProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsRequest";
+  value: Uint8Array;
+}
+export interface ConfirmGatewayTxsRequestAmino {
+  sender: Uint8Array;
+  chain: string;
+  tx_ids: Uint8Array[];
+}
+export interface ConfirmGatewayTxsRequestAminoMsg {
+  type: "/axelar.evm.v1beta1.ConfirmGatewayTxsRequest";
+  value: ConfirmGatewayTxsRequestAmino;
+}
+export interface ConfirmGatewayTxsRequestSDKType {
+  sender: Uint8Array;
+  chain: string;
+  tx_ids: Uint8Array[];
+}
+export interface ConfirmGatewayTxsResponse {}
+export interface ConfirmGatewayTxsResponseProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsResponse";
+  value: Uint8Array;
+}
+export interface ConfirmGatewayTxsResponseAmino {}
+export interface ConfirmGatewayTxsResponseAminoMsg {
+  type: "/axelar.evm.v1beta1.ConfirmGatewayTxsResponse";
+  value: ConfirmGatewayTxsResponseAmino;
+}
+export interface ConfirmGatewayTxsResponseSDKType {}
 /** MsgConfirmDeposit represents an erc20 deposit confirmation message */
 export interface ConfirmDepositRequest {
   sender: Uint8Array;
@@ -780,6 +820,113 @@ export const ConfirmGatewayTxResponse = {
     return {
       typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxResponse",
       value: ConfirmGatewayTxResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseConfirmGatewayTxsRequest(): ConfirmGatewayTxsRequest {
+  return {
+    sender: new Uint8Array(),
+    chain: "",
+    txIds: []
+  };
+}
+export const ConfirmGatewayTxsRequest = {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsRequest",
+  encode(message: ConfirmGatewayTxsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.sender.length !== 0) {
+      writer.uint32(10).bytes(message.sender);
+    }
+    if (message.chain !== "") {
+      writer.uint32(18).string(message.chain);
+    }
+    for (const v of message.txIds) {
+      writer.uint32(26).bytes(v!);
+    }
+    return writer;
+  },
+  fromJSON(object: any): ConfirmGatewayTxsRequest {
+    return {
+      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      chain: isSet(object.chain) ? String(object.chain) : "",
+      txIds: Array.isArray(object?.txIds) ? object.txIds.map((e: any) => bytesFromBase64(e)) : []
+    };
+  },
+  fromPartial(object: Partial<ConfirmGatewayTxsRequest>): ConfirmGatewayTxsRequest {
+    const message = createBaseConfirmGatewayTxsRequest();
+    message.sender = object.sender ?? new Uint8Array();
+    message.chain = object.chain ?? "";
+    message.txIds = object.txIds?.map(e => e) || [];
+    return message;
+  },
+  fromAmino(object: ConfirmGatewayTxsRequestAmino): ConfirmGatewayTxsRequest {
+    return {
+      sender: object.sender,
+      chain: object.chain,
+      txIds: Array.isArray(object?.tx_ids) ? object.tx_ids.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: ConfirmGatewayTxsRequest): ConfirmGatewayTxsRequestAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.chain = message.chain;
+    if (message.txIds) {
+      obj.tx_ids = message.txIds.map(e => e);
+    } else {
+      obj.tx_ids = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ConfirmGatewayTxsRequestAminoMsg): ConfirmGatewayTxsRequest {
+    return ConfirmGatewayTxsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ConfirmGatewayTxsRequestProtoMsg): ConfirmGatewayTxsRequest {
+    return ConfirmGatewayTxsRequest.decode(message.value);
+  },
+  toProto(message: ConfirmGatewayTxsRequest): Uint8Array {
+    return ConfirmGatewayTxsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: ConfirmGatewayTxsRequest): ConfirmGatewayTxsRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsRequest",
+      value: ConfirmGatewayTxsRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseConfirmGatewayTxsResponse(): ConfirmGatewayTxsResponse {
+  return {};
+}
+export const ConfirmGatewayTxsResponse = {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsResponse",
+  encode(_: ConfirmGatewayTxsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): ConfirmGatewayTxsResponse {
+    return {};
+  },
+  fromPartial(_: Partial<ConfirmGatewayTxsResponse>): ConfirmGatewayTxsResponse {
+    const message = createBaseConfirmGatewayTxsResponse();
+    return message;
+  },
+  fromAmino(_: ConfirmGatewayTxsResponseAmino): ConfirmGatewayTxsResponse {
+    return {};
+  },
+  toAmino(_: ConfirmGatewayTxsResponse): ConfirmGatewayTxsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ConfirmGatewayTxsResponseAminoMsg): ConfirmGatewayTxsResponse {
+    return ConfirmGatewayTxsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ConfirmGatewayTxsResponseProtoMsg): ConfirmGatewayTxsResponse {
+    return ConfirmGatewayTxsResponse.decode(message.value);
+  },
+  toProto(message: ConfirmGatewayTxsResponse): Uint8Array {
+    return ConfirmGatewayTxsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: ConfirmGatewayTxsResponse): ConfirmGatewayTxsResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsResponse",
+      value: ConfirmGatewayTxsResponse.encode(message).finish()
     };
   }
 };

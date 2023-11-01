@@ -1,6 +1,6 @@
-import { join } from 'path';
-import telescope from '@cosmology/telescope';
-import { rimrafSync as rimraf } from 'rimraf';
+const { join } = require('path');
+const telescope = require('@cosmology/telescope').default;
+const rimraf = require('rimraf').rimrafSync;
 
 const protoDirs = [join(__dirname, '/../axelar-core/proto'), join(__dirname, '/../cosmos-sdk/proto'), join(__dirname, '/../axelar-core/third_party/proto')];
 const outPath = join(__dirname, '../src/codegen');

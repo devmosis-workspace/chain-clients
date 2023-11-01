@@ -382,6 +382,7 @@ export interface RegisterFeeCollectorResponseAminoMsg {
 export interface RegisterFeeCollectorResponseSDKType {}
 export interface RetryIBCTransferRequest {
   sender: Uint8Array;
+  /** @deprecated */
   chain: string;
   id: bigint;
 }
@@ -391,6 +392,7 @@ export interface RetryIBCTransferRequestProtoMsg {
 }
 export interface RetryIBCTransferRequestAmino {
   sender: Uint8Array;
+  /** @deprecated */
   chain: string;
   id: string;
 }
@@ -400,6 +402,7 @@ export interface RetryIBCTransferRequestAminoMsg {
 }
 export interface RetryIBCTransferRequestSDKType {
   sender: Uint8Array;
+  /** @deprecated */
   chain: string;
   id: bigint;
 }
@@ -418,6 +421,7 @@ export interface RouteMessageRequest {
   sender: Uint8Array;
   id: string;
   payload: Uint8Array;
+  feegranter: Uint8Array;
 }
 export interface RouteMessageRequestProtoMsg {
   typeUrl: "/axelar.axelarnet.v1beta1.RouteMessageRequest";
@@ -427,6 +431,7 @@ export interface RouteMessageRequestAmino {
   sender: Uint8Array;
   id: string;
   payload: Uint8Array;
+  feegranter: Uint8Array;
 }
 export interface RouteMessageRequestAminoMsg {
   type: "/axelar.axelarnet.v1beta1.RouteMessageRequest";
@@ -436,6 +441,7 @@ export interface RouteMessageRequestSDKType {
   sender: Uint8Array;
   id: string;
   payload: Uint8Array;
+  feegranter: Uint8Array;
 }
 export interface RouteMessageResponse {}
 export interface RouteMessageResponseProtoMsg {
@@ -1442,7 +1448,8 @@ function createBaseRouteMessageRequest(): RouteMessageRequest {
   return {
     sender: new Uint8Array(),
     id: "",
-    payload: new Uint8Array()
+    payload: new Uint8Array(),
+    feegranter: new Uint8Array()
   };
 }
 export const RouteMessageRequest = {
@@ -1457,13 +1464,17 @@ export const RouteMessageRequest = {
     if (message.payload.length !== 0) {
       writer.uint32(26).bytes(message.payload);
     }
+    if (message.feegranter.length !== 0) {
+      writer.uint32(34).bytes(message.feegranter);
+    }
     return writer;
   },
   fromJSON(object: any): RouteMessageRequest {
     return {
       sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
       id: isSet(object.id) ? String(object.id) : "",
-      payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array()
+      payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
+      feegranter: isSet(object.feegranter) ? bytesFromBase64(object.feegranter) : new Uint8Array()
     };
   },
   fromPartial(object: Partial<RouteMessageRequest>): RouteMessageRequest {
@@ -1471,13 +1482,15 @@ export const RouteMessageRequest = {
     message.sender = object.sender ?? new Uint8Array();
     message.id = object.id ?? "";
     message.payload = object.payload ?? new Uint8Array();
+    message.feegranter = object.feegranter ?? new Uint8Array();
     return message;
   },
   fromAmino(object: RouteMessageRequestAmino): RouteMessageRequest {
     return {
       sender: object.sender,
       id: object.id,
-      payload: object.payload
+      payload: object.payload,
+      feegranter: object.feegranter
     };
   },
   toAmino(message: RouteMessageRequest): RouteMessageRequestAmino {
@@ -1485,6 +1498,7 @@ export const RouteMessageRequest = {
     obj.sender = message.sender;
     obj.id = message.id;
     obj.payload = message.payload;
+    obj.feegranter = message.feegranter;
     return obj;
   },
   fromAminoMsg(object: RouteMessageRequestAminoMsg): RouteMessageRequest {

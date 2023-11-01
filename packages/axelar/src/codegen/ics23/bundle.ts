@@ -1,4 +1,4 @@
-import * as _170 from "../proofs";
+import * as _173 from "../proofs";
 export const ics23 = {
-  ..._170
+  ..._173
 };

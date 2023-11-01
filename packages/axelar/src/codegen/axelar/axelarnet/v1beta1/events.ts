@@ -182,6 +182,9 @@ export interface FeePaid {
   messageId: string;
   recipient: Uint8Array;
   fee: Coin;
+  refundRecipient: string;
+  /** registered asset name in nexus */
+  asset: string;
 }
 export interface FeePaidProtoMsg {
   typeUrl: "/axelar.axelarnet.v1beta1.FeePaid";
@@ -191,6 +194,9 @@ export interface FeePaidAmino {
   message_id: string;
   recipient: Uint8Array;
   fee?: CoinAmino;
+  refund_recipient: string;
+  /** registered asset name in nexus */
+  asset: string;
 }
 export interface FeePaidAminoMsg {
   type: "/axelar.axelarnet.v1beta1.FeePaid";
@@ -200,6 +206,8 @@ export interface FeePaidSDKType {
   message_id: string;
   recipient: Uint8Array;
   fee: CoinSDKType;
+  refund_recipient: string;
+  asset: string;
 }
 export interface ContractCallSubmitted {
   messageId: string;
@@ -780,7 +788,9 @@ function createBaseFeePaid(): FeePaid {
   return {
     messageId: "",
     recipient: new Uint8Array(),
-    fee: Coin.fromPartial({})
+    fee: Coin.fromPartial({}),
+    refundRecipient: "",
+    asset: ""
   };
 }
 export const FeePaid = {
@@ -795,13 +805,21 @@ export const FeePaid = {
     if (message.fee !== undefined) {
       Coin.encode(message.fee, writer.uint32(26).fork()).ldelim();
     }
+    if (message.refundRecipient !== "") {
+      writer.uint32(34).string(message.refundRecipient);
+    }
+    if (message.asset !== "") {
+      writer.uint32(42).string(message.asset);
+    }
     return writer;
   },
   fromJSON(object: any): FeePaid {
     return {
       messageId: isSet(object.messageId) ? String(object.messageId) : "",
       recipient: isSet(object.recipient) ? bytesFromBase64(object.recipient) : new Uint8Array(),
-      fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined
+      fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
+      refundRecipient: isSet(object.refundRecipient) ? String(object.refundRecipient) : "",
+      asset: isSet(object.asset) ? String(object.asset) : ""
     };
   },
   fromPartial(object: Partial<FeePaid>): FeePaid {
@@ -809,13 +827,17 @@ export const FeePaid = {
     message.messageId = object.messageId ?? "";
     message.recipient = object.recipient ?? new Uint8Array();
     message.fee = object.fee !== undefined && object.fee !== null ? Coin.fromPartial(object.fee) : undefined;
+    message.refundRecipient = object.refundRecipient ?? "";
+    message.asset = object.asset ?? "";
     return message;
   },
   fromAmino(object: FeePaidAmino): FeePaid {
     return {
       messageId: object.message_id,
       recipient: object.recipient,
-      fee: object?.fee ? Coin.fromAmino(object.fee) : undefined
+      fee: object?.fee ? Coin.fromAmino(object.fee) : undefined,
+      refundRecipient: object.refund_recipient,
+      asset: object.asset
     };
   },
   toAmino(message: FeePaid): FeePaidAmino {
@@ -823,6 +845,8 @@ export const FeePaid = {
     obj.message_id = message.messageId;
     obj.recipient = message.recipient;
     obj.fee = message.fee ? Coin.toAmino(message.fee) : undefined;
+    obj.refund_recipient = message.refundRecipient;
+    obj.asset = message.asset;
     return obj;
   },
   fromAminoMsg(object: FeePaidAminoMsg): FeePaid {

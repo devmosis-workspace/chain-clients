@@ -124,6 +124,7 @@ export interface ConfirmKeyTransferStartedSDKType {
   confirmation_height: bigint;
   participants: PollParticipantsSDKType;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxStarted {
   txId: Uint8Array;
   chain: string;
@@ -135,6 +136,7 @@ export interface ConfirmGatewayTxStartedProtoMsg {
   typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxStarted";
   value: Uint8Array;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxStartedAmino {
   tx_id: Uint8Array;
   chain: string;
@@ -146,12 +148,62 @@ export interface ConfirmGatewayTxStartedAminoMsg {
   type: "/axelar.evm.v1beta1.ConfirmGatewayTxStarted";
   value: ConfirmGatewayTxStartedAmino;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxStartedSDKType {
   tx_id: Uint8Array;
   chain: string;
   gateway_address: Uint8Array;
   confirmation_height: bigint;
   participants: PollParticipantsSDKType;
+}
+export interface PollMapping {
+  txId: Uint8Array;
+  pollId: bigint;
+}
+export interface PollMappingProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.PollMapping";
+  value: Uint8Array;
+}
+export interface PollMappingAmino {
+  tx_id: Uint8Array;
+  poll_id: string;
+}
+export interface PollMappingAminoMsg {
+  type: "/axelar.evm.v1beta1.PollMapping";
+  value: PollMappingAmino;
+}
+export interface PollMappingSDKType {
+  tx_id: Uint8Array;
+  poll_id: bigint;
+}
+export interface ConfirmGatewayTxsStarted {
+  pollMappings: PollMapping[];
+  chain: string;
+  gatewayAddress: Uint8Array;
+  confirmationHeight: bigint;
+  participants: Uint8Array[];
+}
+export interface ConfirmGatewayTxsStartedProtoMsg {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsStarted";
+  value: Uint8Array;
+}
+export interface ConfirmGatewayTxsStartedAmino {
+  poll_mappings: PollMappingAmino[];
+  chain: string;
+  gateway_address: Uint8Array;
+  confirmation_height: string;
+  participants: Uint8Array[];
+}
+export interface ConfirmGatewayTxsStartedAminoMsg {
+  type: "/axelar.evm.v1beta1.ConfirmGatewayTxsStarted";
+  value: ConfirmGatewayTxsStartedAmino;
+}
+export interface ConfirmGatewayTxsStartedSDKType {
+  poll_mappings: PollMappingSDKType[];
+  chain: string;
+  gateway_address: Uint8Array;
+  confirmation_height: bigint;
+  participants: Uint8Array[];
 }
 export interface ConfirmDepositStarted {
   txId: Uint8Array;
@@ -980,6 +1032,152 @@ export const ConfirmGatewayTxStarted = {
     return {
       typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxStarted",
       value: ConfirmGatewayTxStarted.encode(message).finish()
+    };
+  }
+};
+function createBasePollMapping(): PollMapping {
+  return {
+    txId: new Uint8Array(),
+    pollId: BigInt(0)
+  };
+}
+export const PollMapping = {
+  typeUrl: "/axelar.evm.v1beta1.PollMapping",
+  encode(message: PollMapping, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.txId.length !== 0) {
+      writer.uint32(10).bytes(message.txId);
+    }
+    if (message.pollId !== BigInt(0)) {
+      writer.uint32(16).uint64(message.pollId);
+    }
+    return writer;
+  },
+  fromJSON(object: any): PollMapping {
+    return {
+      txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(),
+      pollId: isSet(object.pollId) ? BigInt(object.pollId.toString()) : BigInt(0)
+    };
+  },
+  fromPartial(object: Partial<PollMapping>): PollMapping {
+    const message = createBasePollMapping();
+    message.txId = object.txId ?? new Uint8Array();
+    message.pollId = object.pollId !== undefined && object.pollId !== null ? BigInt(object.pollId.toString()) : BigInt(0);
+    return message;
+  },
+  fromAmino(object: PollMappingAmino): PollMapping {
+    return {
+      txId: object.tx_id,
+      pollId: BigInt(object.poll_id)
+    };
+  },
+  toAmino(message: PollMapping): PollMappingAmino {
+    const obj: any = {};
+    obj.tx_id = message.txId;
+    obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PollMappingAminoMsg): PollMapping {
+    return PollMapping.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PollMappingProtoMsg): PollMapping {
+    return PollMapping.decode(message.value);
+  },
+  toProto(message: PollMapping): Uint8Array {
+    return PollMapping.encode(message).finish();
+  },
+  toProtoMsg(message: PollMapping): PollMappingProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.PollMapping",
+      value: PollMapping.encode(message).finish()
+    };
+  }
+};
+function createBaseConfirmGatewayTxsStarted(): ConfirmGatewayTxsStarted {
+  return {
+    pollMappings: [],
+    chain: "",
+    gatewayAddress: new Uint8Array(),
+    confirmationHeight: BigInt(0),
+    participants: []
+  };
+}
+export const ConfirmGatewayTxsStarted = {
+  typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsStarted",
+  encode(message: ConfirmGatewayTxsStarted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.pollMappings) {
+      PollMapping.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.chain !== "") {
+      writer.uint32(18).string(message.chain);
+    }
+    if (message.gatewayAddress.length !== 0) {
+      writer.uint32(26).bytes(message.gatewayAddress);
+    }
+    if (message.confirmationHeight !== BigInt(0)) {
+      writer.uint32(32).uint64(message.confirmationHeight);
+    }
+    for (const v of message.participants) {
+      writer.uint32(42).bytes(v!);
+    }
+    return writer;
+  },
+  fromJSON(object: any): ConfirmGatewayTxsStarted {
+    return {
+      pollMappings: Array.isArray(object?.pollMappings) ? object.pollMappings.map((e: any) => PollMapping.fromJSON(e)) : [],
+      chain: isSet(object.chain) ? String(object.chain) : "",
+      gatewayAddress: isSet(object.gatewayAddress) ? bytesFromBase64(object.gatewayAddress) : new Uint8Array(),
+      confirmationHeight: isSet(object.confirmationHeight) ? BigInt(object.confirmationHeight.toString()) : BigInt(0),
+      participants: Array.isArray(object?.participants) ? object.participants.map((e: any) => bytesFromBase64(e)) : []
+    };
+  },
+  fromPartial(object: Partial<ConfirmGatewayTxsStarted>): ConfirmGatewayTxsStarted {
+    const message = createBaseConfirmGatewayTxsStarted();
+    message.pollMappings = object.pollMappings?.map(e => PollMapping.fromPartial(e)) || [];
+    message.chain = object.chain ?? "";
+    message.gatewayAddress = object.gatewayAddress ?? new Uint8Array();
+    message.confirmationHeight = object.confirmationHeight !== undefined && object.confirmationHeight !== null ? BigInt(object.confirmationHeight.toString()) : BigInt(0);
+    message.participants = object.participants?.map(e => e) || [];
+    return message;
+  },
+  fromAmino(object: ConfirmGatewayTxsStartedAmino): ConfirmGatewayTxsStarted {
+    return {
+      pollMappings: Array.isArray(object?.poll_mappings) ? object.poll_mappings.map((e: any) => PollMapping.fromAmino(e)) : [],
+      chain: object.chain,
+      gatewayAddress: object.gateway_address,
+      confirmationHeight: BigInt(object.confirmation_height),
+      participants: Array.isArray(object?.participants) ? object.participants.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: ConfirmGatewayTxsStarted): ConfirmGatewayTxsStartedAmino {
+    const obj: any = {};
+    if (message.pollMappings) {
+      obj.poll_mappings = message.pollMappings.map(e => e ? PollMapping.toAmino(e) : undefined);
+    } else {
+      obj.poll_mappings = [];
+    }
+    obj.chain = message.chain;
+    obj.gateway_address = message.gatewayAddress;
+    obj.confirmation_height = message.confirmationHeight ? message.confirmationHeight.toString() : undefined;
+    if (message.participants) {
+      obj.participants = message.participants.map(e => e);
+    } else {
+      obj.participants = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ConfirmGatewayTxsStartedAminoMsg): ConfirmGatewayTxsStarted {
+    return ConfirmGatewayTxsStarted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ConfirmGatewayTxsStartedProtoMsg): ConfirmGatewayTxsStarted {
+    return ConfirmGatewayTxsStarted.decode(message.value);
+  },
+  toProto(message: ConfirmGatewayTxsStarted): Uint8Array {
+    return ConfirmGatewayTxsStarted.encode(message).finish();
+  },
+  toProtoMsg(message: ConfirmGatewayTxsStarted): ConfirmGatewayTxsStartedProtoMsg {
+    return {
+      typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsStarted",
+      value: ConfirmGatewayTxsStarted.encode(message).finish()
     };
   }
 };

@@ -141,6 +141,7 @@ export interface AssetSDKType {
 export interface Fee {
   amount: Coin;
   recipient: Uint8Array;
+  refundRecipient: Uint8Array;
 }
 export interface FeeProtoMsg {
   typeUrl: "/axelar.axelarnet.v1beta1.Fee";
@@ -149,6 +150,7 @@ export interface FeeProtoMsg {
 export interface FeeAmino {
   amount?: CoinAmino;
   recipient: Uint8Array;
+  refund_recipient: Uint8Array;
 }
 export interface FeeAminoMsg {
   type: "/axelar.axelarnet.v1beta1.Fee";
@@ -157,6 +159,7 @@ export interface FeeAminoMsg {
 export interface FeeSDKType {
   amount: CoinSDKType;
   recipient: Uint8Array;
+  refund_recipient: Uint8Array;
 }
 function createBaseIBCTransfer(): IBCTransfer {
   return {
@@ -400,7 +403,8 @@ export const Asset = {
 function createBaseFee(): Fee {
   return {
     amount: Coin.fromPartial({}),
-    recipient: new Uint8Array()
+    recipient: new Uint8Array(),
+    refundRecipient: new Uint8Array()
   };
 }
 export const Fee = {
@@ -412,30 +416,37 @@ export const Fee = {
     if (message.recipient.length !== 0) {
       writer.uint32(18).bytes(message.recipient);
     }
+    if (message.refundRecipient.length !== 0) {
+      writer.uint32(26).bytes(message.refundRecipient);
+    }
     return writer;
   },
   fromJSON(object: any): Fee {
     return {
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
-      recipient: isSet(object.recipient) ? bytesFromBase64(object.recipient) : new Uint8Array()
+      recipient: isSet(object.recipient) ? bytesFromBase64(object.recipient) : new Uint8Array(),
+      refundRecipient: isSet(object.refundRecipient) ? bytesFromBase64(object.refundRecipient) : new Uint8Array()
     };
   },
   fromPartial(object: Partial<Fee>): Fee {
     const message = createBaseFee();
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     message.recipient = object.recipient ?? new Uint8Array();
+    message.refundRecipient = object.refundRecipient ?? new Uint8Array();
     return message;
   },
   fromAmino(object: FeeAmino): Fee {
     return {
       amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
-      recipient: object.recipient
+      recipient: object.recipient,
+      refundRecipient: object.refund_recipient
     };
   },
   toAmino(message: Fee): FeeAmino {
     const obj: any = {};
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
     obj.recipient = message.recipient;
+    obj.refund_recipient = message.refundRecipient;
     return obj;
   },
   fromAminoMsg(object: FeeAminoMsg): Fee {
