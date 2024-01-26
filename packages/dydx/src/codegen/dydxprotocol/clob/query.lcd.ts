@@ -1,6 +1,6 @@
 import { setPaginationParams } from "../../helpers";
 import { LCDClient } from "@cosmology/lcd";
-import { QueryGetClobPairRequest, QueryClobPairResponseSDKType, QueryAllClobPairRequest, QueryClobPairAllResponseSDKType, QueryEquityTierLimitConfigurationRequest, QueryEquityTierLimitConfigurationResponseSDKType } from "./query";
+import { QueryGetClobPairRequest, QueryClobPairResponseSDKType, QueryAllClobPairRequest, QueryClobPairAllResponseSDKType, QueryEquityTierLimitConfigurationRequest, QueryEquityTierLimitConfigurationResponseSDKType, QueryBlockRateLimitConfigurationRequest, QueryBlockRateLimitConfigurationResponseSDKType, QueryLiquidationsConfigurationRequest, QueryLiquidationsConfigurationResponseSDKType } from "./query";
 export class LCDQueryClient {
   req: LCDClient;
   constructor({
@@ -12,6 +12,8 @@ export class LCDQueryClient {
     this.clobPair = this.clobPair.bind(this);
     this.clobPairAll = this.clobPairAll.bind(this);
     this.equityTierLimitConfiguration = this.equityTierLimitConfiguration.bind(this);
+    this.blockRateLimitConfiguration = this.blockRateLimitConfiguration.bind(this);
+    this.liquidationsConfiguration = this.liquidationsConfiguration.bind(this);
   }
   /* Queries a ClobPair by id. */
   async clobPair(params: QueryGetClobPairRequest): Promise<QueryClobPairResponseSDKType> {
@@ -35,5 +37,15 @@ export class LCDQueryClient {
   async equityTierLimitConfiguration(_params: QueryEquityTierLimitConfigurationRequest = {}): Promise<QueryEquityTierLimitConfigurationResponseSDKType> {
     const endpoint = `dydxprotocol/clob/equity_tier`;
     return await this.req.get<QueryEquityTierLimitConfigurationResponseSDKType>(endpoint);
+  }
+  /* Queries BlockRateLimitConfiguration. */
+  async blockRateLimitConfiguration(_params: QueryBlockRateLimitConfigurationRequest = {}): Promise<QueryBlockRateLimitConfigurationResponseSDKType> {
+    const endpoint = `dydxprotocol/clob/block_rate`;
+    return await this.req.get<QueryBlockRateLimitConfigurationResponseSDKType>(endpoint);
+  }
+  /* Queries LiquidationsConfiguration. */
+  async liquidationsConfiguration(_params: QueryLiquidationsConfigurationRequest = {}): Promise<QueryLiquidationsConfigurationResponseSDKType> {
+    const endpoint = `dydxprotocol/clob/liquidations_config`;
+    return await this.req.get<QueryLiquidationsConfigurationResponseSDKType>(endpoint);
   }
 }

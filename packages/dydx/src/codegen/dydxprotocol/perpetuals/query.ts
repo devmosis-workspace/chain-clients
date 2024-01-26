@@ -1,5 +1,6 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { Perpetual, PerpetualAmino, PerpetualSDKType } from "./perpetual";
+import { Perpetual, PerpetualAmino, PerpetualSDKType, PremiumStore, PremiumStoreAmino, PremiumStoreSDKType } from "./perpetual";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** Queries a Perpetual by id. */
@@ -86,6 +87,135 @@ export interface QueryAllPerpetualsResponseAminoMsg {
 export interface QueryAllPerpetualsResponseSDKType {
   perpetual: PerpetualSDKType[];
   pagination: PageResponseSDKType;
+}
+/** QueryPremiumVotesRequest is the request type for the PremiumVotes RPC method. */
+export interface QueryPremiumVotesRequest {}
+export interface QueryPremiumVotesRequestProtoMsg {
+  typeUrl: "/dydxprotocol.perpetuals.QueryPremiumVotesRequest";
+  value: Uint8Array;
+}
+/** QueryPremiumVotesRequest is the request type for the PremiumVotes RPC method. */
+export interface QueryPremiumVotesRequestAmino {}
+export interface QueryPremiumVotesRequestAminoMsg {
+  type: "/dydxprotocol.perpetuals.QueryPremiumVotesRequest";
+  value: QueryPremiumVotesRequestAmino;
+}
+/** QueryPremiumVotesRequest is the request type for the PremiumVotes RPC method. */
+export interface QueryPremiumVotesRequestSDKType {}
+/**
+ * QueryPremiumVotesResponse is the response type for the PremiumVotes RPC
+ * method.
+ */
+export interface QueryPremiumVotesResponse {
+  premiumVotes: PremiumStore;
+}
+export interface QueryPremiumVotesResponseProtoMsg {
+  typeUrl: "/dydxprotocol.perpetuals.QueryPremiumVotesResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryPremiumVotesResponse is the response type for the PremiumVotes RPC
+ * method.
+ */
+export interface QueryPremiumVotesResponseAmino {
+  premium_votes?: PremiumStoreAmino;
+}
+export interface QueryPremiumVotesResponseAminoMsg {
+  type: "/dydxprotocol.perpetuals.QueryPremiumVotesResponse";
+  value: QueryPremiumVotesResponseAmino;
+}
+/**
+ * QueryPremiumVotesResponse is the response type for the PremiumVotes RPC
+ * method.
+ */
+export interface QueryPremiumVotesResponseSDKType {
+  premium_votes: PremiumStoreSDKType;
+}
+/**
+ * QueryPremiumSamplesRequest is the request type for the PremiumSamples RPC
+ * method.
+ */
+export interface QueryPremiumSamplesRequest {}
+export interface QueryPremiumSamplesRequestProtoMsg {
+  typeUrl: "/dydxprotocol.perpetuals.QueryPremiumSamplesRequest";
+  value: Uint8Array;
+}
+/**
+ * QueryPremiumSamplesRequest is the request type for the PremiumSamples RPC
+ * method.
+ */
+export interface QueryPremiumSamplesRequestAmino {}
+export interface QueryPremiumSamplesRequestAminoMsg {
+  type: "/dydxprotocol.perpetuals.QueryPremiumSamplesRequest";
+  value: QueryPremiumSamplesRequestAmino;
+}
+/**
+ * QueryPremiumSamplesRequest is the request type for the PremiumSamples RPC
+ * method.
+ */
+export interface QueryPremiumSamplesRequestSDKType {}
+/**
+ * QueryPremiumSamplesResponse is the response type for the PremiumSamples RPC
+ * method.
+ */
+export interface QueryPremiumSamplesResponse {
+  premiumSamples: PremiumStore;
+}
+export interface QueryPremiumSamplesResponseProtoMsg {
+  typeUrl: "/dydxprotocol.perpetuals.QueryPremiumSamplesResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryPremiumSamplesResponse is the response type for the PremiumSamples RPC
+ * method.
+ */
+export interface QueryPremiumSamplesResponseAmino {
+  premium_samples?: PremiumStoreAmino;
+}
+export interface QueryPremiumSamplesResponseAminoMsg {
+  type: "/dydxprotocol.perpetuals.QueryPremiumSamplesResponse";
+  value: QueryPremiumSamplesResponseAmino;
+}
+/**
+ * QueryPremiumSamplesResponse is the response type for the PremiumSamples RPC
+ * method.
+ */
+export interface QueryPremiumSamplesResponseSDKType {
+  premium_samples: PremiumStoreSDKType;
+}
+/** QueryParamsResponse is the response type for the Params RPC method. */
+export interface QueryParamsRequest {}
+export interface QueryParamsRequestProtoMsg {
+  typeUrl: "/dydxprotocol.perpetuals.QueryParamsRequest";
+  value: Uint8Array;
+}
+/** QueryParamsResponse is the response type for the Params RPC method. */
+export interface QueryParamsRequestAmino {}
+export interface QueryParamsRequestAminoMsg {
+  type: "/dydxprotocol.perpetuals.QueryParamsRequest";
+  value: QueryParamsRequestAmino;
+}
+/** QueryParamsResponse is the response type for the Params RPC method. */
+export interface QueryParamsRequestSDKType {}
+/** QueryParamsResponse is the response type for the Params RPC method. */
+export interface QueryParamsResponse {
+  params: Params;
+}
+export interface QueryParamsResponseProtoMsg {
+  typeUrl: "/dydxprotocol.perpetuals.QueryParamsResponse";
+  value: Uint8Array;
+}
+/** QueryParamsResponse is the response type for the Params RPC method. */
+export interface QueryParamsResponseAmino {
+  params?: ParamsAmino;
+}
+export interface QueryParamsResponseAminoMsg {
+  type: "/dydxprotocol.perpetuals.QueryParamsResponse";
+  value: QueryParamsResponseAmino;
+}
+/** QueryParamsResponse is the response type for the Params RPC method. */
+export interface QueryParamsResponseSDKType {
+  params: ParamsSDKType;
 }
 function createBaseQueryPerpetualRequest(): QueryPerpetualRequest {
   return {
@@ -292,6 +422,267 @@ export const QueryAllPerpetualsResponse = {
     return {
       typeUrl: "/dydxprotocol.perpetuals.QueryAllPerpetualsResponse",
       value: QueryAllPerpetualsResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryPremiumVotesRequest(): QueryPremiumVotesRequest {
+  return {};
+}
+export const QueryPremiumVotesRequest = {
+  typeUrl: "/dydxprotocol.perpetuals.QueryPremiumVotesRequest",
+  encode(_: QueryPremiumVotesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryPremiumVotesRequest {
+    return {};
+  },
+  fromPartial(_: Partial<QueryPremiumVotesRequest>): QueryPremiumVotesRequest {
+    const message = createBaseQueryPremiumVotesRequest();
+    return message;
+  },
+  fromAmino(_: QueryPremiumVotesRequestAmino): QueryPremiumVotesRequest {
+    return {};
+  },
+  toAmino(_: QueryPremiumVotesRequest): QueryPremiumVotesRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryPremiumVotesRequestAminoMsg): QueryPremiumVotesRequest {
+    return QueryPremiumVotesRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPremiumVotesRequestProtoMsg): QueryPremiumVotesRequest {
+    return QueryPremiumVotesRequest.decode(message.value);
+  },
+  toProto(message: QueryPremiumVotesRequest): Uint8Array {
+    return QueryPremiumVotesRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPremiumVotesRequest): QueryPremiumVotesRequestProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.perpetuals.QueryPremiumVotesRequest",
+      value: QueryPremiumVotesRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryPremiumVotesResponse(): QueryPremiumVotesResponse {
+  return {
+    premiumVotes: PremiumStore.fromPartial({})
+  };
+}
+export const QueryPremiumVotesResponse = {
+  typeUrl: "/dydxprotocol.perpetuals.QueryPremiumVotesResponse",
+  encode(message: QueryPremiumVotesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.premiumVotes !== undefined) {
+      PremiumStore.encode(message.premiumVotes, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryPremiumVotesResponse {
+    return {
+      premiumVotes: isSet(object.premiumVotes) ? PremiumStore.fromJSON(object.premiumVotes) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryPremiumVotesResponse>): QueryPremiumVotesResponse {
+    const message = createBaseQueryPremiumVotesResponse();
+    message.premiumVotes = object.premiumVotes !== undefined && object.premiumVotes !== null ? PremiumStore.fromPartial(object.premiumVotes) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryPremiumVotesResponseAmino): QueryPremiumVotesResponse {
+    return {
+      premiumVotes: object?.premium_votes ? PremiumStore.fromAmino(object.premium_votes) : undefined
+    };
+  },
+  toAmino(message: QueryPremiumVotesResponse): QueryPremiumVotesResponseAmino {
+    const obj: any = {};
+    obj.premium_votes = message.premiumVotes ? PremiumStore.toAmino(message.premiumVotes) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPremiumVotesResponseAminoMsg): QueryPremiumVotesResponse {
+    return QueryPremiumVotesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPremiumVotesResponseProtoMsg): QueryPremiumVotesResponse {
+    return QueryPremiumVotesResponse.decode(message.value);
+  },
+  toProto(message: QueryPremiumVotesResponse): Uint8Array {
+    return QueryPremiumVotesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPremiumVotesResponse): QueryPremiumVotesResponseProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.perpetuals.QueryPremiumVotesResponse",
+      value: QueryPremiumVotesResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryPremiumSamplesRequest(): QueryPremiumSamplesRequest {
+  return {};
+}
+export const QueryPremiumSamplesRequest = {
+  typeUrl: "/dydxprotocol.perpetuals.QueryPremiumSamplesRequest",
+  encode(_: QueryPremiumSamplesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryPremiumSamplesRequest {
+    return {};
+  },
+  fromPartial(_: Partial<QueryPremiumSamplesRequest>): QueryPremiumSamplesRequest {
+    const message = createBaseQueryPremiumSamplesRequest();
+    return message;
+  },
+  fromAmino(_: QueryPremiumSamplesRequestAmino): QueryPremiumSamplesRequest {
+    return {};
+  },
+  toAmino(_: QueryPremiumSamplesRequest): QueryPremiumSamplesRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryPremiumSamplesRequestAminoMsg): QueryPremiumSamplesRequest {
+    return QueryPremiumSamplesRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPremiumSamplesRequestProtoMsg): QueryPremiumSamplesRequest {
+    return QueryPremiumSamplesRequest.decode(message.value);
+  },
+  toProto(message: QueryPremiumSamplesRequest): Uint8Array {
+    return QueryPremiumSamplesRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPremiumSamplesRequest): QueryPremiumSamplesRequestProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.perpetuals.QueryPremiumSamplesRequest",
+      value: QueryPremiumSamplesRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryPremiumSamplesResponse(): QueryPremiumSamplesResponse {
+  return {
+    premiumSamples: PremiumStore.fromPartial({})
+  };
+}
+export const QueryPremiumSamplesResponse = {
+  typeUrl: "/dydxprotocol.perpetuals.QueryPremiumSamplesResponse",
+  encode(message: QueryPremiumSamplesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.premiumSamples !== undefined) {
+      PremiumStore.encode(message.premiumSamples, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryPremiumSamplesResponse {
+    return {
+      premiumSamples: isSet(object.premiumSamples) ? PremiumStore.fromJSON(object.premiumSamples) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryPremiumSamplesResponse>): QueryPremiumSamplesResponse {
+    const message = createBaseQueryPremiumSamplesResponse();
+    message.premiumSamples = object.premiumSamples !== undefined && object.premiumSamples !== null ? PremiumStore.fromPartial(object.premiumSamples) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryPremiumSamplesResponseAmino): QueryPremiumSamplesResponse {
+    return {
+      premiumSamples: object?.premium_samples ? PremiumStore.fromAmino(object.premium_samples) : undefined
+    };
+  },
+  toAmino(message: QueryPremiumSamplesResponse): QueryPremiumSamplesResponseAmino {
+    const obj: any = {};
+    obj.premium_samples = message.premiumSamples ? PremiumStore.toAmino(message.premiumSamples) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPremiumSamplesResponseAminoMsg): QueryPremiumSamplesResponse {
+    return QueryPremiumSamplesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryPremiumSamplesResponseProtoMsg): QueryPremiumSamplesResponse {
+    return QueryPremiumSamplesResponse.decode(message.value);
+  },
+  toProto(message: QueryPremiumSamplesResponse): Uint8Array {
+    return QueryPremiumSamplesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryPremiumSamplesResponse): QueryPremiumSamplesResponseProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.perpetuals.QueryPremiumSamplesResponse",
+      value: QueryPremiumSamplesResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryParamsRequest(): QueryParamsRequest {
+  return {};
+}
+export const QueryParamsRequest = {
+  typeUrl: "/dydxprotocol.perpetuals.QueryParamsRequest",
+  encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryParamsRequest {
+    return {};
+  },
+  fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest {
+    const message = createBaseQueryParamsRequest();
+    return message;
+  },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsRequestProtoMsg): QueryParamsRequest {
+    return QueryParamsRequest.decode(message.value);
+  },
+  toProto(message: QueryParamsRequest): Uint8Array {
+    return QueryParamsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsRequest): QueryParamsRequestProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.perpetuals.QueryParamsRequest",
+      value: QueryParamsRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryParamsResponse(): QueryParamsResponse {
+  return {
+    params: Params.fromPartial({})
+  };
+}
+export const QueryParamsResponse = {
+  typeUrl: "/dydxprotocol.perpetuals.QueryParamsResponse",
+  encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryParamsResponse {
+    return {
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryParamsResponse>): QueryParamsResponse {
+    const message = createBaseQueryParamsResponse();
+    message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsResponseProtoMsg): QueryParamsResponse {
+    return QueryParamsResponse.decode(message.value);
+  },
+  toProto(message: QueryParamsResponse): Uint8Array {
+    return QueryParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.perpetuals.QueryParamsResponse",
+      value: QueryParamsResponse.encode(message).finish()
     };
   }
 };

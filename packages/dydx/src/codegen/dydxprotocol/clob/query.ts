@@ -3,6 +3,8 @@ import { SubaccountId, SubaccountIdAmino, SubaccountIdSDKType } from "../subacco
 import { ValidatorMevMatches, ValidatorMevMatchesAmino, ValidatorMevMatchesSDKType, MevNodeToNodeMetrics, MevNodeToNodeMetricsAmino, MevNodeToNodeMetricsSDKType } from "./mev";
 import { ClobPair, ClobPairAmino, ClobPairSDKType } from "./clob_pair";
 import { EquityTierLimitConfiguration, EquityTierLimitConfigurationAmino, EquityTierLimitConfigurationSDKType } from "./equity_tier_limit_config";
+import { BlockRateLimitConfiguration, BlockRateLimitConfigurationAmino, BlockRateLimitConfigurationSDKType } from "./block_rate_limit_config";
+import { LiquidationsConfig, LiquidationsConfigAmino, LiquidationsConfigSDKType } from "./liquidations_config";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** QueryGetClobPairRequest is request type for the ClobPair method. */
@@ -326,6 +328,110 @@ export interface QueryEquityTierLimitConfigurationResponseAminoMsg {
  */
 export interface QueryEquityTierLimitConfigurationResponseSDKType {
   equity_tier_limit_config: EquityTierLimitConfigurationSDKType;
+}
+/**
+ * QueryBlockRateLimitConfigurationRequest is a request message for
+ * BlockRateLimitConfiguration.
+ */
+export interface QueryBlockRateLimitConfigurationRequest {}
+export interface QueryBlockRateLimitConfigurationRequestProtoMsg {
+  typeUrl: "/dydxprotocol.clob.QueryBlockRateLimitConfigurationRequest";
+  value: Uint8Array;
+}
+/**
+ * QueryBlockRateLimitConfigurationRequest is a request message for
+ * BlockRateLimitConfiguration.
+ */
+export interface QueryBlockRateLimitConfigurationRequestAmino {}
+export interface QueryBlockRateLimitConfigurationRequestAminoMsg {
+  type: "/dydxprotocol.clob.QueryBlockRateLimitConfigurationRequest";
+  value: QueryBlockRateLimitConfigurationRequestAmino;
+}
+/**
+ * QueryBlockRateLimitConfigurationRequest is a request message for
+ * BlockRateLimitConfiguration.
+ */
+export interface QueryBlockRateLimitConfigurationRequestSDKType {}
+/**
+ * QueryBlockRateLimitConfigurationResponse is a response message that contains
+ * the BlockRateLimitConfiguration.
+ */
+export interface QueryBlockRateLimitConfigurationResponse {
+  blockRateLimitConfig: BlockRateLimitConfiguration;
+}
+export interface QueryBlockRateLimitConfigurationResponseProtoMsg {
+  typeUrl: "/dydxprotocol.clob.QueryBlockRateLimitConfigurationResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryBlockRateLimitConfigurationResponse is a response message that contains
+ * the BlockRateLimitConfiguration.
+ */
+export interface QueryBlockRateLimitConfigurationResponseAmino {
+  block_rate_limit_config?: BlockRateLimitConfigurationAmino;
+}
+export interface QueryBlockRateLimitConfigurationResponseAminoMsg {
+  type: "/dydxprotocol.clob.QueryBlockRateLimitConfigurationResponse";
+  value: QueryBlockRateLimitConfigurationResponseAmino;
+}
+/**
+ * QueryBlockRateLimitConfigurationResponse is a response message that contains
+ * the BlockRateLimitConfiguration.
+ */
+export interface QueryBlockRateLimitConfigurationResponseSDKType {
+  block_rate_limit_config: BlockRateLimitConfigurationSDKType;
+}
+/**
+ * QueryLiquidationsConfigurationRequest is a request message for
+ * LiquidationsConfiguration.
+ */
+export interface QueryLiquidationsConfigurationRequest {}
+export interface QueryLiquidationsConfigurationRequestProtoMsg {
+  typeUrl: "/dydxprotocol.clob.QueryLiquidationsConfigurationRequest";
+  value: Uint8Array;
+}
+/**
+ * QueryLiquidationsConfigurationRequest is a request message for
+ * LiquidationsConfiguration.
+ */
+export interface QueryLiquidationsConfigurationRequestAmino {}
+export interface QueryLiquidationsConfigurationRequestAminoMsg {
+  type: "/dydxprotocol.clob.QueryLiquidationsConfigurationRequest";
+  value: QueryLiquidationsConfigurationRequestAmino;
+}
+/**
+ * QueryLiquidationsConfigurationRequest is a request message for
+ * LiquidationsConfiguration.
+ */
+export interface QueryLiquidationsConfigurationRequestSDKType {}
+/**
+ * QueryLiquidationsConfigurationResponse is a response message that contains
+ * the LiquidationsConfiguration.
+ */
+export interface QueryLiquidationsConfigurationResponse {
+  liquidationsConfig: LiquidationsConfig;
+}
+export interface QueryLiquidationsConfigurationResponseProtoMsg {
+  typeUrl: "/dydxprotocol.clob.QueryLiquidationsConfigurationResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryLiquidationsConfigurationResponse is a response message that contains
+ * the LiquidationsConfiguration.
+ */
+export interface QueryLiquidationsConfigurationResponseAmino {
+  liquidations_config?: LiquidationsConfigAmino;
+}
+export interface QueryLiquidationsConfigurationResponseAminoMsg {
+  type: "/dydxprotocol.clob.QueryLiquidationsConfigurationResponse";
+  value: QueryLiquidationsConfigurationResponseAmino;
+}
+/**
+ * QueryLiquidationsConfigurationResponse is a response message that contains
+ * the LiquidationsConfiguration.
+ */
+export interface QueryLiquidationsConfigurationResponseSDKType {
+  liquidations_config: LiquidationsConfigSDKType;
 }
 function createBaseQueryGetClobPairRequest(): QueryGetClobPairRequest {
   return {
@@ -957,6 +1063,180 @@ export const QueryEquityTierLimitConfigurationResponse = {
     return {
       typeUrl: "/dydxprotocol.clob.QueryEquityTierLimitConfigurationResponse",
       value: QueryEquityTierLimitConfigurationResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryBlockRateLimitConfigurationRequest(): QueryBlockRateLimitConfigurationRequest {
+  return {};
+}
+export const QueryBlockRateLimitConfigurationRequest = {
+  typeUrl: "/dydxprotocol.clob.QueryBlockRateLimitConfigurationRequest",
+  encode(_: QueryBlockRateLimitConfigurationRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryBlockRateLimitConfigurationRequest {
+    return {};
+  },
+  fromPartial(_: Partial<QueryBlockRateLimitConfigurationRequest>): QueryBlockRateLimitConfigurationRequest {
+    const message = createBaseQueryBlockRateLimitConfigurationRequest();
+    return message;
+  },
+  fromAmino(_: QueryBlockRateLimitConfigurationRequestAmino): QueryBlockRateLimitConfigurationRequest {
+    return {};
+  },
+  toAmino(_: QueryBlockRateLimitConfigurationRequest): QueryBlockRateLimitConfigurationRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryBlockRateLimitConfigurationRequestAminoMsg): QueryBlockRateLimitConfigurationRequest {
+    return QueryBlockRateLimitConfigurationRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryBlockRateLimitConfigurationRequestProtoMsg): QueryBlockRateLimitConfigurationRequest {
+    return QueryBlockRateLimitConfigurationRequest.decode(message.value);
+  },
+  toProto(message: QueryBlockRateLimitConfigurationRequest): Uint8Array {
+    return QueryBlockRateLimitConfigurationRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryBlockRateLimitConfigurationRequest): QueryBlockRateLimitConfigurationRequestProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.clob.QueryBlockRateLimitConfigurationRequest",
+      value: QueryBlockRateLimitConfigurationRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryBlockRateLimitConfigurationResponse(): QueryBlockRateLimitConfigurationResponse {
+  return {
+    blockRateLimitConfig: BlockRateLimitConfiguration.fromPartial({})
+  };
+}
+export const QueryBlockRateLimitConfigurationResponse = {
+  typeUrl: "/dydxprotocol.clob.QueryBlockRateLimitConfigurationResponse",
+  encode(message: QueryBlockRateLimitConfigurationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.blockRateLimitConfig !== undefined) {
+      BlockRateLimitConfiguration.encode(message.blockRateLimitConfig, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryBlockRateLimitConfigurationResponse {
+    return {
+      blockRateLimitConfig: isSet(object.blockRateLimitConfig) ? BlockRateLimitConfiguration.fromJSON(object.blockRateLimitConfig) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryBlockRateLimitConfigurationResponse>): QueryBlockRateLimitConfigurationResponse {
+    const message = createBaseQueryBlockRateLimitConfigurationResponse();
+    message.blockRateLimitConfig = object.blockRateLimitConfig !== undefined && object.blockRateLimitConfig !== null ? BlockRateLimitConfiguration.fromPartial(object.blockRateLimitConfig) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryBlockRateLimitConfigurationResponseAmino): QueryBlockRateLimitConfigurationResponse {
+    return {
+      blockRateLimitConfig: object?.block_rate_limit_config ? BlockRateLimitConfiguration.fromAmino(object.block_rate_limit_config) : undefined
+    };
+  },
+  toAmino(message: QueryBlockRateLimitConfigurationResponse): QueryBlockRateLimitConfigurationResponseAmino {
+    const obj: any = {};
+    obj.block_rate_limit_config = message.blockRateLimitConfig ? BlockRateLimitConfiguration.toAmino(message.blockRateLimitConfig) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryBlockRateLimitConfigurationResponseAminoMsg): QueryBlockRateLimitConfigurationResponse {
+    return QueryBlockRateLimitConfigurationResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryBlockRateLimitConfigurationResponseProtoMsg): QueryBlockRateLimitConfigurationResponse {
+    return QueryBlockRateLimitConfigurationResponse.decode(message.value);
+  },
+  toProto(message: QueryBlockRateLimitConfigurationResponse): Uint8Array {
+    return QueryBlockRateLimitConfigurationResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryBlockRateLimitConfigurationResponse): QueryBlockRateLimitConfigurationResponseProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.clob.QueryBlockRateLimitConfigurationResponse",
+      value: QueryBlockRateLimitConfigurationResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryLiquidationsConfigurationRequest(): QueryLiquidationsConfigurationRequest {
+  return {};
+}
+export const QueryLiquidationsConfigurationRequest = {
+  typeUrl: "/dydxprotocol.clob.QueryLiquidationsConfigurationRequest",
+  encode(_: QueryLiquidationsConfigurationRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryLiquidationsConfigurationRequest {
+    return {};
+  },
+  fromPartial(_: Partial<QueryLiquidationsConfigurationRequest>): QueryLiquidationsConfigurationRequest {
+    const message = createBaseQueryLiquidationsConfigurationRequest();
+    return message;
+  },
+  fromAmino(_: QueryLiquidationsConfigurationRequestAmino): QueryLiquidationsConfigurationRequest {
+    return {};
+  },
+  toAmino(_: QueryLiquidationsConfigurationRequest): QueryLiquidationsConfigurationRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryLiquidationsConfigurationRequestAminoMsg): QueryLiquidationsConfigurationRequest {
+    return QueryLiquidationsConfigurationRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryLiquidationsConfigurationRequestProtoMsg): QueryLiquidationsConfigurationRequest {
+    return QueryLiquidationsConfigurationRequest.decode(message.value);
+  },
+  toProto(message: QueryLiquidationsConfigurationRequest): Uint8Array {
+    return QueryLiquidationsConfigurationRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryLiquidationsConfigurationRequest): QueryLiquidationsConfigurationRequestProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.clob.QueryLiquidationsConfigurationRequest",
+      value: QueryLiquidationsConfigurationRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryLiquidationsConfigurationResponse(): QueryLiquidationsConfigurationResponse {
+  return {
+    liquidationsConfig: LiquidationsConfig.fromPartial({})
+  };
+}
+export const QueryLiquidationsConfigurationResponse = {
+  typeUrl: "/dydxprotocol.clob.QueryLiquidationsConfigurationResponse",
+  encode(message: QueryLiquidationsConfigurationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.liquidationsConfig !== undefined) {
+      LiquidationsConfig.encode(message.liquidationsConfig, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryLiquidationsConfigurationResponse {
+    return {
+      liquidationsConfig: isSet(object.liquidationsConfig) ? LiquidationsConfig.fromJSON(object.liquidationsConfig) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryLiquidationsConfigurationResponse>): QueryLiquidationsConfigurationResponse {
+    const message = createBaseQueryLiquidationsConfigurationResponse();
+    message.liquidationsConfig = object.liquidationsConfig !== undefined && object.liquidationsConfig !== null ? LiquidationsConfig.fromPartial(object.liquidationsConfig) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryLiquidationsConfigurationResponseAmino): QueryLiquidationsConfigurationResponse {
+    return {
+      liquidationsConfig: object?.liquidations_config ? LiquidationsConfig.fromAmino(object.liquidations_config) : undefined
+    };
+  },
+  toAmino(message: QueryLiquidationsConfigurationResponse): QueryLiquidationsConfigurationResponseAmino {
+    const obj: any = {};
+    obj.liquidations_config = message.liquidationsConfig ? LiquidationsConfig.toAmino(message.liquidationsConfig) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryLiquidationsConfigurationResponseAminoMsg): QueryLiquidationsConfigurationResponse {
+    return QueryLiquidationsConfigurationResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryLiquidationsConfigurationResponseProtoMsg): QueryLiquidationsConfigurationResponse {
+    return QueryLiquidationsConfigurationResponse.decode(message.value);
+  },
+  toProto(message: QueryLiquidationsConfigurationResponse): Uint8Array {
+    return QueryLiquidationsConfigurationResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryLiquidationsConfigurationResponse): QueryLiquidationsConfigurationResponseProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.clob.QueryLiquidationsConfigurationResponse",
+      value: QueryLiquidationsConfigurationResponse.encode(message).finish()
     };
   }
 };
