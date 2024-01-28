@@ -33,7 +33,7 @@ export interface PerpetualLiquidationInfoAmino {
    */
   subaccount_id?: SubaccountIdAmino;
   /** The id of the perpetual involved. */
-  perpetual_id: number;
+  perpetual_id?: number;
 }
 export interface PerpetualLiquidationInfoAminoMsg {
   type: "/dydxprotocol.clob.PerpetualLiquidationInfo";
@@ -83,17 +83,17 @@ export interface SubaccountLiquidationInfoAmino {
    * An unsorted list of unique perpetual IDs that the subaccount has previously
    * liquidated.
    */
-  perpetuals_liquidated: number[];
+  perpetuals_liquidated?: number[];
   /**
    * The notional value (in quote quantums, determined by the oracle price) of
    * all positions liquidated for this subaccount.
    */
-  notional_liquidated: string;
+  notional_liquidated?: string;
   /**
    * The amount of funds that the insurance fund has lost
    * covering this subaccount.
    */
-  quantums_insurance_lost: string;
+  quantums_insurance_lost?: string;
 }
 export interface SubaccountLiquidationInfoAminoMsg {
   type: "/dydxprotocol.clob.SubaccountLiquidationInfo";
@@ -138,10 +138,14 @@ export const PerpetualLiquidationInfo = {
     return message;
   },
   fromAmino(object: PerpetualLiquidationInfoAmino): PerpetualLiquidationInfo {
-    return {
-      subaccountId: object?.subaccount_id ? SubaccountId.fromAmino(object.subaccount_id) : undefined,
-      perpetualId: object.perpetual_id
-    };
+    const message = createBasePerpetualLiquidationInfo();
+    if (object.subaccount_id !== undefined && object.subaccount_id !== null) {
+      message.subaccountId = SubaccountId.fromAmino(object.subaccount_id);
+    }
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    return message;
   },
   toAmino(message: PerpetualLiquidationInfo): PerpetualLiquidationInfoAmino {
     const obj: any = {};
@@ -203,11 +207,15 @@ export const SubaccountLiquidationInfo = {
     return message;
   },
   fromAmino(object: SubaccountLiquidationInfoAmino): SubaccountLiquidationInfo {
-    return {
-      perpetualsLiquidated: Array.isArray(object?.perpetuals_liquidated) ? object.perpetuals_liquidated.map((e: any) => e) : [],
-      notionalLiquidated: BigInt(object.notional_liquidated),
-      quantumsInsuranceLost: BigInt(object.quantums_insurance_lost)
-    };
+    const message = createBaseSubaccountLiquidationInfo();
+    message.perpetualsLiquidated = object.perpetuals_liquidated?.map(e => e) || [];
+    if (object.notional_liquidated !== undefined && object.notional_liquidated !== null) {
+      message.notionalLiquidated = BigInt(object.notional_liquidated);
+    }
+    if (object.quantums_insurance_lost !== undefined && object.quantums_insurance_lost !== null) {
+      message.quantumsInsuranceLost = BigInt(object.quantums_insurance_lost);
+    }
+    return message;
   },
   toAmino(message: SubaccountLiquidationInfo): SubaccountLiquidationInfoAmino {
     const obj: any = {};

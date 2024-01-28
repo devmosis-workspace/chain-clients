@@ -10,7 +10,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the assets module's genesis state. */
 export interface GenesisStateAmino {
-  assets: AssetAmino[];
+  assets?: AssetAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/dydxprotocol.assets.GenesisState";
@@ -44,9 +44,9 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      assets: Array.isArray(object?.assets) ? object.assets.map((e: any) => Asset.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.assets = object.assets?.map(e => Asset.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

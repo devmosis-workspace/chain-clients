@@ -6,7 +6,7 @@ export interface DelayedMessage {
   /** The ID of the delayed message. */
   id: number;
   /** The message to be executed. */
-  msg: Any;
+  msg?: Any;
   /** The block height at which the message should be executed. */
   blockHeight: number;
 }
@@ -17,11 +17,11 @@ export interface DelayedMessageProtoMsg {
 /** DelayedMessage is a message that is delayed until a certain block height. */
 export interface DelayedMessageAmino {
   /** The ID of the delayed message. */
-  id: number;
+  id?: number;
   /** The message to be executed. */
   msg?: AnyAmino;
   /** The block height at which the message should be executed. */
-  block_height: number;
+  block_height?: number;
 }
 export interface DelayedMessageAminoMsg {
   type: "/dydxprotocol.delaymsg.DelayedMessage";
@@ -30,13 +30,13 @@ export interface DelayedMessageAminoMsg {
 /** DelayedMessage is a message that is delayed until a certain block height. */
 export interface DelayedMessageSDKType {
   id: number;
-  msg: AnySDKType;
+  msg?: AnySDKType;
   block_height: number;
 }
 function createBaseDelayedMessage(): DelayedMessage {
   return {
     id: 0,
-    msg: Any.fromPartial({}),
+    msg: undefined,
     blockHeight: 0
   };
 }
@@ -69,11 +69,17 @@ export const DelayedMessage = {
     return message;
   },
   fromAmino(object: DelayedMessageAmino): DelayedMessage {
-    return {
-      id: object.id,
-      msg: object?.msg ? Any.fromAmino(object.msg) : undefined,
-      blockHeight: object.block_height
-    };
+    const message = createBaseDelayedMessage();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = Any.fromAmino(object.msg);
+    }
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = object.block_height;
+    }
+    return message;
   },
   toAmino(message: DelayedMessage): DelayedMessageAmino {
     const obj: any = {};

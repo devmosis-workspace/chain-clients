@@ -27,7 +27,7 @@ export interface QueryMarketPriceRequestAmino {
    * QueryMarketPriceRequest is request type for the Query/Params `MarketPrice`
    * RPC method.
    */
-  id: number;
+  id?: number;
 }
 export interface QueryMarketPriceRequestAminoMsg {
   type: "/dydxprotocol.prices.QueryMarketPriceRequest";
@@ -74,7 +74,7 @@ export interface QueryMarketPriceResponseSDKType {
  * `AllMarketPrices` RPC method.
  */
 export interface QueryAllMarketPricesRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllMarketPricesRequestProtoMsg {
   typeUrl: "/dydxprotocol.prices.QueryAllMarketPricesRequest";
@@ -96,7 +96,7 @@ export interface QueryAllMarketPricesRequestAminoMsg {
  * `AllMarketPrices` RPC method.
  */
 export interface QueryAllMarketPricesRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /**
  * QueryAllMarketPricesResponse is response type for the Query/Params
@@ -104,7 +104,7 @@ export interface QueryAllMarketPricesRequestSDKType {
  */
 export interface QueryAllMarketPricesResponse {
   marketPrices: MarketPrice[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllMarketPricesResponseProtoMsg {
   typeUrl: "/dydxprotocol.prices.QueryAllMarketPricesResponse";
@@ -115,7 +115,7 @@ export interface QueryAllMarketPricesResponseProtoMsg {
  * `AllMarketPrices` RPC method.
  */
 export interface QueryAllMarketPricesResponseAmino {
-  market_prices: MarketPriceAmino[];
+  market_prices?: MarketPriceAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllMarketPricesResponseAminoMsg {
@@ -128,7 +128,7 @@ export interface QueryAllMarketPricesResponseAminoMsg {
  */
 export interface QueryAllMarketPricesResponseSDKType {
   market_prices: MarketPriceSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /**
  * QueryMarketParamsRequest is request type for the Query/Params `MarketParams`
@@ -154,7 +154,7 @@ export interface QueryMarketParamRequestAmino {
    * QueryMarketParamsRequest is request type for the Query/Params `MarketParams`
    * RPC method.
    */
-  id: number;
+  id?: number;
 }
 export interface QueryMarketParamRequestAminoMsg {
   type: "/dydxprotocol.prices.QueryMarketParamRequest";
@@ -201,7 +201,7 @@ export interface QueryMarketParamResponseSDKType {
  * `AllMarketParams` RPC method.
  */
 export interface QueryAllMarketParamsRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllMarketParamsRequestProtoMsg {
   typeUrl: "/dydxprotocol.prices.QueryAllMarketParamsRequest";
@@ -223,7 +223,7 @@ export interface QueryAllMarketParamsRequestAminoMsg {
  * `AllMarketParams` RPC method.
  */
 export interface QueryAllMarketParamsRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /**
  * QueryAllMarketParamsResponse is response type for the Query/Params
@@ -231,7 +231,7 @@ export interface QueryAllMarketParamsRequestSDKType {
  */
 export interface QueryAllMarketParamsResponse {
   marketParams: MarketParam[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllMarketParamsResponseProtoMsg {
   typeUrl: "/dydxprotocol.prices.QueryAllMarketParamsResponse";
@@ -242,7 +242,7 @@ export interface QueryAllMarketParamsResponseProtoMsg {
  * `AllMarketParams` RPC method.
  */
 export interface QueryAllMarketParamsResponseAmino {
-  market_params: MarketParamAmino[];
+  market_params?: MarketParamAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllMarketParamsResponseAminoMsg {
@@ -255,7 +255,7 @@ export interface QueryAllMarketParamsResponseAminoMsg {
  */
 export interface QueryAllMarketParamsResponseSDKType {
   market_params: MarketParamSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 function createBaseQueryMarketPriceRequest(): QueryMarketPriceRequest {
   return {
@@ -281,9 +281,11 @@ export const QueryMarketPriceRequest = {
     return message;
   },
   fromAmino(object: QueryMarketPriceRequestAmino): QueryMarketPriceRequest {
-    return {
-      id: object.id
-    };
+    const message = createBaseQueryMarketPriceRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: QueryMarketPriceRequest): QueryMarketPriceRequestAmino {
     const obj: any = {};
@@ -330,9 +332,11 @@ export const QueryMarketPriceResponse = {
     return message;
   },
   fromAmino(object: QueryMarketPriceResponseAmino): QueryMarketPriceResponse {
-    return {
-      marketPrice: object?.market_price ? MarketPrice.fromAmino(object.market_price) : undefined
-    };
+    const message = createBaseQueryMarketPriceResponse();
+    if (object.market_price !== undefined && object.market_price !== null) {
+      message.marketPrice = MarketPrice.fromAmino(object.market_price);
+    }
+    return message;
   },
   toAmino(message: QueryMarketPriceResponse): QueryMarketPriceResponseAmino {
     const obj: any = {};
@@ -357,7 +361,7 @@ export const QueryMarketPriceResponse = {
 };
 function createBaseQueryAllMarketPricesRequest(): QueryAllMarketPricesRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllMarketPricesRequest = {
@@ -379,9 +383,11 @@ export const QueryAllMarketPricesRequest = {
     return message;
   },
   fromAmino(object: QueryAllMarketPricesRequestAmino): QueryAllMarketPricesRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllMarketPricesRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllMarketPricesRequest): QueryAllMarketPricesRequestAmino {
     const obj: any = {};
@@ -407,7 +413,7 @@ export const QueryAllMarketPricesRequest = {
 function createBaseQueryAllMarketPricesResponse(): QueryAllMarketPricesResponse {
   return {
     marketPrices: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllMarketPricesResponse = {
@@ -434,10 +440,12 @@ export const QueryAllMarketPricesResponse = {
     return message;
   },
   fromAmino(object: QueryAllMarketPricesResponseAmino): QueryAllMarketPricesResponse {
-    return {
-      marketPrices: Array.isArray(object?.market_prices) ? object.market_prices.map((e: any) => MarketPrice.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllMarketPricesResponse();
+    message.marketPrices = object.market_prices?.map(e => MarketPrice.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllMarketPricesResponse): QueryAllMarketPricesResponseAmino {
     const obj: any = {};
@@ -489,9 +497,11 @@ export const QueryMarketParamRequest = {
     return message;
   },
   fromAmino(object: QueryMarketParamRequestAmino): QueryMarketParamRequest {
-    return {
-      id: object.id
-    };
+    const message = createBaseQueryMarketParamRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: QueryMarketParamRequest): QueryMarketParamRequestAmino {
     const obj: any = {};
@@ -538,9 +548,11 @@ export const QueryMarketParamResponse = {
     return message;
   },
   fromAmino(object: QueryMarketParamResponseAmino): QueryMarketParamResponse {
-    return {
-      marketParam: object?.market_param ? MarketParam.fromAmino(object.market_param) : undefined
-    };
+    const message = createBaseQueryMarketParamResponse();
+    if (object.market_param !== undefined && object.market_param !== null) {
+      message.marketParam = MarketParam.fromAmino(object.market_param);
+    }
+    return message;
   },
   toAmino(message: QueryMarketParamResponse): QueryMarketParamResponseAmino {
     const obj: any = {};
@@ -565,7 +577,7 @@ export const QueryMarketParamResponse = {
 };
 function createBaseQueryAllMarketParamsRequest(): QueryAllMarketParamsRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllMarketParamsRequest = {
@@ -587,9 +599,11 @@ export const QueryAllMarketParamsRequest = {
     return message;
   },
   fromAmino(object: QueryAllMarketParamsRequestAmino): QueryAllMarketParamsRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllMarketParamsRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllMarketParamsRequest): QueryAllMarketParamsRequestAmino {
     const obj: any = {};
@@ -615,7 +629,7 @@ export const QueryAllMarketParamsRequest = {
 function createBaseQueryAllMarketParamsResponse(): QueryAllMarketParamsResponse {
   return {
     marketParams: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllMarketParamsResponse = {
@@ -642,10 +656,12 @@ export const QueryAllMarketParamsResponse = {
     return message;
   },
   fromAmino(object: QueryAllMarketParamsResponseAmino): QueryAllMarketParamsResponse {
-    return {
-      marketParams: Array.isArray(object?.market_params) ? object.market_params.map((e: any) => MarketParam.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllMarketParamsResponse();
+    message.marketParams = object.market_params?.map(e => MarketParam.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllMarketParamsResponse): QueryAllMarketParamsResponseAmino {
     const obj: any = {};

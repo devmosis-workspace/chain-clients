@@ -49,26 +49,26 @@ export interface EpochInfoProtoMsg {
 /** EpochInfo stores metadata of an epoch timer. */
 export interface EpochInfoAmino {
   /** name is the unique identifier. */
-  name: string;
+  name?: string;
   /**
    * next_tick indicates when the next epoch starts (in Unix Epoch seconds),
    * if `EpochInfo` has been initialized.
    * If `EpochInfo` is not initialized yet, `next_tick` indicates the earliest
    * initialization time (see `is_initialized` below).
    */
-  next_tick: number;
+  next_tick?: number;
   /** duration of the epoch in seconds. */
-  duration: number;
+  duration?: number;
   /**
    * current epoch is the number of the current epoch.
    * 0 if `next_tick` has never been reached, positive otherwise.
    */
-  current_epoch: number;
+  current_epoch?: number;
   /**
    * current_epoch_start_block indicates the block height when the current
    * epoch started. 0 if `current_epoch` is 0.
    */
-  current_epoch_start_block: number;
+  current_epoch_start_block?: number;
   /**
    * is_initialized indicates whether the `EpochInfo` has been initialized
    * and started ticking.
@@ -77,7 +77,7 @@ export interface EpochInfoAmino {
    * - `BlockHeight` >= 2
    * - `BlockTime` >= `next_tick`
    */
-  is_initialized: boolean;
+  is_initialized?: boolean;
   /**
    * fast_forward_next_tick specifies whether during initialization, `next_tick`
    * should be fast-forwarded to be greater than the current block time.
@@ -86,7 +86,7 @@ export interface EpochInfoAmino {
    * If `true`, `next_tick` will be set to the smallest value `x` greater than
    * the current block time such that `(x - next_tick) % duration = 0`.
    */
-  fast_forward_next_tick: boolean;
+  fast_forward_next_tick?: boolean;
 }
 export interface EpochInfoAminoMsg {
   type: "/dydxprotocol.epochs.EpochInfo";
@@ -162,15 +162,29 @@ export const EpochInfo = {
     return message;
   },
   fromAmino(object: EpochInfoAmino): EpochInfo {
-    return {
-      name: object.name,
-      nextTick: object.next_tick,
-      duration: object.duration,
-      currentEpoch: object.current_epoch,
-      currentEpochStartBlock: object.current_epoch_start_block,
-      isInitialized: object.is_initialized,
-      fastForwardNextTick: object.fast_forward_next_tick
-    };
+    const message = createBaseEpochInfo();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.next_tick !== undefined && object.next_tick !== null) {
+      message.nextTick = object.next_tick;
+    }
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = object.duration;
+    }
+    if (object.current_epoch !== undefined && object.current_epoch !== null) {
+      message.currentEpoch = object.current_epoch;
+    }
+    if (object.current_epoch_start_block !== undefined && object.current_epoch_start_block !== null) {
+      message.currentEpochStartBlock = object.current_epoch_start_block;
+    }
+    if (object.is_initialized !== undefined && object.is_initialized !== null) {
+      message.isInitialized = object.is_initialized;
+    }
+    if (object.fast_forward_next_tick !== undefined && object.fast_forward_next_tick !== null) {
+      message.fastForwardNextTick = object.fast_forward_next_tick;
+    }
+    return message;
   },
   toAmino(message: EpochInfo): EpochInfoAmino {
     const obj: any = {};

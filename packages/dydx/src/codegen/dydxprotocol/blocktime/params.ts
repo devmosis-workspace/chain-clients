@@ -18,7 +18,7 @@ export interface DowntimeParamsAmino {
    * Durations tracked for downtime. The durations must be sorted from
    * shortest to longest and must all be positive.
    */
-  durations: DurationAmino[];
+  durations?: DurationAmino[];
 }
 export interface DowntimeParamsAminoMsg {
   type: "/dydxprotocol.blocktime.DowntimeParams";
@@ -52,9 +52,9 @@ export const DowntimeParams = {
     return message;
   },
   fromAmino(object: DowntimeParamsAmino): DowntimeParams {
-    return {
-      durations: Array.isArray(object?.durations) ? object.durations.map((e: any) => Duration.fromAmino(e)) : []
-    };
+    const message = createBaseDowntimeParams();
+    message.durations = object.durations?.map(e => Duration.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: DowntimeParams): DowntimeParamsAmino {
     const obj: any = {};

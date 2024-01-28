@@ -36,7 +36,7 @@ export interface BlockRateLimitConfigurationAmino {
    * 
    * Specifying 0 values disables this rate limit.
    */
-  max_short_term_orders_per_n_blocks: MaxPerNBlocksRateLimitAmino[];
+  max_short_term_orders_per_n_blocks?: MaxPerNBlocksRateLimitAmino[];
   /**
    * How many stateful order attempts (successful and failed) are allowed for
    * an account per N blocks. Note that the rate limits are applied
@@ -45,8 +45,8 @@ export interface BlockRateLimitConfigurationAmino {
    * 
    * Specifying 0 values disables this rate limit.
    */
-  max_stateful_orders_per_n_blocks: MaxPerNBlocksRateLimitAmino[];
-  max_short_term_order_cancellations_per_n_blocks: MaxPerNBlocksRateLimitAmino[];
+  max_stateful_orders_per_n_blocks?: MaxPerNBlocksRateLimitAmino[];
+  max_short_term_order_cancellations_per_n_blocks?: MaxPerNBlocksRateLimitAmino[];
 }
 export interface BlockRateLimitConfigurationAminoMsg {
   type: "/dydxprotocol.clob.BlockRateLimitConfiguration";
@@ -81,12 +81,12 @@ export interface MaxPerNBlocksRateLimitAmino {
    * How many blocks the rate limit is over.
    * Specifying 0 is invalid.
    */
-  num_blocks: number;
+  num_blocks?: number;
   /**
    * What the limit is for `num_blocks`.
    * Specifying 0 is invalid.
    */
-  limit: number;
+  limit?: number;
 }
 export interface MaxPerNBlocksRateLimitAminoMsg {
   type: "/dydxprotocol.clob.MaxPerNBlocksRateLimit";
@@ -133,11 +133,11 @@ export const BlockRateLimitConfiguration = {
     return message;
   },
   fromAmino(object: BlockRateLimitConfigurationAmino): BlockRateLimitConfiguration {
-    return {
-      maxShortTermOrdersPerNBlocks: Array.isArray(object?.max_short_term_orders_per_n_blocks) ? object.max_short_term_orders_per_n_blocks.map((e: any) => MaxPerNBlocksRateLimit.fromAmino(e)) : [],
-      maxStatefulOrdersPerNBlocks: Array.isArray(object?.max_stateful_orders_per_n_blocks) ? object.max_stateful_orders_per_n_blocks.map((e: any) => MaxPerNBlocksRateLimit.fromAmino(e)) : [],
-      maxShortTermOrderCancellationsPerNBlocks: Array.isArray(object?.max_short_term_order_cancellations_per_n_blocks) ? object.max_short_term_order_cancellations_per_n_blocks.map((e: any) => MaxPerNBlocksRateLimit.fromAmino(e)) : []
-    };
+    const message = createBaseBlockRateLimitConfiguration();
+    message.maxShortTermOrdersPerNBlocks = object.max_short_term_orders_per_n_blocks?.map(e => MaxPerNBlocksRateLimit.fromAmino(e)) || [];
+    message.maxStatefulOrdersPerNBlocks = object.max_stateful_orders_per_n_blocks?.map(e => MaxPerNBlocksRateLimit.fromAmino(e)) || [];
+    message.maxShortTermOrderCancellationsPerNBlocks = object.max_short_term_order_cancellations_per_n_blocks?.map(e => MaxPerNBlocksRateLimit.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: BlockRateLimitConfiguration): BlockRateLimitConfigurationAmino {
     const obj: any = {};
@@ -204,10 +204,14 @@ export const MaxPerNBlocksRateLimit = {
     return message;
   },
   fromAmino(object: MaxPerNBlocksRateLimitAmino): MaxPerNBlocksRateLimit {
-    return {
-      numBlocks: object.num_blocks,
-      limit: object.limit
-    };
+    const message = createBaseMaxPerNBlocksRateLimit();
+    if (object.num_blocks !== undefined && object.num_blocks !== null) {
+      message.numBlocks = object.num_blocks;
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = object.limit;
+    }
+    return message;
   },
   toAmino(message: MaxPerNBlocksRateLimit): MaxPerNBlocksRateLimitAmino {
     const obj: any = {};

@@ -15,9 +15,9 @@ export interface MsgDeleteVestEntryProtoMsg {
 /** MsgDeleteVestEntry is the Msg/DeleteVestEntry request type. */
 export interface MsgDeleteVestEntryAmino {
   /** authority is the address that controls the module. */
-  authority: string;
+  authority?: string;
   /** The vester account of the vest entry to delete. */
-  vester_account: string;
+  vester_account?: string;
 }
 export interface MsgDeleteVestEntryAminoMsg {
   type: "/dydxprotocol.vest.MsgDeleteVestEntry";
@@ -56,7 +56,7 @@ export interface MsgSetVestEntryProtoMsg {
 /** MsgSetVestEntry is the Msg/SetVestEntry request type. */
 export interface MsgSetVestEntryAmino {
   /** authority is the address that controls the module. */
-  authority: string;
+  authority?: string;
   /** The vest entry to set. */
   entry?: VestEntryAmino;
 }
@@ -113,10 +113,14 @@ export const MsgDeleteVestEntry = {
     return message;
   },
   fromAmino(object: MsgDeleteVestEntryAmino): MsgDeleteVestEntry {
-    return {
-      authority: object.authority,
-      vesterAccount: object.vester_account
-    };
+    const message = createBaseMsgDeleteVestEntry();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.vester_account !== undefined && object.vester_account !== null) {
+      message.vesterAccount = object.vester_account;
+    }
+    return message;
   },
   toAmino(message: MsgDeleteVestEntry): MsgDeleteVestEntryAmino {
     const obj: any = {};
@@ -156,7 +160,8 @@ export const MsgDeleteVestEntryResponse = {
     return message;
   },
   fromAmino(_: MsgDeleteVestEntryResponseAmino): MsgDeleteVestEntryResponse {
-    return {};
+    const message = createBaseMsgDeleteVestEntryResponse();
+    return message;
   },
   toAmino(_: MsgDeleteVestEntryResponse): MsgDeleteVestEntryResponseAmino {
     const obj: any = {};
@@ -208,10 +213,14 @@ export const MsgSetVestEntry = {
     return message;
   },
   fromAmino(object: MsgSetVestEntryAmino): MsgSetVestEntry {
-    return {
-      authority: object.authority,
-      entry: object?.entry ? VestEntry.fromAmino(object.entry) : undefined
-    };
+    const message = createBaseMsgSetVestEntry();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.entry !== undefined && object.entry !== null) {
+      message.entry = VestEntry.fromAmino(object.entry);
+    }
+    return message;
   },
   toAmino(message: MsgSetVestEntry): MsgSetVestEntryAmino {
     const obj: any = {};
@@ -251,7 +260,8 @@ export const MsgSetVestEntryResponse = {
     return message;
   },
   fromAmino(_: MsgSetVestEntryResponseAmino): MsgSetVestEntryResponse {
-    return {};
+    const message = createBaseMsgSetVestEntryResponse();
+    return message;
   },
   toAmino(_: MsgSetVestEntryResponse): MsgSetVestEntryResponseAmino {
     const obj: any = {};

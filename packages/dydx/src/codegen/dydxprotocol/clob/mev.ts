@@ -4,9 +4,9 @@ import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** MEVMatch represents all necessary data to calculate MEV for a regular match. */
 export interface MEVMatch {
-  takerOrderSubaccountId: SubaccountId;
+  takerOrderSubaccountId?: SubaccountId;
   takerFeePpm: number;
-  makerOrderSubaccountId: SubaccountId;
+  makerOrderSubaccountId?: SubaccountId;
   makerOrderSubticks: bigint;
   makerOrderIsBuy: boolean;
   makerFeePpm: number;
@@ -20,13 +20,13 @@ export interface MEVMatchProtoMsg {
 /** MEVMatch represents all necessary data to calculate MEV for a regular match. */
 export interface MEVMatchAmino {
   taker_order_subaccount_id?: SubaccountIdAmino;
-  taker_fee_ppm: number;
+  taker_fee_ppm?: number;
   maker_order_subaccount_id?: SubaccountIdAmino;
-  maker_order_subticks: string;
-  maker_order_is_buy: boolean;
-  maker_fee_ppm: number;
-  clob_pair_id: number;
-  fill_amount: string;
+  maker_order_subticks?: string;
+  maker_order_is_buy?: boolean;
+  maker_fee_ppm?: number;
+  clob_pair_id?: number;
+  fill_amount?: string;
 }
 export interface MEVMatchAminoMsg {
   type: "/dydxprotocol.clob.MEVMatch";
@@ -34,9 +34,9 @@ export interface MEVMatchAminoMsg {
 }
 /** MEVMatch represents all necessary data to calculate MEV for a regular match. */
 export interface MEVMatchSDKType {
-  taker_order_subaccount_id: SubaccountIdSDKType;
+  taker_order_subaccount_id?: SubaccountIdSDKType;
   taker_fee_ppm: number;
-  maker_order_subaccount_id: SubaccountIdSDKType;
+  maker_order_subaccount_id?: SubaccountIdSDKType;
   maker_order_subticks: bigint;
   maker_order_is_buy: boolean;
   maker_fee_ppm: number;
@@ -67,13 +67,13 @@ export interface MEVLiquidationMatchProtoMsg {
  */
 export interface MEVLiquidationMatchAmino {
   liquidated_subaccount_id?: SubaccountIdAmino;
-  insurance_fund_delta_quote_quantums: string;
+  insurance_fund_delta_quote_quantums?: string;
   maker_order_subaccount_id?: SubaccountIdAmino;
-  maker_order_subticks: string;
-  maker_order_is_buy: boolean;
-  maker_fee_ppm: number;
-  clob_pair_id: number;
-  fill_amount: string;
+  maker_order_subticks?: string;
+  maker_order_is_buy?: boolean;
+  maker_fee_ppm?: number;
+  clob_pair_id?: number;
+  fill_amount?: string;
 }
 export interface MEVLiquidationMatchAminoMsg {
   type: "/dydxprotocol.clob.MEVLiquidationMatch";
@@ -105,7 +105,7 @@ export interface ClobMidPriceProtoMsg {
 /** ClobMidPrice contains the mid price of a CLOB pair, represented by it's ID. */
 export interface ClobMidPriceAmino {
   clob_pair?: ClobPairAmino;
-  subticks: string;
+  subticks?: string;
 }
 export interface ClobMidPriceAminoMsg {
   type: "/dydxprotocol.clob.ClobMidPrice";
@@ -133,8 +133,8 @@ export interface ValidatorMevMatchesProtoMsg {
  * operations queue.
  */
 export interface ValidatorMevMatchesAmino {
-  matches: MEVMatchAmino[];
-  liquidation_matches: MEVLiquidationMatchAmino[];
+  matches?: MEVMatchAmino[];
+  liquidation_matches?: MEVLiquidationMatchAmino[];
 }
 export interface ValidatorMevMatchesAminoMsg {
   type: "/dydxprotocol.clob.ValidatorMevMatches";
@@ -153,7 +153,7 @@ export interface ValidatorMevMatchesSDKType {
  * node metrics.
  */
 export interface MevNodeToNodeMetrics {
-  validatorMevMatches: ValidatorMevMatches;
+  validatorMevMatches?: ValidatorMevMatches;
   clobMidPrices: ClobMidPrice[];
 }
 export interface MevNodeToNodeMetricsProtoMsg {
@@ -166,7 +166,7 @@ export interface MevNodeToNodeMetricsProtoMsg {
  */
 export interface MevNodeToNodeMetricsAmino {
   validator_mev_matches?: ValidatorMevMatchesAmino;
-  clob_mid_prices: ClobMidPriceAmino[];
+  clob_mid_prices?: ClobMidPriceAmino[];
 }
 export interface MevNodeToNodeMetricsAminoMsg {
   type: "/dydxprotocol.clob.MevNodeToNodeMetrics";
@@ -177,14 +177,14 @@ export interface MevNodeToNodeMetricsAminoMsg {
  * node metrics.
  */
 export interface MevNodeToNodeMetricsSDKType {
-  validator_mev_matches: ValidatorMevMatchesSDKType;
+  validator_mev_matches?: ValidatorMevMatchesSDKType;
   clob_mid_prices: ClobMidPriceSDKType[];
 }
 function createBaseMEVMatch(): MEVMatch {
   return {
-    takerOrderSubaccountId: SubaccountId.fromPartial({}),
+    takerOrderSubaccountId: undefined,
     takerFeePpm: 0,
-    makerOrderSubaccountId: SubaccountId.fromPartial({}),
+    makerOrderSubaccountId: undefined,
     makerOrderSubticks: BigInt(0),
     makerOrderIsBuy: false,
     makerFeePpm: 0,
@@ -246,16 +246,32 @@ export const MEVMatch = {
     return message;
   },
   fromAmino(object: MEVMatchAmino): MEVMatch {
-    return {
-      takerOrderSubaccountId: object?.taker_order_subaccount_id ? SubaccountId.fromAmino(object.taker_order_subaccount_id) : undefined,
-      takerFeePpm: object.taker_fee_ppm,
-      makerOrderSubaccountId: object?.maker_order_subaccount_id ? SubaccountId.fromAmino(object.maker_order_subaccount_id) : undefined,
-      makerOrderSubticks: BigInt(object.maker_order_subticks),
-      makerOrderIsBuy: object.maker_order_is_buy,
-      makerFeePpm: object.maker_fee_ppm,
-      clobPairId: object.clob_pair_id,
-      fillAmount: BigInt(object.fill_amount)
-    };
+    const message = createBaseMEVMatch();
+    if (object.taker_order_subaccount_id !== undefined && object.taker_order_subaccount_id !== null) {
+      message.takerOrderSubaccountId = SubaccountId.fromAmino(object.taker_order_subaccount_id);
+    }
+    if (object.taker_fee_ppm !== undefined && object.taker_fee_ppm !== null) {
+      message.takerFeePpm = object.taker_fee_ppm;
+    }
+    if (object.maker_order_subaccount_id !== undefined && object.maker_order_subaccount_id !== null) {
+      message.makerOrderSubaccountId = SubaccountId.fromAmino(object.maker_order_subaccount_id);
+    }
+    if (object.maker_order_subticks !== undefined && object.maker_order_subticks !== null) {
+      message.makerOrderSubticks = BigInt(object.maker_order_subticks);
+    }
+    if (object.maker_order_is_buy !== undefined && object.maker_order_is_buy !== null) {
+      message.makerOrderIsBuy = object.maker_order_is_buy;
+    }
+    if (object.maker_fee_ppm !== undefined && object.maker_fee_ppm !== null) {
+      message.makerFeePpm = object.maker_fee_ppm;
+    }
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    if (object.fill_amount !== undefined && object.fill_amount !== null) {
+      message.fillAmount = BigInt(object.fill_amount);
+    }
+    return message;
   },
   toAmino(message: MEVMatch): MEVMatchAmino {
     const obj: any = {};
@@ -351,16 +367,32 @@ export const MEVLiquidationMatch = {
     return message;
   },
   fromAmino(object: MEVLiquidationMatchAmino): MEVLiquidationMatch {
-    return {
-      liquidatedSubaccountId: object?.liquidated_subaccount_id ? SubaccountId.fromAmino(object.liquidated_subaccount_id) : undefined,
-      insuranceFundDeltaQuoteQuantums: BigInt(object.insurance_fund_delta_quote_quantums),
-      makerOrderSubaccountId: object?.maker_order_subaccount_id ? SubaccountId.fromAmino(object.maker_order_subaccount_id) : undefined,
-      makerOrderSubticks: BigInt(object.maker_order_subticks),
-      makerOrderIsBuy: object.maker_order_is_buy,
-      makerFeePpm: object.maker_fee_ppm,
-      clobPairId: object.clob_pair_id,
-      fillAmount: BigInt(object.fill_amount)
-    };
+    const message = createBaseMEVLiquidationMatch();
+    if (object.liquidated_subaccount_id !== undefined && object.liquidated_subaccount_id !== null) {
+      message.liquidatedSubaccountId = SubaccountId.fromAmino(object.liquidated_subaccount_id);
+    }
+    if (object.insurance_fund_delta_quote_quantums !== undefined && object.insurance_fund_delta_quote_quantums !== null) {
+      message.insuranceFundDeltaQuoteQuantums = BigInt(object.insurance_fund_delta_quote_quantums);
+    }
+    if (object.maker_order_subaccount_id !== undefined && object.maker_order_subaccount_id !== null) {
+      message.makerOrderSubaccountId = SubaccountId.fromAmino(object.maker_order_subaccount_id);
+    }
+    if (object.maker_order_subticks !== undefined && object.maker_order_subticks !== null) {
+      message.makerOrderSubticks = BigInt(object.maker_order_subticks);
+    }
+    if (object.maker_order_is_buy !== undefined && object.maker_order_is_buy !== null) {
+      message.makerOrderIsBuy = object.maker_order_is_buy;
+    }
+    if (object.maker_fee_ppm !== undefined && object.maker_fee_ppm !== null) {
+      message.makerFeePpm = object.maker_fee_ppm;
+    }
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    if (object.fill_amount !== undefined && object.fill_amount !== null) {
+      message.fillAmount = BigInt(object.fill_amount);
+    }
+    return message;
   },
   toAmino(message: MEVLiquidationMatch): MEVLiquidationMatchAmino {
     const obj: any = {};
@@ -420,10 +452,14 @@ export const ClobMidPrice = {
     return message;
   },
   fromAmino(object: ClobMidPriceAmino): ClobMidPrice {
-    return {
-      clobPair: object?.clob_pair ? ClobPair.fromAmino(object.clob_pair) : undefined,
-      subticks: BigInt(object.subticks)
-    };
+    const message = createBaseClobMidPrice();
+    if (object.clob_pair !== undefined && object.clob_pair !== null) {
+      message.clobPair = ClobPair.fromAmino(object.clob_pair);
+    }
+    if (object.subticks !== undefined && object.subticks !== null) {
+      message.subticks = BigInt(object.subticks);
+    }
+    return message;
   },
   toAmino(message: ClobMidPrice): ClobMidPriceAmino {
     const obj: any = {};
@@ -477,10 +513,10 @@ export const ValidatorMevMatches = {
     return message;
   },
   fromAmino(object: ValidatorMevMatchesAmino): ValidatorMevMatches {
-    return {
-      matches: Array.isArray(object?.matches) ? object.matches.map((e: any) => MEVMatch.fromAmino(e)) : [],
-      liquidationMatches: Array.isArray(object?.liquidation_matches) ? object.liquidation_matches.map((e: any) => MEVLiquidationMatch.fromAmino(e)) : []
-    };
+    const message = createBaseValidatorMevMatches();
+    message.matches = object.matches?.map(e => MEVMatch.fromAmino(e)) || [];
+    message.liquidationMatches = object.liquidation_matches?.map(e => MEVLiquidationMatch.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: ValidatorMevMatches): ValidatorMevMatchesAmino {
     const obj: any = {};
@@ -514,7 +550,7 @@ export const ValidatorMevMatches = {
 };
 function createBaseMevNodeToNodeMetrics(): MevNodeToNodeMetrics {
   return {
-    validatorMevMatches: ValidatorMevMatches.fromPartial({}),
+    validatorMevMatches: undefined,
     clobMidPrices: []
   };
 }
@@ -542,10 +578,12 @@ export const MevNodeToNodeMetrics = {
     return message;
   },
   fromAmino(object: MevNodeToNodeMetricsAmino): MevNodeToNodeMetrics {
-    return {
-      validatorMevMatches: object?.validator_mev_matches ? ValidatorMevMatches.fromAmino(object.validator_mev_matches) : undefined,
-      clobMidPrices: Array.isArray(object?.clob_mid_prices) ? object.clob_mid_prices.map((e: any) => ClobMidPrice.fromAmino(e)) : []
-    };
+    const message = createBaseMevNodeToNodeMetrics();
+    if (object.validator_mev_matches !== undefined && object.validator_mev_matches !== null) {
+      message.validatorMevMatches = ValidatorMevMatches.fromAmino(object.validator_mev_matches);
+    }
+    message.clobMidPrices = object.clob_mid_prices?.map(e => ClobMidPrice.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MevNodeToNodeMetrics): MevNodeToNodeMetricsAmino {
     const obj: any = {};

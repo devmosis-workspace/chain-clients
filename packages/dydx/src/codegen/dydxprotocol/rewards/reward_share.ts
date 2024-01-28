@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /**
  * RewardShare stores the relative weight of rewards that each address is
  * entitled to.
@@ -17,8 +17,8 @@ export interface RewardShareProtoMsg {
  * entitled to.
  */
 export interface RewardShareAmino {
-  address: string;
-  weight: Uint8Array;
+  address?: string;
+  weight?: string;
 }
 export interface RewardShareAminoMsg {
   type: "/dydxprotocol.rewards.RewardShare";
@@ -62,15 +62,19 @@ export const RewardShare = {
     return message;
   },
   fromAmino(object: RewardShareAmino): RewardShare {
-    return {
-      address: object.address,
-      weight: object.weight
-    };
+    const message = createBaseRewardShare();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = bytesFromBase64(object.weight);
+    }
+    return message;
   },
   toAmino(message: RewardShare): RewardShareAmino {
     const obj: any = {};
     obj.address = message.address;
-    obj.weight = message.weight;
+    obj.weight = message.weight ? base64FromBytes(message.weight) : undefined;
     return obj;
   },
   fromAminoMsg(object: RewardShareAminoMsg): RewardShare {

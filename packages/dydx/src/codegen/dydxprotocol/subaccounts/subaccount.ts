@@ -19,12 +19,12 @@ export interface SubaccountIdProtoMsg {
 /** SubaccountId defines a unique identifier for a Subaccount. */
 export interface SubaccountIdAmino {
   /** The address of the wallet that owns this subaccount. */
-  owner: string;
+  owner?: string;
   /**
    * < 128 Since 128 should be enough to start and it fits within
    * 1 Byte (1 Bit needed to indicate that the first byte is the last).
    */
-  number: number;
+  number?: number;
 }
 export interface SubaccountIdAminoMsg {
   type: "/dydxprotocol.subaccounts.SubaccountId";
@@ -41,7 +41,7 @@ export interface SubaccountIdSDKType {
  */
 export interface Subaccount {
   /** The Id of the Subaccount */
-  id: SubaccountId;
+  id?: SubaccountId;
   /**
    * All `AssetPosition`s associated with this subaccount.
    * Always sorted ascending by `asset_id`.
@@ -73,17 +73,17 @@ export interface SubaccountAmino {
    * All `AssetPosition`s associated with this subaccount.
    * Always sorted ascending by `asset_id`.
    */
-  asset_positions: AssetPositionAmino[];
+  asset_positions?: AssetPositionAmino[];
   /**
    * All `PerpetualPosition`s associated with this subaccount.
    * Always sorted ascending by `perpetual_id.
    */
-  perpetual_positions: PerpetualPositionAmino[];
+  perpetual_positions?: PerpetualPositionAmino[];
   /**
    * Set by the owner. If true, then margin trades can be made in this
    * subaccount.
    */
-  margin_enabled: boolean;
+  margin_enabled?: boolean;
 }
 export interface SubaccountAminoMsg {
   type: "/dydxprotocol.subaccounts.Subaccount";
@@ -94,7 +94,7 @@ export interface SubaccountAminoMsg {
  * Subaccounts are uniquely indexed by a subaccountNumber/owner pair.
  */
 export interface SubaccountSDKType {
-  id: SubaccountIdSDKType;
+  id?: SubaccountIdSDKType;
   asset_positions: AssetPositionSDKType[];
   perpetual_positions: PerpetualPositionSDKType[];
   margin_enabled: boolean;
@@ -129,10 +129,14 @@ export const SubaccountId = {
     return message;
   },
   fromAmino(object: SubaccountIdAmino): SubaccountId {
-    return {
-      owner: object.owner,
-      number: object.number
-    };
+    const message = createBaseSubaccountId();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.number !== undefined && object.number !== null) {
+      message.number = object.number;
+    }
+    return message;
   },
   toAmino(message: SubaccountId): SubaccountIdAmino {
     const obj: any = {};
@@ -158,7 +162,7 @@ export const SubaccountId = {
 };
 function createBaseSubaccount(): Subaccount {
   return {
-    id: SubaccountId.fromPartial({}),
+    id: undefined,
     assetPositions: [],
     perpetualPositions: [],
     marginEnabled: false
@@ -198,12 +202,16 @@ export const Subaccount = {
     return message;
   },
   fromAmino(object: SubaccountAmino): Subaccount {
-    return {
-      id: object?.id ? SubaccountId.fromAmino(object.id) : undefined,
-      assetPositions: Array.isArray(object?.asset_positions) ? object.asset_positions.map((e: any) => AssetPosition.fromAmino(e)) : [],
-      perpetualPositions: Array.isArray(object?.perpetual_positions) ? object.perpetual_positions.map((e: any) => PerpetualPosition.fromAmino(e)) : [],
-      marginEnabled: object.margin_enabled
-    };
+    const message = createBaseSubaccount();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = SubaccountId.fromAmino(object.id);
+    }
+    message.assetPositions = object.asset_positions?.map(e => AssetPosition.fromAmino(e)) || [];
+    message.perpetualPositions = object.perpetual_positions?.map(e => PerpetualPosition.fromAmino(e)) || [];
+    if (object.margin_enabled !== undefined && object.margin_enabled !== null) {
+      message.marginEnabled = object.margin_enabled;
+    }
+    return message;
   },
   toAmino(message: Subaccount): SubaccountAmino {
     const obj: any = {};

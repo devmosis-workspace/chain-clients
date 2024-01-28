@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /**
  * PerpetualPositions are an account’s positions of a `Perpetual`.
  * Therefore they hold any information needed to trade perpetuals.
@@ -25,14 +25,14 @@ export interface PerpetualPositionProtoMsg {
  */
 export interface PerpetualPositionAmino {
   /** The `Id` of the `Perpetual`. */
-  perpetual_id: number;
+  perpetual_id?: number;
   /** The size of the position in base quantums. */
-  quantums: Uint8Array;
+  quantums?: string;
   /**
    * The funding_index of the `Perpetual` the last time this position was
    * settled.
    */
-  funding_index: Uint8Array;
+  funding_index?: string;
 }
 export interface PerpetualPositionAminoMsg {
   type: "/dydxprotocol.subaccounts.PerpetualPosition";
@@ -83,17 +83,23 @@ export const PerpetualPosition = {
     return message;
   },
   fromAmino(object: PerpetualPositionAmino): PerpetualPosition {
-    return {
-      perpetualId: object.perpetual_id,
-      quantums: object.quantums,
-      fundingIndex: object.funding_index
-    };
+    const message = createBasePerpetualPosition();
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    if (object.quantums !== undefined && object.quantums !== null) {
+      message.quantums = bytesFromBase64(object.quantums);
+    }
+    if (object.funding_index !== undefined && object.funding_index !== null) {
+      message.fundingIndex = bytesFromBase64(object.funding_index);
+    }
+    return message;
   },
   toAmino(message: PerpetualPosition): PerpetualPositionAmino {
     const obj: any = {};
     obj.perpetual_id = message.perpetualId;
-    obj.quantums = message.quantums;
-    obj.funding_index = message.fundingIndex;
+    obj.quantums = message.quantums ? base64FromBytes(message.quantums) : undefined;
+    obj.funding_index = message.fundingIndex ? base64FromBytes(message.fundingIndex) : undefined;
     return obj;
   },
   fromAminoMsg(object: PerpetualPositionAminoMsg): PerpetualPosition {

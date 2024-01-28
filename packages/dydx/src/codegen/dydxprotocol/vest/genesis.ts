@@ -12,7 +12,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the vest module's genesis state. */
 export interface GenesisStateAmino {
   /** The vest entries at genesis. */
-  vest_entries: VestEntryAmino[];
+  vest_entries?: VestEntryAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/dydxprotocol.vest.GenesisState";
@@ -46,9 +46,9 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      vestEntries: Array.isArray(object?.vest_entries) ? object.vest_entries.map((e: any) => VestEntry.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.vestEntries = object.vest_entries?.map(e => VestEntry.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

@@ -17,11 +17,11 @@ export interface MsgVerifyInvariantProtoMsg {
 /** MsgVerifyInvariant represents a message to verify a particular invariance. */
 export interface MsgVerifyInvariantAmino {
   /** sender is the account address of private key to send coins to fee collector account. */
-  sender: string;
+  sender?: string;
   /** name of the invariant module. */
-  invariant_module_name: string;
+  invariant_module_name?: string;
   /** invariant_route is the msg's invariant route. */
-  invariant_route: string;
+  invariant_route?: string;
 }
 export interface MsgVerifyInvariantAminoMsg {
   type: "cosmos-sdk/MsgVerifyInvariant";
@@ -69,9 +69,9 @@ export interface MsgUpdateParamsProtoMsg {
  */
 export interface MsgUpdateParamsAmino {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
-  authority: string;
+  authority?: string;
   /** constant_fee defines the x/crisis parameter. */
-  constant_fee?: CoinAmino;
+  constant_fee: CoinAmino;
 }
 export interface MsgUpdateParamsAminoMsg {
   type: "cosmos-sdk/x/crisis/MsgUpdateParams";
@@ -151,11 +151,17 @@ export const MsgVerifyInvariant = {
     return message;
   },
   fromAmino(object: MsgVerifyInvariantAmino): MsgVerifyInvariant {
-    return {
-      sender: object.sender,
-      invariantModuleName: object.invariant_module_name,
-      invariantRoute: object.invariant_route
-    };
+    const message = createBaseMsgVerifyInvariant();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.invariant_module_name !== undefined && object.invariant_module_name !== null) {
+      message.invariantModuleName = object.invariant_module_name;
+    }
+    if (object.invariant_route !== undefined && object.invariant_route !== null) {
+      message.invariantRoute = object.invariant_route;
+    }
+    return message;
   },
   toAmino(message: MsgVerifyInvariant): MsgVerifyInvariantAmino {
     const obj: any = {};
@@ -202,7 +208,8 @@ export const MsgVerifyInvariantResponse = {
     return message;
   },
   fromAmino(_: MsgVerifyInvariantResponseAmino): MsgVerifyInvariantResponse {
-    return {};
+    const message = createBaseMsgVerifyInvariantResponse();
+    return message;
   },
   toAmino(_: MsgVerifyInvariantResponse): MsgVerifyInvariantResponseAmino {
     const obj: any = {};
@@ -260,15 +267,19 @@ export const MsgUpdateParams = {
     return message;
   },
   fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    return {
-      authority: object.authority,
-      constantFee: object?.constant_fee ? Coin.fromAmino(object.constant_fee) : undefined
-    };
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.constant_fee !== undefined && object.constant_fee !== null) {
+      message.constantFee = Coin.fromAmino(object.constant_fee);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
     const obj: any = {};
     obj.authority = message.authority;
-    obj.constant_fee = message.constantFee ? Coin.toAmino(message.constantFee) : undefined;
+    obj.constant_fee = message.constantFee ? Coin.toAmino(message.constantFee) : Coin.fromPartial({});
     return obj;
   },
   fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
@@ -309,7 +320,8 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    return {};
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
     const obj: any = {};

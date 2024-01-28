@@ -46,31 +46,31 @@ export interface MarketParamProtoMsg {
  */
 export interface MarketParamAmino {
   /** Unique, sequentially-generated value. */
-  id: number;
+  id?: number;
   /** The human-readable name of the market pair (e.g. `BTC-USD`). */
-  pair: string;
+  pair?: string;
   /**
    * Static value. The exponent of the price.
    * For example if `Exponent == -5` then a `Value` of `1,000,000,000`
    * represents ``$10,000`. Therefore `10 ^ Exponent` represents the smallest
    * price step (in dollars) that can be recorded.
    */
-  exponent: number;
+  exponent?: number;
   /**
    * The minimum number of exchanges that should be reporting a live price for
    * a price update to be considered valid.
    */
-  min_exchanges: number;
+  min_exchanges?: number;
   /**
    * The minimum allowable change in `price` value that would cause a price
    * update on the network. Measured as `1e-6` (parts per million).
    */
-  min_price_change_ppm: number;
+  min_price_change_ppm?: number;
   /**
    * A string of json that encodes the configuration for resolving the price
    * of this market on various exchanges.
    */
-  exchange_config_json: string;
+  exchange_config_json?: string;
 }
 export interface MarketParamAminoMsg {
   type: "/dydxprotocol.prices.MarketParam";
@@ -144,14 +144,26 @@ export const MarketParam = {
     return message;
   },
   fromAmino(object: MarketParamAmino): MarketParam {
-    return {
-      id: object.id,
-      pair: object.pair,
-      exponent: object.exponent,
-      minExchanges: object.min_exchanges,
-      minPriceChangePpm: object.min_price_change_ppm,
-      exchangeConfigJson: object.exchange_config_json
-    };
+    const message = createBaseMarketParam();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.pair !== undefined && object.pair !== null) {
+      message.pair = object.pair;
+    }
+    if (object.exponent !== undefined && object.exponent !== null) {
+      message.exponent = object.exponent;
+    }
+    if (object.min_exchanges !== undefined && object.min_exchanges !== null) {
+      message.minExchanges = object.min_exchanges;
+    }
+    if (object.min_price_change_ppm !== undefined && object.min_price_change_ppm !== null) {
+      message.minPriceChangePpm = object.min_price_change_ppm;
+    }
+    if (object.exchange_config_json !== undefined && object.exchange_config_json !== null) {
+      message.exchangeConfigJson = object.exchange_config_json;
+    }
+    return message;
   },
   toAmino(message: MarketParam): MarketParamAmino {
     const obj: any = {};

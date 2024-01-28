@@ -31,18 +31,18 @@ export interface ParamsAmino {
    * funding rates according to equation: |R| <= funding_rate_clamp_factor *
    * (initial margin - maintenance margin).
    */
-  funding_rate_clamp_factor_ppm: number;
+  funding_rate_clamp_factor_ppm?: number;
   /**
    * Premium vote clamp factor in parts-per-million, used for clamping premium
    * votes according to equation: |V| <= premium_vote_clamp_factor *
    * (initial margin - maintenance margin).
    */
-  premium_vote_clamp_factor_ppm: number;
+  premium_vote_clamp_factor_ppm?: number;
   /**
    * Minimum number of premium votes per premium sample. If number of premium
    * votes is smaller than this number, pad with zeros up to this number.
    */
-  min_num_votes_per_sample: number;
+  min_num_votes_per_sample?: number;
 }
 export interface ParamsAminoMsg {
   type: "/dydxprotocol.perpetuals.Params";
@@ -90,11 +90,17 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      fundingRateClampFactorPpm: object.funding_rate_clamp_factor_ppm,
-      premiumVoteClampFactorPpm: object.premium_vote_clamp_factor_ppm,
-      minNumVotesPerSample: object.min_num_votes_per_sample
-    };
+    const message = createBaseParams();
+    if (object.funding_rate_clamp_factor_ppm !== undefined && object.funding_rate_clamp_factor_ppm !== null) {
+      message.fundingRateClampFactorPpm = object.funding_rate_clamp_factor_ppm;
+    }
+    if (object.premium_vote_clamp_factor_ppm !== undefined && object.premium_vote_clamp_factor_ppm !== null) {
+      message.premiumVoteClampFactorPpm = object.premium_vote_clamp_factor_ppm;
+    }
+    if (object.min_num_votes_per_sample !== undefined && object.min_num_votes_per_sample !== null) {
+      message.minNumVotesPerSample = object.min_num_votes_per_sample;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

@@ -40,7 +40,7 @@ export interface QueryNextDelayedMessageIdResponseProtoMsg {
  * NextDelayedMessageId RPC method.
  */
 export interface QueryNextDelayedMessageIdResponseAmino {
-  next_delayed_message_id: number;
+  next_delayed_message_id?: number;
 }
 export interface QueryNextDelayedMessageIdResponseAminoMsg {
   type: "/dydxprotocol.delaymsg.QueryNextDelayedMessageIdResponse";
@@ -65,7 +65,7 @@ export interface QueryMessageRequestProtoMsg {
 /** QueryMessageRequest is the request type for the Message RPC method. */
 export interface QueryMessageRequestAmino {
   /** QueryMessageRequest is the request type for the Message RPC method. */
-  id: number;
+  id?: number;
 }
 export interface QueryMessageRequestAminoMsg {
   type: "/dydxprotocol.delaymsg.QueryMessageRequest";
@@ -78,7 +78,7 @@ export interface QueryMessageRequestSDKType {
 /** QueryGetMessageResponse is the response type for the Message RPC method. */
 export interface QueryMessageResponse {
   /** QueryGetMessageResponse is the response type for the Message RPC method. */
-  message: DelayedMessage;
+  message?: DelayedMessage;
 }
 export interface QueryMessageResponseProtoMsg {
   typeUrl: "/dydxprotocol.delaymsg.QueryMessageResponse";
@@ -95,7 +95,7 @@ export interface QueryMessageResponseAminoMsg {
 }
 /** QueryGetMessageResponse is the response type for the Message RPC method. */
 export interface QueryMessageResponseSDKType {
-  message: DelayedMessageSDKType;
+  message?: DelayedMessageSDKType;
 }
 /**
  * QueryBlockMessageIdsRequest is the request type for the BlockMessageIds
@@ -121,7 +121,7 @@ export interface QueryBlockMessageIdsRequestAmino {
    * QueryBlockMessageIdsRequest is the request type for the BlockMessageIds
    * RPC method.
    */
-  block_height: number;
+  block_height?: number;
 }
 export interface QueryBlockMessageIdsRequestAminoMsg {
   type: "/dydxprotocol.delaymsg.QueryBlockMessageIdsRequest";
@@ -158,7 +158,7 @@ export interface QueryBlockMessageIdsResponseAmino {
    * QueryGetBlockMessageIdsResponse is the response type for the BlockMessageIds
    * RPC method.
    */
-  message_ids: number[];
+  message_ids?: number[];
 }
 export interface QueryBlockMessageIdsResponseAminoMsg {
   type: "/dydxprotocol.delaymsg.QueryBlockMessageIdsResponse";
@@ -187,7 +187,8 @@ export const QueryNextDelayedMessageIdRequest = {
     return message;
   },
   fromAmino(_: QueryNextDelayedMessageIdRequestAmino): QueryNextDelayedMessageIdRequest {
-    return {};
+    const message = createBaseQueryNextDelayedMessageIdRequest();
+    return message;
   },
   toAmino(_: QueryNextDelayedMessageIdRequest): QueryNextDelayedMessageIdRequestAmino {
     const obj: any = {};
@@ -233,9 +234,11 @@ export const QueryNextDelayedMessageIdResponse = {
     return message;
   },
   fromAmino(object: QueryNextDelayedMessageIdResponseAmino): QueryNextDelayedMessageIdResponse {
-    return {
-      nextDelayedMessageId: object.next_delayed_message_id
-    };
+    const message = createBaseQueryNextDelayedMessageIdResponse();
+    if (object.next_delayed_message_id !== undefined && object.next_delayed_message_id !== null) {
+      message.nextDelayedMessageId = object.next_delayed_message_id;
+    }
+    return message;
   },
   toAmino(message: QueryNextDelayedMessageIdResponse): QueryNextDelayedMessageIdResponseAmino {
     const obj: any = {};
@@ -282,9 +285,11 @@ export const QueryMessageRequest = {
     return message;
   },
   fromAmino(object: QueryMessageRequestAmino): QueryMessageRequest {
-    return {
-      id: object.id
-    };
+    const message = createBaseQueryMessageRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: QueryMessageRequest): QueryMessageRequestAmino {
     const obj: any = {};
@@ -309,7 +314,7 @@ export const QueryMessageRequest = {
 };
 function createBaseQueryMessageResponse(): QueryMessageResponse {
   return {
-    message: DelayedMessage.fromPartial({})
+    message: undefined
   };
 }
 export const QueryMessageResponse = {
@@ -331,9 +336,11 @@ export const QueryMessageResponse = {
     return message;
   },
   fromAmino(object: QueryMessageResponseAmino): QueryMessageResponse {
-    return {
-      message: object?.message ? DelayedMessage.fromAmino(object.message) : undefined
-    };
+    const message = createBaseQueryMessageResponse();
+    if (object.message !== undefined && object.message !== null) {
+      message.message = DelayedMessage.fromAmino(object.message);
+    }
+    return message;
   },
   toAmino(message: QueryMessageResponse): QueryMessageResponseAmino {
     const obj: any = {};
@@ -380,9 +387,11 @@ export const QueryBlockMessageIdsRequest = {
     return message;
   },
   fromAmino(object: QueryBlockMessageIdsRequestAmino): QueryBlockMessageIdsRequest {
-    return {
-      blockHeight: object.block_height
-    };
+    const message = createBaseQueryBlockMessageIdsRequest();
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = object.block_height;
+    }
+    return message;
   },
   toAmino(message: QueryBlockMessageIdsRequest): QueryBlockMessageIdsRequestAmino {
     const obj: any = {};
@@ -431,9 +440,9 @@ export const QueryBlockMessageIdsResponse = {
     return message;
   },
   fromAmino(object: QueryBlockMessageIdsResponseAmino): QueryBlockMessageIdsResponse {
-    return {
-      messageIds: Array.isArray(object?.message_ids) ? object.message_ids.map((e: any) => e) : []
-    };
+    const message = createBaseQueryBlockMessageIdsResponse();
+    message.messageIds = object.message_ids?.map(e => e) || [];
+    return message;
   },
   toAmino(message: QueryBlockMessageIdsResponse): QueryBlockMessageIdsResponseAmino {
     const obj: any = {};

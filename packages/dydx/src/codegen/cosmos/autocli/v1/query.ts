@@ -17,14 +17,14 @@ export interface AppOptionsRequestAminoMsg {
 export interface AppOptionsRequestSDKType {}
 export interface AppOptionsResponse_ModuleOptionsEntry {
   key: string;
-  value: ModuleOptions;
+  value?: ModuleOptions;
 }
 export interface AppOptionsResponse_ModuleOptionsEntryProtoMsg {
   typeUrl: string;
   value: Uint8Array;
 }
 export interface AppOptionsResponse_ModuleOptionsEntryAmino {
-  key: string;
+  key?: string;
   value?: ModuleOptionsAmino;
 }
 export interface AppOptionsResponse_ModuleOptionsEntryAminoMsg {
@@ -33,7 +33,7 @@ export interface AppOptionsResponse_ModuleOptionsEntryAminoMsg {
 }
 export interface AppOptionsResponse_ModuleOptionsEntrySDKType {
   key: string;
-  value: ModuleOptionsSDKType;
+  value?: ModuleOptionsSDKType;
 }
 /** AppOptionsResponse is the RemoteInfoService/AppOptions response type. */
 export interface AppOptionsResponse {
@@ -79,7 +79,8 @@ export const AppOptionsRequest = {
     return message;
   },
   fromAmino(_: AppOptionsRequestAmino): AppOptionsRequest {
-    return {};
+    const message = createBaseAppOptionsRequest();
+    return message;
   },
   toAmino(_: AppOptionsRequest): AppOptionsRequestAmino {
     const obj: any = {};
@@ -110,7 +111,7 @@ export const AppOptionsRequest = {
 function createBaseAppOptionsResponse_ModuleOptionsEntry(): AppOptionsResponse_ModuleOptionsEntry {
   return {
     key: "",
-    value: ModuleOptions.fromPartial({})
+    value: undefined
   };
 }
 export const AppOptionsResponse_ModuleOptionsEntry = {
@@ -136,10 +137,14 @@ export const AppOptionsResponse_ModuleOptionsEntry = {
     return message;
   },
   fromAmino(object: AppOptionsResponse_ModuleOptionsEntryAmino): AppOptionsResponse_ModuleOptionsEntry {
-    return {
-      key: object.key,
-      value: object?.value ? ModuleOptions.fromAmino(object.value) : undefined
-    };
+    const message = createBaseAppOptionsResponse_ModuleOptionsEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = ModuleOptions.fromAmino(object.value);
+    }
+    return message;
   },
   toAmino(message: AppOptionsResponse_ModuleOptionsEntry): AppOptionsResponse_ModuleOptionsEntryAmino {
     const obj: any = {};
@@ -196,14 +201,16 @@ export const AppOptionsResponse = {
     return message;
   },
   fromAmino(object: AppOptionsResponseAmino): AppOptionsResponse {
-    return {
-      moduleOptions: isObject(object.module_options) ? Object.entries(object.module_options).reduce<{
-        [key: string]: ModuleOptions;
-      }>((acc, [key, value]) => {
+    const message = createBaseAppOptionsResponse();
+    message.moduleOptions = Object.entries(object.module_options ?? {}).reduce<{
+      [key: string]: ModuleOptions;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = ModuleOptions.fromAmino(value);
-        return acc;
-      }, {}) : {}
-    };
+      }
+      return acc;
+    }, {});
+    return message;
   },
   toAmino(message: AppOptionsResponse): AppOptionsResponseAmino {
     const obj: any = {};

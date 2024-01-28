@@ -16,7 +16,7 @@ export interface AddBridgeEventsRequestProtoMsg {
  * bridge events. The events should be contiguous and sorted by (unique) id.
  */
 export interface AddBridgeEventsRequestAmino {
-  bridge_events: BridgeEventAmino[];
+  bridge_events?: BridgeEventAmino[];
 }
 export interface AddBridgeEventsRequestAminoMsg {
   type: "/dydxprotocol.daemons.bridge.AddBridgeEventsRequest";
@@ -67,9 +67,9 @@ export const AddBridgeEventsRequest = {
     return message;
   },
   fromAmino(object: AddBridgeEventsRequestAmino): AddBridgeEventsRequest {
-    return {
-      bridgeEvents: Array.isArray(object?.bridge_events) ? object.bridge_events.map((e: any) => BridgeEvent.fromAmino(e)) : []
-    };
+    const message = createBaseAddBridgeEventsRequest();
+    message.bridgeEvents = object.bridge_events?.map(e => BridgeEvent.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: AddBridgeEventsRequest): AddBridgeEventsRequestAmino {
     const obj: any = {};
@@ -112,7 +112,8 @@ export const AddBridgeEventsResponse = {
     return message;
   },
   fromAmino(_: AddBridgeEventsResponseAmino): AddBridgeEventsResponse {
-    return {};
+    const message = createBaseAddBridgeEventsResponse();
+    return message;
   },
   toAmino(_: AddBridgeEventsResponse): AddBridgeEventsResponseAmino {
     const obj: any = {};

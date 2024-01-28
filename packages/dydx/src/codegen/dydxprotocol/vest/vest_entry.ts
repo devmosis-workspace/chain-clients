@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../binary";
 import { isSet, fromJsonTimestamp } from "../../helpers";
 /**
@@ -36,18 +36,18 @@ export interface VestEntryAmino {
    * The module account to vest tokens from.
    * This is also the key to this `VestEntry` in state.
    */
-  vester_account: string;
+  vester_account?: string;
   /** The module account to vest tokens to. */
-  treasury_account: string;
+  treasury_account?: string;
   /** The denom of the token to vest. */
-  denom: string;
+  denom?: string;
   /** The start time of vest. Before this time, no vest will occur. */
-  start_time?: TimestampAmino;
+  start_time?: string;
   /**
    * The end time of vest. At this target date, all funds should be in the
    * Treasury Account and none left in the Vester Account.
    */
-  end_time?: TimestampAmino;
+  end_time?: string;
 }
 export interface VestEntryAminoMsg {
   type: "/dydxprotocol.vest.VestEntry";
@@ -112,21 +112,31 @@ export const VestEntry = {
     return message;
   },
   fromAmino(object: VestEntryAmino): VestEntry {
-    return {
-      vesterAccount: object.vester_account,
-      treasuryAccount: object.treasury_account,
-      denom: object.denom,
-      startTime: object.start_time,
-      endTime: object.end_time
-    };
+    const message = createBaseVestEntry();
+    if (object.vester_account !== undefined && object.vester_account !== null) {
+      message.vesterAccount = object.vester_account;
+    }
+    if (object.treasury_account !== undefined && object.treasury_account !== null) {
+      message.treasuryAccount = object.treasury_account;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = Timestamp.fromAmino(object.start_time);
+    }
+    if (object.end_time !== undefined && object.end_time !== null) {
+      message.endTime = Timestamp.fromAmino(object.end_time);
+    }
+    return message;
   },
   toAmino(message: VestEntry): VestEntryAmino {
     const obj: any = {};
     obj.vester_account = message.vesterAccount;
     obj.treasury_account = message.treasuryAccount;
     obj.denom = message.denom;
-    obj.start_time = message.startTime;
-    obj.end_time = message.endTime;
+    obj.start_time = message.startTime ? Timestamp.toAmino(message.startTime) : undefined;
+    obj.end_time = message.endTime ? Timestamp.toAmino(message.endTime) : undefined;
     return obj;
   },
   fromAminoMsg(object: VestEntryAminoMsg): VestEntry {

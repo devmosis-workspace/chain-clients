@@ -23,7 +23,7 @@ export interface BlockMessageIdsAmino {
    * ids stores a list of DelayedMessage ids that should be processed at a given
    * block height.
    */
-  ids: number[];
+  ids?: number[];
 }
 export interface BlockMessageIdsAminoMsg {
   type: "/dydxprotocol.delaymsg.BlockMessageIds";
@@ -62,9 +62,9 @@ export const BlockMessageIds = {
     return message;
   },
   fromAmino(object: BlockMessageIdsAmino): BlockMessageIds {
-    return {
-      ids: Array.isArray(object?.ids) ? object.ids.map((e: any) => e) : []
-    };
+    const message = createBaseBlockMessageIds();
+    message.ids = object.ids?.map(e => e) || [];
+    return message;
   },
   toAmino(message: BlockMessageIds): BlockMessageIdsAmino {
     const obj: any = {};

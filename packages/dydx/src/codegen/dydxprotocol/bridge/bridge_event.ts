@@ -19,13 +19,13 @@ export interface BridgeEventProtoMsg {
 /** BridgeEvent is a recognized event from the Ethereum blockchain. */
 export interface BridgeEventAmino {
   /** The unique id of the Ethereum event log. */
-  id: number;
+  id?: number;
   /** The tokens bridged. */
   coin?: CoinAmino;
   /** The account address or module address to bridge to. */
-  address: string;
+  address?: string;
   /** The Ethereum block height of the event. */
-  eth_block_height: string;
+  eth_block_height?: string;
 }
 export interface BridgeEventAminoMsg {
   type: "/dydxprotocol.bridge.BridgeEvent";
@@ -80,12 +80,20 @@ export const BridgeEvent = {
     return message;
   },
   fromAmino(object: BridgeEventAmino): BridgeEvent {
-    return {
-      id: object.id,
-      coin: object?.coin ? Coin.fromAmino(object.coin) : undefined,
-      address: object.address,
-      ethBlockHeight: BigInt(object.eth_block_height)
-    };
+    const message = createBaseBridgeEvent();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.coin !== undefined && object.coin !== null) {
+      message.coin = Coin.fromAmino(object.coin);
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.eth_block_height !== undefined && object.eth_block_height !== null) {
+      message.ethBlockHeight = BigInt(object.eth_block_height);
+    }
+    return message;
   },
   toAmino(message: BridgeEvent): BridgeEventAmino {
     const obj: any = {};

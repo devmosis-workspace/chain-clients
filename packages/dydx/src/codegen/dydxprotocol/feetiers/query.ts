@@ -63,7 +63,7 @@ export interface QueryUserFeeTierRequestProtoMsg {
 }
 /** QueryUserFeeTierRequest is a request type for the UserFeeTier RPC method. */
 export interface QueryUserFeeTierRequestAmino {
-  user: string;
+  user?: string;
 }
 export interface QueryUserFeeTierRequestAminoMsg {
   type: "/dydxprotocol.feetiers.QueryUserFeeTierRequest";
@@ -77,7 +77,7 @@ export interface QueryUserFeeTierRequestSDKType {
 export interface QueryUserFeeTierResponse {
   /** Index of the fee tier in the list queried from PerpetualFeeParams. */
   index: number;
-  tier: PerpetualFeeTier;
+  tier?: PerpetualFeeTier;
 }
 export interface QueryUserFeeTierResponseProtoMsg {
   typeUrl: "/dydxprotocol.feetiers.QueryUserFeeTierResponse";
@@ -86,7 +86,7 @@ export interface QueryUserFeeTierResponseProtoMsg {
 /** QueryUserFeeTierResponse is a request type for the UserFeeTier RPC method. */
 export interface QueryUserFeeTierResponseAmino {
   /** Index of the fee tier in the list queried from PerpetualFeeParams. */
-  index: number;
+  index?: number;
   tier?: PerpetualFeeTierAmino;
 }
 export interface QueryUserFeeTierResponseAminoMsg {
@@ -96,7 +96,7 @@ export interface QueryUserFeeTierResponseAminoMsg {
 /** QueryUserFeeTierResponse is a request type for the UserFeeTier RPC method. */
 export interface QueryUserFeeTierResponseSDKType {
   index: number;
-  tier: PerpetualFeeTierSDKType;
+  tier?: PerpetualFeeTierSDKType;
 }
 function createBaseQueryPerpetualFeeParamsRequest(): QueryPerpetualFeeParamsRequest {
   return {};
@@ -114,7 +114,8 @@ export const QueryPerpetualFeeParamsRequest = {
     return message;
   },
   fromAmino(_: QueryPerpetualFeeParamsRequestAmino): QueryPerpetualFeeParamsRequest {
-    return {};
+    const message = createBaseQueryPerpetualFeeParamsRequest();
+    return message;
   },
   toAmino(_: QueryPerpetualFeeParamsRequest): QueryPerpetualFeeParamsRequestAmino {
     const obj: any = {};
@@ -160,9 +161,11 @@ export const QueryPerpetualFeeParamsResponse = {
     return message;
   },
   fromAmino(object: QueryPerpetualFeeParamsResponseAmino): QueryPerpetualFeeParamsResponse {
-    return {
-      params: object?.params ? PerpetualFeeParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryPerpetualFeeParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = PerpetualFeeParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryPerpetualFeeParamsResponse): QueryPerpetualFeeParamsResponseAmino {
     const obj: any = {};
@@ -209,9 +212,11 @@ export const QueryUserFeeTierRequest = {
     return message;
   },
   fromAmino(object: QueryUserFeeTierRequestAmino): QueryUserFeeTierRequest {
-    return {
-      user: object.user
-    };
+    const message = createBaseQueryUserFeeTierRequest();
+    if (object.user !== undefined && object.user !== null) {
+      message.user = object.user;
+    }
+    return message;
   },
   toAmino(message: QueryUserFeeTierRequest): QueryUserFeeTierRequestAmino {
     const obj: any = {};
@@ -237,7 +242,7 @@ export const QueryUserFeeTierRequest = {
 function createBaseQueryUserFeeTierResponse(): QueryUserFeeTierResponse {
   return {
     index: 0,
-    tier: PerpetualFeeTier.fromPartial({})
+    tier: undefined
   };
 }
 export const QueryUserFeeTierResponse = {
@@ -264,10 +269,14 @@ export const QueryUserFeeTierResponse = {
     return message;
   },
   fromAmino(object: QueryUserFeeTierResponseAmino): QueryUserFeeTierResponse {
-    return {
-      index: object.index,
-      tier: object?.tier ? PerpetualFeeTier.fromAmino(object.tier) : undefined
-    };
+    const message = createBaseQueryUserFeeTierResponse();
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    }
+    if (object.tier !== undefined && object.tier !== null) {
+      message.tier = PerpetualFeeTier.fromAmino(object.tier);
+    }
+    return message;
   },
   toAmino(message: QueryUserFeeTierResponse): QueryUserFeeTierResponseAmino {
     const obj: any = {};

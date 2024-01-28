@@ -28,23 +28,23 @@ export interface ParamsProtoMsg {
 /** Params defines the parameters for x/rewards module. */
 export interface ParamsAmino {
   /** The module account to distribute rewards from. */
-  treasury_account: string;
+  treasury_account?: string;
   /** The denom of the rewards token. */
-  denom: string;
+  denom?: string;
   /**
    * The exponent of converting one unit of `denom` to a full coin.
    * For example, `denom=uatom, denom_exponent=-6` defines that
    * `1 uatom = 10^(-6) ATOM`. This conversion is needed since the
    * `market_id` retrieves the price of a full coin of the reward token.
    */
-  denom_exponent: number;
+  denom_exponent?: number;
   /** The id of the market that has the price of the rewards token. */
-  market_id: number;
+  market_id?: number;
   /**
    * The amount (in ppm) that fees are multiplied by to get
    * the maximum rewards amount.
    */
-  fee_multiplier_ppm: number;
+  fee_multiplier_ppm?: number;
 }
 export interface ParamsAminoMsg {
   type: "/dydxprotocol.rewards.Params";
@@ -106,13 +106,23 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      treasuryAccount: object.treasury_account,
-      denom: object.denom,
-      denomExponent: object.denom_exponent,
-      marketId: object.market_id,
-      feeMultiplierPpm: object.fee_multiplier_ppm
-    };
+    const message = createBaseParams();
+    if (object.treasury_account !== undefined && object.treasury_account !== null) {
+      message.treasuryAccount = object.treasury_account;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.denom_exponent !== undefined && object.denom_exponent !== null) {
+      message.denomExponent = object.denom_exponent;
+    }
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.fee_multiplier_ppm !== undefined && object.fee_multiplier_ppm !== null) {
+      message.feeMultiplierPpm = object.fee_multiplier_ppm;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

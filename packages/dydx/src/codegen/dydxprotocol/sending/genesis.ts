@@ -29,7 +29,8 @@ export const GenesisState = {
     return message;
   },
   fromAmino(_: GenesisStateAmino): GenesisState {
-    return {};
+    const message = createBaseGenesisState();
+    return message;
   },
   toAmino(_: GenesisState): GenesisStateAmino {
     const obj: any = {};

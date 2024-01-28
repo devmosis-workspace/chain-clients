@@ -14,7 +14,7 @@ export interface MsgAcknowledgeBridgesProtoMsg {
 /** MsgAcknowledgeBridges is the Msg/AcknowledgeBridges request type. */
 export interface MsgAcknowledgeBridgesAmino {
   /** The events to acknowledge. */
-  events: BridgeEventAmino[];
+  events?: BridgeEventAmino[];
 }
 export interface MsgAcknowledgeBridgesAminoMsg {
   type: "/dydxprotocol.bridge.MsgAcknowledgeBridges";
@@ -59,7 +59,7 @@ export interface MsgCompleteBridgeProtoMsg {
 }
 /** MsgCompleteBridge is the Msg/CompleteBridgeResponse request type. */
 export interface MsgCompleteBridgeAmino {
-  authority: string;
+  authority?: string;
   /** The event to complete. */
   event?: BridgeEventAmino;
 }
@@ -98,7 +98,7 @@ export interface MsgUpdateEventParamsProtoMsg {
 }
 /** MsgUpdateEventParams is the Msg/UpdateEventParams request type. */
 export interface MsgUpdateEventParamsAmino {
-  authority: string;
+  authority?: string;
   /** The parameters to update. Each field must be set. */
   params?: EventParamsAmino;
 }
@@ -137,7 +137,7 @@ export interface MsgUpdateProposeParamsProtoMsg {
 }
 /** MsgUpdateProposeParams is the Msg/UpdateProposeParams request type. */
 export interface MsgUpdateProposeParamsAmino {
-  authority: string;
+  authority?: string;
   /** The parameters to update. Each field must be set. */
   params?: ProposeParamsAmino;
 }
@@ -176,7 +176,7 @@ export interface MsgUpdateSafetyParamsProtoMsg {
 }
 /** MsgUpdateSafetyParams is the Msg/UpdateSafetyParams request type. */
 export interface MsgUpdateSafetyParamsAmino {
-  authority: string;
+  authority?: string;
   /** The parameters to update. Each field must be set. */
   params?: SafetyParamsAmino;
 }
@@ -227,9 +227,9 @@ export const MsgAcknowledgeBridges = {
     return message;
   },
   fromAmino(object: MsgAcknowledgeBridgesAmino): MsgAcknowledgeBridges {
-    return {
-      events: Array.isArray(object?.events) ? object.events.map((e: any) => BridgeEvent.fromAmino(e)) : []
-    };
+    const message = createBaseMsgAcknowledgeBridges();
+    message.events = object.events?.map(e => BridgeEvent.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgAcknowledgeBridges): MsgAcknowledgeBridgesAmino {
     const obj: any = {};
@@ -272,7 +272,8 @@ export const MsgAcknowledgeBridgesResponse = {
     return message;
   },
   fromAmino(_: MsgAcknowledgeBridgesResponseAmino): MsgAcknowledgeBridgesResponse {
-    return {};
+    const message = createBaseMsgAcknowledgeBridgesResponse();
+    return message;
   },
   toAmino(_: MsgAcknowledgeBridgesResponse): MsgAcknowledgeBridgesResponseAmino {
     const obj: any = {};
@@ -324,10 +325,14 @@ export const MsgCompleteBridge = {
     return message;
   },
   fromAmino(object: MsgCompleteBridgeAmino): MsgCompleteBridge {
-    return {
-      authority: object.authority,
-      event: object?.event ? BridgeEvent.fromAmino(object.event) : undefined
-    };
+    const message = createBaseMsgCompleteBridge();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.event !== undefined && object.event !== null) {
+      message.event = BridgeEvent.fromAmino(object.event);
+    }
+    return message;
   },
   toAmino(message: MsgCompleteBridge): MsgCompleteBridgeAmino {
     const obj: any = {};
@@ -367,7 +372,8 @@ export const MsgCompleteBridgeResponse = {
     return message;
   },
   fromAmino(_: MsgCompleteBridgeResponseAmino): MsgCompleteBridgeResponse {
-    return {};
+    const message = createBaseMsgCompleteBridgeResponse();
+    return message;
   },
   toAmino(_: MsgCompleteBridgeResponse): MsgCompleteBridgeResponseAmino {
     const obj: any = {};
@@ -419,10 +425,14 @@ export const MsgUpdateEventParams = {
     return message;
   },
   fromAmino(object: MsgUpdateEventParamsAmino): MsgUpdateEventParams {
-    return {
-      authority: object.authority,
-      params: object?.params ? EventParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseMsgUpdateEventParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = EventParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateEventParams): MsgUpdateEventParamsAmino {
     const obj: any = {};
@@ -462,7 +472,8 @@ export const MsgUpdateEventParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateEventParamsResponseAmino): MsgUpdateEventParamsResponse {
-    return {};
+    const message = createBaseMsgUpdateEventParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdateEventParamsResponse): MsgUpdateEventParamsResponseAmino {
     const obj: any = {};
@@ -514,10 +525,14 @@ export const MsgUpdateProposeParams = {
     return message;
   },
   fromAmino(object: MsgUpdateProposeParamsAmino): MsgUpdateProposeParams {
-    return {
-      authority: object.authority,
-      params: object?.params ? ProposeParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseMsgUpdateProposeParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = ProposeParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateProposeParams): MsgUpdateProposeParamsAmino {
     const obj: any = {};
@@ -557,7 +572,8 @@ export const MsgUpdateProposeParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateProposeParamsResponseAmino): MsgUpdateProposeParamsResponse {
-    return {};
+    const message = createBaseMsgUpdateProposeParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdateProposeParamsResponse): MsgUpdateProposeParamsResponseAmino {
     const obj: any = {};
@@ -609,10 +625,14 @@ export const MsgUpdateSafetyParams = {
     return message;
   },
   fromAmino(object: MsgUpdateSafetyParamsAmino): MsgUpdateSafetyParams {
-    return {
-      authority: object.authority,
-      params: object?.params ? SafetyParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseMsgUpdateSafetyParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = SafetyParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateSafetyParams): MsgUpdateSafetyParamsAmino {
     const obj: any = {};
@@ -652,7 +672,8 @@ export const MsgUpdateSafetyParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateSafetyParamsResponseAmino): MsgUpdateSafetyParamsResponse {
-    return {};
+    const message = createBaseMsgUpdateSafetyParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdateSafetyParamsResponse): MsgUpdateSafetyParamsResponseAmino {
     const obj: any = {};

@@ -13,7 +13,7 @@ export interface QueryVestEntryRequestProtoMsg {
 /** QueryVestEntryRequest is a request type for the VestEntry RPC method. */
 export interface QueryVestEntryRequestAmino {
   /** QueryVestEntryRequest is a request type for the VestEntry RPC method. */
-  vester_account: string;
+  vester_account?: string;
 }
 export interface QueryVestEntryRequestAminoMsg {
   type: "/dydxprotocol.vest.QueryVestEntryRequest";
@@ -67,9 +67,11 @@ export const QueryVestEntryRequest = {
     return message;
   },
   fromAmino(object: QueryVestEntryRequestAmino): QueryVestEntryRequest {
-    return {
-      vesterAccount: object.vester_account
-    };
+    const message = createBaseQueryVestEntryRequest();
+    if (object.vester_account !== undefined && object.vester_account !== null) {
+      message.vesterAccount = object.vester_account;
+    }
+    return message;
   },
   toAmino(message: QueryVestEntryRequest): QueryVestEntryRequestAmino {
     const obj: any = {};
@@ -116,9 +118,11 @@ export const QueryVestEntryResponse = {
     return message;
   },
   fromAmino(object: QueryVestEntryResponseAmino): QueryVestEntryResponse {
-    return {
-      entry: object?.entry ? VestEntry.fromAmino(object.entry) : undefined
-    };
+    const message = createBaseQueryVestEntryResponse();
+    if (object.entry !== undefined && object.entry !== null) {
+      message.entry = VestEntry.fromAmino(object.entry);
+    }
+    return message;
   },
   toAmino(message: QueryVestEntryResponse): QueryVestEntryResponseAmino {
     const obj: any = {};

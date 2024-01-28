@@ -24,9 +24,9 @@ export interface TransferAmino {
   /** The recipient subaccount ID. */
   recipient?: SubaccountIdAmino;
   /** Id of the asset to transfer. */
-  asset_id: number;
+  asset_id?: number;
   /** The amount of asset to transfer */
-  amount: string;
+  amount?: string;
 }
 export interface TransferAminoMsg {
   type: "/dydxprotocol.sending.Transfer";
@@ -63,13 +63,13 @@ export interface MsgDepositToSubaccountProtoMsg {
  */
 export interface MsgDepositToSubaccountAmino {
   /** The sender wallet address. */
-  sender: string;
+  sender?: string;
   /** The recipient subaccount ID. */
   recipient?: SubaccountIdAmino;
   /** Id of the asset to transfer. */
-  asset_id: number;
+  asset_id?: number;
   /** The number of quantums of asset to transfer. */
-  quantums: string;
+  quantums?: string;
 }
 export interface MsgDepositToSubaccountAminoMsg {
   type: "/dydxprotocol.sending.MsgDepositToSubaccount";
@@ -111,11 +111,11 @@ export interface MsgWithdrawFromSubaccountAmino {
   /** The sender subaccount ID. */
   sender?: SubaccountIdAmino;
   /** The recipient wallet address. */
-  recipient: string;
+  recipient?: string;
   /** Id of the asset to transfer. */
-  asset_id: number;
+  asset_id?: number;
   /** The number of quantums of asset to transfer. */
-  quantums: string;
+  quantums?: string;
 }
 export interface MsgWithdrawFromSubaccountAminoMsg {
   type: "/dydxprotocol.sending.MsgWithdrawFromSubaccount";
@@ -160,14 +160,14 @@ export interface MsgSendFromModuleToAccountProtoMsg {
  * Should only be executed by governance.
  */
 export interface MsgSendFromModuleToAccountAmino {
-  authority: string;
+  authority?: string;
   /** The sender module name. */
-  sender_module_name: string;
+  sender_module_name?: string;
   /**
    * The recipient account address (can be either a module account address
    * or a user account address).
    */
-  recipient: string;
+  recipient?: string;
   /** The coin to transfer, which specifies both denom and amount. */
   coin?: CoinAmino;
 }
@@ -229,12 +229,20 @@ export const Transfer = {
     return message;
   },
   fromAmino(object: TransferAmino): Transfer {
-    return {
-      sender: object?.sender ? SubaccountId.fromAmino(object.sender) : undefined,
-      recipient: object?.recipient ? SubaccountId.fromAmino(object.recipient) : undefined,
-      assetId: object.asset_id,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseTransfer();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = SubaccountId.fromAmino(object.sender);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = SubaccountId.fromAmino(object.recipient);
+    }
+    if (object.asset_id !== undefined && object.asset_id !== null) {
+      message.assetId = object.asset_id;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: Transfer): TransferAmino {
     const obj: any = {};
@@ -302,12 +310,20 @@ export const MsgDepositToSubaccount = {
     return message;
   },
   fromAmino(object: MsgDepositToSubaccountAmino): MsgDepositToSubaccount {
-    return {
-      sender: object.sender,
-      recipient: object?.recipient ? SubaccountId.fromAmino(object.recipient) : undefined,
-      assetId: object.asset_id,
-      quantums: BigInt(object.quantums)
-    };
+    const message = createBaseMsgDepositToSubaccount();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = SubaccountId.fromAmino(object.recipient);
+    }
+    if (object.asset_id !== undefined && object.asset_id !== null) {
+      message.assetId = object.asset_id;
+    }
+    if (object.quantums !== undefined && object.quantums !== null) {
+      message.quantums = BigInt(object.quantums);
+    }
+    return message;
   },
   toAmino(message: MsgDepositToSubaccount): MsgDepositToSubaccountAmino {
     const obj: any = {};
@@ -375,12 +391,20 @@ export const MsgWithdrawFromSubaccount = {
     return message;
   },
   fromAmino(object: MsgWithdrawFromSubaccountAmino): MsgWithdrawFromSubaccount {
-    return {
-      sender: object?.sender ? SubaccountId.fromAmino(object.sender) : undefined,
-      recipient: object.recipient,
-      assetId: object.asset_id,
-      quantums: BigInt(object.quantums)
-    };
+    const message = createBaseMsgWithdrawFromSubaccount();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = SubaccountId.fromAmino(object.sender);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    if (object.asset_id !== undefined && object.asset_id !== null) {
+      message.assetId = object.asset_id;
+    }
+    if (object.quantums !== undefined && object.quantums !== null) {
+      message.quantums = BigInt(object.quantums);
+    }
+    return message;
   },
   toAmino(message: MsgWithdrawFromSubaccount): MsgWithdrawFromSubaccountAmino {
     const obj: any = {};
@@ -448,12 +472,20 @@ export const MsgSendFromModuleToAccount = {
     return message;
   },
   fromAmino(object: MsgSendFromModuleToAccountAmino): MsgSendFromModuleToAccount {
-    return {
-      authority: object.authority,
-      senderModuleName: object.sender_module_name,
-      recipient: object.recipient,
-      coin: object?.coin ? Coin.fromAmino(object.coin) : undefined
-    };
+    const message = createBaseMsgSendFromModuleToAccount();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.sender_module_name !== undefined && object.sender_module_name !== null) {
+      message.senderModuleName = object.sender_module_name;
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    if (object.coin !== undefined && object.coin !== null) {
+      message.coin = Coin.fromAmino(object.coin);
+    }
+    return message;
   },
   toAmino(message: MsgSendFromModuleToAccount): MsgSendFromModuleToAccountAmino {
     const obj: any = {};

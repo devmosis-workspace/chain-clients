@@ -90,11 +90,11 @@ export interface OrderbookMessageProtoMsg {
 /** Message to be sent through the 'to-websockets-orderbooks` kafka topic. */
 export interface OrderbookMessageAmino {
   /** Stringified JSON object of all events to be streamed. */
-  contents: string;
+  contents?: string;
   /** Clob pair id of the Orderbook message. */
-  clob_pair_id: string;
+  clob_pair_id?: string;
   /** Version of the websocket message. */
-  version: string;
+  version?: string;
 }
 export interface OrderbookMessageAminoMsg {
   type: "/dydxprotocol.indexer.socks.OrderbookMessage";
@@ -117,7 +117,7 @@ export interface SubaccountMessage {
   /** Stringified JSON object of all events to be streamed. */
   contents: string;
   /** Subaccount id that the content corresponds to. */
-  subaccountId: IndexerSubaccountId;
+  subaccountId?: IndexerSubaccountId;
   /** Version of the websocket message. */
   version: string;
 }
@@ -128,17 +128,17 @@ export interface SubaccountMessageProtoMsg {
 /** Message to be sent through the 'to-websockets-subaccounts` kafka topic. */
 export interface SubaccountMessageAmino {
   /** Block height where the contents occur. */
-  block_height: string;
+  block_height?: string;
   /** Transaction index where the contents occur. */
-  transaction_index: number;
+  transaction_index?: number;
   /** Event index where the contents occur. */
-  event_index: number;
+  event_index?: number;
   /** Stringified JSON object of all events to be streamed. */
-  contents: string;
+  contents?: string;
   /** Subaccount id that the content corresponds to. */
   subaccount_id?: IndexerSubaccountIdAmino;
   /** Version of the websocket message. */
-  version: string;
+  version?: string;
 }
 export interface SubaccountMessageAminoMsg {
   type: "/dydxprotocol.indexer.socks.SubaccountMessage";
@@ -150,7 +150,7 @@ export interface SubaccountMessageSDKType {
   transaction_index: number;
   event_index: number;
   contents: string;
-  subaccount_id: IndexerSubaccountIdSDKType;
+  subaccount_id?: IndexerSubaccountIdSDKType;
   version: string;
 }
 /** Message to be sent through the 'to-websockets-trades` kafka topic. */
@@ -171,13 +171,13 @@ export interface TradeMessageProtoMsg {
 /** Message to be sent through the 'to-websockets-trades` kafka topic. */
 export interface TradeMessageAmino {
   /** Block height where the contents occur. */
-  block_height: string;
+  block_height?: string;
   /** Stringified JSON object of all events to be streamed. */
-  contents: string;
+  contents?: string;
   /** Clob pair id of the Trade message. */
-  clob_pair_id: string;
+  clob_pair_id?: string;
   /** Version of the websocket message. */
-  version: string;
+  version?: string;
 }
 export interface TradeMessageAminoMsg {
   type: "/dydxprotocol.indexer.socks.TradeMessage";
@@ -204,9 +204,9 @@ export interface MarketMessageProtoMsg {
 /** Message to be sent through the 'to-websockets-markets` kafka topic. */
 export interface MarketMessageAmino {
   /** Stringified JSON object of all events to be streamed. */
-  contents: string;
+  contents?: string;
   /** Version of the websocket message. */
-  version: string;
+  version?: string;
 }
 export interface MarketMessageAminoMsg {
   type: "/dydxprotocol.indexer.socks.MarketMessage";
@@ -235,13 +235,13 @@ export interface CandleMessageProtoMsg {
 /** Message to be sent through the 'to-websockets-candles` kafka topic. */
 export interface CandleMessageAmino {
   /** Stringified JSON object of all events to be streamed. */
-  contents: string;
+  contents?: string;
   /** Clob pair id of the Candle message. */
-  clob_pair_id: string;
+  clob_pair_id?: string;
   /** Resolution of the candle update. */
-  resolution: CandleMessage_Resolution;
+  resolution?: CandleMessage_Resolution;
   /** Version of the websocket message. */
-  version: string;
+  version?: string;
 }
 export interface CandleMessageAminoMsg {
   type: "/dydxprotocol.indexer.socks.CandleMessage";
@@ -290,11 +290,17 @@ export const OrderbookMessage = {
     return message;
   },
   fromAmino(object: OrderbookMessageAmino): OrderbookMessage {
-    return {
-      contents: object.contents,
-      clobPairId: object.clob_pair_id,
-      version: object.version
-    };
+    const message = createBaseOrderbookMessage();
+    if (object.contents !== undefined && object.contents !== null) {
+      message.contents = object.contents;
+    }
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
   },
   toAmino(message: OrderbookMessage): OrderbookMessageAmino {
     const obj: any = {};
@@ -325,7 +331,7 @@ function createBaseSubaccountMessage(): SubaccountMessage {
     transactionIndex: 0,
     eventIndex: 0,
     contents: "",
-    subaccountId: IndexerSubaccountId.fromPartial({}),
+    subaccountId: undefined,
     version: ""
   };
 }
@@ -373,14 +379,26 @@ export const SubaccountMessage = {
     return message;
   },
   fromAmino(object: SubaccountMessageAmino): SubaccountMessage {
-    return {
-      blockHeight: object.block_height,
-      transactionIndex: object.transaction_index,
-      eventIndex: object.event_index,
-      contents: object.contents,
-      subaccountId: object?.subaccount_id ? IndexerSubaccountId.fromAmino(object.subaccount_id) : undefined,
-      version: object.version
-    };
+    const message = createBaseSubaccountMessage();
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = object.block_height;
+    }
+    if (object.transaction_index !== undefined && object.transaction_index !== null) {
+      message.transactionIndex = object.transaction_index;
+    }
+    if (object.event_index !== undefined && object.event_index !== null) {
+      message.eventIndex = object.event_index;
+    }
+    if (object.contents !== undefined && object.contents !== null) {
+      message.contents = object.contents;
+    }
+    if (object.subaccount_id !== undefined && object.subaccount_id !== null) {
+      message.subaccountId = IndexerSubaccountId.fromAmino(object.subaccount_id);
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
   },
   toAmino(message: SubaccountMessage): SubaccountMessageAmino {
     const obj: any = {};
@@ -450,12 +468,20 @@ export const TradeMessage = {
     return message;
   },
   fromAmino(object: TradeMessageAmino): TradeMessage {
-    return {
-      blockHeight: object.block_height,
-      contents: object.contents,
-      clobPairId: object.clob_pair_id,
-      version: object.version
-    };
+    const message = createBaseTradeMessage();
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = object.block_height;
+    }
+    if (object.contents !== undefined && object.contents !== null) {
+      message.contents = object.contents;
+    }
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
   },
   toAmino(message: TradeMessage): TradeMessageAmino {
     const obj: any = {};
@@ -511,10 +537,14 @@ export const MarketMessage = {
     return message;
   },
   fromAmino(object: MarketMessageAmino): MarketMessage {
-    return {
-      contents: object.contents,
-      version: object.version
-    };
+    const message = createBaseMarketMessage();
+    if (object.contents !== undefined && object.contents !== null) {
+      message.contents = object.contents;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
   },
   toAmino(message: MarketMessage): MarketMessageAmino {
     const obj: any = {};
@@ -580,12 +610,20 @@ export const CandleMessage = {
     return message;
   },
   fromAmino(object: CandleMessageAmino): CandleMessage {
-    return {
-      contents: object.contents,
-      clobPairId: object.clob_pair_id,
-      resolution: isSet(object.resolution) ? candleMessage_ResolutionFromJSON(object.resolution) : -1,
-      version: object.version
-    };
+    const message = createBaseCandleMessage();
+    if (object.contents !== undefined && object.contents !== null) {
+      message.contents = object.contents;
+    }
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    if (object.resolution !== undefined && object.resolution !== null) {
+      message.resolution = candleMessage_ResolutionFromJSON(object.resolution);
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
   },
   toAmino(message: CandleMessage): CandleMessageAmino {
     const obj: any = {};

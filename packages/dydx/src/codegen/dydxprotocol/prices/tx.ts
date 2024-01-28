@@ -21,7 +21,7 @@ export interface MsgCreateOracleMarketProtoMsg {
  */
 export interface MsgCreateOracleMarketAmino {
   /** The address that controls the module. */
-  authority: string;
+  authority?: string;
   /** `params` defines parameters for the new oracle market. */
   params?: MarketParamAmino;
 }
@@ -61,7 +61,7 @@ export interface MsgUpdateMarketPricesProtoMsg {
 }
 /** MsgUpdateMarketPrices is a request type for the UpdateMarketPrices method. */
 export interface MsgUpdateMarketPricesAmino {
-  market_price_updates: MsgUpdateMarketPrices_MarketPriceAmino[];
+  market_price_updates?: MsgUpdateMarketPrices_MarketPriceAmino[];
 }
 export interface MsgUpdateMarketPricesAminoMsg {
   type: "/dydxprotocol.prices.MsgUpdateMarketPrices";
@@ -85,9 +85,9 @@ export interface MsgUpdateMarketPrices_MarketPriceProtoMsg {
 /** MarketPrice represents a price update for a single market */
 export interface MsgUpdateMarketPrices_MarketPriceAmino {
   /** The id of market to update */
-  market_id: number;
+  market_id?: number;
   /** The updated price */
-  price: string;
+  price?: string;
 }
 export interface MsgUpdateMarketPrices_MarketPriceAminoMsg {
   type: "/dydxprotocol.prices.MarketPrice";
@@ -139,7 +139,7 @@ export interface MsgUpdateMarketParamProtoMsg {
  * of an oracle market.
  */
 export interface MsgUpdateMarketParamAmino {
-  authority: string;
+  authority?: string;
   /** The market param to update. Each field must be set. */
   market_param?: MarketParamAmino;
 }
@@ -199,10 +199,14 @@ export const MsgCreateOracleMarket = {
     return message;
   },
   fromAmino(object: MsgCreateOracleMarketAmino): MsgCreateOracleMarket {
-    return {
-      authority: object.authority,
-      params: object?.params ? MarketParam.fromAmino(object.params) : undefined
-    };
+    const message = createBaseMsgCreateOracleMarket();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = MarketParam.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: MsgCreateOracleMarket): MsgCreateOracleMarketAmino {
     const obj: any = {};
@@ -242,7 +246,8 @@ export const MsgCreateOracleMarketResponse = {
     return message;
   },
   fromAmino(_: MsgCreateOracleMarketResponseAmino): MsgCreateOracleMarketResponse {
-    return {};
+    const message = createBaseMsgCreateOracleMarketResponse();
+    return message;
   },
   toAmino(_: MsgCreateOracleMarketResponse): MsgCreateOracleMarketResponseAmino {
     const obj: any = {};
@@ -288,9 +293,9 @@ export const MsgUpdateMarketPrices = {
     return message;
   },
   fromAmino(object: MsgUpdateMarketPricesAmino): MsgUpdateMarketPrices {
-    return {
-      marketPriceUpdates: Array.isArray(object?.market_price_updates) ? object.market_price_updates.map((e: any) => MsgUpdateMarketPrices_MarketPrice.fromAmino(e)) : []
-    };
+    const message = createBaseMsgUpdateMarketPrices();
+    message.marketPriceUpdates = object.market_price_updates?.map(e => MsgUpdateMarketPrices_MarketPrice.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgUpdateMarketPrices): MsgUpdateMarketPricesAmino {
     const obj: any = {};
@@ -347,10 +352,14 @@ export const MsgUpdateMarketPrices_MarketPrice = {
     return message;
   },
   fromAmino(object: MsgUpdateMarketPrices_MarketPriceAmino): MsgUpdateMarketPrices_MarketPrice {
-    return {
-      marketId: object.market_id,
-      price: BigInt(object.price)
-    };
+    const message = createBaseMsgUpdateMarketPrices_MarketPrice();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateMarketPrices_MarketPrice): MsgUpdateMarketPrices_MarketPriceAmino {
     const obj: any = {};
@@ -390,7 +399,8 @@ export const MsgUpdateMarketPricesResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateMarketPricesResponseAmino): MsgUpdateMarketPricesResponse {
-    return {};
+    const message = createBaseMsgUpdateMarketPricesResponse();
+    return message;
   },
   toAmino(_: MsgUpdateMarketPricesResponse): MsgUpdateMarketPricesResponseAmino {
     const obj: any = {};
@@ -442,10 +452,14 @@ export const MsgUpdateMarketParam = {
     return message;
   },
   fromAmino(object: MsgUpdateMarketParamAmino): MsgUpdateMarketParam {
-    return {
-      authority: object.authority,
-      marketParam: object?.market_param ? MarketParam.fromAmino(object.market_param) : undefined
-    };
+    const message = createBaseMsgUpdateMarketParam();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.market_param !== undefined && object.market_param !== null) {
+      message.marketParam = MarketParam.fromAmino(object.market_param);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateMarketParam): MsgUpdateMarketParamAmino {
     const obj: any = {};
@@ -485,7 +499,8 @@ export const MsgUpdateMarketParamResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateMarketParamResponseAmino): MsgUpdateMarketParamResponse {
-    return {};
+    const message = createBaseMsgUpdateMarketParamResponse();
+    return message;
   },
   toAmino(_: MsgUpdateMarketParamResponse): MsgUpdateMarketParamResponseAmino {
     const obj: any = {};

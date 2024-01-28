@@ -10,7 +10,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the epochs module's genesis state. */
 export interface GenesisStateAmino {
-  epoch_info_list: EpochInfoAmino[];
+  epoch_info_list?: EpochInfoAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/dydxprotocol.epochs.GenesisState";
@@ -44,9 +44,9 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      epochInfoList: Array.isArray(object?.epoch_info_list) ? object.epoch_info_list.map((e: any) => EpochInfo.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.epochInfoList = object.epoch_info_list?.map(e => EpochInfo.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

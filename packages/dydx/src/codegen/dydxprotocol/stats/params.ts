@@ -47,9 +47,11 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      windowDuration: object?.window_duration ? Duration.fromAmino(object.window_duration) : undefined
-    };
+    const message = createBaseParams();
+    if (object.window_duration !== undefined && object.window_duration !== null) {
+      message.windowDuration = Duration.fromAmino(object.window_duration);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

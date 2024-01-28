@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 /** UpdateMarketPriceRequest is a request message updating market prices. */
@@ -11,7 +11,7 @@ export interface UpdateMarketPricesRequestProtoMsg {
 }
 /** UpdateMarketPriceRequest is a request message updating market prices. */
 export interface UpdateMarketPricesRequestAmino {
-  market_price_updates: MarketPriceUpdateAmino[];
+  market_price_updates?: MarketPriceUpdateAmino[];
 }
 export interface UpdateMarketPricesRequestAminoMsg {
   type: "/dydxprotocol.daemons.pricefeed.UpdateMarketPricesRequest";
@@ -47,9 +47,9 @@ export interface ExchangePriceProtoMsg {
 }
 /** ExchangePrice represents a specific exchange's market price */
 export interface ExchangePriceAmino {
-  exchange_id: string;
-  price: string;
-  last_update_time?: TimestampAmino;
+  exchange_id?: string;
+  price?: string;
+  last_update_time?: string;
 }
 export interface ExchangePriceAminoMsg {
   type: "/dydxprotocol.daemons.pricefeed.ExchangePrice";
@@ -72,8 +72,8 @@ export interface MarketPriceUpdateProtoMsg {
 }
 /** MarketPriceUpdate represents an update to a single market */
 export interface MarketPriceUpdateAmino {
-  market_id: number;
-  exchange_prices: ExchangePriceAmino[];
+  market_id?: number;
+  exchange_prices?: ExchangePriceAmino[];
 }
 export interface MarketPriceUpdateAminoMsg {
   type: "/dydxprotocol.daemons.pricefeed.MarketPriceUpdate";
@@ -108,9 +108,9 @@ export const UpdateMarketPricesRequest = {
     return message;
   },
   fromAmino(object: UpdateMarketPricesRequestAmino): UpdateMarketPricesRequest {
-    return {
-      marketPriceUpdates: Array.isArray(object?.market_price_updates) ? object.market_price_updates.map((e: any) => MarketPriceUpdate.fromAmino(e)) : []
-    };
+    const message = createBaseUpdateMarketPricesRequest();
+    message.marketPriceUpdates = object.market_price_updates?.map(e => MarketPriceUpdate.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: UpdateMarketPricesRequest): UpdateMarketPricesRequestAmino {
     const obj: any = {};
@@ -153,7 +153,8 @@ export const UpdateMarketPricesResponse = {
     return message;
   },
   fromAmino(_: UpdateMarketPricesResponseAmino): UpdateMarketPricesResponse {
-    return {};
+    const message = createBaseUpdateMarketPricesResponse();
+    return message;
   },
   toAmino(_: UpdateMarketPricesResponse): UpdateMarketPricesResponseAmino {
     const obj: any = {};
@@ -211,17 +212,23 @@ export const ExchangePrice = {
     return message;
   },
   fromAmino(object: ExchangePriceAmino): ExchangePrice {
-    return {
-      exchangeId: object.exchange_id,
-      price: BigInt(object.price),
-      lastUpdateTime: object?.last_update_time
-    };
+    const message = createBaseExchangePrice();
+    if (object.exchange_id !== undefined && object.exchange_id !== null) {
+      message.exchangeId = object.exchange_id;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.last_update_time !== undefined && object.last_update_time !== null) {
+      message.lastUpdateTime = Timestamp.fromAmino(object.last_update_time);
+    }
+    return message;
   },
   toAmino(message: ExchangePrice): ExchangePriceAmino {
     const obj: any = {};
     obj.exchange_id = message.exchangeId;
     obj.price = message.price ? message.price.toString() : undefined;
-    obj.last_update_time = message.lastUpdateTime;
+    obj.last_update_time = message.lastUpdateTime ? Timestamp.toAmino(message.lastUpdateTime) : undefined;
     return obj;
   },
   fromAminoMsg(object: ExchangePriceAminoMsg): ExchangePrice {
@@ -270,10 +277,12 @@ export const MarketPriceUpdate = {
     return message;
   },
   fromAmino(object: MarketPriceUpdateAmino): MarketPriceUpdate {
-    return {
-      marketId: object.market_id,
-      exchangePrices: Array.isArray(object?.exchange_prices) ? object.exchange_prices.map((e: any) => ExchangePrice.fromAmino(e)) : []
-    };
+    const message = createBaseMarketPriceUpdate();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    message.exchangePrices = object.exchange_prices?.map(e => ExchangePrice.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MarketPriceUpdate): MarketPriceUpdateAmino {
     const obj: any = {};

@@ -305,7 +305,7 @@ export interface IndexerOrderIdAmino {
    * sub account (I.E., the same subaccount can't have two orders with
    * the same ClientId).
    */
-  client_id: number;
+  client_id?: number;
   /**
    * order_flags represent order flags for the order. This field is invalid if
    * it's greater than 127 (larger than one byte). Each bit in the first byte
@@ -321,9 +321,9 @@ export interface IndexerOrderIdAmino {
    * If both bits are set or bits other than the 2nd and 3rd are set, the order
    * ID is invalid.
    */
-  order_flags: number;
+  order_flags?: number;
   /** ID of the CLOB the order is created for. */
-  clob_pair_id: number;
+  clob_pair_id?: number;
 }
 export interface IndexerOrderIdAminoMsg {
   type: "/dydxprotocol.indexer.protocol.v1.IndexerOrderId";
@@ -408,18 +408,18 @@ export interface IndexerOrderProtoMsg {
 export interface IndexerOrderAmino {
   /** The unique ID of this order. Meant to be unique across all orders. */
   order_id?: IndexerOrderIdAmino;
-  side: IndexerOrder_Side;
+  side?: IndexerOrder_Side;
   /**
    * The size of this order in base quantums. Must be a multiple of
    * `ClobPair.StepBaseQuantums` (where `ClobPair.Id = orderId.ClobPairId`).
    */
-  quantums: string;
+  quantums?: string;
   /**
    * The price level that this order will be placed at on the orderbook,
    * in subticks. Must be a multiple of ClobPair.SubticksPerTick
    * (where `ClobPair.Id = orderId.ClobPairId`).
    */
-  subticks: string;
+  subticks?: string;
   /**
    * The last block this order can be executed at (after which it will be
    * unfillable). Used only for Short-Term orders. If this value is non-zero
@@ -436,7 +436,7 @@ export interface IndexerOrderAmino {
    */
   good_til_block_time?: number;
   /** The time in force of this order. */
-  time_in_force: IndexerOrder_TimeInForce;
+  time_in_force?: IndexerOrder_TimeInForce;
   /**
    * Enforces that the order can only reduce the size of an existing position.
    * If a ReduceOnly order would change the side of the existing position,
@@ -445,13 +445,13 @@ export interface IndexerOrderAmino {
    * would already close the position, the least aggressive (out-of-the-money)
    * ReduceOnly orders are resized and canceled first.
    */
-  reduce_only: boolean;
+  reduce_only?: boolean;
   /**
    * Set of bit flags set arbitrarily by clients and ignored by the protocol.
    * Used by indexer to infer information about a placed order.
    */
-  client_metadata: number;
-  condition_type: IndexerOrder_ConditionType;
+  client_metadata?: number;
+  condition_type?: IndexerOrder_ConditionType;
   /**
    * conditional_order_trigger_subticks represents the price at which this order
    * will be triggered. If the condition_type is CONDITION_TYPE_UNSPECIFIED,
@@ -460,7 +460,7 @@ export interface IndexerOrderAmino {
    * Must be a multiple of ClobPair.SubticksPerTick (where `ClobPair.Id =
    * orderId.ClobPairId`).
    */
-  conditional_order_trigger_subticks: string;
+  conditional_order_trigger_subticks?: string;
 }
 export interface IndexerOrderAminoMsg {
   type: "/dydxprotocol.indexer.protocol.v1.IndexerOrder";
@@ -525,12 +525,20 @@ export const IndexerOrderId = {
     return message;
   },
   fromAmino(object: IndexerOrderIdAmino): IndexerOrderId {
-    return {
-      subaccountId: object?.subaccount_id ? IndexerSubaccountId.fromAmino(object.subaccount_id) : undefined,
-      clientId: object.client_id,
-      orderFlags: object.order_flags,
-      clobPairId: object.clob_pair_id
-    };
+    const message = createBaseIndexerOrderId();
+    if (object.subaccount_id !== undefined && object.subaccount_id !== null) {
+      message.subaccountId = IndexerSubaccountId.fromAmino(object.subaccount_id);
+    }
+    if (object.client_id !== undefined && object.client_id !== null) {
+      message.clientId = object.client_id;
+    }
+    if (object.order_flags !== undefined && object.order_flags !== null) {
+      message.orderFlags = object.order_flags;
+    }
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    return message;
   },
   toAmino(message: IndexerOrderId): IndexerOrderIdAmino {
     const obj: any = {};
@@ -640,19 +648,41 @@ export const IndexerOrder = {
     return message;
   },
   fromAmino(object: IndexerOrderAmino): IndexerOrder {
-    return {
-      orderId: object?.order_id ? IndexerOrderId.fromAmino(object.order_id) : undefined,
-      side: isSet(object.side) ? indexerOrder_SideFromJSON(object.side) : -1,
-      quantums: BigInt(object.quantums),
-      subticks: BigInt(object.subticks),
-      goodTilBlock: object?.good_til_block,
-      goodTilBlockTime: object?.good_til_block_time,
-      timeInForce: isSet(object.time_in_force) ? indexerOrder_TimeInForceFromJSON(object.time_in_force) : -1,
-      reduceOnly: object.reduce_only,
-      clientMetadata: object.client_metadata,
-      conditionType: isSet(object.condition_type) ? indexerOrder_ConditionTypeFromJSON(object.condition_type) : -1,
-      conditionalOrderTriggerSubticks: BigInt(object.conditional_order_trigger_subticks)
-    };
+    const message = createBaseIndexerOrder();
+    if (object.order_id !== undefined && object.order_id !== null) {
+      message.orderId = IndexerOrderId.fromAmino(object.order_id);
+    }
+    if (object.side !== undefined && object.side !== null) {
+      message.side = indexerOrder_SideFromJSON(object.side);
+    }
+    if (object.quantums !== undefined && object.quantums !== null) {
+      message.quantums = BigInt(object.quantums);
+    }
+    if (object.subticks !== undefined && object.subticks !== null) {
+      message.subticks = BigInt(object.subticks);
+    }
+    if (object.good_til_block !== undefined && object.good_til_block !== null) {
+      message.goodTilBlock = object.good_til_block;
+    }
+    if (object.good_til_block_time !== undefined && object.good_til_block_time !== null) {
+      message.goodTilBlockTime = object.good_til_block_time;
+    }
+    if (object.time_in_force !== undefined && object.time_in_force !== null) {
+      message.timeInForce = indexerOrder_TimeInForceFromJSON(object.time_in_force);
+    }
+    if (object.reduce_only !== undefined && object.reduce_only !== null) {
+      message.reduceOnly = object.reduce_only;
+    }
+    if (object.client_metadata !== undefined && object.client_metadata !== null) {
+      message.clientMetadata = object.client_metadata;
+    }
+    if (object.condition_type !== undefined && object.condition_type !== null) {
+      message.conditionType = indexerOrder_ConditionTypeFromJSON(object.condition_type);
+    }
+    if (object.conditional_order_trigger_subticks !== undefined && object.conditional_order_trigger_subticks !== null) {
+      message.conditionalOrderTriggerSubticks = BigInt(object.conditional_order_trigger_subticks);
+    }
+    return message;
   },
   toAmino(message: IndexerOrder): IndexerOrderAmino {
     const obj: any = {};

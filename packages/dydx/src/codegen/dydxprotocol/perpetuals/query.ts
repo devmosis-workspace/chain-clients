@@ -15,7 +15,7 @@ export interface QueryPerpetualRequestProtoMsg {
 /** Queries a Perpetual by id. */
 export interface QueryPerpetualRequestAmino {
   /** Queries a Perpetual by id. */
-  id: number;
+  id?: number;
 }
 export interface QueryPerpetualRequestAminoMsg {
   type: "/dydxprotocol.perpetuals.QueryPerpetualRequest";
@@ -47,7 +47,7 @@ export interface QueryPerpetualResponseSDKType {
 }
 /** Queries a list of Perpetual items. */
 export interface QueryAllPerpetualsRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllPerpetualsRequestProtoMsg {
   typeUrl: "/dydxprotocol.perpetuals.QueryAllPerpetualsRequest";
@@ -63,12 +63,12 @@ export interface QueryAllPerpetualsRequestAminoMsg {
 }
 /** Queries a list of Perpetual items. */
 export interface QueryAllPerpetualsRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryAllPerpetualsResponse is response type for the AllPerpetuals RPC method. */
 export interface QueryAllPerpetualsResponse {
   perpetual: Perpetual[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllPerpetualsResponseProtoMsg {
   typeUrl: "/dydxprotocol.perpetuals.QueryAllPerpetualsResponse";
@@ -76,7 +76,7 @@ export interface QueryAllPerpetualsResponseProtoMsg {
 }
 /** QueryAllPerpetualsResponse is response type for the AllPerpetuals RPC method. */
 export interface QueryAllPerpetualsResponseAmino {
-  perpetual: PerpetualAmino[];
+  perpetual?: PerpetualAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllPerpetualsResponseAminoMsg {
@@ -86,7 +86,7 @@ export interface QueryAllPerpetualsResponseAminoMsg {
 /** QueryAllPerpetualsResponse is response type for the AllPerpetuals RPC method. */
 export interface QueryAllPerpetualsResponseSDKType {
   perpetual: PerpetualSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryPremiumVotesRequest is the request type for the PremiumVotes RPC method. */
 export interface QueryPremiumVotesRequest {}
@@ -241,9 +241,11 @@ export const QueryPerpetualRequest = {
     return message;
   },
   fromAmino(object: QueryPerpetualRequestAmino): QueryPerpetualRequest {
-    return {
-      id: object.id
-    };
+    const message = createBaseQueryPerpetualRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: QueryPerpetualRequest): QueryPerpetualRequestAmino {
     const obj: any = {};
@@ -290,9 +292,11 @@ export const QueryPerpetualResponse = {
     return message;
   },
   fromAmino(object: QueryPerpetualResponseAmino): QueryPerpetualResponse {
-    return {
-      perpetual: object?.perpetual ? Perpetual.fromAmino(object.perpetual) : undefined
-    };
+    const message = createBaseQueryPerpetualResponse();
+    if (object.perpetual !== undefined && object.perpetual !== null) {
+      message.perpetual = Perpetual.fromAmino(object.perpetual);
+    }
+    return message;
   },
   toAmino(message: QueryPerpetualResponse): QueryPerpetualResponseAmino {
     const obj: any = {};
@@ -317,7 +321,7 @@ export const QueryPerpetualResponse = {
 };
 function createBaseQueryAllPerpetualsRequest(): QueryAllPerpetualsRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllPerpetualsRequest = {
@@ -339,9 +343,11 @@ export const QueryAllPerpetualsRequest = {
     return message;
   },
   fromAmino(object: QueryAllPerpetualsRequestAmino): QueryAllPerpetualsRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllPerpetualsRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllPerpetualsRequest): QueryAllPerpetualsRequestAmino {
     const obj: any = {};
@@ -367,7 +373,7 @@ export const QueryAllPerpetualsRequest = {
 function createBaseQueryAllPerpetualsResponse(): QueryAllPerpetualsResponse {
   return {
     perpetual: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllPerpetualsResponse = {
@@ -394,10 +400,12 @@ export const QueryAllPerpetualsResponse = {
     return message;
   },
   fromAmino(object: QueryAllPerpetualsResponseAmino): QueryAllPerpetualsResponse {
-    return {
-      perpetual: Array.isArray(object?.perpetual) ? object.perpetual.map((e: any) => Perpetual.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllPerpetualsResponse();
+    message.perpetual = object.perpetual?.map(e => Perpetual.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllPerpetualsResponse): QueryAllPerpetualsResponseAmino {
     const obj: any = {};
@@ -441,7 +449,8 @@ export const QueryPremiumVotesRequest = {
     return message;
   },
   fromAmino(_: QueryPremiumVotesRequestAmino): QueryPremiumVotesRequest {
-    return {};
+    const message = createBaseQueryPremiumVotesRequest();
+    return message;
   },
   toAmino(_: QueryPremiumVotesRequest): QueryPremiumVotesRequestAmino {
     const obj: any = {};
@@ -487,9 +496,11 @@ export const QueryPremiumVotesResponse = {
     return message;
   },
   fromAmino(object: QueryPremiumVotesResponseAmino): QueryPremiumVotesResponse {
-    return {
-      premiumVotes: object?.premium_votes ? PremiumStore.fromAmino(object.premium_votes) : undefined
-    };
+    const message = createBaseQueryPremiumVotesResponse();
+    if (object.premium_votes !== undefined && object.premium_votes !== null) {
+      message.premiumVotes = PremiumStore.fromAmino(object.premium_votes);
+    }
+    return message;
   },
   toAmino(message: QueryPremiumVotesResponse): QueryPremiumVotesResponseAmino {
     const obj: any = {};
@@ -528,7 +539,8 @@ export const QueryPremiumSamplesRequest = {
     return message;
   },
   fromAmino(_: QueryPremiumSamplesRequestAmino): QueryPremiumSamplesRequest {
-    return {};
+    const message = createBaseQueryPremiumSamplesRequest();
+    return message;
   },
   toAmino(_: QueryPremiumSamplesRequest): QueryPremiumSamplesRequestAmino {
     const obj: any = {};
@@ -574,9 +586,11 @@ export const QueryPremiumSamplesResponse = {
     return message;
   },
   fromAmino(object: QueryPremiumSamplesResponseAmino): QueryPremiumSamplesResponse {
-    return {
-      premiumSamples: object?.premium_samples ? PremiumStore.fromAmino(object.premium_samples) : undefined
-    };
+    const message = createBaseQueryPremiumSamplesResponse();
+    if (object.premium_samples !== undefined && object.premium_samples !== null) {
+      message.premiumSamples = PremiumStore.fromAmino(object.premium_samples);
+    }
+    return message;
   },
   toAmino(message: QueryPremiumSamplesResponse): QueryPremiumSamplesResponseAmino {
     const obj: any = {};
@@ -615,7 +629,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -661,9 +676,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};

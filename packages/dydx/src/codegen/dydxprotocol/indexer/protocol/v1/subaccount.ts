@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64 } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** IndexerSubaccountId defines a unique identifier for a Subaccount. */
 export interface IndexerSubaccountId {
   /** The address of the wallet that owns this subaccount. */
@@ -17,12 +17,12 @@ export interface IndexerSubaccountIdProtoMsg {
 /** IndexerSubaccountId defines a unique identifier for a Subaccount. */
 export interface IndexerSubaccountIdAmino {
   /** The address of the wallet that owns this subaccount. */
-  owner: string;
+  owner?: string;
   /**
    * < 128 Since 128 should be enough to start and it fits within
    * 1 Byte (1 Bit needed to indicate that the first byte is the last).
    */
-  number: number;
+  number?: number;
 }
 export interface IndexerSubaccountIdAminoMsg {
   type: "/dydxprotocol.indexer.protocol.v1.IndexerSubaccountId";
@@ -65,21 +65,21 @@ export interface IndexerPerpetualPositionProtoMsg {
  */
 export interface IndexerPerpetualPositionAmino {
   /** The `Id` of the `Perpetual`. */
-  perpetual_id: number;
+  perpetual_id?: number;
   /** The size of the position in base quantums. */
-  quantums: Uint8Array;
+  quantums?: string;
   /**
    * The funding_index of the `Perpetual` the last time this position was
    * settled.
    */
-  funding_index: Uint8Array;
+  funding_index?: string;
   /**
    * Amount of funding payment (in quote quantums).
    * Note: 1. this field is not cumulative.
    * 2. a positive value means funding payment was paid out and
    * a negative value means funding payment was received.
    */
-  funding_payment: Uint8Array;
+  funding_payment?: string;
 }
 export interface IndexerPerpetualPositionAminoMsg {
   type: "/dydxprotocol.indexer.protocol.v1.IndexerPerpetualPosition";
@@ -121,15 +121,15 @@ export interface IndexerAssetPositionProtoMsg {
  */
 export interface IndexerAssetPositionAmino {
   /** The `Id` of the `Asset`. */
-  asset_id: number;
+  asset_id?: number;
   /** The absolute size of the position in base quantums. */
-  quantums: Uint8Array;
+  quantums?: string;
   /**
    * The `Index` (either `LongIndex` or `ShortIndex`) of the `Asset` the last
    * time this position was settled
    * TODO(DEC-582): pending margin trading being added.
    */
-  index: string;
+  index?: string;
 }
 export interface IndexerAssetPositionAminoMsg {
   type: "/dydxprotocol.indexer.protocol.v1.IndexerAssetPosition";
@@ -174,10 +174,14 @@ export const IndexerSubaccountId = {
     return message;
   },
   fromAmino(object: IndexerSubaccountIdAmino): IndexerSubaccountId {
-    return {
-      owner: object.owner,
-      number: object.number
-    };
+    const message = createBaseIndexerSubaccountId();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.number !== undefined && object.number !== null) {
+      message.number = object.number;
+    }
+    return message;
   },
   toAmino(message: IndexerSubaccountId): IndexerSubaccountIdAmino {
     const obj: any = {};
@@ -243,19 +247,27 @@ export const IndexerPerpetualPosition = {
     return message;
   },
   fromAmino(object: IndexerPerpetualPositionAmino): IndexerPerpetualPosition {
-    return {
-      perpetualId: object.perpetual_id,
-      quantums: object.quantums,
-      fundingIndex: object.funding_index,
-      fundingPayment: object.funding_payment
-    };
+    const message = createBaseIndexerPerpetualPosition();
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    if (object.quantums !== undefined && object.quantums !== null) {
+      message.quantums = bytesFromBase64(object.quantums);
+    }
+    if (object.funding_index !== undefined && object.funding_index !== null) {
+      message.fundingIndex = bytesFromBase64(object.funding_index);
+    }
+    if (object.funding_payment !== undefined && object.funding_payment !== null) {
+      message.fundingPayment = bytesFromBase64(object.funding_payment);
+    }
+    return message;
   },
   toAmino(message: IndexerPerpetualPosition): IndexerPerpetualPositionAmino {
     const obj: any = {};
     obj.perpetual_id = message.perpetualId;
-    obj.quantums = message.quantums;
-    obj.funding_index = message.fundingIndex;
-    obj.funding_payment = message.fundingPayment;
+    obj.quantums = message.quantums ? base64FromBytes(message.quantums) : undefined;
+    obj.funding_index = message.fundingIndex ? base64FromBytes(message.fundingIndex) : undefined;
+    obj.funding_payment = message.fundingPayment ? base64FromBytes(message.fundingPayment) : undefined;
     return obj;
   },
   fromAminoMsg(object: IndexerPerpetualPositionAminoMsg): IndexerPerpetualPosition {
@@ -310,16 +322,22 @@ export const IndexerAssetPosition = {
     return message;
   },
   fromAmino(object: IndexerAssetPositionAmino): IndexerAssetPosition {
-    return {
-      assetId: object.asset_id,
-      quantums: object.quantums,
-      index: BigInt(object.index)
-    };
+    const message = createBaseIndexerAssetPosition();
+    if (object.asset_id !== undefined && object.asset_id !== null) {
+      message.assetId = object.asset_id;
+    }
+    if (object.quantums !== undefined && object.quantums !== null) {
+      message.quantums = bytesFromBase64(object.quantums);
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = BigInt(object.index);
+    }
+    return message;
   },
   toAmino(message: IndexerAssetPosition): IndexerAssetPositionAmino {
     const obj: any = {};
     obj.asset_id = message.assetId;
-    obj.quantums = message.quantums;
+    obj.quantums = message.quantums ? base64FromBytes(message.quantums) : undefined;
     obj.index = message.index ? message.index.toString() : undefined;
     return obj;
   },

@@ -14,7 +14,7 @@ export interface QueryAssetRequestProtoMsg {
 /** Queries an Asset by id. */
 export interface QueryAssetRequestAmino {
   /** Queries an Asset by id. */
-  id: number;
+  id?: number;
 }
 export interface QueryAssetRequestAminoMsg {
   type: "/dydxprotocol.assets.QueryAssetRequest";
@@ -48,7 +48,7 @@ export interface QueryAssetResponseSDKType {
 }
 /** Queries a list of Asset items. */
 export interface QueryAllAssetsRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllAssetsRequestProtoMsg {
   typeUrl: "/dydxprotocol.assets.QueryAllAssetsRequest";
@@ -64,12 +64,12 @@ export interface QueryAllAssetsRequestAminoMsg {
 }
 /** Queries a list of Asset items. */
 export interface QueryAllAssetsRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryAllAssetsResponse is response type for the AllAssets RPC method. */
 export interface QueryAllAssetsResponse {
   asset: Asset[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllAssetsResponseProtoMsg {
   typeUrl: "/dydxprotocol.assets.QueryAllAssetsResponse";
@@ -77,7 +77,7 @@ export interface QueryAllAssetsResponseProtoMsg {
 }
 /** QueryAllAssetsResponse is response type for the AllAssets RPC method. */
 export interface QueryAllAssetsResponseAmino {
-  asset: AssetAmino[];
+  asset?: AssetAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllAssetsResponseAminoMsg {
@@ -87,7 +87,7 @@ export interface QueryAllAssetsResponseAminoMsg {
 /** QueryAllAssetsResponse is response type for the AllAssets RPC method. */
 export interface QueryAllAssetsResponseSDKType {
   asset: AssetSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 function createBaseQueryAssetRequest(): QueryAssetRequest {
   return {
@@ -113,9 +113,11 @@ export const QueryAssetRequest = {
     return message;
   },
   fromAmino(object: QueryAssetRequestAmino): QueryAssetRequest {
-    return {
-      id: object.id
-    };
+    const message = createBaseQueryAssetRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: QueryAssetRequest): QueryAssetRequestAmino {
     const obj: any = {};
@@ -162,9 +164,11 @@ export const QueryAssetResponse = {
     return message;
   },
   fromAmino(object: QueryAssetResponseAmino): QueryAssetResponse {
-    return {
-      asset: object?.asset ? Asset.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseQueryAssetResponse();
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Asset.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: QueryAssetResponse): QueryAssetResponseAmino {
     const obj: any = {};
@@ -189,7 +193,7 @@ export const QueryAssetResponse = {
 };
 function createBaseQueryAllAssetsRequest(): QueryAllAssetsRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllAssetsRequest = {
@@ -211,9 +215,11 @@ export const QueryAllAssetsRequest = {
     return message;
   },
   fromAmino(object: QueryAllAssetsRequestAmino): QueryAllAssetsRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllAssetsRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllAssetsRequest): QueryAllAssetsRequestAmino {
     const obj: any = {};
@@ -239,7 +245,7 @@ export const QueryAllAssetsRequest = {
 function createBaseQueryAllAssetsResponse(): QueryAllAssetsResponse {
   return {
     asset: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllAssetsResponse = {
@@ -266,10 +272,12 @@ export const QueryAllAssetsResponse = {
     return message;
   },
   fromAmino(object: QueryAllAssetsResponseAmino): QueryAllAssetsResponse {
-    return {
-      asset: Array.isArray(object?.asset) ? object.asset.map((e: any) => Asset.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllAssetsResponse();
+    message.asset = object.asset?.map(e => Asset.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllAssetsResponse): QueryAllAssetsResponseAmino {
     const obj: any = {};

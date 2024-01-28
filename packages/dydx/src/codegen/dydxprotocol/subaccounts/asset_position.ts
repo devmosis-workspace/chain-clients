@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /**
  * AssetPositions define an account’s positions of an `Asset`.
  * Therefore they hold any information needed to trade on Spot and Margin.
@@ -26,15 +26,15 @@ export interface AssetPositionProtoMsg {
  */
 export interface AssetPositionAmino {
   /** The `Id` of the `Asset`. */
-  asset_id: number;
+  asset_id?: number;
   /** The absolute size of the position in base quantums. */
-  quantums: Uint8Array;
+  quantums?: string;
   /**
    * The `Index` (either `LongIndex` or `ShortIndex`) of the `Asset` the last
    * time this position was settled
    * TODO(DEC-582): pending margin trading being added.
    */
-  index: string;
+  index?: string;
 }
 export interface AssetPositionAminoMsg {
   type: "/dydxprotocol.subaccounts.AssetPosition";
@@ -85,16 +85,22 @@ export const AssetPosition = {
     return message;
   },
   fromAmino(object: AssetPositionAmino): AssetPosition {
-    return {
-      assetId: object.asset_id,
-      quantums: object.quantums,
-      index: BigInt(object.index)
-    };
+    const message = createBaseAssetPosition();
+    if (object.asset_id !== undefined && object.asset_id !== null) {
+      message.assetId = object.asset_id;
+    }
+    if (object.quantums !== undefined && object.quantums !== null) {
+      message.quantums = bytesFromBase64(object.quantums);
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = BigInt(object.index);
+    }
+    return message;
   },
   toAmino(message: AssetPosition): AssetPositionAmino {
     const obj: any = {};
     obj.asset_id = message.assetId;
-    obj.quantums = message.quantums;
+    obj.quantums = message.quantums ? base64FromBytes(message.quantums) : undefined;
     obj.index = message.index ? message.index.toString() : undefined;
     return obj;
   },

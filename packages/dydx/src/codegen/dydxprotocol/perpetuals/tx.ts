@@ -16,7 +16,7 @@ export interface MsgCreatePerpetualProtoMsg {
 /** MsgCreatePerpetual is a message used by x/gov to create a new perpetual. */
 export interface MsgCreatePerpetualAmino {
   /** The address that controls the module. */
-  authority: string;
+  authority?: string;
   /** `params` defines parameters for the new perpetual market. */
   params?: PerpetualParamsAmino;
 }
@@ -72,7 +72,7 @@ export interface MsgSetLiquidityTierProtoMsg {
  */
 export interface MsgSetLiquidityTierAmino {
   /** The address that controls the module. */
-  authority: string;
+  authority?: string;
   /** The liquidity tier to create or update. */
   liquidity_tier?: LiquidityTierAmino;
 }
@@ -120,7 +120,7 @@ export interface MsgUpdatePerpetualParamsProtoMsg {
  * of a perpetual.
  */
 export interface MsgUpdatePerpetualParamsAmino {
-  authority: string;
+  authority?: string;
   /** The perpetual to update. Each field must be set. */
   perpetual_params?: PerpetualParamsAmino;
 }
@@ -179,9 +179,9 @@ export interface FundingPremiumProtoMsg {
  */
 export interface FundingPremiumAmino {
   /** The id of the perpetual market. */
-  perpetual_id: number;
+  perpetual_id?: number;
   /** The sampled premium rate. In parts-per-million. */
-  premium_ppm: number;
+  premium_ppm?: number;
 }
 export interface FundingPremiumAminoMsg {
   type: "/dydxprotocol.perpetuals.FundingPremium";
@@ -205,7 +205,7 @@ export interface MsgAddPremiumVotesProtoMsg {
 }
 /** MsgAddPremiumVotes is a request type for the AddPremiumVotes method. */
 export interface MsgAddPremiumVotesAmino {
-  votes: FundingPremiumAmino[];
+  votes?: FundingPremiumAmino[];
 }
 export interface MsgAddPremiumVotesAminoMsg {
   type: "/dydxprotocol.perpetuals.MsgAddPremiumVotes";
@@ -256,7 +256,7 @@ export interface MsgUpdateParamsProtoMsg {
  * perpetuals module.
  */
 export interface MsgUpdateParamsAmino {
-  authority: string;
+  authority?: string;
   /** The parameters to update. Each field must be set. */
   params?: ParamsAmino;
 }
@@ -316,10 +316,14 @@ export const MsgCreatePerpetual = {
     return message;
   },
   fromAmino(object: MsgCreatePerpetualAmino): MsgCreatePerpetual {
-    return {
-      authority: object.authority,
-      params: object?.params ? PerpetualParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseMsgCreatePerpetual();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = PerpetualParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: MsgCreatePerpetual): MsgCreatePerpetualAmino {
     const obj: any = {};
@@ -359,7 +363,8 @@ export const MsgCreatePerpetualResponse = {
     return message;
   },
   fromAmino(_: MsgCreatePerpetualResponseAmino): MsgCreatePerpetualResponse {
-    return {};
+    const message = createBaseMsgCreatePerpetualResponse();
+    return message;
   },
   toAmino(_: MsgCreatePerpetualResponse): MsgCreatePerpetualResponseAmino {
     const obj: any = {};
@@ -411,10 +416,14 @@ export const MsgSetLiquidityTier = {
     return message;
   },
   fromAmino(object: MsgSetLiquidityTierAmino): MsgSetLiquidityTier {
-    return {
-      authority: object.authority,
-      liquidityTier: object?.liquidity_tier ? LiquidityTier.fromAmino(object.liquidity_tier) : undefined
-    };
+    const message = createBaseMsgSetLiquidityTier();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.liquidity_tier !== undefined && object.liquidity_tier !== null) {
+      message.liquidityTier = LiquidityTier.fromAmino(object.liquidity_tier);
+    }
+    return message;
   },
   toAmino(message: MsgSetLiquidityTier): MsgSetLiquidityTierAmino {
     const obj: any = {};
@@ -454,7 +463,8 @@ export const MsgSetLiquidityTierResponse = {
     return message;
   },
   fromAmino(_: MsgSetLiquidityTierResponseAmino): MsgSetLiquidityTierResponse {
-    return {};
+    const message = createBaseMsgSetLiquidityTierResponse();
+    return message;
   },
   toAmino(_: MsgSetLiquidityTierResponse): MsgSetLiquidityTierResponseAmino {
     const obj: any = {};
@@ -506,10 +516,14 @@ export const MsgUpdatePerpetualParams = {
     return message;
   },
   fromAmino(object: MsgUpdatePerpetualParamsAmino): MsgUpdatePerpetualParams {
-    return {
-      authority: object.authority,
-      perpetualParams: object?.perpetual_params ? PerpetualParams.fromAmino(object.perpetual_params) : undefined
-    };
+    const message = createBaseMsgUpdatePerpetualParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.perpetual_params !== undefined && object.perpetual_params !== null) {
+      message.perpetualParams = PerpetualParams.fromAmino(object.perpetual_params);
+    }
+    return message;
   },
   toAmino(message: MsgUpdatePerpetualParams): MsgUpdatePerpetualParamsAmino {
     const obj: any = {};
@@ -549,7 +563,8 @@ export const MsgUpdatePerpetualParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdatePerpetualParamsResponseAmino): MsgUpdatePerpetualParamsResponse {
-    return {};
+    const message = createBaseMsgUpdatePerpetualParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdatePerpetualParamsResponse): MsgUpdatePerpetualParamsResponseAmino {
     const obj: any = {};
@@ -601,10 +616,14 @@ export const FundingPremium = {
     return message;
   },
   fromAmino(object: FundingPremiumAmino): FundingPremium {
-    return {
-      perpetualId: object.perpetual_id,
-      premiumPpm: object.premium_ppm
-    };
+    const message = createBaseFundingPremium();
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    if (object.premium_ppm !== undefined && object.premium_ppm !== null) {
+      message.premiumPpm = object.premium_ppm;
+    }
+    return message;
   },
   toAmino(message: FundingPremium): FundingPremiumAmino {
     const obj: any = {};
@@ -652,9 +671,9 @@ export const MsgAddPremiumVotes = {
     return message;
   },
   fromAmino(object: MsgAddPremiumVotesAmino): MsgAddPremiumVotes {
-    return {
-      votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => FundingPremium.fromAmino(e)) : []
-    };
+    const message = createBaseMsgAddPremiumVotes();
+    message.votes = object.votes?.map(e => FundingPremium.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgAddPremiumVotes): MsgAddPremiumVotesAmino {
     const obj: any = {};
@@ -697,7 +716,8 @@ export const MsgAddPremiumVotesResponse = {
     return message;
   },
   fromAmino(_: MsgAddPremiumVotesResponseAmino): MsgAddPremiumVotesResponse {
-    return {};
+    const message = createBaseMsgAddPremiumVotesResponse();
+    return message;
   },
   toAmino(_: MsgAddPremiumVotesResponse): MsgAddPremiumVotesResponseAmino {
     const obj: any = {};
@@ -749,10 +769,14 @@ export const MsgUpdateParams = {
     return message;
   },
   fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    return {
-      authority: object.authority,
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
     const obj: any = {};
@@ -792,7 +816,8 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    return {};
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
     const obj: any = {};

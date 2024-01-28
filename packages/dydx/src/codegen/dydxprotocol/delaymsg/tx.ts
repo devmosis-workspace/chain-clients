@@ -5,7 +5,7 @@ import { isSet } from "../../helpers";
 export interface MsgDelayMessage {
   authority: string;
   /** The message to be delayed. */
-  msg: Any;
+  msg?: Any;
   /** The number of blocks to delay the message for. */
   delayBlocks: number;
 }
@@ -15,11 +15,11 @@ export interface MsgDelayMessageProtoMsg {
 }
 /** MsgDelayMessage is a request type for the DelayMessage method. */
 export interface MsgDelayMessageAmino {
-  authority: string;
+  authority?: string;
   /** The message to be delayed. */
   msg?: AnyAmino;
   /** The number of blocks to delay the message for. */
-  delay_blocks: number;
+  delay_blocks?: number;
 }
 export interface MsgDelayMessageAminoMsg {
   type: "/dydxprotocol.delaymsg.MsgDelayMessage";
@@ -28,7 +28,7 @@ export interface MsgDelayMessageAminoMsg {
 /** MsgDelayMessage is a request type for the DelayMessage method. */
 export interface MsgDelayMessageSDKType {
   authority: string;
-  msg: AnySDKType;
+  msg?: AnySDKType;
   delay_blocks: number;
 }
 /** MsgDelayMessageResponse is a response type for the DelayMessage method. */
@@ -43,7 +43,7 @@ export interface MsgDelayMessageResponseProtoMsg {
 /** MsgDelayMessageResponse is a response type for the DelayMessage method. */
 export interface MsgDelayMessageResponseAmino {
   /** The id of the created delayed message. */
-  id: string;
+  id?: string;
 }
 export interface MsgDelayMessageResponseAminoMsg {
   type: "/dydxprotocol.delaymsg.MsgDelayMessageResponse";
@@ -56,7 +56,7 @@ export interface MsgDelayMessageResponseSDKType {
 function createBaseMsgDelayMessage(): MsgDelayMessage {
   return {
     authority: "",
-    msg: Any.fromPartial({}),
+    msg: undefined,
     delayBlocks: 0
   };
 }
@@ -89,11 +89,17 @@ export const MsgDelayMessage = {
     return message;
   },
   fromAmino(object: MsgDelayMessageAmino): MsgDelayMessage {
-    return {
-      authority: object.authority,
-      msg: object?.msg ? Any.fromAmino(object.msg) : undefined,
-      delayBlocks: object.delay_blocks
-    };
+    const message = createBaseMsgDelayMessage();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = Any.fromAmino(object.msg);
+    }
+    if (object.delay_blocks !== undefined && object.delay_blocks !== null) {
+      message.delayBlocks = object.delay_blocks;
+    }
+    return message;
   },
   toAmino(message: MsgDelayMessage): MsgDelayMessageAmino {
     const obj: any = {};
@@ -142,9 +148,11 @@ export const MsgDelayMessageResponse = {
     return message;
   },
   fromAmino(object: MsgDelayMessageResponseAmino): MsgDelayMessageResponse {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseMsgDelayMessageResponse();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: MsgDelayMessageResponse): MsgDelayMessageResponseAmino {
     const obj: any = {};

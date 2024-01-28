@@ -242,7 +242,7 @@ export interface QueryDelayedCompleteBridgeMessagesRequestAmino {
    * QueryDelayedCompleteBridgeMessagesRequest is a request type for the
    * DelayedCompleteBridgeMessages RPC method.
    */
-  address: string;
+  address?: string;
 }
 export interface QueryDelayedCompleteBridgeMessagesRequestAminoMsg {
   type: "/dydxprotocol.bridge.QueryDelayedCompleteBridgeMessagesRequest";
@@ -271,7 +271,7 @@ export interface QueryDelayedCompleteBridgeMessagesResponseProtoMsg {
  * DelayedCompleteBridgeMessages RPC method.
  */
 export interface QueryDelayedCompleteBridgeMessagesResponseAmino {
-  messages: DelayedCompleteBridgeMessageAmino[];
+  messages?: DelayedCompleteBridgeMessageAmino[];
 }
 export interface QueryDelayedCompleteBridgeMessagesResponseAminoMsg {
   type: "/dydxprotocol.bridge.QueryDelayedCompleteBridgeMessagesResponse";
@@ -304,7 +304,7 @@ export interface DelayedCompleteBridgeMessageProtoMsg {
  */
 export interface DelayedCompleteBridgeMessageAmino {
   message?: MsgCompleteBridgeAmino;
-  block_height: number;
+  block_height?: number;
 }
 export interface DelayedCompleteBridgeMessageAminoMsg {
   type: "/dydxprotocol.bridge.DelayedCompleteBridgeMessage";
@@ -335,7 +335,8 @@ export const QueryEventParamsRequest = {
     return message;
   },
   fromAmino(_: QueryEventParamsRequestAmino): QueryEventParamsRequest {
-    return {};
+    const message = createBaseQueryEventParamsRequest();
+    return message;
   },
   toAmino(_: QueryEventParamsRequest): QueryEventParamsRequestAmino {
     const obj: any = {};
@@ -381,9 +382,11 @@ export const QueryEventParamsResponse = {
     return message;
   },
   fromAmino(object: QueryEventParamsResponseAmino): QueryEventParamsResponse {
-    return {
-      params: object?.params ? EventParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryEventParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = EventParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryEventParamsResponse): QueryEventParamsResponseAmino {
     const obj: any = {};
@@ -422,7 +425,8 @@ export const QueryProposeParamsRequest = {
     return message;
   },
   fromAmino(_: QueryProposeParamsRequestAmino): QueryProposeParamsRequest {
-    return {};
+    const message = createBaseQueryProposeParamsRequest();
+    return message;
   },
   toAmino(_: QueryProposeParamsRequest): QueryProposeParamsRequestAmino {
     const obj: any = {};
@@ -468,9 +472,11 @@ export const QueryProposeParamsResponse = {
     return message;
   },
   fromAmino(object: QueryProposeParamsResponseAmino): QueryProposeParamsResponse {
-    return {
-      params: object?.params ? ProposeParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryProposeParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = ProposeParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryProposeParamsResponse): QueryProposeParamsResponseAmino {
     const obj: any = {};
@@ -509,7 +515,8 @@ export const QuerySafetyParamsRequest = {
     return message;
   },
   fromAmino(_: QuerySafetyParamsRequestAmino): QuerySafetyParamsRequest {
-    return {};
+    const message = createBaseQuerySafetyParamsRequest();
+    return message;
   },
   toAmino(_: QuerySafetyParamsRequest): QuerySafetyParamsRequestAmino {
     const obj: any = {};
@@ -555,9 +562,11 @@ export const QuerySafetyParamsResponse = {
     return message;
   },
   fromAmino(object: QuerySafetyParamsResponseAmino): QuerySafetyParamsResponse {
-    return {
-      params: object?.params ? SafetyParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQuerySafetyParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = SafetyParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QuerySafetyParamsResponse): QuerySafetyParamsResponseAmino {
     const obj: any = {};
@@ -596,7 +605,8 @@ export const QueryAcknowledgedEventInfoRequest = {
     return message;
   },
   fromAmino(_: QueryAcknowledgedEventInfoRequestAmino): QueryAcknowledgedEventInfoRequest {
-    return {};
+    const message = createBaseQueryAcknowledgedEventInfoRequest();
+    return message;
   },
   toAmino(_: QueryAcknowledgedEventInfoRequest): QueryAcknowledgedEventInfoRequestAmino {
     const obj: any = {};
@@ -642,9 +652,11 @@ export const QueryAcknowledgedEventInfoResponse = {
     return message;
   },
   fromAmino(object: QueryAcknowledgedEventInfoResponseAmino): QueryAcknowledgedEventInfoResponse {
-    return {
-      info: object?.info ? BridgeEventInfo.fromAmino(object.info) : undefined
-    };
+    const message = createBaseQueryAcknowledgedEventInfoResponse();
+    if (object.info !== undefined && object.info !== null) {
+      message.info = BridgeEventInfo.fromAmino(object.info);
+    }
+    return message;
   },
   toAmino(message: QueryAcknowledgedEventInfoResponse): QueryAcknowledgedEventInfoResponseAmino {
     const obj: any = {};
@@ -683,7 +695,8 @@ export const QueryRecognizedEventInfoRequest = {
     return message;
   },
   fromAmino(_: QueryRecognizedEventInfoRequestAmino): QueryRecognizedEventInfoRequest {
-    return {};
+    const message = createBaseQueryRecognizedEventInfoRequest();
+    return message;
   },
   toAmino(_: QueryRecognizedEventInfoRequest): QueryRecognizedEventInfoRequestAmino {
     const obj: any = {};
@@ -729,9 +742,11 @@ export const QueryRecognizedEventInfoResponse = {
     return message;
   },
   fromAmino(object: QueryRecognizedEventInfoResponseAmino): QueryRecognizedEventInfoResponse {
-    return {
-      info: object?.info ? BridgeEventInfo.fromAmino(object.info) : undefined
-    };
+    const message = createBaseQueryRecognizedEventInfoResponse();
+    if (object.info !== undefined && object.info !== null) {
+      message.info = BridgeEventInfo.fromAmino(object.info);
+    }
+    return message;
   },
   toAmino(message: QueryRecognizedEventInfoResponse): QueryRecognizedEventInfoResponseAmino {
     const obj: any = {};
@@ -778,9 +793,11 @@ export const QueryDelayedCompleteBridgeMessagesRequest = {
     return message;
   },
   fromAmino(object: QueryDelayedCompleteBridgeMessagesRequestAmino): QueryDelayedCompleteBridgeMessagesRequest {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryDelayedCompleteBridgeMessagesRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryDelayedCompleteBridgeMessagesRequest): QueryDelayedCompleteBridgeMessagesRequestAmino {
     const obj: any = {};
@@ -827,9 +844,9 @@ export const QueryDelayedCompleteBridgeMessagesResponse = {
     return message;
   },
   fromAmino(object: QueryDelayedCompleteBridgeMessagesResponseAmino): QueryDelayedCompleteBridgeMessagesResponse {
-    return {
-      messages: Array.isArray(object?.messages) ? object.messages.map((e: any) => DelayedCompleteBridgeMessage.fromAmino(e)) : []
-    };
+    const message = createBaseQueryDelayedCompleteBridgeMessagesResponse();
+    message.messages = object.messages?.map(e => DelayedCompleteBridgeMessage.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryDelayedCompleteBridgeMessagesResponse): QueryDelayedCompleteBridgeMessagesResponseAmino {
     const obj: any = {};
@@ -886,10 +903,14 @@ export const DelayedCompleteBridgeMessage = {
     return message;
   },
   fromAmino(object: DelayedCompleteBridgeMessageAmino): DelayedCompleteBridgeMessage {
-    return {
-      message: object?.message ? MsgCompleteBridge.fromAmino(object.message) : undefined,
-      blockHeight: object.block_height
-    };
+    const message = createBaseDelayedCompleteBridgeMessage();
+    if (object.message !== undefined && object.message !== null) {
+      message.message = MsgCompleteBridge.fromAmino(object.message);
+    }
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = object.block_height;
+    }
+    return message;
   },
   toAmino(message: DelayedCompleteBridgeMessage): DelayedCompleteBridgeMessageAmino {
     const obj: any = {};

@@ -94,7 +94,7 @@ export interface PerpetualClobMetadataProtoMsg {
  */
 export interface PerpetualClobMetadataAmino {
   /** Id of the Perpetual the CLOB allows trading of. */
-  perpetual_id: number;
+  perpetual_id?: number;
 }
 export interface PerpetualClobMetadataAminoMsg {
   type: "/dydxprotocol.clob.PerpetualClobMetadata";
@@ -127,9 +127,9 @@ export interface SpotClobMetadataProtoMsg {
  */
 export interface SpotClobMetadataAmino {
   /** Id of the base Asset in the trading pair. */
-  base_asset_id: number;
+  base_asset_id?: number;
   /** Id of the quote Asset in the trading pair. */
-  quote_asset_id: number;
+  quote_asset_id?: number;
 }
 export interface SpotClobMetadataAminoMsg {
   type: "/dydxprotocol.clob.SpotClobMetadata";
@@ -178,24 +178,24 @@ export interface ClobPairProtoMsg {
  */
 export interface ClobPairAmino {
   /** ID of the orderbook that stores all resting liquidity for this CLOB. */
-  id: number;
+  id?: number;
   perpetual_clob_metadata?: PerpetualClobMetadataAmino;
   spot_clob_metadata?: SpotClobMetadataAmino;
   /** Minimum increment in the size of orders on the CLOB, in base quantums. */
-  step_base_quantums: string;
+  step_base_quantums?: string;
   /**
    * Defines the tick size of the orderbook by defining how many subticks
    * are in one tick. That is, the subticks of any valid order must be a
    * multiple of this value. Generally this value should start `>= 100`to
    * allow room for decreasing it.
    */
-  subticks_per_tick: number;
+  subticks_per_tick?: number;
   /**
    * `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
    * per Subtick.
    */
-  quantum_conversion_exponent: number;
-  status: ClobPair_Status;
+  quantum_conversion_exponent?: number;
+  status?: ClobPair_Status;
 }
 export interface ClobPairAminoMsg {
   type: "/dydxprotocol.clob.ClobPair";
@@ -238,9 +238,11 @@ export const PerpetualClobMetadata = {
     return message;
   },
   fromAmino(object: PerpetualClobMetadataAmino): PerpetualClobMetadata {
-    return {
-      perpetualId: object.perpetual_id
-    };
+    const message = createBasePerpetualClobMetadata();
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    return message;
   },
   toAmino(message: PerpetualClobMetadata): PerpetualClobMetadataAmino {
     const obj: any = {};
@@ -293,10 +295,14 @@ export const SpotClobMetadata = {
     return message;
   },
   fromAmino(object: SpotClobMetadataAmino): SpotClobMetadata {
-    return {
-      baseAssetId: object.base_asset_id,
-      quoteAssetId: object.quote_asset_id
-    };
+    const message = createBaseSpotClobMetadata();
+    if (object.base_asset_id !== undefined && object.base_asset_id !== null) {
+      message.baseAssetId = object.base_asset_id;
+    }
+    if (object.quote_asset_id !== undefined && object.quote_asset_id !== null) {
+      message.quoteAssetId = object.quote_asset_id;
+    }
+    return message;
   },
   toAmino(message: SpotClobMetadata): SpotClobMetadataAmino {
     const obj: any = {};
@@ -380,15 +386,29 @@ export const ClobPair = {
     return message;
   },
   fromAmino(object: ClobPairAmino): ClobPair {
-    return {
-      id: object.id,
-      perpetualClobMetadata: object?.perpetual_clob_metadata ? PerpetualClobMetadata.fromAmino(object.perpetual_clob_metadata) : undefined,
-      spotClobMetadata: object?.spot_clob_metadata ? SpotClobMetadata.fromAmino(object.spot_clob_metadata) : undefined,
-      stepBaseQuantums: BigInt(object.step_base_quantums),
-      subticksPerTick: object.subticks_per_tick,
-      quantumConversionExponent: object.quantum_conversion_exponent,
-      status: isSet(object.status) ? clobPair_StatusFromJSON(object.status) : -1
-    };
+    const message = createBaseClobPair();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.perpetual_clob_metadata !== undefined && object.perpetual_clob_metadata !== null) {
+      message.perpetualClobMetadata = PerpetualClobMetadata.fromAmino(object.perpetual_clob_metadata);
+    }
+    if (object.spot_clob_metadata !== undefined && object.spot_clob_metadata !== null) {
+      message.spotClobMetadata = SpotClobMetadata.fromAmino(object.spot_clob_metadata);
+    }
+    if (object.step_base_quantums !== undefined && object.step_base_quantums !== null) {
+      message.stepBaseQuantums = BigInt(object.step_base_quantums);
+    }
+    if (object.subticks_per_tick !== undefined && object.subticks_per_tick !== null) {
+      message.subticksPerTick = object.subticks_per_tick;
+    }
+    if (object.quantum_conversion_exponent !== undefined && object.quantum_conversion_exponent !== null) {
+      message.quantumConversionExponent = object.quantum_conversion_exponent;
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = clobPair_StatusFromJSON(object.status);
+    }
+    return message;
   },
   toAmino(message: ClobPair): ClobPairAmino {
     const obj: any = {};

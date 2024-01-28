@@ -14,8 +14,8 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the perpetuals module's genesis state. */
 export interface GenesisStateAmino {
-  perpetuals: PerpetualAmino[];
-  liquidity_tiers: LiquidityTierAmino[];
+  perpetuals?: PerpetualAmino[];
+  liquidity_tiers?: LiquidityTierAmino[];
   params?: ParamsAmino;
 }
 export interface GenesisStateAminoMsg {
@@ -64,11 +64,13 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      perpetuals: Array.isArray(object?.perpetuals) ? object.perpetuals.map((e: any) => Perpetual.fromAmino(e)) : [],
-      liquidityTiers: Array.isArray(object?.liquidity_tiers) ? object.liquidity_tiers.map((e: any) => LiquidityTier.fromAmino(e)) : [],
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseGenesisState();
+    message.perpetuals = object.perpetuals?.map(e => Perpetual.fromAmino(e)) || [];
+    message.liquidityTiers = object.liquidity_tiers?.map(e => LiquidityTier.fromAmino(e)) || [];
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

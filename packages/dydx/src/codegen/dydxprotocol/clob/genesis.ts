@@ -17,7 +17,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the clob module's genesis state. */
 export interface GenesisStateAmino {
-  clob_pairs: ClobPairAmino[];
+  clob_pairs?: ClobPairAmino[];
   liquidations_config?: LiquidationsConfigAmino;
   block_rate_limit_config?: BlockRateLimitConfigurationAmino;
   equity_tier_limit_config?: EquityTierLimitConfigurationAmino;
@@ -75,12 +75,18 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      clobPairs: Array.isArray(object?.clob_pairs) ? object.clob_pairs.map((e: any) => ClobPair.fromAmino(e)) : [],
-      liquidationsConfig: object?.liquidations_config ? LiquidationsConfig.fromAmino(object.liquidations_config) : undefined,
-      blockRateLimitConfig: object?.block_rate_limit_config ? BlockRateLimitConfiguration.fromAmino(object.block_rate_limit_config) : undefined,
-      equityTierLimitConfig: object?.equity_tier_limit_config ? EquityTierLimitConfiguration.fromAmino(object.equity_tier_limit_config) : undefined
-    };
+    const message = createBaseGenesisState();
+    message.clobPairs = object.clob_pairs?.map(e => ClobPair.fromAmino(e)) || [];
+    if (object.liquidations_config !== undefined && object.liquidations_config !== null) {
+      message.liquidationsConfig = LiquidationsConfig.fromAmino(object.liquidations_config);
+    }
+    if (object.block_rate_limit_config !== undefined && object.block_rate_limit_config !== null) {
+      message.blockRateLimitConfig = BlockRateLimitConfiguration.fromAmino(object.block_rate_limit_config);
+    }
+    if (object.equity_tier_limit_config !== undefined && object.equity_tier_limit_config !== null) {
+      message.equityTierLimitConfig = EquityTierLimitConfiguration.fromAmino(object.equity_tier_limit_config);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

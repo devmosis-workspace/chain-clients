@@ -26,9 +26,9 @@ export interface BridgeEventInfoAmino {
    * The next event id (the last processed id plus one) of the logs from the
    * Ethereum contract.
    */
-  next_id: number;
+  next_id?: number;
   /** The Ethereum block height of the most recently processed bridge event. */
-  eth_block_height: string;
+  eth_block_height?: string;
 }
 export interface BridgeEventInfoAminoMsg {
   type: "/dydxprotocol.bridge.BridgeEventInfo";
@@ -72,10 +72,14 @@ export const BridgeEventInfo = {
     return message;
   },
   fromAmino(object: BridgeEventInfoAmino): BridgeEventInfo {
-    return {
-      nextId: object.next_id,
-      ethBlockHeight: BigInt(object.eth_block_height)
-    };
+    const message = createBaseBridgeEventInfo();
+    if (object.next_id !== undefined && object.next_id !== null) {
+      message.nextId = object.next_id;
+    }
+    if (object.eth_block_height !== undefined && object.eth_block_height !== null) {
+      message.ethBlockHeight = BigInt(object.eth_block_height);
+    }
+    return message;
   },
   toAmino(message: BridgeEventInfo): BridgeEventInfoAmino {
     const obj: any = {};

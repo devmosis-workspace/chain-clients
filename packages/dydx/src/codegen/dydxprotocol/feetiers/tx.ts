@@ -13,7 +13,7 @@ export interface MsgUpdatePerpetualFeeParamsProtoMsg {
 }
 /** MsgUpdatePerpetualFeeParams is the Msg/UpdatePerpetualFeeParams request type. */
 export interface MsgUpdatePerpetualFeeParamsAmino {
-  authority: string;
+  authority?: string;
   /** Defines the parameters to update. All parameters must be supplied. */
   params?: PerpetualFeeParamsAmino;
 }
@@ -79,10 +79,14 @@ export const MsgUpdatePerpetualFeeParams = {
     return message;
   },
   fromAmino(object: MsgUpdatePerpetualFeeParamsAmino): MsgUpdatePerpetualFeeParams {
-    return {
-      authority: object.authority,
-      params: object?.params ? PerpetualFeeParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseMsgUpdatePerpetualFeeParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = PerpetualFeeParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: MsgUpdatePerpetualFeeParams): MsgUpdatePerpetualFeeParamsAmino {
     const obj: any = {};
@@ -122,7 +126,8 @@ export const MsgUpdatePerpetualFeeParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdatePerpetualFeeParamsResponseAmino): MsgUpdatePerpetualFeeParamsResponse {
-    return {};
+    const message = createBaseMsgUpdatePerpetualFeeParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdatePerpetualFeeParamsResponse): MsgUpdatePerpetualFeeParamsResponseAmino {
     const obj: any = {};

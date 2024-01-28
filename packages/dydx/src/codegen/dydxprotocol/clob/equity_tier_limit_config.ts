@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /**
  * Defines the set of equity tiers to limit how many open orders
  * a subaccount is allowed to have.
@@ -29,12 +29,12 @@ export interface EquityTierLimitConfigurationAmino {
    * How many short term stateful orders are allowed per equity tier.
    * Specifying 0 values disables this limit.
    */
-  short_term_order_equity_tiers: EquityTierLimitAmino[];
+  short_term_order_equity_tiers?: EquityTierLimitAmino[];
   /**
    * How many open stateful orders are allowed per equity tier.
    * Specifying 0 values disables this limit.
    */
-  stateful_order_equity_tiers: EquityTierLimitAmino[];
+  stateful_order_equity_tiers?: EquityTierLimitAmino[];
 }
 export interface EquityTierLimitConfigurationAminoMsg {
   type: "/dydxprotocol.clob.EquityTierLimitConfiguration";
@@ -62,9 +62,9 @@ export interface EquityTierLimitProtoMsg {
 /** Defines an equity tier limit. */
 export interface EquityTierLimitAmino {
   /** The total net collateral in USDC quote quantums of equity required. */
-  usd_tnc_required: Uint8Array;
+  usd_tnc_required?: string;
   /** What the limit is for `usd_tnc_required`. */
-  limit: number;
+  limit?: number;
 }
 export interface EquityTierLimitAminoMsg {
   type: "/dydxprotocol.clob.EquityTierLimit";
@@ -105,10 +105,10 @@ export const EquityTierLimitConfiguration = {
     return message;
   },
   fromAmino(object: EquityTierLimitConfigurationAmino): EquityTierLimitConfiguration {
-    return {
-      shortTermOrderEquityTiers: Array.isArray(object?.short_term_order_equity_tiers) ? object.short_term_order_equity_tiers.map((e: any) => EquityTierLimit.fromAmino(e)) : [],
-      statefulOrderEquityTiers: Array.isArray(object?.stateful_order_equity_tiers) ? object.stateful_order_equity_tiers.map((e: any) => EquityTierLimit.fromAmino(e)) : []
-    };
+    const message = createBaseEquityTierLimitConfiguration();
+    message.shortTermOrderEquityTiers = object.short_term_order_equity_tiers?.map(e => EquityTierLimit.fromAmino(e)) || [];
+    message.statefulOrderEquityTiers = object.stateful_order_equity_tiers?.map(e => EquityTierLimit.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: EquityTierLimitConfiguration): EquityTierLimitConfigurationAmino {
     const obj: any = {};
@@ -170,14 +170,18 @@ export const EquityTierLimit = {
     return message;
   },
   fromAmino(object: EquityTierLimitAmino): EquityTierLimit {
-    return {
-      usdTncRequired: object.usd_tnc_required,
-      limit: object.limit
-    };
+    const message = createBaseEquityTierLimit();
+    if (object.usd_tnc_required !== undefined && object.usd_tnc_required !== null) {
+      message.usdTncRequired = bytesFromBase64(object.usd_tnc_required);
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = object.limit;
+    }
+    return message;
   },
   toAmino(message: EquityTierLimit): EquityTierLimitAmino {
     const obj: any = {};
-    obj.usd_tnc_required = message.usdTncRequired;
+    obj.usd_tnc_required = message.usdTncRequired ? base64FromBytes(message.usdTncRequired) : undefined;
     obj.limit = message.limit;
     return obj;
   },

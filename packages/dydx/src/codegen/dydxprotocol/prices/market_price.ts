@@ -22,17 +22,17 @@ export interface MarketPriceProtoMsg {
 /** MarketPrice is used by the application to store/retrieve oracle price. */
 export interface MarketPriceAmino {
   /** Unique, sequentially-generated value that matches `MarketParam`. */
-  id: number;
+  id?: number;
   /**
    * Static value. The exponent of the price. See the comment on the duplicate
    * MarketParam field for more information.
    */
-  exponent: number;
+  exponent?: number;
   /**
    * The variable value that is updated by oracle price updates. `0` if it has
    * never been updated, `>0` otherwise.
    */
-  price: string;
+  price?: string;
 }
 export interface MarketPriceAminoMsg {
   type: "/dydxprotocol.prices.MarketPrice";
@@ -80,11 +80,17 @@ export const MarketPrice = {
     return message;
   },
   fromAmino(object: MarketPriceAmino): MarketPrice {
-    return {
-      id: object.id,
-      exponent: object.exponent,
-      price: BigInt(object.price)
-    };
+    const message = createBaseMarketPrice();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.exponent !== undefined && object.exponent !== null) {
+      message.exponent = object.exponent;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    return message;
   },
   toAmino(message: MarketPrice): MarketPriceAmino {
     const obj: any = {};

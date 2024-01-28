@@ -20,7 +20,7 @@ export interface LiquidateSubaccountsRequestProtoMsg {
  * subaccount ids against current state before liquidating their positions.
  */
 export interface LiquidateSubaccountsRequestAmino {
-  subaccount_ids: SubaccountIdAmino[];
+  subaccount_ids?: SubaccountIdAmino[];
 }
 export interface LiquidateSubaccountsRequestAminoMsg {
   type: "/dydxprotocol.daemons.liquidation.LiquidateSubaccountsRequest";
@@ -82,9 +82,9 @@ export const LiquidateSubaccountsRequest = {
     return message;
   },
   fromAmino(object: LiquidateSubaccountsRequestAmino): LiquidateSubaccountsRequest {
-    return {
-      subaccountIds: Array.isArray(object?.subaccount_ids) ? object.subaccount_ids.map((e: any) => SubaccountId.fromAmino(e)) : []
-    };
+    const message = createBaseLiquidateSubaccountsRequest();
+    message.subaccountIds = object.subaccount_ids?.map(e => SubaccountId.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: LiquidateSubaccountsRequest): LiquidateSubaccountsRequestAmino {
     const obj: any = {};
@@ -127,7 +127,8 @@ export const LiquidateSubaccountsResponse = {
     return message;
   },
   fromAmino(_: LiquidateSubaccountsResponseAmino): LiquidateSubaccountsResponse {
-    return {};
+    const message = createBaseLiquidateSubaccountsResponse();
+    return message;
   },
   toAmino(_: LiquidateSubaccountsResponse): LiquidateSubaccountsResponseAmino {
     const obj: any = {};

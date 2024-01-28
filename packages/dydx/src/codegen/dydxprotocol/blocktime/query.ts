@@ -86,7 +86,7 @@ export interface QueryPreviousBlockInfoResponse {
    * QueryPreviousBlockInfoResponse is a request type for the PreviousBlockInfo
    * RPC method.
    */
-  info: BlockInfo;
+  info?: BlockInfo;
 }
 export interface QueryPreviousBlockInfoResponseProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.QueryPreviousBlockInfoResponse";
@@ -112,7 +112,7 @@ export interface QueryPreviousBlockInfoResponseAminoMsg {
  * RPC method.
  */
 export interface QueryPreviousBlockInfoResponseSDKType {
-  info: BlockInfoSDKType;
+  info?: BlockInfoSDKType;
 }
 /**
  * QueryAllDowntimeInfoRequest is a request type for the AllDowntimeInfo
@@ -146,7 +146,7 @@ export interface QueryAllDowntimeInfoResponse {
    * QueryAllDowntimeInfoResponse is a request type for the AllDowntimeInfo
    * RPC method.
    */
-  info: AllDowntimeInfo;
+  info?: AllDowntimeInfo;
 }
 export interface QueryAllDowntimeInfoResponseProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.QueryAllDowntimeInfoResponse";
@@ -172,7 +172,7 @@ export interface QueryAllDowntimeInfoResponseAminoMsg {
  * RPC method.
  */
 export interface QueryAllDowntimeInfoResponseSDKType {
-  info: AllDowntimeInfoSDKType;
+  info?: AllDowntimeInfoSDKType;
 }
 function createBaseQueryDowntimeParamsRequest(): QueryDowntimeParamsRequest {
   return {};
@@ -190,7 +190,8 @@ export const QueryDowntimeParamsRequest = {
     return message;
   },
   fromAmino(_: QueryDowntimeParamsRequestAmino): QueryDowntimeParamsRequest {
-    return {};
+    const message = createBaseQueryDowntimeParamsRequest();
+    return message;
   },
   toAmino(_: QueryDowntimeParamsRequest): QueryDowntimeParamsRequestAmino {
     const obj: any = {};
@@ -236,9 +237,11 @@ export const QueryDowntimeParamsResponse = {
     return message;
   },
   fromAmino(object: QueryDowntimeParamsResponseAmino): QueryDowntimeParamsResponse {
-    return {
-      params: object?.params ? DowntimeParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryDowntimeParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = DowntimeParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryDowntimeParamsResponse): QueryDowntimeParamsResponseAmino {
     const obj: any = {};
@@ -277,7 +280,8 @@ export const QueryPreviousBlockInfoRequest = {
     return message;
   },
   fromAmino(_: QueryPreviousBlockInfoRequestAmino): QueryPreviousBlockInfoRequest {
-    return {};
+    const message = createBaseQueryPreviousBlockInfoRequest();
+    return message;
   },
   toAmino(_: QueryPreviousBlockInfoRequest): QueryPreviousBlockInfoRequestAmino {
     const obj: any = {};
@@ -301,7 +305,7 @@ export const QueryPreviousBlockInfoRequest = {
 };
 function createBaseQueryPreviousBlockInfoResponse(): QueryPreviousBlockInfoResponse {
   return {
-    info: BlockInfo.fromPartial({})
+    info: undefined
   };
 }
 export const QueryPreviousBlockInfoResponse = {
@@ -323,9 +327,11 @@ export const QueryPreviousBlockInfoResponse = {
     return message;
   },
   fromAmino(object: QueryPreviousBlockInfoResponseAmino): QueryPreviousBlockInfoResponse {
-    return {
-      info: object?.info ? BlockInfo.fromAmino(object.info) : undefined
-    };
+    const message = createBaseQueryPreviousBlockInfoResponse();
+    if (object.info !== undefined && object.info !== null) {
+      message.info = BlockInfo.fromAmino(object.info);
+    }
+    return message;
   },
   toAmino(message: QueryPreviousBlockInfoResponse): QueryPreviousBlockInfoResponseAmino {
     const obj: any = {};
@@ -364,7 +370,8 @@ export const QueryAllDowntimeInfoRequest = {
     return message;
   },
   fromAmino(_: QueryAllDowntimeInfoRequestAmino): QueryAllDowntimeInfoRequest {
-    return {};
+    const message = createBaseQueryAllDowntimeInfoRequest();
+    return message;
   },
   toAmino(_: QueryAllDowntimeInfoRequest): QueryAllDowntimeInfoRequestAmino {
     const obj: any = {};
@@ -388,7 +395,7 @@ export const QueryAllDowntimeInfoRequest = {
 };
 function createBaseQueryAllDowntimeInfoResponse(): QueryAllDowntimeInfoResponse {
   return {
-    info: AllDowntimeInfo.fromPartial({})
+    info: undefined
   };
 }
 export const QueryAllDowntimeInfoResponse = {
@@ -410,9 +417,11 @@ export const QueryAllDowntimeInfoResponse = {
     return message;
   },
   fromAmino(object: QueryAllDowntimeInfoResponseAmino): QueryAllDowntimeInfoResponse {
-    return {
-      info: object?.info ? AllDowntimeInfo.fromAmino(object.info) : undefined
-    };
+    const message = createBaseQueryAllDowntimeInfoResponse();
+    if (object.info !== undefined && object.info !== null) {
+      message.info = AllDowntimeInfo.fromAmino(object.info);
+    }
+    return message;
   },
   toAmino(message: QueryAllDowntimeInfoResponse): QueryAllDowntimeInfoResponseAmino {
     const obj: any = {};

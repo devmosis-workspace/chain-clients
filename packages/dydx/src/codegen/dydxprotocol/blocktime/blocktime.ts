@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
 import { BinaryWriter } from "../../binary";
 import { isSet, fromJsonTimestamp } from "../../helpers";
@@ -13,8 +13,8 @@ export interface BlockInfoProtoMsg {
 }
 /** BlockInfo stores information about a block */
 export interface BlockInfoAmino {
-  height: number;
-  timestamp?: TimestampAmino;
+  height?: number;
+  timestamp?: string;
 }
 export interface BlockInfoAminoMsg {
   type: "/dydxprotocol.blocktime.BlockInfo";
@@ -43,7 +43,7 @@ export interface AllDowntimeInfoAmino {
    * The downtime information for each tracked duration. Sorted by duration,
    * ascending. (i.e. the same order as they appear in DowntimeParams).
    */
-  infos: AllDowntimeInfo_DowntimeInfoAmino[];
+  infos?: AllDowntimeInfo_DowntimeInfoAmino[];
 }
 export interface AllDowntimeInfoAminoMsg {
   type: "/dydxprotocol.blocktime.AllDowntimeInfo";
@@ -115,15 +115,19 @@ export const BlockInfo = {
     return message;
   },
   fromAmino(object: BlockInfoAmino): BlockInfo {
-    return {
-      height: object.height,
-      timestamp: object.timestamp
-    };
+    const message = createBaseBlockInfo();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = object.height;
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Timestamp.fromAmino(object.timestamp);
+    }
+    return message;
   },
   toAmino(message: BlockInfo): BlockInfoAmino {
     const obj: any = {};
     obj.height = message.height;
-    obj.timestamp = message.timestamp;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
     return obj;
   },
   fromAminoMsg(object: BlockInfoAminoMsg): BlockInfo {
@@ -166,9 +170,9 @@ export const AllDowntimeInfo = {
     return message;
   },
   fromAmino(object: AllDowntimeInfoAmino): AllDowntimeInfo {
-    return {
-      infos: Array.isArray(object?.infos) ? object.infos.map((e: any) => AllDowntimeInfo_DowntimeInfo.fromAmino(e)) : []
-    };
+    const message = createBaseAllDowntimeInfo();
+    message.infos = object.infos?.map(e => AllDowntimeInfo_DowntimeInfo.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: AllDowntimeInfo): AllDowntimeInfoAmino {
     const obj: any = {};
@@ -225,10 +229,14 @@ export const AllDowntimeInfo_DowntimeInfo = {
     return message;
   },
   fromAmino(object: AllDowntimeInfo_DowntimeInfoAmino): AllDowntimeInfo_DowntimeInfo {
-    return {
-      duration: object?.duration ? Duration.fromAmino(object.duration) : undefined,
-      blockInfo: object?.block_info ? BlockInfo.fromAmino(object.block_info) : undefined
-    };
+    const message = createBaseAllDowntimeInfo_DowntimeInfo();
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = Duration.fromAmino(object.duration);
+    }
+    if (object.block_info !== undefined && object.block_info !== null) {
+      message.blockInfo = BlockInfo.fromAmino(object.block_info);
+    }
+    return message;
   },
   toAmino(message: AllDowntimeInfo_DowntimeInfo): AllDowntimeInfo_DowntimeInfoAmino {
     const obj: any = {};

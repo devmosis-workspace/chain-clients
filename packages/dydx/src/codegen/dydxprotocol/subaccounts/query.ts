@@ -13,8 +13,8 @@ export interface QueryGetSubaccountRequestProtoMsg {
 }
 /** QueryGetSubaccountRequest is request type for the Query RPC method. */
 export interface QueryGetSubaccountRequestAmino {
-  owner: string;
-  number: number;
+  owner?: string;
+  number?: number;
 }
 export interface QueryGetSubaccountRequestAminoMsg {
   type: "/dydxprotocol.subaccounts.QueryGetSubaccountRequest";
@@ -47,7 +47,7 @@ export interface QuerySubaccountResponseSDKType {
 }
 /** QueryAllSubaccountRequest is request type for the Query RPC method. */
 export interface QueryAllSubaccountRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllSubaccountRequestProtoMsg {
   typeUrl: "/dydxprotocol.subaccounts.QueryAllSubaccountRequest";
@@ -63,12 +63,12 @@ export interface QueryAllSubaccountRequestAminoMsg {
 }
 /** QueryAllSubaccountRequest is request type for the Query RPC method. */
 export interface QueryAllSubaccountRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QuerySubaccountAllResponse is response type for the Query RPC method. */
 export interface QuerySubaccountAllResponse {
   subaccount: Subaccount[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QuerySubaccountAllResponseProtoMsg {
   typeUrl: "/dydxprotocol.subaccounts.QuerySubaccountAllResponse";
@@ -76,7 +76,7 @@ export interface QuerySubaccountAllResponseProtoMsg {
 }
 /** QuerySubaccountAllResponse is response type for the Query RPC method. */
 export interface QuerySubaccountAllResponseAmino {
-  subaccount: SubaccountAmino[];
+  subaccount?: SubaccountAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QuerySubaccountAllResponseAminoMsg {
@@ -86,7 +86,7 @@ export interface QuerySubaccountAllResponseAminoMsg {
 /** QuerySubaccountAllResponse is response type for the Query RPC method. */
 export interface QuerySubaccountAllResponseSDKType {
   subaccount: SubaccountSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 function createBaseQueryGetSubaccountRequest(): QueryGetSubaccountRequest {
   return {
@@ -118,10 +118,14 @@ export const QueryGetSubaccountRequest = {
     return message;
   },
   fromAmino(object: QueryGetSubaccountRequestAmino): QueryGetSubaccountRequest {
-    return {
-      owner: object.owner,
-      number: object.number
-    };
+    const message = createBaseQueryGetSubaccountRequest();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.number !== undefined && object.number !== null) {
+      message.number = object.number;
+    }
+    return message;
   },
   toAmino(message: QueryGetSubaccountRequest): QueryGetSubaccountRequestAmino {
     const obj: any = {};
@@ -169,9 +173,11 @@ export const QuerySubaccountResponse = {
     return message;
   },
   fromAmino(object: QuerySubaccountResponseAmino): QuerySubaccountResponse {
-    return {
-      subaccount: object?.subaccount ? Subaccount.fromAmino(object.subaccount) : undefined
-    };
+    const message = createBaseQuerySubaccountResponse();
+    if (object.subaccount !== undefined && object.subaccount !== null) {
+      message.subaccount = Subaccount.fromAmino(object.subaccount);
+    }
+    return message;
   },
   toAmino(message: QuerySubaccountResponse): QuerySubaccountResponseAmino {
     const obj: any = {};
@@ -196,7 +202,7 @@ export const QuerySubaccountResponse = {
 };
 function createBaseQueryAllSubaccountRequest(): QueryAllSubaccountRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllSubaccountRequest = {
@@ -218,9 +224,11 @@ export const QueryAllSubaccountRequest = {
     return message;
   },
   fromAmino(object: QueryAllSubaccountRequestAmino): QueryAllSubaccountRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllSubaccountRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllSubaccountRequest): QueryAllSubaccountRequestAmino {
     const obj: any = {};
@@ -246,7 +254,7 @@ export const QueryAllSubaccountRequest = {
 function createBaseQuerySubaccountAllResponse(): QuerySubaccountAllResponse {
   return {
     subaccount: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QuerySubaccountAllResponse = {
@@ -273,10 +281,12 @@ export const QuerySubaccountAllResponse = {
     return message;
   },
   fromAmino(object: QuerySubaccountAllResponseAmino): QuerySubaccountAllResponse {
-    return {
-      subaccount: Array.isArray(object?.subaccount) ? object.subaccount.map((e: any) => Subaccount.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQuerySubaccountAllResponse();
+    message.subaccount = object.subaccount?.map(e => Subaccount.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QuerySubaccountAllResponse): QuerySubaccountAllResponseAmino {
     const obj: any = {};

@@ -85,12 +85,20 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      eventParams: object?.event_params ? EventParams.fromAmino(object.event_params) : undefined,
-      proposeParams: object?.propose_params ? ProposeParams.fromAmino(object.propose_params) : undefined,
-      safetyParams: object?.safety_params ? SafetyParams.fromAmino(object.safety_params) : undefined,
-      acknowledgedEventInfo: object?.acknowledged_event_info ? BridgeEventInfo.fromAmino(object.acknowledged_event_info) : undefined
-    };
+    const message = createBaseGenesisState();
+    if (object.event_params !== undefined && object.event_params !== null) {
+      message.eventParams = EventParams.fromAmino(object.event_params);
+    }
+    if (object.propose_params !== undefined && object.propose_params !== null) {
+      message.proposeParams = ProposeParams.fromAmino(object.propose_params);
+    }
+    if (object.safety_params !== undefined && object.safety_params !== null) {
+      message.safetyParams = SafetyParams.fromAmino(object.safety_params);
+    }
+    if (object.acknowledged_event_info !== undefined && object.acknowledged_event_info !== null) {
+      message.acknowledgedEventInfo = BridgeEventInfo.fromAmino(object.acknowledged_event_info);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

@@ -14,7 +14,7 @@ export interface QueryGetEpochInfoRequestProtoMsg {
 /** QueryGetEpochInfoRequest is request type for the GetEpochInfo RPC method. */
 export interface QueryGetEpochInfoRequestAmino {
   /** QueryGetEpochInfoRequest is request type for the GetEpochInfo RPC method. */
-  name: string;
+  name?: string;
 }
 export interface QueryGetEpochInfoRequestAminoMsg {
   type: "/dydxprotocol.epochs.QueryGetEpochInfoRequest";
@@ -46,7 +46,7 @@ export interface QueryEpochInfoResponseSDKType {
 }
 /** QueryAllEpochInfoRequest is request type for the AllEpochInfo RPC method. */
 export interface QueryAllEpochInfoRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllEpochInfoRequestProtoMsg {
   typeUrl: "/dydxprotocol.epochs.QueryAllEpochInfoRequest";
@@ -62,12 +62,12 @@ export interface QueryAllEpochInfoRequestAminoMsg {
 }
 /** QueryAllEpochInfoRequest is request type for the AllEpochInfo RPC method. */
 export interface QueryAllEpochInfoRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryEpochInfoAllResponse is response type for the AllEpochInfo RPC method. */
 export interface QueryEpochInfoAllResponse {
   epochInfo: EpochInfo[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryEpochInfoAllResponseProtoMsg {
   typeUrl: "/dydxprotocol.epochs.QueryEpochInfoAllResponse";
@@ -75,7 +75,7 @@ export interface QueryEpochInfoAllResponseProtoMsg {
 }
 /** QueryEpochInfoAllResponse is response type for the AllEpochInfo RPC method. */
 export interface QueryEpochInfoAllResponseAmino {
-  epoch_info: EpochInfoAmino[];
+  epoch_info?: EpochInfoAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryEpochInfoAllResponseAminoMsg {
@@ -85,7 +85,7 @@ export interface QueryEpochInfoAllResponseAminoMsg {
 /** QueryEpochInfoAllResponse is response type for the AllEpochInfo RPC method. */
 export interface QueryEpochInfoAllResponseSDKType {
   epoch_info: EpochInfoSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 function createBaseQueryGetEpochInfoRequest(): QueryGetEpochInfoRequest {
   return {
@@ -111,9 +111,11 @@ export const QueryGetEpochInfoRequest = {
     return message;
   },
   fromAmino(object: QueryGetEpochInfoRequestAmino): QueryGetEpochInfoRequest {
-    return {
-      name: object.name
-    };
+    const message = createBaseQueryGetEpochInfoRequest();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    return message;
   },
   toAmino(message: QueryGetEpochInfoRequest): QueryGetEpochInfoRequestAmino {
     const obj: any = {};
@@ -160,9 +162,11 @@ export const QueryEpochInfoResponse = {
     return message;
   },
   fromAmino(object: QueryEpochInfoResponseAmino): QueryEpochInfoResponse {
-    return {
-      epochInfo: object?.epoch_info ? EpochInfo.fromAmino(object.epoch_info) : undefined
-    };
+    const message = createBaseQueryEpochInfoResponse();
+    if (object.epoch_info !== undefined && object.epoch_info !== null) {
+      message.epochInfo = EpochInfo.fromAmino(object.epoch_info);
+    }
+    return message;
   },
   toAmino(message: QueryEpochInfoResponse): QueryEpochInfoResponseAmino {
     const obj: any = {};
@@ -187,7 +191,7 @@ export const QueryEpochInfoResponse = {
 };
 function createBaseQueryAllEpochInfoRequest(): QueryAllEpochInfoRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllEpochInfoRequest = {
@@ -209,9 +213,11 @@ export const QueryAllEpochInfoRequest = {
     return message;
   },
   fromAmino(object: QueryAllEpochInfoRequestAmino): QueryAllEpochInfoRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllEpochInfoRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllEpochInfoRequest): QueryAllEpochInfoRequestAmino {
     const obj: any = {};
@@ -237,7 +243,7 @@ export const QueryAllEpochInfoRequest = {
 function createBaseQueryEpochInfoAllResponse(): QueryEpochInfoAllResponse {
   return {
     epochInfo: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryEpochInfoAllResponse = {
@@ -264,10 +270,12 @@ export const QueryEpochInfoAllResponse = {
     return message;
   },
   fromAmino(object: QueryEpochInfoAllResponseAmino): QueryEpochInfoAllResponse {
-    return {
-      epochInfo: Array.isArray(object?.epoch_info) ? object.epoch_info.map((e: any) => EpochInfo.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryEpochInfoAllResponse();
+    message.epochInfo = object.epoch_info?.map(e => EpochInfo.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryEpochInfoAllResponse): QueryEpochInfoAllResponseAmino {
     const obj: any = {};

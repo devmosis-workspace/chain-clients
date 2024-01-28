@@ -33,7 +33,7 @@ export interface LiquidationsConfigAmino {
    * The maximum liquidation fee (in parts-per-million). This fee goes
    * 100% to the insurance fund.
    */
-  max_liquidation_fee_ppm: number;
+  max_liquidation_fee_ppm?: number;
   /**
    * Limits around how much of a single position can be liquidated
    * within a single block.
@@ -92,12 +92,12 @@ export interface PositionBlockLimitsAmino {
    * quote quantums).
    * Overridden by the maximum size of the position.
    */
-  min_position_notional_liquidated: string;
+  min_position_notional_liquidated?: string;
   /**
    * The maximum portion of the position liquidated (in parts-per-
    * million). Overridden by min_position_notional_liquidated.
    */
-  max_position_portion_liquidated_ppm: number;
+  max_position_portion_liquidated_ppm?: number;
 }
 export interface PositionBlockLimitsAminoMsg {
   type: "/dydxprotocol.clob.PositionBlockLimits";
@@ -142,12 +142,12 @@ export interface SubaccountBlockLimitsAmino {
    * The maximum notional amount that a single subaccount can have
    * liquidated (in quote quantums) per block.
    */
-  max_notional_liquidated: string;
+  max_notional_liquidated?: string;
   /**
    * The maximum insurance-fund payout amount for a given subaccount
    * per block. I.e. how much it can cover for that subaccount.
    */
-  max_quantums_insurance_lost: string;
+  max_quantums_insurance_lost?: string;
 }
 export interface SubaccountBlockLimitsAminoMsg {
   type: "/dydxprotocol.clob.SubaccountBlockLimits";
@@ -185,12 +185,12 @@ export interface FillablePriceConfigProtoMsg {
  */
 export interface FillablePriceConfigAmino {
   /** The rate at which the Adjusted Bankruptcy Rating increases. */
-  bankruptcy_adjustment_ppm: number;
+  bankruptcy_adjustment_ppm?: number;
   /**
    * The maximum value that the liquidation spread can take, as
    * a ratio against the position's maintenance margin.
    */
-  spread_to_maintenance_margin_ratio_ppm: number;
+  spread_to_maintenance_margin_ratio_ppm?: number;
 }
 export interface FillablePriceConfigAminoMsg {
   type: "/dydxprotocol.clob.FillablePriceConfig";
@@ -246,12 +246,20 @@ export const LiquidationsConfig = {
     return message;
   },
   fromAmino(object: LiquidationsConfigAmino): LiquidationsConfig {
-    return {
-      maxLiquidationFeePpm: object.max_liquidation_fee_ppm,
-      positionBlockLimits: object?.position_block_limits ? PositionBlockLimits.fromAmino(object.position_block_limits) : undefined,
-      subaccountBlockLimits: object?.subaccount_block_limits ? SubaccountBlockLimits.fromAmino(object.subaccount_block_limits) : undefined,
-      fillablePriceConfig: object?.fillable_price_config ? FillablePriceConfig.fromAmino(object.fillable_price_config) : undefined
-    };
+    const message = createBaseLiquidationsConfig();
+    if (object.max_liquidation_fee_ppm !== undefined && object.max_liquidation_fee_ppm !== null) {
+      message.maxLiquidationFeePpm = object.max_liquidation_fee_ppm;
+    }
+    if (object.position_block_limits !== undefined && object.position_block_limits !== null) {
+      message.positionBlockLimits = PositionBlockLimits.fromAmino(object.position_block_limits);
+    }
+    if (object.subaccount_block_limits !== undefined && object.subaccount_block_limits !== null) {
+      message.subaccountBlockLimits = SubaccountBlockLimits.fromAmino(object.subaccount_block_limits);
+    }
+    if (object.fillable_price_config !== undefined && object.fillable_price_config !== null) {
+      message.fillablePriceConfig = FillablePriceConfig.fromAmino(object.fillable_price_config);
+    }
+    return message;
   },
   toAmino(message: LiquidationsConfig): LiquidationsConfigAmino {
     const obj: any = {};
@@ -307,10 +315,14 @@ export const PositionBlockLimits = {
     return message;
   },
   fromAmino(object: PositionBlockLimitsAmino): PositionBlockLimits {
-    return {
-      minPositionNotionalLiquidated: BigInt(object.min_position_notional_liquidated),
-      maxPositionPortionLiquidatedPpm: object.max_position_portion_liquidated_ppm
-    };
+    const message = createBasePositionBlockLimits();
+    if (object.min_position_notional_liquidated !== undefined && object.min_position_notional_liquidated !== null) {
+      message.minPositionNotionalLiquidated = BigInt(object.min_position_notional_liquidated);
+    }
+    if (object.max_position_portion_liquidated_ppm !== undefined && object.max_position_portion_liquidated_ppm !== null) {
+      message.maxPositionPortionLiquidatedPpm = object.max_position_portion_liquidated_ppm;
+    }
+    return message;
   },
   toAmino(message: PositionBlockLimits): PositionBlockLimitsAmino {
     const obj: any = {};
@@ -364,10 +376,14 @@ export const SubaccountBlockLimits = {
     return message;
   },
   fromAmino(object: SubaccountBlockLimitsAmino): SubaccountBlockLimits {
-    return {
-      maxNotionalLiquidated: BigInt(object.max_notional_liquidated),
-      maxQuantumsInsuranceLost: BigInt(object.max_quantums_insurance_lost)
-    };
+    const message = createBaseSubaccountBlockLimits();
+    if (object.max_notional_liquidated !== undefined && object.max_notional_liquidated !== null) {
+      message.maxNotionalLiquidated = BigInt(object.max_notional_liquidated);
+    }
+    if (object.max_quantums_insurance_lost !== undefined && object.max_quantums_insurance_lost !== null) {
+      message.maxQuantumsInsuranceLost = BigInt(object.max_quantums_insurance_lost);
+    }
+    return message;
   },
   toAmino(message: SubaccountBlockLimits): SubaccountBlockLimitsAmino {
     const obj: any = {};
@@ -421,10 +437,14 @@ export const FillablePriceConfig = {
     return message;
   },
   fromAmino(object: FillablePriceConfigAmino): FillablePriceConfig {
-    return {
-      bankruptcyAdjustmentPpm: object.bankruptcy_adjustment_ppm,
-      spreadToMaintenanceMarginRatioPpm: object.spread_to_maintenance_margin_ratio_ppm
-    };
+    const message = createBaseFillablePriceConfig();
+    if (object.bankruptcy_adjustment_ppm !== undefined && object.bankruptcy_adjustment_ppm !== null) {
+      message.bankruptcyAdjustmentPpm = object.bankruptcy_adjustment_ppm;
+    }
+    if (object.spread_to_maintenance_margin_ratio_ppm !== undefined && object.spread_to_maintenance_margin_ratio_ppm !== null) {
+      message.spreadToMaintenanceMarginRatioPpm = object.spread_to_maintenance_margin_ratio_ppm;
+    }
+    return message;
   },
   toAmino(message: FillablePriceConfig): FillablePriceConfigAmino {
     const obj: any = {};

@@ -13,7 +13,7 @@ export interface MsgUpdateDowntimeParamsProtoMsg {
 }
 /** MsgUpdateDowntimeParams is the Msg/UpdateDowntimeParams request type. */
 export interface MsgUpdateDowntimeParamsAmino {
-  authority: string;
+  authority?: string;
   /** Defines the parameters to update. All parameters must be supplied. */
   params?: DowntimeParamsAmino;
 }
@@ -79,10 +79,14 @@ export const MsgUpdateDowntimeParams = {
     return message;
   },
   fromAmino(object: MsgUpdateDowntimeParamsAmino): MsgUpdateDowntimeParams {
-    return {
-      authority: object.authority,
-      params: object?.params ? DowntimeParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseMsgUpdateDowntimeParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = DowntimeParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateDowntimeParams): MsgUpdateDowntimeParamsAmino {
     const obj: any = {};
@@ -122,7 +126,8 @@ export const MsgUpdateDowntimeParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateDowntimeParamsResponseAmino): MsgUpdateDowntimeParamsResponse {
-    return {};
+    const message = createBaseMsgUpdateDowntimeParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdateDowntimeParamsResponse): MsgUpdateDowntimeParamsResponseAmino {
     const obj: any = {};

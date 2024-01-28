@@ -123,7 +123,7 @@ export interface OrderRemovalProtoMsg {
 /** OrderRemoval is a request type used for forced removal of stateful orders. */
 export interface OrderRemovalAmino {
   order_id?: OrderIdAmino;
-  removal_reason: OrderRemoval_RemovalReason;
+  removal_reason?: OrderRemoval_RemovalReason;
 }
 export interface OrderRemovalAminoMsg {
   type: "/dydxprotocol.clob.OrderRemoval";
@@ -164,10 +164,14 @@ export const OrderRemoval = {
     return message;
   },
   fromAmino(object: OrderRemovalAmino): OrderRemoval {
-    return {
-      orderId: object?.order_id ? OrderId.fromAmino(object.order_id) : undefined,
-      removalReason: isSet(object.removal_reason) ? orderRemoval_RemovalReasonFromJSON(object.removal_reason) : -1
-    };
+    const message = createBaseOrderRemoval();
+    if (object.order_id !== undefined && object.order_id !== null) {
+      message.orderId = OrderId.fromAmino(object.order_id);
+    }
+    if (object.removal_reason !== undefined && object.removal_reason !== null) {
+      message.removalReason = orderRemoval_RemovalReasonFromJSON(object.removal_reason);
+    }
+    return message;
   },
   toAmino(message: OrderRemoval): OrderRemovalAmino {
     const obj: any = {};

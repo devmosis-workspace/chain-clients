@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /** Perpetual represents a perpetual on the dYdX exchange. */
 export interface Perpetual {
   /** PerpetualParams is the parameters of the perpetual. */
@@ -22,7 +22,7 @@ export interface PerpetualAmino {
    * The current index determined by the cumulative all-time
    * history of the funding mechanism. Starts at zero.
    */
-  funding_index: Uint8Array;
+  funding_index?: string;
 }
 export interface PerpetualAminoMsg {
   type: "/dydxprotocol.perpetuals.Perpetual";
@@ -73,29 +73,29 @@ export interface PerpetualParamsProtoMsg {
  */
 export interface PerpetualParamsAmino {
   /** Unique, sequentially-generated. */
-  id: number;
+  id?: number;
   /** The name of the `Perpetual` (e.g. `BTC-USD`). */
-  ticker: string;
+  ticker?: string;
   /**
    * The market associated with this `Perpetual`. It
    * acts as the oracle price for the purposes of calculating
    * collateral, margin requirements, and funding rates.
    */
-  market_id: number;
+  market_id?: number;
   /**
    * The exponent for converting an atomic amount (`size = 1`)
    * to a full coin. For example, if `AtomicResolution = -8`
    * then a `PerpetualPosition` with `size = 1e8` is equivalent to
    * a position size of one full coin.
    */
-  atomic_resolution: number;
+  atomic_resolution?: number;
   /**
    * The default funding payment if there is no price premium. In
    * parts-per-million.
    */
-  default_funding_ppm: number;
+  default_funding_ppm?: number;
   /** The liquidity_tier that this perpetual is associated with. */
-  liquidity_tier: number;
+  liquidity_tier?: number;
 }
 export interface PerpetualParamsAminoMsg {
   type: "/dydxprotocol.perpetuals.PerpetualParams";
@@ -131,13 +131,13 @@ export interface MarketPremiumsProtoMsg {
 /** MarketPremiums stores a list of premiums for a single perpetual market. */
 export interface MarketPremiumsAmino {
   /** perpetual_id is the Id of the perpetual market. */
-  perpetual_id: number;
+  perpetual_id?: number;
   /**
    * premiums is a list of premium values for a perpetual market. Since most
    * premiums are zeros under "stable" market conditions, only non-zero values
    * are stored in this list.
    */
-  premiums: number[];
+  premiums?: number[];
 }
 export interface MarketPremiumsAminoMsg {
   type: "/dydxprotocol.perpetuals.MarketPremiums";
@@ -189,7 +189,7 @@ export interface PremiumStoreAmino {
    * all_market_premiums a list of `MarketPremiums`, each corresponding to
    * a perpetual market.
    */
-  all_market_premiums: MarketPremiumsAmino[];
+  all_market_premiums?: MarketPremiumsAmino[];
   /**
    * number of rounds where premium values were added. This value indicates
    * the total number of premiums (zeros and non-zeros) for each
@@ -198,7 +198,7 @@ export interface PremiumStoreAmino {
    * market. This means we treat this market as having zero premiums before it
    * was added.
    */
-  num_premiums: number;
+  num_premiums?: number;
 }
 export interface PremiumStoreAminoMsg {
   type: "/dydxprotocol.perpetuals.PremiumStore";
@@ -256,25 +256,25 @@ export interface LiquidityTierProtoMsg {
 /** LiquidityTier stores margin information. */
 export interface LiquidityTierAmino {
   /** Unique id. */
-  id: number;
+  id?: number;
   /** The name of the tier purely for mnemonic purposes, e.g. "Gold". */
-  name: string;
+  name?: string;
   /**
    * The margin fraction needed to open a position.
    * In parts-per-million.
    */
-  initial_margin_ppm: number;
+  initial_margin_ppm?: number;
   /**
    * The fraction of the initial-margin that the maintenance-margin is,
    * e.g. 50%. In parts-per-million.
    */
-  maintenance_fraction_ppm: number;
+  maintenance_fraction_ppm?: number;
   /**
    * The maximum position size at which the margin requirements are
    * not increased over the default values. Above this position size,
    * the margin requirements increase at a rate of sqrt(size).
    */
-  base_position_notional: string;
+  base_position_notional?: string;
   /**
    * The impact notional amount (in quote quantums) is used to determine impact
    * bid/ask prices and its recommended value is 500 USDC / initial margin
@@ -284,7 +284,7 @@ export interface LiquidityTierAmino {
    * - Impact ask price = average execution price for a market buy of the
    * impact notional value.
    */
-  impact_notional: string;
+  impact_notional?: string;
 }
 export interface LiquidityTierAminoMsg {
   type: "/dydxprotocol.perpetuals.LiquidityTier";
@@ -329,15 +329,19 @@ export const Perpetual = {
     return message;
   },
   fromAmino(object: PerpetualAmino): Perpetual {
-    return {
-      params: object?.params ? PerpetualParams.fromAmino(object.params) : undefined,
-      fundingIndex: object.funding_index
-    };
+    const message = createBasePerpetual();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = PerpetualParams.fromAmino(object.params);
+    }
+    if (object.funding_index !== undefined && object.funding_index !== null) {
+      message.fundingIndex = bytesFromBase64(object.funding_index);
+    }
+    return message;
   },
   toAmino(message: Perpetual): PerpetualAmino {
     const obj: any = {};
     obj.params = message.params ? PerpetualParams.toAmino(message.params) : undefined;
-    obj.funding_index = message.fundingIndex;
+    obj.funding_index = message.fundingIndex ? base64FromBytes(message.fundingIndex) : undefined;
     return obj;
   },
   fromAminoMsg(object: PerpetualAminoMsg): Perpetual {
@@ -410,14 +414,26 @@ export const PerpetualParams = {
     return message;
   },
   fromAmino(object: PerpetualParamsAmino): PerpetualParams {
-    return {
-      id: object.id,
-      ticker: object.ticker,
-      marketId: object.market_id,
-      atomicResolution: object.atomic_resolution,
-      defaultFundingPpm: object.default_funding_ppm,
-      liquidityTier: object.liquidity_tier
-    };
+    const message = createBasePerpetualParams();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.ticker !== undefined && object.ticker !== null) {
+      message.ticker = object.ticker;
+    }
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.atomic_resolution !== undefined && object.atomic_resolution !== null) {
+      message.atomicResolution = object.atomic_resolution;
+    }
+    if (object.default_funding_ppm !== undefined && object.default_funding_ppm !== null) {
+      message.defaultFundingPpm = object.default_funding_ppm;
+    }
+    if (object.liquidity_tier !== undefined && object.liquidity_tier !== null) {
+      message.liquidityTier = object.liquidity_tier;
+    }
+    return message;
   },
   toAmino(message: PerpetualParams): PerpetualParamsAmino {
     const obj: any = {};
@@ -477,10 +493,12 @@ export const MarketPremiums = {
     return message;
   },
   fromAmino(object: MarketPremiumsAmino): MarketPremiums {
-    return {
-      perpetualId: object.perpetual_id,
-      premiums: Array.isArray(object?.premiums) ? object.premiums.map((e: any) => e) : []
-    };
+    const message = createBaseMarketPremiums();
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    message.premiums = object.premiums?.map(e => e) || [];
+    return message;
   },
   toAmino(message: MarketPremiums): MarketPremiumsAmino {
     const obj: any = {};
@@ -538,10 +556,12 @@ export const PremiumStore = {
     return message;
   },
   fromAmino(object: PremiumStoreAmino): PremiumStore {
-    return {
-      allMarketPremiums: Array.isArray(object?.all_market_premiums) ? object.all_market_premiums.map((e: any) => MarketPremiums.fromAmino(e)) : [],
-      numPremiums: object.num_premiums
-    };
+    const message = createBasePremiumStore();
+    message.allMarketPremiums = object.all_market_premiums?.map(e => MarketPremiums.fromAmino(e)) || [];
+    if (object.num_premiums !== undefined && object.num_premiums !== null) {
+      message.numPremiums = object.num_premiums;
+    }
+    return message;
   },
   toAmino(message: PremiumStore): PremiumStoreAmino {
     const obj: any = {};
@@ -623,14 +643,26 @@ export const LiquidityTier = {
     return message;
   },
   fromAmino(object: LiquidityTierAmino): LiquidityTier {
-    return {
-      id: object.id,
-      name: object.name,
-      initialMarginPpm: object.initial_margin_ppm,
-      maintenanceFractionPpm: object.maintenance_fraction_ppm,
-      basePositionNotional: BigInt(object.base_position_notional),
-      impactNotional: BigInt(object.impact_notional)
-    };
+    const message = createBaseLiquidityTier();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.initial_margin_ppm !== undefined && object.initial_margin_ppm !== null) {
+      message.initialMarginPpm = object.initial_margin_ppm;
+    }
+    if (object.maintenance_fraction_ppm !== undefined && object.maintenance_fraction_ppm !== null) {
+      message.maintenanceFractionPpm = object.maintenance_fraction_ppm;
+    }
+    if (object.base_position_notional !== undefined && object.base_position_notional !== null) {
+      message.basePositionNotional = BigInt(object.base_position_notional);
+    }
+    if (object.impact_notional !== undefined && object.impact_notional !== null) {
+      message.impactNotional = BigInt(object.impact_notional);
+    }
+    return message;
   },
   toAmino(message: LiquidityTier): LiquidityTierAmino {
     const obj: any = {};

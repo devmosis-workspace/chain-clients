@@ -23,11 +23,11 @@ export interface EventParamsProtoMsg {
  */
 export interface EventParamsAmino {
   /** The denom of the token to mint. */
-  denom: string;
+  denom?: string;
   /** The numerical chain ID of the Ethereum chain to query. */
-  eth_chain_id: string;
+  eth_chain_id?: string;
   /** The address of the Ethereum contract to monitor for logs. */
-  eth_address: string;
+  eth_address?: string;
 }
 export interface EventParamsAminoMsg {
   type: "/dydxprotocol.bridge.EventParams";
@@ -80,7 +80,7 @@ export interface ProposeParamsAmino {
    * Limits the number of events to propose in a single block
    * in-order to smooth out the flow of events.
    */
-  max_bridges_per_block: number;
+  max_bridges_per_block?: number;
   /**
    * The minimum duration to wait between a finalized bridge and
    * proposing it. This allows other validators to have enough time to
@@ -93,7 +93,7 @@ export interface ProposeParamsAmino {
    * generates a number smaller than this number.
    * Setting this parameter to 1_000_000 means always skipping proposing events.
    */
-  skip_rate_ppm: number;
+  skip_rate_ppm?: number;
   /**
    * Do not propose any events if the timestamp of the proposal block is
    * behind the proposers' wall-clock by at least this duration.
@@ -128,12 +128,12 @@ export interface SafetyParamsProtoMsg {
 /** SafetyParams stores safety parameters for the module. */
 export interface SafetyParamsAmino {
   /** True if bridging is disabled. */
-  is_disabled: boolean;
+  is_disabled?: boolean;
   /**
    * The number of blocks that bridges accepted in-consensus will be pending
    * until the minted tokens are granted.
    */
-  delay_blocks: number;
+  delay_blocks?: number;
 }
 export interface SafetyParamsAminoMsg {
   type: "/dydxprotocol.bridge.SafetyParams";
@@ -180,11 +180,17 @@ export const EventParams = {
     return message;
   },
   fromAmino(object: EventParamsAmino): EventParams {
-    return {
-      denom: object.denom,
-      ethChainId: BigInt(object.eth_chain_id),
-      ethAddress: object.eth_address
-    };
+    const message = createBaseEventParams();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.eth_chain_id !== undefined && object.eth_chain_id !== null) {
+      message.ethChainId = BigInt(object.eth_chain_id);
+    }
+    if (object.eth_address !== undefined && object.eth_address !== null) {
+      message.ethAddress = object.eth_address;
+    }
+    return message;
   },
   toAmino(message: EventParams): EventParamsAmino {
     const obj: any = {};
@@ -251,12 +257,20 @@ export const ProposeParams = {
     return message;
   },
   fromAmino(object: ProposeParamsAmino): ProposeParams {
-    return {
-      maxBridgesPerBlock: object.max_bridges_per_block,
-      proposeDelayDuration: object?.propose_delay_duration ? Duration.fromAmino(object.propose_delay_duration) : undefined,
-      skipRatePpm: object.skip_rate_ppm,
-      skipIfBlockDelayedByDuration: object?.skip_if_block_delayed_by_duration ? Duration.fromAmino(object.skip_if_block_delayed_by_duration) : undefined
-    };
+    const message = createBaseProposeParams();
+    if (object.max_bridges_per_block !== undefined && object.max_bridges_per_block !== null) {
+      message.maxBridgesPerBlock = object.max_bridges_per_block;
+    }
+    if (object.propose_delay_duration !== undefined && object.propose_delay_duration !== null) {
+      message.proposeDelayDuration = Duration.fromAmino(object.propose_delay_duration);
+    }
+    if (object.skip_rate_ppm !== undefined && object.skip_rate_ppm !== null) {
+      message.skipRatePpm = object.skip_rate_ppm;
+    }
+    if (object.skip_if_block_delayed_by_duration !== undefined && object.skip_if_block_delayed_by_duration !== null) {
+      message.skipIfBlockDelayedByDuration = Duration.fromAmino(object.skip_if_block_delayed_by_duration);
+    }
+    return message;
   },
   toAmino(message: ProposeParams): ProposeParamsAmino {
     const obj: any = {};
@@ -312,10 +326,14 @@ export const SafetyParams = {
     return message;
   },
   fromAmino(object: SafetyParamsAmino): SafetyParams {
-    return {
-      isDisabled: object.is_disabled,
-      delayBlocks: object.delay_blocks
-    };
+    const message = createBaseSafetyParams();
+    if (object.is_disabled !== undefined && object.is_disabled !== null) {
+      message.isDisabled = object.is_disabled;
+    }
+    if (object.delay_blocks !== undefined && object.delay_blocks !== null) {
+      message.delayBlocks = object.delay_blocks;
+    }
+    return message;
   },
   toAmino(message: SafetyParams): SafetyParamsAmino {
     const obj: any = {};

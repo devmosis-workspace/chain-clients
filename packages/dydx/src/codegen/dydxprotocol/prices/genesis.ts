@@ -12,8 +12,8 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the prices module's genesis state. */
 export interface GenesisStateAmino {
-  market_params: MarketParamAmino[];
-  market_prices: MarketPriceAmino[];
+  market_params?: MarketParamAmino[];
+  market_prices?: MarketPriceAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/dydxprotocol.prices.GenesisState";
@@ -54,10 +54,10 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      marketParams: Array.isArray(object?.market_params) ? object.market_params.map((e: any) => MarketParam.fromAmino(e)) : [],
-      marketPrices: Array.isArray(object?.market_prices) ? object.market_prices.map((e: any) => MarketPrice.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.marketParams = object.market_params?.map(e => MarketParam.fromAmino(e)) || [];
+    message.marketPrices = object.market_prices?.map(e => MarketPrice.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

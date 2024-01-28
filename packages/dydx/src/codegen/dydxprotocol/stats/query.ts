@@ -59,7 +59,7 @@ export interface QueryStatsMetadataResponse {
    * QueryStatsMetadataResponse is a response type for the StatsMetadata RPC
    * method.
    */
-  metadata: StatsMetadata;
+  metadata?: StatsMetadata;
 }
 export interface QueryStatsMetadataResponseProtoMsg {
   typeUrl: "/dydxprotocol.stats.QueryStatsMetadataResponse";
@@ -85,7 +85,7 @@ export interface QueryStatsMetadataResponseAminoMsg {
  * method.
  */
 export interface QueryStatsMetadataResponseSDKType {
-  metadata: StatsMetadataSDKType;
+  metadata?: StatsMetadataSDKType;
 }
 /** QueryGlobalStatsRequest is a request type for the GlobalStats RPC method. */
 export interface QueryGlobalStatsRequest {}
@@ -104,7 +104,7 @@ export interface QueryGlobalStatsRequestSDKType {}
 /** QueryGlobalStatsResponse is a response type for the GlobalStats RPC method. */
 export interface QueryGlobalStatsResponse {
   /** QueryGlobalStatsResponse is a response type for the GlobalStats RPC method. */
-  stats: GlobalStats;
+  stats?: GlobalStats;
 }
 export interface QueryGlobalStatsResponseProtoMsg {
   typeUrl: "/dydxprotocol.stats.QueryGlobalStatsResponse";
@@ -121,7 +121,7 @@ export interface QueryGlobalStatsResponseAminoMsg {
 }
 /** QueryGlobalStatsResponse is a response type for the GlobalStats RPC method. */
 export interface QueryGlobalStatsResponseSDKType {
-  stats: GlobalStatsSDKType;
+  stats?: GlobalStatsSDKType;
 }
 /** QueryUserStatsRequest is a request type for the UserStats RPC method. */
 export interface QueryUserStatsRequest {
@@ -135,7 +135,7 @@ export interface QueryUserStatsRequestProtoMsg {
 /** QueryUserStatsRequest is a request type for the UserStats RPC method. */
 export interface QueryUserStatsRequestAmino {
   /** QueryUserStatsRequest is a request type for the UserStats RPC method. */
-  user: string;
+  user?: string;
 }
 export interface QueryUserStatsRequestAminoMsg {
   type: "/dydxprotocol.stats.QueryUserStatsRequest";
@@ -148,7 +148,7 @@ export interface QueryUserStatsRequestSDKType {
 /** QueryUserStatsResponse is a request type for the UserStats RPC method. */
 export interface QueryUserStatsResponse {
   /** QueryUserStatsResponse is a request type for the UserStats RPC method. */
-  stats: UserStats;
+  stats?: UserStats;
 }
 export interface QueryUserStatsResponseProtoMsg {
   typeUrl: "/dydxprotocol.stats.QueryUserStatsResponse";
@@ -165,7 +165,7 @@ export interface QueryUserStatsResponseAminoMsg {
 }
 /** QueryUserStatsResponse is a request type for the UserStats RPC method. */
 export interface QueryUserStatsResponseSDKType {
-  stats: UserStatsSDKType;
+  stats?: UserStatsSDKType;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -183,7 +183,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -229,9 +230,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -270,7 +273,8 @@ export const QueryStatsMetadataRequest = {
     return message;
   },
   fromAmino(_: QueryStatsMetadataRequestAmino): QueryStatsMetadataRequest {
-    return {};
+    const message = createBaseQueryStatsMetadataRequest();
+    return message;
   },
   toAmino(_: QueryStatsMetadataRequest): QueryStatsMetadataRequestAmino {
     const obj: any = {};
@@ -294,7 +298,7 @@ export const QueryStatsMetadataRequest = {
 };
 function createBaseQueryStatsMetadataResponse(): QueryStatsMetadataResponse {
   return {
-    metadata: StatsMetadata.fromPartial({})
+    metadata: undefined
   };
 }
 export const QueryStatsMetadataResponse = {
@@ -316,9 +320,11 @@ export const QueryStatsMetadataResponse = {
     return message;
   },
   fromAmino(object: QueryStatsMetadataResponseAmino): QueryStatsMetadataResponse {
-    return {
-      metadata: object?.metadata ? StatsMetadata.fromAmino(object.metadata) : undefined
-    };
+    const message = createBaseQueryStatsMetadataResponse();
+    if (object.metadata !== undefined && object.metadata !== null) {
+      message.metadata = StatsMetadata.fromAmino(object.metadata);
+    }
+    return message;
   },
   toAmino(message: QueryStatsMetadataResponse): QueryStatsMetadataResponseAmino {
     const obj: any = {};
@@ -357,7 +363,8 @@ export const QueryGlobalStatsRequest = {
     return message;
   },
   fromAmino(_: QueryGlobalStatsRequestAmino): QueryGlobalStatsRequest {
-    return {};
+    const message = createBaseQueryGlobalStatsRequest();
+    return message;
   },
   toAmino(_: QueryGlobalStatsRequest): QueryGlobalStatsRequestAmino {
     const obj: any = {};
@@ -381,7 +388,7 @@ export const QueryGlobalStatsRequest = {
 };
 function createBaseQueryGlobalStatsResponse(): QueryGlobalStatsResponse {
   return {
-    stats: GlobalStats.fromPartial({})
+    stats: undefined
   };
 }
 export const QueryGlobalStatsResponse = {
@@ -403,9 +410,11 @@ export const QueryGlobalStatsResponse = {
     return message;
   },
   fromAmino(object: QueryGlobalStatsResponseAmino): QueryGlobalStatsResponse {
-    return {
-      stats: object?.stats ? GlobalStats.fromAmino(object.stats) : undefined
-    };
+    const message = createBaseQueryGlobalStatsResponse();
+    if (object.stats !== undefined && object.stats !== null) {
+      message.stats = GlobalStats.fromAmino(object.stats);
+    }
+    return message;
   },
   toAmino(message: QueryGlobalStatsResponse): QueryGlobalStatsResponseAmino {
     const obj: any = {};
@@ -452,9 +461,11 @@ export const QueryUserStatsRequest = {
     return message;
   },
   fromAmino(object: QueryUserStatsRequestAmino): QueryUserStatsRequest {
-    return {
-      user: object.user
-    };
+    const message = createBaseQueryUserStatsRequest();
+    if (object.user !== undefined && object.user !== null) {
+      message.user = object.user;
+    }
+    return message;
   },
   toAmino(message: QueryUserStatsRequest): QueryUserStatsRequestAmino {
     const obj: any = {};
@@ -479,7 +490,7 @@ export const QueryUserStatsRequest = {
 };
 function createBaseQueryUserStatsResponse(): QueryUserStatsResponse {
   return {
-    stats: UserStats.fromPartial({})
+    stats: undefined
   };
 }
 export const QueryUserStatsResponse = {
@@ -501,9 +512,11 @@ export const QueryUserStatsResponse = {
     return message;
   },
   fromAmino(object: QueryUserStatsResponseAmino): QueryUserStatsResponse {
-    return {
-      stats: object?.stats ? UserStats.fromAmino(object.stats) : undefined
-    };
+    const message = createBaseQueryUserStatsResponse();
+    if (object.stats !== undefined && object.stats !== null) {
+      message.stats = UserStats.fromAmino(object.stats);
+    }
+    return message;
   },
   toAmino(message: QueryUserStatsResponse): QueryUserStatsResponseAmino {
     const obj: any = {};

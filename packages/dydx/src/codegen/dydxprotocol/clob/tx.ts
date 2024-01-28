@@ -6,7 +6,7 @@ import { LiquidationsConfig, LiquidationsConfigAmino, LiquidationsConfigSDKType 
 import { ClobMatch, ClobMatchAmino, ClobMatchSDKType } from "./matches";
 import { OrderRemoval, OrderRemovalAmino, OrderRemovalSDKType } from "./order_removals";
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /** MsgCreateClobPair is a message used by x/gov for creating a new clob pair. */
 export interface MsgCreateClobPair {
   /** The address that controls the module. */
@@ -21,7 +21,7 @@ export interface MsgCreateClobPairProtoMsg {
 /** MsgCreateClobPair is a message used by x/gov for creating a new clob pair. */
 export interface MsgCreateClobPairAmino {
   /** The address that controls the module. */
-  authority: string;
+  authority?: string;
   /** `clob_pair` defines parameters for the new clob pair. */
   clob_pair?: ClobPairAmino;
 }
@@ -66,7 +66,7 @@ export interface MsgProposedOperationsProtoMsg {
  */
 export interface MsgProposedOperationsAmino {
   /** The list of operations proposed by the block proposer. */
-  operations_queue: OperationRawAmino[];
+  operations_queue?: OperationRawAmino[];
 }
 export interface MsgProposedOperationsAminoMsg {
   type: "/dydxprotocol.clob.MsgProposedOperations";
@@ -214,7 +214,7 @@ export interface MsgUpdateClobPairProtoMsg {
 /** MsgUpdateClobPair is a request type used for updating a ClobPair in state. */
 export interface MsgUpdateClobPairAmino {
   /** Authority is the address that may send this message. */
-  authority: string;
+  authority?: string;
   /** `clob_pair` is the ClobPair to write to state. */
   clob_pair?: ClobPairAmino;
 }
@@ -269,7 +269,7 @@ export interface OperationRawProtoMsg {
  */
 export interface OperationRawAmino {
   match?: ClobMatchAmino;
-  short_term_order_placement?: Uint8Array;
+  short_term_order_placement?: string;
   order_removal?: OrderRemovalAmino;
 }
 export interface OperationRawAminoMsg {
@@ -306,7 +306,7 @@ export interface MsgUpdateEquityTierLimitConfigurationProtoMsg {
  * request type.
  */
 export interface MsgUpdateEquityTierLimitConfigurationAmino {
-  authority: string;
+  authority?: string;
   /**
    * Defines the equity tier limit configuration to update to. All fields must
    * be set.
@@ -369,7 +369,7 @@ export interface MsgUpdateBlockRateLimitConfigurationProtoMsg {
  * request type.
  */
 export interface MsgUpdateBlockRateLimitConfigurationAmino {
-  authority: string;
+  authority?: string;
   /**
    * Defines the block rate limit configuration to update to. All fields must be
    * set.
@@ -434,7 +434,7 @@ export interface MsgUpdateLiquidationsConfigProtoMsg {
  */
 export interface MsgUpdateLiquidationsConfigAmino {
   /** Authority is the address that may send this message. */
-  authority: string;
+  authority?: string;
   /**
    * Defines the liquidations configuration to update to. All fields must
    * be set.
@@ -497,10 +497,14 @@ export const MsgCreateClobPair = {
     return message;
   },
   fromAmino(object: MsgCreateClobPairAmino): MsgCreateClobPair {
-    return {
-      authority: object.authority,
-      clobPair: object?.clob_pair ? ClobPair.fromAmino(object.clob_pair) : undefined
-    };
+    const message = createBaseMsgCreateClobPair();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.clob_pair !== undefined && object.clob_pair !== null) {
+      message.clobPair = ClobPair.fromAmino(object.clob_pair);
+    }
+    return message;
   },
   toAmino(message: MsgCreateClobPair): MsgCreateClobPairAmino {
     const obj: any = {};
@@ -540,7 +544,8 @@ export const MsgCreateClobPairResponse = {
     return message;
   },
   fromAmino(_: MsgCreateClobPairResponseAmino): MsgCreateClobPairResponse {
-    return {};
+    const message = createBaseMsgCreateClobPairResponse();
+    return message;
   },
   toAmino(_: MsgCreateClobPairResponse): MsgCreateClobPairResponseAmino {
     const obj: any = {};
@@ -586,9 +591,9 @@ export const MsgProposedOperations = {
     return message;
   },
   fromAmino(object: MsgProposedOperationsAmino): MsgProposedOperations {
-    return {
-      operationsQueue: Array.isArray(object?.operations_queue) ? object.operations_queue.map((e: any) => OperationRaw.fromAmino(e)) : []
-    };
+    const message = createBaseMsgProposedOperations();
+    message.operationsQueue = object.operations_queue?.map(e => OperationRaw.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgProposedOperations): MsgProposedOperationsAmino {
     const obj: any = {};
@@ -631,7 +636,8 @@ export const MsgProposedOperationsResponse = {
     return message;
   },
   fromAmino(_: MsgProposedOperationsResponseAmino): MsgProposedOperationsResponse {
-    return {};
+    const message = createBaseMsgProposedOperationsResponse();
+    return message;
   },
   toAmino(_: MsgProposedOperationsResponse): MsgProposedOperationsResponseAmino {
     const obj: any = {};
@@ -677,9 +683,11 @@ export const MsgPlaceOrder = {
     return message;
   },
   fromAmino(object: MsgPlaceOrderAmino): MsgPlaceOrder {
-    return {
-      order: object?.order ? Order.fromAmino(object.order) : undefined
-    };
+    const message = createBaseMsgPlaceOrder();
+    if (object.order !== undefined && object.order !== null) {
+      message.order = Order.fromAmino(object.order);
+    }
+    return message;
   },
   toAmino(message: MsgPlaceOrder): MsgPlaceOrderAmino {
     const obj: any = {};
@@ -718,7 +726,8 @@ export const MsgPlaceOrderResponse = {
     return message;
   },
   fromAmino(_: MsgPlaceOrderResponseAmino): MsgPlaceOrderResponse {
-    return {};
+    const message = createBaseMsgPlaceOrderResponse();
+    return message;
   },
   toAmino(_: MsgPlaceOrderResponse): MsgPlaceOrderResponseAmino {
     const obj: any = {};
@@ -776,11 +785,17 @@ export const MsgCancelOrder = {
     return message;
   },
   fromAmino(object: MsgCancelOrderAmino): MsgCancelOrder {
-    return {
-      orderId: object?.order_id ? OrderId.fromAmino(object.order_id) : undefined,
-      goodTilBlock: object?.good_til_block,
-      goodTilBlockTime: object?.good_til_block_time
-    };
+    const message = createBaseMsgCancelOrder();
+    if (object.order_id !== undefined && object.order_id !== null) {
+      message.orderId = OrderId.fromAmino(object.order_id);
+    }
+    if (object.good_til_block !== undefined && object.good_til_block !== null) {
+      message.goodTilBlock = object.good_til_block;
+    }
+    if (object.good_til_block_time !== undefined && object.good_til_block_time !== null) {
+      message.goodTilBlockTime = object.good_til_block_time;
+    }
+    return message;
   },
   toAmino(message: MsgCancelOrder): MsgCancelOrderAmino {
     const obj: any = {};
@@ -821,7 +836,8 @@ export const MsgCancelOrderResponse = {
     return message;
   },
   fromAmino(_: MsgCancelOrderResponseAmino): MsgCancelOrderResponse {
-    return {};
+    const message = createBaseMsgCancelOrderResponse();
+    return message;
   },
   toAmino(_: MsgCancelOrderResponse): MsgCancelOrderResponseAmino {
     const obj: any = {};
@@ -873,10 +889,14 @@ export const MsgUpdateClobPair = {
     return message;
   },
   fromAmino(object: MsgUpdateClobPairAmino): MsgUpdateClobPair {
-    return {
-      authority: object.authority,
-      clobPair: object?.clob_pair ? ClobPair.fromAmino(object.clob_pair) : undefined
-    };
+    const message = createBaseMsgUpdateClobPair();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.clob_pair !== undefined && object.clob_pair !== null) {
+      message.clobPair = ClobPair.fromAmino(object.clob_pair);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateClobPair): MsgUpdateClobPairAmino {
     const obj: any = {};
@@ -916,7 +936,8 @@ export const MsgUpdateClobPairResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateClobPairResponseAmino): MsgUpdateClobPairResponse {
-    return {};
+    const message = createBaseMsgUpdateClobPairResponse();
+    return message;
   },
   toAmino(_: MsgUpdateClobPairResponse): MsgUpdateClobPairResponseAmino {
     const obj: any = {};
@@ -974,16 +995,22 @@ export const OperationRaw = {
     return message;
   },
   fromAmino(object: OperationRawAmino): OperationRaw {
-    return {
-      match: object?.match ? ClobMatch.fromAmino(object.match) : undefined,
-      shortTermOrderPlacement: object?.short_term_order_placement,
-      orderRemoval: object?.order_removal ? OrderRemoval.fromAmino(object.order_removal) : undefined
-    };
+    const message = createBaseOperationRaw();
+    if (object.match !== undefined && object.match !== null) {
+      message.match = ClobMatch.fromAmino(object.match);
+    }
+    if (object.short_term_order_placement !== undefined && object.short_term_order_placement !== null) {
+      message.shortTermOrderPlacement = bytesFromBase64(object.short_term_order_placement);
+    }
+    if (object.order_removal !== undefined && object.order_removal !== null) {
+      message.orderRemoval = OrderRemoval.fromAmino(object.order_removal);
+    }
+    return message;
   },
   toAmino(message: OperationRaw): OperationRawAmino {
     const obj: any = {};
     obj.match = message.match ? ClobMatch.toAmino(message.match) : undefined;
-    obj.short_term_order_placement = message.shortTermOrderPlacement;
+    obj.short_term_order_placement = message.shortTermOrderPlacement ? base64FromBytes(message.shortTermOrderPlacement) : undefined;
     obj.order_removal = message.orderRemoval ? OrderRemoval.toAmino(message.orderRemoval) : undefined;
     return obj;
   },
@@ -1033,10 +1060,14 @@ export const MsgUpdateEquityTierLimitConfiguration = {
     return message;
   },
   fromAmino(object: MsgUpdateEquityTierLimitConfigurationAmino): MsgUpdateEquityTierLimitConfiguration {
-    return {
-      authority: object.authority,
-      equityTierLimitConfig: object?.equity_tier_limit_config ? EquityTierLimitConfiguration.fromAmino(object.equity_tier_limit_config) : undefined
-    };
+    const message = createBaseMsgUpdateEquityTierLimitConfiguration();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.equity_tier_limit_config !== undefined && object.equity_tier_limit_config !== null) {
+      message.equityTierLimitConfig = EquityTierLimitConfiguration.fromAmino(object.equity_tier_limit_config);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateEquityTierLimitConfiguration): MsgUpdateEquityTierLimitConfigurationAmino {
     const obj: any = {};
@@ -1076,7 +1107,8 @@ export const MsgUpdateEquityTierLimitConfigurationResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateEquityTierLimitConfigurationResponseAmino): MsgUpdateEquityTierLimitConfigurationResponse {
-    return {};
+    const message = createBaseMsgUpdateEquityTierLimitConfigurationResponse();
+    return message;
   },
   toAmino(_: MsgUpdateEquityTierLimitConfigurationResponse): MsgUpdateEquityTierLimitConfigurationResponseAmino {
     const obj: any = {};
@@ -1128,10 +1160,14 @@ export const MsgUpdateBlockRateLimitConfiguration = {
     return message;
   },
   fromAmino(object: MsgUpdateBlockRateLimitConfigurationAmino): MsgUpdateBlockRateLimitConfiguration {
-    return {
-      authority: object.authority,
-      blockRateLimitConfig: object?.block_rate_limit_config ? BlockRateLimitConfiguration.fromAmino(object.block_rate_limit_config) : undefined
-    };
+    const message = createBaseMsgUpdateBlockRateLimitConfiguration();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.block_rate_limit_config !== undefined && object.block_rate_limit_config !== null) {
+      message.blockRateLimitConfig = BlockRateLimitConfiguration.fromAmino(object.block_rate_limit_config);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateBlockRateLimitConfiguration): MsgUpdateBlockRateLimitConfigurationAmino {
     const obj: any = {};
@@ -1171,7 +1207,8 @@ export const MsgUpdateBlockRateLimitConfigurationResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateBlockRateLimitConfigurationResponseAmino): MsgUpdateBlockRateLimitConfigurationResponse {
-    return {};
+    const message = createBaseMsgUpdateBlockRateLimitConfigurationResponse();
+    return message;
   },
   toAmino(_: MsgUpdateBlockRateLimitConfigurationResponse): MsgUpdateBlockRateLimitConfigurationResponseAmino {
     const obj: any = {};
@@ -1223,10 +1260,14 @@ export const MsgUpdateLiquidationsConfig = {
     return message;
   },
   fromAmino(object: MsgUpdateLiquidationsConfigAmino): MsgUpdateLiquidationsConfig {
-    return {
-      authority: object.authority,
-      liquidationsConfig: object?.liquidations_config ? LiquidationsConfig.fromAmino(object.liquidations_config) : undefined
-    };
+    const message = createBaseMsgUpdateLiquidationsConfig();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.liquidations_config !== undefined && object.liquidations_config !== null) {
+      message.liquidationsConfig = LiquidationsConfig.fromAmino(object.liquidations_config);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateLiquidationsConfig): MsgUpdateLiquidationsConfigAmino {
     const obj: any = {};
@@ -1266,7 +1307,8 @@ export const MsgUpdateLiquidationsConfigResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateLiquidationsConfigResponseAmino): MsgUpdateLiquidationsConfigResponse {
-    return {};
+    const message = createBaseMsgUpdateLiquidationsConfigResponse();
+    return message;
   },
   toAmino(_: MsgUpdateLiquidationsConfigResponse): MsgUpdateLiquidationsConfigResponseAmino {
     const obj: any = {};

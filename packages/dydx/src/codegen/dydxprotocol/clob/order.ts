@@ -223,7 +223,7 @@ export interface OrderIdAmino {
    * sub account (I.E., the same subaccount can't have two orders with
    * the same ClientId).
    */
-  client_id: number;
+  client_id?: number;
   /**
    * order_flags represent order flags for the order. This field is invalid if
    * it's greater than 127 (larger than one byte). Each bit in the first byte
@@ -239,9 +239,9 @@ export interface OrderIdAmino {
    * If both bits are set or bits other than the 2nd and 3rd are set, the order
    * ID is invalid.
    */
-  order_flags: number;
+  order_flags?: number;
   /** ID of the CLOB the order is created for. */
-  clob_pair_id: number;
+  clob_pair_id?: number;
 }
 export interface OrderIdAminoMsg {
   type: "/dydxprotocol.clob.OrderId";
@@ -278,7 +278,7 @@ export interface OrdersFilledDuringLatestBlockAmino {
    * A list of unique order_ids that were filled by any non-zero amount in the
    * latest block.
    */
-  order_ids: OrderIdAmino[];
+  order_ids?: OrderIdAmino[];
 }
 export interface OrdersFilledDuringLatestBlockAminoMsg {
   type: "/dydxprotocol.clob.OrdersFilledDuringLatestBlock";
@@ -315,7 +315,7 @@ export interface PotentiallyPrunableOrdersAmino {
    * A list of unique order_ids that may potentially be pruned from state at a
    * future block height.
    */
-  order_ids: OrderIdAmino[];
+  order_ids?: OrderIdAmino[];
 }
 export interface PotentiallyPrunableOrdersAminoMsg {
   type: "/dydxprotocol.clob.PotentiallyPrunableOrders";
@@ -355,12 +355,12 @@ export interface OrderFillStateProtoMsg {
  */
 export interface OrderFillStateAmino {
   /** The current fillAmount of the order according to on-chain state. */
-  fill_amount: string;
+  fill_amount?: string;
   /**
    * The block height at which the fillAmount state for this order can be
    * pruned.
    */
-  prunable_block_height: number;
+  prunable_block_height?: number;
 }
 export interface OrderFillStateAminoMsg {
   type: "/dydxprotocol.clob.OrderFillState";
@@ -414,7 +414,7 @@ export interface StatefulOrderTimeSliceValueAmino {
    * ascending order by block height and transaction index of each stateful
    * order.
    */
-  order_ids: OrderIdAmino[];
+  order_ids?: OrderIdAmino[];
 }
 export interface StatefulOrderTimeSliceValueAminoMsg {
   type: "/dydxprotocol.clob.StatefulOrderTimeSliceValue";
@@ -490,7 +490,7 @@ export interface ConditionalOrderPlacement {
    * Set to be nil if the transaction has not been triggered.
    * Used for ordering by time priority when the chain is restarted.
    */
-  triggerIndex: TransactionOrdering;
+  triggerIndex?: TransactionOrdering;
 }
 export interface ConditionalOrderPlacementProtoMsg {
   typeUrl: "/dydxprotocol.clob.ConditionalOrderPlacement";
@@ -524,7 +524,7 @@ export interface ConditionalOrderPlacementAminoMsg {
 export interface ConditionalOrderPlacementSDKType {
   order: OrderSDKType;
   placement_index: TransactionOrderingSDKType;
-  trigger_index: TransactionOrderingSDKType;
+  trigger_index?: TransactionOrderingSDKType;
 }
 /**
  * Order represents a single order belonging to a `Subaccount`
@@ -598,18 +598,18 @@ export interface OrderProtoMsg {
 export interface OrderAmino {
   /** The unique ID of this order. Meant to be unique across all orders. */
   order_id?: OrderIdAmino;
-  side: Order_Side;
+  side?: Order_Side;
   /**
    * The size of this order in base quantums. Must be a multiple of
    * `ClobPair.StepBaseQuantums` (where `ClobPair.Id = orderId.ClobPairId`).
    */
-  quantums: string;
+  quantums?: string;
   /**
    * The price level that this order will be placed at on the orderbook,
    * in subticks. Must be a multiple of ClobPair.SubticksPerTick
    * (where `ClobPair.Id = orderId.ClobPairId`).
    */
-  subticks: string;
+  subticks?: string;
   /**
    * The last block this order can be executed at (after which it will be
    * unfillable). Used only for Short-Term orders. If this value is non-zero
@@ -626,7 +626,7 @@ export interface OrderAmino {
    */
   good_til_block_time?: number;
   /** The time in force of this order. */
-  time_in_force: Order_TimeInForce;
+  time_in_force?: Order_TimeInForce;
   /**
    * Enforces that the order can only reduce the size of an existing position.
    * If a ReduceOnly order would change the side of the existing position,
@@ -635,13 +635,13 @@ export interface OrderAmino {
    * would already close the position, the least aggressive (out-of-the-money)
    * ReduceOnly orders are resized and canceled first.
    */
-  reduce_only: boolean;
+  reduce_only?: boolean;
   /**
    * Set of bit flags set arbitrarily by clients and ignored by the protocol.
    * Used by indexer to infer information about a placed order.
    */
-  client_metadata: number;
-  condition_type: Order_ConditionType;
+  client_metadata?: number;
+  condition_type?: Order_ConditionType;
   /**
    * conditional_order_trigger_subticks represents the price at which this order
    * will be triggered. If the condition_type is CONDITION_TYPE_UNSPECIFIED,
@@ -650,7 +650,7 @@ export interface OrderAmino {
    * Must be a multiple of ClobPair.SubticksPerTick (where `ClobPair.Id =
    * orderId.ClobPairId`).
    */
-  conditional_order_trigger_subticks: string;
+  conditional_order_trigger_subticks?: string;
 }
 export interface OrderAminoMsg {
   type: "/dydxprotocol.clob.Order";
@@ -697,9 +697,9 @@ export interface TransactionOrderingProtoMsg {
  */
 export interface TransactionOrderingAmino {
   /** Block height in which the transaction was placed. */
-  block_height: number;
+  block_height?: number;
   /** Within the block, the unique transaction index. */
-  transaction_index: number;
+  transaction_index?: number;
 }
 export interface TransactionOrderingAminoMsg {
   type: "/dydxprotocol.clob.TransactionOrdering";
@@ -757,12 +757,20 @@ export const OrderId = {
     return message;
   },
   fromAmino(object: OrderIdAmino): OrderId {
-    return {
-      subaccountId: object?.subaccount_id ? SubaccountId.fromAmino(object.subaccount_id) : undefined,
-      clientId: object.client_id,
-      orderFlags: object.order_flags,
-      clobPairId: object.clob_pair_id
-    };
+    const message = createBaseOrderId();
+    if (object.subaccount_id !== undefined && object.subaccount_id !== null) {
+      message.subaccountId = SubaccountId.fromAmino(object.subaccount_id);
+    }
+    if (object.client_id !== undefined && object.client_id !== null) {
+      message.clientId = object.client_id;
+    }
+    if (object.order_flags !== undefined && object.order_flags !== null) {
+      message.orderFlags = object.order_flags;
+    }
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    return message;
   },
   toAmino(message: OrderId): OrderIdAmino {
     const obj: any = {};
@@ -812,9 +820,9 @@ export const OrdersFilledDuringLatestBlock = {
     return message;
   },
   fromAmino(object: OrdersFilledDuringLatestBlockAmino): OrdersFilledDuringLatestBlock {
-    return {
-      orderIds: Array.isArray(object?.order_ids) ? object.order_ids.map((e: any) => OrderId.fromAmino(e)) : []
-    };
+    const message = createBaseOrdersFilledDuringLatestBlock();
+    message.orderIds = object.order_ids?.map(e => OrderId.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: OrdersFilledDuringLatestBlock): OrdersFilledDuringLatestBlockAmino {
     const obj: any = {};
@@ -865,9 +873,9 @@ export const PotentiallyPrunableOrders = {
     return message;
   },
   fromAmino(object: PotentiallyPrunableOrdersAmino): PotentiallyPrunableOrders {
-    return {
-      orderIds: Array.isArray(object?.order_ids) ? object.order_ids.map((e: any) => OrderId.fromAmino(e)) : []
-    };
+    const message = createBasePotentiallyPrunableOrders();
+    message.orderIds = object.order_ids?.map(e => OrderId.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: PotentiallyPrunableOrders): PotentiallyPrunableOrdersAmino {
     const obj: any = {};
@@ -924,10 +932,14 @@ export const OrderFillState = {
     return message;
   },
   fromAmino(object: OrderFillStateAmino): OrderFillState {
-    return {
-      fillAmount: BigInt(object.fill_amount),
-      prunableBlockHeight: object.prunable_block_height
-    };
+    const message = createBaseOrderFillState();
+    if (object.fill_amount !== undefined && object.fill_amount !== null) {
+      message.fillAmount = BigInt(object.fill_amount);
+    }
+    if (object.prunable_block_height !== undefined && object.prunable_block_height !== null) {
+      message.prunableBlockHeight = object.prunable_block_height;
+    }
+    return message;
   },
   toAmino(message: OrderFillState): OrderFillStateAmino {
     const obj: any = {};
@@ -975,9 +987,9 @@ export const StatefulOrderTimeSliceValue = {
     return message;
   },
   fromAmino(object: StatefulOrderTimeSliceValueAmino): StatefulOrderTimeSliceValue {
-    return {
-      orderIds: Array.isArray(object?.order_ids) ? object.order_ids.map((e: any) => OrderId.fromAmino(e)) : []
-    };
+    const message = createBaseStatefulOrderTimeSliceValue();
+    message.orderIds = object.order_ids?.map(e => OrderId.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: StatefulOrderTimeSliceValue): StatefulOrderTimeSliceValueAmino {
     const obj: any = {};
@@ -1034,10 +1046,14 @@ export const LongTermOrderPlacement = {
     return message;
   },
   fromAmino(object: LongTermOrderPlacementAmino): LongTermOrderPlacement {
-    return {
-      order: object?.order ? Order.fromAmino(object.order) : undefined,
-      placementIndex: object?.placement_index ? TransactionOrdering.fromAmino(object.placement_index) : undefined
-    };
+    const message = createBaseLongTermOrderPlacement();
+    if (object.order !== undefined && object.order !== null) {
+      message.order = Order.fromAmino(object.order);
+    }
+    if (object.placement_index !== undefined && object.placement_index !== null) {
+      message.placementIndex = TransactionOrdering.fromAmino(object.placement_index);
+    }
+    return message;
   },
   toAmino(message: LongTermOrderPlacement): LongTermOrderPlacementAmino {
     const obj: any = {};
@@ -1065,7 +1081,7 @@ function createBaseConditionalOrderPlacement(): ConditionalOrderPlacement {
   return {
     order: Order.fromPartial({}),
     placementIndex: TransactionOrdering.fromPartial({}),
-    triggerIndex: TransactionOrdering.fromPartial({})
+    triggerIndex: undefined
   };
 }
 export const ConditionalOrderPlacement = {
@@ -1097,11 +1113,17 @@ export const ConditionalOrderPlacement = {
     return message;
   },
   fromAmino(object: ConditionalOrderPlacementAmino): ConditionalOrderPlacement {
-    return {
-      order: object?.order ? Order.fromAmino(object.order) : undefined,
-      placementIndex: object?.placement_index ? TransactionOrdering.fromAmino(object.placement_index) : undefined,
-      triggerIndex: object?.trigger_index ? TransactionOrdering.fromAmino(object.trigger_index) : undefined
-    };
+    const message = createBaseConditionalOrderPlacement();
+    if (object.order !== undefined && object.order !== null) {
+      message.order = Order.fromAmino(object.order);
+    }
+    if (object.placement_index !== undefined && object.placement_index !== null) {
+      message.placementIndex = TransactionOrdering.fromAmino(object.placement_index);
+    }
+    if (object.trigger_index !== undefined && object.trigger_index !== null) {
+      message.triggerIndex = TransactionOrdering.fromAmino(object.trigger_index);
+    }
+    return message;
   },
   toAmino(message: ConditionalOrderPlacement): ConditionalOrderPlacementAmino {
     const obj: any = {};
@@ -1210,19 +1232,41 @@ export const Order = {
     return message;
   },
   fromAmino(object: OrderAmino): Order {
-    return {
-      orderId: object?.order_id ? OrderId.fromAmino(object.order_id) : undefined,
-      side: isSet(object.side) ? order_SideFromJSON(object.side) : -1,
-      quantums: BigInt(object.quantums),
-      subticks: BigInt(object.subticks),
-      goodTilBlock: object?.good_til_block,
-      goodTilBlockTime: object?.good_til_block_time,
-      timeInForce: isSet(object.time_in_force) ? order_TimeInForceFromJSON(object.time_in_force) : -1,
-      reduceOnly: object.reduce_only,
-      clientMetadata: object.client_metadata,
-      conditionType: isSet(object.condition_type) ? order_ConditionTypeFromJSON(object.condition_type) : -1,
-      conditionalOrderTriggerSubticks: BigInt(object.conditional_order_trigger_subticks)
-    };
+    const message = createBaseOrder();
+    if (object.order_id !== undefined && object.order_id !== null) {
+      message.orderId = OrderId.fromAmino(object.order_id);
+    }
+    if (object.side !== undefined && object.side !== null) {
+      message.side = order_SideFromJSON(object.side);
+    }
+    if (object.quantums !== undefined && object.quantums !== null) {
+      message.quantums = BigInt(object.quantums);
+    }
+    if (object.subticks !== undefined && object.subticks !== null) {
+      message.subticks = BigInt(object.subticks);
+    }
+    if (object.good_til_block !== undefined && object.good_til_block !== null) {
+      message.goodTilBlock = object.good_til_block;
+    }
+    if (object.good_til_block_time !== undefined && object.good_til_block_time !== null) {
+      message.goodTilBlockTime = object.good_til_block_time;
+    }
+    if (object.time_in_force !== undefined && object.time_in_force !== null) {
+      message.timeInForce = order_TimeInForceFromJSON(object.time_in_force);
+    }
+    if (object.reduce_only !== undefined && object.reduce_only !== null) {
+      message.reduceOnly = object.reduce_only;
+    }
+    if (object.client_metadata !== undefined && object.client_metadata !== null) {
+      message.clientMetadata = object.client_metadata;
+    }
+    if (object.condition_type !== undefined && object.condition_type !== null) {
+      message.conditionType = order_ConditionTypeFromJSON(object.condition_type);
+    }
+    if (object.conditional_order_trigger_subticks !== undefined && object.conditional_order_trigger_subticks !== null) {
+      message.conditionalOrderTriggerSubticks = BigInt(object.conditional_order_trigger_subticks);
+    }
+    return message;
   },
   toAmino(message: Order): OrderAmino {
     const obj: any = {};
@@ -1285,10 +1329,14 @@ export const TransactionOrdering = {
     return message;
   },
   fromAmino(object: TransactionOrderingAmino): TransactionOrdering {
-    return {
-      blockHeight: object.block_height,
-      transactionIndex: object.transaction_index
-    };
+    const message = createBaseTransactionOrdering();
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = object.block_height;
+    }
+    if (object.transaction_index !== undefined && object.transaction_index !== null) {
+      message.transactionIndex = object.transaction_index;
+    }
+    return message;
   },
   toAmino(message: TransactionOrdering): TransactionOrderingAmino {
     const obj: any = {};

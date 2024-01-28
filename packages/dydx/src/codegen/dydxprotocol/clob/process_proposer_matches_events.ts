@@ -42,14 +42,14 @@ export interface ProcessProposerMatchesEventsProtoMsg {
  * - The height of the block in which the events occurred.
  */
 export interface ProcessProposerMatchesEventsAmino {
-  placed_long_term_order_ids: OrderIdAmino[];
-  expired_stateful_order_ids: OrderIdAmino[];
-  order_ids_filled_in_last_block: OrderIdAmino[];
-  placed_stateful_cancellation_order_ids: OrderIdAmino[];
-  removed_stateful_order_ids: OrderIdAmino[];
-  conditional_order_ids_triggered_in_last_block: OrderIdAmino[];
-  placed_conditional_order_ids: OrderIdAmino[];
-  block_height: number;
+  placed_long_term_order_ids?: OrderIdAmino[];
+  expired_stateful_order_ids?: OrderIdAmino[];
+  order_ids_filled_in_last_block?: OrderIdAmino[];
+  placed_stateful_cancellation_order_ids?: OrderIdAmino[];
+  removed_stateful_order_ids?: OrderIdAmino[];
+  conditional_order_ids_triggered_in_last_block?: OrderIdAmino[];
+  placed_conditional_order_ids?: OrderIdAmino[];
+  block_height?: number;
 }
 export interface ProcessProposerMatchesEventsAminoMsg {
   type: "/dydxprotocol.clob.ProcessProposerMatchesEvents";
@@ -144,16 +144,18 @@ export const ProcessProposerMatchesEvents = {
     return message;
   },
   fromAmino(object: ProcessProposerMatchesEventsAmino): ProcessProposerMatchesEvents {
-    return {
-      placedLongTermOrderIds: Array.isArray(object?.placed_long_term_order_ids) ? object.placed_long_term_order_ids.map((e: any) => OrderId.fromAmino(e)) : [],
-      expiredStatefulOrderIds: Array.isArray(object?.expired_stateful_order_ids) ? object.expired_stateful_order_ids.map((e: any) => OrderId.fromAmino(e)) : [],
-      orderIdsFilledInLastBlock: Array.isArray(object?.order_ids_filled_in_last_block) ? object.order_ids_filled_in_last_block.map((e: any) => OrderId.fromAmino(e)) : [],
-      placedStatefulCancellationOrderIds: Array.isArray(object?.placed_stateful_cancellation_order_ids) ? object.placed_stateful_cancellation_order_ids.map((e: any) => OrderId.fromAmino(e)) : [],
-      removedStatefulOrderIds: Array.isArray(object?.removed_stateful_order_ids) ? object.removed_stateful_order_ids.map((e: any) => OrderId.fromAmino(e)) : [],
-      conditionalOrderIdsTriggeredInLastBlock: Array.isArray(object?.conditional_order_ids_triggered_in_last_block) ? object.conditional_order_ids_triggered_in_last_block.map((e: any) => OrderId.fromAmino(e)) : [],
-      placedConditionalOrderIds: Array.isArray(object?.placed_conditional_order_ids) ? object.placed_conditional_order_ids.map((e: any) => OrderId.fromAmino(e)) : [],
-      blockHeight: object.block_height
-    };
+    const message = createBaseProcessProposerMatchesEvents();
+    message.placedLongTermOrderIds = object.placed_long_term_order_ids?.map(e => OrderId.fromAmino(e)) || [];
+    message.expiredStatefulOrderIds = object.expired_stateful_order_ids?.map(e => OrderId.fromAmino(e)) || [];
+    message.orderIdsFilledInLastBlock = object.order_ids_filled_in_last_block?.map(e => OrderId.fromAmino(e)) || [];
+    message.placedStatefulCancellationOrderIds = object.placed_stateful_cancellation_order_ids?.map(e => OrderId.fromAmino(e)) || [];
+    message.removedStatefulOrderIds = object.removed_stateful_order_ids?.map(e => OrderId.fromAmino(e)) || [];
+    message.conditionalOrderIdsTriggeredInLastBlock = object.conditional_order_ids_triggered_in_last_block?.map(e => OrderId.fromAmino(e)) || [];
+    message.placedConditionalOrderIds = object.placed_conditional_order_ids?.map(e => OrderId.fromAmino(e)) || [];
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = object.block_height;
+    }
+    return message;
   },
   toAmino(message: ProcessProposerMatchesEvents): ProcessProposerMatchesEventsAmino {
     const obj: any = {};

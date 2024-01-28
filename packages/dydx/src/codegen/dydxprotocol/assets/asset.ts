@@ -49,19 +49,19 @@ export interface AssetProtoMsg {
 /** Asset defines a single exchangable asset. */
 export interface AssetAmino {
   /** Unique, sequentially-generated. */
-  id: number;
+  id?: number;
   /**
    * The human readable symbol of the `Asset` (e.g. `USDC`, `ATOM`).
    * Must be uppercase, unique and correspond to the canonical symbol of the
    * full coin.
    */
-  symbol: string;
+  symbol?: string;
   /**
    * The name of base denomination unit of the `Asset` (e.g. `uatom`,
    * 'ibc/xxxxx'). Must be unique and match the `denom` used in the `sdk.Coin`
    * type in the `x/bank` module.
    */
-  denom: string;
+  denom?: string;
   /**
    * The exponent of converting one unit of `denom` to a full coin.
    * For example, `name=USDC, denom=uusdc, denom_exponent=-6` defines that
@@ -71,22 +71,22 @@ export interface AssetAmino {
    * To convert from an amount of `denom` to quantums:
    * `quantums = denom_amount * 10^(denom_exponent - atomic_resolution)`
    */
-  denom_exponent: number;
+  denom_exponent?: number;
   /** `true` if this `Asset` has a valid `MarketId` value. */
-  has_market: boolean;
+  has_market?: boolean;
   /**
    * The `Id` of the `Market` associated with this `Asset`. It acts as the
    * oracle price for the purposes of calculating collateral
    * and margin requirements.
    */
-  market_id: number;
+  market_id?: number;
   /**
    * The exponent for converting an atomic amount (1 'quantum')
    * to a full coin. For example, if `atomic_resolution = -8`
    * then an `asset_position` with `base_quantums = 1e8` is equivalent to
    * a position size of one full coin.
    */
-  atomic_resolution: number;
+  atomic_resolution?: number;
 }
 export interface AssetAminoMsg {
   type: "/dydxprotocol.assets.Asset";
@@ -162,15 +162,29 @@ export const Asset = {
     return message;
   },
   fromAmino(object: AssetAmino): Asset {
-    return {
-      id: object.id,
-      symbol: object.symbol,
-      denom: object.denom,
-      denomExponent: object.denom_exponent,
-      hasMarket: object.has_market,
-      marketId: object.market_id,
-      atomicResolution: object.atomic_resolution
-    };
+    const message = createBaseAsset();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.denom_exponent !== undefined && object.denom_exponent !== null) {
+      message.denomExponent = object.denom_exponent;
+    }
+    if (object.has_market !== undefined && object.has_market !== null) {
+      message.hasMarket = object.has_market;
+    }
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.atomic_resolution !== undefined && object.atomic_resolution !== null) {
+      message.atomicResolution = object.atomic_resolution;
+    }
+    return message;
   },
   toAmino(message: Asset): AssetAmino {
     const obj: any = {};

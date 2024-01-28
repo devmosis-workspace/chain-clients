@@ -4,7 +4,7 @@ import { isSet } from "../../helpers";
 /** MsgCreateTransfer is a request type used for initiating new transfers. */
 export interface MsgCreateTransfer {
   /** MsgCreateTransfer is a request type used for initiating new transfers. */
-  transfer: Transfer;
+  transfer?: Transfer;
 }
 export interface MsgCreateTransferProtoMsg {
   typeUrl: "/dydxprotocol.sending.MsgCreateTransfer";
@@ -21,7 +21,7 @@ export interface MsgCreateTransferAminoMsg {
 }
 /** MsgCreateTransfer is a request type used for initiating new transfers. */
 export interface MsgCreateTransferSDKType {
-  transfer: TransferSDKType;
+  transfer?: TransferSDKType;
 }
 /** MsgCreateTransferResponse is a response type used for new transfers. */
 export interface MsgCreateTransferResponse {}
@@ -108,7 +108,7 @@ export interface MsgSendFromModuleToAccountResponseAminoMsg {
 export interface MsgSendFromModuleToAccountResponseSDKType {}
 function createBaseMsgCreateTransfer(): MsgCreateTransfer {
   return {
-    transfer: Transfer.fromPartial({})
+    transfer: undefined
   };
 }
 export const MsgCreateTransfer = {
@@ -130,9 +130,11 @@ export const MsgCreateTransfer = {
     return message;
   },
   fromAmino(object: MsgCreateTransferAmino): MsgCreateTransfer {
-    return {
-      transfer: object?.transfer ? Transfer.fromAmino(object.transfer) : undefined
-    };
+    const message = createBaseMsgCreateTransfer();
+    if (object.transfer !== undefined && object.transfer !== null) {
+      message.transfer = Transfer.fromAmino(object.transfer);
+    }
+    return message;
   },
   toAmino(message: MsgCreateTransfer): MsgCreateTransferAmino {
     const obj: any = {};
@@ -171,7 +173,8 @@ export const MsgCreateTransferResponse = {
     return message;
   },
   fromAmino(_: MsgCreateTransferResponseAmino): MsgCreateTransferResponse {
-    return {};
+    const message = createBaseMsgCreateTransferResponse();
+    return message;
   },
   toAmino(_: MsgCreateTransferResponse): MsgCreateTransferResponseAmino {
     const obj: any = {};
@@ -209,7 +212,8 @@ export const MsgDepositToSubaccountResponse = {
     return message;
   },
   fromAmino(_: MsgDepositToSubaccountResponseAmino): MsgDepositToSubaccountResponse {
-    return {};
+    const message = createBaseMsgDepositToSubaccountResponse();
+    return message;
   },
   toAmino(_: MsgDepositToSubaccountResponse): MsgDepositToSubaccountResponseAmino {
     const obj: any = {};
@@ -247,7 +251,8 @@ export const MsgWithdrawFromSubaccountResponse = {
     return message;
   },
   fromAmino(_: MsgWithdrawFromSubaccountResponseAmino): MsgWithdrawFromSubaccountResponse {
-    return {};
+    const message = createBaseMsgWithdrawFromSubaccountResponse();
+    return message;
   },
   toAmino(_: MsgWithdrawFromSubaccountResponse): MsgWithdrawFromSubaccountResponseAmino {
     const obj: any = {};
@@ -285,7 +290,8 @@ export const MsgSendFromModuleToAccountResponse = {
     return message;
   },
   fromAmino(_: MsgSendFromModuleToAccountResponseAmino): MsgSendFromModuleToAccountResponse {
-    return {};
+    const message = createBaseMsgSendFromModuleToAccountResponse();
+    return message;
   },
   toAmino(_: MsgSendFromModuleToAccountResponse): MsgSendFromModuleToAccountResponseAmino {
     const obj: any = {};

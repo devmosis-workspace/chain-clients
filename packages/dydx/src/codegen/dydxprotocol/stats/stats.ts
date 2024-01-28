@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../binary";
 import { isSet, fromJsonTimestamp } from "../../helpers";
 /** BlockStats is used to store stats transiently within the scope of a block. */
@@ -13,7 +13,7 @@ export interface BlockStatsProtoMsg {
 /** BlockStats is used to store stats transiently within the scope of a block. */
 export interface BlockStatsAmino {
   /** The fills that occured on this block. */
-  fills: BlockStats_FillAmino[];
+  fills?: BlockStats_FillAmino[];
 }
 export interface BlockStatsAminoMsg {
   type: "/dydxprotocol.stats.BlockStats";
@@ -39,11 +39,11 @@ export interface BlockStats_FillProtoMsg {
 /** Fill records data about a fill on this block. */
 export interface BlockStats_FillAmino {
   /** Taker wallet address */
-  taker: string;
+  taker?: string;
   /** Maker wallet address */
-  maker: string;
+  maker?: string;
   /** Notional USDC filled in quantums */
-  notional: string;
+  notional?: string;
 }
 export interface BlockStats_FillAminoMsg {
   type: "/dydxprotocol.stats.Fill";
@@ -73,7 +73,7 @@ export interface StatsMetadataAmino {
    * The oldest epoch that is included in the stats. The next epoch to be
    * removed from the window.
    */
-  trailing_epoch: number;
+  trailing_epoch?: number;
 }
 export interface StatsMetadataAminoMsg {
   type: "/dydxprotocol.stats.StatsMetadata";
@@ -97,9 +97,9 @@ export interface EpochStatsProtoMsg {
 /** EpochStats stores stats for a particular epoch */
 export interface EpochStatsAmino {
   /** Epoch end time */
-  epoch_end_time?: TimestampAmino;
+  epoch_end_time?: string;
   /** Stats for each user in this epoch. Sorted by user. */
-  stats: EpochStats_UserWithStatsAmino[];
+  stats?: EpochStats_UserWithStatsAmino[];
 }
 export interface EpochStatsAminoMsg {
   type: "/dydxprotocol.stats.EpochStats";
@@ -113,7 +113,7 @@ export interface EpochStatsSDKType {
 /** A user and its associated stats */
 export interface EpochStats_UserWithStats {
   user: string;
-  stats: UserStats;
+  stats?: UserStats;
 }
 export interface EpochStats_UserWithStatsProtoMsg {
   typeUrl: "/dydxprotocol.stats.UserWithStats";
@@ -121,7 +121,7 @@ export interface EpochStats_UserWithStatsProtoMsg {
 }
 /** A user and its associated stats */
 export interface EpochStats_UserWithStatsAmino {
-  user: string;
+  user?: string;
   stats?: UserStatsAmino;
 }
 export interface EpochStats_UserWithStatsAminoMsg {
@@ -131,7 +131,7 @@ export interface EpochStats_UserWithStatsAminoMsg {
 /** A user and its associated stats */
 export interface EpochStats_UserWithStatsSDKType {
   user: string;
-  stats: UserStatsSDKType;
+  stats?: UserStatsSDKType;
 }
 /** GlobalStats stores global stats */
 export interface GlobalStats {
@@ -145,7 +145,7 @@ export interface GlobalStatsProtoMsg {
 /** GlobalStats stores global stats */
 export interface GlobalStatsAmino {
   /** Notional USDC traded in quantums */
-  notional_traded: string;
+  notional_traded?: string;
 }
 export interface GlobalStatsAminoMsg {
   type: "/dydxprotocol.stats.GlobalStats";
@@ -169,9 +169,9 @@ export interface UserStatsProtoMsg {
 /** UserStats stores stats for a User */
 export interface UserStatsAmino {
   /** Taker USDC in quantums */
-  taker_notional: string;
+  taker_notional?: string;
   /** Maker USDC in quantums */
-  maker_notional: string;
+  maker_notional?: string;
 }
 export interface UserStatsAminoMsg {
   type: "/dydxprotocol.stats.UserStats";
@@ -206,9 +206,9 @@ export const BlockStats = {
     return message;
   },
   fromAmino(object: BlockStatsAmino): BlockStats {
-    return {
-      fills: Array.isArray(object?.fills) ? object.fills.map((e: any) => BlockStats_Fill.fromAmino(e)) : []
-    };
+    const message = createBaseBlockStats();
+    message.fills = object.fills?.map(e => BlockStats_Fill.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: BlockStats): BlockStatsAmino {
     const obj: any = {};
@@ -271,11 +271,17 @@ export const BlockStats_Fill = {
     return message;
   },
   fromAmino(object: BlockStats_FillAmino): BlockStats_Fill {
-    return {
-      taker: object.taker,
-      maker: object.maker,
-      notional: BigInt(object.notional)
-    };
+    const message = createBaseBlockStats_Fill();
+    if (object.taker !== undefined && object.taker !== null) {
+      message.taker = object.taker;
+    }
+    if (object.maker !== undefined && object.maker !== null) {
+      message.maker = object.maker;
+    }
+    if (object.notional !== undefined && object.notional !== null) {
+      message.notional = BigInt(object.notional);
+    }
+    return message;
   },
   toAmino(message: BlockStats_Fill): BlockStats_FillAmino {
     const obj: any = {};
@@ -324,9 +330,11 @@ export const StatsMetadata = {
     return message;
   },
   fromAmino(object: StatsMetadataAmino): StatsMetadata {
-    return {
-      trailingEpoch: object.trailing_epoch
-    };
+    const message = createBaseStatsMetadata();
+    if (object.trailing_epoch !== undefined && object.trailing_epoch !== null) {
+      message.trailingEpoch = object.trailing_epoch;
+    }
+    return message;
   },
   toAmino(message: StatsMetadata): StatsMetadataAmino {
     const obj: any = {};
@@ -379,14 +387,16 @@ export const EpochStats = {
     return message;
   },
   fromAmino(object: EpochStatsAmino): EpochStats {
-    return {
-      epochEndTime: object.epoch_end_time,
-      stats: Array.isArray(object?.stats) ? object.stats.map((e: any) => EpochStats_UserWithStats.fromAmino(e)) : []
-    };
+    const message = createBaseEpochStats();
+    if (object.epoch_end_time !== undefined && object.epoch_end_time !== null) {
+      message.epochEndTime = Timestamp.fromAmino(object.epoch_end_time);
+    }
+    message.stats = object.stats?.map(e => EpochStats_UserWithStats.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: EpochStats): EpochStatsAmino {
     const obj: any = {};
-    obj.epoch_end_time = message.epochEndTime;
+    obj.epoch_end_time = message.epochEndTime ? Timestamp.toAmino(message.epochEndTime) : undefined;
     if (message.stats) {
       obj.stats = message.stats.map(e => e ? EpochStats_UserWithStats.toAmino(e) : undefined);
     } else {
@@ -413,7 +423,7 @@ export const EpochStats = {
 function createBaseEpochStats_UserWithStats(): EpochStats_UserWithStats {
   return {
     user: "",
-    stats: UserStats.fromPartial({})
+    stats: undefined
   };
 }
 export const EpochStats_UserWithStats = {
@@ -440,10 +450,14 @@ export const EpochStats_UserWithStats = {
     return message;
   },
   fromAmino(object: EpochStats_UserWithStatsAmino): EpochStats_UserWithStats {
-    return {
-      user: object.user,
-      stats: object?.stats ? UserStats.fromAmino(object.stats) : undefined
-    };
+    const message = createBaseEpochStats_UserWithStats();
+    if (object.user !== undefined && object.user !== null) {
+      message.user = object.user;
+    }
+    if (object.stats !== undefined && object.stats !== null) {
+      message.stats = UserStats.fromAmino(object.stats);
+    }
+    return message;
   },
   toAmino(message: EpochStats_UserWithStats): EpochStats_UserWithStatsAmino {
     const obj: any = {};
@@ -491,9 +505,11 @@ export const GlobalStats = {
     return message;
   },
   fromAmino(object: GlobalStatsAmino): GlobalStats {
-    return {
-      notionalTraded: BigInt(object.notional_traded)
-    };
+    const message = createBaseGlobalStats();
+    if (object.notional_traded !== undefined && object.notional_traded !== null) {
+      message.notionalTraded = BigInt(object.notional_traded);
+    }
+    return message;
   },
   toAmino(message: GlobalStats): GlobalStatsAmino {
     const obj: any = {};
@@ -546,10 +562,14 @@ export const UserStats = {
     return message;
   },
   fromAmino(object: UserStatsAmino): UserStats {
-    return {
-      takerNotional: BigInt(object.taker_notional),
-      makerNotional: BigInt(object.maker_notional)
-    };
+    const message = createBaseUserStats();
+    if (object.taker_notional !== undefined && object.taker_notional !== null) {
+      message.takerNotional = BigInt(object.taker_notional);
+    }
+    if (object.maker_notional !== undefined && object.maker_notional !== null) {
+      message.makerNotional = BigInt(object.maker_notional);
+    }
+    return message;
   },
   toAmino(message: UserStats): UserStatsAmino {
     const obj: any = {};

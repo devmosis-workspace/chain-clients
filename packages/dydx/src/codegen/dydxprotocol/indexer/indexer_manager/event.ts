@@ -1,6 +1,6 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, fromJsonTimestamp } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, fromJsonTimestamp } from "../../../helpers";
 /** enum to specify that the IndexerTendermintEvent is a block event. */
 export enum IndexerTendermintEvent_BlockEvent {
   /** BLOCK_EVENT_UNSPECIFIED - Default value. This value is invalid and unused. */
@@ -54,7 +54,7 @@ export function indexerTendermintEvent_BlockEventToJSON(object: IndexerTendermin
  * with an additional txn_hash field.
  */
 export interface IndexerTendermintEventWrapper {
-  event: IndexerTendermintEvent;
+  event?: IndexerTendermintEvent;
   txnHash: string;
 }
 export interface IndexerTendermintEventWrapperProtoMsg {
@@ -67,7 +67,7 @@ export interface IndexerTendermintEventWrapperProtoMsg {
  */
 export interface IndexerTendermintEventWrapperAmino {
   event?: IndexerTendermintEventAmino;
-  txn_hash: string;
+  txn_hash?: string;
 }
 export interface IndexerTendermintEventWrapperAminoMsg {
   type: "/dydxprotocol.indexer.indexer_manager.IndexerTendermintEventWrapper";
@@ -78,7 +78,7 @@ export interface IndexerTendermintEventWrapperAminoMsg {
  * with an additional txn_hash field.
  */
 export interface IndexerTendermintEventWrapperSDKType {
-  event: IndexerTendermintEventSDKType;
+  event?: IndexerTendermintEventSDKType;
   txn_hash: string;
 }
 /**
@@ -97,7 +97,7 @@ export interface IndexerEventsStoreValueProtoMsg {
  * `IndexerEventsStore` in state.
  */
 export interface IndexerEventsStoreValueAmino {
-  events: IndexerTendermintEventWrapperAmino[];
+  events?: IndexerTendermintEventWrapperAmino[];
 }
 export interface IndexerEventsStoreValueAminoMsg {
   type: "/dydxprotocol.indexer.indexer_manager.IndexerEventsStoreValue";
@@ -142,7 +142,7 @@ export interface IndexerTendermintEventProtoMsg {
  */
 export interface IndexerTendermintEventAmino {
   /** Subtype of the event e.g. "order_fill", "subaccount_update", etc. */
-  subtype: string;
+  subtype?: string;
   transaction_index?: number;
   block_event?: IndexerTendermintEvent_BlockEvent;
   /**
@@ -150,11 +150,11 @@ export interface IndexerTendermintEventAmino {
    * transaction or during processing of a block.
    * TODO(DEC-537): Deprecate this field because events are already ordered.
    */
-  event_index: number;
+  event_index?: number;
   /** Version of the event. */
-  version: number;
+  version?: number;
   /** Tendermint event bytes. */
-  data_bytes: Uint8Array;
+  data_bytes?: string;
 }
 export interface IndexerTendermintEventAminoMsg {
   type: "/dydxprotocol.indexer.indexer_manager.IndexerTendermintEvent";
@@ -196,10 +196,10 @@ export interface IndexerTendermintBlockProtoMsg {
  * the ordering of the transactions as they appear within the block.
  */
 export interface IndexerTendermintBlockAmino {
-  height: number;
-  time?: TimestampAmino;
-  events: IndexerTendermintEventAmino[];
-  tx_hashes: string[];
+  height?: number;
+  time?: string;
+  events?: IndexerTendermintEventAmino[];
+  tx_hashes?: string[];
 }
 export interface IndexerTendermintBlockAminoMsg {
   type: "/dydxprotocol.indexer.indexer_manager.IndexerTendermintBlock";
@@ -219,7 +219,7 @@ export interface IndexerTendermintBlockSDKType {
 }
 function createBaseIndexerTendermintEventWrapper(): IndexerTendermintEventWrapper {
   return {
-    event: IndexerTendermintEvent.fromPartial({}),
+    event: undefined,
     txnHash: ""
   };
 }
@@ -247,10 +247,14 @@ export const IndexerTendermintEventWrapper = {
     return message;
   },
   fromAmino(object: IndexerTendermintEventWrapperAmino): IndexerTendermintEventWrapper {
-    return {
-      event: object?.event ? IndexerTendermintEvent.fromAmino(object.event) : undefined,
-      txnHash: object.txn_hash
-    };
+    const message = createBaseIndexerTendermintEventWrapper();
+    if (object.event !== undefined && object.event !== null) {
+      message.event = IndexerTendermintEvent.fromAmino(object.event);
+    }
+    if (object.txn_hash !== undefined && object.txn_hash !== null) {
+      message.txnHash = object.txn_hash;
+    }
+    return message;
   },
   toAmino(message: IndexerTendermintEventWrapper): IndexerTendermintEventWrapperAmino {
     const obj: any = {};
@@ -298,9 +302,9 @@ export const IndexerEventsStoreValue = {
     return message;
   },
   fromAmino(object: IndexerEventsStoreValueAmino): IndexerEventsStoreValue {
-    return {
-      events: Array.isArray(object?.events) ? object.events.map((e: any) => IndexerTendermintEventWrapper.fromAmino(e)) : []
-    };
+    const message = createBaseIndexerEventsStoreValue();
+    message.events = object.events?.map(e => IndexerTendermintEventWrapper.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: IndexerEventsStoreValue): IndexerEventsStoreValueAmino {
     const obj: any = {};
@@ -381,14 +385,26 @@ export const IndexerTendermintEvent = {
     return message;
   },
   fromAmino(object: IndexerTendermintEventAmino): IndexerTendermintEvent {
-    return {
-      subtype: object.subtype,
-      transactionIndex: object?.transaction_index,
-      blockEvent: isSet(object.block_event) ? indexerTendermintEvent_BlockEventFromJSON(object.block_event) : undefined,
-      eventIndex: object.event_index,
-      version: object.version,
-      dataBytes: object.data_bytes
-    };
+    const message = createBaseIndexerTendermintEvent();
+    if (object.subtype !== undefined && object.subtype !== null) {
+      message.subtype = object.subtype;
+    }
+    if (object.transaction_index !== undefined && object.transaction_index !== null) {
+      message.transactionIndex = object.transaction_index;
+    }
+    if (object.block_event !== undefined && object.block_event !== null) {
+      message.blockEvent = indexerTendermintEvent_BlockEventFromJSON(object.block_event);
+    }
+    if (object.event_index !== undefined && object.event_index !== null) {
+      message.eventIndex = object.event_index;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    if (object.data_bytes !== undefined && object.data_bytes !== null) {
+      message.dataBytes = bytesFromBase64(object.data_bytes);
+    }
+    return message;
   },
   toAmino(message: IndexerTendermintEvent): IndexerTendermintEventAmino {
     const obj: any = {};
@@ -397,7 +413,7 @@ export const IndexerTendermintEvent = {
     obj.block_event = message.blockEvent;
     obj.event_index = message.eventIndex;
     obj.version = message.version;
-    obj.data_bytes = message.dataBytes;
+    obj.data_bytes = message.dataBytes ? base64FromBytes(message.dataBytes) : undefined;
     return obj;
   },
   fromAminoMsg(object: IndexerTendermintEventAminoMsg): IndexerTendermintEvent {
@@ -458,17 +474,21 @@ export const IndexerTendermintBlock = {
     return message;
   },
   fromAmino(object: IndexerTendermintBlockAmino): IndexerTendermintBlock {
-    return {
-      height: object.height,
-      time: object.time,
-      events: Array.isArray(object?.events) ? object.events.map((e: any) => IndexerTendermintEvent.fromAmino(e)) : [],
-      txHashes: Array.isArray(object?.tx_hashes) ? object.tx_hashes.map((e: any) => e) : []
-    };
+    const message = createBaseIndexerTendermintBlock();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = object.height;
+    }
+    if (object.time !== undefined && object.time !== null) {
+      message.time = Timestamp.fromAmino(object.time);
+    }
+    message.events = object.events?.map(e => IndexerTendermintEvent.fromAmino(e)) || [];
+    message.txHashes = object.tx_hashes?.map(e => e) || [];
+    return message;
   },
   toAmino(message: IndexerTendermintBlock): IndexerTendermintBlockAmino {
     const obj: any = {};
     obj.height = message.height;
-    obj.time = message.time;
+    obj.time = message.time ? Timestamp.toAmino(message.time) : undefined;
     if (message.events) {
       obj.events = message.events.map(e => e ? IndexerTendermintEvent.toAmino(e) : undefined);
     } else {

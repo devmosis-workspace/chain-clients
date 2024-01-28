@@ -60,7 +60,7 @@ export interface MakerFillAmino {
    * The filled amount of the matched maker order, in base quantums.
    * TODO(CLOB-571): update to use SerializableInt.
    */
-  fill_amount: string;
+  fill_amount?: string;
   /** The `OrderId` of the matched maker order. */
   maker_order_id?: OrderIdAmino;
 }
@@ -89,7 +89,7 @@ export interface MatchOrdersAmino {
   /** The `OrderId` of the taker order. */
   taker_order_id?: OrderIdAmino;
   /** An ordered list of fills created by this taker order. */
-  fills: MakerFillAmino[];
+  fills?: MakerFillAmino[];
 }
 export interface MatchOrdersAminoMsg {
   type: "/dydxprotocol.clob.MatchOrders";
@@ -130,15 +130,15 @@ export interface MatchPerpetualLiquidationAmino {
   /** ID of the subaccount that was liquidated. */
   liquidated?: SubaccountIdAmino;
   /** The ID of the clob pair involved in the liquidation. */
-  clob_pair_id: number;
+  clob_pair_id?: number;
   /** The ID of the perpetual involved in the liquidation. */
-  perpetual_id: number;
+  perpetual_id?: number;
   /** The total size of the liquidation order including any unfilled size. */
-  total_size: string;
+  total_size?: string;
   /** `true` if liquidating a short position, `false` otherwise. */
-  is_buy: boolean;
+  is_buy?: boolean;
   /** An ordered list of fills created by this liquidation. */
-  fills: MakerFillAmino[];
+  fills?: MakerFillAmino[];
 }
 export interface MatchPerpetualLiquidationAminoMsg {
   type: "/dydxprotocol.clob.MatchPerpetualLiquidation";
@@ -180,9 +180,9 @@ export interface MatchPerpetualDeleveragingAmino {
   /** ID of the subaccount that was liquidated. */
   liquidated?: SubaccountIdAmino;
   /** The ID of the perpetual that was liquidated. */
-  perpetual_id: number;
+  perpetual_id?: number;
   /** An ordered list of fills created by this liquidation. */
-  fills: MatchPerpetualDeleveraging_FillAmino[];
+  fills?: MatchPerpetualDeleveraging_FillAmino[];
 }
 export interface MatchPerpetualDeleveragingAminoMsg {
   type: "/dydxprotocol.clob.MatchPerpetualDeleveraging";
@@ -227,7 +227,7 @@ export interface MatchPerpetualDeleveraging_FillAmino {
    * base quantums.
    * TODO(CLOB-571): update to use SerializableInt.
    */
-  fill_amount: string;
+  fill_amount?: string;
 }
 export interface MatchPerpetualDeleveraging_FillAminoMsg {
   type: "/dydxprotocol.clob.Fill";
@@ -274,11 +274,17 @@ export const ClobMatch = {
     return message;
   },
   fromAmino(object: ClobMatchAmino): ClobMatch {
-    return {
-      matchOrders: object?.match_orders ? MatchOrders.fromAmino(object.match_orders) : undefined,
-      matchPerpetualLiquidation: object?.match_perpetual_liquidation ? MatchPerpetualLiquidation.fromAmino(object.match_perpetual_liquidation) : undefined,
-      matchPerpetualDeleveraging: object?.match_perpetual_deleveraging ? MatchPerpetualDeleveraging.fromAmino(object.match_perpetual_deleveraging) : undefined
-    };
+    const message = createBaseClobMatch();
+    if (object.match_orders !== undefined && object.match_orders !== null) {
+      message.matchOrders = MatchOrders.fromAmino(object.match_orders);
+    }
+    if (object.match_perpetual_liquidation !== undefined && object.match_perpetual_liquidation !== null) {
+      message.matchPerpetualLiquidation = MatchPerpetualLiquidation.fromAmino(object.match_perpetual_liquidation);
+    }
+    if (object.match_perpetual_deleveraging !== undefined && object.match_perpetual_deleveraging !== null) {
+      message.matchPerpetualDeleveraging = MatchPerpetualDeleveraging.fromAmino(object.match_perpetual_deleveraging);
+    }
+    return message;
   },
   toAmino(message: ClobMatch): ClobMatchAmino {
     const obj: any = {};
@@ -333,10 +339,14 @@ export const MakerFill = {
     return message;
   },
   fromAmino(object: MakerFillAmino): MakerFill {
-    return {
-      fillAmount: BigInt(object.fill_amount),
-      makerOrderId: object?.maker_order_id ? OrderId.fromAmino(object.maker_order_id) : undefined
-    };
+    const message = createBaseMakerFill();
+    if (object.fill_amount !== undefined && object.fill_amount !== null) {
+      message.fillAmount = BigInt(object.fill_amount);
+    }
+    if (object.maker_order_id !== undefined && object.maker_order_id !== null) {
+      message.makerOrderId = OrderId.fromAmino(object.maker_order_id);
+    }
+    return message;
   },
   toAmino(message: MakerFill): MakerFillAmino {
     const obj: any = {};
@@ -390,10 +400,12 @@ export const MatchOrders = {
     return message;
   },
   fromAmino(object: MatchOrdersAmino): MatchOrders {
-    return {
-      takerOrderId: object?.taker_order_id ? OrderId.fromAmino(object.taker_order_id) : undefined,
-      fills: Array.isArray(object?.fills) ? object.fills.map((e: any) => MakerFill.fromAmino(e)) : []
-    };
+    const message = createBaseMatchOrders();
+    if (object.taker_order_id !== undefined && object.taker_order_id !== null) {
+      message.takerOrderId = OrderId.fromAmino(object.taker_order_id);
+    }
+    message.fills = object.fills?.map(e => MakerFill.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MatchOrders): MatchOrdersAmino {
     const obj: any = {};
@@ -475,14 +487,24 @@ export const MatchPerpetualLiquidation = {
     return message;
   },
   fromAmino(object: MatchPerpetualLiquidationAmino): MatchPerpetualLiquidation {
-    return {
-      liquidated: object?.liquidated ? SubaccountId.fromAmino(object.liquidated) : undefined,
-      clobPairId: object.clob_pair_id,
-      perpetualId: object.perpetual_id,
-      totalSize: BigInt(object.total_size),
-      isBuy: object.is_buy,
-      fills: Array.isArray(object?.fills) ? object.fills.map((e: any) => MakerFill.fromAmino(e)) : []
-    };
+    const message = createBaseMatchPerpetualLiquidation();
+    if (object.liquidated !== undefined && object.liquidated !== null) {
+      message.liquidated = SubaccountId.fromAmino(object.liquidated);
+    }
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    if (object.total_size !== undefined && object.total_size !== null) {
+      message.totalSize = BigInt(object.total_size);
+    }
+    if (object.is_buy !== undefined && object.is_buy !== null) {
+      message.isBuy = object.is_buy;
+    }
+    message.fills = object.fills?.map(e => MakerFill.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MatchPerpetualLiquidation): MatchPerpetualLiquidationAmino {
     const obj: any = {};
@@ -550,11 +572,15 @@ export const MatchPerpetualDeleveraging = {
     return message;
   },
   fromAmino(object: MatchPerpetualDeleveragingAmino): MatchPerpetualDeleveraging {
-    return {
-      liquidated: object?.liquidated ? SubaccountId.fromAmino(object.liquidated) : undefined,
-      perpetualId: object.perpetual_id,
-      fills: Array.isArray(object?.fills) ? object.fills.map((e: any) => MatchPerpetualDeleveraging_Fill.fromAmino(e)) : []
-    };
+    const message = createBaseMatchPerpetualDeleveraging();
+    if (object.liquidated !== undefined && object.liquidated !== null) {
+      message.liquidated = SubaccountId.fromAmino(object.liquidated);
+    }
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    message.fills = object.fills?.map(e => MatchPerpetualDeleveraging_Fill.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MatchPerpetualDeleveraging): MatchPerpetualDeleveragingAmino {
     const obj: any = {};
@@ -613,10 +639,14 @@ export const MatchPerpetualDeleveraging_Fill = {
     return message;
   },
   fromAmino(object: MatchPerpetualDeleveraging_FillAmino): MatchPerpetualDeleveraging_Fill {
-    return {
-      offsettingSubaccountId: object?.offsetting_subaccount_id ? SubaccountId.fromAmino(object.offsetting_subaccount_id) : undefined,
-      fillAmount: BigInt(object.fill_amount)
-    };
+    const message = createBaseMatchPerpetualDeleveraging_Fill();
+    if (object.offsetting_subaccount_id !== undefined && object.offsetting_subaccount_id !== null) {
+      message.offsettingSubaccountId = SubaccountId.fromAmino(object.offsetting_subaccount_id);
+    }
+    if (object.fill_amount !== undefined && object.fill_amount !== null) {
+      message.fillAmount = BigInt(object.fill_amount);
+    }
+    return message;
   },
   toAmino(message: MatchPerpetualDeleveraging_Fill): MatchPerpetualDeleveraging_FillAmino {
     const obj: any = {};

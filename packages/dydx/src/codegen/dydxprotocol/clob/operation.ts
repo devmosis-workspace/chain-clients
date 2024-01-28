@@ -122,12 +122,20 @@ export const Operation = {
     return message;
   },
   fromAmino(object: OperationAmino): Operation {
-    return {
-      match: object?.match ? ClobMatch.fromAmino(object.match) : undefined,
-      shortTermOrderPlacement: object?.short_term_order_placement ? MsgPlaceOrder.fromAmino(object.short_term_order_placement) : undefined,
-      shortTermOrderCancellation: object?.short_term_order_cancellation ? MsgCancelOrder.fromAmino(object.short_term_order_cancellation) : undefined,
-      preexistingStatefulOrder: object?.preexisting_stateful_order ? OrderId.fromAmino(object.preexisting_stateful_order) : undefined
-    };
+    const message = createBaseOperation();
+    if (object.match !== undefined && object.match !== null) {
+      message.match = ClobMatch.fromAmino(object.match);
+    }
+    if (object.short_term_order_placement !== undefined && object.short_term_order_placement !== null) {
+      message.shortTermOrderPlacement = MsgPlaceOrder.fromAmino(object.short_term_order_placement);
+    }
+    if (object.short_term_order_cancellation !== undefined && object.short_term_order_cancellation !== null) {
+      message.shortTermOrderCancellation = MsgCancelOrder.fromAmino(object.short_term_order_cancellation);
+    }
+    if (object.preexisting_stateful_order !== undefined && object.preexisting_stateful_order !== null) {
+      message.preexistingStatefulOrder = OrderId.fromAmino(object.preexisting_stateful_order);
+    }
+    return message;
   },
   toAmino(message: Operation): OperationAmino {
     const obj: any = {};
@@ -195,12 +203,20 @@ export const InternalOperation = {
     return message;
   },
   fromAmino(object: InternalOperationAmino): InternalOperation {
-    return {
-      match: object?.match ? ClobMatch.fromAmino(object.match) : undefined,
-      shortTermOrderPlacement: object?.short_term_order_placement ? MsgPlaceOrder.fromAmino(object.short_term_order_placement) : undefined,
-      preexistingStatefulOrder: object?.preexisting_stateful_order ? OrderId.fromAmino(object.preexisting_stateful_order) : undefined,
-      orderRemoval: object?.order_removal ? OrderRemoval.fromAmino(object.order_removal) : undefined
-    };
+    const message = createBaseInternalOperation();
+    if (object.match !== undefined && object.match !== null) {
+      message.match = ClobMatch.fromAmino(object.match);
+    }
+    if (object.short_term_order_placement !== undefined && object.short_term_order_placement !== null) {
+      message.shortTermOrderPlacement = MsgPlaceOrder.fromAmino(object.short_term_order_placement);
+    }
+    if (object.preexisting_stateful_order !== undefined && object.preexisting_stateful_order !== null) {
+      message.preexistingStatefulOrder = OrderId.fromAmino(object.preexisting_stateful_order);
+    }
+    if (object.order_removal !== undefined && object.order_removal !== null) {
+      message.orderRemoval = OrderRemoval.fromAmino(object.order_removal);
+    }
+    return message;
   },
   toAmino(message: InternalOperation): InternalOperationAmino {
     const obj: any = {};

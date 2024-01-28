@@ -19,7 +19,7 @@ export interface QueryGetClobPairRequestProtoMsg {
 /** QueryGetClobPairRequest is request type for the ClobPair method. */
 export interface QueryGetClobPairRequestAmino {
   /** QueryGetClobPairRequest is request type for the ClobPair method. */
-  id: number;
+  id?: number;
 }
 export interface QueryGetClobPairRequestAminoMsg {
   type: "/dydxprotocol.clob.QueryGetClobPairRequest";
@@ -51,7 +51,7 @@ export interface QueryClobPairResponseSDKType {
 }
 /** QueryAllClobPairRequest is request type for the ClobPairAll method. */
 export interface QueryAllClobPairRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllClobPairRequestProtoMsg {
   typeUrl: "/dydxprotocol.clob.QueryAllClobPairRequest";
@@ -67,12 +67,12 @@ export interface QueryAllClobPairRequestAminoMsg {
 }
 /** QueryAllClobPairRequest is request type for the ClobPairAll method. */
 export interface QueryAllClobPairRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryClobPairAllResponse is response type for the ClobPairAll method. */
 export interface QueryClobPairAllResponse {
   clobPair: ClobPair[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryClobPairAllResponseProtoMsg {
   typeUrl: "/dydxprotocol.clob.QueryClobPairAllResponse";
@@ -80,7 +80,7 @@ export interface QueryClobPairAllResponseProtoMsg {
 }
 /** QueryClobPairAllResponse is response type for the ClobPairAll method. */
 export interface QueryClobPairAllResponseAmino {
-  clob_pair: ClobPairAmino[];
+  clob_pair?: ClobPairAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryClobPairAllResponseAminoMsg {
@@ -90,7 +90,7 @@ export interface QueryClobPairAllResponseAminoMsg {
 /** QueryClobPairAllResponse is response type for the ClobPairAll method. */
 export interface QueryClobPairAllResponseSDKType {
   clob_pair: ClobPairSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /**
  * AreSubaccountsLiquidatableRequest is a request message used to check whether
@@ -110,7 +110,7 @@ export interface AreSubaccountsLiquidatableRequestProtoMsg {
  * The subaccount ids should not contain duplicates.
  */
 export interface AreSubaccountsLiquidatableRequestAmino {
-  subaccount_ids: SubaccountIdAmino[];
+  subaccount_ids?: SubaccountIdAmino[];
 }
 export interface AreSubaccountsLiquidatableRequestAminoMsg {
   type: "/dydxprotocol.clob.AreSubaccountsLiquidatableRequest";
@@ -140,7 +140,7 @@ export interface AreSubaccountsLiquidatableResponseProtoMsg {
  * liquidation status for each subaccount.
  */
 export interface AreSubaccountsLiquidatableResponseAmino {
-  results: AreSubaccountsLiquidatableResponse_ResultAmino[];
+  results?: AreSubaccountsLiquidatableResponse_ResultAmino[];
 }
 export interface AreSubaccountsLiquidatableResponseAminoMsg {
   type: "/dydxprotocol.clob.AreSubaccountsLiquidatableResponse";
@@ -165,7 +165,7 @@ export interface AreSubaccountsLiquidatableResponse_ResultProtoMsg {
 /** Result returns whether a subaccount should be liquidated. */
 export interface AreSubaccountsLiquidatableResponse_ResultAmino {
   subaccount_id?: SubaccountIdAmino;
-  is_liquidatable: boolean;
+  is_liquidatable?: boolean;
 }
 export interface AreSubaccountsLiquidatableResponse_ResultAminoMsg {
   type: "/dydxprotocol.clob.Result";
@@ -187,9 +187,9 @@ export interface MevNodeToNodeCalculationRequest {
    * the MEV calculation logic is run with this nodes matches as the "block
    * proposer" matches.
    */
-  blockProposerMatches: ValidatorMevMatches;
+  blockProposerMatches?: ValidatorMevMatches;
   /** Represents the matches and mid-prices on the validator. */
-  validatorMevMetrics: MevNodeToNodeMetrics;
+  validatorMevMetrics?: MevNodeToNodeMetrics;
 }
 export interface MevNodeToNodeCalculationRequestProtoMsg {
   typeUrl: "/dydxprotocol.clob.MevNodeToNodeCalculationRequest";
@@ -219,8 +219,8 @@ export interface MevNodeToNodeCalculationRequestAminoMsg {
  * MEV node <> node calculation.
  */
 export interface MevNodeToNodeCalculationRequestSDKType {
-  block_proposer_matches: ValidatorMevMatchesSDKType;
-  validator_mev_metrics: MevNodeToNodeMetricsSDKType;
+  block_proposer_matches?: ValidatorMevMatchesSDKType;
+  validator_mev_metrics?: MevNodeToNodeMetricsSDKType;
 }
 /**
  * MevNodeToNodeCalculationResponse is a response message that contains the
@@ -238,7 +238,7 @@ export interface MevNodeToNodeCalculationResponseProtoMsg {
  * MEV node <> node calculation result.
  */
 export interface MevNodeToNodeCalculationResponseAmino {
-  results: MevNodeToNodeCalculationResponse_MevAndVolumePerClobAmino[];
+  results?: MevNodeToNodeCalculationResponse_MevAndVolumePerClobAmino[];
 }
 export interface MevNodeToNodeCalculationResponseAminoMsg {
   type: "/dydxprotocol.clob.MevNodeToNodeCalculationResponse";
@@ -263,9 +263,9 @@ export interface MevNodeToNodeCalculationResponse_MevAndVolumePerClobProtoMsg {
 }
 /** MevAndVolumePerClob contains information about the MEV and volume per CLOB. */
 export interface MevNodeToNodeCalculationResponse_MevAndVolumePerClobAmino {
-  clob_pair_id: number;
-  mev: number;
-  volume: string;
+  clob_pair_id?: number;
+  mev?: number;
+  volume?: string;
 }
 export interface MevNodeToNodeCalculationResponse_MevAndVolumePerClobAminoMsg {
   type: "/dydxprotocol.clob.MevAndVolumePerClob";
@@ -457,9 +457,11 @@ export const QueryGetClobPairRequest = {
     return message;
   },
   fromAmino(object: QueryGetClobPairRequestAmino): QueryGetClobPairRequest {
-    return {
-      id: object.id
-    };
+    const message = createBaseQueryGetClobPairRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: QueryGetClobPairRequest): QueryGetClobPairRequestAmino {
     const obj: any = {};
@@ -506,9 +508,11 @@ export const QueryClobPairResponse = {
     return message;
   },
   fromAmino(object: QueryClobPairResponseAmino): QueryClobPairResponse {
-    return {
-      clobPair: object?.clob_pair ? ClobPair.fromAmino(object.clob_pair) : undefined
-    };
+    const message = createBaseQueryClobPairResponse();
+    if (object.clob_pair !== undefined && object.clob_pair !== null) {
+      message.clobPair = ClobPair.fromAmino(object.clob_pair);
+    }
+    return message;
   },
   toAmino(message: QueryClobPairResponse): QueryClobPairResponseAmino {
     const obj: any = {};
@@ -533,7 +537,7 @@ export const QueryClobPairResponse = {
 };
 function createBaseQueryAllClobPairRequest(): QueryAllClobPairRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllClobPairRequest = {
@@ -555,9 +559,11 @@ export const QueryAllClobPairRequest = {
     return message;
   },
   fromAmino(object: QueryAllClobPairRequestAmino): QueryAllClobPairRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllClobPairRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllClobPairRequest): QueryAllClobPairRequestAmino {
     const obj: any = {};
@@ -583,7 +589,7 @@ export const QueryAllClobPairRequest = {
 function createBaseQueryClobPairAllResponse(): QueryClobPairAllResponse {
   return {
     clobPair: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryClobPairAllResponse = {
@@ -610,10 +616,12 @@ export const QueryClobPairAllResponse = {
     return message;
   },
   fromAmino(object: QueryClobPairAllResponseAmino): QueryClobPairAllResponse {
-    return {
-      clobPair: Array.isArray(object?.clob_pair) ? object.clob_pair.map((e: any) => ClobPair.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryClobPairAllResponse();
+    message.clobPair = object.clob_pair?.map(e => ClobPair.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryClobPairAllResponse): QueryClobPairAllResponseAmino {
     const obj: any = {};
@@ -665,9 +673,9 @@ export const AreSubaccountsLiquidatableRequest = {
     return message;
   },
   fromAmino(object: AreSubaccountsLiquidatableRequestAmino): AreSubaccountsLiquidatableRequest {
-    return {
-      subaccountIds: Array.isArray(object?.subaccount_ids) ? object.subaccount_ids.map((e: any) => SubaccountId.fromAmino(e)) : []
-    };
+    const message = createBaseAreSubaccountsLiquidatableRequest();
+    message.subaccountIds = object.subaccount_ids?.map(e => SubaccountId.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: AreSubaccountsLiquidatableRequest): AreSubaccountsLiquidatableRequestAmino {
     const obj: any = {};
@@ -718,9 +726,9 @@ export const AreSubaccountsLiquidatableResponse = {
     return message;
   },
   fromAmino(object: AreSubaccountsLiquidatableResponseAmino): AreSubaccountsLiquidatableResponse {
-    return {
-      results: Array.isArray(object?.results) ? object.results.map((e: any) => AreSubaccountsLiquidatableResponse_Result.fromAmino(e)) : []
-    };
+    const message = createBaseAreSubaccountsLiquidatableResponse();
+    message.results = object.results?.map(e => AreSubaccountsLiquidatableResponse_Result.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: AreSubaccountsLiquidatableResponse): AreSubaccountsLiquidatableResponseAmino {
     const obj: any = {};
@@ -777,10 +785,14 @@ export const AreSubaccountsLiquidatableResponse_Result = {
     return message;
   },
   fromAmino(object: AreSubaccountsLiquidatableResponse_ResultAmino): AreSubaccountsLiquidatableResponse_Result {
-    return {
-      subaccountId: object?.subaccount_id ? SubaccountId.fromAmino(object.subaccount_id) : undefined,
-      isLiquidatable: object.is_liquidatable
-    };
+    const message = createBaseAreSubaccountsLiquidatableResponse_Result();
+    if (object.subaccount_id !== undefined && object.subaccount_id !== null) {
+      message.subaccountId = SubaccountId.fromAmino(object.subaccount_id);
+    }
+    if (object.is_liquidatable !== undefined && object.is_liquidatable !== null) {
+      message.isLiquidatable = object.is_liquidatable;
+    }
+    return message;
   },
   toAmino(message: AreSubaccountsLiquidatableResponse_Result): AreSubaccountsLiquidatableResponse_ResultAmino {
     const obj: any = {};
@@ -806,8 +818,8 @@ export const AreSubaccountsLiquidatableResponse_Result = {
 };
 function createBaseMevNodeToNodeCalculationRequest(): MevNodeToNodeCalculationRequest {
   return {
-    blockProposerMatches: ValidatorMevMatches.fromPartial({}),
-    validatorMevMetrics: MevNodeToNodeMetrics.fromPartial({})
+    blockProposerMatches: undefined,
+    validatorMevMetrics: undefined
   };
 }
 export const MevNodeToNodeCalculationRequest = {
@@ -834,10 +846,14 @@ export const MevNodeToNodeCalculationRequest = {
     return message;
   },
   fromAmino(object: MevNodeToNodeCalculationRequestAmino): MevNodeToNodeCalculationRequest {
-    return {
-      blockProposerMatches: object?.block_proposer_matches ? ValidatorMevMatches.fromAmino(object.block_proposer_matches) : undefined,
-      validatorMevMetrics: object?.validator_mev_metrics ? MevNodeToNodeMetrics.fromAmino(object.validator_mev_metrics) : undefined
-    };
+    const message = createBaseMevNodeToNodeCalculationRequest();
+    if (object.block_proposer_matches !== undefined && object.block_proposer_matches !== null) {
+      message.blockProposerMatches = ValidatorMevMatches.fromAmino(object.block_proposer_matches);
+    }
+    if (object.validator_mev_metrics !== undefined && object.validator_mev_metrics !== null) {
+      message.validatorMevMetrics = MevNodeToNodeMetrics.fromAmino(object.validator_mev_metrics);
+    }
+    return message;
   },
   toAmino(message: MevNodeToNodeCalculationRequest): MevNodeToNodeCalculationRequestAmino {
     const obj: any = {};
@@ -885,9 +901,9 @@ export const MevNodeToNodeCalculationResponse = {
     return message;
   },
   fromAmino(object: MevNodeToNodeCalculationResponseAmino): MevNodeToNodeCalculationResponse {
-    return {
-      results: Array.isArray(object?.results) ? object.results.map((e: any) => MevNodeToNodeCalculationResponse_MevAndVolumePerClob.fromAmino(e)) : []
-    };
+    const message = createBaseMevNodeToNodeCalculationResponse();
+    message.results = object.results?.map(e => MevNodeToNodeCalculationResponse_MevAndVolumePerClob.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MevNodeToNodeCalculationResponse): MevNodeToNodeCalculationResponseAmino {
     const obj: any = {};
@@ -950,11 +966,17 @@ export const MevNodeToNodeCalculationResponse_MevAndVolumePerClob = {
     return message;
   },
   fromAmino(object: MevNodeToNodeCalculationResponse_MevAndVolumePerClobAmino): MevNodeToNodeCalculationResponse_MevAndVolumePerClob {
-    return {
-      clobPairId: object.clob_pair_id,
-      mev: object.mev,
-      volume: BigInt(object.volume)
-    };
+    const message = createBaseMevNodeToNodeCalculationResponse_MevAndVolumePerClob();
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    if (object.mev !== undefined && object.mev !== null) {
+      message.mev = object.mev;
+    }
+    if (object.volume !== undefined && object.volume !== null) {
+      message.volume = BigInt(object.volume);
+    }
+    return message;
   },
   toAmino(message: MevNodeToNodeCalculationResponse_MevAndVolumePerClob): MevNodeToNodeCalculationResponse_MevAndVolumePerClobAmino {
     const obj: any = {};
@@ -995,7 +1017,8 @@ export const QueryEquityTierLimitConfigurationRequest = {
     return message;
   },
   fromAmino(_: QueryEquityTierLimitConfigurationRequestAmino): QueryEquityTierLimitConfigurationRequest {
-    return {};
+    const message = createBaseQueryEquityTierLimitConfigurationRequest();
+    return message;
   },
   toAmino(_: QueryEquityTierLimitConfigurationRequest): QueryEquityTierLimitConfigurationRequestAmino {
     const obj: any = {};
@@ -1041,9 +1064,11 @@ export const QueryEquityTierLimitConfigurationResponse = {
     return message;
   },
   fromAmino(object: QueryEquityTierLimitConfigurationResponseAmino): QueryEquityTierLimitConfigurationResponse {
-    return {
-      equityTierLimitConfig: object?.equity_tier_limit_config ? EquityTierLimitConfiguration.fromAmino(object.equity_tier_limit_config) : undefined
-    };
+    const message = createBaseQueryEquityTierLimitConfigurationResponse();
+    if (object.equity_tier_limit_config !== undefined && object.equity_tier_limit_config !== null) {
+      message.equityTierLimitConfig = EquityTierLimitConfiguration.fromAmino(object.equity_tier_limit_config);
+    }
+    return message;
   },
   toAmino(message: QueryEquityTierLimitConfigurationResponse): QueryEquityTierLimitConfigurationResponseAmino {
     const obj: any = {};
@@ -1082,7 +1107,8 @@ export const QueryBlockRateLimitConfigurationRequest = {
     return message;
   },
   fromAmino(_: QueryBlockRateLimitConfigurationRequestAmino): QueryBlockRateLimitConfigurationRequest {
-    return {};
+    const message = createBaseQueryBlockRateLimitConfigurationRequest();
+    return message;
   },
   toAmino(_: QueryBlockRateLimitConfigurationRequest): QueryBlockRateLimitConfigurationRequestAmino {
     const obj: any = {};
@@ -1128,9 +1154,11 @@ export const QueryBlockRateLimitConfigurationResponse = {
     return message;
   },
   fromAmino(object: QueryBlockRateLimitConfigurationResponseAmino): QueryBlockRateLimitConfigurationResponse {
-    return {
-      blockRateLimitConfig: object?.block_rate_limit_config ? BlockRateLimitConfiguration.fromAmino(object.block_rate_limit_config) : undefined
-    };
+    const message = createBaseQueryBlockRateLimitConfigurationResponse();
+    if (object.block_rate_limit_config !== undefined && object.block_rate_limit_config !== null) {
+      message.blockRateLimitConfig = BlockRateLimitConfiguration.fromAmino(object.block_rate_limit_config);
+    }
+    return message;
   },
   toAmino(message: QueryBlockRateLimitConfigurationResponse): QueryBlockRateLimitConfigurationResponseAmino {
     const obj: any = {};
@@ -1169,7 +1197,8 @@ export const QueryLiquidationsConfigurationRequest = {
     return message;
   },
   fromAmino(_: QueryLiquidationsConfigurationRequestAmino): QueryLiquidationsConfigurationRequest {
-    return {};
+    const message = createBaseQueryLiquidationsConfigurationRequest();
+    return message;
   },
   toAmino(_: QueryLiquidationsConfigurationRequest): QueryLiquidationsConfigurationRequestAmino {
     const obj: any = {};
@@ -1215,9 +1244,11 @@ export const QueryLiquidationsConfigurationResponse = {
     return message;
   },
   fromAmino(object: QueryLiquidationsConfigurationResponseAmino): QueryLiquidationsConfigurationResponse {
-    return {
-      liquidationsConfig: object?.liquidations_config ? LiquidationsConfig.fromAmino(object.liquidations_config) : undefined
-    };
+    const message = createBaseQueryLiquidationsConfigurationResponse();
+    if (object.liquidations_config !== undefined && object.liquidations_config !== null) {
+      message.liquidationsConfig = LiquidationsConfig.fromAmino(object.liquidations_config);
+    }
+    return message;
   },
   toAmino(message: QueryLiquidationsConfigurationResponse): QueryLiquidationsConfigurationResponseAmino {
     const obj: any = {};

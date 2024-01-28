@@ -10,7 +10,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the subaccounts module's genesis state. */
 export interface GenesisStateAmino {
-  subaccounts: SubaccountAmino[];
+  subaccounts?: SubaccountAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/dydxprotocol.subaccounts.GenesisState";
@@ -44,9 +44,9 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      subaccounts: Array.isArray(object?.subaccounts) ? object.subaccounts.map((e: any) => Subaccount.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.subaccounts = object.subaccounts?.map(e => Subaccount.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

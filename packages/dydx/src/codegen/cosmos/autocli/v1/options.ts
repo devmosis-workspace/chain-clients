@@ -3,9 +3,9 @@ import { isSet, isObject } from "../../../helpers";
 /** ModuleOptions describes the CLI options for a Cosmos SDK module. */
 export interface ModuleOptions {
   /** tx describes the tx command for the module. */
-  tx: ServiceCommandDescriptor;
+  tx?: ServiceCommandDescriptor;
   /** query describes the tx command for the module. */
-  query: ServiceCommandDescriptor;
+  query?: ServiceCommandDescriptor;
 }
 export interface ModuleOptionsProtoMsg {
   typeUrl: "/cosmos.autocli.v1.ModuleOptions";
@@ -24,19 +24,19 @@ export interface ModuleOptionsAminoMsg {
 }
 /** ModuleOptions describes the CLI options for a Cosmos SDK module. */
 export interface ModuleOptionsSDKType {
-  tx: ServiceCommandDescriptorSDKType;
-  query: ServiceCommandDescriptorSDKType;
+  tx?: ServiceCommandDescriptorSDKType;
+  query?: ServiceCommandDescriptorSDKType;
 }
 export interface ServiceCommandDescriptor_SubCommandsEntry {
   key: string;
-  value: ServiceCommandDescriptor;
+  value?: ServiceCommandDescriptor;
 }
 export interface ServiceCommandDescriptor_SubCommandsEntryProtoMsg {
   typeUrl: string;
   value: Uint8Array;
 }
 export interface ServiceCommandDescriptor_SubCommandsEntryAmino {
-  key: string;
+  key?: string;
   value?: ServiceCommandDescriptorAmino;
 }
 export interface ServiceCommandDescriptor_SubCommandsEntryAminoMsg {
@@ -45,7 +45,7 @@ export interface ServiceCommandDescriptor_SubCommandsEntryAminoMsg {
 }
 export interface ServiceCommandDescriptor_SubCommandsEntrySDKType {
   key: string;
-  value: ServiceCommandDescriptorSDKType;
+  value?: ServiceCommandDescriptorSDKType;
 }
 /** ServiceCommandDescriptor describes a CLI command based on a protobuf service. */
 export interface ServiceCommandDescriptor {
@@ -81,13 +81,13 @@ export interface ServiceCommandDescriptorAmino {
    * the command from. It can be left empty if sub_commands are used instead
    * which may be the case if a module provides multiple tx and/or query services.
    */
-  service: string;
+  service?: string;
   /**
    * rpc_command_options are options for commands generated from rpc methods.
    * If no options are specified for a given rpc method on the service, a
    * command will be generated for that method with the default options.
    */
-  rpc_command_options: RpcCommandOptionsAmino[];
+  rpc_command_options?: RpcCommandOptionsAmino[];
   /**
    * sub_commands is a map of optional sub-commands for this command based on
    * different protobuf services. The map key is used as the name of the
@@ -111,14 +111,14 @@ export interface ServiceCommandDescriptorSDKType {
 }
 export interface RpcCommandOptions_FlagOptionsEntry {
   key: string;
-  value: FlagOptions;
+  value?: FlagOptions;
 }
 export interface RpcCommandOptions_FlagOptionsEntryProtoMsg {
   typeUrl: string;
   value: Uint8Array;
 }
 export interface RpcCommandOptions_FlagOptionsEntryAmino {
-  key: string;
+  key?: string;
   value?: FlagOptionsAmino;
 }
 export interface RpcCommandOptions_FlagOptionsEntryAminoMsg {
@@ -127,7 +127,7 @@ export interface RpcCommandOptions_FlagOptionsEntryAminoMsg {
 }
 export interface RpcCommandOptions_FlagOptionsEntrySDKType {
   key: string;
-  value: FlagOptionsSDKType;
+  value?: FlagOptionsSDKType;
 }
 /**
  * RpcCommandOptions specifies options for commands generated from protobuf
@@ -195,7 +195,7 @@ export interface RpcCommandOptionsAmino {
    * rpc_method is short name of the protobuf rpc method that this command is
    * generated from.
    */
-  rpc_method: string;
+  rpc_method?: string;
   /**
    * use is the one-line usage method. It also allows specifying an alternate
    * name for the command as the first word of the usage text.
@@ -203,29 +203,29 @@ export interface RpcCommandOptionsAmino {
    * By default the name of an rpc command is the kebab-case short name of the
    * rpc method.
    */
-  use: string;
+  use?: string;
   /** long is the long message shown in the 'help <this-command>' output. */
-  long: string;
+  long?: string;
   /** short is the short description shown in the 'help' output. */
-  short: string;
+  short?: string;
   /** example is examples of how to use the command. */
-  example: string;
+  example?: string;
   /** alias is an array of aliases that can be used instead of the first word in Use. */
-  alias: string[];
+  alias?: string[];
   /**
    * suggest_for is an array of command names for which this command will be suggested -
    * similar to aliases but only suggests.
    */
-  suggest_for: string[];
+  suggest_for?: string[];
   /** deprecated defines, if this command is deprecated and should print this string when used. */
-  deprecated: string;
+  deprecated?: string;
   /**
    * version defines the version for this command. If this value is non-empty and the command does not
    * define a "version" flag, a "version" boolean flag will be added to the command and, if specified,
    * will print content of the "Version" variable. A shorthand "v" flag will also be added if the
    * command does not define one.
    */
-  version: string;
+  version?: string;
   /**
    * flag_options are options for flags generated from rpc request fields.
    * By default all request fields are configured as flags. They can
@@ -235,9 +235,9 @@ export interface RpcCommandOptionsAmino {
     [key: string]: FlagOptionsAmino;
   };
   /** positional_args specifies positional arguments for the command. */
-  positional_args: PositionalArgDescriptorAmino[];
+  positional_args?: PositionalArgDescriptorAmino[];
   /** skip specifies whether to skip this rpc method when generating commands. */
-  skip: boolean;
+  skip?: boolean;
 }
 export interface RpcCommandOptionsAminoMsg {
   type: "cosmos-sdk/RpcCommandOptions";
@@ -299,21 +299,21 @@ export interface FlagOptionsProtoMsg {
  */
 export interface FlagOptionsAmino {
   /** name is an alternate name to use for the field flag. */
-  name: string;
+  name?: string;
   /** shorthand is a one-letter abbreviated flag. */
-  shorthand: string;
+  shorthand?: string;
   /** usage is the help message. */
-  usage: string;
+  usage?: string;
   /** default_value is the default value as text. */
-  default_value: string;
+  default_value?: string;
   /** default value is the default value as text if the flag is used without any value. */
-  no_opt_default_value: string;
+  no_opt_default_value?: string;
   /** deprecated is the usage text to show if this flag is deprecated. */
-  deprecated: string;
+  deprecated?: string;
   /** shorthand_deprecated is the usage text to show if the shorthand of this flag is deprecated. */
-  shorthand_deprecated: string;
+  shorthand_deprecated?: string;
   /** hidden hides the flag from help/usage text */
-  hidden: boolean;
+  hidden?: boolean;
 }
 export interface FlagOptionsAminoMsg {
   type: "cosmos-sdk/FlagOptions";
@@ -359,13 +359,13 @@ export interface PositionalArgDescriptorAmino {
    * proto_field specifies the proto field to use as the positional arg. Any
    * fields used as positional args will not have a flag generated.
    */
-  proto_field: string;
+  proto_field?: string;
   /**
    * varargs makes a positional parameter a varargs parameter. This can only be
    * applied to last positional parameter and the proto_field must a repeated
    * field.
    */
-  varargs: boolean;
+  varargs?: boolean;
 }
 export interface PositionalArgDescriptorAminoMsg {
   type: "cosmos-sdk/PositionalArgDescriptor";
@@ -378,8 +378,8 @@ export interface PositionalArgDescriptorSDKType {
 }
 function createBaseModuleOptions(): ModuleOptions {
   return {
-    tx: ServiceCommandDescriptor.fromPartial({}),
-    query: ServiceCommandDescriptor.fromPartial({})
+    tx: undefined,
+    query: undefined
   };
 }
 export const ModuleOptions = {
@@ -406,10 +406,14 @@ export const ModuleOptions = {
     return message;
   },
   fromAmino(object: ModuleOptionsAmino): ModuleOptions {
-    return {
-      tx: object?.tx ? ServiceCommandDescriptor.fromAmino(object.tx) : undefined,
-      query: object?.query ? ServiceCommandDescriptor.fromAmino(object.query) : undefined
-    };
+    const message = createBaseModuleOptions();
+    if (object.tx !== undefined && object.tx !== null) {
+      message.tx = ServiceCommandDescriptor.fromAmino(object.tx);
+    }
+    if (object.query !== undefined && object.query !== null) {
+      message.query = ServiceCommandDescriptor.fromAmino(object.query);
+    }
+    return message;
   },
   toAmino(message: ModuleOptions): ModuleOptionsAmino {
     const obj: any = {};
@@ -442,7 +446,7 @@ export const ModuleOptions = {
 function createBaseServiceCommandDescriptor_SubCommandsEntry(): ServiceCommandDescriptor_SubCommandsEntry {
   return {
     key: "",
-    value: ServiceCommandDescriptor.fromPartial({})
+    value: undefined
   };
 }
 export const ServiceCommandDescriptor_SubCommandsEntry = {
@@ -468,10 +472,14 @@ export const ServiceCommandDescriptor_SubCommandsEntry = {
     return message;
   },
   fromAmino(object: ServiceCommandDescriptor_SubCommandsEntryAmino): ServiceCommandDescriptor_SubCommandsEntry {
-    return {
-      key: object.key,
-      value: object?.value ? ServiceCommandDescriptor.fromAmino(object.value) : undefined
-    };
+    const message = createBaseServiceCommandDescriptor_SubCommandsEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = ServiceCommandDescriptor.fromAmino(object.value);
+    }
+    return message;
   },
   toAmino(message: ServiceCommandDescriptor_SubCommandsEntry): ServiceCommandDescriptor_SubCommandsEntryAmino {
     const obj: any = {};
@@ -540,16 +548,20 @@ export const ServiceCommandDescriptor = {
     return message;
   },
   fromAmino(object: ServiceCommandDescriptorAmino): ServiceCommandDescriptor {
-    return {
-      service: object.service,
-      rpcCommandOptions: Array.isArray(object?.rpc_command_options) ? object.rpc_command_options.map((e: any) => RpcCommandOptions.fromAmino(e)) : [],
-      subCommands: isObject(object.sub_commands) ? Object.entries(object.sub_commands).reduce<{
-        [key: string]: ServiceCommandDescriptor;
-      }>((acc, [key, value]) => {
+    const message = createBaseServiceCommandDescriptor();
+    if (object.service !== undefined && object.service !== null) {
+      message.service = object.service;
+    }
+    message.rpcCommandOptions = object.rpc_command_options?.map(e => RpcCommandOptions.fromAmino(e)) || [];
+    message.subCommands = Object.entries(object.sub_commands ?? {}).reduce<{
+      [key: string]: ServiceCommandDescriptor;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = ServiceCommandDescriptor.fromAmino(value);
-        return acc;
-      }, {}) : {}
-    };
+      }
+      return acc;
+    }, {});
+    return message;
   },
   toAmino(message: ServiceCommandDescriptor): ServiceCommandDescriptorAmino {
     const obj: any = {};
@@ -592,7 +604,7 @@ export const ServiceCommandDescriptor = {
 function createBaseRpcCommandOptions_FlagOptionsEntry(): RpcCommandOptions_FlagOptionsEntry {
   return {
     key: "",
-    value: FlagOptions.fromPartial({})
+    value: undefined
   };
 }
 export const RpcCommandOptions_FlagOptionsEntry = {
@@ -618,10 +630,14 @@ export const RpcCommandOptions_FlagOptionsEntry = {
     return message;
   },
   fromAmino(object: RpcCommandOptions_FlagOptionsEntryAmino): RpcCommandOptions_FlagOptionsEntry {
-    return {
-      key: object.key,
-      value: object?.value ? FlagOptions.fromAmino(object.value) : undefined
-    };
+    const message = createBaseRpcCommandOptions_FlagOptionsEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = FlagOptions.fromAmino(object.value);
+    }
+    return message;
   },
   toAmino(message: RpcCommandOptions_FlagOptionsEntry): RpcCommandOptions_FlagOptionsEntryAmino {
     const obj: any = {};
@@ -744,25 +760,43 @@ export const RpcCommandOptions = {
     return message;
   },
   fromAmino(object: RpcCommandOptionsAmino): RpcCommandOptions {
-    return {
-      rpcMethod: object.rpc_method,
-      use: object.use,
-      long: object.long,
-      short: object.short,
-      example: object.example,
-      alias: Array.isArray(object?.alias) ? object.alias.map((e: any) => e) : [],
-      suggestFor: Array.isArray(object?.suggest_for) ? object.suggest_for.map((e: any) => e) : [],
-      deprecated: object.deprecated,
-      version: object.version,
-      flagOptions: isObject(object.flag_options) ? Object.entries(object.flag_options).reduce<{
-        [key: string]: FlagOptions;
-      }>((acc, [key, value]) => {
+    const message = createBaseRpcCommandOptions();
+    if (object.rpc_method !== undefined && object.rpc_method !== null) {
+      message.rpcMethod = object.rpc_method;
+    }
+    if (object.use !== undefined && object.use !== null) {
+      message.use = object.use;
+    }
+    if (object.long !== undefined && object.long !== null) {
+      message.long = object.long;
+    }
+    if (object.short !== undefined && object.short !== null) {
+      message.short = object.short;
+    }
+    if (object.example !== undefined && object.example !== null) {
+      message.example = object.example;
+    }
+    message.alias = object.alias?.map(e => e) || [];
+    message.suggestFor = object.suggest_for?.map(e => e) || [];
+    if (object.deprecated !== undefined && object.deprecated !== null) {
+      message.deprecated = object.deprecated;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    message.flagOptions = Object.entries(object.flag_options ?? {}).reduce<{
+      [key: string]: FlagOptions;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = FlagOptions.fromAmino(value);
-        return acc;
-      }, {}) : {},
-      positionalArgs: Array.isArray(object?.positional_args) ? object.positional_args.map((e: any) => PositionalArgDescriptor.fromAmino(e)) : [],
-      skip: object.skip
-    };
+      }
+      return acc;
+    }, {});
+    message.positionalArgs = object.positional_args?.map(e => PositionalArgDescriptor.fromAmino(e)) || [];
+    if (object.skip !== undefined && object.skip !== null) {
+      message.skip = object.skip;
+    }
+    return message;
   },
   toAmino(message: RpcCommandOptions): RpcCommandOptionsAmino {
     const obj: any = {};
@@ -885,16 +919,32 @@ export const FlagOptions = {
     return message;
   },
   fromAmino(object: FlagOptionsAmino): FlagOptions {
-    return {
-      name: object.name,
-      shorthand: object.shorthand,
-      usage: object.usage,
-      defaultValue: object.default_value,
-      noOptDefaultValue: object.no_opt_default_value,
-      deprecated: object.deprecated,
-      shorthandDeprecated: object.shorthand_deprecated,
-      hidden: object.hidden
-    };
+    const message = createBaseFlagOptions();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.shorthand !== undefined && object.shorthand !== null) {
+      message.shorthand = object.shorthand;
+    }
+    if (object.usage !== undefined && object.usage !== null) {
+      message.usage = object.usage;
+    }
+    if (object.default_value !== undefined && object.default_value !== null) {
+      message.defaultValue = object.default_value;
+    }
+    if (object.no_opt_default_value !== undefined && object.no_opt_default_value !== null) {
+      message.noOptDefaultValue = object.no_opt_default_value;
+    }
+    if (object.deprecated !== undefined && object.deprecated !== null) {
+      message.deprecated = object.deprecated;
+    }
+    if (object.shorthand_deprecated !== undefined && object.shorthand_deprecated !== null) {
+      message.shorthandDeprecated = object.shorthand_deprecated;
+    }
+    if (object.hidden !== undefined && object.hidden !== null) {
+      message.hidden = object.hidden;
+    }
+    return message;
   },
   toAmino(message: FlagOptions): FlagOptionsAmino {
     const obj: any = {};
@@ -960,10 +1010,14 @@ export const PositionalArgDescriptor = {
     return message;
   },
   fromAmino(object: PositionalArgDescriptorAmino): PositionalArgDescriptor {
-    return {
-      protoField: object.proto_field,
-      varargs: object.varargs
-    };
+    const message = createBasePositionalArgDescriptor();
+    if (object.proto_field !== undefined && object.proto_field !== null) {
+      message.protoField = object.proto_field;
+    }
+    if (object.varargs !== undefined && object.varargs !== null) {
+      message.varargs = object.varargs;
+    }
+    return message;
   },
   toAmino(message: PositionalArgDescriptor): PositionalArgDescriptorAmino {
     const obj: any = {};

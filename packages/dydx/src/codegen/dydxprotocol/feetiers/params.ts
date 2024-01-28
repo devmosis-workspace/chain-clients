@@ -12,7 +12,7 @@ export interface PerpetualFeeParamsProtoMsg {
 /** PerpetualFeeParams defines the parameters for perpetual fees. */
 export interface PerpetualFeeParamsAmino {
   /** Sorted fee tiers (lowest requirements first). */
-  tiers: PerpetualFeeTierAmino[];
+  tiers?: PerpetualFeeTierAmino[];
 }
 export interface PerpetualFeeParamsAminoMsg {
   type: "/dydxprotocol.feetiers.PerpetualFeeParams";
@@ -44,17 +44,17 @@ export interface PerpetualFeeTierProtoMsg {
 /** A fee tier for perpetuals */
 export interface PerpetualFeeTierAmino {
   /** Human-readable name of the tier, e.g. "Gold". */
-  name: string;
+  name?: string;
   /** The trader's absolute volume requirement in quote quantums. */
-  absolute_volume_requirement: string;
+  absolute_volume_requirement?: string;
   /** The total volume share requirement. */
-  total_volume_share_requirement_ppm: number;
+  total_volume_share_requirement_ppm?: number;
   /** The maker volume share requirement. */
-  maker_volume_share_requirement_ppm: number;
+  maker_volume_share_requirement_ppm?: number;
   /** The maker fee once this tier is reached. */
-  maker_fee_ppm: number;
+  maker_fee_ppm?: number;
   /** The taker fee once this tier is reached. */
-  taker_fee_ppm: number;
+  taker_fee_ppm?: number;
 }
 export interface PerpetualFeeTierAminoMsg {
   type: "/dydxprotocol.feetiers.PerpetualFeeTier";
@@ -93,9 +93,9 @@ export const PerpetualFeeParams = {
     return message;
   },
   fromAmino(object: PerpetualFeeParamsAmino): PerpetualFeeParams {
-    return {
-      tiers: Array.isArray(object?.tiers) ? object.tiers.map((e: any) => PerpetualFeeTier.fromAmino(e)) : []
-    };
+    const message = createBasePerpetualFeeParams();
+    message.tiers = object.tiers?.map(e => PerpetualFeeTier.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: PerpetualFeeParams): PerpetualFeeParamsAmino {
     const obj: any = {};
@@ -176,14 +176,26 @@ export const PerpetualFeeTier = {
     return message;
   },
   fromAmino(object: PerpetualFeeTierAmino): PerpetualFeeTier {
-    return {
-      name: object.name,
-      absoluteVolumeRequirement: BigInt(object.absolute_volume_requirement),
-      totalVolumeShareRequirementPpm: object.total_volume_share_requirement_ppm,
-      makerVolumeShareRequirementPpm: object.maker_volume_share_requirement_ppm,
-      makerFeePpm: object.maker_fee_ppm,
-      takerFeePpm: object.taker_fee_ppm
-    };
+    const message = createBasePerpetualFeeTier();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.absolute_volume_requirement !== undefined && object.absolute_volume_requirement !== null) {
+      message.absoluteVolumeRequirement = BigInt(object.absolute_volume_requirement);
+    }
+    if (object.total_volume_share_requirement_ppm !== undefined && object.total_volume_share_requirement_ppm !== null) {
+      message.totalVolumeShareRequirementPpm = object.total_volume_share_requirement_ppm;
+    }
+    if (object.maker_volume_share_requirement_ppm !== undefined && object.maker_volume_share_requirement_ppm !== null) {
+      message.makerVolumeShareRequirementPpm = object.maker_volume_share_requirement_ppm;
+    }
+    if (object.maker_fee_ppm !== undefined && object.maker_fee_ppm !== null) {
+      message.makerFeePpm = object.maker_fee_ppm;
+    }
+    if (object.taker_fee_ppm !== undefined && object.taker_fee_ppm !== null) {
+      message.takerFeePpm = object.taker_fee_ppm;
+    }
+    return message;
   },
   toAmino(message: PerpetualFeeTier): PerpetualFeeTierAmino {
     const obj: any = {};

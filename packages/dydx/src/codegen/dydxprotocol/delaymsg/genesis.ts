@@ -15,9 +15,9 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the delaymsg module's genesis state. */
 export interface GenesisStateAmino {
   /** delayed_messages is a list of delayed messages. */
-  delayed_messages: DelayedMessageAmino[];
+  delayed_messages?: DelayedMessageAmino[];
   /** next_delayed_message_id is the id to be assigned to next delayed message. */
-  next_delayed_message_id: number;
+  next_delayed_message_id?: number;
 }
 export interface GenesisStateAminoMsg {
   type: "/dydxprotocol.delaymsg.GenesisState";
@@ -58,10 +58,12 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      delayedMessages: Array.isArray(object?.delayed_messages) ? object.delayed_messages.map((e: any) => DelayedMessage.fromAmino(e)) : [],
-      nextDelayedMessageId: object.next_delayed_message_id
-    };
+    const message = createBaseGenesisState();
+    message.delayedMessages = object.delayed_messages?.map(e => DelayedMessage.fromAmino(e)) || [];
+    if (object.next_delayed_message_id !== undefined && object.next_delayed_message_id !== null) {
+      message.nextDelayedMessageId = object.next_delayed_message_id;
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

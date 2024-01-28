@@ -133,7 +133,7 @@ export function orderRemoveV1_OrderRemovalStatusToJSON(object: OrderRemoveV1_Ord
 }
 /** OrderPlace messages contain the order placed/replaced. */
 export interface OrderPlaceV1 {
-  order: IndexerOrder;
+  order?: IndexerOrder;
   placementStatus: OrderPlaceV1_OrderPlacementStatus;
 }
 export interface OrderPlaceV1ProtoMsg {
@@ -143,7 +143,7 @@ export interface OrderPlaceV1ProtoMsg {
 /** OrderPlace messages contain the order placed/replaced. */
 export interface OrderPlaceV1Amino {
   order?: IndexerOrderAmino;
-  placement_status: OrderPlaceV1_OrderPlacementStatus;
+  placement_status?: OrderPlaceV1_OrderPlacementStatus;
 }
 export interface OrderPlaceV1AminoMsg {
   type: "/dydxprotocol.indexer.off_chain_updates.OrderPlaceV1";
@@ -151,7 +151,7 @@ export interface OrderPlaceV1AminoMsg {
 }
 /** OrderPlace messages contain the order placed/replaced. */
 export interface OrderPlaceV1SDKType {
-  order: IndexerOrderSDKType;
+  order?: IndexerOrderSDKType;
   placement_status: OrderPlaceV1_OrderPlacementStatus;
 }
 /**
@@ -159,7 +159,7 @@ export interface OrderPlaceV1SDKType {
  * removal and the resulting status from the removal.
  */
 export interface OrderRemoveV1 {
-  removedOrderId: IndexerOrderId;
+  removedOrderId?: IndexerOrderId;
   reason: OrderRemovalReason;
   removalStatus: OrderRemoveV1_OrderRemovalStatus;
 }
@@ -173,8 +173,8 @@ export interface OrderRemoveV1ProtoMsg {
  */
 export interface OrderRemoveV1Amino {
   removed_order_id?: IndexerOrderIdAmino;
-  reason: OrderRemovalReason;
-  removal_status: OrderRemoveV1_OrderRemovalStatus;
+  reason?: OrderRemovalReason;
+  removal_status?: OrderRemoveV1_OrderRemovalStatus;
 }
 export interface OrderRemoveV1AminoMsg {
   type: "/dydxprotocol.indexer.off_chain_updates.OrderRemoveV1";
@@ -185,7 +185,7 @@ export interface OrderRemoveV1AminoMsg {
  * removal and the resulting status from the removal.
  */
 export interface OrderRemoveV1SDKType {
-  removed_order_id: IndexerOrderIdSDKType;
+  removed_order_id?: IndexerOrderIdSDKType;
   reason: OrderRemovalReason;
   removal_status: OrderRemoveV1_OrderRemovalStatus;
 }
@@ -194,7 +194,7 @@ export interface OrderRemoveV1SDKType {
  * updated total filled quantums of the order.
  */
 export interface OrderUpdateV1 {
-  orderId: IndexerOrderId;
+  orderId?: IndexerOrderId;
   totalFilledQuantums: bigint;
 }
 export interface OrderUpdateV1ProtoMsg {
@@ -207,7 +207,7 @@ export interface OrderUpdateV1ProtoMsg {
  */
 export interface OrderUpdateV1Amino {
   order_id?: IndexerOrderIdAmino;
-  total_filled_quantums: string;
+  total_filled_quantums?: string;
 }
 export interface OrderUpdateV1AminoMsg {
   type: "/dydxprotocol.indexer.off_chain_updates.OrderUpdateV1";
@@ -218,7 +218,7 @@ export interface OrderUpdateV1AminoMsg {
  * updated total filled quantums of the order.
  */
 export interface OrderUpdateV1SDKType {
-  order_id: IndexerOrderIdSDKType;
+  order_id?: IndexerOrderIdSDKType;
   total_filled_quantums: bigint;
 }
 /**
@@ -258,7 +258,7 @@ export interface OffChainUpdateV1SDKType {
 }
 function createBaseOrderPlaceV1(): OrderPlaceV1 {
   return {
-    order: IndexerOrder.fromPartial({}),
+    order: undefined,
     placementStatus: 0
   };
 }
@@ -286,10 +286,14 @@ export const OrderPlaceV1 = {
     return message;
   },
   fromAmino(object: OrderPlaceV1Amino): OrderPlaceV1 {
-    return {
-      order: object?.order ? IndexerOrder.fromAmino(object.order) : undefined,
-      placementStatus: isSet(object.placement_status) ? orderPlaceV1_OrderPlacementStatusFromJSON(object.placement_status) : -1
-    };
+    const message = createBaseOrderPlaceV1();
+    if (object.order !== undefined && object.order !== null) {
+      message.order = IndexerOrder.fromAmino(object.order);
+    }
+    if (object.placement_status !== undefined && object.placement_status !== null) {
+      message.placementStatus = orderPlaceV1_OrderPlacementStatusFromJSON(object.placement_status);
+    }
+    return message;
   },
   toAmino(message: OrderPlaceV1): OrderPlaceV1Amino {
     const obj: any = {};
@@ -315,7 +319,7 @@ export const OrderPlaceV1 = {
 };
 function createBaseOrderRemoveV1(): OrderRemoveV1 {
   return {
-    removedOrderId: IndexerOrderId.fromPartial({}),
+    removedOrderId: undefined,
     reason: 0,
     removalStatus: 0
   };
@@ -349,11 +353,17 @@ export const OrderRemoveV1 = {
     return message;
   },
   fromAmino(object: OrderRemoveV1Amino): OrderRemoveV1 {
-    return {
-      removedOrderId: object?.removed_order_id ? IndexerOrderId.fromAmino(object.removed_order_id) : undefined,
-      reason: isSet(object.reason) ? orderRemovalReasonFromJSON(object.reason) : -1,
-      removalStatus: isSet(object.removal_status) ? orderRemoveV1_OrderRemovalStatusFromJSON(object.removal_status) : -1
-    };
+    const message = createBaseOrderRemoveV1();
+    if (object.removed_order_id !== undefined && object.removed_order_id !== null) {
+      message.removedOrderId = IndexerOrderId.fromAmino(object.removed_order_id);
+    }
+    if (object.reason !== undefined && object.reason !== null) {
+      message.reason = orderRemovalReasonFromJSON(object.reason);
+    }
+    if (object.removal_status !== undefined && object.removal_status !== null) {
+      message.removalStatus = orderRemoveV1_OrderRemovalStatusFromJSON(object.removal_status);
+    }
+    return message;
   },
   toAmino(message: OrderRemoveV1): OrderRemoveV1Amino {
     const obj: any = {};
@@ -380,7 +390,7 @@ export const OrderRemoveV1 = {
 };
 function createBaseOrderUpdateV1(): OrderUpdateV1 {
   return {
-    orderId: IndexerOrderId.fromPartial({}),
+    orderId: undefined,
     totalFilledQuantums: BigInt(0)
   };
 }
@@ -408,10 +418,14 @@ export const OrderUpdateV1 = {
     return message;
   },
   fromAmino(object: OrderUpdateV1Amino): OrderUpdateV1 {
-    return {
-      orderId: object?.order_id ? IndexerOrderId.fromAmino(object.order_id) : undefined,
-      totalFilledQuantums: BigInt(object.total_filled_quantums)
-    };
+    const message = createBaseOrderUpdateV1();
+    if (object.order_id !== undefined && object.order_id !== null) {
+      message.orderId = IndexerOrderId.fromAmino(object.order_id);
+    }
+    if (object.total_filled_quantums !== undefined && object.total_filled_quantums !== null) {
+      message.totalFilledQuantums = BigInt(object.total_filled_quantums);
+    }
+    return message;
   },
   toAmino(message: OrderUpdateV1): OrderUpdateV1Amino {
     const obj: any = {};
@@ -471,11 +485,17 @@ export const OffChainUpdateV1 = {
     return message;
   },
   fromAmino(object: OffChainUpdateV1Amino): OffChainUpdateV1 {
-    return {
-      orderPlace: object?.order_place ? OrderPlaceV1.fromAmino(object.order_place) : undefined,
-      orderRemove: object?.order_remove ? OrderRemoveV1.fromAmino(object.order_remove) : undefined,
-      orderUpdate: object?.order_update ? OrderUpdateV1.fromAmino(object.order_update) : undefined
-    };
+    const message = createBaseOffChainUpdateV1();
+    if (object.order_place !== undefined && object.order_place !== null) {
+      message.orderPlace = OrderPlaceV1.fromAmino(object.order_place);
+    }
+    if (object.order_remove !== undefined && object.order_remove !== null) {
+      message.orderRemove = OrderRemoveV1.fromAmino(object.order_remove);
+    }
+    if (object.order_update !== undefined && object.order_update !== null) {
+      message.orderUpdate = OrderUpdateV1.fromAmino(object.order_update);
+    }
+    return message;
   },
   toAmino(message: OffChainUpdateV1): OffChainUpdateV1Amino {
     const obj: any = {};

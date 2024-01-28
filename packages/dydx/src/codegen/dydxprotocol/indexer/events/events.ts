@@ -2,7 +2,7 @@ import { IndexerSubaccountId, IndexerSubaccountIdAmino, IndexerSubaccountIdSDKTy
 import { IndexerOrder, IndexerOrderAmino, IndexerOrderSDKType, IndexerOrderId, IndexerOrderIdAmino, IndexerOrderIdSDKType, ClobPairStatus, clobPairStatusFromJSON } from "../protocol/v1/clob";
 import { OrderRemovalReason, orderRemovalReasonFromJSON } from "../shared/removal_reason";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** Type is the type for funding values. */
 export enum FundingEventV1_Type {
   /** TYPE_UNSPECIFIED - Unspecified type. */
@@ -89,17 +89,17 @@ export interface FundingUpdateV1ProtoMsg {
  */
 export interface FundingUpdateV1Amino {
   /** The id of the perpetual market. */
-  perpetual_id: number;
+  perpetual_id?: number;
   /**
    * funding value (in parts-per-million) can be premium vote, premium sample,
    * or funding rate.
    */
-  funding_value_ppm: number;
+  funding_value_ppm?: number;
   /**
    * funding index is required if and only if parent `FundingEvent` type is
    * `TYPE_FUNDING_RATE_AND_INDEX`.
    */
-  funding_index: Uint8Array;
+  funding_index?: string;
 }
 export interface FundingUpdateV1AminoMsg {
   type: "/dydxprotocol.indexer.events.FundingUpdateV1";
@@ -154,9 +154,9 @@ export interface FundingEventV1Amino {
    * updates is a list of per-market funding updates for all existing perpetual
    * markets. The list is sorted by `perpetualId`s which are unique.
    */
-  updates: FundingUpdateV1Amino[];
+  updates?: FundingUpdateV1Amino[];
   /** type stores the type of funding updates. */
-  type: FundingEventV1_Type;
+  type?: FundingEventV1_Type;
 }
 export interface FundingEventV1AminoMsg {
   type: "/dydxprotocol.indexer.events.FundingEventV1";
@@ -198,7 +198,7 @@ export interface MarketEventV1ProtoMsg {
  */
 export interface MarketEventV1Amino {
   /** market id. */
-  market_id: number;
+  market_id?: number;
   price_update?: MarketPriceUpdateEventV1Amino;
   market_create?: MarketCreateEventV1Amino;
   market_modify?: MarketModifyEventV1Amino;
@@ -243,7 +243,7 @@ export interface MarketPriceUpdateEventV1Amino {
    * price in dollars. For example if `Exponent == -5` then a `exponent_price`
    * of `1,000,000,000` represents “$10,000`.
    */
-  price_with_exponent: string;
+  price_with_exponent?: string;
 }
 export interface MarketPriceUpdateEventV1AminoMsg {
   type: "/dydxprotocol.indexer.events.MarketPriceUpdateEventV1";
@@ -273,12 +273,12 @@ export interface MarketBaseEventV1ProtoMsg {
 /** shared fields between MarketCreateEvent and MarketModifyEvent */
 export interface MarketBaseEventV1Amino {
   /** String representation of the market pair, e.g. `BTC-USD` */
-  pair: string;
+  pair?: string;
   /**
    * The minimum allowable change in the Price value for a given update.
    * Measured as 1e-6.
    */
-  min_price_change_ppm: number;
+  min_price_change_ppm?: number;
 }
 export interface MarketBaseEventV1AminoMsg {
   type: "/dydxprotocol.indexer.events.MarketBaseEventV1";
@@ -294,7 +294,7 @@ export interface MarketBaseEventV1SDKType {
  * the V4 chain.
  */
 export interface MarketCreateEventV1 {
-  base: MarketBaseEventV1;
+  base?: MarketBaseEventV1;
   /**
    * Static value. The exponent of the price.
    * For example if Exponent == -5 then a `exponent_price` of 1,000,000,000
@@ -319,7 +319,7 @@ export interface MarketCreateEventV1Amino {
    * represents $10,000. Therefore 10 ^ Exponent represents the smallest
    * price step (in dollars) that can be recorded.
    */
-  exponent: number;
+  exponent?: number;
 }
 export interface MarketCreateEventV1AminoMsg {
   type: "/dydxprotocol.indexer.events.MarketCreateEventV1";
@@ -330,7 +330,7 @@ export interface MarketCreateEventV1AminoMsg {
  * the V4 chain.
  */
 export interface MarketCreateEventV1SDKType {
-  base: MarketBaseEventV1SDKType;
+  base?: MarketBaseEventV1SDKType;
   exponent: number;
 }
 /**
@@ -342,7 +342,7 @@ export interface MarketModifyEventV1 {
    * MarketModifyEvent message contains all the information about a market update
    * on the V4 chain
    */
-  base: MarketBaseEventV1;
+  base?: MarketBaseEventV1;
 }
 export interface MarketModifyEventV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.MarketModifyEventV1";
@@ -368,7 +368,7 @@ export interface MarketModifyEventV1AminoMsg {
  * on the V4 chain
  */
 export interface MarketModifyEventV1SDKType {
-  base: MarketBaseEventV1SDKType;
+  base?: MarketBaseEventV1SDKType;
 }
 /** SourceOfFunds is the source of funds in a transfer event. */
 export interface SourceOfFunds {
@@ -400,8 +400,8 @@ export interface SourceOfFundsSDKType {
  * be produced with the updated asset positions.
  */
 export interface TransferEventV1 {
-  senderSubaccountId: IndexerSubaccountId;
-  recipientSubaccountId: IndexerSubaccountId;
+  senderSubaccountId?: IndexerSubaccountId;
+  recipientSubaccountId?: IndexerSubaccountId;
   /** Id of the asset transfered. */
   assetId: number;
   /** The amount of asset in quantums to transfer. */
@@ -411,13 +411,13 @@ export interface TransferEventV1 {
    * - a subaccount ID (in transfer and withdraw events).
    * - a wallet address (in deposit events).
    */
-  sender: SourceOfFunds;
+  sender?: SourceOfFunds;
   /**
    * The recipient is one of below
    * - a subaccount ID (in transfer and deposit events).
    * - a wallet address (in withdraw events).
    */
-  recipient: SourceOfFunds;
+  recipient?: SourceOfFunds;
 }
 export interface TransferEventV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.TransferEventV1";
@@ -433,9 +433,9 @@ export interface TransferEventV1Amino {
   sender_subaccount_id?: IndexerSubaccountIdAmino;
   recipient_subaccount_id?: IndexerSubaccountIdAmino;
   /** Id of the asset transfered. */
-  asset_id: number;
+  asset_id?: number;
   /** The amount of asset in quantums to transfer. */
-  amount: string;
+  amount?: string;
   /**
    * The sender is one of below
    * - a subaccount ID (in transfer and withdraw events).
@@ -460,12 +460,12 @@ export interface TransferEventV1AminoMsg {
  * be produced with the updated asset positions.
  */
 export interface TransferEventV1SDKType {
-  sender_subaccount_id: IndexerSubaccountIdSDKType;
-  recipient_subaccount_id: IndexerSubaccountIdSDKType;
+  sender_subaccount_id?: IndexerSubaccountIdSDKType;
+  recipient_subaccount_id?: IndexerSubaccountIdSDKType;
   asset_id: number;
   amount: bigint;
-  sender: SourceOfFundsSDKType;
-  recipient: SourceOfFundsSDKType;
+  sender?: SourceOfFundsSDKType;
+  recipient?: SourceOfFundsSDKType;
 }
 /**
  * OrderFillEvent message contains all the information from an order match in
@@ -504,18 +504,18 @@ export interface OrderFillEventV1Amino {
   order?: IndexerOrderAmino;
   liquidation_order?: LiquidationOrderV1Amino;
   /** Fill amount in base quantums. */
-  fill_amount: string;
+  fill_amount?: string;
   /** Maker fee in USDC quantums. */
-  maker_fee: string;
+  maker_fee?: string;
   /**
    * Taker fee in USDC quantums. If the taker order is a liquidation, then this
    * represents the special liquidation fee, not the standard taker fee.
    */
-  taker_fee: string;
+  taker_fee?: string;
   /** Total filled of the maker order in base quantums. */
-  total_filled_maker: string;
+  total_filled_maker?: string;
   /** Total filled of the taker order in base quantums. */
-  total_filled_taker: string;
+  total_filled_taker?: string;
 }
 export interface OrderFillEventV1AminoMsg {
   type: "/dydxprotocol.indexer.events.OrderFillEventV1";
@@ -575,16 +575,16 @@ export interface LiquidationOrderV1Amino {
   /** ID of the subaccount that was liquidated. */
   liquidated?: IndexerSubaccountIdAmino;
   /** The ID of the clob pair involved in the liquidation. */
-  clob_pair_id: number;
+  clob_pair_id?: number;
   /** The ID of the perpetual involved in the liquidation. */
-  perpetual_id: number;
+  perpetual_id?: number;
   /**
    * The total size of the liquidation order including any unfilled size,
    * in base quantums.
    */
-  total_size: string;
+  total_size?: string;
   /** `true` if liquidating a short position, `false` otherwise. */
-  is_buy: boolean;
+  is_buy?: boolean;
   /**
    * The fillable price in subticks.
    * This represents the lower-price-bound for liquidating longs
@@ -592,7 +592,7 @@ export interface LiquidationOrderV1Amino {
    * Must be a multiple of ClobPair.SubticksPerTick
    * (where `ClobPair.Id = orderId.ClobPairId`).
    */
-  subticks: string;
+  subticks?: string;
 }
 export interface LiquidationOrderV1AminoMsg {
   type: "/dydxprotocol.indexer.events.LiquidationOrderV1";
@@ -619,7 +619,7 @@ export interface LiquidationOrderV1SDKType {
  * updates may exist.
  */
 export interface SubaccountUpdateEventV1 {
-  subaccountId: IndexerSubaccountId;
+  subaccountId?: IndexerSubaccountId;
   updatedPerpetualPositions: IndexerPerpetualPosition[];
   updatedAssetPositions: IndexerAssetPosition[];
 }
@@ -637,8 +637,8 @@ export interface SubaccountUpdateEventV1ProtoMsg {
  */
 export interface SubaccountUpdateEventV1Amino {
   subaccount_id?: IndexerSubaccountIdAmino;
-  updated_perpetual_positions: IndexerPerpetualPositionAmino[];
-  updated_asset_positions: IndexerAssetPositionAmino[];
+  updated_perpetual_positions?: IndexerPerpetualPositionAmino[];
+  updated_asset_positions?: IndexerAssetPositionAmino[];
 }
 export interface SubaccountUpdateEventV1AminoMsg {
   type: "/dydxprotocol.indexer.events.SubaccountUpdateEventV1";
@@ -653,7 +653,7 @@ export interface SubaccountUpdateEventV1AminoMsg {
  * updates may exist.
  */
 export interface SubaccountUpdateEventV1SDKType {
-  subaccount_id: IndexerSubaccountIdSDKType;
+  subaccount_id?: IndexerSubaccountIdSDKType;
   updated_perpetual_positions: IndexerPerpetualPositionSDKType[];
   updated_asset_positions: IndexerAssetPositionSDKType[];
 }
@@ -706,7 +706,7 @@ export interface StatefulOrderEventV1SDKType {
 }
 /** A stateful order placement contains an order. */
 export interface StatefulOrderEventV1_StatefulOrderPlacementV1 {
-  order: IndexerOrder;
+  order?: IndexerOrder;
 }
 export interface StatefulOrderEventV1_StatefulOrderPlacementV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.StatefulOrderPlacementV1";
@@ -722,14 +722,14 @@ export interface StatefulOrderEventV1_StatefulOrderPlacementV1AminoMsg {
 }
 /** A stateful order placement contains an order. */
 export interface StatefulOrderEventV1_StatefulOrderPlacementV1SDKType {
-  order: IndexerOrderSDKType;
+  order?: IndexerOrderSDKType;
 }
 /**
  * A stateful order removal contains the id of an order that was already
  * placed and is now removed and the reason for the removal.
  */
 export interface StatefulOrderEventV1_StatefulOrderRemovalV1 {
-  removedOrderId: IndexerOrderId;
+  removedOrderId?: IndexerOrderId;
   reason: OrderRemovalReason;
 }
 export interface StatefulOrderEventV1_StatefulOrderRemovalV1ProtoMsg {
@@ -742,7 +742,7 @@ export interface StatefulOrderEventV1_StatefulOrderRemovalV1ProtoMsg {
  */
 export interface StatefulOrderEventV1_StatefulOrderRemovalV1Amino {
   removed_order_id?: IndexerOrderIdAmino;
-  reason: OrderRemovalReason;
+  reason?: OrderRemovalReason;
 }
 export interface StatefulOrderEventV1_StatefulOrderRemovalV1AminoMsg {
   type: "/dydxprotocol.indexer.events.StatefulOrderRemovalV1";
@@ -753,7 +753,7 @@ export interface StatefulOrderEventV1_StatefulOrderRemovalV1AminoMsg {
  * placed and is now removed and the reason for the removal.
  */
 export interface StatefulOrderEventV1_StatefulOrderRemovalV1SDKType {
-  removed_order_id: IndexerOrderIdSDKType;
+  removed_order_id?: IndexerOrderIdSDKType;
   reason: OrderRemovalReason;
 }
 /**
@@ -761,7 +761,7 @@ export interface StatefulOrderEventV1_StatefulOrderRemovalV1SDKType {
  * and untriggered when this event is emitted.
  */
 export interface StatefulOrderEventV1_ConditionalOrderPlacementV1 {
-  order: IndexerOrder;
+  order?: IndexerOrder;
 }
 export interface StatefulOrderEventV1_ConditionalOrderPlacementV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.ConditionalOrderPlacementV1";
@@ -783,14 +783,14 @@ export interface StatefulOrderEventV1_ConditionalOrderPlacementV1AminoMsg {
  * and untriggered when this event is emitted.
  */
 export interface StatefulOrderEventV1_ConditionalOrderPlacementV1SDKType {
-  order: IndexerOrderSDKType;
+  order?: IndexerOrderSDKType;
 }
 /**
  * A conditional order trigger event contains an order id and is emitted when
  * an order is triggered.
  */
 export interface StatefulOrderEventV1_ConditionalOrderTriggeredV1 {
-  triggeredOrderId: IndexerOrderId;
+  triggeredOrderId?: IndexerOrderId;
 }
 export interface StatefulOrderEventV1_ConditionalOrderTriggeredV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.ConditionalOrderTriggeredV1";
@@ -812,11 +812,11 @@ export interface StatefulOrderEventV1_ConditionalOrderTriggeredV1AminoMsg {
  * an order is triggered.
  */
 export interface StatefulOrderEventV1_ConditionalOrderTriggeredV1SDKType {
-  triggered_order_id: IndexerOrderIdSDKType;
+  triggered_order_id?: IndexerOrderIdSDKType;
 }
 /** A long term order placement contains an order. */
 export interface StatefulOrderEventV1_LongTermOrderPlacementV1 {
-  order: IndexerOrder;
+  order?: IndexerOrder;
 }
 export interface StatefulOrderEventV1_LongTermOrderPlacementV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.LongTermOrderPlacementV1";
@@ -832,7 +832,7 @@ export interface StatefulOrderEventV1_LongTermOrderPlacementV1AminoMsg {
 }
 /** A long term order placement contains an order. */
 export interface StatefulOrderEventV1_LongTermOrderPlacementV1SDKType {
-  order: IndexerOrderSDKType;
+  order?: IndexerOrderSDKType;
 }
 /**
  * AssetCreateEventV1 message contains all the information about an new Asset on
@@ -873,28 +873,28 @@ export interface AssetCreateEventV1ProtoMsg {
  */
 export interface AssetCreateEventV1Amino {
   /** Unique, sequentially-generated. */
-  id: number;
+  id?: number;
   /**
    * The human readable symbol of the `Asset` (e.g. `USDC`, `ATOM`).
    * Must be uppercase, unique and correspond to the canonical symbol of the
    * full coin.
    */
-  symbol: string;
+  symbol?: string;
   /** `true` if this `Asset` has a valid `MarketId` value. */
-  has_market: boolean;
+  has_market?: boolean;
   /**
    * The `Id` of the `Market` associated with this `Asset`. It acts as the
    * oracle price for the purposes of calculating collateral
    * and margin requirements.
    */
-  market_id: number;
+  market_id?: number;
   /**
    * The exponent for converting an atomic amount (1 'quantum')
    * to a full coin. For example, if `atomic_resolution = -8`
    * then an `asset_position` with `base_quantums = 1e8` is equivalent to
    * a position size of one full coin.
    */
-  atomic_resolution: number;
+  atomic_resolution?: number;
 }
 export interface AssetCreateEventV1AminoMsg {
   type: "/dydxprotocol.indexer.events.AssetCreateEventV1";
@@ -984,30 +984,30 @@ export interface PerpetualMarketCreateEventV1Amino {
    * Unique Perpetual id.
    * Defined in perpetuals.perpetual
    */
-  id: number;
+  id?: number;
   /**
    * Unique clob pair Id associated with this perpetual market
    * Defined in clob.clob_pair
    */
-  clob_pair_id: number;
+  clob_pair_id?: number;
   /**
    * The name of the `Perpetual` (e.g. `BTC-USD`).
    * Defined in perpetuals.perpetual
    */
-  ticker: string;
+  ticker?: string;
   /**
    * Unique id of market param associated with this perpetual market.
    * Defined in perpetuals.perpetual
    */
-  market_id: number;
+  market_id?: number;
   /** Status of the CLOB */
-  status: ClobPairStatus;
+  status?: ClobPairStatus;
   /**
    * `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
    * per Subtick.
    * Defined in clob.clob_pair
    */
-  quantum_conversion_exponent: number;
+  quantum_conversion_exponent?: number;
   /**
    * The exponent for converting an atomic amount (`size = 1`)
    * to a full coin. For example, if `AtomicResolution = -8`
@@ -1015,7 +1015,7 @@ export interface PerpetualMarketCreateEventV1Amino {
    * a position size of one full coin.
    * Defined in perpetuals.perpetual
    */
-  atomic_resolution: number;
+  atomic_resolution?: number;
   /**
    * Defines the tick size of the orderbook by defining how many subticks
    * are in one tick. That is, the subticks of any valid order must be a
@@ -1023,17 +1023,17 @@ export interface PerpetualMarketCreateEventV1Amino {
    * allow room for decreasing it.
    * Defined in clob.clob_pair
    */
-  subticks_per_tick: number;
+  subticks_per_tick?: number;
   /**
    * Minimum increment in the size of orders on the CLOB, in base quantums.
    * Defined in clob.clob_pair
    */
-  step_base_quantums: string;
+  step_base_quantums?: string;
   /**
    * The liquidity_tier that this perpetual is associated with.
    * Defined in perpetuals.perpetual
    */
-  liquidity_tier: number;
+  liquidity_tier?: number;
 }
 export interface PerpetualMarketCreateEventV1AminoMsg {
   type: "/dydxprotocol.indexer.events.PerpetualMarketCreateEventV1";
@@ -1091,25 +1091,25 @@ export interface LiquidityTierUpsertEventV1ProtoMsg {
  */
 export interface LiquidityTierUpsertEventV1Amino {
   /** Unique id. */
-  id: number;
+  id?: number;
   /** The name of the tier purely for mnemonic purposes, e.g. "Gold". */
-  name: string;
+  name?: string;
   /**
    * The margin fraction needed to open a position.
    * In parts-per-million.
    */
-  initial_margin_ppm: number;
+  initial_margin_ppm?: number;
   /**
    * The fraction of the initial-margin that the maintenance-margin is,
    * e.g. 50%. In parts-per-million.
    */
-  maintenance_fraction_ppm: number;
+  maintenance_fraction_ppm?: number;
   /**
    * The maximum position size at which the margin requirements are
    * not increased over the default values. Above this position size,
    * the margin requirements increase at a rate of sqrt(size).
    */
-  base_position_notional: string;
+  base_position_notional?: string;
 }
 export interface LiquidityTierUpsertEventV1AminoMsg {
   type: "/dydxprotocol.indexer.events.LiquidityTierUpsertEventV1";
@@ -1171,15 +1171,15 @@ export interface UpdateClobPairEventV1Amino {
    * Unique clob pair Id associated with this perpetual market
    * Defined in clob.clob_pair
    */
-  clob_pair_id: number;
+  clob_pair_id?: number;
   /** Status of the CLOB */
-  status: ClobPairStatus;
+  status?: ClobPairStatus;
   /**
    * `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
    * per Subtick.
    * Defined in clob.clob_pair
    */
-  quantum_conversion_exponent: number;
+  quantum_conversion_exponent?: number;
   /**
    * Defines the tick size of the orderbook by defining how many subticks
    * are in one tick. That is, the subticks of any valid order must be a
@@ -1187,12 +1187,12 @@ export interface UpdateClobPairEventV1Amino {
    * allow room for decreasing it.
    * Defined in clob.clob_pair
    */
-  subticks_per_tick: number;
+  subticks_per_tick?: number;
   /**
    * Minimum increment in the size of orders on the CLOB, in base quantums.
    * Defined in clob.clob_pair
    */
-  step_base_quantums: string;
+  step_base_quantums?: string;
 }
 export interface UpdateClobPairEventV1AminoMsg {
   type: "/dydxprotocol.indexer.events.UpdateClobPairEventV1";
@@ -1256,17 +1256,17 @@ export interface UpdatePerpetualEventV1Amino {
    * Unique Perpetual id.
    * Defined in perpetuals.perpetual
    */
-  id: number;
+  id?: number;
   /**
    * The name of the `Perpetual` (e.g. `BTC-USD`).
    * Defined in perpetuals.perpetual
    */
-  ticker: string;
+  ticker?: string;
   /**
    * Unique id of market param associated with this perpetual market.
    * Defined in perpetuals.perpetual
    */
-  market_id: number;
+  market_id?: number;
   /**
    * The exponent for converting an atomic amount (`size = 1`)
    * to a full coin. For example, if `AtomicResolution = -8`
@@ -1274,12 +1274,12 @@ export interface UpdatePerpetualEventV1Amino {
    * a position size of one full coin.
    * Defined in perpetuals.perpetual
    */
-  atomic_resolution: number;
+  atomic_resolution?: number;
   /**
    * The liquidity_tier that this perpetual is associated with.
    * Defined in perpetuals.perpetual
    */
-  liquidity_tier: number;
+  liquidity_tier?: number;
 }
 export interface UpdatePerpetualEventV1AminoMsg {
   type: "/dydxprotocol.indexer.events.UpdatePerpetualEventV1";
@@ -1332,17 +1332,23 @@ export const FundingUpdateV1 = {
     return message;
   },
   fromAmino(object: FundingUpdateV1Amino): FundingUpdateV1 {
-    return {
-      perpetualId: object.perpetual_id,
-      fundingValuePpm: object.funding_value_ppm,
-      fundingIndex: object.funding_index
-    };
+    const message = createBaseFundingUpdateV1();
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    if (object.funding_value_ppm !== undefined && object.funding_value_ppm !== null) {
+      message.fundingValuePpm = object.funding_value_ppm;
+    }
+    if (object.funding_index !== undefined && object.funding_index !== null) {
+      message.fundingIndex = bytesFromBase64(object.funding_index);
+    }
+    return message;
   },
   toAmino(message: FundingUpdateV1): FundingUpdateV1Amino {
     const obj: any = {};
     obj.perpetual_id = message.perpetualId;
     obj.funding_value_ppm = message.fundingValuePpm;
-    obj.funding_index = message.fundingIndex;
+    obj.funding_index = message.fundingIndex ? base64FromBytes(message.fundingIndex) : undefined;
     return obj;
   },
   fromAminoMsg(object: FundingUpdateV1AminoMsg): FundingUpdateV1 {
@@ -1391,10 +1397,12 @@ export const FundingEventV1 = {
     return message;
   },
   fromAmino(object: FundingEventV1Amino): FundingEventV1 {
-    return {
-      updates: Array.isArray(object?.updates) ? object.updates.map((e: any) => FundingUpdateV1.fromAmino(e)) : [],
-      type: isSet(object.type) ? fundingEventV1_TypeFromJSON(object.type) : -1
-    };
+    const message = createBaseFundingEventV1();
+    message.updates = object.updates?.map(e => FundingUpdateV1.fromAmino(e)) || [];
+    if (object.type !== undefined && object.type !== null) {
+      message.type = fundingEventV1_TypeFromJSON(object.type);
+    }
+    return message;
   },
   toAmino(message: FundingEventV1): FundingEventV1Amino {
     const obj: any = {};
@@ -1464,12 +1472,20 @@ export const MarketEventV1 = {
     return message;
   },
   fromAmino(object: MarketEventV1Amino): MarketEventV1 {
-    return {
-      marketId: object.market_id,
-      priceUpdate: object?.price_update ? MarketPriceUpdateEventV1.fromAmino(object.price_update) : undefined,
-      marketCreate: object?.market_create ? MarketCreateEventV1.fromAmino(object.market_create) : undefined,
-      marketModify: object?.market_modify ? MarketModifyEventV1.fromAmino(object.market_modify) : undefined
-    };
+    const message = createBaseMarketEventV1();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.price_update !== undefined && object.price_update !== null) {
+      message.priceUpdate = MarketPriceUpdateEventV1.fromAmino(object.price_update);
+    }
+    if (object.market_create !== undefined && object.market_create !== null) {
+      message.marketCreate = MarketCreateEventV1.fromAmino(object.market_create);
+    }
+    if (object.market_modify !== undefined && object.market_modify !== null) {
+      message.marketModify = MarketModifyEventV1.fromAmino(object.market_modify);
+    }
+    return message;
   },
   toAmino(message: MarketEventV1): MarketEventV1Amino {
     const obj: any = {};
@@ -1519,9 +1535,11 @@ export const MarketPriceUpdateEventV1 = {
     return message;
   },
   fromAmino(object: MarketPriceUpdateEventV1Amino): MarketPriceUpdateEventV1 {
-    return {
-      priceWithExponent: BigInt(object.price_with_exponent)
-    };
+    const message = createBaseMarketPriceUpdateEventV1();
+    if (object.price_with_exponent !== undefined && object.price_with_exponent !== null) {
+      message.priceWithExponent = BigInt(object.price_with_exponent);
+    }
+    return message;
   },
   toAmino(message: MarketPriceUpdateEventV1): MarketPriceUpdateEventV1Amino {
     const obj: any = {};
@@ -1574,10 +1592,14 @@ export const MarketBaseEventV1 = {
     return message;
   },
   fromAmino(object: MarketBaseEventV1Amino): MarketBaseEventV1 {
-    return {
-      pair: object.pair,
-      minPriceChangePpm: object.min_price_change_ppm
-    };
+    const message = createBaseMarketBaseEventV1();
+    if (object.pair !== undefined && object.pair !== null) {
+      message.pair = object.pair;
+    }
+    if (object.min_price_change_ppm !== undefined && object.min_price_change_ppm !== null) {
+      message.minPriceChangePpm = object.min_price_change_ppm;
+    }
+    return message;
   },
   toAmino(message: MarketBaseEventV1): MarketBaseEventV1Amino {
     const obj: any = {};
@@ -1603,7 +1625,7 @@ export const MarketBaseEventV1 = {
 };
 function createBaseMarketCreateEventV1(): MarketCreateEventV1 {
   return {
-    base: MarketBaseEventV1.fromPartial({}),
+    base: undefined,
     exponent: 0
   };
 }
@@ -1631,10 +1653,14 @@ export const MarketCreateEventV1 = {
     return message;
   },
   fromAmino(object: MarketCreateEventV1Amino): MarketCreateEventV1 {
-    return {
-      base: object?.base ? MarketBaseEventV1.fromAmino(object.base) : undefined,
-      exponent: object.exponent
-    };
+    const message = createBaseMarketCreateEventV1();
+    if (object.base !== undefined && object.base !== null) {
+      message.base = MarketBaseEventV1.fromAmino(object.base);
+    }
+    if (object.exponent !== undefined && object.exponent !== null) {
+      message.exponent = object.exponent;
+    }
+    return message;
   },
   toAmino(message: MarketCreateEventV1): MarketCreateEventV1Amino {
     const obj: any = {};
@@ -1660,7 +1686,7 @@ export const MarketCreateEventV1 = {
 };
 function createBaseMarketModifyEventV1(): MarketModifyEventV1 {
   return {
-    base: MarketBaseEventV1.fromPartial({})
+    base: undefined
   };
 }
 export const MarketModifyEventV1 = {
@@ -1682,9 +1708,11 @@ export const MarketModifyEventV1 = {
     return message;
   },
   fromAmino(object: MarketModifyEventV1Amino): MarketModifyEventV1 {
-    return {
-      base: object?.base ? MarketBaseEventV1.fromAmino(object.base) : undefined
-    };
+    const message = createBaseMarketModifyEventV1();
+    if (object.base !== undefined && object.base !== null) {
+      message.base = MarketBaseEventV1.fromAmino(object.base);
+    }
+    return message;
   },
   toAmino(message: MarketModifyEventV1): MarketModifyEventV1Amino {
     const obj: any = {};
@@ -1737,10 +1765,14 @@ export const SourceOfFunds = {
     return message;
   },
   fromAmino(object: SourceOfFundsAmino): SourceOfFunds {
-    return {
-      subaccountId: object?.subaccount_id ? IndexerSubaccountId.fromAmino(object.subaccount_id) : undefined,
-      address: object?.address
-    };
+    const message = createBaseSourceOfFunds();
+    if (object.subaccount_id !== undefined && object.subaccount_id !== null) {
+      message.subaccountId = IndexerSubaccountId.fromAmino(object.subaccount_id);
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: SourceOfFunds): SourceOfFundsAmino {
     const obj: any = {};
@@ -1766,12 +1798,12 @@ export const SourceOfFunds = {
 };
 function createBaseTransferEventV1(): TransferEventV1 {
   return {
-    senderSubaccountId: IndexerSubaccountId.fromPartial({}),
-    recipientSubaccountId: IndexerSubaccountId.fromPartial({}),
+    senderSubaccountId: undefined,
+    recipientSubaccountId: undefined,
     assetId: 0,
     amount: BigInt(0),
-    sender: SourceOfFunds.fromPartial({}),
-    recipient: SourceOfFunds.fromPartial({})
+    sender: undefined,
+    recipient: undefined
   };
 }
 export const TransferEventV1 = {
@@ -1818,14 +1850,26 @@ export const TransferEventV1 = {
     return message;
   },
   fromAmino(object: TransferEventV1Amino): TransferEventV1 {
-    return {
-      senderSubaccountId: object?.sender_subaccount_id ? IndexerSubaccountId.fromAmino(object.sender_subaccount_id) : undefined,
-      recipientSubaccountId: object?.recipient_subaccount_id ? IndexerSubaccountId.fromAmino(object.recipient_subaccount_id) : undefined,
-      assetId: object.asset_id,
-      amount: BigInt(object.amount),
-      sender: object?.sender ? SourceOfFunds.fromAmino(object.sender) : undefined,
-      recipient: object?.recipient ? SourceOfFunds.fromAmino(object.recipient) : undefined
-    };
+    const message = createBaseTransferEventV1();
+    if (object.sender_subaccount_id !== undefined && object.sender_subaccount_id !== null) {
+      message.senderSubaccountId = IndexerSubaccountId.fromAmino(object.sender_subaccount_id);
+    }
+    if (object.recipient_subaccount_id !== undefined && object.recipient_subaccount_id !== null) {
+      message.recipientSubaccountId = IndexerSubaccountId.fromAmino(object.recipient_subaccount_id);
+    }
+    if (object.asset_id !== undefined && object.asset_id !== null) {
+      message.assetId = object.asset_id;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = SourceOfFunds.fromAmino(object.sender);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = SourceOfFunds.fromAmino(object.recipient);
+    }
+    return message;
   },
   toAmino(message: TransferEventV1): TransferEventV1Amino {
     const obj: any = {};
@@ -1919,16 +1963,32 @@ export const OrderFillEventV1 = {
     return message;
   },
   fromAmino(object: OrderFillEventV1Amino): OrderFillEventV1 {
-    return {
-      makerOrder: object?.maker_order ? IndexerOrder.fromAmino(object.maker_order) : undefined,
-      order: object?.order ? IndexerOrder.fromAmino(object.order) : undefined,
-      liquidationOrder: object?.liquidation_order ? LiquidationOrderV1.fromAmino(object.liquidation_order) : undefined,
-      fillAmount: BigInt(object.fill_amount),
-      makerFee: BigInt(object.maker_fee),
-      takerFee: BigInt(object.taker_fee),
-      totalFilledMaker: BigInt(object.total_filled_maker),
-      totalFilledTaker: BigInt(object.total_filled_taker)
-    };
+    const message = createBaseOrderFillEventV1();
+    if (object.maker_order !== undefined && object.maker_order !== null) {
+      message.makerOrder = IndexerOrder.fromAmino(object.maker_order);
+    }
+    if (object.order !== undefined && object.order !== null) {
+      message.order = IndexerOrder.fromAmino(object.order);
+    }
+    if (object.liquidation_order !== undefined && object.liquidation_order !== null) {
+      message.liquidationOrder = LiquidationOrderV1.fromAmino(object.liquidation_order);
+    }
+    if (object.fill_amount !== undefined && object.fill_amount !== null) {
+      message.fillAmount = BigInt(object.fill_amount);
+    }
+    if (object.maker_fee !== undefined && object.maker_fee !== null) {
+      message.makerFee = BigInt(object.maker_fee);
+    }
+    if (object.taker_fee !== undefined && object.taker_fee !== null) {
+      message.takerFee = BigInt(object.taker_fee);
+    }
+    if (object.total_filled_maker !== undefined && object.total_filled_maker !== null) {
+      message.totalFilledMaker = BigInt(object.total_filled_maker);
+    }
+    if (object.total_filled_taker !== undefined && object.total_filled_taker !== null) {
+      message.totalFilledTaker = BigInt(object.total_filled_taker);
+    }
+    return message;
   },
   toAmino(message: OrderFillEventV1): OrderFillEventV1Amino {
     const obj: any = {};
@@ -2012,14 +2072,26 @@ export const LiquidationOrderV1 = {
     return message;
   },
   fromAmino(object: LiquidationOrderV1Amino): LiquidationOrderV1 {
-    return {
-      liquidated: object?.liquidated ? IndexerSubaccountId.fromAmino(object.liquidated) : undefined,
-      clobPairId: object.clob_pair_id,
-      perpetualId: object.perpetual_id,
-      totalSize: BigInt(object.total_size),
-      isBuy: object.is_buy,
-      subticks: BigInt(object.subticks)
-    };
+    const message = createBaseLiquidationOrderV1();
+    if (object.liquidated !== undefined && object.liquidated !== null) {
+      message.liquidated = IndexerSubaccountId.fromAmino(object.liquidated);
+    }
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    if (object.total_size !== undefined && object.total_size !== null) {
+      message.totalSize = BigInt(object.total_size);
+    }
+    if (object.is_buy !== undefined && object.is_buy !== null) {
+      message.isBuy = object.is_buy;
+    }
+    if (object.subticks !== undefined && object.subticks !== null) {
+      message.subticks = BigInt(object.subticks);
+    }
+    return message;
   },
   toAmino(message: LiquidationOrderV1): LiquidationOrderV1Amino {
     const obj: any = {};
@@ -2049,7 +2121,7 @@ export const LiquidationOrderV1 = {
 };
 function createBaseSubaccountUpdateEventV1(): SubaccountUpdateEventV1 {
   return {
-    subaccountId: IndexerSubaccountId.fromPartial({}),
+    subaccountId: undefined,
     updatedPerpetualPositions: [],
     updatedAssetPositions: []
   };
@@ -2083,11 +2155,13 @@ export const SubaccountUpdateEventV1 = {
     return message;
   },
   fromAmino(object: SubaccountUpdateEventV1Amino): SubaccountUpdateEventV1 {
-    return {
-      subaccountId: object?.subaccount_id ? IndexerSubaccountId.fromAmino(object.subaccount_id) : undefined,
-      updatedPerpetualPositions: Array.isArray(object?.updated_perpetual_positions) ? object.updated_perpetual_positions.map((e: any) => IndexerPerpetualPosition.fromAmino(e)) : [],
-      updatedAssetPositions: Array.isArray(object?.updated_asset_positions) ? object.updated_asset_positions.map((e: any) => IndexerAssetPosition.fromAmino(e)) : []
-    };
+    const message = createBaseSubaccountUpdateEventV1();
+    if (object.subaccount_id !== undefined && object.subaccount_id !== null) {
+      message.subaccountId = IndexerSubaccountId.fromAmino(object.subaccount_id);
+    }
+    message.updatedPerpetualPositions = object.updated_perpetual_positions?.map(e => IndexerPerpetualPosition.fromAmino(e)) || [];
+    message.updatedAssetPositions = object.updated_asset_positions?.map(e => IndexerAssetPosition.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: SubaccountUpdateEventV1): SubaccountUpdateEventV1Amino {
     const obj: any = {};
@@ -2168,13 +2242,23 @@ export const StatefulOrderEventV1 = {
     return message;
   },
   fromAmino(object: StatefulOrderEventV1Amino): StatefulOrderEventV1 {
-    return {
-      orderPlace: object?.order_place ? StatefulOrderEventV1_StatefulOrderPlacementV1.fromAmino(object.order_place) : undefined,
-      orderRemoval: object?.order_removal ? StatefulOrderEventV1_StatefulOrderRemovalV1.fromAmino(object.order_removal) : undefined,
-      conditionalOrderPlacement: object?.conditional_order_placement ? StatefulOrderEventV1_ConditionalOrderPlacementV1.fromAmino(object.conditional_order_placement) : undefined,
-      conditionalOrderTriggered: object?.conditional_order_triggered ? StatefulOrderEventV1_ConditionalOrderTriggeredV1.fromAmino(object.conditional_order_triggered) : undefined,
-      longTermOrderPlacement: object?.long_term_order_placement ? StatefulOrderEventV1_LongTermOrderPlacementV1.fromAmino(object.long_term_order_placement) : undefined
-    };
+    const message = createBaseStatefulOrderEventV1();
+    if (object.order_place !== undefined && object.order_place !== null) {
+      message.orderPlace = StatefulOrderEventV1_StatefulOrderPlacementV1.fromAmino(object.order_place);
+    }
+    if (object.order_removal !== undefined && object.order_removal !== null) {
+      message.orderRemoval = StatefulOrderEventV1_StatefulOrderRemovalV1.fromAmino(object.order_removal);
+    }
+    if (object.conditional_order_placement !== undefined && object.conditional_order_placement !== null) {
+      message.conditionalOrderPlacement = StatefulOrderEventV1_ConditionalOrderPlacementV1.fromAmino(object.conditional_order_placement);
+    }
+    if (object.conditional_order_triggered !== undefined && object.conditional_order_triggered !== null) {
+      message.conditionalOrderTriggered = StatefulOrderEventV1_ConditionalOrderTriggeredV1.fromAmino(object.conditional_order_triggered);
+    }
+    if (object.long_term_order_placement !== undefined && object.long_term_order_placement !== null) {
+      message.longTermOrderPlacement = StatefulOrderEventV1_LongTermOrderPlacementV1.fromAmino(object.long_term_order_placement);
+    }
+    return message;
   },
   toAmino(message: StatefulOrderEventV1): StatefulOrderEventV1Amino {
     const obj: any = {};
@@ -2203,7 +2287,7 @@ export const StatefulOrderEventV1 = {
 };
 function createBaseStatefulOrderEventV1_StatefulOrderPlacementV1(): StatefulOrderEventV1_StatefulOrderPlacementV1 {
   return {
-    order: IndexerOrder.fromPartial({})
+    order: undefined
   };
 }
 export const StatefulOrderEventV1_StatefulOrderPlacementV1 = {
@@ -2225,9 +2309,11 @@ export const StatefulOrderEventV1_StatefulOrderPlacementV1 = {
     return message;
   },
   fromAmino(object: StatefulOrderEventV1_StatefulOrderPlacementV1Amino): StatefulOrderEventV1_StatefulOrderPlacementV1 {
-    return {
-      order: object?.order ? IndexerOrder.fromAmino(object.order) : undefined
-    };
+    const message = createBaseStatefulOrderEventV1_StatefulOrderPlacementV1();
+    if (object.order !== undefined && object.order !== null) {
+      message.order = IndexerOrder.fromAmino(object.order);
+    }
+    return message;
   },
   toAmino(message: StatefulOrderEventV1_StatefulOrderPlacementV1): StatefulOrderEventV1_StatefulOrderPlacementV1Amino {
     const obj: any = {};
@@ -2252,7 +2338,7 @@ export const StatefulOrderEventV1_StatefulOrderPlacementV1 = {
 };
 function createBaseStatefulOrderEventV1_StatefulOrderRemovalV1(): StatefulOrderEventV1_StatefulOrderRemovalV1 {
   return {
-    removedOrderId: IndexerOrderId.fromPartial({}),
+    removedOrderId: undefined,
     reason: 0
   };
 }
@@ -2280,10 +2366,14 @@ export const StatefulOrderEventV1_StatefulOrderRemovalV1 = {
     return message;
   },
   fromAmino(object: StatefulOrderEventV1_StatefulOrderRemovalV1Amino): StatefulOrderEventV1_StatefulOrderRemovalV1 {
-    return {
-      removedOrderId: object?.removed_order_id ? IndexerOrderId.fromAmino(object.removed_order_id) : undefined,
-      reason: isSet(object.reason) ? orderRemovalReasonFromJSON(object.reason) : -1
-    };
+    const message = createBaseStatefulOrderEventV1_StatefulOrderRemovalV1();
+    if (object.removed_order_id !== undefined && object.removed_order_id !== null) {
+      message.removedOrderId = IndexerOrderId.fromAmino(object.removed_order_id);
+    }
+    if (object.reason !== undefined && object.reason !== null) {
+      message.reason = orderRemovalReasonFromJSON(object.reason);
+    }
+    return message;
   },
   toAmino(message: StatefulOrderEventV1_StatefulOrderRemovalV1): StatefulOrderEventV1_StatefulOrderRemovalV1Amino {
     const obj: any = {};
@@ -2309,7 +2399,7 @@ export const StatefulOrderEventV1_StatefulOrderRemovalV1 = {
 };
 function createBaseStatefulOrderEventV1_ConditionalOrderPlacementV1(): StatefulOrderEventV1_ConditionalOrderPlacementV1 {
   return {
-    order: IndexerOrder.fromPartial({})
+    order: undefined
   };
 }
 export const StatefulOrderEventV1_ConditionalOrderPlacementV1 = {
@@ -2331,9 +2421,11 @@ export const StatefulOrderEventV1_ConditionalOrderPlacementV1 = {
     return message;
   },
   fromAmino(object: StatefulOrderEventV1_ConditionalOrderPlacementV1Amino): StatefulOrderEventV1_ConditionalOrderPlacementV1 {
-    return {
-      order: object?.order ? IndexerOrder.fromAmino(object.order) : undefined
-    };
+    const message = createBaseStatefulOrderEventV1_ConditionalOrderPlacementV1();
+    if (object.order !== undefined && object.order !== null) {
+      message.order = IndexerOrder.fromAmino(object.order);
+    }
+    return message;
   },
   toAmino(message: StatefulOrderEventV1_ConditionalOrderPlacementV1): StatefulOrderEventV1_ConditionalOrderPlacementV1Amino {
     const obj: any = {};
@@ -2358,7 +2450,7 @@ export const StatefulOrderEventV1_ConditionalOrderPlacementV1 = {
 };
 function createBaseStatefulOrderEventV1_ConditionalOrderTriggeredV1(): StatefulOrderEventV1_ConditionalOrderTriggeredV1 {
   return {
-    triggeredOrderId: IndexerOrderId.fromPartial({})
+    triggeredOrderId: undefined
   };
 }
 export const StatefulOrderEventV1_ConditionalOrderTriggeredV1 = {
@@ -2380,9 +2472,11 @@ export const StatefulOrderEventV1_ConditionalOrderTriggeredV1 = {
     return message;
   },
   fromAmino(object: StatefulOrderEventV1_ConditionalOrderTriggeredV1Amino): StatefulOrderEventV1_ConditionalOrderTriggeredV1 {
-    return {
-      triggeredOrderId: object?.triggered_order_id ? IndexerOrderId.fromAmino(object.triggered_order_id) : undefined
-    };
+    const message = createBaseStatefulOrderEventV1_ConditionalOrderTriggeredV1();
+    if (object.triggered_order_id !== undefined && object.triggered_order_id !== null) {
+      message.triggeredOrderId = IndexerOrderId.fromAmino(object.triggered_order_id);
+    }
+    return message;
   },
   toAmino(message: StatefulOrderEventV1_ConditionalOrderTriggeredV1): StatefulOrderEventV1_ConditionalOrderTriggeredV1Amino {
     const obj: any = {};
@@ -2407,7 +2501,7 @@ export const StatefulOrderEventV1_ConditionalOrderTriggeredV1 = {
 };
 function createBaseStatefulOrderEventV1_LongTermOrderPlacementV1(): StatefulOrderEventV1_LongTermOrderPlacementV1 {
   return {
-    order: IndexerOrder.fromPartial({})
+    order: undefined
   };
 }
 export const StatefulOrderEventV1_LongTermOrderPlacementV1 = {
@@ -2429,9 +2523,11 @@ export const StatefulOrderEventV1_LongTermOrderPlacementV1 = {
     return message;
   },
   fromAmino(object: StatefulOrderEventV1_LongTermOrderPlacementV1Amino): StatefulOrderEventV1_LongTermOrderPlacementV1 {
-    return {
-      order: object?.order ? IndexerOrder.fromAmino(object.order) : undefined
-    };
+    const message = createBaseStatefulOrderEventV1_LongTermOrderPlacementV1();
+    if (object.order !== undefined && object.order !== null) {
+      message.order = IndexerOrder.fromAmino(object.order);
+    }
+    return message;
   },
   toAmino(message: StatefulOrderEventV1_LongTermOrderPlacementV1): StatefulOrderEventV1_LongTermOrderPlacementV1Amino {
     const obj: any = {};
@@ -2502,13 +2598,23 @@ export const AssetCreateEventV1 = {
     return message;
   },
   fromAmino(object: AssetCreateEventV1Amino): AssetCreateEventV1 {
-    return {
-      id: object.id,
-      symbol: object.symbol,
-      hasMarket: object.has_market,
-      marketId: object.market_id,
-      atomicResolution: object.atomic_resolution
-    };
+    const message = createBaseAssetCreateEventV1();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.has_market !== undefined && object.has_market !== null) {
+      message.hasMarket = object.has_market;
+    }
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.atomic_resolution !== undefined && object.atomic_resolution !== null) {
+      message.atomicResolution = object.atomic_resolution;
+    }
+    return message;
   },
   toAmino(message: AssetCreateEventV1): AssetCreateEventV1Amino {
     const obj: any = {};
@@ -2613,18 +2719,38 @@ export const PerpetualMarketCreateEventV1 = {
     return message;
   },
   fromAmino(object: PerpetualMarketCreateEventV1Amino): PerpetualMarketCreateEventV1 {
-    return {
-      id: object.id,
-      clobPairId: object.clob_pair_id,
-      ticker: object.ticker,
-      marketId: object.market_id,
-      status: isSet(object.status) ? clobPairStatusFromJSON(object.status) : -1,
-      quantumConversionExponent: object.quantum_conversion_exponent,
-      atomicResolution: object.atomic_resolution,
-      subticksPerTick: object.subticks_per_tick,
-      stepBaseQuantums: BigInt(object.step_base_quantums),
-      liquidityTier: object.liquidity_tier
-    };
+    const message = createBasePerpetualMarketCreateEventV1();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    if (object.ticker !== undefined && object.ticker !== null) {
+      message.ticker = object.ticker;
+    }
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = clobPairStatusFromJSON(object.status);
+    }
+    if (object.quantum_conversion_exponent !== undefined && object.quantum_conversion_exponent !== null) {
+      message.quantumConversionExponent = object.quantum_conversion_exponent;
+    }
+    if (object.atomic_resolution !== undefined && object.atomic_resolution !== null) {
+      message.atomicResolution = object.atomic_resolution;
+    }
+    if (object.subticks_per_tick !== undefined && object.subticks_per_tick !== null) {
+      message.subticksPerTick = object.subticks_per_tick;
+    }
+    if (object.step_base_quantums !== undefined && object.step_base_quantums !== null) {
+      message.stepBaseQuantums = BigInt(object.step_base_quantums);
+    }
+    if (object.liquidity_tier !== undefined && object.liquidity_tier !== null) {
+      message.liquidityTier = object.liquidity_tier;
+    }
+    return message;
   },
   toAmino(message: PerpetualMarketCreateEventV1): PerpetualMarketCreateEventV1Amino {
     const obj: any = {};
@@ -2704,13 +2830,23 @@ export const LiquidityTierUpsertEventV1 = {
     return message;
   },
   fromAmino(object: LiquidityTierUpsertEventV1Amino): LiquidityTierUpsertEventV1 {
-    return {
-      id: object.id,
-      name: object.name,
-      initialMarginPpm: object.initial_margin_ppm,
-      maintenanceFractionPpm: object.maintenance_fraction_ppm,
-      basePositionNotional: BigInt(object.base_position_notional)
-    };
+    const message = createBaseLiquidityTierUpsertEventV1();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.initial_margin_ppm !== undefined && object.initial_margin_ppm !== null) {
+      message.initialMarginPpm = object.initial_margin_ppm;
+    }
+    if (object.maintenance_fraction_ppm !== undefined && object.maintenance_fraction_ppm !== null) {
+      message.maintenanceFractionPpm = object.maintenance_fraction_ppm;
+    }
+    if (object.base_position_notional !== undefined && object.base_position_notional !== null) {
+      message.basePositionNotional = BigInt(object.base_position_notional);
+    }
+    return message;
   },
   toAmino(message: LiquidityTierUpsertEventV1): LiquidityTierUpsertEventV1Amino {
     const obj: any = {};
@@ -2785,13 +2921,23 @@ export const UpdateClobPairEventV1 = {
     return message;
   },
   fromAmino(object: UpdateClobPairEventV1Amino): UpdateClobPairEventV1 {
-    return {
-      clobPairId: object.clob_pair_id,
-      status: isSet(object.status) ? clobPairStatusFromJSON(object.status) : -1,
-      quantumConversionExponent: object.quantum_conversion_exponent,
-      subticksPerTick: object.subticks_per_tick,
-      stepBaseQuantums: BigInt(object.step_base_quantums)
-    };
+    const message = createBaseUpdateClobPairEventV1();
+    if (object.clob_pair_id !== undefined && object.clob_pair_id !== null) {
+      message.clobPairId = object.clob_pair_id;
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = clobPairStatusFromJSON(object.status);
+    }
+    if (object.quantum_conversion_exponent !== undefined && object.quantum_conversion_exponent !== null) {
+      message.quantumConversionExponent = object.quantum_conversion_exponent;
+    }
+    if (object.subticks_per_tick !== undefined && object.subticks_per_tick !== null) {
+      message.subticksPerTick = object.subticks_per_tick;
+    }
+    if (object.step_base_quantums !== undefined && object.step_base_quantums !== null) {
+      message.stepBaseQuantums = BigInt(object.step_base_quantums);
+    }
+    return message;
   },
   toAmino(message: UpdateClobPairEventV1): UpdateClobPairEventV1Amino {
     const obj: any = {};
@@ -2866,13 +3012,23 @@ export const UpdatePerpetualEventV1 = {
     return message;
   },
   fromAmino(object: UpdatePerpetualEventV1Amino): UpdatePerpetualEventV1 {
-    return {
-      id: object.id,
-      ticker: object.ticker,
-      marketId: object.market_id,
-      atomicResolution: object.atomic_resolution,
-      liquidityTier: object.liquidity_tier
-    };
+    const message = createBaseUpdatePerpetualEventV1();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.ticker !== undefined && object.ticker !== null) {
+      message.ticker = object.ticker;
+    }
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.atomic_resolution !== undefined && object.atomic_resolution !== null) {
+      message.atomicResolution = object.atomic_resolution;
+    }
+    if (object.liquidity_tier !== undefined && object.liquidity_tier !== null) {
+      message.liquidityTier = object.liquidity_tier;
+    }
+    return message;
   },
   toAmino(message: UpdatePerpetualEventV1): UpdatePerpetualEventV1Amino {
     const obj: any = {};
