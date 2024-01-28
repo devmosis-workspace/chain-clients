@@ -28,7 +28,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@cosmology/telescope": "^1.0.1",
+    "@cosmology/telescope": "^1.4.12",
     "@types/jest": "^29.5.0",
     "eslint": "8.45.0",
     "eslint-config-prettier": "^8.8.0",
@@ -43,6 +43,6 @@
     "@cosmjs/proto-signing": "0.29.4",
     "@cosmjs/stargate": "0.29.4",
     "@cosmjs/tendermint-rpc": "^0.29.4",
-    "@cosmology/lcd": "^0.13.0"
+    "@cosmology/lcd": "^0.13.3"
   }
 }

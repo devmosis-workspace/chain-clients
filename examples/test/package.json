@@ -12,10 +12,10 @@
     "@chain-clients/osmosis": "workspace:^",
     "@cosmjs/encoding": "^0.31.1",
     "@cosmjs/math": "^0.31.1",
-    "@cosmology/lcd": "^0.13.0",
+    "@cosmology/lcd": "^0.13.3",
     "long": "^5.2.3"
   },
   "devDependencies": {
-    "@cosmology/telescope": "^1.0.1"
+    "@cosmology/telescope": "^1.4.12"
   }
 }

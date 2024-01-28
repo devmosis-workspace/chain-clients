@@ -318,7 +318,7 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "@babel/parser",\
-      "npm:7.22.7"\
+      "npm:7.22.16"\
     ],\
     [\
       "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression",\
@@ -814,15 +814,15 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "@cosmology/ast",\
-      "npm:1.0.1"\
+      "npm:1.4.8"\
     ],\
     [\
       "@cosmology/lcd",\
-      "npm:0.13.0"\
+      "npm:0.13.3"\
     ],\
     [\
       "@cosmology/proto-parser",\
-      "npm:1.0.0"\
+      "npm:1.4.4"\
     ],\
     [\
       "@cosmology/protobufjs",\
@@ -830,15 +830,15 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "@cosmology/telescope",\
-      "npm:1.0.1"\
+      "npm:1.4.12"\
     ],\
     [\
       "@cosmology/types",\
-      "npm:1.0.0"\
+      "npm:1.4.2"\
     ],\
     [\
       "@cosmology/utils",\
-      "npm:1.0.0"\
+      "npm:1.4.2"\
     ],\
     [\
       "@cosmwasm/ts-codegen",\
@@ -2317,6 +2317,10 @@ const RAW_RUNTIME_STATE =
       "npm:6.11.3"\
     ],\
     [\
+      "proxy-from-env",\
+      "npm:1.1.0"\
+    ],\
+    [\
       "publish-scripts",\
       "npm:0.1.0"\
     ],\
@@ -2824,6 +2828,15 @@ const RAW_RUNTIME_STATE =
           ["@babel/highlight", "npm:7.22.5"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:7.23.5", {\
+        "packageLocation": "./.yarn/cache/@babel-code-frame-npm-7.23.5-cb10d08de6-44e58529c9.zip/node_modules/@babel/code-frame/",\
+        "packageDependencies": [\
+          ["@babel/code-frame", "npm:7.23.5"],\
+          ["@babel/highlight", "npm:7.23.4"],\
+          ["chalk", "npm:2.4.2"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@babel/compat-data", [\
@@ -2943,17 +2956,6 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:7.21.4", {\
-        "packageLocation": "./.yarn/cache/@babel-generator-npm-7.21.4-4ab6c9c2f0-73a81deba6.zip/node_modules/@babel/generator/",\
-        "packageDependencies": [\
-          ["@babel/generator", "npm:7.21.4"],\
-          ["@babel/types", "npm:7.22.5"],\
-          ["@jridgewell/gen-mapping", "npm:0.3.3"],\
-          ["@jridgewell/trace-mapping", "npm:0.3.18"],\
-          ["jsesc", "npm:2.5.2"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["npm:7.22.15", {\
         "packageLocation": "./.yarn/cache/@babel-generator-npm-7.22.15-6a5f0ff835-edf46f581c.zip/node_modules/@babel/generator/",\
         "packageDependencies": [\
@@ -2970,6 +2972,17 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@babel/generator", "npm:7.22.9"],\
           ["@babel/types", "npm:7.22.5"],\
+          ["@jridgewell/gen-mapping", "npm:0.3.3"],\
+          ["@jridgewell/trace-mapping", "npm:0.3.18"],\
+          ["jsesc", "npm:2.5.2"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:7.23.6", {\
+        "packageLocation": "./.yarn/cache/@babel-generator-npm-7.23.6-817ef5e591-864090d512.zip/node_modules/@babel/generator/",\
+        "packageDependencies": [\
+          ["@babel/generator", "npm:7.23.6"],\
+          ["@babel/types", "npm:7.23.9"],\
           ["@jridgewell/gen-mapping", "npm:0.3.3"],\
           ["@jridgewell/trace-mapping", "npm:0.3.18"],\
           ["jsesc", "npm:2.5.2"]\
@@ -3225,6 +3238,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@babel/helper-environment-visitor", [\
+      ["npm:7.22.20", {\
+        "packageLocation": "./.yarn/cache/@babel-helper-environment-visitor-npm-7.22.20-260909e014-d80ee98ff6.zip/node_modules/@babel/helper-environment-visitor/",\
+        "packageDependencies": [\
+          ["@babel/helper-environment-visitor", "npm:7.22.20"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:7.22.5", {\
         "packageLocation": "./.yarn/cache/@babel-helper-environment-visitor-npm-7.22.5-7bc52eec61-248532077d.zip/node_modules/@babel/helper-environment-visitor/",\
         "packageDependencies": [\
@@ -3240,6 +3260,15 @@ const RAW_RUNTIME_STATE =
           ["@babel/helper-function-name", "npm:7.22.5"],\
           ["@babel/template", "npm:7.22.5"],\
           ["@babel/types", "npm:7.22.5"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:7.23.0", {\
+        "packageLocation": "./.yarn/cache/@babel-helper-function-name-npm-7.23.0-ce38271242-7b2ae024cd.zip/node_modules/@babel/helper-function-name/",\
+        "packageDependencies": [\
+          ["@babel/helper-function-name", "npm:7.23.0"],\
+          ["@babel/template", "npm:7.22.15"],\
+          ["@babel/types", "npm:7.23.9"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3516,6 +3545,13 @@ const RAW_RUNTIME_STATE =
           ["@babel/helper-string-parser", "npm:7.22.5"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:7.23.4", {\
+        "packageLocation": "./.yarn/cache/@babel-helper-string-parser-npm-7.23.4-b1f0d030c3-c352082474.zip/node_modules/@babel/helper-string-parser/",\
+        "packageDependencies": [\
+          ["@babel/helper-string-parser", "npm:7.23.4"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@babel/helper-validator-identifier", [\
@@ -3523,6 +3559,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/@babel-helper-validator-identifier-npm-7.22.19-ff539cbecc-91584ef174.zip/node_modules/@babel/helper-validator-identifier/",\
         "packageDependencies": [\
           ["@babel/helper-validator-identifier", "npm:7.22.19"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:7.22.20", {\
+        "packageLocation": "./.yarn/cache/@babel-helper-validator-identifier-npm-7.22.20-18305bb306-df882d2675.zip/node_modules/@babel/helper-validator-identifier/",\
+        "packageDependencies": [\
+          ["@babel/helper-validator-identifier", "npm:7.22.20"]\
         ],\
         "linkType": "HARD"\
       }],\
@@ -3604,6 +3647,16 @@ const RAW_RUNTIME_STATE =
           ["js-tokens", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:7.23.4", {\
+        "packageLocation": "./.yarn/cache/@babel-highlight-npm-7.23.4-2a9f2d2538-62fef9b5bc.zip/node_modules/@babel/highlight/",\
+        "packageDependencies": [\
+          ["@babel/highlight", "npm:7.23.4"],\
+          ["@babel/helper-validator-identifier", "npm:7.22.20"],\
+          ["chalk", "npm:2.4.2"],\
+          ["js-tokens", "npm:4.0.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@babel/node", [\
@@ -3655,6 +3708,14 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/@babel-parser-npm-7.22.7-7fbdf28552-f420f89ea8.zip/node_modules/@babel/parser/",\
         "packageDependencies": [\
           ["@babel/parser", "npm:7.22.7"],\
+          ["@babel/types", "npm:7.22.5"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:7.23.9", {\
+        "packageLocation": "./.yarn/cache/@babel-parser-npm-7.23.9-720a0b56cb-727a7a8071.zip/node_modules/@babel/parser/",\
+        "packageDependencies": [\
+          ["@babel/parser", "npm:7.23.9"],\
           ["@babel/types", "npm:7.22.5"]\
         ],\
         "linkType": "HARD"\
@@ -6929,23 +6990,6 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:7.21.4", {\
-        "packageLocation": "./.yarn/cache/@babel-traverse-npm-7.21.4-0fc91c1e5e-22f3bf1d2a.zip/node_modules/@babel/traverse/",\
-        "packageDependencies": [\
-          ["@babel/traverse", "npm:7.21.4"],\
-          ["@babel/code-frame", "npm:7.22.5"],\
-          ["@babel/generator", "npm:7.22.9"],\
-          ["@babel/helper-environment-visitor", "npm:7.22.5"],\
-          ["@babel/helper-function-name", "npm:7.22.5"],\
-          ["@babel/helper-hoist-variables", "npm:7.22.5"],\
-          ["@babel/helper-split-export-declaration", "npm:7.22.6"],\
-          ["@babel/parser", "npm:7.22.7"],\
-          ["@babel/types", "npm:7.22.5"],\
-          ["debug", "virtual:98fbaaf7d82eb568962a3cbb0539d3a6cd8f7bc2baa49961cdb24e1950eac5c573503e029ec78bd289a222d03b6fe602b6d0af7fd09d9928cc2bb32809bcd8ba#npm:4.3.4"],\
-          ["globals", "npm:11.12.0"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["npm:7.22.19", {\
         "packageLocation": "./.yarn/cache/@babel-traverse-npm-7.22.19-9a451072b1-4c6d2a6ef9.zip/node_modules/@babel/traverse/",\
         "packageDependencies": [\
@@ -6979,6 +7023,23 @@ const RAW_RUNTIME_STATE =
           ["globals", "npm:11.12.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:7.23.6", {\
+        "packageLocation": "./.yarn/cache/@babel-traverse-npm-7.23.6-2f4f5d4be0-ee4434a3ce.zip/node_modules/@babel/traverse/",\
+        "packageDependencies": [\
+          ["@babel/traverse", "npm:7.23.6"],\
+          ["@babel/code-frame", "npm:7.23.5"],\
+          ["@babel/generator", "npm:7.23.6"],\
+          ["@babel/helper-environment-visitor", "npm:7.22.20"],\
+          ["@babel/helper-function-name", "npm:7.23.0"],\
+          ["@babel/helper-hoist-variables", "npm:7.22.5"],\
+          ["@babel/helper-split-export-declaration", "npm:7.22.6"],\
+          ["@babel/parser", "npm:7.23.9"],\
+          ["@babel/types", "npm:7.23.9"],\
+          ["debug", "virtual:98fbaaf7d82eb568962a3cbb0539d3a6cd8f7bc2baa49961cdb24e1950eac5c573503e029ec78bd289a222d03b6fe602b6d0af7fd09d9928cc2bb32809bcd8ba#npm:4.3.4"],\
+          ["globals", "npm:11.12.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@babel/types", [\
@@ -6986,16 +7047,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/@babel-types-npm-7.18.10-8502ea016c-1ff160304d.zip/node_modules/@babel/types/",\
         "packageDependencies": [\
           ["@babel/types", "npm:7.18.10"],\
-          ["@babel/helper-string-parser", "npm:7.22.5"],\
-          ["@babel/helper-validator-identifier", "npm:7.22.19"],\
-          ["to-fast-properties", "npm:2.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:7.21.4", {\
-        "packageLocation": "./.yarn/cache/@babel-types-npm-7.21.4-ee756f419d-3070d1e15e.zip/node_modules/@babel/types/",\
-        "packageDependencies": [\
-          ["@babel/types", "npm:7.21.4"],\
           ["@babel/helper-string-parser", "npm:7.22.5"],\
           ["@babel/helper-validator-identifier", "npm:7.22.19"],\
           ["to-fast-properties", "npm:2.0.0"]\
@@ -7018,6 +7069,26 @@ const RAW_RUNTIME_STATE =
           ["@babel/types", "npm:7.22.5"],\
           ["@babel/helper-string-parser", "npm:7.22.5"],\
           ["@babel/helper-validator-identifier", "npm:7.22.5"],\
+          ["to-fast-properties", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:7.23.6", {\
+        "packageLocation": "./.yarn/cache/@babel-types-npm-7.23.6-4e68ac9e9b-07e70bb94d.zip/node_modules/@babel/types/",\
+        "packageDependencies": [\
+          ["@babel/types", "npm:7.23.6"],\
+          ["@babel/helper-string-parser", "npm:7.23.4"],\
+          ["@babel/helper-validator-identifier", "npm:7.22.20"],\
+          ["to-fast-properties", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:7.23.9", {\
+        "packageLocation": "./.yarn/cache/@babel-types-npm-7.23.9-c32aeb5f36-bed9634e5f.zip/node_modules/@babel/types/",\
+        "packageDependencies": [\
+          ["@babel/types", "npm:7.23.9"],\
+          ["@babel/helper-string-parser", "npm:7.23.4"],\
+          ["@babel/helper-validator-identifier", "npm:7.22.20"],\
           ["to-fast-properties", "npm:2.0.0"]\
         ],\
         "linkType": "HARD"\
@@ -7048,8 +7119,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7091,8 +7162,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7118,8 +7189,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.29.4"],\
           ["@cosmjs/stargate", "npm:0.29.4"],\
           ["@cosmjs/tendermint-rpc", "npm:0.29.5"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["@types/jest", "npm:29.5.6"],\
           ["eslint", "npm:8.45.0"],\
           ["eslint-config-prettier", "virtual:e1f6b14494ddd7ccc1d1c419545f326bb0d7ff6eb4dbc89643dc6d6eea3b8b0df2d39375ca7c2fe5f477c76e773936b8fe4546f2a64220c9f859f6cd647ab2ac#npm:8.8.0"],\
@@ -7141,8 +7212,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.29.4"],\
           ["@cosmjs/stargate", "npm:0.29.4"],\
           ["@cosmjs/tendermint-rpc", "npm:0.29.5"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["@types/jest", "npm:29.5.6"],\
           ["eslint", "npm:8.45.0"],\
           ["eslint-config-prettier", "virtual:e1f6b14494ddd7ccc1d1c419545f326bb0d7ff6eb4dbc89643dc6d6eea3b8b0df2d39375ca7c2fe5f477c76e773936b8fe4546f2a64220c9f859f6cd647ab2ac#npm:8.8.0"],\
@@ -7180,8 +7251,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7223,8 +7294,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7266,8 +7337,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7294,8 +7365,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["eslint", "npm:8.45.0"],\
           ["eslint-config-prettier", "virtual:e1f6b14494ddd7ccc1d1c419545f326bb0d7ff6eb4dbc89643dc6d6eea3b8b0df2d39375ca7c2fe5f477c76e773936b8fe4546f2a64220c9f859f6cd647ab2ac#npm:8.8.0"],\
           ["eslint-plugin-prettier", "virtual:e1f6b14494ddd7ccc1d1c419545f326bb0d7ff6eb4dbc89643dc6d6eea3b8b0df2d39375ca7c2fe5f477c76e773936b8fe4546f2a64220c9f859f6cd647ab2ac#npm:4.2.1"],\
@@ -7332,8 +7403,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7375,8 +7446,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7418,8 +7489,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7461,8 +7532,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7504,8 +7575,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7547,8 +7618,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7590,8 +7661,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7633,8 +7704,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7676,8 +7747,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7719,8 +7790,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7762,8 +7833,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7805,8 +7876,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7848,8 +7919,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7891,8 +7962,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7934,8 +8005,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -7977,8 +8048,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -8020,8 +8091,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -8063,8 +8134,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -8106,8 +8177,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -8149,8 +8220,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -8192,8 +8263,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -8235,8 +8306,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -8278,8 +8349,8 @@ const RAW_RUNTIME_STATE =
           ["@cosmjs/proto-signing", "npm:0.31.1"],\
           ["@cosmjs/stargate", "npm:0.31.1"],\
           ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["babel-core", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.0.0-bridge.0"],\
           ["babel-watch", "virtual:9dcb0bb4b9e3141c73767c7ab9c4d50401f979dca94ab0d1bf264b2d57e665f74a0a72031f99e7b036ffb730e3617a77ceb4e0ccb1457423dc8e48240d913415#npm:7.8.1"],\
           ["cross-env", "npm:7.0.3"],\
@@ -8611,14 +8682,14 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@cosmology/ast", [\
-      ["npm:1.0.1", {\
-        "packageLocation": "./.yarn/cache/@cosmology-ast-npm-1.0.1-5e3d391838-12499c6b1a.zip/node_modules/@cosmology/ast/",\
+      ["npm:1.4.8", {\
+        "packageLocation": "./.yarn/cache/@cosmology-ast-npm-1.4.8-56e23ebd13-693da42a8c.zip/node_modules/@cosmology/ast/",\
         "packageDependencies": [\
-          ["@cosmology/ast", "npm:1.0.1"],\
-          ["@babel/parser", "npm:7.22.7"],\
-          ["@babel/types", "npm:7.21.4"],\
-          ["@cosmology/types", "npm:1.0.0"],\
-          ["@cosmology/utils", "npm:1.0.0"],\
+          ["@cosmology/ast", "npm:1.4.8"],\
+          ["@babel/parser", "npm:7.23.9"],\
+          ["@babel/types", "npm:7.23.6"],\
+          ["@cosmology/types", "npm:1.4.2"],\
+          ["@cosmology/utils", "npm:1.4.2"],\
           ["case", "npm:1.6.3"],\
           ["dotty", "npm:0.1.2"]\
         ],\
@@ -8626,23 +8697,23 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@cosmology/lcd", [\
-      ["npm:0.13.0", {\
-        "packageLocation": "./.yarn/cache/@cosmology-lcd-npm-0.13.0-9d3319fc0e-2c12ac6e87.zip/node_modules/@cosmology/lcd/",\
+      ["npm:0.13.3", {\
+        "packageLocation": "./.yarn/cache/@cosmology-lcd-npm-0.13.3-8e1cb4f87f-45d674d105.zip/node_modules/@cosmology/lcd/",\
         "packageDependencies": [\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["axios", "npm:0.27.2"]\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["axios", "npm:1.6.0"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@cosmology/proto-parser", [\
-      ["npm:1.0.0", {\
-        "packageLocation": "./.yarn/cache/@cosmology-proto-parser-npm-1.0.0-ecfcdffcdd-b5025f2504.zip/node_modules/@cosmology/proto-parser/",\
+      ["npm:1.4.4", {\
+        "packageLocation": "./.yarn/cache/@cosmology-proto-parser-npm-1.4.4-7f4d02f7d8-58c3857319.zip/node_modules/@cosmology/proto-parser/",\
         "packageDependencies": [\
-          ["@cosmology/proto-parser", "npm:1.0.0"],\
+          ["@cosmology/proto-parser", "npm:1.4.4"],\
           ["@cosmology/protobufjs", "npm:6.11.6"],\
-          ["@cosmology/types", "npm:1.0.0"],\
-          ["@cosmology/utils", "npm:1.0.0"],\
+          ["@cosmology/types", "npm:1.4.2"],\
+          ["@cosmology/utils", "npm:1.4.2"],\
           ["dotty", "npm:0.1.2"],\
           ["glob", "npm:8.0.3"],\
           ["minimatch", "npm:5.1.0"],\
@@ -8674,18 +8745,18 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@cosmology/telescope", [\
-      ["npm:1.0.1", {\
-        "packageLocation": "./.yarn/cache/@cosmology-telescope-npm-1.0.1-594013e228-7b3a4421cb.zip/node_modules/@cosmology/telescope/",\
+      ["npm:1.4.12", {\
+        "packageLocation": "./.yarn/cache/@cosmology-telescope-npm-1.4.12-e59de81522-540f55e7c7.zip/node_modules/@cosmology/telescope/",\
         "packageDependencies": [\
-          ["@cosmology/telescope", "npm:1.0.1"],\
-          ["@babel/generator", "npm:7.21.4"],\
-          ["@babel/parser", "npm:7.22.7"],\
-          ["@babel/traverse", "npm:7.21.4"],\
-          ["@babel/types", "npm:7.21.4"],\
-          ["@cosmology/ast", "npm:1.0.1"],\
-          ["@cosmology/proto-parser", "npm:1.0.0"],\
-          ["@cosmology/types", "npm:1.0.0"],\
-          ["@cosmology/utils", "npm:1.0.0"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
+          ["@babel/generator", "npm:7.23.6"],\
+          ["@babel/parser", "npm:7.23.9"],\
+          ["@babel/traverse", "npm:7.23.6"],\
+          ["@babel/types", "npm:7.23.6"],\
+          ["@cosmology/ast", "npm:1.4.8"],\
+          ["@cosmology/proto-parser", "npm:1.4.4"],\
+          ["@cosmology/types", "npm:1.4.2"],\
+          ["@cosmology/utils", "npm:1.4.2"],\
           ["@cosmwasm/ts-codegen", "npm:0.34.0"],\
           ["@types/parse-package-name", "npm:0.1.0"],\
           ["case", "npm:1.6.3"],\
@@ -8707,21 +8778,21 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@cosmology/types", [\
-      ["npm:1.0.0", {\
-        "packageLocation": "./.yarn/cache/@cosmology-types-npm-1.0.0-121446b089-2512a311d2.zip/node_modules/@cosmology/types/",\
+      ["npm:1.4.2", {\
+        "packageLocation": "./.yarn/cache/@cosmology-types-npm-1.4.2-c3a3b4f89b-9a3363373d.zip/node_modules/@cosmology/types/",\
         "packageDependencies": [\
-          ["@cosmology/types", "npm:1.0.0"],\
+          ["@cosmology/types", "npm:1.4.2"],\
           ["case", "npm:1.6.3"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@cosmology/utils", [\
-      ["npm:1.0.0", {\
-        "packageLocation": "./.yarn/cache/@cosmology-utils-npm-1.0.0-13ef17a2a4-8b8f796d5e.zip/node_modules/@cosmology/utils/",\
+      ["npm:1.4.2", {\
+        "packageLocation": "./.yarn/cache/@cosmology-utils-npm-1.4.2-540349eaa4-d51d1f62e6.zip/node_modules/@cosmology/utils/",\
         "packageDependencies": [\
-          ["@cosmology/utils", "npm:1.0.0"],\
-          ["@cosmology/types", "npm:1.0.0"],\
+          ["@cosmology/utils", "npm:1.4.2"],\
+          ["@cosmology/types", "npm:1.4.2"],\
           ["dotty", "npm:0.1.2"]\
         ],\
         "linkType": "HARD"\
@@ -9801,12 +9872,13 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:0.27.2", {\
-        "packageLocation": "./.yarn/cache/axios-npm-0.27.2-dbe3a48aea-2efaf18dd0.zip/node_modules/axios/",\
+      ["npm:1.6.0", {\
+        "packageLocation": "./.yarn/cache/axios-npm-1.6.0-b0f6015a96-f069d938a0.zip/node_modules/axios/",\
         "packageDependencies": [\
-          ["axios", "npm:0.27.2"],\
-          ["follow-redirects", "virtual:e278873748b4e9d158db595d2f6cb0351c74052f52b53924aec4d9299e7b6babfb62aead374cf2f6e453bc8bea3b052380dc6b1137a162bbfc102bbb1c8cac42#npm:1.15.2"],\
-          ["form-data", "npm:4.0.0"]\
+          ["axios", "npm:1.6.0"],\
+          ["follow-redirects", "virtual:b0f6015a963175f08000990853b55c1a6d1a3722c7c1d5e0885425211ae7ee63bf6b96b7e997f23d1bc9573bb78556c981010ca3a2873c90fc1ce293c6dd5667#npm:1.15.5"],\
+          ["form-data", "npm:4.0.0"],\
+          ["proxy-from-env", "npm:1.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -11438,6 +11510,26 @@ const RAW_RUNTIME_STATE =
           ["follow-redirects", "npm:1.15.2"]\
         ],\
         "linkType": "SOFT"\
+      }],\
+      ["npm:1.15.5", {\
+        "packageLocation": "./.yarn/cache/follow-redirects-npm-1.15.5-9d14db76ca-d467f13c1c.zip/node_modules/follow-redirects/",\
+        "packageDependencies": [\
+          ["follow-redirects", "npm:1.15.5"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:b0f6015a963175f08000990853b55c1a6d1a3722c7c1d5e0885425211ae7ee63bf6b96b7e997f23d1bc9573bb78556c981010ca3a2873c90fc1ce293c6dd5667#npm:1.15.5", {\
+        "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-adf2123a9d/0/cache/follow-redirects-npm-1.15.5-9d14db76ca-d467f13c1c.zip/node_modules/follow-redirects/",\
+        "packageDependencies": [\
+          ["follow-redirects", "virtual:b0f6015a963175f08000990853b55c1a6d1a3722c7c1d5e0885425211ae7ee63bf6b96b7e997f23d1bc9573bb78556c981010ca3a2873c90fc1ce293c6dd5667#npm:1.15.5"],\
+          ["@types/debug", null],\
+          ["debug", null]\
+        ],\
+        "packagePeers": [\
+          "@types/debug",\
+          "debug"\
+        ],\
+        "linkType": "HARD"\
       }],\
       ["virtual:e278873748b4e9d158db595d2f6cb0351c74052f52b53924aec4d9299e7b6babfb62aead374cf2f6e453bc8bea3b052380dc6b1137a162bbfc102bbb1c8cac42#npm:1.15.2", {\
         "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-a3e7f4d39a/0/cache/follow-redirects-npm-1.15.2-1ec1dd82be-8be0d39919.zip/node_modules/follow-redirects/",\
@@ -13689,6 +13781,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["proxy-from-env", [\
+      ["npm:1.1.0", {\
+        "packageLocation": "./.yarn/cache/proxy-from-env-npm-1.1.0-c13d07f26b-f0bb4a87cf.zip/node_modules/proxy-from-env/",\
+        "packageDependencies": [\
+          ["proxy-from-env", "npm:1.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["publish-scripts", [\
       ["npm:0.1.0", {\
         "packageLocation": "./.yarn/cache/publish-scripts-npm-0.1.0-34c02f2079-731c7fd476.zip/node_modules/publish-scripts/",\
@@ -14465,8 +14566,8 @@ const RAW_RUNTIME_STATE =
           ["@chain-clients/osmosis", "workspace:packages/osmosis"],\
           ["@cosmjs/encoding", "npm:0.31.1"],\
           ["@cosmjs/math", "npm:0.31.1"],\
-          ["@cosmology/lcd", "npm:0.13.0"],\
-          ["@cosmology/telescope", "npm:1.0.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
           ["long", "npm:5.2.3"]\
         ],\
         "linkType": "SOFT"\
