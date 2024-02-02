@@ -49,7 +49,7 @@ export interface QueryAttestationRequestByNonceRequestProtoMsg {
 /** QueryAttestationRequestByNonceRequest */
 export interface QueryAttestationRequestByNonceRequestAmino {
   /** QueryAttestationRequestByNonceRequest */
-  nonce: string;
+  nonce?: string;
 }
 export interface QueryAttestationRequestByNonceRequestAminoMsg {
   type: "/celestia.qgb.v1.QueryAttestationRequestByNonceRequest";
@@ -66,7 +66,7 @@ export interface QueryAttestationRequestByNonceResponse {
    * This was decided as part of the universal nonce approach under:
    * https://github.com/celestiaorg/celestia-app/issues/468#issuecomment-1156887715
    */
-  attestation: (Valset & DataCommitment & Any) | undefined;
+  attestation?: (Valset & DataCommitment & Any) | undefined;
 }
 export interface QueryAttestationRequestByNonceResponseProtoMsg {
   typeUrl: "/celestia.qgb.v1.QueryAttestationRequestByNonceResponse";
@@ -95,7 +95,7 @@ export interface QueryAttestationRequestByNonceResponseAminoMsg {
 }
 /** QueryAttestationRequestByNonceResponse */
 export interface QueryAttestationRequestByNonceResponseSDKType {
-  attestation: ValsetSDKType | DataCommitmentSDKType | AnySDKType | undefined;
+  attestation?: ValsetSDKType | DataCommitmentSDKType | AnySDKType | undefined;
 }
 /** QueryLatestAttestationNonceRequest latest attestation nonce request */
 export interface QueryLatestAttestationNonceRequest {}
@@ -123,7 +123,7 @@ export interface QueryLatestAttestationNonceResponseProtoMsg {
 /** QueryLatestAttestationNonceResponse latest attestation nonce response */
 export interface QueryLatestAttestationNonceResponseAmino {
   /** QueryLatestAttestationNonceResponse latest attestation nonce response */
-  nonce: string;
+  nonce?: string;
 }
 export interface QueryLatestAttestationNonceResponseAminoMsg {
   type: "/celestia.qgb.v1.QueryLatestAttestationNonceResponse";
@@ -159,7 +159,7 @@ export interface QueryEarliestAttestationNonceResponseProtoMsg {
 /** QueryEarliestAttestationNonceResponse earliest attestation nonce response */
 export interface QueryEarliestAttestationNonceResponseAmino {
   /** QueryEarliestAttestationNonceResponse earliest attestation nonce response */
-  nonce: string;
+  nonce?: string;
 }
 export interface QueryEarliestAttestationNonceResponseAminoMsg {
   type: "/celestia.qgb.v1.QueryEarliestAttestationNonceResponse";
@@ -193,7 +193,7 @@ export interface QueryLatestValsetRequestBeforeNonceRequestAmino {
    * QueryLatestValsetRequestBeforeNonceRequest latest Valset request before
    * universal nonce request
    */
-  nonce: string;
+  nonce?: string;
 }
 export interface QueryLatestValsetRequestBeforeNonceRequestAminoMsg {
   type: "/celestia.qgb.v1.QueryLatestValsetRequestBeforeNonceRequest";
@@ -215,7 +215,7 @@ export interface QueryLatestValsetRequestBeforeNonceResponse {
    * QueryLatestValsetRequestBeforeNonceResponse latest Valset request before
    * height response
    */
-  valset: Valset;
+  valset?: Valset;
 }
 export interface QueryLatestValsetRequestBeforeNonceResponseProtoMsg {
   typeUrl: "/celestia.qgb.v1.QueryLatestValsetRequestBeforeNonceResponse";
@@ -241,7 +241,7 @@ export interface QueryLatestValsetRequestBeforeNonceResponseAminoMsg {
  * height response
  */
 export interface QueryLatestValsetRequestBeforeNonceResponseSDKType {
-  valset: ValsetSDKType;
+  valset?: ValsetSDKType;
 }
 /** QueryLatestUnbondingHeightRequest */
 export interface QueryLatestUnbondingHeightRequest {}
@@ -269,7 +269,7 @@ export interface QueryLatestUnbondingHeightResponseProtoMsg {
 /** QueryLatestUnbondingHeightResponse */
 export interface QueryLatestUnbondingHeightResponseAmino {
   /** QueryLatestUnbondingHeightResponse */
-  height: string;
+  height?: string;
 }
 export interface QueryLatestUnbondingHeightResponseAminoMsg {
   type: "/celestia.qgb.v1.QueryLatestUnbondingHeightResponse";
@@ -295,7 +295,7 @@ export interface QueryLatestDataCommitmentRequestAminoMsg {
 export interface QueryLatestDataCommitmentRequestSDKType {}
 /** QueryLatestDataCommitmentResponse */
 export interface QueryLatestDataCommitmentResponse {
-  dataCommitment: DataCommitment;
+  dataCommitment?: DataCommitment;
 }
 export interface QueryLatestDataCommitmentResponseProtoMsg {
   typeUrl: "/celestia.qgb.v1.QueryLatestDataCommitmentResponse";
@@ -311,7 +311,7 @@ export interface QueryLatestDataCommitmentResponseAminoMsg {
 }
 /** QueryLatestDataCommitmentResponse */
 export interface QueryLatestDataCommitmentResponseSDKType {
-  data_commitment: DataCommitmentSDKType;
+  data_commitment?: DataCommitmentSDKType;
 }
 /** QueryDataCommitmentRangeForHeightRequest */
 export interface QueryDataCommitmentRangeForHeightRequest {
@@ -325,7 +325,7 @@ export interface QueryDataCommitmentRangeForHeightRequestProtoMsg {
 /** QueryDataCommitmentRangeForHeightRequest */
 export interface QueryDataCommitmentRangeForHeightRequestAmino {
   /** QueryDataCommitmentRangeForHeightRequest */
-  height: string;
+  height?: string;
 }
 export interface QueryDataCommitmentRangeForHeightRequestAminoMsg {
   type: "/celestia.qgb.v1.QueryDataCommitmentRangeForHeightRequest";
@@ -337,7 +337,7 @@ export interface QueryDataCommitmentRangeForHeightRequestSDKType {
 }
 /** QueryDataCommitmentRangeForHeightResponse */
 export interface QueryDataCommitmentRangeForHeightResponse {
-  dataCommitment: DataCommitment;
+  dataCommitment?: DataCommitment;
 }
 export interface QueryDataCommitmentRangeForHeightResponseProtoMsg {
   typeUrl: "/celestia.qgb.v1.QueryDataCommitmentRangeForHeightResponse";
@@ -353,7 +353,7 @@ export interface QueryDataCommitmentRangeForHeightResponseAminoMsg {
 }
 /** QueryDataCommitmentRangeForHeightResponse */
 export interface QueryDataCommitmentRangeForHeightResponseSDKType {
-  data_commitment: DataCommitmentSDKType;
+  data_commitment?: DataCommitmentSDKType;
 }
 /** QueryEVMAddressRequest */
 export interface QueryEVMAddressRequest {
@@ -367,7 +367,7 @@ export interface QueryEVMAddressRequestProtoMsg {
 /** QueryEVMAddressRequest */
 export interface QueryEVMAddressRequestAmino {
   /** QueryEVMAddressRequest */
-  validator_address: string;
+  validator_address?: string;
 }
 export interface QueryEVMAddressRequestAminoMsg {
   type: "/celestia.qgb.v1.QueryEVMAddressRequest";
@@ -389,7 +389,7 @@ export interface QueryEVMAddressResponseProtoMsg {
 /** QueryEVMAddressResponse */
 export interface QueryEVMAddressResponseAmino {
   /** QueryEVMAddressResponse */
-  evm_address: string;
+  evm_address?: string;
 }
 export interface QueryEVMAddressResponseAminoMsg {
   type: "/celestia.qgb.v1.QueryEVMAddressResponse";
@@ -415,7 +415,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -461,9 +462,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -510,9 +513,11 @@ export const QueryAttestationRequestByNonceRequest = {
     return message;
   },
   fromAmino(object: QueryAttestationRequestByNonceRequestAmino): QueryAttestationRequestByNonceRequest {
-    return {
-      nonce: BigInt(object.nonce)
-    };
+    const message = createBaseQueryAttestationRequestByNonceRequest();
+    if (object.nonce !== undefined && object.nonce !== null) {
+      message.nonce = BigInt(object.nonce);
+    }
+    return message;
   },
   toAmino(message: QueryAttestationRequestByNonceRequest): QueryAttestationRequestByNonceRequestAmino {
     const obj: any = {};
@@ -537,7 +542,7 @@ export const QueryAttestationRequestByNonceRequest = {
 };
 function createBaseQueryAttestationRequestByNonceResponse(): QueryAttestationRequestByNonceResponse {
   return {
-    attestation: Any.fromPartial({})
+    attestation: undefined
   };
 }
 export const QueryAttestationRequestByNonceResponse = {
@@ -559,9 +564,11 @@ export const QueryAttestationRequestByNonceResponse = {
     return message;
   },
   fromAmino(object: QueryAttestationRequestByNonceResponseAmino): QueryAttestationRequestByNonceResponse {
-    return {
-      attestation: object?.attestation ? AttestationRequestI_FromAmino(object.attestation) : undefined
-    };
+    const message = createBaseQueryAttestationRequestByNonceResponse();
+    if (object.attestation !== undefined && object.attestation !== null) {
+      message.attestation = AttestationRequestI_FromAmino(object.attestation);
+    }
+    return message;
   },
   toAmino(message: QueryAttestationRequestByNonceResponse): QueryAttestationRequestByNonceResponseAmino {
     const obj: any = {};
@@ -600,7 +607,8 @@ export const QueryLatestAttestationNonceRequest = {
     return message;
   },
   fromAmino(_: QueryLatestAttestationNonceRequestAmino): QueryLatestAttestationNonceRequest {
-    return {};
+    const message = createBaseQueryLatestAttestationNonceRequest();
+    return message;
   },
   toAmino(_: QueryLatestAttestationNonceRequest): QueryLatestAttestationNonceRequestAmino {
     const obj: any = {};
@@ -646,9 +654,11 @@ export const QueryLatestAttestationNonceResponse = {
     return message;
   },
   fromAmino(object: QueryLatestAttestationNonceResponseAmino): QueryLatestAttestationNonceResponse {
-    return {
-      nonce: BigInt(object.nonce)
-    };
+    const message = createBaseQueryLatestAttestationNonceResponse();
+    if (object.nonce !== undefined && object.nonce !== null) {
+      message.nonce = BigInt(object.nonce);
+    }
+    return message;
   },
   toAmino(message: QueryLatestAttestationNonceResponse): QueryLatestAttestationNonceResponseAmino {
     const obj: any = {};
@@ -687,7 +697,8 @@ export const QueryEarliestAttestationNonceRequest = {
     return message;
   },
   fromAmino(_: QueryEarliestAttestationNonceRequestAmino): QueryEarliestAttestationNonceRequest {
-    return {};
+    const message = createBaseQueryEarliestAttestationNonceRequest();
+    return message;
   },
   toAmino(_: QueryEarliestAttestationNonceRequest): QueryEarliestAttestationNonceRequestAmino {
     const obj: any = {};
@@ -733,9 +744,11 @@ export const QueryEarliestAttestationNonceResponse = {
     return message;
   },
   fromAmino(object: QueryEarliestAttestationNonceResponseAmino): QueryEarliestAttestationNonceResponse {
-    return {
-      nonce: BigInt(object.nonce)
-    };
+    const message = createBaseQueryEarliestAttestationNonceResponse();
+    if (object.nonce !== undefined && object.nonce !== null) {
+      message.nonce = BigInt(object.nonce);
+    }
+    return message;
   },
   toAmino(message: QueryEarliestAttestationNonceResponse): QueryEarliestAttestationNonceResponseAmino {
     const obj: any = {};
@@ -782,9 +795,11 @@ export const QueryLatestValsetRequestBeforeNonceRequest = {
     return message;
   },
   fromAmino(object: QueryLatestValsetRequestBeforeNonceRequestAmino): QueryLatestValsetRequestBeforeNonceRequest {
-    return {
-      nonce: BigInt(object.nonce)
-    };
+    const message = createBaseQueryLatestValsetRequestBeforeNonceRequest();
+    if (object.nonce !== undefined && object.nonce !== null) {
+      message.nonce = BigInt(object.nonce);
+    }
+    return message;
   },
   toAmino(message: QueryLatestValsetRequestBeforeNonceRequest): QueryLatestValsetRequestBeforeNonceRequestAmino {
     const obj: any = {};
@@ -809,7 +824,7 @@ export const QueryLatestValsetRequestBeforeNonceRequest = {
 };
 function createBaseQueryLatestValsetRequestBeforeNonceResponse(): QueryLatestValsetRequestBeforeNonceResponse {
   return {
-    valset: Valset.fromPartial({})
+    valset: undefined
   };
 }
 export const QueryLatestValsetRequestBeforeNonceResponse = {
@@ -831,9 +846,11 @@ export const QueryLatestValsetRequestBeforeNonceResponse = {
     return message;
   },
   fromAmino(object: QueryLatestValsetRequestBeforeNonceResponseAmino): QueryLatestValsetRequestBeforeNonceResponse {
-    return {
-      valset: object?.valset ? Valset.fromAmino(object.valset) : undefined
-    };
+    const message = createBaseQueryLatestValsetRequestBeforeNonceResponse();
+    if (object.valset !== undefined && object.valset !== null) {
+      message.valset = Valset.fromAmino(object.valset);
+    }
+    return message;
   },
   toAmino(message: QueryLatestValsetRequestBeforeNonceResponse): QueryLatestValsetRequestBeforeNonceResponseAmino {
     const obj: any = {};
@@ -872,7 +889,8 @@ export const QueryLatestUnbondingHeightRequest = {
     return message;
   },
   fromAmino(_: QueryLatestUnbondingHeightRequestAmino): QueryLatestUnbondingHeightRequest {
-    return {};
+    const message = createBaseQueryLatestUnbondingHeightRequest();
+    return message;
   },
   toAmino(_: QueryLatestUnbondingHeightRequest): QueryLatestUnbondingHeightRequestAmino {
     const obj: any = {};
@@ -918,9 +936,11 @@ export const QueryLatestUnbondingHeightResponse = {
     return message;
   },
   fromAmino(object: QueryLatestUnbondingHeightResponseAmino): QueryLatestUnbondingHeightResponse {
-    return {
-      height: BigInt(object.height)
-    };
+    const message = createBaseQueryLatestUnbondingHeightResponse();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    return message;
   },
   toAmino(message: QueryLatestUnbondingHeightResponse): QueryLatestUnbondingHeightResponseAmino {
     const obj: any = {};
@@ -959,7 +979,8 @@ export const QueryLatestDataCommitmentRequest = {
     return message;
   },
   fromAmino(_: QueryLatestDataCommitmentRequestAmino): QueryLatestDataCommitmentRequest {
-    return {};
+    const message = createBaseQueryLatestDataCommitmentRequest();
+    return message;
   },
   toAmino(_: QueryLatestDataCommitmentRequest): QueryLatestDataCommitmentRequestAmino {
     const obj: any = {};
@@ -983,7 +1004,7 @@ export const QueryLatestDataCommitmentRequest = {
 };
 function createBaseQueryLatestDataCommitmentResponse(): QueryLatestDataCommitmentResponse {
   return {
-    dataCommitment: DataCommitment.fromPartial({})
+    dataCommitment: undefined
   };
 }
 export const QueryLatestDataCommitmentResponse = {
@@ -1005,9 +1026,11 @@ export const QueryLatestDataCommitmentResponse = {
     return message;
   },
   fromAmino(object: QueryLatestDataCommitmentResponseAmino): QueryLatestDataCommitmentResponse {
-    return {
-      dataCommitment: object?.data_commitment ? DataCommitment.fromAmino(object.data_commitment) : undefined
-    };
+    const message = createBaseQueryLatestDataCommitmentResponse();
+    if (object.data_commitment !== undefined && object.data_commitment !== null) {
+      message.dataCommitment = DataCommitment.fromAmino(object.data_commitment);
+    }
+    return message;
   },
   toAmino(message: QueryLatestDataCommitmentResponse): QueryLatestDataCommitmentResponseAmino {
     const obj: any = {};
@@ -1054,9 +1077,11 @@ export const QueryDataCommitmentRangeForHeightRequest = {
     return message;
   },
   fromAmino(object: QueryDataCommitmentRangeForHeightRequestAmino): QueryDataCommitmentRangeForHeightRequest {
-    return {
-      height: BigInt(object.height)
-    };
+    const message = createBaseQueryDataCommitmentRangeForHeightRequest();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    return message;
   },
   toAmino(message: QueryDataCommitmentRangeForHeightRequest): QueryDataCommitmentRangeForHeightRequestAmino {
     const obj: any = {};
@@ -1081,7 +1106,7 @@ export const QueryDataCommitmentRangeForHeightRequest = {
 };
 function createBaseQueryDataCommitmentRangeForHeightResponse(): QueryDataCommitmentRangeForHeightResponse {
   return {
-    dataCommitment: DataCommitment.fromPartial({})
+    dataCommitment: undefined
   };
 }
 export const QueryDataCommitmentRangeForHeightResponse = {
@@ -1103,9 +1128,11 @@ export const QueryDataCommitmentRangeForHeightResponse = {
     return message;
   },
   fromAmino(object: QueryDataCommitmentRangeForHeightResponseAmino): QueryDataCommitmentRangeForHeightResponse {
-    return {
-      dataCommitment: object?.data_commitment ? DataCommitment.fromAmino(object.data_commitment) : undefined
-    };
+    const message = createBaseQueryDataCommitmentRangeForHeightResponse();
+    if (object.data_commitment !== undefined && object.data_commitment !== null) {
+      message.dataCommitment = DataCommitment.fromAmino(object.data_commitment);
+    }
+    return message;
   },
   toAmino(message: QueryDataCommitmentRangeForHeightResponse): QueryDataCommitmentRangeForHeightResponseAmino {
     const obj: any = {};
@@ -1152,9 +1179,11 @@ export const QueryEVMAddressRequest = {
     return message;
   },
   fromAmino(object: QueryEVMAddressRequestAmino): QueryEVMAddressRequest {
-    return {
-      validatorAddress: object.validator_address
-    };
+    const message = createBaseQueryEVMAddressRequest();
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    return message;
   },
   toAmino(message: QueryEVMAddressRequest): QueryEVMAddressRequestAmino {
     const obj: any = {};
@@ -1201,9 +1230,11 @@ export const QueryEVMAddressResponse = {
     return message;
   },
   fromAmino(object: QueryEVMAddressResponseAmino): QueryEVMAddressResponse {
-    return {
-      evmAddress: object.evm_address
-    };
+    const message = createBaseQueryEVMAddressResponse();
+    if (object.evm_address !== undefined && object.evm_address !== null) {
+      message.evmAddress = object.evm_address;
+    }
+    return message;
   },
   toAmino(message: QueryEVMAddressResponse): QueryEVMAddressResponseAmino {
     const obj: any = {};
@@ -1259,12 +1290,12 @@ export const AttestationRequestI_ToAmino = (content: Any) => {
     case "/celestia.qgb.v1.Valset":
       return {
         type: "/celestia.qgb.v1.Valset",
-        value: Valset.toAmino(Valset.decode(content.value))
+        value: Valset.toAmino(Valset.decode(content.value, undefined))
       };
     case "/celestia.qgb.v1.DataCommitment":
       return {
         type: "/celestia.qgb.v1.DataCommitment",
-        value: DataCommitment.toAmino(DataCommitment.decode(content.value))
+        value: DataCommitment.toAmino(DataCommitment.decode(content.value, undefined))
       };
     default:
       return Any.toAmino(content);

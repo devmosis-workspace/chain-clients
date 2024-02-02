@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { Decimal } from "@cosmjs/math";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
@@ -16,7 +16,7 @@ export interface Minter {
    */
   annualProvisions: string;
   /** PreviousBlockTime is the timestamp of the previous block. */
-  previousBlockTime: Timestamp;
+  previousBlockTime?: Timestamp;
   /** BondDenom is the denomination of the token that should be minted. */
   bondDenom: string;
 }
@@ -31,16 +31,16 @@ export interface MinterAmino {
    * current year. For example if InflationRate=0.1, then 10% of the total
    * supply will be minted over the course of the year.
    */
-  inflation_rate: string;
+  inflation_rate?: string;
   /**
    * AnnualProvisions is the total number of tokens to be minted in the current
    * year due to inflation.
    */
-  annual_provisions: string;
+  annual_provisions?: string;
   /** PreviousBlockTime is the timestamp of the previous block. */
-  previous_block_time?: TimestampAmino;
+  previous_block_time?: string;
   /** BondDenom is the denomination of the token that should be minted. */
-  bond_denom: string;
+  bond_denom?: string;
 }
 export interface MinterAminoMsg {
   type: "/celestia.mint.v1.Minter";
@@ -50,13 +50,13 @@ export interface MinterAminoMsg {
 export interface MinterSDKType {
   inflation_rate: string;
   annual_provisions: string;
-  previous_block_time: TimestampSDKType;
+  previous_block_time?: TimestampSDKType;
   bond_denom: string;
 }
 /** GenesisTime contains the timestamp of the genesis block. */
 export interface GenesisTime {
   /** GenesisTime is the timestamp of the genesis block. */
-  genesisTime: Timestamp;
+  genesisTime?: Timestamp;
 }
 export interface GenesisTimeProtoMsg {
   typeUrl: "/celestia.mint.v1.GenesisTime";
@@ -65,7 +65,7 @@ export interface GenesisTimeProtoMsg {
 /** GenesisTime contains the timestamp of the genesis block. */
 export interface GenesisTimeAmino {
   /** GenesisTime is the timestamp of the genesis block. */
-  genesis_time?: TimestampAmino;
+  genesis_time?: string;
 }
 export interface GenesisTimeAminoMsg {
   type: "/celestia.mint.v1.GenesisTime";
@@ -73,13 +73,13 @@ export interface GenesisTimeAminoMsg {
 }
 /** GenesisTime contains the timestamp of the genesis block. */
 export interface GenesisTimeSDKType {
-  genesis_time: TimestampSDKType;
+  genesis_time?: TimestampSDKType;
 }
 function createBaseMinter(): Minter {
   return {
     inflationRate: "",
     annualProvisions: "",
-    previousBlockTime: Timestamp.fromPartial({}),
+    previousBlockTime: undefined,
     bondDenom: ""
   };
 }
@@ -117,18 +117,26 @@ export const Minter = {
     return message;
   },
   fromAmino(object: MinterAmino): Minter {
-    return {
-      inflationRate: object.inflation_rate,
-      annualProvisions: object.annual_provisions,
-      previousBlockTime: object.previous_block_time,
-      bondDenom: object.bond_denom
-    };
+    const message = createBaseMinter();
+    if (object.inflation_rate !== undefined && object.inflation_rate !== null) {
+      message.inflationRate = object.inflation_rate;
+    }
+    if (object.annual_provisions !== undefined && object.annual_provisions !== null) {
+      message.annualProvisions = object.annual_provisions;
+    }
+    if (object.previous_block_time !== undefined && object.previous_block_time !== null) {
+      message.previousBlockTime = Timestamp.fromAmino(object.previous_block_time);
+    }
+    if (object.bond_denom !== undefined && object.bond_denom !== null) {
+      message.bondDenom = object.bond_denom;
+    }
+    return message;
   },
   toAmino(message: Minter): MinterAmino {
     const obj: any = {};
     obj.inflation_rate = message.inflationRate;
     obj.annual_provisions = message.annualProvisions;
-    obj.previous_block_time = message.previousBlockTime;
+    obj.previous_block_time = message.previousBlockTime ? Timestamp.toAmino(message.previousBlockTime) : undefined;
     obj.bond_denom = message.bondDenom;
     return obj;
   },
@@ -150,7 +158,7 @@ export const Minter = {
 };
 function createBaseGenesisTime(): GenesisTime {
   return {
-    genesisTime: Timestamp.fromPartial({})
+    genesisTime: undefined
   };
 }
 export const GenesisTime = {
@@ -172,13 +180,15 @@ export const GenesisTime = {
     return message;
   },
   fromAmino(object: GenesisTimeAmino): GenesisTime {
-    return {
-      genesisTime: object.genesis_time
-    };
+    const message = createBaseGenesisTime();
+    if (object.genesis_time !== undefined && object.genesis_time !== null) {
+      message.genesisTime = Timestamp.fromAmino(object.genesis_time);
+    }
+    return message;
   },
   toAmino(message: GenesisTime): GenesisTimeAmino {
     const obj: any = {};
-    obj.genesis_time = message.genesisTime;
+    obj.genesis_time = message.genesisTime ? Timestamp.toAmino(message.genesisTime) : undefined;
     return obj;
   },
   fromAminoMsg(object: GenesisTimeAminoMsg): GenesisTime {

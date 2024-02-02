@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../binary";
-import { bytesFromBase64 } from "../../helpers";
+import { bytesFromBase64, base64FromBytes } from "../../helpers";
 /**
  * DataAvailabilityHeader contains the row and column roots of the erasure
  * coded version of the data in Block.Data.
@@ -36,9 +36,9 @@ export interface DataAvailabilityHeaderProtoMsg {
  */
 export interface DataAvailabilityHeaderAmino {
   /** RowRoot_j 	= root((M_{j,1} || M_{j,2} || ... || M_{j,2k} )) */
-  row_roots: Uint8Array[];
+  row_roots?: string[];
   /** ColumnRoot_j = root((M_{1,j} || M_{2,j} || ... || M_{2k,j} )) */
-  column_roots: Uint8Array[];
+  column_roots?: string[];
 }
 export interface DataAvailabilityHeaderAminoMsg {
   type: "/celestia.da.DataAvailabilityHeader";
@@ -90,20 +90,20 @@ export const DataAvailabilityHeader = {
     return message;
   },
   fromAmino(object: DataAvailabilityHeaderAmino): DataAvailabilityHeader {
-    return {
-      rowRoots: Array.isArray(object?.row_roots) ? object.row_roots.map((e: any) => e) : [],
-      columnRoots: Array.isArray(object?.column_roots) ? object.column_roots.map((e: any) => e) : []
-    };
+    const message = createBaseDataAvailabilityHeader();
+    message.rowRoots = object.row_roots?.map(e => bytesFromBase64(e)) || [];
+    message.columnRoots = object.column_roots?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: DataAvailabilityHeader): DataAvailabilityHeaderAmino {
     const obj: any = {};
     if (message.rowRoots) {
-      obj.row_roots = message.rowRoots.map(e => e);
+      obj.row_roots = message.rowRoots.map(e => base64FromBytes(e));
     } else {
       obj.row_roots = [];
     }
     if (message.columnRoots) {
-      obj.column_roots = message.columnRoots.map(e => e);
+      obj.column_roots = message.columnRoots.map(e => base64FromBytes(e));
     } else {
       obj.column_roots = [];
     }

@@ -14,9 +14,9 @@ export interface MsgRegisterEVMAddressProtoMsg {
 /** MsgRegisterEVMAddress registers an evm address to a validator. */
 export interface MsgRegisterEVMAddressAmino {
   /** The operating address of the validator. */
-  validator_address: string;
+  validator_address?: string;
   /** The matching HEX encoded EVM address. */
-  evm_address: string;
+  evm_address?: string;
 }
 export interface MsgRegisterEVMAddressAminoMsg {
   type: "/celestia.qgb.v1.MsgRegisterEVMAddress";
@@ -71,10 +71,14 @@ export const MsgRegisterEVMAddress = {
     return message;
   },
   fromAmino(object: MsgRegisterEVMAddressAmino): MsgRegisterEVMAddress {
-    return {
-      validatorAddress: object.validator_address,
-      evmAddress: object.evm_address
-    };
+    const message = createBaseMsgRegisterEVMAddress();
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    if (object.evm_address !== undefined && object.evm_address !== null) {
+      message.evmAddress = object.evm_address;
+    }
+    return message;
   },
   toAmino(message: MsgRegisterEVMAddress): MsgRegisterEVMAddressAmino {
     const obj: any = {};
@@ -114,7 +118,8 @@ export const MsgRegisterEVMAddressResponse = {
     return message;
   },
   fromAmino(_: MsgRegisterEVMAddressResponseAmino): MsgRegisterEVMAddressResponse {
-    return {};
+    const message = createBaseMsgRegisterEVMAddressResponse();
+    return message;
   },
   toAmino(_: MsgRegisterEVMAddressResponse): MsgRegisterEVMAddressResponseAmino {
     const obj: any = {};

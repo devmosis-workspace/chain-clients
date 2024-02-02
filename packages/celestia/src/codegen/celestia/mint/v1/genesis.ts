@@ -12,7 +12,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the mint module's genesis state. */
 export interface GenesisStateAmino {
   /** BondDenom is the denomination of the token that should be minted. */
-  bond_denom: string;
+  bond_denom?: string;
 }
 export interface GenesisStateAminoMsg {
   type: "/celestia.mint.v1.GenesisState";
@@ -46,9 +46,11 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      bondDenom: object.bond_denom
-    };
+    const message = createBaseGenesisState();
+    if (object.bond_denom !== undefined && object.bond_denom !== null) {
+      message.bondDenom = object.bond_denom;
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

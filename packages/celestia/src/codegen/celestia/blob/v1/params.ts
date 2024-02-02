@@ -11,8 +11,8 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the module. */
 export interface ParamsAmino {
-  gas_per_blob_byte: number;
-  gov_max_square_size: string;
+  gas_per_blob_byte?: number;
+  gov_max_square_size?: string;
 }
 export interface ParamsAminoMsg {
   type: "/celestia.blob.v1.Params";
@@ -53,10 +53,14 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      gasPerBlobByte: object.gas_per_blob_byte,
-      govMaxSquareSize: BigInt(object.gov_max_square_size)
-    };
+    const message = createBaseParams();
+    if (object.gas_per_blob_byte !== undefined && object.gas_per_blob_byte !== null) {
+      message.gasPerBlobByte = object.gas_per_blob_byte;
+    }
+    if (object.gov_max_square_size !== undefined && object.gov_max_square_size !== null) {
+      message.govMaxSquareSize = BigInt(object.gov_max_square_size);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

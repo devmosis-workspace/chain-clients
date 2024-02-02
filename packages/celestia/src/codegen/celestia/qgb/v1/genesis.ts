@@ -10,7 +10,7 @@ export interface ParamsProtoMsg {
 }
 /** Params represent the Quantum Gravity Bridge genesis and store parameters. */
 export interface ParamsAmino {
-  data_commitment_window: string;
+  data_commitment_window?: string;
 }
 export interface ParamsAminoMsg {
   type: "/celestia.qgb.v1.Params";
@@ -29,7 +29,7 @@ export interface GenesisState {
    * GenesisState struct, containing all persistent data required by the QGB
    * module
    */
-  params: Params;
+  params?: Params;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/celestia.qgb.v1.GenesisState";
@@ -55,7 +55,7 @@ export interface GenesisStateAminoMsg {
  * module
  */
 export interface GenesisStateSDKType {
-  params: ParamsSDKType;
+  params?: ParamsSDKType;
 }
 function createBaseParams(): Params {
   return {
@@ -81,9 +81,11 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      dataCommitmentWindow: BigInt(object.data_commitment_window)
-    };
+    const message = createBaseParams();
+    if (object.data_commitment_window !== undefined && object.data_commitment_window !== null) {
+      message.dataCommitmentWindow = BigInt(object.data_commitment_window);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -108,7 +110,7 @@ export const Params = {
 };
 function createBaseGenesisState(): GenesisState {
   return {
-    params: Params.fromPartial({})
+    params: undefined
   };
 }
 export const GenesisState = {
@@ -130,9 +132,11 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

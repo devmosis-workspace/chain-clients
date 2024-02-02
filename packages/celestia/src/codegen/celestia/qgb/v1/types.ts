@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 /** BridgeValidator represents a validator's ETH address and its power */
@@ -15,9 +15,9 @@ export interface BridgeValidatorProtoMsg {
 /** BridgeValidator represents a validator's ETH address and its power */
 export interface BridgeValidatorAmino {
   /** Voting power of the validator. */
-  power: string;
+  power?: string;
   /** EVM address that will be used by the validator to sign messages. */
-  evm_address: string;
+  evm_address?: string;
 }
 export interface BridgeValidatorAminoMsg {
   type: "/celestia.qgb.v1.BridgeValidator";
@@ -34,7 +34,7 @@ export interface BridgeValidatorSDKType {
  * ETH because of the significant gas savings
  */
 export interface Valset {
-  $typeUrl?: string;
+  $typeUrl?: "/celestia.qgb.v1.Valset";
   /**
    * Universal nonce defined under:
    * https://github.com/celestiaorg/celestia-app/pull/464
@@ -61,13 +61,13 @@ export interface ValsetAmino {
    * Universal nonce defined under:
    * https://github.com/celestiaorg/celestia-app/pull/464
    */
-  nonce: string;
+  nonce?: string;
   /** List of BridgeValidator containing the current validator set. */
-  members: BridgeValidatorAmino[];
+  members?: BridgeValidatorAmino[];
   /** Current chain height */
-  height: string;
+  height?: string;
   /** Block time where this valset was created */
-  time?: TimestampAmino;
+  time?: string;
 }
 export interface ValsetAminoMsg {
   type: "/celestia.qgb.v1.Valset";
@@ -79,7 +79,7 @@ export interface ValsetAminoMsg {
  * ETH because of the significant gas savings
  */
 export interface ValsetSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/celestia.qgb.v1.Valset";
   nonce: bigint;
   members: BridgeValidatorSDKType[];
   height: bigint;
@@ -94,7 +94,7 @@ export interface ValsetSDKType {
  * The range defined by begin_block and end_block is end exclusive.
  */
 export interface DataCommitment {
-  $typeUrl?: string;
+  $typeUrl?: "/celestia.qgb.v1.DataCommitment";
   /**
    * Universal nonce defined under:
    * https://github.com/celestiaorg/celestia-app/pull/464
@@ -130,19 +130,19 @@ export interface DataCommitmentAmino {
    * Universal nonce defined under:
    * https://github.com/celestiaorg/celestia-app/pull/464
    */
-  nonce: string;
+  nonce?: string;
   /**
    * First block defining the ordered set of blocks used to create the
    * commitment.
    */
-  begin_block: string;
+  begin_block?: string;
   /**
    * End exclusive last block defining the ordered set of blocks used to create
    * the commitment.
    */
-  end_block: string;
+  end_block?: string;
   /** Block time where this data commitment was created */
-  time?: TimestampAmino;
+  time?: string;
 }
 export interface DataCommitmentAminoMsg {
   type: "/celestia.qgb.v1.DataCommitment";
@@ -157,7 +157,7 @@ export interface DataCommitmentAminoMsg {
  * The range defined by begin_block and end_block is end exclusive.
  */
 export interface DataCommitmentSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/celestia.qgb.v1.DataCommitment";
   nonce: bigint;
   begin_block: bigint;
   end_block: bigint;
@@ -193,10 +193,14 @@ export const BridgeValidator = {
     return message;
   },
   fromAmino(object: BridgeValidatorAmino): BridgeValidator {
-    return {
-      power: BigInt(object.power),
-      evmAddress: object.evm_address
-    };
+    const message = createBaseBridgeValidator();
+    if (object.power !== undefined && object.power !== null) {
+      message.power = BigInt(object.power);
+    }
+    if (object.evm_address !== undefined && object.evm_address !== null) {
+      message.evmAddress = object.evm_address;
+    }
+    return message;
   },
   toAmino(message: BridgeValidator): BridgeValidatorAmino {
     const obj: any = {};
@@ -263,12 +267,18 @@ export const Valset = {
     return message;
   },
   fromAmino(object: ValsetAmino): Valset {
-    return {
-      nonce: BigInt(object.nonce),
-      members: Array.isArray(object?.members) ? object.members.map((e: any) => BridgeValidator.fromAmino(e)) : [],
-      height: BigInt(object.height),
-      time: object.time
-    };
+    const message = createBaseValset();
+    if (object.nonce !== undefined && object.nonce !== null) {
+      message.nonce = BigInt(object.nonce);
+    }
+    message.members = object.members?.map(e => BridgeValidator.fromAmino(e)) || [];
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.time !== undefined && object.time !== null) {
+      message.time = Timestamp.fromAmino(object.time);
+    }
+    return message;
   },
   toAmino(message: Valset): ValsetAmino {
     const obj: any = {};
@@ -279,7 +289,7 @@ export const Valset = {
       obj.members = [];
     }
     obj.height = message.height ? message.height.toString() : undefined;
-    obj.time = message.time;
+    obj.time = message.time ? Timestamp.toAmino(message.time) : undefined;
     return obj;
   },
   fromAminoMsg(object: ValsetAminoMsg): Valset {
@@ -341,19 +351,27 @@ export const DataCommitment = {
     return message;
   },
   fromAmino(object: DataCommitmentAmino): DataCommitment {
-    return {
-      nonce: BigInt(object.nonce),
-      beginBlock: BigInt(object.begin_block),
-      endBlock: BigInt(object.end_block),
-      time: object.time
-    };
+    const message = createBaseDataCommitment();
+    if (object.nonce !== undefined && object.nonce !== null) {
+      message.nonce = BigInt(object.nonce);
+    }
+    if (object.begin_block !== undefined && object.begin_block !== null) {
+      message.beginBlock = BigInt(object.begin_block);
+    }
+    if (object.end_block !== undefined && object.end_block !== null) {
+      message.endBlock = BigInt(object.end_block);
+    }
+    if (object.time !== undefined && object.time !== null) {
+      message.time = Timestamp.fromAmino(object.time);
+    }
+    return message;
   },
   toAmino(message: DataCommitment): DataCommitmentAmino {
     const obj: any = {};
     obj.nonce = message.nonce ? message.nonce.toString() : undefined;
     obj.begin_block = message.beginBlock ? message.beginBlock.toString() : undefined;
     obj.end_block = message.endBlock ? message.endBlock.toString() : undefined;
-    obj.time = message.time;
+    obj.time = message.time ? Timestamp.toAmino(message.time) : undefined;
     return obj;
   },
   fromAminoMsg(object: DataCommitmentAminoMsg): DataCommitment {

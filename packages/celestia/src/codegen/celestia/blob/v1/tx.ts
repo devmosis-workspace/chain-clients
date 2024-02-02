@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** MsgPayForBlobs pays for the inclusion of a blob in the block. */
 export interface MsgPayForBlobs {
   signer: string;
@@ -26,23 +26,23 @@ export interface MsgPayForBlobsProtoMsg {
 }
 /** MsgPayForBlobs pays for the inclusion of a blob in the block. */
 export interface MsgPayForBlobsAmino {
-  signer: string;
+  signer?: string;
   /**
    * namespaces is a list of namespaces that the blobs are associated with. A
    * namespace is a byte slice of length 29 where the first byte is the
    * namespaceVersion and the subsequent 28 bytes are the namespaceId.
    */
-  namespaces: Uint8Array[];
-  blob_sizes: number[];
+  namespaces?: string[];
+  blob_sizes?: number[];
   /** share_commitments is a list of share commitments (one per blob). */
-  share_commitments: Uint8Array[];
+  share_commitments?: string[];
   /**
    * share_versions are the versions of the share format that the blobs
    * associated with this message should use when included in a block. The
    * share_versions specified must match the share_versions used to generate the
    * share_commitment in this message.
    */
-  share_versions: number[];
+  share_versions?: number[];
 }
 export interface MsgPayForBlobsAminoMsg {
   type: "/celestia.blob.v1.MsgPayForBlobs";
@@ -131,19 +131,21 @@ export const MsgPayForBlobs = {
     return message;
   },
   fromAmino(object: MsgPayForBlobsAmino): MsgPayForBlobs {
-    return {
-      signer: object.signer,
-      namespaces: Array.isArray(object?.namespaces) ? object.namespaces.map((e: any) => e) : [],
-      blobSizes: Array.isArray(object?.blob_sizes) ? object.blob_sizes.map((e: any) => e) : [],
-      shareCommitments: Array.isArray(object?.share_commitments) ? object.share_commitments.map((e: any) => e) : [],
-      shareVersions: Array.isArray(object?.share_versions) ? object.share_versions.map((e: any) => e) : []
-    };
+    const message = createBaseMsgPayForBlobs();
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    message.namespaces = object.namespaces?.map(e => bytesFromBase64(e)) || [];
+    message.blobSizes = object.blob_sizes?.map(e => e) || [];
+    message.shareCommitments = object.share_commitments?.map(e => bytesFromBase64(e)) || [];
+    message.shareVersions = object.share_versions?.map(e => e) || [];
+    return message;
   },
   toAmino(message: MsgPayForBlobs): MsgPayForBlobsAmino {
     const obj: any = {};
     obj.signer = message.signer;
     if (message.namespaces) {
-      obj.namespaces = message.namespaces.map(e => e);
+      obj.namespaces = message.namespaces.map(e => base64FromBytes(e));
     } else {
       obj.namespaces = [];
     }
@@ -153,7 +155,7 @@ export const MsgPayForBlobs = {
       obj.blob_sizes = [];
     }
     if (message.shareCommitments) {
-      obj.share_commitments = message.shareCommitments.map(e => e);
+      obj.share_commitments = message.shareCommitments.map(e => base64FromBytes(e));
     } else {
       obj.share_commitments = [];
     }
@@ -196,7 +198,8 @@ export const MsgPayForBlobsResponse = {
     return message;
   },
   fromAmino(_: MsgPayForBlobsResponseAmino): MsgPayForBlobsResponse {
-    return {};
+    const message = createBaseMsgPayForBlobsResponse();
+    return message;
   },
   toAmino(_: MsgPayForBlobsResponse): MsgPayForBlobsResponseAmino {
     const obj: any = {};

@@ -1,6 +1,6 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, fromJsonTimestamp } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, fromJsonTimestamp } from "../../../helpers";
 /**
  * QueryInflationRateRequest is the request type for the Query/InflationRate RPC
  * method.
@@ -42,7 +42,7 @@ export interface QueryInflationRateResponseProtoMsg {
  */
 export interface QueryInflationRateResponseAmino {
   /** InflationRate is the current inflation rate. */
-  inflation_rate: Uint8Array;
+  inflation_rate?: string;
 }
 export interface QueryInflationRateResponseAminoMsg {
   type: "/celestia.mint.v1.QueryInflationRateResponse";
@@ -96,7 +96,7 @@ export interface QueryAnnualProvisionsResponseProtoMsg {
  */
 export interface QueryAnnualProvisionsResponseAmino {
   /** AnnualProvisions is the current annual provisions. */
-  annual_provisions: Uint8Array;
+  annual_provisions?: string;
 }
 export interface QueryAnnualProvisionsResponseAminoMsg {
   type: "/celestia.mint.v1.QueryAnnualProvisionsResponse";
@@ -138,7 +138,7 @@ export interface QueryGenesisTimeRequestSDKType {}
  */
 export interface QueryGenesisTimeResponse {
   /** GenesisTime is the timestamp associated with the first block. */
-  genesisTime: Timestamp;
+  genesisTime?: Timestamp;
 }
 export interface QueryGenesisTimeResponseProtoMsg {
   typeUrl: "/celestia.mint.v1.QueryGenesisTimeResponse";
@@ -150,7 +150,7 @@ export interface QueryGenesisTimeResponseProtoMsg {
  */
 export interface QueryGenesisTimeResponseAmino {
   /** GenesisTime is the timestamp associated with the first block. */
-  genesis_time?: TimestampAmino;
+  genesis_time?: string;
 }
 export interface QueryGenesisTimeResponseAminoMsg {
   type: "/celestia.mint.v1.QueryGenesisTimeResponse";
@@ -161,7 +161,7 @@ export interface QueryGenesisTimeResponseAminoMsg {
  * method.
  */
 export interface QueryGenesisTimeResponseSDKType {
-  genesis_time: TimestampSDKType;
+  genesis_time?: TimestampSDKType;
 }
 function createBaseQueryInflationRateRequest(): QueryInflationRateRequest {
   return {};
@@ -179,7 +179,8 @@ export const QueryInflationRateRequest = {
     return message;
   },
   fromAmino(_: QueryInflationRateRequestAmino): QueryInflationRateRequest {
-    return {};
+    const message = createBaseQueryInflationRateRequest();
+    return message;
   },
   toAmino(_: QueryInflationRateRequest): QueryInflationRateRequestAmino {
     const obj: any = {};
@@ -225,13 +226,15 @@ export const QueryInflationRateResponse = {
     return message;
   },
   fromAmino(object: QueryInflationRateResponseAmino): QueryInflationRateResponse {
-    return {
-      inflationRate: object.inflation_rate
-    };
+    const message = createBaseQueryInflationRateResponse();
+    if (object.inflation_rate !== undefined && object.inflation_rate !== null) {
+      message.inflationRate = bytesFromBase64(object.inflation_rate);
+    }
+    return message;
   },
   toAmino(message: QueryInflationRateResponse): QueryInflationRateResponseAmino {
     const obj: any = {};
-    obj.inflation_rate = message.inflationRate;
+    obj.inflation_rate = message.inflationRate ? base64FromBytes(message.inflationRate) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryInflationRateResponseAminoMsg): QueryInflationRateResponse {
@@ -266,7 +269,8 @@ export const QueryAnnualProvisionsRequest = {
     return message;
   },
   fromAmino(_: QueryAnnualProvisionsRequestAmino): QueryAnnualProvisionsRequest {
-    return {};
+    const message = createBaseQueryAnnualProvisionsRequest();
+    return message;
   },
   toAmino(_: QueryAnnualProvisionsRequest): QueryAnnualProvisionsRequestAmino {
     const obj: any = {};
@@ -312,13 +316,15 @@ export const QueryAnnualProvisionsResponse = {
     return message;
   },
   fromAmino(object: QueryAnnualProvisionsResponseAmino): QueryAnnualProvisionsResponse {
-    return {
-      annualProvisions: object.annual_provisions
-    };
+    const message = createBaseQueryAnnualProvisionsResponse();
+    if (object.annual_provisions !== undefined && object.annual_provisions !== null) {
+      message.annualProvisions = bytesFromBase64(object.annual_provisions);
+    }
+    return message;
   },
   toAmino(message: QueryAnnualProvisionsResponse): QueryAnnualProvisionsResponseAmino {
     const obj: any = {};
-    obj.annual_provisions = message.annualProvisions;
+    obj.annual_provisions = message.annualProvisions ? base64FromBytes(message.annualProvisions) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryAnnualProvisionsResponseAminoMsg): QueryAnnualProvisionsResponse {
@@ -353,7 +359,8 @@ export const QueryGenesisTimeRequest = {
     return message;
   },
   fromAmino(_: QueryGenesisTimeRequestAmino): QueryGenesisTimeRequest {
-    return {};
+    const message = createBaseQueryGenesisTimeRequest();
+    return message;
   },
   toAmino(_: QueryGenesisTimeRequest): QueryGenesisTimeRequestAmino {
     const obj: any = {};
@@ -377,7 +384,7 @@ export const QueryGenesisTimeRequest = {
 };
 function createBaseQueryGenesisTimeResponse(): QueryGenesisTimeResponse {
   return {
-    genesisTime: Timestamp.fromPartial({})
+    genesisTime: undefined
   };
 }
 export const QueryGenesisTimeResponse = {
@@ -399,13 +406,15 @@ export const QueryGenesisTimeResponse = {
     return message;
   },
   fromAmino(object: QueryGenesisTimeResponseAmino): QueryGenesisTimeResponse {
-    return {
-      genesisTime: object.genesis_time
-    };
+    const message = createBaseQueryGenesisTimeResponse();
+    if (object.genesis_time !== undefined && object.genesis_time !== null) {
+      message.genesisTime = Timestamp.fromAmino(object.genesis_time);
+    }
+    return message;
   },
   toAmino(message: QueryGenesisTimeResponse): QueryGenesisTimeResponseAmino {
     const obj: any = {};
-    obj.genesis_time = message.genesisTime;
+    obj.genesis_time = message.genesisTime ? Timestamp.toAmino(message.genesisTime) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryGenesisTimeResponseAminoMsg): QueryGenesisTimeResponse {

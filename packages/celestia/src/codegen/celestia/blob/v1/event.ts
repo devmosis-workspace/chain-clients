@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /**
  * EventPayForBlobs defines an event that is emitted after a pay for blob has
  * been processed.
@@ -23,14 +23,14 @@ export interface EventPayForBlobsProtoMsg {
  * been processed.
  */
 export interface EventPayForBlobsAmino {
-  signer: string;
-  blob_sizes: number[];
+  signer?: string;
+  blob_sizes?: number[];
   /**
    * namespaces is a list of namespaces that the blobs in blob_sizes belong to.
    * A namespace has length of 29 bytes where the first byte is the
    * namespaceVersion and the subsequent 28 bytes are the namespaceID.
    */
-  namespaces: Uint8Array[];
+  namespaces?: string[];
 }
 export interface EventPayForBlobsAminoMsg {
   type: "/celestia.blob.v1.EventPayForBlobs";
@@ -83,11 +83,13 @@ export const EventPayForBlobs = {
     return message;
   },
   fromAmino(object: EventPayForBlobsAmino): EventPayForBlobs {
-    return {
-      signer: object.signer,
-      blobSizes: Array.isArray(object?.blob_sizes) ? object.blob_sizes.map((e: any) => e) : [],
-      namespaces: Array.isArray(object?.namespaces) ? object.namespaces.map((e: any) => e) : []
-    };
+    const message = createBaseEventPayForBlobs();
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    message.blobSizes = object.blob_sizes?.map(e => e) || [];
+    message.namespaces = object.namespaces?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: EventPayForBlobs): EventPayForBlobsAmino {
     const obj: any = {};
@@ -98,7 +100,7 @@ export const EventPayForBlobs = {
       obj.blob_sizes = [];
     }
     if (message.namespaces) {
-      obj.namespaces = message.namespaces.map(e => e);
+      obj.namespaces = message.namespaces.map(e => base64FromBytes(e));
     } else {
       obj.namespaces = [];
     }
