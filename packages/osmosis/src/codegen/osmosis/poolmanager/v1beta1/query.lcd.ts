@@ -1,5 +1,5 @@
 import { LCDClient } from "@cosmology/lcd";
-import { ParamsRequest, ParamsResponseSDKType, EstimateSwapExactAmountInRequest, EstimateSwapExactAmountInResponseSDKType, EstimateSwapExactAmountInWithPrimitiveTypesRequest, EstimateSinglePoolSwapExactAmountInRequest, EstimateSwapExactAmountOutRequest, EstimateSwapExactAmountOutResponseSDKType, EstimateSwapExactAmountOutWithPrimitiveTypesRequest, EstimateSinglePoolSwapExactAmountOutRequest, NumPoolsRequest, NumPoolsResponseSDKType, PoolRequest, PoolResponseSDKType, AllPoolsRequest, AllPoolsResponseSDKType, SpotPriceRequest, SpotPriceResponseSDKType, TotalPoolLiquidityRequest, TotalPoolLiquidityResponseSDKType, TotalLiquidityRequest, TotalLiquidityResponseSDKType } from "./query";
+import { ParamsRequest, ParamsResponseSDKType, EstimateSwapExactAmountInRequest, EstimateSwapExactAmountInResponseSDKType, EstimateSwapExactAmountInWithPrimitiveTypesRequest, EstimateSinglePoolSwapExactAmountInRequest, EstimateSwapExactAmountOutRequest, EstimateSwapExactAmountOutResponseSDKType, EstimateSwapExactAmountOutWithPrimitiveTypesRequest, EstimateSinglePoolSwapExactAmountOutRequest, NumPoolsRequest, NumPoolsResponseSDKType, PoolRequest, PoolResponseSDKType, AllPoolsRequest, AllPoolsResponseSDKType, ListPoolsByDenomRequest, ListPoolsByDenomResponseSDKType, SpotPriceRequest, SpotPriceResponseSDKType, TotalPoolLiquidityRequest, TotalPoolLiquidityResponseSDKType, TotalLiquidityRequest, TotalLiquidityResponseSDKType, TotalVolumeForPoolRequest, TotalVolumeForPoolResponseSDKType, TradingPairTakerFeeRequest, TradingPairTakerFeeResponseSDKType, EstimateTradeBasedOnPriceImpactRequest, EstimateTradeBasedOnPriceImpactResponseSDKType } from "./query";
 export class LCDQueryClient {
   req: LCDClient;
   constructor({
@@ -18,9 +18,13 @@ export class LCDQueryClient {
     this.numPools = this.numPools.bind(this);
     this.pool = this.pool.bind(this);
     this.allPools = this.allPools.bind(this);
+    this.listPoolsByDenom = this.listPoolsByDenom.bind(this);
     this.spotPrice = this.spotPrice.bind(this);
     this.totalPoolLiquidity = this.totalPoolLiquidity.bind(this);
     this.totalLiquidity = this.totalLiquidity.bind(this);
+    this.totalVolumeForPool = this.totalVolumeForPool.bind(this);
+    this.tradingPairTakerFee = this.tradingPairTakerFee.bind(this);
+    this.estimateTradeBasedOnPriceImpact = this.estimateTradeBasedOnPriceImpact.bind(this);
   }
   /* Params */
   async params(_params: ParamsRequest = {}): Promise<ParamsResponseSDKType> {
@@ -141,6 +145,17 @@ export class LCDQueryClient {
     const endpoint = `osmosis/poolmanager/v1beta1/all-pools`;
     return await this.req.get<AllPoolsResponseSDKType>(endpoint);
   }
+  /* ListPoolsByDenom return all pools by denom */
+  async listPoolsByDenom(params: ListPoolsByDenomRequest): Promise<ListPoolsByDenomResponseSDKType> {
+    const options: any = {
+      params: {}
+    };
+    if (typeof params?.denom !== "undefined") {
+      options.params.denom = params.denom;
+    }
+    const endpoint = `osmosis/poolmanager/v1beta1/list-pools-by-denom`;
+    return await this.req.get<ListPoolsByDenomResponseSDKType>(endpoint, options);
+  }
   /* SpotPrice defines a gRPC query handler that returns the spot price given
    a base denomination and a quote denomination. */
   async spotPrice(params: SpotPriceRequest): Promise<SpotPriceResponseSDKType> {
@@ -163,7 +178,48 @@ export class LCDQueryClient {
   }
   /* TotalLiquidity returns the total liquidity across all pools. */
   async totalLiquidity(_params: TotalLiquidityRequest = {}): Promise<TotalLiquidityResponseSDKType> {
-    const endpoint = `osmosis/poolmanager/v1beta1/pools/total_liquidity`;
+    const endpoint = `osmosis/poolmanager/v1beta1/total_liquidity`;
     return await this.req.get<TotalLiquidityResponseSDKType>(endpoint);
+  }
+  /* TotalVolumeForPool returns the total volume of the specified pool. */
+  async totalVolumeForPool(params: TotalVolumeForPoolRequest): Promise<TotalVolumeForPoolResponseSDKType> {
+    const endpoint = `osmosis/poolmanager/v1beta1/pools/${params.poolId}/total_volume`;
+    return await this.req.get<TotalVolumeForPoolResponseSDKType>(endpoint);
+  }
+  /* TradingPairTakerFee returns the taker fee for a given set of denoms */
+  async tradingPairTakerFee(params: TradingPairTakerFeeRequest): Promise<TradingPairTakerFeeResponseSDKType> {
+    const options: any = {
+      params: {}
+    };
+    if (typeof params?.denom0 !== "undefined") {
+      options.params.denom_0 = params.denom0;
+    }
+    if (typeof params?.denom1 !== "undefined") {
+      options.params.denom_1 = params.denom1;
+    }
+    const endpoint = `osmosis/poolmanager/v1beta1/trading_pair_takerfee`;
+    return await this.req.get<TradingPairTakerFeeResponseSDKType>(endpoint, options);
+  }
+  /* EstimateTradeBasedOnPriceImpact returns an estimated trade based on price
+   impact, if a trade cannot be estimated a 0 input and 0 output would be
+   returned. */
+  async estimateTradeBasedOnPriceImpact(params: EstimateTradeBasedOnPriceImpactRequest): Promise<EstimateTradeBasedOnPriceImpactResponseSDKType> {
+    const options: any = {
+      params: {}
+    };
+    if (typeof params?.fromCoin !== "undefined") {
+      options.params.from_coin = params.fromCoin;
+    }
+    if (typeof params?.toCoinDenom !== "undefined") {
+      options.params.to_coin_denom = params.toCoinDenom;
+    }
+    if (typeof params?.maxPriceImpact !== "undefined") {
+      options.params.max_price_impact = params.maxPriceImpact;
+    }
+    if (typeof params?.externalPrice !== "undefined") {
+      options.params.external_price = params.externalPrice;
+    }
+    const endpoint = `osmosis/poolmanager/v1beta1/${params.poolId}/estimate_trade`;
+    return await this.req.get<EstimateTradeBasedOnPriceImpactResponseSDKType>(endpoint, options);
   }
 }

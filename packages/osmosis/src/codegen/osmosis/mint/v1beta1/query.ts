@@ -1,6 +1,6 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./mint";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
@@ -78,7 +78,7 @@ export interface QueryEpochProvisionsResponseProtoMsg {
  */
 export interface QueryEpochProvisionsResponseAmino {
   /** epoch_provisions is the current minting per epoch provisions value. */
-  epoch_provisions: Uint8Array;
+  epoch_provisions?: string;
 }
 export interface QueryEpochProvisionsResponseAminoMsg {
   type: "osmosis/mint/query-epoch-provisions-response";
@@ -107,7 +107,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -159,9 +160,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -206,7 +209,8 @@ export const QueryEpochProvisionsRequest = {
     return message;
   },
   fromAmino(_: QueryEpochProvisionsRequestAmino): QueryEpochProvisionsRequest {
-    return {};
+    const message = createBaseQueryEpochProvisionsRequest();
+    return message;
   },
   toAmino(_: QueryEpochProvisionsRequest): QueryEpochProvisionsRequestAmino {
     const obj: any = {};
@@ -258,13 +262,15 @@ export const QueryEpochProvisionsResponse = {
     return message;
   },
   fromAmino(object: QueryEpochProvisionsResponseAmino): QueryEpochProvisionsResponse {
-    return {
-      epochProvisions: object.epoch_provisions
-    };
+    const message = createBaseQueryEpochProvisionsResponse();
+    if (object.epoch_provisions !== undefined && object.epoch_provisions !== null) {
+      message.epochProvisions = bytesFromBase64(object.epoch_provisions);
+    }
+    return message;
   },
   toAmino(message: QueryEpochProvisionsResponse): QueryEpochProvisionsResponseAmino {
     const obj: any = {};
-    obj.epoch_provisions = message.epochProvisions;
+    obj.epoch_provisions = message.epochProvisions ? base64FromBytes(message.epochProvisions) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryEpochProvisionsResponseAminoMsg): QueryEpochProvisionsResponse {

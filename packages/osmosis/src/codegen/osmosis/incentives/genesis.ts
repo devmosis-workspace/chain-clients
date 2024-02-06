@@ -1,6 +1,7 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { Gauge, GaugeAmino, GaugeSDKType } from "./gauge";
 import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { Group, GroupAmino, GroupSDKType } from "./group";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -10,11 +11,14 @@ import { isSet } from "../../helpers";
 export interface GenesisState {
   /** params are all the parameters of the module */
   params: Params;
-  /** gauges are all gauges that should exist at genesis */
+  /**
+   * gauges are all gauges (not including group gauges) that should exist at
+   * genesis
+   */
   gauges: Gauge[];
   /**
    * lockable_durations are all lockup durations that gauges can be locked for
-   * in order to recieve incentives
+   * in order to receive incentives
    */
   lockableDurations: Duration[];
   /**
@@ -22,6 +26,10 @@ export interface GenesisState {
    * the next gauge after genesis
    */
   lastGaugeId: bigint;
+  /** gauges are all group gauges that should exist at genesis */
+  groupGauges: Gauge[];
+  /** groups are all the groups that should exist at genesis */
+  groups: Group[];
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/osmosis.incentives.GenesisState";
@@ -34,18 +42,25 @@ export interface GenesisStateProtoMsg {
 export interface GenesisStateAmino {
   /** params are all the parameters of the module */
   params?: ParamsAmino;
-  /** gauges are all gauges that should exist at genesis */
-  gauges: GaugeAmino[];
+  /**
+   * gauges are all gauges (not including group gauges) that should exist at
+   * genesis
+   */
+  gauges?: GaugeAmino[];
   /**
    * lockable_durations are all lockup durations that gauges can be locked for
-   * in order to recieve incentives
+   * in order to receive incentives
    */
-  lockable_durations: DurationAmino[];
+  lockable_durations?: DurationAmino[];
   /**
    * last_gauge_id is what the gauge number will increment from when creating
    * the next gauge after genesis
    */
-  last_gauge_id: string;
+  last_gauge_id?: string;
+  /** gauges are all group gauges that should exist at genesis */
+  group_gauges?: GaugeAmino[];
+  /** groups are all the groups that should exist at genesis */
+  groups?: GroupAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "osmosis/incentives/genesis-state";
@@ -60,13 +75,17 @@ export interface GenesisStateSDKType {
   gauges: GaugeSDKType[];
   lockable_durations: DurationSDKType[];
   last_gauge_id: bigint;
+  group_gauges: GaugeSDKType[];
+  groups: GroupSDKType[];
 }
 function createBaseGenesisState(): GenesisState {
   return {
     params: Params.fromPartial({}),
     gauges: [],
     lockableDurations: [],
-    lastGaugeId: BigInt(0)
+    lastGaugeId: BigInt(0),
+    groupGauges: [],
+    groups: []
   };
 }
 export const GenesisState = {
@@ -84,6 +103,12 @@ export const GenesisState = {
     if (message.lastGaugeId !== BigInt(0)) {
       writer.uint32(32).uint64(message.lastGaugeId);
     }
+    for (const v of message.groupGauges) {
+      Gauge.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
+    for (const v of message.groups) {
+      Group.encode(v!, writer.uint32(50).fork()).ldelim();
+    }
     return writer;
   },
   fromJSON(object: any): GenesisState {
@@ -91,7 +116,9 @@ export const GenesisState = {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       gauges: Array.isArray(object?.gauges) ? object.gauges.map((e: any) => Gauge.fromJSON(e)) : [],
       lockableDurations: Array.isArray(object?.lockableDurations) ? object.lockableDurations.map((e: any) => Duration.fromJSON(e)) : [],
-      lastGaugeId: isSet(object.lastGaugeId) ? BigInt(object.lastGaugeId.toString()) : BigInt(0)
+      lastGaugeId: isSet(object.lastGaugeId) ? BigInt(object.lastGaugeId.toString()) : BigInt(0),
+      groupGauges: Array.isArray(object?.groupGauges) ? object.groupGauges.map((e: any) => Gauge.fromJSON(e)) : [],
+      groups: Array.isArray(object?.groups) ? object.groups.map((e: any) => Group.fromJSON(e)) : []
     };
   },
   fromPartial(object: Partial<GenesisState>): GenesisState {
@@ -100,15 +127,23 @@ export const GenesisState = {
     message.gauges = object.gauges?.map(e => Gauge.fromPartial(e)) || [];
     message.lockableDurations = object.lockableDurations?.map(e => Duration.fromPartial(e)) || [];
     message.lastGaugeId = object.lastGaugeId !== undefined && object.lastGaugeId !== null ? BigInt(object.lastGaugeId.toString()) : BigInt(0);
+    message.groupGauges = object.groupGauges?.map(e => Gauge.fromPartial(e)) || [];
+    message.groups = object.groups?.map(e => Group.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      gauges: Array.isArray(object?.gauges) ? object.gauges.map((e: any) => Gauge.fromAmino(e)) : [],
-      lockableDurations: Array.isArray(object?.lockable_durations) ? object.lockable_durations.map((e: any) => Duration.fromAmino(e)) : [],
-      lastGaugeId: BigInt(object.last_gauge_id)
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.gauges = object.gauges?.map(e => Gauge.fromAmino(e)) || [];
+    message.lockableDurations = object.lockable_durations?.map(e => Duration.fromAmino(e)) || [];
+    if (object.last_gauge_id !== undefined && object.last_gauge_id !== null) {
+      message.lastGaugeId = BigInt(object.last_gauge_id);
+    }
+    message.groupGauges = object.group_gauges?.map(e => Gauge.fromAmino(e)) || [];
+    message.groups = object.groups?.map(e => Group.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -124,6 +159,16 @@ export const GenesisState = {
       obj.lockable_durations = [];
     }
     obj.last_gauge_id = message.lastGaugeId ? message.lastGaugeId.toString() : undefined;
+    if (message.groupGauges) {
+      obj.group_gauges = message.groupGauges.map(e => e ? Gauge.toAmino(e) : undefined);
+    } else {
+      obj.group_gauges = [];
+    }
+    if (message.groups) {
+      obj.groups = message.groups.map(e => e ? Group.toAmino(e) : undefined);
+    } else {
+      obj.groups = [];
+    }
     return obj;
   },
   fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {

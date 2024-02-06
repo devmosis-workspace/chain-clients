@@ -9,8 +9,8 @@ export interface SwapAmountInRouteProtoMsg {
   value: Uint8Array;
 }
 export interface SwapAmountInRouteAmino {
-  pool_id: string;
-  token_out_denom: string;
+  pool_id?: string;
+  token_out_denom?: string;
 }
 export interface SwapAmountInRouteAminoMsg {
   type: "osmosis/poolmanager/swap-amount-in-route";
@@ -29,8 +29,8 @@ export interface SwapAmountOutRouteProtoMsg {
   value: Uint8Array;
 }
 export interface SwapAmountOutRouteAmino {
-  pool_id: string;
-  token_in_denom: string;
+  pool_id?: string;
+  token_in_denom?: string;
 }
 export interface SwapAmountOutRouteAminoMsg {
   type: "osmosis/poolmanager/swap-amount-out-route";
@@ -49,8 +49,8 @@ export interface SwapAmountInSplitRouteProtoMsg {
   value: Uint8Array;
 }
 export interface SwapAmountInSplitRouteAmino {
-  pools: SwapAmountInRouteAmino[];
-  token_in_amount: string;
+  pools?: SwapAmountInRouteAmino[];
+  token_in_amount?: string;
 }
 export interface SwapAmountInSplitRouteAminoMsg {
   type: "osmosis/poolmanager/swap-amount-in-split-route";
@@ -69,8 +69,8 @@ export interface SwapAmountOutSplitRouteProtoMsg {
   value: Uint8Array;
 }
 export interface SwapAmountOutSplitRouteAmino {
-  pools: SwapAmountOutRouteAmino[];
-  token_out_amount: string;
+  pools?: SwapAmountOutRouteAmino[];
+  token_out_amount?: string;
 }
 export interface SwapAmountOutSplitRouteAminoMsg {
   type: "osmosis/poolmanager/swap-amount-out-split-route";
@@ -110,10 +110,14 @@ export const SwapAmountInRoute = {
     return message;
   },
   fromAmino(object: SwapAmountInRouteAmino): SwapAmountInRoute {
-    return {
-      poolId: BigInt(object.pool_id),
-      tokenOutDenom: object.token_out_denom
-    };
+    const message = createBaseSwapAmountInRoute();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.token_out_denom !== undefined && object.token_out_denom !== null) {
+      message.tokenOutDenom = object.token_out_denom;
+    }
+    return message;
   },
   toAmino(message: SwapAmountInRoute): SwapAmountInRouteAmino {
     const obj: any = {};
@@ -173,10 +177,14 @@ export const SwapAmountOutRoute = {
     return message;
   },
   fromAmino(object: SwapAmountOutRouteAmino): SwapAmountOutRoute {
-    return {
-      poolId: BigInt(object.pool_id),
-      tokenInDenom: object.token_in_denom
-    };
+    const message = createBaseSwapAmountOutRoute();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.token_in_denom !== undefined && object.token_in_denom !== null) {
+      message.tokenInDenom = object.token_in_denom;
+    }
+    return message;
   },
   toAmino(message: SwapAmountOutRoute): SwapAmountOutRouteAmino {
     const obj: any = {};
@@ -236,10 +244,12 @@ export const SwapAmountInSplitRoute = {
     return message;
   },
   fromAmino(object: SwapAmountInSplitRouteAmino): SwapAmountInSplitRoute {
-    return {
-      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => SwapAmountInRoute.fromAmino(e)) : [],
-      tokenInAmount: object.token_in_amount
-    };
+    const message = createBaseSwapAmountInSplitRoute();
+    message.pools = object.pools?.map(e => SwapAmountInRoute.fromAmino(e)) || [];
+    if (object.token_in_amount !== undefined && object.token_in_amount !== null) {
+      message.tokenInAmount = object.token_in_amount;
+    }
+    return message;
   },
   toAmino(message: SwapAmountInSplitRoute): SwapAmountInSplitRouteAmino {
     const obj: any = {};
@@ -303,10 +313,12 @@ export const SwapAmountOutSplitRoute = {
     return message;
   },
   fromAmino(object: SwapAmountOutSplitRouteAmino): SwapAmountOutSplitRoute {
-    return {
-      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => SwapAmountOutRoute.fromAmino(e)) : [],
-      tokenOutAmount: object.token_out_amount
-    };
+    const message = createBaseSwapAmountOutSplitRoute();
+    message.pools = object.pools?.map(e => SwapAmountOutRoute.fromAmino(e)) || [];
+    if (object.token_out_amount !== undefined && object.token_out_amount !== null) {
+      message.tokenOutAmount = object.token_out_amount;
+    }
+    return message;
   },
   toAmino(message: SwapAmountOutSplitRoute): SwapAmountOutSplitRouteAmino {
     const obj: any = {};

@@ -3,9 +3,9 @@ import { ValidatorSet, ValidatorSetAmino, ValidatorSetSDKType } from "../types/v
 import { ConsensusParams, ConsensusParamsAmino, ConsensusParamsSDKType } from "../types/params";
 import { Consensus, ConsensusAmino, ConsensusSDKType } from "../version/types";
 import { BlockID, BlockIDAmino, BlockIDSDKType } from "../types/types";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../binary";
-import { isSet, fromJsonTimestamp, bytesFromBase64 } from "../../helpers";
+import { isSet, fromJsonTimestamp, bytesFromBase64, base64FromBytes } from "../../helpers";
 /**
  * ABCIResponses retains the responses
  * of the various ABCI calls during block processing.
@@ -13,8 +13,8 @@ import { isSet, fromJsonTimestamp, bytesFromBase64 } from "../../helpers";
  */
 export interface ABCIResponses {
   deliverTxs: ResponseDeliverTx[];
-  endBlock: ResponseEndBlock;
-  beginBlock: ResponseBeginBlock;
+  endBlock?: ResponseEndBlock;
+  beginBlock?: ResponseBeginBlock;
 }
 export interface ABCIResponsesProtoMsg {
   typeUrl: "/tendermint.state.ABCIResponses";
@@ -26,7 +26,7 @@ export interface ABCIResponsesProtoMsg {
  * It is persisted to disk for each height before calling Commit.
  */
 export interface ABCIResponsesAmino {
-  deliver_txs: ResponseDeliverTxAmino[];
+  deliver_txs?: ResponseDeliverTxAmino[];
   end_block?: ResponseEndBlockAmino;
   begin_block?: ResponseBeginBlockAmino;
 }
@@ -41,12 +41,12 @@ export interface ABCIResponsesAminoMsg {
  */
 export interface ABCIResponsesSDKType {
   deliver_txs: ResponseDeliverTxSDKType[];
-  end_block: ResponseEndBlockSDKType;
-  begin_block: ResponseBeginBlockSDKType;
+  end_block?: ResponseEndBlockSDKType;
+  begin_block?: ResponseBeginBlockSDKType;
 }
 /** ValidatorsInfo represents the latest validator set, or the last height it changed */
 export interface ValidatorsInfo {
-  validatorSet: ValidatorSet;
+  validatorSet?: ValidatorSet;
   lastHeightChanged: bigint;
 }
 export interface ValidatorsInfoProtoMsg {
@@ -56,7 +56,7 @@ export interface ValidatorsInfoProtoMsg {
 /** ValidatorsInfo represents the latest validator set, or the last height it changed */
 export interface ValidatorsInfoAmino {
   validator_set?: ValidatorSetAmino;
-  last_height_changed: string;
+  last_height_changed?: string;
 }
 export interface ValidatorsInfoAminoMsg {
   type: "/tendermint.state.ValidatorsInfo";
@@ -64,7 +64,7 @@ export interface ValidatorsInfoAminoMsg {
 }
 /** ValidatorsInfo represents the latest validator set, or the last height it changed */
 export interface ValidatorsInfoSDKType {
-  validator_set: ValidatorSetSDKType;
+  validator_set?: ValidatorSetSDKType;
   last_height_changed: bigint;
 }
 /** ConsensusParamsInfo represents the latest consensus params, or the last height it changed */
@@ -79,7 +79,7 @@ export interface ConsensusParamsInfoProtoMsg {
 /** ConsensusParamsInfo represents the latest consensus params, or the last height it changed */
 export interface ConsensusParamsInfoAmino {
   consensus_params?: ConsensusParamsAmino;
-  last_height_changed: string;
+  last_height_changed?: string;
 }
 export interface ConsensusParamsInfoAminoMsg {
   type: "/tendermint.state.ConsensusParamsInfo";
@@ -91,7 +91,7 @@ export interface ConsensusParamsInfoSDKType {
   last_height_changed: bigint;
 }
 export interface ABCIResponsesInfo {
-  abciResponses: ABCIResponses;
+  abciResponses?: ABCIResponses;
   height: bigint;
 }
 export interface ABCIResponsesInfoProtoMsg {
@@ -100,14 +100,14 @@ export interface ABCIResponsesInfoProtoMsg {
 }
 export interface ABCIResponsesInfoAmino {
   abci_responses?: ABCIResponsesAmino;
-  height: string;
+  height?: string;
 }
 export interface ABCIResponsesInfoAminoMsg {
   type: "/tendermint.state.ABCIResponsesInfo";
   value: ABCIResponsesInfoAmino;
 }
 export interface ABCIResponsesInfoSDKType {
-  abci_responses: ABCIResponsesSDKType;
+  abci_responses?: ABCIResponsesSDKType;
   height: bigint;
 }
 export interface Version {
@@ -120,7 +120,7 @@ export interface VersionProtoMsg {
 }
 export interface VersionAmino {
   consensus?: ConsensusAmino;
-  software: string;
+  software?: string;
 }
 export interface VersionAminoMsg {
   type: "/tendermint.state.Version";
@@ -147,9 +147,9 @@ export interface State {
    * we set s.LastHeightValidatorsChanged = s.LastBlockHeight + 1 + 1
    * Extra +1 due to nextValSet delay.
    */
-  nextValidators: ValidatorSet;
-  validators: ValidatorSet;
-  lastValidators: ValidatorSet;
+  nextValidators?: ValidatorSet;
+  validators?: ValidatorSet;
+  lastValidators?: ValidatorSet;
   lastHeightValidatorsChanged: bigint;
   /**
    * Consensus parameters used for validating blocks.
@@ -169,12 +169,12 @@ export interface StateProtoMsg {
 export interface StateAmino {
   version?: VersionAmino;
   /** immutable */
-  chain_id: string;
-  initial_height: string;
+  chain_id?: string;
+  initial_height?: string;
   /** LastBlockHeight=0 at genesis (ie. block(H=0) does not exist) */
-  last_block_height: string;
+  last_block_height?: string;
   last_block_id?: BlockIDAmino;
-  last_block_time?: TimestampAmino;
+  last_block_time?: string;
   /**
    * LastValidators is used to validate block.LastCommit.
    * Validators are persisted to the database separately every time they change,
@@ -186,17 +186,17 @@ export interface StateAmino {
   next_validators?: ValidatorSetAmino;
   validators?: ValidatorSetAmino;
   last_validators?: ValidatorSetAmino;
-  last_height_validators_changed: string;
+  last_height_validators_changed?: string;
   /**
    * Consensus parameters used for validating blocks.
    * Changes returned by EndBlock and updated after Commit.
    */
   consensus_params?: ConsensusParamsAmino;
-  last_height_consensus_params_changed: string;
+  last_height_consensus_params_changed?: string;
   /** Merkle root of the results from executing prev block */
-  last_results_hash: Uint8Array;
+  last_results_hash?: string;
   /** the latest AppHash we've received from calling abci.Commit() */
-  app_hash: Uint8Array;
+  app_hash?: string;
 }
 export interface StateAminoMsg {
   type: "/tendermint.state.State";
@@ -209,9 +209,9 @@ export interface StateSDKType {
   last_block_height: bigint;
   last_block_id: BlockIDSDKType;
   last_block_time: TimestampSDKType;
-  next_validators: ValidatorSetSDKType;
-  validators: ValidatorSetSDKType;
-  last_validators: ValidatorSetSDKType;
+  next_validators?: ValidatorSetSDKType;
+  validators?: ValidatorSetSDKType;
+  last_validators?: ValidatorSetSDKType;
   last_height_validators_changed: bigint;
   consensus_params: ConsensusParamsSDKType;
   last_height_consensus_params_changed: bigint;
@@ -221,8 +221,8 @@ export interface StateSDKType {
 function createBaseABCIResponses(): ABCIResponses {
   return {
     deliverTxs: [],
-    endBlock: ResponseEndBlock.fromPartial({}),
-    beginBlock: ResponseBeginBlock.fromPartial({})
+    endBlock: undefined,
+    beginBlock: undefined
   };
 }
 export const ABCIResponses = {
@@ -254,11 +254,15 @@ export const ABCIResponses = {
     return message;
   },
   fromAmino(object: ABCIResponsesAmino): ABCIResponses {
-    return {
-      deliverTxs: Array.isArray(object?.deliver_txs) ? object.deliver_txs.map((e: any) => ResponseDeliverTx.fromAmino(e)) : [],
-      endBlock: object?.end_block ? ResponseEndBlock.fromAmino(object.end_block) : undefined,
-      beginBlock: object?.begin_block ? ResponseBeginBlock.fromAmino(object.begin_block) : undefined
-    };
+    const message = createBaseABCIResponses();
+    message.deliverTxs = object.deliver_txs?.map(e => ResponseDeliverTx.fromAmino(e)) || [];
+    if (object.end_block !== undefined && object.end_block !== null) {
+      message.endBlock = ResponseEndBlock.fromAmino(object.end_block);
+    }
+    if (object.begin_block !== undefined && object.begin_block !== null) {
+      message.beginBlock = ResponseBeginBlock.fromAmino(object.begin_block);
+    }
+    return message;
   },
   toAmino(message: ABCIResponses): ABCIResponsesAmino {
     const obj: any = {};
@@ -289,7 +293,7 @@ export const ABCIResponses = {
 };
 function createBaseValidatorsInfo(): ValidatorsInfo {
   return {
-    validatorSet: ValidatorSet.fromPartial({}),
+    validatorSet: undefined,
     lastHeightChanged: BigInt(0)
   };
 }
@@ -317,10 +321,14 @@ export const ValidatorsInfo = {
     return message;
   },
   fromAmino(object: ValidatorsInfoAmino): ValidatorsInfo {
-    return {
-      validatorSet: object?.validator_set ? ValidatorSet.fromAmino(object.validator_set) : undefined,
-      lastHeightChanged: BigInt(object.last_height_changed)
-    };
+    const message = createBaseValidatorsInfo();
+    if (object.validator_set !== undefined && object.validator_set !== null) {
+      message.validatorSet = ValidatorSet.fromAmino(object.validator_set);
+    }
+    if (object.last_height_changed !== undefined && object.last_height_changed !== null) {
+      message.lastHeightChanged = BigInt(object.last_height_changed);
+    }
+    return message;
   },
   toAmino(message: ValidatorsInfo): ValidatorsInfoAmino {
     const obj: any = {};
@@ -374,10 +382,14 @@ export const ConsensusParamsInfo = {
     return message;
   },
   fromAmino(object: ConsensusParamsInfoAmino): ConsensusParamsInfo {
-    return {
-      consensusParams: object?.consensus_params ? ConsensusParams.fromAmino(object.consensus_params) : undefined,
-      lastHeightChanged: BigInt(object.last_height_changed)
-    };
+    const message = createBaseConsensusParamsInfo();
+    if (object.consensus_params !== undefined && object.consensus_params !== null) {
+      message.consensusParams = ConsensusParams.fromAmino(object.consensus_params);
+    }
+    if (object.last_height_changed !== undefined && object.last_height_changed !== null) {
+      message.lastHeightChanged = BigInt(object.last_height_changed);
+    }
+    return message;
   },
   toAmino(message: ConsensusParamsInfo): ConsensusParamsInfoAmino {
     const obj: any = {};
@@ -403,7 +415,7 @@ export const ConsensusParamsInfo = {
 };
 function createBaseABCIResponsesInfo(): ABCIResponsesInfo {
   return {
-    abciResponses: ABCIResponses.fromPartial({}),
+    abciResponses: undefined,
     height: BigInt(0)
   };
 }
@@ -431,10 +443,14 @@ export const ABCIResponsesInfo = {
     return message;
   },
   fromAmino(object: ABCIResponsesInfoAmino): ABCIResponsesInfo {
-    return {
-      abciResponses: object?.abci_responses ? ABCIResponses.fromAmino(object.abci_responses) : undefined,
-      height: BigInt(object.height)
-    };
+    const message = createBaseABCIResponsesInfo();
+    if (object.abci_responses !== undefined && object.abci_responses !== null) {
+      message.abciResponses = ABCIResponses.fromAmino(object.abci_responses);
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    return message;
   },
   toAmino(message: ABCIResponsesInfo): ABCIResponsesInfoAmino {
     const obj: any = {};
@@ -488,10 +504,14 @@ export const Version = {
     return message;
   },
   fromAmino(object: VersionAmino): Version {
-    return {
-      consensus: object?.consensus ? Consensus.fromAmino(object.consensus) : undefined,
-      software: object.software
-    };
+    const message = createBaseVersion();
+    if (object.consensus !== undefined && object.consensus !== null) {
+      message.consensus = Consensus.fromAmino(object.consensus);
+    }
+    if (object.software !== undefined && object.software !== null) {
+      message.software = object.software;
+    }
+    return message;
   },
   toAmino(message: Version): VersionAmino {
     const obj: any = {};
@@ -523,9 +543,9 @@ function createBaseState(): State {
     lastBlockHeight: BigInt(0),
     lastBlockId: BlockID.fromPartial({}),
     lastBlockTime: Timestamp.fromPartial({}),
-    nextValidators: ValidatorSet.fromPartial({}),
-    validators: ValidatorSet.fromPartial({}),
-    lastValidators: ValidatorSet.fromPartial({}),
+    nextValidators: undefined,
+    validators: undefined,
+    lastValidators: undefined,
     lastHeightValidatorsChanged: BigInt(0),
     consensusParams: ConsensusParams.fromPartial({}),
     lastHeightConsensusParamsChanged: BigInt(0),
@@ -617,22 +637,50 @@ export const State = {
     return message;
   },
   fromAmino(object: StateAmino): State {
-    return {
-      version: object?.version ? Version.fromAmino(object.version) : undefined,
-      chainId: object.chain_id,
-      initialHeight: BigInt(object.initial_height),
-      lastBlockHeight: BigInt(object.last_block_height),
-      lastBlockId: object?.last_block_id ? BlockID.fromAmino(object.last_block_id) : undefined,
-      lastBlockTime: object.last_block_time,
-      nextValidators: object?.next_validators ? ValidatorSet.fromAmino(object.next_validators) : undefined,
-      validators: object?.validators ? ValidatorSet.fromAmino(object.validators) : undefined,
-      lastValidators: object?.last_validators ? ValidatorSet.fromAmino(object.last_validators) : undefined,
-      lastHeightValidatorsChanged: BigInt(object.last_height_validators_changed),
-      consensusParams: object?.consensus_params ? ConsensusParams.fromAmino(object.consensus_params) : undefined,
-      lastHeightConsensusParamsChanged: BigInt(object.last_height_consensus_params_changed),
-      lastResultsHash: object.last_results_hash,
-      appHash: object.app_hash
-    };
+    const message = createBaseState();
+    if (object.version !== undefined && object.version !== null) {
+      message.version = Version.fromAmino(object.version);
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.initial_height !== undefined && object.initial_height !== null) {
+      message.initialHeight = BigInt(object.initial_height);
+    }
+    if (object.last_block_height !== undefined && object.last_block_height !== null) {
+      message.lastBlockHeight = BigInt(object.last_block_height);
+    }
+    if (object.last_block_id !== undefined && object.last_block_id !== null) {
+      message.lastBlockId = BlockID.fromAmino(object.last_block_id);
+    }
+    if (object.last_block_time !== undefined && object.last_block_time !== null) {
+      message.lastBlockTime = Timestamp.fromAmino(object.last_block_time);
+    }
+    if (object.next_validators !== undefined && object.next_validators !== null) {
+      message.nextValidators = ValidatorSet.fromAmino(object.next_validators);
+    }
+    if (object.validators !== undefined && object.validators !== null) {
+      message.validators = ValidatorSet.fromAmino(object.validators);
+    }
+    if (object.last_validators !== undefined && object.last_validators !== null) {
+      message.lastValidators = ValidatorSet.fromAmino(object.last_validators);
+    }
+    if (object.last_height_validators_changed !== undefined && object.last_height_validators_changed !== null) {
+      message.lastHeightValidatorsChanged = BigInt(object.last_height_validators_changed);
+    }
+    if (object.consensus_params !== undefined && object.consensus_params !== null) {
+      message.consensusParams = ConsensusParams.fromAmino(object.consensus_params);
+    }
+    if (object.last_height_consensus_params_changed !== undefined && object.last_height_consensus_params_changed !== null) {
+      message.lastHeightConsensusParamsChanged = BigInt(object.last_height_consensus_params_changed);
+    }
+    if (object.last_results_hash !== undefined && object.last_results_hash !== null) {
+      message.lastResultsHash = bytesFromBase64(object.last_results_hash);
+    }
+    if (object.app_hash !== undefined && object.app_hash !== null) {
+      message.appHash = bytesFromBase64(object.app_hash);
+    }
+    return message;
   },
   toAmino(message: State): StateAmino {
     const obj: any = {};
@@ -641,15 +689,15 @@ export const State = {
     obj.initial_height = message.initialHeight ? message.initialHeight.toString() : undefined;
     obj.last_block_height = message.lastBlockHeight ? message.lastBlockHeight.toString() : undefined;
     obj.last_block_id = message.lastBlockId ? BlockID.toAmino(message.lastBlockId) : undefined;
-    obj.last_block_time = message.lastBlockTime;
+    obj.last_block_time = message.lastBlockTime ? Timestamp.toAmino(message.lastBlockTime) : undefined;
     obj.next_validators = message.nextValidators ? ValidatorSet.toAmino(message.nextValidators) : undefined;
     obj.validators = message.validators ? ValidatorSet.toAmino(message.validators) : undefined;
     obj.last_validators = message.lastValidators ? ValidatorSet.toAmino(message.lastValidators) : undefined;
     obj.last_height_validators_changed = message.lastHeightValidatorsChanged ? message.lastHeightValidatorsChanged.toString() : undefined;
     obj.consensus_params = message.consensusParams ? ConsensusParams.toAmino(message.consensusParams) : undefined;
     obj.last_height_consensus_params_changed = message.lastHeightConsensusParamsChanged ? message.lastHeightConsensusParamsChanged.toString() : undefined;
-    obj.last_results_hash = message.lastResultsHash;
-    obj.app_hash = message.appHash;
+    obj.last_results_hash = message.lastResultsHash ? base64FromBytes(message.lastResultsHash) : undefined;
+    obj.app_hash = message.appHash ? base64FromBytes(message.appHash) : undefined;
     return obj;
   },
   fromAminoMsg(object: StateAminoMsg): State {

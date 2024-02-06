@@ -2,8 +2,10 @@ import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageRe
 import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
 import { Gauge, GaugeAmino, GaugeSDKType } from "./gauge";
 import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { Group, GroupAmino, GroupSDKType, GroupsWithGauge, GroupsWithGaugeAmino, GroupsWithGaugeSDKType } from "./group";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
+import { Decimal } from "@cosmjs/math";
 export interface ModuleToDistributeCoinsRequest {}
 export interface ModuleToDistributeCoinsRequestProtoMsg {
   typeUrl: "/osmosis.incentives.ModuleToDistributeCoinsRequest";
@@ -25,7 +27,7 @@ export interface ModuleToDistributeCoinsResponseProtoMsg {
 }
 export interface ModuleToDistributeCoinsResponseAmino {
   /** Coins that have yet to be distributed */
-  coins: CoinAmino[];
+  coins?: CoinAmino[];
 }
 export interface ModuleToDistributeCoinsResponseAminoMsg {
   type: "osmosis/incentives/module-to-distribute-coins-response";
@@ -44,7 +46,7 @@ export interface GaugeByIDRequestProtoMsg {
 }
 export interface GaugeByIDRequestAmino {
   /** Gague ID being queried */
-  id: string;
+  id?: string;
 }
 export interface GaugeByIDRequestAminoMsg {
   type: "osmosis/incentives/gauge-by-id-request";
@@ -55,7 +57,7 @@ export interface GaugeByIDRequestSDKType {
 }
 export interface GaugeByIDResponse {
   /** Gauge that corresponds to provided gague ID */
-  gauge: Gauge;
+  gauge?: Gauge;
 }
 export interface GaugeByIDResponseProtoMsg {
   typeUrl: "/osmosis.incentives.GaugeByIDResponse";
@@ -70,11 +72,11 @@ export interface GaugeByIDResponseAminoMsg {
   value: GaugeByIDResponseAmino;
 }
 export interface GaugeByIDResponseSDKType {
-  gauge: GaugeSDKType;
+  gauge?: GaugeSDKType;
 }
 export interface GaugesRequest {
   /** Pagination defines pagination for the request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface GaugesRequestProtoMsg {
   typeUrl: "/osmosis.incentives.GaugesRequest";
@@ -89,13 +91,13 @@ export interface GaugesRequestAminoMsg {
   value: GaugesRequestAmino;
 }
 export interface GaugesRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface GaugesResponse {
   /** Upcoming and active gauges */
   data: Gauge[];
   /** Pagination defines pagination for the response */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface GaugesResponseProtoMsg {
   typeUrl: "/osmosis.incentives.GaugesResponse";
@@ -103,7 +105,7 @@ export interface GaugesResponseProtoMsg {
 }
 export interface GaugesResponseAmino {
   /** Upcoming and active gauges */
-  data: GaugeAmino[];
+  data?: GaugeAmino[];
   /** Pagination defines pagination for the response */
   pagination?: PageResponseAmino;
 }
@@ -113,11 +115,11 @@ export interface GaugesResponseAminoMsg {
 }
 export interface GaugesResponseSDKType {
   data: GaugeSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface ActiveGaugesRequest {
   /** Pagination defines pagination for the request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface ActiveGaugesRequestProtoMsg {
   typeUrl: "/osmosis.incentives.ActiveGaugesRequest";
@@ -132,13 +134,13 @@ export interface ActiveGaugesRequestAminoMsg {
   value: ActiveGaugesRequestAmino;
 }
 export interface ActiveGaugesRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface ActiveGaugesResponse {
   /** Active gagues only */
   data: Gauge[];
   /** Pagination defines pagination for the response */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface ActiveGaugesResponseProtoMsg {
   typeUrl: "/osmosis.incentives.ActiveGaugesResponse";
@@ -146,7 +148,7 @@ export interface ActiveGaugesResponseProtoMsg {
 }
 export interface ActiveGaugesResponseAmino {
   /** Active gagues only */
-  data: GaugeAmino[];
+  data?: GaugeAmino[];
   /** Pagination defines pagination for the response */
   pagination?: PageResponseAmino;
 }
@@ -156,13 +158,13 @@ export interface ActiveGaugesResponseAminoMsg {
 }
 export interface ActiveGaugesResponseSDKType {
   data: GaugeSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface ActiveGaugesPerDenomRequest {
   /** Desired denom when querying active gagues */
   denom: string;
   /** Pagination defines pagination for the request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface ActiveGaugesPerDenomRequestProtoMsg {
   typeUrl: "/osmosis.incentives.ActiveGaugesPerDenomRequest";
@@ -170,7 +172,7 @@ export interface ActiveGaugesPerDenomRequestProtoMsg {
 }
 export interface ActiveGaugesPerDenomRequestAmino {
   /** Desired denom when querying active gagues */
-  denom: string;
+  denom?: string;
   /** Pagination defines pagination for the request */
   pagination?: PageRequestAmino;
 }
@@ -180,13 +182,13 @@ export interface ActiveGaugesPerDenomRequestAminoMsg {
 }
 export interface ActiveGaugesPerDenomRequestSDKType {
   denom: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface ActiveGaugesPerDenomResponse {
   /** Active gagues that match denom in query */
   data: Gauge[];
   /** Pagination defines pagination for the response */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface ActiveGaugesPerDenomResponseProtoMsg {
   typeUrl: "/osmosis.incentives.ActiveGaugesPerDenomResponse";
@@ -194,7 +196,7 @@ export interface ActiveGaugesPerDenomResponseProtoMsg {
 }
 export interface ActiveGaugesPerDenomResponseAmino {
   /** Active gagues that match denom in query */
-  data: GaugeAmino[];
+  data?: GaugeAmino[];
   /** Pagination defines pagination for the response */
   pagination?: PageResponseAmino;
 }
@@ -204,11 +206,11 @@ export interface ActiveGaugesPerDenomResponseAminoMsg {
 }
 export interface ActiveGaugesPerDenomResponseSDKType {
   data: GaugeSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface UpcomingGaugesRequest {
   /** Pagination defines pagination for the request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface UpcomingGaugesRequestProtoMsg {
   typeUrl: "/osmosis.incentives.UpcomingGaugesRequest";
@@ -223,13 +225,13 @@ export interface UpcomingGaugesRequestAminoMsg {
   value: UpcomingGaugesRequestAmino;
 }
 export interface UpcomingGaugesRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface UpcomingGaugesResponse {
   /** Gauges whose distribution is upcoming */
   data: Gauge[];
   /** Pagination defines pagination for the response */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface UpcomingGaugesResponseProtoMsg {
   typeUrl: "/osmosis.incentives.UpcomingGaugesResponse";
@@ -237,7 +239,7 @@ export interface UpcomingGaugesResponseProtoMsg {
 }
 export interface UpcomingGaugesResponseAmino {
   /** Gauges whose distribution is upcoming */
-  data: GaugeAmino[];
+  data?: GaugeAmino[];
   /** Pagination defines pagination for the response */
   pagination?: PageResponseAmino;
 }
@@ -247,13 +249,13 @@ export interface UpcomingGaugesResponseAminoMsg {
 }
 export interface UpcomingGaugesResponseSDKType {
   data: GaugeSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface UpcomingGaugesPerDenomRequest {
   /** Filter for upcoming gagues that match specific denom */
   denom: string;
   /** Pagination defines pagination for the request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface UpcomingGaugesPerDenomRequestProtoMsg {
   typeUrl: "/osmosis.incentives.UpcomingGaugesPerDenomRequest";
@@ -261,7 +263,7 @@ export interface UpcomingGaugesPerDenomRequestProtoMsg {
 }
 export interface UpcomingGaugesPerDenomRequestAmino {
   /** Filter for upcoming gagues that match specific denom */
-  denom: string;
+  denom?: string;
   /** Pagination defines pagination for the request */
   pagination?: PageRequestAmino;
 }
@@ -271,13 +273,13 @@ export interface UpcomingGaugesPerDenomRequestAminoMsg {
 }
 export interface UpcomingGaugesPerDenomRequestSDKType {
   denom: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface UpcomingGaugesPerDenomResponse {
   /** Upcoming gagues that match denom in query */
   upcomingGauges: Gauge[];
   /** Pagination defines pagination for the response */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface UpcomingGaugesPerDenomResponseProtoMsg {
   typeUrl: "/osmosis.incentives.UpcomingGaugesPerDenomResponse";
@@ -285,7 +287,7 @@ export interface UpcomingGaugesPerDenomResponseProtoMsg {
 }
 export interface UpcomingGaugesPerDenomResponseAmino {
   /** Upcoming gagues that match denom in query */
-  upcoming_gauges: GaugeAmino[];
+  upcoming_gauges?: GaugeAmino[];
   /** Pagination defines pagination for the response */
   pagination?: PageResponseAmino;
 }
@@ -295,7 +297,7 @@ export interface UpcomingGaugesPerDenomResponseAminoMsg {
 }
 export interface UpcomingGaugesPerDenomResponseSDKType {
   upcoming_gauges: GaugeSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface RewardsEstRequest {
   /** Address that is being queried for future estimated rewards */
@@ -314,14 +316,14 @@ export interface RewardsEstRequestProtoMsg {
 }
 export interface RewardsEstRequestAmino {
   /** Address that is being queried for future estimated rewards */
-  owner: string;
+  owner?: string;
   /** Lock IDs included in future reward estimation */
-  lock_ids: string[];
+  lock_ids?: string[];
   /**
    * Upper time limit of reward estimation
    * Lower limit is current epoch
    */
-  end_epoch: string;
+  end_epoch?: string;
 }
 export interface RewardsEstRequestAminoMsg {
   type: "osmosis/incentives/rewards-est-request";
@@ -334,7 +336,7 @@ export interface RewardsEstRequestSDKType {
 }
 export interface RewardsEstResponse {
   /**
-   * Estimated coin rewards that will be recieved at provided address
+   * Estimated coin rewards that will be received at provided address
    * from specified locks between current time and end epoch
    */
   coins: Coin[];
@@ -345,10 +347,10 @@ export interface RewardsEstResponseProtoMsg {
 }
 export interface RewardsEstResponseAmino {
   /**
-   * Estimated coin rewards that will be recieved at provided address
+   * Estimated coin rewards that will be received at provided address
    * from specified locks between current time and end epoch
    */
-  coins: CoinAmino[];
+  coins?: CoinAmino[];
 }
 export interface RewardsEstResponseAminoMsg {
   type: "osmosis/incentives/rewards-est-response";
@@ -369,7 +371,7 @@ export interface QueryLockableDurationsRequestAminoMsg {
 }
 export interface QueryLockableDurationsRequestSDKType {}
 export interface QueryLockableDurationsResponse {
-  /** Time durations that users can lock coins for in order to recieve rewards */
+  /** Time durations that users can lock coins for in order to receive rewards */
   lockableDurations: Duration[];
 }
 export interface QueryLockableDurationsResponseProtoMsg {
@@ -377,8 +379,8 @@ export interface QueryLockableDurationsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryLockableDurationsResponseAmino {
-  /** Time durations that users can lock coins for in order to recieve rewards */
-  lockable_durations: DurationAmino[];
+  /** Time durations that users can lock coins for in order to receive rewards */
+  lockable_durations?: DurationAmino[];
 }
 export interface QueryLockableDurationsResponseAminoMsg {
   type: "osmosis/incentives/query-lockable-durations-response";
@@ -386,6 +388,178 @@ export interface QueryLockableDurationsResponseAminoMsg {
 }
 export interface QueryLockableDurationsResponseSDKType {
   lockable_durations: DurationSDKType[];
+}
+export interface QueryAllGroupsRequest {}
+export interface QueryAllGroupsRequestProtoMsg {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsRequest";
+  value: Uint8Array;
+}
+export interface QueryAllGroupsRequestAmino {}
+export interface QueryAllGroupsRequestAminoMsg {
+  type: "osmosis/incentives/query-all-groups-request";
+  value: QueryAllGroupsRequestAmino;
+}
+export interface QueryAllGroupsRequestSDKType {}
+export interface QueryAllGroupsResponse {
+  groups: Group[];
+}
+export interface QueryAllGroupsResponseProtoMsg {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsResponse";
+  value: Uint8Array;
+}
+export interface QueryAllGroupsResponseAmino {
+  groups?: GroupAmino[];
+}
+export interface QueryAllGroupsResponseAminoMsg {
+  type: "osmosis/incentives/query-all-groups-response";
+  value: QueryAllGroupsResponseAmino;
+}
+export interface QueryAllGroupsResponseSDKType {
+  groups: GroupSDKType[];
+}
+export interface QueryAllGroupsGaugesRequest {}
+export interface QueryAllGroupsGaugesRequestProtoMsg {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsGaugesRequest";
+  value: Uint8Array;
+}
+export interface QueryAllGroupsGaugesRequestAmino {}
+export interface QueryAllGroupsGaugesRequestAminoMsg {
+  type: "osmosis/incentives/query-all-groups-gauges-request";
+  value: QueryAllGroupsGaugesRequestAmino;
+}
+export interface QueryAllGroupsGaugesRequestSDKType {}
+export interface QueryAllGroupsGaugesResponse {
+  gauges: Gauge[];
+}
+export interface QueryAllGroupsGaugesResponseProtoMsg {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsGaugesResponse";
+  value: Uint8Array;
+}
+export interface QueryAllGroupsGaugesResponseAmino {
+  gauges?: GaugeAmino[];
+}
+export interface QueryAllGroupsGaugesResponseAminoMsg {
+  type: "osmosis/incentives/query-all-groups-gauges-response";
+  value: QueryAllGroupsGaugesResponseAmino;
+}
+export interface QueryAllGroupsGaugesResponseSDKType {
+  gauges: GaugeSDKType[];
+}
+export interface QueryAllGroupsWithGaugeRequest {}
+export interface QueryAllGroupsWithGaugeRequestProtoMsg {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsWithGaugeRequest";
+  value: Uint8Array;
+}
+export interface QueryAllGroupsWithGaugeRequestAmino {}
+export interface QueryAllGroupsWithGaugeRequestAminoMsg {
+  type: "osmosis/incentives/query-all-groups-with-gauge-request";
+  value: QueryAllGroupsWithGaugeRequestAmino;
+}
+export interface QueryAllGroupsWithGaugeRequestSDKType {}
+export interface QueryAllGroupsWithGaugeResponse {
+  groupsWithGauge: GroupsWithGauge[];
+}
+export interface QueryAllGroupsWithGaugeResponseProtoMsg {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsWithGaugeResponse";
+  value: Uint8Array;
+}
+export interface QueryAllGroupsWithGaugeResponseAmino {
+  groups_with_gauge?: GroupsWithGaugeAmino[];
+}
+export interface QueryAllGroupsWithGaugeResponseAminoMsg {
+  type: "osmosis/incentives/query-all-groups-with-gauge-response";
+  value: QueryAllGroupsWithGaugeResponseAmino;
+}
+export interface QueryAllGroupsWithGaugeResponseSDKType {
+  groups_with_gauge: GroupsWithGaugeSDKType[];
+}
+export interface QueryGroupByGroupGaugeIDRequest {
+  id: bigint;
+}
+export interface QueryGroupByGroupGaugeIDRequestProtoMsg {
+  typeUrl: "/osmosis.incentives.QueryGroupByGroupGaugeIDRequest";
+  value: Uint8Array;
+}
+export interface QueryGroupByGroupGaugeIDRequestAmino {
+  id?: string;
+}
+export interface QueryGroupByGroupGaugeIDRequestAminoMsg {
+  type: "osmosis/incentives/query-group-by-group-gauge-id-request";
+  value: QueryGroupByGroupGaugeIDRequestAmino;
+}
+export interface QueryGroupByGroupGaugeIDRequestSDKType {
+  id: bigint;
+}
+export interface QueryGroupByGroupGaugeIDResponse {
+  group: Group;
+}
+export interface QueryGroupByGroupGaugeIDResponseProtoMsg {
+  typeUrl: "/osmosis.incentives.QueryGroupByGroupGaugeIDResponse";
+  value: Uint8Array;
+}
+export interface QueryGroupByGroupGaugeIDResponseAmino {
+  group?: GroupAmino;
+}
+export interface QueryGroupByGroupGaugeIDResponseAminoMsg {
+  type: "osmosis/incentives/query-group-by-group-gauge-id-response";
+  value: QueryGroupByGroupGaugeIDResponseAmino;
+}
+export interface QueryGroupByGroupGaugeIDResponseSDKType {
+  group: GroupSDKType;
+}
+export interface QueryCurrentWeightByGroupGaugeIDRequest {
+  groupGaugeId: bigint;
+}
+export interface QueryCurrentWeightByGroupGaugeIDRequestProtoMsg {
+  typeUrl: "/osmosis.incentives.QueryCurrentWeightByGroupGaugeIDRequest";
+  value: Uint8Array;
+}
+export interface QueryCurrentWeightByGroupGaugeIDRequestAmino {
+  group_gauge_id?: string;
+}
+export interface QueryCurrentWeightByGroupGaugeIDRequestAminoMsg {
+  type: "osmosis/incentives/query-current-weight-by-group-gauge-id-request";
+  value: QueryCurrentWeightByGroupGaugeIDRequestAmino;
+}
+export interface QueryCurrentWeightByGroupGaugeIDRequestSDKType {
+  group_gauge_id: bigint;
+}
+export interface QueryCurrentWeightByGroupGaugeIDResponse {
+  gaugeWeight: GaugeWeight[];
+}
+export interface QueryCurrentWeightByGroupGaugeIDResponseProtoMsg {
+  typeUrl: "/osmosis.incentives.QueryCurrentWeightByGroupGaugeIDResponse";
+  value: Uint8Array;
+}
+export interface QueryCurrentWeightByGroupGaugeIDResponseAmino {
+  gauge_weight?: GaugeWeightAmino[];
+}
+export interface QueryCurrentWeightByGroupGaugeIDResponseAminoMsg {
+  type: "osmosis/incentives/query-current-weight-by-group-gauge-id-response";
+  value: QueryCurrentWeightByGroupGaugeIDResponseAmino;
+}
+export interface QueryCurrentWeightByGroupGaugeIDResponseSDKType {
+  gauge_weight: GaugeWeightSDKType[];
+}
+export interface GaugeWeight {
+  gaugeId: bigint;
+  weightRatio: string;
+}
+export interface GaugeWeightProtoMsg {
+  typeUrl: "/osmosis.incentives.GaugeWeight";
+  value: Uint8Array;
+}
+export interface GaugeWeightAmino {
+  gauge_id?: string;
+  weight_ratio?: string;
+}
+export interface GaugeWeightAminoMsg {
+  type: "osmosis/incentives/gauge-weight";
+  value: GaugeWeightAmino;
+}
+export interface GaugeWeightSDKType {
+  gauge_id: bigint;
+  weight_ratio: string;
 }
 function createBaseModuleToDistributeCoinsRequest(): ModuleToDistributeCoinsRequest {
   return {};
@@ -403,7 +577,8 @@ export const ModuleToDistributeCoinsRequest = {
     return message;
   },
   fromAmino(_: ModuleToDistributeCoinsRequestAmino): ModuleToDistributeCoinsRequest {
-    return {};
+    const message = createBaseModuleToDistributeCoinsRequest();
+    return message;
   },
   toAmino(_: ModuleToDistributeCoinsRequest): ModuleToDistributeCoinsRequestAmino {
     const obj: any = {};
@@ -455,9 +630,9 @@ export const ModuleToDistributeCoinsResponse = {
     return message;
   },
   fromAmino(object: ModuleToDistributeCoinsResponseAmino): ModuleToDistributeCoinsResponse {
-    return {
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseModuleToDistributeCoinsResponse();
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: ModuleToDistributeCoinsResponse): ModuleToDistributeCoinsResponseAmino {
     const obj: any = {};
@@ -514,9 +689,11 @@ export const GaugeByIDRequest = {
     return message;
   },
   fromAmino(object: GaugeByIDRequestAmino): GaugeByIDRequest {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseGaugeByIDRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: GaugeByIDRequest): GaugeByIDRequestAmino {
     const obj: any = {};
@@ -547,7 +724,7 @@ export const GaugeByIDRequest = {
 };
 function createBaseGaugeByIDResponse(): GaugeByIDResponse {
   return {
-    gauge: Gauge.fromPartial({})
+    gauge: undefined
   };
 }
 export const GaugeByIDResponse = {
@@ -569,9 +746,11 @@ export const GaugeByIDResponse = {
     return message;
   },
   fromAmino(object: GaugeByIDResponseAmino): GaugeByIDResponse {
-    return {
-      gauge: object?.gauge ? Gauge.fromAmino(object.gauge) : undefined
-    };
+    const message = createBaseGaugeByIDResponse();
+    if (object.gauge !== undefined && object.gauge !== null) {
+      message.gauge = Gauge.fromAmino(object.gauge);
+    }
+    return message;
   },
   toAmino(message: GaugeByIDResponse): GaugeByIDResponseAmino {
     const obj: any = {};
@@ -602,7 +781,7 @@ export const GaugeByIDResponse = {
 };
 function createBaseGaugesRequest(): GaugesRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const GaugesRequest = {
@@ -624,9 +803,11 @@ export const GaugesRequest = {
     return message;
   },
   fromAmino(object: GaugesRequestAmino): GaugesRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseGaugesRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: GaugesRequest): GaugesRequestAmino {
     const obj: any = {};
@@ -658,7 +839,7 @@ export const GaugesRequest = {
 function createBaseGaugesResponse(): GaugesResponse {
   return {
     data: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const GaugesResponse = {
@@ -685,10 +866,12 @@ export const GaugesResponse = {
     return message;
   },
   fromAmino(object: GaugesResponseAmino): GaugesResponse {
-    return {
-      data: Array.isArray(object?.data) ? object.data.map((e: any) => Gauge.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseGaugesResponse();
+    message.data = object.data?.map(e => Gauge.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: GaugesResponse): GaugesResponseAmino {
     const obj: any = {};
@@ -724,7 +907,7 @@ export const GaugesResponse = {
 };
 function createBaseActiveGaugesRequest(): ActiveGaugesRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const ActiveGaugesRequest = {
@@ -746,9 +929,11 @@ export const ActiveGaugesRequest = {
     return message;
   },
   fromAmino(object: ActiveGaugesRequestAmino): ActiveGaugesRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseActiveGaugesRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: ActiveGaugesRequest): ActiveGaugesRequestAmino {
     const obj: any = {};
@@ -780,7 +965,7 @@ export const ActiveGaugesRequest = {
 function createBaseActiveGaugesResponse(): ActiveGaugesResponse {
   return {
     data: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const ActiveGaugesResponse = {
@@ -807,10 +992,12 @@ export const ActiveGaugesResponse = {
     return message;
   },
   fromAmino(object: ActiveGaugesResponseAmino): ActiveGaugesResponse {
-    return {
-      data: Array.isArray(object?.data) ? object.data.map((e: any) => Gauge.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseActiveGaugesResponse();
+    message.data = object.data?.map(e => Gauge.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: ActiveGaugesResponse): ActiveGaugesResponseAmino {
     const obj: any = {};
@@ -847,7 +1034,7 @@ export const ActiveGaugesResponse = {
 function createBaseActiveGaugesPerDenomRequest(): ActiveGaugesPerDenomRequest {
   return {
     denom: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const ActiveGaugesPerDenomRequest = {
@@ -874,10 +1061,14 @@ export const ActiveGaugesPerDenomRequest = {
     return message;
   },
   fromAmino(object: ActiveGaugesPerDenomRequestAmino): ActiveGaugesPerDenomRequest {
-    return {
-      denom: object.denom,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseActiveGaugesPerDenomRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: ActiveGaugesPerDenomRequest): ActiveGaugesPerDenomRequestAmino {
     const obj: any = {};
@@ -910,7 +1101,7 @@ export const ActiveGaugesPerDenomRequest = {
 function createBaseActiveGaugesPerDenomResponse(): ActiveGaugesPerDenomResponse {
   return {
     data: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const ActiveGaugesPerDenomResponse = {
@@ -937,10 +1128,12 @@ export const ActiveGaugesPerDenomResponse = {
     return message;
   },
   fromAmino(object: ActiveGaugesPerDenomResponseAmino): ActiveGaugesPerDenomResponse {
-    return {
-      data: Array.isArray(object?.data) ? object.data.map((e: any) => Gauge.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseActiveGaugesPerDenomResponse();
+    message.data = object.data?.map(e => Gauge.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: ActiveGaugesPerDenomResponse): ActiveGaugesPerDenomResponseAmino {
     const obj: any = {};
@@ -976,7 +1169,7 @@ export const ActiveGaugesPerDenomResponse = {
 };
 function createBaseUpcomingGaugesRequest(): UpcomingGaugesRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const UpcomingGaugesRequest = {
@@ -998,9 +1191,11 @@ export const UpcomingGaugesRequest = {
     return message;
   },
   fromAmino(object: UpcomingGaugesRequestAmino): UpcomingGaugesRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseUpcomingGaugesRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: UpcomingGaugesRequest): UpcomingGaugesRequestAmino {
     const obj: any = {};
@@ -1032,7 +1227,7 @@ export const UpcomingGaugesRequest = {
 function createBaseUpcomingGaugesResponse(): UpcomingGaugesResponse {
   return {
     data: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const UpcomingGaugesResponse = {
@@ -1059,10 +1254,12 @@ export const UpcomingGaugesResponse = {
     return message;
   },
   fromAmino(object: UpcomingGaugesResponseAmino): UpcomingGaugesResponse {
-    return {
-      data: Array.isArray(object?.data) ? object.data.map((e: any) => Gauge.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseUpcomingGaugesResponse();
+    message.data = object.data?.map(e => Gauge.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: UpcomingGaugesResponse): UpcomingGaugesResponseAmino {
     const obj: any = {};
@@ -1099,7 +1296,7 @@ export const UpcomingGaugesResponse = {
 function createBaseUpcomingGaugesPerDenomRequest(): UpcomingGaugesPerDenomRequest {
   return {
     denom: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const UpcomingGaugesPerDenomRequest = {
@@ -1126,10 +1323,14 @@ export const UpcomingGaugesPerDenomRequest = {
     return message;
   },
   fromAmino(object: UpcomingGaugesPerDenomRequestAmino): UpcomingGaugesPerDenomRequest {
-    return {
-      denom: object.denom,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseUpcomingGaugesPerDenomRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: UpcomingGaugesPerDenomRequest): UpcomingGaugesPerDenomRequestAmino {
     const obj: any = {};
@@ -1162,7 +1363,7 @@ export const UpcomingGaugesPerDenomRequest = {
 function createBaseUpcomingGaugesPerDenomResponse(): UpcomingGaugesPerDenomResponse {
   return {
     upcomingGauges: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const UpcomingGaugesPerDenomResponse = {
@@ -1189,10 +1390,12 @@ export const UpcomingGaugesPerDenomResponse = {
     return message;
   },
   fromAmino(object: UpcomingGaugesPerDenomResponseAmino): UpcomingGaugesPerDenomResponse {
-    return {
-      upcomingGauges: Array.isArray(object?.upcoming_gauges) ? object.upcoming_gauges.map((e: any) => Gauge.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseUpcomingGaugesPerDenomResponse();
+    message.upcomingGauges = object.upcoming_gauges?.map(e => Gauge.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: UpcomingGaugesPerDenomResponse): UpcomingGaugesPerDenomResponseAmino {
     const obj: any = {};
@@ -1264,11 +1467,15 @@ export const RewardsEstRequest = {
     return message;
   },
   fromAmino(object: RewardsEstRequestAmino): RewardsEstRequest {
-    return {
-      owner: object.owner,
-      lockIds: Array.isArray(object?.lock_ids) ? object.lock_ids.map((e: any) => BigInt(e)) : [],
-      endEpoch: BigInt(object.end_epoch)
-    };
+    const message = createBaseRewardsEstRequest();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    message.lockIds = object.lock_ids?.map(e => BigInt(e)) || [];
+    if (object.end_epoch !== undefined && object.end_epoch !== null) {
+      message.endEpoch = BigInt(object.end_epoch);
+    }
+    return message;
   },
   toAmino(message: RewardsEstRequest): RewardsEstRequestAmino {
     const obj: any = {};
@@ -1327,9 +1534,9 @@ export const RewardsEstResponse = {
     return message;
   },
   fromAmino(object: RewardsEstResponseAmino): RewardsEstResponse {
-    return {
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseRewardsEstResponse();
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: RewardsEstResponse): RewardsEstResponseAmino {
     const obj: any = {};
@@ -1378,7 +1585,8 @@ export const QueryLockableDurationsRequest = {
     return message;
   },
   fromAmino(_: QueryLockableDurationsRequestAmino): QueryLockableDurationsRequest {
-    return {};
+    const message = createBaseQueryLockableDurationsRequest();
+    return message;
   },
   toAmino(_: QueryLockableDurationsRequest): QueryLockableDurationsRequestAmino {
     const obj: any = {};
@@ -1430,9 +1638,9 @@ export const QueryLockableDurationsResponse = {
     return message;
   },
   fromAmino(object: QueryLockableDurationsResponseAmino): QueryLockableDurationsResponse {
-    return {
-      lockableDurations: Array.isArray(object?.lockable_durations) ? object.lockable_durations.map((e: any) => Duration.fromAmino(e)) : []
-    };
+    const message = createBaseQueryLockableDurationsResponse();
+    message.lockableDurations = object.lockable_durations?.map(e => Duration.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryLockableDurationsResponse): QueryLockableDurationsResponseAmino {
     const obj: any = {};
@@ -1462,6 +1670,615 @@ export const QueryLockableDurationsResponse = {
     return {
       typeUrl: "/osmosis.incentives.QueryLockableDurationsResponse",
       value: QueryLockableDurationsResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAllGroupsRequest(): QueryAllGroupsRequest {
+  return {};
+}
+export const QueryAllGroupsRequest = {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsRequest",
+  encode(_: QueryAllGroupsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryAllGroupsRequest {
+    return {};
+  },
+  fromPartial(_: Partial<QueryAllGroupsRequest>): QueryAllGroupsRequest {
+    const message = createBaseQueryAllGroupsRequest();
+    return message;
+  },
+  fromAmino(_: QueryAllGroupsRequestAmino): QueryAllGroupsRequest {
+    const message = createBaseQueryAllGroupsRequest();
+    return message;
+  },
+  toAmino(_: QueryAllGroupsRequest): QueryAllGroupsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllGroupsRequestAminoMsg): QueryAllGroupsRequest {
+    return QueryAllGroupsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllGroupsRequest): QueryAllGroupsRequestAminoMsg {
+    return {
+      type: "osmosis/incentives/query-all-groups-request",
+      value: QueryAllGroupsRequest.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryAllGroupsRequestProtoMsg): QueryAllGroupsRequest {
+    return QueryAllGroupsRequest.decode(message.value);
+  },
+  toProto(message: QueryAllGroupsRequest): Uint8Array {
+    return QueryAllGroupsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllGroupsRequest): QueryAllGroupsRequestProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.QueryAllGroupsRequest",
+      value: QueryAllGroupsRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAllGroupsResponse(): QueryAllGroupsResponse {
+  return {
+    groups: []
+  };
+}
+export const QueryAllGroupsResponse = {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsResponse",
+  encode(message: QueryAllGroupsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.groups) {
+      Group.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryAllGroupsResponse {
+    return {
+      groups: Array.isArray(object?.groups) ? object.groups.map((e: any) => Group.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<QueryAllGroupsResponse>): QueryAllGroupsResponse {
+    const message = createBaseQueryAllGroupsResponse();
+    message.groups = object.groups?.map(e => Group.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryAllGroupsResponseAmino): QueryAllGroupsResponse {
+    const message = createBaseQueryAllGroupsResponse();
+    message.groups = object.groups?.map(e => Group.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryAllGroupsResponse): QueryAllGroupsResponseAmino {
+    const obj: any = {};
+    if (message.groups) {
+      obj.groups = message.groups.map(e => e ? Group.toAmino(e) : undefined);
+    } else {
+      obj.groups = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllGroupsResponseAminoMsg): QueryAllGroupsResponse {
+    return QueryAllGroupsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllGroupsResponse): QueryAllGroupsResponseAminoMsg {
+    return {
+      type: "osmosis/incentives/query-all-groups-response",
+      value: QueryAllGroupsResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryAllGroupsResponseProtoMsg): QueryAllGroupsResponse {
+    return QueryAllGroupsResponse.decode(message.value);
+  },
+  toProto(message: QueryAllGroupsResponse): Uint8Array {
+    return QueryAllGroupsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllGroupsResponse): QueryAllGroupsResponseProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.QueryAllGroupsResponse",
+      value: QueryAllGroupsResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAllGroupsGaugesRequest(): QueryAllGroupsGaugesRequest {
+  return {};
+}
+export const QueryAllGroupsGaugesRequest = {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsGaugesRequest",
+  encode(_: QueryAllGroupsGaugesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryAllGroupsGaugesRequest {
+    return {};
+  },
+  fromPartial(_: Partial<QueryAllGroupsGaugesRequest>): QueryAllGroupsGaugesRequest {
+    const message = createBaseQueryAllGroupsGaugesRequest();
+    return message;
+  },
+  fromAmino(_: QueryAllGroupsGaugesRequestAmino): QueryAllGroupsGaugesRequest {
+    const message = createBaseQueryAllGroupsGaugesRequest();
+    return message;
+  },
+  toAmino(_: QueryAllGroupsGaugesRequest): QueryAllGroupsGaugesRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllGroupsGaugesRequestAminoMsg): QueryAllGroupsGaugesRequest {
+    return QueryAllGroupsGaugesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllGroupsGaugesRequest): QueryAllGroupsGaugesRequestAminoMsg {
+    return {
+      type: "osmosis/incentives/query-all-groups-gauges-request",
+      value: QueryAllGroupsGaugesRequest.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryAllGroupsGaugesRequestProtoMsg): QueryAllGroupsGaugesRequest {
+    return QueryAllGroupsGaugesRequest.decode(message.value);
+  },
+  toProto(message: QueryAllGroupsGaugesRequest): Uint8Array {
+    return QueryAllGroupsGaugesRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllGroupsGaugesRequest): QueryAllGroupsGaugesRequestProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.QueryAllGroupsGaugesRequest",
+      value: QueryAllGroupsGaugesRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAllGroupsGaugesResponse(): QueryAllGroupsGaugesResponse {
+  return {
+    gauges: []
+  };
+}
+export const QueryAllGroupsGaugesResponse = {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsGaugesResponse",
+  encode(message: QueryAllGroupsGaugesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.gauges) {
+      Gauge.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryAllGroupsGaugesResponse {
+    return {
+      gauges: Array.isArray(object?.gauges) ? object.gauges.map((e: any) => Gauge.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<QueryAllGroupsGaugesResponse>): QueryAllGroupsGaugesResponse {
+    const message = createBaseQueryAllGroupsGaugesResponse();
+    message.gauges = object.gauges?.map(e => Gauge.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryAllGroupsGaugesResponseAmino): QueryAllGroupsGaugesResponse {
+    const message = createBaseQueryAllGroupsGaugesResponse();
+    message.gauges = object.gauges?.map(e => Gauge.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryAllGroupsGaugesResponse): QueryAllGroupsGaugesResponseAmino {
+    const obj: any = {};
+    if (message.gauges) {
+      obj.gauges = message.gauges.map(e => e ? Gauge.toAmino(e) : undefined);
+    } else {
+      obj.gauges = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllGroupsGaugesResponseAminoMsg): QueryAllGroupsGaugesResponse {
+    return QueryAllGroupsGaugesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllGroupsGaugesResponse): QueryAllGroupsGaugesResponseAminoMsg {
+    return {
+      type: "osmosis/incentives/query-all-groups-gauges-response",
+      value: QueryAllGroupsGaugesResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryAllGroupsGaugesResponseProtoMsg): QueryAllGroupsGaugesResponse {
+    return QueryAllGroupsGaugesResponse.decode(message.value);
+  },
+  toProto(message: QueryAllGroupsGaugesResponse): Uint8Array {
+    return QueryAllGroupsGaugesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllGroupsGaugesResponse): QueryAllGroupsGaugesResponseProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.QueryAllGroupsGaugesResponse",
+      value: QueryAllGroupsGaugesResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAllGroupsWithGaugeRequest(): QueryAllGroupsWithGaugeRequest {
+  return {};
+}
+export const QueryAllGroupsWithGaugeRequest = {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsWithGaugeRequest",
+  encode(_: QueryAllGroupsWithGaugeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryAllGroupsWithGaugeRequest {
+    return {};
+  },
+  fromPartial(_: Partial<QueryAllGroupsWithGaugeRequest>): QueryAllGroupsWithGaugeRequest {
+    const message = createBaseQueryAllGroupsWithGaugeRequest();
+    return message;
+  },
+  fromAmino(_: QueryAllGroupsWithGaugeRequestAmino): QueryAllGroupsWithGaugeRequest {
+    const message = createBaseQueryAllGroupsWithGaugeRequest();
+    return message;
+  },
+  toAmino(_: QueryAllGroupsWithGaugeRequest): QueryAllGroupsWithGaugeRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllGroupsWithGaugeRequestAminoMsg): QueryAllGroupsWithGaugeRequest {
+    return QueryAllGroupsWithGaugeRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllGroupsWithGaugeRequest): QueryAllGroupsWithGaugeRequestAminoMsg {
+    return {
+      type: "osmosis/incentives/query-all-groups-with-gauge-request",
+      value: QueryAllGroupsWithGaugeRequest.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryAllGroupsWithGaugeRequestProtoMsg): QueryAllGroupsWithGaugeRequest {
+    return QueryAllGroupsWithGaugeRequest.decode(message.value);
+  },
+  toProto(message: QueryAllGroupsWithGaugeRequest): Uint8Array {
+    return QueryAllGroupsWithGaugeRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllGroupsWithGaugeRequest): QueryAllGroupsWithGaugeRequestProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.QueryAllGroupsWithGaugeRequest",
+      value: QueryAllGroupsWithGaugeRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAllGroupsWithGaugeResponse(): QueryAllGroupsWithGaugeResponse {
+  return {
+    groupsWithGauge: []
+  };
+}
+export const QueryAllGroupsWithGaugeResponse = {
+  typeUrl: "/osmosis.incentives.QueryAllGroupsWithGaugeResponse",
+  encode(message: QueryAllGroupsWithGaugeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.groupsWithGauge) {
+      GroupsWithGauge.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryAllGroupsWithGaugeResponse {
+    return {
+      groupsWithGauge: Array.isArray(object?.groupsWithGauge) ? object.groupsWithGauge.map((e: any) => GroupsWithGauge.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<QueryAllGroupsWithGaugeResponse>): QueryAllGroupsWithGaugeResponse {
+    const message = createBaseQueryAllGroupsWithGaugeResponse();
+    message.groupsWithGauge = object.groupsWithGauge?.map(e => GroupsWithGauge.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryAllGroupsWithGaugeResponseAmino): QueryAllGroupsWithGaugeResponse {
+    const message = createBaseQueryAllGroupsWithGaugeResponse();
+    message.groupsWithGauge = object.groups_with_gauge?.map(e => GroupsWithGauge.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryAllGroupsWithGaugeResponse): QueryAllGroupsWithGaugeResponseAmino {
+    const obj: any = {};
+    if (message.groupsWithGauge) {
+      obj.groups_with_gauge = message.groupsWithGauge.map(e => e ? GroupsWithGauge.toAmino(e) : undefined);
+    } else {
+      obj.groups_with_gauge = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllGroupsWithGaugeResponseAminoMsg): QueryAllGroupsWithGaugeResponse {
+    return QueryAllGroupsWithGaugeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllGroupsWithGaugeResponse): QueryAllGroupsWithGaugeResponseAminoMsg {
+    return {
+      type: "osmosis/incentives/query-all-groups-with-gauge-response",
+      value: QueryAllGroupsWithGaugeResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryAllGroupsWithGaugeResponseProtoMsg): QueryAllGroupsWithGaugeResponse {
+    return QueryAllGroupsWithGaugeResponse.decode(message.value);
+  },
+  toProto(message: QueryAllGroupsWithGaugeResponse): Uint8Array {
+    return QueryAllGroupsWithGaugeResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllGroupsWithGaugeResponse): QueryAllGroupsWithGaugeResponseProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.QueryAllGroupsWithGaugeResponse",
+      value: QueryAllGroupsWithGaugeResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryGroupByGroupGaugeIDRequest(): QueryGroupByGroupGaugeIDRequest {
+  return {
+    id: BigInt(0)
+  };
+}
+export const QueryGroupByGroupGaugeIDRequest = {
+  typeUrl: "/osmosis.incentives.QueryGroupByGroupGaugeIDRequest",
+  encode(message: QueryGroupByGroupGaugeIDRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.id !== BigInt(0)) {
+      writer.uint32(8).uint64(message.id);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryGroupByGroupGaugeIDRequest {
+    return {
+      id: isSet(object.id) ? BigInt(object.id.toString()) : BigInt(0)
+    };
+  },
+  fromPartial(object: Partial<QueryGroupByGroupGaugeIDRequest>): QueryGroupByGroupGaugeIDRequest {
+    const message = createBaseQueryGroupByGroupGaugeIDRequest();
+    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
+    return message;
+  },
+  fromAmino(object: QueryGroupByGroupGaugeIDRequestAmino): QueryGroupByGroupGaugeIDRequest {
+    const message = createBaseQueryGroupByGroupGaugeIDRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
+  },
+  toAmino(message: QueryGroupByGroupGaugeIDRequest): QueryGroupByGroupGaugeIDRequestAmino {
+    const obj: any = {};
+    obj.id = message.id ? message.id.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupByGroupGaugeIDRequestAminoMsg): QueryGroupByGroupGaugeIDRequest {
+    return QueryGroupByGroupGaugeIDRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupByGroupGaugeIDRequest): QueryGroupByGroupGaugeIDRequestAminoMsg {
+    return {
+      type: "osmosis/incentives/query-group-by-group-gauge-id-request",
+      value: QueryGroupByGroupGaugeIDRequest.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryGroupByGroupGaugeIDRequestProtoMsg): QueryGroupByGroupGaugeIDRequest {
+    return QueryGroupByGroupGaugeIDRequest.decode(message.value);
+  },
+  toProto(message: QueryGroupByGroupGaugeIDRequest): Uint8Array {
+    return QueryGroupByGroupGaugeIDRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGroupByGroupGaugeIDRequest): QueryGroupByGroupGaugeIDRequestProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.QueryGroupByGroupGaugeIDRequest",
+      value: QueryGroupByGroupGaugeIDRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryGroupByGroupGaugeIDResponse(): QueryGroupByGroupGaugeIDResponse {
+  return {
+    group: Group.fromPartial({})
+  };
+}
+export const QueryGroupByGroupGaugeIDResponse = {
+  typeUrl: "/osmosis.incentives.QueryGroupByGroupGaugeIDResponse",
+  encode(message: QueryGroupByGroupGaugeIDResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.group !== undefined) {
+      Group.encode(message.group, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryGroupByGroupGaugeIDResponse {
+    return {
+      group: isSet(object.group) ? Group.fromJSON(object.group) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryGroupByGroupGaugeIDResponse>): QueryGroupByGroupGaugeIDResponse {
+    const message = createBaseQueryGroupByGroupGaugeIDResponse();
+    message.group = object.group !== undefined && object.group !== null ? Group.fromPartial(object.group) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryGroupByGroupGaugeIDResponseAmino): QueryGroupByGroupGaugeIDResponse {
+    const message = createBaseQueryGroupByGroupGaugeIDResponse();
+    if (object.group !== undefined && object.group !== null) {
+      message.group = Group.fromAmino(object.group);
+    }
+    return message;
+  },
+  toAmino(message: QueryGroupByGroupGaugeIDResponse): QueryGroupByGroupGaugeIDResponseAmino {
+    const obj: any = {};
+    obj.group = message.group ? Group.toAmino(message.group) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupByGroupGaugeIDResponseAminoMsg): QueryGroupByGroupGaugeIDResponse {
+    return QueryGroupByGroupGaugeIDResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupByGroupGaugeIDResponse): QueryGroupByGroupGaugeIDResponseAminoMsg {
+    return {
+      type: "osmosis/incentives/query-group-by-group-gauge-id-response",
+      value: QueryGroupByGroupGaugeIDResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryGroupByGroupGaugeIDResponseProtoMsg): QueryGroupByGroupGaugeIDResponse {
+    return QueryGroupByGroupGaugeIDResponse.decode(message.value);
+  },
+  toProto(message: QueryGroupByGroupGaugeIDResponse): Uint8Array {
+    return QueryGroupByGroupGaugeIDResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryGroupByGroupGaugeIDResponse): QueryGroupByGroupGaugeIDResponseProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.QueryGroupByGroupGaugeIDResponse",
+      value: QueryGroupByGroupGaugeIDResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryCurrentWeightByGroupGaugeIDRequest(): QueryCurrentWeightByGroupGaugeIDRequest {
+  return {
+    groupGaugeId: BigInt(0)
+  };
+}
+export const QueryCurrentWeightByGroupGaugeIDRequest = {
+  typeUrl: "/osmosis.incentives.QueryCurrentWeightByGroupGaugeIDRequest",
+  encode(message: QueryCurrentWeightByGroupGaugeIDRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.groupGaugeId !== BigInt(0)) {
+      writer.uint32(8).uint64(message.groupGaugeId);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryCurrentWeightByGroupGaugeIDRequest {
+    return {
+      groupGaugeId: isSet(object.groupGaugeId) ? BigInt(object.groupGaugeId.toString()) : BigInt(0)
+    };
+  },
+  fromPartial(object: Partial<QueryCurrentWeightByGroupGaugeIDRequest>): QueryCurrentWeightByGroupGaugeIDRequest {
+    const message = createBaseQueryCurrentWeightByGroupGaugeIDRequest();
+    message.groupGaugeId = object.groupGaugeId !== undefined && object.groupGaugeId !== null ? BigInt(object.groupGaugeId.toString()) : BigInt(0);
+    return message;
+  },
+  fromAmino(object: QueryCurrentWeightByGroupGaugeIDRequestAmino): QueryCurrentWeightByGroupGaugeIDRequest {
+    const message = createBaseQueryCurrentWeightByGroupGaugeIDRequest();
+    if (object.group_gauge_id !== undefined && object.group_gauge_id !== null) {
+      message.groupGaugeId = BigInt(object.group_gauge_id);
+    }
+    return message;
+  },
+  toAmino(message: QueryCurrentWeightByGroupGaugeIDRequest): QueryCurrentWeightByGroupGaugeIDRequestAmino {
+    const obj: any = {};
+    obj.group_gauge_id = message.groupGaugeId ? message.groupGaugeId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryCurrentWeightByGroupGaugeIDRequestAminoMsg): QueryCurrentWeightByGroupGaugeIDRequest {
+    return QueryCurrentWeightByGroupGaugeIDRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryCurrentWeightByGroupGaugeIDRequest): QueryCurrentWeightByGroupGaugeIDRequestAminoMsg {
+    return {
+      type: "osmosis/incentives/query-current-weight-by-group-gauge-id-request",
+      value: QueryCurrentWeightByGroupGaugeIDRequest.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryCurrentWeightByGroupGaugeIDRequestProtoMsg): QueryCurrentWeightByGroupGaugeIDRequest {
+    return QueryCurrentWeightByGroupGaugeIDRequest.decode(message.value);
+  },
+  toProto(message: QueryCurrentWeightByGroupGaugeIDRequest): Uint8Array {
+    return QueryCurrentWeightByGroupGaugeIDRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryCurrentWeightByGroupGaugeIDRequest): QueryCurrentWeightByGroupGaugeIDRequestProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.QueryCurrentWeightByGroupGaugeIDRequest",
+      value: QueryCurrentWeightByGroupGaugeIDRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryCurrentWeightByGroupGaugeIDResponse(): QueryCurrentWeightByGroupGaugeIDResponse {
+  return {
+    gaugeWeight: []
+  };
+}
+export const QueryCurrentWeightByGroupGaugeIDResponse = {
+  typeUrl: "/osmosis.incentives.QueryCurrentWeightByGroupGaugeIDResponse",
+  encode(message: QueryCurrentWeightByGroupGaugeIDResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.gaugeWeight) {
+      GaugeWeight.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryCurrentWeightByGroupGaugeIDResponse {
+    return {
+      gaugeWeight: Array.isArray(object?.gaugeWeight) ? object.gaugeWeight.map((e: any) => GaugeWeight.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<QueryCurrentWeightByGroupGaugeIDResponse>): QueryCurrentWeightByGroupGaugeIDResponse {
+    const message = createBaseQueryCurrentWeightByGroupGaugeIDResponse();
+    message.gaugeWeight = object.gaugeWeight?.map(e => GaugeWeight.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryCurrentWeightByGroupGaugeIDResponseAmino): QueryCurrentWeightByGroupGaugeIDResponse {
+    const message = createBaseQueryCurrentWeightByGroupGaugeIDResponse();
+    message.gaugeWeight = object.gauge_weight?.map(e => GaugeWeight.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryCurrentWeightByGroupGaugeIDResponse): QueryCurrentWeightByGroupGaugeIDResponseAmino {
+    const obj: any = {};
+    if (message.gaugeWeight) {
+      obj.gauge_weight = message.gaugeWeight.map(e => e ? GaugeWeight.toAmino(e) : undefined);
+    } else {
+      obj.gauge_weight = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryCurrentWeightByGroupGaugeIDResponseAminoMsg): QueryCurrentWeightByGroupGaugeIDResponse {
+    return QueryCurrentWeightByGroupGaugeIDResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryCurrentWeightByGroupGaugeIDResponse): QueryCurrentWeightByGroupGaugeIDResponseAminoMsg {
+    return {
+      type: "osmosis/incentives/query-current-weight-by-group-gauge-id-response",
+      value: QueryCurrentWeightByGroupGaugeIDResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryCurrentWeightByGroupGaugeIDResponseProtoMsg): QueryCurrentWeightByGroupGaugeIDResponse {
+    return QueryCurrentWeightByGroupGaugeIDResponse.decode(message.value);
+  },
+  toProto(message: QueryCurrentWeightByGroupGaugeIDResponse): Uint8Array {
+    return QueryCurrentWeightByGroupGaugeIDResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryCurrentWeightByGroupGaugeIDResponse): QueryCurrentWeightByGroupGaugeIDResponseProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.QueryCurrentWeightByGroupGaugeIDResponse",
+      value: QueryCurrentWeightByGroupGaugeIDResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseGaugeWeight(): GaugeWeight {
+  return {
+    gaugeId: BigInt(0),
+    weightRatio: ""
+  };
+}
+export const GaugeWeight = {
+  typeUrl: "/osmosis.incentives.GaugeWeight",
+  encode(message: GaugeWeight, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.gaugeId !== BigInt(0)) {
+      writer.uint32(8).uint64(message.gaugeId);
+    }
+    if (message.weightRatio !== "") {
+      writer.uint32(18).string(Decimal.fromUserInput(message.weightRatio, 18).atomics);
+    }
+    return writer;
+  },
+  fromJSON(object: any): GaugeWeight {
+    return {
+      gaugeId: isSet(object.gaugeId) ? BigInt(object.gaugeId.toString()) : BigInt(0),
+      weightRatio: isSet(object.weightRatio) ? String(object.weightRatio) : ""
+    };
+  },
+  fromPartial(object: Partial<GaugeWeight>): GaugeWeight {
+    const message = createBaseGaugeWeight();
+    message.gaugeId = object.gaugeId !== undefined && object.gaugeId !== null ? BigInt(object.gaugeId.toString()) : BigInt(0);
+    message.weightRatio = object.weightRatio ?? "";
+    return message;
+  },
+  fromAmino(object: GaugeWeightAmino): GaugeWeight {
+    const message = createBaseGaugeWeight();
+    if (object.gauge_id !== undefined && object.gauge_id !== null) {
+      message.gaugeId = BigInt(object.gauge_id);
+    }
+    if (object.weight_ratio !== undefined && object.weight_ratio !== null) {
+      message.weightRatio = object.weight_ratio;
+    }
+    return message;
+  },
+  toAmino(message: GaugeWeight): GaugeWeightAmino {
+    const obj: any = {};
+    obj.gauge_id = message.gaugeId ? message.gaugeId.toString() : undefined;
+    obj.weight_ratio = message.weightRatio;
+    return obj;
+  },
+  fromAminoMsg(object: GaugeWeightAminoMsg): GaugeWeight {
+    return GaugeWeight.fromAmino(object.value);
+  },
+  toAminoMsg(message: GaugeWeight): GaugeWeightAminoMsg {
+    return {
+      type: "osmosis/incentives/gauge-weight",
+      value: GaugeWeight.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: GaugeWeightProtoMsg): GaugeWeight {
+    return GaugeWeight.decode(message.value);
+  },
+  toProto(message: GaugeWeight): Uint8Array {
+    return GaugeWeight.encode(message).finish();
+  },
+  toProtoMsg(message: GaugeWeight): GaugeWeightProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.GaugeWeight",
+      value: GaugeWeight.encode(message).finish()
     };
   }
 };

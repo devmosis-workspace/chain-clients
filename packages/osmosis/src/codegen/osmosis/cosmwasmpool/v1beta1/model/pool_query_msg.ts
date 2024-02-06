@@ -4,7 +4,7 @@ import { isSet } from "../../../../helpers";
 import { Decimal } from "@cosmjs/math";
 /** ===================== GetSwapFeeQueryMsg */
 export interface GetSwapFeeQueryMsg {
-  /** get_swap_fee is the query strcuture to get swap fee. */
+  /** get_swap_fee is the query structure to get swap fee. */
   getSwapFee: EmptyStruct;
 }
 export interface GetSwapFeeQueryMsgProtoMsg {
@@ -13,7 +13,7 @@ export interface GetSwapFeeQueryMsgProtoMsg {
 }
 /** ===================== GetSwapFeeQueryMsg */
 export interface GetSwapFeeQueryMsgAmino {
-  /** get_swap_fee is the query strcuture to get swap fee. */
+  /** get_swap_fee is the query structure to get swap fee. */
   get_swap_fee?: EmptyStructAmino;
 }
 export interface GetSwapFeeQueryMsgAminoMsg {
@@ -34,7 +34,7 @@ export interface GetSwapFeeQueryMsgResponseProtoMsg {
 }
 export interface GetSwapFeeQueryMsgResponseAmino {
   /** swap_fee is the swap fee for this swap estimate. */
-  swap_fee: string;
+  swap_fee?: string;
 }
 export interface GetSwapFeeQueryMsgResponseAminoMsg {
   type: "osmosis/cosmwasmpool/get-swap-fee-query-msg-response";
@@ -57,9 +57,9 @@ export interface SpotPriceProtoMsg {
 /** ===================== SpotPriceQueryMsg */
 export interface SpotPriceAmino {
   /** quote_asset_denom is the quote asset of the spot query. */
-  quote_asset_denom: string;
+  quote_asset_denom?: string;
   /** base_asset_denom is the base asset of the spot query. */
-  base_asset_denom: string;
+  base_asset_denom?: string;
 }
 export interface SpotPriceAminoMsg {
   type: "osmosis/cosmwasmpool/spot-price";
@@ -105,7 +105,7 @@ export interface SpotPriceQueryMsgResponseProtoMsg {
 }
 export interface SpotPriceQueryMsgResponseAmino {
   /** spot_price is the spot price returned. */
-  spot_price: string;
+  spot_price?: string;
 }
 export interface SpotPriceQueryMsgResponseAminoMsg {
   type: "osmosis/cosmwasmpool/spot-price-query-msg-response";
@@ -169,7 +169,7 @@ export interface GetTotalPoolLiquidityQueryMsgResponseAmino {
    * total_pool_liquidity is the total liquidity in the pool denominated in
    *  coins.
    */
-  total_pool_liquidity: CoinAmino[];
+  total_pool_liquidity?: CoinAmino[];
 }
 export interface GetTotalPoolLiquidityQueryMsgResponseAminoMsg {
   type: "osmosis/cosmwasmpool/get-total-pool-liquidity-query-msg-response";
@@ -216,7 +216,7 @@ export interface GetTotalSharesQueryMsgResponseProtoMsg {
 }
 export interface GetTotalSharesQueryMsgResponseAmino {
   /** total_shares is the amount of shares returned. */
-  total_shares: string;
+  total_shares?: string;
 }
 export interface GetTotalSharesQueryMsgResponseAminoMsg {
   type: "osmosis/cosmwasmpool/get-total-shares-query-msg-response";
@@ -249,9 +249,11 @@ export const GetSwapFeeQueryMsg = {
     return message;
   },
   fromAmino(object: GetSwapFeeQueryMsgAmino): GetSwapFeeQueryMsg {
-    return {
-      getSwapFee: object?.get_swap_fee ? EmptyStruct.fromAmino(object.get_swap_fee) : undefined
-    };
+    const message = createBaseGetSwapFeeQueryMsg();
+    if (object.get_swap_fee !== undefined && object.get_swap_fee !== null) {
+      message.getSwapFee = EmptyStruct.fromAmino(object.get_swap_fee);
+    }
+    return message;
   },
   toAmino(message: GetSwapFeeQueryMsg): GetSwapFeeQueryMsgAmino {
     const obj: any = {};
@@ -304,9 +306,11 @@ export const GetSwapFeeQueryMsgResponse = {
     return message;
   },
   fromAmino(object: GetSwapFeeQueryMsgResponseAmino): GetSwapFeeQueryMsgResponse {
-    return {
-      swapFee: object.swap_fee
-    };
+    const message = createBaseGetSwapFeeQueryMsgResponse();
+    if (object.swap_fee !== undefined && object.swap_fee !== null) {
+      message.swapFee = object.swap_fee;
+    }
+    return message;
   },
   toAmino(message: GetSwapFeeQueryMsgResponse): GetSwapFeeQueryMsgResponseAmino {
     const obj: any = {};
@@ -365,10 +369,14 @@ export const SpotPrice = {
     return message;
   },
   fromAmino(object: SpotPriceAmino): SpotPrice {
-    return {
-      quoteAssetDenom: object.quote_asset_denom,
-      baseAssetDenom: object.base_asset_denom
-    };
+    const message = createBaseSpotPrice();
+    if (object.quote_asset_denom !== undefined && object.quote_asset_denom !== null) {
+      message.quoteAssetDenom = object.quote_asset_denom;
+    }
+    if (object.base_asset_denom !== undefined && object.base_asset_denom !== null) {
+      message.baseAssetDenom = object.base_asset_denom;
+    }
+    return message;
   },
   toAmino(message: SpotPrice): SpotPriceAmino {
     const obj: any = {};
@@ -422,9 +430,11 @@ export const SpotPriceQueryMsg = {
     return message;
   },
   fromAmino(object: SpotPriceQueryMsgAmino): SpotPriceQueryMsg {
-    return {
-      spotPrice: object?.spot_price ? SpotPrice.fromAmino(object.spot_price) : undefined
-    };
+    const message = createBaseSpotPriceQueryMsg();
+    if (object.spot_price !== undefined && object.spot_price !== null) {
+      message.spotPrice = SpotPrice.fromAmino(object.spot_price);
+    }
+    return message;
   },
   toAmino(message: SpotPriceQueryMsg): SpotPriceQueryMsgAmino {
     const obj: any = {};
@@ -477,9 +487,11 @@ export const SpotPriceQueryMsgResponse = {
     return message;
   },
   fromAmino(object: SpotPriceQueryMsgResponseAmino): SpotPriceQueryMsgResponse {
-    return {
-      spotPrice: object.spot_price
-    };
+    const message = createBaseSpotPriceQueryMsgResponse();
+    if (object.spot_price !== undefined && object.spot_price !== null) {
+      message.spotPrice = object.spot_price;
+    }
+    return message;
   },
   toAmino(message: SpotPriceQueryMsgResponse): SpotPriceQueryMsgResponseAmino {
     const obj: any = {};
@@ -524,7 +536,8 @@ export const EmptyStruct = {
     return message;
   },
   fromAmino(_: EmptyStructAmino): EmptyStruct {
-    return {};
+    const message = createBaseEmptyStruct();
+    return message;
   },
   toAmino(_: EmptyStruct): EmptyStructAmino {
     const obj: any = {};
@@ -576,9 +589,11 @@ export const GetTotalPoolLiquidityQueryMsg = {
     return message;
   },
   fromAmino(object: GetTotalPoolLiquidityQueryMsgAmino): GetTotalPoolLiquidityQueryMsg {
-    return {
-      getTotalPoolLiquidity: object?.get_total_pool_liquidity ? EmptyStruct.fromAmino(object.get_total_pool_liquidity) : undefined
-    };
+    const message = createBaseGetTotalPoolLiquidityQueryMsg();
+    if (object.get_total_pool_liquidity !== undefined && object.get_total_pool_liquidity !== null) {
+      message.getTotalPoolLiquidity = EmptyStruct.fromAmino(object.get_total_pool_liquidity);
+    }
+    return message;
   },
   toAmino(message: GetTotalPoolLiquidityQueryMsg): GetTotalPoolLiquidityQueryMsgAmino {
     const obj: any = {};
@@ -631,9 +646,9 @@ export const GetTotalPoolLiquidityQueryMsgResponse = {
     return message;
   },
   fromAmino(object: GetTotalPoolLiquidityQueryMsgResponseAmino): GetTotalPoolLiquidityQueryMsgResponse {
-    return {
-      totalPoolLiquidity: Array.isArray(object?.total_pool_liquidity) ? object.total_pool_liquidity.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseGetTotalPoolLiquidityQueryMsgResponse();
+    message.totalPoolLiquidity = object.total_pool_liquidity?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GetTotalPoolLiquidityQueryMsgResponse): GetTotalPoolLiquidityQueryMsgResponseAmino {
     const obj: any = {};
@@ -690,9 +705,11 @@ export const GetTotalSharesQueryMsg = {
     return message;
   },
   fromAmino(object: GetTotalSharesQueryMsgAmino): GetTotalSharesQueryMsg {
-    return {
-      getTotalShares: object?.get_total_shares ? EmptyStruct.fromAmino(object.get_total_shares) : undefined
-    };
+    const message = createBaseGetTotalSharesQueryMsg();
+    if (object.get_total_shares !== undefined && object.get_total_shares !== null) {
+      message.getTotalShares = EmptyStruct.fromAmino(object.get_total_shares);
+    }
+    return message;
   },
   toAmino(message: GetTotalSharesQueryMsg): GetTotalSharesQueryMsgAmino {
     const obj: any = {};
@@ -745,9 +762,11 @@ export const GetTotalSharesQueryMsgResponse = {
     return message;
   },
   fromAmino(object: GetTotalSharesQueryMsgResponseAmino): GetTotalSharesQueryMsgResponse {
-    return {
-      totalShares: object.total_shares
-    };
+    const message = createBaseGetTotalSharesQueryMsgResponse();
+    if (object.total_shares !== undefined && object.total_shares !== null) {
+      message.totalShares = object.total_shares;
+    }
+    return message;
   },
   toAmino(message: GetTotalSharesQueryMsgResponse): GetTotalSharesQueryMsgResponseAmino {
     const obj: any = {};

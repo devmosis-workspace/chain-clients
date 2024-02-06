@@ -1,6 +1,6 @@
 import { QueryCondition, QueryConditionAmino, QueryConditionSDKType } from "../lockup/lock";
 import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../binary";
 import { isSet, fromJsonTimestamp } from "../../helpers";
 /** MsgCreateGauge creates a gague to distribute rewards to users */
@@ -53,23 +53,23 @@ export interface MsgCreateGaugeAmino {
    * at a single time and only distribute their tokens again once the gauge is
    * refilled
    */
-  is_perpetual: boolean;
+  is_perpetual?: boolean;
   /** owner is the address of gauge creator */
-  owner: string;
+  owner?: string;
   /**
    * distribute_to show which lock the gauge should distribute to by time
    * duration or by timestamp
    */
   distribute_to?: QueryConditionAmino;
   /** coins are coin(s) to be distributed by the gauge */
-  coins: CoinAmino[];
+  coins?: CoinAmino[];
   /** start_time is the distribution start time */
-  start_time?: TimestampAmino;
+  start_time?: string;
   /**
    * num_epochs_paid_over is the number of epochs distribution will be completed
    * over
    */
-  num_epochs_paid_over: string;
+  num_epochs_paid_over?: string;
   /**
    * pool_id is the ID of the pool that the gauge is meant to be associated
    * with. if pool_id is set, then the "QueryCondition.LockQueryType" must be
@@ -79,7 +79,7 @@ export interface MsgCreateGaugeAmino {
    * incentivestypes.NoLockExternalGaugeDenom(<pool-id>) so that the gauges
    * associated with a pool can be queried by this prefix if needed.
    */
-  pool_id: string;
+  pool_id?: string;
 }
 export interface MsgCreateGaugeAminoMsg {
   type: "osmosis/incentives/create-gauge";
@@ -122,11 +122,11 @@ export interface MsgAddToGaugeProtoMsg {
 /** MsgAddToGauge adds coins to a previously created gauge */
 export interface MsgAddToGaugeAmino {
   /** owner is the gauge owner's address */
-  owner: string;
+  owner?: string;
   /** gauge_id is the ID of gauge that rewards are getting added to */
-  gauge_id: string;
+  gauge_id?: string;
   /** rewards are the coin(s) to add to gauge */
-  rewards: CoinAmino[];
+  rewards?: CoinAmino[];
 }
 export interface MsgAddToGaugeAminoMsg {
   type: "osmosis/incentives/add-to-gauge";
@@ -149,6 +149,68 @@ export interface MsgAddToGaugeResponseAminoMsg {
   value: MsgAddToGaugeResponseAmino;
 }
 export interface MsgAddToGaugeResponseSDKType {}
+/** MsgCreateGroup creates a group to distribute rewards to a group of pools */
+export interface MsgCreateGroup {
+  /** coins are the provided coins that the group will distribute */
+  coins: Coin[];
+  /**
+   * num_epochs_paid_over is the number of epochs distribution will be completed
+   * in. 0 means it's perpetual
+   */
+  numEpochsPaidOver: bigint;
+  /** owner is the group owner's address */
+  owner: string;
+  /** pool_ids are the IDs of pools that the group is comprised of */
+  poolIds: bigint[];
+}
+export interface MsgCreateGroupProtoMsg {
+  typeUrl: "/osmosis.incentives.MsgCreateGroup";
+  value: Uint8Array;
+}
+/** MsgCreateGroup creates a group to distribute rewards to a group of pools */
+export interface MsgCreateGroupAmino {
+  /** coins are the provided coins that the group will distribute */
+  coins?: CoinAmino[];
+  /**
+   * num_epochs_paid_over is the number of epochs distribution will be completed
+   * in. 0 means it's perpetual
+   */
+  num_epochs_paid_over?: string;
+  /** owner is the group owner's address */
+  owner?: string;
+  /** pool_ids are the IDs of pools that the group is comprised of */
+  pool_ids?: string[];
+}
+export interface MsgCreateGroupAminoMsg {
+  type: "osmosis/incentives/create-group";
+  value: MsgCreateGroupAmino;
+}
+/** MsgCreateGroup creates a group to distribute rewards to a group of pools */
+export interface MsgCreateGroupSDKType {
+  coins: CoinSDKType[];
+  num_epochs_paid_over: bigint;
+  owner: string;
+  pool_ids: bigint[];
+}
+export interface MsgCreateGroupResponse {
+  /** group_id is the ID of the group that is created from this msg */
+  groupId: bigint;
+}
+export interface MsgCreateGroupResponseProtoMsg {
+  typeUrl: "/osmosis.incentives.MsgCreateGroupResponse";
+  value: Uint8Array;
+}
+export interface MsgCreateGroupResponseAmino {
+  /** group_id is the ID of the group that is created from this msg */
+  group_id?: string;
+}
+export interface MsgCreateGroupResponseAminoMsg {
+  type: "osmosis/incentives/create-group-response";
+  value: MsgCreateGroupResponseAmino;
+}
+export interface MsgCreateGroupResponseSDKType {
+  group_id: bigint;
+}
 function createBaseMsgCreateGauge(): MsgCreateGauge {
   return {
     isPerpetual: false,
@@ -209,15 +271,27 @@ export const MsgCreateGauge = {
     return message;
   },
   fromAmino(object: MsgCreateGaugeAmino): MsgCreateGauge {
-    return {
-      isPerpetual: object.is_perpetual,
-      owner: object.owner,
-      distributeTo: object?.distribute_to ? QueryCondition.fromAmino(object.distribute_to) : undefined,
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : [],
-      startTime: object.start_time,
-      numEpochsPaidOver: BigInt(object.num_epochs_paid_over),
-      poolId: BigInt(object.pool_id)
-    };
+    const message = createBaseMsgCreateGauge();
+    if (object.is_perpetual !== undefined && object.is_perpetual !== null) {
+      message.isPerpetual = object.is_perpetual;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.distribute_to !== undefined && object.distribute_to !== null) {
+      message.distributeTo = QueryCondition.fromAmino(object.distribute_to);
+    }
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = Timestamp.fromAmino(object.start_time);
+    }
+    if (object.num_epochs_paid_over !== undefined && object.num_epochs_paid_over !== null) {
+      message.numEpochsPaidOver = BigInt(object.num_epochs_paid_over);
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    return message;
   },
   toAmino(message: MsgCreateGauge): MsgCreateGaugeAmino {
     const obj: any = {};
@@ -229,7 +303,7 @@ export const MsgCreateGauge = {
     } else {
       obj.coins = [];
     }
-    obj.start_time = message.startTime;
+    obj.start_time = message.startTime ? Timestamp.toAmino(message.startTime) : undefined;
     obj.num_epochs_paid_over = message.numEpochsPaidOver ? message.numEpochsPaidOver.toString() : undefined;
     obj.pool_id = message.poolId ? message.poolId.toString() : undefined;
     return obj;
@@ -272,7 +346,8 @@ export const MsgCreateGaugeResponse = {
     return message;
   },
   fromAmino(_: MsgCreateGaugeResponseAmino): MsgCreateGaugeResponse {
-    return {};
+    const message = createBaseMsgCreateGaugeResponse();
+    return message;
   },
   toAmino(_: MsgCreateGaugeResponse): MsgCreateGaugeResponseAmino {
     const obj: any = {};
@@ -336,11 +411,15 @@ export const MsgAddToGauge = {
     return message;
   },
   fromAmino(object: MsgAddToGaugeAmino): MsgAddToGauge {
-    return {
-      owner: object.owner,
-      gaugeId: BigInt(object.gauge_id),
-      rewards: Array.isArray(object?.rewards) ? object.rewards.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgAddToGauge();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.gauge_id !== undefined && object.gauge_id !== null) {
+      message.gaugeId = BigInt(object.gauge_id);
+    }
+    message.rewards = object.rewards?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgAddToGauge): MsgAddToGaugeAmino {
     const obj: any = {};
@@ -391,7 +470,8 @@ export const MsgAddToGaugeResponse = {
     return message;
   },
   fromAmino(_: MsgAddToGaugeResponseAmino): MsgAddToGaugeResponse {
-    return {};
+    const message = createBaseMsgAddToGaugeResponse();
+    return message;
   },
   toAmino(_: MsgAddToGaugeResponse): MsgAddToGaugeResponseAmino {
     const obj: any = {};
@@ -416,6 +496,156 @@ export const MsgAddToGaugeResponse = {
     return {
       typeUrl: "/osmosis.incentives.MsgAddToGaugeResponse",
       value: MsgAddToGaugeResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgCreateGroup(): MsgCreateGroup {
+  return {
+    coins: [],
+    numEpochsPaidOver: BigInt(0),
+    owner: "",
+    poolIds: []
+  };
+}
+export const MsgCreateGroup = {
+  typeUrl: "/osmosis.incentives.MsgCreateGroup",
+  encode(message: MsgCreateGroup, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.coins) {
+      Coin.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.numEpochsPaidOver !== BigInt(0)) {
+      writer.uint32(16).uint64(message.numEpochsPaidOver);
+    }
+    if (message.owner !== "") {
+      writer.uint32(26).string(message.owner);
+    }
+    writer.uint32(34).fork();
+    for (const v of message.poolIds) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    return writer;
+  },
+  fromJSON(object: any): MsgCreateGroup {
+    return {
+      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
+      numEpochsPaidOver: isSet(object.numEpochsPaidOver) ? BigInt(object.numEpochsPaidOver.toString()) : BigInt(0),
+      owner: isSet(object.owner) ? String(object.owner) : "",
+      poolIds: Array.isArray(object?.poolIds) ? object.poolIds.map((e: any) => BigInt(e.toString())) : []
+    };
+  },
+  fromPartial(object: Partial<MsgCreateGroup>): MsgCreateGroup {
+    const message = createBaseMsgCreateGroup();
+    message.coins = object.coins?.map(e => Coin.fromPartial(e)) || [];
+    message.numEpochsPaidOver = object.numEpochsPaidOver !== undefined && object.numEpochsPaidOver !== null ? BigInt(object.numEpochsPaidOver.toString()) : BigInt(0);
+    message.owner = object.owner ?? "";
+    message.poolIds = object.poolIds?.map(e => BigInt(e.toString())) || [];
+    return message;
+  },
+  fromAmino(object: MsgCreateGroupAmino): MsgCreateGroup {
+    const message = createBaseMsgCreateGroup();
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    if (object.num_epochs_paid_over !== undefined && object.num_epochs_paid_over !== null) {
+      message.numEpochsPaidOver = BigInt(object.num_epochs_paid_over);
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    message.poolIds = object.pool_ids?.map(e => BigInt(e)) || [];
+    return message;
+  },
+  toAmino(message: MsgCreateGroup): MsgCreateGroupAmino {
+    const obj: any = {};
+    if (message.coins) {
+      obj.coins = message.coins.map(e => e ? Coin.toAmino(e) : undefined);
+    } else {
+      obj.coins = [];
+    }
+    obj.num_epochs_paid_over = message.numEpochsPaidOver ? message.numEpochsPaidOver.toString() : undefined;
+    obj.owner = message.owner;
+    if (message.poolIds) {
+      obj.pool_ids = message.poolIds.map(e => e.toString());
+    } else {
+      obj.pool_ids = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateGroupAminoMsg): MsgCreateGroup {
+    return MsgCreateGroup.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreateGroup): MsgCreateGroupAminoMsg {
+    return {
+      type: "osmosis/incentives/create-group",
+      value: MsgCreateGroup.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgCreateGroupProtoMsg): MsgCreateGroup {
+    return MsgCreateGroup.decode(message.value);
+  },
+  toProto(message: MsgCreateGroup): Uint8Array {
+    return MsgCreateGroup.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateGroup): MsgCreateGroupProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.MsgCreateGroup",
+      value: MsgCreateGroup.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgCreateGroupResponse(): MsgCreateGroupResponse {
+  return {
+    groupId: BigInt(0)
+  };
+}
+export const MsgCreateGroupResponse = {
+  typeUrl: "/osmosis.incentives.MsgCreateGroupResponse",
+  encode(message: MsgCreateGroupResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.groupId !== BigInt(0)) {
+      writer.uint32(8).uint64(message.groupId);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgCreateGroupResponse {
+    return {
+      groupId: isSet(object.groupId) ? BigInt(object.groupId.toString()) : BigInt(0)
+    };
+  },
+  fromPartial(object: Partial<MsgCreateGroupResponse>): MsgCreateGroupResponse {
+    const message = createBaseMsgCreateGroupResponse();
+    message.groupId = object.groupId !== undefined && object.groupId !== null ? BigInt(object.groupId.toString()) : BigInt(0);
+    return message;
+  },
+  fromAmino(object: MsgCreateGroupResponseAmino): MsgCreateGroupResponse {
+    const message = createBaseMsgCreateGroupResponse();
+    if (object.group_id !== undefined && object.group_id !== null) {
+      message.groupId = BigInt(object.group_id);
+    }
+    return message;
+  },
+  toAmino(message: MsgCreateGroupResponse): MsgCreateGroupResponseAmino {
+    const obj: any = {};
+    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateGroupResponseAminoMsg): MsgCreateGroupResponse {
+    return MsgCreateGroupResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreateGroupResponse): MsgCreateGroupResponseAminoMsg {
+    return {
+      type: "osmosis/incentives/create-group-response",
+      value: MsgCreateGroupResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgCreateGroupResponseProtoMsg): MsgCreateGroupResponse {
+    return MsgCreateGroupResponse.decode(message.value);
+  },
+  toProto(message: MsgCreateGroupResponse): Uint8Array {
+    return MsgCreateGroupResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateGroupResponse): MsgCreateGroupResponseProtoMsg {
+    return {
+      typeUrl: "/osmosis.incentives.MsgCreateGroupResponse",
+      value: MsgCreateGroupResponse.encode(message).finish()
     };
   }
 };

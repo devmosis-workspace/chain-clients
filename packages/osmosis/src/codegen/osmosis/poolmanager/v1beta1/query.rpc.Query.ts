@@ -1,7 +1,7 @@
 import { Rpc } from "../../../helpers";
 import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { ParamsRequest, ParamsResponse, EstimateSwapExactAmountInRequest, EstimateSwapExactAmountInResponse, EstimateSwapExactAmountInWithPrimitiveTypesRequest, EstimateSinglePoolSwapExactAmountInRequest, EstimateSwapExactAmountOutRequest, EstimateSwapExactAmountOutResponse, EstimateSwapExactAmountOutWithPrimitiveTypesRequest, EstimateSinglePoolSwapExactAmountOutRequest, NumPoolsRequest, NumPoolsResponse, PoolRequest, PoolResponse, AllPoolsRequest, AllPoolsResponse, SpotPriceRequest, SpotPriceResponse, TotalPoolLiquidityRequest, TotalPoolLiquidityResponse, TotalLiquidityRequest, TotalLiquidityResponse } from "./query";
+import { ParamsRequest, ParamsResponse, EstimateSwapExactAmountInRequest, EstimateSwapExactAmountInResponse, EstimateSwapExactAmountInWithPrimitiveTypesRequest, EstimateSinglePoolSwapExactAmountInRequest, EstimateSwapExactAmountOutRequest, EstimateSwapExactAmountOutResponse, EstimateSwapExactAmountOutWithPrimitiveTypesRequest, EstimateSinglePoolSwapExactAmountOutRequest, NumPoolsRequest, NumPoolsResponse, PoolRequest, PoolResponse, AllPoolsRequest, AllPoolsResponse, ListPoolsByDenomRequest, ListPoolsByDenomResponse, SpotPriceRequest, SpotPriceResponse, TotalPoolLiquidityRequest, TotalPoolLiquidityResponse, TotalLiquidityRequest, TotalLiquidityResponse, TotalVolumeForPoolRequest, TotalVolumeForPoolResponse, TradingPairTakerFeeRequest, TradingPairTakerFeeResponse, EstimateTradeBasedOnPriceImpactRequest, EstimateTradeBasedOnPriceImpactResponse } from "./query";
 export interface Query {
   params(request?: ParamsRequest): Promise<ParamsResponse>;
   /** Estimates swap amount out given in. */
@@ -31,6 +31,8 @@ export interface Query {
   pool(request: PoolRequest): Promise<PoolResponse>;
   /** AllPools returns all pools on the Osmosis chain sorted by IDs. */
   allPools(request?: AllPoolsRequest): Promise<AllPoolsResponse>;
+  /** ListPoolsByDenom return all pools by denom */
+  listPoolsByDenom(request: ListPoolsByDenomRequest): Promise<ListPoolsByDenomResponse>;
   /**
    * SpotPrice defines a gRPC query handler that returns the spot price given
    * a base denomination and a quote denomination.
@@ -40,6 +42,16 @@ export interface Query {
   totalPoolLiquidity(request: TotalPoolLiquidityRequest): Promise<TotalPoolLiquidityResponse>;
   /** TotalLiquidity returns the total liquidity across all pools. */
   totalLiquidity(request?: TotalLiquidityRequest): Promise<TotalLiquidityResponse>;
+  /** TotalVolumeForPool returns the total volume of the specified pool. */
+  totalVolumeForPool(request: TotalVolumeForPoolRequest): Promise<TotalVolumeForPoolResponse>;
+  /** TradingPairTakerFee returns the taker fee for a given set of denoms */
+  tradingPairTakerFee(request: TradingPairTakerFeeRequest): Promise<TradingPairTakerFeeResponse>;
+  /**
+   * EstimateTradeBasedOnPriceImpact returns an estimated trade based on price
+   * impact, if a trade cannot be estimated a 0 input and 0 output would be
+   * returned.
+   */
+  estimateTradeBasedOnPriceImpact(request: EstimateTradeBasedOnPriceImpactRequest): Promise<EstimateTradeBasedOnPriceImpactResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
@@ -55,9 +67,13 @@ export class QueryClientImpl implements Query {
     this.numPools = this.numPools.bind(this);
     this.pool = this.pool.bind(this);
     this.allPools = this.allPools.bind(this);
+    this.listPoolsByDenom = this.listPoolsByDenom.bind(this);
     this.spotPrice = this.spotPrice.bind(this);
     this.totalPoolLiquidity = this.totalPoolLiquidity.bind(this);
     this.totalLiquidity = this.totalLiquidity.bind(this);
+    this.totalVolumeForPool = this.totalVolumeForPool.bind(this);
+    this.tradingPairTakerFee = this.tradingPairTakerFee.bind(this);
+    this.estimateTradeBasedOnPriceImpact = this.estimateTradeBasedOnPriceImpact.bind(this);
   }
   params(request: ParamsRequest = {}): Promise<ParamsResponse> {
     const data = ParamsRequest.encode(request).finish();
@@ -109,6 +125,11 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("osmosis.poolmanager.v1beta1.Query", "AllPools", data);
     return promise.then(data => AllPoolsResponse.decode(new BinaryReader(data)));
   }
+  listPoolsByDenom(request: ListPoolsByDenomRequest): Promise<ListPoolsByDenomResponse> {
+    const data = ListPoolsByDenomRequest.encode(request).finish();
+    const promise = this.rpc.request("osmosis.poolmanager.v1beta1.Query", "ListPoolsByDenom", data);
+    return promise.then(data => ListPoolsByDenomResponse.decode(new BinaryReader(data)));
+  }
   spotPrice(request: SpotPriceRequest): Promise<SpotPriceResponse> {
     const data = SpotPriceRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.poolmanager.v1beta1.Query", "SpotPrice", data);
@@ -123,6 +144,21 @@ export class QueryClientImpl implements Query {
     const data = TotalLiquidityRequest.encode(request).finish();
     const promise = this.rpc.request("osmosis.poolmanager.v1beta1.Query", "TotalLiquidity", data);
     return promise.then(data => TotalLiquidityResponse.decode(new BinaryReader(data)));
+  }
+  totalVolumeForPool(request: TotalVolumeForPoolRequest): Promise<TotalVolumeForPoolResponse> {
+    const data = TotalVolumeForPoolRequest.encode(request).finish();
+    const promise = this.rpc.request("osmosis.poolmanager.v1beta1.Query", "TotalVolumeForPool", data);
+    return promise.then(data => TotalVolumeForPoolResponse.decode(new BinaryReader(data)));
+  }
+  tradingPairTakerFee(request: TradingPairTakerFeeRequest): Promise<TradingPairTakerFeeResponse> {
+    const data = TradingPairTakerFeeRequest.encode(request).finish();
+    const promise = this.rpc.request("osmosis.poolmanager.v1beta1.Query", "TradingPairTakerFee", data);
+    return promise.then(data => TradingPairTakerFeeResponse.decode(new BinaryReader(data)));
+  }
+  estimateTradeBasedOnPriceImpact(request: EstimateTradeBasedOnPriceImpactRequest): Promise<EstimateTradeBasedOnPriceImpactResponse> {
+    const data = EstimateTradeBasedOnPriceImpactRequest.encode(request).finish();
+    const promise = this.rpc.request("osmosis.poolmanager.v1beta1.Query", "EstimateTradeBasedOnPriceImpact", data);
+    return promise.then(data => EstimateTradeBasedOnPriceImpactResponse.decode(new BinaryReader(data)));
   }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {
@@ -159,6 +195,9 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     allPools(request?: AllPoolsRequest): Promise<AllPoolsResponse> {
       return queryService.allPools(request);
     },
+    listPoolsByDenom(request: ListPoolsByDenomRequest): Promise<ListPoolsByDenomResponse> {
+      return queryService.listPoolsByDenom(request);
+    },
     spotPrice(request: SpotPriceRequest): Promise<SpotPriceResponse> {
       return queryService.spotPrice(request);
     },
@@ -167,6 +206,15 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     totalLiquidity(request?: TotalLiquidityRequest): Promise<TotalLiquidityResponse> {
       return queryService.totalLiquidity(request);
+    },
+    totalVolumeForPool(request: TotalVolumeForPoolRequest): Promise<TotalVolumeForPoolResponse> {
+      return queryService.totalVolumeForPool(request);
+    },
+    tradingPairTakerFee(request: TradingPairTakerFeeRequest): Promise<TradingPairTakerFeeResponse> {
+      return queryService.tradingPairTakerFee(request);
+    },
+    estimateTradeBasedOnPriceImpact(request: EstimateTradeBasedOnPriceImpactRequest): Promise<EstimateTradeBasedOnPriceImpactResponse> {
+      return queryService.estimateTradeBasedOnPriceImpact(request);
     }
   };
 };
