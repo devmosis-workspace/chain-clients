@@ -1,7 +1,10 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
+import { LSMTokenDeposit, LSMTokenDepositAmino, LSMTokenDepositSDKType } from "../records/records";
+import { HostZone, HostZoneAmino, HostZoneSDKType } from "./host_zone";
+import { Validator, ValidatorAmino, ValidatorSDKType } from "./validator";
+import { ICAAccountType, iCAAccountTypeFromJSON } from "./ica_account";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
-/** ---------------------- Delegation Callbacks ---------------------- // */
 export interface SplitDelegation {
   validator: string;
   amount: string;
@@ -10,16 +13,14 @@ export interface SplitDelegationProtoMsg {
   typeUrl: "/stride.stakeibc.SplitDelegation";
   value: Uint8Array;
 }
-/** ---------------------- Delegation Callbacks ---------------------- // */
 export interface SplitDelegationAmino {
-  validator: string;
-  amount: string;
+  validator?: string;
+  amount?: string;
 }
 export interface SplitDelegationAminoMsg {
   type: "/stride.stakeibc.SplitDelegation";
   value: SplitDelegationAmino;
 }
-/** ---------------------- Delegation Callbacks ---------------------- // */
 export interface SplitDelegationSDKType {
   validator: string;
   amount: string;
@@ -34,9 +35,9 @@ export interface DelegateCallbackProtoMsg {
   value: Uint8Array;
 }
 export interface DelegateCallbackAmino {
-  host_zone_id: string;
-  deposit_record_id: string;
-  split_delegations: SplitDelegationAmino[];
+  host_zone_id?: string;
+  deposit_record_id?: string;
+  split_delegations?: SplitDelegationAmino[];
 }
 export interface DelegateCallbackAminoMsg {
   type: "/stride.stakeibc.DelegateCallback";
@@ -57,9 +58,9 @@ export interface ClaimCallbackProtoMsg {
   value: Uint8Array;
 }
 export interface ClaimCallbackAmino {
-  user_redemption_record_id: string;
-  chain_id: string;
-  epoch_number: string;
+  user_redemption_record_id?: string;
+  chain_id?: string;
+  epoch_number?: string;
 }
 export interface ClaimCallbackAminoMsg {
   type: "/stride.stakeibc.ClaimCallback";
@@ -70,7 +71,6 @@ export interface ClaimCallbackSDKType {
   chain_id: string;
   epoch_number: bigint;
 }
-/** ---------------------- Reinvest Callback ---------------------- // */
 export interface ReinvestCallback {
   reinvestAmount: Coin;
   hostZoneId: string;
@@ -79,21 +79,18 @@ export interface ReinvestCallbackProtoMsg {
   typeUrl: "/stride.stakeibc.ReinvestCallback";
   value: Uint8Array;
 }
-/** ---------------------- Reinvest Callback ---------------------- // */
 export interface ReinvestCallbackAmino {
   reinvest_amount?: CoinAmino;
-  host_zone_id: string;
+  host_zone_id?: string;
 }
 export interface ReinvestCallbackAminoMsg {
   type: "/stride.stakeibc.ReinvestCallback";
   value: ReinvestCallbackAmino;
 }
-/** ---------------------- Reinvest Callback ---------------------- // */
 export interface ReinvestCallbackSDKType {
   reinvest_amount: CoinSDKType;
   host_zone_id: string;
 }
-/** ---------------------- Undelegation Callbacks ---------------------- // */
 export interface UndelegateCallback {
   hostZoneId: string;
   splitDelegations: SplitDelegation[];
@@ -103,23 +100,20 @@ export interface UndelegateCallbackProtoMsg {
   typeUrl: "/stride.stakeibc.UndelegateCallback";
   value: Uint8Array;
 }
-/** ---------------------- Undelegation Callbacks ---------------------- // */
 export interface UndelegateCallbackAmino {
-  host_zone_id: string;
-  split_delegations: SplitDelegationAmino[];
-  epoch_unbonding_record_ids: string[];
+  host_zone_id?: string;
+  split_delegations?: SplitDelegationAmino[];
+  epoch_unbonding_record_ids?: string[];
 }
 export interface UndelegateCallbackAminoMsg {
   type: "/stride.stakeibc.UndelegateCallback";
   value: UndelegateCallbackAmino;
 }
-/** ---------------------- Undelegation Callbacks ---------------------- // */
 export interface UndelegateCallbackSDKType {
   host_zone_id: string;
   split_delegations: SplitDelegationSDKType[];
   epoch_unbonding_record_ids: bigint[];
 }
-/** ---------------------- Redemption Callbacks ---------------------- // */
 export interface RedemptionCallback {
   hostZoneId: string;
   epochUnbondingRecordIds: bigint[];
@@ -128,16 +122,14 @@ export interface RedemptionCallbackProtoMsg {
   typeUrl: "/stride.stakeibc.RedemptionCallback";
   value: Uint8Array;
 }
-/** ---------------------- Redemption Callbacks ---------------------- // */
 export interface RedemptionCallbackAmino {
-  host_zone_id: string;
-  epoch_unbonding_record_ids: string[];
+  host_zone_id?: string;
+  epoch_unbonding_record_ids?: string[];
 }
 export interface RedemptionCallbackAminoMsg {
   type: "/stride.stakeibc.RedemptionCallback";
   value: RedemptionCallbackAmino;
 }
-/** ---------------------- Redemption Callbacks ---------------------- // */
 export interface RedemptionCallbackSDKType {
   host_zone_id: string;
   epoch_unbonding_record_ids: bigint[];
@@ -152,9 +144,9 @@ export interface RebalancingProtoMsg {
   value: Uint8Array;
 }
 export interface RebalancingAmino {
-  src_validator: string;
-  dst_validator: string;
-  amt: string;
+  src_validator?: string;
+  dst_validator?: string;
+  amt?: string;
 }
 export interface RebalancingAminoMsg {
   type: "/stride.stakeibc.Rebalancing";
@@ -174,8 +166,8 @@ export interface RebalanceCallbackProtoMsg {
   value: Uint8Array;
 }
 export interface RebalanceCallbackAmino {
-  host_zone_id: string;
-  rebalancings: RebalancingAmino[];
+  host_zone_id?: string;
+  rebalancings?: RebalancingAmino[];
 }
 export interface RebalanceCallbackAminoMsg {
   type: "/stride.stakeibc.RebalanceCallback";
@@ -184,6 +176,122 @@ export interface RebalanceCallbackAminoMsg {
 export interface RebalanceCallbackSDKType {
   host_zone_id: string;
   rebalancings: RebalancingSDKType[];
+}
+export interface DetokenizeSharesCallback {
+  deposit?: LSMTokenDeposit;
+}
+export interface DetokenizeSharesCallbackProtoMsg {
+  typeUrl: "/stride.stakeibc.DetokenizeSharesCallback";
+  value: Uint8Array;
+}
+export interface DetokenizeSharesCallbackAmino {
+  deposit?: LSMTokenDepositAmino;
+}
+export interface DetokenizeSharesCallbackAminoMsg {
+  type: "/stride.stakeibc.DetokenizeSharesCallback";
+  value: DetokenizeSharesCallbackAmino;
+}
+export interface DetokenizeSharesCallbackSDKType {
+  deposit?: LSMTokenDepositSDKType;
+}
+export interface LSMLiquidStake {
+  deposit?: LSMTokenDeposit;
+  hostZone?: HostZone;
+  validator?: Validator;
+}
+export interface LSMLiquidStakeProtoMsg {
+  typeUrl: "/stride.stakeibc.LSMLiquidStake";
+  value: Uint8Array;
+}
+export interface LSMLiquidStakeAmino {
+  deposit?: LSMTokenDepositAmino;
+  host_zone?: HostZoneAmino;
+  validator?: ValidatorAmino;
+}
+export interface LSMLiquidStakeAminoMsg {
+  type: "/stride.stakeibc.LSMLiquidStake";
+  value: LSMLiquidStakeAmino;
+}
+export interface LSMLiquidStakeSDKType {
+  deposit?: LSMTokenDepositSDKType;
+  host_zone?: HostZoneSDKType;
+  validator?: ValidatorSDKType;
+}
+export interface ValidatorSharesToTokensQueryCallback {
+  lsmLiquidStake?: LSMLiquidStake;
+}
+export interface ValidatorSharesToTokensQueryCallbackProtoMsg {
+  typeUrl: "/stride.stakeibc.ValidatorSharesToTokensQueryCallback";
+  value: Uint8Array;
+}
+export interface ValidatorSharesToTokensQueryCallbackAmino {
+  lsm_liquid_stake?: LSMLiquidStakeAmino;
+}
+export interface ValidatorSharesToTokensQueryCallbackAminoMsg {
+  type: "/stride.stakeibc.ValidatorSharesToTokensQueryCallback";
+  value: ValidatorSharesToTokensQueryCallbackAmino;
+}
+export interface ValidatorSharesToTokensQueryCallbackSDKType {
+  lsm_liquid_stake?: LSMLiquidStakeSDKType;
+}
+export interface DelegatorSharesQueryCallback {
+  /** Validator delegation at the time the query is submitted */
+  initialValidatorDelegation: string;
+}
+export interface DelegatorSharesQueryCallbackProtoMsg {
+  typeUrl: "/stride.stakeibc.DelegatorSharesQueryCallback";
+  value: Uint8Array;
+}
+export interface DelegatorSharesQueryCallbackAmino {
+  /** Validator delegation at the time the query is submitted */
+  initial_validator_delegation?: string;
+}
+export interface DelegatorSharesQueryCallbackAminoMsg {
+  type: "/stride.stakeibc.DelegatorSharesQueryCallback";
+  value: DelegatorSharesQueryCallbackAmino;
+}
+export interface DelegatorSharesQueryCallbackSDKType {
+  initial_validator_delegation: string;
+}
+export interface CommunityPoolBalanceQueryCallback {
+  icaType: ICAAccountType;
+  denom: string;
+}
+export interface CommunityPoolBalanceQueryCallbackProtoMsg {
+  typeUrl: "/stride.stakeibc.CommunityPoolBalanceQueryCallback";
+  value: Uint8Array;
+}
+export interface CommunityPoolBalanceQueryCallbackAmino {
+  ica_type?: ICAAccountType;
+  denom?: string;
+}
+export interface CommunityPoolBalanceQueryCallbackAminoMsg {
+  type: "/stride.stakeibc.CommunityPoolBalanceQueryCallback";
+  value: CommunityPoolBalanceQueryCallbackAmino;
+}
+export interface CommunityPoolBalanceQueryCallbackSDKType {
+  ica_type: ICAAccountType;
+  denom: string;
+}
+export interface TradeRouteCallback {
+  rewardDenom: string;
+  hostDenom: string;
+}
+export interface TradeRouteCallbackProtoMsg {
+  typeUrl: "/stride.stakeibc.TradeRouteCallback";
+  value: Uint8Array;
+}
+export interface TradeRouteCallbackAmino {
+  reward_denom?: string;
+  host_denom?: string;
+}
+export interface TradeRouteCallbackAminoMsg {
+  type: "/stride.stakeibc.TradeRouteCallback";
+  value: TradeRouteCallbackAmino;
+}
+export interface TradeRouteCallbackSDKType {
+  reward_denom: string;
+  host_denom: string;
 }
 function createBaseSplitDelegation(): SplitDelegation {
   return {
@@ -215,10 +323,14 @@ export const SplitDelegation = {
     return message;
   },
   fromAmino(object: SplitDelegationAmino): SplitDelegation {
-    return {
-      validator: object.validator,
-      amount: object.amount
-    };
+    const message = createBaseSplitDelegation();
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = object.validator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
   },
   toAmino(message: SplitDelegation): SplitDelegationAmino {
     const obj: any = {};
@@ -278,11 +390,15 @@ export const DelegateCallback = {
     return message;
   },
   fromAmino(object: DelegateCallbackAmino): DelegateCallback {
-    return {
-      hostZoneId: object.host_zone_id,
-      depositRecordId: BigInt(object.deposit_record_id),
-      splitDelegations: Array.isArray(object?.split_delegations) ? object.split_delegations.map((e: any) => SplitDelegation.fromAmino(e)) : []
-    };
+    const message = createBaseDelegateCallback();
+    if (object.host_zone_id !== undefined && object.host_zone_id !== null) {
+      message.hostZoneId = object.host_zone_id;
+    }
+    if (object.deposit_record_id !== undefined && object.deposit_record_id !== null) {
+      message.depositRecordId = BigInt(object.deposit_record_id);
+    }
+    message.splitDelegations = object.split_delegations?.map(e => SplitDelegation.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: DelegateCallback): DelegateCallbackAmino {
     const obj: any = {};
@@ -347,11 +463,17 @@ export const ClaimCallback = {
     return message;
   },
   fromAmino(object: ClaimCallbackAmino): ClaimCallback {
-    return {
-      userRedemptionRecordId: object.user_redemption_record_id,
-      chainId: object.chain_id,
-      epochNumber: BigInt(object.epoch_number)
-    };
+    const message = createBaseClaimCallback();
+    if (object.user_redemption_record_id !== undefined && object.user_redemption_record_id !== null) {
+      message.userRedemptionRecordId = object.user_redemption_record_id;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.epoch_number !== undefined && object.epoch_number !== null) {
+      message.epochNumber = BigInt(object.epoch_number);
+    }
+    return message;
   },
   toAmino(message: ClaimCallback): ClaimCallbackAmino {
     const obj: any = {};
@@ -406,10 +528,14 @@ export const ReinvestCallback = {
     return message;
   },
   fromAmino(object: ReinvestCallbackAmino): ReinvestCallback {
-    return {
-      reinvestAmount: object?.reinvest_amount ? Coin.fromAmino(object.reinvest_amount) : undefined,
-      hostZoneId: object.host_zone_id
-    };
+    const message = createBaseReinvestCallback();
+    if (object.reinvest_amount !== undefined && object.reinvest_amount !== null) {
+      message.reinvestAmount = Coin.fromAmino(object.reinvest_amount);
+    }
+    if (object.host_zone_id !== undefined && object.host_zone_id !== null) {
+      message.hostZoneId = object.host_zone_id;
+    }
+    return message;
   },
   toAmino(message: ReinvestCallback): ReinvestCallbackAmino {
     const obj: any = {};
@@ -471,11 +597,13 @@ export const UndelegateCallback = {
     return message;
   },
   fromAmino(object: UndelegateCallbackAmino): UndelegateCallback {
-    return {
-      hostZoneId: object.host_zone_id,
-      splitDelegations: Array.isArray(object?.split_delegations) ? object.split_delegations.map((e: any) => SplitDelegation.fromAmino(e)) : [],
-      epochUnbondingRecordIds: Array.isArray(object?.epoch_unbonding_record_ids) ? object.epoch_unbonding_record_ids.map((e: any) => BigInt(e)) : []
-    };
+    const message = createBaseUndelegateCallback();
+    if (object.host_zone_id !== undefined && object.host_zone_id !== null) {
+      message.hostZoneId = object.host_zone_id;
+    }
+    message.splitDelegations = object.split_delegations?.map(e => SplitDelegation.fromAmino(e)) || [];
+    message.epochUnbondingRecordIds = object.epoch_unbonding_record_ids?.map(e => BigInt(e)) || [];
+    return message;
   },
   toAmino(message: UndelegateCallback): UndelegateCallbackAmino {
     const obj: any = {};
@@ -540,10 +668,12 @@ export const RedemptionCallback = {
     return message;
   },
   fromAmino(object: RedemptionCallbackAmino): RedemptionCallback {
-    return {
-      hostZoneId: object.host_zone_id,
-      epochUnbondingRecordIds: Array.isArray(object?.epoch_unbonding_record_ids) ? object.epoch_unbonding_record_ids.map((e: any) => BigInt(e)) : []
-    };
+    const message = createBaseRedemptionCallback();
+    if (object.host_zone_id !== undefined && object.host_zone_id !== null) {
+      message.hostZoneId = object.host_zone_id;
+    }
+    message.epochUnbondingRecordIds = object.epoch_unbonding_record_ids?.map(e => BigInt(e)) || [];
+    return message;
   },
   toAmino(message: RedemptionCallback): RedemptionCallbackAmino {
     const obj: any = {};
@@ -607,11 +737,17 @@ export const Rebalancing = {
     return message;
   },
   fromAmino(object: RebalancingAmino): Rebalancing {
-    return {
-      srcValidator: object.src_validator,
-      dstValidator: object.dst_validator,
-      amt: object.amt
-    };
+    const message = createBaseRebalancing();
+    if (object.src_validator !== undefined && object.src_validator !== null) {
+      message.srcValidator = object.src_validator;
+    }
+    if (object.dst_validator !== undefined && object.dst_validator !== null) {
+      message.dstValidator = object.dst_validator;
+    }
+    if (object.amt !== undefined && object.amt !== null) {
+      message.amt = object.amt;
+    }
+    return message;
   },
   toAmino(message: Rebalancing): RebalancingAmino {
     const obj: any = {};
@@ -666,10 +802,12 @@ export const RebalanceCallback = {
     return message;
   },
   fromAmino(object: RebalanceCallbackAmino): RebalanceCallback {
-    return {
-      hostZoneId: object.host_zone_id,
-      rebalancings: Array.isArray(object?.rebalancings) ? object.rebalancings.map((e: any) => Rebalancing.fromAmino(e)) : []
-    };
+    const message = createBaseRebalanceCallback();
+    if (object.host_zone_id !== undefined && object.host_zone_id !== null) {
+      message.hostZoneId = object.host_zone_id;
+    }
+    message.rebalancings = object.rebalancings?.map(e => Rebalancing.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: RebalanceCallback): RebalanceCallbackAmino {
     const obj: any = {};
@@ -694,6 +832,352 @@ export const RebalanceCallback = {
     return {
       typeUrl: "/stride.stakeibc.RebalanceCallback",
       value: RebalanceCallback.encode(message).finish()
+    };
+  }
+};
+function createBaseDetokenizeSharesCallback(): DetokenizeSharesCallback {
+  return {
+    deposit: undefined
+  };
+}
+export const DetokenizeSharesCallback = {
+  typeUrl: "/stride.stakeibc.DetokenizeSharesCallback",
+  encode(message: DetokenizeSharesCallback, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.deposit !== undefined) {
+      LSMTokenDeposit.encode(message.deposit, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): DetokenizeSharesCallback {
+    return {
+      deposit: isSet(object.deposit) ? LSMTokenDeposit.fromJSON(object.deposit) : undefined
+    };
+  },
+  fromPartial(object: Partial<DetokenizeSharesCallback>): DetokenizeSharesCallback {
+    const message = createBaseDetokenizeSharesCallback();
+    message.deposit = object.deposit !== undefined && object.deposit !== null ? LSMTokenDeposit.fromPartial(object.deposit) : undefined;
+    return message;
+  },
+  fromAmino(object: DetokenizeSharesCallbackAmino): DetokenizeSharesCallback {
+    const message = createBaseDetokenizeSharesCallback();
+    if (object.deposit !== undefined && object.deposit !== null) {
+      message.deposit = LSMTokenDeposit.fromAmino(object.deposit);
+    }
+    return message;
+  },
+  toAmino(message: DetokenizeSharesCallback): DetokenizeSharesCallbackAmino {
+    const obj: any = {};
+    obj.deposit = message.deposit ? LSMTokenDeposit.toAmino(message.deposit) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: DetokenizeSharesCallbackAminoMsg): DetokenizeSharesCallback {
+    return DetokenizeSharesCallback.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DetokenizeSharesCallbackProtoMsg): DetokenizeSharesCallback {
+    return DetokenizeSharesCallback.decode(message.value);
+  },
+  toProto(message: DetokenizeSharesCallback): Uint8Array {
+    return DetokenizeSharesCallback.encode(message).finish();
+  },
+  toProtoMsg(message: DetokenizeSharesCallback): DetokenizeSharesCallbackProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.DetokenizeSharesCallback",
+      value: DetokenizeSharesCallback.encode(message).finish()
+    };
+  }
+};
+function createBaseLSMLiquidStake(): LSMLiquidStake {
+  return {
+    deposit: undefined,
+    hostZone: undefined,
+    validator: undefined
+  };
+}
+export const LSMLiquidStake = {
+  typeUrl: "/stride.stakeibc.LSMLiquidStake",
+  encode(message: LSMLiquidStake, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.deposit !== undefined) {
+      LSMTokenDeposit.encode(message.deposit, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.hostZone !== undefined) {
+      HostZone.encode(message.hostZone, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.validator !== undefined) {
+      Validator.encode(message.validator, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): LSMLiquidStake {
+    return {
+      deposit: isSet(object.deposit) ? LSMTokenDeposit.fromJSON(object.deposit) : undefined,
+      hostZone: isSet(object.hostZone) ? HostZone.fromJSON(object.hostZone) : undefined,
+      validator: isSet(object.validator) ? Validator.fromJSON(object.validator) : undefined
+    };
+  },
+  fromPartial(object: Partial<LSMLiquidStake>): LSMLiquidStake {
+    const message = createBaseLSMLiquidStake();
+    message.deposit = object.deposit !== undefined && object.deposit !== null ? LSMTokenDeposit.fromPartial(object.deposit) : undefined;
+    message.hostZone = object.hostZone !== undefined && object.hostZone !== null ? HostZone.fromPartial(object.hostZone) : undefined;
+    message.validator = object.validator !== undefined && object.validator !== null ? Validator.fromPartial(object.validator) : undefined;
+    return message;
+  },
+  fromAmino(object: LSMLiquidStakeAmino): LSMLiquidStake {
+    const message = createBaseLSMLiquidStake();
+    if (object.deposit !== undefined && object.deposit !== null) {
+      message.deposit = LSMTokenDeposit.fromAmino(object.deposit);
+    }
+    if (object.host_zone !== undefined && object.host_zone !== null) {
+      message.hostZone = HostZone.fromAmino(object.host_zone);
+    }
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = Validator.fromAmino(object.validator);
+    }
+    return message;
+  },
+  toAmino(message: LSMLiquidStake): LSMLiquidStakeAmino {
+    const obj: any = {};
+    obj.deposit = message.deposit ? LSMTokenDeposit.toAmino(message.deposit) : undefined;
+    obj.host_zone = message.hostZone ? HostZone.toAmino(message.hostZone) : undefined;
+    obj.validator = message.validator ? Validator.toAmino(message.validator) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: LSMLiquidStakeAminoMsg): LSMLiquidStake {
+    return LSMLiquidStake.fromAmino(object.value);
+  },
+  fromProtoMsg(message: LSMLiquidStakeProtoMsg): LSMLiquidStake {
+    return LSMLiquidStake.decode(message.value);
+  },
+  toProto(message: LSMLiquidStake): Uint8Array {
+    return LSMLiquidStake.encode(message).finish();
+  },
+  toProtoMsg(message: LSMLiquidStake): LSMLiquidStakeProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.LSMLiquidStake",
+      value: LSMLiquidStake.encode(message).finish()
+    };
+  }
+};
+function createBaseValidatorSharesToTokensQueryCallback(): ValidatorSharesToTokensQueryCallback {
+  return {
+    lsmLiquidStake: undefined
+  };
+}
+export const ValidatorSharesToTokensQueryCallback = {
+  typeUrl: "/stride.stakeibc.ValidatorSharesToTokensQueryCallback",
+  encode(message: ValidatorSharesToTokensQueryCallback, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.lsmLiquidStake !== undefined) {
+      LSMLiquidStake.encode(message.lsmLiquidStake, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): ValidatorSharesToTokensQueryCallback {
+    return {
+      lsmLiquidStake: isSet(object.lsmLiquidStake) ? LSMLiquidStake.fromJSON(object.lsmLiquidStake) : undefined
+    };
+  },
+  fromPartial(object: Partial<ValidatorSharesToTokensQueryCallback>): ValidatorSharesToTokensQueryCallback {
+    const message = createBaseValidatorSharesToTokensQueryCallback();
+    message.lsmLiquidStake = object.lsmLiquidStake !== undefined && object.lsmLiquidStake !== null ? LSMLiquidStake.fromPartial(object.lsmLiquidStake) : undefined;
+    return message;
+  },
+  fromAmino(object: ValidatorSharesToTokensQueryCallbackAmino): ValidatorSharesToTokensQueryCallback {
+    const message = createBaseValidatorSharesToTokensQueryCallback();
+    if (object.lsm_liquid_stake !== undefined && object.lsm_liquid_stake !== null) {
+      message.lsmLiquidStake = LSMLiquidStake.fromAmino(object.lsm_liquid_stake);
+    }
+    return message;
+  },
+  toAmino(message: ValidatorSharesToTokensQueryCallback): ValidatorSharesToTokensQueryCallbackAmino {
+    const obj: any = {};
+    obj.lsm_liquid_stake = message.lsmLiquidStake ? LSMLiquidStake.toAmino(message.lsmLiquidStake) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ValidatorSharesToTokensQueryCallbackAminoMsg): ValidatorSharesToTokensQueryCallback {
+    return ValidatorSharesToTokensQueryCallback.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ValidatorSharesToTokensQueryCallbackProtoMsg): ValidatorSharesToTokensQueryCallback {
+    return ValidatorSharesToTokensQueryCallback.decode(message.value);
+  },
+  toProto(message: ValidatorSharesToTokensQueryCallback): Uint8Array {
+    return ValidatorSharesToTokensQueryCallback.encode(message).finish();
+  },
+  toProtoMsg(message: ValidatorSharesToTokensQueryCallback): ValidatorSharesToTokensQueryCallbackProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.ValidatorSharesToTokensQueryCallback",
+      value: ValidatorSharesToTokensQueryCallback.encode(message).finish()
+    };
+  }
+};
+function createBaseDelegatorSharesQueryCallback(): DelegatorSharesQueryCallback {
+  return {
+    initialValidatorDelegation: ""
+  };
+}
+export const DelegatorSharesQueryCallback = {
+  typeUrl: "/stride.stakeibc.DelegatorSharesQueryCallback",
+  encode(message: DelegatorSharesQueryCallback, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.initialValidatorDelegation !== "") {
+      writer.uint32(10).string(message.initialValidatorDelegation);
+    }
+    return writer;
+  },
+  fromJSON(object: any): DelegatorSharesQueryCallback {
+    return {
+      initialValidatorDelegation: isSet(object.initialValidatorDelegation) ? String(object.initialValidatorDelegation) : ""
+    };
+  },
+  fromPartial(object: Partial<DelegatorSharesQueryCallback>): DelegatorSharesQueryCallback {
+    const message = createBaseDelegatorSharesQueryCallback();
+    message.initialValidatorDelegation = object.initialValidatorDelegation ?? "";
+    return message;
+  },
+  fromAmino(object: DelegatorSharesQueryCallbackAmino): DelegatorSharesQueryCallback {
+    const message = createBaseDelegatorSharesQueryCallback();
+    if (object.initial_validator_delegation !== undefined && object.initial_validator_delegation !== null) {
+      message.initialValidatorDelegation = object.initial_validator_delegation;
+    }
+    return message;
+  },
+  toAmino(message: DelegatorSharesQueryCallback): DelegatorSharesQueryCallbackAmino {
+    const obj: any = {};
+    obj.initial_validator_delegation = message.initialValidatorDelegation;
+    return obj;
+  },
+  fromAminoMsg(object: DelegatorSharesQueryCallbackAminoMsg): DelegatorSharesQueryCallback {
+    return DelegatorSharesQueryCallback.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DelegatorSharesQueryCallbackProtoMsg): DelegatorSharesQueryCallback {
+    return DelegatorSharesQueryCallback.decode(message.value);
+  },
+  toProto(message: DelegatorSharesQueryCallback): Uint8Array {
+    return DelegatorSharesQueryCallback.encode(message).finish();
+  },
+  toProtoMsg(message: DelegatorSharesQueryCallback): DelegatorSharesQueryCallbackProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.DelegatorSharesQueryCallback",
+      value: DelegatorSharesQueryCallback.encode(message).finish()
+    };
+  }
+};
+function createBaseCommunityPoolBalanceQueryCallback(): CommunityPoolBalanceQueryCallback {
+  return {
+    icaType: 0,
+    denom: ""
+  };
+}
+export const CommunityPoolBalanceQueryCallback = {
+  typeUrl: "/stride.stakeibc.CommunityPoolBalanceQueryCallback",
+  encode(message: CommunityPoolBalanceQueryCallback, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.icaType !== 0) {
+      writer.uint32(8).int32(message.icaType);
+    }
+    if (message.denom !== "") {
+      writer.uint32(18).string(message.denom);
+    }
+    return writer;
+  },
+  fromJSON(object: any): CommunityPoolBalanceQueryCallback {
+    return {
+      icaType: isSet(object.icaType) ? iCAAccountTypeFromJSON(object.icaType) : -1,
+      denom: isSet(object.denom) ? String(object.denom) : ""
+    };
+  },
+  fromPartial(object: Partial<CommunityPoolBalanceQueryCallback>): CommunityPoolBalanceQueryCallback {
+    const message = createBaseCommunityPoolBalanceQueryCallback();
+    message.icaType = object.icaType ?? 0;
+    message.denom = object.denom ?? "";
+    return message;
+  },
+  fromAmino(object: CommunityPoolBalanceQueryCallbackAmino): CommunityPoolBalanceQueryCallback {
+    const message = createBaseCommunityPoolBalanceQueryCallback();
+    if (object.ica_type !== undefined && object.ica_type !== null) {
+      message.icaType = iCAAccountTypeFromJSON(object.ica_type);
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
+  },
+  toAmino(message: CommunityPoolBalanceQueryCallback): CommunityPoolBalanceQueryCallbackAmino {
+    const obj: any = {};
+    obj.ica_type = message.icaType;
+    obj.denom = message.denom;
+    return obj;
+  },
+  fromAminoMsg(object: CommunityPoolBalanceQueryCallbackAminoMsg): CommunityPoolBalanceQueryCallback {
+    return CommunityPoolBalanceQueryCallback.fromAmino(object.value);
+  },
+  fromProtoMsg(message: CommunityPoolBalanceQueryCallbackProtoMsg): CommunityPoolBalanceQueryCallback {
+    return CommunityPoolBalanceQueryCallback.decode(message.value);
+  },
+  toProto(message: CommunityPoolBalanceQueryCallback): Uint8Array {
+    return CommunityPoolBalanceQueryCallback.encode(message).finish();
+  },
+  toProtoMsg(message: CommunityPoolBalanceQueryCallback): CommunityPoolBalanceQueryCallbackProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.CommunityPoolBalanceQueryCallback",
+      value: CommunityPoolBalanceQueryCallback.encode(message).finish()
+    };
+  }
+};
+function createBaseTradeRouteCallback(): TradeRouteCallback {
+  return {
+    rewardDenom: "",
+    hostDenom: ""
+  };
+}
+export const TradeRouteCallback = {
+  typeUrl: "/stride.stakeibc.TradeRouteCallback",
+  encode(message: TradeRouteCallback, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.rewardDenom !== "") {
+      writer.uint32(10).string(message.rewardDenom);
+    }
+    if (message.hostDenom !== "") {
+      writer.uint32(18).string(message.hostDenom);
+    }
+    return writer;
+  },
+  fromJSON(object: any): TradeRouteCallback {
+    return {
+      rewardDenom: isSet(object.rewardDenom) ? String(object.rewardDenom) : "",
+      hostDenom: isSet(object.hostDenom) ? String(object.hostDenom) : ""
+    };
+  },
+  fromPartial(object: Partial<TradeRouteCallback>): TradeRouteCallback {
+    const message = createBaseTradeRouteCallback();
+    message.rewardDenom = object.rewardDenom ?? "";
+    message.hostDenom = object.hostDenom ?? "";
+    return message;
+  },
+  fromAmino(object: TradeRouteCallbackAmino): TradeRouteCallback {
+    const message = createBaseTradeRouteCallback();
+    if (object.reward_denom !== undefined && object.reward_denom !== null) {
+      message.rewardDenom = object.reward_denom;
+    }
+    if (object.host_denom !== undefined && object.host_denom !== null) {
+      message.hostDenom = object.host_denom;
+    }
+    return message;
+  },
+  toAmino(message: TradeRouteCallback): TradeRouteCallbackAmino {
+    const obj: any = {};
+    obj.reward_denom = message.rewardDenom;
+    obj.host_denom = message.hostDenom;
+    return obj;
+  },
+  fromAminoMsg(object: TradeRouteCallbackAminoMsg): TradeRouteCallback {
+    return TradeRouteCallback.fromAmino(object.value);
+  },
+  fromProtoMsg(message: TradeRouteCallbackProtoMsg): TradeRouteCallback {
+    return TradeRouteCallback.decode(message.value);
+  },
+  toProto(message: TradeRouteCallback): Uint8Array {
+    return TradeRouteCallback.encode(message).finish();
+  },
+  toProtoMsg(message: TradeRouteCallback): TradeRouteCallbackProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.TradeRouteCallback",
+      value: TradeRouteCallback.encode(message).finish()
     };
   }
 };

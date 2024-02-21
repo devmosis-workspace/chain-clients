@@ -4,6 +4,7 @@ import { Validator, ValidatorAmino, ValidatorSDKType } from "./validator";
 import { HostZone, HostZoneAmino, HostZoneSDKType } from "./host_zone";
 import { EpochTracker, EpochTrackerAmino, EpochTrackerSDKType } from "./epoch_tracker";
 import { AddressUnbonding, AddressUnbondingAmino, AddressUnbondingSDKType } from "./address_unbonding";
+import { TradeRoute, TradeRouteAmino, TradeRouteSDKType } from "./trade_route";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -23,8 +24,8 @@ export interface QueryInterchainAccountFromAddressRequestProtoMsg {
  * Query/InterchainAccountAddress RPC
  */
 export interface QueryInterchainAccountFromAddressRequestAmino {
-  owner: string;
-  connection_id: string;
+  owner?: string;
+  connection_id?: string;
 }
 export interface QueryInterchainAccountFromAddressRequestAminoMsg {
   type: "/stride.stakeibc.QueryInterchainAccountFromAddressRequest";
@@ -54,7 +55,7 @@ export interface QueryInterchainAccountFromAddressResponseProtoMsg {
  * Query/InterchainAccountAddress RPC
  */
 export interface QueryInterchainAccountFromAddressResponseAmino {
-  interchain_account_address: string;
+  interchain_account_address?: string;
 }
 export interface QueryInterchainAccountFromAddressResponseAminoMsg {
   type: "/stride.stakeibc.QueryInterchainAccountFromAddressResponse";
@@ -111,7 +112,7 @@ export interface QueryGetValidatorsRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetValidatorsRequestAmino {
-  chain_id: string;
+  chain_id?: string;
 }
 export interface QueryGetValidatorsRequestAminoMsg {
   type: "/stride.stakeibc.QueryGetValidatorsRequest";
@@ -128,7 +129,7 @@ export interface QueryGetValidatorsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetValidatorsResponseAmino {
-  validators: ValidatorAmino[];
+  validators?: ValidatorAmino[];
 }
 export interface QueryGetValidatorsResponseAminoMsg {
   type: "/stride.stakeibc.QueryGetValidatorsResponse";
@@ -145,7 +146,7 @@ export interface QueryGetHostZoneRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetHostZoneRequestAmino {
-  chain_id: string;
+  chain_id?: string;
 }
 export interface QueryGetHostZoneRequestAminoMsg {
   type: "/stride.stakeibc.QueryGetHostZoneRequest";
@@ -172,7 +173,7 @@ export interface QueryGetHostZoneResponseSDKType {
   host_zone: HostZoneSDKType;
 }
 export interface QueryAllHostZoneRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllHostZoneRequestProtoMsg {
   typeUrl: "/stride.stakeibc.QueryAllHostZoneRequest";
@@ -186,18 +187,18 @@ export interface QueryAllHostZoneRequestAminoMsg {
   value: QueryAllHostZoneRequestAmino;
 }
 export interface QueryAllHostZoneRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryAllHostZoneResponse {
   hostZone: HostZone[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllHostZoneResponseProtoMsg {
   typeUrl: "/stride.stakeibc.QueryAllHostZoneResponse";
   value: Uint8Array;
 }
 export interface QueryAllHostZoneResponseAmino {
-  host_zone: HostZoneAmino[];
+  host_zone?: HostZoneAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllHostZoneResponseAminoMsg {
@@ -206,7 +207,7 @@ export interface QueryAllHostZoneResponseAminoMsg {
 }
 export interface QueryAllHostZoneResponseSDKType {
   host_zone: HostZoneSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryModuleAddressRequest {
   name: string;
@@ -216,7 +217,7 @@ export interface QueryModuleAddressRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryModuleAddressRequestAmino {
-  name: string;
+  name?: string;
 }
 export interface QueryModuleAddressRequestAminoMsg {
   type: "/stride.stakeibc.QueryModuleAddressRequest";
@@ -233,7 +234,7 @@ export interface QueryModuleAddressResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryModuleAddressResponseAmino {
-  addr: string;
+  addr?: string;
 }
 export interface QueryModuleAddressResponseAminoMsg {
   type: "/stride.stakeibc.QueryModuleAddressResponse";
@@ -250,7 +251,7 @@ export interface QueryGetEpochTrackerRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetEpochTrackerRequestAmino {
-  epoch_identifier: string;
+  epoch_identifier?: string;
 }
 export interface QueryGetEpochTrackerRequestAminoMsg {
   type: "/stride.stakeibc.QueryGetEpochTrackerRequest";
@@ -295,7 +296,7 @@ export interface QueryAllEpochTrackerResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryAllEpochTrackerResponseAmino {
-  epoch_tracker: EpochTrackerAmino[];
+  epoch_tracker?: EpochTrackerAmino[];
 }
 export interface QueryAllEpochTrackerResponseAminoMsg {
   type: "/stride.stakeibc.QueryAllEpochTrackerResponse";
@@ -313,8 +314,8 @@ export interface QueryGetNextPacketSequenceRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetNextPacketSequenceRequestAmino {
-  channel_id: string;
-  port_id: string;
+  channel_id?: string;
+  port_id?: string;
 }
 export interface QueryGetNextPacketSequenceRequestAminoMsg {
   type: "/stride.stakeibc.QueryGetNextPacketSequenceRequest";
@@ -332,7 +333,7 @@ export interface QueryGetNextPacketSequenceResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetNextPacketSequenceResponseAmino {
-  sequence: string;
+  sequence?: string;
 }
 export interface QueryGetNextPacketSequenceResponseAminoMsg {
   type: "/stride.stakeibc.QueryGetNextPacketSequenceResponse";
@@ -349,7 +350,7 @@ export interface QueryAddressUnbondingsProtoMsg {
   value: Uint8Array;
 }
 export interface QueryAddressUnbondingsAmino {
-  address: string;
+  address?: string;
 }
 export interface QueryAddressUnbondingsAminoMsg {
   type: "/stride.stakeibc.QueryAddressUnbondings";
@@ -366,7 +367,7 @@ export interface QueryAddressUnbondingsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryAddressUnbondingsResponseAmino {
-  address_unbondings: AddressUnbondingAmino[];
+  address_unbondings?: AddressUnbondingAmino[];
 }
 export interface QueryAddressUnbondingsResponseAminoMsg {
   type: "/stride.stakeibc.QueryAddressUnbondingsResponse";
@@ -374,6 +375,34 @@ export interface QueryAddressUnbondingsResponseAminoMsg {
 }
 export interface QueryAddressUnbondingsResponseSDKType {
   address_unbondings: AddressUnbondingSDKType[];
+}
+export interface QueryAllTradeRoutes {}
+export interface QueryAllTradeRoutesProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryAllTradeRoutes";
+  value: Uint8Array;
+}
+export interface QueryAllTradeRoutesAmino {}
+export interface QueryAllTradeRoutesAminoMsg {
+  type: "/stride.stakeibc.QueryAllTradeRoutes";
+  value: QueryAllTradeRoutesAmino;
+}
+export interface QueryAllTradeRoutesSDKType {}
+export interface QueryAllTradeRoutesResponse {
+  tradeRoutes: TradeRoute[];
+}
+export interface QueryAllTradeRoutesResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.QueryAllTradeRoutesResponse";
+  value: Uint8Array;
+}
+export interface QueryAllTradeRoutesResponseAmino {
+  trade_routes?: TradeRouteAmino[];
+}
+export interface QueryAllTradeRoutesResponseAminoMsg {
+  type: "/stride.stakeibc.QueryAllTradeRoutesResponse";
+  value: QueryAllTradeRoutesResponseAmino;
+}
+export interface QueryAllTradeRoutesResponseSDKType {
+  trade_routes: TradeRouteSDKType[];
 }
 function createBaseQueryInterchainAccountFromAddressRequest(): QueryInterchainAccountFromAddressRequest {
   return {
@@ -405,10 +434,14 @@ export const QueryInterchainAccountFromAddressRequest = {
     return message;
   },
   fromAmino(object: QueryInterchainAccountFromAddressRequestAmino): QueryInterchainAccountFromAddressRequest {
-    return {
-      owner: object.owner,
-      connectionId: object.connection_id
-    };
+    const message = createBaseQueryInterchainAccountFromAddressRequest();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    return message;
   },
   toAmino(message: QueryInterchainAccountFromAddressRequest): QueryInterchainAccountFromAddressRequestAmino {
     const obj: any = {};
@@ -456,9 +489,11 @@ export const QueryInterchainAccountFromAddressResponse = {
     return message;
   },
   fromAmino(object: QueryInterchainAccountFromAddressResponseAmino): QueryInterchainAccountFromAddressResponse {
-    return {
-      interchainAccountAddress: object.interchain_account_address
-    };
+    const message = createBaseQueryInterchainAccountFromAddressResponse();
+    if (object.interchain_account_address !== undefined && object.interchain_account_address !== null) {
+      message.interchainAccountAddress = object.interchain_account_address;
+    }
+    return message;
   },
   toAmino(message: QueryInterchainAccountFromAddressResponse): QueryInterchainAccountFromAddressResponseAmino {
     const obj: any = {};
@@ -497,7 +532,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -543,9 +579,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -592,9 +630,11 @@ export const QueryGetValidatorsRequest = {
     return message;
   },
   fromAmino(object: QueryGetValidatorsRequestAmino): QueryGetValidatorsRequest {
-    return {
-      chainId: object.chain_id
-    };
+    const message = createBaseQueryGetValidatorsRequest();
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    return message;
   },
   toAmino(message: QueryGetValidatorsRequest): QueryGetValidatorsRequestAmino {
     const obj: any = {};
@@ -641,9 +681,9 @@ export const QueryGetValidatorsResponse = {
     return message;
   },
   fromAmino(object: QueryGetValidatorsResponseAmino): QueryGetValidatorsResponse {
-    return {
-      validators: Array.isArray(object?.validators) ? object.validators.map((e: any) => Validator.fromAmino(e)) : []
-    };
+    const message = createBaseQueryGetValidatorsResponse();
+    message.validators = object.validators?.map(e => Validator.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryGetValidatorsResponse): QueryGetValidatorsResponseAmino {
     const obj: any = {};
@@ -694,9 +734,11 @@ export const QueryGetHostZoneRequest = {
     return message;
   },
   fromAmino(object: QueryGetHostZoneRequestAmino): QueryGetHostZoneRequest {
-    return {
-      chainId: object.chain_id
-    };
+    const message = createBaseQueryGetHostZoneRequest();
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    return message;
   },
   toAmino(message: QueryGetHostZoneRequest): QueryGetHostZoneRequestAmino {
     const obj: any = {};
@@ -743,9 +785,11 @@ export const QueryGetHostZoneResponse = {
     return message;
   },
   fromAmino(object: QueryGetHostZoneResponseAmino): QueryGetHostZoneResponse {
-    return {
-      hostZone: object?.host_zone ? HostZone.fromAmino(object.host_zone) : undefined
-    };
+    const message = createBaseQueryGetHostZoneResponse();
+    if (object.host_zone !== undefined && object.host_zone !== null) {
+      message.hostZone = HostZone.fromAmino(object.host_zone);
+    }
+    return message;
   },
   toAmino(message: QueryGetHostZoneResponse): QueryGetHostZoneResponseAmino {
     const obj: any = {};
@@ -770,7 +814,7 @@ export const QueryGetHostZoneResponse = {
 };
 function createBaseQueryAllHostZoneRequest(): QueryAllHostZoneRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllHostZoneRequest = {
@@ -792,9 +836,11 @@ export const QueryAllHostZoneRequest = {
     return message;
   },
   fromAmino(object: QueryAllHostZoneRequestAmino): QueryAllHostZoneRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllHostZoneRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllHostZoneRequest): QueryAllHostZoneRequestAmino {
     const obj: any = {};
@@ -820,7 +866,7 @@ export const QueryAllHostZoneRequest = {
 function createBaseQueryAllHostZoneResponse(): QueryAllHostZoneResponse {
   return {
     hostZone: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllHostZoneResponse = {
@@ -847,10 +893,12 @@ export const QueryAllHostZoneResponse = {
     return message;
   },
   fromAmino(object: QueryAllHostZoneResponseAmino): QueryAllHostZoneResponse {
-    return {
-      hostZone: Array.isArray(object?.host_zone) ? object.host_zone.map((e: any) => HostZone.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllHostZoneResponse();
+    message.hostZone = object.host_zone?.map(e => HostZone.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllHostZoneResponse): QueryAllHostZoneResponseAmino {
     const obj: any = {};
@@ -902,9 +950,11 @@ export const QueryModuleAddressRequest = {
     return message;
   },
   fromAmino(object: QueryModuleAddressRequestAmino): QueryModuleAddressRequest {
-    return {
-      name: object.name
-    };
+    const message = createBaseQueryModuleAddressRequest();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    return message;
   },
   toAmino(message: QueryModuleAddressRequest): QueryModuleAddressRequestAmino {
     const obj: any = {};
@@ -951,9 +1001,11 @@ export const QueryModuleAddressResponse = {
     return message;
   },
   fromAmino(object: QueryModuleAddressResponseAmino): QueryModuleAddressResponse {
-    return {
-      addr: object.addr
-    };
+    const message = createBaseQueryModuleAddressResponse();
+    if (object.addr !== undefined && object.addr !== null) {
+      message.addr = object.addr;
+    }
+    return message;
   },
   toAmino(message: QueryModuleAddressResponse): QueryModuleAddressResponseAmino {
     const obj: any = {};
@@ -1000,9 +1052,11 @@ export const QueryGetEpochTrackerRequest = {
     return message;
   },
   fromAmino(object: QueryGetEpochTrackerRequestAmino): QueryGetEpochTrackerRequest {
-    return {
-      epochIdentifier: object.epoch_identifier
-    };
+    const message = createBaseQueryGetEpochTrackerRequest();
+    if (object.epoch_identifier !== undefined && object.epoch_identifier !== null) {
+      message.epochIdentifier = object.epoch_identifier;
+    }
+    return message;
   },
   toAmino(message: QueryGetEpochTrackerRequest): QueryGetEpochTrackerRequestAmino {
     const obj: any = {};
@@ -1049,9 +1103,11 @@ export const QueryGetEpochTrackerResponse = {
     return message;
   },
   fromAmino(object: QueryGetEpochTrackerResponseAmino): QueryGetEpochTrackerResponse {
-    return {
-      epochTracker: object?.epoch_tracker ? EpochTracker.fromAmino(object.epoch_tracker) : undefined
-    };
+    const message = createBaseQueryGetEpochTrackerResponse();
+    if (object.epoch_tracker !== undefined && object.epoch_tracker !== null) {
+      message.epochTracker = EpochTracker.fromAmino(object.epoch_tracker);
+    }
+    return message;
   },
   toAmino(message: QueryGetEpochTrackerResponse): QueryGetEpochTrackerResponseAmino {
     const obj: any = {};
@@ -1090,7 +1146,8 @@ export const QueryAllEpochTrackerRequest = {
     return message;
   },
   fromAmino(_: QueryAllEpochTrackerRequestAmino): QueryAllEpochTrackerRequest {
-    return {};
+    const message = createBaseQueryAllEpochTrackerRequest();
+    return message;
   },
   toAmino(_: QueryAllEpochTrackerRequest): QueryAllEpochTrackerRequestAmino {
     const obj: any = {};
@@ -1136,9 +1193,9 @@ export const QueryAllEpochTrackerResponse = {
     return message;
   },
   fromAmino(object: QueryAllEpochTrackerResponseAmino): QueryAllEpochTrackerResponse {
-    return {
-      epochTracker: Array.isArray(object?.epoch_tracker) ? object.epoch_tracker.map((e: any) => EpochTracker.fromAmino(e)) : []
-    };
+    const message = createBaseQueryAllEpochTrackerResponse();
+    message.epochTracker = object.epoch_tracker?.map(e => EpochTracker.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryAllEpochTrackerResponse): QueryAllEpochTrackerResponseAmino {
     const obj: any = {};
@@ -1195,10 +1252,14 @@ export const QueryGetNextPacketSequenceRequest = {
     return message;
   },
   fromAmino(object: QueryGetNextPacketSequenceRequestAmino): QueryGetNextPacketSequenceRequest {
-    return {
-      channelId: object.channel_id,
-      portId: object.port_id
-    };
+    const message = createBaseQueryGetNextPacketSequenceRequest();
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    return message;
   },
   toAmino(message: QueryGetNextPacketSequenceRequest): QueryGetNextPacketSequenceRequestAmino {
     const obj: any = {};
@@ -1246,9 +1307,11 @@ export const QueryGetNextPacketSequenceResponse = {
     return message;
   },
   fromAmino(object: QueryGetNextPacketSequenceResponseAmino): QueryGetNextPacketSequenceResponse {
-    return {
-      sequence: BigInt(object.sequence)
-    };
+    const message = createBaseQueryGetNextPacketSequenceResponse();
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    return message;
   },
   toAmino(message: QueryGetNextPacketSequenceResponse): QueryGetNextPacketSequenceResponseAmino {
     const obj: any = {};
@@ -1295,9 +1358,11 @@ export const QueryAddressUnbondings = {
     return message;
   },
   fromAmino(object: QueryAddressUnbondingsAmino): QueryAddressUnbondings {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryAddressUnbondings();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryAddressUnbondings): QueryAddressUnbondingsAmino {
     const obj: any = {};
@@ -1344,9 +1409,9 @@ export const QueryAddressUnbondingsResponse = {
     return message;
   },
   fromAmino(object: QueryAddressUnbondingsResponseAmino): QueryAddressUnbondingsResponse {
-    return {
-      addressUnbondings: Array.isArray(object?.address_unbondings) ? object.address_unbondings.map((e: any) => AddressUnbonding.fromAmino(e)) : []
-    };
+    const message = createBaseQueryAddressUnbondingsResponse();
+    message.addressUnbondings = object.address_unbondings?.map(e => AddressUnbonding.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryAddressUnbondingsResponse): QueryAddressUnbondingsResponseAmino {
     const obj: any = {};
@@ -1370,6 +1435,98 @@ export const QueryAddressUnbondingsResponse = {
     return {
       typeUrl: "/stride.stakeibc.QueryAddressUnbondingsResponse",
       value: QueryAddressUnbondingsResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAllTradeRoutes(): QueryAllTradeRoutes {
+  return {};
+}
+export const QueryAllTradeRoutes = {
+  typeUrl: "/stride.stakeibc.QueryAllTradeRoutes",
+  encode(_: QueryAllTradeRoutes, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryAllTradeRoutes {
+    return {};
+  },
+  fromPartial(_: Partial<QueryAllTradeRoutes>): QueryAllTradeRoutes {
+    const message = createBaseQueryAllTradeRoutes();
+    return message;
+  },
+  fromAmino(_: QueryAllTradeRoutesAmino): QueryAllTradeRoutes {
+    const message = createBaseQueryAllTradeRoutes();
+    return message;
+  },
+  toAmino(_: QueryAllTradeRoutes): QueryAllTradeRoutesAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllTradeRoutesAminoMsg): QueryAllTradeRoutes {
+    return QueryAllTradeRoutes.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAllTradeRoutesProtoMsg): QueryAllTradeRoutes {
+    return QueryAllTradeRoutes.decode(message.value);
+  },
+  toProto(message: QueryAllTradeRoutes): Uint8Array {
+    return QueryAllTradeRoutes.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllTradeRoutes): QueryAllTradeRoutesProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryAllTradeRoutes",
+      value: QueryAllTradeRoutes.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAllTradeRoutesResponse(): QueryAllTradeRoutesResponse {
+  return {
+    tradeRoutes: []
+  };
+}
+export const QueryAllTradeRoutesResponse = {
+  typeUrl: "/stride.stakeibc.QueryAllTradeRoutesResponse",
+  encode(message: QueryAllTradeRoutesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.tradeRoutes) {
+      TradeRoute.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryAllTradeRoutesResponse {
+    return {
+      tradeRoutes: Array.isArray(object?.tradeRoutes) ? object.tradeRoutes.map((e: any) => TradeRoute.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<QueryAllTradeRoutesResponse>): QueryAllTradeRoutesResponse {
+    const message = createBaseQueryAllTradeRoutesResponse();
+    message.tradeRoutes = object.tradeRoutes?.map(e => TradeRoute.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryAllTradeRoutesResponseAmino): QueryAllTradeRoutesResponse {
+    const message = createBaseQueryAllTradeRoutesResponse();
+    message.tradeRoutes = object.trade_routes?.map(e => TradeRoute.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryAllTradeRoutesResponse): QueryAllTradeRoutesResponseAmino {
+    const obj: any = {};
+    if (message.tradeRoutes) {
+      obj.trade_routes = message.tradeRoutes.map(e => e ? TradeRoute.toAmino(e) : undefined);
+    } else {
+      obj.trade_routes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllTradeRoutesResponseAminoMsg): QueryAllTradeRoutesResponse {
+    return QueryAllTradeRoutesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAllTradeRoutesResponseProtoMsg): QueryAllTradeRoutesResponse {
+    return QueryAllTradeRoutesResponse.decode(message.value);
+  },
+  toProto(message: QueryAllTradeRoutesResponse): Uint8Array {
+    return QueryAllTradeRoutesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllTradeRoutesResponse): QueryAllTradeRoutesResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.QueryAllTradeRoutesResponse",
+      value: QueryAllTradeRoutesResponse.encode(message).finish()
     };
   }
 };

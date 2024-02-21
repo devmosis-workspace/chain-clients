@@ -11,10 +11,10 @@ export interface EpochTrackerProtoMsg {
   value: Uint8Array;
 }
 export interface EpochTrackerAmino {
-  epoch_identifier: string;
-  epoch_number: string;
-  next_epoch_start_time: string;
-  duration: string;
+  epoch_identifier?: string;
+  epoch_number?: string;
+  next_epoch_start_time?: string;
+  duration?: string;
 }
 export interface EpochTrackerAminoMsg {
   type: "/stride.stakeibc.EpochTracker";
@@ -68,12 +68,20 @@ export const EpochTracker = {
     return message;
   },
   fromAmino(object: EpochTrackerAmino): EpochTracker {
-    return {
-      epochIdentifier: object.epoch_identifier,
-      epochNumber: BigInt(object.epoch_number),
-      nextEpochStartTime: BigInt(object.next_epoch_start_time),
-      duration: BigInt(object.duration)
-    };
+    const message = createBaseEpochTracker();
+    if (object.epoch_identifier !== undefined && object.epoch_identifier !== null) {
+      message.epochIdentifier = object.epoch_identifier;
+    }
+    if (object.epoch_number !== undefined && object.epoch_number !== null) {
+      message.epochNumber = BigInt(object.epoch_number);
+    }
+    if (object.next_epoch_start_time !== undefined && object.next_epoch_start_time !== null) {
+      message.nextEpochStartTime = BigInt(object.next_epoch_start_time);
+    }
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = BigInt(object.duration);
+    }
+    return message;
   },
   toAmino(message: EpochTracker): EpochTrackerAmino {
     const obj: any = {};

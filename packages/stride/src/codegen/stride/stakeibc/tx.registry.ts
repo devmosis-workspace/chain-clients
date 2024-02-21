@@ -1,6 +1,6 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgLiquidStake, MsgRedeemStake, MsgRegisterHostZone, MsgClaimUndelegatedTokens, MsgRebalanceValidators, MsgAddValidators, MsgChangeValidatorWeight, MsgDeleteValidator, MsgRestoreInterchainAccount, MsgUpdateValidatorSharesExchRate, MsgClearBalance } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/stride.stakeibc.MsgLiquidStake", MsgLiquidStake], ["/stride.stakeibc.MsgRedeemStake", MsgRedeemStake], ["/stride.stakeibc.MsgRegisterHostZone", MsgRegisterHostZone], ["/stride.stakeibc.MsgClaimUndelegatedTokens", MsgClaimUndelegatedTokens], ["/stride.stakeibc.MsgRebalanceValidators", MsgRebalanceValidators], ["/stride.stakeibc.MsgAddValidators", MsgAddValidators], ["/stride.stakeibc.MsgChangeValidatorWeight", MsgChangeValidatorWeight], ["/stride.stakeibc.MsgDeleteValidator", MsgDeleteValidator], ["/stride.stakeibc.MsgRestoreInterchainAccount", MsgRestoreInterchainAccount], ["/stride.stakeibc.MsgUpdateValidatorSharesExchRate", MsgUpdateValidatorSharesExchRate], ["/stride.stakeibc.MsgClearBalance", MsgClearBalance]];
+import { MsgLiquidStake, MsgLSMLiquidStake, MsgRedeemStake, MsgRegisterHostZone, MsgClaimUndelegatedTokens, MsgRebalanceValidators, MsgAddValidators, MsgChangeValidatorWeights, MsgDeleteValidator, MsgRestoreInterchainAccount, MsgUpdateValidatorSharesExchRate, MsgCalibrateDelegation, MsgClearBalance, MsgUpdateInnerRedemptionRateBounds, MsgResumeHostZone, MsgCreateTradeRoute, MsgDeleteTradeRoute, MsgUpdateTradeRoute } from "./tx";
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/stride.stakeibc.MsgLiquidStake", MsgLiquidStake], ["/stride.stakeibc.MsgLSMLiquidStake", MsgLSMLiquidStake], ["/stride.stakeibc.MsgRedeemStake", MsgRedeemStake], ["/stride.stakeibc.MsgRegisterHostZone", MsgRegisterHostZone], ["/stride.stakeibc.MsgClaimUndelegatedTokens", MsgClaimUndelegatedTokens], ["/stride.stakeibc.MsgRebalanceValidators", MsgRebalanceValidators], ["/stride.stakeibc.MsgAddValidators", MsgAddValidators], ["/stride.stakeibc.MsgChangeValidatorWeights", MsgChangeValidatorWeights], ["/stride.stakeibc.MsgDeleteValidator", MsgDeleteValidator], ["/stride.stakeibc.MsgRestoreInterchainAccount", MsgRestoreInterchainAccount], ["/stride.stakeibc.MsgUpdateValidatorSharesExchRate", MsgUpdateValidatorSharesExchRate], ["/stride.stakeibc.MsgCalibrateDelegation", MsgCalibrateDelegation], ["/stride.stakeibc.MsgClearBalance", MsgClearBalance], ["/stride.stakeibc.MsgUpdateInnerRedemptionRateBounds", MsgUpdateInnerRedemptionRateBounds], ["/stride.stakeibc.MsgResumeHostZone", MsgResumeHostZone], ["/stride.stakeibc.MsgCreateTradeRoute", MsgCreateTradeRoute], ["/stride.stakeibc.MsgDeleteTradeRoute", MsgDeleteTradeRoute], ["/stride.stakeibc.MsgUpdateTradeRoute", MsgUpdateTradeRoute]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -12,6 +12,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/stride.stakeibc.MsgLiquidStake",
         value: MsgLiquidStake.encode(value).finish()
+      };
+    },
+    lSMLiquidStake(value: MsgLSMLiquidStake) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgLSMLiquidStake",
+        value: MsgLSMLiquidStake.encode(value).finish()
       };
     },
     redeemStake(value: MsgRedeemStake) {
@@ -44,10 +50,10 @@ export const MessageComposer = {
         value: MsgAddValidators.encode(value).finish()
       };
     },
-    changeValidatorWeight(value: MsgChangeValidatorWeight) {
+    changeValidatorWeight(value: MsgChangeValidatorWeights) {
       return {
-        typeUrl: "/stride.stakeibc.MsgChangeValidatorWeight",
-        value: MsgChangeValidatorWeight.encode(value).finish()
+        typeUrl: "/stride.stakeibc.MsgChangeValidatorWeights",
+        value: MsgChangeValidatorWeights.encode(value).finish()
       };
     },
     deleteValidator(value: MsgDeleteValidator) {
@@ -68,10 +74,46 @@ export const MessageComposer = {
         value: MsgUpdateValidatorSharesExchRate.encode(value).finish()
       };
     },
+    calibrateDelegation(value: MsgCalibrateDelegation) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgCalibrateDelegation",
+        value: MsgCalibrateDelegation.encode(value).finish()
+      };
+    },
     clearBalance(value: MsgClearBalance) {
       return {
         typeUrl: "/stride.stakeibc.MsgClearBalance",
         value: MsgClearBalance.encode(value).finish()
+      };
+    },
+    updateInnerRedemptionRateBounds(value: MsgUpdateInnerRedemptionRateBounds) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBounds",
+        value: MsgUpdateInnerRedemptionRateBounds.encode(value).finish()
+      };
+    },
+    resumeHostZone(value: MsgResumeHostZone) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgResumeHostZone",
+        value: MsgResumeHostZone.encode(value).finish()
+      };
+    },
+    createTradeRoute(value: MsgCreateTradeRoute) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgCreateTradeRoute",
+        value: MsgCreateTradeRoute.encode(value).finish()
+      };
+    },
+    deleteTradeRoute(value: MsgDeleteTradeRoute) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgDeleteTradeRoute",
+        value: MsgDeleteTradeRoute.encode(value).finish()
+      };
+    },
+    updateTradeRoute(value: MsgUpdateTradeRoute) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgUpdateTradeRoute",
+        value: MsgUpdateTradeRoute.encode(value).finish()
       };
     }
   },
@@ -79,6 +121,12 @@ export const MessageComposer = {
     liquidStake(value: MsgLiquidStake) {
       return {
         typeUrl: "/stride.stakeibc.MsgLiquidStake",
+        value
+      };
+    },
+    lSMLiquidStake(value: MsgLSMLiquidStake) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgLSMLiquidStake",
         value
       };
     },
@@ -112,9 +160,9 @@ export const MessageComposer = {
         value
       };
     },
-    changeValidatorWeight(value: MsgChangeValidatorWeight) {
+    changeValidatorWeight(value: MsgChangeValidatorWeights) {
       return {
-        typeUrl: "/stride.stakeibc.MsgChangeValidatorWeight",
+        typeUrl: "/stride.stakeibc.MsgChangeValidatorWeights",
         value
       };
     },
@@ -136,9 +184,45 @@ export const MessageComposer = {
         value
       };
     },
+    calibrateDelegation(value: MsgCalibrateDelegation) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgCalibrateDelegation",
+        value
+      };
+    },
     clearBalance(value: MsgClearBalance) {
       return {
         typeUrl: "/stride.stakeibc.MsgClearBalance",
+        value
+      };
+    },
+    updateInnerRedemptionRateBounds(value: MsgUpdateInnerRedemptionRateBounds) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBounds",
+        value
+      };
+    },
+    resumeHostZone(value: MsgResumeHostZone) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgResumeHostZone",
+        value
+      };
+    },
+    createTradeRoute(value: MsgCreateTradeRoute) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgCreateTradeRoute",
+        value
+      };
+    },
+    deleteTradeRoute(value: MsgDeleteTradeRoute) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgDeleteTradeRoute",
+        value
+      };
+    },
+    updateTradeRoute(value: MsgUpdateTradeRoute) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgUpdateTradeRoute",
         value
       };
     }
@@ -148,6 +232,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/stride.stakeibc.MsgLiquidStake",
         value: MsgLiquidStake.fromJSON(value)
+      };
+    },
+    lSMLiquidStake(value: any) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgLSMLiquidStake",
+        value: MsgLSMLiquidStake.fromJSON(value)
       };
     },
     redeemStake(value: any) {
@@ -182,8 +272,8 @@ export const MessageComposer = {
     },
     changeValidatorWeight(value: any) {
       return {
-        typeUrl: "/stride.stakeibc.MsgChangeValidatorWeight",
-        value: MsgChangeValidatorWeight.fromJSON(value)
+        typeUrl: "/stride.stakeibc.MsgChangeValidatorWeights",
+        value: MsgChangeValidatorWeights.fromJSON(value)
       };
     },
     deleteValidator(value: any) {
@@ -204,10 +294,46 @@ export const MessageComposer = {
         value: MsgUpdateValidatorSharesExchRate.fromJSON(value)
       };
     },
+    calibrateDelegation(value: any) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgCalibrateDelegation",
+        value: MsgCalibrateDelegation.fromJSON(value)
+      };
+    },
     clearBalance(value: any) {
       return {
         typeUrl: "/stride.stakeibc.MsgClearBalance",
         value: MsgClearBalance.fromJSON(value)
+      };
+    },
+    updateInnerRedemptionRateBounds(value: any) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBounds",
+        value: MsgUpdateInnerRedemptionRateBounds.fromJSON(value)
+      };
+    },
+    resumeHostZone(value: any) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgResumeHostZone",
+        value: MsgResumeHostZone.fromJSON(value)
+      };
+    },
+    createTradeRoute(value: any) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgCreateTradeRoute",
+        value: MsgCreateTradeRoute.fromJSON(value)
+      };
+    },
+    deleteTradeRoute(value: any) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgDeleteTradeRoute",
+        value: MsgDeleteTradeRoute.fromJSON(value)
+      };
+    },
+    updateTradeRoute(value: any) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgUpdateTradeRoute",
+        value: MsgUpdateTradeRoute.fromJSON(value)
       };
     }
   },
@@ -216,6 +342,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/stride.stakeibc.MsgLiquidStake",
         value: MsgLiquidStake.fromPartial(value)
+      };
+    },
+    lSMLiquidStake(value: MsgLSMLiquidStake) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgLSMLiquidStake",
+        value: MsgLSMLiquidStake.fromPartial(value)
       };
     },
     redeemStake(value: MsgRedeemStake) {
@@ -248,10 +380,10 @@ export const MessageComposer = {
         value: MsgAddValidators.fromPartial(value)
       };
     },
-    changeValidatorWeight(value: MsgChangeValidatorWeight) {
+    changeValidatorWeight(value: MsgChangeValidatorWeights) {
       return {
-        typeUrl: "/stride.stakeibc.MsgChangeValidatorWeight",
-        value: MsgChangeValidatorWeight.fromPartial(value)
+        typeUrl: "/stride.stakeibc.MsgChangeValidatorWeights",
+        value: MsgChangeValidatorWeights.fromPartial(value)
       };
     },
     deleteValidator(value: MsgDeleteValidator) {
@@ -272,10 +404,46 @@ export const MessageComposer = {
         value: MsgUpdateValidatorSharesExchRate.fromPartial(value)
       };
     },
+    calibrateDelegation(value: MsgCalibrateDelegation) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgCalibrateDelegation",
+        value: MsgCalibrateDelegation.fromPartial(value)
+      };
+    },
     clearBalance(value: MsgClearBalance) {
       return {
         typeUrl: "/stride.stakeibc.MsgClearBalance",
         value: MsgClearBalance.fromPartial(value)
+      };
+    },
+    updateInnerRedemptionRateBounds(value: MsgUpdateInnerRedemptionRateBounds) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBounds",
+        value: MsgUpdateInnerRedemptionRateBounds.fromPartial(value)
+      };
+    },
+    resumeHostZone(value: MsgResumeHostZone) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgResumeHostZone",
+        value: MsgResumeHostZone.fromPartial(value)
+      };
+    },
+    createTradeRoute(value: MsgCreateTradeRoute) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgCreateTradeRoute",
+        value: MsgCreateTradeRoute.fromPartial(value)
+      };
+    },
+    deleteTradeRoute(value: MsgDeleteTradeRoute) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgDeleteTradeRoute",
+        value: MsgDeleteTradeRoute.fromPartial(value)
+      };
+    },
+    updateTradeRoute(value: MsgUpdateTradeRoute) {
+      return {
+        typeUrl: "/stride.stakeibc.MsgUpdateTradeRoute",
+        value: MsgUpdateTradeRoute.fromPartial(value)
       };
     }
   }

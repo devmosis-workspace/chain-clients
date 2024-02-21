@@ -1,7 +1,7 @@
 import { Rpc } from "../../helpers";
 import { BinaryReader } from "../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryParamsRequest, QueryParamsResponse, QueryGetValidatorsRequest, QueryGetValidatorsResponse, QueryGetHostZoneRequest, QueryGetHostZoneResponse, QueryAllHostZoneRequest, QueryAllHostZoneResponse, QueryModuleAddressRequest, QueryModuleAddressResponse, QueryInterchainAccountFromAddressRequest, QueryInterchainAccountFromAddressResponse, QueryGetEpochTrackerRequest, QueryGetEpochTrackerResponse, QueryAllEpochTrackerRequest, QueryAllEpochTrackerResponse, QueryGetNextPacketSequenceRequest, QueryGetNextPacketSequenceResponse, QueryAddressUnbondings, QueryAddressUnbondingsResponse } from "./query";
+import { QueryParamsRequest, QueryParamsResponse, QueryGetValidatorsRequest, QueryGetValidatorsResponse, QueryGetHostZoneRequest, QueryGetHostZoneResponse, QueryAllHostZoneRequest, QueryAllHostZoneResponse, QueryModuleAddressRequest, QueryModuleAddressResponse, QueryInterchainAccountFromAddressRequest, QueryInterchainAccountFromAddressResponse, QueryGetEpochTrackerRequest, QueryGetEpochTrackerResponse, QueryAllEpochTrackerRequest, QueryAllEpochTrackerResponse, QueryGetNextPacketSequenceRequest, QueryGetNextPacketSequenceResponse, QueryAddressUnbondings, QueryAddressUnbondingsResponse, QueryAllTradeRoutes, QueryAllTradeRoutesResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -27,6 +27,8 @@ export interface Query {
   nextPacketSequence(request: QueryGetNextPacketSequenceRequest): Promise<QueryGetNextPacketSequenceResponse>;
   /** Queries an address's unbondings */
   addressUnbondings(request: QueryAddressUnbondings): Promise<QueryAddressUnbondingsResponse>;
+  /** Queries all trade routes */
+  allTradeRoutes(request?: QueryAllTradeRoutes): Promise<QueryAllTradeRoutesResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
@@ -42,6 +44,7 @@ export class QueryClientImpl implements Query {
     this.epochTrackerAll = this.epochTrackerAll.bind(this);
     this.nextPacketSequence = this.nextPacketSequence.bind(this);
     this.addressUnbondings = this.addressUnbondings.bind(this);
+    this.allTradeRoutes = this.allTradeRoutes.bind(this);
   }
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -95,6 +98,11 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("stride.stakeibc.Query", "AddressUnbondings", data);
     return promise.then(data => QueryAddressUnbondingsResponse.decode(new BinaryReader(data)));
   }
+  allTradeRoutes(request: QueryAllTradeRoutes = {}): Promise<QueryAllTradeRoutesResponse> {
+    const data = QueryAllTradeRoutes.encode(request).finish();
+    const promise = this.rpc.request("stride.stakeibc.Query", "AllTradeRoutes", data);
+    return promise.then(data => QueryAllTradeRoutesResponse.decode(new BinaryReader(data)));
+  }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {
   const rpc = createProtobufRpcClient(base);
@@ -129,6 +137,9 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     addressUnbondings(request: QueryAddressUnbondings): Promise<QueryAddressUnbondingsResponse> {
       return queryService.addressUnbondings(request);
+    },
+    allTradeRoutes(request?: QueryAllTradeRoutes): Promise<QueryAllTradeRoutesResponse> {
+      return queryService.allTradeRoutes(request);
     }
   };
 };

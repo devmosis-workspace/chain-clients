@@ -41,8 +41,8 @@ export interface PathProtoMsg {
   value: Uint8Array;
 }
 export interface PathAmino {
-  denom: string;
-  channel_id: string;
+  denom?: string;
+  channel_id?: string;
 }
 export interface PathAminoMsg {
   type: "/stride.ratelimit.Path";
@@ -62,9 +62,9 @@ export interface QuotaProtoMsg {
   value: Uint8Array;
 }
 export interface QuotaAmino {
-  max_percent_send: string;
-  max_percent_recv: string;
-  duration_hours: string;
+  max_percent_send?: string;
+  max_percent_recv?: string;
+  duration_hours?: string;
 }
 export interface QuotaAminoMsg {
   type: "/stride.ratelimit.Quota";
@@ -85,9 +85,9 @@ export interface FlowProtoMsg {
   value: Uint8Array;
 }
 export interface FlowAmino {
-  inflow: string;
-  outflow: string;
-  channel_value: string;
+  inflow?: string;
+  outflow?: string;
+  channel_value?: string;
 }
 export interface FlowAminoMsg {
   type: "/stride.ratelimit.Flow";
@@ -99,9 +99,9 @@ export interface FlowSDKType {
   channel_value: string;
 }
 export interface RateLimit {
-  path: Path;
-  quota: Quota;
-  flow: Flow;
+  path?: Path;
+  quota?: Quota;
+  flow?: Flow;
 }
 export interface RateLimitProtoMsg {
   typeUrl: "/stride.ratelimit.RateLimit";
@@ -117,9 +117,9 @@ export interface RateLimitAminoMsg {
   value: RateLimitAmino;
 }
 export interface RateLimitSDKType {
-  path: PathSDKType;
-  quota: QuotaSDKType;
-  flow: FlowSDKType;
+  path?: PathSDKType;
+  quota?: QuotaSDKType;
+  flow?: FlowSDKType;
 }
 export interface WhitelistedAddressPair {
   sender: string;
@@ -130,8 +130,8 @@ export interface WhitelistedAddressPairProtoMsg {
   value: Uint8Array;
 }
 export interface WhitelistedAddressPairAmino {
-  sender: string;
-  receiver: string;
+  sender?: string;
+  receiver?: string;
 }
 export interface WhitelistedAddressPairAminoMsg {
   type: "/stride.ratelimit.WhitelistedAddressPair";
@@ -171,10 +171,14 @@ export const Path = {
     return message;
   },
   fromAmino(object: PathAmino): Path {
-    return {
-      denom: object.denom,
-      channelId: object.channel_id
-    };
+    const message = createBasePath();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    return message;
   },
   toAmino(message: Path): PathAmino {
     const obj: any = {};
@@ -234,11 +238,17 @@ export const Quota = {
     return message;
   },
   fromAmino(object: QuotaAmino): Quota {
-    return {
-      maxPercentSend: object.max_percent_send,
-      maxPercentRecv: object.max_percent_recv,
-      durationHours: BigInt(object.duration_hours)
-    };
+    const message = createBaseQuota();
+    if (object.max_percent_send !== undefined && object.max_percent_send !== null) {
+      message.maxPercentSend = object.max_percent_send;
+    }
+    if (object.max_percent_recv !== undefined && object.max_percent_recv !== null) {
+      message.maxPercentRecv = object.max_percent_recv;
+    }
+    if (object.duration_hours !== undefined && object.duration_hours !== null) {
+      message.durationHours = BigInt(object.duration_hours);
+    }
+    return message;
   },
   toAmino(message: Quota): QuotaAmino {
     const obj: any = {};
@@ -299,11 +309,17 @@ export const Flow = {
     return message;
   },
   fromAmino(object: FlowAmino): Flow {
-    return {
-      inflow: object.inflow,
-      outflow: object.outflow,
-      channelValue: object.channel_value
-    };
+    const message = createBaseFlow();
+    if (object.inflow !== undefined && object.inflow !== null) {
+      message.inflow = object.inflow;
+    }
+    if (object.outflow !== undefined && object.outflow !== null) {
+      message.outflow = object.outflow;
+    }
+    if (object.channel_value !== undefined && object.channel_value !== null) {
+      message.channelValue = object.channel_value;
+    }
+    return message;
   },
   toAmino(message: Flow): FlowAmino {
     const obj: any = {};
@@ -330,9 +346,9 @@ export const Flow = {
 };
 function createBaseRateLimit(): RateLimit {
   return {
-    path: Path.fromPartial({}),
-    quota: Quota.fromPartial({}),
-    flow: Flow.fromPartial({})
+    path: undefined,
+    quota: undefined,
+    flow: undefined
   };
 }
 export const RateLimit = {
@@ -364,11 +380,17 @@ export const RateLimit = {
     return message;
   },
   fromAmino(object: RateLimitAmino): RateLimit {
-    return {
-      path: object?.path ? Path.fromAmino(object.path) : undefined,
-      quota: object?.quota ? Quota.fromAmino(object.quota) : undefined,
-      flow: object?.flow ? Flow.fromAmino(object.flow) : undefined
-    };
+    const message = createBaseRateLimit();
+    if (object.path !== undefined && object.path !== null) {
+      message.path = Path.fromAmino(object.path);
+    }
+    if (object.quota !== undefined && object.quota !== null) {
+      message.quota = Quota.fromAmino(object.quota);
+    }
+    if (object.flow !== undefined && object.flow !== null) {
+      message.flow = Flow.fromAmino(object.flow);
+    }
+    return message;
   },
   toAmino(message: RateLimit): RateLimitAmino {
     const obj: any = {};
@@ -423,10 +445,14 @@ export const WhitelistedAddressPair = {
     return message;
   },
   fromAmino(object: WhitelistedAddressPairAmino): WhitelistedAddressPair {
-    return {
-      sender: object.sender,
-      receiver: object.receiver
-    };
+    const message = createBaseWhitelistedAddressPair();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    return message;
   },
   toAmino(message: WhitelistedAddressPair): WhitelistedAddressPairAmino {
     const obj: any = {};

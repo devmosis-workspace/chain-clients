@@ -5,6 +5,10 @@ export enum ICAAccountType {
   FEE = 1,
   WITHDRAWAL = 2,
   REDEMPTION = 3,
+  COMMUNITY_POOL_DEPOSIT = 4,
+  COMMUNITY_POOL_RETURN = 5,
+  CONVERTER_UNWIND = 6,
+  CONVERTER_TRADE = 7,
   UNRECOGNIZED = -1,
 }
 export const ICAAccountTypeSDKType = ICAAccountType;
@@ -23,6 +27,18 @@ export function iCAAccountTypeFromJSON(object: any): ICAAccountType {
     case 3:
     case "REDEMPTION":
       return ICAAccountType.REDEMPTION;
+    case 4:
+    case "COMMUNITY_POOL_DEPOSIT":
+      return ICAAccountType.COMMUNITY_POOL_DEPOSIT;
+    case 5:
+    case "COMMUNITY_POOL_RETURN":
+      return ICAAccountType.COMMUNITY_POOL_RETURN;
+    case 6:
+    case "CONVERTER_UNWIND":
+      return ICAAccountType.CONVERTER_UNWIND;
+    case 7:
+    case "CONVERTER_TRADE":
+      return ICAAccountType.CONVERTER_TRADE;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -39,70 +55,108 @@ export function iCAAccountTypeToJSON(object: ICAAccountType): string {
       return "WITHDRAWAL";
     case ICAAccountType.REDEMPTION:
       return "REDEMPTION";
+    case ICAAccountType.COMMUNITY_POOL_DEPOSIT:
+      return "COMMUNITY_POOL_DEPOSIT";
+    case ICAAccountType.COMMUNITY_POOL_RETURN:
+      return "COMMUNITY_POOL_RETURN";
+    case ICAAccountType.CONVERTER_UNWIND:
+      return "CONVERTER_UNWIND";
+    case ICAAccountType.CONVERTER_TRADE:
+      return "CONVERTER_TRADE";
     case ICAAccountType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
 }
 export interface ICAAccount {
+  chainId: string;
+  type: ICAAccountType;
+  connectionId: string;
   address: string;
-  target: ICAAccountType;
 }
 export interface ICAAccountProtoMsg {
   typeUrl: "/stride.stakeibc.ICAAccount";
   value: Uint8Array;
 }
 export interface ICAAccountAmino {
-  address: string;
-  target: ICAAccountType;
+  chain_id?: string;
+  type?: ICAAccountType;
+  connection_id?: string;
+  address?: string;
 }
 export interface ICAAccountAminoMsg {
   type: "/stride.stakeibc.ICAAccount";
   value: ICAAccountAmino;
 }
 export interface ICAAccountSDKType {
+  chain_id: string;
+  type: ICAAccountType;
+  connection_id: string;
   address: string;
-  target: ICAAccountType;
 }
 function createBaseICAAccount(): ICAAccount {
   return {
-    address: "",
-    target: 0
+    chainId: "",
+    type: 0,
+    connectionId: "",
+    address: ""
   };
 }
 export const ICAAccount = {
   typeUrl: "/stride.stakeibc.ICAAccount",
   encode(message: ICAAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
+    if (message.chainId !== "") {
+      writer.uint32(10).string(message.chainId);
     }
-    if (message.target !== 0) {
-      writer.uint32(24).int32(message.target);
+    if (message.type !== 0) {
+      writer.uint32(16).int32(message.type);
+    }
+    if (message.connectionId !== "") {
+      writer.uint32(26).string(message.connectionId);
+    }
+    if (message.address !== "") {
+      writer.uint32(34).string(message.address);
     }
     return writer;
   },
   fromJSON(object: any): ICAAccount {
     return {
-      address: isSet(object.address) ? String(object.address) : "",
-      target: isSet(object.target) ? iCAAccountTypeFromJSON(object.target) : -1
+      chainId: isSet(object.chainId) ? String(object.chainId) : "",
+      type: isSet(object.type) ? iCAAccountTypeFromJSON(object.type) : -1,
+      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
+      address: isSet(object.address) ? String(object.address) : ""
     };
   },
   fromPartial(object: Partial<ICAAccount>): ICAAccount {
     const message = createBaseICAAccount();
+    message.chainId = object.chainId ?? "";
+    message.type = object.type ?? 0;
+    message.connectionId = object.connectionId ?? "";
     message.address = object.address ?? "";
-    message.target = object.target ?? 0;
     return message;
   },
   fromAmino(object: ICAAccountAmino): ICAAccount {
-    return {
-      address: object.address,
-      target: isSet(object.target) ? iCAAccountTypeFromJSON(object.target) : -1
-    };
+    const message = createBaseICAAccount();
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = iCAAccountTypeFromJSON(object.type);
+    }
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: ICAAccount): ICAAccountAmino {
     const obj: any = {};
+    obj.chain_id = message.chainId;
+    obj.type = message.type;
+    obj.connection_id = message.connectionId;
     obj.address = message.address;
-    obj.target = message.target;
     return obj;
   },
   fromAminoMsg(object: ICAAccountAminoMsg): ICAAccount {

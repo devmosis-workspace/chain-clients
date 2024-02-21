@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 /**
@@ -25,13 +25,13 @@ export interface EquivocationProtoMsg {
  */
 export interface EquivocationAmino {
   /** height is the equivocation height. */
-  height: string;
+  height?: string;
   /** time is the equivocation time. */
-  time?: TimestampAmino;
+  time: string;
   /** power is the equivocation validator power. */
-  power: string;
+  power?: string;
   /** consensus_address is the equivocation validator consensus address. */
-  consensus_address: string;
+  consensus_address?: string;
 }
 export interface EquivocationAminoMsg {
   type: "cosmos-sdk/Equivocation";
@@ -89,17 +89,25 @@ export const Equivocation = {
     return message;
   },
   fromAmino(object: EquivocationAmino): Equivocation {
-    return {
-      height: BigInt(object.height),
-      time: object.time,
-      power: BigInt(object.power),
-      consensusAddress: object.consensus_address
-    };
+    const message = createBaseEquivocation();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.time !== undefined && object.time !== null) {
+      message.time = Timestamp.fromAmino(object.time);
+    }
+    if (object.power !== undefined && object.power !== null) {
+      message.power = BigInt(object.power);
+    }
+    if (object.consensus_address !== undefined && object.consensus_address !== null) {
+      message.consensusAddress = object.consensus_address;
+    }
+    return message;
   },
   toAmino(message: Equivocation): EquivocationAmino {
     const obj: any = {};
     obj.height = message.height ? message.height.toString() : undefined;
-    obj.time = message.time;
+    obj.time = message.time ? Timestamp.toAmino(message.time) : Timestamp.fromPartial({});
     obj.power = message.power ? message.power.toString() : undefined;
     obj.consensus_address = message.consensusAddress;
     return obj;

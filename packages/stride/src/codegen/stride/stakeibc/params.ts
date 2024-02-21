@@ -2,7 +2,7 @@ import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
  * Params defines the parameters for the module.
- * next id: 18
+ * next id: 20
  */
 export interface Params {
   /** define epoch lengths, in stride_epochs */
@@ -20,8 +20,8 @@ export interface Params {
   defaultMinRedemptionRateThreshold: bigint;
   defaultMaxRedemptionRateThreshold: bigint;
   ibcTransferTimeoutNanos: bigint;
-  safetyNumValidators: bigint;
-  safetyMaxSlashPercent: bigint;
+  validatorSlashQueryThreshold: bigint;
+  validatorWeightCap: bigint;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/stride.stakeibc.Params";
@@ -29,26 +29,26 @@ export interface ParamsProtoMsg {
 }
 /**
  * Params defines the parameters for the module.
- * next id: 18
+ * next id: 20
  */
 export interface ParamsAmino {
   /** define epoch lengths, in stride_epochs */
-  rewards_interval: string;
-  delegate_interval: string;
-  deposit_interval: string;
-  redemption_rate_interval: string;
-  stride_commission: string;
-  reinvest_interval: string;
-  ica_timeout_nanos: string;
-  buffer_size: string;
-  ibc_timeout_blocks: string;
-  fee_transfer_timeout_nanos: string;
-  max_stake_ica_calls_per_epoch: string;
-  default_min_redemption_rate_threshold: string;
-  default_max_redemption_rate_threshold: string;
-  ibc_transfer_timeout_nanos: string;
-  safety_num_validators: string;
-  safety_max_slash_percent: string;
+  rewards_interval?: string;
+  delegate_interval?: string;
+  deposit_interval?: string;
+  redemption_rate_interval?: string;
+  stride_commission?: string;
+  reinvest_interval?: string;
+  ica_timeout_nanos?: string;
+  buffer_size?: string;
+  ibc_timeout_blocks?: string;
+  fee_transfer_timeout_nanos?: string;
+  max_stake_ica_calls_per_epoch?: string;
+  default_min_redemption_rate_threshold?: string;
+  default_max_redemption_rate_threshold?: string;
+  ibc_transfer_timeout_nanos?: string;
+  validator_slash_query_threshold?: string;
+  validator_weight_cap?: string;
 }
 export interface ParamsAminoMsg {
   type: "/stride.stakeibc.Params";
@@ -56,7 +56,7 @@ export interface ParamsAminoMsg {
 }
 /**
  * Params defines the parameters for the module.
- * next id: 18
+ * next id: 20
  */
 export interface ParamsSDKType {
   rewards_interval: bigint;
@@ -73,8 +73,8 @@ export interface ParamsSDKType {
   default_min_redemption_rate_threshold: bigint;
   default_max_redemption_rate_threshold: bigint;
   ibc_transfer_timeout_nanos: bigint;
-  safety_num_validators: bigint;
-  safety_max_slash_percent: bigint;
+  validator_slash_query_threshold: bigint;
+  validator_weight_cap: bigint;
 }
 function createBaseParams(): Params {
   return {
@@ -92,8 +92,8 @@ function createBaseParams(): Params {
     defaultMinRedemptionRateThreshold: BigInt(0),
     defaultMaxRedemptionRateThreshold: BigInt(0),
     ibcTransferTimeoutNanos: BigInt(0),
-    safetyNumValidators: BigInt(0),
-    safetyMaxSlashPercent: BigInt(0)
+    validatorSlashQueryThreshold: BigInt(0),
+    validatorWeightCap: BigInt(0)
   };
 }
 export const Params = {
@@ -141,11 +141,11 @@ export const Params = {
     if (message.ibcTransferTimeoutNanos !== BigInt(0)) {
       writer.uint32(128).uint64(message.ibcTransferTimeoutNanos);
     }
-    if (message.safetyNumValidators !== BigInt(0)) {
-      writer.uint32(136).uint64(message.safetyNumValidators);
+    if (message.validatorSlashQueryThreshold !== BigInt(0)) {
+      writer.uint32(152).uint64(message.validatorSlashQueryThreshold);
     }
-    if (message.safetyMaxSlashPercent !== BigInt(0)) {
-      writer.uint32(144).uint64(message.safetyMaxSlashPercent);
+    if (message.validatorWeightCap !== BigInt(0)) {
+      writer.uint32(160).uint64(message.validatorWeightCap);
     }
     return writer;
   },
@@ -165,8 +165,8 @@ export const Params = {
       defaultMinRedemptionRateThreshold: isSet(object.defaultMinRedemptionRateThreshold) ? BigInt(object.defaultMinRedemptionRateThreshold.toString()) : BigInt(0),
       defaultMaxRedemptionRateThreshold: isSet(object.defaultMaxRedemptionRateThreshold) ? BigInt(object.defaultMaxRedemptionRateThreshold.toString()) : BigInt(0),
       ibcTransferTimeoutNanos: isSet(object.ibcTransferTimeoutNanos) ? BigInt(object.ibcTransferTimeoutNanos.toString()) : BigInt(0),
-      safetyNumValidators: isSet(object.safetyNumValidators) ? BigInt(object.safetyNumValidators.toString()) : BigInt(0),
-      safetyMaxSlashPercent: isSet(object.safetyMaxSlashPercent) ? BigInt(object.safetyMaxSlashPercent.toString()) : BigInt(0)
+      validatorSlashQueryThreshold: isSet(object.validatorSlashQueryThreshold) ? BigInt(object.validatorSlashQueryThreshold.toString()) : BigInt(0),
+      validatorWeightCap: isSet(object.validatorWeightCap) ? BigInt(object.validatorWeightCap.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<Params>): Params {
@@ -185,29 +185,61 @@ export const Params = {
     message.defaultMinRedemptionRateThreshold = object.defaultMinRedemptionRateThreshold !== undefined && object.defaultMinRedemptionRateThreshold !== null ? BigInt(object.defaultMinRedemptionRateThreshold.toString()) : BigInt(0);
     message.defaultMaxRedemptionRateThreshold = object.defaultMaxRedemptionRateThreshold !== undefined && object.defaultMaxRedemptionRateThreshold !== null ? BigInt(object.defaultMaxRedemptionRateThreshold.toString()) : BigInt(0);
     message.ibcTransferTimeoutNanos = object.ibcTransferTimeoutNanos !== undefined && object.ibcTransferTimeoutNanos !== null ? BigInt(object.ibcTransferTimeoutNanos.toString()) : BigInt(0);
-    message.safetyNumValidators = object.safetyNumValidators !== undefined && object.safetyNumValidators !== null ? BigInt(object.safetyNumValidators.toString()) : BigInt(0);
-    message.safetyMaxSlashPercent = object.safetyMaxSlashPercent !== undefined && object.safetyMaxSlashPercent !== null ? BigInt(object.safetyMaxSlashPercent.toString()) : BigInt(0);
+    message.validatorSlashQueryThreshold = object.validatorSlashQueryThreshold !== undefined && object.validatorSlashQueryThreshold !== null ? BigInt(object.validatorSlashQueryThreshold.toString()) : BigInt(0);
+    message.validatorWeightCap = object.validatorWeightCap !== undefined && object.validatorWeightCap !== null ? BigInt(object.validatorWeightCap.toString()) : BigInt(0);
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      rewardsInterval: BigInt(object.rewards_interval),
-      delegateInterval: BigInt(object.delegate_interval),
-      depositInterval: BigInt(object.deposit_interval),
-      redemptionRateInterval: BigInt(object.redemption_rate_interval),
-      strideCommission: BigInt(object.stride_commission),
-      reinvestInterval: BigInt(object.reinvest_interval),
-      icaTimeoutNanos: BigInt(object.ica_timeout_nanos),
-      bufferSize: BigInt(object.buffer_size),
-      ibcTimeoutBlocks: BigInt(object.ibc_timeout_blocks),
-      feeTransferTimeoutNanos: BigInt(object.fee_transfer_timeout_nanos),
-      maxStakeIcaCallsPerEpoch: BigInt(object.max_stake_ica_calls_per_epoch),
-      defaultMinRedemptionRateThreshold: BigInt(object.default_min_redemption_rate_threshold),
-      defaultMaxRedemptionRateThreshold: BigInt(object.default_max_redemption_rate_threshold),
-      ibcTransferTimeoutNanos: BigInt(object.ibc_transfer_timeout_nanos),
-      safetyNumValidators: BigInt(object.safety_num_validators),
-      safetyMaxSlashPercent: BigInt(object.safety_max_slash_percent)
-    };
+    const message = createBaseParams();
+    if (object.rewards_interval !== undefined && object.rewards_interval !== null) {
+      message.rewardsInterval = BigInt(object.rewards_interval);
+    }
+    if (object.delegate_interval !== undefined && object.delegate_interval !== null) {
+      message.delegateInterval = BigInt(object.delegate_interval);
+    }
+    if (object.deposit_interval !== undefined && object.deposit_interval !== null) {
+      message.depositInterval = BigInt(object.deposit_interval);
+    }
+    if (object.redemption_rate_interval !== undefined && object.redemption_rate_interval !== null) {
+      message.redemptionRateInterval = BigInt(object.redemption_rate_interval);
+    }
+    if (object.stride_commission !== undefined && object.stride_commission !== null) {
+      message.strideCommission = BigInt(object.stride_commission);
+    }
+    if (object.reinvest_interval !== undefined && object.reinvest_interval !== null) {
+      message.reinvestInterval = BigInt(object.reinvest_interval);
+    }
+    if (object.ica_timeout_nanos !== undefined && object.ica_timeout_nanos !== null) {
+      message.icaTimeoutNanos = BigInt(object.ica_timeout_nanos);
+    }
+    if (object.buffer_size !== undefined && object.buffer_size !== null) {
+      message.bufferSize = BigInt(object.buffer_size);
+    }
+    if (object.ibc_timeout_blocks !== undefined && object.ibc_timeout_blocks !== null) {
+      message.ibcTimeoutBlocks = BigInt(object.ibc_timeout_blocks);
+    }
+    if (object.fee_transfer_timeout_nanos !== undefined && object.fee_transfer_timeout_nanos !== null) {
+      message.feeTransferTimeoutNanos = BigInt(object.fee_transfer_timeout_nanos);
+    }
+    if (object.max_stake_ica_calls_per_epoch !== undefined && object.max_stake_ica_calls_per_epoch !== null) {
+      message.maxStakeIcaCallsPerEpoch = BigInt(object.max_stake_ica_calls_per_epoch);
+    }
+    if (object.default_min_redemption_rate_threshold !== undefined && object.default_min_redemption_rate_threshold !== null) {
+      message.defaultMinRedemptionRateThreshold = BigInt(object.default_min_redemption_rate_threshold);
+    }
+    if (object.default_max_redemption_rate_threshold !== undefined && object.default_max_redemption_rate_threshold !== null) {
+      message.defaultMaxRedemptionRateThreshold = BigInt(object.default_max_redemption_rate_threshold);
+    }
+    if (object.ibc_transfer_timeout_nanos !== undefined && object.ibc_transfer_timeout_nanos !== null) {
+      message.ibcTransferTimeoutNanos = BigInt(object.ibc_transfer_timeout_nanos);
+    }
+    if (object.validator_slash_query_threshold !== undefined && object.validator_slash_query_threshold !== null) {
+      message.validatorSlashQueryThreshold = BigInt(object.validator_slash_query_threshold);
+    }
+    if (object.validator_weight_cap !== undefined && object.validator_weight_cap !== null) {
+      message.validatorWeightCap = BigInt(object.validator_weight_cap);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -225,8 +257,8 @@ export const Params = {
     obj.default_min_redemption_rate_threshold = message.defaultMinRedemptionRateThreshold ? message.defaultMinRedemptionRateThreshold.toString() : undefined;
     obj.default_max_redemption_rate_threshold = message.defaultMaxRedemptionRateThreshold ? message.defaultMaxRedemptionRateThreshold.toString() : undefined;
     obj.ibc_transfer_timeout_nanos = message.ibcTransferTimeoutNanos ? message.ibcTransferTimeoutNanos.toString() : undefined;
-    obj.safety_num_validators = message.safetyNumValidators ? message.safetyNumValidators.toString() : undefined;
-    obj.safety_max_slash_percent = message.safetyMaxSlashPercent ? message.safetyMaxSlashPercent.toString() : undefined;
+    obj.validator_slash_query_threshold = message.validatorSlashQueryThreshold ? message.validatorSlashQueryThreshold.toString() : undefined;
+    obj.validator_weight_cap = message.validatorWeightCap ? message.validatorWeightCap.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

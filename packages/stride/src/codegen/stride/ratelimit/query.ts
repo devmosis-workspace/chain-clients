@@ -20,7 +20,7 @@ export interface QueryAllRateLimitsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryAllRateLimitsResponseAmino {
-  rate_limits: RateLimitAmino[];
+  rate_limits?: RateLimitAmino[];
 }
 export interface QueryAllRateLimitsResponseAminoMsg {
   type: "/stride.ratelimit.QueryAllRateLimitsResponse";
@@ -38,8 +38,8 @@ export interface QueryRateLimitRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryRateLimitRequestAmino {
-  denom: string;
-  channel_id: string;
+  denom?: string;
+  channel_id?: string;
 }
 export interface QueryRateLimitRequestAminoMsg {
   type: "/stride.ratelimit.QueryRateLimitRequest";
@@ -50,7 +50,7 @@ export interface QueryRateLimitRequestSDKType {
   channel_id: string;
 }
 export interface QueryRateLimitResponse {
-  rateLimit: RateLimit;
+  rateLimit?: RateLimit;
 }
 export interface QueryRateLimitResponseProtoMsg {
   typeUrl: "/stride.ratelimit.QueryRateLimitResponse";
@@ -64,7 +64,7 @@ export interface QueryRateLimitResponseAminoMsg {
   value: QueryRateLimitResponseAmino;
 }
 export interface QueryRateLimitResponseSDKType {
-  rate_limit: RateLimitSDKType;
+  rate_limit?: RateLimitSDKType;
 }
 export interface QueryRateLimitsByChainIdRequest {
   chainId: string;
@@ -74,7 +74,7 @@ export interface QueryRateLimitsByChainIdRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryRateLimitsByChainIdRequestAmino {
-  chain_id: string;
+  chain_id?: string;
 }
 export interface QueryRateLimitsByChainIdRequestAminoMsg {
   type: "/stride.ratelimit.QueryRateLimitsByChainIdRequest";
@@ -91,7 +91,7 @@ export interface QueryRateLimitsByChainIdResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryRateLimitsByChainIdResponseAmino {
-  rate_limits: RateLimitAmino[];
+  rate_limits?: RateLimitAmino[];
 }
 export interface QueryRateLimitsByChainIdResponseAminoMsg {
   type: "/stride.ratelimit.QueryRateLimitsByChainIdResponse";
@@ -108,7 +108,7 @@ export interface QueryRateLimitsByChannelIdRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryRateLimitsByChannelIdRequestAmino {
-  channel_id: string;
+  channel_id?: string;
 }
 export interface QueryRateLimitsByChannelIdRequestAminoMsg {
   type: "/stride.ratelimit.QueryRateLimitsByChannelIdRequest";
@@ -125,7 +125,7 @@ export interface QueryRateLimitsByChannelIdResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryRateLimitsByChannelIdResponseAmino {
-  rate_limits: RateLimitAmino[];
+  rate_limits?: RateLimitAmino[];
 }
 export interface QueryRateLimitsByChannelIdResponseAminoMsg {
   type: "/stride.ratelimit.QueryRateLimitsByChannelIdResponse";
@@ -153,7 +153,7 @@ export interface QueryAllBlacklistedDenomsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryAllBlacklistedDenomsResponseAmino {
-  denoms: string[];
+  denoms?: string[];
 }
 export interface QueryAllBlacklistedDenomsResponseAminoMsg {
   type: "/stride.ratelimit.QueryAllBlacklistedDenomsResponse";
@@ -181,7 +181,7 @@ export interface QueryAllWhitelistedAddressesResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryAllWhitelistedAddressesResponseAmino {
-  address_pairs: WhitelistedAddressPairAmino[];
+  address_pairs?: WhitelistedAddressPairAmino[];
 }
 export interface QueryAllWhitelistedAddressesResponseAminoMsg {
   type: "/stride.ratelimit.QueryAllWhitelistedAddressesResponse";
@@ -206,7 +206,8 @@ export const QueryAllRateLimitsRequest = {
     return message;
   },
   fromAmino(_: QueryAllRateLimitsRequestAmino): QueryAllRateLimitsRequest {
-    return {};
+    const message = createBaseQueryAllRateLimitsRequest();
+    return message;
   },
   toAmino(_: QueryAllRateLimitsRequest): QueryAllRateLimitsRequestAmino {
     const obj: any = {};
@@ -252,9 +253,9 @@ export const QueryAllRateLimitsResponse = {
     return message;
   },
   fromAmino(object: QueryAllRateLimitsResponseAmino): QueryAllRateLimitsResponse {
-    return {
-      rateLimits: Array.isArray(object?.rate_limits) ? object.rate_limits.map((e: any) => RateLimit.fromAmino(e)) : []
-    };
+    const message = createBaseQueryAllRateLimitsResponse();
+    message.rateLimits = object.rate_limits?.map(e => RateLimit.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryAllRateLimitsResponse): QueryAllRateLimitsResponseAmino {
     const obj: any = {};
@@ -311,10 +312,14 @@ export const QueryRateLimitRequest = {
     return message;
   },
   fromAmino(object: QueryRateLimitRequestAmino): QueryRateLimitRequest {
-    return {
-      denom: object.denom,
-      channelId: object.channel_id
-    };
+    const message = createBaseQueryRateLimitRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    return message;
   },
   toAmino(message: QueryRateLimitRequest): QueryRateLimitRequestAmino {
     const obj: any = {};
@@ -340,7 +345,7 @@ export const QueryRateLimitRequest = {
 };
 function createBaseQueryRateLimitResponse(): QueryRateLimitResponse {
   return {
-    rateLimit: RateLimit.fromPartial({})
+    rateLimit: undefined
   };
 }
 export const QueryRateLimitResponse = {
@@ -362,9 +367,11 @@ export const QueryRateLimitResponse = {
     return message;
   },
   fromAmino(object: QueryRateLimitResponseAmino): QueryRateLimitResponse {
-    return {
-      rateLimit: object?.rate_limit ? RateLimit.fromAmino(object.rate_limit) : undefined
-    };
+    const message = createBaseQueryRateLimitResponse();
+    if (object.rate_limit !== undefined && object.rate_limit !== null) {
+      message.rateLimit = RateLimit.fromAmino(object.rate_limit);
+    }
+    return message;
   },
   toAmino(message: QueryRateLimitResponse): QueryRateLimitResponseAmino {
     const obj: any = {};
@@ -411,9 +418,11 @@ export const QueryRateLimitsByChainIdRequest = {
     return message;
   },
   fromAmino(object: QueryRateLimitsByChainIdRequestAmino): QueryRateLimitsByChainIdRequest {
-    return {
-      chainId: object.chain_id
-    };
+    const message = createBaseQueryRateLimitsByChainIdRequest();
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    return message;
   },
   toAmino(message: QueryRateLimitsByChainIdRequest): QueryRateLimitsByChainIdRequestAmino {
     const obj: any = {};
@@ -460,9 +469,9 @@ export const QueryRateLimitsByChainIdResponse = {
     return message;
   },
   fromAmino(object: QueryRateLimitsByChainIdResponseAmino): QueryRateLimitsByChainIdResponse {
-    return {
-      rateLimits: Array.isArray(object?.rate_limits) ? object.rate_limits.map((e: any) => RateLimit.fromAmino(e)) : []
-    };
+    const message = createBaseQueryRateLimitsByChainIdResponse();
+    message.rateLimits = object.rate_limits?.map(e => RateLimit.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryRateLimitsByChainIdResponse): QueryRateLimitsByChainIdResponseAmino {
     const obj: any = {};
@@ -513,9 +522,11 @@ export const QueryRateLimitsByChannelIdRequest = {
     return message;
   },
   fromAmino(object: QueryRateLimitsByChannelIdRequestAmino): QueryRateLimitsByChannelIdRequest {
-    return {
-      channelId: object.channel_id
-    };
+    const message = createBaseQueryRateLimitsByChannelIdRequest();
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    return message;
   },
   toAmino(message: QueryRateLimitsByChannelIdRequest): QueryRateLimitsByChannelIdRequestAmino {
     const obj: any = {};
@@ -562,9 +573,9 @@ export const QueryRateLimitsByChannelIdResponse = {
     return message;
   },
   fromAmino(object: QueryRateLimitsByChannelIdResponseAmino): QueryRateLimitsByChannelIdResponse {
-    return {
-      rateLimits: Array.isArray(object?.rate_limits) ? object.rate_limits.map((e: any) => RateLimit.fromAmino(e)) : []
-    };
+    const message = createBaseQueryRateLimitsByChannelIdResponse();
+    message.rateLimits = object.rate_limits?.map(e => RateLimit.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryRateLimitsByChannelIdResponse): QueryRateLimitsByChannelIdResponseAmino {
     const obj: any = {};
@@ -607,7 +618,8 @@ export const QueryAllBlacklistedDenomsRequest = {
     return message;
   },
   fromAmino(_: QueryAllBlacklistedDenomsRequestAmino): QueryAllBlacklistedDenomsRequest {
-    return {};
+    const message = createBaseQueryAllBlacklistedDenomsRequest();
+    return message;
   },
   toAmino(_: QueryAllBlacklistedDenomsRequest): QueryAllBlacklistedDenomsRequestAmino {
     const obj: any = {};
@@ -653,9 +665,9 @@ export const QueryAllBlacklistedDenomsResponse = {
     return message;
   },
   fromAmino(object: QueryAllBlacklistedDenomsResponseAmino): QueryAllBlacklistedDenomsResponse {
-    return {
-      denoms: Array.isArray(object?.denoms) ? object.denoms.map((e: any) => e) : []
-    };
+    const message = createBaseQueryAllBlacklistedDenomsResponse();
+    message.denoms = object.denoms?.map(e => e) || [];
+    return message;
   },
   toAmino(message: QueryAllBlacklistedDenomsResponse): QueryAllBlacklistedDenomsResponseAmino {
     const obj: any = {};
@@ -698,7 +710,8 @@ export const QueryAllWhitelistedAddressesRequest = {
     return message;
   },
   fromAmino(_: QueryAllWhitelistedAddressesRequestAmino): QueryAllWhitelistedAddressesRequest {
-    return {};
+    const message = createBaseQueryAllWhitelistedAddressesRequest();
+    return message;
   },
   toAmino(_: QueryAllWhitelistedAddressesRequest): QueryAllWhitelistedAddressesRequestAmino {
     const obj: any = {};
@@ -744,9 +757,9 @@ export const QueryAllWhitelistedAddressesResponse = {
     return message;
   },
   fromAmino(object: QueryAllWhitelistedAddressesResponseAmino): QueryAllWhitelistedAddressesResponse {
-    return {
-      addressPairs: Array.isArray(object?.address_pairs) ? object.address_pairs.map((e: any) => WhitelistedAddressPair.fromAmino(e)) : []
-    };
+    const message = createBaseQueryAllWhitelistedAddressesResponse();
+    message.addressPairs = object.address_pairs?.map(e => WhitelistedAddressPair.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryAllWhitelistedAddressesResponse): QueryAllWhitelistedAddressesResponseAmino {
     const obj: any = {};

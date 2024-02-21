@@ -18,7 +18,7 @@ export interface GenesisStateAmino {
   /** params defines all the parameters of the module. */
   params?: ParamsAmino;
   /** list of claim records, one for every airdrop recipient */
-  claim_records: ClaimRecordAmino[];
+  claim_records?: ClaimRecordAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/stride.claim.GenesisState";
@@ -59,10 +59,12 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      claimRecords: Array.isArray(object?.claim_records) ? object.claim_records.map((e: any) => ClaimRecord.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.claimRecords = object.claim_records?.map(e => ClaimRecord.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

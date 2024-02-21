@@ -52,9 +52,11 @@ export const StakeibcPacketData = {
     return message;
   },
   fromAmino(object: StakeibcPacketDataAmino): StakeibcPacketData {
-    return {
-      noData: object?.no_data ? NoData.fromAmino(object.no_data) : undefined
-    };
+    const message = createBaseStakeibcPacketData();
+    if (object.no_data !== undefined && object.no_data !== null) {
+      message.noData = NoData.fromAmino(object.no_data);
+    }
+    return message;
   },
   toAmino(message: StakeibcPacketData): StakeibcPacketDataAmino {
     const obj: any = {};
@@ -93,7 +95,8 @@ export const NoData = {
     return message;
   },
   fromAmino(_: NoDataAmino): NoData {
-    return {};
+    const message = createBaseNoData();
+    return message;
   },
   toAmino(_: NoData): NoDataAmino {
     const obj: any = {};

@@ -1,8 +1,45 @@
 import { Validator, ValidatorAmino, ValidatorSDKType } from "./validator";
-import { ICAAccountType, iCAAccountTypeFromJSON } from "./ica_account";
+import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../binary";
-import { isSet } from "../../helpers";
 import { Decimal } from "@cosmjs/math";
+import { isSet } from "../../helpers";
+export interface MsgUpdateInnerRedemptionRateBounds {
+  creator: string;
+  chainId: string;
+  minInnerRedemptionRate: string;
+  maxInnerRedemptionRate: string;
+}
+export interface MsgUpdateInnerRedemptionRateBoundsProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBounds";
+  value: Uint8Array;
+}
+export interface MsgUpdateInnerRedemptionRateBoundsAmino {
+  creator?: string;
+  chain_id?: string;
+  min_inner_redemption_rate?: string;
+  max_inner_redemption_rate?: string;
+}
+export interface MsgUpdateInnerRedemptionRateBoundsAminoMsg {
+  type: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBounds";
+  value: MsgUpdateInnerRedemptionRateBoundsAmino;
+}
+export interface MsgUpdateInnerRedemptionRateBoundsSDKType {
+  creator: string;
+  chain_id: string;
+  min_inner_redemption_rate: string;
+  max_inner_redemption_rate: string;
+}
+export interface MsgUpdateInnerRedemptionRateBoundsResponse {}
+export interface MsgUpdateInnerRedemptionRateBoundsResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBoundsResponse";
+  value: Uint8Array;
+}
+export interface MsgUpdateInnerRedemptionRateBoundsResponseAmino {}
+export interface MsgUpdateInnerRedemptionRateBoundsResponseAminoMsg {
+  type: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBoundsResponse";
+  value: MsgUpdateInnerRedemptionRateBoundsResponseAmino;
+}
+export interface MsgUpdateInnerRedemptionRateBoundsResponseSDKType {}
 export interface MsgLiquidStake {
   creator: string;
   amount: string;
@@ -13,9 +50,9 @@ export interface MsgLiquidStakeProtoMsg {
   value: Uint8Array;
 }
 export interface MsgLiquidStakeAmino {
-  creator: string;
-  amount: string;
-  host_denom: string;
+  creator?: string;
+  amount?: string;
+  host_denom?: string;
 }
 export interface MsgLiquidStakeAminoMsg {
   type: "/stride.stakeibc.MsgLiquidStake";
@@ -26,17 +63,63 @@ export interface MsgLiquidStakeSDKType {
   amount: string;
   host_denom: string;
 }
-export interface MsgLiquidStakeResponse {}
+export interface MsgLiquidStakeResponse {
+  stToken: Coin;
+}
 export interface MsgLiquidStakeResponseProtoMsg {
   typeUrl: "/stride.stakeibc.MsgLiquidStakeResponse";
   value: Uint8Array;
 }
-export interface MsgLiquidStakeResponseAmino {}
+export interface MsgLiquidStakeResponseAmino {
+  st_token?: CoinAmino;
+}
 export interface MsgLiquidStakeResponseAminoMsg {
   type: "/stride.stakeibc.MsgLiquidStakeResponse";
   value: MsgLiquidStakeResponseAmino;
 }
-export interface MsgLiquidStakeResponseSDKType {}
+export interface MsgLiquidStakeResponseSDKType {
+  st_token: CoinSDKType;
+}
+export interface MsgLSMLiquidStake {
+  creator: string;
+  amount: string;
+  lsmTokenIbcDenom: string;
+}
+export interface MsgLSMLiquidStakeProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgLSMLiquidStake";
+  value: Uint8Array;
+}
+export interface MsgLSMLiquidStakeAmino {
+  creator?: string;
+  amount?: string;
+  lsm_token_ibc_denom?: string;
+}
+export interface MsgLSMLiquidStakeAminoMsg {
+  type: "/stride.stakeibc.MsgLSMLiquidStake";
+  value: MsgLSMLiquidStakeAmino;
+}
+export interface MsgLSMLiquidStakeSDKType {
+  creator: string;
+  amount: string;
+  lsm_token_ibc_denom: string;
+}
+export interface MsgLSMLiquidStakeResponse {
+  transactionComplete: boolean;
+}
+export interface MsgLSMLiquidStakeResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgLSMLiquidStakeResponse";
+  value: Uint8Array;
+}
+export interface MsgLSMLiquidStakeResponseAmino {
+  transaction_complete?: boolean;
+}
+export interface MsgLSMLiquidStakeResponseAminoMsg {
+  type: "/stride.stakeibc.MsgLSMLiquidStakeResponse";
+  value: MsgLSMLiquidStakeResponseAmino;
+}
+export interface MsgLSMLiquidStakeResponseSDKType {
+  transaction_complete: boolean;
+}
 export interface MsgClearBalance {
   creator: string;
   chainId: string;
@@ -48,10 +131,10 @@ export interface MsgClearBalanceProtoMsg {
   value: Uint8Array;
 }
 export interface MsgClearBalanceAmino {
-  creator: string;
-  chain_id: string;
-  amount: string;
-  channel: string;
+  creator?: string;
+  chain_id?: string;
+  amount?: string;
+  channel?: string;
 }
 export interface MsgClearBalanceAminoMsg {
   type: "/stride.stakeibc.MsgClearBalance";
@@ -85,10 +168,10 @@ export interface MsgRedeemStakeProtoMsg {
   value: Uint8Array;
 }
 export interface MsgRedeemStakeAmino {
-  creator: string;
-  amount: string;
-  host_zone: string;
-  receiver: string;
+  creator?: string;
+  amount?: string;
+  host_zone?: string;
+  receiver?: string;
 }
 export interface MsgRedeemStakeAminoMsg {
   type: "/stride.stakeibc.MsgRedeemStake";
@@ -119,9 +202,10 @@ export interface MsgRegisterHostZone {
   ibcDenom: string;
   creator: string;
   transferChannelId: string;
-  unbondingFrequency: bigint;
+  unbondingPeriod: bigint;
   minRedemptionRate: string;
   maxRedemptionRate: string;
+  lsmLiquidStakeEnabled: boolean;
 }
 export interface MsgRegisterHostZoneProtoMsg {
   typeUrl: "/stride.stakeibc.MsgRegisterHostZone";
@@ -129,15 +213,16 @@ export interface MsgRegisterHostZoneProtoMsg {
 }
 /** next: 15 */
 export interface MsgRegisterHostZoneAmino {
-  connection_id: string;
-  bech32prefix: string;
-  host_denom: string;
-  ibc_denom: string;
-  creator: string;
-  transfer_channel_id: string;
-  unbonding_frequency: string;
-  min_redemption_rate: string;
-  max_redemption_rate: string;
+  connection_id?: string;
+  bech32prefix?: string;
+  host_denom?: string;
+  ibc_denom?: string;
+  creator?: string;
+  transfer_channel_id?: string;
+  unbonding_period?: string;
+  min_redemption_rate?: string;
+  max_redemption_rate?: string;
+  lsm_liquid_stake_enabled?: boolean;
 }
 export interface MsgRegisterHostZoneAminoMsg {
   type: "/stride.stakeibc.MsgRegisterHostZone";
@@ -151,9 +236,10 @@ export interface MsgRegisterHostZoneSDKType {
   ibc_denom: string;
   creator: string;
   transfer_channel_id: string;
-  unbonding_frequency: bigint;
+  unbonding_period: bigint;
   min_redemption_rate: string;
   max_redemption_rate: string;
+  lsm_liquid_stake_enabled: boolean;
 }
 export interface MsgRegisterHostZoneResponse {}
 export interface MsgRegisterHostZoneResponseProtoMsg {
@@ -168,21 +254,21 @@ export interface MsgRegisterHostZoneResponseAminoMsg {
 export interface MsgRegisterHostZoneResponseSDKType {}
 export interface MsgClaimUndelegatedTokens {
   creator: string;
-  /** UserUnbondingRecords are keyed on {chain_id}.{epoch}.{sender} */
+  /** UserUnbondingRecords are keyed on {chain_id}.{epoch}.{receiver} */
   hostZoneId: string;
   epoch: bigint;
-  sender: string;
+  receiver: string;
 }
 export interface MsgClaimUndelegatedTokensProtoMsg {
   typeUrl: "/stride.stakeibc.MsgClaimUndelegatedTokens";
   value: Uint8Array;
 }
 export interface MsgClaimUndelegatedTokensAmino {
-  creator: string;
-  /** UserUnbondingRecords are keyed on {chain_id}.{epoch}.{sender} */
-  host_zone_id: string;
-  epoch: string;
-  sender: string;
+  creator?: string;
+  /** UserUnbondingRecords are keyed on {chain_id}.{epoch}.{receiver} */
+  host_zone_id?: string;
+  epoch?: string;
+  receiver?: string;
 }
 export interface MsgClaimUndelegatedTokensAminoMsg {
   type: "/stride.stakeibc.MsgClaimUndelegatedTokens";
@@ -192,7 +278,7 @@ export interface MsgClaimUndelegatedTokensSDKType {
   creator: string;
   host_zone_id: string;
   epoch: bigint;
-  sender: string;
+  receiver: string;
 }
 export interface MsgClaimUndelegatedTokensResponse {}
 export interface MsgClaimUndelegatedTokensResponseProtoMsg {
@@ -215,9 +301,9 @@ export interface MsgRebalanceValidatorsProtoMsg {
   value: Uint8Array;
 }
 export interface MsgRebalanceValidatorsAmino {
-  creator: string;
-  host_zone: string;
-  num_rebalance: string;
+  creator?: string;
+  host_zone?: string;
+  num_rebalance?: string;
 }
 export interface MsgRebalanceValidatorsAminoMsg {
   type: "/stride.stakeibc.MsgRebalanceValidators";
@@ -249,9 +335,9 @@ export interface MsgAddValidatorsProtoMsg {
   value: Uint8Array;
 }
 export interface MsgAddValidatorsAmino {
-  creator: string;
-  host_zone: string;
-  validators: ValidatorAmino[];
+  creator?: string;
+  host_zone?: string;
+  validators?: ValidatorAmino[];
 }
 export interface MsgAddValidatorsAminoMsg {
   type: "/stride.stakeibc.MsgAddValidators";
@@ -273,43 +359,60 @@ export interface MsgAddValidatorsResponseAminoMsg {
   value: MsgAddValidatorsResponseAmino;
 }
 export interface MsgAddValidatorsResponseSDKType {}
-export interface MsgChangeValidatorWeight {
+export interface ValidatorWeight {
+  address: string;
+  weight: bigint;
+}
+export interface ValidatorWeightProtoMsg {
+  typeUrl: "/stride.stakeibc.ValidatorWeight";
+  value: Uint8Array;
+}
+export interface ValidatorWeightAmino {
+  address?: string;
+  weight?: string;
+}
+export interface ValidatorWeightAminoMsg {
+  type: "/stride.stakeibc.ValidatorWeight";
+  value: ValidatorWeightAmino;
+}
+export interface ValidatorWeightSDKType {
+  address: string;
+  weight: bigint;
+}
+export interface MsgChangeValidatorWeights {
   creator: string;
   hostZone: string;
-  valAddr: string;
-  weight: bigint;
+  validatorWeights: ValidatorWeight[];
 }
-export interface MsgChangeValidatorWeightProtoMsg {
-  typeUrl: "/stride.stakeibc.MsgChangeValidatorWeight";
+export interface MsgChangeValidatorWeightsProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgChangeValidatorWeights";
   value: Uint8Array;
 }
-export interface MsgChangeValidatorWeightAmino {
+export interface MsgChangeValidatorWeightsAmino {
+  creator?: string;
+  host_zone?: string;
+  validator_weights?: ValidatorWeightAmino[];
+}
+export interface MsgChangeValidatorWeightsAminoMsg {
+  type: "/stride.stakeibc.MsgChangeValidatorWeights";
+  value: MsgChangeValidatorWeightsAmino;
+}
+export interface MsgChangeValidatorWeightsSDKType {
   creator: string;
   host_zone: string;
-  val_addr: string;
-  weight: string;
+  validator_weights: ValidatorWeightSDKType[];
 }
-export interface MsgChangeValidatorWeightAminoMsg {
-  type: "/stride.stakeibc.MsgChangeValidatorWeight";
-  value: MsgChangeValidatorWeightAmino;
-}
-export interface MsgChangeValidatorWeightSDKType {
-  creator: string;
-  host_zone: string;
-  val_addr: string;
-  weight: bigint;
-}
-export interface MsgChangeValidatorWeightResponse {}
-export interface MsgChangeValidatorWeightResponseProtoMsg {
-  typeUrl: "/stride.stakeibc.MsgChangeValidatorWeightResponse";
+export interface MsgChangeValidatorWeightsResponse {}
+export interface MsgChangeValidatorWeightsResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgChangeValidatorWeightsResponse";
   value: Uint8Array;
 }
-export interface MsgChangeValidatorWeightResponseAmino {}
-export interface MsgChangeValidatorWeightResponseAminoMsg {
-  type: "/stride.stakeibc.MsgChangeValidatorWeightResponse";
-  value: MsgChangeValidatorWeightResponseAmino;
+export interface MsgChangeValidatorWeightsResponseAmino {}
+export interface MsgChangeValidatorWeightsResponseAminoMsg {
+  type: "/stride.stakeibc.MsgChangeValidatorWeightsResponse";
+  value: MsgChangeValidatorWeightsResponseAmino;
 }
-export interface MsgChangeValidatorWeightResponseSDKType {}
+export interface MsgChangeValidatorWeightsResponseSDKType {}
 export interface MsgDeleteValidator {
   creator: string;
   hostZone: string;
@@ -320,9 +423,9 @@ export interface MsgDeleteValidatorProtoMsg {
   value: Uint8Array;
 }
 export interface MsgDeleteValidatorAmino {
-  creator: string;
-  host_zone: string;
-  val_addr: string;
+  creator?: string;
+  host_zone?: string;
+  val_addr?: string;
 }
 export interface MsgDeleteValidatorAminoMsg {
   type: "/stride.stakeibc.MsgDeleteValidator";
@@ -347,16 +450,18 @@ export interface MsgDeleteValidatorResponseSDKType {}
 export interface MsgRestoreInterchainAccount {
   creator: string;
   chainId: string;
-  accountType: ICAAccountType;
+  connectionId: string;
+  accountOwner: string;
 }
 export interface MsgRestoreInterchainAccountProtoMsg {
   typeUrl: "/stride.stakeibc.MsgRestoreInterchainAccount";
   value: Uint8Array;
 }
 export interface MsgRestoreInterchainAccountAmino {
-  creator: string;
-  chain_id: string;
-  account_type: ICAAccountType;
+  creator?: string;
+  chain_id?: string;
+  connection_id?: string;
+  account_owner?: string;
 }
 export interface MsgRestoreInterchainAccountAminoMsg {
   type: "/stride.stakeibc.MsgRestoreInterchainAccount";
@@ -365,7 +470,8 @@ export interface MsgRestoreInterchainAccountAminoMsg {
 export interface MsgRestoreInterchainAccountSDKType {
   creator: string;
   chain_id: string;
-  account_type: ICAAccountType;
+  connection_id: string;
+  account_owner: string;
 }
 export interface MsgRestoreInterchainAccountResponse {}
 export interface MsgRestoreInterchainAccountResponseProtoMsg {
@@ -388,9 +494,9 @@ export interface MsgUpdateValidatorSharesExchRateProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdateValidatorSharesExchRateAmino {
-  creator: string;
-  chain_id: string;
-  valoper: string;
+  creator?: string;
+  chain_id?: string;
+  valoper?: string;
 }
 export interface MsgUpdateValidatorSharesExchRateAminoMsg {
   type: "/stride.stakeibc.MsgUpdateValidatorSharesExchRate";
@@ -412,6 +518,461 @@ export interface MsgUpdateValidatorSharesExchRateResponseAminoMsg {
   value: MsgUpdateValidatorSharesExchRateResponseAmino;
 }
 export interface MsgUpdateValidatorSharesExchRateResponseSDKType {}
+export interface MsgCalibrateDelegation {
+  creator: string;
+  chainId: string;
+  valoper: string;
+}
+export interface MsgCalibrateDelegationProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgCalibrateDelegation";
+  value: Uint8Array;
+}
+export interface MsgCalibrateDelegationAmino {
+  creator?: string;
+  chain_id?: string;
+  valoper?: string;
+}
+export interface MsgCalibrateDelegationAminoMsg {
+  type: "/stride.stakeibc.MsgCalibrateDelegation";
+  value: MsgCalibrateDelegationAmino;
+}
+export interface MsgCalibrateDelegationSDKType {
+  creator: string;
+  chain_id: string;
+  valoper: string;
+}
+export interface MsgCalibrateDelegationResponse {}
+export interface MsgCalibrateDelegationResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgCalibrateDelegationResponse";
+  value: Uint8Array;
+}
+export interface MsgCalibrateDelegationResponseAmino {}
+export interface MsgCalibrateDelegationResponseAminoMsg {
+  type: "/stride.stakeibc.MsgCalibrateDelegationResponse";
+  value: MsgCalibrateDelegationResponseAmino;
+}
+export interface MsgCalibrateDelegationResponseSDKType {}
+export interface MsgResumeHostZone {
+  creator: string;
+  chainId: string;
+}
+export interface MsgResumeHostZoneProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgResumeHostZone";
+  value: Uint8Array;
+}
+export interface MsgResumeHostZoneAmino {
+  creator?: string;
+  chain_id?: string;
+}
+export interface MsgResumeHostZoneAminoMsg {
+  type: "/stride.stakeibc.MsgResumeHostZone";
+  value: MsgResumeHostZoneAmino;
+}
+export interface MsgResumeHostZoneSDKType {
+  creator: string;
+  chain_id: string;
+}
+export interface MsgResumeHostZoneResponse {}
+export interface MsgResumeHostZoneResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgResumeHostZoneResponse";
+  value: Uint8Array;
+}
+export interface MsgResumeHostZoneResponseAmino {}
+export interface MsgResumeHostZoneResponseAminoMsg {
+  type: "/stride.stakeibc.MsgResumeHostZoneResponse";
+  value: MsgResumeHostZoneResponseAmino;
+}
+export interface MsgResumeHostZoneResponseSDKType {}
+/** Creates a new trade route */
+export interface MsgCreateTradeRoute {
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless
+   * overwritten).
+   */
+  authority: string;
+  /** The chain ID of the host zone */
+  hostChainId: string;
+  /** Connection IDs between stride and the other zones */
+  strideToRewardConnectionId: string;
+  strideToTradeConnectionId: string;
+  /** Transfer channels between the host, reward, and trade zones */
+  hostToRewardTransferChannelId: string;
+  rewardToTradeTransferChannelId: string;
+  tradeToHostTransferChannelId: string;
+  /** ibc denom for the reward token on the host zone (e.g. ibc/usdc on dYdX) */
+  rewardDenomOnHost: string;
+  /** native denom of reward token on the reward zone (e.g. usdc on Noble) */
+  rewardDenomOnReward: string;
+  /** ibc denom of the reward token on the trade zone (e.g. ibc/usdc on Osmosis) */
+  rewardDenomOnTrade: string;
+  /** ibc denom of the host's token on the trade zone (e.g. ibc/dydx on Osmosis) */
+  hostDenomOnTrade: string;
+  /** the host zone's native denom (e.g. dydx on dYdX) */
+  hostDenomOnHost: string;
+  /** The osmosis pool ID */
+  poolId: bigint;
+  /**
+   * Threshold defining the percentage of tokens that could be lost in the trade
+   * This captures both the loss from slippage and from a stale price on stride
+   * "0.05" means the output from the trade can be no less than a 5% deviation
+   * from the current value
+   */
+  maxAllowedSwapLossRate: string;
+  /**
+   * minimum amount of reward tokens to initate a swap
+   * if not provided, defaults to 0
+   */
+  minSwapAmount: string;
+  /**
+   * maximum amount of reward tokens in a single swap
+   * if not provided, defaults to 10e24
+   */
+  maxSwapAmount: string;
+}
+export interface MsgCreateTradeRouteProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgCreateTradeRoute";
+  value: Uint8Array;
+}
+/** Creates a new trade route */
+export interface MsgCreateTradeRouteAmino {
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless
+   * overwritten).
+   */
+  authority?: string;
+  /** The chain ID of the host zone */
+  host_chain_id?: string;
+  /** Connection IDs between stride and the other zones */
+  stride_to_reward_connection_id?: string;
+  stride_to_trade_connection_id?: string;
+  /** Transfer channels between the host, reward, and trade zones */
+  host_to_reward_transfer_channel_id?: string;
+  reward_to_trade_transfer_channel_id?: string;
+  trade_to_host_transfer_channel_id?: string;
+  /** ibc denom for the reward token on the host zone (e.g. ibc/usdc on dYdX) */
+  reward_denom_on_host?: string;
+  /** native denom of reward token on the reward zone (e.g. usdc on Noble) */
+  reward_denom_on_reward?: string;
+  /** ibc denom of the reward token on the trade zone (e.g. ibc/usdc on Osmosis) */
+  reward_denom_on_trade?: string;
+  /** ibc denom of the host's token on the trade zone (e.g. ibc/dydx on Osmosis) */
+  host_denom_on_trade?: string;
+  /** the host zone's native denom (e.g. dydx on dYdX) */
+  host_denom_on_host?: string;
+  /** The osmosis pool ID */
+  pool_id?: string;
+  /**
+   * Threshold defining the percentage of tokens that could be lost in the trade
+   * This captures both the loss from slippage and from a stale price on stride
+   * "0.05" means the output from the trade can be no less than a 5% deviation
+   * from the current value
+   */
+  max_allowed_swap_loss_rate?: string;
+  /**
+   * minimum amount of reward tokens to initate a swap
+   * if not provided, defaults to 0
+   */
+  min_swap_amount?: string;
+  /**
+   * maximum amount of reward tokens in a single swap
+   * if not provided, defaults to 10e24
+   */
+  max_swap_amount?: string;
+}
+export interface MsgCreateTradeRouteAminoMsg {
+  type: "stride/x/stakeibc/MsgCreateTradeRoute";
+  value: MsgCreateTradeRouteAmino;
+}
+/** Creates a new trade route */
+export interface MsgCreateTradeRouteSDKType {
+  authority: string;
+  host_chain_id: string;
+  stride_to_reward_connection_id: string;
+  stride_to_trade_connection_id: string;
+  host_to_reward_transfer_channel_id: string;
+  reward_to_trade_transfer_channel_id: string;
+  trade_to_host_transfer_channel_id: string;
+  reward_denom_on_host: string;
+  reward_denom_on_reward: string;
+  reward_denom_on_trade: string;
+  host_denom_on_trade: string;
+  host_denom_on_host: string;
+  pool_id: bigint;
+  max_allowed_swap_loss_rate: string;
+  min_swap_amount: string;
+  max_swap_amount: string;
+}
+export interface MsgCreateTradeRouteResponse {}
+export interface MsgCreateTradeRouteResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgCreateTradeRouteResponse";
+  value: Uint8Array;
+}
+export interface MsgCreateTradeRouteResponseAmino {}
+export interface MsgCreateTradeRouteResponseAminoMsg {
+  type: "/stride.stakeibc.MsgCreateTradeRouteResponse";
+  value: MsgCreateTradeRouteResponseAmino;
+}
+export interface MsgCreateTradeRouteResponseSDKType {}
+/** Deletes a trade route */
+export interface MsgDeleteTradeRoute {
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless
+   * overwritten).
+   */
+  authority: string;
+  /** The reward denom of the route in it's native form (e.g. usdc) */
+  rewardDenom: string;
+  /** The host zone's denom in it's native form (e.g. dydx) */
+  hostDenom: string;
+}
+export interface MsgDeleteTradeRouteProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgDeleteTradeRoute";
+  value: Uint8Array;
+}
+/** Deletes a trade route */
+export interface MsgDeleteTradeRouteAmino {
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless
+   * overwritten).
+   */
+  authority?: string;
+  /** The reward denom of the route in it's native form (e.g. usdc) */
+  reward_denom?: string;
+  /** The host zone's denom in it's native form (e.g. dydx) */
+  host_denom?: string;
+}
+export interface MsgDeleteTradeRouteAminoMsg {
+  type: "stride/x/stakeibc/MsgDeleteTradeRoute";
+  value: MsgDeleteTradeRouteAmino;
+}
+/** Deletes a trade route */
+export interface MsgDeleteTradeRouteSDKType {
+  authority: string;
+  reward_denom: string;
+  host_denom: string;
+}
+export interface MsgDeleteTradeRouteResponse {}
+export interface MsgDeleteTradeRouteResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgDeleteTradeRouteResponse";
+  value: Uint8Array;
+}
+export interface MsgDeleteTradeRouteResponseAmino {}
+export interface MsgDeleteTradeRouteResponseAminoMsg {
+  type: "/stride.stakeibc.MsgDeleteTradeRouteResponse";
+  value: MsgDeleteTradeRouteResponseAmino;
+}
+export interface MsgDeleteTradeRouteResponseSDKType {}
+/** Updates the config of a trade route */
+export interface MsgUpdateTradeRoute {
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless
+   * overwritten).
+   */
+  authority: string;
+  /** The reward denom of the route in it's native form (e.g. usdc) */
+  rewardDenom: string;
+  /** The host zone's denom in it's native form (e.g. dydx) */
+  hostDenom: string;
+  /** The osmosis pool ID */
+  poolId: bigint;
+  /**
+   * Threshold defining the percentage of tokens that could be lost in the trade
+   * This captures both the loss from slippage and from a stale price on stride
+   * "0.05" means the output from the trade can be no less than a 5% deviation
+   * from the current value
+   */
+  maxAllowedSwapLossRate: string;
+  /**
+   * minimum amount of reward tokens to initate a swap
+   * if not provided, defaults to 0
+   */
+  minSwapAmount: string;
+  /**
+   * maximum amount of reward tokens in a single swap
+   * if not provided, defaults to 10e24
+   */
+  maxSwapAmount: string;
+}
+export interface MsgUpdateTradeRouteProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgUpdateTradeRoute";
+  value: Uint8Array;
+}
+/** Updates the config of a trade route */
+export interface MsgUpdateTradeRouteAmino {
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless
+   * overwritten).
+   */
+  authority?: string;
+  /** The reward denom of the route in it's native form (e.g. usdc) */
+  reward_denom?: string;
+  /** The host zone's denom in it's native form (e.g. dydx) */
+  host_denom?: string;
+  /** The osmosis pool ID */
+  pool_id?: string;
+  /**
+   * Threshold defining the percentage of tokens that could be lost in the trade
+   * This captures both the loss from slippage and from a stale price on stride
+   * "0.05" means the output from the trade can be no less than a 5% deviation
+   * from the current value
+   */
+  max_allowed_swap_loss_rate?: string;
+  /**
+   * minimum amount of reward tokens to initate a swap
+   * if not provided, defaults to 0
+   */
+  min_swap_amount?: string;
+  /**
+   * maximum amount of reward tokens in a single swap
+   * if not provided, defaults to 10e24
+   */
+  max_swap_amount?: string;
+}
+export interface MsgUpdateTradeRouteAminoMsg {
+  type: "stride/x/stakeibc/MsgUpdateTradeRoute";
+  value: MsgUpdateTradeRouteAmino;
+}
+/** Updates the config of a trade route */
+export interface MsgUpdateTradeRouteSDKType {
+  authority: string;
+  reward_denom: string;
+  host_denom: string;
+  pool_id: bigint;
+  max_allowed_swap_loss_rate: string;
+  min_swap_amount: string;
+  max_swap_amount: string;
+}
+export interface MsgUpdateTradeRouteResponse {}
+export interface MsgUpdateTradeRouteResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgUpdateTradeRouteResponse";
+  value: Uint8Array;
+}
+export interface MsgUpdateTradeRouteResponseAmino {}
+export interface MsgUpdateTradeRouteResponseAminoMsg {
+  type: "/stride.stakeibc.MsgUpdateTradeRouteResponse";
+  value: MsgUpdateTradeRouteResponseAmino;
+}
+export interface MsgUpdateTradeRouteResponseSDKType {}
+function createBaseMsgUpdateInnerRedemptionRateBounds(): MsgUpdateInnerRedemptionRateBounds {
+  return {
+    creator: "",
+    chainId: "",
+    minInnerRedemptionRate: "",
+    maxInnerRedemptionRate: ""
+  };
+}
+export const MsgUpdateInnerRedemptionRateBounds = {
+  typeUrl: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBounds",
+  encode(message: MsgUpdateInnerRedemptionRateBounds, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.chainId !== "") {
+      writer.uint32(18).string(message.chainId);
+    }
+    if (message.minInnerRedemptionRate !== "") {
+      writer.uint32(26).string(Decimal.fromUserInput(message.minInnerRedemptionRate, 18).atomics);
+    }
+    if (message.maxInnerRedemptionRate !== "") {
+      writer.uint32(34).string(Decimal.fromUserInput(message.maxInnerRedemptionRate, 18).atomics);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgUpdateInnerRedemptionRateBounds {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      chainId: isSet(object.chainId) ? String(object.chainId) : "",
+      minInnerRedemptionRate: isSet(object.minInnerRedemptionRate) ? String(object.minInnerRedemptionRate) : "",
+      maxInnerRedemptionRate: isSet(object.maxInnerRedemptionRate) ? String(object.maxInnerRedemptionRate) : ""
+    };
+  },
+  fromPartial(object: Partial<MsgUpdateInnerRedemptionRateBounds>): MsgUpdateInnerRedemptionRateBounds {
+    const message = createBaseMsgUpdateInnerRedemptionRateBounds();
+    message.creator = object.creator ?? "";
+    message.chainId = object.chainId ?? "";
+    message.minInnerRedemptionRate = object.minInnerRedemptionRate ?? "";
+    message.maxInnerRedemptionRate = object.maxInnerRedemptionRate ?? "";
+    return message;
+  },
+  fromAmino(object: MsgUpdateInnerRedemptionRateBoundsAmino): MsgUpdateInnerRedemptionRateBounds {
+    const message = createBaseMsgUpdateInnerRedemptionRateBounds();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.min_inner_redemption_rate !== undefined && object.min_inner_redemption_rate !== null) {
+      message.minInnerRedemptionRate = object.min_inner_redemption_rate;
+    }
+    if (object.max_inner_redemption_rate !== undefined && object.max_inner_redemption_rate !== null) {
+      message.maxInnerRedemptionRate = object.max_inner_redemption_rate;
+    }
+    return message;
+  },
+  toAmino(message: MsgUpdateInnerRedemptionRateBounds): MsgUpdateInnerRedemptionRateBoundsAmino {
+    const obj: any = {};
+    obj.creator = message.creator;
+    obj.chain_id = message.chainId;
+    obj.min_inner_redemption_rate = message.minInnerRedemptionRate;
+    obj.max_inner_redemption_rate = message.maxInnerRedemptionRate;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateInnerRedemptionRateBoundsAminoMsg): MsgUpdateInnerRedemptionRateBounds {
+    return MsgUpdateInnerRedemptionRateBounds.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateInnerRedemptionRateBoundsProtoMsg): MsgUpdateInnerRedemptionRateBounds {
+    return MsgUpdateInnerRedemptionRateBounds.decode(message.value);
+  },
+  toProto(message: MsgUpdateInnerRedemptionRateBounds): Uint8Array {
+    return MsgUpdateInnerRedemptionRateBounds.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateInnerRedemptionRateBounds): MsgUpdateInnerRedemptionRateBoundsProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBounds",
+      value: MsgUpdateInnerRedemptionRateBounds.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUpdateInnerRedemptionRateBoundsResponse(): MsgUpdateInnerRedemptionRateBoundsResponse {
+  return {};
+}
+export const MsgUpdateInnerRedemptionRateBoundsResponse = {
+  typeUrl: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBoundsResponse",
+  encode(_: MsgUpdateInnerRedemptionRateBoundsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgUpdateInnerRedemptionRateBoundsResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgUpdateInnerRedemptionRateBoundsResponse>): MsgUpdateInnerRedemptionRateBoundsResponse {
+    const message = createBaseMsgUpdateInnerRedemptionRateBoundsResponse();
+    return message;
+  },
+  fromAmino(_: MsgUpdateInnerRedemptionRateBoundsResponseAmino): MsgUpdateInnerRedemptionRateBoundsResponse {
+    const message = createBaseMsgUpdateInnerRedemptionRateBoundsResponse();
+    return message;
+  },
+  toAmino(_: MsgUpdateInnerRedemptionRateBoundsResponse): MsgUpdateInnerRedemptionRateBoundsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateInnerRedemptionRateBoundsResponseAminoMsg): MsgUpdateInnerRedemptionRateBoundsResponse {
+    return MsgUpdateInnerRedemptionRateBoundsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateInnerRedemptionRateBoundsResponseProtoMsg): MsgUpdateInnerRedemptionRateBoundsResponse {
+    return MsgUpdateInnerRedemptionRateBoundsResponse.decode(message.value);
+  },
+  toProto(message: MsgUpdateInnerRedemptionRateBoundsResponse): Uint8Array {
+    return MsgUpdateInnerRedemptionRateBoundsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateInnerRedemptionRateBoundsResponse): MsgUpdateInnerRedemptionRateBoundsResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgUpdateInnerRedemptionRateBoundsResponse",
+      value: MsgUpdateInnerRedemptionRateBoundsResponse.encode(message).finish()
+    };
+  }
+};
 function createBaseMsgLiquidStake(): MsgLiquidStake {
   return {
     creator: "",
@@ -448,11 +1009,17 @@ export const MsgLiquidStake = {
     return message;
   },
   fromAmino(object: MsgLiquidStakeAmino): MsgLiquidStake {
-    return {
-      creator: object.creator,
-      amount: object.amount,
-      hostDenom: object.host_denom
-    };
+    const message = createBaseMsgLiquidStake();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    if (object.host_denom !== undefined && object.host_denom !== null) {
+      message.hostDenom = object.host_denom;
+    }
+    return message;
   },
   toAmino(message: MsgLiquidStake): MsgLiquidStakeAmino {
     const obj: any = {};
@@ -478,25 +1045,38 @@ export const MsgLiquidStake = {
   }
 };
 function createBaseMsgLiquidStakeResponse(): MsgLiquidStakeResponse {
-  return {};
+  return {
+    stToken: Coin.fromPartial({})
+  };
 }
 export const MsgLiquidStakeResponse = {
   typeUrl: "/stride.stakeibc.MsgLiquidStakeResponse",
-  encode(_: MsgLiquidStakeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+  encode(message: MsgLiquidStakeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.stToken !== undefined) {
+      Coin.encode(message.stToken, writer.uint32(10).fork()).ldelim();
+    }
     return writer;
   },
-  fromJSON(_: any): MsgLiquidStakeResponse {
-    return {};
+  fromJSON(object: any): MsgLiquidStakeResponse {
+    return {
+      stToken: isSet(object.stToken) ? Coin.fromJSON(object.stToken) : undefined
+    };
   },
-  fromPartial(_: Partial<MsgLiquidStakeResponse>): MsgLiquidStakeResponse {
+  fromPartial(object: Partial<MsgLiquidStakeResponse>): MsgLiquidStakeResponse {
     const message = createBaseMsgLiquidStakeResponse();
+    message.stToken = object.stToken !== undefined && object.stToken !== null ? Coin.fromPartial(object.stToken) : undefined;
     return message;
   },
-  fromAmino(_: MsgLiquidStakeResponseAmino): MsgLiquidStakeResponse {
-    return {};
+  fromAmino(object: MsgLiquidStakeResponseAmino): MsgLiquidStakeResponse {
+    const message = createBaseMsgLiquidStakeResponse();
+    if (object.st_token !== undefined && object.st_token !== null) {
+      message.stToken = Coin.fromAmino(object.st_token);
+    }
+    return message;
   },
-  toAmino(_: MsgLiquidStakeResponse): MsgLiquidStakeResponseAmino {
+  toAmino(message: MsgLiquidStakeResponse): MsgLiquidStakeResponseAmino {
     const obj: any = {};
+    obj.st_token = message.stToken ? Coin.toAmino(message.stToken) : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgLiquidStakeResponseAminoMsg): MsgLiquidStakeResponse {
@@ -512,6 +1092,128 @@ export const MsgLiquidStakeResponse = {
     return {
       typeUrl: "/stride.stakeibc.MsgLiquidStakeResponse",
       value: MsgLiquidStakeResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgLSMLiquidStake(): MsgLSMLiquidStake {
+  return {
+    creator: "",
+    amount: "",
+    lsmTokenIbcDenom: ""
+  };
+}
+export const MsgLSMLiquidStake = {
+  typeUrl: "/stride.stakeibc.MsgLSMLiquidStake",
+  encode(message: MsgLSMLiquidStake, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.amount !== "") {
+      writer.uint32(18).string(message.amount);
+    }
+    if (message.lsmTokenIbcDenom !== "") {
+      writer.uint32(26).string(message.lsmTokenIbcDenom);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgLSMLiquidStake {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      amount: isSet(object.amount) ? String(object.amount) : "",
+      lsmTokenIbcDenom: isSet(object.lsmTokenIbcDenom) ? String(object.lsmTokenIbcDenom) : ""
+    };
+  },
+  fromPartial(object: Partial<MsgLSMLiquidStake>): MsgLSMLiquidStake {
+    const message = createBaseMsgLSMLiquidStake();
+    message.creator = object.creator ?? "";
+    message.amount = object.amount ?? "";
+    message.lsmTokenIbcDenom = object.lsmTokenIbcDenom ?? "";
+    return message;
+  },
+  fromAmino(object: MsgLSMLiquidStakeAmino): MsgLSMLiquidStake {
+    const message = createBaseMsgLSMLiquidStake();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    if (object.lsm_token_ibc_denom !== undefined && object.lsm_token_ibc_denom !== null) {
+      message.lsmTokenIbcDenom = object.lsm_token_ibc_denom;
+    }
+    return message;
+  },
+  toAmino(message: MsgLSMLiquidStake): MsgLSMLiquidStakeAmino {
+    const obj: any = {};
+    obj.creator = message.creator;
+    obj.amount = message.amount;
+    obj.lsm_token_ibc_denom = message.lsmTokenIbcDenom;
+    return obj;
+  },
+  fromAminoMsg(object: MsgLSMLiquidStakeAminoMsg): MsgLSMLiquidStake {
+    return MsgLSMLiquidStake.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgLSMLiquidStakeProtoMsg): MsgLSMLiquidStake {
+    return MsgLSMLiquidStake.decode(message.value);
+  },
+  toProto(message: MsgLSMLiquidStake): Uint8Array {
+    return MsgLSMLiquidStake.encode(message).finish();
+  },
+  toProtoMsg(message: MsgLSMLiquidStake): MsgLSMLiquidStakeProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgLSMLiquidStake",
+      value: MsgLSMLiquidStake.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgLSMLiquidStakeResponse(): MsgLSMLiquidStakeResponse {
+  return {
+    transactionComplete: false
+  };
+}
+export const MsgLSMLiquidStakeResponse = {
+  typeUrl: "/stride.stakeibc.MsgLSMLiquidStakeResponse",
+  encode(message: MsgLSMLiquidStakeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.transactionComplete === true) {
+      writer.uint32(8).bool(message.transactionComplete);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgLSMLiquidStakeResponse {
+    return {
+      transactionComplete: isSet(object.transactionComplete) ? Boolean(object.transactionComplete) : false
+    };
+  },
+  fromPartial(object: Partial<MsgLSMLiquidStakeResponse>): MsgLSMLiquidStakeResponse {
+    const message = createBaseMsgLSMLiquidStakeResponse();
+    message.transactionComplete = object.transactionComplete ?? false;
+    return message;
+  },
+  fromAmino(object: MsgLSMLiquidStakeResponseAmino): MsgLSMLiquidStakeResponse {
+    const message = createBaseMsgLSMLiquidStakeResponse();
+    if (object.transaction_complete !== undefined && object.transaction_complete !== null) {
+      message.transactionComplete = object.transaction_complete;
+    }
+    return message;
+  },
+  toAmino(message: MsgLSMLiquidStakeResponse): MsgLSMLiquidStakeResponseAmino {
+    const obj: any = {};
+    obj.transaction_complete = message.transactionComplete;
+    return obj;
+  },
+  fromAminoMsg(object: MsgLSMLiquidStakeResponseAminoMsg): MsgLSMLiquidStakeResponse {
+    return MsgLSMLiquidStakeResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgLSMLiquidStakeResponseProtoMsg): MsgLSMLiquidStakeResponse {
+    return MsgLSMLiquidStakeResponse.decode(message.value);
+  },
+  toProto(message: MsgLSMLiquidStakeResponse): Uint8Array {
+    return MsgLSMLiquidStakeResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgLSMLiquidStakeResponse): MsgLSMLiquidStakeResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgLSMLiquidStakeResponse",
+      value: MsgLSMLiquidStakeResponse.encode(message).finish()
     };
   }
 };
@@ -557,12 +1259,20 @@ export const MsgClearBalance = {
     return message;
   },
   fromAmino(object: MsgClearBalanceAmino): MsgClearBalance {
-    return {
-      creator: object.creator,
-      chainId: object.chain_id,
-      amount: object.amount,
-      channel: object.channel
-    };
+    const message = createBaseMsgClearBalance();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    if (object.channel !== undefined && object.channel !== null) {
+      message.channel = object.channel;
+    }
+    return message;
   },
   toAmino(message: MsgClearBalance): MsgClearBalanceAmino {
     const obj: any = {};
@@ -604,7 +1314,8 @@ export const MsgClearBalanceResponse = {
     return message;
   },
   fromAmino(_: MsgClearBalanceResponseAmino): MsgClearBalanceResponse {
-    return {};
+    const message = createBaseMsgClearBalanceResponse();
+    return message;
   },
   toAmino(_: MsgClearBalanceResponse): MsgClearBalanceResponseAmino {
     const obj: any = {};
@@ -668,12 +1379,20 @@ export const MsgRedeemStake = {
     return message;
   },
   fromAmino(object: MsgRedeemStakeAmino): MsgRedeemStake {
-    return {
-      creator: object.creator,
-      amount: object.amount,
-      hostZone: object.host_zone,
-      receiver: object.receiver
-    };
+    const message = createBaseMsgRedeemStake();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    if (object.host_zone !== undefined && object.host_zone !== null) {
+      message.hostZone = object.host_zone;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    return message;
   },
   toAmino(message: MsgRedeemStake): MsgRedeemStakeAmino {
     const obj: any = {};
@@ -715,7 +1434,8 @@ export const MsgRedeemStakeResponse = {
     return message;
   },
   fromAmino(_: MsgRedeemStakeResponseAmino): MsgRedeemStakeResponse {
-    return {};
+    const message = createBaseMsgRedeemStakeResponse();
+    return message;
   },
   toAmino(_: MsgRedeemStakeResponse): MsgRedeemStakeResponseAmino {
     const obj: any = {};
@@ -745,9 +1465,10 @@ function createBaseMsgRegisterHostZone(): MsgRegisterHostZone {
     ibcDenom: "",
     creator: "",
     transferChannelId: "",
-    unbondingFrequency: BigInt(0),
+    unbondingPeriod: BigInt(0),
     minRedemptionRate: "",
-    maxRedemptionRate: ""
+    maxRedemptionRate: "",
+    lsmLiquidStakeEnabled: false
   };
 }
 export const MsgRegisterHostZone = {
@@ -771,14 +1492,17 @@ export const MsgRegisterHostZone = {
     if (message.transferChannelId !== "") {
       writer.uint32(82).string(message.transferChannelId);
     }
-    if (message.unbondingFrequency !== BigInt(0)) {
-      writer.uint32(88).uint64(message.unbondingFrequency);
+    if (message.unbondingPeriod !== BigInt(0)) {
+      writer.uint32(88).uint64(message.unbondingPeriod);
     }
     if (message.minRedemptionRate !== "") {
       writer.uint32(106).string(Decimal.fromUserInput(message.minRedemptionRate, 18).atomics);
     }
     if (message.maxRedemptionRate !== "") {
       writer.uint32(114).string(Decimal.fromUserInput(message.maxRedemptionRate, 18).atomics);
+    }
+    if (message.lsmLiquidStakeEnabled === true) {
+      writer.uint32(120).bool(message.lsmLiquidStakeEnabled);
     }
     return writer;
   },
@@ -790,9 +1514,10 @@ export const MsgRegisterHostZone = {
       ibcDenom: isSet(object.ibcDenom) ? String(object.ibcDenom) : "",
       creator: isSet(object.creator) ? String(object.creator) : "",
       transferChannelId: isSet(object.transferChannelId) ? String(object.transferChannelId) : "",
-      unbondingFrequency: isSet(object.unbondingFrequency) ? BigInt(object.unbondingFrequency.toString()) : BigInt(0),
+      unbondingPeriod: isSet(object.unbondingPeriod) ? BigInt(object.unbondingPeriod.toString()) : BigInt(0),
       minRedemptionRate: isSet(object.minRedemptionRate) ? String(object.minRedemptionRate) : "",
-      maxRedemptionRate: isSet(object.maxRedemptionRate) ? String(object.maxRedemptionRate) : ""
+      maxRedemptionRate: isSet(object.maxRedemptionRate) ? String(object.maxRedemptionRate) : "",
+      lsmLiquidStakeEnabled: isSet(object.lsmLiquidStakeEnabled) ? Boolean(object.lsmLiquidStakeEnabled) : false
     };
   },
   fromPartial(object: Partial<MsgRegisterHostZone>): MsgRegisterHostZone {
@@ -803,23 +1528,45 @@ export const MsgRegisterHostZone = {
     message.ibcDenom = object.ibcDenom ?? "";
     message.creator = object.creator ?? "";
     message.transferChannelId = object.transferChannelId ?? "";
-    message.unbondingFrequency = object.unbondingFrequency !== undefined && object.unbondingFrequency !== null ? BigInt(object.unbondingFrequency.toString()) : BigInt(0);
+    message.unbondingPeriod = object.unbondingPeriod !== undefined && object.unbondingPeriod !== null ? BigInt(object.unbondingPeriod.toString()) : BigInt(0);
     message.minRedemptionRate = object.minRedemptionRate ?? "";
     message.maxRedemptionRate = object.maxRedemptionRate ?? "";
+    message.lsmLiquidStakeEnabled = object.lsmLiquidStakeEnabled ?? false;
     return message;
   },
   fromAmino(object: MsgRegisterHostZoneAmino): MsgRegisterHostZone {
-    return {
-      connectionId: object.connection_id,
-      bech32prefix: object.bech32prefix,
-      hostDenom: object.host_denom,
-      ibcDenom: object.ibc_denom,
-      creator: object.creator,
-      transferChannelId: object.transfer_channel_id,
-      unbondingFrequency: BigInt(object.unbonding_frequency),
-      minRedemptionRate: object.min_redemption_rate,
-      maxRedemptionRate: object.max_redemption_rate
-    };
+    const message = createBaseMsgRegisterHostZone();
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    if (object.bech32prefix !== undefined && object.bech32prefix !== null) {
+      message.bech32prefix = object.bech32prefix;
+    }
+    if (object.host_denom !== undefined && object.host_denom !== null) {
+      message.hostDenom = object.host_denom;
+    }
+    if (object.ibc_denom !== undefined && object.ibc_denom !== null) {
+      message.ibcDenom = object.ibc_denom;
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.transfer_channel_id !== undefined && object.transfer_channel_id !== null) {
+      message.transferChannelId = object.transfer_channel_id;
+    }
+    if (object.unbonding_period !== undefined && object.unbonding_period !== null) {
+      message.unbondingPeriod = BigInt(object.unbonding_period);
+    }
+    if (object.min_redemption_rate !== undefined && object.min_redemption_rate !== null) {
+      message.minRedemptionRate = object.min_redemption_rate;
+    }
+    if (object.max_redemption_rate !== undefined && object.max_redemption_rate !== null) {
+      message.maxRedemptionRate = object.max_redemption_rate;
+    }
+    if (object.lsm_liquid_stake_enabled !== undefined && object.lsm_liquid_stake_enabled !== null) {
+      message.lsmLiquidStakeEnabled = object.lsm_liquid_stake_enabled;
+    }
+    return message;
   },
   toAmino(message: MsgRegisterHostZone): MsgRegisterHostZoneAmino {
     const obj: any = {};
@@ -829,9 +1576,10 @@ export const MsgRegisterHostZone = {
     obj.ibc_denom = message.ibcDenom;
     obj.creator = message.creator;
     obj.transfer_channel_id = message.transferChannelId;
-    obj.unbonding_frequency = message.unbondingFrequency ? message.unbondingFrequency.toString() : undefined;
+    obj.unbonding_period = message.unbondingPeriod ? message.unbondingPeriod.toString() : undefined;
     obj.min_redemption_rate = message.minRedemptionRate;
     obj.max_redemption_rate = message.maxRedemptionRate;
+    obj.lsm_liquid_stake_enabled = message.lsmLiquidStakeEnabled;
     return obj;
   },
   fromAminoMsg(object: MsgRegisterHostZoneAminoMsg): MsgRegisterHostZone {
@@ -866,7 +1614,8 @@ export const MsgRegisterHostZoneResponse = {
     return message;
   },
   fromAmino(_: MsgRegisterHostZoneResponseAmino): MsgRegisterHostZoneResponse {
-    return {};
+    const message = createBaseMsgRegisterHostZoneResponse();
+    return message;
   },
   toAmino(_: MsgRegisterHostZoneResponse): MsgRegisterHostZoneResponseAmino {
     const obj: any = {};
@@ -893,7 +1642,7 @@ function createBaseMsgClaimUndelegatedTokens(): MsgClaimUndelegatedTokens {
     creator: "",
     hostZoneId: "",
     epoch: BigInt(0),
-    sender: ""
+    receiver: ""
   };
 }
 export const MsgClaimUndelegatedTokens = {
@@ -908,8 +1657,8 @@ export const MsgClaimUndelegatedTokens = {
     if (message.epoch !== BigInt(0)) {
       writer.uint32(24).uint64(message.epoch);
     }
-    if (message.sender !== "") {
-      writer.uint32(34).string(message.sender);
+    if (message.receiver !== "") {
+      writer.uint32(42).string(message.receiver);
     }
     return writer;
   },
@@ -918,7 +1667,7 @@ export const MsgClaimUndelegatedTokens = {
       creator: isSet(object.creator) ? String(object.creator) : "",
       hostZoneId: isSet(object.hostZoneId) ? String(object.hostZoneId) : "",
       epoch: isSet(object.epoch) ? BigInt(object.epoch.toString()) : BigInt(0),
-      sender: isSet(object.sender) ? String(object.sender) : ""
+      receiver: isSet(object.receiver) ? String(object.receiver) : ""
     };
   },
   fromPartial(object: Partial<MsgClaimUndelegatedTokens>): MsgClaimUndelegatedTokens {
@@ -926,23 +1675,31 @@ export const MsgClaimUndelegatedTokens = {
     message.creator = object.creator ?? "";
     message.hostZoneId = object.hostZoneId ?? "";
     message.epoch = object.epoch !== undefined && object.epoch !== null ? BigInt(object.epoch.toString()) : BigInt(0);
-    message.sender = object.sender ?? "";
+    message.receiver = object.receiver ?? "";
     return message;
   },
   fromAmino(object: MsgClaimUndelegatedTokensAmino): MsgClaimUndelegatedTokens {
-    return {
-      creator: object.creator,
-      hostZoneId: object.host_zone_id,
-      epoch: BigInt(object.epoch),
-      sender: object.sender
-    };
+    const message = createBaseMsgClaimUndelegatedTokens();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.host_zone_id !== undefined && object.host_zone_id !== null) {
+      message.hostZoneId = object.host_zone_id;
+    }
+    if (object.epoch !== undefined && object.epoch !== null) {
+      message.epoch = BigInt(object.epoch);
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    return message;
   },
   toAmino(message: MsgClaimUndelegatedTokens): MsgClaimUndelegatedTokensAmino {
     const obj: any = {};
     obj.creator = message.creator;
     obj.host_zone_id = message.hostZoneId;
     obj.epoch = message.epoch ? message.epoch.toString() : undefined;
-    obj.sender = message.sender;
+    obj.receiver = message.receiver;
     return obj;
   },
   fromAminoMsg(object: MsgClaimUndelegatedTokensAminoMsg): MsgClaimUndelegatedTokens {
@@ -977,7 +1734,8 @@ export const MsgClaimUndelegatedTokensResponse = {
     return message;
   },
   fromAmino(_: MsgClaimUndelegatedTokensResponseAmino): MsgClaimUndelegatedTokensResponse {
-    return {};
+    const message = createBaseMsgClaimUndelegatedTokensResponse();
+    return message;
   },
   toAmino(_: MsgClaimUndelegatedTokensResponse): MsgClaimUndelegatedTokensResponseAmino {
     const obj: any = {};
@@ -1035,11 +1793,17 @@ export const MsgRebalanceValidators = {
     return message;
   },
   fromAmino(object: MsgRebalanceValidatorsAmino): MsgRebalanceValidators {
-    return {
-      creator: object.creator,
-      hostZone: object.host_zone,
-      numRebalance: BigInt(object.num_rebalance)
-    };
+    const message = createBaseMsgRebalanceValidators();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.host_zone !== undefined && object.host_zone !== null) {
+      message.hostZone = object.host_zone;
+    }
+    if (object.num_rebalance !== undefined && object.num_rebalance !== null) {
+      message.numRebalance = BigInt(object.num_rebalance);
+    }
+    return message;
   },
   toAmino(message: MsgRebalanceValidators): MsgRebalanceValidatorsAmino {
     const obj: any = {};
@@ -1080,7 +1844,8 @@ export const MsgRebalanceValidatorsResponse = {
     return message;
   },
   fromAmino(_: MsgRebalanceValidatorsResponseAmino): MsgRebalanceValidatorsResponse {
-    return {};
+    const message = createBaseMsgRebalanceValidatorsResponse();
+    return message;
   },
   toAmino(_: MsgRebalanceValidatorsResponse): MsgRebalanceValidatorsResponseAmino {
     const obj: any = {};
@@ -1138,11 +1903,15 @@ export const MsgAddValidators = {
     return message;
   },
   fromAmino(object: MsgAddValidatorsAmino): MsgAddValidators {
-    return {
-      creator: object.creator,
-      hostZone: object.host_zone,
-      validators: Array.isArray(object?.validators) ? object.validators.map((e: any) => Validator.fromAmino(e)) : []
-    };
+    const message = createBaseMsgAddValidators();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.host_zone !== undefined && object.host_zone !== null) {
+      message.hostZone = object.host_zone;
+    }
+    message.validators = object.validators?.map(e => Validator.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgAddValidators): MsgAddValidatorsAmino {
     const obj: any = {};
@@ -1187,7 +1956,8 @@ export const MsgAddValidatorsResponse = {
     return message;
   },
   fromAmino(_: MsgAddValidatorsResponseAmino): MsgAddValidatorsResponse {
-    return {};
+    const message = createBaseMsgAddValidatorsResponse();
+    return message;
   },
   toAmino(_: MsgAddValidatorsResponse): MsgAddValidatorsResponseAmino {
     const obj: any = {};
@@ -1209,114 +1979,176 @@ export const MsgAddValidatorsResponse = {
     };
   }
 };
-function createBaseMsgChangeValidatorWeight(): MsgChangeValidatorWeight {
+function createBaseValidatorWeight(): ValidatorWeight {
   return {
-    creator: "",
-    hostZone: "",
-    valAddr: "",
+    address: "",
     weight: BigInt(0)
   };
 }
-export const MsgChangeValidatorWeight = {
-  typeUrl: "/stride.stakeibc.MsgChangeValidatorWeight",
-  encode(message: MsgChangeValidatorWeight, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+export const ValidatorWeight = {
+  typeUrl: "/stride.stakeibc.ValidatorWeight",
+  encode(message: ValidatorWeight, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+    if (message.weight !== BigInt(0)) {
+      writer.uint32(16).uint64(message.weight);
+    }
+    return writer;
+  },
+  fromJSON(object: any): ValidatorWeight {
+    return {
+      address: isSet(object.address) ? String(object.address) : "",
+      weight: isSet(object.weight) ? BigInt(object.weight.toString()) : BigInt(0)
+    };
+  },
+  fromPartial(object: Partial<ValidatorWeight>): ValidatorWeight {
+    const message = createBaseValidatorWeight();
+    message.address = object.address ?? "";
+    message.weight = object.weight !== undefined && object.weight !== null ? BigInt(object.weight.toString()) : BigInt(0);
+    return message;
+  },
+  fromAmino(object: ValidatorWeightAmino): ValidatorWeight {
+    const message = createBaseValidatorWeight();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = BigInt(object.weight);
+    }
+    return message;
+  },
+  toAmino(message: ValidatorWeight): ValidatorWeightAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.weight = message.weight ? message.weight.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ValidatorWeightAminoMsg): ValidatorWeight {
+    return ValidatorWeight.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ValidatorWeightProtoMsg): ValidatorWeight {
+    return ValidatorWeight.decode(message.value);
+  },
+  toProto(message: ValidatorWeight): Uint8Array {
+    return ValidatorWeight.encode(message).finish();
+  },
+  toProtoMsg(message: ValidatorWeight): ValidatorWeightProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.ValidatorWeight",
+      value: ValidatorWeight.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgChangeValidatorWeights(): MsgChangeValidatorWeights {
+  return {
+    creator: "",
+    hostZone: "",
+    validatorWeights: []
+  };
+}
+export const MsgChangeValidatorWeights = {
+  typeUrl: "/stride.stakeibc.MsgChangeValidatorWeights",
+  encode(message: MsgChangeValidatorWeights, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
     if (message.hostZone !== "") {
       writer.uint32(18).string(message.hostZone);
     }
-    if (message.valAddr !== "") {
-      writer.uint32(26).string(message.valAddr);
-    }
-    if (message.weight !== BigInt(0)) {
-      writer.uint32(32).uint64(message.weight);
+    for (const v of message.validatorWeights) {
+      ValidatorWeight.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
-  fromJSON(object: any): MsgChangeValidatorWeight {
+  fromJSON(object: any): MsgChangeValidatorWeights {
     return {
       creator: isSet(object.creator) ? String(object.creator) : "",
       hostZone: isSet(object.hostZone) ? String(object.hostZone) : "",
-      valAddr: isSet(object.valAddr) ? String(object.valAddr) : "",
-      weight: isSet(object.weight) ? BigInt(object.weight.toString()) : BigInt(0)
+      validatorWeights: Array.isArray(object?.validatorWeights) ? object.validatorWeights.map((e: any) => ValidatorWeight.fromJSON(e)) : []
     };
   },
-  fromPartial(object: Partial<MsgChangeValidatorWeight>): MsgChangeValidatorWeight {
-    const message = createBaseMsgChangeValidatorWeight();
+  fromPartial(object: Partial<MsgChangeValidatorWeights>): MsgChangeValidatorWeights {
+    const message = createBaseMsgChangeValidatorWeights();
     message.creator = object.creator ?? "";
     message.hostZone = object.hostZone ?? "";
-    message.valAddr = object.valAddr ?? "";
-    message.weight = object.weight !== undefined && object.weight !== null ? BigInt(object.weight.toString()) : BigInt(0);
+    message.validatorWeights = object.validatorWeights?.map(e => ValidatorWeight.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: MsgChangeValidatorWeightAmino): MsgChangeValidatorWeight {
-    return {
-      creator: object.creator,
-      hostZone: object.host_zone,
-      valAddr: object.val_addr,
-      weight: BigInt(object.weight)
-    };
+  fromAmino(object: MsgChangeValidatorWeightsAmino): MsgChangeValidatorWeights {
+    const message = createBaseMsgChangeValidatorWeights();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.host_zone !== undefined && object.host_zone !== null) {
+      message.hostZone = object.host_zone;
+    }
+    message.validatorWeights = object.validator_weights?.map(e => ValidatorWeight.fromAmino(e)) || [];
+    return message;
   },
-  toAmino(message: MsgChangeValidatorWeight): MsgChangeValidatorWeightAmino {
+  toAmino(message: MsgChangeValidatorWeights): MsgChangeValidatorWeightsAmino {
     const obj: any = {};
     obj.creator = message.creator;
     obj.host_zone = message.hostZone;
-    obj.val_addr = message.valAddr;
-    obj.weight = message.weight ? message.weight.toString() : undefined;
+    if (message.validatorWeights) {
+      obj.validator_weights = message.validatorWeights.map(e => e ? ValidatorWeight.toAmino(e) : undefined);
+    } else {
+      obj.validator_weights = [];
+    }
     return obj;
   },
-  fromAminoMsg(object: MsgChangeValidatorWeightAminoMsg): MsgChangeValidatorWeight {
-    return MsgChangeValidatorWeight.fromAmino(object.value);
+  fromAminoMsg(object: MsgChangeValidatorWeightsAminoMsg): MsgChangeValidatorWeights {
+    return MsgChangeValidatorWeights.fromAmino(object.value);
   },
-  fromProtoMsg(message: MsgChangeValidatorWeightProtoMsg): MsgChangeValidatorWeight {
-    return MsgChangeValidatorWeight.decode(message.value);
+  fromProtoMsg(message: MsgChangeValidatorWeightsProtoMsg): MsgChangeValidatorWeights {
+    return MsgChangeValidatorWeights.decode(message.value);
   },
-  toProto(message: MsgChangeValidatorWeight): Uint8Array {
-    return MsgChangeValidatorWeight.encode(message).finish();
+  toProto(message: MsgChangeValidatorWeights): Uint8Array {
+    return MsgChangeValidatorWeights.encode(message).finish();
   },
-  toProtoMsg(message: MsgChangeValidatorWeight): MsgChangeValidatorWeightProtoMsg {
+  toProtoMsg(message: MsgChangeValidatorWeights): MsgChangeValidatorWeightsProtoMsg {
     return {
-      typeUrl: "/stride.stakeibc.MsgChangeValidatorWeight",
-      value: MsgChangeValidatorWeight.encode(message).finish()
+      typeUrl: "/stride.stakeibc.MsgChangeValidatorWeights",
+      value: MsgChangeValidatorWeights.encode(message).finish()
     };
   }
 };
-function createBaseMsgChangeValidatorWeightResponse(): MsgChangeValidatorWeightResponse {
+function createBaseMsgChangeValidatorWeightsResponse(): MsgChangeValidatorWeightsResponse {
   return {};
 }
-export const MsgChangeValidatorWeightResponse = {
-  typeUrl: "/stride.stakeibc.MsgChangeValidatorWeightResponse",
-  encode(_: MsgChangeValidatorWeightResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+export const MsgChangeValidatorWeightsResponse = {
+  typeUrl: "/stride.stakeibc.MsgChangeValidatorWeightsResponse",
+  encode(_: MsgChangeValidatorWeightsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  fromJSON(_: any): MsgChangeValidatorWeightResponse {
+  fromJSON(_: any): MsgChangeValidatorWeightsResponse {
     return {};
   },
-  fromPartial(_: Partial<MsgChangeValidatorWeightResponse>): MsgChangeValidatorWeightResponse {
-    const message = createBaseMsgChangeValidatorWeightResponse();
+  fromPartial(_: Partial<MsgChangeValidatorWeightsResponse>): MsgChangeValidatorWeightsResponse {
+    const message = createBaseMsgChangeValidatorWeightsResponse();
     return message;
   },
-  fromAmino(_: MsgChangeValidatorWeightResponseAmino): MsgChangeValidatorWeightResponse {
-    return {};
+  fromAmino(_: MsgChangeValidatorWeightsResponseAmino): MsgChangeValidatorWeightsResponse {
+    const message = createBaseMsgChangeValidatorWeightsResponse();
+    return message;
   },
-  toAmino(_: MsgChangeValidatorWeightResponse): MsgChangeValidatorWeightResponseAmino {
+  toAmino(_: MsgChangeValidatorWeightsResponse): MsgChangeValidatorWeightsResponseAmino {
     const obj: any = {};
     return obj;
   },
-  fromAminoMsg(object: MsgChangeValidatorWeightResponseAminoMsg): MsgChangeValidatorWeightResponse {
-    return MsgChangeValidatorWeightResponse.fromAmino(object.value);
+  fromAminoMsg(object: MsgChangeValidatorWeightsResponseAminoMsg): MsgChangeValidatorWeightsResponse {
+    return MsgChangeValidatorWeightsResponse.fromAmino(object.value);
   },
-  fromProtoMsg(message: MsgChangeValidatorWeightResponseProtoMsg): MsgChangeValidatorWeightResponse {
-    return MsgChangeValidatorWeightResponse.decode(message.value);
+  fromProtoMsg(message: MsgChangeValidatorWeightsResponseProtoMsg): MsgChangeValidatorWeightsResponse {
+    return MsgChangeValidatorWeightsResponse.decode(message.value);
   },
-  toProto(message: MsgChangeValidatorWeightResponse): Uint8Array {
-    return MsgChangeValidatorWeightResponse.encode(message).finish();
+  toProto(message: MsgChangeValidatorWeightsResponse): Uint8Array {
+    return MsgChangeValidatorWeightsResponse.encode(message).finish();
   },
-  toProtoMsg(message: MsgChangeValidatorWeightResponse): MsgChangeValidatorWeightResponseProtoMsg {
+  toProtoMsg(message: MsgChangeValidatorWeightsResponse): MsgChangeValidatorWeightsResponseProtoMsg {
     return {
-      typeUrl: "/stride.stakeibc.MsgChangeValidatorWeightResponse",
-      value: MsgChangeValidatorWeightResponse.encode(message).finish()
+      typeUrl: "/stride.stakeibc.MsgChangeValidatorWeightsResponse",
+      value: MsgChangeValidatorWeightsResponse.encode(message).finish()
     };
   }
 };
@@ -1356,11 +2188,17 @@ export const MsgDeleteValidator = {
     return message;
   },
   fromAmino(object: MsgDeleteValidatorAmino): MsgDeleteValidator {
-    return {
-      creator: object.creator,
-      hostZone: object.host_zone,
-      valAddr: object.val_addr
-    };
+    const message = createBaseMsgDeleteValidator();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.host_zone !== undefined && object.host_zone !== null) {
+      message.hostZone = object.host_zone;
+    }
+    if (object.val_addr !== undefined && object.val_addr !== null) {
+      message.valAddr = object.val_addr;
+    }
+    return message;
   },
   toAmino(message: MsgDeleteValidator): MsgDeleteValidatorAmino {
     const obj: any = {};
@@ -1401,7 +2239,8 @@ export const MsgDeleteValidatorResponse = {
     return message;
   },
   fromAmino(_: MsgDeleteValidatorResponseAmino): MsgDeleteValidatorResponse {
-    return {};
+    const message = createBaseMsgDeleteValidatorResponse();
+    return message;
   },
   toAmino(_: MsgDeleteValidatorResponse): MsgDeleteValidatorResponseAmino {
     const obj: any = {};
@@ -1427,7 +2266,8 @@ function createBaseMsgRestoreInterchainAccount(): MsgRestoreInterchainAccount {
   return {
     creator: "",
     chainId: "",
-    accountType: 0
+    connectionId: "",
+    accountOwner: ""
   };
 }
 export const MsgRestoreInterchainAccount = {
@@ -1439,8 +2279,11 @@ export const MsgRestoreInterchainAccount = {
     if (message.chainId !== "") {
       writer.uint32(18).string(message.chainId);
     }
-    if (message.accountType !== 0) {
-      writer.uint32(24).int32(message.accountType);
+    if (message.connectionId !== "") {
+      writer.uint32(26).string(message.connectionId);
+    }
+    if (message.accountOwner !== "") {
+      writer.uint32(34).string(message.accountOwner);
     }
     return writer;
   },
@@ -1448,28 +2291,40 @@ export const MsgRestoreInterchainAccount = {
     return {
       creator: isSet(object.creator) ? String(object.creator) : "",
       chainId: isSet(object.chainId) ? String(object.chainId) : "",
-      accountType: isSet(object.accountType) ? iCAAccountTypeFromJSON(object.accountType) : -1
+      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
+      accountOwner: isSet(object.accountOwner) ? String(object.accountOwner) : ""
     };
   },
   fromPartial(object: Partial<MsgRestoreInterchainAccount>): MsgRestoreInterchainAccount {
     const message = createBaseMsgRestoreInterchainAccount();
     message.creator = object.creator ?? "";
     message.chainId = object.chainId ?? "";
-    message.accountType = object.accountType ?? 0;
+    message.connectionId = object.connectionId ?? "";
+    message.accountOwner = object.accountOwner ?? "";
     return message;
   },
   fromAmino(object: MsgRestoreInterchainAccountAmino): MsgRestoreInterchainAccount {
-    return {
-      creator: object.creator,
-      chainId: object.chain_id,
-      accountType: isSet(object.account_type) ? iCAAccountTypeFromJSON(object.account_type) : -1
-    };
+    const message = createBaseMsgRestoreInterchainAccount();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    if (object.account_owner !== undefined && object.account_owner !== null) {
+      message.accountOwner = object.account_owner;
+    }
+    return message;
   },
   toAmino(message: MsgRestoreInterchainAccount): MsgRestoreInterchainAccountAmino {
     const obj: any = {};
     obj.creator = message.creator;
     obj.chain_id = message.chainId;
-    obj.account_type = message.accountType;
+    obj.connection_id = message.connectionId;
+    obj.account_owner = message.accountOwner;
     return obj;
   },
   fromAminoMsg(object: MsgRestoreInterchainAccountAminoMsg): MsgRestoreInterchainAccount {
@@ -1504,7 +2359,8 @@ export const MsgRestoreInterchainAccountResponse = {
     return message;
   },
   fromAmino(_: MsgRestoreInterchainAccountResponseAmino): MsgRestoreInterchainAccountResponse {
-    return {};
+    const message = createBaseMsgRestoreInterchainAccountResponse();
+    return message;
   },
   toAmino(_: MsgRestoreInterchainAccountResponse): MsgRestoreInterchainAccountResponseAmino {
     const obj: any = {};
@@ -1562,11 +2418,17 @@ export const MsgUpdateValidatorSharesExchRate = {
     return message;
   },
   fromAmino(object: MsgUpdateValidatorSharesExchRateAmino): MsgUpdateValidatorSharesExchRate {
-    return {
-      creator: object.creator,
-      chainId: object.chain_id,
-      valoper: object.valoper
-    };
+    const message = createBaseMsgUpdateValidatorSharesExchRate();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.valoper !== undefined && object.valoper !== null) {
+      message.valoper = object.valoper;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateValidatorSharesExchRate): MsgUpdateValidatorSharesExchRateAmino {
     const obj: any = {};
@@ -1607,7 +2469,8 @@ export const MsgUpdateValidatorSharesExchRateResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateValidatorSharesExchRateResponseAmino): MsgUpdateValidatorSharesExchRateResponse {
-    return {};
+    const message = createBaseMsgUpdateValidatorSharesExchRateResponse();
+    return message;
   },
   toAmino(_: MsgUpdateValidatorSharesExchRateResponse): MsgUpdateValidatorSharesExchRateResponseAmino {
     const obj: any = {};
@@ -1626,6 +2489,734 @@ export const MsgUpdateValidatorSharesExchRateResponse = {
     return {
       typeUrl: "/stride.stakeibc.MsgUpdateValidatorSharesExchRateResponse",
       value: MsgUpdateValidatorSharesExchRateResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgCalibrateDelegation(): MsgCalibrateDelegation {
+  return {
+    creator: "",
+    chainId: "",
+    valoper: ""
+  };
+}
+export const MsgCalibrateDelegation = {
+  typeUrl: "/stride.stakeibc.MsgCalibrateDelegation",
+  encode(message: MsgCalibrateDelegation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.chainId !== "") {
+      writer.uint32(18).string(message.chainId);
+    }
+    if (message.valoper !== "") {
+      writer.uint32(26).string(message.valoper);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgCalibrateDelegation {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      chainId: isSet(object.chainId) ? String(object.chainId) : "",
+      valoper: isSet(object.valoper) ? String(object.valoper) : ""
+    };
+  },
+  fromPartial(object: Partial<MsgCalibrateDelegation>): MsgCalibrateDelegation {
+    const message = createBaseMsgCalibrateDelegation();
+    message.creator = object.creator ?? "";
+    message.chainId = object.chainId ?? "";
+    message.valoper = object.valoper ?? "";
+    return message;
+  },
+  fromAmino(object: MsgCalibrateDelegationAmino): MsgCalibrateDelegation {
+    const message = createBaseMsgCalibrateDelegation();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.valoper !== undefined && object.valoper !== null) {
+      message.valoper = object.valoper;
+    }
+    return message;
+  },
+  toAmino(message: MsgCalibrateDelegation): MsgCalibrateDelegationAmino {
+    const obj: any = {};
+    obj.creator = message.creator;
+    obj.chain_id = message.chainId;
+    obj.valoper = message.valoper;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCalibrateDelegationAminoMsg): MsgCalibrateDelegation {
+    return MsgCalibrateDelegation.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCalibrateDelegationProtoMsg): MsgCalibrateDelegation {
+    return MsgCalibrateDelegation.decode(message.value);
+  },
+  toProto(message: MsgCalibrateDelegation): Uint8Array {
+    return MsgCalibrateDelegation.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCalibrateDelegation): MsgCalibrateDelegationProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgCalibrateDelegation",
+      value: MsgCalibrateDelegation.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgCalibrateDelegationResponse(): MsgCalibrateDelegationResponse {
+  return {};
+}
+export const MsgCalibrateDelegationResponse = {
+  typeUrl: "/stride.stakeibc.MsgCalibrateDelegationResponse",
+  encode(_: MsgCalibrateDelegationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgCalibrateDelegationResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgCalibrateDelegationResponse>): MsgCalibrateDelegationResponse {
+    const message = createBaseMsgCalibrateDelegationResponse();
+    return message;
+  },
+  fromAmino(_: MsgCalibrateDelegationResponseAmino): MsgCalibrateDelegationResponse {
+    const message = createBaseMsgCalibrateDelegationResponse();
+    return message;
+  },
+  toAmino(_: MsgCalibrateDelegationResponse): MsgCalibrateDelegationResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgCalibrateDelegationResponseAminoMsg): MsgCalibrateDelegationResponse {
+    return MsgCalibrateDelegationResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCalibrateDelegationResponseProtoMsg): MsgCalibrateDelegationResponse {
+    return MsgCalibrateDelegationResponse.decode(message.value);
+  },
+  toProto(message: MsgCalibrateDelegationResponse): Uint8Array {
+    return MsgCalibrateDelegationResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCalibrateDelegationResponse): MsgCalibrateDelegationResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgCalibrateDelegationResponse",
+      value: MsgCalibrateDelegationResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgResumeHostZone(): MsgResumeHostZone {
+  return {
+    creator: "",
+    chainId: ""
+  };
+}
+export const MsgResumeHostZone = {
+  typeUrl: "/stride.stakeibc.MsgResumeHostZone",
+  encode(message: MsgResumeHostZone, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.chainId !== "") {
+      writer.uint32(18).string(message.chainId);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgResumeHostZone {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      chainId: isSet(object.chainId) ? String(object.chainId) : ""
+    };
+  },
+  fromPartial(object: Partial<MsgResumeHostZone>): MsgResumeHostZone {
+    const message = createBaseMsgResumeHostZone();
+    message.creator = object.creator ?? "";
+    message.chainId = object.chainId ?? "";
+    return message;
+  },
+  fromAmino(object: MsgResumeHostZoneAmino): MsgResumeHostZone {
+    const message = createBaseMsgResumeHostZone();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    return message;
+  },
+  toAmino(message: MsgResumeHostZone): MsgResumeHostZoneAmino {
+    const obj: any = {};
+    obj.creator = message.creator;
+    obj.chain_id = message.chainId;
+    return obj;
+  },
+  fromAminoMsg(object: MsgResumeHostZoneAminoMsg): MsgResumeHostZone {
+    return MsgResumeHostZone.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgResumeHostZoneProtoMsg): MsgResumeHostZone {
+    return MsgResumeHostZone.decode(message.value);
+  },
+  toProto(message: MsgResumeHostZone): Uint8Array {
+    return MsgResumeHostZone.encode(message).finish();
+  },
+  toProtoMsg(message: MsgResumeHostZone): MsgResumeHostZoneProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgResumeHostZone",
+      value: MsgResumeHostZone.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgResumeHostZoneResponse(): MsgResumeHostZoneResponse {
+  return {};
+}
+export const MsgResumeHostZoneResponse = {
+  typeUrl: "/stride.stakeibc.MsgResumeHostZoneResponse",
+  encode(_: MsgResumeHostZoneResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgResumeHostZoneResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgResumeHostZoneResponse>): MsgResumeHostZoneResponse {
+    const message = createBaseMsgResumeHostZoneResponse();
+    return message;
+  },
+  fromAmino(_: MsgResumeHostZoneResponseAmino): MsgResumeHostZoneResponse {
+    const message = createBaseMsgResumeHostZoneResponse();
+    return message;
+  },
+  toAmino(_: MsgResumeHostZoneResponse): MsgResumeHostZoneResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgResumeHostZoneResponseAminoMsg): MsgResumeHostZoneResponse {
+    return MsgResumeHostZoneResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgResumeHostZoneResponseProtoMsg): MsgResumeHostZoneResponse {
+    return MsgResumeHostZoneResponse.decode(message.value);
+  },
+  toProto(message: MsgResumeHostZoneResponse): Uint8Array {
+    return MsgResumeHostZoneResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgResumeHostZoneResponse): MsgResumeHostZoneResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgResumeHostZoneResponse",
+      value: MsgResumeHostZoneResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgCreateTradeRoute(): MsgCreateTradeRoute {
+  return {
+    authority: "",
+    hostChainId: "",
+    strideToRewardConnectionId: "",
+    strideToTradeConnectionId: "",
+    hostToRewardTransferChannelId: "",
+    rewardToTradeTransferChannelId: "",
+    tradeToHostTransferChannelId: "",
+    rewardDenomOnHost: "",
+    rewardDenomOnReward: "",
+    rewardDenomOnTrade: "",
+    hostDenomOnTrade: "",
+    hostDenomOnHost: "",
+    poolId: BigInt(0),
+    maxAllowedSwapLossRate: "",
+    minSwapAmount: "",
+    maxSwapAmount: ""
+  };
+}
+export const MsgCreateTradeRoute = {
+  typeUrl: "/stride.stakeibc.MsgCreateTradeRoute",
+  encode(message: MsgCreateTradeRoute, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.hostChainId !== "") {
+      writer.uint32(18).string(message.hostChainId);
+    }
+    if (message.strideToRewardConnectionId !== "") {
+      writer.uint32(26).string(message.strideToRewardConnectionId);
+    }
+    if (message.strideToTradeConnectionId !== "") {
+      writer.uint32(34).string(message.strideToTradeConnectionId);
+    }
+    if (message.hostToRewardTransferChannelId !== "") {
+      writer.uint32(42).string(message.hostToRewardTransferChannelId);
+    }
+    if (message.rewardToTradeTransferChannelId !== "") {
+      writer.uint32(50).string(message.rewardToTradeTransferChannelId);
+    }
+    if (message.tradeToHostTransferChannelId !== "") {
+      writer.uint32(58).string(message.tradeToHostTransferChannelId);
+    }
+    if (message.rewardDenomOnHost !== "") {
+      writer.uint32(66).string(message.rewardDenomOnHost);
+    }
+    if (message.rewardDenomOnReward !== "") {
+      writer.uint32(74).string(message.rewardDenomOnReward);
+    }
+    if (message.rewardDenomOnTrade !== "") {
+      writer.uint32(82).string(message.rewardDenomOnTrade);
+    }
+    if (message.hostDenomOnTrade !== "") {
+      writer.uint32(90).string(message.hostDenomOnTrade);
+    }
+    if (message.hostDenomOnHost !== "") {
+      writer.uint32(98).string(message.hostDenomOnHost);
+    }
+    if (message.poolId !== BigInt(0)) {
+      writer.uint32(104).uint64(message.poolId);
+    }
+    if (message.maxAllowedSwapLossRate !== "") {
+      writer.uint32(114).string(message.maxAllowedSwapLossRate);
+    }
+    if (message.minSwapAmount !== "") {
+      writer.uint32(122).string(message.minSwapAmount);
+    }
+    if (message.maxSwapAmount !== "") {
+      writer.uint32(130).string(message.maxSwapAmount);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgCreateTradeRoute {
+    return {
+      authority: isSet(object.authority) ? String(object.authority) : "",
+      hostChainId: isSet(object.hostChainId) ? String(object.hostChainId) : "",
+      strideToRewardConnectionId: isSet(object.strideToRewardConnectionId) ? String(object.strideToRewardConnectionId) : "",
+      strideToTradeConnectionId: isSet(object.strideToTradeConnectionId) ? String(object.strideToTradeConnectionId) : "",
+      hostToRewardTransferChannelId: isSet(object.hostToRewardTransferChannelId) ? String(object.hostToRewardTransferChannelId) : "",
+      rewardToTradeTransferChannelId: isSet(object.rewardToTradeTransferChannelId) ? String(object.rewardToTradeTransferChannelId) : "",
+      tradeToHostTransferChannelId: isSet(object.tradeToHostTransferChannelId) ? String(object.tradeToHostTransferChannelId) : "",
+      rewardDenomOnHost: isSet(object.rewardDenomOnHost) ? String(object.rewardDenomOnHost) : "",
+      rewardDenomOnReward: isSet(object.rewardDenomOnReward) ? String(object.rewardDenomOnReward) : "",
+      rewardDenomOnTrade: isSet(object.rewardDenomOnTrade) ? String(object.rewardDenomOnTrade) : "",
+      hostDenomOnTrade: isSet(object.hostDenomOnTrade) ? String(object.hostDenomOnTrade) : "",
+      hostDenomOnHost: isSet(object.hostDenomOnHost) ? String(object.hostDenomOnHost) : "",
+      poolId: isSet(object.poolId) ? BigInt(object.poolId.toString()) : BigInt(0),
+      maxAllowedSwapLossRate: isSet(object.maxAllowedSwapLossRate) ? String(object.maxAllowedSwapLossRate) : "",
+      minSwapAmount: isSet(object.minSwapAmount) ? String(object.minSwapAmount) : "",
+      maxSwapAmount: isSet(object.maxSwapAmount) ? String(object.maxSwapAmount) : ""
+    };
+  },
+  fromPartial(object: Partial<MsgCreateTradeRoute>): MsgCreateTradeRoute {
+    const message = createBaseMsgCreateTradeRoute();
+    message.authority = object.authority ?? "";
+    message.hostChainId = object.hostChainId ?? "";
+    message.strideToRewardConnectionId = object.strideToRewardConnectionId ?? "";
+    message.strideToTradeConnectionId = object.strideToTradeConnectionId ?? "";
+    message.hostToRewardTransferChannelId = object.hostToRewardTransferChannelId ?? "";
+    message.rewardToTradeTransferChannelId = object.rewardToTradeTransferChannelId ?? "";
+    message.tradeToHostTransferChannelId = object.tradeToHostTransferChannelId ?? "";
+    message.rewardDenomOnHost = object.rewardDenomOnHost ?? "";
+    message.rewardDenomOnReward = object.rewardDenomOnReward ?? "";
+    message.rewardDenomOnTrade = object.rewardDenomOnTrade ?? "";
+    message.hostDenomOnTrade = object.hostDenomOnTrade ?? "";
+    message.hostDenomOnHost = object.hostDenomOnHost ?? "";
+    message.poolId = object.poolId !== undefined && object.poolId !== null ? BigInt(object.poolId.toString()) : BigInt(0);
+    message.maxAllowedSwapLossRate = object.maxAllowedSwapLossRate ?? "";
+    message.minSwapAmount = object.minSwapAmount ?? "";
+    message.maxSwapAmount = object.maxSwapAmount ?? "";
+    return message;
+  },
+  fromAmino(object: MsgCreateTradeRouteAmino): MsgCreateTradeRoute {
+    const message = createBaseMsgCreateTradeRoute();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.host_chain_id !== undefined && object.host_chain_id !== null) {
+      message.hostChainId = object.host_chain_id;
+    }
+    if (object.stride_to_reward_connection_id !== undefined && object.stride_to_reward_connection_id !== null) {
+      message.strideToRewardConnectionId = object.stride_to_reward_connection_id;
+    }
+    if (object.stride_to_trade_connection_id !== undefined && object.stride_to_trade_connection_id !== null) {
+      message.strideToTradeConnectionId = object.stride_to_trade_connection_id;
+    }
+    if (object.host_to_reward_transfer_channel_id !== undefined && object.host_to_reward_transfer_channel_id !== null) {
+      message.hostToRewardTransferChannelId = object.host_to_reward_transfer_channel_id;
+    }
+    if (object.reward_to_trade_transfer_channel_id !== undefined && object.reward_to_trade_transfer_channel_id !== null) {
+      message.rewardToTradeTransferChannelId = object.reward_to_trade_transfer_channel_id;
+    }
+    if (object.trade_to_host_transfer_channel_id !== undefined && object.trade_to_host_transfer_channel_id !== null) {
+      message.tradeToHostTransferChannelId = object.trade_to_host_transfer_channel_id;
+    }
+    if (object.reward_denom_on_host !== undefined && object.reward_denom_on_host !== null) {
+      message.rewardDenomOnHost = object.reward_denom_on_host;
+    }
+    if (object.reward_denom_on_reward !== undefined && object.reward_denom_on_reward !== null) {
+      message.rewardDenomOnReward = object.reward_denom_on_reward;
+    }
+    if (object.reward_denom_on_trade !== undefined && object.reward_denom_on_trade !== null) {
+      message.rewardDenomOnTrade = object.reward_denom_on_trade;
+    }
+    if (object.host_denom_on_trade !== undefined && object.host_denom_on_trade !== null) {
+      message.hostDenomOnTrade = object.host_denom_on_trade;
+    }
+    if (object.host_denom_on_host !== undefined && object.host_denom_on_host !== null) {
+      message.hostDenomOnHost = object.host_denom_on_host;
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.max_allowed_swap_loss_rate !== undefined && object.max_allowed_swap_loss_rate !== null) {
+      message.maxAllowedSwapLossRate = object.max_allowed_swap_loss_rate;
+    }
+    if (object.min_swap_amount !== undefined && object.min_swap_amount !== null) {
+      message.minSwapAmount = object.min_swap_amount;
+    }
+    if (object.max_swap_amount !== undefined && object.max_swap_amount !== null) {
+      message.maxSwapAmount = object.max_swap_amount;
+    }
+    return message;
+  },
+  toAmino(message: MsgCreateTradeRoute): MsgCreateTradeRouteAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.host_chain_id = message.hostChainId;
+    obj.stride_to_reward_connection_id = message.strideToRewardConnectionId;
+    obj.stride_to_trade_connection_id = message.strideToTradeConnectionId;
+    obj.host_to_reward_transfer_channel_id = message.hostToRewardTransferChannelId;
+    obj.reward_to_trade_transfer_channel_id = message.rewardToTradeTransferChannelId;
+    obj.trade_to_host_transfer_channel_id = message.tradeToHostTransferChannelId;
+    obj.reward_denom_on_host = message.rewardDenomOnHost;
+    obj.reward_denom_on_reward = message.rewardDenomOnReward;
+    obj.reward_denom_on_trade = message.rewardDenomOnTrade;
+    obj.host_denom_on_trade = message.hostDenomOnTrade;
+    obj.host_denom_on_host = message.hostDenomOnHost;
+    obj.pool_id = message.poolId ? message.poolId.toString() : undefined;
+    obj.max_allowed_swap_loss_rate = message.maxAllowedSwapLossRate;
+    obj.min_swap_amount = message.minSwapAmount;
+    obj.max_swap_amount = message.maxSwapAmount;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateTradeRouteAminoMsg): MsgCreateTradeRoute {
+    return MsgCreateTradeRoute.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreateTradeRoute): MsgCreateTradeRouteAminoMsg {
+    return {
+      type: "stride/x/stakeibc/MsgCreateTradeRoute",
+      value: MsgCreateTradeRoute.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgCreateTradeRouteProtoMsg): MsgCreateTradeRoute {
+    return MsgCreateTradeRoute.decode(message.value);
+  },
+  toProto(message: MsgCreateTradeRoute): Uint8Array {
+    return MsgCreateTradeRoute.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateTradeRoute): MsgCreateTradeRouteProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgCreateTradeRoute",
+      value: MsgCreateTradeRoute.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgCreateTradeRouteResponse(): MsgCreateTradeRouteResponse {
+  return {};
+}
+export const MsgCreateTradeRouteResponse = {
+  typeUrl: "/stride.stakeibc.MsgCreateTradeRouteResponse",
+  encode(_: MsgCreateTradeRouteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgCreateTradeRouteResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgCreateTradeRouteResponse>): MsgCreateTradeRouteResponse {
+    const message = createBaseMsgCreateTradeRouteResponse();
+    return message;
+  },
+  fromAmino(_: MsgCreateTradeRouteResponseAmino): MsgCreateTradeRouteResponse {
+    const message = createBaseMsgCreateTradeRouteResponse();
+    return message;
+  },
+  toAmino(_: MsgCreateTradeRouteResponse): MsgCreateTradeRouteResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateTradeRouteResponseAminoMsg): MsgCreateTradeRouteResponse {
+    return MsgCreateTradeRouteResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgCreateTradeRouteResponseProtoMsg): MsgCreateTradeRouteResponse {
+    return MsgCreateTradeRouteResponse.decode(message.value);
+  },
+  toProto(message: MsgCreateTradeRouteResponse): Uint8Array {
+    return MsgCreateTradeRouteResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgCreateTradeRouteResponse): MsgCreateTradeRouteResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgCreateTradeRouteResponse",
+      value: MsgCreateTradeRouteResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgDeleteTradeRoute(): MsgDeleteTradeRoute {
+  return {
+    authority: "",
+    rewardDenom: "",
+    hostDenom: ""
+  };
+}
+export const MsgDeleteTradeRoute = {
+  typeUrl: "/stride.stakeibc.MsgDeleteTradeRoute",
+  encode(message: MsgDeleteTradeRoute, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.rewardDenom !== "") {
+      writer.uint32(18).string(message.rewardDenom);
+    }
+    if (message.hostDenom !== "") {
+      writer.uint32(26).string(message.hostDenom);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgDeleteTradeRoute {
+    return {
+      authority: isSet(object.authority) ? String(object.authority) : "",
+      rewardDenom: isSet(object.rewardDenom) ? String(object.rewardDenom) : "",
+      hostDenom: isSet(object.hostDenom) ? String(object.hostDenom) : ""
+    };
+  },
+  fromPartial(object: Partial<MsgDeleteTradeRoute>): MsgDeleteTradeRoute {
+    const message = createBaseMsgDeleteTradeRoute();
+    message.authority = object.authority ?? "";
+    message.rewardDenom = object.rewardDenom ?? "";
+    message.hostDenom = object.hostDenom ?? "";
+    return message;
+  },
+  fromAmino(object: MsgDeleteTradeRouteAmino): MsgDeleteTradeRoute {
+    const message = createBaseMsgDeleteTradeRoute();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.reward_denom !== undefined && object.reward_denom !== null) {
+      message.rewardDenom = object.reward_denom;
+    }
+    if (object.host_denom !== undefined && object.host_denom !== null) {
+      message.hostDenom = object.host_denom;
+    }
+    return message;
+  },
+  toAmino(message: MsgDeleteTradeRoute): MsgDeleteTradeRouteAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.reward_denom = message.rewardDenom;
+    obj.host_denom = message.hostDenom;
+    return obj;
+  },
+  fromAminoMsg(object: MsgDeleteTradeRouteAminoMsg): MsgDeleteTradeRoute {
+    return MsgDeleteTradeRoute.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgDeleteTradeRoute): MsgDeleteTradeRouteAminoMsg {
+    return {
+      type: "stride/x/stakeibc/MsgDeleteTradeRoute",
+      value: MsgDeleteTradeRoute.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgDeleteTradeRouteProtoMsg): MsgDeleteTradeRoute {
+    return MsgDeleteTradeRoute.decode(message.value);
+  },
+  toProto(message: MsgDeleteTradeRoute): Uint8Array {
+    return MsgDeleteTradeRoute.encode(message).finish();
+  },
+  toProtoMsg(message: MsgDeleteTradeRoute): MsgDeleteTradeRouteProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgDeleteTradeRoute",
+      value: MsgDeleteTradeRoute.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgDeleteTradeRouteResponse(): MsgDeleteTradeRouteResponse {
+  return {};
+}
+export const MsgDeleteTradeRouteResponse = {
+  typeUrl: "/stride.stakeibc.MsgDeleteTradeRouteResponse",
+  encode(_: MsgDeleteTradeRouteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgDeleteTradeRouteResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgDeleteTradeRouteResponse>): MsgDeleteTradeRouteResponse {
+    const message = createBaseMsgDeleteTradeRouteResponse();
+    return message;
+  },
+  fromAmino(_: MsgDeleteTradeRouteResponseAmino): MsgDeleteTradeRouteResponse {
+    const message = createBaseMsgDeleteTradeRouteResponse();
+    return message;
+  },
+  toAmino(_: MsgDeleteTradeRouteResponse): MsgDeleteTradeRouteResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgDeleteTradeRouteResponseAminoMsg): MsgDeleteTradeRouteResponse {
+    return MsgDeleteTradeRouteResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgDeleteTradeRouteResponseProtoMsg): MsgDeleteTradeRouteResponse {
+    return MsgDeleteTradeRouteResponse.decode(message.value);
+  },
+  toProto(message: MsgDeleteTradeRouteResponse): Uint8Array {
+    return MsgDeleteTradeRouteResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgDeleteTradeRouteResponse): MsgDeleteTradeRouteResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgDeleteTradeRouteResponse",
+      value: MsgDeleteTradeRouteResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUpdateTradeRoute(): MsgUpdateTradeRoute {
+  return {
+    authority: "",
+    rewardDenom: "",
+    hostDenom: "",
+    poolId: BigInt(0),
+    maxAllowedSwapLossRate: "",
+    minSwapAmount: "",
+    maxSwapAmount: ""
+  };
+}
+export const MsgUpdateTradeRoute = {
+  typeUrl: "/stride.stakeibc.MsgUpdateTradeRoute",
+  encode(message: MsgUpdateTradeRoute, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.rewardDenom !== "") {
+      writer.uint32(18).string(message.rewardDenom);
+    }
+    if (message.hostDenom !== "") {
+      writer.uint32(26).string(message.hostDenom);
+    }
+    if (message.poolId !== BigInt(0)) {
+      writer.uint32(32).uint64(message.poolId);
+    }
+    if (message.maxAllowedSwapLossRate !== "") {
+      writer.uint32(42).string(message.maxAllowedSwapLossRate);
+    }
+    if (message.minSwapAmount !== "") {
+      writer.uint32(50).string(message.minSwapAmount);
+    }
+    if (message.maxSwapAmount !== "") {
+      writer.uint32(58).string(message.maxSwapAmount);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgUpdateTradeRoute {
+    return {
+      authority: isSet(object.authority) ? String(object.authority) : "",
+      rewardDenom: isSet(object.rewardDenom) ? String(object.rewardDenom) : "",
+      hostDenom: isSet(object.hostDenom) ? String(object.hostDenom) : "",
+      poolId: isSet(object.poolId) ? BigInt(object.poolId.toString()) : BigInt(0),
+      maxAllowedSwapLossRate: isSet(object.maxAllowedSwapLossRate) ? String(object.maxAllowedSwapLossRate) : "",
+      minSwapAmount: isSet(object.minSwapAmount) ? String(object.minSwapAmount) : "",
+      maxSwapAmount: isSet(object.maxSwapAmount) ? String(object.maxSwapAmount) : ""
+    };
+  },
+  fromPartial(object: Partial<MsgUpdateTradeRoute>): MsgUpdateTradeRoute {
+    const message = createBaseMsgUpdateTradeRoute();
+    message.authority = object.authority ?? "";
+    message.rewardDenom = object.rewardDenom ?? "";
+    message.hostDenom = object.hostDenom ?? "";
+    message.poolId = object.poolId !== undefined && object.poolId !== null ? BigInt(object.poolId.toString()) : BigInt(0);
+    message.maxAllowedSwapLossRate = object.maxAllowedSwapLossRate ?? "";
+    message.minSwapAmount = object.minSwapAmount ?? "";
+    message.maxSwapAmount = object.maxSwapAmount ?? "";
+    return message;
+  },
+  fromAmino(object: MsgUpdateTradeRouteAmino): MsgUpdateTradeRoute {
+    const message = createBaseMsgUpdateTradeRoute();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.reward_denom !== undefined && object.reward_denom !== null) {
+      message.rewardDenom = object.reward_denom;
+    }
+    if (object.host_denom !== undefined && object.host_denom !== null) {
+      message.hostDenom = object.host_denom;
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.max_allowed_swap_loss_rate !== undefined && object.max_allowed_swap_loss_rate !== null) {
+      message.maxAllowedSwapLossRate = object.max_allowed_swap_loss_rate;
+    }
+    if (object.min_swap_amount !== undefined && object.min_swap_amount !== null) {
+      message.minSwapAmount = object.min_swap_amount;
+    }
+    if (object.max_swap_amount !== undefined && object.max_swap_amount !== null) {
+      message.maxSwapAmount = object.max_swap_amount;
+    }
+    return message;
+  },
+  toAmino(message: MsgUpdateTradeRoute): MsgUpdateTradeRouteAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.reward_denom = message.rewardDenom;
+    obj.host_denom = message.hostDenom;
+    obj.pool_id = message.poolId ? message.poolId.toString() : undefined;
+    obj.max_allowed_swap_loss_rate = message.maxAllowedSwapLossRate;
+    obj.min_swap_amount = message.minSwapAmount;
+    obj.max_swap_amount = message.maxSwapAmount;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateTradeRouteAminoMsg): MsgUpdateTradeRoute {
+    return MsgUpdateTradeRoute.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateTradeRoute): MsgUpdateTradeRouteAminoMsg {
+    return {
+      type: "stride/x/stakeibc/MsgUpdateTradeRoute",
+      value: MsgUpdateTradeRoute.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgUpdateTradeRouteProtoMsg): MsgUpdateTradeRoute {
+    return MsgUpdateTradeRoute.decode(message.value);
+  },
+  toProto(message: MsgUpdateTradeRoute): Uint8Array {
+    return MsgUpdateTradeRoute.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateTradeRoute): MsgUpdateTradeRouteProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgUpdateTradeRoute",
+      value: MsgUpdateTradeRoute.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUpdateTradeRouteResponse(): MsgUpdateTradeRouteResponse {
+  return {};
+}
+export const MsgUpdateTradeRouteResponse = {
+  typeUrl: "/stride.stakeibc.MsgUpdateTradeRouteResponse",
+  encode(_: MsgUpdateTradeRouteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgUpdateTradeRouteResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgUpdateTradeRouteResponse>): MsgUpdateTradeRouteResponse {
+    const message = createBaseMsgUpdateTradeRouteResponse();
+    return message;
+  },
+  fromAmino(_: MsgUpdateTradeRouteResponseAmino): MsgUpdateTradeRouteResponse {
+    const message = createBaseMsgUpdateTradeRouteResponse();
+    return message;
+  },
+  toAmino(_: MsgUpdateTradeRouteResponse): MsgUpdateTradeRouteResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateTradeRouteResponseAminoMsg): MsgUpdateTradeRouteResponse {
+    return MsgUpdateTradeRouteResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateTradeRouteResponseProtoMsg): MsgUpdateTradeRouteResponse {
+    return MsgUpdateTradeRouteResponse.decode(message.value);
+  },
+  toProto(message: MsgUpdateTradeRouteResponse): Uint8Array {
+    return MsgUpdateTradeRouteResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateTradeRouteResponse): MsgUpdateTradeRouteResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgUpdateTradeRouteResponse",
+      value: MsgUpdateTradeRouteResponse.encode(message).finish()
     };
   }
 };

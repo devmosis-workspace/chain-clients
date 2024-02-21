@@ -35,13 +35,13 @@ export interface ConfigProtoMsg {
  */
 export interface ConfigAmino {
   /** modules are the module configurations for the app. */
-  modules: ModuleConfigAmino[];
+  modules?: ModuleConfigAmino[];
   /**
    * golang_bindings specifies explicit interface to implementation type bindings which
    * depinject uses to resolve interface inputs to provider functions.  The scope of this
    * field's configuration is global (not module specific).
    */
-  golang_bindings: GolangBindingAmino[];
+  golang_bindings?: GolangBindingAmino[];
 }
 export interface ConfigAminoMsg {
   type: "cosmos-sdk/Config";
@@ -79,7 +79,7 @@ export interface ModuleConfig {
    * config is the config object for the module. Module config messages should
    * define a ModuleDescriptor using the cosmos.app.v1alpha1.is_module extension.
    */
-  config: Any;
+  config?: Any;
   /**
    * golang_bindings specifies explicit interface to implementation type bindings which
    * depinject uses to resolve interface inputs to provider functions.  The scope of this
@@ -105,7 +105,7 @@ export interface ModuleConfigAmino {
    * that the v1 module had. Note: modules should provide info on which versions
    * they can migrate from in the ModuleDescriptor.can_migration_from field.
    */
-  name: string;
+  name?: string;
   /**
    * config is the config object for the module. Module config messages should
    * define a ModuleDescriptor using the cosmos.app.v1alpha1.is_module extension.
@@ -116,7 +116,7 @@ export interface ModuleConfigAmino {
    * depinject uses to resolve interface inputs to provider functions.  The scope of this
    * field's configuration is module specific.
    */
-  golang_bindings: GolangBindingAmino[];
+  golang_bindings?: GolangBindingAmino[];
 }
 export interface ModuleConfigAminoMsg {
   type: "cosmos-sdk/ModuleConfig";
@@ -125,7 +125,7 @@ export interface ModuleConfigAminoMsg {
 /** ModuleConfig is a module configuration for an app. */
 export interface ModuleConfigSDKType {
   name: string;
-  config: AnySDKType;
+  config?: AnySDKType;
   golang_bindings: GolangBindingSDKType[];
 }
 /** GolangBinding is an explicit interface type to implementing type binding for dependency injection. */
@@ -142,9 +142,9 @@ export interface GolangBindingProtoMsg {
 /** GolangBinding is an explicit interface type to implementing type binding for dependency injection. */
 export interface GolangBindingAmino {
   /** interface_type is the interface type which will be bound to a specific implementation type */
-  interface_type: string;
+  interface_type?: string;
   /** implementation is the implementing type which will be supplied when an input of type interface is requested */
-  implementation: string;
+  implementation?: string;
 }
 export interface GolangBindingAminoMsg {
   type: "cosmos-sdk/GolangBinding";
@@ -185,10 +185,10 @@ export const Config = {
     return message;
   },
   fromAmino(object: ConfigAmino): Config {
-    return {
-      modules: Array.isArray(object?.modules) ? object.modules.map((e: any) => ModuleConfig.fromAmino(e)) : [],
-      golangBindings: Array.isArray(object?.golang_bindings) ? object.golang_bindings.map((e: any) => GolangBinding.fromAmino(e)) : []
-    };
+    const message = createBaseConfig();
+    message.modules = object.modules?.map(e => ModuleConfig.fromAmino(e)) || [];
+    message.golangBindings = object.golang_bindings?.map(e => GolangBinding.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Config): ConfigAmino {
     const obj: any = {};
@@ -229,7 +229,7 @@ export const Config = {
 function createBaseModuleConfig(): ModuleConfig {
   return {
     name: "",
-    config: Any.fromPartial({}),
+    config: undefined,
     golangBindings: []
   };
 }
@@ -262,11 +262,15 @@ export const ModuleConfig = {
     return message;
   },
   fromAmino(object: ModuleConfigAmino): ModuleConfig {
-    return {
-      name: object.name,
-      config: object?.config ? Any.fromAmino(object.config) : undefined,
-      golangBindings: Array.isArray(object?.golang_bindings) ? object.golang_bindings.map((e: any) => GolangBinding.fromAmino(e)) : []
-    };
+    const message = createBaseModuleConfig();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.config !== undefined && object.config !== null) {
+      message.config = Any.fromAmino(object.config);
+    }
+    message.golangBindings = object.golang_bindings?.map(e => GolangBinding.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: ModuleConfig): ModuleConfigAmino {
     const obj: any = {};
@@ -331,10 +335,14 @@ export const GolangBinding = {
     return message;
   },
   fromAmino(object: GolangBindingAmino): GolangBinding {
-    return {
-      interfaceType: object.interface_type,
-      implementation: object.implementation
-    };
+    const message = createBaseGolangBinding();
+    if (object.interface_type !== undefined && object.interface_type !== null) {
+      message.interfaceType = object.interface_type;
+    }
+    if (object.implementation !== undefined && object.implementation !== null) {
+      message.implementation = object.implementation;
+    }
+    return message;
   },
   toAmino(message: GolangBinding): GolangBindingAmino {
     const obj: any = {};

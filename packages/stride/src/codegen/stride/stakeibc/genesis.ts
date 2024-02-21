@@ -18,10 +18,10 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the stakeibc module's genesis state. */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  port_id: string;
+  port_id?: string;
   /** list of zones that are registered by the protocol */
-  host_zone_list: HostZoneAmino[];
-  epoch_tracker_list: EpochTrackerAmino[];
+  host_zone_list?: HostZoneAmino[];
+  epoch_tracker_list?: EpochTrackerAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/stride.stakeibc.GenesisState";
@@ -76,12 +76,16 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      portId: object.port_id,
-      hostZoneList: Array.isArray(object?.host_zone_list) ? object.host_zone_list.map((e: any) => HostZone.fromAmino(e)) : [],
-      epochTrackerList: Array.isArray(object?.epoch_tracker_list) ? object.epoch_tracker_list.map((e: any) => EpochTracker.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    message.hostZoneList = object.host_zone_list?.map(e => HostZone.fromAmino(e)) || [];
+    message.epochTrackerList = object.epoch_tracker_list?.map(e => EpochTracker.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

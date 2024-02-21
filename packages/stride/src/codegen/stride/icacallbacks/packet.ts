@@ -52,9 +52,11 @@ export const IcacallbacksPacketData = {
     return message;
   },
   fromAmino(object: IcacallbacksPacketDataAmino): IcacallbacksPacketData {
-    return {
-      noData: object?.no_data ? NoData.fromAmino(object.no_data) : undefined
-    };
+    const message = createBaseIcacallbacksPacketData();
+    if (object.no_data !== undefined && object.no_data !== null) {
+      message.noData = NoData.fromAmino(object.no_data);
+    }
+    return message;
   },
   toAmino(message: IcacallbacksPacketData): IcacallbacksPacketDataAmino {
     const obj: any = {};
@@ -93,7 +95,8 @@ export const NoData = {
     return message;
   },
   fromAmino(_: NoDataAmino): NoData {
-    return {};
+    const message = createBaseNoData();
+    return message;
   },
   toAmino(_: NoData): NoDataAmino {
     const obj: any = {};

@@ -1,28 +1,77 @@
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
+export enum TimeoutPolicy {
+  REJECT_QUERY_RESPONSE = 0,
+  RETRY_QUERY_REQUEST = 1,
+  EXECUTE_QUERY_CALLBACK = 2,
+  UNRECOGNIZED = -1,
+}
+export const TimeoutPolicySDKType = TimeoutPolicy;
+export const TimeoutPolicyAmino = TimeoutPolicy;
+export function timeoutPolicyFromJSON(object: any): TimeoutPolicy {
+  switch (object) {
+    case 0:
+    case "REJECT_QUERY_RESPONSE":
+      return TimeoutPolicy.REJECT_QUERY_RESPONSE;
+    case 1:
+    case "RETRY_QUERY_REQUEST":
+      return TimeoutPolicy.RETRY_QUERY_REQUEST;
+    case 2:
+    case "EXECUTE_QUERY_CALLBACK":
+      return TimeoutPolicy.EXECUTE_QUERY_CALLBACK;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return TimeoutPolicy.UNRECOGNIZED;
+  }
+}
+export function timeoutPolicyToJSON(object: TimeoutPolicy): string {
+  switch (object) {
+    case TimeoutPolicy.REJECT_QUERY_RESPONSE:
+      return "REJECT_QUERY_RESPONSE";
+    case TimeoutPolicy.RETRY_QUERY_REQUEST:
+      return "RETRY_QUERY_REQUEST";
+    case TimeoutPolicy.EXECUTE_QUERY_CALLBACK:
+      return "EXECUTE_QUERY_CALLBACK";
+    case TimeoutPolicy.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
 export interface Query {
   id: string;
   connectionId: string;
   chainId: string;
   queryType: string;
-  request: Uint8Array;
+  requestData: Uint8Array;
+  callbackModule: string;
   callbackId: string;
-  ttl: bigint;
+  callbackData: Uint8Array;
+  timeoutPolicy: TimeoutPolicy;
+  timeoutDuration: Duration;
+  timeoutTimestamp: bigint;
   requestSent: boolean;
+  submissionHeight: bigint;
 }
 export interface QueryProtoMsg {
   typeUrl: "/stride.interchainquery.v1.Query";
   value: Uint8Array;
 }
 export interface QueryAmino {
-  id: string;
-  connection_id: string;
-  chain_id: string;
-  query_type: string;
-  request: Uint8Array;
-  callback_id: string;
-  ttl: string;
-  request_sent: boolean;
+  id?: string;
+  connection_id?: string;
+  chain_id?: string;
+  query_type?: string;
+  request_data?: string;
+  callback_module?: string;
+  callback_id?: string;
+  callback_data?: string;
+  timeout_policy?: TimeoutPolicy;
+  timeout_duration?: DurationAmino;
+  timeout_timestamp?: string;
+  request_sent?: boolean;
+  submission_height?: string;
 }
 export interface QueryAminoMsg {
   type: "/stride.interchainquery.v1.Query";
@@ -33,10 +82,15 @@ export interface QuerySDKType {
   connection_id: string;
   chain_id: string;
   query_type: string;
-  request: Uint8Array;
+  request_data: Uint8Array;
+  callback_module: string;
   callback_id: string;
-  ttl: bigint;
+  callback_data: Uint8Array;
+  timeout_policy: TimeoutPolicy;
+  timeout_duration: DurationSDKType;
+  timeout_timestamp: bigint;
   request_sent: boolean;
+  submission_height: bigint;
 }
 export interface DataPoint {
   id: string;
@@ -49,10 +103,10 @@ export interface DataPointProtoMsg {
   value: Uint8Array;
 }
 export interface DataPointAmino {
-  id: string;
-  remote_height: string;
-  local_height: string;
-  value: Uint8Array;
+  id?: string;
+  remote_height?: string;
+  local_height?: string;
+  value?: string;
 }
 export interface DataPointAminoMsg {
   type: "/stride.interchainquery.v1.DataPoint";
@@ -74,7 +128,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the epochs module's genesis state. */
 export interface GenesisStateAmino {
-  queries: QueryAmino[];
+  queries?: QueryAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/stride.interchainquery.v1.GenesisState";
@@ -90,10 +144,15 @@ function createBaseQuery(): Query {
     connectionId: "",
     chainId: "",
     queryType: "",
-    request: new Uint8Array(),
+    requestData: new Uint8Array(),
+    callbackModule: "",
     callbackId: "",
-    ttl: BigInt(0),
-    requestSent: false
+    callbackData: new Uint8Array(),
+    timeoutPolicy: 0,
+    timeoutDuration: Duration.fromPartial({}),
+    timeoutTimestamp: BigInt(0),
+    requestSent: false,
+    submissionHeight: BigInt(0)
   };
 }
 export const Query = {
@@ -111,17 +170,32 @@ export const Query = {
     if (message.queryType !== "") {
       writer.uint32(34).string(message.queryType);
     }
-    if (message.request.length !== 0) {
-      writer.uint32(42).bytes(message.request);
+    if (message.requestData.length !== 0) {
+      writer.uint32(42).bytes(message.requestData);
+    }
+    if (message.callbackModule !== "") {
+      writer.uint32(106).string(message.callbackModule);
     }
     if (message.callbackId !== "") {
       writer.uint32(66).string(message.callbackId);
     }
-    if (message.ttl !== BigInt(0)) {
-      writer.uint32(72).uint64(message.ttl);
+    if (message.callbackData.length !== 0) {
+      writer.uint32(98).bytes(message.callbackData);
+    }
+    if (message.timeoutPolicy !== 0) {
+      writer.uint32(120).int32(message.timeoutPolicy);
+    }
+    if (message.timeoutDuration !== undefined) {
+      Duration.encode(message.timeoutDuration, writer.uint32(114).fork()).ldelim();
+    }
+    if (message.timeoutTimestamp !== BigInt(0)) {
+      writer.uint32(72).uint64(message.timeoutTimestamp);
     }
     if (message.requestSent === true) {
       writer.uint32(88).bool(message.requestSent);
+    }
+    if (message.submissionHeight !== BigInt(0)) {
+      writer.uint32(128).uint64(message.submissionHeight);
     }
     return writer;
   },
@@ -131,10 +205,15 @@ export const Query = {
       connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
       chainId: isSet(object.chainId) ? String(object.chainId) : "",
       queryType: isSet(object.queryType) ? String(object.queryType) : "",
-      request: isSet(object.request) ? bytesFromBase64(object.request) : new Uint8Array(),
+      requestData: isSet(object.requestData) ? bytesFromBase64(object.requestData) : new Uint8Array(),
+      callbackModule: isSet(object.callbackModule) ? String(object.callbackModule) : "",
       callbackId: isSet(object.callbackId) ? String(object.callbackId) : "",
-      ttl: isSet(object.ttl) ? BigInt(object.ttl.toString()) : BigInt(0),
-      requestSent: isSet(object.requestSent) ? Boolean(object.requestSent) : false
+      callbackData: isSet(object.callbackData) ? bytesFromBase64(object.callbackData) : new Uint8Array(),
+      timeoutPolicy: isSet(object.timeoutPolicy) ? timeoutPolicyFromJSON(object.timeoutPolicy) : -1,
+      timeoutDuration: isSet(object.timeoutDuration) ? Duration.fromJSON(object.timeoutDuration) : undefined,
+      timeoutTimestamp: isSet(object.timeoutTimestamp) ? BigInt(object.timeoutTimestamp.toString()) : BigInt(0),
+      requestSent: isSet(object.requestSent) ? Boolean(object.requestSent) : false,
+      submissionHeight: isSet(object.submissionHeight) ? BigInt(object.submissionHeight.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<Query>): Query {
@@ -143,23 +222,59 @@ export const Query = {
     message.connectionId = object.connectionId ?? "";
     message.chainId = object.chainId ?? "";
     message.queryType = object.queryType ?? "";
-    message.request = object.request ?? new Uint8Array();
+    message.requestData = object.requestData ?? new Uint8Array();
+    message.callbackModule = object.callbackModule ?? "";
     message.callbackId = object.callbackId ?? "";
-    message.ttl = object.ttl !== undefined && object.ttl !== null ? BigInt(object.ttl.toString()) : BigInt(0);
+    message.callbackData = object.callbackData ?? new Uint8Array();
+    message.timeoutPolicy = object.timeoutPolicy ?? 0;
+    message.timeoutDuration = object.timeoutDuration !== undefined && object.timeoutDuration !== null ? Duration.fromPartial(object.timeoutDuration) : undefined;
+    message.timeoutTimestamp = object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null ? BigInt(object.timeoutTimestamp.toString()) : BigInt(0);
     message.requestSent = object.requestSent ?? false;
+    message.submissionHeight = object.submissionHeight !== undefined && object.submissionHeight !== null ? BigInt(object.submissionHeight.toString()) : BigInt(0);
     return message;
   },
   fromAmino(object: QueryAmino): Query {
-    return {
-      id: object.id,
-      connectionId: object.connection_id,
-      chainId: object.chain_id,
-      queryType: object.query_type,
-      request: object.request,
-      callbackId: object.callback_id,
-      ttl: BigInt(object.ttl),
-      requestSent: object.request_sent
-    };
+    const message = createBaseQuery();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.query_type !== undefined && object.query_type !== null) {
+      message.queryType = object.query_type;
+    }
+    if (object.request_data !== undefined && object.request_data !== null) {
+      message.requestData = bytesFromBase64(object.request_data);
+    }
+    if (object.callback_module !== undefined && object.callback_module !== null) {
+      message.callbackModule = object.callback_module;
+    }
+    if (object.callback_id !== undefined && object.callback_id !== null) {
+      message.callbackId = object.callback_id;
+    }
+    if (object.callback_data !== undefined && object.callback_data !== null) {
+      message.callbackData = bytesFromBase64(object.callback_data);
+    }
+    if (object.timeout_policy !== undefined && object.timeout_policy !== null) {
+      message.timeoutPolicy = timeoutPolicyFromJSON(object.timeout_policy);
+    }
+    if (object.timeout_duration !== undefined && object.timeout_duration !== null) {
+      message.timeoutDuration = Duration.fromAmino(object.timeout_duration);
+    }
+    if (object.timeout_timestamp !== undefined && object.timeout_timestamp !== null) {
+      message.timeoutTimestamp = BigInt(object.timeout_timestamp);
+    }
+    if (object.request_sent !== undefined && object.request_sent !== null) {
+      message.requestSent = object.request_sent;
+    }
+    if (object.submission_height !== undefined && object.submission_height !== null) {
+      message.submissionHeight = BigInt(object.submission_height);
+    }
+    return message;
   },
   toAmino(message: Query): QueryAmino {
     const obj: any = {};
@@ -167,10 +282,15 @@ export const Query = {
     obj.connection_id = message.connectionId;
     obj.chain_id = message.chainId;
     obj.query_type = message.queryType;
-    obj.request = message.request;
+    obj.request_data = message.requestData ? base64FromBytes(message.requestData) : undefined;
+    obj.callback_module = message.callbackModule;
     obj.callback_id = message.callbackId;
-    obj.ttl = message.ttl ? message.ttl.toString() : undefined;
+    obj.callback_data = message.callbackData ? base64FromBytes(message.callbackData) : undefined;
+    obj.timeout_policy = message.timeoutPolicy;
+    obj.timeout_duration = message.timeoutDuration ? Duration.toAmino(message.timeoutDuration) : undefined;
+    obj.timeout_timestamp = message.timeoutTimestamp ? message.timeoutTimestamp.toString() : undefined;
     obj.request_sent = message.requestSent;
+    obj.submission_height = message.submissionHeight ? message.submissionHeight.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryAminoMsg): Query {
@@ -231,19 +351,27 @@ export const DataPoint = {
     return message;
   },
   fromAmino(object: DataPointAmino): DataPoint {
-    return {
-      id: object.id,
-      remoteHeight: object.remote_height,
-      localHeight: object.local_height,
-      value: object.value
-    };
+    const message = createBaseDataPoint();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.remote_height !== undefined && object.remote_height !== null) {
+      message.remoteHeight = object.remote_height;
+    }
+    if (object.local_height !== undefined && object.local_height !== null) {
+      message.localHeight = object.local_height;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = bytesFromBase64(object.value);
+    }
+    return message;
   },
   toAmino(message: DataPoint): DataPointAmino {
     const obj: any = {};
     obj.id = message.id;
     obj.remote_height = message.remoteHeight;
     obj.local_height = message.localHeight;
-    obj.value = message.value;
+    obj.value = message.value ? base64FromBytes(message.value) : undefined;
     return obj;
   },
   fromAminoMsg(object: DataPointAminoMsg): DataPoint {
@@ -286,9 +414,9 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      queries: Array.isArray(object?.queries) ? object.queries.map((e: any) => Query.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.queries = object.queries?.map(e => Query.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

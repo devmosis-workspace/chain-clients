@@ -19,7 +19,7 @@ export interface QueryPendingQueriesResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryPendingQueriesResponseAmino {
-  pending_queries: QueryAmino[];
+  pending_queries?: QueryAmino[];
 }
 export interface QueryPendingQueriesResponseAminoMsg {
   type: "/stride.interchainquery.v1.QueryPendingQueriesResponse";
@@ -44,7 +44,8 @@ export const QueryPendingQueriesRequest = {
     return message;
   },
   fromAmino(_: QueryPendingQueriesRequestAmino): QueryPendingQueriesRequest {
-    return {};
+    const message = createBaseQueryPendingQueriesRequest();
+    return message;
   },
   toAmino(_: QueryPendingQueriesRequest): QueryPendingQueriesRequestAmino {
     const obj: any = {};
@@ -90,9 +91,9 @@ export const QueryPendingQueriesResponse = {
     return message;
   },
   fromAmino(object: QueryPendingQueriesResponseAmino): QueryPendingQueriesResponse {
-    return {
-      pendingQueries: Array.isArray(object?.pending_queries) ? object.pending_queries.map((e: any) => Query.fromAmino(e)) : []
-    };
+    const message = createBaseQueryPendingQueriesResponse();
+    message.pendingQueries = object.pending_queries?.map(e => Query.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryPendingQueriesResponse): QueryPendingQueriesResponseAmino {
     const obj: any = {};

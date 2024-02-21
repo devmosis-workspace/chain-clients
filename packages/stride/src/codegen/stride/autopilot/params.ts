@@ -19,8 +19,8 @@ export interface ParamsProtoMsg {
  */
 export interface ParamsAmino {
   /** optionally, turn off each module */
-  stakeibc_active: boolean;
-  claim_active: boolean;
+  stakeibc_active?: boolean;
+  claim_active?: boolean;
 }
 export interface ParamsAminoMsg {
   type: "/stride.autopilot.Params";
@@ -64,10 +64,14 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      stakeibcActive: object.stakeibc_active,
-      claimActive: object.claim_active
-    };
+    const message = createBaseParams();
+    if (object.stakeibc_active !== undefined && object.stakeibc_active !== null) {
+      message.stakeibcActive = object.stakeibc_active;
+    }
+    if (object.claim_active !== undefined && object.claim_active !== null) {
+      message.claimActive = object.claim_active;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

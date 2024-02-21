@@ -265,3 +265,6 @@
 [submodule "packages/neutron/ics23"]
 	path = packages/neutron/ics23
 	url = https://github.com/cosmos/ics23
+[submodule "packages/stride/cosmos-sdk"]
+	path = packages/stride/cosmos-sdk
+	url = https://github.com/Stride-Labs/cosmos-sdk

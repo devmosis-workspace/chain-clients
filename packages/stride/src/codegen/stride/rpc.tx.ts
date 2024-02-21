@@ -4,13 +4,6 @@ export const createRPCMsgClient = async ({
 }: {
   rpc: Rpc;
 }) => ({
-  stride: {
-    claim: new (await import("./claim/tx.rpc.msg")).MsgClientImpl(rpc),
-    interchainquery: {
-      v1: new (await import("./interchainquery/v1/messages.rpc.msg")).MsgClientImpl(rpc)
-    },
-    stakeibc: new (await import("./stakeibc/tx.rpc.msg")).MsgClientImpl(rpc)
-  },
   cosmos: {
     auth: {
       v1beta1: new (await import("../cosmos/auth/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)
@@ -61,5 +54,14 @@ export const createRPCMsgClient = async ({
     vesting: {
       v1beta1: new (await import("../cosmos/vesting/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)
     }
+  },
+  stride: {
+    claim: new (await import("./claim/tx.rpc.msg")).MsgClientImpl(rpc),
+    icaoracle: new (await import("./icaoracle/tx.rpc.msg")).MsgClientImpl(rpc),
+    interchainquery: {
+      v1: new (await import("./interchainquery/v1/messages.rpc.msg")).MsgClientImpl(rpc)
+    },
+    stakeibc: new (await import("./stakeibc/tx.rpc.msg")).MsgClientImpl(rpc),
+    staketia: new (await import("./staketia/tx.rpc.msg")).MsgClientImpl(rpc)
   }
 });

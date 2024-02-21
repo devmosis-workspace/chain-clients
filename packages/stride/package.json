@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/stride",
-  "version": "11.0.0-6",
+  "version": "18.0.0",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

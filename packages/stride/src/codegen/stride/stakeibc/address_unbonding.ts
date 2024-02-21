@@ -14,13 +14,13 @@ export interface AddressUnbondingProtoMsg {
   value: Uint8Array;
 }
 export interface AddressUnbondingAmino {
-  address: string;
-  receiver: string;
-  unbonding_estimated_time: string;
-  amount: string;
-  denom: string;
-  claim_is_pending: boolean;
-  epoch_number: string;
+  address?: string;
+  receiver?: string;
+  unbonding_estimated_time?: string;
+  amount?: string;
+  denom?: string;
+  claim_is_pending?: boolean;
+  epoch_number?: string;
 }
 export interface AddressUnbondingAminoMsg {
   type: "/stride.stakeibc.AddressUnbonding";
@@ -95,15 +95,29 @@ export const AddressUnbonding = {
     return message;
   },
   fromAmino(object: AddressUnbondingAmino): AddressUnbonding {
-    return {
-      address: object.address,
-      receiver: object.receiver,
-      unbondingEstimatedTime: object.unbonding_estimated_time,
-      amount: object.amount,
-      denom: object.denom,
-      claimIsPending: object.claim_is_pending,
-      epochNumber: BigInt(object.epoch_number)
-    };
+    const message = createBaseAddressUnbonding();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.unbonding_estimated_time !== undefined && object.unbonding_estimated_time !== null) {
+      message.unbondingEstimatedTime = object.unbonding_estimated_time;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.claim_is_pending !== undefined && object.claim_is_pending !== null) {
+      message.claimIsPending = object.claim_is_pending;
+    }
+    if (object.epoch_number !== undefined && object.epoch_number !== null) {
+      message.epochNumber = BigInt(object.epoch_number);
+    }
+    return message;
   },
   toAmino(message: AddressUnbonding): AddressUnbondingAmino {
     const obj: any = {};

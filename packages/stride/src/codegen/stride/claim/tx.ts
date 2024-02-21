@@ -13,10 +13,10 @@ export interface MsgSetAirdropAllocationsProtoMsg {
   value: Uint8Array;
 }
 export interface MsgSetAirdropAllocationsAmino {
-  allocator: string;
-  airdrop_identifier: string;
-  users: string[];
-  weights: string[];
+  allocator?: string;
+  airdrop_identifier?: string;
+  users?: string[];
+  weights?: string[];
 }
 export interface MsgSetAirdropAllocationsAminoMsg {
   type: "/stride.claim.MsgSetAirdropAllocations";
@@ -47,7 +47,7 @@ export interface MsgClaimFreeAmountProtoMsg {
   value: Uint8Array;
 }
 export interface MsgClaimFreeAmountAmino {
-  user: string;
+  user?: string;
 }
 export interface MsgClaimFreeAmountAminoMsg {
   type: "/stride.claim.MsgClaimFreeAmount";
@@ -64,7 +64,7 @@ export interface MsgClaimFreeAmountResponseProtoMsg {
   value: Uint8Array;
 }
 export interface MsgClaimFreeAmountResponseAmino {
-  claimed_amount: CoinAmino[];
+  claimed_amount?: CoinAmino[];
 }
 export interface MsgClaimFreeAmountResponseAminoMsg {
   type: "/stride.claim.MsgClaimFreeAmountResponse";
@@ -87,13 +87,13 @@ export interface MsgCreateAirdropProtoMsg {
   value: Uint8Array;
 }
 export interface MsgCreateAirdropAmino {
-  distributor: string;
-  identifier: string;
-  chain_id: string;
-  denom: string;
-  start_time: string;
-  duration: string;
-  autopilot_enabled: boolean;
+  distributor?: string;
+  identifier?: string;
+  chain_id?: string;
+  denom?: string;
+  start_time?: string;
+  duration?: string;
+  autopilot_enabled?: boolean;
 }
 export interface MsgCreateAirdropAminoMsg {
   type: "/stride.claim.MsgCreateAirdrop";
@@ -128,8 +128,8 @@ export interface MsgDeleteAirdropProtoMsg {
   value: Uint8Array;
 }
 export interface MsgDeleteAirdropAmino {
-  distributor: string;
-  identifier: string;
+  distributor?: string;
+  identifier?: string;
 }
 export interface MsgDeleteAirdropAminoMsg {
   type: "/stride.claim.MsgDeleteAirdrop";
@@ -192,12 +192,16 @@ export const MsgSetAirdropAllocations = {
     return message;
   },
   fromAmino(object: MsgSetAirdropAllocationsAmino): MsgSetAirdropAllocations {
-    return {
-      allocator: object.allocator,
-      airdropIdentifier: object.airdrop_identifier,
-      users: Array.isArray(object?.users) ? object.users.map((e: any) => e) : [],
-      weights: Array.isArray(object?.weights) ? object.weights.map((e: any) => e) : []
-    };
+    const message = createBaseMsgSetAirdropAllocations();
+    if (object.allocator !== undefined && object.allocator !== null) {
+      message.allocator = object.allocator;
+    }
+    if (object.airdrop_identifier !== undefined && object.airdrop_identifier !== null) {
+      message.airdropIdentifier = object.airdrop_identifier;
+    }
+    message.users = object.users?.map(e => e) || [];
+    message.weights = object.weights?.map(e => e) || [];
+    return message;
   },
   toAmino(message: MsgSetAirdropAllocations): MsgSetAirdropAllocationsAmino {
     const obj: any = {};
@@ -247,7 +251,8 @@ export const MsgSetAirdropAllocationsResponse = {
     return message;
   },
   fromAmino(_: MsgSetAirdropAllocationsResponseAmino): MsgSetAirdropAllocationsResponse {
-    return {};
+    const message = createBaseMsgSetAirdropAllocationsResponse();
+    return message;
   },
   toAmino(_: MsgSetAirdropAllocationsResponse): MsgSetAirdropAllocationsResponseAmino {
     const obj: any = {};
@@ -293,9 +298,11 @@ export const MsgClaimFreeAmount = {
     return message;
   },
   fromAmino(object: MsgClaimFreeAmountAmino): MsgClaimFreeAmount {
-    return {
-      user: object.user
-    };
+    const message = createBaseMsgClaimFreeAmount();
+    if (object.user !== undefined && object.user !== null) {
+      message.user = object.user;
+    }
+    return message;
   },
   toAmino(message: MsgClaimFreeAmount): MsgClaimFreeAmountAmino {
     const obj: any = {};
@@ -342,9 +349,9 @@ export const MsgClaimFreeAmountResponse = {
     return message;
   },
   fromAmino(object: MsgClaimFreeAmountResponseAmino): MsgClaimFreeAmountResponse {
-    return {
-      claimedAmount: Array.isArray(object?.claimed_amount) ? object.claimed_amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgClaimFreeAmountResponse();
+    message.claimedAmount = object.claimed_amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgClaimFreeAmountResponse): MsgClaimFreeAmountResponseAmino {
     const obj: any = {};
@@ -431,15 +438,29 @@ export const MsgCreateAirdrop = {
     return message;
   },
   fromAmino(object: MsgCreateAirdropAmino): MsgCreateAirdrop {
-    return {
-      distributor: object.distributor,
-      identifier: object.identifier,
-      chainId: object.chain_id,
-      denom: object.denom,
-      startTime: BigInt(object.start_time),
-      duration: BigInt(object.duration),
-      autopilotEnabled: object.autopilot_enabled
-    };
+    const message = createBaseMsgCreateAirdrop();
+    if (object.distributor !== undefined && object.distributor !== null) {
+      message.distributor = object.distributor;
+    }
+    if (object.identifier !== undefined && object.identifier !== null) {
+      message.identifier = object.identifier;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = BigInt(object.start_time);
+    }
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = BigInt(object.duration);
+    }
+    if (object.autopilot_enabled !== undefined && object.autopilot_enabled !== null) {
+      message.autopilotEnabled = object.autopilot_enabled;
+    }
+    return message;
   },
   toAmino(message: MsgCreateAirdrop): MsgCreateAirdropAmino {
     const obj: any = {};
@@ -484,7 +505,8 @@ export const MsgCreateAirdropResponse = {
     return message;
   },
   fromAmino(_: MsgCreateAirdropResponseAmino): MsgCreateAirdropResponse {
-    return {};
+    const message = createBaseMsgCreateAirdropResponse();
+    return message;
   },
   toAmino(_: MsgCreateAirdropResponse): MsgCreateAirdropResponseAmino {
     const obj: any = {};
@@ -536,10 +558,14 @@ export const MsgDeleteAirdrop = {
     return message;
   },
   fromAmino(object: MsgDeleteAirdropAmino): MsgDeleteAirdrop {
-    return {
-      distributor: object.distributor,
-      identifier: object.identifier
-    };
+    const message = createBaseMsgDeleteAirdrop();
+    if (object.distributor !== undefined && object.distributor !== null) {
+      message.distributor = object.distributor;
+    }
+    if (object.identifier !== undefined && object.identifier !== null) {
+      message.identifier = object.identifier;
+    }
+    return message;
   },
   toAmino(message: MsgDeleteAirdrop): MsgDeleteAirdropAmino {
     const obj: any = {};
@@ -579,7 +605,8 @@ export const MsgDeleteAirdropResponse = {
     return message;
   },
   fromAmino(_: MsgDeleteAirdropResponseAmino): MsgDeleteAirdropResponse {
-    return {};
+    const message = createBaseMsgDeleteAirdropResponse();
+    return message;
   },
   toAmino(_: MsgDeleteAirdropResponse): MsgDeleteAirdropResponseAmino {
     const obj: any = {};

@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
 import { BinaryWriter } from "../../binary";
 import { isSet, fromJsonTimestamp } from "../../helpers";
@@ -16,13 +16,13 @@ export interface EpochInfoProtoMsg {
   value: Uint8Array;
 }
 export interface EpochInfoAmino {
-  identifier: string;
-  start_time?: TimestampAmino;
+  identifier?: string;
+  start_time?: string;
   duration?: DurationAmino;
-  current_epoch: string;
-  current_epoch_start_time?: TimestampAmino;
-  epoch_counting_started: boolean;
-  current_epoch_start_height: string;
+  current_epoch?: string;
+  current_epoch_start_time?: string;
+  epoch_counting_started?: boolean;
+  current_epoch_start_height?: string;
 }
 export interface EpochInfoAminoMsg {
   type: "/stride.epochs.EpochInfo";
@@ -47,7 +47,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the epochs module's genesis state. */
 export interface GenesisStateAmino {
-  epochs: EpochInfoAmino[];
+  epochs?: EpochInfoAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/stride.epochs.GenesisState";
@@ -117,23 +117,37 @@ export const EpochInfo = {
     return message;
   },
   fromAmino(object: EpochInfoAmino): EpochInfo {
-    return {
-      identifier: object.identifier,
-      startTime: object.start_time,
-      duration: object?.duration ? Duration.fromAmino(object.duration) : undefined,
-      currentEpoch: BigInt(object.current_epoch),
-      currentEpochStartTime: object.current_epoch_start_time,
-      epochCountingStarted: object.epoch_counting_started,
-      currentEpochStartHeight: BigInt(object.current_epoch_start_height)
-    };
+    const message = createBaseEpochInfo();
+    if (object.identifier !== undefined && object.identifier !== null) {
+      message.identifier = object.identifier;
+    }
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = Timestamp.fromAmino(object.start_time);
+    }
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = Duration.fromAmino(object.duration);
+    }
+    if (object.current_epoch !== undefined && object.current_epoch !== null) {
+      message.currentEpoch = BigInt(object.current_epoch);
+    }
+    if (object.current_epoch_start_time !== undefined && object.current_epoch_start_time !== null) {
+      message.currentEpochStartTime = Timestamp.fromAmino(object.current_epoch_start_time);
+    }
+    if (object.epoch_counting_started !== undefined && object.epoch_counting_started !== null) {
+      message.epochCountingStarted = object.epoch_counting_started;
+    }
+    if (object.current_epoch_start_height !== undefined && object.current_epoch_start_height !== null) {
+      message.currentEpochStartHeight = BigInt(object.current_epoch_start_height);
+    }
+    return message;
   },
   toAmino(message: EpochInfo): EpochInfoAmino {
     const obj: any = {};
     obj.identifier = message.identifier;
-    obj.start_time = message.startTime;
+    obj.start_time = message.startTime ? Timestamp.toAmino(message.startTime) : undefined;
     obj.duration = message.duration ? Duration.toAmino(message.duration) : undefined;
     obj.current_epoch = message.currentEpoch ? message.currentEpoch.toString() : undefined;
-    obj.current_epoch_start_time = message.currentEpochStartTime;
+    obj.current_epoch_start_time = message.currentEpochStartTime ? Timestamp.toAmino(message.currentEpochStartTime) : undefined;
     obj.epoch_counting_started = message.epochCountingStarted;
     obj.current_epoch_start_height = message.currentEpochStartHeight ? message.currentEpochStartHeight.toString() : undefined;
     return obj;
@@ -178,9 +192,9 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      epochs: Array.isArray(object?.epochs) ? object.epochs.map((e: any) => EpochInfo.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.epochs = object.epochs?.map(e => EpochInfo.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

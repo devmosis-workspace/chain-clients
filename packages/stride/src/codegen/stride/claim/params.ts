@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
 import { BinaryWriter } from "../../binary";
 import { isSet, fromJsonTimestamp } from "../../helpers";
@@ -14,7 +14,7 @@ export interface ParamsProtoMsg {
 /** Params defines the claim module's parameters. */
 export interface ParamsAmino {
   /** Params defines the claim module's parameters. */
-  airdrops: AirdropAmino[];
+  airdrops?: AirdropAmino[];
 }
 export interface ParamsAminoMsg {
   type: "/stride.claim.Params";
@@ -45,20 +45,20 @@ export interface AirdropProtoMsg {
   value: Uint8Array;
 }
 export interface AirdropAmino {
-  airdrop_identifier: string;
-  chain_id: string;
+  airdrop_identifier?: string;
+  chain_id?: string;
   /** seconds */
-  airdrop_start_time?: TimestampAmino;
+  airdrop_start_time?: string;
   /** seconds */
   airdrop_duration?: DurationAmino;
   /** denom of claimable asset */
-  claim_denom: string;
+  claim_denom?: string;
   /** airdrop distribution account */
-  distributor_address: string;
+  distributor_address?: string;
   /** ustrd tokens claimed so far in the current period */
-  claimed_so_far: string;
+  claimed_so_far?: string;
   /** indicates the airdrop should be claimed via autopilot */
-  autopilot_enabled: boolean;
+  autopilot_enabled?: boolean;
 }
 export interface AirdropAminoMsg {
   type: "/stride.claim.Airdrop";
@@ -98,9 +98,9 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      airdrops: Array.isArray(object?.airdrops) ? object.airdrops.map((e: any) => Airdrop.fromAmino(e)) : []
-    };
+    const message = createBaseParams();
+    message.airdrops = object.airdrops?.map(e => Airdrop.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -193,22 +193,38 @@ export const Airdrop = {
     return message;
   },
   fromAmino(object: AirdropAmino): Airdrop {
-    return {
-      airdropIdentifier: object.airdrop_identifier,
-      chainId: object.chain_id,
-      airdropStartTime: object.airdrop_start_time,
-      airdropDuration: object?.airdrop_duration ? Duration.fromAmino(object.airdrop_duration) : undefined,
-      claimDenom: object.claim_denom,
-      distributorAddress: object.distributor_address,
-      claimedSoFar: object.claimed_so_far,
-      autopilotEnabled: object.autopilot_enabled
-    };
+    const message = createBaseAirdrop();
+    if (object.airdrop_identifier !== undefined && object.airdrop_identifier !== null) {
+      message.airdropIdentifier = object.airdrop_identifier;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.airdrop_start_time !== undefined && object.airdrop_start_time !== null) {
+      message.airdropStartTime = Timestamp.fromAmino(object.airdrop_start_time);
+    }
+    if (object.airdrop_duration !== undefined && object.airdrop_duration !== null) {
+      message.airdropDuration = Duration.fromAmino(object.airdrop_duration);
+    }
+    if (object.claim_denom !== undefined && object.claim_denom !== null) {
+      message.claimDenom = object.claim_denom;
+    }
+    if (object.distributor_address !== undefined && object.distributor_address !== null) {
+      message.distributorAddress = object.distributor_address;
+    }
+    if (object.claimed_so_far !== undefined && object.claimed_so_far !== null) {
+      message.claimedSoFar = object.claimed_so_far;
+    }
+    if (object.autopilot_enabled !== undefined && object.autopilot_enabled !== null) {
+      message.autopilotEnabled = object.autopilot_enabled;
+    }
+    return message;
   },
   toAmino(message: Airdrop): AirdropAmino {
     const obj: any = {};
     obj.airdrop_identifier = message.airdropIdentifier;
     obj.chain_id = message.chainId;
-    obj.airdrop_start_time = message.airdropStartTime;
+    obj.airdrop_start_time = message.airdropStartTime ? Timestamp.toAmino(message.airdropStartTime) : undefined;
     obj.airdrop_duration = message.airdropDuration ? Duration.toAmino(message.airdropDuration) : undefined;
     obj.claim_denom = message.claimDenom;
     obj.distributor_address = message.distributorAddress;

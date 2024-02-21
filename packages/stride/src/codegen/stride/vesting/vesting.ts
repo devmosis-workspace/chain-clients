@@ -7,7 +7,7 @@ import { isSet } from "../../helpers";
  * the necessary fields needed for any vesting account implementation.
  */
 export interface BaseVestingAccount {
-  baseAccount: BaseAccount;
+  baseAccount?: BaseAccount;
   originalVesting: Coin[];
   delegatedFree: Coin[];
   delegatedVesting: Coin[];
@@ -23,10 +23,10 @@ export interface BaseVestingAccountProtoMsg {
  */
 export interface BaseVestingAccountAmino {
   base_account?: BaseAccountAmino;
-  original_vesting: CoinAmino[];
-  delegated_free: CoinAmino[];
-  delegated_vesting: CoinAmino[];
-  end_time: string;
+  original_vesting?: CoinAmino[];
+  delegated_free?: CoinAmino[];
+  delegated_vesting?: CoinAmino[];
+  end_time?: string;
 }
 export interface BaseVestingAccountAminoMsg {
   type: "/stride.vesting.BaseVestingAccount";
@@ -37,7 +37,7 @@ export interface BaseVestingAccountAminoMsg {
  * the necessary fields needed for any vesting account implementation.
  */
 export interface BaseVestingAccountSDKType {
-  base_account: BaseAccountSDKType;
+  base_account?: BaseAccountSDKType;
   original_vesting: CoinSDKType[];
   delegated_free: CoinSDKType[];
   delegated_vesting: CoinSDKType[];
@@ -56,10 +56,10 @@ export interface PeriodProtoMsg {
 }
 /** Period defines a length of time and amount of coins that will vest. */
 export interface PeriodAmino {
-  start_time: string;
-  length: string;
-  amount: CoinAmino[];
-  action_type: number;
+  start_time?: string;
+  length?: string;
+  amount?: CoinAmino[];
+  action_type?: number;
 }
 export interface PeriodAminoMsg {
   type: "/stride.vesting.Period";
@@ -77,7 +77,7 @@ export interface PeriodSDKType {
  * periodically vests by unlocking coins during each specified period.
  */
 export interface StridePeriodicVestingAccount {
-  baseVestingAccount: BaseVestingAccount;
+  baseVestingAccount?: BaseVestingAccount;
   vestingPeriods: Period[];
 }
 export interface StridePeriodicVestingAccountProtoMsg {
@@ -90,7 +90,7 @@ export interface StridePeriodicVestingAccountProtoMsg {
  */
 export interface StridePeriodicVestingAccountAmino {
   base_vesting_account?: BaseVestingAccountAmino;
-  vesting_periods: PeriodAmino[];
+  vesting_periods?: PeriodAmino[];
 }
 export interface StridePeriodicVestingAccountAminoMsg {
   type: "/stride.vesting.StridePeriodicVestingAccount";
@@ -101,12 +101,12 @@ export interface StridePeriodicVestingAccountAminoMsg {
  * periodically vests by unlocking coins during each specified period.
  */
 export interface StridePeriodicVestingAccountSDKType {
-  base_vesting_account: BaseVestingAccountSDKType;
+  base_vesting_account?: BaseVestingAccountSDKType;
   vesting_periods: PeriodSDKType[];
 }
 function createBaseBaseVestingAccount(): BaseVestingAccount {
   return {
-    baseAccount: BaseAccount.fromPartial({}),
+    baseAccount: undefined,
     originalVesting: [],
     delegatedFree: [],
     delegatedVesting: [],
@@ -152,13 +152,17 @@ export const BaseVestingAccount = {
     return message;
   },
   fromAmino(object: BaseVestingAccountAmino): BaseVestingAccount {
-    return {
-      baseAccount: object?.base_account ? BaseAccount.fromAmino(object.base_account) : undefined,
-      originalVesting: Array.isArray(object?.original_vesting) ? object.original_vesting.map((e: any) => Coin.fromAmino(e)) : [],
-      delegatedFree: Array.isArray(object?.delegated_free) ? object.delegated_free.map((e: any) => Coin.fromAmino(e)) : [],
-      delegatedVesting: Array.isArray(object?.delegated_vesting) ? object.delegated_vesting.map((e: any) => Coin.fromAmino(e)) : [],
-      endTime: BigInt(object.end_time)
-    };
+    const message = createBaseBaseVestingAccount();
+    if (object.base_account !== undefined && object.base_account !== null) {
+      message.baseAccount = BaseAccount.fromAmino(object.base_account);
+    }
+    message.originalVesting = object.original_vesting?.map(e => Coin.fromAmino(e)) || [];
+    message.delegatedFree = object.delegated_free?.map(e => Coin.fromAmino(e)) || [];
+    message.delegatedVesting = object.delegated_vesting?.map(e => Coin.fromAmino(e)) || [];
+    if (object.end_time !== undefined && object.end_time !== null) {
+      message.endTime = BigInt(object.end_time);
+    }
+    return message;
   },
   toAmino(message: BaseVestingAccount): BaseVestingAccountAmino {
     const obj: any = {};
@@ -239,12 +243,18 @@ export const Period = {
     return message;
   },
   fromAmino(object: PeriodAmino): Period {
-    return {
-      startTime: BigInt(object.start_time),
-      length: BigInt(object.length),
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : [],
-      actionType: object.action_type
-    };
+    const message = createBasePeriod();
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = BigInt(object.start_time);
+    }
+    if (object.length !== undefined && object.length !== null) {
+      message.length = BigInt(object.length);
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    if (object.action_type !== undefined && object.action_type !== null) {
+      message.actionType = object.action_type;
+    }
+    return message;
   },
   toAmino(message: Period): PeriodAmino {
     const obj: any = {};
@@ -276,7 +286,7 @@ export const Period = {
 };
 function createBaseStridePeriodicVestingAccount(): StridePeriodicVestingAccount {
   return {
-    baseVestingAccount: BaseVestingAccount.fromPartial({}),
+    baseVestingAccount: undefined,
     vestingPeriods: []
   };
 }
@@ -304,10 +314,12 @@ export const StridePeriodicVestingAccount = {
     return message;
   },
   fromAmino(object: StridePeriodicVestingAccountAmino): StridePeriodicVestingAccount {
-    return {
-      baseVestingAccount: object?.base_vesting_account ? BaseVestingAccount.fromAmino(object.base_vesting_account) : undefined,
-      vestingPeriods: Array.isArray(object?.vesting_periods) ? object.vesting_periods.map((e: any) => Period.fromAmino(e)) : []
-    };
+    const message = createBaseStridePeriodicVestingAccount();
+    if (object.base_vesting_account !== undefined && object.base_vesting_account !== null) {
+      message.baseVestingAccount = BaseVestingAccount.fromAmino(object.base_vesting_account);
+    }
+    message.vestingPeriods = object.vesting_periods?.map(e => Period.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: StridePeriodicVestingAccount): StridePeriodicVestingAccountAmino {
     const obj: any = {};

@@ -15,8 +15,8 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the icacallbacks module's genesis state. */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  port_id: string;
-  callback_data_list: CallbackDataAmino[];
+  port_id?: string;
+  callback_data_list?: CallbackDataAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/stride.icacallbacks.GenesisState";
@@ -64,11 +64,15 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      portId: object.port_id,
-      callbackDataList: Array.isArray(object?.callback_data_list) ? object.callback_data_list.map((e: any) => CallbackData.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    message.callbackDataList = object.callback_data_list?.map(e => CallbackData.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

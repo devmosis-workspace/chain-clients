@@ -8,18 +8,6 @@ export const createRPCQueryClient = async ({
   const tmClient = await Tendermint34Client.connect(rpcEndpoint);
   const client = new QueryClient(tmClient);
   return {
-    stride: {
-      autopilot: (await import("./autopilot/query.rpc.Query")).createRpcQueryExtension(client),
-      claim: (await import("./claim/query.rpc.Query")).createRpcQueryExtension(client),
-      epochs: (await import("./epochs/query.rpc.Query")).createRpcQueryExtension(client),
-      icacallbacks: (await import("./icacallbacks/query.rpc.Query")).createRpcQueryExtension(client),
-      mint: {
-        v1beta1: (await import("./mint/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
-      },
-      ratelimit: (await import("./ratelimit/query.rpc.Query")).createRpcQueryExtension(client),
-      records: (await import("./records/query.rpc.Query")).createRpcQueryExtension(client),
-      stakeibc: (await import("./stakeibc/query.rpc.Query")).createRpcQueryExtension(client)
-    },
     cosmos: {
       app: {
         v1alpha1: (await import("../cosmos/app/v1alpha1/query.rpc.Query")).createRpcQueryExtension(client)
@@ -89,6 +77,20 @@ export const createRPCQueryClient = async ({
       upgrade: {
         v1beta1: (await import("../cosmos/upgrade/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
       }
+    },
+    stride: {
+      autopilot: (await import("./autopilot/query.rpc.Query")).createRpcQueryExtension(client),
+      claim: (await import("./claim/query.rpc.Query")).createRpcQueryExtension(client),
+      epochs: (await import("./epochs/query.rpc.Query")).createRpcQueryExtension(client),
+      icacallbacks: (await import("./icacallbacks/query.rpc.Query")).createRpcQueryExtension(client),
+      icaoracle: (await import("./icaoracle/query.rpc.Query")).createRpcQueryExtension(client),
+      mint: {
+        v1beta1: (await import("./mint/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      ratelimit: (await import("./ratelimit/query.rpc.Query")).createRpcQueryExtension(client),
+      records: (await import("./records/query.rpc.Query")).createRpcQueryExtension(client),
+      stakeibc: (await import("./stakeibc/query.rpc.Query")).createRpcQueryExtension(client),
+      staketia: (await import("./staketia/query.rpc.Query")).createRpcQueryExtension(client)
     }
   };
 };

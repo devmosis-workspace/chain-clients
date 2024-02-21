@@ -1,5 +1,5 @@
 import { Action, ClaimRecord, ClaimRecordAmino, ClaimRecordSDKType, actionFromJSON } from "./claim";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { Period, PeriodAmino, PeriodSDKType } from "../vesting/vesting";
@@ -14,8 +14,8 @@ export interface ClaimStatusProtoMsg {
   value: Uint8Array;
 }
 export interface ClaimStatusAmino {
-  airdrop_identifier: string;
-  claimed: boolean;
+  airdrop_identifier?: string;
+  claimed?: boolean;
 }
 export interface ClaimStatusAminoMsg {
   type: "/stride.claim.ClaimStatus";
@@ -33,7 +33,7 @@ export interface QueryClaimStatusRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryClaimStatusRequestAmino {
-  address: string;
+  address?: string;
 }
 export interface QueryClaimStatusRequestAminoMsg {
   type: "/stride.claim.QueryClaimStatusRequest";
@@ -50,7 +50,7 @@ export interface QueryClaimStatusResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryClaimStatusResponseAmino {
-  claim_status: ClaimStatusAmino[];
+  claim_status?: ClaimStatusAmino[];
 }
 export interface QueryClaimStatusResponseAminoMsg {
   type: "/stride.claim.QueryClaimStatusResponse";
@@ -70,10 +70,10 @@ export interface ClaimMetadataProtoMsg {
   value: Uint8Array;
 }
 export interface ClaimMetadataAmino {
-  airdrop_identifier: string;
-  current_round: string;
-  current_round_start?: TimestampAmino;
-  current_round_end?: TimestampAmino;
+  airdrop_identifier?: string;
+  current_round?: string;
+  current_round_start?: string;
+  current_round_end?: string;
 }
 export interface ClaimMetadataAminoMsg {
   type: "/stride.claim.ClaimMetadata";
@@ -104,7 +104,7 @@ export interface QueryClaimMetadataResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryClaimMetadataResponseAmino {
-  claim_metadata: ClaimMetadataAmino[];
+  claim_metadata?: ClaimMetadataAmino[];
 }
 export interface QueryClaimMetadataResponseAminoMsg {
   type: "/stride.claim.QueryClaimMetadataResponse";
@@ -123,7 +123,7 @@ export interface QueryDistributorAccountBalanceRequestProtoMsg {
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryDistributorAccountBalanceRequestAmino {
-  airdrop_identifier: string;
+  airdrop_identifier?: string;
 }
 export interface QueryDistributorAccountBalanceRequestAminoMsg {
   type: "/stride.claim.QueryDistributorAccountBalanceRequest";
@@ -145,7 +145,7 @@ export interface QueryDistributorAccountBalanceResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryDistributorAccountBalanceResponseAmino {
   /** params defines the parameters of the module. */
-  distributor_account_balance: CoinAmino[];
+  distributor_account_balance?: CoinAmino[];
 }
 export interface QueryDistributorAccountBalanceResponseAminoMsg {
   type: "/stride.claim.QueryDistributorAccountBalanceResponse";
@@ -200,8 +200,8 @@ export interface QueryClaimRecordRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryClaimRecordRequestAmino {
-  airdrop_identifier: string;
-  address: string;
+  airdrop_identifier?: string;
+  address?: string;
 }
 export interface QueryClaimRecordRequestAminoMsg {
   type: "/stride.claim.QueryClaimRecordRequest";
@@ -238,9 +238,9 @@ export interface QueryClaimableForActionRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryClaimableForActionRequestAmino {
-  airdrop_identifier: string;
-  address: string;
-  action: Action;
+  airdrop_identifier?: string;
+  address?: string;
+  action?: Action;
 }
 export interface QueryClaimableForActionRequestAminoMsg {
   type: "/stride.claim.QueryClaimableForActionRequest";
@@ -259,7 +259,7 @@ export interface QueryClaimableForActionResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryClaimableForActionResponseAmino {
-  coins: CoinAmino[];
+  coins?: CoinAmino[];
 }
 export interface QueryClaimableForActionResponseAminoMsg {
   type: "/stride.claim.QueryClaimableForActionResponse";
@@ -278,9 +278,9 @@ export interface QueryTotalClaimableRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryTotalClaimableRequestAmino {
-  airdrop_identifier: string;
-  address: string;
-  include_claimed: boolean;
+  airdrop_identifier?: string;
+  address?: string;
+  include_claimed?: boolean;
 }
 export interface QueryTotalClaimableRequestAminoMsg {
   type: "/stride.claim.QueryTotalClaimableRequest";
@@ -299,7 +299,7 @@ export interface QueryTotalClaimableResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryTotalClaimableResponseAmino {
-  coins: CoinAmino[];
+  coins?: CoinAmino[];
 }
 export interface QueryTotalClaimableResponseAminoMsg {
   type: "/stride.claim.QueryTotalClaimableResponse";
@@ -316,7 +316,7 @@ export interface QueryUserVestingsRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryUserVestingsRequestAmino {
-  address: string;
+  address?: string;
 }
 export interface QueryUserVestingsRequestAminoMsg {
   type: "/stride.claim.QueryUserVestingsRequest";
@@ -334,8 +334,8 @@ export interface QueryUserVestingsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryUserVestingsResponseAmino {
-  spendable_coins: CoinAmino[];
-  periods: PeriodAmino[];
+  spendable_coins?: CoinAmino[];
+  periods?: PeriodAmino[];
 }
 export interface QueryUserVestingsResponseAminoMsg {
   type: "/stride.claim.QueryUserVestingsResponse";
@@ -375,10 +375,14 @@ export const ClaimStatus = {
     return message;
   },
   fromAmino(object: ClaimStatusAmino): ClaimStatus {
-    return {
-      airdropIdentifier: object.airdrop_identifier,
-      claimed: object.claimed
-    };
+    const message = createBaseClaimStatus();
+    if (object.airdrop_identifier !== undefined && object.airdrop_identifier !== null) {
+      message.airdropIdentifier = object.airdrop_identifier;
+    }
+    if (object.claimed !== undefined && object.claimed !== null) {
+      message.claimed = object.claimed;
+    }
+    return message;
   },
   toAmino(message: ClaimStatus): ClaimStatusAmino {
     const obj: any = {};
@@ -426,9 +430,11 @@ export const QueryClaimStatusRequest = {
     return message;
   },
   fromAmino(object: QueryClaimStatusRequestAmino): QueryClaimStatusRequest {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryClaimStatusRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryClaimStatusRequest): QueryClaimStatusRequestAmino {
     const obj: any = {};
@@ -475,9 +481,9 @@ export const QueryClaimStatusResponse = {
     return message;
   },
   fromAmino(object: QueryClaimStatusResponseAmino): QueryClaimStatusResponse {
-    return {
-      claimStatus: Array.isArray(object?.claim_status) ? object.claim_status.map((e: any) => ClaimStatus.fromAmino(e)) : []
-    };
+    const message = createBaseQueryClaimStatusResponse();
+    message.claimStatus = object.claim_status?.map(e => ClaimStatus.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryClaimStatusResponse): QueryClaimStatusResponseAmino {
     const obj: any = {};
@@ -546,19 +552,27 @@ export const ClaimMetadata = {
     return message;
   },
   fromAmino(object: ClaimMetadataAmino): ClaimMetadata {
-    return {
-      airdropIdentifier: object.airdrop_identifier,
-      currentRound: object.current_round,
-      currentRoundStart: object.current_round_start,
-      currentRoundEnd: object.current_round_end
-    };
+    const message = createBaseClaimMetadata();
+    if (object.airdrop_identifier !== undefined && object.airdrop_identifier !== null) {
+      message.airdropIdentifier = object.airdrop_identifier;
+    }
+    if (object.current_round !== undefined && object.current_round !== null) {
+      message.currentRound = object.current_round;
+    }
+    if (object.current_round_start !== undefined && object.current_round_start !== null) {
+      message.currentRoundStart = Timestamp.fromAmino(object.current_round_start);
+    }
+    if (object.current_round_end !== undefined && object.current_round_end !== null) {
+      message.currentRoundEnd = Timestamp.fromAmino(object.current_round_end);
+    }
+    return message;
   },
   toAmino(message: ClaimMetadata): ClaimMetadataAmino {
     const obj: any = {};
     obj.airdrop_identifier = message.airdropIdentifier;
     obj.current_round = message.currentRound;
-    obj.current_round_start = message.currentRoundStart;
-    obj.current_round_end = message.currentRoundEnd;
+    obj.current_round_start = message.currentRoundStart ? Timestamp.toAmino(message.currentRoundStart) : undefined;
+    obj.current_round_end = message.currentRoundEnd ? Timestamp.toAmino(message.currentRoundEnd) : undefined;
     return obj;
   },
   fromAminoMsg(object: ClaimMetadataAminoMsg): ClaimMetadata {
@@ -593,7 +607,8 @@ export const QueryClaimMetadataRequest = {
     return message;
   },
   fromAmino(_: QueryClaimMetadataRequestAmino): QueryClaimMetadataRequest {
-    return {};
+    const message = createBaseQueryClaimMetadataRequest();
+    return message;
   },
   toAmino(_: QueryClaimMetadataRequest): QueryClaimMetadataRequestAmino {
     const obj: any = {};
@@ -639,9 +654,9 @@ export const QueryClaimMetadataResponse = {
     return message;
   },
   fromAmino(object: QueryClaimMetadataResponseAmino): QueryClaimMetadataResponse {
-    return {
-      claimMetadata: Array.isArray(object?.claim_metadata) ? object.claim_metadata.map((e: any) => ClaimMetadata.fromAmino(e)) : []
-    };
+    const message = createBaseQueryClaimMetadataResponse();
+    message.claimMetadata = object.claim_metadata?.map(e => ClaimMetadata.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryClaimMetadataResponse): QueryClaimMetadataResponseAmino {
     const obj: any = {};
@@ -692,9 +707,11 @@ export const QueryDistributorAccountBalanceRequest = {
     return message;
   },
   fromAmino(object: QueryDistributorAccountBalanceRequestAmino): QueryDistributorAccountBalanceRequest {
-    return {
-      airdropIdentifier: object.airdrop_identifier
-    };
+    const message = createBaseQueryDistributorAccountBalanceRequest();
+    if (object.airdrop_identifier !== undefined && object.airdrop_identifier !== null) {
+      message.airdropIdentifier = object.airdrop_identifier;
+    }
+    return message;
   },
   toAmino(message: QueryDistributorAccountBalanceRequest): QueryDistributorAccountBalanceRequestAmino {
     const obj: any = {};
@@ -741,9 +758,9 @@ export const QueryDistributorAccountBalanceResponse = {
     return message;
   },
   fromAmino(object: QueryDistributorAccountBalanceResponseAmino): QueryDistributorAccountBalanceResponse {
-    return {
-      distributorAccountBalance: Array.isArray(object?.distributor_account_balance) ? object.distributor_account_balance.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryDistributorAccountBalanceResponse();
+    message.distributorAccountBalance = object.distributor_account_balance?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryDistributorAccountBalanceResponse): QueryDistributorAccountBalanceResponseAmino {
     const obj: any = {};
@@ -786,7 +803,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -832,9 +850,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -887,10 +907,14 @@ export const QueryClaimRecordRequest = {
     return message;
   },
   fromAmino(object: QueryClaimRecordRequestAmino): QueryClaimRecordRequest {
-    return {
-      airdropIdentifier: object.airdrop_identifier,
-      address: object.address
-    };
+    const message = createBaseQueryClaimRecordRequest();
+    if (object.airdrop_identifier !== undefined && object.airdrop_identifier !== null) {
+      message.airdropIdentifier = object.airdrop_identifier;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryClaimRecordRequest): QueryClaimRecordRequestAmino {
     const obj: any = {};
@@ -938,9 +962,11 @@ export const QueryClaimRecordResponse = {
     return message;
   },
   fromAmino(object: QueryClaimRecordResponseAmino): QueryClaimRecordResponse {
-    return {
-      claimRecord: object?.claim_record ? ClaimRecord.fromAmino(object.claim_record) : undefined
-    };
+    const message = createBaseQueryClaimRecordResponse();
+    if (object.claim_record !== undefined && object.claim_record !== null) {
+      message.claimRecord = ClaimRecord.fromAmino(object.claim_record);
+    }
+    return message;
   },
   toAmino(message: QueryClaimRecordResponse): QueryClaimRecordResponseAmino {
     const obj: any = {};
@@ -999,11 +1025,17 @@ export const QueryClaimableForActionRequest = {
     return message;
   },
   fromAmino(object: QueryClaimableForActionRequestAmino): QueryClaimableForActionRequest {
-    return {
-      airdropIdentifier: object.airdrop_identifier,
-      address: object.address,
-      action: isSet(object.action) ? actionFromJSON(object.action) : -1
-    };
+    const message = createBaseQueryClaimableForActionRequest();
+    if (object.airdrop_identifier !== undefined && object.airdrop_identifier !== null) {
+      message.airdropIdentifier = object.airdrop_identifier;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.action !== undefined && object.action !== null) {
+      message.action = actionFromJSON(object.action);
+    }
+    return message;
   },
   toAmino(message: QueryClaimableForActionRequest): QueryClaimableForActionRequestAmino {
     const obj: any = {};
@@ -1052,9 +1084,9 @@ export const QueryClaimableForActionResponse = {
     return message;
   },
   fromAmino(object: QueryClaimableForActionResponseAmino): QueryClaimableForActionResponse {
-    return {
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryClaimableForActionResponse();
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryClaimableForActionResponse): QueryClaimableForActionResponseAmino {
     const obj: any = {};
@@ -1117,11 +1149,17 @@ export const QueryTotalClaimableRequest = {
     return message;
   },
   fromAmino(object: QueryTotalClaimableRequestAmino): QueryTotalClaimableRequest {
-    return {
-      airdropIdentifier: object.airdrop_identifier,
-      address: object.address,
-      includeClaimed: object.include_claimed
-    };
+    const message = createBaseQueryTotalClaimableRequest();
+    if (object.airdrop_identifier !== undefined && object.airdrop_identifier !== null) {
+      message.airdropIdentifier = object.airdrop_identifier;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.include_claimed !== undefined && object.include_claimed !== null) {
+      message.includeClaimed = object.include_claimed;
+    }
+    return message;
   },
   toAmino(message: QueryTotalClaimableRequest): QueryTotalClaimableRequestAmino {
     const obj: any = {};
@@ -1170,9 +1208,9 @@ export const QueryTotalClaimableResponse = {
     return message;
   },
   fromAmino(object: QueryTotalClaimableResponseAmino): QueryTotalClaimableResponse {
-    return {
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTotalClaimableResponse();
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTotalClaimableResponse): QueryTotalClaimableResponseAmino {
     const obj: any = {};
@@ -1223,9 +1261,11 @@ export const QueryUserVestingsRequest = {
     return message;
   },
   fromAmino(object: QueryUserVestingsRequestAmino): QueryUserVestingsRequest {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryUserVestingsRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryUserVestingsRequest): QueryUserVestingsRequestAmino {
     const obj: any = {};
@@ -1278,10 +1318,10 @@ export const QueryUserVestingsResponse = {
     return message;
   },
   fromAmino(object: QueryUserVestingsResponseAmino): QueryUserVestingsResponse {
-    return {
-      spendableCoins: Array.isArray(object?.spendable_coins) ? object.spendable_coins.map((e: any) => Coin.fromAmino(e)) : [],
-      periods: Array.isArray(object?.periods) ? object.periods.map((e: any) => Period.fromAmino(e)) : []
-    };
+    const message = createBaseQueryUserVestingsResponse();
+    message.spendableCoins = object.spendable_coins?.map(e => Coin.fromAmino(e)) || [];
+    message.periods = object.periods?.map(e => Period.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryUserVestingsResponse): QueryUserVestingsResponseAmino {
     const obj: any = {};

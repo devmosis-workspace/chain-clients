@@ -60,16 +60,16 @@ export interface ClaimRecordProtoMsg {
 /** A Claim Records is the metadata of claim data per address */
 export interface ClaimRecordAmino {
   /** airdrop identifier */
-  airdrop_identifier: string;
+  airdrop_identifier?: string;
   /** address of claim user */
-  address: string;
+  address?: string;
   /** weight that represent the portion from total allocation */
-  weight: string;
+  weight?: string;
   /**
    * true if action is completed
    * index of bool in array refers to action enum #
    */
-  action_completed: boolean[];
+  action_completed?: boolean[];
 }
 export interface ClaimRecordAminoMsg {
   type: "/stride.claim.ClaimRecord";
@@ -126,12 +126,18 @@ export const ClaimRecord = {
     return message;
   },
   fromAmino(object: ClaimRecordAmino): ClaimRecord {
-    return {
-      airdropIdentifier: object.airdrop_identifier,
-      address: object.address,
-      weight: object.weight,
-      actionCompleted: Array.isArray(object?.action_completed) ? object.action_completed.map((e: any) => e) : []
-    };
+    const message = createBaseClaimRecord();
+    if (object.airdrop_identifier !== undefined && object.airdrop_identifier !== null) {
+      message.airdropIdentifier = object.airdrop_identifier;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = object.weight;
+    }
+    message.actionCompleted = object.action_completed?.map(e => e) || [];
+    return message;
   },
   toAmino(message: ClaimRecord): ClaimRecordAmino {
     const obj: any = {};

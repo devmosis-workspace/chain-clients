@@ -17,10 +17,10 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the ratelimit module's genesis state. */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  rate_limits: RateLimitAmino[];
-  whitelisted_address_pairs: WhitelistedAddressPairAmino[];
-  blacklisted_denoms: string[];
-  pending_send_packet_sequence_numbers: string[];
+  rate_limits?: RateLimitAmino[];
+  whitelisted_address_pairs?: WhitelistedAddressPairAmino[];
+  blacklisted_denoms?: string[];
+  pending_send_packet_sequence_numbers?: string[];
 }
 export interface GenesisStateAminoMsg {
   type: "/stride.ratelimit.GenesisState";
@@ -82,13 +82,15 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      rateLimits: Array.isArray(object?.rate_limits) ? object.rate_limits.map((e: any) => RateLimit.fromAmino(e)) : [],
-      whitelistedAddressPairs: Array.isArray(object?.whitelisted_address_pairs) ? object.whitelisted_address_pairs.map((e: any) => WhitelistedAddressPair.fromAmino(e)) : [],
-      blacklistedDenoms: Array.isArray(object?.blacklisted_denoms) ? object.blacklisted_denoms.map((e: any) => e) : [],
-      pendingSendPacketSequenceNumbers: Array.isArray(object?.pending_send_packet_sequence_numbers) ? object.pending_send_packet_sequence_numbers.map((e: any) => e) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.rateLimits = object.rate_limits?.map(e => RateLimit.fromAmino(e)) || [];
+    message.whitelistedAddressPairs = object.whitelisted_address_pairs?.map(e => WhitelistedAddressPair.fromAmino(e)) || [];
+    message.blacklistedDenoms = object.blacklisted_denoms?.map(e => e) || [];
+    message.pendingSendPacketSequenceNumbers = object.pending_send_packet_sequence_numbers?.map(e => e) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

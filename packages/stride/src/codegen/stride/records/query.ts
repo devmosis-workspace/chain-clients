@@ -1,5 +1,6 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { Params, ParamsAmino, ParamsSDKType, DepositRecord, DepositRecordAmino, DepositRecordSDKType, UserRedemptionRecord, UserRedemptionRecordAmino, UserRedemptionRecordSDKType, EpochUnbondingRecord, EpochUnbondingRecordAmino, EpochUnbondingRecordSDKType } from "./genesis";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { DepositRecord, DepositRecordAmino, DepositRecordSDKType, UserRedemptionRecord, UserRedemptionRecordAmino, UserRedemptionRecordSDKType, EpochUnbondingRecord, EpochUnbondingRecordAmino, EpochUnbondingRecordSDKType, LSMTokenDeposit, LSMTokenDepositAmino, LSMTokenDepositSDKType } from "./records";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
@@ -46,7 +47,7 @@ export interface QueryGetDepositRecordRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetDepositRecordRequestAmino {
-  id: string;
+  id?: string;
 }
 export interface QueryGetDepositRecordRequestAminoMsg {
   type: "/stride.records.QueryGetDepositRecordRequest";
@@ -73,7 +74,7 @@ export interface QueryGetDepositRecordResponseSDKType {
   deposit_record: DepositRecordSDKType;
 }
 export interface QueryAllDepositRecordRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllDepositRecordRequestProtoMsg {
   typeUrl: "/stride.records.QueryAllDepositRecordRequest";
@@ -87,18 +88,18 @@ export interface QueryAllDepositRecordRequestAminoMsg {
   value: QueryAllDepositRecordRequestAmino;
 }
 export interface QueryAllDepositRecordRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryAllDepositRecordResponse {
   depositRecord: DepositRecord[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllDepositRecordResponseProtoMsg {
   typeUrl: "/stride.records.QueryAllDepositRecordResponse";
   value: Uint8Array;
 }
 export interface QueryAllDepositRecordResponseAmino {
-  deposit_record: DepositRecordAmino[];
+  deposit_record?: DepositRecordAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllDepositRecordResponseAminoMsg {
@@ -107,7 +108,7 @@ export interface QueryAllDepositRecordResponseAminoMsg {
 }
 export interface QueryAllDepositRecordResponseSDKType {
   deposit_record: DepositRecordSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryDepositRecordByHostRequest {
   hostZoneId: string;
@@ -117,7 +118,7 @@ export interface QueryDepositRecordByHostRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryDepositRecordByHostRequestAmino {
-  host_zone_id: string;
+  host_zone_id?: string;
 }
 export interface QueryDepositRecordByHostRequestAminoMsg {
   type: "/stride.records.QueryDepositRecordByHostRequest";
@@ -134,7 +135,7 @@ export interface QueryDepositRecordByHostResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryDepositRecordByHostResponseAmino {
-  deposit_record: DepositRecordAmino[];
+  deposit_record?: DepositRecordAmino[];
 }
 export interface QueryDepositRecordByHostResponseAminoMsg {
   type: "/stride.records.QueryDepositRecordByHostResponse";
@@ -151,7 +152,7 @@ export interface QueryGetUserRedemptionRecordRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetUserRedemptionRecordRequestAmino {
-  id: string;
+  id?: string;
 }
 export interface QueryGetUserRedemptionRecordRequestAminoMsg {
   type: "/stride.records.QueryGetUserRedemptionRecordRequest";
@@ -178,7 +179,7 @@ export interface QueryGetUserRedemptionRecordResponseSDKType {
   user_redemption_record: UserRedemptionRecordSDKType;
 }
 export interface QueryAllUserRedemptionRecordRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllUserRedemptionRecordRequestProtoMsg {
   typeUrl: "/stride.records.QueryAllUserRedemptionRecordRequest";
@@ -192,18 +193,18 @@ export interface QueryAllUserRedemptionRecordRequestAminoMsg {
   value: QueryAllUserRedemptionRecordRequestAmino;
 }
 export interface QueryAllUserRedemptionRecordRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryAllUserRedemptionRecordResponse {
   userRedemptionRecord: UserRedemptionRecord[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllUserRedemptionRecordResponseProtoMsg {
   typeUrl: "/stride.records.QueryAllUserRedemptionRecordResponse";
   value: Uint8Array;
 }
 export interface QueryAllUserRedemptionRecordResponseAmino {
-  user_redemption_record: UserRedemptionRecordAmino[];
+  user_redemption_record?: UserRedemptionRecordAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllUserRedemptionRecordResponseAminoMsg {
@@ -212,7 +213,7 @@ export interface QueryAllUserRedemptionRecordResponseAminoMsg {
 }
 export interface QueryAllUserRedemptionRecordResponseSDKType {
   user_redemption_record: UserRedemptionRecordSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** Query UserRedemptionRecords by chainId / userId pair */
 export interface QueryAllUserRedemptionRecordForUserRequest {
@@ -220,7 +221,7 @@ export interface QueryAllUserRedemptionRecordForUserRequest {
   day: bigint;
   address: string;
   limit: bigint;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllUserRedemptionRecordForUserRequestProtoMsg {
   typeUrl: "/stride.records.QueryAllUserRedemptionRecordForUserRequest";
@@ -228,10 +229,10 @@ export interface QueryAllUserRedemptionRecordForUserRequestProtoMsg {
 }
 /** Query UserRedemptionRecords by chainId / userId pair */
 export interface QueryAllUserRedemptionRecordForUserRequestAmino {
-  chain_id: string;
-  day: string;
-  address: string;
-  limit: string;
+  chain_id?: string;
+  day?: string;
+  address?: string;
+  limit?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryAllUserRedemptionRecordForUserRequestAminoMsg {
@@ -244,18 +245,18 @@ export interface QueryAllUserRedemptionRecordForUserRequestSDKType {
   day: bigint;
   address: string;
   limit: bigint;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryAllUserRedemptionRecordForUserResponse {
   userRedemptionRecord: UserRedemptionRecord[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllUserRedemptionRecordForUserResponseProtoMsg {
   typeUrl: "/stride.records.QueryAllUserRedemptionRecordForUserResponse";
   value: Uint8Array;
 }
 export interface QueryAllUserRedemptionRecordForUserResponseAmino {
-  user_redemption_record: UserRedemptionRecordAmino[];
+  user_redemption_record?: UserRedemptionRecordAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllUserRedemptionRecordForUserResponseAminoMsg {
@@ -264,7 +265,7 @@ export interface QueryAllUserRedemptionRecordForUserResponseAminoMsg {
 }
 export interface QueryAllUserRedemptionRecordForUserResponseSDKType {
   user_redemption_record: UserRedemptionRecordSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryGetEpochUnbondingRecordRequest {
   epochNumber: bigint;
@@ -274,7 +275,7 @@ export interface QueryGetEpochUnbondingRecordRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetEpochUnbondingRecordRequestAmino {
-  epoch_number: string;
+  epoch_number?: string;
 }
 export interface QueryGetEpochUnbondingRecordRequestAminoMsg {
   type: "/stride.records.QueryGetEpochUnbondingRecordRequest";
@@ -301,7 +302,7 @@ export interface QueryGetEpochUnbondingRecordResponseSDKType {
   epoch_unbonding_record: EpochUnbondingRecordSDKType;
 }
 export interface QueryAllEpochUnbondingRecordRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllEpochUnbondingRecordRequestProtoMsg {
   typeUrl: "/stride.records.QueryAllEpochUnbondingRecordRequest";
@@ -315,18 +316,18 @@ export interface QueryAllEpochUnbondingRecordRequestAminoMsg {
   value: QueryAllEpochUnbondingRecordRequestAmino;
 }
 export interface QueryAllEpochUnbondingRecordRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryAllEpochUnbondingRecordResponse {
   epochUnbondingRecord: EpochUnbondingRecord[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllEpochUnbondingRecordResponseProtoMsg {
   typeUrl: "/stride.records.QueryAllEpochUnbondingRecordResponse";
   value: Uint8Array;
 }
 export interface QueryAllEpochUnbondingRecordResponseAmino {
-  epoch_unbonding_record: EpochUnbondingRecordAmino[];
+  epoch_unbonding_record?: EpochUnbondingRecordAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllEpochUnbondingRecordResponseAminoMsg {
@@ -335,7 +336,84 @@ export interface QueryAllEpochUnbondingRecordResponseAminoMsg {
 }
 export interface QueryAllEpochUnbondingRecordResponseSDKType {
   epoch_unbonding_record: EpochUnbondingRecordSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
+}
+export interface QueryLSMDepositRequest {
+  chainId: string;
+  denom: string;
+}
+export interface QueryLSMDepositRequestProtoMsg {
+  typeUrl: "/stride.records.QueryLSMDepositRequest";
+  value: Uint8Array;
+}
+export interface QueryLSMDepositRequestAmino {
+  chain_id?: string;
+  denom?: string;
+}
+export interface QueryLSMDepositRequestAminoMsg {
+  type: "/stride.records.QueryLSMDepositRequest";
+  value: QueryLSMDepositRequestAmino;
+}
+export interface QueryLSMDepositRequestSDKType {
+  chain_id: string;
+  denom: string;
+}
+export interface QueryLSMDepositResponse {
+  deposit: LSMTokenDeposit;
+}
+export interface QueryLSMDepositResponseProtoMsg {
+  typeUrl: "/stride.records.QueryLSMDepositResponse";
+  value: Uint8Array;
+}
+export interface QueryLSMDepositResponseAmino {
+  deposit?: LSMTokenDepositAmino;
+}
+export interface QueryLSMDepositResponseAminoMsg {
+  type: "/stride.records.QueryLSMDepositResponse";
+  value: QueryLSMDepositResponseAmino;
+}
+export interface QueryLSMDepositResponseSDKType {
+  deposit: LSMTokenDepositSDKType;
+}
+export interface QueryLSMDepositsRequest {
+  chainId: string;
+  validatorAddress: string;
+  status: string;
+}
+export interface QueryLSMDepositsRequestProtoMsg {
+  typeUrl: "/stride.records.QueryLSMDepositsRequest";
+  value: Uint8Array;
+}
+export interface QueryLSMDepositsRequestAmino {
+  chain_id?: string;
+  validator_address?: string;
+  status?: string;
+}
+export interface QueryLSMDepositsRequestAminoMsg {
+  type: "/stride.records.QueryLSMDepositsRequest";
+  value: QueryLSMDepositsRequestAmino;
+}
+export interface QueryLSMDepositsRequestSDKType {
+  chain_id: string;
+  validator_address: string;
+  status: string;
+}
+export interface QueryLSMDepositsResponse {
+  deposits: LSMTokenDeposit[];
+}
+export interface QueryLSMDepositsResponseProtoMsg {
+  typeUrl: "/stride.records.QueryLSMDepositsResponse";
+  value: Uint8Array;
+}
+export interface QueryLSMDepositsResponseAmino {
+  deposits?: LSMTokenDepositAmino[];
+}
+export interface QueryLSMDepositsResponseAminoMsg {
+  type: "/stride.records.QueryLSMDepositsResponse";
+  value: QueryLSMDepositsResponseAmino;
+}
+export interface QueryLSMDepositsResponseSDKType {
+  deposits: LSMTokenDepositSDKType[];
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -353,7 +431,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -399,9 +478,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -448,9 +529,11 @@ export const QueryGetDepositRecordRequest = {
     return message;
   },
   fromAmino(object: QueryGetDepositRecordRequestAmino): QueryGetDepositRecordRequest {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseQueryGetDepositRecordRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: QueryGetDepositRecordRequest): QueryGetDepositRecordRequestAmino {
     const obj: any = {};
@@ -497,9 +580,11 @@ export const QueryGetDepositRecordResponse = {
     return message;
   },
   fromAmino(object: QueryGetDepositRecordResponseAmino): QueryGetDepositRecordResponse {
-    return {
-      depositRecord: object?.deposit_record ? DepositRecord.fromAmino(object.deposit_record) : undefined
-    };
+    const message = createBaseQueryGetDepositRecordResponse();
+    if (object.deposit_record !== undefined && object.deposit_record !== null) {
+      message.depositRecord = DepositRecord.fromAmino(object.deposit_record);
+    }
+    return message;
   },
   toAmino(message: QueryGetDepositRecordResponse): QueryGetDepositRecordResponseAmino {
     const obj: any = {};
@@ -524,7 +609,7 @@ export const QueryGetDepositRecordResponse = {
 };
 function createBaseQueryAllDepositRecordRequest(): QueryAllDepositRecordRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllDepositRecordRequest = {
@@ -546,9 +631,11 @@ export const QueryAllDepositRecordRequest = {
     return message;
   },
   fromAmino(object: QueryAllDepositRecordRequestAmino): QueryAllDepositRecordRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllDepositRecordRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllDepositRecordRequest): QueryAllDepositRecordRequestAmino {
     const obj: any = {};
@@ -574,7 +661,7 @@ export const QueryAllDepositRecordRequest = {
 function createBaseQueryAllDepositRecordResponse(): QueryAllDepositRecordResponse {
   return {
     depositRecord: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllDepositRecordResponse = {
@@ -601,10 +688,12 @@ export const QueryAllDepositRecordResponse = {
     return message;
   },
   fromAmino(object: QueryAllDepositRecordResponseAmino): QueryAllDepositRecordResponse {
-    return {
-      depositRecord: Array.isArray(object?.deposit_record) ? object.deposit_record.map((e: any) => DepositRecord.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllDepositRecordResponse();
+    message.depositRecord = object.deposit_record?.map(e => DepositRecord.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllDepositRecordResponse): QueryAllDepositRecordResponseAmino {
     const obj: any = {};
@@ -656,9 +745,11 @@ export const QueryDepositRecordByHostRequest = {
     return message;
   },
   fromAmino(object: QueryDepositRecordByHostRequestAmino): QueryDepositRecordByHostRequest {
-    return {
-      hostZoneId: object.host_zone_id
-    };
+    const message = createBaseQueryDepositRecordByHostRequest();
+    if (object.host_zone_id !== undefined && object.host_zone_id !== null) {
+      message.hostZoneId = object.host_zone_id;
+    }
+    return message;
   },
   toAmino(message: QueryDepositRecordByHostRequest): QueryDepositRecordByHostRequestAmino {
     const obj: any = {};
@@ -705,9 +796,9 @@ export const QueryDepositRecordByHostResponse = {
     return message;
   },
   fromAmino(object: QueryDepositRecordByHostResponseAmino): QueryDepositRecordByHostResponse {
-    return {
-      depositRecord: Array.isArray(object?.deposit_record) ? object.deposit_record.map((e: any) => DepositRecord.fromAmino(e)) : []
-    };
+    const message = createBaseQueryDepositRecordByHostResponse();
+    message.depositRecord = object.deposit_record?.map(e => DepositRecord.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryDepositRecordByHostResponse): QueryDepositRecordByHostResponseAmino {
     const obj: any = {};
@@ -758,9 +849,11 @@ export const QueryGetUserRedemptionRecordRequest = {
     return message;
   },
   fromAmino(object: QueryGetUserRedemptionRecordRequestAmino): QueryGetUserRedemptionRecordRequest {
-    return {
-      id: object.id
-    };
+    const message = createBaseQueryGetUserRedemptionRecordRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: QueryGetUserRedemptionRecordRequest): QueryGetUserRedemptionRecordRequestAmino {
     const obj: any = {};
@@ -807,9 +900,11 @@ export const QueryGetUserRedemptionRecordResponse = {
     return message;
   },
   fromAmino(object: QueryGetUserRedemptionRecordResponseAmino): QueryGetUserRedemptionRecordResponse {
-    return {
-      userRedemptionRecord: object?.user_redemption_record ? UserRedemptionRecord.fromAmino(object.user_redemption_record) : undefined
-    };
+    const message = createBaseQueryGetUserRedemptionRecordResponse();
+    if (object.user_redemption_record !== undefined && object.user_redemption_record !== null) {
+      message.userRedemptionRecord = UserRedemptionRecord.fromAmino(object.user_redemption_record);
+    }
+    return message;
   },
   toAmino(message: QueryGetUserRedemptionRecordResponse): QueryGetUserRedemptionRecordResponseAmino {
     const obj: any = {};
@@ -834,7 +929,7 @@ export const QueryGetUserRedemptionRecordResponse = {
 };
 function createBaseQueryAllUserRedemptionRecordRequest(): QueryAllUserRedemptionRecordRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllUserRedemptionRecordRequest = {
@@ -856,9 +951,11 @@ export const QueryAllUserRedemptionRecordRequest = {
     return message;
   },
   fromAmino(object: QueryAllUserRedemptionRecordRequestAmino): QueryAllUserRedemptionRecordRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllUserRedemptionRecordRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllUserRedemptionRecordRequest): QueryAllUserRedemptionRecordRequestAmino {
     const obj: any = {};
@@ -884,7 +981,7 @@ export const QueryAllUserRedemptionRecordRequest = {
 function createBaseQueryAllUserRedemptionRecordResponse(): QueryAllUserRedemptionRecordResponse {
   return {
     userRedemptionRecord: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllUserRedemptionRecordResponse = {
@@ -911,10 +1008,12 @@ export const QueryAllUserRedemptionRecordResponse = {
     return message;
   },
   fromAmino(object: QueryAllUserRedemptionRecordResponseAmino): QueryAllUserRedemptionRecordResponse {
-    return {
-      userRedemptionRecord: Array.isArray(object?.user_redemption_record) ? object.user_redemption_record.map((e: any) => UserRedemptionRecord.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllUserRedemptionRecordResponse();
+    message.userRedemptionRecord = object.user_redemption_record?.map(e => UserRedemptionRecord.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllUserRedemptionRecordResponse): QueryAllUserRedemptionRecordResponseAmino {
     const obj: any = {};
@@ -948,7 +1047,7 @@ function createBaseQueryAllUserRedemptionRecordForUserRequest(): QueryAllUserRed
     day: BigInt(0),
     address: "",
     limit: BigInt(0),
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllUserRedemptionRecordForUserRequest = {
@@ -990,13 +1089,23 @@ export const QueryAllUserRedemptionRecordForUserRequest = {
     return message;
   },
   fromAmino(object: QueryAllUserRedemptionRecordForUserRequestAmino): QueryAllUserRedemptionRecordForUserRequest {
-    return {
-      chainId: object.chain_id,
-      day: BigInt(object.day),
-      address: object.address,
-      limit: BigInt(object.limit),
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllUserRedemptionRecordForUserRequest();
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.day !== undefined && object.day !== null) {
+      message.day = BigInt(object.day);
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = BigInt(object.limit);
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllUserRedemptionRecordForUserRequest): QueryAllUserRedemptionRecordForUserRequestAmino {
     const obj: any = {};
@@ -1026,7 +1135,7 @@ export const QueryAllUserRedemptionRecordForUserRequest = {
 function createBaseQueryAllUserRedemptionRecordForUserResponse(): QueryAllUserRedemptionRecordForUserResponse {
   return {
     userRedemptionRecord: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllUserRedemptionRecordForUserResponse = {
@@ -1053,10 +1162,12 @@ export const QueryAllUserRedemptionRecordForUserResponse = {
     return message;
   },
   fromAmino(object: QueryAllUserRedemptionRecordForUserResponseAmino): QueryAllUserRedemptionRecordForUserResponse {
-    return {
-      userRedemptionRecord: Array.isArray(object?.user_redemption_record) ? object.user_redemption_record.map((e: any) => UserRedemptionRecord.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllUserRedemptionRecordForUserResponse();
+    message.userRedemptionRecord = object.user_redemption_record?.map(e => UserRedemptionRecord.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllUserRedemptionRecordForUserResponse): QueryAllUserRedemptionRecordForUserResponseAmino {
     const obj: any = {};
@@ -1108,9 +1219,11 @@ export const QueryGetEpochUnbondingRecordRequest = {
     return message;
   },
   fromAmino(object: QueryGetEpochUnbondingRecordRequestAmino): QueryGetEpochUnbondingRecordRequest {
-    return {
-      epochNumber: BigInt(object.epoch_number)
-    };
+    const message = createBaseQueryGetEpochUnbondingRecordRequest();
+    if (object.epoch_number !== undefined && object.epoch_number !== null) {
+      message.epochNumber = BigInt(object.epoch_number);
+    }
+    return message;
   },
   toAmino(message: QueryGetEpochUnbondingRecordRequest): QueryGetEpochUnbondingRecordRequestAmino {
     const obj: any = {};
@@ -1157,9 +1270,11 @@ export const QueryGetEpochUnbondingRecordResponse = {
     return message;
   },
   fromAmino(object: QueryGetEpochUnbondingRecordResponseAmino): QueryGetEpochUnbondingRecordResponse {
-    return {
-      epochUnbondingRecord: object?.epoch_unbonding_record ? EpochUnbondingRecord.fromAmino(object.epoch_unbonding_record) : undefined
-    };
+    const message = createBaseQueryGetEpochUnbondingRecordResponse();
+    if (object.epoch_unbonding_record !== undefined && object.epoch_unbonding_record !== null) {
+      message.epochUnbondingRecord = EpochUnbondingRecord.fromAmino(object.epoch_unbonding_record);
+    }
+    return message;
   },
   toAmino(message: QueryGetEpochUnbondingRecordResponse): QueryGetEpochUnbondingRecordResponseAmino {
     const obj: any = {};
@@ -1184,7 +1299,7 @@ export const QueryGetEpochUnbondingRecordResponse = {
 };
 function createBaseQueryAllEpochUnbondingRecordRequest(): QueryAllEpochUnbondingRecordRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllEpochUnbondingRecordRequest = {
@@ -1206,9 +1321,11 @@ export const QueryAllEpochUnbondingRecordRequest = {
     return message;
   },
   fromAmino(object: QueryAllEpochUnbondingRecordRequestAmino): QueryAllEpochUnbondingRecordRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllEpochUnbondingRecordRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllEpochUnbondingRecordRequest): QueryAllEpochUnbondingRecordRequestAmino {
     const obj: any = {};
@@ -1234,7 +1351,7 @@ export const QueryAllEpochUnbondingRecordRequest = {
 function createBaseQueryAllEpochUnbondingRecordResponse(): QueryAllEpochUnbondingRecordResponse {
   return {
     epochUnbondingRecord: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllEpochUnbondingRecordResponse = {
@@ -1261,10 +1378,12 @@ export const QueryAllEpochUnbondingRecordResponse = {
     return message;
   },
   fromAmino(object: QueryAllEpochUnbondingRecordResponseAmino): QueryAllEpochUnbondingRecordResponse {
-    return {
-      epochUnbondingRecord: Array.isArray(object?.epoch_unbonding_record) ? object.epoch_unbonding_record.map((e: any) => EpochUnbondingRecord.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllEpochUnbondingRecordResponse();
+    message.epochUnbondingRecord = object.epoch_unbonding_record?.map(e => EpochUnbondingRecord.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllEpochUnbondingRecordResponse): QueryAllEpochUnbondingRecordResponseAmino {
     const obj: any = {};
@@ -1289,6 +1408,242 @@ export const QueryAllEpochUnbondingRecordResponse = {
     return {
       typeUrl: "/stride.records.QueryAllEpochUnbondingRecordResponse",
       value: QueryAllEpochUnbondingRecordResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryLSMDepositRequest(): QueryLSMDepositRequest {
+  return {
+    chainId: "",
+    denom: ""
+  };
+}
+export const QueryLSMDepositRequest = {
+  typeUrl: "/stride.records.QueryLSMDepositRequest",
+  encode(message: QueryLSMDepositRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.chainId !== "") {
+      writer.uint32(10).string(message.chainId);
+    }
+    if (message.denom !== "") {
+      writer.uint32(18).string(message.denom);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryLSMDepositRequest {
+    return {
+      chainId: isSet(object.chainId) ? String(object.chainId) : "",
+      denom: isSet(object.denom) ? String(object.denom) : ""
+    };
+  },
+  fromPartial(object: Partial<QueryLSMDepositRequest>): QueryLSMDepositRequest {
+    const message = createBaseQueryLSMDepositRequest();
+    message.chainId = object.chainId ?? "";
+    message.denom = object.denom ?? "";
+    return message;
+  },
+  fromAmino(object: QueryLSMDepositRequestAmino): QueryLSMDepositRequest {
+    const message = createBaseQueryLSMDepositRequest();
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
+  },
+  toAmino(message: QueryLSMDepositRequest): QueryLSMDepositRequestAmino {
+    const obj: any = {};
+    obj.chain_id = message.chainId;
+    obj.denom = message.denom;
+    return obj;
+  },
+  fromAminoMsg(object: QueryLSMDepositRequestAminoMsg): QueryLSMDepositRequest {
+    return QueryLSMDepositRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryLSMDepositRequestProtoMsg): QueryLSMDepositRequest {
+    return QueryLSMDepositRequest.decode(message.value);
+  },
+  toProto(message: QueryLSMDepositRequest): Uint8Array {
+    return QueryLSMDepositRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryLSMDepositRequest): QueryLSMDepositRequestProtoMsg {
+    return {
+      typeUrl: "/stride.records.QueryLSMDepositRequest",
+      value: QueryLSMDepositRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryLSMDepositResponse(): QueryLSMDepositResponse {
+  return {
+    deposit: LSMTokenDeposit.fromPartial({})
+  };
+}
+export const QueryLSMDepositResponse = {
+  typeUrl: "/stride.records.QueryLSMDepositResponse",
+  encode(message: QueryLSMDepositResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.deposit !== undefined) {
+      LSMTokenDeposit.encode(message.deposit, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryLSMDepositResponse {
+    return {
+      deposit: isSet(object.deposit) ? LSMTokenDeposit.fromJSON(object.deposit) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryLSMDepositResponse>): QueryLSMDepositResponse {
+    const message = createBaseQueryLSMDepositResponse();
+    message.deposit = object.deposit !== undefined && object.deposit !== null ? LSMTokenDeposit.fromPartial(object.deposit) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryLSMDepositResponseAmino): QueryLSMDepositResponse {
+    const message = createBaseQueryLSMDepositResponse();
+    if (object.deposit !== undefined && object.deposit !== null) {
+      message.deposit = LSMTokenDeposit.fromAmino(object.deposit);
+    }
+    return message;
+  },
+  toAmino(message: QueryLSMDepositResponse): QueryLSMDepositResponseAmino {
+    const obj: any = {};
+    obj.deposit = message.deposit ? LSMTokenDeposit.toAmino(message.deposit) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryLSMDepositResponseAminoMsg): QueryLSMDepositResponse {
+    return QueryLSMDepositResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryLSMDepositResponseProtoMsg): QueryLSMDepositResponse {
+    return QueryLSMDepositResponse.decode(message.value);
+  },
+  toProto(message: QueryLSMDepositResponse): Uint8Array {
+    return QueryLSMDepositResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryLSMDepositResponse): QueryLSMDepositResponseProtoMsg {
+    return {
+      typeUrl: "/stride.records.QueryLSMDepositResponse",
+      value: QueryLSMDepositResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryLSMDepositsRequest(): QueryLSMDepositsRequest {
+  return {
+    chainId: "",
+    validatorAddress: "",
+    status: ""
+  };
+}
+export const QueryLSMDepositsRequest = {
+  typeUrl: "/stride.records.QueryLSMDepositsRequest",
+  encode(message: QueryLSMDepositsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.chainId !== "") {
+      writer.uint32(10).string(message.chainId);
+    }
+    if (message.validatorAddress !== "") {
+      writer.uint32(18).string(message.validatorAddress);
+    }
+    if (message.status !== "") {
+      writer.uint32(26).string(message.status);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryLSMDepositsRequest {
+    return {
+      chainId: isSet(object.chainId) ? String(object.chainId) : "",
+      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "",
+      status: isSet(object.status) ? String(object.status) : ""
+    };
+  },
+  fromPartial(object: Partial<QueryLSMDepositsRequest>): QueryLSMDepositsRequest {
+    const message = createBaseQueryLSMDepositsRequest();
+    message.chainId = object.chainId ?? "";
+    message.validatorAddress = object.validatorAddress ?? "";
+    message.status = object.status ?? "";
+    return message;
+  },
+  fromAmino(object: QueryLSMDepositsRequestAmino): QueryLSMDepositsRequest {
+    const message = createBaseQueryLSMDepositsRequest();
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = object.status;
+    }
+    return message;
+  },
+  toAmino(message: QueryLSMDepositsRequest): QueryLSMDepositsRequestAmino {
+    const obj: any = {};
+    obj.chain_id = message.chainId;
+    obj.validator_address = message.validatorAddress;
+    obj.status = message.status;
+    return obj;
+  },
+  fromAminoMsg(object: QueryLSMDepositsRequestAminoMsg): QueryLSMDepositsRequest {
+    return QueryLSMDepositsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryLSMDepositsRequestProtoMsg): QueryLSMDepositsRequest {
+    return QueryLSMDepositsRequest.decode(message.value);
+  },
+  toProto(message: QueryLSMDepositsRequest): Uint8Array {
+    return QueryLSMDepositsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryLSMDepositsRequest): QueryLSMDepositsRequestProtoMsg {
+    return {
+      typeUrl: "/stride.records.QueryLSMDepositsRequest",
+      value: QueryLSMDepositsRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryLSMDepositsResponse(): QueryLSMDepositsResponse {
+  return {
+    deposits: []
+  };
+}
+export const QueryLSMDepositsResponse = {
+  typeUrl: "/stride.records.QueryLSMDepositsResponse",
+  encode(message: QueryLSMDepositsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.deposits) {
+      LSMTokenDeposit.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryLSMDepositsResponse {
+    return {
+      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => LSMTokenDeposit.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<QueryLSMDepositsResponse>): QueryLSMDepositsResponse {
+    const message = createBaseQueryLSMDepositsResponse();
+    message.deposits = object.deposits?.map(e => LSMTokenDeposit.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryLSMDepositsResponseAmino): QueryLSMDepositsResponse {
+    const message = createBaseQueryLSMDepositsResponse();
+    message.deposits = object.deposits?.map(e => LSMTokenDeposit.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryLSMDepositsResponse): QueryLSMDepositsResponseAmino {
+    const obj: any = {};
+    if (message.deposits) {
+      obj.deposits = message.deposits.map(e => e ? LSMTokenDeposit.toAmino(e) : undefined);
+    } else {
+      obj.deposits = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryLSMDepositsResponseAminoMsg): QueryLSMDepositsResponse {
+    return QueryLSMDepositsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryLSMDepositsResponseProtoMsg): QueryLSMDepositsResponse {
+    return QueryLSMDepositsResponse.decode(message.value);
+  },
+  toProto(message: QueryLSMDepositsResponse): Uint8Array {
+    return QueryLSMDepositsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryLSMDepositsResponse): QueryLSMDepositsResponseProtoMsg {
+    return {
+      typeUrl: "/stride.records.QueryLSMDepositsResponse",
+      value: QueryLSMDepositsResponse.encode(message).finish()
     };
   }
 };

@@ -13,7 +13,7 @@ export interface MinterProtoMsg {
 /** Minter represents the minting state. */
 export interface MinterAmino {
   /** current epoch provisions */
-  epoch_provisions: string;
+  epoch_provisions?: string;
 }
 export interface MinterAminoMsg {
   type: "/stride.mint.v1beta1.Minter";
@@ -56,22 +56,22 @@ export interface DistributionProportionsAmino {
    * staking defines the proportion of the minted minted_denom that is to be
    * allocated as staking rewards.
    */
-  staking: string;
+  staking?: string;
   /**
    * community_pool defines the proportion of the minted mint_denom that is
    * to be allocated to the community pool: growth.
    */
-  community_pool_growth: string;
+  community_pool_growth?: string;
   /**
    * community_pool defines the proportion of the minted mint_denom that is
    * to be allocated to the community pool: security budget.
    */
-  community_pool_security_budget: string;
+  community_pool_security_budget?: string;
   /**
    * strategic_reserve defines the proportion of the minted mint_denom that is
    * to be allocated to the pool: strategic reserve.
    */
-  strategic_reserve: string;
+  strategic_reserve?: string;
 }
 export interface DistributionProportionsAminoMsg {
   type: "/stride.mint.v1beta1.DistributionProportions";
@@ -108,19 +108,19 @@ export interface ParamsProtoMsg {
 /** Params holds parameters for the mint module. */
 export interface ParamsAmino {
   /** type of coin to mint */
-  mint_denom: string;
+  mint_denom?: string;
   /** epoch provisions from the first epoch */
-  genesis_epoch_provisions: string;
+  genesis_epoch_provisions?: string;
   /** mint epoch identifier */
-  epoch_identifier: string;
+  epoch_identifier?: string;
   /** number of epochs take to reduce rewards */
-  reduction_period_in_epochs: string;
+  reduction_period_in_epochs?: string;
   /** reduction multiplier to execute on each period */
-  reduction_factor: string;
+  reduction_factor?: string;
   /** distribution_proportions defines the proportion of the minted denom */
   distribution_proportions?: DistributionProportionsAmino;
   /** start epoch to distribute minting rewards */
-  minting_rewards_distribution_start_epoch: string;
+  minting_rewards_distribution_start_epoch?: string;
 }
 export interface ParamsAminoMsg {
   type: "/stride.mint.v1beta1.Params";
@@ -160,9 +160,11 @@ export const Minter = {
     return message;
   },
   fromAmino(object: MinterAmino): Minter {
-    return {
-      epochProvisions: object.epoch_provisions
-    };
+    const message = createBaseMinter();
+    if (object.epoch_provisions !== undefined && object.epoch_provisions !== null) {
+      message.epochProvisions = object.epoch_provisions;
+    }
+    return message;
   },
   toAmino(message: Minter): MinterAmino {
     const obj: any = {};
@@ -227,12 +229,20 @@ export const DistributionProportions = {
     return message;
   },
   fromAmino(object: DistributionProportionsAmino): DistributionProportions {
-    return {
-      staking: object.staking,
-      communityPoolGrowth: object.community_pool_growth,
-      communityPoolSecurityBudget: object.community_pool_security_budget,
-      strategicReserve: object.strategic_reserve
-    };
+    const message = createBaseDistributionProportions();
+    if (object.staking !== undefined && object.staking !== null) {
+      message.staking = object.staking;
+    }
+    if (object.community_pool_growth !== undefined && object.community_pool_growth !== null) {
+      message.communityPoolGrowth = object.community_pool_growth;
+    }
+    if (object.community_pool_security_budget !== undefined && object.community_pool_security_budget !== null) {
+      message.communityPoolSecurityBudget = object.community_pool_security_budget;
+    }
+    if (object.strategic_reserve !== undefined && object.strategic_reserve !== null) {
+      message.strategicReserve = object.strategic_reserve;
+    }
+    return message;
   },
   toAmino(message: DistributionProportions): DistributionProportionsAmino {
     const obj: any = {};
@@ -318,15 +328,29 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      mintDenom: object.mint_denom,
-      genesisEpochProvisions: object.genesis_epoch_provisions,
-      epochIdentifier: object.epoch_identifier,
-      reductionPeriodInEpochs: BigInt(object.reduction_period_in_epochs),
-      reductionFactor: object.reduction_factor,
-      distributionProportions: object?.distribution_proportions ? DistributionProportions.fromAmino(object.distribution_proportions) : undefined,
-      mintingRewardsDistributionStartEpoch: BigInt(object.minting_rewards_distribution_start_epoch)
-    };
+    const message = createBaseParams();
+    if (object.mint_denom !== undefined && object.mint_denom !== null) {
+      message.mintDenom = object.mint_denom;
+    }
+    if (object.genesis_epoch_provisions !== undefined && object.genesis_epoch_provisions !== null) {
+      message.genesisEpochProvisions = object.genesis_epoch_provisions;
+    }
+    if (object.epoch_identifier !== undefined && object.epoch_identifier !== null) {
+      message.epochIdentifier = object.epoch_identifier;
+    }
+    if (object.reduction_period_in_epochs !== undefined && object.reduction_period_in_epochs !== null) {
+      message.reductionPeriodInEpochs = BigInt(object.reduction_period_in_epochs);
+    }
+    if (object.reduction_factor !== undefined && object.reduction_factor !== null) {
+      message.reductionFactor = object.reduction_factor;
+    }
+    if (object.distribution_proportions !== undefined && object.distribution_proportions !== null) {
+      message.distributionProportions = DistributionProportions.fromAmino(object.distribution_proportions);
+    }
+    if (object.minting_rewards_distribution_start_epoch !== undefined && object.minting_rewards_distribution_start_epoch !== null) {
+      message.mintingRewardsDistributionStartEpoch = BigInt(object.minting_rewards_distribution_start_epoch);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
