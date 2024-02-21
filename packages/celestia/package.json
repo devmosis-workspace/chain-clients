@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/celestia",
-  "version": "0.0.5",
+  "version": "1.6.0",
   "license": "SEE LICENSE IN LICENSE",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
