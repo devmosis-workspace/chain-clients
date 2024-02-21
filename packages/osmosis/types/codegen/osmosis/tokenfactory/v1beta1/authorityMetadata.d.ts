@@ -19,7 +19,7 @@ export interface DenomAuthorityMetadataProtoMsg {
  */
 export interface DenomAuthorityMetadataAmino {
     /** Can be empty for no admin, or a valid osmosis address */
-    admin: string;
+    admin?: string;
 }
 export interface DenomAuthorityMetadataAminoMsg {
     type: "osmosis/tokenfactory/denom-authority-metadata";

@@ -22,6 +22,26 @@ export declare const osmosisAminoConverters: {
         toAmino: (message: import("./tokenfactory/v1beta1/tx").MsgChangeAdmin) => import("./tokenfactory/v1beta1/tx").MsgChangeAdminAmino;
         fromAmino: (object: import("./tokenfactory/v1beta1/tx").MsgChangeAdminAmino) => import("./tokenfactory/v1beta1/tx").MsgChangeAdmin;
     };
+    "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata": {
+        aminoType: string;
+        toAmino: (message: import("./tokenfactory/v1beta1/tx").MsgSetDenomMetadata) => import("./tokenfactory/v1beta1/tx").MsgSetDenomMetadataAmino;
+        fromAmino: (object: import("./tokenfactory/v1beta1/tx").MsgSetDenomMetadataAmino) => import("./tokenfactory/v1beta1/tx").MsgSetDenomMetadata;
+    };
+    "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook": {
+        aminoType: string;
+        toAmino: (message: import("./tokenfactory/v1beta1/tx").MsgSetBeforeSendHook) => import("./tokenfactory/v1beta1/tx").MsgSetBeforeSendHookAmino;
+        fromAmino: (object: import("./tokenfactory/v1beta1/tx").MsgSetBeforeSendHookAmino) => import("./tokenfactory/v1beta1/tx").MsgSetBeforeSendHook;
+    };
+    "/osmosis.tokenfactory.v1beta1.MsgForceTransfer": {
+        aminoType: string;
+        toAmino: (message: import("./tokenfactory/v1beta1/tx").MsgForceTransfer) => import("./tokenfactory/v1beta1/tx").MsgForceTransferAmino;
+        fromAmino: (object: import("./tokenfactory/v1beta1/tx").MsgForceTransferAmino) => import("./tokenfactory/v1beta1/tx").MsgForceTransfer;
+    };
+    "/osmosis.tokenfactory.v1beta1.MsgUpdateParams": {
+        aminoType: string;
+        toAmino: (message: import("./tokenfactory/v1beta1/tx").MsgUpdateParams) => import("./tokenfactory/v1beta1/tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./tokenfactory/v1beta1/tx").MsgUpdateParamsAmino) => import("./tokenfactory/v1beta1/tx").MsgUpdateParams;
+    };
 };
 export declare const osmosisProtoRegistry: ReadonlyArray<[string, GeneratedType]>;
 export declare const getSigningOsmosisClientOptions: ({ defaultTypes }?: {

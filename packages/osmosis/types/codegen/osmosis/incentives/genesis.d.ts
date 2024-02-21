@@ -1,6 +1,7 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { Gauge, GaugeAmino, GaugeSDKType } from "./gauge";
 import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { Group, GroupAmino, GroupSDKType } from "./group";
 import { BinaryWriter } from "../../binary";
 /**
  * GenesisState defines the incentives module's various parameters when first
@@ -9,11 +10,14 @@ import { BinaryWriter } from "../../binary";
 export interface GenesisState {
     /** params are all the parameters of the module */
     params: Params;
-    /** gauges are all gauges that should exist at genesis */
+    /**
+     * gauges are all gauges (not including group gauges) that should exist at
+     * genesis
+     */
     gauges: Gauge[];
     /**
      * lockable_durations are all lockup durations that gauges can be locked for
-     * in order to recieve incentives
+     * in order to receive incentives
      */
     lockableDurations: Duration[];
     /**
@@ -21,6 +25,10 @@ export interface GenesisState {
      * the next gauge after genesis
      */
     lastGaugeId: bigint;
+    /** gauges are all group gauges that should exist at genesis */
+    groupGauges: Gauge[];
+    /** groups are all the groups that should exist at genesis */
+    groups: Group[];
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/osmosis.incentives.GenesisState";
@@ -33,18 +41,25 @@ export interface GenesisStateProtoMsg {
 export interface GenesisStateAmino {
     /** params are all the parameters of the module */
     params?: ParamsAmino;
-    /** gauges are all gauges that should exist at genesis */
-    gauges: GaugeAmino[];
+    /**
+     * gauges are all gauges (not including group gauges) that should exist at
+     * genesis
+     */
+    gauges?: GaugeAmino[];
     /**
      * lockable_durations are all lockup durations that gauges can be locked for
-     * in order to recieve incentives
+     * in order to receive incentives
      */
-    lockable_durations: DurationAmino[];
+    lockable_durations?: DurationAmino[];
     /**
      * last_gauge_id is what the gauge number will increment from when creating
      * the next gauge after genesis
      */
-    last_gauge_id: string;
+    last_gauge_id?: string;
+    /** gauges are all group gauges that should exist at genesis */
+    group_gauges?: GaugeAmino[];
+    /** groups are all the groups that should exist at genesis */
+    groups?: GroupAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "osmosis/incentives/genesis-state";
@@ -59,6 +74,8 @@ export interface GenesisStateSDKType {
     gauges: GaugeSDKType[];
     lockable_durations: DurationSDKType[];
     last_gauge_id: bigint;
+    group_gauges: GaugeSDKType[];
+    groups: GroupSDKType[];
 }
 export declare const GenesisState: {
     typeUrl: string;

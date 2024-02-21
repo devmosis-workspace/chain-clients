@@ -47,8 +47,8 @@ export interface ModuleRouteProtoMsg {
  */
 export interface ModuleRouteAmino {
     /** pool_type specifies the type of the pool */
-    pool_type: PoolType;
-    pool_id: string;
+    pool_type?: PoolType;
+    pool_id?: string;
 }
 export interface ModuleRouteAminoMsg {
     type: "osmosis/poolmanager/module-route";

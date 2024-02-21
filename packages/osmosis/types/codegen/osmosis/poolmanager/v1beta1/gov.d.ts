@@ -18,9 +18,9 @@ export interface DenomPairTakerFeeProposalProtoMsg {
  * for one or more denom pairs.
  */
 export interface DenomPairTakerFeeProposalAmino {
-    title: string;
-    description: string;
-    denom_pair_taker_fee: DenomPairTakerFeeAmino[];
+    title?: string;
+    description?: string;
+    denom_pair_taker_fee?: DenomPairTakerFeeAmino[];
 }
 export interface DenomPairTakerFeeProposalAminoMsg {
     type: "osmosis/poolmanager/denom-pair-taker-fee-proposal";

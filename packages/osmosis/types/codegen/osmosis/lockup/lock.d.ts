@@ -1,5 +1,5 @@
 import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../binary";
 /**
@@ -10,6 +10,7 @@ export declare enum LockQueryType {
     ByDuration = 0,
     ByTime = 1,
     NoLock = 2,
+    ByGroup = 3,
     UNRECOGNIZED = -1
 }
 export declare const LockQueryTypeSDKType: typeof LockQueryType;
@@ -72,12 +73,12 @@ export interface PeriodLockAmino {
      * The ID of the lock is decided upon lock creation, incrementing by 1 for
      * every lock.
      */
-    ID: string;
+    ID?: string;
     /**
      * Owner is the account address of the lock owner.
      * Only the owner can modify the state of the lock.
      */
-    owner: string;
+    owner?: string;
     /**
      * Duration is the time needed for a lock to mature after unlocking has
      * started.
@@ -88,15 +89,15 @@ export interface PeriodLockAmino {
      * This value is first initialized when an unlock has started for the lock,
      * end time being block time + duration.
      */
-    end_time?: TimestampAmino;
+    end_time?: string;
     /** Coins are the tokens locked within the lock, kept in the module account. */
-    coins: CoinAmino[];
+    coins?: CoinAmino[];
     /**
      * Reward Receiver Address is the address that would be receiving rewards for
      * the incentives for the lock. This is set to owner by default and can be
      * changed via separate msg.
      */
-    reward_receiver_address: string;
+    reward_receiver_address?: string;
 }
 export interface PeriodLockAminoMsg {
     type: "osmosis/lockup/period-lock";
@@ -151,9 +152,9 @@ export interface QueryConditionProtoMsg {
  */
 export interface QueryConditionAmino {
     /** LockQueryType is a type of lock query, ByLockDuration | ByLockTime */
-    lock_query_type: LockQueryType;
+    lock_query_type?: LockQueryType;
     /** Denom represents the token denomination we are looking to lock up */
-    denom: string;
+    denom?: string;
     /**
      * Duration is used to query locks with longer duration than the specified
      * duration. Duration field must not be nil when the lock query type is
@@ -165,7 +166,7 @@ export interface QueryConditionAmino {
      * Timestamp field must not be nil when the lock query type is `ByLockTime`.
      * Querying locks with timestamp is currently not implemented.
      */
-    timestamp?: TimestampAmino;
+    timestamp?: string;
 }
 export interface QueryConditionAminoMsg {
     type: "osmosis/lockup/query-condition";
@@ -225,17 +226,17 @@ export interface SyntheticLockAmino {
      * Underlying Lock ID is the underlying native lock's id for this synthetic
      * lockup. A synthetic lock MUST have an underlying lock.
      */
-    underlying_lock_id: string;
+    underlying_lock_id?: string;
     /**
      * SynthDenom is the synthetic denom that is a combination of
      * gamm share + bonding status + validator address.
      */
-    synth_denom: string;
+    synth_denom?: string;
     /**
      * used for unbonding synthetic lockups, for active synthetic lockups, this
      * value is set to uninitialized value
      */
-    end_time?: TimestampAmino;
+    end_time?: string;
     /**
      * Duration is the duration for a synthetic lock to mature
      * at the point of unbonding has started.

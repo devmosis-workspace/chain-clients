@@ -21,7 +21,7 @@ export interface Query {
     consensusStateHeights(request: QueryConsensusStateHeightsRequest): Promise<QueryConsensusStateHeightsResponse>;
     /** Status queries the status of an IBC client. */
     clientStatus(request: QueryClientStatusRequest): Promise<QueryClientStatusResponse>;
-    /** ClientParams queries all parameters of the ibc client. */
+    /** ClientParams queries all parameters of the ibc client submodule. */
     clientParams(request?: QueryClientParamsRequest): Promise<QueryClientParamsResponse>;
     /** UpgradedClientState queries an Upgraded IBC light client. */
     upgradedClientState(request?: QueryUpgradedClientStateRequest): Promise<QueryUpgradedClientStateResponse>;

@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/osmosis",
-  "version": "22.0.5-1",
+  "version": "22.0.5-2",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

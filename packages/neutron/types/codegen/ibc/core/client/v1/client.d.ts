@@ -9,7 +9,7 @@ export interface IdentifiedClientState {
     /** client identifier */
     clientId: string;
     /** client state */
-    clientState: Any;
+    clientState?: Any;
 }
 export interface IdentifiedClientStateProtoMsg {
     typeUrl: "/ibc.core.client.v1.IdentifiedClientState";
@@ -21,7 +21,7 @@ export interface IdentifiedClientStateProtoMsg {
  */
 export interface IdentifiedClientStateAmino {
     /** client identifier */
-    client_id: string;
+    client_id?: string;
     /** client state */
     client_state?: AnyAmino;
 }
@@ -35,7 +35,7 @@ export interface IdentifiedClientStateAminoMsg {
  */
 export interface IdentifiedClientStateSDKType {
     client_id: string;
-    client_state: AnySDKType;
+    client_state?: AnySDKType;
 }
 /**
  * ConsensusStateWithHeight defines a consensus state with an additional height
@@ -45,7 +45,7 @@ export interface ConsensusStateWithHeight {
     /** consensus state height */
     height: Height;
     /** consensus state */
-    consensusState: Any;
+    consensusState?: Any;
 }
 export interface ConsensusStateWithHeightProtoMsg {
     typeUrl: "/ibc.core.client.v1.ConsensusStateWithHeight";
@@ -71,7 +71,7 @@ export interface ConsensusStateWithHeightAminoMsg {
  */
 export interface ConsensusStateWithHeightSDKType {
     height: HeightSDKType;
-    consensus_state: AnySDKType;
+    consensus_state?: AnySDKType;
 }
 /**
  * ClientConsensusStates defines all the stored consensus states for a given
@@ -93,9 +93,9 @@ export interface ClientConsensusStatesProtoMsg {
  */
 export interface ClientConsensusStatesAmino {
     /** client identifier */
-    client_id: string;
+    client_id?: string;
     /** consensus states and their heights associated with the client */
-    consensus_states: ConsensusStateWithHeightAmino[];
+    consensus_states?: ConsensusStateWithHeightAmino[];
 }
 export interface ClientConsensusStatesAminoMsg {
     type: "cosmos-sdk/ClientConsensusStates";
@@ -116,7 +116,7 @@ export interface ClientConsensusStatesSDKType {
  * chain parameters (with exception to latest height, frozen height, and chain-id).
  */
 export interface ClientUpdateProposal {
-    $typeUrl?: string;
+    $typeUrl?: "/ibc.core.client.v1.ClientUpdateProposal";
     /** the title of the update proposal */
     title: string;
     /** the description of the proposal */
@@ -141,16 +141,16 @@ export interface ClientUpdateProposalProtoMsg {
  */
 export interface ClientUpdateProposalAmino {
     /** the title of the update proposal */
-    title: string;
+    title?: string;
     /** the description of the proposal */
-    description: string;
+    description?: string;
     /** the client identifier for the client to be updated if the proposal passes */
-    subject_client_id: string;
+    subject_client_id?: string;
     /**
      * the substitute client identifier for the client standing in for the subject
      * client
      */
-    substitute_client_id: string;
+    substitute_client_id?: string;
 }
 export interface ClientUpdateProposalAminoMsg {
     type: "cosmos-sdk/ClientUpdateProposal";
@@ -163,7 +163,7 @@ export interface ClientUpdateProposalAminoMsg {
  * chain parameters (with exception to latest height, frozen height, and chain-id).
  */
 export interface ClientUpdateProposalSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/ibc.core.client.v1.ClientUpdateProposal";
     title: string;
     description: string;
     subject_client_id: string;
@@ -174,7 +174,7 @@ export interface ClientUpdateProposalSDKType {
  * upgrade.
  */
 export interface UpgradeProposal {
-    $typeUrl?: string;
+    $typeUrl?: "/ibc.core.client.v1.UpgradeProposal";
     title: string;
     description: string;
     plan: Plan;
@@ -186,7 +186,7 @@ export interface UpgradeProposal {
      * of the chain. This will allow IBC connections to persist smoothly across
      * planned chain upgrades
      */
-    upgradedClientState: Any;
+    upgradedClientState?: Any;
 }
 export interface UpgradeProposalProtoMsg {
     typeUrl: "/ibc.core.client.v1.UpgradeProposal";
@@ -197,8 +197,8 @@ export interface UpgradeProposalProtoMsg {
  * upgrade.
  */
 export interface UpgradeProposalAmino {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     plan?: PlanAmino;
     /**
      * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
@@ -219,11 +219,11 @@ export interface UpgradeProposalAminoMsg {
  * upgrade.
  */
 export interface UpgradeProposalSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/ibc.core.client.v1.UpgradeProposal";
     title: string;
     description: string;
     plan: PlanSDKType;
-    upgraded_client_state: AnySDKType;
+    upgraded_client_state?: AnySDKType;
 }
 /**
  * Height is a monotonically increasing data type
@@ -261,9 +261,9 @@ export interface HeightProtoMsg {
  */
 export interface HeightAmino {
     /** the revision that the client is currently on */
-    revision_number: string;
+    revision_number?: string;
     /** the height within the given revision */
-    revision_height: string;
+    revision_height?: string;
 }
 export interface HeightAminoMsg {
     type: "cosmos-sdk/Height";
@@ -287,7 +287,11 @@ export interface HeightSDKType {
 }
 /** Params defines the set of IBC light client parameters. */
 export interface Params {
-    /** allowed_clients defines the list of allowed client state types. */
+    /**
+     * allowed_clients defines the list of allowed client state types which can be created
+     * and interacted with. If a client type is removed from the allowed clients list, usage
+     * of this client will be disabled until it is added again to the list.
+     */
     allowedClients: string[];
 }
 export interface ParamsProtoMsg {
@@ -296,8 +300,12 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the set of IBC light client parameters. */
 export interface ParamsAmino {
-    /** allowed_clients defines the list of allowed client state types. */
-    allowed_clients: string[];
+    /**
+     * allowed_clients defines the list of allowed client state types which can be created
+     * and interacted with. If a client type is removed from the allowed clients list, usage
+     * of this client will be disabled until it is added again to the list.
+     */
+    allowed_clients?: string[];
 }
 export interface ParamsAminoMsg {
     type: "cosmos-sdk/Params";

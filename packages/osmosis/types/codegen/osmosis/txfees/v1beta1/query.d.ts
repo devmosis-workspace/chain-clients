@@ -22,7 +22,7 @@ export interface QueryFeeTokensResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryFeeTokensResponseAmino {
-    fee_tokens: FeeTokenAmino[];
+    fee_tokens?: FeeTokenAmino[];
 }
 export interface QueryFeeTokensResponseAminoMsg {
     type: "osmosis/txfees/query-fee-tokens-response";
@@ -47,7 +47,7 @@ export interface QueryDenomSpotPriceRequestProtoMsg {
  * price for the specified tx fee denom
  */
 export interface QueryDenomSpotPriceRequestAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryDenomSpotPriceRequestAminoMsg {
     type: "osmosis/txfees/query-denom-spot-price-request";
@@ -77,8 +77,8 @@ export interface QueryDenomSpotPriceResponseProtoMsg {
  * price for the specified tx fee denom
  */
 export interface QueryDenomSpotPriceResponseAmino {
-    poolID: string;
-    spot_price: string;
+    poolID?: string;
+    spot_price?: string;
 }
 export interface QueryDenomSpotPriceResponseAminoMsg {
     type: "osmosis/txfees/query-denom-spot-price-response";
@@ -100,7 +100,7 @@ export interface QueryDenomPoolIdRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryDenomPoolIdRequestAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryDenomPoolIdRequestAminoMsg {
     type: "osmosis/txfees/query-denom-pool-id-request";
@@ -117,7 +117,7 @@ export interface QueryDenomPoolIdResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryDenomPoolIdResponseAmino {
-    poolID: string;
+    poolID?: string;
 }
 export interface QueryDenomPoolIdResponseAminoMsg {
     type: "osmosis/txfees/query-denom-pool-id-response";
@@ -148,7 +148,7 @@ export interface QueryBaseDenomResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryBaseDenomResponseAmino {
-    base_denom: string;
+    base_denom?: string;
 }
 export interface QueryBaseDenomResponseAminoMsg {
     type: "osmosis/txfees/query-base-denom-response";
@@ -156,6 +156,37 @@ export interface QueryBaseDenomResponseAminoMsg {
 }
 export interface QueryBaseDenomResponseSDKType {
     base_denom: string;
+}
+export interface QueryEipBaseFeeRequest {
+}
+export interface QueryEipBaseFeeRequestProtoMsg {
+    typeUrl: "/osmosis.txfees.v1beta1.QueryEipBaseFeeRequest";
+    value: Uint8Array;
+}
+export interface QueryEipBaseFeeRequestAmino {
+}
+export interface QueryEipBaseFeeRequestAminoMsg {
+    type: "osmosis/txfees/query-eip-base-fee-request";
+    value: QueryEipBaseFeeRequestAmino;
+}
+export interface QueryEipBaseFeeRequestSDKType {
+}
+export interface QueryEipBaseFeeResponse {
+    baseFee: string;
+}
+export interface QueryEipBaseFeeResponseProtoMsg {
+    typeUrl: "/osmosis.txfees.v1beta1.QueryEipBaseFeeResponse";
+    value: Uint8Array;
+}
+export interface QueryEipBaseFeeResponseAmino {
+    base_fee?: string;
+}
+export interface QueryEipBaseFeeResponseAminoMsg {
+    type: "osmosis/txfees/query-eip-base-fee-response";
+    value: QueryEipBaseFeeResponseAmino;
+}
+export interface QueryEipBaseFeeResponseSDKType {
+    base_fee: string;
 }
 export declare const QueryFeeTokensRequest: {
     typeUrl: string;
@@ -260,4 +291,30 @@ export declare const QueryBaseDenomResponse: {
     fromProtoMsg(message: QueryBaseDenomResponseProtoMsg): QueryBaseDenomResponse;
     toProto(message: QueryBaseDenomResponse): Uint8Array;
     toProtoMsg(message: QueryBaseDenomResponse): QueryBaseDenomResponseProtoMsg;
+};
+export declare const QueryEipBaseFeeRequest: {
+    typeUrl: string;
+    encode(_: QueryEipBaseFeeRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): QueryEipBaseFeeRequest;
+    fromPartial(_: Partial<QueryEipBaseFeeRequest>): QueryEipBaseFeeRequest;
+    fromAmino(_: QueryEipBaseFeeRequestAmino): QueryEipBaseFeeRequest;
+    toAmino(_: QueryEipBaseFeeRequest): QueryEipBaseFeeRequestAmino;
+    fromAminoMsg(object: QueryEipBaseFeeRequestAminoMsg): QueryEipBaseFeeRequest;
+    toAminoMsg(message: QueryEipBaseFeeRequest): QueryEipBaseFeeRequestAminoMsg;
+    fromProtoMsg(message: QueryEipBaseFeeRequestProtoMsg): QueryEipBaseFeeRequest;
+    toProto(message: QueryEipBaseFeeRequest): Uint8Array;
+    toProtoMsg(message: QueryEipBaseFeeRequest): QueryEipBaseFeeRequestProtoMsg;
+};
+export declare const QueryEipBaseFeeResponse: {
+    typeUrl: string;
+    encode(message: QueryEipBaseFeeResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryEipBaseFeeResponse;
+    fromPartial(object: Partial<QueryEipBaseFeeResponse>): QueryEipBaseFeeResponse;
+    fromAmino(object: QueryEipBaseFeeResponseAmino): QueryEipBaseFeeResponse;
+    toAmino(message: QueryEipBaseFeeResponse): QueryEipBaseFeeResponseAmino;
+    fromAminoMsg(object: QueryEipBaseFeeResponseAminoMsg): QueryEipBaseFeeResponse;
+    toAminoMsg(message: QueryEipBaseFeeResponse): QueryEipBaseFeeResponseAminoMsg;
+    fromProtoMsg(message: QueryEipBaseFeeResponseProtoMsg): QueryEipBaseFeeResponse;
+    toProto(message: QueryEipBaseFeeResponse): Uint8Array;
+    toProtoMsg(message: QueryEipBaseFeeResponse): QueryEipBaseFeeResponseProtoMsg;
 };

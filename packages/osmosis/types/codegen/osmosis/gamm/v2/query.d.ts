@@ -13,9 +13,9 @@ export interface QuerySpotPriceRequestProtoMsg {
 /** Deprecated: please use alternate in x/poolmanager */
 /** @deprecated */
 export interface QuerySpotPriceRequestAmino {
-    pool_id: string;
-    base_asset_denom: string;
-    quote_asset_denom: string;
+    pool_id?: string;
+    base_asset_denom?: string;
+    quote_asset_denom?: string;
 }
 export interface QuerySpotPriceRequestAminoMsg {
     type: "osmosis/gamm/v2/query-spot-price-request";
@@ -28,7 +28,7 @@ export interface QuerySpotPriceRequestSDKType {
     base_asset_denom: string;
     quote_asset_denom: string;
 }
-/** Depreacted: please use alternate in x/poolmanager */
+/** Deprecated: please use alternate in x/poolmanager */
 /** @deprecated */
 export interface QuerySpotPriceResponse {
     /** String of the Dec. Ex) 10.203uatom */
@@ -38,17 +38,17 @@ export interface QuerySpotPriceResponseProtoMsg {
     typeUrl: "/osmosis.gamm.v2.QuerySpotPriceResponse";
     value: Uint8Array;
 }
-/** Depreacted: please use alternate in x/poolmanager */
+/** Deprecated: please use alternate in x/poolmanager */
 /** @deprecated */
 export interface QuerySpotPriceResponseAmino {
     /** String of the Dec. Ex) 10.203uatom */
-    spot_price: string;
+    spot_price?: string;
 }
 export interface QuerySpotPriceResponseAminoMsg {
     type: "osmosis/gamm/v2/query-spot-price-response";
     value: QuerySpotPriceResponseAmino;
 }
-/** Depreacted: please use alternate in x/poolmanager */
+/** Deprecated: please use alternate in x/poolmanager */
 /** @deprecated */
 export interface QuerySpotPriceResponseSDKType {
     spot_price: string;

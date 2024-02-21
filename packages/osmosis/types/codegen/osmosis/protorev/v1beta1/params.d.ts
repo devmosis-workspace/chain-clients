@@ -13,9 +13,9 @@ export interface ParamsProtoMsg {
 /** Params defines the parameters for the module. */
 export interface ParamsAmino {
     /** Boolean whether the protorev module is enabled. */
-    enabled: boolean;
+    enabled?: boolean;
     /** The admin account (settings manager) of the protorev module. */
-    admin: string;
+    admin?: string;
 }
 export interface ParamsAminoMsg {
     type: "osmosis/protorev/params";

@@ -1,4 +1,5 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { TakerFeesTracker, TakerFeesTrackerAmino, TakerFeesTrackerSDKType } from "../../poolmanager/v1beta1/genesis";
 import { BinaryWriter } from "../../../binary";
 /** TokenPairArbRoutes tracks all of the hot routes for a given pair of tokens */
 export interface TokenPairArbRoutes {
@@ -16,11 +17,11 @@ export interface TokenPairArbRoutesProtoMsg {
 /** TokenPairArbRoutes tracks all of the hot routes for a given pair of tokens */
 export interface TokenPairArbRoutesAmino {
     /** Stores all of the possible hot paths for a given pair of tokens */
-    arb_routes: RouteAmino[];
+    arb_routes?: RouteAmino[];
     /** Token denomination of the first asset */
-    token_in: string;
+    token_in?: string;
     /** Token denomination of the second asset */
-    token_out: string;
+    token_out?: string;
 }
 export interface TokenPairArbRoutesAminoMsg {
     type: "osmosis/protorev/token-pair-arb-routes";
@@ -35,7 +36,8 @@ export interface TokenPairArbRoutesSDKType {
 /** Route is a hot route for a given pair of tokens */
 export interface Route {
     /**
-     * The pool IDs that are travered in the directed cyclic graph (traversed left
+     * The pool IDs that are traversed in the directed cyclic graph (traversed
+     * left
      * -> right)
      */
     trades: Trade[];
@@ -52,15 +54,16 @@ export interface RouteProtoMsg {
 /** Route is a hot route for a given pair of tokens */
 export interface RouteAmino {
     /**
-     * The pool IDs that are travered in the directed cyclic graph (traversed left
+     * The pool IDs that are traversed in the directed cyclic graph (traversed
+     * left
      * -> right)
      */
-    trades: TradeAmino[];
+    trades?: TradeAmino[];
     /**
      * The step size that will be used to find the optimal swap amount in the
      * binary search
      */
-    step_size: string;
+    step_size?: string;
 }
 export interface RouteAminoMsg {
     type: "osmosis/protorev/route";
@@ -87,11 +90,11 @@ export interface TradeProtoMsg {
 /** Trade is a single trade in a route */
 export interface TradeAmino {
     /** The pool id of the pool that is traded on */
-    pool: string;
+    pool?: string;
     /** The denom of the token that is traded */
-    token_in: string;
+    token_in?: string;
     /** The denom of the token that is received */
-    token_out: string;
+    token_out?: string;
 }
 export interface TradeAminoMsg {
     type: "osmosis/protorev/trade";
@@ -128,14 +131,14 @@ export interface RouteStatisticsProtoMsg {
  */
 export interface RouteStatisticsAmino {
     /** profits is the total profit from all trades on this route */
-    profits: CoinAmino[];
+    profits?: CoinAmino[];
     /**
      * number_of_trades is the number of trades the module has executed using this
      * route
      */
-    number_of_trades: string;
+    number_of_trades?: string;
     /** route is the route that was used (pool ids along the arbitrage route) */
-    route: string[];
+    route?: string[];
 }
 export interface RouteStatisticsAminoMsg {
     type: "osmosis/protorev/route-statistics";
@@ -186,13 +189,13 @@ export interface PoolWeightsProtoMsg {
  */
 export interface PoolWeightsAmino {
     /** The weight of a stableswap pool */
-    stable_weight: string;
+    stable_weight?: string;
     /** The weight of a balancer pool */
-    balancer_weight: string;
+    balancer_weight?: string;
     /** The weight of a concentrated pool */
-    concentrated_weight: string;
+    concentrated_weight?: string;
     /** The weight of a cosmwasm pool */
-    cosmwasm_weight: string;
+    cosmwasm_weight?: string;
 }
 export interface PoolWeightsAminoMsg {
     type: "osmosis/protorev/pool-weights";
@@ -278,7 +281,7 @@ export interface StablePoolInfoProtoMsg {
 /** StablePoolInfo contains meta data pertaining to a stableswap pool type. */
 export interface StablePoolInfoAmino {
     /** The weight of a stableswap pool */
-    weight: string;
+    weight?: string;
 }
 export interface StablePoolInfoAminoMsg {
     type: "osmosis/protorev/stable-pool-info";
@@ -300,7 +303,7 @@ export interface BalancerPoolInfoProtoMsg {
 /** BalancerPoolInfo contains meta data pertaining to a balancer pool type. */
 export interface BalancerPoolInfoAmino {
     /** The weight of a balancer pool */
-    weight: string;
+    weight?: string;
 }
 export interface BalancerPoolInfoAminoMsg {
     type: "osmosis/protorev/balancer-pool-info";
@@ -330,9 +333,9 @@ export interface ConcentratedPoolInfoProtoMsg {
  */
 export interface ConcentratedPoolInfoAmino {
     /** The weight of a concentrated pool */
-    weight: string;
+    weight?: string;
     /** The maximum number of ticks we can move when rebalancing */
-    max_ticks_crossed: string;
+    max_ticks_crossed?: string;
 }
 export interface ConcentratedPoolInfoAminoMsg {
     type: "osmosis/protorev/concentrated-pool-info";
@@ -358,7 +361,7 @@ export interface CosmwasmPoolInfoProtoMsg {
 /** CosmwasmPoolInfo contains meta data pertaining to a cosmwasm pool type. */
 export interface CosmwasmPoolInfoAmino {
     /** The weight of a cosmwasm pool (by contract address) */
-    weight_maps: WeightMapAmino[];
+    weight_maps?: WeightMapAmino[];
 }
 export interface CosmwasmPoolInfoAminoMsg {
     type: "osmosis/protorev/cosmwasm-pool-info";
@@ -388,9 +391,9 @@ export interface WeightMapProtoMsg {
  */
 export interface WeightMapAmino {
     /** The weight of a cosmwasm pool (by contract address) */
-    weight: string;
+    weight?: string;
     /** The contract address */
-    contract_address: string;
+    contract_address?: string;
 }
 export interface WeightMapAminoMsg {
     type: "osmosis/protorev/weight-map";
@@ -429,12 +432,12 @@ export interface BaseDenomProtoMsg {
  */
 export interface BaseDenomAmino {
     /** The denom i.e. name of the base denom (ex. uosmo) */
-    denom: string;
+    denom?: string;
     /**
      * The step size of the binary search that is used to find the optimal swap
      * amount
      */
-    step_size: string;
+    step_size?: string;
 }
 export interface BaseDenomAminoMsg {
     type: "osmosis/protorev/base-denom";
@@ -448,6 +451,46 @@ export interface BaseDenomAminoMsg {
 export interface BaseDenomSDKType {
     denom: string;
     step_size: string;
+}
+export interface AllProtocolRevenue {
+    takerFeesTracker: TakerFeesTracker;
+    cyclicArbTracker: CyclicArbTracker;
+}
+export interface AllProtocolRevenueProtoMsg {
+    typeUrl: "/osmosis.protorev.v1beta1.AllProtocolRevenue";
+    value: Uint8Array;
+}
+export interface AllProtocolRevenueAmino {
+    taker_fees_tracker?: TakerFeesTrackerAmino;
+    cyclic_arb_tracker?: CyclicArbTrackerAmino;
+}
+export interface AllProtocolRevenueAminoMsg {
+    type: "osmosis/protorev/all-protocol-revenue";
+    value: AllProtocolRevenueAmino;
+}
+export interface AllProtocolRevenueSDKType {
+    taker_fees_tracker: TakerFeesTrackerSDKType;
+    cyclic_arb_tracker: CyclicArbTrackerSDKType;
+}
+export interface CyclicArbTracker {
+    cyclicArb: Coin[];
+    heightAccountingStartsFrom: bigint;
+}
+export interface CyclicArbTrackerProtoMsg {
+    typeUrl: "/osmosis.protorev.v1beta1.CyclicArbTracker";
+    value: Uint8Array;
+}
+export interface CyclicArbTrackerAmino {
+    cyclic_arb?: CoinAmino[];
+    height_accounting_starts_from?: string;
+}
+export interface CyclicArbTrackerAminoMsg {
+    type: "osmosis/protorev/cyclic-arb-tracker";
+    value: CyclicArbTrackerAmino;
+}
+export interface CyclicArbTrackerSDKType {
+    cyclic_arb: CoinSDKType[];
+    height_accounting_starts_from: bigint;
 }
 export declare const TokenPairArbRoutes: {
     typeUrl: string;
@@ -604,4 +647,30 @@ export declare const BaseDenom: {
     fromProtoMsg(message: BaseDenomProtoMsg): BaseDenom;
     toProto(message: BaseDenom): Uint8Array;
     toProtoMsg(message: BaseDenom): BaseDenomProtoMsg;
+};
+export declare const AllProtocolRevenue: {
+    typeUrl: string;
+    encode(message: AllProtocolRevenue, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): AllProtocolRevenue;
+    fromPartial(object: Partial<AllProtocolRevenue>): AllProtocolRevenue;
+    fromAmino(object: AllProtocolRevenueAmino): AllProtocolRevenue;
+    toAmino(message: AllProtocolRevenue): AllProtocolRevenueAmino;
+    fromAminoMsg(object: AllProtocolRevenueAminoMsg): AllProtocolRevenue;
+    toAminoMsg(message: AllProtocolRevenue): AllProtocolRevenueAminoMsg;
+    fromProtoMsg(message: AllProtocolRevenueProtoMsg): AllProtocolRevenue;
+    toProto(message: AllProtocolRevenue): Uint8Array;
+    toProtoMsg(message: AllProtocolRevenue): AllProtocolRevenueProtoMsg;
+};
+export declare const CyclicArbTracker: {
+    typeUrl: string;
+    encode(message: CyclicArbTracker, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): CyclicArbTracker;
+    fromPartial(object: Partial<CyclicArbTracker>): CyclicArbTracker;
+    fromAmino(object: CyclicArbTrackerAmino): CyclicArbTracker;
+    toAmino(message: CyclicArbTracker): CyclicArbTrackerAmino;
+    fromAminoMsg(object: CyclicArbTrackerAminoMsg): CyclicArbTracker;
+    toAminoMsg(message: CyclicArbTracker): CyclicArbTrackerAminoMsg;
+    fromProtoMsg(message: CyclicArbTrackerProtoMsg): CyclicArbTracker;
+    toProto(message: CyclicArbTracker): Uint8Array;
+    toProtoMsg(message: CyclicArbTracker): CyclicArbTrackerProtoMsg;
 };

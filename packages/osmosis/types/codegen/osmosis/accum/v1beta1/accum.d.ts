@@ -19,8 +19,8 @@ export interface AccumulatorContentProtoMsg {
  * shares belonging to it from all positions.
  */
 export interface AccumulatorContentAmino {
-    accum_value: DecCoinAmino[];
-    total_shares: string;
+    accum_value?: DecCoinAmino[];
+    total_shares?: string;
 }
 export interface AccumulatorContentAminoMsg {
     type: "osmosis/accum/accumulator-content";
@@ -87,7 +87,7 @@ export interface Record {
      * into a single one.
      */
     unclaimedRewardsTotal: DecCoin[];
-    options: Options;
+    options?: Options;
 }
 export interface RecordProtoMsg {
     typeUrl: "/osmosis.accum.v1beta1.Record";
@@ -102,7 +102,7 @@ export interface RecordAmino {
      * num_shares is the number of shares belonging to the position associated
      * with this record.
      */
-    num_shares: string;
+    num_shares?: string;
     /**
      * accum_value_per_share is the subset of coins per shar of the global
      * accumulator value that allows to infer how much a position is entitled to
@@ -122,7 +122,7 @@ export interface RecordAmino {
      * get the growth inside the interval from the time of last update up until
      * the current block time.
      */
-    accum_value_per_share: DecCoinAmino[];
+    accum_value_per_share?: DecCoinAmino[];
     /**
      * unclaimed_rewards_total is the total amount of unclaimed rewards that the
      * position is entitled to. This value is updated whenever shares are added or
@@ -130,7 +130,7 @@ export interface RecordAmino {
      * this value for some custom use cases such as merging pre-existing positions
      * into a single one.
      */
-    unclaimed_rewards_total: DecCoinAmino[];
+    unclaimed_rewards_total?: DecCoinAmino[];
     options?: OptionsAmino;
 }
 export interface RecordAminoMsg {
@@ -145,7 +145,7 @@ export interface RecordSDKType {
     num_shares: string;
     accum_value_per_share: DecCoinSDKType[];
     unclaimed_rewards_total: DecCoinSDKType[];
-    options: OptionsSDKType;
+    options?: OptionsSDKType;
 }
 export declare const AccumulatorContent: {
     typeUrl: string;

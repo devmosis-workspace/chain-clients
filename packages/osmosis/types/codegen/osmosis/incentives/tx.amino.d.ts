@@ -1,4 +1,4 @@
-import { MsgCreateGauge, MsgAddToGauge } from "./tx";
+import { MsgCreateGauge, MsgAddToGauge, MsgCreateGroup } from "./tx";
 export declare const AminoConverter: {
     "/osmosis.incentives.MsgCreateGauge": {
         aminoType: string;
@@ -9,5 +9,10 @@ export declare const AminoConverter: {
         aminoType: string;
         toAmino: (message: MsgAddToGauge) => import("./tx").MsgAddToGaugeAmino;
         fromAmino: (object: import("./tx").MsgAddToGaugeAmino) => MsgAddToGauge;
+    };
+    "/osmosis.incentives.MsgCreateGroup": {
+        aminoType: string;
+        toAmino: (message: MsgCreateGroup) => import("./tx").MsgCreateGroupAmino;
+        fromAmino: (object: import("./tx").MsgCreateGroupAmino) => MsgCreateGroup;
     };
 };

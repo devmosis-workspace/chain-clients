@@ -1,13 +1,17 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { Metadata, MetadataAmino, MetadataSDKType } from "../../../cosmos/bank/v1beta1/bank";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
 /**
- * MsgCreateDenom is the sdk.Msg type for allowing an account to create
- * a new denom. It requires a sender address and a subdenomination.
- * The (sender_address, sub_denomination) pair must be unique and cannot be
- * re-used. The resulting denom created is `factory/{creator
- * address}/{subdenom}`. The resultant denom's admin is originally set to be the
- * creator, but this can be changed later. The token denom does not indicate the
- * current admin.
+ * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
+ * method. It allows an account to create a new denom. It requires a sender
+ * address and a sub denomination. The (sender_address, sub_denomination) tuple
+ * must be unique and cannot be re-used.
+ *
+ * The resulting denom created is defined as
+ * <factory/{creatorAddress}/{subdenom}>. The resulting denom's admin is
+ * originally set to be the creator, but this can be changed later. The token
+ * denom does not indicate the current admin.
  */
 export interface MsgCreateDenom {
     sender: string;
@@ -19,31 +23,35 @@ export interface MsgCreateDenomProtoMsg {
     value: Uint8Array;
 }
 /**
- * MsgCreateDenom is the sdk.Msg type for allowing an account to create
- * a new denom. It requires a sender address and a subdenomination.
- * The (sender_address, sub_denomination) pair must be unique and cannot be
- * re-used. The resulting denom created is `factory/{creator
- * address}/{subdenom}`. The resultant denom's admin is originally set to be the
- * creator, but this can be changed later. The token denom does not indicate the
- * current admin.
+ * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
+ * method. It allows an account to create a new denom. It requires a sender
+ * address and a sub denomination. The (sender_address, sub_denomination) tuple
+ * must be unique and cannot be re-used.
+ *
+ * The resulting denom created is defined as
+ * <factory/{creatorAddress}/{subdenom}>. The resulting denom's admin is
+ * originally set to be the creator, but this can be changed later. The token
+ * denom does not indicate the current admin.
  */
 export interface MsgCreateDenomAmino {
-    sender: string;
+    sender?: string;
     /** subdenom can be up to 44 "alphanumeric" characters long. */
-    subdenom: string;
+    subdenom?: string;
 }
 export interface MsgCreateDenomAminoMsg {
     type: "osmosis/tokenfactory/create-denom";
     value: MsgCreateDenomAmino;
 }
 /**
- * MsgCreateDenom is the sdk.Msg type for allowing an account to create
- * a new denom. It requires a sender address and a subdenomination.
- * The (sender_address, sub_denomination) pair must be unique and cannot be
- * re-used. The resulting denom created is `factory/{creator
- * address}/{subdenom}`. The resultant denom's admin is originally set to be the
- * creator, but this can be changed later. The token denom does not indicate the
- * current admin.
+ * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
+ * method. It allows an account to create a new denom. It requires a sender
+ * address and a sub denomination. The (sender_address, sub_denomination) tuple
+ * must be unique and cannot be re-used.
+ *
+ * The resulting denom created is defined as
+ * <factory/{creatorAddress}/{subdenom}>. The resulting denom's admin is
+ * originally set to be the creator, but this can be changed later. The token
+ * denom does not indicate the current admin.
  */
 export interface MsgCreateDenomSDKType {
     sender: string;
@@ -65,7 +73,7 @@ export interface MsgCreateDenomResponseProtoMsg {
  * It returns the full string of the newly created denom
  */
 export interface MsgCreateDenomResponseAmino {
-    new_token_denom: string;
+    new_token_denom?: string;
 }
 export interface MsgCreateDenomResponseAminoMsg {
     type: "osmosis/tokenfactory/create-denom-response";
@@ -85,6 +93,7 @@ export interface MsgCreateDenomResponseSDKType {
 export interface MsgMint {
     sender: string;
     amount: Coin;
+    mintToAddress: string;
 }
 export interface MsgMintProtoMsg {
     typeUrl: "/osmosis.tokenfactory.v1beta1.MsgMint";
@@ -95,8 +104,9 @@ export interface MsgMintProtoMsg {
  * more of a token.  For now, we only support minting to the sender account
  */
 export interface MsgMintAmino {
-    sender: string;
+    sender?: string;
     amount?: CoinAmino;
+    mintToAddress?: string;
 }
 export interface MsgMintAminoMsg {
     type: "osmosis/tokenfactory/mint";
@@ -109,6 +119,7 @@ export interface MsgMintAminoMsg {
 export interface MsgMintSDKType {
     sender: string;
     amount: CoinSDKType;
+    mintToAddress: string;
 }
 export interface MsgMintResponse {
 }
@@ -131,6 +142,7 @@ export interface MsgMintResponseSDKType {
 export interface MsgBurn {
     sender: string;
     amount: Coin;
+    burnFromAddress: string;
 }
 export interface MsgBurnProtoMsg {
     typeUrl: "/osmosis.tokenfactory.v1beta1.MsgBurn";
@@ -141,8 +153,9 @@ export interface MsgBurnProtoMsg {
  * a token.  For now, we only support burning from the sender account.
  */
 export interface MsgBurnAmino {
-    sender: string;
+    sender?: string;
     amount?: CoinAmino;
+    burnFromAddress?: string;
 }
 export interface MsgBurnAminoMsg {
     type: "osmosis/tokenfactory/burn";
@@ -155,6 +168,7 @@ export interface MsgBurnAminoMsg {
 export interface MsgBurnSDKType {
     sender: string;
     amount: CoinSDKType;
+    burnFromAddress: string;
 }
 export interface MsgBurnResponse {
 }
@@ -188,9 +202,9 @@ export interface MsgChangeAdminProtoMsg {
  * adminship of a denom to a new account
  */
 export interface MsgChangeAdminAmino {
-    sender: string;
-    denom: string;
-    newAdmin: string;
+    sender?: string;
+    denom?: string;
+    new_admin?: string;
 }
 export interface MsgChangeAdminAminoMsg {
     type: "osmosis/tokenfactory/change-admin";
@@ -203,21 +217,271 @@ export interface MsgChangeAdminAminoMsg {
 export interface MsgChangeAdminSDKType {
     sender: string;
     denom: string;
-    newAdmin: string;
+    new_admin: string;
 }
+/**
+ * MsgChangeAdminResponse defines the response structure for an executed
+ * MsgChangeAdmin message.
+ */
 export interface MsgChangeAdminResponse {
 }
 export interface MsgChangeAdminResponseProtoMsg {
     typeUrl: "/osmosis.tokenfactory.v1beta1.MsgChangeAdminResponse";
     value: Uint8Array;
 }
+/**
+ * MsgChangeAdminResponse defines the response structure for an executed
+ * MsgChangeAdmin message.
+ */
 export interface MsgChangeAdminResponseAmino {
 }
 export interface MsgChangeAdminResponseAminoMsg {
     type: "osmosis/tokenfactory/change-admin-response";
     value: MsgChangeAdminResponseAmino;
 }
+/**
+ * MsgChangeAdminResponse defines the response structure for an executed
+ * MsgChangeAdmin message.
+ */
 export interface MsgChangeAdminResponseSDKType {
+}
+/**
+ * MsgSetBeforeSendHook is the sdk.Msg type for allowing an admin account to
+ * assign a CosmWasm contract to call with a BeforeSend hook
+ */
+export interface MsgSetBeforeSendHook {
+    sender: string;
+    denom: string;
+    contractAddr: string;
+}
+export interface MsgSetBeforeSendHookProtoMsg {
+    typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook";
+    value: Uint8Array;
+}
+/**
+ * MsgSetBeforeSendHook is the sdk.Msg type for allowing an admin account to
+ * assign a CosmWasm contract to call with a BeforeSend hook
+ */
+export interface MsgSetBeforeSendHookAmino {
+    sender?: string;
+    denom?: string;
+    contract_addr?: string;
+}
+export interface MsgSetBeforeSendHookAminoMsg {
+    type: "osmosis/tokenfactory/set-beforesend-hook";
+    value: MsgSetBeforeSendHookAmino;
+}
+/**
+ * MsgSetBeforeSendHook is the sdk.Msg type for allowing an admin account to
+ * assign a CosmWasm contract to call with a BeforeSend hook
+ */
+export interface MsgSetBeforeSendHookSDKType {
+    sender: string;
+    denom: string;
+    contract_addr: string;
+}
+/**
+ * MsgSetBeforeSendHookResponse defines the response structure for an executed
+ * MsgSetBeforeSendHook message.
+ */
+export interface MsgSetBeforeSendHookResponse {
+}
+export interface MsgSetBeforeSendHookResponseProtoMsg {
+    typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHookResponse";
+    value: Uint8Array;
+}
+/**
+ * MsgSetBeforeSendHookResponse defines the response structure for an executed
+ * MsgSetBeforeSendHook message.
+ */
+export interface MsgSetBeforeSendHookResponseAmino {
+}
+export interface MsgSetBeforeSendHookResponseAminoMsg {
+    type: "osmosis/tokenfactory/set-before-send-hook-response";
+    value: MsgSetBeforeSendHookResponseAmino;
+}
+/**
+ * MsgSetBeforeSendHookResponse defines the response structure for an executed
+ * MsgSetBeforeSendHook message.
+ */
+export interface MsgSetBeforeSendHookResponseSDKType {
+}
+/**
+ * MsgSetDenomMetadata is the sdk.Msg type for allowing an admin account to set
+ * the denom's bank metadata
+ */
+export interface MsgSetDenomMetadata {
+    sender: string;
+    metadata: Metadata;
+}
+export interface MsgSetDenomMetadataProtoMsg {
+    typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata";
+    value: Uint8Array;
+}
+/**
+ * MsgSetDenomMetadata is the sdk.Msg type for allowing an admin account to set
+ * the denom's bank metadata
+ */
+export interface MsgSetDenomMetadataAmino {
+    sender?: string;
+    metadata?: MetadataAmino;
+}
+export interface MsgSetDenomMetadataAminoMsg {
+    type: "osmosis/tokenfactory/set-denom-metadata";
+    value: MsgSetDenomMetadataAmino;
+}
+/**
+ * MsgSetDenomMetadata is the sdk.Msg type for allowing an admin account to set
+ * the denom's bank metadata
+ */
+export interface MsgSetDenomMetadataSDKType {
+    sender: string;
+    metadata: MetadataSDKType;
+}
+/**
+ * MsgSetDenomMetadataResponse defines the response structure for an executed
+ * MsgSetDenomMetadata message.
+ */
+export interface MsgSetDenomMetadataResponse {
+}
+export interface MsgSetDenomMetadataResponseProtoMsg {
+    typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadataResponse";
+    value: Uint8Array;
+}
+/**
+ * MsgSetDenomMetadataResponse defines the response structure for an executed
+ * MsgSetDenomMetadata message.
+ */
+export interface MsgSetDenomMetadataResponseAmino {
+}
+export interface MsgSetDenomMetadataResponseAminoMsg {
+    type: "osmosis/tokenfactory/set-denom-metadata-response";
+    value: MsgSetDenomMetadataResponseAmino;
+}
+/**
+ * MsgSetDenomMetadataResponse defines the response structure for an executed
+ * MsgSetDenomMetadata message.
+ */
+export interface MsgSetDenomMetadataResponseSDKType {
+}
+export interface MsgForceTransfer {
+    sender: string;
+    amount: Coin;
+    transferFromAddress: string;
+    transferToAddress: string;
+}
+export interface MsgForceTransferProtoMsg {
+    typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransfer";
+    value: Uint8Array;
+}
+export interface MsgForceTransferAmino {
+    sender?: string;
+    amount?: CoinAmino;
+    transferFromAddress?: string;
+    transferToAddress?: string;
+}
+export interface MsgForceTransferAminoMsg {
+    type: "osmosis/tokenfactory/force-transfer";
+    value: MsgForceTransferAmino;
+}
+export interface MsgForceTransferSDKType {
+    sender: string;
+    amount: CoinSDKType;
+    transferFromAddress: string;
+    transferToAddress: string;
+}
+export interface MsgForceTransferResponse {
+}
+export interface MsgForceTransferResponseProtoMsg {
+    typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransferResponse";
+    value: Uint8Array;
+}
+export interface MsgForceTransferResponseAmino {
+}
+export interface MsgForceTransferResponseAminoMsg {
+    type: "osmosis/tokenfactory/force-transfer-response";
+    value: MsgForceTransferResponseAmino;
+}
+export interface MsgForceTransferResponseSDKType {
+}
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ *
+ * Since: 0.47
+ */
+export interface MsgUpdateParams {
+    /** Authority is the address of the governance account. */
+    authority: string;
+    /**
+     * params defines the x/tokenfactory parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     */
+    params: Params;
+}
+export interface MsgUpdateParamsProtoMsg {
+    typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParams";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ *
+ * Since: 0.47
+ */
+export interface MsgUpdateParamsAmino {
+    /** Authority is the address of the governance account. */
+    authority?: string;
+    /**
+     * params defines the x/tokenfactory parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     */
+    params: ParamsAmino;
+}
+export interface MsgUpdateParamsAminoMsg {
+    type: "interchainqueries/MsgUpdateParams";
+    value: MsgUpdateParamsAmino;
+}
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ *
+ * Since: 0.47
+ */
+export interface MsgUpdateParamsSDKType {
+    authority: string;
+    params: ParamsSDKType;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: 0.47
+ */
+export interface MsgUpdateParamsResponse {
+}
+export interface MsgUpdateParamsResponseProtoMsg {
+    typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParamsResponse";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: 0.47
+ */
+export interface MsgUpdateParamsResponseAmino {
+}
+export interface MsgUpdateParamsResponseAminoMsg {
+    type: "osmosis/tokenfactory/update-params-response";
+    value: MsgUpdateParamsResponseAmino;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: 0.47
+ */
+export interface MsgUpdateParamsResponseSDKType {
 }
 export declare const MsgCreateDenom: {
     typeUrl: string;
@@ -322,4 +586,108 @@ export declare const MsgChangeAdminResponse: {
     fromProtoMsg(message: MsgChangeAdminResponseProtoMsg): MsgChangeAdminResponse;
     toProto(message: MsgChangeAdminResponse): Uint8Array;
     toProtoMsg(message: MsgChangeAdminResponse): MsgChangeAdminResponseProtoMsg;
+};
+export declare const MsgSetBeforeSendHook: {
+    typeUrl: string;
+    encode(message: MsgSetBeforeSendHook, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgSetBeforeSendHook;
+    fromPartial(object: Partial<MsgSetBeforeSendHook>): MsgSetBeforeSendHook;
+    fromAmino(object: MsgSetBeforeSendHookAmino): MsgSetBeforeSendHook;
+    toAmino(message: MsgSetBeforeSendHook): MsgSetBeforeSendHookAmino;
+    fromAminoMsg(object: MsgSetBeforeSendHookAminoMsg): MsgSetBeforeSendHook;
+    toAminoMsg(message: MsgSetBeforeSendHook): MsgSetBeforeSendHookAminoMsg;
+    fromProtoMsg(message: MsgSetBeforeSendHookProtoMsg): MsgSetBeforeSendHook;
+    toProto(message: MsgSetBeforeSendHook): Uint8Array;
+    toProtoMsg(message: MsgSetBeforeSendHook): MsgSetBeforeSendHookProtoMsg;
+};
+export declare const MsgSetBeforeSendHookResponse: {
+    typeUrl: string;
+    encode(_: MsgSetBeforeSendHookResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgSetBeforeSendHookResponse;
+    fromPartial(_: Partial<MsgSetBeforeSendHookResponse>): MsgSetBeforeSendHookResponse;
+    fromAmino(_: MsgSetBeforeSendHookResponseAmino): MsgSetBeforeSendHookResponse;
+    toAmino(_: MsgSetBeforeSendHookResponse): MsgSetBeforeSendHookResponseAmino;
+    fromAminoMsg(object: MsgSetBeforeSendHookResponseAminoMsg): MsgSetBeforeSendHookResponse;
+    toAminoMsg(message: MsgSetBeforeSendHookResponse): MsgSetBeforeSendHookResponseAminoMsg;
+    fromProtoMsg(message: MsgSetBeforeSendHookResponseProtoMsg): MsgSetBeforeSendHookResponse;
+    toProto(message: MsgSetBeforeSendHookResponse): Uint8Array;
+    toProtoMsg(message: MsgSetBeforeSendHookResponse): MsgSetBeforeSendHookResponseProtoMsg;
+};
+export declare const MsgSetDenomMetadata: {
+    typeUrl: string;
+    encode(message: MsgSetDenomMetadata, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgSetDenomMetadata;
+    fromPartial(object: Partial<MsgSetDenomMetadata>): MsgSetDenomMetadata;
+    fromAmino(object: MsgSetDenomMetadataAmino): MsgSetDenomMetadata;
+    toAmino(message: MsgSetDenomMetadata): MsgSetDenomMetadataAmino;
+    fromAminoMsg(object: MsgSetDenomMetadataAminoMsg): MsgSetDenomMetadata;
+    toAminoMsg(message: MsgSetDenomMetadata): MsgSetDenomMetadataAminoMsg;
+    fromProtoMsg(message: MsgSetDenomMetadataProtoMsg): MsgSetDenomMetadata;
+    toProto(message: MsgSetDenomMetadata): Uint8Array;
+    toProtoMsg(message: MsgSetDenomMetadata): MsgSetDenomMetadataProtoMsg;
+};
+export declare const MsgSetDenomMetadataResponse: {
+    typeUrl: string;
+    encode(_: MsgSetDenomMetadataResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgSetDenomMetadataResponse;
+    fromPartial(_: Partial<MsgSetDenomMetadataResponse>): MsgSetDenomMetadataResponse;
+    fromAmino(_: MsgSetDenomMetadataResponseAmino): MsgSetDenomMetadataResponse;
+    toAmino(_: MsgSetDenomMetadataResponse): MsgSetDenomMetadataResponseAmino;
+    fromAminoMsg(object: MsgSetDenomMetadataResponseAminoMsg): MsgSetDenomMetadataResponse;
+    toAminoMsg(message: MsgSetDenomMetadataResponse): MsgSetDenomMetadataResponseAminoMsg;
+    fromProtoMsg(message: MsgSetDenomMetadataResponseProtoMsg): MsgSetDenomMetadataResponse;
+    toProto(message: MsgSetDenomMetadataResponse): Uint8Array;
+    toProtoMsg(message: MsgSetDenomMetadataResponse): MsgSetDenomMetadataResponseProtoMsg;
+};
+export declare const MsgForceTransfer: {
+    typeUrl: string;
+    encode(message: MsgForceTransfer, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgForceTransfer;
+    fromPartial(object: Partial<MsgForceTransfer>): MsgForceTransfer;
+    fromAmino(object: MsgForceTransferAmino): MsgForceTransfer;
+    toAmino(message: MsgForceTransfer): MsgForceTransferAmino;
+    fromAminoMsg(object: MsgForceTransferAminoMsg): MsgForceTransfer;
+    toAminoMsg(message: MsgForceTransfer): MsgForceTransferAminoMsg;
+    fromProtoMsg(message: MsgForceTransferProtoMsg): MsgForceTransfer;
+    toProto(message: MsgForceTransfer): Uint8Array;
+    toProtoMsg(message: MsgForceTransfer): MsgForceTransferProtoMsg;
+};
+export declare const MsgForceTransferResponse: {
+    typeUrl: string;
+    encode(_: MsgForceTransferResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgForceTransferResponse;
+    fromPartial(_: Partial<MsgForceTransferResponse>): MsgForceTransferResponse;
+    fromAmino(_: MsgForceTransferResponseAmino): MsgForceTransferResponse;
+    toAmino(_: MsgForceTransferResponse): MsgForceTransferResponseAmino;
+    fromAminoMsg(object: MsgForceTransferResponseAminoMsg): MsgForceTransferResponse;
+    toAminoMsg(message: MsgForceTransferResponse): MsgForceTransferResponseAminoMsg;
+    fromProtoMsg(message: MsgForceTransferResponseProtoMsg): MsgForceTransferResponse;
+    toProto(message: MsgForceTransferResponse): Uint8Array;
+    toProtoMsg(message: MsgForceTransferResponse): MsgForceTransferResponseProtoMsg;
+};
+export declare const MsgUpdateParams: {
+    typeUrl: string;
+    encode(message: MsgUpdateParams, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgUpdateParams;
+    fromPartial(object: Partial<MsgUpdateParams>): MsgUpdateParams;
+    fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams;
+    toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino;
+    fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams;
+    toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg;
+    fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams;
+    toProto(message: MsgUpdateParams): Uint8Array;
+    toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg;
+};
+export declare const MsgUpdateParamsResponse: {
+    typeUrl: string;
+    encode(_: MsgUpdateParamsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgUpdateParamsResponse;
+    fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse;
+    fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse;
+    toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino;
+    fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse;
+    toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg;
+    fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse;
+    toProto(message: MsgUpdateParamsResponse): Uint8Array;
+    toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg;
 };

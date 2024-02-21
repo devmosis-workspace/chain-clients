@@ -56,7 +56,7 @@ export interface QueryDenomAuthorityMetadataRequestProtoMsg {
  * DenomAuthorityMetadata gRPC query.
  */
 export interface QueryDenomAuthorityMetadataRequestAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryDenomAuthorityMetadataRequestAminoMsg {
     type: "osmosis/tokenfactory/query-denom-authority-metadata-request";
@@ -114,7 +114,7 @@ export interface QueryDenomsFromCreatorRequestProtoMsg {
  * DenomsFromCreator gRPC query.
  */
 export interface QueryDenomsFromCreatorRequestAmino {
-    creator: string;
+    creator?: string;
 }
 export interface QueryDenomsFromCreatorRequestAminoMsg {
     type: "osmosis/tokenfactory/query-denoms-from-creator-request";
@@ -143,7 +143,7 @@ export interface QueryDenomsFromCreatorResponseProtoMsg {
  * DenomsFromCreator gRPC query.
  */
 export interface QueryDenomsFromCreatorResponseAmino {
-    denoms: string[];
+    denoms?: string[];
 }
 export interface QueryDenomsFromCreatorResponseAminoMsg {
     type: "osmosis/tokenfactory/query-denoms-from-creator-response";
@@ -164,7 +164,7 @@ export interface QueryBeforeSendHookAddressRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryBeforeSendHookAddressRequestAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryBeforeSendHookAddressRequestAminoMsg {
     type: "osmosis/tokenfactory/query-before-send-hook-address-request";
@@ -189,7 +189,7 @@ export interface QueryBeforeSendHookAddressResponseProtoMsg {
  * DenomBeforeSendHook gRPC query.
  */
 export interface QueryBeforeSendHookAddressResponseAmino {
-    cosmwasm_address: string;
+    cosmwasm_address?: string;
 }
 export interface QueryBeforeSendHookAddressResponseAminoMsg {
     type: "osmosis/tokenfactory/query-before-send-hook-address-response";

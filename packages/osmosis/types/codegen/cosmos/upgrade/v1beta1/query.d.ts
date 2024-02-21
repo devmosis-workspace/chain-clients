@@ -32,7 +32,7 @@ export interface QueryCurrentPlanRequestSDKType {
  */
 export interface QueryCurrentPlanResponse {
     /** plan is the current upgrade plan. */
-    plan: Plan;
+    plan?: Plan;
 }
 export interface QueryCurrentPlanResponseProtoMsg {
     typeUrl: "/cosmos.upgrade.v1beta1.QueryCurrentPlanResponse";
@@ -55,7 +55,7 @@ export interface QueryCurrentPlanResponseAminoMsg {
  * method.
  */
 export interface QueryCurrentPlanResponseSDKType {
-    plan: PlanSDKType;
+    plan?: PlanSDKType;
 }
 /**
  * QueryCurrentPlanRequest is the request type for the Query/AppliedPlan RPC
@@ -75,7 +75,7 @@ export interface QueryAppliedPlanRequestProtoMsg {
  */
 export interface QueryAppliedPlanRequestAmino {
     /** name is the name of the applied plan to query for. */
-    name: string;
+    name?: string;
 }
 export interface QueryAppliedPlanRequestAminoMsg {
     type: "cosmos-sdk/QueryAppliedPlanRequest";
@@ -106,7 +106,7 @@ export interface QueryAppliedPlanResponseProtoMsg {
  */
 export interface QueryAppliedPlanResponseAmino {
     /** height is the block height at which the plan was applied. */
-    height: string;
+    height?: string;
 }
 export interface QueryAppliedPlanResponseAminoMsg {
     type: "cosmos-sdk/QueryAppliedPlanResponse";
@@ -145,7 +145,7 @@ export interface QueryUpgradedConsensusStateRequestAmino {
      * last height of the current chain must be sent in request
      * as this is the height under which next consensus state is stored
      */
-    last_height: string;
+    last_height?: string;
 }
 export interface QueryUpgradedConsensusStateRequestAminoMsg {
     type: "cosmos-sdk/QueryUpgradedConsensusStateRequest";
@@ -179,7 +179,7 @@ export interface QueryUpgradedConsensusStateResponseProtoMsg {
 /** @deprecated */
 export interface QueryUpgradedConsensusStateResponseAmino {
     /** Since: cosmos-sdk 0.43 */
-    upgraded_consensus_state: Uint8Array;
+    upgraded_consensus_state?: string;
 }
 export interface QueryUpgradedConsensusStateResponseAminoMsg {
     type: "cosmos-sdk/QueryUpgradedConsensusStateResponse";
@@ -223,7 +223,7 @@ export interface QueryModuleVersionsRequestAmino {
      * consensus version from state. Leaving this empty will
      * fetch the full list of module versions from state
      */
-    module_name: string;
+    module_name?: string;
 }
 export interface QueryModuleVersionsRequestAminoMsg {
     type: "cosmos-sdk/QueryModuleVersionsRequest";
@@ -260,7 +260,7 @@ export interface QueryModuleVersionsResponseProtoMsg {
  */
 export interface QueryModuleVersionsResponseAmino {
     /** module_versions is a list of module names with their consensus versions. */
-    module_versions: ModuleVersionAmino[];
+    module_versions?: ModuleVersionAmino[];
 }
 export interface QueryModuleVersionsResponseAminoMsg {
     type: "cosmos-sdk/QueryModuleVersionsResponse";
@@ -274,6 +274,67 @@ export interface QueryModuleVersionsResponseAminoMsg {
  */
 export interface QueryModuleVersionsResponseSDKType {
     module_versions: ModuleVersionSDKType[];
+}
+/**
+ * QueryAuthorityRequest is the request type for Query/Authority
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface QueryAuthorityRequest {
+}
+export interface QueryAuthorityRequestProtoMsg {
+    typeUrl: "/cosmos.upgrade.v1beta1.QueryAuthorityRequest";
+    value: Uint8Array;
+}
+/**
+ * QueryAuthorityRequest is the request type for Query/Authority
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface QueryAuthorityRequestAmino {
+}
+export interface QueryAuthorityRequestAminoMsg {
+    type: "cosmos-sdk/QueryAuthorityRequest";
+    value: QueryAuthorityRequestAmino;
+}
+/**
+ * QueryAuthorityRequest is the request type for Query/Authority
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface QueryAuthorityRequestSDKType {
+}
+/**
+ * QueryAuthorityResponse is the response type for Query/Authority
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface QueryAuthorityResponse {
+    address: string;
+}
+export interface QueryAuthorityResponseProtoMsg {
+    typeUrl: "/cosmos.upgrade.v1beta1.QueryAuthorityResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryAuthorityResponse is the response type for Query/Authority
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface QueryAuthorityResponseAmino {
+    address?: string;
+}
+export interface QueryAuthorityResponseAminoMsg {
+    type: "cosmos-sdk/QueryAuthorityResponse";
+    value: QueryAuthorityResponseAmino;
+}
+/**
+ * QueryAuthorityResponse is the response type for Query/Authority
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface QueryAuthorityResponseSDKType {
+    address: string;
 }
 export declare const QueryCurrentPlanRequest: {
     typeUrl: string;
@@ -378,4 +439,30 @@ export declare const QueryModuleVersionsResponse: {
     fromProtoMsg(message: QueryModuleVersionsResponseProtoMsg): QueryModuleVersionsResponse;
     toProto(message: QueryModuleVersionsResponse): Uint8Array;
     toProtoMsg(message: QueryModuleVersionsResponse): QueryModuleVersionsResponseProtoMsg;
+};
+export declare const QueryAuthorityRequest: {
+    typeUrl: string;
+    encode(_: QueryAuthorityRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): QueryAuthorityRequest;
+    fromPartial(_: Partial<QueryAuthorityRequest>): QueryAuthorityRequest;
+    fromAmino(_: QueryAuthorityRequestAmino): QueryAuthorityRequest;
+    toAmino(_: QueryAuthorityRequest): QueryAuthorityRequestAmino;
+    fromAminoMsg(object: QueryAuthorityRequestAminoMsg): QueryAuthorityRequest;
+    toAminoMsg(message: QueryAuthorityRequest): QueryAuthorityRequestAminoMsg;
+    fromProtoMsg(message: QueryAuthorityRequestProtoMsg): QueryAuthorityRequest;
+    toProto(message: QueryAuthorityRequest): Uint8Array;
+    toProtoMsg(message: QueryAuthorityRequest): QueryAuthorityRequestProtoMsg;
+};
+export declare const QueryAuthorityResponse: {
+    typeUrl: string;
+    encode(message: QueryAuthorityResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryAuthorityResponse;
+    fromPartial(object: Partial<QueryAuthorityResponse>): QueryAuthorityResponse;
+    fromAmino(object: QueryAuthorityResponseAmino): QueryAuthorityResponse;
+    toAmino(message: QueryAuthorityResponse): QueryAuthorityResponseAmino;
+    fromAminoMsg(object: QueryAuthorityResponseAminoMsg): QueryAuthorityResponse;
+    toAminoMsg(message: QueryAuthorityResponse): QueryAuthorityResponseAminoMsg;
+    fromProtoMsg(message: QueryAuthorityResponseProtoMsg): QueryAuthorityResponse;
+    toProto(message: QueryAuthorityResponse): Uint8Array;
+    toProtoMsg(message: QueryAuthorityResponse): QueryAuthorityResponseProtoMsg;
 };

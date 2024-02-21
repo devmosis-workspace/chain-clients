@@ -1,5 +1,5 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../binary";
 export interface MsgSuperfluidDelegate {
     sender: string;
@@ -11,9 +11,9 @@ export interface MsgSuperfluidDelegateProtoMsg {
     value: Uint8Array;
 }
 export interface MsgSuperfluidDelegateAmino {
-    sender: string;
-    lock_id: string;
-    val_addr: string;
+    sender?: string;
+    lock_id?: string;
+    val_addr?: string;
 }
 export interface MsgSuperfluidDelegateAminoMsg {
     type: "osmosis/superfluid-delegate";
@@ -47,8 +47,8 @@ export interface MsgSuperfluidUndelegateProtoMsg {
     value: Uint8Array;
 }
 export interface MsgSuperfluidUndelegateAmino {
-    sender: string;
-    lock_id: string;
+    sender?: string;
+    lock_id?: string;
 }
 export interface MsgSuperfluidUndelegateAminoMsg {
     type: "osmosis/superfluid-undelegate";
@@ -81,8 +81,8 @@ export interface MsgSuperfluidUnbondLockProtoMsg {
     value: Uint8Array;
 }
 export interface MsgSuperfluidUnbondLockAmino {
-    sender: string;
-    lock_id: string;
+    sender?: string;
+    lock_id?: string;
 }
 export interface MsgSuperfluidUnbondLockAminoMsg {
     type: "osmosis/superfluid-unbond-lock";
@@ -117,8 +117,8 @@ export interface MsgSuperfluidUndelegateAndUnbondLockProtoMsg {
     value: Uint8Array;
 }
 export interface MsgSuperfluidUndelegateAndUnbondLockAmino {
-    sender: string;
-    lock_id: string;
+    sender?: string;
+    lock_id?: string;
     /** Amount of unlocking coin. */
     coin?: CoinAmino;
 }
@@ -149,7 +149,7 @@ export interface MsgSuperfluidUndelegateAndUnbondLockResponseAmino {
      * returns the original lockid if the unlocked amount is equal to the
      * original lock's amount.
      */
-    lock_id: string;
+    lock_id?: string;
 }
 export interface MsgSuperfluidUndelegateAndUnbondLockResponseAminoMsg {
     type: "osmosis/superfluid-undelegate-and-unbond-lock-response";
@@ -178,9 +178,9 @@ export interface MsgLockAndSuperfluidDelegateProtoMsg {
  * specified validator addr.
  */
 export interface MsgLockAndSuperfluidDelegateAmino {
-    sender: string;
-    coins: CoinAmino[];
-    val_addr: string;
+    sender?: string;
+    coins?: CoinAmino[];
+    val_addr?: string;
 }
 export interface MsgLockAndSuperfluidDelegateAminoMsg {
     type: "osmosis/lock-and-superfluid-delegate";
@@ -204,7 +204,7 @@ export interface MsgLockAndSuperfluidDelegateResponseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgLockAndSuperfluidDelegateResponseAmino {
-    ID: string;
+    ID?: string;
 }
 export interface MsgLockAndSuperfluidDelegateResponseAminoMsg {
     type: "osmosis/lock-and-superfluid-delegate-response";
@@ -232,10 +232,10 @@ export interface MsgCreateFullRangePositionAndSuperfluidDelegateProtoMsg {
  * in a concentrated liquidity pool, then superfluid delegates.
  */
 export interface MsgCreateFullRangePositionAndSuperfluidDelegateAmino {
-    sender: string;
-    coins: CoinAmino[];
-    val_addr: string;
-    pool_id: string;
+    sender?: string;
+    coins?: CoinAmino[];
+    val_addr?: string;
+    pool_id?: string;
 }
 export interface MsgCreateFullRangePositionAndSuperfluidDelegateAminoMsg {
     type: "osmosis/full-range-and-sf-delegate";
@@ -260,8 +260,8 @@ export interface MsgCreateFullRangePositionAndSuperfluidDelegateResponseProtoMsg
     value: Uint8Array;
 }
 export interface MsgCreateFullRangePositionAndSuperfluidDelegateResponseAmino {
-    lockID: string;
-    positionID: string;
+    lockID?: string;
+    positionID?: string;
 }
 export interface MsgCreateFullRangePositionAndSuperfluidDelegateResponseAminoMsg {
     type: "osmosis/create-full-range-position-and-superfluid-delegate-response";
@@ -300,8 +300,8 @@ export interface MsgUnPoolWhitelistedPoolProtoMsg {
  * until unbond completion.
  */
 export interface MsgUnPoolWhitelistedPoolAmino {
-    sender: string;
-    pool_id: string;
+    sender?: string;
+    pool_id?: string;
 }
 export interface MsgUnPoolWhitelistedPoolAminoMsg {
     type: "osmosis/unpool-whitelisted-pool";
@@ -329,7 +329,7 @@ export interface MsgUnPoolWhitelistedPoolResponseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUnPoolWhitelistedPoolResponseAmino {
-    exited_lock_ids: string[];
+    exited_lock_ids?: string[];
 }
 export interface MsgUnPoolWhitelistedPoolResponseAminoMsg {
     type: "osmosis/un-pool-whitelisted-pool-response";
@@ -358,11 +358,11 @@ export interface MsgUnlockAndMigrateSharesToFullRangeConcentratedPositionProtoMs
  * MsgUnlockAndMigrateSharesToFullRangeConcentratedPosition
  */
 export interface MsgUnlockAndMigrateSharesToFullRangeConcentratedPositionAmino {
-    sender: string;
-    lock_id: string;
+    sender?: string;
+    lock_id?: string;
     shares_to_migrate?: CoinAmino;
     /** token_out_mins indicates minimum token to exit Balancer pool with. */
-    token_out_mins: CoinAmino[];
+    token_out_mins?: CoinAmino[];
 }
 export interface MsgUnlockAndMigrateSharesToFullRangeConcentratedPositionAminoMsg {
     type: "osmosis/unlock-and-migrate";
@@ -389,10 +389,10 @@ export interface MsgUnlockAndMigrateSharesToFullRangeConcentratedPositionRespons
     value: Uint8Array;
 }
 export interface MsgUnlockAndMigrateSharesToFullRangeConcentratedPositionResponseAmino {
-    amount0: string;
-    amount1: string;
-    liquidity_created: string;
-    join_time?: TimestampAmino;
+    amount0?: string;
+    amount1?: string;
+    liquidity_created?: string;
+    join_time?: string;
 }
 export interface MsgUnlockAndMigrateSharesToFullRangeConcentratedPositionResponseAminoMsg {
     type: "osmosis/unlock-and-migrate-shares-to-full-range-concentrated-position-response";
@@ -417,8 +417,8 @@ export interface MsgAddToConcentratedLiquiditySuperfluidPositionProtoMsg {
 }
 /** ===================== MsgAddToConcentratedLiquiditySuperfluidPosition */
 export interface MsgAddToConcentratedLiquiditySuperfluidPositionAmino {
-    position_id: string;
-    sender: string;
+    position_id?: string;
+    sender?: string;
     token_desired0?: CoinAmino;
     token_desired1?: CoinAmino;
 }
@@ -450,16 +450,16 @@ export interface MsgAddToConcentratedLiquiditySuperfluidPositionResponseProtoMsg
     value: Uint8Array;
 }
 export interface MsgAddToConcentratedLiquiditySuperfluidPositionResponseAmino {
-    position_id: string;
-    amount0: string;
-    amount1: string;
+    position_id?: string;
+    amount0?: string;
+    amount1?: string;
     /**
      * new_liquidity is the final liquidity after the add.
      * It includes the liquidity that existed before in the position
      * and the new liquidity that was added to the position.
      */
-    new_liquidity: string;
-    lock_id: string;
+    new_liquidity?: string;
+    lock_id?: string;
 }
 export interface MsgAddToConcentratedLiquiditySuperfluidPositionResponseAminoMsg {
     type: "osmosis/add-to-concentrated-liquidity-superfluid-position-response";
@@ -505,16 +505,16 @@ export interface MsgUnbondConvertAndStakeAmino {
      * lock ID to convert and stake.
      * lock id with 0 should be provided if converting liquid gamm shares to stake
      */
-    lock_id: string;
-    sender: string;
+    lock_id?: string;
+    sender?: string;
     /**
      * validator address to delegate to.
      * If provided empty string, we use the validators returned from
      * valset-preference module.
      */
-    val_addr: string;
+    val_addr?: string;
     /** min_amt_to_stake indicates the minimum amount to stake after conversion */
-    min_amt_to_stake: string;
+    min_amt_to_stake?: string;
     /**
      * shares_to_convert indicates shares wanted to stake.
      * Note that this field is only used for liquid(unlocked) gamm shares.
@@ -542,7 +542,7 @@ export interface MsgUnbondConvertAndStakeResponseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUnbondConvertAndStakeResponseAmino {
-    total_amt_staked: string;
+    total_amt_staked?: string;
 }
 export interface MsgUnbondConvertAndStakeResponseAminoMsg {
     type: "osmosis/unbond-convert-and-stake-response";

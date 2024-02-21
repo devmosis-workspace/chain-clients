@@ -14,10 +14,10 @@ export interface MsgSwapExactAmountInProtoMsg {
 }
 /** ===================== MsgSwapExactAmountIn */
 export interface MsgSwapExactAmountInAmino {
-    sender: string;
-    routes: SwapAmountInRouteAmino[];
+    sender?: string;
+    routes?: SwapAmountInRouteAmino[];
     token_in?: CoinAmino;
-    token_out_min_amount: string;
+    token_out_min_amount?: string;
 }
 export interface MsgSwapExactAmountInAminoMsg {
     type: "osmosis/poolmanager/swap-exact-amount-in";
@@ -38,7 +38,7 @@ export interface MsgSwapExactAmountInResponseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgSwapExactAmountInResponseAmino {
-    token_out_amount: string;
+    token_out_amount?: string;
 }
 export interface MsgSwapExactAmountInResponseAminoMsg {
     type: "osmosis/poolmanager/swap-exact-amount-in-response";
@@ -60,10 +60,10 @@ export interface MsgSplitRouteSwapExactAmountInProtoMsg {
 }
 /** ===================== MsgSplitRouteSwapExactAmountIn */
 export interface MsgSplitRouteSwapExactAmountInAmino {
-    sender: string;
-    routes: SwapAmountInSplitRouteAmino[];
-    token_in_denom: string;
-    token_out_min_amount: string;
+    sender?: string;
+    routes?: SwapAmountInSplitRouteAmino[];
+    token_in_denom?: string;
+    token_out_min_amount?: string;
 }
 export interface MsgSplitRouteSwapExactAmountInAminoMsg {
     type: "osmosis/poolmanager/split-amount-in";
@@ -84,7 +84,7 @@ export interface MsgSplitRouteSwapExactAmountInResponseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgSplitRouteSwapExactAmountInResponseAmino {
-    token_out_amount: string;
+    token_out_amount?: string;
 }
 export interface MsgSplitRouteSwapExactAmountInResponseAminoMsg {
     type: "osmosis/poolmanager/split-route-swap-exact-amount-in-response";
@@ -106,9 +106,9 @@ export interface MsgSwapExactAmountOutProtoMsg {
 }
 /** ===================== MsgSwapExactAmountOut */
 export interface MsgSwapExactAmountOutAmino {
-    sender: string;
-    routes: SwapAmountOutRouteAmino[];
-    token_in_max_amount: string;
+    sender?: string;
+    routes?: SwapAmountOutRouteAmino[];
+    token_in_max_amount?: string;
     token_out?: CoinAmino;
 }
 export interface MsgSwapExactAmountOutAminoMsg {
@@ -130,7 +130,7 @@ export interface MsgSwapExactAmountOutResponseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgSwapExactAmountOutResponseAmino {
-    token_in_amount: string;
+    token_in_amount?: string;
 }
 export interface MsgSwapExactAmountOutResponseAminoMsg {
     type: "osmosis/poolmanager/swap-exact-amount-out-response";
@@ -152,10 +152,10 @@ export interface MsgSplitRouteSwapExactAmountOutProtoMsg {
 }
 /** ===================== MsgSplitRouteSwapExactAmountOut */
 export interface MsgSplitRouteSwapExactAmountOutAmino {
-    sender: string;
-    routes: SwapAmountOutSplitRouteAmino[];
-    token_out_denom: string;
-    token_in_max_amount: string;
+    sender?: string;
+    routes?: SwapAmountOutSplitRouteAmino[];
+    token_out_denom?: string;
+    token_in_max_amount?: string;
 }
 export interface MsgSplitRouteSwapExactAmountOutAminoMsg {
     type: "osmosis/poolmanager/split-amount-out";
@@ -176,7 +176,7 @@ export interface MsgSplitRouteSwapExactAmountOutResponseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgSplitRouteSwapExactAmountOutResponseAmino {
-    token_in_amount: string;
+    token_in_amount?: string;
 }
 export interface MsgSplitRouteSwapExactAmountOutResponseAminoMsg {
     type: "osmosis/poolmanager/split-route-swap-exact-amount-out-response";
@@ -196,8 +196,8 @@ export interface MsgSetDenomPairTakerFeeProtoMsg {
 }
 /** ===================== MsgSetDenomPairTakerFee */
 export interface MsgSetDenomPairTakerFeeAmino {
-    sender: string;
-    denom_pair_taker_fee: DenomPairTakerFeeAmino[];
+    sender?: string;
+    denom_pair_taker_fee?: DenomPairTakerFeeAmino[];
 }
 export interface MsgSetDenomPairTakerFeeAminoMsg {
     type: "osmosis/poolmanager/set-denom-pair-taker-fee";
@@ -216,7 +216,7 @@ export interface MsgSetDenomPairTakerFeeResponseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgSetDenomPairTakerFeeResponseAmino {
-    success: boolean;
+    success?: boolean;
 }
 export interface MsgSetDenomPairTakerFeeResponseAminoMsg {
     type: "osmosis/poolmanager/set-denom-pair-taker-fee-response";
@@ -243,9 +243,9 @@ export interface DenomPairTakerFeeAmino {
      * denom0 and denom1 get automatically lexigographically sorted
      * when being stored, so the order of input here does not matter.
      */
-    denom0: string;
-    denom1: string;
-    taker_fee: string;
+    denom0?: string;
+    denom1?: string;
+    taker_fee?: string;
 }
 export interface DenomPairTakerFeeAminoMsg {
     type: "osmosis/poolmanager/denom-pair-taker-fee";

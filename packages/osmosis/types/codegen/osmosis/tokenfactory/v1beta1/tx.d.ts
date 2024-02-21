@@ -33,9 +33,9 @@ export interface MsgCreateDenomProtoMsg {
  * denom does not indicate the current admin.
  */
 export interface MsgCreateDenomAmino {
-    sender: string;
+    sender?: string;
     /** subdenom can be up to 44 "alphanumeric" characters long. */
-    subdenom: string;
+    subdenom?: string;
 }
 export interface MsgCreateDenomAminoMsg {
     type: "osmosis/tokenfactory/create-denom";
@@ -72,7 +72,7 @@ export interface MsgCreateDenomResponseProtoMsg {
  * It returns the full string of the newly created denom
  */
 export interface MsgCreateDenomResponseAmino {
-    new_token_denom: string;
+    new_token_denom?: string;
 }
 export interface MsgCreateDenomResponseAminoMsg {
     type: "osmosis/tokenfactory/create-denom-response";
@@ -107,7 +107,7 @@ export interface MsgMintProtoMsg {
  * the denom does not have any admin.
  */
 export interface MsgMintAmino {
-    sender: string;
+    sender?: string;
     amount?: CoinAmino;
     mintToAddress: string;
 }
@@ -162,7 +162,7 @@ export interface MsgBurnProtoMsg {
  * the denom does not have any admin.
  */
 export interface MsgBurnAmino {
-    sender: string;
+    sender?: string;
     amount?: CoinAmino;
     burnFromAddress: string;
 }
@@ -213,9 +213,9 @@ export interface MsgChangeAdminProtoMsg {
  * adminship of a denom to a new account
  */
 export interface MsgChangeAdminAmino {
-    sender: string;
-    denom: string;
-    new_admin: string;
+    sender?: string;
+    denom?: string;
+    new_admin?: string;
 }
 export interface MsgChangeAdminAminoMsg {
     type: "osmosis/tokenfactory/change-admin";
@@ -274,12 +274,12 @@ export interface MsgSetBeforeSendHookProtoMsg {
  * assign a CosmWasm contract to call with a BeforeSend hook
  */
 export interface MsgSetBeforeSendHookAmino {
-    sender: string;
-    denom: string;
+    sender?: string;
+    denom?: string;
     cosmwasm_address: string;
 }
 export interface MsgSetBeforeSendHookAminoMsg {
-    type: "osmosis/tokenfactory/set-beforesend-hook";
+    type: "osmosis/tokenfactory/set-bef-send-hook";
     value: MsgSetBeforeSendHookAmino;
 }
 /**
@@ -334,7 +334,7 @@ export interface MsgSetDenomMetadataProtoMsg {
  * the denom's bank metadata
  */
 export interface MsgSetDenomMetadataAmino {
-    sender: string;
+    sender?: string;
     metadata?: MetadataAmino;
 }
 export interface MsgSetDenomMetadataAminoMsg {
@@ -386,10 +386,10 @@ export interface MsgForceTransferProtoMsg {
     value: Uint8Array;
 }
 export interface MsgForceTransferAmino {
-    sender: string;
+    sender?: string;
     amount?: CoinAmino;
-    transferFromAddress: string;
-    transferToAddress: string;
+    transferFromAddress?: string;
+    transferToAddress?: string;
 }
 export interface MsgForceTransferAminoMsg {
     type: "osmosis/tokenfactory/force-transfer";

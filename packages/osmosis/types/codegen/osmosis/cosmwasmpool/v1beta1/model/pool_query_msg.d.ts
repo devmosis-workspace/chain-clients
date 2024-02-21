@@ -2,7 +2,7 @@ import { Coin, CoinAmino, CoinSDKType } from "../../../../cosmos/base/v1beta1/co
 import { BinaryWriter } from "../../../../binary";
 /** ===================== GetSwapFeeQueryMsg */
 export interface GetSwapFeeQueryMsg {
-    /** get_swap_fee is the query strcuture to get swap fee. */
+    /** get_swap_fee is the query structure to get swap fee. */
     getSwapFee: EmptyStruct;
 }
 export interface GetSwapFeeQueryMsgProtoMsg {
@@ -11,7 +11,7 @@ export interface GetSwapFeeQueryMsgProtoMsg {
 }
 /** ===================== GetSwapFeeQueryMsg */
 export interface GetSwapFeeQueryMsgAmino {
-    /** get_swap_fee is the query strcuture to get swap fee. */
+    /** get_swap_fee is the query structure to get swap fee. */
     get_swap_fee?: EmptyStructAmino;
 }
 export interface GetSwapFeeQueryMsgAminoMsg {
@@ -32,7 +32,7 @@ export interface GetSwapFeeQueryMsgResponseProtoMsg {
 }
 export interface GetSwapFeeQueryMsgResponseAmino {
     /** swap_fee is the swap fee for this swap estimate. */
-    swap_fee: string;
+    swap_fee?: string;
 }
 export interface GetSwapFeeQueryMsgResponseAminoMsg {
     type: "osmosis/cosmwasmpool/get-swap-fee-query-msg-response";
@@ -55,9 +55,9 @@ export interface SpotPriceProtoMsg {
 /** ===================== SpotPriceQueryMsg */
 export interface SpotPriceAmino {
     /** quote_asset_denom is the quote asset of the spot query. */
-    quote_asset_denom: string;
+    quote_asset_denom?: string;
     /** base_asset_denom is the base asset of the spot query. */
-    base_asset_denom: string;
+    base_asset_denom?: string;
 }
 export interface SpotPriceAminoMsg {
     type: "osmosis/cosmwasmpool/spot-price";
@@ -103,7 +103,7 @@ export interface SpotPriceQueryMsgResponseProtoMsg {
 }
 export interface SpotPriceQueryMsgResponseAmino {
     /** spot_price is the spot price returned. */
-    spot_price: string;
+    spot_price?: string;
 }
 export interface SpotPriceQueryMsgResponseAminoMsg {
     type: "osmosis/cosmwasmpool/spot-price-query-msg-response";
@@ -170,7 +170,7 @@ export interface GetTotalPoolLiquidityQueryMsgResponseAmino {
      * total_pool_liquidity is the total liquidity in the pool denominated in
      *  coins.
      */
-    total_pool_liquidity: CoinAmino[];
+    total_pool_liquidity?: CoinAmino[];
 }
 export interface GetTotalPoolLiquidityQueryMsgResponseAminoMsg {
     type: "osmosis/cosmwasmpool/get-total-pool-liquidity-query-msg-response";
@@ -217,7 +217,7 @@ export interface GetTotalSharesQueryMsgResponseProtoMsg {
 }
 export interface GetTotalSharesQueryMsgResponseAmino {
     /** total_shares is the amount of shares returned. */
-    total_shares: string;
+    total_shares?: string;
 }
 export interface GetTotalSharesQueryMsgResponseAminoMsg {
     type: "osmosis/cosmwasmpool/get-total-shares-query-msg-response";

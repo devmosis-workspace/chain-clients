@@ -15,7 +15,7 @@ export interface MigrationRecordsProtoMsg {
  * pools
  */
 export interface MigrationRecordsAmino {
-    balancer_to_concentrated_pool_links: BalancerToConcentratedPoolLinkAmino[];
+    balancer_to_concentrated_pool_links?: BalancerToConcentratedPoolLinkAmino[];
 }
 export interface MigrationRecordsAminoMsg {
     type: "osmosis/gamm/migration-records";
@@ -53,8 +53,8 @@ export interface BalancerToConcentratedPoolLinkProtoMsg {
  * be linked to a maximum of one balancer pool.
  */
 export interface BalancerToConcentratedPoolLinkAmino {
-    balancer_pool_id: string;
-    cl_pool_id: string;
+    balancer_pool_id?: string;
+    cl_pool_id?: string;
 }
 export interface BalancerToConcentratedPoolLinkAminoMsg {
     type: "osmosis/gamm/balancer-to-concentrated-pool-link";

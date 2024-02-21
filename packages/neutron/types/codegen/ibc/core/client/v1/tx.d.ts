@@ -3,12 +3,12 @@ import { BinaryWriter } from "../../../../binary";
 /** MsgCreateClient defines a message to create an IBC client */
 export interface MsgCreateClient {
     /** light client state */
-    clientState: Any;
+    clientState?: Any;
     /**
      * consensus state associated with the client that corresponds to a given
      * height.
      */
-    consensusState: Any;
+    consensusState?: Any;
     /** signer address */
     signer: string;
 }
@@ -26,7 +26,7 @@ export interface MsgCreateClientAmino {
      */
     consensus_state?: AnyAmino;
     /** signer address */
-    signer: string;
+    signer?: string;
 }
 export interface MsgCreateClientAminoMsg {
     type: "cosmos-sdk/MsgCreateClient";
@@ -34,8 +34,8 @@ export interface MsgCreateClientAminoMsg {
 }
 /** MsgCreateClient defines a message to create an IBC client */
 export interface MsgCreateClientSDKType {
-    client_state: AnySDKType;
-    consensus_state: AnySDKType;
+    client_state?: AnySDKType;
+    consensus_state?: AnySDKType;
     signer: string;
 }
 /** MsgCreateClientResponse defines the Msg/CreateClient response type. */
@@ -57,13 +57,13 @@ export interface MsgCreateClientResponseSDKType {
 }
 /**
  * MsgUpdateClient defines an sdk.Msg to update a IBC client state using
- * the given header.
+ * the given client message.
  */
 export interface MsgUpdateClient {
     /** client unique identifier */
     clientId: string;
-    /** header to update the light client */
-    header: Any;
+    /** client message to update the light client */
+    clientMessage?: Any;
     /** signer address */
     signer: string;
 }
@@ -73,15 +73,15 @@ export interface MsgUpdateClientProtoMsg {
 }
 /**
  * MsgUpdateClient defines an sdk.Msg to update a IBC client state using
- * the given header.
+ * the given client message.
  */
 export interface MsgUpdateClientAmino {
     /** client unique identifier */
-    client_id: string;
-    /** header to update the light client */
-    header?: AnyAmino;
+    client_id?: string;
+    /** client message to update the light client */
+    client_message?: AnyAmino;
     /** signer address */
-    signer: string;
+    signer?: string;
 }
 export interface MsgUpdateClientAminoMsg {
     type: "cosmos-sdk/MsgUpdateClient";
@@ -89,11 +89,11 @@ export interface MsgUpdateClientAminoMsg {
 }
 /**
  * MsgUpdateClient defines an sdk.Msg to update a IBC client state using
- * the given header.
+ * the given client message.
  */
 export interface MsgUpdateClientSDKType {
     client_id: string;
-    header: AnySDKType;
+    client_message?: AnySDKType;
     signer: string;
 }
 /** MsgUpdateClientResponse defines the Msg/UpdateClient response type. */
@@ -121,12 +121,12 @@ export interface MsgUpgradeClient {
     /** client unique identifier */
     clientId: string;
     /** upgraded client state */
-    clientState: Any;
+    clientState?: Any;
     /**
      * upgraded consensus state, only contains enough information to serve as a
      * basis of trust in update logic
      */
-    consensusState: Any;
+    consensusState?: Any;
     /** proof that old chain committed to new client */
     proofUpgradeClient: Uint8Array;
     /** proof that old chain committed to new consensus state */
@@ -144,7 +144,7 @@ export interface MsgUpgradeClientProtoMsg {
  */
 export interface MsgUpgradeClientAmino {
     /** client unique identifier */
-    client_id: string;
+    client_id?: string;
     /** upgraded client state */
     client_state?: AnyAmino;
     /**
@@ -153,11 +153,11 @@ export interface MsgUpgradeClientAmino {
      */
     consensus_state?: AnyAmino;
     /** proof that old chain committed to new client */
-    proof_upgrade_client: Uint8Array;
+    proof_upgrade_client?: string;
     /** proof that old chain committed to new consensus state */
-    proof_upgrade_consensus_state: Uint8Array;
+    proof_upgrade_consensus_state?: string;
     /** signer address */
-    signer: string;
+    signer?: string;
 }
 export interface MsgUpgradeClientAminoMsg {
     type: "cosmos-sdk/MsgUpgradeClient";
@@ -169,8 +169,8 @@ export interface MsgUpgradeClientAminoMsg {
  */
 export interface MsgUpgradeClientSDKType {
     client_id: string;
-    client_state: AnySDKType;
-    consensus_state: AnySDKType;
+    client_state?: AnySDKType;
+    consensus_state?: AnySDKType;
     proof_upgrade_client: Uint8Array;
     proof_upgrade_consensus_state: Uint8Array;
     signer: string;
@@ -195,13 +195,17 @@ export interface MsgUpgradeClientResponseSDKType {
 /**
  * MsgSubmitMisbehaviour defines an sdk.Msg type that submits Evidence for
  * light client misbehaviour.
+ * Warning: DEPRECATED
  */
 export interface MsgSubmitMisbehaviour {
     /** client unique identifier */
+    /** @deprecated */
     clientId: string;
     /** misbehaviour used for freezing the light client */
-    misbehaviour: Any;
+    /** @deprecated */
+    misbehaviour?: Any;
     /** signer address */
+    /** @deprecated */
     signer: string;
 }
 export interface MsgSubmitMisbehaviourProtoMsg {
@@ -211,14 +215,18 @@ export interface MsgSubmitMisbehaviourProtoMsg {
 /**
  * MsgSubmitMisbehaviour defines an sdk.Msg type that submits Evidence for
  * light client misbehaviour.
+ * Warning: DEPRECATED
  */
 export interface MsgSubmitMisbehaviourAmino {
     /** client unique identifier */
-    client_id: string;
+    /** @deprecated */
+    client_id?: string;
     /** misbehaviour used for freezing the light client */
+    /** @deprecated */
     misbehaviour?: AnyAmino;
     /** signer address */
-    signer: string;
+    /** @deprecated */
+    signer?: string;
 }
 export interface MsgSubmitMisbehaviourAminoMsg {
     type: "cosmos-sdk/MsgSubmitMisbehaviour";
@@ -227,10 +235,14 @@ export interface MsgSubmitMisbehaviourAminoMsg {
 /**
  * MsgSubmitMisbehaviour defines an sdk.Msg type that submits Evidence for
  * light client misbehaviour.
+ * Warning: DEPRECATED
  */
 export interface MsgSubmitMisbehaviourSDKType {
+    /** @deprecated */
     client_id: string;
-    misbehaviour: AnySDKType;
+    /** @deprecated */
+    misbehaviour?: AnySDKType;
+    /** @deprecated */
     signer: string;
 }
 /**

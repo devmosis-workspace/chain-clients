@@ -9,9 +9,9 @@ export interface EventDataRoundStateProtoMsg {
     value: Uint8Array;
 }
 export interface EventDataRoundStateAmino {
-    height: string;
-    round: number;
-    step: string;
+    height?: string;
+    round?: number;
+    step?: string;
 }
 export interface EventDataRoundStateAminoMsg {
     type: "/tendermint.types.EventDataRoundState";

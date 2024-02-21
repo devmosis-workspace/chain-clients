@@ -1,6 +1,8 @@
 import { Tx, TxAmino, TxSDKType } from "./tx";
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
 import { TxResponse, TxResponseAmino, TxResponseSDKType, GasInfo, GasInfoAmino, GasInfoSDKType, Result, ResultAmino, ResultSDKType } from "../../base/abci/v1beta1/abci";
+import { BlockID, BlockIDAmino, BlockIDSDKType } from "../../../tendermint/types/types";
+import { Block, BlockAmino, BlockSDKType } from "../../../tendermint/types/block";
 import { BinaryWriter } from "../../../binary";
 /** OrderBy defines the sorting order */
 export declare enum OrderBy {
@@ -21,8 +23,8 @@ export declare enum BroadcastMode {
     /** BROADCAST_MODE_UNSPECIFIED - zero-value for mode ordering */
     BROADCAST_MODE_UNSPECIFIED = 0,
     /**
-     * BROADCAST_MODE_BLOCK - BROADCAST_MODE_BLOCK defines a tx broadcasting mode where the client waits for
-     * the tx to be committed in a block.
+     * BROADCAST_MODE_BLOCK - DEPRECATED: use BROADCAST_MODE_SYNC instead,
+     * BROADCAST_MODE_BLOCK is not supported by the SDK from v0.47.x onwards.
      */
     BROADCAST_MODE_BLOCK = 1,
     /**
@@ -48,9 +50,20 @@ export declare function broadcastModeToJSON(object: BroadcastMode): string;
 export interface GetTxsEventRequest {
     /** events is the list of transaction event type. */
     events: string[];
-    /** pagination defines an pagination for the request. */
-    pagination: PageRequest;
+    /**
+     * pagination defines a pagination for the request.
+     * Deprecated post v0.46.x: use page and limit instead.
+     */
+    /** @deprecated */
+    pagination?: PageRequest;
     orderBy: OrderBy;
+    /** page is the page number to query, starts at 1. If not provided, will default to first page. */
+    page: bigint;
+    /**
+     * limit is the total number of results to be returned in the result page.
+     * If left empty it will default to a value to be set by each app.
+     */
+    limit: bigint;
 }
 export interface GetTxsEventRequestProtoMsg {
     typeUrl: "/cosmos.tx.v1beta1.GetTxsEventRequest";
@@ -62,10 +75,21 @@ export interface GetTxsEventRequestProtoMsg {
  */
 export interface GetTxsEventRequestAmino {
     /** events is the list of transaction event type. */
-    events: string[];
-    /** pagination defines an pagination for the request. */
+    events?: string[];
+    /**
+     * pagination defines a pagination for the request.
+     * Deprecated post v0.46.x: use page and limit instead.
+     */
+    /** @deprecated */
     pagination?: PageRequestAmino;
-    order_by: OrderBy;
+    order_by?: OrderBy;
+    /** page is the page number to query, starts at 1. If not provided, will default to first page. */
+    page?: string;
+    /**
+     * limit is the total number of results to be returned in the result page.
+     * If left empty it will default to a value to be set by each app.
+     */
+    limit?: string;
 }
 export interface GetTxsEventRequestAminoMsg {
     type: "cosmos-sdk/GetTxsEventRequest";
@@ -77,8 +101,11 @@ export interface GetTxsEventRequestAminoMsg {
  */
 export interface GetTxsEventRequestSDKType {
     events: string[];
-    pagination: PageRequestSDKType;
+    /** @deprecated */
+    pagination?: PageRequestSDKType;
     order_by: OrderBy;
+    page: bigint;
+    limit: bigint;
 }
 /**
  * GetTxsEventResponse is the response type for the Service.TxsByEvents
@@ -89,8 +116,14 @@ export interface GetTxsEventResponse {
     txs: Tx[];
     /** tx_responses is the list of queried TxResponses. */
     txResponses: TxResponse[];
-    /** pagination defines an pagination for the response. */
-    pagination: PageResponse;
+    /**
+     * pagination defines a pagination for the response.
+     * Deprecated post v0.46.x: use total instead.
+     */
+    /** @deprecated */
+    pagination?: PageResponse;
+    /** total is total number of results available */
+    total: bigint;
 }
 export interface GetTxsEventResponseProtoMsg {
     typeUrl: "/cosmos.tx.v1beta1.GetTxsEventResponse";
@@ -102,11 +135,17 @@ export interface GetTxsEventResponseProtoMsg {
  */
 export interface GetTxsEventResponseAmino {
     /** txs is the list of queried transactions. */
-    txs: TxAmino[];
+    txs?: TxAmino[];
     /** tx_responses is the list of queried TxResponses. */
-    tx_responses: TxResponseAmino[];
-    /** pagination defines an pagination for the response. */
+    tx_responses?: TxResponseAmino[];
+    /**
+     * pagination defines a pagination for the response.
+     * Deprecated post v0.46.x: use total instead.
+     */
+    /** @deprecated */
     pagination?: PageResponseAmino;
+    /** total is total number of results available */
+    total?: string;
 }
 export interface GetTxsEventResponseAminoMsg {
     type: "cosmos-sdk/GetTxsEventResponse";
@@ -119,7 +158,9 @@ export interface GetTxsEventResponseAminoMsg {
 export interface GetTxsEventResponseSDKType {
     txs: TxSDKType[];
     tx_responses: TxResponseSDKType[];
-    pagination: PageResponseSDKType;
+    /** @deprecated */
+    pagination?: PageResponseSDKType;
+    total: bigint;
 }
 /**
  * BroadcastTxRequest is the request type for the Service.BroadcastTxRequest
@@ -140,8 +181,8 @@ export interface BroadcastTxRequestProtoMsg {
  */
 export interface BroadcastTxRequestAmino {
     /** tx_bytes is the raw transaction. */
-    tx_bytes: Uint8Array;
-    mode: BroadcastMode;
+    tx_bytes?: string;
+    mode?: BroadcastMode;
 }
 export interface BroadcastTxRequestAminoMsg {
     type: "cosmos-sdk/BroadcastTxRequest";
@@ -161,7 +202,7 @@ export interface BroadcastTxRequestSDKType {
  */
 export interface BroadcastTxResponse {
     /** tx_response is the queried TxResponses. */
-    txResponse: TxResponse;
+    txResponse?: TxResponse;
 }
 export interface BroadcastTxResponseProtoMsg {
     typeUrl: "/cosmos.tx.v1beta1.BroadcastTxResponse";
@@ -184,7 +225,7 @@ export interface BroadcastTxResponseAminoMsg {
  * Service.BroadcastTx method.
  */
 export interface BroadcastTxResponseSDKType {
-    tx_response: TxResponseSDKType;
+    tx_response?: TxResponseSDKType;
 }
 /**
  * SimulateRequest is the request type for the Service.Simulate
@@ -196,7 +237,7 @@ export interface SimulateRequest {
      * Deprecated. Send raw tx bytes instead.
      */
     /** @deprecated */
-    tx: Tx;
+    tx?: Tx;
     /**
      * tx_bytes is the raw transaction.
      *
@@ -224,7 +265,7 @@ export interface SimulateRequestAmino {
      *
      * Since: cosmos-sdk 0.43
      */
-    tx_bytes: Uint8Array;
+    tx_bytes?: string;
 }
 export interface SimulateRequestAminoMsg {
     type: "cosmos-sdk/SimulateRequest";
@@ -236,7 +277,7 @@ export interface SimulateRequestAminoMsg {
  */
 export interface SimulateRequestSDKType {
     /** @deprecated */
-    tx: TxSDKType;
+    tx?: TxSDKType;
     tx_bytes: Uint8Array;
 }
 /**
@@ -245,9 +286,9 @@ export interface SimulateRequestSDKType {
  */
 export interface SimulateResponse {
     /** gas_info is the information about gas used in the simulation. */
-    gasInfo: GasInfo;
+    gasInfo?: GasInfo;
     /** result is the result of the simulation. */
-    result: Result;
+    result?: Result;
 }
 export interface SimulateResponseProtoMsg {
     typeUrl: "/cosmos.tx.v1beta1.SimulateResponse";
@@ -272,8 +313,8 @@ export interface SimulateResponseAminoMsg {
  * Service.SimulateRPC method.
  */
 export interface SimulateResponseSDKType {
-    gas_info: GasInfoSDKType;
-    result: ResultSDKType;
+    gas_info?: GasInfoSDKType;
+    result?: ResultSDKType;
 }
 /**
  * GetTxRequest is the request type for the Service.GetTx
@@ -293,7 +334,7 @@ export interface GetTxRequestProtoMsg {
  */
 export interface GetTxRequestAmino {
     /** hash is the tx hash to query, encoded as a hex string. */
-    hash: string;
+    hash?: string;
 }
 export interface GetTxRequestAminoMsg {
     type: "cosmos-sdk/GetTxRequest";
@@ -309,9 +350,9 @@ export interface GetTxRequestSDKType {
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxResponse {
     /** tx is the queried transaction. */
-    tx: Tx;
+    tx?: Tx;
     /** tx_response is the queried TxResponses. */
-    txResponse: TxResponse;
+    txResponse?: TxResponse;
 }
 export interface GetTxResponseProtoMsg {
     typeUrl: "/cosmos.tx.v1beta1.GetTxResponse";
@@ -330,8 +371,383 @@ export interface GetTxResponseAminoMsg {
 }
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxResponseSDKType {
-    tx: TxSDKType;
-    tx_response: TxResponseSDKType;
+    tx?: TxSDKType;
+    tx_response?: TxResponseSDKType;
+}
+/**
+ * GetBlockWithTxsRequest is the request type for the Service.GetBlockWithTxs
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.45.2
+ */
+export interface GetBlockWithTxsRequest {
+    /** height is the height of the block to query. */
+    height: bigint;
+    /** pagination defines a pagination for the request. */
+    pagination?: PageRequest;
+}
+export interface GetBlockWithTxsRequestProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.GetBlockWithTxsRequest";
+    value: Uint8Array;
+}
+/**
+ * GetBlockWithTxsRequest is the request type for the Service.GetBlockWithTxs
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.45.2
+ */
+export interface GetBlockWithTxsRequestAmino {
+    /** height is the height of the block to query. */
+    height?: string;
+    /** pagination defines a pagination for the request. */
+    pagination?: PageRequestAmino;
+}
+export interface GetBlockWithTxsRequestAminoMsg {
+    type: "cosmos-sdk/GetBlockWithTxsRequest";
+    value: GetBlockWithTxsRequestAmino;
+}
+/**
+ * GetBlockWithTxsRequest is the request type for the Service.GetBlockWithTxs
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.45.2
+ */
+export interface GetBlockWithTxsRequestSDKType {
+    height: bigint;
+    pagination?: PageRequestSDKType;
+}
+/**
+ * GetBlockWithTxsResponse is the response type for the Service.GetBlockWithTxs method.
+ *
+ * Since: cosmos-sdk 0.45.2
+ */
+export interface GetBlockWithTxsResponse {
+    /** txs are the transactions in the block. */
+    txs: Tx[];
+    blockId?: BlockID;
+    block?: Block;
+    /** pagination defines a pagination for the response. */
+    pagination?: PageResponse;
+}
+export interface GetBlockWithTxsResponseProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.GetBlockWithTxsResponse";
+    value: Uint8Array;
+}
+/**
+ * GetBlockWithTxsResponse is the response type for the Service.GetBlockWithTxs method.
+ *
+ * Since: cosmos-sdk 0.45.2
+ */
+export interface GetBlockWithTxsResponseAmino {
+    /** txs are the transactions in the block. */
+    txs?: TxAmino[];
+    block_id?: BlockIDAmino;
+    block?: BlockAmino;
+    /** pagination defines a pagination for the response. */
+    pagination?: PageResponseAmino;
+}
+export interface GetBlockWithTxsResponseAminoMsg {
+    type: "cosmos-sdk/GetBlockWithTxsResponse";
+    value: GetBlockWithTxsResponseAmino;
+}
+/**
+ * GetBlockWithTxsResponse is the response type for the Service.GetBlockWithTxs method.
+ *
+ * Since: cosmos-sdk 0.45.2
+ */
+export interface GetBlockWithTxsResponseSDKType {
+    txs: TxSDKType[];
+    block_id?: BlockIDSDKType;
+    block?: BlockSDKType;
+    pagination?: PageResponseSDKType;
+}
+/**
+ * TxDecodeRequest is the request type for the Service.TxDecode
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeRequest {
+    /** tx_bytes is the raw transaction. */
+    txBytes: Uint8Array;
+}
+export interface TxDecodeRequestProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.TxDecodeRequest";
+    value: Uint8Array;
+}
+/**
+ * TxDecodeRequest is the request type for the Service.TxDecode
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeRequestAmino {
+    /** tx_bytes is the raw transaction. */
+    tx_bytes?: string;
+}
+export interface TxDecodeRequestAminoMsg {
+    type: "cosmos-sdk/TxDecodeRequest";
+    value: TxDecodeRequestAmino;
+}
+/**
+ * TxDecodeRequest is the request type for the Service.TxDecode
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeRequestSDKType {
+    tx_bytes: Uint8Array;
+}
+/**
+ * TxDecodeResponse is the response type for the
+ * Service.TxDecode method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeResponse {
+    /** tx is the decoded transaction. */
+    tx?: Tx;
+}
+export interface TxDecodeResponseProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.TxDecodeResponse";
+    value: Uint8Array;
+}
+/**
+ * TxDecodeResponse is the response type for the
+ * Service.TxDecode method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeResponseAmino {
+    /** tx is the decoded transaction. */
+    tx?: TxAmino;
+}
+export interface TxDecodeResponseAminoMsg {
+    type: "cosmos-sdk/TxDecodeResponse";
+    value: TxDecodeResponseAmino;
+}
+/**
+ * TxDecodeResponse is the response type for the
+ * Service.TxDecode method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeResponseSDKType {
+    tx?: TxSDKType;
+}
+/**
+ * TxEncodeRequest is the request type for the Service.TxEncode
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeRequest {
+    /** tx is the transaction to encode. */
+    tx?: Tx;
+}
+export interface TxEncodeRequestProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.TxEncodeRequest";
+    value: Uint8Array;
+}
+/**
+ * TxEncodeRequest is the request type for the Service.TxEncode
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeRequestAmino {
+    /** tx is the transaction to encode. */
+    tx?: TxAmino;
+}
+export interface TxEncodeRequestAminoMsg {
+    type: "cosmos-sdk/TxEncodeRequest";
+    value: TxEncodeRequestAmino;
+}
+/**
+ * TxEncodeRequest is the request type for the Service.TxEncode
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeRequestSDKType {
+    tx?: TxSDKType;
+}
+/**
+ * TxEncodeResponse is the response type for the
+ * Service.TxEncode method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeResponse {
+    /** tx_bytes is the encoded transaction bytes. */
+    txBytes: Uint8Array;
+}
+export interface TxEncodeResponseProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.TxEncodeResponse";
+    value: Uint8Array;
+}
+/**
+ * TxEncodeResponse is the response type for the
+ * Service.TxEncode method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeResponseAmino {
+    /** tx_bytes is the encoded transaction bytes. */
+    tx_bytes?: string;
+}
+export interface TxEncodeResponseAminoMsg {
+    type: "cosmos-sdk/TxEncodeResponse";
+    value: TxEncodeResponseAmino;
+}
+/**
+ * TxEncodeResponse is the response type for the
+ * Service.TxEncode method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeResponseSDKType {
+    tx_bytes: Uint8Array;
+}
+/**
+ * TxEncodeAminoRequest is the request type for the Service.TxEncodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeAminoRequest {
+    aminoJson: string;
+}
+export interface TxEncodeAminoRequestProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.TxEncodeAminoRequest";
+    value: Uint8Array;
+}
+/**
+ * TxEncodeAminoRequest is the request type for the Service.TxEncodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeAminoRequestAmino {
+    amino_json?: string;
+}
+export interface TxEncodeAminoRequestAminoMsg {
+    type: "cosmos-sdk/TxEncodeAminoRequest";
+    value: TxEncodeAminoRequestAmino;
+}
+/**
+ * TxEncodeAminoRequest is the request type for the Service.TxEncodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeAminoRequestSDKType {
+    amino_json: string;
+}
+/**
+ * TxEncodeAminoResponse is the response type for the Service.TxEncodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeAminoResponse {
+    aminoBinary: Uint8Array;
+}
+export interface TxEncodeAminoResponseProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.TxEncodeAminoResponse";
+    value: Uint8Array;
+}
+/**
+ * TxEncodeAminoResponse is the response type for the Service.TxEncodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeAminoResponseAmino {
+    amino_binary?: string;
+}
+export interface TxEncodeAminoResponseAminoMsg {
+    type: "cosmos-sdk/TxEncodeAminoResponse";
+    value: TxEncodeAminoResponseAmino;
+}
+/**
+ * TxEncodeAminoResponse is the response type for the Service.TxEncodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxEncodeAminoResponseSDKType {
+    amino_binary: Uint8Array;
+}
+/**
+ * TxDecodeAminoRequest is the request type for the Service.TxDecodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeAminoRequest {
+    aminoBinary: Uint8Array;
+}
+export interface TxDecodeAminoRequestProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.TxDecodeAminoRequest";
+    value: Uint8Array;
+}
+/**
+ * TxDecodeAminoRequest is the request type for the Service.TxDecodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeAminoRequestAmino {
+    amino_binary?: string;
+}
+export interface TxDecodeAminoRequestAminoMsg {
+    type: "cosmos-sdk/TxDecodeAminoRequest";
+    value: TxDecodeAminoRequestAmino;
+}
+/**
+ * TxDecodeAminoRequest is the request type for the Service.TxDecodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeAminoRequestSDKType {
+    amino_binary: Uint8Array;
+}
+/**
+ * TxDecodeAminoResponse is the response type for the Service.TxDecodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeAminoResponse {
+    aminoJson: string;
+}
+export interface TxDecodeAminoResponseProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.TxDecodeAminoResponse";
+    value: Uint8Array;
+}
+/**
+ * TxDecodeAminoResponse is the response type for the Service.TxDecodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeAminoResponseAmino {
+    amino_json?: string;
+}
+export interface TxDecodeAminoResponseAminoMsg {
+    type: "cosmos-sdk/TxDecodeAminoResponse";
+    value: TxDecodeAminoResponseAmino;
+}
+/**
+ * TxDecodeAminoResponse is the response type for the Service.TxDecodeAmino
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface TxDecodeAminoResponseSDKType {
+    amino_json: string;
 }
 export declare const GetTxsEventRequest: {
     typeUrl: string;
@@ -436,4 +852,134 @@ export declare const GetTxResponse: {
     fromProtoMsg(message: GetTxResponseProtoMsg): GetTxResponse;
     toProto(message: GetTxResponse): Uint8Array;
     toProtoMsg(message: GetTxResponse): GetTxResponseProtoMsg;
+};
+export declare const GetBlockWithTxsRequest: {
+    typeUrl: string;
+    encode(message: GetBlockWithTxsRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): GetBlockWithTxsRequest;
+    fromPartial(object: Partial<GetBlockWithTxsRequest>): GetBlockWithTxsRequest;
+    fromAmino(object: GetBlockWithTxsRequestAmino): GetBlockWithTxsRequest;
+    toAmino(message: GetBlockWithTxsRequest): GetBlockWithTxsRequestAmino;
+    fromAminoMsg(object: GetBlockWithTxsRequestAminoMsg): GetBlockWithTxsRequest;
+    toAminoMsg(message: GetBlockWithTxsRequest): GetBlockWithTxsRequestAminoMsg;
+    fromProtoMsg(message: GetBlockWithTxsRequestProtoMsg): GetBlockWithTxsRequest;
+    toProto(message: GetBlockWithTxsRequest): Uint8Array;
+    toProtoMsg(message: GetBlockWithTxsRequest): GetBlockWithTxsRequestProtoMsg;
+};
+export declare const GetBlockWithTxsResponse: {
+    typeUrl: string;
+    encode(message: GetBlockWithTxsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): GetBlockWithTxsResponse;
+    fromPartial(object: Partial<GetBlockWithTxsResponse>): GetBlockWithTxsResponse;
+    fromAmino(object: GetBlockWithTxsResponseAmino): GetBlockWithTxsResponse;
+    toAmino(message: GetBlockWithTxsResponse): GetBlockWithTxsResponseAmino;
+    fromAminoMsg(object: GetBlockWithTxsResponseAminoMsg): GetBlockWithTxsResponse;
+    toAminoMsg(message: GetBlockWithTxsResponse): GetBlockWithTxsResponseAminoMsg;
+    fromProtoMsg(message: GetBlockWithTxsResponseProtoMsg): GetBlockWithTxsResponse;
+    toProto(message: GetBlockWithTxsResponse): Uint8Array;
+    toProtoMsg(message: GetBlockWithTxsResponse): GetBlockWithTxsResponseProtoMsg;
+};
+export declare const TxDecodeRequest: {
+    typeUrl: string;
+    encode(message: TxDecodeRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TxDecodeRequest;
+    fromPartial(object: Partial<TxDecodeRequest>): TxDecodeRequest;
+    fromAmino(object: TxDecodeRequestAmino): TxDecodeRequest;
+    toAmino(message: TxDecodeRequest): TxDecodeRequestAmino;
+    fromAminoMsg(object: TxDecodeRequestAminoMsg): TxDecodeRequest;
+    toAminoMsg(message: TxDecodeRequest): TxDecodeRequestAminoMsg;
+    fromProtoMsg(message: TxDecodeRequestProtoMsg): TxDecodeRequest;
+    toProto(message: TxDecodeRequest): Uint8Array;
+    toProtoMsg(message: TxDecodeRequest): TxDecodeRequestProtoMsg;
+};
+export declare const TxDecodeResponse: {
+    typeUrl: string;
+    encode(message: TxDecodeResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TxDecodeResponse;
+    fromPartial(object: Partial<TxDecodeResponse>): TxDecodeResponse;
+    fromAmino(object: TxDecodeResponseAmino): TxDecodeResponse;
+    toAmino(message: TxDecodeResponse): TxDecodeResponseAmino;
+    fromAminoMsg(object: TxDecodeResponseAminoMsg): TxDecodeResponse;
+    toAminoMsg(message: TxDecodeResponse): TxDecodeResponseAminoMsg;
+    fromProtoMsg(message: TxDecodeResponseProtoMsg): TxDecodeResponse;
+    toProto(message: TxDecodeResponse): Uint8Array;
+    toProtoMsg(message: TxDecodeResponse): TxDecodeResponseProtoMsg;
+};
+export declare const TxEncodeRequest: {
+    typeUrl: string;
+    encode(message: TxEncodeRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TxEncodeRequest;
+    fromPartial(object: Partial<TxEncodeRequest>): TxEncodeRequest;
+    fromAmino(object: TxEncodeRequestAmino): TxEncodeRequest;
+    toAmino(message: TxEncodeRequest): TxEncodeRequestAmino;
+    fromAminoMsg(object: TxEncodeRequestAminoMsg): TxEncodeRequest;
+    toAminoMsg(message: TxEncodeRequest): TxEncodeRequestAminoMsg;
+    fromProtoMsg(message: TxEncodeRequestProtoMsg): TxEncodeRequest;
+    toProto(message: TxEncodeRequest): Uint8Array;
+    toProtoMsg(message: TxEncodeRequest): TxEncodeRequestProtoMsg;
+};
+export declare const TxEncodeResponse: {
+    typeUrl: string;
+    encode(message: TxEncodeResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TxEncodeResponse;
+    fromPartial(object: Partial<TxEncodeResponse>): TxEncodeResponse;
+    fromAmino(object: TxEncodeResponseAmino): TxEncodeResponse;
+    toAmino(message: TxEncodeResponse): TxEncodeResponseAmino;
+    fromAminoMsg(object: TxEncodeResponseAminoMsg): TxEncodeResponse;
+    toAminoMsg(message: TxEncodeResponse): TxEncodeResponseAminoMsg;
+    fromProtoMsg(message: TxEncodeResponseProtoMsg): TxEncodeResponse;
+    toProto(message: TxEncodeResponse): Uint8Array;
+    toProtoMsg(message: TxEncodeResponse): TxEncodeResponseProtoMsg;
+};
+export declare const TxEncodeAminoRequest: {
+    typeUrl: string;
+    encode(message: TxEncodeAminoRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TxEncodeAminoRequest;
+    fromPartial(object: Partial<TxEncodeAminoRequest>): TxEncodeAminoRequest;
+    fromAmino(object: TxEncodeAminoRequestAmino): TxEncodeAminoRequest;
+    toAmino(message: TxEncodeAminoRequest): TxEncodeAminoRequestAmino;
+    fromAminoMsg(object: TxEncodeAminoRequestAminoMsg): TxEncodeAminoRequest;
+    toAminoMsg(message: TxEncodeAminoRequest): TxEncodeAminoRequestAminoMsg;
+    fromProtoMsg(message: TxEncodeAminoRequestProtoMsg): TxEncodeAminoRequest;
+    toProto(message: TxEncodeAminoRequest): Uint8Array;
+    toProtoMsg(message: TxEncodeAminoRequest): TxEncodeAminoRequestProtoMsg;
+};
+export declare const TxEncodeAminoResponse: {
+    typeUrl: string;
+    encode(message: TxEncodeAminoResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TxEncodeAminoResponse;
+    fromPartial(object: Partial<TxEncodeAminoResponse>): TxEncodeAminoResponse;
+    fromAmino(object: TxEncodeAminoResponseAmino): TxEncodeAminoResponse;
+    toAmino(message: TxEncodeAminoResponse): TxEncodeAminoResponseAmino;
+    fromAminoMsg(object: TxEncodeAminoResponseAminoMsg): TxEncodeAminoResponse;
+    toAminoMsg(message: TxEncodeAminoResponse): TxEncodeAminoResponseAminoMsg;
+    fromProtoMsg(message: TxEncodeAminoResponseProtoMsg): TxEncodeAminoResponse;
+    toProto(message: TxEncodeAminoResponse): Uint8Array;
+    toProtoMsg(message: TxEncodeAminoResponse): TxEncodeAminoResponseProtoMsg;
+};
+export declare const TxDecodeAminoRequest: {
+    typeUrl: string;
+    encode(message: TxDecodeAminoRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TxDecodeAminoRequest;
+    fromPartial(object: Partial<TxDecodeAminoRequest>): TxDecodeAminoRequest;
+    fromAmino(object: TxDecodeAminoRequestAmino): TxDecodeAminoRequest;
+    toAmino(message: TxDecodeAminoRequest): TxDecodeAminoRequestAmino;
+    fromAminoMsg(object: TxDecodeAminoRequestAminoMsg): TxDecodeAminoRequest;
+    toAminoMsg(message: TxDecodeAminoRequest): TxDecodeAminoRequestAminoMsg;
+    fromProtoMsg(message: TxDecodeAminoRequestProtoMsg): TxDecodeAminoRequest;
+    toProto(message: TxDecodeAminoRequest): Uint8Array;
+    toProtoMsg(message: TxDecodeAminoRequest): TxDecodeAminoRequestProtoMsg;
+};
+export declare const TxDecodeAminoResponse: {
+    typeUrl: string;
+    encode(message: TxDecodeAminoResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TxDecodeAminoResponse;
+    fromPartial(object: Partial<TxDecodeAminoResponse>): TxDecodeAminoResponse;
+    fromAmino(object: TxDecodeAminoResponseAmino): TxDecodeAminoResponse;
+    toAmino(message: TxDecodeAminoResponse): TxDecodeAminoResponseAmino;
+    fromAminoMsg(object: TxDecodeAminoResponseAminoMsg): TxDecodeAminoResponse;
+    toAminoMsg(message: TxDecodeAminoResponse): TxDecodeAminoResponseAminoMsg;
+    fromProtoMsg(message: TxDecodeAminoResponseProtoMsg): TxDecodeAminoResponse;
+    toProto(message: TxDecodeAminoResponse): Uint8Array;
+    toProtoMsg(message: TxDecodeAminoResponse): TxDecodeAminoResponseProtoMsg;
 };

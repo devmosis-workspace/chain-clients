@@ -27,9 +27,9 @@ export interface InterchainAccountPacketDataProtoMsg {
 }
 /** InterchainAccountPacketData is comprised of a raw transaction, type of transaction and optional memo field. */
 export interface InterchainAccountPacketDataAmino {
-    type: Type;
-    data: Uint8Array;
-    memo: string;
+    type?: Type;
+    data?: string;
+    memo?: string;
 }
 export interface InterchainAccountPacketDataAminoMsg {
     type: "cosmos-sdk/InterchainAccountPacketData";
@@ -51,7 +51,7 @@ export interface CosmosTxProtoMsg {
 }
 /** CosmosTx contains a list of sdk.Msg's. It should be used when sending transactions to an SDK host chain. */
 export interface CosmosTxAmino {
-    messages: AnyAmino[];
+    messages?: AnyAmino[];
 }
 export interface CosmosTxAminoMsg {
     type: "cosmos-sdk/CosmosTx";

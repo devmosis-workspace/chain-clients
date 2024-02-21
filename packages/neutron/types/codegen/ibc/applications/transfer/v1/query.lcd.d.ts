@@ -1,13 +1,14 @@
 import { LCDClient } from "@cosmology/lcd";
-import { QueryDenomTraceRequest, QueryDenomTraceResponseSDKType, QueryDenomTracesRequest, QueryDenomTracesResponseSDKType, QueryParamsRequest, QueryParamsResponseSDKType, QueryDenomHashRequest, QueryDenomHashResponseSDKType, QueryEscrowAddressRequest, QueryEscrowAddressResponseSDKType } from "./query";
+import { QueryDenomTracesRequest, QueryDenomTracesResponseSDKType, QueryDenomTraceRequest, QueryDenomTraceResponseSDKType, QueryParamsRequest, QueryParamsResponseSDKType, QueryDenomHashRequest, QueryDenomHashResponseSDKType, QueryEscrowAddressRequest, QueryEscrowAddressResponseSDKType, QueryTotalEscrowForDenomRequest, QueryTotalEscrowForDenomResponseSDKType } from "./query";
 export declare class LCDQueryClient {
     req: LCDClient;
     constructor({ requestClient }: {
         requestClient: LCDClient;
     });
-    denomTrace(params: QueryDenomTraceRequest): Promise<QueryDenomTraceResponseSDKType>;
     denomTraces(params?: QueryDenomTracesRequest): Promise<QueryDenomTracesResponseSDKType>;
+    denomTrace(params: QueryDenomTraceRequest): Promise<QueryDenomTraceResponseSDKType>;
     params(_params?: QueryParamsRequest): Promise<QueryParamsResponseSDKType>;
     denomHash(params: QueryDenomHashRequest): Promise<QueryDenomHashResponseSDKType>;
     escrowAddress(params: QueryEscrowAddressRequest): Promise<QueryEscrowAddressResponseSDKType>;
+    totalEscrowForDenom(params: QueryTotalEscrowForDenomRequest): Promise<QueryTotalEscrowForDenomResponseSDKType>;
 }

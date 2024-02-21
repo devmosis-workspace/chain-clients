@@ -4,7 +4,7 @@ import { BinaryWriter } from "../../../binary";
  * protorev module is enabled
  */
 export interface SetProtoRevEnabledProposal {
-    $typeUrl?: string;
+    $typeUrl?: "/osmosis.protorev.v1beta1.SetProtoRevEnabledProposal";
     title: string;
     description: string;
     enabled: boolean;
@@ -18,9 +18,9 @@ export interface SetProtoRevEnabledProposalProtoMsg {
  * protorev module is enabled
  */
 export interface SetProtoRevEnabledProposalAmino {
-    title: string;
-    description: string;
-    enabled: boolean;
+    title?: string;
+    description?: string;
+    enabled?: boolean;
 }
 export interface SetProtoRevEnabledProposalAminoMsg {
     type: "osmosis/SetProtoRevEnabledProposal";
@@ -31,7 +31,7 @@ export interface SetProtoRevEnabledProposalAminoMsg {
  * protorev module is enabled
  */
 export interface SetProtoRevEnabledProposalSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/osmosis.protorev.v1beta1.SetProtoRevEnabledProposal";
     title: string;
     description: string;
     enabled: boolean;
@@ -42,7 +42,7 @@ export interface SetProtoRevEnabledProposalSDKType {
  * developer address that will be receiving a share of profits from the module
  */
 export interface SetProtoRevAdminAccountProposal {
-    $typeUrl?: string;
+    $typeUrl?: "/osmosis.protorev.v1beta1.SetProtoRevAdminAccountProposal";
     title: string;
     description: string;
     account: string;
@@ -57,9 +57,9 @@ export interface SetProtoRevAdminAccountProposalProtoMsg {
  * developer address that will be receiving a share of profits from the module
  */
 export interface SetProtoRevAdminAccountProposalAmino {
-    title: string;
-    description: string;
-    account: string;
+    title?: string;
+    description?: string;
+    account?: string;
 }
 export interface SetProtoRevAdminAccountProposalAminoMsg {
     type: "osmosis/SetProtoRevAdminAccountProposal";
@@ -71,7 +71,7 @@ export interface SetProtoRevAdminAccountProposalAminoMsg {
  * developer address that will be receiving a share of profits from the module
  */
 export interface SetProtoRevAdminAccountProposalSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/osmosis.protorev.v1beta1.SetProtoRevAdminAccountProposal";
     title: string;
     description: string;
     account: string;

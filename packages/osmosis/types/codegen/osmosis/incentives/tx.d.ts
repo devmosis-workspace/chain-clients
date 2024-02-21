@@ -1,6 +1,6 @@
 import { QueryCondition, QueryConditionAmino, QueryConditionSDKType } from "../lockup/lock";
 import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../binary";
 /** MsgCreateGauge creates a gague to distribute rewards to users */
 export interface MsgCreateGauge {
@@ -52,23 +52,23 @@ export interface MsgCreateGaugeAmino {
      * at a single time and only distribute their tokens again once the gauge is
      * refilled
      */
-    is_perpetual: boolean;
+    is_perpetual?: boolean;
     /** owner is the address of gauge creator */
-    owner: string;
+    owner?: string;
     /**
      * distribute_to show which lock the gauge should distribute to by time
      * duration or by timestamp
      */
     distribute_to?: QueryConditionAmino;
     /** coins are coin(s) to be distributed by the gauge */
-    coins: CoinAmino[];
+    coins?: CoinAmino[];
     /** start_time is the distribution start time */
-    start_time?: TimestampAmino;
+    start_time?: string;
     /**
      * num_epochs_paid_over is the number of epochs distribution will be completed
      * over
      */
-    num_epochs_paid_over: string;
+    num_epochs_paid_over?: string;
     /**
      * pool_id is the ID of the pool that the gauge is meant to be associated
      * with. if pool_id is set, then the "QueryCondition.LockQueryType" must be
@@ -78,7 +78,7 @@ export interface MsgCreateGaugeAmino {
      * incentivestypes.NoLockExternalGaugeDenom(<pool-id>) so that the gauges
      * associated with a pool can be queried by this prefix if needed.
      */
-    pool_id: string;
+    pool_id?: string;
 }
 export interface MsgCreateGaugeAminoMsg {
     type: "osmosis/incentives/create-gauge";
@@ -124,11 +124,11 @@ export interface MsgAddToGaugeProtoMsg {
 /** MsgAddToGauge adds coins to a previously created gauge */
 export interface MsgAddToGaugeAmino {
     /** owner is the gauge owner's address */
-    owner: string;
+    owner?: string;
     /** gauge_id is the ID of gauge that rewards are getting added to */
-    gauge_id: string;
+    gauge_id?: string;
     /** rewards are the coin(s) to add to gauge */
-    rewards: CoinAmino[];
+    rewards?: CoinAmino[];
 }
 export interface MsgAddToGaugeAminoMsg {
     type: "osmosis/incentives/add-to-gauge";
@@ -153,6 +153,68 @@ export interface MsgAddToGaugeResponseAminoMsg {
     value: MsgAddToGaugeResponseAmino;
 }
 export interface MsgAddToGaugeResponseSDKType {
+}
+/** MsgCreateGroup creates a group to distribute rewards to a group of pools */
+export interface MsgCreateGroup {
+    /** coins are the provided coins that the group will distribute */
+    coins: Coin[];
+    /**
+     * num_epochs_paid_over is the number of epochs distribution will be completed
+     * in. 0 means it's perpetual
+     */
+    numEpochsPaidOver: bigint;
+    /** owner is the group owner's address */
+    owner: string;
+    /** pool_ids are the IDs of pools that the group is comprised of */
+    poolIds: bigint[];
+}
+export interface MsgCreateGroupProtoMsg {
+    typeUrl: "/osmosis.incentives.MsgCreateGroup";
+    value: Uint8Array;
+}
+/** MsgCreateGroup creates a group to distribute rewards to a group of pools */
+export interface MsgCreateGroupAmino {
+    /** coins are the provided coins that the group will distribute */
+    coins?: CoinAmino[];
+    /**
+     * num_epochs_paid_over is the number of epochs distribution will be completed
+     * in. 0 means it's perpetual
+     */
+    num_epochs_paid_over?: string;
+    /** owner is the group owner's address */
+    owner?: string;
+    /** pool_ids are the IDs of pools that the group is comprised of */
+    pool_ids?: string[];
+}
+export interface MsgCreateGroupAminoMsg {
+    type: "osmosis/incentives/create-group";
+    value: MsgCreateGroupAmino;
+}
+/** MsgCreateGroup creates a group to distribute rewards to a group of pools */
+export interface MsgCreateGroupSDKType {
+    coins: CoinSDKType[];
+    num_epochs_paid_over: bigint;
+    owner: string;
+    pool_ids: bigint[];
+}
+export interface MsgCreateGroupResponse {
+    /** group_id is the ID of the group that is created from this msg */
+    groupId: bigint;
+}
+export interface MsgCreateGroupResponseProtoMsg {
+    typeUrl: "/osmosis.incentives.MsgCreateGroupResponse";
+    value: Uint8Array;
+}
+export interface MsgCreateGroupResponseAmino {
+    /** group_id is the ID of the group that is created from this msg */
+    group_id?: string;
+}
+export interface MsgCreateGroupResponseAminoMsg {
+    type: "osmosis/incentives/create-group-response";
+    value: MsgCreateGroupResponseAmino;
+}
+export interface MsgCreateGroupResponseSDKType {
+    group_id: bigint;
 }
 export declare const MsgCreateGauge: {
     typeUrl: string;
@@ -205,4 +267,30 @@ export declare const MsgAddToGaugeResponse: {
     fromProtoMsg(message: MsgAddToGaugeResponseProtoMsg): MsgAddToGaugeResponse;
     toProto(message: MsgAddToGaugeResponse): Uint8Array;
     toProtoMsg(message: MsgAddToGaugeResponse): MsgAddToGaugeResponseProtoMsg;
+};
+export declare const MsgCreateGroup: {
+    typeUrl: string;
+    encode(message: MsgCreateGroup, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgCreateGroup;
+    fromPartial(object: Partial<MsgCreateGroup>): MsgCreateGroup;
+    fromAmino(object: MsgCreateGroupAmino): MsgCreateGroup;
+    toAmino(message: MsgCreateGroup): MsgCreateGroupAmino;
+    fromAminoMsg(object: MsgCreateGroupAminoMsg): MsgCreateGroup;
+    toAminoMsg(message: MsgCreateGroup): MsgCreateGroupAminoMsg;
+    fromProtoMsg(message: MsgCreateGroupProtoMsg): MsgCreateGroup;
+    toProto(message: MsgCreateGroup): Uint8Array;
+    toProtoMsg(message: MsgCreateGroup): MsgCreateGroupProtoMsg;
+};
+export declare const MsgCreateGroupResponse: {
+    typeUrl: string;
+    encode(message: MsgCreateGroupResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgCreateGroupResponse;
+    fromPartial(object: Partial<MsgCreateGroupResponse>): MsgCreateGroupResponse;
+    fromAmino(object: MsgCreateGroupResponseAmino): MsgCreateGroupResponse;
+    toAmino(message: MsgCreateGroupResponse): MsgCreateGroupResponseAmino;
+    fromAminoMsg(object: MsgCreateGroupResponseAminoMsg): MsgCreateGroupResponse;
+    toAminoMsg(message: MsgCreateGroupResponse): MsgCreateGroupResponseAminoMsg;
+    fromProtoMsg(message: MsgCreateGroupResponseProtoMsg): MsgCreateGroupResponse;
+    toProto(message: MsgCreateGroupResponse): Uint8Array;
+    toProtoMsg(message: MsgCreateGroupResponse): MsgCreateGroupResponseProtoMsg;
 };

@@ -40,6 +40,10 @@ export interface QueryParamsResponseAminoMsg {
 export interface QueryParamsResponseSDKType {
     params: ParamsSDKType;
 }
+/**
+ * QueryDenomAuthorityMetadataRequest defines the request structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataRequest {
     creator: string;
     subdenom: string;
@@ -48,18 +52,30 @@ export interface QueryDenomAuthorityMetadataRequestProtoMsg {
     typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomAuthorityMetadataRequest";
     value: Uint8Array;
 }
+/**
+ * QueryDenomAuthorityMetadataRequest defines the request structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataRequestAmino {
-    creator: string;
-    subdenom: string;
+    creator?: string;
+    subdenom?: string;
 }
 export interface QueryDenomAuthorityMetadataRequestAminoMsg {
     type: "osmosis/tokenfactory/query-denom-authority-metadata-request";
     value: QueryDenomAuthorityMetadataRequestAmino;
 }
+/**
+ * QueryDenomAuthorityMetadataRequest defines the request structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataRequestSDKType {
     creator: string;
     subdenom: string;
 }
+/**
+ * QueryDenomAuthorityMetadataResponse defines the response structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataResponse {
     authorityMetadata: DenomAuthorityMetadata;
 }
@@ -67,6 +83,10 @@ export interface QueryDenomAuthorityMetadataResponseProtoMsg {
     typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse";
     value: Uint8Array;
 }
+/**
+ * QueryDenomAuthorityMetadataResponse defines the response structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataResponseAmino {
     authority_metadata?: DenomAuthorityMetadataAmino;
 }
@@ -74,9 +94,17 @@ export interface QueryDenomAuthorityMetadataResponseAminoMsg {
     type: "osmosis/tokenfactory/query-denom-authority-metadata-response";
     value: QueryDenomAuthorityMetadataResponseAmino;
 }
+/**
+ * QueryDenomAuthorityMetadataResponse defines the response structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataResponseSDKType {
     authority_metadata: DenomAuthorityMetadataSDKType;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the request structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorRequest {
     creator: string;
 }
@@ -84,16 +112,28 @@ export interface QueryDenomsFromCreatorRequestProtoMsg {
     typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomsFromCreatorRequest";
     value: Uint8Array;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the request structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorRequestAmino {
-    creator: string;
+    creator?: string;
 }
 export interface QueryDenomsFromCreatorRequestAminoMsg {
     type: "osmosis/tokenfactory/query-denoms-from-creator-request";
     value: QueryDenomsFromCreatorRequestAmino;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the request structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorRequestSDKType {
     creator: string;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the response structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorResponse {
     denoms: string[];
 }
@@ -101,15 +141,72 @@ export interface QueryDenomsFromCreatorResponseProtoMsg {
     typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse";
     value: Uint8Array;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the response structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorResponseAmino {
-    denoms: string[];
+    denoms?: string[];
 }
 export interface QueryDenomsFromCreatorResponseAminoMsg {
     type: "osmosis/tokenfactory/query-denoms-from-creator-response";
     value: QueryDenomsFromCreatorResponseAmino;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the response structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorResponseSDKType {
     denoms: string[];
+}
+export interface QueryBeforeSendHookAddressRequest {
+    creator: string;
+    subdenom: string;
+}
+export interface QueryBeforeSendHookAddressRequestProtoMsg {
+    typeUrl: "/osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressRequest";
+    value: Uint8Array;
+}
+export interface QueryBeforeSendHookAddressRequestAmino {
+    creator?: string;
+    subdenom?: string;
+}
+export interface QueryBeforeSendHookAddressRequestAminoMsg {
+    type: "osmosis/tokenfactory/query-before-send-hook-address-request";
+    value: QueryBeforeSendHookAddressRequestAmino;
+}
+export interface QueryBeforeSendHookAddressRequestSDKType {
+    creator: string;
+    subdenom: string;
+}
+/**
+ * QueryBeforeSendHookAddressResponse defines the response structure for the
+ * DenomBeforeSendHook gRPC query.
+ */
+export interface QueryBeforeSendHookAddressResponse {
+    contractAddr: string;
+}
+export interface QueryBeforeSendHookAddressResponseProtoMsg {
+    typeUrl: "/osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryBeforeSendHookAddressResponse defines the response structure for the
+ * DenomBeforeSendHook gRPC query.
+ */
+export interface QueryBeforeSendHookAddressResponseAmino {
+    contract_addr?: string;
+}
+export interface QueryBeforeSendHookAddressResponseAminoMsg {
+    type: "osmosis/tokenfactory/query-before-send-hook-address-response";
+    value: QueryBeforeSendHookAddressResponseAmino;
+}
+/**
+ * QueryBeforeSendHookAddressResponse defines the response structure for the
+ * DenomBeforeSendHook gRPC query.
+ */
+export interface QueryBeforeSendHookAddressResponseSDKType {
+    contract_addr: string;
 }
 export declare const QueryParamsRequest: {
     typeUrl: string;
@@ -188,4 +285,30 @@ export declare const QueryDenomsFromCreatorResponse: {
     fromProtoMsg(message: QueryDenomsFromCreatorResponseProtoMsg): QueryDenomsFromCreatorResponse;
     toProto(message: QueryDenomsFromCreatorResponse): Uint8Array;
     toProtoMsg(message: QueryDenomsFromCreatorResponse): QueryDenomsFromCreatorResponseProtoMsg;
+};
+export declare const QueryBeforeSendHookAddressRequest: {
+    typeUrl: string;
+    encode(message: QueryBeforeSendHookAddressRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryBeforeSendHookAddressRequest;
+    fromPartial(object: Partial<QueryBeforeSendHookAddressRequest>): QueryBeforeSendHookAddressRequest;
+    fromAmino(object: QueryBeforeSendHookAddressRequestAmino): QueryBeforeSendHookAddressRequest;
+    toAmino(message: QueryBeforeSendHookAddressRequest): QueryBeforeSendHookAddressRequestAmino;
+    fromAminoMsg(object: QueryBeforeSendHookAddressRequestAminoMsg): QueryBeforeSendHookAddressRequest;
+    toAminoMsg(message: QueryBeforeSendHookAddressRequest): QueryBeforeSendHookAddressRequestAminoMsg;
+    fromProtoMsg(message: QueryBeforeSendHookAddressRequestProtoMsg): QueryBeforeSendHookAddressRequest;
+    toProto(message: QueryBeforeSendHookAddressRequest): Uint8Array;
+    toProtoMsg(message: QueryBeforeSendHookAddressRequest): QueryBeforeSendHookAddressRequestProtoMsg;
+};
+export declare const QueryBeforeSendHookAddressResponse: {
+    typeUrl: string;
+    encode(message: QueryBeforeSendHookAddressResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryBeforeSendHookAddressResponse;
+    fromPartial(object: Partial<QueryBeforeSendHookAddressResponse>): QueryBeforeSendHookAddressResponse;
+    fromAmino(object: QueryBeforeSendHookAddressResponseAmino): QueryBeforeSendHookAddressResponse;
+    toAmino(message: QueryBeforeSendHookAddressResponse): QueryBeforeSendHookAddressResponseAmino;
+    fromAminoMsg(object: QueryBeforeSendHookAddressResponseAminoMsg): QueryBeforeSendHookAddressResponse;
+    toAminoMsg(message: QueryBeforeSendHookAddressResponse): QueryBeforeSendHookAddressResponseAminoMsg;
+    fromProtoMsg(message: QueryBeforeSendHookAddressResponseProtoMsg): QueryBeforeSendHookAddressResponse;
+    toProto(message: QueryBeforeSendHookAddressResponse): Uint8Array;
+    toProtoMsg(message: QueryBeforeSendHookAddressResponse): QueryBeforeSendHookAddressResponseProtoMsg;
 };

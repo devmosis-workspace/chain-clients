@@ -21,18 +21,18 @@ export interface SwapExactAmountInProtoMsg {
 }
 /** ===================== SwapExactAmountIn */
 export interface SwapExactAmountInAmino {
-    sender: string;
+    sender?: string;
     /** token_in is the token to be sent to the pool. */
     token_in?: CoinAmino;
     /** token_out_denom is the token denom to be received from the pool. */
-    token_out_denom: string;
+    token_out_denom?: string;
     /**
      * token_out_min_amount is the minimum amount of token_out to be received from
      * the pool.
      */
-    token_out_min_amount: string;
+    token_out_min_amount?: string;
     /** swap_fee is the swap fee for this swap estimate. */
-    swap_fee: string;
+    swap_fee?: string;
 }
 export interface SwapExactAmountInAminoMsg {
     type: "osmosis/cosmwasmpool/swap-exact-amount-in";
@@ -81,7 +81,7 @@ export interface SwapExactAmountInSudoMsgResponseProtoMsg {
 }
 export interface SwapExactAmountInSudoMsgResponseAmino {
     /** token_out_amount is the token out computed from this swap estimate call. */
-    token_out_amount: string;
+    token_out_amount?: string;
 }
 export interface SwapExactAmountInSudoMsgResponseAminoMsg {
     type: "osmosis/cosmwasmpool/swap-exact-amount-in-sudo-msg-response";
@@ -111,18 +111,18 @@ export interface SwapExactAmountOutProtoMsg {
 }
 /** ===================== SwapExactAmountOut */
 export interface SwapExactAmountOutAmino {
-    sender: string;
+    sender?: string;
     /** token_out is the token to be sent out of the pool. */
     token_out?: CoinAmino;
     /** token_in_denom is the token denom to be sent too the pool. */
-    token_in_denom: string;
+    token_in_denom?: string;
     /**
      * token_in_max_amount is the maximum amount of token_in to be sent to the
      * pool.
      */
-    token_in_max_amount: string;
+    token_in_max_amount?: string;
     /** swap_fee is the swap fee for this swap estimate. */
-    swap_fee: string;
+    swap_fee?: string;
 }
 export interface SwapExactAmountOutAminoMsg {
     type: "osmosis/cosmwasmpool/swap-exact-amount-out";
@@ -171,7 +171,7 @@ export interface SwapExactAmountOutSudoMsgResponseProtoMsg {
 }
 export interface SwapExactAmountOutSudoMsgResponseAmino {
     /** token_in_amount is the token in computed from this swap estimate call. */
-    token_in_amount: string;
+    token_in_amount?: string;
 }
 export interface SwapExactAmountOutSudoMsgResponseAminoMsg {
     type: "osmosis/cosmwasmpool/swap-exact-amount-out-sudo-msg-response";

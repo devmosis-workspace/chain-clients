@@ -1,15 +1,15 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
-import { Pool as Pool1 } from "../../concentrated-liquidity/pool";
-import { PoolProtoMsg as Pool1ProtoMsg } from "../../concentrated-liquidity/pool";
-import { PoolSDKType as Pool1SDKType } from "../../concentrated-liquidity/pool";
+import { Pool as Pool1 } from "../../concentratedliquidity/v1beta1/pool";
+import { PoolProtoMsg as Pool1ProtoMsg } from "../../concentratedliquidity/v1beta1/pool";
+import { PoolSDKType as Pool1SDKType } from "../../concentratedliquidity/v1beta1/pool";
 import { CosmWasmPool, CosmWasmPoolProtoMsg, CosmWasmPoolSDKType } from "./model/pool";
-import { Pool as Pool2 } from "../../gamm/pool-models/balancer/balancerPool";
-import { PoolProtoMsg as Pool2ProtoMsg } from "../../gamm/pool-models/balancer/balancerPool";
-import { PoolSDKType as Pool2SDKType } from "../../gamm/pool-models/balancer/balancerPool";
-import { Pool as Pool3 } from "../../gamm/pool-models/stableswap/stableswap_pool";
-import { PoolProtoMsg as Pool3ProtoMsg } from "../../gamm/pool-models/stableswap/stableswap_pool";
-import { PoolSDKType as Pool3SDKType } from "../../gamm/pool-models/stableswap/stableswap_pool";
+import { Pool as Pool2 } from "../../gamm/poolmodels/stableswap/v1beta1/stableswap_pool";
+import { PoolProtoMsg as Pool2ProtoMsg } from "../../gamm/poolmodels/stableswap/v1beta1/stableswap_pool";
+import { PoolSDKType as Pool2SDKType } from "../../gamm/poolmodels/stableswap/v1beta1/stableswap_pool";
+import { Pool as Pool3 } from "../../gamm/v1beta1/balancerPool";
+import { PoolProtoMsg as Pool3ProtoMsg } from "../../gamm/v1beta1/balancerPool";
+import { PoolSDKType as Pool3SDKType } from "../../gamm/v1beta1/balancerPool";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 /** GenesisState defines the cosmwasmpool module's genesis state. */
 export interface GenesisState {
@@ -28,7 +28,7 @@ export type GenesisStateEncoded = Omit<GenesisState, "pools"> & {
 export interface GenesisStateAmino {
     /** params is the container of cosmwasmpool parameters. */
     params?: ParamsAmino;
-    pools: AnyAmino[];
+    pools?: AnyAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "osmosis/cosmwasmpool/genesis-state";

@@ -97,6 +97,16 @@ export declare const ibcAminoConverters: {
         toAmino: (message: import("./applications/transfer/v1/tx").MsgTransfer) => import("./applications/transfer/v1/tx").MsgTransferAmino;
         fromAmino: (object: import("./applications/transfer/v1/tx").MsgTransferAmino) => import("./applications/transfer/v1/tx").MsgTransfer;
     };
+    "/ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount": {
+        aminoType: string;
+        toAmino: (message: import("./applications/interchain_accounts/controller/v1/tx").MsgRegisterInterchainAccount) => import("./applications/interchain_accounts/controller/v1/tx").MsgRegisterInterchainAccountAmino;
+        fromAmino: (object: import("./applications/interchain_accounts/controller/v1/tx").MsgRegisterInterchainAccountAmino) => import("./applications/interchain_accounts/controller/v1/tx").MsgRegisterInterchainAccount;
+    };
+    "/ibc.applications.interchain_accounts.controller.v1.MsgSendTx": {
+        aminoType: string;
+        toAmino: (message: import("./applications/interchain_accounts/controller/v1/tx").MsgSendTx) => import("./applications/interchain_accounts/controller/v1/tx").MsgSendTxAmino;
+        fromAmino: (object: import("./applications/interchain_accounts/controller/v1/tx").MsgSendTxAmino) => import("./applications/interchain_accounts/controller/v1/tx").MsgSendTx;
+    };
     "/ibc.applications.fee.v1.MsgRegisterPayee": {
         aminoType: string;
         toAmino: (message: import("./applications/fee/v1/tx").MsgRegisterPayee) => import("./applications/fee/v1/tx").MsgRegisterPayeeAmino;

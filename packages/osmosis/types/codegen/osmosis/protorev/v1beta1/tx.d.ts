@@ -14,9 +14,9 @@ export interface MsgSetHotRoutesProtoMsg {
 /** MsgSetHotRoutes defines the Msg/SetHotRoutes request type. */
 export interface MsgSetHotRoutesAmino {
     /** admin is the account that is authorized to set the hot routes. */
-    admin: string;
+    admin?: string;
     /** hot_routes is the list of hot routes to set. */
-    hot_routes: TokenPairArbRoutesAmino[];
+    hot_routes?: TokenPairArbRoutesAmino[];
 }
 export interface MsgSetHotRoutesAminoMsg {
     type: "osmosis/MsgSetHotRoutes";
@@ -61,12 +61,12 @@ export interface MsgSetDeveloperAccountProtoMsg {
 /** MsgSetDeveloperAccount defines the Msg/SetDeveloperAccount request type. */
 export interface MsgSetDeveloperAccountAmino {
     /** admin is the account that is authorized to set the developer account. */
-    admin: string;
+    admin?: string;
     /**
      * developer_account is the account that will receive a portion of the profits
      * from the protorev module.
      */
-    developer_account: string;
+    developer_account?: string;
 }
 export interface MsgSetDeveloperAccountAminoMsg {
     type: "osmosis/MsgSetDeveloperAccount";
@@ -117,7 +117,7 @@ export interface MsgSetInfoByPoolTypeProtoMsg {
 /** MsgSetInfoByPoolType defines the Msg/SetInfoByPoolType request type. */
 export interface MsgSetInfoByPoolTypeAmino {
     /** admin is the account that is authorized to set the pool weights. */
-    admin: string;
+    admin?: string;
     /** info_by_pool_type contains information about the pool types. */
     info_by_pool_type?: InfoByPoolTypeAmino;
 }
@@ -164,12 +164,12 @@ export interface MsgSetMaxPoolPointsPerTxProtoMsg {
 /** MsgSetMaxPoolPointsPerTx defines the Msg/SetMaxPoolPointsPerTx request type. */
 export interface MsgSetMaxPoolPointsPerTxAmino {
     /** admin is the account that is authorized to set the max pool points per tx. */
-    admin: string;
+    admin?: string;
     /**
      * max_pool_points_per_tx is the maximum number of pool points that can be
      * consumed per transaction.
      */
-    max_pool_points_per_tx: string;
+    max_pool_points_per_tx?: string;
 }
 export interface MsgSetMaxPoolPointsPerTxAminoMsg {
     type: "osmosis/MsgSetMaxPoolPointsPerTx";
@@ -235,12 +235,12 @@ export interface MsgSetMaxPoolPointsPerBlockAmino {
      * admin is the account that is authorized to set the max pool points per
      * block.
      */
-    admin: string;
+    admin?: string;
     /**
      * max_pool_points_per_block is the maximum number of pool points that can be
      * consumed per block.
      */
-    max_pool_points_per_block: string;
+    max_pool_points_per_block?: string;
 }
 export interface MsgSetMaxPoolPointsPerBlockAminoMsg {
     type: "osmosis/MsgSetPoolWeights";
@@ -294,9 +294,9 @@ export interface MsgSetBaseDenomsProtoMsg {
 /** MsgSetBaseDenoms defines the Msg/SetBaseDenoms request type. */
 export interface MsgSetBaseDenomsAmino {
     /** admin is the account that is authorized to set the base denoms. */
-    admin: string;
+    admin?: string;
     /** base_denoms is the list of base denoms to set. */
-    base_denoms: BaseDenomAmino[];
+    base_denoms?: BaseDenomAmino[];
 }
 export interface MsgSetBaseDenomsAminoMsg {
     type: "osmosis/MsgSetBaseDenoms";

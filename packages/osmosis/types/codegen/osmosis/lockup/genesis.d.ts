@@ -1,10 +1,12 @@
 import { PeriodLock, PeriodLockAmino, PeriodLockSDKType, SyntheticLock, SyntheticLockAmino, SyntheticLockSDKType } from "./lock";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 /** GenesisState defines the lockup module's genesis state. */
 export interface GenesisState {
     lastLockId: bigint;
     locks: PeriodLock[];
     syntheticLocks: SyntheticLock[];
+    params?: Params;
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/osmosis.lockup.GenesisState";
@@ -12,9 +14,10 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the lockup module's genesis state. */
 export interface GenesisStateAmino {
-    last_lock_id: string;
-    locks: PeriodLockAmino[];
-    synthetic_locks: SyntheticLockAmino[];
+    last_lock_id?: string;
+    locks?: PeriodLockAmino[];
+    synthetic_locks?: SyntheticLockAmino[];
+    params?: ParamsAmino;
 }
 export interface GenesisStateAminoMsg {
     type: "osmosis/lockup/genesis-state";
@@ -25,6 +28,7 @@ export interface GenesisStateSDKType {
     last_lock_id: bigint;
     locks: PeriodLockSDKType[];
     synthetic_locks: SyntheticLockSDKType[];
+    params?: ParamsSDKType;
 }
 export declare const GenesisState: {
     typeUrl: string;

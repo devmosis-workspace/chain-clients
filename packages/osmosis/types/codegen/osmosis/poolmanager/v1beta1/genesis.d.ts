@@ -1,5 +1,6 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { ModuleRoute, ModuleRouteAmino, ModuleRouteSDKType } from "./module_route";
+import { DenomPairTakerFee, DenomPairTakerFeeAmino, DenomPairTakerFeeSDKType } from "./tx";
 import { BinaryWriter } from "../../../binary";
 /** Params holds parameters for the poolmanager module */
 export interface Params {
@@ -9,7 +10,7 @@ export interface Params {
     /**
      * authorized_quote_denoms is a list of quote denoms that can be used as
      * token1 when creating a concentrated pool. We limit the quote assets to a
-     * small set for the purposes of having convinient price increments stemming
+     * small set for the purposes of having convenient price increments stemming
      * from tick to price conversion. These increments are in a human readable
      * magnitude only for token1 as a quote. For limit orders in the future, this
      * will be a desirable property in terms of UX as to allow users to set limit
@@ -24,20 +25,20 @@ export interface ParamsProtoMsg {
 }
 /** Params holds parameters for the poolmanager module */
 export interface ParamsAmino {
-    pool_creation_fee: CoinAmino[];
+    pool_creation_fee?: CoinAmino[];
     /** taker_fee_params is the container of taker fee parameters. */
     taker_fee_params?: TakerFeeParamsAmino;
     /**
      * authorized_quote_denoms is a list of quote denoms that can be used as
      * token1 when creating a concentrated pool. We limit the quote assets to a
-     * small set for the purposes of having convinient price increments stemming
+     * small set for the purposes of having convenient price increments stemming
      * from tick to price conversion. These increments are in a human readable
      * magnitude only for token1 as a quote. For limit orders in the future, this
      * will be a desirable property in terms of UX as to allow users to set limit
      * orders at prices in terms of token1 (quote asset) that are easy to reason
      * about.
      */
-    authorized_quote_denoms: string[];
+    authorized_quote_denoms?: string[];
 }
 export interface ParamsAminoMsg {
     type: "osmosis/poolmanager/params";
@@ -57,6 +58,10 @@ export interface GenesisState {
     params: Params;
     /** pool_routes is the container of the mappings from pool id to pool type. */
     poolRoutes: ModuleRoute[];
+    /** KVStore state */
+    takerFeesTracker?: TakerFeesTracker;
+    poolVolumes: PoolVolume[];
+    denomPairTakerFeeStore: DenomPairTakerFee[];
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/osmosis.poolmanager.v1beta1.GenesisState";
@@ -65,11 +70,15 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the poolmanager module's genesis state. */
 export interface GenesisStateAmino {
     /** the next_pool_id */
-    next_pool_id: string;
+    next_pool_id?: string;
     /** params is the container of poolmanager parameters. */
     params?: ParamsAmino;
     /** pool_routes is the container of the mappings from pool id to pool type. */
-    pool_routes: ModuleRouteAmino[];
+    pool_routes?: ModuleRouteAmino[];
+    /** KVStore state */
+    taker_fees_tracker?: TakerFeesTrackerAmino;
+    pool_volumes?: PoolVolumeAmino[];
+    denom_pair_taker_fee_store?: DenomPairTakerFeeAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "osmosis/poolmanager/genesis-state";
@@ -80,6 +89,9 @@ export interface GenesisStateSDKType {
     next_pool_id: bigint;
     params: ParamsSDKType;
     pool_routes: ModuleRouteSDKType[];
+    taker_fees_tracker?: TakerFeesTrackerSDKType;
+    pool_volumes: PoolVolumeSDKType[];
+    denom_pair_taker_fee_store: DenomPairTakerFeeSDKType[];
 }
 /** TakerFeeParams consolidates the taker fee parameters for the poolmanager. */
 export interface TakerFeeParams {
@@ -90,7 +102,7 @@ export interface TakerFeeParams {
     defaultTakerFee: string;
     /**
      * osmo_taker_fee_distribution defines the distribution of taker fees
-     * generated in OSMO. As of this writing, it has two catagories:
+     * generated in OSMO. As of this writing, it has two categories:
      * - staking_rewards: the percent of the taker fee that gets distributed to
      *   stakers.
      * - community_pool: the percent of the taker fee that gets sent to the
@@ -101,7 +113,7 @@ export interface TakerFeeParams {
      * non_osmo_taker_fee_distribution defines the distribution of taker fees
      * generated in non-OSMO. As of this writing, it has two categories:
      * - staking_rewards: the percent of the taker fee that gets swapped to OSMO
-     *   and then distirbuted to stakers.
+     *   and then distributed to stakers.
      * - community_pool: the percent of the taker fee that gets sent to the
      *   community pool. Note: If the non-OSMO asset is an authorized_quote_denom,
      *   that denom is sent directly to the community pool. Otherwise, it is
@@ -122,6 +134,16 @@ export interface TakerFeeParams {
      * the community pool.
      */
     communityPoolDenomToSwapNonWhitelistedAssetsTo: string;
+    /**
+     * reduced_fee_whitelist is a list of addresses that are
+     * allowed to pay a reduce taker fee when performing a swap
+     * (i.e. swap without paying the taker fee).
+     * It is intended to be used for integrators who meet qualifying factors
+     * that are approved by governance.
+     * Initially, the taker fee is allowed to be bypassed completely. However
+     * In the future, we will charge a reduced taker fee instead of no fee at all.
+     */
+    reducedFeeWhitelist: string[];
 }
 export interface TakerFeeParamsProtoMsg {
     typeUrl: "/osmosis.poolmanager.v1beta1.TakerFeeParams";
@@ -133,10 +155,10 @@ export interface TakerFeeParamsAmino {
      * default_taker_fee is the fee used when creating a new pool that doesn't
      * fall under a custom pool taker fee or stableswap taker fee category.
      */
-    default_taker_fee: string;
+    default_taker_fee?: string;
     /**
      * osmo_taker_fee_distribution defines the distribution of taker fees
-     * generated in OSMO. As of this writing, it has two catagories:
+     * generated in OSMO. As of this writing, it has two categories:
      * - staking_rewards: the percent of the taker fee that gets distributed to
      *   stakers.
      * - community_pool: the percent of the taker fee that gets sent to the
@@ -147,7 +169,7 @@ export interface TakerFeeParamsAmino {
      * non_osmo_taker_fee_distribution defines the distribution of taker fees
      * generated in non-OSMO. As of this writing, it has two categories:
      * - staking_rewards: the percent of the taker fee that gets swapped to OSMO
-     *   and then distirbuted to stakers.
+     *   and then distributed to stakers.
      * - community_pool: the percent of the taker fee that gets sent to the
      *   community pool. Note: If the non-OSMO asset is an authorized_quote_denom,
      *   that denom is sent directly to the community pool. Otherwise, it is
@@ -161,13 +183,23 @@ export interface TakerFeeParamsAmino {
      * and remove custom taker fees for denom pairs, but with the normal
      * governance delay.
      */
-    admin_addresses: string[];
+    admin_addresses?: string[];
     /**
      * community_pool_denom_to_swap_non_whitelisted_assets_to is the denom that
      * non-whitelisted taker fees will be swapped to before being sent to
      * the community pool.
      */
-    community_pool_denom_to_swap_non_whitelisted_assets_to: string;
+    community_pool_denom_to_swap_non_whitelisted_assets_to?: string;
+    /**
+     * reduced_fee_whitelist is a list of addresses that are
+     * allowed to pay a reduce taker fee when performing a swap
+     * (i.e. swap without paying the taker fee).
+     * It is intended to be used for integrators who meet qualifying factors
+     * that are approved by governance.
+     * Initially, the taker fee is allowed to be bypassed completely. However
+     * In the future, we will charge a reduced taker fee instead of no fee at all.
+     */
+    reduced_fee_whitelist?: string[];
 }
 export interface TakerFeeParamsAminoMsg {
     type: "osmosis/poolmanager/taker-fee-params";
@@ -180,6 +212,7 @@ export interface TakerFeeParamsSDKType {
     non_osmo_taker_fee_distribution: TakerFeeDistributionPercentageSDKType;
     admin_addresses: string[];
     community_pool_denom_to_swap_non_whitelisted_assets_to: string;
+    reduced_fee_whitelist: string[];
 }
 /**
  * TakerFeeDistributionPercentage defines what percent of the taker fee category
@@ -198,8 +231,8 @@ export interface TakerFeeDistributionPercentageProtoMsg {
  * gets distributed to the available categories.
  */
 export interface TakerFeeDistributionPercentageAmino {
-    staking_rewards: string;
-    community_pool: string;
+    staking_rewards?: string;
+    community_pool?: string;
 }
 export interface TakerFeeDistributionPercentageAminoMsg {
     type: "osmosis/poolmanager/taker-fee-distribution-percentage";
@@ -212,6 +245,65 @@ export interface TakerFeeDistributionPercentageAminoMsg {
 export interface TakerFeeDistributionPercentageSDKType {
     staking_rewards: string;
     community_pool: string;
+}
+export interface TakerFeesTracker {
+    takerFeesToStakers: Coin[];
+    takerFeesToCommunityPool: Coin[];
+    heightAccountingStartsFrom: bigint;
+}
+export interface TakerFeesTrackerProtoMsg {
+    typeUrl: "/osmosis.poolmanager.v1beta1.TakerFeesTracker";
+    value: Uint8Array;
+}
+export interface TakerFeesTrackerAmino {
+    taker_fees_to_stakers?: CoinAmino[];
+    taker_fees_to_community_pool?: CoinAmino[];
+    height_accounting_starts_from?: string;
+}
+export interface TakerFeesTrackerAminoMsg {
+    type: "osmosis/poolmanager/taker-fees-tracker";
+    value: TakerFeesTrackerAmino;
+}
+export interface TakerFeesTrackerSDKType {
+    taker_fees_to_stakers: CoinSDKType[];
+    taker_fees_to_community_pool: CoinSDKType[];
+    height_accounting_starts_from: bigint;
+}
+/**
+ * PoolVolume stores the KVStore entries for each pool's volume, which
+ * is used in export/import genesis.
+ */
+export interface PoolVolume {
+    /** pool_id is the id of the pool. */
+    poolId: bigint;
+    /** pool_volume is the cumulative volume of the pool. */
+    poolVolume: Coin[];
+}
+export interface PoolVolumeProtoMsg {
+    typeUrl: "/osmosis.poolmanager.v1beta1.PoolVolume";
+    value: Uint8Array;
+}
+/**
+ * PoolVolume stores the KVStore entries for each pool's volume, which
+ * is used in export/import genesis.
+ */
+export interface PoolVolumeAmino {
+    /** pool_id is the id of the pool. */
+    pool_id?: string;
+    /** pool_volume is the cumulative volume of the pool. */
+    pool_volume?: CoinAmino[];
+}
+export interface PoolVolumeAminoMsg {
+    type: "osmosis/poolmanager/pool-volume";
+    value: PoolVolumeAmino;
+}
+/**
+ * PoolVolume stores the KVStore entries for each pool's volume, which
+ * is used in export/import genesis.
+ */
+export interface PoolVolumeSDKType {
+    pool_id: bigint;
+    pool_volume: CoinSDKType[];
 }
 export declare const Params: {
     typeUrl: string;
@@ -264,4 +356,30 @@ export declare const TakerFeeDistributionPercentage: {
     fromProtoMsg(message: TakerFeeDistributionPercentageProtoMsg): TakerFeeDistributionPercentage;
     toProto(message: TakerFeeDistributionPercentage): Uint8Array;
     toProtoMsg(message: TakerFeeDistributionPercentage): TakerFeeDistributionPercentageProtoMsg;
+};
+export declare const TakerFeesTracker: {
+    typeUrl: string;
+    encode(message: TakerFeesTracker, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TakerFeesTracker;
+    fromPartial(object: Partial<TakerFeesTracker>): TakerFeesTracker;
+    fromAmino(object: TakerFeesTrackerAmino): TakerFeesTracker;
+    toAmino(message: TakerFeesTracker): TakerFeesTrackerAmino;
+    fromAminoMsg(object: TakerFeesTrackerAminoMsg): TakerFeesTracker;
+    toAminoMsg(message: TakerFeesTracker): TakerFeesTrackerAminoMsg;
+    fromProtoMsg(message: TakerFeesTrackerProtoMsg): TakerFeesTracker;
+    toProto(message: TakerFeesTracker): Uint8Array;
+    toProtoMsg(message: TakerFeesTracker): TakerFeesTrackerProtoMsg;
+};
+export declare const PoolVolume: {
+    typeUrl: string;
+    encode(message: PoolVolume, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): PoolVolume;
+    fromPartial(object: Partial<PoolVolume>): PoolVolume;
+    fromAmino(object: PoolVolumeAmino): PoolVolume;
+    toAmino(message: PoolVolume): PoolVolumeAmino;
+    fromAminoMsg(object: PoolVolumeAminoMsg): PoolVolume;
+    toAminoMsg(message: PoolVolume): PoolVolumeAminoMsg;
+    fromProtoMsg(message: PoolVolumeProtoMsg): PoolVolume;
+    toProto(message: PoolVolume): Uint8Array;
+    toProtoMsg(message: PoolVolume): PoolVolumeProtoMsg;
 };

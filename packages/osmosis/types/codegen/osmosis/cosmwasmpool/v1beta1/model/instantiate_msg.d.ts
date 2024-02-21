@@ -17,7 +17,7 @@ export interface InstantiateMsgAmino {
      * pool_asset_denoms is the list of asset denoms that are initialized
      * at pool creation time.
      */
-    pool_asset_denoms: string[];
+    pool_asset_denoms?: string[];
 }
 export interface InstantiateMsgAminoMsg {
     type: "osmosis/cosmwasmpool/instantiate-msg";

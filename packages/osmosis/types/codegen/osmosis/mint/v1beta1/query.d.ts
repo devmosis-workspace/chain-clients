@@ -83,7 +83,7 @@ export interface QueryEpochProvisionsResponseProtoMsg {
  */
 export interface QueryEpochProvisionsResponseAmino {
     /** epoch_provisions is the current minting per epoch provisions value. */
-    epoch_provisions: Uint8Array;
+    epoch_provisions?: string;
 }
 export interface QueryEpochProvisionsResponseAminoMsg {
     type: "osmosis/mint/query-epoch-provisions-response";

@@ -18,9 +18,9 @@ export interface CalcOutAmtGivenInAmino {
     /** token_in is the token to be sent to the pool. */
     token_in?: CoinAmino;
     /** token_out_denom is the token denom to be received from the pool. */
-    token_out_denom: string;
+    token_out_denom?: string;
     /** swap_fee is the swap fee for this swap estimate. */
-    swap_fee: string;
+    swap_fee?: string;
 }
 export interface CalcOutAmtGivenInAminoMsg {
     type: "osmosis/cosmwasmpool/calc-out-amt-given-in";
@@ -94,9 +94,9 @@ export interface CalcInAmtGivenOutAmino {
     /** token_out is the token out to be receoved from the pool. */
     token_out?: CoinAmino;
     /** token_in_denom is the token denom to be sentt to the pool. */
-    token_in_denom: string;
+    token_in_denom?: string;
     /** swap_fee is the swap fee for this swap estimate. */
-    swap_fee: string;
+    swap_fee?: string;
 }
 export interface CalcInAmtGivenOutAminoMsg {
     type: "osmosis/cosmwasmpool/calc-in-amt-given-out";

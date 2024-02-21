@@ -1,16 +1,16 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { MigrationRecords, MigrationRecordsAmino, MigrationRecordsSDKType } from "./shared";
-import { Pool as Pool1 } from "../../concentrated-liquidity/pool";
-import { PoolProtoMsg as Pool1ProtoMsg } from "../../concentrated-liquidity/pool";
-import { PoolSDKType as Pool1SDKType } from "../../concentrated-liquidity/pool";
+import { Pool as Pool1 } from "../../concentratedliquidity/v1beta1/pool";
+import { PoolProtoMsg as Pool1ProtoMsg } from "../../concentratedliquidity/v1beta1/pool";
+import { PoolSDKType as Pool1SDKType } from "../../concentratedliquidity/v1beta1/pool";
 import { CosmWasmPool, CosmWasmPoolProtoMsg, CosmWasmPoolSDKType } from "../../cosmwasmpool/v1beta1/model/pool";
-import { Pool as Pool2 } from "../pool-models/balancer/balancerPool";
-import { PoolProtoMsg as Pool2ProtoMsg } from "../pool-models/balancer/balancerPool";
-import { PoolSDKType as Pool2SDKType } from "../pool-models/balancer/balancerPool";
-import { Pool as Pool3 } from "../pool-models/stableswap/stableswap_pool";
-import { PoolProtoMsg as Pool3ProtoMsg } from "../pool-models/stableswap/stableswap_pool";
-import { PoolSDKType as Pool3SDKType } from "../pool-models/stableswap/stableswap_pool";
+import { Pool as Pool2 } from "../poolmodels/stableswap/v1beta1/stableswap_pool";
+import { PoolProtoMsg as Pool2ProtoMsg } from "../poolmodels/stableswap/v1beta1/stableswap_pool";
+import { PoolSDKType as Pool2SDKType } from "../poolmodels/stableswap/v1beta1/stableswap_pool";
+import { Pool as Pool3 } from "./balancerPool";
+import { PoolProtoMsg as Pool3ProtoMsg } from "./balancerPool";
+import { PoolSDKType as Pool3SDKType } from "./balancerPool";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 /** Params holds parameters for the incentives module */
 export interface Params {
@@ -22,7 +22,7 @@ export interface ParamsProtoMsg {
 }
 /** Params holds parameters for the incentives module */
 export interface ParamsAmino {
-    pool_creation_fee: CoinAmino[];
+    pool_creation_fee?: CoinAmino[];
 }
 export interface ParamsAminoMsg {
     type: "osmosis/gamm/params";
@@ -38,7 +38,7 @@ export interface GenesisState {
     /** will be renamed to next_pool_id in an upcoming version */
     nextPoolNumber: bigint;
     params: Params;
-    migrationRecords: MigrationRecords;
+    migrationRecords?: MigrationRecords;
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/osmosis.gamm.v1beta1.GenesisState";
@@ -49,9 +49,9 @@ export type GenesisStateEncoded = Omit<GenesisState, "pools"> & {
 };
 /** GenesisState defines the gamm module's genesis state. */
 export interface GenesisStateAmino {
-    pools: AnyAmino[];
+    pools?: AnyAmino[];
     /** will be renamed to next_pool_id in an upcoming version */
-    next_pool_number: string;
+    next_pool_number?: string;
     params?: ParamsAmino;
     migration_records?: MigrationRecordsAmino;
 }
@@ -64,7 +64,7 @@ export interface GenesisStateSDKType {
     pools: (Pool1SDKType | CosmWasmPoolSDKType | Pool2SDKType | Pool3SDKType | AnySDKType)[];
     next_pool_number: bigint;
     params: ParamsSDKType;
-    migration_records: MigrationRecordsSDKType;
+    migration_records?: MigrationRecordsSDKType;
 }
 export declare const Params: {
     typeUrl: string;

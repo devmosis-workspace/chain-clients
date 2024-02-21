@@ -19,9 +19,9 @@ export interface ParamsProtoMsg {
  */
 export interface ParamsAmino {
     /** host_enabled enables or disables the host submodule. */
-    host_enabled: boolean;
+    host_enabled?: boolean;
     /** allow_messages defines a list of sdk message typeURLs allowed to be executed on a host chain. */
-    allow_messages: string[];
+    allow_messages?: string[];
 }
 export interface ParamsAminoMsg {
     type: "cosmos-sdk/Params";

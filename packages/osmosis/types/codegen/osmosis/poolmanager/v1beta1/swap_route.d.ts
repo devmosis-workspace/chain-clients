@@ -8,8 +8,8 @@ export interface SwapAmountInRouteProtoMsg {
     value: Uint8Array;
 }
 export interface SwapAmountInRouteAmino {
-    pool_id: string;
-    token_out_denom: string;
+    pool_id?: string;
+    token_out_denom?: string;
 }
 export interface SwapAmountInRouteAminoMsg {
     type: "osmosis/poolmanager/swap-amount-in-route";
@@ -28,8 +28,8 @@ export interface SwapAmountOutRouteProtoMsg {
     value: Uint8Array;
 }
 export interface SwapAmountOutRouteAmino {
-    pool_id: string;
-    token_in_denom: string;
+    pool_id?: string;
+    token_in_denom?: string;
 }
 export interface SwapAmountOutRouteAminoMsg {
     type: "osmosis/poolmanager/swap-amount-out-route";
@@ -48,8 +48,8 @@ export interface SwapAmountInSplitRouteProtoMsg {
     value: Uint8Array;
 }
 export interface SwapAmountInSplitRouteAmino {
-    pools: SwapAmountInRouteAmino[];
-    token_in_amount: string;
+    pools?: SwapAmountInRouteAmino[];
+    token_in_amount?: string;
 }
 export interface SwapAmountInSplitRouteAminoMsg {
     type: "osmosis/poolmanager/swap-amount-in-split-route";
@@ -68,8 +68,8 @@ export interface SwapAmountOutSplitRouteProtoMsg {
     value: Uint8Array;
 }
 export interface SwapAmountOutSplitRouteAmino {
-    pools: SwapAmountOutRouteAmino[];
-    token_out_amount: string;
+    pools?: SwapAmountOutRouteAmino[];
+    token_out_amount?: string;
 }
 export interface SwapAmountOutSplitRouteAminoMsg {
     type: "osmosis/poolmanager/swap-amount-out-split-route";

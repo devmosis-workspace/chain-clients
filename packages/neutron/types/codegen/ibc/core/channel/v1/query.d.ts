@@ -17,9 +17,9 @@ export interface QueryChannelRequestProtoMsg {
 /** QueryChannelRequest is the request type for the Query/Channel RPC method */
 export interface QueryChannelRequestAmino {
     /** port unique identifier */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier */
-    channel_id: string;
+    channel_id?: string;
 }
 export interface QueryChannelRequestAminoMsg {
     type: "cosmos-sdk/QueryChannelRequest";
@@ -37,7 +37,7 @@ export interface QueryChannelRequestSDKType {
  */
 export interface QueryChannelResponse {
     /** channel associated with the request identifiers */
-    channel: Channel;
+    channel?: Channel;
     /** merkle proof of existence */
     proof: Uint8Array;
     /** height at which the proof was retrieved */
@@ -56,7 +56,7 @@ export interface QueryChannelResponseAmino {
     /** channel associated with the request identifiers */
     channel?: ChannelAmino;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }
@@ -70,14 +70,14 @@ export interface QueryChannelResponseAminoMsg {
  * proof was retrieved.
  */
 export interface QueryChannelResponseSDKType {
-    channel: ChannelSDKType;
+    channel?: ChannelSDKType;
     proof: Uint8Array;
     proof_height: HeightSDKType;
 }
 /** QueryChannelsRequest is the request type for the Query/Channels RPC method */
 export interface QueryChannelsRequest {
     /** pagination request */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryChannelsRequestProtoMsg {
     typeUrl: "/ibc.core.channel.v1.QueryChannelsRequest";
@@ -94,14 +94,14 @@ export interface QueryChannelsRequestAminoMsg {
 }
 /** QueryChannelsRequest is the request type for the Query/Channels RPC method */
 export interface QueryChannelsRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryChannelsResponse is the response type for the Query/Channels RPC method. */
 export interface QueryChannelsResponse {
     /** list of stored channels of the chain. */
     channels: IdentifiedChannel[];
     /** pagination response */
-    pagination: PageResponse;
+    pagination?: PageResponse;
     /** query block height */
     height: Height;
 }
@@ -112,7 +112,7 @@ export interface QueryChannelsResponseProtoMsg {
 /** QueryChannelsResponse is the response type for the Query/Channels RPC method. */
 export interface QueryChannelsResponseAmino {
     /** list of stored channels of the chain. */
-    channels: IdentifiedChannelAmino[];
+    channels?: IdentifiedChannelAmino[];
     /** pagination response */
     pagination?: PageResponseAmino;
     /** query block height */
@@ -125,7 +125,7 @@ export interface QueryChannelsResponseAminoMsg {
 /** QueryChannelsResponse is the response type for the Query/Channels RPC method. */
 export interface QueryChannelsResponseSDKType {
     channels: IdentifiedChannelSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
     height: HeightSDKType;
 }
 /**
@@ -136,7 +136,7 @@ export interface QueryConnectionChannelsRequest {
     /** connection unique identifier */
     connection: string;
     /** pagination request */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryConnectionChannelsRequestProtoMsg {
     typeUrl: "/ibc.core.channel.v1.QueryConnectionChannelsRequest";
@@ -148,7 +148,7 @@ export interface QueryConnectionChannelsRequestProtoMsg {
  */
 export interface QueryConnectionChannelsRequestAmino {
     /** connection unique identifier */
-    connection: string;
+    connection?: string;
     /** pagination request */
     pagination?: PageRequestAmino;
 }
@@ -162,7 +162,7 @@ export interface QueryConnectionChannelsRequestAminoMsg {
  */
 export interface QueryConnectionChannelsRequestSDKType {
     connection: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryConnectionChannelsResponse is the Response type for the
@@ -172,7 +172,7 @@ export interface QueryConnectionChannelsResponse {
     /** list of channels associated with a connection. */
     channels: IdentifiedChannel[];
     /** pagination response */
-    pagination: PageResponse;
+    pagination?: PageResponse;
     /** query block height */
     height: Height;
 }
@@ -186,7 +186,7 @@ export interface QueryConnectionChannelsResponseProtoMsg {
  */
 export interface QueryConnectionChannelsResponseAmino {
     /** list of channels associated with a connection. */
-    channels: IdentifiedChannelAmino[];
+    channels?: IdentifiedChannelAmino[];
     /** pagination response */
     pagination?: PageResponseAmino;
     /** query block height */
@@ -202,7 +202,7 @@ export interface QueryConnectionChannelsResponseAminoMsg {
  */
 export interface QueryConnectionChannelsResponseSDKType {
     channels: IdentifiedChannelSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
     height: HeightSDKType;
 }
 /**
@@ -225,9 +225,9 @@ export interface QueryChannelClientStateRequestProtoMsg {
  */
 export interface QueryChannelClientStateRequestAmino {
     /** port unique identifier */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier */
-    channel_id: string;
+    channel_id?: string;
 }
 export interface QueryChannelClientStateRequestAminoMsg {
     type: "cosmos-sdk/QueryChannelClientStateRequest";
@@ -247,7 +247,7 @@ export interface QueryChannelClientStateRequestSDKType {
  */
 export interface QueryChannelClientStateResponse {
     /** client state associated with the channel */
-    identifiedClientState: IdentifiedClientState;
+    identifiedClientState?: IdentifiedClientState;
     /** merkle proof of existence */
     proof: Uint8Array;
     /** height at which the proof was retrieved */
@@ -265,7 +265,7 @@ export interface QueryChannelClientStateResponseAmino {
     /** client state associated with the channel */
     identified_client_state?: IdentifiedClientStateAmino;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }
@@ -278,7 +278,7 @@ export interface QueryChannelClientStateResponseAminoMsg {
  * Query/QueryChannelClientState RPC method
  */
 export interface QueryChannelClientStateResponseSDKType {
-    identified_client_state: IdentifiedClientStateSDKType;
+    identified_client_state?: IdentifiedClientStateSDKType;
     proof: Uint8Array;
     proof_height: HeightSDKType;
 }
@@ -306,13 +306,13 @@ export interface QueryChannelConsensusStateRequestProtoMsg {
  */
 export interface QueryChannelConsensusStateRequestAmino {
     /** port unique identifier */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier */
-    channel_id: string;
+    channel_id?: string;
     /** revision number of the consensus state */
-    revision_number: string;
+    revision_number?: string;
     /** revision height of the consensus state */
-    revision_height: string;
+    revision_height?: string;
 }
 export interface QueryChannelConsensusStateRequestAminoMsg {
     type: "cosmos-sdk/QueryChannelConsensusStateRequest";
@@ -334,7 +334,7 @@ export interface QueryChannelConsensusStateRequestSDKType {
  */
 export interface QueryChannelConsensusStateResponse {
     /** consensus state associated with the channel */
-    consensusState: Any;
+    consensusState?: Any;
     /** client ID associated with the consensus state */
     clientId: string;
     /** merkle proof of existence */
@@ -354,9 +354,9 @@ export interface QueryChannelConsensusStateResponseAmino {
     /** consensus state associated with the channel */
     consensus_state?: AnyAmino;
     /** client ID associated with the consensus state */
-    client_id: string;
+    client_id?: string;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }
@@ -369,7 +369,7 @@ export interface QueryChannelConsensusStateResponseAminoMsg {
  * Query/QueryChannelClientState RPC method
  */
 export interface QueryChannelConsensusStateResponseSDKType {
-    consensus_state: AnySDKType;
+    consensus_state?: AnySDKType;
     client_id: string;
     proof: Uint8Array;
     proof_height: HeightSDKType;
@@ -396,11 +396,11 @@ export interface QueryPacketCommitmentRequestProtoMsg {
  */
 export interface QueryPacketCommitmentRequestAmino {
     /** port unique identifier */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier */
-    channel_id: string;
+    channel_id?: string;
     /** packet sequence */
-    sequence: string;
+    sequence?: string;
 }
 export interface QueryPacketCommitmentRequestAminoMsg {
     type: "cosmos-sdk/QueryPacketCommitmentRequest";
@@ -439,9 +439,9 @@ export interface QueryPacketCommitmentResponseProtoMsg {
  */
 export interface QueryPacketCommitmentResponseAmino {
     /** packet associated with the request fields */
-    commitment: Uint8Array;
+    commitment?: string;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }
@@ -469,7 +469,7 @@ export interface QueryPacketCommitmentsRequest {
     /** channel unique identifier */
     channelId: string;
     /** pagination request */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryPacketCommitmentsRequestProtoMsg {
     typeUrl: "/ibc.core.channel.v1.QueryPacketCommitmentsRequest";
@@ -481,9 +481,9 @@ export interface QueryPacketCommitmentsRequestProtoMsg {
  */
 export interface QueryPacketCommitmentsRequestAmino {
     /** port unique identifier */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier */
-    channel_id: string;
+    channel_id?: string;
     /** pagination request */
     pagination?: PageRequestAmino;
 }
@@ -498,7 +498,7 @@ export interface QueryPacketCommitmentsRequestAminoMsg {
 export interface QueryPacketCommitmentsRequestSDKType {
     port_id: string;
     channel_id: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryPacketCommitmentsResponse is the request type for the
@@ -507,7 +507,7 @@ export interface QueryPacketCommitmentsRequestSDKType {
 export interface QueryPacketCommitmentsResponse {
     commitments: PacketState[];
     /** pagination response */
-    pagination: PageResponse;
+    pagination?: PageResponse;
     /** query block height */
     height: Height;
 }
@@ -520,7 +520,7 @@ export interface QueryPacketCommitmentsResponseProtoMsg {
  * Query/QueryPacketCommitments RPC method
  */
 export interface QueryPacketCommitmentsResponseAmino {
-    commitments: PacketStateAmino[];
+    commitments?: PacketStateAmino[];
     /** pagination response */
     pagination?: PageResponseAmino;
     /** query block height */
@@ -536,7 +536,7 @@ export interface QueryPacketCommitmentsResponseAminoMsg {
  */
 export interface QueryPacketCommitmentsResponseSDKType {
     commitments: PacketStateSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
     height: HeightSDKType;
 }
 /**
@@ -561,11 +561,11 @@ export interface QueryPacketReceiptRequestProtoMsg {
  */
 export interface QueryPacketReceiptRequestAmino {
     /** port unique identifier */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier */
-    channel_id: string;
+    channel_id?: string;
     /** packet sequence */
-    sequence: string;
+    sequence?: string;
 }
 export interface QueryPacketReceiptRequestAminoMsg {
     type: "cosmos-sdk/QueryPacketReceiptRequest";
@@ -604,9 +604,9 @@ export interface QueryPacketReceiptResponseProtoMsg {
  */
 export interface QueryPacketReceiptResponseAmino {
     /** success flag for if receipt exists */
-    received: boolean;
+    received?: boolean;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }
@@ -646,11 +646,11 @@ export interface QueryPacketAcknowledgementRequestProtoMsg {
  */
 export interface QueryPacketAcknowledgementRequestAmino {
     /** port unique identifier */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier */
-    channel_id: string;
+    channel_id?: string;
     /** packet sequence */
-    sequence: string;
+    sequence?: string;
 }
 export interface QueryPacketAcknowledgementRequestAminoMsg {
     type: "cosmos-sdk/QueryPacketAcknowledgementRequest";
@@ -689,9 +689,9 @@ export interface QueryPacketAcknowledgementResponseProtoMsg {
  */
 export interface QueryPacketAcknowledgementResponseAmino {
     /** packet associated with the request fields */
-    acknowledgement: Uint8Array;
+    acknowledgement?: string;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }
@@ -719,7 +719,7 @@ export interface QueryPacketAcknowledgementsRequest {
     /** channel unique identifier */
     channelId: string;
     /** pagination request */
-    pagination: PageRequest;
+    pagination?: PageRequest;
     /** list of packet sequences */
     packetCommitmentSequences: bigint[];
 }
@@ -733,13 +733,13 @@ export interface QueryPacketAcknowledgementsRequestProtoMsg {
  */
 export interface QueryPacketAcknowledgementsRequestAmino {
     /** port unique identifier */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier */
-    channel_id: string;
+    channel_id?: string;
     /** pagination request */
     pagination?: PageRequestAmino;
     /** list of packet sequences */
-    packet_commitment_sequences: string[];
+    packet_commitment_sequences?: string[];
 }
 export interface QueryPacketAcknowledgementsRequestAminoMsg {
     type: "cosmos-sdk/QueryPacketAcknowledgementsRequest";
@@ -752,7 +752,7 @@ export interface QueryPacketAcknowledgementsRequestAminoMsg {
 export interface QueryPacketAcknowledgementsRequestSDKType {
     port_id: string;
     channel_id: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
     packet_commitment_sequences: bigint[];
 }
 /**
@@ -762,7 +762,7 @@ export interface QueryPacketAcknowledgementsRequestSDKType {
 export interface QueryPacketAcknowledgementsResponse {
     acknowledgements: PacketState[];
     /** pagination response */
-    pagination: PageResponse;
+    pagination?: PageResponse;
     /** query block height */
     height: Height;
 }
@@ -775,7 +775,7 @@ export interface QueryPacketAcknowledgementsResponseProtoMsg {
  * Query/QueryPacketAcknowledgements RPC method
  */
 export interface QueryPacketAcknowledgementsResponseAmino {
-    acknowledgements: PacketStateAmino[];
+    acknowledgements?: PacketStateAmino[];
     /** pagination response */
     pagination?: PageResponseAmino;
     /** query block height */
@@ -791,7 +791,7 @@ export interface QueryPacketAcknowledgementsResponseAminoMsg {
  */
 export interface QueryPacketAcknowledgementsResponseSDKType {
     acknowledgements: PacketStateSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
     height: HeightSDKType;
 }
 /**
@@ -816,11 +816,11 @@ export interface QueryUnreceivedPacketsRequestProtoMsg {
  */
 export interface QueryUnreceivedPacketsRequestAmino {
     /** port unique identifier */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier */
-    channel_id: string;
+    channel_id?: string;
     /** list of packet sequences */
-    packet_commitment_sequences: string[];
+    packet_commitment_sequences?: string[];
 }
 export interface QueryUnreceivedPacketsRequestAminoMsg {
     type: "cosmos-sdk/QueryUnreceivedPacketsRequest";
@@ -855,7 +855,7 @@ export interface QueryUnreceivedPacketsResponseProtoMsg {
  */
 export interface QueryUnreceivedPacketsResponseAmino {
     /** list of unreceived packet sequences */
-    sequences: string[];
+    sequences?: string[];
     /** query block height */
     height?: HeightAmino;
 }
@@ -893,11 +893,11 @@ export interface QueryUnreceivedAcksRequestProtoMsg {
  */
 export interface QueryUnreceivedAcksRequestAmino {
     /** port unique identifier */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier */
-    channel_id: string;
+    channel_id?: string;
     /** list of acknowledgement sequences */
-    packet_ack_sequences: string[];
+    packet_ack_sequences?: string[];
 }
 export interface QueryUnreceivedAcksRequestAminoMsg {
     type: "cosmos-sdk/QueryUnreceivedAcksRequest";
@@ -932,7 +932,7 @@ export interface QueryUnreceivedAcksResponseProtoMsg {
  */
 export interface QueryUnreceivedAcksResponseAmino {
     /** list of unreceived acknowledgement sequences */
-    sequences: string[];
+    sequences?: string[];
     /** query block height */
     height?: HeightAmino;
 }
@@ -968,9 +968,9 @@ export interface QueryNextSequenceReceiveRequestProtoMsg {
  */
 export interface QueryNextSequenceReceiveRequestAmino {
     /** port unique identifier */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier */
-    channel_id: string;
+    channel_id?: string;
 }
 export interface QueryNextSequenceReceiveRequestAminoMsg {
     type: "cosmos-sdk/QueryNextSequenceReceiveRequest";
@@ -1006,9 +1006,9 @@ export interface QueryNextSequenceReceiveResponseProtoMsg {
  */
 export interface QueryNextSequenceReceiveResponseAmino {
     /** next sequence receive number */
-    next_sequence_receive: string;
+    next_sequence_receive?: string;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }

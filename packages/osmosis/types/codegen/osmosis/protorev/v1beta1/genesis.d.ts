@@ -1,5 +1,5 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
-import { TokenPairArbRoutes, TokenPairArbRoutesAmino, TokenPairArbRoutesSDKType, BaseDenom, BaseDenomAmino, BaseDenomSDKType, PoolWeights, PoolWeightsAmino, PoolWeightsSDKType, InfoByPoolType, InfoByPoolTypeAmino, InfoByPoolTypeSDKType } from "./protorev";
+import { TokenPairArbRoutes, TokenPairArbRoutesAmino, TokenPairArbRoutesSDKType, BaseDenom, BaseDenomAmino, BaseDenomSDKType, PoolWeights, PoolWeightsAmino, PoolWeightsSDKType, InfoByPoolType, InfoByPoolTypeAmino, InfoByPoolTypeSDKType, CyclicArbTracker, CyclicArbTrackerAmino, CyclicArbTrackerSDKType } from "./protorev";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the protorev module's genesis state. */
@@ -48,6 +48,7 @@ export interface GenesisState {
      * consumption of a swap on a given pool type.
      */
     infoByPoolType: InfoByPoolType;
+    cyclicArbTracker?: CyclicArbTracker;
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/osmosis.protorev.v1beta1.GenesisState";
@@ -58,12 +59,12 @@ export interface GenesisStateAmino {
     /** Parameters for the protorev module. */
     params?: ParamsAmino;
     /** Token pair arb routes for the protorev module (hot routes). */
-    token_pair_arb_routes: TokenPairArbRoutesAmino[];
+    token_pair_arb_routes?: TokenPairArbRoutesAmino[];
     /**
      * The base denominations being used to create cyclic arbitrage routes via the
      * highest liquidity method.
      */
-    base_denoms: BaseDenomAmino[];
+    base_denoms?: BaseDenomAmino[];
     /**
      * The pool weights that are being used to calculate the weight (compute cost)
      * of each route.
@@ -73,32 +74,33 @@ export interface GenesisStateAmino {
      */
     pool_weights?: PoolWeightsAmino;
     /** The number of days since module genesis. */
-    days_since_module_genesis: string;
+    days_since_module_genesis?: string;
     /** The fees the developer account has accumulated over time. */
-    developer_fees: CoinAmino[];
+    developer_fees?: CoinAmino[];
     /** The latest block height that the module has processed. */
-    latest_block_height: string;
+    latest_block_height?: string;
     /** The developer account address of the module. */
-    developer_address: string;
+    developer_address?: string;
     /**
      * Max pool points per block i.e. the maximum compute time (in ms)
      * that protorev can use per block.
      */
-    max_pool_points_per_block: string;
+    max_pool_points_per_block?: string;
     /**
      * Max pool points per tx i.e. the maximum compute time (in ms) that
      * protorev can use per tx.
      */
-    max_pool_points_per_tx: string;
+    max_pool_points_per_tx?: string;
     /** The number of pool points that have been consumed in the current block. */
-    point_count_for_block: string;
+    point_count_for_block?: string;
     /** All of the profits that have been accumulated by the module. */
-    profits: CoinAmino[];
+    profits?: CoinAmino[];
     /**
      * Information that is used to estimate execution time / gas
      * consumption of a swap on a given pool type.
      */
     info_by_pool_type?: InfoByPoolTypeAmino;
+    cyclic_arb_tracker?: CyclicArbTrackerAmino;
 }
 export interface GenesisStateAminoMsg {
     type: "osmosis/protorev/genesis-state";
@@ -119,6 +121,7 @@ export interface GenesisStateSDKType {
     point_count_for_block: bigint;
     profits: CoinSDKType[];
     info_by_pool_type: InfoByPoolTypeSDKType;
+    cyclic_arb_tracker?: CyclicArbTrackerSDKType;
 }
 export declare const GenesisState: {
     typeUrl: string;

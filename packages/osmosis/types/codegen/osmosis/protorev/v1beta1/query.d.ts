@@ -1,6 +1,6 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { RouteStatistics, RouteStatisticsAmino, RouteStatisticsSDKType, TokenPairArbRoutes, TokenPairArbRoutesAmino, TokenPairArbRoutesSDKType, InfoByPoolType, InfoByPoolTypeAmino, InfoByPoolTypeSDKType, BaseDenom, BaseDenomAmino, BaseDenomSDKType } from "./protorev";
+import { RouteStatistics, RouteStatisticsAmino, RouteStatisticsSDKType, TokenPairArbRoutes, TokenPairArbRoutesAmino, TokenPairArbRoutesSDKType, InfoByPoolType, InfoByPoolTypeAmino, InfoByPoolTypeSDKType, BaseDenom, BaseDenomAmino, BaseDenomSDKType, AllProtocolRevenue, AllProtocolRevenueAmino, AllProtocolRevenueSDKType } from "./protorev";
 import { BinaryWriter } from "../../../binary";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -85,7 +85,7 @@ export interface QueryGetProtoRevNumberOfTradesResponseProtoMsg {
  */
 export interface QueryGetProtoRevNumberOfTradesResponseAmino {
     /** number_of_trades is the number of trades the module has executed */
-    number_of_trades: string;
+    number_of_trades?: string;
 }
 export interface QueryGetProtoRevNumberOfTradesResponseAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-number-of-trades-response";
@@ -116,7 +116,7 @@ export interface QueryGetProtoRevProfitsByDenomRequestProtoMsg {
  */
 export interface QueryGetProtoRevProfitsByDenomRequestAmino {
     /** denom is the denom to query profits by */
-    denom: string;
+    denom?: string;
 }
 export interface QueryGetProtoRevProfitsByDenomRequestAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-profits-by-denom-request";
@@ -135,7 +135,7 @@ export interface QueryGetProtoRevProfitsByDenomRequestSDKType {
  */
 export interface QueryGetProtoRevProfitsByDenomResponse {
     /** profit is the profits of the module by the selected denom */
-    profit: Coin;
+    profit?: Coin;
 }
 export interface QueryGetProtoRevProfitsByDenomResponseProtoMsg {
     typeUrl: "/osmosis.protorev.v1beta1.QueryGetProtoRevProfitsByDenomResponse";
@@ -158,7 +158,7 @@ export interface QueryGetProtoRevProfitsByDenomResponseAminoMsg {
  * Query/GetProtoRevProfitsByDenom RPC method.
  */
 export interface QueryGetProtoRevProfitsByDenomResponseSDKType {
-    profit: CoinSDKType;
+    profit?: CoinSDKType;
 }
 /**
  * QueryGetProtoRevAllProfitsRequest is request type for the
@@ -204,7 +204,7 @@ export interface QueryGetProtoRevAllProfitsResponseProtoMsg {
  */
 export interface QueryGetProtoRevAllProfitsResponseAmino {
     /** profits is a list of all of the profits from the module */
-    profits: CoinAmino[];
+    profits?: CoinAmino[];
 }
 export interface QueryGetProtoRevAllProfitsResponseAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-all-profits-response";
@@ -235,7 +235,7 @@ export interface QueryGetProtoRevStatisticsByRouteRequestProtoMsg {
  */
 export interface QueryGetProtoRevStatisticsByRouteRequestAmino {
     /** route is the set of pool ids to query statistics by i.e. 1,2,3 */
-    route: string[];
+    route?: string[];
 }
 export interface QueryGetProtoRevStatisticsByRouteRequestAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-statistics-by-route-request";
@@ -335,7 +335,7 @@ export interface QueryGetProtoRevAllRouteStatisticsResponseAmino {
      * statistics contains the number of trades/profits the module has executed on
      * all routes it has successfully executed a trade on
      */
-    statistics: RouteStatisticsAmino[];
+    statistics?: RouteStatisticsAmino[];
 }
 export interface QueryGetProtoRevAllRouteStatisticsResponseAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-all-route-statistics-response";
@@ -398,7 +398,7 @@ export interface QueryGetProtoRevTokenPairArbRoutesResponseAmino {
      * routes is a list of all of the hot routes that the module is currently
      * arbitraging
      */
-    routes: TokenPairArbRoutesAmino[];
+    routes?: TokenPairArbRoutesAmino[];
 }
 export interface QueryGetProtoRevTokenPairArbRoutesResponseAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-token-pair-arb-routes-response";
@@ -455,7 +455,7 @@ export interface QueryGetProtoRevAdminAccountResponseProtoMsg {
  */
 export interface QueryGetProtoRevAdminAccountResponseAmino {
     /** admin_account is the admin account of the module */
-    admin_account: string;
+    admin_account?: string;
 }
 export interface QueryGetProtoRevAdminAccountResponseAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-admin-account-response";
@@ -512,7 +512,7 @@ export interface QueryGetProtoRevDeveloperAccountResponseProtoMsg {
  */
 export interface QueryGetProtoRevDeveloperAccountResponseAmino {
     /** developer_account is the developer account of the module */
-    developer_account: string;
+    developer_account?: string;
 }
 export interface QueryGetProtoRevDeveloperAccountResponseAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-developer-account-response";
@@ -638,7 +638,7 @@ export interface QueryGetProtoRevMaxPoolPointsPerBlockResponseAmino {
      * max_pool_points_per_block is the maximum number of pool points that can be
      * consumed per block
      */
-    max_pool_points_per_block: string;
+    max_pool_points_per_block?: string;
 }
 export interface QueryGetProtoRevMaxPoolPointsPerBlockResponseAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-max-pool-points-per-block-response";
@@ -701,7 +701,7 @@ export interface QueryGetProtoRevMaxPoolPointsPerTxResponseAmino {
      * max_pool_points_per_tx is the maximum number of pool points that can be
      * consumed per transaction
      */
-    max_pool_points_per_tx: string;
+    max_pool_points_per_tx?: string;
 }
 export interface QueryGetProtoRevMaxPoolPointsPerTxResponseAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-max-pool-points-per-tx-response";
@@ -758,7 +758,7 @@ export interface QueryGetProtoRevBaseDenomsResponseProtoMsg {
  */
 export interface QueryGetProtoRevBaseDenomsResponseAmino {
     /** base_denoms is a list of all of the base denoms and step sizes */
-    base_denoms: BaseDenomAmino[];
+    base_denoms?: BaseDenomAmino[];
 }
 export interface QueryGetProtoRevBaseDenomsResponseAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-base-denoms-response";
@@ -815,7 +815,7 @@ export interface QueryGetProtoRevEnabledResponseProtoMsg {
  */
 export interface QueryGetProtoRevEnabledResponseAmino {
     /** enabled is whether the module is enabled */
-    enabled: boolean;
+    enabled?: boolean;
 }
 export interface QueryGetProtoRevEnabledResponseAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-enabled-response";
@@ -854,9 +854,9 @@ export interface QueryGetProtoRevPoolRequestAmino {
      * base_denom is the base denom set in protorev for the denom pair to pool
      * mapping
      */
-    base_denom: string;
+    base_denom?: string;
     /** other_denom is the other denom for the denom pair to pool mapping */
-    other_denom: string;
+    other_denom?: string;
 }
 export interface QueryGetProtoRevPoolRequestAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-pool-request";
@@ -888,7 +888,7 @@ export interface QueryGetProtoRevPoolResponseProtoMsg {
  */
 export interface QueryGetProtoRevPoolResponseAmino {
     /** pool_id is the pool_id stored for the denom pair */
-    pool_id: string;
+    pool_id?: string;
 }
 export interface QueryGetProtoRevPoolResponseAminoMsg {
     type: "osmosis/protorev/query-get-proto-rev-pool-response";
@@ -900,6 +900,37 @@ export interface QueryGetProtoRevPoolResponseAminoMsg {
  */
 export interface QueryGetProtoRevPoolResponseSDKType {
     pool_id: bigint;
+}
+export interface QueryGetAllProtocolRevenueRequest {
+}
+export interface QueryGetAllProtocolRevenueRequestProtoMsg {
+    typeUrl: "/osmosis.protorev.v1beta1.QueryGetAllProtocolRevenueRequest";
+    value: Uint8Array;
+}
+export interface QueryGetAllProtocolRevenueRequestAmino {
+}
+export interface QueryGetAllProtocolRevenueRequestAminoMsg {
+    type: "osmosis/protorev/query-get-all-protocol-revenue-request";
+    value: QueryGetAllProtocolRevenueRequestAmino;
+}
+export interface QueryGetAllProtocolRevenueRequestSDKType {
+}
+export interface QueryGetAllProtocolRevenueResponse {
+    allProtocolRevenue: AllProtocolRevenue;
+}
+export interface QueryGetAllProtocolRevenueResponseProtoMsg {
+    typeUrl: "/osmosis.protorev.v1beta1.QueryGetAllProtocolRevenueResponse";
+    value: Uint8Array;
+}
+export interface QueryGetAllProtocolRevenueResponseAmino {
+    all_protocol_revenue?: AllProtocolRevenueAmino;
+}
+export interface QueryGetAllProtocolRevenueResponseAminoMsg {
+    type: "osmosis/protorev/query-get-all-protocol-revenue-response";
+    value: QueryGetAllProtocolRevenueResponseAmino;
+}
+export interface QueryGetAllProtocolRevenueResponseSDKType {
+    all_protocol_revenue: AllProtocolRevenueSDKType;
 }
 export declare const QueryParamsRequest: {
     typeUrl: string;
@@ -1290,4 +1321,30 @@ export declare const QueryGetProtoRevPoolResponse: {
     fromProtoMsg(message: QueryGetProtoRevPoolResponseProtoMsg): QueryGetProtoRevPoolResponse;
     toProto(message: QueryGetProtoRevPoolResponse): Uint8Array;
     toProtoMsg(message: QueryGetProtoRevPoolResponse): QueryGetProtoRevPoolResponseProtoMsg;
+};
+export declare const QueryGetAllProtocolRevenueRequest: {
+    typeUrl: string;
+    encode(_: QueryGetAllProtocolRevenueRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): QueryGetAllProtocolRevenueRequest;
+    fromPartial(_: Partial<QueryGetAllProtocolRevenueRequest>): QueryGetAllProtocolRevenueRequest;
+    fromAmino(_: QueryGetAllProtocolRevenueRequestAmino): QueryGetAllProtocolRevenueRequest;
+    toAmino(_: QueryGetAllProtocolRevenueRequest): QueryGetAllProtocolRevenueRequestAmino;
+    fromAminoMsg(object: QueryGetAllProtocolRevenueRequestAminoMsg): QueryGetAllProtocolRevenueRequest;
+    toAminoMsg(message: QueryGetAllProtocolRevenueRequest): QueryGetAllProtocolRevenueRequestAminoMsg;
+    fromProtoMsg(message: QueryGetAllProtocolRevenueRequestProtoMsg): QueryGetAllProtocolRevenueRequest;
+    toProto(message: QueryGetAllProtocolRevenueRequest): Uint8Array;
+    toProtoMsg(message: QueryGetAllProtocolRevenueRequest): QueryGetAllProtocolRevenueRequestProtoMsg;
+};
+export declare const QueryGetAllProtocolRevenueResponse: {
+    typeUrl: string;
+    encode(message: QueryGetAllProtocolRevenueResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryGetAllProtocolRevenueResponse;
+    fromPartial(object: Partial<QueryGetAllProtocolRevenueResponse>): QueryGetAllProtocolRevenueResponse;
+    fromAmino(object: QueryGetAllProtocolRevenueResponseAmino): QueryGetAllProtocolRevenueResponse;
+    toAmino(message: QueryGetAllProtocolRevenueResponse): QueryGetAllProtocolRevenueResponseAmino;
+    fromAminoMsg(object: QueryGetAllProtocolRevenueResponseAminoMsg): QueryGetAllProtocolRevenueResponse;
+    toAminoMsg(message: QueryGetAllProtocolRevenueResponse): QueryGetAllProtocolRevenueResponseAminoMsg;
+    fromProtoMsg(message: QueryGetAllProtocolRevenueResponseProtoMsg): QueryGetAllProtocolRevenueResponse;
+    toProto(message: QueryGetAllProtocolRevenueResponse): Uint8Array;
+    toProtoMsg(message: QueryGetAllProtocolRevenueResponse): QueryGetAllProtocolRevenueResponseProtoMsg;
 };

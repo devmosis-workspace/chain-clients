@@ -22,7 +22,7 @@ export interface RequestBroadcastTxProtoMsg {
     value: Uint8Array;
 }
 export interface RequestBroadcastTxAmino {
-    tx: Uint8Array;
+    tx?: string;
 }
 export interface RequestBroadcastTxAminoMsg {
     type: "/tendermint.rpc.grpc.RequestBroadcastTx";
@@ -46,8 +46,8 @@ export interface ResponsePingAminoMsg {
 export interface ResponsePingSDKType {
 }
 export interface ResponseBroadcastTx {
-    checkTx: ResponseCheckTx;
-    deliverTx: ResponseDeliverTx;
+    checkTx?: ResponseCheckTx;
+    deliverTx?: ResponseDeliverTx;
 }
 export interface ResponseBroadcastTxProtoMsg {
     typeUrl: "/tendermint.rpc.grpc.ResponseBroadcastTx";
@@ -62,8 +62,8 @@ export interface ResponseBroadcastTxAminoMsg {
     value: ResponseBroadcastTxAmino;
 }
 export interface ResponseBroadcastTxSDKType {
-    check_tx: ResponseCheckTxSDKType;
-    deliver_tx: ResponseDeliverTxSDKType;
+    check_tx?: ResponseCheckTxSDKType;
+    deliver_tx?: ResponseDeliverTxSDKType;
 }
 export declare const RequestPing: {
     typeUrl: string;

@@ -1,36 +1,49 @@
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { Coin, CoinAmino, CoinSDKType } from "../../base/v1beta1/coin";
 import { VoteOption, WeightedVoteOption, WeightedVoteOptionAmino, WeightedVoteOptionSDKType, TextProposal, TextProposalProtoMsg, TextProposalSDKType } from "./gov";
+import { ReplaceMigrationRecordsProposal, ReplaceMigrationRecordsProposalProtoMsg, ReplaceMigrationRecordsProposalSDKType, UpdateMigrationRecordsProposal, UpdateMigrationRecordsProposalProtoMsg, UpdateMigrationRecordsProposalSDKType, CreateConcentratedLiquidityPoolsAndLinktoCFMMProposal, CreateConcentratedLiquidityPoolsAndLinktoCFMMProposalProtoMsg, CreateConcentratedLiquidityPoolsAndLinktoCFMMProposalSDKType, SetScalingFactorControllerProposal, SetScalingFactorControllerProposalProtoMsg, SetScalingFactorControllerProposalSDKType } from "../../../osmosis/gamm/v1beta1/gov";
+import { ReplacePoolIncentivesProposal, ReplacePoolIncentivesProposalProtoMsg, ReplacePoolIncentivesProposalSDKType, UpdatePoolIncentivesProposal, UpdatePoolIncentivesProposalProtoMsg, UpdatePoolIncentivesProposalSDKType } from "../../../osmosis/poolincentives/v1beta1/gov";
+import { SetProtoRevEnabledProposal, SetProtoRevEnabledProposalProtoMsg, SetProtoRevEnabledProposalSDKType, SetProtoRevAdminAccountProposal, SetProtoRevAdminAccountProposalProtoMsg, SetProtoRevAdminAccountProposalSDKType } from "../../../osmosis/protorev/v1beta1/gov";
+import { SetSuperfluidAssetsProposal, SetSuperfluidAssetsProposalProtoMsg, SetSuperfluidAssetsProposalSDKType, RemoveSuperfluidAssetsProposal, RemoveSuperfluidAssetsProposalProtoMsg, RemoveSuperfluidAssetsProposalSDKType, UpdateUnpoolWhiteListProposal, UpdateUnpoolWhiteListProposalProtoMsg, UpdateUnpoolWhiteListProposalSDKType } from "../../../osmosis/superfluid/v1beta1/gov";
+import { UpdateFeeTokenProposal, UpdateFeeTokenProposalProtoMsg, UpdateFeeTokenProposalSDKType } from "../../../osmosis/txfees/v1beta1/gov";
+import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalSDKType, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg, CommunityPoolSpendProposalWithDepositSDKType } from "../../distribution/v1beta1/distribution";
+import { ParameterChangeProposal, ParameterChangeProposalProtoMsg, ParameterChangeProposalSDKType } from "../../params/v1beta1/params";
+import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, SoftwareUpgradeProposalSDKType, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposalSDKType } from "../../upgrade/v1beta1/upgrade";
+import { StoreCodeProposal, StoreCodeProposalProtoMsg, StoreCodeProposalSDKType, InstantiateContractProposal, InstantiateContractProposalProtoMsg, InstantiateContractProposalSDKType, InstantiateContract2Proposal, InstantiateContract2ProposalProtoMsg, InstantiateContract2ProposalSDKType, MigrateContractProposal, MigrateContractProposalProtoMsg, MigrateContractProposalSDKType, SudoContractProposal, SudoContractProposalProtoMsg, SudoContractProposalSDKType, ExecuteContractProposal, ExecuteContractProposalProtoMsg, ExecuteContractProposalSDKType, UpdateAdminProposal, UpdateAdminProposalProtoMsg, UpdateAdminProposalSDKType, ClearAdminProposal, ClearAdminProposalProtoMsg, ClearAdminProposalSDKType, PinCodesProposal, PinCodesProposalProtoMsg, PinCodesProposalSDKType, UnpinCodesProposal, UnpinCodesProposalProtoMsg, UnpinCodesProposalSDKType, UpdateInstantiateConfigProposal, UpdateInstantiateConfigProposalProtoMsg, UpdateInstantiateConfigProposalSDKType, StoreAndInstantiateContractProposal, StoreAndInstantiateContractProposalProtoMsg, StoreAndInstantiateContractProposalSDKType } from "../../../cosmwasm/wasm/v1/proposal_legacy";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
  * proposal Content.
  */
 export interface MsgSubmitProposal {
-    content: (TextProposal & Any) | undefined;
+    /** content is the proposal's content. */
+    content?: (ReplaceMigrationRecordsProposal & UpdateMigrationRecordsProposal & CreateConcentratedLiquidityPoolsAndLinktoCFMMProposal & SetScalingFactorControllerProposal & ReplacePoolIncentivesProposal & UpdatePoolIncentivesProposal & SetProtoRevEnabledProposal & SetProtoRevAdminAccountProposal & SetSuperfluidAssetsProposal & RemoveSuperfluidAssetsProposal & UpdateUnpoolWhiteListProposal & UpdateFeeTokenProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & TextProposal & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & StoreCodeProposal & InstantiateContractProposal & InstantiateContract2Proposal & MigrateContractProposal & SudoContractProposal & ExecuteContractProposal & UpdateAdminProposal & ClearAdminProposal & PinCodesProposal & UnpinCodesProposal & UpdateInstantiateConfigProposal & StoreAndInstantiateContractProposal & Any) | undefined;
+    /** initial_deposit is the deposit value that must be paid at proposal submission. */
     initialDeposit: Coin[];
+    /** proposer is the account address of the proposer. */
     proposer: string;
-    isExpedited: boolean;
 }
 export interface MsgSubmitProposalProtoMsg {
     typeUrl: "/cosmos.gov.v1beta1.MsgSubmitProposal";
     value: Uint8Array;
 }
 export type MsgSubmitProposalEncoded = Omit<MsgSubmitProposal, "content"> & {
-    content?: TextProposalProtoMsg | AnyProtoMsg | undefined;
+    /** content is the proposal's content. */ content?: ReplaceMigrationRecordsProposalProtoMsg | UpdateMigrationRecordsProposalProtoMsg | CreateConcentratedLiquidityPoolsAndLinktoCFMMProposalProtoMsg | SetScalingFactorControllerProposalProtoMsg | ReplacePoolIncentivesProposalProtoMsg | UpdatePoolIncentivesProposalProtoMsg | SetProtoRevEnabledProposalProtoMsg | SetProtoRevAdminAccountProposalProtoMsg | SetSuperfluidAssetsProposalProtoMsg | RemoveSuperfluidAssetsProposalProtoMsg | UpdateUnpoolWhiteListProposalProtoMsg | UpdateFeeTokenProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | StoreCodeProposalProtoMsg | InstantiateContractProposalProtoMsg | InstantiateContract2ProposalProtoMsg | MigrateContractProposalProtoMsg | SudoContractProposalProtoMsg | ExecuteContractProposalProtoMsg | UpdateAdminProposalProtoMsg | ClearAdminProposalProtoMsg | PinCodesProposalProtoMsg | UnpinCodesProposalProtoMsg | UpdateInstantiateConfigProposalProtoMsg | StoreAndInstantiateContractProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
  * proposal Content.
  */
 export interface MsgSubmitProposalAmino {
+    /** content is the proposal's content. */
     content?: AnyAmino;
+    /** initial_deposit is the deposit value that must be paid at proposal submission. */
     initial_deposit: CoinAmino[];
-    proposer: string;
-    is_expedited: boolean;
+    /** proposer is the account address of the proposer. */
+    proposer?: string;
 }
 export interface MsgSubmitProposalAminoMsg {
-    type: "cosmos-sdk/v1/MsgSubmitProposal";
+    type: "cosmos-sdk/MsgSubmitProposal";
     value: MsgSubmitProposalAmino;
 }
 /**
@@ -38,13 +51,13 @@ export interface MsgSubmitProposalAminoMsg {
  * proposal Content.
  */
 export interface MsgSubmitProposalSDKType {
-    content: TextProposalSDKType | AnySDKType | undefined;
+    content?: ReplaceMigrationRecordsProposalSDKType | UpdateMigrationRecordsProposalSDKType | CreateConcentratedLiquidityPoolsAndLinktoCFMMProposalSDKType | SetScalingFactorControllerProposalSDKType | ReplacePoolIncentivesProposalSDKType | UpdatePoolIncentivesProposalSDKType | SetProtoRevEnabledProposalSDKType | SetProtoRevAdminAccountProposalSDKType | SetSuperfluidAssetsProposalSDKType | RemoveSuperfluidAssetsProposalSDKType | UpdateUnpoolWhiteListProposalSDKType | UpdateFeeTokenProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | TextProposalSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | StoreCodeProposalSDKType | InstantiateContractProposalSDKType | InstantiateContract2ProposalSDKType | MigrateContractProposalSDKType | SudoContractProposalSDKType | ExecuteContractProposalSDKType | UpdateAdminProposalSDKType | ClearAdminProposalSDKType | PinCodesProposalSDKType | UnpinCodesProposalSDKType | UpdateInstantiateConfigProposalSDKType | StoreAndInstantiateContractProposalSDKType | AnySDKType | undefined;
     initial_deposit: CoinSDKType[];
     proposer: string;
-    is_expedited: boolean;
 }
 /** MsgSubmitProposalResponse defines the Msg/SubmitProposal response type. */
 export interface MsgSubmitProposalResponse {
+    /** proposal_id defines the unique id of the proposal. */
     proposalId: bigint;
 }
 export interface MsgSubmitProposalResponseProtoMsg {
@@ -53,6 +66,7 @@ export interface MsgSubmitProposalResponseProtoMsg {
 }
 /** MsgSubmitProposalResponse defines the Msg/SubmitProposal response type. */
 export interface MsgSubmitProposalResponseAmino {
+    /** proposal_id defines the unique id of the proposal. */
     proposal_id: string;
 }
 export interface MsgSubmitProposalResponseAminoMsg {
@@ -65,8 +79,11 @@ export interface MsgSubmitProposalResponseSDKType {
 }
 /** MsgVote defines a message to cast a vote. */
 export interface MsgVote {
+    /** proposal_id defines the unique id of the proposal. */
     proposalId: bigint;
+    /** voter is the voter address for the proposal. */
     voter: string;
+    /** option defines the vote option. */
     option: VoteOption;
 }
 export interface MsgVoteProtoMsg {
@@ -75,12 +92,15 @@ export interface MsgVoteProtoMsg {
 }
 /** MsgVote defines a message to cast a vote. */
 export interface MsgVoteAmino {
-    proposal_id: string;
-    voter: string;
-    option: VoteOption;
+    /** proposal_id defines the unique id of the proposal. */
+    proposal_id?: string;
+    /** voter is the voter address for the proposal. */
+    voter?: string;
+    /** option defines the vote option. */
+    option?: VoteOption;
 }
 export interface MsgVoteAminoMsg {
-    type: "cosmos-sdk/v1/MsgVote";
+    type: "cosmos-sdk/MsgVote";
     value: MsgVoteAmino;
 }
 /** MsgVote defines a message to cast a vote. */
@@ -112,8 +132,11 @@ export interface MsgVoteResponseSDKType {
  * Since: cosmos-sdk 0.43
  */
 export interface MsgVoteWeighted {
+    /** proposal_id defines the unique id of the proposal. */
     proposalId: bigint;
+    /** voter is the voter address for the proposal. */
     voter: string;
+    /** options defines the weighted vote options. */
     options: WeightedVoteOption[];
 }
 export interface MsgVoteWeightedProtoMsg {
@@ -126,12 +149,15 @@ export interface MsgVoteWeightedProtoMsg {
  * Since: cosmos-sdk 0.43
  */
 export interface MsgVoteWeightedAmino {
+    /** proposal_id defines the unique id of the proposal. */
     proposal_id: string;
-    voter: string;
+    /** voter is the voter address for the proposal. */
+    voter?: string;
+    /** options defines the weighted vote options. */
     options: WeightedVoteOptionAmino[];
 }
 export interface MsgVoteWeightedAminoMsg {
-    type: "cosmos-sdk/v1/MsgVoteWeighted";
+    type: "cosmos-sdk/MsgVoteWeighted";
     value: MsgVoteWeightedAmino;
 }
 /**
@@ -175,8 +201,11 @@ export interface MsgVoteWeightedResponseSDKType {
 }
 /** MsgDeposit defines a message to submit a deposit to an existing proposal. */
 export interface MsgDeposit {
+    /** proposal_id defines the unique id of the proposal. */
     proposalId: bigint;
+    /** depositor defines the deposit addresses from the proposals. */
     depositor: string;
+    /** amount to be deposited by depositor. */
     amount: Coin[];
 }
 export interface MsgDepositProtoMsg {
@@ -185,12 +214,15 @@ export interface MsgDepositProtoMsg {
 }
 /** MsgDeposit defines a message to submit a deposit to an existing proposal. */
 export interface MsgDepositAmino {
+    /** proposal_id defines the unique id of the proposal. */
     proposal_id: string;
-    depositor: string;
+    /** depositor defines the deposit addresses from the proposals. */
+    depositor?: string;
+    /** amount to be deposited by depositor. */
     amount: CoinAmino[];
 }
 export interface MsgDepositAminoMsg {
-    type: "cosmos-sdk/v1/MsgDeposit";
+    type: "cosmos-sdk/MsgDeposit";
     value: MsgDepositAmino;
 }
 /** MsgDeposit defines a message to submit a deposit to an existing proposal. */
@@ -320,6 +352,6 @@ export declare const MsgDepositResponse: {
     toProto(message: MsgDepositResponse): Uint8Array;
     toProtoMsg(message: MsgDepositResponse): MsgDepositResponseProtoMsg;
 };
-export declare const Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => TextProposal | Any;
-export declare const Content_FromAmino: (content: AnyAmino) => Any;
-export declare const Content_ToAmino: (content: Any) => AnyAmino;
+export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => ReplaceMigrationRecordsProposal | UpdateMigrationRecordsProposal | CreateConcentratedLiquidityPoolsAndLinktoCFMMProposal | SetScalingFactorControllerProposal | ReplacePoolIncentivesProposal | UpdatePoolIncentivesProposal | SetProtoRevEnabledProposal | SetProtoRevAdminAccountProposal | SetSuperfluidAssetsProposal | RemoveSuperfluidAssetsProposal | UpdateUnpoolWhiteListProposal | UpdateFeeTokenProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | StoreCodeProposal | InstantiateContractProposal | InstantiateContract2Proposal | MigrateContractProposal | SudoContractProposal | ExecuteContractProposal | UpdateAdminProposal | ClearAdminProposal | PinCodesProposal | UnpinCodesProposal | UpdateInstantiateConfigProposal | StoreAndInstantiateContractProposal | Any;
+export declare const Cosmos_govv1beta1Content_FromAmino: (content: AnyAmino) => Any;
+export declare const Cosmos_govv1beta1Content_ToAmino: (content: Any) => AnyAmino;

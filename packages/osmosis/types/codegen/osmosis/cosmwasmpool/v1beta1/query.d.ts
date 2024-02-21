@@ -1,16 +1,16 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
-import { Pool as Pool1 } from "../../concentrated-liquidity/pool";
-import { PoolProtoMsg as Pool1ProtoMsg } from "../../concentrated-liquidity/pool";
-import { PoolSDKType as Pool1SDKType } from "../../concentrated-liquidity/pool";
+import { Pool as Pool1 } from "../../concentratedliquidity/v1beta1/pool";
+import { PoolProtoMsg as Pool1ProtoMsg } from "../../concentratedliquidity/v1beta1/pool";
+import { PoolSDKType as Pool1SDKType } from "../../concentratedliquidity/v1beta1/pool";
 import { CosmWasmPool, CosmWasmPoolProtoMsg, CosmWasmPoolSDKType } from "./model/pool";
-import { Pool as Pool2 } from "../../gamm/pool-models/balancer/balancerPool";
-import { PoolProtoMsg as Pool2ProtoMsg } from "../../gamm/pool-models/balancer/balancerPool";
-import { PoolSDKType as Pool2SDKType } from "../../gamm/pool-models/balancer/balancerPool";
-import { Pool as Pool3 } from "../../gamm/pool-models/stableswap/stableswap_pool";
-import { PoolProtoMsg as Pool3ProtoMsg } from "../../gamm/pool-models/stableswap/stableswap_pool";
-import { PoolSDKType as Pool3SDKType } from "../../gamm/pool-models/stableswap/stableswap_pool";
+import { Pool as Pool2 } from "../../gamm/poolmodels/stableswap/v1beta1/stableswap_pool";
+import { PoolProtoMsg as Pool2ProtoMsg } from "../../gamm/poolmodels/stableswap/v1beta1/stableswap_pool";
+import { PoolSDKType as Pool2SDKType } from "../../gamm/poolmodels/stableswap/v1beta1/stableswap_pool";
+import { Pool as Pool3 } from "../../gamm/v1beta1/balancerPool";
+import { PoolProtoMsg as Pool3ProtoMsg } from "../../gamm/v1beta1/balancerPool";
+import { PoolSDKType as Pool3SDKType } from "../../gamm/v1beta1/balancerPool";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 /** =============================== ContractInfoByPoolId */
 export interface ParamsRequest {
@@ -49,7 +49,7 @@ export interface ParamsResponseSDKType {
 /** =============================== Pools */
 export interface PoolsRequest {
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface PoolsRequestProtoMsg {
     typeUrl: "/osmosis.cosmwasmpool.v1beta1.PoolsRequest";
@@ -66,12 +66,12 @@ export interface PoolsRequestAminoMsg {
 }
 /** =============================== Pools */
 export interface PoolsRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface PoolsResponse {
     pools: (Pool1 & CosmWasmPool & Pool2 & Pool3 & Any)[] | Any[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface PoolsResponseProtoMsg {
     typeUrl: "/osmosis.cosmwasmpool.v1beta1.PoolsResponse";
@@ -81,7 +81,7 @@ export type PoolsResponseEncoded = Omit<PoolsResponse, "pools"> & {
     pools: (Pool1ProtoMsg | CosmWasmPoolProtoMsg | Pool2ProtoMsg | Pool3ProtoMsg | AnyProtoMsg)[];
 };
 export interface PoolsResponseAmino {
-    pools: AnyAmino[];
+    pools?: AnyAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -91,7 +91,7 @@ export interface PoolsResponseAminoMsg {
 }
 export interface PoolsResponseSDKType {
     pools: (Pool1SDKType | CosmWasmPoolSDKType | Pool2SDKType | Pool3SDKType | AnySDKType)[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** =============================== ContractInfoByPoolId */
 export interface ContractInfoByPoolIdRequest {
@@ -105,7 +105,7 @@ export interface ContractInfoByPoolIdRequestProtoMsg {
 /** =============================== ContractInfoByPoolId */
 export interface ContractInfoByPoolIdRequestAmino {
     /** pool_id is the pool id of the requested pool. */
-    pool_id: string;
+    pool_id?: string;
 }
 export interface ContractInfoByPoolIdRequestAminoMsg {
     type: "osmosis/cosmwasmpool/contract-info-by-pool-id-request";
@@ -133,9 +133,9 @@ export interface ContractInfoByPoolIdResponseAmino {
      * contract_address is the pool address and contract address
      * of the requested pool id.
      */
-    contract_address: string;
+    contract_address?: string;
     /** code_id is the code id of the requested pool id. */
-    code_id: string;
+    code_id?: string;
 }
 export interface ContractInfoByPoolIdResponseAminoMsg {
     type: "osmosis/cosmwasmpool/contract-info-by-pool-id-response";

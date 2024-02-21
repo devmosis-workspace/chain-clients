@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Params, ParamsAmino, ParamsSDKType } from "./genesis";
 import { BinaryWriter } from "../../../binary";
 export interface ArithmeticTwapRequest {
@@ -13,11 +13,11 @@ export interface ArithmeticTwapRequestProtoMsg {
     value: Uint8Array;
 }
 export interface ArithmeticTwapRequestAmino {
-    pool_id: string;
-    base_asset: string;
-    quote_asset: string;
-    start_time?: TimestampAmino;
-    end_time?: TimestampAmino;
+    pool_id?: string;
+    base_asset?: string;
+    quote_asset?: string;
+    start_time?: string;
+    end_time?: string;
 }
 export interface ArithmeticTwapRequestAminoMsg {
     type: "osmosis/twap/arithmetic-twap-request";
@@ -38,7 +38,7 @@ export interface ArithmeticTwapResponseProtoMsg {
     value: Uint8Array;
 }
 export interface ArithmeticTwapResponseAmino {
-    arithmetic_twap: string;
+    arithmetic_twap?: string;
 }
 export interface ArithmeticTwapResponseAminoMsg {
     type: "osmosis/twap/arithmetic-twap-response";
@@ -58,10 +58,10 @@ export interface ArithmeticTwapToNowRequestProtoMsg {
     value: Uint8Array;
 }
 export interface ArithmeticTwapToNowRequestAmino {
-    pool_id: string;
-    base_asset: string;
-    quote_asset: string;
-    start_time?: TimestampAmino;
+    pool_id?: string;
+    base_asset?: string;
+    quote_asset?: string;
+    start_time?: string;
 }
 export interface ArithmeticTwapToNowRequestAminoMsg {
     type: "osmosis/twap/arithmetic-twap-to-now-request";
@@ -81,7 +81,7 @@ export interface ArithmeticTwapToNowResponseProtoMsg {
     value: Uint8Array;
 }
 export interface ArithmeticTwapToNowResponseAmino {
-    arithmetic_twap: string;
+    arithmetic_twap?: string;
 }
 export interface ArithmeticTwapToNowResponseAminoMsg {
     type: "osmosis/twap/arithmetic-twap-to-now-response";
@@ -102,11 +102,11 @@ export interface GeometricTwapRequestProtoMsg {
     value: Uint8Array;
 }
 export interface GeometricTwapRequestAmino {
-    pool_id: string;
-    base_asset: string;
-    quote_asset: string;
-    start_time?: TimestampAmino;
-    end_time?: TimestampAmino;
+    pool_id?: string;
+    base_asset?: string;
+    quote_asset?: string;
+    start_time?: string;
+    end_time?: string;
 }
 export interface GeometricTwapRequestAminoMsg {
     type: "osmosis/twap/geometric-twap-request";
@@ -127,7 +127,7 @@ export interface GeometricTwapResponseProtoMsg {
     value: Uint8Array;
 }
 export interface GeometricTwapResponseAmino {
-    geometric_twap: string;
+    geometric_twap?: string;
 }
 export interface GeometricTwapResponseAminoMsg {
     type: "osmosis/twap/geometric-twap-response";
@@ -147,10 +147,10 @@ export interface GeometricTwapToNowRequestProtoMsg {
     value: Uint8Array;
 }
 export interface GeometricTwapToNowRequestAmino {
-    pool_id: string;
-    base_asset: string;
-    quote_asset: string;
-    start_time?: TimestampAmino;
+    pool_id?: string;
+    base_asset?: string;
+    quote_asset?: string;
+    start_time?: string;
 }
 export interface GeometricTwapToNowRequestAminoMsg {
     type: "osmosis/twap/geometric-twap-to-now-request";
@@ -170,7 +170,7 @@ export interface GeometricTwapToNowResponseProtoMsg {
     value: Uint8Array;
 }
 export interface GeometricTwapToNowResponseAmino {
-    geometric_twap: string;
+    geometric_twap?: string;
 }
 export interface GeometricTwapToNowResponseAminoMsg {
     type: "osmosis/twap/geometric-twap-to-now-response";

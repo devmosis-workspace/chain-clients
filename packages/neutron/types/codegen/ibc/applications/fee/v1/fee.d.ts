@@ -17,11 +17,11 @@ export interface FeeProtoMsg {
 /** Fee defines the ICS29 receive, acknowledgement and timeout fees */
 export interface FeeAmino {
     /** the packet receive fee */
-    recv_fee: CoinAmino[];
+    recv_fee?: CoinAmino[];
     /** the packet acknowledgement fee */
-    ack_fee: CoinAmino[];
+    ack_fee?: CoinAmino[];
     /** the packet timeout fee */
-    timeout_fee: CoinAmino[];
+    timeout_fee?: CoinAmino[];
 }
 export interface FeeAminoMsg {
     type: "cosmos-sdk/Fee";
@@ -51,9 +51,9 @@ export interface PacketFeeAmino {
     /** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
     fee?: FeeAmino;
     /** the refund address for unspent fees */
-    refund_address: string;
+    refund_address?: string;
     /** optional list of relayers permitted to receive fees */
-    relayers: string[];
+    relayers?: string[];
 }
 export interface PacketFeeAminoMsg {
     type: "cosmos-sdk/PacketFee";
@@ -77,7 +77,7 @@ export interface PacketFeesProtoMsg {
 /** PacketFees contains a list of type PacketFee */
 export interface PacketFeesAmino {
     /** list of packet fees */
-    packet_fees: PacketFeeAmino[];
+    packet_fees?: PacketFeeAmino[];
 }
 export interface PacketFeesAminoMsg {
     type: "cosmos-sdk/PacketFees";
@@ -103,7 +103,7 @@ export interface IdentifiedPacketFeesAmino {
     /** unique packet identifier comprised of the channel ID, port ID and sequence */
     packet_id?: PacketIdAmino;
     /** list of packet fees */
-    packet_fees: PacketFeeAmino[];
+    packet_fees?: PacketFeeAmino[];
 }
 export interface IdentifiedPacketFeesAminoMsg {
     type: "cosmos-sdk/IdentifiedPacketFees";

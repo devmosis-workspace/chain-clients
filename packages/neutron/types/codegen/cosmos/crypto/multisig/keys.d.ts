@@ -19,11 +19,11 @@ export interface LegacyAminoPubKeyProtoMsg {
  * it uses legacy amino address rules.
  */
 export interface LegacyAminoPubKeyAmino {
-    threshold: number;
-    public_keys: AnyAmino[];
+    threshold?: number;
+    public_keys?: AnyAmino[];
 }
 export interface LegacyAminoPubKeyAminoMsg {
-    type: "cosmos-sdk/LegacyAminoPubKey";
+    type: "tendermint/PubKeyMultisigThreshold";
     value: LegacyAminoPubKeyAmino;
 }
 /**

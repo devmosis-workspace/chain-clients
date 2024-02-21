@@ -28,7 +28,7 @@ export interface QueryParamsResponseProtoMsg {
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method */
 export interface QueryParamsResponseAmino {
-    params?: ParamsAmino;
+    params: ParamsAmino;
 }
 export interface QueryParamsResponseAminoMsg {
     type: "cosmos-sdk/QueryParamsResponse";
@@ -56,7 +56,7 @@ export interface QuerySigningInfoRequestProtoMsg {
  */
 export interface QuerySigningInfoRequestAmino {
     /** cons_address is the address to query signing info of */
-    cons_address: string;
+    cons_address?: string;
 }
 export interface QuerySigningInfoRequestAminoMsg {
     type: "cosmos-sdk/QuerySigningInfoRequest";
@@ -87,7 +87,7 @@ export interface QuerySigningInfoResponseProtoMsg {
  */
 export interface QuerySigningInfoResponseAmino {
     /** val_signing_info is the signing info of requested val cons address */
-    val_signing_info?: ValidatorSigningInfoAmino;
+    val_signing_info: ValidatorSigningInfoAmino;
 }
 export interface QuerySigningInfoResponseAminoMsg {
     type: "cosmos-sdk/QuerySigningInfoResponse";
@@ -105,7 +105,7 @@ export interface QuerySigningInfoResponseSDKType {
  * method
  */
 export interface QuerySigningInfosRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QuerySigningInfosRequestProtoMsg {
     typeUrl: "/cosmos.slashing.v1beta1.QuerySigningInfosRequest";
@@ -127,7 +127,7 @@ export interface QuerySigningInfosRequestAminoMsg {
  * method
  */
 export interface QuerySigningInfosRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QuerySigningInfosResponse is the response type for the Query/SigningInfos RPC
@@ -136,7 +136,7 @@ export interface QuerySigningInfosRequestSDKType {
 export interface QuerySigningInfosResponse {
     /** info is the signing info of all validators */
     info: ValidatorSigningInfo[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QuerySigningInfosResponseProtoMsg {
     typeUrl: "/cosmos.slashing.v1beta1.QuerySigningInfosResponse";
@@ -161,7 +161,7 @@ export interface QuerySigningInfosResponseAminoMsg {
  */
 export interface QuerySigningInfosResponseSDKType {
     info: ValidatorSigningInfoSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export declare const QueryParamsRequest: {
     typeUrl: string;

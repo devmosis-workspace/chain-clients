@@ -1,5 +1,6 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { DenomTrace, DenomTraceAmino, DenomTraceSDKType, Params, ParamsAmino, ParamsSDKType } from "./transfer";
+import { Coin, CoinAmino, CoinSDKType } from "../../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../../binary";
 /**
  * QueryDenomTraceRequest is the request type for the Query/DenomTrace RPC
@@ -19,7 +20,7 @@ export interface QueryDenomTraceRequestProtoMsg {
  */
 export interface QueryDenomTraceRequestAmino {
     /** hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information. */
-    hash: string;
+    hash?: string;
 }
 export interface QueryDenomTraceRequestAminoMsg {
     type: "cosmos-sdk/QueryDenomTraceRequest";
@@ -38,7 +39,7 @@ export interface QueryDenomTraceRequestSDKType {
  */
 export interface QueryDenomTraceResponse {
     /** denom_trace returns the requested denomination trace information. */
-    denomTrace: DenomTrace;
+    denomTrace?: DenomTrace;
 }
 export interface QueryDenomTraceResponseProtoMsg {
     typeUrl: "/ibc.applications.transfer.v1.QueryDenomTraceResponse";
@@ -61,7 +62,7 @@ export interface QueryDenomTraceResponseAminoMsg {
  * method.
  */
 export interface QueryDenomTraceResponseSDKType {
-    denom_trace: DenomTraceSDKType;
+    denom_trace?: DenomTraceSDKType;
 }
 /**
  * QueryConnectionsRequest is the request type for the Query/DenomTraces RPC
@@ -69,7 +70,7 @@ export interface QueryDenomTraceResponseSDKType {
  */
 export interface QueryDenomTracesRequest {
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDenomTracesRequestProtoMsg {
     typeUrl: "/ibc.applications.transfer.v1.QueryDenomTracesRequest";
@@ -92,7 +93,7 @@ export interface QueryDenomTracesRequestAminoMsg {
  * method
  */
 export interface QueryDenomTracesRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryConnectionsResponse is the response type for the Query/DenomTraces RPC
@@ -102,7 +103,7 @@ export interface QueryDenomTracesResponse {
     /** denom_traces returns all denominations trace information. */
     denomTraces: DenomTrace[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDenomTracesResponseProtoMsg {
     typeUrl: "/ibc.applications.transfer.v1.QueryDenomTracesResponse";
@@ -114,7 +115,7 @@ export interface QueryDenomTracesResponseProtoMsg {
  */
 export interface QueryDenomTracesResponseAmino {
     /** denom_traces returns all denominations trace information. */
-    denom_traces: DenomTraceAmino[];
+    denom_traces?: DenomTraceAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -128,7 +129,7 @@ export interface QueryDenomTracesResponseAminoMsg {
  */
 export interface QueryDenomTracesResponseSDKType {
     denom_traces: DenomTraceSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -150,7 +151,7 @@ export interface QueryParamsRequestSDKType {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
     /** params defines the parameters of the module. */
-    params: Params;
+    params?: Params;
 }
 export interface QueryParamsResponseProtoMsg {
     typeUrl: "/ibc.applications.transfer.v1.QueryParamsResponse";
@@ -167,7 +168,7 @@ export interface QueryParamsResponseAminoMsg {
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseSDKType {
-    params: ParamsSDKType;
+    params?: ParamsSDKType;
 }
 /**
  * QueryDenomHashRequest is the request type for the Query/DenomHash RPC
@@ -187,7 +188,7 @@ export interface QueryDenomHashRequestProtoMsg {
  */
 export interface QueryDenomHashRequestAmino {
     /** The denomination trace ([port_id]/[channel_id])+/[denom] */
-    trace: string;
+    trace?: string;
 }
 export interface QueryDenomHashRequestAminoMsg {
     type: "cosmos-sdk/QueryDenomHashRequest";
@@ -218,7 +219,7 @@ export interface QueryDenomHashResponseProtoMsg {
  */
 export interface QueryDenomHashResponseAmino {
     /** hash (in hex format) of the denomination trace information. */
-    hash: string;
+    hash?: string;
 }
 export interface QueryDenomHashResponseAminoMsg {
     type: "cosmos-sdk/QueryDenomHashResponse";
@@ -245,9 +246,9 @@ export interface QueryEscrowAddressRequestProtoMsg {
 /** QueryEscrowAddressRequest is the request type for the EscrowAddress RPC method. */
 export interface QueryEscrowAddressRequestAmino {
     /** unique port identifier */
-    port_id: string;
+    port_id?: string;
     /** unique channel identifier */
-    channel_id: string;
+    channel_id?: string;
 }
 export interface QueryEscrowAddressRequestAminoMsg {
     type: "cosmos-sdk/QueryEscrowAddressRequest";
@@ -270,7 +271,7 @@ export interface QueryEscrowAddressResponseProtoMsg {
 /** QueryEscrowAddressResponse is the response type of the EscrowAddress RPC method. */
 export interface QueryEscrowAddressResponseAmino {
     /** the escrow account address */
-    escrow_address: string;
+    escrow_address?: string;
 }
 export interface QueryEscrowAddressResponseAminoMsg {
     type: "cosmos-sdk/QueryEscrowAddressResponse";
@@ -279,6 +280,46 @@ export interface QueryEscrowAddressResponseAminoMsg {
 /** QueryEscrowAddressResponse is the response type of the EscrowAddress RPC method. */
 export interface QueryEscrowAddressResponseSDKType {
     escrow_address: string;
+}
+/** QueryTotalEscrowForDenomRequest is the request type for TotalEscrowForDenom RPC method. */
+export interface QueryTotalEscrowForDenomRequest {
+    denom: string;
+}
+export interface QueryTotalEscrowForDenomRequestProtoMsg {
+    typeUrl: "/ibc.applications.transfer.v1.QueryTotalEscrowForDenomRequest";
+    value: Uint8Array;
+}
+/** QueryTotalEscrowForDenomRequest is the request type for TotalEscrowForDenom RPC method. */
+export interface QueryTotalEscrowForDenomRequestAmino {
+    denom?: string;
+}
+export interface QueryTotalEscrowForDenomRequestAminoMsg {
+    type: "cosmos-sdk/QueryTotalEscrowForDenomRequest";
+    value: QueryTotalEscrowForDenomRequestAmino;
+}
+/** QueryTotalEscrowForDenomRequest is the request type for TotalEscrowForDenom RPC method. */
+export interface QueryTotalEscrowForDenomRequestSDKType {
+    denom: string;
+}
+/** QueryTotalEscrowForDenomResponse is the response type for TotalEscrowForDenom RPC method. */
+export interface QueryTotalEscrowForDenomResponse {
+    amount: Coin;
+}
+export interface QueryTotalEscrowForDenomResponseProtoMsg {
+    typeUrl: "/ibc.applications.transfer.v1.QueryTotalEscrowForDenomResponse";
+    value: Uint8Array;
+}
+/** QueryTotalEscrowForDenomResponse is the response type for TotalEscrowForDenom RPC method. */
+export interface QueryTotalEscrowForDenomResponseAmino {
+    amount?: CoinAmino;
+}
+export interface QueryTotalEscrowForDenomResponseAminoMsg {
+    type: "cosmos-sdk/QueryTotalEscrowForDenomResponse";
+    value: QueryTotalEscrowForDenomResponseAmino;
+}
+/** QueryTotalEscrowForDenomResponse is the response type for TotalEscrowForDenom RPC method. */
+export interface QueryTotalEscrowForDenomResponseSDKType {
+    amount: CoinSDKType;
 }
 export declare const QueryDenomTraceRequest: {
     typeUrl: string;
@@ -409,4 +450,30 @@ export declare const QueryEscrowAddressResponse: {
     fromProtoMsg(message: QueryEscrowAddressResponseProtoMsg): QueryEscrowAddressResponse;
     toProto(message: QueryEscrowAddressResponse): Uint8Array;
     toProtoMsg(message: QueryEscrowAddressResponse): QueryEscrowAddressResponseProtoMsg;
+};
+export declare const QueryTotalEscrowForDenomRequest: {
+    typeUrl: string;
+    encode(message: QueryTotalEscrowForDenomRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTotalEscrowForDenomRequest;
+    fromPartial(object: Partial<QueryTotalEscrowForDenomRequest>): QueryTotalEscrowForDenomRequest;
+    fromAmino(object: QueryTotalEscrowForDenomRequestAmino): QueryTotalEscrowForDenomRequest;
+    toAmino(message: QueryTotalEscrowForDenomRequest): QueryTotalEscrowForDenomRequestAmino;
+    fromAminoMsg(object: QueryTotalEscrowForDenomRequestAminoMsg): QueryTotalEscrowForDenomRequest;
+    toAminoMsg(message: QueryTotalEscrowForDenomRequest): QueryTotalEscrowForDenomRequestAminoMsg;
+    fromProtoMsg(message: QueryTotalEscrowForDenomRequestProtoMsg): QueryTotalEscrowForDenomRequest;
+    toProto(message: QueryTotalEscrowForDenomRequest): Uint8Array;
+    toProtoMsg(message: QueryTotalEscrowForDenomRequest): QueryTotalEscrowForDenomRequestProtoMsg;
+};
+export declare const QueryTotalEscrowForDenomResponse: {
+    typeUrl: string;
+    encode(message: QueryTotalEscrowForDenomResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTotalEscrowForDenomResponse;
+    fromPartial(object: Partial<QueryTotalEscrowForDenomResponse>): QueryTotalEscrowForDenomResponse;
+    fromAmino(object: QueryTotalEscrowForDenomResponseAmino): QueryTotalEscrowForDenomResponse;
+    toAmino(message: QueryTotalEscrowForDenomResponse): QueryTotalEscrowForDenomResponseAmino;
+    fromAminoMsg(object: QueryTotalEscrowForDenomResponseAminoMsg): QueryTotalEscrowForDenomResponse;
+    toAminoMsg(message: QueryTotalEscrowForDenomResponse): QueryTotalEscrowForDenomResponseAminoMsg;
+    fromProtoMsg(message: QueryTotalEscrowForDenomResponseProtoMsg): QueryTotalEscrowForDenomResponse;
+    toProto(message: QueryTotalEscrowForDenomResponse): Uint8Array;
+    toProtoMsg(message: QueryTotalEscrowForDenomResponse): QueryTotalEscrowForDenomResponseProtoMsg;
 };

@@ -2,8 +2,8 @@ import { BaseAccount, BaseAccountAmino, BaseAccountSDKType } from "../../../../c
 import { BinaryWriter } from "../../../../binary";
 /** An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain */
 export interface InterchainAccount {
-    $typeUrl?: string;
-    baseAccount: BaseAccount;
+    $typeUrl?: "/ibc.applications.interchain_accounts.v1.InterchainAccount";
+    baseAccount?: BaseAccount;
     accountOwner: string;
 }
 export interface InterchainAccountProtoMsg {
@@ -13,7 +13,7 @@ export interface InterchainAccountProtoMsg {
 /** An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain */
 export interface InterchainAccountAmino {
     base_account?: BaseAccountAmino;
-    account_owner: string;
+    account_owner?: string;
 }
 export interface InterchainAccountAminoMsg {
     type: "cosmos-sdk/InterchainAccount";
@@ -21,8 +21,8 @@ export interface InterchainAccountAminoMsg {
 }
 /** An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain */
 export interface InterchainAccountSDKType {
-    $typeUrl?: string;
-    base_account: BaseAccountSDKType;
+    $typeUrl?: "/ibc.applications.interchain_accounts.v1.InterchainAccount";
+    base_account?: BaseAccountSDKType;
     account_owner: string;
 }
 export declare const InterchainAccount: {

@@ -1,6 +1,6 @@
 import { Rpc } from "../../../helpers";
 import { QueryClient } from "@cosmjs/stargate";
-import { QueryFeeTokensRequest, QueryFeeTokensResponse, QueryDenomSpotPriceRequest, QueryDenomSpotPriceResponse, QueryDenomPoolIdRequest, QueryDenomPoolIdResponse, QueryBaseDenomRequest, QueryBaseDenomResponse } from "./query";
+import { QueryFeeTokensRequest, QueryFeeTokensResponse, QueryDenomSpotPriceRequest, QueryDenomSpotPriceResponse, QueryDenomPoolIdRequest, QueryDenomPoolIdResponse, QueryBaseDenomRequest, QueryBaseDenomResponse, QueryEipBaseFeeRequest, QueryEipBaseFeeResponse } from "./query";
 export interface Query {
     /**
      * FeeTokens returns a list of all the whitelisted fee tokens and their
@@ -14,6 +14,8 @@ export interface Query {
     denomPoolId(request: QueryDenomPoolIdRequest): Promise<QueryDenomPoolIdResponse>;
     /** Returns a list of all base denom tokens and their corresponding pools. */
     baseDenom(request?: QueryBaseDenomRequest): Promise<QueryBaseDenomResponse>;
+    /** Returns a list of all base denom tokens and their corresponding pools. */
+    getEipBaseFee(request?: QueryEipBaseFeeRequest): Promise<QueryEipBaseFeeResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -22,10 +24,12 @@ export declare class QueryClientImpl implements Query {
     denomSpotPrice(request: QueryDenomSpotPriceRequest): Promise<QueryDenomSpotPriceResponse>;
     denomPoolId(request: QueryDenomPoolIdRequest): Promise<QueryDenomPoolIdResponse>;
     baseDenom(request?: QueryBaseDenomRequest): Promise<QueryBaseDenomResponse>;
+    getEipBaseFee(request?: QueryEipBaseFeeRequest): Promise<QueryEipBaseFeeResponse>;
 }
 export declare const createRpcQueryExtension: (base: QueryClient) => {
     feeTokens(request?: QueryFeeTokensRequest): Promise<QueryFeeTokensResponse>;
     denomSpotPrice(request: QueryDenomSpotPriceRequest): Promise<QueryDenomSpotPriceResponse>;
     denomPoolId(request: QueryDenomPoolIdRequest): Promise<QueryDenomPoolIdResponse>;
     baseDenom(request?: QueryBaseDenomRequest): Promise<QueryBaseDenomResponse>;
+    getEipBaseFee(request?: QueryEipBaseFeeRequest): Promise<QueryEipBaseFeeResponse>;
 };

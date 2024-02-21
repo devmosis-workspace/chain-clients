@@ -1,5 +1,5 @@
 import { LCDClient } from "@cosmology/lcd";
-import { ModuleToDistributeCoinsRequest, ModuleToDistributeCoinsResponseSDKType, GaugeByIDRequest, GaugeByIDResponseSDKType, GaugesRequest, GaugesResponseSDKType, ActiveGaugesRequest, ActiveGaugesResponseSDKType, ActiveGaugesPerDenomRequest, ActiveGaugesPerDenomResponseSDKType, UpcomingGaugesRequest, UpcomingGaugesResponseSDKType, UpcomingGaugesPerDenomRequest, UpcomingGaugesPerDenomResponseSDKType, RewardsEstRequest, RewardsEstResponseSDKType, QueryLockableDurationsRequest, QueryLockableDurationsResponseSDKType } from "./query";
+import { ModuleToDistributeCoinsRequest, ModuleToDistributeCoinsResponseSDKType, GaugeByIDRequest, GaugeByIDResponseSDKType, GaugesRequest, GaugesResponseSDKType, ActiveGaugesRequest, ActiveGaugesResponseSDKType, ActiveGaugesPerDenomRequest, ActiveGaugesPerDenomResponseSDKType, UpcomingGaugesRequest, UpcomingGaugesResponseSDKType, UpcomingGaugesPerDenomRequest, UpcomingGaugesPerDenomResponseSDKType, RewardsEstRequest, RewardsEstResponseSDKType, QueryLockableDurationsRequest, QueryLockableDurationsResponseSDKType, QueryAllGroupsRequest, QueryAllGroupsResponseSDKType, QueryAllGroupsGaugesRequest, QueryAllGroupsGaugesResponseSDKType, QueryAllGroupsWithGaugeRequest, QueryAllGroupsWithGaugeResponseSDKType, QueryGroupByGroupGaugeIDRequest, QueryGroupByGroupGaugeIDResponseSDKType, QueryCurrentWeightByGroupGaugeIDRequest, QueryCurrentWeightByGroupGaugeIDResponseSDKType } from "./query";
 export declare class LCDQueryClient {
     req: LCDClient;
     constructor({ requestClient }: {
@@ -14,4 +14,9 @@ export declare class LCDQueryClient {
     upcomingGaugesPerDenom(params: UpcomingGaugesPerDenomRequest): Promise<UpcomingGaugesPerDenomResponseSDKType>;
     rewardsEst(params: RewardsEstRequest): Promise<RewardsEstResponseSDKType>;
     lockableDurations(_params?: QueryLockableDurationsRequest): Promise<QueryLockableDurationsResponseSDKType>;
+    allGroups(_params?: QueryAllGroupsRequest): Promise<QueryAllGroupsResponseSDKType>;
+    allGroupsGauges(_params?: QueryAllGroupsGaugesRequest): Promise<QueryAllGroupsGaugesResponseSDKType>;
+    allGroupsWithGauge(_params?: QueryAllGroupsWithGaugeRequest): Promise<QueryAllGroupsWithGaugeResponseSDKType>;
+    groupByGroupGaugeID(params: QueryGroupByGroupGaugeIDRequest): Promise<QueryGroupByGroupGaugeIDResponseSDKType>;
+    currentWeightByGroupGaugeID(params: QueryCurrentWeightByGroupGaugeIDRequest): Promise<QueryCurrentWeightByGroupGaugeIDResponseSDKType>;
 }

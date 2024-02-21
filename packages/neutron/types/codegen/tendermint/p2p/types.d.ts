@@ -9,9 +9,9 @@ export interface NetAddressProtoMsg {
     value: Uint8Array;
 }
 export interface NetAddressAmino {
-    id: string;
-    ip: string;
-    port: number;
+    id?: string;
+    ip?: string;
+    port?: number;
 }
 export interface NetAddressAminoMsg {
     type: "/tendermint.p2p.NetAddress";
@@ -32,9 +32,9 @@ export interface ProtocolVersionProtoMsg {
     value: Uint8Array;
 }
 export interface ProtocolVersionAmino {
-    p2p: string;
-    block: string;
-    app: string;
+    p2p?: string;
+    block?: string;
+    app?: string;
 }
 export interface ProtocolVersionAminoMsg {
     type: "/tendermint.p2p.ProtocolVersion";
@@ -61,12 +61,12 @@ export interface DefaultNodeInfoProtoMsg {
 }
 export interface DefaultNodeInfoAmino {
     protocol_version?: ProtocolVersionAmino;
-    default_node_id: string;
-    listen_addr: string;
-    network: string;
-    version: string;
-    channels: Uint8Array;
-    moniker: string;
+    default_node_id?: string;
+    listen_addr?: string;
+    network?: string;
+    version?: string;
+    channels?: string;
+    moniker?: string;
     other?: DefaultNodeInfoOtherAmino;
 }
 export interface DefaultNodeInfoAminoMsg {
@@ -92,8 +92,8 @@ export interface DefaultNodeInfoOtherProtoMsg {
     value: Uint8Array;
 }
 export interface DefaultNodeInfoOtherAmino {
-    tx_index: string;
-    rpc_address: string;
+    tx_index?: string;
+    rpc_address?: string;
 }
 export interface DefaultNodeInfoOtherAminoMsg {
     type: "/tendermint.p2p.DefaultNodeInfoOther";

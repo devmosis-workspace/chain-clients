@@ -8,8 +8,8 @@ export interface BlockStoreStateProtoMsg {
     value: Uint8Array;
 }
 export interface BlockStoreStateAmino {
-    base: string;
-    height: string;
+    base?: string;
+    height?: string;
 }
 export interface BlockStoreStateAminoMsg {
     type: "/tendermint.store.BlockStoreState";

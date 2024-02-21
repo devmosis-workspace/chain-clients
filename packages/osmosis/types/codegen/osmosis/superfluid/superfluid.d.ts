@@ -30,12 +30,12 @@ export interface SuperfluidAssetProtoMsg {
 }
 /** SuperfluidAsset stores the pair of superfluid asset type and denom pair */
 export interface SuperfluidAssetAmino {
-    denom: string;
+    denom?: string;
     /**
      * AssetType indicates whether the superfluid asset is a native token or an lp
      * share
      */
-    asset_type: SuperfluidAssetType;
+    asset_type?: SuperfluidAssetType;
 }
 export interface SuperfluidAssetAminoMsg {
     type: "osmosis/superfluid-asset";
@@ -69,10 +69,10 @@ export interface SuperfluidIntermediaryAccountProtoMsg {
  */
 export interface SuperfluidIntermediaryAccountAmino {
     /** Denom indicates the denom of the superfluid asset. */
-    denom: string;
-    val_addr: string;
+    denom?: string;
+    val_addr?: string;
     /** perpetual gauge for rewards distribution */
-    gauge_id: string;
+    gauge_id?: string;
 }
 export interface SuperfluidIntermediaryAccountAminoMsg {
     type: "osmosis/superfluid-intermediary-account";
@@ -92,10 +92,10 @@ export interface SuperfluidIntermediaryAccountSDKType {
  * The Osmo-Equivalent-Multiplier Record for epoch N refers to the osmo worth we
  * treat an LP share as having, for all of epoch N. Eventually this is intended
  * to be set as the Time-weighted-average-osmo-backing for the entire duration
- * of epoch N-1. (Thereby locking whats in use for epoch N as based on the prior
- * epochs rewards) However for now, this is not the TWAP but instead the spot
- * price at the boundary. For different types of assets in the future, it could
- * change.
+ * of epoch N-1. (Thereby locking what's in use for epoch N as based on the
+ * prior epochs rewards) However for now, this is not the TWAP but instead the
+ * spot price at the boundary. For different types of assets in the future, it
+ * could change.
  */
 export interface OsmoEquivalentMultiplierRecord {
     epochNumber: bigint;
@@ -111,16 +111,16 @@ export interface OsmoEquivalentMultiplierRecordProtoMsg {
  * The Osmo-Equivalent-Multiplier Record for epoch N refers to the osmo worth we
  * treat an LP share as having, for all of epoch N. Eventually this is intended
  * to be set as the Time-weighted-average-osmo-backing for the entire duration
- * of epoch N-1. (Thereby locking whats in use for epoch N as based on the prior
- * epochs rewards) However for now, this is not the TWAP but instead the spot
- * price at the boundary. For different types of assets in the future, it could
- * change.
+ * of epoch N-1. (Thereby locking what's in use for epoch N as based on the
+ * prior epochs rewards) However for now, this is not the TWAP but instead the
+ * spot price at the boundary. For different types of assets in the future, it
+ * could change.
  */
 export interface OsmoEquivalentMultiplierRecordAmino {
-    epoch_number: string;
+    epoch_number?: string;
     /** superfluid asset denom, can be LP token or native token */
-    denom: string;
-    multiplier: string;
+    denom?: string;
+    multiplier?: string;
 }
 export interface OsmoEquivalentMultiplierRecordAminoMsg {
     type: "osmosis/osmo-equivalent-multiplier-record";
@@ -130,10 +130,10 @@ export interface OsmoEquivalentMultiplierRecordAminoMsg {
  * The Osmo-Equivalent-Multiplier Record for epoch N refers to the osmo worth we
  * treat an LP share as having, for all of epoch N. Eventually this is intended
  * to be set as the Time-weighted-average-osmo-backing for the entire duration
- * of epoch N-1. (Thereby locking whats in use for epoch N as based on the prior
- * epochs rewards) However for now, this is not the TWAP but instead the spot
- * price at the boundary. For different types of assets in the future, it could
- * change.
+ * of epoch N-1. (Thereby locking what's in use for epoch N as based on the
+ * prior epochs rewards) However for now, this is not the TWAP but instead the
+ * spot price at the boundary. For different types of assets in the future, it
+ * could change.
  */
 export interface OsmoEquivalentMultiplierRecordSDKType {
     epoch_number: bigint;
@@ -148,7 +148,7 @@ export interface SuperfluidDelegationRecord {
     delegatorAddress: string;
     validatorAddress: string;
     delegationAmount: Coin;
-    equivalentStakedAmount: Coin;
+    equivalentStakedAmount?: Coin;
 }
 export interface SuperfluidDelegationRecordProtoMsg {
     typeUrl: "/osmosis.superfluid.SuperfluidDelegationRecord";
@@ -159,8 +159,8 @@ export interface SuperfluidDelegationRecordProtoMsg {
  * delegations of an account in the state machine in a user friendly form.
  */
 export interface SuperfluidDelegationRecordAmino {
-    delegator_address: string;
-    validator_address: string;
+    delegator_address?: string;
+    validator_address?: string;
     delegation_amount?: CoinAmino;
     equivalent_staked_amount?: CoinAmino;
 }
@@ -176,7 +176,7 @@ export interface SuperfluidDelegationRecordSDKType {
     delegator_address: string;
     validator_address: string;
     delegation_amount: CoinSDKType;
-    equivalent_staked_amount: CoinSDKType;
+    equivalent_staked_amount?: CoinSDKType;
 }
 /**
  * LockIdIntermediaryAccountConnection is a struct used to indicate the
@@ -197,8 +197,8 @@ export interface LockIdIntermediaryAccountConnectionProtoMsg {
  * via lp shares.
  */
 export interface LockIdIntermediaryAccountConnectionAmino {
-    lock_id: string;
-    intermediary_account: string;
+    lock_id?: string;
+    intermediary_account?: string;
 }
 export interface LockIdIntermediaryAccountConnectionAminoMsg {
     type: "osmosis/lock-id-intermediary-account-connection";
@@ -221,7 +221,7 @@ export interface UnpoolWhitelistedPoolsProtoMsg {
     value: Uint8Array;
 }
 export interface UnpoolWhitelistedPoolsAmino {
-    ids: string[];
+    ids?: string[];
 }
 export interface UnpoolWhitelistedPoolsAminoMsg {
     type: "osmosis/unpool-whitelisted-pools";
@@ -236,16 +236,16 @@ export interface ConcentratedPoolUserPositionRecord {
     lockId: bigint;
     syntheticLock: SyntheticLock;
     delegationAmount: Coin;
-    equivalentStakedAmount: Coin;
+    equivalentStakedAmount?: Coin;
 }
 export interface ConcentratedPoolUserPositionRecordProtoMsg {
     typeUrl: "/osmosis.superfluid.ConcentratedPoolUserPositionRecord";
     value: Uint8Array;
 }
 export interface ConcentratedPoolUserPositionRecordAmino {
-    validator_address: string;
-    position_id: string;
-    lock_id: string;
+    validator_address?: string;
+    position_id?: string;
+    lock_id?: string;
     synthetic_lock?: SyntheticLockAmino;
     delegation_amount?: CoinAmino;
     equivalent_staked_amount?: CoinAmino;
@@ -260,7 +260,7 @@ export interface ConcentratedPoolUserPositionRecordSDKType {
     lock_id: bigint;
     synthetic_lock: SyntheticLockSDKType;
     delegation_amount: CoinSDKType;
-    equivalent_staked_amount: CoinSDKType;
+    equivalent_staked_amount?: CoinSDKType;
 }
 export declare const SuperfluidAsset: {
     typeUrl: string;

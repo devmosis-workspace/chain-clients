@@ -7,7 +7,7 @@ export interface TxsProtoMsg {
     value: Uint8Array;
 }
 export interface TxsAmino {
-    txs: Uint8Array[];
+    txs?: string[];
 }
 export interface TxsAminoMsg {
     type: "/tendermint.mempool.Txs";

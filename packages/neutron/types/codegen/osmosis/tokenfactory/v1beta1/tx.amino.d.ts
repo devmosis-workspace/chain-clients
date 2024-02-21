@@ -1,4 +1,4 @@
-import { MsgCreateDenom, MsgMint, MsgBurn, MsgChangeAdmin } from "./tx";
+import { MsgCreateDenom, MsgMint, MsgBurn, MsgChangeAdmin, MsgSetDenomMetadata, MsgSetBeforeSendHook, MsgForceTransfer, MsgUpdateParams } from "./tx";
 export declare const AminoConverter: {
     "/osmosis.tokenfactory.v1beta1.MsgCreateDenom": {
         aminoType: string;
@@ -19,5 +19,25 @@ export declare const AminoConverter: {
         aminoType: string;
         toAmino: (message: MsgChangeAdmin) => import("./tx").MsgChangeAdminAmino;
         fromAmino: (object: import("./tx").MsgChangeAdminAmino) => MsgChangeAdmin;
+    };
+    "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata": {
+        aminoType: string;
+        toAmino: (message: MsgSetDenomMetadata) => import("./tx").MsgSetDenomMetadataAmino;
+        fromAmino: (object: import("./tx").MsgSetDenomMetadataAmino) => MsgSetDenomMetadata;
+    };
+    "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook": {
+        aminoType: string;
+        toAmino: (message: MsgSetBeforeSendHook) => import("./tx").MsgSetBeforeSendHookAmino;
+        fromAmino: (object: import("./tx").MsgSetBeforeSendHookAmino) => MsgSetBeforeSendHook;
+    };
+    "/osmosis.tokenfactory.v1beta1.MsgForceTransfer": {
+        aminoType: string;
+        toAmino: (message: MsgForceTransfer) => import("./tx").MsgForceTransferAmino;
+        fromAmino: (object: import("./tx").MsgForceTransferAmino) => MsgForceTransfer;
+    };
+    "/osmosis.tokenfactory.v1beta1.MsgUpdateParams": {
+        aminoType: string;
+        toAmino: (message: MsgUpdateParams) => import("./tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./tx").MsgUpdateParamsAmino) => MsgUpdateParams;
     };
 };

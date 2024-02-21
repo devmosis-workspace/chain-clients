@@ -4,33 +4,38 @@ import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const osmosisAminoConverters: {
     "/osmosis.valsetpref.v1beta1.MsgSetValidatorSetPreference": {
         aminoType: string;
-        toAmino: (message: import("./valset-pref/v1beta1/tx").MsgSetValidatorSetPreference) => import("./valset-pref/v1beta1/tx").MsgSetValidatorSetPreferenceAmino;
-        fromAmino: (object: import("./valset-pref/v1beta1/tx").MsgSetValidatorSetPreferenceAmino) => import("./valset-pref/v1beta1/tx").MsgSetValidatorSetPreference;
+        toAmino: (message: import("./valsetpref/v1beta1/tx").MsgSetValidatorSetPreference) => import("./valsetpref/v1beta1/tx").MsgSetValidatorSetPreferenceAmino;
+        fromAmino: (object: import("./valsetpref/v1beta1/tx").MsgSetValidatorSetPreferenceAmino) => import("./valsetpref/v1beta1/tx").MsgSetValidatorSetPreference;
     };
     "/osmosis.valsetpref.v1beta1.MsgDelegateToValidatorSet": {
         aminoType: string;
-        toAmino: (message: import("./valset-pref/v1beta1/tx").MsgDelegateToValidatorSet) => import("./valset-pref/v1beta1/tx").MsgDelegateToValidatorSetAmino;
-        fromAmino: (object: import("./valset-pref/v1beta1/tx").MsgDelegateToValidatorSetAmino) => import("./valset-pref/v1beta1/tx").MsgDelegateToValidatorSet;
+        toAmino: (message: import("./valsetpref/v1beta1/tx").MsgDelegateToValidatorSet) => import("./valsetpref/v1beta1/tx").MsgDelegateToValidatorSetAmino;
+        fromAmino: (object: import("./valsetpref/v1beta1/tx").MsgDelegateToValidatorSetAmino) => import("./valsetpref/v1beta1/tx").MsgDelegateToValidatorSet;
     };
     "/osmosis.valsetpref.v1beta1.MsgUndelegateFromValidatorSet": {
         aminoType: string;
-        toAmino: (message: import("./valset-pref/v1beta1/tx").MsgUndelegateFromValidatorSet) => import("./valset-pref/v1beta1/tx").MsgUndelegateFromValidatorSetAmino;
-        fromAmino: (object: import("./valset-pref/v1beta1/tx").MsgUndelegateFromValidatorSetAmino) => import("./valset-pref/v1beta1/tx").MsgUndelegateFromValidatorSet;
+        toAmino: (message: import("./valsetpref/v1beta1/tx").MsgUndelegateFromValidatorSet) => import("./valsetpref/v1beta1/tx").MsgUndelegateFromValidatorSetAmino;
+        fromAmino: (object: import("./valsetpref/v1beta1/tx").MsgUndelegateFromValidatorSetAmino) => import("./valsetpref/v1beta1/tx").MsgUndelegateFromValidatorSet;
+    };
+    "/osmosis.valsetpref.v1beta1.MsgUndelegateFromRebalancedValidatorSet": {
+        aminoType: string;
+        toAmino: (message: import("./valsetpref/v1beta1/tx").MsgUndelegateFromRebalancedValidatorSet) => import("./valsetpref/v1beta1/tx").MsgUndelegateFromRebalancedValidatorSetAmino;
+        fromAmino: (object: import("./valsetpref/v1beta1/tx").MsgUndelegateFromRebalancedValidatorSetAmino) => import("./valsetpref/v1beta1/tx").MsgUndelegateFromRebalancedValidatorSet;
     };
     "/osmosis.valsetpref.v1beta1.MsgRedelegateValidatorSet": {
         aminoType: string;
-        toAmino: (message: import("./valset-pref/v1beta1/tx").MsgRedelegateValidatorSet) => import("./valset-pref/v1beta1/tx").MsgRedelegateValidatorSetAmino;
-        fromAmino: (object: import("./valset-pref/v1beta1/tx").MsgRedelegateValidatorSetAmino) => import("./valset-pref/v1beta1/tx").MsgRedelegateValidatorSet;
+        toAmino: (message: import("./valsetpref/v1beta1/tx").MsgRedelegateValidatorSet) => import("./valsetpref/v1beta1/tx").MsgRedelegateValidatorSetAmino;
+        fromAmino: (object: import("./valsetpref/v1beta1/tx").MsgRedelegateValidatorSetAmino) => import("./valsetpref/v1beta1/tx").MsgRedelegateValidatorSet;
     };
     "/osmosis.valsetpref.v1beta1.MsgWithdrawDelegationRewards": {
         aminoType: string;
-        toAmino: (message: import("./valset-pref/v1beta1/tx").MsgWithdrawDelegationRewards) => import("./valset-pref/v1beta1/tx").MsgWithdrawDelegationRewardsAmino;
-        fromAmino: (object: import("./valset-pref/v1beta1/tx").MsgWithdrawDelegationRewardsAmino) => import("./valset-pref/v1beta1/tx").MsgWithdrawDelegationRewards;
+        toAmino: (message: import("./valsetpref/v1beta1/tx").MsgWithdrawDelegationRewards) => import("./valsetpref/v1beta1/tx").MsgWithdrawDelegationRewardsAmino;
+        fromAmino: (object: import("./valsetpref/v1beta1/tx").MsgWithdrawDelegationRewardsAmino) => import("./valsetpref/v1beta1/tx").MsgWithdrawDelegationRewards;
     };
     "/osmosis.valsetpref.v1beta1.MsgDelegateBondedTokens": {
         aminoType: string;
-        toAmino: (message: import("./valset-pref/v1beta1/tx").MsgDelegateBondedTokens) => import("./valset-pref/v1beta1/tx").MsgDelegateBondedTokensAmino;
-        fromAmino: (object: import("./valset-pref/v1beta1/tx").MsgDelegateBondedTokensAmino) => import("./valset-pref/v1beta1/tx").MsgDelegateBondedTokens;
+        toAmino: (message: import("./valsetpref/v1beta1/tx").MsgDelegateBondedTokens) => import("./valsetpref/v1beta1/tx").MsgDelegateBondedTokensAmino;
+        fromAmino: (object: import("./valsetpref/v1beta1/tx").MsgDelegateBondedTokensAmino) => import("./valsetpref/v1beta1/tx").MsgDelegateBondedTokens;
     };
     "/osmosis.tokenfactory.v1beta1.MsgCreateDenom": {
         aminoType: string;
@@ -212,10 +217,15 @@ export declare const osmosisAminoConverters: {
         toAmino: (message: import("./incentives/tx").MsgAddToGauge) => import("./incentives/tx").MsgAddToGaugeAmino;
         fromAmino: (object: import("./incentives/tx").MsgAddToGaugeAmino) => import("./incentives/tx").MsgAddToGauge;
     };
+    "/osmosis.incentives.MsgCreateGroup": {
+        aminoType: string;
+        toAmino: (message: import("./incentives/tx").MsgCreateGroup) => import("./incentives/tx").MsgCreateGroupAmino;
+        fromAmino: (object: import("./incentives/tx").MsgCreateGroupAmino) => import("./incentives/tx").MsgCreateGroup;
+    };
     "/osmosis.ibchooks.MsgEmitIBCAck": {
         aminoType: string;
-        toAmino: (message: import("./ibc-hooks/tx").MsgEmitIBCAck) => import("./ibc-hooks/tx").MsgEmitIBCAckAmino;
-        fromAmino: (object: import("./ibc-hooks/tx").MsgEmitIBCAckAmino) => import("./ibc-hooks/tx").MsgEmitIBCAck;
+        toAmino: (message: import("./ibchooks/tx").MsgEmitIBCAck) => import("./ibchooks/tx").MsgEmitIBCAckAmino;
+        fromAmino: (object: import("./ibchooks/tx").MsgEmitIBCAckAmino) => import("./ibchooks/tx").MsgEmitIBCAck;
     };
     "/osmosis.gamm.v1beta1.MsgJoinPool": {
         aminoType: string;
@@ -259,48 +269,53 @@ export declare const osmosisAminoConverters: {
     };
     "/osmosis.gamm.poolmodels.stableswap.v1beta1.MsgCreateStableswapPool": {
         aminoType: string;
-        toAmino: (message: import("./gamm/pool-models/stableswap/tx").MsgCreateStableswapPool) => import("./gamm/pool-models/stableswap/tx").MsgCreateStableswapPoolAmino;
-        fromAmino: (object: import("./gamm/pool-models/stableswap/tx").MsgCreateStableswapPoolAmino) => import("./gamm/pool-models/stableswap/tx").MsgCreateStableswapPool;
+        toAmino: (message: import("./gamm/poolmodels/stableswap/v1beta1/tx").MsgCreateStableswapPool) => import("./gamm/poolmodels/stableswap/v1beta1/tx").MsgCreateStableswapPoolAmino;
+        fromAmino: (object: import("./gamm/poolmodels/stableswap/v1beta1/tx").MsgCreateStableswapPoolAmino) => import("./gamm/poolmodels/stableswap/v1beta1/tx").MsgCreateStableswapPool;
     };
     "/osmosis.gamm.poolmodels.stableswap.v1beta1.MsgStableSwapAdjustScalingFactors": {
         aminoType: string;
-        toAmino: (message: import("./gamm/pool-models/stableswap/tx").MsgStableSwapAdjustScalingFactors) => import("./gamm/pool-models/stableswap/tx").MsgStableSwapAdjustScalingFactorsAmino;
-        fromAmino: (object: import("./gamm/pool-models/stableswap/tx").MsgStableSwapAdjustScalingFactorsAmino) => import("./gamm/pool-models/stableswap/tx").MsgStableSwapAdjustScalingFactors;
+        toAmino: (message: import("./gamm/poolmodels/stableswap/v1beta1/tx").MsgStableSwapAdjustScalingFactors) => import("./gamm/poolmodels/stableswap/v1beta1/tx").MsgStableSwapAdjustScalingFactorsAmino;
+        fromAmino: (object: import("./gamm/poolmodels/stableswap/v1beta1/tx").MsgStableSwapAdjustScalingFactorsAmino) => import("./gamm/poolmodels/stableswap/v1beta1/tx").MsgStableSwapAdjustScalingFactors;
     };
     "/osmosis.gamm.poolmodels.balancer.v1beta1.MsgCreateBalancerPool": {
         aminoType: string;
-        toAmino: (message: import("./gamm/pool-models/balancer/tx/tx").MsgCreateBalancerPool) => import("./gamm/pool-models/balancer/tx/tx").MsgCreateBalancerPoolAmino;
-        fromAmino: (object: import("./gamm/pool-models/balancer/tx/tx").MsgCreateBalancerPoolAmino) => import("./gamm/pool-models/balancer/tx/tx").MsgCreateBalancerPool;
+        toAmino: (message: import("./gamm/poolmodels/balancer/v1beta1/tx").MsgCreateBalancerPool) => import("./gamm/poolmodels/balancer/v1beta1/tx").MsgCreateBalancerPoolAmino;
+        fromAmino: (object: import("./gamm/poolmodels/balancer/v1beta1/tx").MsgCreateBalancerPoolAmino) => import("./gamm/poolmodels/balancer/v1beta1/tx").MsgCreateBalancerPool;
     };
     "/osmosis.concentratedliquidity.v1beta1.MsgCreatePosition": {
         aminoType: string;
-        toAmino: (message: import("./concentrated-liquidity/tx").MsgCreatePosition) => import("./concentrated-liquidity/tx").MsgCreatePositionAmino;
-        fromAmino: (object: import("./concentrated-liquidity/tx").MsgCreatePositionAmino) => import("./concentrated-liquidity/tx").MsgCreatePosition;
+        toAmino: (message: import("./concentratedliquidity/v1beta1/tx").MsgCreatePosition) => import("./concentratedliquidity/v1beta1/tx").MsgCreatePositionAmino;
+        fromAmino: (object: import("./concentratedliquidity/v1beta1/tx").MsgCreatePositionAmino) => import("./concentratedliquidity/v1beta1/tx").MsgCreatePosition;
     };
     "/osmosis.concentratedliquidity.v1beta1.MsgWithdrawPosition": {
         aminoType: string;
-        toAmino: (message: import("./concentrated-liquidity/tx").MsgWithdrawPosition) => import("./concentrated-liquidity/tx").MsgWithdrawPositionAmino;
-        fromAmino: (object: import("./concentrated-liquidity/tx").MsgWithdrawPositionAmino) => import("./concentrated-liquidity/tx").MsgWithdrawPosition;
+        toAmino: (message: import("./concentratedliquidity/v1beta1/tx").MsgWithdrawPosition) => import("./concentratedliquidity/v1beta1/tx").MsgWithdrawPositionAmino;
+        fromAmino: (object: import("./concentratedliquidity/v1beta1/tx").MsgWithdrawPositionAmino) => import("./concentratedliquidity/v1beta1/tx").MsgWithdrawPosition;
     };
     "/osmosis.concentratedliquidity.v1beta1.MsgAddToPosition": {
         aminoType: string;
-        toAmino: (message: import("./concentrated-liquidity/tx").MsgAddToPosition) => import("./concentrated-liquidity/tx").MsgAddToPositionAmino;
-        fromAmino: (object: import("./concentrated-liquidity/tx").MsgAddToPositionAmino) => import("./concentrated-liquidity/tx").MsgAddToPosition;
+        toAmino: (message: import("./concentratedliquidity/v1beta1/tx").MsgAddToPosition) => import("./concentratedliquidity/v1beta1/tx").MsgAddToPositionAmino;
+        fromAmino: (object: import("./concentratedliquidity/v1beta1/tx").MsgAddToPositionAmino) => import("./concentratedliquidity/v1beta1/tx").MsgAddToPosition;
     };
     "/osmosis.concentratedliquidity.v1beta1.MsgCollectSpreadRewards": {
         aminoType: string;
-        toAmino: (message: import("./concentrated-liquidity/tx").MsgCollectSpreadRewards) => import("./concentrated-liquidity/tx").MsgCollectSpreadRewardsAmino;
-        fromAmino: (object: import("./concentrated-liquidity/tx").MsgCollectSpreadRewardsAmino) => import("./concentrated-liquidity/tx").MsgCollectSpreadRewards;
+        toAmino: (message: import("./concentratedliquidity/v1beta1/tx").MsgCollectSpreadRewards) => import("./concentratedliquidity/v1beta1/tx").MsgCollectSpreadRewardsAmino;
+        fromAmino: (object: import("./concentratedliquidity/v1beta1/tx").MsgCollectSpreadRewardsAmino) => import("./concentratedliquidity/v1beta1/tx").MsgCollectSpreadRewards;
     };
     "/osmosis.concentratedliquidity.v1beta1.MsgCollectIncentives": {
         aminoType: string;
-        toAmino: (message: import("./concentrated-liquidity/tx").MsgCollectIncentives) => import("./concentrated-liquidity/tx").MsgCollectIncentivesAmino;
-        fromAmino: (object: import("./concentrated-liquidity/tx").MsgCollectIncentivesAmino) => import("./concentrated-liquidity/tx").MsgCollectIncentives;
+        toAmino: (message: import("./concentratedliquidity/v1beta1/tx").MsgCollectIncentives) => import("./concentratedliquidity/v1beta1/tx").MsgCollectIncentivesAmino;
+        fromAmino: (object: import("./concentratedliquidity/v1beta1/tx").MsgCollectIncentivesAmino) => import("./concentratedliquidity/v1beta1/tx").MsgCollectIncentives;
+    };
+    "/osmosis.concentratedliquidity.v1beta1.MsgTransferPositions": {
+        aminoType: string;
+        toAmino: (message: import("./concentratedliquidity/v1beta1/tx").MsgTransferPositions) => import("./concentratedliquidity/v1beta1/tx").MsgTransferPositionsAmino;
+        fromAmino: (object: import("./concentratedliquidity/v1beta1/tx").MsgTransferPositionsAmino) => import("./concentratedliquidity/v1beta1/tx").MsgTransferPositions;
     };
     "/osmosis.concentratedliquidity.poolmodel.concentrated.v1beta1.MsgCreateConcentratedPool": {
         aminoType: string;
-        toAmino: (message: import("./concentrated-liquidity/pool-model/concentrated/tx").MsgCreateConcentratedPool) => import("./concentrated-liquidity/pool-model/concentrated/tx").MsgCreateConcentratedPoolAmino;
-        fromAmino: (object: import("./concentrated-liquidity/pool-model/concentrated/tx").MsgCreateConcentratedPoolAmino) => import("./concentrated-liquidity/pool-model/concentrated/tx").MsgCreateConcentratedPool;
+        toAmino: (message: import("./concentratedliquidity/poolmodel/concentrated/v1beta1/tx").MsgCreateConcentratedPool) => import("./concentratedliquidity/poolmodel/concentrated/v1beta1/tx").MsgCreateConcentratedPoolAmino;
+        fromAmino: (object: import("./concentratedliquidity/poolmodel/concentrated/v1beta1/tx").MsgCreateConcentratedPoolAmino) => import("./concentratedliquidity/poolmodel/concentrated/v1beta1/tx").MsgCreateConcentratedPool;
     };
 };
 export declare const osmosisProtoRegistry: ReadonlyArray<[string, GeneratedType]>;

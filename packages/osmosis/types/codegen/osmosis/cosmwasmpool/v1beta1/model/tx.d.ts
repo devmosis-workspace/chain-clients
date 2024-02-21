@@ -11,9 +11,9 @@ export interface MsgCreateCosmWasmPoolProtoMsg {
 }
 /** ===================== MsgCreateCosmwasmPool */
 export interface MsgCreateCosmWasmPoolAmino {
-    code_id: string;
-    instantiate_msg: Uint8Array;
-    sender: string;
+    code_id?: string;
+    instantiate_msg?: string;
+    sender?: string;
 }
 export interface MsgCreateCosmWasmPoolAminoMsg {
     type: "osmosis/cosmwasmpool/create-cosm-wasm-pool";
@@ -35,7 +35,7 @@ export interface MsgCreateCosmWasmPoolResponseProtoMsg {
 }
 /** Returns a unique poolID to identify the pool with. */
 export interface MsgCreateCosmWasmPoolResponseAmino {
-    pool_id: string;
+    pool_id?: string;
 }
 export interface MsgCreateCosmWasmPoolResponseAminoMsg {
     type: "osmosis/cosmwasmpool/create-cosm-wasm-pool-response";
