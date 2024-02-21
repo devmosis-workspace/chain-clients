@@ -106,6 +106,13 @@ export interface MatchPerpetualDeleveraging {
   perpetualId: number;
   /** An ordered list of fills created by this liquidation. */
   fills: MatchPerpetualDeleveraging_Fill[];
+  /**
+   * Flag denoting whether the deleveraging operation was for the purpose
+   * of final settlement. Final settlement matches are at the oracle price,
+   * whereas deleveraging happens at the bankruptcy price of the deleveraged
+   * subaccount.
+   */
+  isFinalSettlement: boolean;
 }
 export interface MatchPerpetualDeleveragingProtoMsg {
   typeUrl: "/dydxprotocol.clob.MatchPerpetualDeleveraging";
@@ -119,6 +126,7 @@ export interface MatchPerpetualDeleveragingSDKType {
   liquidated: SubaccountIdSDKType;
   perpetual_id: number;
   fills: MatchPerpetualDeleveraging_FillSDKType[];
+  is_final_settlement: boolean;
 }
 /** Fill represents a fill between the liquidated and offsetting subaccount. */
 export interface MatchPerpetualDeleveraging_Fill {
@@ -445,7 +453,8 @@ function createBaseMatchPerpetualDeleveraging(): MatchPerpetualDeleveraging {
   return {
     liquidated: SubaccountId.fromPartial({}),
     perpetualId: 0,
-    fills: []
+    fills: [],
+    isFinalSettlement: false
   };
 }
 export const MatchPerpetualDeleveraging = {
@@ -460,13 +469,17 @@ export const MatchPerpetualDeleveraging = {
     for (const v of message.fills) {
       MatchPerpetualDeleveraging_Fill.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+    if (message.isFinalSettlement === true) {
+      writer.uint32(32).bool(message.isFinalSettlement);
+    }
     return writer;
   },
   fromJSON(object: any): MatchPerpetualDeleveraging {
     return {
       liquidated: isSet(object.liquidated) ? SubaccountId.fromJSON(object.liquidated) : undefined,
       perpetualId: isSet(object.perpetualId) ? Number(object.perpetualId) : 0,
-      fills: Array.isArray(object?.fills) ? object.fills.map((e: any) => MatchPerpetualDeleveraging_Fill.fromJSON(e)) : []
+      fills: Array.isArray(object?.fills) ? object.fills.map((e: any) => MatchPerpetualDeleveraging_Fill.fromJSON(e)) : [],
+      isFinalSettlement: isSet(object.isFinalSettlement) ? Boolean(object.isFinalSettlement) : false
     };
   },
   fromPartial(object: Partial<MatchPerpetualDeleveraging>): MatchPerpetualDeleveraging {
@@ -474,6 +487,7 @@ export const MatchPerpetualDeleveraging = {
     message.liquidated = object.liquidated !== undefined && object.liquidated !== null ? SubaccountId.fromPartial(object.liquidated) : undefined;
     message.perpetualId = object.perpetualId ?? 0;
     message.fills = object.fills?.map(e => MatchPerpetualDeleveraging_Fill.fromPartial(e)) || [];
+    message.isFinalSettlement = object.isFinalSettlement ?? false;
     return message;
   },
   fromAmino(object: MatchPerpetualDeleveragingAmino): MatchPerpetualDeleveraging {
@@ -485,6 +499,9 @@ export const MatchPerpetualDeleveraging = {
       message.perpetualId = object.perpetual_id;
     }
     message.fills = object.fills?.map(e => MatchPerpetualDeleveraging_Fill.fromAmino(e)) || [];
+    if (object.is_final_settlement !== undefined && object.is_final_settlement !== null) {
+      message.isFinalSettlement = object.is_final_settlement;
+    }
     return message;
   },
   toAmino(message: MatchPerpetualDeleveraging): MatchPerpetualDeleveragingAmino {
@@ -496,6 +513,7 @@ export const MatchPerpetualDeleveraging = {
     } else {
       obj.fills = [];
     }
+    obj.is_final_settlement = message.isFinalSettlement;
     return obj;
   },
   fromAminoMsg(object: MatchPerpetualDeleveragingAminoMsg): MatchPerpetualDeleveraging {

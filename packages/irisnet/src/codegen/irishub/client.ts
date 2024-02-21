@@ -1,12 +1,15 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as guardianTxRegistry from "../guardian/tx.registry";
-import * as guardianTxAmino from "../guardian/tx.amino";
+import * as irishubGuardianTxRegistry from "./guardian/tx.registry";
+import * as irishubMintTxRegistry from "./mint/tx.registry";
+import * as irishubGuardianTxAmino from "./guardian/tx.amino";
+import * as irishubMintTxAmino from "./mint/tx.amino";
 export const irishubAminoConverters = {
-  ...guardianTxAmino.AminoConverter
+  ...irishubGuardianTxAmino.AminoConverter,
+  ...irishubMintTxAmino.AminoConverter
 };
-export const irishubProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...guardianTxRegistry.registry];
+export const irishubProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...irishubGuardianTxRegistry.registry, ...irishubMintTxRegistry.registry];
 export const getSigningIrishubClientOptions = ({
   defaultTypes = defaultRegistryTypes
 }: {

@@ -27,6 +27,13 @@ export enum ClobPair_Status {
    * both short-term and post-only.
    */
   STATUS_INITIALIZING = 5,
+  /**
+   * STATUS_FINAL_SETTLEMENT - STATUS_FINAL_SETTLEMENT represents a clob pair which is deactivated
+   * and trading has ceased. All open positions will be closed by the
+   * protocol. Open stateful orders will be cancelled. Open short-term
+   * orders will be left to expire.
+   */
+  STATUS_FINAL_SETTLEMENT = 6,
   UNRECOGNIZED = -1,
 }
 export const ClobPair_StatusSDKType = ClobPair_Status;
@@ -50,6 +57,9 @@ export function clobPair_StatusFromJSON(object: any): ClobPair_Status {
     case 5:
     case "STATUS_INITIALIZING":
       return ClobPair_Status.STATUS_INITIALIZING;
+    case 6:
+    case "STATUS_FINAL_SETTLEMENT":
+      return ClobPair_Status.STATUS_FINAL_SETTLEMENT;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -70,6 +80,8 @@ export function clobPair_StatusToJSON(object: ClobPair_Status): string {
       return "STATUS_POST_ONLY";
     case ClobPair_Status.STATUS_INITIALIZING:
       return "STATUS_INITIALIZING";
+    case ClobPair_Status.STATUS_FINAL_SETTLEMENT:
+      return "STATUS_FINAL_SETTLEMENT";
     case ClobPair_Status.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";

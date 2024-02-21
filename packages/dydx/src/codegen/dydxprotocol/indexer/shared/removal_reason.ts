@@ -62,6 +62,8 @@ export enum OrderRemovalReason {
    * equity tier requirements.
    */
   ORDER_REMOVAL_REASON_EQUITY_TIER = 13,
+  /** ORDER_REMOVAL_REASON_FINAL_SETTLEMENT - The order has been removed since its ClobPair has entered final settlement. */
+  ORDER_REMOVAL_REASON_FINAL_SETTLEMENT = 14,
   UNRECOGNIZED = -1,
 }
 export const OrderRemovalReasonSDKType = OrderRemovalReason;
@@ -109,6 +111,9 @@ export function orderRemovalReasonFromJSON(object: any): OrderRemovalReason {
     case 13:
     case "ORDER_REMOVAL_REASON_EQUITY_TIER":
       return OrderRemovalReason.ORDER_REMOVAL_REASON_EQUITY_TIER;
+    case 14:
+    case "ORDER_REMOVAL_REASON_FINAL_SETTLEMENT":
+      return OrderRemovalReason.ORDER_REMOVAL_REASON_FINAL_SETTLEMENT;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -145,6 +150,8 @@ export function orderRemovalReasonToJSON(object: OrderRemovalReason): string {
       return "ORDER_REMOVAL_REASON_FULLY_FILLED";
     case OrderRemovalReason.ORDER_REMOVAL_REASON_EQUITY_TIER:
       return "ORDER_REMOVAL_REASON_EQUITY_TIER";
+    case OrderRemovalReason.ORDER_REMOVAL_REASON_FINAL_SETTLEMENT:
+      return "ORDER_REMOVAL_REASON_FINAL_SETTLEMENT";
     case OrderRemovalReason.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";

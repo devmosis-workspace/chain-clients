@@ -132,7 +132,7 @@ export interface FundingEventV1SDKType {
 }
 /**
  * MarketEvent message contains all the information about a market event on
- * the V4 chain.
+ * the dYdX chain.
  */
 export interface MarketEventV1 {
   /** market id. */
@@ -147,7 +147,7 @@ export interface MarketEventV1ProtoMsg {
 }
 /**
  * MarketEvent message contains all the information about a market event on
- * the V4 chain.
+ * the dYdX chain.
  */
 export interface MarketEventV1SDKType {
   market_id: number;
@@ -157,7 +157,7 @@ export interface MarketEventV1SDKType {
 }
 /**
  * MarketPriceUpdateEvent message contains all the information about a price
- * update on the V4 chain.
+ * update on the dYdX chain.
  */
 export interface MarketPriceUpdateEventV1 {
   /**
@@ -173,7 +173,7 @@ export interface MarketPriceUpdateEventV1ProtoMsg {
 }
 /**
  * MarketPriceUpdateEvent message contains all the information about a price
- * update on the V4 chain.
+ * update on the dYdX chain.
  */
 export interface MarketPriceUpdateEventV1SDKType {
   price_with_exponent: bigint;
@@ -199,7 +199,7 @@ export interface MarketBaseEventV1SDKType {
 }
 /**
  * MarketCreateEvent message contains all the information about a new market on
- * the V4 chain.
+ * the dYdX chain.
  */
 export interface MarketCreateEventV1 {
   base?: MarketBaseEventV1;
@@ -217,7 +217,7 @@ export interface MarketCreateEventV1ProtoMsg {
 }
 /**
  * MarketCreateEvent message contains all the information about a new market on
- * the V4 chain.
+ * the dYdX chain.
  */
 export interface MarketCreateEventV1SDKType {
   base?: MarketBaseEventV1SDKType;
@@ -225,12 +225,12 @@ export interface MarketCreateEventV1SDKType {
 }
 /**
  * MarketModifyEvent message contains all the information about a market update
- * on the V4 chain
+ * on the dYdX chain
  */
 export interface MarketModifyEventV1 {
   /**
    * MarketModifyEvent message contains all the information about a market update
-   * on the V4 chain
+   * on the dYdX chain
    */
   base?: MarketBaseEventV1;
 }
@@ -240,7 +240,7 @@ export interface MarketModifyEventV1ProtoMsg {
 }
 /**
  * MarketModifyEvent message contains all the information about a market update
- * on the V4 chain
+ * on the dYdX chain
  */
 export interface MarketModifyEventV1SDKType {
   base?: MarketBaseEventV1SDKType;
@@ -261,7 +261,7 @@ export interface SourceOfFundsSDKType {
 }
 /**
  * TransferEvent message contains all the information about a transfer,
- * deposit-to-subaccount, or withdraw-from-subaccount on the V4 chain.
+ * deposit-to-subaccount, or withdraw-from-subaccount on the dYdX chain.
  * When a subaccount is involved, a SubaccountUpdateEvent message will
  * be produced with the updated asset positions.
  */
@@ -291,7 +291,7 @@ export interface TransferEventV1ProtoMsg {
 }
 /**
  * TransferEvent message contains all the information about a transfer,
- * deposit-to-subaccount, or withdraw-from-subaccount on the V4 chain.
+ * deposit-to-subaccount, or withdraw-from-subaccount on the dYdX chain.
  * When a subaccount is involved, a SubaccountUpdateEvent message will
  * be produced with the updated asset positions.
  */
@@ -305,7 +305,7 @@ export interface TransferEventV1SDKType {
 }
 /**
  * OrderFillEvent message contains all the information from an order match in
- * the V4 chain. This includes the maker/taker orders that matched and the
+ * the dYdX chain. This includes the maker/taker orders that matched and the
  * amount filled.
  */
 export interface OrderFillEventV1 {
@@ -332,7 +332,7 @@ export interface OrderFillEventV1ProtoMsg {
 }
 /**
  * OrderFillEvent message contains all the information from an order match in
- * the V4 chain. This includes the maker/taker orders that matched and the
+ * the dYdX chain. This includes the maker/taker orders that matched and the
  * amount filled.
  */
 export interface OrderFillEventV1SDKType {
@@ -344,6 +344,53 @@ export interface OrderFillEventV1SDKType {
   taker_fee: bigint;
   total_filled_maker: bigint;
   total_filled_taker: bigint;
+}
+/**
+ * DeleveragingEvent message contains all the information for a deleveraging
+ * on the dYdX chain. This includes the liquidated/offsetting subaccounts and
+ * the amount filled.
+ */
+export interface DeleveragingEventV1 {
+  /** ID of the subaccount that was liquidated. */
+  liquidated: IndexerSubaccountId;
+  /** ID of the subaccount that was used to offset the position. */
+  offsetting: IndexerSubaccountId;
+  /** The ID of the perpetual that was liquidated. */
+  perpetualId: number;
+  /**
+   * The amount filled between the liquidated and offsetting position, in
+   * base quantums.
+   */
+  fillAmount: bigint;
+  /** Fill price of deleveraging event, in USDC quote quantums. */
+  price: bigint;
+  /** `true` if liquidating a short position, `false` otherwise. */
+  isBuy: boolean;
+  /**
+   * `true` if the deleveraging event is for final settlement, indicating
+   * the match occurred at the oracle price rather than bankruptcy price.
+   * When this flag is `false`, the fill price is the bankruptcy price
+   * of the liquidated subaccount.
+   */
+  isFinalSettlement: boolean;
+}
+export interface DeleveragingEventV1ProtoMsg {
+  typeUrl: "/dydxprotocol.indexer.events.DeleveragingEventV1";
+  value: Uint8Array;
+}
+/**
+ * DeleveragingEvent message contains all the information for a deleveraging
+ * on the dYdX chain. This includes the liquidated/offsetting subaccounts and
+ * the amount filled.
+ */
+export interface DeleveragingEventV1SDKType {
+  liquidated: IndexerSubaccountIdSDKType;
+  offsetting: IndexerSubaccountIdSDKType;
+  perpetual_id: number;
+  fill_amount: bigint;
+  price: bigint;
+  is_buy: boolean;
+  is_final_settlement: boolean;
 }
 /**
  * LiquidationOrder represents the liquidation taker order to be included in a
@@ -390,7 +437,7 @@ export interface LiquidationOrderV1SDKType {
 }
 /**
  * SubaccountUpdateEvent message contains information about an update to a
- * subaccount in the V4 chain. This includes the list of updated perpetual
+ * subaccount in the dYdX chain. This includes the list of updated perpetual
  * and asset positions for the subaccount.
  * Note: This event message will contain all the updates to a subaccount
  * at the end of a block which is why multiple asset/perpetual position
@@ -407,7 +454,7 @@ export interface SubaccountUpdateEventV1ProtoMsg {
 }
 /**
  * SubaccountUpdateEvent message contains information about an update to a
- * subaccount in the V4 chain. This includes the list of updated perpetual
+ * subaccount in the dYdX chain. This includes the list of updated perpetual
  * and asset positions for the subaccount.
  * Note: This event message will contain all the updates to a subaccount
  * at the end of a block which is why multiple asset/perpetual position
@@ -530,7 +577,7 @@ export interface StatefulOrderEventV1_LongTermOrderPlacementV1SDKType {
 }
 /**
  * AssetCreateEventV1 message contains all the information about an new Asset on
- * the v4 chain.
+ * the dYdX chain.
  */
 export interface AssetCreateEventV1 {
   /** Unique, sequentially-generated. */
@@ -563,7 +610,7 @@ export interface AssetCreateEventV1ProtoMsg {
 }
 /**
  * AssetCreateEventV1 message contains all the information about an new Asset on
- * the v4 chain.
+ * the dYdX chain.
  */
 export interface AssetCreateEventV1SDKType {
   id: number;
@@ -574,7 +621,7 @@ export interface AssetCreateEventV1SDKType {
 }
 /**
  * PerpetualMarketCreateEventV1 message contains all the information about a
- * new Perpetual Market on the v4 chain.
+ * new Perpetual Market on the dYdX chain.
  */
 export interface PerpetualMarketCreateEventV1 {
   /**
@@ -638,7 +685,7 @@ export interface PerpetualMarketCreateEventV1ProtoMsg {
 }
 /**
  * PerpetualMarketCreateEventV1 message contains all the information about a
- * new Perpetual Market on the v4 chain.
+ * new Perpetual Market on the dYdX chain.
  */
 export interface PerpetualMarketCreateEventV1SDKType {
   id: number;
@@ -654,7 +701,7 @@ export interface PerpetualMarketCreateEventV1SDKType {
 }
 /**
  * LiquidityTierUpsertEventV1 message contains all the information to
- * create/update a Liquidity Tier on the v4 chain.
+ * create/update a Liquidity Tier on the dYdX chain.
  */
 export interface LiquidityTierUpsertEventV1 {
   /** Unique id. */
@@ -675,7 +722,10 @@ export interface LiquidityTierUpsertEventV1 {
    * The maximum position size at which the margin requirements are
    * not increased over the default values. Above this position size,
    * the margin requirements increase at a rate of sqrt(size).
+   * 
+   * Deprecated since v3.x.
    */
+  /** @deprecated */
   basePositionNotional: bigint;
 }
 export interface LiquidityTierUpsertEventV1ProtoMsg {
@@ -684,18 +734,19 @@ export interface LiquidityTierUpsertEventV1ProtoMsg {
 }
 /**
  * LiquidityTierUpsertEventV1 message contains all the information to
- * create/update a Liquidity Tier on the v4 chain.
+ * create/update a Liquidity Tier on the dYdX chain.
  */
 export interface LiquidityTierUpsertEventV1SDKType {
   id: number;
   name: string;
   initial_margin_ppm: number;
   maintenance_fraction_ppm: number;
+  /** @deprecated */
   base_position_notional: bigint;
 }
 /**
  * UpdateClobPairEventV1 message contains all the information about an update to
- * a clob pair on the v4 chain.
+ * a clob pair on the dYdX chain.
  */
 export interface UpdateClobPairEventV1 {
   /**
@@ -731,7 +782,7 @@ export interface UpdateClobPairEventV1ProtoMsg {
 }
 /**
  * UpdateClobPairEventV1 message contains all the information about an update to
- * a clob pair on the v4 chain.
+ * a clob pair on the dYdX chain.
  */
 export interface UpdateClobPairEventV1SDKType {
   clob_pair_id: number;
@@ -742,7 +793,7 @@ export interface UpdateClobPairEventV1SDKType {
 }
 /**
  * UpdatePerpetualEventV1 message contains all the information about an update
- * to a perpetual on the v4 chain.
+ * to a perpetual on the dYdX chain.
  */
 export interface UpdatePerpetualEventV1 {
   /**
@@ -780,7 +831,7 @@ export interface UpdatePerpetualEventV1ProtoMsg {
 }
 /**
  * UpdatePerpetualEventV1 message contains all the information about an update
- * to a perpetual on the v4 chain.
+ * to a perpetual on the dYdX chain.
  */
 export interface UpdatePerpetualEventV1SDKType {
   id: number;
@@ -788,6 +839,50 @@ export interface UpdatePerpetualEventV1SDKType {
   market_id: number;
   atomic_resolution: number;
   liquidity_tier: number;
+}
+/**
+ * TradingRewardsEventV1 is communicates all trading rewards for all accounts
+ * that receive trade rewards in the block.
+ */
+export interface TradingRewardsEventV1 {
+  /** The list of all trading rewards in the block. */
+  tradingRewards: AddressTradingReward[];
+}
+export interface TradingRewardsEventV1ProtoMsg {
+  typeUrl: "/dydxprotocol.indexer.events.TradingRewardsEventV1";
+  value: Uint8Array;
+}
+/**
+ * TradingRewardsEventV1 is communicates all trading rewards for all accounts
+ * that receive trade rewards in the block.
+ */
+export interface TradingRewardsEventV1SDKType {
+  trading_rewards: AddressTradingRewardSDKType[];
+}
+/**
+ * AddressTradingReward contains info on an instance of an address receiving a
+ * reward
+ */
+export interface AddressTradingReward {
+  /** The address of the wallet that will receive the trading reward. */
+  owner: string;
+  /**
+   * The amount of trading rewards earned by the address above in denoms. 1e18
+   * denoms is equivalent to a single coin.
+   */
+  denomAmount: Uint8Array;
+}
+export interface AddressTradingRewardProtoMsg {
+  typeUrl: "/dydxprotocol.indexer.events.AddressTradingReward";
+  value: Uint8Array;
+}
+/**
+ * AddressTradingReward contains info on an instance of an address receiving a
+ * reward
+ */
+export interface AddressTradingRewardSDKType {
+  owner: string;
+  denom_amount: Uint8Array;
 }
 function createBaseFundingUpdateV1(): FundingUpdateV1 {
   return {
@@ -1508,6 +1603,117 @@ export const OrderFillEventV1 = {
     return {
       typeUrl: "/dydxprotocol.indexer.events.OrderFillEventV1",
       value: OrderFillEventV1.encode(message).finish()
+    };
+  }
+};
+function createBaseDeleveragingEventV1(): DeleveragingEventV1 {
+  return {
+    liquidated: IndexerSubaccountId.fromPartial({}),
+    offsetting: IndexerSubaccountId.fromPartial({}),
+    perpetualId: 0,
+    fillAmount: BigInt(0),
+    price: BigInt(0),
+    isBuy: false,
+    isFinalSettlement: false
+  };
+}
+export const DeleveragingEventV1 = {
+  typeUrl: "/dydxprotocol.indexer.events.DeleveragingEventV1",
+  encode(message: DeleveragingEventV1, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.liquidated !== undefined) {
+      IndexerSubaccountId.encode(message.liquidated, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.offsetting !== undefined) {
+      IndexerSubaccountId.encode(message.offsetting, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.perpetualId !== 0) {
+      writer.uint32(24).uint32(message.perpetualId);
+    }
+    if (message.fillAmount !== BigInt(0)) {
+      writer.uint32(32).uint64(message.fillAmount);
+    }
+    if (message.price !== BigInt(0)) {
+      writer.uint32(40).uint64(message.price);
+    }
+    if (message.isBuy === true) {
+      writer.uint32(48).bool(message.isBuy);
+    }
+    if (message.isFinalSettlement === true) {
+      writer.uint32(56).bool(message.isFinalSettlement);
+    }
+    return writer;
+  },
+  fromJSON(object: any): DeleveragingEventV1 {
+    return {
+      liquidated: isSet(object.liquidated) ? IndexerSubaccountId.fromJSON(object.liquidated) : undefined,
+      offsetting: isSet(object.offsetting) ? IndexerSubaccountId.fromJSON(object.offsetting) : undefined,
+      perpetualId: isSet(object.perpetualId) ? Number(object.perpetualId) : 0,
+      fillAmount: isSet(object.fillAmount) ? BigInt(object.fillAmount.toString()) : BigInt(0),
+      price: isSet(object.price) ? BigInt(object.price.toString()) : BigInt(0),
+      isBuy: isSet(object.isBuy) ? Boolean(object.isBuy) : false,
+      isFinalSettlement: isSet(object.isFinalSettlement) ? Boolean(object.isFinalSettlement) : false
+    };
+  },
+  fromPartial(object: Partial<DeleveragingEventV1>): DeleveragingEventV1 {
+    const message = createBaseDeleveragingEventV1();
+    message.liquidated = object.liquidated !== undefined && object.liquidated !== null ? IndexerSubaccountId.fromPartial(object.liquidated) : undefined;
+    message.offsetting = object.offsetting !== undefined && object.offsetting !== null ? IndexerSubaccountId.fromPartial(object.offsetting) : undefined;
+    message.perpetualId = object.perpetualId ?? 0;
+    message.fillAmount = object.fillAmount !== undefined && object.fillAmount !== null ? BigInt(object.fillAmount.toString()) : BigInt(0);
+    message.price = object.price !== undefined && object.price !== null ? BigInt(object.price.toString()) : BigInt(0);
+    message.isBuy = object.isBuy ?? false;
+    message.isFinalSettlement = object.isFinalSettlement ?? false;
+    return message;
+  },
+  fromAmino(object: DeleveragingEventV1Amino): DeleveragingEventV1 {
+    const message = createBaseDeleveragingEventV1();
+    if (object.liquidated !== undefined && object.liquidated !== null) {
+      message.liquidated = IndexerSubaccountId.fromAmino(object.liquidated);
+    }
+    if (object.offsetting !== undefined && object.offsetting !== null) {
+      message.offsetting = IndexerSubaccountId.fromAmino(object.offsetting);
+    }
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    if (object.fill_amount !== undefined && object.fill_amount !== null) {
+      message.fillAmount = BigInt(object.fill_amount);
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.is_buy !== undefined && object.is_buy !== null) {
+      message.isBuy = object.is_buy;
+    }
+    if (object.is_final_settlement !== undefined && object.is_final_settlement !== null) {
+      message.isFinalSettlement = object.is_final_settlement;
+    }
+    return message;
+  },
+  toAmino(message: DeleveragingEventV1): DeleveragingEventV1Amino {
+    const obj: any = {};
+    obj.liquidated = message.liquidated ? IndexerSubaccountId.toAmino(message.liquidated) : undefined;
+    obj.offsetting = message.offsetting ? IndexerSubaccountId.toAmino(message.offsetting) : undefined;
+    obj.perpetual_id = message.perpetualId;
+    obj.fill_amount = message.fillAmount ? message.fillAmount.toString() : undefined;
+    obj.price = message.price ? message.price.toString() : undefined;
+    obj.is_buy = message.isBuy;
+    obj.is_final_settlement = message.isFinalSettlement;
+    return obj;
+  },
+  fromAminoMsg(object: DeleveragingEventV1AminoMsg): DeleveragingEventV1 {
+    return DeleveragingEventV1.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DeleveragingEventV1ProtoMsg): DeleveragingEventV1 {
+    return DeleveragingEventV1.decode(message.value);
+  },
+  toProto(message: DeleveragingEventV1): Uint8Array {
+    return DeleveragingEventV1.encode(message).finish();
+  },
+  toProtoMsg(message: DeleveragingEventV1): DeleveragingEventV1ProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.indexer.events.DeleveragingEventV1",
+      value: DeleveragingEventV1.encode(message).finish()
     };
   }
 };
@@ -2545,6 +2751,120 @@ export const UpdatePerpetualEventV1 = {
     return {
       typeUrl: "/dydxprotocol.indexer.events.UpdatePerpetualEventV1",
       value: UpdatePerpetualEventV1.encode(message).finish()
+    };
+  }
+};
+function createBaseTradingRewardsEventV1(): TradingRewardsEventV1 {
+  return {
+    tradingRewards: []
+  };
+}
+export const TradingRewardsEventV1 = {
+  typeUrl: "/dydxprotocol.indexer.events.TradingRewardsEventV1",
+  encode(message: TradingRewardsEventV1, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.tradingRewards) {
+      AddressTradingReward.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): TradingRewardsEventV1 {
+    return {
+      tradingRewards: Array.isArray(object?.tradingRewards) ? object.tradingRewards.map((e: any) => AddressTradingReward.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<TradingRewardsEventV1>): TradingRewardsEventV1 {
+    const message = createBaseTradingRewardsEventV1();
+    message.tradingRewards = object.tradingRewards?.map(e => AddressTradingReward.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: TradingRewardsEventV1Amino): TradingRewardsEventV1 {
+    const message = createBaseTradingRewardsEventV1();
+    message.tradingRewards = object.trading_rewards?.map(e => AddressTradingReward.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: TradingRewardsEventV1): TradingRewardsEventV1Amino {
+    const obj: any = {};
+    if (message.tradingRewards) {
+      obj.trading_rewards = message.tradingRewards.map(e => e ? AddressTradingReward.toAmino(e) : undefined);
+    } else {
+      obj.trading_rewards = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: TradingRewardsEventV1AminoMsg): TradingRewardsEventV1 {
+    return TradingRewardsEventV1.fromAmino(object.value);
+  },
+  fromProtoMsg(message: TradingRewardsEventV1ProtoMsg): TradingRewardsEventV1 {
+    return TradingRewardsEventV1.decode(message.value);
+  },
+  toProto(message: TradingRewardsEventV1): Uint8Array {
+    return TradingRewardsEventV1.encode(message).finish();
+  },
+  toProtoMsg(message: TradingRewardsEventV1): TradingRewardsEventV1ProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.indexer.events.TradingRewardsEventV1",
+      value: TradingRewardsEventV1.encode(message).finish()
+    };
+  }
+};
+function createBaseAddressTradingReward(): AddressTradingReward {
+  return {
+    owner: "",
+    denomAmount: new Uint8Array()
+  };
+}
+export const AddressTradingReward = {
+  typeUrl: "/dydxprotocol.indexer.events.AddressTradingReward",
+  encode(message: AddressTradingReward, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.owner !== "") {
+      writer.uint32(10).string(message.owner);
+    }
+    if (message.denomAmount.length !== 0) {
+      writer.uint32(18).bytes(message.denomAmount);
+    }
+    return writer;
+  },
+  fromJSON(object: any): AddressTradingReward {
+    return {
+      owner: isSet(object.owner) ? String(object.owner) : "",
+      denomAmount: isSet(object.denomAmount) ? bytesFromBase64(object.denomAmount) : new Uint8Array()
+    };
+  },
+  fromPartial(object: Partial<AddressTradingReward>): AddressTradingReward {
+    const message = createBaseAddressTradingReward();
+    message.owner = object.owner ?? "";
+    message.denomAmount = object.denomAmount ?? new Uint8Array();
+    return message;
+  },
+  fromAmino(object: AddressTradingRewardAmino): AddressTradingReward {
+    const message = createBaseAddressTradingReward();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.denom_amount !== undefined && object.denom_amount !== null) {
+      message.denomAmount = bytesFromBase64(object.denom_amount);
+    }
+    return message;
+  },
+  toAmino(message: AddressTradingReward): AddressTradingRewardAmino {
+    const obj: any = {};
+    obj.owner = message.owner;
+    obj.denom_amount = message.denomAmount ? base64FromBytes(message.denomAmount) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: AddressTradingRewardAminoMsg): AddressTradingReward {
+    return AddressTradingReward.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AddressTradingRewardProtoMsg): AddressTradingReward {
+    return AddressTradingReward.decode(message.value);
+  },
+  toProto(message: AddressTradingReward): Uint8Array {
+    return AddressTradingReward.encode(message).finish();
+  },
+  toProtoMsg(message: AddressTradingReward): AddressTradingRewardProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.indexer.events.AddressTradingReward",
+      value: AddressTradingReward.encode(message).finish()
     };
   }
 };

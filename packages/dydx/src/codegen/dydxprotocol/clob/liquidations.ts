@@ -64,6 +64,29 @@ export interface SubaccountLiquidationInfoSDKType {
   notional_liquidated: bigint;
   quantums_insurance_lost: bigint;
 }
+/**
+ * SubaccountOpenPositionInfo holds information about open positions for a
+ * perpetual.
+ */
+export interface SubaccountOpenPositionInfo {
+  /** The id of the perpetual. */
+  perpetualId: number;
+  subaccountsWithLongPosition: SubaccountId[];
+  subaccountsWithShortPosition: SubaccountId[];
+}
+export interface SubaccountOpenPositionInfoProtoMsg {
+  typeUrl: "/dydxprotocol.clob.SubaccountOpenPositionInfo";
+  value: Uint8Array;
+}
+/**
+ * SubaccountOpenPositionInfo holds information about open positions for a
+ * perpetual.
+ */
+export interface SubaccountOpenPositionInfoSDKType {
+  perpetual_id: number;
+  subaccounts_with_long_position: SubaccountIdSDKType[];
+  subaccounts_with_short_position: SubaccountIdSDKType[];
+}
 function createBasePerpetualLiquidationInfo(): PerpetualLiquidationInfo {
   return {
     subaccountId: SubaccountId.fromPartial({}),
@@ -197,6 +220,81 @@ export const SubaccountLiquidationInfo = {
     return {
       typeUrl: "/dydxprotocol.clob.SubaccountLiquidationInfo",
       value: SubaccountLiquidationInfo.encode(message).finish()
+    };
+  }
+};
+function createBaseSubaccountOpenPositionInfo(): SubaccountOpenPositionInfo {
+  return {
+    perpetualId: 0,
+    subaccountsWithLongPosition: [],
+    subaccountsWithShortPosition: []
+  };
+}
+export const SubaccountOpenPositionInfo = {
+  typeUrl: "/dydxprotocol.clob.SubaccountOpenPositionInfo",
+  encode(message: SubaccountOpenPositionInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.perpetualId !== 0) {
+      writer.uint32(8).uint32(message.perpetualId);
+    }
+    for (const v of message.subaccountsWithLongPosition) {
+      SubaccountId.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    for (const v of message.subaccountsWithShortPosition) {
+      SubaccountId.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): SubaccountOpenPositionInfo {
+    return {
+      perpetualId: isSet(object.perpetualId) ? Number(object.perpetualId) : 0,
+      subaccountsWithLongPosition: Array.isArray(object?.subaccountsWithLongPosition) ? object.subaccountsWithLongPosition.map((e: any) => SubaccountId.fromJSON(e)) : [],
+      subaccountsWithShortPosition: Array.isArray(object?.subaccountsWithShortPosition) ? object.subaccountsWithShortPosition.map((e: any) => SubaccountId.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<SubaccountOpenPositionInfo>): SubaccountOpenPositionInfo {
+    const message = createBaseSubaccountOpenPositionInfo();
+    message.perpetualId = object.perpetualId ?? 0;
+    message.subaccountsWithLongPosition = object.subaccountsWithLongPosition?.map(e => SubaccountId.fromPartial(e)) || [];
+    message.subaccountsWithShortPosition = object.subaccountsWithShortPosition?.map(e => SubaccountId.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: SubaccountOpenPositionInfoAmino): SubaccountOpenPositionInfo {
+    const message = createBaseSubaccountOpenPositionInfo();
+    if (object.perpetual_id !== undefined && object.perpetual_id !== null) {
+      message.perpetualId = object.perpetual_id;
+    }
+    message.subaccountsWithLongPosition = object.subaccounts_with_long_position?.map(e => SubaccountId.fromAmino(e)) || [];
+    message.subaccountsWithShortPosition = object.subaccounts_with_short_position?.map(e => SubaccountId.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: SubaccountOpenPositionInfo): SubaccountOpenPositionInfoAmino {
+    const obj: any = {};
+    obj.perpetual_id = message.perpetualId;
+    if (message.subaccountsWithLongPosition) {
+      obj.subaccounts_with_long_position = message.subaccountsWithLongPosition.map(e => e ? SubaccountId.toAmino(e) : undefined);
+    } else {
+      obj.subaccounts_with_long_position = [];
+    }
+    if (message.subaccountsWithShortPosition) {
+      obj.subaccounts_with_short_position = message.subaccountsWithShortPosition.map(e => e ? SubaccountId.toAmino(e) : undefined);
+    } else {
+      obj.subaccounts_with_short_position = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SubaccountOpenPositionInfoAminoMsg): SubaccountOpenPositionInfo {
+    return SubaccountOpenPositionInfo.fromAmino(object.value);
+  },
+  fromProtoMsg(message: SubaccountOpenPositionInfoProtoMsg): SubaccountOpenPositionInfo {
+    return SubaccountOpenPositionInfo.decode(message.value);
+  },
+  toProto(message: SubaccountOpenPositionInfo): Uint8Array {
+    return SubaccountOpenPositionInfo.encode(message).finish();
+  },
+  toProtoMsg(message: SubaccountOpenPositionInfo): SubaccountOpenPositionInfoProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.clob.SubaccountOpenPositionInfo",
+      value: SubaccountOpenPositionInfo.encode(message).finish()
     };
   }
 };

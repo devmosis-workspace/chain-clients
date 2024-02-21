@@ -1,5 +1,7 @@
 import { SubaccountId, SubaccountIdSDKType } from "../../subaccounts/subaccount";
+import { SubaccountOpenPositionInfo, SubaccountOpenPositionInfoSDKType } from "../../clob/liquidations";
 import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
 /**
  * LiquidateSubaccountsRequest is a request message that contains a list of
  * subaccount ids that potentially need to be liquidated. The list of subaccount
@@ -7,7 +9,13 @@ import { BinaryWriter } from "../../../binary";
  * subaccount ids against current state before liquidating their positions.
  */
 export interface LiquidateSubaccountsRequest {
-  subaccountIds: SubaccountId[];
+  /** The block height at which the liquidation daemon is processing. */
+  blockHeight: number;
+  /** The list of liquidatable subaccount ids. */
+  liquidatableSubaccountIds: SubaccountId[];
+  /** The list of subaccount ids with negative total net collateral. */
+  negativeTncSubaccountIds: SubaccountId[];
+  subaccountOpenPositionInfo: SubaccountOpenPositionInfo[];
 }
 export interface LiquidateSubaccountsRequestProtoMsg {
   typeUrl: "/dydxprotocol.daemons.liquidation.LiquidateSubaccountsRequest";
@@ -20,7 +28,10 @@ export interface LiquidateSubaccountsRequestProtoMsg {
  * subaccount ids against current state before liquidating their positions.
  */
 export interface LiquidateSubaccountsRequestSDKType {
-  subaccount_ids: SubaccountIdSDKType[];
+  block_height: number;
+  liquidatable_subaccount_ids: SubaccountIdSDKType[];
+  negative_tnc_subaccount_ids: SubaccountIdSDKType[];
+  subaccount_open_position_info: SubaccountOpenPositionInfoSDKType[];
 }
 /**
  * LiquidateSubaccountsResponse is a response message for
@@ -38,38 +49,72 @@ export interface LiquidateSubaccountsResponseProtoMsg {
 export interface LiquidateSubaccountsResponseSDKType {}
 function createBaseLiquidateSubaccountsRequest(): LiquidateSubaccountsRequest {
   return {
-    subaccountIds: []
+    blockHeight: 0,
+    liquidatableSubaccountIds: [],
+    negativeTncSubaccountIds: [],
+    subaccountOpenPositionInfo: []
   };
 }
 export const LiquidateSubaccountsRequest = {
   typeUrl: "/dydxprotocol.daemons.liquidation.LiquidateSubaccountsRequest",
   encode(message: LiquidateSubaccountsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    for (const v of message.subaccountIds) {
-      SubaccountId.encode(v!, writer.uint32(10).fork()).ldelim();
+    if (message.blockHeight !== 0) {
+      writer.uint32(8).uint32(message.blockHeight);
+    }
+    for (const v of message.liquidatableSubaccountIds) {
+      SubaccountId.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    for (const v of message.negativeTncSubaccountIds) {
+      SubaccountId.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    for (const v of message.subaccountOpenPositionInfo) {
+      SubaccountOpenPositionInfo.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
   fromJSON(object: any): LiquidateSubaccountsRequest {
     return {
-      subaccountIds: Array.isArray(object?.subaccountIds) ? object.subaccountIds.map((e: any) => SubaccountId.fromJSON(e)) : []
+      blockHeight: isSet(object.blockHeight) ? Number(object.blockHeight) : 0,
+      liquidatableSubaccountIds: Array.isArray(object?.liquidatableSubaccountIds) ? object.liquidatableSubaccountIds.map((e: any) => SubaccountId.fromJSON(e)) : [],
+      negativeTncSubaccountIds: Array.isArray(object?.negativeTncSubaccountIds) ? object.negativeTncSubaccountIds.map((e: any) => SubaccountId.fromJSON(e)) : [],
+      subaccountOpenPositionInfo: Array.isArray(object?.subaccountOpenPositionInfo) ? object.subaccountOpenPositionInfo.map((e: any) => SubaccountOpenPositionInfo.fromJSON(e)) : []
     };
   },
   fromPartial(object: Partial<LiquidateSubaccountsRequest>): LiquidateSubaccountsRequest {
     const message = createBaseLiquidateSubaccountsRequest();
-    message.subaccountIds = object.subaccountIds?.map(e => SubaccountId.fromPartial(e)) || [];
+    message.blockHeight = object.blockHeight ?? 0;
+    message.liquidatableSubaccountIds = object.liquidatableSubaccountIds?.map(e => SubaccountId.fromPartial(e)) || [];
+    message.negativeTncSubaccountIds = object.negativeTncSubaccountIds?.map(e => SubaccountId.fromPartial(e)) || [];
+    message.subaccountOpenPositionInfo = object.subaccountOpenPositionInfo?.map(e => SubaccountOpenPositionInfo.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: LiquidateSubaccountsRequestAmino): LiquidateSubaccountsRequest {
     const message = createBaseLiquidateSubaccountsRequest();
-    message.subaccountIds = object.subaccount_ids?.map(e => SubaccountId.fromAmino(e)) || [];
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = object.block_height;
+    }
+    message.liquidatableSubaccountIds = object.liquidatable_subaccount_ids?.map(e => SubaccountId.fromAmino(e)) || [];
+    message.negativeTncSubaccountIds = object.negative_tnc_subaccount_ids?.map(e => SubaccountId.fromAmino(e)) || [];
+    message.subaccountOpenPositionInfo = object.subaccount_open_position_info?.map(e => SubaccountOpenPositionInfo.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: LiquidateSubaccountsRequest): LiquidateSubaccountsRequestAmino {
     const obj: any = {};
-    if (message.subaccountIds) {
-      obj.subaccount_ids = message.subaccountIds.map(e => e ? SubaccountId.toAmino(e) : undefined);
+    obj.block_height = message.blockHeight;
+    if (message.liquidatableSubaccountIds) {
+      obj.liquidatable_subaccount_ids = message.liquidatableSubaccountIds.map(e => e ? SubaccountId.toAmino(e) : undefined);
     } else {
-      obj.subaccount_ids = [];
+      obj.liquidatable_subaccount_ids = [];
+    }
+    if (message.negativeTncSubaccountIds) {
+      obj.negative_tnc_subaccount_ids = message.negativeTncSubaccountIds.map(e => e ? SubaccountId.toAmino(e) : undefined);
+    } else {
+      obj.negative_tnc_subaccount_ids = [];
+    }
+    if (message.subaccountOpenPositionInfo) {
+      obj.subaccount_open_position_info = message.subaccountOpenPositionInfo.map(e => e ? SubaccountOpenPositionInfo.toAmino(e) : undefined);
+    } else {
+      obj.subaccount_open_position_info = [];
     }
     return obj;
   },

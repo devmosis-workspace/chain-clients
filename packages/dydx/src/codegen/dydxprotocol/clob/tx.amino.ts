@@ -66,6 +66,7 @@ export interface MsgProposedOperationsAminoType extends AminoMsg {
             };
             fill_amount: string;
           }[];
+          is_final_settlement: boolean;
         };
       };
       short_term_order_placement: Uint8Array;
@@ -289,7 +290,8 @@ export const AminoConverter = {
                   number: el1.offsettingSubaccountId.number
                 },
                 fill_amount: el1.fillAmount.toString()
-              }))
+              })),
+              is_final_settlement: el0.match.matchPerpetualDeleveraging.isFinalSettlement
             }
           },
           short_term_order_placement: el0.shortTermOrderPlacement,
@@ -371,7 +373,8 @@ export const AminoConverter = {
                   number: el3.offsetting_subaccount_id.number
                 },
                 fillAmount: BigInt(el3.fill_amount)
-              }))
+              })),
+              isFinalSettlement: el0.match.match_perpetual_deleveraging.is_final_settlement
             }
           },
           shortTermOrderPlacement: el0.short_term_order_placement,

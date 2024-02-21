@@ -101,6 +101,8 @@ export interface ValidatorMevMatchesSDKType {
 export interface MevNodeToNodeMetrics {
   validatorMevMatches?: ValidatorMevMatches;
   clobMidPrices: ClobMidPrice[];
+  bpMevMatches?: ValidatorMevMatches;
+  proposalReceiveTime: bigint;
 }
 export interface MevNodeToNodeMetricsProtoMsg {
   typeUrl: "/dydxprotocol.clob.MevNodeToNodeMetrics";
@@ -113,6 +115,8 @@ export interface MevNodeToNodeMetricsProtoMsg {
 export interface MevNodeToNodeMetricsSDKType {
   validator_mev_matches?: ValidatorMevMatchesSDKType;
   clob_mid_prices: ClobMidPriceSDKType[];
+  bp_mev_matches?: ValidatorMevMatchesSDKType;
+  proposal_receive_time: bigint;
 }
 function createBaseMEVMatch(): MEVMatch {
   return {
@@ -485,7 +489,9 @@ export const ValidatorMevMatches = {
 function createBaseMevNodeToNodeMetrics(): MevNodeToNodeMetrics {
   return {
     validatorMevMatches: undefined,
-    clobMidPrices: []
+    clobMidPrices: [],
+    bpMevMatches: undefined,
+    proposalReceiveTime: BigInt(0)
   };
 }
 export const MevNodeToNodeMetrics = {
@@ -497,18 +503,28 @@ export const MevNodeToNodeMetrics = {
     for (const v of message.clobMidPrices) {
       ClobMidPrice.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+    if (message.bpMevMatches !== undefined) {
+      ValidatorMevMatches.encode(message.bpMevMatches, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.proposalReceiveTime !== BigInt(0)) {
+      writer.uint32(32).uint64(message.proposalReceiveTime);
+    }
     return writer;
   },
   fromJSON(object: any): MevNodeToNodeMetrics {
     return {
       validatorMevMatches: isSet(object.validatorMevMatches) ? ValidatorMevMatches.fromJSON(object.validatorMevMatches) : undefined,
-      clobMidPrices: Array.isArray(object?.clobMidPrices) ? object.clobMidPrices.map((e: any) => ClobMidPrice.fromJSON(e)) : []
+      clobMidPrices: Array.isArray(object?.clobMidPrices) ? object.clobMidPrices.map((e: any) => ClobMidPrice.fromJSON(e)) : [],
+      bpMevMatches: isSet(object.bpMevMatches) ? ValidatorMevMatches.fromJSON(object.bpMevMatches) : undefined,
+      proposalReceiveTime: isSet(object.proposalReceiveTime) ? BigInt(object.proposalReceiveTime.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<MevNodeToNodeMetrics>): MevNodeToNodeMetrics {
     const message = createBaseMevNodeToNodeMetrics();
     message.validatorMevMatches = object.validatorMevMatches !== undefined && object.validatorMevMatches !== null ? ValidatorMevMatches.fromPartial(object.validatorMevMatches) : undefined;
     message.clobMidPrices = object.clobMidPrices?.map(e => ClobMidPrice.fromPartial(e)) || [];
+    message.bpMevMatches = object.bpMevMatches !== undefined && object.bpMevMatches !== null ? ValidatorMevMatches.fromPartial(object.bpMevMatches) : undefined;
+    message.proposalReceiveTime = object.proposalReceiveTime !== undefined && object.proposalReceiveTime !== null ? BigInt(object.proposalReceiveTime.toString()) : BigInt(0);
     return message;
   },
   fromAmino(object: MevNodeToNodeMetricsAmino): MevNodeToNodeMetrics {
@@ -517,6 +533,12 @@ export const MevNodeToNodeMetrics = {
       message.validatorMevMatches = ValidatorMevMatches.fromAmino(object.validator_mev_matches);
     }
     message.clobMidPrices = object.clob_mid_prices?.map(e => ClobMidPrice.fromAmino(e)) || [];
+    if (object.bp_mev_matches !== undefined && object.bp_mev_matches !== null) {
+      message.bpMevMatches = ValidatorMevMatches.fromAmino(object.bp_mev_matches);
+    }
+    if (object.proposal_receive_time !== undefined && object.proposal_receive_time !== null) {
+      message.proposalReceiveTime = BigInt(object.proposal_receive_time);
+    }
     return message;
   },
   toAmino(message: MevNodeToNodeMetrics): MevNodeToNodeMetricsAmino {
@@ -527,6 +549,8 @@ export const MevNodeToNodeMetrics = {
     } else {
       obj.clob_mid_prices = [];
     }
+    obj.bp_mev_matches = message.bpMevMatches ? ValidatorMevMatches.toAmino(message.bpMevMatches) : undefined;
+    obj.proposal_receive_time = message.proposalReceiveTime ? message.proposalReceiveTime.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: MevNodeToNodeMetricsAminoMsg): MevNodeToNodeMetrics {

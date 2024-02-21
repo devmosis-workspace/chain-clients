@@ -20,7 +20,7 @@ export interface PexAddrsProtoMsg {
   value: Uint8Array;
 }
 export interface PexAddrsAmino {
-  addrs: NetAddressAmino[];
+  addrs?: NetAddressAmino[];
 }
 export interface PexAddrsAminoMsg {
   type: "/tendermint.p2p.PexAddrs";
@@ -65,7 +65,8 @@ export const PexRequest = {
     return message;
   },
   fromAmino(_: PexRequestAmino): PexRequest {
-    return {};
+    const message = createBasePexRequest();
+    return message;
   },
   toAmino(_: PexRequest): PexRequestAmino {
     const obj: any = {};
@@ -111,9 +112,9 @@ export const PexAddrs = {
     return message;
   },
   fromAmino(object: PexAddrsAmino): PexAddrs {
-    return {
-      addrs: Array.isArray(object?.addrs) ? object.addrs.map((e: any) => NetAddress.fromAmino(e)) : []
-    };
+    const message = createBasePexAddrs();
+    message.addrs = object.addrs?.map(e => NetAddress.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: PexAddrs): PexAddrsAmino {
     const obj: any = {};
@@ -170,10 +171,14 @@ export const Message = {
     return message;
   },
   fromAmino(object: MessageAmino): Message {
-    return {
-      pexRequest: object?.pex_request ? PexRequest.fromAmino(object.pex_request) : undefined,
-      pexAddrs: object?.pex_addrs ? PexAddrs.fromAmino(object.pex_addrs) : undefined
-    };
+    const message = createBaseMessage();
+    if (object.pex_request !== undefined && object.pex_request !== null) {
+      message.pexRequest = PexRequest.fromAmino(object.pex_request);
+    }
+    if (object.pex_addrs !== undefined && object.pex_addrs !== null) {
+      message.pexAddrs = PexAddrs.fromAmino(object.pex_addrs);
+    }
+    return message;
   },
   toAmino(message: Message): MessageAmino {
     const obj: any = {};

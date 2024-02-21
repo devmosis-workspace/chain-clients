@@ -9,8 +9,8 @@ export const createRPCQueryClient = async ({
   const client = new QueryClient(tmClient);
   return {
     irishub: {
-      guardian: (await import("../guardian/query.rpc.Query")).createRpcQueryExtension(client),
-      mint: (await import("../mint/query.rpc.Query")).createRpcQueryExtension(client)
+      guardian: (await import("./guardian/query.rpc.Query")).createRpcQueryExtension(client),
+      mint: (await import("./mint/query.rpc.Query")).createRpcQueryExtension(client)
     },
     cosmos: {
       app: {
@@ -22,6 +22,9 @@ export const createRPCQueryClient = async ({
       authz: {
         v1beta1: (await import("../cosmos/authz/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
       },
+      autocli: {
+        v1: (await import("../cosmos/autocli/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
       bank: {
         v1beta1: (await import("../cosmos/bank/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
       },
@@ -32,6 +35,9 @@ export const createRPCQueryClient = async ({
         tendermint: {
           v1beta1: (await import("../cosmos/base/tendermint/v1beta1/query.rpc.Service")).createRpcQueryExtension(client)
         }
+      },
+      consensus: {
+        v1: (await import("../cosmos/consensus/v1/query.rpc.Query")).createRpcQueryExtension(client)
       },
       distribution: {
         v1beta1: (await import("../cosmos/distribution/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
@@ -54,6 +60,11 @@ export const createRPCQueryClient = async ({
       },
       nft: {
         v1beta1: (await import("../cosmos/nft/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      orm: {
+        query: {
+          v1alpha1: (await import("../cosmos/orm/query/v1alpha1/query.rpc.Query")).createRpcQueryExtension(client)
+        }
       },
       params: {
         v1beta1: (await import("../cosmos/params/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)

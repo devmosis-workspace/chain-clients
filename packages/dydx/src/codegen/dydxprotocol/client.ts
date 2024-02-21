@@ -8,6 +8,7 @@ import * as dydxprotocolDelaymsgTxRegistry from "./delaymsg/tx.registry";
 import * as dydxprotocolFeetiersTxRegistry from "./feetiers/tx.registry";
 import * as dydxprotocolPerpetualsTxRegistry from "./perpetuals/tx.registry";
 import * as dydxprotocolPricesTxRegistry from "./prices/tx.registry";
+import * as dydxprotocolRatelimitTxRegistry from "./ratelimit/tx.registry";
 import * as dydxprotocolRewardsTxRegistry from "./rewards/tx.registry";
 import * as dydxprotocolSendingTxRegistry from "./sending/tx.registry";
 import * as dydxprotocolStatsTxRegistry from "./stats/tx.registry";
@@ -19,6 +20,7 @@ import * as dydxprotocolDelaymsgTxAmino from "./delaymsg/tx.amino";
 import * as dydxprotocolFeetiersTxAmino from "./feetiers/tx.amino";
 import * as dydxprotocolPerpetualsTxAmino from "./perpetuals/tx.amino";
 import * as dydxprotocolPricesTxAmino from "./prices/tx.amino";
+import * as dydxprotocolRatelimitTxAmino from "./ratelimit/tx.amino";
 import * as dydxprotocolRewardsTxAmino from "./rewards/tx.amino";
 import * as dydxprotocolSendingTxAmino from "./sending/tx.amino";
 import * as dydxprotocolStatsTxAmino from "./stats/tx.amino";
@@ -31,12 +33,13 @@ export const dydxprotocolAminoConverters = {
   ...dydxprotocolFeetiersTxAmino.AminoConverter,
   ...dydxprotocolPerpetualsTxAmino.AminoConverter,
   ...dydxprotocolPricesTxAmino.AminoConverter,
+  ...dydxprotocolRatelimitTxAmino.AminoConverter,
   ...dydxprotocolRewardsTxAmino.AminoConverter,
   ...dydxprotocolSendingTxAmino.AminoConverter,
   ...dydxprotocolStatsTxAmino.AminoConverter,
   ...dydxprotocolVestTxAmino.AminoConverter
 };
-export const dydxprotocolProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...dydxprotocolBlocktimeTxRegistry.registry, ...dydxprotocolBridgeTxRegistry.registry, ...dydxprotocolClobTxRegistry.registry, ...dydxprotocolDelaymsgTxRegistry.registry, ...dydxprotocolFeetiersTxRegistry.registry, ...dydxprotocolPerpetualsTxRegistry.registry, ...dydxprotocolPricesTxRegistry.registry, ...dydxprotocolRewardsTxRegistry.registry, ...dydxprotocolSendingTxRegistry.registry, ...dydxprotocolStatsTxRegistry.registry, ...dydxprotocolVestTxRegistry.registry];
+export const dydxprotocolProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...dydxprotocolBlocktimeTxRegistry.registry, ...dydxprotocolBridgeTxRegistry.registry, ...dydxprotocolClobTxRegistry.registry, ...dydxprotocolDelaymsgTxRegistry.registry, ...dydxprotocolFeetiersTxRegistry.registry, ...dydxprotocolPerpetualsTxRegistry.registry, ...dydxprotocolPricesTxRegistry.registry, ...dydxprotocolRatelimitTxRegistry.registry, ...dydxprotocolRewardsTxRegistry.registry, ...dydxprotocolSendingTxRegistry.registry, ...dydxprotocolStatsTxRegistry.registry, ...dydxprotocolVestTxRegistry.registry];
 export const getSigningDydxprotocolClientOptions = ({
   defaultTypes = defaultRegistryTypes
 }: {

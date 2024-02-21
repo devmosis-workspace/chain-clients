@@ -61,9 +61,9 @@ export class LCDQueryClient {
     const endpoint = `cosmos/base/tendermint/v1beta1/validatorsets/${params.height}`;
     return await this.req.get<GetValidatorSetByHeightResponseSDKType>(endpoint, options);
   }
-  /* ABCIQuery defines a query handler that supports ABCI queries directly to
-   the application, bypassing Tendermint completely. The ABCI query must
-   contain a valid and supported path, including app, custom, p2p, and store.
+  /* ABCIQuery defines a query handler that supports ABCI queries directly to the
+   application, bypassing Tendermint completely. The ABCI query must contain
+   a valid and supported path, including app, custom, p2p, and store.
   
    Since: cosmos-sdk 0.46 */
   async aBCIQuery(params: ABCIQueryRequest): Promise<ABCIQueryResponseSDKType> {

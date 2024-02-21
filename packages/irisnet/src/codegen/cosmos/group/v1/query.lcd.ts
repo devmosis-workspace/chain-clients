@@ -34,7 +34,7 @@ export class LCDQueryClient {
     const endpoint = `cosmos/group/v1/group_policy_info/${params.address}`;
     return await this.req.get<QueryGroupPolicyInfoResponseSDKType>(endpoint);
   }
-  /* GroupMembers queries members of a group */
+  /* GroupMembers queries members of a group by group id. */
   async groupMembers(params: QueryGroupMembersRequest): Promise<QueryGroupMembersResponseSDKType> {
     const options: any = {
       params: {}
@@ -67,7 +67,7 @@ export class LCDQueryClient {
     const endpoint = `cosmos/group/v1/group_policies_by_group/${params.groupId}`;
     return await this.req.get<QueryGroupPoliciesByGroupResponseSDKType>(endpoint, options);
   }
-  /* GroupsByAdmin queries group policies by admin address. */
+  /* GroupPoliciesByAdmin queries group policies by admin address. */
   async groupPoliciesByAdmin(params: QueryGroupPoliciesByAdminRequest): Promise<QueryGroupPoliciesByAdminResponseSDKType> {
     const options: any = {
       params: {}
@@ -99,7 +99,7 @@ export class LCDQueryClient {
     const endpoint = `cosmos/group/v1/vote_by_proposal_voter/${params.proposalId}/${params.voter}`;
     return await this.req.get<QueryVoteByProposalVoterResponseSDKType>(endpoint);
   }
-  /* VotesByProposal queries a vote by proposal. */
+  /* VotesByProposal queries a vote by proposal id. */
   async votesByProposal(params: QueryVotesByProposalRequest): Promise<QueryVotesByProposalResponseSDKType> {
     const options: any = {
       params: {}

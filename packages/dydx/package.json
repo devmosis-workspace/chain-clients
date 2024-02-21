@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/dydx",
-  "version": "0.0.4",
+  "version": "3.0.0",
   "license": "SEE LICENSE IN LICENSE",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

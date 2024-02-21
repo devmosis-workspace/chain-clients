@@ -1,5 +1,5 @@
 import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { Perpetual, PerpetualSDKType, PremiumStore, PremiumStoreSDKType } from "./perpetual";
+import { Perpetual, PerpetualSDKType, LiquidityTier, LiquidityTierSDKType, PremiumStore, PremiumStoreSDKType } from "./perpetual";
 import { Params, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
@@ -52,6 +52,38 @@ export interface QueryAllPerpetualsResponseProtoMsg {
 /** QueryAllPerpetualsResponse is response type for the AllPerpetuals RPC method. */
 export interface QueryAllPerpetualsResponseSDKType {
   perpetual: PerpetualSDKType[];
+  pagination?: PageResponseSDKType;
+}
+/** Queries a list of LiquidityTier items. */
+export interface QueryAllLiquidityTiersRequest {
+  pagination?: PageRequest;
+}
+export interface QueryAllLiquidityTiersRequestProtoMsg {
+  typeUrl: "/dydxprotocol.perpetuals.QueryAllLiquidityTiersRequest";
+  value: Uint8Array;
+}
+/** Queries a list of LiquidityTier items. */
+export interface QueryAllLiquidityTiersRequestSDKType {
+  pagination?: PageRequestSDKType;
+}
+/**
+ * QueryAllLiquidityTiersResponse is response type for the AllLiquidityTiers RPC
+ * method.
+ */
+export interface QueryAllLiquidityTiersResponse {
+  liquidityTiers: LiquidityTier[];
+  pagination?: PageResponse;
+}
+export interface QueryAllLiquidityTiersResponseProtoMsg {
+  typeUrl: "/dydxprotocol.perpetuals.QueryAllLiquidityTiersResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryAllLiquidityTiersResponse is response type for the AllLiquidityTiers RPC
+ * method.
+ */
+export interface QueryAllLiquidityTiersResponseSDKType {
+  liquidity_tiers: LiquidityTierSDKType[];
   pagination?: PageResponseSDKType;
 }
 /** QueryPremiumVotesRequest is the request type for the PremiumVotes RPC method. */
@@ -345,6 +377,120 @@ export const QueryAllPerpetualsResponse = {
     return {
       typeUrl: "/dydxprotocol.perpetuals.QueryAllPerpetualsResponse",
       value: QueryAllPerpetualsResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAllLiquidityTiersRequest(): QueryAllLiquidityTiersRequest {
+  return {
+    pagination: undefined
+  };
+}
+export const QueryAllLiquidityTiersRequest = {
+  typeUrl: "/dydxprotocol.perpetuals.QueryAllLiquidityTiersRequest",
+  encode(message: QueryAllLiquidityTiersRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryAllLiquidityTiersRequest {
+    return {
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryAllLiquidityTiersRequest>): QueryAllLiquidityTiersRequest {
+    const message = createBaseQueryAllLiquidityTiersRequest();
+    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryAllLiquidityTiersRequestAmino): QueryAllLiquidityTiersRequest {
+    const message = createBaseQueryAllLiquidityTiersRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryAllLiquidityTiersRequest): QueryAllLiquidityTiersRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllLiquidityTiersRequestAminoMsg): QueryAllLiquidityTiersRequest {
+    return QueryAllLiquidityTiersRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAllLiquidityTiersRequestProtoMsg): QueryAllLiquidityTiersRequest {
+    return QueryAllLiquidityTiersRequest.decode(message.value);
+  },
+  toProto(message: QueryAllLiquidityTiersRequest): Uint8Array {
+    return QueryAllLiquidityTiersRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllLiquidityTiersRequest): QueryAllLiquidityTiersRequestProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.perpetuals.QueryAllLiquidityTiersRequest",
+      value: QueryAllLiquidityTiersRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAllLiquidityTiersResponse(): QueryAllLiquidityTiersResponse {
+  return {
+    liquidityTiers: [],
+    pagination: undefined
+  };
+}
+export const QueryAllLiquidityTiersResponse = {
+  typeUrl: "/dydxprotocol.perpetuals.QueryAllLiquidityTiersResponse",
+  encode(message: QueryAllLiquidityTiersResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.liquidityTiers) {
+      LiquidityTier.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryAllLiquidityTiersResponse {
+    return {
+      liquidityTiers: Array.isArray(object?.liquidityTiers) ? object.liquidityTiers.map((e: any) => LiquidityTier.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryAllLiquidityTiersResponse>): QueryAllLiquidityTiersResponse {
+    const message = createBaseQueryAllLiquidityTiersResponse();
+    message.liquidityTiers = object.liquidityTiers?.map(e => LiquidityTier.fromPartial(e)) || [];
+    message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryAllLiquidityTiersResponseAmino): QueryAllLiquidityTiersResponse {
+    const message = createBaseQueryAllLiquidityTiersResponse();
+    message.liquidityTiers = object.liquidity_tiers?.map(e => LiquidityTier.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryAllLiquidityTiersResponse): QueryAllLiquidityTiersResponseAmino {
+    const obj: any = {};
+    if (message.liquidityTiers) {
+      obj.liquidity_tiers = message.liquidityTiers.map(e => e ? LiquidityTier.toAmino(e) : undefined);
+    } else {
+      obj.liquidity_tiers = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllLiquidityTiersResponseAminoMsg): QueryAllLiquidityTiersResponse {
+    return QueryAllLiquidityTiersResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAllLiquidityTiersResponseProtoMsg): QueryAllLiquidityTiersResponse {
+    return QueryAllLiquidityTiersResponse.decode(message.value);
+  },
+  toProto(message: QueryAllLiquidityTiersResponse): Uint8Array {
+    return QueryAllLiquidityTiersResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAllLiquidityTiersResponse): QueryAllLiquidityTiersResponseProtoMsg {
+    return {
+      typeUrl: "/dydxprotocol.perpetuals.QueryAllLiquidityTiersResponse",
+      value: QueryAllLiquidityTiersResponse.encode(message).finish()
     };
   }
 };

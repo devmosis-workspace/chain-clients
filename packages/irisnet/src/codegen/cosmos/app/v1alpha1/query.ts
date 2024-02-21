@@ -18,7 +18,7 @@ export interface QueryConfigRequestSDKType {}
 /** QueryConfigRequest is the Query/Config response type. */
 export interface QueryConfigResponse {
   /** config is the current app config. */
-  config: Config;
+  config?: Config;
 }
 export interface QueryConfigResponseProtoMsg {
   typeUrl: "/cosmos.app.v1alpha1.QueryConfigResponse";
@@ -35,7 +35,7 @@ export interface QueryConfigResponseAminoMsg {
 }
 /** QueryConfigRequest is the Query/Config response type. */
 export interface QueryConfigResponseSDKType {
-  config: ConfigSDKType;
+  config?: ConfigSDKType;
 }
 function createBaseQueryConfigRequest(): QueryConfigRequest {
   return {};
@@ -53,7 +53,8 @@ export const QueryConfigRequest = {
     return message;
   },
   fromAmino(_: QueryConfigRequestAmino): QueryConfigRequest {
-    return {};
+    const message = createBaseQueryConfigRequest();
+    return message;
   },
   toAmino(_: QueryConfigRequest): QueryConfigRequestAmino {
     const obj: any = {};
@@ -83,7 +84,7 @@ export const QueryConfigRequest = {
 };
 function createBaseQueryConfigResponse(): QueryConfigResponse {
   return {
-    config: Config.fromPartial({})
+    config: undefined
   };
 }
 export const QueryConfigResponse = {
@@ -105,9 +106,11 @@ export const QueryConfigResponse = {
     return message;
   },
   fromAmino(object: QueryConfigResponseAmino): QueryConfigResponse {
-    return {
-      config: object?.config ? Config.fromAmino(object.config) : undefined
-    };
+    const message = createBaseQueryConfigResponse();
+    if (object.config !== undefined && object.config !== null) {
+      message.config = Config.fromAmino(object.config);
+    }
+    return message;
   },
   toAmino(message: QueryConfigResponse): QueryConfigResponseAmino {
     const obj: any = {};

@@ -145,7 +145,10 @@ export interface LiquidityTier {
    * The maximum position size at which the margin requirements are
    * not increased over the default values. Above this position size,
    * the margin requirements increase at a rate of sqrt(size).
+   * 
+   * Deprecated since v3.x.
    */
+  /** @deprecated */
   basePositionNotional: bigint;
   /**
    * The impact notional amount (in quote quantums) is used to determine impact
@@ -168,6 +171,7 @@ export interface LiquidityTierSDKType {
   name: string;
   initial_margin_ppm: number;
   maintenance_fraction_ppm: number;
+  /** @deprecated */
   base_position_notional: bigint;
   impact_notional: bigint;
 }
