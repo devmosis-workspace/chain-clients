@@ -1,5 +1,5 @@
 import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
-import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { Duration, DurationSDKType } from "../../google/protobuf/duration";
 import { BinaryWriter } from "../../binary";
 import { isSet, fromJsonTimestamp } from "../../helpers";
 /** BlockInfo stores information about a block */
@@ -10,15 +10,6 @@ export interface BlockInfo {
 export interface BlockInfoProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.BlockInfo";
   value: Uint8Array;
-}
-/** BlockInfo stores information about a block */
-export interface BlockInfoAmino {
-  height?: number;
-  timestamp?: string;
-}
-export interface BlockInfoAminoMsg {
-  type: "/dydxprotocol.blocktime.BlockInfo";
-  value: BlockInfoAmino;
 }
 /** BlockInfo stores information about a block */
 export interface BlockInfoSDKType {
@@ -38,18 +29,6 @@ export interface AllDowntimeInfoProtoMsg {
   value: Uint8Array;
 }
 /** AllDowntimeInfo stores information for all downtime durations. */
-export interface AllDowntimeInfoAmino {
-  /**
-   * The downtime information for each tracked duration. Sorted by duration,
-   * ascending. (i.e. the same order as they appear in DowntimeParams).
-   */
-  infos?: AllDowntimeInfo_DowntimeInfoAmino[];
-}
-export interface AllDowntimeInfoAminoMsg {
-  type: "/dydxprotocol.blocktime.AllDowntimeInfo";
-  value: AllDowntimeInfoAmino;
-}
-/** AllDowntimeInfo stores information for all downtime durations. */
 export interface AllDowntimeInfoSDKType {
   infos: AllDowntimeInfo_DowntimeInfoSDKType[];
 }
@@ -64,18 +43,6 @@ export interface AllDowntimeInfo_DowntimeInfo {
 export interface AllDowntimeInfo_DowntimeInfoProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.DowntimeInfo";
   value: Uint8Array;
-}
-/**
- * Stores information about downtime. block_info corresponds to the most
- * recent block at which a downtime occurred.
- */
-export interface AllDowntimeInfo_DowntimeInfoAmino {
-  duration?: DurationAmino;
-  block_info?: BlockInfoAmino;
-}
-export interface AllDowntimeInfo_DowntimeInfoAminoMsg {
-  type: "/dydxprotocol.blocktime.DowntimeInfo";
-  value: AllDowntimeInfo_DowntimeInfoAmino;
 }
 /**
  * Stores information about downtime. block_info corresponds to the most

@@ -10,14 +10,6 @@ export interface UpdateMarketPricesRequestProtoMsg {
   value: Uint8Array;
 }
 /** UpdateMarketPriceRequest is a request message updating market prices. */
-export interface UpdateMarketPricesRequestAmino {
-  market_price_updates?: MarketPriceUpdateAmino[];
-}
-export interface UpdateMarketPricesRequestAminoMsg {
-  type: "/dydxprotocol.daemons.pricefeed.UpdateMarketPricesRequest";
-  value: UpdateMarketPricesRequestAmino;
-}
-/** UpdateMarketPriceRequest is a request message updating market prices. */
 export interface UpdateMarketPricesRequestSDKType {
   market_price_updates: MarketPriceUpdateSDKType[];
 }
@@ -26,12 +18,6 @@ export interface UpdateMarketPricesResponse {}
 export interface UpdateMarketPricesResponseProtoMsg {
   typeUrl: "/dydxprotocol.daemons.pricefeed.UpdateMarketPricesResponse";
   value: Uint8Array;
-}
-/** UpdateMarketPricesResponse is a response message for updating market prices. */
-export interface UpdateMarketPricesResponseAmino {}
-export interface UpdateMarketPricesResponseAminoMsg {
-  type: "/dydxprotocol.daemons.pricefeed.UpdateMarketPricesResponse";
-  value: UpdateMarketPricesResponseAmino;
 }
 /** UpdateMarketPricesResponse is a response message for updating market prices. */
 export interface UpdateMarketPricesResponseSDKType {}
@@ -44,16 +30,6 @@ export interface ExchangePrice {
 export interface ExchangePriceProtoMsg {
   typeUrl: "/dydxprotocol.daemons.pricefeed.ExchangePrice";
   value: Uint8Array;
-}
-/** ExchangePrice represents a specific exchange's market price */
-export interface ExchangePriceAmino {
-  exchange_id?: string;
-  price?: string;
-  last_update_time?: string;
-}
-export interface ExchangePriceAminoMsg {
-  type: "/dydxprotocol.daemons.pricefeed.ExchangePrice";
-  value: ExchangePriceAmino;
 }
 /** ExchangePrice represents a specific exchange's market price */
 export interface ExchangePriceSDKType {
@@ -69,15 +45,6 @@ export interface MarketPriceUpdate {
 export interface MarketPriceUpdateProtoMsg {
   typeUrl: "/dydxprotocol.daemons.pricefeed.MarketPriceUpdate";
   value: Uint8Array;
-}
-/** MarketPriceUpdate represents an update to a single market */
-export interface MarketPriceUpdateAmino {
-  market_id?: number;
-  exchange_prices?: ExchangePriceAmino[];
-}
-export interface MarketPriceUpdateAminoMsg {
-  type: "/dydxprotocol.daemons.pricefeed.MarketPriceUpdate";
-  value: MarketPriceUpdateAmino;
 }
 /** MarketPriceUpdate represents an update to a single market */
 export interface MarketPriceUpdateSDKType {

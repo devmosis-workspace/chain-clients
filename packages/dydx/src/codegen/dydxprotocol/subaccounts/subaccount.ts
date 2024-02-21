@@ -1,5 +1,5 @@
-import { AssetPosition, AssetPositionAmino, AssetPositionSDKType } from "./asset_position";
-import { PerpetualPosition, PerpetualPositionAmino, PerpetualPositionSDKType } from "./perpetual_position";
+import { AssetPosition, AssetPositionSDKType } from "./asset_position";
+import { PerpetualPosition, PerpetualPositionSDKType } from "./perpetual_position";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** SubaccountId defines a unique identifier for a Subaccount. */
@@ -15,20 +15,6 @@ export interface SubaccountId {
 export interface SubaccountIdProtoMsg {
   typeUrl: "/dydxprotocol.subaccounts.SubaccountId";
   value: Uint8Array;
-}
-/** SubaccountId defines a unique identifier for a Subaccount. */
-export interface SubaccountIdAmino {
-  /** The address of the wallet that owns this subaccount. */
-  owner?: string;
-  /**
-   * < 128 Since 128 should be enough to start and it fits within
-   * 1 Byte (1 Bit needed to indicate that the first byte is the last).
-   */
-  number?: number;
-}
-export interface SubaccountIdAminoMsg {
-  type: "/dydxprotocol.subaccounts.SubaccountId";
-  value: SubaccountIdAmino;
 }
 /** SubaccountId defines a unique identifier for a Subaccount. */
 export interface SubaccountIdSDKType {
@@ -61,33 +47,6 @@ export interface Subaccount {
 export interface SubaccountProtoMsg {
   typeUrl: "/dydxprotocol.subaccounts.Subaccount";
   value: Uint8Array;
-}
-/**
- * Subaccount defines a single sub-account for a given address.
- * Subaccounts are uniquely indexed by a subaccountNumber/owner pair.
- */
-export interface SubaccountAmino {
-  /** The Id of the Subaccount */
-  id?: SubaccountIdAmino;
-  /**
-   * All `AssetPosition`s associated with this subaccount.
-   * Always sorted ascending by `asset_id`.
-   */
-  asset_positions?: AssetPositionAmino[];
-  /**
-   * All `PerpetualPosition`s associated with this subaccount.
-   * Always sorted ascending by `perpetual_id.
-   */
-  perpetual_positions?: PerpetualPositionAmino[];
-  /**
-   * Set by the owner. If true, then margin trades can be made in this
-   * subaccount.
-   */
-  margin_enabled?: boolean;
-}
-export interface SubaccountAminoMsg {
-  type: "/dydxprotocol.subaccounts.Subaccount";
-  value: SubaccountAmino;
 }
 /**
  * Subaccount defines a single sub-account for a given address.

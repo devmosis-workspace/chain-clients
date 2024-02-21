@@ -1,4 +1,4 @@
-import { BridgeEvent, BridgeEventAmino, BridgeEventSDKType } from "../../bridge/bridge_event";
+import { BridgeEvent, BridgeEventSDKType } from "../../bridge/bridge_event";
 import { BinaryWriter } from "../../../binary";
 /**
  * AddBridgeEventsRequest is a request message that contains a list of new
@@ -15,17 +15,6 @@ export interface AddBridgeEventsRequestProtoMsg {
  * AddBridgeEventsRequest is a request message that contains a list of new
  * bridge events. The events should be contiguous and sorted by (unique) id.
  */
-export interface AddBridgeEventsRequestAmino {
-  bridge_events?: BridgeEventAmino[];
-}
-export interface AddBridgeEventsRequestAminoMsg {
-  type: "/dydxprotocol.daemons.bridge.AddBridgeEventsRequest";
-  value: AddBridgeEventsRequestAmino;
-}
-/**
- * AddBridgeEventsRequest is a request message that contains a list of new
- * bridge events. The events should be contiguous and sorted by (unique) id.
- */
 export interface AddBridgeEventsRequestSDKType {
   bridge_events: BridgeEventSDKType[];
 }
@@ -34,12 +23,6 @@ export interface AddBridgeEventsResponse {}
 export interface AddBridgeEventsResponseProtoMsg {
   typeUrl: "/dydxprotocol.daemons.bridge.AddBridgeEventsResponse";
   value: Uint8Array;
-}
-/** AddBridgeEventsResponse is a response message for BridgeEventRequest. */
-export interface AddBridgeEventsResponseAmino {}
-export interface AddBridgeEventsResponseAminoMsg {
-  type: "/dydxprotocol.daemons.bridge.AddBridgeEventsResponse";
-  value: AddBridgeEventsResponseAmino;
 }
 /** AddBridgeEventsResponse is a response message for BridgeEventRequest. */
 export interface AddBridgeEventsResponseSDKType {}

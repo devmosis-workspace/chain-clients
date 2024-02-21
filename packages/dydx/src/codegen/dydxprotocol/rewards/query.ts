@@ -1,4 +1,4 @@
-import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { Params, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** QueryParamsRequest is a request type for the Params RPC method. */
@@ -6,12 +6,6 @@ export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/dydxprotocol.rewards.QueryParamsRequest";
   value: Uint8Array;
-}
-/** QueryParamsRequest is a request type for the Params RPC method. */
-export interface QueryParamsRequestAmino {}
-export interface QueryParamsRequestAminoMsg {
-  type: "/dydxprotocol.rewards.QueryParamsRequest";
-  value: QueryParamsRequestAmino;
 }
 /** QueryParamsRequest is a request type for the Params RPC method. */
 export interface QueryParamsRequestSDKType {}
@@ -22,14 +16,6 @@ export interface QueryParamsResponse {
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/dydxprotocol.rewards.QueryParamsResponse";
   value: Uint8Array;
-}
-/** QueryParamsResponse is a response type for the Params RPC method. */
-export interface QueryParamsResponseAmino {
-  params?: ParamsAmino;
-}
-export interface QueryParamsResponseAminoMsg {
-  type: "/dydxprotocol.rewards.QueryParamsResponse";
-  value: QueryParamsResponseAmino;
 }
 /** QueryParamsResponse is a response type for the Params RPC method. */
 export interface QueryParamsResponseSDKType {

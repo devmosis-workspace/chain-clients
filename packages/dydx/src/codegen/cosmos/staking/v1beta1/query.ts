@@ -1,5 +1,5 @@
-import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
-import { Validator, ValidatorAmino, ValidatorSDKType, DelegationResponse, DelegationResponseAmino, DelegationResponseSDKType, UnbondingDelegation, UnbondingDelegationAmino, UnbondingDelegationSDKType, RedelegationResponse, RedelegationResponseAmino, RedelegationResponseSDKType, HistoricalInfo, HistoricalInfoAmino, HistoricalInfoSDKType, Pool, PoolAmino, PoolSDKType, Params, ParamsAmino, ParamsSDKType } from "./staking";
+import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
+import { Validator, ValidatorSDKType, DelegationResponse, DelegationResponseSDKType, UnbondingDelegation, UnbondingDelegationSDKType, RedelegationResponse, RedelegationResponseSDKType, HistoricalInfo, HistoricalInfoSDKType, Pool, PoolSDKType, Params, ParamsSDKType } from "./staking";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** QueryValidatorsRequest is request type for Query/Validators RPC method. */
@@ -12,17 +12,6 @@ export interface QueryValidatorsRequest {
 export interface QueryValidatorsRequestProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryValidatorsRequest";
   value: Uint8Array;
-}
-/** QueryValidatorsRequest is request type for Query/Validators RPC method. */
-export interface QueryValidatorsRequestAmino {
-  /** status enables to query for validators matching a given status. */
-  status?: string;
-  /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequestAmino;
-}
-export interface QueryValidatorsRequestAminoMsg {
-  type: "cosmos-sdk/QueryValidatorsRequest";
-  value: QueryValidatorsRequestAmino;
 }
 /** QueryValidatorsRequest is request type for Query/Validators RPC method. */
 export interface QueryValidatorsRequestSDKType {
@@ -41,17 +30,6 @@ export interface QueryValidatorsResponseProtoMsg {
   value: Uint8Array;
 }
 /** QueryValidatorsResponse is response type for the Query/Validators RPC method */
-export interface QueryValidatorsResponseAmino {
-  /** validators contains all the queried validators. */
-  validators: ValidatorAmino[];
-  /** pagination defines the pagination in the response. */
-  pagination?: PageResponseAmino;
-}
-export interface QueryValidatorsResponseAminoMsg {
-  type: "cosmos-sdk/QueryValidatorsResponse";
-  value: QueryValidatorsResponseAmino;
-}
-/** QueryValidatorsResponse is response type for the Query/Validators RPC method */
 export interface QueryValidatorsResponseSDKType {
   validators: ValidatorSDKType[];
   pagination?: PageResponseSDKType;
@@ -66,15 +44,6 @@ export interface QueryValidatorRequestProtoMsg {
   value: Uint8Array;
 }
 /** QueryValidatorRequest is response type for the Query/Validator RPC method */
-export interface QueryValidatorRequestAmino {
-  /** validator_addr defines the validator address to query for. */
-  validator_addr?: string;
-}
-export interface QueryValidatorRequestAminoMsg {
-  type: "cosmos-sdk/QueryValidatorRequest";
-  value: QueryValidatorRequestAmino;
-}
-/** QueryValidatorRequest is response type for the Query/Validator RPC method */
 export interface QueryValidatorRequestSDKType {
   validator_addr: string;
 }
@@ -86,15 +55,6 @@ export interface QueryValidatorResponse {
 export interface QueryValidatorResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryValidatorResponse";
   value: Uint8Array;
-}
-/** QueryValidatorResponse is response type for the Query/Validator RPC method */
-export interface QueryValidatorResponseAmino {
-  /** validator defines the validator info. */
-  validator: ValidatorAmino;
-}
-export interface QueryValidatorResponseAminoMsg {
-  type: "cosmos-sdk/QueryValidatorResponse";
-  value: QueryValidatorResponseAmino;
 }
 /** QueryValidatorResponse is response type for the Query/Validator RPC method */
 export interface QueryValidatorResponseSDKType {
@@ -118,20 +78,6 @@ export interface QueryValidatorDelegationsRequestProtoMsg {
  * QueryValidatorDelegationsRequest is request type for the
  * Query/ValidatorDelegations RPC method
  */
-export interface QueryValidatorDelegationsRequestAmino {
-  /** validator_addr defines the validator address to query for. */
-  validator_addr?: string;
-  /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequestAmino;
-}
-export interface QueryValidatorDelegationsRequestAminoMsg {
-  type: "cosmos-sdk/QueryValidatorDelegationsRequest";
-  value: QueryValidatorDelegationsRequestAmino;
-}
-/**
- * QueryValidatorDelegationsRequest is request type for the
- * Query/ValidatorDelegations RPC method
- */
 export interface QueryValidatorDelegationsRequestSDKType {
   validator_addr: string;
   pagination?: PageRequestSDKType;
@@ -148,19 +94,6 @@ export interface QueryValidatorDelegationsResponse {
 export interface QueryValidatorDelegationsResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryValidatorDelegationsResponse";
   value: Uint8Array;
-}
-/**
- * QueryValidatorDelegationsResponse is response type for the
- * Query/ValidatorDelegations RPC method
- */
-export interface QueryValidatorDelegationsResponseAmino {
-  delegation_responses: DelegationResponseAmino[];
-  /** pagination defines the pagination in the response. */
-  pagination?: PageResponseAmino;
-}
-export interface QueryValidatorDelegationsResponseAminoMsg {
-  type: "cosmos-sdk/QueryValidatorDelegationsResponse";
-  value: QueryValidatorDelegationsResponseAmino;
 }
 /**
  * QueryValidatorDelegationsResponse is response type for the
@@ -188,20 +121,6 @@ export interface QueryValidatorUnbondingDelegationsRequestProtoMsg {
  * QueryValidatorUnbondingDelegationsRequest is required type for the
  * Query/ValidatorUnbondingDelegations RPC method
  */
-export interface QueryValidatorUnbondingDelegationsRequestAmino {
-  /** validator_addr defines the validator address to query for. */
-  validator_addr?: string;
-  /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequestAmino;
-}
-export interface QueryValidatorUnbondingDelegationsRequestAminoMsg {
-  type: "cosmos-sdk/QueryValidatorUnbondingDelegationsRequest";
-  value: QueryValidatorUnbondingDelegationsRequestAmino;
-}
-/**
- * QueryValidatorUnbondingDelegationsRequest is required type for the
- * Query/ValidatorUnbondingDelegations RPC method
- */
 export interface QueryValidatorUnbondingDelegationsRequestSDKType {
   validator_addr: string;
   pagination?: PageRequestSDKType;
@@ -223,19 +142,6 @@ export interface QueryValidatorUnbondingDelegationsResponseProtoMsg {
  * QueryValidatorUnbondingDelegationsResponse is response type for the
  * Query/ValidatorUnbondingDelegations RPC method.
  */
-export interface QueryValidatorUnbondingDelegationsResponseAmino {
-  unbonding_responses: UnbondingDelegationAmino[];
-  /** pagination defines the pagination in the response. */
-  pagination?: PageResponseAmino;
-}
-export interface QueryValidatorUnbondingDelegationsResponseAminoMsg {
-  type: "cosmos-sdk/QueryValidatorUnbondingDelegationsResponse";
-  value: QueryValidatorUnbondingDelegationsResponseAmino;
-}
-/**
- * QueryValidatorUnbondingDelegationsResponse is response type for the
- * Query/ValidatorUnbondingDelegations RPC method.
- */
 export interface QueryValidatorUnbondingDelegationsResponseSDKType {
   unbonding_responses: UnbondingDelegationSDKType[];
   pagination?: PageResponseSDKType;
@@ -252,17 +158,6 @@ export interface QueryDelegationRequestProtoMsg {
   value: Uint8Array;
 }
 /** QueryDelegationRequest is request type for the Query/Delegation RPC method. */
-export interface QueryDelegationRequestAmino {
-  /** delegator_addr defines the delegator address to query for. */
-  delegator_addr?: string;
-  /** validator_addr defines the validator address to query for. */
-  validator_addr?: string;
-}
-export interface QueryDelegationRequestAminoMsg {
-  type: "cosmos-sdk/QueryDelegationRequest";
-  value: QueryDelegationRequestAmino;
-}
-/** QueryDelegationRequest is request type for the Query/Delegation RPC method. */
 export interface QueryDelegationRequestSDKType {
   delegator_addr: string;
   validator_addr: string;
@@ -275,15 +170,6 @@ export interface QueryDelegationResponse {
 export interface QueryDelegationResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegationResponse";
   value: Uint8Array;
-}
-/** QueryDelegationResponse is response type for the Query/Delegation RPC method. */
-export interface QueryDelegationResponseAmino {
-  /** delegation_responses defines the delegation info of a delegation. */
-  delegation_response?: DelegationResponseAmino;
-}
-export interface QueryDelegationResponseAminoMsg {
-  type: "cosmos-sdk/QueryDelegationResponse";
-  value: QueryDelegationResponseAmino;
 }
 /** QueryDelegationResponse is response type for the Query/Delegation RPC method. */
 export interface QueryDelegationResponseSDKType {
@@ -302,20 +188,6 @@ export interface QueryUnbondingDelegationRequest {
 export interface QueryUnbondingDelegationRequestProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryUnbondingDelegationRequest";
   value: Uint8Array;
-}
-/**
- * QueryUnbondingDelegationRequest is request type for the
- * Query/UnbondingDelegation RPC method.
- */
-export interface QueryUnbondingDelegationRequestAmino {
-  /** delegator_addr defines the delegator address to query for. */
-  delegator_addr?: string;
-  /** validator_addr defines the validator address to query for. */
-  validator_addr?: string;
-}
-export interface QueryUnbondingDelegationRequestAminoMsg {
-  type: "cosmos-sdk/QueryUnbondingDelegationRequest";
-  value: QueryUnbondingDelegationRequestAmino;
 }
 /**
  * QueryUnbondingDelegationRequest is request type for the
@@ -341,18 +213,6 @@ export interface QueryUnbondingDelegationResponseProtoMsg {
  * QueryDelegationResponse is response type for the Query/UnbondingDelegation
  * RPC method.
  */
-export interface QueryUnbondingDelegationResponseAmino {
-  /** unbond defines the unbonding information of a delegation. */
-  unbond: UnbondingDelegationAmino;
-}
-export interface QueryUnbondingDelegationResponseAminoMsg {
-  type: "cosmos-sdk/QueryUnbondingDelegationResponse";
-  value: QueryUnbondingDelegationResponseAmino;
-}
-/**
- * QueryDelegationResponse is response type for the Query/UnbondingDelegation
- * RPC method.
- */
 export interface QueryUnbondingDelegationResponseSDKType {
   unbond: UnbondingDelegationSDKType;
 }
@@ -369,20 +229,6 @@ export interface QueryDelegatorDelegationsRequest {
 export interface QueryDelegatorDelegationsRequestProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorDelegationsRequest";
   value: Uint8Array;
-}
-/**
- * QueryDelegatorDelegationsRequest is request type for the
- * Query/DelegatorDelegations RPC method.
- */
-export interface QueryDelegatorDelegationsRequestAmino {
-  /** delegator_addr defines the delegator address to query for. */
-  delegator_addr?: string;
-  /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequestAmino;
-}
-export interface QueryDelegatorDelegationsRequestAminoMsg {
-  type: "cosmos-sdk/QueryDelegatorDelegationsRequest";
-  value: QueryDelegatorDelegationsRequestAmino;
 }
 /**
  * QueryDelegatorDelegationsRequest is request type for the
@@ -410,20 +256,6 @@ export interface QueryDelegatorDelegationsResponseProtoMsg {
  * QueryDelegatorDelegationsResponse is response type for the
  * Query/DelegatorDelegations RPC method.
  */
-export interface QueryDelegatorDelegationsResponseAmino {
-  /** delegation_responses defines all the delegations' info of a delegator. */
-  delegation_responses: DelegationResponseAmino[];
-  /** pagination defines the pagination in the response. */
-  pagination?: PageResponseAmino;
-}
-export interface QueryDelegatorDelegationsResponseAminoMsg {
-  type: "cosmos-sdk/QueryDelegatorDelegationsResponse";
-  value: QueryDelegatorDelegationsResponseAmino;
-}
-/**
- * QueryDelegatorDelegationsResponse is response type for the
- * Query/DelegatorDelegations RPC method.
- */
 export interface QueryDelegatorDelegationsResponseSDKType {
   delegation_responses: DelegationResponseSDKType[];
   pagination?: PageResponseSDKType;
@@ -446,20 +278,6 @@ export interface QueryDelegatorUnbondingDelegationsRequestProtoMsg {
  * QueryDelegatorUnbondingDelegationsRequest is request type for the
  * Query/DelegatorUnbondingDelegations RPC method.
  */
-export interface QueryDelegatorUnbondingDelegationsRequestAmino {
-  /** delegator_addr defines the delegator address to query for. */
-  delegator_addr?: string;
-  /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequestAmino;
-}
-export interface QueryDelegatorUnbondingDelegationsRequestAminoMsg {
-  type: "cosmos-sdk/QueryDelegatorUnbondingDelegationsRequest";
-  value: QueryDelegatorUnbondingDelegationsRequestAmino;
-}
-/**
- * QueryDelegatorUnbondingDelegationsRequest is request type for the
- * Query/DelegatorUnbondingDelegations RPC method.
- */
 export interface QueryDelegatorUnbondingDelegationsRequestSDKType {
   delegator_addr: string;
   pagination?: PageRequestSDKType;
@@ -476,19 +294,6 @@ export interface QueryDelegatorUnbondingDelegationsResponse {
 export interface QueryDelegatorUnbondingDelegationsResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsResponse";
   value: Uint8Array;
-}
-/**
- * QueryUnbondingDelegatorDelegationsResponse is response type for the
- * Query/UnbondingDelegatorDelegations RPC method.
- */
-export interface QueryDelegatorUnbondingDelegationsResponseAmino {
-  unbonding_responses: UnbondingDelegationAmino[];
-  /** pagination defines the pagination in the response. */
-  pagination?: PageResponseAmino;
-}
-export interface QueryDelegatorUnbondingDelegationsResponseAminoMsg {
-  type: "cosmos-sdk/QueryDelegatorUnbondingDelegationsResponse";
-  value: QueryDelegatorUnbondingDelegationsResponseAmino;
 }
 /**
  * QueryUnbondingDelegatorDelegationsResponse is response type for the
@@ -520,24 +325,6 @@ export interface QueryRedelegationsRequestProtoMsg {
  * QueryRedelegationsRequest is request type for the Query/Redelegations RPC
  * method.
  */
-export interface QueryRedelegationsRequestAmino {
-  /** delegator_addr defines the delegator address to query for. */
-  delegator_addr?: string;
-  /** src_validator_addr defines the validator address to redelegate from. */
-  src_validator_addr?: string;
-  /** dst_validator_addr defines the validator address to redelegate to. */
-  dst_validator_addr?: string;
-  /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequestAmino;
-}
-export interface QueryRedelegationsRequestAminoMsg {
-  type: "cosmos-sdk/QueryRedelegationsRequest";
-  value: QueryRedelegationsRequestAmino;
-}
-/**
- * QueryRedelegationsRequest is request type for the Query/Redelegations RPC
- * method.
- */
 export interface QueryRedelegationsRequestSDKType {
   delegator_addr: string;
   src_validator_addr: string;
@@ -556,19 +343,6 @@ export interface QueryRedelegationsResponse {
 export interface QueryRedelegationsResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryRedelegationsResponse";
   value: Uint8Array;
-}
-/**
- * QueryRedelegationsResponse is response type for the Query/Redelegations RPC
- * method.
- */
-export interface QueryRedelegationsResponseAmino {
-  redelegation_responses: RedelegationResponseAmino[];
-  /** pagination defines the pagination in the response. */
-  pagination?: PageResponseAmino;
-}
-export interface QueryRedelegationsResponseAminoMsg {
-  type: "cosmos-sdk/QueryRedelegationsResponse";
-  value: QueryRedelegationsResponseAmino;
 }
 /**
  * QueryRedelegationsResponse is response type for the Query/Redelegations RPC
@@ -596,20 +370,6 @@ export interface QueryDelegatorValidatorsRequestProtoMsg {
  * QueryDelegatorValidatorsRequest is request type for the
  * Query/DelegatorValidators RPC method.
  */
-export interface QueryDelegatorValidatorsRequestAmino {
-  /** delegator_addr defines the delegator address to query for. */
-  delegator_addr?: string;
-  /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequestAmino;
-}
-export interface QueryDelegatorValidatorsRequestAminoMsg {
-  type: "cosmos-sdk/QueryDelegatorValidatorsRequest";
-  value: QueryDelegatorValidatorsRequestAmino;
-}
-/**
- * QueryDelegatorValidatorsRequest is request type for the
- * Query/DelegatorValidators RPC method.
- */
 export interface QueryDelegatorValidatorsRequestSDKType {
   delegator_addr: string;
   pagination?: PageRequestSDKType;
@@ -627,20 +387,6 @@ export interface QueryDelegatorValidatorsResponse {
 export interface QueryDelegatorValidatorsResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorsResponse";
   value: Uint8Array;
-}
-/**
- * QueryDelegatorValidatorsResponse is response type for the
- * Query/DelegatorValidators RPC method.
- */
-export interface QueryDelegatorValidatorsResponseAmino {
-  /** validators defines the validators' info of a delegator. */
-  validators: ValidatorAmino[];
-  /** pagination defines the pagination in the response. */
-  pagination?: PageResponseAmino;
-}
-export interface QueryDelegatorValidatorsResponseAminoMsg {
-  type: "cosmos-sdk/QueryDelegatorValidatorsResponse";
-  value: QueryDelegatorValidatorsResponseAmino;
 }
 /**
  * QueryDelegatorValidatorsResponse is response type for the
@@ -668,20 +414,6 @@ export interface QueryDelegatorValidatorRequestProtoMsg {
  * QueryDelegatorValidatorRequest is request type for the
  * Query/DelegatorValidator RPC method.
  */
-export interface QueryDelegatorValidatorRequestAmino {
-  /** delegator_addr defines the delegator address to query for. */
-  delegator_addr?: string;
-  /** validator_addr defines the validator address to query for. */
-  validator_addr?: string;
-}
-export interface QueryDelegatorValidatorRequestAminoMsg {
-  type: "cosmos-sdk/QueryDelegatorValidatorRequest";
-  value: QueryDelegatorValidatorRequestAmino;
-}
-/**
- * QueryDelegatorValidatorRequest is request type for the
- * Query/DelegatorValidator RPC method.
- */
 export interface QueryDelegatorValidatorRequestSDKType {
   delegator_addr: string;
   validator_addr: string;
@@ -697,18 +429,6 @@ export interface QueryDelegatorValidatorResponse {
 export interface QueryDelegatorValidatorResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorResponse";
   value: Uint8Array;
-}
-/**
- * QueryDelegatorValidatorResponse response type for the
- * Query/DelegatorValidator RPC method.
- */
-export interface QueryDelegatorValidatorResponseAmino {
-  /** validator defines the validator info. */
-  validator: ValidatorAmino;
-}
-export interface QueryDelegatorValidatorResponseAminoMsg {
-  type: "cosmos-sdk/QueryDelegatorValidatorResponse";
-  value: QueryDelegatorValidatorResponseAmino;
 }
 /**
  * QueryDelegatorValidatorResponse response type for the
@@ -733,18 +453,6 @@ export interface QueryHistoricalInfoRequestProtoMsg {
  * QueryHistoricalInfoRequest is request type for the Query/HistoricalInfo RPC
  * method.
  */
-export interface QueryHistoricalInfoRequestAmino {
-  /** height defines at which height to query the historical info. */
-  height?: string;
-}
-export interface QueryHistoricalInfoRequestAminoMsg {
-  type: "cosmos-sdk/QueryHistoricalInfoRequest";
-  value: QueryHistoricalInfoRequestAmino;
-}
-/**
- * QueryHistoricalInfoRequest is request type for the Query/HistoricalInfo RPC
- * method.
- */
 export interface QueryHistoricalInfoRequestSDKType {
   height: bigint;
 }
@@ -764,18 +472,6 @@ export interface QueryHistoricalInfoResponseProtoMsg {
  * QueryHistoricalInfoResponse is response type for the Query/HistoricalInfo RPC
  * method.
  */
-export interface QueryHistoricalInfoResponseAmino {
-  /** hist defines the historical info at the given height. */
-  hist?: HistoricalInfoAmino;
-}
-export interface QueryHistoricalInfoResponseAminoMsg {
-  type: "cosmos-sdk/QueryHistoricalInfoResponse";
-  value: QueryHistoricalInfoResponseAmino;
-}
-/**
- * QueryHistoricalInfoResponse is response type for the Query/HistoricalInfo RPC
- * method.
- */
 export interface QueryHistoricalInfoResponseSDKType {
   hist?: HistoricalInfoSDKType;
 }
@@ -784,12 +480,6 @@ export interface QueryPoolRequest {}
 export interface QueryPoolRequestProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryPoolRequest";
   value: Uint8Array;
-}
-/** QueryPoolRequest is request type for the Query/Pool RPC method. */
-export interface QueryPoolRequestAmino {}
-export interface QueryPoolRequestAminoMsg {
-  type: "cosmos-sdk/QueryPoolRequest";
-  value: QueryPoolRequestAmino;
 }
 /** QueryPoolRequest is request type for the Query/Pool RPC method. */
 export interface QueryPoolRequestSDKType {}
@@ -803,15 +493,6 @@ export interface QueryPoolResponseProtoMsg {
   value: Uint8Array;
 }
 /** QueryPoolResponse is response type for the Query/Pool RPC method. */
-export interface QueryPoolResponseAmino {
-  /** pool defines the pool info. */
-  pool: PoolAmino;
-}
-export interface QueryPoolResponseAminoMsg {
-  type: "cosmos-sdk/QueryPoolResponse";
-  value: QueryPoolResponseAmino;
-}
-/** QueryPoolResponse is response type for the Query/Pool RPC method. */
 export interface QueryPoolResponseSDKType {
   pool: PoolSDKType;
 }
@@ -820,12 +501,6 @@ export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryParamsRequest";
   value: Uint8Array;
-}
-/** QueryParamsRequest is request type for the Query/Params RPC method. */
-export interface QueryParamsRequestAmino {}
-export interface QueryParamsRequestAminoMsg {
-  type: "cosmos-sdk/QueryParamsRequest";
-  value: QueryParamsRequestAmino;
 }
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequestSDKType {}
@@ -837,15 +512,6 @@ export interface QueryParamsResponse {
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.QueryParamsResponse";
   value: Uint8Array;
-}
-/** QueryParamsResponse is response type for the Query/Params RPC method. */
-export interface QueryParamsResponseAmino {
-  /** params holds all the parameters of this module. */
-  params: ParamsAmino;
-}
-export interface QueryParamsResponseAminoMsg {
-  type: "cosmos-sdk/QueryParamsResponse";
-  value: QueryParamsResponseAmino;
 }
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponseSDKType {

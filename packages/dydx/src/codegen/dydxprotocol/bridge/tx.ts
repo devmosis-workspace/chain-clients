@@ -1,5 +1,5 @@
-import { BridgeEvent, BridgeEventAmino, BridgeEventSDKType } from "./bridge_event";
-import { EventParams, EventParamsAmino, EventParamsSDKType, ProposeParams, ProposeParamsAmino, ProposeParamsSDKType, SafetyParams, SafetyParamsAmino, SafetyParamsSDKType } from "./params";
+import { BridgeEvent, BridgeEventSDKType } from "./bridge_event";
+import { EventParams, EventParamsSDKType, ProposeParams, ProposeParamsSDKType, SafetyParams, SafetyParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** MsgAcknowledgeBridges is the Msg/AcknowledgeBridges request type. */
@@ -10,15 +10,6 @@ export interface MsgAcknowledgeBridges {
 export interface MsgAcknowledgeBridgesProtoMsg {
   typeUrl: "/dydxprotocol.bridge.MsgAcknowledgeBridges";
   value: Uint8Array;
-}
-/** MsgAcknowledgeBridges is the Msg/AcknowledgeBridges request type. */
-export interface MsgAcknowledgeBridgesAmino {
-  /** The events to acknowledge. */
-  events?: BridgeEventAmino[];
-}
-export interface MsgAcknowledgeBridgesAminoMsg {
-  type: "/dydxprotocol.bridge.MsgAcknowledgeBridges";
-  value: MsgAcknowledgeBridgesAmino;
 }
 /** MsgAcknowledgeBridges is the Msg/AcknowledgeBridges request type. */
 export interface MsgAcknowledgeBridgesSDKType {
@@ -37,15 +28,6 @@ export interface MsgAcknowledgeBridgesResponseProtoMsg {
  * MsgAcknowledgeBridgesResponse is the Msg/AcknowledgeBridgesResponse response
  * type.
  */
-export interface MsgAcknowledgeBridgesResponseAmino {}
-export interface MsgAcknowledgeBridgesResponseAminoMsg {
-  type: "/dydxprotocol.bridge.MsgAcknowledgeBridgesResponse";
-  value: MsgAcknowledgeBridgesResponseAmino;
-}
-/**
- * MsgAcknowledgeBridgesResponse is the Msg/AcknowledgeBridgesResponse response
- * type.
- */
 export interface MsgAcknowledgeBridgesResponseSDKType {}
 /** MsgCompleteBridge is the Msg/CompleteBridgeResponse request type. */
 export interface MsgCompleteBridge {
@@ -58,16 +40,6 @@ export interface MsgCompleteBridgeProtoMsg {
   value: Uint8Array;
 }
 /** MsgCompleteBridge is the Msg/CompleteBridgeResponse request type. */
-export interface MsgCompleteBridgeAmino {
-  authority?: string;
-  /** The event to complete. */
-  event?: BridgeEventAmino;
-}
-export interface MsgCompleteBridgeAminoMsg {
-  type: "/dydxprotocol.bridge.MsgCompleteBridge";
-  value: MsgCompleteBridgeAmino;
-}
-/** MsgCompleteBridge is the Msg/CompleteBridgeResponse request type. */
 export interface MsgCompleteBridgeSDKType {
   authority: string;
   event: BridgeEventSDKType;
@@ -77,12 +49,6 @@ export interface MsgCompleteBridgeResponse {}
 export interface MsgCompleteBridgeResponseProtoMsg {
   typeUrl: "/dydxprotocol.bridge.MsgCompleteBridgeResponse";
   value: Uint8Array;
-}
-/** MsgCompleteBridgeResponse is the Msg/CompleteBridgeResponse response type. */
-export interface MsgCompleteBridgeResponseAmino {}
-export interface MsgCompleteBridgeResponseAminoMsg {
-  type: "/dydxprotocol.bridge.MsgCompleteBridgeResponse";
-  value: MsgCompleteBridgeResponseAmino;
 }
 /** MsgCompleteBridgeResponse is the Msg/CompleteBridgeResponse response type. */
 export interface MsgCompleteBridgeResponseSDKType {}
@@ -97,16 +63,6 @@ export interface MsgUpdateEventParamsProtoMsg {
   value: Uint8Array;
 }
 /** MsgUpdateEventParams is the Msg/UpdateEventParams request type. */
-export interface MsgUpdateEventParamsAmino {
-  authority?: string;
-  /** The parameters to update. Each field must be set. */
-  params?: EventParamsAmino;
-}
-export interface MsgUpdateEventParamsAminoMsg {
-  type: "/dydxprotocol.bridge.MsgUpdateEventParams";
-  value: MsgUpdateEventParamsAmino;
-}
-/** MsgUpdateEventParams is the Msg/UpdateEventParams request type. */
 export interface MsgUpdateEventParamsSDKType {
   authority: string;
   params: EventParamsSDKType;
@@ -116,12 +72,6 @@ export interface MsgUpdateEventParamsResponse {}
 export interface MsgUpdateEventParamsResponseProtoMsg {
   typeUrl: "/dydxprotocol.bridge.MsgUpdateEventParamsResponse";
   value: Uint8Array;
-}
-/** MsgUpdateEventParamsResponse is the Msg/UpdateEventParams response type. */
-export interface MsgUpdateEventParamsResponseAmino {}
-export interface MsgUpdateEventParamsResponseAminoMsg {
-  type: "/dydxprotocol.bridge.MsgUpdateEventParamsResponse";
-  value: MsgUpdateEventParamsResponseAmino;
 }
 /** MsgUpdateEventParamsResponse is the Msg/UpdateEventParams response type. */
 export interface MsgUpdateEventParamsResponseSDKType {}
@@ -136,16 +86,6 @@ export interface MsgUpdateProposeParamsProtoMsg {
   value: Uint8Array;
 }
 /** MsgUpdateProposeParams is the Msg/UpdateProposeParams request type. */
-export interface MsgUpdateProposeParamsAmino {
-  authority?: string;
-  /** The parameters to update. Each field must be set. */
-  params?: ProposeParamsAmino;
-}
-export interface MsgUpdateProposeParamsAminoMsg {
-  type: "/dydxprotocol.bridge.MsgUpdateProposeParams";
-  value: MsgUpdateProposeParamsAmino;
-}
-/** MsgUpdateProposeParams is the Msg/UpdateProposeParams request type. */
 export interface MsgUpdateProposeParamsSDKType {
   authority: string;
   params: ProposeParamsSDKType;
@@ -155,12 +95,6 @@ export interface MsgUpdateProposeParamsResponse {}
 export interface MsgUpdateProposeParamsResponseProtoMsg {
   typeUrl: "/dydxprotocol.bridge.MsgUpdateProposeParamsResponse";
   value: Uint8Array;
-}
-/** MsgUpdateProposeParamsResponse is the Msg/UpdateProposeParams response type. */
-export interface MsgUpdateProposeParamsResponseAmino {}
-export interface MsgUpdateProposeParamsResponseAminoMsg {
-  type: "/dydxprotocol.bridge.MsgUpdateProposeParamsResponse";
-  value: MsgUpdateProposeParamsResponseAmino;
 }
 /** MsgUpdateProposeParamsResponse is the Msg/UpdateProposeParams response type. */
 export interface MsgUpdateProposeParamsResponseSDKType {}
@@ -175,16 +109,6 @@ export interface MsgUpdateSafetyParamsProtoMsg {
   value: Uint8Array;
 }
 /** MsgUpdateSafetyParams is the Msg/UpdateSafetyParams request type. */
-export interface MsgUpdateSafetyParamsAmino {
-  authority?: string;
-  /** The parameters to update. Each field must be set. */
-  params?: SafetyParamsAmino;
-}
-export interface MsgUpdateSafetyParamsAminoMsg {
-  type: "/dydxprotocol.bridge.MsgUpdateSafetyParams";
-  value: MsgUpdateSafetyParamsAmino;
-}
-/** MsgUpdateSafetyParams is the Msg/UpdateSafetyParams request type. */
 export interface MsgUpdateSafetyParamsSDKType {
   authority: string;
   params: SafetyParamsSDKType;
@@ -194,12 +118,6 @@ export interface MsgUpdateSafetyParamsResponse {}
 export interface MsgUpdateSafetyParamsResponseProtoMsg {
   typeUrl: "/dydxprotocol.bridge.MsgUpdateSafetyParamsResponse";
   value: Uint8Array;
-}
-/** MsgUpdateSafetyParamsResponse is the Msg/UpdateSafetyParams response type. */
-export interface MsgUpdateSafetyParamsResponseAmino {}
-export interface MsgUpdateSafetyParamsResponseAminoMsg {
-  type: "/dydxprotocol.bridge.MsgUpdateSafetyParamsResponse";
-  value: MsgUpdateSafetyParamsResponseAmino;
 }
 /** MsgUpdateSafetyParamsResponse is the Msg/UpdateSafetyParams response type. */
 export interface MsgUpdateSafetyParamsResponseSDKType {}

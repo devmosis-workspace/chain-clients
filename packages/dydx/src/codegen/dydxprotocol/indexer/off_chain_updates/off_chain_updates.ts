@@ -1,4 +1,4 @@
-import { IndexerOrder, IndexerOrderAmino, IndexerOrderSDKType, IndexerOrderId, IndexerOrderIdAmino, IndexerOrderIdSDKType } from "../protocol/v1/clob";
+import { IndexerOrder, IndexerOrderSDKType, IndexerOrderId, IndexerOrderIdSDKType } from "../protocol/v1/clob";
 import { OrderRemovalReason, orderRemovalReasonFromJSON } from "../shared/removal_reason";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
@@ -31,7 +31,6 @@ export enum OrderPlaceV1_OrderPlacementStatus {
   UNRECOGNIZED = -1,
 }
 export const OrderPlaceV1_OrderPlacementStatusSDKType = OrderPlaceV1_OrderPlacementStatus;
-export const OrderPlaceV1_OrderPlacementStatusAmino = OrderPlaceV1_OrderPlacementStatus;
 export function orderPlaceV1_OrderPlacementStatusFromJSON(object: any): OrderPlaceV1_OrderPlacementStatus {
   switch (object) {
     case 0:
@@ -95,7 +94,6 @@ export enum OrderRemoveV1_OrderRemovalStatus {
   UNRECOGNIZED = -1,
 }
 export const OrderRemoveV1_OrderRemovalStatusSDKType = OrderRemoveV1_OrderRemovalStatus;
-export const OrderRemoveV1_OrderRemovalStatusAmino = OrderRemoveV1_OrderRemovalStatus;
 export function orderRemoveV1_OrderRemovalStatusFromJSON(object: any): OrderRemoveV1_OrderRemovalStatus {
   switch (object) {
     case 0:
@@ -141,15 +139,6 @@ export interface OrderPlaceV1ProtoMsg {
   value: Uint8Array;
 }
 /** OrderPlace messages contain the order placed/replaced. */
-export interface OrderPlaceV1Amino {
-  order?: IndexerOrderAmino;
-  placement_status?: OrderPlaceV1_OrderPlacementStatus;
-}
-export interface OrderPlaceV1AminoMsg {
-  type: "/dydxprotocol.indexer.off_chain_updates.OrderPlaceV1";
-  value: OrderPlaceV1Amino;
-}
-/** OrderPlace messages contain the order placed/replaced. */
 export interface OrderPlaceV1SDKType {
   order?: IndexerOrderSDKType;
   placement_status: OrderPlaceV1_OrderPlacementStatus;
@@ -166,19 +155,6 @@ export interface OrderRemoveV1 {
 export interface OrderRemoveV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.off_chain_updates.OrderRemoveV1";
   value: Uint8Array;
-}
-/**
- * OrderRemove messages contain the id of the order removed, the reason for the
- * removal and the resulting status from the removal.
- */
-export interface OrderRemoveV1Amino {
-  removed_order_id?: IndexerOrderIdAmino;
-  reason?: OrderRemovalReason;
-  removal_status?: OrderRemoveV1_OrderRemovalStatus;
-}
-export interface OrderRemoveV1AminoMsg {
-  type: "/dydxprotocol.indexer.off_chain_updates.OrderRemoveV1";
-  value: OrderRemoveV1Amino;
 }
 /**
  * OrderRemove messages contain the id of the order removed, the reason for the
@@ -205,18 +181,6 @@ export interface OrderUpdateV1ProtoMsg {
  * OrderUpdate messages contain the id of the order being updated, and the
  * updated total filled quantums of the order.
  */
-export interface OrderUpdateV1Amino {
-  order_id?: IndexerOrderIdAmino;
-  total_filled_quantums?: string;
-}
-export interface OrderUpdateV1AminoMsg {
-  type: "/dydxprotocol.indexer.off_chain_updates.OrderUpdateV1";
-  value: OrderUpdateV1Amino;
-}
-/**
- * OrderUpdate messages contain the id of the order being updated, and the
- * updated total filled quantums of the order.
- */
 export interface OrderUpdateV1SDKType {
   order_id?: IndexerOrderIdSDKType;
   total_filled_quantums: bigint;
@@ -233,19 +197,6 @@ export interface OffChainUpdateV1 {
 export interface OffChainUpdateV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.off_chain_updates.OffChainUpdateV1";
   value: Uint8Array;
-}
-/**
- * An OffChainUpdate message is the message type which will be sent on Kafka to
- * the Indexer.
- */
-export interface OffChainUpdateV1Amino {
-  order_place?: OrderPlaceV1Amino;
-  order_remove?: OrderRemoveV1Amino;
-  order_update?: OrderUpdateV1Amino;
-}
-export interface OffChainUpdateV1AminoMsg {
-  type: "/dydxprotocol.indexer.off_chain_updates.OffChainUpdateV1";
-  value: OffChainUpdateV1Amino;
 }
 /**
  * An OffChainUpdate message is the message type which will be sent on Kafka to

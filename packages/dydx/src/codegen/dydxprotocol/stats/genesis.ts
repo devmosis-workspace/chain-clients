@@ -1,4 +1,4 @@
-import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { Params, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** GenesisState defines the stats module's genesis state. */
@@ -9,15 +9,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.stats.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the stats module's genesis state. */
-export interface GenesisStateAmino {
-  /** The parameters of the module. */
-  params?: ParamsAmino;
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.stats.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the stats module's genesis state. */
 export interface GenesisStateSDKType {

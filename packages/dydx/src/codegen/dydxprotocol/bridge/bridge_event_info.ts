@@ -21,23 +21,6 @@ export interface BridgeEventInfoProtoMsg {
  * BridgeEventInfo stores information about the most recently processed bridge
  * event.
  */
-export interface BridgeEventInfoAmino {
-  /**
-   * The next event id (the last processed id plus one) of the logs from the
-   * Ethereum contract.
-   */
-  next_id?: number;
-  /** The Ethereum block height of the most recently processed bridge event. */
-  eth_block_height?: string;
-}
-export interface BridgeEventInfoAminoMsg {
-  type: "/dydxprotocol.bridge.BridgeEventInfo";
-  value: BridgeEventInfoAmino;
-}
-/**
- * BridgeEventInfo stores information about the most recently processed bridge
- * event.
- */
 export interface BridgeEventInfoSDKType {
   next_id: number;
   eth_block_height: bigint;

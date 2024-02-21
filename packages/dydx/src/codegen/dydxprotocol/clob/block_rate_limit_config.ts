@@ -27,32 +27,6 @@ export interface BlockRateLimitConfigurationProtoMsg {
   value: Uint8Array;
 }
 /** Defines the block rate limits for CLOB specific operations. */
-export interface BlockRateLimitConfigurationAmino {
-  /**
-   * How many short term order attempts (successful and failed) are allowed for
-   * an account per N blocks. Note that the rate limits are applied
-   * in an AND fashion such that an order placement must pass all rate limit
-   * configurations.
-   * 
-   * Specifying 0 values disables this rate limit.
-   */
-  max_short_term_orders_per_n_blocks?: MaxPerNBlocksRateLimitAmino[];
-  /**
-   * How many stateful order attempts (successful and failed) are allowed for
-   * an account per N blocks. Note that the rate limits are applied
-   * in an AND fashion such that an order placement must pass all rate limit
-   * configurations.
-   * 
-   * Specifying 0 values disables this rate limit.
-   */
-  max_stateful_orders_per_n_blocks?: MaxPerNBlocksRateLimitAmino[];
-  max_short_term_order_cancellations_per_n_blocks?: MaxPerNBlocksRateLimitAmino[];
-}
-export interface BlockRateLimitConfigurationAminoMsg {
-  type: "/dydxprotocol.clob.BlockRateLimitConfiguration";
-  value: BlockRateLimitConfigurationAmino;
-}
-/** Defines the block rate limits for CLOB specific operations. */
 export interface BlockRateLimitConfigurationSDKType {
   max_short_term_orders_per_n_blocks: MaxPerNBlocksRateLimitSDKType[];
   max_stateful_orders_per_n_blocks: MaxPerNBlocksRateLimitSDKType[];
@@ -74,23 +48,6 @@ export interface MaxPerNBlocksRateLimit {
 export interface MaxPerNBlocksRateLimitProtoMsg {
   typeUrl: "/dydxprotocol.clob.MaxPerNBlocksRateLimit";
   value: Uint8Array;
-}
-/** Defines a rate limit over a specific number of blocks. */
-export interface MaxPerNBlocksRateLimitAmino {
-  /**
-   * How many blocks the rate limit is over.
-   * Specifying 0 is invalid.
-   */
-  num_blocks?: number;
-  /**
-   * What the limit is for `num_blocks`.
-   * Specifying 0 is invalid.
-   */
-  limit?: number;
-}
-export interface MaxPerNBlocksRateLimitAminoMsg {
-  type: "/dydxprotocol.clob.MaxPerNBlocksRateLimit";
-  value: MaxPerNBlocksRateLimitAmino;
 }
 /** Defines a rate limit over a specific number of blocks. */
 export interface MaxPerNBlocksRateLimitSDKType {

@@ -1,5 +1,5 @@
-import { Perpetual, PerpetualAmino, PerpetualSDKType, LiquidityTier, LiquidityTierAmino, LiquidityTierSDKType } from "./perpetual";
-import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { Perpetual, PerpetualSDKType, LiquidityTier, LiquidityTierSDKType } from "./perpetual";
+import { Params, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** GenesisState defines the perpetuals module's genesis state. */
@@ -11,16 +11,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.perpetuals.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the perpetuals module's genesis state. */
-export interface GenesisStateAmino {
-  perpetuals?: PerpetualAmino[];
-  liquidity_tiers?: LiquidityTierAmino[];
-  params?: ParamsAmino;
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.perpetuals.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the perpetuals module's genesis state. */
 export interface GenesisStateSDKType {

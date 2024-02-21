@@ -1,4 +1,4 @@
-import { VestEntry, VestEntryAmino, VestEntrySDKType } from "./vest_entry";
+import { VestEntry, VestEntrySDKType } from "./vest_entry";
 import { BinaryWriter } from "../../binary";
 /** GenesisState defines the vest module's genesis state. */
 export interface GenesisState {
@@ -8,15 +8,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.vest.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the vest module's genesis state. */
-export interface GenesisStateAmino {
-  /** The vest entries at genesis. */
-  vest_entries?: VestEntryAmino[];
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.vest.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the vest module's genesis state. */
 export interface GenesisStateSDKType {

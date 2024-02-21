@@ -1,6 +1,6 @@
-import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { Perpetual, PerpetualAmino, PerpetualSDKType, PremiumStore, PremiumStoreAmino, PremiumStoreSDKType } from "./perpetual";
-import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
+import { Perpetual, PerpetualSDKType, PremiumStore, PremiumStoreSDKType } from "./perpetual";
+import { Params, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** Queries a Perpetual by id. */
@@ -11,15 +11,6 @@ export interface QueryPerpetualRequest {
 export interface QueryPerpetualRequestProtoMsg {
   typeUrl: "/dydxprotocol.perpetuals.QueryPerpetualRequest";
   value: Uint8Array;
-}
-/** Queries a Perpetual by id. */
-export interface QueryPerpetualRequestAmino {
-  /** Queries a Perpetual by id. */
-  id?: number;
-}
-export interface QueryPerpetualRequestAminoMsg {
-  type: "/dydxprotocol.perpetuals.QueryPerpetualRequest";
-  value: QueryPerpetualRequestAmino;
 }
 /** Queries a Perpetual by id. */
 export interface QueryPerpetualRequestSDKType {
@@ -34,14 +25,6 @@ export interface QueryPerpetualResponseProtoMsg {
   value: Uint8Array;
 }
 /** QueryPerpetualResponse is response type for the Perpetual RPC method. */
-export interface QueryPerpetualResponseAmino {
-  perpetual?: PerpetualAmino;
-}
-export interface QueryPerpetualResponseAminoMsg {
-  type: "/dydxprotocol.perpetuals.QueryPerpetualResponse";
-  value: QueryPerpetualResponseAmino;
-}
-/** QueryPerpetualResponse is response type for the Perpetual RPC method. */
 export interface QueryPerpetualResponseSDKType {
   perpetual: PerpetualSDKType;
 }
@@ -52,14 +35,6 @@ export interface QueryAllPerpetualsRequest {
 export interface QueryAllPerpetualsRequestProtoMsg {
   typeUrl: "/dydxprotocol.perpetuals.QueryAllPerpetualsRequest";
   value: Uint8Array;
-}
-/** Queries a list of Perpetual items. */
-export interface QueryAllPerpetualsRequestAmino {
-  pagination?: PageRequestAmino;
-}
-export interface QueryAllPerpetualsRequestAminoMsg {
-  type: "/dydxprotocol.perpetuals.QueryAllPerpetualsRequest";
-  value: QueryAllPerpetualsRequestAmino;
 }
 /** Queries a list of Perpetual items. */
 export interface QueryAllPerpetualsRequestSDKType {
@@ -75,15 +50,6 @@ export interface QueryAllPerpetualsResponseProtoMsg {
   value: Uint8Array;
 }
 /** QueryAllPerpetualsResponse is response type for the AllPerpetuals RPC method. */
-export interface QueryAllPerpetualsResponseAmino {
-  perpetual?: PerpetualAmino[];
-  pagination?: PageResponseAmino;
-}
-export interface QueryAllPerpetualsResponseAminoMsg {
-  type: "/dydxprotocol.perpetuals.QueryAllPerpetualsResponse";
-  value: QueryAllPerpetualsResponseAmino;
-}
-/** QueryAllPerpetualsResponse is response type for the AllPerpetuals RPC method. */
 export interface QueryAllPerpetualsResponseSDKType {
   perpetual: PerpetualSDKType[];
   pagination?: PageResponseSDKType;
@@ -93,12 +59,6 @@ export interface QueryPremiumVotesRequest {}
 export interface QueryPremiumVotesRequestProtoMsg {
   typeUrl: "/dydxprotocol.perpetuals.QueryPremiumVotesRequest";
   value: Uint8Array;
-}
-/** QueryPremiumVotesRequest is the request type for the PremiumVotes RPC method. */
-export interface QueryPremiumVotesRequestAmino {}
-export interface QueryPremiumVotesRequestAminoMsg {
-  type: "/dydxprotocol.perpetuals.QueryPremiumVotesRequest";
-  value: QueryPremiumVotesRequestAmino;
 }
 /** QueryPremiumVotesRequest is the request type for the PremiumVotes RPC method. */
 export interface QueryPremiumVotesRequestSDKType {}
@@ -112,17 +72,6 @@ export interface QueryPremiumVotesResponse {
 export interface QueryPremiumVotesResponseProtoMsg {
   typeUrl: "/dydxprotocol.perpetuals.QueryPremiumVotesResponse";
   value: Uint8Array;
-}
-/**
- * QueryPremiumVotesResponse is the response type for the PremiumVotes RPC
- * method.
- */
-export interface QueryPremiumVotesResponseAmino {
-  premium_votes?: PremiumStoreAmino;
-}
-export interface QueryPremiumVotesResponseAminoMsg {
-  type: "/dydxprotocol.perpetuals.QueryPremiumVotesResponse";
-  value: QueryPremiumVotesResponseAmino;
 }
 /**
  * QueryPremiumVotesResponse is the response type for the PremiumVotes RPC
@@ -144,15 +93,6 @@ export interface QueryPremiumSamplesRequestProtoMsg {
  * QueryPremiumSamplesRequest is the request type for the PremiumSamples RPC
  * method.
  */
-export interface QueryPremiumSamplesRequestAmino {}
-export interface QueryPremiumSamplesRequestAminoMsg {
-  type: "/dydxprotocol.perpetuals.QueryPremiumSamplesRequest";
-  value: QueryPremiumSamplesRequestAmino;
-}
-/**
- * QueryPremiumSamplesRequest is the request type for the PremiumSamples RPC
- * method.
- */
 export interface QueryPremiumSamplesRequestSDKType {}
 /**
  * QueryPremiumSamplesResponse is the response type for the PremiumSamples RPC
@@ -169,17 +109,6 @@ export interface QueryPremiumSamplesResponseProtoMsg {
  * QueryPremiumSamplesResponse is the response type for the PremiumSamples RPC
  * method.
  */
-export interface QueryPremiumSamplesResponseAmino {
-  premium_samples?: PremiumStoreAmino;
-}
-export interface QueryPremiumSamplesResponseAminoMsg {
-  type: "/dydxprotocol.perpetuals.QueryPremiumSamplesResponse";
-  value: QueryPremiumSamplesResponseAmino;
-}
-/**
- * QueryPremiumSamplesResponse is the response type for the PremiumSamples RPC
- * method.
- */
 export interface QueryPremiumSamplesResponseSDKType {
   premium_samples: PremiumStoreSDKType;
 }
@@ -190,12 +119,6 @@ export interface QueryParamsRequestProtoMsg {
   value: Uint8Array;
 }
 /** QueryParamsResponse is the response type for the Params RPC method. */
-export interface QueryParamsRequestAmino {}
-export interface QueryParamsRequestAminoMsg {
-  type: "/dydxprotocol.perpetuals.QueryParamsRequest";
-  value: QueryParamsRequestAmino;
-}
-/** QueryParamsResponse is the response type for the Params RPC method. */
 export interface QueryParamsRequestSDKType {}
 /** QueryParamsResponse is the response type for the Params RPC method. */
 export interface QueryParamsResponse {
@@ -204,14 +127,6 @@ export interface QueryParamsResponse {
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/dydxprotocol.perpetuals.QueryParamsResponse";
   value: Uint8Array;
-}
-/** QueryParamsResponse is the response type for the Params RPC method. */
-export interface QueryParamsResponseAmino {
-  params?: ParamsAmino;
-}
-export interface QueryParamsResponseAminoMsg {
-  type: "/dydxprotocol.perpetuals.QueryParamsResponse";
-  value: QueryParamsResponseAmino;
 }
 /** QueryParamsResponse is the response type for the Params RPC method. */
 export interface QueryParamsResponseSDKType {

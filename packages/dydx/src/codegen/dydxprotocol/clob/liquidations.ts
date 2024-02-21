@@ -1,4 +1,4 @@
-import { SubaccountId, SubaccountIdAmino, SubaccountIdSDKType } from "../subaccounts/subaccount";
+import { SubaccountId, SubaccountIdSDKType } from "../subaccounts/subaccount";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -19,25 +19,6 @@ export interface PerpetualLiquidationInfo {
 export interface PerpetualLiquidationInfoProtoMsg {
   typeUrl: "/dydxprotocol.clob.PerpetualLiquidationInfo";
   value: Uint8Array;
-}
-/**
- * PerpetualLiquidationInfo holds information about a liquidation that occurred
- * for a position held by a subaccount.
- * Note this proto is defined to make it easier to hash
- * the metadata of a liquidation, and is never written to state.
- */
-export interface PerpetualLiquidationInfoAmino {
-  /**
-   * The id of the subaccount that got liquidated/deleveraged or was deleveraged
-   * onto.
-   */
-  subaccount_id?: SubaccountIdAmino;
-  /** The id of the perpetual involved. */
-  perpetual_id?: number;
-}
-export interface PerpetualLiquidationInfoAminoMsg {
-  type: "/dydxprotocol.clob.PerpetualLiquidationInfo";
-  value: PerpetualLiquidationInfoAmino;
 }
 /**
  * PerpetualLiquidationInfo holds information about a liquidation that occurred
@@ -73,31 +54,6 @@ export interface SubaccountLiquidationInfo {
 export interface SubaccountLiquidationInfoProtoMsg {
   typeUrl: "/dydxprotocol.clob.SubaccountLiquidationInfo";
   value: Uint8Array;
-}
-/**
- * SubaccountLiquidationInfo holds liquidation information per-subaccount in the
- * current block.
- */
-export interface SubaccountLiquidationInfoAmino {
-  /**
-   * An unsorted list of unique perpetual IDs that the subaccount has previously
-   * liquidated.
-   */
-  perpetuals_liquidated?: number[];
-  /**
-   * The notional value (in quote quantums, determined by the oracle price) of
-   * all positions liquidated for this subaccount.
-   */
-  notional_liquidated?: string;
-  /**
-   * The amount of funds that the insurance fund has lost
-   * covering this subaccount.
-   */
-  quantums_insurance_lost?: string;
-}
-export interface SubaccountLiquidationInfoAminoMsg {
-  type: "/dydxprotocol.clob.SubaccountLiquidationInfo";
-  value: SubaccountLiquidationInfoAmino;
 }
 /**
  * SubaccountLiquidationInfo holds liquidation information per-subaccount in the

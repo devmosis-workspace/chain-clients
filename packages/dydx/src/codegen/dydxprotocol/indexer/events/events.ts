@@ -1,5 +1,5 @@
-import { IndexerSubaccountId, IndexerSubaccountIdAmino, IndexerSubaccountIdSDKType, IndexerPerpetualPosition, IndexerPerpetualPositionAmino, IndexerPerpetualPositionSDKType, IndexerAssetPosition, IndexerAssetPositionAmino, IndexerAssetPositionSDKType } from "../protocol/v1/subaccount";
-import { IndexerOrder, IndexerOrderAmino, IndexerOrderSDKType, IndexerOrderId, IndexerOrderIdAmino, IndexerOrderIdSDKType, ClobPairStatus, clobPairStatusFromJSON } from "../protocol/v1/clob";
+import { IndexerSubaccountId, IndexerSubaccountIdSDKType, IndexerPerpetualPosition, IndexerPerpetualPositionSDKType, IndexerAssetPosition, IndexerAssetPositionSDKType } from "../protocol/v1/subaccount";
+import { IndexerOrder, IndexerOrderSDKType, IndexerOrderId, IndexerOrderIdSDKType, ClobPairStatus, clobPairStatusFromJSON } from "../protocol/v1/clob";
 import { OrderRemovalReason, orderRemovalReasonFromJSON } from "../shared/removal_reason";
 import { BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
@@ -25,7 +25,6 @@ export enum FundingEventV1_Type {
   UNRECOGNIZED = -1,
 }
 export const FundingEventV1_TypeSDKType = FundingEventV1_Type;
-export const FundingEventV1_TypeAmino = FundingEventV1_Type;
 export function fundingEventV1_TypeFromJSON(object: any): FundingEventV1_Type {
   switch (object) {
     case 0:
@@ -87,28 +86,6 @@ export interface FundingUpdateV1ProtoMsg {
  * FundingUpdate is used for funding update events and includes a funding
  * value and an optional funding index that correspond to a perpetual market.
  */
-export interface FundingUpdateV1Amino {
-  /** The id of the perpetual market. */
-  perpetual_id?: number;
-  /**
-   * funding value (in parts-per-million) can be premium vote, premium sample,
-   * or funding rate.
-   */
-  funding_value_ppm?: number;
-  /**
-   * funding index is required if and only if parent `FundingEvent` type is
-   * `TYPE_FUNDING_RATE_AND_INDEX`.
-   */
-  funding_index?: string;
-}
-export interface FundingUpdateV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.FundingUpdateV1";
-  value: FundingUpdateV1Amino;
-}
-/**
- * FundingUpdate is used for funding update events and includes a funding
- * value and an optional funding index that correspond to a perpetual market.
- */
 export interface FundingUpdateV1SDKType {
   perpetual_id: number;
   funding_value_ppm: number;
@@ -149,30 +126,6 @@ export interface FundingEventV1ProtoMsg {
  *    during a `funding-tick` epoch and funding index accordingly updated with
  *    `funding rate * price`.
  */
-export interface FundingEventV1Amino {
-  /**
-   * updates is a list of per-market funding updates for all existing perpetual
-   * markets. The list is sorted by `perpetualId`s which are unique.
-   */
-  updates?: FundingUpdateV1Amino[];
-  /** type stores the type of funding updates. */
-  type?: FundingEventV1_Type;
-}
-export interface FundingEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.FundingEventV1";
-  value: FundingEventV1Amino;
-}
-/**
- * FundingEvent message contains a list of per-market funding values. The
- * funding values in the list is of the same type and the types are: which can
- * have one of the following types:
- * 1. Premium vote: votes on the premium values injected by block proposers.
- * 2. Premium sample: combined value from all premium votes during a
- *    `funding-sample` epoch.
- * 3. Funding rate and index: final funding rate combining all premium samples
- *    during a `funding-tick` epoch and funding index accordingly updated with
- *    `funding rate * price`.
- */
 export interface FundingEventV1SDKType {
   updates: FundingUpdateV1SDKType[];
   type: FundingEventV1_Type;
@@ -191,21 +144,6 @@ export interface MarketEventV1 {
 export interface MarketEventV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.MarketEventV1";
   value: Uint8Array;
-}
-/**
- * MarketEvent message contains all the information about a market event on
- * the V4 chain.
- */
-export interface MarketEventV1Amino {
-  /** market id. */
-  market_id?: number;
-  price_update?: MarketPriceUpdateEventV1Amino;
-  market_create?: MarketCreateEventV1Amino;
-  market_modify?: MarketModifyEventV1Amino;
-}
-export interface MarketEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.MarketEventV1";
-  value: MarketEventV1Amino;
 }
 /**
  * MarketEvent message contains all the information about a market event on
@@ -237,22 +175,6 @@ export interface MarketPriceUpdateEventV1ProtoMsg {
  * MarketPriceUpdateEvent message contains all the information about a price
  * update on the V4 chain.
  */
-export interface MarketPriceUpdateEventV1Amino {
-  /**
-   * price_with_exponent. Multiply by 10 ^ Exponent to get the human readable
-   * price in dollars. For example if `Exponent == -5` then a `exponent_price`
-   * of `1,000,000,000` represents “$10,000`.
-   */
-  price_with_exponent?: string;
-}
-export interface MarketPriceUpdateEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.MarketPriceUpdateEventV1";
-  value: MarketPriceUpdateEventV1Amino;
-}
-/**
- * MarketPriceUpdateEvent message contains all the information about a price
- * update on the V4 chain.
- */
 export interface MarketPriceUpdateEventV1SDKType {
   price_with_exponent: bigint;
 }
@@ -269,20 +191,6 @@ export interface MarketBaseEventV1 {
 export interface MarketBaseEventV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.MarketBaseEventV1";
   value: Uint8Array;
-}
-/** shared fields between MarketCreateEvent and MarketModifyEvent */
-export interface MarketBaseEventV1Amino {
-  /** String representation of the market pair, e.g. `BTC-USD` */
-  pair?: string;
-  /**
-   * The minimum allowable change in the Price value for a given update.
-   * Measured as 1e-6.
-   */
-  min_price_change_ppm?: number;
-}
-export interface MarketBaseEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.MarketBaseEventV1";
-  value: MarketBaseEventV1Amino;
 }
 /** shared fields between MarketCreateEvent and MarketModifyEvent */
 export interface MarketBaseEventV1SDKType {
@@ -311,24 +219,6 @@ export interface MarketCreateEventV1ProtoMsg {
  * MarketCreateEvent message contains all the information about a new market on
  * the V4 chain.
  */
-export interface MarketCreateEventV1Amino {
-  base?: MarketBaseEventV1Amino;
-  /**
-   * Static value. The exponent of the price.
-   * For example if Exponent == -5 then a `exponent_price` of 1,000,000,000
-   * represents $10,000. Therefore 10 ^ Exponent represents the smallest
-   * price step (in dollars) that can be recorded.
-   */
-  exponent?: number;
-}
-export interface MarketCreateEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.MarketCreateEventV1";
-  value: MarketCreateEventV1Amino;
-}
-/**
- * MarketCreateEvent message contains all the information about a new market on
- * the V4 chain.
- */
 export interface MarketCreateEventV1SDKType {
   base?: MarketBaseEventV1SDKType;
   exponent: number;
@@ -352,21 +242,6 @@ export interface MarketModifyEventV1ProtoMsg {
  * MarketModifyEvent message contains all the information about a market update
  * on the V4 chain
  */
-export interface MarketModifyEventV1Amino {
-  /**
-   * MarketModifyEvent message contains all the information about a market update
-   * on the V4 chain
-   */
-  base?: MarketBaseEventV1Amino;
-}
-export interface MarketModifyEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.MarketModifyEventV1";
-  value: MarketModifyEventV1Amino;
-}
-/**
- * MarketModifyEvent message contains all the information about a market update
- * on the V4 chain
- */
 export interface MarketModifyEventV1SDKType {
   base?: MarketBaseEventV1SDKType;
 }
@@ -378,15 +253,6 @@ export interface SourceOfFunds {
 export interface SourceOfFundsProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.SourceOfFunds";
   value: Uint8Array;
-}
-/** SourceOfFunds is the source of funds in a transfer event. */
-export interface SourceOfFundsAmino {
-  subaccount_id?: IndexerSubaccountIdAmino;
-  address?: string;
-}
-export interface SourceOfFundsAminoMsg {
-  type: "/dydxprotocol.indexer.events.SourceOfFunds";
-  value: SourceOfFundsAmino;
 }
 /** SourceOfFunds is the source of funds in a transfer event. */
 export interface SourceOfFundsSDKType {
@@ -429,36 +295,6 @@ export interface TransferEventV1ProtoMsg {
  * When a subaccount is involved, a SubaccountUpdateEvent message will
  * be produced with the updated asset positions.
  */
-export interface TransferEventV1Amino {
-  sender_subaccount_id?: IndexerSubaccountIdAmino;
-  recipient_subaccount_id?: IndexerSubaccountIdAmino;
-  /** Id of the asset transfered. */
-  asset_id?: number;
-  /** The amount of asset in quantums to transfer. */
-  amount?: string;
-  /**
-   * The sender is one of below
-   * - a subaccount ID (in transfer and withdraw events).
-   * - a wallet address (in deposit events).
-   */
-  sender?: SourceOfFundsAmino;
-  /**
-   * The recipient is one of below
-   * - a subaccount ID (in transfer and deposit events).
-   * - a wallet address (in withdraw events).
-   */
-  recipient?: SourceOfFundsAmino;
-}
-export interface TransferEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.TransferEventV1";
-  value: TransferEventV1Amino;
-}
-/**
- * TransferEvent message contains all the information about a transfer,
- * deposit-to-subaccount, or withdraw-from-subaccount on the V4 chain.
- * When a subaccount is involved, a SubaccountUpdateEvent message will
- * be produced with the updated asset positions.
- */
 export interface TransferEventV1SDKType {
   sender_subaccount_id?: IndexerSubaccountIdSDKType;
   recipient_subaccount_id?: IndexerSubaccountIdSDKType;
@@ -493,33 +329,6 @@ export interface OrderFillEventV1 {
 export interface OrderFillEventV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.OrderFillEventV1";
   value: Uint8Array;
-}
-/**
- * OrderFillEvent message contains all the information from an order match in
- * the V4 chain. This includes the maker/taker orders that matched and the
- * amount filled.
- */
-export interface OrderFillEventV1Amino {
-  maker_order?: IndexerOrderAmino;
-  order?: IndexerOrderAmino;
-  liquidation_order?: LiquidationOrderV1Amino;
-  /** Fill amount in base quantums. */
-  fill_amount?: string;
-  /** Maker fee in USDC quantums. */
-  maker_fee?: string;
-  /**
-   * Taker fee in USDC quantums. If the taker order is a liquidation, then this
-   * represents the special liquidation fee, not the standard taker fee.
-   */
-  taker_fee?: string;
-  /** Total filled of the maker order in base quantums. */
-  total_filled_maker?: string;
-  /** Total filled of the taker order in base quantums. */
-  total_filled_taker?: string;
-}
-export interface OrderFillEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.OrderFillEventV1";
-  value: OrderFillEventV1Amino;
 }
 /**
  * OrderFillEvent message contains all the information from an order match in
@@ -571,37 +380,6 @@ export interface LiquidationOrderV1ProtoMsg {
  * LiquidationOrder represents the liquidation taker order to be included in a
  * liquidation order fill event.
  */
-export interface LiquidationOrderV1Amino {
-  /** ID of the subaccount that was liquidated. */
-  liquidated?: IndexerSubaccountIdAmino;
-  /** The ID of the clob pair involved in the liquidation. */
-  clob_pair_id?: number;
-  /** The ID of the perpetual involved in the liquidation. */
-  perpetual_id?: number;
-  /**
-   * The total size of the liquidation order including any unfilled size,
-   * in base quantums.
-   */
-  total_size?: string;
-  /** `true` if liquidating a short position, `false` otherwise. */
-  is_buy?: boolean;
-  /**
-   * The fillable price in subticks.
-   * This represents the lower-price-bound for liquidating longs
-   * and the upper-price-bound for liquidating shorts.
-   * Must be a multiple of ClobPair.SubticksPerTick
-   * (where `ClobPair.Id = orderId.ClobPairId`).
-   */
-  subticks?: string;
-}
-export interface LiquidationOrderV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.LiquidationOrderV1";
-  value: LiquidationOrderV1Amino;
-}
-/**
- * LiquidationOrder represents the liquidation taker order to be included in a
- * liquidation order fill event.
- */
 export interface LiquidationOrderV1SDKType {
   liquidated: IndexerSubaccountIdSDKType;
   clob_pair_id: number;
@@ -626,23 +404,6 @@ export interface SubaccountUpdateEventV1 {
 export interface SubaccountUpdateEventV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.SubaccountUpdateEventV1";
   value: Uint8Array;
-}
-/**
- * SubaccountUpdateEvent message contains information about an update to a
- * subaccount in the V4 chain. This includes the list of updated perpetual
- * and asset positions for the subaccount.
- * Note: This event message will contain all the updates to a subaccount
- * at the end of a block which is why multiple asset/perpetual position
- * updates may exist.
- */
-export interface SubaccountUpdateEventV1Amino {
-  subaccount_id?: IndexerSubaccountIdAmino;
-  updated_perpetual_positions?: IndexerPerpetualPositionAmino[];
-  updated_asset_positions?: IndexerAssetPositionAmino[];
-}
-export interface SubaccountUpdateEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.SubaccountUpdateEventV1";
-  value: SubaccountUpdateEventV1Amino;
 }
 /**
  * SubaccountUpdateEvent message contains information about an update to a
@@ -680,23 +441,6 @@ export interface StatefulOrderEventV1ProtoMsg {
  * placement or triggering of a conditional order, or the removal of a
  * stateful order.
  */
-export interface StatefulOrderEventV1Amino {
-  order_place?: StatefulOrderEventV1_StatefulOrderPlacementV1Amino;
-  order_removal?: StatefulOrderEventV1_StatefulOrderRemovalV1Amino;
-  conditional_order_placement?: StatefulOrderEventV1_ConditionalOrderPlacementV1Amino;
-  conditional_order_triggered?: StatefulOrderEventV1_ConditionalOrderTriggeredV1Amino;
-  long_term_order_placement?: StatefulOrderEventV1_LongTermOrderPlacementV1Amino;
-}
-export interface StatefulOrderEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.StatefulOrderEventV1";
-  value: StatefulOrderEventV1Amino;
-}
-/**
- * StatefulOrderEvent message contains information about a change to a stateful
- * order. Currently, this is either the placement of a long-term order, the
- * placement or triggering of a conditional order, or the removal of a
- * stateful order.
- */
 export interface StatefulOrderEventV1SDKType {
   order_place?: StatefulOrderEventV1_StatefulOrderPlacementV1SDKType;
   order_removal?: StatefulOrderEventV1_StatefulOrderRemovalV1SDKType;
@@ -713,14 +457,6 @@ export interface StatefulOrderEventV1_StatefulOrderPlacementV1ProtoMsg {
   value: Uint8Array;
 }
 /** A stateful order placement contains an order. */
-export interface StatefulOrderEventV1_StatefulOrderPlacementV1Amino {
-  order?: IndexerOrderAmino;
-}
-export interface StatefulOrderEventV1_StatefulOrderPlacementV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.StatefulOrderPlacementV1";
-  value: StatefulOrderEventV1_StatefulOrderPlacementV1Amino;
-}
-/** A stateful order placement contains an order. */
 export interface StatefulOrderEventV1_StatefulOrderPlacementV1SDKType {
   order?: IndexerOrderSDKType;
 }
@@ -735,18 +471,6 @@ export interface StatefulOrderEventV1_StatefulOrderRemovalV1 {
 export interface StatefulOrderEventV1_StatefulOrderRemovalV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.StatefulOrderRemovalV1";
   value: Uint8Array;
-}
-/**
- * A stateful order removal contains the id of an order that was already
- * placed and is now removed and the reason for the removal.
- */
-export interface StatefulOrderEventV1_StatefulOrderRemovalV1Amino {
-  removed_order_id?: IndexerOrderIdAmino;
-  reason?: OrderRemovalReason;
-}
-export interface StatefulOrderEventV1_StatefulOrderRemovalV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.StatefulOrderRemovalV1";
-  value: StatefulOrderEventV1_StatefulOrderRemovalV1Amino;
 }
 /**
  * A stateful order removal contains the id of an order that was already
@@ -771,17 +495,6 @@ export interface StatefulOrderEventV1_ConditionalOrderPlacementV1ProtoMsg {
  * A conditional order placement contains an order. The order is newly-placed
  * and untriggered when this event is emitted.
  */
-export interface StatefulOrderEventV1_ConditionalOrderPlacementV1Amino {
-  order?: IndexerOrderAmino;
-}
-export interface StatefulOrderEventV1_ConditionalOrderPlacementV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.ConditionalOrderPlacementV1";
-  value: StatefulOrderEventV1_ConditionalOrderPlacementV1Amino;
-}
-/**
- * A conditional order placement contains an order. The order is newly-placed
- * and untriggered when this event is emitted.
- */
 export interface StatefulOrderEventV1_ConditionalOrderPlacementV1SDKType {
   order?: IndexerOrderSDKType;
 }
@@ -800,17 +513,6 @@ export interface StatefulOrderEventV1_ConditionalOrderTriggeredV1ProtoMsg {
  * A conditional order trigger event contains an order id and is emitted when
  * an order is triggered.
  */
-export interface StatefulOrderEventV1_ConditionalOrderTriggeredV1Amino {
-  triggered_order_id?: IndexerOrderIdAmino;
-}
-export interface StatefulOrderEventV1_ConditionalOrderTriggeredV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.ConditionalOrderTriggeredV1";
-  value: StatefulOrderEventV1_ConditionalOrderTriggeredV1Amino;
-}
-/**
- * A conditional order trigger event contains an order id and is emitted when
- * an order is triggered.
- */
 export interface StatefulOrderEventV1_ConditionalOrderTriggeredV1SDKType {
   triggered_order_id?: IndexerOrderIdSDKType;
 }
@@ -821,14 +523,6 @@ export interface StatefulOrderEventV1_LongTermOrderPlacementV1 {
 export interface StatefulOrderEventV1_LongTermOrderPlacementV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.LongTermOrderPlacementV1";
   value: Uint8Array;
-}
-/** A long term order placement contains an order. */
-export interface StatefulOrderEventV1_LongTermOrderPlacementV1Amino {
-  order?: IndexerOrderAmino;
-}
-export interface StatefulOrderEventV1_LongTermOrderPlacementV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.LongTermOrderPlacementV1";
-  value: StatefulOrderEventV1_LongTermOrderPlacementV1Amino;
 }
 /** A long term order placement contains an order. */
 export interface StatefulOrderEventV1_LongTermOrderPlacementV1SDKType {
@@ -866,39 +560,6 @@ export interface AssetCreateEventV1 {
 export interface AssetCreateEventV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.AssetCreateEventV1";
   value: Uint8Array;
-}
-/**
- * AssetCreateEventV1 message contains all the information about an new Asset on
- * the v4 chain.
- */
-export interface AssetCreateEventV1Amino {
-  /** Unique, sequentially-generated. */
-  id?: number;
-  /**
-   * The human readable symbol of the `Asset` (e.g. `USDC`, `ATOM`).
-   * Must be uppercase, unique and correspond to the canonical symbol of the
-   * full coin.
-   */
-  symbol?: string;
-  /** `true` if this `Asset` has a valid `MarketId` value. */
-  has_market?: boolean;
-  /**
-   * The `Id` of the `Market` associated with this `Asset`. It acts as the
-   * oracle price for the purposes of calculating collateral
-   * and margin requirements.
-   */
-  market_id?: number;
-  /**
-   * The exponent for converting an atomic amount (1 'quantum')
-   * to a full coin. For example, if `atomic_resolution = -8`
-   * then an `asset_position` with `base_quantums = 1e8` is equivalent to
-   * a position size of one full coin.
-   */
-  atomic_resolution?: number;
-}
-export interface AssetCreateEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.AssetCreateEventV1";
-  value: AssetCreateEventV1Amino;
 }
 /**
  * AssetCreateEventV1 message contains all the information about an new Asset on
@@ -979,70 +640,6 @@ export interface PerpetualMarketCreateEventV1ProtoMsg {
  * PerpetualMarketCreateEventV1 message contains all the information about a
  * new Perpetual Market on the v4 chain.
  */
-export interface PerpetualMarketCreateEventV1Amino {
-  /**
-   * Unique Perpetual id.
-   * Defined in perpetuals.perpetual
-   */
-  id?: number;
-  /**
-   * Unique clob pair Id associated with this perpetual market
-   * Defined in clob.clob_pair
-   */
-  clob_pair_id?: number;
-  /**
-   * The name of the `Perpetual` (e.g. `BTC-USD`).
-   * Defined in perpetuals.perpetual
-   */
-  ticker?: string;
-  /**
-   * Unique id of market param associated with this perpetual market.
-   * Defined in perpetuals.perpetual
-   */
-  market_id?: number;
-  /** Status of the CLOB */
-  status?: ClobPairStatus;
-  /**
-   * `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
-   * per Subtick.
-   * Defined in clob.clob_pair
-   */
-  quantum_conversion_exponent?: number;
-  /**
-   * The exponent for converting an atomic amount (`size = 1`)
-   * to a full coin. For example, if `AtomicResolution = -8`
-   * then a `PerpetualPosition` with `size = 1e8` is equivalent to
-   * a position size of one full coin.
-   * Defined in perpetuals.perpetual
-   */
-  atomic_resolution?: number;
-  /**
-   * Defines the tick size of the orderbook by defining how many subticks
-   * are in one tick. That is, the subticks of any valid order must be a
-   * multiple of this value. Generally this value should start `>= 100`to
-   * allow room for decreasing it.
-   * Defined in clob.clob_pair
-   */
-  subticks_per_tick?: number;
-  /**
-   * Minimum increment in the size of orders on the CLOB, in base quantums.
-   * Defined in clob.clob_pair
-   */
-  step_base_quantums?: string;
-  /**
-   * The liquidity_tier that this perpetual is associated with.
-   * Defined in perpetuals.perpetual
-   */
-  liquidity_tier?: number;
-}
-export interface PerpetualMarketCreateEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.PerpetualMarketCreateEventV1";
-  value: PerpetualMarketCreateEventV1Amino;
-}
-/**
- * PerpetualMarketCreateEventV1 message contains all the information about a
- * new Perpetual Market on the v4 chain.
- */
 export interface PerpetualMarketCreateEventV1SDKType {
   id: number;
   clob_pair_id: number;
@@ -1084,36 +681,6 @@ export interface LiquidityTierUpsertEventV1 {
 export interface LiquidityTierUpsertEventV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.LiquidityTierUpsertEventV1";
   value: Uint8Array;
-}
-/**
- * LiquidityTierUpsertEventV1 message contains all the information to
- * create/update a Liquidity Tier on the v4 chain.
- */
-export interface LiquidityTierUpsertEventV1Amino {
-  /** Unique id. */
-  id?: number;
-  /** The name of the tier purely for mnemonic purposes, e.g. "Gold". */
-  name?: string;
-  /**
-   * The margin fraction needed to open a position.
-   * In parts-per-million.
-   */
-  initial_margin_ppm?: number;
-  /**
-   * The fraction of the initial-margin that the maintenance-margin is,
-   * e.g. 50%. In parts-per-million.
-   */
-  maintenance_fraction_ppm?: number;
-  /**
-   * The maximum position size at which the margin requirements are
-   * not increased over the default values. Above this position size,
-   * the margin requirements increase at a rate of sqrt(size).
-   */
-  base_position_notional?: string;
-}
-export interface LiquidityTierUpsertEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.LiquidityTierUpsertEventV1";
-  value: LiquidityTierUpsertEventV1Amino;
 }
 /**
  * LiquidityTierUpsertEventV1 message contains all the information to
@@ -1166,42 +733,6 @@ export interface UpdateClobPairEventV1ProtoMsg {
  * UpdateClobPairEventV1 message contains all the information about an update to
  * a clob pair on the v4 chain.
  */
-export interface UpdateClobPairEventV1Amino {
-  /**
-   * Unique clob pair Id associated with this perpetual market
-   * Defined in clob.clob_pair
-   */
-  clob_pair_id?: number;
-  /** Status of the CLOB */
-  status?: ClobPairStatus;
-  /**
-   * `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
-   * per Subtick.
-   * Defined in clob.clob_pair
-   */
-  quantum_conversion_exponent?: number;
-  /**
-   * Defines the tick size of the orderbook by defining how many subticks
-   * are in one tick. That is, the subticks of any valid order must be a
-   * multiple of this value. Generally this value should start `>= 100`to
-   * allow room for decreasing it.
-   * Defined in clob.clob_pair
-   */
-  subticks_per_tick?: number;
-  /**
-   * Minimum increment in the size of orders on the CLOB, in base quantums.
-   * Defined in clob.clob_pair
-   */
-  step_base_quantums?: string;
-}
-export interface UpdateClobPairEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.UpdateClobPairEventV1";
-  value: UpdateClobPairEventV1Amino;
-}
-/**
- * UpdateClobPairEventV1 message contains all the information about an update to
- * a clob pair on the v4 chain.
- */
 export interface UpdateClobPairEventV1SDKType {
   clob_pair_id: number;
   status: ClobPairStatus;
@@ -1246,44 +777,6 @@ export interface UpdatePerpetualEventV1 {
 export interface UpdatePerpetualEventV1ProtoMsg {
   typeUrl: "/dydxprotocol.indexer.events.UpdatePerpetualEventV1";
   value: Uint8Array;
-}
-/**
- * UpdatePerpetualEventV1 message contains all the information about an update
- * to a perpetual on the v4 chain.
- */
-export interface UpdatePerpetualEventV1Amino {
-  /**
-   * Unique Perpetual id.
-   * Defined in perpetuals.perpetual
-   */
-  id?: number;
-  /**
-   * The name of the `Perpetual` (e.g. `BTC-USD`).
-   * Defined in perpetuals.perpetual
-   */
-  ticker?: string;
-  /**
-   * Unique id of market param associated with this perpetual market.
-   * Defined in perpetuals.perpetual
-   */
-  market_id?: number;
-  /**
-   * The exponent for converting an atomic amount (`size = 1`)
-   * to a full coin. For example, if `AtomicResolution = -8`
-   * then a `PerpetualPosition` with `size = 1e8` is equivalent to
-   * a position size of one full coin.
-   * Defined in perpetuals.perpetual
-   */
-  atomic_resolution?: number;
-  /**
-   * The liquidity_tier that this perpetual is associated with.
-   * Defined in perpetuals.perpetual
-   */
-  liquidity_tier?: number;
-}
-export interface UpdatePerpetualEventV1AminoMsg {
-  type: "/dydxprotocol.indexer.events.UpdatePerpetualEventV1";
-  value: UpdatePerpetualEventV1Amino;
 }
 /**
  * UpdatePerpetualEventV1 message contains all the information about an update

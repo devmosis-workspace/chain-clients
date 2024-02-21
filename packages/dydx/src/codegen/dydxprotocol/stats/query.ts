@@ -1,5 +1,5 @@
-import { Params, ParamsAmino, ParamsSDKType } from "./params";
-import { StatsMetadata, StatsMetadataAmino, StatsMetadataSDKType, GlobalStats, GlobalStatsAmino, GlobalStatsSDKType, UserStats, UserStatsAmino, UserStatsSDKType } from "./stats";
+import { Params, ParamsSDKType } from "./params";
+import { StatsMetadata, StatsMetadataSDKType, GlobalStats, GlobalStatsSDKType, UserStats, UserStatsSDKType } from "./stats";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** QueryParamsRequest is a request type for the Params RPC method. */
@@ -7,12 +7,6 @@ export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/dydxprotocol.stats.QueryParamsRequest";
   value: Uint8Array;
-}
-/** QueryParamsRequest is a request type for the Params RPC method. */
-export interface QueryParamsRequestAmino {}
-export interface QueryParamsRequestAminoMsg {
-  type: "/dydxprotocol.stats.QueryParamsRequest";
-  value: QueryParamsRequestAmino;
 }
 /** QueryParamsRequest is a request type for the Params RPC method. */
 export interface QueryParamsRequestSDKType {}
@@ -25,14 +19,6 @@ export interface QueryParamsResponseProtoMsg {
   value: Uint8Array;
 }
 /** QueryParamsResponse is a response type for the Params RPC method. */
-export interface QueryParamsResponseAmino {
-  params?: ParamsAmino;
-}
-export interface QueryParamsResponseAminoMsg {
-  type: "/dydxprotocol.stats.QueryParamsResponse";
-  value: QueryParamsResponseAmino;
-}
-/** QueryParamsResponse is a response type for the Params RPC method. */
 export interface QueryParamsResponseSDKType {
   params: ParamsSDKType;
 }
@@ -41,12 +27,6 @@ export interface QueryStatsMetadataRequest {}
 export interface QueryStatsMetadataRequestProtoMsg {
   typeUrl: "/dydxprotocol.stats.QueryStatsMetadataRequest";
   value: Uint8Array;
-}
-/** QueryStatsMetadataRequest is a request type for the StatsMetadata RPC method. */
-export interface QueryStatsMetadataRequestAmino {}
-export interface QueryStatsMetadataRequestAminoMsg {
-  type: "/dydxprotocol.stats.QueryStatsMetadataRequest";
-  value: QueryStatsMetadataRequestAmino;
 }
 /** QueryStatsMetadataRequest is a request type for the StatsMetadata RPC method. */
 export interface QueryStatsMetadataRequestSDKType {}
@@ -69,21 +49,6 @@ export interface QueryStatsMetadataResponseProtoMsg {
  * QueryStatsMetadataResponse is a response type for the StatsMetadata RPC
  * method.
  */
-export interface QueryStatsMetadataResponseAmino {
-  /**
-   * QueryStatsMetadataResponse is a response type for the StatsMetadata RPC
-   * method.
-   */
-  metadata?: StatsMetadataAmino;
-}
-export interface QueryStatsMetadataResponseAminoMsg {
-  type: "/dydxprotocol.stats.QueryStatsMetadataResponse";
-  value: QueryStatsMetadataResponseAmino;
-}
-/**
- * QueryStatsMetadataResponse is a response type for the StatsMetadata RPC
- * method.
- */
 export interface QueryStatsMetadataResponseSDKType {
   metadata?: StatsMetadataSDKType;
 }
@@ -92,12 +57,6 @@ export interface QueryGlobalStatsRequest {}
 export interface QueryGlobalStatsRequestProtoMsg {
   typeUrl: "/dydxprotocol.stats.QueryGlobalStatsRequest";
   value: Uint8Array;
-}
-/** QueryGlobalStatsRequest is a request type for the GlobalStats RPC method. */
-export interface QueryGlobalStatsRequestAmino {}
-export interface QueryGlobalStatsRequestAminoMsg {
-  type: "/dydxprotocol.stats.QueryGlobalStatsRequest";
-  value: QueryGlobalStatsRequestAmino;
 }
 /** QueryGlobalStatsRequest is a request type for the GlobalStats RPC method. */
 export interface QueryGlobalStatsRequestSDKType {}
@@ -109,15 +68,6 @@ export interface QueryGlobalStatsResponse {
 export interface QueryGlobalStatsResponseProtoMsg {
   typeUrl: "/dydxprotocol.stats.QueryGlobalStatsResponse";
   value: Uint8Array;
-}
-/** QueryGlobalStatsResponse is a response type for the GlobalStats RPC method. */
-export interface QueryGlobalStatsResponseAmino {
-  /** QueryGlobalStatsResponse is a response type for the GlobalStats RPC method. */
-  stats?: GlobalStatsAmino;
-}
-export interface QueryGlobalStatsResponseAminoMsg {
-  type: "/dydxprotocol.stats.QueryGlobalStatsResponse";
-  value: QueryGlobalStatsResponseAmino;
 }
 /** QueryGlobalStatsResponse is a response type for the GlobalStats RPC method. */
 export interface QueryGlobalStatsResponseSDKType {
@@ -133,15 +83,6 @@ export interface QueryUserStatsRequestProtoMsg {
   value: Uint8Array;
 }
 /** QueryUserStatsRequest is a request type for the UserStats RPC method. */
-export interface QueryUserStatsRequestAmino {
-  /** QueryUserStatsRequest is a request type for the UserStats RPC method. */
-  user?: string;
-}
-export interface QueryUserStatsRequestAminoMsg {
-  type: "/dydxprotocol.stats.QueryUserStatsRequest";
-  value: QueryUserStatsRequestAmino;
-}
-/** QueryUserStatsRequest is a request type for the UserStats RPC method. */
 export interface QueryUserStatsRequestSDKType {
   user: string;
 }
@@ -153,15 +94,6 @@ export interface QueryUserStatsResponse {
 export interface QueryUserStatsResponseProtoMsg {
   typeUrl: "/dydxprotocol.stats.QueryUserStatsResponse";
   value: Uint8Array;
-}
-/** QueryUserStatsResponse is a request type for the UserStats RPC method. */
-export interface QueryUserStatsResponseAmino {
-  /** QueryUserStatsResponse is a request type for the UserStats RPC method. */
-  stats?: UserStatsAmino;
-}
-export interface QueryUserStatsResponseAminoMsg {
-  type: "/dydxprotocol.stats.QueryUserStatsResponse";
-  value: QueryUserStatsResponseAmino;
 }
 /** QueryUserStatsResponse is a request type for the UserStats RPC method. */
 export interface QueryUserStatsResponseSDKType {

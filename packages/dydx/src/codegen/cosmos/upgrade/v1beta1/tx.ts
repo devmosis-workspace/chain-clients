@@ -1,4 +1,4 @@
-import { Plan, PlanAmino, PlanSDKType } from "./upgrade";
+import { Plan, PlanSDKType } from "./upgrade";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /**
@@ -15,21 +15,6 @@ export interface MsgSoftwareUpgrade {
 export interface MsgSoftwareUpgradeProtoMsg {
   typeUrl: "/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade";
   value: Uint8Array;
-}
-/**
- * MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface MsgSoftwareUpgradeAmino {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
-  authority?: string;
-  /** plan is the upgrade plan. */
-  plan: PlanAmino;
-}
-export interface MsgSoftwareUpgradeAminoMsg {
-  type: "cosmos-sdk/MsgSoftwareUpgrade";
-  value: MsgSoftwareUpgradeAmino;
 }
 /**
  * MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
@@ -55,16 +40,6 @@ export interface MsgSoftwareUpgradeResponseProtoMsg {
  * 
  * Since: cosmos-sdk 0.46
  */
-export interface MsgSoftwareUpgradeResponseAmino {}
-export interface MsgSoftwareUpgradeResponseAminoMsg {
-  type: "cosmos-sdk/MsgSoftwareUpgradeResponse";
-  value: MsgSoftwareUpgradeResponseAmino;
-}
-/**
- * MsgSoftwareUpgradeResponse is the Msg/SoftwareUpgrade response type.
- * 
- * Since: cosmos-sdk 0.46
- */
 export interface MsgSoftwareUpgradeResponseSDKType {}
 /**
  * MsgCancelUpgrade is the Msg/CancelUpgrade request type.
@@ -84,19 +59,6 @@ export interface MsgCancelUpgradeProtoMsg {
  * 
  * Since: cosmos-sdk 0.46
  */
-export interface MsgCancelUpgradeAmino {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
-  authority?: string;
-}
-export interface MsgCancelUpgradeAminoMsg {
-  type: "cosmos-sdk/MsgCancelUpgrade";
-  value: MsgCancelUpgradeAmino;
-}
-/**
- * MsgCancelUpgrade is the Msg/CancelUpgrade request type.
- * 
- * Since: cosmos-sdk 0.46
- */
 export interface MsgCancelUpgradeSDKType {
   authority: string;
 }
@@ -109,16 +71,6 @@ export interface MsgCancelUpgradeResponse {}
 export interface MsgCancelUpgradeResponseProtoMsg {
   typeUrl: "/cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse";
   value: Uint8Array;
-}
-/**
- * MsgCancelUpgradeResponse is the Msg/CancelUpgrade response type.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface MsgCancelUpgradeResponseAmino {}
-export interface MsgCancelUpgradeResponseAminoMsg {
-  type: "cosmos-sdk/MsgCancelUpgradeResponse";
-  value: MsgCancelUpgradeResponseAmino;
 }
 /**
  * MsgCancelUpgradeResponse is the Msg/CancelUpgrade response type.

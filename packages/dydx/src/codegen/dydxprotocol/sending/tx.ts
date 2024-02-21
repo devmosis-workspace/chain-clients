@@ -1,4 +1,4 @@
-import { Transfer, TransferAmino, TransferSDKType } from "./transfer";
+import { Transfer, TransferSDKType } from "./transfer";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** MsgCreateTransfer is a request type used for initiating new transfers. */
@@ -11,15 +11,6 @@ export interface MsgCreateTransferProtoMsg {
   value: Uint8Array;
 }
 /** MsgCreateTransfer is a request type used for initiating new transfers. */
-export interface MsgCreateTransferAmino {
-  /** MsgCreateTransfer is a request type used for initiating new transfers. */
-  transfer?: TransferAmino;
-}
-export interface MsgCreateTransferAminoMsg {
-  type: "/dydxprotocol.sending.MsgCreateTransfer";
-  value: MsgCreateTransferAmino;
-}
-/** MsgCreateTransfer is a request type used for initiating new transfers. */
 export interface MsgCreateTransferSDKType {
   transfer?: TransferSDKType;
 }
@@ -28,12 +19,6 @@ export interface MsgCreateTransferResponse {}
 export interface MsgCreateTransferResponseProtoMsg {
   typeUrl: "/dydxprotocol.sending.MsgCreateTransferResponse";
   value: Uint8Array;
-}
-/** MsgCreateTransferResponse is a response type used for new transfers. */
-export interface MsgCreateTransferResponseAmino {}
-export interface MsgCreateTransferResponseAminoMsg {
-  type: "/dydxprotocol.sending.MsgCreateTransferResponse";
-  value: MsgCreateTransferResponseAmino;
 }
 /** MsgCreateTransferResponse is a response type used for new transfers. */
 export interface MsgCreateTransferResponseSDKType {}
@@ -45,15 +30,6 @@ export interface MsgDepositToSubaccountResponse {}
 export interface MsgDepositToSubaccountResponseProtoMsg {
   typeUrl: "/dydxprotocol.sending.MsgDepositToSubaccountResponse";
   value: Uint8Array;
-}
-/**
- * MsgDepositToSubaccountResponse is a response type used for new
- * account-to-subaccount transfers.
- */
-export interface MsgDepositToSubaccountResponseAmino {}
-export interface MsgDepositToSubaccountResponseAminoMsg {
-  type: "/dydxprotocol.sending.MsgDepositToSubaccountResponse";
-  value: MsgDepositToSubaccountResponseAmino;
 }
 /**
  * MsgDepositToSubaccountResponse is a response type used for new
@@ -73,15 +49,6 @@ export interface MsgWithdrawFromSubaccountResponseProtoMsg {
  * MsgWithdrawFromSubaccountResponse is a response type used for new
  * subaccount-to-account transfers.
  */
-export interface MsgWithdrawFromSubaccountResponseAmino {}
-export interface MsgWithdrawFromSubaccountResponseAminoMsg {
-  type: "/dydxprotocol.sending.MsgWithdrawFromSubaccountResponse";
-  value: MsgWithdrawFromSubaccountResponseAmino;
-}
-/**
- * MsgWithdrawFromSubaccountResponse is a response type used for new
- * subaccount-to-account transfers.
- */
 export interface MsgWithdrawFromSubaccountResponseSDKType {}
 /**
  * MsgSendFromModuleToAccountResponse is a response type used for new
@@ -91,15 +58,6 @@ export interface MsgSendFromModuleToAccountResponse {}
 export interface MsgSendFromModuleToAccountResponseProtoMsg {
   typeUrl: "/dydxprotocol.sending.MsgSendFromModuleToAccountResponse";
   value: Uint8Array;
-}
-/**
- * MsgSendFromModuleToAccountResponse is a response type used for new
- * module-to-account transfers.
- */
-export interface MsgSendFromModuleToAccountResponseAmino {}
-export interface MsgSendFromModuleToAccountResponseAminoMsg {
-  type: "/dydxprotocol.sending.MsgSendFromModuleToAccountResponse";
-  value: MsgSendFromModuleToAccountResponseAmino;
 }
 /**
  * MsgSendFromModuleToAccountResponse is a response type used for new

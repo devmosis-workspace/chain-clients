@@ -1,4 +1,4 @@
-import { Minter, MinterAmino, MinterSDKType, Params, ParamsAmino, ParamsSDKType } from "./mint";
+import { Minter, MinterSDKType, Params, ParamsSDKType } from "./mint";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** GenesisState defines the mint module's genesis state. */
@@ -11,17 +11,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.mint.v1beta1.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the mint module's genesis state. */
-export interface GenesisStateAmino {
-  /** minter is a space for holding current inflation information. */
-  minter: MinterAmino;
-  /** params defines all the parameters of the module. */
-  params: ParamsAmino;
-}
-export interface GenesisStateAminoMsg {
-  type: "cosmos-sdk/GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the mint module's genesis state. */
 export interface GenesisStateSDKType {

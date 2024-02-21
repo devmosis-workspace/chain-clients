@@ -38,6 +38,10 @@ export interface QueryParamsResponseAminoMsg {
 export interface QueryParamsResponseSDKType {
   params: ParamsSDKType;
 }
+/**
+ * QueryDenomAuthorityMetadataRequest defines the request structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataRequest {
   creator: string;
   subdenom: string;
@@ -46,18 +50,30 @@ export interface QueryDenomAuthorityMetadataRequestProtoMsg {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomAuthorityMetadataRequest";
   value: Uint8Array;
 }
+/**
+ * QueryDenomAuthorityMetadataRequest defines the request structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataRequestAmino {
-  creator: string;
-  subdenom: string;
+  creator?: string;
+  subdenom?: string;
 }
 export interface QueryDenomAuthorityMetadataRequestAminoMsg {
   type: "osmosis/tokenfactory/query-denom-authority-metadata-request";
   value: QueryDenomAuthorityMetadataRequestAmino;
 }
+/**
+ * QueryDenomAuthorityMetadataRequest defines the request structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataRequestSDKType {
   creator: string;
   subdenom: string;
 }
+/**
+ * QueryDenomAuthorityMetadataResponse defines the response structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataResponse {
   authorityMetadata: DenomAuthorityMetadata;
 }
@@ -65,6 +81,10 @@ export interface QueryDenomAuthorityMetadataResponseProtoMsg {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse";
   value: Uint8Array;
 }
+/**
+ * QueryDenomAuthorityMetadataResponse defines the response structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataResponseAmino {
   authority_metadata?: DenomAuthorityMetadataAmino;
 }
@@ -72,9 +92,17 @@ export interface QueryDenomAuthorityMetadataResponseAminoMsg {
   type: "osmosis/tokenfactory/query-denom-authority-metadata-response";
   value: QueryDenomAuthorityMetadataResponseAmino;
 }
+/**
+ * QueryDenomAuthorityMetadataResponse defines the response structure for the
+ * DenomAuthorityMetadata gRPC query.
+ */
 export interface QueryDenomAuthorityMetadataResponseSDKType {
   authority_metadata: DenomAuthorityMetadataSDKType;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the request structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorRequest {
   creator: string;
 }
@@ -82,16 +110,28 @@ export interface QueryDenomsFromCreatorRequestProtoMsg {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomsFromCreatorRequest";
   value: Uint8Array;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the request structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorRequestAmino {
-  creator: string;
+  creator?: string;
 }
 export interface QueryDenomsFromCreatorRequestAminoMsg {
   type: "osmosis/tokenfactory/query-denoms-from-creator-request";
   value: QueryDenomsFromCreatorRequestAmino;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the request structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorRequestSDKType {
   creator: string;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the response structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorResponse {
   denoms: string[];
 }
@@ -99,15 +139,72 @@ export interface QueryDenomsFromCreatorResponseProtoMsg {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse";
   value: Uint8Array;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the response structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorResponseAmino {
-  denoms: string[];
+  denoms?: string[];
 }
 export interface QueryDenomsFromCreatorResponseAminoMsg {
   type: "osmosis/tokenfactory/query-denoms-from-creator-response";
   value: QueryDenomsFromCreatorResponseAmino;
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the response structure for the
+ * DenomsFromCreator gRPC query.
+ */
 export interface QueryDenomsFromCreatorResponseSDKType {
   denoms: string[];
+}
+export interface QueryBeforeSendHookAddressRequest {
+  creator: string;
+  subdenom: string;
+}
+export interface QueryBeforeSendHookAddressRequestProtoMsg {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressRequest";
+  value: Uint8Array;
+}
+export interface QueryBeforeSendHookAddressRequestAmino {
+  creator?: string;
+  subdenom?: string;
+}
+export interface QueryBeforeSendHookAddressRequestAminoMsg {
+  type: "osmosis/tokenfactory/query-before-send-hook-address-request";
+  value: QueryBeforeSendHookAddressRequestAmino;
+}
+export interface QueryBeforeSendHookAddressRequestSDKType {
+  creator: string;
+  subdenom: string;
+}
+/**
+ * QueryBeforeSendHookAddressResponse defines the response structure for the
+ * DenomBeforeSendHook gRPC query.
+ */
+export interface QueryBeforeSendHookAddressResponse {
+  contractAddr: string;
+}
+export interface QueryBeforeSendHookAddressResponseProtoMsg {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryBeforeSendHookAddressResponse defines the response structure for the
+ * DenomBeforeSendHook gRPC query.
+ */
+export interface QueryBeforeSendHookAddressResponseAmino {
+  contract_addr?: string;
+}
+export interface QueryBeforeSendHookAddressResponseAminoMsg {
+  type: "osmosis/tokenfactory/query-before-send-hook-address-response";
+  value: QueryBeforeSendHookAddressResponseAmino;
+}
+/**
+ * QueryBeforeSendHookAddressResponse defines the response structure for the
+ * DenomBeforeSendHook gRPC query.
+ */
+export interface QueryBeforeSendHookAddressResponseSDKType {
+  contract_addr: string;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -125,7 +222,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -177,9 +275,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -238,10 +338,14 @@ export const QueryDenomAuthorityMetadataRequest = {
     return message;
   },
   fromAmino(object: QueryDenomAuthorityMetadataRequestAmino): QueryDenomAuthorityMetadataRequest {
-    return {
-      creator: object.creator,
-      subdenom: object.subdenom
-    };
+    const message = createBaseQueryDenomAuthorityMetadataRequest();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.subdenom !== undefined && object.subdenom !== null) {
+      message.subdenom = object.subdenom;
+    }
+    return message;
   },
   toAmino(message: QueryDenomAuthorityMetadataRequest): QueryDenomAuthorityMetadataRequestAmino {
     const obj: any = {};
@@ -295,9 +399,11 @@ export const QueryDenomAuthorityMetadataResponse = {
     return message;
   },
   fromAmino(object: QueryDenomAuthorityMetadataResponseAmino): QueryDenomAuthorityMetadataResponse {
-    return {
-      authorityMetadata: object?.authority_metadata ? DenomAuthorityMetadata.fromAmino(object.authority_metadata) : undefined
-    };
+    const message = createBaseQueryDenomAuthorityMetadataResponse();
+    if (object.authority_metadata !== undefined && object.authority_metadata !== null) {
+      message.authorityMetadata = DenomAuthorityMetadata.fromAmino(object.authority_metadata);
+    }
+    return message;
   },
   toAmino(message: QueryDenomAuthorityMetadataResponse): QueryDenomAuthorityMetadataResponseAmino {
     const obj: any = {};
@@ -350,9 +456,11 @@ export const QueryDenomsFromCreatorRequest = {
     return message;
   },
   fromAmino(object: QueryDenomsFromCreatorRequestAmino): QueryDenomsFromCreatorRequest {
-    return {
-      creator: object.creator
-    };
+    const message = createBaseQueryDenomsFromCreatorRequest();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    return message;
   },
   toAmino(message: QueryDenomsFromCreatorRequest): QueryDenomsFromCreatorRequestAmino {
     const obj: any = {};
@@ -405,9 +513,9 @@ export const QueryDenomsFromCreatorResponse = {
     return message;
   },
   fromAmino(object: QueryDenomsFromCreatorResponseAmino): QueryDenomsFromCreatorResponse {
-    return {
-      denoms: Array.isArray(object?.denoms) ? object.denoms.map((e: any) => e) : []
-    };
+    const message = createBaseQueryDenomsFromCreatorResponse();
+    message.denoms = object.denoms?.map(e => e) || [];
+    return message;
   },
   toAmino(message: QueryDenomsFromCreatorResponse): QueryDenomsFromCreatorResponseAmino {
     const obj: any = {};
@@ -437,6 +545,130 @@ export const QueryDenomsFromCreatorResponse = {
     return {
       typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse",
       value: QueryDenomsFromCreatorResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryBeforeSendHookAddressRequest(): QueryBeforeSendHookAddressRequest {
+  return {
+    creator: "",
+    subdenom: ""
+  };
+}
+export const QueryBeforeSendHookAddressRequest = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressRequest",
+  encode(message: QueryBeforeSendHookAddressRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.subdenom !== "") {
+      writer.uint32(18).string(message.subdenom);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryBeforeSendHookAddressRequest {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      subdenom: isSet(object.subdenom) ? String(object.subdenom) : ""
+    };
+  },
+  fromPartial(object: Partial<QueryBeforeSendHookAddressRequest>): QueryBeforeSendHookAddressRequest {
+    const message = createBaseQueryBeforeSendHookAddressRequest();
+    message.creator = object.creator ?? "";
+    message.subdenom = object.subdenom ?? "";
+    return message;
+  },
+  fromAmino(object: QueryBeforeSendHookAddressRequestAmino): QueryBeforeSendHookAddressRequest {
+    const message = createBaseQueryBeforeSendHookAddressRequest();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.subdenom !== undefined && object.subdenom !== null) {
+      message.subdenom = object.subdenom;
+    }
+    return message;
+  },
+  toAmino(message: QueryBeforeSendHookAddressRequest): QueryBeforeSendHookAddressRequestAmino {
+    const obj: any = {};
+    obj.creator = message.creator;
+    obj.subdenom = message.subdenom;
+    return obj;
+  },
+  fromAminoMsg(object: QueryBeforeSendHookAddressRequestAminoMsg): QueryBeforeSendHookAddressRequest {
+    return QueryBeforeSendHookAddressRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryBeforeSendHookAddressRequest): QueryBeforeSendHookAddressRequestAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-before-send-hook-address-request",
+      value: QueryBeforeSendHookAddressRequest.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryBeforeSendHookAddressRequestProtoMsg): QueryBeforeSendHookAddressRequest {
+    return QueryBeforeSendHookAddressRequest.decode(message.value);
+  },
+  toProto(message: QueryBeforeSendHookAddressRequest): Uint8Array {
+    return QueryBeforeSendHookAddressRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryBeforeSendHookAddressRequest): QueryBeforeSendHookAddressRequestProtoMsg {
+    return {
+      typeUrl: "/osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressRequest",
+      value: QueryBeforeSendHookAddressRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryBeforeSendHookAddressResponse(): QueryBeforeSendHookAddressResponse {
+  return {
+    contractAddr: ""
+  };
+}
+export const QueryBeforeSendHookAddressResponse = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressResponse",
+  encode(message: QueryBeforeSendHookAddressResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.contractAddr !== "") {
+      writer.uint32(10).string(message.contractAddr);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryBeforeSendHookAddressResponse {
+    return {
+      contractAddr: isSet(object.contractAddr) ? String(object.contractAddr) : ""
+    };
+  },
+  fromPartial(object: Partial<QueryBeforeSendHookAddressResponse>): QueryBeforeSendHookAddressResponse {
+    const message = createBaseQueryBeforeSendHookAddressResponse();
+    message.contractAddr = object.contractAddr ?? "";
+    return message;
+  },
+  fromAmino(object: QueryBeforeSendHookAddressResponseAmino): QueryBeforeSendHookAddressResponse {
+    const message = createBaseQueryBeforeSendHookAddressResponse();
+    if (object.contract_addr !== undefined && object.contract_addr !== null) {
+      message.contractAddr = object.contract_addr;
+    }
+    return message;
+  },
+  toAmino(message: QueryBeforeSendHookAddressResponse): QueryBeforeSendHookAddressResponseAmino {
+    const obj: any = {};
+    obj.contract_addr = message.contractAddr;
+    return obj;
+  },
+  fromAminoMsg(object: QueryBeforeSendHookAddressResponseAminoMsg): QueryBeforeSendHookAddressResponse {
+    return QueryBeforeSendHookAddressResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryBeforeSendHookAddressResponse): QueryBeforeSendHookAddressResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-before-send-hook-address-response",
+      value: QueryBeforeSendHookAddressResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryBeforeSendHookAddressResponseProtoMsg): QueryBeforeSendHookAddressResponse {
+    return QueryBeforeSendHookAddressResponse.decode(message.value);
+  },
+  toProto(message: QueryBeforeSendHookAddressResponse): Uint8Array {
+    return QueryBeforeSendHookAddressResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryBeforeSendHookAddressResponse): QueryBeforeSendHookAddressResponseProtoMsg {
+    return {
+      typeUrl: "/osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressResponse",
+      value: QueryBeforeSendHookAddressResponse.encode(message).finish()
     };
   }
 };

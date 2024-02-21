@@ -1,6 +1,6 @@
-import { Data, DataAmino, DataSDKType, Commit, CommitAmino, CommitSDKType, BlockID, BlockIDAmino, BlockIDSDKType } from "../../../../tendermint/types/types";
-import { EvidenceList, EvidenceListAmino, EvidenceListSDKType } from "../../../../tendermint/types/evidence";
-import { Consensus, ConsensusAmino, ConsensusSDKType } from "../../../../tendermint/version/types";
+import { Data, DataSDKType, Commit, CommitSDKType, BlockID, BlockIDSDKType } from "../../../../tendermint/types/types";
+import { EvidenceList, EvidenceListSDKType } from "../../../../tendermint/types/evidence";
+import { Consensus, ConsensusSDKType } from "../../../../tendermint/version/types";
 import { Timestamp, TimestampSDKType } from "../../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../../binary";
 import { isSet, fromJsonTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
@@ -17,20 +17,6 @@ export interface Block {
 export interface BlockProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.Block";
   value: Uint8Array;
-}
-/**
- * Block is tendermint type Block, with the Header proposer address
- * field converted to bech32 string.
- */
-export interface BlockAmino {
-  header: HeaderAmino;
-  data: DataAmino;
-  evidence: EvidenceListAmino;
-  last_commit?: CommitAmino;
-}
-export interface BlockAminoMsg {
-  type: "cosmos-sdk/Block";
-  value: BlockAmino;
 }
 /**
  * Block is tendermint type Block, with the Header proposer address
@@ -75,40 +61,6 @@ export interface Header {
 export interface HeaderProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.Header";
   value: Uint8Array;
-}
-/** Header defines the structure of a Tendermint block header. */
-export interface HeaderAmino {
-  /** basic block info */
-  version: ConsensusAmino;
-  chain_id?: string;
-  height?: string;
-  time: string;
-  /** prev block info */
-  last_block_id: BlockIDAmino;
-  /** hashes of block data */
-  last_commit_hash?: string;
-  data_hash?: string;
-  /** hashes from the app output from the prev block */
-  validators_hash?: string;
-  /** validators for the next block */
-  next_validators_hash?: string;
-  /** consensus params for current block */
-  consensus_hash?: string;
-  /** state after txs from the previous block */
-  app_hash?: string;
-  last_results_hash?: string;
-  /** consensus info */
-  evidence_hash?: string;
-  /**
-   * proposer_address is the original block proposer address, formatted as a Bech32 string.
-   * In Tendermint, this type is `bytes`, but in the SDK, we convert it to a Bech32 string
-   * for better UX.
-   */
-  proposer_address?: string;
-}
-export interface HeaderAminoMsg {
-  type: "cosmos-sdk/Header";
-  value: HeaderAmino;
 }
 /** Header defines the structure of a Tendermint block header. */
 export interface HeaderSDKType {

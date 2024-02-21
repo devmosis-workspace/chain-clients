@@ -1,4 +1,4 @@
-import { DowntimeParams, DowntimeParamsAmino, DowntimeParamsSDKType } from "./params";
+import { DowntimeParams, DowntimeParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** MsgUpdateDowntimeParams is the Msg/UpdateDowntimeParams request type. */
@@ -10,16 +10,6 @@ export interface MsgUpdateDowntimeParams {
 export interface MsgUpdateDowntimeParamsProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.MsgUpdateDowntimeParams";
   value: Uint8Array;
-}
-/** MsgUpdateDowntimeParams is the Msg/UpdateDowntimeParams request type. */
-export interface MsgUpdateDowntimeParamsAmino {
-  authority?: string;
-  /** Defines the parameters to update. All parameters must be supplied. */
-  params?: DowntimeParamsAmino;
-}
-export interface MsgUpdateDowntimeParamsAminoMsg {
-  type: "/dydxprotocol.blocktime.MsgUpdateDowntimeParams";
-  value: MsgUpdateDowntimeParamsAmino;
 }
 /** MsgUpdateDowntimeParams is the Msg/UpdateDowntimeParams request type. */
 export interface MsgUpdateDowntimeParamsSDKType {
@@ -34,15 +24,6 @@ export interface MsgUpdateDowntimeParamsResponse {}
 export interface MsgUpdateDowntimeParamsResponseProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.MsgUpdateDowntimeParamsResponse";
   value: Uint8Array;
-}
-/**
- * MsgUpdateDowntimeParamsResponse is the Msg/UpdateDowntimeParams response
- * type.
- */
-export interface MsgUpdateDowntimeParamsResponseAmino {}
-export interface MsgUpdateDowntimeParamsResponseAminoMsg {
-  type: "/dydxprotocol.blocktime.MsgUpdateDowntimeParamsResponse";
-  value: MsgUpdateDowntimeParamsResponseAmino;
 }
 /**
  * MsgUpdateDowntimeParamsResponse is the Msg/UpdateDowntimeParams response

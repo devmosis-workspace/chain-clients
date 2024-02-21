@@ -1,4 +1,4 @@
-import { DelayedMessage, DelayedMessageAmino, DelayedMessageSDKType } from "./delayed_message";
+import { DelayedMessage, DelayedMessageSDKType } from "./delayed_message";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** GenesisState defines the delaymsg module's genesis state. */
@@ -11,17 +11,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.delaymsg.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the delaymsg module's genesis state. */
-export interface GenesisStateAmino {
-  /** delayed_messages is a list of delayed messages. */
-  delayed_messages?: DelayedMessageAmino[];
-  /** next_delayed_message_id is the id to be assigned to next delayed message. */
-  next_delayed_message_id?: number;
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.delaymsg.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the delaymsg module's genesis state. */
 export interface GenesisStateSDKType {

@@ -1,14 +1,18 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
+import { Metadata, MetadataAmino, MetadataSDKType } from "../../../cosmos/bank/v1beta1/bank";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /**
- * MsgCreateDenom is the sdk.Msg type for allowing an account to create
- * a new denom. It requires a sender address and a subdenomination.
- * The (sender_address, sub_denomination) pair must be unique and cannot be
- * re-used. The resulting denom created is `factory/{creator
- * address}/{subdenom}`. The resultant denom's admin is originally set to be the
- * creator, but this can be changed later. The token denom does not indicate the
- * current admin.
+ * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
+ * method. It allows an account to create a new denom. It requires a sender
+ * address and a sub denomination. The (sender_address, sub_denomination) tuple
+ * must be unique and cannot be re-used.
+ * 
+ * The resulting denom created is defined as
+ * <factory/{creatorAddress}/{subdenom}>. The resulting denom's admin is
+ * originally set to be the creator, but this can be changed later. The token
+ * denom does not indicate the current admin.
  */
 export interface MsgCreateDenom {
   sender: string;
@@ -20,31 +24,35 @@ export interface MsgCreateDenomProtoMsg {
   value: Uint8Array;
 }
 /**
- * MsgCreateDenom is the sdk.Msg type for allowing an account to create
- * a new denom. It requires a sender address and a subdenomination.
- * The (sender_address, sub_denomination) pair must be unique and cannot be
- * re-used. The resulting denom created is `factory/{creator
- * address}/{subdenom}`. The resultant denom's admin is originally set to be the
- * creator, but this can be changed later. The token denom does not indicate the
- * current admin.
+ * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
+ * method. It allows an account to create a new denom. It requires a sender
+ * address and a sub denomination. The (sender_address, sub_denomination) tuple
+ * must be unique and cannot be re-used.
+ * 
+ * The resulting denom created is defined as
+ * <factory/{creatorAddress}/{subdenom}>. The resulting denom's admin is
+ * originally set to be the creator, but this can be changed later. The token
+ * denom does not indicate the current admin.
  */
 export interface MsgCreateDenomAmino {
-  sender: string;
+  sender?: string;
   /** subdenom can be up to 44 "alphanumeric" characters long. */
-  subdenom: string;
+  subdenom?: string;
 }
 export interface MsgCreateDenomAminoMsg {
   type: "osmosis/tokenfactory/create-denom";
   value: MsgCreateDenomAmino;
 }
 /**
- * MsgCreateDenom is the sdk.Msg type for allowing an account to create
- * a new denom. It requires a sender address and a subdenomination.
- * The (sender_address, sub_denomination) pair must be unique and cannot be
- * re-used. The resulting denom created is `factory/{creator
- * address}/{subdenom}`. The resultant denom's admin is originally set to be the
- * creator, but this can be changed later. The token denom does not indicate the
- * current admin.
+ * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
+ * method. It allows an account to create a new denom. It requires a sender
+ * address and a sub denomination. The (sender_address, sub_denomination) tuple
+ * must be unique and cannot be re-used.
+ * 
+ * The resulting denom created is defined as
+ * <factory/{creatorAddress}/{subdenom}>. The resulting denom's admin is
+ * originally set to be the creator, but this can be changed later. The token
+ * denom does not indicate the current admin.
  */
 export interface MsgCreateDenomSDKType {
   sender: string;
@@ -66,7 +74,7 @@ export interface MsgCreateDenomResponseProtoMsg {
  * It returns the full string of the newly created denom
  */
 export interface MsgCreateDenomResponseAmino {
-  new_token_denom: string;
+  new_token_denom?: string;
 }
 export interface MsgCreateDenomResponseAminoMsg {
   type: "osmosis/tokenfactory/create-denom-response";
@@ -86,6 +94,7 @@ export interface MsgCreateDenomResponseSDKType {
 export interface MsgMint {
   sender: string;
   amount: Coin;
+  mintToAddress: string;
 }
 export interface MsgMintProtoMsg {
   typeUrl: "/osmosis.tokenfactory.v1beta1.MsgMint";
@@ -96,8 +105,9 @@ export interface MsgMintProtoMsg {
  * more of a token.  For now, we only support minting to the sender account
  */
 export interface MsgMintAmino {
-  sender: string;
+  sender?: string;
   amount?: CoinAmino;
+  mintToAddress?: string;
 }
 export interface MsgMintAminoMsg {
   type: "osmosis/tokenfactory/mint";
@@ -110,6 +120,7 @@ export interface MsgMintAminoMsg {
 export interface MsgMintSDKType {
   sender: string;
   amount: CoinSDKType;
+  mintToAddress: string;
 }
 export interface MsgMintResponse {}
 export interface MsgMintResponseProtoMsg {
@@ -129,6 +140,7 @@ export interface MsgMintResponseSDKType {}
 export interface MsgBurn {
   sender: string;
   amount: Coin;
+  burnFromAddress: string;
 }
 export interface MsgBurnProtoMsg {
   typeUrl: "/osmosis.tokenfactory.v1beta1.MsgBurn";
@@ -139,8 +151,9 @@ export interface MsgBurnProtoMsg {
  * a token.  For now, we only support burning from the sender account.
  */
 export interface MsgBurnAmino {
-  sender: string;
+  sender?: string;
   amount?: CoinAmino;
+  burnFromAddress?: string;
 }
 export interface MsgBurnAminoMsg {
   type: "osmosis/tokenfactory/burn";
@@ -153,6 +166,7 @@ export interface MsgBurnAminoMsg {
 export interface MsgBurnSDKType {
   sender: string;
   amount: CoinSDKType;
+  burnFromAddress: string;
 }
 export interface MsgBurnResponse {}
 export interface MsgBurnResponseProtoMsg {
@@ -183,9 +197,9 @@ export interface MsgChangeAdminProtoMsg {
  * adminship of a denom to a new account
  */
 export interface MsgChangeAdminAmino {
-  sender: string;
-  denom: string;
-  newAdmin: string;
+  sender?: string;
+  denom?: string;
+  new_admin?: string;
 }
 export interface MsgChangeAdminAminoMsg {
   type: "osmosis/tokenfactory/change-admin";
@@ -198,19 +212,257 @@ export interface MsgChangeAdminAminoMsg {
 export interface MsgChangeAdminSDKType {
   sender: string;
   denom: string;
-  newAdmin: string;
+  new_admin: string;
 }
+/**
+ * MsgChangeAdminResponse defines the response structure for an executed
+ * MsgChangeAdmin message.
+ */
 export interface MsgChangeAdminResponse {}
 export interface MsgChangeAdminResponseProtoMsg {
   typeUrl: "/osmosis.tokenfactory.v1beta1.MsgChangeAdminResponse";
   value: Uint8Array;
 }
+/**
+ * MsgChangeAdminResponse defines the response structure for an executed
+ * MsgChangeAdmin message.
+ */
 export interface MsgChangeAdminResponseAmino {}
 export interface MsgChangeAdminResponseAminoMsg {
   type: "osmosis/tokenfactory/change-admin-response";
   value: MsgChangeAdminResponseAmino;
 }
+/**
+ * MsgChangeAdminResponse defines the response structure for an executed
+ * MsgChangeAdmin message.
+ */
 export interface MsgChangeAdminResponseSDKType {}
+/**
+ * MsgSetBeforeSendHook is the sdk.Msg type for allowing an admin account to
+ * assign a CosmWasm contract to call with a BeforeSend hook
+ */
+export interface MsgSetBeforeSendHook {
+  sender: string;
+  denom: string;
+  contractAddr: string;
+}
+export interface MsgSetBeforeSendHookProtoMsg {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook";
+  value: Uint8Array;
+}
+/**
+ * MsgSetBeforeSendHook is the sdk.Msg type for allowing an admin account to
+ * assign a CosmWasm contract to call with a BeforeSend hook
+ */
+export interface MsgSetBeforeSendHookAmino {
+  sender?: string;
+  denom?: string;
+  contract_addr?: string;
+}
+export interface MsgSetBeforeSendHookAminoMsg {
+  type: "osmosis/tokenfactory/set-beforesend-hook";
+  value: MsgSetBeforeSendHookAmino;
+}
+/**
+ * MsgSetBeforeSendHook is the sdk.Msg type for allowing an admin account to
+ * assign a CosmWasm contract to call with a BeforeSend hook
+ */
+export interface MsgSetBeforeSendHookSDKType {
+  sender: string;
+  denom: string;
+  contract_addr: string;
+}
+/**
+ * MsgSetBeforeSendHookResponse defines the response structure for an executed
+ * MsgSetBeforeSendHook message.
+ */
+export interface MsgSetBeforeSendHookResponse {}
+export interface MsgSetBeforeSendHookResponseProtoMsg {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHookResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgSetBeforeSendHookResponse defines the response structure for an executed
+ * MsgSetBeforeSendHook message.
+ */
+export interface MsgSetBeforeSendHookResponseAmino {}
+export interface MsgSetBeforeSendHookResponseAminoMsg {
+  type: "osmosis/tokenfactory/set-before-send-hook-response";
+  value: MsgSetBeforeSendHookResponseAmino;
+}
+/**
+ * MsgSetBeforeSendHookResponse defines the response structure for an executed
+ * MsgSetBeforeSendHook message.
+ */
+export interface MsgSetBeforeSendHookResponseSDKType {}
+/**
+ * MsgSetDenomMetadata is the sdk.Msg type for allowing an admin account to set
+ * the denom's bank metadata
+ */
+export interface MsgSetDenomMetadata {
+  sender: string;
+  metadata: Metadata;
+}
+export interface MsgSetDenomMetadataProtoMsg {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata";
+  value: Uint8Array;
+}
+/**
+ * MsgSetDenomMetadata is the sdk.Msg type for allowing an admin account to set
+ * the denom's bank metadata
+ */
+export interface MsgSetDenomMetadataAmino {
+  sender?: string;
+  metadata?: MetadataAmino;
+}
+export interface MsgSetDenomMetadataAminoMsg {
+  type: "osmosis/tokenfactory/set-denom-metadata";
+  value: MsgSetDenomMetadataAmino;
+}
+/**
+ * MsgSetDenomMetadata is the sdk.Msg type for allowing an admin account to set
+ * the denom's bank metadata
+ */
+export interface MsgSetDenomMetadataSDKType {
+  sender: string;
+  metadata: MetadataSDKType;
+}
+/**
+ * MsgSetDenomMetadataResponse defines the response structure for an executed
+ * MsgSetDenomMetadata message.
+ */
+export interface MsgSetDenomMetadataResponse {}
+export interface MsgSetDenomMetadataResponseProtoMsg {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadataResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgSetDenomMetadataResponse defines the response structure for an executed
+ * MsgSetDenomMetadata message.
+ */
+export interface MsgSetDenomMetadataResponseAmino {}
+export interface MsgSetDenomMetadataResponseAminoMsg {
+  type: "osmosis/tokenfactory/set-denom-metadata-response";
+  value: MsgSetDenomMetadataResponseAmino;
+}
+/**
+ * MsgSetDenomMetadataResponse defines the response structure for an executed
+ * MsgSetDenomMetadata message.
+ */
+export interface MsgSetDenomMetadataResponseSDKType {}
+export interface MsgForceTransfer {
+  sender: string;
+  amount: Coin;
+  transferFromAddress: string;
+  transferToAddress: string;
+}
+export interface MsgForceTransferProtoMsg {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransfer";
+  value: Uint8Array;
+}
+export interface MsgForceTransferAmino {
+  sender?: string;
+  amount?: CoinAmino;
+  transferFromAddress?: string;
+  transferToAddress?: string;
+}
+export interface MsgForceTransferAminoMsg {
+  type: "osmosis/tokenfactory/force-transfer";
+  value: MsgForceTransferAmino;
+}
+export interface MsgForceTransferSDKType {
+  sender: string;
+  amount: CoinSDKType;
+  transferFromAddress: string;
+  transferToAddress: string;
+}
+export interface MsgForceTransferResponse {}
+export interface MsgForceTransferResponseProtoMsg {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransferResponse";
+  value: Uint8Array;
+}
+export interface MsgForceTransferResponseAmino {}
+export interface MsgForceTransferResponseAminoMsg {
+  type: "osmosis/tokenfactory/force-transfer-response";
+  value: MsgForceTransferResponseAmino;
+}
+export interface MsgForceTransferResponseSDKType {}
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ * 
+ * Since: 0.47
+ */
+export interface MsgUpdateParams {
+  /** Authority is the address of the governance account. */
+  authority: string;
+  /**
+   * params defines the x/tokenfactory parameters to update.
+   * 
+   * NOTE: All parameters must be supplied.
+   */
+  params: Params;
+}
+export interface MsgUpdateParamsProtoMsg {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParams";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ * 
+ * Since: 0.47
+ */
+export interface MsgUpdateParamsAmino {
+  /** Authority is the address of the governance account. */
+  authority?: string;
+  /**
+   * params defines the x/tokenfactory parameters to update.
+   * 
+   * NOTE: All parameters must be supplied.
+   */
+  params: ParamsAmino;
+}
+export interface MsgUpdateParamsAminoMsg {
+  type: "interchainqueries/MsgUpdateParams";
+  value: MsgUpdateParamsAmino;
+}
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ * 
+ * Since: 0.47
+ */
+export interface MsgUpdateParamsSDKType {
+  authority: string;
+  params: ParamsSDKType;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * 
+ * Since: 0.47
+ */
+export interface MsgUpdateParamsResponse {}
+export interface MsgUpdateParamsResponseProtoMsg {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParamsResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * 
+ * Since: 0.47
+ */
+export interface MsgUpdateParamsResponseAmino {}
+export interface MsgUpdateParamsResponseAminoMsg {
+  type: "osmosis/tokenfactory/update-params-response";
+  value: MsgUpdateParamsResponseAmino;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * 
+ * Since: 0.47
+ */
+export interface MsgUpdateParamsResponseSDKType {}
 function createBaseMsgCreateDenom(): MsgCreateDenom {
   return {
     sender: "",
@@ -241,10 +493,14 @@ export const MsgCreateDenom = {
     return message;
   },
   fromAmino(object: MsgCreateDenomAmino): MsgCreateDenom {
-    return {
-      sender: object.sender,
-      subdenom: object.subdenom
-    };
+    const message = createBaseMsgCreateDenom();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.subdenom !== undefined && object.subdenom !== null) {
+      message.subdenom = object.subdenom;
+    }
+    return message;
   },
   toAmino(message: MsgCreateDenom): MsgCreateDenomAmino {
     const obj: any = {};
@@ -298,9 +554,11 @@ export const MsgCreateDenomResponse = {
     return message;
   },
   fromAmino(object: MsgCreateDenomResponseAmino): MsgCreateDenomResponse {
-    return {
-      newTokenDenom: object.new_token_denom
-    };
+    const message = createBaseMsgCreateDenomResponse();
+    if (object.new_token_denom !== undefined && object.new_token_denom !== null) {
+      message.newTokenDenom = object.new_token_denom;
+    }
+    return message;
   },
   toAmino(message: MsgCreateDenomResponse): MsgCreateDenomResponseAmino {
     const obj: any = {};
@@ -332,7 +590,8 @@ export const MsgCreateDenomResponse = {
 function createBaseMsgMint(): MsgMint {
   return {
     sender: "",
-    amount: Coin.fromPartial({})
+    amount: Coin.fromPartial({}),
+    mintToAddress: ""
   };
 }
 export const MsgMint = {
@@ -344,30 +603,43 @@ export const MsgMint = {
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
     }
+    if (message.mintToAddress !== "") {
+      writer.uint32(26).string(message.mintToAddress);
+    }
     return writer;
   },
   fromJSON(object: any): MsgMint {
     return {
       sender: isSet(object.sender) ? String(object.sender) : "",
-      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined
+      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
+      mintToAddress: isSet(object.mintToAddress) ? String(object.mintToAddress) : ""
     };
   },
   fromPartial(object: Partial<MsgMint>): MsgMint {
     const message = createBaseMsgMint();
     message.sender = object.sender ?? "";
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
+    message.mintToAddress = object.mintToAddress ?? "";
     return message;
   },
   fromAmino(object: MsgMintAmino): MsgMint {
-    return {
-      sender: object.sender,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgMint();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.mintToAddress !== undefined && object.mintToAddress !== null) {
+      message.mintToAddress = object.mintToAddress;
+    }
+    return message;
   },
   toAmino(message: MsgMint): MsgMintAmino {
     const obj: any = {};
     obj.sender = message.sender;
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.mintToAddress = message.mintToAddress;
     return obj;
   },
   fromAminoMsg(object: MsgMintAminoMsg): MsgMint {
@@ -408,7 +680,8 @@ export const MsgMintResponse = {
     return message;
   },
   fromAmino(_: MsgMintResponseAmino): MsgMintResponse {
-    return {};
+    const message = createBaseMsgMintResponse();
+    return message;
   },
   toAmino(_: MsgMintResponse): MsgMintResponseAmino {
     const obj: any = {};
@@ -439,7 +712,8 @@ export const MsgMintResponse = {
 function createBaseMsgBurn(): MsgBurn {
   return {
     sender: "",
-    amount: Coin.fromPartial({})
+    amount: Coin.fromPartial({}),
+    burnFromAddress: ""
   };
 }
 export const MsgBurn = {
@@ -451,30 +725,43 @@ export const MsgBurn = {
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
     }
+    if (message.burnFromAddress !== "") {
+      writer.uint32(26).string(message.burnFromAddress);
+    }
     return writer;
   },
   fromJSON(object: any): MsgBurn {
     return {
       sender: isSet(object.sender) ? String(object.sender) : "",
-      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined
+      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
+      burnFromAddress: isSet(object.burnFromAddress) ? String(object.burnFromAddress) : ""
     };
   },
   fromPartial(object: Partial<MsgBurn>): MsgBurn {
     const message = createBaseMsgBurn();
     message.sender = object.sender ?? "";
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
+    message.burnFromAddress = object.burnFromAddress ?? "";
     return message;
   },
   fromAmino(object: MsgBurnAmino): MsgBurn {
-    return {
-      sender: object.sender,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgBurn();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.burnFromAddress !== undefined && object.burnFromAddress !== null) {
+      message.burnFromAddress = object.burnFromAddress;
+    }
+    return message;
   },
   toAmino(message: MsgBurn): MsgBurnAmino {
     const obj: any = {};
     obj.sender = message.sender;
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.burnFromAddress = message.burnFromAddress;
     return obj;
   },
   fromAminoMsg(object: MsgBurnAminoMsg): MsgBurn {
@@ -515,7 +802,8 @@ export const MsgBurnResponse = {
     return message;
   },
   fromAmino(_: MsgBurnResponseAmino): MsgBurnResponse {
-    return {};
+    const message = createBaseMsgBurnResponse();
+    return message;
   },
   toAmino(_: MsgBurnResponse): MsgBurnResponseAmino {
     const obj: any = {};
@@ -579,17 +867,23 @@ export const MsgChangeAdmin = {
     return message;
   },
   fromAmino(object: MsgChangeAdminAmino): MsgChangeAdmin {
-    return {
-      sender: object.sender,
-      denom: object.denom,
-      newAdmin: object.newAdmin
-    };
+    const message = createBaseMsgChangeAdmin();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.new_admin !== undefined && object.new_admin !== null) {
+      message.newAdmin = object.new_admin;
+    }
+    return message;
   },
   toAmino(message: MsgChangeAdmin): MsgChangeAdminAmino {
     const obj: any = {};
     obj.sender = message.sender;
     obj.denom = message.denom;
-    obj.newAdmin = message.newAdmin;
+    obj.new_admin = message.newAdmin;
     return obj;
   },
   fromAminoMsg(object: MsgChangeAdminAminoMsg): MsgChangeAdmin {
@@ -630,7 +924,8 @@ export const MsgChangeAdminResponse = {
     return message;
   },
   fromAmino(_: MsgChangeAdminResponseAmino): MsgChangeAdminResponse {
-    return {};
+    const message = createBaseMsgChangeAdminResponse();
+    return message;
   },
   toAmino(_: MsgChangeAdminResponse): MsgChangeAdminResponseAmino {
     const obj: any = {};
@@ -655,6 +950,484 @@ export const MsgChangeAdminResponse = {
     return {
       typeUrl: "/osmosis.tokenfactory.v1beta1.MsgChangeAdminResponse",
       value: MsgChangeAdminResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSetBeforeSendHook(): MsgSetBeforeSendHook {
+  return {
+    sender: "",
+    denom: "",
+    contractAddr: ""
+  };
+}
+export const MsgSetBeforeSendHook = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook",
+  encode(message: MsgSetBeforeSendHook, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    if (message.denom !== "") {
+      writer.uint32(18).string(message.denom);
+    }
+    if (message.contractAddr !== "") {
+      writer.uint32(26).string(message.contractAddr);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgSetBeforeSendHook {
+    return {
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      denom: isSet(object.denom) ? String(object.denom) : "",
+      contractAddr: isSet(object.contractAddr) ? String(object.contractAddr) : ""
+    };
+  },
+  fromPartial(object: Partial<MsgSetBeforeSendHook>): MsgSetBeforeSendHook {
+    const message = createBaseMsgSetBeforeSendHook();
+    message.sender = object.sender ?? "";
+    message.denom = object.denom ?? "";
+    message.contractAddr = object.contractAddr ?? "";
+    return message;
+  },
+  fromAmino(object: MsgSetBeforeSendHookAmino): MsgSetBeforeSendHook {
+    const message = createBaseMsgSetBeforeSendHook();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.contract_addr !== undefined && object.contract_addr !== null) {
+      message.contractAddr = object.contract_addr;
+    }
+    return message;
+  },
+  toAmino(message: MsgSetBeforeSendHook): MsgSetBeforeSendHookAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.denom = message.denom;
+    obj.contract_addr = message.contractAddr;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetBeforeSendHookAminoMsg): MsgSetBeforeSendHook {
+    return MsgSetBeforeSendHook.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSetBeforeSendHook): MsgSetBeforeSendHookAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/set-beforesend-hook",
+      value: MsgSetBeforeSendHook.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgSetBeforeSendHookProtoMsg): MsgSetBeforeSendHook {
+    return MsgSetBeforeSendHook.decode(message.value);
+  },
+  toProto(message: MsgSetBeforeSendHook): Uint8Array {
+    return MsgSetBeforeSendHook.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSetBeforeSendHook): MsgSetBeforeSendHookProtoMsg {
+    return {
+      typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook",
+      value: MsgSetBeforeSendHook.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSetBeforeSendHookResponse(): MsgSetBeforeSendHookResponse {
+  return {};
+}
+export const MsgSetBeforeSendHookResponse = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHookResponse",
+  encode(_: MsgSetBeforeSendHookResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgSetBeforeSendHookResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgSetBeforeSendHookResponse>): MsgSetBeforeSendHookResponse {
+    const message = createBaseMsgSetBeforeSendHookResponse();
+    return message;
+  },
+  fromAmino(_: MsgSetBeforeSendHookResponseAmino): MsgSetBeforeSendHookResponse {
+    const message = createBaseMsgSetBeforeSendHookResponse();
+    return message;
+  },
+  toAmino(_: MsgSetBeforeSendHookResponse): MsgSetBeforeSendHookResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetBeforeSendHookResponseAminoMsg): MsgSetBeforeSendHookResponse {
+    return MsgSetBeforeSendHookResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSetBeforeSendHookResponse): MsgSetBeforeSendHookResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/set-before-send-hook-response",
+      value: MsgSetBeforeSendHookResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgSetBeforeSendHookResponseProtoMsg): MsgSetBeforeSendHookResponse {
+    return MsgSetBeforeSendHookResponse.decode(message.value);
+  },
+  toProto(message: MsgSetBeforeSendHookResponse): Uint8Array {
+    return MsgSetBeforeSendHookResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSetBeforeSendHookResponse): MsgSetBeforeSendHookResponseProtoMsg {
+    return {
+      typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHookResponse",
+      value: MsgSetBeforeSendHookResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSetDenomMetadata(): MsgSetDenomMetadata {
+  return {
+    sender: "",
+    metadata: Metadata.fromPartial({})
+  };
+}
+export const MsgSetDenomMetadata = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata",
+  encode(message: MsgSetDenomMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    if (message.metadata !== undefined) {
+      Metadata.encode(message.metadata, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgSetDenomMetadata {
+    return {
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      metadata: isSet(object.metadata) ? Metadata.fromJSON(object.metadata) : undefined
+    };
+  },
+  fromPartial(object: Partial<MsgSetDenomMetadata>): MsgSetDenomMetadata {
+    const message = createBaseMsgSetDenomMetadata();
+    message.sender = object.sender ?? "";
+    message.metadata = object.metadata !== undefined && object.metadata !== null ? Metadata.fromPartial(object.metadata) : undefined;
+    return message;
+  },
+  fromAmino(object: MsgSetDenomMetadataAmino): MsgSetDenomMetadata {
+    const message = createBaseMsgSetDenomMetadata();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.metadata !== undefined && object.metadata !== null) {
+      message.metadata = Metadata.fromAmino(object.metadata);
+    }
+    return message;
+  },
+  toAmino(message: MsgSetDenomMetadata): MsgSetDenomMetadataAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.metadata = message.metadata ? Metadata.toAmino(message.metadata) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetDenomMetadataAminoMsg): MsgSetDenomMetadata {
+    return MsgSetDenomMetadata.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSetDenomMetadata): MsgSetDenomMetadataAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/set-denom-metadata",
+      value: MsgSetDenomMetadata.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgSetDenomMetadataProtoMsg): MsgSetDenomMetadata {
+    return MsgSetDenomMetadata.decode(message.value);
+  },
+  toProto(message: MsgSetDenomMetadata): Uint8Array {
+    return MsgSetDenomMetadata.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSetDenomMetadata): MsgSetDenomMetadataProtoMsg {
+    return {
+      typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata",
+      value: MsgSetDenomMetadata.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSetDenomMetadataResponse(): MsgSetDenomMetadataResponse {
+  return {};
+}
+export const MsgSetDenomMetadataResponse = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadataResponse",
+  encode(_: MsgSetDenomMetadataResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgSetDenomMetadataResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgSetDenomMetadataResponse>): MsgSetDenomMetadataResponse {
+    const message = createBaseMsgSetDenomMetadataResponse();
+    return message;
+  },
+  fromAmino(_: MsgSetDenomMetadataResponseAmino): MsgSetDenomMetadataResponse {
+    const message = createBaseMsgSetDenomMetadataResponse();
+    return message;
+  },
+  toAmino(_: MsgSetDenomMetadataResponse): MsgSetDenomMetadataResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetDenomMetadataResponseAminoMsg): MsgSetDenomMetadataResponse {
+    return MsgSetDenomMetadataResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSetDenomMetadataResponse): MsgSetDenomMetadataResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/set-denom-metadata-response",
+      value: MsgSetDenomMetadataResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgSetDenomMetadataResponseProtoMsg): MsgSetDenomMetadataResponse {
+    return MsgSetDenomMetadataResponse.decode(message.value);
+  },
+  toProto(message: MsgSetDenomMetadataResponse): Uint8Array {
+    return MsgSetDenomMetadataResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSetDenomMetadataResponse): MsgSetDenomMetadataResponseProtoMsg {
+    return {
+      typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadataResponse",
+      value: MsgSetDenomMetadataResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgForceTransfer(): MsgForceTransfer {
+  return {
+    sender: "",
+    amount: Coin.fromPartial({}),
+    transferFromAddress: "",
+    transferToAddress: ""
+  };
+}
+export const MsgForceTransfer = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransfer",
+  encode(message: MsgForceTransfer, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    if (message.amount !== undefined) {
+      Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.transferFromAddress !== "") {
+      writer.uint32(26).string(message.transferFromAddress);
+    }
+    if (message.transferToAddress !== "") {
+      writer.uint32(34).string(message.transferToAddress);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgForceTransfer {
+    return {
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
+      transferFromAddress: isSet(object.transferFromAddress) ? String(object.transferFromAddress) : "",
+      transferToAddress: isSet(object.transferToAddress) ? String(object.transferToAddress) : ""
+    };
+  },
+  fromPartial(object: Partial<MsgForceTransfer>): MsgForceTransfer {
+    const message = createBaseMsgForceTransfer();
+    message.sender = object.sender ?? "";
+    message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
+    message.transferFromAddress = object.transferFromAddress ?? "";
+    message.transferToAddress = object.transferToAddress ?? "";
+    return message;
+  },
+  fromAmino(object: MsgForceTransferAmino): MsgForceTransfer {
+    const message = createBaseMsgForceTransfer();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.transferFromAddress !== undefined && object.transferFromAddress !== null) {
+      message.transferFromAddress = object.transferFromAddress;
+    }
+    if (object.transferToAddress !== undefined && object.transferToAddress !== null) {
+      message.transferToAddress = object.transferToAddress;
+    }
+    return message;
+  },
+  toAmino(message: MsgForceTransfer): MsgForceTransferAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.transferFromAddress = message.transferFromAddress;
+    obj.transferToAddress = message.transferToAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgForceTransferAminoMsg): MsgForceTransfer {
+    return MsgForceTransfer.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgForceTransfer): MsgForceTransferAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/force-transfer",
+      value: MsgForceTransfer.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgForceTransferProtoMsg): MsgForceTransfer {
+    return MsgForceTransfer.decode(message.value);
+  },
+  toProto(message: MsgForceTransfer): Uint8Array {
+    return MsgForceTransfer.encode(message).finish();
+  },
+  toProtoMsg(message: MsgForceTransfer): MsgForceTransferProtoMsg {
+    return {
+      typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransfer",
+      value: MsgForceTransfer.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgForceTransferResponse(): MsgForceTransferResponse {
+  return {};
+}
+export const MsgForceTransferResponse = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransferResponse",
+  encode(_: MsgForceTransferResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgForceTransferResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgForceTransferResponse>): MsgForceTransferResponse {
+    const message = createBaseMsgForceTransferResponse();
+    return message;
+  },
+  fromAmino(_: MsgForceTransferResponseAmino): MsgForceTransferResponse {
+    const message = createBaseMsgForceTransferResponse();
+    return message;
+  },
+  toAmino(_: MsgForceTransferResponse): MsgForceTransferResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgForceTransferResponseAminoMsg): MsgForceTransferResponse {
+    return MsgForceTransferResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgForceTransferResponse): MsgForceTransferResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/force-transfer-response",
+      value: MsgForceTransferResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgForceTransferResponseProtoMsg): MsgForceTransferResponse {
+    return MsgForceTransferResponse.decode(message.value);
+  },
+  toProto(message: MsgForceTransferResponse): Uint8Array {
+    return MsgForceTransferResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgForceTransferResponse): MsgForceTransferResponseProtoMsg {
+    return {
+      typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransferResponse",
+      value: MsgForceTransferResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUpdateParams(): MsgUpdateParams {
+  return {
+    authority: "",
+    params: Params.fromPartial({})
+  };
+}
+export const MsgUpdateParams = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParams",
+  encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgUpdateParams {
+    return {
+      authority: isSet(object.authority) ? String(object.authority) : "",
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined
+    };
+  },
+  fromPartial(object: Partial<MsgUpdateParams>): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    message.authority = object.authority ?? "";
+    message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : Params.fromPartial({});
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
+    return {
+      type: "interchainqueries/MsgUpdateParams",
+      value: MsgUpdateParams.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams {
+    return MsgUpdateParams.decode(message.value);
+  },
+  toProto(message: MsgUpdateParams): Uint8Array {
+    return MsgUpdateParams.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg {
+    return {
+      typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParams",
+      value: MsgUpdateParams.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
+  return {};
+}
+export const MsgUpdateParamsResponse = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParamsResponse",
+  encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgUpdateParamsResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/update-params-response",
+      value: MsgUpdateParamsResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.decode(message.value);
+  },
+  toProto(message: MsgUpdateParamsResponse): Uint8Array {
+    return MsgUpdateParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg {
+    return {
+      typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParamsResponse",
+      value: MsgUpdateParamsResponse.encode(message).finish()
     };
   }
 };

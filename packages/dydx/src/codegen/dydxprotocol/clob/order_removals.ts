@@ -1,4 +1,4 @@
-import { OrderId, OrderIdAmino, OrderIdSDKType } from "./order";
+import { OrderId, OrderIdSDKType } from "./order";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 export enum OrderRemoval_RemovalReason {
@@ -55,7 +55,6 @@ export enum OrderRemoval_RemovalReason {
   UNRECOGNIZED = -1,
 }
 export const OrderRemoval_RemovalReasonSDKType = OrderRemoval_RemovalReason;
-export const OrderRemoval_RemovalReasonAmino = OrderRemoval_RemovalReason;
 export function orderRemoval_RemovalReasonFromJSON(object: any): OrderRemoval_RemovalReason {
   switch (object) {
     case 0:
@@ -119,15 +118,6 @@ export interface OrderRemoval {
 export interface OrderRemovalProtoMsg {
   typeUrl: "/dydxprotocol.clob.OrderRemoval";
   value: Uint8Array;
-}
-/** OrderRemoval is a request type used for forced removal of stateful orders. */
-export interface OrderRemovalAmino {
-  order_id?: OrderIdAmino;
-  removal_reason?: OrderRemoval_RemovalReason;
-}
-export interface OrderRemovalAminoMsg {
-  type: "/dydxprotocol.clob.OrderRemoval";
-  value: OrderRemovalAmino;
 }
 /** OrderRemoval is a request type used for forced removal of stateful orders. */
 export interface OrderRemovalSDKType {

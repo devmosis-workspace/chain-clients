@@ -1,4 +1,4 @@
-import { Any, AnyAmino, AnySDKType } from "../../google/protobuf/any";
+import { Any, AnySDKType } from "../../google/protobuf/any";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** MsgDelayMessage is a request type for the DelayMessage method. */
@@ -14,18 +14,6 @@ export interface MsgDelayMessageProtoMsg {
   value: Uint8Array;
 }
 /** MsgDelayMessage is a request type for the DelayMessage method. */
-export interface MsgDelayMessageAmino {
-  authority?: string;
-  /** The message to be delayed. */
-  msg?: AnyAmino;
-  /** The number of blocks to delay the message for. */
-  delay_blocks?: number;
-}
-export interface MsgDelayMessageAminoMsg {
-  type: "/dydxprotocol.delaymsg.MsgDelayMessage";
-  value: MsgDelayMessageAmino;
-}
-/** MsgDelayMessage is a request type for the DelayMessage method. */
 export interface MsgDelayMessageSDKType {
   authority: string;
   msg?: AnySDKType;
@@ -39,15 +27,6 @@ export interface MsgDelayMessageResponse {
 export interface MsgDelayMessageResponseProtoMsg {
   typeUrl: "/dydxprotocol.delaymsg.MsgDelayMessageResponse";
   value: Uint8Array;
-}
-/** MsgDelayMessageResponse is a response type for the DelayMessage method. */
-export interface MsgDelayMessageResponseAmino {
-  /** The id of the created delayed message. */
-  id?: string;
-}
-export interface MsgDelayMessageResponseAminoMsg {
-  type: "/dydxprotocol.delaymsg.MsgDelayMessageResponse";
-  value: MsgDelayMessageResponseAmino;
 }
 /** MsgDelayMessageResponse is a response type for the DelayMessage method. */
 export interface MsgDelayMessageResponseSDKType {

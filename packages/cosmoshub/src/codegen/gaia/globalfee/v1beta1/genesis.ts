@@ -58,18 +58,18 @@ export interface ParamsAmino {
    * values allowed. For more information see
    * https://docs.cosmos.network/main/modules/auth#concepts
    */
-  minimum_gas_prices: DecCoinAmino[];
+  minimum_gas_prices?: DecCoinAmino[];
   /**
    * bypass_min_fee_msg_types defines a list of message type urls
    * that are free of fee charge.
    */
-  bypass_min_fee_msg_types: string[];
+  bypass_min_fee_msg_types?: string[];
   /**
    * max_total_bypass_min_fee_msg_gas_usage defines the total maximum gas usage
    * allowed for a transaction containing only messages of types in bypass_min_fee_msg_types
    * to bypass fee charge.
    */
-  max_total_bypass_min_fee_msg_gas_usage: string;
+  max_total_bypass_min_fee_msg_gas_usage?: string;
 }
 export interface ParamsAminoMsg {
   type: "/gaia.globalfee.v1beta1.Params";
@@ -105,9 +105,11 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -166,11 +168,13 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      minimumGasPrices: Array.isArray(object?.minimum_gas_prices) ? object.minimum_gas_prices.map((e: any) => DecCoin.fromAmino(e)) : [],
-      bypassMinFeeMsgTypes: Array.isArray(object?.bypass_min_fee_msg_types) ? object.bypass_min_fee_msg_types.map((e: any) => e) : [],
-      maxTotalBypassMinFeeMsgGasUsage: BigInt(object.max_total_bypass_min_fee_msg_gas_usage)
-    };
+    const message = createBaseParams();
+    message.minimumGasPrices = object.minimum_gas_prices?.map(e => DecCoin.fromAmino(e)) || [];
+    message.bypassMinFeeMsgTypes = object.bypass_min_fee_msg_types?.map(e => e) || [];
+    if (object.max_total_bypass_min_fee_msg_gas_usage !== undefined && object.max_total_bypass_min_fee_msg_gas_usage !== null) {
+      message.maxTotalBypassMinFeeMsgGasUsage = BigInt(object.max_total_bypass_min_fee_msg_gas_usage);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

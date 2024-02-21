@@ -2,6 +2,7 @@ import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** ParameterChangeProposal defines a proposal to change one or more parameters. */
 export interface ParameterChangeProposal {
+  $typeUrl?: "/cosmos.params.v1beta1.ParameterChangeProposal";
   title: string;
   description: string;
   changes: ParamChange[];
@@ -12,8 +13,8 @@ export interface ParameterChangeProposalProtoMsg {
 }
 /** ParameterChangeProposal defines a proposal to change one or more parameters. */
 export interface ParameterChangeProposalAmino {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   changes: ParamChangeAmino[];
 }
 export interface ParameterChangeProposalAminoMsg {
@@ -22,6 +23,7 @@ export interface ParameterChangeProposalAminoMsg {
 }
 /** ParameterChangeProposal defines a proposal to change one or more parameters. */
 export interface ParameterChangeProposalSDKType {
+  $typeUrl?: "/cosmos.params.v1beta1.ParameterChangeProposal";
   title: string;
   description: string;
   changes: ParamChangeSDKType[];
@@ -44,9 +46,9 @@ export interface ParamChangeProtoMsg {
  * ParameterChangeProposal.
  */
 export interface ParamChangeAmino {
-  subspace: string;
-  key: string;
-  value: string;
+  subspace?: string;
+  key?: string;
+  value?: string;
 }
 export interface ParamChangeAminoMsg {
   type: "cosmos-sdk/ParamChange";
@@ -63,6 +65,7 @@ export interface ParamChangeSDKType {
 }
 function createBaseParameterChangeProposal(): ParameterChangeProposal {
   return {
+    $typeUrl: "/cosmos.params.v1beta1.ParameterChangeProposal",
     title: "",
     description: "",
     changes: []
@@ -97,11 +100,15 @@ export const ParameterChangeProposal = {
     return message;
   },
   fromAmino(object: ParameterChangeProposalAmino): ParameterChangeProposal {
-    return {
-      title: object.title,
-      description: object.description,
-      changes: Array.isArray(object?.changes) ? object.changes.map((e: any) => ParamChange.fromAmino(e)) : []
-    };
+    const message = createBaseParameterChangeProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    message.changes = object.changes?.map(e => ParamChange.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: ParameterChangeProposal): ParameterChangeProposalAmino {
     const obj: any = {};
@@ -172,11 +179,17 @@ export const ParamChange = {
     return message;
   },
   fromAmino(object: ParamChangeAmino): ParamChange {
-    return {
-      subspace: object.subspace,
-      key: object.key,
-      value: object.value
-    };
+    const message = createBaseParamChange();
+    if (object.subspace !== undefined && object.subspace !== null) {
+      message.subspace = object.subspace;
+    }
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: ParamChange): ParamChangeAmino {
     const obj: any = {};

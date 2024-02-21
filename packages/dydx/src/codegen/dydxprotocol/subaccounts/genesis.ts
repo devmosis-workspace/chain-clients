@@ -1,4 +1,4 @@
-import { Subaccount, SubaccountAmino, SubaccountSDKType } from "./subaccount";
+import { Subaccount, SubaccountSDKType } from "./subaccount";
 import { BinaryWriter } from "../../binary";
 /** GenesisState defines the subaccounts module's genesis state. */
 export interface GenesisState {
@@ -7,14 +7,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.subaccounts.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the subaccounts module's genesis state. */
-export interface GenesisStateAmino {
-  subaccounts?: SubaccountAmino[];
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.subaccounts.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the subaccounts module's genesis state. */
 export interface GenesisStateSDKType {

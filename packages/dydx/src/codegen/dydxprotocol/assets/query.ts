@@ -1,5 +1,5 @@
-import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { Asset, AssetAmino, AssetSDKType } from "./asset";
+import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
+import { Asset, AssetSDKType } from "./asset";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** Queries an Asset by id. */
@@ -10,15 +10,6 @@ export interface QueryAssetRequest {
 export interface QueryAssetRequestProtoMsg {
   typeUrl: "/dydxprotocol.assets.QueryAssetRequest";
   value: Uint8Array;
-}
-/** Queries an Asset by id. */
-export interface QueryAssetRequestAmino {
-  /** Queries an Asset by id. */
-  id?: number;
-}
-export interface QueryAssetRequestAminoMsg {
-  type: "/dydxprotocol.assets.QueryAssetRequest";
-  value: QueryAssetRequestAmino;
 }
 /** Queries an Asset by id. */
 export interface QueryAssetRequestSDKType {
@@ -34,15 +25,6 @@ export interface QueryAssetResponseProtoMsg {
   value: Uint8Array;
 }
 /** QueryAssetResponse is response type for the Asset RPC method. */
-export interface QueryAssetResponseAmino {
-  /** QueryAssetResponse is response type for the Asset RPC method. */
-  asset?: AssetAmino;
-}
-export interface QueryAssetResponseAminoMsg {
-  type: "/dydxprotocol.assets.QueryAssetResponse";
-  value: QueryAssetResponseAmino;
-}
-/** QueryAssetResponse is response type for the Asset RPC method. */
 export interface QueryAssetResponseSDKType {
   asset: AssetSDKType;
 }
@@ -53,14 +35,6 @@ export interface QueryAllAssetsRequest {
 export interface QueryAllAssetsRequestProtoMsg {
   typeUrl: "/dydxprotocol.assets.QueryAllAssetsRequest";
   value: Uint8Array;
-}
-/** Queries a list of Asset items. */
-export interface QueryAllAssetsRequestAmino {
-  pagination?: PageRequestAmino;
-}
-export interface QueryAllAssetsRequestAminoMsg {
-  type: "/dydxprotocol.assets.QueryAllAssetsRequest";
-  value: QueryAllAssetsRequestAmino;
 }
 /** Queries a list of Asset items. */
 export interface QueryAllAssetsRequestSDKType {
@@ -74,15 +48,6 @@ export interface QueryAllAssetsResponse {
 export interface QueryAllAssetsResponseProtoMsg {
   typeUrl: "/dydxprotocol.assets.QueryAllAssetsResponse";
   value: Uint8Array;
-}
-/** QueryAllAssetsResponse is response type for the AllAssets RPC method. */
-export interface QueryAllAssetsResponseAmino {
-  asset?: AssetAmino[];
-  pagination?: PageResponseAmino;
-}
-export interface QueryAllAssetsResponseAminoMsg {
-  type: "/dydxprotocol.assets.QueryAllAssetsResponse";
-  value: QueryAllAssetsResponseAmino;
 }
 /** QueryAllAssetsResponse is response type for the AllAssets RPC method. */
 export interface QueryAllAssetsResponseSDKType {

@@ -16,7 +16,7 @@ export interface GenesisStateProtoMsg {
 export interface GenesisStateAmino {
   /** params defines the paramaters of the module. */
   params?: ParamsAmino;
-  factory_denoms: GenesisDenomAmino[];
+  factory_denoms?: GenesisDenomAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "osmosis/tokenfactory/genesis-state";
@@ -27,6 +27,11 @@ export interface GenesisStateSDKType {
   params: ParamsSDKType;
   factory_denoms: GenesisDenomSDKType[];
 }
+/**
+ * GenesisDenom defines a tokenfactory denom that is defined within genesis
+ * state. The structure contains DenomAuthorityMetadata which defines the
+ * denom's admin.
+ */
 export interface GenesisDenom {
   denom: string;
   authorityMetadata: DenomAuthorityMetadata;
@@ -35,14 +40,24 @@ export interface GenesisDenomProtoMsg {
   typeUrl: "/osmosis.tokenfactory.v1beta1.GenesisDenom";
   value: Uint8Array;
 }
+/**
+ * GenesisDenom defines a tokenfactory denom that is defined within genesis
+ * state. The structure contains DenomAuthorityMetadata which defines the
+ * denom's admin.
+ */
 export interface GenesisDenomAmino {
-  denom: string;
+  denom?: string;
   authority_metadata?: DenomAuthorityMetadataAmino;
 }
 export interface GenesisDenomAminoMsg {
   type: "osmosis/tokenfactory/genesis-denom";
   value: GenesisDenomAmino;
 }
+/**
+ * GenesisDenom defines a tokenfactory denom that is defined within genesis
+ * state. The structure contains DenomAuthorityMetadata which defines the
+ * denom's admin.
+ */
 export interface GenesisDenomSDKType {
   denom: string;
   authority_metadata: DenomAuthorityMetadataSDKType;
@@ -77,10 +92,12 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      factoryDenoms: Array.isArray(object?.factory_denoms) ? object.factory_denoms.map((e: any) => GenesisDenom.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.factoryDenoms = object.factory_denoms?.map(e => GenesisDenom.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -144,10 +161,14 @@ export const GenesisDenom = {
     return message;
   },
   fromAmino(object: GenesisDenomAmino): GenesisDenom {
-    return {
-      denom: object.denom,
-      authorityMetadata: object?.authority_metadata ? DenomAuthorityMetadata.fromAmino(object.authority_metadata) : undefined
-    };
+    const message = createBaseGenesisDenom();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.authority_metadata !== undefined && object.authority_metadata !== null) {
+      message.authorityMetadata = DenomAuthorityMetadata.fromAmino(object.authority_metadata);
+    }
+    return message;
   },
   toAmino(message: GenesisDenom): GenesisDenomAmino {
     const obj: any = {};

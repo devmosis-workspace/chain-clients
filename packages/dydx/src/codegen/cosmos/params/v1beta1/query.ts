@@ -1,4 +1,4 @@
-import { ParamChange, ParamChangeAmino, ParamChangeSDKType } from "./params";
+import { ParamChange, ParamChangeSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
@@ -11,17 +11,6 @@ export interface QueryParamsRequest {
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmos.params.v1beta1.QueryParamsRequest";
   value: Uint8Array;
-}
-/** QueryParamsRequest is request type for the Query/Params RPC method. */
-export interface QueryParamsRequestAmino {
-  /** subspace defines the module to query the parameter for. */
-  subspace?: string;
-  /** key defines the key of the parameter in the subspace. */
-  key?: string;
-}
-export interface QueryParamsRequestAminoMsg {
-  type: "cosmos-sdk/QueryParamsRequest";
-  value: QueryParamsRequestAmino;
 }
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequestSDKType {
@@ -38,15 +27,6 @@ export interface QueryParamsResponseProtoMsg {
   value: Uint8Array;
 }
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
-export interface QueryParamsResponseAmino {
-  /** param defines the queried parameter. */
-  param: ParamChangeAmino;
-}
-export interface QueryParamsResponseAminoMsg {
-  type: "cosmos-sdk/QueryParamsResponse";
-  value: QueryParamsResponseAmino;
-}
-/** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponseSDKType {
   param: ParamChangeSDKType;
 }
@@ -60,17 +40,6 @@ export interface QuerySubspacesRequest {}
 export interface QuerySubspacesRequestProtoMsg {
   typeUrl: "/cosmos.params.v1beta1.QuerySubspacesRequest";
   value: Uint8Array;
-}
-/**
- * QuerySubspacesRequest defines a request type for querying for all registered
- * subspaces and all keys for a subspace.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface QuerySubspacesRequestAmino {}
-export interface QuerySubspacesRequestAminoMsg {
-  type: "cosmos-sdk/QuerySubspacesRequest";
-  value: QuerySubspacesRequestAmino;
 }
 /**
  * QuerySubspacesRequest defines a request type for querying for all registered
@@ -98,19 +67,6 @@ export interface QuerySubspacesResponseProtoMsg {
  * 
  * Since: cosmos-sdk 0.46
  */
-export interface QuerySubspacesResponseAmino {
-  subspaces?: SubspaceAmino[];
-}
-export interface QuerySubspacesResponseAminoMsg {
-  type: "cosmos-sdk/QuerySubspacesResponse";
-  value: QuerySubspacesResponseAmino;
-}
-/**
- * QuerySubspacesResponse defines the response types for querying for all
- * registered subspaces and all keys for a subspace.
- * 
- * Since: cosmos-sdk 0.46
- */
 export interface QuerySubspacesResponseSDKType {
   subspaces: SubspaceSDKType[];
 }
@@ -127,20 +83,6 @@ export interface Subspace {
 export interface SubspaceProtoMsg {
   typeUrl: "/cosmos.params.v1beta1.Subspace";
   value: Uint8Array;
-}
-/**
- * Subspace defines a parameter subspace name and all the keys that exist for
- * the subspace.
- * 
- * Since: cosmos-sdk 0.46
- */
-export interface SubspaceAmino {
-  subspace?: string;
-  keys?: string[];
-}
-export interface SubspaceAminoMsg {
-  type: "cosmos-sdk/Subspace";
-  value: SubspaceAmino;
 }
 /**
  * Subspace defines a parameter subspace name and all the keys that exist for

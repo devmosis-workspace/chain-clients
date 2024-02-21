@@ -1,4 +1,4 @@
-import { MsgCreateDenom, MsgMint, MsgBurn, MsgChangeAdmin } from "./tx";
+import { MsgCreateDenom, MsgMint, MsgBurn, MsgChangeAdmin, MsgSetDenomMetadata, MsgSetBeforeSendHook, MsgForceTransfer, MsgUpdateParams } from "./tx";
 export const AminoConverter = {
   "/osmosis.tokenfactory.v1beta1.MsgCreateDenom": {
     aminoType: "osmosis/tokenfactory/create-denom",
@@ -19,5 +19,25 @@ export const AminoConverter = {
     aminoType: "osmosis/tokenfactory/change-admin",
     toAmino: MsgChangeAdmin.toAmino,
     fromAmino: MsgChangeAdmin.fromAmino
+  },
+  "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata": {
+    aminoType: "osmosis/tokenfactory/set-denom-metadata",
+    toAmino: MsgSetDenomMetadata.toAmino,
+    fromAmino: MsgSetDenomMetadata.fromAmino
+  },
+  "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook": {
+    aminoType: "osmosis/tokenfactory/set-beforesend-hook",
+    toAmino: MsgSetBeforeSendHook.toAmino,
+    fromAmino: MsgSetBeforeSendHook.fromAmino
+  },
+  "/osmosis.tokenfactory.v1beta1.MsgForceTransfer": {
+    aminoType: "osmosis/tokenfactory/force-transfer",
+    toAmino: MsgForceTransfer.toAmino,
+    fromAmino: MsgForceTransfer.fromAmino
+  },
+  "/osmosis.tokenfactory.v1beta1.MsgUpdateParams": {
+    aminoType: "interchainqueries/MsgUpdateParams",
+    toAmino: MsgUpdateParams.toAmino,
+    fromAmino: MsgUpdateParams.fromAmino
   }
 };

@@ -1,4 +1,4 @@
-import { Asset, AssetAmino, AssetSDKType } from "./asset";
+import { Asset, AssetSDKType } from "./asset";
 import { BinaryWriter } from "../../binary";
 /** GenesisState defines the assets module's genesis state. */
 export interface GenesisState {
@@ -7,14 +7,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.assets.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the assets module's genesis state. */
-export interface GenesisStateAmino {
-  assets?: AssetAmino[];
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.assets.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the assets module's genesis state. */
 export interface GenesisStateSDKType {

@@ -44,44 +44,6 @@ export interface MarketParamProtoMsg {
  * generating price updates. This configuration is specific to the quote
  * currency.
  */
-export interface MarketParamAmino {
-  /** Unique, sequentially-generated value. */
-  id?: number;
-  /** The human-readable name of the market pair (e.g. `BTC-USD`). */
-  pair?: string;
-  /**
-   * Static value. The exponent of the price.
-   * For example if `Exponent == -5` then a `Value` of `1,000,000,000`
-   * represents ``$10,000`. Therefore `10 ^ Exponent` represents the smallest
-   * price step (in dollars) that can be recorded.
-   */
-  exponent?: number;
-  /**
-   * The minimum number of exchanges that should be reporting a live price for
-   * a price update to be considered valid.
-   */
-  min_exchanges?: number;
-  /**
-   * The minimum allowable change in `price` value that would cause a price
-   * update on the network. Measured as `1e-6` (parts per million).
-   */
-  min_price_change_ppm?: number;
-  /**
-   * A string of json that encodes the configuration for resolving the price
-   * of this market on various exchanges.
-   */
-  exchange_config_json?: string;
-}
-export interface MarketParamAminoMsg {
-  type: "/dydxprotocol.prices.MarketParam";
-  value: MarketParamAmino;
-}
-/**
- * MarketParam represents the x/prices configuration for markets, including
- * representing price values, resolving markets on individual exchanges, and
- * generating price updates. This configuration is specific to the quote
- * currency.
- */
 export interface MarketParamSDKType {
   id: number;
   pair: string;

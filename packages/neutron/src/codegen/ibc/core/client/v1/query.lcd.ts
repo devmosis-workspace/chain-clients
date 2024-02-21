@@ -77,9 +77,9 @@ export class LCDQueryClient {
     const endpoint = `ibc/core/client/v1/client_status/${params.clientId}`;
     return await this.req.get<QueryClientStatusResponseSDKType>(endpoint);
   }
-  /* ClientParams queries all parameters of the ibc client. */
+  /* ClientParams queries all parameters of the ibc client submodule. */
   async clientParams(_params: QueryClientParamsRequest = {}): Promise<QueryClientParamsResponseSDKType> {
-    const endpoint = `ibc/client/v1/params`;
+    const endpoint = `ibc/core/client/v1/params`;
     return await this.req.get<QueryClientParamsResponseSDKType>(endpoint);
   }
   /* UpgradedClientState queries an Upgraded IBC light client. */

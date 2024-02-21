@@ -1,5 +1,5 @@
-import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { EpochInfo, EpochInfoAmino, EpochInfoSDKType } from "./epoch_info";
+import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
+import { EpochInfo, EpochInfoSDKType } from "./epoch_info";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** QueryGetEpochInfoRequest is request type for the GetEpochInfo RPC method. */
@@ -10,15 +10,6 @@ export interface QueryGetEpochInfoRequest {
 export interface QueryGetEpochInfoRequestProtoMsg {
   typeUrl: "/dydxprotocol.epochs.QueryGetEpochInfoRequest";
   value: Uint8Array;
-}
-/** QueryGetEpochInfoRequest is request type for the GetEpochInfo RPC method. */
-export interface QueryGetEpochInfoRequestAmino {
-  /** QueryGetEpochInfoRequest is request type for the GetEpochInfo RPC method. */
-  name?: string;
-}
-export interface QueryGetEpochInfoRequestAminoMsg {
-  type: "/dydxprotocol.epochs.QueryGetEpochInfoRequest";
-  value: QueryGetEpochInfoRequestAmino;
 }
 /** QueryGetEpochInfoRequest is request type for the GetEpochInfo RPC method. */
 export interface QueryGetEpochInfoRequestSDKType {
@@ -33,14 +24,6 @@ export interface QueryEpochInfoResponseProtoMsg {
   value: Uint8Array;
 }
 /** QueryEpochInfoResponse is response type for the GetEpochInfo RPC method. */
-export interface QueryEpochInfoResponseAmino {
-  epoch_info?: EpochInfoAmino;
-}
-export interface QueryEpochInfoResponseAminoMsg {
-  type: "/dydxprotocol.epochs.QueryEpochInfoResponse";
-  value: QueryEpochInfoResponseAmino;
-}
-/** QueryEpochInfoResponse is response type for the GetEpochInfo RPC method. */
 export interface QueryEpochInfoResponseSDKType {
   epoch_info: EpochInfoSDKType;
 }
@@ -51,14 +34,6 @@ export interface QueryAllEpochInfoRequest {
 export interface QueryAllEpochInfoRequestProtoMsg {
   typeUrl: "/dydxprotocol.epochs.QueryAllEpochInfoRequest";
   value: Uint8Array;
-}
-/** QueryAllEpochInfoRequest is request type for the AllEpochInfo RPC method. */
-export interface QueryAllEpochInfoRequestAmino {
-  pagination?: PageRequestAmino;
-}
-export interface QueryAllEpochInfoRequestAminoMsg {
-  type: "/dydxprotocol.epochs.QueryAllEpochInfoRequest";
-  value: QueryAllEpochInfoRequestAmino;
 }
 /** QueryAllEpochInfoRequest is request type for the AllEpochInfo RPC method. */
 export interface QueryAllEpochInfoRequestSDKType {
@@ -72,15 +47,6 @@ export interface QueryEpochInfoAllResponse {
 export interface QueryEpochInfoAllResponseProtoMsg {
   typeUrl: "/dydxprotocol.epochs.QueryEpochInfoAllResponse";
   value: Uint8Array;
-}
-/** QueryEpochInfoAllResponse is response type for the AllEpochInfo RPC method. */
-export interface QueryEpochInfoAllResponseAmino {
-  epoch_info?: EpochInfoAmino[];
-  pagination?: PageResponseAmino;
-}
-export interface QueryEpochInfoAllResponseAminoMsg {
-  type: "/dydxprotocol.epochs.QueryEpochInfoAllResponse";
-  value: QueryEpochInfoAllResponseAmino;
 }
 /** QueryEpochInfoAllResponse is response type for the AllEpochInfo RPC method. */
 export interface QueryEpochInfoAllResponseSDKType {

@@ -16,18 +16,6 @@ export interface RewardShareProtoMsg {
  * RewardShare stores the relative weight of rewards that each address is
  * entitled to.
  */
-export interface RewardShareAmino {
-  address?: string;
-  weight?: string;
-}
-export interface RewardShareAminoMsg {
-  type: "/dydxprotocol.rewards.RewardShare";
-  value: RewardShareAmino;
-}
-/**
- * RewardShare stores the relative weight of rewards that each address is
- * entitled to.
- */
 export interface RewardShareSDKType {
   address: string;
   weight: Uint8Array;

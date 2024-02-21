@@ -20,7 +20,7 @@ export interface DenomAuthorityMetadataProtoMsg {
  */
 export interface DenomAuthorityMetadataAmino {
   /** Can be empty for no admin, or a valid osmosis address */
-  Admin: string;
+  Admin?: string;
 }
 export interface DenomAuthorityMetadataAminoMsg {
   type: "osmosis/tokenfactory/denom-authority-metadata";
@@ -58,9 +58,11 @@ export const DenomAuthorityMetadata = {
     return message;
   },
   fromAmino(object: DenomAuthorityMetadataAmino): DenomAuthorityMetadata {
-    return {
-      Admin: object.Admin
-    };
+    const message = createBaseDenomAuthorityMetadata();
+    if (object.Admin !== undefined && object.Admin !== null) {
+      message.Admin = object.Admin;
+    }
+    return message;
   },
   toAmino(message: DenomAuthorityMetadata): DenomAuthorityMetadataAmino {
     const obj: any = {};

@@ -1,4 +1,4 @@
-import { IndexerSubaccountId, IndexerSubaccountIdAmino, IndexerSubaccountIdSDKType } from "./subaccount";
+import { IndexerSubaccountId, IndexerSubaccountIdSDKType } from "./subaccount";
 import { BinaryWriter } from "../../../../binary";
 import { isSet } from "../../../../helpers";
 /**
@@ -16,7 +16,6 @@ export enum IndexerOrder_Side {
   UNRECOGNIZED = -1,
 }
 export const IndexerOrder_SideSDKType = IndexerOrder_Side;
-export const IndexerOrder_SideAmino = IndexerOrder_Side;
 export function indexerOrder_SideFromJSON(object: any): IndexerOrder_Side {
   switch (object) {
     case 0:
@@ -81,7 +80,6 @@ export enum IndexerOrder_TimeInForce {
   UNRECOGNIZED = -1,
 }
 export const IndexerOrder_TimeInForceSDKType = IndexerOrder_TimeInForce;
-export const IndexerOrder_TimeInForceAmino = IndexerOrder_TimeInForce;
 export function indexerOrder_TimeInForceFromJSON(object: any): IndexerOrder_TimeInForce {
   switch (object) {
     case 0:
@@ -138,7 +136,6 @@ export enum IndexerOrder_ConditionType {
   UNRECOGNIZED = -1,
 }
 export const IndexerOrder_ConditionTypeSDKType = IndexerOrder_ConditionType;
-export const IndexerOrder_ConditionTypeAmino = IndexerOrder_ConditionType;
 export function indexerOrder_ConditionTypeFromJSON(object: any): IndexerOrder_ConditionType {
   switch (object) {
     case 0:
@@ -205,7 +202,6 @@ export enum ClobPairStatus {
   UNRECOGNIZED = -1,
 }
 export const ClobPairStatusSDKType = ClobPairStatus;
-export const ClobPairStatusAmino = ClobPairStatus;
 export function clobPairStatusFromJSON(object: any): ClobPairStatus {
   switch (object) {
     case 0:
@@ -291,45 +287,6 @@ export interface IndexerOrderIdProtoMsg {
   value: Uint8Array;
 }
 /** IndexerOrderId refers to a single order belonging to a Subaccount. */
-export interface IndexerOrderIdAmino {
-  /**
-   * The subaccount ID that opened this order.
-   * Note that this field has `gogoproto.nullable = false` so that it is
-   * generated as a value instead of a pointer. This is because the `OrderId`
-   * proto is used as a key within maps, and map comparisons will compare
-   * pointers for equality (when the desired behavior is to compare the values).
-   */
-  subaccount_id?: IndexerSubaccountIdAmino;
-  /**
-   * The client ID of this order, unique with respect to the specific
-   * sub account (I.E., the same subaccount can't have two orders with
-   * the same ClientId).
-   */
-  client_id?: number;
-  /**
-   * order_flags represent order flags for the order. This field is invalid if
-   * it's greater than 127 (larger than one byte). Each bit in the first byte
-   * represents a different flag. Currently only two flags are supported.
-   * 
-   * Starting from the bit after the most MSB (note that the MSB is used in
-   * proto varint encoding, and therefore cannot be used): Bit 1 is set if this
-   * order is a Long-Term order (0x40, or 64 as a uint8). Bit 2 is set if this
-   * order is a Conditional order (0x20, or 32 as a uint8).
-   * 
-   * If neither bit is set, the order is assumed to be a Short-Term order.
-   * 
-   * If both bits are set or bits other than the 2nd and 3rd are set, the order
-   * ID is invalid.
-   */
-  order_flags?: number;
-  /** ID of the CLOB the order is created for. */
-  clob_pair_id?: number;
-}
-export interface IndexerOrderIdAminoMsg {
-  type: "/dydxprotocol.indexer.protocol.v1.IndexerOrderId";
-  value: IndexerOrderIdAmino;
-}
-/** IndexerOrderId refers to a single order belonging to a Subaccount. */
 export interface IndexerOrderIdSDKType {
   subaccount_id: IndexerSubaccountIdSDKType;
   client_id: number;
@@ -400,71 +357,6 @@ export interface IndexerOrder {
 export interface IndexerOrderProtoMsg {
   typeUrl: "/dydxprotocol.indexer.protocol.v1.IndexerOrder";
   value: Uint8Array;
-}
-/**
- * IndexerOrderV1 represents a single order belonging to a `Subaccount`
- * for a particular `ClobPair`.
- */
-export interface IndexerOrderAmino {
-  /** The unique ID of this order. Meant to be unique across all orders. */
-  order_id?: IndexerOrderIdAmino;
-  side?: IndexerOrder_Side;
-  /**
-   * The size of this order in base quantums. Must be a multiple of
-   * `ClobPair.StepBaseQuantums` (where `ClobPair.Id = orderId.ClobPairId`).
-   */
-  quantums?: string;
-  /**
-   * The price level that this order will be placed at on the orderbook,
-   * in subticks. Must be a multiple of ClobPair.SubticksPerTick
-   * (where `ClobPair.Id = orderId.ClobPairId`).
-   */
-  subticks?: string;
-  /**
-   * The last block this order can be executed at (after which it will be
-   * unfillable). Used only for Short-Term orders. If this value is non-zero
-   * then the order is assumed to be a Short-Term order.
-   */
-  good_til_block?: number;
-  /**
-   * good_til_block_time represents the unix timestamp (in seconds) at which a
-   * stateful order will be considered expired. The
-   * good_til_block_time is always evaluated against the previous block's
-   * `BlockTime` instead of the block in which the order is committed. If this
-   * value is non-zero then the order is assumed to be a stateful or
-   * conditional order.
-   */
-  good_til_block_time?: number;
-  /** The time in force of this order. */
-  time_in_force?: IndexerOrder_TimeInForce;
-  /**
-   * Enforces that the order can only reduce the size of an existing position.
-   * If a ReduceOnly order would change the side of the existing position,
-   * its size is reduced to that of the remaining size of the position.
-   * If existing orders on the book with ReduceOnly
-   * would already close the position, the least aggressive (out-of-the-money)
-   * ReduceOnly orders are resized and canceled first.
-   */
-  reduce_only?: boolean;
-  /**
-   * Set of bit flags set arbitrarily by clients and ignored by the protocol.
-   * Used by indexer to infer information about a placed order.
-   */
-  client_metadata?: number;
-  condition_type?: IndexerOrder_ConditionType;
-  /**
-   * conditional_order_trigger_subticks represents the price at which this order
-   * will be triggered. If the condition_type is CONDITION_TYPE_UNSPECIFIED,
-   * this value is enforced to be 0. If this value is nonzero, condition_type
-   * cannot be CONDITION_TYPE_UNSPECIFIED. Value is in subticks.
-   * Must be a multiple of ClobPair.SubticksPerTick (where `ClobPair.Id =
-   * orderId.ClobPairId`).
-   */
-  conditional_order_trigger_subticks?: string;
-}
-export interface IndexerOrderAminoMsg {
-  type: "/dydxprotocol.indexer.protocol.v1.IndexerOrder";
-  value: IndexerOrderAmino;
 }
 /**
  * IndexerOrderV1 represents a single order belonging to a `Subaccount`

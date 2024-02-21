@@ -1,4 +1,4 @@
-import { PerpetualFeeParams, PerpetualFeeParamsAmino, PerpetualFeeParamsSDKType } from "./params";
+import { PerpetualFeeParams, PerpetualFeeParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** GenesisState defines the feetiers module's genesis state. */
@@ -9,15 +9,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.feetiers.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the feetiers module's genesis state. */
-export interface GenesisStateAmino {
-  /** The parameters for perpetual fees. */
-  params?: PerpetualFeeParamsAmino;
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.feetiers.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the feetiers module's genesis state. */
 export interface GenesisStateSDKType {

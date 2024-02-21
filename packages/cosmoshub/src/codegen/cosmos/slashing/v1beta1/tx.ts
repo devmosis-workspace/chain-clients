@@ -10,7 +10,7 @@ export interface MsgUnjailProtoMsg {
 }
 /** MsgUnjail defines the Msg/Unjail request type */
 export interface MsgUnjailAmino {
-  validator_addr: string;
+  validator_addr?: string;
 }
 export interface MsgUnjailAminoMsg {
   type: "cosmos-sdk/MsgUnjail";
@@ -58,9 +58,11 @@ export const MsgUnjail = {
     return message;
   },
   fromAmino(object: MsgUnjailAmino): MsgUnjail {
-    return {
-      validatorAddr: object.validator_addr
-    };
+    const message = createBaseMsgUnjail();
+    if (object.validator_addr !== undefined && object.validator_addr !== null) {
+      message.validatorAddr = object.validator_addr;
+    }
+    return message;
   },
   toAmino(message: MsgUnjail): MsgUnjailAmino {
     const obj: any = {};
@@ -105,7 +107,8 @@ export const MsgUnjailResponse = {
     return message;
   },
   fromAmino(_: MsgUnjailResponseAmino): MsgUnjailResponse {
-    return {};
+    const message = createBaseMsgUnjailResponse();
+    return message;
   },
   toAmino(_: MsgUnjailResponse): MsgUnjailResponseAmino {
     const obj: any = {};

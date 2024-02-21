@@ -1,18 +1,33 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as interchainqueriesTxRegistry from "../interchainqueries/tx.registry";
-import * as interchaintxsV1TxRegistry from "../interchaintxs/v1/tx.registry";
-import * as transferV1TxRegistry from "../transfer/v1/tx.registry";
-import * as interchainqueriesTxAmino from "../interchainqueries/tx.amino";
-import * as interchaintxsV1TxAmino from "../interchaintxs/v1/tx.amino";
-import * as transferV1TxAmino from "../transfer/v1/tx.amino";
+import * as neutronContractmanagerTxRegistry from "./contractmanager/tx.registry";
+import * as neutronCronTxRegistry from "./cron/tx.registry";
+import * as neutronDexTxRegistry from "./dex/tx.registry";
+import * as neutronFeeburnerTxRegistry from "./feeburner/tx.registry";
+import * as neutronFeerefunderTxRegistry from "./feerefunder/tx.registry";
+import * as neutronInterchainqueriesTxRegistry from "./interchainqueries/tx.registry";
+import * as neutronInterchaintxsV1TxRegistry from "./interchaintxs/v1/tx.registry";
+import * as neutronTransferV1TxRegistry from "./transfer/v1/tx.registry";
+import * as neutronContractmanagerTxAmino from "./contractmanager/tx.amino";
+import * as neutronCronTxAmino from "./cron/tx.amino";
+import * as neutronDexTxAmino from "./dex/tx.amino";
+import * as neutronFeeburnerTxAmino from "./feeburner/tx.amino";
+import * as neutronFeerefunderTxAmino from "./feerefunder/tx.amino";
+import * as neutronInterchainqueriesTxAmino from "./interchainqueries/tx.amino";
+import * as neutronInterchaintxsV1TxAmino from "./interchaintxs/v1/tx.amino";
+import * as neutronTransferV1TxAmino from "./transfer/v1/tx.amino";
 export const neutronAminoConverters = {
-  ...interchainqueriesTxAmino.AminoConverter,
-  ...interchaintxsV1TxAmino.AminoConverter,
-  ...transferV1TxAmino.AminoConverter
+  ...neutronContractmanagerTxAmino.AminoConverter,
+  ...neutronCronTxAmino.AminoConverter,
+  ...neutronDexTxAmino.AminoConverter,
+  ...neutronFeeburnerTxAmino.AminoConverter,
+  ...neutronFeerefunderTxAmino.AminoConverter,
+  ...neutronInterchainqueriesTxAmino.AminoConverter,
+  ...neutronInterchaintxsV1TxAmino.AminoConverter,
+  ...neutronTransferV1TxAmino.AminoConverter
 };
-export const neutronProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...interchainqueriesTxRegistry.registry, ...interchaintxsV1TxRegistry.registry, ...transferV1TxRegistry.registry];
+export const neutronProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...neutronContractmanagerTxRegistry.registry, ...neutronCronTxRegistry.registry, ...neutronDexTxRegistry.registry, ...neutronFeeburnerTxRegistry.registry, ...neutronFeerefunderTxRegistry.registry, ...neutronInterchainqueriesTxRegistry.registry, ...neutronInterchaintxsV1TxRegistry.registry, ...neutronTransferV1TxRegistry.registry];
 export const getSigningNeutronClientOptions = ({
   defaultTypes = defaultRegistryTypes
 }: {

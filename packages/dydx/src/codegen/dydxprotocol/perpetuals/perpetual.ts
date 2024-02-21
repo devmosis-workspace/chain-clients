@@ -15,20 +15,6 @@ export interface PerpetualProtoMsg {
   value: Uint8Array;
 }
 /** Perpetual represents a perpetual on the dYdX exchange. */
-export interface PerpetualAmino {
-  /** PerpetualParams is the parameters of the perpetual. */
-  params?: PerpetualParamsAmino;
-  /**
-   * The current index determined by the cumulative all-time
-   * history of the funding mechanism. Starts at zero.
-   */
-  funding_index?: string;
-}
-export interface PerpetualAminoMsg {
-  type: "/dydxprotocol.perpetuals.Perpetual";
-  value: PerpetualAmino;
-}
-/** Perpetual represents a perpetual on the dYdX exchange. */
 export interface PerpetualSDKType {
   params: PerpetualParamsSDKType;
   funding_index: Uint8Array;
@@ -71,40 +57,6 @@ export interface PerpetualParamsProtoMsg {
  * PerpetualParams represents the parameters of a perpetual on the dYdX
  * exchange.
  */
-export interface PerpetualParamsAmino {
-  /** Unique, sequentially-generated. */
-  id?: number;
-  /** The name of the `Perpetual` (e.g. `BTC-USD`). */
-  ticker?: string;
-  /**
-   * The market associated with this `Perpetual`. It
-   * acts as the oracle price for the purposes of calculating
-   * collateral, margin requirements, and funding rates.
-   */
-  market_id?: number;
-  /**
-   * The exponent for converting an atomic amount (`size = 1`)
-   * to a full coin. For example, if `AtomicResolution = -8`
-   * then a `PerpetualPosition` with `size = 1e8` is equivalent to
-   * a position size of one full coin.
-   */
-  atomic_resolution?: number;
-  /**
-   * The default funding payment if there is no price premium. In
-   * parts-per-million.
-   */
-  default_funding_ppm?: number;
-  /** The liquidity_tier that this perpetual is associated with. */
-  liquidity_tier?: number;
-}
-export interface PerpetualParamsAminoMsg {
-  type: "/dydxprotocol.perpetuals.PerpetualParams";
-  value: PerpetualParamsAmino;
-}
-/**
- * PerpetualParams represents the parameters of a perpetual on the dYdX
- * exchange.
- */
 export interface PerpetualParamsSDKType {
   id: number;
   ticker: string;
@@ -127,21 +79,6 @@ export interface MarketPremiums {
 export interface MarketPremiumsProtoMsg {
   typeUrl: "/dydxprotocol.perpetuals.MarketPremiums";
   value: Uint8Array;
-}
-/** MarketPremiums stores a list of premiums for a single perpetual market. */
-export interface MarketPremiumsAmino {
-  /** perpetual_id is the Id of the perpetual market. */
-  perpetual_id?: number;
-  /**
-   * premiums is a list of premium values for a perpetual market. Since most
-   * premiums are zeros under "stable" market conditions, only non-zero values
-   * are stored in this list.
-   */
-  premiums?: number[];
-}
-export interface MarketPremiumsAminoMsg {
-  type: "/dydxprotocol.perpetuals.MarketPremiums";
-  value: MarketPremiumsAmino;
 }
 /** MarketPremiums stores a list of premiums for a single perpetual market. */
 export interface MarketPremiumsSDKType {
@@ -175,34 +112,6 @@ export interface PremiumStore {
 export interface PremiumStoreProtoMsg {
   typeUrl: "/dydxprotocol.perpetuals.PremiumStore";
   value: Uint8Array;
-}
-/**
- * PremiumStore is a struct to store a perpetual premiums for all
- * perpetual markets. It stores a list of `MarketPremiums`, each of which
- * corresponds to a perpetual market and stores a list of non-zero premium
- * values for that market.
- * This struct can either be used to store `PremiumVotes` or
- * `PremiumSamples`.
- */
-export interface PremiumStoreAmino {
-  /**
-   * all_market_premiums a list of `MarketPremiums`, each corresponding to
-   * a perpetual market.
-   */
-  all_market_premiums?: MarketPremiumsAmino[];
-  /**
-   * number of rounds where premium values were added. This value indicates
-   * the total number of premiums (zeros and non-zeros) for each
-   * `MarketPremiums` struct. Note that in the edge case a perpetual market was
-   * added in the middle of a epoch, we don't keep a seperate count for that
-   * market. This means we treat this market as having zero premiums before it
-   * was added.
-   */
-  num_premiums?: number;
-}
-export interface PremiumStoreAminoMsg {
-  type: "/dydxprotocol.perpetuals.PremiumStore";
-  value: PremiumStoreAmino;
 }
 /**
  * PremiumStore is a struct to store a perpetual premiums for all
@@ -252,43 +161,6 @@ export interface LiquidityTier {
 export interface LiquidityTierProtoMsg {
   typeUrl: "/dydxprotocol.perpetuals.LiquidityTier";
   value: Uint8Array;
-}
-/** LiquidityTier stores margin information. */
-export interface LiquidityTierAmino {
-  /** Unique id. */
-  id?: number;
-  /** The name of the tier purely for mnemonic purposes, e.g. "Gold". */
-  name?: string;
-  /**
-   * The margin fraction needed to open a position.
-   * In parts-per-million.
-   */
-  initial_margin_ppm?: number;
-  /**
-   * The fraction of the initial-margin that the maintenance-margin is,
-   * e.g. 50%. In parts-per-million.
-   */
-  maintenance_fraction_ppm?: number;
-  /**
-   * The maximum position size at which the margin requirements are
-   * not increased over the default values. Above this position size,
-   * the margin requirements increase at a rate of sqrt(size).
-   */
-  base_position_notional?: string;
-  /**
-   * The impact notional amount (in quote quantums) is used to determine impact
-   * bid/ask prices and its recommended value is 500 USDC / initial margin
-   * fraction.
-   * - Impact bid price = average execution price for a market sell of the
-   * impact notional value.
-   * - Impact ask price = average execution price for a market buy of the
-   * impact notional value.
-   */
-  impact_notional?: string;
-}
-export interface LiquidityTierAminoMsg {
-  type: "/dydxprotocol.perpetuals.LiquidityTier";
-  value: LiquidityTierAmino;
 }
 /** LiquidityTier stores margin information. */
 export interface LiquidityTierSDKType {

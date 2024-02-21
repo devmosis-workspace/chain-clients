@@ -1,4 +1,4 @@
-import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { Duration, DurationSDKType } from "../../google/protobuf/duration";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -16,22 +16,6 @@ export interface EventParams {
 export interface EventParamsProtoMsg {
   typeUrl: "/dydxprotocol.bridge.EventParams";
   value: Uint8Array;
-}
-/**
- * EventParams stores parameters about which events to recognize and which
- * tokens to mint.
- */
-export interface EventParamsAmino {
-  /** The denom of the token to mint. */
-  denom?: string;
-  /** The numerical chain ID of the Ethereum chain to query. */
-  eth_chain_id?: string;
-  /** The address of the Ethereum contract to monitor for logs. */
-  eth_address?: string;
-}
-export interface EventParamsAminoMsg {
-  type: "/dydxprotocol.bridge.EventParams";
-  value: EventParamsAmino;
 }
 /**
  * EventParams stores parameters about which events to recognize and which
@@ -74,37 +58,6 @@ export interface ProposeParamsProtoMsg {
   value: Uint8Array;
 }
 /** ProposeParams stores parameters for proposing to the module. */
-export interface ProposeParamsAmino {
-  /**
-   * The maximum number of bridge events to propose per block.
-   * Limits the number of events to propose in a single block
-   * in-order to smooth out the flow of events.
-   */
-  max_bridges_per_block?: number;
-  /**
-   * The minimum duration to wait between a finalized bridge and
-   * proposing it. This allows other validators to have enough time to
-   * also recognize its occurence. Therefore the bridge daemon should
-   * pool for new finalized events at least as often as this parameter.
-   */
-  propose_delay_duration?: DurationAmino;
-  /**
-   * Do not propose any events if a [0, 1_000_000) random number generator
-   * generates a number smaller than this number.
-   * Setting this parameter to 1_000_000 means always skipping proposing events.
-   */
-  skip_rate_ppm?: number;
-  /**
-   * Do not propose any events if the timestamp of the proposal block is
-   * behind the proposers' wall-clock by at least this duration.
-   */
-  skip_if_block_delayed_by_duration?: DurationAmino;
-}
-export interface ProposeParamsAminoMsg {
-  type: "/dydxprotocol.bridge.ProposeParams";
-  value: ProposeParamsAmino;
-}
-/** ProposeParams stores parameters for proposing to the module. */
 export interface ProposeParamsSDKType {
   max_bridges_per_block: number;
   propose_delay_duration: DurationSDKType;
@@ -124,20 +77,6 @@ export interface SafetyParams {
 export interface SafetyParamsProtoMsg {
   typeUrl: "/dydxprotocol.bridge.SafetyParams";
   value: Uint8Array;
-}
-/** SafetyParams stores safety parameters for the module. */
-export interface SafetyParamsAmino {
-  /** True if bridging is disabled. */
-  is_disabled?: boolean;
-  /**
-   * The number of blocks that bridges accepted in-consensus will be pending
-   * until the minted tokens are granted.
-   */
-  delay_blocks?: number;
-}
-export interface SafetyParamsAminoMsg {
-  type: "/dydxprotocol.bridge.SafetyParams";
-  value: SafetyParamsAmino;
 }
 /** SafetyParams stores safety parameters for the module. */
 export interface SafetyParamsSDKType {

@@ -1,4 +1,4 @@
-import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { Duration, DurationSDKType } from "../../google/protobuf/duration";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -14,20 +14,6 @@ export interface ConsensusParams {
 export interface ConsensusParamsProtoMsg {
   typeUrl: "/tendermint.types.ConsensusParams";
   value: Uint8Array;
-}
-/**
- * ConsensusParams contains consensus critical parameters that determine the
- * validity of blocks.
- */
-export interface ConsensusParamsAmino {
-  block?: BlockParamsAmino;
-  evidence?: EvidenceParamsAmino;
-  validator?: ValidatorParamsAmino;
-  version?: VersionParamsAmino;
-}
-export interface ConsensusParamsAminoMsg {
-  type: "/tendermint.types.ConsensusParams";
-  value: ConsensusParamsAmino;
 }
 /**
  * ConsensusParams contains consensus critical parameters that determine the
@@ -55,23 +41,6 @@ export interface BlockParams {
 export interface BlockParamsProtoMsg {
   typeUrl: "/tendermint.types.BlockParams";
   value: Uint8Array;
-}
-/** BlockParams contains limits on the block size. */
-export interface BlockParamsAmino {
-  /**
-   * Max block size, in bytes.
-   * Note: must be greater than 0
-   */
-  max_bytes?: string;
-  /**
-   * Max gas per block.
-   * Note: must be greater or equal to -1
-   */
-  max_gas?: string;
-}
-export interface BlockParamsAminoMsg {
-  type: "/tendermint.types.BlockParams";
-  value: BlockParamsAmino;
 }
 /** BlockParams contains limits on the block size. */
 export interface BlockParamsSDKType {
@@ -107,34 +76,6 @@ export interface EvidenceParamsProtoMsg {
   value: Uint8Array;
 }
 /** EvidenceParams determine how we handle evidence of malfeasance. */
-export interface EvidenceParamsAmino {
-  /**
-   * Max age of evidence, in blocks.
-   * 
-   * The basic formula for calculating this is: MaxAgeDuration / {average block
-   * time}.
-   */
-  max_age_num_blocks?: string;
-  /**
-   * Max age of evidence, in time.
-   * 
-   * It should correspond with an app's "unbonding period" or other similar
-   * mechanism for handling [Nothing-At-Stake
-   * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
-   */
-  max_age_duration?: DurationAmino;
-  /**
-   * This sets the maximum size of total evidence in bytes that can be committed in a single block.
-   * and should fall comfortably under the max block bytes.
-   * Default is 1048576 or 1MB
-   */
-  max_bytes?: string;
-}
-export interface EvidenceParamsAminoMsg {
-  type: "/tendermint.types.EvidenceParams";
-  value: EvidenceParamsAmino;
-}
-/** EvidenceParams determine how we handle evidence of malfeasance. */
 export interface EvidenceParamsSDKType {
   max_age_num_blocks: bigint;
   max_age_duration: DurationSDKType;
@@ -155,17 +96,6 @@ export interface ValidatorParamsProtoMsg {
  * ValidatorParams restrict the public key types validators can use.
  * NOTE: uses ABCI pubkey naming, not Amino names.
  */
-export interface ValidatorParamsAmino {
-  pub_key_types?: string[];
-}
-export interface ValidatorParamsAminoMsg {
-  type: "/tendermint.types.ValidatorParams";
-  value: ValidatorParamsAmino;
-}
-/**
- * ValidatorParams restrict the public key types validators can use.
- * NOTE: uses ABCI pubkey naming, not Amino names.
- */
 export interface ValidatorParamsSDKType {
   pub_key_types: string[];
 }
@@ -176,14 +106,6 @@ export interface VersionParams {
 export interface VersionParamsProtoMsg {
   typeUrl: "/tendermint.types.VersionParams";
   value: Uint8Array;
-}
-/** VersionParams contains the ABCI application version. */
-export interface VersionParamsAmino {
-  app?: string;
-}
-export interface VersionParamsAminoMsg {
-  type: "/tendermint.types.VersionParams";
-  value: VersionParamsAmino;
 }
 /** VersionParams contains the ABCI application version. */
 export interface VersionParamsSDKType {
@@ -201,19 +123,6 @@ export interface HashedParams {
 export interface HashedParamsProtoMsg {
   typeUrl: "/tendermint.types.HashedParams";
   value: Uint8Array;
-}
-/**
- * HashedParams is a subset of ConsensusParams.
- * 
- * It is hashed into the Header.ConsensusHash.
- */
-export interface HashedParamsAmino {
-  block_max_bytes?: string;
-  block_max_gas?: string;
-}
-export interface HashedParamsAminoMsg {
-  type: "/tendermint.types.HashedParams";
-  value: HashedParamsAmino;
 }
 /**
  * HashedParams is a subset of ConsensusParams.

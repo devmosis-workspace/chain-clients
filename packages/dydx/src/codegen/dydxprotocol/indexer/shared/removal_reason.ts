@@ -65,7 +65,6 @@ export enum OrderRemovalReason {
   UNRECOGNIZED = -1,
 }
 export const OrderRemovalReasonSDKType = OrderRemovalReason;
-export const OrderRemovalReasonAmino = OrderRemovalReason;
 export function orderRemovalReasonFromJSON(object: any): OrderRemovalReason {
   switch (object) {
     case 0:

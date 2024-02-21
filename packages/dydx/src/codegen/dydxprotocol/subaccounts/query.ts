@@ -1,5 +1,5 @@
-import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { Subaccount, SubaccountAmino, SubaccountSDKType } from "./subaccount";
+import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
+import { Subaccount, SubaccountSDKType } from "./subaccount";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** QueryGetSubaccountRequest is request type for the Query RPC method. */
@@ -10,15 +10,6 @@ export interface QueryGetSubaccountRequest {
 export interface QueryGetSubaccountRequestProtoMsg {
   typeUrl: "/dydxprotocol.subaccounts.QueryGetSubaccountRequest";
   value: Uint8Array;
-}
-/** QueryGetSubaccountRequest is request type for the Query RPC method. */
-export interface QueryGetSubaccountRequestAmino {
-  owner?: string;
-  number?: number;
-}
-export interface QueryGetSubaccountRequestAminoMsg {
-  type: "/dydxprotocol.subaccounts.QueryGetSubaccountRequest";
-  value: QueryGetSubaccountRequestAmino;
 }
 /** QueryGetSubaccountRequest is request type for the Query RPC method. */
 export interface QueryGetSubaccountRequestSDKType {
@@ -34,14 +25,6 @@ export interface QuerySubaccountResponseProtoMsg {
   value: Uint8Array;
 }
 /** QuerySubaccountResponse is response type for the Query RPC method. */
-export interface QuerySubaccountResponseAmino {
-  subaccount?: SubaccountAmino;
-}
-export interface QuerySubaccountResponseAminoMsg {
-  type: "/dydxprotocol.subaccounts.QuerySubaccountResponse";
-  value: QuerySubaccountResponseAmino;
-}
-/** QuerySubaccountResponse is response type for the Query RPC method. */
 export interface QuerySubaccountResponseSDKType {
   subaccount: SubaccountSDKType;
 }
@@ -52,14 +35,6 @@ export interface QueryAllSubaccountRequest {
 export interface QueryAllSubaccountRequestProtoMsg {
   typeUrl: "/dydxprotocol.subaccounts.QueryAllSubaccountRequest";
   value: Uint8Array;
-}
-/** QueryAllSubaccountRequest is request type for the Query RPC method. */
-export interface QueryAllSubaccountRequestAmino {
-  pagination?: PageRequestAmino;
-}
-export interface QueryAllSubaccountRequestAminoMsg {
-  type: "/dydxprotocol.subaccounts.QueryAllSubaccountRequest";
-  value: QueryAllSubaccountRequestAmino;
 }
 /** QueryAllSubaccountRequest is request type for the Query RPC method. */
 export interface QueryAllSubaccountRequestSDKType {
@@ -73,15 +48,6 @@ export interface QuerySubaccountAllResponse {
 export interface QuerySubaccountAllResponseProtoMsg {
   typeUrl: "/dydxprotocol.subaccounts.QuerySubaccountAllResponse";
   value: Uint8Array;
-}
-/** QuerySubaccountAllResponse is response type for the Query RPC method. */
-export interface QuerySubaccountAllResponseAmino {
-  subaccount?: SubaccountAmino[];
-  pagination?: PageResponseAmino;
-}
-export interface QuerySubaccountAllResponseAminoMsg {
-  type: "/dydxprotocol.subaccounts.QuerySubaccountAllResponse";
-  value: QuerySubaccountAllResponseAmino;
 }
 /** QuerySubaccountAllResponse is response type for the Query RPC method. */
 export interface QuerySubaccountAllResponseSDKType {

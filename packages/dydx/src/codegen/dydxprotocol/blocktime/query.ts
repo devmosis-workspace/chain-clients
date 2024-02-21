@@ -1,5 +1,5 @@
-import { DowntimeParams, DowntimeParamsAmino, DowntimeParamsSDKType } from "./params";
-import { BlockInfo, BlockInfoAmino, BlockInfoSDKType, AllDowntimeInfo, AllDowntimeInfoAmino, AllDowntimeInfoSDKType } from "./blocktime";
+import { DowntimeParams, DowntimeParamsSDKType } from "./params";
+import { BlockInfo, BlockInfoSDKType, AllDowntimeInfo, AllDowntimeInfoSDKType } from "./blocktime";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -10,15 +10,6 @@ export interface QueryDowntimeParamsRequest {}
 export interface QueryDowntimeParamsRequestProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.QueryDowntimeParamsRequest";
   value: Uint8Array;
-}
-/**
- * QueryDowntimeParamsRequest is a request type for the DowntimeParams
- * RPC method.
- */
-export interface QueryDowntimeParamsRequestAmino {}
-export interface QueryDowntimeParamsRequestAminoMsg {
-  type: "/dydxprotocol.blocktime.QueryDowntimeParamsRequest";
-  value: QueryDowntimeParamsRequestAmino;
 }
 /**
  * QueryDowntimeParamsRequest is a request type for the DowntimeParams
@@ -40,17 +31,6 @@ export interface QueryDowntimeParamsResponseProtoMsg {
  * QueryDowntimeParamsResponse is a response type for the DowntimeParams
  * RPC method.
  */
-export interface QueryDowntimeParamsResponseAmino {
-  params?: DowntimeParamsAmino;
-}
-export interface QueryDowntimeParamsResponseAminoMsg {
-  type: "/dydxprotocol.blocktime.QueryDowntimeParamsResponse";
-  value: QueryDowntimeParamsResponseAmino;
-}
-/**
- * QueryDowntimeParamsResponse is a response type for the DowntimeParams
- * RPC method.
- */
 export interface QueryDowntimeParamsResponseSDKType {
   params: DowntimeParamsSDKType;
 }
@@ -62,15 +42,6 @@ export interface QueryPreviousBlockInfoRequest {}
 export interface QueryPreviousBlockInfoRequestProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.QueryPreviousBlockInfoRequest";
   value: Uint8Array;
-}
-/**
- * QueryPreviousBlockInfoRequest is a request type for the PreviousBlockInfo
- * RPC method.
- */
-export interface QueryPreviousBlockInfoRequestAmino {}
-export interface QueryPreviousBlockInfoRequestAminoMsg {
-  type: "/dydxprotocol.blocktime.QueryPreviousBlockInfoRequest";
-  value: QueryPreviousBlockInfoRequestAmino;
 }
 /**
  * QueryPreviousBlockInfoRequest is a request type for the PreviousBlockInfo
@@ -96,21 +67,6 @@ export interface QueryPreviousBlockInfoResponseProtoMsg {
  * QueryPreviousBlockInfoResponse is a request type for the PreviousBlockInfo
  * RPC method.
  */
-export interface QueryPreviousBlockInfoResponseAmino {
-  /**
-   * QueryPreviousBlockInfoResponse is a request type for the PreviousBlockInfo
-   * RPC method.
-   */
-  info?: BlockInfoAmino;
-}
-export interface QueryPreviousBlockInfoResponseAminoMsg {
-  type: "/dydxprotocol.blocktime.QueryPreviousBlockInfoResponse";
-  value: QueryPreviousBlockInfoResponseAmino;
-}
-/**
- * QueryPreviousBlockInfoResponse is a request type for the PreviousBlockInfo
- * RPC method.
- */
 export interface QueryPreviousBlockInfoResponseSDKType {
   info?: BlockInfoSDKType;
 }
@@ -122,15 +78,6 @@ export interface QueryAllDowntimeInfoRequest {}
 export interface QueryAllDowntimeInfoRequestProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.QueryAllDowntimeInfoRequest";
   value: Uint8Array;
-}
-/**
- * QueryAllDowntimeInfoRequest is a request type for the AllDowntimeInfo
- * RPC method.
- */
-export interface QueryAllDowntimeInfoRequestAmino {}
-export interface QueryAllDowntimeInfoRequestAminoMsg {
-  type: "/dydxprotocol.blocktime.QueryAllDowntimeInfoRequest";
-  value: QueryAllDowntimeInfoRequestAmino;
 }
 /**
  * QueryAllDowntimeInfoRequest is a request type for the AllDowntimeInfo
@@ -151,21 +98,6 @@ export interface QueryAllDowntimeInfoResponse {
 export interface QueryAllDowntimeInfoResponseProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.QueryAllDowntimeInfoResponse";
   value: Uint8Array;
-}
-/**
- * QueryAllDowntimeInfoResponse is a request type for the AllDowntimeInfo
- * RPC method.
- */
-export interface QueryAllDowntimeInfoResponseAmino {
-  /**
-   * QueryAllDowntimeInfoResponse is a request type for the AllDowntimeInfo
-   * RPC method.
-   */
-  info?: AllDowntimeInfoAmino;
-}
-export interface QueryAllDowntimeInfoResponseAminoMsg {
-  type: "/dydxprotocol.blocktime.QueryAllDowntimeInfoResponse";
-  value: QueryAllDowntimeInfoResponseAmino;
 }
 /**
  * QueryAllDowntimeInfoResponse is a request type for the AllDowntimeInfo

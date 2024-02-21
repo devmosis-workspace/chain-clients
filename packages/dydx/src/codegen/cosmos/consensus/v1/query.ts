@@ -1,4 +1,4 @@
-import { ConsensusParams, ConsensusParamsAmino, ConsensusParamsSDKType } from "../../../tendermint/types/params";
+import { ConsensusParams, ConsensusParamsSDKType } from "../../../tendermint/types/params";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** QueryParamsRequest defines the request type for querying x/consensus parameters. */
@@ -6,12 +6,6 @@ export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmos.consensus.v1.QueryParamsRequest";
   value: Uint8Array;
-}
-/** QueryParamsRequest defines the request type for querying x/consensus parameters. */
-export interface QueryParamsRequestAmino {}
-export interface QueryParamsRequestAminoMsg {
-  type: "cosmos-sdk/QueryParamsRequest";
-  value: QueryParamsRequestAmino;
 }
 /** QueryParamsRequest defines the request type for querying x/consensus parameters. */
 export interface QueryParamsRequestSDKType {}
@@ -27,19 +21,6 @@ export interface QueryParamsResponse {
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/cosmos.consensus.v1.QueryParamsResponse";
   value: Uint8Array;
-}
-/** QueryParamsResponse defines the response type for querying x/consensus parameters. */
-export interface QueryParamsResponseAmino {
-  /**
-   * params are the tendermint consensus params stored in the consensus module.
-   * Please note that `params.version` is not populated in this response, it is
-   * tracked separately in the x/upgrade module.
-   */
-  params?: ConsensusParamsAmino;
-}
-export interface QueryParamsResponseAminoMsg {
-  type: "cosmos-sdk/QueryParamsResponse";
-  value: QueryParamsResponseAmino;
 }
 /** QueryParamsResponse defines the response type for querying x/consensus parameters. */
 export interface QueryParamsResponseSDKType {

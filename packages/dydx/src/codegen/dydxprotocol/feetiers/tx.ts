@@ -1,4 +1,4 @@
-import { PerpetualFeeParams, PerpetualFeeParamsAmino, PerpetualFeeParamsSDKType } from "./params";
+import { PerpetualFeeParams, PerpetualFeeParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** MsgUpdatePerpetualFeeParams is the Msg/UpdatePerpetualFeeParams request type. */
@@ -10,16 +10,6 @@ export interface MsgUpdatePerpetualFeeParams {
 export interface MsgUpdatePerpetualFeeParamsProtoMsg {
   typeUrl: "/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParams";
   value: Uint8Array;
-}
-/** MsgUpdatePerpetualFeeParams is the Msg/UpdatePerpetualFeeParams request type. */
-export interface MsgUpdatePerpetualFeeParamsAmino {
-  authority?: string;
-  /** Defines the parameters to update. All parameters must be supplied. */
-  params?: PerpetualFeeParamsAmino;
-}
-export interface MsgUpdatePerpetualFeeParamsAminoMsg {
-  type: "/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParams";
-  value: MsgUpdatePerpetualFeeParamsAmino;
 }
 /** MsgUpdatePerpetualFeeParams is the Msg/UpdatePerpetualFeeParams request type. */
 export interface MsgUpdatePerpetualFeeParamsSDKType {
@@ -34,15 +24,6 @@ export interface MsgUpdatePerpetualFeeParamsResponse {}
 export interface MsgUpdatePerpetualFeeParamsResponseProtoMsg {
   typeUrl: "/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParamsResponse";
   value: Uint8Array;
-}
-/**
- * MsgUpdatePerpetualFeeParamsResponse is the Msg/UpdatePerpetualFeeParams
- * response type.
- */
-export interface MsgUpdatePerpetualFeeParamsResponseAmino {}
-export interface MsgUpdatePerpetualFeeParamsResponseAminoMsg {
-  type: "/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParamsResponse";
-  value: MsgUpdatePerpetualFeeParamsResponseAmino;
 }
 /**
  * MsgUpdatePerpetualFeeParamsResponse is the Msg/UpdatePerpetualFeeParams

@@ -30,7 +30,6 @@ export enum ClobPair_Status {
   UNRECOGNIZED = -1,
 }
 export const ClobPair_StatusSDKType = ClobPair_Status;
-export const ClobPair_StatusAmino = ClobPair_Status;
 export function clobPair_StatusFromJSON(object: any): ClobPair_Status {
   switch (object) {
     case 0:
@@ -92,18 +91,6 @@ export interface PerpetualClobMetadataProtoMsg {
  * PerpetualClobMetadata contains metadata for a `ClobPair`
  * representing a Perpetual product.
  */
-export interface PerpetualClobMetadataAmino {
-  /** Id of the Perpetual the CLOB allows trading of. */
-  perpetual_id?: number;
-}
-export interface PerpetualClobMetadataAminoMsg {
-  type: "/dydxprotocol.clob.PerpetualClobMetadata";
-  value: PerpetualClobMetadataAmino;
-}
-/**
- * PerpetualClobMetadata contains metadata for a `ClobPair`
- * representing a Perpetual product.
- */
 export interface PerpetualClobMetadataSDKType {
   perpetual_id: number;
 }
@@ -120,20 +107,6 @@ export interface SpotClobMetadata {
 export interface SpotClobMetadataProtoMsg {
   typeUrl: "/dydxprotocol.clob.SpotClobMetadata";
   value: Uint8Array;
-}
-/**
- * PerpetualClobMetadata contains metadata for a `ClobPair`
- * representing a Spot product.
- */
-export interface SpotClobMetadataAmino {
-  /** Id of the base Asset in the trading pair. */
-  base_asset_id?: number;
-  /** Id of the quote Asset in the trading pair. */
-  quote_asset_id?: number;
-}
-export interface SpotClobMetadataAminoMsg {
-  type: "/dydxprotocol.clob.SpotClobMetadata";
-  value: SpotClobMetadataAmino;
 }
 /**
  * PerpetualClobMetadata contains metadata for a `ClobPair`
@@ -171,35 +144,6 @@ export interface ClobPair {
 export interface ClobPairProtoMsg {
   typeUrl: "/dydxprotocol.clob.ClobPair";
   value: Uint8Array;
-}
-/**
- * ClobPair represents a single CLOB pair for a given product
- * in state.
- */
-export interface ClobPairAmino {
-  /** ID of the orderbook that stores all resting liquidity for this CLOB. */
-  id?: number;
-  perpetual_clob_metadata?: PerpetualClobMetadataAmino;
-  spot_clob_metadata?: SpotClobMetadataAmino;
-  /** Minimum increment in the size of orders on the CLOB, in base quantums. */
-  step_base_quantums?: string;
-  /**
-   * Defines the tick size of the orderbook by defining how many subticks
-   * are in one tick. That is, the subticks of any valid order must be a
-   * multiple of this value. Generally this value should start `>= 100`to
-   * allow room for decreasing it.
-   */
-  subticks_per_tick?: number;
-  /**
-   * `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
-   * per Subtick.
-   */
-  quantum_conversion_exponent?: number;
-  status?: ClobPair_Status;
-}
-export interface ClobPairAminoMsg {
-  type: "/dydxprotocol.clob.ClobPair";
-  value: ClobPairAmino;
 }
 /**
  * ClobPair represents a single CLOB pair for a given product

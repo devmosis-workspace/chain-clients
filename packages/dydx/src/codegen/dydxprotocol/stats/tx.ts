@@ -1,4 +1,4 @@
-import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { Params, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** MsgUpdateParams is the Msg/UpdateParams request type. */
@@ -12,16 +12,6 @@ export interface MsgUpdateParamsProtoMsg {
   value: Uint8Array;
 }
 /** MsgUpdateParams is the Msg/UpdateParams request type. */
-export interface MsgUpdateParamsAmino {
-  authority?: string;
-  /** The parameters to update. Each field must be set. */
-  params?: ParamsAmino;
-}
-export interface MsgUpdateParamsAminoMsg {
-  type: "/dydxprotocol.stats.MsgUpdateParams";
-  value: MsgUpdateParamsAmino;
-}
-/** MsgUpdateParams is the Msg/UpdateParams request type. */
 export interface MsgUpdateParamsSDKType {
   authority: string;
   params: ParamsSDKType;
@@ -31,12 +21,6 @@ export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/dydxprotocol.stats.MsgUpdateParamsResponse";
   value: Uint8Array;
-}
-/** MsgUpdateParamsResponse is the Msg/UpdateParams response type. */
-export interface MsgUpdateParamsResponseAmino {}
-export interface MsgUpdateParamsResponseAminoMsg {
-  type: "/dydxprotocol.stats.MsgUpdateParamsResponse";
-  value: MsgUpdateParamsResponseAmino;
 }
 /** MsgUpdateParamsResponse is the Msg/UpdateParams response type. */
 export interface MsgUpdateParamsResponseSDKType {}

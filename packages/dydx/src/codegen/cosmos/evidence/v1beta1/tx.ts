@@ -1,4 +1,4 @@
-import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { Any, AnySDKType } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /**
@@ -14,23 +14,6 @@ export interface MsgSubmitEvidence {
 export interface MsgSubmitEvidenceProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.MsgSubmitEvidence";
   value: Uint8Array;
-}
-export type MsgSubmitEvidenceEncoded = Omit<MsgSubmitEvidence, "evidence"> & {
-  /** evidence defines the evidence of misbehavior. */evidence?: AnyProtoMsg | undefined;
-};
-/**
- * MsgSubmitEvidence represents a message that supports submitting arbitrary
- * Evidence of misbehavior such as equivocation or counterfactual signing.
- */
-export interface MsgSubmitEvidenceAmino {
-  /** submitter is the signer account address of evidence. */
-  submitter?: string;
-  /** evidence defines the evidence of misbehavior. */
-  evidence?: AnyAmino;
-}
-export interface MsgSubmitEvidenceAminoMsg {
-  type: "cosmos-sdk/MsgSubmitEvidence";
-  value: MsgSubmitEvidenceAmino;
 }
 /**
  * MsgSubmitEvidence represents a message that supports submitting arbitrary
@@ -50,15 +33,6 @@ export interface MsgSubmitEvidenceResponseProtoMsg {
   value: Uint8Array;
 }
 /** MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type. */
-export interface MsgSubmitEvidenceResponseAmino {
-  /** hash defines the hash of the evidence. */
-  hash?: string;
-}
-export interface MsgSubmitEvidenceResponseAminoMsg {
-  type: "cosmos-sdk/MsgSubmitEvidenceResponse";
-  value: MsgSubmitEvidenceResponseAmino;
-}
-/** MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type. */
 export interface MsgSubmitEvidenceResponseSDKType {
   hash: Uint8Array;
 }
@@ -75,7 +49,7 @@ export const MsgSubmitEvidence = {
       writer.uint32(10).string(message.submitter);
     }
     if (message.evidence !== undefined) {
-      Any.encode((message.evidence as Any), writer.uint32(18).fork()).ldelim();
+      Any.encode(message.evidence, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -97,14 +71,14 @@ export const MsgSubmitEvidence = {
       message.submitter = object.submitter;
     }
     if (object.evidence !== undefined && object.evidence !== null) {
-      message.evidence = Cosmos_evidencev1beta1Evidence_FromAmino(object.evidence);
+      message.evidence = Any.fromAmino(object.evidence);
     }
     return message;
   },
   toAmino(message: MsgSubmitEvidence): MsgSubmitEvidenceAmino {
     const obj: any = {};
     obj.submitter = message.submitter;
-    obj.evidence = message.evidence ? Cosmos_evidencev1beta1Evidence_ToAmino((message.evidence as Any)) : undefined;
+    obj.evidence = message.evidence ? Any.toAmino(message.evidence) : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgSubmitEvidenceAminoMsg): MsgSubmitEvidence {
@@ -193,10 +167,4 @@ export const Cosmos_evidencev1beta1Evidence_InterfaceDecoder = (input: BinaryRea
     default:
       return data;
   }
-};
-export const Cosmos_evidencev1beta1Evidence_FromAmino = (content: AnyAmino) => {
-  return Any.fromAmino(content);
-};
-export const Cosmos_evidencev1beta1Evidence_ToAmino = (content: Any) => {
-  return Any.toAmino(content);
 };

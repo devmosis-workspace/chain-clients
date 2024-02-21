@@ -1,4 +1,4 @@
-import { VestEntry, VestEntryAmino, VestEntrySDKType } from "./vest_entry";
+import { VestEntry, VestEntrySDKType } from "./vest_entry";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** QueryVestEntryRequest is a request type for the VestEntry RPC method. */
@@ -11,15 +11,6 @@ export interface QueryVestEntryRequestProtoMsg {
   value: Uint8Array;
 }
 /** QueryVestEntryRequest is a request type for the VestEntry RPC method. */
-export interface QueryVestEntryRequestAmino {
-  /** QueryVestEntryRequest is a request type for the VestEntry RPC method. */
-  vester_account?: string;
-}
-export interface QueryVestEntryRequestAminoMsg {
-  type: "/dydxprotocol.vest.QueryVestEntryRequest";
-  value: QueryVestEntryRequestAmino;
-}
-/** QueryVestEntryRequest is a request type for the VestEntry RPC method. */
 export interface QueryVestEntryRequestSDKType {
   vester_account: string;
 }
@@ -30,14 +21,6 @@ export interface QueryVestEntryResponse {
 export interface QueryVestEntryResponseProtoMsg {
   typeUrl: "/dydxprotocol.vest.QueryVestEntryResponse";
   value: Uint8Array;
-}
-/** QueryVestEntryResponse is a response type for the VestEntry RPC method. */
-export interface QueryVestEntryResponseAmino {
-  entry?: VestEntryAmino;
-}
-export interface QueryVestEntryResponseAminoMsg {
-  type: "/dydxprotocol.vest.QueryVestEntryResponse";
-  value: QueryVestEntryResponseAmino;
 }
 /** QueryVestEntryResponse is a response type for the VestEntry RPC method. */
 export interface QueryVestEntryResponseSDKType {

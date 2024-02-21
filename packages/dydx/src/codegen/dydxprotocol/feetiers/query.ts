@@ -1,4 +1,4 @@
-import { PerpetualFeeParams, PerpetualFeeParamsAmino, PerpetualFeeParamsSDKType, PerpetualFeeTier, PerpetualFeeTierAmino, PerpetualFeeTierSDKType } from "./params";
+import { PerpetualFeeParams, PerpetualFeeParamsSDKType, PerpetualFeeTier, PerpetualFeeTierSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -9,15 +9,6 @@ export interface QueryPerpetualFeeParamsRequest {}
 export interface QueryPerpetualFeeParamsRequestProtoMsg {
   typeUrl: "/dydxprotocol.feetiers.QueryPerpetualFeeParamsRequest";
   value: Uint8Array;
-}
-/**
- * QueryPerpetualFeeParamsRequest is a request type for the PerpetualFeeParams
- * RPC method.
- */
-export interface QueryPerpetualFeeParamsRequestAmino {}
-export interface QueryPerpetualFeeParamsRequestAminoMsg {
-  type: "/dydxprotocol.feetiers.QueryPerpetualFeeParamsRequest";
-  value: QueryPerpetualFeeParamsRequestAmino;
 }
 /**
  * QueryPerpetualFeeParamsRequest is a request type for the PerpetualFeeParams
@@ -39,17 +30,6 @@ export interface QueryPerpetualFeeParamsResponseProtoMsg {
  * QueryPerpetualFeeParamsResponse is a response type for the PerpetualFeeParams
  * RPC method.
  */
-export interface QueryPerpetualFeeParamsResponseAmino {
-  params?: PerpetualFeeParamsAmino;
-}
-export interface QueryPerpetualFeeParamsResponseAminoMsg {
-  type: "/dydxprotocol.feetiers.QueryPerpetualFeeParamsResponse";
-  value: QueryPerpetualFeeParamsResponseAmino;
-}
-/**
- * QueryPerpetualFeeParamsResponse is a response type for the PerpetualFeeParams
- * RPC method.
- */
 export interface QueryPerpetualFeeParamsResponseSDKType {
   params: PerpetualFeeParamsSDKType;
 }
@@ -60,14 +40,6 @@ export interface QueryUserFeeTierRequest {
 export interface QueryUserFeeTierRequestProtoMsg {
   typeUrl: "/dydxprotocol.feetiers.QueryUserFeeTierRequest";
   value: Uint8Array;
-}
-/** QueryUserFeeTierRequest is a request type for the UserFeeTier RPC method. */
-export interface QueryUserFeeTierRequestAmino {
-  user?: string;
-}
-export interface QueryUserFeeTierRequestAminoMsg {
-  type: "/dydxprotocol.feetiers.QueryUserFeeTierRequest";
-  value: QueryUserFeeTierRequestAmino;
 }
 /** QueryUserFeeTierRequest is a request type for the UserFeeTier RPC method. */
 export interface QueryUserFeeTierRequestSDKType {
@@ -82,16 +54,6 @@ export interface QueryUserFeeTierResponse {
 export interface QueryUserFeeTierResponseProtoMsg {
   typeUrl: "/dydxprotocol.feetiers.QueryUserFeeTierResponse";
   value: Uint8Array;
-}
-/** QueryUserFeeTierResponse is a request type for the UserFeeTier RPC method. */
-export interface QueryUserFeeTierResponseAmino {
-  /** Index of the fee tier in the list queried from PerpetualFeeParams. */
-  index?: number;
-  tier?: PerpetualFeeTierAmino;
-}
-export interface QueryUserFeeTierResponseAminoMsg {
-  type: "/dydxprotocol.feetiers.QueryUserFeeTierResponse";
-  value: QueryUserFeeTierResponseAmino;
 }
 /** QueryUserFeeTierResponse is a request type for the UserFeeTier RPC method. */
 export interface QueryUserFeeTierResponseSDKType {

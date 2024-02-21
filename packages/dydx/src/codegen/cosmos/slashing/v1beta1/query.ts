@@ -1,5 +1,5 @@
-import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
-import { Params, ParamsAmino, ParamsSDKType, ValidatorSigningInfo, ValidatorSigningInfoAmino, ValidatorSigningInfoSDKType } from "./slashing";
+import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
+import { Params, ParamsSDKType, ValidatorSigningInfo, ValidatorSigningInfoSDKType } from "./slashing";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** QueryParamsRequest is the request type for the Query/Params RPC method */
@@ -7,12 +7,6 @@ export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmos.slashing.v1beta1.QueryParamsRequest";
   value: Uint8Array;
-}
-/** QueryParamsRequest is the request type for the Query/Params RPC method */
-export interface QueryParamsRequestAmino {}
-export interface QueryParamsRequestAminoMsg {
-  type: "cosmos-sdk/QueryParamsRequest";
-  value: QueryParamsRequestAmino;
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method */
 export interface QueryParamsRequestSDKType {}
@@ -23,14 +17,6 @@ export interface QueryParamsResponse {
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/cosmos.slashing.v1beta1.QueryParamsResponse";
   value: Uint8Array;
-}
-/** QueryParamsResponse is the response type for the Query/Params RPC method */
-export interface QueryParamsResponseAmino {
-  params: ParamsAmino;
-}
-export interface QueryParamsResponseAminoMsg {
-  type: "cosmos-sdk/QueryParamsResponse";
-  value: QueryParamsResponseAmino;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method */
 export interface QueryParamsResponseSDKType {
@@ -47,18 +33,6 @@ export interface QuerySigningInfoRequest {
 export interface QuerySigningInfoRequestProtoMsg {
   typeUrl: "/cosmos.slashing.v1beta1.QuerySigningInfoRequest";
   value: Uint8Array;
-}
-/**
- * QuerySigningInfoRequest is the request type for the Query/SigningInfo RPC
- * method
- */
-export interface QuerySigningInfoRequestAmino {
-  /** cons_address is the address to query signing info of */
-  cons_address?: string;
-}
-export interface QuerySigningInfoRequestAminoMsg {
-  type: "cosmos-sdk/QuerySigningInfoRequest";
-  value: QuerySigningInfoRequestAmino;
 }
 /**
  * QuerySigningInfoRequest is the request type for the Query/SigningInfo RPC
@@ -83,18 +57,6 @@ export interface QuerySigningInfoResponseProtoMsg {
  * QuerySigningInfoResponse is the response type for the Query/SigningInfo RPC
  * method
  */
-export interface QuerySigningInfoResponseAmino {
-  /** val_signing_info is the signing info of requested val cons address */
-  val_signing_info: ValidatorSigningInfoAmino;
-}
-export interface QuerySigningInfoResponseAminoMsg {
-  type: "cosmos-sdk/QuerySigningInfoResponse";
-  value: QuerySigningInfoResponseAmino;
-}
-/**
- * QuerySigningInfoResponse is the response type for the Query/SigningInfo RPC
- * method
- */
 export interface QuerySigningInfoResponseSDKType {
   val_signing_info: ValidatorSigningInfoSDKType;
 }
@@ -108,17 +70,6 @@ export interface QuerySigningInfosRequest {
 export interface QuerySigningInfosRequestProtoMsg {
   typeUrl: "/cosmos.slashing.v1beta1.QuerySigningInfosRequest";
   value: Uint8Array;
-}
-/**
- * QuerySigningInfosRequest is the request type for the Query/SigningInfos RPC
- * method
- */
-export interface QuerySigningInfosRequestAmino {
-  pagination?: PageRequestAmino;
-}
-export interface QuerySigningInfosRequestAminoMsg {
-  type: "cosmos-sdk/QuerySigningInfosRequest";
-  value: QuerySigningInfosRequestAmino;
 }
 /**
  * QuerySigningInfosRequest is the request type for the Query/SigningInfos RPC
@@ -139,19 +90,6 @@ export interface QuerySigningInfosResponse {
 export interface QuerySigningInfosResponseProtoMsg {
   typeUrl: "/cosmos.slashing.v1beta1.QuerySigningInfosResponse";
   value: Uint8Array;
-}
-/**
- * QuerySigningInfosResponse is the response type for the Query/SigningInfos RPC
- * method
- */
-export interface QuerySigningInfosResponseAmino {
-  /** info is the signing info of all validators */
-  info: ValidatorSigningInfoAmino[];
-  pagination?: PageResponseAmino;
-}
-export interface QuerySigningInfosResponseAminoMsg {
-  type: "cosmos-sdk/QuerySigningInfosResponse";
-  value: QuerySigningInfosResponseAmino;
 }
 /**
  * QuerySigningInfosResponse is the response type for the Query/SigningInfos RPC

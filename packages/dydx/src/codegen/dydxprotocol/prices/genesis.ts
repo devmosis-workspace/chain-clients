@@ -1,5 +1,5 @@
-import { MarketParam, MarketParamAmino, MarketParamSDKType } from "./market_param";
-import { MarketPrice, MarketPriceAmino, MarketPriceSDKType } from "./market_price";
+import { MarketParam, MarketParamSDKType } from "./market_param";
+import { MarketPrice, MarketPriceSDKType } from "./market_price";
 import { BinaryWriter } from "../../binary";
 /** GenesisState defines the prices module's genesis state. */
 export interface GenesisState {
@@ -9,15 +9,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.prices.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the prices module's genesis state. */
-export interface GenesisStateAmino {
-  market_params?: MarketParamAmino[];
-  market_prices?: MarketPriceAmino[];
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.prices.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the prices module's genesis state. */
 export interface GenesisStateSDKType {

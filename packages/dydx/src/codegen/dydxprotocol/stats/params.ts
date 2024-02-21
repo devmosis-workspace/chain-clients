@@ -1,4 +1,4 @@
-import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { Duration, DurationSDKType } from "../../google/protobuf/duration";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** Params defines the parameters for x/stats module. */
@@ -9,15 +9,6 @@ export interface Params {
 export interface ParamsProtoMsg {
   typeUrl: "/dydxprotocol.stats.Params";
   value: Uint8Array;
-}
-/** Params defines the parameters for x/stats module. */
-export interface ParamsAmino {
-  /** The desired number of seconds in the look-back window. */
-  window_duration?: DurationAmino;
-}
-export interface ParamsAminoMsg {
-  type: "/dydxprotocol.stats.Params";
-  value: ParamsAmino;
 }
 /** Params defines the parameters for x/stats module. */
 export interface ParamsSDKType {

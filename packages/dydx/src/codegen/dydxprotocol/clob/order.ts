@@ -1,4 +1,4 @@
-import { SubaccountId, SubaccountIdAmino, SubaccountIdSDKType } from "../subaccounts/subaccount";
+import { SubaccountId, SubaccountIdSDKType } from "../subaccounts/subaccount";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -16,7 +16,6 @@ export enum Order_Side {
   UNRECOGNIZED = -1,
 }
 export const Order_SideSDKType = Order_Side;
-export const Order_SideAmino = Order_Side;
 export function order_SideFromJSON(object: any): Order_Side {
   switch (object) {
     case 0:
@@ -81,7 +80,6 @@ export enum Order_TimeInForce {
   UNRECOGNIZED = -1,
 }
 export const Order_TimeInForceSDKType = Order_TimeInForce;
-export const Order_TimeInForceAmino = Order_TimeInForce;
 export function order_TimeInForceFromJSON(object: any): Order_TimeInForce {
   switch (object) {
     case 0:
@@ -138,7 +136,6 @@ export enum Order_ConditionType {
   UNRECOGNIZED = -1,
 }
 export const Order_ConditionTypeSDKType = Order_ConditionType;
-export const Order_ConditionTypeAmino = Order_ConditionType;
 export function order_ConditionTypeFromJSON(object: any): Order_ConditionType {
   switch (object) {
     case 0:
@@ -209,45 +206,6 @@ export interface OrderIdProtoMsg {
   value: Uint8Array;
 }
 /** OrderId refers to a single order belonging to a Subaccount. */
-export interface OrderIdAmino {
-  /**
-   * The subaccount ID that opened this order.
-   * Note that this field has `gogoproto.nullable = false` so that it is
-   * generated as a value instead of a pointer. This is because the `OrderId`
-   * proto is used as a key within maps, and map comparisons will compare
-   * pointers for equality (when the desired behavior is to compare the values).
-   */
-  subaccount_id?: SubaccountIdAmino;
-  /**
-   * The client ID of this order, unique with respect to the specific
-   * sub account (I.E., the same subaccount can't have two orders with
-   * the same ClientId).
-   */
-  client_id?: number;
-  /**
-   * order_flags represent order flags for the order. This field is invalid if
-   * it's greater than 127 (larger than one byte). Each bit in the first byte
-   * represents a different flag. Currently only two flags are supported.
-   * 
-   * Starting from the bit after the most MSB (note that the MSB is used in
-   * proto varint encoding, and therefore cannot be used): Bit 1 is set if this
-   * order is a Long-Term order (0x40, or 64 as a uint8). Bit 2 is set if this
-   * order is a Conditional order (0x20, or 32 as a uint8).
-   * 
-   * If neither bit is set, the order is assumed to be a Short-Term order.
-   * 
-   * If both bits are set or bits other than the 2nd and 3rd are set, the order
-   * ID is invalid.
-   */
-  order_flags?: number;
-  /** ID of the CLOB the order is created for. */
-  clob_pair_id?: number;
-}
-export interface OrderIdAminoMsg {
-  type: "/dydxprotocol.clob.OrderId";
-  value: OrderIdAmino;
-}
-/** OrderId refers to a single order belonging to a Subaccount. */
 export interface OrderIdSDKType {
   subaccount_id: SubaccountIdSDKType;
   client_id: number;
@@ -268,21 +226,6 @@ export interface OrdersFilledDuringLatestBlock {
 export interface OrdersFilledDuringLatestBlockProtoMsg {
   typeUrl: "/dydxprotocol.clob.OrdersFilledDuringLatestBlock";
   value: Uint8Array;
-}
-/**
- * OrdersFilledDuringLatestBlock represents a list of `OrderIds` that were
- * filled by any non-zero amount in the latest block.
- */
-export interface OrdersFilledDuringLatestBlockAmino {
-  /**
-   * A list of unique order_ids that were filled by any non-zero amount in the
-   * latest block.
-   */
-  order_ids?: OrderIdAmino[];
-}
-export interface OrdersFilledDuringLatestBlockAminoMsg {
-  type: "/dydxprotocol.clob.OrdersFilledDuringLatestBlock";
-  value: OrdersFilledDuringLatestBlockAmino;
 }
 /**
  * OrdersFilledDuringLatestBlock represents a list of `OrderIds` that were
@@ -310,21 +253,6 @@ export interface PotentiallyPrunableOrdersProtoMsg {
  * PotentiallyPrunableOrders represents a list of orders that may be prunable
  * from state at a future block height.
  */
-export interface PotentiallyPrunableOrdersAmino {
-  /**
-   * A list of unique order_ids that may potentially be pruned from state at a
-   * future block height.
-   */
-  order_ids?: OrderIdAmino[];
-}
-export interface PotentiallyPrunableOrdersAminoMsg {
-  type: "/dydxprotocol.clob.PotentiallyPrunableOrders";
-  value: PotentiallyPrunableOrdersAmino;
-}
-/**
- * PotentiallyPrunableOrders represents a list of orders that may be prunable
- * from state at a future block height.
- */
 export interface PotentiallyPrunableOrdersSDKType {
   order_ids: OrderIdSDKType[];
 }
@@ -346,25 +274,6 @@ export interface OrderFillState {
 export interface OrderFillStateProtoMsg {
   typeUrl: "/dydxprotocol.clob.OrderFillState";
   value: Uint8Array;
-}
-/**
- * OrderFillState represents the fill amount of an order according to on-chain
- * state. This proto includes both the current on-chain fill amount of the
- * order, as well as the block at which this information can be pruned from
- * state.
- */
-export interface OrderFillStateAmino {
-  /** The current fillAmount of the order according to on-chain state. */
-  fill_amount?: string;
-  /**
-   * The block height at which the fillAmount state for this order can be
-   * pruned.
-   */
-  prunable_block_height?: number;
-}
-export interface OrderFillStateAminoMsg {
-  type: "/dydxprotocol.clob.OrderFillState";
-  value: OrderFillStateAmino;
 }
 /**
  * OrderFillState represents the fill amount of an order according to on-chain
@@ -408,28 +317,6 @@ export interface StatefulOrderTimeSliceValueProtoMsg {
  * order expiration. Stateful order expirations can be for either long term
  * or conditional orders.
  */
-export interface StatefulOrderTimeSliceValueAmino {
-  /**
-   * A unique list of order_ids that expire at this timestamp, sorted in
-   * ascending order by block height and transaction index of each stateful
-   * order.
-   */
-  order_ids?: OrderIdAmino[];
-}
-export interface StatefulOrderTimeSliceValueAminoMsg {
-  type: "/dydxprotocol.clob.StatefulOrderTimeSliceValue";
-  value: StatefulOrderTimeSliceValueAmino;
-}
-/**
- * StatefulOrderTimeSliceValue represents the type of the value of the
- * `StatefulOrdersTimeSlice` in state. The `StatefulOrdersTimeSlice`
- * in state consists of key/value pairs where the keys are UTF-8-encoded
- * `RFC3339NANO` timestamp strings with right-padded zeroes and no
- * time zone info, and the values are of type `StatefulOrderTimeSliceValue`.
- * This `StatefulOrderTimeSliceValue` in state is used for managing stateful
- * order expiration. Stateful order expirations can be for either long term
- * or conditional orders.
- */
 export interface StatefulOrderTimeSliceValueSDKType {
   order_ids: OrderIdSDKType[];
 }
@@ -449,23 +336,6 @@ export interface LongTermOrderPlacement {
 export interface LongTermOrderPlacementProtoMsg {
   typeUrl: "/dydxprotocol.clob.LongTermOrderPlacement";
   value: Uint8Array;
-}
-/**
- * LongTermOrderPlacement represents the placement of a stateful order in
- * state. It stores the stateful order itself and the `BlockHeight` and
- * `TransactionIndex` at which the order was placed.
- */
-export interface LongTermOrderPlacementAmino {
-  order?: OrderAmino;
-  /**
-   * The block height and transaction index at which the order was placed.
-   * Used for ordering by time priority when the chain is restarted.
-   */
-  placement_index?: TransactionOrderingAmino;
-}
-export interface LongTermOrderPlacementAminoMsg {
-  type: "/dydxprotocol.clob.LongTermOrderPlacement";
-  value: LongTermOrderPlacementAmino;
 }
 /**
  * LongTermOrderPlacement represents the placement of a stateful order in
@@ -495,26 +365,6 @@ export interface ConditionalOrderPlacement {
 export interface ConditionalOrderPlacementProtoMsg {
   typeUrl: "/dydxprotocol.clob.ConditionalOrderPlacement";
   value: Uint8Array;
-}
-/**
- * ConditionalOrderPlacement represents the placement of a conditional order in
- * state. It stores the stateful order itself, the `BlockHeight` and
- * `TransactionIndex` at which the order was placed and triggered.
- */
-export interface ConditionalOrderPlacementAmino {
-  order?: OrderAmino;
-  /** The block height and transaction index at which the order was placed. */
-  placement_index?: TransactionOrderingAmino;
-  /**
-   * The block height and transaction index at which the order was triggered.
-   * Set to be nil if the transaction has not been triggered.
-   * Used for ordering by time priority when the chain is restarted.
-   */
-  trigger_index?: TransactionOrderingAmino;
-}
-export interface ConditionalOrderPlacementAminoMsg {
-  type: "/dydxprotocol.clob.ConditionalOrderPlacement";
-  value: ConditionalOrderPlacementAmino;
 }
 /**
  * ConditionalOrderPlacement represents the placement of a conditional order in
@@ -595,71 +445,6 @@ export interface OrderProtoMsg {
  * Order represents a single order belonging to a `Subaccount`
  * for a particular `ClobPair`.
  */
-export interface OrderAmino {
-  /** The unique ID of this order. Meant to be unique across all orders. */
-  order_id?: OrderIdAmino;
-  side?: Order_Side;
-  /**
-   * The size of this order in base quantums. Must be a multiple of
-   * `ClobPair.StepBaseQuantums` (where `ClobPair.Id = orderId.ClobPairId`).
-   */
-  quantums?: string;
-  /**
-   * The price level that this order will be placed at on the orderbook,
-   * in subticks. Must be a multiple of ClobPair.SubticksPerTick
-   * (where `ClobPair.Id = orderId.ClobPairId`).
-   */
-  subticks?: string;
-  /**
-   * The last block this order can be executed at (after which it will be
-   * unfillable). Used only for Short-Term orders. If this value is non-zero
-   * then the order is assumed to be a Short-Term order.
-   */
-  good_til_block?: number;
-  /**
-   * good_til_block_time represents the unix timestamp (in seconds) at which a
-   * stateful order will be considered expired. The
-   * good_til_block_time is always evaluated against the previous block's
-   * `BlockTime` instead of the block in which the order is committed. If this
-   * value is non-zero then the order is assumed to be a stateful or
-   * conditional order.
-   */
-  good_til_block_time?: number;
-  /** The time in force of this order. */
-  time_in_force?: Order_TimeInForce;
-  /**
-   * Enforces that the order can only reduce the size of an existing position.
-   * If a ReduceOnly order would change the side of the existing position,
-   * its size is reduced to that of the remaining size of the position.
-   * If existing orders on the book with ReduceOnly
-   * would already close the position, the least aggressive (out-of-the-money)
-   * ReduceOnly orders are resized and canceled first.
-   */
-  reduce_only?: boolean;
-  /**
-   * Set of bit flags set arbitrarily by clients and ignored by the protocol.
-   * Used by indexer to infer information about a placed order.
-   */
-  client_metadata?: number;
-  condition_type?: Order_ConditionType;
-  /**
-   * conditional_order_trigger_subticks represents the price at which this order
-   * will be triggered. If the condition_type is CONDITION_TYPE_UNSPECIFIED,
-   * this value is enforced to be 0. If this value is nonzero, condition_type
-   * cannot be CONDITION_TYPE_UNSPECIFIED. Value is in subticks.
-   * Must be a multiple of ClobPair.SubticksPerTick (where `ClobPair.Id =
-   * orderId.ClobPairId`).
-   */
-  conditional_order_trigger_subticks?: string;
-}
-export interface OrderAminoMsg {
-  type: "/dydxprotocol.clob.Order";
-  value: OrderAmino;
-}
-/**
- * Order represents a single order belonging to a `Subaccount`
- * for a particular `ClobPair`.
- */
 export interface OrderSDKType {
   order_id: OrderIdSDKType;
   side: Order_Side;
@@ -688,22 +473,6 @@ export interface TransactionOrdering {
 export interface TransactionOrderingProtoMsg {
   typeUrl: "/dydxprotocol.clob.TransactionOrdering";
   value: Uint8Array;
-}
-/**
- * TransactionOrdering represents a unique location in the block where a
- * transaction was placed. This proto includes both block height and the
- * transaction index that the specific transaction was placed. This information
- * is used for ordering by time priority when the chain is restarted.
- */
-export interface TransactionOrderingAmino {
-  /** Block height in which the transaction was placed. */
-  block_height?: number;
-  /** Within the block, the unique transaction index. */
-  transaction_index?: number;
-}
-export interface TransactionOrderingAminoMsg {
-  type: "/dydxprotocol.clob.TransactionOrdering";
-  value: TransactionOrderingAmino;
 }
 /**
  * TransactionOrdering represents a unique location in the block where a

@@ -1,6 +1,6 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgCreateDenom, MsgMint, MsgBurn, MsgChangeAdmin } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/osmosis.tokenfactory.v1beta1.MsgCreateDenom", MsgCreateDenom], ["/osmosis.tokenfactory.v1beta1.MsgMint", MsgMint], ["/osmosis.tokenfactory.v1beta1.MsgBurn", MsgBurn], ["/osmosis.tokenfactory.v1beta1.MsgChangeAdmin", MsgChangeAdmin]];
+import { MsgCreateDenom, MsgMint, MsgBurn, MsgChangeAdmin, MsgSetDenomMetadata, MsgSetBeforeSendHook, MsgForceTransfer, MsgUpdateParams } from "./tx";
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/osmosis.tokenfactory.v1beta1.MsgCreateDenom", MsgCreateDenom], ["/osmosis.tokenfactory.v1beta1.MsgMint", MsgMint], ["/osmosis.tokenfactory.v1beta1.MsgBurn", MsgBurn], ["/osmosis.tokenfactory.v1beta1.MsgChangeAdmin", MsgChangeAdmin], ["/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata", MsgSetDenomMetadata], ["/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook", MsgSetBeforeSendHook], ["/osmosis.tokenfactory.v1beta1.MsgForceTransfer", MsgForceTransfer], ["/osmosis.tokenfactory.v1beta1.MsgUpdateParams", MsgUpdateParams]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -31,6 +31,30 @@ export const MessageComposer = {
         typeUrl: "/osmosis.tokenfactory.v1beta1.MsgChangeAdmin",
         value: MsgChangeAdmin.encode(value).finish()
       };
+    },
+    setDenomMetadata(value: MsgSetDenomMetadata) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata",
+        value: MsgSetDenomMetadata.encode(value).finish()
+      };
+    },
+    setBeforeSendHook(value: MsgSetBeforeSendHook) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook",
+        value: MsgSetBeforeSendHook.encode(value).finish()
+      };
+    },
+    forceTransfer(value: MsgForceTransfer) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransfer",
+        value: MsgForceTransfer.encode(value).finish()
+      };
+    },
+    updateParams(value: MsgUpdateParams) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParams",
+        value: MsgUpdateParams.encode(value).finish()
+      };
     }
   },
   withTypeUrl: {
@@ -55,6 +79,30 @@ export const MessageComposer = {
     changeAdmin(value: MsgChangeAdmin) {
       return {
         typeUrl: "/osmosis.tokenfactory.v1beta1.MsgChangeAdmin",
+        value
+      };
+    },
+    setDenomMetadata(value: MsgSetDenomMetadata) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata",
+        value
+      };
+    },
+    setBeforeSendHook(value: MsgSetBeforeSendHook) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook",
+        value
+      };
+    },
+    forceTransfer(value: MsgForceTransfer) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransfer",
+        value
+      };
+    },
+    updateParams(value: MsgUpdateParams) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParams",
         value
       };
     }
@@ -83,6 +131,30 @@ export const MessageComposer = {
         typeUrl: "/osmosis.tokenfactory.v1beta1.MsgChangeAdmin",
         value: MsgChangeAdmin.fromJSON(value)
       };
+    },
+    setDenomMetadata(value: any) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata",
+        value: MsgSetDenomMetadata.fromJSON(value)
+      };
+    },
+    setBeforeSendHook(value: any) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook",
+        value: MsgSetBeforeSendHook.fromJSON(value)
+      };
+    },
+    forceTransfer(value: any) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransfer",
+        value: MsgForceTransfer.fromJSON(value)
+      };
+    },
+    updateParams(value: any) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParams",
+        value: MsgUpdateParams.fromJSON(value)
+      };
     }
   },
   fromPartial: {
@@ -108,6 +180,30 @@ export const MessageComposer = {
       return {
         typeUrl: "/osmosis.tokenfactory.v1beta1.MsgChangeAdmin",
         value: MsgChangeAdmin.fromPartial(value)
+      };
+    },
+    setDenomMetadata(value: MsgSetDenomMetadata) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata",
+        value: MsgSetDenomMetadata.fromPartial(value)
+      };
+    },
+    setBeforeSendHook(value: MsgSetBeforeSendHook) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetBeforeSendHook",
+        value: MsgSetBeforeSendHook.fromPartial(value)
+      };
+    },
+    forceTransfer(value: MsgForceTransfer) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransfer",
+        value: MsgForceTransfer.fromPartial(value)
+      };
+    },
+    updateParams(value: MsgUpdateParams) {
+      return {
+        typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParams",
+        value: MsgUpdateParams.fromPartial(value)
       };
     }
   }

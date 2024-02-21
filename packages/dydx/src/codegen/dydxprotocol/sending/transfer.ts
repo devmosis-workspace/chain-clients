@@ -1,5 +1,5 @@
-import { SubaccountId, SubaccountIdAmino, SubaccountIdSDKType } from "../subaccounts/subaccount";
-import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
+import { SubaccountId, SubaccountIdSDKType } from "../subaccounts/subaccount";
+import { Coin, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** Transfer represents a single transfer between two subaccounts. */
@@ -16,21 +16,6 @@ export interface Transfer {
 export interface TransferProtoMsg {
   typeUrl: "/dydxprotocol.sending.Transfer";
   value: Uint8Array;
-}
-/** Transfer represents a single transfer between two subaccounts. */
-export interface TransferAmino {
-  /** The sender subaccount ID. */
-  sender?: SubaccountIdAmino;
-  /** The recipient subaccount ID. */
-  recipient?: SubaccountIdAmino;
-  /** Id of the asset to transfer. */
-  asset_id?: number;
-  /** The amount of asset to transfer */
-  amount?: string;
-}
-export interface TransferAminoMsg {
-  type: "/dydxprotocol.sending.Transfer";
-  value: TransferAmino;
 }
 /** Transfer represents a single transfer between two subaccounts. */
 export interface TransferSDKType {
@@ -56,24 +41,6 @@ export interface MsgDepositToSubaccount {
 export interface MsgDepositToSubaccountProtoMsg {
   typeUrl: "/dydxprotocol.sending.MsgDepositToSubaccount";
   value: Uint8Array;
-}
-/**
- * MsgDepositToSubaccount represents a single transfer from an `x/bank`
- * account to an `x/subaccounts` subaccount.
- */
-export interface MsgDepositToSubaccountAmino {
-  /** The sender wallet address. */
-  sender?: string;
-  /** The recipient subaccount ID. */
-  recipient?: SubaccountIdAmino;
-  /** Id of the asset to transfer. */
-  asset_id?: number;
-  /** The number of quantums of asset to transfer. */
-  quantums?: string;
-}
-export interface MsgDepositToSubaccountAminoMsg {
-  type: "/dydxprotocol.sending.MsgDepositToSubaccount";
-  value: MsgDepositToSubaccountAmino;
 }
 /**
  * MsgDepositToSubaccount represents a single transfer from an `x/bank`
@@ -107,24 +74,6 @@ export interface MsgWithdrawFromSubaccountProtoMsg {
  * MsgWithdrawFromSubaccount represents a single transfer from an
  * `x/subaccounts` subaccount to an `x/bank` account.
  */
-export interface MsgWithdrawFromSubaccountAmino {
-  /** The sender subaccount ID. */
-  sender?: SubaccountIdAmino;
-  /** The recipient wallet address. */
-  recipient?: string;
-  /** Id of the asset to transfer. */
-  asset_id?: number;
-  /** The number of quantums of asset to transfer. */
-  quantums?: string;
-}
-export interface MsgWithdrawFromSubaccountAminoMsg {
-  type: "/dydxprotocol.sending.MsgWithdrawFromSubaccount";
-  value: MsgWithdrawFromSubaccountAmino;
-}
-/**
- * MsgWithdrawFromSubaccount represents a single transfer from an
- * `x/subaccounts` subaccount to an `x/bank` account.
- */
 export interface MsgWithdrawFromSubaccountSDKType {
   sender: SubaccountIdSDKType;
   recipient: string;
@@ -152,28 +101,6 @@ export interface MsgSendFromModuleToAccount {
 export interface MsgSendFromModuleToAccountProtoMsg {
   typeUrl: "/dydxprotocol.sending.MsgSendFromModuleToAccount";
   value: Uint8Array;
-}
-/**
- * MsgSendFromModuleToAccount represents a single transfer from a module
- * to an `x/bank` account (can be either a module account address or a user
- * account address).
- * Should only be executed by governance.
- */
-export interface MsgSendFromModuleToAccountAmino {
-  authority?: string;
-  /** The sender module name. */
-  sender_module_name?: string;
-  /**
-   * The recipient account address (can be either a module account address
-   * or a user account address).
-   */
-  recipient?: string;
-  /** The coin to transfer, which specifies both denom and amount. */
-  coin?: CoinAmino;
-}
-export interface MsgSendFromModuleToAccountAminoMsg {
-  type: "/dydxprotocol.sending.MsgSendFromModuleToAccount";
-  value: MsgSendFromModuleToAccountAmino;
 }
 /**
  * MsgSendFromModuleToAccount represents a single transfer from a module

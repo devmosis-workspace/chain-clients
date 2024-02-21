@@ -1,4 +1,4 @@
-import { ModuleOptions, ModuleOptionsAmino, ModuleOptionsSDKType } from "./options";
+import { ModuleOptions, ModuleOptionsSDKType } from "./options";
 import { BinaryWriter } from "../../../binary";
 import { isSet, isObject } from "../../../helpers";
 /** AppOptionsRequest is the RemoteInfoService/AppOptions request type. */
@@ -6,12 +6,6 @@ export interface AppOptionsRequest {}
 export interface AppOptionsRequestProtoMsg {
   typeUrl: "/cosmos.autocli.v1.AppOptionsRequest";
   value: Uint8Array;
-}
-/** AppOptionsRequest is the RemoteInfoService/AppOptions request type. */
-export interface AppOptionsRequestAmino {}
-export interface AppOptionsRequestAminoMsg {
-  type: "cosmos-sdk/AppOptionsRequest";
-  value: AppOptionsRequestAmino;
 }
 /** AppOptionsRequest is the RemoteInfoService/AppOptions request type. */
 export interface AppOptionsRequestSDKType {}
@@ -22,14 +16,6 @@ export interface AppOptionsResponse_ModuleOptionsEntry {
 export interface AppOptionsResponse_ModuleOptionsEntryProtoMsg {
   typeUrl: string;
   value: Uint8Array;
-}
-export interface AppOptionsResponse_ModuleOptionsEntryAmino {
-  key?: string;
-  value?: ModuleOptionsAmino;
-}
-export interface AppOptionsResponse_ModuleOptionsEntryAminoMsg {
-  type: string;
-  value: AppOptionsResponse_ModuleOptionsEntryAmino;
 }
 export interface AppOptionsResponse_ModuleOptionsEntrySDKType {
   key: string;
@@ -45,17 +31,6 @@ export interface AppOptionsResponse {
 export interface AppOptionsResponseProtoMsg {
   typeUrl: "/cosmos.autocli.v1.AppOptionsResponse";
   value: Uint8Array;
-}
-/** AppOptionsResponse is the RemoteInfoService/AppOptions response type. */
-export interface AppOptionsResponseAmino {
-  /** module_options is a map of module name to autocli module options. */
-  module_options?: {
-    [key: string]: ModuleOptionsAmino;
-  };
-}
-export interface AppOptionsResponseAminoMsg {
-  type: "cosmos-sdk/AppOptionsResponse";
-  value: AppOptionsResponseAmino;
 }
 /** AppOptionsResponse is the RemoteInfoService/AppOptions response type. */
 export interface AppOptionsResponseSDKType {

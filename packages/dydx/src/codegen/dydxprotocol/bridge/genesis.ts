@@ -1,5 +1,5 @@
-import { EventParams, EventParamsAmino, EventParamsSDKType, ProposeParams, ProposeParamsAmino, ProposeParamsSDKType, SafetyParams, SafetyParamsAmino, SafetyParamsSDKType } from "./params";
-import { BridgeEventInfo, BridgeEventInfoAmino, BridgeEventInfoSDKType } from "./bridge_event_info";
+import { EventParams, EventParamsSDKType, ProposeParams, ProposeParamsSDKType, SafetyParams, SafetyParamsSDKType } from "./params";
+import { BridgeEventInfo, BridgeEventInfoSDKType } from "./bridge_event_info";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** GenesisState defines the bridge module's genesis state. */
@@ -18,23 +18,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.bridge.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the bridge module's genesis state. */
-export interface GenesisStateAmino {
-  /** The parameters of the module. */
-  event_params?: EventParamsAmino;
-  propose_params?: ProposeParamsAmino;
-  safety_params?: SafetyParamsAmino;
-  /**
-   * Acknowledged event info that stores:
-   * - the next event ID to be added to consensus.
-   * - Ethereum block height of the most recently acknowledged bridge event.
-   */
-  acknowledged_event_info?: BridgeEventInfoAmino;
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.bridge.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the bridge module's genesis state. */
 export interface GenesisStateSDKType {

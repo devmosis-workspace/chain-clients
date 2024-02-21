@@ -1,4 +1,4 @@
-import { DowntimeParams, DowntimeParamsAmino, DowntimeParamsSDKType } from "./params";
+import { DowntimeParams, DowntimeParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** GenesisState defines the blocktime module's genesis state. */
@@ -8,14 +8,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the blocktime module's genesis state. */
-export interface GenesisStateAmino {
-  params?: DowntimeParamsAmino;
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.blocktime.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the blocktime module's genesis state. */
 export interface GenesisStateSDKType {

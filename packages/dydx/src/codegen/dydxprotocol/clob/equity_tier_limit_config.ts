@@ -24,26 +24,6 @@ export interface EquityTierLimitConfigurationProtoMsg {
  * Defines the set of equity tiers to limit how many open orders
  * a subaccount is allowed to have.
  */
-export interface EquityTierLimitConfigurationAmino {
-  /**
-   * How many short term stateful orders are allowed per equity tier.
-   * Specifying 0 values disables this limit.
-   */
-  short_term_order_equity_tiers?: EquityTierLimitAmino[];
-  /**
-   * How many open stateful orders are allowed per equity tier.
-   * Specifying 0 values disables this limit.
-   */
-  stateful_order_equity_tiers?: EquityTierLimitAmino[];
-}
-export interface EquityTierLimitConfigurationAminoMsg {
-  type: "/dydxprotocol.clob.EquityTierLimitConfiguration";
-  value: EquityTierLimitConfigurationAmino;
-}
-/**
- * Defines the set of equity tiers to limit how many open orders
- * a subaccount is allowed to have.
- */
 export interface EquityTierLimitConfigurationSDKType {
   short_term_order_equity_tiers: EquityTierLimitSDKType[];
   stateful_order_equity_tiers: EquityTierLimitSDKType[];
@@ -58,17 +38,6 @@ export interface EquityTierLimit {
 export interface EquityTierLimitProtoMsg {
   typeUrl: "/dydxprotocol.clob.EquityTierLimit";
   value: Uint8Array;
-}
-/** Defines an equity tier limit. */
-export interface EquityTierLimitAmino {
-  /** The total net collateral in USDC quote quantums of equity required. */
-  usd_tnc_required?: string;
-  /** What the limit is for `usd_tnc_required`. */
-  limit?: number;
-}
-export interface EquityTierLimitAminoMsg {
-  type: "/dydxprotocol.clob.EquityTierLimit";
-  value: EquityTierLimitAmino;
 }
 /** Defines an equity tier limit. */
 export interface EquityTierLimitSDKType {

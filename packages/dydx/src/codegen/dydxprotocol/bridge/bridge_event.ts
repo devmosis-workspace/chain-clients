@@ -1,4 +1,4 @@
-import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
+import { Coin, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** BridgeEvent is a recognized event from the Ethereum blockchain. */
@@ -15,21 +15,6 @@ export interface BridgeEvent {
 export interface BridgeEventProtoMsg {
   typeUrl: "/dydxprotocol.bridge.BridgeEvent";
   value: Uint8Array;
-}
-/** BridgeEvent is a recognized event from the Ethereum blockchain. */
-export interface BridgeEventAmino {
-  /** The unique id of the Ethereum event log. */
-  id?: number;
-  /** The tokens bridged. */
-  coin?: CoinAmino;
-  /** The account address or module address to bridge to. */
-  address?: string;
-  /** The Ethereum block height of the event. */
-  eth_block_height?: string;
-}
-export interface BridgeEventAminoMsg {
-  type: "/dydxprotocol.bridge.BridgeEvent";
-  value: BridgeEventAmino;
 }
 /** BridgeEvent is a recognized event from the Ethereum blockchain. */
 export interface BridgeEventSDKType {

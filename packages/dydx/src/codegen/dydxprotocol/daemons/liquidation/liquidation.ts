@@ -1,4 +1,4 @@
-import { SubaccountId, SubaccountIdAmino, SubaccountIdSDKType } from "../../subaccounts/subaccount";
+import { SubaccountId, SubaccountIdSDKType } from "../../subaccounts/subaccount";
 import { BinaryWriter } from "../../../binary";
 /**
  * LiquidateSubaccountsRequest is a request message that contains a list of
@@ -19,19 +19,6 @@ export interface LiquidateSubaccountsRequestProtoMsg {
  * ids should not contain duplicates. The application should re-verify these
  * subaccount ids against current state before liquidating their positions.
  */
-export interface LiquidateSubaccountsRequestAmino {
-  subaccount_ids?: SubaccountIdAmino[];
-}
-export interface LiquidateSubaccountsRequestAminoMsg {
-  type: "/dydxprotocol.daemons.liquidation.LiquidateSubaccountsRequest";
-  value: LiquidateSubaccountsRequestAmino;
-}
-/**
- * LiquidateSubaccountsRequest is a request message that contains a list of
- * subaccount ids that potentially need to be liquidated. The list of subaccount
- * ids should not contain duplicates. The application should re-verify these
- * subaccount ids against current state before liquidating their positions.
- */
 export interface LiquidateSubaccountsRequestSDKType {
   subaccount_ids: SubaccountIdSDKType[];
 }
@@ -43,15 +30,6 @@ export interface LiquidateSubaccountsResponse {}
 export interface LiquidateSubaccountsResponseProtoMsg {
   typeUrl: "/dydxprotocol.daemons.liquidation.LiquidateSubaccountsResponse";
   value: Uint8Array;
-}
-/**
- * LiquidateSubaccountsResponse is a response message for
- * LiquidateSubaccountsRequest.
- */
-export interface LiquidateSubaccountsResponseAmino {}
-export interface LiquidateSubaccountsResponseAminoMsg {
-  type: "/dydxprotocol.daemons.liquidation.LiquidateSubaccountsResponse";
-  value: LiquidateSubaccountsResponseAmino;
 }
 /**
  * LiquidateSubaccountsResponse is a response message for

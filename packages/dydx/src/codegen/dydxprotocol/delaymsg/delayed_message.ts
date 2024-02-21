@@ -1,4 +1,4 @@
-import { Any, AnyAmino, AnySDKType } from "../../google/protobuf/any";
+import { Any, AnySDKType } from "../../google/protobuf/any";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** DelayedMessage is a message that is delayed until a certain block height. */
@@ -13,19 +13,6 @@ export interface DelayedMessage {
 export interface DelayedMessageProtoMsg {
   typeUrl: "/dydxprotocol.delaymsg.DelayedMessage";
   value: Uint8Array;
-}
-/** DelayedMessage is a message that is delayed until a certain block height. */
-export interface DelayedMessageAmino {
-  /** The ID of the delayed message. */
-  id?: number;
-  /** The message to be executed. */
-  msg?: AnyAmino;
-  /** The block height at which the message should be executed. */
-  block_height?: number;
-}
-export interface DelayedMessageAminoMsg {
-  type: "/dydxprotocol.delaymsg.DelayedMessage";
-  value: DelayedMessageAmino;
 }
 /** DelayedMessage is a message that is delayed until a certain block height. */
 export interface DelayedMessageSDKType {

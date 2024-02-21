@@ -1,6 +1,6 @@
 import { PublicKey, PublicKeyAmino, PublicKeySDKType } from "../crypto/keys";
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 export interface PacketPing {}
 export interface PacketPingProtoMsg {
   typeUrl: "/tendermint.p2p.PacketPing";
@@ -33,9 +33,9 @@ export interface PacketMsgProtoMsg {
   value: Uint8Array;
 }
 export interface PacketMsgAmino {
-  channel_id: number;
-  eof: boolean;
-  data: Uint8Array;
+  channel_id?: number;
+  eof?: boolean;
+  data?: string;
 }
 export interface PacketMsgAminoMsg {
   type: "/tendermint.p2p.PacketMsg";
@@ -79,7 +79,7 @@ export interface AuthSigMessageProtoMsg {
 }
 export interface AuthSigMessageAmino {
   pub_key?: PublicKeyAmino;
-  sig: Uint8Array;
+  sig?: string;
 }
 export interface AuthSigMessageAminoMsg {
   type: "/tendermint.p2p.AuthSigMessage";
@@ -105,7 +105,8 @@ export const PacketPing = {
     return message;
   },
   fromAmino(_: PacketPingAmino): PacketPing {
-    return {};
+    const message = createBasePacketPing();
+    return message;
   },
   toAmino(_: PacketPing): PacketPingAmino {
     const obj: any = {};
@@ -143,7 +144,8 @@ export const PacketPong = {
     return message;
   },
   fromAmino(_: PacketPongAmino): PacketPong {
-    return {};
+    const message = createBasePacketPong();
+    return message;
   },
   toAmino(_: PacketPong): PacketPongAmino {
     const obj: any = {};
@@ -201,17 +203,23 @@ export const PacketMsg = {
     return message;
   },
   fromAmino(object: PacketMsgAmino): PacketMsg {
-    return {
-      channelId: object.channel_id,
-      eof: object.eof,
-      data: object.data
-    };
+    const message = createBasePacketMsg();
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.eof !== undefined && object.eof !== null) {
+      message.eof = object.eof;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
   },
   toAmino(message: PacketMsg): PacketMsgAmino {
     const obj: any = {};
     obj.channel_id = message.channelId;
     obj.eof = message.eof;
-    obj.data = message.data;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
     return obj;
   },
   fromAminoMsg(object: PacketMsgAminoMsg): PacketMsg {
@@ -266,11 +274,17 @@ export const Packet = {
     return message;
   },
   fromAmino(object: PacketAmino): Packet {
-    return {
-      packetPing: object?.packet_ping ? PacketPing.fromAmino(object.packet_ping) : undefined,
-      packetPong: object?.packet_pong ? PacketPong.fromAmino(object.packet_pong) : undefined,
-      packetMsg: object?.packet_msg ? PacketMsg.fromAmino(object.packet_msg) : undefined
-    };
+    const message = createBasePacket();
+    if (object.packet_ping !== undefined && object.packet_ping !== null) {
+      message.packetPing = PacketPing.fromAmino(object.packet_ping);
+    }
+    if (object.packet_pong !== undefined && object.packet_pong !== null) {
+      message.packetPong = PacketPong.fromAmino(object.packet_pong);
+    }
+    if (object.packet_msg !== undefined && object.packet_msg !== null) {
+      message.packetMsg = PacketMsg.fromAmino(object.packet_msg);
+    }
+    return message;
   },
   toAmino(message: Packet): PacketAmino {
     const obj: any = {};
@@ -325,15 +339,19 @@ export const AuthSigMessage = {
     return message;
   },
   fromAmino(object: AuthSigMessageAmino): AuthSigMessage {
-    return {
-      pubKey: object?.pub_key ? PublicKey.fromAmino(object.pub_key) : undefined,
-      sig: object.sig
-    };
+    const message = createBaseAuthSigMessage();
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = PublicKey.fromAmino(object.pub_key);
+    }
+    if (object.sig !== undefined && object.sig !== null) {
+      message.sig = bytesFromBase64(object.sig);
+    }
+    return message;
   },
   toAmino(message: AuthSigMessage): AuthSigMessageAmino {
     const obj: any = {};
     obj.pub_key = message.pubKey ? PublicKey.toAmino(message.pubKey) : undefined;
-    obj.sig = message.sig;
+    obj.sig = message.sig ? base64FromBytes(message.sig) : undefined;
     return obj;
   },
   fromAminoMsg(object: AuthSigMessageAminoMsg): AuthSigMessage {

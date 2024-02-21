@@ -1,10 +1,21 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
-/** Params holds parameters for the tokenfactory module */
+/** Params defines the parameters for the tokenfactory module. */
 export interface Params {
-  /** DenomCreationFee is the fee required to create a new denom using the tokenfactory module */
+  /**
+   * DenomCreationFee defines the fee to be charged on the creation of a new
+   * denom. The fee is drawn from the MsgCreateDenom's sender account, and
+   * transferred to the community pool.
+   */
   denomCreationFee: Coin[];
+  /**
+   * DenomCreationGasConsume defines the gas cost for creating a new denom.
+   * This is intended as a spam deterrence mechanism.
+   * 
+   * See: https://github.com/CosmWasm/token-factory/issues/11
+   */
+  denomCreationGasConsume?: bigint;
   /** FeeCollectorAddress is the address where fees collected from denom creation are sent to */
   feeCollectorAddress: string;
 }
@@ -12,25 +23,38 @@ export interface ParamsProtoMsg {
   typeUrl: "/osmosis.tokenfactory.v1beta1.Params";
   value: Uint8Array;
 }
-/** Params holds parameters for the tokenfactory module */
+/** Params defines the parameters for the tokenfactory module. */
 export interface ParamsAmino {
-  /** DenomCreationFee is the fee required to create a new denom using the tokenfactory module */
-  denom_creation_fee: CoinAmino[];
+  /**
+   * DenomCreationFee defines the fee to be charged on the creation of a new
+   * denom. The fee is drawn from the MsgCreateDenom's sender account, and
+   * transferred to the community pool.
+   */
+  denom_creation_fee?: CoinAmino[];
+  /**
+   * DenomCreationGasConsume defines the gas cost for creating a new denom.
+   * This is intended as a spam deterrence mechanism.
+   * 
+   * See: https://github.com/CosmWasm/token-factory/issues/11
+   */
+  denom_creation_gas_consume?: string;
   /** FeeCollectorAddress is the address where fees collected from denom creation are sent to */
-  fee_collector_address: string;
+  fee_collector_address?: string;
 }
 export interface ParamsAminoMsg {
   type: "osmosis/tokenfactory/params";
   value: ParamsAmino;
 }
-/** Params holds parameters for the tokenfactory module */
+/** Params defines the parameters for the tokenfactory module. */
 export interface ParamsSDKType {
   denom_creation_fee: CoinSDKType[];
+  denom_creation_gas_consume?: bigint;
   fee_collector_address: string;
 }
 function createBaseParams(): Params {
   return {
     denomCreationFee: [],
+    denomCreationGasConsume: undefined,
     feeCollectorAddress: ""
   };
 }
@@ -40,28 +64,38 @@ export const Params = {
     for (const v of message.denomCreationFee) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+    if (message.denomCreationGasConsume !== undefined) {
+      writer.uint32(16).uint64(message.denomCreationGasConsume);
+    }
     if (message.feeCollectorAddress !== "") {
-      writer.uint32(18).string(message.feeCollectorAddress);
+      writer.uint32(26).string(message.feeCollectorAddress);
     }
     return writer;
   },
   fromJSON(object: any): Params {
     return {
       denomCreationFee: Array.isArray(object?.denomCreationFee) ? object.denomCreationFee.map((e: any) => Coin.fromJSON(e)) : [],
+      denomCreationGasConsume: isSet(object.denomCreationGasConsume) ? BigInt(object.denomCreationGasConsume.toString()) : undefined,
       feeCollectorAddress: isSet(object.feeCollectorAddress) ? String(object.feeCollectorAddress) : ""
     };
   },
   fromPartial(object: Partial<Params>): Params {
     const message = createBaseParams();
     message.denomCreationFee = object.denomCreationFee?.map(e => Coin.fromPartial(e)) || [];
+    message.denomCreationGasConsume = object.denomCreationGasConsume !== undefined && object.denomCreationGasConsume !== null ? BigInt(object.denomCreationGasConsume.toString()) : undefined;
     message.feeCollectorAddress = object.feeCollectorAddress ?? "";
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      denomCreationFee: Array.isArray(object?.denom_creation_fee) ? object.denom_creation_fee.map((e: any) => Coin.fromAmino(e)) : [],
-      feeCollectorAddress: object.fee_collector_address
-    };
+    const message = createBaseParams();
+    message.denomCreationFee = object.denom_creation_fee?.map(e => Coin.fromAmino(e)) || [];
+    if (object.denom_creation_gas_consume !== undefined && object.denom_creation_gas_consume !== null) {
+      message.denomCreationGasConsume = BigInt(object.denom_creation_gas_consume);
+    }
+    if (object.fee_collector_address !== undefined && object.fee_collector_address !== null) {
+      message.feeCollectorAddress = object.fee_collector_address;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -70,6 +104,7 @@ export const Params = {
     } else {
       obj.denom_creation_fee = [];
     }
+    obj.denom_creation_gas_consume = message.denomCreationGasConsume ? message.denomCreationGasConsume.toString() : undefined;
     obj.fee_collector_address = message.feeCollectorAddress;
     return obj;
   },

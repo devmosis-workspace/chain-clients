@@ -18,21 +18,6 @@ export interface BlockMessageIdsProtoMsg {
  * BlockMessageIds stores the id of each message that should be processed at a
  * given block height.
  */
-export interface BlockMessageIdsAmino {
-  /**
-   * ids stores a list of DelayedMessage ids that should be processed at a given
-   * block height.
-   */
-  ids?: number[];
-}
-export interface BlockMessageIdsAminoMsg {
-  type: "/dydxprotocol.delaymsg.BlockMessageIds";
-  value: BlockMessageIdsAmino;
-}
-/**
- * BlockMessageIds stores the id of each message that should be processed at a
- * given block height.
- */
 export interface BlockMessageIdsSDKType {
   ids: number[];
 }

@@ -28,33 +28,6 @@ export interface LiquidationsConfigProtoMsg {
   value: Uint8Array;
 }
 /** LiquidationsConfig stores all configurable fields related to liquidations. */
-export interface LiquidationsConfigAmino {
-  /**
-   * The maximum liquidation fee (in parts-per-million). This fee goes
-   * 100% to the insurance fund.
-   */
-  max_liquidation_fee_ppm?: number;
-  /**
-   * Limits around how much of a single position can be liquidated
-   * within a single block.
-   */
-  position_block_limits?: PositionBlockLimitsAmino;
-  /**
-   * Limits around how many quote quantums from a single subaccount can
-   * be liquidated within a single block.
-   */
-  subaccount_block_limits?: SubaccountBlockLimitsAmino;
-  /**
-   * Config about how the fillable-price spread from the oracle price
-   * increases based on the adjusted bankruptcy rating of the subaccount.
-   */
-  fillable_price_config?: FillablePriceConfigAmino;
-}
-export interface LiquidationsConfigAminoMsg {
-  type: "/dydxprotocol.clob.LiquidationsConfig";
-  value: LiquidationsConfigAmino;
-}
-/** LiquidationsConfig stores all configurable fields related to liquidations. */
 export interface LiquidationsConfigSDKType {
   max_liquidation_fee_ppm: number;
   position_block_limits: PositionBlockLimitsSDKType;
@@ -81,27 +54,6 @@ export interface PositionBlockLimits {
 export interface PositionBlockLimitsProtoMsg {
   typeUrl: "/dydxprotocol.clob.PositionBlockLimits";
   value: Uint8Array;
-}
-/**
- * PositionBlockLimits stores all configurable fields related to limits
- * around how much of a single position can be liquidated within a single block.
- */
-export interface PositionBlockLimitsAmino {
-  /**
-   * The minimum amount of quantums to liquidate for each message (in
-   * quote quantums).
-   * Overridden by the maximum size of the position.
-   */
-  min_position_notional_liquidated?: string;
-  /**
-   * The maximum portion of the position liquidated (in parts-per-
-   * million). Overridden by min_position_notional_liquidated.
-   */
-  max_position_portion_liquidated_ppm?: number;
-}
-export interface PositionBlockLimitsAminoMsg {
-  type: "/dydxprotocol.clob.PositionBlockLimits";
-  value: PositionBlockLimitsAmino;
 }
 /**
  * PositionBlockLimits stores all configurable fields related to limits
@@ -137,27 +89,6 @@ export interface SubaccountBlockLimitsProtoMsg {
  * around how many quote quantums from a single subaccount can
  * be liquidated within a single block.
  */
-export interface SubaccountBlockLimitsAmino {
-  /**
-   * The maximum notional amount that a single subaccount can have
-   * liquidated (in quote quantums) per block.
-   */
-  max_notional_liquidated?: string;
-  /**
-   * The maximum insurance-fund payout amount for a given subaccount
-   * per block. I.e. how much it can cover for that subaccount.
-   */
-  max_quantums_insurance_lost?: string;
-}
-export interface SubaccountBlockLimitsAminoMsg {
-  type: "/dydxprotocol.clob.SubaccountBlockLimits";
-  value: SubaccountBlockLimitsAmino;
-}
-/**
- * SubaccountBlockLimits stores all configurable fields related to limits
- * around how many quote quantums from a single subaccount can
- * be liquidated within a single block.
- */
 export interface SubaccountBlockLimitsSDKType {
   max_notional_liquidated: bigint;
   max_quantums_insurance_lost: bigint;
@@ -178,23 +109,6 @@ export interface FillablePriceConfig {
 export interface FillablePriceConfigProtoMsg {
   typeUrl: "/dydxprotocol.clob.FillablePriceConfig";
   value: Uint8Array;
-}
-/**
- * FillablePriceConfig stores all configurable fields related to calculating
- * the fillable price for liquidating a position.
- */
-export interface FillablePriceConfigAmino {
-  /** The rate at which the Adjusted Bankruptcy Rating increases. */
-  bankruptcy_adjustment_ppm?: number;
-  /**
-   * The maximum value that the liquidation spread can take, as
-   * a ratio against the position's maintenance margin.
-   */
-  spread_to_maintenance_margin_ratio_ppm?: number;
-}
-export interface FillablePriceConfigAminoMsg {
-  type: "/dydxprotocol.clob.FillablePriceConfig";
-  value: FillablePriceConfigAmino;
 }
 /**
  * FillablePriceConfig stores all configurable fields related to calculating

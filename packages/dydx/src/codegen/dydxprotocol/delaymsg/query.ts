@@ -1,4 +1,4 @@
-import { DelayedMessage, DelayedMessageAmino, DelayedMessageSDKType } from "./delayed_message";
+import { DelayedMessage, DelayedMessageSDKType } from "./delayed_message";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -9,15 +9,6 @@ export interface QueryNextDelayedMessageIdRequest {}
 export interface QueryNextDelayedMessageIdRequestProtoMsg {
   typeUrl: "/dydxprotocol.delaymsg.QueryNextDelayedMessageIdRequest";
   value: Uint8Array;
-}
-/**
- * QueryNextDelayedMessageIdRequest is the request type for the
- * NextDelayedMessageId RPC method.
- */
-export interface QueryNextDelayedMessageIdRequestAmino {}
-export interface QueryNextDelayedMessageIdRequestAminoMsg {
-  type: "/dydxprotocol.delaymsg.QueryNextDelayedMessageIdRequest";
-  value: QueryNextDelayedMessageIdRequestAmino;
 }
 /**
  * QueryNextDelayedMessageIdRequest is the request type for the
@@ -39,17 +30,6 @@ export interface QueryNextDelayedMessageIdResponseProtoMsg {
  * QueryNextDelayedMessageIdResponse is the response type for the
  * NextDelayedMessageId RPC method.
  */
-export interface QueryNextDelayedMessageIdResponseAmino {
-  next_delayed_message_id?: number;
-}
-export interface QueryNextDelayedMessageIdResponseAminoMsg {
-  type: "/dydxprotocol.delaymsg.QueryNextDelayedMessageIdResponse";
-  value: QueryNextDelayedMessageIdResponseAmino;
-}
-/**
- * QueryNextDelayedMessageIdResponse is the response type for the
- * NextDelayedMessageId RPC method.
- */
 export interface QueryNextDelayedMessageIdResponseSDKType {
   next_delayed_message_id: number;
 }
@@ -63,15 +43,6 @@ export interface QueryMessageRequestProtoMsg {
   value: Uint8Array;
 }
 /** QueryMessageRequest is the request type for the Message RPC method. */
-export interface QueryMessageRequestAmino {
-  /** QueryMessageRequest is the request type for the Message RPC method. */
-  id?: number;
-}
-export interface QueryMessageRequestAminoMsg {
-  type: "/dydxprotocol.delaymsg.QueryMessageRequest";
-  value: QueryMessageRequestAmino;
-}
-/** QueryMessageRequest is the request type for the Message RPC method. */
 export interface QueryMessageRequestSDKType {
   id: number;
 }
@@ -83,15 +54,6 @@ export interface QueryMessageResponse {
 export interface QueryMessageResponseProtoMsg {
   typeUrl: "/dydxprotocol.delaymsg.QueryMessageResponse";
   value: Uint8Array;
-}
-/** QueryGetMessageResponse is the response type for the Message RPC method. */
-export interface QueryMessageResponseAmino {
-  /** QueryGetMessageResponse is the response type for the Message RPC method. */
-  message?: DelayedMessageAmino;
-}
-export interface QueryMessageResponseAminoMsg {
-  type: "/dydxprotocol.delaymsg.QueryMessageResponse";
-  value: QueryMessageResponseAmino;
 }
 /** QueryGetMessageResponse is the response type for the Message RPC method. */
 export interface QueryMessageResponseSDKType {
@@ -116,21 +78,6 @@ export interface QueryBlockMessageIdsRequestProtoMsg {
  * QueryBlockMessageIdsRequest is the request type for the BlockMessageIds
  * RPC method.
  */
-export interface QueryBlockMessageIdsRequestAmino {
-  /**
-   * QueryBlockMessageIdsRequest is the request type for the BlockMessageIds
-   * RPC method.
-   */
-  block_height?: number;
-}
-export interface QueryBlockMessageIdsRequestAminoMsg {
-  type: "/dydxprotocol.delaymsg.QueryBlockMessageIdsRequest";
-  value: QueryBlockMessageIdsRequestAmino;
-}
-/**
- * QueryBlockMessageIdsRequest is the request type for the BlockMessageIds
- * RPC method.
- */
 export interface QueryBlockMessageIdsRequestSDKType {
   block_height: number;
 }
@@ -148,21 +95,6 @@ export interface QueryBlockMessageIdsResponse {
 export interface QueryBlockMessageIdsResponseProtoMsg {
   typeUrl: "/dydxprotocol.delaymsg.QueryBlockMessageIdsResponse";
   value: Uint8Array;
-}
-/**
- * QueryGetBlockMessageIdsResponse is the response type for the BlockMessageIds
- * RPC method.
- */
-export interface QueryBlockMessageIdsResponseAmino {
-  /**
-   * QueryGetBlockMessageIdsResponse is the response type for the BlockMessageIds
-   * RPC method.
-   */
-  message_ids?: number[];
-}
-export interface QueryBlockMessageIdsResponseAminoMsg {
-  type: "/dydxprotocol.delaymsg.QueryBlockMessageIdsResponse";
-  value: QueryBlockMessageIdsResponseAmino;
 }
 /**
  * QueryGetBlockMessageIdsResponse is the response type for the BlockMessageIds

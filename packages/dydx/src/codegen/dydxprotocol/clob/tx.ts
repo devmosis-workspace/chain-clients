@@ -1,10 +1,10 @@
-import { Order, OrderAmino, OrderSDKType, OrderId, OrderIdAmino, OrderIdSDKType } from "./order";
-import { ClobPair, ClobPairAmino, ClobPairSDKType } from "./clob_pair";
-import { EquityTierLimitConfiguration, EquityTierLimitConfigurationAmino, EquityTierLimitConfigurationSDKType } from "./equity_tier_limit_config";
-import { BlockRateLimitConfiguration, BlockRateLimitConfigurationAmino, BlockRateLimitConfigurationSDKType } from "./block_rate_limit_config";
-import { LiquidationsConfig, LiquidationsConfigAmino, LiquidationsConfigSDKType } from "./liquidations_config";
-import { ClobMatch, ClobMatchAmino, ClobMatchSDKType } from "./matches";
-import { OrderRemoval, OrderRemovalAmino, OrderRemovalSDKType } from "./order_removals";
+import { Order, OrderSDKType, OrderId, OrderIdSDKType } from "./order";
+import { ClobPair, ClobPairSDKType } from "./clob_pair";
+import { EquityTierLimitConfiguration, EquityTierLimitConfigurationSDKType } from "./equity_tier_limit_config";
+import { BlockRateLimitConfiguration, BlockRateLimitConfigurationSDKType } from "./block_rate_limit_config";
+import { LiquidationsConfig, LiquidationsConfigSDKType } from "./liquidations_config";
+import { ClobMatch, ClobMatchSDKType } from "./matches";
+import { OrderRemoval, OrderRemovalSDKType } from "./order_removals";
 import { BinaryWriter } from "../../binary";
 import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /** MsgCreateClobPair is a message used by x/gov for creating a new clob pair. */
@@ -19,17 +19,6 @@ export interface MsgCreateClobPairProtoMsg {
   value: Uint8Array;
 }
 /** MsgCreateClobPair is a message used by x/gov for creating a new clob pair. */
-export interface MsgCreateClobPairAmino {
-  /** The address that controls the module. */
-  authority?: string;
-  /** `clob_pair` defines parameters for the new clob pair. */
-  clob_pair?: ClobPairAmino;
-}
-export interface MsgCreateClobPairAminoMsg {
-  type: "/dydxprotocol.clob.MsgCreateClobPair";
-  value: MsgCreateClobPairAmino;
-}
-/** MsgCreateClobPair is a message used by x/gov for creating a new clob pair. */
 export interface MsgCreateClobPairSDKType {
   authority: string;
   clob_pair: ClobPairSDKType;
@@ -39,12 +28,6 @@ export interface MsgCreateClobPairResponse {}
 export interface MsgCreateClobPairResponseProtoMsg {
   typeUrl: "/dydxprotocol.clob.MsgCreateClobPairResponse";
   value: Uint8Array;
-}
-/** MsgCreateClobPairResponse defines the CreateClobPair response type. */
-export interface MsgCreateClobPairResponseAmino {}
-export interface MsgCreateClobPairResponseAminoMsg {
-  type: "/dydxprotocol.clob.MsgCreateClobPairResponse";
-  value: MsgCreateClobPairResponseAmino;
 }
 /** MsgCreateClobPairResponse defines the CreateClobPair response type. */
 export interface MsgCreateClobPairResponseSDKType {}
@@ -59,18 +42,6 @@ export interface MsgProposedOperations {
 export interface MsgProposedOperationsProtoMsg {
   typeUrl: "/dydxprotocol.clob.MsgProposedOperations";
   value: Uint8Array;
-}
-/**
- * MsgProposedOperations is a message injected by block proposers to
- * specify the operations that occurred in a block.
- */
-export interface MsgProposedOperationsAmino {
-  /** The list of operations proposed by the block proposer. */
-  operations_queue?: OperationRawAmino[];
-}
-export interface MsgProposedOperationsAminoMsg {
-  type: "/dydxprotocol.clob.MsgProposedOperations";
-  value: MsgProposedOperationsAmino;
 }
 /**
  * MsgProposedOperations is a message injected by block proposers to
@@ -92,15 +63,6 @@ export interface MsgProposedOperationsResponseProtoMsg {
  * MsgProposedOperationsResponse is the response type of the message injected
  * by block proposers to specify the operations that occurred in a block.
  */
-export interface MsgProposedOperationsResponseAmino {}
-export interface MsgProposedOperationsResponseAminoMsg {
-  type: "/dydxprotocol.clob.MsgProposedOperationsResponse";
-  value: MsgProposedOperationsResponseAmino;
-}
-/**
- * MsgProposedOperationsResponse is the response type of the message injected
- * by block proposers to specify the operations that occurred in a block.
- */
 export interface MsgProposedOperationsResponseSDKType {}
 /** MsgPlaceOrder is a request type used for placing orders. */
 export interface MsgPlaceOrder {
@@ -112,15 +74,6 @@ export interface MsgPlaceOrderProtoMsg {
   value: Uint8Array;
 }
 /** MsgPlaceOrder is a request type used for placing orders. */
-export interface MsgPlaceOrderAmino {
-  /** MsgPlaceOrder is a request type used for placing orders. */
-  order?: OrderAmino;
-}
-export interface MsgPlaceOrderAminoMsg {
-  type: "/dydxprotocol.clob.MsgPlaceOrder";
-  value: MsgPlaceOrderAmino;
-}
-/** MsgPlaceOrder is a request type used for placing orders. */
 export interface MsgPlaceOrderSDKType {
   order: OrderSDKType;
 }
@@ -129,12 +82,6 @@ export interface MsgPlaceOrderResponse {}
 export interface MsgPlaceOrderResponseProtoMsg {
   typeUrl: "/dydxprotocol.clob.MsgPlaceOrderResponse";
   value: Uint8Array;
-}
-/** MsgPlaceOrderResponse is a response type used for placing orders. */
-export interface MsgPlaceOrderResponseAmino {}
-export interface MsgPlaceOrderResponseAminoMsg {
-  type: "/dydxprotocol.clob.MsgPlaceOrderResponse";
-  value: MsgPlaceOrderResponseAmino;
 }
 /** MsgPlaceOrderResponse is a response type used for placing orders. */
 export interface MsgPlaceOrderResponseSDKType {}
@@ -160,27 +107,6 @@ export interface MsgCancelOrderProtoMsg {
   value: Uint8Array;
 }
 /** MsgCancelOrder is a request type used for canceling orders. */
-export interface MsgCancelOrderAmino {
-  order_id?: OrderIdAmino;
-  /**
-   * The last block this order cancellation can be executed at.
-   * Used only for Short-Term orders and must be zero for stateful orders.
-   */
-  good_til_block?: number;
-  /**
-   * good_til_block_time represents the unix timestamp (in seconds) at which a
-   * stateful order cancellation will be considered expired. The
-   * good_til_block_time is always evaluated against the previous block's
-   * `BlockTime` instead of the block in which the order is committed.
-   * This value must be zero for Short-Term orders.
-   */
-  good_til_block_time?: number;
-}
-export interface MsgCancelOrderAminoMsg {
-  type: "/dydxprotocol.clob.MsgCancelOrder";
-  value: MsgCancelOrderAmino;
-}
-/** MsgCancelOrder is a request type used for canceling orders. */
 export interface MsgCancelOrderSDKType {
   order_id: OrderIdSDKType;
   good_til_block?: number;
@@ -191,12 +117,6 @@ export interface MsgCancelOrderResponse {}
 export interface MsgCancelOrderResponseProtoMsg {
   typeUrl: "/dydxprotocol.clob.MsgCancelOrderResponse";
   value: Uint8Array;
-}
-/** MsgCancelOrderResponse is a response type used for canceling orders. */
-export interface MsgCancelOrderResponseAmino {}
-export interface MsgCancelOrderResponseAminoMsg {
-  type: "/dydxprotocol.clob.MsgCancelOrderResponse";
-  value: MsgCancelOrderResponseAmino;
 }
 /** MsgCancelOrderResponse is a response type used for canceling orders. */
 export interface MsgCancelOrderResponseSDKType {}
@@ -210,17 +130,6 @@ export interface MsgUpdateClobPair {
 export interface MsgUpdateClobPairProtoMsg {
   typeUrl: "/dydxprotocol.clob.MsgUpdateClobPair";
   value: Uint8Array;
-}
-/** MsgUpdateClobPair is a request type used for updating a ClobPair in state. */
-export interface MsgUpdateClobPairAmino {
-  /** Authority is the address that may send this message. */
-  authority?: string;
-  /** `clob_pair` is the ClobPair to write to state. */
-  clob_pair?: ClobPairAmino;
-}
-export interface MsgUpdateClobPairAminoMsg {
-  type: "/dydxprotocol.clob.MsgUpdateClobPair";
-  value: MsgUpdateClobPairAmino;
 }
 /** MsgUpdateClobPair is a request type used for updating a ClobPair in state. */
 export interface MsgUpdateClobPairSDKType {
@@ -240,15 +149,6 @@ export interface MsgUpdateClobPairResponseProtoMsg {
  * MsgUpdateClobPairResponse is a response type used for setting a ClobPair's
  * status.
  */
-export interface MsgUpdateClobPairResponseAmino {}
-export interface MsgUpdateClobPairResponseAminoMsg {
-  type: "/dydxprotocol.clob.MsgUpdateClobPairResponse";
-  value: MsgUpdateClobPairResponseAmino;
-}
-/**
- * MsgUpdateClobPairResponse is a response type used for setting a ClobPair's
- * status.
- */
 export interface MsgUpdateClobPairResponseSDKType {}
 /**
  * OperationRaw represents an operation in the proposed operations.
@@ -262,19 +162,6 @@ export interface OperationRaw {
 export interface OperationRawProtoMsg {
   typeUrl: "/dydxprotocol.clob.OperationRaw";
   value: Uint8Array;
-}
-/**
- * OperationRaw represents an operation in the proposed operations.
- * Note that the `order_placement` operation is a signed message.
- */
-export interface OperationRawAmino {
-  match?: ClobMatchAmino;
-  short_term_order_placement?: string;
-  order_removal?: OrderRemovalAmino;
-}
-export interface OperationRawAminoMsg {
-  type: "/dydxprotocol.clob.OperationRaw";
-  value: OperationRawAmino;
 }
 /**
  * OperationRaw represents an operation in the proposed operations.
@@ -305,22 +192,6 @@ export interface MsgUpdateEquityTierLimitConfigurationProtoMsg {
  * MsgUpdateEquityTierLimitConfiguration is the Msg/EquityTierLimitConfiguration
  * request type.
  */
-export interface MsgUpdateEquityTierLimitConfigurationAmino {
-  authority?: string;
-  /**
-   * Defines the equity tier limit configuration to update to. All fields must
-   * be set.
-   */
-  equity_tier_limit_config?: EquityTierLimitConfigurationAmino;
-}
-export interface MsgUpdateEquityTierLimitConfigurationAminoMsg {
-  type: "/dydxprotocol.clob.MsgUpdateEquityTierLimitConfiguration";
-  value: MsgUpdateEquityTierLimitConfigurationAmino;
-}
-/**
- * MsgUpdateEquityTierLimitConfiguration is the Msg/EquityTierLimitConfiguration
- * request type.
- */
 export interface MsgUpdateEquityTierLimitConfigurationSDKType {
   authority: string;
   equity_tier_limit_config: EquityTierLimitConfigurationSDKType;
@@ -333,15 +204,6 @@ export interface MsgUpdateEquityTierLimitConfigurationResponse {}
 export interface MsgUpdateEquityTierLimitConfigurationResponseProtoMsg {
   typeUrl: "/dydxprotocol.clob.MsgUpdateEquityTierLimitConfigurationResponse";
   value: Uint8Array;
-}
-/**
- * MsgUpdateEquityTierLimitConfiguration is the Msg/EquityTierLimitConfiguration
- * response type.
- */
-export interface MsgUpdateEquityTierLimitConfigurationResponseAmino {}
-export interface MsgUpdateEquityTierLimitConfigurationResponseAminoMsg {
-  type: "/dydxprotocol.clob.MsgUpdateEquityTierLimitConfigurationResponse";
-  value: MsgUpdateEquityTierLimitConfigurationResponseAmino;
 }
 /**
  * MsgUpdateEquityTierLimitConfiguration is the Msg/EquityTierLimitConfiguration
@@ -368,22 +230,6 @@ export interface MsgUpdateBlockRateLimitConfigurationProtoMsg {
  * MsgUpdateBlockRateLimitConfiguration is the Msg/BlockRateLimitConfiguration
  * request type.
  */
-export interface MsgUpdateBlockRateLimitConfigurationAmino {
-  authority?: string;
-  /**
-   * Defines the block rate limit configuration to update to. All fields must be
-   * set.
-   */
-  block_rate_limit_config?: BlockRateLimitConfigurationAmino;
-}
-export interface MsgUpdateBlockRateLimitConfigurationAminoMsg {
-  type: "/dydxprotocol.clob.MsgUpdateBlockRateLimitConfiguration";
-  value: MsgUpdateBlockRateLimitConfigurationAmino;
-}
-/**
- * MsgUpdateBlockRateLimitConfiguration is the Msg/BlockRateLimitConfiguration
- * request type.
- */
 export interface MsgUpdateBlockRateLimitConfigurationSDKType {
   authority: string;
   block_rate_limit_config: BlockRateLimitConfigurationSDKType;
@@ -396,15 +242,6 @@ export interface MsgUpdateBlockRateLimitConfigurationResponse {}
 export interface MsgUpdateBlockRateLimitConfigurationResponseProtoMsg {
   typeUrl: "/dydxprotocol.clob.MsgUpdateBlockRateLimitConfigurationResponse";
   value: Uint8Array;
-}
-/**
- * MsgUpdateBlockRateLimitConfiguration is a response type for updating the
- * liquidations config.
- */
-export interface MsgUpdateBlockRateLimitConfigurationResponseAmino {}
-export interface MsgUpdateBlockRateLimitConfigurationResponseAminoMsg {
-  type: "/dydxprotocol.clob.MsgUpdateBlockRateLimitConfigurationResponse";
-  value: MsgUpdateBlockRateLimitConfigurationResponseAmino;
 }
 /**
  * MsgUpdateBlockRateLimitConfiguration is a response type for updating the
@@ -432,23 +269,6 @@ export interface MsgUpdateLiquidationsConfigProtoMsg {
  * MsgUpdateLiquidationsConfig is a request type for updating the liquidations
  * config.
  */
-export interface MsgUpdateLiquidationsConfigAmino {
-  /** Authority is the address that may send this message. */
-  authority?: string;
-  /**
-   * Defines the liquidations configuration to update to. All fields must
-   * be set.
-   */
-  liquidations_config?: LiquidationsConfigAmino;
-}
-export interface MsgUpdateLiquidationsConfigAminoMsg {
-  type: "/dydxprotocol.clob.MsgUpdateLiquidationsConfig";
-  value: MsgUpdateLiquidationsConfigAmino;
-}
-/**
- * MsgUpdateLiquidationsConfig is a request type for updating the liquidations
- * config.
- */
 export interface MsgUpdateLiquidationsConfigSDKType {
   authority: string;
   liquidations_config: LiquidationsConfigSDKType;
@@ -458,12 +278,6 @@ export interface MsgUpdateLiquidationsConfigResponse {}
 export interface MsgUpdateLiquidationsConfigResponseProtoMsg {
   typeUrl: "/dydxprotocol.clob.MsgUpdateLiquidationsConfigResponse";
   value: Uint8Array;
-}
-/** MsgUpdateLiquidationsConfig is the Msg/LiquidationsConfig response type. */
-export interface MsgUpdateLiquidationsConfigResponseAmino {}
-export interface MsgUpdateLiquidationsConfigResponseAminoMsg {
-  type: "/dydxprotocol.clob.MsgUpdateLiquidationsConfigResponse";
-  value: MsgUpdateLiquidationsConfigResponseAmino;
 }
 /** MsgUpdateLiquidationsConfig is the Msg/LiquidationsConfig response type. */
 export interface MsgUpdateLiquidationsConfigResponseSDKType {}

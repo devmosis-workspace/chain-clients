@@ -11,15 +11,6 @@ export interface BlockStatsProtoMsg {
   value: Uint8Array;
 }
 /** BlockStats is used to store stats transiently within the scope of a block. */
-export interface BlockStatsAmino {
-  /** The fills that occured on this block. */
-  fills?: BlockStats_FillAmino[];
-}
-export interface BlockStatsAminoMsg {
-  type: "/dydxprotocol.stats.BlockStats";
-  value: BlockStatsAmino;
-}
-/** BlockStats is used to store stats transiently within the scope of a block. */
 export interface BlockStatsSDKType {
   fills: BlockStats_FillSDKType[];
 }
@@ -35,19 +26,6 @@ export interface BlockStats_Fill {
 export interface BlockStats_FillProtoMsg {
   typeUrl: "/dydxprotocol.stats.Fill";
   value: Uint8Array;
-}
-/** Fill records data about a fill on this block. */
-export interface BlockStats_FillAmino {
-  /** Taker wallet address */
-  taker?: string;
-  /** Maker wallet address */
-  maker?: string;
-  /** Notional USDC filled in quantums */
-  notional?: string;
-}
-export interface BlockStats_FillAminoMsg {
-  type: "/dydxprotocol.stats.Fill";
-  value: BlockStats_FillAmino;
 }
 /** Fill records data about a fill on this block. */
 export interface BlockStats_FillSDKType {
@@ -68,18 +46,6 @@ export interface StatsMetadataProtoMsg {
   value: Uint8Array;
 }
 /** StatsMetadata stores metadata for the x/stats module */
-export interface StatsMetadataAmino {
-  /**
-   * The oldest epoch that is included in the stats. The next epoch to be
-   * removed from the window.
-   */
-  trailing_epoch?: number;
-}
-export interface StatsMetadataAminoMsg {
-  type: "/dydxprotocol.stats.StatsMetadata";
-  value: StatsMetadataAmino;
-}
-/** StatsMetadata stores metadata for the x/stats module */
 export interface StatsMetadataSDKType {
   trailing_epoch: number;
 }
@@ -93,17 +59,6 @@ export interface EpochStats {
 export interface EpochStatsProtoMsg {
   typeUrl: "/dydxprotocol.stats.EpochStats";
   value: Uint8Array;
-}
-/** EpochStats stores stats for a particular epoch */
-export interface EpochStatsAmino {
-  /** Epoch end time */
-  epoch_end_time?: string;
-  /** Stats for each user in this epoch. Sorted by user. */
-  stats?: EpochStats_UserWithStatsAmino[];
-}
-export interface EpochStatsAminoMsg {
-  type: "/dydxprotocol.stats.EpochStats";
-  value: EpochStatsAmino;
 }
 /** EpochStats stores stats for a particular epoch */
 export interface EpochStatsSDKType {
@@ -120,15 +75,6 @@ export interface EpochStats_UserWithStatsProtoMsg {
   value: Uint8Array;
 }
 /** A user and its associated stats */
-export interface EpochStats_UserWithStatsAmino {
-  user?: string;
-  stats?: UserStatsAmino;
-}
-export interface EpochStats_UserWithStatsAminoMsg {
-  type: "/dydxprotocol.stats.UserWithStats";
-  value: EpochStats_UserWithStatsAmino;
-}
-/** A user and its associated stats */
 export interface EpochStats_UserWithStatsSDKType {
   user: string;
   stats?: UserStatsSDKType;
@@ -141,15 +87,6 @@ export interface GlobalStats {
 export interface GlobalStatsProtoMsg {
   typeUrl: "/dydxprotocol.stats.GlobalStats";
   value: Uint8Array;
-}
-/** GlobalStats stores global stats */
-export interface GlobalStatsAmino {
-  /** Notional USDC traded in quantums */
-  notional_traded?: string;
-}
-export interface GlobalStatsAminoMsg {
-  type: "/dydxprotocol.stats.GlobalStats";
-  value: GlobalStatsAmino;
 }
 /** GlobalStats stores global stats */
 export interface GlobalStatsSDKType {
@@ -165,17 +102,6 @@ export interface UserStats {
 export interface UserStatsProtoMsg {
   typeUrl: "/dydxprotocol.stats.UserStats";
   value: Uint8Array;
-}
-/** UserStats stores stats for a User */
-export interface UserStatsAmino {
-  /** Taker USDC in quantums */
-  taker_notional?: string;
-  /** Maker USDC in quantums */
-  maker_notional?: string;
-}
-export interface UserStatsAminoMsg {
-  type: "/dydxprotocol.stats.UserStats";
-  value: UserStatsAmino;
 }
 /** UserStats stores stats for a User */
 export interface UserStatsSDKType {

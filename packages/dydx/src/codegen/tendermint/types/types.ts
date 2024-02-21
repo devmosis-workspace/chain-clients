@@ -1,7 +1,7 @@
-import { Proof, ProofAmino, ProofSDKType } from "../crypto/proof";
-import { Consensus, ConsensusAmino, ConsensusSDKType } from "../version/types";
+import { Proof, ProofSDKType } from "../crypto/proof";
+import { Consensus, ConsensusSDKType } from "../version/types";
 import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
-import { ValidatorSet, ValidatorSetAmino, ValidatorSetSDKType } from "./validator";
+import { ValidatorSet, ValidatorSetSDKType } from "./validator";
 import { BinaryWriter } from "../../binary";
 import { isSet, bytesFromBase64, base64FromBytes, fromJsonTimestamp } from "../../helpers";
 /** BlockIdFlag indicates which BlcokID the signature is for */
@@ -13,7 +13,6 @@ export enum BlockIDFlag {
   UNRECOGNIZED = -1,
 }
 export const BlockIDFlagSDKType = BlockIDFlag;
-export const BlockIDFlagAmino = BlockIDFlag;
 export function blockIDFlagFromJSON(object: any): BlockIDFlag {
   switch (object) {
     case 0:
@@ -60,7 +59,6 @@ export enum SignedMsgType {
   UNRECOGNIZED = -1,
 }
 export const SignedMsgTypeSDKType = SignedMsgType;
-export const SignedMsgTypeAmino = SignedMsgType;
 export function signedMsgTypeFromJSON(object: any): SignedMsgType {
   switch (object) {
     case 0:
@@ -106,15 +104,6 @@ export interface PartSetHeaderProtoMsg {
   value: Uint8Array;
 }
 /** PartsetHeader */
-export interface PartSetHeaderAmino {
-  total?: number;
-  hash?: string;
-}
-export interface PartSetHeaderAminoMsg {
-  type: "/tendermint.types.PartSetHeader";
-  value: PartSetHeaderAmino;
-}
-/** PartsetHeader */
 export interface PartSetHeaderSDKType {
   total: number;
   hash: Uint8Array;
@@ -127,15 +116,6 @@ export interface Part {
 export interface PartProtoMsg {
   typeUrl: "/tendermint.types.Part";
   value: Uint8Array;
-}
-export interface PartAmino {
-  index?: number;
-  bytes?: string;
-  proof?: ProofAmino;
-}
-export interface PartAminoMsg {
-  type: "/tendermint.types.Part";
-  value: PartAmino;
 }
 export interface PartSDKType {
   index: number;
@@ -150,15 +130,6 @@ export interface BlockID {
 export interface BlockIDProtoMsg {
   typeUrl: "/tendermint.types.BlockID";
   value: Uint8Array;
-}
-/** BlockID */
-export interface BlockIDAmino {
-  hash?: string;
-  part_set_header?: PartSetHeaderAmino;
-}
-export interface BlockIDAminoMsg {
-  type: "/tendermint.types.BlockID";
-  value: BlockIDAmino;
 }
 /** BlockID */
 export interface BlockIDSDKType {
@@ -196,36 +167,6 @@ export interface HeaderProtoMsg {
   value: Uint8Array;
 }
 /** Header defines the structure of a block header. */
-export interface HeaderAmino {
-  /** basic block info */
-  version?: ConsensusAmino;
-  chain_id?: string;
-  height?: string;
-  time?: string;
-  /** prev block info */
-  last_block_id?: BlockIDAmino;
-  /** hashes of block data */
-  last_commit_hash?: string;
-  data_hash?: string;
-  /** hashes from the app output from the prev block */
-  validators_hash?: string;
-  /** validators for the next block */
-  next_validators_hash?: string;
-  /** consensus params for current block */
-  consensus_hash?: string;
-  /** state after txs from the previous block */
-  app_hash?: string;
-  last_results_hash?: string;
-  /** consensus info */
-  evidence_hash?: string;
-  /** original proposer of the block */
-  proposer_address?: string;
-}
-export interface HeaderAminoMsg {
-  type: "/tendermint.types.Header";
-  value: HeaderAmino;
-}
-/** Header defines the structure of a block header. */
 export interface HeaderSDKType {
   version: ConsensusSDKType;
   chain_id: string;
@@ -256,19 +197,6 @@ export interface DataProtoMsg {
   value: Uint8Array;
 }
 /** Data contains the set of transactions included in the block */
-export interface DataAmino {
-  /**
-   * Txs that will be applied by state @ block.Height+1.
-   * NOTE: not all txs here are valid.  We're just agreeing on the order first.
-   * This means that block.AppHash does not include these txs.
-   */
-  txs?: string[];
-}
-export interface DataAminoMsg {
-  type: "/tendermint.types.Data";
-  value: DataAmino;
-}
-/** Data contains the set of transactions included in the block */
 export interface DataSDKType {
   txs: Uint8Array[];
 }
@@ -289,24 +217,6 @@ export interface Vote {
 export interface VoteProtoMsg {
   typeUrl: "/tendermint.types.Vote";
   value: Uint8Array;
-}
-/**
- * Vote represents a prevote, precommit, or commit vote from validators for
- * consensus.
- */
-export interface VoteAmino {
-  type?: SignedMsgType;
-  height?: string;
-  round?: number;
-  block_id?: BlockIDAmino;
-  timestamp?: string;
-  validator_address?: string;
-  validator_index?: number;
-  signature?: string;
-}
-export interface VoteAminoMsg {
-  type: "/tendermint.types.Vote";
-  value: VoteAmino;
 }
 /**
  * Vote represents a prevote, precommit, or commit vote from validators for
@@ -334,17 +244,6 @@ export interface CommitProtoMsg {
   value: Uint8Array;
 }
 /** Commit contains the evidence that a block was committed by a set of validators. */
-export interface CommitAmino {
-  height?: string;
-  round?: number;
-  block_id?: BlockIDAmino;
-  signatures?: CommitSigAmino[];
-}
-export interface CommitAminoMsg {
-  type: "/tendermint.types.Commit";
-  value: CommitAmino;
-}
-/** Commit contains the evidence that a block was committed by a set of validators. */
 export interface CommitSDKType {
   height: bigint;
   round: number;
@@ -361,17 +260,6 @@ export interface CommitSig {
 export interface CommitSigProtoMsg {
   typeUrl: "/tendermint.types.CommitSig";
   value: Uint8Array;
-}
-/** CommitSig is a part of the Vote included in a Commit. */
-export interface CommitSigAmino {
-  block_id_flag?: BlockIDFlag;
-  validator_address?: string;
-  timestamp?: string;
-  signature?: string;
-}
-export interface CommitSigAminoMsg {
-  type: "/tendermint.types.CommitSig";
-  value: CommitSigAmino;
 }
 /** CommitSig is a part of the Vote included in a Commit. */
 export interface CommitSigSDKType {
@@ -393,19 +281,6 @@ export interface ProposalProtoMsg {
   typeUrl: "/tendermint.types.Proposal";
   value: Uint8Array;
 }
-export interface ProposalAmino {
-  type?: SignedMsgType;
-  height?: string;
-  round?: number;
-  pol_round?: number;
-  block_id?: BlockIDAmino;
-  timestamp?: string;
-  signature?: string;
-}
-export interface ProposalAminoMsg {
-  type: "/tendermint.types.Proposal";
-  value: ProposalAmino;
-}
 export interface ProposalSDKType {
   type: SignedMsgType;
   height: bigint;
@@ -423,14 +298,6 @@ export interface SignedHeaderProtoMsg {
   typeUrl: "/tendermint.types.SignedHeader";
   value: Uint8Array;
 }
-export interface SignedHeaderAmino {
-  header?: HeaderAmino;
-  commit?: CommitAmino;
-}
-export interface SignedHeaderAminoMsg {
-  type: "/tendermint.types.SignedHeader";
-  value: SignedHeaderAmino;
-}
 export interface SignedHeaderSDKType {
   header?: HeaderSDKType;
   commit?: CommitSDKType;
@@ -442,14 +309,6 @@ export interface LightBlock {
 export interface LightBlockProtoMsg {
   typeUrl: "/tendermint.types.LightBlock";
   value: Uint8Array;
-}
-export interface LightBlockAmino {
-  signed_header?: SignedHeaderAmino;
-  validator_set?: ValidatorSetAmino;
-}
-export interface LightBlockAminoMsg {
-  type: "/tendermint.types.LightBlock";
-  value: LightBlockAmino;
 }
 export interface LightBlockSDKType {
   signed_header?: SignedHeaderSDKType;
@@ -464,16 +323,6 @@ export interface BlockMeta {
 export interface BlockMetaProtoMsg {
   typeUrl: "/tendermint.types.BlockMeta";
   value: Uint8Array;
-}
-export interface BlockMetaAmino {
-  block_id?: BlockIDAmino;
-  block_size?: string;
-  header?: HeaderAmino;
-  num_txs?: string;
-}
-export interface BlockMetaAminoMsg {
-  type: "/tendermint.types.BlockMeta";
-  value: BlockMetaAmino;
 }
 export interface BlockMetaSDKType {
   block_id: BlockIDSDKType;
@@ -490,16 +339,6 @@ export interface TxProof {
 export interface TxProofProtoMsg {
   typeUrl: "/tendermint.types.TxProof";
   value: Uint8Array;
-}
-/** TxProof represents a Merkle proof of the presence of a transaction in the Merkle tree. */
-export interface TxProofAmino {
-  root_hash?: string;
-  data?: string;
-  proof?: ProofAmino;
-}
-export interface TxProofAminoMsg {
-  type: "/tendermint.types.TxProof";
-  value: TxProofAmino;
 }
 /** TxProof represents a Merkle proof of the presence of a transaction in the Merkle tree. */
 export interface TxProofSDKType {

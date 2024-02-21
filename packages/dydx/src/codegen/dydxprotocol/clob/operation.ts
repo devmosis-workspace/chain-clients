@@ -1,7 +1,7 @@
-import { ClobMatch, ClobMatchAmino, ClobMatchSDKType } from "./matches";
-import { MsgPlaceOrder, MsgPlaceOrderAmino, MsgPlaceOrderSDKType, MsgCancelOrder, MsgCancelOrderAmino, MsgCancelOrderSDKType } from "./tx";
-import { OrderId, OrderIdAmino, OrderIdSDKType } from "./order";
-import { OrderRemoval, OrderRemovalAmino, OrderRemovalSDKType } from "./order_removals";
+import { ClobMatch, ClobMatchSDKType } from "./matches";
+import { MsgPlaceOrder, MsgPlaceOrderSDKType, MsgCancelOrder, MsgCancelOrderSDKType } from "./tx";
+import { OrderId, OrderIdSDKType } from "./order";
+import { OrderRemoval, OrderRemovalSDKType } from "./order_removals";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -17,20 +17,6 @@ export interface Operation {
 export interface OperationProtoMsg {
   typeUrl: "/dydxprotocol.clob.Operation";
   value: Uint8Array;
-}
-/**
- * Operation represents an operation in the proposed operations. Operation is
- * used internally within the memclob only.
- */
-export interface OperationAmino {
-  match?: ClobMatchAmino;
-  short_term_order_placement?: MsgPlaceOrderAmino;
-  short_term_order_cancellation?: MsgCancelOrderAmino;
-  preexisting_stateful_order?: OrderIdAmino;
-}
-export interface OperationAminoMsg {
-  type: "/dydxprotocol.clob.Operation";
-  value: OperationAmino;
 }
 /**
  * Operation represents an operation in the proposed operations. Operation is
@@ -55,20 +41,6 @@ export interface InternalOperation {
 export interface InternalOperationProtoMsg {
   typeUrl: "/dydxprotocol.clob.InternalOperation";
   value: Uint8Array;
-}
-/**
- * InternalOperation represents an internal operation in the operations to
- * propose. InternalOperation is used internally within the memclob only.
- */
-export interface InternalOperationAmino {
-  match?: ClobMatchAmino;
-  short_term_order_placement?: MsgPlaceOrderAmino;
-  preexisting_stateful_order?: OrderIdAmino;
-  order_removal?: OrderRemovalAmino;
-}
-export interface InternalOperationAminoMsg {
-  type: "/dydxprotocol.clob.InternalOperation";
-  value: InternalOperationAmino;
 }
 /**
  * InternalOperation represents an internal operation in the operations to

@@ -1,5 +1,5 @@
-import { OrderId, OrderIdAmino, OrderIdSDKType } from "./order";
-import { SubaccountId, SubaccountIdAmino, SubaccountIdSDKType } from "../subaccounts/subaccount";
+import { OrderId, OrderIdSDKType } from "./order";
+import { SubaccountId, SubaccountIdSDKType } from "../subaccounts/subaccount";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -15,20 +15,6 @@ export interface ClobMatch {
 export interface ClobMatchProtoMsg {
   typeUrl: "/dydxprotocol.clob.ClobMatch";
   value: Uint8Array;
-}
-/**
- * ClobMatch represents an operations queue entry around all different types
- * of matches, specifically regular matches, liquidation matches, and
- * deleveraging matches.
- */
-export interface ClobMatchAmino {
-  match_orders?: MatchOrdersAmino;
-  match_perpetual_liquidation?: MatchPerpetualLiquidationAmino;
-  match_perpetual_deleveraging?: MatchPerpetualDeleveragingAmino;
-}
-export interface ClobMatchAminoMsg {
-  type: "/dydxprotocol.clob.ClobMatch";
-  value: ClobMatchAmino;
 }
 /**
  * ClobMatch represents an operations queue entry around all different types
@@ -55,20 +41,6 @@ export interface MakerFillProtoMsg {
   value: Uint8Array;
 }
 /** MakerFill represents the filled amount of a matched maker order. */
-export interface MakerFillAmino {
-  /**
-   * The filled amount of the matched maker order, in base quantums.
-   * TODO(CLOB-571): update to use SerializableInt.
-   */
-  fill_amount?: string;
-  /** The `OrderId` of the matched maker order. */
-  maker_order_id?: OrderIdAmino;
-}
-export interface MakerFillAminoMsg {
-  type: "/dydxprotocol.clob.MakerFill";
-  value: MakerFillAmino;
-}
-/** MakerFill represents the filled amount of a matched maker order. */
 export interface MakerFillSDKType {
   fill_amount: bigint;
   maker_order_id: OrderIdSDKType;
@@ -83,17 +55,6 @@ export interface MatchOrders {
 export interface MatchOrdersProtoMsg {
   typeUrl: "/dydxprotocol.clob.MatchOrders";
   value: Uint8Array;
-}
-/** MatchOrders is an injected message used for matching orders. */
-export interface MatchOrdersAmino {
-  /** The `OrderId` of the taker order. */
-  taker_order_id?: OrderIdAmino;
-  /** An ordered list of fills created by this taker order. */
-  fills?: MakerFillAmino[];
-}
-export interface MatchOrdersAminoMsg {
-  type: "/dydxprotocol.clob.MatchOrders";
-  value: MatchOrdersAmino;
 }
 /** MatchOrders is an injected message used for matching orders. */
 export interface MatchOrdersSDKType {
@@ -121,28 +82,6 @@ export interface MatchPerpetualLiquidation {
 export interface MatchPerpetualLiquidationProtoMsg {
   typeUrl: "/dydxprotocol.clob.MatchPerpetualLiquidation";
   value: Uint8Array;
-}
-/**
- * MatchPerpetualLiquidation is an injected message used for liquidating a
- * subaccount.
- */
-export interface MatchPerpetualLiquidationAmino {
-  /** ID of the subaccount that was liquidated. */
-  liquidated?: SubaccountIdAmino;
-  /** The ID of the clob pair involved in the liquidation. */
-  clob_pair_id?: number;
-  /** The ID of the perpetual involved in the liquidation. */
-  perpetual_id?: number;
-  /** The total size of the liquidation order including any unfilled size. */
-  total_size?: string;
-  /** `true` if liquidating a short position, `false` otherwise. */
-  is_buy?: boolean;
-  /** An ordered list of fills created by this liquidation. */
-  fills?: MakerFillAmino[];
-}
-export interface MatchPerpetualLiquidationAminoMsg {
-  type: "/dydxprotocol.clob.MatchPerpetualLiquidation";
-  value: MatchPerpetualLiquidationAmino;
 }
 /**
  * MatchPerpetualLiquidation is an injected message used for liquidating a
@@ -176,22 +115,6 @@ export interface MatchPerpetualDeleveragingProtoMsg {
  * MatchPerpetualDeleveraging is an injected message used for deleveraging a
  * subaccount.
  */
-export interface MatchPerpetualDeleveragingAmino {
-  /** ID of the subaccount that was liquidated. */
-  liquidated?: SubaccountIdAmino;
-  /** The ID of the perpetual that was liquidated. */
-  perpetual_id?: number;
-  /** An ordered list of fills created by this liquidation. */
-  fills?: MatchPerpetualDeleveraging_FillAmino[];
-}
-export interface MatchPerpetualDeleveragingAminoMsg {
-  type: "/dydxprotocol.clob.MatchPerpetualDeleveraging";
-  value: MatchPerpetualDeleveragingAmino;
-}
-/**
- * MatchPerpetualDeleveraging is an injected message used for deleveraging a
- * subaccount.
- */
 export interface MatchPerpetualDeleveragingSDKType {
   liquidated: SubaccountIdSDKType;
   perpetual_id: number;
@@ -214,24 +137,6 @@ export interface MatchPerpetualDeleveraging_Fill {
 export interface MatchPerpetualDeleveraging_FillProtoMsg {
   typeUrl: "/dydxprotocol.clob.Fill";
   value: Uint8Array;
-}
-/** Fill represents a fill between the liquidated and offsetting subaccount. */
-export interface MatchPerpetualDeleveraging_FillAmino {
-  /**
-   * ID of the subaccount that was used to offset the liquidated subaccount's
-   * position.
-   */
-  offsetting_subaccount_id?: SubaccountIdAmino;
-  /**
-   * The amount filled between the liquidated and offsetting position, in
-   * base quantums.
-   * TODO(CLOB-571): update to use SerializableInt.
-   */
-  fill_amount?: string;
-}
-export interface MatchPerpetualDeleveraging_FillAminoMsg {
-  type: "/dydxprotocol.clob.Fill";
-  value: MatchPerpetualDeleveraging_FillAmino;
 }
 /** Fill represents a fill between the liquidated and offsetting subaccount. */
 export interface MatchPerpetualDeleveraging_FillSDKType {

@@ -20,25 +20,6 @@ export interface MarketPriceProtoMsg {
   value: Uint8Array;
 }
 /** MarketPrice is used by the application to store/retrieve oracle price. */
-export interface MarketPriceAmino {
-  /** Unique, sequentially-generated value that matches `MarketParam`. */
-  id?: number;
-  /**
-   * Static value. The exponent of the price. See the comment on the duplicate
-   * MarketParam field for more information.
-   */
-  exponent?: number;
-  /**
-   * The variable value that is updated by oracle price updates. `0` if it has
-   * never been updated, `>0` otherwise.
-   */
-  price?: string;
-}
-export interface MarketPriceAminoMsg {
-  type: "/dydxprotocol.prices.MarketPrice";
-  value: MarketPriceAmino;
-}
-/** MarketPrice is used by the application to store/retrieve oracle price. */
 export interface MarketPriceSDKType {
   id: number;
   exponent: number;

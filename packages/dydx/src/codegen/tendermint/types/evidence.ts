@@ -1,6 +1,6 @@
-import { Vote, VoteAmino, VoteSDKType, LightBlock, LightBlockAmino, LightBlockSDKType } from "./types";
+import { Vote, VoteSDKType, LightBlock, LightBlockSDKType } from "./types";
 import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
-import { Validator, ValidatorAmino, ValidatorSDKType } from "./validator";
+import { Validator, ValidatorSDKType } from "./validator";
 import { BinaryWriter } from "../../binary";
 import { isSet, fromJsonTimestamp } from "../../helpers";
 export interface Evidence {
@@ -10,14 +10,6 @@ export interface Evidence {
 export interface EvidenceProtoMsg {
   typeUrl: "/tendermint.types.Evidence";
   value: Uint8Array;
-}
-export interface EvidenceAmino {
-  duplicate_vote_evidence?: DuplicateVoteEvidenceAmino;
-  light_client_attack_evidence?: LightClientAttackEvidenceAmino;
-}
-export interface EvidenceAminoMsg {
-  type: "/tendermint.types.Evidence";
-  value: EvidenceAmino;
 }
 export interface EvidenceSDKType {
   duplicate_vote_evidence?: DuplicateVoteEvidenceSDKType;
@@ -34,18 +26,6 @@ export interface DuplicateVoteEvidence {
 export interface DuplicateVoteEvidenceProtoMsg {
   typeUrl: "/tendermint.types.DuplicateVoteEvidence";
   value: Uint8Array;
-}
-/** DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes. */
-export interface DuplicateVoteEvidenceAmino {
-  vote_a?: VoteAmino;
-  vote_b?: VoteAmino;
-  total_voting_power?: string;
-  validator_power?: string;
-  timestamp?: string;
-}
-export interface DuplicateVoteEvidenceAminoMsg {
-  type: "/tendermint.types.DuplicateVoteEvidence";
-  value: DuplicateVoteEvidenceAmino;
 }
 /** DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes. */
 export interface DuplicateVoteEvidenceSDKType {
@@ -68,18 +48,6 @@ export interface LightClientAttackEvidenceProtoMsg {
   value: Uint8Array;
 }
 /** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
-export interface LightClientAttackEvidenceAmino {
-  conflicting_block?: LightBlockAmino;
-  common_height?: string;
-  byzantine_validators?: ValidatorAmino[];
-  total_voting_power?: string;
-  timestamp?: string;
-}
-export interface LightClientAttackEvidenceAminoMsg {
-  type: "/tendermint.types.LightClientAttackEvidence";
-  value: LightClientAttackEvidenceAmino;
-}
-/** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
 export interface LightClientAttackEvidenceSDKType {
   conflicting_block?: LightBlockSDKType;
   common_height: bigint;
@@ -93,13 +61,6 @@ export interface EvidenceList {
 export interface EvidenceListProtoMsg {
   typeUrl: "/tendermint.types.EvidenceList";
   value: Uint8Array;
-}
-export interface EvidenceListAmino {
-  evidence?: EvidenceAmino[];
-}
-export interface EvidenceListAminoMsg {
-  type: "/tendermint.types.EvidenceList";
-  value: EvidenceListAmino;
 }
 export interface EvidenceListSDKType {
   evidence: EvidenceSDKType[];

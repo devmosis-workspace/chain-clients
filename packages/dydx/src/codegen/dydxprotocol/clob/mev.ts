@@ -1,5 +1,5 @@
-import { SubaccountId, SubaccountIdAmino, SubaccountIdSDKType } from "../subaccounts/subaccount";
-import { ClobPair, ClobPairAmino, ClobPairSDKType } from "./clob_pair";
+import { SubaccountId, SubaccountIdSDKType } from "../subaccounts/subaccount";
+import { ClobPair, ClobPairSDKType } from "./clob_pair";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** MEVMatch represents all necessary data to calculate MEV for a regular match. */
@@ -16,21 +16,6 @@ export interface MEVMatch {
 export interface MEVMatchProtoMsg {
   typeUrl: "/dydxprotocol.clob.MEVMatch";
   value: Uint8Array;
-}
-/** MEVMatch represents all necessary data to calculate MEV for a regular match. */
-export interface MEVMatchAmino {
-  taker_order_subaccount_id?: SubaccountIdAmino;
-  taker_fee_ppm?: number;
-  maker_order_subaccount_id?: SubaccountIdAmino;
-  maker_order_subticks?: string;
-  maker_order_is_buy?: boolean;
-  maker_fee_ppm?: number;
-  clob_pair_id?: number;
-  fill_amount?: string;
-}
-export interface MEVMatchAminoMsg {
-  type: "/dydxprotocol.clob.MEVMatch";
-  value: MEVMatchAmino;
 }
 /** MEVMatch represents all necessary data to calculate MEV for a regular match. */
 export interface MEVMatchSDKType {
@@ -65,24 +50,6 @@ export interface MEVLiquidationMatchProtoMsg {
  * MEVLiquidationMatch represents all necessary data to calculate MEV for a
  * liquidation.
  */
-export interface MEVLiquidationMatchAmino {
-  liquidated_subaccount_id?: SubaccountIdAmino;
-  insurance_fund_delta_quote_quantums?: string;
-  maker_order_subaccount_id?: SubaccountIdAmino;
-  maker_order_subticks?: string;
-  maker_order_is_buy?: boolean;
-  maker_fee_ppm?: number;
-  clob_pair_id?: number;
-  fill_amount?: string;
-}
-export interface MEVLiquidationMatchAminoMsg {
-  type: "/dydxprotocol.clob.MEVLiquidationMatch";
-  value: MEVLiquidationMatchAmino;
-}
-/**
- * MEVLiquidationMatch represents all necessary data to calculate MEV for a
- * liquidation.
- */
 export interface MEVLiquidationMatchSDKType {
   liquidated_subaccount_id: SubaccountIdSDKType;
   insurance_fund_delta_quote_quantums: bigint;
@@ -101,15 +68,6 @@ export interface ClobMidPrice {
 export interface ClobMidPriceProtoMsg {
   typeUrl: "/dydxprotocol.clob.ClobMidPrice";
   value: Uint8Array;
-}
-/** ClobMidPrice contains the mid price of a CLOB pair, represented by it's ID. */
-export interface ClobMidPriceAmino {
-  clob_pair?: ClobPairAmino;
-  subticks?: string;
-}
-export interface ClobMidPriceAminoMsg {
-  type: "/dydxprotocol.clob.ClobMidPrice";
-  value: ClobMidPriceAmino;
 }
 /** ClobMidPrice contains the mid price of a CLOB pair, represented by it's ID. */
 export interface ClobMidPriceSDKType {
@@ -132,18 +90,6 @@ export interface ValidatorMevMatchesProtoMsg {
  * ValidatorMevMatches contains all matches from the validator's local
  * operations queue.
  */
-export interface ValidatorMevMatchesAmino {
-  matches?: MEVMatchAmino[];
-  liquidation_matches?: MEVLiquidationMatchAmino[];
-}
-export interface ValidatorMevMatchesAminoMsg {
-  type: "/dydxprotocol.clob.ValidatorMevMatches";
-  value: ValidatorMevMatchesAmino;
-}
-/**
- * ValidatorMevMatches contains all matches from the validator's local
- * operations queue.
- */
 export interface ValidatorMevMatchesSDKType {
   matches: MEVMatchSDKType[];
   liquidation_matches: MEVLiquidationMatchSDKType[];
@@ -159,18 +105,6 @@ export interface MevNodeToNodeMetrics {
 export interface MevNodeToNodeMetricsProtoMsg {
   typeUrl: "/dydxprotocol.clob.MevNodeToNodeMetrics";
   value: Uint8Array;
-}
-/**
- * MevNodeToNodeMetrics is a data structure for encapsulating all MEV node <>
- * node metrics.
- */
-export interface MevNodeToNodeMetricsAmino {
-  validator_mev_matches?: ValidatorMevMatchesAmino;
-  clob_mid_prices?: ClobMidPriceAmino[];
-}
-export interface MevNodeToNodeMetricsAminoMsg {
-  type: "/dydxprotocol.clob.MevNodeToNodeMetrics";
-  value: MevNodeToNodeMetricsAmino;
 }
 /**
  * MevNodeToNodeMetrics is a data structure for encapsulating all MEV node <>

@@ -10,15 +10,6 @@ export interface PerpetualFeeParamsProtoMsg {
   value: Uint8Array;
 }
 /** PerpetualFeeParams defines the parameters for perpetual fees. */
-export interface PerpetualFeeParamsAmino {
-  /** Sorted fee tiers (lowest requirements first). */
-  tiers?: PerpetualFeeTierAmino[];
-}
-export interface PerpetualFeeParamsAminoMsg {
-  type: "/dydxprotocol.feetiers.PerpetualFeeParams";
-  value: PerpetualFeeParamsAmino;
-}
-/** PerpetualFeeParams defines the parameters for perpetual fees. */
 export interface PerpetualFeeParamsSDKType {
   tiers: PerpetualFeeTierSDKType[];
 }
@@ -40,25 +31,6 @@ export interface PerpetualFeeTier {
 export interface PerpetualFeeTierProtoMsg {
   typeUrl: "/dydxprotocol.feetiers.PerpetualFeeTier";
   value: Uint8Array;
-}
-/** A fee tier for perpetuals */
-export interface PerpetualFeeTierAmino {
-  /** Human-readable name of the tier, e.g. "Gold". */
-  name?: string;
-  /** The trader's absolute volume requirement in quote quantums. */
-  absolute_volume_requirement?: string;
-  /** The total volume share requirement. */
-  total_volume_share_requirement_ppm?: number;
-  /** The maker volume share requirement. */
-  maker_volume_share_requirement_ppm?: number;
-  /** The maker fee once this tier is reached. */
-  maker_fee_ppm?: number;
-  /** The taker fee once this tier is reached. */
-  taker_fee_ppm?: number;
-}
-export interface PerpetualFeeTierAminoMsg {
-  type: "/dydxprotocol.feetiers.PerpetualFeeTier";
-  value: PerpetualFeeTierAmino;
 }
 /** A fee tier for perpetuals */
 export interface PerpetualFeeTierSDKType {

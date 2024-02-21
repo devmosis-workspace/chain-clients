@@ -1,10 +1,10 @@
-import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { SubaccountId, SubaccountIdAmino, SubaccountIdSDKType } from "../subaccounts/subaccount";
-import { ValidatorMevMatches, ValidatorMevMatchesAmino, ValidatorMevMatchesSDKType, MevNodeToNodeMetrics, MevNodeToNodeMetricsAmino, MevNodeToNodeMetricsSDKType } from "./mev";
-import { ClobPair, ClobPairAmino, ClobPairSDKType } from "./clob_pair";
-import { EquityTierLimitConfiguration, EquityTierLimitConfigurationAmino, EquityTierLimitConfigurationSDKType } from "./equity_tier_limit_config";
-import { BlockRateLimitConfiguration, BlockRateLimitConfigurationAmino, BlockRateLimitConfigurationSDKType } from "./block_rate_limit_config";
-import { LiquidationsConfig, LiquidationsConfigAmino, LiquidationsConfigSDKType } from "./liquidations_config";
+import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
+import { SubaccountId, SubaccountIdSDKType } from "../subaccounts/subaccount";
+import { ValidatorMevMatches, ValidatorMevMatchesSDKType, MevNodeToNodeMetrics, MevNodeToNodeMetricsSDKType } from "./mev";
+import { ClobPair, ClobPairSDKType } from "./clob_pair";
+import { EquityTierLimitConfiguration, EquityTierLimitConfigurationSDKType } from "./equity_tier_limit_config";
+import { BlockRateLimitConfiguration, BlockRateLimitConfigurationSDKType } from "./block_rate_limit_config";
+import { LiquidationsConfig, LiquidationsConfigSDKType } from "./liquidations_config";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** QueryGetClobPairRequest is request type for the ClobPair method. */
@@ -15,15 +15,6 @@ export interface QueryGetClobPairRequest {
 export interface QueryGetClobPairRequestProtoMsg {
   typeUrl: "/dydxprotocol.clob.QueryGetClobPairRequest";
   value: Uint8Array;
-}
-/** QueryGetClobPairRequest is request type for the ClobPair method. */
-export interface QueryGetClobPairRequestAmino {
-  /** QueryGetClobPairRequest is request type for the ClobPair method. */
-  id?: number;
-}
-export interface QueryGetClobPairRequestAminoMsg {
-  type: "/dydxprotocol.clob.QueryGetClobPairRequest";
-  value: QueryGetClobPairRequestAmino;
 }
 /** QueryGetClobPairRequest is request type for the ClobPair method. */
 export interface QueryGetClobPairRequestSDKType {
@@ -38,14 +29,6 @@ export interface QueryClobPairResponseProtoMsg {
   value: Uint8Array;
 }
 /** QueryClobPairResponse is response type for the ClobPair method. */
-export interface QueryClobPairResponseAmino {
-  clob_pair?: ClobPairAmino;
-}
-export interface QueryClobPairResponseAminoMsg {
-  type: "/dydxprotocol.clob.QueryClobPairResponse";
-  value: QueryClobPairResponseAmino;
-}
-/** QueryClobPairResponse is response type for the ClobPair method. */
 export interface QueryClobPairResponseSDKType {
   clob_pair: ClobPairSDKType;
 }
@@ -56,14 +39,6 @@ export interface QueryAllClobPairRequest {
 export interface QueryAllClobPairRequestProtoMsg {
   typeUrl: "/dydxprotocol.clob.QueryAllClobPairRequest";
   value: Uint8Array;
-}
-/** QueryAllClobPairRequest is request type for the ClobPairAll method. */
-export interface QueryAllClobPairRequestAmino {
-  pagination?: PageRequestAmino;
-}
-export interface QueryAllClobPairRequestAminoMsg {
-  type: "/dydxprotocol.clob.QueryAllClobPairRequest";
-  value: QueryAllClobPairRequestAmino;
 }
 /** QueryAllClobPairRequest is request type for the ClobPairAll method. */
 export interface QueryAllClobPairRequestSDKType {
@@ -77,15 +52,6 @@ export interface QueryClobPairAllResponse {
 export interface QueryClobPairAllResponseProtoMsg {
   typeUrl: "/dydxprotocol.clob.QueryClobPairAllResponse";
   value: Uint8Array;
-}
-/** QueryClobPairAllResponse is response type for the ClobPairAll method. */
-export interface QueryClobPairAllResponseAmino {
-  clob_pair?: ClobPairAmino[];
-  pagination?: PageResponseAmino;
-}
-export interface QueryClobPairAllResponseAminoMsg {
-  type: "/dydxprotocol.clob.QueryClobPairAllResponse";
-  value: QueryClobPairAllResponseAmino;
 }
 /** QueryClobPairAllResponse is response type for the ClobPairAll method. */
 export interface QueryClobPairAllResponseSDKType {
@@ -103,18 +69,6 @@ export interface AreSubaccountsLiquidatableRequest {
 export interface AreSubaccountsLiquidatableRequestProtoMsg {
   typeUrl: "/dydxprotocol.clob.AreSubaccountsLiquidatableRequest";
   value: Uint8Array;
-}
-/**
- * AreSubaccountsLiquidatableRequest is a request message used to check whether
- * the given subaccounts are liquidatable.
- * The subaccount ids should not contain duplicates.
- */
-export interface AreSubaccountsLiquidatableRequestAmino {
-  subaccount_ids?: SubaccountIdAmino[];
-}
-export interface AreSubaccountsLiquidatableRequestAminoMsg {
-  type: "/dydxprotocol.clob.AreSubaccountsLiquidatableRequest";
-  value: AreSubaccountsLiquidatableRequestAmino;
 }
 /**
  * AreSubaccountsLiquidatableRequest is a request message used to check whether
@@ -139,17 +93,6 @@ export interface AreSubaccountsLiquidatableResponseProtoMsg {
  * AreSubaccountsLiquidatableResponse is a response message that contains the
  * liquidation status for each subaccount.
  */
-export interface AreSubaccountsLiquidatableResponseAmino {
-  results?: AreSubaccountsLiquidatableResponse_ResultAmino[];
-}
-export interface AreSubaccountsLiquidatableResponseAminoMsg {
-  type: "/dydxprotocol.clob.AreSubaccountsLiquidatableResponse";
-  value: AreSubaccountsLiquidatableResponseAmino;
-}
-/**
- * AreSubaccountsLiquidatableResponse is a response message that contains the
- * liquidation status for each subaccount.
- */
 export interface AreSubaccountsLiquidatableResponseSDKType {
   results: AreSubaccountsLiquidatableResponse_ResultSDKType[];
 }
@@ -161,15 +104,6 @@ export interface AreSubaccountsLiquidatableResponse_Result {
 export interface AreSubaccountsLiquidatableResponse_ResultProtoMsg {
   typeUrl: "/dydxprotocol.clob.Result";
   value: Uint8Array;
-}
-/** Result returns whether a subaccount should be liquidated. */
-export interface AreSubaccountsLiquidatableResponse_ResultAmino {
-  subaccount_id?: SubaccountIdAmino;
-  is_liquidatable?: boolean;
-}
-export interface AreSubaccountsLiquidatableResponse_ResultAminoMsg {
-  type: "/dydxprotocol.clob.Result";
-  value: AreSubaccountsLiquidatableResponse_ResultAmino;
 }
 /** Result returns whether a subaccount should be liquidated. */
 export interface AreSubaccountsLiquidatableResponse_ResultSDKType {
@@ -199,25 +133,6 @@ export interface MevNodeToNodeCalculationRequestProtoMsg {
  * MevNodeToNodeCalculationRequest is a request message used to run the
  * MEV node <> node calculation.
  */
-export interface MevNodeToNodeCalculationRequestAmino {
-  /**
-   * Represents the matches on the "block proposer". Note that this field
-   * does not need to be the actual block proposer's matches for a block, since
-   * the MEV calculation logic is run with this nodes matches as the "block
-   * proposer" matches.
-   */
-  block_proposer_matches?: ValidatorMevMatchesAmino;
-  /** Represents the matches and mid-prices on the validator. */
-  validator_mev_metrics?: MevNodeToNodeMetricsAmino;
-}
-export interface MevNodeToNodeCalculationRequestAminoMsg {
-  type: "/dydxprotocol.clob.MevNodeToNodeCalculationRequest";
-  value: MevNodeToNodeCalculationRequestAmino;
-}
-/**
- * MevNodeToNodeCalculationRequest is a request message used to run the
- * MEV node <> node calculation.
- */
 export interface MevNodeToNodeCalculationRequestSDKType {
   block_proposer_matches?: ValidatorMevMatchesSDKType;
   validator_mev_metrics?: MevNodeToNodeMetricsSDKType;
@@ -237,17 +152,6 @@ export interface MevNodeToNodeCalculationResponseProtoMsg {
  * MevNodeToNodeCalculationResponse is a response message that contains the
  * MEV node <> node calculation result.
  */
-export interface MevNodeToNodeCalculationResponseAmino {
-  results?: MevNodeToNodeCalculationResponse_MevAndVolumePerClobAmino[];
-}
-export interface MevNodeToNodeCalculationResponseAminoMsg {
-  type: "/dydxprotocol.clob.MevNodeToNodeCalculationResponse";
-  value: MevNodeToNodeCalculationResponseAmino;
-}
-/**
- * MevNodeToNodeCalculationResponse is a response message that contains the
- * MEV node <> node calculation result.
- */
 export interface MevNodeToNodeCalculationResponseSDKType {
   results: MevNodeToNodeCalculationResponse_MevAndVolumePerClobSDKType[];
 }
@@ -260,16 +164,6 @@ export interface MevNodeToNodeCalculationResponse_MevAndVolumePerClob {
 export interface MevNodeToNodeCalculationResponse_MevAndVolumePerClobProtoMsg {
   typeUrl: "/dydxprotocol.clob.MevAndVolumePerClob";
   value: Uint8Array;
-}
-/** MevAndVolumePerClob contains information about the MEV and volume per CLOB. */
-export interface MevNodeToNodeCalculationResponse_MevAndVolumePerClobAmino {
-  clob_pair_id?: number;
-  mev?: number;
-  volume?: string;
-}
-export interface MevNodeToNodeCalculationResponse_MevAndVolumePerClobAminoMsg {
-  type: "/dydxprotocol.clob.MevAndVolumePerClob";
-  value: MevNodeToNodeCalculationResponse_MevAndVolumePerClobAmino;
 }
 /** MevAndVolumePerClob contains information about the MEV and volume per CLOB. */
 export interface MevNodeToNodeCalculationResponse_MevAndVolumePerClobSDKType {
@@ -285,15 +179,6 @@ export interface QueryEquityTierLimitConfigurationRequest {}
 export interface QueryEquityTierLimitConfigurationRequestProtoMsg {
   typeUrl: "/dydxprotocol.clob.QueryEquityTierLimitConfigurationRequest";
   value: Uint8Array;
-}
-/**
- * QueryEquityTierLimitConfigurationRequest is a request message for
- * EquityTierLimitConfiguration.
- */
-export interface QueryEquityTierLimitConfigurationRequestAmino {}
-export interface QueryEquityTierLimitConfigurationRequestAminoMsg {
-  type: "/dydxprotocol.clob.QueryEquityTierLimitConfigurationRequest";
-  value: QueryEquityTierLimitConfigurationRequestAmino;
 }
 /**
  * QueryEquityTierLimitConfigurationRequest is a request message for
@@ -315,17 +200,6 @@ export interface QueryEquityTierLimitConfigurationResponseProtoMsg {
  * QueryEquityTierLimitConfigurationResponse is a response message that contains
  * the EquityTierLimitConfiguration.
  */
-export interface QueryEquityTierLimitConfigurationResponseAmino {
-  equity_tier_limit_config?: EquityTierLimitConfigurationAmino;
-}
-export interface QueryEquityTierLimitConfigurationResponseAminoMsg {
-  type: "/dydxprotocol.clob.QueryEquityTierLimitConfigurationResponse";
-  value: QueryEquityTierLimitConfigurationResponseAmino;
-}
-/**
- * QueryEquityTierLimitConfigurationResponse is a response message that contains
- * the EquityTierLimitConfiguration.
- */
 export interface QueryEquityTierLimitConfigurationResponseSDKType {
   equity_tier_limit_config: EquityTierLimitConfigurationSDKType;
 }
@@ -337,15 +211,6 @@ export interface QueryBlockRateLimitConfigurationRequest {}
 export interface QueryBlockRateLimitConfigurationRequestProtoMsg {
   typeUrl: "/dydxprotocol.clob.QueryBlockRateLimitConfigurationRequest";
   value: Uint8Array;
-}
-/**
- * QueryBlockRateLimitConfigurationRequest is a request message for
- * BlockRateLimitConfiguration.
- */
-export interface QueryBlockRateLimitConfigurationRequestAmino {}
-export interface QueryBlockRateLimitConfigurationRequestAminoMsg {
-  type: "/dydxprotocol.clob.QueryBlockRateLimitConfigurationRequest";
-  value: QueryBlockRateLimitConfigurationRequestAmino;
 }
 /**
  * QueryBlockRateLimitConfigurationRequest is a request message for
@@ -367,17 +232,6 @@ export interface QueryBlockRateLimitConfigurationResponseProtoMsg {
  * QueryBlockRateLimitConfigurationResponse is a response message that contains
  * the BlockRateLimitConfiguration.
  */
-export interface QueryBlockRateLimitConfigurationResponseAmino {
-  block_rate_limit_config?: BlockRateLimitConfigurationAmino;
-}
-export interface QueryBlockRateLimitConfigurationResponseAminoMsg {
-  type: "/dydxprotocol.clob.QueryBlockRateLimitConfigurationResponse";
-  value: QueryBlockRateLimitConfigurationResponseAmino;
-}
-/**
- * QueryBlockRateLimitConfigurationResponse is a response message that contains
- * the BlockRateLimitConfiguration.
- */
 export interface QueryBlockRateLimitConfigurationResponseSDKType {
   block_rate_limit_config: BlockRateLimitConfigurationSDKType;
 }
@@ -394,15 +248,6 @@ export interface QueryLiquidationsConfigurationRequestProtoMsg {
  * QueryLiquidationsConfigurationRequest is a request message for
  * LiquidationsConfiguration.
  */
-export interface QueryLiquidationsConfigurationRequestAmino {}
-export interface QueryLiquidationsConfigurationRequestAminoMsg {
-  type: "/dydxprotocol.clob.QueryLiquidationsConfigurationRequest";
-  value: QueryLiquidationsConfigurationRequestAmino;
-}
-/**
- * QueryLiquidationsConfigurationRequest is a request message for
- * LiquidationsConfiguration.
- */
 export interface QueryLiquidationsConfigurationRequestSDKType {}
 /**
  * QueryLiquidationsConfigurationResponse is a response message that contains
@@ -414,17 +259,6 @@ export interface QueryLiquidationsConfigurationResponse {
 export interface QueryLiquidationsConfigurationResponseProtoMsg {
   typeUrl: "/dydxprotocol.clob.QueryLiquidationsConfigurationResponse";
   value: Uint8Array;
-}
-/**
- * QueryLiquidationsConfigurationResponse is a response message that contains
- * the LiquidationsConfiguration.
- */
-export interface QueryLiquidationsConfigurationResponseAmino {
-  liquidations_config?: LiquidationsConfigAmino;
-}
-export interface QueryLiquidationsConfigurationResponseAminoMsg {
-  type: "/dydxprotocol.clob.QueryLiquidationsConfigurationResponse";
-  value: QueryLiquidationsConfigurationResponseAmino;
 }
 /**
  * QueryLiquidationsConfigurationResponse is a response message that contains

@@ -18,7 +18,6 @@ export enum IndexerTendermintEvent_BlockEvent {
   UNRECOGNIZED = -1,
 }
 export const IndexerTendermintEvent_BlockEventSDKType = IndexerTendermintEvent_BlockEvent;
-export const IndexerTendermintEvent_BlockEventAmino = IndexerTendermintEvent_BlockEvent;
 export function indexerTendermintEvent_BlockEventFromJSON(object: any): IndexerTendermintEvent_BlockEvent {
   switch (object) {
     case 0:
@@ -65,18 +64,6 @@ export interface IndexerTendermintEventWrapperProtoMsg {
  * IndexerTendermintEventWrapper is a wrapper around IndexerTendermintEvent,
  * with an additional txn_hash field.
  */
-export interface IndexerTendermintEventWrapperAmino {
-  event?: IndexerTendermintEventAmino;
-  txn_hash?: string;
-}
-export interface IndexerTendermintEventWrapperAminoMsg {
-  type: "/dydxprotocol.indexer.indexer_manager.IndexerTendermintEventWrapper";
-  value: IndexerTendermintEventWrapperAmino;
-}
-/**
- * IndexerTendermintEventWrapper is a wrapper around IndexerTendermintEvent,
- * with an additional txn_hash field.
- */
 export interface IndexerTendermintEventWrapperSDKType {
   event?: IndexerTendermintEventSDKType;
   txn_hash: string;
@@ -91,17 +78,6 @@ export interface IndexerEventsStoreValue {
 export interface IndexerEventsStoreValueProtoMsg {
   typeUrl: "/dydxprotocol.indexer.indexer_manager.IndexerEventsStoreValue";
   value: Uint8Array;
-}
-/**
- * IndexerEventsStoreValue represents the type of the value of the
- * `IndexerEventsStore` in state.
- */
-export interface IndexerEventsStoreValueAmino {
-  events?: IndexerTendermintEventWrapperAmino[];
-}
-export interface IndexerEventsStoreValueAminoMsg {
-  type: "/dydxprotocol.indexer.indexer_manager.IndexerEventsStoreValue";
-  value: IndexerEventsStoreValueAmino;
 }
 /**
  * IndexerEventsStoreValue represents the type of the value of the
@@ -140,31 +116,6 @@ export interface IndexerTendermintEventProtoMsg {
  * the V4 application as well as additional metadata to determine the ordering
  * of the event within the block and the subtype of the event.
  */
-export interface IndexerTendermintEventAmino {
-  /** Subtype of the event e.g. "order_fill", "subaccount_update", etc. */
-  subtype?: string;
-  transaction_index?: number;
-  block_event?: IndexerTendermintEvent_BlockEvent;
-  /**
-   * Index of the event within the list of events that happened either during a
-   * transaction or during processing of a block.
-   * TODO(DEC-537): Deprecate this field because events are already ordered.
-   */
-  event_index?: number;
-  /** Version of the event. */
-  version?: number;
-  /** Tendermint event bytes. */
-  data_bytes?: string;
-}
-export interface IndexerTendermintEventAminoMsg {
-  type: "/dydxprotocol.indexer.indexer_manager.IndexerTendermintEvent";
-  value: IndexerTendermintEventAmino;
-}
-/**
- * IndexerTendermintEvent contains the base64 encoded event proto emitted from
- * the V4 application as well as additional metadata to determine the ordering
- * of the event within the block and the subtype of the event.
- */
 export interface IndexerTendermintEventSDKType {
   subtype: string;
   transaction_index?: number;
@@ -188,22 +139,6 @@ export interface IndexerTendermintBlock {
 export interface IndexerTendermintBlockProtoMsg {
   typeUrl: "/dydxprotocol.indexer.indexer_manager.IndexerTendermintBlock";
   value: Uint8Array;
-}
-/**
- * IndexerTendermintBlock contains all the events for the block along with
- * metadata for the block height, timestamp of the block and a list of all the
- * hashes of the transactions within the block. The transaction hashes follow
- * the ordering of the transactions as they appear within the block.
- */
-export interface IndexerTendermintBlockAmino {
-  height?: number;
-  time?: string;
-  events?: IndexerTendermintEventAmino[];
-  tx_hashes?: string[];
-}
-export interface IndexerTendermintBlockAminoMsg {
-  type: "/dydxprotocol.indexer.indexer_manager.IndexerTendermintBlock";
-  value: IndexerTendermintBlockAmino;
 }
 /**
  * IndexerTendermintBlock contains all the events for the block along with

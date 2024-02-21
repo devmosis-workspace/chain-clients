@@ -1,4 +1,4 @@
-import { EpochInfo, EpochInfoAmino, EpochInfoSDKType } from "./epoch_info";
+import { EpochInfo, EpochInfoSDKType } from "./epoch_info";
 import { BinaryWriter } from "../../binary";
 /** GenesisState defines the epochs module's genesis state. */
 export interface GenesisState {
@@ -7,14 +7,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.epochs.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the epochs module's genesis state. */
-export interface GenesisStateAmino {
-  epoch_info_list?: EpochInfoAmino[];
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.epochs.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the epochs module's genesis state. */
 export interface GenesisStateSDKType {

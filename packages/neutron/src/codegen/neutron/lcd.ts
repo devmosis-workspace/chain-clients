@@ -9,22 +9,30 @@ export const createLCDClient = async ({
   });
   return {
     neutron: {
-      contractmanager: new (await import("../contractmanager/query.lcd")).LCDQueryClient({
+      contractmanager: new (await import("./contractmanager/query.lcd")).LCDQueryClient({
         requestClient
       }),
-      cron: new (await import("../cron/query.lcd")).LCDQueryClient({
+      cron: new (await import("./cron/query.lcd")).LCDQueryClient({
         requestClient
       }),
-      feeburner: new (await import("../feeburner/query.lcd")).LCDQueryClient({
+      dex: new (await import("./dex/query.lcd")).LCDQueryClient({
         requestClient
       }),
-      feerefunder: new (await import("../feerefunder/query.lcd")).LCDQueryClient({
+      feeburner: new (await import("./feeburner/query.lcd")).LCDQueryClient({
         requestClient
       }),
-      interchainqueries: new (await import("../interchainqueries/query.lcd")).LCDQueryClient({
+      feerefunder: new (await import("./feerefunder/query.lcd")).LCDQueryClient({
         requestClient
       }),
-      transfer: new (await import("../transfer/v1/query.lcd")).LCDQueryClient({
+      interchainqueries: new (await import("./interchainqueries/query.lcd")).LCDQueryClient({
+        requestClient
+      }),
+      interchaintxs: {
+        v1: new (await import("./interchaintxs/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      transfer: new (await import("./transfer/v1/query.lcd")).LCDQueryClient({
         requestClient
       })
     },
@@ -56,6 +64,11 @@ export const createLCDClient = async ({
           })
         }
       },
+      consensus: {
+        v1: new (await import("../cosmos/consensus/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
       distribution: {
         v1beta1: new (await import("../cosmos/distribution/v1beta1/query.lcd")).LCDQueryClient({
           requestClient
@@ -72,12 +85,25 @@ export const createLCDClient = async ({
         })
       },
       gov: {
+        v1: new (await import("../cosmos/gov/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        }),
         v1beta1: new (await import("../cosmos/gov/v1beta1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      group: {
+        v1: new (await import("../cosmos/group/v1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },
       mint: {
         v1beta1: new (await import("../cosmos/mint/v1beta1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      nft: {
+        v1beta1: new (await import("../cosmos/nft/v1beta1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },

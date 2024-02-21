@@ -1,7 +1,7 @@
-import { ClobPair, ClobPairAmino, ClobPairSDKType } from "./clob_pair";
-import { LiquidationsConfig, LiquidationsConfigAmino, LiquidationsConfigSDKType } from "./liquidations_config";
-import { BlockRateLimitConfiguration, BlockRateLimitConfigurationAmino, BlockRateLimitConfigurationSDKType } from "./block_rate_limit_config";
-import { EquityTierLimitConfiguration, EquityTierLimitConfigurationAmino, EquityTierLimitConfigurationSDKType } from "./equity_tier_limit_config";
+import { ClobPair, ClobPairSDKType } from "./clob_pair";
+import { LiquidationsConfig, LiquidationsConfigSDKType } from "./liquidations_config";
+import { BlockRateLimitConfiguration, BlockRateLimitConfigurationSDKType } from "./block_rate_limit_config";
+import { EquityTierLimitConfiguration, EquityTierLimitConfigurationSDKType } from "./equity_tier_limit_config";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /** GenesisState defines the clob module's genesis state. */
@@ -14,17 +14,6 @@ export interface GenesisState {
 export interface GenesisStateProtoMsg {
   typeUrl: "/dydxprotocol.clob.GenesisState";
   value: Uint8Array;
-}
-/** GenesisState defines the clob module's genesis state. */
-export interface GenesisStateAmino {
-  clob_pairs?: ClobPairAmino[];
-  liquidations_config?: LiquidationsConfigAmino;
-  block_rate_limit_config?: BlockRateLimitConfigurationAmino;
-  equity_tier_limit_config?: EquityTierLimitConfigurationAmino;
-}
-export interface GenesisStateAminoMsg {
-  type: "/dydxprotocol.clob.GenesisState";
-  value: GenesisStateAmino;
 }
 /** GenesisState defines the clob module's genesis state. */
 export interface GenesisStateSDKType {

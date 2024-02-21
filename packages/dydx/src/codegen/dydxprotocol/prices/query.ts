@@ -1,6 +1,6 @@
-import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { MarketPrice, MarketPriceAmino, MarketPriceSDKType } from "./market_price";
-import { MarketParam, MarketParamAmino, MarketParamSDKType } from "./market_param";
+import { PageRequest, PageRequestSDKType, PageResponse, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
+import { MarketPrice, MarketPriceSDKType } from "./market_price";
+import { MarketParam, MarketParamSDKType } from "./market_param";
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 /**
@@ -17,21 +17,6 @@ export interface QueryMarketPriceRequest {
 export interface QueryMarketPriceRequestProtoMsg {
   typeUrl: "/dydxprotocol.prices.QueryMarketPriceRequest";
   value: Uint8Array;
-}
-/**
- * QueryMarketPriceRequest is request type for the Query/Params `MarketPrice`
- * RPC method.
- */
-export interface QueryMarketPriceRequestAmino {
-  /**
-   * QueryMarketPriceRequest is request type for the Query/Params `MarketPrice`
-   * RPC method.
-   */
-  id?: number;
-}
-export interface QueryMarketPriceRequestAminoMsg {
-  type: "/dydxprotocol.prices.QueryMarketPriceRequest";
-  value: QueryMarketPriceRequestAmino;
 }
 /**
  * QueryMarketPriceRequest is request type for the Query/Params `MarketPrice`
@@ -55,17 +40,6 @@ export interface QueryMarketPriceResponseProtoMsg {
  * QueryMarketPriceResponse is response type for the Query/Params `MarketPrice`
  * RPC method.
  */
-export interface QueryMarketPriceResponseAmino {
-  market_price?: MarketPriceAmino;
-}
-export interface QueryMarketPriceResponseAminoMsg {
-  type: "/dydxprotocol.prices.QueryMarketPriceResponse";
-  value: QueryMarketPriceResponseAmino;
-}
-/**
- * QueryMarketPriceResponse is response type for the Query/Params `MarketPrice`
- * RPC method.
- */
 export interface QueryMarketPriceResponseSDKType {
   market_price: MarketPriceSDKType;
 }
@@ -79,17 +53,6 @@ export interface QueryAllMarketPricesRequest {
 export interface QueryAllMarketPricesRequestProtoMsg {
   typeUrl: "/dydxprotocol.prices.QueryAllMarketPricesRequest";
   value: Uint8Array;
-}
-/**
- * QueryAllMarketPricesRequest is request type for the Query/Params
- * `AllMarketPrices` RPC method.
- */
-export interface QueryAllMarketPricesRequestAmino {
-  pagination?: PageRequestAmino;
-}
-export interface QueryAllMarketPricesRequestAminoMsg {
-  type: "/dydxprotocol.prices.QueryAllMarketPricesRequest";
-  value: QueryAllMarketPricesRequestAmino;
 }
 /**
  * QueryAllMarketPricesRequest is request type for the Query/Params
@@ -109,18 +72,6 @@ export interface QueryAllMarketPricesResponse {
 export interface QueryAllMarketPricesResponseProtoMsg {
   typeUrl: "/dydxprotocol.prices.QueryAllMarketPricesResponse";
   value: Uint8Array;
-}
-/**
- * QueryAllMarketPricesResponse is response type for the Query/Params
- * `AllMarketPrices` RPC method.
- */
-export interface QueryAllMarketPricesResponseAmino {
-  market_prices?: MarketPriceAmino[];
-  pagination?: PageResponseAmino;
-}
-export interface QueryAllMarketPricesResponseAminoMsg {
-  type: "/dydxprotocol.prices.QueryAllMarketPricesResponse";
-  value: QueryAllMarketPricesResponseAmino;
 }
 /**
  * QueryAllMarketPricesResponse is response type for the Query/Params
@@ -149,21 +100,6 @@ export interface QueryMarketParamRequestProtoMsg {
  * QueryMarketParamsRequest is request type for the Query/Params `MarketParams`
  * RPC method.
  */
-export interface QueryMarketParamRequestAmino {
-  /**
-   * QueryMarketParamsRequest is request type for the Query/Params `MarketParams`
-   * RPC method.
-   */
-  id?: number;
-}
-export interface QueryMarketParamRequestAminoMsg {
-  type: "/dydxprotocol.prices.QueryMarketParamRequest";
-  value: QueryMarketParamRequestAmino;
-}
-/**
- * QueryMarketParamsRequest is request type for the Query/Params `MarketParams`
- * RPC method.
- */
 export interface QueryMarketParamRequestSDKType {
   id: number;
 }
@@ -177,17 +113,6 @@ export interface QueryMarketParamResponse {
 export interface QueryMarketParamResponseProtoMsg {
   typeUrl: "/dydxprotocol.prices.QueryMarketParamResponse";
   value: Uint8Array;
-}
-/**
- * QueryMarketParamResponse is response type for the Query/Params `MarketParams`
- * RPC method.
- */
-export interface QueryMarketParamResponseAmino {
-  market_param?: MarketParamAmino;
-}
-export interface QueryMarketParamResponseAminoMsg {
-  type: "/dydxprotocol.prices.QueryMarketParamResponse";
-  value: QueryMarketParamResponseAmino;
 }
 /**
  * QueryMarketParamResponse is response type for the Query/Params `MarketParams`
@@ -211,17 +136,6 @@ export interface QueryAllMarketParamsRequestProtoMsg {
  * QueryAllMarketParamsRequest is request type for the Query/Params
  * `AllMarketParams` RPC method.
  */
-export interface QueryAllMarketParamsRequestAmino {
-  pagination?: PageRequestAmino;
-}
-export interface QueryAllMarketParamsRequestAminoMsg {
-  type: "/dydxprotocol.prices.QueryAllMarketParamsRequest";
-  value: QueryAllMarketParamsRequestAmino;
-}
-/**
- * QueryAllMarketParamsRequest is request type for the Query/Params
- * `AllMarketParams` RPC method.
- */
 export interface QueryAllMarketParamsRequestSDKType {
   pagination?: PageRequestSDKType;
 }
@@ -236,18 +150,6 @@ export interface QueryAllMarketParamsResponse {
 export interface QueryAllMarketParamsResponseProtoMsg {
   typeUrl: "/dydxprotocol.prices.QueryAllMarketParamsResponse";
   value: Uint8Array;
-}
-/**
- * QueryAllMarketParamsResponse is response type for the Query/Params
- * `AllMarketParams` RPC method.
- */
-export interface QueryAllMarketParamsResponseAmino {
-  market_params?: MarketParamAmino[];
-  pagination?: PageResponseAmino;
-}
-export interface QueryAllMarketParamsResponseAminoMsg {
-  type: "/dydxprotocol.prices.QueryAllMarketParamsResponse";
-  value: QueryAllMarketParamsResponseAmino;
 }
 /**
  * QueryAllMarketParamsResponse is response type for the Query/Params

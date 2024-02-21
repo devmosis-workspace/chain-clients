@@ -1,4 +1,4 @@
-import { IndexerSubaccountId, IndexerSubaccountIdAmino, IndexerSubaccountIdSDKType } from "../protocol/v1/subaccount";
+import { IndexerSubaccountId, IndexerSubaccountIdSDKType } from "../protocol/v1/subaccount";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** TODO(IND-210): Make this proto conform and update downstream indexer logic */
@@ -23,7 +23,6 @@ export enum CandleMessage_Resolution {
   UNRECOGNIZED = -1,
 }
 export const CandleMessage_ResolutionSDKType = CandleMessage_Resolution;
-export const CandleMessage_ResolutionAmino = CandleMessage_Resolution;
 export function candleMessage_ResolutionFromJSON(object: any): CandleMessage_Resolution {
   switch (object) {
     case 0:
@@ -88,19 +87,6 @@ export interface OrderbookMessageProtoMsg {
   value: Uint8Array;
 }
 /** Message to be sent through the 'to-websockets-orderbooks` kafka topic. */
-export interface OrderbookMessageAmino {
-  /** Stringified JSON object of all events to be streamed. */
-  contents?: string;
-  /** Clob pair id of the Orderbook message. */
-  clob_pair_id?: string;
-  /** Version of the websocket message. */
-  version?: string;
-}
-export interface OrderbookMessageAminoMsg {
-  type: "/dydxprotocol.indexer.socks.OrderbookMessage";
-  value: OrderbookMessageAmino;
-}
-/** Message to be sent through the 'to-websockets-orderbooks` kafka topic. */
 export interface OrderbookMessageSDKType {
   contents: string;
   clob_pair_id: string;
@@ -124,25 +110,6 @@ export interface SubaccountMessage {
 export interface SubaccountMessageProtoMsg {
   typeUrl: "/dydxprotocol.indexer.socks.SubaccountMessage";
   value: Uint8Array;
-}
-/** Message to be sent through the 'to-websockets-subaccounts` kafka topic. */
-export interface SubaccountMessageAmino {
-  /** Block height where the contents occur. */
-  block_height?: string;
-  /** Transaction index where the contents occur. */
-  transaction_index?: number;
-  /** Event index where the contents occur. */
-  event_index?: number;
-  /** Stringified JSON object of all events to be streamed. */
-  contents?: string;
-  /** Subaccount id that the content corresponds to. */
-  subaccount_id?: IndexerSubaccountIdAmino;
-  /** Version of the websocket message. */
-  version?: string;
-}
-export interface SubaccountMessageAminoMsg {
-  type: "/dydxprotocol.indexer.socks.SubaccountMessage";
-  value: SubaccountMessageAmino;
 }
 /** Message to be sent through the 'to-websockets-subaccounts` kafka topic. */
 export interface SubaccountMessageSDKType {
@@ -169,21 +136,6 @@ export interface TradeMessageProtoMsg {
   value: Uint8Array;
 }
 /** Message to be sent through the 'to-websockets-trades` kafka topic. */
-export interface TradeMessageAmino {
-  /** Block height where the contents occur. */
-  block_height?: string;
-  /** Stringified JSON object of all events to be streamed. */
-  contents?: string;
-  /** Clob pair id of the Trade message. */
-  clob_pair_id?: string;
-  /** Version of the websocket message. */
-  version?: string;
-}
-export interface TradeMessageAminoMsg {
-  type: "/dydxprotocol.indexer.socks.TradeMessage";
-  value: TradeMessageAmino;
-}
-/** Message to be sent through the 'to-websockets-trades` kafka topic. */
 export interface TradeMessageSDKType {
   block_height: string;
   contents: string;
@@ -200,17 +152,6 @@ export interface MarketMessage {
 export interface MarketMessageProtoMsg {
   typeUrl: "/dydxprotocol.indexer.socks.MarketMessage";
   value: Uint8Array;
-}
-/** Message to be sent through the 'to-websockets-markets` kafka topic. */
-export interface MarketMessageAmino {
-  /** Stringified JSON object of all events to be streamed. */
-  contents?: string;
-  /** Version of the websocket message. */
-  version?: string;
-}
-export interface MarketMessageAminoMsg {
-  type: "/dydxprotocol.indexer.socks.MarketMessage";
-  value: MarketMessageAmino;
 }
 /** Message to be sent through the 'to-websockets-markets` kafka topic. */
 export interface MarketMessageSDKType {
@@ -231,21 +172,6 @@ export interface CandleMessage {
 export interface CandleMessageProtoMsg {
   typeUrl: "/dydxprotocol.indexer.socks.CandleMessage";
   value: Uint8Array;
-}
-/** Message to be sent through the 'to-websockets-candles` kafka topic. */
-export interface CandleMessageAmino {
-  /** Stringified JSON object of all events to be streamed. */
-  contents?: string;
-  /** Clob pair id of the Candle message. */
-  clob_pair_id?: string;
-  /** Resolution of the candle update. */
-  resolution?: CandleMessage_Resolution;
-  /** Version of the websocket message. */
-  version?: string;
-}
-export interface CandleMessageAminoMsg {
-  type: "/dydxprotocol.indexer.socks.CandleMessage";
-  value: CandleMessageAmino;
 }
 /** Message to be sent through the 'to-websockets-candles` kafka topic. */
 export interface CandleMessageSDKType {

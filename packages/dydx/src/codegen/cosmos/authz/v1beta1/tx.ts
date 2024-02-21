@@ -1,5 +1,5 @@
-import { Grant, GrantAmino, GrantSDKType } from "./authz";
-import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { Grant, GrantSDKType } from "./authz";
+import { Any, AnySDKType } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /**
@@ -19,19 +19,6 @@ export interface MsgGrantProtoMsg {
  * MsgGrant is a request type for Grant method. It declares authorization to the grantee
  * on behalf of the granter with the provided expiration time.
  */
-export interface MsgGrantAmino {
-  granter?: string;
-  grantee?: string;
-  grant: GrantAmino;
-}
-export interface MsgGrantAminoMsg {
-  type: "cosmos-sdk/MsgGrant";
-  value: MsgGrantAmino;
-}
-/**
- * MsgGrant is a request type for Grant method. It declares authorization to the grantee
- * on behalf of the granter with the provided expiration time.
- */
 export interface MsgGrantSDKType {
   granter: string;
   grantee: string;
@@ -44,14 +31,6 @@ export interface MsgExecResponse {
 export interface MsgExecResponseProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.MsgExecResponse";
   value: Uint8Array;
-}
-/** MsgExecResponse defines the Msg/MsgExecResponse response type. */
-export interface MsgExecResponseAmino {
-  results?: string[];
-}
-export interface MsgExecResponseAminoMsg {
-  type: "cosmos-sdk/MsgExecResponse";
-  value: MsgExecResponseAmino;
 }
 /** MsgExecResponse defines the Msg/MsgExecResponse response type. */
 export interface MsgExecResponseSDKType {
@@ -75,32 +54,6 @@ export interface MsgExecProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.MsgExec";
   value: Uint8Array;
 }
-export type MsgExecEncoded = Omit<MsgExec, "msgs"> & {
-  /**
-   * Execute Msg.
-   * The x/authz will try to find a grant matching (msg.signers[0], grantee, MsgTypeURL(msg))
-   * triple and validate it.
-   */
-  msgs: (AnyProtoMsg)[];
-};
-/**
- * MsgExec attempts to execute the provided messages using
- * authorizations granted to the grantee. Each message should have only
- * one signer corresponding to the granter of the authorization.
- */
-export interface MsgExecAmino {
-  grantee?: string;
-  /**
-   * Execute Msg.
-   * The x/authz will try to find a grant matching (msg.signers[0], grantee, MsgTypeURL(msg))
-   * triple and validate it.
-   */
-  msgs?: AnyAmino[];
-}
-export interface MsgExecAminoMsg {
-  type: "cosmos-sdk/MsgExec";
-  value: MsgExecAmino;
-}
 /**
  * MsgExec attempts to execute the provided messages using
  * authorizations granted to the grantee. Each message should have only
@@ -115,12 +68,6 @@ export interface MsgGrantResponse {}
 export interface MsgGrantResponseProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.MsgGrantResponse";
   value: Uint8Array;
-}
-/** MsgGrantResponse defines the Msg/MsgGrant response type. */
-export interface MsgGrantResponseAmino {}
-export interface MsgGrantResponseAminoMsg {
-  type: "cosmos-sdk/MsgGrantResponse";
-  value: MsgGrantResponseAmino;
 }
 /** MsgGrantResponse defines the Msg/MsgGrant response type. */
 export interface MsgGrantResponseSDKType {}
@@ -141,19 +88,6 @@ export interface MsgRevokeProtoMsg {
  * MsgRevoke revokes any authorization with the provided sdk.Msg type on the
  * granter's account with that has been granted to the grantee.
  */
-export interface MsgRevokeAmino {
-  granter?: string;
-  grantee?: string;
-  msg_type_url?: string;
-}
-export interface MsgRevokeAminoMsg {
-  type: "cosmos-sdk/MsgRevoke";
-  value: MsgRevokeAmino;
-}
-/**
- * MsgRevoke revokes any authorization with the provided sdk.Msg type on the
- * granter's account with that has been granted to the grantee.
- */
 export interface MsgRevokeSDKType {
   granter: string;
   grantee: string;
@@ -164,12 +98,6 @@ export interface MsgRevokeResponse {}
 export interface MsgRevokeResponseProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.MsgRevokeResponse";
   value: Uint8Array;
-}
-/** MsgRevokeResponse defines the Msg/MsgRevokeResponse response type. */
-export interface MsgRevokeResponseAmino {}
-export interface MsgRevokeResponseAminoMsg {
-  type: "cosmos-sdk/MsgRevokeResponse";
-  value: MsgRevokeResponseAmino;
 }
 /** MsgRevokeResponse defines the Msg/MsgRevokeResponse response type. */
 export interface MsgRevokeResponseSDKType {}
@@ -322,7 +250,7 @@ export const MsgExec = {
       writer.uint32(10).string(message.grantee);
     }
     for (const v of message.msgs) {
-      Any.encode((v! as Any), writer.uint32(18).fork()).ldelim();
+      Any.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -343,14 +271,14 @@ export const MsgExec = {
     if (object.grantee !== undefined && object.grantee !== null) {
       message.grantee = object.grantee;
     }
-    message.msgs = object.msgs?.map(e => Cosmos_basev1beta1Msg_FromAmino(e)) || [];
+    message.msgs = object.msgs?.map(e => Any.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: MsgExec): MsgExecAmino {
     const obj: any = {};
     obj.grantee = message.grantee;
     if (message.msgs) {
-      obj.msgs = message.msgs.map(e => e ? Cosmos_basev1beta1Msg_ToAmino((e as Any)) : undefined);
+      obj.msgs = message.msgs.map(e => e ? Any.toAmino(e) : undefined);
     } else {
       obj.msgs = [];
     }
@@ -552,10 +480,4 @@ export const Cosmos_basev1beta1Msg_InterfaceDecoder = (input: BinaryReader | Uin
     default:
       return data;
   }
-};
-export const Cosmos_basev1beta1Msg_FromAmino = (content: AnyAmino) => {
-  return Any.fromAmino(content);
-};
-export const Cosmos_basev1beta1Msg_ToAmino = (content: Any) => {
-  return Any.toAmino(content);
 };

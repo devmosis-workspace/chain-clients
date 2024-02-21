@@ -1,8 +1,8 @@
-import { join } from 'path';
+import { join } from 'path';``
 import telescope from '@cosmology/telescope';
 import { rimrafSync as rimraf } from 'rimraf';
 
-const protoDirs = [join(__dirname, '/../neutron/proto'), join(__dirname, '/../cosmos-sdk/proto'), join(__dirname, '/../ibc-go/proto'), join(__dirname, '/../ibc-go/third_party/proto'), join(__dirname, '/../cosmos-proto/proto'), join(__dirname, '/../mev-cometbft/proto'), join(__dirname, '/../proto')];
+const protoDirs = [join(__dirname, '/../neutron/proto'), join(__dirname, '/../cosmos-sdk/proto'), join('/../wasmd/proto'), join(__dirname, '/../ibc-go/proto'), join(__dirname, '/../wasmd/proto'), join(__dirname, '/../ics23/proto'), join(__dirname, '/../ibc-go/third_party/proto'), join(__dirname, '/../cosmos-proto/proto'), join(__dirname, '/../proto')];
 const outPath = join(__dirname, '../src/codegen');
 rimraf(outPath);
 

@@ -1,4 +1,4 @@
-import { Config, ConfigAmino, ConfigSDKType } from "./config";
+import { Config, ConfigSDKType } from "./config";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** QueryConfigRequest is the Query/Config request type. */
@@ -6,12 +6,6 @@ export interface QueryConfigRequest {}
 export interface QueryConfigRequestProtoMsg {
   typeUrl: "/cosmos.app.v1alpha1.QueryConfigRequest";
   value: Uint8Array;
-}
-/** QueryConfigRequest is the Query/Config request type. */
-export interface QueryConfigRequestAmino {}
-export interface QueryConfigRequestAminoMsg {
-  type: "cosmos-sdk/QueryConfigRequest";
-  value: QueryConfigRequestAmino;
 }
 /** QueryConfigRequest is the Query/Config request type. */
 export interface QueryConfigRequestSDKType {}
@@ -23,15 +17,6 @@ export interface QueryConfigResponse {
 export interface QueryConfigResponseProtoMsg {
   typeUrl: "/cosmos.app.v1alpha1.QueryConfigResponse";
   value: Uint8Array;
-}
-/** QueryConfigRequest is the Query/Config response type. */
-export interface QueryConfigResponseAmino {
-  /** config is the current app config. */
-  config?: ConfigAmino;
-}
-export interface QueryConfigResponseAminoMsg {
-  type: "cosmos-sdk/QueryConfigResponse";
-  value: QueryConfigResponseAmino;
 }
 /** QueryConfigRequest is the Query/Config response type. */
 export interface QueryConfigResponseSDKType {

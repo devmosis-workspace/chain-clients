@@ -1,4 +1,4 @@
-import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
+import { Duration, DurationSDKType } from "../../google/protobuf/duration";
 import { BinaryWriter } from "../../binary";
 /** DowntimeParams defines the parameters for downtime. */
 export interface DowntimeParams {
@@ -11,18 +11,6 @@ export interface DowntimeParams {
 export interface DowntimeParamsProtoMsg {
   typeUrl: "/dydxprotocol.blocktime.DowntimeParams";
   value: Uint8Array;
-}
-/** DowntimeParams defines the parameters for downtime. */
-export interface DowntimeParamsAmino {
-  /**
-   * Durations tracked for downtime. The durations must be sorted from
-   * shortest to longest and must all be positive.
-   */
-  durations?: DurationAmino[];
-}
-export interface DowntimeParamsAminoMsg {
-  type: "/dydxprotocol.blocktime.DowntimeParams";
-  value: DowntimeParamsAmino;
 }
 /** DowntimeParams defines the parameters for downtime. */
 export interface DowntimeParamsSDKType {
