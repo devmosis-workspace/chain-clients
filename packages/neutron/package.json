@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/neutron",
-  "version": "2.0.1-1",
+  "version": "2.0.1-2",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",
