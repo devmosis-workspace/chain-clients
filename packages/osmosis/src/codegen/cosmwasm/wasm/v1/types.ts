@@ -8,11 +8,6 @@ export enum AccessType {
   ACCESS_TYPE_UNSPECIFIED = 0,
   /** ACCESS_TYPE_NOBODY - AccessTypeNobody forbidden */
   ACCESS_TYPE_NOBODY = 1,
-  /**
-   * ACCESS_TYPE_ONLY_ADDRESS - AccessTypeOnlyAddress restricted to a single address
-   * Deprecated: use AccessTypeAnyOfAddresses instead
-   */
-  ACCESS_TYPE_ONLY_ADDRESS = 2,
   /** ACCESS_TYPE_EVERYBODY - AccessTypeEverybody unrestricted */
   ACCESS_TYPE_EVERYBODY = 3,
   /** ACCESS_TYPE_ANY_OF_ADDRESSES - AccessTypeAnyOfAddresses allow any of the addresses */
@@ -29,9 +24,6 @@ export function accessTypeFromJSON(object: any): AccessType {
     case 1:
     case "ACCESS_TYPE_NOBODY":
       return AccessType.ACCESS_TYPE_NOBODY;
-    case 2:
-    case "ACCESS_TYPE_ONLY_ADDRESS":
-      return AccessType.ACCESS_TYPE_ONLY_ADDRESS;
     case 3:
     case "ACCESS_TYPE_EVERYBODY":
       return AccessType.ACCESS_TYPE_EVERYBODY;
@@ -50,8 +42,6 @@ export function accessTypeToJSON(object: AccessType): string {
       return "ACCESS_TYPE_UNSPECIFIED";
     case AccessType.ACCESS_TYPE_NOBODY:
       return "ACCESS_TYPE_NOBODY";
-    case AccessType.ACCESS_TYPE_ONLY_ADDRESS:
-      return "ACCESS_TYPE_ONLY_ADDRESS";
     case AccessType.ACCESS_TYPE_EVERYBODY:
       return "ACCESS_TYPE_EVERYBODY";
     case AccessType.ACCESS_TYPE_ANY_OF_ADDRESSES:
@@ -133,11 +123,6 @@ export interface AccessTypeParamSDKType {
 /** AccessConfig access control type. */
 export interface AccessConfig {
   permission: AccessType;
-  /**
-   * Address
-   * Deprecated: replaced by addresses
-   */
-  address: string;
   addresses: string[];
 }
 export interface AccessConfigProtoMsg {
@@ -147,11 +132,6 @@ export interface AccessConfigProtoMsg {
 /** AccessConfig access control type. */
 export interface AccessConfigAmino {
   permission?: AccessType;
-  /**
-   * Address
-   * Deprecated: replaced by addresses
-   */
-  address?: string;
   addresses?: string[];
 }
 export interface AccessConfigAminoMsg {
@@ -161,7 +141,6 @@ export interface AccessConfigAminoMsg {
 /** AccessConfig access control type. */
 export interface AccessConfigSDKType {
   permission: AccessType;
-  address: string;
   addresses: string[];
 }
 /** Params defines the set of wasm parameters. */
@@ -175,7 +154,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the set of wasm parameters. */
 export interface ParamsAmino {
-  code_upload_access?: AccessConfigAmino;
+  code_upload_access: AccessConfigAmino;
   instantiate_default_permission?: AccessType;
 }
 export interface ParamsAminoMsg {
@@ -207,7 +186,7 @@ export interface CodeInfoAmino {
   /** Creator address who initially stored the code */
   creator?: string;
   /** InstantiateConfig access control to apply on contract creation, optional */
-  instantiate_config?: AccessConfigAmino;
+  instantiate_config: AccessConfigAmino;
 }
 export interface CodeInfoAminoMsg {
   type: "wasm/CodeInfo";
@@ -444,7 +423,6 @@ export const AccessTypeParam = {
 function createBaseAccessConfig(): AccessConfig {
   return {
     permission: 0,
-    address: "",
     addresses: []
   };
 }
@@ -454,9 +432,6 @@ export const AccessConfig = {
     if (message.permission !== 0) {
       writer.uint32(8).int32(message.permission);
     }
-    if (message.address !== "") {
-      writer.uint32(18).string(message.address);
-    }
     for (const v of message.addresses) {
       writer.uint32(26).string(v!);
     }
@@ -465,14 +440,12 @@ export const AccessConfig = {
   fromJSON(object: any): AccessConfig {
     return {
       permission: isSet(object.permission) ? accessTypeFromJSON(object.permission) : -1,
-      address: isSet(object.address) ? String(object.address) : "",
       addresses: Array.isArray(object?.addresses) ? object.addresses.map((e: any) => String(e)) : []
     };
   },
   fromPartial(object: Partial<AccessConfig>): AccessConfig {
     const message = createBaseAccessConfig();
     message.permission = object.permission ?? 0;
-    message.address = object.address ?? "";
     message.addresses = object.addresses?.map(e => e) || [];
     return message;
   },
@@ -481,16 +454,12 @@ export const AccessConfig = {
     if (object.permission !== undefined && object.permission !== null) {
       message.permission = accessTypeFromJSON(object.permission);
     }
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
     message.addresses = object.addresses?.map(e => e) || [];
     return message;
   },
   toAmino(message: AccessConfig): AccessConfigAmino {
     const obj: any = {};
     obj.permission = message.permission;
-    obj.address = message.address;
     if (message.addresses) {
       obj.addresses = message.addresses.map(e => e);
     } else {
@@ -561,7 +530,7 @@ export const Params = {
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
-    obj.code_upload_access = message.codeUploadAccess ? AccessConfig.toAmino(message.codeUploadAccess) : undefined;
+    obj.code_upload_access = message.codeUploadAccess ? AccessConfig.toAmino(message.codeUploadAccess) : AccessConfig.fromPartial({});
     obj.instantiate_default_permission = message.instantiateDefaultPermission;
     return obj;
   },
@@ -639,7 +608,7 @@ export const CodeInfo = {
     const obj: any = {};
     obj.code_hash = message.codeHash ? base64FromBytes(message.codeHash) : undefined;
     obj.creator = message.creator;
-    obj.instantiate_config = message.instantiateConfig ? AccessConfig.toAmino(message.instantiateConfig) : undefined;
+    obj.instantiate_config = message.instantiateConfig ? AccessConfig.toAmino(message.instantiateConfig) : AccessConfig.fromPartial({});
     return obj;
   },
   fromAminoMsg(object: CodeInfoAminoMsg): CodeInfo {

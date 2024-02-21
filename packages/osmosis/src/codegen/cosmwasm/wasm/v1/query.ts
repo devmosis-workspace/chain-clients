@@ -54,7 +54,7 @@ export interface QueryContractInfoResponseProtoMsg {
 export interface QueryContractInfoResponseAmino {
   /** address is the address of the contract */
   address?: string;
-  contract_info?: ContractInfoAmino;
+  contract_info: ContractInfoAmino;
 }
 export interface QueryContractInfoResponseAminoMsg {
   type: "wasm/QueryContractInfoResponse";
@@ -122,7 +122,7 @@ export interface QueryContractHistoryResponseProtoMsg {
  * Query/ContractHistory RPC method
  */
 export interface QueryContractHistoryResponseAmino {
-  entries?: ContractCodeHistoryEntryAmino[];
+  entries: ContractCodeHistoryEntryAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -268,7 +268,7 @@ export interface QueryAllContractStateResponseProtoMsg {
  * Query/AllContractState RPC method
  */
 export interface QueryAllContractStateResponseAmino {
-  models?: ModelAmino[];
+  models: ModelAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -454,7 +454,7 @@ export interface CodeInfoResponseAmino {
   code_id?: string;
   creator?: string;
   data_hash?: string;
-  instantiate_permission?: AccessConfigAmino;
+  instantiate_permission: AccessConfigAmino;
 }
 export interface CodeInfoResponseAminoMsg {
   type: "wasm/CodeInfoResponse";
@@ -524,7 +524,7 @@ export interface QueryCodesResponseProtoMsg {
 }
 /** QueryCodesResponse is the response type for the Query/Codes RPC method */
 export interface QueryCodesResponseAmino {
-  code_infos?: CodeInfoResponseAmino[];
+  code_infos: CodeInfoResponseAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -628,7 +628,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
   /** params defines the parameters of the module. */
-  params?: ParamsAmino;
+  params: ParamsAmino;
 }
 export interface QueryParamsResponseAminoMsg {
   type: "wasm/QueryParamsResponse";
@@ -809,7 +809,7 @@ export const QueryContractInfoResponse = {
   toAmino(message: QueryContractInfoResponse): QueryContractInfoResponseAmino {
     const obj: any = {};
     obj.address = message.address;
-    obj.contract_info = message.contractInfo ? ContractInfo.toAmino(message.contractInfo) : undefined;
+    obj.contract_info = message.contractInfo ? ContractInfo.toAmino(message.contractInfo) : ContractInfo.fromPartial({});
     return obj;
   },
   fromAminoMsg(object: QueryContractInfoResponseAminoMsg): QueryContractInfoResponse {
@@ -1609,7 +1609,7 @@ export const CodeInfoResponse = {
     obj.code_id = message.codeId ? message.codeId.toString() : undefined;
     obj.creator = message.creator;
     obj.data_hash = message.dataHash ? base64FromBytes(message.dataHash) : undefined;
-    obj.instantiate_permission = message.instantiatePermission ? AccessConfig.toAmino(message.instantiatePermission) : undefined;
+    obj.instantiate_permission = message.instantiatePermission ? AccessConfig.toAmino(message.instantiatePermission) : AccessConfig.fromPartial({});
     return obj;
   },
   fromAminoMsg(object: CodeInfoResponseAminoMsg): CodeInfoResponse {
@@ -2032,7 +2032,7 @@ export const QueryParamsResponse = {
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    obj.params = message.params ? Params.toAmino(message.params) : Params.fromPartial({});
     return obj;
   },
   fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {

@@ -1,7 +1,7 @@
 import * as _241 from "./wasm/v1/authz";
 import * as _242 from "./wasm/v1/genesis";
 import * as _243 from "./wasm/v1/ibc";
-import * as _244 from "./wasm/v1/proposal";
+import * as _244 from "./wasm/v1/proposal_legacy";
 import * as _245 from "./wasm/v1/query";
 import * as _246 from "./wasm/v1/tx";
 import * as _247 from "./wasm/v1/types";

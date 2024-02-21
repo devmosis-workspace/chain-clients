@@ -14,10 +14,10 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState - genesis state of x/wasm */
 export interface GenesisStateAmino {
-  params?: ParamsAmino;
-  codes?: CodeAmino[];
-  contracts?: ContractAmino[];
-  sequences?: SequenceAmino[];
+  params: ParamsAmino;
+  codes: CodeAmino[];
+  contracts: ContractAmino[];
+  sequences: SequenceAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "wasm/GenesisState";
@@ -45,7 +45,7 @@ export interface CodeProtoMsg {
 /** Code struct encompasses CodeInfo and CodeBytes */
 export interface CodeAmino {
   code_id?: string;
-  code_info?: CodeInfoAmino;
+  code_info: CodeInfoAmino;
   code_bytes?: string;
   /** Pinned to wasmvm cache */
   pinned?: boolean;
@@ -75,9 +75,9 @@ export interface ContractProtoMsg {
 /** Contract struct encompasses ContractAddress, ContractInfo, and ContractState */
 export interface ContractAmino {
   contract_address?: string;
-  contract_info?: ContractInfoAmino;
-  contract_state?: ModelAmino[];
-  contract_code_history?: ContractCodeHistoryEntryAmino[];
+  contract_info: ContractInfoAmino;
+  contract_state: ModelAmino[];
+  contract_code_history: ContractCodeHistoryEntryAmino[];
 }
 export interface ContractAminoMsg {
   type: "wasm/Contract";
@@ -166,7 +166,7 @@ export const GenesisState = {
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    obj.params = message.params ? Params.toAmino(message.params) : Params.fromPartial({});
     if (message.codes) {
       obj.codes = message.codes.map(e => e ? Code.toAmino(e) : undefined);
     } else {
@@ -266,7 +266,7 @@ export const Code = {
   toAmino(message: Code): CodeAmino {
     const obj: any = {};
     obj.code_id = message.codeId ? message.codeId.toString() : undefined;
-    obj.code_info = message.codeInfo ? CodeInfo.toAmino(message.codeInfo) : undefined;
+    obj.code_info = message.codeInfo ? CodeInfo.toAmino(message.codeInfo) : CodeInfo.fromPartial({});
     obj.code_bytes = message.codeBytes ? base64FromBytes(message.codeBytes) : undefined;
     obj.pinned = message.pinned;
     return obj;
@@ -349,7 +349,7 @@ export const Contract = {
   toAmino(message: Contract): ContractAmino {
     const obj: any = {};
     obj.contract_address = message.contractAddress;
-    obj.contract_info = message.contractInfo ? ContractInfo.toAmino(message.contractInfo) : undefined;
+    obj.contract_info = message.contractInfo ? ContractInfo.toAmino(message.contractInfo) : ContractInfo.fromPartial({});
     if (message.contractState) {
       obj.contract_state = message.contractState.map(e => e ? Model.toAmino(e) : undefined);
     } else {
