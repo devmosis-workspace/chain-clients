@@ -1,10 +1,14 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgLiquidStake, MsgRedeemStake, MsgRegisterHostZone, MsgClaimUndelegatedTokens, MsgRebalanceValidators, MsgAddValidators, MsgChangeValidatorWeight, MsgDeleteValidator, MsgRestoreInterchainAccount, MsgUpdateValidatorSharesExchRate, MsgClearBalance } from "./tx";
+import { MsgLiquidStake, MsgLSMLiquidStake, MsgRedeemStake, MsgRegisterHostZone, MsgClaimUndelegatedTokens, MsgRebalanceValidators, MsgAddValidators, MsgChangeValidatorWeights, MsgDeleteValidator, MsgRestoreInterchainAccount, MsgUpdateValidatorSharesExchRate, MsgCalibrateDelegation, MsgClearBalance, MsgUpdateInnerRedemptionRateBounds, MsgResumeHostZone, MsgCreateTradeRoute, MsgDeleteTradeRoute, MsgUpdateTradeRoute, MsgSetCommunityPoolRebate, MsgToggleTradeController } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
     encoded: {
         liquidStake(value: MsgLiquidStake): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        lSMLiquidStake(value: MsgLSMLiquidStake): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -28,7 +32,7 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: Uint8Array;
         };
-        changeValidatorWeight(value: MsgChangeValidatorWeight): {
+        changeValidatorWeight(value: MsgChangeValidatorWeights): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -44,7 +48,39 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: Uint8Array;
         };
+        calibrateDelegation(value: MsgCalibrateDelegation): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
         clearBalance(value: MsgClearBalance): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        updateInnerRedemptionRateBounds(value: MsgUpdateInnerRedemptionRateBounds): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        resumeHostZone(value: MsgResumeHostZone): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        createTradeRoute(value: MsgCreateTradeRoute): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        deleteTradeRoute(value: MsgDeleteTradeRoute): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        updateTradeRoute(value: MsgUpdateTradeRoute): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        setCommunityPoolRebate(value: MsgSetCommunityPoolRebate): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        toggleTradeController(value: MsgToggleTradeController): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -53,6 +89,10 @@ export declare const MessageComposer: {
         liquidStake(value: MsgLiquidStake): {
             typeUrl: string;
             value: MsgLiquidStake;
+        };
+        lSMLiquidStake(value: MsgLSMLiquidStake): {
+            typeUrl: string;
+            value: MsgLSMLiquidStake;
         };
         redeemStake(value: MsgRedeemStake): {
             typeUrl: string;
@@ -74,9 +114,9 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgAddValidators;
         };
-        changeValidatorWeight(value: MsgChangeValidatorWeight): {
+        changeValidatorWeight(value: MsgChangeValidatorWeights): {
             typeUrl: string;
-            value: MsgChangeValidatorWeight;
+            value: MsgChangeValidatorWeights;
         };
         deleteValidator(value: MsgDeleteValidator): {
             typeUrl: string;
@@ -90,15 +130,51 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgUpdateValidatorSharesExchRate;
         };
+        calibrateDelegation(value: MsgCalibrateDelegation): {
+            typeUrl: string;
+            value: MsgCalibrateDelegation;
+        };
         clearBalance(value: MsgClearBalance): {
             typeUrl: string;
             value: MsgClearBalance;
+        };
+        updateInnerRedemptionRateBounds(value: MsgUpdateInnerRedemptionRateBounds): {
+            typeUrl: string;
+            value: MsgUpdateInnerRedemptionRateBounds;
+        };
+        resumeHostZone(value: MsgResumeHostZone): {
+            typeUrl: string;
+            value: MsgResumeHostZone;
+        };
+        createTradeRoute(value: MsgCreateTradeRoute): {
+            typeUrl: string;
+            value: MsgCreateTradeRoute;
+        };
+        deleteTradeRoute(value: MsgDeleteTradeRoute): {
+            typeUrl: string;
+            value: MsgDeleteTradeRoute;
+        };
+        updateTradeRoute(value: MsgUpdateTradeRoute): {
+            typeUrl: string;
+            value: MsgUpdateTradeRoute;
+        };
+        setCommunityPoolRebate(value: MsgSetCommunityPoolRebate): {
+            typeUrl: string;
+            value: MsgSetCommunityPoolRebate;
+        };
+        toggleTradeController(value: MsgToggleTradeController): {
+            typeUrl: string;
+            value: MsgToggleTradeController;
         };
     };
     fromJSON: {
         liquidStake(value: any): {
             typeUrl: string;
             value: MsgLiquidStake;
+        };
+        lSMLiquidStake(value: any): {
+            typeUrl: string;
+            value: MsgLSMLiquidStake;
         };
         redeemStake(value: any): {
             typeUrl: string;
@@ -122,7 +198,7 @@ export declare const MessageComposer: {
         };
         changeValidatorWeight(value: any): {
             typeUrl: string;
-            value: MsgChangeValidatorWeight;
+            value: MsgChangeValidatorWeights;
         };
         deleteValidator(value: any): {
             typeUrl: string;
@@ -136,15 +212,51 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgUpdateValidatorSharesExchRate;
         };
+        calibrateDelegation(value: any): {
+            typeUrl: string;
+            value: MsgCalibrateDelegation;
+        };
         clearBalance(value: any): {
             typeUrl: string;
             value: MsgClearBalance;
+        };
+        updateInnerRedemptionRateBounds(value: any): {
+            typeUrl: string;
+            value: MsgUpdateInnerRedemptionRateBounds;
+        };
+        resumeHostZone(value: any): {
+            typeUrl: string;
+            value: MsgResumeHostZone;
+        };
+        createTradeRoute(value: any): {
+            typeUrl: string;
+            value: MsgCreateTradeRoute;
+        };
+        deleteTradeRoute(value: any): {
+            typeUrl: string;
+            value: MsgDeleteTradeRoute;
+        };
+        updateTradeRoute(value: any): {
+            typeUrl: string;
+            value: MsgUpdateTradeRoute;
+        };
+        setCommunityPoolRebate(value: any): {
+            typeUrl: string;
+            value: MsgSetCommunityPoolRebate;
+        };
+        toggleTradeController(value: any): {
+            typeUrl: string;
+            value: MsgToggleTradeController;
         };
     };
     fromPartial: {
         liquidStake(value: MsgLiquidStake): {
             typeUrl: string;
             value: MsgLiquidStake;
+        };
+        lSMLiquidStake(value: MsgLSMLiquidStake): {
+            typeUrl: string;
+            value: MsgLSMLiquidStake;
         };
         redeemStake(value: MsgRedeemStake): {
             typeUrl: string;
@@ -166,9 +278,9 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgAddValidators;
         };
-        changeValidatorWeight(value: MsgChangeValidatorWeight): {
+        changeValidatorWeight(value: MsgChangeValidatorWeights): {
             typeUrl: string;
-            value: MsgChangeValidatorWeight;
+            value: MsgChangeValidatorWeights;
         };
         deleteValidator(value: MsgDeleteValidator): {
             typeUrl: string;
@@ -182,9 +294,41 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgUpdateValidatorSharesExchRate;
         };
+        calibrateDelegation(value: MsgCalibrateDelegation): {
+            typeUrl: string;
+            value: MsgCalibrateDelegation;
+        };
         clearBalance(value: MsgClearBalance): {
             typeUrl: string;
             value: MsgClearBalance;
+        };
+        updateInnerRedemptionRateBounds(value: MsgUpdateInnerRedemptionRateBounds): {
+            typeUrl: string;
+            value: MsgUpdateInnerRedemptionRateBounds;
+        };
+        resumeHostZone(value: MsgResumeHostZone): {
+            typeUrl: string;
+            value: MsgResumeHostZone;
+        };
+        createTradeRoute(value: MsgCreateTradeRoute): {
+            typeUrl: string;
+            value: MsgCreateTradeRoute;
+        };
+        deleteTradeRoute(value: MsgDeleteTradeRoute): {
+            typeUrl: string;
+            value: MsgDeleteTradeRoute;
+        };
+        updateTradeRoute(value: MsgUpdateTradeRoute): {
+            typeUrl: string;
+            value: MsgUpdateTradeRoute;
+        };
+        setCommunityPoolRebate(value: MsgSetCommunityPoolRebate): {
+            typeUrl: string;
+            value: MsgSetCommunityPoolRebate;
+        };
+        toggleTradeController(value: MsgToggleTradeController): {
+            typeUrl: string;
+            value: MsgToggleTradeController;
         };
     };
 };

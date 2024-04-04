@@ -5,6 +5,7 @@ import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, Communi
 import { TextProposal, TextProposalProtoMsg, TextProposalSDKType } from "../v1beta1/gov";
 import { ParameterChangeProposal, ParameterChangeProposalProtoMsg, ParameterChangeProposalSDKType } from "../../params/v1beta1/params";
 import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, SoftwareUpgradeProposalSDKType, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposalSDKType } from "../../upgrade/v1beta1/upgrade";
+import { StoreCodeProposal, StoreCodeProposalProtoMsg, StoreCodeProposalSDKType, InstantiateContractProposal, InstantiateContractProposalProtoMsg, InstantiateContractProposalSDKType, InstantiateContract2Proposal, InstantiateContract2ProposalProtoMsg, InstantiateContract2ProposalSDKType, MigrateContractProposal, MigrateContractProposalProtoMsg, MigrateContractProposalSDKType, SudoContractProposal, SudoContractProposalProtoMsg, SudoContractProposalSDKType, ExecuteContractProposal, ExecuteContractProposalProtoMsg, ExecuteContractProposalSDKType, UpdateAdminProposal, UpdateAdminProposalProtoMsg, UpdateAdminProposalSDKType, ClearAdminProposal, ClearAdminProposalProtoMsg, ClearAdminProposalSDKType, PinCodesProposal, PinCodesProposalProtoMsg, PinCodesProposalSDKType, UnpinCodesProposal, UnpinCodesProposalProtoMsg, UnpinCodesProposalSDKType, UpdateInstantiateConfigProposal, UpdateInstantiateConfigProposalProtoMsg, UpdateInstantiateConfigProposalSDKType, StoreAndInstantiateContractProposal, StoreAndInstantiateContractProposalProtoMsg, StoreAndInstantiateContractProposalSDKType } from "../../../cosmwasm/wasm/v1/proposal_legacy";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
@@ -42,25 +43,25 @@ export interface MsgSubmitProposalProtoMsg {
  */
 export interface MsgSubmitProposalAmino {
     /** messages are the arbitrary messages to be executed if proposal passes. */
-    messages: AnyAmino[];
+    messages?: AnyAmino[];
     /** initial_deposit is the deposit value that must be paid at proposal submission. */
     initial_deposit: CoinAmino[];
     /** proposer is the account address of the proposer. */
-    proposer: string;
+    proposer?: string;
     /** metadata is any arbitrary metadata attached to the proposal. */
-    metadata: string;
+    metadata?: string;
     /**
      * title is the title of the proposal.
      *
      * Since: cosmos-sdk 0.47
      */
-    title: string;
+    title?: string;
     /**
      * summary is the summary of the proposal
      *
      * Since: cosmos-sdk 0.47
      */
-    summary: string;
+    summary?: string;
 }
 export interface MsgSubmitProposalAminoMsg {
     type: "cosmos-sdk/v1/MsgSubmitProposal";
@@ -90,7 +91,7 @@ export interface MsgSubmitProposalResponseProtoMsg {
 /** MsgSubmitProposalResponse defines the Msg/SubmitProposal response type. */
 export interface MsgSubmitProposalResponseAmino {
     /** proposal_id defines the unique id of the proposal. */
-    proposal_id: string;
+    proposal_id?: string;
 }
 export interface MsgSubmitProposalResponseAminoMsg {
     type: "cosmos-sdk/v1/MsgSubmitProposalResponse";
@@ -106,7 +107,7 @@ export interface MsgSubmitProposalResponseSDKType {
  */
 export interface MsgExecLegacyContent {
     /** content is the proposal's content. */
-    content: (CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & TextProposal & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
+    content?: (CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & TextProposal & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & StoreCodeProposal & InstantiateContractProposal & InstantiateContract2Proposal & MigrateContractProposal & SudoContractProposal & ExecuteContractProposal & UpdateAdminProposal & ClearAdminProposal & PinCodesProposal & UnpinCodesProposal & UpdateInstantiateConfigProposal & StoreAndInstantiateContractProposal & Any) | undefined;
     /** authority must be the gov module address. */
     authority: string;
 }
@@ -115,7 +116,7 @@ export interface MsgExecLegacyContentProtoMsg {
     value: Uint8Array;
 }
 export type MsgExecLegacyContentEncoded = Omit<MsgExecLegacyContent, "content"> & {
-    /** content is the proposal's content. */ content?: CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
+    /** content is the proposal's content. */ content?: CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | StoreCodeProposalProtoMsg | InstantiateContractProposalProtoMsg | InstantiateContract2ProposalProtoMsg | MigrateContractProposalProtoMsg | SudoContractProposalProtoMsg | ExecuteContractProposalProtoMsg | UpdateAdminProposalProtoMsg | ClearAdminProposalProtoMsg | PinCodesProposalProtoMsg | UnpinCodesProposalProtoMsg | UpdateInstantiateConfigProposalProtoMsg | StoreAndInstantiateContractProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * MsgExecLegacyContent is used to wrap the legacy content field into a message.
@@ -125,7 +126,7 @@ export interface MsgExecLegacyContentAmino {
     /** content is the proposal's content. */
     content?: AnyAmino;
     /** authority must be the gov module address. */
-    authority: string;
+    authority?: string;
 }
 export interface MsgExecLegacyContentAminoMsg {
     type: "cosmos-sdk/v1/MsgExecLegacyContent";
@@ -136,7 +137,7 @@ export interface MsgExecLegacyContentAminoMsg {
  * This ensures backwards compatibility with v1beta1.MsgSubmitProposal.
  */
 export interface MsgExecLegacyContentSDKType {
-    content: CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | TextProposalSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
+    content?: CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | TextProposalSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | StoreCodeProposalSDKType | InstantiateContractProposalSDKType | InstantiateContract2ProposalSDKType | MigrateContractProposalSDKType | SudoContractProposalSDKType | ExecuteContractProposalSDKType | UpdateAdminProposalSDKType | ClearAdminProposalSDKType | PinCodesProposalSDKType | UnpinCodesProposalSDKType | UpdateInstantiateConfigProposalSDKType | StoreAndInstantiateContractProposalSDKType | AnySDKType | undefined;
     authority: string;
 }
 /** MsgExecLegacyContentResponse defines the Msg/ExecLegacyContent response type. */
@@ -176,11 +177,11 @@ export interface MsgVoteAmino {
     /** proposal_id defines the unique id of the proposal. */
     proposal_id: string;
     /** voter is the voter address for the proposal. */
-    voter: string;
+    voter?: string;
     /** option defines the vote option. */
-    option: VoteOption;
+    option?: VoteOption;
     /** metadata is any arbitrary metadata attached to the Vote. */
-    metadata: string;
+    metadata?: string;
 }
 export interface MsgVoteAminoMsg {
     type: "cosmos-sdk/v1/MsgVote";
@@ -230,11 +231,11 @@ export interface MsgVoteWeightedAmino {
     /** proposal_id defines the unique id of the proposal. */
     proposal_id: string;
     /** voter is the voter address for the proposal. */
-    voter: string;
+    voter?: string;
     /** options defines the weighted vote options. */
-    options: WeightedVoteOptionAmino[];
+    options?: WeightedVoteOptionAmino[];
     /** metadata is any arbitrary metadata attached to the VoteWeighted. */
-    metadata: string;
+    metadata?: string;
 }
 export interface MsgVoteWeightedAminoMsg {
     type: "cosmos-sdk/v1/MsgVoteWeighted";
@@ -282,7 +283,7 @@ export interface MsgDepositAmino {
     /** proposal_id defines the unique id of the proposal. */
     proposal_id: string;
     /** depositor defines the deposit addresses from the proposals. */
-    depositor: string;
+    depositor?: string;
     /** amount to be deposited by depositor. */
     amount: CoinAmino[];
 }
@@ -339,13 +340,13 @@ export interface MsgUpdateParamsProtoMsg {
  */
 export interface MsgUpdateParamsAmino {
     /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
-    authority: string;
+    authority?: string;
     /**
      * params defines the x/gov parameters to update.
      *
      * NOTE: All parameters must be supplied.
      */
-    params?: ParamsAmino;
+    params: ParamsAmino;
 }
 export interface MsgUpdateParamsAminoMsg {
     type: "cosmos-sdk/x/gov/v1/MsgUpdateParams";
@@ -548,6 +549,6 @@ export declare const MsgUpdateParamsResponse: {
     toProto(message: MsgUpdateParamsResponse): Uint8Array;
     toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg;
 };
-export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any;
+export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | StoreCodeProposal | InstantiateContractProposal | InstantiateContract2Proposal | MigrateContractProposal | SudoContractProposal | ExecuteContractProposal | UpdateAdminProposal | ClearAdminProposal | PinCodesProposal | UnpinCodesProposal | UpdateInstantiateConfigProposal | StoreAndInstantiateContractProposal | Any;
 export declare const Cosmos_govv1beta1Content_FromAmino: (content: AnyAmino) => Any;
 export declare const Cosmos_govv1beta1Content_ToAmino: (content: Any) => AnyAmino;

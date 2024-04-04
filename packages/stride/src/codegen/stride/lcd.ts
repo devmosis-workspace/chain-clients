@@ -126,10 +126,10 @@ export const createLCDClient = async ({
           requestClient
         })
       },
-      ratelimit: new (await import("./ratelimit/query.lcd")).LCDQueryClient({
+      records: new (await import("./records/query.lcd")).LCDQueryClient({
         requestClient
       }),
-      records: new (await import("./records/query.lcd")).LCDQueryClient({
+      stakedym: new (await import("./stakedym/query.lcd")).LCDQueryClient({
         requestClient
       }),
       stakeibc: new (await import("./stakeibc/query.lcd")).LCDQueryClient({

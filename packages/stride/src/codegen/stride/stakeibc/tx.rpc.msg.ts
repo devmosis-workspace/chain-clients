@@ -1,6 +1,6 @@
 import { Rpc } from "../../helpers";
 import { BinaryReader } from "../../binary";
-import { MsgLiquidStake, MsgLiquidStakeResponse, MsgLSMLiquidStake, MsgLSMLiquidStakeResponse, MsgRedeemStake, MsgRedeemStakeResponse, MsgRegisterHostZone, MsgRegisterHostZoneResponse, MsgClaimUndelegatedTokens, MsgClaimUndelegatedTokensResponse, MsgRebalanceValidators, MsgRebalanceValidatorsResponse, MsgAddValidators, MsgAddValidatorsResponse, MsgChangeValidatorWeights, MsgChangeValidatorWeightsResponse, MsgDeleteValidator, MsgDeleteValidatorResponse, MsgRestoreInterchainAccount, MsgRestoreInterchainAccountResponse, MsgUpdateValidatorSharesExchRate, MsgUpdateValidatorSharesExchRateResponse, MsgCalibrateDelegation, MsgCalibrateDelegationResponse, MsgClearBalance, MsgClearBalanceResponse, MsgUpdateInnerRedemptionRateBounds, MsgUpdateInnerRedemptionRateBoundsResponse, MsgResumeHostZone, MsgResumeHostZoneResponse, MsgCreateTradeRoute, MsgCreateTradeRouteResponse, MsgDeleteTradeRoute, MsgDeleteTradeRouteResponse, MsgUpdateTradeRoute, MsgUpdateTradeRouteResponse } from "./tx";
+import { MsgLiquidStake, MsgLiquidStakeResponse, MsgLSMLiquidStake, MsgLSMLiquidStakeResponse, MsgRedeemStake, MsgRedeemStakeResponse, MsgRegisterHostZone, MsgRegisterHostZoneResponse, MsgClaimUndelegatedTokens, MsgClaimUndelegatedTokensResponse, MsgRebalanceValidators, MsgRebalanceValidatorsResponse, MsgAddValidators, MsgAddValidatorsResponse, MsgChangeValidatorWeights, MsgChangeValidatorWeightsResponse, MsgDeleteValidator, MsgDeleteValidatorResponse, MsgRestoreInterchainAccount, MsgRestoreInterchainAccountResponse, MsgUpdateValidatorSharesExchRate, MsgUpdateValidatorSharesExchRateResponse, MsgCalibrateDelegation, MsgCalibrateDelegationResponse, MsgClearBalance, MsgClearBalanceResponse, MsgUpdateInnerRedemptionRateBounds, MsgUpdateInnerRedemptionRateBoundsResponse, MsgResumeHostZone, MsgResumeHostZoneResponse, MsgCreateTradeRoute, MsgCreateTradeRouteResponse, MsgDeleteTradeRoute, MsgDeleteTradeRouteResponse, MsgUpdateTradeRoute, MsgUpdateTradeRouteResponse, MsgSetCommunityPoolRebate, MsgSetCommunityPoolRebateResponse, MsgToggleTradeController, MsgToggleTradeControllerResponse } from "./tx";
 /** Msg defines the Msg service. */
 export interface Msg {
   liquidStake(request: MsgLiquidStake): Promise<MsgLiquidStakeResponse>;
@@ -21,6 +21,8 @@ export interface Msg {
   createTradeRoute(request: MsgCreateTradeRoute): Promise<MsgCreateTradeRouteResponse>;
   deleteTradeRoute(request: MsgDeleteTradeRoute): Promise<MsgDeleteTradeRouteResponse>;
   updateTradeRoute(request: MsgUpdateTradeRoute): Promise<MsgUpdateTradeRouteResponse>;
+  setCommunityPoolRebate(request: MsgSetCommunityPoolRebate): Promise<MsgSetCommunityPoolRebateResponse>;
+  toggleTradeController(request: MsgToggleTradeController): Promise<MsgToggleTradeControllerResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
@@ -44,6 +46,8 @@ export class MsgClientImpl implements Msg {
     this.createTradeRoute = this.createTradeRoute.bind(this);
     this.deleteTradeRoute = this.deleteTradeRoute.bind(this);
     this.updateTradeRoute = this.updateTradeRoute.bind(this);
+    this.setCommunityPoolRebate = this.setCommunityPoolRebate.bind(this);
+    this.toggleTradeController = this.toggleTradeController.bind(this);
   }
   liquidStake(request: MsgLiquidStake): Promise<MsgLiquidStakeResponse> {
     const data = MsgLiquidStake.encode(request).finish();
@@ -134,5 +138,15 @@ export class MsgClientImpl implements Msg {
     const data = MsgUpdateTradeRoute.encode(request).finish();
     const promise = this.rpc.request("stride.stakeibc.Msg", "UpdateTradeRoute", data);
     return promise.then(data => MsgUpdateTradeRouteResponse.decode(new BinaryReader(data)));
+  }
+  setCommunityPoolRebate(request: MsgSetCommunityPoolRebate): Promise<MsgSetCommunityPoolRebateResponse> {
+    const data = MsgSetCommunityPoolRebate.encode(request).finish();
+    const promise = this.rpc.request("stride.stakeibc.Msg", "SetCommunityPoolRebate", data);
+    return promise.then(data => MsgSetCommunityPoolRebateResponse.decode(new BinaryReader(data)));
+  }
+  toggleTradeController(request: MsgToggleTradeController): Promise<MsgToggleTradeControllerResponse> {
+    const data = MsgToggleTradeController.encode(request).finish();
+    const promise = this.rpc.request("stride.stakeibc.Msg", "ToggleTradeController", data);
+    return promise.then(data => MsgToggleTradeControllerResponse.decode(new BinaryReader(data)));
   }
 }

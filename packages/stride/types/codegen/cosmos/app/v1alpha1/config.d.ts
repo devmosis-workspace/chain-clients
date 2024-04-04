@@ -34,13 +34,13 @@ export interface ConfigProtoMsg {
  */
 export interface ConfigAmino {
     /** modules are the module configurations for the app. */
-    modules: ModuleConfigAmino[];
+    modules?: ModuleConfigAmino[];
     /**
      * golang_bindings specifies explicit interface to implementation type bindings which
      * depinject uses to resolve interface inputs to provider functions.  The scope of this
      * field's configuration is global (not module specific).
      */
-    golang_bindings: GolangBindingAmino[];
+    golang_bindings?: GolangBindingAmino[];
 }
 export interface ConfigAminoMsg {
     type: "cosmos-sdk/Config";
@@ -78,7 +78,7 @@ export interface ModuleConfig {
      * config is the config object for the module. Module config messages should
      * define a ModuleDescriptor using the cosmos.app.v1alpha1.is_module extension.
      */
-    config: Any;
+    config?: Any;
     /**
      * golang_bindings specifies explicit interface to implementation type bindings which
      * depinject uses to resolve interface inputs to provider functions.  The scope of this
@@ -104,7 +104,7 @@ export interface ModuleConfigAmino {
      * that the v1 module had. Note: modules should provide info on which versions
      * they can migrate from in the ModuleDescriptor.can_migration_from field.
      */
-    name: string;
+    name?: string;
     /**
      * config is the config object for the module. Module config messages should
      * define a ModuleDescriptor using the cosmos.app.v1alpha1.is_module extension.
@@ -115,7 +115,7 @@ export interface ModuleConfigAmino {
      * depinject uses to resolve interface inputs to provider functions.  The scope of this
      * field's configuration is module specific.
      */
-    golang_bindings: GolangBindingAmino[];
+    golang_bindings?: GolangBindingAmino[];
 }
 export interface ModuleConfigAminoMsg {
     type: "cosmos-sdk/ModuleConfig";
@@ -124,7 +124,7 @@ export interface ModuleConfigAminoMsg {
 /** ModuleConfig is a module configuration for an app. */
 export interface ModuleConfigSDKType {
     name: string;
-    config: AnySDKType;
+    config?: AnySDKType;
     golang_bindings: GolangBindingSDKType[];
 }
 /** GolangBinding is an explicit interface type to implementing type binding for dependency injection. */
@@ -141,9 +141,9 @@ export interface GolangBindingProtoMsg {
 /** GolangBinding is an explicit interface type to implementing type binding for dependency injection. */
 export interface GolangBindingAmino {
     /** interface_type is the interface type which will be bound to a specific implementation type */
-    interface_type: string;
+    interface_type?: string;
     /** implementation is the implementing type which will be supplied when an input of type interface is requested */
-    implementation: string;
+    implementation?: string;
 }
 export interface GolangBindingAminoMsg {
     type: "cosmos-sdk/GolangBinding";

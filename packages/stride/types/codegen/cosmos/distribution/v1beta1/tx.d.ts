@@ -18,8 +18,8 @@ export interface MsgSetWithdrawAddressProtoMsg {
  * a delegator (or validator self-delegation).
  */
 export interface MsgSetWithdrawAddressAmino {
-    delegator_address: string;
-    withdraw_address: string;
+    delegator_address?: string;
+    withdraw_address?: string;
 }
 export interface MsgSetWithdrawAddressAminoMsg {
     type: "cosmos-sdk/MsgModifyWithdrawAddress";
@@ -76,8 +76,8 @@ export interface MsgWithdrawDelegatorRewardProtoMsg {
  * from a single validator.
  */
 export interface MsgWithdrawDelegatorRewardAmino {
-    delegator_address: string;
-    validator_address: string;
+    delegator_address?: string;
+    validator_address?: string;
 }
 export interface MsgWithdrawDelegatorRewardAminoMsg {
     type: "cosmos-sdk/MsgWithdrawDelegationReward";
@@ -138,7 +138,7 @@ export interface MsgWithdrawValidatorCommissionProtoMsg {
  * address.
  */
 export interface MsgWithdrawValidatorCommissionAmino {
-    validator_address: string;
+    validator_address?: string;
 }
 export interface MsgWithdrawValidatorCommissionAminoMsg {
     type: "cosmos-sdk/MsgWithdrawValidatorCommission";
@@ -200,7 +200,7 @@ export interface MsgFundCommunityPoolProtoMsg {
  */
 export interface MsgFundCommunityPoolAmino {
     amount: CoinAmino[];
-    depositor: string;
+    depositor?: string;
 }
 export interface MsgFundCommunityPoolAminoMsg {
     type: "cosmos-sdk/MsgFundCommunityPool";
@@ -257,13 +257,13 @@ export interface MsgUpdateParamsProtoMsg {
  */
 export interface MsgUpdateParamsAmino {
     /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
-    authority: string;
+    authority?: string;
     /**
      * params defines the x/distribution parameters to update.
      *
      * NOTE: All parameters must be supplied.
      */
-    params?: ParamsAmino;
+    params: ParamsAmino;
 }
 export interface MsgUpdateParamsAminoMsg {
     type: "cosmos-sdk/distribution/MsgUpdateParams";
@@ -336,8 +336,8 @@ export interface MsgCommunityPoolSpendProtoMsg {
  */
 export interface MsgCommunityPoolSpendAmino {
     /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
-    authority: string;
-    recipient: string;
+    authority?: string;
+    recipient?: string;
     amount: CoinAmino[];
 }
 export interface MsgCommunityPoolSpendAminoMsg {

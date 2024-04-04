@@ -61,6 +61,7 @@ export const createRPCMsgClient = async ({
     interchainquery: {
       v1: new (await import("./interchainquery/v1/messages.rpc.msg")).MsgClientImpl(rpc)
     },
+    stakedym: new (await import("./stakedym/tx.rpc.msg")).MsgClientImpl(rpc),
     stakeibc: new (await import("./stakeibc/tx.rpc.msg")).MsgClientImpl(rpc),
     staketia: new (await import("./staketia/tx.rpc.msg")).MsgClientImpl(rpc)
   }

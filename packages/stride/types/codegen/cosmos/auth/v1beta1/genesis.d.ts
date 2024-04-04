@@ -15,9 +15,9 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the auth module's genesis state. */
 export interface GenesisStateAmino {
     /** params defines all the parameters of the module. */
-    params?: ParamsAmino;
+    params: ParamsAmino;
     /** accounts are the accounts present at genesis. */
-    accounts: AnyAmino[];
+    accounts?: AnyAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "cosmos-sdk/GenesisState";

@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../../binary";
 /**
  * CommitInfo defines commit information used by the multi-store when committing
@@ -18,9 +18,9 @@ export interface CommitInfoProtoMsg {
  * a version/height.
  */
 export interface CommitInfoAmino {
-    version: string;
-    store_infos: StoreInfoAmino[];
-    timestamp?: TimestampAmino;
+    version?: string;
+    store_infos?: StoreInfoAmino[];
+    timestamp?: string;
 }
 export interface CommitInfoAminoMsg {
     type: "cosmos-sdk/CommitInfo";
@@ -52,7 +52,7 @@ export interface StoreInfoProtoMsg {
  * between a store name and the commit ID.
  */
 export interface StoreInfoAmino {
-    name: string;
+    name?: string;
     commit_id?: CommitIDAmino;
 }
 export interface StoreInfoAminoMsg {
@@ -84,8 +84,8 @@ export interface CommitIDProtoMsg {
  * committed.
  */
 export interface CommitIDAmino {
-    version: string;
-    hash: Uint8Array;
+    version?: string;
+    hash?: string;
 }
 export interface CommitIDAminoMsg {
     type: "cosmos-sdk/CommitID";

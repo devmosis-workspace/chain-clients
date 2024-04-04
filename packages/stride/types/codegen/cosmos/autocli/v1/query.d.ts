@@ -19,14 +19,14 @@ export interface AppOptionsRequestSDKType {
 }
 export interface AppOptionsResponse_ModuleOptionsEntry {
     key: string;
-    value: ModuleOptions;
+    value?: ModuleOptions;
 }
 export interface AppOptionsResponse_ModuleOptionsEntryProtoMsg {
     typeUrl: string;
     value: Uint8Array;
 }
 export interface AppOptionsResponse_ModuleOptionsEntryAmino {
-    key: string;
+    key?: string;
     value?: ModuleOptionsAmino;
 }
 export interface AppOptionsResponse_ModuleOptionsEntryAminoMsg {
@@ -35,7 +35,7 @@ export interface AppOptionsResponse_ModuleOptionsEntryAminoMsg {
 }
 export interface AppOptionsResponse_ModuleOptionsEntrySDKType {
     key: string;
-    value: ModuleOptionsSDKType;
+    value?: ModuleOptionsSDKType;
 }
 /** AppOptionsResponse is the RemoteInfoService/AppOptions response type. */
 export interface AppOptionsResponse {

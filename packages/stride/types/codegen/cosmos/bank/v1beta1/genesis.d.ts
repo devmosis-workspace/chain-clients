@@ -28,7 +28,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the bank module's genesis state. */
 export interface GenesisStateAmino {
     /** params defines all the parameters of the module. */
-    params?: ParamsAmino;
+    params: ParamsAmino;
     /** balances is an array containing the balances of all the accounts. */
     balances: BalanceAmino[];
     /**
@@ -77,7 +77,7 @@ export interface BalanceProtoMsg {
  */
 export interface BalanceAmino {
     /** address is the address of the balance holder. */
-    address: string;
+    address?: string;
     /** coins defines the different coins this balance holds. */
     coins: CoinAmino[];
 }

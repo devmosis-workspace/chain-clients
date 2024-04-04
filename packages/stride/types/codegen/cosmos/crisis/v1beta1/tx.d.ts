@@ -16,11 +16,11 @@ export interface MsgVerifyInvariantProtoMsg {
 /** MsgVerifyInvariant represents a message to verify a particular invariance. */
 export interface MsgVerifyInvariantAmino {
     /** sender is the account address of private key to send coins to fee collector account. */
-    sender: string;
+    sender?: string;
     /** name of the invariant module. */
-    invariant_module_name: string;
+    invariant_module_name?: string;
     /** invariant_route is the msg's invariant route. */
-    invariant_route: string;
+    invariant_route?: string;
 }
 export interface MsgVerifyInvariantAminoMsg {
     type: "cosmos-sdk/MsgVerifyInvariant";
@@ -71,9 +71,9 @@ export interface MsgUpdateParamsProtoMsg {
  */
 export interface MsgUpdateParamsAmino {
     /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
-    authority: string;
+    authority?: string;
     /** constant_fee defines the x/crisis parameter. */
-    constant_fee?: CoinAmino;
+    constant_fee: CoinAmino;
 }
 export interface MsgUpdateParamsAminoMsg {
     type: "cosmos-sdk/x/crisis/MsgUpdateParams";

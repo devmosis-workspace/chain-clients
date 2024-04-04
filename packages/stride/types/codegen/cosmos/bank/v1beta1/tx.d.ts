@@ -13,8 +13,8 @@ export interface MsgSendProtoMsg {
 }
 /** MsgSend represents a message to send coins from one account to another. */
 export interface MsgSendAmino {
-    from_address: string;
-    to_address: string;
+    from_address?: string;
+    to_address?: string;
     amount: CoinAmino[];
 }
 export interface MsgSendAminoMsg {
@@ -118,13 +118,13 @@ export interface MsgUpdateParamsProtoMsg {
  */
 export interface MsgUpdateParamsAmino {
     /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
-    authority: string;
+    authority?: string;
     /**
      * params defines the x/bank parameters to update.
      *
      * NOTE: All parameters must be supplied.
      */
-    params?: ParamsAmino;
+    params: ParamsAmino;
 }
 export interface MsgUpdateParamsAminoMsg {
     type: "cosmos-sdk/x/bank/MsgUpdateParams";
@@ -206,16 +206,16 @@ export interface MsgSetSendEnabledProtoMsg {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgSetSendEnabledAmino {
-    authority: string;
+    authority?: string;
     /** send_enabled is the list of entries to add or update. */
-    send_enabled: SendEnabledAmino[];
+    send_enabled?: SendEnabledAmino[];
     /**
      * use_default_for is a list of denoms that should use the params.default_send_enabled value.
      * Denoms listed here will have their SendEnabled entries deleted.
      * If a denom is included that doesn't have a SendEnabled entry,
      * it will be ignored.
      */
-    use_default_for: string[];
+    use_default_for?: string[];
 }
 export interface MsgSetSendEnabledAminoMsg {
     type: "cosmos-sdk/MsgSetSendEnabled";

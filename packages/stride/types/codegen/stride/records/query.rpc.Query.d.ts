@@ -1,6 +1,6 @@
 import { Rpc } from "../../helpers";
 import { QueryClient } from "@cosmjs/stargate";
-import { QueryParamsRequest, QueryParamsResponse, QueryGetUserRedemptionRecordRequest, QueryGetUserRedemptionRecordResponse, QueryAllUserRedemptionRecordRequest, QueryAllUserRedemptionRecordResponse, QueryAllUserRedemptionRecordForUserRequest, QueryAllUserRedemptionRecordForUserResponse, QueryGetEpochUnbondingRecordRequest, QueryGetEpochUnbondingRecordResponse, QueryAllEpochUnbondingRecordRequest, QueryAllEpochUnbondingRecordResponse, QueryGetDepositRecordRequest, QueryGetDepositRecordResponse, QueryAllDepositRecordRequest, QueryAllDepositRecordResponse, QueryDepositRecordByHostRequest, QueryDepositRecordByHostResponse } from "./query";
+import { QueryParamsRequest, QueryParamsResponse, QueryGetUserRedemptionRecordRequest, QueryGetUserRedemptionRecordResponse, QueryAllUserRedemptionRecordRequest, QueryAllUserRedemptionRecordResponse, QueryAllUserRedemptionRecordForUserRequest, QueryAllUserRedemptionRecordForUserResponse, QueryGetEpochUnbondingRecordRequest, QueryGetEpochUnbondingRecordResponse, QueryAllEpochUnbondingRecordRequest, QueryAllEpochUnbondingRecordResponse, QueryGetDepositRecordRequest, QueryGetDepositRecordResponse, QueryAllDepositRecordRequest, QueryAllDepositRecordResponse, QueryDepositRecordByHostRequest, QueryDepositRecordByHostResponse, QueryLSMDepositRequest, QueryLSMDepositResponse, QueryLSMDepositsRequest, QueryLSMDepositsResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -21,6 +21,14 @@ export interface Query {
     depositRecordAll(request?: QueryAllDepositRecordRequest): Promise<QueryAllDepositRecordResponse>;
     /** Queries a list of DepositRecord items for a given host zone */
     depositRecordByHost(request: QueryDepositRecordByHostRequest): Promise<QueryDepositRecordByHostResponse>;
+    /** Queries the existing LSMTokenDeposits for one specific deposit */
+    lSMDeposit(request: QueryLSMDepositRequest): Promise<QueryLSMDepositResponse>;
+    /**
+     * Queries the existing LSMTokenDeposits for all which match filters
+     *   intended use:
+     *   ...stakeibc/lsm_deposits?chain_id=X&validator_address=Y&status=Z
+     */
+    lSMDeposits(request: QueryLSMDepositsRequest): Promise<QueryLSMDepositsResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -34,6 +42,8 @@ export declare class QueryClientImpl implements Query {
     depositRecord(request: QueryGetDepositRecordRequest): Promise<QueryGetDepositRecordResponse>;
     depositRecordAll(request?: QueryAllDepositRecordRequest): Promise<QueryAllDepositRecordResponse>;
     depositRecordByHost(request: QueryDepositRecordByHostRequest): Promise<QueryDepositRecordByHostResponse>;
+    lSMDeposit(request: QueryLSMDepositRequest): Promise<QueryLSMDepositResponse>;
+    lSMDeposits(request: QueryLSMDepositsRequest): Promise<QueryLSMDepositsResponse>;
 }
 export declare const createRpcQueryExtension: (base: QueryClient) => {
     params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
@@ -45,4 +55,6 @@ export declare const createRpcQueryExtension: (base: QueryClient) => {
     depositRecord(request: QueryGetDepositRecordRequest): Promise<QueryGetDepositRecordResponse>;
     depositRecordAll(request?: QueryAllDepositRecordRequest): Promise<QueryAllDepositRecordResponse>;
     depositRecordByHost(request: QueryDepositRecordByHostRequest): Promise<QueryDepositRecordByHostResponse>;
+    lSMDeposit(request: QueryLSMDepositRequest): Promise<QueryLSMDepositResponse>;
+    lSMDeposits(request: QueryLSMDepositsRequest): Promise<QueryLSMDepositsResponse>;
 };

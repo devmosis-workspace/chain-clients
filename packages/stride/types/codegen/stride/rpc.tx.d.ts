@@ -2,13 +2,6 @@ import { Rpc } from "../helpers";
 export declare const createRPCMsgClient: ({ rpc }: {
     rpc: Rpc;
 }) => Promise<{
-    stride: {
-        claim: import("./claim/tx.rpc.msg").MsgClientImpl;
-        interchainquery: {
-            v1: import("./interchainquery/v1/messages.rpc.msg").MsgClientImpl;
-        };
-        stakeibc: import("./stakeibc/tx.rpc.msg").MsgClientImpl;
-    };
     cosmos: {
         auth: {
             v1beta1: import("../cosmos/auth/v1beta1/tx.rpc.msg").MsgClientImpl;
@@ -59,5 +52,15 @@ export declare const createRPCMsgClient: ({ rpc }: {
         vesting: {
             v1beta1: import("../cosmos/vesting/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
+    };
+    stride: {
+        claim: import("./claim/tx.rpc.msg").MsgClientImpl;
+        icaoracle: import("./icaoracle/tx.rpc.msg").MsgClientImpl;
+        interchainquery: {
+            v1: import("./interchainquery/v1/messages.rpc.msg").MsgClientImpl;
+        };
+        stakedym: import("./stakedym/tx.rpc.msg").MsgClientImpl;
+        stakeibc: import("./stakeibc/tx.rpc.msg").MsgClientImpl;
+        staketia: import("./staketia/tx.rpc.msg").MsgClientImpl;
     };
 }>;

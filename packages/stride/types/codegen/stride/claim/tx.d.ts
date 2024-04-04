@@ -11,10 +11,10 @@ export interface MsgSetAirdropAllocationsProtoMsg {
     value: Uint8Array;
 }
 export interface MsgSetAirdropAllocationsAmino {
-    allocator: string;
-    airdrop_identifier: string;
-    users: string[];
-    weights: string[];
+    allocator?: string;
+    airdrop_identifier?: string;
+    users?: string[];
+    weights?: string[];
 }
 export interface MsgSetAirdropAllocationsAminoMsg {
     type: "/stride.claim.MsgSetAirdropAllocations";
@@ -48,7 +48,7 @@ export interface MsgClaimFreeAmountProtoMsg {
     value: Uint8Array;
 }
 export interface MsgClaimFreeAmountAmino {
-    user: string;
+    user?: string;
 }
 export interface MsgClaimFreeAmountAminoMsg {
     type: "/stride.claim.MsgClaimFreeAmount";
@@ -65,7 +65,7 @@ export interface MsgClaimFreeAmountResponseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgClaimFreeAmountResponseAmino {
-    claimed_amount: CoinAmino[];
+    claimed_amount?: CoinAmino[];
 }
 export interface MsgClaimFreeAmountResponseAminoMsg {
     type: "/stride.claim.MsgClaimFreeAmountResponse";
@@ -88,13 +88,13 @@ export interface MsgCreateAirdropProtoMsg {
     value: Uint8Array;
 }
 export interface MsgCreateAirdropAmino {
-    distributor: string;
-    identifier: string;
-    chain_id: string;
-    denom: string;
-    start_time: string;
-    duration: string;
-    autopilot_enabled: boolean;
+    distributor?: string;
+    identifier?: string;
+    chain_id?: string;
+    denom?: string;
+    start_time?: string;
+    duration?: string;
+    autopilot_enabled?: boolean;
 }
 export interface MsgCreateAirdropAminoMsg {
     type: "/stride.claim.MsgCreateAirdrop";
@@ -132,8 +132,8 @@ export interface MsgDeleteAirdropProtoMsg {
     value: Uint8Array;
 }
 export interface MsgDeleteAirdropAmino {
-    distributor: string;
-    identifier: string;
+    distributor?: string;
+    identifier?: string;
 }
 export interface MsgDeleteAirdropAminoMsg {
     type: "/stride.claim.MsgDeleteAirdrop";

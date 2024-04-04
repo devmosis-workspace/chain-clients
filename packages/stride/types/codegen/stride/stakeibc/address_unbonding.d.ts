@@ -13,13 +13,13 @@ export interface AddressUnbondingProtoMsg {
     value: Uint8Array;
 }
 export interface AddressUnbondingAmino {
-    address: string;
-    receiver: string;
-    unbonding_estimated_time: string;
-    amount: string;
-    denom: string;
-    claim_is_pending: boolean;
-    epoch_number: string;
+    address?: string;
+    receiver?: string;
+    unbonding_estimated_time?: string;
+    amount?: string;
+    denom?: string;
+    claim_is_pending?: boolean;
+    epoch_number?: string;
 }
 export interface AddressUnbondingAminoMsg {
     type: "/stride.stakeibc.AddressUnbonding";

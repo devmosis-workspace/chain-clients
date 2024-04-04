@@ -40,36 +40,36 @@ export interface ModuleProtoMsg {
 /** Module is the config object for the runtime module. */
 export interface ModuleAmino {
     /** app_name is the name of the app. */
-    app_name: string;
+    app_name?: string;
     /**
      * begin_blockers specifies the module names of begin blockers
      * to call in the order in which they should be called. If this is left empty
      * no begin blocker will be registered.
      */
-    begin_blockers: string[];
+    begin_blockers?: string[];
     /**
      * end_blockers specifies the module names of the end blockers
      * to call in the order in which they should be called. If this is left empty
      * no end blocker will be registered.
      */
-    end_blockers: string[];
+    end_blockers?: string[];
     /**
      * init_genesis specifies the module names of init genesis functions
      * to call in the order in which they should be called. If this is left empty
      * no init genesis function will be registered.
      */
-    init_genesis: string[];
+    init_genesis?: string[];
     /**
      * export_genesis specifies the order in which to export module genesis data.
      * If this is left empty, the init_genesis order will be used for export genesis
      * if it is specified.
      */
-    export_genesis: string[];
+    export_genesis?: string[];
     /**
      * override_store_keys is an optional list of overrides for the module store keys
      * to be used in keeper construction.
      */
-    override_store_keys: StoreKeyConfigAmino[];
+    override_store_keys?: StoreKeyConfigAmino[];
 }
 export interface ModuleAminoMsg {
     type: "cosmos-sdk/Module";
@@ -104,9 +104,9 @@ export interface StoreKeyConfigProtoMsg {
  */
 export interface StoreKeyConfigAmino {
     /** name of the module to override the store key of */
-    module_name: string;
+    module_name?: string;
     /** the kv store key to use instead of the module name. */
-    kv_store_key: string;
+    kv_store_key?: string;
 }
 export interface StoreKeyConfigAminoMsg {
     type: "cosmos-sdk/StoreKeyConfig";

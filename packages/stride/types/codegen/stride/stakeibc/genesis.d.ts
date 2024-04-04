@@ -17,10 +17,10 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the stakeibc module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    port_id: string;
+    port_id?: string;
     /** list of zones that are registered by the protocol */
-    host_zone_list: HostZoneAmino[];
-    epoch_tracker_list: EpochTrackerAmino[];
+    host_zone_list?: HostZoneAmino[];
+    epoch_tracker_list?: EpochTrackerAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/stride.stakeibc.GenesisState";

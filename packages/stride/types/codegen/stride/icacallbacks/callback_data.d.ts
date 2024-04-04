@@ -12,12 +12,12 @@ export interface CallbackDataProtoMsg {
     value: Uint8Array;
 }
 export interface CallbackDataAmino {
-    callback_key: string;
-    port_id: string;
-    channel_id: string;
-    sequence: string;
-    callback_id: string;
-    callback_args: Uint8Array;
+    callback_key?: string;
+    port_id?: string;
+    channel_id?: string;
+    sequence?: string;
+    callback_id?: string;
+    callback_args?: string;
 }
 export interface CallbackDataAminoMsg {
     type: "/stride.icacallbacks.CallbackData";

@@ -29,7 +29,7 @@ export interface FileDescriptorsResponseProtoMsg {
 /** FileDescriptorsResponse is the Query/FileDescriptors response type. */
 export interface FileDescriptorsResponseAmino {
     /** files is the file descriptors. */
-    files: FileDescriptorProtoAmino[];
+    files?: FileDescriptorProtoAmino[];
 }
 export interface FileDescriptorsResponseAminoMsg {
     type: "cosmos-sdk/FileDescriptorsResponse";

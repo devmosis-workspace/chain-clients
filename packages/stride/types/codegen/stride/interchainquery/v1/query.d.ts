@@ -22,7 +22,7 @@ export interface QueryPendingQueriesResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryPendingQueriesResponseAmino {
-    pending_queries: QueryAmino[];
+    pending_queries?: QueryAmino[];
 }
 export interface QueryPendingQueriesResponseAminoMsg {
     type: "/stride.interchainquery.v1.QueryPendingQueriesResponse";

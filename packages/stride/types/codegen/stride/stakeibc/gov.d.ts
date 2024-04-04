@@ -12,11 +12,11 @@ export interface AddValidatorsProposalProtoMsg {
     value: Uint8Array;
 }
 export interface AddValidatorsProposalAmino {
-    title: string;
-    description: string;
-    host_zone: string;
-    validators: ValidatorAmino[];
-    deposit: string;
+    title?: string;
+    description?: string;
+    host_zone?: string;
+    validators?: ValidatorAmino[];
+    deposit?: string;
 }
 export interface AddValidatorsProposalAminoMsg {
     type: "/stride.stakeibc.AddValidatorsProposal";
@@ -27,6 +27,35 @@ export interface AddValidatorsProposalSDKType {
     description: string;
     host_zone: string;
     validators: ValidatorSDKType[];
+    deposit: string;
+}
+export interface ToggleLSMProposal {
+    title: string;
+    description: string;
+    hostZone: string;
+    enabled: boolean;
+    deposit: string;
+}
+export interface ToggleLSMProposalProtoMsg {
+    typeUrl: "/stride.stakeibc.ToggleLSMProposal";
+    value: Uint8Array;
+}
+export interface ToggleLSMProposalAmino {
+    title?: string;
+    description?: string;
+    host_zone?: string;
+    enabled?: boolean;
+    deposit?: string;
+}
+export interface ToggleLSMProposalAminoMsg {
+    type: "/stride.stakeibc.ToggleLSMProposal";
+    value: ToggleLSMProposalAmino;
+}
+export interface ToggleLSMProposalSDKType {
+    title: string;
+    description: string;
+    host_zone: string;
+    enabled: boolean;
     deposit: string;
 }
 export declare const AddValidatorsProposal: {
@@ -40,4 +69,16 @@ export declare const AddValidatorsProposal: {
     fromProtoMsg(message: AddValidatorsProposalProtoMsg): AddValidatorsProposal;
     toProto(message: AddValidatorsProposal): Uint8Array;
     toProtoMsg(message: AddValidatorsProposal): AddValidatorsProposalProtoMsg;
+};
+export declare const ToggleLSMProposal: {
+    typeUrl: string;
+    encode(message: ToggleLSMProposal, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ToggleLSMProposal;
+    fromPartial(object: Partial<ToggleLSMProposal>): ToggleLSMProposal;
+    fromAmino(object: ToggleLSMProposalAmino): ToggleLSMProposal;
+    toAmino(message: ToggleLSMProposal): ToggleLSMProposalAmino;
+    fromAminoMsg(object: ToggleLSMProposalAminoMsg): ToggleLSMProposal;
+    fromProtoMsg(message: ToggleLSMProposalProtoMsg): ToggleLSMProposal;
+    toProto(message: ToggleLSMProposal): Uint8Array;
+    toProtoMsg(message: ToggleLSMProposal): ToggleLSMProposalProtoMsg;
 };

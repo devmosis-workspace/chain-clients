@@ -1,6 +1,9 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
+import { LSMTokenDeposit, LSMTokenDepositAmino, LSMTokenDepositSDKType } from "../records/records";
+import { HostZone, HostZoneAmino, HostZoneSDKType } from "./host_zone";
+import { Validator, ValidatorAmino, ValidatorSDKType } from "./validator";
+import { ICAAccountType } from "./ica_account";
 import { BinaryWriter } from "../../binary";
-/** ---------------------- Delegation Callbacks ---------------------- // */
 export interface SplitDelegation {
     validator: string;
     amount: string;
@@ -9,16 +12,14 @@ export interface SplitDelegationProtoMsg {
     typeUrl: "/stride.stakeibc.SplitDelegation";
     value: Uint8Array;
 }
-/** ---------------------- Delegation Callbacks ---------------------- // */
 export interface SplitDelegationAmino {
-    validator: string;
-    amount: string;
+    validator?: string;
+    amount?: string;
 }
 export interface SplitDelegationAminoMsg {
     type: "/stride.stakeibc.SplitDelegation";
     value: SplitDelegationAmino;
 }
-/** ---------------------- Delegation Callbacks ---------------------- // */
 export interface SplitDelegationSDKType {
     validator: string;
     amount: string;
@@ -33,9 +34,9 @@ export interface DelegateCallbackProtoMsg {
     value: Uint8Array;
 }
 export interface DelegateCallbackAmino {
-    host_zone_id: string;
-    deposit_record_id: string;
-    split_delegations: SplitDelegationAmino[];
+    host_zone_id?: string;
+    deposit_record_id?: string;
+    split_delegations?: SplitDelegationAmino[];
 }
 export interface DelegateCallbackAminoMsg {
     type: "/stride.stakeibc.DelegateCallback";
@@ -56,9 +57,9 @@ export interface ClaimCallbackProtoMsg {
     value: Uint8Array;
 }
 export interface ClaimCallbackAmino {
-    user_redemption_record_id: string;
-    chain_id: string;
-    epoch_number: string;
+    user_redemption_record_id?: string;
+    chain_id?: string;
+    epoch_number?: string;
 }
 export interface ClaimCallbackAminoMsg {
     type: "/stride.stakeibc.ClaimCallback";
@@ -69,7 +70,6 @@ export interface ClaimCallbackSDKType {
     chain_id: string;
     epoch_number: bigint;
 }
-/** ---------------------- Reinvest Callback ---------------------- // */
 export interface ReinvestCallback {
     reinvestAmount: Coin;
     hostZoneId: string;
@@ -78,21 +78,18 @@ export interface ReinvestCallbackProtoMsg {
     typeUrl: "/stride.stakeibc.ReinvestCallback";
     value: Uint8Array;
 }
-/** ---------------------- Reinvest Callback ---------------------- // */
 export interface ReinvestCallbackAmino {
     reinvest_amount?: CoinAmino;
-    host_zone_id: string;
+    host_zone_id?: string;
 }
 export interface ReinvestCallbackAminoMsg {
     type: "/stride.stakeibc.ReinvestCallback";
     value: ReinvestCallbackAmino;
 }
-/** ---------------------- Reinvest Callback ---------------------- // */
 export interface ReinvestCallbackSDKType {
     reinvest_amount: CoinSDKType;
     host_zone_id: string;
 }
-/** ---------------------- Undelegation Callbacks ---------------------- // */
 export interface UndelegateCallback {
     hostZoneId: string;
     splitDelegations: SplitDelegation[];
@@ -102,23 +99,20 @@ export interface UndelegateCallbackProtoMsg {
     typeUrl: "/stride.stakeibc.UndelegateCallback";
     value: Uint8Array;
 }
-/** ---------------------- Undelegation Callbacks ---------------------- // */
 export interface UndelegateCallbackAmino {
-    host_zone_id: string;
-    split_delegations: SplitDelegationAmino[];
-    epoch_unbonding_record_ids: string[];
+    host_zone_id?: string;
+    split_delegations?: SplitDelegationAmino[];
+    epoch_unbonding_record_ids?: string[];
 }
 export interface UndelegateCallbackAminoMsg {
     type: "/stride.stakeibc.UndelegateCallback";
     value: UndelegateCallbackAmino;
 }
-/** ---------------------- Undelegation Callbacks ---------------------- // */
 export interface UndelegateCallbackSDKType {
     host_zone_id: string;
     split_delegations: SplitDelegationSDKType[];
     epoch_unbonding_record_ids: bigint[];
 }
-/** ---------------------- Redemption Callbacks ---------------------- // */
 export interface RedemptionCallback {
     hostZoneId: string;
     epochUnbondingRecordIds: bigint[];
@@ -127,16 +121,14 @@ export interface RedemptionCallbackProtoMsg {
     typeUrl: "/stride.stakeibc.RedemptionCallback";
     value: Uint8Array;
 }
-/** ---------------------- Redemption Callbacks ---------------------- // */
 export interface RedemptionCallbackAmino {
-    host_zone_id: string;
-    epoch_unbonding_record_ids: string[];
+    host_zone_id?: string;
+    epoch_unbonding_record_ids?: string[];
 }
 export interface RedemptionCallbackAminoMsg {
     type: "/stride.stakeibc.RedemptionCallback";
     value: RedemptionCallbackAmino;
 }
-/** ---------------------- Redemption Callbacks ---------------------- // */
 export interface RedemptionCallbackSDKType {
     host_zone_id: string;
     epoch_unbonding_record_ids: bigint[];
@@ -151,9 +143,9 @@ export interface RebalancingProtoMsg {
     value: Uint8Array;
 }
 export interface RebalancingAmino {
-    src_validator: string;
-    dst_validator: string;
-    amt: string;
+    src_validator?: string;
+    dst_validator?: string;
+    amt?: string;
 }
 export interface RebalancingAminoMsg {
     type: "/stride.stakeibc.Rebalancing";
@@ -173,8 +165,8 @@ export interface RebalanceCallbackProtoMsg {
     value: Uint8Array;
 }
 export interface RebalanceCallbackAmino {
-    host_zone_id: string;
-    rebalancings: RebalancingAmino[];
+    host_zone_id?: string;
+    rebalancings?: RebalancingAmino[];
 }
 export interface RebalanceCallbackAminoMsg {
     type: "/stride.stakeibc.RebalanceCallback";
@@ -183,6 +175,122 @@ export interface RebalanceCallbackAminoMsg {
 export interface RebalanceCallbackSDKType {
     host_zone_id: string;
     rebalancings: RebalancingSDKType[];
+}
+export interface DetokenizeSharesCallback {
+    deposit?: LSMTokenDeposit;
+}
+export interface DetokenizeSharesCallbackProtoMsg {
+    typeUrl: "/stride.stakeibc.DetokenizeSharesCallback";
+    value: Uint8Array;
+}
+export interface DetokenizeSharesCallbackAmino {
+    deposit?: LSMTokenDepositAmino;
+}
+export interface DetokenizeSharesCallbackAminoMsg {
+    type: "/stride.stakeibc.DetokenizeSharesCallback";
+    value: DetokenizeSharesCallbackAmino;
+}
+export interface DetokenizeSharesCallbackSDKType {
+    deposit?: LSMTokenDepositSDKType;
+}
+export interface LSMLiquidStake {
+    deposit?: LSMTokenDeposit;
+    hostZone?: HostZone;
+    validator?: Validator;
+}
+export interface LSMLiquidStakeProtoMsg {
+    typeUrl: "/stride.stakeibc.LSMLiquidStake";
+    value: Uint8Array;
+}
+export interface LSMLiquidStakeAmino {
+    deposit?: LSMTokenDepositAmino;
+    host_zone?: HostZoneAmino;
+    validator?: ValidatorAmino;
+}
+export interface LSMLiquidStakeAminoMsg {
+    type: "/stride.stakeibc.LSMLiquidStake";
+    value: LSMLiquidStakeAmino;
+}
+export interface LSMLiquidStakeSDKType {
+    deposit?: LSMTokenDepositSDKType;
+    host_zone?: HostZoneSDKType;
+    validator?: ValidatorSDKType;
+}
+export interface ValidatorSharesToTokensQueryCallback {
+    lsmLiquidStake?: LSMLiquidStake;
+}
+export interface ValidatorSharesToTokensQueryCallbackProtoMsg {
+    typeUrl: "/stride.stakeibc.ValidatorSharesToTokensQueryCallback";
+    value: Uint8Array;
+}
+export interface ValidatorSharesToTokensQueryCallbackAmino {
+    lsm_liquid_stake?: LSMLiquidStakeAmino;
+}
+export interface ValidatorSharesToTokensQueryCallbackAminoMsg {
+    type: "/stride.stakeibc.ValidatorSharesToTokensQueryCallback";
+    value: ValidatorSharesToTokensQueryCallbackAmino;
+}
+export interface ValidatorSharesToTokensQueryCallbackSDKType {
+    lsm_liquid_stake?: LSMLiquidStakeSDKType;
+}
+export interface DelegatorSharesQueryCallback {
+    /** Validator delegation at the time the query is submitted */
+    initialValidatorDelegation: string;
+}
+export interface DelegatorSharesQueryCallbackProtoMsg {
+    typeUrl: "/stride.stakeibc.DelegatorSharesQueryCallback";
+    value: Uint8Array;
+}
+export interface DelegatorSharesQueryCallbackAmino {
+    /** Validator delegation at the time the query is submitted */
+    initial_validator_delegation?: string;
+}
+export interface DelegatorSharesQueryCallbackAminoMsg {
+    type: "/stride.stakeibc.DelegatorSharesQueryCallback";
+    value: DelegatorSharesQueryCallbackAmino;
+}
+export interface DelegatorSharesQueryCallbackSDKType {
+    initial_validator_delegation: string;
+}
+export interface CommunityPoolBalanceQueryCallback {
+    icaType: ICAAccountType;
+    denom: string;
+}
+export interface CommunityPoolBalanceQueryCallbackProtoMsg {
+    typeUrl: "/stride.stakeibc.CommunityPoolBalanceQueryCallback";
+    value: Uint8Array;
+}
+export interface CommunityPoolBalanceQueryCallbackAmino {
+    ica_type?: ICAAccountType;
+    denom?: string;
+}
+export interface CommunityPoolBalanceQueryCallbackAminoMsg {
+    type: "/stride.stakeibc.CommunityPoolBalanceQueryCallback";
+    value: CommunityPoolBalanceQueryCallbackAmino;
+}
+export interface CommunityPoolBalanceQueryCallbackSDKType {
+    ica_type: ICAAccountType;
+    denom: string;
+}
+export interface TradeRouteCallback {
+    rewardDenom: string;
+    hostDenom: string;
+}
+export interface TradeRouteCallbackProtoMsg {
+    typeUrl: "/stride.stakeibc.TradeRouteCallback";
+    value: Uint8Array;
+}
+export interface TradeRouteCallbackAmino {
+    reward_denom?: string;
+    host_denom?: string;
+}
+export interface TradeRouteCallbackAminoMsg {
+    type: "/stride.stakeibc.TradeRouteCallback";
+    value: TradeRouteCallbackAmino;
+}
+export interface TradeRouteCallbackSDKType {
+    reward_denom: string;
+    host_denom: string;
 }
 export declare const SplitDelegation: {
     typeUrl: string;
@@ -279,4 +387,76 @@ export declare const RebalanceCallback: {
     fromProtoMsg(message: RebalanceCallbackProtoMsg): RebalanceCallback;
     toProto(message: RebalanceCallback): Uint8Array;
     toProtoMsg(message: RebalanceCallback): RebalanceCallbackProtoMsg;
+};
+export declare const DetokenizeSharesCallback: {
+    typeUrl: string;
+    encode(message: DetokenizeSharesCallback, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): DetokenizeSharesCallback;
+    fromPartial(object: Partial<DetokenizeSharesCallback>): DetokenizeSharesCallback;
+    fromAmino(object: DetokenizeSharesCallbackAmino): DetokenizeSharesCallback;
+    toAmino(message: DetokenizeSharesCallback): DetokenizeSharesCallbackAmino;
+    fromAminoMsg(object: DetokenizeSharesCallbackAminoMsg): DetokenizeSharesCallback;
+    fromProtoMsg(message: DetokenizeSharesCallbackProtoMsg): DetokenizeSharesCallback;
+    toProto(message: DetokenizeSharesCallback): Uint8Array;
+    toProtoMsg(message: DetokenizeSharesCallback): DetokenizeSharesCallbackProtoMsg;
+};
+export declare const LSMLiquidStake: {
+    typeUrl: string;
+    encode(message: LSMLiquidStake, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): LSMLiquidStake;
+    fromPartial(object: Partial<LSMLiquidStake>): LSMLiquidStake;
+    fromAmino(object: LSMLiquidStakeAmino): LSMLiquidStake;
+    toAmino(message: LSMLiquidStake): LSMLiquidStakeAmino;
+    fromAminoMsg(object: LSMLiquidStakeAminoMsg): LSMLiquidStake;
+    fromProtoMsg(message: LSMLiquidStakeProtoMsg): LSMLiquidStake;
+    toProto(message: LSMLiquidStake): Uint8Array;
+    toProtoMsg(message: LSMLiquidStake): LSMLiquidStakeProtoMsg;
+};
+export declare const ValidatorSharesToTokensQueryCallback: {
+    typeUrl: string;
+    encode(message: ValidatorSharesToTokensQueryCallback, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ValidatorSharesToTokensQueryCallback;
+    fromPartial(object: Partial<ValidatorSharesToTokensQueryCallback>): ValidatorSharesToTokensQueryCallback;
+    fromAmino(object: ValidatorSharesToTokensQueryCallbackAmino): ValidatorSharesToTokensQueryCallback;
+    toAmino(message: ValidatorSharesToTokensQueryCallback): ValidatorSharesToTokensQueryCallbackAmino;
+    fromAminoMsg(object: ValidatorSharesToTokensQueryCallbackAminoMsg): ValidatorSharesToTokensQueryCallback;
+    fromProtoMsg(message: ValidatorSharesToTokensQueryCallbackProtoMsg): ValidatorSharesToTokensQueryCallback;
+    toProto(message: ValidatorSharesToTokensQueryCallback): Uint8Array;
+    toProtoMsg(message: ValidatorSharesToTokensQueryCallback): ValidatorSharesToTokensQueryCallbackProtoMsg;
+};
+export declare const DelegatorSharesQueryCallback: {
+    typeUrl: string;
+    encode(message: DelegatorSharesQueryCallback, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): DelegatorSharesQueryCallback;
+    fromPartial(object: Partial<DelegatorSharesQueryCallback>): DelegatorSharesQueryCallback;
+    fromAmino(object: DelegatorSharesQueryCallbackAmino): DelegatorSharesQueryCallback;
+    toAmino(message: DelegatorSharesQueryCallback): DelegatorSharesQueryCallbackAmino;
+    fromAminoMsg(object: DelegatorSharesQueryCallbackAminoMsg): DelegatorSharesQueryCallback;
+    fromProtoMsg(message: DelegatorSharesQueryCallbackProtoMsg): DelegatorSharesQueryCallback;
+    toProto(message: DelegatorSharesQueryCallback): Uint8Array;
+    toProtoMsg(message: DelegatorSharesQueryCallback): DelegatorSharesQueryCallbackProtoMsg;
+};
+export declare const CommunityPoolBalanceQueryCallback: {
+    typeUrl: string;
+    encode(message: CommunityPoolBalanceQueryCallback, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): CommunityPoolBalanceQueryCallback;
+    fromPartial(object: Partial<CommunityPoolBalanceQueryCallback>): CommunityPoolBalanceQueryCallback;
+    fromAmino(object: CommunityPoolBalanceQueryCallbackAmino): CommunityPoolBalanceQueryCallback;
+    toAmino(message: CommunityPoolBalanceQueryCallback): CommunityPoolBalanceQueryCallbackAmino;
+    fromAminoMsg(object: CommunityPoolBalanceQueryCallbackAminoMsg): CommunityPoolBalanceQueryCallback;
+    fromProtoMsg(message: CommunityPoolBalanceQueryCallbackProtoMsg): CommunityPoolBalanceQueryCallback;
+    toProto(message: CommunityPoolBalanceQueryCallback): Uint8Array;
+    toProtoMsg(message: CommunityPoolBalanceQueryCallback): CommunityPoolBalanceQueryCallbackProtoMsg;
+};
+export declare const TradeRouteCallback: {
+    typeUrl: string;
+    encode(message: TradeRouteCallback, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TradeRouteCallback;
+    fromPartial(object: Partial<TradeRouteCallback>): TradeRouteCallback;
+    fromAmino(object: TradeRouteCallbackAmino): TradeRouteCallback;
+    toAmino(message: TradeRouteCallback): TradeRouteCallbackAmino;
+    fromAminoMsg(object: TradeRouteCallbackAminoMsg): TradeRouteCallback;
+    fromProtoMsg(message: TradeRouteCallbackProtoMsg): TradeRouteCallback;
+    toProto(message: TradeRouteCallback): Uint8Array;
+    toProtoMsg(message: TradeRouteCallback): TradeRouteCallbackProtoMsg;
 };

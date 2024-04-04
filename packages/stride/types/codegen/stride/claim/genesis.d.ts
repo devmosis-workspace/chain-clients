@@ -17,7 +17,7 @@ export interface GenesisStateAmino {
     /** params defines all the parameters of the module. */
     params?: ParamsAmino;
     /** list of claim records, one for every airdrop recipient */
-    claim_records: ClaimRecordAmino[];
+    claim_records?: ClaimRecordAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/stride.claim.GenesisState";

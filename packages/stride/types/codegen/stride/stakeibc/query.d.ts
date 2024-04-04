@@ -4,6 +4,7 @@ import { Validator, ValidatorAmino, ValidatorSDKType } from "./validator";
 import { HostZone, HostZoneAmino, HostZoneSDKType } from "./host_zone";
 import { EpochTracker, EpochTrackerAmino, EpochTrackerSDKType } from "./epoch_tracker";
 import { AddressUnbonding, AddressUnbondingAmino, AddressUnbondingSDKType } from "./address_unbonding";
+import { TradeRoute, TradeRouteAmino, TradeRouteSDKType } from "./trade_route";
 import { BinaryWriter } from "../../binary";
 /**
  * QueryInterchainAccountFromAddressRequest is the request type for the
@@ -22,8 +23,8 @@ export interface QueryInterchainAccountFromAddressRequestProtoMsg {
  * Query/InterchainAccountAddress RPC
  */
 export interface QueryInterchainAccountFromAddressRequestAmino {
-    owner: string;
-    connection_id: string;
+    owner?: string;
+    connection_id?: string;
 }
 export interface QueryInterchainAccountFromAddressRequestAminoMsg {
     type: "/stride.stakeibc.QueryInterchainAccountFromAddressRequest";
@@ -53,7 +54,7 @@ export interface QueryInterchainAccountFromAddressResponseProtoMsg {
  * Query/InterchainAccountAddress RPC
  */
 export interface QueryInterchainAccountFromAddressResponseAmino {
-    interchain_account_address: string;
+    interchain_account_address?: string;
 }
 export interface QueryInterchainAccountFromAddressResponseAminoMsg {
     type: "/stride.stakeibc.QueryInterchainAccountFromAddressResponse";
@@ -113,7 +114,7 @@ export interface QueryGetValidatorsRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetValidatorsRequestAmino {
-    chain_id: string;
+    chain_id?: string;
 }
 export interface QueryGetValidatorsRequestAminoMsg {
     type: "/stride.stakeibc.QueryGetValidatorsRequest";
@@ -130,7 +131,7 @@ export interface QueryGetValidatorsResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetValidatorsResponseAmino {
-    validators: ValidatorAmino[];
+    validators?: ValidatorAmino[];
 }
 export interface QueryGetValidatorsResponseAminoMsg {
     type: "/stride.stakeibc.QueryGetValidatorsResponse";
@@ -147,7 +148,7 @@ export interface QueryGetHostZoneRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetHostZoneRequestAmino {
-    chain_id: string;
+    chain_id?: string;
 }
 export interface QueryGetHostZoneRequestAminoMsg {
     type: "/stride.stakeibc.QueryGetHostZoneRequest";
@@ -174,7 +175,7 @@ export interface QueryGetHostZoneResponseSDKType {
     host_zone: HostZoneSDKType;
 }
 export interface QueryAllHostZoneRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAllHostZoneRequestProtoMsg {
     typeUrl: "/stride.stakeibc.QueryAllHostZoneRequest";
@@ -188,18 +189,18 @@ export interface QueryAllHostZoneRequestAminoMsg {
     value: QueryAllHostZoneRequestAmino;
 }
 export interface QueryAllHostZoneRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryAllHostZoneResponse {
     hostZone: HostZone[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAllHostZoneResponseProtoMsg {
     typeUrl: "/stride.stakeibc.QueryAllHostZoneResponse";
     value: Uint8Array;
 }
 export interface QueryAllHostZoneResponseAmino {
-    host_zone: HostZoneAmino[];
+    host_zone?: HostZoneAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryAllHostZoneResponseAminoMsg {
@@ -208,7 +209,7 @@ export interface QueryAllHostZoneResponseAminoMsg {
 }
 export interface QueryAllHostZoneResponseSDKType {
     host_zone: HostZoneSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryModuleAddressRequest {
     name: string;
@@ -218,7 +219,7 @@ export interface QueryModuleAddressRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryModuleAddressRequestAmino {
-    name: string;
+    name?: string;
 }
 export interface QueryModuleAddressRequestAminoMsg {
     type: "/stride.stakeibc.QueryModuleAddressRequest";
@@ -235,7 +236,7 @@ export interface QueryModuleAddressResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryModuleAddressResponseAmino {
-    addr: string;
+    addr?: string;
 }
 export interface QueryModuleAddressResponseAminoMsg {
     type: "/stride.stakeibc.QueryModuleAddressResponse";
@@ -252,7 +253,7 @@ export interface QueryGetEpochTrackerRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetEpochTrackerRequestAmino {
-    epoch_identifier: string;
+    epoch_identifier?: string;
 }
 export interface QueryGetEpochTrackerRequestAminoMsg {
     type: "/stride.stakeibc.QueryGetEpochTrackerRequest";
@@ -300,7 +301,7 @@ export interface QueryAllEpochTrackerResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryAllEpochTrackerResponseAmino {
-    epoch_tracker: EpochTrackerAmino[];
+    epoch_tracker?: EpochTrackerAmino[];
 }
 export interface QueryAllEpochTrackerResponseAminoMsg {
     type: "/stride.stakeibc.QueryAllEpochTrackerResponse";
@@ -318,8 +319,8 @@ export interface QueryGetNextPacketSequenceRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetNextPacketSequenceRequestAmino {
-    channel_id: string;
-    port_id: string;
+    channel_id?: string;
+    port_id?: string;
 }
 export interface QueryGetNextPacketSequenceRequestAminoMsg {
     type: "/stride.stakeibc.QueryGetNextPacketSequenceRequest";
@@ -337,7 +338,7 @@ export interface QueryGetNextPacketSequenceResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetNextPacketSequenceResponseAmino {
-    sequence: string;
+    sequence?: string;
 }
 export interface QueryGetNextPacketSequenceResponseAminoMsg {
     type: "/stride.stakeibc.QueryGetNextPacketSequenceResponse";
@@ -354,7 +355,7 @@ export interface QueryAddressUnbondingsProtoMsg {
     value: Uint8Array;
 }
 export interface QueryAddressUnbondingsAmino {
-    address: string;
+    address?: string;
 }
 export interface QueryAddressUnbondingsAminoMsg {
     type: "/stride.stakeibc.QueryAddressUnbondings";
@@ -371,7 +372,7 @@ export interface QueryAddressUnbondingsResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryAddressUnbondingsResponseAmino {
-    address_unbondings: AddressUnbondingAmino[];
+    address_unbondings?: AddressUnbondingAmino[];
 }
 export interface QueryAddressUnbondingsResponseAminoMsg {
     type: "/stride.stakeibc.QueryAddressUnbondingsResponse";
@@ -379,6 +380,37 @@ export interface QueryAddressUnbondingsResponseAminoMsg {
 }
 export interface QueryAddressUnbondingsResponseSDKType {
     address_unbondings: AddressUnbondingSDKType[];
+}
+export interface QueryAllTradeRoutes {
+}
+export interface QueryAllTradeRoutesProtoMsg {
+    typeUrl: "/stride.stakeibc.QueryAllTradeRoutes";
+    value: Uint8Array;
+}
+export interface QueryAllTradeRoutesAmino {
+}
+export interface QueryAllTradeRoutesAminoMsg {
+    type: "/stride.stakeibc.QueryAllTradeRoutes";
+    value: QueryAllTradeRoutesAmino;
+}
+export interface QueryAllTradeRoutesSDKType {
+}
+export interface QueryAllTradeRoutesResponse {
+    tradeRoutes: TradeRoute[];
+}
+export interface QueryAllTradeRoutesResponseProtoMsg {
+    typeUrl: "/stride.stakeibc.QueryAllTradeRoutesResponse";
+    value: Uint8Array;
+}
+export interface QueryAllTradeRoutesResponseAmino {
+    trade_routes?: TradeRouteAmino[];
+}
+export interface QueryAllTradeRoutesResponseAminoMsg {
+    type: "/stride.stakeibc.QueryAllTradeRoutesResponse";
+    value: QueryAllTradeRoutesResponseAmino;
+}
+export interface QueryAllTradeRoutesResponseSDKType {
+    trade_routes: TradeRouteSDKType[];
 }
 export declare const QueryInterchainAccountFromAddressRequest: {
     typeUrl: string;
@@ -619,4 +651,28 @@ export declare const QueryAddressUnbondingsResponse: {
     fromProtoMsg(message: QueryAddressUnbondingsResponseProtoMsg): QueryAddressUnbondingsResponse;
     toProto(message: QueryAddressUnbondingsResponse): Uint8Array;
     toProtoMsg(message: QueryAddressUnbondingsResponse): QueryAddressUnbondingsResponseProtoMsg;
+};
+export declare const QueryAllTradeRoutes: {
+    typeUrl: string;
+    encode(_: QueryAllTradeRoutes, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): QueryAllTradeRoutes;
+    fromPartial(_: Partial<QueryAllTradeRoutes>): QueryAllTradeRoutes;
+    fromAmino(_: QueryAllTradeRoutesAmino): QueryAllTradeRoutes;
+    toAmino(_: QueryAllTradeRoutes): QueryAllTradeRoutesAmino;
+    fromAminoMsg(object: QueryAllTradeRoutesAminoMsg): QueryAllTradeRoutes;
+    fromProtoMsg(message: QueryAllTradeRoutesProtoMsg): QueryAllTradeRoutes;
+    toProto(message: QueryAllTradeRoutes): Uint8Array;
+    toProtoMsg(message: QueryAllTradeRoutes): QueryAllTradeRoutesProtoMsg;
+};
+export declare const QueryAllTradeRoutesResponse: {
+    typeUrl: string;
+    encode(message: QueryAllTradeRoutesResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryAllTradeRoutesResponse;
+    fromPartial(object: Partial<QueryAllTradeRoutesResponse>): QueryAllTradeRoutesResponse;
+    fromAmino(object: QueryAllTradeRoutesResponseAmino): QueryAllTradeRoutesResponse;
+    toAmino(message: QueryAllTradeRoutesResponse): QueryAllTradeRoutesResponseAmino;
+    fromAminoMsg(object: QueryAllTradeRoutesResponseAminoMsg): QueryAllTradeRoutesResponse;
+    fromProtoMsg(message: QueryAllTradeRoutesResponseProtoMsg): QueryAllTradeRoutesResponse;
+    toProto(message: QueryAllTradeRoutesResponse): Uint8Array;
+    toProtoMsg(message: QueryAllTradeRoutesResponse): QueryAllTradeRoutesResponseProtoMsg;
 };

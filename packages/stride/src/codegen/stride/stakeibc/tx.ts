@@ -3,6 +3,40 @@ import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../binary";
 import { Decimal } from "@cosmjs/math";
 import { isSet } from "../../helpers";
+export enum AuthzPermissionChange {
+  /** GRANT - Grant the address trade permissions */
+  GRANT = 0,
+  /** REVOKE - Revoke trade permissions from the address */
+  REVOKE = 1,
+  UNRECOGNIZED = -1,
+}
+export const AuthzPermissionChangeSDKType = AuthzPermissionChange;
+export const AuthzPermissionChangeAmino = AuthzPermissionChange;
+export function authzPermissionChangeFromJSON(object: any): AuthzPermissionChange {
+  switch (object) {
+    case 0:
+    case "GRANT":
+      return AuthzPermissionChange.GRANT;
+    case 1:
+    case "REVOKE":
+      return AuthzPermissionChange.REVOKE;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return AuthzPermissionChange.UNRECOGNIZED;
+  }
+}
+export function authzPermissionChangeToJSON(object: AuthzPermissionChange): string {
+  switch (object) {
+    case AuthzPermissionChange.GRANT:
+      return "GRANT";
+    case AuthzPermissionChange.REVOKE:
+      return "REVOKE";
+    case AuthzPermissionChange.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
 export interface MsgUpdateInnerRedemptionRateBounds {
   creator: string;
   chainId: string;
@@ -206,6 +240,7 @@ export interface MsgRegisterHostZone {
   minRedemptionRate: string;
   maxRedemptionRate: string;
   lsmLiquidStakeEnabled: boolean;
+  communityPoolTreasuryAddress: string;
 }
 export interface MsgRegisterHostZoneProtoMsg {
   typeUrl: "/stride.stakeibc.MsgRegisterHostZone";
@@ -223,6 +258,7 @@ export interface MsgRegisterHostZoneAmino {
   min_redemption_rate?: string;
   max_redemption_rate?: string;
   lsm_liquid_stake_enabled?: boolean;
+  community_pool_treasury_address?: string;
 }
 export interface MsgRegisterHostZoneAminoMsg {
   type: "/stride.stakeibc.MsgRegisterHostZone";
@@ -240,6 +276,7 @@ export interface MsgRegisterHostZoneSDKType {
   min_redemption_rate: string;
   max_redemption_rate: string;
   lsm_liquid_stake_enabled: boolean;
+  community_pool_treasury_address: string;
 }
 export interface MsgRegisterHostZoneResponse {}
 export interface MsgRegisterHostZoneResponseProtoMsg {
@@ -853,6 +890,117 @@ export interface MsgUpdateTradeRouteResponseAminoMsg {
   value: MsgUpdateTradeRouteResponseAmino;
 }
 export interface MsgUpdateTradeRouteResponseSDKType {}
+/**
+ * Registers or updates a community pool rebate by specifying the amount liquid
+ * staked
+ */
+export interface MsgSetCommunityPoolRebate {
+  /** Message signer (admin only) */
+  creator: string;
+  /**
+   * Chain id of the chain whose community pool has a liquid staking rebate
+   * arrangement with stride
+   */
+  chainId: string;
+  /** Rebate percentage represented as a decimal (e.g. 0.2 for 20%) */
+  rebateRate: string;
+  /** Number of stTokens recieved by the community pool after liquid staking */
+  liquidStakedStTokenAmount: string;
+}
+export interface MsgSetCommunityPoolRebateProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgSetCommunityPoolRebate";
+  value: Uint8Array;
+}
+/**
+ * Registers or updates a community pool rebate by specifying the amount liquid
+ * staked
+ */
+export interface MsgSetCommunityPoolRebateAmino {
+  /** Message signer (admin only) */
+  creator?: string;
+  /**
+   * Chain id of the chain whose community pool has a liquid staking rebate
+   * arrangement with stride
+   */
+  chain_id?: string;
+  /** Rebate percentage represented as a decimal (e.g. 0.2 for 20%) */
+  rebate_rate?: string;
+  /** Number of stTokens recieved by the community pool after liquid staking */
+  liquid_staked_st_token_amount?: string;
+}
+export interface MsgSetCommunityPoolRebateAminoMsg {
+  type: "stride/x/stakeibc/MsgSetCommunityPoolRebate";
+  value: MsgSetCommunityPoolRebateAmino;
+}
+/**
+ * Registers or updates a community pool rebate by specifying the amount liquid
+ * staked
+ */
+export interface MsgSetCommunityPoolRebateSDKType {
+  creator: string;
+  chain_id: string;
+  rebate_rate: string;
+  liquid_staked_st_token_amount: string;
+}
+export interface MsgSetCommunityPoolRebateResponse {}
+export interface MsgSetCommunityPoolRebateResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgSetCommunityPoolRebateResponse";
+  value: Uint8Array;
+}
+export interface MsgSetCommunityPoolRebateResponseAmino {}
+export interface MsgSetCommunityPoolRebateResponseAminoMsg {
+  type: "/stride.stakeibc.MsgSetCommunityPoolRebateResponse";
+  value: MsgSetCommunityPoolRebateResponseAmino;
+}
+export interface MsgSetCommunityPoolRebateResponseSDKType {}
+/** Grants or revokes trade permissions to a given address via authz */
+export interface MsgToggleTradeController {
+  /** Message signer (admin only) */
+  creator: string;
+  /** Chain ID of the trade account */
+  chainId: string;
+  /** Permission change (either grant or revoke) */
+  permissionChange: AuthzPermissionChange;
+  /** Address of trade operator */
+  address: string;
+}
+export interface MsgToggleTradeControllerProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgToggleTradeController";
+  value: Uint8Array;
+}
+/** Grants or revokes trade permissions to a given address via authz */
+export interface MsgToggleTradeControllerAmino {
+  /** Message signer (admin only) */
+  creator?: string;
+  /** Chain ID of the trade account */
+  chain_id?: string;
+  /** Permission change (either grant or revoke) */
+  permission_change?: AuthzPermissionChange;
+  /** Address of trade operator */
+  address?: string;
+}
+export interface MsgToggleTradeControllerAminoMsg {
+  type: "stride/x/stakeibc/MsgToggleTradeController";
+  value: MsgToggleTradeControllerAmino;
+}
+/** Grants or revokes trade permissions to a given address via authz */
+export interface MsgToggleTradeControllerSDKType {
+  creator: string;
+  chain_id: string;
+  permission_change: AuthzPermissionChange;
+  address: string;
+}
+export interface MsgToggleTradeControllerResponse {}
+export interface MsgToggleTradeControllerResponseProtoMsg {
+  typeUrl: "/stride.stakeibc.MsgToggleTradeControllerResponse";
+  value: Uint8Array;
+}
+export interface MsgToggleTradeControllerResponseAmino {}
+export interface MsgToggleTradeControllerResponseAminoMsg {
+  type: "/stride.stakeibc.MsgToggleTradeControllerResponse";
+  value: MsgToggleTradeControllerResponseAmino;
+}
+export interface MsgToggleTradeControllerResponseSDKType {}
 function createBaseMsgUpdateInnerRedemptionRateBounds(): MsgUpdateInnerRedemptionRateBounds {
   return {
     creator: "",
@@ -1468,7 +1616,8 @@ function createBaseMsgRegisterHostZone(): MsgRegisterHostZone {
     unbondingPeriod: BigInt(0),
     minRedemptionRate: "",
     maxRedemptionRate: "",
-    lsmLiquidStakeEnabled: false
+    lsmLiquidStakeEnabled: false,
+    communityPoolTreasuryAddress: ""
   };
 }
 export const MsgRegisterHostZone = {
@@ -1504,6 +1653,9 @@ export const MsgRegisterHostZone = {
     if (message.lsmLiquidStakeEnabled === true) {
       writer.uint32(120).bool(message.lsmLiquidStakeEnabled);
     }
+    if (message.communityPoolTreasuryAddress !== "") {
+      writer.uint32(130).string(message.communityPoolTreasuryAddress);
+    }
     return writer;
   },
   fromJSON(object: any): MsgRegisterHostZone {
@@ -1517,7 +1669,8 @@ export const MsgRegisterHostZone = {
       unbondingPeriod: isSet(object.unbondingPeriod) ? BigInt(object.unbondingPeriod.toString()) : BigInt(0),
       minRedemptionRate: isSet(object.minRedemptionRate) ? String(object.minRedemptionRate) : "",
       maxRedemptionRate: isSet(object.maxRedemptionRate) ? String(object.maxRedemptionRate) : "",
-      lsmLiquidStakeEnabled: isSet(object.lsmLiquidStakeEnabled) ? Boolean(object.lsmLiquidStakeEnabled) : false
+      lsmLiquidStakeEnabled: isSet(object.lsmLiquidStakeEnabled) ? Boolean(object.lsmLiquidStakeEnabled) : false,
+      communityPoolTreasuryAddress: isSet(object.communityPoolTreasuryAddress) ? String(object.communityPoolTreasuryAddress) : ""
     };
   },
   fromPartial(object: Partial<MsgRegisterHostZone>): MsgRegisterHostZone {
@@ -1532,6 +1685,7 @@ export const MsgRegisterHostZone = {
     message.minRedemptionRate = object.minRedemptionRate ?? "";
     message.maxRedemptionRate = object.maxRedemptionRate ?? "";
     message.lsmLiquidStakeEnabled = object.lsmLiquidStakeEnabled ?? false;
+    message.communityPoolTreasuryAddress = object.communityPoolTreasuryAddress ?? "";
     return message;
   },
   fromAmino(object: MsgRegisterHostZoneAmino): MsgRegisterHostZone {
@@ -1566,6 +1720,9 @@ export const MsgRegisterHostZone = {
     if (object.lsm_liquid_stake_enabled !== undefined && object.lsm_liquid_stake_enabled !== null) {
       message.lsmLiquidStakeEnabled = object.lsm_liquid_stake_enabled;
     }
+    if (object.community_pool_treasury_address !== undefined && object.community_pool_treasury_address !== null) {
+      message.communityPoolTreasuryAddress = object.community_pool_treasury_address;
+    }
     return message;
   },
   toAmino(message: MsgRegisterHostZone): MsgRegisterHostZoneAmino {
@@ -1580,6 +1737,7 @@ export const MsgRegisterHostZone = {
     obj.min_redemption_rate = message.minRedemptionRate;
     obj.max_redemption_rate = message.maxRedemptionRate;
     obj.lsm_liquid_stake_enabled = message.lsmLiquidStakeEnabled;
+    obj.community_pool_treasury_address = message.communityPoolTreasuryAddress;
     return obj;
   },
   fromAminoMsg(object: MsgRegisterHostZoneAminoMsg): MsgRegisterHostZone {
@@ -3217,6 +3375,258 @@ export const MsgUpdateTradeRouteResponse = {
     return {
       typeUrl: "/stride.stakeibc.MsgUpdateTradeRouteResponse",
       value: MsgUpdateTradeRouteResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSetCommunityPoolRebate(): MsgSetCommunityPoolRebate {
+  return {
+    creator: "",
+    chainId: "",
+    rebateRate: "",
+    liquidStakedStTokenAmount: ""
+  };
+}
+export const MsgSetCommunityPoolRebate = {
+  typeUrl: "/stride.stakeibc.MsgSetCommunityPoolRebate",
+  encode(message: MsgSetCommunityPoolRebate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.chainId !== "") {
+      writer.uint32(18).string(message.chainId);
+    }
+    if (message.rebateRate !== "") {
+      writer.uint32(26).string(Decimal.fromUserInput(message.rebateRate, 18).atomics);
+    }
+    if (message.liquidStakedStTokenAmount !== "") {
+      writer.uint32(34).string(message.liquidStakedStTokenAmount);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgSetCommunityPoolRebate {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      chainId: isSet(object.chainId) ? String(object.chainId) : "",
+      rebateRate: isSet(object.rebateRate) ? String(object.rebateRate) : "",
+      liquidStakedStTokenAmount: isSet(object.liquidStakedStTokenAmount) ? String(object.liquidStakedStTokenAmount) : ""
+    };
+  },
+  fromPartial(object: Partial<MsgSetCommunityPoolRebate>): MsgSetCommunityPoolRebate {
+    const message = createBaseMsgSetCommunityPoolRebate();
+    message.creator = object.creator ?? "";
+    message.chainId = object.chainId ?? "";
+    message.rebateRate = object.rebateRate ?? "";
+    message.liquidStakedStTokenAmount = object.liquidStakedStTokenAmount ?? "";
+    return message;
+  },
+  fromAmino(object: MsgSetCommunityPoolRebateAmino): MsgSetCommunityPoolRebate {
+    const message = createBaseMsgSetCommunityPoolRebate();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.rebate_rate !== undefined && object.rebate_rate !== null) {
+      message.rebateRate = object.rebate_rate;
+    }
+    if (object.liquid_staked_st_token_amount !== undefined && object.liquid_staked_st_token_amount !== null) {
+      message.liquidStakedStTokenAmount = object.liquid_staked_st_token_amount;
+    }
+    return message;
+  },
+  toAmino(message: MsgSetCommunityPoolRebate): MsgSetCommunityPoolRebateAmino {
+    const obj: any = {};
+    obj.creator = message.creator;
+    obj.chain_id = message.chainId;
+    obj.rebate_rate = message.rebateRate;
+    obj.liquid_staked_st_token_amount = message.liquidStakedStTokenAmount;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetCommunityPoolRebateAminoMsg): MsgSetCommunityPoolRebate {
+    return MsgSetCommunityPoolRebate.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSetCommunityPoolRebate): MsgSetCommunityPoolRebateAminoMsg {
+    return {
+      type: "stride/x/stakeibc/MsgSetCommunityPoolRebate",
+      value: MsgSetCommunityPoolRebate.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgSetCommunityPoolRebateProtoMsg): MsgSetCommunityPoolRebate {
+    return MsgSetCommunityPoolRebate.decode(message.value);
+  },
+  toProto(message: MsgSetCommunityPoolRebate): Uint8Array {
+    return MsgSetCommunityPoolRebate.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSetCommunityPoolRebate): MsgSetCommunityPoolRebateProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgSetCommunityPoolRebate",
+      value: MsgSetCommunityPoolRebate.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSetCommunityPoolRebateResponse(): MsgSetCommunityPoolRebateResponse {
+  return {};
+}
+export const MsgSetCommunityPoolRebateResponse = {
+  typeUrl: "/stride.stakeibc.MsgSetCommunityPoolRebateResponse",
+  encode(_: MsgSetCommunityPoolRebateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgSetCommunityPoolRebateResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgSetCommunityPoolRebateResponse>): MsgSetCommunityPoolRebateResponse {
+    const message = createBaseMsgSetCommunityPoolRebateResponse();
+    return message;
+  },
+  fromAmino(_: MsgSetCommunityPoolRebateResponseAmino): MsgSetCommunityPoolRebateResponse {
+    const message = createBaseMsgSetCommunityPoolRebateResponse();
+    return message;
+  },
+  toAmino(_: MsgSetCommunityPoolRebateResponse): MsgSetCommunityPoolRebateResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetCommunityPoolRebateResponseAminoMsg): MsgSetCommunityPoolRebateResponse {
+    return MsgSetCommunityPoolRebateResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSetCommunityPoolRebateResponseProtoMsg): MsgSetCommunityPoolRebateResponse {
+    return MsgSetCommunityPoolRebateResponse.decode(message.value);
+  },
+  toProto(message: MsgSetCommunityPoolRebateResponse): Uint8Array {
+    return MsgSetCommunityPoolRebateResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSetCommunityPoolRebateResponse): MsgSetCommunityPoolRebateResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgSetCommunityPoolRebateResponse",
+      value: MsgSetCommunityPoolRebateResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgToggleTradeController(): MsgToggleTradeController {
+  return {
+    creator: "",
+    chainId: "",
+    permissionChange: 0,
+    address: ""
+  };
+}
+export const MsgToggleTradeController = {
+  typeUrl: "/stride.stakeibc.MsgToggleTradeController",
+  encode(message: MsgToggleTradeController, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.chainId !== "") {
+      writer.uint32(18).string(message.chainId);
+    }
+    if (message.permissionChange !== 0) {
+      writer.uint32(24).int32(message.permissionChange);
+    }
+    if (message.address !== "") {
+      writer.uint32(34).string(message.address);
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgToggleTradeController {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      chainId: isSet(object.chainId) ? String(object.chainId) : "",
+      permissionChange: isSet(object.permissionChange) ? authzPermissionChangeFromJSON(object.permissionChange) : -1,
+      address: isSet(object.address) ? String(object.address) : ""
+    };
+  },
+  fromPartial(object: Partial<MsgToggleTradeController>): MsgToggleTradeController {
+    const message = createBaseMsgToggleTradeController();
+    message.creator = object.creator ?? "";
+    message.chainId = object.chainId ?? "";
+    message.permissionChange = object.permissionChange ?? 0;
+    message.address = object.address ?? "";
+    return message;
+  },
+  fromAmino(object: MsgToggleTradeControllerAmino): MsgToggleTradeController {
+    const message = createBaseMsgToggleTradeController();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.permission_change !== undefined && object.permission_change !== null) {
+      message.permissionChange = authzPermissionChangeFromJSON(object.permission_change);
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
+  },
+  toAmino(message: MsgToggleTradeController): MsgToggleTradeControllerAmino {
+    const obj: any = {};
+    obj.creator = message.creator;
+    obj.chain_id = message.chainId;
+    obj.permission_change = message.permissionChange;
+    obj.address = message.address;
+    return obj;
+  },
+  fromAminoMsg(object: MsgToggleTradeControllerAminoMsg): MsgToggleTradeController {
+    return MsgToggleTradeController.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgToggleTradeController): MsgToggleTradeControllerAminoMsg {
+    return {
+      type: "stride/x/stakeibc/MsgToggleTradeController",
+      value: MsgToggleTradeController.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgToggleTradeControllerProtoMsg): MsgToggleTradeController {
+    return MsgToggleTradeController.decode(message.value);
+  },
+  toProto(message: MsgToggleTradeController): Uint8Array {
+    return MsgToggleTradeController.encode(message).finish();
+  },
+  toProtoMsg(message: MsgToggleTradeController): MsgToggleTradeControllerProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgToggleTradeController",
+      value: MsgToggleTradeController.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgToggleTradeControllerResponse(): MsgToggleTradeControllerResponse {
+  return {};
+}
+export const MsgToggleTradeControllerResponse = {
+  typeUrl: "/stride.stakeibc.MsgToggleTradeControllerResponse",
+  encode(_: MsgToggleTradeControllerResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgToggleTradeControllerResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgToggleTradeControllerResponse>): MsgToggleTradeControllerResponse {
+    const message = createBaseMsgToggleTradeControllerResponse();
+    return message;
+  },
+  fromAmino(_: MsgToggleTradeControllerResponseAmino): MsgToggleTradeControllerResponse {
+    const message = createBaseMsgToggleTradeControllerResponse();
+    return message;
+  },
+  toAmino(_: MsgToggleTradeControllerResponse): MsgToggleTradeControllerResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgToggleTradeControllerResponseAminoMsg): MsgToggleTradeControllerResponse {
+    return MsgToggleTradeControllerResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgToggleTradeControllerResponseProtoMsg): MsgToggleTradeControllerResponse {
+    return MsgToggleTradeControllerResponse.decode(message.value);
+  },
+  toProto(message: MsgToggleTradeControllerResponse): Uint8Array {
+    return MsgToggleTradeControllerResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgToggleTradeControllerResponse): MsgToggleTradeControllerResponseProtoMsg {
+    return {
+      typeUrl: "/stride.stakeibc.MsgToggleTradeControllerResponse",
+      value: MsgToggleTradeControllerResponse.encode(message).finish()
     };
   }
 };

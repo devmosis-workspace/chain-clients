@@ -63,13 +63,13 @@ export interface MsgUpdateParamsProtoMsg {
  */
 export interface MsgUpdateParamsAmino {
     /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
-    authority: string;
+    authority?: string;
     /**
      * params defines the x/slashing parameters to update.
      *
      * NOTE: All parameters must be supplied.
      */
-    params?: ParamsAmino;
+    params: ParamsAmino;
 }
 export interface MsgUpdateParamsAminoMsg {
     type: "cosmos-sdk/x/slashing/MsgUpdateParams";

@@ -22,7 +22,7 @@ export interface QueryAllRateLimitsResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryAllRateLimitsResponseAmino {
-    rate_limits: RateLimitAmino[];
+    rate_limits?: RateLimitAmino[];
 }
 export interface QueryAllRateLimitsResponseAminoMsg {
     type: "/stride.ratelimit.QueryAllRateLimitsResponse";
@@ -40,8 +40,8 @@ export interface QueryRateLimitRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryRateLimitRequestAmino {
-    denom: string;
-    channel_id: string;
+    denom?: string;
+    channel_id?: string;
 }
 export interface QueryRateLimitRequestAminoMsg {
     type: "/stride.ratelimit.QueryRateLimitRequest";
@@ -52,7 +52,7 @@ export interface QueryRateLimitRequestSDKType {
     channel_id: string;
 }
 export interface QueryRateLimitResponse {
-    rateLimit: RateLimit;
+    rateLimit?: RateLimit;
 }
 export interface QueryRateLimitResponseProtoMsg {
     typeUrl: "/stride.ratelimit.QueryRateLimitResponse";
@@ -66,7 +66,7 @@ export interface QueryRateLimitResponseAminoMsg {
     value: QueryRateLimitResponseAmino;
 }
 export interface QueryRateLimitResponseSDKType {
-    rate_limit: RateLimitSDKType;
+    rate_limit?: RateLimitSDKType;
 }
 export interface QueryRateLimitsByChainIdRequest {
     chainId: string;
@@ -76,7 +76,7 @@ export interface QueryRateLimitsByChainIdRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryRateLimitsByChainIdRequestAmino {
-    chain_id: string;
+    chain_id?: string;
 }
 export interface QueryRateLimitsByChainIdRequestAminoMsg {
     type: "/stride.ratelimit.QueryRateLimitsByChainIdRequest";
@@ -93,7 +93,7 @@ export interface QueryRateLimitsByChainIdResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryRateLimitsByChainIdResponseAmino {
-    rate_limits: RateLimitAmino[];
+    rate_limits?: RateLimitAmino[];
 }
 export interface QueryRateLimitsByChainIdResponseAminoMsg {
     type: "/stride.ratelimit.QueryRateLimitsByChainIdResponse";
@@ -110,7 +110,7 @@ export interface QueryRateLimitsByChannelIdRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryRateLimitsByChannelIdRequestAmino {
-    channel_id: string;
+    channel_id?: string;
 }
 export interface QueryRateLimitsByChannelIdRequestAminoMsg {
     type: "/stride.ratelimit.QueryRateLimitsByChannelIdRequest";
@@ -127,7 +127,7 @@ export interface QueryRateLimitsByChannelIdResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryRateLimitsByChannelIdResponseAmino {
-    rate_limits: RateLimitAmino[];
+    rate_limits?: RateLimitAmino[];
 }
 export interface QueryRateLimitsByChannelIdResponseAminoMsg {
     type: "/stride.ratelimit.QueryRateLimitsByChannelIdResponse";
@@ -158,7 +158,7 @@ export interface QueryAllBlacklistedDenomsResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryAllBlacklistedDenomsResponseAmino {
-    denoms: string[];
+    denoms?: string[];
 }
 export interface QueryAllBlacklistedDenomsResponseAminoMsg {
     type: "/stride.ratelimit.QueryAllBlacklistedDenomsResponse";
@@ -189,7 +189,7 @@ export interface QueryAllWhitelistedAddressesResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryAllWhitelistedAddressesResponseAmino {
-    address_pairs: WhitelistedAddressPairAmino[];
+    address_pairs?: WhitelistedAddressPairAmino[];
 }
 export interface QueryAllWhitelistedAddressesResponseAminoMsg {
     type: "/stride.ratelimit.QueryAllWhitelistedAddressesResponse";

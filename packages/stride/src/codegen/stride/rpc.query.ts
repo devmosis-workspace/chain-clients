@@ -87,8 +87,8 @@ export const createRPCQueryClient = async ({
       mint: {
         v1beta1: (await import("./mint/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
       },
-      ratelimit: (await import("./ratelimit/query.rpc.Query")).createRpcQueryExtension(client),
       records: (await import("./records/query.rpc.Query")).createRpcQueryExtension(client),
+      stakedym: (await import("./stakedym/query.rpc.Query")).createRpcQueryExtension(client),
       stakeibc: (await import("./stakeibc/query.rpc.Query")).createRpcQueryExtension(client),
       staketia: (await import("./staketia/query.rpc.Query")).createRpcQueryExtension(client)
     }

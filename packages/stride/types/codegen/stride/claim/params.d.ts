@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
 import { BinaryWriter } from "../../binary";
 /** Params defines the claim module's parameters. */
@@ -13,7 +13,7 @@ export interface ParamsProtoMsg {
 /** Params defines the claim module's parameters. */
 export interface ParamsAmino {
     /** Params defines the claim module's parameters. */
-    airdrops: AirdropAmino[];
+    airdrops?: AirdropAmino[];
 }
 export interface ParamsAminoMsg {
     type: "/stride.claim.Params";
@@ -44,20 +44,20 @@ export interface AirdropProtoMsg {
     value: Uint8Array;
 }
 export interface AirdropAmino {
-    airdrop_identifier: string;
-    chain_id: string;
+    airdrop_identifier?: string;
+    chain_id?: string;
     /** seconds */
-    airdrop_start_time?: TimestampAmino;
+    airdrop_start_time?: string;
     /** seconds */
     airdrop_duration?: DurationAmino;
     /** denom of claimable asset */
-    claim_denom: string;
+    claim_denom?: string;
     /** airdrop distribution account */
-    distributor_address: string;
+    distributor_address?: string;
     /** ustrd tokens claimed so far in the current period */
-    claimed_so_far: string;
+    claimed_so_far?: string;
     /** indicates the airdrop should be claimed via autopilot */
-    autopilot_enabled: boolean;
+    autopilot_enabled?: boolean;
 }
 export interface AirdropAminoMsg {
     type: "/stride.claim.Airdrop";

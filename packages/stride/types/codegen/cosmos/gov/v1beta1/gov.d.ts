@@ -1,10 +1,11 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../base/v1beta1/coin";
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalSDKType, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg, CommunityPoolSpendProposalWithDepositSDKType } from "../../distribution/v1beta1/distribution";
 import { ParameterChangeProposal, ParameterChangeProposalProtoMsg, ParameterChangeProposalSDKType } from "../../params/v1beta1/params";
 import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, SoftwareUpgradeProposalSDKType, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposalSDKType } from "../../upgrade/v1beta1/upgrade";
+import { StoreCodeProposal, StoreCodeProposalProtoMsg, StoreCodeProposalSDKType, InstantiateContractProposal, InstantiateContractProposalProtoMsg, InstantiateContractProposalSDKType, InstantiateContract2Proposal, InstantiateContract2ProposalProtoMsg, InstantiateContract2ProposalSDKType, MigrateContractProposal, MigrateContractProposalProtoMsg, MigrateContractProposalSDKType, SudoContractProposal, SudoContractProposalProtoMsg, SudoContractProposalSDKType, ExecuteContractProposal, ExecuteContractProposalProtoMsg, ExecuteContractProposalSDKType, UpdateAdminProposal, UpdateAdminProposalProtoMsg, UpdateAdminProposalSDKType, ClearAdminProposal, ClearAdminProposalProtoMsg, ClearAdminProposalSDKType, PinCodesProposal, PinCodesProposalProtoMsg, PinCodesProposalSDKType, UnpinCodesProposal, UnpinCodesProposalProtoMsg, UnpinCodesProposalSDKType, UpdateInstantiateConfigProposal, UpdateInstantiateConfigProposalProtoMsg, UpdateInstantiateConfigProposalSDKType, StoreAndInstantiateContractProposal, StoreAndInstantiateContractProposalProtoMsg, StoreAndInstantiateContractProposalSDKType } from "../../../cosmwasm/wasm/v1/proposal_legacy";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 /** VoteOption enumerates the valid vote options for a given governance proposal. */
 export declare enum VoteOption {
@@ -81,9 +82,9 @@ export interface WeightedVoteOptionProtoMsg {
  */
 export interface WeightedVoteOptionAmino {
     /** option defines the valid vote options, it must not contain duplicate vote options. */
-    option: VoteOption;
+    option?: VoteOption;
     /** weight is the vote weight associated with the vote option. */
-    weight: string;
+    weight?: string;
 }
 export interface WeightedVoteOptionAminoMsg {
     type: "cosmos-sdk/WeightedVoteOption";
@@ -103,7 +104,7 @@ export interface WeightedVoteOptionSDKType {
  * manually updated in case of approval.
  */
 export interface TextProposal {
-    $typeUrl?: string;
+    $typeUrl?: "/cosmos.gov.v1beta1.TextProposal";
     /** title of the proposal. */
     title: string;
     /** description associated with the proposal. */
@@ -119,9 +120,9 @@ export interface TextProposalProtoMsg {
  */
 export interface TextProposalAmino {
     /** title of the proposal. */
-    title: string;
+    title?: string;
     /** description associated with the proposal. */
-    description: string;
+    description?: string;
 }
 export interface TextProposalAminoMsg {
     type: "cosmos-sdk/TextProposal";
@@ -132,7 +133,7 @@ export interface TextProposalAminoMsg {
  * manually updated in case of approval.
  */
 export interface TextProposalSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/cosmos.gov.v1beta1.TextProposal";
     title: string;
     description: string;
 }
@@ -158,9 +159,9 @@ export interface DepositProtoMsg {
  */
 export interface DepositAmino {
     /** proposal_id defines the unique id of the proposal. */
-    proposal_id: string;
+    proposal_id?: string;
     /** depositor defines the deposit addresses from the proposals. */
-    depositor: string;
+    depositor?: string;
     /** amount to be deposited by depositor. */
     amount: CoinAmino[];
 }
@@ -182,7 +183,7 @@ export interface Proposal {
     /** proposal_id defines the unique id of the proposal. */
     proposalId: bigint;
     /** content is the proposal's content. */
-    content: (TextProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
+    content?: (TextProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & StoreCodeProposal & InstantiateContractProposal & InstantiateContract2Proposal & MigrateContractProposal & SudoContractProposal & ExecuteContractProposal & UpdateAdminProposal & ClearAdminProposal & PinCodesProposal & UnpinCodesProposal & UpdateInstantiateConfigProposal & StoreAndInstantiateContractProposal & Any) | undefined;
     /** status defines the proposal status. */
     status: ProposalStatus;
     /**
@@ -207,32 +208,32 @@ export interface ProposalProtoMsg {
     value: Uint8Array;
 }
 export type ProposalEncoded = Omit<Proposal, "content"> & {
-    /** content is the proposal's content. */ content?: TextProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
+    /** content is the proposal's content. */ content?: TextProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | StoreCodeProposalProtoMsg | InstantiateContractProposalProtoMsg | InstantiateContract2ProposalProtoMsg | MigrateContractProposalProtoMsg | SudoContractProposalProtoMsg | ExecuteContractProposalProtoMsg | UpdateAdminProposalProtoMsg | ClearAdminProposalProtoMsg | PinCodesProposalProtoMsg | UnpinCodesProposalProtoMsg | UpdateInstantiateConfigProposalProtoMsg | StoreAndInstantiateContractProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /** Proposal defines the core field members of a governance proposal. */
 export interface ProposalAmino {
     /** proposal_id defines the unique id of the proposal. */
-    proposal_id: string;
+    proposal_id?: string;
     /** content is the proposal's content. */
     content?: AnyAmino;
     /** status defines the proposal status. */
-    status: ProposalStatus;
+    status?: ProposalStatus;
     /**
      * final_tally_result is the final tally result of the proposal. When
      * querying a proposal via gRPC, this field is not populated until the
      * proposal's voting period has ended.
      */
-    final_tally_result?: TallyResultAmino;
+    final_tally_result: TallyResultAmino;
     /** submit_time is the time of proposal submission. */
-    submit_time?: TimestampAmino;
+    submit_time: string;
     /** deposit_end_time is the end time for deposition. */
-    deposit_end_time?: TimestampAmino;
+    deposit_end_time: string;
     /** total_deposit is the total deposit on the proposal. */
     total_deposit: CoinAmino[];
     /** voting_start_time is the starting time to vote on a proposal. */
-    voting_start_time?: TimestampAmino;
+    voting_start_time: string;
     /** voting_end_time is the end time of voting on a proposal. */
-    voting_end_time?: TimestampAmino;
+    voting_end_time: string;
 }
 export interface ProposalAminoMsg {
     type: "cosmos-sdk/Proposal";
@@ -241,7 +242,7 @@ export interface ProposalAminoMsg {
 /** Proposal defines the core field members of a governance proposal. */
 export interface ProposalSDKType {
     proposal_id: bigint;
-    content: TextProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
+    content?: TextProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | StoreCodeProposalSDKType | InstantiateContractProposalSDKType | InstantiateContract2ProposalSDKType | MigrateContractProposalSDKType | SudoContractProposalSDKType | ExecuteContractProposalSDKType | UpdateAdminProposalSDKType | ClearAdminProposalSDKType | PinCodesProposalSDKType | UnpinCodesProposalSDKType | UpdateInstantiateConfigProposalSDKType | StoreAndInstantiateContractProposalSDKType | AnySDKType | undefined;
     status: ProposalStatus;
     final_tally_result: TallyResultSDKType;
     submit_time: TimestampSDKType;
@@ -268,13 +269,13 @@ export interface TallyResultProtoMsg {
 /** TallyResult defines a standard tally for a governance proposal. */
 export interface TallyResultAmino {
     /** yes is the number of yes votes on a proposal. */
-    yes: string;
+    yes?: string;
     /** abstain is the number of abstain votes on a proposal. */
-    abstain: string;
+    abstain?: string;
     /** no is the number of no votes on a proposal. */
-    no: string;
+    no?: string;
     /** no_with_veto is the number of no with veto votes on a proposal. */
-    no_with_veto: string;
+    no_with_veto?: string;
 }
 export interface TallyResultAminoMsg {
     type: "cosmos-sdk/TallyResult";
@@ -322,14 +323,14 @@ export interface VoteAmino {
     /** proposal_id defines the unique id of the proposal. */
     proposal_id: string;
     /** voter is the voter address of the proposal. */
-    voter: string;
+    voter?: string;
     /**
      * Deprecated: Prefer to use `options` instead. This field is set in queries
      * if and only if `len(options) == 1` and that option has weight 1. In all
      * other cases, this field will default to VOTE_OPTION_UNSPECIFIED.
      */
     /** @deprecated */
-    option: VoteOption;
+    option?: VoteOption;
     /**
      * options is the weighted vote options.
      *
@@ -369,7 +370,7 @@ export interface DepositParamsProtoMsg {
 /** DepositParams defines the params for deposits on governance proposals. */
 export interface DepositParamsAmino {
     /** Minimum deposit for a proposal to enter voting period. */
-    min_deposit: CoinAmino[];
+    min_deposit?: CoinAmino[];
     /**
      * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
      * months.
@@ -432,14 +433,14 @@ export interface TallyParamsAmino {
      * Minimum percentage of total stake needed to vote for a result to be
      * considered valid.
      */
-    quorum: Uint8Array;
+    quorum?: string;
     /** Minimum proportion of Yes votes for proposal to pass. Default value: 0.5. */
-    threshold: Uint8Array;
+    threshold?: string;
     /**
      * Minimum value of Veto votes to Total votes ratio for proposal to be
      * vetoed. Default value: 1/3.
      */
-    veto_threshold: Uint8Array;
+    veto_threshold?: string;
 }
 export interface TallyParamsAminoMsg {
     type: "cosmos-sdk/TallyParams";
@@ -568,6 +569,6 @@ export declare const TallyParams: {
     toProto(message: TallyParams): Uint8Array;
     toProtoMsg(message: TallyParams): TallyParamsProtoMsg;
 };
-export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any;
+export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | StoreCodeProposal | InstantiateContractProposal | InstantiateContract2Proposal | MigrateContractProposal | SudoContractProposal | ExecuteContractProposal | UpdateAdminProposal | ClearAdminProposal | PinCodesProposal | UnpinCodesProposal | UpdateInstantiateConfigProposal | StoreAndInstantiateContractProposal | Any;
 export declare const Cosmos_govv1beta1Content_FromAmino: (content: AnyAmino) => Any;
 export declare const Cosmos_govv1beta1Content_ToAmino: (content: Any) => AnyAmino;

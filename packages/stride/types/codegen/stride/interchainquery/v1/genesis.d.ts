@@ -1,27 +1,48 @@
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { BinaryWriter } from "../../../binary";
+export declare enum TimeoutPolicy {
+    REJECT_QUERY_RESPONSE = 0,
+    RETRY_QUERY_REQUEST = 1,
+    EXECUTE_QUERY_CALLBACK = 2,
+    UNRECOGNIZED = -1
+}
+export declare const TimeoutPolicySDKType: typeof TimeoutPolicy;
+export declare const TimeoutPolicyAmino: typeof TimeoutPolicy;
+export declare function timeoutPolicyFromJSON(object: any): TimeoutPolicy;
+export declare function timeoutPolicyToJSON(object: TimeoutPolicy): string;
 export interface Query {
     id: string;
     connectionId: string;
     chainId: string;
     queryType: string;
-    request: Uint8Array;
+    requestData: Uint8Array;
+    callbackModule: string;
     callbackId: string;
-    ttl: bigint;
+    callbackData: Uint8Array;
+    timeoutPolicy: TimeoutPolicy;
+    timeoutDuration: Duration;
+    timeoutTimestamp: bigint;
     requestSent: boolean;
+    submissionHeight: bigint;
 }
 export interface QueryProtoMsg {
     typeUrl: "/stride.interchainquery.v1.Query";
     value: Uint8Array;
 }
 export interface QueryAmino {
-    id: string;
-    connection_id: string;
-    chain_id: string;
-    query_type: string;
-    request: Uint8Array;
-    callback_id: string;
-    ttl: string;
-    request_sent: boolean;
+    id?: string;
+    connection_id?: string;
+    chain_id?: string;
+    query_type?: string;
+    request_data?: string;
+    callback_module?: string;
+    callback_id?: string;
+    callback_data?: string;
+    timeout_policy?: TimeoutPolicy;
+    timeout_duration?: DurationAmino;
+    timeout_timestamp?: string;
+    request_sent?: boolean;
+    submission_height?: string;
 }
 export interface QueryAminoMsg {
     type: "/stride.interchainquery.v1.Query";
@@ -32,10 +53,15 @@ export interface QuerySDKType {
     connection_id: string;
     chain_id: string;
     query_type: string;
-    request: Uint8Array;
+    request_data: Uint8Array;
+    callback_module: string;
     callback_id: string;
-    ttl: bigint;
+    callback_data: Uint8Array;
+    timeout_policy: TimeoutPolicy;
+    timeout_duration: DurationSDKType;
+    timeout_timestamp: bigint;
     request_sent: boolean;
+    submission_height: bigint;
 }
 export interface DataPoint {
     id: string;
@@ -48,10 +74,10 @@ export interface DataPointProtoMsg {
     value: Uint8Array;
 }
 export interface DataPointAmino {
-    id: string;
-    remote_height: string;
-    local_height: string;
-    value: Uint8Array;
+    id?: string;
+    remote_height?: string;
+    local_height?: string;
+    value?: string;
 }
 export interface DataPointAminoMsg {
     type: "/stride.interchainquery.v1.DataPoint";
@@ -73,7 +99,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the epochs module's genesis state. */
 export interface GenesisStateAmino {
-    queries: QueryAmino[];
+    queries?: QueryAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/stride.interchainquery.v1.GenesisState";

@@ -16,10 +16,10 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the ratelimit module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    rate_limits: RateLimitAmino[];
-    whitelisted_address_pairs: WhitelistedAddressPairAmino[];
-    blacklisted_denoms: string[];
-    pending_send_packet_sequence_numbers: string[];
+    rate_limits?: RateLimitAmino[];
+    whitelisted_address_pairs?: WhitelistedAddressPairAmino[];
+    blacklisted_denoms?: string[];
+    pending_send_packet_sequence_numbers?: string[];
 }
 export interface GenesisStateAminoMsg {
     type: "/stride.ratelimit.GenesisState";

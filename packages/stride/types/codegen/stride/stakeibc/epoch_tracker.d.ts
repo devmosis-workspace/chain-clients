@@ -10,10 +10,10 @@ export interface EpochTrackerProtoMsg {
     value: Uint8Array;
 }
 export interface EpochTrackerAmino {
-    epoch_identifier: string;
-    epoch_number: string;
-    next_epoch_start_time: string;
-    duration: string;
+    epoch_identifier?: string;
+    epoch_number?: string;
+    next_epoch_start_time?: string;
+    duration?: string;
 }
 export interface EpochTrackerAminoMsg {
     type: "/stride.stakeibc.EpochTracker";

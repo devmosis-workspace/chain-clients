@@ -18,8 +18,8 @@ export interface ParamsProtoMsg {
  */
 export interface ParamsAmino {
     /** optionally, turn off each module */
-    stakeibc_active: boolean;
-    claim_active: boolean;
+    stakeibc_active?: boolean;
+    claim_active?: boolean;
 }
 export interface ParamsAminoMsg {
     type: "/stride.autopilot.Params";

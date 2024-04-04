@@ -6,7 +6,7 @@ import { BinaryWriter } from "../../binary";
  * the necessary fields needed for any vesting account implementation.
  */
 export interface BaseVestingAccount {
-    baseAccount: BaseAccount;
+    baseAccount?: BaseAccount;
     originalVesting: Coin[];
     delegatedFree: Coin[];
     delegatedVesting: Coin[];
@@ -22,10 +22,10 @@ export interface BaseVestingAccountProtoMsg {
  */
 export interface BaseVestingAccountAmino {
     base_account?: BaseAccountAmino;
-    original_vesting: CoinAmino[];
-    delegated_free: CoinAmino[];
-    delegated_vesting: CoinAmino[];
-    end_time: string;
+    original_vesting?: CoinAmino[];
+    delegated_free?: CoinAmino[];
+    delegated_vesting?: CoinAmino[];
+    end_time?: string;
 }
 export interface BaseVestingAccountAminoMsg {
     type: "/stride.vesting.BaseVestingAccount";
@@ -36,7 +36,7 @@ export interface BaseVestingAccountAminoMsg {
  * the necessary fields needed for any vesting account implementation.
  */
 export interface BaseVestingAccountSDKType {
-    base_account: BaseAccountSDKType;
+    base_account?: BaseAccountSDKType;
     original_vesting: CoinSDKType[];
     delegated_free: CoinSDKType[];
     delegated_vesting: CoinSDKType[];
@@ -55,10 +55,10 @@ export interface PeriodProtoMsg {
 }
 /** Period defines a length of time and amount of coins that will vest. */
 export interface PeriodAmino {
-    start_time: string;
-    length: string;
-    amount: CoinAmino[];
-    action_type: number;
+    start_time?: string;
+    length?: string;
+    amount?: CoinAmino[];
+    action_type?: number;
 }
 export interface PeriodAminoMsg {
     type: "/stride.vesting.Period";
@@ -76,7 +76,7 @@ export interface PeriodSDKType {
  * periodically vests by unlocking coins during each specified period.
  */
 export interface StridePeriodicVestingAccount {
-    baseVestingAccount: BaseVestingAccount;
+    baseVestingAccount?: BaseVestingAccount;
     vestingPeriods: Period[];
 }
 export interface StridePeriodicVestingAccountProtoMsg {
@@ -89,7 +89,7 @@ export interface StridePeriodicVestingAccountProtoMsg {
  */
 export interface StridePeriodicVestingAccountAmino {
     base_vesting_account?: BaseVestingAccountAmino;
-    vesting_periods: PeriodAmino[];
+    vesting_periods?: PeriodAmino[];
 }
 export interface StridePeriodicVestingAccountAminoMsg {
     type: "/stride.vesting.StridePeriodicVestingAccount";
@@ -100,7 +100,7 @@ export interface StridePeriodicVestingAccountAminoMsg {
  * periodically vests by unlocking coins during each specified period.
  */
 export interface StridePeriodicVestingAccountSDKType {
-    base_vesting_account: BaseVestingAccountSDKType;
+    base_vesting_account?: BaseVestingAccountSDKType;
     vesting_periods: PeriodSDKType[];
 }
 export declare const BaseVestingAccount: {

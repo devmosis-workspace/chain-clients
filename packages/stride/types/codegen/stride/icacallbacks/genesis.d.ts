@@ -14,8 +14,8 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the icacallbacks module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    port_id: string;
-    callback_data_list: CallbackDataAmino[];
+    port_id?: string;
+    callback_data_list?: CallbackDataAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/stride.icacallbacks.GenesisState";

@@ -22,7 +22,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the slashing module's genesis state. */
 export interface GenesisStateAmino {
     /** params defines all the parameters of the module. */
-    params?: ParamsAmino;
+    params: ParamsAmino;
     /**
      * signing_infos represents a map between validator addresses and their
      * signing infos.
@@ -58,9 +58,9 @@ export interface SigningInfoProtoMsg {
 /** SigningInfo stores validator signing info of corresponding address. */
 export interface SigningInfoAmino {
     /** address is the validator address. */
-    address: string;
+    address?: string;
     /** validator_signing_info represents the signing info of this validator. */
-    validator_signing_info?: ValidatorSigningInfoAmino;
+    validator_signing_info: ValidatorSigningInfoAmino;
 }
 export interface SigningInfoAminoMsg {
     type: "cosmos-sdk/SigningInfo";
@@ -91,7 +91,7 @@ export interface ValidatorMissedBlocksProtoMsg {
  */
 export interface ValidatorMissedBlocksAmino {
     /** address is the validator address. */
-    address: string;
+    address?: string;
     /** missed_blocks is an array of missed blocks by the validator. */
     missed_blocks: MissedBlockAmino[];
 }
@@ -121,9 +121,9 @@ export interface MissedBlockProtoMsg {
 /** MissedBlock contains height and missed status as boolean. */
 export interface MissedBlockAmino {
     /** index is the height at which the block was missed. */
-    index: string;
+    index?: string;
     /** missed is the missed status. */
-    missed: boolean;
+    missed?: boolean;
 }
 export interface MissedBlockAminoMsg {
     type: "cosmos-sdk/MissedBlock";

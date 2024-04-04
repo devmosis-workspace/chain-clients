@@ -15,25 +15,25 @@ export interface GenesisState {
      * deposit_params defines all the paramaters of related to deposit.
      */
     /** @deprecated */
-    depositParams: DepositParams;
+    depositParams?: DepositParams;
     /**
      * Deprecated: Prefer to use `params` instead.
      * voting_params defines all the paramaters of related to voting.
      */
     /** @deprecated */
-    votingParams: VotingParams;
+    votingParams?: VotingParams;
     /**
      * Deprecated: Prefer to use `params` instead.
      * tally_params defines all the paramaters of related to tally.
      */
     /** @deprecated */
-    tallyParams: TallyParams;
+    tallyParams?: TallyParams;
     /**
      * params defines all the paramaters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      */
-    params: Params;
+    params?: Params;
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/cosmos.gov.v1.GenesisState";
@@ -42,13 +42,13 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the gov module's genesis state. */
 export interface GenesisStateAmino {
     /** starting_proposal_id is the ID of the starting proposal. */
-    starting_proposal_id: string;
+    starting_proposal_id?: string;
     /** deposits defines all the deposits present at genesis. */
-    deposits: DepositAmino[];
+    deposits?: DepositAmino[];
     /** votes defines all the votes present at genesis. */
-    votes: VoteAmino[];
+    votes?: VoteAmino[];
     /** proposals defines all the proposals present at genesis. */
-    proposals: ProposalAmino[];
+    proposals?: ProposalAmino[];
     /**
      * Deprecated: Prefer to use `params` instead.
      * deposit_params defines all the paramaters of related to deposit.
@@ -85,12 +85,12 @@ export interface GenesisStateSDKType {
     votes: VoteSDKType[];
     proposals: ProposalSDKType[];
     /** @deprecated */
-    deposit_params: DepositParamsSDKType;
+    deposit_params?: DepositParamsSDKType;
     /** @deprecated */
-    voting_params: VotingParamsSDKType;
+    voting_params?: VotingParamsSDKType;
     /** @deprecated */
-    tally_params: TallyParamsSDKType;
-    params: ParamsSDKType;
+    tally_params?: TallyParamsSDKType;
+    params?: ParamsSDKType;
 }
 export declare const GenesisState: {
     typeUrl: string;

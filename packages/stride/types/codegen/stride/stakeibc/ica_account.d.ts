@@ -4,6 +4,10 @@ export declare enum ICAAccountType {
     FEE = 1,
     WITHDRAWAL = 2,
     REDEMPTION = 3,
+    COMMUNITY_POOL_DEPOSIT = 4,
+    COMMUNITY_POOL_RETURN = 5,
+    CONVERTER_UNWIND = 6,
+    CONVERTER_TRADE = 7,
     UNRECOGNIZED = -1
 }
 export declare const ICAAccountTypeSDKType: typeof ICAAccountType;
@@ -11,24 +15,30 @@ export declare const ICAAccountTypeAmino: typeof ICAAccountType;
 export declare function iCAAccountTypeFromJSON(object: any): ICAAccountType;
 export declare function iCAAccountTypeToJSON(object: ICAAccountType): string;
 export interface ICAAccount {
+    chainId: string;
+    type: ICAAccountType;
+    connectionId: string;
     address: string;
-    target: ICAAccountType;
 }
 export interface ICAAccountProtoMsg {
     typeUrl: "/stride.stakeibc.ICAAccount";
     value: Uint8Array;
 }
 export interface ICAAccountAmino {
-    address: string;
-    target: ICAAccountType;
+    chain_id?: string;
+    type?: ICAAccountType;
+    connection_id?: string;
+    address?: string;
 }
 export interface ICAAccountAminoMsg {
     type: "/stride.stakeibc.ICAAccount";
     value: ICAAccountAmino;
 }
 export interface ICAAccountSDKType {
+    chain_id: string;
+    type: ICAAccountType;
+    connection_id: string;
     address: string;
-    target: ICAAccountType;
 }
 export declare const ICAAccount: {
     typeUrl: string;

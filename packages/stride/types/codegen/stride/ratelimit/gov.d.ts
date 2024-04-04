@@ -14,14 +14,14 @@ export interface AddRateLimitProposalProtoMsg {
     value: Uint8Array;
 }
 export interface AddRateLimitProposalAmino {
-    title: string;
-    description: string;
-    denom: string;
-    channel_id: string;
-    max_percent_send: string;
-    max_percent_recv: string;
-    duration_hours: string;
-    deposit: string;
+    title?: string;
+    description?: string;
+    denom?: string;
+    channel_id?: string;
+    max_percent_send?: string;
+    max_percent_recv?: string;
+    duration_hours?: string;
+    deposit?: string;
 }
 export interface AddRateLimitProposalAminoMsg {
     type: "/stride.ratelimit.AddRateLimitProposal";
@@ -52,14 +52,14 @@ export interface UpdateRateLimitProposalProtoMsg {
     value: Uint8Array;
 }
 export interface UpdateRateLimitProposalAmino {
-    title: string;
-    description: string;
-    denom: string;
-    channel_id: string;
-    max_percent_send: string;
-    max_percent_recv: string;
-    duration_hours: string;
-    deposit: string;
+    title?: string;
+    description?: string;
+    denom?: string;
+    channel_id?: string;
+    max_percent_send?: string;
+    max_percent_recv?: string;
+    duration_hours?: string;
+    deposit?: string;
 }
 export interface UpdateRateLimitProposalAminoMsg {
     type: "/stride.ratelimit.UpdateRateLimitProposal";
@@ -87,11 +87,11 @@ export interface RemoveRateLimitProposalProtoMsg {
     value: Uint8Array;
 }
 export interface RemoveRateLimitProposalAmino {
-    title: string;
-    description: string;
-    denom: string;
-    channel_id: string;
-    deposit: string;
+    title?: string;
+    description?: string;
+    denom?: string;
+    channel_id?: string;
+    deposit?: string;
 }
 export interface RemoveRateLimitProposalAminoMsg {
     type: "/stride.ratelimit.RemoveRateLimitProposal";
@@ -116,11 +116,11 @@ export interface ResetRateLimitProposalProtoMsg {
     value: Uint8Array;
 }
 export interface ResetRateLimitProposalAmino {
-    title: string;
-    description: string;
-    denom: string;
-    channel_id: string;
-    deposit: string;
+    title?: string;
+    description?: string;
+    denom?: string;
+    channel_id?: string;
+    deposit?: string;
 }
 export interface ResetRateLimitProposalAminoMsg {
     type: "/stride.ratelimit.ResetRateLimitProposal";

@@ -1,5 +1,6 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../cosmos/base/query/v1beta1/pagination";
-import { Params, ParamsAmino, ParamsSDKType, DepositRecord, DepositRecordAmino, DepositRecordSDKType, UserRedemptionRecord, UserRedemptionRecordAmino, UserRedemptionRecordSDKType, EpochUnbondingRecord, EpochUnbondingRecordAmino, EpochUnbondingRecordSDKType } from "./genesis";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { DepositRecord, DepositRecordAmino, DepositRecordSDKType, UserRedemptionRecord, UserRedemptionRecordAmino, UserRedemptionRecordSDKType, EpochUnbondingRecord, EpochUnbondingRecordAmino, EpochUnbondingRecordSDKType, LSMTokenDeposit, LSMTokenDepositAmino, LSMTokenDepositSDKType } from "./records";
 import { BinaryWriter } from "../../binary";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -48,7 +49,7 @@ export interface QueryGetDepositRecordRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetDepositRecordRequestAmino {
-    id: string;
+    id?: string;
 }
 export interface QueryGetDepositRecordRequestAminoMsg {
     type: "/stride.records.QueryGetDepositRecordRequest";
@@ -75,7 +76,7 @@ export interface QueryGetDepositRecordResponseSDKType {
     deposit_record: DepositRecordSDKType;
 }
 export interface QueryAllDepositRecordRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAllDepositRecordRequestProtoMsg {
     typeUrl: "/stride.records.QueryAllDepositRecordRequest";
@@ -89,18 +90,18 @@ export interface QueryAllDepositRecordRequestAminoMsg {
     value: QueryAllDepositRecordRequestAmino;
 }
 export interface QueryAllDepositRecordRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryAllDepositRecordResponse {
     depositRecord: DepositRecord[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAllDepositRecordResponseProtoMsg {
     typeUrl: "/stride.records.QueryAllDepositRecordResponse";
     value: Uint8Array;
 }
 export interface QueryAllDepositRecordResponseAmino {
-    deposit_record: DepositRecordAmino[];
+    deposit_record?: DepositRecordAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryAllDepositRecordResponseAminoMsg {
@@ -109,7 +110,7 @@ export interface QueryAllDepositRecordResponseAminoMsg {
 }
 export interface QueryAllDepositRecordResponseSDKType {
     deposit_record: DepositRecordSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryDepositRecordByHostRequest {
     hostZoneId: string;
@@ -119,7 +120,7 @@ export interface QueryDepositRecordByHostRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryDepositRecordByHostRequestAmino {
-    host_zone_id: string;
+    host_zone_id?: string;
 }
 export interface QueryDepositRecordByHostRequestAminoMsg {
     type: "/stride.records.QueryDepositRecordByHostRequest";
@@ -136,7 +137,7 @@ export interface QueryDepositRecordByHostResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryDepositRecordByHostResponseAmino {
-    deposit_record: DepositRecordAmino[];
+    deposit_record?: DepositRecordAmino[];
 }
 export interface QueryDepositRecordByHostResponseAminoMsg {
     type: "/stride.records.QueryDepositRecordByHostResponse";
@@ -153,7 +154,7 @@ export interface QueryGetUserRedemptionRecordRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetUserRedemptionRecordRequestAmino {
-    id: string;
+    id?: string;
 }
 export interface QueryGetUserRedemptionRecordRequestAminoMsg {
     type: "/stride.records.QueryGetUserRedemptionRecordRequest";
@@ -180,7 +181,7 @@ export interface QueryGetUserRedemptionRecordResponseSDKType {
     user_redemption_record: UserRedemptionRecordSDKType;
 }
 export interface QueryAllUserRedemptionRecordRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAllUserRedemptionRecordRequestProtoMsg {
     typeUrl: "/stride.records.QueryAllUserRedemptionRecordRequest";
@@ -194,18 +195,18 @@ export interface QueryAllUserRedemptionRecordRequestAminoMsg {
     value: QueryAllUserRedemptionRecordRequestAmino;
 }
 export interface QueryAllUserRedemptionRecordRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryAllUserRedemptionRecordResponse {
     userRedemptionRecord: UserRedemptionRecord[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAllUserRedemptionRecordResponseProtoMsg {
     typeUrl: "/stride.records.QueryAllUserRedemptionRecordResponse";
     value: Uint8Array;
 }
 export interface QueryAllUserRedemptionRecordResponseAmino {
-    user_redemption_record: UserRedemptionRecordAmino[];
+    user_redemption_record?: UserRedemptionRecordAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryAllUserRedemptionRecordResponseAminoMsg {
@@ -214,7 +215,7 @@ export interface QueryAllUserRedemptionRecordResponseAminoMsg {
 }
 export interface QueryAllUserRedemptionRecordResponseSDKType {
     user_redemption_record: UserRedemptionRecordSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** Query UserRedemptionRecords by chainId / userId pair */
 export interface QueryAllUserRedemptionRecordForUserRequest {
@@ -222,7 +223,7 @@ export interface QueryAllUserRedemptionRecordForUserRequest {
     day: bigint;
     address: string;
     limit: bigint;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAllUserRedemptionRecordForUserRequestProtoMsg {
     typeUrl: "/stride.records.QueryAllUserRedemptionRecordForUserRequest";
@@ -230,10 +231,10 @@ export interface QueryAllUserRedemptionRecordForUserRequestProtoMsg {
 }
 /** Query UserRedemptionRecords by chainId / userId pair */
 export interface QueryAllUserRedemptionRecordForUserRequestAmino {
-    chain_id: string;
-    day: string;
-    address: string;
-    limit: string;
+    chain_id?: string;
+    day?: string;
+    address?: string;
+    limit?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryAllUserRedemptionRecordForUserRequestAminoMsg {
@@ -246,18 +247,18 @@ export interface QueryAllUserRedemptionRecordForUserRequestSDKType {
     day: bigint;
     address: string;
     limit: bigint;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryAllUserRedemptionRecordForUserResponse {
     userRedemptionRecord: UserRedemptionRecord[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAllUserRedemptionRecordForUserResponseProtoMsg {
     typeUrl: "/stride.records.QueryAllUserRedemptionRecordForUserResponse";
     value: Uint8Array;
 }
 export interface QueryAllUserRedemptionRecordForUserResponseAmino {
-    user_redemption_record: UserRedemptionRecordAmino[];
+    user_redemption_record?: UserRedemptionRecordAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryAllUserRedemptionRecordForUserResponseAminoMsg {
@@ -266,7 +267,7 @@ export interface QueryAllUserRedemptionRecordForUserResponseAminoMsg {
 }
 export interface QueryAllUserRedemptionRecordForUserResponseSDKType {
     user_redemption_record: UserRedemptionRecordSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryGetEpochUnbondingRecordRequest {
     epochNumber: bigint;
@@ -276,7 +277,7 @@ export interface QueryGetEpochUnbondingRecordRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetEpochUnbondingRecordRequestAmino {
-    epoch_number: string;
+    epoch_number?: string;
 }
 export interface QueryGetEpochUnbondingRecordRequestAminoMsg {
     type: "/stride.records.QueryGetEpochUnbondingRecordRequest";
@@ -303,7 +304,7 @@ export interface QueryGetEpochUnbondingRecordResponseSDKType {
     epoch_unbonding_record: EpochUnbondingRecordSDKType;
 }
 export interface QueryAllEpochUnbondingRecordRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAllEpochUnbondingRecordRequestProtoMsg {
     typeUrl: "/stride.records.QueryAllEpochUnbondingRecordRequest";
@@ -317,18 +318,18 @@ export interface QueryAllEpochUnbondingRecordRequestAminoMsg {
     value: QueryAllEpochUnbondingRecordRequestAmino;
 }
 export interface QueryAllEpochUnbondingRecordRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryAllEpochUnbondingRecordResponse {
     epochUnbondingRecord: EpochUnbondingRecord[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAllEpochUnbondingRecordResponseProtoMsg {
     typeUrl: "/stride.records.QueryAllEpochUnbondingRecordResponse";
     value: Uint8Array;
 }
 export interface QueryAllEpochUnbondingRecordResponseAmino {
-    epoch_unbonding_record: EpochUnbondingRecordAmino[];
+    epoch_unbonding_record?: EpochUnbondingRecordAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryAllEpochUnbondingRecordResponseAminoMsg {
@@ -337,7 +338,84 @@ export interface QueryAllEpochUnbondingRecordResponseAminoMsg {
 }
 export interface QueryAllEpochUnbondingRecordResponseSDKType {
     epoch_unbonding_record: EpochUnbondingRecordSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
+}
+export interface QueryLSMDepositRequest {
+    chainId: string;
+    denom: string;
+}
+export interface QueryLSMDepositRequestProtoMsg {
+    typeUrl: "/stride.records.QueryLSMDepositRequest";
+    value: Uint8Array;
+}
+export interface QueryLSMDepositRequestAmino {
+    chain_id?: string;
+    denom?: string;
+}
+export interface QueryLSMDepositRequestAminoMsg {
+    type: "/stride.records.QueryLSMDepositRequest";
+    value: QueryLSMDepositRequestAmino;
+}
+export interface QueryLSMDepositRequestSDKType {
+    chain_id: string;
+    denom: string;
+}
+export interface QueryLSMDepositResponse {
+    deposit: LSMTokenDeposit;
+}
+export interface QueryLSMDepositResponseProtoMsg {
+    typeUrl: "/stride.records.QueryLSMDepositResponse";
+    value: Uint8Array;
+}
+export interface QueryLSMDepositResponseAmino {
+    deposit?: LSMTokenDepositAmino;
+}
+export interface QueryLSMDepositResponseAminoMsg {
+    type: "/stride.records.QueryLSMDepositResponse";
+    value: QueryLSMDepositResponseAmino;
+}
+export interface QueryLSMDepositResponseSDKType {
+    deposit: LSMTokenDepositSDKType;
+}
+export interface QueryLSMDepositsRequest {
+    chainId: string;
+    validatorAddress: string;
+    status: string;
+}
+export interface QueryLSMDepositsRequestProtoMsg {
+    typeUrl: "/stride.records.QueryLSMDepositsRequest";
+    value: Uint8Array;
+}
+export interface QueryLSMDepositsRequestAmino {
+    chain_id?: string;
+    validator_address?: string;
+    status?: string;
+}
+export interface QueryLSMDepositsRequestAminoMsg {
+    type: "/stride.records.QueryLSMDepositsRequest";
+    value: QueryLSMDepositsRequestAmino;
+}
+export interface QueryLSMDepositsRequestSDKType {
+    chain_id: string;
+    validator_address: string;
+    status: string;
+}
+export interface QueryLSMDepositsResponse {
+    deposits: LSMTokenDeposit[];
+}
+export interface QueryLSMDepositsResponseProtoMsg {
+    typeUrl: "/stride.records.QueryLSMDepositsResponse";
+    value: Uint8Array;
+}
+export interface QueryLSMDepositsResponseAmino {
+    deposits?: LSMTokenDepositAmino[];
+}
+export interface QueryLSMDepositsResponseAminoMsg {
+    type: "/stride.records.QueryLSMDepositsResponse";
+    value: QueryLSMDepositsResponseAmino;
+}
+export interface QueryLSMDepositsResponseSDKType {
+    deposits: LSMTokenDepositSDKType[];
 }
 export declare const QueryParamsRequest: {
     typeUrl: string;
@@ -554,4 +632,52 @@ export declare const QueryAllEpochUnbondingRecordResponse: {
     fromProtoMsg(message: QueryAllEpochUnbondingRecordResponseProtoMsg): QueryAllEpochUnbondingRecordResponse;
     toProto(message: QueryAllEpochUnbondingRecordResponse): Uint8Array;
     toProtoMsg(message: QueryAllEpochUnbondingRecordResponse): QueryAllEpochUnbondingRecordResponseProtoMsg;
+};
+export declare const QueryLSMDepositRequest: {
+    typeUrl: string;
+    encode(message: QueryLSMDepositRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryLSMDepositRequest;
+    fromPartial(object: Partial<QueryLSMDepositRequest>): QueryLSMDepositRequest;
+    fromAmino(object: QueryLSMDepositRequestAmino): QueryLSMDepositRequest;
+    toAmino(message: QueryLSMDepositRequest): QueryLSMDepositRequestAmino;
+    fromAminoMsg(object: QueryLSMDepositRequestAminoMsg): QueryLSMDepositRequest;
+    fromProtoMsg(message: QueryLSMDepositRequestProtoMsg): QueryLSMDepositRequest;
+    toProto(message: QueryLSMDepositRequest): Uint8Array;
+    toProtoMsg(message: QueryLSMDepositRequest): QueryLSMDepositRequestProtoMsg;
+};
+export declare const QueryLSMDepositResponse: {
+    typeUrl: string;
+    encode(message: QueryLSMDepositResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryLSMDepositResponse;
+    fromPartial(object: Partial<QueryLSMDepositResponse>): QueryLSMDepositResponse;
+    fromAmino(object: QueryLSMDepositResponseAmino): QueryLSMDepositResponse;
+    toAmino(message: QueryLSMDepositResponse): QueryLSMDepositResponseAmino;
+    fromAminoMsg(object: QueryLSMDepositResponseAminoMsg): QueryLSMDepositResponse;
+    fromProtoMsg(message: QueryLSMDepositResponseProtoMsg): QueryLSMDepositResponse;
+    toProto(message: QueryLSMDepositResponse): Uint8Array;
+    toProtoMsg(message: QueryLSMDepositResponse): QueryLSMDepositResponseProtoMsg;
+};
+export declare const QueryLSMDepositsRequest: {
+    typeUrl: string;
+    encode(message: QueryLSMDepositsRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryLSMDepositsRequest;
+    fromPartial(object: Partial<QueryLSMDepositsRequest>): QueryLSMDepositsRequest;
+    fromAmino(object: QueryLSMDepositsRequestAmino): QueryLSMDepositsRequest;
+    toAmino(message: QueryLSMDepositsRequest): QueryLSMDepositsRequestAmino;
+    fromAminoMsg(object: QueryLSMDepositsRequestAminoMsg): QueryLSMDepositsRequest;
+    fromProtoMsg(message: QueryLSMDepositsRequestProtoMsg): QueryLSMDepositsRequest;
+    toProto(message: QueryLSMDepositsRequest): Uint8Array;
+    toProtoMsg(message: QueryLSMDepositsRequest): QueryLSMDepositsRequestProtoMsg;
+};
+export declare const QueryLSMDepositsResponse: {
+    typeUrl: string;
+    encode(message: QueryLSMDepositsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryLSMDepositsResponse;
+    fromPartial(object: Partial<QueryLSMDepositsResponse>): QueryLSMDepositsResponse;
+    fromAmino(object: QueryLSMDepositsResponseAmino): QueryLSMDepositsResponse;
+    toAmino(message: QueryLSMDepositsResponse): QueryLSMDepositsResponseAmino;
+    fromAminoMsg(object: QueryLSMDepositsResponseAminoMsg): QueryLSMDepositsResponse;
+    fromProtoMsg(message: QueryLSMDepositsResponseProtoMsg): QueryLSMDepositsResponse;
+    toProto(message: QueryLSMDepositsResponse): Uint8Array;
+    toProtoMsg(message: QueryLSMDepositsResponse): QueryLSMDepositsResponseProtoMsg;
 };

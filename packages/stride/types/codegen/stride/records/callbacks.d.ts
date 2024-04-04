@@ -1,25 +1,38 @@
+import { LSMTokenDeposit, LSMTokenDepositAmino, LSMTokenDepositSDKType } from "./records";
 import { BinaryWriter } from "../../binary";
-/** ---------------------- Transfer Callback ---------------------- // */
 export interface TransferCallback {
-    /** ---------------------- Transfer Callback ---------------------- // */
     depositRecordId: bigint;
 }
 export interface TransferCallbackProtoMsg {
     typeUrl: "/stride.records.TransferCallback";
     value: Uint8Array;
 }
-/** ---------------------- Transfer Callback ---------------------- // */
 export interface TransferCallbackAmino {
-    /** ---------------------- Transfer Callback ---------------------- // */
-    deposit_record_id: string;
+    deposit_record_id?: string;
 }
 export interface TransferCallbackAminoMsg {
     type: "/stride.records.TransferCallback";
     value: TransferCallbackAmino;
 }
-/** ---------------------- Transfer Callback ---------------------- // */
 export interface TransferCallbackSDKType {
     deposit_record_id: bigint;
+}
+export interface TransferLSMTokenCallback {
+    deposit?: LSMTokenDeposit;
+}
+export interface TransferLSMTokenCallbackProtoMsg {
+    typeUrl: "/stride.records.TransferLSMTokenCallback";
+    value: Uint8Array;
+}
+export interface TransferLSMTokenCallbackAmino {
+    deposit?: LSMTokenDepositAmino;
+}
+export interface TransferLSMTokenCallbackAminoMsg {
+    type: "/stride.records.TransferLSMTokenCallback";
+    value: TransferLSMTokenCallbackAmino;
+}
+export interface TransferLSMTokenCallbackSDKType {
+    deposit?: LSMTokenDepositSDKType;
 }
 export declare const TransferCallback: {
     typeUrl: string;
@@ -32,4 +45,16 @@ export declare const TransferCallback: {
     fromProtoMsg(message: TransferCallbackProtoMsg): TransferCallback;
     toProto(message: TransferCallback): Uint8Array;
     toProtoMsg(message: TransferCallback): TransferCallbackProtoMsg;
+};
+export declare const TransferLSMTokenCallback: {
+    typeUrl: string;
+    encode(message: TransferLSMTokenCallback, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TransferLSMTokenCallback;
+    fromPartial(object: Partial<TransferLSMTokenCallback>): TransferLSMTokenCallback;
+    fromAmino(object: TransferLSMTokenCallbackAmino): TransferLSMTokenCallback;
+    toAmino(message: TransferLSMTokenCallback): TransferLSMTokenCallbackAmino;
+    fromAminoMsg(object: TransferLSMTokenCallbackAminoMsg): TransferLSMTokenCallback;
+    fromProtoMsg(message: TransferLSMTokenCallbackProtoMsg): TransferLSMTokenCallback;
+    toProto(message: TransferLSMTokenCallback): Uint8Array;
+    toProtoMsg(message: TransferLSMTokenCallback): TransferLSMTokenCallbackProtoMsg;
 };

@@ -2,7 +2,7 @@ import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageRe
 import { EpochInfo, EpochInfoAmino, EpochInfoSDKType } from "./genesis";
 import { BinaryWriter } from "../../binary";
 export interface QueryEpochsInfoRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryEpochsInfoRequestProtoMsg {
     typeUrl: "/stride.epochs.QueryEpochsInfoRequest";
@@ -16,18 +16,18 @@ export interface QueryEpochsInfoRequestAminoMsg {
     value: QueryEpochsInfoRequestAmino;
 }
 export interface QueryEpochsInfoRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryEpochsInfoResponse {
     epochs: EpochInfo[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryEpochsInfoResponseProtoMsg {
     typeUrl: "/stride.epochs.QueryEpochsInfoResponse";
     value: Uint8Array;
 }
 export interface QueryEpochsInfoResponseAmino {
-    epochs: EpochInfoAmino[];
+    epochs?: EpochInfoAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryEpochsInfoResponseAminoMsg {
@@ -36,7 +36,7 @@ export interface QueryEpochsInfoResponseAminoMsg {
 }
 export interface QueryEpochsInfoResponseSDKType {
     epochs: EpochInfoSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryCurrentEpochRequest {
     identifier: string;
@@ -46,7 +46,7 @@ export interface QueryCurrentEpochRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryCurrentEpochRequestAmino {
-    identifier: string;
+    identifier?: string;
 }
 export interface QueryCurrentEpochRequestAminoMsg {
     type: "/stride.epochs.QueryCurrentEpochRequest";
@@ -63,7 +63,7 @@ export interface QueryCurrentEpochResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryCurrentEpochResponseAmino {
-    current_epoch: string;
+    current_epoch?: string;
 }
 export interface QueryCurrentEpochResponseAminoMsg {
     type: "/stride.epochs.QueryCurrentEpochResponse";
@@ -80,7 +80,7 @@ export interface QueryEpochInfoRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryEpochInfoRequestAmino {
-    identifier: string;
+    identifier?: string;
 }
 export interface QueryEpochInfoRequestAminoMsg {
     type: "/stride.epochs.QueryEpochInfoRequest";

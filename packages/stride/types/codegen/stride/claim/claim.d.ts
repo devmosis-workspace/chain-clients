@@ -30,16 +30,16 @@ export interface ClaimRecordProtoMsg {
 /** A Claim Records is the metadata of claim data per address */
 export interface ClaimRecordAmino {
     /** airdrop identifier */
-    airdrop_identifier: string;
+    airdrop_identifier?: string;
     /** address of claim user */
-    address: string;
+    address?: string;
     /** weight that represent the portion from total allocation */
-    weight: string;
+    weight?: string;
     /**
      * true if action is completed
      * index of bool in array refers to action enum #
      */
-    action_completed: boolean[];
+    action_completed?: boolean[];
 }
 export interface ClaimRecordAminoMsg {
     type: "/stride.claim.ClaimRecord";

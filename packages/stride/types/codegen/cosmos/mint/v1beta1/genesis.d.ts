@@ -14,9 +14,9 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the mint module's genesis state. */
 export interface GenesisStateAmino {
     /** minter is a space for holding current inflation information. */
-    minter?: MinterAmino;
+    minter: MinterAmino;
     /** params defines all the parameters of the module. */
-    params?: ParamsAmino;
+    params: ParamsAmino;
 }
 export interface GenesisStateAminoMsg {
     type: "cosmos-sdk/GenesisState";

@@ -11,9 +11,9 @@ export interface MsgUpdateParams {
      *
      * NOTE: All parameters must be supplied.
      */
-    block: BlockParams;
-    evidence: EvidenceParams;
-    validator: ValidatorParams;
+    block?: BlockParams;
+    evidence?: EvidenceParams;
+    validator?: ValidatorParams;
 }
 export interface MsgUpdateParamsProtoMsg {
     typeUrl: "/cosmos.consensus.v1.MsgUpdateParams";
@@ -22,7 +22,7 @@ export interface MsgUpdateParamsProtoMsg {
 /** MsgUpdateParams is the Msg/UpdateParams request type. */
 export interface MsgUpdateParamsAmino {
     /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
-    authority: string;
+    authority?: string;
     /**
      * params defines the x/consensus parameters to update.
      * VersionsParams is not included in this Msg because it is tracked
@@ -41,9 +41,9 @@ export interface MsgUpdateParamsAminoMsg {
 /** MsgUpdateParams is the Msg/UpdateParams request type. */
 export interface MsgUpdateParamsSDKType {
     authority: string;
-    block: BlockParamsSDKType;
-    evidence: EvidenceParamsSDKType;
-    validator: ValidatorParamsSDKType;
+    block?: BlockParamsSDKType;
+    evidence?: EvidenceParamsSDKType;
+    validator?: ValidatorParamsSDKType;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a

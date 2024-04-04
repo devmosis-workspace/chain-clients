@@ -17,8 +17,8 @@ export interface PathProtoMsg {
     value: Uint8Array;
 }
 export interface PathAmino {
-    denom: string;
-    channel_id: string;
+    denom?: string;
+    channel_id?: string;
 }
 export interface PathAminoMsg {
     type: "/stride.ratelimit.Path";
@@ -38,9 +38,9 @@ export interface QuotaProtoMsg {
     value: Uint8Array;
 }
 export interface QuotaAmino {
-    max_percent_send: string;
-    max_percent_recv: string;
-    duration_hours: string;
+    max_percent_send?: string;
+    max_percent_recv?: string;
+    duration_hours?: string;
 }
 export interface QuotaAminoMsg {
     type: "/stride.ratelimit.Quota";
@@ -61,9 +61,9 @@ export interface FlowProtoMsg {
     value: Uint8Array;
 }
 export interface FlowAmino {
-    inflow: string;
-    outflow: string;
-    channel_value: string;
+    inflow?: string;
+    outflow?: string;
+    channel_value?: string;
 }
 export interface FlowAminoMsg {
     type: "/stride.ratelimit.Flow";
@@ -75,9 +75,9 @@ export interface FlowSDKType {
     channel_value: string;
 }
 export interface RateLimit {
-    path: Path;
-    quota: Quota;
-    flow: Flow;
+    path?: Path;
+    quota?: Quota;
+    flow?: Flow;
 }
 export interface RateLimitProtoMsg {
     typeUrl: "/stride.ratelimit.RateLimit";
@@ -93,9 +93,9 @@ export interface RateLimitAminoMsg {
     value: RateLimitAmino;
 }
 export interface RateLimitSDKType {
-    path: PathSDKType;
-    quota: QuotaSDKType;
-    flow: FlowSDKType;
+    path?: PathSDKType;
+    quota?: QuotaSDKType;
+    flow?: FlowSDKType;
 }
 export interface WhitelistedAddressPair {
     sender: string;
@@ -106,8 +106,8 @@ export interface WhitelistedAddressPairProtoMsg {
     value: Uint8Array;
 }
 export interface WhitelistedAddressPairAmino {
-    sender: string;
-    receiver: string;
+    sender?: string;
+    receiver?: string;
 }
 export interface WhitelistedAddressPairAminoMsg {
     type: "/stride.ratelimit.WhitelistedAddressPair";

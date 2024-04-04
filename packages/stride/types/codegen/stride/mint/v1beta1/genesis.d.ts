@@ -20,7 +20,7 @@ export interface GenesisStateAmino {
     /** params defines all the paramaters of the module. */
     params?: ParamsAmino;
     /** current reduction period start epoch */
-    reduction_started_epoch: string;
+    reduction_started_epoch?: string;
 }
 export interface GenesisStateAminoMsg {
     type: "/stride.mint.v1beta1.GenesisState";

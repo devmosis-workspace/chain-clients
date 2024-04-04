@@ -1,7 +1,7 @@
 import { BinaryWriter } from "../../binary";
 /**
  * Params defines the parameters for the module.
- * next id: 18
+ * next id: 20
  */
 export interface Params {
     /** define epoch lengths, in stride_epochs */
@@ -19,8 +19,8 @@ export interface Params {
     defaultMinRedemptionRateThreshold: bigint;
     defaultMaxRedemptionRateThreshold: bigint;
     ibcTransferTimeoutNanos: bigint;
-    safetyNumValidators: bigint;
-    safetyMaxSlashPercent: bigint;
+    validatorSlashQueryThreshold: bigint;
+    validatorWeightCap: bigint;
 }
 export interface ParamsProtoMsg {
     typeUrl: "/stride.stakeibc.Params";
@@ -28,26 +28,26 @@ export interface ParamsProtoMsg {
 }
 /**
  * Params defines the parameters for the module.
- * next id: 18
+ * next id: 20
  */
 export interface ParamsAmino {
     /** define epoch lengths, in stride_epochs */
-    rewards_interval: string;
-    delegate_interval: string;
-    deposit_interval: string;
-    redemption_rate_interval: string;
-    stride_commission: string;
-    reinvest_interval: string;
-    ica_timeout_nanos: string;
-    buffer_size: string;
-    ibc_timeout_blocks: string;
-    fee_transfer_timeout_nanos: string;
-    max_stake_ica_calls_per_epoch: string;
-    default_min_redemption_rate_threshold: string;
-    default_max_redemption_rate_threshold: string;
-    ibc_transfer_timeout_nanos: string;
-    safety_num_validators: string;
-    safety_max_slash_percent: string;
+    rewards_interval?: string;
+    delegate_interval?: string;
+    deposit_interval?: string;
+    redemption_rate_interval?: string;
+    stride_commission?: string;
+    reinvest_interval?: string;
+    ica_timeout_nanos?: string;
+    buffer_size?: string;
+    ibc_timeout_blocks?: string;
+    fee_transfer_timeout_nanos?: string;
+    max_stake_ica_calls_per_epoch?: string;
+    default_min_redemption_rate_threshold?: string;
+    default_max_redemption_rate_threshold?: string;
+    ibc_transfer_timeout_nanos?: string;
+    validator_slash_query_threshold?: string;
+    validator_weight_cap?: string;
 }
 export interface ParamsAminoMsg {
     type: "/stride.stakeibc.Params";
@@ -55,7 +55,7 @@ export interface ParamsAminoMsg {
 }
 /**
  * Params defines the parameters for the module.
- * next id: 18
+ * next id: 20
  */
 export interface ParamsSDKType {
     rewards_interval: bigint;
@@ -72,8 +72,8 @@ export interface ParamsSDKType {
     default_min_redemption_rate_threshold: bigint;
     default_max_redemption_rate_threshold: bigint;
     ibc_transfer_timeout_nanos: bigint;
-    safety_num_validators: bigint;
-    safety_max_slash_percent: bigint;
+    validator_slash_query_threshold: bigint;
+    validator_weight_cap: bigint;
 }
 export declare const Params: {
     typeUrl: string;

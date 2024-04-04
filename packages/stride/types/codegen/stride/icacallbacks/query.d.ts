@@ -49,7 +49,7 @@ export interface QueryGetCallbackDataRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetCallbackDataRequestAmino {
-    callback_key: string;
+    callback_key?: string;
 }
 export interface QueryGetCallbackDataRequestAminoMsg {
     type: "/stride.icacallbacks.QueryGetCallbackDataRequest";
@@ -76,7 +76,7 @@ export interface QueryGetCallbackDataResponseSDKType {
     callback_data: CallbackDataSDKType;
 }
 export interface QueryAllCallbackDataRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAllCallbackDataRequestProtoMsg {
     typeUrl: "/stride.icacallbacks.QueryAllCallbackDataRequest";
@@ -90,18 +90,18 @@ export interface QueryAllCallbackDataRequestAminoMsg {
     value: QueryAllCallbackDataRequestAmino;
 }
 export interface QueryAllCallbackDataRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryAllCallbackDataResponse {
     callbackData: CallbackData[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAllCallbackDataResponseProtoMsg {
     typeUrl: "/stride.icacallbacks.QueryAllCallbackDataResponse";
     value: Uint8Array;
 }
 export interface QueryAllCallbackDataResponseAmino {
-    callback_data: CallbackDataAmino[];
+    callback_data?: CallbackDataAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryAllCallbackDataResponseAminoMsg {
@@ -110,7 +110,7 @@ export interface QueryAllCallbackDataResponseAminoMsg {
 }
 export interface QueryAllCallbackDataResponseSDKType {
     callback_data: CallbackDataSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export declare const QueryParamsRequest: {
     typeUrl: string;

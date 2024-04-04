@@ -17,13 +17,13 @@ export interface EventSendProtoMsg {
 /** EventSend is emitted on Msg/Send */
 export interface EventSendAmino {
     /** class_id associated with the nft */
-    class_id: string;
+    class_id?: string;
     /** id is a unique identifier of the nft */
-    id: string;
+    id?: string;
     /** sender is the address of the owner of nft */
-    sender: string;
+    sender?: string;
     /** receiver is the receiver address of nft */
-    receiver: string;
+    receiver?: string;
 }
 export interface EventSendAminoMsg {
     type: "cosmos-sdk/EventSend";
@@ -52,11 +52,11 @@ export interface EventMintProtoMsg {
 /** EventMint is emitted on Mint */
 export interface EventMintAmino {
     /** class_id associated with the nft */
-    class_id: string;
+    class_id?: string;
     /** id is a unique identifier of the nft */
-    id: string;
+    id?: string;
     /** owner is the owner address of the nft */
-    owner: string;
+    owner?: string;
 }
 export interface EventMintAminoMsg {
     type: "cosmos-sdk/EventMint";
@@ -84,11 +84,11 @@ export interface EventBurnProtoMsg {
 /** EventBurn is emitted on Burn */
 export interface EventBurnAmino {
     /** class_id associated with the nft */
-    class_id: string;
+    class_id?: string;
     /** id is a unique identifier of the nft */
-    id: string;
+    id?: string;
     /** owner is the owner address of the nft */
-    owner: string;
+    owner?: string;
 }
 export interface EventBurnAminoMsg {
     type: "cosmos-sdk/EventBurn";

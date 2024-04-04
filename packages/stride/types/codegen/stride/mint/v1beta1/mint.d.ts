@@ -11,7 +11,7 @@ export interface MinterProtoMsg {
 /** Minter represents the minting state. */
 export interface MinterAmino {
     /** current epoch provisions */
-    epoch_provisions: string;
+    epoch_provisions?: string;
 }
 export interface MinterAminoMsg {
     type: "/stride.mint.v1beta1.Minter";
@@ -54,22 +54,22 @@ export interface DistributionProportionsAmino {
      * staking defines the proportion of the minted minted_denom that is to be
      * allocated as staking rewards.
      */
-    staking: string;
+    staking?: string;
     /**
      * community_pool defines the proportion of the minted mint_denom that is
      * to be allocated to the community pool: growth.
      */
-    community_pool_growth: string;
+    community_pool_growth?: string;
     /**
      * community_pool defines the proportion of the minted mint_denom that is
      * to be allocated to the community pool: security budget.
      */
-    community_pool_security_budget: string;
+    community_pool_security_budget?: string;
     /**
      * strategic_reserve defines the proportion of the minted mint_denom that is
      * to be allocated to the pool: strategic reserve.
      */
-    strategic_reserve: string;
+    strategic_reserve?: string;
 }
 export interface DistributionProportionsAminoMsg {
     type: "/stride.mint.v1beta1.DistributionProportions";
@@ -106,19 +106,19 @@ export interface ParamsProtoMsg {
 /** Params holds parameters for the mint module. */
 export interface ParamsAmino {
     /** type of coin to mint */
-    mint_denom: string;
+    mint_denom?: string;
     /** epoch provisions from the first epoch */
-    genesis_epoch_provisions: string;
+    genesis_epoch_provisions?: string;
     /** mint epoch identifier */
-    epoch_identifier: string;
+    epoch_identifier?: string;
     /** number of epochs take to reduce rewards */
-    reduction_period_in_epochs: string;
+    reduction_period_in_epochs?: string;
     /** reduction multiplier to execute on each period */
-    reduction_factor: string;
+    reduction_factor?: string;
     /** distribution_proportions defines the proportion of the minted denom */
     distribution_proportions?: DistributionProportionsAmino;
     /** start epoch to distribute minting rewards */
-    minting_rewards_distribution_start_epoch: string;
+    minting_rewards_distribution_start_epoch?: string;
 }
 export interface ParamsAminoMsg {
     type: "/stride.mint.v1beta1.Params";

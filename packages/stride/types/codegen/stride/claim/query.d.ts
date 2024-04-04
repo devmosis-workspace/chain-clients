@@ -1,5 +1,5 @@
 import { Action, ClaimRecord, ClaimRecordAmino, ClaimRecordSDKType } from "./claim";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { Period, PeriodAmino, PeriodSDKType } from "../vesting/vesting";
@@ -13,8 +13,8 @@ export interface ClaimStatusProtoMsg {
     value: Uint8Array;
 }
 export interface ClaimStatusAmino {
-    airdrop_identifier: string;
-    claimed: boolean;
+    airdrop_identifier?: string;
+    claimed?: boolean;
 }
 export interface ClaimStatusAminoMsg {
     type: "/stride.claim.ClaimStatus";
@@ -32,7 +32,7 @@ export interface QueryClaimStatusRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryClaimStatusRequestAmino {
-    address: string;
+    address?: string;
 }
 export interface QueryClaimStatusRequestAminoMsg {
     type: "/stride.claim.QueryClaimStatusRequest";
@@ -49,7 +49,7 @@ export interface QueryClaimStatusResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryClaimStatusResponseAmino {
-    claim_status: ClaimStatusAmino[];
+    claim_status?: ClaimStatusAmino[];
 }
 export interface QueryClaimStatusResponseAminoMsg {
     type: "/stride.claim.QueryClaimStatusResponse";
@@ -69,10 +69,10 @@ export interface ClaimMetadataProtoMsg {
     value: Uint8Array;
 }
 export interface ClaimMetadataAmino {
-    airdrop_identifier: string;
-    current_round: string;
-    current_round_start?: TimestampAmino;
-    current_round_end?: TimestampAmino;
+    airdrop_identifier?: string;
+    current_round?: string;
+    current_round_start?: string;
+    current_round_end?: string;
 }
 export interface ClaimMetadataAminoMsg {
     type: "/stride.claim.ClaimMetadata";
@@ -106,7 +106,7 @@ export interface QueryClaimMetadataResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryClaimMetadataResponseAmino {
-    claim_metadata: ClaimMetadataAmino[];
+    claim_metadata?: ClaimMetadataAmino[];
 }
 export interface QueryClaimMetadataResponseAminoMsg {
     type: "/stride.claim.QueryClaimMetadataResponse";
@@ -125,7 +125,7 @@ export interface QueryDistributorAccountBalanceRequestProtoMsg {
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryDistributorAccountBalanceRequestAmino {
-    airdrop_identifier: string;
+    airdrop_identifier?: string;
 }
 export interface QueryDistributorAccountBalanceRequestAminoMsg {
     type: "/stride.claim.QueryDistributorAccountBalanceRequest";
@@ -147,7 +147,7 @@ export interface QueryDistributorAccountBalanceResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryDistributorAccountBalanceResponseAmino {
     /** params defines the parameters of the module. */
-    distributor_account_balance: CoinAmino[];
+    distributor_account_balance?: CoinAmino[];
 }
 export interface QueryDistributorAccountBalanceResponseAminoMsg {
     type: "/stride.claim.QueryDistributorAccountBalanceResponse";
@@ -205,8 +205,8 @@ export interface QueryClaimRecordRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryClaimRecordRequestAmino {
-    airdrop_identifier: string;
-    address: string;
+    airdrop_identifier?: string;
+    address?: string;
 }
 export interface QueryClaimRecordRequestAminoMsg {
     type: "/stride.claim.QueryClaimRecordRequest";
@@ -243,9 +243,9 @@ export interface QueryClaimableForActionRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryClaimableForActionRequestAmino {
-    airdrop_identifier: string;
-    address: string;
-    action: Action;
+    airdrop_identifier?: string;
+    address?: string;
+    action?: Action;
 }
 export interface QueryClaimableForActionRequestAminoMsg {
     type: "/stride.claim.QueryClaimableForActionRequest";
@@ -264,7 +264,7 @@ export interface QueryClaimableForActionResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryClaimableForActionResponseAmino {
-    coins: CoinAmino[];
+    coins?: CoinAmino[];
 }
 export interface QueryClaimableForActionResponseAminoMsg {
     type: "/stride.claim.QueryClaimableForActionResponse";
@@ -283,9 +283,9 @@ export interface QueryTotalClaimableRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryTotalClaimableRequestAmino {
-    airdrop_identifier: string;
-    address: string;
-    include_claimed: boolean;
+    airdrop_identifier?: string;
+    address?: string;
+    include_claimed?: boolean;
 }
 export interface QueryTotalClaimableRequestAminoMsg {
     type: "/stride.claim.QueryTotalClaimableRequest";
@@ -304,7 +304,7 @@ export interface QueryTotalClaimableResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryTotalClaimableResponseAmino {
-    coins: CoinAmino[];
+    coins?: CoinAmino[];
 }
 export interface QueryTotalClaimableResponseAminoMsg {
     type: "/stride.claim.QueryTotalClaimableResponse";
@@ -321,7 +321,7 @@ export interface QueryUserVestingsRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryUserVestingsRequestAmino {
-    address: string;
+    address?: string;
 }
 export interface QueryUserVestingsRequestAminoMsg {
     type: "/stride.claim.QueryUserVestingsRequest";
@@ -339,8 +339,8 @@ export interface QueryUserVestingsResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryUserVestingsResponseAmino {
-    spendable_coins: CoinAmino[];
-    periods: PeriodAmino[];
+    spendable_coins?: CoinAmino[];
+    periods?: PeriodAmino[];
 }
 export interface QueryUserVestingsResponseAminoMsg {
     type: "/stride.claim.QueryUserVestingsResponse";

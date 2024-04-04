@@ -268,3 +268,6 @@
 [submodule "packages/stride/cosmos-sdk"]
 	path = packages/stride/cosmos-sdk
 	url = https://github.com/Stride-Labs/cosmos-sdk
+[submodule "packages/stride/wasmd"]
+	path = packages/stride/wasmd
+	url = https://github.com/CosmWasm/wasmd
