@@ -199,9 +199,6 @@
 [submodule "packages/sommelier/cosmos-sdk"]
 	path = packages/sommelier/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
-[submodule "packages/sommelier/tendermint"]
-	path = packages/sommelier/tendermint
-	url = https://github.com/informalsystems/tendermint
 [submodule "packages/starname/starnamed"]
 	path = packages/starname/starnamed
 	url = https://github.com/iov-one/starnamed
