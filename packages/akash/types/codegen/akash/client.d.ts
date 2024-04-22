@@ -2,6 +2,21 @@ import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const akashAminoConverters: {
+    "/akash.provider.v1beta3.MsgCreateProvider": {
+        aminoType: string;
+        toAmino: (message: import("./provider/v1beta3/provider").MsgCreateProvider) => import("./provider/v1beta3/provider").MsgCreateProviderAmino;
+        fromAmino: (object: import("./provider/v1beta3/provider").MsgCreateProviderAmino) => import("./provider/v1beta3/provider").MsgCreateProvider;
+    };
+    "/akash.provider.v1beta3.MsgUpdateProvider": {
+        aminoType: string;
+        toAmino: (message: import("./provider/v1beta3/provider").MsgUpdateProvider) => import("./provider/v1beta3/provider").MsgUpdateProviderAmino;
+        fromAmino: (object: import("./provider/v1beta3/provider").MsgUpdateProviderAmino) => import("./provider/v1beta3/provider").MsgUpdateProvider;
+    };
+    "/akash.provider.v1beta3.MsgDeleteProvider": {
+        aminoType: string;
+        toAmino: (message: import("./provider/v1beta3/provider").MsgDeleteProvider) => import("./provider/v1beta3/provider").MsgDeleteProviderAmino;
+        fromAmino: (object: import("./provider/v1beta3/provider").MsgDeleteProviderAmino) => import("./provider/v1beta3/provider").MsgDeleteProvider;
+    };
     "/akash.provider.v1beta2.MsgCreateProvider": {
         aminoType: string;
         toAmino: (message: import("./provider/v1beta2/provider").MsgCreateProvider) => import("./provider/v1beta2/provider").MsgCreateProviderAmino;
@@ -32,6 +47,56 @@ export declare const akashAminoConverters: {
         toAmino: (message: import("./provider/v1beta1/provider").MsgDeleteProvider) => import("./provider/v1beta1/provider").MsgDeleteProviderAmino;
         fromAmino: (object: import("./provider/v1beta1/provider").MsgDeleteProviderAmino) => import("./provider/v1beta1/provider").MsgDeleteProvider;
     };
+    "/akash.market.v1beta4.MsgCreateBid": {
+        aminoType: string;
+        toAmino: (message: import("./market/v1beta4/bid").MsgCreateBid) => import("./market/v1beta4/bid").MsgCreateBidAmino;
+        fromAmino: (object: import("./market/v1beta4/bid").MsgCreateBidAmino) => import("./market/v1beta4/bid").MsgCreateBid;
+    };
+    "/akash.market.v1beta4.MsgCloseBid": {
+        aminoType: string;
+        toAmino: (message: import("./market/v1beta4/bid").MsgCloseBid) => import("./market/v1beta4/bid").MsgCloseBidAmino;
+        fromAmino: (object: import("./market/v1beta4/bid").MsgCloseBidAmino) => import("./market/v1beta4/bid").MsgCloseBid;
+    };
+    "/akash.market.v1beta4.MsgWithdrawLease": {
+        aminoType: string;
+        toAmino: (message: import("./market/v1beta4/lease").MsgWithdrawLease) => import("./market/v1beta4/lease").MsgWithdrawLeaseAmino;
+        fromAmino: (object: import("./market/v1beta4/lease").MsgWithdrawLeaseAmino) => import("./market/v1beta4/lease").MsgWithdrawLease;
+    };
+    "/akash.market.v1beta4.MsgCreateLease": {
+        aminoType: string;
+        toAmino: (message: import("./market/v1beta4/lease").MsgCreateLease) => import("./market/v1beta4/lease").MsgCreateLeaseAmino;
+        fromAmino: (object: import("./market/v1beta4/lease").MsgCreateLeaseAmino) => import("./market/v1beta4/lease").MsgCreateLease;
+    };
+    "/akash.market.v1beta4.MsgCloseLease": {
+        aminoType: string;
+        toAmino: (message: import("./market/v1beta4/lease").MsgCloseLease) => import("./market/v1beta4/lease").MsgCloseLeaseAmino;
+        fromAmino: (object: import("./market/v1beta4/lease").MsgCloseLeaseAmino) => import("./market/v1beta4/lease").MsgCloseLease;
+    };
+    "/akash.market.v1beta3.MsgCreateBid": {
+        aminoType: string;
+        toAmino: (message: import("./market/v1beta3/bid").MsgCreateBid) => import("./market/v1beta3/bid").MsgCreateBidAmino;
+        fromAmino: (object: import("./market/v1beta3/bid").MsgCreateBidAmino) => import("./market/v1beta3/bid").MsgCreateBid;
+    };
+    "/akash.market.v1beta3.MsgCloseBid": {
+        aminoType: string;
+        toAmino: (message: import("./market/v1beta3/bid").MsgCloseBid) => import("./market/v1beta3/bid").MsgCloseBidAmino;
+        fromAmino: (object: import("./market/v1beta3/bid").MsgCloseBidAmino) => import("./market/v1beta3/bid").MsgCloseBid;
+    };
+    "/akash.market.v1beta3.MsgWithdrawLease": {
+        aminoType: string;
+        toAmino: (message: import("./market/v1beta3/lease").MsgWithdrawLease) => import("./market/v1beta3/lease").MsgWithdrawLeaseAmino;
+        fromAmino: (object: import("./market/v1beta3/lease").MsgWithdrawLeaseAmino) => import("./market/v1beta3/lease").MsgWithdrawLease;
+    };
+    "/akash.market.v1beta3.MsgCreateLease": {
+        aminoType: string;
+        toAmino: (message: import("./market/v1beta3/lease").MsgCreateLease) => import("./market/v1beta3/lease").MsgCreateLeaseAmino;
+        fromAmino: (object: import("./market/v1beta3/lease").MsgCreateLeaseAmino) => import("./market/v1beta3/lease").MsgCreateLease;
+    };
+    "/akash.market.v1beta3.MsgCloseLease": {
+        aminoType: string;
+        toAmino: (message: import("./market/v1beta3/lease").MsgCloseLease) => import("./market/v1beta3/lease").MsgCloseLeaseAmino;
+        fromAmino: (object: import("./market/v1beta3/lease").MsgCloseLeaseAmino) => import("./market/v1beta3/lease").MsgCloseLease;
+    };
     "/akash.market.v1beta2.MsgCreateBid": {
         aminoType: string;
         toAmino: (message: import("./market/v1beta2/bid").MsgCreateBid) => import("./market/v1beta2/bid").MsgCreateBidAmino;
@@ -56,6 +121,41 @@ export declare const akashAminoConverters: {
         aminoType: string;
         toAmino: (message: import("./market/v1beta2/lease").MsgCloseLease) => import("./market/v1beta2/lease").MsgCloseLeaseAmino;
         fromAmino: (object: import("./market/v1beta2/lease").MsgCloseLeaseAmino) => import("./market/v1beta2/lease").MsgCloseLease;
+    };
+    "/akash.deployment.v1beta3.MsgCreateDeployment": {
+        aminoType: string;
+        toAmino: (message: import("./deployment/v1beta3/deploymentmsg").MsgCreateDeployment) => import("./deployment/v1beta3/deploymentmsg").MsgCreateDeploymentAmino;
+        fromAmino: (object: import("./deployment/v1beta3/deploymentmsg").MsgCreateDeploymentAmino) => import("./deployment/v1beta3/deploymentmsg").MsgCreateDeployment;
+    };
+    "/akash.deployment.v1beta3.MsgDepositDeployment": {
+        aminoType: string;
+        toAmino: (message: import("./deployment/v1beta3/deploymentmsg").MsgDepositDeployment) => import("./deployment/v1beta3/deploymentmsg").MsgDepositDeploymentAmino;
+        fromAmino: (object: import("./deployment/v1beta3/deploymentmsg").MsgDepositDeploymentAmino) => import("./deployment/v1beta3/deploymentmsg").MsgDepositDeployment;
+    };
+    "/akash.deployment.v1beta3.MsgUpdateDeployment": {
+        aminoType: string;
+        toAmino: (message: import("./deployment/v1beta3/deploymentmsg").MsgUpdateDeployment) => import("./deployment/v1beta3/deploymentmsg").MsgUpdateDeploymentAmino;
+        fromAmino: (object: import("./deployment/v1beta3/deploymentmsg").MsgUpdateDeploymentAmino) => import("./deployment/v1beta3/deploymentmsg").MsgUpdateDeployment;
+    };
+    "/akash.deployment.v1beta3.MsgCloseDeployment": {
+        aminoType: string;
+        toAmino: (message: import("./deployment/v1beta3/deploymentmsg").MsgCloseDeployment) => import("./deployment/v1beta3/deploymentmsg").MsgCloseDeploymentAmino;
+        fromAmino: (object: import("./deployment/v1beta3/deploymentmsg").MsgCloseDeploymentAmino) => import("./deployment/v1beta3/deploymentmsg").MsgCloseDeployment;
+    };
+    "/akash.deployment.v1beta3.MsgCloseGroup": {
+        aminoType: string;
+        toAmino: (message: import("./deployment/v1beta3/groupmsg").MsgCloseGroup) => import("./deployment/v1beta3/groupmsg").MsgCloseGroupAmino;
+        fromAmino: (object: import("./deployment/v1beta3/groupmsg").MsgCloseGroupAmino) => import("./deployment/v1beta3/groupmsg").MsgCloseGroup;
+    };
+    "/akash.deployment.v1beta3.MsgPauseGroup": {
+        aminoType: string;
+        toAmino: (message: import("./deployment/v1beta3/groupmsg").MsgPauseGroup) => import("./deployment/v1beta3/groupmsg").MsgPauseGroupAmino;
+        fromAmino: (object: import("./deployment/v1beta3/groupmsg").MsgPauseGroupAmino) => import("./deployment/v1beta3/groupmsg").MsgPauseGroup;
+    };
+    "/akash.deployment.v1beta3.MsgStartGroup": {
+        aminoType: string;
+        toAmino: (message: import("./deployment/v1beta3/groupmsg").MsgStartGroup) => import("./deployment/v1beta3/groupmsg").MsgStartGroupAmino;
+        fromAmino: (object: import("./deployment/v1beta3/groupmsg").MsgStartGroupAmino) => import("./deployment/v1beta3/groupmsg").MsgStartGroup;
     };
     "/akash.deployment.v1beta2.MsgCreateDeployment": {
         aminoType: string;
@@ -127,6 +227,16 @@ export declare const akashAminoConverters: {
         toAmino: (message: import("./deployment/v1beta1/group").MsgStartGroup) => import("./deployment/v1beta1/group").MsgStartGroupAmino;
         fromAmino: (object: import("./deployment/v1beta1/group").MsgStartGroupAmino) => import("./deployment/v1beta1/group").MsgStartGroup;
     };
+    "/akash.cert.v1beta3.MsgCreateCertificate": {
+        aminoType: string;
+        toAmino: (message: import("./cert/v1beta3/cert").MsgCreateCertificate) => import("./cert/v1beta3/cert").MsgCreateCertificateAmino;
+        fromAmino: (object: import("./cert/v1beta3/cert").MsgCreateCertificateAmino) => import("./cert/v1beta3/cert").MsgCreateCertificate;
+    };
+    "/akash.cert.v1beta3.MsgRevokeCertificate": {
+        aminoType: string;
+        toAmino: (message: import("./cert/v1beta3/cert").MsgRevokeCertificate) => import("./cert/v1beta3/cert").MsgRevokeCertificateAmino;
+        fromAmino: (object: import("./cert/v1beta3/cert").MsgRevokeCertificateAmino) => import("./cert/v1beta3/cert").MsgRevokeCertificate;
+    };
     "/akash.cert.v1beta2.MsgCreateCertificate": {
         aminoType: string;
         toAmino: (message: import("./cert/v1beta2/cert").MsgCreateCertificate) => import("./cert/v1beta2/cert").MsgCreateCertificateAmino;
@@ -136,6 +246,16 @@ export declare const akashAminoConverters: {
         aminoType: string;
         toAmino: (message: import("./cert/v1beta2/cert").MsgRevokeCertificate) => import("./cert/v1beta2/cert").MsgRevokeCertificateAmino;
         fromAmino: (object: import("./cert/v1beta2/cert").MsgRevokeCertificateAmino) => import("./cert/v1beta2/cert").MsgRevokeCertificate;
+    };
+    "/akash.audit.v1beta3.MsgSignProviderAttributes": {
+        aminoType: string;
+        toAmino: (message: import("./audit/v1beta3/audit").MsgSignProviderAttributes) => import("./audit/v1beta3/audit").MsgSignProviderAttributesAmino;
+        fromAmino: (object: import("./audit/v1beta3/audit").MsgSignProviderAttributesAmino) => import("./audit/v1beta3/audit").MsgSignProviderAttributes;
+    };
+    "/akash.audit.v1beta3.MsgDeleteProviderAttributes": {
+        aminoType: string;
+        toAmino: (message: import("./audit/v1beta3/audit").MsgDeleteProviderAttributes) => import("./audit/v1beta3/audit").MsgDeleteProviderAttributesAmino;
+        fromAmino: (object: import("./audit/v1beta3/audit").MsgDeleteProviderAttributesAmino) => import("./audit/v1beta3/audit").MsgDeleteProviderAttributes;
     };
     "/akash.audit.v1beta2.MsgSignProviderAttributes": {
         aminoType: string;

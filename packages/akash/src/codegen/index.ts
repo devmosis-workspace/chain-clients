@@ -4,6 +4,8 @@
   * and run the transpile command or yarn proto command to regenerate this bundle.
   */
  
+export * from "./akash/bundle";
+export * from "./akash/client";
 export * from "./cosmos/bundle";
 export * from "./cosmos/client";
 export * from "./tendermint/bundle";

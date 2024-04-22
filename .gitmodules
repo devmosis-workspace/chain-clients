@@ -58,9 +58,6 @@
 [submodule "packages/agoric/cosmos-sdk"]
 	path = packages/agoric/cosmos-sdk
 	url = https://github.com/agoric-labs/cosmos-sdk
-[submodule "packages/akash/node"]
-	path = packages/akash/node
-	url = https://github.com/akash-network/node
 [submodule "packages/akash/cosmos-sdk"]
 	path = packages/akash/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
@@ -268,3 +265,6 @@
 [submodule "packages/axelar/axelar-core"]
 	path = packages/axelar/axelar-core
 	url = https://github.com/Ryz0nd/axelar-core
+[submodule "packages/akash/akash-api"]
+	path = packages/akash/akash-api
+	url = https://github.com/akash-network/akash-api

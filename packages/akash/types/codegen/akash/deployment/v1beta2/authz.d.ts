@@ -5,7 +5,7 @@ import { BinaryWriter } from "../../../binary";
  * the granter's account for a deployment.
  */
 export interface DepositDeploymentAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/akash.deployment.v1beta2.DepositDeploymentAuthorization";
     /**
      * SpendLimit is the amount the grantee is authorized to spend from the granter's account for
      * the purpose of deployment.
@@ -36,7 +36,7 @@ export interface DepositDeploymentAuthorizationAminoMsg {
  * the granter's account for a deployment.
  */
 export interface DepositDeploymentAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/akash.deployment.v1beta2.DepositDeploymentAuthorization";
     spend_limit: CoinSDKType;
 }
 export declare const DepositDeploymentAuthorization: {

@@ -33,7 +33,7 @@ export interface MsgCreateBidProtoMsg {
 /** MsgCreateBid defines an SDK message for creating Bid */
 export interface MsgCreateBidAmino {
     order?: OrderIDAmino;
-    provider: string;
+    provider?: string;
     price?: DecCoinAmino;
     deposit?: CoinAmino;
 }
@@ -122,11 +122,11 @@ export interface BidIDProtoMsg {
  * A successful bid becomes a Lease(ID).
  */
 export interface BidIDAmino {
-    owner: string;
-    dseq: string;
-    gseq: number;
-    oseq: number;
-    provider: string;
+    owner?: string;
+    dseq?: string;
+    gseq?: number;
+    oseq?: number;
+    provider?: string;
 }
 export interface BidIDAminoMsg {
     type: "/akash.market.v1beta2.BidID";
@@ -157,9 +157,9 @@ export interface BidProtoMsg {
 /** Bid stores BidID, state of bid and price */
 export interface BidAmino {
     bid_id?: BidIDAmino;
-    state: Bid_State;
+    state?: Bid_State;
     price?: DecCoinAmino;
-    created_at: string;
+    created_at?: string;
 }
 export interface BidAminoMsg {
     type: "/akash.market.v1beta2.Bid";
@@ -187,12 +187,12 @@ export interface BidFiltersProtoMsg {
 }
 /** BidFilters defines flags for bid list filter */
 export interface BidFiltersAmino {
-    owner: string;
-    dseq: string;
-    gseq: number;
-    oseq: number;
-    provider: string;
-    state: string;
+    owner?: string;
+    dseq?: string;
+    gseq?: number;
+    oseq?: number;
+    provider?: string;
+    state?: string;
 }
 export interface BidFiltersAminoMsg {
     type: "/akash.market.v1beta2.BidFilters";

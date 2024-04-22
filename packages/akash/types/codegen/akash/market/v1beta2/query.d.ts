@@ -7,7 +7,7 @@ import { BinaryWriter } from "../../../binary";
 /** QueryOrdersRequest is request type for the Query/Orders RPC method */
 export interface QueryOrdersRequest {
     filters: OrderFilters;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryOrdersRequestProtoMsg {
     typeUrl: "/akash.market.v1beta2.QueryOrdersRequest";
@@ -25,12 +25,12 @@ export interface QueryOrdersRequestAminoMsg {
 /** QueryOrdersRequest is request type for the Query/Orders RPC method */
 export interface QueryOrdersRequestSDKType {
     filters: OrderFiltersSDKType;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryOrdersResponse is response type for the Query/Orders RPC method */
 export interface QueryOrdersResponse {
     orders: Order[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryOrdersResponseProtoMsg {
     typeUrl: "/akash.market.v1beta2.QueryOrdersResponse";
@@ -38,7 +38,7 @@ export interface QueryOrdersResponseProtoMsg {
 }
 /** QueryOrdersResponse is response type for the Query/Orders RPC method */
 export interface QueryOrdersResponseAmino {
-    orders: OrderAmino[];
+    orders?: OrderAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryOrdersResponseAminoMsg {
@@ -48,7 +48,7 @@ export interface QueryOrdersResponseAminoMsg {
 /** QueryOrdersResponse is response type for the Query/Orders RPC method */
 export interface QueryOrdersResponseSDKType {
     orders: OrderSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryOrderRequest is request type for the Query/Order RPC method */
 export interface QueryOrderRequest {
@@ -93,7 +93,7 @@ export interface QueryOrderResponseSDKType {
 /** QueryBidsRequest is request type for the Query/Bids RPC method */
 export interface QueryBidsRequest {
     filters: BidFilters;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryBidsRequestProtoMsg {
     typeUrl: "/akash.market.v1beta2.QueryBidsRequest";
@@ -111,12 +111,12 @@ export interface QueryBidsRequestAminoMsg {
 /** QueryBidsRequest is request type for the Query/Bids RPC method */
 export interface QueryBidsRequestSDKType {
     filters: BidFiltersSDKType;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryBidsResponse is response type for the Query/Bids RPC method */
 export interface QueryBidsResponse {
     bids: QueryBidResponse[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryBidsResponseProtoMsg {
     typeUrl: "/akash.market.v1beta2.QueryBidsResponse";
@@ -124,7 +124,7 @@ export interface QueryBidsResponseProtoMsg {
 }
 /** QueryBidsResponse is response type for the Query/Bids RPC method */
 export interface QueryBidsResponseAmino {
-    bids: QueryBidResponseAmino[];
+    bids?: QueryBidResponseAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryBidsResponseAminoMsg {
@@ -134,7 +134,7 @@ export interface QueryBidsResponseAminoMsg {
 /** QueryBidsResponse is response type for the Query/Bids RPC method */
 export interface QueryBidsResponseSDKType {
     bids: QueryBidResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryBidRequest is request type for the Query/Bid RPC method */
 export interface QueryBidRequest {
@@ -182,7 +182,7 @@ export interface QueryBidResponseSDKType {
 /** QueryLeasesRequest is request type for the Query/Leases RPC method */
 export interface QueryLeasesRequest {
     filters: LeaseFilters;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryLeasesRequestProtoMsg {
     typeUrl: "/akash.market.v1beta2.QueryLeasesRequest";
@@ -200,12 +200,12 @@ export interface QueryLeasesRequestAminoMsg {
 /** QueryLeasesRequest is request type for the Query/Leases RPC method */
 export interface QueryLeasesRequestSDKType {
     filters: LeaseFiltersSDKType;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryLeasesResponse is response type for the Query/Leases RPC method */
 export interface QueryLeasesResponse {
     leases: QueryLeaseResponse[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryLeasesResponseProtoMsg {
     typeUrl: "/akash.market.v1beta2.QueryLeasesResponse";
@@ -213,7 +213,7 @@ export interface QueryLeasesResponseProtoMsg {
 }
 /** QueryLeasesResponse is response type for the Query/Leases RPC method */
 export interface QueryLeasesResponseAmino {
-    leases: QueryLeaseResponseAmino[];
+    leases?: QueryLeaseResponseAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryLeasesResponseAminoMsg {
@@ -223,7 +223,7 @@ export interface QueryLeasesResponseAminoMsg {
 /** QueryLeasesResponse is response type for the Query/Leases RPC method */
 export interface QueryLeasesResponseSDKType {
     leases: QueryLeaseResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryLeaseRequest is request type for the Query/Lease RPC method */
 export interface QueryLeaseRequest {

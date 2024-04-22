@@ -18,11 +18,11 @@ export interface MsgCreateDeploymentProtoMsg {
 /** MsgCreateDeployment defines an SDK message for creating deployment */
 export interface MsgCreateDeploymentAmino {
     id?: DeploymentIDAmino;
-    groups: GroupSpecAmino[];
-    version: Uint8Array;
+    groups?: GroupSpecAmino[];
+    version?: string;
     deposit?: CoinAmino;
     /** Depositor pays for the deposit */
-    depositor: string;
+    depositor?: string;
 }
 export interface MsgCreateDeploymentAminoMsg {
     type: "/akash.deployment.v1beta2.MsgCreateDeployment";
@@ -69,7 +69,7 @@ export interface MsgDepositDeploymentAmino {
     id?: DeploymentIDAmino;
     amount?: CoinAmino;
     /** Depositor pays for the deposit */
-    depositor: string;
+    depositor?: string;
 }
 export interface MsgDepositDeploymentAminoMsg {
     type: "/akash.deployment.v1beta2.MsgDepositDeployment";
@@ -110,7 +110,7 @@ export interface MsgUpdateDeploymentProtoMsg {
 /** MsgUpdateDeployment defines an SDK message for updating deployment */
 export interface MsgUpdateDeploymentAmino {
     id?: DeploymentIDAmino;
-    version: Uint8Array;
+    version?: string;
 }
 export interface MsgUpdateDeploymentAminoMsg {
     type: "/akash.deployment.v1beta2.MsgUpdateDeployment";

@@ -12,9 +12,9 @@ export interface ProviderProtoMsg {
 }
 /** Provider stores owner auditor and attributes details */
 export interface ProviderAmino {
-    owner: string;
-    auditor: string;
-    attributes: AttributeAmino[];
+    owner?: string;
+    auditor?: string;
+    attributes?: AttributeAmino[];
 }
 export interface ProviderAminoMsg {
     type: "/akash.audit.v1beta1.Provider";
@@ -38,9 +38,9 @@ export interface AuditedAttributesProtoMsg {
 }
 /** Attributes */
 export interface AuditedAttributesAmino {
-    owner: string;
-    auditor: string;
-    attributes: AttributeAmino[];
+    owner?: string;
+    auditor?: string;
+    attributes?: AttributeAmino[];
 }
 export interface AuditedAttributesAminoMsg {
     type: "/akash.audit.v1beta1.AuditedAttributes";
@@ -62,7 +62,7 @@ export interface AttributesResponseProtoMsg {
 }
 /** AttributesResponse represents details of deployment along with group details */
 export interface AttributesResponseAmino {
-    attributes: AuditedAttributesAmino[];
+    attributes?: AuditedAttributesAmino[];
 }
 export interface AttributesResponseAminoMsg {
     type: "/akash.audit.v1beta1.AttributesResponse";
@@ -83,8 +83,8 @@ export interface AttributesFiltersProtoMsg {
 }
 /** AttributesFilters defines filters used to filter deployments */
 export interface AttributesFiltersAmino {
-    auditors: string[];
-    owners: string[];
+    auditors?: string[];
+    owners?: string[];
 }
 export interface AttributesFiltersAminoMsg {
     type: "/akash.audit.v1beta1.AttributesFilters";
@@ -107,9 +107,9 @@ export interface MsgSignProviderAttributesProtoMsg {
 }
 /** MsgSignProviderAttributes defines an SDK message for signing a provider attributes */
 export interface MsgSignProviderAttributesAmino {
-    owner: string;
-    auditor: string;
-    attributes: AttributeAmino[];
+    owner?: string;
+    auditor?: string;
+    attributes?: AttributeAmino[];
 }
 export interface MsgSignProviderAttributesAminoMsg {
     type: "/akash.audit.v1beta1.MsgSignProviderAttributes";
@@ -150,9 +150,9 @@ export interface MsgDeleteProviderAttributesProtoMsg {
 }
 /** MsgDeleteProviderAttributes defined the Msg/DeleteProviderAttributes */
 export interface MsgDeleteProviderAttributesAmino {
-    owner: string;
-    auditor: string;
-    keys: string[];
+    owner?: string;
+    auditor?: string;
+    keys?: string[];
 }
 export interface MsgDeleteProviderAttributesAminoMsg {
     type: "/akash.audit.v1beta1.MsgDeleteProviderAttributes";

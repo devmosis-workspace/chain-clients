@@ -24,8 +24,8 @@ export interface CertificateIDProtoMsg {
 }
 /** CertificateID stores owner and sequence number */
 export interface CertificateIDAmino {
-    owner: string;
-    serial: string;
+    owner?: string;
+    serial?: string;
 }
 export interface CertificateIDAminoMsg {
     type: "/akash.cert.v1beta2.CertificateID";
@@ -48,9 +48,9 @@ export interface CertificateProtoMsg {
 }
 /** Certificate stores state, certificate and it's public key */
 export interface CertificateAmino {
-    state: Certificate_State;
-    cert: Uint8Array;
-    pubkey: Uint8Array;
+    state?: Certificate_State;
+    cert?: string;
+    pubkey?: string;
 }
 export interface CertificateAminoMsg {
     type: "/akash.cert.v1beta2.Certificate";
@@ -74,9 +74,9 @@ export interface CertificateFilterProtoMsg {
 }
 /** CertificateFilter defines filters used to filter certificates */
 export interface CertificateFilterAmino {
-    owner: string;
-    serial: string;
-    state: string;
+    owner?: string;
+    serial?: string;
+    state?: string;
 }
 export interface CertificateFilterAminoMsg {
     type: "/akash.cert.v1beta2.CertificateFilter";
@@ -100,9 +100,9 @@ export interface MsgCreateCertificateProtoMsg {
 }
 /** MsgCreateCertificate defines an SDK message for creating certificate */
 export interface MsgCreateCertificateAmino {
-    owner: string;
-    cert: Uint8Array;
-    pubkey: Uint8Array;
+    owner?: string;
+    cert?: string;
+    pubkey?: string;
 }
 export interface MsgCreateCertificateAminoMsg {
     type: "/akash.cert.v1beta2.MsgCreateCertificate";

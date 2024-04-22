@@ -13,9 +13,9 @@ export interface GroupSpecProtoMsg {
 }
 /** GroupSpec stores group specifications */
 export interface GroupSpecAmino {
-    name: string;
+    name?: string;
     requirements?: PlacementRequirementsAmino;
-    resources: ResourceAmino[];
+    resources?: ResourceAmino[];
 }
 export interface GroupSpecAminoMsg {
     type: "/akash.deployment.v1beta2.GroupSpec";

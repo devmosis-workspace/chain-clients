@@ -1,0 +1,170 @@
+import { GroupID, GroupIDAmino, GroupIDSDKType } from "./groupid";
+import { GroupSpec, GroupSpecAmino, GroupSpecSDKType } from "./groupspec";
+import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
+/** State is an enum which refers to state of group */
+export enum Group_State {
+  /** invalid - Prefix should start with 0 in enum. So declaring dummy state */
+  invalid = 0,
+  /** open - GroupOpen denotes state for group open */
+  open = 1,
+  /** paused - GroupOrdered denotes state for group ordered */
+  paused = 2,
+  /** insufficient_funds - GroupInsufficientFunds denotes state for group insufficient_funds */
+  insufficient_funds = 3,
+  /** closed - GroupClosed denotes state for group closed */
+  closed = 4,
+  UNRECOGNIZED = -1,
+}
+export const Group_StateSDKType = Group_State;
+export const Group_StateAmino = Group_State;
+export function group_StateFromJSON(object: any): Group_State {
+  switch (object) {
+    case 0:
+    case "invalid":
+      return Group_State.invalid;
+    case 1:
+    case "open":
+      return Group_State.open;
+    case 2:
+    case "paused":
+      return Group_State.paused;
+    case 3:
+    case "insufficient_funds":
+      return Group_State.insufficient_funds;
+    case 4:
+    case "closed":
+      return Group_State.closed;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return Group_State.UNRECOGNIZED;
+  }
+}
+export function group_StateToJSON(object: Group_State): string {
+  switch (object) {
+    case Group_State.invalid:
+      return "invalid";
+    case Group_State.open:
+      return "open";
+    case Group_State.paused:
+      return "paused";
+    case Group_State.insufficient_funds:
+      return "insufficient_funds";
+    case Group_State.closed:
+      return "closed";
+    case Group_State.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+/** Group stores group id, state and specifications of group */
+export interface Group {
+  groupId: GroupID;
+  state: Group_State;
+  groupSpec: GroupSpec;
+  createdAt: bigint;
+}
+export interface GroupProtoMsg {
+  typeUrl: "/akash.deployment.v1beta3.Group";
+  value: Uint8Array;
+}
+/** Group stores group id, state and specifications of group */
+export interface GroupAmino {
+  group_id?: GroupIDAmino;
+  state?: Group_State;
+  group_spec?: GroupSpecAmino;
+  created_at?: string;
+}
+export interface GroupAminoMsg {
+  type: "/akash.deployment.v1beta3.Group";
+  value: GroupAmino;
+}
+/** Group stores group id, state and specifications of group */
+export interface GroupSDKType {
+  group_id: GroupIDSDKType;
+  state: Group_State;
+  group_spec: GroupSpecSDKType;
+  created_at: bigint;
+}
+function createBaseGroup(): Group {
+  return {
+    groupId: GroupID.fromPartial({}),
+    state: 0,
+    groupSpec: GroupSpec.fromPartial({}),
+    createdAt: BigInt(0)
+  };
+}
+export const Group = {
+  typeUrl: "/akash.deployment.v1beta3.Group",
+  encode(message: Group, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.groupId !== undefined) {
+      GroupID.encode(message.groupId, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.state !== 0) {
+      writer.uint32(16).int32(message.state);
+    }
+    if (message.groupSpec !== undefined) {
+      GroupSpec.encode(message.groupSpec, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.createdAt !== BigInt(0)) {
+      writer.uint32(32).int64(message.createdAt);
+    }
+    return writer;
+  },
+  fromJSON(object: any): Group {
+    return {
+      groupId: isSet(object.groupId) ? GroupID.fromJSON(object.groupId) : undefined,
+      state: isSet(object.state) ? group_StateFromJSON(object.state) : -1,
+      groupSpec: isSet(object.groupSpec) ? GroupSpec.fromJSON(object.groupSpec) : undefined,
+      createdAt: isSet(object.createdAt) ? BigInt(object.createdAt.toString()) : BigInt(0)
+    };
+  },
+  fromPartial(object: Partial<Group>): Group {
+    const message = createBaseGroup();
+    message.groupId = object.groupId !== undefined && object.groupId !== null ? GroupID.fromPartial(object.groupId) : undefined;
+    message.state = object.state ?? 0;
+    message.groupSpec = object.groupSpec !== undefined && object.groupSpec !== null ? GroupSpec.fromPartial(object.groupSpec) : undefined;
+    message.createdAt = object.createdAt !== undefined && object.createdAt !== null ? BigInt(object.createdAt.toString()) : BigInt(0);
+    return message;
+  },
+  fromAmino(object: GroupAmino): Group {
+    const message = createBaseGroup();
+    if (object.group_id !== undefined && object.group_id !== null) {
+      message.groupId = GroupID.fromAmino(object.group_id);
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = group_StateFromJSON(object.state);
+    }
+    if (object.group_spec !== undefined && object.group_spec !== null) {
+      message.groupSpec = GroupSpec.fromAmino(object.group_spec);
+    }
+    if (object.created_at !== undefined && object.created_at !== null) {
+      message.createdAt = BigInt(object.created_at);
+    }
+    return message;
+  },
+  toAmino(message: Group): GroupAmino {
+    const obj: any = {};
+    obj.group_id = message.groupId ? GroupID.toAmino(message.groupId) : undefined;
+    obj.state = message.state;
+    obj.group_spec = message.groupSpec ? GroupSpec.toAmino(message.groupSpec) : undefined;
+    obj.created_at = message.createdAt ? message.createdAt.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GroupAminoMsg): Group {
+    return Group.fromAmino(object.value);
+  },
+  fromProtoMsg(message: GroupProtoMsg): Group {
+    return Group.decode(message.value);
+  },
+  toProto(message: Group): Uint8Array {
+    return Group.encode(message).finish();
+  },
+  toProtoMsg(message: Group): GroupProtoMsg {
+    return {
+      typeUrl: "/akash.deployment.v1beta3.Group",
+      value: Group.encode(message).finish()
+    };
+  }
+};

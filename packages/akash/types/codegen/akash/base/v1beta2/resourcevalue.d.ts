@@ -9,7 +9,7 @@ export interface ResourceValueProtoMsg {
 }
 /** Unit stores cpu, memory and storage metrics */
 export interface ResourceValueAmino {
-    val: Uint8Array;
+    val?: string;
 }
 export interface ResourceValueAminoMsg {
     type: "/akash.base.v1beta2.ResourceValue";

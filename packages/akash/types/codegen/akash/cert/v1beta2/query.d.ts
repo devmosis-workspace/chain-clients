@@ -13,7 +13,7 @@ export interface CertificateResponseProtoMsg {
 /** CertificateResponse contains a single X509 certificate and its serial number */
 export interface CertificateResponseAmino {
     certificate?: CertificateAmino;
-    serial: string;
+    serial?: string;
 }
 export interface CertificateResponseAminoMsg {
     type: "/akash.cert.v1beta2.CertificateResponse";
@@ -27,7 +27,7 @@ export interface CertificateResponseSDKType {
 /** QueryDeploymentsRequest is request type for the Query/Deployments RPC method */
 export interface QueryCertificatesRequest {
     filter: CertificateFilter;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryCertificatesRequestProtoMsg {
     typeUrl: "/akash.cert.v1beta2.QueryCertificatesRequest";
@@ -45,12 +45,12 @@ export interface QueryCertificatesRequestAminoMsg {
 /** QueryDeploymentsRequest is request type for the Query/Deployments RPC method */
 export interface QueryCertificatesRequestSDKType {
     filter: CertificateFilterSDKType;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryCertificatesResponse is response type for the Query/Certificates RPC method */
 export interface QueryCertificatesResponse {
     certificates: CertificateResponse[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryCertificatesResponseProtoMsg {
     typeUrl: "/akash.cert.v1beta2.QueryCertificatesResponse";
@@ -58,7 +58,7 @@ export interface QueryCertificatesResponseProtoMsg {
 }
 /** QueryCertificatesResponse is response type for the Query/Certificates RPC method */
 export interface QueryCertificatesResponseAmino {
-    certificates: CertificateResponseAmino[];
+    certificates?: CertificateResponseAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryCertificatesResponseAminoMsg {
@@ -68,7 +68,7 @@ export interface QueryCertificatesResponseAminoMsg {
 /** QueryCertificatesResponse is response type for the Query/Certificates RPC method */
 export interface QueryCertificatesResponseSDKType {
     certificates: CertificateResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export declare const CertificateResponse: {
     typeUrl: string;

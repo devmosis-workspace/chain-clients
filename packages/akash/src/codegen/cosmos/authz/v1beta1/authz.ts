@@ -1,5 +1,14 @@
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { DepositDeploymentAuthorization as DepositDeploymentAuthorization1 } from "../../../akash/deployment/v1beta1/authz";
+import { DepositDeploymentAuthorizationProtoMsg as DepositDeploymentAuthorization1ProtoMsg } from "../../../akash/deployment/v1beta1/authz";
+import { DepositDeploymentAuthorizationSDKType as DepositDeploymentAuthorization1SDKType } from "../../../akash/deployment/v1beta1/authz";
+import { DepositDeploymentAuthorization as DepositDeploymentAuthorization2 } from "../../../akash/deployment/v1beta2/authz";
+import { DepositDeploymentAuthorizationProtoMsg as DepositDeploymentAuthorization2ProtoMsg } from "../../../akash/deployment/v1beta2/authz";
+import { DepositDeploymentAuthorizationSDKType as DepositDeploymentAuthorization2SDKType } from "../../../akash/deployment/v1beta2/authz";
+import { DepositDeploymentAuthorization as DepositDeploymentAuthorization3 } from "../../../akash/deployment/v1beta3/authz";
+import { DepositDeploymentAuthorizationProtoMsg as DepositDeploymentAuthorization3ProtoMsg } from "../../../akash/deployment/v1beta3/authz";
+import { DepositDeploymentAuthorizationSDKType as DepositDeploymentAuthorization3SDKType } from "../../../akash/deployment/v1beta3/authz";
 import { SendAuthorization, SendAuthorizationProtoMsg, SendAuthorizationSDKType } from "../../bank/v1beta1/authz";
 import { StakeAuthorization, StakeAuthorizationProtoMsg, StakeAuthorizationSDKType } from "../../staking/v1beta1/authz";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -42,7 +51,7 @@ export interface GenericAuthorizationSDKType {
  * the provide method with expiration time.
  */
 export interface Grant {
-  authorization?: (GenericAuthorization & SendAuthorization & StakeAuthorization & Any) | undefined;
+  authorization?: (GenericAuthorization & DepositDeploymentAuthorization1 & DepositDeploymentAuthorization2 & DepositDeploymentAuthorization3 & SendAuthorization & StakeAuthorization & Any) | undefined;
   expiration: Timestamp;
 }
 export interface GrantProtoMsg {
@@ -50,7 +59,7 @@ export interface GrantProtoMsg {
   value: Uint8Array;
 }
 export type GrantEncoded = Omit<Grant, "authorization"> & {
-  authorization?: GenericAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
+  authorization?: GenericAuthorizationProtoMsg | DepositDeploymentAuthorization1ProtoMsg | DepositDeploymentAuthorization2ProtoMsg | DepositDeploymentAuthorization3ProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * Grant gives permissions to execute
@@ -69,7 +78,7 @@ export interface GrantAminoMsg {
  * the provide method with expiration time.
  */
 export interface GrantSDKType {
-  authorization?: GenericAuthorizationSDKType | SendAuthorizationSDKType | StakeAuthorizationSDKType | AnySDKType | undefined;
+  authorization?: GenericAuthorizationSDKType | DepositDeploymentAuthorization1SDKType | DepositDeploymentAuthorization2SDKType | DepositDeploymentAuthorization3SDKType | SendAuthorizationSDKType | StakeAuthorizationSDKType | AnySDKType | undefined;
   expiration: TimestampSDKType;
 }
 /**
@@ -81,7 +90,7 @@ export interface GrantSDKType {
 export interface GrantAuthorization {
   granter: string;
   grantee: string;
-  authorization?: (GenericAuthorization & SendAuthorization & StakeAuthorization & Any) | undefined;
+  authorization?: (GenericAuthorization & DepositDeploymentAuthorization1 & DepositDeploymentAuthorization2 & DepositDeploymentAuthorization3 & SendAuthorization & StakeAuthorization & Any) | undefined;
   expiration: Timestamp;
 }
 export interface GrantAuthorizationProtoMsg {
@@ -89,7 +98,7 @@ export interface GrantAuthorizationProtoMsg {
   value: Uint8Array;
 }
 export type GrantAuthorizationEncoded = Omit<GrantAuthorization, "authorization"> & {
-  authorization?: GenericAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
+  authorization?: GenericAuthorizationProtoMsg | DepositDeploymentAuthorization1ProtoMsg | DepositDeploymentAuthorization2ProtoMsg | DepositDeploymentAuthorization3ProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * GrantAuthorization extends a grant with both the addresses of the grantee and granter.
@@ -116,7 +125,7 @@ export interface GrantAuthorizationAminoMsg {
 export interface GrantAuthorizationSDKType {
   granter: string;
   grantee: string;
-  authorization?: GenericAuthorizationSDKType | SendAuthorizationSDKType | StakeAuthorizationSDKType | AnySDKType | undefined;
+  authorization?: GenericAuthorizationSDKType | DepositDeploymentAuthorization1SDKType | DepositDeploymentAuthorization2SDKType | DepositDeploymentAuthorization3SDKType | SendAuthorizationSDKType | StakeAuthorizationSDKType | AnySDKType | undefined;
   expiration: TimestampSDKType;
 }
 function createBaseGenericAuthorization(): GenericAuthorization {
@@ -331,10 +340,16 @@ export const GrantAuthorization = {
     };
   }
 };
-export const Authorization_InterfaceDecoder = (input: BinaryReader | Uint8Array): GenericAuthorization | SendAuthorization | StakeAuthorization | Any => {
+export const Authorization_InterfaceDecoder = (input: BinaryReader | Uint8Array): DepositDeploymentAuthorization1 | DepositDeploymentAuthorization2 | DepositDeploymentAuthorization3 | GenericAuthorization | SendAuthorization | StakeAuthorization | Any => {
   const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
   const data = Any.decode(reader, reader.uint32());
   switch (data.typeUrl) {
+    case "/akash.deployment.v1beta1.DepositDeploymentAuthorization":
+      return DepositDeploymentAuthorization1.decode(data.value);
+    case "/akash.deployment.v1beta2.DepositDeploymentAuthorization":
+      return DepositDeploymentAuthorization2.decode(data.value);
+    case "/akash.deployment.v1beta3.DepositDeploymentAuthorization":
+      return DepositDeploymentAuthorization3.decode(data.value);
     case "/cosmos.authz.v1beta1.GenericAuthorization":
       return GenericAuthorization.decode(data.value);
     case "/cosmos.bank.v1beta1.SendAuthorization":
@@ -347,6 +362,21 @@ export const Authorization_InterfaceDecoder = (input: BinaryReader | Uint8Array)
 };
 export const Authorization_FromAmino = (content: AnyAmino) => {
   switch (content.type) {
+    case "/akash.deployment.v1beta1.DepositDeploymentAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/akash.deployment.v1beta1.DepositDeploymentAuthorization",
+        value: DepositDeploymentAuthorization1.encode(DepositDeploymentAuthorization1.fromPartial(DepositDeploymentAuthorization1.fromAmino(content.value))).finish()
+      });
+    case "/akash.deployment.v1beta2.DepositDeploymentAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/akash.deployment.v1beta2.DepositDeploymentAuthorization",
+        value: DepositDeploymentAuthorization2.encode(DepositDeploymentAuthorization2.fromPartial(DepositDeploymentAuthorization2.fromAmino(content.value))).finish()
+      });
+    case "/akash.deployment.v1beta3.DepositDeploymentAuthorization":
+      return Any.fromPartial({
+        typeUrl: "/akash.deployment.v1beta3.DepositDeploymentAuthorization",
+        value: DepositDeploymentAuthorization3.encode(DepositDeploymentAuthorization3.fromPartial(DepositDeploymentAuthorization3.fromAmino(content.value))).finish()
+      });
     case "cosmos-sdk/GenericAuthorization":
       return Any.fromPartial({
         typeUrl: "/cosmos.authz.v1beta1.GenericAuthorization",
@@ -368,6 +398,21 @@ export const Authorization_FromAmino = (content: AnyAmino) => {
 };
 export const Authorization_ToAmino = (content: Any) => {
   switch (content.typeUrl) {
+    case "/akash.deployment.v1beta1.DepositDeploymentAuthorization":
+      return {
+        type: "/akash.deployment.v1beta1.DepositDeploymentAuthorization",
+        value: DepositDeploymentAuthorization1.toAmino(DepositDeploymentAuthorization1.decode(content.value, undefined))
+      };
+    case "/akash.deployment.v1beta2.DepositDeploymentAuthorization":
+      return {
+        type: "/akash.deployment.v1beta2.DepositDeploymentAuthorization",
+        value: DepositDeploymentAuthorization2.toAmino(DepositDeploymentAuthorization2.decode(content.value, undefined))
+      };
+    case "/akash.deployment.v1beta3.DepositDeploymentAuthorization":
+      return {
+        type: "/akash.deployment.v1beta3.DepositDeploymentAuthorization",
+        value: DepositDeploymentAuthorization3.toAmino(DepositDeploymentAuthorization3.decode(content.value, undefined))
+      };
     case "/cosmos.authz.v1beta1.GenericAuthorization":
       return {
         type: "cosmos-sdk/GenericAuthorization",

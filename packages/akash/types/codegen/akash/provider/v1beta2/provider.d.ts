@@ -11,8 +11,8 @@ export interface ProviderInfoProtoMsg {
 }
 /** ProviderInfo */
 export interface ProviderInfoAmino {
-    email: string;
-    website: string;
+    email?: string;
+    website?: string;
 }
 export interface ProviderInfoAminoMsg {
     type: "/akash.provider.v1beta2.ProviderInfo";
@@ -36,9 +36,9 @@ export interface MsgCreateProviderProtoMsg {
 }
 /** MsgCreateProvider defines an SDK message for creating a provider */
 export interface MsgCreateProviderAmino {
-    owner: string;
-    host_uri: string;
-    attributes: AttributeAmino[];
+    owner?: string;
+    host_uri?: string;
+    attributes?: AttributeAmino[];
     info?: ProviderInfoAmino;
 }
 export interface MsgCreateProviderAminoMsg {
@@ -82,9 +82,9 @@ export interface MsgUpdateProviderProtoMsg {
 }
 /** MsgUpdateProvider defines an SDK message for updating a provider */
 export interface MsgUpdateProviderAmino {
-    owner: string;
-    host_uri: string;
-    attributes: AttributeAmino[];
+    owner?: string;
+    host_uri?: string;
+    attributes?: AttributeAmino[];
     info?: ProviderInfoAmino;
 }
 export interface MsgUpdateProviderAminoMsg {
@@ -125,7 +125,7 @@ export interface MsgDeleteProviderProtoMsg {
 }
 /** MsgDeleteProvider defines an SDK message for deleting a provider */
 export interface MsgDeleteProviderAmino {
-    owner: string;
+    owner?: string;
 }
 export interface MsgDeleteProviderAminoMsg {
     type: "/akash.provider.v1beta2.MsgDeleteProvider";
@@ -165,9 +165,9 @@ export interface ProviderProtoMsg {
 }
 /** Provider stores owner and host details */
 export interface ProviderAmino {
-    owner: string;
-    host_uri: string;
-    attributes: AttributeAmino[];
+    owner?: string;
+    host_uri?: string;
+    attributes?: AttributeAmino[];
     info?: ProviderInfoAmino;
 }
 export interface ProviderAminoMsg {

@@ -3,7 +3,7 @@ import { Provider, ProviderAmino, ProviderSDKType } from "./provider";
 import { BinaryWriter } from "../../../binary";
 /** QueryProvidersRequest is request type for the Query/Providers RPC method */
 export interface QueryProvidersRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryProvidersRequestProtoMsg {
     typeUrl: "/akash.provider.v1beta2.QueryProvidersRequest";
@@ -19,12 +19,12 @@ export interface QueryProvidersRequestAminoMsg {
 }
 /** QueryProvidersRequest is request type for the Query/Providers RPC method */
 export interface QueryProvidersRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryProvidersResponse is response type for the Query/Providers RPC method */
 export interface QueryProvidersResponse {
     providers: Provider[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryProvidersResponseProtoMsg {
     typeUrl: "/akash.provider.v1beta2.QueryProvidersResponse";
@@ -32,7 +32,7 @@ export interface QueryProvidersResponseProtoMsg {
 }
 /** QueryProvidersResponse is response type for the Query/Providers RPC method */
 export interface QueryProvidersResponseAmino {
-    providers: ProviderAmino[];
+    providers?: ProviderAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryProvidersResponseAminoMsg {
@@ -42,7 +42,7 @@ export interface QueryProvidersResponseAminoMsg {
 /** QueryProvidersResponse is response type for the Query/Providers RPC method */
 export interface QueryProvidersResponseSDKType {
     providers: ProviderSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryProviderRequest is request type for the Query/Provider RPC method */
 export interface QueryProviderRequest {
@@ -54,7 +54,7 @@ export interface QueryProviderRequestProtoMsg {
 }
 /** QueryProviderRequest is request type for the Query/Provider RPC method */
 export interface QueryProviderRequestAmino {
-    owner: string;
+    owner?: string;
 }
 export interface QueryProviderRequestAminoMsg {
     type: "/akash.provider.v1beta2.QueryProviderRequest";

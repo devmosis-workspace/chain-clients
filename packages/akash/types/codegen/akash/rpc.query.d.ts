@@ -10,10 +10,19 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 providerAuditorAttributes(request: import("./audit/v1beta2/query").QueryProviderAuditorRequest): Promise<import("./audit/v1beta2/query").QueryProvidersResponse>;
                 auditorAttributes(request: import("./audit/v1beta2/query").QueryAuditorAttributesRequest): Promise<import("./audit/v1beta2/query").QueryProvidersResponse>;
             };
+            v1beta3: {
+                allProvidersAttributes(request?: import("./audit/v1beta3/query").QueryAllProvidersAttributesRequest): Promise<import("./audit/v1beta3/query").QueryProvidersResponse>;
+                providerAttributes(request: import("./audit/v1beta3/query").QueryProviderAttributesRequest): Promise<import("./audit/v1beta3/query").QueryProvidersResponse>;
+                providerAuditorAttributes(request: import("./audit/v1beta3/query").QueryProviderAuditorRequest): Promise<import("./audit/v1beta3/query").QueryProvidersResponse>;
+                auditorAttributes(request: import("./audit/v1beta3/query").QueryAuditorAttributesRequest): Promise<import("./audit/v1beta3/query").QueryProvidersResponse>;
+            };
         };
         cert: {
             v1beta2: {
                 certificates(request: import("./cert/v1beta2/query").QueryCertificatesRequest): Promise<import("./cert/v1beta2/query").QueryCertificatesResponse>;
+            };
+            v1beta3: {
+                certificates(request: import("./cert/v1beta3/query").QueryCertificatesRequest): Promise<import("./cert/v1beta3/query").QueryCertificatesResponse>;
             };
         };
         deployment: {
@@ -27,6 +36,11 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 deployment(request: import("./deployment/v1beta2/query").QueryDeploymentRequest): Promise<import("./deployment/v1beta2/query").QueryDeploymentResponse>;
                 group(request: import("./deployment/v1beta2/query").QueryGroupRequest): Promise<import("./deployment/v1beta2/query").QueryGroupResponse>;
             };
+            v1beta3: {
+                deployments(request: import("./deployment/v1beta3/query").QueryDeploymentsRequest): Promise<import("./deployment/v1beta3/query").QueryDeploymentsResponse>;
+                deployment(request: import("./deployment/v1beta3/query").QueryDeploymentRequest): Promise<import("./deployment/v1beta3/query").QueryDeploymentResponse>;
+                group(request: import("./deployment/v1beta3/query").QueryGroupRequest): Promise<import("./deployment/v1beta3/query").QueryGroupResponse>;
+            };
         };
         escrow: {
             v1beta1: {
@@ -36,6 +50,10 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
             v1beta2: {
                 accounts(request: import("./escrow/v1beta2/query").QueryAccountsRequest): Promise<import("./escrow/v1beta2/query").QueryAccountsResponse>;
                 payments(request: import("./escrow/v1beta2/query").QueryPaymentsRequest): Promise<import("./escrow/v1beta2/query").QueryPaymentsResponse>;
+            };
+            v1beta3: {
+                accounts(request: import("./escrow/v1beta3/query").QueryAccountsRequest): Promise<import("./escrow/v1beta3/query").QueryAccountsResponse>;
+                payments(request: import("./escrow/v1beta3/query").QueryPaymentsRequest): Promise<import("./escrow/v1beta3/query").QueryPaymentsResponse>;
             };
         };
         market: {
@@ -47,12 +65,35 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 leases(request: import("./market/v1beta2/query").QueryLeasesRequest): Promise<import("./market/v1beta2/query").QueryLeasesResponse>;
                 lease(request: import("./market/v1beta2/query").QueryLeaseRequest): Promise<import("./market/v1beta2/query").QueryLeaseResponse>;
             };
+            v1beta3: {
+                orders(request: import("./market/v1beta3/query").QueryOrdersRequest): Promise<import("./market/v1beta3/query").QueryOrdersResponse>;
+                order(request: import("./market/v1beta3/query").QueryOrderRequest): Promise<import("./market/v1beta3/query").QueryOrderResponse>;
+                bids(request: import("./market/v1beta3/query").QueryBidsRequest): Promise<import("./market/v1beta3/query").QueryBidsResponse>;
+                bid(request: import("./market/v1beta3/query").QueryBidRequest): Promise<import("./market/v1beta3/query").QueryBidResponse>;
+                leases(request: import("./market/v1beta3/query").QueryLeasesRequest): Promise<import("./market/v1beta3/query").QueryLeasesResponse>;
+                lease(request: import("./market/v1beta3/query").QueryLeaseRequest): Promise<import("./market/v1beta3/query").QueryLeaseResponse>;
+            };
+            v1beta4: {
+                orders(request: import("./market/v1beta4/query").QueryOrdersRequest): Promise<import("./market/v1beta4/query").QueryOrdersResponse>;
+                order(request: import("./market/v1beta4/query").QueryOrderRequest): Promise<import("./market/v1beta4/query").QueryOrderResponse>;
+                bids(request: import("./market/v1beta4/query").QueryBidsRequest): Promise<import("./market/v1beta4/query").QueryBidsResponse>;
+                bid(request: import("./market/v1beta4/query").QueryBidRequest): Promise<import("./market/v1beta4/query").QueryBidResponse>;
+                leases(request: import("./market/v1beta4/query").QueryLeasesRequest): Promise<import("./market/v1beta4/query").QueryLeasesResponse>;
+                lease(request: import("./market/v1beta4/query").QueryLeaseRequest): Promise<import("./market/v1beta4/query").QueryLeaseResponse>;
+            };
         };
         provider: {
             v1beta2: {
                 providers(request?: import("./provider/v1beta2/query").QueryProvidersRequest): Promise<import("./provider/v1beta2/query").QueryProvidersResponse>;
                 provider(request: import("./provider/v1beta2/query").QueryProviderRequest): Promise<import("./provider/v1beta2/query").QueryProviderResponse>;
             };
+            v1beta3: {
+                providers(request?: import("./provider/v1beta3/query").QueryProvidersRequest): Promise<import("./provider/v1beta3/query").QueryProvidersResponse>;
+                provider(request: import("./provider/v1beta3/query").QueryProviderRequest): Promise<import("./provider/v1beta3/query").QueryProviderResponse>;
+            };
+        };
+        take: {
+            v1beta3: {};
         };
     };
     cosmos: {
@@ -61,6 +102,7 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 accounts(request?: import("../cosmos/auth/v1beta1/query").QueryAccountsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountsResponse>;
                 account(request: import("../cosmos/auth/v1beta1/query").QueryAccountRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountResponse>;
                 params(request?: import("../cosmos/auth/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryParamsResponse>;
+                moduleAccountByName(request: import("../cosmos/auth/v1beta1/query").QueryModuleAccountByNameRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryModuleAccountByNameResponse>;
             };
         };
         authz: {
@@ -83,6 +125,11 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
             };
         };
         base: {
+            node: {
+                v1beta1: {
+                    config(request?: import("../cosmos/base/node/v1beta1/query").ConfigRequest): Promise<import("../cosmos/base/node/v1beta1/query").ConfigResponse>;
+                };
+            };
             tendermint: {
                 v1beta1: {
                     getNodeInfo(request?: import("../cosmos/base/tendermint/v1beta1/query").GetNodeInfoRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetNodeInfoResponse>;

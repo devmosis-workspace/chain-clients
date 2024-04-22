@@ -6,20 +6,26 @@ export declare const createRPCMsgClient: ({ rpc }: {
         audit: {
             v1beta1: import("./audit/v1beta1/audit.rpc.msg").MsgClientImpl;
             v1beta2: import("./audit/v1beta2/audit.rpc.msg").MsgClientImpl;
+            v1beta3: import("./audit/v1beta3/audit.rpc.msg").MsgClientImpl;
         };
         cert: {
             v1beta2: import("./cert/v1beta2/cert.rpc.msg").MsgClientImpl;
+            v1beta3: import("./cert/v1beta3/cert.rpc.msg").MsgClientImpl;
         };
         deployment: {
             v1beta1: import("./deployment/v1beta1/deployment.rpc.msg").MsgClientImpl;
             v1beta2: import("./deployment/v1beta2/service.rpc.msg").MsgClientImpl;
+            v1beta3: import("./deployment/v1beta3/service.rpc.msg").MsgClientImpl;
         };
         market: {
             v1beta2: import("./market/v1beta2/service.rpc.msg").MsgClientImpl;
+            v1beta3: import("./market/v1beta3/service.rpc.msg").MsgClientImpl;
+            v1beta4: import("./market/v1beta4/service.rpc.msg").MsgClientImpl;
         };
         provider: {
             v1beta1: import("./provider/v1beta1/provider.rpc.msg").MsgClientImpl;
             v1beta2: import("./provider/v1beta2/provider.rpc.msg").MsgClientImpl;
+            v1beta3: import("./provider/v1beta3/provider.rpc.msg").MsgClientImpl;
         };
     };
     cosmos: {

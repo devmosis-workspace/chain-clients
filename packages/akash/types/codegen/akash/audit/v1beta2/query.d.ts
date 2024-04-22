@@ -4,7 +4,7 @@ import { BinaryWriter } from "../../../binary";
 /** QueryProvidersResponse is response type for the Query/Providers RPC method */
 export interface QueryProvidersResponse {
     providers: Provider[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryProvidersResponseProtoMsg {
     typeUrl: "/akash.audit.v1beta2.QueryProvidersResponse";
@@ -12,7 +12,7 @@ export interface QueryProvidersResponseProtoMsg {
 }
 /** QueryProvidersResponse is response type for the Query/Providers RPC method */
 export interface QueryProvidersResponseAmino {
-    providers: ProviderAmino[];
+    providers?: ProviderAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryProvidersResponseAminoMsg {
@@ -22,7 +22,7 @@ export interface QueryProvidersResponseAminoMsg {
 /** QueryProvidersResponse is response type for the Query/Providers RPC method */
 export interface QueryProvidersResponseSDKType {
     providers: ProviderSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryProviderRequest is request type for the Query/Provider RPC method */
 export interface QueryProviderRequest {
@@ -35,8 +35,8 @@ export interface QueryProviderRequestProtoMsg {
 }
 /** QueryProviderRequest is request type for the Query/Provider RPC method */
 export interface QueryProviderRequestAmino {
-    auditor: string;
-    owner: string;
+    auditor?: string;
+    owner?: string;
 }
 export interface QueryProviderRequestAminoMsg {
     type: "/akash.audit.v1beta2.QueryProviderRequest";
@@ -49,7 +49,7 @@ export interface QueryProviderRequestSDKType {
 }
 /** QueryAllProvidersAttributesRequest is request type for the Query/All Providers RPC method */
 export interface QueryAllProvidersAttributesRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAllProvidersAttributesRequestProtoMsg {
     typeUrl: "/akash.audit.v1beta2.QueryAllProvidersAttributesRequest";
@@ -65,12 +65,12 @@ export interface QueryAllProvidersAttributesRequestAminoMsg {
 }
 /** QueryAllProvidersAttributesRequest is request type for the Query/All Providers RPC method */
 export interface QueryAllProvidersAttributesRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryProviderAttributesRequest is request type for the Query/Provider RPC method */
 export interface QueryProviderAttributesRequest {
     owner: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryProviderAttributesRequestProtoMsg {
     typeUrl: "/akash.audit.v1beta2.QueryProviderAttributesRequest";
@@ -78,7 +78,7 @@ export interface QueryProviderAttributesRequestProtoMsg {
 }
 /** QueryProviderAttributesRequest is request type for the Query/Provider RPC method */
 export interface QueryProviderAttributesRequestAmino {
-    owner: string;
+    owner?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryProviderAttributesRequestAminoMsg {
@@ -88,7 +88,7 @@ export interface QueryProviderAttributesRequestAminoMsg {
 /** QueryProviderAttributesRequest is request type for the Query/Provider RPC method */
 export interface QueryProviderAttributesRequestSDKType {
     owner: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryProviderAuditorRequest is request type for the Query/Providers RPC method */
 export interface QueryProviderAuditorRequest {
@@ -101,8 +101,8 @@ export interface QueryProviderAuditorRequestProtoMsg {
 }
 /** QueryProviderAuditorRequest is request type for the Query/Providers RPC method */
 export interface QueryProviderAuditorRequestAmino {
-    auditor: string;
-    owner: string;
+    auditor?: string;
+    owner?: string;
 }
 export interface QueryProviderAuditorRequestAminoMsg {
     type: "/akash.audit.v1beta2.QueryProviderAuditorRequest";
@@ -116,7 +116,7 @@ export interface QueryProviderAuditorRequestSDKType {
 /** QueryAuditorAttributesRequest is request type for the Query/Providers RPC method */
 export interface QueryAuditorAttributesRequest {
     auditor: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAuditorAttributesRequestProtoMsg {
     typeUrl: "/akash.audit.v1beta2.QueryAuditorAttributesRequest";
@@ -124,7 +124,7 @@ export interface QueryAuditorAttributesRequestProtoMsg {
 }
 /** QueryAuditorAttributesRequest is request type for the Query/Providers RPC method */
 export interface QueryAuditorAttributesRequestAmino {
-    auditor: string;
+    auditor?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryAuditorAttributesRequestAminoMsg {
@@ -134,7 +134,7 @@ export interface QueryAuditorAttributesRequestAminoMsg {
 /** QueryAuditorAttributesRequest is request type for the Query/Providers RPC method */
 export interface QueryAuditorAttributesRequestSDKType {
     auditor: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export declare const QueryProvidersResponse: {
     typeUrl: string;
