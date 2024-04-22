@@ -12,10 +12,10 @@ export interface MsgDeliverInboundProtoMsg {
 }
 /** MsgDeliverInbound defines an SDK message for delivering an eventual send */
 export interface MsgDeliverInboundAmino {
-    messages: string[];
-    nums: string[];
-    ack: string;
-    submitter: Uint8Array;
+    messages?: string[];
+    nums?: string[];
+    ack?: string;
+    submitter?: string;
 }
 export interface MsgDeliverInboundAminoMsg {
     type: "/agoric.swingset.MsgDeliverInbound";
@@ -65,9 +65,9 @@ export interface MsgWalletActionProtoMsg {
  * message type is typically protected by feegrant budgets.
  */
 export interface MsgWalletActionAmino {
-    owner: Uint8Array;
+    owner?: string;
     /** The action to perform, as JSON-stringified marshalled data. */
-    action: string;
+    action?: string;
 }
 export interface MsgWalletActionAminoMsg {
     type: "/agoric.swingset.MsgWalletAction";
@@ -119,9 +119,9 @@ export interface MsgWalletSpendActionProtoMsg {
  * typically protected by explicit confirmation by the user.
  */
 export interface MsgWalletSpendActionAmino {
-    owner: Uint8Array;
+    owner?: string;
     /** The action to perform, as JSON-stringified marshalled data. */
-    spend_action: string;
+    spend_action?: string;
 }
 export interface MsgWalletSpendActionAminoMsg {
     type: "/agoric.swingset.MsgWalletSpendAction";
@@ -166,10 +166,10 @@ export interface MsgProvisionProtoMsg {
 }
 /** MsgProvision defines an SDK message for provisioning a client to the chain */
 export interface MsgProvisionAmino {
-    nickname: string;
-    address: Uint8Array;
-    power_flags: string[];
-    submitter: Uint8Array;
+    nickname?: string;
+    address?: string;
+    power_flags?: string[];
+    submitter?: string;
 }
 export interface MsgProvisionAminoMsg {
     type: "/agoric.swingset.MsgProvision";
@@ -217,15 +217,15 @@ export interface MsgInstallBundleProtoMsg {
 }
 /** MsgInstallBundle carries a signed bundle to SwingSet. */
 export interface MsgInstallBundleAmino {
-    bundle: string;
-    submitter: Uint8Array;
+    bundle?: string;
+    submitter?: string;
     /**
      * Either bundle or compressed_bundle will be set.
      * Default compression algorithm is gzip.
      */
-    compressed_bundle: Uint8Array;
+    compressed_bundle?: string;
     /** Size in bytes of uncompression of compressed_bundle. */
-    uncompressed_size: string;
+    uncompressed_size?: string;
 }
 export interface MsgInstallBundleAminoMsg {
     type: "/agoric.swingset.MsgInstallBundle";

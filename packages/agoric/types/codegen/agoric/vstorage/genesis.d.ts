@@ -9,7 +9,7 @@ export interface GenesisStateProtoMsg {
 }
 /** The initial or exported state. */
 export interface GenesisStateAmino {
-    data: DataEntryAmino[];
+    data?: DataEntryAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/agoric.vstorage.GenesisState";
@@ -44,8 +44,8 @@ export interface DataEntryAmino {
      * A "."-separated path with individual path elements matching
      * `[-_A-Za-z0-9]+`
      */
-    path: string;
-    value: string;
+    path?: string;
+    value?: string;
 }
 export interface DataEntryAminoMsg {
     type: "/agoric.vstorage.DataEntry";

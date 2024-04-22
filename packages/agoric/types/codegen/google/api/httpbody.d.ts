@@ -21,12 +21,15 @@ import { BinaryWriter } from "../../binary";
  *
  *       // The raw HTTP body is bound to this field.
  *       google.api.HttpBody http_body = 2;
+ *
  *     }
  *
  *     service ResourceService {
- *       rpc GetResource(GetResourceRequest) returns (google.api.HttpBody);
- *       rpc UpdateResource(google.api.HttpBody) returns
- *       (google.protobuf.Empty);
+ *       rpc GetResource(GetResourceRequest)
+ *         returns (google.api.HttpBody);
+ *       rpc UpdateResource(google.api.HttpBody)
+ *         returns (google.protobuf.Empty);
+ *
  *     }
  *
  * Example with streaming methods:
@@ -36,6 +39,7 @@ import { BinaryWriter } from "../../binary";
  *         returns (stream google.api.HttpBody);
  *       rpc UpdateCalendar(stream google.api.HttpBody)
  *         returns (stream google.api.HttpBody);
+ *
  *     }
  *
  * Use of this type only changes how the request and response bodies are
@@ -77,12 +81,15 @@ export interface HttpBodyProtoMsg {
  *
  *       // The raw HTTP body is bound to this field.
  *       google.api.HttpBody http_body = 2;
+ *
  *     }
  *
  *     service ResourceService {
- *       rpc GetResource(GetResourceRequest) returns (google.api.HttpBody);
- *       rpc UpdateResource(google.api.HttpBody) returns
- *       (google.protobuf.Empty);
+ *       rpc GetResource(GetResourceRequest)
+ *         returns (google.api.HttpBody);
+ *       rpc UpdateResource(google.api.HttpBody)
+ *         returns (google.protobuf.Empty);
+ *
  *     }
  *
  * Example with streaming methods:
@@ -92,6 +99,7 @@ export interface HttpBodyProtoMsg {
  *         returns (stream google.api.HttpBody);
  *       rpc UpdateCalendar(stream google.api.HttpBody)
  *         returns (stream google.api.HttpBody);
+ *
  *     }
  *
  * Use of this type only changes how the request and response bodies are
@@ -99,14 +107,14 @@ export interface HttpBodyProtoMsg {
  */
 export interface HttpBodyAmino {
     /** The HTTP Content-Type header value specifying the content type of the body. */
-    content_type: string;
+    content_type?: string;
     /** The HTTP request/response body as raw binary. */
-    data: Uint8Array;
+    data?: string;
     /**
      * Application specific response metadata. Must be set in the first response
      * for streaming APIs.
      */
-    extensions: AnyAmino[];
+    extensions?: AnyAmino[];
 }
 export interface HttpBodyAminoMsg {
     type: "/google.api.HttpBody";
@@ -133,12 +141,15 @@ export interface HttpBodyAminoMsg {
  *
  *       // The raw HTTP body is bound to this field.
  *       google.api.HttpBody http_body = 2;
+ *
  *     }
  *
  *     service ResourceService {
- *       rpc GetResource(GetResourceRequest) returns (google.api.HttpBody);
- *       rpc UpdateResource(google.api.HttpBody) returns
- *       (google.protobuf.Empty);
+ *       rpc GetResource(GetResourceRequest)
+ *         returns (google.api.HttpBody);
+ *       rpc UpdateResource(google.api.HttpBody)
+ *         returns (google.protobuf.Empty);
+ *
  *     }
  *
  * Example with streaming methods:
@@ -148,6 +159,7 @@ export interface HttpBodyAminoMsg {
  *         returns (stream google.api.HttpBody);
  *       rpc UpdateCalendar(stream google.api.HttpBody)
  *         returns (stream google.api.HttpBody);
+ *
  *     }
  *
  * Use of this type only changes how the request and response bodies are

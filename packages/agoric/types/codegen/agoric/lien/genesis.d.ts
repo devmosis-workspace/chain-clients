@@ -10,7 +10,7 @@ export interface GenesisStateProtoMsg {
 }
 /** The initial or exported state. */
 export interface GenesisStateAmino {
-    liens: AccountLienAmino[];
+    liens?: AccountLienAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/agoric.lien.GenesisState";
@@ -25,7 +25,7 @@ export interface AccountLien {
     /** Account address, bech32-encoded. */
     address: string;
     /** The liened amount. Should be nonzero. */
-    lien: Lien;
+    lien?: Lien;
 }
 export interface AccountLienProtoMsg {
     typeUrl: "/agoric.lien.AccountLien";
@@ -34,7 +34,7 @@ export interface AccountLienProtoMsg {
 /** The lien on a particular account */
 export interface AccountLienAmino {
     /** Account address, bech32-encoded. */
-    address: string;
+    address?: string;
     /** The liened amount. Should be nonzero. */
     lien?: LienAmino;
 }
@@ -45,7 +45,7 @@ export interface AccountLienAminoMsg {
 /** The lien on a particular account */
 export interface AccountLienSDKType {
     address: string;
-    lien: LienSDKType;
+    lien?: LienSDKType;
 }
 export declare const GenesisState: {
     typeUrl: string;

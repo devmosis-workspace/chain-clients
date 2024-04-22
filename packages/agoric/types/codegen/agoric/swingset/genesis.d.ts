@@ -4,6 +4,7 @@ import { BinaryWriter } from "../../binary";
 export interface GenesisState {
     params: Params;
     state: State;
+    swingStoreExportData: SwingStoreExportDataEntry[];
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/agoric.swingset.GenesisState";
@@ -13,6 +14,7 @@ export interface GenesisStateProtoMsg {
 export interface GenesisStateAmino {
     params?: ParamsAmino;
     state?: StateAmino;
+    swing_store_export_data?: SwingStoreExportDataEntryAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/agoric.swingset.GenesisState";
@@ -22,6 +24,30 @@ export interface GenesisStateAminoMsg {
 export interface GenesisStateSDKType {
     params: ParamsSDKType;
     state: StateSDKType;
+    swing_store_export_data: SwingStoreExportDataEntrySDKType[];
+}
+/** A SwingStore "export data" entry. */
+export interface SwingStoreExportDataEntry {
+    key: string;
+    value: string;
+}
+export interface SwingStoreExportDataEntryProtoMsg {
+    typeUrl: "/agoric.swingset.SwingStoreExportDataEntry";
+    value: Uint8Array;
+}
+/** A SwingStore "export data" entry. */
+export interface SwingStoreExportDataEntryAmino {
+    key?: string;
+    value?: string;
+}
+export interface SwingStoreExportDataEntryAminoMsg {
+    type: "/agoric.swingset.SwingStoreExportDataEntry";
+    value: SwingStoreExportDataEntryAmino;
+}
+/** A SwingStore "export data" entry. */
+export interface SwingStoreExportDataEntrySDKType {
+    key: string;
+    value: string;
 }
 export declare const GenesisState: {
     typeUrl: string;
@@ -34,4 +60,16 @@ export declare const GenesisState: {
     fromProtoMsg(message: GenesisStateProtoMsg): GenesisState;
     toProto(message: GenesisState): Uint8Array;
     toProtoMsg(message: GenesisState): GenesisStateProtoMsg;
+};
+export declare const SwingStoreExportDataEntry: {
+    typeUrl: string;
+    encode(message: SwingStoreExportDataEntry, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): SwingStoreExportDataEntry;
+    fromPartial(object: Partial<SwingStoreExportDataEntry>): SwingStoreExportDataEntry;
+    fromAmino(object: SwingStoreExportDataEntryAmino): SwingStoreExportDataEntry;
+    toAmino(message: SwingStoreExportDataEntry): SwingStoreExportDataEntryAmino;
+    fromAminoMsg(object: SwingStoreExportDataEntryAminoMsg): SwingStoreExportDataEntry;
+    fromProtoMsg(message: SwingStoreExportDataEntryProtoMsg): SwingStoreExportDataEntry;
+    toProto(message: SwingStoreExportDataEntry): Uint8Array;
+    toProtoMsg(message: SwingStoreExportDataEntry): SwingStoreExportDataEntryProtoMsg;
 };

@@ -12,7 +12,7 @@ export interface MsgSendPacketProtoMsg {
 /** MsgSendPacket is an SDK message for sending an outgoing IBC packet */
 export interface MsgSendPacketAmino {
     packet?: PacketAmino;
-    sender: Uint8Array;
+    sender?: string;
 }
 export interface MsgSendPacketAminoMsg {
     type: "/agoric.vibc.MsgSendPacket";

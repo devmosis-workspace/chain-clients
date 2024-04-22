@@ -24,13 +24,13 @@ export interface CoreEvalProposalProtoMsg {
  * See `agoric-sdk/packages/vats/src/core/eval.js`.
  */
 export interface CoreEvalProposalAmino {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     /**
      * Although evals are sequential, they may run concurrently, since they each
      * can return a Promise.
      */
-    evals: CoreEvalAmino[];
+    evals?: CoreEvalAmino[];
 }
 export interface CoreEvalProposalAminoMsg {
     type: "/agoric.swingset.CoreEvalProposal";
@@ -75,12 +75,12 @@ export interface CoreEvalAmino {
      * Grant these JSON-stringified core bootstrap permits to the jsCode, as the
      * `powers` endowment.
      */
-    json_permits: string;
+    json_permits?: string;
     /**
      * Evaluate this JavaScript code in a Compartment endowed with `powers` as
      * well as some powerless helpers.
      */
-    js_code: string;
+    js_code?: string;
 }
 export interface CoreEvalAminoMsg {
     type: "/agoric.swingset.CoreEval";
@@ -156,27 +156,27 @@ export interface ParamsAmino {
      * nodes must all serialize and deserialize the existing order without
      * permuting it.
      */
-    beans_per_unit: StringBeansAmino[];
+    beans_per_unit?: StringBeansAmino[];
     /**
      * The price in Coins per the unit named "fee".  This value is used by
      * cosmic-swingset JS code to decide how many tokens to charge.
      *
      * cost = beans_used * fee_unit_price / beans_per_unit["fee"]
      */
-    fee_unit_price: CoinAmino[];
+    fee_unit_price?: CoinAmino[];
     /**
      * The SwingSet bootstrap vat configuration file.  Not usefully modifiable
      * via governance as it is only referenced by the chain's initial
      * construction.
      */
-    bootstrap_vat_config: string;
+    bootstrap_vat_config?: string;
     /**
      * If the provision submitter doesn't hold a provisionpass, their requested
      * power flags are looked up in this fee menu (first match wins) and the sum
      * is charged.  If any power flag is not found in this menu, the request is
      * rejected.
      */
-    power_flag_fees: PowerFlagFeeAmino[];
+    power_flag_fees?: PowerFlagFeeAmino[];
     /**
      * Maximum sizes for queues.
      * These values are used by SwingSet to compute how many messages should be
@@ -186,7 +186,7 @@ export interface ParamsAmino {
      * nodes must all serialize and deserialize the existing order without
      * permuting it.
      */
-    queue_max: QueueSizeAmino[];
+    queue_max?: QueueSizeAmino[];
 }
 export interface ParamsAminoMsg {
     type: "/agoric.swingset.Params";
@@ -218,7 +218,7 @@ export interface StateAmino {
      * The allowed number of items to add to queues, as determined by SwingSet.
      * Transactions which attempt to enqueue more should be rejected.
      */
-    queue_allowed: QueueSizeAmino[];
+    queue_allowed?: QueueSizeAmino[];
 }
 export interface StateAminoMsg {
     type: "/agoric.swingset.State";
@@ -242,9 +242,9 @@ export interface StringBeansProtoMsg {
 /** Map element of a string key to a Nat bean count. */
 export interface StringBeansAmino {
     /** What the beans are for. */
-    key: string;
+    key?: string;
     /** The actual bean value. */
-    beans: string;
+    beans?: string;
 }
 export interface StringBeansAminoMsg {
     type: "/agoric.swingset.StringBeans";
@@ -266,8 +266,8 @@ export interface PowerFlagFeeProtoMsg {
 }
 /** Map a provisioning power flag to its corresponding fee. */
 export interface PowerFlagFeeAmino {
-    power_flag: string;
-    fee: CoinAmino[];
+    power_flag?: string;
+    fee?: CoinAmino[];
 }
 export interface PowerFlagFeeAminoMsg {
     type: "/agoric.swingset.PowerFlagFee";
@@ -292,9 +292,9 @@ export interface QueueSizeProtoMsg {
 /** Map element of a string key to a size. */
 export interface QueueSizeAmino {
     /** What the size is for. */
-    key: string;
+    key?: string;
     /** The actual size value. */
-    size: number;
+    size?: number;
 }
 export interface QueueSizeAminoMsg {
     type: "/agoric.swingset.QueueSize";
@@ -318,10 +318,10 @@ export interface EgressProtoMsg {
 }
 /** Egress is the format for a swingset egress. */
 export interface EgressAmino {
-    nickname: string;
-    peer: Uint8Array;
+    nickname?: string;
+    peer?: string;
     /** TODO: Remove these power flags as they are deprecated and have no effect. */
-    power_flags: string[];
+    power_flags?: string[];
 }
 export interface EgressAminoMsg {
     type: "/agoric.swingset.Egress";
@@ -333,26 +333,41 @@ export interface EgressSDKType {
     peer: Uint8Array;
     power_flags: string[];
 }
-/** The payload messages used by swingset state-sync */
-export interface ExtensionSnapshotterArtifactPayload {
+/**
+ * SwingStoreArtifact encodes an artifact of a swing-store export.
+ * Artifacts may be stored or transmitted in any order. Most handlers do
+ * maintain the artifact order from their original source as an effect of how
+ * they handle the artifacts.
+ */
+export interface SwingStoreArtifact {
     name: string;
     data: Uint8Array;
 }
-export interface ExtensionSnapshotterArtifactPayloadProtoMsg {
-    typeUrl: "/agoric.swingset.ExtensionSnapshotterArtifactPayload";
+export interface SwingStoreArtifactProtoMsg {
+    typeUrl: "/agoric.swingset.SwingStoreArtifact";
     value: Uint8Array;
 }
-/** The payload messages used by swingset state-sync */
-export interface ExtensionSnapshotterArtifactPayloadAmino {
-    name: string;
-    data: Uint8Array;
+/**
+ * SwingStoreArtifact encodes an artifact of a swing-store export.
+ * Artifacts may be stored or transmitted in any order. Most handlers do
+ * maintain the artifact order from their original source as an effect of how
+ * they handle the artifacts.
+ */
+export interface SwingStoreArtifactAmino {
+    name?: string;
+    data?: string;
 }
-export interface ExtensionSnapshotterArtifactPayloadAminoMsg {
-    type: "/agoric.swingset.ExtensionSnapshotterArtifactPayload";
-    value: ExtensionSnapshotterArtifactPayloadAmino;
+export interface SwingStoreArtifactAminoMsg {
+    type: "/agoric.swingset.SwingStoreArtifact";
+    value: SwingStoreArtifactAmino;
 }
-/** The payload messages used by swingset state-sync */
-export interface ExtensionSnapshotterArtifactPayloadSDKType {
+/**
+ * SwingStoreArtifact encodes an artifact of a swing-store export.
+ * Artifacts may be stored or transmitted in any order. Most handlers do
+ * maintain the artifact order from their original source as an effect of how
+ * they handle the artifacts.
+ */
+export interface SwingStoreArtifactSDKType {
     name: string;
     data: Uint8Array;
 }
@@ -452,15 +467,15 @@ export declare const Egress: {
     toProto(message: Egress): Uint8Array;
     toProtoMsg(message: Egress): EgressProtoMsg;
 };
-export declare const ExtensionSnapshotterArtifactPayload: {
+export declare const SwingStoreArtifact: {
     typeUrl: string;
-    encode(message: ExtensionSnapshotterArtifactPayload, writer?: BinaryWriter): BinaryWriter;
-    fromJSON(object: any): ExtensionSnapshotterArtifactPayload;
-    fromPartial(object: Partial<ExtensionSnapshotterArtifactPayload>): ExtensionSnapshotterArtifactPayload;
-    fromAmino(object: ExtensionSnapshotterArtifactPayloadAmino): ExtensionSnapshotterArtifactPayload;
-    toAmino(message: ExtensionSnapshotterArtifactPayload): ExtensionSnapshotterArtifactPayloadAmino;
-    fromAminoMsg(object: ExtensionSnapshotterArtifactPayloadAminoMsg): ExtensionSnapshotterArtifactPayload;
-    fromProtoMsg(message: ExtensionSnapshotterArtifactPayloadProtoMsg): ExtensionSnapshotterArtifactPayload;
-    toProto(message: ExtensionSnapshotterArtifactPayload): Uint8Array;
-    toProtoMsg(message: ExtensionSnapshotterArtifactPayload): ExtensionSnapshotterArtifactPayloadProtoMsg;
+    encode(message: SwingStoreArtifact, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): SwingStoreArtifact;
+    fromPartial(object: Partial<SwingStoreArtifact>): SwingStoreArtifact;
+    fromAmino(object: SwingStoreArtifactAmino): SwingStoreArtifact;
+    toAmino(message: SwingStoreArtifact): SwingStoreArtifactAmino;
+    fromAminoMsg(object: SwingStoreArtifactAminoMsg): SwingStoreArtifact;
+    fromProtoMsg(message: SwingStoreArtifactProtoMsg): SwingStoreArtifact;
+    toProto(message: SwingStoreArtifact): Uint8Array;
+    toProtoMsg(message: SwingStoreArtifact): SwingStoreArtifactProtoMsg;
 };

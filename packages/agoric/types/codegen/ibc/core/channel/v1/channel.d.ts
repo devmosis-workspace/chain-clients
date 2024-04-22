@@ -75,18 +75,18 @@ export interface ChannelProtoMsg {
  */
 export interface ChannelAmino {
     /** current state of the channel end */
-    state: State;
+    state?: State;
     /** whether the channel is ordered or unordered */
-    ordering: Order;
+    ordering?: Order;
     /** counterparty channel end */
     counterparty?: CounterpartyAmino;
     /**
      * list of connection identifiers, in order, along which packets sent on
      * this channel will travel
      */
-    connection_hops: string[];
+    connection_hops?: string[];
     /** opaque channel version, which is agreed upon during the handshake */
-    version: string;
+    version?: string;
 }
 export interface ChannelAminoMsg {
     type: "cosmos-sdk/Channel";
@@ -137,22 +137,22 @@ export interface IdentifiedChannelProtoMsg {
  */
 export interface IdentifiedChannelAmino {
     /** current state of the channel end */
-    state: State;
+    state?: State;
     /** whether the channel is ordered or unordered */
-    ordering: Order;
+    ordering?: Order;
     /** counterparty channel end */
     counterparty?: CounterpartyAmino;
     /**
      * list of connection identifiers, in order, along which packets sent on
      * this channel will travel
      */
-    connection_hops: string[];
+    connection_hops?: string[];
     /** opaque channel version, which is agreed upon during the handshake */
-    version: string;
+    version?: string;
     /** port identifier */
-    port_id: string;
+    port_id?: string;
     /** channel identifier */
-    channel_id: string;
+    channel_id?: string;
 }
 export interface IdentifiedChannelAminoMsg {
     type: "cosmos-sdk/IdentifiedChannel";
@@ -185,9 +185,9 @@ export interface CounterpartyProtoMsg {
 /** Counterparty defines a channel end counterparty */
 export interface CounterpartyAmino {
     /** port on the counterparty chain which owns the other end of the channel. */
-    port_id: string;
+    port_id?: string;
     /** channel end on the counterparty chain */
-    channel_id: string;
+    channel_id?: string;
 }
 export interface CounterpartyAminoMsg {
     type: "cosmos-sdk/Counterparty";
@@ -232,21 +232,21 @@ export interface PacketAmino {
      * with an earlier sequence number must be sent and received before a Packet
      * with a later sequence number.
      */
-    sequence: string;
+    sequence?: string;
     /** identifies the port on the sending chain. */
-    source_port: string;
+    source_port?: string;
     /** identifies the channel end on the sending chain. */
-    source_channel: string;
+    source_channel?: string;
     /** identifies the port on the receiving chain. */
-    destination_port: string;
+    destination_port?: string;
     /** identifies the channel end on the receiving chain. */
-    destination_channel: string;
+    destination_channel?: string;
     /** actual opaque bytes transferred directly to the application module */
-    data: Uint8Array;
+    data?: string;
     /** block height after which the packet times out */
     timeout_height?: HeightAmino;
     /** block timestamp (in nanoseconds) after which the packet times out */
-    timeout_timestamp: string;
+    timeout_timestamp?: string;
 }
 export interface PacketAminoMsg {
     type: "cosmos-sdk/Packet";
@@ -291,13 +291,13 @@ export interface PacketStateProtoMsg {
  */
 export interface PacketStateAmino {
     /** channel port identifier. */
-    port_id: string;
+    port_id?: string;
     /** channel unique identifier. */
-    channel_id: string;
+    channel_id?: string;
     /** packet sequence. */
-    sequence: string;
+    sequence?: string;
     /** embedded data that represents packet state. */
-    data: Uint8Array;
+    data?: string;
 }
 export interface PacketStateAminoMsg {
     type: "cosmos-sdk/PacketState";
@@ -314,6 +314,50 @@ export interface PacketStateSDKType {
     channel_id: string;
     sequence: bigint;
     data: Uint8Array;
+}
+/**
+ * PacketId is an identifer for a unique Packet
+ * Source chains refer to packets by source port/channel
+ * Destination chains refer to packets by destination port/channel
+ */
+export interface PacketId {
+    /** channel port identifier */
+    portId: string;
+    /** channel unique identifier */
+    channelId: string;
+    /** packet sequence */
+    sequence: bigint;
+}
+export interface PacketIdProtoMsg {
+    typeUrl: "/ibc.core.channel.v1.PacketId";
+    value: Uint8Array;
+}
+/**
+ * PacketId is an identifer for a unique Packet
+ * Source chains refer to packets by source port/channel
+ * Destination chains refer to packets by destination port/channel
+ */
+export interface PacketIdAmino {
+    /** channel port identifier */
+    port_id?: string;
+    /** channel unique identifier */
+    channel_id?: string;
+    /** packet sequence */
+    sequence?: string;
+}
+export interface PacketIdAminoMsg {
+    type: "cosmos-sdk/PacketId";
+    value: PacketIdAmino;
+}
+/**
+ * PacketId is an identifer for a unique Packet
+ * Source chains refer to packets by source port/channel
+ * Destination chains refer to packets by destination port/channel
+ */
+export interface PacketIdSDKType {
+    port_id: string;
+    channel_id: string;
+    sequence: bigint;
 }
 /**
  * Acknowledgement is the recommended acknowledgement format to be used by
@@ -342,7 +386,7 @@ export interface AcknowledgementProtoMsg {
  * https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#acknowledgement-envelope
  */
 export interface AcknowledgementAmino {
-    result?: Uint8Array;
+    result?: string;
     error?: string;
 }
 export interface AcknowledgementAminoMsg {
@@ -426,6 +470,19 @@ export declare const PacketState: {
     fromProtoMsg(message: PacketStateProtoMsg): PacketState;
     toProto(message: PacketState): Uint8Array;
     toProtoMsg(message: PacketState): PacketStateProtoMsg;
+};
+export declare const PacketId: {
+    typeUrl: string;
+    encode(message: PacketId, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): PacketId;
+    fromPartial(object: Partial<PacketId>): PacketId;
+    fromAmino(object: PacketIdAmino): PacketId;
+    toAmino(message: PacketId): PacketIdAmino;
+    fromAminoMsg(object: PacketIdAminoMsg): PacketId;
+    toAminoMsg(message: PacketId): PacketIdAminoMsg;
+    fromProtoMsg(message: PacketIdProtoMsg): PacketId;
+    toProto(message: PacketId): Uint8Array;
+    toProtoMsg(message: PacketId): PacketIdProtoMsg;
 };
 export declare const Acknowledgement: {
     typeUrl: string;

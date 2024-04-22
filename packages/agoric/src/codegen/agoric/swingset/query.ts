@@ -1,6 +1,6 @@
 import { Params, ParamsAmino, ParamsSDKType, Egress, EgressAmino, EgressSDKType } from "./swingset";
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
@@ -47,7 +47,7 @@ export interface QueryEgressRequestProtoMsg {
 }
 /** QueryEgressRequest is the request type for the Query/Egress RPC method */
 export interface QueryEgressRequestAmino {
-  peer: Uint8Array;
+  peer?: string;
 }
 export interface QueryEgressRequestAminoMsg {
   type: "/agoric.swingset.QueryEgressRequest";
@@ -59,7 +59,7 @@ export interface QueryEgressRequestSDKType {
 }
 /** QueryEgressResponse is the egress response. */
 export interface QueryEgressResponse {
-  egress: Egress;
+  egress?: Egress;
 }
 export interface QueryEgressResponseProtoMsg {
   typeUrl: "/agoric.swingset.QueryEgressResponse";
@@ -75,7 +75,7 @@ export interface QueryEgressResponseAminoMsg {
 }
 /** QueryEgressResponse is the egress response. */
 export interface QueryEgressResponseSDKType {
-  egress: EgressSDKType;
+  egress?: EgressSDKType;
 }
 /** QueryMailboxRequest is the mailbox query. */
 export interface QueryMailboxRequest {
@@ -87,7 +87,7 @@ export interface QueryMailboxRequestProtoMsg {
 }
 /** QueryMailboxRequest is the mailbox query. */
 export interface QueryMailboxRequestAmino {
-  peer: Uint8Array;
+  peer?: string;
 }
 export interface QueryMailboxRequestAminoMsg {
   type: "/agoric.swingset.QueryMailboxRequest";
@@ -107,7 +107,7 @@ export interface QueryMailboxResponseProtoMsg {
 }
 /** QueryMailboxResponse is the mailbox response. */
 export interface QueryMailboxResponseAmino {
-  value: string;
+  value?: string;
 }
 export interface QueryMailboxResponseAminoMsg {
   type: "/agoric.swingset.QueryMailboxResponse";
@@ -133,7 +133,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -179,9 +180,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -228,13 +231,15 @@ export const QueryEgressRequest = {
     return message;
   },
   fromAmino(object: QueryEgressRequestAmino): QueryEgressRequest {
-    return {
-      peer: object.peer
-    };
+    const message = createBaseQueryEgressRequest();
+    if (object.peer !== undefined && object.peer !== null) {
+      message.peer = bytesFromBase64(object.peer);
+    }
+    return message;
   },
   toAmino(message: QueryEgressRequest): QueryEgressRequestAmino {
     const obj: any = {};
-    obj.peer = message.peer;
+    obj.peer = message.peer ? base64FromBytes(message.peer) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryEgressRequestAminoMsg): QueryEgressRequest {
@@ -255,7 +260,7 @@ export const QueryEgressRequest = {
 };
 function createBaseQueryEgressResponse(): QueryEgressResponse {
   return {
-    egress: Egress.fromPartial({})
+    egress: undefined
   };
 }
 export const QueryEgressResponse = {
@@ -277,9 +282,11 @@ export const QueryEgressResponse = {
     return message;
   },
   fromAmino(object: QueryEgressResponseAmino): QueryEgressResponse {
-    return {
-      egress: object?.egress ? Egress.fromAmino(object.egress) : undefined
-    };
+    const message = createBaseQueryEgressResponse();
+    if (object.egress !== undefined && object.egress !== null) {
+      message.egress = Egress.fromAmino(object.egress);
+    }
+    return message;
   },
   toAmino(message: QueryEgressResponse): QueryEgressResponseAmino {
     const obj: any = {};
@@ -326,13 +333,15 @@ export const QueryMailboxRequest = {
     return message;
   },
   fromAmino(object: QueryMailboxRequestAmino): QueryMailboxRequest {
-    return {
-      peer: object.peer
-    };
+    const message = createBaseQueryMailboxRequest();
+    if (object.peer !== undefined && object.peer !== null) {
+      message.peer = bytesFromBase64(object.peer);
+    }
+    return message;
   },
   toAmino(message: QueryMailboxRequest): QueryMailboxRequestAmino {
     const obj: any = {};
-    obj.peer = message.peer;
+    obj.peer = message.peer ? base64FromBytes(message.peer) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryMailboxRequestAminoMsg): QueryMailboxRequest {
@@ -375,9 +384,11 @@ export const QueryMailboxResponse = {
     return message;
   },
   fromAmino(object: QueryMailboxResponseAmino): QueryMailboxResponse {
-    return {
-      value: object.value
-    };
+    const message = createBaseQueryMailboxResponse();
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: QueryMailboxResponse): QueryMailboxResponseAmino {
     const obj: any = {};

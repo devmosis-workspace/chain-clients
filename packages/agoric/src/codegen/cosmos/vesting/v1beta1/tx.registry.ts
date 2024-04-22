@@ -1,6 +1,6 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgCreateVestingAccount, MsgCreatePeriodicVestingAccount, MsgCreateClawbackVestingAccount, MsgClawback } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/cosmos.vesting.v1beta1.MsgCreateVestingAccount", MsgCreateVestingAccount], ["/cosmos.vesting.v1beta1.MsgCreatePeriodicVestingAccount", MsgCreatePeriodicVestingAccount], ["/cosmos.vesting.v1beta1.MsgCreateClawbackVestingAccount", MsgCreateClawbackVestingAccount], ["/cosmos.vesting.v1beta1.MsgClawback", MsgClawback]];
+import { MsgCreateVestingAccount, MsgCreatePermanentLockedAccount, MsgCreatePeriodicVestingAccount, MsgCreateClawbackVestingAccount, MsgClawback, MsgReturnGrants } from "./tx";
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/cosmos.vesting.v1beta1.MsgCreateVestingAccount", MsgCreateVestingAccount], ["/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount", MsgCreatePermanentLockedAccount], ["/cosmos.vesting.v1beta1.MsgCreatePeriodicVestingAccount", MsgCreatePeriodicVestingAccount], ["/cosmos.vesting.v1beta1.MsgCreateClawbackVestingAccount", MsgCreateClawbackVestingAccount], ["/cosmos.vesting.v1beta1.MsgClawback", MsgClawback], ["/cosmos.vesting.v1beta1.MsgReturnGrants", MsgReturnGrants]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -12,6 +12,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/cosmos.vesting.v1beta1.MsgCreateVestingAccount",
         value: MsgCreateVestingAccount.encode(value).finish()
+      };
+    },
+    createPermanentLockedAccount(value: MsgCreatePermanentLockedAccount) {
+      return {
+        typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount",
+        value: MsgCreatePermanentLockedAccount.encode(value).finish()
       };
     },
     createPeriodicVestingAccount(value: MsgCreatePeriodicVestingAccount) {
@@ -31,12 +37,24 @@ export const MessageComposer = {
         typeUrl: "/cosmos.vesting.v1beta1.MsgClawback",
         value: MsgClawback.encode(value).finish()
       };
+    },
+    returnGrants(value: MsgReturnGrants) {
+      return {
+        typeUrl: "/cosmos.vesting.v1beta1.MsgReturnGrants",
+        value: MsgReturnGrants.encode(value).finish()
+      };
     }
   },
   withTypeUrl: {
     createVestingAccount(value: MsgCreateVestingAccount) {
       return {
         typeUrl: "/cosmos.vesting.v1beta1.MsgCreateVestingAccount",
+        value
+      };
+    },
+    createPermanentLockedAccount(value: MsgCreatePermanentLockedAccount) {
+      return {
+        typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount",
         value
       };
     },
@@ -57,6 +75,12 @@ export const MessageComposer = {
         typeUrl: "/cosmos.vesting.v1beta1.MsgClawback",
         value
       };
+    },
+    returnGrants(value: MsgReturnGrants) {
+      return {
+        typeUrl: "/cosmos.vesting.v1beta1.MsgReturnGrants",
+        value
+      };
     }
   },
   fromJSON: {
@@ -64,6 +88,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/cosmos.vesting.v1beta1.MsgCreateVestingAccount",
         value: MsgCreateVestingAccount.fromJSON(value)
+      };
+    },
+    createPermanentLockedAccount(value: any) {
+      return {
+        typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount",
+        value: MsgCreatePermanentLockedAccount.fromJSON(value)
       };
     },
     createPeriodicVestingAccount(value: any) {
@@ -83,6 +113,12 @@ export const MessageComposer = {
         typeUrl: "/cosmos.vesting.v1beta1.MsgClawback",
         value: MsgClawback.fromJSON(value)
       };
+    },
+    returnGrants(value: any) {
+      return {
+        typeUrl: "/cosmos.vesting.v1beta1.MsgReturnGrants",
+        value: MsgReturnGrants.fromJSON(value)
+      };
     }
   },
   fromPartial: {
@@ -90,6 +126,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/cosmos.vesting.v1beta1.MsgCreateVestingAccount",
         value: MsgCreateVestingAccount.fromPartial(value)
+      };
+    },
+    createPermanentLockedAccount(value: MsgCreatePermanentLockedAccount) {
+      return {
+        typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount",
+        value: MsgCreatePermanentLockedAccount.fromPartial(value)
       };
     },
     createPeriodicVestingAccount(value: MsgCreatePeriodicVestingAccount) {
@@ -108,6 +150,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/cosmos.vesting.v1beta1.MsgClawback",
         value: MsgClawback.fromPartial(value)
+      };
+    },
+    returnGrants(value: MsgReturnGrants) {
+      return {
+        typeUrl: "/cosmos.vesting.v1beta1.MsgReturnGrants",
+        value: MsgReturnGrants.fromPartial(value)
       };
     }
   }

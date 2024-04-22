@@ -1,6 +1,6 @@
 import { Rpc } from "../../../helpers";
 import { BinaryReader } from "../../../binary";
-import { MsgCreateVestingAccount, MsgCreateVestingAccountResponse, MsgCreatePeriodicVestingAccount, MsgCreatePeriodicVestingAccountResponse, MsgCreateClawbackVestingAccount, MsgCreateClawbackVestingAccountResponse, MsgClawback, MsgClawbackResponse } from "./tx";
+import { MsgCreateVestingAccount, MsgCreateVestingAccountResponse, MsgCreatePermanentLockedAccount, MsgCreatePermanentLockedAccountResponse, MsgCreatePeriodicVestingAccount, MsgCreatePeriodicVestingAccountResponse, MsgCreateClawbackVestingAccount, MsgCreateClawbackVestingAccountResponse, MsgClawback, MsgClawbackResponse, MsgReturnGrants, MsgReturnGrantsResponse } from "./tx";
 /** Msg defines the bank Msg service. */
 export interface Msg {
   /**
@@ -9,8 +9,17 @@ export interface Msg {
    */
   createVestingAccount(request: MsgCreateVestingAccount): Promise<MsgCreateVestingAccountResponse>;
   /**
+   * CreatePermanentLockedAccount defines a method that enables creating a permanent
+   * locked account.
+   * 
+   * Since: cosmos-sdk 0.46
+   */
+  createPermanentLockedAccount(request: MsgCreatePermanentLockedAccount): Promise<MsgCreatePermanentLockedAccountResponse>;
+  /**
    * CreatePeriodicVestingAccount defines a method that enables creating a
    * periodic vesting account.
+   * 
+   * Since: cosmos-sdk 0.46
    */
   createPeriodicVestingAccount(request: MsgCreatePeriodicVestingAccount): Promise<MsgCreatePeriodicVestingAccountResponse>;
   /**
@@ -20,20 +29,29 @@ export interface Msg {
   createClawbackVestingAccount(request: MsgCreateClawbackVestingAccount): Promise<MsgCreateClawbackVestingAccountResponse>;
   /** Clawback removes the unvested tokens from a ClawbackVestingAccount. */
   clawback(request: MsgClawback): Promise<MsgClawbackResponse>;
+  /** ReturnGrants returns vesting grants to the funder. */
+  returnGrants(request: MsgReturnGrants): Promise<MsgReturnGrantsResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.createVestingAccount = this.createVestingAccount.bind(this);
+    this.createPermanentLockedAccount = this.createPermanentLockedAccount.bind(this);
     this.createPeriodicVestingAccount = this.createPeriodicVestingAccount.bind(this);
     this.createClawbackVestingAccount = this.createClawbackVestingAccount.bind(this);
     this.clawback = this.clawback.bind(this);
+    this.returnGrants = this.returnGrants.bind(this);
   }
   createVestingAccount(request: MsgCreateVestingAccount): Promise<MsgCreateVestingAccountResponse> {
     const data = MsgCreateVestingAccount.encode(request).finish();
     const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "CreateVestingAccount", data);
     return promise.then(data => MsgCreateVestingAccountResponse.decode(new BinaryReader(data)));
+  }
+  createPermanentLockedAccount(request: MsgCreatePermanentLockedAccount): Promise<MsgCreatePermanentLockedAccountResponse> {
+    const data = MsgCreatePermanentLockedAccount.encode(request).finish();
+    const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "CreatePermanentLockedAccount", data);
+    return promise.then(data => MsgCreatePermanentLockedAccountResponse.decode(new BinaryReader(data)));
   }
   createPeriodicVestingAccount(request: MsgCreatePeriodicVestingAccount): Promise<MsgCreatePeriodicVestingAccountResponse> {
     const data = MsgCreatePeriodicVestingAccount.encode(request).finish();
@@ -49,5 +67,10 @@ export class MsgClientImpl implements Msg {
     const data = MsgClawback.encode(request).finish();
     const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "Clawback", data);
     return promise.then(data => MsgClawbackResponse.decode(new BinaryReader(data)));
+  }
+  returnGrants(request: MsgReturnGrants): Promise<MsgReturnGrantsResponse> {
+    const data = MsgReturnGrants.encode(request).finish();
+    const promise = this.rpc.request("cosmos.vesting.v1beta1.Msg", "ReturnGrants", data);
+    return promise.then(data => MsgReturnGrantsResponse.decode(new BinaryReader(data)));
   }
 }

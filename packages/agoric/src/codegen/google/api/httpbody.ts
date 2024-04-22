@@ -1,6 +1,6 @@
 import { Any, AnyAmino, AnySDKType } from "../protobuf/any";
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /**
  * Message that represents an arbitrary HTTP body. It should only be used for
  * payload formats that can't be represented as JSON, such as raw binary or
@@ -22,12 +22,15 @@ import { isSet, bytesFromBase64 } from "../../helpers";
  * 
  *       // The raw HTTP body is bound to this field.
  *       google.api.HttpBody http_body = 2;
+ * 
  *     }
  * 
  *     service ResourceService {
- *       rpc GetResource(GetResourceRequest) returns (google.api.HttpBody);
- *       rpc UpdateResource(google.api.HttpBody) returns
- *       (google.protobuf.Empty);
+ *       rpc GetResource(GetResourceRequest)
+ *         returns (google.api.HttpBody);
+ *       rpc UpdateResource(google.api.HttpBody)
+ *         returns (google.protobuf.Empty);
+ * 
  *     }
  * 
  * Example with streaming methods:
@@ -37,6 +40,7 @@ import { isSet, bytesFromBase64 } from "../../helpers";
  *         returns (stream google.api.HttpBody);
  *       rpc UpdateCalendar(stream google.api.HttpBody)
  *         returns (stream google.api.HttpBody);
+ * 
  *     }
  * 
  * Use of this type only changes how the request and response bodies are
@@ -78,12 +82,15 @@ export interface HttpBodyProtoMsg {
  * 
  *       // The raw HTTP body is bound to this field.
  *       google.api.HttpBody http_body = 2;
+ * 
  *     }
  * 
  *     service ResourceService {
- *       rpc GetResource(GetResourceRequest) returns (google.api.HttpBody);
- *       rpc UpdateResource(google.api.HttpBody) returns
- *       (google.protobuf.Empty);
+ *       rpc GetResource(GetResourceRequest)
+ *         returns (google.api.HttpBody);
+ *       rpc UpdateResource(google.api.HttpBody)
+ *         returns (google.protobuf.Empty);
+ * 
  *     }
  * 
  * Example with streaming methods:
@@ -93,6 +100,7 @@ export interface HttpBodyProtoMsg {
  *         returns (stream google.api.HttpBody);
  *       rpc UpdateCalendar(stream google.api.HttpBody)
  *         returns (stream google.api.HttpBody);
+ * 
  *     }
  * 
  * Use of this type only changes how the request and response bodies are
@@ -100,14 +108,14 @@ export interface HttpBodyProtoMsg {
  */
 export interface HttpBodyAmino {
   /** The HTTP Content-Type header value specifying the content type of the body. */
-  content_type: string;
+  content_type?: string;
   /** The HTTP request/response body as raw binary. */
-  data: Uint8Array;
+  data?: string;
   /**
    * Application specific response metadata. Must be set in the first response
    * for streaming APIs.
    */
-  extensions: AnyAmino[];
+  extensions?: AnyAmino[];
 }
 export interface HttpBodyAminoMsg {
   type: "/google.api.HttpBody";
@@ -134,12 +142,15 @@ export interface HttpBodyAminoMsg {
  * 
  *       // The raw HTTP body is bound to this field.
  *       google.api.HttpBody http_body = 2;
+ * 
  *     }
  * 
  *     service ResourceService {
- *       rpc GetResource(GetResourceRequest) returns (google.api.HttpBody);
- *       rpc UpdateResource(google.api.HttpBody) returns
- *       (google.protobuf.Empty);
+ *       rpc GetResource(GetResourceRequest)
+ *         returns (google.api.HttpBody);
+ *       rpc UpdateResource(google.api.HttpBody)
+ *         returns (google.protobuf.Empty);
+ * 
  *     }
  * 
  * Example with streaming methods:
@@ -149,6 +160,7 @@ export interface HttpBodyAminoMsg {
  *         returns (stream google.api.HttpBody);
  *       rpc UpdateCalendar(stream google.api.HttpBody)
  *         returns (stream google.api.HttpBody);
+ * 
  *     }
  * 
  * Use of this type only changes how the request and response bodies are
@@ -195,16 +207,20 @@ export const HttpBody = {
     return message;
   },
   fromAmino(object: HttpBodyAmino): HttpBody {
-    return {
-      contentType: object.content_type,
-      data: object.data,
-      extensions: Array.isArray(object?.extensions) ? object.extensions.map((e: any) => Any.fromAmino(e)) : []
-    };
+    const message = createBaseHttpBody();
+    if (object.content_type !== undefined && object.content_type !== null) {
+      message.contentType = object.content_type;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    message.extensions = object.extensions?.map(e => Any.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: HttpBody): HttpBodyAmino {
     const obj: any = {};
     obj.content_type = message.contentType;
-    obj.data = message.data;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
     if (message.extensions) {
       obj.extensions = message.extensions.map(e => e ? Any.toAmino(e) : undefined);
     } else {

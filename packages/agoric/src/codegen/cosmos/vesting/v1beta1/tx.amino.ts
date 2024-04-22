@@ -1,9 +1,14 @@
-import { MsgCreateVestingAccount, MsgCreatePeriodicVestingAccount, MsgCreateClawbackVestingAccount, MsgClawback } from "./tx";
+import { MsgCreateVestingAccount, MsgCreatePermanentLockedAccount, MsgCreatePeriodicVestingAccount, MsgCreateClawbackVestingAccount, MsgClawback, MsgReturnGrants } from "./tx";
 export const AminoConverter = {
   "/cosmos.vesting.v1beta1.MsgCreateVestingAccount": {
     aminoType: "cosmos-sdk/MsgCreateVestingAccount",
     toAmino: MsgCreateVestingAccount.toAmino,
     fromAmino: MsgCreateVestingAccount.fromAmino
+  },
+  "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount": {
+    aminoType: "cosmos-sdk/MsgCreatePermanentLockedAccount",
+    toAmino: MsgCreatePermanentLockedAccount.toAmino,
+    fromAmino: MsgCreatePermanentLockedAccount.fromAmino
   },
   "/cosmos.vesting.v1beta1.MsgCreatePeriodicVestingAccount": {
     aminoType: "cosmos-sdk/MsgCreatePeriodicVestingAccount",
@@ -19,5 +24,10 @@ export const AminoConverter = {
     aminoType: "cosmos-sdk/MsgClawback",
     toAmino: MsgClawback.toAmino,
     fromAmino: MsgClawback.fromAmino
+  },
+  "/cosmos.vesting.v1beta1.MsgReturnGrants": {
+    aminoType: "cosmos-sdk/MsgReturnGrants",
+    toAmino: MsgReturnGrants.toAmino,
+    fromAmino: MsgReturnGrants.fromAmino
   }
 };

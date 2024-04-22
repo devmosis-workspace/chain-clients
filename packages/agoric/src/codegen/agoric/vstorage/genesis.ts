@@ -10,7 +10,7 @@ export interface GenesisStateProtoMsg {
 }
 /** The initial or exported state. */
 export interface GenesisStateAmino {
-  data: DataEntryAmino[];
+  data?: DataEntryAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/agoric.vstorage.GenesisState";
@@ -45,8 +45,8 @@ export interface DataEntryAmino {
    * A "."-separated path with individual path elements matching
    * `[-_A-Za-z0-9]+`
    */
-  path: string;
-  value: string;
+  path?: string;
+  value?: string;
 }
 export interface DataEntryAminoMsg {
   type: "/agoric.vstorage.DataEntry";
@@ -84,9 +84,9 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      data: Array.isArray(object?.data) ? object.data.map((e: any) => DataEntry.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.data = object.data?.map(e => DataEntry.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -143,10 +143,14 @@ export const DataEntry = {
     return message;
   },
   fromAmino(object: DataEntryAmino): DataEntry {
-    return {
-      path: object.path,
-      value: object.value
-    };
+    const message = createBaseDataEntry();
+    if (object.path !== undefined && object.path !== null) {
+      message.path = object.path;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: DataEntry): DataEntryAmino {
     const obj: any = {};

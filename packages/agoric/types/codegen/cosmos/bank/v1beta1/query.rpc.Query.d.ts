@@ -1,6 +1,6 @@
 import { Rpc } from "../../../helpers";
 import { QueryClient } from "@cosmjs/stargate";
-import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse } from "./query";
+import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Balance queries the balance of a single coin for a single account. */
@@ -10,6 +10,8 @@ export interface Query {
     /**
      * SpendableBalances queries the spenable balance of all coins for a single
      * account.
+     *
+     * Since: cosmos-sdk 0.46
      */
     spendableBalances(request: QuerySpendableBalancesRequest): Promise<QuerySpendableBalancesResponse>;
     /** TotalSupply queries the total supply of all coins. */
@@ -20,8 +22,18 @@ export interface Query {
     params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
     /** DenomsMetadata queries the client metadata of a given coin denomination. */
     denomMetadata(request: QueryDenomMetadataRequest): Promise<QueryDenomMetadataResponse>;
-    /** DenomsMetadata queries the client metadata for all registered coin denominations. */
+    /**
+     * DenomsMetadata queries the client metadata for all registered coin
+     * denominations.
+     */
     denomsMetadata(request?: QueryDenomsMetadataRequest): Promise<QueryDenomsMetadataResponse>;
+    /**
+     * DenomOwners queries for all account addresses that own a particular token
+     * denomination.
+     *
+     * Since: cosmos-sdk 0.46
+     */
+    denomOwners(request: QueryDenomOwnersRequest): Promise<QueryDenomOwnersResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -34,6 +46,7 @@ export declare class QueryClientImpl implements Query {
     params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
     denomMetadata(request: QueryDenomMetadataRequest): Promise<QueryDenomMetadataResponse>;
     denomsMetadata(request?: QueryDenomsMetadataRequest): Promise<QueryDenomsMetadataResponse>;
+    denomOwners(request: QueryDenomOwnersRequest): Promise<QueryDenomOwnersResponse>;
 }
 export declare const createRpcQueryExtension: (base: QueryClient) => {
     balance(request: QueryBalanceRequest): Promise<QueryBalanceResponse>;
@@ -44,4 +57,5 @@ export declare const createRpcQueryExtension: (base: QueryClient) => {
     params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
     denomMetadata(request: QueryDenomMetadataRequest): Promise<QueryDenomMetadataResponse>;
     denomsMetadata(request?: QueryDenomsMetadataRequest): Promise<QueryDenomsMetadataResponse>;
+    denomOwners(request: QueryDenomOwnersRequest): Promise<QueryDenomOwnersResponse>;
 };

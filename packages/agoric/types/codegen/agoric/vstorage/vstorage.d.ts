@@ -9,7 +9,7 @@ export interface DataProtoMsg {
 }
 /** Data is the vstorage node data. */
 export interface DataAmino {
-    value: string;
+    value?: string;
 }
 export interface DataAminoMsg {
     type: "/agoric.vstorage.Data";
@@ -35,7 +35,7 @@ export interface ChildrenProtoMsg {
  * more data from a given vstorage node.
  */
 export interface ChildrenAmino {
-    children: string[];
+    children?: string[];
 }
 export interface ChildrenAminoMsg {
     type: "/agoric.vstorage.Children";

@@ -1,6 +1,6 @@
 import { Packet, PacketAmino, PacketSDKType } from "../../ibc/core/channel/v1/channel";
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /** MsgSendPacket is an SDK message for sending an outgoing IBC packet */
 export interface MsgSendPacket {
   packet: Packet;
@@ -13,7 +13,7 @@ export interface MsgSendPacketProtoMsg {
 /** MsgSendPacket is an SDK message for sending an outgoing IBC packet */
 export interface MsgSendPacketAmino {
   packet?: PacketAmino;
-  sender: Uint8Array;
+  sender?: string;
 }
 export interface MsgSendPacketAminoMsg {
   type: "/agoric.vibc.MsgSendPacket";
@@ -68,15 +68,19 @@ export const MsgSendPacket = {
     return message;
   },
   fromAmino(object: MsgSendPacketAmino): MsgSendPacket {
-    return {
-      packet: object?.packet ? Packet.fromAmino(object.packet) : undefined,
-      sender: object.sender
-    };
+    const message = createBaseMsgSendPacket();
+    if (object.packet !== undefined && object.packet !== null) {
+      message.packet = Packet.fromAmino(object.packet);
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    return message;
   },
   toAmino(message: MsgSendPacket): MsgSendPacketAmino {
     const obj: any = {};
     obj.packet = message.packet ? Packet.toAmino(message.packet) : undefined;
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgSendPacketAminoMsg): MsgSendPacket {
@@ -111,7 +115,8 @@ export const MsgSendPacketResponse = {
     return message;
   },
   fromAmino(_: MsgSendPacketResponseAmino): MsgSendPacketResponse {
-    return {};
+    const message = createBaseMsgSendPacketResponse();
+    return message;
   },
   toAmino(_: MsgSendPacketResponse): MsgSendPacketResponseAmino {
     const obj: any = {};

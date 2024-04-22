@@ -1,6 +1,6 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /**
  * CoreEvalProposal is a gov Content type for evaluating code in the SwingSet
  * core.
@@ -25,13 +25,13 @@ export interface CoreEvalProposalProtoMsg {
  * See `agoric-sdk/packages/vats/src/core/eval.js`.
  */
 export interface CoreEvalProposalAmino {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   /**
    * Although evals are sequential, they may run concurrently, since they each
    * can return a Promise.
    */
-  evals: CoreEvalAmino[];
+  evals?: CoreEvalAmino[];
 }
 export interface CoreEvalProposalAminoMsg {
   type: "/agoric.swingset.CoreEvalProposal";
@@ -76,12 +76,12 @@ export interface CoreEvalAmino {
    * Grant these JSON-stringified core bootstrap permits to the jsCode, as the
    * `powers` endowment.
    */
-  json_permits: string;
+  json_permits?: string;
   /**
    * Evaluate this JavaScript code in a Compartment endowed with `powers` as
    * well as some powerless helpers.
    */
-  js_code: string;
+  js_code?: string;
 }
 export interface CoreEvalAminoMsg {
   type: "/agoric.swingset.CoreEval";
@@ -157,27 +157,27 @@ export interface ParamsAmino {
    * nodes must all serialize and deserialize the existing order without
    * permuting it.
    */
-  beans_per_unit: StringBeansAmino[];
+  beans_per_unit?: StringBeansAmino[];
   /**
    * The price in Coins per the unit named "fee".  This value is used by
    * cosmic-swingset JS code to decide how many tokens to charge.
    * 
    * cost = beans_used * fee_unit_price / beans_per_unit["fee"]
    */
-  fee_unit_price: CoinAmino[];
+  fee_unit_price?: CoinAmino[];
   /**
    * The SwingSet bootstrap vat configuration file.  Not usefully modifiable
    * via governance as it is only referenced by the chain's initial
    * construction.
    */
-  bootstrap_vat_config: string;
+  bootstrap_vat_config?: string;
   /**
    * If the provision submitter doesn't hold a provisionpass, their requested
    * power flags are looked up in this fee menu (first match wins) and the sum
    * is charged.  If any power flag is not found in this menu, the request is
    * rejected.
    */
-  power_flag_fees: PowerFlagFeeAmino[];
+  power_flag_fees?: PowerFlagFeeAmino[];
   /**
    * Maximum sizes for queues.
    * These values are used by SwingSet to compute how many messages should be
@@ -187,7 +187,7 @@ export interface ParamsAmino {
    * nodes must all serialize and deserialize the existing order without
    * permuting it.
    */
-  queue_max: QueueSizeAmino[];
+  queue_max?: QueueSizeAmino[];
 }
 export interface ParamsAminoMsg {
   type: "/agoric.swingset.Params";
@@ -219,7 +219,7 @@ export interface StateAmino {
    * The allowed number of items to add to queues, as determined by SwingSet.
    * Transactions which attempt to enqueue more should be rejected.
    */
-  queue_allowed: QueueSizeAmino[];
+  queue_allowed?: QueueSizeAmino[];
 }
 export interface StateAminoMsg {
   type: "/agoric.swingset.State";
@@ -243,9 +243,9 @@ export interface StringBeansProtoMsg {
 /** Map element of a string key to a Nat bean count. */
 export interface StringBeansAmino {
   /** What the beans are for. */
-  key: string;
+  key?: string;
   /** The actual bean value. */
-  beans: string;
+  beans?: string;
 }
 export interface StringBeansAminoMsg {
   type: "/agoric.swingset.StringBeans";
@@ -267,8 +267,8 @@ export interface PowerFlagFeeProtoMsg {
 }
 /** Map a provisioning power flag to its corresponding fee. */
 export interface PowerFlagFeeAmino {
-  power_flag: string;
-  fee: CoinAmino[];
+  power_flag?: string;
+  fee?: CoinAmino[];
 }
 export interface PowerFlagFeeAminoMsg {
   type: "/agoric.swingset.PowerFlagFee";
@@ -293,9 +293,9 @@ export interface QueueSizeProtoMsg {
 /** Map element of a string key to a size. */
 export interface QueueSizeAmino {
   /** What the size is for. */
-  key: string;
+  key?: string;
   /** The actual size value. */
-  size: number;
+  size?: number;
 }
 export interface QueueSizeAminoMsg {
   type: "/agoric.swingset.QueueSize";
@@ -319,10 +319,10 @@ export interface EgressProtoMsg {
 }
 /** Egress is the format for a swingset egress. */
 export interface EgressAmino {
-  nickname: string;
-  peer: Uint8Array;
+  nickname?: string;
+  peer?: string;
   /** TODO: Remove these power flags as they are deprecated and have no effect. */
-  power_flags: string[];
+  power_flags?: string[];
 }
 export interface EgressAminoMsg {
   type: "/agoric.swingset.Egress";
@@ -334,26 +334,41 @@ export interface EgressSDKType {
   peer: Uint8Array;
   power_flags: string[];
 }
-/** The payload messages used by swingset state-sync */
-export interface ExtensionSnapshotterArtifactPayload {
+/**
+ * SwingStoreArtifact encodes an artifact of a swing-store export.
+ * Artifacts may be stored or transmitted in any order. Most handlers do
+ * maintain the artifact order from their original source as an effect of how
+ * they handle the artifacts.
+ */
+export interface SwingStoreArtifact {
   name: string;
   data: Uint8Array;
 }
-export interface ExtensionSnapshotterArtifactPayloadProtoMsg {
-  typeUrl: "/agoric.swingset.ExtensionSnapshotterArtifactPayload";
+export interface SwingStoreArtifactProtoMsg {
+  typeUrl: "/agoric.swingset.SwingStoreArtifact";
   value: Uint8Array;
 }
-/** The payload messages used by swingset state-sync */
-export interface ExtensionSnapshotterArtifactPayloadAmino {
-  name: string;
-  data: Uint8Array;
+/**
+ * SwingStoreArtifact encodes an artifact of a swing-store export.
+ * Artifacts may be stored or transmitted in any order. Most handlers do
+ * maintain the artifact order from their original source as an effect of how
+ * they handle the artifacts.
+ */
+export interface SwingStoreArtifactAmino {
+  name?: string;
+  data?: string;
 }
-export interface ExtensionSnapshotterArtifactPayloadAminoMsg {
-  type: "/agoric.swingset.ExtensionSnapshotterArtifactPayload";
-  value: ExtensionSnapshotterArtifactPayloadAmino;
+export interface SwingStoreArtifactAminoMsg {
+  type: "/agoric.swingset.SwingStoreArtifact";
+  value: SwingStoreArtifactAmino;
 }
-/** The payload messages used by swingset state-sync */
-export interface ExtensionSnapshotterArtifactPayloadSDKType {
+/**
+ * SwingStoreArtifact encodes an artifact of a swing-store export.
+ * Artifacts may be stored or transmitted in any order. Most handlers do
+ * maintain the artifact order from their original source as an effect of how
+ * they handle the artifacts.
+ */
+export interface SwingStoreArtifactSDKType {
   name: string;
   data: Uint8Array;
 }
@@ -393,11 +408,15 @@ export const CoreEvalProposal = {
     return message;
   },
   fromAmino(object: CoreEvalProposalAmino): CoreEvalProposal {
-    return {
-      title: object.title,
-      description: object.description,
-      evals: Array.isArray(object?.evals) ? object.evals.map((e: any) => CoreEval.fromAmino(e)) : []
-    };
+    const message = createBaseCoreEvalProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    message.evals = object.evals?.map(e => CoreEval.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: CoreEvalProposal): CoreEvalProposalAmino {
     const obj: any = {};
@@ -456,10 +475,14 @@ export const CoreEval = {
     return message;
   },
   fromAmino(object: CoreEvalAmino): CoreEval {
-    return {
-      jsonPermits: object.json_permits,
-      jsCode: object.js_code
-    };
+    const message = createBaseCoreEval();
+    if (object.json_permits !== undefined && object.json_permits !== null) {
+      message.jsonPermits = object.json_permits;
+    }
+    if (object.js_code !== undefined && object.js_code !== null) {
+      message.jsCode = object.js_code;
+    }
+    return message;
   },
   toAmino(message: CoreEval): CoreEvalAmino {
     const obj: any = {};
@@ -531,13 +554,15 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      beansPerUnit: Array.isArray(object?.beans_per_unit) ? object.beans_per_unit.map((e: any) => StringBeans.fromAmino(e)) : [],
-      feeUnitPrice: Array.isArray(object?.fee_unit_price) ? object.fee_unit_price.map((e: any) => Coin.fromAmino(e)) : [],
-      bootstrapVatConfig: object.bootstrap_vat_config,
-      powerFlagFees: Array.isArray(object?.power_flag_fees) ? object.power_flag_fees.map((e: any) => PowerFlagFee.fromAmino(e)) : [],
-      queueMax: Array.isArray(object?.queue_max) ? object.queue_max.map((e: any) => QueueSize.fromAmino(e)) : []
-    };
+    const message = createBaseParams();
+    message.beansPerUnit = object.beans_per_unit?.map(e => StringBeans.fromAmino(e)) || [];
+    message.feeUnitPrice = object.fee_unit_price?.map(e => Coin.fromAmino(e)) || [];
+    if (object.bootstrap_vat_config !== undefined && object.bootstrap_vat_config !== null) {
+      message.bootstrapVatConfig = object.bootstrap_vat_config;
+    }
+    message.powerFlagFees = object.power_flag_fees?.map(e => PowerFlagFee.fromAmino(e)) || [];
+    message.queueMax = object.queue_max?.map(e => QueueSize.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -604,9 +629,9 @@ export const State = {
     return message;
   },
   fromAmino(object: StateAmino): State {
-    return {
-      queueAllowed: Array.isArray(object?.queue_allowed) ? object.queue_allowed.map((e: any) => QueueSize.fromAmino(e)) : []
-    };
+    const message = createBaseState();
+    message.queueAllowed = object.queue_allowed?.map(e => QueueSize.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: State): StateAmino {
     const obj: any = {};
@@ -663,10 +688,14 @@ export const StringBeans = {
     return message;
   },
   fromAmino(object: StringBeansAmino): StringBeans {
-    return {
-      key: object.key,
-      beans: object.beans
-    };
+    const message = createBaseStringBeans();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.beans !== undefined && object.beans !== null) {
+      message.beans = object.beans;
+    }
+    return message;
   },
   toAmino(message: StringBeans): StringBeansAmino {
     const obj: any = {};
@@ -720,10 +749,12 @@ export const PowerFlagFee = {
     return message;
   },
   fromAmino(object: PowerFlagFeeAmino): PowerFlagFee {
-    return {
-      powerFlag: object.power_flag,
-      fee: Array.isArray(object?.fee) ? object.fee.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBasePowerFlagFee();
+    if (object.power_flag !== undefined && object.power_flag !== null) {
+      message.powerFlag = object.power_flag;
+    }
+    message.fee = object.fee?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: PowerFlagFee): PowerFlagFeeAmino {
     const obj: any = {};
@@ -781,10 +812,14 @@ export const QueueSize = {
     return message;
   },
   fromAmino(object: QueueSizeAmino): QueueSize {
-    return {
-      key: object.key,
-      size: object.size
-    };
+    const message = createBaseQueueSize();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.size !== undefined && object.size !== null) {
+      message.size = object.size;
+    }
+    return message;
   },
   toAmino(message: QueueSize): QueueSizeAmino {
     const obj: any = {};
@@ -844,16 +879,20 @@ export const Egress = {
     return message;
   },
   fromAmino(object: EgressAmino): Egress {
-    return {
-      nickname: object.nickname,
-      peer: object.peer,
-      powerFlags: Array.isArray(object?.power_flags) ? object.power_flags.map((e: any) => e) : []
-    };
+    const message = createBaseEgress();
+    if (object.nickname !== undefined && object.nickname !== null) {
+      message.nickname = object.nickname;
+    }
+    if (object.peer !== undefined && object.peer !== null) {
+      message.peer = bytesFromBase64(object.peer);
+    }
+    message.powerFlags = object.power_flags?.map(e => e) || [];
+    return message;
   },
   toAmino(message: Egress): EgressAmino {
     const obj: any = {};
     obj.nickname = message.nickname;
-    obj.peer = message.peer;
+    obj.peer = message.peer ? base64FromBytes(message.peer) : undefined;
     if (message.powerFlags) {
       obj.power_flags = message.powerFlags.map(e => e);
     } else {
@@ -877,15 +916,15 @@ export const Egress = {
     };
   }
 };
-function createBaseExtensionSnapshotterArtifactPayload(): ExtensionSnapshotterArtifactPayload {
+function createBaseSwingStoreArtifact(): SwingStoreArtifact {
   return {
     name: "",
     data: new Uint8Array()
   };
 }
-export const ExtensionSnapshotterArtifactPayload = {
-  typeUrl: "/agoric.swingset.ExtensionSnapshotterArtifactPayload",
-  encode(message: ExtensionSnapshotterArtifactPayload, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+export const SwingStoreArtifact = {
+  typeUrl: "/agoric.swingset.SwingStoreArtifact",
+  encode(message: SwingStoreArtifact, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -894,43 +933,47 @@ export const ExtensionSnapshotterArtifactPayload = {
     }
     return writer;
   },
-  fromJSON(object: any): ExtensionSnapshotterArtifactPayload {
+  fromJSON(object: any): SwingStoreArtifact {
     return {
       name: isSet(object.name) ? String(object.name) : "",
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array()
     };
   },
-  fromPartial(object: Partial<ExtensionSnapshotterArtifactPayload>): ExtensionSnapshotterArtifactPayload {
-    const message = createBaseExtensionSnapshotterArtifactPayload();
+  fromPartial(object: Partial<SwingStoreArtifact>): SwingStoreArtifact {
+    const message = createBaseSwingStoreArtifact();
     message.name = object.name ?? "";
     message.data = object.data ?? new Uint8Array();
     return message;
   },
-  fromAmino(object: ExtensionSnapshotterArtifactPayloadAmino): ExtensionSnapshotterArtifactPayload {
-    return {
-      name: object.name,
-      data: object.data
-    };
+  fromAmino(object: SwingStoreArtifactAmino): SwingStoreArtifact {
+    const message = createBaseSwingStoreArtifact();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
   },
-  toAmino(message: ExtensionSnapshotterArtifactPayload): ExtensionSnapshotterArtifactPayloadAmino {
+  toAmino(message: SwingStoreArtifact): SwingStoreArtifactAmino {
     const obj: any = {};
     obj.name = message.name;
-    obj.data = message.data;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
     return obj;
   },
-  fromAminoMsg(object: ExtensionSnapshotterArtifactPayloadAminoMsg): ExtensionSnapshotterArtifactPayload {
-    return ExtensionSnapshotterArtifactPayload.fromAmino(object.value);
+  fromAminoMsg(object: SwingStoreArtifactAminoMsg): SwingStoreArtifact {
+    return SwingStoreArtifact.fromAmino(object.value);
   },
-  fromProtoMsg(message: ExtensionSnapshotterArtifactPayloadProtoMsg): ExtensionSnapshotterArtifactPayload {
-    return ExtensionSnapshotterArtifactPayload.decode(message.value);
+  fromProtoMsg(message: SwingStoreArtifactProtoMsg): SwingStoreArtifact {
+    return SwingStoreArtifact.decode(message.value);
   },
-  toProto(message: ExtensionSnapshotterArtifactPayload): Uint8Array {
-    return ExtensionSnapshotterArtifactPayload.encode(message).finish();
+  toProto(message: SwingStoreArtifact): Uint8Array {
+    return SwingStoreArtifact.encode(message).finish();
   },
-  toProtoMsg(message: ExtensionSnapshotterArtifactPayload): ExtensionSnapshotterArtifactPayloadProtoMsg {
+  toProtoMsg(message: SwingStoreArtifact): SwingStoreArtifactProtoMsg {
     return {
-      typeUrl: "/agoric.swingset.ExtensionSnapshotterArtifactPayload",
-      value: ExtensionSnapshotterArtifactPayload.encode(message).finish()
+      typeUrl: "/agoric.swingset.SwingStoreArtifact",
+      value: SwingStoreArtifact.encode(message).finish()
     };
   }
 };

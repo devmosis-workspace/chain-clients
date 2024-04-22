@@ -11,14 +11,14 @@ import * as _10 from "./vibc/msgs";
 import * as _11 from "./vstorage/genesis";
 import * as _12 from "./vstorage/query";
 import * as _13 from "./vstorage/vstorage";
-import * as _123 from "./swingset/query.lcd";
-import * as _124 from "./vbank/query.lcd";
-import * as _125 from "./vstorage/query.lcd";
-import * as _126 from "./swingset/query.rpc.Query";
-import * as _127 from "./vbank/query.rpc.Query";
-import * as _128 from "./vstorage/query.rpc.Query";
-import * as _129 from "./swingset/msgs.rpc.msg";
-import * as _130 from "./vibc/msgs.rpc.msg";
+import * as _136 from "./swingset/query.lcd";
+import * as _137 from "./vbank/query.lcd";
+import * as _138 from "./vstorage/query.lcd";
+import * as _139 from "./swingset/query.rpc.Query";
+import * as _140 from "./vbank/query.rpc.Query";
+import * as _141 from "./vstorage/query.rpc.Query";
+import * as _142 from "./swingset/msgs.rpc.msg";
+import * as _143 from "./vibc/msgs.rpc.msg";
 export declare namespace agoric {
     const lien: {
         Lien: {
@@ -59,14 +59,14 @@ export declare namespace agoric {
         };
     };
     const swingset: {
-        MsgClientImpl: typeof _129.MsgClientImpl;
-        QueryClientImpl: typeof _126.QueryClientImpl;
+        MsgClientImpl: typeof _142.MsgClientImpl;
+        QueryClientImpl: typeof _139.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _4.QueryParamsRequest): Promise<_4.QueryParamsResponse>;
             egress(request: _4.QueryEgressRequest): Promise<_4.QueryEgressResponse>;
             mailbox(request: _4.QueryMailboxRequest): Promise<_4.QueryMailboxResponse>;
         };
-        LCDQueryClient: typeof _123.LCDQueryClient;
+        LCDQueryClient: typeof _136.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -282,17 +282,17 @@ export declare namespace agoric {
             toProto(message: _5.Egress): Uint8Array;
             toProtoMsg(message: _5.Egress): _5.EgressProtoMsg;
         };
-        ExtensionSnapshotterArtifactPayload: {
+        SwingStoreArtifact: {
             typeUrl: string;
-            encode(message: _5.ExtensionSnapshotterArtifactPayload, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-            fromJSON(object: any): _5.ExtensionSnapshotterArtifactPayload;
-            fromPartial(object: Partial<_5.ExtensionSnapshotterArtifactPayload>): _5.ExtensionSnapshotterArtifactPayload;
-            fromAmino(object: _5.ExtensionSnapshotterArtifactPayloadAmino): _5.ExtensionSnapshotterArtifactPayload;
-            toAmino(message: _5.ExtensionSnapshotterArtifactPayload): _5.ExtensionSnapshotterArtifactPayloadAmino;
-            fromAminoMsg(object: _5.ExtensionSnapshotterArtifactPayloadAminoMsg): _5.ExtensionSnapshotterArtifactPayload;
-            fromProtoMsg(message: _5.ExtensionSnapshotterArtifactPayloadProtoMsg): _5.ExtensionSnapshotterArtifactPayload;
-            toProto(message: _5.ExtensionSnapshotterArtifactPayload): Uint8Array;
-            toProtoMsg(message: _5.ExtensionSnapshotterArtifactPayload): _5.ExtensionSnapshotterArtifactPayloadProtoMsg;
+            encode(message: _5.SwingStoreArtifact, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+            fromJSON(object: any): _5.SwingStoreArtifact;
+            fromPartial(object: Partial<_5.SwingStoreArtifact>): _5.SwingStoreArtifact;
+            fromAmino(object: _5.SwingStoreArtifactAmino): _5.SwingStoreArtifact;
+            toAmino(message: _5.SwingStoreArtifact): _5.SwingStoreArtifactAmino;
+            fromAminoMsg(object: _5.SwingStoreArtifactAminoMsg): _5.SwingStoreArtifact;
+            fromProtoMsg(message: _5.SwingStoreArtifactProtoMsg): _5.SwingStoreArtifact;
+            toProto(message: _5.SwingStoreArtifact): Uint8Array;
+            toProtoMsg(message: _5.SwingStoreArtifact): _5.SwingStoreArtifactProtoMsg;
         };
         QueryParamsRequest: {
             typeUrl: string;
@@ -498,14 +498,26 @@ export declare namespace agoric {
             toProto(message: _2.GenesisState): Uint8Array;
             toProtoMsg(message: _2.GenesisState): _2.GenesisStateProtoMsg;
         };
+        SwingStoreExportDataEntry: {
+            typeUrl: string;
+            encode(message: _2.SwingStoreExportDataEntry, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+            fromJSON(object: any): _2.SwingStoreExportDataEntry;
+            fromPartial(object: Partial<_2.SwingStoreExportDataEntry>): _2.SwingStoreExportDataEntry;
+            fromAmino(object: _2.SwingStoreExportDataEntryAmino): _2.SwingStoreExportDataEntry;
+            toAmino(message: _2.SwingStoreExportDataEntry): _2.SwingStoreExportDataEntryAmino;
+            fromAminoMsg(object: _2.SwingStoreExportDataEntryAminoMsg): _2.SwingStoreExportDataEntry;
+            fromProtoMsg(message: _2.SwingStoreExportDataEntryProtoMsg): _2.SwingStoreExportDataEntry;
+            toProto(message: _2.SwingStoreExportDataEntry): Uint8Array;
+            toProtoMsg(message: _2.SwingStoreExportDataEntry): _2.SwingStoreExportDataEntryProtoMsg;
+        };
     };
     const vbank: {
-        QueryClientImpl: typeof _127.QueryClientImpl;
+        QueryClientImpl: typeof _140.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _8.QueryParamsRequest): Promise<_8.QueryParamsResponse>;
             state(request?: _8.QueryStateRequest): Promise<_8.QueryStateResponse>;
         };
-        LCDQueryClient: typeof _124.LCDQueryClient;
+        LCDQueryClient: typeof _137.LCDQueryClient;
         Params: {
             typeUrl: string;
             encode(message: _9.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
@@ -592,7 +604,7 @@ export declare namespace agoric {
         };
     };
     const vibc: {
-        MsgClientImpl: typeof _130.MsgClientImpl;
+        MsgClientImpl: typeof _143.MsgClientImpl;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -654,12 +666,13 @@ export declare namespace agoric {
         };
     };
     const vstorage: {
-        QueryClientImpl: typeof _128.QueryClientImpl;
+        QueryClientImpl: typeof _141.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             data(request: _12.QueryDataRequest): Promise<_12.QueryDataResponse>;
+            capData(request: _12.QueryCapDataRequest): Promise<_12.QueryCapDataResponse>;
             children(request: _12.QueryChildrenRequest): Promise<_12.QueryChildrenResponse>;
         };
-        LCDQueryClient: typeof _125.LCDQueryClient;
+        LCDQueryClient: typeof _138.LCDQueryClient;
         Data: {
             typeUrl: string;
             encode(message: _13.Data, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
@@ -707,6 +720,30 @@ export declare namespace agoric {
             fromProtoMsg(message: _12.QueryDataResponseProtoMsg): _12.QueryDataResponse;
             toProto(message: _12.QueryDataResponse): Uint8Array;
             toProtoMsg(message: _12.QueryDataResponse): _12.QueryDataResponseProtoMsg;
+        };
+        QueryCapDataRequest: {
+            typeUrl: string;
+            encode(message: _12.QueryCapDataRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+            fromJSON(object: any): _12.QueryCapDataRequest;
+            fromPartial(object: Partial<_12.QueryCapDataRequest>): _12.QueryCapDataRequest;
+            fromAmino(object: _12.QueryCapDataRequestAmino): _12.QueryCapDataRequest;
+            toAmino(message: _12.QueryCapDataRequest): _12.QueryCapDataRequestAmino;
+            fromAminoMsg(object: _12.QueryCapDataRequestAminoMsg): _12.QueryCapDataRequest;
+            fromProtoMsg(message: _12.QueryCapDataRequestProtoMsg): _12.QueryCapDataRequest;
+            toProto(message: _12.QueryCapDataRequest): Uint8Array;
+            toProtoMsg(message: _12.QueryCapDataRequest): _12.QueryCapDataRequestProtoMsg;
+        };
+        QueryCapDataResponse: {
+            typeUrl: string;
+            encode(message: _12.QueryCapDataResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+            fromJSON(object: any): _12.QueryCapDataResponse;
+            fromPartial(object: Partial<_12.QueryCapDataResponse>): _12.QueryCapDataResponse;
+            fromAmino(object: _12.QueryCapDataResponseAmino): _12.QueryCapDataResponse;
+            toAmino(message: _12.QueryCapDataResponse): _12.QueryCapDataResponseAmino;
+            fromAminoMsg(object: _12.QueryCapDataResponseAminoMsg): _12.QueryCapDataResponse;
+            fromProtoMsg(message: _12.QueryCapDataResponseProtoMsg): _12.QueryCapDataResponse;
+            toProto(message: _12.QueryCapDataResponse): Uint8Array;
+            toProtoMsg(message: _12.QueryCapDataResponse): _12.QueryCapDataResponseProtoMsg;
         };
         QueryChildrenRequest: {
             typeUrl: string;
@@ -762,8 +799,8 @@ export declare namespace agoric {
             rpc: import("../helpers").Rpc;
         }) => Promise<{
             agoric: {
-                swingset: _129.MsgClientImpl;
-                vibc: _130.MsgClientImpl;
+                swingset: _142.MsgClientImpl;
+                vibc: _143.MsgClientImpl;
             };
             cosmos: {
                 authz: {
@@ -785,13 +822,23 @@ export declare namespace agoric {
                     v1beta1: import("../cosmos/feegrant/v1beta1/tx.rpc.msg").MsgClientImpl;
                 };
                 gov: {
+                    v1: import("../cosmos/gov/v1/tx.rpc.msg").MsgClientImpl;
                     v1beta1: import("../cosmos/gov/v1beta1/tx.rpc.msg").MsgClientImpl;
+                };
+                group: {
+                    v1: import("../cosmos/group/v1/tx.rpc.msg").MsgClientImpl;
+                };
+                nft: {
+                    v1beta1: import("../cosmos/nft/v1beta1/tx.rpc.msg").MsgClientImpl;
                 };
                 slashing: {
                     v1beta1: import("../cosmos/slashing/v1beta1/tx.rpc.msg").MsgClientImpl;
                 };
                 staking: {
                     v1beta1: import("../cosmos/staking/v1beta1/tx.rpc.msg").MsgClientImpl;
+                };
+                upgrade: {
+                    v1beta1: import("../cosmos/upgrade/v1beta1/tx.rpc.msg").MsgClientImpl;
                 };
                 vesting: {
                     v1beta1: import("../cosmos/vesting/v1beta1/tx.rpc.msg").MsgClientImpl;
@@ -813,16 +860,27 @@ export declare namespace agoric {
                 };
                 vstorage: {
                     data(request: _12.QueryDataRequest): Promise<_12.QueryDataResponse>;
+                    capData(request: _12.QueryCapDataRequest): Promise<_12.QueryCapDataResponse>;
                     children(request: _12.QueryChildrenRequest): Promise<_12.QueryChildrenResponse>;
                 };
             };
             cosmos: {
+                app: {
+                    v1alpha1: {
+                        config(request?: import("../cosmos/app/v1alpha1/query").QueryConfigRequest): Promise<import("../cosmos/app/v1alpha1/query").QueryConfigResponse>;
+                    };
+                };
                 auth: {
                     v1beta1: {
                         accounts(request?: import("../cosmos/auth/v1beta1/query").QueryAccountsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountsResponse>;
                         account(request: import("../cosmos/auth/v1beta1/query").QueryAccountRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountResponse>;
+                        accountAddressByID(request: import("../cosmos/auth/v1beta1/query").QueryAccountAddressByIDRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountAddressByIDResponse>;
                         params(request?: import("../cosmos/auth/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryParamsResponse>;
+                        moduleAccounts(request?: import("../cosmos/auth/v1beta1/query").QueryModuleAccountsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryModuleAccountsResponse>;
                         moduleAccountByName(request: import("../cosmos/auth/v1beta1/query").QueryModuleAccountByNameRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryModuleAccountByNameResponse>;
+                        bech32Prefix(request?: import("../cosmos/auth/v1beta1/query").Bech32PrefixRequest): Promise<import("../cosmos/auth/v1beta1/query").Bech32PrefixResponse>;
+                        addressBytesToString(request: import("../cosmos/auth/v1beta1/query").AddressBytesToStringRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressBytesToStringResponse>;
+                        addressStringToBytes(request: import("../cosmos/auth/v1beta1/query").AddressStringToBytesRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressStringToBytesResponse>;
                     };
                 };
                 authz: {
@@ -842,6 +900,7 @@ export declare namespace agoric {
                         params(request?: import("../cosmos/bank/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryParamsResponse>;
                         denomMetadata(request: import("../cosmos/bank/v1beta1/query").QueryDenomMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomMetadataResponse>;
                         denomsMetadata(request?: import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataResponse>;
+                        denomOwners(request: import("../cosmos/bank/v1beta1/query").QueryDenomOwnersRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomOwnersResponse>;
                     };
                 };
                 base: {
@@ -858,6 +917,7 @@ export declare namespace agoric {
                             getBlockByHeight(request: import("../cosmos/base/tendermint/v1beta1/query").GetBlockByHeightRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetBlockByHeightResponse>;
                             getLatestValidatorSet(request?: import("../cosmos/base/tendermint/v1beta1/query").GetLatestValidatorSetRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetLatestValidatorSetResponse>;
                             getValidatorSetByHeight(request: import("../cosmos/base/tendermint/v1beta1/query").GetValidatorSetByHeightRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetValidatorSetByHeightResponse>;
+                            aBCIQuery(request: import("../cosmos/base/tendermint/v1beta1/query").ABCIQueryRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").ABCIQueryResponse>;
                         };
                     };
                 };
@@ -888,6 +948,16 @@ export declare namespace agoric {
                     };
                 };
                 gov: {
+                    v1: {
+                        proposal(request: import("../cosmos/gov/v1/query").QueryProposalRequest): Promise<import("../cosmos/gov/v1/query").QueryProposalResponse>;
+                        proposals(request: import("../cosmos/gov/v1/query").QueryProposalsRequest): Promise<import("../cosmos/gov/v1/query").QueryProposalsResponse>;
+                        vote(request: import("../cosmos/gov/v1/query").QueryVoteRequest): Promise<import("../cosmos/gov/v1/query").QueryVoteResponse>;
+                        votes(request: import("../cosmos/gov/v1/query").QueryVotesRequest): Promise<import("../cosmos/gov/v1/query").QueryVotesResponse>;
+                        params(request: import("../cosmos/gov/v1/query").QueryParamsRequest): Promise<import("../cosmos/gov/v1/query").QueryParamsResponse>;
+                        deposit(request: import("../cosmos/gov/v1/query").QueryDepositRequest): Promise<import("../cosmos/gov/v1/query").QueryDepositResponse>;
+                        deposits(request: import("../cosmos/gov/v1/query").QueryDepositsRequest): Promise<import("../cosmos/gov/v1/query").QueryDepositsResponse>;
+                        tallyResult(request: import("../cosmos/gov/v1/query").QueryTallyResultRequest): Promise<import("../cosmos/gov/v1/query").QueryTallyResultResponse>;
+                    };
                     v1beta1: {
                         proposal(request: import("../cosmos/gov/v1beta1/query").QueryProposalRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryProposalResponse>;
                         proposals(request: import("../cosmos/gov/v1beta1/query").QueryProposalsRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryProposalsResponse>;
@@ -899,6 +969,24 @@ export declare namespace agoric {
                         tallyResult(request: import("../cosmos/gov/v1beta1/query").QueryTallyResultRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryTallyResultResponse>;
                     };
                 };
+                group: {
+                    v1: {
+                        groupInfo(request: import("../cosmos/group/v1/query").QueryGroupInfoRequest): Promise<import("../cosmos/group/v1/query").QueryGroupInfoResponse>;
+                        groupPolicyInfo(request: import("../cosmos/group/v1/query").QueryGroupPolicyInfoRequest): Promise<import("../cosmos/group/v1/query").QueryGroupPolicyInfoResponse>;
+                        groupMembers(request: import("../cosmos/group/v1/query").QueryGroupMembersRequest): Promise<import("../cosmos/group/v1/query").QueryGroupMembersResponse>;
+                        groupsByAdmin(request: import("../cosmos/group/v1/query").QueryGroupsByAdminRequest): Promise<import("../cosmos/group/v1/query").QueryGroupsByAdminResponse>;
+                        groupPoliciesByGroup(request: import("../cosmos/group/v1/query").QueryGroupPoliciesByGroupRequest): Promise<import("../cosmos/group/v1/query").QueryGroupPoliciesByGroupResponse>;
+                        groupPoliciesByAdmin(request: import("../cosmos/group/v1/query").QueryGroupPoliciesByAdminRequest): Promise<import("../cosmos/group/v1/query").QueryGroupPoliciesByAdminResponse>;
+                        proposal(request: import("../cosmos/group/v1/query").QueryProposalRequest): Promise<import("../cosmos/group/v1/query").QueryProposalResponse>;
+                        proposalsByGroupPolicy(request: import("../cosmos/group/v1/query").QueryProposalsByGroupPolicyRequest): Promise<import("../cosmos/group/v1/query").QueryProposalsByGroupPolicyResponse>;
+                        voteByProposalVoter(request: import("../cosmos/group/v1/query").QueryVoteByProposalVoterRequest): Promise<import("../cosmos/group/v1/query").QueryVoteByProposalVoterResponse>;
+                        votesByProposal(request: import("../cosmos/group/v1/query").QueryVotesByProposalRequest): Promise<import("../cosmos/group/v1/query").QueryVotesByProposalResponse>;
+                        votesByVoter(request: import("../cosmos/group/v1/query").QueryVotesByVoterRequest): Promise<import("../cosmos/group/v1/query").QueryVotesByVoterResponse>;
+                        groupsByMember(request: import("../cosmos/group/v1/query").QueryGroupsByMemberRequest): Promise<import("../cosmos/group/v1/query").QueryGroupsByMemberResponse>;
+                        tallyResult(request: import("../cosmos/group/v1/query").QueryTallyResultRequest): Promise<import("../cosmos/group/v1/query").QueryTallyResultResponse>;
+                        groups(request?: import("../cosmos/group/v1/query").QueryGroupsRequest): Promise<import("../cosmos/group/v1/query").QueryGroupsResponse>;
+                    };
+                };
                 mint: {
                     v1beta1: {
                         params(request?: import("../cosmos/mint/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/mint/v1beta1/query").QueryParamsResponse>;
@@ -906,9 +994,21 @@ export declare namespace agoric {
                         annualProvisions(request?: import("../cosmos/mint/v1beta1/query").QueryAnnualProvisionsRequest): Promise<import("../cosmos/mint/v1beta1/query").QueryAnnualProvisionsResponse>;
                     };
                 };
+                nft: {
+                    v1beta1: {
+                        balance(request: import("../cosmos/nft/v1beta1/query").QueryBalanceRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryBalanceResponse>;
+                        owner(request: import("../cosmos/nft/v1beta1/query").QueryOwnerRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryOwnerResponse>;
+                        supply(request: import("../cosmos/nft/v1beta1/query").QuerySupplyRequest): Promise<import("../cosmos/nft/v1beta1/query").QuerySupplyResponse>;
+                        nFTs(request: import("../cosmos/nft/v1beta1/query").QueryNFTsRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryNFTsResponse>;
+                        nFT(request: import("../cosmos/nft/v1beta1/query").QueryNFTRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryNFTResponse>;
+                        class(request: import("../cosmos/nft/v1beta1/query").QueryClassRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryClassResponse>;
+                        classes(request?: import("../cosmos/nft/v1beta1/query").QueryClassesRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryClassesResponse>;
+                    };
+                };
                 params: {
                     v1beta1: {
                         params(request: import("../cosmos/params/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/params/v1beta1/query").QueryParamsResponse>;
+                        subspaces(request?: import("../cosmos/params/v1beta1/query").QuerySubspacesRequest): Promise<import("../cosmos/params/v1beta1/query").QuerySubspacesResponse>;
                     };
                 };
                 slashing: {
@@ -951,6 +1051,7 @@ export declare namespace agoric {
                         appliedPlan(request: import("../cosmos/upgrade/v1beta1/query").QueryAppliedPlanRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryAppliedPlanResponse>;
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
+                        authority(request?: import("../cosmos/upgrade/v1beta1/query").QueryAuthorityRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryAuthorityResponse>;
                     };
                 };
             };
@@ -959,9 +1060,9 @@ export declare namespace agoric {
             restEndpoint: string;
         }) => Promise<{
             agoric: {
-                swingset: _123.LCDQueryClient;
-                vbank: _124.LCDQueryClient;
-                vstorage: _125.LCDQueryClient;
+                swingset: _136.LCDQueryClient;
+                vbank: _137.LCDQueryClient;
+                vstorage: _138.LCDQueryClient;
             };
             cosmos: {
                 auth: {
@@ -991,10 +1092,17 @@ export declare namespace agoric {
                     v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
                 };
                 gov: {
+                    v1: import("../cosmos/gov/v1/query.lcd").LCDQueryClient;
                     v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                group: {
+                    v1: import("../cosmos/group/v1/query.lcd").LCDQueryClient;
                 };
                 mint: {
                     v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                nft: {
+                    v1beta1: import("../cosmos/nft/v1beta1/query.lcd").LCDQueryClient;
                 };
                 params: {
                     v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;

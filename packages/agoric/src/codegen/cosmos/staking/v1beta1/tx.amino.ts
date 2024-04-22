@@ -1,4 +1,4 @@
-import { MsgCreateValidator, MsgEditValidator, MsgDelegate, MsgBeginRedelegate, MsgUndelegate } from "./tx";
+import { MsgCreateValidator, MsgEditValidator, MsgDelegate, MsgBeginRedelegate, MsgUndelegate, MsgCancelUnbondingDelegation } from "./tx";
 export const AminoConverter = {
   "/cosmos.staking.v1beta1.MsgCreateValidator": {
     aminoType: "cosmos-sdk/MsgCreateValidator",
@@ -24,5 +24,10 @@ export const AminoConverter = {
     aminoType: "cosmos-sdk/MsgUndelegate",
     toAmino: MsgUndelegate.toAmino,
     fromAmino: MsgUndelegate.fromAmino
+  },
+  "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation": {
+    aminoType: "cosmos-sdk/MsgCancelUnbondingDelegation",
+    toAmino: MsgCancelUnbondingDelegation.toAmino,
+    fromAmino: MsgCancelUnbondingDelegation.fromAmino
   }
 };

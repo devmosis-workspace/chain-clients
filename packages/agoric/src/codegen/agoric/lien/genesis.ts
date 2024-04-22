@@ -11,7 +11,7 @@ export interface GenesisStateProtoMsg {
 }
 /** The initial or exported state. */
 export interface GenesisStateAmino {
-  liens: AccountLienAmino[];
+  liens?: AccountLienAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/agoric.lien.GenesisState";
@@ -26,7 +26,7 @@ export interface AccountLien {
   /** Account address, bech32-encoded. */
   address: string;
   /** The liened amount. Should be nonzero. */
-  lien: Lien;
+  lien?: Lien;
 }
 export interface AccountLienProtoMsg {
   typeUrl: "/agoric.lien.AccountLien";
@@ -35,7 +35,7 @@ export interface AccountLienProtoMsg {
 /** The lien on a particular account */
 export interface AccountLienAmino {
   /** Account address, bech32-encoded. */
-  address: string;
+  address?: string;
   /** The liened amount. Should be nonzero. */
   lien?: LienAmino;
 }
@@ -46,7 +46,7 @@ export interface AccountLienAminoMsg {
 /** The lien on a particular account */
 export interface AccountLienSDKType {
   address: string;
-  lien: LienSDKType;
+  lien?: LienSDKType;
 }
 function createBaseGenesisState(): GenesisState {
   return {
@@ -72,9 +72,9 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      liens: Array.isArray(object?.liens) ? object.liens.map((e: any) => AccountLien.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.liens = object.liens?.map(e => AccountLien.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -104,7 +104,7 @@ export const GenesisState = {
 function createBaseAccountLien(): AccountLien {
   return {
     address: "",
-    lien: Lien.fromPartial({})
+    lien: undefined
   };
 }
 export const AccountLien = {
@@ -131,10 +131,14 @@ export const AccountLien = {
     return message;
   },
   fromAmino(object: AccountLienAmino): AccountLien {
-    return {
-      address: object.address,
-      lien: object?.lien ? Lien.fromAmino(object.lien) : undefined
-    };
+    const message = createBaseAccountLien();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.lien !== undefined && object.lien !== null) {
+      message.lien = Lien.fromAmino(object.lien);
+    }
+    return message;
   },
   toAmino(message: AccountLien): AccountLienAmino {
     const obj: any = {};

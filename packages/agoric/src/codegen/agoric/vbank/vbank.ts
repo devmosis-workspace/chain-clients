@@ -34,19 +34,19 @@ export interface ParamsAmino {
    * A value of zero has the same meaning as a value of one:
    * the full reward buffer should be distributed immediately.
    */
-  reward_epoch_duration_blocks: string;
+  reward_epoch_duration_blocks?: string;
   /**
    * per_epoch_reward_fraction is a fraction of the reward pool to distrubute
    * once every reward epoch.  If less than zero, use approximately continuous
    * per-block distribution.
    */
-  per_epoch_reward_fraction: string;
+  per_epoch_reward_fraction?: string;
   /**
    * reward_smoothing_blocks is the number of blocks over which to distribute
    * an epoch's rewards.  If zero, use the same value as
    * reward_epoch_duration_blocks.
    */
-  reward_smoothing_blocks: string;
+  reward_smoothing_blocks?: string;
 }
 export interface ParamsAminoMsg {
   type: "/agoric.vbank.Params";
@@ -86,15 +86,15 @@ export interface StateAmino {
    * NOTE: Tracking manually since there is no bank call for getting a
    * module account balance by name.
    */
-  reward_pool: CoinAmino[];
+  reward_pool?: CoinAmino[];
   /**
    * reward_block_amount is the amount of reward, if available, to send to the
    * fee collector module on every block.
    */
-  reward_block_amount: CoinAmino[];
+  reward_block_amount?: CoinAmino[];
   /** last_sequence is a sequence number for communicating with the VM. */
-  last_sequence: string;
-  last_reward_distribution_block: string;
+  last_sequence?: string;
+  last_reward_distribution_block?: string;
 }
 export interface StateAminoMsg {
   type: "/agoric.vbank.State";
@@ -143,11 +143,17 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      rewardEpochDurationBlocks: BigInt(object.reward_epoch_duration_blocks),
-      perEpochRewardFraction: object.per_epoch_reward_fraction,
-      rewardSmoothingBlocks: BigInt(object.reward_smoothing_blocks)
-    };
+    const message = createBaseParams();
+    if (object.reward_epoch_duration_blocks !== undefined && object.reward_epoch_duration_blocks !== null) {
+      message.rewardEpochDurationBlocks = BigInt(object.reward_epoch_duration_blocks);
+    }
+    if (object.per_epoch_reward_fraction !== undefined && object.per_epoch_reward_fraction !== null) {
+      message.perEpochRewardFraction = object.per_epoch_reward_fraction;
+    }
+    if (object.reward_smoothing_blocks !== undefined && object.reward_smoothing_blocks !== null) {
+      message.rewardSmoothingBlocks = BigInt(object.reward_smoothing_blocks);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -214,12 +220,16 @@ export const State = {
     return message;
   },
   fromAmino(object: StateAmino): State {
-    return {
-      rewardPool: Array.isArray(object?.reward_pool) ? object.reward_pool.map((e: any) => Coin.fromAmino(e)) : [],
-      rewardBlockAmount: Array.isArray(object?.reward_block_amount) ? object.reward_block_amount.map((e: any) => Coin.fromAmino(e)) : [],
-      lastSequence: BigInt(object.last_sequence),
-      lastRewardDistributionBlock: BigInt(object.last_reward_distribution_block)
-    };
+    const message = createBaseState();
+    message.rewardPool = object.reward_pool?.map(e => Coin.fromAmino(e)) || [];
+    message.rewardBlockAmount = object.reward_block_amount?.map(e => Coin.fromAmino(e)) || [];
+    if (object.last_sequence !== undefined && object.last_sequence !== null) {
+      message.lastSequence = BigInt(object.last_sequence);
+    }
+    if (object.last_reward_distribution_block !== undefined && object.last_reward_distribution_block !== null) {
+      message.lastRewardDistributionBlock = BigInt(object.last_reward_distribution_block);
+    }
+    return message;
   },
   toAmino(message: State): StateAmino {
     const obj: any = {};

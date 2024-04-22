@@ -6,18 +6,11 @@ import { BinaryWriter } from "../../../binary";
  * account.
  */
 export interface MsgCreateVestingAccount {
-    /** Address of the account providing the funds, which must also sign the request. */
     fromAddress: string;
-    /** Address of the vesting account to create. */
     toAddress: string;
-    /** Amount to transfer to the new account. */
     amount: Coin[];
-    /** End time of the vesting duration. */
+    /** end of vesting as unix time (in seconds). */
     endTime: bigint;
-    /**
-     * If true, creates a DelayedVestingAccount,
-     * otherwise creates a ContinuousVestingAccount.
-     */
     delayed: boolean;
 }
 export interface MsgCreateVestingAccountProtoMsg {
@@ -29,19 +22,12 @@ export interface MsgCreateVestingAccountProtoMsg {
  * account.
  */
 export interface MsgCreateVestingAccountAmino {
-    /** Address of the account providing the funds, which must also sign the request. */
-    from_address: string;
-    /** Address of the vesting account to create. */
-    to_address: string;
-    /** Amount to transfer to the new account. */
-    amount: CoinAmino[];
-    /** End time of the vesting duration. */
-    end_time: string;
-    /**
-     * If true, creates a DelayedVestingAccount,
-     * otherwise creates a ContinuousVestingAccount.
-     */
-    delayed: boolean;
+    from_address?: string;
+    to_address?: string;
+    amount?: CoinAmino[];
+    /** end of vesting as unix time (in seconds). */
+    end_time?: string;
+    delayed?: boolean;
 }
 export interface MsgCreateVestingAccountAminoMsg {
     type: "cosmos-sdk/MsgCreateVestingAccount";
@@ -58,35 +44,104 @@ export interface MsgCreateVestingAccountSDKType {
     end_time: bigint;
     delayed: boolean;
 }
-/** MsgCreateVestingAccountResponse defines the MsgCreateVestingAccount response type. */
+/** MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount response type. */
 export interface MsgCreateVestingAccountResponse {
 }
 export interface MsgCreateVestingAccountResponseProtoMsg {
     typeUrl: "/cosmos.vesting.v1beta1.MsgCreateVestingAccountResponse";
     value: Uint8Array;
 }
-/** MsgCreateVestingAccountResponse defines the MsgCreateVestingAccount response type. */
+/** MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount response type. */
 export interface MsgCreateVestingAccountResponseAmino {
 }
 export interface MsgCreateVestingAccountResponseAminoMsg {
     type: "cosmos-sdk/MsgCreateVestingAccountResponse";
     value: MsgCreateVestingAccountResponseAmino;
 }
-/** MsgCreateVestingAccountResponse defines the MsgCreateVestingAccount response type. */
+/** MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount response type. */
 export interface MsgCreateVestingAccountResponseSDKType {
 }
 /**
- * MsgCreatePeriodicVestingAccount defines a message that enables creating a vesting
+ * MsgCreatePermanentLockedAccount defines a message that enables creating a permanent
+ * locked account.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCreatePermanentLockedAccount {
+    fromAddress: string;
+    toAddress: string;
+    amount: Coin[];
+}
+export interface MsgCreatePermanentLockedAccountProtoMsg {
+    typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount";
+    value: Uint8Array;
+}
+/**
+ * MsgCreatePermanentLockedAccount defines a message that enables creating a permanent
+ * locked account.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCreatePermanentLockedAccountAmino {
+    from_address?: string;
+    to_address?: string;
+    amount?: CoinAmino[];
+}
+export interface MsgCreatePermanentLockedAccountAminoMsg {
+    type: "cosmos-sdk/MsgCreatePermanentLockedAccount";
+    value: MsgCreatePermanentLockedAccountAmino;
+}
+/**
+ * MsgCreatePermanentLockedAccount defines a message that enables creating a permanent
+ * locked account.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCreatePermanentLockedAccountSDKType {
+    from_address: string;
+    to_address: string;
+    amount: CoinSDKType[];
+}
+/**
+ * MsgCreatePermanentLockedAccountResponse defines the Msg/CreatePermanentLockedAccount response type.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCreatePermanentLockedAccountResponse {
+}
+export interface MsgCreatePermanentLockedAccountResponseProtoMsg {
+    typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccountResponse";
+    value: Uint8Array;
+}
+/**
+ * MsgCreatePermanentLockedAccountResponse defines the Msg/CreatePermanentLockedAccount response type.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCreatePermanentLockedAccountResponseAmino {
+}
+export interface MsgCreatePermanentLockedAccountResponseAminoMsg {
+    type: "cosmos-sdk/MsgCreatePermanentLockedAccountResponse";
+    value: MsgCreatePermanentLockedAccountResponseAmino;
+}
+/**
+ * MsgCreatePermanentLockedAccountResponse defines the Msg/CreatePermanentLockedAccount response type.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCreatePermanentLockedAccountResponseSDKType {
+}
+/**
+ * MsgCreateVestingAccount defines a message that enables creating a vesting
  * account.
+ *
+ * Since: cosmos-sdk 0.46
  */
 export interface MsgCreatePeriodicVestingAccount {
-    /** Address of the account providing the funds, which must also sign the request. */
     fromAddress: string;
-    /** Address of the account to receive the funds. */
     toAddress: string;
-    /** Start time of the vesting. Periods start relative to this time. */
+    /** start of vesting as unix time (in seconds). */
     startTime: bigint;
-    /** Vesting events as a sequence of durations and amounts, starting relative to start_time. */
     vestingPeriods: Period[];
     /**
      * If true, merge this new grant into an existing PeriodicVestingAccount,
@@ -100,32 +155,33 @@ export interface MsgCreatePeriodicVestingAccountProtoMsg {
     value: Uint8Array;
 }
 /**
- * MsgCreatePeriodicVestingAccount defines a message that enables creating a vesting
+ * MsgCreateVestingAccount defines a message that enables creating a vesting
  * account.
+ *
+ * Since: cosmos-sdk 0.46
  */
 export interface MsgCreatePeriodicVestingAccountAmino {
-    /** Address of the account providing the funds, which must also sign the request. */
-    from_address: string;
-    /** Address of the account to receive the funds. */
-    to_address: string;
-    /** Start time of the vesting. Periods start relative to this time. */
-    start_time: string;
-    /** Vesting events as a sequence of durations and amounts, starting relative to start_time. */
-    vesting_periods: PeriodAmino[];
+    from_address?: string;
+    to_address?: string;
+    /** start of vesting as unix time (in seconds). */
+    start_time?: string;
+    vesting_periods?: PeriodAmino[];
     /**
      * If true, merge this new grant into an existing PeriodicVestingAccount,
      * or create it if it does not exist. If false, creates a new account,
      * or fails if an account already exists
      */
-    merge: boolean;
+    merge?: boolean;
 }
 export interface MsgCreatePeriodicVestingAccountAminoMsg {
     type: "cosmos-sdk/MsgCreatePeriodicVestingAccount";
     value: MsgCreatePeriodicVestingAccountAmino;
 }
 /**
- * MsgCreatePeriodicVestingAccount defines a message that enables creating a vesting
+ * MsgCreateVestingAccount defines a message that enables creating a vesting
  * account.
+ *
+ * Since: cosmos-sdk 0.46
  */
 export interface MsgCreatePeriodicVestingAccountSDKType {
     from_address: string;
@@ -135,8 +191,10 @@ export interface MsgCreatePeriodicVestingAccountSDKType {
     merge: boolean;
 }
 /**
- * MsgCreatePeriodicVestingAccountResponse defines the MsgCreatePeriodicVestingAccount
+ * MsgCreateVestingAccountResponse defines the Msg/CreatePeriodicVestingAccount
  * response type.
+ *
+ * Since: cosmos-sdk 0.46
  */
 export interface MsgCreatePeriodicVestingAccountResponse {
 }
@@ -145,8 +203,10 @@ export interface MsgCreatePeriodicVestingAccountResponseProtoMsg {
     value: Uint8Array;
 }
 /**
- * MsgCreatePeriodicVestingAccountResponse defines the MsgCreatePeriodicVestingAccount
+ * MsgCreateVestingAccountResponse defines the Msg/CreatePeriodicVestingAccount
  * response type.
+ *
+ * Since: cosmos-sdk 0.46
  */
 export interface MsgCreatePeriodicVestingAccountResponseAmino {
 }
@@ -155,8 +215,10 @@ export interface MsgCreatePeriodicVestingAccountResponseAminoMsg {
     value: MsgCreatePeriodicVestingAccountResponseAmino;
 }
 /**
- * MsgCreatePeriodicVestingAccountResponse defines the MsgCreatePeriodicVestingAccount
+ * MsgCreateVestingAccountResponse defines the Msg/CreatePeriodicVestingAccount
  * response type.
+ *
+ * Since: cosmos-sdk 0.46
  */
 export interface MsgCreatePeriodicVestingAccountResponseSDKType {
 }
@@ -186,21 +248,21 @@ export interface MsgCreateClawbackVestingAccountProtoMsg {
 /** MsgCreateClawbackVestingAccount defines a message that enables creating a ClawbackVestingAccount. */
 export interface MsgCreateClawbackVestingAccountAmino {
     /** Address of the account providing the funds, which must also sign the request. */
-    from_address: string;
+    from_address?: string;
     /** Address of the account to receive the funds. */
-    to_address: string;
+    to_address?: string;
     /** Start time of the vesting. Periods start relative to this time. */
-    start_time: string;
+    start_time?: string;
     /** Unlocking events as a sequence of durations and amounts, starting relative to start_time. */
-    lockup_periods: PeriodAmino[];
+    lockup_periods?: PeriodAmino[];
     /** Vesting events as a sequence of durations and amounts, starting relative to start_time. */
-    vesting_periods: PeriodAmino[];
+    vesting_periods?: PeriodAmino[];
     /**
      * If true, merge this new grant into an existing ClawbackVestingAccount,
      * or create it if it does not exist. If false, creates a new account.
      * New grants to an existing account must be from the same from_address.
      */
-    merge: boolean;
+    merge?: boolean;
 }
 export interface MsgCreateClawbackVestingAccountAminoMsg {
     type: "cosmos-sdk/MsgCreateClawbackVestingAccount";
@@ -251,14 +313,14 @@ export interface MsgClawbackProtoMsg {
 /** MsgClawback defines a message that removes unvested tokens from a ClawbackVestingAccount. */
 export interface MsgClawbackAmino {
     /** funder_address is the address which funded the account */
-    funder_address: string;
+    funder_address?: string;
     /** address is the address of the ClawbackVestingAccount to claw back from. */
-    address: string;
+    address?: string;
     /**
      * dest_address specifies where the clawed-back tokens should be transferred.
      * If empty, the tokens will be transferred back to the original funder of the account.
      */
-    dest_address: string;
+    dest_address?: string;
 }
 export interface MsgClawbackAminoMsg {
     type: "cosmos-sdk/MsgClawback";
@@ -287,6 +349,63 @@ export interface MsgClawbackResponseAminoMsg {
 /** MsgClawbackResponse defines the MsgClawback response type. */
 export interface MsgClawbackResponseSDKType {
 }
+/**
+ * MsgReturnGrants defines a message for a grantee to return all granted assets,
+ * including delegated, undelegated and unbonding, vested and unvested,
+ * are transferred to the original funder of the account. Might not be complete if
+ * some vested assets have been transferred out of the account. Currently only applies to
+ * ClawbackVesting accounts.
+ */
+export interface MsgReturnGrants {
+    /** address is the address of the grantee account returning the grant. */
+    address: string;
+}
+export interface MsgReturnGrantsProtoMsg {
+    typeUrl: "/cosmos.vesting.v1beta1.MsgReturnGrants";
+    value: Uint8Array;
+}
+/**
+ * MsgReturnGrants defines a message for a grantee to return all granted assets,
+ * including delegated, undelegated and unbonding, vested and unvested,
+ * are transferred to the original funder of the account. Might not be complete if
+ * some vested assets have been transferred out of the account. Currently only applies to
+ * ClawbackVesting accounts.
+ */
+export interface MsgReturnGrantsAmino {
+    /** address is the address of the grantee account returning the grant. */
+    address?: string;
+}
+export interface MsgReturnGrantsAminoMsg {
+    type: "cosmos-sdk/MsgReturnGrants";
+    value: MsgReturnGrantsAmino;
+}
+/**
+ * MsgReturnGrants defines a message for a grantee to return all granted assets,
+ * including delegated, undelegated and unbonding, vested and unvested,
+ * are transferred to the original funder of the account. Might not be complete if
+ * some vested assets have been transferred out of the account. Currently only applies to
+ * ClawbackVesting accounts.
+ */
+export interface MsgReturnGrantsSDKType {
+    address: string;
+}
+/** MsgReturnGrantsResponse defines the ReturnGrants response type. */
+export interface MsgReturnGrantsResponse {
+}
+export interface MsgReturnGrantsResponseProtoMsg {
+    typeUrl: "/cosmos.vesting.v1beta1.MsgReturnGrantsResponse";
+    value: Uint8Array;
+}
+/** MsgReturnGrantsResponse defines the ReturnGrants response type. */
+export interface MsgReturnGrantsResponseAmino {
+}
+export interface MsgReturnGrantsResponseAminoMsg {
+    type: "cosmos-sdk/MsgReturnGrantsResponse";
+    value: MsgReturnGrantsResponseAmino;
+}
+/** MsgReturnGrantsResponse defines the ReturnGrants response type. */
+export interface MsgReturnGrantsResponseSDKType {
+}
 export declare const MsgCreateVestingAccount: {
     typeUrl: string;
     encode(message: MsgCreateVestingAccount, writer?: BinaryWriter): BinaryWriter;
@@ -312,6 +431,32 @@ export declare const MsgCreateVestingAccountResponse: {
     fromProtoMsg(message: MsgCreateVestingAccountResponseProtoMsg): MsgCreateVestingAccountResponse;
     toProto(message: MsgCreateVestingAccountResponse): Uint8Array;
     toProtoMsg(message: MsgCreateVestingAccountResponse): MsgCreateVestingAccountResponseProtoMsg;
+};
+export declare const MsgCreatePermanentLockedAccount: {
+    typeUrl: string;
+    encode(message: MsgCreatePermanentLockedAccount, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgCreatePermanentLockedAccount;
+    fromPartial(object: Partial<MsgCreatePermanentLockedAccount>): MsgCreatePermanentLockedAccount;
+    fromAmino(object: MsgCreatePermanentLockedAccountAmino): MsgCreatePermanentLockedAccount;
+    toAmino(message: MsgCreatePermanentLockedAccount): MsgCreatePermanentLockedAccountAmino;
+    fromAminoMsg(object: MsgCreatePermanentLockedAccountAminoMsg): MsgCreatePermanentLockedAccount;
+    toAminoMsg(message: MsgCreatePermanentLockedAccount): MsgCreatePermanentLockedAccountAminoMsg;
+    fromProtoMsg(message: MsgCreatePermanentLockedAccountProtoMsg): MsgCreatePermanentLockedAccount;
+    toProto(message: MsgCreatePermanentLockedAccount): Uint8Array;
+    toProtoMsg(message: MsgCreatePermanentLockedAccount): MsgCreatePermanentLockedAccountProtoMsg;
+};
+export declare const MsgCreatePermanentLockedAccountResponse: {
+    typeUrl: string;
+    encode(_: MsgCreatePermanentLockedAccountResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgCreatePermanentLockedAccountResponse;
+    fromPartial(_: Partial<MsgCreatePermanentLockedAccountResponse>): MsgCreatePermanentLockedAccountResponse;
+    fromAmino(_: MsgCreatePermanentLockedAccountResponseAmino): MsgCreatePermanentLockedAccountResponse;
+    toAmino(_: MsgCreatePermanentLockedAccountResponse): MsgCreatePermanentLockedAccountResponseAmino;
+    fromAminoMsg(object: MsgCreatePermanentLockedAccountResponseAminoMsg): MsgCreatePermanentLockedAccountResponse;
+    toAminoMsg(message: MsgCreatePermanentLockedAccountResponse): MsgCreatePermanentLockedAccountResponseAminoMsg;
+    fromProtoMsg(message: MsgCreatePermanentLockedAccountResponseProtoMsg): MsgCreatePermanentLockedAccountResponse;
+    toProto(message: MsgCreatePermanentLockedAccountResponse): Uint8Array;
+    toProtoMsg(message: MsgCreatePermanentLockedAccountResponse): MsgCreatePermanentLockedAccountResponseProtoMsg;
 };
 export declare const MsgCreatePeriodicVestingAccount: {
     typeUrl: string;
@@ -390,4 +535,30 @@ export declare const MsgClawbackResponse: {
     fromProtoMsg(message: MsgClawbackResponseProtoMsg): MsgClawbackResponse;
     toProto(message: MsgClawbackResponse): Uint8Array;
     toProtoMsg(message: MsgClawbackResponse): MsgClawbackResponseProtoMsg;
+};
+export declare const MsgReturnGrants: {
+    typeUrl: string;
+    encode(message: MsgReturnGrants, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgReturnGrants;
+    fromPartial(object: Partial<MsgReturnGrants>): MsgReturnGrants;
+    fromAmino(object: MsgReturnGrantsAmino): MsgReturnGrants;
+    toAmino(message: MsgReturnGrants): MsgReturnGrantsAmino;
+    fromAminoMsg(object: MsgReturnGrantsAminoMsg): MsgReturnGrants;
+    toAminoMsg(message: MsgReturnGrants): MsgReturnGrantsAminoMsg;
+    fromProtoMsg(message: MsgReturnGrantsProtoMsg): MsgReturnGrants;
+    toProto(message: MsgReturnGrants): Uint8Array;
+    toProtoMsg(message: MsgReturnGrants): MsgReturnGrantsProtoMsg;
+};
+export declare const MsgReturnGrantsResponse: {
+    typeUrl: string;
+    encode(_: MsgReturnGrantsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgReturnGrantsResponse;
+    fromPartial(_: Partial<MsgReturnGrantsResponse>): MsgReturnGrantsResponse;
+    fromAmino(_: MsgReturnGrantsResponseAmino): MsgReturnGrantsResponse;
+    toAmino(_: MsgReturnGrantsResponse): MsgReturnGrantsResponseAmino;
+    fromAminoMsg(object: MsgReturnGrantsResponseAminoMsg): MsgReturnGrantsResponse;
+    toAminoMsg(message: MsgReturnGrantsResponse): MsgReturnGrantsResponseAminoMsg;
+    fromProtoMsg(message: MsgReturnGrantsResponseProtoMsg): MsgReturnGrantsResponse;
+    toProto(message: MsgReturnGrantsResponse): Uint8Array;
+    toProtoMsg(message: MsgReturnGrantsResponse): MsgReturnGrantsResponseProtoMsg;
 };

@@ -89,7 +89,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -135,9 +136,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -176,7 +179,8 @@ export const QueryStateRequest = {
     return message;
   },
   fromAmino(_: QueryStateRequestAmino): QueryStateRequest {
-    return {};
+    const message = createBaseQueryStateRequest();
+    return message;
   },
   toAmino(_: QueryStateRequest): QueryStateRequestAmino {
     const obj: any = {};
@@ -222,9 +226,11 @@ export const QueryStateResponse = {
     return message;
   },
   fromAmino(object: QueryStateResponseAmino): QueryStateResponse {
-    return {
-      state: object?.state ? State.fromAmino(object.state) : undefined
-    };
+    const message = createBaseQueryStateResponse();
+    if (object.state !== undefined && object.state !== null) {
+      message.state = State.fromAmino(object.state);
+    }
+    return message;
   },
   toAmino(message: QueryStateResponse): QueryStateResponseAmino {
     const obj: any = {};

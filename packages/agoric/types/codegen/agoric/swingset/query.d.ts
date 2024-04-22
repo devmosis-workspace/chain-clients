@@ -49,7 +49,7 @@ export interface QueryEgressRequestProtoMsg {
 }
 /** QueryEgressRequest is the request type for the Query/Egress RPC method */
 export interface QueryEgressRequestAmino {
-    peer: Uint8Array;
+    peer?: string;
 }
 export interface QueryEgressRequestAminoMsg {
     type: "/agoric.swingset.QueryEgressRequest";
@@ -61,7 +61,7 @@ export interface QueryEgressRequestSDKType {
 }
 /** QueryEgressResponse is the egress response. */
 export interface QueryEgressResponse {
-    egress: Egress;
+    egress?: Egress;
 }
 export interface QueryEgressResponseProtoMsg {
     typeUrl: "/agoric.swingset.QueryEgressResponse";
@@ -77,7 +77,7 @@ export interface QueryEgressResponseAminoMsg {
 }
 /** QueryEgressResponse is the egress response. */
 export interface QueryEgressResponseSDKType {
-    egress: EgressSDKType;
+    egress?: EgressSDKType;
 }
 /** QueryMailboxRequest is the mailbox query. */
 export interface QueryMailboxRequest {
@@ -89,7 +89,7 @@ export interface QueryMailboxRequestProtoMsg {
 }
 /** QueryMailboxRequest is the mailbox query. */
 export interface QueryMailboxRequestAmino {
-    peer: Uint8Array;
+    peer?: string;
 }
 export interface QueryMailboxRequestAminoMsg {
     type: "/agoric.swingset.QueryMailboxRequest";
@@ -109,7 +109,7 @@ export interface QueryMailboxResponseProtoMsg {
 }
 /** QueryMailboxResponse is the mailbox response. */
 export interface QueryMailboxResponseAmino {
-    value: string;
+    value?: string;
 }
 export interface QueryMailboxResponseAminoMsg {
     type: "/agoric.swingset.QueryMailboxResponse";

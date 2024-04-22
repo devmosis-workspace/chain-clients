@@ -12,21 +12,21 @@ import * as _10 from "./vibc/msgs";
 import * as _11 from "./vstorage/genesis";
 import * as _12 from "./vstorage/query";
 import * as _13 from "./vstorage/vstorage";
-import * as _119 from "./swingset/msgs.amino";
-import * as _120 from "./vibc/msgs.amino";
-import * as _121 from "./swingset/msgs.registry";
-import * as _122 from "./vibc/msgs.registry";
-import * as _123 from "./swingset/query.lcd";
-import * as _124 from "./vbank/query.lcd";
-import * as _125 from "./vstorage/query.lcd";
-import * as _126 from "./swingset/query.rpc.Query";
-import * as _127 from "./vbank/query.rpc.Query";
-import * as _128 from "./vstorage/query.rpc.Query";
-import * as _129 from "./swingset/msgs.rpc.msg";
-import * as _130 from "./vibc/msgs.rpc.msg";
-import * as _191 from "./lcd";
-import * as _192 from "./rpc.query";
-import * as _193 from "./rpc.tx";
+import * as _132 from "./swingset/msgs.amino";
+import * as _133 from "./vibc/msgs.amino";
+import * as _134 from "./swingset/msgs.registry";
+import * as _135 from "./vibc/msgs.registry";
+import * as _136 from "./swingset/query.lcd";
+import * as _137 from "./vbank/query.lcd";
+import * as _138 from "./vstorage/query.lcd";
+import * as _139 from "./swingset/query.rpc.Query";
+import * as _140 from "./vbank/query.rpc.Query";
+import * as _141 from "./vstorage/query.rpc.Query";
+import * as _142 from "./swingset/msgs.rpc.msg";
+import * as _143 from "./vibc/msgs.rpc.msg";
+import * as _223 from "./lcd";
+import * as _224 from "./rpc.query";
+import * as _225 from "./rpc.tx";
 export namespace agoric {
   export const lien = {
     ..._0,
@@ -37,36 +37,36 @@ export namespace agoric {
     ..._3,
     ..._4,
     ..._5,
-    ..._119,
-    ..._121,
-    ..._123,
-    ..._126,
-    ..._129
+    ..._132,
+    ..._134,
+    ..._136,
+    ..._139,
+    ..._142
   };
   export const vbank = {
     ..._6,
     ..._7,
     ..._8,
     ..._9,
-    ..._124,
-    ..._127
+    ..._137,
+    ..._140
   };
   export const vibc = {
     ..._10,
-    ..._120,
-    ..._122,
-    ..._130
+    ..._133,
+    ..._135,
+    ..._143
   };
   export const vstorage = {
     ..._11,
     ..._12,
     ..._13,
-    ..._125,
-    ..._128
+    ..._138,
+    ..._141
   };
   export const ClientFactory = {
-    ..._191,
-    ..._192,
-    ..._193
+    ..._223,
+    ..._224,
+    ..._225
   };
 }

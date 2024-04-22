@@ -6,10 +6,11 @@ import { BinaryWriter } from "../../../binary";
  * the necessary fields needed for any vesting account implementation.
  */
 export interface BaseVestingAccount {
-    baseAccount: BaseAccount;
+    baseAccount?: BaseAccount;
     originalVesting: Coin[];
     delegatedFree: Coin[];
     delegatedVesting: Coin[];
+    /** Vesting end time, as unix timestamp (in seconds). */
     endTime: bigint;
 }
 export interface BaseVestingAccountProtoMsg {
@@ -22,10 +23,11 @@ export interface BaseVestingAccountProtoMsg {
  */
 export interface BaseVestingAccountAmino {
     base_account?: BaseAccountAmino;
-    original_vesting: CoinAmino[];
-    delegated_free: CoinAmino[];
-    delegated_vesting: CoinAmino[];
-    end_time: string;
+    original_vesting?: CoinAmino[];
+    delegated_free?: CoinAmino[];
+    delegated_vesting?: CoinAmino[];
+    /** Vesting end time, as unix timestamp (in seconds). */
+    end_time?: string;
 }
 export interface BaseVestingAccountAminoMsg {
     type: "cosmos-sdk/BaseVestingAccount";
@@ -36,7 +38,7 @@ export interface BaseVestingAccountAminoMsg {
  * the necessary fields needed for any vesting account implementation.
  */
 export interface BaseVestingAccountSDKType {
-    base_account: BaseAccountSDKType;
+    base_account?: BaseAccountSDKType;
     original_vesting: CoinSDKType[];
     delegated_free: CoinSDKType[];
     delegated_vesting: CoinSDKType[];
@@ -47,7 +49,8 @@ export interface BaseVestingAccountSDKType {
  * continuously vests by unlocking coins linearly with respect to time.
  */
 export interface ContinuousVestingAccount {
-    baseVestingAccount: BaseVestingAccount;
+    baseVestingAccount?: BaseVestingAccount;
+    /** Vesting start time, as unix timestamp (in seconds). */
     startTime: bigint;
 }
 export interface ContinuousVestingAccountProtoMsg {
@@ -60,7 +63,8 @@ export interface ContinuousVestingAccountProtoMsg {
  */
 export interface ContinuousVestingAccountAmino {
     base_vesting_account?: BaseVestingAccountAmino;
-    start_time: string;
+    /** Vesting start time, as unix timestamp (in seconds). */
+    start_time?: string;
 }
 export interface ContinuousVestingAccountAminoMsg {
     type: "cosmos-sdk/ContinuousVestingAccount";
@@ -71,7 +75,7 @@ export interface ContinuousVestingAccountAminoMsg {
  * continuously vests by unlocking coins linearly with respect to time.
  */
 export interface ContinuousVestingAccountSDKType {
-    base_vesting_account: BaseVestingAccountSDKType;
+    base_vesting_account?: BaseVestingAccountSDKType;
     start_time: bigint;
 }
 /**
@@ -80,7 +84,7 @@ export interface ContinuousVestingAccountSDKType {
  * locked until a specified time.
  */
 export interface DelayedVestingAccount {
-    baseVestingAccount: BaseVestingAccount;
+    baseVestingAccount?: BaseVestingAccount;
 }
 export interface DelayedVestingAccountProtoMsg {
     typeUrl: "/cosmos.vesting.v1beta1.DelayedVestingAccount";
@@ -104,7 +108,7 @@ export interface DelayedVestingAccountAminoMsg {
  * locked until a specified time.
  */
 export interface DelayedVestingAccountSDKType {
-    base_vesting_account: BaseVestingAccountSDKType;
+    base_vesting_account?: BaseVestingAccountSDKType;
 }
 /**
  * Period defines a length of time and amount of coins that will vest.
@@ -113,6 +117,7 @@ export interface DelayedVestingAccountSDKType {
  * and subsequent periods relatie to their predecessor.
  */
 export interface Period {
+    /** Period duration in seconds. */
     length: bigint;
     amount: Coin[];
 }
@@ -127,8 +132,9 @@ export interface PeriodProtoMsg {
  * and subsequent periods relatie to their predecessor.
  */
 export interface PeriodAmino {
-    length: string;
-    amount: CoinAmino[];
+    /** Period duration in seconds. */
+    length?: string;
+    amount?: CoinAmino[];
 }
 export interface PeriodAminoMsg {
     type: "cosmos-sdk/Period";
@@ -149,9 +155,8 @@ export interface PeriodSDKType {
  * periodically vests by unlocking coins during each specified period.
  */
 export interface PeriodicVestingAccount {
-    baseVestingAccount: BaseVestingAccount;
+    baseVestingAccount?: BaseVestingAccount;
     startTime: bigint;
-    /** unlocking schedule relative to the BaseVestingAccount start_time. */
     vestingPeriods: Period[];
 }
 export interface PeriodicVestingAccountProtoMsg {
@@ -164,9 +169,8 @@ export interface PeriodicVestingAccountProtoMsg {
  */
 export interface PeriodicVestingAccountAmino {
     base_vesting_account?: BaseVestingAccountAmino;
-    start_time: string;
-    /** unlocking schedule relative to the BaseVestingAccount start_time. */
-    vesting_periods: PeriodAmino[];
+    start_time?: string;
+    vesting_periods?: PeriodAmino[];
 }
 export interface PeriodicVestingAccountAminoMsg {
     type: "cosmos-sdk/PeriodicVestingAccount";
@@ -177,7 +181,7 @@ export interface PeriodicVestingAccountAminoMsg {
  * periodically vests by unlocking coins during each specified period.
  */
 export interface PeriodicVestingAccountSDKType {
-    base_vesting_account: BaseVestingAccountSDKType;
+    base_vesting_account?: BaseVestingAccountSDKType;
     start_time: bigint;
     vesting_periods: PeriodSDKType[];
 }
@@ -189,7 +193,7 @@ export interface PeriodicVestingAccountSDKType {
  * Since: cosmos-sdk 0.43
  */
 export interface PermanentLockedAccount {
-    baseVestingAccount: BaseVestingAccount;
+    baseVestingAccount?: BaseVestingAccount;
 }
 export interface PermanentLockedAccountProtoMsg {
     typeUrl: "/cosmos.vesting.v1beta1.PermanentLockedAccount";
@@ -217,7 +221,7 @@ export interface PermanentLockedAccountAminoMsg {
  * Since: cosmos-sdk 0.43
  */
 export interface PermanentLockedAccountSDKType {
-    base_vesting_account: BaseVestingAccountSDKType;
+    base_vesting_account?: BaseVestingAccountSDKType;
 }
 /**
  * ClawbackVestingAccount implements the VestingAccount interface. It provides
@@ -226,7 +230,7 @@ export interface PermanentLockedAccountSDKType {
  * of unvested tokens, or a combination (tokens vest, but are still locked).
  */
 export interface ClawbackVestingAccount {
-    baseVestingAccount: BaseVestingAccount;
+    baseVestingAccount?: BaseVestingAccount;
     /** funder_address specifies the account which can perform clawback. */
     funderAddress: string;
     startTime: bigint;
@@ -248,12 +252,12 @@ export interface ClawbackVestingAccountProtoMsg {
 export interface ClawbackVestingAccountAmino {
     base_vesting_account?: BaseVestingAccountAmino;
     /** funder_address specifies the account which can perform clawback. */
-    funder_address: string;
-    start_time: string;
+    funder_address?: string;
+    start_time?: string;
     /** unlocking schedule relative to the BaseVestingAccount start_time. */
-    lockup_periods: PeriodAmino[];
+    lockup_periods?: PeriodAmino[];
     /** vesting (i.e. immunity from clawback) schedule relative to the BaseVestingAccount start_time. */
-    vesting_periods: PeriodAmino[];
+    vesting_periods?: PeriodAmino[];
 }
 export interface ClawbackVestingAccountAminoMsg {
     type: "cosmos-sdk/ClawbackVestingAccount";
@@ -266,7 +270,7 @@ export interface ClawbackVestingAccountAminoMsg {
  * of unvested tokens, or a combination (tokens vest, but are still locked).
  */
 export interface ClawbackVestingAccountSDKType {
-    base_vesting_account: BaseVestingAccountSDKType;
+    base_vesting_account?: BaseVestingAccountSDKType;
     funder_address: string;
     start_time: bigint;
     lockup_periods: PeriodSDKType[];

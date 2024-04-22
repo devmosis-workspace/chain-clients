@@ -18,13 +18,13 @@ export interface LienProtoMsg {
 /** Lien contains the lien state of a particular account. */
 export interface LienAmino {
   /** coins holds the amount liened */
-  coins: CoinAmino[];
+  coins?: CoinAmino[];
   /**
    * delegated tracks the net amount delegated for non-vesting accounts,
    * or zero coins for vesting accounts.
    * (Vesting accounts have their own fields to track delegation.)
    */
-  delegated: CoinAmino[];
+  delegated?: CoinAmino[];
 }
 export interface LienAminoMsg {
   type: "/agoric.lien.Lien";
@@ -65,10 +65,10 @@ export const Lien = {
     return message;
   },
   fromAmino(object: LienAmino): Lien {
-    return {
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : [],
-      delegated: Array.isArray(object?.delegated) ? object.delegated.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseLien();
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    message.delegated = object.delegated?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Lien): LienAmino {
     const obj: any = {};

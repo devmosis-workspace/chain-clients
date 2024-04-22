@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Any, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { BinaryWriter } from "../../../binary";
 /** Plan specifies information about a planned upgrade and when it should occur. */
@@ -36,7 +36,7 @@ export interface Plan {
      * If this field is not empty, an error will be thrown.
      */
     /** @deprecated */
-    upgradedClientState: Any;
+    upgradedClientState?: Any;
 }
 export interface PlanProtoMsg {
     typeUrl: "/cosmos.upgrade.v1beta1.Plan";
@@ -53,24 +53,24 @@ export interface PlanAmino {
      * assumed that the software is out-of-date when the upgrade Time or Height is
      * reached and the software will exit.
      */
-    name: string;
+    name?: string;
     /**
      * Deprecated: Time based upgrades have been deprecated. Time based upgrade logic
      * has been removed from the SDK.
      * If this field is not empty, an error will be thrown.
      */
     /** @deprecated */
-    time?: TimestampAmino;
+    time?: string;
     /**
      * The height at which the upgrade must be performed.
      * Only used if Time is not set.
      */
-    height: string;
+    height?: string;
     /**
      * Any application specific upgrade info to be included on-chain
      * such as a git commit that validators could automatically upgrade to
      */
-    info: string;
+    info?: string;
     /**
      * Deprecated: UpgradedClientState field has been deprecated. IBC upgrade logic has been
      * moved to the IBC module in the sub module 02-client.
@@ -91,13 +91,17 @@ export interface PlanSDKType {
     height: bigint;
     info: string;
     /** @deprecated */
-    upgraded_client_state: AnySDKType;
+    upgraded_client_state?: AnySDKType;
 }
 /**
  * SoftwareUpgradeProposal is a gov Content type for initiating a software
  * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgSoftwareUpgrade.
  */
+/** @deprecated */
 export interface SoftwareUpgradeProposal {
+    $typeUrl?: "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal";
     title: string;
     description: string;
     plan: Plan;
@@ -109,10 +113,13 @@ export interface SoftwareUpgradeProposalProtoMsg {
 /**
  * SoftwareUpgradeProposal is a gov Content type for initiating a software
  * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgSoftwareUpgrade.
  */
+/** @deprecated */
 export interface SoftwareUpgradeProposalAmino {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     plan?: PlanAmino;
 }
 export interface SoftwareUpgradeProposalAminoMsg {
@@ -122,8 +129,12 @@ export interface SoftwareUpgradeProposalAminoMsg {
 /**
  * SoftwareUpgradeProposal is a gov Content type for initiating a software
  * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgSoftwareUpgrade.
  */
+/** @deprecated */
 export interface SoftwareUpgradeProposalSDKType {
+    $typeUrl?: "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal";
     title: string;
     description: string;
     plan: PlanSDKType;
@@ -131,8 +142,12 @@ export interface SoftwareUpgradeProposalSDKType {
 /**
  * CancelSoftwareUpgradeProposal is a gov Content type for cancelling a software
  * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgCancelUpgrade.
  */
+/** @deprecated */
 export interface CancelSoftwareUpgradeProposal {
+    $typeUrl?: "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal";
     title: string;
     description: string;
 }
@@ -143,10 +158,13 @@ export interface CancelSoftwareUpgradeProposalProtoMsg {
 /**
  * CancelSoftwareUpgradeProposal is a gov Content type for cancelling a software
  * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgCancelUpgrade.
  */
+/** @deprecated */
 export interface CancelSoftwareUpgradeProposalAmino {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
 }
 export interface CancelSoftwareUpgradeProposalAminoMsg {
     type: "cosmos-sdk/CancelSoftwareUpgradeProposal";
@@ -155,8 +173,12 @@ export interface CancelSoftwareUpgradeProposalAminoMsg {
 /**
  * CancelSoftwareUpgradeProposal is a gov Content type for cancelling a software
  * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgCancelUpgrade.
  */
+/** @deprecated */
 export interface CancelSoftwareUpgradeProposalSDKType {
+    $typeUrl?: "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal";
     title: string;
     description: string;
 }
@@ -182,9 +204,9 @@ export interface ModuleVersionProtoMsg {
  */
 export interface ModuleVersionAmino {
     /** name of the app module */
-    name: string;
+    name?: string;
     /** consensus version of the app module */
-    version: string;
+    version?: string;
 }
 export interface ModuleVersionAminoMsg {
     type: "cosmos-sdk/ModuleVersion";
