@@ -3488,59 +3488,59 @@ export declare namespace axelar {
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
                 encoded: {
-                    registerController(value: axelar.permission.v1beta1.RegisterControllerRequest): {
+                    registerController(value: _36.RegisterControllerRequest): {
                         typeUrl: string;
-                        value: any;
+                        value: Uint8Array;
                     };
-                    deregisterController(value: axelar.permission.v1beta1.DeregisterControllerRequest): {
+                    deregisterController(value: _36.DeregisterControllerRequest): {
                         typeUrl: string;
-                        value: any;
+                        value: Uint8Array;
                     };
-                    updateGovernanceKey(value: axelar.permission.v1beta1.UpdateGovernanceKeyRequest): {
+                    updateGovernanceKey(value: _36.UpdateGovernanceKeyRequest): {
                         typeUrl: string;
-                        value: any;
+                        value: Uint8Array;
                     };
                 };
                 withTypeUrl: {
-                    registerController(value: axelar.permission.v1beta1.RegisterControllerRequest): {
+                    registerController(value: _36.RegisterControllerRequest): {
                         typeUrl: string;
-                        value: axelar.permission.v1beta1.RegisterControllerRequest;
+                        value: _36.RegisterControllerRequest;
                     };
-                    deregisterController(value: axelar.permission.v1beta1.DeregisterControllerRequest): {
+                    deregisterController(value: _36.DeregisterControllerRequest): {
                         typeUrl: string;
-                        value: axelar.permission.v1beta1.DeregisterControllerRequest;
+                        value: _36.DeregisterControllerRequest;
                     };
-                    updateGovernanceKey(value: axelar.permission.v1beta1.UpdateGovernanceKeyRequest): {
+                    updateGovernanceKey(value: _36.UpdateGovernanceKeyRequest): {
                         typeUrl: string;
-                        value: axelar.permission.v1beta1.UpdateGovernanceKeyRequest;
+                        value: _36.UpdateGovernanceKeyRequest;
                     };
                 };
                 fromJSON: {
                     registerController(value: any): {
                         typeUrl: string;
-                        value: any;
+                        value: _36.RegisterControllerRequest;
                     };
                     deregisterController(value: any): {
                         typeUrl: string;
-                        value: any;
+                        value: _36.DeregisterControllerRequest;
                     };
                     updateGovernanceKey(value: any): {
                         typeUrl: string;
-                        value: any;
+                        value: _36.UpdateGovernanceKeyRequest;
                     };
                 };
                 fromPartial: {
-                    registerController(value: axelar.permission.v1beta1.RegisterControllerRequest): {
+                    registerController(value: _36.RegisterControllerRequest): {
                         typeUrl: string;
-                        value: any;
+                        value: _36.RegisterControllerRequest;
                     };
-                    deregisterController(value: axelar.permission.v1beta1.DeregisterControllerRequest): {
+                    deregisterController(value: _36.DeregisterControllerRequest): {
                         typeUrl: string;
-                        value: any;
+                        value: _36.DeregisterControllerRequest;
                     };
-                    updateGovernanceKey(value: axelar.permission.v1beta1.UpdateGovernanceKeyRequest): {
+                    updateGovernanceKey(value: _36.UpdateGovernanceKeyRequest): {
                         typeUrl: string;
-                        value: any;
+                        value: _36.UpdateGovernanceKeyRequest;
                     };
                 };
             };
