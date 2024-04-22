@@ -19,7 +19,7 @@ export declare function pollStateToJSON(object: PollState): string;
  */
 export interface PollMetadata {
     expiresAt: bigint;
-    result: (Any) | undefined;
+    result?: (Any) | undefined;
     votingThreshold: Threshold;
     state: PollState;
     minVoterCount: bigint;
@@ -29,7 +29,7 @@ export interface PollMetadata {
     id: bigint;
     snapshot: Snapshot;
     module: string;
-    moduleMetadata: (Any) | undefined;
+    moduleMetadata?: (Any) | undefined;
 }
 export interface PollMetadataProtoMsg {
     typeUrl: "/axelar.vote.exported.v1beta1.PollMetadata";
@@ -44,17 +44,17 @@ export type PollMetadataEncoded = Omit<PollMetadata, "result" | "moduleMetadata"
  * vote can have any data type
  */
 export interface PollMetadataAmino {
-    expires_at: string;
+    expires_at?: string;
     result?: AnyAmino;
     voting_threshold?: ThresholdAmino;
-    state: PollState;
-    min_voter_count: string;
-    reward_pool_name: string;
-    grace_period: string;
-    completed_at: string;
-    id: string;
+    state?: PollState;
+    min_voter_count?: string;
+    reward_pool_name?: string;
+    grace_period?: string;
+    completed_at?: string;
+    id?: string;
     snapshot?: SnapshotAmino;
-    module: string;
+    module?: string;
     module_metadata?: AnyAmino;
 }
 export interface PollMetadataAminoMsg {
@@ -67,7 +67,7 @@ export interface PollMetadataAminoMsg {
  */
 export interface PollMetadataSDKType {
     expires_at: bigint;
-    result: AnySDKType | undefined;
+    result?: AnySDKType | undefined;
     voting_threshold: ThresholdSDKType;
     state: PollState;
     min_voter_count: bigint;
@@ -77,7 +77,7 @@ export interface PollMetadataSDKType {
     id: bigint;
     snapshot: SnapshotSDKType;
     module: string;
-    module_metadata: AnySDKType | undefined;
+    module_metadata?: AnySDKType | undefined;
 }
 /** PollKey represents the key data for a poll */
 /** @deprecated */
@@ -92,8 +92,8 @@ export interface PollKeyProtoMsg {
 /** PollKey represents the key data for a poll */
 /** @deprecated */
 export interface PollKeyAmino {
-    module: string;
-    id: string;
+    module?: string;
+    id?: string;
 }
 export interface PollKeyAminoMsg {
     type: "/axelar.vote.exported.v1beta1.PollKey";
@@ -116,8 +116,8 @@ export interface PollParticipantsProtoMsg {
 }
 /** PollParticipants should be embedded in poll events in other modules */
 export interface PollParticipantsAmino {
-    poll_id: string;
-    participants: Uint8Array[];
+    poll_id?: string;
+    participants?: string[];
 }
 export interface PollParticipantsAminoMsg {
     type: "/axelar.vote.exported.v1beta1.PollParticipants";

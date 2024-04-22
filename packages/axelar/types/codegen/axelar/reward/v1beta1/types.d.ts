@@ -9,8 +9,8 @@ export interface PoolProtoMsg {
     value: Uint8Array;
 }
 export interface PoolAmino {
-    name: string;
-    rewards: Pool_RewardAmino[];
+    name?: string;
+    rewards?: Pool_RewardAmino[];
 }
 export interface PoolAminoMsg {
     type: "/axelar.reward.v1beta1.Pool";
@@ -29,8 +29,8 @@ export interface Pool_RewardProtoMsg {
     value: Uint8Array;
 }
 export interface Pool_RewardAmino {
-    validator: Uint8Array;
-    coins: CoinAmino[];
+    validator?: string;
+    coins?: CoinAmino[];
 }
 export interface Pool_RewardAminoMsg {
     type: "/axelar.reward.v1beta1.Reward";
@@ -49,8 +49,8 @@ export interface RefundProtoMsg {
     value: Uint8Array;
 }
 export interface RefundAmino {
-    payer: Uint8Array;
-    fees: CoinAmino[];
+    payer?: string;
+    fees?: CoinAmino[];
 }
 export interface RefundAminoMsg {
     type: "/axelar.reward.v1beta1.Refund";

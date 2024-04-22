@@ -12,7 +12,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState represents the genesis state */
 export interface GenesisStateAmino {
-    chains: GenesisState_ChainAmino[];
+    chains?: GenesisState_ChainAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/axelar.evm.v1beta1.GenesisState";
@@ -42,17 +42,17 @@ export interface GenesisState_ChainProtoMsg {
 }
 export interface GenesisState_ChainAmino {
     params?: ParamsAmino;
-    burner_infos: BurnerInfoAmino[];
+    burner_infos?: BurnerInfoAmino[];
     command_queue?: QueueStateAmino;
-    confirmed_deposits: ERC20DepositAmino[];
-    burned_deposits: ERC20DepositAmino[];
-    command_batches: CommandBatchMetadataAmino[];
+    confirmed_deposits?: ERC20DepositAmino[];
+    burned_deposits?: ERC20DepositAmino[];
+    command_batches?: CommandBatchMetadataAmino[];
     gateway?: GatewayAmino;
-    tokens: ERC20TokenMetadataAmino[];
-    events: EventAmino[];
+    tokens?: ERC20TokenMetadataAmino[];
+    events?: EventAmino[];
     confirmed_event_queue?: QueueStateAmino;
-    legacy_confirmed_deposits: ERC20DepositAmino[];
-    legacy_burned_deposits: ERC20DepositAmino[];
+    legacy_confirmed_deposits?: ERC20DepositAmino[];
+    legacy_burned_deposits?: ERC20DepositAmino[];
 }
 export interface GenesisState_ChainAminoMsg {
     type: "/axelar.evm.v1beta1.Chain";

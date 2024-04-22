@@ -11,7 +11,7 @@ export interface ParamsProtoMsg {
 /** Params represent the genesis parameters for the module */
 export interface ParamsAmino {
     /** Params represent the genesis parameters for the module */
-    min_proxy_balance: string;
+    min_proxy_balance?: string;
 }
 export interface ParamsAminoMsg {
     type: "/axelar.snapshot.v1beta1.Params";

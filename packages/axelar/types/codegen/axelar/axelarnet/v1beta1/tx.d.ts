@@ -21,10 +21,10 @@ export interface LinkRequestProtoMsg {
  * address
  */
 export interface LinkRequestAmino {
-    sender: Uint8Array;
-    recipient_addr: string;
-    recipient_chain: string;
-    asset: string;
+    sender?: string;
+    recipient_addr?: string;
+    recipient_chain?: string;
+    asset?: string;
 }
 export interface LinkRequestAminoMsg {
     type: "/axelar.axelarnet.v1beta1.LinkRequest";
@@ -48,7 +48,7 @@ export interface LinkResponseProtoMsg {
     value: Uint8Array;
 }
 export interface LinkResponseAmino {
-    deposit_addr: string;
+    deposit_addr?: string;
 }
 export interface LinkResponseAminoMsg {
     type: "/axelar.axelarnet.v1beta1.LinkResponse";
@@ -69,9 +69,9 @@ export interface ConfirmDepositRequestProtoMsg {
 }
 /** MsgConfirmDeposit represents a deposit confirmation message */
 export interface ConfirmDepositRequestAmino {
-    sender: Uint8Array;
-    deposit_address: Uint8Array;
-    denom: string;
+    sender?: string;
+    deposit_address?: string;
+    denom?: string;
 }
 export interface ConfirmDepositRequestAminoMsg {
     type: "/axelar.axelarnet.v1beta1.ConfirmDepositRequest";
@@ -113,7 +113,7 @@ export interface ExecutePendingTransfersRequestProtoMsg {
  * pending transfers
  */
 export interface ExecutePendingTransfersRequestAmino {
-    sender: Uint8Array;
+    sender?: string;
 }
 export interface ExecutePendingTransfersRequestAminoMsg {
     type: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest";
@@ -160,9 +160,9 @@ export interface RegisterIBCPathRequestProtoMsg {
  */
 /** @deprecated */
 export interface RegisterIBCPathRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    path: string;
+    sender?: string;
+    chain?: string;
+    path?: string;
 }
 export interface RegisterIBCPathRequestAminoMsg {
     type: "/axelar.axelarnet.v1beta1.RegisterIBCPathRequest";
@@ -215,14 +215,14 @@ export interface AddCosmosBasedChainRequestProtoMsg {
  * to nexus
  */
 export interface AddCosmosBasedChainRequestAmino {
-    sender: Uint8Array;
+    sender?: string;
     /** @deprecated */
     chain?: ChainAmino;
-    addr_prefix: string;
+    addr_prefix?: string;
     /** @deprecated */
-    native_assets: AssetAmino[];
-    cosmos_chain: string;
-    ibc_path: string;
+    native_assets?: AssetAmino[];
+    cosmos_chain?: string;
+    ibc_path?: string;
 }
 export interface AddCosmosBasedChainRequestAminoMsg {
     type: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest";
@@ -276,10 +276,10 @@ export interface RegisterAssetRequestProtoMsg {
  * based chain
  */
 export interface RegisterAssetRequestAmino {
-    sender: Uint8Array;
-    chain: string;
+    sender?: string;
+    chain?: string;
     asset?: AssetAmino;
-    limit: Uint8Array;
+    limit?: string;
     window?: DurationAmino;
 }
 export interface RegisterAssetRequestAminoMsg {
@@ -327,7 +327,7 @@ export interface RouteIBCTransfersRequestProtoMsg {
  * cosmos based chains
  */
 export interface RouteIBCTransfersRequestAmino {
-    sender: Uint8Array;
+    sender?: string;
 }
 export interface RouteIBCTransfersRequestAminoMsg {
     type: "/axelar.axelarnet.v1beta1.RouteIBCTransfersRequest";
@@ -371,8 +371,8 @@ export interface RegisterFeeCollectorRequestProtoMsg {
  * collector account
  */
 export interface RegisterFeeCollectorRequestAmino {
-    sender: Uint8Array;
-    fee_collector: Uint8Array;
+    sender?: string;
+    fee_collector?: string;
 }
 export interface RegisterFeeCollectorRequestAminoMsg {
     type: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest";
@@ -402,6 +402,7 @@ export interface RegisterFeeCollectorResponseSDKType {
 }
 export interface RetryIBCTransferRequest {
     sender: Uint8Array;
+    /** @deprecated */
     chain: string;
     id: bigint;
 }
@@ -410,9 +411,10 @@ export interface RetryIBCTransferRequestProtoMsg {
     value: Uint8Array;
 }
 export interface RetryIBCTransferRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    id: string;
+    sender?: string;
+    /** @deprecated */
+    chain?: string;
+    id?: string;
 }
 export interface RetryIBCTransferRequestAminoMsg {
     type: "/axelar.axelarnet.v1beta1.RetryIBCTransferRequest";
@@ -420,6 +422,7 @@ export interface RetryIBCTransferRequestAminoMsg {
 }
 export interface RetryIBCTransferRequestSDKType {
     sender: Uint8Array;
+    /** @deprecated */
     chain: string;
     id: bigint;
 }
@@ -441,15 +444,17 @@ export interface RouteMessageRequest {
     sender: Uint8Array;
     id: string;
     payload: Uint8Array;
+    feegranter: Uint8Array;
 }
 export interface RouteMessageRequestProtoMsg {
     typeUrl: "/axelar.axelarnet.v1beta1.RouteMessageRequest";
     value: Uint8Array;
 }
 export interface RouteMessageRequestAmino {
-    sender: Uint8Array;
-    id: string;
-    payload: Uint8Array;
+    sender?: string;
+    id?: string;
+    payload?: string;
+    feegranter?: string;
 }
 export interface RouteMessageRequestAminoMsg {
     type: "/axelar.axelarnet.v1beta1.RouteMessageRequest";
@@ -459,6 +464,7 @@ export interface RouteMessageRequestSDKType {
     sender: Uint8Array;
     id: string;
     payload: Uint8Array;
+    feegranter: Uint8Array;
 }
 export interface RouteMessageResponse {
 }
@@ -479,17 +485,17 @@ export interface CallContractRequest {
     chain: string;
     contractAddress: string;
     payload: Uint8Array;
-    fee: Fee;
+    fee?: Fee;
 }
 export interface CallContractRequestProtoMsg {
     typeUrl: "/axelar.axelarnet.v1beta1.CallContractRequest";
     value: Uint8Array;
 }
 export interface CallContractRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    contract_address: string;
-    payload: Uint8Array;
+    sender?: string;
+    chain?: string;
+    contract_address?: string;
+    payload?: string;
     fee?: FeeAmino;
 }
 export interface CallContractRequestAminoMsg {
@@ -501,7 +507,7 @@ export interface CallContractRequestSDKType {
     chain: string;
     contract_address: string;
     payload: Uint8Array;
-    fee: FeeSDKType;
+    fee?: FeeSDKType;
 }
 export interface CallContractResponse {
 }

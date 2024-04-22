@@ -9,8 +9,8 @@ export interface TalliedVote_IsVoterLateEntryProtoMsg {
     value: Uint8Array;
 }
 export interface TalliedVote_IsVoterLateEntryAmino {
-    key: string;
-    value: boolean;
+    key?: string;
+    value?: boolean;
 }
 export interface TalliedVote_IsVoterLateEntryAminoMsg {
     type: string;
@@ -26,7 +26,7 @@ export interface TalliedVote_IsVoterLateEntrySDKType {
  */
 export interface TalliedVote {
     tally: Uint8Array;
-    data: (Any) | undefined;
+    data?: (Any) | undefined;
     pollId: bigint;
     isVoterLate: {
         [key: string]: boolean;
@@ -44,10 +44,10 @@ export type TalliedVoteEncoded = Omit<TalliedVote, "data"> & {
  * validators voting for the same data
  */
 export interface TalliedVoteAmino {
-    tally: Uint8Array;
+    tally?: string;
     data?: AnyAmino;
-    poll_id: string;
-    is_voter_late: {
+    poll_id?: string;
+    is_voter_late?: {
         [key: string]: boolean;
     };
 }
@@ -61,7 +61,7 @@ export interface TalliedVoteAminoMsg {
  */
 export interface TalliedVoteSDKType {
     tally: Uint8Array;
-    data: AnySDKType | undefined;
+    data?: AnySDKType | undefined;
     poll_id: bigint;
     is_voter_late: {
         [key: string]: boolean;

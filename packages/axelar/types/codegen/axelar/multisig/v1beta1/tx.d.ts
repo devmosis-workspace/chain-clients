@@ -8,8 +8,8 @@ export interface StartKeygenRequestProtoMsg {
     value: Uint8Array;
 }
 export interface StartKeygenRequestAmino {
-    sender: string;
-    key_id: string;
+    sender?: string;
+    key_id?: string;
 }
 export interface StartKeygenRequestAminoMsg {
     type: "/axelar.multisig.v1beta1.StartKeygenRequest";
@@ -44,10 +44,10 @@ export interface SubmitPubKeyRequestProtoMsg {
     value: Uint8Array;
 }
 export interface SubmitPubKeyRequestAmino {
-    sender: string;
-    key_id: string;
-    pub_key: Uint8Array;
-    signature: Uint8Array;
+    sender?: string;
+    key_id?: string;
+    pub_key?: string;
+    signature?: string;
 }
 export interface SubmitPubKeyRequestAminoMsg {
     type: "/axelar.multisig.v1beta1.SubmitPubKeyRequest";
@@ -83,9 +83,9 @@ export interface SubmitSignatureRequestProtoMsg {
     value: Uint8Array;
 }
 export interface SubmitSignatureRequestAmino {
-    sender: string;
-    sig_id: string;
-    signature: Uint8Array;
+    sender?: string;
+    sig_id?: string;
+    signature?: string;
 }
 export interface SubmitSignatureRequestAminoMsg {
     type: "/axelar.multisig.v1beta1.SubmitSignatureRequest";
@@ -120,9 +120,9 @@ export interface RotateKeyRequestProtoMsg {
     value: Uint8Array;
 }
 export interface RotateKeyRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    key_id: string;
+    sender?: string;
+    chain?: string;
+    key_id?: string;
 }
 export interface RotateKeyRequestAminoMsg {
     type: "/axelar.multisig.v1beta1.RotateKeyRequest";
@@ -155,7 +155,7 @@ export interface KeygenOptOutRequestProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenOptOutRequestAmino {
-    sender: Uint8Array;
+    sender?: string;
 }
 export interface KeygenOptOutRequestAminoMsg {
     type: "/axelar.multisig.v1beta1.KeygenOptOutRequest";
@@ -186,7 +186,7 @@ export interface KeygenOptInRequestProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenOptInRequestAmino {
-    sender: Uint8Array;
+    sender?: string;
 }
 export interface KeygenOptInRequestAminoMsg {
     type: "/axelar.multisig.v1beta1.KeygenOptInRequest";

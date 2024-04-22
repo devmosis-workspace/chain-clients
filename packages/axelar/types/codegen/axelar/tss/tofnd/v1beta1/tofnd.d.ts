@@ -20,8 +20,8 @@ export declare const MessageOut_CriminalList_Criminal_CrimeTypeAmino: typeof Mes
 export declare function messageOut_CriminalList_Criminal_CrimeTypeFromJSON(object: any): MessageOut_CriminalList_Criminal_CrimeType;
 export declare function messageOut_CriminalList_Criminal_CrimeTypeToJSON(object: MessageOut_CriminalList_Criminal_CrimeType): string;
 export interface RecoverRequest {
-    keygenInit: KeygenInit;
-    keygenOutput: KeygenOutput;
+    keygenInit?: KeygenInit;
+    keygenOutput?: KeygenOutput;
 }
 export interface RecoverRequestProtoMsg {
     typeUrl: "/axelar.tss.tofnd.v1beta1.RecoverRequest";
@@ -36,8 +36,8 @@ export interface RecoverRequestAminoMsg {
     value: RecoverRequestAmino;
 }
 export interface RecoverRequestSDKType {
-    keygen_init: KeygenInitSDKType;
-    keygen_output: KeygenOutputSDKType;
+    keygen_init?: KeygenInitSDKType;
+    keygen_output?: KeygenOutputSDKType;
 }
 export interface RecoverResponse {
     response: RecoverResponse_Response;
@@ -47,7 +47,7 @@ export interface RecoverResponseProtoMsg {
     value: Uint8Array;
 }
 export interface RecoverResponseAmino {
-    response: RecoverResponse_Response;
+    response?: RecoverResponse_Response;
 }
 export interface RecoverResponseAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.RecoverResponse";
@@ -72,11 +72,11 @@ export interface KeygenOutputProtoMsg {
 /** Keygen's success response */
 export interface KeygenOutputAmino {
     /** pub_key; common for all parties */
-    pub_key: Uint8Array;
+    pub_key?: string;
     /** recover info of all parties' shares; common for all parties */
-    group_recover_info: Uint8Array;
+    group_recover_info?: string;
     /** private recover info of this party's shares; unique for each party */
-    private_recover_info: Uint8Array;
+    private_recover_info?: string;
 }
 export interface KeygenOutputAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.KeygenOutput";
@@ -197,7 +197,7 @@ export interface MessageOut_SignResultProtoMsg {
 /** Sign's response types */
 export interface MessageOut_SignResultAmino {
     /** Success response */
-    signature?: Uint8Array;
+    signature?: string;
     /** Failure response */
     criminals?: MessageOut_CriminalListAmino;
 }
@@ -220,7 +220,7 @@ export interface MessageOut_CriminalListProtoMsg {
 }
 /** Keygen/Sign failure response message */
 export interface MessageOut_CriminalListAmino {
-    criminals: MessageOut_CriminalList_CriminalAmino[];
+    criminals?: MessageOut_CriminalList_CriminalAmino[];
 }
 export interface MessageOut_CriminalListAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.CriminalList";
@@ -239,8 +239,8 @@ export interface MessageOut_CriminalList_CriminalProtoMsg {
     value: Uint8Array;
 }
 export interface MessageOut_CriminalList_CriminalAmino {
-    party_uid: string;
-    crime_type: MessageOut_CriminalList_Criminal_CrimeType;
+    party_uid?: string;
+    crime_type?: MessageOut_CriminalList_Criminal_CrimeType;
 }
 export interface MessageOut_CriminalList_CriminalAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.Criminal";
@@ -260,9 +260,9 @@ export interface TrafficInProtoMsg {
     value: Uint8Array;
 }
 export interface TrafficInAmino {
-    from_party_uid: string;
-    payload: Uint8Array;
-    is_broadcast: boolean;
+    from_party_uid?: string;
+    payload?: string;
+    is_broadcast?: boolean;
 }
 export interface TrafficInAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.TrafficIn";
@@ -283,9 +283,9 @@ export interface TrafficOutProtoMsg {
     value: Uint8Array;
 }
 export interface TrafficOutAmino {
-    to_party_uid: string;
-    payload: Uint8Array;
-    is_broadcast: boolean;
+    to_party_uid?: string;
+    payload?: string;
+    is_broadcast?: boolean;
 }
 export interface TrafficOutAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.TrafficOut";
@@ -309,12 +309,12 @@ export interface KeygenInitProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenInitAmino {
-    new_key_uid: string;
-    party_uids: string[];
-    party_share_counts: number[];
+    new_key_uid?: string;
+    party_uids?: string[];
+    party_share_counts?: number[];
     /** parties[my_party_index] belongs to the server */
-    my_party_index: number;
-    threshold: number;
+    my_party_index?: number;
+    threshold?: number;
 }
 export interface KeygenInitAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.KeygenInit";
@@ -339,11 +339,11 @@ export interface SignInitProtoMsg {
     value: Uint8Array;
 }
 export interface SignInitAmino {
-    new_sig_uid: string;
-    key_uid: string;
+    new_sig_uid?: string;
+    key_uid?: string;
     /** TODO replace this with a subset of indices? */
-    party_uids: string[];
-    message_to_sign: Uint8Array;
+    party_uids?: string[];
+    message_to_sign?: string;
 }
 export interface SignInitAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.SignInit";

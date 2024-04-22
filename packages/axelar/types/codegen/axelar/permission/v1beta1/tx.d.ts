@@ -9,7 +9,7 @@ export interface UpdateGovernanceKeyRequestProtoMsg {
     value: Uint8Array;
 }
 export interface UpdateGovernanceKeyRequestAmino {
-    sender: Uint8Array;
+    sender?: string;
     governance_key?: LegacyAminoPubKeyAmino;
 }
 export interface UpdateGovernanceKeyRequestAminoMsg {
@@ -45,8 +45,8 @@ export interface RegisterControllerRequestProtoMsg {
 }
 /** MsgRegisterController represents a message to register a controller account */
 export interface RegisterControllerRequestAmino {
-    sender: Uint8Array;
-    controller: Uint8Array;
+    sender?: string;
+    controller?: string;
 }
 export interface RegisterControllerRequestAminoMsg {
     type: "/axelar.permission.v1beta1.RegisterControllerRequest";
@@ -82,8 +82,8 @@ export interface DeregisterControllerRequestProtoMsg {
 }
 /** DeregisterController represents a message to deregister a controller account */
 export interface DeregisterControllerRequestAmino {
-    sender: Uint8Array;
-    controller: Uint8Array;
+    sender?: string;
+    controller?: string;
 }
 export interface DeregisterControllerRequestAminoMsg {
     type: "/axelar.permission.v1beta1.DeregisterControllerRequest";

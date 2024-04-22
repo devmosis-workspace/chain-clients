@@ -12,8 +12,8 @@ export interface Key_PubKeysEntryProtoMsg {
     value: Uint8Array;
 }
 export interface Key_PubKeysEntryAmino {
-    key: string;
-    value: Uint8Array;
+    key?: string;
+    value?: string;
 }
 export interface Key_PubKeysEntryAminoMsg {
     type: string;
@@ -37,13 +37,13 @@ export interface KeyProtoMsg {
     value: Uint8Array;
 }
 export interface KeyAmino {
-    id: string;
+    id?: string;
     snapshot?: SnapshotAmino;
-    pub_keys: {
-        [key: string]: Uint8Array;
+    pub_keys?: {
+        [key: string]: string;
     };
     signing_threshold?: ThresholdAmino;
-    state: KeyState;
+    state?: KeyState;
 }
 export interface KeyAminoMsg {
     type: "/axelar.multisig.v1beta1.Key";
@@ -67,8 +67,8 @@ export interface KeygenSession_IsPubKeyReceivedEntryProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenSession_IsPubKeyReceivedEntryAmino {
-    key: string;
-    value: boolean;
+    key?: string;
+    value?: boolean;
 }
 export interface KeygenSession_IsPubKeyReceivedEntryAminoMsg {
     type: string;
@@ -95,14 +95,14 @@ export interface KeygenSessionProtoMsg {
 }
 export interface KeygenSessionAmino {
     key?: KeyAmino;
-    state: MultisigState;
+    state?: MultisigState;
     keygen_threshold?: ThresholdAmino;
-    expires_at: string;
-    completed_at: string;
-    is_pub_key_received: {
+    expires_at?: string;
+    completed_at?: string;
+    is_pub_key_received?: {
         [key: string]: boolean;
     };
-    grace_period: string;
+    grace_period?: string;
 }
 export interface KeygenSessionAminoMsg {
     type: "/axelar.multisig.v1beta1.KeygenSession";
@@ -128,8 +128,8 @@ export interface MultiSig_SigsEntryProtoMsg {
     value: Uint8Array;
 }
 export interface MultiSig_SigsEntryAmino {
-    key: string;
-    value: Uint8Array;
+    key?: string;
+    value?: string;
 }
 export interface MultiSig_SigsEntryAminoMsg {
     type: string;
@@ -151,10 +151,10 @@ export interface MultiSigProtoMsg {
     value: Uint8Array;
 }
 export interface MultiSigAmino {
-    key_id: string;
-    payload_hash: Uint8Array;
-    sigs: {
-        [key: string]: Uint8Array;
+    key_id?: string;
+    payload_hash?: string;
+    sigs?: {
+        [key: string]: string;
     };
 }
 export interface MultiSigAminoMsg {
@@ -177,7 +177,7 @@ export interface SigningSession {
     completedAt: bigint;
     gracePeriod: bigint;
     module: string;
-    moduleMetadata: (Any) | undefined;
+    moduleMetadata?: (Any) | undefined;
 }
 export interface SigningSessionProtoMsg {
     typeUrl: "/axelar.multisig.v1beta1.SigningSession";
@@ -187,14 +187,14 @@ export type SigningSessionEncoded = Omit<SigningSession, "moduleMetadata"> & {
     moduleMetadata?: AnyProtoMsg | undefined;
 };
 export interface SigningSessionAmino {
-    id: string;
+    id?: string;
     multi_sig?: MultiSigAmino;
-    state: MultisigState;
+    state?: MultisigState;
     key?: KeyAmino;
-    expires_at: string;
-    completed_at: string;
-    grace_period: string;
-    module: string;
+    expires_at?: string;
+    completed_at?: string;
+    grace_period?: string;
+    module?: string;
     module_metadata?: AnyAmino;
 }
 export interface SigningSessionAminoMsg {
@@ -210,7 +210,7 @@ export interface SigningSessionSDKType {
     completed_at: bigint;
     grace_period: bigint;
     module: string;
-    module_metadata: AnySDKType | undefined;
+    module_metadata?: AnySDKType | undefined;
 }
 export interface KeyEpoch {
     epoch: bigint;
@@ -222,9 +222,9 @@ export interface KeyEpochProtoMsg {
     value: Uint8Array;
 }
 export interface KeyEpochAmino {
-    epoch: string;
-    chain: string;
-    key_id: string;
+    epoch?: string;
+    chain?: string;
+    key_id?: string;
 }
 export interface KeyEpochAminoMsg {
     type: "/axelar.multisig.v1beta1.KeyEpoch";

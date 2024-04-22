@@ -16,8 +16,8 @@ export interface ThresholdAmino {
      * split threshold into Numerator and denominator to avoid floating point
      * errors down the line
      */
-    numerator: string;
-    denominator: string;
+    numerator?: string;
+    denominator?: string;
 }
 export interface ThresholdAminoMsg {
     type: "/axelar.utils.v1beta1.Threshold";

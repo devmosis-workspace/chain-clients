@@ -12,7 +12,7 @@ export interface ParamsProtoMsg {
 /** Params represent the genesis parameters for the module */
 export interface ParamsAmino {
     default_voting_threshold?: ThresholdAmino;
-    end_blocker_limit: string;
+    end_blocker_limit?: string;
 }
 export interface ParamsAminoMsg {
     type: "/axelar.vote.v1beta1.Params";

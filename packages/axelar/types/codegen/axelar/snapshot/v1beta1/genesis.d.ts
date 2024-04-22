@@ -13,7 +13,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState represents the genesis state */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    proxied_validators: ProxiedValidatorAmino[];
+    proxied_validators?: ProxiedValidatorAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/axelar.snapshot.v1beta1.GenesisState";

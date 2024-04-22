@@ -11,8 +11,8 @@ export interface GenesisState_SeqIdMappingEntryProtoMsg {
     value: Uint8Array;
 }
 export interface GenesisState_SeqIdMappingEntryAmino {
-    key: string;
-    value: string;
+    key?: string;
+    value?: string;
 }
 export interface GenesisState_SeqIdMappingEntryAminoMsg {
     type: string;
@@ -38,11 +38,11 @@ export interface GenesisStateProtoMsg {
 }
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    collector_address: Uint8Array;
-    chains: CosmosChainAmino[];
+    collector_address?: string;
+    chains?: CosmosChainAmino[];
     transfer_queue?: QueueStateAmino;
-    ibc_transfers: IBCTransferAmino[];
-    seq_id_mapping: {
+    ibc_transfers?: IBCTransferAmino[];
+    seq_id_mapping?: {
         [key: string]: string;
     };
 }

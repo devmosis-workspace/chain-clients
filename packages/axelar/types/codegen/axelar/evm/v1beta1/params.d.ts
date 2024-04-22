@@ -24,19 +24,19 @@ export interface ParamsProtoMsg {
 }
 /** Params is the parameter set for this module */
 export interface ParamsAmino {
-    chain: string;
-    confirmation_height: string;
-    network: string;
-    token_code: Uint8Array;
-    burnable: Uint8Array;
-    revote_locking_period: string;
-    networks: NetworkInfoAmino[];
+    chain?: string;
+    confirmation_height?: string;
+    network?: string;
+    token_code?: string;
+    burnable?: string;
+    revote_locking_period?: string;
+    networks?: NetworkInfoAmino[];
     voting_threshold?: ThresholdAmino;
-    min_voter_count: string;
-    commands_gas_limit: number;
-    voting_grace_period: string;
-    end_blocker_limit: string;
-    transfer_limit: string;
+    min_voter_count?: string;
+    commands_gas_limit?: number;
+    voting_grace_period?: string;
+    end_blocker_limit?: string;
+    transfer_limit?: string;
 }
 export interface ParamsAminoMsg {
     type: "/axelar.evm.v1beta1.Params";

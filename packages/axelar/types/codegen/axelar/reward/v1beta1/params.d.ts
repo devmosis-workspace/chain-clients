@@ -10,8 +10,8 @@ export interface ParamsProtoMsg {
 }
 /** Params represent the genesis parameters for the module */
 export interface ParamsAmino {
-    external_chain_voting_inflation_rate: Uint8Array;
-    key_mgmt_relative_inflation_rate: Uint8Array;
+    external_chain_voting_inflation_rate?: string;
+    key_mgmt_relative_inflation_rate?: string;
 }
 export interface ParamsAminoMsg {
     type: "/axelar.reward.v1beta1.Params";

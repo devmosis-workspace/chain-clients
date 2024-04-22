@@ -6,6 +6,7 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
         permission: {
             v1beta1: {
                 governanceKey(request?: import("./permission/v1beta1/query").QueryGovernanceKeyRequest): Promise<import("./permission/v1beta1/query").QueryGovernanceKeyResponse>;
+                params(request?: import("./permission/v1beta1/query").ParamsRequest): Promise<import("./permission/v1beta1/query").ParamsResponse>;
             };
         };
     };

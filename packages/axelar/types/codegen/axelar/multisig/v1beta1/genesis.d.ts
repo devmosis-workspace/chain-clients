@@ -16,10 +16,10 @@ export interface GenesisStateProtoMsg {
 /** GenesisState represents the genesis state */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    keygen_sessions: KeygenSessionAmino[];
-    signing_sessions: SigningSessionAmino[];
-    keys: KeyAmino[];
-    key_epochs: KeyEpochAmino[];
+    keygen_sessions?: KeygenSessionAmino[];
+    signing_sessions?: SigningSessionAmino[];
+    keys?: KeyAmino[];
+    key_epochs?: KeyEpochAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/axelar.multisig.v1beta1.GenesisState";

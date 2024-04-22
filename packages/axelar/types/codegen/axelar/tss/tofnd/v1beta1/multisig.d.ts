@@ -9,9 +9,9 @@ export interface KeygenRequestProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenRequestAmino {
-    key_uid: string;
+    key_uid?: string;
     /** used only for logging */
-    party_uid: string;
+    party_uid?: string;
 }
 export interface KeygenRequestAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.KeygenRequest";
@@ -33,7 +33,7 @@ export interface KeygenResponseProtoMsg {
 }
 export interface KeygenResponseAmino {
     /** SEC1-encoded compressed curve point */
-    pub_key?: Uint8Array;
+    pub_key?: string;
     /** reply with an error message if keygen fails */
     error?: string;
 }
@@ -62,16 +62,16 @@ export interface SignRequestProtoMsg {
     value: Uint8Array;
 }
 export interface SignRequestAmino {
-    key_uid: string;
+    key_uid?: string;
     /** 32-byte pre-hashed message digest */
-    msg_to_sign: Uint8Array;
+    msg_to_sign?: string;
     /** used only for logging */
-    party_uid: string;
+    party_uid?: string;
     /**
      * SEC1-encoded compressed pub key bytes to find the right
      * mnemonic. Latest is used, if empty.
      */
-    pub_key: Uint8Array;
+    pub_key?: string;
 }
 export interface SignRequestAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.SignRequest";
@@ -95,7 +95,7 @@ export interface SignResponseProtoMsg {
 }
 export interface SignResponseAmino {
     /** ASN.1 DER-encoded ECDSA signature */
-    signature?: Uint8Array;
+    signature?: string;
     /** reply with an error message if sign fails */
     error?: string;
 }

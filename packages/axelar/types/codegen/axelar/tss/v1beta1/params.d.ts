@@ -30,24 +30,24 @@ export interface ParamsProtoMsg {
 /** Params is the parameter set for this module */
 export interface ParamsAmino {
     /** KeyRequirements defines the requirement for each key role */
-    key_requirements: KeyRequirementAmino[];
+    key_requirements?: KeyRequirementAmino[];
     /**
      * SuspendDurationInBlocks defines the number of blocks a
      * validator is disallowed to participate in any TSS ceremony after
      * committing a malicious behaviour during signing
      */
-    suspend_duration_in_blocks: string;
+    suspend_duration_in_blocks?: string;
     /**
      * HeartBeatPeriodInBlocks defines the time period in blocks for tss to
      * emit the event asking validators to send their heartbeats
      */
-    heartbeat_period_in_blocks: string;
+    heartbeat_period_in_blocks?: string;
     max_missed_blocks_per_window?: ThresholdAmino;
-    unbonding_locking_key_rotation_count: string;
+    unbonding_locking_key_rotation_count?: string;
     external_multisig_threshold?: ThresholdAmino;
-    max_sign_queue_size: string;
-    max_simultaneous_sign_shares: string;
-    tss_signed_blocks_window: string;
+    max_sign_queue_size?: string;
+    max_simultaneous_sign_shares?: string;
+    tss_signed_blocks_window?: string;
 }
 export interface ParamsAminoMsg {
     type: "/axelar.tss.v1beta1.Params";

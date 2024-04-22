@@ -11,7 +11,7 @@ export interface GenesisStateProtoMsg {
 }
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    poll_metadatas: PollMetadataAmino[];
+    poll_metadatas?: PollMetadataAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/axelar.vote.v1beta1.GenesisState";

@@ -14,10 +14,10 @@ export interface MaintainerStateProtoMsg {
     value: Uint8Array;
 }
 export interface MaintainerStateAmino {
-    address: Uint8Array;
+    address?: string;
     missing_votes?: BitmapAmino;
     incorrect_votes?: BitmapAmino;
-    chain: string;
+    chain?: string;
 }
 export interface MaintainerStateAminoMsg {
     type: "/axelar.nexus.v1beta1.MaintainerState";
@@ -44,10 +44,10 @@ export interface ChainStateProtoMsg {
 /** ChainState represents the state of a registered blockchain */
 export interface ChainStateAmino {
     chain?: ChainAmino;
-    activated: boolean;
-    assets: AssetAmino[];
+    activated?: boolean;
+    assets?: AssetAmino[];
     /** @deprecated */
-    maintainer_states: MaintainerStateAmino[];
+    maintainer_states?: MaintainerStateAmino[];
 }
 export interface ChainStateAminoMsg {
     type: "/axelar.nexus.v1beta1.ChainState";
@@ -91,7 +91,7 @@ export interface RateLimitProtoMsg {
     value: Uint8Array;
 }
 export interface RateLimitAmino {
-    chain: string;
+    chain?: string;
     limit?: CoinAmino;
     window?: DurationAmino;
 }
@@ -109,8 +109,8 @@ export interface TransferEpoch {
     amount: Coin;
     epoch: bigint;
     /**
-     * indicates whether the tracking is for transfers outgoing
-     * to that chain or incoming from it
+     * indicates whether the rate tracking is for transfers going
+     * to that chain or coming from it
      */
     direction: TransferDirection;
 }
@@ -119,14 +119,14 @@ export interface TransferEpochProtoMsg {
     value: Uint8Array;
 }
 export interface TransferEpochAmino {
-    chain: string;
+    chain?: string;
     amount?: CoinAmino;
-    epoch: string;
+    epoch?: string;
     /**
-     * indicates whether the tracking is for transfers outgoing
-     * to that chain or incoming from it
+     * indicates whether the rate tracking is for transfers going
+     * to that chain or coming from it
      */
-    direction: TransferDirection;
+    direction?: TransferDirection;
 }
 export interface TransferEpochAminoMsg {
     type: "/axelar.nexus.v1beta1.TransferEpoch";

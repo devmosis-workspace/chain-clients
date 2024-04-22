@@ -1,3 +1,4 @@
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
 export interface PendingIBCTransferCountRequest {
 }
@@ -22,8 +23,8 @@ export interface PendingIBCTransferCountResponse_TransfersByChainEntryProtoMsg {
     value: Uint8Array;
 }
 export interface PendingIBCTransferCountResponse_TransfersByChainEntryAmino {
-    key: string;
-    value: number;
+    key?: string;
+    value?: number;
 }
 export interface PendingIBCTransferCountResponse_TransfersByChainEntryAminoMsg {
     type: string;
@@ -43,7 +44,7 @@ export interface PendingIBCTransferCountResponseProtoMsg {
     value: Uint8Array;
 }
 export interface PendingIBCTransferCountResponseAmino {
-    transfers_by_chain: {
+    transfers_by_chain?: {
         [key: string]: number;
     };
 }
@@ -55,6 +56,148 @@ export interface PendingIBCTransferCountResponseSDKType {
     transfers_by_chain: {
         [key: string]: number;
     };
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequest {
+}
+export interface ParamsRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.ParamsRequest";
+    value: Uint8Array;
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequestAmino {
+}
+export interface ParamsRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.ParamsRequest";
+    value: ParamsRequestAmino;
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequestSDKType {
+}
+export interface ParamsResponse {
+    params: Params;
+}
+export interface ParamsResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.ParamsResponse";
+    value: Uint8Array;
+}
+export interface ParamsResponseAmino {
+    params?: ParamsAmino;
+}
+export interface ParamsResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.ParamsResponse";
+    value: ParamsResponseAmino;
+}
+export interface ParamsResponseSDKType {
+    params: ParamsSDKType;
+}
+/**
+ * IBCPathRequest represents a message that queries the IBC path registered for
+ * a given chain
+ */
+export interface IBCPathRequest {
+    /**
+     * IBCPathRequest represents a message that queries the IBC path registered for
+     * a given chain
+     */
+    chain: string;
+}
+export interface IBCPathRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.IBCPathRequest";
+    value: Uint8Array;
+}
+/**
+ * IBCPathRequest represents a message that queries the IBC path registered for
+ * a given chain
+ */
+export interface IBCPathRequestAmino {
+    /**
+     * IBCPathRequest represents a message that queries the IBC path registered for
+     * a given chain
+     */
+    chain?: string;
+}
+export interface IBCPathRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.IBCPathRequest";
+    value: IBCPathRequestAmino;
+}
+/**
+ * IBCPathRequest represents a message that queries the IBC path registered for
+ * a given chain
+ */
+export interface IBCPathRequestSDKType {
+    chain: string;
+}
+export interface IBCPathResponse {
+    ibcPath: string;
+}
+export interface IBCPathResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.IBCPathResponse";
+    value: Uint8Array;
+}
+export interface IBCPathResponseAmino {
+    ibc_path?: string;
+}
+export interface IBCPathResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.IBCPathResponse";
+    value: IBCPathResponseAmino;
+}
+export interface IBCPathResponseSDKType {
+    ibc_path: string;
+}
+/**
+ * ChainByIBCPathRequest represents a message that queries the chain that an IBC
+ * path is registered to
+ */
+export interface ChainByIBCPathRequest {
+    /**
+     * ChainByIBCPathRequest represents a message that queries the chain that an IBC
+     * path is registered to
+     */
+    ibcPath: string;
+}
+export interface ChainByIBCPathRequestProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.ChainByIBCPathRequest";
+    value: Uint8Array;
+}
+/**
+ * ChainByIBCPathRequest represents a message that queries the chain that an IBC
+ * path is registered to
+ */
+export interface ChainByIBCPathRequestAmino {
+    /**
+     * ChainByIBCPathRequest represents a message that queries the chain that an IBC
+     * path is registered to
+     */
+    ibc_path?: string;
+}
+export interface ChainByIBCPathRequestAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.ChainByIBCPathRequest";
+    value: ChainByIBCPathRequestAmino;
+}
+/**
+ * ChainByIBCPathRequest represents a message that queries the chain that an IBC
+ * path is registered to
+ */
+export interface ChainByIBCPathRequestSDKType {
+    ibc_path: string;
+}
+export interface ChainByIBCPathResponse {
+    chain: string;
+}
+export interface ChainByIBCPathResponseProtoMsg {
+    typeUrl: "/axelar.axelarnet.v1beta1.ChainByIBCPathResponse";
+    value: Uint8Array;
+}
+export interface ChainByIBCPathResponseAmino {
+    chain?: string;
+}
+export interface ChainByIBCPathResponseAminoMsg {
+    type: "/axelar.axelarnet.v1beta1.ChainByIBCPathResponse";
+    value: ChainByIBCPathResponseAmino;
+}
+export interface ChainByIBCPathResponseSDKType {
+    chain: string;
 }
 export declare const PendingIBCTransferCountRequest: {
     typeUrl: string;
@@ -89,4 +232,76 @@ export declare const PendingIBCTransferCountResponse: {
     fromProtoMsg(message: PendingIBCTransferCountResponseProtoMsg): PendingIBCTransferCountResponse;
     toProto(message: PendingIBCTransferCountResponse): Uint8Array;
     toProtoMsg(message: PendingIBCTransferCountResponse): PendingIBCTransferCountResponseProtoMsg;
+};
+export declare const ParamsRequest: {
+    typeUrl: string;
+    encode(_: ParamsRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): ParamsRequest;
+    fromPartial(_: Partial<ParamsRequest>): ParamsRequest;
+    fromAmino(_: ParamsRequestAmino): ParamsRequest;
+    toAmino(_: ParamsRequest): ParamsRequestAmino;
+    fromAminoMsg(object: ParamsRequestAminoMsg): ParamsRequest;
+    fromProtoMsg(message: ParamsRequestProtoMsg): ParamsRequest;
+    toProto(message: ParamsRequest): Uint8Array;
+    toProtoMsg(message: ParamsRequest): ParamsRequestProtoMsg;
+};
+export declare const ParamsResponse: {
+    typeUrl: string;
+    encode(message: ParamsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ParamsResponse;
+    fromPartial(object: Partial<ParamsResponse>): ParamsResponse;
+    fromAmino(object: ParamsResponseAmino): ParamsResponse;
+    toAmino(message: ParamsResponse): ParamsResponseAmino;
+    fromAminoMsg(object: ParamsResponseAminoMsg): ParamsResponse;
+    fromProtoMsg(message: ParamsResponseProtoMsg): ParamsResponse;
+    toProto(message: ParamsResponse): Uint8Array;
+    toProtoMsg(message: ParamsResponse): ParamsResponseProtoMsg;
+};
+export declare const IBCPathRequest: {
+    typeUrl: string;
+    encode(message: IBCPathRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): IBCPathRequest;
+    fromPartial(object: Partial<IBCPathRequest>): IBCPathRequest;
+    fromAmino(object: IBCPathRequestAmino): IBCPathRequest;
+    toAmino(message: IBCPathRequest): IBCPathRequestAmino;
+    fromAminoMsg(object: IBCPathRequestAminoMsg): IBCPathRequest;
+    fromProtoMsg(message: IBCPathRequestProtoMsg): IBCPathRequest;
+    toProto(message: IBCPathRequest): Uint8Array;
+    toProtoMsg(message: IBCPathRequest): IBCPathRequestProtoMsg;
+};
+export declare const IBCPathResponse: {
+    typeUrl: string;
+    encode(message: IBCPathResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): IBCPathResponse;
+    fromPartial(object: Partial<IBCPathResponse>): IBCPathResponse;
+    fromAmino(object: IBCPathResponseAmino): IBCPathResponse;
+    toAmino(message: IBCPathResponse): IBCPathResponseAmino;
+    fromAminoMsg(object: IBCPathResponseAminoMsg): IBCPathResponse;
+    fromProtoMsg(message: IBCPathResponseProtoMsg): IBCPathResponse;
+    toProto(message: IBCPathResponse): Uint8Array;
+    toProtoMsg(message: IBCPathResponse): IBCPathResponseProtoMsg;
+};
+export declare const ChainByIBCPathRequest: {
+    typeUrl: string;
+    encode(message: ChainByIBCPathRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ChainByIBCPathRequest;
+    fromPartial(object: Partial<ChainByIBCPathRequest>): ChainByIBCPathRequest;
+    fromAmino(object: ChainByIBCPathRequestAmino): ChainByIBCPathRequest;
+    toAmino(message: ChainByIBCPathRequest): ChainByIBCPathRequestAmino;
+    fromAminoMsg(object: ChainByIBCPathRequestAminoMsg): ChainByIBCPathRequest;
+    fromProtoMsg(message: ChainByIBCPathRequestProtoMsg): ChainByIBCPathRequest;
+    toProto(message: ChainByIBCPathRequest): Uint8Array;
+    toProtoMsg(message: ChainByIBCPathRequest): ChainByIBCPathRequestProtoMsg;
+};
+export declare const ChainByIBCPathResponse: {
+    typeUrl: string;
+    encode(message: ChainByIBCPathResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ChainByIBCPathResponse;
+    fromPartial(object: Partial<ChainByIBCPathResponse>): ChainByIBCPathResponse;
+    fromAmino(object: ChainByIBCPathResponseAmino): ChainByIBCPathResponse;
+    toAmino(message: ChainByIBCPathResponse): ChainByIBCPathResponseAmino;
+    fromAminoMsg(object: ChainByIBCPathResponseAminoMsg): ChainByIBCPathResponse;
+    fromProtoMsg(message: ChainByIBCPathResponseProtoMsg): ChainByIBCPathResponse;
+    toProto(message: ChainByIBCPathResponse): Uint8Array;
+    toProtoMsg(message: ChainByIBCPathResponse): ChainByIBCPathResponseProtoMsg;
 };

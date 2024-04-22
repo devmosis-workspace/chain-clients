@@ -1,6 +1,6 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
 import { RegisterControllerRequest, DeregisterControllerRequest, UpdateGovernanceKeyRequest, } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/axelar.permission.v1beta1.axelar.permission.v1beta1.RegisterControllerRequest", RegisterControllerRequest], ["/axelar.permission.v1beta1.axelar.permission.v1beta1.DeregisterControllerRequest", DeregisterControllerRequest], ["/axelar.permission.v1beta1.axelar.permission.v1beta1.UpdateGovernanceKeyRequest", UpdateGovernanceKeyRequest]];
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/axelar.permission.v1beta1.RegisterControllerRequest", RegisterControllerRequest], ["/axelar.permission.v1beta1.DeregisterControllerRequest", DeregisterControllerRequest], ["/axelar.permission.v1beta1.UpdateGovernanceKeyRequest", UpdateGovernanceKeyRequest]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -82,7 +82,7 @@ export const MessageComposer = {
     },
     updateGovernanceKey(value: UpdateGovernanceKeyRequest) {
       return {
-        typeUrl: "/axelar.permission.v1beta1.axelar.permission.v1beta1.UpdateGovernanceKeyRequest",
+        typeUrl: "/axelar.permission.v1beta1.UpdateGovernanceKeyRequest",
         value: UpdateGovernanceKeyRequest.fromPartial(value)
       };
     }

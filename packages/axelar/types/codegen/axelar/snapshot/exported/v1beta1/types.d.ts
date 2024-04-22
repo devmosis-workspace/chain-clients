@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../../binary";
 export interface Participant {
     address: Uint8Array;
@@ -9,8 +9,8 @@ export interface ParticipantProtoMsg {
     value: Uint8Array;
 }
 export interface ParticipantAmino {
-    address: Uint8Array;
-    weight: Uint8Array;
+    address?: string;
+    weight?: string;
 }
 export interface ParticipantAminoMsg {
     type: "/axelar.snapshot.exported.v1beta1.Participant";
@@ -22,14 +22,14 @@ export interface ParticipantSDKType {
 }
 export interface Snapshot_ParticipantsEntry {
     key: string;
-    value: Participant;
+    value?: Participant;
 }
 export interface Snapshot_ParticipantsEntryProtoMsg {
     typeUrl: string;
     value: Uint8Array;
 }
 export interface Snapshot_ParticipantsEntryAmino {
-    key: string;
+    key?: string;
     value?: ParticipantAmino;
 }
 export interface Snapshot_ParticipantsEntryAminoMsg {
@@ -38,7 +38,7 @@ export interface Snapshot_ParticipantsEntryAminoMsg {
 }
 export interface Snapshot_ParticipantsEntrySDKType {
     key: string;
-    value: ParticipantSDKType;
+    value?: ParticipantSDKType;
 }
 export interface Snapshot {
     timestamp: Timestamp;
@@ -53,12 +53,12 @@ export interface SnapshotProtoMsg {
     value: Uint8Array;
 }
 export interface SnapshotAmino {
-    timestamp?: TimestampAmino;
-    height: string;
+    timestamp?: string;
+    height?: string;
     participants?: {
         [key: string]: ParticipantAmino;
     };
-    bonded_weight: Uint8Array;
+    bonded_weight?: string;
 }
 export interface SnapshotAminoMsg {
     type: "/axelar.snapshot.exported.v1beta1.Snapshot";

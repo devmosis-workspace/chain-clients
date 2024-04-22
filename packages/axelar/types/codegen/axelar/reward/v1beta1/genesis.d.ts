@@ -13,7 +13,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState represents the genesis state */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    pools: PoolAmino[];
+    pools?: PoolAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/axelar.reward.v1beta1.GenesisState";

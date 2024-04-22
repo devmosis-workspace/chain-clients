@@ -1,6 +1,6 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
-import { CrossChainAddress, CrossChainAddressAmino, CrossChainAddressSDKType } from "../exported/v1beta1/types";
+import { CrossChainAddress, CrossChainAddressAmino, CrossChainAddressSDKType, WasmMessage, WasmMessageAmino, WasmMessageSDKType } from "../exported/v1beta1/types";
 import { BinaryWriter } from "../../../binary";
 export interface FeeDeducted {
     transferId: bigint;
@@ -14,9 +14,9 @@ export interface FeeDeductedProtoMsg {
     value: Uint8Array;
 }
 export interface FeeDeductedAmino {
-    transfer_id: string;
-    recipient_chain: string;
-    recipient_address: string;
+    transfer_id?: string;
+    recipient_chain?: string;
+    recipient_address?: string;
     amount?: CoinAmino;
     fee?: CoinAmino;
 }
@@ -43,9 +43,9 @@ export interface InsufficientFeeProtoMsg {
     value: Uint8Array;
 }
 export interface InsufficientFeeAmino {
-    transfer_id: string;
-    recipient_chain: string;
-    recipient_address: string;
+    transfer_id?: string;
+    recipient_chain?: string;
+    recipient_address?: string;
     amount?: CoinAmino;
     fee?: CoinAmino;
 }
@@ -70,7 +70,7 @@ export interface RateLimitUpdatedProtoMsg {
     value: Uint8Array;
 }
 export interface RateLimitUpdatedAmino {
-    chain: string;
+    chain?: string;
     limit?: CoinAmino;
     window?: DurationAmino;
 }
@@ -94,8 +94,8 @@ export interface MessageReceivedProtoMsg {
     value: Uint8Array;
 }
 export interface MessageReceivedAmino {
-    id: string;
-    payload_hash: Uint8Array;
+    id?: string;
+    payload_hash?: string;
     sender?: CrossChainAddressAmino;
     recipient?: CrossChainAddressAmino;
 }
@@ -117,7 +117,7 @@ export interface MessageProcessingProtoMsg {
     value: Uint8Array;
 }
 export interface MessageProcessingAmino {
-    id: string;
+    id?: string;
 }
 export interface MessageProcessingAminoMsg {
     type: "/axelar.nexus.v1beta1.MessageProcessing";
@@ -134,7 +134,7 @@ export interface MessageExecutedProtoMsg {
     value: Uint8Array;
 }
 export interface MessageExecutedAmino {
-    id: string;
+    id?: string;
 }
 export interface MessageExecutedAminoMsg {
     type: "/axelar.nexus.v1beta1.MessageExecuted";
@@ -151,7 +151,7 @@ export interface MessageFailedProtoMsg {
     value: Uint8Array;
 }
 export interface MessageFailedAmino {
-    id: string;
+    id?: string;
 }
 export interface MessageFailedAminoMsg {
     type: "/axelar.nexus.v1beta1.MessageFailed";
@@ -159,6 +159,23 @@ export interface MessageFailedAminoMsg {
 }
 export interface MessageFailedSDKType {
     id: string;
+}
+export interface WasmMessageRouted {
+    message: WasmMessage;
+}
+export interface WasmMessageRoutedProtoMsg {
+    typeUrl: "/axelar.nexus.v1beta1.WasmMessageRouted";
+    value: Uint8Array;
+}
+export interface WasmMessageRoutedAmino {
+    message?: WasmMessageAmino;
+}
+export interface WasmMessageRoutedAminoMsg {
+    type: "/axelar.nexus.v1beta1.WasmMessageRouted";
+    value: WasmMessageRoutedAmino;
+}
+export interface WasmMessageRoutedSDKType {
+    message: WasmMessageSDKType;
 }
 export declare const FeeDeducted: {
     typeUrl: string;
@@ -243,4 +260,16 @@ export declare const MessageFailed: {
     fromProtoMsg(message: MessageFailedProtoMsg): MessageFailed;
     toProto(message: MessageFailed): Uint8Array;
     toProtoMsg(message: MessageFailed): MessageFailedProtoMsg;
+};
+export declare const WasmMessageRouted: {
+    typeUrl: string;
+    encode(message: WasmMessageRouted, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): WasmMessageRouted;
+    fromPartial(object: Partial<WasmMessageRouted>): WasmMessageRouted;
+    fromAmino(object: WasmMessageRoutedAmino): WasmMessageRouted;
+    toAmino(message: WasmMessageRouted): WasmMessageRoutedAmino;
+    fromAminoMsg(object: WasmMessageRoutedAminoMsg): WasmMessageRouted;
+    fromProtoMsg(message: WasmMessageRoutedProtoMsg): WasmMessageRouted;
+    toProto(message: WasmMessageRouted): Uint8Array;
+    toProtoMsg(message: WasmMessageRouted): WasmMessageRoutedProtoMsg;
 };

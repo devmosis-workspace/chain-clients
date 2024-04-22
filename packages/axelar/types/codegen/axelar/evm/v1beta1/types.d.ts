@@ -81,8 +81,8 @@ export interface VoteEventsProtoMsg {
     value: Uint8Array;
 }
 export interface VoteEventsAmino {
-    chain: string;
-    events: EventAmino[];
+    chain?: string;
+    events?: EventAmino[];
 }
 export interface VoteEventsAminoMsg {
     type: "/axelar.evm.v1beta1.VoteEvents";
@@ -111,10 +111,10 @@ export interface EventProtoMsg {
     value: Uint8Array;
 }
 export interface EventAmino {
-    chain: string;
-    tx_id: Uint8Array;
-    index: string;
-    status: Event_Status;
+    chain?: string;
+    tx_id?: string;
+    index?: string;
+    status?: Event_Status;
     token_sent?: EventTokenSentAmino;
     contract_call?: EventContractCallAmino;
     contract_call_with_token?: EventContractCallWithTokenAmino;
@@ -154,11 +154,11 @@ export interface EventTokenSentProtoMsg {
     value: Uint8Array;
 }
 export interface EventTokenSentAmino {
-    sender: Uint8Array;
-    destination_chain: string;
-    destination_address: string;
-    symbol: string;
-    amount: Uint8Array;
+    sender?: string;
+    destination_chain?: string;
+    destination_address?: string;
+    symbol?: string;
+    amount?: string;
 }
 export interface EventTokenSentAminoMsg {
     type: "/axelar.evm.v1beta1.EventTokenSent";
@@ -182,10 +182,10 @@ export interface EventContractCallProtoMsg {
     value: Uint8Array;
 }
 export interface EventContractCallAmino {
-    sender: Uint8Array;
-    destination_chain: string;
-    contract_address: string;
-    payload_hash: Uint8Array;
+    sender?: string;
+    destination_chain?: string;
+    contract_address?: string;
+    payload_hash?: string;
 }
 export interface EventContractCallAminoMsg {
     type: "/axelar.evm.v1beta1.EventContractCall";
@@ -210,12 +210,12 @@ export interface EventContractCallWithTokenProtoMsg {
     value: Uint8Array;
 }
 export interface EventContractCallWithTokenAmino {
-    sender: Uint8Array;
-    destination_chain: string;
-    contract_address: string;
-    payload_hash: Uint8Array;
-    symbol: string;
-    amount: Uint8Array;
+    sender?: string;
+    destination_chain?: string;
+    contract_address?: string;
+    payload_hash?: string;
+    symbol?: string;
+    amount?: string;
 }
 export interface EventContractCallWithTokenAminoMsg {
     type: "/axelar.evm.v1beta1.EventContractCallWithToken";
@@ -238,8 +238,8 @@ export interface EventTransferProtoMsg {
     value: Uint8Array;
 }
 export interface EventTransferAmino {
-    to: Uint8Array;
-    amount: Uint8Array;
+    to?: string;
+    amount?: string;
 }
 export interface EventTransferAminoMsg {
     type: "/axelar.evm.v1beta1.EventTransfer";
@@ -258,8 +258,8 @@ export interface EventTokenDeployedProtoMsg {
     value: Uint8Array;
 }
 export interface EventTokenDeployedAmino {
-    symbol: string;
-    token_address: Uint8Array;
+    symbol?: string;
+    token_address?: string;
 }
 export interface EventTokenDeployedAminoMsg {
     type: "/axelar.evm.v1beta1.EventTokenDeployed";
@@ -282,10 +282,10 @@ export interface EventMultisigOwnershipTransferredProtoMsg {
 }
 /** @deprecated */
 export interface EventMultisigOwnershipTransferredAmino {
-    pre_owners: Uint8Array[];
-    prev_threshold: Uint8Array;
-    new_owners: Uint8Array[];
-    new_threshold: Uint8Array;
+    pre_owners?: string[];
+    prev_threshold?: string;
+    new_owners?: string[];
+    new_threshold?: string;
 }
 export interface EventMultisigOwnershipTransferredAminoMsg {
     type: "/axelar.evm.v1beta1.EventMultisigOwnershipTransferred";
@@ -308,9 +308,9 @@ export interface EventMultisigOperatorshipTransferredProtoMsg {
     value: Uint8Array;
 }
 export interface EventMultisigOperatorshipTransferredAmino {
-    new_operators: Uint8Array[];
-    new_threshold: Uint8Array;
-    new_weights: Uint8Array[];
+    new_operators?: string[];
+    new_threshold?: string;
+    new_weights?: string[];
 }
 export interface EventMultisigOperatorshipTransferredAminoMsg {
     type: "/axelar.evm.v1beta1.EventMultisigOperatorshipTransferred";
@@ -332,8 +332,8 @@ export interface NetworkInfoProtoMsg {
 }
 /** NetworkInfo describes information about a network */
 export interface NetworkInfoAmino {
-    name: string;
-    id: Uint8Array;
+    name?: string;
+    id?: string;
 }
 export interface NetworkInfoAminoMsg {
     type: "/axelar.evm.v1beta1.NetworkInfo";
@@ -365,12 +365,12 @@ export interface BurnerInfoProtoMsg {
  * that is deposited by an user
  */
 export interface BurnerInfoAmino {
-    burner_address: Uint8Array;
-    token_address: Uint8Array;
-    destination_chain: string;
-    symbol: string;
-    asset: string;
-    salt: Uint8Array;
+    burner_address?: string;
+    token_address?: string;
+    destination_chain?: string;
+    symbol?: string;
+    asset?: string;
+    salt?: string;
 }
 export interface BurnerInfoAminoMsg {
     type: "/axelar.evm.v1beta1.BurnerInfo";
@@ -403,12 +403,12 @@ export interface ERC20DepositProtoMsg {
 }
 /** ERC20Deposit contains information for an ERC20 deposit */
 export interface ERC20DepositAmino {
-    tx_id: Uint8Array;
-    amount: Uint8Array;
-    asset: string;
-    destination_chain: string;
-    burner_address: Uint8Array;
-    log_index: string;
+    tx_id?: string;
+    amount?: string;
+    asset?: string;
+    destination_chain?: string;
+    burner_address?: string;
+    log_index?: string;
 }
 export interface ERC20DepositAminoMsg {
     type: "/axelar.evm.v1beta1.ERC20Deposit";
@@ -440,14 +440,14 @@ export interface ERC20TokenMetadataProtoMsg {
 }
 /** ERC20TokenMetadata describes information about an ERC20 token */
 export interface ERC20TokenMetadataAmino {
-    asset: string;
-    chain_id: Uint8Array;
+    asset?: string;
+    chain_id?: string;
     details?: TokenDetailsAmino;
-    token_address: string;
-    tx_hash: string;
-    status: Status;
-    is_external: boolean;
-    burner_code: Uint8Array;
+    token_address?: string;
+    tx_hash?: string;
+    status?: Status;
+    is_external?: boolean;
+    burner_code?: string;
 }
 export interface ERC20TokenMetadataAminoMsg {
     type: "/axelar.evm.v1beta1.ERC20TokenMetadata";
@@ -473,8 +473,8 @@ export interface TransactionMetadataProtoMsg {
     value: Uint8Array;
 }
 export interface TransactionMetadataAmino {
-    raw_tx: Uint8Array;
-    pub_key: Uint8Array;
+    raw_tx?: string;
+    pub_key?: string;
 }
 export interface TransactionMetadataAminoMsg {
     type: "/axelar.evm.v1beta1.TransactionMetadata";
@@ -498,13 +498,13 @@ export interface CommandProtoMsg {
     value: Uint8Array;
 }
 export interface CommandAmino {
-    id: Uint8Array;
+    id?: string;
     /** @deprecated */
-    command: string;
-    params: Uint8Array;
-    key_id: string;
-    max_gas_cost: number;
-    type: CommandType;
+    command?: string;
+    params?: string;
+    key_id?: string;
+    max_gas_cost?: number;
+    type?: CommandType;
 }
 export interface CommandAminoMsg {
     type: "/axelar.evm.v1beta1.Command";
@@ -527,7 +527,7 @@ export interface CommandBatchMetadata {
     status: BatchedCommandsStatus;
     keyId: string;
     prevBatchedCommandsId: Uint8Array;
-    signature: (Any) | undefined;
+    signature?: (Any) | undefined;
 }
 export interface CommandBatchMetadataProtoMsg {
     typeUrl: "/axelar.evm.v1beta1.CommandBatchMetadata";
@@ -537,13 +537,13 @@ export type CommandBatchMetadataEncoded = Omit<CommandBatchMetadata, "signature"
     signature?: AnyProtoMsg | undefined;
 };
 export interface CommandBatchMetadataAmino {
-    id: Uint8Array;
-    command_ids: Uint8Array[];
-    data: Uint8Array;
-    sig_hash: Uint8Array;
-    status: BatchedCommandsStatus;
-    key_id: string;
-    prev_batched_commands_id: Uint8Array;
+    id?: string;
+    command_ids?: string[];
+    data?: string;
+    sig_hash?: string;
+    status?: BatchedCommandsStatus;
+    key_id?: string;
+    prev_batched_commands_id?: string;
     signature?: AnyAmino;
 }
 export interface CommandBatchMetadataAminoMsg {
@@ -558,7 +558,7 @@ export interface CommandBatchMetadataSDKType {
     status: BatchedCommandsStatus;
     key_id: string;
     prev_batched_commands_id: Uint8Array;
-    signature: AnySDKType | undefined;
+    signature?: AnySDKType | undefined;
 }
 /**
  * SigMetadata stores necessary information for external apps to map signature
@@ -578,9 +578,9 @@ export interface SigMetadataProtoMsg {
  * results to evm relay transaction types
  */
 export interface SigMetadataAmino {
-    type: SigType;
-    chain: string;
-    command_batch_id: Uint8Array;
+    type?: SigType;
+    chain?: string;
+    command_batch_id?: string;
 }
 export interface SigMetadataAminoMsg {
     type: "/axelar.evm.v1beta1.SigMetadata";
@@ -606,8 +606,8 @@ export interface TransferKeyProtoMsg {
 }
 /** TransferKey contains information for a transfer operatorship */
 export interface TransferKeyAmino {
-    tx_id: Uint8Array;
-    next_key_id: string;
+    tx_id?: string;
+    next_key_id?: string;
 }
 export interface TransferKeyAminoMsg {
     type: "/axelar.evm.v1beta1.TransferKey";
@@ -627,8 +627,8 @@ export interface AssetProtoMsg {
     value: Uint8Array;
 }
 export interface AssetAmino {
-    chain: string;
-    name: string;
+    chain?: string;
+    name?: string;
 }
 export interface AssetAminoMsg {
     type: "/axelar.evm.v1beta1.Asset";
@@ -649,10 +649,10 @@ export interface TokenDetailsProtoMsg {
     value: Uint8Array;
 }
 export interface TokenDetailsAmino {
-    token_name: string;
-    symbol: string;
-    decimals: number;
-    capacity: Uint8Array;
+    token_name?: string;
+    symbol?: string;
+    decimals?: number;
+    capacity?: string;
 }
 export interface TokenDetailsAminoMsg {
     type: "/axelar.evm.v1beta1.TokenDetails";
@@ -672,7 +672,7 @@ export interface GatewayProtoMsg {
     value: Uint8Array;
 }
 export interface GatewayAmino {
-    address: Uint8Array;
+    address?: string;
 }
 export interface GatewayAminoMsg {
     type: "/axelar.evm.v1beta1.Gateway";
@@ -690,8 +690,8 @@ export interface PollMetadataProtoMsg {
     value: Uint8Array;
 }
 export interface PollMetadataAmino {
-    chain: string;
-    tx_id: Uint8Array;
+    chain?: string;
+    tx_id?: string;
 }
 export interface PollMetadataAminoMsg {
     type: "/axelar.evm.v1beta1.PollMetadata";

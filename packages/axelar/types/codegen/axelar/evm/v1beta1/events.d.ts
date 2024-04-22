@@ -12,9 +12,9 @@ export interface PollFailedProtoMsg {
     value: Uint8Array;
 }
 export interface PollFailedAmino {
-    tx_id: Uint8Array;
-    chain: string;
-    poll_id: string;
+    tx_id?: string;
+    chain?: string;
+    poll_id?: string;
 }
 export interface PollFailedAminoMsg {
     type: "/axelar.evm.v1beta1.PollFailed";
@@ -35,9 +35,9 @@ export interface PollExpiredProtoMsg {
     value: Uint8Array;
 }
 export interface PollExpiredAmino {
-    tx_id: Uint8Array;
-    chain: string;
-    poll_id: string;
+    tx_id?: string;
+    chain?: string;
+    poll_id?: string;
 }
 export interface PollExpiredAminoMsg {
     type: "/axelar.evm.v1beta1.PollExpired";
@@ -58,9 +58,9 @@ export interface PollCompletedProtoMsg {
     value: Uint8Array;
 }
 export interface PollCompletedAmino {
-    tx_id: Uint8Array;
-    chain: string;
-    poll_id: string;
+    tx_id?: string;
+    chain?: string;
+    poll_id?: string;
 }
 export interface PollCompletedAminoMsg {
     type: "/axelar.evm.v1beta1.PollCompleted";
@@ -81,9 +81,9 @@ export interface NoEventsConfirmedProtoMsg {
     value: Uint8Array;
 }
 export interface NoEventsConfirmedAmino {
-    tx_id: Uint8Array;
-    chain: string;
-    poll_id: string;
+    tx_id?: string;
+    chain?: string;
+    poll_id?: string;
 }
 export interface NoEventsConfirmedAminoMsg {
     type: "/axelar.evm.v1beta1.NoEventsConfirmed";
@@ -106,10 +106,10 @@ export interface ConfirmKeyTransferStartedProtoMsg {
     value: Uint8Array;
 }
 export interface ConfirmKeyTransferStartedAmino {
-    chain: string;
-    tx_id: Uint8Array;
-    gateway_address: Uint8Array;
-    confirmation_height: string;
+    chain?: string;
+    tx_id?: string;
+    gateway_address?: string;
+    confirmation_height?: string;
     participants?: PollParticipantsAmino;
 }
 export interface ConfirmKeyTransferStartedAminoMsg {
@@ -123,6 +123,7 @@ export interface ConfirmKeyTransferStartedSDKType {
     confirmation_height: bigint;
     participants: PollParticipantsSDKType;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxStarted {
     txId: Uint8Array;
     chain: string;
@@ -134,23 +135,74 @@ export interface ConfirmGatewayTxStartedProtoMsg {
     typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxStarted";
     value: Uint8Array;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxStartedAmino {
-    tx_id: Uint8Array;
-    chain: string;
-    gateway_address: Uint8Array;
-    confirmation_height: string;
+    tx_id?: string;
+    chain?: string;
+    gateway_address?: string;
+    confirmation_height?: string;
     participants?: PollParticipantsAmino;
 }
 export interface ConfirmGatewayTxStartedAminoMsg {
     type: "/axelar.evm.v1beta1.ConfirmGatewayTxStarted";
     value: ConfirmGatewayTxStartedAmino;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxStartedSDKType {
     tx_id: Uint8Array;
     chain: string;
     gateway_address: Uint8Array;
     confirmation_height: bigint;
     participants: PollParticipantsSDKType;
+}
+export interface PollMapping {
+    txId: Uint8Array;
+    pollId: bigint;
+}
+export interface PollMappingProtoMsg {
+    typeUrl: "/axelar.evm.v1beta1.PollMapping";
+    value: Uint8Array;
+}
+export interface PollMappingAmino {
+    tx_id?: string;
+    poll_id?: string;
+}
+export interface PollMappingAminoMsg {
+    type: "/axelar.evm.v1beta1.PollMapping";
+    value: PollMappingAmino;
+}
+export interface PollMappingSDKType {
+    tx_id: Uint8Array;
+    poll_id: bigint;
+}
+export interface ConfirmGatewayTxsStarted {
+    pollMappings: PollMapping[];
+    chain: string;
+    gatewayAddress: Uint8Array;
+    confirmationHeight: bigint;
+    participants: Uint8Array[];
+}
+export interface ConfirmGatewayTxsStartedProtoMsg {
+    typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsStarted";
+    value: Uint8Array;
+}
+export interface ConfirmGatewayTxsStartedAmino {
+    poll_mappings?: PollMappingAmino[];
+    chain?: string;
+    gateway_address?: string;
+    confirmation_height?: string;
+    participants?: string[];
+}
+export interface ConfirmGatewayTxsStartedAminoMsg {
+    type: "/axelar.evm.v1beta1.ConfirmGatewayTxsStarted";
+    value: ConfirmGatewayTxsStartedAmino;
+}
+export interface ConfirmGatewayTxsStartedSDKType {
+    poll_mappings: PollMappingSDKType[];
+    chain: string;
+    gateway_address: Uint8Array;
+    confirmation_height: bigint;
+    participants: Uint8Array[];
 }
 export interface ConfirmDepositStarted {
     txId: Uint8Array;
@@ -166,13 +218,13 @@ export interface ConfirmDepositStartedProtoMsg {
     value: Uint8Array;
 }
 export interface ConfirmDepositStartedAmino {
-    tx_id: Uint8Array;
-    chain: string;
-    deposit_address: Uint8Array;
-    token_address: Uint8Array;
-    confirmation_height: string;
+    tx_id?: string;
+    chain?: string;
+    deposit_address?: string;
+    token_address?: string;
+    confirmation_height?: string;
     participants?: PollParticipantsAmino;
-    asset: string;
+    asset?: string;
 }
 export interface ConfirmDepositStartedAminoMsg {
     type: "/axelar.evm.v1beta1.ConfirmDepositStarted";
@@ -201,12 +253,12 @@ export interface ConfirmTokenStartedProtoMsg {
     value: Uint8Array;
 }
 export interface ConfirmTokenStartedAmino {
-    tx_id: Uint8Array;
-    chain: string;
-    gateway_address: Uint8Array;
-    token_address: Uint8Array;
+    tx_id?: string;
+    chain?: string;
+    gateway_address?: string;
+    token_address?: string;
     token_details?: TokenDetailsAmino;
-    confirmation_height: string;
+    confirmation_height?: string;
     participants?: PollParticipantsAmino;
 }
 export interface ConfirmTokenStartedAminoMsg {
@@ -230,7 +282,7 @@ export interface ChainAddedProtoMsg {
     value: Uint8Array;
 }
 export interface ChainAddedAmino {
-    chain: string;
+    chain?: string;
 }
 export interface ChainAddedAminoMsg {
     type: "/axelar.evm.v1beta1.ChainAdded";
@@ -248,8 +300,8 @@ export interface CommandBatchSignedProtoMsg {
     value: Uint8Array;
 }
 export interface CommandBatchSignedAmino {
-    chain: string;
-    command_batch_id: Uint8Array;
+    chain?: string;
+    command_batch_id?: string;
 }
 export interface CommandBatchSignedAminoMsg {
     type: "/axelar.evm.v1beta1.CommandBatchSigned";
@@ -268,8 +320,8 @@ export interface CommandBatchAbortedProtoMsg {
     value: Uint8Array;
 }
 export interface CommandBatchAbortedAmino {
-    chain: string;
-    command_batch_id: Uint8Array;
+    chain?: string;
+    command_batch_id?: string;
 }
 export interface CommandBatchAbortedAminoMsg {
     type: "/axelar.evm.v1beta1.CommandBatchAborted";
@@ -289,9 +341,9 @@ export interface EVMEventConfirmedProtoMsg {
     value: Uint8Array;
 }
 export interface EVMEventConfirmedAmino {
-    chain: string;
-    event_id: string;
-    type: string;
+    chain?: string;
+    event_id?: string;
+    type?: string;
 }
 export interface EVMEventConfirmedAminoMsg {
     type: "/axelar.evm.v1beta1.EVMEventConfirmed";
@@ -312,9 +364,9 @@ export interface EVMEventCompletedProtoMsg {
     value: Uint8Array;
 }
 export interface EVMEventCompletedAmino {
-    chain: string;
-    event_id: string;
-    type: string;
+    chain?: string;
+    event_id?: string;
+    type?: string;
 }
 export interface EVMEventCompletedAminoMsg {
     type: "/axelar.evm.v1beta1.EVMEventCompleted";
@@ -335,9 +387,9 @@ export interface EVMEventFailedProtoMsg {
     value: Uint8Array;
 }
 export interface EVMEventFailedAmino {
-    chain: string;
-    event_id: string;
-    type: string;
+    chain?: string;
+    event_id?: string;
+    type?: string;
 }
 export interface EVMEventFailedAminoMsg {
     type: "/axelar.evm.v1beta1.EVMEventFailed";
@@ -358,9 +410,9 @@ export interface EVMEventRetryFailedProtoMsg {
     value: Uint8Array;
 }
 export interface EVMEventRetryFailedAmino {
-    chain: string;
-    event_id: string;
-    type: string;
+    chain?: string;
+    event_id?: string;
+    type?: string;
 }
 export interface EVMEventRetryFailedAminoMsg {
     type: "/axelar.evm.v1beta1.EVMEventRetryFailed";
@@ -385,13 +437,13 @@ export interface ContractCallApprovedProtoMsg {
     value: Uint8Array;
 }
 export interface ContractCallApprovedAmino {
-    chain: string;
-    event_id: string;
-    command_id: Uint8Array;
-    sender: string;
-    destination_chain: string;
-    contract_address: string;
-    payload_hash: Uint8Array;
+    chain?: string;
+    event_id?: string;
+    command_id?: string;
+    sender?: string;
+    destination_chain?: string;
+    contract_address?: string;
+    payload_hash?: string;
 }
 export interface ContractCallApprovedAminoMsg {
     type: "/axelar.evm.v1beta1.ContractCallApproved";
@@ -415,8 +467,8 @@ export interface ContractCallFailedProtoMsg {
     value: Uint8Array;
 }
 export interface ContractCallFailedAmino {
-    chain: string;
-    msg_id: string;
+    chain?: string;
+    msg_id?: string;
 }
 export interface ContractCallFailedAminoMsg {
     type: "/axelar.evm.v1beta1.ContractCallFailed";
@@ -441,13 +493,13 @@ export interface ContractCallWithMintApprovedProtoMsg {
     value: Uint8Array;
 }
 export interface ContractCallWithMintApprovedAmino {
-    chain: string;
-    event_id: string;
-    command_id: Uint8Array;
-    sender: string;
-    destination_chain: string;
-    contract_address: string;
-    payload_hash: Uint8Array;
+    chain?: string;
+    event_id?: string;
+    command_id?: string;
+    sender?: string;
+    destination_chain?: string;
+    contract_address?: string;
+    payload_hash?: string;
     asset?: CoinAmino;
 }
 export interface ContractCallWithMintApprovedAminoMsg {
@@ -478,12 +530,12 @@ export interface TokenSentProtoMsg {
     value: Uint8Array;
 }
 export interface TokenSentAmino {
-    chain: string;
-    event_id: string;
-    transfer_id: string;
-    sender: string;
-    destination_chain: string;
-    destination_address: string;
+    chain?: string;
+    event_id?: string;
+    transfer_id?: string;
+    sender?: string;
+    destination_chain?: string;
+    destination_address?: string;
     asset?: CoinAmino;
 }
 export interface TokenSentAminoMsg {
@@ -512,11 +564,11 @@ export interface MintCommandProtoMsg {
     value: Uint8Array;
 }
 export interface MintCommandAmino {
-    chain: string;
-    transfer_id: string;
-    command_id: Uint8Array;
-    destination_chain: string;
-    destination_address: string;
+    chain?: string;
+    transfer_id?: string;
+    command_id?: string;
+    destination_chain?: string;
+    destination_address?: string;
     asset?: CoinAmino;
 }
 export interface MintCommandAminoMsg {
@@ -543,11 +595,11 @@ export interface BurnCommandProtoMsg {
     value: Uint8Array;
 }
 export interface BurnCommandAmino {
-    chain: string;
-    command_id: Uint8Array;
-    destination_chain: string;
-    deposit_address: string;
-    asset: string;
+    chain?: string;
+    command_id?: string;
+    destination_chain?: string;
+    deposit_address?: string;
+    asset?: string;
 }
 export interface BurnCommandAminoMsg {
     type: "/axelar.evm.v1beta1.BurnCommand";
@@ -631,6 +683,30 @@ export declare const ConfirmGatewayTxStarted: {
     fromProtoMsg(message: ConfirmGatewayTxStartedProtoMsg): ConfirmGatewayTxStarted;
     toProto(message: ConfirmGatewayTxStarted): Uint8Array;
     toProtoMsg(message: ConfirmGatewayTxStarted): ConfirmGatewayTxStartedProtoMsg;
+};
+export declare const PollMapping: {
+    typeUrl: string;
+    encode(message: PollMapping, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): PollMapping;
+    fromPartial(object: Partial<PollMapping>): PollMapping;
+    fromAmino(object: PollMappingAmino): PollMapping;
+    toAmino(message: PollMapping): PollMappingAmino;
+    fromAminoMsg(object: PollMappingAminoMsg): PollMapping;
+    fromProtoMsg(message: PollMappingProtoMsg): PollMapping;
+    toProto(message: PollMapping): Uint8Array;
+    toProtoMsg(message: PollMapping): PollMappingProtoMsg;
+};
+export declare const ConfirmGatewayTxsStarted: {
+    typeUrl: string;
+    encode(message: ConfirmGatewayTxsStarted, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ConfirmGatewayTxsStarted;
+    fromPartial(object: Partial<ConfirmGatewayTxsStarted>): ConfirmGatewayTxsStarted;
+    fromAmino(object: ConfirmGatewayTxsStartedAmino): ConfirmGatewayTxsStarted;
+    toAmino(message: ConfirmGatewayTxsStarted): ConfirmGatewayTxsStartedAmino;
+    fromAminoMsg(object: ConfirmGatewayTxsStartedAminoMsg): ConfirmGatewayTxsStarted;
+    fromProtoMsg(message: ConfirmGatewayTxsStartedProtoMsg): ConfirmGatewayTxsStarted;
+    toProto(message: ConfirmGatewayTxsStarted): Uint8Array;
+    toProtoMsg(message: ConfirmGatewayTxsStarted): ConfirmGatewayTxsStartedProtoMsg;
 };
 export declare const ConfirmDepositStarted: {
     typeUrl: string;

@@ -11,11 +11,11 @@ export interface VotedProtoMsg {
     value: Uint8Array;
 }
 export interface VotedAmino {
-    module: string;
-    action: string;
-    poll: string;
-    voter: string;
-    state: string;
+    module?: string;
+    action?: string;
+    poll?: string;
+    voter?: string;
+    state?: string;
 }
 export interface VotedAminoMsg {
     type: "/axelar.vote.v1beta1.Voted";

@@ -25,12 +25,12 @@ export interface KeyPresenceRequestProtoMsg {
 }
 /** Key presence check types */
 export interface KeyPresenceRequestAmino {
-    key_uid: string;
+    key_uid?: string;
     /**
      * SEC1-encoded compressed pub key bytes to find the right
      * mnemonic. Latest is used, if empty.
      */
-    pub_key: Uint8Array;
+    pub_key?: string;
 }
 export interface KeyPresenceRequestAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.KeyPresenceRequest";
@@ -49,7 +49,7 @@ export interface KeyPresenceResponseProtoMsg {
     value: Uint8Array;
 }
 export interface KeyPresenceResponseAmino {
-    response: KeyPresenceResponse_Response;
+    response?: KeyPresenceResponse_Response;
 }
 export interface KeyPresenceResponseAminoMsg {
     type: "/axelar.tss.tofnd.v1beta1.KeyPresenceResponse";

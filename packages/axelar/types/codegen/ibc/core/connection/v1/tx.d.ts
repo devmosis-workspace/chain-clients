@@ -9,7 +9,7 @@ import { BinaryWriter } from "../../../../binary";
 export interface MsgConnectionOpenInit {
     clientId: string;
     counterparty: Counterparty;
-    version: Version;
+    version?: Version;
     delayPeriod: bigint;
     signer: string;
 }
@@ -22,11 +22,11 @@ export interface MsgConnectionOpenInitProtoMsg {
  * initialize a connection with Chain B.
  */
 export interface MsgConnectionOpenInitAmino {
-    client_id: string;
+    client_id?: string;
     counterparty?: CounterpartyAmino;
     version?: VersionAmino;
-    delay_period: string;
-    signer: string;
+    delay_period?: string;
+    signer?: string;
 }
 export interface MsgConnectionOpenInitAminoMsg {
     type: "cosmos-sdk/MsgConnectionOpenInit";
@@ -39,7 +39,7 @@ export interface MsgConnectionOpenInitAminoMsg {
 export interface MsgConnectionOpenInitSDKType {
     client_id: string;
     counterparty: CounterpartySDKType;
-    version: VersionSDKType;
+    version?: VersionSDKType;
     delay_period: bigint;
     signer: string;
 }
@@ -78,7 +78,7 @@ export interface MsgConnectionOpenTry {
     /** Deprecated: this field is unused. Crossing hellos are no longer supported in core IBC. */
     /** @deprecated */
     previousConnectionId: string;
-    clientState: Any;
+    clientState?: Any;
     counterparty: Counterparty;
     delayPeriod: bigint;
     counterpartyVersions: Version[];
@@ -104,26 +104,26 @@ export interface MsgConnectionOpenTryProtoMsg {
  * connection on Chain B.
  */
 export interface MsgConnectionOpenTryAmino {
-    client_id: string;
+    client_id?: string;
     /** Deprecated: this field is unused. Crossing hellos are no longer supported in core IBC. */
     /** @deprecated */
-    previous_connection_id: string;
+    previous_connection_id?: string;
     client_state?: AnyAmino;
     counterparty?: CounterpartyAmino;
-    delay_period: string;
-    counterparty_versions: VersionAmino[];
+    delay_period?: string;
+    counterparty_versions?: VersionAmino[];
     proof_height?: HeightAmino;
     /**
      * proof of the initialization the connection on Chain A: `UNITIALIZED ->
      * INIT`
      */
-    proof_init: Uint8Array;
+    proof_init?: string;
     /** proof of client state included in message */
-    proof_client: Uint8Array;
+    proof_client?: string;
     /** proof of client consensus state */
-    proof_consensus: Uint8Array;
+    proof_consensus?: string;
     consensus_height?: HeightAmino;
-    signer: string;
+    signer?: string;
 }
 export interface MsgConnectionOpenTryAminoMsg {
     type: "cosmos-sdk/MsgConnectionOpenTry";
@@ -137,7 +137,7 @@ export interface MsgConnectionOpenTrySDKType {
     client_id: string;
     /** @deprecated */
     previous_connection_id: string;
-    client_state: AnySDKType;
+    client_state?: AnySDKType;
     counterparty: CounterpartySDKType;
     delay_period: bigint;
     counterparty_versions: VersionSDKType[];
@@ -172,8 +172,8 @@ export interface MsgConnectionOpenTryResponseSDKType {
 export interface MsgConnectionOpenAck {
     connectionId: string;
     counterpartyConnectionId: string;
-    version: Version;
-    clientState: Any;
+    version?: Version;
+    clientState?: Any;
     proofHeight: Height;
     /**
      * proof of the initialization the connection on Chain B: `UNITIALIZED ->
@@ -196,8 +196,8 @@ export interface MsgConnectionOpenAckProtoMsg {
  * acknowledge the change of connection state to TRYOPEN on Chain B.
  */
 export interface MsgConnectionOpenAckAmino {
-    connection_id: string;
-    counterparty_connection_id: string;
+    connection_id?: string;
+    counterparty_connection_id?: string;
     version?: VersionAmino;
     client_state?: AnyAmino;
     proof_height?: HeightAmino;
@@ -205,13 +205,13 @@ export interface MsgConnectionOpenAckAmino {
      * proof of the initialization the connection on Chain B: `UNITIALIZED ->
      * TRYOPEN`
      */
-    proof_try: Uint8Array;
+    proof_try?: string;
     /** proof of client state included in message */
-    proof_client: Uint8Array;
+    proof_client?: string;
     /** proof of client consensus state */
-    proof_consensus: Uint8Array;
+    proof_consensus?: string;
     consensus_height?: HeightAmino;
-    signer: string;
+    signer?: string;
 }
 export interface MsgConnectionOpenAckAminoMsg {
     type: "cosmos-sdk/MsgConnectionOpenAck";
@@ -224,8 +224,8 @@ export interface MsgConnectionOpenAckAminoMsg {
 export interface MsgConnectionOpenAckSDKType {
     connection_id: string;
     counterparty_connection_id: string;
-    version: VersionSDKType;
-    client_state: AnySDKType;
+    version?: VersionSDKType;
+    client_state?: AnySDKType;
     proof_height: HeightSDKType;
     proof_try: Uint8Array;
     proof_client: Uint8Array;
@@ -270,11 +270,11 @@ export interface MsgConnectionOpenConfirmProtoMsg {
  * acknowledge the change of connection state to OPEN on Chain A.
  */
 export interface MsgConnectionOpenConfirmAmino {
-    connection_id: string;
+    connection_id?: string;
     /** proof for the change of the connection state on Chain A: `INIT -> OPEN` */
-    proof_ack: Uint8Array;
+    proof_ack?: string;
     proof_height?: HeightAmino;
-    signer: string;
+    signer?: string;
 }
 export interface MsgConnectionOpenConfirmAminoMsg {
     type: "cosmos-sdk/MsgConnectionOpenConfirm";

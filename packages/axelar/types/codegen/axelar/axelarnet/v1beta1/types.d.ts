@@ -27,15 +27,15 @@ export interface IBCTransferProtoMsg {
     value: Uint8Array;
 }
 export interface IBCTransferAmino {
-    sender: Uint8Array;
-    receiver: string;
+    sender?: string;
+    receiver?: string;
     token?: CoinAmino;
-    port_id: string;
-    channel_id: string;
+    port_id?: string;
+    channel_id?: string;
     /** @deprecated */
-    sequence: string;
-    id: string;
-    status: IBCTransfer_Status;
+    sequence?: string;
+    id?: string;
+    status?: IBCTransfer_Status;
 }
 export interface IBCTransferAminoMsg {
     type: "/axelar.axelarnet.v1beta1.IBCTransfer";
@@ -64,11 +64,11 @@ export interface CosmosChainProtoMsg {
     value: Uint8Array;
 }
 export interface CosmosChainAmino {
-    name: string;
-    ibc_path: string;
+    name?: string;
+    ibc_path?: string;
     /** @deprecated */
-    assets: AssetAmino[];
-    addr_prefix: string;
+    assets?: AssetAmino[];
+    addr_prefix?: string;
 }
 export interface CosmosChainAminoMsg {
     type: "/axelar.axelarnet.v1beta1.CosmosChain";
@@ -92,8 +92,8 @@ export interface AssetProtoMsg {
 }
 /** @deprecated */
 export interface AssetAmino {
-    denom: string;
-    min_amount: Uint8Array;
+    denom?: string;
+    min_amount?: string;
 }
 export interface AssetAminoMsg {
     type: "/axelar.axelarnet.v1beta1.Asset";
@@ -107,6 +107,7 @@ export interface AssetSDKType {
 export interface Fee {
     amount: Coin;
     recipient: Uint8Array;
+    refundRecipient: Uint8Array;
 }
 export interface FeeProtoMsg {
     typeUrl: "/axelar.axelarnet.v1beta1.Fee";
@@ -114,7 +115,8 @@ export interface FeeProtoMsg {
 }
 export interface FeeAmino {
     amount?: CoinAmino;
-    recipient: Uint8Array;
+    recipient?: string;
+    refund_recipient?: string;
 }
 export interface FeeAminoMsg {
     type: "/axelar.axelarnet.v1beta1.Fee";
@@ -123,6 +125,7 @@ export interface FeeAminoMsg {
 export interface FeeSDKType {
     amount: CoinSDKType;
     recipient: Uint8Array;
+    refund_recipient: Uint8Array;
 }
 export declare const IBCTransfer: {
     typeUrl: string;

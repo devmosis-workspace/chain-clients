@@ -3,6 +3,7 @@ import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageRe
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { ChainState, ChainStateAmino, ChainStateSDKType } from "./types";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
 export declare enum ChainStatus {
     CHAIN_STATUS_UNSPECIFIED = 0,
@@ -38,7 +39,7 @@ export interface ChainMaintainersRequestAmino {
      * ChainMaintainersRequest represents a message that queries
      * the chain maintainers for the specified chain
      */
-    chain: string;
+    chain?: string;
 }
 export interface ChainMaintainersRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.ChainMaintainersRequest";
@@ -59,7 +60,7 @@ export interface ChainMaintainersResponseProtoMsg {
     value: Uint8Array;
 }
 export interface ChainMaintainersResponseAmino {
-    maintainers: Uint8Array[];
+    maintainers?: string[];
 }
 export interface ChainMaintainersResponseAminoMsg {
     type: "/axelar.nexus.v1beta1.ChainMaintainersResponse";
@@ -86,9 +87,9 @@ export interface LatestDepositAddressRequestProtoMsg {
  * address by recipient address
  */
 export interface LatestDepositAddressRequestAmino {
-    recipient_addr: string;
-    recipient_chain: string;
-    deposit_chain: string;
+    recipient_addr?: string;
+    recipient_chain?: string;
+    deposit_chain?: string;
 }
 export interface LatestDepositAddressRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.LatestDepositAddressRequest";
@@ -111,7 +112,7 @@ export interface LatestDepositAddressResponseProtoMsg {
     value: Uint8Array;
 }
 export interface LatestDepositAddressResponseAmino {
-    deposit_addr: string;
+    deposit_addr?: string;
 }
 export interface LatestDepositAddressResponseAminoMsg {
     type: "/axelar.nexus.v1beta1.LatestDepositAddressResponse";
@@ -127,7 +128,7 @@ export interface LatestDepositAddressResponseSDKType {
 export interface TransfersForChainRequest {
     chain: string;
     state: TransferState;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface TransfersForChainRequestProtoMsg {
     typeUrl: "/axelar.nexus.v1beta1.TransfersForChainRequest";
@@ -138,8 +139,8 @@ export interface TransfersForChainRequestProtoMsg {
  * transfers for the specified chain
  */
 export interface TransfersForChainRequestAmino {
-    chain: string;
-    state: TransferState;
+    chain?: string;
+    state?: TransferState;
     pagination?: PageRequestAmino;
 }
 export interface TransfersForChainRequestAminoMsg {
@@ -153,18 +154,18 @@ export interface TransfersForChainRequestAminoMsg {
 export interface TransfersForChainRequestSDKType {
     chain: string;
     state: TransferState;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface TransfersForChainResponse {
     transfers: CrossChainTransfer[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface TransfersForChainResponseProtoMsg {
     typeUrl: "/axelar.nexus.v1beta1.TransfersForChainResponse";
     value: Uint8Array;
 }
 export interface TransfersForChainResponseAmino {
-    transfers: CrossChainTransferAmino[];
+    transfers?: CrossChainTransferAmino[];
     pagination?: PageResponseAmino;
 }
 export interface TransfersForChainResponseAminoMsg {
@@ -173,7 +174,7 @@ export interface TransfersForChainResponseAminoMsg {
 }
 export interface TransfersForChainResponseSDKType {
     transfers: CrossChainTransferSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /**
  * FeeInfoRequest represents a message that queries the transfer fees associated
@@ -192,8 +193,8 @@ export interface FeeInfoRequestProtoMsg {
  * to an asset on a chain
  */
 export interface FeeInfoRequestAmino {
-    chain: string;
-    asset: string;
+    chain?: string;
+    asset?: string;
 }
 export interface FeeInfoRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.FeeInfoRequest";
@@ -208,7 +209,7 @@ export interface FeeInfoRequestSDKType {
     asset: string;
 }
 export interface FeeInfoResponse {
-    feeInfo: FeeInfo;
+    feeInfo?: FeeInfo;
 }
 export interface FeeInfoResponseProtoMsg {
     typeUrl: "/axelar.nexus.v1beta1.FeeInfoResponse";
@@ -222,7 +223,7 @@ export interface FeeInfoResponseAminoMsg {
     value: FeeInfoResponseAmino;
 }
 export interface FeeInfoResponseSDKType {
-    fee_info: FeeInfoSDKType;
+    fee_info?: FeeInfoSDKType;
 }
 /**
  * TransferFeeRequest represents a message that queries the fees charged by
@@ -242,9 +243,9 @@ export interface TransferFeeRequestProtoMsg {
  * the network for a cross-chain transfer
  */
 export interface TransferFeeRequestAmino {
-    source_chain: string;
-    destination_chain: string;
-    amount: string;
+    source_chain?: string;
+    destination_chain?: string;
+    amount?: string;
 }
 export interface TransferFeeRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.TransferFeeRequest";
@@ -300,7 +301,7 @@ export interface ChainsRequestAmino {
      * ChainsRequest represents a message that queries the chains
      * registered on the network
      */
-    status: ChainStatus;
+    status?: ChainStatus;
 }
 export interface ChainsRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.ChainsRequest";
@@ -321,7 +322,7 @@ export interface ChainsResponseProtoMsg {
     value: Uint8Array;
 }
 export interface ChainsResponseAmino {
-    chains: string[];
+    chains?: string[];
 }
 export interface ChainsResponseAminoMsg {
     type: "/axelar.nexus.v1beta1.ChainsResponse";
@@ -354,7 +355,7 @@ export interface AssetsRequestAmino {
      * AssetsRequest represents a message that queries the registered assets of a
      * chain
      */
-    chain: string;
+    chain?: string;
 }
 export interface AssetsRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.AssetsRequest";
@@ -375,7 +376,7 @@ export interface AssetsResponseProtoMsg {
     value: Uint8Array;
 }
 export interface AssetsResponseAmino {
-    assets: string[];
+    assets?: string[];
 }
 export interface AssetsResponseAminoMsg {
     type: "/axelar.nexus.v1beta1.AssetsResponse";
@@ -408,7 +409,7 @@ export interface ChainStateRequestAmino {
      * ChainStateRequest represents a message that queries the state of a chain
      * registered on the network
      */
-    chain: string;
+    chain?: string;
 }
 export interface ChainStateRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.ChainStateRequest";
@@ -462,7 +463,7 @@ export interface ChainsByAssetRequestAmino {
      * ChainsByAssetRequest represents a message that queries the chains
      * that support an asset on the network
      */
-    asset: string;
+    asset?: string;
 }
 export interface ChainsByAssetRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.ChainsByAssetRequest";
@@ -483,7 +484,7 @@ export interface ChainsByAssetResponseProtoMsg {
     value: Uint8Array;
 }
 export interface ChainsByAssetResponseAmino {
-    chains: string[];
+    chains?: string[];
 }
 export interface ChainsByAssetResponseAminoMsg {
     type: "/axelar.nexus.v1beta1.ChainsByAssetResponse";
@@ -509,8 +510,8 @@ export interface RecipientAddressRequestProtoMsg {
  * recipient address for a given deposit address
  */
 export interface RecipientAddressRequestAmino {
-    deposit_addr: string;
-    deposit_chain: string;
+    deposit_addr?: string;
+    deposit_chain?: string;
 }
 export interface RecipientAddressRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.RecipientAddressRequest";
@@ -533,8 +534,8 @@ export interface RecipientAddressResponseProtoMsg {
     value: Uint8Array;
 }
 export interface RecipientAddressResponseAmino {
-    recipient_addr: string;
-    recipient_chain: string;
+    recipient_addr?: string;
+    recipient_chain?: string;
 }
 export interface RecipientAddressResponseAminoMsg {
     type: "/axelar.nexus.v1beta1.RecipientAddressResponse";
@@ -561,8 +562,8 @@ export interface TransferRateLimitRequestProtoMsg {
  * transfer rate limit and current transfer amounts for a given chain and asset
  */
 export interface TransferRateLimitRequestAmino {
-    chain: string;
-    asset: string;
+    chain?: string;
+    asset?: string;
 }
 export interface TransferRateLimitRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.TransferRateLimitRequest";
@@ -577,7 +578,7 @@ export interface TransferRateLimitRequestSDKType {
     asset: string;
 }
 export interface TransferRateLimitResponse {
-    transferRateLimit: TransferRateLimit;
+    transferRateLimit?: TransferRateLimit;
 }
 export interface TransferRateLimitResponseProtoMsg {
     typeUrl: "/axelar.nexus.v1beta1.TransferRateLimitResponse";
@@ -591,27 +592,35 @@ export interface TransferRateLimitResponseAminoMsg {
     value: TransferRateLimitResponseAmino;
 }
 export interface TransferRateLimitResponseSDKType {
-    transfer_rate_limit: TransferRateLimitSDKType;
+    transfer_rate_limit?: TransferRateLimitSDKType;
 }
 export interface TransferRateLimit {
     limit: Uint8Array;
     window: Duration;
+    /** @deprecated */
     incoming: Uint8Array;
+    /** @deprecated */
     outgoing: Uint8Array;
     /** time_left indicates the time left in the rate limit window */
     timeLeft: Duration;
+    from: Uint8Array;
+    to: Uint8Array;
 }
 export interface TransferRateLimitProtoMsg {
     typeUrl: "/axelar.nexus.v1beta1.TransferRateLimit";
     value: Uint8Array;
 }
 export interface TransferRateLimitAmino {
-    limit: Uint8Array;
+    limit?: string;
     window?: DurationAmino;
-    incoming: Uint8Array;
-    outgoing: Uint8Array;
+    /** @deprecated */
+    incoming?: string;
+    /** @deprecated */
+    outgoing?: string;
     /** time_left indicates the time left in the rate limit window */
     time_left?: DurationAmino;
+    from?: string;
+    to?: string;
 }
 export interface TransferRateLimitAminoMsg {
     type: "/axelar.nexus.v1beta1.TransferRateLimit";
@@ -620,9 +629,13 @@ export interface TransferRateLimitAminoMsg {
 export interface TransferRateLimitSDKType {
     limit: Uint8Array;
     window: DurationSDKType;
+    /** @deprecated */
     incoming: Uint8Array;
+    /** @deprecated */
     outgoing: Uint8Array;
     time_left: DurationSDKType;
+    from: Uint8Array;
+    to: Uint8Array;
 }
 export interface MessageRequest {
     id: string;
@@ -632,7 +645,7 @@ export interface MessageRequestProtoMsg {
     value: Uint8Array;
 }
 export interface MessageRequestAmino {
-    id: string;
+    id?: string;
 }
 export interface MessageRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.MessageRequest";
@@ -657,6 +670,40 @@ export interface MessageResponseAminoMsg {
 }
 export interface MessageResponseSDKType {
     message: GeneralMessageSDKType;
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequest {
+}
+export interface ParamsRequestProtoMsg {
+    typeUrl: "/axelar.nexus.v1beta1.ParamsRequest";
+    value: Uint8Array;
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequestAmino {
+}
+export interface ParamsRequestAminoMsg {
+    type: "/axelar.nexus.v1beta1.ParamsRequest";
+    value: ParamsRequestAmino;
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequestSDKType {
+}
+export interface ParamsResponse {
+    params: Params;
+}
+export interface ParamsResponseProtoMsg {
+    typeUrl: "/axelar.nexus.v1beta1.ParamsResponse";
+    value: Uint8Array;
+}
+export interface ParamsResponseAmino {
+    params?: ParamsAmino;
+}
+export interface ParamsResponseAminoMsg {
+    type: "/axelar.nexus.v1beta1.ParamsResponse";
+    value: ParamsResponseAmino;
+}
+export interface ParamsResponseSDKType {
+    params: ParamsSDKType;
 }
 export declare const ChainMaintainersRequest: {
     typeUrl: string;
@@ -957,4 +1004,28 @@ export declare const MessageResponse: {
     fromProtoMsg(message: MessageResponseProtoMsg): MessageResponse;
     toProto(message: MessageResponse): Uint8Array;
     toProtoMsg(message: MessageResponse): MessageResponseProtoMsg;
+};
+export declare const ParamsRequest: {
+    typeUrl: string;
+    encode(_: ParamsRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): ParamsRequest;
+    fromPartial(_: Partial<ParamsRequest>): ParamsRequest;
+    fromAmino(_: ParamsRequestAmino): ParamsRequest;
+    toAmino(_: ParamsRequest): ParamsRequestAmino;
+    fromAminoMsg(object: ParamsRequestAminoMsg): ParamsRequest;
+    fromProtoMsg(message: ParamsRequestProtoMsg): ParamsRequest;
+    toProto(message: ParamsRequest): Uint8Array;
+    toProtoMsg(message: ParamsRequest): ParamsRequestProtoMsg;
+};
+export declare const ParamsResponse: {
+    typeUrl: string;
+    encode(message: ParamsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ParamsResponse;
+    fromPartial(object: Partial<ParamsResponse>): ParamsResponse;
+    fromAmino(object: ParamsResponseAmino): ParamsResponse;
+    toAmino(message: ParamsResponse): ParamsResponseAmino;
+    fromAminoMsg(object: ParamsResponseAminoMsg): ParamsResponse;
+    fromProtoMsg(message: ParamsResponseProtoMsg): ParamsResponse;
+    toProto(message: ParamsResponse): Uint8Array;
+    toProtoMsg(message: ParamsResponse): ParamsResponseProtoMsg;
 };

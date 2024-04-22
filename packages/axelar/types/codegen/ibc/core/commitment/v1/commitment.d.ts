@@ -16,7 +16,7 @@ export interface MerkleRootProtoMsg {
  * In the Cosmos SDK, the AppHash of a block header becomes the root.
  */
 export interface MerkleRootAmino {
-    hash: Uint8Array;
+    hash?: string;
 }
 export interface MerkleRootAminoMsg {
     type: "cosmos-sdk/MerkleRoot";
@@ -47,7 +47,7 @@ export interface MerklePrefixProtoMsg {
  * append(Path.KeyPrefix, key...))
  */
 export interface MerklePrefixAmino {
-    key_prefix: Uint8Array;
+    key_prefix?: string;
 }
 export interface MerklePrefixAminoMsg {
     type: "cosmos-sdk/MerklePrefix";
@@ -79,7 +79,7 @@ export interface MerklePathProtoMsg {
  * MerklePath is represented from root-to-leaf
  */
 export interface MerklePathAmino {
-    key_path: string[];
+    key_path?: string[];
 }
 export interface MerklePathAminoMsg {
     type: "cosmos-sdk/MerklePath";
@@ -115,7 +115,7 @@ export interface MerkleProofProtoMsg {
  * MerkleProofs are ordered from leaf-to-root
  */
 export interface MerkleProofAmino {
-    proofs: CommitmentProofAmino[];
+    proofs?: CommitmentProofAmino[];
 }
 export interface MerkleProofAminoMsg {
     type: "cosmos-sdk/MerkleProof";

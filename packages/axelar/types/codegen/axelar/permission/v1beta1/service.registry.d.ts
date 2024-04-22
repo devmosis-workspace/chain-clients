@@ -1,61 +1,62 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
+import { RegisterControllerRequest, DeregisterControllerRequest, UpdateGovernanceKeyRequest } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
     encoded: {
-        registerController(value: axelar.permission.v1beta1.RegisterControllerRequest): {
+        registerController(value: RegisterControllerRequest): {
             typeUrl: string;
-            value: any;
+            value: Uint8Array;
         };
-        deregisterController(value: axelar.permission.v1beta1.DeregisterControllerRequest): {
+        deregisterController(value: DeregisterControllerRequest): {
             typeUrl: string;
-            value: any;
+            value: Uint8Array;
         };
-        updateGovernanceKey(value: axelar.permission.v1beta1.UpdateGovernanceKeyRequest): {
+        updateGovernanceKey(value: UpdateGovernanceKeyRequest): {
             typeUrl: string;
-            value: any;
+            value: Uint8Array;
         };
     };
     withTypeUrl: {
-        registerController(value: axelar.permission.v1beta1.RegisterControllerRequest): {
+        registerController(value: RegisterControllerRequest): {
             typeUrl: string;
-            value: axelar.permission.v1beta1.RegisterControllerRequest;
+            value: RegisterControllerRequest;
         };
-        deregisterController(value: axelar.permission.v1beta1.DeregisterControllerRequest): {
+        deregisterController(value: DeregisterControllerRequest): {
             typeUrl: string;
-            value: axelar.permission.v1beta1.DeregisterControllerRequest;
+            value: DeregisterControllerRequest;
         };
-        updateGovernanceKey(value: axelar.permission.v1beta1.UpdateGovernanceKeyRequest): {
+        updateGovernanceKey(value: UpdateGovernanceKeyRequest): {
             typeUrl: string;
-            value: axelar.permission.v1beta1.UpdateGovernanceKeyRequest;
+            value: UpdateGovernanceKeyRequest;
         };
     };
     fromJSON: {
         registerController(value: any): {
             typeUrl: string;
-            value: any;
+            value: RegisterControllerRequest;
         };
         deregisterController(value: any): {
             typeUrl: string;
-            value: any;
+            value: DeregisterControllerRequest;
         };
         updateGovernanceKey(value: any): {
             typeUrl: string;
-            value: any;
+            value: UpdateGovernanceKeyRequest;
         };
     };
     fromPartial: {
-        registerController(value: axelar.permission.v1beta1.RegisterControllerRequest): {
+        registerController(value: RegisterControllerRequest): {
             typeUrl: string;
-            value: any;
+            value: RegisterControllerRequest;
         };
-        deregisterController(value: axelar.permission.v1beta1.DeregisterControllerRequest): {
+        deregisterController(value: DeregisterControllerRequest): {
             typeUrl: string;
-            value: any;
+            value: DeregisterControllerRequest;
         };
-        updateGovernanceKey(value: axelar.permission.v1beta1.UpdateGovernanceKeyRequest): {
+        updateGovernanceKey(value: UpdateGovernanceKeyRequest): {
             typeUrl: string;
-            value: any;
+            value: UpdateGovernanceKeyRequest;
         };
     };
 };

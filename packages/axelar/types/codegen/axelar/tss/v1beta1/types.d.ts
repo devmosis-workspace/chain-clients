@@ -9,8 +9,8 @@ export interface KeygenVoteDataProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenVoteDataAmino {
-    pub_key: Uint8Array;
-    group_recovery_info: Uint8Array;
+    pub_key?: string;
+    group_recovery_info?: string;
 }
 export interface KeygenVoteDataAminoMsg {
     type: "/axelar.tss.v1beta1.KeygenVoteData";
@@ -32,9 +32,9 @@ export interface KeyInfoProtoMsg {
 }
 /** KeyInfo holds information about a key */
 export interface KeyInfoAmino {
-    key_id: string;
-    key_role: KeyRole;
-    key_type: KeyType;
+    key_id?: string;
+    key_role?: KeyRole;
+    key_type?: KeyType;
 }
 export interface KeyInfoAminoMsg {
     type: "/axelar.tss.v1beta1.KeyInfo";
@@ -57,10 +57,10 @@ export interface MultisigInfoProtoMsg {
     value: Uint8Array;
 }
 export interface MultisigInfoAmino {
-    id: string;
-    timeout: string;
-    target_num: string;
-    infos: MultisigInfo_InfoAmino[];
+    id?: string;
+    timeout?: string;
+    target_num?: string;
+    infos?: MultisigInfo_InfoAmino[];
 }
 export interface MultisigInfoAminoMsg {
     type: "/axelar.tss.v1beta1.MultisigInfo";
@@ -81,8 +81,8 @@ export interface MultisigInfo_InfoProtoMsg {
     value: Uint8Array;
 }
 export interface MultisigInfo_InfoAmino {
-    participant: Uint8Array;
-    data: Uint8Array[];
+    participant?: string;
+    data?: string[];
 }
 export interface MultisigInfo_InfoAminoMsg {
     type: "/axelar.tss.v1beta1.Info";
@@ -101,8 +101,8 @@ export interface KeyRecoveryInfo_PrivateEntryProtoMsg {
     value: Uint8Array;
 }
 export interface KeyRecoveryInfo_PrivateEntryAmino {
-    key: string;
-    value: Uint8Array;
+    key?: string;
+    value?: string;
 }
 export interface KeyRecoveryInfo_PrivateEntryAminoMsg {
     type: string;
@@ -124,10 +124,10 @@ export interface KeyRecoveryInfoProtoMsg {
     value: Uint8Array;
 }
 export interface KeyRecoveryInfoAmino {
-    key_id: string;
-    public: Uint8Array;
-    private: {
-        [key: string]: Uint8Array;
+    key_id?: string;
+    public?: string;
+    private?: {
+        [key: string]: string;
     };
 }
 export interface KeyRecoveryInfoAminoMsg {
@@ -150,8 +150,8 @@ export interface ExternalKeysProtoMsg {
     value: Uint8Array;
 }
 export interface ExternalKeysAmino {
-    chain: string;
-    key_ids: string[];
+    chain?: string;
+    key_ids?: string[];
 }
 export interface ExternalKeysAminoMsg {
     type: "/axelar.tss.v1beta1.ExternalKeys";
@@ -170,8 +170,8 @@ export interface ValidatorStatusProtoMsg {
     value: Uint8Array;
 }
 export interface ValidatorStatusAmino {
-    validator: Uint8Array;
-    suspended_until: string;
+    validator?: string;
+    suspended_until?: string;
 }
 export interface ValidatorStatusAminoMsg {
     type: "/axelar.tss.v1beta1.ValidatorStatus";

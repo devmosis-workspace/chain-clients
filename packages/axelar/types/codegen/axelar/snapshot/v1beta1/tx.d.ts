@@ -8,8 +8,8 @@ export interface RegisterProxyRequestProtoMsg {
     value: Uint8Array;
 }
 export interface RegisterProxyRequestAmino {
-    sender: Uint8Array;
-    proxy_addr: Uint8Array;
+    sender?: string;
+    proxy_addr?: string;
 }
 export interface RegisterProxyRequestAminoMsg {
     type: "/axelar.snapshot.v1beta1.RegisterProxyRequest";
@@ -41,7 +41,7 @@ export interface DeactivateProxyRequestProtoMsg {
     value: Uint8Array;
 }
 export interface DeactivateProxyRequestAmino {
-    sender: Uint8Array;
+    sender?: string;
 }
 export interface DeactivateProxyRequestAminoMsg {
     type: "/axelar.snapshot.v1beta1.DeactivateProxyRequest";

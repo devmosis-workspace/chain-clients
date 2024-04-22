@@ -9,8 +9,8 @@ export interface GovAccountProtoMsg {
     value: Uint8Array;
 }
 export interface GovAccountAmino {
-    address: Uint8Array;
-    role: Role;
+    address?: string;
+    role?: Role;
 }
 export interface GovAccountAminoMsg {
     type: "/axelar.permission.v1beta1.GovAccount";

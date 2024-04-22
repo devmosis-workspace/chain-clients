@@ -52,17 +52,17 @@ export interface KeyRequirementProtoMsg {
 }
 /** KeyRequirement defines requirements for keys */
 export interface KeyRequirementAmino {
-    key_role: KeyRole;
-    key_type: KeyType;
+    key_role?: KeyRole;
+    key_type?: KeyType;
     min_keygen_threshold?: ThresholdAmino;
     safety_threshold?: ThresholdAmino;
-    key_share_distribution_policy: KeyShareDistributionPolicy;
-    max_total_share_count: string;
-    min_total_share_count: string;
+    key_share_distribution_policy?: KeyShareDistributionPolicy;
+    max_total_share_count?: string;
+    min_total_share_count?: string;
     keygen_voting_threshold?: ThresholdAmino;
     sign_voting_threshold?: ThresholdAmino;
-    keygen_timeout: string;
-    sign_timeout: string;
+    keygen_timeout?: string;
+    sign_timeout?: string;
 }
 export interface KeyRequirementAminoMsg {
     type: "/axelar.tss.exported.v1beta1.KeyRequirement";
@@ -93,8 +93,8 @@ export interface SigKeyPairProtoMsg {
 }
 /** PubKeyInfo holds a pubkey and a signature */
 export interface SigKeyPairAmino {
-    pub_key: Uint8Array;
-    signature: Uint8Array;
+    pub_key?: string;
+    signature?: string;
 }
 export interface SigKeyPairAminoMsg {
     type: "/axelar.tss.exported.v1beta1.SigKeyPair";

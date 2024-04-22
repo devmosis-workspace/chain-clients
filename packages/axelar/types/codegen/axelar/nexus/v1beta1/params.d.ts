@@ -6,6 +6,8 @@ export interface Params {
     chainMaintainerMissingVoteThreshold: Threshold;
     chainMaintainerIncorrectVoteThreshold: Threshold;
     chainMaintainerCheckWindow: number;
+    gateway: Uint8Array;
+    endBlockerLimit: bigint;
 }
 export interface ParamsProtoMsg {
     typeUrl: "/axelar.nexus.v1beta1.Params";
@@ -16,7 +18,9 @@ export interface ParamsAmino {
     chain_activation_threshold?: ThresholdAmino;
     chain_maintainer_missing_vote_threshold?: ThresholdAmino;
     chain_maintainer_incorrect_vote_threshold?: ThresholdAmino;
-    chain_maintainer_check_window: number;
+    chain_maintainer_check_window?: number;
+    gateway?: string;
+    end_blocker_limit?: string;
 }
 export interface ParamsAminoMsg {
     type: "/axelar.nexus.v1beta1.Params";
@@ -28,6 +32,8 @@ export interface ParamsSDKType {
     chain_maintainer_missing_vote_threshold: ThresholdSDKType;
     chain_maintainer_incorrect_vote_threshold: ThresholdSDKType;
     chain_maintainer_check_window: number;
+    gateway: Uint8Array;
+    end_blocker_limit: bigint;
 }
 export declare const Params: {
     typeUrl: string;

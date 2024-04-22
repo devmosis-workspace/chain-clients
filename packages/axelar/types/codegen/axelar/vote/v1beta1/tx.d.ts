@@ -3,7 +3,7 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 export interface VoteRequest {
     sender: Uint8Array;
     pollId: bigint;
-    vote: (Any) | undefined;
+    vote?: (Any) | undefined;
 }
 export interface VoteRequestProtoMsg {
     typeUrl: "/axelar.vote.v1beta1.VoteRequest";
@@ -13,8 +13,8 @@ export type VoteRequestEncoded = Omit<VoteRequest, "vote"> & {
     vote?: AnyProtoMsg | undefined;
 };
 export interface VoteRequestAmino {
-    sender: Uint8Array;
-    poll_id: string;
+    sender?: string;
+    poll_id?: string;
     vote?: AnyAmino;
 }
 export interface VoteRequestAminoMsg {
@@ -24,7 +24,7 @@ export interface VoteRequestAminoMsg {
 export interface VoteRequestSDKType {
     sender: Uint8Array;
     poll_id: bigint;
-    vote: AnySDKType | undefined;
+    vote?: AnySDKType | undefined;
 }
 export interface VoteResponse {
     log: string;
@@ -34,7 +34,7 @@ export interface VoteResponseProtoMsg {
     value: Uint8Array;
 }
 export interface VoteResponseAmino {
-    log: string;
+    log?: string;
 }
 export interface VoteResponseAminoMsg {
     type: "/axelar.vote.v1beta1.VoteResponse";

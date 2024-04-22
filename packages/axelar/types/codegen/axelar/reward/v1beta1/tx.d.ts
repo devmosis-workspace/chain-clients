@@ -2,7 +2,7 @@ import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf
 import { BinaryReader, BinaryWriter } from "../../../binary";
 export interface RefundMsgRequest {
     sender: Uint8Array;
-    innerMessage: (Any) | undefined;
+    innerMessage?: (Any) | undefined;
 }
 export interface RefundMsgRequestProtoMsg {
     typeUrl: "/axelar.reward.v1beta1.RefundMsgRequest";
@@ -12,7 +12,7 @@ export type RefundMsgRequestEncoded = Omit<RefundMsgRequest, "innerMessage"> & {
     innerMessage?: AnyProtoMsg | undefined;
 };
 export interface RefundMsgRequestAmino {
-    sender: Uint8Array;
+    sender?: string;
     inner_message?: AnyAmino;
 }
 export interface RefundMsgRequestAminoMsg {
@@ -21,7 +21,7 @@ export interface RefundMsgRequestAminoMsg {
 }
 export interface RefundMsgRequestSDKType {
     sender: Uint8Array;
-    inner_message: AnySDKType | undefined;
+    inner_message?: AnySDKType | undefined;
 }
 export interface RefundMsgResponse {
     data: Uint8Array;
@@ -32,8 +32,8 @@ export interface RefundMsgResponseProtoMsg {
     value: Uint8Array;
 }
 export interface RefundMsgResponseAmino {
-    data: Uint8Array;
-    log: string;
+    data?: string;
+    log?: string;
 }
 export interface RefundMsgResponseAminoMsg {
     type: "/axelar.reward.v1beta1.RefundMsgResponse";

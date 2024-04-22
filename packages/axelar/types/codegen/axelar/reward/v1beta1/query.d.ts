@@ -2,9 +2,20 @@ import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
 /**
  * InflationRateRequest represents a message that queries the Axelar specific
- * inflation RPC method.
+ * inflation RPC method. Ideally, this would use ValAddress as the validator
+ * field type. However, this makes it awkward for REST-based calls, because it
+ * would expect a byte array as part of the url. So, the bech32 encoded address
+ * string is used for this request instead.
  */
 export interface InflationRateRequest {
+    /**
+     * InflationRateRequest represents a message that queries the Axelar specific
+     * inflation RPC method. Ideally, this would use ValAddress as the validator
+     * field type. However, this makes it awkward for REST-based calls, because it
+     * would expect a byte array as part of the url. So, the bech32 encoded address
+     * string is used for this request instead.
+     */
+    validator: string;
 }
 export interface InflationRateRequestProtoMsg {
     typeUrl: "/axelar.reward.v1beta1.InflationRateRequest";
@@ -12,9 +23,20 @@ export interface InflationRateRequestProtoMsg {
 }
 /**
  * InflationRateRequest represents a message that queries the Axelar specific
- * inflation RPC method.
+ * inflation RPC method. Ideally, this would use ValAddress as the validator
+ * field type. However, this makes it awkward for REST-based calls, because it
+ * would expect a byte array as part of the url. So, the bech32 encoded address
+ * string is used for this request instead.
  */
 export interface InflationRateRequestAmino {
+    /**
+     * InflationRateRequest represents a message that queries the Axelar specific
+     * inflation RPC method. Ideally, this would use ValAddress as the validator
+     * field type. However, this makes it awkward for REST-based calls, because it
+     * would expect a byte array as part of the url. So, the bech32 encoded address
+     * string is used for this request instead.
+     */
+    validator?: string;
 }
 export interface InflationRateRequestAminoMsg {
     type: "/axelar.reward.v1beta1.InflationRateRequest";
@@ -22,9 +44,13 @@ export interface InflationRateRequestAminoMsg {
 }
 /**
  * InflationRateRequest represents a message that queries the Axelar specific
- * inflation RPC method.
+ * inflation RPC method. Ideally, this would use ValAddress as the validator
+ * field type. However, this makes it awkward for REST-based calls, because it
+ * would expect a byte array as part of the url. So, the bech32 encoded address
+ * string is used for this request instead.
  */
 export interface InflationRateRequestSDKType {
+    validator: string;
 }
 export interface InflationRateResponse {
     inflationRate: Uint8Array;
@@ -34,7 +60,7 @@ export interface InflationRateResponseProtoMsg {
     value: Uint8Array;
 }
 export interface InflationRateResponseAmino {
-    inflation_rate: Uint8Array;
+    inflation_rate?: string;
 }
 export interface InflationRateResponseAminoMsg {
     type: "/axelar.reward.v1beta1.InflationRateResponse";
@@ -79,11 +105,11 @@ export interface ParamsResponseSDKType {
 }
 export declare const InflationRateRequest: {
     typeUrl: string;
-    encode(_: InflationRateRequest, writer?: BinaryWriter): BinaryWriter;
-    fromJSON(_: any): InflationRateRequest;
-    fromPartial(_: Partial<InflationRateRequest>): InflationRateRequest;
-    fromAmino(_: InflationRateRequestAmino): InflationRateRequest;
-    toAmino(_: InflationRateRequest): InflationRateRequestAmino;
+    encode(message: InflationRateRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): InflationRateRequest;
+    fromPartial(object: Partial<InflationRateRequest>): InflationRateRequest;
+    fromAmino(object: InflationRateRequestAmino): InflationRateRequest;
+    toAmino(message: InflationRateRequest): InflationRateRequestAmino;
     fromAminoMsg(object: InflationRateRequestAminoMsg): InflationRateRequest;
     fromProtoMsg(message: InflationRateRequestProtoMsg): InflationRateRequest;
     toProto(message: InflationRateRequest): Uint8Array;

@@ -11,8 +11,8 @@ export interface RegisterChainMaintainerRequestProtoMsg {
     value: Uint8Array;
 }
 export interface RegisterChainMaintainerRequestAmino {
-    sender: Uint8Array;
-    chains: string[];
+    sender?: string;
+    chains?: string[];
 }
 export interface RegisterChainMaintainerRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.RegisterChainMaintainerRequest";
@@ -45,8 +45,8 @@ export interface DeregisterChainMaintainerRequestProtoMsg {
     value: Uint8Array;
 }
 export interface DeregisterChainMaintainerRequestAmino {
-    sender: Uint8Array;
-    chains: string[];
+    sender?: string;
+    chains?: string[];
 }
 export interface DeregisterChainMaintainerRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.DeregisterChainMaintainerRequest";
@@ -81,8 +81,8 @@ export interface ActivateChainRequestProtoMsg {
 }
 /** ActivateChainRequest represents a message to activate chains */
 export interface ActivateChainRequestAmino {
-    sender: Uint8Array;
-    chains: string[];
+    sender?: string;
+    chains?: string[];
 }
 export interface ActivateChainRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.ActivateChainRequest";
@@ -118,8 +118,8 @@ export interface DeactivateChainRequestProtoMsg {
 }
 /** DeactivateChainRequest represents a message to deactivate chains */
 export interface DeactivateChainRequestAmino {
-    sender: Uint8Array;
-    chains: string[];
+    sender?: string;
+    chains?: string[];
 }
 export interface DeactivateChainRequestAminoMsg {
     type: "/axelar.nexus.v1beta1.DeactivateChainRequest";
@@ -161,7 +161,7 @@ export interface RegisterAssetFeeRequestProtoMsg {
  * info associated to an asset on a chain
  */
 export interface RegisterAssetFeeRequestAmino {
-    sender: Uint8Array;
+    sender?: string;
     fee_info?: FeeInfoAmino;
 }
 export interface RegisterAssetFeeRequestAminoMsg {
@@ -209,8 +209,8 @@ export interface SetTransferRateLimitRequestProtoMsg {
  * transfers
  */
 export interface SetTransferRateLimitRequestAmino {
-    sender: Uint8Array;
-    chain: string;
+    sender?: string;
+    chain?: string;
     limit?: CoinAmino;
     window?: DurationAmino;
 }

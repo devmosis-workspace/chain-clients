@@ -9,9 +9,9 @@ export interface KeygenStartedProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenStartedAmino {
-    module: string;
-    key_id: string;
-    participants: Uint8Array[];
+    module?: string;
+    key_id?: string;
+    participants?: string[];
 }
 export interface KeygenStartedAminoMsg {
     type: "/axelar.multisig.v1beta1.KeygenStarted";
@@ -31,8 +31,8 @@ export interface KeygenCompletedProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenCompletedAmino {
-    module: string;
-    key_id: string;
+    module?: string;
+    key_id?: string;
 }
 export interface KeygenCompletedAminoMsg {
     type: "/axelar.multisig.v1beta1.KeygenCompleted";
@@ -51,8 +51,8 @@ export interface KeygenExpiredProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenExpiredAmino {
-    module: string;
-    key_id: string;
+    module?: string;
+    key_id?: string;
 }
 export interface KeygenExpiredAminoMsg {
     type: "/axelar.multisig.v1beta1.KeygenExpired";
@@ -73,10 +73,10 @@ export interface PubKeySubmittedProtoMsg {
     value: Uint8Array;
 }
 export interface PubKeySubmittedAmino {
-    module: string;
-    key_id: string;
-    participant: Uint8Array;
-    pub_key: Uint8Array;
+    module?: string;
+    key_id?: string;
+    participant?: string;
+    pub_key?: string;
 }
 export interface PubKeySubmittedAminoMsg {
     type: "/axelar.multisig.v1beta1.PubKeySubmitted";
@@ -97,8 +97,8 @@ export interface SigningStarted_PubKeysEntryProtoMsg {
     value: Uint8Array;
 }
 export interface SigningStarted_PubKeysEntryAmino {
-    key: string;
-    value: Uint8Array;
+    key?: string;
+    value?: string;
 }
 export interface SigningStarted_PubKeysEntryAminoMsg {
     type: string;
@@ -123,14 +123,14 @@ export interface SigningStartedProtoMsg {
     value: Uint8Array;
 }
 export interface SigningStartedAmino {
-    module: string;
-    sig_id: string;
-    key_id: string;
-    pub_keys: {
-        [key: string]: Uint8Array;
+    module?: string;
+    sig_id?: string;
+    key_id?: string;
+    pub_keys?: {
+        [key: string]: string;
     };
-    payload_hash: Uint8Array;
-    requesting_module: string;
+    payload_hash?: string;
+    requesting_module?: string;
 }
 export interface SigningStartedAminoMsg {
     type: "/axelar.multisig.v1beta1.SigningStarted";
@@ -155,8 +155,8 @@ export interface SigningCompletedProtoMsg {
     value: Uint8Array;
 }
 export interface SigningCompletedAmino {
-    module: string;
-    sig_id: string;
+    module?: string;
+    sig_id?: string;
 }
 export interface SigningCompletedAminoMsg {
     type: "/axelar.multisig.v1beta1.SigningCompleted";
@@ -175,8 +175,8 @@ export interface SigningExpiredProtoMsg {
     value: Uint8Array;
 }
 export interface SigningExpiredAmino {
-    module: string;
-    sig_id: string;
+    module?: string;
+    sig_id?: string;
 }
 export interface SigningExpiredAminoMsg {
     type: "/axelar.multisig.v1beta1.SigningExpired";
@@ -197,10 +197,10 @@ export interface SignatureSubmittedProtoMsg {
     value: Uint8Array;
 }
 export interface SignatureSubmittedAmino {
-    module: string;
-    sig_id: string;
-    participant: Uint8Array;
-    signature: Uint8Array;
+    module?: string;
+    sig_id?: string;
+    participant?: string;
+    signature?: string;
 }
 export interface SignatureSubmittedAminoMsg {
     type: "/axelar.multisig.v1beta1.SignatureSubmitted";
@@ -222,9 +222,9 @@ export interface KeyAssignedProtoMsg {
     value: Uint8Array;
 }
 export interface KeyAssignedAmino {
-    module: string;
-    chain: string;
-    key_id: string;
+    module?: string;
+    chain?: string;
+    key_id?: string;
 }
 export interface KeyAssignedAminoMsg {
     type: "/axelar.multisig.v1beta1.KeyAssigned";
@@ -245,9 +245,9 @@ export interface KeyRotatedProtoMsg {
     value: Uint8Array;
 }
 export interface KeyRotatedAmino {
-    module: string;
-    chain: string;
-    key_id: string;
+    module?: string;
+    chain?: string;
+    key_id?: string;
 }
 export interface KeyRotatedAminoMsg {
     type: "/axelar.multisig.v1beta1.KeyRotated";
@@ -266,7 +266,7 @@ export interface KeygenOptOutProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenOptOutAmino {
-    participant: Uint8Array;
+    participant?: string;
 }
 export interface KeygenOptOutAminoMsg {
     type: "/axelar.multisig.v1beta1.KeygenOptOut";
@@ -283,7 +283,7 @@ export interface KeygenOptInProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenOptInAmino {
-    participant: Uint8Array;
+    participant?: string;
 }
 export interface KeygenOptInAminoMsg {
     type: "/axelar.multisig.v1beta1.KeygenOptIn";

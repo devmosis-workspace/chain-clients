@@ -15,14 +15,14 @@ export interface IBCTransferSentProtoMsg {
     value: Uint8Array;
 }
 export interface IBCTransferSentAmino {
-    id: string;
+    id?: string;
     /** @deprecated */
-    receipient: string;
+    receipient?: string;
     asset?: CoinAmino;
-    sequence: string;
-    port_id: string;
-    channel_id: string;
-    recipient: string;
+    sequence?: string;
+    port_id?: string;
+    channel_id?: string;
+    recipient?: string;
 }
 export interface IBCTransferSentAminoMsg {
     type: "/axelar.axelarnet.v1beta1.IBCTransferSent";
@@ -49,10 +49,10 @@ export interface IBCTransferCompletedProtoMsg {
     value: Uint8Array;
 }
 export interface IBCTransferCompletedAmino {
-    id: string;
-    sequence: string;
-    port_id: string;
-    channel_id: string;
+    id?: string;
+    sequence?: string;
+    port_id?: string;
+    channel_id?: string;
 }
 export interface IBCTransferCompletedAminoMsg {
     type: "/axelar.axelarnet.v1beta1.IBCTransferCompleted";
@@ -75,10 +75,10 @@ export interface IBCTransferFailedProtoMsg {
     value: Uint8Array;
 }
 export interface IBCTransferFailedAmino {
-    id: string;
-    sequence: string;
-    port_id: string;
-    channel_id: string;
+    id?: string;
+    sequence?: string;
+    port_id?: string;
+    channel_id?: string;
 }
 export interface IBCTransferFailedAminoMsg {
     type: "/axelar.axelarnet.v1beta1.IBCTransferFailed";
@@ -105,14 +105,14 @@ export interface IBCTransferRetriedProtoMsg {
     value: Uint8Array;
 }
 export interface IBCTransferRetriedAmino {
-    id: string;
+    id?: string;
     /** @deprecated */
-    receipient: string;
+    receipient?: string;
     asset?: CoinAmino;
-    sequence: string;
-    port_id: string;
-    channel_id: string;
-    recipient: string;
+    sequence?: string;
+    port_id?: string;
+    channel_id?: string;
+    recipient?: string;
 }
 export interface IBCTransferRetriedAminoMsg {
     type: "/axelar.axelarnet.v1beta1.IBCTransferRetried";
@@ -140,11 +140,11 @@ export interface AxelarTransferCompletedProtoMsg {
     value: Uint8Array;
 }
 export interface AxelarTransferCompletedAmino {
-    id: string;
+    id?: string;
     /** @deprecated */
-    receipient: string;
+    receipient?: string;
     asset?: CoinAmino;
-    recipient: string;
+    recipient?: string;
 }
 export interface AxelarTransferCompletedAminoMsg {
     type: "/axelar.axelarnet.v1beta1.AxelarTransferCompleted";
@@ -166,7 +166,7 @@ export interface FeeCollectedProtoMsg {
     value: Uint8Array;
 }
 export interface FeeCollectedAmino {
-    collector: Uint8Array;
+    collector?: string;
     fee?: CoinAmino;
 }
 export interface FeeCollectedAminoMsg {
@@ -181,15 +181,21 @@ export interface FeePaid {
     messageId: string;
     recipient: Uint8Array;
     fee: Coin;
+    refundRecipient: string;
+    /** registered asset name in nexus */
+    asset: string;
 }
 export interface FeePaidProtoMsg {
     typeUrl: "/axelar.axelarnet.v1beta1.FeePaid";
     value: Uint8Array;
 }
 export interface FeePaidAmino {
-    message_id: string;
-    recipient: Uint8Array;
+    message_id?: string;
+    recipient?: string;
     fee?: CoinAmino;
+    refund_recipient?: string;
+    /** registered asset name in nexus */
+    asset?: string;
 }
 export interface FeePaidAminoMsg {
     type: "/axelar.axelarnet.v1beta1.FeePaid";
@@ -199,6 +205,8 @@ export interface FeePaidSDKType {
     message_id: string;
     recipient: Uint8Array;
     fee: CoinSDKType;
+    refund_recipient: string;
+    asset: string;
 }
 export interface ContractCallSubmitted {
     messageId: string;
@@ -214,13 +222,13 @@ export interface ContractCallSubmittedProtoMsg {
     value: Uint8Array;
 }
 export interface ContractCallSubmittedAmino {
-    message_id: string;
-    sender: string;
-    source_chain: string;
-    destination_chain: string;
-    contract_address: string;
-    payload: Uint8Array;
-    payload_hash: Uint8Array;
+    message_id?: string;
+    sender?: string;
+    source_chain?: string;
+    destination_chain?: string;
+    contract_address?: string;
+    payload?: string;
+    payload_hash?: string;
 }
 export interface ContractCallSubmittedAminoMsg {
     type: "/axelar.axelarnet.v1beta1.ContractCallSubmitted";
@@ -250,13 +258,13 @@ export interface ContractCallWithTokenSubmittedProtoMsg {
     value: Uint8Array;
 }
 export interface ContractCallWithTokenSubmittedAmino {
-    message_id: string;
-    sender: string;
-    source_chain: string;
-    destination_chain: string;
-    contract_address: string;
-    payload: Uint8Array;
-    payload_hash: Uint8Array;
+    message_id?: string;
+    sender?: string;
+    source_chain?: string;
+    destination_chain?: string;
+    contract_address?: string;
+    payload?: string;
+    payload_hash?: string;
     asset?: CoinAmino;
 }
 export interface ContractCallWithTokenSubmittedAminoMsg {
@@ -286,11 +294,11 @@ export interface TokenSentProtoMsg {
     value: Uint8Array;
 }
 export interface TokenSentAmino {
-    transfer_id: string;
-    sender: string;
-    source_chain: string;
-    destination_chain: string;
-    destination_address: string;
+    transfer_id?: string;
+    sender?: string;
+    source_chain?: string;
+    destination_chain?: string;
+    destination_address?: string;
     asset?: CoinAmino;
 }
 export interface TokenSentAminoMsg {

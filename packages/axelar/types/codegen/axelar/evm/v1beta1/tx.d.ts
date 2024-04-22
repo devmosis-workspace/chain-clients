@@ -11,9 +11,9 @@ export interface SetGatewayRequestProtoMsg {
     value: Uint8Array;
 }
 export interface SetGatewayRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    address: Uint8Array;
+    sender?: string;
+    chain?: string;
+    address?: string;
 }
 export interface SetGatewayRequestAminoMsg {
     type: "/axelar.evm.v1beta1.SetGatewayRequest";
@@ -38,6 +38,7 @@ export interface SetGatewayResponseAminoMsg {
 }
 export interface SetGatewayResponseSDKType {
 }
+/** @deprecated */
 export interface ConfirmGatewayTxRequest {
     sender: Uint8Array;
     chain: string;
@@ -47,33 +48,75 @@ export interface ConfirmGatewayTxRequestProtoMsg {
     typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxRequest";
     value: Uint8Array;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    tx_id: Uint8Array;
+    sender?: string;
+    chain?: string;
+    tx_id?: string;
 }
 export interface ConfirmGatewayTxRequestAminoMsg {
     type: "/axelar.evm.v1beta1.ConfirmGatewayTxRequest";
     value: ConfirmGatewayTxRequestAmino;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxRequestSDKType {
     sender: Uint8Array;
     chain: string;
     tx_id: Uint8Array;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxResponse {
 }
 export interface ConfirmGatewayTxResponseProtoMsg {
     typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxResponse";
     value: Uint8Array;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxResponseAmino {
 }
 export interface ConfirmGatewayTxResponseAminoMsg {
     type: "/axelar.evm.v1beta1.ConfirmGatewayTxResponse";
     value: ConfirmGatewayTxResponseAmino;
 }
+/** @deprecated */
 export interface ConfirmGatewayTxResponseSDKType {
+}
+export interface ConfirmGatewayTxsRequest {
+    sender: Uint8Array;
+    chain: string;
+    txIds: Uint8Array[];
+}
+export interface ConfirmGatewayTxsRequestProtoMsg {
+    typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsRequest";
+    value: Uint8Array;
+}
+export interface ConfirmGatewayTxsRequestAmino {
+    sender?: string;
+    chain?: string;
+    tx_ids?: string[];
+}
+export interface ConfirmGatewayTxsRequestAminoMsg {
+    type: "/axelar.evm.v1beta1.ConfirmGatewayTxsRequest";
+    value: ConfirmGatewayTxsRequestAmino;
+}
+export interface ConfirmGatewayTxsRequestSDKType {
+    sender: Uint8Array;
+    chain: string;
+    tx_ids: Uint8Array[];
+}
+export interface ConfirmGatewayTxsResponse {
+}
+export interface ConfirmGatewayTxsResponseProtoMsg {
+    typeUrl: "/axelar.evm.v1beta1.ConfirmGatewayTxsResponse";
+    value: Uint8Array;
+}
+export interface ConfirmGatewayTxsResponseAmino {
+}
+export interface ConfirmGatewayTxsResponseAminoMsg {
+    type: "/axelar.evm.v1beta1.ConfirmGatewayTxsResponse";
+    value: ConfirmGatewayTxsResponseAmino;
+}
+export interface ConfirmGatewayTxsResponseSDKType {
 }
 /** MsgConfirmDeposit represents an erc20 deposit confirmation message */
 export interface ConfirmDepositRequest {
@@ -90,12 +133,12 @@ export interface ConfirmDepositRequestProtoMsg {
 }
 /** MsgConfirmDeposit represents an erc20 deposit confirmation message */
 export interface ConfirmDepositRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    tx_id: Uint8Array;
+    sender?: string;
+    chain?: string;
+    tx_id?: string;
     /** @deprecated */
-    amount: Uint8Array;
-    burner_address: Uint8Array;
+    amount?: string;
+    burner_address?: string;
 }
 export interface ConfirmDepositRequestAminoMsg {
     type: "/axelar.evm.v1beta1.ConfirmDepositRequest";
@@ -137,9 +180,9 @@ export interface ConfirmTokenRequestProtoMsg {
 }
 /** MsgConfirmToken represents a token deploy confirmation message */
 export interface ConfirmTokenRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    tx_id: Uint8Array;
+    sender?: string;
+    chain?: string;
+    tx_id?: string;
     asset?: AssetAmino;
 }
 export interface ConfirmTokenRequestAminoMsg {
@@ -177,9 +220,9 @@ export interface ConfirmTransferKeyRequestProtoMsg {
     value: Uint8Array;
 }
 export interface ConfirmTransferKeyRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    tx_id: Uint8Array;
+    sender?: string;
+    chain?: string;
+    tx_id?: string;
 }
 export interface ConfirmTransferKeyRequestAminoMsg {
     type: "/axelar.evm.v1beta1.ConfirmTransferKeyRequest";
@@ -224,11 +267,11 @@ export interface LinkRequestProtoMsg {
  * address
  */
 export interface LinkRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    recipient_addr: string;
-    asset: string;
-    recipient_chain: string;
+    sender?: string;
+    chain?: string;
+    recipient_addr?: string;
+    asset?: string;
+    recipient_chain?: string;
 }
 export interface LinkRequestAminoMsg {
     type: "/axelar.evm.v1beta1.LinkRequest";
@@ -253,7 +296,7 @@ export interface LinkResponseProtoMsg {
     value: Uint8Array;
 }
 export interface LinkResponseAmino {
-    deposit_addr: string;
+    deposit_addr?: string;
 }
 export interface LinkResponseAminoMsg {
     type: "/axelar.evm.v1beta1.LinkResponse";
@@ -279,8 +322,8 @@ export interface CreateBurnTokensRequestProtoMsg {
  * tokens with AxelarGateway
  */
 export interface CreateBurnTokensRequestAmino {
-    sender: Uint8Array;
-    chain: string;
+    sender?: string;
+    chain?: string;
 }
 export interface CreateBurnTokensRequestAminoMsg {
     type: "/axelar.evm.v1beta1.CreateBurnTokensRequest";
@@ -329,12 +372,12 @@ export interface CreateDeployTokenRequestProtoMsg {
  * command for AxelarGateway
  */
 export interface CreateDeployTokenRequestAmino {
-    sender: Uint8Array;
-    chain: string;
+    sender?: string;
+    chain?: string;
     asset?: AssetAmino;
     token_details?: TokenDetailsAmino;
-    address: Uint8Array;
-    daily_mint_limit: string;
+    address?: string;
+    daily_mint_limit?: string;
 }
 export interface CreateDeployTokenRequestAminoMsg {
     type: "/axelar.evm.v1beta1.CreateDeployTokenRequest";
@@ -383,8 +426,8 @@ export interface CreatePendingTransfersRequestProtoMsg {
  * commands handling all pending transfers
  */
 export interface CreatePendingTransfersRequestAmino {
-    sender: Uint8Array;
-    chain: string;
+    sender?: string;
+    chain?: string;
 }
 export interface CreatePendingTransfersRequestAminoMsg {
     type: "/axelar.evm.v1beta1.CreatePendingTransfersRequest";
@@ -424,9 +467,9 @@ export interface CreateTransferOwnershipRequestProtoMsg {
 }
 /** @deprecated */
 export interface CreateTransferOwnershipRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    key_id: string;
+    sender?: string;
+    chain?: string;
+    key_id?: string;
 }
 export interface CreateTransferOwnershipRequestAminoMsg {
     type: "/axelar.evm.v1beta1.CreateTransferOwnershipRequest";
@@ -465,9 +508,9 @@ export interface CreateTransferOperatorshipRequestProtoMsg {
     value: Uint8Array;
 }
 export interface CreateTransferOperatorshipRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    key_id: string;
+    sender?: string;
+    chain?: string;
+    key_id?: string;
 }
 export interface CreateTransferOperatorshipRequestAminoMsg {
     type: "/axelar.evm.v1beta1.CreateTransferOperatorshipRequest";
@@ -501,8 +544,8 @@ export interface SignCommandsRequestProtoMsg {
     value: Uint8Array;
 }
 export interface SignCommandsRequestAmino {
-    sender: Uint8Array;
-    chain: string;
+    sender?: string;
+    chain?: string;
 }
 export interface SignCommandsRequestAminoMsg {
     type: "/axelar.evm.v1beta1.SignCommandsRequest";
@@ -521,8 +564,8 @@ export interface SignCommandsResponseProtoMsg {
     value: Uint8Array;
 }
 export interface SignCommandsResponseAmino {
-    batched_commands_id: Uint8Array;
-    command_count: number;
+    batched_commands_id?: string;
+    command_count?: number;
 }
 export interface SignCommandsResponseAminoMsg {
     type: "/axelar.evm.v1beta1.SignCommandsResponse";
@@ -544,11 +587,11 @@ export interface AddChainRequestProtoMsg {
     value: Uint8Array;
 }
 export interface AddChainRequestAmino {
-    sender: Uint8Array;
-    name: string;
+    sender?: string;
+    name?: string;
     /** @deprecated */
-    key_type: KeyType;
-    params: Uint8Array;
+    key_type?: KeyType;
+    params?: string;
 }
 export interface AddChainRequestAminoMsg {
     type: "/axelar.evm.v1beta1.AddChainRequest";
@@ -585,9 +628,9 @@ export interface RetryFailedEventRequestProtoMsg {
     value: Uint8Array;
 }
 export interface RetryFailedEventRequestAmino {
-    sender: Uint8Array;
-    chain: string;
-    event_id: string;
+    sender?: string;
+    chain?: string;
+    event_id?: string;
 }
 export interface RetryFailedEventRequestAminoMsg {
     type: "/axelar.evm.v1beta1.RetryFailedEventRequest";
@@ -659,6 +702,30 @@ export declare const ConfirmGatewayTxResponse: {
     fromProtoMsg(message: ConfirmGatewayTxResponseProtoMsg): ConfirmGatewayTxResponse;
     toProto(message: ConfirmGatewayTxResponse): Uint8Array;
     toProtoMsg(message: ConfirmGatewayTxResponse): ConfirmGatewayTxResponseProtoMsg;
+};
+export declare const ConfirmGatewayTxsRequest: {
+    typeUrl: string;
+    encode(message: ConfirmGatewayTxsRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ConfirmGatewayTxsRequest;
+    fromPartial(object: Partial<ConfirmGatewayTxsRequest>): ConfirmGatewayTxsRequest;
+    fromAmino(object: ConfirmGatewayTxsRequestAmino): ConfirmGatewayTxsRequest;
+    toAmino(message: ConfirmGatewayTxsRequest): ConfirmGatewayTxsRequestAmino;
+    fromAminoMsg(object: ConfirmGatewayTxsRequestAminoMsg): ConfirmGatewayTxsRequest;
+    fromProtoMsg(message: ConfirmGatewayTxsRequestProtoMsg): ConfirmGatewayTxsRequest;
+    toProto(message: ConfirmGatewayTxsRequest): Uint8Array;
+    toProtoMsg(message: ConfirmGatewayTxsRequest): ConfirmGatewayTxsRequestProtoMsg;
+};
+export declare const ConfirmGatewayTxsResponse: {
+    typeUrl: string;
+    encode(_: ConfirmGatewayTxsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): ConfirmGatewayTxsResponse;
+    fromPartial(_: Partial<ConfirmGatewayTxsResponse>): ConfirmGatewayTxsResponse;
+    fromAmino(_: ConfirmGatewayTxsResponseAmino): ConfirmGatewayTxsResponse;
+    toAmino(_: ConfirmGatewayTxsResponse): ConfirmGatewayTxsResponseAmino;
+    fromAminoMsg(object: ConfirmGatewayTxsResponseAminoMsg): ConfirmGatewayTxsResponse;
+    fromProtoMsg(message: ConfirmGatewayTxsResponseProtoMsg): ConfirmGatewayTxsResponse;
+    toProto(message: ConfirmGatewayTxsResponse): Uint8Array;
+    toProtoMsg(message: ConfirmGatewayTxsResponse): ConfirmGatewayTxsResponseProtoMsg;
 };
 export declare const ConfirmDepositRequest: {
     typeUrl: string;

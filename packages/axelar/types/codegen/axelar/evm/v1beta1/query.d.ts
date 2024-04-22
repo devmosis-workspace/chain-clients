@@ -1,4 +1,5 @@
 import { BatchedCommandsStatus, DepositStatus, Event, EventAmino, EventSDKType, BurnerInfo, BurnerInfoAmino, BurnerInfoSDKType, TokenDetails, TokenDetailsAmino, TokenDetailsSDKType } from "./types";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
 export declare enum ChainStatus {
     CHAIN_STATUS_UNSPECIFIED = 0,
@@ -38,9 +39,9 @@ export interface DepositQueryParamsProtoMsg {
  * deposit address
  */
 export interface DepositQueryParamsAmino {
-    address: string;
-    asset: string;
-    chain: string;
+    address?: string;
+    asset?: string;
+    chain?: string;
 }
 export interface DepositQueryParamsAminoMsg {
     type: "/axelar.evm.v1beta1.DepositQueryParams";
@@ -68,12 +69,12 @@ export interface BatchedCommandsRequestProtoMsg {
     value: Uint8Array;
 }
 export interface BatchedCommandsRequestAmino {
-    chain: string;
+    chain?: string;
     /**
      * id defines an optional id for the commandsbatch. If not specified the
      * latest will be returned
      */
-    id: string;
+    id?: string;
 }
 export interface BatchedCommandsRequestAminoMsg {
     type: "/axelar.evm.v1beta1.BatchedCommandsRequest";
@@ -91,20 +92,20 @@ export interface BatchedCommandsResponse {
     executeData: string;
     prevBatchedCommandsId: string;
     commandIds: string[];
-    proof: Proof;
+    proof?: Proof;
 }
 export interface BatchedCommandsResponseProtoMsg {
     typeUrl: "/axelar.evm.v1beta1.BatchedCommandsResponse";
     value: Uint8Array;
 }
 export interface BatchedCommandsResponseAmino {
-    id: string;
-    data: string;
-    status: BatchedCommandsStatus;
-    key_id: string;
-    execute_data: string;
-    prev_batched_commands_id: string;
-    command_ids: string[];
+    id?: string;
+    data?: string;
+    status?: BatchedCommandsStatus;
+    key_id?: string;
+    execute_data?: string;
+    prev_batched_commands_id?: string;
+    command_ids?: string[];
     proof?: ProofAmino;
 }
 export interface BatchedCommandsResponseAminoMsg {
@@ -119,7 +120,7 @@ export interface BatchedCommandsResponseSDKType {
     execute_data: string;
     prev_batched_commands_id: string;
     command_ids: string[];
-    proof: ProofSDKType;
+    proof?: ProofSDKType;
 }
 export interface KeyAddressRequest {
     chain: string;
@@ -130,8 +131,8 @@ export interface KeyAddressRequestProtoMsg {
     value: Uint8Array;
 }
 export interface KeyAddressRequestAmino {
-    chain: string;
-    key_id: string;
+    chain?: string;
+    key_id?: string;
 }
 export interface KeyAddressRequestAminoMsg {
     type: "/axelar.evm.v1beta1.KeyAddressRequest";
@@ -151,9 +152,9 @@ export interface KeyAddressResponseProtoMsg {
     value: Uint8Array;
 }
 export interface KeyAddressResponseAmino {
-    key_id: string;
-    addresses: KeyAddressResponse_WeightedAddressAmino[];
-    threshold: string;
+    key_id?: string;
+    addresses?: KeyAddressResponse_WeightedAddressAmino[];
+    threshold?: string;
 }
 export interface KeyAddressResponseAminoMsg {
     type: "/axelar.evm.v1beta1.KeyAddressResponse";
@@ -173,8 +174,8 @@ export interface KeyAddressResponse_WeightedAddressProtoMsg {
     value: Uint8Array;
 }
 export interface KeyAddressResponse_WeightedAddressAmino {
-    address: string;
-    weight: string;
+    address?: string;
+    weight?: string;
 }
 export interface KeyAddressResponse_WeightedAddressAminoMsg {
     type: "/axelar.evm.v1beta1.WeightedAddress";
@@ -195,8 +196,8 @@ export interface QueryTokenAddressResponseProtoMsg {
 }
 /** @deprecated */
 export interface QueryTokenAddressResponseAmino {
-    address: string;
-    confirmed: boolean;
+    address?: string;
+    confirmed?: boolean;
 }
 export interface QueryTokenAddressResponseAminoMsg {
     type: "/axelar.evm.v1beta1.QueryTokenAddressResponse";
@@ -218,8 +219,8 @@ export interface QueryDepositStateParamsProtoMsg {
 }
 /** @deprecated */
 export interface QueryDepositStateParamsAmino {
-    tx_id: Uint8Array;
-    burner_address: Uint8Array;
+    tx_id?: string;
+    burner_address?: string;
 }
 export interface QueryDepositStateParamsAminoMsg {
     type: "/axelar.evm.v1beta1.QueryDepositStateParams";
@@ -233,7 +234,7 @@ export interface QueryDepositStateParamsSDKType {
 /** @deprecated */
 export interface DepositStateRequest {
     chain: string;
-    params: QueryDepositStateParams;
+    params?: QueryDepositStateParams;
 }
 export interface DepositStateRequestProtoMsg {
     typeUrl: "/axelar.evm.v1beta1.DepositStateRequest";
@@ -241,7 +242,7 @@ export interface DepositStateRequestProtoMsg {
 }
 /** @deprecated */
 export interface DepositStateRequestAmino {
-    chain: string;
+    chain?: string;
     params?: QueryDepositStateParamsAmino;
 }
 export interface DepositStateRequestAminoMsg {
@@ -251,7 +252,7 @@ export interface DepositStateRequestAminoMsg {
 /** @deprecated */
 export interface DepositStateRequestSDKType {
     chain: string;
-    params: QueryDepositStateParamsSDKType;
+    params?: QueryDepositStateParamsSDKType;
 }
 /** @deprecated */
 export interface DepositStateResponse {
@@ -263,7 +264,7 @@ export interface DepositStateResponseProtoMsg {
 }
 /** @deprecated */
 export interface DepositStateResponseAmino {
-    status: DepositStatus;
+    status?: DepositStatus;
 }
 export interface DepositStateResponseAminoMsg {
     type: "/axelar.evm.v1beta1.DepositStateResponse";
@@ -282,8 +283,8 @@ export interface EventRequestProtoMsg {
     value: Uint8Array;
 }
 export interface EventRequestAmino {
-    chain: string;
-    event_id: string;
+    chain?: string;
+    event_id?: string;
 }
 export interface EventRequestAminoMsg {
     type: "/axelar.evm.v1beta1.EventRequest";
@@ -294,7 +295,7 @@ export interface EventRequestSDKType {
     event_id: string;
 }
 export interface EventResponse {
-    event: Event;
+    event?: Event;
 }
 export interface EventResponseProtoMsg {
     typeUrl: "/axelar.evm.v1beta1.EventResponse";
@@ -308,7 +309,7 @@ export interface EventResponseAminoMsg {
     value: EventResponseAmino;
 }
 export interface EventResponseSDKType {
-    event: EventSDKType;
+    event?: EventSDKType;
 }
 export interface QueryBurnerAddressResponse {
     address: string;
@@ -318,7 +319,7 @@ export interface QueryBurnerAddressResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryBurnerAddressResponseAmino {
-    address: string;
+    address?: string;
 }
 export interface QueryBurnerAddressResponseAminoMsg {
     type: "/axelar.evm.v1beta1.QueryBurnerAddressResponse";
@@ -335,7 +336,7 @@ export interface ChainsRequestProtoMsg {
     value: Uint8Array;
 }
 export interface ChainsRequestAmino {
-    status: ChainStatus;
+    status?: ChainStatus;
 }
 export interface ChainsRequestAminoMsg {
     type: "/axelar.evm.v1beta1.ChainsRequest";
@@ -352,7 +353,7 @@ export interface ChainsResponseProtoMsg {
     value: Uint8Array;
 }
 export interface ChainsResponseAmino {
-    chains: string[];
+    chains?: string[];
 }
 export interface ChainsResponseAminoMsg {
     type: "/axelar.evm.v1beta1.ChainsResponse";
@@ -370,8 +371,8 @@ export interface CommandRequestProtoMsg {
     value: Uint8Array;
 }
 export interface CommandRequestAmino {
-    chain: string;
-    id: string;
+    chain?: string;
+    id?: string;
 }
 export interface CommandRequestAminoMsg {
     type: "/axelar.evm.v1beta1.CommandRequest";
@@ -390,8 +391,8 @@ export interface CommandResponse_ParamsEntryProtoMsg {
     value: Uint8Array;
 }
 export interface CommandResponse_ParamsEntryAmino {
-    key: string;
-    value: string;
+    key?: string;
+    value?: string;
 }
 export interface CommandResponse_ParamsEntryAminoMsg {
     type: string;
@@ -415,13 +416,13 @@ export interface CommandResponseProtoMsg {
     value: Uint8Array;
 }
 export interface CommandResponseAmino {
-    id: string;
-    type: string;
-    params: {
+    id?: string;
+    type?: string;
+    params?: {
         [key: string]: string;
     };
-    key_id: string;
-    max_gas_cost: number;
+    key_id?: string;
+    max_gas_cost?: number;
 }
 export interface CommandResponseAminoMsg {
     type: "/axelar.evm.v1beta1.CommandResponse";
@@ -444,7 +445,7 @@ export interface PendingCommandsRequestProtoMsg {
     value: Uint8Array;
 }
 export interface PendingCommandsRequestAmino {
-    chain: string;
+    chain?: string;
 }
 export interface PendingCommandsRequestAminoMsg {
     type: "/axelar.evm.v1beta1.PendingCommandsRequest";
@@ -461,7 +462,7 @@ export interface PendingCommandsResponseProtoMsg {
     value: Uint8Array;
 }
 export interface PendingCommandsResponseAmino {
-    commands: QueryCommandResponseAmino[];
+    commands?: QueryCommandResponseAmino[];
 }
 export interface PendingCommandsResponseAminoMsg {
     type: "/axelar.evm.v1beta1.PendingCommandsResponse";
@@ -479,8 +480,8 @@ export interface QueryCommandResponse_ParamsEntryProtoMsg {
     value: Uint8Array;
 }
 export interface QueryCommandResponse_ParamsEntryAmino {
-    key: string;
-    value: string;
+    key?: string;
+    value?: string;
 }
 export interface QueryCommandResponse_ParamsEntryAminoMsg {
     type: string;
@@ -504,13 +505,13 @@ export interface QueryCommandResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryCommandResponseAmino {
-    id: string;
-    type: string;
-    params: {
+    id?: string;
+    type?: string;
+    params?: {
         [key: string]: string;
     };
-    key_id: string;
-    max_gas_cost: number;
+    key_id?: string;
+    max_gas_cost?: number;
 }
 export interface QueryCommandResponseAminoMsg {
     type: "/axelar.evm.v1beta1.QueryCommandResponse";
@@ -533,7 +534,7 @@ export interface BurnerInfoRequestProtoMsg {
     value: Uint8Array;
 }
 export interface BurnerInfoRequestAmino {
-    address: Uint8Array;
+    address?: string;
 }
 export interface BurnerInfoRequestAminoMsg {
     type: "/axelar.evm.v1beta1.BurnerInfoRequest";
@@ -544,14 +545,14 @@ export interface BurnerInfoRequestSDKType {
 }
 export interface BurnerInfoResponse {
     chain: string;
-    burnerInfo: BurnerInfo;
+    burnerInfo?: BurnerInfo;
 }
 export interface BurnerInfoResponseProtoMsg {
     typeUrl: "/axelar.evm.v1beta1.BurnerInfoResponse";
     value: Uint8Array;
 }
 export interface BurnerInfoResponseAmino {
-    chain: string;
+    chain?: string;
     burner_info?: BurnerInfoAmino;
 }
 export interface BurnerInfoResponseAminoMsg {
@@ -560,7 +561,7 @@ export interface BurnerInfoResponseAminoMsg {
 }
 export interface BurnerInfoResponseSDKType {
     chain: string;
-    burner_info: BurnerInfoSDKType;
+    burner_info?: BurnerInfoSDKType;
 }
 export interface ConfirmationHeightRequest {
     chain: string;
@@ -570,7 +571,7 @@ export interface ConfirmationHeightRequestProtoMsg {
     value: Uint8Array;
 }
 export interface ConfirmationHeightRequestAmino {
-    chain: string;
+    chain?: string;
 }
 export interface ConfirmationHeightRequestAminoMsg {
     type: "/axelar.evm.v1beta1.ConfirmationHeightRequest";
@@ -587,7 +588,7 @@ export interface ConfirmationHeightResponseProtoMsg {
     value: Uint8Array;
 }
 export interface ConfirmationHeightResponseAmino {
-    height: string;
+    height?: string;
 }
 export interface ConfirmationHeightResponseAminoMsg {
     type: "/axelar.evm.v1beta1.ConfirmationHeightResponse";
@@ -604,7 +605,7 @@ export interface GatewayAddressRequestProtoMsg {
     value: Uint8Array;
 }
 export interface GatewayAddressRequestAmino {
-    chain: string;
+    chain?: string;
 }
 export interface GatewayAddressRequestAminoMsg {
     type: "/axelar.evm.v1beta1.GatewayAddressRequest";
@@ -621,7 +622,7 @@ export interface GatewayAddressResponseProtoMsg {
     value: Uint8Array;
 }
 export interface GatewayAddressResponseAmino {
-    address: string;
+    address?: string;
 }
 export interface GatewayAddressResponseAminoMsg {
     type: "/axelar.evm.v1beta1.GatewayAddressResponse";
@@ -639,8 +640,8 @@ export interface BytecodeRequestProtoMsg {
     value: Uint8Array;
 }
 export interface BytecodeRequestAmino {
-    chain: string;
-    contract: string;
+    chain?: string;
+    contract?: string;
 }
 export interface BytecodeRequestAminoMsg {
     type: "/axelar.evm.v1beta1.BytecodeRequest";
@@ -658,7 +659,7 @@ export interface BytecodeResponseProtoMsg {
     value: Uint8Array;
 }
 export interface BytecodeResponseAmino {
-    bytecode: string;
+    bytecode?: string;
 }
 export interface BytecodeResponseAminoMsg {
     type: "/axelar.evm.v1beta1.BytecodeResponse";
@@ -684,8 +685,8 @@ export interface ERC20TokensRequestProtoMsg {
  * requested.
  */
 export interface ERC20TokensRequestAmino {
-    chain: string;
-    type: TokenType;
+    chain?: string;
+    type?: TokenType;
 }
 export interface ERC20TokensRequestAminoMsg {
     type: "/axelar.evm.v1beta1.ERC20TokensRequest";
@@ -715,7 +716,7 @@ export interface ERC20TokensResponseProtoMsg {
  * ERC20 tokens requested for a chain
  */
 export interface ERC20TokensResponseAmino {
-    tokens: ERC20TokensResponse_TokenAmino[];
+    tokens?: ERC20TokensResponse_TokenAmino[];
 }
 export interface ERC20TokensResponseAminoMsg {
     type: "/axelar.evm.v1beta1.ERC20TokensResponse";
@@ -737,8 +738,8 @@ export interface ERC20TokensResponse_TokenProtoMsg {
     value: Uint8Array;
 }
 export interface ERC20TokensResponse_TokenAmino {
-    asset: string;
-    symbol: string;
+    asset?: string;
+    symbol?: string;
 }
 export interface ERC20TokensResponse_TokenAminoMsg {
     type: "/axelar.evm.v1beta1.Token";
@@ -759,7 +760,7 @@ export interface TokenInfoRequestProtoMsg {
     value: Uint8Array;
 }
 export interface TokenInfoRequestAmino {
-    chain: string;
+    chain?: string;
     asset?: string;
     symbol?: string;
     address?: string;
@@ -787,12 +788,12 @@ export interface TokenInfoResponseProtoMsg {
     value: Uint8Array;
 }
 export interface TokenInfoResponseAmino {
-    asset: string;
+    asset?: string;
     details?: TokenDetailsAmino;
-    address: string;
-    confirmed: boolean;
-    is_external: boolean;
-    burner_code_hash: string;
+    address?: string;
+    confirmed?: boolean;
+    is_external?: boolean;
+    burner_code_hash?: string;
 }
 export interface TokenInfoResponseAminoMsg {
     type: "/axelar.evm.v1beta1.TokenInfoResponse";
@@ -817,10 +818,10 @@ export interface ProofProtoMsg {
     value: Uint8Array;
 }
 export interface ProofAmino {
-    addresses: string[];
-    weights: string[];
-    threshold: string;
-    signatures: string[];
+    addresses?: string[];
+    weights?: string[];
+    threshold?: string;
+    signatures?: string[];
 }
 export interface ProofAminoMsg {
     type: "/axelar.evm.v1beta1.Proof";
@@ -831,6 +832,45 @@ export interface ProofSDKType {
     weights: string[];
     threshold: string;
     signatures: string[];
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequest {
+    /** ParamsRequest represents a message that queries the params */
+    chain: string;
+}
+export interface ParamsRequestProtoMsg {
+    typeUrl: "/axelar.evm.v1beta1.ParamsRequest";
+    value: Uint8Array;
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequestAmino {
+    /** ParamsRequest represents a message that queries the params */
+    chain?: string;
+}
+export interface ParamsRequestAminoMsg {
+    type: "/axelar.evm.v1beta1.ParamsRequest";
+    value: ParamsRequestAmino;
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequestSDKType {
+    chain: string;
+}
+export interface ParamsResponse {
+    params: Params;
+}
+export interface ParamsResponseProtoMsg {
+    typeUrl: "/axelar.evm.v1beta1.ParamsResponse";
+    value: Uint8Array;
+}
+export interface ParamsResponseAmino {
+    params?: ParamsAmino;
+}
+export interface ParamsResponseAminoMsg {
+    type: "/axelar.evm.v1beta1.ParamsResponse";
+    value: ParamsResponseAmino;
+}
+export interface ParamsResponseSDKType {
+    params: ParamsSDKType;
 }
 export declare const DepositQueryParams: {
     typeUrl: string;
@@ -1259,4 +1299,28 @@ export declare const Proof: {
     fromProtoMsg(message: ProofProtoMsg): Proof;
     toProto(message: Proof): Uint8Array;
     toProtoMsg(message: Proof): ProofProtoMsg;
+};
+export declare const ParamsRequest: {
+    typeUrl: string;
+    encode(message: ParamsRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ParamsRequest;
+    fromPartial(object: Partial<ParamsRequest>): ParamsRequest;
+    fromAmino(object: ParamsRequestAmino): ParamsRequest;
+    toAmino(message: ParamsRequest): ParamsRequestAmino;
+    fromAminoMsg(object: ParamsRequestAminoMsg): ParamsRequest;
+    fromProtoMsg(message: ParamsRequestProtoMsg): ParamsRequest;
+    toProto(message: ParamsRequest): Uint8Array;
+    toProtoMsg(message: ParamsRequest): ParamsRequestProtoMsg;
+};
+export declare const ParamsResponse: {
+    typeUrl: string;
+    encode(message: ParamsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ParamsResponse;
+    fromPartial(object: Partial<ParamsResponse>): ParamsResponse;
+    fromAmino(object: ParamsResponseAmino): ParamsResponse;
+    toAmino(message: ParamsResponse): ParamsResponseAmino;
+    fromAminoMsg(object: ParamsResponseAminoMsg): ParamsResponse;
+    fromProtoMsg(message: ParamsResponseProtoMsg): ParamsResponse;
+    toProto(message: ParamsResponse): Uint8Array;
+    toProtoMsg(message: ParamsResponse): ParamsResponseProtoMsg;
 };

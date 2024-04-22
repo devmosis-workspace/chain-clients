@@ -9,9 +9,9 @@ export interface ProxiedValidatorProtoMsg {
     value: Uint8Array;
 }
 export interface ProxiedValidatorAmino {
-    validator: Uint8Array;
-    proxy: Uint8Array;
-    active: boolean;
+    validator?: string;
+    proxy?: string;
+    active?: boolean;
 }
 export interface ProxiedValidatorAminoMsg {
     type: "/axelar.snapshot.v1beta1.ProxiedValidator";

@@ -1,5 +1,6 @@
 import { KeyState, MultisigState } from "../exported/v1beta1/types";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
 export interface KeyIDRequest {
     chain: string;
@@ -9,7 +10,7 @@ export interface KeyIDRequestProtoMsg {
     value: Uint8Array;
 }
 export interface KeyIDRequestAmino {
-    chain: string;
+    chain?: string;
 }
 export interface KeyIDRequestAminoMsg {
     type: "/axelar.multisig.v1beta1.KeyIDRequest";
@@ -28,7 +29,7 @@ export interface KeyIDResponseProtoMsg {
 }
 /** KeyIDResponse contains the key ID of the key assigned to a given chain. */
 export interface KeyIDResponseAmino {
-    key_id: string;
+    key_id?: string;
 }
 export interface KeyIDResponseAminoMsg {
     type: "/axelar.multisig.v1beta1.KeyIDResponse";
@@ -46,7 +47,7 @@ export interface NextKeyIDRequestProtoMsg {
     value: Uint8Array;
 }
 export interface NextKeyIDRequestAmino {
-    chain: string;
+    chain?: string;
 }
 export interface NextKeyIDRequestAminoMsg {
     type: "/axelar.multisig.v1beta1.NextKeyIDRequest";
@@ -71,7 +72,7 @@ export interface NextKeyIDResponseProtoMsg {
  * chain
  */
 export interface NextKeyIDResponseAmino {
-    key_id: string;
+    key_id?: string;
 }
 export interface NextKeyIDResponseAminoMsg {
     type: "/axelar.multisig.v1beta1.NextKeyIDResponse";
@@ -92,7 +93,7 @@ export interface KeyRequestProtoMsg {
     value: Uint8Array;
 }
 export interface KeyRequestAmino {
-    key_id: string;
+    key_id?: string;
 }
 export interface KeyRequestAminoMsg {
     type: "/axelar.multisig.v1beta1.KeyRequest";
@@ -111,9 +112,9 @@ export interface KeygenParticipantProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenParticipantAmino {
-    address: string;
-    weight: Uint8Array;
-    pub_key: string;
+    address?: string;
+    weight?: string;
+    pub_key?: string;
 }
 export interface KeygenParticipantAminoMsg {
     type: "/axelar.multisig.v1beta1.KeygenParticipant";
@@ -141,14 +142,14 @@ export interface KeyResponseProtoMsg {
 }
 /** KeyResponse contains the key corresponding to a given key id. */
 export interface KeyResponseAmino {
-    key_id: string;
-    state: KeyState;
-    started_at: string;
-    started_at_timestamp?: TimestampAmino;
-    threshold_weight: Uint8Array;
-    bonded_weight: Uint8Array;
+    key_id?: string;
+    state?: KeyState;
+    started_at?: string;
+    started_at_timestamp?: string;
+    threshold_weight?: string;
+    bonded_weight?: string;
     /** Keygen participants in descending order by weight */
-    participants: KeygenParticipantAmino[];
+    participants?: KeygenParticipantAmino[];
 }
 export interface KeyResponseAminoMsg {
     type: "/axelar.multisig.v1beta1.KeyResponse";
@@ -172,7 +173,7 @@ export interface KeygenSessionRequestProtoMsg {
     value: Uint8Array;
 }
 export interface KeygenSessionRequestAmino {
-    key_id: string;
+    key_id?: string;
 }
 export interface KeygenSessionRequestAminoMsg {
     type: "/axelar.multisig.v1beta1.KeygenSessionRequest";
@@ -201,17 +202,17 @@ export interface KeygenSessionResponseProtoMsg {
 }
 /** KeygenSessionResponse contains the keygen session info for a given key ID. */
 export interface KeygenSessionResponseAmino {
-    started_at: string;
-    started_at_timestamp?: TimestampAmino;
-    expires_at: string;
-    completed_at: string;
-    grace_period: string;
-    state: MultisigState;
-    keygen_threshold_weight: Uint8Array;
-    signing_threshold_weight: Uint8Array;
-    bonded_weight: Uint8Array;
+    started_at?: string;
+    started_at_timestamp?: string;
+    expires_at?: string;
+    completed_at?: string;
+    grace_period?: string;
+    state?: MultisigState;
+    keygen_threshold_weight?: string;
+    signing_threshold_weight?: string;
+    bonded_weight?: string;
     /** Keygen candidates in descending order by weight */
-    participants: KeygenParticipantAmino[];
+    participants?: KeygenParticipantAmino[];
 }
 export interface KeygenSessionResponseAminoMsg {
     type: "/axelar.multisig.v1beta1.KeygenSessionResponse";
@@ -229,6 +230,40 @@ export interface KeygenSessionResponseSDKType {
     signing_threshold_weight: Uint8Array;
     bonded_weight: Uint8Array;
     participants: KeygenParticipantSDKType[];
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequest {
+}
+export interface ParamsRequestProtoMsg {
+    typeUrl: "/axelar.multisig.v1beta1.ParamsRequest";
+    value: Uint8Array;
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequestAmino {
+}
+export interface ParamsRequestAminoMsg {
+    type: "/axelar.multisig.v1beta1.ParamsRequest";
+    value: ParamsRequestAmino;
+}
+/** ParamsRequest represents a message that queries the params */
+export interface ParamsRequestSDKType {
+}
+export interface ParamsResponse {
+    params: Params;
+}
+export interface ParamsResponseProtoMsg {
+    typeUrl: "/axelar.multisig.v1beta1.ParamsResponse";
+    value: Uint8Array;
+}
+export interface ParamsResponseAmino {
+    params?: ParamsAmino;
+}
+export interface ParamsResponseAminoMsg {
+    type: "/axelar.multisig.v1beta1.ParamsResponse";
+    value: ParamsResponseAmino;
+}
+export interface ParamsResponseSDKType {
+    params: ParamsSDKType;
 }
 export declare const KeyIDRequest: {
     typeUrl: string;
@@ -337,4 +372,28 @@ export declare const KeygenSessionResponse: {
     fromProtoMsg(message: KeygenSessionResponseProtoMsg): KeygenSessionResponse;
     toProto(message: KeygenSessionResponse): Uint8Array;
     toProtoMsg(message: KeygenSessionResponse): KeygenSessionResponseProtoMsg;
+};
+export declare const ParamsRequest: {
+    typeUrl: string;
+    encode(_: ParamsRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): ParamsRequest;
+    fromPartial(_: Partial<ParamsRequest>): ParamsRequest;
+    fromAmino(_: ParamsRequestAmino): ParamsRequest;
+    toAmino(_: ParamsRequest): ParamsRequestAmino;
+    fromAminoMsg(object: ParamsRequestAminoMsg): ParamsRequest;
+    fromProtoMsg(message: ParamsRequestProtoMsg): ParamsRequest;
+    toProto(message: ParamsRequest): Uint8Array;
+    toProtoMsg(message: ParamsRequest): ParamsRequestProtoMsg;
+};
+export declare const ParamsResponse: {
+    typeUrl: string;
+    encode(message: ParamsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ParamsResponse;
+    fromPartial(object: Partial<ParamsResponse>): ParamsResponse;
+    fromAmino(object: ParamsResponseAmino): ParamsResponse;
+    toAmino(message: ParamsResponse): ParamsResponseAmino;
+    fromAminoMsg(object: ParamsResponseAminoMsg): ParamsResponse;
+    fromProtoMsg(message: ParamsResponseProtoMsg): ParamsResponse;
+    toProto(message: ParamsResponse): Uint8Array;
+    toProtoMsg(message: ParamsResponse): ParamsResponseProtoMsg;
 };

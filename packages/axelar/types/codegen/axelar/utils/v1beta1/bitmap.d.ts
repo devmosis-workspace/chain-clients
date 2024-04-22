@@ -1,6 +1,6 @@
 import { BinaryWriter } from "../../../binary";
 export interface Bitmap {
-    trueCountCache: CircularBuffer;
+    trueCountCache?: CircularBuffer;
 }
 export interface BitmapProtoMsg {
     typeUrl: "/axelar.utils.v1beta1.Bitmap";
@@ -14,7 +14,7 @@ export interface BitmapAminoMsg {
     value: BitmapAmino;
 }
 export interface BitmapSDKType {
-    true_count_cache: CircularBufferSDKType;
+    true_count_cache?: CircularBufferSDKType;
 }
 export interface CircularBuffer {
     cumulativeValue: bigint[];
@@ -26,9 +26,9 @@ export interface CircularBufferProtoMsg {
     value: Uint8Array;
 }
 export interface CircularBufferAmino {
-    cumulative_value: string[];
-    index: number;
-    max_size: number;
+    cumulative_value?: string[];
+    index?: number;
+    max_size?: number;
 }
 export interface CircularBufferAminoMsg {
     type: "/axelar.utils.v1beta1.CircularBuffer";

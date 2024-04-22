@@ -5,7 +5,7 @@ import { BinaryWriter } from "../../../binary";
 /** GenesisState represents the genesis state */
 export interface GenesisState {
     params: Params;
-    governanceKey: LegacyAminoPubKey;
+    governanceKey?: LegacyAminoPubKey;
     govAccounts: GovAccount[];
 }
 export interface GenesisStateProtoMsg {
@@ -16,7 +16,7 @@ export interface GenesisStateProtoMsg {
 export interface GenesisStateAmino {
     params?: ParamsAmino;
     governance_key?: LegacyAminoPubKeyAmino;
-    gov_accounts: GovAccountAmino[];
+    gov_accounts?: GovAccountAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/axelar.permission.v1beta1.GenesisState";
@@ -25,7 +25,7 @@ export interface GenesisStateAminoMsg {
 /** GenesisState represents the genesis state */
 export interface GenesisStateSDKType {
     params: ParamsSDKType;
-    governance_key: LegacyAminoPubKeySDKType;
+    governance_key?: LegacyAminoPubKeySDKType;
     gov_accounts: GovAccountSDKType[];
 }
 export declare const GenesisState: {

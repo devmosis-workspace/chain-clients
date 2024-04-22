@@ -18,11 +18,11 @@ export interface ParamsProtoMsg {
 export interface ParamsAmino {
     keygen_threshold?: ThresholdAmino;
     signing_threshold?: ThresholdAmino;
-    keygen_timeout: string;
-    keygen_grace_period: string;
-    signing_timeout: string;
-    signing_grace_period: string;
-    active_epoch_count: string;
+    keygen_timeout?: string;
+    keygen_grace_period?: string;
+    signing_timeout?: string;
+    signing_grace_period?: string;
+    active_epoch_count?: string;
 }
 export interface ParamsAminoMsg {
     type: "/axelar.multisig.v1beta1.Params";

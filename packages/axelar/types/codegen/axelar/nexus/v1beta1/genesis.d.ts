@@ -24,17 +24,17 @@ export interface GenesisStateProtoMsg {
 /** GenesisState represents the genesis state */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    nonce: string;
-    chains: ChainAmino[];
-    chain_states: ChainStateAmino[];
-    linked_addresses: LinkedAddressesAmino[];
-    transfers: CrossChainTransferAmino[];
+    nonce?: string;
+    chains?: ChainAmino[];
+    chain_states?: ChainStateAmino[];
+    linked_addresses?: LinkedAddressesAmino[];
+    transfers?: CrossChainTransferAmino[];
     fee?: TransferFeeAmino;
-    fee_infos: FeeInfoAmino[];
-    rate_limits: RateLimitAmino[];
-    transfer_epochs: TransferEpochAmino[];
-    messages: GeneralMessageAmino[];
-    message_nonce: string;
+    fee_infos?: FeeInfoAmino[];
+    rate_limits?: RateLimitAmino[];
+    transfer_epochs?: TransferEpochAmino[];
+    messages?: GeneralMessageAmino[];
+    message_nonce?: string;
 }
 export interface GenesisStateAminoMsg {
     type: "/axelar.nexus.v1beta1.GenesisState";
