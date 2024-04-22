@@ -25,17 +25,17 @@ export interface GenesisStateProtoMsg {
 /** GenesisState represents the genesis state */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  nonce: string;
-  chains: ChainAmino[];
-  chain_states: ChainStateAmino[];
-  linked_addresses: LinkedAddressesAmino[];
-  transfers: CrossChainTransferAmino[];
+  nonce?: string;
+  chains?: ChainAmino[];
+  chain_states?: ChainStateAmino[];
+  linked_addresses?: LinkedAddressesAmino[];
+  transfers?: CrossChainTransferAmino[];
   fee?: TransferFeeAmino;
-  fee_infos: FeeInfoAmino[];
-  rate_limits: RateLimitAmino[];
-  transfer_epochs: TransferEpochAmino[];
-  messages: GeneralMessageAmino[];
-  message_nonce: string;
+  fee_infos?: FeeInfoAmino[];
+  rate_limits?: RateLimitAmino[];
+  transfer_epochs?: TransferEpochAmino[];
+  messages?: GeneralMessageAmino[];
+  message_nonce?: string;
 }
 export interface GenesisStateAminoMsg {
   type: "/axelar.nexus.v1beta1.GenesisState";
@@ -146,20 +146,28 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      nonce: BigInt(object.nonce),
-      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => Chain.fromAmino(e)) : [],
-      chainStates: Array.isArray(object?.chain_states) ? object.chain_states.map((e: any) => ChainState.fromAmino(e)) : [],
-      linkedAddresses: Array.isArray(object?.linked_addresses) ? object.linked_addresses.map((e: any) => LinkedAddresses.fromAmino(e)) : [],
-      transfers: Array.isArray(object?.transfers) ? object.transfers.map((e: any) => CrossChainTransfer.fromAmino(e)) : [],
-      fee: object?.fee ? TransferFee.fromAmino(object.fee) : undefined,
-      feeInfos: Array.isArray(object?.fee_infos) ? object.fee_infos.map((e: any) => FeeInfo.fromAmino(e)) : [],
-      rateLimits: Array.isArray(object?.rate_limits) ? object.rate_limits.map((e: any) => RateLimit.fromAmino(e)) : [],
-      transferEpochs: Array.isArray(object?.transfer_epochs) ? object.transfer_epochs.map((e: any) => TransferEpoch.fromAmino(e)) : [],
-      messages: Array.isArray(object?.messages) ? object.messages.map((e: any) => GeneralMessage.fromAmino(e)) : [],
-      messageNonce: BigInt(object.message_nonce)
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    if (object.nonce !== undefined && object.nonce !== null) {
+      message.nonce = BigInt(object.nonce);
+    }
+    message.chains = object.chains?.map(e => Chain.fromAmino(e)) || [];
+    message.chainStates = object.chain_states?.map(e => ChainState.fromAmino(e)) || [];
+    message.linkedAddresses = object.linked_addresses?.map(e => LinkedAddresses.fromAmino(e)) || [];
+    message.transfers = object.transfers?.map(e => CrossChainTransfer.fromAmino(e)) || [];
+    if (object.fee !== undefined && object.fee !== null) {
+      message.fee = TransferFee.fromAmino(object.fee);
+    }
+    message.feeInfos = object.fee_infos?.map(e => FeeInfo.fromAmino(e)) || [];
+    message.rateLimits = object.rate_limits?.map(e => RateLimit.fromAmino(e)) || [];
+    message.transferEpochs = object.transfer_epochs?.map(e => TransferEpoch.fromAmino(e)) || [];
+    message.messages = object.messages?.map(e => GeneralMessage.fromAmino(e)) || [];
+    if (object.message_nonce !== undefined && object.message_nonce !== null) {
+      message.messageNonce = BigInt(object.message_nonce);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

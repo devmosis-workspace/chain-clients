@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface RegisterProxyRequest {
   sender: Uint8Array;
   proxyAddr: Uint8Array;
@@ -9,8 +9,8 @@ export interface RegisterProxyRequestProtoMsg {
   value: Uint8Array;
 }
 export interface RegisterProxyRequestAmino {
-  sender: Uint8Array;
-  proxy_addr: Uint8Array;
+  sender?: string;
+  proxy_addr?: string;
 }
 export interface RegisterProxyRequestAminoMsg {
   type: "/axelar.snapshot.v1beta1.RegisterProxyRequest";
@@ -39,7 +39,7 @@ export interface DeactivateProxyRequestProtoMsg {
   value: Uint8Array;
 }
 export interface DeactivateProxyRequestAmino {
-  sender: Uint8Array;
+  sender?: string;
 }
 export interface DeactivateProxyRequestAminoMsg {
   type: "/axelar.snapshot.v1beta1.DeactivateProxyRequest";
@@ -89,15 +89,19 @@ export const RegisterProxyRequest = {
     return message;
   },
   fromAmino(object: RegisterProxyRequestAmino): RegisterProxyRequest {
-    return {
-      sender: object.sender,
-      proxyAddr: object.proxy_addr
-    };
+    const message = createBaseRegisterProxyRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.proxy_addr !== undefined && object.proxy_addr !== null) {
+      message.proxyAddr = bytesFromBase64(object.proxy_addr);
+    }
+    return message;
   },
   toAmino(message: RegisterProxyRequest): RegisterProxyRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
-    obj.proxy_addr = message.proxyAddr;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
+    obj.proxy_addr = message.proxyAddr ? base64FromBytes(message.proxyAddr) : undefined;
     return obj;
   },
   fromAminoMsg(object: RegisterProxyRequestAminoMsg): RegisterProxyRequest {
@@ -132,7 +136,8 @@ export const RegisterProxyResponse = {
     return message;
   },
   fromAmino(_: RegisterProxyResponseAmino): RegisterProxyResponse {
-    return {};
+    const message = createBaseRegisterProxyResponse();
+    return message;
   },
   toAmino(_: RegisterProxyResponse): RegisterProxyResponseAmino {
     const obj: any = {};
@@ -178,13 +183,15 @@ export const DeactivateProxyRequest = {
     return message;
   },
   fromAmino(object: DeactivateProxyRequestAmino): DeactivateProxyRequest {
-    return {
-      sender: object.sender
-    };
+    const message = createBaseDeactivateProxyRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    return message;
   },
   toAmino(message: DeactivateProxyRequest): DeactivateProxyRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     return obj;
   },
   fromAminoMsg(object: DeactivateProxyRequestAminoMsg): DeactivateProxyRequest {
@@ -219,7 +226,8 @@ export const DeactivateProxyResponse = {
     return message;
   },
   fromAmino(_: DeactivateProxyResponseAmino): DeactivateProxyResponse {
-    return {};
+    const message = createBaseDeactivateProxyResponse();
+    return message;
   },
   toAmino(_: DeactivateProxyResponse): DeactivateProxyResponseAmino {
     const obj: any = {};

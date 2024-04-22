@@ -9,7 +9,7 @@ export interface QueryValidatorsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryValidatorsResponseAmino {
-  validators: QueryValidatorsResponse_ValidatorAmino[];
+  validators?: QueryValidatorsResponse_ValidatorAmino[];
 }
 export interface QueryValidatorsResponseAminoMsg {
   type: "/axelar.snapshot.v1beta1.QueryValidatorsResponse";
@@ -32,13 +32,13 @@ export interface QueryValidatorsResponse_TssIllegibilityInfoProtoMsg {
   value: Uint8Array;
 }
 export interface QueryValidatorsResponse_TssIllegibilityInfoAmino {
-  tombstoned: boolean;
-  jailed: boolean;
-  missed_too_many_blocks: boolean;
-  no_proxy_registered: boolean;
-  tss_suspended: boolean;
-  proxy_insuficient_funds: boolean;
-  stale_tss_heartbeat: boolean;
+  tombstoned?: boolean;
+  jailed?: boolean;
+  missed_too_many_blocks?: boolean;
+  no_proxy_registered?: boolean;
+  tss_suspended?: boolean;
+  proxy_insuficient_funds?: boolean;
+  stale_tss_heartbeat?: boolean;
 }
 export interface QueryValidatorsResponse_TssIllegibilityInfoAminoMsg {
   type: "/axelar.snapshot.v1beta1.TssIllegibilityInfo";
@@ -63,8 +63,8 @@ export interface QueryValidatorsResponse_ValidatorProtoMsg {
   value: Uint8Array;
 }
 export interface QueryValidatorsResponse_ValidatorAmino {
-  operator_address: string;
-  moniker: string;
+  operator_address?: string;
+  moniker?: string;
   tss_illegibility_info?: QueryValidatorsResponse_TssIllegibilityInfoAmino;
 }
 export interface QueryValidatorsResponse_ValidatorAminoMsg {
@@ -131,9 +131,9 @@ export const QueryValidatorsResponse = {
     return message;
   },
   fromAmino(object: QueryValidatorsResponseAmino): QueryValidatorsResponse {
-    return {
-      validators: Array.isArray(object?.validators) ? object.validators.map((e: any) => QueryValidatorsResponse_Validator.fromAmino(e)) : []
-    };
+    const message = createBaseQueryValidatorsResponse();
+    message.validators = object.validators?.map(e => QueryValidatorsResponse_Validator.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryValidatorsResponse): QueryValidatorsResponseAmino {
     const obj: any = {};
@@ -220,15 +220,29 @@ export const QueryValidatorsResponse_TssIllegibilityInfo = {
     return message;
   },
   fromAmino(object: QueryValidatorsResponse_TssIllegibilityInfoAmino): QueryValidatorsResponse_TssIllegibilityInfo {
-    return {
-      tombstoned: object.tombstoned,
-      jailed: object.jailed,
-      missedTooManyBlocks: object.missed_too_many_blocks,
-      noProxyRegistered: object.no_proxy_registered,
-      tssSuspended: object.tss_suspended,
-      proxyInsuficientFunds: object.proxy_insuficient_funds,
-      staleTssHeartbeat: object.stale_tss_heartbeat
-    };
+    const message = createBaseQueryValidatorsResponse_TssIllegibilityInfo();
+    if (object.tombstoned !== undefined && object.tombstoned !== null) {
+      message.tombstoned = object.tombstoned;
+    }
+    if (object.jailed !== undefined && object.jailed !== null) {
+      message.jailed = object.jailed;
+    }
+    if (object.missed_too_many_blocks !== undefined && object.missed_too_many_blocks !== null) {
+      message.missedTooManyBlocks = object.missed_too_many_blocks;
+    }
+    if (object.no_proxy_registered !== undefined && object.no_proxy_registered !== null) {
+      message.noProxyRegistered = object.no_proxy_registered;
+    }
+    if (object.tss_suspended !== undefined && object.tss_suspended !== null) {
+      message.tssSuspended = object.tss_suspended;
+    }
+    if (object.proxy_insuficient_funds !== undefined && object.proxy_insuficient_funds !== null) {
+      message.proxyInsuficientFunds = object.proxy_insuficient_funds;
+    }
+    if (object.stale_tss_heartbeat !== undefined && object.stale_tss_heartbeat !== null) {
+      message.staleTssHeartbeat = object.stale_tss_heartbeat;
+    }
+    return message;
   },
   toAmino(message: QueryValidatorsResponse_TssIllegibilityInfo): QueryValidatorsResponse_TssIllegibilityInfoAmino {
     const obj: any = {};
@@ -293,11 +307,17 @@ export const QueryValidatorsResponse_Validator = {
     return message;
   },
   fromAmino(object: QueryValidatorsResponse_ValidatorAmino): QueryValidatorsResponse_Validator {
-    return {
-      operatorAddress: object.operator_address,
-      moniker: object.moniker,
-      tssIllegibilityInfo: object?.tss_illegibility_info ? QueryValidatorsResponse_TssIllegibilityInfo.fromAmino(object.tss_illegibility_info) : undefined
-    };
+    const message = createBaseQueryValidatorsResponse_Validator();
+    if (object.operator_address !== undefined && object.operator_address !== null) {
+      message.operatorAddress = object.operator_address;
+    }
+    if (object.moniker !== undefined && object.moniker !== null) {
+      message.moniker = object.moniker;
+    }
+    if (object.tss_illegibility_info !== undefined && object.tss_illegibility_info !== null) {
+      message.tssIllegibilityInfo = QueryValidatorsResponse_TssIllegibilityInfo.fromAmino(object.tss_illegibility_info);
+    }
+    return message;
   },
   toAmino(message: QueryValidatorsResponse_Validator): QueryValidatorsResponse_ValidatorAmino {
     const obj: any = {};
@@ -338,7 +358,8 @@ export const ParamsRequest = {
     return message;
   },
   fromAmino(_: ParamsRequestAmino): ParamsRequest {
-    return {};
+    const message = createBaseParamsRequest();
+    return message;
   },
   toAmino(_: ParamsRequest): ParamsRequestAmino {
     const obj: any = {};
@@ -384,9 +405,11 @@ export const ParamsResponse = {
     return message;
   },
   fromAmino(object: ParamsResponseAmino): ParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: ParamsResponse): ParamsResponseAmino {
     const obj: any = {};

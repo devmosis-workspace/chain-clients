@@ -2,7 +2,7 @@ import { NetworkInfo, NetworkInfoAmino, NetworkInfoSDKType } from "./types";
 import { Threshold, ThresholdAmino, ThresholdSDKType } from "../../utils/v1beta1/threshold";
 import { Chain, ChainAmino, ChainSDKType } from "../../nexus/exported/v1beta1/types";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** Params is the parameter set for this module */
 export interface Params {
   chain: string;
@@ -25,19 +25,19 @@ export interface ParamsProtoMsg {
 }
 /** Params is the parameter set for this module */
 export interface ParamsAmino {
-  chain: string;
-  confirmation_height: string;
-  network: string;
-  token_code: Uint8Array;
-  burnable: Uint8Array;
-  revote_locking_period: string;
-  networks: NetworkInfoAmino[];
+  chain?: string;
+  confirmation_height?: string;
+  network?: string;
+  token_code?: string;
+  burnable?: string;
+  revote_locking_period?: string;
+  networks?: NetworkInfoAmino[];
   voting_threshold?: ThresholdAmino;
-  min_voter_count: string;
-  commands_gas_limit: number;
-  voting_grace_period: string;
-  end_blocker_limit: string;
-  transfer_limit: string;
+  min_voter_count?: string;
+  commands_gas_limit?: number;
+  voting_grace_period?: string;
+  end_blocker_limit?: string;
+  transfer_limit?: string;
 }
 export interface ParamsAminoMsg {
   type: "/axelar.evm.v1beta1.Params";
@@ -175,29 +175,53 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      chain: object.chain,
-      confirmationHeight: BigInt(object.confirmation_height),
-      network: object.network,
-      tokenCode: object.token_code,
-      burnable: object.burnable,
-      revoteLockingPeriod: BigInt(object.revote_locking_period),
-      networks: Array.isArray(object?.networks) ? object.networks.map((e: any) => NetworkInfo.fromAmino(e)) : [],
-      votingThreshold: object?.voting_threshold ? Threshold.fromAmino(object.voting_threshold) : undefined,
-      minVoterCount: BigInt(object.min_voter_count),
-      commandsGasLimit: object.commands_gas_limit,
-      votingGracePeriod: BigInt(object.voting_grace_period),
-      endBlockerLimit: BigInt(object.end_blocker_limit),
-      transferLimit: BigInt(object.transfer_limit)
-    };
+    const message = createBaseParams();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.confirmation_height !== undefined && object.confirmation_height !== null) {
+      message.confirmationHeight = BigInt(object.confirmation_height);
+    }
+    if (object.network !== undefined && object.network !== null) {
+      message.network = object.network;
+    }
+    if (object.token_code !== undefined && object.token_code !== null) {
+      message.tokenCode = bytesFromBase64(object.token_code);
+    }
+    if (object.burnable !== undefined && object.burnable !== null) {
+      message.burnable = bytesFromBase64(object.burnable);
+    }
+    if (object.revote_locking_period !== undefined && object.revote_locking_period !== null) {
+      message.revoteLockingPeriod = BigInt(object.revote_locking_period);
+    }
+    message.networks = object.networks?.map(e => NetworkInfo.fromAmino(e)) || [];
+    if (object.voting_threshold !== undefined && object.voting_threshold !== null) {
+      message.votingThreshold = Threshold.fromAmino(object.voting_threshold);
+    }
+    if (object.min_voter_count !== undefined && object.min_voter_count !== null) {
+      message.minVoterCount = BigInt(object.min_voter_count);
+    }
+    if (object.commands_gas_limit !== undefined && object.commands_gas_limit !== null) {
+      message.commandsGasLimit = object.commands_gas_limit;
+    }
+    if (object.voting_grace_period !== undefined && object.voting_grace_period !== null) {
+      message.votingGracePeriod = BigInt(object.voting_grace_period);
+    }
+    if (object.end_blocker_limit !== undefined && object.end_blocker_limit !== null) {
+      message.endBlockerLimit = BigInt(object.end_blocker_limit);
+    }
+    if (object.transfer_limit !== undefined && object.transfer_limit !== null) {
+      message.transferLimit = BigInt(object.transfer_limit);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
     obj.chain = message.chain;
     obj.confirmation_height = message.confirmationHeight ? message.confirmationHeight.toString() : undefined;
     obj.network = message.network;
-    obj.token_code = message.tokenCode;
-    obj.burnable = message.burnable;
+    obj.token_code = message.tokenCode ? base64FromBytes(message.tokenCode) : undefined;
+    obj.burnable = message.burnable ? base64FromBytes(message.burnable) : undefined;
     obj.revote_locking_period = message.revoteLockingPeriod ? message.revoteLockingPeriod.toString() : undefined;
     if (message.networks) {
       obj.networks = message.networks.map(e => e ? NetworkInfo.toAmino(e) : undefined);
@@ -258,10 +282,14 @@ export const PendingChain = {
     return message;
   },
   fromAmino(object: PendingChainAmino): PendingChain {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      chain: object?.chain ? Chain.fromAmino(object.chain) : undefined
-    };
+    const message = createBasePendingChain();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = Chain.fromAmino(object.chain);
+    }
+    return message;
   },
   toAmino(message: PendingChain): PendingChainAmino {
     const obj: any = {};

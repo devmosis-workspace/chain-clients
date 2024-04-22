@@ -14,7 +14,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState represents the genesis state */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  pools: PoolAmino[];
+  pools?: PoolAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/axelar.reward.v1beta1.GenesisState";
@@ -55,10 +55,12 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => Pool.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.pools = object.pools?.map(e => Pool.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

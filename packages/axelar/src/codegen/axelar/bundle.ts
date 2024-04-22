@@ -70,14 +70,14 @@ import * as _68 from "./vote/v1beta1/query";
 import * as _69 from "./vote/v1beta1/service";
 import * as _70 from "./vote/v1beta1/tx";
 import * as _71 from "./vote/v1beta1/types";
-import * as _185 from "./permission/v1beta1/service.amino";
-import * as _186 from "./permission/v1beta1/service.registry";
-import * as _187 from "./permission/v1beta1/service.lcd";
-import * as _188 from "./permission/v1beta1/service.rpc.Query";
-import * as _189 from "./permission/v1beta1/service.rpc.msg";
-import * as _270 from "./lcd";
-import * as _271 from "./rpc.query";
-import * as _272 from "./rpc.tx";
+import * as _192 from "./permission/v1beta1/service.amino";
+import * as _193 from "./permission/v1beta1/service.registry";
+import * as _194 from "./permission/v1beta1/service.lcd";
+import * as _195 from "./permission/v1beta1/service.rpc.Query";
+import * as _196 from "./permission/v1beta1/service.rpc.msg";
+import * as _282 from "./lcd";
+import * as _283 from "./rpc.query";
+import * as _284 from "./rpc.tx";
 export namespace axelar {
   export namespace axelarnet {
     export const v1beta1 = {
@@ -147,11 +147,11 @@ export namespace axelar {
       ..._35,
       ..._36,
       ..._37,
-      ..._185,
-      ..._186,
-      ..._187,
-      ..._188,
-      ..._189
+      ..._192,
+      ..._193,
+      ..._194,
+      ..._195,
+      ..._196
     };
   }
   export namespace reward {
@@ -225,8 +225,8 @@ export namespace axelar {
     };
   }
   export const ClientFactory = {
-    ..._270,
-    ..._271,
-    ..._272
+    ..._282,
+    ..._283,
+    ..._284
   };
 }

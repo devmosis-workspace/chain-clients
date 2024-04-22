@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /**
  * CallContractsProposal is a gov Content type for calling contracts on other
  * chains
@@ -18,9 +18,9 @@ export interface CallContractsProposalProtoMsg {
  * chains
  */
 export interface CallContractsProposalAmino {
-  title: string;
-  description: string;
-  contract_calls: ContractCallAmino[];
+  title?: string;
+  description?: string;
+  contract_calls?: ContractCallAmino[];
 }
 export interface CallContractsProposalAminoMsg {
   type: "/axelar.axelarnet.v1beta1.CallContractsProposal";
@@ -45,9 +45,9 @@ export interface ContractCallProtoMsg {
   value: Uint8Array;
 }
 export interface ContractCallAmino {
-  chain: string;
-  contract_address: string;
-  payload: Uint8Array;
+  chain?: string;
+  contract_address?: string;
+  payload?: string;
 }
 export interface ContractCallAminoMsg {
   type: "/axelar.axelarnet.v1beta1.ContractCall";
@@ -94,11 +94,15 @@ export const CallContractsProposal = {
     return message;
   },
   fromAmino(object: CallContractsProposalAmino): CallContractsProposal {
-    return {
-      title: object.title,
-      description: object.description,
-      contractCalls: Array.isArray(object?.contract_calls) ? object.contract_calls.map((e: any) => ContractCall.fromAmino(e)) : []
-    };
+    const message = createBaseCallContractsProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    message.contractCalls = object.contract_calls?.map(e => ContractCall.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: CallContractsProposal): CallContractsProposalAmino {
     const obj: any = {};
@@ -163,17 +167,23 @@ export const ContractCall = {
     return message;
   },
   fromAmino(object: ContractCallAmino): ContractCall {
-    return {
-      chain: object.chain,
-      contractAddress: object.contract_address,
-      payload: object.payload
-    };
+    const message = createBaseContractCall();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = bytesFromBase64(object.payload);
+    }
+    return message;
   },
   toAmino(message: ContractCall): ContractCallAmino {
     const obj: any = {};
     obj.chain = message.chain;
     obj.contract_address = message.contractAddress;
-    obj.payload = message.payload;
+    obj.payload = message.payload ? base64FromBytes(message.payload) : undefined;
     return obj;
   },
   fromAminoMsg(object: ContractCallAminoMsg): ContractCall {

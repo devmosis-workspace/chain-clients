@@ -1,6 +1,6 @@
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, isObject } from "../../../helpers";
+import { isSet, bytesFromBase64, isObject, base64FromBytes } from "../../../helpers";
 export interface TalliedVote_IsVoterLateEntry {
   key: string;
   value: boolean;
@@ -10,8 +10,8 @@ export interface TalliedVote_IsVoterLateEntryProtoMsg {
   value: Uint8Array;
 }
 export interface TalliedVote_IsVoterLateEntryAmino {
-  key: string;
-  value: boolean;
+  key?: string;
+  value?: boolean;
 }
 export interface TalliedVote_IsVoterLateEntryAminoMsg {
   type: string;
@@ -27,7 +27,7 @@ export interface TalliedVote_IsVoterLateEntrySDKType {
  */
 export interface TalliedVote {
   tally: Uint8Array;
-  data: (Any) | undefined;
+  data?: (Any) | undefined;
   pollId: bigint;
   isVoterLate: {
     [key: string]: boolean;
@@ -45,10 +45,10 @@ export type TalliedVoteEncoded = Omit<TalliedVote, "data"> & {
  * validators voting for the same data
  */
 export interface TalliedVoteAmino {
-  tally: Uint8Array;
+  tally?: string;
   data?: AnyAmino;
-  poll_id: string;
-  is_voter_late: {
+  poll_id?: string;
+  is_voter_late?: {
     [key: string]: boolean;
   };
 }
@@ -62,7 +62,7 @@ export interface TalliedVoteAminoMsg {
  */
 export interface TalliedVoteSDKType {
   tally: Uint8Array;
-  data: AnySDKType | undefined;
+  data?: AnySDKType | undefined;
   poll_id: bigint;
   is_voter_late: {
     [key: string]: boolean;
@@ -97,10 +97,14 @@ export const TalliedVote_IsVoterLateEntry = {
     return message;
   },
   fromAmino(object: TalliedVote_IsVoterLateEntryAmino): TalliedVote_IsVoterLateEntry {
-    return {
-      key: object.key,
-      value: object.value
-    };
+    const message = createBaseTalliedVote_IsVoterLateEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: TalliedVote_IsVoterLateEntry): TalliedVote_IsVoterLateEntryAmino {
     const obj: any = {};
@@ -121,7 +125,7 @@ export const TalliedVote_IsVoterLateEntry = {
 function createBaseTalliedVote(): TalliedVote {
   return {
     tally: new Uint8Array(),
-    data: Any.fromPartial({}),
+    data: undefined,
     pollId: BigInt(0),
     isVoterLate: {}
   };
@@ -175,21 +179,29 @@ export const TalliedVote = {
     return message;
   },
   fromAmino(object: TalliedVoteAmino): TalliedVote {
-    return {
-      tally: object.tally,
-      data: object?.data ? Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.data) : undefined,
-      pollId: BigInt(object.poll_id),
-      isVoterLate: isObject(object.is_voter_late) ? Object.entries(object.is_voter_late).reduce<{
-        [key: string]: bool;
-      }>((acc, [key, value]) => {
+    const message = createBaseTalliedVote();
+    if (object.tally !== undefined && object.tally !== null) {
+      message.tally = bytesFromBase64(object.tally);
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.data);
+    }
+    if (object.poll_id !== undefined && object.poll_id !== null) {
+      message.pollId = BigInt(object.poll_id);
+    }
+    message.isVoterLate = Object.entries(object.is_voter_late ?? {}).reduce<{
+      [key: string]: bool;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = bool.fromAmino(value);
-        return acc;
-      }, {}) : {}
-    };
+      }
+      return acc;
+    }, {});
+    return message;
   },
   toAmino(message: TalliedVote): TalliedVoteAmino {
     const obj: any = {};
-    obj.tally = message.tally;
+    obj.tally = message.tally ? base64FromBytes(message.tally) : undefined;
     obj.data = message.data ? Github_com_cosmos_codec_ProtoMarshaler_ToAmino((message.data as Any)) : undefined;
     obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
     obj.is_voter_late = {};

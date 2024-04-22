@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, isObject } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, isObject } from "../../../helpers";
 export interface KeygenStarted {
   module: string;
   keyId: string;
@@ -10,9 +10,9 @@ export interface KeygenStartedProtoMsg {
   value: Uint8Array;
 }
 export interface KeygenStartedAmino {
-  module: string;
-  key_id: string;
-  participants: Uint8Array[];
+  module?: string;
+  key_id?: string;
+  participants?: string[];
 }
 export interface KeygenStartedAminoMsg {
   type: "/axelar.multisig.v1beta1.KeygenStarted";
@@ -32,8 +32,8 @@ export interface KeygenCompletedProtoMsg {
   value: Uint8Array;
 }
 export interface KeygenCompletedAmino {
-  module: string;
-  key_id: string;
+  module?: string;
+  key_id?: string;
 }
 export interface KeygenCompletedAminoMsg {
   type: "/axelar.multisig.v1beta1.KeygenCompleted";
@@ -52,8 +52,8 @@ export interface KeygenExpiredProtoMsg {
   value: Uint8Array;
 }
 export interface KeygenExpiredAmino {
-  module: string;
-  key_id: string;
+  module?: string;
+  key_id?: string;
 }
 export interface KeygenExpiredAminoMsg {
   type: "/axelar.multisig.v1beta1.KeygenExpired";
@@ -74,10 +74,10 @@ export interface PubKeySubmittedProtoMsg {
   value: Uint8Array;
 }
 export interface PubKeySubmittedAmino {
-  module: string;
-  key_id: string;
-  participant: Uint8Array;
-  pub_key: Uint8Array;
+  module?: string;
+  key_id?: string;
+  participant?: string;
+  pub_key?: string;
 }
 export interface PubKeySubmittedAminoMsg {
   type: "/axelar.multisig.v1beta1.PubKeySubmitted";
@@ -98,8 +98,8 @@ export interface SigningStarted_PubKeysEntryProtoMsg {
   value: Uint8Array;
 }
 export interface SigningStarted_PubKeysEntryAmino {
-  key: string;
-  value: Uint8Array;
+  key?: string;
+  value?: string;
 }
 export interface SigningStarted_PubKeysEntryAminoMsg {
   type: string;
@@ -124,14 +124,14 @@ export interface SigningStartedProtoMsg {
   value: Uint8Array;
 }
 export interface SigningStartedAmino {
-  module: string;
-  sig_id: string;
-  key_id: string;
-  pub_keys: {
-    [key: string]: Uint8Array;
+  module?: string;
+  sig_id?: string;
+  key_id?: string;
+  pub_keys?: {
+    [key: string]: string;
   };
-  payload_hash: Uint8Array;
-  requesting_module: string;
+  payload_hash?: string;
+  requesting_module?: string;
 }
 export interface SigningStartedAminoMsg {
   type: "/axelar.multisig.v1beta1.SigningStarted";
@@ -156,8 +156,8 @@ export interface SigningCompletedProtoMsg {
   value: Uint8Array;
 }
 export interface SigningCompletedAmino {
-  module: string;
-  sig_id: string;
+  module?: string;
+  sig_id?: string;
 }
 export interface SigningCompletedAminoMsg {
   type: "/axelar.multisig.v1beta1.SigningCompleted";
@@ -176,8 +176,8 @@ export interface SigningExpiredProtoMsg {
   value: Uint8Array;
 }
 export interface SigningExpiredAmino {
-  module: string;
-  sig_id: string;
+  module?: string;
+  sig_id?: string;
 }
 export interface SigningExpiredAminoMsg {
   type: "/axelar.multisig.v1beta1.SigningExpired";
@@ -198,10 +198,10 @@ export interface SignatureSubmittedProtoMsg {
   value: Uint8Array;
 }
 export interface SignatureSubmittedAmino {
-  module: string;
-  sig_id: string;
-  participant: Uint8Array;
-  signature: Uint8Array;
+  module?: string;
+  sig_id?: string;
+  participant?: string;
+  signature?: string;
 }
 export interface SignatureSubmittedAminoMsg {
   type: "/axelar.multisig.v1beta1.SignatureSubmitted";
@@ -223,9 +223,9 @@ export interface KeyAssignedProtoMsg {
   value: Uint8Array;
 }
 export interface KeyAssignedAmino {
-  module: string;
-  chain: string;
-  key_id: string;
+  module?: string;
+  chain?: string;
+  key_id?: string;
 }
 export interface KeyAssignedAminoMsg {
   type: "/axelar.multisig.v1beta1.KeyAssigned";
@@ -246,9 +246,9 @@ export interface KeyRotatedProtoMsg {
   value: Uint8Array;
 }
 export interface KeyRotatedAmino {
-  module: string;
-  chain: string;
-  key_id: string;
+  module?: string;
+  chain?: string;
+  key_id?: string;
 }
 export interface KeyRotatedAminoMsg {
   type: "/axelar.multisig.v1beta1.KeyRotated";
@@ -267,7 +267,7 @@ export interface KeygenOptOutProtoMsg {
   value: Uint8Array;
 }
 export interface KeygenOptOutAmino {
-  participant: Uint8Array;
+  participant?: string;
 }
 export interface KeygenOptOutAminoMsg {
   type: "/axelar.multisig.v1beta1.KeygenOptOut";
@@ -284,7 +284,7 @@ export interface KeygenOptInProtoMsg {
   value: Uint8Array;
 }
 export interface KeygenOptInAmino {
-  participant: Uint8Array;
+  participant?: string;
 }
 export interface KeygenOptInAminoMsg {
   type: "/axelar.multisig.v1beta1.KeygenOptIn";
@@ -329,18 +329,22 @@ export const KeygenStarted = {
     return message;
   },
   fromAmino(object: KeygenStartedAmino): KeygenStarted {
-    return {
-      module: object.module,
-      keyId: object.key_id,
-      participants: Array.isArray(object?.participants) ? object.participants.map((e: any) => e) : []
-    };
+    const message = createBaseKeygenStarted();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    message.participants = object.participants?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: KeygenStarted): KeygenStartedAmino {
     const obj: any = {};
     obj.module = message.module;
     obj.key_id = message.keyId;
     if (message.participants) {
-      obj.participants = message.participants.map(e => e);
+      obj.participants = message.participants.map(e => base64FromBytes(e));
     } else {
       obj.participants = [];
     }
@@ -392,10 +396,14 @@ export const KeygenCompleted = {
     return message;
   },
   fromAmino(object: KeygenCompletedAmino): KeygenCompleted {
-    return {
-      module: object.module,
-      keyId: object.key_id
-    };
+    const message = createBaseKeygenCompleted();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: KeygenCompleted): KeygenCompletedAmino {
     const obj: any = {};
@@ -449,10 +457,14 @@ export const KeygenExpired = {
     return message;
   },
   fromAmino(object: KeygenExpiredAmino): KeygenExpired {
-    return {
-      module: object.module,
-      keyId: object.key_id
-    };
+    const message = createBaseKeygenExpired();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: KeygenExpired): KeygenExpiredAmino {
     const obj: any = {};
@@ -518,19 +530,27 @@ export const PubKeySubmitted = {
     return message;
   },
   fromAmino(object: PubKeySubmittedAmino): PubKeySubmitted {
-    return {
-      module: object.module,
-      keyId: object.key_id,
-      participant: object.participant,
-      pubKey: object.pub_key
-    };
+    const message = createBasePubKeySubmitted();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    if (object.participant !== undefined && object.participant !== null) {
+      message.participant = bytesFromBase64(object.participant);
+    }
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = bytesFromBase64(object.pub_key);
+    }
+    return message;
   },
   toAmino(message: PubKeySubmitted): PubKeySubmittedAmino {
     const obj: any = {};
     obj.module = message.module;
     obj.key_id = message.keyId;
-    obj.participant = message.participant;
-    obj.pub_key = message.pubKey;
+    obj.participant = message.participant ? base64FromBytes(message.participant) : undefined;
+    obj.pub_key = message.pubKey ? base64FromBytes(message.pubKey) : undefined;
     return obj;
   },
   fromAminoMsg(object: PubKeySubmittedAminoMsg): PubKeySubmitted {
@@ -578,15 +598,19 @@ export const SigningStarted_PubKeysEntry = {
     return message;
   },
   fromAmino(object: SigningStarted_PubKeysEntryAmino): SigningStarted_PubKeysEntry {
-    return {
-      key: object.key,
-      value: object.value
-    };
+    const message = createBaseSigningStarted_PubKeysEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = bytesFromBase64(object.value);
+    }
+    return message;
   },
   toAmino(message: SigningStarted_PubKeysEntry): SigningStarted_PubKeysEntryAmino {
     const obj: any = {};
     obj.key = message.key;
-    obj.value = message.value;
+    obj.value = message.value ? base64FromBytes(message.value) : undefined;
     return obj;
   },
   fromAminoMsg(object: SigningStarted_PubKeysEntryAminoMsg): SigningStarted_PubKeysEntry {
@@ -668,19 +692,31 @@ export const SigningStarted = {
     return message;
   },
   fromAmino(object: SigningStartedAmino): SigningStarted {
-    return {
-      module: object.module,
-      sigId: BigInt(object.sig_id),
-      keyId: object.key_id,
-      pubKeys: isObject(object.pub_keys) ? Object.entries(object.pub_keys).reduce<{
-        [key: string]: bytes;
-      }>((acc, [key, value]) => {
+    const message = createBaseSigningStarted();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.sig_id !== undefined && object.sig_id !== null) {
+      message.sigId = BigInt(object.sig_id);
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    message.pubKeys = Object.entries(object.pub_keys ?? {}).reduce<{
+      [key: string]: bytes;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = bytes.fromAmino(value);
-        return acc;
-      }, {}) : {},
-      payloadHash: object.payload_hash,
-      requestingModule: object.requesting_module
-    };
+      }
+      return acc;
+    }, {});
+    if (object.payload_hash !== undefined && object.payload_hash !== null) {
+      message.payloadHash = bytesFromBase64(object.payload_hash);
+    }
+    if (object.requesting_module !== undefined && object.requesting_module !== null) {
+      message.requestingModule = object.requesting_module;
+    }
+    return message;
   },
   toAmino(message: SigningStarted): SigningStartedAmino {
     const obj: any = {};
@@ -693,7 +729,7 @@ export const SigningStarted = {
         obj.pub_keys[k] = bytes.toAmino(v);
       });
     }
-    obj.payload_hash = message.payloadHash;
+    obj.payload_hash = message.payloadHash ? base64FromBytes(message.payloadHash) : undefined;
     obj.requesting_module = message.requestingModule;
     return obj;
   },
@@ -743,10 +779,14 @@ export const SigningCompleted = {
     return message;
   },
   fromAmino(object: SigningCompletedAmino): SigningCompleted {
-    return {
-      module: object.module,
-      sigId: BigInt(object.sig_id)
-    };
+    const message = createBaseSigningCompleted();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.sig_id !== undefined && object.sig_id !== null) {
+      message.sigId = BigInt(object.sig_id);
+    }
+    return message;
   },
   toAmino(message: SigningCompleted): SigningCompletedAmino {
     const obj: any = {};
@@ -800,10 +840,14 @@ export const SigningExpired = {
     return message;
   },
   fromAmino(object: SigningExpiredAmino): SigningExpired {
-    return {
-      module: object.module,
-      sigId: BigInt(object.sig_id)
-    };
+    const message = createBaseSigningExpired();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.sig_id !== undefined && object.sig_id !== null) {
+      message.sigId = BigInt(object.sig_id);
+    }
+    return message;
   },
   toAmino(message: SigningExpired): SigningExpiredAmino {
     const obj: any = {};
@@ -869,19 +913,27 @@ export const SignatureSubmitted = {
     return message;
   },
   fromAmino(object: SignatureSubmittedAmino): SignatureSubmitted {
-    return {
-      module: object.module,
-      sigId: BigInt(object.sig_id),
-      participant: object.participant,
-      signature: object.signature
-    };
+    const message = createBaseSignatureSubmitted();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.sig_id !== undefined && object.sig_id !== null) {
+      message.sigId = BigInt(object.sig_id);
+    }
+    if (object.participant !== undefined && object.participant !== null) {
+      message.participant = bytesFromBase64(object.participant);
+    }
+    if (object.signature !== undefined && object.signature !== null) {
+      message.signature = bytesFromBase64(object.signature);
+    }
+    return message;
   },
   toAmino(message: SignatureSubmitted): SignatureSubmittedAmino {
     const obj: any = {};
     obj.module = message.module;
     obj.sig_id = message.sigId ? message.sigId.toString() : undefined;
-    obj.participant = message.participant;
-    obj.signature = message.signature;
+    obj.participant = message.participant ? base64FromBytes(message.participant) : undefined;
+    obj.signature = message.signature ? base64FromBytes(message.signature) : undefined;
     return obj;
   },
   fromAminoMsg(object: SignatureSubmittedAminoMsg): SignatureSubmitted {
@@ -936,11 +988,17 @@ export const KeyAssigned = {
     return message;
   },
   fromAmino(object: KeyAssignedAmino): KeyAssigned {
-    return {
-      module: object.module,
-      chain: object.chain,
-      keyId: object.key_id
-    };
+    const message = createBaseKeyAssigned();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: KeyAssigned): KeyAssignedAmino {
     const obj: any = {};
@@ -1001,11 +1059,17 @@ export const KeyRotated = {
     return message;
   },
   fromAmino(object: KeyRotatedAmino): KeyRotated {
-    return {
-      module: object.module,
-      chain: object.chain,
-      keyId: object.key_id
-    };
+    const message = createBaseKeyRotated();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: KeyRotated): KeyRotatedAmino {
     const obj: any = {};
@@ -1054,13 +1118,15 @@ export const KeygenOptOut = {
     return message;
   },
   fromAmino(object: KeygenOptOutAmino): KeygenOptOut {
-    return {
-      participant: object.participant
-    };
+    const message = createBaseKeygenOptOut();
+    if (object.participant !== undefined && object.participant !== null) {
+      message.participant = bytesFromBase64(object.participant);
+    }
+    return message;
   },
   toAmino(message: KeygenOptOut): KeygenOptOutAmino {
     const obj: any = {};
-    obj.participant = message.participant;
+    obj.participant = message.participant ? base64FromBytes(message.participant) : undefined;
     return obj;
   },
   fromAminoMsg(object: KeygenOptOutAminoMsg): KeygenOptOut {
@@ -1103,13 +1169,15 @@ export const KeygenOptIn = {
     return message;
   },
   fromAmino(object: KeygenOptInAmino): KeygenOptIn {
-    return {
-      participant: object.participant
-    };
+    const message = createBaseKeygenOptIn();
+    if (object.participant !== undefined && object.participant !== null) {
+      message.participant = bytesFromBase64(object.participant);
+    }
+    return message;
   },
   toAmino(message: KeygenOptIn): KeygenOptInAmino {
     const obj: any = {};
-    obj.participant = message.participant;
+    obj.participant = message.participant ? base64FromBytes(message.participant) : undefined;
     return obj;
   },
   fromAminoMsg(object: KeygenOptInAminoMsg): KeygenOptIn {

@@ -1,15 +1,15 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, isObject, bytesFromBase64 } from "../../../helpers";
+import { isSet, isObject, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface QueueState_ItemsEntry {
   key: string;
-  value: Item;
+  value?: Item;
 }
 export interface QueueState_ItemsEntryProtoMsg {
   typeUrl: string;
   value: Uint8Array;
 }
 export interface QueueState_ItemsEntryAmino {
-  key: string;
+  key?: string;
   value?: ItemAmino;
 }
 export interface QueueState_ItemsEntryAminoMsg {
@@ -18,7 +18,7 @@ export interface QueueState_ItemsEntryAminoMsg {
 }
 export interface QueueState_ItemsEntrySDKType {
   key: string;
-  value: ItemSDKType;
+  value?: ItemSDKType;
 }
 export interface QueueState {
   items: {
@@ -52,8 +52,8 @@ export interface QueueState_ItemProtoMsg {
   value: Uint8Array;
 }
 export interface QueueState_ItemAmino {
-  key: Uint8Array;
-  value: Uint8Array;
+  key?: string;
+  value?: string;
 }
 export interface QueueState_ItemAminoMsg {
   type: "/axelar.utils.v1beta1.Item";
@@ -66,7 +66,7 @@ export interface QueueState_ItemSDKType {
 function createBaseQueueState_ItemsEntry(): QueueState_ItemsEntry {
   return {
     key: "",
-    value: Item.fromPartial({})
+    value: undefined
   };
 }
 export const QueueState_ItemsEntry = {
@@ -92,10 +92,14 @@ export const QueueState_ItemsEntry = {
     return message;
   },
   fromAmino(object: QueueState_ItemsEntryAmino): QueueState_ItemsEntry {
-    return {
-      key: object.key,
-      value: object?.value ? Item.fromAmino(object.value) : undefined
-    };
+    const message = createBaseQueueState_ItemsEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = Item.fromAmino(object.value);
+    }
+    return message;
   },
   toAmino(message: QueueState_ItemsEntry): QueueState_ItemsEntryAmino {
     const obj: any = {};
@@ -152,14 +156,16 @@ export const QueueState = {
     return message;
   },
   fromAmino(object: QueueStateAmino): QueueState {
-    return {
-      items: isObject(object.items) ? Object.entries(object.items).reduce<{
-        [key: string]: Item;
-      }>((acc, [key, value]) => {
+    const message = createBaseQueueState();
+    message.items = Object.entries(object.items ?? {}).reduce<{
+      [key: string]: Item;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = Item.fromAmino(value);
-        return acc;
-      }, {}) : {}
-    };
+      }
+      return acc;
+    }, {});
+    return message;
   },
   toAmino(message: QueueState): QueueStateAmino {
     const obj: any = {};
@@ -217,15 +223,19 @@ export const QueueState_Item = {
     return message;
   },
   fromAmino(object: QueueState_ItemAmino): QueueState_Item {
-    return {
-      key: object.key,
-      value: object.value
-    };
+    const message = createBaseQueueState_Item();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = bytesFromBase64(object.key);
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = bytesFromBase64(object.value);
+    }
+    return message;
   },
   toAmino(message: QueueState_Item): QueueState_ItemAmino {
     const obj: any = {};
-    obj.key = message.key;
-    obj.value = message.value;
+    obj.key = message.key ? base64FromBytes(message.key) : undefined;
+    obj.value = message.value ? base64FromBytes(message.value) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueueState_ItemAminoMsg): QueueState_Item {

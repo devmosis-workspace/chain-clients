@@ -5,7 +5,7 @@ import { ChainState, ChainStateAmino, ChainStateSDKType } from "./types";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export enum ChainStatus {
   CHAIN_STATUS_UNSPECIFIED = 0,
   CHAIN_STATUS_ACTIVATED = 1,
@@ -68,7 +68,7 @@ export interface ChainMaintainersRequestAmino {
    * ChainMaintainersRequest represents a message that queries
    * the chain maintainers for the specified chain
    */
-  chain: string;
+  chain?: string;
 }
 export interface ChainMaintainersRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.ChainMaintainersRequest";
@@ -89,7 +89,7 @@ export interface ChainMaintainersResponseProtoMsg {
   value: Uint8Array;
 }
 export interface ChainMaintainersResponseAmino {
-  maintainers: Uint8Array[];
+  maintainers?: string[];
 }
 export interface ChainMaintainersResponseAminoMsg {
   type: "/axelar.nexus.v1beta1.ChainMaintainersResponse";
@@ -116,9 +116,9 @@ export interface LatestDepositAddressRequestProtoMsg {
  * address by recipient address
  */
 export interface LatestDepositAddressRequestAmino {
-  recipient_addr: string;
-  recipient_chain: string;
-  deposit_chain: string;
+  recipient_addr?: string;
+  recipient_chain?: string;
+  deposit_chain?: string;
 }
 export interface LatestDepositAddressRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.LatestDepositAddressRequest";
@@ -141,7 +141,7 @@ export interface LatestDepositAddressResponseProtoMsg {
   value: Uint8Array;
 }
 export interface LatestDepositAddressResponseAmino {
-  deposit_addr: string;
+  deposit_addr?: string;
 }
 export interface LatestDepositAddressResponseAminoMsg {
   type: "/axelar.nexus.v1beta1.LatestDepositAddressResponse";
@@ -157,7 +157,7 @@ export interface LatestDepositAddressResponseSDKType {
 export interface TransfersForChainRequest {
   chain: string;
   state: TransferState;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface TransfersForChainRequestProtoMsg {
   typeUrl: "/axelar.nexus.v1beta1.TransfersForChainRequest";
@@ -168,8 +168,8 @@ export interface TransfersForChainRequestProtoMsg {
  * transfers for the specified chain
  */
 export interface TransfersForChainRequestAmino {
-  chain: string;
-  state: TransferState;
+  chain?: string;
+  state?: TransferState;
   pagination?: PageRequestAmino;
 }
 export interface TransfersForChainRequestAminoMsg {
@@ -183,18 +183,18 @@ export interface TransfersForChainRequestAminoMsg {
 export interface TransfersForChainRequestSDKType {
   chain: string;
   state: TransferState;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface TransfersForChainResponse {
   transfers: CrossChainTransfer[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface TransfersForChainResponseProtoMsg {
   typeUrl: "/axelar.nexus.v1beta1.TransfersForChainResponse";
   value: Uint8Array;
 }
 export interface TransfersForChainResponseAmino {
-  transfers: CrossChainTransferAmino[];
+  transfers?: CrossChainTransferAmino[];
   pagination?: PageResponseAmino;
 }
 export interface TransfersForChainResponseAminoMsg {
@@ -203,7 +203,7 @@ export interface TransfersForChainResponseAminoMsg {
 }
 export interface TransfersForChainResponseSDKType {
   transfers: CrossChainTransferSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /**
  * FeeInfoRequest represents a message that queries the transfer fees associated
@@ -222,8 +222,8 @@ export interface FeeInfoRequestProtoMsg {
  * to an asset on a chain
  */
 export interface FeeInfoRequestAmino {
-  chain: string;
-  asset: string;
+  chain?: string;
+  asset?: string;
 }
 export interface FeeInfoRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.FeeInfoRequest";
@@ -238,7 +238,7 @@ export interface FeeInfoRequestSDKType {
   asset: string;
 }
 export interface FeeInfoResponse {
-  feeInfo: FeeInfo;
+  feeInfo?: FeeInfo;
 }
 export interface FeeInfoResponseProtoMsg {
   typeUrl: "/axelar.nexus.v1beta1.FeeInfoResponse";
@@ -252,7 +252,7 @@ export interface FeeInfoResponseAminoMsg {
   value: FeeInfoResponseAmino;
 }
 export interface FeeInfoResponseSDKType {
-  fee_info: FeeInfoSDKType;
+  fee_info?: FeeInfoSDKType;
 }
 /**
  * TransferFeeRequest represents a message that queries the fees charged by
@@ -272,9 +272,9 @@ export interface TransferFeeRequestProtoMsg {
  * the network for a cross-chain transfer
  */
 export interface TransferFeeRequestAmino {
-  source_chain: string;
-  destination_chain: string;
-  amount: string;
+  source_chain?: string;
+  destination_chain?: string;
+  amount?: string;
 }
 export interface TransferFeeRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.TransferFeeRequest";
@@ -330,7 +330,7 @@ export interface ChainsRequestAmino {
    * ChainsRequest represents a message that queries the chains
    * registered on the network
    */
-  status: ChainStatus;
+  status?: ChainStatus;
 }
 export interface ChainsRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.ChainsRequest";
@@ -351,7 +351,7 @@ export interface ChainsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface ChainsResponseAmino {
-  chains: string[];
+  chains?: string[];
 }
 export interface ChainsResponseAminoMsg {
   type: "/axelar.nexus.v1beta1.ChainsResponse";
@@ -384,7 +384,7 @@ export interface AssetsRequestAmino {
    * AssetsRequest represents a message that queries the registered assets of a
    * chain
    */
-  chain: string;
+  chain?: string;
 }
 export interface AssetsRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.AssetsRequest";
@@ -405,7 +405,7 @@ export interface AssetsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface AssetsResponseAmino {
-  assets: string[];
+  assets?: string[];
 }
 export interface AssetsResponseAminoMsg {
   type: "/axelar.nexus.v1beta1.AssetsResponse";
@@ -438,7 +438,7 @@ export interface ChainStateRequestAmino {
    * ChainStateRequest represents a message that queries the state of a chain
    * registered on the network
    */
-  chain: string;
+  chain?: string;
 }
 export interface ChainStateRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.ChainStateRequest";
@@ -492,7 +492,7 @@ export interface ChainsByAssetRequestAmino {
    * ChainsByAssetRequest represents a message that queries the chains
    * that support an asset on the network
    */
-  asset: string;
+  asset?: string;
 }
 export interface ChainsByAssetRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.ChainsByAssetRequest";
@@ -513,7 +513,7 @@ export interface ChainsByAssetResponseProtoMsg {
   value: Uint8Array;
 }
 export interface ChainsByAssetResponseAmino {
-  chains: string[];
+  chains?: string[];
 }
 export interface ChainsByAssetResponseAminoMsg {
   type: "/axelar.nexus.v1beta1.ChainsByAssetResponse";
@@ -539,8 +539,8 @@ export interface RecipientAddressRequestProtoMsg {
  * recipient address for a given deposit address
  */
 export interface RecipientAddressRequestAmino {
-  deposit_addr: string;
-  deposit_chain: string;
+  deposit_addr?: string;
+  deposit_chain?: string;
 }
 export interface RecipientAddressRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.RecipientAddressRequest";
@@ -563,8 +563,8 @@ export interface RecipientAddressResponseProtoMsg {
   value: Uint8Array;
 }
 export interface RecipientAddressResponseAmino {
-  recipient_addr: string;
-  recipient_chain: string;
+  recipient_addr?: string;
+  recipient_chain?: string;
 }
 export interface RecipientAddressResponseAminoMsg {
   type: "/axelar.nexus.v1beta1.RecipientAddressResponse";
@@ -591,8 +591,8 @@ export interface TransferRateLimitRequestProtoMsg {
  * transfer rate limit and current transfer amounts for a given chain and asset
  */
 export interface TransferRateLimitRequestAmino {
-  chain: string;
-  asset: string;
+  chain?: string;
+  asset?: string;
 }
 export interface TransferRateLimitRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.TransferRateLimitRequest";
@@ -607,7 +607,7 @@ export interface TransferRateLimitRequestSDKType {
   asset: string;
 }
 export interface TransferRateLimitResponse {
-  transferRateLimit: TransferRateLimit;
+  transferRateLimit?: TransferRateLimit;
 }
 export interface TransferRateLimitResponseProtoMsg {
   typeUrl: "/axelar.nexus.v1beta1.TransferRateLimitResponse";
@@ -621,27 +621,35 @@ export interface TransferRateLimitResponseAminoMsg {
   value: TransferRateLimitResponseAmino;
 }
 export interface TransferRateLimitResponseSDKType {
-  transfer_rate_limit: TransferRateLimitSDKType;
+  transfer_rate_limit?: TransferRateLimitSDKType;
 }
 export interface TransferRateLimit {
   limit: Uint8Array;
   window: Duration;
+  /** @deprecated */
   incoming: Uint8Array;
+  /** @deprecated */
   outgoing: Uint8Array;
   /** time_left indicates the time left in the rate limit window */
   timeLeft: Duration;
+  from: Uint8Array;
+  to: Uint8Array;
 }
 export interface TransferRateLimitProtoMsg {
   typeUrl: "/axelar.nexus.v1beta1.TransferRateLimit";
   value: Uint8Array;
 }
 export interface TransferRateLimitAmino {
-  limit: Uint8Array;
+  limit?: string;
   window?: DurationAmino;
-  incoming: Uint8Array;
-  outgoing: Uint8Array;
+  /** @deprecated */
+  incoming?: string;
+  /** @deprecated */
+  outgoing?: string;
   /** time_left indicates the time left in the rate limit window */
   time_left?: DurationAmino;
+  from?: string;
+  to?: string;
 }
 export interface TransferRateLimitAminoMsg {
   type: "/axelar.nexus.v1beta1.TransferRateLimit";
@@ -650,9 +658,13 @@ export interface TransferRateLimitAminoMsg {
 export interface TransferRateLimitSDKType {
   limit: Uint8Array;
   window: DurationSDKType;
+  /** @deprecated */
   incoming: Uint8Array;
+  /** @deprecated */
   outgoing: Uint8Array;
   time_left: DurationSDKType;
+  from: Uint8Array;
+  to: Uint8Array;
 }
 export interface MessageRequest {
   id: string;
@@ -662,7 +674,7 @@ export interface MessageRequestProtoMsg {
   value: Uint8Array;
 }
 export interface MessageRequestAmino {
-  id: string;
+  id?: string;
 }
 export interface MessageRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.MessageRequest";
@@ -743,9 +755,11 @@ export const ChainMaintainersRequest = {
     return message;
   },
   fromAmino(object: ChainMaintainersRequestAmino): ChainMaintainersRequest {
-    return {
-      chain: object.chain
-    };
+    const message = createBaseChainMaintainersRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: ChainMaintainersRequest): ChainMaintainersRequestAmino {
     const obj: any = {};
@@ -792,14 +806,14 @@ export const ChainMaintainersResponse = {
     return message;
   },
   fromAmino(object: ChainMaintainersResponseAmino): ChainMaintainersResponse {
-    return {
-      maintainers: Array.isArray(object?.maintainers) ? object.maintainers.map((e: any) => e) : []
-    };
+    const message = createBaseChainMaintainersResponse();
+    message.maintainers = object.maintainers?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: ChainMaintainersResponse): ChainMaintainersResponseAmino {
     const obj: any = {};
     if (message.maintainers) {
-      obj.maintainers = message.maintainers.map(e => e);
+      obj.maintainers = message.maintainers.map(e => base64FromBytes(e));
     } else {
       obj.maintainers = [];
     }
@@ -857,11 +871,17 @@ export const LatestDepositAddressRequest = {
     return message;
   },
   fromAmino(object: LatestDepositAddressRequestAmino): LatestDepositAddressRequest {
-    return {
-      recipientAddr: object.recipient_addr,
-      recipientChain: object.recipient_chain,
-      depositChain: object.deposit_chain
-    };
+    const message = createBaseLatestDepositAddressRequest();
+    if (object.recipient_addr !== undefined && object.recipient_addr !== null) {
+      message.recipientAddr = object.recipient_addr;
+    }
+    if (object.recipient_chain !== undefined && object.recipient_chain !== null) {
+      message.recipientChain = object.recipient_chain;
+    }
+    if (object.deposit_chain !== undefined && object.deposit_chain !== null) {
+      message.depositChain = object.deposit_chain;
+    }
+    return message;
   },
   toAmino(message: LatestDepositAddressRequest): LatestDepositAddressRequestAmino {
     const obj: any = {};
@@ -910,9 +930,11 @@ export const LatestDepositAddressResponse = {
     return message;
   },
   fromAmino(object: LatestDepositAddressResponseAmino): LatestDepositAddressResponse {
-    return {
-      depositAddr: object.deposit_addr
-    };
+    const message = createBaseLatestDepositAddressResponse();
+    if (object.deposit_addr !== undefined && object.deposit_addr !== null) {
+      message.depositAddr = object.deposit_addr;
+    }
+    return message;
   },
   toAmino(message: LatestDepositAddressResponse): LatestDepositAddressResponseAmino {
     const obj: any = {};
@@ -939,7 +961,7 @@ function createBaseTransfersForChainRequest(): TransfersForChainRequest {
   return {
     chain: "",
     state: 0,
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const TransfersForChainRequest = {
@@ -971,11 +993,17 @@ export const TransfersForChainRequest = {
     return message;
   },
   fromAmino(object: TransfersForChainRequestAmino): TransfersForChainRequest {
-    return {
-      chain: object.chain,
-      state: isSet(object.state) ? transferStateFromJSON(object.state) : -1,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseTransfersForChainRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = transferStateFromJSON(object.state);
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: TransfersForChainRequest): TransfersForChainRequestAmino {
     const obj: any = {};
@@ -1003,7 +1031,7 @@ export const TransfersForChainRequest = {
 function createBaseTransfersForChainResponse(): TransfersForChainResponse {
   return {
     transfers: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const TransfersForChainResponse = {
@@ -1030,10 +1058,12 @@ export const TransfersForChainResponse = {
     return message;
   },
   fromAmino(object: TransfersForChainResponseAmino): TransfersForChainResponse {
-    return {
-      transfers: Array.isArray(object?.transfers) ? object.transfers.map((e: any) => CrossChainTransfer.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseTransfersForChainResponse();
+    message.transfers = object.transfers?.map(e => CrossChainTransfer.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: TransfersForChainResponse): TransfersForChainResponseAmino {
     const obj: any = {};
@@ -1091,10 +1121,14 @@ export const FeeInfoRequest = {
     return message;
   },
   fromAmino(object: FeeInfoRequestAmino): FeeInfoRequest {
-    return {
-      chain: object.chain,
-      asset: object.asset
-    };
+    const message = createBaseFeeInfoRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    return message;
   },
   toAmino(message: FeeInfoRequest): FeeInfoRequestAmino {
     const obj: any = {};
@@ -1120,7 +1154,7 @@ export const FeeInfoRequest = {
 };
 function createBaseFeeInfoResponse(): FeeInfoResponse {
   return {
-    feeInfo: FeeInfo.fromPartial({})
+    feeInfo: undefined
   };
 }
 export const FeeInfoResponse = {
@@ -1142,9 +1176,11 @@ export const FeeInfoResponse = {
     return message;
   },
   fromAmino(object: FeeInfoResponseAmino): FeeInfoResponse {
-    return {
-      feeInfo: object?.fee_info ? FeeInfo.fromAmino(object.fee_info) : undefined
-    };
+    const message = createBaseFeeInfoResponse();
+    if (object.fee_info !== undefined && object.fee_info !== null) {
+      message.feeInfo = FeeInfo.fromAmino(object.fee_info);
+    }
+    return message;
   },
   toAmino(message: FeeInfoResponse): FeeInfoResponseAmino {
     const obj: any = {};
@@ -1203,11 +1239,17 @@ export const TransferFeeRequest = {
     return message;
   },
   fromAmino(object: TransferFeeRequestAmino): TransferFeeRequest {
-    return {
-      sourceChain: object.source_chain,
-      destinationChain: object.destination_chain,
-      amount: object.amount
-    };
+    const message = createBaseTransferFeeRequest();
+    if (object.source_chain !== undefined && object.source_chain !== null) {
+      message.sourceChain = object.source_chain;
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
   },
   toAmino(message: TransferFeeRequest): TransferFeeRequestAmino {
     const obj: any = {};
@@ -1256,9 +1298,11 @@ export const TransferFeeResponse = {
     return message;
   },
   fromAmino(object: TransferFeeResponseAmino): TransferFeeResponse {
-    return {
-      fee: object?.fee ? Coin.fromAmino(object.fee) : undefined
-    };
+    const message = createBaseTransferFeeResponse();
+    if (object.fee !== undefined && object.fee !== null) {
+      message.fee = Coin.fromAmino(object.fee);
+    }
+    return message;
   },
   toAmino(message: TransferFeeResponse): TransferFeeResponseAmino {
     const obj: any = {};
@@ -1305,9 +1349,11 @@ export const ChainsRequest = {
     return message;
   },
   fromAmino(object: ChainsRequestAmino): ChainsRequest {
-    return {
-      status: isSet(object.status) ? chainStatusFromJSON(object.status) : -1
-    };
+    const message = createBaseChainsRequest();
+    if (object.status !== undefined && object.status !== null) {
+      message.status = chainStatusFromJSON(object.status);
+    }
+    return message;
   },
   toAmino(message: ChainsRequest): ChainsRequestAmino {
     const obj: any = {};
@@ -1354,9 +1400,9 @@ export const ChainsResponse = {
     return message;
   },
   fromAmino(object: ChainsResponseAmino): ChainsResponse {
-    return {
-      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => e) : []
-    };
+    const message = createBaseChainsResponse();
+    message.chains = object.chains?.map(e => e) || [];
+    return message;
   },
   toAmino(message: ChainsResponse): ChainsResponseAmino {
     const obj: any = {};
@@ -1407,9 +1453,11 @@ export const AssetsRequest = {
     return message;
   },
   fromAmino(object: AssetsRequestAmino): AssetsRequest {
-    return {
-      chain: object.chain
-    };
+    const message = createBaseAssetsRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: AssetsRequest): AssetsRequestAmino {
     const obj: any = {};
@@ -1456,9 +1504,9 @@ export const AssetsResponse = {
     return message;
   },
   fromAmino(object: AssetsResponseAmino): AssetsResponse {
-    return {
-      assets: Array.isArray(object?.assets) ? object.assets.map((e: any) => e) : []
-    };
+    const message = createBaseAssetsResponse();
+    message.assets = object.assets?.map(e => e) || [];
+    return message;
   },
   toAmino(message: AssetsResponse): AssetsResponseAmino {
     const obj: any = {};
@@ -1509,9 +1557,11 @@ export const ChainStateRequest = {
     return message;
   },
   fromAmino(object: ChainStateRequestAmino): ChainStateRequest {
-    return {
-      chain: object.chain
-    };
+    const message = createBaseChainStateRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: ChainStateRequest): ChainStateRequestAmino {
     const obj: any = {};
@@ -1558,9 +1608,11 @@ export const ChainStateResponse = {
     return message;
   },
   fromAmino(object: ChainStateResponseAmino): ChainStateResponse {
-    return {
-      state: object?.state ? ChainState.fromAmino(object.state) : undefined
-    };
+    const message = createBaseChainStateResponse();
+    if (object.state !== undefined && object.state !== null) {
+      message.state = ChainState.fromAmino(object.state);
+    }
+    return message;
   },
   toAmino(message: ChainStateResponse): ChainStateResponseAmino {
     const obj: any = {};
@@ -1607,9 +1659,11 @@ export const ChainsByAssetRequest = {
     return message;
   },
   fromAmino(object: ChainsByAssetRequestAmino): ChainsByAssetRequest {
-    return {
-      asset: object.asset
-    };
+    const message = createBaseChainsByAssetRequest();
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    return message;
   },
   toAmino(message: ChainsByAssetRequest): ChainsByAssetRequestAmino {
     const obj: any = {};
@@ -1656,9 +1710,9 @@ export const ChainsByAssetResponse = {
     return message;
   },
   fromAmino(object: ChainsByAssetResponseAmino): ChainsByAssetResponse {
-    return {
-      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => e) : []
-    };
+    const message = createBaseChainsByAssetResponse();
+    message.chains = object.chains?.map(e => e) || [];
+    return message;
   },
   toAmino(message: ChainsByAssetResponse): ChainsByAssetResponseAmino {
     const obj: any = {};
@@ -1715,10 +1769,14 @@ export const RecipientAddressRequest = {
     return message;
   },
   fromAmino(object: RecipientAddressRequestAmino): RecipientAddressRequest {
-    return {
-      depositAddr: object.deposit_addr,
-      depositChain: object.deposit_chain
-    };
+    const message = createBaseRecipientAddressRequest();
+    if (object.deposit_addr !== undefined && object.deposit_addr !== null) {
+      message.depositAddr = object.deposit_addr;
+    }
+    if (object.deposit_chain !== undefined && object.deposit_chain !== null) {
+      message.depositChain = object.deposit_chain;
+    }
+    return message;
   },
   toAmino(message: RecipientAddressRequest): RecipientAddressRequestAmino {
     const obj: any = {};
@@ -1772,10 +1830,14 @@ export const RecipientAddressResponse = {
     return message;
   },
   fromAmino(object: RecipientAddressResponseAmino): RecipientAddressResponse {
-    return {
-      recipientAddr: object.recipient_addr,
-      recipientChain: object.recipient_chain
-    };
+    const message = createBaseRecipientAddressResponse();
+    if (object.recipient_addr !== undefined && object.recipient_addr !== null) {
+      message.recipientAddr = object.recipient_addr;
+    }
+    if (object.recipient_chain !== undefined && object.recipient_chain !== null) {
+      message.recipientChain = object.recipient_chain;
+    }
+    return message;
   },
   toAmino(message: RecipientAddressResponse): RecipientAddressResponseAmino {
     const obj: any = {};
@@ -1829,10 +1891,14 @@ export const TransferRateLimitRequest = {
     return message;
   },
   fromAmino(object: TransferRateLimitRequestAmino): TransferRateLimitRequest {
-    return {
-      chain: object.chain,
-      asset: object.asset
-    };
+    const message = createBaseTransferRateLimitRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    return message;
   },
   toAmino(message: TransferRateLimitRequest): TransferRateLimitRequestAmino {
     const obj: any = {};
@@ -1858,7 +1924,7 @@ export const TransferRateLimitRequest = {
 };
 function createBaseTransferRateLimitResponse(): TransferRateLimitResponse {
   return {
-    transferRateLimit: TransferRateLimit.fromPartial({})
+    transferRateLimit: undefined
   };
 }
 export const TransferRateLimitResponse = {
@@ -1880,9 +1946,11 @@ export const TransferRateLimitResponse = {
     return message;
   },
   fromAmino(object: TransferRateLimitResponseAmino): TransferRateLimitResponse {
-    return {
-      transferRateLimit: object?.transfer_rate_limit ? TransferRateLimit.fromAmino(object.transfer_rate_limit) : undefined
-    };
+    const message = createBaseTransferRateLimitResponse();
+    if (object.transfer_rate_limit !== undefined && object.transfer_rate_limit !== null) {
+      message.transferRateLimit = TransferRateLimit.fromAmino(object.transfer_rate_limit);
+    }
+    return message;
   },
   toAmino(message: TransferRateLimitResponse): TransferRateLimitResponseAmino {
     const obj: any = {};
@@ -1911,7 +1979,9 @@ function createBaseTransferRateLimit(): TransferRateLimit {
     window: Duration.fromPartial({}),
     incoming: new Uint8Array(),
     outgoing: new Uint8Array(),
-    timeLeft: Duration.fromPartial({})
+    timeLeft: Duration.fromPartial({}),
+    from: new Uint8Array(),
+    to: new Uint8Array()
   };
 }
 export const TransferRateLimit = {
@@ -1932,6 +2002,12 @@ export const TransferRateLimit = {
     if (message.timeLeft !== undefined) {
       Duration.encode(message.timeLeft, writer.uint32(42).fork()).ldelim();
     }
+    if (message.from.length !== 0) {
+      writer.uint32(50).bytes(message.from);
+    }
+    if (message.to.length !== 0) {
+      writer.uint32(58).bytes(message.to);
+    }
     return writer;
   },
   fromJSON(object: any): TransferRateLimit {
@@ -1940,7 +2016,9 @@ export const TransferRateLimit = {
       window: isSet(object.window) ? Duration.fromJSON(object.window) : undefined,
       incoming: isSet(object.incoming) ? bytesFromBase64(object.incoming) : new Uint8Array(),
       outgoing: isSet(object.outgoing) ? bytesFromBase64(object.outgoing) : new Uint8Array(),
-      timeLeft: isSet(object.timeLeft) ? Duration.fromJSON(object.timeLeft) : undefined
+      timeLeft: isSet(object.timeLeft) ? Duration.fromJSON(object.timeLeft) : undefined,
+      from: isSet(object.from) ? bytesFromBase64(object.from) : new Uint8Array(),
+      to: isSet(object.to) ? bytesFromBase64(object.to) : new Uint8Array()
     };
   },
   fromPartial(object: Partial<TransferRateLimit>): TransferRateLimit {
@@ -1950,24 +2028,44 @@ export const TransferRateLimit = {
     message.incoming = object.incoming ?? new Uint8Array();
     message.outgoing = object.outgoing ?? new Uint8Array();
     message.timeLeft = object.timeLeft !== undefined && object.timeLeft !== null ? Duration.fromPartial(object.timeLeft) : undefined;
+    message.from = object.from ?? new Uint8Array();
+    message.to = object.to ?? new Uint8Array();
     return message;
   },
   fromAmino(object: TransferRateLimitAmino): TransferRateLimit {
-    return {
-      limit: object.limit,
-      window: object?.window ? Duration.fromAmino(object.window) : undefined,
-      incoming: object.incoming,
-      outgoing: object.outgoing,
-      timeLeft: object?.time_left ? Duration.fromAmino(object.time_left) : undefined
-    };
+    const message = createBaseTransferRateLimit();
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = bytesFromBase64(object.limit);
+    }
+    if (object.window !== undefined && object.window !== null) {
+      message.window = Duration.fromAmino(object.window);
+    }
+    if (object.incoming !== undefined && object.incoming !== null) {
+      message.incoming = bytesFromBase64(object.incoming);
+    }
+    if (object.outgoing !== undefined && object.outgoing !== null) {
+      message.outgoing = bytesFromBase64(object.outgoing);
+    }
+    if (object.time_left !== undefined && object.time_left !== null) {
+      message.timeLeft = Duration.fromAmino(object.time_left);
+    }
+    if (object.from !== undefined && object.from !== null) {
+      message.from = bytesFromBase64(object.from);
+    }
+    if (object.to !== undefined && object.to !== null) {
+      message.to = bytesFromBase64(object.to);
+    }
+    return message;
   },
   toAmino(message: TransferRateLimit): TransferRateLimitAmino {
     const obj: any = {};
-    obj.limit = message.limit;
+    obj.limit = message.limit ? base64FromBytes(message.limit) : undefined;
     obj.window = message.window ? Duration.toAmino(message.window) : undefined;
-    obj.incoming = message.incoming;
-    obj.outgoing = message.outgoing;
+    obj.incoming = message.incoming ? base64FromBytes(message.incoming) : undefined;
+    obj.outgoing = message.outgoing ? base64FromBytes(message.outgoing) : undefined;
     obj.time_left = message.timeLeft ? Duration.toAmino(message.timeLeft) : undefined;
+    obj.from = message.from ? base64FromBytes(message.from) : undefined;
+    obj.to = message.to ? base64FromBytes(message.to) : undefined;
     return obj;
   },
   fromAminoMsg(object: TransferRateLimitAminoMsg): TransferRateLimit {
@@ -2010,9 +2108,11 @@ export const MessageRequest = {
     return message;
   },
   fromAmino(object: MessageRequestAmino): MessageRequest {
-    return {
-      id: object.id
-    };
+    const message = createBaseMessageRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: MessageRequest): MessageRequestAmino {
     const obj: any = {};
@@ -2059,9 +2159,11 @@ export const MessageResponse = {
     return message;
   },
   fromAmino(object: MessageResponseAmino): MessageResponse {
-    return {
-      message: object?.message ? GeneralMessage.fromAmino(object.message) : undefined
-    };
+    const message = createBaseMessageResponse();
+    if (object.message !== undefined && object.message !== null) {
+      message.message = GeneralMessage.fromAmino(object.message);
+    }
+    return message;
   },
   toAmino(message: MessageResponse): MessageResponseAmino {
     const obj: any = {};
@@ -2100,7 +2202,8 @@ export const ParamsRequest = {
     return message;
   },
   fromAmino(_: ParamsRequestAmino): ParamsRequest {
-    return {};
+    const message = createBaseParamsRequest();
+    return message;
   },
   toAmino(_: ParamsRequest): ParamsRequestAmino {
     const obj: any = {};
@@ -2146,9 +2249,11 @@ export const ParamsResponse = {
     return message;
   },
   fromAmino(object: ParamsResponseAmino): ParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: ParamsResponse): ParamsResponseAmino {
     const obj: any = {};

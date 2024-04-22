@@ -14,7 +14,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState represents the genesis state */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  proxied_validators: ProxiedValidatorAmino[];
+  proxied_validators?: ProxiedValidatorAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/axelar.snapshot.v1beta1.GenesisState";
@@ -55,10 +55,12 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      proxiedValidators: Array.isArray(object?.proxied_validators) ? object.proxied_validators.map((e: any) => ProxiedValidator.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.proxiedValidators = object.proxied_validators?.map(e => ProxiedValidator.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

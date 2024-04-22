@@ -2,7 +2,7 @@ import { Chain, ChainAmino, ChainSDKType, Asset, AssetAmino, AssetSDKType } from
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { Fee, FeeAmino, FeeSDKType } from "./types";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /**
  * MsgLink represents a message to link a cross-chain address to an Axelar
  * address
@@ -22,10 +22,10 @@ export interface LinkRequestProtoMsg {
  * address
  */
 export interface LinkRequestAmino {
-  sender: Uint8Array;
-  recipient_addr: string;
-  recipient_chain: string;
-  asset: string;
+  sender?: string;
+  recipient_addr?: string;
+  recipient_chain?: string;
+  asset?: string;
 }
 export interface LinkRequestAminoMsg {
   type: "/axelar.axelarnet.v1beta1.LinkRequest";
@@ -49,7 +49,7 @@ export interface LinkResponseProtoMsg {
   value: Uint8Array;
 }
 export interface LinkResponseAmino {
-  deposit_addr: string;
+  deposit_addr?: string;
 }
 export interface LinkResponseAminoMsg {
   type: "/axelar.axelarnet.v1beta1.LinkResponse";
@@ -70,9 +70,9 @@ export interface ConfirmDepositRequestProtoMsg {
 }
 /** MsgConfirmDeposit represents a deposit confirmation message */
 export interface ConfirmDepositRequestAmino {
-  sender: Uint8Array;
-  deposit_address: Uint8Array;
-  denom: string;
+  sender?: string;
+  deposit_address?: string;
+  denom?: string;
 }
 export interface ConfirmDepositRequestAminoMsg {
   type: "/axelar.axelarnet.v1beta1.ConfirmDepositRequest";
@@ -111,7 +111,7 @@ export interface ExecutePendingTransfersRequestProtoMsg {
  * pending transfers
  */
 export interface ExecutePendingTransfersRequestAmino {
-  sender: Uint8Array;
+  sender?: string;
 }
 export interface ExecutePendingTransfersRequestAminoMsg {
   type: "/axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest";
@@ -155,9 +155,9 @@ export interface RegisterIBCPathRequestProtoMsg {
  */
 /** @deprecated */
 export interface RegisterIBCPathRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  path: string;
+  sender?: string;
+  chain?: string;
+  path?: string;
 }
 export interface RegisterIBCPathRequestAminoMsg {
   type: "/axelar.axelarnet.v1beta1.RegisterIBCPathRequest";
@@ -207,14 +207,14 @@ export interface AddCosmosBasedChainRequestProtoMsg {
  * to nexus
  */
 export interface AddCosmosBasedChainRequestAmino {
-  sender: Uint8Array;
+  sender?: string;
   /** @deprecated */
   chain?: ChainAmino;
-  addr_prefix: string;
+  addr_prefix?: string;
   /** @deprecated */
-  native_assets: AssetAmino[];
-  cosmos_chain: string;
-  ibc_path: string;
+  native_assets?: AssetAmino[];
+  cosmos_chain?: string;
+  ibc_path?: string;
 }
 export interface AddCosmosBasedChainRequestAminoMsg {
   type: "/axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest";
@@ -265,10 +265,10 @@ export interface RegisterAssetRequestProtoMsg {
  * based chain
  */
 export interface RegisterAssetRequestAmino {
-  sender: Uint8Array;
-  chain: string;
+  sender?: string;
+  chain?: string;
   asset?: AssetAmino;
-  limit: Uint8Array;
+  limit?: string;
   window?: DurationAmino;
 }
 export interface RegisterAssetRequestAminoMsg {
@@ -313,7 +313,7 @@ export interface RouteIBCTransfersRequestProtoMsg {
  * cosmos based chains
  */
 export interface RouteIBCTransfersRequestAmino {
-  sender: Uint8Array;
+  sender?: string;
 }
 export interface RouteIBCTransfersRequestAminoMsg {
   type: "/axelar.axelarnet.v1beta1.RouteIBCTransfersRequest";
@@ -354,8 +354,8 @@ export interface RegisterFeeCollectorRequestProtoMsg {
  * collector account
  */
 export interface RegisterFeeCollectorRequestAmino {
-  sender: Uint8Array;
-  fee_collector: Uint8Array;
+  sender?: string;
+  fee_collector?: string;
 }
 export interface RegisterFeeCollectorRequestAminoMsg {
   type: "/axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest";
@@ -391,10 +391,10 @@ export interface RetryIBCTransferRequestProtoMsg {
   value: Uint8Array;
 }
 export interface RetryIBCTransferRequestAmino {
-  sender: Uint8Array;
+  sender?: string;
   /** @deprecated */
-  chain: string;
-  id: string;
+  chain?: string;
+  id?: string;
 }
 export interface RetryIBCTransferRequestAminoMsg {
   type: "/axelar.axelarnet.v1beta1.RetryIBCTransferRequest";
@@ -428,10 +428,10 @@ export interface RouteMessageRequestProtoMsg {
   value: Uint8Array;
 }
 export interface RouteMessageRequestAmino {
-  sender: Uint8Array;
-  id: string;
-  payload: Uint8Array;
-  feegranter: Uint8Array;
+  sender?: string;
+  id?: string;
+  payload?: string;
+  feegranter?: string;
 }
 export interface RouteMessageRequestAminoMsg {
   type: "/axelar.axelarnet.v1beta1.RouteMessageRequest";
@@ -459,17 +459,17 @@ export interface CallContractRequest {
   chain: string;
   contractAddress: string;
   payload: Uint8Array;
-  fee: Fee;
+  fee?: Fee;
 }
 export interface CallContractRequestProtoMsg {
   typeUrl: "/axelar.axelarnet.v1beta1.CallContractRequest";
   value: Uint8Array;
 }
 export interface CallContractRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  contract_address: string;
-  payload: Uint8Array;
+  sender?: string;
+  chain?: string;
+  contract_address?: string;
+  payload?: string;
   fee?: FeeAmino;
 }
 export interface CallContractRequestAminoMsg {
@@ -481,7 +481,7 @@ export interface CallContractRequestSDKType {
   chain: string;
   contract_address: string;
   payload: Uint8Array;
-  fee: FeeSDKType;
+  fee?: FeeSDKType;
 }
 export interface CallContractResponse {}
 export interface CallContractResponseProtoMsg {
@@ -536,16 +536,24 @@ export const LinkRequest = {
     return message;
   },
   fromAmino(object: LinkRequestAmino): LinkRequest {
-    return {
-      sender: object.sender,
-      recipientAddr: object.recipient_addr,
-      recipientChain: object.recipient_chain,
-      asset: object.asset
-    };
+    const message = createBaseLinkRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.recipient_addr !== undefined && object.recipient_addr !== null) {
+      message.recipientAddr = object.recipient_addr;
+    }
+    if (object.recipient_chain !== undefined && object.recipient_chain !== null) {
+      message.recipientChain = object.recipient_chain;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    return message;
   },
   toAmino(message: LinkRequest): LinkRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.recipient_addr = message.recipientAddr;
     obj.recipient_chain = message.recipientChain;
     obj.asset = message.asset;
@@ -591,9 +599,11 @@ export const LinkResponse = {
     return message;
   },
   fromAmino(object: LinkResponseAmino): LinkResponse {
-    return {
-      depositAddr: object.deposit_addr
-    };
+    const message = createBaseLinkResponse();
+    if (object.deposit_addr !== undefined && object.deposit_addr !== null) {
+      message.depositAddr = object.deposit_addr;
+    }
+    return message;
   },
   toAmino(message: LinkResponse): LinkResponseAmino {
     const obj: any = {};
@@ -652,16 +662,22 @@ export const ConfirmDepositRequest = {
     return message;
   },
   fromAmino(object: ConfirmDepositRequestAmino): ConfirmDepositRequest {
-    return {
-      sender: object.sender,
-      depositAddress: object.deposit_address,
-      denom: object.denom
-    };
+    const message = createBaseConfirmDepositRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.deposit_address !== undefined && object.deposit_address !== null) {
+      message.depositAddress = bytesFromBase64(object.deposit_address);
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: ConfirmDepositRequest): ConfirmDepositRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
-    obj.deposit_address = message.depositAddress;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
+    obj.deposit_address = message.depositAddress ? base64FromBytes(message.depositAddress) : undefined;
     obj.denom = message.denom;
     return obj;
   },
@@ -697,7 +713,8 @@ export const ConfirmDepositResponse = {
     return message;
   },
   fromAmino(_: ConfirmDepositResponseAmino): ConfirmDepositResponse {
-    return {};
+    const message = createBaseConfirmDepositResponse();
+    return message;
   },
   toAmino(_: ConfirmDepositResponse): ConfirmDepositResponseAmino {
     const obj: any = {};
@@ -743,13 +760,15 @@ export const ExecutePendingTransfersRequest = {
     return message;
   },
   fromAmino(object: ExecutePendingTransfersRequestAmino): ExecutePendingTransfersRequest {
-    return {
-      sender: object.sender
-    };
+    const message = createBaseExecutePendingTransfersRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    return message;
   },
   toAmino(message: ExecutePendingTransfersRequest): ExecutePendingTransfersRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     return obj;
   },
   fromAminoMsg(object: ExecutePendingTransfersRequestAminoMsg): ExecutePendingTransfersRequest {
@@ -784,7 +803,8 @@ export const ExecutePendingTransfersResponse = {
     return message;
   },
   fromAmino(_: ExecutePendingTransfersResponseAmino): ExecutePendingTransfersResponse {
-    return {};
+    const message = createBaseExecutePendingTransfersResponse();
+    return message;
   },
   toAmino(_: ExecutePendingTransfersResponse): ExecutePendingTransfersResponseAmino {
     const obj: any = {};
@@ -842,15 +862,21 @@ export const RegisterIBCPathRequest = {
     return message;
   },
   fromAmino(object: RegisterIBCPathRequestAmino): RegisterIBCPathRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      path: object.path
-    };
+    const message = createBaseRegisterIBCPathRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.path !== undefined && object.path !== null) {
+      message.path = object.path;
+    }
+    return message;
   },
   toAmino(message: RegisterIBCPathRequest): RegisterIBCPathRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     obj.path = message.path;
     return obj;
@@ -887,7 +913,8 @@ export const RegisterIBCPathResponse = {
     return message;
   },
   fromAmino(_: RegisterIBCPathResponseAmino): RegisterIBCPathResponse {
-    return {};
+    const message = createBaseRegisterIBCPathResponse();
+    return message;
   },
   toAmino(_: RegisterIBCPathResponse): RegisterIBCPathResponseAmino {
     const obj: any = {};
@@ -963,18 +990,28 @@ export const AddCosmosBasedChainRequest = {
     return message;
   },
   fromAmino(object: AddCosmosBasedChainRequestAmino): AddCosmosBasedChainRequest {
-    return {
-      sender: object.sender,
-      chain: object?.chain ? Chain.fromAmino(object.chain) : undefined,
-      addrPrefix: object.addr_prefix,
-      nativeAssets: Array.isArray(object?.native_assets) ? object.native_assets.map((e: any) => Asset.fromAmino(e)) : [],
-      cosmosChain: object.cosmos_chain,
-      ibcPath: object.ibc_path
-    };
+    const message = createBaseAddCosmosBasedChainRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = Chain.fromAmino(object.chain);
+    }
+    if (object.addr_prefix !== undefined && object.addr_prefix !== null) {
+      message.addrPrefix = object.addr_prefix;
+    }
+    message.nativeAssets = object.native_assets?.map(e => Asset.fromAmino(e)) || [];
+    if (object.cosmos_chain !== undefined && object.cosmos_chain !== null) {
+      message.cosmosChain = object.cosmos_chain;
+    }
+    if (object.ibc_path !== undefined && object.ibc_path !== null) {
+      message.ibcPath = object.ibc_path;
+    }
+    return message;
   },
   toAmino(message: AddCosmosBasedChainRequest): AddCosmosBasedChainRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain ? Chain.toAmino(message.chain) : undefined;
     obj.addr_prefix = message.addrPrefix;
     if (message.nativeAssets) {
@@ -1018,7 +1055,8 @@ export const AddCosmosBasedChainResponse = {
     return message;
   },
   fromAmino(_: AddCosmosBasedChainResponseAmino): AddCosmosBasedChainResponse {
-    return {};
+    const message = createBaseAddCosmosBasedChainResponse();
+    return message;
   },
   toAmino(_: AddCosmosBasedChainResponse): AddCosmosBasedChainResponseAmino {
     const obj: any = {};
@@ -1088,20 +1126,30 @@ export const RegisterAssetRequest = {
     return message;
   },
   fromAmino(object: RegisterAssetRequestAmino): RegisterAssetRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      asset: object?.asset ? Asset.fromAmino(object.asset) : undefined,
-      limit: object.limit,
-      window: object?.window ? Duration.fromAmino(object.window) : undefined
-    };
+    const message = createBaseRegisterAssetRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Asset.fromAmino(object.asset);
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = bytesFromBase64(object.limit);
+    }
+    if (object.window !== undefined && object.window !== null) {
+      message.window = Duration.fromAmino(object.window);
+    }
+    return message;
   },
   toAmino(message: RegisterAssetRequest): RegisterAssetRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     obj.asset = message.asset ? Asset.toAmino(message.asset) : undefined;
-    obj.limit = message.limit;
+    obj.limit = message.limit ? base64FromBytes(message.limit) : undefined;
     obj.window = message.window ? Duration.toAmino(message.window) : undefined;
     return obj;
   },
@@ -1137,7 +1185,8 @@ export const RegisterAssetResponse = {
     return message;
   },
   fromAmino(_: RegisterAssetResponseAmino): RegisterAssetResponse {
-    return {};
+    const message = createBaseRegisterAssetResponse();
+    return message;
   },
   toAmino(_: RegisterAssetResponse): RegisterAssetResponseAmino {
     const obj: any = {};
@@ -1183,13 +1232,15 @@ export const RouteIBCTransfersRequest = {
     return message;
   },
   fromAmino(object: RouteIBCTransfersRequestAmino): RouteIBCTransfersRequest {
-    return {
-      sender: object.sender
-    };
+    const message = createBaseRouteIBCTransfersRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    return message;
   },
   toAmino(message: RouteIBCTransfersRequest): RouteIBCTransfersRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     return obj;
   },
   fromAminoMsg(object: RouteIBCTransfersRequestAminoMsg): RouteIBCTransfersRequest {
@@ -1224,7 +1275,8 @@ export const RouteIBCTransfersResponse = {
     return message;
   },
   fromAmino(_: RouteIBCTransfersResponseAmino): RouteIBCTransfersResponse {
-    return {};
+    const message = createBaseRouteIBCTransfersResponse();
+    return message;
   },
   toAmino(_: RouteIBCTransfersResponse): RouteIBCTransfersResponseAmino {
     const obj: any = {};
@@ -1276,15 +1328,19 @@ export const RegisterFeeCollectorRequest = {
     return message;
   },
   fromAmino(object: RegisterFeeCollectorRequestAmino): RegisterFeeCollectorRequest {
-    return {
-      sender: object.sender,
-      feeCollector: object.fee_collector
-    };
+    const message = createBaseRegisterFeeCollectorRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.fee_collector !== undefined && object.fee_collector !== null) {
+      message.feeCollector = bytesFromBase64(object.fee_collector);
+    }
+    return message;
   },
   toAmino(message: RegisterFeeCollectorRequest): RegisterFeeCollectorRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
-    obj.fee_collector = message.feeCollector;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
+    obj.fee_collector = message.feeCollector ? base64FromBytes(message.feeCollector) : undefined;
     return obj;
   },
   fromAminoMsg(object: RegisterFeeCollectorRequestAminoMsg): RegisterFeeCollectorRequest {
@@ -1319,7 +1375,8 @@ export const RegisterFeeCollectorResponse = {
     return message;
   },
   fromAmino(_: RegisterFeeCollectorResponseAmino): RegisterFeeCollectorResponse {
-    return {};
+    const message = createBaseRegisterFeeCollectorResponse();
+    return message;
   },
   toAmino(_: RegisterFeeCollectorResponse): RegisterFeeCollectorResponseAmino {
     const obj: any = {};
@@ -1377,15 +1434,21 @@ export const RetryIBCTransferRequest = {
     return message;
   },
   fromAmino(object: RetryIBCTransferRequestAmino): RetryIBCTransferRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      id: BigInt(object.id)
-    };
+    const message = createBaseRetryIBCTransferRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: RetryIBCTransferRequest): RetryIBCTransferRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     obj.id = message.id ? message.id.toString() : undefined;
     return obj;
@@ -1422,7 +1485,8 @@ export const RetryIBCTransferResponse = {
     return message;
   },
   fromAmino(_: RetryIBCTransferResponseAmino): RetryIBCTransferResponse {
-    return {};
+    const message = createBaseRetryIBCTransferResponse();
+    return message;
   },
   toAmino(_: RetryIBCTransferResponse): RetryIBCTransferResponseAmino {
     const obj: any = {};
@@ -1486,19 +1550,27 @@ export const RouteMessageRequest = {
     return message;
   },
   fromAmino(object: RouteMessageRequestAmino): RouteMessageRequest {
-    return {
-      sender: object.sender,
-      id: object.id,
-      payload: object.payload,
-      feegranter: object.feegranter
-    };
+    const message = createBaseRouteMessageRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = bytesFromBase64(object.payload);
+    }
+    if (object.feegranter !== undefined && object.feegranter !== null) {
+      message.feegranter = bytesFromBase64(object.feegranter);
+    }
+    return message;
   },
   toAmino(message: RouteMessageRequest): RouteMessageRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.id = message.id;
-    obj.payload = message.payload;
-    obj.feegranter = message.feegranter;
+    obj.payload = message.payload ? base64FromBytes(message.payload) : undefined;
+    obj.feegranter = message.feegranter ? base64FromBytes(message.feegranter) : undefined;
     return obj;
   },
   fromAminoMsg(object: RouteMessageRequestAminoMsg): RouteMessageRequest {
@@ -1533,7 +1605,8 @@ export const RouteMessageResponse = {
     return message;
   },
   fromAmino(_: RouteMessageResponseAmino): RouteMessageResponse {
-    return {};
+    const message = createBaseRouteMessageResponse();
+    return message;
   },
   toAmino(_: RouteMessageResponse): RouteMessageResponseAmino {
     const obj: any = {};
@@ -1561,7 +1634,7 @@ function createBaseCallContractRequest(): CallContractRequest {
     chain: "",
     contractAddress: "",
     payload: new Uint8Array(),
-    fee: Fee.fromPartial({})
+    fee: undefined
   };
 }
 export const CallContractRequest = {
@@ -1603,20 +1676,30 @@ export const CallContractRequest = {
     return message;
   },
   fromAmino(object: CallContractRequestAmino): CallContractRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      contractAddress: object.contract_address,
-      payload: object.payload,
-      fee: object?.fee ? Fee.fromAmino(object.fee) : undefined
-    };
+    const message = createBaseCallContractRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = bytesFromBase64(object.payload);
+    }
+    if (object.fee !== undefined && object.fee !== null) {
+      message.fee = Fee.fromAmino(object.fee);
+    }
+    return message;
   },
   toAmino(message: CallContractRequest): CallContractRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     obj.contract_address = message.contractAddress;
-    obj.payload = message.payload;
+    obj.payload = message.payload ? base64FromBytes(message.payload) : undefined;
     obj.fee = message.fee ? Fee.toAmino(message.fee) : undefined;
     return obj;
   },
@@ -1652,7 +1735,8 @@ export const CallContractResponse = {
     return message;
   },
   fromAmino(_: CallContractResponseAmino): CallContractResponse {
-    return {};
+    const message = createBaseCallContractResponse();
+    return message;
   },
   toAmino(_: CallContractResponse): CallContractResponseAmino {
     const obj: any = {};

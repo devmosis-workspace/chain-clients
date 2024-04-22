@@ -16,10 +16,10 @@ export interface ParamsProtoMsg {
 /** Params represent the genesis parameters for the module */
 export interface ParamsAmino {
   /** IBC packet route timeout window */
-  route_timeout_window: string;
-  transfer_limit: string;
-  end_blocker_limit: string;
-  call_contracts_proposal_min_deposits: CallContractProposalMinDepositAmino[];
+  route_timeout_window?: string;
+  transfer_limit?: string;
+  end_blocker_limit?: string;
+  call_contracts_proposal_min_deposits?: CallContractProposalMinDepositAmino[];
 }
 export interface ParamsAminoMsg {
   type: "/axelar.axelarnet.v1beta1.Params";
@@ -42,9 +42,9 @@ export interface CallContractProposalMinDepositProtoMsg {
   value: Uint8Array;
 }
 export interface CallContractProposalMinDepositAmino {
-  chain: string;
-  contract_address: string;
-  min_deposits: CoinAmino[];
+  chain?: string;
+  contract_address?: string;
+  min_deposits?: CoinAmino[];
 }
 export interface CallContractProposalMinDepositAminoMsg {
   type: "/axelar.axelarnet.v1beta1.CallContractProposalMinDeposit";
@@ -97,12 +97,18 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      routeTimeoutWindow: BigInt(object.route_timeout_window),
-      transferLimit: BigInt(object.transfer_limit),
-      endBlockerLimit: BigInt(object.end_blocker_limit),
-      callContractsProposalMinDeposits: Array.isArray(object?.call_contracts_proposal_min_deposits) ? object.call_contracts_proposal_min_deposits.map((e: any) => CallContractProposalMinDeposit.fromAmino(e)) : []
-    };
+    const message = createBaseParams();
+    if (object.route_timeout_window !== undefined && object.route_timeout_window !== null) {
+      message.routeTimeoutWindow = BigInt(object.route_timeout_window);
+    }
+    if (object.transfer_limit !== undefined && object.transfer_limit !== null) {
+      message.transferLimit = BigInt(object.transfer_limit);
+    }
+    if (object.end_blocker_limit !== undefined && object.end_blocker_limit !== null) {
+      message.endBlockerLimit = BigInt(object.end_blocker_limit);
+    }
+    message.callContractsProposalMinDeposits = object.call_contracts_proposal_min_deposits?.map(e => CallContractProposalMinDeposit.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -168,11 +174,15 @@ export const CallContractProposalMinDeposit = {
     return message;
   },
   fromAmino(object: CallContractProposalMinDepositAmino): CallContractProposalMinDeposit {
-    return {
-      chain: object.chain,
-      contractAddress: object.contract_address,
-      minDeposits: Array.isArray(object?.min_deposits) ? object.min_deposits.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseCallContractProposalMinDeposit();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    message.minDeposits = object.min_deposits?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: CallContractProposalMinDeposit): CallContractProposalMinDepositAmino {
     const obj: any = {};

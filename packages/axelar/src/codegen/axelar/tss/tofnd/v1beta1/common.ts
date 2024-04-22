@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64 } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export enum KeyPresenceResponse_Response {
   RESPONSE_UNSPECIFIED = 0,
   RESPONSE_PRESENT = 1,
@@ -59,12 +59,12 @@ export interface KeyPresenceRequestProtoMsg {
 }
 /** Key presence check types */
 export interface KeyPresenceRequestAmino {
-  key_uid: string;
+  key_uid?: string;
   /**
    * SEC1-encoded compressed pub key bytes to find the right
    * mnemonic. Latest is used, if empty.
    */
-  pub_key: Uint8Array;
+  pub_key?: string;
 }
 export interface KeyPresenceRequestAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.KeyPresenceRequest";
@@ -83,7 +83,7 @@ export interface KeyPresenceResponseProtoMsg {
   value: Uint8Array;
 }
 export interface KeyPresenceResponseAmino {
-  response: KeyPresenceResponse_Response;
+  response?: KeyPresenceResponse_Response;
 }
 export interface KeyPresenceResponseAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.KeyPresenceResponse";
@@ -122,15 +122,19 @@ export const KeyPresenceRequest = {
     return message;
   },
   fromAmino(object: KeyPresenceRequestAmino): KeyPresenceRequest {
-    return {
-      keyUid: object.key_uid,
-      pubKey: object.pub_key
-    };
+    const message = createBaseKeyPresenceRequest();
+    if (object.key_uid !== undefined && object.key_uid !== null) {
+      message.keyUid = object.key_uid;
+    }
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = bytesFromBase64(object.pub_key);
+    }
+    return message;
   },
   toAmino(message: KeyPresenceRequest): KeyPresenceRequestAmino {
     const obj: any = {};
     obj.key_uid = message.keyUid;
-    obj.pub_key = message.pubKey;
+    obj.pub_key = message.pubKey ? base64FromBytes(message.pubKey) : undefined;
     return obj;
   },
   fromAminoMsg(object: KeyPresenceRequestAminoMsg): KeyPresenceRequest {
@@ -173,9 +177,11 @@ export const KeyPresenceResponse = {
     return message;
   },
   fromAmino(object: KeyPresenceResponseAmino): KeyPresenceResponse {
-    return {
-      response: isSet(object.response) ? keyPresenceResponse_ResponseFromJSON(object.response) : -1
-    };
+    const message = createBaseKeyPresenceResponse();
+    if (object.response !== undefined && object.response !== null) {
+      message.response = keyPresenceResponse_ResponseFromJSON(object.response);
+    }
+    return message;
   },
   toAmino(message: KeyPresenceResponse): KeyPresenceResponseAmino {
     const obj: any = {};

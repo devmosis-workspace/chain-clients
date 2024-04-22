@@ -1,7 +1,7 @@
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 export interface Bitmap {
-  trueCountCache: CircularBuffer;
+  trueCountCache?: CircularBuffer;
 }
 export interface BitmapProtoMsg {
   typeUrl: "/axelar.utils.v1beta1.Bitmap";
@@ -15,7 +15,7 @@ export interface BitmapAminoMsg {
   value: BitmapAmino;
 }
 export interface BitmapSDKType {
-  true_count_cache: CircularBufferSDKType;
+  true_count_cache?: CircularBufferSDKType;
 }
 export interface CircularBuffer {
   cumulativeValue: bigint[];
@@ -27,9 +27,9 @@ export interface CircularBufferProtoMsg {
   value: Uint8Array;
 }
 export interface CircularBufferAmino {
-  cumulative_value: string[];
-  index: number;
-  max_size: number;
+  cumulative_value?: string[];
+  index?: number;
+  max_size?: number;
 }
 export interface CircularBufferAminoMsg {
   type: "/axelar.utils.v1beta1.CircularBuffer";
@@ -42,7 +42,7 @@ export interface CircularBufferSDKType {
 }
 function createBaseBitmap(): Bitmap {
   return {
-    trueCountCache: CircularBuffer.fromPartial({})
+    trueCountCache: undefined
   };
 }
 export const Bitmap = {
@@ -64,9 +64,11 @@ export const Bitmap = {
     return message;
   },
   fromAmino(object: BitmapAmino): Bitmap {
-    return {
-      trueCountCache: object?.true_count_cache ? CircularBuffer.fromAmino(object.true_count_cache) : undefined
-    };
+    const message = createBaseBitmap();
+    if (object.true_count_cache !== undefined && object.true_count_cache !== null) {
+      message.trueCountCache = CircularBuffer.fromAmino(object.true_count_cache);
+    }
+    return message;
   },
   toAmino(message: Bitmap): BitmapAmino {
     const obj: any = {};
@@ -127,11 +129,15 @@ export const CircularBuffer = {
     return message;
   },
   fromAmino(object: CircularBufferAmino): CircularBuffer {
-    return {
-      cumulativeValue: Array.isArray(object?.cumulative_value) ? object.cumulative_value.map((e: any) => BigInt(e)) : [],
-      index: object.index,
-      maxSize: object.max_size
-    };
+    const message = createBaseCircularBuffer();
+    message.cumulativeValue = object.cumulative_value?.map(e => BigInt(e)) || [];
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    }
+    if (object.max_size !== undefined && object.max_size !== null) {
+      message.maxSize = object.max_size;
+    }
+    return message;
   },
   toAmino(message: CircularBuffer): CircularBufferAmino {
     const obj: any = {};

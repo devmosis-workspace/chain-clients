@@ -2,7 +2,7 @@ import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { CosmosChain, CosmosChainAmino, CosmosChainSDKType, IBCTransfer, IBCTransferAmino, IBCTransferSDKType } from "./types";
 import { QueueState, QueueStateAmino, QueueStateSDKType } from "../../utils/v1beta1/queuer";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, isObject } from "../../../helpers";
+import { isSet, bytesFromBase64, isObject, base64FromBytes } from "../../../helpers";
 export interface GenesisState_SeqIdMappingEntry {
   key: string;
   value: bigint;
@@ -12,8 +12,8 @@ export interface GenesisState_SeqIdMappingEntryProtoMsg {
   value: Uint8Array;
 }
 export interface GenesisState_SeqIdMappingEntryAmino {
-  key: string;
-  value: string;
+  key?: string;
+  value?: string;
 }
 export interface GenesisState_SeqIdMappingEntryAminoMsg {
   type: string;
@@ -39,11 +39,11 @@ export interface GenesisStateProtoMsg {
 }
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  collector_address: Uint8Array;
-  chains: CosmosChainAmino[];
+  collector_address?: string;
+  chains?: CosmosChainAmino[];
   transfer_queue?: QueueStateAmino;
-  ibc_transfers: IBCTransferAmino[];
-  seq_id_mapping: {
+  ibc_transfers?: IBCTransferAmino[];
+  seq_id_mapping?: {
     [key: string]: string;
   };
 }
@@ -90,10 +90,14 @@ export const GenesisState_SeqIdMappingEntry = {
     return message;
   },
   fromAmino(object: GenesisState_SeqIdMappingEntryAmino): GenesisState_SeqIdMappingEntry {
-    return {
-      key: object.key,
-      value: BigInt(object.value)
-    };
+    const message = createBaseGenesisState_SeqIdMappingEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = BigInt(object.value);
+    }
+    return message;
   },
   toAmino(message: GenesisState_SeqIdMappingEntry): GenesisState_SeqIdMappingEntryAmino {
     const obj: any = {};
@@ -180,24 +184,32 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      collectorAddress: object.collector_address,
-      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => CosmosChain.fromAmino(e)) : [],
-      transferQueue: object?.transfer_queue ? QueueState.fromAmino(object.transfer_queue) : undefined,
-      ibcTransfers: Array.isArray(object?.ibc_transfers) ? object.ibc_transfers.map((e: any) => IBCTransfer.fromAmino(e)) : [],
-      seqIdMapping: isObject(object.seq_id_mapping) ? Object.entries(object.seq_id_mapping).reduce<{
-        [key: string]: bigint;
-      }>((acc, [key, value]) => {
-        acc[key] = BigInt((value as bigint | string).toString());
-        return acc;
-      }, {}) : {}
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    if (object.collector_address !== undefined && object.collector_address !== null) {
+      message.collectorAddress = bytesFromBase64(object.collector_address);
+    }
+    message.chains = object.chains?.map(e => CosmosChain.fromAmino(e)) || [];
+    if (object.transfer_queue !== undefined && object.transfer_queue !== null) {
+      message.transferQueue = QueueState.fromAmino(object.transfer_queue);
+    }
+    message.ibcTransfers = object.ibc_transfers?.map(e => IBCTransfer.fromAmino(e)) || [];
+    message.seqIdMapping = Object.entries(object.seq_id_mapping ?? {}).reduce<{
+      [key: string]: bigint;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
+        acc[key] = BigInt(value.toString());
+      }
+      return acc;
+    }, {});
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
     obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    obj.collector_address = message.collectorAddress;
+    obj.collector_address = message.collectorAddress ? base64FromBytes(message.collectorAddress) : undefined;
     if (message.chains) {
       obj.chains = message.chains.map(e => e ? CosmosChain.toAmino(e) : undefined);
     } else {

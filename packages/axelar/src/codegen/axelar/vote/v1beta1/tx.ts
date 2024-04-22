@@ -1,10 +1,10 @@
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface VoteRequest {
   sender: Uint8Array;
   pollId: bigint;
-  vote: (Any) | undefined;
+  vote?: (Any) | undefined;
 }
 export interface VoteRequestProtoMsg {
   typeUrl: "/axelar.vote.v1beta1.VoteRequest";
@@ -14,8 +14,8 @@ export type VoteRequestEncoded = Omit<VoteRequest, "vote"> & {
   vote?: AnyProtoMsg | undefined;
 };
 export interface VoteRequestAmino {
-  sender: Uint8Array;
-  poll_id: string;
+  sender?: string;
+  poll_id?: string;
   vote?: AnyAmino;
 }
 export interface VoteRequestAminoMsg {
@@ -25,7 +25,7 @@ export interface VoteRequestAminoMsg {
 export interface VoteRequestSDKType {
   sender: Uint8Array;
   poll_id: bigint;
-  vote: AnySDKType | undefined;
+  vote?: AnySDKType | undefined;
 }
 export interface VoteResponse {
   log: string;
@@ -35,7 +35,7 @@ export interface VoteResponseProtoMsg {
   value: Uint8Array;
 }
 export interface VoteResponseAmino {
-  log: string;
+  log?: string;
 }
 export interface VoteResponseAminoMsg {
   type: "/axelar.vote.v1beta1.VoteResponse";
@@ -48,7 +48,7 @@ function createBaseVoteRequest(): VoteRequest {
   return {
     sender: new Uint8Array(),
     pollId: BigInt(0),
-    vote: Any.fromPartial({})
+    vote: undefined
   };
 }
 export const VoteRequest = {
@@ -80,15 +80,21 @@ export const VoteRequest = {
     return message;
   },
   fromAmino(object: VoteRequestAmino): VoteRequest {
-    return {
-      sender: object.sender,
-      pollId: BigInt(object.poll_id),
-      vote: object?.vote ? Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.vote) : undefined
-    };
+    const message = createBaseVoteRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.poll_id !== undefined && object.poll_id !== null) {
+      message.pollId = BigInt(object.poll_id);
+    }
+    if (object.vote !== undefined && object.vote !== null) {
+      message.vote = Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.vote);
+    }
+    return message;
   },
   toAmino(message: VoteRequest): VoteRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
     obj.vote = message.vote ? Github_com_cosmos_codec_ProtoMarshaler_ToAmino((message.vote as Any)) : undefined;
     return obj;
@@ -133,9 +139,11 @@ export const VoteResponse = {
     return message;
   },
   fromAmino(object: VoteResponseAmino): VoteResponse {
-    return {
-      log: object.log
-    };
+    const message = createBaseVoteResponse();
+    if (object.log !== undefined && object.log !== null) {
+      message.log = object.log;
+    }
+    return message;
   },
   toAmino(message: VoteResponse): VoteResponseAmino {
     const obj: any = {};

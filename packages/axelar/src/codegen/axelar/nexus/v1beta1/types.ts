@@ -3,7 +3,7 @@ import { Chain, ChainAmino, ChainSDKType, Asset, AssetAmino, AssetSDKType, Cross
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface MaintainerState {
   address: Uint8Array;
   missingVotes: Bitmap;
@@ -15,10 +15,10 @@ export interface MaintainerStateProtoMsg {
   value: Uint8Array;
 }
 export interface MaintainerStateAmino {
-  address: Uint8Array;
+  address?: string;
   missing_votes?: BitmapAmino;
   incorrect_votes?: BitmapAmino;
-  chain: string;
+  chain?: string;
 }
 export interface MaintainerStateAminoMsg {
   type: "/axelar.nexus.v1beta1.MaintainerState";
@@ -45,10 +45,10 @@ export interface ChainStateProtoMsg {
 /** ChainState represents the state of a registered blockchain */
 export interface ChainStateAmino {
   chain?: ChainAmino;
-  activated: boolean;
-  assets: AssetAmino[];
+  activated?: boolean;
+  assets?: AssetAmino[];
   /** @deprecated */
-  maintainer_states: MaintainerStateAmino[];
+  maintainer_states?: MaintainerStateAmino[];
 }
 export interface ChainStateAminoMsg {
   type: "/axelar.nexus.v1beta1.ChainState";
@@ -92,7 +92,7 @@ export interface RateLimitProtoMsg {
   value: Uint8Array;
 }
 export interface RateLimitAmino {
-  chain: string;
+  chain?: string;
   limit?: CoinAmino;
   window?: DurationAmino;
 }
@@ -110,8 +110,8 @@ export interface TransferEpoch {
   amount: Coin;
   epoch: bigint;
   /**
-   * indicates whether the tracking is for transfers outgoing
-   * to that chain or incoming from it
+   * indicates whether the rate tracking is for transfers going
+   * to that chain or coming from it
    */
   direction: TransferDirection;
 }
@@ -120,14 +120,14 @@ export interface TransferEpochProtoMsg {
   value: Uint8Array;
 }
 export interface TransferEpochAmino {
-  chain: string;
+  chain?: string;
   amount?: CoinAmino;
-  epoch: string;
+  epoch?: string;
   /**
-   * indicates whether the tracking is for transfers outgoing
-   * to that chain or incoming from it
+   * indicates whether the rate tracking is for transfers going
+   * to that chain or coming from it
    */
-  direction: TransferDirection;
+  direction?: TransferDirection;
 }
 export interface TransferEpochAminoMsg {
   type: "/axelar.nexus.v1beta1.TransferEpoch";
@@ -181,16 +181,24 @@ export const MaintainerState = {
     return message;
   },
   fromAmino(object: MaintainerStateAmino): MaintainerState {
-    return {
-      address: object.address,
-      missingVotes: object?.missing_votes ? Bitmap.fromAmino(object.missing_votes) : undefined,
-      incorrectVotes: object?.incorrect_votes ? Bitmap.fromAmino(object.incorrect_votes) : undefined,
-      chain: object.chain
-    };
+    const message = createBaseMaintainerState();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = bytesFromBase64(object.address);
+    }
+    if (object.missing_votes !== undefined && object.missing_votes !== null) {
+      message.missingVotes = Bitmap.fromAmino(object.missing_votes);
+    }
+    if (object.incorrect_votes !== undefined && object.incorrect_votes !== null) {
+      message.incorrectVotes = Bitmap.fromAmino(object.incorrect_votes);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: MaintainerState): MaintainerStateAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address ? base64FromBytes(message.address) : undefined;
     obj.missing_votes = message.missingVotes ? Bitmap.toAmino(message.missingVotes) : undefined;
     obj.incorrect_votes = message.incorrectVotes ? Bitmap.toAmino(message.incorrectVotes) : undefined;
     obj.chain = message.chain;
@@ -254,12 +262,16 @@ export const ChainState = {
     return message;
   },
   fromAmino(object: ChainStateAmino): ChainState {
-    return {
-      chain: object?.chain ? Chain.fromAmino(object.chain) : undefined,
-      activated: object.activated,
-      assets: Array.isArray(object?.assets) ? object.assets.map((e: any) => Asset.fromAmino(e)) : [],
-      maintainerStates: Array.isArray(object?.maintainer_states) ? object.maintainer_states.map((e: any) => MaintainerState.fromAmino(e)) : []
-    };
+    const message = createBaseChainState();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = Chain.fromAmino(object.chain);
+    }
+    if (object.activated !== undefined && object.activated !== null) {
+      message.activated = object.activated;
+    }
+    message.assets = object.assets?.map(e => Asset.fromAmino(e)) || [];
+    message.maintainerStates = object.maintainer_states?.map(e => MaintainerState.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: ChainState): ChainStateAmino {
     const obj: any = {};
@@ -323,10 +335,14 @@ export const LinkedAddresses = {
     return message;
   },
   fromAmino(object: LinkedAddressesAmino): LinkedAddresses {
-    return {
-      depositAddress: object?.deposit_address ? CrossChainAddress.fromAmino(object.deposit_address) : undefined,
-      recipientAddress: object?.recipient_address ? CrossChainAddress.fromAmino(object.recipient_address) : undefined
-    };
+    const message = createBaseLinkedAddresses();
+    if (object.deposit_address !== undefined && object.deposit_address !== null) {
+      message.depositAddress = CrossChainAddress.fromAmino(object.deposit_address);
+    }
+    if (object.recipient_address !== undefined && object.recipient_address !== null) {
+      message.recipientAddress = CrossChainAddress.fromAmino(object.recipient_address);
+    }
+    return message;
   },
   toAmino(message: LinkedAddresses): LinkedAddressesAmino {
     const obj: any = {};
@@ -386,11 +402,17 @@ export const RateLimit = {
     return message;
   },
   fromAmino(object: RateLimitAmino): RateLimit {
-    return {
-      chain: object.chain,
-      limit: object?.limit ? Coin.fromAmino(object.limit) : undefined,
-      window: object?.window ? Duration.fromAmino(object.window) : undefined
-    };
+    const message = createBaseRateLimit();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = Coin.fromAmino(object.limit);
+    }
+    if (object.window !== undefined && object.window !== null) {
+      message.window = Duration.fromAmino(object.window);
+    }
+    return message;
   },
   toAmino(message: RateLimit): RateLimitAmino {
     const obj: any = {};
@@ -457,12 +479,20 @@ export const TransferEpoch = {
     return message;
   },
   fromAmino(object: TransferEpochAmino): TransferEpoch {
-    return {
-      chain: object.chain,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
-      epoch: BigInt(object.epoch),
-      direction: isSet(object.direction) ? transferDirectionFromJSON(object.direction) : -1
-    };
+    const message = createBaseTransferEpoch();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.epoch !== undefined && object.epoch !== null) {
+      message.epoch = BigInt(object.epoch);
+    }
+    if (object.direction !== undefined && object.direction !== null) {
+      message.direction = transferDirectionFromJSON(object.direction);
+    }
+    return message;
   },
   toAmino(message: TransferEpoch): TransferEpochAmino {
     const obj: any = {};

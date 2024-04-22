@@ -12,11 +12,11 @@ export interface VotedProtoMsg {
   value: Uint8Array;
 }
 export interface VotedAmino {
-  module: string;
-  action: string;
-  poll: string;
-  voter: string;
-  state: string;
+  module?: string;
+  action?: string;
+  poll?: string;
+  voter?: string;
+  state?: string;
 }
 export interface VotedAminoMsg {
   type: "/axelar.vote.v1beta1.Voted";
@@ -77,13 +77,23 @@ export const Voted = {
     return message;
   },
   fromAmino(object: VotedAmino): Voted {
-    return {
-      module: object.module,
-      action: object.action,
-      poll: object.poll,
-      voter: object.voter,
-      state: object.state
-    };
+    const message = createBaseVoted();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.action !== undefined && object.action !== null) {
+      message.action = object.action;
+    }
+    if (object.poll !== undefined && object.poll !== null) {
+      message.poll = object.poll;
+    }
+    if (object.voter !== undefined && object.voter !== null) {
+      message.voter = object.voter;
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = object.state;
+    }
+    return message;
   },
   toAmino(message: Voted): VotedAmino {
     const obj: any = {};

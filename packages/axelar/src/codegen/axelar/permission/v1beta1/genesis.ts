@@ -6,7 +6,7 @@ import { isSet } from "../../../helpers";
 /** GenesisState represents the genesis state */
 export interface GenesisState {
   params: Params;
-  governanceKey: LegacyAminoPubKey;
+  governanceKey?: LegacyAminoPubKey;
   govAccounts: GovAccount[];
 }
 export interface GenesisStateProtoMsg {
@@ -17,7 +17,7 @@ export interface GenesisStateProtoMsg {
 export interface GenesisStateAmino {
   params?: ParamsAmino;
   governance_key?: LegacyAminoPubKeyAmino;
-  gov_accounts: GovAccountAmino[];
+  gov_accounts?: GovAccountAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/axelar.permission.v1beta1.GenesisState";
@@ -26,13 +26,13 @@ export interface GenesisStateAminoMsg {
 /** GenesisState represents the genesis state */
 export interface GenesisStateSDKType {
   params: ParamsSDKType;
-  governance_key: LegacyAminoPubKeySDKType;
+  governance_key?: LegacyAminoPubKeySDKType;
   gov_accounts: GovAccountSDKType[];
 }
 function createBaseGenesisState(): GenesisState {
   return {
     params: Params.fromPartial({}),
-    governanceKey: LegacyAminoPubKey.fromPartial({}),
+    governanceKey: undefined,
     govAccounts: []
   };
 }
@@ -65,11 +65,15 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      governanceKey: object?.governance_key ? LegacyAminoPubKey.fromAmino(object.governance_key) : undefined,
-      govAccounts: Array.isArray(object?.gov_accounts) ? object.gov_accounts.map((e: any) => GovAccount.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    if (object.governance_key !== undefined && object.governance_key !== null) {
+      message.governanceKey = LegacyAminoPubKey.fromAmino(object.governance_key);
+    }
+    message.govAccounts = object.gov_accounts?.map(e => GovAccount.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

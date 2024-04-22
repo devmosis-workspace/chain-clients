@@ -17,8 +17,8 @@ export interface ThresholdAmino {
    * split threshold into Numerator and denominator to avoid floating point
    * errors down the line
    */
-  numerator: string;
-  denominator: string;
+  numerator?: string;
+  denominator?: string;
 }
 export interface ThresholdAminoMsg {
   type: "/axelar.utils.v1beta1.Threshold";
@@ -58,10 +58,14 @@ export const Threshold = {
     return message;
   },
   fromAmino(object: ThresholdAmino): Threshold {
-    return {
-      numerator: BigInt(object.numerator),
-      denominator: BigInt(object.denominator)
-    };
+    const message = createBaseThreshold();
+    if (object.numerator !== undefined && object.numerator !== null) {
+      message.numerator = BigInt(object.numerator);
+    }
+    if (object.denominator !== undefined && object.denominator !== null) {
+      message.denominator = BigInt(object.denominator);
+    }
+    return message;
   },
   toAmino(message: Threshold): ThresholdAmino {
     const obj: any = {};

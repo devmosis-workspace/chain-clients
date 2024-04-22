@@ -15,9 +15,9 @@ export interface QueryParamsRequestProtoMsg {
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequestAmino {
   /** subspace defines the module to query the parameter for. */
-  subspace: string;
+  subspace?: string;
   /** key defines the key of the parameter in the subspace. */
-  key: string;
+  key?: string;
 }
 export interface QueryParamsRequestAminoMsg {
   type: "cosmos-sdk/QueryParamsRequest";
@@ -80,10 +80,14 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(object: QueryParamsRequestAmino): QueryParamsRequest {
-    return {
-      subspace: object.subspace,
-      key: object.key
-    };
+    const message = createBaseQueryParamsRequest();
+    if (object.subspace !== undefined && object.subspace !== null) {
+      message.subspace = object.subspace;
+    }
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    return message;
   },
   toAmino(message: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -137,9 +141,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      param: object?.param ? ParamChange.fromAmino(object.param) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.param !== undefined && object.param !== null) {
+      message.param = ParamChange.fromAmino(object.param);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};

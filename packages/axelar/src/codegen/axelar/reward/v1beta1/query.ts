@@ -1,12 +1,22 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /**
  * InflationRateRequest represents a message that queries the Axelar specific
- * inflation RPC method.
+ * inflation RPC method. Ideally, this would use ValAddress as the validator
+ * field type. However, this makes it awkward for REST-based calls, because it
+ * would expect a byte array as part of the url. So, the bech32 encoded address
+ * string is used for this request instead.
  */
 export interface InflationRateRequest {
-  validator: Uint8Array;
+  /**
+   * InflationRateRequest represents a message that queries the Axelar specific
+   * inflation RPC method. Ideally, this would use ValAddress as the validator
+   * field type. However, this makes it awkward for REST-based calls, because it
+   * would expect a byte array as part of the url. So, the bech32 encoded address
+   * string is used for this request instead.
+   */
+  validator: string;
 }
 export interface InflationRateRequestProtoMsg {
   typeUrl: "/axelar.reward.v1beta1.InflationRateRequest";
@@ -14,10 +24,20 @@ export interface InflationRateRequestProtoMsg {
 }
 /**
  * InflationRateRequest represents a message that queries the Axelar specific
- * inflation RPC method.
+ * inflation RPC method. Ideally, this would use ValAddress as the validator
+ * field type. However, this makes it awkward for REST-based calls, because it
+ * would expect a byte array as part of the url. So, the bech32 encoded address
+ * string is used for this request instead.
  */
 export interface InflationRateRequestAmino {
-  validator: Uint8Array;
+  /**
+   * InflationRateRequest represents a message that queries the Axelar specific
+   * inflation RPC method. Ideally, this would use ValAddress as the validator
+   * field type. However, this makes it awkward for REST-based calls, because it
+   * would expect a byte array as part of the url. So, the bech32 encoded address
+   * string is used for this request instead.
+   */
+  validator?: string;
 }
 export interface InflationRateRequestAminoMsg {
   type: "/axelar.reward.v1beta1.InflationRateRequest";
@@ -25,10 +45,13 @@ export interface InflationRateRequestAminoMsg {
 }
 /**
  * InflationRateRequest represents a message that queries the Axelar specific
- * inflation RPC method.
+ * inflation RPC method. Ideally, this would use ValAddress as the validator
+ * field type. However, this makes it awkward for REST-based calls, because it
+ * would expect a byte array as part of the url. So, the bech32 encoded address
+ * string is used for this request instead.
  */
 export interface InflationRateRequestSDKType {
-  validator: Uint8Array;
+  validator: string;
 }
 export interface InflationRateResponse {
   inflationRate: Uint8Array;
@@ -38,7 +61,7 @@ export interface InflationRateResponseProtoMsg {
   value: Uint8Array;
 }
 export interface InflationRateResponseAmino {
-  inflation_rate: Uint8Array;
+  inflation_rate?: string;
 }
 export interface InflationRateResponseAminoMsg {
   type: "/axelar.reward.v1beta1.InflationRateResponse";
@@ -80,31 +103,33 @@ export interface ParamsResponseSDKType {
 }
 function createBaseInflationRateRequest(): InflationRateRequest {
   return {
-    validator: new Uint8Array()
+    validator: ""
   };
 }
 export const InflationRateRequest = {
   typeUrl: "/axelar.reward.v1beta1.InflationRateRequest",
   encode(message: InflationRateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.validator.length !== 0) {
-      writer.uint32(10).bytes(message.validator);
+    if (message.validator !== "") {
+      writer.uint32(10).string(message.validator);
     }
     return writer;
   },
   fromJSON(object: any): InflationRateRequest {
     return {
-      validator: isSet(object.validator) ? bytesFromBase64(object.validator) : new Uint8Array()
+      validator: isSet(object.validator) ? String(object.validator) : ""
     };
   },
   fromPartial(object: Partial<InflationRateRequest>): InflationRateRequest {
     const message = createBaseInflationRateRequest();
-    message.validator = object.validator ?? new Uint8Array();
+    message.validator = object.validator ?? "";
     return message;
   },
   fromAmino(object: InflationRateRequestAmino): InflationRateRequest {
-    return {
-      validator: object.validator
-    };
+    const message = createBaseInflationRateRequest();
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = object.validator;
+    }
+    return message;
   },
   toAmino(message: InflationRateRequest): InflationRateRequestAmino {
     const obj: any = {};
@@ -151,13 +176,15 @@ export const InflationRateResponse = {
     return message;
   },
   fromAmino(object: InflationRateResponseAmino): InflationRateResponse {
-    return {
-      inflationRate: object.inflation_rate
-    };
+    const message = createBaseInflationRateResponse();
+    if (object.inflation_rate !== undefined && object.inflation_rate !== null) {
+      message.inflationRate = bytesFromBase64(object.inflation_rate);
+    }
+    return message;
   },
   toAmino(message: InflationRateResponse): InflationRateResponseAmino {
     const obj: any = {};
-    obj.inflation_rate = message.inflationRate;
+    obj.inflation_rate = message.inflationRate ? base64FromBytes(message.inflationRate) : undefined;
     return obj;
   },
   fromAminoMsg(object: InflationRateResponseAminoMsg): InflationRateResponse {
@@ -192,7 +219,8 @@ export const ParamsRequest = {
     return message;
   },
   fromAmino(_: ParamsRequestAmino): ParamsRequest {
-    return {};
+    const message = createBaseParamsRequest();
+    return message;
   },
   toAmino(_: ParamsRequest): ParamsRequestAmino {
     const obj: any = {};
@@ -238,9 +266,11 @@ export const ParamsResponse = {
     return message;
   },
   fromAmino(object: ParamsResponseAmino): ParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: ParamsResponse): ParamsResponseAmino {
     const obj: any = {};

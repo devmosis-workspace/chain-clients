@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64 } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export enum RecoverResponse_Response {
   RESPONSE_UNSPECIFIED = 0,
   RESPONSE_SUCCESS = 1,
@@ -77,8 +77,8 @@ export function messageOut_CriminalList_Criminal_CrimeTypeToJSON(object: Message
   }
 }
 export interface RecoverRequest {
-  keygenInit: KeygenInit;
-  keygenOutput: KeygenOutput;
+  keygenInit?: KeygenInit;
+  keygenOutput?: KeygenOutput;
 }
 export interface RecoverRequestProtoMsg {
   typeUrl: "/axelar.tss.tofnd.v1beta1.RecoverRequest";
@@ -93,8 +93,8 @@ export interface RecoverRequestAminoMsg {
   value: RecoverRequestAmino;
 }
 export interface RecoverRequestSDKType {
-  keygen_init: KeygenInitSDKType;
-  keygen_output: KeygenOutputSDKType;
+  keygen_init?: KeygenInitSDKType;
+  keygen_output?: KeygenOutputSDKType;
 }
 export interface RecoverResponse {
   response: RecoverResponse_Response;
@@ -104,7 +104,7 @@ export interface RecoverResponseProtoMsg {
   value: Uint8Array;
 }
 export interface RecoverResponseAmino {
-  response: RecoverResponse_Response;
+  response?: RecoverResponse_Response;
 }
 export interface RecoverResponseAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.RecoverResponse";
@@ -129,11 +129,11 @@ export interface KeygenOutputProtoMsg {
 /** Keygen's success response */
 export interface KeygenOutputAmino {
   /** pub_key; common for all parties */
-  pub_key: Uint8Array;
+  pub_key?: string;
   /** recover info of all parties' shares; common for all parties */
-  group_recover_info: Uint8Array;
+  group_recover_info?: string;
   /** private recover info of this party's shares; unique for each party */
-  private_recover_info: Uint8Array;
+  private_recover_info?: string;
 }
 export interface KeygenOutputAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.KeygenOutput";
@@ -254,7 +254,7 @@ export interface MessageOut_SignResultProtoMsg {
 /** Sign's response types */
 export interface MessageOut_SignResultAmino {
   /** Success response */
-  signature?: Uint8Array;
+  signature?: string;
   /** Failure response */
   criminals?: MessageOut_CriminalListAmino;
 }
@@ -277,7 +277,7 @@ export interface MessageOut_CriminalListProtoMsg {
 }
 /** Keygen/Sign failure response message */
 export interface MessageOut_CriminalListAmino {
-  criminals: MessageOut_CriminalList_CriminalAmino[];
+  criminals?: MessageOut_CriminalList_CriminalAmino[];
 }
 export interface MessageOut_CriminalListAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.CriminalList";
@@ -296,8 +296,8 @@ export interface MessageOut_CriminalList_CriminalProtoMsg {
   value: Uint8Array;
 }
 export interface MessageOut_CriminalList_CriminalAmino {
-  party_uid: string;
-  crime_type: MessageOut_CriminalList_Criminal_CrimeType;
+  party_uid?: string;
+  crime_type?: MessageOut_CriminalList_Criminal_CrimeType;
 }
 export interface MessageOut_CriminalList_CriminalAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.Criminal";
@@ -317,9 +317,9 @@ export interface TrafficInProtoMsg {
   value: Uint8Array;
 }
 export interface TrafficInAmino {
-  from_party_uid: string;
-  payload: Uint8Array;
-  is_broadcast: boolean;
+  from_party_uid?: string;
+  payload?: string;
+  is_broadcast?: boolean;
 }
 export interface TrafficInAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.TrafficIn";
@@ -340,9 +340,9 @@ export interface TrafficOutProtoMsg {
   value: Uint8Array;
 }
 export interface TrafficOutAmino {
-  to_party_uid: string;
-  payload: Uint8Array;
-  is_broadcast: boolean;
+  to_party_uid?: string;
+  payload?: string;
+  is_broadcast?: boolean;
 }
 export interface TrafficOutAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.TrafficOut";
@@ -366,12 +366,12 @@ export interface KeygenInitProtoMsg {
   value: Uint8Array;
 }
 export interface KeygenInitAmino {
-  new_key_uid: string;
-  party_uids: string[];
-  party_share_counts: number[];
+  new_key_uid?: string;
+  party_uids?: string[];
+  party_share_counts?: number[];
   /** parties[my_party_index] belongs to the server */
-  my_party_index: number;
-  threshold: number;
+  my_party_index?: number;
+  threshold?: number;
 }
 export interface KeygenInitAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.KeygenInit";
@@ -396,11 +396,11 @@ export interface SignInitProtoMsg {
   value: Uint8Array;
 }
 export interface SignInitAmino {
-  new_sig_uid: string;
-  key_uid: string;
+  new_sig_uid?: string;
+  key_uid?: string;
   /** TODO replace this with a subset of indices? */
-  party_uids: string[];
-  message_to_sign: Uint8Array;
+  party_uids?: string[];
+  message_to_sign?: string;
 }
 export interface SignInitAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.SignInit";
@@ -414,8 +414,8 @@ export interface SignInitSDKType {
 }
 function createBaseRecoverRequest(): RecoverRequest {
   return {
-    keygenInit: KeygenInit.fromPartial({}),
-    keygenOutput: KeygenOutput.fromPartial({})
+    keygenInit: undefined,
+    keygenOutput: undefined
   };
 }
 export const RecoverRequest = {
@@ -442,10 +442,14 @@ export const RecoverRequest = {
     return message;
   },
   fromAmino(object: RecoverRequestAmino): RecoverRequest {
-    return {
-      keygenInit: object?.keygen_init ? KeygenInit.fromAmino(object.keygen_init) : undefined,
-      keygenOutput: object?.keygen_output ? KeygenOutput.fromAmino(object.keygen_output) : undefined
-    };
+    const message = createBaseRecoverRequest();
+    if (object.keygen_init !== undefined && object.keygen_init !== null) {
+      message.keygenInit = KeygenInit.fromAmino(object.keygen_init);
+    }
+    if (object.keygen_output !== undefined && object.keygen_output !== null) {
+      message.keygenOutput = KeygenOutput.fromAmino(object.keygen_output);
+    }
+    return message;
   },
   toAmino(message: RecoverRequest): RecoverRequestAmino {
     const obj: any = {};
@@ -493,9 +497,11 @@ export const RecoverResponse = {
     return message;
   },
   fromAmino(object: RecoverResponseAmino): RecoverResponse {
-    return {
-      response: isSet(object.response) ? recoverResponse_ResponseFromJSON(object.response) : -1
-    };
+    const message = createBaseRecoverResponse();
+    if (object.response !== undefined && object.response !== null) {
+      message.response = recoverResponse_ResponseFromJSON(object.response);
+    }
+    return message;
   },
   toAmino(message: RecoverResponse): RecoverResponseAmino {
     const obj: any = {};
@@ -554,17 +560,23 @@ export const KeygenOutput = {
     return message;
   },
   fromAmino(object: KeygenOutputAmino): KeygenOutput {
-    return {
-      pubKey: object.pub_key,
-      groupRecoverInfo: object.group_recover_info,
-      privateRecoverInfo: object.private_recover_info
-    };
+    const message = createBaseKeygenOutput();
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = bytesFromBase64(object.pub_key);
+    }
+    if (object.group_recover_info !== undefined && object.group_recover_info !== null) {
+      message.groupRecoverInfo = bytesFromBase64(object.group_recover_info);
+    }
+    if (object.private_recover_info !== undefined && object.private_recover_info !== null) {
+      message.privateRecoverInfo = bytesFromBase64(object.private_recover_info);
+    }
+    return message;
   },
   toAmino(message: KeygenOutput): KeygenOutputAmino {
     const obj: any = {};
-    obj.pub_key = message.pubKey;
-    obj.group_recover_info = message.groupRecoverInfo;
-    obj.private_recover_info = message.privateRecoverInfo;
+    obj.pub_key = message.pubKey ? base64FromBytes(message.pubKey) : undefined;
+    obj.group_recover_info = message.groupRecoverInfo ? base64FromBytes(message.groupRecoverInfo) : undefined;
+    obj.private_recover_info = message.privateRecoverInfo ? base64FromBytes(message.privateRecoverInfo) : undefined;
     return obj;
   },
   fromAminoMsg(object: KeygenOutputAminoMsg): KeygenOutput {
@@ -625,12 +637,20 @@ export const MessageIn = {
     return message;
   },
   fromAmino(object: MessageInAmino): MessageIn {
-    return {
-      keygenInit: object?.keygen_init ? KeygenInit.fromAmino(object.keygen_init) : undefined,
-      signInit: object?.sign_init ? SignInit.fromAmino(object.sign_init) : undefined,
-      traffic: object?.traffic ? TrafficIn.fromAmino(object.traffic) : undefined,
-      abort: object?.abort
-    };
+    const message = createBaseMessageIn();
+    if (object.keygen_init !== undefined && object.keygen_init !== null) {
+      message.keygenInit = KeygenInit.fromAmino(object.keygen_init);
+    }
+    if (object.sign_init !== undefined && object.sign_init !== null) {
+      message.signInit = SignInit.fromAmino(object.sign_init);
+    }
+    if (object.traffic !== undefined && object.traffic !== null) {
+      message.traffic = TrafficIn.fromAmino(object.traffic);
+    }
+    if (object.abort !== undefined && object.abort !== null) {
+      message.abort = object.abort;
+    }
+    return message;
   },
   toAmino(message: MessageIn): MessageInAmino {
     const obj: any = {};
@@ -698,12 +718,20 @@ export const MessageOut = {
     return message;
   },
   fromAmino(object: MessageOutAmino): MessageOut {
-    return {
-      traffic: object?.traffic ? TrafficOut.fromAmino(object.traffic) : undefined,
-      keygenResult: object?.keygen_result ? MessageOut_KeygenResult.fromAmino(object.keygen_result) : undefined,
-      signResult: object?.sign_result ? MessageOut_SignResult.fromAmino(object.sign_result) : undefined,
-      needRecover: object?.need_recover
-    };
+    const message = createBaseMessageOut();
+    if (object.traffic !== undefined && object.traffic !== null) {
+      message.traffic = TrafficOut.fromAmino(object.traffic);
+    }
+    if (object.keygen_result !== undefined && object.keygen_result !== null) {
+      message.keygenResult = MessageOut_KeygenResult.fromAmino(object.keygen_result);
+    }
+    if (object.sign_result !== undefined && object.sign_result !== null) {
+      message.signResult = MessageOut_SignResult.fromAmino(object.sign_result);
+    }
+    if (object.need_recover !== undefined && object.need_recover !== null) {
+      message.needRecover = object.need_recover;
+    }
+    return message;
   },
   toAmino(message: MessageOut): MessageOutAmino {
     const obj: any = {};
@@ -759,10 +787,14 @@ export const MessageOut_KeygenResult = {
     return message;
   },
   fromAmino(object: MessageOut_KeygenResultAmino): MessageOut_KeygenResult {
-    return {
-      data: object?.data ? KeygenOutput.fromAmino(object.data) : undefined,
-      criminals: object?.criminals ? MessageOut_CriminalList.fromAmino(object.criminals) : undefined
-    };
+    const message = createBaseMessageOut_KeygenResult();
+    if (object.data !== undefined && object.data !== null) {
+      message.data = KeygenOutput.fromAmino(object.data);
+    }
+    if (object.criminals !== undefined && object.criminals !== null) {
+      message.criminals = MessageOut_CriminalList.fromAmino(object.criminals);
+    }
+    return message;
   },
   toAmino(message: MessageOut_KeygenResult): MessageOut_KeygenResultAmino {
     const obj: any = {};
@@ -816,14 +848,18 @@ export const MessageOut_SignResult = {
     return message;
   },
   fromAmino(object: MessageOut_SignResultAmino): MessageOut_SignResult {
-    return {
-      signature: object?.signature,
-      criminals: object?.criminals ? MessageOut_CriminalList.fromAmino(object.criminals) : undefined
-    };
+    const message = createBaseMessageOut_SignResult();
+    if (object.signature !== undefined && object.signature !== null) {
+      message.signature = bytesFromBase64(object.signature);
+    }
+    if (object.criminals !== undefined && object.criminals !== null) {
+      message.criminals = MessageOut_CriminalList.fromAmino(object.criminals);
+    }
+    return message;
   },
   toAmino(message: MessageOut_SignResult): MessageOut_SignResultAmino {
     const obj: any = {};
-    obj.signature = message.signature;
+    obj.signature = message.signature ? base64FromBytes(message.signature) : undefined;
     obj.criminals = message.criminals ? MessageOut_CriminalList.toAmino(message.criminals) : undefined;
     return obj;
   },
@@ -867,9 +903,9 @@ export const MessageOut_CriminalList = {
     return message;
   },
   fromAmino(object: MessageOut_CriminalListAmino): MessageOut_CriminalList {
-    return {
-      criminals: Array.isArray(object?.criminals) ? object.criminals.map((e: any) => MessageOut_CriminalList_Criminal.fromAmino(e)) : []
-    };
+    const message = createBaseMessageOut_CriminalList();
+    message.criminals = object.criminals?.map(e => MessageOut_CriminalList_Criminal.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MessageOut_CriminalList): MessageOut_CriminalListAmino {
     const obj: any = {};
@@ -926,10 +962,14 @@ export const MessageOut_CriminalList_Criminal = {
     return message;
   },
   fromAmino(object: MessageOut_CriminalList_CriminalAmino): MessageOut_CriminalList_Criminal {
-    return {
-      partyUid: object.party_uid,
-      crimeType: isSet(object.crime_type) ? messageOut_CriminalList_Criminal_CrimeTypeFromJSON(object.crime_type) : -1
-    };
+    const message = createBaseMessageOut_CriminalList_Criminal();
+    if (object.party_uid !== undefined && object.party_uid !== null) {
+      message.partyUid = object.party_uid;
+    }
+    if (object.crime_type !== undefined && object.crime_type !== null) {
+      message.crimeType = messageOut_CriminalList_Criminal_CrimeTypeFromJSON(object.crime_type);
+    }
+    return message;
   },
   toAmino(message: MessageOut_CriminalList_Criminal): MessageOut_CriminalList_CriminalAmino {
     const obj: any = {};
@@ -989,16 +1029,22 @@ export const TrafficIn = {
     return message;
   },
   fromAmino(object: TrafficInAmino): TrafficIn {
-    return {
-      fromPartyUid: object.from_party_uid,
-      payload: object.payload,
-      isBroadcast: object.is_broadcast
-    };
+    const message = createBaseTrafficIn();
+    if (object.from_party_uid !== undefined && object.from_party_uid !== null) {
+      message.fromPartyUid = object.from_party_uid;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = bytesFromBase64(object.payload);
+    }
+    if (object.is_broadcast !== undefined && object.is_broadcast !== null) {
+      message.isBroadcast = object.is_broadcast;
+    }
+    return message;
   },
   toAmino(message: TrafficIn): TrafficInAmino {
     const obj: any = {};
     obj.from_party_uid = message.fromPartyUid;
-    obj.payload = message.payload;
+    obj.payload = message.payload ? base64FromBytes(message.payload) : undefined;
     obj.is_broadcast = message.isBroadcast;
     return obj;
   },
@@ -1054,16 +1100,22 @@ export const TrafficOut = {
     return message;
   },
   fromAmino(object: TrafficOutAmino): TrafficOut {
-    return {
-      toPartyUid: object.to_party_uid,
-      payload: object.payload,
-      isBroadcast: object.is_broadcast
-    };
+    const message = createBaseTrafficOut();
+    if (object.to_party_uid !== undefined && object.to_party_uid !== null) {
+      message.toPartyUid = object.to_party_uid;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = bytesFromBase64(object.payload);
+    }
+    if (object.is_broadcast !== undefined && object.is_broadcast !== null) {
+      message.isBroadcast = object.is_broadcast;
+    }
+    return message;
   },
   toAmino(message: TrafficOut): TrafficOutAmino {
     const obj: any = {};
     obj.to_party_uid = message.toPartyUid;
-    obj.payload = message.payload;
+    obj.payload = message.payload ? base64FromBytes(message.payload) : undefined;
     obj.is_broadcast = message.isBroadcast;
     return obj;
   },
@@ -1133,13 +1185,19 @@ export const KeygenInit = {
     return message;
   },
   fromAmino(object: KeygenInitAmino): KeygenInit {
-    return {
-      newKeyUid: object.new_key_uid,
-      partyUids: Array.isArray(object?.party_uids) ? object.party_uids.map((e: any) => e) : [],
-      partyShareCounts: Array.isArray(object?.party_share_counts) ? object.party_share_counts.map((e: any) => e) : [],
-      myPartyIndex: object.my_party_index,
-      threshold: object.threshold
-    };
+    const message = createBaseKeygenInit();
+    if (object.new_key_uid !== undefined && object.new_key_uid !== null) {
+      message.newKeyUid = object.new_key_uid;
+    }
+    message.partyUids = object.party_uids?.map(e => e) || [];
+    message.partyShareCounts = object.party_share_counts?.map(e => e) || [];
+    if (object.my_party_index !== undefined && object.my_party_index !== null) {
+      message.myPartyIndex = object.my_party_index;
+    }
+    if (object.threshold !== undefined && object.threshold !== null) {
+      message.threshold = object.threshold;
+    }
+    return message;
   },
   toAmino(message: KeygenInit): KeygenInitAmino {
     const obj: any = {};
@@ -1216,12 +1274,18 @@ export const SignInit = {
     return message;
   },
   fromAmino(object: SignInitAmino): SignInit {
-    return {
-      newSigUid: object.new_sig_uid,
-      keyUid: object.key_uid,
-      partyUids: Array.isArray(object?.party_uids) ? object.party_uids.map((e: any) => e) : [],
-      messageToSign: object.message_to_sign
-    };
+    const message = createBaseSignInit();
+    if (object.new_sig_uid !== undefined && object.new_sig_uid !== null) {
+      message.newSigUid = object.new_sig_uid;
+    }
+    if (object.key_uid !== undefined && object.key_uid !== null) {
+      message.keyUid = object.key_uid;
+    }
+    message.partyUids = object.party_uids?.map(e => e) || [];
+    if (object.message_to_sign !== undefined && object.message_to_sign !== null) {
+      message.messageToSign = bytesFromBase64(object.message_to_sign);
+    }
+    return message;
   },
   toAmino(message: SignInit): SignInitAmino {
     const obj: any = {};
@@ -1232,7 +1296,7 @@ export const SignInit = {
     } else {
       obj.party_uids = [];
     }
-    obj.message_to_sign = message.messageToSign;
+    obj.message_to_sign = message.messageToSign ? base64FromBytes(message.messageToSign) : undefined;
     return obj;
   },
   fromAminoMsg(object: SignInitAminoMsg): SignInit {

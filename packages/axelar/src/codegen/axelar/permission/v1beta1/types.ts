@@ -1,6 +1,6 @@
 import { Role, roleFromJSON } from "../exported/v1beta1/types";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface GovAccount {
   address: Uint8Array;
   role: Role;
@@ -10,8 +10,8 @@ export interface GovAccountProtoMsg {
   value: Uint8Array;
 }
 export interface GovAccountAmino {
-  address: Uint8Array;
-  role: Role;
+  address?: string;
+  role?: Role;
 }
 export interface GovAccountAminoMsg {
   type: "/axelar.permission.v1beta1.GovAccount";
@@ -51,14 +51,18 @@ export const GovAccount = {
     return message;
   },
   fromAmino(object: GovAccountAmino): GovAccount {
-    return {
-      address: object.address,
-      role: isSet(object.role) ? roleFromJSON(object.role) : -1
-    };
+    const message = createBaseGovAccount();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = bytesFromBase64(object.address);
+    }
+    if (object.role !== undefined && object.role !== null) {
+      message.role = roleFromJSON(object.role);
+    }
+    return message;
   },
   toAmino(message: GovAccount): GovAccountAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address ? base64FromBytes(message.address) : undefined;
     obj.role = message.role;
     return obj;
   },

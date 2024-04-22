@@ -12,7 +12,7 @@ export interface ParamsProtoMsg {
 /** Params represent the genesis parameters for the module */
 export interface ParamsAmino {
   /** Params represent the genesis parameters for the module */
-  min_proxy_balance: string;
+  min_proxy_balance?: string;
 }
 export interface ParamsAminoMsg {
   type: "/axelar.snapshot.v1beta1.Params";
@@ -46,9 +46,11 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      minProxyBalance: BigInt(object.min_proxy_balance)
-    };
+    const message = createBaseParams();
+    if (object.min_proxy_balance !== undefined && object.min_proxy_balance !== null) {
+      message.minProxyBalance = BigInt(object.min_proxy_balance);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

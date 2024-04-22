@@ -21,11 +21,11 @@ export interface MsgCreateVestingAccountProtoMsg {
  * account.
  */
 export interface MsgCreateVestingAccountAmino {
-  from_address: string;
-  to_address: string;
-  amount: CoinAmino[];
-  end_time: string;
-  delayed: boolean;
+  from_address?: string;
+  to_address?: string;
+  amount?: CoinAmino[];
+  end_time?: string;
+  delayed?: boolean;
 }
 export interface MsgCreateVestingAccountAminoMsg {
   type: "cosmos-sdk/MsgCreateVestingAccount";
@@ -104,13 +104,21 @@ export const MsgCreateVestingAccount = {
     return message;
   },
   fromAmino(object: MsgCreateVestingAccountAmino): MsgCreateVestingAccount {
-    return {
-      fromAddress: object.from_address,
-      toAddress: object.to_address,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : [],
-      endTime: BigInt(object.end_time),
-      delayed: object.delayed
-    };
+    const message = createBaseMsgCreateVestingAccount();
+    if (object.from_address !== undefined && object.from_address !== null) {
+      message.fromAddress = object.from_address;
+    }
+    if (object.to_address !== undefined && object.to_address !== null) {
+      message.toAddress = object.to_address;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    if (object.end_time !== undefined && object.end_time !== null) {
+      message.endTime = BigInt(object.end_time);
+    }
+    if (object.delayed !== undefined && object.delayed !== null) {
+      message.delayed = object.delayed;
+    }
+    return message;
   },
   toAmino(message: MsgCreateVestingAccount): MsgCreateVestingAccountAmino {
     const obj: any = {};
@@ -163,7 +171,8 @@ export const MsgCreateVestingAccountResponse = {
     return message;
   },
   fromAmino(_: MsgCreateVestingAccountResponseAmino): MsgCreateVestingAccountResponse {
-    return {};
+    const message = createBaseMsgCreateVestingAccountResponse();
+    return message;
   },
   toAmino(_: MsgCreateVestingAccountResponse): MsgCreateVestingAccountResponseAmino {
     const obj: any = {};

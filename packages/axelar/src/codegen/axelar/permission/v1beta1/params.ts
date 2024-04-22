@@ -29,7 +29,8 @@ export const Params = {
     return message;
   },
   fromAmino(_: ParamsAmino): Params {
-    return {};
+    const message = createBaseParams();
+    return message;
   },
   toAmino(_: Params): ParamsAmino {
     const obj: any = {};

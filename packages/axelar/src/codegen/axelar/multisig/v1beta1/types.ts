@@ -3,7 +3,7 @@ import { Threshold, ThresholdAmino, ThresholdSDKType } from "../../utils/v1beta1
 import { KeyState, MultisigState, keyStateFromJSON, multisigStateFromJSON } from "../exported/v1beta1/types";
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, isObject } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, isObject } from "../../../helpers";
 export interface Key_PubKeysEntry {
   key: string;
   value: Uint8Array;
@@ -13,8 +13,8 @@ export interface Key_PubKeysEntryProtoMsg {
   value: Uint8Array;
 }
 export interface Key_PubKeysEntryAmino {
-  key: string;
-  value: Uint8Array;
+  key?: string;
+  value?: string;
 }
 export interface Key_PubKeysEntryAminoMsg {
   type: string;
@@ -38,13 +38,13 @@ export interface KeyProtoMsg {
   value: Uint8Array;
 }
 export interface KeyAmino {
-  id: string;
+  id?: string;
   snapshot?: SnapshotAmino;
-  pub_keys: {
-    [key: string]: Uint8Array;
+  pub_keys?: {
+    [key: string]: string;
   };
   signing_threshold?: ThresholdAmino;
-  state: KeyState;
+  state?: KeyState;
 }
 export interface KeyAminoMsg {
   type: "/axelar.multisig.v1beta1.Key";
@@ -68,8 +68,8 @@ export interface KeygenSession_IsPubKeyReceivedEntryProtoMsg {
   value: Uint8Array;
 }
 export interface KeygenSession_IsPubKeyReceivedEntryAmino {
-  key: string;
-  value: boolean;
+  key?: string;
+  value?: boolean;
 }
 export interface KeygenSession_IsPubKeyReceivedEntryAminoMsg {
   type: string;
@@ -96,14 +96,14 @@ export interface KeygenSessionProtoMsg {
 }
 export interface KeygenSessionAmino {
   key?: KeyAmino;
-  state: MultisigState;
+  state?: MultisigState;
   keygen_threshold?: ThresholdAmino;
-  expires_at: string;
-  completed_at: string;
-  is_pub_key_received: {
+  expires_at?: string;
+  completed_at?: string;
+  is_pub_key_received?: {
     [key: string]: boolean;
   };
-  grace_period: string;
+  grace_period?: string;
 }
 export interface KeygenSessionAminoMsg {
   type: "/axelar.multisig.v1beta1.KeygenSession";
@@ -129,8 +129,8 @@ export interface MultiSig_SigsEntryProtoMsg {
   value: Uint8Array;
 }
 export interface MultiSig_SigsEntryAmino {
-  key: string;
-  value: Uint8Array;
+  key?: string;
+  value?: string;
 }
 export interface MultiSig_SigsEntryAminoMsg {
   type: string;
@@ -152,10 +152,10 @@ export interface MultiSigProtoMsg {
   value: Uint8Array;
 }
 export interface MultiSigAmino {
-  key_id: string;
-  payload_hash: Uint8Array;
-  sigs: {
-    [key: string]: Uint8Array;
+  key_id?: string;
+  payload_hash?: string;
+  sigs?: {
+    [key: string]: string;
   };
 }
 export interface MultiSigAminoMsg {
@@ -178,7 +178,7 @@ export interface SigningSession {
   completedAt: bigint;
   gracePeriod: bigint;
   module: string;
-  moduleMetadata: (Any) | undefined;
+  moduleMetadata?: (Any) | undefined;
 }
 export interface SigningSessionProtoMsg {
   typeUrl: "/axelar.multisig.v1beta1.SigningSession";
@@ -188,14 +188,14 @@ export type SigningSessionEncoded = Omit<SigningSession, "moduleMetadata"> & {
   moduleMetadata?: AnyProtoMsg | undefined;
 };
 export interface SigningSessionAmino {
-  id: string;
+  id?: string;
   multi_sig?: MultiSigAmino;
-  state: MultisigState;
+  state?: MultisigState;
   key?: KeyAmino;
-  expires_at: string;
-  completed_at: string;
-  grace_period: string;
-  module: string;
+  expires_at?: string;
+  completed_at?: string;
+  grace_period?: string;
+  module?: string;
   module_metadata?: AnyAmino;
 }
 export interface SigningSessionAminoMsg {
@@ -211,7 +211,7 @@ export interface SigningSessionSDKType {
   completed_at: bigint;
   grace_period: bigint;
   module: string;
-  module_metadata: AnySDKType | undefined;
+  module_metadata?: AnySDKType | undefined;
 }
 export interface KeyEpoch {
   epoch: bigint;
@@ -223,9 +223,9 @@ export interface KeyEpochProtoMsg {
   value: Uint8Array;
 }
 export interface KeyEpochAmino {
-  epoch: string;
-  chain: string;
-  key_id: string;
+  epoch?: string;
+  chain?: string;
+  key_id?: string;
 }
 export interface KeyEpochAminoMsg {
   type: "/axelar.multisig.v1beta1.KeyEpoch";
@@ -265,15 +265,19 @@ export const Key_PubKeysEntry = {
     return message;
   },
   fromAmino(object: Key_PubKeysEntryAmino): Key_PubKeysEntry {
-    return {
-      key: object.key,
-      value: object.value
-    };
+    const message = createBaseKey_PubKeysEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = bytesFromBase64(object.value);
+    }
+    return message;
   },
   toAmino(message: Key_PubKeysEntry): Key_PubKeysEntryAmino {
     const obj: any = {};
     obj.key = message.key;
-    obj.value = message.value;
+    obj.value = message.value ? base64FromBytes(message.value) : undefined;
     return obj;
   },
   fromAminoMsg(object: Key_PubKeysEntryAminoMsg): Key_PubKeysEntry {
@@ -349,18 +353,28 @@ export const Key = {
     return message;
   },
   fromAmino(object: KeyAmino): Key {
-    return {
-      id: object.id,
-      snapshot: object?.snapshot ? Snapshot.fromAmino(object.snapshot) : undefined,
-      pubKeys: isObject(object.pub_keys) ? Object.entries(object.pub_keys).reduce<{
-        [key: string]: bytes;
-      }>((acc, [key, value]) => {
+    const message = createBaseKey();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.snapshot !== undefined && object.snapshot !== null) {
+      message.snapshot = Snapshot.fromAmino(object.snapshot);
+    }
+    message.pubKeys = Object.entries(object.pub_keys ?? {}).reduce<{
+      [key: string]: bytes;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = bytes.fromAmino(value);
-        return acc;
-      }, {}) : {},
-      signingThreshold: object?.signing_threshold ? Threshold.fromAmino(object.signing_threshold) : undefined,
-      state: isSet(object.state) ? keyStateFromJSON(object.state) : -1
-    };
+      }
+      return acc;
+    }, {});
+    if (object.signing_threshold !== undefined && object.signing_threshold !== null) {
+      message.signingThreshold = Threshold.fromAmino(object.signing_threshold);
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = keyStateFromJSON(object.state);
+    }
+    return message;
   },
   toAmino(message: Key): KeyAmino {
     const obj: any = {};
@@ -421,10 +435,14 @@ export const KeygenSession_IsPubKeyReceivedEntry = {
     return message;
   },
   fromAmino(object: KeygenSession_IsPubKeyReceivedEntryAmino): KeygenSession_IsPubKeyReceivedEntry {
-    return {
-      key: object.key,
-      value: object.value
-    };
+    const message = createBaseKeygenSession_IsPubKeyReceivedEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: KeygenSession_IsPubKeyReceivedEntry): KeygenSession_IsPubKeyReceivedEntryAmino {
     const obj: any = {};
@@ -517,20 +535,34 @@ export const KeygenSession = {
     return message;
   },
   fromAmino(object: KeygenSessionAmino): KeygenSession {
-    return {
-      key: object?.key ? Key.fromAmino(object.key) : undefined,
-      state: isSet(object.state) ? multisigStateFromJSON(object.state) : -1,
-      keygenThreshold: object?.keygen_threshold ? Threshold.fromAmino(object.keygen_threshold) : undefined,
-      expiresAt: BigInt(object.expires_at),
-      completedAt: BigInt(object.completed_at),
-      isPubKeyReceived: isObject(object.is_pub_key_received) ? Object.entries(object.is_pub_key_received).reduce<{
-        [key: string]: bool;
-      }>((acc, [key, value]) => {
+    const message = createBaseKeygenSession();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = Key.fromAmino(object.key);
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = multisigStateFromJSON(object.state);
+    }
+    if (object.keygen_threshold !== undefined && object.keygen_threshold !== null) {
+      message.keygenThreshold = Threshold.fromAmino(object.keygen_threshold);
+    }
+    if (object.expires_at !== undefined && object.expires_at !== null) {
+      message.expiresAt = BigInt(object.expires_at);
+    }
+    if (object.completed_at !== undefined && object.completed_at !== null) {
+      message.completedAt = BigInt(object.completed_at);
+    }
+    message.isPubKeyReceived = Object.entries(object.is_pub_key_received ?? {}).reduce<{
+      [key: string]: bool;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = bool.fromAmino(value);
-        return acc;
-      }, {}) : {},
-      gracePeriod: BigInt(object.grace_period)
-    };
+      }
+      return acc;
+    }, {});
+    if (object.grace_period !== undefined && object.grace_period !== null) {
+      message.gracePeriod = BigInt(object.grace_period);
+    }
+    return message;
   },
   toAmino(message: KeygenSession): KeygenSessionAmino {
     const obj: any = {};
@@ -593,15 +625,19 @@ export const MultiSig_SigsEntry = {
     return message;
   },
   fromAmino(object: MultiSig_SigsEntryAmino): MultiSig_SigsEntry {
-    return {
-      key: object.key,
-      value: object.value
-    };
+    const message = createBaseMultiSig_SigsEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = bytesFromBase64(object.value);
+    }
+    return message;
   },
   toAmino(message: MultiSig_SigsEntry): MultiSig_SigsEntryAmino {
     const obj: any = {};
     obj.key = message.key;
-    obj.value = message.value;
+    obj.value = message.value ? base64FromBytes(message.value) : undefined;
     return obj;
   },
   fromAminoMsg(object: MultiSig_SigsEntryAminoMsg): MultiSig_SigsEntry {
@@ -665,21 +701,27 @@ export const MultiSig = {
     return message;
   },
   fromAmino(object: MultiSigAmino): MultiSig {
-    return {
-      keyId: object.key_id,
-      payloadHash: object.payload_hash,
-      sigs: isObject(object.sigs) ? Object.entries(object.sigs).reduce<{
-        [key: string]: bytes;
-      }>((acc, [key, value]) => {
+    const message = createBaseMultiSig();
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    if (object.payload_hash !== undefined && object.payload_hash !== null) {
+      message.payloadHash = bytesFromBase64(object.payload_hash);
+    }
+    message.sigs = Object.entries(object.sigs ?? {}).reduce<{
+      [key: string]: bytes;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = bytes.fromAmino(value);
-        return acc;
-      }, {}) : {}
-    };
+      }
+      return acc;
+    }, {});
+    return message;
   },
   toAmino(message: MultiSig): MultiSigAmino {
     const obj: any = {};
     obj.key_id = message.keyId;
-    obj.payload_hash = message.payloadHash;
+    obj.payload_hash = message.payloadHash ? base64FromBytes(message.payloadHash) : undefined;
     obj.sigs = {};
     if (message.sigs) {
       Object.entries(message.sigs).forEach(([k, v]) => {
@@ -714,7 +756,7 @@ function createBaseSigningSession(): SigningSession {
     completedAt: BigInt(0),
     gracePeriod: BigInt(0),
     module: "",
-    moduleMetadata: Any.fromPartial({})
+    moduleMetadata: undefined
   };
 }
 export const SigningSession = {
@@ -776,17 +818,35 @@ export const SigningSession = {
     return message;
   },
   fromAmino(object: SigningSessionAmino): SigningSession {
-    return {
-      id: BigInt(object.id),
-      multiSig: object?.multi_sig ? MultiSig.fromAmino(object.multi_sig) : undefined,
-      state: isSet(object.state) ? multisigStateFromJSON(object.state) : -1,
-      key: object?.key ? Key.fromAmino(object.key) : undefined,
-      expiresAt: BigInt(object.expires_at),
-      completedAt: BigInt(object.completed_at),
-      gracePeriod: BigInt(object.grace_period),
-      module: object.module,
-      moduleMetadata: object?.module_metadata ? Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.module_metadata) : undefined
-    };
+    const message = createBaseSigningSession();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.multi_sig !== undefined && object.multi_sig !== null) {
+      message.multiSig = MultiSig.fromAmino(object.multi_sig);
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = multisigStateFromJSON(object.state);
+    }
+    if (object.key !== undefined && object.key !== null) {
+      message.key = Key.fromAmino(object.key);
+    }
+    if (object.expires_at !== undefined && object.expires_at !== null) {
+      message.expiresAt = BigInt(object.expires_at);
+    }
+    if (object.completed_at !== undefined && object.completed_at !== null) {
+      message.completedAt = BigInt(object.completed_at);
+    }
+    if (object.grace_period !== undefined && object.grace_period !== null) {
+      message.gracePeriod = BigInt(object.grace_period);
+    }
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.module_metadata !== undefined && object.module_metadata !== null) {
+      message.moduleMetadata = Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.module_metadata);
+    }
+    return message;
   },
   toAmino(message: SigningSession): SigningSessionAmino {
     const obj: any = {};
@@ -853,11 +913,17 @@ export const KeyEpoch = {
     return message;
   },
   fromAmino(object: KeyEpochAmino): KeyEpoch {
-    return {
-      epoch: BigInt(object.epoch),
-      chain: object.chain,
-      keyId: object.key_id
-    };
+    const message = createBaseKeyEpoch();
+    if (object.epoch !== undefined && object.epoch !== null) {
+      message.epoch = BigInt(object.epoch);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: KeyEpoch): KeyEpochAmino {
     const obj: any = {};

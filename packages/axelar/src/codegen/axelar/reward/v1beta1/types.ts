@@ -1,6 +1,6 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface Pool {
   name: string;
   rewards: Pool_Reward[];
@@ -10,8 +10,8 @@ export interface PoolProtoMsg {
   value: Uint8Array;
 }
 export interface PoolAmino {
-  name: string;
-  rewards: Pool_RewardAmino[];
+  name?: string;
+  rewards?: Pool_RewardAmino[];
 }
 export interface PoolAminoMsg {
   type: "/axelar.reward.v1beta1.Pool";
@@ -30,8 +30,8 @@ export interface Pool_RewardProtoMsg {
   value: Uint8Array;
 }
 export interface Pool_RewardAmino {
-  validator: Uint8Array;
-  coins: CoinAmino[];
+  validator?: string;
+  coins?: CoinAmino[];
 }
 export interface Pool_RewardAminoMsg {
   type: "/axelar.reward.v1beta1.Reward";
@@ -50,8 +50,8 @@ export interface RefundProtoMsg {
   value: Uint8Array;
 }
 export interface RefundAmino {
-  payer: Uint8Array;
-  fees: CoinAmino[];
+  payer?: string;
+  fees?: CoinAmino[];
 }
 export interface RefundAminoMsg {
   type: "/axelar.reward.v1beta1.Refund";
@@ -91,10 +91,12 @@ export const Pool = {
     return message;
   },
   fromAmino(object: PoolAmino): Pool {
-    return {
-      name: object.name,
-      rewards: Array.isArray(object?.rewards) ? object.rewards.map((e: any) => Pool_Reward.fromAmino(e)) : []
-    };
+    const message = createBasePool();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    message.rewards = object.rewards?.map(e => Pool_Reward.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Pool): PoolAmino {
     const obj: any = {};
@@ -152,14 +154,16 @@ export const Pool_Reward = {
     return message;
   },
   fromAmino(object: Pool_RewardAmino): Pool_Reward {
-    return {
-      validator: object.validator,
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBasePool_Reward();
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = bytesFromBase64(object.validator);
+    }
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Pool_Reward): Pool_RewardAmino {
     const obj: any = {};
-    obj.validator = message.validator;
+    obj.validator = message.validator ? base64FromBytes(message.validator) : undefined;
     if (message.coins) {
       obj.coins = message.coins.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
@@ -213,14 +217,16 @@ export const Refund = {
     return message;
   },
   fromAmino(object: RefundAmino): Refund {
-    return {
-      payer: object.payer,
-      fees: Array.isArray(object?.fees) ? object.fees.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseRefund();
+    if (object.payer !== undefined && object.payer !== null) {
+      message.payer = bytesFromBase64(object.payer);
+    }
+    message.fees = object.fees?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Refund): RefundAmino {
     const obj: any = {};
-    obj.payer = message.payer;
+    obj.payer = message.payer ? base64FromBytes(message.payer) : undefined;
     if (message.fees) {
       obj.fees = message.fees.map(e => e ? Coin.toAmino(e) : undefined);
     } else {

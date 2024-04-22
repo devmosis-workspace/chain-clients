@@ -2,7 +2,7 @@ import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../../google/proto
 import { Threshold, ThresholdAmino, ThresholdSDKType } from "../../../utils/v1beta1/threshold";
 import { Snapshot, SnapshotAmino, SnapshotSDKType } from "../../../snapshot/exported/v1beta1/types";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64 } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export enum PollState {
   POLL_STATE_UNSPECIFIED = 0,
   POLL_STATE_PENDING = 1,
@@ -53,7 +53,7 @@ export function pollStateToJSON(object: PollState): string {
  */
 export interface PollMetadata {
   expiresAt: bigint;
-  result: (Any) | undefined;
+  result?: (Any) | undefined;
   votingThreshold: Threshold;
   state: PollState;
   minVoterCount: bigint;
@@ -63,7 +63,7 @@ export interface PollMetadata {
   id: bigint;
   snapshot: Snapshot;
   module: string;
-  moduleMetadata: (Any) | undefined;
+  moduleMetadata?: (Any) | undefined;
 }
 export interface PollMetadataProtoMsg {
   typeUrl: "/axelar.vote.exported.v1beta1.PollMetadata";
@@ -78,17 +78,17 @@ export type PollMetadataEncoded = Omit<PollMetadata, "result" | "moduleMetadata"
  * vote can have any data type
  */
 export interface PollMetadataAmino {
-  expires_at: string;
+  expires_at?: string;
   result?: AnyAmino;
   voting_threshold?: ThresholdAmino;
-  state: PollState;
-  min_voter_count: string;
-  reward_pool_name: string;
-  grace_period: string;
-  completed_at: string;
-  id: string;
+  state?: PollState;
+  min_voter_count?: string;
+  reward_pool_name?: string;
+  grace_period?: string;
+  completed_at?: string;
+  id?: string;
   snapshot?: SnapshotAmino;
-  module: string;
+  module?: string;
   module_metadata?: AnyAmino;
 }
 export interface PollMetadataAminoMsg {
@@ -101,7 +101,7 @@ export interface PollMetadataAminoMsg {
  */
 export interface PollMetadataSDKType {
   expires_at: bigint;
-  result: AnySDKType | undefined;
+  result?: AnySDKType | undefined;
   voting_threshold: ThresholdSDKType;
   state: PollState;
   min_voter_count: bigint;
@@ -111,7 +111,7 @@ export interface PollMetadataSDKType {
   id: bigint;
   snapshot: SnapshotSDKType;
   module: string;
-  module_metadata: AnySDKType | undefined;
+  module_metadata?: AnySDKType | undefined;
 }
 /** PollKey represents the key data for a poll */
 /** @deprecated */
@@ -126,8 +126,8 @@ export interface PollKeyProtoMsg {
 /** PollKey represents the key data for a poll */
 /** @deprecated */
 export interface PollKeyAmino {
-  module: string;
-  id: string;
+  module?: string;
+  id?: string;
 }
 export interface PollKeyAminoMsg {
   type: "/axelar.vote.exported.v1beta1.PollKey";
@@ -150,8 +150,8 @@ export interface PollParticipantsProtoMsg {
 }
 /** PollParticipants should be embedded in poll events in other modules */
 export interface PollParticipantsAmino {
-  poll_id: string;
-  participants: Uint8Array[];
+  poll_id?: string;
+  participants?: string[];
 }
 export interface PollParticipantsAminoMsg {
   type: "/axelar.vote.exported.v1beta1.PollParticipants";
@@ -165,7 +165,7 @@ export interface PollParticipantsSDKType {
 function createBasePollMetadata(): PollMetadata {
   return {
     expiresAt: BigInt(0),
-    result: Any.fromPartial({}),
+    result: undefined,
     votingThreshold: Threshold.fromPartial({}),
     state: 0,
     minVoterCount: BigInt(0),
@@ -175,7 +175,7 @@ function createBasePollMetadata(): PollMetadata {
     id: BigInt(0),
     snapshot: Snapshot.fromPartial({}),
     module: "",
-    moduleMetadata: Any.fromPartial({})
+    moduleMetadata: undefined
   };
 }
 export const PollMetadata = {
@@ -252,20 +252,44 @@ export const PollMetadata = {
     return message;
   },
   fromAmino(object: PollMetadataAmino): PollMetadata {
-    return {
-      expiresAt: BigInt(object.expires_at),
-      result: object?.result ? Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.result) : undefined,
-      votingThreshold: object?.voting_threshold ? Threshold.fromAmino(object.voting_threshold) : undefined,
-      state: isSet(object.state) ? pollStateFromJSON(object.state) : -1,
-      minVoterCount: BigInt(object.min_voter_count),
-      rewardPoolName: object.reward_pool_name,
-      gracePeriod: BigInt(object.grace_period),
-      completedAt: BigInt(object.completed_at),
-      id: BigInt(object.id),
-      snapshot: object?.snapshot ? Snapshot.fromAmino(object.snapshot) : undefined,
-      module: object.module,
-      moduleMetadata: object?.module_metadata ? Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.module_metadata) : undefined
-    };
+    const message = createBasePollMetadata();
+    if (object.expires_at !== undefined && object.expires_at !== null) {
+      message.expiresAt = BigInt(object.expires_at);
+    }
+    if (object.result !== undefined && object.result !== null) {
+      message.result = Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.result);
+    }
+    if (object.voting_threshold !== undefined && object.voting_threshold !== null) {
+      message.votingThreshold = Threshold.fromAmino(object.voting_threshold);
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = pollStateFromJSON(object.state);
+    }
+    if (object.min_voter_count !== undefined && object.min_voter_count !== null) {
+      message.minVoterCount = BigInt(object.min_voter_count);
+    }
+    if (object.reward_pool_name !== undefined && object.reward_pool_name !== null) {
+      message.rewardPoolName = object.reward_pool_name;
+    }
+    if (object.grace_period !== undefined && object.grace_period !== null) {
+      message.gracePeriod = BigInt(object.grace_period);
+    }
+    if (object.completed_at !== undefined && object.completed_at !== null) {
+      message.completedAt = BigInt(object.completed_at);
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.snapshot !== undefined && object.snapshot !== null) {
+      message.snapshot = Snapshot.fromAmino(object.snapshot);
+    }
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.module_metadata !== undefined && object.module_metadata !== null) {
+      message.moduleMetadata = Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.module_metadata);
+    }
+    return message;
   },
   toAmino(message: PollMetadata): PollMetadataAmino {
     const obj: any = {};
@@ -329,10 +353,14 @@ export const PollKey = {
     return message;
   },
   fromAmino(object: PollKeyAmino): PollKey {
-    return {
-      module: object.module,
-      id: object.id
-    };
+    const message = createBasePollKey();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: PollKey): PollKeyAmino {
     const obj: any = {};
@@ -386,16 +414,18 @@ export const PollParticipants = {
     return message;
   },
   fromAmino(object: PollParticipantsAmino): PollParticipants {
-    return {
-      pollId: BigInt(object.poll_id),
-      participants: Array.isArray(object?.participants) ? object.participants.map((e: any) => e) : []
-    };
+    const message = createBasePollParticipants();
+    if (object.poll_id !== undefined && object.poll_id !== null) {
+      message.pollId = BigInt(object.poll_id);
+    }
+    message.participants = object.participants?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: PollParticipants): PollParticipantsAmino {
     const obj: any = {};
     obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
     if (message.participants) {
-      obj.participants = message.participants.map(e => e);
+      obj.participants = message.participants.map(e => base64FromBytes(e));
     } else {
       obj.participants = [];
     }

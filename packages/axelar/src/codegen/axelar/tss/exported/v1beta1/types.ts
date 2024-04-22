@@ -1,6 +1,6 @@
 import { Threshold, ThresholdAmino, ThresholdSDKType } from "../../../utils/v1beta1/threshold";
 import { BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64 } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export enum KeyRole {
   KEY_ROLE_UNSPECIFIED = 0,
   KEY_ROLE_MASTER_KEY = 1,
@@ -147,17 +147,17 @@ export interface KeyRequirementProtoMsg {
 }
 /** KeyRequirement defines requirements for keys */
 export interface KeyRequirementAmino {
-  key_role: KeyRole;
-  key_type: KeyType;
+  key_role?: KeyRole;
+  key_type?: KeyType;
   min_keygen_threshold?: ThresholdAmino;
   safety_threshold?: ThresholdAmino;
-  key_share_distribution_policy: KeyShareDistributionPolicy;
-  max_total_share_count: string;
-  min_total_share_count: string;
+  key_share_distribution_policy?: KeyShareDistributionPolicy;
+  max_total_share_count?: string;
+  min_total_share_count?: string;
   keygen_voting_threshold?: ThresholdAmino;
   sign_voting_threshold?: ThresholdAmino;
-  keygen_timeout: string;
-  sign_timeout: string;
+  keygen_timeout?: string;
+  sign_timeout?: string;
 }
 export interface KeyRequirementAminoMsg {
   type: "/axelar.tss.exported.v1beta1.KeyRequirement";
@@ -188,8 +188,8 @@ export interface SigKeyPairProtoMsg {
 }
 /** PubKeyInfo holds a pubkey and a signature */
 export interface SigKeyPairAmino {
-  pub_key: Uint8Array;
-  signature: Uint8Array;
+  pub_key?: string;
+  signature?: string;
 }
 export interface SigKeyPairAminoMsg {
   type: "/axelar.tss.exported.v1beta1.SigKeyPair";
@@ -284,19 +284,41 @@ export const KeyRequirement = {
     return message;
   },
   fromAmino(object: KeyRequirementAmino): KeyRequirement {
-    return {
-      keyRole: isSet(object.key_role) ? keyRoleFromJSON(object.key_role) : -1,
-      keyType: isSet(object.key_type) ? keyTypeFromJSON(object.key_type) : -1,
-      minKeygenThreshold: object?.min_keygen_threshold ? Threshold.fromAmino(object.min_keygen_threshold) : undefined,
-      safetyThreshold: object?.safety_threshold ? Threshold.fromAmino(object.safety_threshold) : undefined,
-      keyShareDistributionPolicy: isSet(object.key_share_distribution_policy) ? keyShareDistributionPolicyFromJSON(object.key_share_distribution_policy) : -1,
-      maxTotalShareCount: BigInt(object.max_total_share_count),
-      minTotalShareCount: BigInt(object.min_total_share_count),
-      keygenVotingThreshold: object?.keygen_voting_threshold ? Threshold.fromAmino(object.keygen_voting_threshold) : undefined,
-      signVotingThreshold: object?.sign_voting_threshold ? Threshold.fromAmino(object.sign_voting_threshold) : undefined,
-      keygenTimeout: BigInt(object.keygen_timeout),
-      signTimeout: BigInt(object.sign_timeout)
-    };
+    const message = createBaseKeyRequirement();
+    if (object.key_role !== undefined && object.key_role !== null) {
+      message.keyRole = keyRoleFromJSON(object.key_role);
+    }
+    if (object.key_type !== undefined && object.key_type !== null) {
+      message.keyType = keyTypeFromJSON(object.key_type);
+    }
+    if (object.min_keygen_threshold !== undefined && object.min_keygen_threshold !== null) {
+      message.minKeygenThreshold = Threshold.fromAmino(object.min_keygen_threshold);
+    }
+    if (object.safety_threshold !== undefined && object.safety_threshold !== null) {
+      message.safetyThreshold = Threshold.fromAmino(object.safety_threshold);
+    }
+    if (object.key_share_distribution_policy !== undefined && object.key_share_distribution_policy !== null) {
+      message.keyShareDistributionPolicy = keyShareDistributionPolicyFromJSON(object.key_share_distribution_policy);
+    }
+    if (object.max_total_share_count !== undefined && object.max_total_share_count !== null) {
+      message.maxTotalShareCount = BigInt(object.max_total_share_count);
+    }
+    if (object.min_total_share_count !== undefined && object.min_total_share_count !== null) {
+      message.minTotalShareCount = BigInt(object.min_total_share_count);
+    }
+    if (object.keygen_voting_threshold !== undefined && object.keygen_voting_threshold !== null) {
+      message.keygenVotingThreshold = Threshold.fromAmino(object.keygen_voting_threshold);
+    }
+    if (object.sign_voting_threshold !== undefined && object.sign_voting_threshold !== null) {
+      message.signVotingThreshold = Threshold.fromAmino(object.sign_voting_threshold);
+    }
+    if (object.keygen_timeout !== undefined && object.keygen_timeout !== null) {
+      message.keygenTimeout = BigInt(object.keygen_timeout);
+    }
+    if (object.sign_timeout !== undefined && object.sign_timeout !== null) {
+      message.signTimeout = BigInt(object.sign_timeout);
+    }
+    return message;
   },
   toAmino(message: KeyRequirement): KeyRequirementAmino {
     const obj: any = {};
@@ -359,15 +381,19 @@ export const SigKeyPair = {
     return message;
   },
   fromAmino(object: SigKeyPairAmino): SigKeyPair {
-    return {
-      pubKey: object.pub_key,
-      signature: object.signature
-    };
+    const message = createBaseSigKeyPair();
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = bytesFromBase64(object.pub_key);
+    }
+    if (object.signature !== undefined && object.signature !== null) {
+      message.signature = bytesFromBase64(object.signature);
+    }
+    return message;
   },
   toAmino(message: SigKeyPair): SigKeyPairAmino {
     const obj: any = {};
-    obj.pub_key = message.pubKey;
-    obj.signature = message.signature;
+    obj.pub_key = message.pubKey ? base64FromBytes(message.pubKey) : undefined;
+    obj.signature = message.signature ? base64FromBytes(message.signature) : undefined;
     return obj;
   },
   fromAminoMsg(object: SigKeyPairAminoMsg): SigKeyPair {

@@ -31,24 +31,24 @@ export interface ParamsProtoMsg {
 /** Params is the parameter set for this module */
 export interface ParamsAmino {
   /** KeyRequirements defines the requirement for each key role */
-  key_requirements: KeyRequirementAmino[];
+  key_requirements?: KeyRequirementAmino[];
   /**
    * SuspendDurationInBlocks defines the number of blocks a
    * validator is disallowed to participate in any TSS ceremony after
    * committing a malicious behaviour during signing
    */
-  suspend_duration_in_blocks: string;
+  suspend_duration_in_blocks?: string;
   /**
    * HeartBeatPeriodInBlocks defines the time period in blocks for tss to
    * emit the event asking validators to send their heartbeats
    */
-  heartbeat_period_in_blocks: string;
+  heartbeat_period_in_blocks?: string;
   max_missed_blocks_per_window?: ThresholdAmino;
-  unbonding_locking_key_rotation_count: string;
+  unbonding_locking_key_rotation_count?: string;
   external_multisig_threshold?: ThresholdAmino;
-  max_sign_queue_size: string;
-  max_simultaneous_sign_shares: string;
-  tss_signed_blocks_window: string;
+  max_sign_queue_size?: string;
+  max_simultaneous_sign_shares?: string;
+  tss_signed_blocks_window?: string;
 }
 export interface ParamsAminoMsg {
   type: "/axelar.tss.v1beta1.Params";
@@ -138,17 +138,33 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      keyRequirements: Array.isArray(object?.key_requirements) ? object.key_requirements.map((e: any) => KeyRequirement.fromAmino(e)) : [],
-      suspendDurationInBlocks: BigInt(object.suspend_duration_in_blocks),
-      heartbeatPeriodInBlocks: BigInt(object.heartbeat_period_in_blocks),
-      maxMissedBlocksPerWindow: object?.max_missed_blocks_per_window ? Threshold.fromAmino(object.max_missed_blocks_per_window) : undefined,
-      unbondingLockingKeyRotationCount: BigInt(object.unbonding_locking_key_rotation_count),
-      externalMultisigThreshold: object?.external_multisig_threshold ? Threshold.fromAmino(object.external_multisig_threshold) : undefined,
-      maxSignQueueSize: BigInt(object.max_sign_queue_size),
-      maxSimultaneousSignShares: BigInt(object.max_simultaneous_sign_shares),
-      tssSignedBlocksWindow: BigInt(object.tss_signed_blocks_window)
-    };
+    const message = createBaseParams();
+    message.keyRequirements = object.key_requirements?.map(e => KeyRequirement.fromAmino(e)) || [];
+    if (object.suspend_duration_in_blocks !== undefined && object.suspend_duration_in_blocks !== null) {
+      message.suspendDurationInBlocks = BigInt(object.suspend_duration_in_blocks);
+    }
+    if (object.heartbeat_period_in_blocks !== undefined && object.heartbeat_period_in_blocks !== null) {
+      message.heartbeatPeriodInBlocks = BigInt(object.heartbeat_period_in_blocks);
+    }
+    if (object.max_missed_blocks_per_window !== undefined && object.max_missed_blocks_per_window !== null) {
+      message.maxMissedBlocksPerWindow = Threshold.fromAmino(object.max_missed_blocks_per_window);
+    }
+    if (object.unbonding_locking_key_rotation_count !== undefined && object.unbonding_locking_key_rotation_count !== null) {
+      message.unbondingLockingKeyRotationCount = BigInt(object.unbonding_locking_key_rotation_count);
+    }
+    if (object.external_multisig_threshold !== undefined && object.external_multisig_threshold !== null) {
+      message.externalMultisigThreshold = Threshold.fromAmino(object.external_multisig_threshold);
+    }
+    if (object.max_sign_queue_size !== undefined && object.max_sign_queue_size !== null) {
+      message.maxSignQueueSize = BigInt(object.max_sign_queue_size);
+    }
+    if (object.max_simultaneous_sign_shares !== undefined && object.max_simultaneous_sign_shares !== null) {
+      message.maxSimultaneousSignShares = BigInt(object.max_simultaneous_sign_shares);
+    }
+    if (object.tss_signed_blocks_window !== undefined && object.tss_signed_blocks_window !== null) {
+      message.tssSignedBlocksWindow = BigInt(object.tss_signed_blocks_window);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

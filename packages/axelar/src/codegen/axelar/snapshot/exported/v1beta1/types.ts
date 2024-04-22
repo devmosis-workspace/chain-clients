@@ -1,6 +1,6 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64, fromJsonTimestamp, isObject } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, fromJsonTimestamp, isObject } from "../../../../helpers";
 export interface Participant {
   address: Uint8Array;
   weight: Uint8Array;
@@ -10,8 +10,8 @@ export interface ParticipantProtoMsg {
   value: Uint8Array;
 }
 export interface ParticipantAmino {
-  address: Uint8Array;
-  weight: Uint8Array;
+  address?: string;
+  weight?: string;
 }
 export interface ParticipantAminoMsg {
   type: "/axelar.snapshot.exported.v1beta1.Participant";
@@ -23,14 +23,14 @@ export interface ParticipantSDKType {
 }
 export interface Snapshot_ParticipantsEntry {
   key: string;
-  value: Participant;
+  value?: Participant;
 }
 export interface Snapshot_ParticipantsEntryProtoMsg {
   typeUrl: string;
   value: Uint8Array;
 }
 export interface Snapshot_ParticipantsEntryAmino {
-  key: string;
+  key?: string;
   value?: ParticipantAmino;
 }
 export interface Snapshot_ParticipantsEntryAminoMsg {
@@ -39,7 +39,7 @@ export interface Snapshot_ParticipantsEntryAminoMsg {
 }
 export interface Snapshot_ParticipantsEntrySDKType {
   key: string;
-  value: ParticipantSDKType;
+  value?: ParticipantSDKType;
 }
 export interface Snapshot {
   timestamp: Timestamp;
@@ -54,12 +54,12 @@ export interface SnapshotProtoMsg {
   value: Uint8Array;
 }
 export interface SnapshotAmino {
-  timestamp?: TimestampAmino;
-  height: string;
+  timestamp?: string;
+  height?: string;
   participants?: {
     [key: string]: ParticipantAmino;
   };
-  bonded_weight: Uint8Array;
+  bonded_weight?: string;
 }
 export interface SnapshotAminoMsg {
   type: "/axelar.snapshot.exported.v1beta1.Snapshot";
@@ -103,15 +103,19 @@ export const Participant = {
     return message;
   },
   fromAmino(object: ParticipantAmino): Participant {
-    return {
-      address: object.address,
-      weight: object.weight
-    };
+    const message = createBaseParticipant();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = bytesFromBase64(object.address);
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = bytesFromBase64(object.weight);
+    }
+    return message;
   },
   toAmino(message: Participant): ParticipantAmino {
     const obj: any = {};
-    obj.address = message.address;
-    obj.weight = message.weight;
+    obj.address = message.address ? base64FromBytes(message.address) : undefined;
+    obj.weight = message.weight ? base64FromBytes(message.weight) : undefined;
     return obj;
   },
   fromAminoMsg(object: ParticipantAminoMsg): Participant {
@@ -133,7 +137,7 @@ export const Participant = {
 function createBaseSnapshot_ParticipantsEntry(): Snapshot_ParticipantsEntry {
   return {
     key: "",
-    value: Participant.fromPartial({})
+    value: undefined
   };
 }
 export const Snapshot_ParticipantsEntry = {
@@ -159,10 +163,14 @@ export const Snapshot_ParticipantsEntry = {
     return message;
   },
   fromAmino(object: Snapshot_ParticipantsEntryAmino): Snapshot_ParticipantsEntry {
-    return {
-      key: object.key,
-      value: object?.value ? Participant.fromAmino(object.value) : undefined
-    };
+    const message = createBaseSnapshot_ParticipantsEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = Participant.fromAmino(object.value);
+    }
+    return message;
   },
   toAmino(message: Snapshot_ParticipantsEntry): Snapshot_ParticipantsEntryAmino {
     const obj: any = {};
@@ -237,21 +245,29 @@ export const Snapshot = {
     return message;
   },
   fromAmino(object: SnapshotAmino): Snapshot {
-    return {
-      timestamp: object.timestamp,
-      height: BigInt(object.height),
-      participants: isObject(object.participants) ? Object.entries(object.participants).reduce<{
-        [key: string]: Participant;
-      }>((acc, [key, value]) => {
+    const message = createBaseSnapshot();
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Timestamp.fromAmino(object.timestamp);
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    message.participants = Object.entries(object.participants ?? {}).reduce<{
+      [key: string]: Participant;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = Participant.fromAmino(value);
-        return acc;
-      }, {}) : {},
-      bondedWeight: object.bonded_weight
-    };
+      }
+      return acc;
+    }, {});
+    if (object.bonded_weight !== undefined && object.bonded_weight !== null) {
+      message.bondedWeight = bytesFromBase64(object.bonded_weight);
+    }
+    return message;
   },
   toAmino(message: Snapshot): SnapshotAmino {
     const obj: any = {};
-    obj.timestamp = message.timestamp;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
     obj.height = message.height ? message.height.toString() : undefined;
     obj.participants = {};
     if (message.participants) {
@@ -259,7 +275,7 @@ export const Snapshot = {
         obj.participants[k] = Participant.toAmino(v);
       });
     }
-    obj.bonded_weight = message.bondedWeight;
+    obj.bonded_weight = message.bondedWeight ? base64FromBytes(message.bondedWeight) : undefined;
     return obj;
   },
   fromAminoMsg(object: SnapshotAminoMsg): Snapshot {

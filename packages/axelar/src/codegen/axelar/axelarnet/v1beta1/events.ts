@@ -1,6 +1,6 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface IBCTransferSent {
   id: bigint;
   /** @deprecated */
@@ -16,14 +16,14 @@ export interface IBCTransferSentProtoMsg {
   value: Uint8Array;
 }
 export interface IBCTransferSentAmino {
-  id: string;
+  id?: string;
   /** @deprecated */
-  receipient: string;
+  receipient?: string;
   asset?: CoinAmino;
-  sequence: string;
-  port_id: string;
-  channel_id: string;
-  recipient: string;
+  sequence?: string;
+  port_id?: string;
+  channel_id?: string;
+  recipient?: string;
 }
 export interface IBCTransferSentAminoMsg {
   type: "/axelar.axelarnet.v1beta1.IBCTransferSent";
@@ -50,10 +50,10 @@ export interface IBCTransferCompletedProtoMsg {
   value: Uint8Array;
 }
 export interface IBCTransferCompletedAmino {
-  id: string;
-  sequence: string;
-  port_id: string;
-  channel_id: string;
+  id?: string;
+  sequence?: string;
+  port_id?: string;
+  channel_id?: string;
 }
 export interface IBCTransferCompletedAminoMsg {
   type: "/axelar.axelarnet.v1beta1.IBCTransferCompleted";
@@ -76,10 +76,10 @@ export interface IBCTransferFailedProtoMsg {
   value: Uint8Array;
 }
 export interface IBCTransferFailedAmino {
-  id: string;
-  sequence: string;
-  port_id: string;
-  channel_id: string;
+  id?: string;
+  sequence?: string;
+  port_id?: string;
+  channel_id?: string;
 }
 export interface IBCTransferFailedAminoMsg {
   type: "/axelar.axelarnet.v1beta1.IBCTransferFailed";
@@ -106,14 +106,14 @@ export interface IBCTransferRetriedProtoMsg {
   value: Uint8Array;
 }
 export interface IBCTransferRetriedAmino {
-  id: string;
+  id?: string;
   /** @deprecated */
-  receipient: string;
+  receipient?: string;
   asset?: CoinAmino;
-  sequence: string;
-  port_id: string;
-  channel_id: string;
-  recipient: string;
+  sequence?: string;
+  port_id?: string;
+  channel_id?: string;
+  recipient?: string;
 }
 export interface IBCTransferRetriedAminoMsg {
   type: "/axelar.axelarnet.v1beta1.IBCTransferRetried";
@@ -141,11 +141,11 @@ export interface AxelarTransferCompletedProtoMsg {
   value: Uint8Array;
 }
 export interface AxelarTransferCompletedAmino {
-  id: string;
+  id?: string;
   /** @deprecated */
-  receipient: string;
+  receipient?: string;
   asset?: CoinAmino;
-  recipient: string;
+  recipient?: string;
 }
 export interface AxelarTransferCompletedAminoMsg {
   type: "/axelar.axelarnet.v1beta1.AxelarTransferCompleted";
@@ -167,7 +167,7 @@ export interface FeeCollectedProtoMsg {
   value: Uint8Array;
 }
 export interface FeeCollectedAmino {
-  collector: Uint8Array;
+  collector?: string;
   fee?: CoinAmino;
 }
 export interface FeeCollectedAminoMsg {
@@ -191,12 +191,12 @@ export interface FeePaidProtoMsg {
   value: Uint8Array;
 }
 export interface FeePaidAmino {
-  message_id: string;
-  recipient: Uint8Array;
+  message_id?: string;
+  recipient?: string;
   fee?: CoinAmino;
-  refund_recipient: string;
+  refund_recipient?: string;
   /** registered asset name in nexus */
-  asset: string;
+  asset?: string;
 }
 export interface FeePaidAminoMsg {
   type: "/axelar.axelarnet.v1beta1.FeePaid";
@@ -223,13 +223,13 @@ export interface ContractCallSubmittedProtoMsg {
   value: Uint8Array;
 }
 export interface ContractCallSubmittedAmino {
-  message_id: string;
-  sender: string;
-  source_chain: string;
-  destination_chain: string;
-  contract_address: string;
-  payload: Uint8Array;
-  payload_hash: Uint8Array;
+  message_id?: string;
+  sender?: string;
+  source_chain?: string;
+  destination_chain?: string;
+  contract_address?: string;
+  payload?: string;
+  payload_hash?: string;
 }
 export interface ContractCallSubmittedAminoMsg {
   type: "/axelar.axelarnet.v1beta1.ContractCallSubmitted";
@@ -259,13 +259,13 @@ export interface ContractCallWithTokenSubmittedProtoMsg {
   value: Uint8Array;
 }
 export interface ContractCallWithTokenSubmittedAmino {
-  message_id: string;
-  sender: string;
-  source_chain: string;
-  destination_chain: string;
-  contract_address: string;
-  payload: Uint8Array;
-  payload_hash: Uint8Array;
+  message_id?: string;
+  sender?: string;
+  source_chain?: string;
+  destination_chain?: string;
+  contract_address?: string;
+  payload?: string;
+  payload_hash?: string;
   asset?: CoinAmino;
 }
 export interface ContractCallWithTokenSubmittedAminoMsg {
@@ -295,11 +295,11 @@ export interface TokenSentProtoMsg {
   value: Uint8Array;
 }
 export interface TokenSentAmino {
-  transfer_id: string;
-  sender: string;
-  source_chain: string;
-  destination_chain: string;
-  destination_address: string;
+  transfer_id?: string;
+  sender?: string;
+  source_chain?: string;
+  destination_chain?: string;
+  destination_address?: string;
   asset?: CoinAmino;
 }
 export interface TokenSentAminoMsg {
@@ -374,15 +374,29 @@ export const IBCTransferSent = {
     return message;
   },
   fromAmino(object: IBCTransferSentAmino): IBCTransferSent {
-    return {
-      id: BigInt(object.id),
-      receipient: object.receipient,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined,
-      sequence: BigInt(object.sequence),
-      portId: object.port_id,
-      channelId: object.channel_id,
-      recipient: object.recipient
-    };
+    const message = createBaseIBCTransferSent();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.receipient !== undefined && object.receipient !== null) {
+      message.receipient = object.receipient;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    return message;
   },
   toAmino(message: IBCTransferSent): IBCTransferSentAmino {
     const obj: any = {};
@@ -453,12 +467,20 @@ export const IBCTransferCompleted = {
     return message;
   },
   fromAmino(object: IBCTransferCompletedAmino): IBCTransferCompleted {
-    return {
-      id: BigInt(object.id),
-      sequence: BigInt(object.sequence),
-      portId: object.port_id,
-      channelId: object.channel_id
-    };
+    const message = createBaseIBCTransferCompleted();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    return message;
   },
   toAmino(message: IBCTransferCompleted): IBCTransferCompletedAmino {
     const obj: any = {};
@@ -526,12 +548,20 @@ export const IBCTransferFailed = {
     return message;
   },
   fromAmino(object: IBCTransferFailedAmino): IBCTransferFailed {
-    return {
-      id: BigInt(object.id),
-      sequence: BigInt(object.sequence),
-      portId: object.port_id,
-      channelId: object.channel_id
-    };
+    const message = createBaseIBCTransferFailed();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    return message;
   },
   toAmino(message: IBCTransferFailed): IBCTransferFailedAmino {
     const obj: any = {};
@@ -617,15 +647,29 @@ export const IBCTransferRetried = {
     return message;
   },
   fromAmino(object: IBCTransferRetriedAmino): IBCTransferRetried {
-    return {
-      id: BigInt(object.id),
-      receipient: object.receipient,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined,
-      sequence: BigInt(object.sequence),
-      portId: object.port_id,
-      channelId: object.channel_id,
-      recipient: object.recipient
-    };
+    const message = createBaseIBCTransferRetried();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.receipient !== undefined && object.receipient !== null) {
+      message.receipient = object.receipient;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    return message;
   },
   toAmino(message: IBCTransferRetried): IBCTransferRetriedAmino {
     const obj: any = {};
@@ -696,12 +740,20 @@ export const AxelarTransferCompleted = {
     return message;
   },
   fromAmino(object: AxelarTransferCompletedAmino): AxelarTransferCompleted {
-    return {
-      id: BigInt(object.id),
-      receipient: object.receipient,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined,
-      recipient: object.recipient
-    };
+    const message = createBaseAxelarTransferCompleted();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.receipient !== undefined && object.receipient !== null) {
+      message.receipient = object.receipient;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    return message;
   },
   toAmino(message: AxelarTransferCompleted): AxelarTransferCompletedAmino {
     const obj: any = {};
@@ -757,14 +809,18 @@ export const FeeCollected = {
     return message;
   },
   fromAmino(object: FeeCollectedAmino): FeeCollected {
-    return {
-      collector: object.collector,
-      fee: object?.fee ? Coin.fromAmino(object.fee) : undefined
-    };
+    const message = createBaseFeeCollected();
+    if (object.collector !== undefined && object.collector !== null) {
+      message.collector = bytesFromBase64(object.collector);
+    }
+    if (object.fee !== undefined && object.fee !== null) {
+      message.fee = Coin.fromAmino(object.fee);
+    }
+    return message;
   },
   toAmino(message: FeeCollected): FeeCollectedAmino {
     const obj: any = {};
-    obj.collector = message.collector;
+    obj.collector = message.collector ? base64FromBytes(message.collector) : undefined;
     obj.fee = message.fee ? Coin.toAmino(message.fee) : undefined;
     return obj;
   },
@@ -832,18 +888,28 @@ export const FeePaid = {
     return message;
   },
   fromAmino(object: FeePaidAmino): FeePaid {
-    return {
-      messageId: object.message_id,
-      recipient: object.recipient,
-      fee: object?.fee ? Coin.fromAmino(object.fee) : undefined,
-      refundRecipient: object.refund_recipient,
-      asset: object.asset
-    };
+    const message = createBaseFeePaid();
+    if (object.message_id !== undefined && object.message_id !== null) {
+      message.messageId = object.message_id;
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = bytesFromBase64(object.recipient);
+    }
+    if (object.fee !== undefined && object.fee !== null) {
+      message.fee = Coin.fromAmino(object.fee);
+    }
+    if (object.refund_recipient !== undefined && object.refund_recipient !== null) {
+      message.refundRecipient = object.refund_recipient;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    return message;
   },
   toAmino(message: FeePaid): FeePaidAmino {
     const obj: any = {};
     obj.message_id = message.messageId;
-    obj.recipient = message.recipient;
+    obj.recipient = message.recipient ? base64FromBytes(message.recipient) : undefined;
     obj.fee = message.fee ? Coin.toAmino(message.fee) : undefined;
     obj.refund_recipient = message.refundRecipient;
     obj.asset = message.asset;
@@ -925,15 +991,29 @@ export const ContractCallSubmitted = {
     return message;
   },
   fromAmino(object: ContractCallSubmittedAmino): ContractCallSubmitted {
-    return {
-      messageId: object.message_id,
-      sender: object.sender,
-      sourceChain: object.source_chain,
-      destinationChain: object.destination_chain,
-      contractAddress: object.contract_address,
-      payload: object.payload,
-      payloadHash: object.payload_hash
-    };
+    const message = createBaseContractCallSubmitted();
+    if (object.message_id !== undefined && object.message_id !== null) {
+      message.messageId = object.message_id;
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.source_chain !== undefined && object.source_chain !== null) {
+      message.sourceChain = object.source_chain;
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = bytesFromBase64(object.payload);
+    }
+    if (object.payload_hash !== undefined && object.payload_hash !== null) {
+      message.payloadHash = bytesFromBase64(object.payload_hash);
+    }
+    return message;
   },
   toAmino(message: ContractCallSubmitted): ContractCallSubmittedAmino {
     const obj: any = {};
@@ -942,8 +1022,8 @@ export const ContractCallSubmitted = {
     obj.source_chain = message.sourceChain;
     obj.destination_chain = message.destinationChain;
     obj.contract_address = message.contractAddress;
-    obj.payload = message.payload;
-    obj.payload_hash = message.payloadHash;
+    obj.payload = message.payload ? base64FromBytes(message.payload) : undefined;
+    obj.payload_hash = message.payloadHash ? base64FromBytes(message.payloadHash) : undefined;
     return obj;
   },
   fromAminoMsg(object: ContractCallSubmittedAminoMsg): ContractCallSubmitted {
@@ -1028,16 +1108,32 @@ export const ContractCallWithTokenSubmitted = {
     return message;
   },
   fromAmino(object: ContractCallWithTokenSubmittedAmino): ContractCallWithTokenSubmitted {
-    return {
-      messageId: object.message_id,
-      sender: object.sender,
-      sourceChain: object.source_chain,
-      destinationChain: object.destination_chain,
-      contractAddress: object.contract_address,
-      payload: object.payload,
-      payloadHash: object.payload_hash,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseContractCallWithTokenSubmitted();
+    if (object.message_id !== undefined && object.message_id !== null) {
+      message.messageId = object.message_id;
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.source_chain !== undefined && object.source_chain !== null) {
+      message.sourceChain = object.source_chain;
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = bytesFromBase64(object.payload);
+    }
+    if (object.payload_hash !== undefined && object.payload_hash !== null) {
+      message.payloadHash = bytesFromBase64(object.payload_hash);
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: ContractCallWithTokenSubmitted): ContractCallWithTokenSubmittedAmino {
     const obj: any = {};
@@ -1046,8 +1142,8 @@ export const ContractCallWithTokenSubmitted = {
     obj.source_chain = message.sourceChain;
     obj.destination_chain = message.destinationChain;
     obj.contract_address = message.contractAddress;
-    obj.payload = message.payload;
-    obj.payload_hash = message.payloadHash;
+    obj.payload = message.payload ? base64FromBytes(message.payload) : undefined;
+    obj.payload_hash = message.payloadHash ? base64FromBytes(message.payloadHash) : undefined;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -1121,14 +1217,26 @@ export const TokenSent = {
     return message;
   },
   fromAmino(object: TokenSentAmino): TokenSent {
-    return {
-      transferId: BigInt(object.transfer_id),
-      sender: object.sender,
-      sourceChain: object.source_chain,
-      destinationChain: object.destination_chain,
-      destinationAddress: object.destination_address,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseTokenSent();
+    if (object.transfer_id !== undefined && object.transfer_id !== null) {
+      message.transferId = BigInt(object.transfer_id);
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.source_chain !== undefined && object.source_chain !== null) {
+      message.sourceChain = object.source_chain;
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.destination_address !== undefined && object.destination_address !== null) {
+      message.destinationAddress = object.destination_address;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: TokenSent): TokenSentAmino {
     const obj: any = {};

@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** Params represent the genesis parameters for the module */
 export interface Params {
   externalChainVotingInflationRate: Uint8Array;
@@ -11,8 +11,8 @@ export interface ParamsProtoMsg {
 }
 /** Params represent the genesis parameters for the module */
 export interface ParamsAmino {
-  external_chain_voting_inflation_rate: Uint8Array;
-  key_mgmt_relative_inflation_rate: Uint8Array;
+  external_chain_voting_inflation_rate?: string;
+  key_mgmt_relative_inflation_rate?: string;
 }
 export interface ParamsAminoMsg {
   type: "/axelar.reward.v1beta1.Params";
@@ -53,15 +53,19 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      externalChainVotingInflationRate: object.external_chain_voting_inflation_rate,
-      keyMgmtRelativeInflationRate: object.key_mgmt_relative_inflation_rate
-    };
+    const message = createBaseParams();
+    if (object.external_chain_voting_inflation_rate !== undefined && object.external_chain_voting_inflation_rate !== null) {
+      message.externalChainVotingInflationRate = bytesFromBase64(object.external_chain_voting_inflation_rate);
+    }
+    if (object.key_mgmt_relative_inflation_rate !== undefined && object.key_mgmt_relative_inflation_rate !== null) {
+      message.keyMgmtRelativeInflationRate = bytesFromBase64(object.key_mgmt_relative_inflation_rate);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
-    obj.external_chain_voting_inflation_rate = message.externalChainVotingInflationRate;
-    obj.key_mgmt_relative_inflation_rate = message.keyMgmtRelativeInflationRate;
+    obj.external_chain_voting_inflation_rate = message.externalChainVotingInflationRate ? base64FromBytes(message.externalChainVotingInflationRate) : undefined;
+    obj.key_mgmt_relative_inflation_rate = message.keyMgmtRelativeInflationRate ? base64FromBytes(message.keyMgmtRelativeInflationRate) : undefined;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

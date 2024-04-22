@@ -12,7 +12,7 @@ export interface GenesisStateProtoMsg {
 }
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  poll_metadatas: PollMetadataAmino[];
+  poll_metadatas?: PollMetadataAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/axelar.vote.v1beta1.GenesisState";
@@ -52,10 +52,12 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      pollMetadatas: Array.isArray(object?.poll_metadatas) ? object.poll_metadatas.map((e: any) => PollMetadata.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.pollMetadatas = object.poll_metadatas?.map(e => PollMetadata.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

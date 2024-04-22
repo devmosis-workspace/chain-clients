@@ -265,3 +265,6 @@
 [submodule "packages/stride/wasmd"]
 	path = packages/stride/wasmd
 	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/axelar/axelar-core"]
+	path = packages/axelar/axelar-core
+	url = https://github.com/Ryz0nd/axelar-core

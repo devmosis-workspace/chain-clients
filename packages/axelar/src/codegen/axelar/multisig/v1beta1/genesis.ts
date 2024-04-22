@@ -17,10 +17,10 @@ export interface GenesisStateProtoMsg {
 /** GenesisState represents the genesis state */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  keygen_sessions: KeygenSessionAmino[];
-  signing_sessions: SigningSessionAmino[];
-  keys: KeyAmino[];
-  key_epochs: KeyEpochAmino[];
+  keygen_sessions?: KeygenSessionAmino[];
+  signing_sessions?: SigningSessionAmino[];
+  keys?: KeyAmino[];
+  key_epochs?: KeyEpochAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/axelar.multisig.v1beta1.GenesisState";
@@ -82,13 +82,15 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      keygenSessions: Array.isArray(object?.keygen_sessions) ? object.keygen_sessions.map((e: any) => KeygenSession.fromAmino(e)) : [],
-      signingSessions: Array.isArray(object?.signing_sessions) ? object.signing_sessions.map((e: any) => SigningSession.fromAmino(e)) : [],
-      keys: Array.isArray(object?.keys) ? object.keys.map((e: any) => Key.fromAmino(e)) : [],
-      keyEpochs: Array.isArray(object?.key_epochs) ? object.key_epochs.map((e: any) => KeyEpoch.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.keygenSessions = object.keygen_sessions?.map(e => KeygenSession.fromAmino(e)) || [];
+    message.signingSessions = object.signing_sessions?.map(e => SigningSession.fromAmino(e)) || [];
+    message.keys = object.keys?.map(e => Key.fromAmino(e)) || [];
+    message.keyEpochs = object.key_epochs?.map(e => KeyEpoch.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

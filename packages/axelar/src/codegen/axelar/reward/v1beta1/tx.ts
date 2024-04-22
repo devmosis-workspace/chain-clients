@@ -1,9 +1,9 @@
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface RefundMsgRequest {
   sender: Uint8Array;
-  innerMessage: (Any) | undefined;
+  innerMessage?: (Any) | undefined;
 }
 export interface RefundMsgRequestProtoMsg {
   typeUrl: "/axelar.reward.v1beta1.RefundMsgRequest";
@@ -13,7 +13,7 @@ export type RefundMsgRequestEncoded = Omit<RefundMsgRequest, "innerMessage"> & {
   innerMessage?: AnyProtoMsg | undefined;
 };
 export interface RefundMsgRequestAmino {
-  sender: Uint8Array;
+  sender?: string;
   inner_message?: AnyAmino;
 }
 export interface RefundMsgRequestAminoMsg {
@@ -22,7 +22,7 @@ export interface RefundMsgRequestAminoMsg {
 }
 export interface RefundMsgRequestSDKType {
   sender: Uint8Array;
-  inner_message: AnySDKType | undefined;
+  inner_message?: AnySDKType | undefined;
 }
 export interface RefundMsgResponse {
   data: Uint8Array;
@@ -33,8 +33,8 @@ export interface RefundMsgResponseProtoMsg {
   value: Uint8Array;
 }
 export interface RefundMsgResponseAmino {
-  data: Uint8Array;
-  log: string;
+  data?: string;
+  log?: string;
 }
 export interface RefundMsgResponseAminoMsg {
   type: "/axelar.reward.v1beta1.RefundMsgResponse";
@@ -47,7 +47,7 @@ export interface RefundMsgResponseSDKType {
 function createBaseRefundMsgRequest(): RefundMsgRequest {
   return {
     sender: new Uint8Array(),
-    innerMessage: Any.fromPartial({})
+    innerMessage: undefined
   };
 }
 export const RefundMsgRequest = {
@@ -74,14 +74,18 @@ export const RefundMsgRequest = {
     return message;
   },
   fromAmino(object: RefundMsgRequestAmino): RefundMsgRequest {
-    return {
-      sender: object.sender,
-      innerMessage: object?.inner_message ? Refundable_FromAmino(object.inner_message) : undefined
-    };
+    const message = createBaseRefundMsgRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.inner_message !== undefined && object.inner_message !== null) {
+      message.innerMessage = Refundable_FromAmino(object.inner_message);
+    }
+    return message;
   },
   toAmino(message: RefundMsgRequest): RefundMsgRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.inner_message = message.innerMessage ? Refundable_ToAmino((message.innerMessage as Any)) : undefined;
     return obj;
   },
@@ -131,14 +135,18 @@ export const RefundMsgResponse = {
     return message;
   },
   fromAmino(object: RefundMsgResponseAmino): RefundMsgResponse {
-    return {
-      data: object.data,
-      log: object.log
-    };
+    const message = createBaseRefundMsgResponse();
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    if (object.log !== undefined && object.log !== null) {
+      message.log = object.log;
+    }
+    return message;
   },
   toAmino(message: RefundMsgResponse): RefundMsgResponseAmino {
     const obj: any = {};
-    obj.data = message.data;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
     obj.log = message.log;
     return obj;
   },

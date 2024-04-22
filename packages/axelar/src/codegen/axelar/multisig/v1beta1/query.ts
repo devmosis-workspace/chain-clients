@@ -1,8 +1,8 @@
 import { KeyState, MultisigState, keyStateFromJSON, multisigStateFromJSON } from "../exported/v1beta1/types";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, fromJsonTimestamp } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, fromJsonTimestamp } from "../../../helpers";
 export interface KeyIDRequest {
   chain: string;
 }
@@ -11,7 +11,7 @@ export interface KeyIDRequestProtoMsg {
   value: Uint8Array;
 }
 export interface KeyIDRequestAmino {
-  chain: string;
+  chain?: string;
 }
 export interface KeyIDRequestAminoMsg {
   type: "/axelar.multisig.v1beta1.KeyIDRequest";
@@ -30,7 +30,7 @@ export interface KeyIDResponseProtoMsg {
 }
 /** KeyIDResponse contains the key ID of the key assigned to a given chain. */
 export interface KeyIDResponseAmino {
-  key_id: string;
+  key_id?: string;
 }
 export interface KeyIDResponseAminoMsg {
   type: "/axelar.multisig.v1beta1.KeyIDResponse";
@@ -48,7 +48,7 @@ export interface NextKeyIDRequestProtoMsg {
   value: Uint8Array;
 }
 export interface NextKeyIDRequestAmino {
-  chain: string;
+  chain?: string;
 }
 export interface NextKeyIDRequestAminoMsg {
   type: "/axelar.multisig.v1beta1.NextKeyIDRequest";
@@ -73,7 +73,7 @@ export interface NextKeyIDResponseProtoMsg {
  * chain
  */
 export interface NextKeyIDResponseAmino {
-  key_id: string;
+  key_id?: string;
 }
 export interface NextKeyIDResponseAminoMsg {
   type: "/axelar.multisig.v1beta1.NextKeyIDResponse";
@@ -94,7 +94,7 @@ export interface KeyRequestProtoMsg {
   value: Uint8Array;
 }
 export interface KeyRequestAmino {
-  key_id: string;
+  key_id?: string;
 }
 export interface KeyRequestAminoMsg {
   type: "/axelar.multisig.v1beta1.KeyRequest";
@@ -113,9 +113,9 @@ export interface KeygenParticipantProtoMsg {
   value: Uint8Array;
 }
 export interface KeygenParticipantAmino {
-  address: string;
-  weight: Uint8Array;
-  pub_key: string;
+  address?: string;
+  weight?: string;
+  pub_key?: string;
 }
 export interface KeygenParticipantAminoMsg {
   type: "/axelar.multisig.v1beta1.KeygenParticipant";
@@ -143,14 +143,14 @@ export interface KeyResponseProtoMsg {
 }
 /** KeyResponse contains the key corresponding to a given key id. */
 export interface KeyResponseAmino {
-  key_id: string;
-  state: KeyState;
-  started_at: string;
-  started_at_timestamp?: TimestampAmino;
-  threshold_weight: Uint8Array;
-  bonded_weight: Uint8Array;
+  key_id?: string;
+  state?: KeyState;
+  started_at?: string;
+  started_at_timestamp?: string;
+  threshold_weight?: string;
+  bonded_weight?: string;
   /** Keygen participants in descending order by weight */
-  participants: KeygenParticipantAmino[];
+  participants?: KeygenParticipantAmino[];
 }
 export interface KeyResponseAminoMsg {
   type: "/axelar.multisig.v1beta1.KeyResponse";
@@ -174,7 +174,7 @@ export interface KeygenSessionRequestProtoMsg {
   value: Uint8Array;
 }
 export interface KeygenSessionRequestAmino {
-  key_id: string;
+  key_id?: string;
 }
 export interface KeygenSessionRequestAminoMsg {
   type: "/axelar.multisig.v1beta1.KeygenSessionRequest";
@@ -203,17 +203,17 @@ export interface KeygenSessionResponseProtoMsg {
 }
 /** KeygenSessionResponse contains the keygen session info for a given key ID. */
 export interface KeygenSessionResponseAmino {
-  started_at: string;
-  started_at_timestamp?: TimestampAmino;
-  expires_at: string;
-  completed_at: string;
-  grace_period: string;
-  state: MultisigState;
-  keygen_threshold_weight: Uint8Array;
-  signing_threshold_weight: Uint8Array;
-  bonded_weight: Uint8Array;
+  started_at?: string;
+  started_at_timestamp?: string;
+  expires_at?: string;
+  completed_at?: string;
+  grace_period?: string;
+  state?: MultisigState;
+  keygen_threshold_weight?: string;
+  signing_threshold_weight?: string;
+  bonded_weight?: string;
   /** Keygen candidates in descending order by weight */
-  participants: KeygenParticipantAmino[];
+  participants?: KeygenParticipantAmino[];
 }
 export interface KeygenSessionResponseAminoMsg {
   type: "/axelar.multisig.v1beta1.KeygenSessionResponse";
@@ -287,9 +287,11 @@ export const KeyIDRequest = {
     return message;
   },
   fromAmino(object: KeyIDRequestAmino): KeyIDRequest {
-    return {
-      chain: object.chain
-    };
+    const message = createBaseKeyIDRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: KeyIDRequest): KeyIDRequestAmino {
     const obj: any = {};
@@ -336,9 +338,11 @@ export const KeyIDResponse = {
     return message;
   },
   fromAmino(object: KeyIDResponseAmino): KeyIDResponse {
-    return {
-      keyId: object.key_id
-    };
+    const message = createBaseKeyIDResponse();
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: KeyIDResponse): KeyIDResponseAmino {
     const obj: any = {};
@@ -385,9 +389,11 @@ export const NextKeyIDRequest = {
     return message;
   },
   fromAmino(object: NextKeyIDRequestAmino): NextKeyIDRequest {
-    return {
-      chain: object.chain
-    };
+    const message = createBaseNextKeyIDRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: NextKeyIDRequest): NextKeyIDRequestAmino {
     const obj: any = {};
@@ -434,9 +440,11 @@ export const NextKeyIDResponse = {
     return message;
   },
   fromAmino(object: NextKeyIDResponseAmino): NextKeyIDResponse {
-    return {
-      keyId: object.key_id
-    };
+    const message = createBaseNextKeyIDResponse();
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: NextKeyIDResponse): NextKeyIDResponseAmino {
     const obj: any = {};
@@ -483,9 +491,11 @@ export const KeyRequest = {
     return message;
   },
   fromAmino(object: KeyRequestAmino): KeyRequest {
-    return {
-      keyId: object.key_id
-    };
+    const message = createBaseKeyRequest();
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: KeyRequest): KeyRequestAmino {
     const obj: any = {};
@@ -544,16 +554,22 @@ export const KeygenParticipant = {
     return message;
   },
   fromAmino(object: KeygenParticipantAmino): KeygenParticipant {
-    return {
-      address: object.address,
-      weight: object.weight,
-      pubKey: object.pub_key
-    };
+    const message = createBaseKeygenParticipant();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = bytesFromBase64(object.weight);
+    }
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = object.pub_key;
+    }
+    return message;
   },
   toAmino(message: KeygenParticipant): KeygenParticipantAmino {
     const obj: any = {};
     obj.address = message.address;
-    obj.weight = message.weight;
+    obj.weight = message.weight ? base64FromBytes(message.weight) : undefined;
     obj.pub_key = message.pubKey;
     return obj;
   },
@@ -633,24 +649,36 @@ export const KeyResponse = {
     return message;
   },
   fromAmino(object: KeyResponseAmino): KeyResponse {
-    return {
-      keyId: object.key_id,
-      state: isSet(object.state) ? keyStateFromJSON(object.state) : -1,
-      startedAt: BigInt(object.started_at),
-      startedAtTimestamp: object.started_at_timestamp,
-      thresholdWeight: object.threshold_weight,
-      bondedWeight: object.bonded_weight,
-      participants: Array.isArray(object?.participants) ? object.participants.map((e: any) => KeygenParticipant.fromAmino(e)) : []
-    };
+    const message = createBaseKeyResponse();
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = keyStateFromJSON(object.state);
+    }
+    if (object.started_at !== undefined && object.started_at !== null) {
+      message.startedAt = BigInt(object.started_at);
+    }
+    if (object.started_at_timestamp !== undefined && object.started_at_timestamp !== null) {
+      message.startedAtTimestamp = Timestamp.fromAmino(object.started_at_timestamp);
+    }
+    if (object.threshold_weight !== undefined && object.threshold_weight !== null) {
+      message.thresholdWeight = bytesFromBase64(object.threshold_weight);
+    }
+    if (object.bonded_weight !== undefined && object.bonded_weight !== null) {
+      message.bondedWeight = bytesFromBase64(object.bonded_weight);
+    }
+    message.participants = object.participants?.map(e => KeygenParticipant.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: KeyResponse): KeyResponseAmino {
     const obj: any = {};
     obj.key_id = message.keyId;
     obj.state = message.state;
     obj.started_at = message.startedAt ? message.startedAt.toString() : undefined;
-    obj.started_at_timestamp = message.startedAtTimestamp;
-    obj.threshold_weight = message.thresholdWeight;
-    obj.bonded_weight = message.bondedWeight;
+    obj.started_at_timestamp = message.startedAtTimestamp ? Timestamp.toAmino(message.startedAtTimestamp) : undefined;
+    obj.threshold_weight = message.thresholdWeight ? base64FromBytes(message.thresholdWeight) : undefined;
+    obj.bonded_weight = message.bondedWeight ? base64FromBytes(message.bondedWeight) : undefined;
     if (message.participants) {
       obj.participants = message.participants.map(e => e ? KeygenParticipant.toAmino(e) : undefined);
     } else {
@@ -698,9 +726,11 @@ export const KeygenSessionRequest = {
     return message;
   },
   fromAmino(object: KeygenSessionRequestAmino): KeygenSessionRequest {
-    return {
-      keyId: object.key_id
-    };
+    const message = createBaseKeygenSessionRequest();
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: KeygenSessionRequest): KeygenSessionRequestAmino {
     const obj: any = {};
@@ -801,30 +831,48 @@ export const KeygenSessionResponse = {
     return message;
   },
   fromAmino(object: KeygenSessionResponseAmino): KeygenSessionResponse {
-    return {
-      startedAt: BigInt(object.started_at),
-      startedAtTimestamp: object.started_at_timestamp,
-      expiresAt: BigInt(object.expires_at),
-      completedAt: BigInt(object.completed_at),
-      gracePeriod: BigInt(object.grace_period),
-      state: isSet(object.state) ? multisigStateFromJSON(object.state) : -1,
-      keygenThresholdWeight: object.keygen_threshold_weight,
-      signingThresholdWeight: object.signing_threshold_weight,
-      bondedWeight: object.bonded_weight,
-      participants: Array.isArray(object?.participants) ? object.participants.map((e: any) => KeygenParticipant.fromAmino(e)) : []
-    };
+    const message = createBaseKeygenSessionResponse();
+    if (object.started_at !== undefined && object.started_at !== null) {
+      message.startedAt = BigInt(object.started_at);
+    }
+    if (object.started_at_timestamp !== undefined && object.started_at_timestamp !== null) {
+      message.startedAtTimestamp = Timestamp.fromAmino(object.started_at_timestamp);
+    }
+    if (object.expires_at !== undefined && object.expires_at !== null) {
+      message.expiresAt = BigInt(object.expires_at);
+    }
+    if (object.completed_at !== undefined && object.completed_at !== null) {
+      message.completedAt = BigInt(object.completed_at);
+    }
+    if (object.grace_period !== undefined && object.grace_period !== null) {
+      message.gracePeriod = BigInt(object.grace_period);
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = multisigStateFromJSON(object.state);
+    }
+    if (object.keygen_threshold_weight !== undefined && object.keygen_threshold_weight !== null) {
+      message.keygenThresholdWeight = bytesFromBase64(object.keygen_threshold_weight);
+    }
+    if (object.signing_threshold_weight !== undefined && object.signing_threshold_weight !== null) {
+      message.signingThresholdWeight = bytesFromBase64(object.signing_threshold_weight);
+    }
+    if (object.bonded_weight !== undefined && object.bonded_weight !== null) {
+      message.bondedWeight = bytesFromBase64(object.bonded_weight);
+    }
+    message.participants = object.participants?.map(e => KeygenParticipant.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: KeygenSessionResponse): KeygenSessionResponseAmino {
     const obj: any = {};
     obj.started_at = message.startedAt ? message.startedAt.toString() : undefined;
-    obj.started_at_timestamp = message.startedAtTimestamp;
+    obj.started_at_timestamp = message.startedAtTimestamp ? Timestamp.toAmino(message.startedAtTimestamp) : undefined;
     obj.expires_at = message.expiresAt ? message.expiresAt.toString() : undefined;
     obj.completed_at = message.completedAt ? message.completedAt.toString() : undefined;
     obj.grace_period = message.gracePeriod ? message.gracePeriod.toString() : undefined;
     obj.state = message.state;
-    obj.keygen_threshold_weight = message.keygenThresholdWeight;
-    obj.signing_threshold_weight = message.signingThresholdWeight;
-    obj.bonded_weight = message.bondedWeight;
+    obj.keygen_threshold_weight = message.keygenThresholdWeight ? base64FromBytes(message.keygenThresholdWeight) : undefined;
+    obj.signing_threshold_weight = message.signingThresholdWeight ? base64FromBytes(message.signingThresholdWeight) : undefined;
+    obj.bonded_weight = message.bondedWeight ? base64FromBytes(message.bondedWeight) : undefined;
     if (message.participants) {
       obj.participants = message.participants.map(e => e ? KeygenParticipant.toAmino(e) : undefined);
     } else {
@@ -864,7 +912,8 @@ export const ParamsRequest = {
     return message;
   },
   fromAmino(_: ParamsRequestAmino): ParamsRequest {
-    return {};
+    const message = createBaseParamsRequest();
+    return message;
   },
   toAmino(_: ParamsRequest): ParamsRequestAmino {
     const obj: any = {};
@@ -910,9 +959,11 @@ export const ParamsResponse = {
     return message;
   },
   fromAmino(object: ParamsResponseAmino): ParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: ParamsResponse): ParamsResponseAmino {
     const obj: any = {};

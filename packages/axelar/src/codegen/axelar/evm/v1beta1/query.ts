@@ -1,7 +1,7 @@
 import { BatchedCommandsStatus, DepositStatus, Event, EventAmino, EventSDKType, BurnerInfo, BurnerInfoAmino, BurnerInfoSDKType, TokenDetails, TokenDetailsAmino, TokenDetailsSDKType, batchedCommandsStatusFromJSON, depositStatusFromJSON } from "./types";
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, isObject } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, isObject } from "../../../helpers";
 export enum ChainStatus {
   CHAIN_STATUS_UNSPECIFIED = 0,
   CHAIN_STATUS_ACTIVATED = 1,
@@ -96,9 +96,9 @@ export interface DepositQueryParamsProtoMsg {
  * deposit address
  */
 export interface DepositQueryParamsAmino {
-  address: string;
-  asset: string;
-  chain: string;
+  address?: string;
+  asset?: string;
+  chain?: string;
 }
 export interface DepositQueryParamsAminoMsg {
   type: "/axelar.evm.v1beta1.DepositQueryParams";
@@ -126,12 +126,12 @@ export interface BatchedCommandsRequestProtoMsg {
   value: Uint8Array;
 }
 export interface BatchedCommandsRequestAmino {
-  chain: string;
+  chain?: string;
   /**
    * id defines an optional id for the commandsbatch. If not specified the
    * latest will be returned
    */
-  id: string;
+  id?: string;
 }
 export interface BatchedCommandsRequestAminoMsg {
   type: "/axelar.evm.v1beta1.BatchedCommandsRequest";
@@ -149,20 +149,20 @@ export interface BatchedCommandsResponse {
   executeData: string;
   prevBatchedCommandsId: string;
   commandIds: string[];
-  proof: Proof;
+  proof?: Proof;
 }
 export interface BatchedCommandsResponseProtoMsg {
   typeUrl: "/axelar.evm.v1beta1.BatchedCommandsResponse";
   value: Uint8Array;
 }
 export interface BatchedCommandsResponseAmino {
-  id: string;
-  data: string;
-  status: BatchedCommandsStatus;
-  key_id: string;
-  execute_data: string;
-  prev_batched_commands_id: string;
-  command_ids: string[];
+  id?: string;
+  data?: string;
+  status?: BatchedCommandsStatus;
+  key_id?: string;
+  execute_data?: string;
+  prev_batched_commands_id?: string;
+  command_ids?: string[];
   proof?: ProofAmino;
 }
 export interface BatchedCommandsResponseAminoMsg {
@@ -177,7 +177,7 @@ export interface BatchedCommandsResponseSDKType {
   execute_data: string;
   prev_batched_commands_id: string;
   command_ids: string[];
-  proof: ProofSDKType;
+  proof?: ProofSDKType;
 }
 export interface KeyAddressRequest {
   chain: string;
@@ -188,8 +188,8 @@ export interface KeyAddressRequestProtoMsg {
   value: Uint8Array;
 }
 export interface KeyAddressRequestAmino {
-  chain: string;
-  key_id: string;
+  chain?: string;
+  key_id?: string;
 }
 export interface KeyAddressRequestAminoMsg {
   type: "/axelar.evm.v1beta1.KeyAddressRequest";
@@ -209,9 +209,9 @@ export interface KeyAddressResponseProtoMsg {
   value: Uint8Array;
 }
 export interface KeyAddressResponseAmino {
-  key_id: string;
-  addresses: KeyAddressResponse_WeightedAddressAmino[];
-  threshold: string;
+  key_id?: string;
+  addresses?: KeyAddressResponse_WeightedAddressAmino[];
+  threshold?: string;
 }
 export interface KeyAddressResponseAminoMsg {
   type: "/axelar.evm.v1beta1.KeyAddressResponse";
@@ -231,8 +231,8 @@ export interface KeyAddressResponse_WeightedAddressProtoMsg {
   value: Uint8Array;
 }
 export interface KeyAddressResponse_WeightedAddressAmino {
-  address: string;
-  weight: string;
+  address?: string;
+  weight?: string;
 }
 export interface KeyAddressResponse_WeightedAddressAminoMsg {
   type: "/axelar.evm.v1beta1.WeightedAddress";
@@ -253,8 +253,8 @@ export interface QueryTokenAddressResponseProtoMsg {
 }
 /** @deprecated */
 export interface QueryTokenAddressResponseAmino {
-  address: string;
-  confirmed: boolean;
+  address?: string;
+  confirmed?: boolean;
 }
 export interface QueryTokenAddressResponseAminoMsg {
   type: "/axelar.evm.v1beta1.QueryTokenAddressResponse";
@@ -276,8 +276,8 @@ export interface QueryDepositStateParamsProtoMsg {
 }
 /** @deprecated */
 export interface QueryDepositStateParamsAmino {
-  tx_id: Uint8Array;
-  burner_address: Uint8Array;
+  tx_id?: string;
+  burner_address?: string;
 }
 export interface QueryDepositStateParamsAminoMsg {
   type: "/axelar.evm.v1beta1.QueryDepositStateParams";
@@ -291,7 +291,7 @@ export interface QueryDepositStateParamsSDKType {
 /** @deprecated */
 export interface DepositStateRequest {
   chain: string;
-  params: QueryDepositStateParams;
+  params?: QueryDepositStateParams;
 }
 export interface DepositStateRequestProtoMsg {
   typeUrl: "/axelar.evm.v1beta1.DepositStateRequest";
@@ -299,7 +299,7 @@ export interface DepositStateRequestProtoMsg {
 }
 /** @deprecated */
 export interface DepositStateRequestAmino {
-  chain: string;
+  chain?: string;
   params?: QueryDepositStateParamsAmino;
 }
 export interface DepositStateRequestAminoMsg {
@@ -309,7 +309,7 @@ export interface DepositStateRequestAminoMsg {
 /** @deprecated */
 export interface DepositStateRequestSDKType {
   chain: string;
-  params: QueryDepositStateParamsSDKType;
+  params?: QueryDepositStateParamsSDKType;
 }
 /** @deprecated */
 export interface DepositStateResponse {
@@ -321,7 +321,7 @@ export interface DepositStateResponseProtoMsg {
 }
 /** @deprecated */
 export interface DepositStateResponseAmino {
-  status: DepositStatus;
+  status?: DepositStatus;
 }
 export interface DepositStateResponseAminoMsg {
   type: "/axelar.evm.v1beta1.DepositStateResponse";
@@ -340,8 +340,8 @@ export interface EventRequestProtoMsg {
   value: Uint8Array;
 }
 export interface EventRequestAmino {
-  chain: string;
-  event_id: string;
+  chain?: string;
+  event_id?: string;
 }
 export interface EventRequestAminoMsg {
   type: "/axelar.evm.v1beta1.EventRequest";
@@ -352,7 +352,7 @@ export interface EventRequestSDKType {
   event_id: string;
 }
 export interface EventResponse {
-  event: Event;
+  event?: Event;
 }
 export interface EventResponseProtoMsg {
   typeUrl: "/axelar.evm.v1beta1.EventResponse";
@@ -366,7 +366,7 @@ export interface EventResponseAminoMsg {
   value: EventResponseAmino;
 }
 export interface EventResponseSDKType {
-  event: EventSDKType;
+  event?: EventSDKType;
 }
 export interface QueryBurnerAddressResponse {
   address: string;
@@ -376,7 +376,7 @@ export interface QueryBurnerAddressResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryBurnerAddressResponseAmino {
-  address: string;
+  address?: string;
 }
 export interface QueryBurnerAddressResponseAminoMsg {
   type: "/axelar.evm.v1beta1.QueryBurnerAddressResponse";
@@ -393,7 +393,7 @@ export interface ChainsRequestProtoMsg {
   value: Uint8Array;
 }
 export interface ChainsRequestAmino {
-  status: ChainStatus;
+  status?: ChainStatus;
 }
 export interface ChainsRequestAminoMsg {
   type: "/axelar.evm.v1beta1.ChainsRequest";
@@ -410,7 +410,7 @@ export interface ChainsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface ChainsResponseAmino {
-  chains: string[];
+  chains?: string[];
 }
 export interface ChainsResponseAminoMsg {
   type: "/axelar.evm.v1beta1.ChainsResponse";
@@ -428,8 +428,8 @@ export interface CommandRequestProtoMsg {
   value: Uint8Array;
 }
 export interface CommandRequestAmino {
-  chain: string;
-  id: string;
+  chain?: string;
+  id?: string;
 }
 export interface CommandRequestAminoMsg {
   type: "/axelar.evm.v1beta1.CommandRequest";
@@ -448,8 +448,8 @@ export interface CommandResponse_ParamsEntryProtoMsg {
   value: Uint8Array;
 }
 export interface CommandResponse_ParamsEntryAmino {
-  key: string;
-  value: string;
+  key?: string;
+  value?: string;
 }
 export interface CommandResponse_ParamsEntryAminoMsg {
   type: string;
@@ -473,13 +473,13 @@ export interface CommandResponseProtoMsg {
   value: Uint8Array;
 }
 export interface CommandResponseAmino {
-  id: string;
-  type: string;
-  params: {
+  id?: string;
+  type?: string;
+  params?: {
     [key: string]: string;
   };
-  key_id: string;
-  max_gas_cost: number;
+  key_id?: string;
+  max_gas_cost?: number;
 }
 export interface CommandResponseAminoMsg {
   type: "/axelar.evm.v1beta1.CommandResponse";
@@ -502,7 +502,7 @@ export interface PendingCommandsRequestProtoMsg {
   value: Uint8Array;
 }
 export interface PendingCommandsRequestAmino {
-  chain: string;
+  chain?: string;
 }
 export interface PendingCommandsRequestAminoMsg {
   type: "/axelar.evm.v1beta1.PendingCommandsRequest";
@@ -519,7 +519,7 @@ export interface PendingCommandsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface PendingCommandsResponseAmino {
-  commands: QueryCommandResponseAmino[];
+  commands?: QueryCommandResponseAmino[];
 }
 export interface PendingCommandsResponseAminoMsg {
   type: "/axelar.evm.v1beta1.PendingCommandsResponse";
@@ -537,8 +537,8 @@ export interface QueryCommandResponse_ParamsEntryProtoMsg {
   value: Uint8Array;
 }
 export interface QueryCommandResponse_ParamsEntryAmino {
-  key: string;
-  value: string;
+  key?: string;
+  value?: string;
 }
 export interface QueryCommandResponse_ParamsEntryAminoMsg {
   type: string;
@@ -562,13 +562,13 @@ export interface QueryCommandResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryCommandResponseAmino {
-  id: string;
-  type: string;
-  params: {
+  id?: string;
+  type?: string;
+  params?: {
     [key: string]: string;
   };
-  key_id: string;
-  max_gas_cost: number;
+  key_id?: string;
+  max_gas_cost?: number;
 }
 export interface QueryCommandResponseAminoMsg {
   type: "/axelar.evm.v1beta1.QueryCommandResponse";
@@ -591,7 +591,7 @@ export interface BurnerInfoRequestProtoMsg {
   value: Uint8Array;
 }
 export interface BurnerInfoRequestAmino {
-  address: Uint8Array;
+  address?: string;
 }
 export interface BurnerInfoRequestAminoMsg {
   type: "/axelar.evm.v1beta1.BurnerInfoRequest";
@@ -602,14 +602,14 @@ export interface BurnerInfoRequestSDKType {
 }
 export interface BurnerInfoResponse {
   chain: string;
-  burnerInfo: BurnerInfo;
+  burnerInfo?: BurnerInfo;
 }
 export interface BurnerInfoResponseProtoMsg {
   typeUrl: "/axelar.evm.v1beta1.BurnerInfoResponse";
   value: Uint8Array;
 }
 export interface BurnerInfoResponseAmino {
-  chain: string;
+  chain?: string;
   burner_info?: BurnerInfoAmino;
 }
 export interface BurnerInfoResponseAminoMsg {
@@ -618,7 +618,7 @@ export interface BurnerInfoResponseAminoMsg {
 }
 export interface BurnerInfoResponseSDKType {
   chain: string;
-  burner_info: BurnerInfoSDKType;
+  burner_info?: BurnerInfoSDKType;
 }
 export interface ConfirmationHeightRequest {
   chain: string;
@@ -628,7 +628,7 @@ export interface ConfirmationHeightRequestProtoMsg {
   value: Uint8Array;
 }
 export interface ConfirmationHeightRequestAmino {
-  chain: string;
+  chain?: string;
 }
 export interface ConfirmationHeightRequestAminoMsg {
   type: "/axelar.evm.v1beta1.ConfirmationHeightRequest";
@@ -645,7 +645,7 @@ export interface ConfirmationHeightResponseProtoMsg {
   value: Uint8Array;
 }
 export interface ConfirmationHeightResponseAmino {
-  height: string;
+  height?: string;
 }
 export interface ConfirmationHeightResponseAminoMsg {
   type: "/axelar.evm.v1beta1.ConfirmationHeightResponse";
@@ -662,7 +662,7 @@ export interface GatewayAddressRequestProtoMsg {
   value: Uint8Array;
 }
 export interface GatewayAddressRequestAmino {
-  chain: string;
+  chain?: string;
 }
 export interface GatewayAddressRequestAminoMsg {
   type: "/axelar.evm.v1beta1.GatewayAddressRequest";
@@ -679,7 +679,7 @@ export interface GatewayAddressResponseProtoMsg {
   value: Uint8Array;
 }
 export interface GatewayAddressResponseAmino {
-  address: string;
+  address?: string;
 }
 export interface GatewayAddressResponseAminoMsg {
   type: "/axelar.evm.v1beta1.GatewayAddressResponse";
@@ -697,8 +697,8 @@ export interface BytecodeRequestProtoMsg {
   value: Uint8Array;
 }
 export interface BytecodeRequestAmino {
-  chain: string;
-  contract: string;
+  chain?: string;
+  contract?: string;
 }
 export interface BytecodeRequestAminoMsg {
   type: "/axelar.evm.v1beta1.BytecodeRequest";
@@ -716,7 +716,7 @@ export interface BytecodeResponseProtoMsg {
   value: Uint8Array;
 }
 export interface BytecodeResponseAmino {
-  bytecode: string;
+  bytecode?: string;
 }
 export interface BytecodeResponseAminoMsg {
   type: "/axelar.evm.v1beta1.BytecodeResponse";
@@ -742,8 +742,8 @@ export interface ERC20TokensRequestProtoMsg {
  * requested.
  */
 export interface ERC20TokensRequestAmino {
-  chain: string;
-  type: TokenType;
+  chain?: string;
+  type?: TokenType;
 }
 export interface ERC20TokensRequestAminoMsg {
   type: "/axelar.evm.v1beta1.ERC20TokensRequest";
@@ -773,7 +773,7 @@ export interface ERC20TokensResponseProtoMsg {
  * ERC20 tokens requested for a chain
  */
 export interface ERC20TokensResponseAmino {
-  tokens: ERC20TokensResponse_TokenAmino[];
+  tokens?: ERC20TokensResponse_TokenAmino[];
 }
 export interface ERC20TokensResponseAminoMsg {
   type: "/axelar.evm.v1beta1.ERC20TokensResponse";
@@ -795,8 +795,8 @@ export interface ERC20TokensResponse_TokenProtoMsg {
   value: Uint8Array;
 }
 export interface ERC20TokensResponse_TokenAmino {
-  asset: string;
-  symbol: string;
+  asset?: string;
+  symbol?: string;
 }
 export interface ERC20TokensResponse_TokenAminoMsg {
   type: "/axelar.evm.v1beta1.Token";
@@ -817,7 +817,7 @@ export interface TokenInfoRequestProtoMsg {
   value: Uint8Array;
 }
 export interface TokenInfoRequestAmino {
-  chain: string;
+  chain?: string;
   asset?: string;
   symbol?: string;
   address?: string;
@@ -845,12 +845,12 @@ export interface TokenInfoResponseProtoMsg {
   value: Uint8Array;
 }
 export interface TokenInfoResponseAmino {
-  asset: string;
+  asset?: string;
   details?: TokenDetailsAmino;
-  address: string;
-  confirmed: boolean;
-  is_external: boolean;
-  burner_code_hash: string;
+  address?: string;
+  confirmed?: boolean;
+  is_external?: boolean;
+  burner_code_hash?: string;
 }
 export interface TokenInfoResponseAminoMsg {
   type: "/axelar.evm.v1beta1.TokenInfoResponse";
@@ -875,10 +875,10 @@ export interface ProofProtoMsg {
   value: Uint8Array;
 }
 export interface ProofAmino {
-  addresses: string[];
-  weights: string[];
-  threshold: string;
-  signatures: string[];
+  addresses?: string[];
+  weights?: string[];
+  threshold?: string;
+  signatures?: string[];
 }
 export interface ProofAminoMsg {
   type: "/axelar.evm.v1beta1.Proof";
@@ -902,7 +902,7 @@ export interface ParamsRequestProtoMsg {
 /** ParamsRequest represents a message that queries the params */
 export interface ParamsRequestAmino {
   /** ParamsRequest represents a message that queries the params */
-  chain: string;
+  chain?: string;
 }
 export interface ParamsRequestAminoMsg {
   type: "/axelar.evm.v1beta1.ParamsRequest";
@@ -965,11 +965,17 @@ export const DepositQueryParams = {
     return message;
   },
   fromAmino(object: DepositQueryParamsAmino): DepositQueryParams {
-    return {
-      address: object.address,
-      asset: object.asset,
-      chain: object.chain
-    };
+    const message = createBaseDepositQueryParams();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: DepositQueryParams): DepositQueryParamsAmino {
     const obj: any = {};
@@ -1024,10 +1030,14 @@ export const BatchedCommandsRequest = {
     return message;
   },
   fromAmino(object: BatchedCommandsRequestAmino): BatchedCommandsRequest {
-    return {
-      chain: object.chain,
-      id: object.id
-    };
+    const message = createBaseBatchedCommandsRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: BatchedCommandsRequest): BatchedCommandsRequestAmino {
     const obj: any = {};
@@ -1060,7 +1070,7 @@ function createBaseBatchedCommandsResponse(): BatchedCommandsResponse {
     executeData: "",
     prevBatchedCommandsId: "",
     commandIds: [],
-    proof: Proof.fromPartial({})
+    proof: undefined
   };
 }
 export const BatchedCommandsResponse = {
@@ -1117,16 +1127,30 @@ export const BatchedCommandsResponse = {
     return message;
   },
   fromAmino(object: BatchedCommandsResponseAmino): BatchedCommandsResponse {
-    return {
-      id: object.id,
-      data: object.data,
-      status: isSet(object.status) ? batchedCommandsStatusFromJSON(object.status) : -1,
-      keyId: object.key_id,
-      executeData: object.execute_data,
-      prevBatchedCommandsId: object.prev_batched_commands_id,
-      commandIds: Array.isArray(object?.command_ids) ? object.command_ids.map((e: any) => e) : [],
-      proof: object?.proof ? Proof.fromAmino(object.proof) : undefined
-    };
+    const message = createBaseBatchedCommandsResponse();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = object.data;
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = batchedCommandsStatusFromJSON(object.status);
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    if (object.execute_data !== undefined && object.execute_data !== null) {
+      message.executeData = object.execute_data;
+    }
+    if (object.prev_batched_commands_id !== undefined && object.prev_batched_commands_id !== null) {
+      message.prevBatchedCommandsId = object.prev_batched_commands_id;
+    }
+    message.commandIds = object.command_ids?.map(e => e) || [];
+    if (object.proof !== undefined && object.proof !== null) {
+      message.proof = Proof.fromAmino(object.proof);
+    }
+    return message;
   },
   toAmino(message: BatchedCommandsResponse): BatchedCommandsResponseAmino {
     const obj: any = {};
@@ -1190,10 +1214,14 @@ export const KeyAddressRequest = {
     return message;
   },
   fromAmino(object: KeyAddressRequestAmino): KeyAddressRequest {
-    return {
-      chain: object.chain,
-      keyId: object.key_id
-    };
+    const message = createBaseKeyAddressRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: KeyAddressRequest): KeyAddressRequestAmino {
     const obj: any = {};
@@ -1253,11 +1281,15 @@ export const KeyAddressResponse = {
     return message;
   },
   fromAmino(object: KeyAddressResponseAmino): KeyAddressResponse {
-    return {
-      keyId: object.key_id,
-      addresses: Array.isArray(object?.addresses) ? object.addresses.map((e: any) => KeyAddressResponse_WeightedAddress.fromAmino(e)) : [],
-      threshold: object.threshold
-    };
+    const message = createBaseKeyAddressResponse();
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    message.addresses = object.addresses?.map(e => KeyAddressResponse_WeightedAddress.fromAmino(e)) || [];
+    if (object.threshold !== undefined && object.threshold !== null) {
+      message.threshold = object.threshold;
+    }
+    return message;
   },
   toAmino(message: KeyAddressResponse): KeyAddressResponseAmino {
     const obj: any = {};
@@ -1316,10 +1348,14 @@ export const KeyAddressResponse_WeightedAddress = {
     return message;
   },
   fromAmino(object: KeyAddressResponse_WeightedAddressAmino): KeyAddressResponse_WeightedAddress {
-    return {
-      address: object.address,
-      weight: object.weight
-    };
+    const message = createBaseKeyAddressResponse_WeightedAddress();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = object.weight;
+    }
+    return message;
   },
   toAmino(message: KeyAddressResponse_WeightedAddress): KeyAddressResponse_WeightedAddressAmino {
     const obj: any = {};
@@ -1373,10 +1409,14 @@ export const QueryTokenAddressResponse = {
     return message;
   },
   fromAmino(object: QueryTokenAddressResponseAmino): QueryTokenAddressResponse {
-    return {
-      address: object.address,
-      confirmed: object.confirmed
-    };
+    const message = createBaseQueryTokenAddressResponse();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.confirmed !== undefined && object.confirmed !== null) {
+      message.confirmed = object.confirmed;
+    }
+    return message;
   },
   toAmino(message: QueryTokenAddressResponse): QueryTokenAddressResponseAmino {
     const obj: any = {};
@@ -1430,15 +1470,19 @@ export const QueryDepositStateParams = {
     return message;
   },
   fromAmino(object: QueryDepositStateParamsAmino): QueryDepositStateParams {
-    return {
-      txId: object.tx_id,
-      burnerAddress: object.burner_address
-    };
+    const message = createBaseQueryDepositStateParams();
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.burner_address !== undefined && object.burner_address !== null) {
+      message.burnerAddress = bytesFromBase64(object.burner_address);
+    }
+    return message;
   },
   toAmino(message: QueryDepositStateParams): QueryDepositStateParamsAmino {
     const obj: any = {};
-    obj.tx_id = message.txId;
-    obj.burner_address = message.burnerAddress;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
+    obj.burner_address = message.burnerAddress ? base64FromBytes(message.burnerAddress) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryDepositStateParamsAminoMsg): QueryDepositStateParams {
@@ -1460,7 +1504,7 @@ export const QueryDepositStateParams = {
 function createBaseDepositStateRequest(): DepositStateRequest {
   return {
     chain: "",
-    params: QueryDepositStateParams.fromPartial({})
+    params: undefined
   };
 }
 export const DepositStateRequest = {
@@ -1487,10 +1531,14 @@ export const DepositStateRequest = {
     return message;
   },
   fromAmino(object: DepositStateRequestAmino): DepositStateRequest {
-    return {
-      chain: object.chain,
-      params: object?.params ? QueryDepositStateParams.fromAmino(object.params) : undefined
-    };
+    const message = createBaseDepositStateRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = QueryDepositStateParams.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: DepositStateRequest): DepositStateRequestAmino {
     const obj: any = {};
@@ -1538,9 +1586,11 @@ export const DepositStateResponse = {
     return message;
   },
   fromAmino(object: DepositStateResponseAmino): DepositStateResponse {
-    return {
-      status: isSet(object.status) ? depositStatusFromJSON(object.status) : -1
-    };
+    const message = createBaseDepositStateResponse();
+    if (object.status !== undefined && object.status !== null) {
+      message.status = depositStatusFromJSON(object.status);
+    }
+    return message;
   },
   toAmino(message: DepositStateResponse): DepositStateResponseAmino {
     const obj: any = {};
@@ -1593,10 +1643,14 @@ export const EventRequest = {
     return message;
   },
   fromAmino(object: EventRequestAmino): EventRequest {
-    return {
-      chain: object.chain,
-      eventId: object.event_id
-    };
+    const message = createBaseEventRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.event_id !== undefined && object.event_id !== null) {
+      message.eventId = object.event_id;
+    }
+    return message;
   },
   toAmino(message: EventRequest): EventRequestAmino {
     const obj: any = {};
@@ -1622,7 +1676,7 @@ export const EventRequest = {
 };
 function createBaseEventResponse(): EventResponse {
   return {
-    event: Event.fromPartial({})
+    event: undefined
   };
 }
 export const EventResponse = {
@@ -1644,9 +1698,11 @@ export const EventResponse = {
     return message;
   },
   fromAmino(object: EventResponseAmino): EventResponse {
-    return {
-      event: object?.event ? Event.fromAmino(object.event) : undefined
-    };
+    const message = createBaseEventResponse();
+    if (object.event !== undefined && object.event !== null) {
+      message.event = Event.fromAmino(object.event);
+    }
+    return message;
   },
   toAmino(message: EventResponse): EventResponseAmino {
     const obj: any = {};
@@ -1693,9 +1749,11 @@ export const QueryBurnerAddressResponse = {
     return message;
   },
   fromAmino(object: QueryBurnerAddressResponseAmino): QueryBurnerAddressResponse {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryBurnerAddressResponse();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryBurnerAddressResponse): QueryBurnerAddressResponseAmino {
     const obj: any = {};
@@ -1742,9 +1800,11 @@ export const ChainsRequest = {
     return message;
   },
   fromAmino(object: ChainsRequestAmino): ChainsRequest {
-    return {
-      status: isSet(object.status) ? chainStatusFromJSON(object.status) : -1
-    };
+    const message = createBaseChainsRequest();
+    if (object.status !== undefined && object.status !== null) {
+      message.status = chainStatusFromJSON(object.status);
+    }
+    return message;
   },
   toAmino(message: ChainsRequest): ChainsRequestAmino {
     const obj: any = {};
@@ -1791,9 +1851,9 @@ export const ChainsResponse = {
     return message;
   },
   fromAmino(object: ChainsResponseAmino): ChainsResponse {
-    return {
-      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => e) : []
-    };
+    const message = createBaseChainsResponse();
+    message.chains = object.chains?.map(e => e) || [];
+    return message;
   },
   toAmino(message: ChainsResponse): ChainsResponseAmino {
     const obj: any = {};
@@ -1850,10 +1910,14 @@ export const CommandRequest = {
     return message;
   },
   fromAmino(object: CommandRequestAmino): CommandRequest {
-    return {
-      chain: object.chain,
-      id: object.id
-    };
+    const message = createBaseCommandRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: CommandRequest): CommandRequestAmino {
     const obj: any = {};
@@ -1906,10 +1970,14 @@ export const CommandResponse_ParamsEntry = {
     return message;
   },
   fromAmino(object: CommandResponse_ParamsEntryAmino): CommandResponse_ParamsEntry {
-    return {
-      key: object.key,
-      value: object.value
-    };
+    const message = createBaseCommandResponse_ParamsEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: CommandResponse_ParamsEntry): CommandResponse_ParamsEntryAmino {
     const obj: any = {};
@@ -1990,18 +2058,28 @@ export const CommandResponse = {
     return message;
   },
   fromAmino(object: CommandResponseAmino): CommandResponse {
-    return {
-      id: object.id,
-      type: object.type,
-      params: isObject(object.params) ? Object.entries(object.params).reduce<{
-        [key: string]: string;
-      }>((acc, [key, value]) => {
+    const message = createBaseCommandResponse();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    message.params = Object.entries(object.params ?? {}).reduce<{
+      [key: string]: string;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = String(value);
-        return acc;
-      }, {}) : {},
-      keyId: object.key_id,
-      maxGasCost: object.max_gas_cost
-    };
+      }
+      return acc;
+    }, {});
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    if (object.max_gas_cost !== undefined && object.max_gas_cost !== null) {
+      message.maxGasCost = object.max_gas_cost;
+    }
+    return message;
   },
   toAmino(message: CommandResponse): CommandResponseAmino {
     const obj: any = {};
@@ -2057,9 +2135,11 @@ export const PendingCommandsRequest = {
     return message;
   },
   fromAmino(object: PendingCommandsRequestAmino): PendingCommandsRequest {
-    return {
-      chain: object.chain
-    };
+    const message = createBasePendingCommandsRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: PendingCommandsRequest): PendingCommandsRequestAmino {
     const obj: any = {};
@@ -2106,9 +2186,9 @@ export const PendingCommandsResponse = {
     return message;
   },
   fromAmino(object: PendingCommandsResponseAmino): PendingCommandsResponse {
-    return {
-      commands: Array.isArray(object?.commands) ? object.commands.map((e: any) => QueryCommandResponse.fromAmino(e)) : []
-    };
+    const message = createBasePendingCommandsResponse();
+    message.commands = object.commands?.map(e => QueryCommandResponse.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: PendingCommandsResponse): PendingCommandsResponseAmino {
     const obj: any = {};
@@ -2164,10 +2244,14 @@ export const QueryCommandResponse_ParamsEntry = {
     return message;
   },
   fromAmino(object: QueryCommandResponse_ParamsEntryAmino): QueryCommandResponse_ParamsEntry {
-    return {
-      key: object.key,
-      value: object.value
-    };
+    const message = createBaseQueryCommandResponse_ParamsEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: QueryCommandResponse_ParamsEntry): QueryCommandResponse_ParamsEntryAmino {
     const obj: any = {};
@@ -2248,18 +2332,28 @@ export const QueryCommandResponse = {
     return message;
   },
   fromAmino(object: QueryCommandResponseAmino): QueryCommandResponse {
-    return {
-      id: object.id,
-      type: object.type,
-      params: isObject(object.params) ? Object.entries(object.params).reduce<{
-        [key: string]: string;
-      }>((acc, [key, value]) => {
+    const message = createBaseQueryCommandResponse();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    message.params = Object.entries(object.params ?? {}).reduce<{
+      [key: string]: string;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = String(value);
-        return acc;
-      }, {}) : {},
-      keyId: object.key_id,
-      maxGasCost: object.max_gas_cost
-    };
+      }
+      return acc;
+    }, {});
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    if (object.max_gas_cost !== undefined && object.max_gas_cost !== null) {
+      message.maxGasCost = object.max_gas_cost;
+    }
+    return message;
   },
   toAmino(message: QueryCommandResponse): QueryCommandResponseAmino {
     const obj: any = {};
@@ -2315,13 +2409,15 @@ export const BurnerInfoRequest = {
     return message;
   },
   fromAmino(object: BurnerInfoRequestAmino): BurnerInfoRequest {
-    return {
-      address: object.address
-    };
+    const message = createBaseBurnerInfoRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = bytesFromBase64(object.address);
+    }
+    return message;
   },
   toAmino(message: BurnerInfoRequest): BurnerInfoRequestAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address ? base64FromBytes(message.address) : undefined;
     return obj;
   },
   fromAminoMsg(object: BurnerInfoRequestAminoMsg): BurnerInfoRequest {
@@ -2343,7 +2439,7 @@ export const BurnerInfoRequest = {
 function createBaseBurnerInfoResponse(): BurnerInfoResponse {
   return {
     chain: "",
-    burnerInfo: BurnerInfo.fromPartial({})
+    burnerInfo: undefined
   };
 }
 export const BurnerInfoResponse = {
@@ -2370,10 +2466,14 @@ export const BurnerInfoResponse = {
     return message;
   },
   fromAmino(object: BurnerInfoResponseAmino): BurnerInfoResponse {
-    return {
-      chain: object.chain,
-      burnerInfo: object?.burner_info ? BurnerInfo.fromAmino(object.burner_info) : undefined
-    };
+    const message = createBaseBurnerInfoResponse();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.burner_info !== undefined && object.burner_info !== null) {
+      message.burnerInfo = BurnerInfo.fromAmino(object.burner_info);
+    }
+    return message;
   },
   toAmino(message: BurnerInfoResponse): BurnerInfoResponseAmino {
     const obj: any = {};
@@ -2421,9 +2521,11 @@ export const ConfirmationHeightRequest = {
     return message;
   },
   fromAmino(object: ConfirmationHeightRequestAmino): ConfirmationHeightRequest {
-    return {
-      chain: object.chain
-    };
+    const message = createBaseConfirmationHeightRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: ConfirmationHeightRequest): ConfirmationHeightRequestAmino {
     const obj: any = {};
@@ -2470,9 +2572,11 @@ export const ConfirmationHeightResponse = {
     return message;
   },
   fromAmino(object: ConfirmationHeightResponseAmino): ConfirmationHeightResponse {
-    return {
-      height: BigInt(object.height)
-    };
+    const message = createBaseConfirmationHeightResponse();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    return message;
   },
   toAmino(message: ConfirmationHeightResponse): ConfirmationHeightResponseAmino {
     const obj: any = {};
@@ -2519,9 +2623,11 @@ export const GatewayAddressRequest = {
     return message;
   },
   fromAmino(object: GatewayAddressRequestAmino): GatewayAddressRequest {
-    return {
-      chain: object.chain
-    };
+    const message = createBaseGatewayAddressRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: GatewayAddressRequest): GatewayAddressRequestAmino {
     const obj: any = {};
@@ -2568,9 +2674,11 @@ export const GatewayAddressResponse = {
     return message;
   },
   fromAmino(object: GatewayAddressResponseAmino): GatewayAddressResponse {
-    return {
-      address: object.address
-    };
+    const message = createBaseGatewayAddressResponse();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: GatewayAddressResponse): GatewayAddressResponseAmino {
     const obj: any = {};
@@ -2623,10 +2731,14 @@ export const BytecodeRequest = {
     return message;
   },
   fromAmino(object: BytecodeRequestAmino): BytecodeRequest {
-    return {
-      chain: object.chain,
-      contract: object.contract
-    };
+    const message = createBaseBytecodeRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.contract !== undefined && object.contract !== null) {
+      message.contract = object.contract;
+    }
+    return message;
   },
   toAmino(message: BytecodeRequest): BytecodeRequestAmino {
     const obj: any = {};
@@ -2674,9 +2786,11 @@ export const BytecodeResponse = {
     return message;
   },
   fromAmino(object: BytecodeResponseAmino): BytecodeResponse {
-    return {
-      bytecode: object.bytecode
-    };
+    const message = createBaseBytecodeResponse();
+    if (object.bytecode !== undefined && object.bytecode !== null) {
+      message.bytecode = object.bytecode;
+    }
+    return message;
   },
   toAmino(message: BytecodeResponse): BytecodeResponseAmino {
     const obj: any = {};
@@ -2729,10 +2843,14 @@ export const ERC20TokensRequest = {
     return message;
   },
   fromAmino(object: ERC20TokensRequestAmino): ERC20TokensRequest {
-    return {
-      chain: object.chain,
-      type: isSet(object.type) ? tokenTypeFromJSON(object.type) : -1
-    };
+    const message = createBaseERC20TokensRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = tokenTypeFromJSON(object.type);
+    }
+    return message;
   },
   toAmino(message: ERC20TokensRequest): ERC20TokensRequestAmino {
     const obj: any = {};
@@ -2780,9 +2898,9 @@ export const ERC20TokensResponse = {
     return message;
   },
   fromAmino(object: ERC20TokensResponseAmino): ERC20TokensResponse {
-    return {
-      tokens: Array.isArray(object?.tokens) ? object.tokens.map((e: any) => ERC20TokensResponse_Token.fromAmino(e)) : []
-    };
+    const message = createBaseERC20TokensResponse();
+    message.tokens = object.tokens?.map(e => ERC20TokensResponse_Token.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: ERC20TokensResponse): ERC20TokensResponseAmino {
     const obj: any = {};
@@ -2839,10 +2957,14 @@ export const ERC20TokensResponse_Token = {
     return message;
   },
   fromAmino(object: ERC20TokensResponse_TokenAmino): ERC20TokensResponse_Token {
-    return {
-      asset: object.asset,
-      symbol: object.symbol
-    };
+    const message = createBaseERC20TokensResponse_Token();
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    return message;
   },
   toAmino(message: ERC20TokensResponse_Token): ERC20TokensResponse_TokenAmino {
     const obj: any = {};
@@ -2908,12 +3030,20 @@ export const TokenInfoRequest = {
     return message;
   },
   fromAmino(object: TokenInfoRequestAmino): TokenInfoRequest {
-    return {
-      chain: object.chain,
-      asset: object?.asset,
-      symbol: object?.symbol,
-      address: object?.address
-    };
+    const message = createBaseTokenInfoRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: TokenInfoRequest): TokenInfoRequestAmino {
     const obj: any = {};
@@ -2993,14 +3123,26 @@ export const TokenInfoResponse = {
     return message;
   },
   fromAmino(object: TokenInfoResponseAmino): TokenInfoResponse {
-    return {
-      asset: object.asset,
-      details: object?.details ? TokenDetails.fromAmino(object.details) : undefined,
-      address: object.address,
-      confirmed: object.confirmed,
-      isExternal: object.is_external,
-      burnerCodeHash: object.burner_code_hash
-    };
+    const message = createBaseTokenInfoResponse();
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    if (object.details !== undefined && object.details !== null) {
+      message.details = TokenDetails.fromAmino(object.details);
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.confirmed !== undefined && object.confirmed !== null) {
+      message.confirmed = object.confirmed;
+    }
+    if (object.is_external !== undefined && object.is_external !== null) {
+      message.isExternal = object.is_external;
+    }
+    if (object.burner_code_hash !== undefined && object.burner_code_hash !== null) {
+      message.burnerCodeHash = object.burner_code_hash;
+    }
+    return message;
   },
   toAmino(message: TokenInfoResponse): TokenInfoResponseAmino {
     const obj: any = {};
@@ -3070,12 +3212,14 @@ export const Proof = {
     return message;
   },
   fromAmino(object: ProofAmino): Proof {
-    return {
-      addresses: Array.isArray(object?.addresses) ? object.addresses.map((e: any) => e) : [],
-      weights: Array.isArray(object?.weights) ? object.weights.map((e: any) => e) : [],
-      threshold: object.threshold,
-      signatures: Array.isArray(object?.signatures) ? object.signatures.map((e: any) => e) : []
-    };
+    const message = createBaseProof();
+    message.addresses = object.addresses?.map(e => e) || [];
+    message.weights = object.weights?.map(e => e) || [];
+    if (object.threshold !== undefined && object.threshold !== null) {
+      message.threshold = object.threshold;
+    }
+    message.signatures = object.signatures?.map(e => e) || [];
+    return message;
   },
   toAmino(message: Proof): ProofAmino {
     const obj: any = {};
@@ -3137,9 +3281,11 @@ export const ParamsRequest = {
     return message;
   },
   fromAmino(object: ParamsRequestAmino): ParamsRequest {
-    return {
-      chain: object.chain
-    };
+    const message = createBaseParamsRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: ParamsRequest): ParamsRequestAmino {
     const obj: any = {};
@@ -3186,9 +3332,11 @@ export const ParamsResponse = {
     return message;
   },
   fromAmino(object: ParamsResponseAmino): ParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: ParamsResponse): ParamsResponseAmino {
     const obj: any = {};

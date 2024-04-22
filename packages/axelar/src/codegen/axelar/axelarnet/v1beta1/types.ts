@@ -1,6 +1,6 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export enum IBCTransfer_Status {
   STATUS_UNSPECIFIED = 0,
   STATUS_PENDING = 1,
@@ -61,15 +61,15 @@ export interface IBCTransferProtoMsg {
   value: Uint8Array;
 }
 export interface IBCTransferAmino {
-  sender: Uint8Array;
-  receiver: string;
+  sender?: string;
+  receiver?: string;
   token?: CoinAmino;
-  port_id: string;
-  channel_id: string;
+  port_id?: string;
+  channel_id?: string;
   /** @deprecated */
-  sequence: string;
-  id: string;
-  status: IBCTransfer_Status;
+  sequence?: string;
+  id?: string;
+  status?: IBCTransfer_Status;
 }
 export interface IBCTransferAminoMsg {
   type: "/axelar.axelarnet.v1beta1.IBCTransfer";
@@ -98,11 +98,11 @@ export interface CosmosChainProtoMsg {
   value: Uint8Array;
 }
 export interface CosmosChainAmino {
-  name: string;
-  ibc_path: string;
+  name?: string;
+  ibc_path?: string;
   /** @deprecated */
-  assets: AssetAmino[];
-  addr_prefix: string;
+  assets?: AssetAmino[];
+  addr_prefix?: string;
 }
 export interface CosmosChainAminoMsg {
   type: "/axelar.axelarnet.v1beta1.CosmosChain";
@@ -126,8 +126,8 @@ export interface AssetProtoMsg {
 }
 /** @deprecated */
 export interface AssetAmino {
-  denom: string;
-  min_amount: Uint8Array;
+  denom?: string;
+  min_amount?: string;
 }
 export interface AssetAminoMsg {
   type: "/axelar.axelarnet.v1beta1.Asset";
@@ -149,8 +149,8 @@ export interface FeeProtoMsg {
 }
 export interface FeeAmino {
   amount?: CoinAmino;
-  recipient: Uint8Array;
-  refund_recipient: Uint8Array;
+  recipient?: string;
+  refund_recipient?: string;
 }
 export interface FeeAminoMsg {
   type: "/axelar.axelarnet.v1beta1.Fee";
@@ -227,20 +227,36 @@ export const IBCTransfer = {
     return message;
   },
   fromAmino(object: IBCTransferAmino): IBCTransfer {
-    return {
-      sender: object.sender,
-      receiver: object.receiver,
-      token: object?.token ? Coin.fromAmino(object.token) : undefined,
-      portId: object.port_id,
-      channelId: object.channel_id,
-      sequence: BigInt(object.sequence),
-      id: BigInt(object.id),
-      status: isSet(object.status) ? iBCTransfer_StatusFromJSON(object.status) : -1
-    };
+    const message = createBaseIBCTransfer();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.token !== undefined && object.token !== null) {
+      message.token = Coin.fromAmino(object.token);
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = iBCTransfer_StatusFromJSON(object.status);
+    }
+    return message;
   },
   toAmino(message: IBCTransfer): IBCTransferAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.receiver = message.receiver;
     obj.token = message.token ? Coin.toAmino(message.token) : undefined;
     obj.port_id = message.portId;
@@ -308,12 +324,18 @@ export const CosmosChain = {
     return message;
   },
   fromAmino(object: CosmosChainAmino): CosmosChain {
-    return {
-      name: object.name,
-      ibcPath: object.ibc_path,
-      assets: Array.isArray(object?.assets) ? object.assets.map((e: any) => Asset.fromAmino(e)) : [],
-      addrPrefix: object.addr_prefix
-    };
+    const message = createBaseCosmosChain();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.ibc_path !== undefined && object.ibc_path !== null) {
+      message.ibcPath = object.ibc_path;
+    }
+    message.assets = object.assets?.map(e => Asset.fromAmino(e)) || [];
+    if (object.addr_prefix !== undefined && object.addr_prefix !== null) {
+      message.addrPrefix = object.addr_prefix;
+    }
+    return message;
   },
   toAmino(message: CosmosChain): CosmosChainAmino {
     const obj: any = {};
@@ -373,15 +395,19 @@ export const Asset = {
     return message;
   },
   fromAmino(object: AssetAmino): Asset {
-    return {
-      denom: object.denom,
-      minAmount: object.min_amount
-    };
+    const message = createBaseAsset();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.min_amount !== undefined && object.min_amount !== null) {
+      message.minAmount = bytesFromBase64(object.min_amount);
+    }
+    return message;
   },
   toAmino(message: Asset): AssetAmino {
     const obj: any = {};
     obj.denom = message.denom;
-    obj.min_amount = message.minAmount;
+    obj.min_amount = message.minAmount ? base64FromBytes(message.minAmount) : undefined;
     return obj;
   },
   fromAminoMsg(object: AssetAminoMsg): Asset {
@@ -436,17 +462,23 @@ export const Fee = {
     return message;
   },
   fromAmino(object: FeeAmino): Fee {
-    return {
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
-      recipient: object.recipient,
-      refundRecipient: object.refund_recipient
-    };
+    const message = createBaseFee();
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = bytesFromBase64(object.recipient);
+    }
+    if (object.refund_recipient !== undefined && object.refund_recipient !== null) {
+      message.refundRecipient = bytesFromBase64(object.refund_recipient);
+    }
+    return message;
   },
   toAmino(message: Fee): FeeAmino {
     const obj: any = {};
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
-    obj.recipient = message.recipient;
-    obj.refund_recipient = message.refundRecipient;
+    obj.recipient = message.recipient ? base64FromBytes(message.recipient) : undefined;
+    obj.refund_recipient = message.refundRecipient ? base64FromBytes(message.refundRecipient) : undefined;
     return obj;
   },
   fromAminoMsg(object: FeeAminoMsg): Fee {

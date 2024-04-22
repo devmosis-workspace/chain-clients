@@ -2,7 +2,7 @@ import { FeeInfo, FeeInfoAmino, FeeInfoSDKType } from "../exported/v1beta1/types
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface RegisterChainMaintainerRequest {
   sender: Uint8Array;
   chains: string[];
@@ -12,8 +12,8 @@ export interface RegisterChainMaintainerRequestProtoMsg {
   value: Uint8Array;
 }
 export interface RegisterChainMaintainerRequestAmino {
-  sender: Uint8Array;
-  chains: string[];
+  sender?: string;
+  chains?: string[];
 }
 export interface RegisterChainMaintainerRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.RegisterChainMaintainerRequest";
@@ -43,8 +43,8 @@ export interface DeregisterChainMaintainerRequestProtoMsg {
   value: Uint8Array;
 }
 export interface DeregisterChainMaintainerRequestAmino {
-  sender: Uint8Array;
-  chains: string[];
+  sender?: string;
+  chains?: string[];
 }
 export interface DeregisterChainMaintainerRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.DeregisterChainMaintainerRequest";
@@ -76,8 +76,8 @@ export interface ActivateChainRequestProtoMsg {
 }
 /** ActivateChainRequest represents a message to activate chains */
 export interface ActivateChainRequestAmino {
-  sender: Uint8Array;
-  chains: string[];
+  sender?: string;
+  chains?: string[];
 }
 export interface ActivateChainRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.ActivateChainRequest";
@@ -110,8 +110,8 @@ export interface DeactivateChainRequestProtoMsg {
 }
 /** DeactivateChainRequest represents a message to deactivate chains */
 export interface DeactivateChainRequestAmino {
-  sender: Uint8Array;
-  chains: string[];
+  sender?: string;
+  chains?: string[];
 }
 export interface DeactivateChainRequestAminoMsg {
   type: "/axelar.nexus.v1beta1.DeactivateChainRequest";
@@ -150,7 +150,7 @@ export interface RegisterAssetFeeRequestProtoMsg {
  * info associated to an asset on a chain
  */
 export interface RegisterAssetFeeRequestAmino {
-  sender: Uint8Array;
+  sender?: string;
   fee_info?: FeeInfoAmino;
 }
 export interface RegisterAssetFeeRequestAminoMsg {
@@ -195,8 +195,8 @@ export interface SetTransferRateLimitRequestProtoMsg {
  * transfers
  */
 export interface SetTransferRateLimitRequestAmino {
-  sender: Uint8Array;
-  chain: string;
+  sender?: string;
+  chain?: string;
   limit?: CoinAmino;
   window?: DurationAmino;
 }
@@ -255,14 +255,16 @@ export const RegisterChainMaintainerRequest = {
     return message;
   },
   fromAmino(object: RegisterChainMaintainerRequestAmino): RegisterChainMaintainerRequest {
-    return {
-      sender: object.sender,
-      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => e) : []
-    };
+    const message = createBaseRegisterChainMaintainerRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    message.chains = object.chains?.map(e => e) || [];
+    return message;
   },
   toAmino(message: RegisterChainMaintainerRequest): RegisterChainMaintainerRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     if (message.chains) {
       obj.chains = message.chains.map(e => e);
     } else {
@@ -302,7 +304,8 @@ export const RegisterChainMaintainerResponse = {
     return message;
   },
   fromAmino(_: RegisterChainMaintainerResponseAmino): RegisterChainMaintainerResponse {
-    return {};
+    const message = createBaseRegisterChainMaintainerResponse();
+    return message;
   },
   toAmino(_: RegisterChainMaintainerResponse): RegisterChainMaintainerResponseAmino {
     const obj: any = {};
@@ -354,14 +357,16 @@ export const DeregisterChainMaintainerRequest = {
     return message;
   },
   fromAmino(object: DeregisterChainMaintainerRequestAmino): DeregisterChainMaintainerRequest {
-    return {
-      sender: object.sender,
-      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => e) : []
-    };
+    const message = createBaseDeregisterChainMaintainerRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    message.chains = object.chains?.map(e => e) || [];
+    return message;
   },
   toAmino(message: DeregisterChainMaintainerRequest): DeregisterChainMaintainerRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     if (message.chains) {
       obj.chains = message.chains.map(e => e);
     } else {
@@ -401,7 +406,8 @@ export const DeregisterChainMaintainerResponse = {
     return message;
   },
   fromAmino(_: DeregisterChainMaintainerResponseAmino): DeregisterChainMaintainerResponse {
-    return {};
+    const message = createBaseDeregisterChainMaintainerResponse();
+    return message;
   },
   toAmino(_: DeregisterChainMaintainerResponse): DeregisterChainMaintainerResponseAmino {
     const obj: any = {};
@@ -453,14 +459,16 @@ export const ActivateChainRequest = {
     return message;
   },
   fromAmino(object: ActivateChainRequestAmino): ActivateChainRequest {
-    return {
-      sender: object.sender,
-      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => e) : []
-    };
+    const message = createBaseActivateChainRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    message.chains = object.chains?.map(e => e) || [];
+    return message;
   },
   toAmino(message: ActivateChainRequest): ActivateChainRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     if (message.chains) {
       obj.chains = message.chains.map(e => e);
     } else {
@@ -500,7 +508,8 @@ export const ActivateChainResponse = {
     return message;
   },
   fromAmino(_: ActivateChainResponseAmino): ActivateChainResponse {
-    return {};
+    const message = createBaseActivateChainResponse();
+    return message;
   },
   toAmino(_: ActivateChainResponse): ActivateChainResponseAmino {
     const obj: any = {};
@@ -552,14 +561,16 @@ export const DeactivateChainRequest = {
     return message;
   },
   fromAmino(object: DeactivateChainRequestAmino): DeactivateChainRequest {
-    return {
-      sender: object.sender,
-      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => e) : []
-    };
+    const message = createBaseDeactivateChainRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    message.chains = object.chains?.map(e => e) || [];
+    return message;
   },
   toAmino(message: DeactivateChainRequest): DeactivateChainRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     if (message.chains) {
       obj.chains = message.chains.map(e => e);
     } else {
@@ -599,7 +610,8 @@ export const DeactivateChainResponse = {
     return message;
   },
   fromAmino(_: DeactivateChainResponseAmino): DeactivateChainResponse {
-    return {};
+    const message = createBaseDeactivateChainResponse();
+    return message;
   },
   toAmino(_: DeactivateChainResponse): DeactivateChainResponseAmino {
     const obj: any = {};
@@ -651,14 +663,18 @@ export const RegisterAssetFeeRequest = {
     return message;
   },
   fromAmino(object: RegisterAssetFeeRequestAmino): RegisterAssetFeeRequest {
-    return {
-      sender: object.sender,
-      feeInfo: object?.fee_info ? FeeInfo.fromAmino(object.fee_info) : undefined
-    };
+    const message = createBaseRegisterAssetFeeRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.fee_info !== undefined && object.fee_info !== null) {
+      message.feeInfo = FeeInfo.fromAmino(object.fee_info);
+    }
+    return message;
   },
   toAmino(message: RegisterAssetFeeRequest): RegisterAssetFeeRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.fee_info = message.feeInfo ? FeeInfo.toAmino(message.feeInfo) : undefined;
     return obj;
   },
@@ -694,7 +710,8 @@ export const RegisterAssetFeeResponse = {
     return message;
   },
   fromAmino(_: RegisterAssetFeeResponseAmino): RegisterAssetFeeResponse {
-    return {};
+    const message = createBaseRegisterAssetFeeResponse();
+    return message;
   },
   toAmino(_: RegisterAssetFeeResponse): RegisterAssetFeeResponseAmino {
     const obj: any = {};
@@ -758,16 +775,24 @@ export const SetTransferRateLimitRequest = {
     return message;
   },
   fromAmino(object: SetTransferRateLimitRequestAmino): SetTransferRateLimitRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      limit: object?.limit ? Coin.fromAmino(object.limit) : undefined,
-      window: object?.window ? Duration.fromAmino(object.window) : undefined
-    };
+    const message = createBaseSetTransferRateLimitRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = Coin.fromAmino(object.limit);
+    }
+    if (object.window !== undefined && object.window !== null) {
+      message.window = Duration.fromAmino(object.window);
+    }
+    return message;
   },
   toAmino(message: SetTransferRateLimitRequest): SetTransferRateLimitRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     obj.limit = message.limit ? Coin.toAmino(message.limit) : undefined;
     obj.window = message.window ? Duration.toAmino(message.window) : undefined;
@@ -805,7 +830,8 @@ export const SetTransferRateLimitResponse = {
     return message;
   },
   fromAmino(_: SetTransferRateLimitResponseAmino): SetTransferRateLimitResponse {
-    return {};
+    const message = createBaseSetTransferRateLimitResponse();
+    return message;
   },
   toAmino(_: SetTransferRateLimitResponse): SetTransferRateLimitResponseAmino {
     const obj: any = {};

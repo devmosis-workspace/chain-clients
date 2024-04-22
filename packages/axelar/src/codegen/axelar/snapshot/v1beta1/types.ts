@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface ProxiedValidator {
   validator: Uint8Array;
   proxy: Uint8Array;
@@ -10,9 +10,9 @@ export interface ProxiedValidatorProtoMsg {
   value: Uint8Array;
 }
 export interface ProxiedValidatorAmino {
-  validator: Uint8Array;
-  proxy: Uint8Array;
-  active: boolean;
+  validator?: string;
+  proxy?: string;
+  active?: boolean;
 }
 export interface ProxiedValidatorAminoMsg {
   type: "/axelar.snapshot.v1beta1.ProxiedValidator";
@@ -59,16 +59,22 @@ export const ProxiedValidator = {
     return message;
   },
   fromAmino(object: ProxiedValidatorAmino): ProxiedValidator {
-    return {
-      validator: object.validator,
-      proxy: object.proxy,
-      active: object.active
-    };
+    const message = createBaseProxiedValidator();
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = bytesFromBase64(object.validator);
+    }
+    if (object.proxy !== undefined && object.proxy !== null) {
+      message.proxy = bytesFromBase64(object.proxy);
+    }
+    if (object.active !== undefined && object.active !== null) {
+      message.active = object.active;
+    }
+    return message;
   },
   toAmino(message: ProxiedValidator): ProxiedValidatorAmino {
     const obj: any = {};
-    obj.validator = message.validator;
-    obj.proxy = message.proxy;
+    obj.validator = message.validator ? base64FromBytes(message.validator) : undefined;
+    obj.proxy = message.proxy ? base64FromBytes(message.proxy) : undefined;
     obj.active = message.active;
     return obj;
   },

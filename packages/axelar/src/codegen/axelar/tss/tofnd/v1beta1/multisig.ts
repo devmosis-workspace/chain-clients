@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64 } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export interface KeygenRequest {
   keyUid: string;
   /** used only for logging */
@@ -10,9 +10,9 @@ export interface KeygenRequestProtoMsg {
   value: Uint8Array;
 }
 export interface KeygenRequestAmino {
-  key_uid: string;
+  key_uid?: string;
   /** used only for logging */
-  party_uid: string;
+  party_uid?: string;
 }
 export interface KeygenRequestAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.KeygenRequest";
@@ -34,7 +34,7 @@ export interface KeygenResponseProtoMsg {
 }
 export interface KeygenResponseAmino {
   /** SEC1-encoded compressed curve point */
-  pub_key?: Uint8Array;
+  pub_key?: string;
   /** reply with an error message if keygen fails */
   error?: string;
 }
@@ -63,16 +63,16 @@ export interface SignRequestProtoMsg {
   value: Uint8Array;
 }
 export interface SignRequestAmino {
-  key_uid: string;
+  key_uid?: string;
   /** 32-byte pre-hashed message digest */
-  msg_to_sign: Uint8Array;
+  msg_to_sign?: string;
   /** used only for logging */
-  party_uid: string;
+  party_uid?: string;
   /**
    * SEC1-encoded compressed pub key bytes to find the right
    * mnemonic. Latest is used, if empty.
    */
-  pub_key: Uint8Array;
+  pub_key?: string;
 }
 export interface SignRequestAminoMsg {
   type: "/axelar.tss.tofnd.v1beta1.SignRequest";
@@ -96,7 +96,7 @@ export interface SignResponseProtoMsg {
 }
 export interface SignResponseAmino {
   /** ASN.1 DER-encoded ECDSA signature */
-  signature?: Uint8Array;
+  signature?: string;
   /** reply with an error message if sign fails */
   error?: string;
 }
@@ -138,10 +138,14 @@ export const KeygenRequest = {
     return message;
   },
   fromAmino(object: KeygenRequestAmino): KeygenRequest {
-    return {
-      keyUid: object.key_uid,
-      partyUid: object.party_uid
-    };
+    const message = createBaseKeygenRequest();
+    if (object.key_uid !== undefined && object.key_uid !== null) {
+      message.keyUid = object.key_uid;
+    }
+    if (object.party_uid !== undefined && object.party_uid !== null) {
+      message.partyUid = object.party_uid;
+    }
+    return message;
   },
   toAmino(message: KeygenRequest): KeygenRequestAmino {
     const obj: any = {};
@@ -195,14 +199,18 @@ export const KeygenResponse = {
     return message;
   },
   fromAmino(object: KeygenResponseAmino): KeygenResponse {
-    return {
-      pubKey: object?.pub_key,
-      error: object?.error
-    };
+    const message = createBaseKeygenResponse();
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = bytesFromBase64(object.pub_key);
+    }
+    if (object.error !== undefined && object.error !== null) {
+      message.error = object.error;
+    }
+    return message;
   },
   toAmino(message: KeygenResponse): KeygenResponseAmino {
     const obj: any = {};
-    obj.pub_key = message.pubKey;
+    obj.pub_key = message.pubKey ? base64FromBytes(message.pubKey) : undefined;
     obj.error = message.error;
     return obj;
   },
@@ -264,19 +272,27 @@ export const SignRequest = {
     return message;
   },
   fromAmino(object: SignRequestAmino): SignRequest {
-    return {
-      keyUid: object.key_uid,
-      msgToSign: object.msg_to_sign,
-      partyUid: object.party_uid,
-      pubKey: object.pub_key
-    };
+    const message = createBaseSignRequest();
+    if (object.key_uid !== undefined && object.key_uid !== null) {
+      message.keyUid = object.key_uid;
+    }
+    if (object.msg_to_sign !== undefined && object.msg_to_sign !== null) {
+      message.msgToSign = bytesFromBase64(object.msg_to_sign);
+    }
+    if (object.party_uid !== undefined && object.party_uid !== null) {
+      message.partyUid = object.party_uid;
+    }
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = bytesFromBase64(object.pub_key);
+    }
+    return message;
   },
   toAmino(message: SignRequest): SignRequestAmino {
     const obj: any = {};
     obj.key_uid = message.keyUid;
-    obj.msg_to_sign = message.msgToSign;
+    obj.msg_to_sign = message.msgToSign ? base64FromBytes(message.msgToSign) : undefined;
     obj.party_uid = message.partyUid;
-    obj.pub_key = message.pubKey;
+    obj.pub_key = message.pubKey ? base64FromBytes(message.pubKey) : undefined;
     return obj;
   },
   fromAminoMsg(object: SignRequestAminoMsg): SignRequest {
@@ -325,14 +341,18 @@ export const SignResponse = {
     return message;
   },
   fromAmino(object: SignResponseAmino): SignResponse {
-    return {
-      signature: object?.signature,
-      error: object?.error
-    };
+    const message = createBaseSignResponse();
+    if (object.signature !== undefined && object.signature !== null) {
+      message.signature = bytesFromBase64(object.signature);
+    }
+    if (object.error !== undefined && object.error !== null) {
+      message.error = object.error;
+    }
+    return message;
   },
   toAmino(message: SignResponse): SignResponseAmino {
     const obj: any = {};
-    obj.signature = message.signature;
+    obj.signature = message.signature ? base64FromBytes(message.signature) : undefined;
     obj.error = message.error;
     return obj;
   },

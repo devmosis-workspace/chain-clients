@@ -3,7 +3,7 @@ import { KeyRole, SigKeyPair, SigKeyPairAmino, SigKeyPairSDKType, keyRoleFromJSO
 import { TrafficOut, TrafficOutAmino, TrafficOutSDKType, MessageOut_KeygenResult, MessageOut_SignResult } from "../tofnd/v1beta1/tofnd";
 import { PollKey, PollKeyAmino, PollKeySDKType } from "../../vote/exported/v1beta1/types";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** StartKeygenRequest indicate the start of keygen */
 export interface StartKeygenRequest {
   sender: string;
@@ -15,7 +15,7 @@ export interface StartKeygenRequestProtoMsg {
 }
 /** StartKeygenRequest indicate the start of keygen */
 export interface StartKeygenRequestAmino {
-  sender: string;
+  sender?: string;
   key_info?: KeyInfoAmino;
 }
 export interface StartKeygenRequestAminoMsg {
@@ -49,10 +49,10 @@ export interface RotateKeyRequestProtoMsg {
   value: Uint8Array;
 }
 export interface RotateKeyRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  key_role: KeyRole;
-  key_id: string;
+  sender?: string;
+  chain?: string;
+  key_role?: KeyRole;
+  key_id?: string;
 }
 export interface RotateKeyRequestAminoMsg {
   type: "/axelar.tss.v1beta1.RotateKeyRequest";
@@ -87,8 +87,8 @@ export interface ProcessKeygenTrafficRequestProtoMsg {
 }
 /** ProcessKeygenTrafficRequest protocol message */
 export interface ProcessKeygenTrafficRequestAmino {
-  sender: Uint8Array;
-  session_id: string;
+  sender?: string;
+  session_id?: string;
   payload?: TrafficOutAmino;
 }
 export interface ProcessKeygenTrafficRequestAminoMsg {
@@ -124,8 +124,8 @@ export interface ProcessSignTrafficRequestProtoMsg {
 }
 /** ProcessSignTrafficRequest protocol message */
 export interface ProcessSignTrafficRequestAmino {
-  sender: Uint8Array;
-  session_id: string;
+  sender?: string;
+  session_id?: string;
   payload?: TrafficOutAmino;
 }
 export interface ProcessSignTrafficRequestAminoMsg {
@@ -161,7 +161,7 @@ export interface VotePubKeyRequestProtoMsg {
 }
 /** VotePubKeyRequest represents the message to vote on a public key */
 export interface VotePubKeyRequestAmino {
-  sender: Uint8Array;
+  sender?: string;
   poll_key?: PollKeyAmino;
   result?: MessageOut_KeygenResultAmino;
 }
@@ -183,7 +183,7 @@ export interface VotePubKeyResponseProtoMsg {
   value: Uint8Array;
 }
 export interface VotePubKeyResponseAmino {
-  log: string;
+  log?: string;
 }
 export interface VotePubKeyResponseAminoMsg {
   type: "/axelar.tss.v1beta1.VotePubKeyResponse";
@@ -204,7 +204,7 @@ export interface VoteSigRequestProtoMsg {
 }
 /** VoteSigRequest represents a message to vote for a signature */
 export interface VoteSigRequestAmino {
-  sender: Uint8Array;
+  sender?: string;
   poll_key?: PollKeyAmino;
   result?: MessageOut_SignResultAmino;
 }
@@ -226,7 +226,7 @@ export interface VoteSigResponseProtoMsg {
   value: Uint8Array;
 }
 export interface VoteSigResponseAmino {
-  log: string;
+  log?: string;
 }
 export interface VoteSigResponseAminoMsg {
   type: "/axelar.tss.v1beta1.VoteSigResponse";
@@ -244,8 +244,8 @@ export interface HeartBeatRequestProtoMsg {
   value: Uint8Array;
 }
 export interface HeartBeatRequestAmino {
-  sender: Uint8Array;
-  key_ids: string[];
+  sender?: string;
+  key_ids?: string[];
 }
 export interface HeartBeatRequestAminoMsg {
   type: "/axelar.tss.v1beta1.HeartBeatRequest";
@@ -276,9 +276,9 @@ export interface RegisterExternalKeysRequestProtoMsg {
   value: Uint8Array;
 }
 export interface RegisterExternalKeysRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  external_keys: RegisterExternalKeysRequest_ExternalKeyAmino[];
+  sender?: string;
+  chain?: string;
+  external_keys?: RegisterExternalKeysRequest_ExternalKeyAmino[];
 }
 export interface RegisterExternalKeysRequestAminoMsg {
   type: "/axelar.tss.v1beta1.RegisterExternalKeysRequest";
@@ -298,8 +298,8 @@ export interface RegisterExternalKeysRequest_ExternalKeyProtoMsg {
   value: Uint8Array;
 }
 export interface RegisterExternalKeysRequest_ExternalKeyAmino {
-  id: string;
-  pub_key: Uint8Array;
+  id?: string;
+  pub_key?: string;
 }
 export interface RegisterExternalKeysRequest_ExternalKeyAminoMsg {
   type: "/axelar.tss.v1beta1.ExternalKey";
@@ -330,9 +330,9 @@ export interface SubmitMultisigPubKeysRequestProtoMsg {
   value: Uint8Array;
 }
 export interface SubmitMultisigPubKeysRequestAmino {
-  sender: Uint8Array;
-  key_id: string;
-  sig_key_pairs: SigKeyPairAmino[];
+  sender?: string;
+  key_id?: string;
+  sig_key_pairs?: SigKeyPairAmino[];
 }
 export interface SubmitMultisigPubKeysRequestAminoMsg {
   type: "/axelar.tss.v1beta1.SubmitMultisigPubKeysRequest";
@@ -364,9 +364,9 @@ export interface SubmitMultisigSignaturesRequestProtoMsg {
   value: Uint8Array;
 }
 export interface SubmitMultisigSignaturesRequestAmino {
-  sender: Uint8Array;
-  sig_id: string;
-  signatures: Uint8Array[];
+  sender?: string;
+  sig_id?: string;
+  signatures?: string[];
 }
 export interface SubmitMultisigSignaturesRequestAminoMsg {
   type: "/axelar.tss.v1beta1.SubmitMultisigSignaturesRequest";
@@ -418,10 +418,14 @@ export const StartKeygenRequest = {
     return message;
   },
   fromAmino(object: StartKeygenRequestAmino): StartKeygenRequest {
-    return {
-      sender: object.sender,
-      keyInfo: object?.key_info ? KeyInfo.fromAmino(object.key_info) : undefined
-    };
+    const message = createBaseStartKeygenRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.key_info !== undefined && object.key_info !== null) {
+      message.keyInfo = KeyInfo.fromAmino(object.key_info);
+    }
+    return message;
   },
   toAmino(message: StartKeygenRequest): StartKeygenRequestAmino {
     const obj: any = {};
@@ -461,7 +465,8 @@ export const StartKeygenResponse = {
     return message;
   },
   fromAmino(_: StartKeygenResponseAmino): StartKeygenResponse {
-    return {};
+    const message = createBaseStartKeygenResponse();
+    return message;
   },
   toAmino(_: StartKeygenResponse): StartKeygenResponseAmino {
     const obj: any = {};
@@ -525,16 +530,24 @@ export const RotateKeyRequest = {
     return message;
   },
   fromAmino(object: RotateKeyRequestAmino): RotateKeyRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      keyRole: isSet(object.key_role) ? keyRoleFromJSON(object.key_role) : -1,
-      keyId: object.key_id
-    };
+    const message = createBaseRotateKeyRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.key_role !== undefined && object.key_role !== null) {
+      message.keyRole = keyRoleFromJSON(object.key_role);
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: RotateKeyRequest): RotateKeyRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     obj.key_role = message.keyRole;
     obj.key_id = message.keyId;
@@ -572,7 +585,8 @@ export const RotateKeyResponse = {
     return message;
   },
   fromAmino(_: RotateKeyResponseAmino): RotateKeyResponse {
-    return {};
+    const message = createBaseRotateKeyResponse();
+    return message;
   },
   toAmino(_: RotateKeyResponse): RotateKeyResponseAmino {
     const obj: any = {};
@@ -630,15 +644,21 @@ export const ProcessKeygenTrafficRequest = {
     return message;
   },
   fromAmino(object: ProcessKeygenTrafficRequestAmino): ProcessKeygenTrafficRequest {
-    return {
-      sender: object.sender,
-      sessionId: object.session_id,
-      payload: object?.payload ? TrafficOut.fromAmino(object.payload) : undefined
-    };
+    const message = createBaseProcessKeygenTrafficRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.session_id !== undefined && object.session_id !== null) {
+      message.sessionId = object.session_id;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = TrafficOut.fromAmino(object.payload);
+    }
+    return message;
   },
   toAmino(message: ProcessKeygenTrafficRequest): ProcessKeygenTrafficRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.session_id = message.sessionId;
     obj.payload = message.payload ? TrafficOut.toAmino(message.payload) : undefined;
     return obj;
@@ -675,7 +695,8 @@ export const ProcessKeygenTrafficResponse = {
     return message;
   },
   fromAmino(_: ProcessKeygenTrafficResponseAmino): ProcessKeygenTrafficResponse {
-    return {};
+    const message = createBaseProcessKeygenTrafficResponse();
+    return message;
   },
   toAmino(_: ProcessKeygenTrafficResponse): ProcessKeygenTrafficResponseAmino {
     const obj: any = {};
@@ -733,15 +754,21 @@ export const ProcessSignTrafficRequest = {
     return message;
   },
   fromAmino(object: ProcessSignTrafficRequestAmino): ProcessSignTrafficRequest {
-    return {
-      sender: object.sender,
-      sessionId: object.session_id,
-      payload: object?.payload ? TrafficOut.fromAmino(object.payload) : undefined
-    };
+    const message = createBaseProcessSignTrafficRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.session_id !== undefined && object.session_id !== null) {
+      message.sessionId = object.session_id;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = TrafficOut.fromAmino(object.payload);
+    }
+    return message;
   },
   toAmino(message: ProcessSignTrafficRequest): ProcessSignTrafficRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.session_id = message.sessionId;
     obj.payload = message.payload ? TrafficOut.toAmino(message.payload) : undefined;
     return obj;
@@ -778,7 +805,8 @@ export const ProcessSignTrafficResponse = {
     return message;
   },
   fromAmino(_: ProcessSignTrafficResponseAmino): ProcessSignTrafficResponse {
-    return {};
+    const message = createBaseProcessSignTrafficResponse();
+    return message;
   },
   toAmino(_: ProcessSignTrafficResponse): ProcessSignTrafficResponseAmino {
     const obj: any = {};
@@ -836,15 +864,21 @@ export const VotePubKeyRequest = {
     return message;
   },
   fromAmino(object: VotePubKeyRequestAmino): VotePubKeyRequest {
-    return {
-      sender: object.sender,
-      pollKey: object?.poll_key ? PollKey.fromAmino(object.poll_key) : undefined,
-      result: object?.result ? MessageOut_KeygenResult.fromAmino(object.result) : undefined
-    };
+    const message = createBaseVotePubKeyRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.poll_key !== undefined && object.poll_key !== null) {
+      message.pollKey = PollKey.fromAmino(object.poll_key);
+    }
+    if (object.result !== undefined && object.result !== null) {
+      message.result = MessageOut_KeygenResult.fromAmino(object.result);
+    }
+    return message;
   },
   toAmino(message: VotePubKeyRequest): VotePubKeyRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.poll_key = message.pollKey ? PollKey.toAmino(message.pollKey) : undefined;
     obj.result = message.result ? MessageOut_KeygenResult.toAmino(message.result) : undefined;
     return obj;
@@ -889,9 +923,11 @@ export const VotePubKeyResponse = {
     return message;
   },
   fromAmino(object: VotePubKeyResponseAmino): VotePubKeyResponse {
-    return {
-      log: object.log
-    };
+    const message = createBaseVotePubKeyResponse();
+    if (object.log !== undefined && object.log !== null) {
+      message.log = object.log;
+    }
+    return message;
   },
   toAmino(message: VotePubKeyResponse): VotePubKeyResponseAmino {
     const obj: any = {};
@@ -950,15 +986,21 @@ export const VoteSigRequest = {
     return message;
   },
   fromAmino(object: VoteSigRequestAmino): VoteSigRequest {
-    return {
-      sender: object.sender,
-      pollKey: object?.poll_key ? PollKey.fromAmino(object.poll_key) : undefined,
-      result: object?.result ? MessageOut_SignResult.fromAmino(object.result) : undefined
-    };
+    const message = createBaseVoteSigRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.poll_key !== undefined && object.poll_key !== null) {
+      message.pollKey = PollKey.fromAmino(object.poll_key);
+    }
+    if (object.result !== undefined && object.result !== null) {
+      message.result = MessageOut_SignResult.fromAmino(object.result);
+    }
+    return message;
   },
   toAmino(message: VoteSigRequest): VoteSigRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.poll_key = message.pollKey ? PollKey.toAmino(message.pollKey) : undefined;
     obj.result = message.result ? MessageOut_SignResult.toAmino(message.result) : undefined;
     return obj;
@@ -1003,9 +1045,11 @@ export const VoteSigResponse = {
     return message;
   },
   fromAmino(object: VoteSigResponseAmino): VoteSigResponse {
-    return {
-      log: object.log
-    };
+    const message = createBaseVoteSigResponse();
+    if (object.log !== undefined && object.log !== null) {
+      message.log = object.log;
+    }
+    return message;
   },
   toAmino(message: VoteSigResponse): VoteSigResponseAmino {
     const obj: any = {};
@@ -1058,14 +1102,16 @@ export const HeartBeatRequest = {
     return message;
   },
   fromAmino(object: HeartBeatRequestAmino): HeartBeatRequest {
-    return {
-      sender: object.sender,
-      keyIds: Array.isArray(object?.key_ids) ? object.key_ids.map((e: any) => e) : []
-    };
+    const message = createBaseHeartBeatRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    message.keyIds = object.key_ids?.map(e => e) || [];
+    return message;
   },
   toAmino(message: HeartBeatRequest): HeartBeatRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     if (message.keyIds) {
       obj.key_ids = message.keyIds.map(e => e);
     } else {
@@ -1105,7 +1151,8 @@ export const HeartBeatResponse = {
     return message;
   },
   fromAmino(_: HeartBeatResponseAmino): HeartBeatResponse {
-    return {};
+    const message = createBaseHeartBeatResponse();
+    return message;
   },
   toAmino(_: HeartBeatResponse): HeartBeatResponseAmino {
     const obj: any = {};
@@ -1163,15 +1210,19 @@ export const RegisterExternalKeysRequest = {
     return message;
   },
   fromAmino(object: RegisterExternalKeysRequestAmino): RegisterExternalKeysRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      externalKeys: Array.isArray(object?.external_keys) ? object.external_keys.map((e: any) => RegisterExternalKeysRequest_ExternalKey.fromAmino(e)) : []
-    };
+    const message = createBaseRegisterExternalKeysRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    message.externalKeys = object.external_keys?.map(e => RegisterExternalKeysRequest_ExternalKey.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: RegisterExternalKeysRequest): RegisterExternalKeysRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     if (message.externalKeys) {
       obj.external_keys = message.externalKeys.map(e => e ? RegisterExternalKeysRequest_ExternalKey.toAmino(e) : undefined);
@@ -1226,15 +1277,19 @@ export const RegisterExternalKeysRequest_ExternalKey = {
     return message;
   },
   fromAmino(object: RegisterExternalKeysRequest_ExternalKeyAmino): RegisterExternalKeysRequest_ExternalKey {
-    return {
-      id: object.id,
-      pubKey: object.pub_key
-    };
+    const message = createBaseRegisterExternalKeysRequest_ExternalKey();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = bytesFromBase64(object.pub_key);
+    }
+    return message;
   },
   toAmino(message: RegisterExternalKeysRequest_ExternalKey): RegisterExternalKeysRequest_ExternalKeyAmino {
     const obj: any = {};
     obj.id = message.id;
-    obj.pub_key = message.pubKey;
+    obj.pub_key = message.pubKey ? base64FromBytes(message.pubKey) : undefined;
     return obj;
   },
   fromAminoMsg(object: RegisterExternalKeysRequest_ExternalKeyAminoMsg): RegisterExternalKeysRequest_ExternalKey {
@@ -1269,7 +1324,8 @@ export const RegisterExternalKeysResponse = {
     return message;
   },
   fromAmino(_: RegisterExternalKeysResponseAmino): RegisterExternalKeysResponse {
-    return {};
+    const message = createBaseRegisterExternalKeysResponse();
+    return message;
   },
   toAmino(_: RegisterExternalKeysResponse): RegisterExternalKeysResponseAmino {
     const obj: any = {};
@@ -1327,15 +1383,19 @@ export const SubmitMultisigPubKeysRequest = {
     return message;
   },
   fromAmino(object: SubmitMultisigPubKeysRequestAmino): SubmitMultisigPubKeysRequest {
-    return {
-      sender: object.sender,
-      keyId: object.key_id,
-      sigKeyPairs: Array.isArray(object?.sig_key_pairs) ? object.sig_key_pairs.map((e: any) => SigKeyPair.fromAmino(e)) : []
-    };
+    const message = createBaseSubmitMultisigPubKeysRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    message.sigKeyPairs = object.sig_key_pairs?.map(e => SigKeyPair.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: SubmitMultisigPubKeysRequest): SubmitMultisigPubKeysRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.key_id = message.keyId;
     if (message.sigKeyPairs) {
       obj.sig_key_pairs = message.sigKeyPairs.map(e => e ? SigKeyPair.toAmino(e) : undefined);
@@ -1376,7 +1436,8 @@ export const SubmitMultisigPubKeysResponse = {
     return message;
   },
   fromAmino(_: SubmitMultisigPubKeysResponseAmino): SubmitMultisigPubKeysResponse {
-    return {};
+    const message = createBaseSubmitMultisigPubKeysResponse();
+    return message;
   },
   toAmino(_: SubmitMultisigPubKeysResponse): SubmitMultisigPubKeysResponseAmino {
     const obj: any = {};
@@ -1434,18 +1495,22 @@ export const SubmitMultisigSignaturesRequest = {
     return message;
   },
   fromAmino(object: SubmitMultisigSignaturesRequestAmino): SubmitMultisigSignaturesRequest {
-    return {
-      sender: object.sender,
-      sigId: object.sig_id,
-      signatures: Array.isArray(object?.signatures) ? object.signatures.map((e: any) => e) : []
-    };
+    const message = createBaseSubmitMultisigSignaturesRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.sig_id !== undefined && object.sig_id !== null) {
+      message.sigId = object.sig_id;
+    }
+    message.signatures = object.signatures?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: SubmitMultisigSignaturesRequest): SubmitMultisigSignaturesRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.sig_id = message.sigId;
     if (message.signatures) {
-      obj.signatures = message.signatures.map(e => e);
+      obj.signatures = message.signatures.map(e => base64FromBytes(e));
     } else {
       obj.signatures = [];
     }
@@ -1483,7 +1548,8 @@ export const SubmitMultisigSignaturesResponse = {
     return message;
   },
   fromAmino(_: SubmitMultisigSignaturesResponseAmino): SubmitMultisigSignaturesResponse {
-    return {};
+    const message = createBaseSubmitMultisigSignaturesResponse();
+    return message;
   },
   toAmino(_: SubmitMultisigSignaturesResponse): SubmitMultisigSignaturesResponseAmino {
     const obj: any = {};

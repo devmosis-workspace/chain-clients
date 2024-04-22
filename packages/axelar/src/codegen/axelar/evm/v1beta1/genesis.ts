@@ -13,7 +13,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState represents the genesis state */
 export interface GenesisStateAmino {
-  chains: GenesisState_ChainAmino[];
+  chains?: GenesisState_ChainAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/axelar.evm.v1beta1.GenesisState";
@@ -43,17 +43,17 @@ export interface GenesisState_ChainProtoMsg {
 }
 export interface GenesisState_ChainAmino {
   params?: ParamsAmino;
-  burner_infos: BurnerInfoAmino[];
+  burner_infos?: BurnerInfoAmino[];
   command_queue?: QueueStateAmino;
-  confirmed_deposits: ERC20DepositAmino[];
-  burned_deposits: ERC20DepositAmino[];
-  command_batches: CommandBatchMetadataAmino[];
+  confirmed_deposits?: ERC20DepositAmino[];
+  burned_deposits?: ERC20DepositAmino[];
+  command_batches?: CommandBatchMetadataAmino[];
   gateway?: GatewayAmino;
-  tokens: ERC20TokenMetadataAmino[];
-  events: EventAmino[];
+  tokens?: ERC20TokenMetadataAmino[];
+  events?: EventAmino[];
   confirmed_event_queue?: QueueStateAmino;
-  legacy_confirmed_deposits: ERC20DepositAmino[];
-  legacy_burned_deposits: ERC20DepositAmino[];
+  legacy_confirmed_deposits?: ERC20DepositAmino[];
+  legacy_burned_deposits?: ERC20DepositAmino[];
 }
 export interface GenesisState_ChainAminoMsg {
   type: "/axelar.evm.v1beta1.Chain";
@@ -97,9 +97,9 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => GenesisState_Chain.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.chains = object.chains?.map(e => GenesisState_Chain.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -216,20 +216,28 @@ export const GenesisState_Chain = {
     return message;
   },
   fromAmino(object: GenesisState_ChainAmino): GenesisState_Chain {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      burnerInfos: Array.isArray(object?.burner_infos) ? object.burner_infos.map((e: any) => BurnerInfo.fromAmino(e)) : [],
-      commandQueue: object?.command_queue ? QueueState.fromAmino(object.command_queue) : undefined,
-      confirmedDeposits: Array.isArray(object?.confirmed_deposits) ? object.confirmed_deposits.map((e: any) => ERC20Deposit.fromAmino(e)) : [],
-      burnedDeposits: Array.isArray(object?.burned_deposits) ? object.burned_deposits.map((e: any) => ERC20Deposit.fromAmino(e)) : [],
-      commandBatches: Array.isArray(object?.command_batches) ? object.command_batches.map((e: any) => CommandBatchMetadata.fromAmino(e)) : [],
-      gateway: object?.gateway ? Gateway.fromAmino(object.gateway) : undefined,
-      tokens: Array.isArray(object?.tokens) ? object.tokens.map((e: any) => ERC20TokenMetadata.fromAmino(e)) : [],
-      events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromAmino(e)) : [],
-      confirmedEventQueue: object?.confirmed_event_queue ? QueueState.fromAmino(object.confirmed_event_queue) : undefined,
-      legacyConfirmedDeposits: Array.isArray(object?.legacy_confirmed_deposits) ? object.legacy_confirmed_deposits.map((e: any) => ERC20Deposit.fromAmino(e)) : [],
-      legacyBurnedDeposits: Array.isArray(object?.legacy_burned_deposits) ? object.legacy_burned_deposits.map((e: any) => ERC20Deposit.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState_Chain();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.burnerInfos = object.burner_infos?.map(e => BurnerInfo.fromAmino(e)) || [];
+    if (object.command_queue !== undefined && object.command_queue !== null) {
+      message.commandQueue = QueueState.fromAmino(object.command_queue);
+    }
+    message.confirmedDeposits = object.confirmed_deposits?.map(e => ERC20Deposit.fromAmino(e)) || [];
+    message.burnedDeposits = object.burned_deposits?.map(e => ERC20Deposit.fromAmino(e)) || [];
+    message.commandBatches = object.command_batches?.map(e => CommandBatchMetadata.fromAmino(e)) || [];
+    if (object.gateway !== undefined && object.gateway !== null) {
+      message.gateway = Gateway.fromAmino(object.gateway);
+    }
+    message.tokens = object.tokens?.map(e => ERC20TokenMetadata.fromAmino(e)) || [];
+    message.events = object.events?.map(e => Event.fromAmino(e)) || [];
+    if (object.confirmed_event_queue !== undefined && object.confirmed_event_queue !== null) {
+      message.confirmedEventQueue = QueueState.fromAmino(object.confirmed_event_queue);
+    }
+    message.legacyConfirmedDeposits = object.legacy_confirmed_deposits?.map(e => ERC20Deposit.fromAmino(e)) || [];
+    message.legacyBurnedDeposits = object.legacy_burned_deposits?.map(e => ERC20Deposit.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState_Chain): GenesisState_ChainAmino {
     const obj: any = {};

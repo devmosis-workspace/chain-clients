@@ -1,6 +1,6 @@
 import { KeyRole, KeyType, keyRoleFromJSON, keyTypeFromJSON } from "../exported/v1beta1/types";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, isObject } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, isObject } from "../../../helpers";
 export interface KeygenVoteData {
   pubKey: Uint8Array;
   groupRecoveryInfo: Uint8Array;
@@ -10,8 +10,8 @@ export interface KeygenVoteDataProtoMsg {
   value: Uint8Array;
 }
 export interface KeygenVoteDataAmino {
-  pub_key: Uint8Array;
-  group_recovery_info: Uint8Array;
+  pub_key?: string;
+  group_recovery_info?: string;
 }
 export interface KeygenVoteDataAminoMsg {
   type: "/axelar.tss.v1beta1.KeygenVoteData";
@@ -33,9 +33,9 @@ export interface KeyInfoProtoMsg {
 }
 /** KeyInfo holds information about a key */
 export interface KeyInfoAmino {
-  key_id: string;
-  key_role: KeyRole;
-  key_type: KeyType;
+  key_id?: string;
+  key_role?: KeyRole;
+  key_type?: KeyType;
 }
 export interface KeyInfoAminoMsg {
   type: "/axelar.tss.v1beta1.KeyInfo";
@@ -58,10 +58,10 @@ export interface MultisigInfoProtoMsg {
   value: Uint8Array;
 }
 export interface MultisigInfoAmino {
-  id: string;
-  timeout: string;
-  target_num: string;
-  infos: MultisigInfo_InfoAmino[];
+  id?: string;
+  timeout?: string;
+  target_num?: string;
+  infos?: MultisigInfo_InfoAmino[];
 }
 export interface MultisigInfoAminoMsg {
   type: "/axelar.tss.v1beta1.MultisigInfo";
@@ -82,8 +82,8 @@ export interface MultisigInfo_InfoProtoMsg {
   value: Uint8Array;
 }
 export interface MultisigInfo_InfoAmino {
-  participant: Uint8Array;
-  data: Uint8Array[];
+  participant?: string;
+  data?: string[];
 }
 export interface MultisigInfo_InfoAminoMsg {
   type: "/axelar.tss.v1beta1.Info";
@@ -102,8 +102,8 @@ export interface KeyRecoveryInfo_PrivateEntryProtoMsg {
   value: Uint8Array;
 }
 export interface KeyRecoveryInfo_PrivateEntryAmino {
-  key: string;
-  value: Uint8Array;
+  key?: string;
+  value?: string;
 }
 export interface KeyRecoveryInfo_PrivateEntryAminoMsg {
   type: string;
@@ -125,10 +125,10 @@ export interface KeyRecoveryInfoProtoMsg {
   value: Uint8Array;
 }
 export interface KeyRecoveryInfoAmino {
-  key_id: string;
-  public: Uint8Array;
-  private: {
-    [key: string]: Uint8Array;
+  key_id?: string;
+  public?: string;
+  private?: {
+    [key: string]: string;
   };
 }
 export interface KeyRecoveryInfoAminoMsg {
@@ -151,8 +151,8 @@ export interface ExternalKeysProtoMsg {
   value: Uint8Array;
 }
 export interface ExternalKeysAmino {
-  chain: string;
-  key_ids: string[];
+  chain?: string;
+  key_ids?: string[];
 }
 export interface ExternalKeysAminoMsg {
   type: "/axelar.tss.v1beta1.ExternalKeys";
@@ -171,8 +171,8 @@ export interface ValidatorStatusProtoMsg {
   value: Uint8Array;
 }
 export interface ValidatorStatusAmino {
-  validator: Uint8Array;
-  suspended_until: string;
+  validator?: string;
+  suspended_until?: string;
 }
 export interface ValidatorStatusAminoMsg {
   type: "/axelar.tss.v1beta1.ValidatorStatus";
@@ -212,15 +212,19 @@ export const KeygenVoteData = {
     return message;
   },
   fromAmino(object: KeygenVoteDataAmino): KeygenVoteData {
-    return {
-      pubKey: object.pub_key,
-      groupRecoveryInfo: object.group_recovery_info
-    };
+    const message = createBaseKeygenVoteData();
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = bytesFromBase64(object.pub_key);
+    }
+    if (object.group_recovery_info !== undefined && object.group_recovery_info !== null) {
+      message.groupRecoveryInfo = bytesFromBase64(object.group_recovery_info);
+    }
+    return message;
   },
   toAmino(message: KeygenVoteData): KeygenVoteDataAmino {
     const obj: any = {};
-    obj.pub_key = message.pubKey;
-    obj.group_recovery_info = message.groupRecoveryInfo;
+    obj.pub_key = message.pubKey ? base64FromBytes(message.pubKey) : undefined;
+    obj.group_recovery_info = message.groupRecoveryInfo ? base64FromBytes(message.groupRecoveryInfo) : undefined;
     return obj;
   },
   fromAminoMsg(object: KeygenVoteDataAminoMsg): KeygenVoteData {
@@ -275,11 +279,17 @@ export const KeyInfo = {
     return message;
   },
   fromAmino(object: KeyInfoAmino): KeyInfo {
-    return {
-      keyId: object.key_id,
-      keyRole: isSet(object.key_role) ? keyRoleFromJSON(object.key_role) : -1,
-      keyType: isSet(object.key_type) ? keyTypeFromJSON(object.key_type) : -1
-    };
+    const message = createBaseKeyInfo();
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    if (object.key_role !== undefined && object.key_role !== null) {
+      message.keyRole = keyRoleFromJSON(object.key_role);
+    }
+    if (object.key_type !== undefined && object.key_type !== null) {
+      message.keyType = keyTypeFromJSON(object.key_type);
+    }
+    return message;
   },
   toAmino(message: KeyInfo): KeyInfoAmino {
     const obj: any = {};
@@ -346,12 +356,18 @@ export const MultisigInfo = {
     return message;
   },
   fromAmino(object: MultisigInfoAmino): MultisigInfo {
-    return {
-      id: object.id,
-      timeout: BigInt(object.timeout),
-      targetNum: BigInt(object.target_num),
-      infos: Array.isArray(object?.infos) ? object.infos.map((e: any) => MultisigInfo_Info.fromAmino(e)) : []
-    };
+    const message = createBaseMultisigInfo();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.timeout !== undefined && object.timeout !== null) {
+      message.timeout = BigInt(object.timeout);
+    }
+    if (object.target_num !== undefined && object.target_num !== null) {
+      message.targetNum = BigInt(object.target_num);
+    }
+    message.infos = object.infos?.map(e => MultisigInfo_Info.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MultisigInfo): MultisigInfoAmino {
     const obj: any = {};
@@ -411,16 +427,18 @@ export const MultisigInfo_Info = {
     return message;
   },
   fromAmino(object: MultisigInfo_InfoAmino): MultisigInfo_Info {
-    return {
-      participant: object.participant,
-      data: Array.isArray(object?.data) ? object.data.map((e: any) => e) : []
-    };
+    const message = createBaseMultisigInfo_Info();
+    if (object.participant !== undefined && object.participant !== null) {
+      message.participant = bytesFromBase64(object.participant);
+    }
+    message.data = object.data?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: MultisigInfo_Info): MultisigInfo_InfoAmino {
     const obj: any = {};
-    obj.participant = message.participant;
+    obj.participant = message.participant ? base64FromBytes(message.participant) : undefined;
     if (message.data) {
-      obj.data = message.data.map(e => e);
+      obj.data = message.data.map(e => base64FromBytes(e));
     } else {
       obj.data = [];
     }
@@ -471,15 +489,19 @@ export const KeyRecoveryInfo_PrivateEntry = {
     return message;
   },
   fromAmino(object: KeyRecoveryInfo_PrivateEntryAmino): KeyRecoveryInfo_PrivateEntry {
-    return {
-      key: object.key,
-      value: object.value
-    };
+    const message = createBaseKeyRecoveryInfo_PrivateEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = bytesFromBase64(object.value);
+    }
+    return message;
   },
   toAmino(message: KeyRecoveryInfo_PrivateEntry): KeyRecoveryInfo_PrivateEntryAmino {
     const obj: any = {};
     obj.key = message.key;
-    obj.value = message.value;
+    obj.value = message.value ? base64FromBytes(message.value) : undefined;
     return obj;
   },
   fromAminoMsg(object: KeyRecoveryInfo_PrivateEntryAminoMsg): KeyRecoveryInfo_PrivateEntry {
@@ -543,21 +565,27 @@ export const KeyRecoveryInfo = {
     return message;
   },
   fromAmino(object: KeyRecoveryInfoAmino): KeyRecoveryInfo {
-    return {
-      keyId: object.key_id,
-      public: object.public,
-      private: isObject(object.private) ? Object.entries(object.private).reduce<{
-        [key: string]: bytes;
-      }>((acc, [key, value]) => {
+    const message = createBaseKeyRecoveryInfo();
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    if (object.public !== undefined && object.public !== null) {
+      message.public = bytesFromBase64(object.public);
+    }
+    message.private = Object.entries(object.private ?? {}).reduce<{
+      [key: string]: bytes;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = bytes.fromAmino(value);
-        return acc;
-      }, {}) : {}
-    };
+      }
+      return acc;
+    }, {});
+    return message;
   },
   toAmino(message: KeyRecoveryInfo): KeyRecoveryInfoAmino {
     const obj: any = {};
     obj.key_id = message.keyId;
-    obj.public = message.public;
+    obj.public = message.public ? base64FromBytes(message.public) : undefined;
     obj.private = {};
     if (message.private) {
       Object.entries(message.private).forEach(([k, v]) => {
@@ -612,10 +640,12 @@ export const ExternalKeys = {
     return message;
   },
   fromAmino(object: ExternalKeysAmino): ExternalKeys {
-    return {
-      chain: object.chain,
-      keyIds: Array.isArray(object?.key_ids) ? object.key_ids.map((e: any) => e) : []
-    };
+    const message = createBaseExternalKeys();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    message.keyIds = object.key_ids?.map(e => e) || [];
+    return message;
   },
   toAmino(message: ExternalKeys): ExternalKeysAmino {
     const obj: any = {};
@@ -673,14 +703,18 @@ export const ValidatorStatus = {
     return message;
   },
   fromAmino(object: ValidatorStatusAmino): ValidatorStatus {
-    return {
-      validator: object.validator,
-      suspendedUntil: BigInt(object.suspended_until)
-    };
+    const message = createBaseValidatorStatus();
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = bytesFromBase64(object.validator);
+    }
+    if (object.suspended_until !== undefined && object.suspended_until !== null) {
+      message.suspendedUntil = BigInt(object.suspended_until);
+    }
+    return message;
   },
   toAmino(message: ValidatorStatus): ValidatorStatusAmino {
     const obj: any = {};
-    obj.validator = message.validator;
+    obj.validator = message.validator ? base64FromBytes(message.validator) : undefined;
     obj.suspended_until = message.suspendedUntil ? message.suspendedUntil.toString() : undefined;
     return obj;
   },

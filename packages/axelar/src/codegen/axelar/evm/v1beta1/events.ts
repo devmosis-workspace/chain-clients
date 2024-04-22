@@ -2,7 +2,7 @@ import { PollParticipants, PollParticipantsAmino, PollParticipantsSDKType } from
 import { TokenDetails, TokenDetailsAmino, TokenDetailsSDKType } from "./types";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface PollFailed {
   txId: Uint8Array;
   chain: string;
@@ -13,9 +13,9 @@ export interface PollFailedProtoMsg {
   value: Uint8Array;
 }
 export interface PollFailedAmino {
-  tx_id: Uint8Array;
-  chain: string;
-  poll_id: string;
+  tx_id?: string;
+  chain?: string;
+  poll_id?: string;
 }
 export interface PollFailedAminoMsg {
   type: "/axelar.evm.v1beta1.PollFailed";
@@ -36,9 +36,9 @@ export interface PollExpiredProtoMsg {
   value: Uint8Array;
 }
 export interface PollExpiredAmino {
-  tx_id: Uint8Array;
-  chain: string;
-  poll_id: string;
+  tx_id?: string;
+  chain?: string;
+  poll_id?: string;
 }
 export interface PollExpiredAminoMsg {
   type: "/axelar.evm.v1beta1.PollExpired";
@@ -59,9 +59,9 @@ export interface PollCompletedProtoMsg {
   value: Uint8Array;
 }
 export interface PollCompletedAmino {
-  tx_id: Uint8Array;
-  chain: string;
-  poll_id: string;
+  tx_id?: string;
+  chain?: string;
+  poll_id?: string;
 }
 export interface PollCompletedAminoMsg {
   type: "/axelar.evm.v1beta1.PollCompleted";
@@ -82,9 +82,9 @@ export interface NoEventsConfirmedProtoMsg {
   value: Uint8Array;
 }
 export interface NoEventsConfirmedAmino {
-  tx_id: Uint8Array;
-  chain: string;
-  poll_id: string;
+  tx_id?: string;
+  chain?: string;
+  poll_id?: string;
 }
 export interface NoEventsConfirmedAminoMsg {
   type: "/axelar.evm.v1beta1.NoEventsConfirmed";
@@ -107,10 +107,10 @@ export interface ConfirmKeyTransferStartedProtoMsg {
   value: Uint8Array;
 }
 export interface ConfirmKeyTransferStartedAmino {
-  chain: string;
-  tx_id: Uint8Array;
-  gateway_address: Uint8Array;
-  confirmation_height: string;
+  chain?: string;
+  tx_id?: string;
+  gateway_address?: string;
+  confirmation_height?: string;
   participants?: PollParticipantsAmino;
 }
 export interface ConfirmKeyTransferStartedAminoMsg {
@@ -138,10 +138,10 @@ export interface ConfirmGatewayTxStartedProtoMsg {
 }
 /** @deprecated */
 export interface ConfirmGatewayTxStartedAmino {
-  tx_id: Uint8Array;
-  chain: string;
-  gateway_address: Uint8Array;
-  confirmation_height: string;
+  tx_id?: string;
+  chain?: string;
+  gateway_address?: string;
+  confirmation_height?: string;
   participants?: PollParticipantsAmino;
 }
 export interface ConfirmGatewayTxStartedAminoMsg {
@@ -165,8 +165,8 @@ export interface PollMappingProtoMsg {
   value: Uint8Array;
 }
 export interface PollMappingAmino {
-  tx_id: Uint8Array;
-  poll_id: string;
+  tx_id?: string;
+  poll_id?: string;
 }
 export interface PollMappingAminoMsg {
   type: "/axelar.evm.v1beta1.PollMapping";
@@ -188,11 +188,11 @@ export interface ConfirmGatewayTxsStartedProtoMsg {
   value: Uint8Array;
 }
 export interface ConfirmGatewayTxsStartedAmino {
-  poll_mappings: PollMappingAmino[];
-  chain: string;
-  gateway_address: Uint8Array;
-  confirmation_height: string;
-  participants: Uint8Array[];
+  poll_mappings?: PollMappingAmino[];
+  chain?: string;
+  gateway_address?: string;
+  confirmation_height?: string;
+  participants?: string[];
 }
 export interface ConfirmGatewayTxsStartedAminoMsg {
   type: "/axelar.evm.v1beta1.ConfirmGatewayTxsStarted";
@@ -219,13 +219,13 @@ export interface ConfirmDepositStartedProtoMsg {
   value: Uint8Array;
 }
 export interface ConfirmDepositStartedAmino {
-  tx_id: Uint8Array;
-  chain: string;
-  deposit_address: Uint8Array;
-  token_address: Uint8Array;
-  confirmation_height: string;
+  tx_id?: string;
+  chain?: string;
+  deposit_address?: string;
+  token_address?: string;
+  confirmation_height?: string;
   participants?: PollParticipantsAmino;
-  asset: string;
+  asset?: string;
 }
 export interface ConfirmDepositStartedAminoMsg {
   type: "/axelar.evm.v1beta1.ConfirmDepositStarted";
@@ -254,12 +254,12 @@ export interface ConfirmTokenStartedProtoMsg {
   value: Uint8Array;
 }
 export interface ConfirmTokenStartedAmino {
-  tx_id: Uint8Array;
-  chain: string;
-  gateway_address: Uint8Array;
-  token_address: Uint8Array;
+  tx_id?: string;
+  chain?: string;
+  gateway_address?: string;
+  token_address?: string;
   token_details?: TokenDetailsAmino;
-  confirmation_height: string;
+  confirmation_height?: string;
   participants?: PollParticipantsAmino;
 }
 export interface ConfirmTokenStartedAminoMsg {
@@ -283,7 +283,7 @@ export interface ChainAddedProtoMsg {
   value: Uint8Array;
 }
 export interface ChainAddedAmino {
-  chain: string;
+  chain?: string;
 }
 export interface ChainAddedAminoMsg {
   type: "/axelar.evm.v1beta1.ChainAdded";
@@ -301,8 +301,8 @@ export interface CommandBatchSignedProtoMsg {
   value: Uint8Array;
 }
 export interface CommandBatchSignedAmino {
-  chain: string;
-  command_batch_id: Uint8Array;
+  chain?: string;
+  command_batch_id?: string;
 }
 export interface CommandBatchSignedAminoMsg {
   type: "/axelar.evm.v1beta1.CommandBatchSigned";
@@ -321,8 +321,8 @@ export interface CommandBatchAbortedProtoMsg {
   value: Uint8Array;
 }
 export interface CommandBatchAbortedAmino {
-  chain: string;
-  command_batch_id: Uint8Array;
+  chain?: string;
+  command_batch_id?: string;
 }
 export interface CommandBatchAbortedAminoMsg {
   type: "/axelar.evm.v1beta1.CommandBatchAborted";
@@ -342,9 +342,9 @@ export interface EVMEventConfirmedProtoMsg {
   value: Uint8Array;
 }
 export interface EVMEventConfirmedAmino {
-  chain: string;
-  event_id: string;
-  type: string;
+  chain?: string;
+  event_id?: string;
+  type?: string;
 }
 export interface EVMEventConfirmedAminoMsg {
   type: "/axelar.evm.v1beta1.EVMEventConfirmed";
@@ -365,9 +365,9 @@ export interface EVMEventCompletedProtoMsg {
   value: Uint8Array;
 }
 export interface EVMEventCompletedAmino {
-  chain: string;
-  event_id: string;
-  type: string;
+  chain?: string;
+  event_id?: string;
+  type?: string;
 }
 export interface EVMEventCompletedAminoMsg {
   type: "/axelar.evm.v1beta1.EVMEventCompleted";
@@ -388,9 +388,9 @@ export interface EVMEventFailedProtoMsg {
   value: Uint8Array;
 }
 export interface EVMEventFailedAmino {
-  chain: string;
-  event_id: string;
-  type: string;
+  chain?: string;
+  event_id?: string;
+  type?: string;
 }
 export interface EVMEventFailedAminoMsg {
   type: "/axelar.evm.v1beta1.EVMEventFailed";
@@ -411,9 +411,9 @@ export interface EVMEventRetryFailedProtoMsg {
   value: Uint8Array;
 }
 export interface EVMEventRetryFailedAmino {
-  chain: string;
-  event_id: string;
-  type: string;
+  chain?: string;
+  event_id?: string;
+  type?: string;
 }
 export interface EVMEventRetryFailedAminoMsg {
   type: "/axelar.evm.v1beta1.EVMEventRetryFailed";
@@ -438,13 +438,13 @@ export interface ContractCallApprovedProtoMsg {
   value: Uint8Array;
 }
 export interface ContractCallApprovedAmino {
-  chain: string;
-  event_id: string;
-  command_id: Uint8Array;
-  sender: string;
-  destination_chain: string;
-  contract_address: string;
-  payload_hash: Uint8Array;
+  chain?: string;
+  event_id?: string;
+  command_id?: string;
+  sender?: string;
+  destination_chain?: string;
+  contract_address?: string;
+  payload_hash?: string;
 }
 export interface ContractCallApprovedAminoMsg {
   type: "/axelar.evm.v1beta1.ContractCallApproved";
@@ -468,8 +468,8 @@ export interface ContractCallFailedProtoMsg {
   value: Uint8Array;
 }
 export interface ContractCallFailedAmino {
-  chain: string;
-  msg_id: string;
+  chain?: string;
+  msg_id?: string;
 }
 export interface ContractCallFailedAminoMsg {
   type: "/axelar.evm.v1beta1.ContractCallFailed";
@@ -494,13 +494,13 @@ export interface ContractCallWithMintApprovedProtoMsg {
   value: Uint8Array;
 }
 export interface ContractCallWithMintApprovedAmino {
-  chain: string;
-  event_id: string;
-  command_id: Uint8Array;
-  sender: string;
-  destination_chain: string;
-  contract_address: string;
-  payload_hash: Uint8Array;
+  chain?: string;
+  event_id?: string;
+  command_id?: string;
+  sender?: string;
+  destination_chain?: string;
+  contract_address?: string;
+  payload_hash?: string;
   asset?: CoinAmino;
 }
 export interface ContractCallWithMintApprovedAminoMsg {
@@ -531,12 +531,12 @@ export interface TokenSentProtoMsg {
   value: Uint8Array;
 }
 export interface TokenSentAmino {
-  chain: string;
-  event_id: string;
-  transfer_id: string;
-  sender: string;
-  destination_chain: string;
-  destination_address: string;
+  chain?: string;
+  event_id?: string;
+  transfer_id?: string;
+  sender?: string;
+  destination_chain?: string;
+  destination_address?: string;
   asset?: CoinAmino;
 }
 export interface TokenSentAminoMsg {
@@ -565,11 +565,11 @@ export interface MintCommandProtoMsg {
   value: Uint8Array;
 }
 export interface MintCommandAmino {
-  chain: string;
-  transfer_id: string;
-  command_id: Uint8Array;
-  destination_chain: string;
-  destination_address: string;
+  chain?: string;
+  transfer_id?: string;
+  command_id?: string;
+  destination_chain?: string;
+  destination_address?: string;
   asset?: CoinAmino;
 }
 export interface MintCommandAminoMsg {
@@ -596,11 +596,11 @@ export interface BurnCommandProtoMsg {
   value: Uint8Array;
 }
 export interface BurnCommandAmino {
-  chain: string;
-  command_id: Uint8Array;
-  destination_chain: string;
-  deposit_address: string;
-  asset: string;
+  chain?: string;
+  command_id?: string;
+  destination_chain?: string;
+  deposit_address?: string;
+  asset?: string;
 }
 export interface BurnCommandAminoMsg {
   type: "/axelar.evm.v1beta1.BurnCommand";
@@ -649,15 +649,21 @@ export const PollFailed = {
     return message;
   },
   fromAmino(object: PollFailedAmino): PollFailed {
-    return {
-      txId: object.tx_id,
-      chain: object.chain,
-      pollId: BigInt(object.poll_id)
-    };
+    const message = createBasePollFailed();
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.poll_id !== undefined && object.poll_id !== null) {
+      message.pollId = BigInt(object.poll_id);
+    }
+    return message;
   },
   toAmino(message: PollFailed): PollFailedAmino {
     const obj: any = {};
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     obj.chain = message.chain;
     obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
     return obj;
@@ -714,15 +720,21 @@ export const PollExpired = {
     return message;
   },
   fromAmino(object: PollExpiredAmino): PollExpired {
-    return {
-      txId: object.tx_id,
-      chain: object.chain,
-      pollId: BigInt(object.poll_id)
-    };
+    const message = createBasePollExpired();
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.poll_id !== undefined && object.poll_id !== null) {
+      message.pollId = BigInt(object.poll_id);
+    }
+    return message;
   },
   toAmino(message: PollExpired): PollExpiredAmino {
     const obj: any = {};
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     obj.chain = message.chain;
     obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
     return obj;
@@ -779,15 +791,21 @@ export const PollCompleted = {
     return message;
   },
   fromAmino(object: PollCompletedAmino): PollCompleted {
-    return {
-      txId: object.tx_id,
-      chain: object.chain,
-      pollId: BigInt(object.poll_id)
-    };
+    const message = createBasePollCompleted();
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.poll_id !== undefined && object.poll_id !== null) {
+      message.pollId = BigInt(object.poll_id);
+    }
+    return message;
   },
   toAmino(message: PollCompleted): PollCompletedAmino {
     const obj: any = {};
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     obj.chain = message.chain;
     obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
     return obj;
@@ -844,15 +862,21 @@ export const NoEventsConfirmed = {
     return message;
   },
   fromAmino(object: NoEventsConfirmedAmino): NoEventsConfirmed {
-    return {
-      txId: object.tx_id,
-      chain: object.chain,
-      pollId: BigInt(object.poll_id)
-    };
+    const message = createBaseNoEventsConfirmed();
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.poll_id !== undefined && object.poll_id !== null) {
+      message.pollId = BigInt(object.poll_id);
+    }
+    return message;
   },
   toAmino(message: NoEventsConfirmed): NoEventsConfirmedAmino {
     const obj: any = {};
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     obj.chain = message.chain;
     obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
     return obj;
@@ -921,19 +945,29 @@ export const ConfirmKeyTransferStarted = {
     return message;
   },
   fromAmino(object: ConfirmKeyTransferStartedAmino): ConfirmKeyTransferStarted {
-    return {
-      chain: object.chain,
-      txId: object.tx_id,
-      gatewayAddress: object.gateway_address,
-      confirmationHeight: BigInt(object.confirmation_height),
-      participants: object?.participants ? PollParticipants.fromAmino(object.participants) : undefined
-    };
+    const message = createBaseConfirmKeyTransferStarted();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.gateway_address !== undefined && object.gateway_address !== null) {
+      message.gatewayAddress = bytesFromBase64(object.gateway_address);
+    }
+    if (object.confirmation_height !== undefined && object.confirmation_height !== null) {
+      message.confirmationHeight = BigInt(object.confirmation_height);
+    }
+    if (object.participants !== undefined && object.participants !== null) {
+      message.participants = PollParticipants.fromAmino(object.participants);
+    }
+    return message;
   },
   toAmino(message: ConfirmKeyTransferStarted): ConfirmKeyTransferStartedAmino {
     const obj: any = {};
     obj.chain = message.chain;
-    obj.tx_id = message.txId;
-    obj.gateway_address = message.gatewayAddress;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
+    obj.gateway_address = message.gatewayAddress ? base64FromBytes(message.gatewayAddress) : undefined;
     obj.confirmation_height = message.confirmationHeight ? message.confirmationHeight.toString() : undefined;
     obj.participants = message.participants ? PollParticipants.toAmino(message.participants) : undefined;
     return obj;
@@ -1002,19 +1036,29 @@ export const ConfirmGatewayTxStarted = {
     return message;
   },
   fromAmino(object: ConfirmGatewayTxStartedAmino): ConfirmGatewayTxStarted {
-    return {
-      txId: object.tx_id,
-      chain: object.chain,
-      gatewayAddress: object.gateway_address,
-      confirmationHeight: BigInt(object.confirmation_height),
-      participants: object?.participants ? PollParticipants.fromAmino(object.participants) : undefined
-    };
+    const message = createBaseConfirmGatewayTxStarted();
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.gateway_address !== undefined && object.gateway_address !== null) {
+      message.gatewayAddress = bytesFromBase64(object.gateway_address);
+    }
+    if (object.confirmation_height !== undefined && object.confirmation_height !== null) {
+      message.confirmationHeight = BigInt(object.confirmation_height);
+    }
+    if (object.participants !== undefined && object.participants !== null) {
+      message.participants = PollParticipants.fromAmino(object.participants);
+    }
+    return message;
   },
   toAmino(message: ConfirmGatewayTxStarted): ConfirmGatewayTxStartedAmino {
     const obj: any = {};
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     obj.chain = message.chain;
-    obj.gateway_address = message.gatewayAddress;
+    obj.gateway_address = message.gatewayAddress ? base64FromBytes(message.gatewayAddress) : undefined;
     obj.confirmation_height = message.confirmationHeight ? message.confirmationHeight.toString() : undefined;
     obj.participants = message.participants ? PollParticipants.toAmino(message.participants) : undefined;
     return obj;
@@ -1065,14 +1109,18 @@ export const PollMapping = {
     return message;
   },
   fromAmino(object: PollMappingAmino): PollMapping {
-    return {
-      txId: object.tx_id,
-      pollId: BigInt(object.poll_id)
-    };
+    const message = createBasePollMapping();
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.poll_id !== undefined && object.poll_id !== null) {
+      message.pollId = BigInt(object.poll_id);
+    }
+    return message;
   },
   toAmino(message: PollMapping): PollMappingAmino {
     const obj: any = {};
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     obj.poll_id = message.pollId ? message.pollId.toString() : undefined;
     return obj;
   },
@@ -1140,13 +1188,19 @@ export const ConfirmGatewayTxsStarted = {
     return message;
   },
   fromAmino(object: ConfirmGatewayTxsStartedAmino): ConfirmGatewayTxsStarted {
-    return {
-      pollMappings: Array.isArray(object?.poll_mappings) ? object.poll_mappings.map((e: any) => PollMapping.fromAmino(e)) : [],
-      chain: object.chain,
-      gatewayAddress: object.gateway_address,
-      confirmationHeight: BigInt(object.confirmation_height),
-      participants: Array.isArray(object?.participants) ? object.participants.map((e: any) => e) : []
-    };
+    const message = createBaseConfirmGatewayTxsStarted();
+    message.pollMappings = object.poll_mappings?.map(e => PollMapping.fromAmino(e)) || [];
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.gateway_address !== undefined && object.gateway_address !== null) {
+      message.gatewayAddress = bytesFromBase64(object.gateway_address);
+    }
+    if (object.confirmation_height !== undefined && object.confirmation_height !== null) {
+      message.confirmationHeight = BigInt(object.confirmation_height);
+    }
+    message.participants = object.participants?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: ConfirmGatewayTxsStarted): ConfirmGatewayTxsStartedAmino {
     const obj: any = {};
@@ -1156,10 +1210,10 @@ export const ConfirmGatewayTxsStarted = {
       obj.poll_mappings = [];
     }
     obj.chain = message.chain;
-    obj.gateway_address = message.gatewayAddress;
+    obj.gateway_address = message.gatewayAddress ? base64FromBytes(message.gatewayAddress) : undefined;
     obj.confirmation_height = message.confirmationHeight ? message.confirmationHeight.toString() : undefined;
     if (message.participants) {
-      obj.participants = message.participants.map(e => e);
+      obj.participants = message.participants.map(e => base64FromBytes(e));
     } else {
       obj.participants = [];
     }
@@ -1241,22 +1295,36 @@ export const ConfirmDepositStarted = {
     return message;
   },
   fromAmino(object: ConfirmDepositStartedAmino): ConfirmDepositStarted {
-    return {
-      txId: object.tx_id,
-      chain: object.chain,
-      depositAddress: object.deposit_address,
-      tokenAddress: object.token_address,
-      confirmationHeight: BigInt(object.confirmation_height),
-      participants: object?.participants ? PollParticipants.fromAmino(object.participants) : undefined,
-      asset: object.asset
-    };
+    const message = createBaseConfirmDepositStarted();
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.deposit_address !== undefined && object.deposit_address !== null) {
+      message.depositAddress = bytesFromBase64(object.deposit_address);
+    }
+    if (object.token_address !== undefined && object.token_address !== null) {
+      message.tokenAddress = bytesFromBase64(object.token_address);
+    }
+    if (object.confirmation_height !== undefined && object.confirmation_height !== null) {
+      message.confirmationHeight = BigInt(object.confirmation_height);
+    }
+    if (object.participants !== undefined && object.participants !== null) {
+      message.participants = PollParticipants.fromAmino(object.participants);
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    return message;
   },
   toAmino(message: ConfirmDepositStarted): ConfirmDepositStartedAmino {
     const obj: any = {};
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     obj.chain = message.chain;
-    obj.deposit_address = message.depositAddress;
-    obj.token_address = message.tokenAddress;
+    obj.deposit_address = message.depositAddress ? base64FromBytes(message.depositAddress) : undefined;
+    obj.token_address = message.tokenAddress ? base64FromBytes(message.tokenAddress) : undefined;
     obj.confirmation_height = message.confirmationHeight ? message.confirmationHeight.toString() : undefined;
     obj.participants = message.participants ? PollParticipants.toAmino(message.participants) : undefined;
     obj.asset = message.asset;
@@ -1338,22 +1406,36 @@ export const ConfirmTokenStarted = {
     return message;
   },
   fromAmino(object: ConfirmTokenStartedAmino): ConfirmTokenStarted {
-    return {
-      txId: object.tx_id,
-      chain: object.chain,
-      gatewayAddress: object.gateway_address,
-      tokenAddress: object.token_address,
-      tokenDetails: object?.token_details ? TokenDetails.fromAmino(object.token_details) : undefined,
-      confirmationHeight: BigInt(object.confirmation_height),
-      participants: object?.participants ? PollParticipants.fromAmino(object.participants) : undefined
-    };
+    const message = createBaseConfirmTokenStarted();
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.gateway_address !== undefined && object.gateway_address !== null) {
+      message.gatewayAddress = bytesFromBase64(object.gateway_address);
+    }
+    if (object.token_address !== undefined && object.token_address !== null) {
+      message.tokenAddress = bytesFromBase64(object.token_address);
+    }
+    if (object.token_details !== undefined && object.token_details !== null) {
+      message.tokenDetails = TokenDetails.fromAmino(object.token_details);
+    }
+    if (object.confirmation_height !== undefined && object.confirmation_height !== null) {
+      message.confirmationHeight = BigInt(object.confirmation_height);
+    }
+    if (object.participants !== undefined && object.participants !== null) {
+      message.participants = PollParticipants.fromAmino(object.participants);
+    }
+    return message;
   },
   toAmino(message: ConfirmTokenStarted): ConfirmTokenStartedAmino {
     const obj: any = {};
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     obj.chain = message.chain;
-    obj.gateway_address = message.gatewayAddress;
-    obj.token_address = message.tokenAddress;
+    obj.gateway_address = message.gatewayAddress ? base64FromBytes(message.gatewayAddress) : undefined;
+    obj.token_address = message.tokenAddress ? base64FromBytes(message.tokenAddress) : undefined;
     obj.token_details = message.tokenDetails ? TokenDetails.toAmino(message.tokenDetails) : undefined;
     obj.confirmation_height = message.confirmationHeight ? message.confirmationHeight.toString() : undefined;
     obj.participants = message.participants ? PollParticipants.toAmino(message.participants) : undefined;
@@ -1399,9 +1481,11 @@ export const ChainAdded = {
     return message;
   },
   fromAmino(object: ChainAddedAmino): ChainAdded {
-    return {
-      chain: object.chain
-    };
+    const message = createBaseChainAdded();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: ChainAdded): ChainAddedAmino {
     const obj: any = {};
@@ -1454,15 +1538,19 @@ export const CommandBatchSigned = {
     return message;
   },
   fromAmino(object: CommandBatchSignedAmino): CommandBatchSigned {
-    return {
-      chain: object.chain,
-      commandBatchId: object.command_batch_id
-    };
+    const message = createBaseCommandBatchSigned();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.command_batch_id !== undefined && object.command_batch_id !== null) {
+      message.commandBatchId = bytesFromBase64(object.command_batch_id);
+    }
+    return message;
   },
   toAmino(message: CommandBatchSigned): CommandBatchSignedAmino {
     const obj: any = {};
     obj.chain = message.chain;
-    obj.command_batch_id = message.commandBatchId;
+    obj.command_batch_id = message.commandBatchId ? base64FromBytes(message.commandBatchId) : undefined;
     return obj;
   },
   fromAminoMsg(object: CommandBatchSignedAminoMsg): CommandBatchSigned {
@@ -1511,15 +1599,19 @@ export const CommandBatchAborted = {
     return message;
   },
   fromAmino(object: CommandBatchAbortedAmino): CommandBatchAborted {
-    return {
-      chain: object.chain,
-      commandBatchId: object.command_batch_id
-    };
+    const message = createBaseCommandBatchAborted();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.command_batch_id !== undefined && object.command_batch_id !== null) {
+      message.commandBatchId = bytesFromBase64(object.command_batch_id);
+    }
+    return message;
   },
   toAmino(message: CommandBatchAborted): CommandBatchAbortedAmino {
     const obj: any = {};
     obj.chain = message.chain;
-    obj.command_batch_id = message.commandBatchId;
+    obj.command_batch_id = message.commandBatchId ? base64FromBytes(message.commandBatchId) : undefined;
     return obj;
   },
   fromAminoMsg(object: CommandBatchAbortedAminoMsg): CommandBatchAborted {
@@ -1574,11 +1666,17 @@ export const EVMEventConfirmed = {
     return message;
   },
   fromAmino(object: EVMEventConfirmedAmino): EVMEventConfirmed {
-    return {
-      chain: object.chain,
-      eventId: object.event_id,
-      type: object.type
-    };
+    const message = createBaseEVMEventConfirmed();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.event_id !== undefined && object.event_id !== null) {
+      message.eventId = object.event_id;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    return message;
   },
   toAmino(message: EVMEventConfirmed): EVMEventConfirmedAmino {
     const obj: any = {};
@@ -1639,11 +1737,17 @@ export const EVMEventCompleted = {
     return message;
   },
   fromAmino(object: EVMEventCompletedAmino): EVMEventCompleted {
-    return {
-      chain: object.chain,
-      eventId: object.event_id,
-      type: object.type
-    };
+    const message = createBaseEVMEventCompleted();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.event_id !== undefined && object.event_id !== null) {
+      message.eventId = object.event_id;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    return message;
   },
   toAmino(message: EVMEventCompleted): EVMEventCompletedAmino {
     const obj: any = {};
@@ -1704,11 +1808,17 @@ export const EVMEventFailed = {
     return message;
   },
   fromAmino(object: EVMEventFailedAmino): EVMEventFailed {
-    return {
-      chain: object.chain,
-      eventId: object.event_id,
-      type: object.type
-    };
+    const message = createBaseEVMEventFailed();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.event_id !== undefined && object.event_id !== null) {
+      message.eventId = object.event_id;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    return message;
   },
   toAmino(message: EVMEventFailed): EVMEventFailedAmino {
     const obj: any = {};
@@ -1769,11 +1879,17 @@ export const EVMEventRetryFailed = {
     return message;
   },
   fromAmino(object: EVMEventRetryFailedAmino): EVMEventRetryFailed {
-    return {
-      chain: object.chain,
-      eventId: object.event_id,
-      type: object.type
-    };
+    const message = createBaseEVMEventRetryFailed();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.event_id !== undefined && object.event_id !== null) {
+      message.eventId = object.event_id;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    return message;
   },
   toAmino(message: EVMEventRetryFailed): EVMEventRetryFailedAmino {
     const obj: any = {};
@@ -1858,25 +1974,39 @@ export const ContractCallApproved = {
     return message;
   },
   fromAmino(object: ContractCallApprovedAmino): ContractCallApproved {
-    return {
-      chain: object.chain,
-      eventId: object.event_id,
-      commandId: object.command_id,
-      sender: object.sender,
-      destinationChain: object.destination_chain,
-      contractAddress: object.contract_address,
-      payloadHash: object.payload_hash
-    };
+    const message = createBaseContractCallApproved();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.event_id !== undefined && object.event_id !== null) {
+      message.eventId = object.event_id;
+    }
+    if (object.command_id !== undefined && object.command_id !== null) {
+      message.commandId = bytesFromBase64(object.command_id);
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.payload_hash !== undefined && object.payload_hash !== null) {
+      message.payloadHash = bytesFromBase64(object.payload_hash);
+    }
+    return message;
   },
   toAmino(message: ContractCallApproved): ContractCallApprovedAmino {
     const obj: any = {};
     obj.chain = message.chain;
     obj.event_id = message.eventId;
-    obj.command_id = message.commandId;
+    obj.command_id = message.commandId ? base64FromBytes(message.commandId) : undefined;
     obj.sender = message.sender;
     obj.destination_chain = message.destinationChain;
     obj.contract_address = message.contractAddress;
-    obj.payload_hash = message.payloadHash;
+    obj.payload_hash = message.payloadHash ? base64FromBytes(message.payloadHash) : undefined;
     return obj;
   },
   fromAminoMsg(object: ContractCallApprovedAminoMsg): ContractCallApproved {
@@ -1925,10 +2055,14 @@ export const ContractCallFailed = {
     return message;
   },
   fromAmino(object: ContractCallFailedAmino): ContractCallFailed {
-    return {
-      chain: object.chain,
-      msgId: object.msg_id
-    };
+    const message = createBaseContractCallFailed();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.msg_id !== undefined && object.msg_id !== null) {
+      message.msgId = object.msg_id;
+    }
+    return message;
   },
   toAmino(message: ContractCallFailed): ContractCallFailedAmino {
     const obj: any = {};
@@ -2018,26 +2152,42 @@ export const ContractCallWithMintApproved = {
     return message;
   },
   fromAmino(object: ContractCallWithMintApprovedAmino): ContractCallWithMintApproved {
-    return {
-      chain: object.chain,
-      eventId: object.event_id,
-      commandId: object.command_id,
-      sender: object.sender,
-      destinationChain: object.destination_chain,
-      contractAddress: object.contract_address,
-      payloadHash: object.payload_hash,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseContractCallWithMintApproved();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.event_id !== undefined && object.event_id !== null) {
+      message.eventId = object.event_id;
+    }
+    if (object.command_id !== undefined && object.command_id !== null) {
+      message.commandId = bytesFromBase64(object.command_id);
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.payload_hash !== undefined && object.payload_hash !== null) {
+      message.payloadHash = bytesFromBase64(object.payload_hash);
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: ContractCallWithMintApproved): ContractCallWithMintApprovedAmino {
     const obj: any = {};
     obj.chain = message.chain;
     obj.event_id = message.eventId;
-    obj.command_id = message.commandId;
+    obj.command_id = message.commandId ? base64FromBytes(message.commandId) : undefined;
     obj.sender = message.sender;
     obj.destination_chain = message.destinationChain;
     obj.contract_address = message.contractAddress;
-    obj.payload_hash = message.payloadHash;
+    obj.payload_hash = message.payloadHash ? base64FromBytes(message.payloadHash) : undefined;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -2117,15 +2267,29 @@ export const TokenSent = {
     return message;
   },
   fromAmino(object: TokenSentAmino): TokenSent {
-    return {
-      chain: object.chain,
-      eventId: object.event_id,
-      transferId: BigInt(object.transfer_id),
-      sender: object.sender,
-      destinationChain: object.destination_chain,
-      destinationAddress: object.destination_address,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseTokenSent();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.event_id !== undefined && object.event_id !== null) {
+      message.eventId = object.event_id;
+    }
+    if (object.transfer_id !== undefined && object.transfer_id !== null) {
+      message.transferId = BigInt(object.transfer_id);
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.destination_address !== undefined && object.destination_address !== null) {
+      message.destinationAddress = object.destination_address;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: TokenSent): TokenSentAmino {
     const obj: any = {};
@@ -2208,20 +2372,32 @@ export const MintCommand = {
     return message;
   },
   fromAmino(object: MintCommandAmino): MintCommand {
-    return {
-      chain: object.chain,
-      transferId: BigInt(object.transfer_id),
-      commandId: object.command_id,
-      destinationChain: object.destination_chain,
-      destinationAddress: object.destination_address,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseMintCommand();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.transfer_id !== undefined && object.transfer_id !== null) {
+      message.transferId = BigInt(object.transfer_id);
+    }
+    if (object.command_id !== undefined && object.command_id !== null) {
+      message.commandId = bytesFromBase64(object.command_id);
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.destination_address !== undefined && object.destination_address !== null) {
+      message.destinationAddress = object.destination_address;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: MintCommand): MintCommandAmino {
     const obj: any = {};
     obj.chain = message.chain;
     obj.transfer_id = message.transferId ? message.transferId.toString() : undefined;
-    obj.command_id = message.commandId;
+    obj.command_id = message.commandId ? base64FromBytes(message.commandId) : undefined;
     obj.destination_chain = message.destinationChain;
     obj.destination_address = message.destinationAddress;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
@@ -2291,18 +2467,28 @@ export const BurnCommand = {
     return message;
   },
   fromAmino(object: BurnCommandAmino): BurnCommand {
-    return {
-      chain: object.chain,
-      commandId: object.command_id,
-      destinationChain: object.destination_chain,
-      depositAddress: object.deposit_address,
-      asset: object.asset
-    };
+    const message = createBaseBurnCommand();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.command_id !== undefined && object.command_id !== null) {
+      message.commandId = bytesFromBase64(object.command_id);
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.deposit_address !== undefined && object.deposit_address !== null) {
+      message.depositAddress = object.deposit_address;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    return message;
   },
   toAmino(message: BurnCommand): BurnCommandAmino {
     const obj: any = {};
     obj.chain = message.chain;
-    obj.command_id = message.commandId;
+    obj.command_id = message.commandId ? base64FromBytes(message.commandId) : undefined;
     obj.destination_chain = message.destinationChain;
     obj.deposit_address = message.depositAddress;
     obj.asset = message.asset;

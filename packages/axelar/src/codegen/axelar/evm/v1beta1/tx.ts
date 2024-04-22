@@ -1,7 +1,7 @@
 import { Asset, AssetAmino, AssetSDKType, TokenDetails, TokenDetailsAmino, TokenDetailsSDKType } from "./types";
 import { KeyType, keyTypeFromJSON } from "../../tss/exported/v1beta1/types";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface SetGatewayRequest {
   sender: Uint8Array;
   chain: string;
@@ -12,9 +12,9 @@ export interface SetGatewayRequestProtoMsg {
   value: Uint8Array;
 }
 export interface SetGatewayRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  address: Uint8Array;
+  sender?: string;
+  chain?: string;
+  address?: string;
 }
 export interface SetGatewayRequestAminoMsg {
   type: "/axelar.evm.v1beta1.SetGatewayRequest";
@@ -48,9 +48,9 @@ export interface ConfirmGatewayTxRequestProtoMsg {
 }
 /** @deprecated */
 export interface ConfirmGatewayTxRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  tx_id: Uint8Array;
+  sender?: string;
+  chain?: string;
+  tx_id?: string;
 }
 export interface ConfirmGatewayTxRequestAminoMsg {
   type: "/axelar.evm.v1beta1.ConfirmGatewayTxRequest";
@@ -86,9 +86,9 @@ export interface ConfirmGatewayTxsRequestProtoMsg {
   value: Uint8Array;
 }
 export interface ConfirmGatewayTxsRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  tx_ids: Uint8Array[];
+  sender?: string;
+  chain?: string;
+  tx_ids?: string[];
 }
 export interface ConfirmGatewayTxsRequestAminoMsg {
   type: "/axelar.evm.v1beta1.ConfirmGatewayTxsRequest";
@@ -125,12 +125,12 @@ export interface ConfirmDepositRequestProtoMsg {
 }
 /** MsgConfirmDeposit represents an erc20 deposit confirmation message */
 export interface ConfirmDepositRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  tx_id: Uint8Array;
+  sender?: string;
+  chain?: string;
+  tx_id?: string;
   /** @deprecated */
-  amount: Uint8Array;
-  burner_address: Uint8Array;
+  amount?: string;
+  burner_address?: string;
 }
 export interface ConfirmDepositRequestAminoMsg {
   type: "/axelar.evm.v1beta1.ConfirmDepositRequest";
@@ -169,9 +169,9 @@ export interface ConfirmTokenRequestProtoMsg {
 }
 /** MsgConfirmToken represents a token deploy confirmation message */
 export interface ConfirmTokenRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  tx_id: Uint8Array;
+  sender?: string;
+  chain?: string;
+  tx_id?: string;
   asset?: AssetAmino;
 }
 export interface ConfirmTokenRequestAminoMsg {
@@ -206,9 +206,9 @@ export interface ConfirmTransferKeyRequestProtoMsg {
   value: Uint8Array;
 }
 export interface ConfirmTransferKeyRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  tx_id: Uint8Array;
+  sender?: string;
+  chain?: string;
+  tx_id?: string;
 }
 export interface ConfirmTransferKeyRequestAminoMsg {
   type: "/axelar.evm.v1beta1.ConfirmTransferKeyRequest";
@@ -250,11 +250,11 @@ export interface LinkRequestProtoMsg {
  * address
  */
 export interface LinkRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  recipient_addr: string;
-  asset: string;
-  recipient_chain: string;
+  sender?: string;
+  chain?: string;
+  recipient_addr?: string;
+  asset?: string;
+  recipient_chain?: string;
 }
 export interface LinkRequestAminoMsg {
   type: "/axelar.evm.v1beta1.LinkRequest";
@@ -279,7 +279,7 @@ export interface LinkResponseProtoMsg {
   value: Uint8Array;
 }
 export interface LinkResponseAmino {
-  deposit_addr: string;
+  deposit_addr?: string;
 }
 export interface LinkResponseAminoMsg {
   type: "/axelar.evm.v1beta1.LinkResponse";
@@ -305,8 +305,8 @@ export interface CreateBurnTokensRequestProtoMsg {
  * tokens with AxelarGateway
  */
 export interface CreateBurnTokensRequestAmino {
-  sender: Uint8Array;
-  chain: string;
+  sender?: string;
+  chain?: string;
 }
 export interface CreateBurnTokensRequestAminoMsg {
   type: "/axelar.evm.v1beta1.CreateBurnTokensRequest";
@@ -352,12 +352,12 @@ export interface CreateDeployTokenRequestProtoMsg {
  * command for AxelarGateway
  */
 export interface CreateDeployTokenRequestAmino {
-  sender: Uint8Array;
-  chain: string;
+  sender?: string;
+  chain?: string;
   asset?: AssetAmino;
   token_details?: TokenDetailsAmino;
-  address: Uint8Array;
-  daily_mint_limit: string;
+  address?: string;
+  daily_mint_limit?: string;
 }
 export interface CreateDeployTokenRequestAminoMsg {
   type: "/axelar.evm.v1beta1.CreateDeployTokenRequest";
@@ -403,8 +403,8 @@ export interface CreatePendingTransfersRequestProtoMsg {
  * commands handling all pending transfers
  */
 export interface CreatePendingTransfersRequestAmino {
-  sender: Uint8Array;
-  chain: string;
+  sender?: string;
+  chain?: string;
 }
 export interface CreatePendingTransfersRequestAminoMsg {
   type: "/axelar.evm.v1beta1.CreatePendingTransfersRequest";
@@ -441,9 +441,9 @@ export interface CreateTransferOwnershipRequestProtoMsg {
 }
 /** @deprecated */
 export interface CreateTransferOwnershipRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  key_id: string;
+  sender?: string;
+  chain?: string;
+  key_id?: string;
 }
 export interface CreateTransferOwnershipRequestAminoMsg {
   type: "/axelar.evm.v1beta1.CreateTransferOwnershipRequest";
@@ -479,9 +479,9 @@ export interface CreateTransferOperatorshipRequestProtoMsg {
   value: Uint8Array;
 }
 export interface CreateTransferOperatorshipRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  key_id: string;
+  sender?: string;
+  chain?: string;
+  key_id?: string;
 }
 export interface CreateTransferOperatorshipRequestAminoMsg {
   type: "/axelar.evm.v1beta1.CreateTransferOperatorshipRequest";
@@ -512,8 +512,8 @@ export interface SignCommandsRequestProtoMsg {
   value: Uint8Array;
 }
 export interface SignCommandsRequestAmino {
-  sender: Uint8Array;
-  chain: string;
+  sender?: string;
+  chain?: string;
 }
 export interface SignCommandsRequestAminoMsg {
   type: "/axelar.evm.v1beta1.SignCommandsRequest";
@@ -532,8 +532,8 @@ export interface SignCommandsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface SignCommandsResponseAmino {
-  batched_commands_id: Uint8Array;
-  command_count: number;
+  batched_commands_id?: string;
+  command_count?: number;
 }
 export interface SignCommandsResponseAminoMsg {
   type: "/axelar.evm.v1beta1.SignCommandsResponse";
@@ -555,11 +555,11 @@ export interface AddChainRequestProtoMsg {
   value: Uint8Array;
 }
 export interface AddChainRequestAmino {
-  sender: Uint8Array;
-  name: string;
+  sender?: string;
+  name?: string;
   /** @deprecated */
-  key_type: KeyType;
-  params: Uint8Array;
+  key_type?: KeyType;
+  params?: string;
 }
 export interface AddChainRequestAminoMsg {
   type: "/axelar.evm.v1beta1.AddChainRequest";
@@ -593,9 +593,9 @@ export interface RetryFailedEventRequestProtoMsg {
   value: Uint8Array;
 }
 export interface RetryFailedEventRequestAmino {
-  sender: Uint8Array;
-  chain: string;
-  event_id: string;
+  sender?: string;
+  chain?: string;
+  event_id?: string;
 }
 export interface RetryFailedEventRequestAminoMsg {
   type: "/axelar.evm.v1beta1.RetryFailedEventRequest";
@@ -653,17 +653,23 @@ export const SetGatewayRequest = {
     return message;
   },
   fromAmino(object: SetGatewayRequestAmino): SetGatewayRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      address: object.address
-    };
+    const message = createBaseSetGatewayRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = bytesFromBase64(object.address);
+    }
+    return message;
   },
   toAmino(message: SetGatewayRequest): SetGatewayRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
-    obj.address = message.address;
+    obj.address = message.address ? base64FromBytes(message.address) : undefined;
     return obj;
   },
   fromAminoMsg(object: SetGatewayRequestAminoMsg): SetGatewayRequest {
@@ -698,7 +704,8 @@ export const SetGatewayResponse = {
     return message;
   },
   fromAmino(_: SetGatewayResponseAmino): SetGatewayResponse {
-    return {};
+    const message = createBaseSetGatewayResponse();
+    return message;
   },
   toAmino(_: SetGatewayResponse): SetGatewayResponseAmino {
     const obj: any = {};
@@ -756,17 +763,23 @@ export const ConfirmGatewayTxRequest = {
     return message;
   },
   fromAmino(object: ConfirmGatewayTxRequestAmino): ConfirmGatewayTxRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      txId: object.tx_id
-    };
+    const message = createBaseConfirmGatewayTxRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    return message;
   },
   toAmino(message: ConfirmGatewayTxRequest): ConfirmGatewayTxRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     return obj;
   },
   fromAminoMsg(object: ConfirmGatewayTxRequestAminoMsg): ConfirmGatewayTxRequest {
@@ -801,7 +814,8 @@ export const ConfirmGatewayTxResponse = {
     return message;
   },
   fromAmino(_: ConfirmGatewayTxResponseAmino): ConfirmGatewayTxResponse {
-    return {};
+    const message = createBaseConfirmGatewayTxResponse();
+    return message;
   },
   toAmino(_: ConfirmGatewayTxResponse): ConfirmGatewayTxResponseAmino {
     const obj: any = {};
@@ -859,18 +873,22 @@ export const ConfirmGatewayTxsRequest = {
     return message;
   },
   fromAmino(object: ConfirmGatewayTxsRequestAmino): ConfirmGatewayTxsRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      txIds: Array.isArray(object?.tx_ids) ? object.tx_ids.map((e: any) => e) : []
-    };
+    const message = createBaseConfirmGatewayTxsRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    message.txIds = object.tx_ids?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: ConfirmGatewayTxsRequest): ConfirmGatewayTxsRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     if (message.txIds) {
-      obj.tx_ids = message.txIds.map(e => e);
+      obj.tx_ids = message.txIds.map(e => base64FromBytes(e));
     } else {
       obj.tx_ids = [];
     }
@@ -908,7 +926,8 @@ export const ConfirmGatewayTxsResponse = {
     return message;
   },
   fromAmino(_: ConfirmGatewayTxsResponseAmino): ConfirmGatewayTxsResponse {
-    return {};
+    const message = createBaseConfirmGatewayTxsResponse();
+    return message;
   },
   toAmino(_: ConfirmGatewayTxsResponse): ConfirmGatewayTxsResponseAmino {
     const obj: any = {};
@@ -978,21 +997,31 @@ export const ConfirmDepositRequest = {
     return message;
   },
   fromAmino(object: ConfirmDepositRequestAmino): ConfirmDepositRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      txId: object.tx_id,
-      amount: object.amount,
-      burnerAddress: object.burner_address
-    };
+    const message = createBaseConfirmDepositRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = bytesFromBase64(object.amount);
+    }
+    if (object.burner_address !== undefined && object.burner_address !== null) {
+      message.burnerAddress = bytesFromBase64(object.burner_address);
+    }
+    return message;
   },
   toAmino(message: ConfirmDepositRequest): ConfirmDepositRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
-    obj.tx_id = message.txId;
-    obj.amount = message.amount;
-    obj.burner_address = message.burnerAddress;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
+    obj.amount = message.amount ? base64FromBytes(message.amount) : undefined;
+    obj.burner_address = message.burnerAddress ? base64FromBytes(message.burnerAddress) : undefined;
     return obj;
   },
   fromAminoMsg(object: ConfirmDepositRequestAminoMsg): ConfirmDepositRequest {
@@ -1027,7 +1056,8 @@ export const ConfirmDepositResponse = {
     return message;
   },
   fromAmino(_: ConfirmDepositResponseAmino): ConfirmDepositResponse {
-    return {};
+    const message = createBaseConfirmDepositResponse();
+    return message;
   },
   toAmino(_: ConfirmDepositResponse): ConfirmDepositResponseAmino {
     const obj: any = {};
@@ -1091,18 +1121,26 @@ export const ConfirmTokenRequest = {
     return message;
   },
   fromAmino(object: ConfirmTokenRequestAmino): ConfirmTokenRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      txId: object.tx_id,
-      asset: object?.asset ? Asset.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseConfirmTokenRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Asset.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: ConfirmTokenRequest): ConfirmTokenRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     obj.asset = message.asset ? Asset.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -1138,7 +1176,8 @@ export const ConfirmTokenResponse = {
     return message;
   },
   fromAmino(_: ConfirmTokenResponseAmino): ConfirmTokenResponse {
-    return {};
+    const message = createBaseConfirmTokenResponse();
+    return message;
   },
   toAmino(_: ConfirmTokenResponse): ConfirmTokenResponseAmino {
     const obj: any = {};
@@ -1196,17 +1235,23 @@ export const ConfirmTransferKeyRequest = {
     return message;
   },
   fromAmino(object: ConfirmTransferKeyRequestAmino): ConfirmTransferKeyRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      txId: object.tx_id
-    };
+    const message = createBaseConfirmTransferKeyRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    return message;
   },
   toAmino(message: ConfirmTransferKeyRequest): ConfirmTransferKeyRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     return obj;
   },
   fromAminoMsg(object: ConfirmTransferKeyRequestAminoMsg): ConfirmTransferKeyRequest {
@@ -1241,7 +1286,8 @@ export const ConfirmTransferKeyResponse = {
     return message;
   },
   fromAmino(_: ConfirmTransferKeyResponseAmino): ConfirmTransferKeyResponse {
-    return {};
+    const message = createBaseConfirmTransferKeyResponse();
+    return message;
   },
   toAmino(_: ConfirmTransferKeyResponse): ConfirmTransferKeyResponseAmino {
     const obj: any = {};
@@ -1311,17 +1357,27 @@ export const LinkRequest = {
     return message;
   },
   fromAmino(object: LinkRequestAmino): LinkRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      recipientAddr: object.recipient_addr,
-      asset: object.asset,
-      recipientChain: object.recipient_chain
-    };
+    const message = createBaseLinkRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.recipient_addr !== undefined && object.recipient_addr !== null) {
+      message.recipientAddr = object.recipient_addr;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    if (object.recipient_chain !== undefined && object.recipient_chain !== null) {
+      message.recipientChain = object.recipient_chain;
+    }
+    return message;
   },
   toAmino(message: LinkRequest): LinkRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     obj.recipient_addr = message.recipientAddr;
     obj.asset = message.asset;
@@ -1368,9 +1424,11 @@ export const LinkResponse = {
     return message;
   },
   fromAmino(object: LinkResponseAmino): LinkResponse {
-    return {
-      depositAddr: object.deposit_addr
-    };
+    const message = createBaseLinkResponse();
+    if (object.deposit_addr !== undefined && object.deposit_addr !== null) {
+      message.depositAddr = object.deposit_addr;
+    }
+    return message;
   },
   toAmino(message: LinkResponse): LinkResponseAmino {
     const obj: any = {};
@@ -1423,14 +1481,18 @@ export const CreateBurnTokensRequest = {
     return message;
   },
   fromAmino(object: CreateBurnTokensRequestAmino): CreateBurnTokensRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain
-    };
+    const message = createBaseCreateBurnTokensRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: CreateBurnTokensRequest): CreateBurnTokensRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     return obj;
   },
@@ -1466,7 +1528,8 @@ export const CreateBurnTokensResponse = {
     return message;
   },
   fromAmino(_: CreateBurnTokensResponseAmino): CreateBurnTokensResponse {
-    return {};
+    const message = createBaseCreateBurnTokensResponse();
+    return message;
   },
   toAmino(_: CreateBurnTokensResponse): CreateBurnTokensResponseAmino {
     const obj: any = {};
@@ -1542,22 +1605,34 @@ export const CreateDeployTokenRequest = {
     return message;
   },
   fromAmino(object: CreateDeployTokenRequestAmino): CreateDeployTokenRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      asset: object?.asset ? Asset.fromAmino(object.asset) : undefined,
-      tokenDetails: object?.token_details ? TokenDetails.fromAmino(object.token_details) : undefined,
-      address: object.address,
-      dailyMintLimit: object.daily_mint_limit
-    };
+    const message = createBaseCreateDeployTokenRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Asset.fromAmino(object.asset);
+    }
+    if (object.token_details !== undefined && object.token_details !== null) {
+      message.tokenDetails = TokenDetails.fromAmino(object.token_details);
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = bytesFromBase64(object.address);
+    }
+    if (object.daily_mint_limit !== undefined && object.daily_mint_limit !== null) {
+      message.dailyMintLimit = object.daily_mint_limit;
+    }
+    return message;
   },
   toAmino(message: CreateDeployTokenRequest): CreateDeployTokenRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     obj.asset = message.asset ? Asset.toAmino(message.asset) : undefined;
     obj.token_details = message.tokenDetails ? TokenDetails.toAmino(message.tokenDetails) : undefined;
-    obj.address = message.address;
+    obj.address = message.address ? base64FromBytes(message.address) : undefined;
     obj.daily_mint_limit = message.dailyMintLimit;
     return obj;
   },
@@ -1593,7 +1668,8 @@ export const CreateDeployTokenResponse = {
     return message;
   },
   fromAmino(_: CreateDeployTokenResponseAmino): CreateDeployTokenResponse {
-    return {};
+    const message = createBaseCreateDeployTokenResponse();
+    return message;
   },
   toAmino(_: CreateDeployTokenResponse): CreateDeployTokenResponseAmino {
     const obj: any = {};
@@ -1645,14 +1721,18 @@ export const CreatePendingTransfersRequest = {
     return message;
   },
   fromAmino(object: CreatePendingTransfersRequestAmino): CreatePendingTransfersRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain
-    };
+    const message = createBaseCreatePendingTransfersRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: CreatePendingTransfersRequest): CreatePendingTransfersRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     return obj;
   },
@@ -1688,7 +1768,8 @@ export const CreatePendingTransfersResponse = {
     return message;
   },
   fromAmino(_: CreatePendingTransfersResponseAmino): CreatePendingTransfersResponse {
-    return {};
+    const message = createBaseCreatePendingTransfersResponse();
+    return message;
   },
   toAmino(_: CreatePendingTransfersResponse): CreatePendingTransfersResponseAmino {
     const obj: any = {};
@@ -1746,15 +1827,21 @@ export const CreateTransferOwnershipRequest = {
     return message;
   },
   fromAmino(object: CreateTransferOwnershipRequestAmino): CreateTransferOwnershipRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      keyId: object.key_id
-    };
+    const message = createBaseCreateTransferOwnershipRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: CreateTransferOwnershipRequest): CreateTransferOwnershipRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     obj.key_id = message.keyId;
     return obj;
@@ -1791,7 +1878,8 @@ export const CreateTransferOwnershipResponse = {
     return message;
   },
   fromAmino(_: CreateTransferOwnershipResponseAmino): CreateTransferOwnershipResponse {
-    return {};
+    const message = createBaseCreateTransferOwnershipResponse();
+    return message;
   },
   toAmino(_: CreateTransferOwnershipResponse): CreateTransferOwnershipResponseAmino {
     const obj: any = {};
@@ -1849,15 +1937,21 @@ export const CreateTransferOperatorshipRequest = {
     return message;
   },
   fromAmino(object: CreateTransferOperatorshipRequestAmino): CreateTransferOperatorshipRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      keyId: object.key_id
-    };
+    const message = createBaseCreateTransferOperatorshipRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    return message;
   },
   toAmino(message: CreateTransferOperatorshipRequest): CreateTransferOperatorshipRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     obj.key_id = message.keyId;
     return obj;
@@ -1894,7 +1988,8 @@ export const CreateTransferOperatorshipResponse = {
     return message;
   },
   fromAmino(_: CreateTransferOperatorshipResponseAmino): CreateTransferOperatorshipResponse {
-    return {};
+    const message = createBaseCreateTransferOperatorshipResponse();
+    return message;
   },
   toAmino(_: CreateTransferOperatorshipResponse): CreateTransferOperatorshipResponseAmino {
     const obj: any = {};
@@ -1946,14 +2041,18 @@ export const SignCommandsRequest = {
     return message;
   },
   fromAmino(object: SignCommandsRequestAmino): SignCommandsRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain
-    };
+    const message = createBaseSignCommandsRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
   },
   toAmino(message: SignCommandsRequest): SignCommandsRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     return obj;
   },
@@ -2003,14 +2102,18 @@ export const SignCommandsResponse = {
     return message;
   },
   fromAmino(object: SignCommandsResponseAmino): SignCommandsResponse {
-    return {
-      batchedCommandsId: object.batched_commands_id,
-      commandCount: object.command_count
-    };
+    const message = createBaseSignCommandsResponse();
+    if (object.batched_commands_id !== undefined && object.batched_commands_id !== null) {
+      message.batchedCommandsId = bytesFromBase64(object.batched_commands_id);
+    }
+    if (object.command_count !== undefined && object.command_count !== null) {
+      message.commandCount = object.command_count;
+    }
+    return message;
   },
   toAmino(message: SignCommandsResponse): SignCommandsResponseAmino {
     const obj: any = {};
-    obj.batched_commands_id = message.batchedCommandsId;
+    obj.batched_commands_id = message.batchedCommandsId ? base64FromBytes(message.batchedCommandsId) : undefined;
     obj.command_count = message.commandCount;
     return obj;
   },
@@ -2072,19 +2175,27 @@ export const AddChainRequest = {
     return message;
   },
   fromAmino(object: AddChainRequestAmino): AddChainRequest {
-    return {
-      sender: object.sender,
-      name: object.name,
-      keyType: isSet(object.key_type) ? keyTypeFromJSON(object.key_type) : -1,
-      params: object.params
-    };
+    const message = createBaseAddChainRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.key_type !== undefined && object.key_type !== null) {
+      message.keyType = keyTypeFromJSON(object.key_type);
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = bytesFromBase64(object.params);
+    }
+    return message;
   },
   toAmino(message: AddChainRequest): AddChainRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.name = message.name;
     obj.key_type = message.keyType;
-    obj.params = message.params;
+    obj.params = message.params ? base64FromBytes(message.params) : undefined;
     return obj;
   },
   fromAminoMsg(object: AddChainRequestAminoMsg): AddChainRequest {
@@ -2119,7 +2230,8 @@ export const AddChainResponse = {
     return message;
   },
   fromAmino(_: AddChainResponseAmino): AddChainResponse {
-    return {};
+    const message = createBaseAddChainResponse();
+    return message;
   },
   toAmino(_: AddChainResponse): AddChainResponseAmino {
     const obj: any = {};
@@ -2177,15 +2289,21 @@ export const RetryFailedEventRequest = {
     return message;
   },
   fromAmino(object: RetryFailedEventRequestAmino): RetryFailedEventRequest {
-    return {
-      sender: object.sender,
-      chain: object.chain,
-      eventId: object.event_id
-    };
+    const message = createBaseRetryFailedEventRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.event_id !== undefined && object.event_id !== null) {
+      message.eventId = object.event_id;
+    }
+    return message;
   },
   toAmino(message: RetryFailedEventRequest): RetryFailedEventRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.chain = message.chain;
     obj.event_id = message.eventId;
     return obj;
@@ -2222,7 +2340,8 @@ export const RetryFailedEventResponse = {
     return message;
   },
   fromAmino(_: RetryFailedEventResponseAmino): RetryFailedEventResponse {
-    return {};
+    const message = createBaseRetryFailedEventResponse();
+    return message;
   },
   toAmino(_: RetryFailedEventResponse): RetryFailedEventResponseAmino {
     const obj: any = {};

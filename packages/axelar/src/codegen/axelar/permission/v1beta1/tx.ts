@@ -1,6 +1,6 @@
 import { LegacyAminoPubKey, LegacyAminoPubKeyAmino, LegacyAminoPubKeySDKType } from "../../../cosmos/crypto/multisig/keys";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface UpdateGovernanceKeyRequest {
   sender: Uint8Array;
   governanceKey: LegacyAminoPubKey;
@@ -10,7 +10,7 @@ export interface UpdateGovernanceKeyRequestProtoMsg {
   value: Uint8Array;
 }
 export interface UpdateGovernanceKeyRequestAmino {
-  sender: Uint8Array;
+  sender?: string;
   governance_key?: LegacyAminoPubKeyAmino;
 }
 export interface UpdateGovernanceKeyRequestAminoMsg {
@@ -43,8 +43,8 @@ export interface RegisterControllerRequestProtoMsg {
 }
 /** MsgRegisterController represents a message to register a controller account */
 export interface RegisterControllerRequestAmino {
-  sender: Uint8Array;
-  controller: Uint8Array;
+  sender?: string;
+  controller?: string;
 }
 export interface RegisterControllerRequestAminoMsg {
   type: "/axelar.permission.v1beta1.RegisterControllerRequest";
@@ -77,8 +77,8 @@ export interface DeregisterControllerRequestProtoMsg {
 }
 /** DeregisterController represents a message to deregister a controller account */
 export interface DeregisterControllerRequestAmino {
-  sender: Uint8Array;
-  controller: Uint8Array;
+  sender?: string;
+  controller?: string;
 }
 export interface DeregisterControllerRequestAminoMsg {
   type: "/axelar.permission.v1beta1.DeregisterControllerRequest";
@@ -130,14 +130,18 @@ export const UpdateGovernanceKeyRequest = {
     return message;
   },
   fromAmino(object: UpdateGovernanceKeyRequestAmino): UpdateGovernanceKeyRequest {
-    return {
-      sender: object.sender,
-      governanceKey: object?.governance_key ? LegacyAminoPubKey.fromAmino(object.governance_key) : undefined
-    };
+    const message = createBaseUpdateGovernanceKeyRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.governance_key !== undefined && object.governance_key !== null) {
+      message.governanceKey = LegacyAminoPubKey.fromAmino(object.governance_key);
+    }
+    return message;
   },
   toAmino(message: UpdateGovernanceKeyRequest): UpdateGovernanceKeyRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.governance_key = message.governanceKey ? LegacyAminoPubKey.toAmino(message.governanceKey) : undefined;
     return obj;
   },
@@ -173,7 +177,8 @@ export const UpdateGovernanceKeyResponse = {
     return message;
   },
   fromAmino(_: UpdateGovernanceKeyResponseAmino): UpdateGovernanceKeyResponse {
-    return {};
+    const message = createBaseUpdateGovernanceKeyResponse();
+    return message;
   },
   toAmino(_: UpdateGovernanceKeyResponse): UpdateGovernanceKeyResponseAmino {
     const obj: any = {};
@@ -225,15 +230,19 @@ export const RegisterControllerRequest = {
     return message;
   },
   fromAmino(object: RegisterControllerRequestAmino): RegisterControllerRequest {
-    return {
-      sender: object.sender,
-      controller: object.controller
-    };
+    const message = createBaseRegisterControllerRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.controller !== undefined && object.controller !== null) {
+      message.controller = bytesFromBase64(object.controller);
+    }
+    return message;
   },
   toAmino(message: RegisterControllerRequest): RegisterControllerRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
-    obj.controller = message.controller;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
+    obj.controller = message.controller ? base64FromBytes(message.controller) : undefined;
     return obj;
   },
   fromAminoMsg(object: RegisterControllerRequestAminoMsg): RegisterControllerRequest {
@@ -268,7 +277,8 @@ export const RegisterControllerResponse = {
     return message;
   },
   fromAmino(_: RegisterControllerResponseAmino): RegisterControllerResponse {
-    return {};
+    const message = createBaseRegisterControllerResponse();
+    return message;
   },
   toAmino(_: RegisterControllerResponse): RegisterControllerResponseAmino {
     const obj: any = {};
@@ -320,15 +330,19 @@ export const DeregisterControllerRequest = {
     return message;
   },
   fromAmino(object: DeregisterControllerRequestAmino): DeregisterControllerRequest {
-    return {
-      sender: object.sender,
-      controller: object.controller
-    };
+    const message = createBaseDeregisterControllerRequest();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.controller !== undefined && object.controller !== null) {
+      message.controller = bytesFromBase64(object.controller);
+    }
+    return message;
   },
   toAmino(message: DeregisterControllerRequest): DeregisterControllerRequestAmino {
     const obj: any = {};
-    obj.sender = message.sender;
-    obj.controller = message.controller;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
+    obj.controller = message.controller ? base64FromBytes(message.controller) : undefined;
     return obj;
   },
   fromAminoMsg(object: DeregisterControllerRequestAminoMsg): DeregisterControllerRequest {
@@ -363,7 +377,8 @@ export const DeregisterControllerResponse = {
     return message;
   },
   fromAmino(_: DeregisterControllerResponseAmino): DeregisterControllerResponse {
-    return {};
+    const message = createBaseDeregisterControllerResponse();
+    return message;
   },
   toAmino(_: DeregisterControllerResponse): DeregisterControllerResponseAmino {
     const obj: any = {};

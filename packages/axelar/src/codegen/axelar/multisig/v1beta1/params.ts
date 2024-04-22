@@ -19,11 +19,11 @@ export interface ParamsProtoMsg {
 export interface ParamsAmino {
   keygen_threshold?: ThresholdAmino;
   signing_threshold?: ThresholdAmino;
-  keygen_timeout: string;
-  keygen_grace_period: string;
-  signing_timeout: string;
-  signing_grace_period: string;
-  active_epoch_count: string;
+  keygen_timeout?: string;
+  keygen_grace_period?: string;
+  signing_timeout?: string;
+  signing_grace_period?: string;
+  active_epoch_count?: string;
 }
 export interface ParamsAminoMsg {
   type: "/axelar.multisig.v1beta1.Params";
@@ -99,15 +99,29 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      keygenThreshold: object?.keygen_threshold ? Threshold.fromAmino(object.keygen_threshold) : undefined,
-      signingThreshold: object?.signing_threshold ? Threshold.fromAmino(object.signing_threshold) : undefined,
-      keygenTimeout: BigInt(object.keygen_timeout),
-      keygenGracePeriod: BigInt(object.keygen_grace_period),
-      signingTimeout: BigInt(object.signing_timeout),
-      signingGracePeriod: BigInt(object.signing_grace_period),
-      activeEpochCount: BigInt(object.active_epoch_count)
-    };
+    const message = createBaseParams();
+    if (object.keygen_threshold !== undefined && object.keygen_threshold !== null) {
+      message.keygenThreshold = Threshold.fromAmino(object.keygen_threshold);
+    }
+    if (object.signing_threshold !== undefined && object.signing_threshold !== null) {
+      message.signingThreshold = Threshold.fromAmino(object.signing_threshold);
+    }
+    if (object.keygen_timeout !== undefined && object.keygen_timeout !== null) {
+      message.keygenTimeout = BigInt(object.keygen_timeout);
+    }
+    if (object.keygen_grace_period !== undefined && object.keygen_grace_period !== null) {
+      message.keygenGracePeriod = BigInt(object.keygen_grace_period);
+    }
+    if (object.signing_timeout !== undefined && object.signing_timeout !== null) {
+      message.signingTimeout = BigInt(object.signing_timeout);
+    }
+    if (object.signing_grace_period !== undefined && object.signing_grace_period !== null) {
+      message.signingGracePeriod = BigInt(object.signing_grace_period);
+    }
+    if (object.active_epoch_count !== undefined && object.active_epoch_count !== null) {
+      message.activeEpochCount = BigInt(object.active_epoch_count);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

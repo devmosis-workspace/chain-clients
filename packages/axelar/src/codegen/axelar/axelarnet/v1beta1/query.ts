@@ -21,8 +21,8 @@ export interface PendingIBCTransferCountResponse_TransfersByChainEntryProtoMsg {
   value: Uint8Array;
 }
 export interface PendingIBCTransferCountResponse_TransfersByChainEntryAmino {
-  key: string;
-  value: number;
+  key?: string;
+  value?: number;
 }
 export interface PendingIBCTransferCountResponse_TransfersByChainEntryAminoMsg {
   type: string;
@@ -42,7 +42,7 @@ export interface PendingIBCTransferCountResponseProtoMsg {
   value: Uint8Array;
 }
 export interface PendingIBCTransferCountResponseAmino {
-  transfers_by_chain: {
+  transfers_by_chain?: {
     [key: string]: number;
   };
 }
@@ -86,6 +86,114 @@ export interface ParamsResponseAminoMsg {
 export interface ParamsResponseSDKType {
   params: ParamsSDKType;
 }
+/**
+ * IBCPathRequest represents a message that queries the IBC path registered for
+ * a given chain
+ */
+export interface IBCPathRequest {
+  /**
+   * IBCPathRequest represents a message that queries the IBC path registered for
+   * a given chain
+   */
+  chain: string;
+}
+export interface IBCPathRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.IBCPathRequest";
+  value: Uint8Array;
+}
+/**
+ * IBCPathRequest represents a message that queries the IBC path registered for
+ * a given chain
+ */
+export interface IBCPathRequestAmino {
+  /**
+   * IBCPathRequest represents a message that queries the IBC path registered for
+   * a given chain
+   */
+  chain?: string;
+}
+export interface IBCPathRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.IBCPathRequest";
+  value: IBCPathRequestAmino;
+}
+/**
+ * IBCPathRequest represents a message that queries the IBC path registered for
+ * a given chain
+ */
+export interface IBCPathRequestSDKType {
+  chain: string;
+}
+export interface IBCPathResponse {
+  ibcPath: string;
+}
+export interface IBCPathResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.IBCPathResponse";
+  value: Uint8Array;
+}
+export interface IBCPathResponseAmino {
+  ibc_path?: string;
+}
+export interface IBCPathResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.IBCPathResponse";
+  value: IBCPathResponseAmino;
+}
+export interface IBCPathResponseSDKType {
+  ibc_path: string;
+}
+/**
+ * ChainByIBCPathRequest represents a message that queries the chain that an IBC
+ * path is registered to
+ */
+export interface ChainByIBCPathRequest {
+  /**
+   * ChainByIBCPathRequest represents a message that queries the chain that an IBC
+   * path is registered to
+   */
+  ibcPath: string;
+}
+export interface ChainByIBCPathRequestProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.ChainByIBCPathRequest";
+  value: Uint8Array;
+}
+/**
+ * ChainByIBCPathRequest represents a message that queries the chain that an IBC
+ * path is registered to
+ */
+export interface ChainByIBCPathRequestAmino {
+  /**
+   * ChainByIBCPathRequest represents a message that queries the chain that an IBC
+   * path is registered to
+   */
+  ibc_path?: string;
+}
+export interface ChainByIBCPathRequestAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.ChainByIBCPathRequest";
+  value: ChainByIBCPathRequestAmino;
+}
+/**
+ * ChainByIBCPathRequest represents a message that queries the chain that an IBC
+ * path is registered to
+ */
+export interface ChainByIBCPathRequestSDKType {
+  ibc_path: string;
+}
+export interface ChainByIBCPathResponse {
+  chain: string;
+}
+export interface ChainByIBCPathResponseProtoMsg {
+  typeUrl: "/axelar.axelarnet.v1beta1.ChainByIBCPathResponse";
+  value: Uint8Array;
+}
+export interface ChainByIBCPathResponseAmino {
+  chain?: string;
+}
+export interface ChainByIBCPathResponseAminoMsg {
+  type: "/axelar.axelarnet.v1beta1.ChainByIBCPathResponse";
+  value: ChainByIBCPathResponseAmino;
+}
+export interface ChainByIBCPathResponseSDKType {
+  chain: string;
+}
 function createBasePendingIBCTransferCountRequest(): PendingIBCTransferCountRequest {
   return {};
 }
@@ -102,7 +210,8 @@ export const PendingIBCTransferCountRequest = {
     return message;
   },
   fromAmino(_: PendingIBCTransferCountRequestAmino): PendingIBCTransferCountRequest {
-    return {};
+    const message = createBasePendingIBCTransferCountRequest();
+    return message;
   },
   toAmino(_: PendingIBCTransferCountRequest): PendingIBCTransferCountRequestAmino {
     const obj: any = {};
@@ -153,10 +262,14 @@ export const PendingIBCTransferCountResponse_TransfersByChainEntry = {
     return message;
   },
   fromAmino(object: PendingIBCTransferCountResponse_TransfersByChainEntryAmino): PendingIBCTransferCountResponse_TransfersByChainEntry {
-    return {
-      key: object.key,
-      value: object.value
-    };
+    const message = createBasePendingIBCTransferCountResponse_TransfersByChainEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: PendingIBCTransferCountResponse_TransfersByChainEntry): PendingIBCTransferCountResponse_TransfersByChainEntryAmino {
     const obj: any = {};
@@ -213,14 +326,16 @@ export const PendingIBCTransferCountResponse = {
     return message;
   },
   fromAmino(object: PendingIBCTransferCountResponseAmino): PendingIBCTransferCountResponse {
-    return {
-      transfersByChain: isObject(object.transfers_by_chain) ? Object.entries(object.transfers_by_chain).reduce<{
-        [key: string]: number;
-      }>((acc, [key, value]) => {
+    const message = createBasePendingIBCTransferCountResponse();
+    message.transfersByChain = Object.entries(object.transfers_by_chain ?? {}).reduce<{
+      [key: string]: number;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = Number(value);
-        return acc;
-      }, {}) : {}
-    };
+      }
+      return acc;
+    }, {});
+    return message;
   },
   toAmino(message: PendingIBCTransferCountResponse): PendingIBCTransferCountResponseAmino {
     const obj: any = {};
@@ -264,7 +379,8 @@ export const ParamsRequest = {
     return message;
   },
   fromAmino(_: ParamsRequestAmino): ParamsRequest {
-    return {};
+    const message = createBaseParamsRequest();
+    return message;
   },
   toAmino(_: ParamsRequest): ParamsRequestAmino {
     const obj: any = {};
@@ -310,9 +426,11 @@ export const ParamsResponse = {
     return message;
   },
   fromAmino(object: ParamsResponseAmino): ParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: ParamsResponse): ParamsResponseAmino {
     const obj: any = {};
@@ -332,6 +450,210 @@ export const ParamsResponse = {
     return {
       typeUrl: "/axelar.axelarnet.v1beta1.ParamsResponse",
       value: ParamsResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseIBCPathRequest(): IBCPathRequest {
+  return {
+    chain: ""
+  };
+}
+export const IBCPathRequest = {
+  typeUrl: "/axelar.axelarnet.v1beta1.IBCPathRequest",
+  encode(message: IBCPathRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.chain !== "") {
+      writer.uint32(10).string(message.chain);
+    }
+    return writer;
+  },
+  fromJSON(object: any): IBCPathRequest {
+    return {
+      chain: isSet(object.chain) ? String(object.chain) : ""
+    };
+  },
+  fromPartial(object: Partial<IBCPathRequest>): IBCPathRequest {
+    const message = createBaseIBCPathRequest();
+    message.chain = object.chain ?? "";
+    return message;
+  },
+  fromAmino(object: IBCPathRequestAmino): IBCPathRequest {
+    const message = createBaseIBCPathRequest();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
+  },
+  toAmino(message: IBCPathRequest): IBCPathRequestAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    return obj;
+  },
+  fromAminoMsg(object: IBCPathRequestAminoMsg): IBCPathRequest {
+    return IBCPathRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: IBCPathRequestProtoMsg): IBCPathRequest {
+    return IBCPathRequest.decode(message.value);
+  },
+  toProto(message: IBCPathRequest): Uint8Array {
+    return IBCPathRequest.encode(message).finish();
+  },
+  toProtoMsg(message: IBCPathRequest): IBCPathRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.IBCPathRequest",
+      value: IBCPathRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseIBCPathResponse(): IBCPathResponse {
+  return {
+    ibcPath: ""
+  };
+}
+export const IBCPathResponse = {
+  typeUrl: "/axelar.axelarnet.v1beta1.IBCPathResponse",
+  encode(message: IBCPathResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.ibcPath !== "") {
+      writer.uint32(10).string(message.ibcPath);
+    }
+    return writer;
+  },
+  fromJSON(object: any): IBCPathResponse {
+    return {
+      ibcPath: isSet(object.ibcPath) ? String(object.ibcPath) : ""
+    };
+  },
+  fromPartial(object: Partial<IBCPathResponse>): IBCPathResponse {
+    const message = createBaseIBCPathResponse();
+    message.ibcPath = object.ibcPath ?? "";
+    return message;
+  },
+  fromAmino(object: IBCPathResponseAmino): IBCPathResponse {
+    const message = createBaseIBCPathResponse();
+    if (object.ibc_path !== undefined && object.ibc_path !== null) {
+      message.ibcPath = object.ibc_path;
+    }
+    return message;
+  },
+  toAmino(message: IBCPathResponse): IBCPathResponseAmino {
+    const obj: any = {};
+    obj.ibc_path = message.ibcPath;
+    return obj;
+  },
+  fromAminoMsg(object: IBCPathResponseAminoMsg): IBCPathResponse {
+    return IBCPathResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: IBCPathResponseProtoMsg): IBCPathResponse {
+    return IBCPathResponse.decode(message.value);
+  },
+  toProto(message: IBCPathResponse): Uint8Array {
+    return IBCPathResponse.encode(message).finish();
+  },
+  toProtoMsg(message: IBCPathResponse): IBCPathResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.IBCPathResponse",
+      value: IBCPathResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseChainByIBCPathRequest(): ChainByIBCPathRequest {
+  return {
+    ibcPath: ""
+  };
+}
+export const ChainByIBCPathRequest = {
+  typeUrl: "/axelar.axelarnet.v1beta1.ChainByIBCPathRequest",
+  encode(message: ChainByIBCPathRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.ibcPath !== "") {
+      writer.uint32(10).string(message.ibcPath);
+    }
+    return writer;
+  },
+  fromJSON(object: any): ChainByIBCPathRequest {
+    return {
+      ibcPath: isSet(object.ibcPath) ? String(object.ibcPath) : ""
+    };
+  },
+  fromPartial(object: Partial<ChainByIBCPathRequest>): ChainByIBCPathRequest {
+    const message = createBaseChainByIBCPathRequest();
+    message.ibcPath = object.ibcPath ?? "";
+    return message;
+  },
+  fromAmino(object: ChainByIBCPathRequestAmino): ChainByIBCPathRequest {
+    const message = createBaseChainByIBCPathRequest();
+    if (object.ibc_path !== undefined && object.ibc_path !== null) {
+      message.ibcPath = object.ibc_path;
+    }
+    return message;
+  },
+  toAmino(message: ChainByIBCPathRequest): ChainByIBCPathRequestAmino {
+    const obj: any = {};
+    obj.ibc_path = message.ibcPath;
+    return obj;
+  },
+  fromAminoMsg(object: ChainByIBCPathRequestAminoMsg): ChainByIBCPathRequest {
+    return ChainByIBCPathRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ChainByIBCPathRequestProtoMsg): ChainByIBCPathRequest {
+    return ChainByIBCPathRequest.decode(message.value);
+  },
+  toProto(message: ChainByIBCPathRequest): Uint8Array {
+    return ChainByIBCPathRequest.encode(message).finish();
+  },
+  toProtoMsg(message: ChainByIBCPathRequest): ChainByIBCPathRequestProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.ChainByIBCPathRequest",
+      value: ChainByIBCPathRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseChainByIBCPathResponse(): ChainByIBCPathResponse {
+  return {
+    chain: ""
+  };
+}
+export const ChainByIBCPathResponse = {
+  typeUrl: "/axelar.axelarnet.v1beta1.ChainByIBCPathResponse",
+  encode(message: ChainByIBCPathResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.chain !== "") {
+      writer.uint32(10).string(message.chain);
+    }
+    return writer;
+  },
+  fromJSON(object: any): ChainByIBCPathResponse {
+    return {
+      chain: isSet(object.chain) ? String(object.chain) : ""
+    };
+  },
+  fromPartial(object: Partial<ChainByIBCPathResponse>): ChainByIBCPathResponse {
+    const message = createBaseChainByIBCPathResponse();
+    message.chain = object.chain ?? "";
+    return message;
+  },
+  fromAmino(object: ChainByIBCPathResponseAmino): ChainByIBCPathResponse {
+    const message = createBaseChainByIBCPathResponse();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    return message;
+  },
+  toAmino(message: ChainByIBCPathResponse): ChainByIBCPathResponseAmino {
+    const obj: any = {};
+    obj.chain = message.chain;
+    return obj;
+  },
+  fromAminoMsg(object: ChainByIBCPathResponseAminoMsg): ChainByIBCPathResponse {
+    return ChainByIBCPathResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ChainByIBCPathResponseProtoMsg): ChainByIBCPathResponse {
+    return ChainByIBCPathResponse.decode(message.value);
+  },
+  toProto(message: ChainByIBCPathResponse): Uint8Array {
+    return ChainByIBCPathResponse.encode(message).finish();
+  },
+  toProtoMsg(message: ChainByIBCPathResponse): ChainByIBCPathResponseProtoMsg {
+    return {
+      typeUrl: "/axelar.axelarnet.v1beta1.ChainByIBCPathResponse",
+      value: ChainByIBCPathResponse.encode(message).finish()
     };
   }
 };

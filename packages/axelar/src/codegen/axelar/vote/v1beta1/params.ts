@@ -13,7 +13,7 @@ export interface ParamsProtoMsg {
 /** Params represent the genesis parameters for the module */
 export interface ParamsAmino {
   default_voting_threshold?: ThresholdAmino;
-  end_blocker_limit: string;
+  end_blocker_limit?: string;
 }
 export interface ParamsAminoMsg {
   type: "/axelar.vote.v1beta1.Params";
@@ -54,10 +54,14 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      defaultVotingThreshold: object?.default_voting_threshold ? Threshold.fromAmino(object.default_voting_threshold) : undefined,
-      endBlockerLimit: BigInt(object.end_blocker_limit)
-    };
+    const message = createBaseParams();
+    if (object.default_voting_threshold !== undefined && object.default_voting_threshold !== null) {
+      message.defaultVotingThreshold = Threshold.fromAmino(object.default_voting_threshold);
+    }
+    if (object.end_blocker_limit !== undefined && object.end_blocker_limit !== null) {
+      message.endBlockerLimit = BigInt(object.end_blocker_limit);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

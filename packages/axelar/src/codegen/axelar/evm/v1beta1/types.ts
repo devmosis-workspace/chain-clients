@@ -1,6 +1,6 @@
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export enum Event_Status {
   STATUS_UNSPECIFIED = 0,
   STATUS_CONFIRMED = 1,
@@ -290,8 +290,8 @@ export interface VoteEventsProtoMsg {
   value: Uint8Array;
 }
 export interface VoteEventsAmino {
-  chain: string;
-  events: EventAmino[];
+  chain?: string;
+  events?: EventAmino[];
 }
 export interface VoteEventsAminoMsg {
   type: "/axelar.evm.v1beta1.VoteEvents";
@@ -320,10 +320,10 @@ export interface EventProtoMsg {
   value: Uint8Array;
 }
 export interface EventAmino {
-  chain: string;
-  tx_id: Uint8Array;
-  index: string;
-  status: Event_Status;
+  chain?: string;
+  tx_id?: string;
+  index?: string;
+  status?: Event_Status;
   token_sent?: EventTokenSentAmino;
   contract_call?: EventContractCallAmino;
   contract_call_with_token?: EventContractCallWithTokenAmino;
@@ -363,11 +363,11 @@ export interface EventTokenSentProtoMsg {
   value: Uint8Array;
 }
 export interface EventTokenSentAmino {
-  sender: Uint8Array;
-  destination_chain: string;
-  destination_address: string;
-  symbol: string;
-  amount: Uint8Array;
+  sender?: string;
+  destination_chain?: string;
+  destination_address?: string;
+  symbol?: string;
+  amount?: string;
 }
 export interface EventTokenSentAminoMsg {
   type: "/axelar.evm.v1beta1.EventTokenSent";
@@ -391,10 +391,10 @@ export interface EventContractCallProtoMsg {
   value: Uint8Array;
 }
 export interface EventContractCallAmino {
-  sender: Uint8Array;
-  destination_chain: string;
-  contract_address: string;
-  payload_hash: Uint8Array;
+  sender?: string;
+  destination_chain?: string;
+  contract_address?: string;
+  payload_hash?: string;
 }
 export interface EventContractCallAminoMsg {
   type: "/axelar.evm.v1beta1.EventContractCall";
@@ -419,12 +419,12 @@ export interface EventContractCallWithTokenProtoMsg {
   value: Uint8Array;
 }
 export interface EventContractCallWithTokenAmino {
-  sender: Uint8Array;
-  destination_chain: string;
-  contract_address: string;
-  payload_hash: Uint8Array;
-  symbol: string;
-  amount: Uint8Array;
+  sender?: string;
+  destination_chain?: string;
+  contract_address?: string;
+  payload_hash?: string;
+  symbol?: string;
+  amount?: string;
 }
 export interface EventContractCallWithTokenAminoMsg {
   type: "/axelar.evm.v1beta1.EventContractCallWithToken";
@@ -447,8 +447,8 @@ export interface EventTransferProtoMsg {
   value: Uint8Array;
 }
 export interface EventTransferAmino {
-  to: Uint8Array;
-  amount: Uint8Array;
+  to?: string;
+  amount?: string;
 }
 export interface EventTransferAminoMsg {
   type: "/axelar.evm.v1beta1.EventTransfer";
@@ -467,8 +467,8 @@ export interface EventTokenDeployedProtoMsg {
   value: Uint8Array;
 }
 export interface EventTokenDeployedAmino {
-  symbol: string;
-  token_address: Uint8Array;
+  symbol?: string;
+  token_address?: string;
 }
 export interface EventTokenDeployedAminoMsg {
   type: "/axelar.evm.v1beta1.EventTokenDeployed";
@@ -491,10 +491,10 @@ export interface EventMultisigOwnershipTransferredProtoMsg {
 }
 /** @deprecated */
 export interface EventMultisigOwnershipTransferredAmino {
-  pre_owners: Uint8Array[];
-  prev_threshold: Uint8Array;
-  new_owners: Uint8Array[];
-  new_threshold: Uint8Array;
+  pre_owners?: string[];
+  prev_threshold?: string;
+  new_owners?: string[];
+  new_threshold?: string;
 }
 export interface EventMultisigOwnershipTransferredAminoMsg {
   type: "/axelar.evm.v1beta1.EventMultisigOwnershipTransferred";
@@ -517,9 +517,9 @@ export interface EventMultisigOperatorshipTransferredProtoMsg {
   value: Uint8Array;
 }
 export interface EventMultisigOperatorshipTransferredAmino {
-  new_operators: Uint8Array[];
-  new_threshold: Uint8Array;
-  new_weights: Uint8Array[];
+  new_operators?: string[];
+  new_threshold?: string;
+  new_weights?: string[];
 }
 export interface EventMultisigOperatorshipTransferredAminoMsg {
   type: "/axelar.evm.v1beta1.EventMultisigOperatorshipTransferred";
@@ -541,8 +541,8 @@ export interface NetworkInfoProtoMsg {
 }
 /** NetworkInfo describes information about a network */
 export interface NetworkInfoAmino {
-  name: string;
-  id: Uint8Array;
+  name?: string;
+  id?: string;
 }
 export interface NetworkInfoAminoMsg {
   type: "/axelar.evm.v1beta1.NetworkInfo";
@@ -574,12 +574,12 @@ export interface BurnerInfoProtoMsg {
  * that is deposited by an user
  */
 export interface BurnerInfoAmino {
-  burner_address: Uint8Array;
-  token_address: Uint8Array;
-  destination_chain: string;
-  symbol: string;
-  asset: string;
-  salt: Uint8Array;
+  burner_address?: string;
+  token_address?: string;
+  destination_chain?: string;
+  symbol?: string;
+  asset?: string;
+  salt?: string;
 }
 export interface BurnerInfoAminoMsg {
   type: "/axelar.evm.v1beta1.BurnerInfo";
@@ -612,12 +612,12 @@ export interface ERC20DepositProtoMsg {
 }
 /** ERC20Deposit contains information for an ERC20 deposit */
 export interface ERC20DepositAmino {
-  tx_id: Uint8Array;
-  amount: Uint8Array;
-  asset: string;
-  destination_chain: string;
-  burner_address: Uint8Array;
-  log_index: string;
+  tx_id?: string;
+  amount?: string;
+  asset?: string;
+  destination_chain?: string;
+  burner_address?: string;
+  log_index?: string;
 }
 export interface ERC20DepositAminoMsg {
   type: "/axelar.evm.v1beta1.ERC20Deposit";
@@ -649,14 +649,14 @@ export interface ERC20TokenMetadataProtoMsg {
 }
 /** ERC20TokenMetadata describes information about an ERC20 token */
 export interface ERC20TokenMetadataAmino {
-  asset: string;
-  chain_id: Uint8Array;
+  asset?: string;
+  chain_id?: string;
   details?: TokenDetailsAmino;
-  token_address: string;
-  tx_hash: string;
-  status: Status;
-  is_external: boolean;
-  burner_code: Uint8Array;
+  token_address?: string;
+  tx_hash?: string;
+  status?: Status;
+  is_external?: boolean;
+  burner_code?: string;
 }
 export interface ERC20TokenMetadataAminoMsg {
   type: "/axelar.evm.v1beta1.ERC20TokenMetadata";
@@ -682,8 +682,8 @@ export interface TransactionMetadataProtoMsg {
   value: Uint8Array;
 }
 export interface TransactionMetadataAmino {
-  raw_tx: Uint8Array;
-  pub_key: Uint8Array;
+  raw_tx?: string;
+  pub_key?: string;
 }
 export interface TransactionMetadataAminoMsg {
   type: "/axelar.evm.v1beta1.TransactionMetadata";
@@ -707,13 +707,13 @@ export interface CommandProtoMsg {
   value: Uint8Array;
 }
 export interface CommandAmino {
-  id: Uint8Array;
+  id?: string;
   /** @deprecated */
-  command: string;
-  params: Uint8Array;
-  key_id: string;
-  max_gas_cost: number;
-  type: CommandType;
+  command?: string;
+  params?: string;
+  key_id?: string;
+  max_gas_cost?: number;
+  type?: CommandType;
 }
 export interface CommandAminoMsg {
   type: "/axelar.evm.v1beta1.Command";
@@ -736,7 +736,7 @@ export interface CommandBatchMetadata {
   status: BatchedCommandsStatus;
   keyId: string;
   prevBatchedCommandsId: Uint8Array;
-  signature: (Any) | undefined;
+  signature?: (Any) | undefined;
 }
 export interface CommandBatchMetadataProtoMsg {
   typeUrl: "/axelar.evm.v1beta1.CommandBatchMetadata";
@@ -746,13 +746,13 @@ export type CommandBatchMetadataEncoded = Omit<CommandBatchMetadata, "signature"
   signature?: AnyProtoMsg | undefined;
 };
 export interface CommandBatchMetadataAmino {
-  id: Uint8Array;
-  command_ids: Uint8Array[];
-  data: Uint8Array;
-  sig_hash: Uint8Array;
-  status: BatchedCommandsStatus;
-  key_id: string;
-  prev_batched_commands_id: Uint8Array;
+  id?: string;
+  command_ids?: string[];
+  data?: string;
+  sig_hash?: string;
+  status?: BatchedCommandsStatus;
+  key_id?: string;
+  prev_batched_commands_id?: string;
   signature?: AnyAmino;
 }
 export interface CommandBatchMetadataAminoMsg {
@@ -767,7 +767,7 @@ export interface CommandBatchMetadataSDKType {
   status: BatchedCommandsStatus;
   key_id: string;
   prev_batched_commands_id: Uint8Array;
-  signature: AnySDKType | undefined;
+  signature?: AnySDKType | undefined;
 }
 /**
  * SigMetadata stores necessary information for external apps to map signature
@@ -787,9 +787,9 @@ export interface SigMetadataProtoMsg {
  * results to evm relay transaction types
  */
 export interface SigMetadataAmino {
-  type: SigType;
-  chain: string;
-  command_batch_id: Uint8Array;
+  type?: SigType;
+  chain?: string;
+  command_batch_id?: string;
 }
 export interface SigMetadataAminoMsg {
   type: "/axelar.evm.v1beta1.SigMetadata";
@@ -815,8 +815,8 @@ export interface TransferKeyProtoMsg {
 }
 /** TransferKey contains information for a transfer operatorship */
 export interface TransferKeyAmino {
-  tx_id: Uint8Array;
-  next_key_id: string;
+  tx_id?: string;
+  next_key_id?: string;
 }
 export interface TransferKeyAminoMsg {
   type: "/axelar.evm.v1beta1.TransferKey";
@@ -836,8 +836,8 @@ export interface AssetProtoMsg {
   value: Uint8Array;
 }
 export interface AssetAmino {
-  chain: string;
-  name: string;
+  chain?: string;
+  name?: string;
 }
 export interface AssetAminoMsg {
   type: "/axelar.evm.v1beta1.Asset";
@@ -858,10 +858,10 @@ export interface TokenDetailsProtoMsg {
   value: Uint8Array;
 }
 export interface TokenDetailsAmino {
-  token_name: string;
-  symbol: string;
-  decimals: number;
-  capacity: Uint8Array;
+  token_name?: string;
+  symbol?: string;
+  decimals?: number;
+  capacity?: string;
 }
 export interface TokenDetailsAminoMsg {
   type: "/axelar.evm.v1beta1.TokenDetails";
@@ -881,7 +881,7 @@ export interface GatewayProtoMsg {
   value: Uint8Array;
 }
 export interface GatewayAmino {
-  address: Uint8Array;
+  address?: string;
 }
 export interface GatewayAminoMsg {
   type: "/axelar.evm.v1beta1.Gateway";
@@ -899,8 +899,8 @@ export interface PollMetadataProtoMsg {
   value: Uint8Array;
 }
 export interface PollMetadataAmino {
-  chain: string;
-  tx_id: Uint8Array;
+  chain?: string;
+  tx_id?: string;
 }
 export interface PollMetadataAminoMsg {
   type: "/axelar.evm.v1beta1.PollMetadata";
@@ -940,10 +940,12 @@ export const VoteEvents = {
     return message;
   },
   fromAmino(object: VoteEventsAmino): VoteEvents {
-    return {
-      chain: object.chain,
-      events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromAmino(e)) : []
-    };
+    const message = createBaseVoteEvents();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    message.events = object.events?.map(e => Event.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: VoteEvents): VoteEventsAmino {
     const obj: any = {};
@@ -1055,24 +1057,46 @@ export const Event = {
     return message;
   },
   fromAmino(object: EventAmino): Event {
-    return {
-      chain: object.chain,
-      txId: object.tx_id,
-      index: BigInt(object.index),
-      status: isSet(object.status) ? event_StatusFromJSON(object.status) : -1,
-      tokenSent: object?.token_sent ? EventTokenSent.fromAmino(object.token_sent) : undefined,
-      contractCall: object?.contract_call ? EventContractCall.fromAmino(object.contract_call) : undefined,
-      contractCallWithToken: object?.contract_call_with_token ? EventContractCallWithToken.fromAmino(object.contract_call_with_token) : undefined,
-      transfer: object?.transfer ? EventTransfer.fromAmino(object.transfer) : undefined,
-      tokenDeployed: object?.token_deployed ? EventTokenDeployed.fromAmino(object.token_deployed) : undefined,
-      multisigOwnershipTransferred: object?.multisig_ownership_transferred ? EventMultisigOwnershipTransferred.fromAmino(object.multisig_ownership_transferred) : undefined,
-      multisigOperatorshipTransferred: object?.multisig_operatorship_transferred ? EventMultisigOperatorshipTransferred.fromAmino(object.multisig_operatorship_transferred) : undefined
-    };
+    const message = createBaseEvent();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = BigInt(object.index);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = event_StatusFromJSON(object.status);
+    }
+    if (object.token_sent !== undefined && object.token_sent !== null) {
+      message.tokenSent = EventTokenSent.fromAmino(object.token_sent);
+    }
+    if (object.contract_call !== undefined && object.contract_call !== null) {
+      message.contractCall = EventContractCall.fromAmino(object.contract_call);
+    }
+    if (object.contract_call_with_token !== undefined && object.contract_call_with_token !== null) {
+      message.contractCallWithToken = EventContractCallWithToken.fromAmino(object.contract_call_with_token);
+    }
+    if (object.transfer !== undefined && object.transfer !== null) {
+      message.transfer = EventTransfer.fromAmino(object.transfer);
+    }
+    if (object.token_deployed !== undefined && object.token_deployed !== null) {
+      message.tokenDeployed = EventTokenDeployed.fromAmino(object.token_deployed);
+    }
+    if (object.multisig_ownership_transferred !== undefined && object.multisig_ownership_transferred !== null) {
+      message.multisigOwnershipTransferred = EventMultisigOwnershipTransferred.fromAmino(object.multisig_ownership_transferred);
+    }
+    if (object.multisig_operatorship_transferred !== undefined && object.multisig_operatorship_transferred !== null) {
+      message.multisigOperatorshipTransferred = EventMultisigOperatorshipTransferred.fromAmino(object.multisig_operatorship_transferred);
+    }
+    return message;
   },
   toAmino(message: Event): EventAmino {
     const obj: any = {};
     obj.chain = message.chain;
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     obj.index = message.index ? message.index.toString() : undefined;
     obj.status = message.status;
     obj.token_sent = message.tokenSent ? EventTokenSent.toAmino(message.tokenSent) : undefined;
@@ -1148,21 +1172,31 @@ export const EventTokenSent = {
     return message;
   },
   fromAmino(object: EventTokenSentAmino): EventTokenSent {
-    return {
-      sender: object.sender,
-      destinationChain: object.destination_chain,
-      destinationAddress: object.destination_address,
-      symbol: object.symbol,
-      amount: object.amount
-    };
+    const message = createBaseEventTokenSent();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.destination_address !== undefined && object.destination_address !== null) {
+      message.destinationAddress = object.destination_address;
+    }
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = bytesFromBase64(object.amount);
+    }
+    return message;
   },
   toAmino(message: EventTokenSent): EventTokenSentAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.destination_chain = message.destinationChain;
     obj.destination_address = message.destinationAddress;
     obj.symbol = message.symbol;
-    obj.amount = message.amount;
+    obj.amount = message.amount ? base64FromBytes(message.amount) : undefined;
     return obj;
   },
   fromAminoMsg(object: EventTokenSentAminoMsg): EventTokenSent {
@@ -1223,19 +1257,27 @@ export const EventContractCall = {
     return message;
   },
   fromAmino(object: EventContractCallAmino): EventContractCall {
-    return {
-      sender: object.sender,
-      destinationChain: object.destination_chain,
-      contractAddress: object.contract_address,
-      payloadHash: object.payload_hash
-    };
+    const message = createBaseEventContractCall();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.payload_hash !== undefined && object.payload_hash !== null) {
+      message.payloadHash = bytesFromBase64(object.payload_hash);
+    }
+    return message;
   },
   toAmino(message: EventContractCall): EventContractCallAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.destination_chain = message.destinationChain;
     obj.contract_address = message.contractAddress;
-    obj.payload_hash = message.payloadHash;
+    obj.payload_hash = message.payloadHash ? base64FromBytes(message.payloadHash) : undefined;
     return obj;
   },
   fromAminoMsg(object: EventContractCallAminoMsg): EventContractCall {
@@ -1308,23 +1350,35 @@ export const EventContractCallWithToken = {
     return message;
   },
   fromAmino(object: EventContractCallWithTokenAmino): EventContractCallWithToken {
-    return {
-      sender: object.sender,
-      destinationChain: object.destination_chain,
-      contractAddress: object.contract_address,
-      payloadHash: object.payload_hash,
-      symbol: object.symbol,
-      amount: object.amount
-    };
+    const message = createBaseEventContractCallWithToken();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.payload_hash !== undefined && object.payload_hash !== null) {
+      message.payloadHash = bytesFromBase64(object.payload_hash);
+    }
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = bytesFromBase64(object.amount);
+    }
+    return message;
   },
   toAmino(message: EventContractCallWithToken): EventContractCallWithTokenAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
     obj.destination_chain = message.destinationChain;
     obj.contract_address = message.contractAddress;
-    obj.payload_hash = message.payloadHash;
+    obj.payload_hash = message.payloadHash ? base64FromBytes(message.payloadHash) : undefined;
     obj.symbol = message.symbol;
-    obj.amount = message.amount;
+    obj.amount = message.amount ? base64FromBytes(message.amount) : undefined;
     return obj;
   },
   fromAminoMsg(object: EventContractCallWithTokenAminoMsg): EventContractCallWithToken {
@@ -1373,15 +1427,19 @@ export const EventTransfer = {
     return message;
   },
   fromAmino(object: EventTransferAmino): EventTransfer {
-    return {
-      to: object.to,
-      amount: object.amount
-    };
+    const message = createBaseEventTransfer();
+    if (object.to !== undefined && object.to !== null) {
+      message.to = bytesFromBase64(object.to);
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = bytesFromBase64(object.amount);
+    }
+    return message;
   },
   toAmino(message: EventTransfer): EventTransferAmino {
     const obj: any = {};
-    obj.to = message.to;
-    obj.amount = message.amount;
+    obj.to = message.to ? base64FromBytes(message.to) : undefined;
+    obj.amount = message.amount ? base64FromBytes(message.amount) : undefined;
     return obj;
   },
   fromAminoMsg(object: EventTransferAminoMsg): EventTransfer {
@@ -1430,15 +1488,19 @@ export const EventTokenDeployed = {
     return message;
   },
   fromAmino(object: EventTokenDeployedAmino): EventTokenDeployed {
-    return {
-      symbol: object.symbol,
-      tokenAddress: object.token_address
-    };
+    const message = createBaseEventTokenDeployed();
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.token_address !== undefined && object.token_address !== null) {
+      message.tokenAddress = bytesFromBase64(object.token_address);
+    }
+    return message;
   },
   toAmino(message: EventTokenDeployed): EventTokenDeployedAmino {
     const obj: any = {};
     obj.symbol = message.symbol;
-    obj.token_address = message.tokenAddress;
+    obj.token_address = message.tokenAddress ? base64FromBytes(message.tokenAddress) : undefined;
     return obj;
   },
   fromAminoMsg(object: EventTokenDeployedAminoMsg): EventTokenDeployed {
@@ -1499,27 +1561,31 @@ export const EventMultisigOwnershipTransferred = {
     return message;
   },
   fromAmino(object: EventMultisigOwnershipTransferredAmino): EventMultisigOwnershipTransferred {
-    return {
-      preOwners: Array.isArray(object?.pre_owners) ? object.pre_owners.map((e: any) => e) : [],
-      prevThreshold: object.prev_threshold,
-      newOwners: Array.isArray(object?.new_owners) ? object.new_owners.map((e: any) => e) : [],
-      newThreshold: object.new_threshold
-    };
+    const message = createBaseEventMultisigOwnershipTransferred();
+    message.preOwners = object.pre_owners?.map(e => bytesFromBase64(e)) || [];
+    if (object.prev_threshold !== undefined && object.prev_threshold !== null) {
+      message.prevThreshold = bytesFromBase64(object.prev_threshold);
+    }
+    message.newOwners = object.new_owners?.map(e => bytesFromBase64(e)) || [];
+    if (object.new_threshold !== undefined && object.new_threshold !== null) {
+      message.newThreshold = bytesFromBase64(object.new_threshold);
+    }
+    return message;
   },
   toAmino(message: EventMultisigOwnershipTransferred): EventMultisigOwnershipTransferredAmino {
     const obj: any = {};
     if (message.preOwners) {
-      obj.pre_owners = message.preOwners.map(e => e);
+      obj.pre_owners = message.preOwners.map(e => base64FromBytes(e));
     } else {
       obj.pre_owners = [];
     }
-    obj.prev_threshold = message.prevThreshold;
+    obj.prev_threshold = message.prevThreshold ? base64FromBytes(message.prevThreshold) : undefined;
     if (message.newOwners) {
-      obj.new_owners = message.newOwners.map(e => e);
+      obj.new_owners = message.newOwners.map(e => base64FromBytes(e));
     } else {
       obj.new_owners = [];
     }
-    obj.new_threshold = message.newThreshold;
+    obj.new_threshold = message.newThreshold ? base64FromBytes(message.newThreshold) : undefined;
     return obj;
   },
   fromAminoMsg(object: EventMultisigOwnershipTransferredAminoMsg): EventMultisigOwnershipTransferred {
@@ -1574,22 +1640,24 @@ export const EventMultisigOperatorshipTransferred = {
     return message;
   },
   fromAmino(object: EventMultisigOperatorshipTransferredAmino): EventMultisigOperatorshipTransferred {
-    return {
-      newOperators: Array.isArray(object?.new_operators) ? object.new_operators.map((e: any) => e) : [],
-      newThreshold: object.new_threshold,
-      newWeights: Array.isArray(object?.new_weights) ? object.new_weights.map((e: any) => e) : []
-    };
+    const message = createBaseEventMultisigOperatorshipTransferred();
+    message.newOperators = object.new_operators?.map(e => bytesFromBase64(e)) || [];
+    if (object.new_threshold !== undefined && object.new_threshold !== null) {
+      message.newThreshold = bytesFromBase64(object.new_threshold);
+    }
+    message.newWeights = object.new_weights?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: EventMultisigOperatorshipTransferred): EventMultisigOperatorshipTransferredAmino {
     const obj: any = {};
     if (message.newOperators) {
-      obj.new_operators = message.newOperators.map(e => e);
+      obj.new_operators = message.newOperators.map(e => base64FromBytes(e));
     } else {
       obj.new_operators = [];
     }
-    obj.new_threshold = message.newThreshold;
+    obj.new_threshold = message.newThreshold ? base64FromBytes(message.newThreshold) : undefined;
     if (message.newWeights) {
-      obj.new_weights = message.newWeights.map(e => e);
+      obj.new_weights = message.newWeights.map(e => base64FromBytes(e));
     } else {
       obj.new_weights = [];
     }
@@ -1641,15 +1709,19 @@ export const NetworkInfo = {
     return message;
   },
   fromAmino(object: NetworkInfoAmino): NetworkInfo {
-    return {
-      name: object.name,
-      id: object.id
-    };
+    const message = createBaseNetworkInfo();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = bytesFromBase64(object.id);
+    }
+    return message;
   },
   toAmino(message: NetworkInfo): NetworkInfoAmino {
     const obj: any = {};
     obj.name = message.name;
-    obj.id = message.id;
+    obj.id = message.id ? base64FromBytes(message.id) : undefined;
     return obj;
   },
   fromAminoMsg(object: NetworkInfoAminoMsg): NetworkInfo {
@@ -1722,23 +1794,35 @@ export const BurnerInfo = {
     return message;
   },
   fromAmino(object: BurnerInfoAmino): BurnerInfo {
-    return {
-      burnerAddress: object.burner_address,
-      tokenAddress: object.token_address,
-      destinationChain: object.destination_chain,
-      symbol: object.symbol,
-      asset: object.asset,
-      salt: object.salt
-    };
+    const message = createBaseBurnerInfo();
+    if (object.burner_address !== undefined && object.burner_address !== null) {
+      message.burnerAddress = bytesFromBase64(object.burner_address);
+    }
+    if (object.token_address !== undefined && object.token_address !== null) {
+      message.tokenAddress = bytesFromBase64(object.token_address);
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    if (object.salt !== undefined && object.salt !== null) {
+      message.salt = bytesFromBase64(object.salt);
+    }
+    return message;
   },
   toAmino(message: BurnerInfo): BurnerInfoAmino {
     const obj: any = {};
-    obj.burner_address = message.burnerAddress;
-    obj.token_address = message.tokenAddress;
+    obj.burner_address = message.burnerAddress ? base64FromBytes(message.burnerAddress) : undefined;
+    obj.token_address = message.tokenAddress ? base64FromBytes(message.tokenAddress) : undefined;
     obj.destination_chain = message.destinationChain;
     obj.symbol = message.symbol;
     obj.asset = message.asset;
-    obj.salt = message.salt;
+    obj.salt = message.salt ? base64FromBytes(message.salt) : undefined;
     return obj;
   },
   fromAminoMsg(object: BurnerInfoAminoMsg): BurnerInfo {
@@ -1811,22 +1895,34 @@ export const ERC20Deposit = {
     return message;
   },
   fromAmino(object: ERC20DepositAmino): ERC20Deposit {
-    return {
-      txId: object.tx_id,
-      amount: object.amount,
-      asset: object.asset,
-      destinationChain: object.destination_chain,
-      burnerAddress: object.burner_address,
-      logIndex: BigInt(object.log_index)
-    };
+    const message = createBaseERC20Deposit();
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = bytesFromBase64(object.amount);
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    if (object.destination_chain !== undefined && object.destination_chain !== null) {
+      message.destinationChain = object.destination_chain;
+    }
+    if (object.burner_address !== undefined && object.burner_address !== null) {
+      message.burnerAddress = bytesFromBase64(object.burner_address);
+    }
+    if (object.log_index !== undefined && object.log_index !== null) {
+      message.logIndex = BigInt(object.log_index);
+    }
+    return message;
   },
   toAmino(message: ERC20Deposit): ERC20DepositAmino {
     const obj: any = {};
-    obj.tx_id = message.txId;
-    obj.amount = message.amount;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
+    obj.amount = message.amount ? base64FromBytes(message.amount) : undefined;
     obj.asset = message.asset;
     obj.destination_chain = message.destinationChain;
-    obj.burner_address = message.burnerAddress;
+    obj.burner_address = message.burnerAddress ? base64FromBytes(message.burnerAddress) : undefined;
     obj.log_index = message.logIndex ? message.logIndex.toString() : undefined;
     return obj;
   },
@@ -1912,27 +2008,43 @@ export const ERC20TokenMetadata = {
     return message;
   },
   fromAmino(object: ERC20TokenMetadataAmino): ERC20TokenMetadata {
-    return {
-      asset: object.asset,
-      chainId: object.chain_id,
-      details: object?.details ? TokenDetails.fromAmino(object.details) : undefined,
-      tokenAddress: object.token_address,
-      txHash: object.tx_hash,
-      status: isSet(object.status) ? statusFromJSON(object.status) : -1,
-      isExternal: object.is_external,
-      burnerCode: object.burner_code
-    };
+    const message = createBaseERC20TokenMetadata();
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = object.asset;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = bytesFromBase64(object.chain_id);
+    }
+    if (object.details !== undefined && object.details !== null) {
+      message.details = TokenDetails.fromAmino(object.details);
+    }
+    if (object.token_address !== undefined && object.token_address !== null) {
+      message.tokenAddress = object.token_address;
+    }
+    if (object.tx_hash !== undefined && object.tx_hash !== null) {
+      message.txHash = object.tx_hash;
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = statusFromJSON(object.status);
+    }
+    if (object.is_external !== undefined && object.is_external !== null) {
+      message.isExternal = object.is_external;
+    }
+    if (object.burner_code !== undefined && object.burner_code !== null) {
+      message.burnerCode = bytesFromBase64(object.burner_code);
+    }
+    return message;
   },
   toAmino(message: ERC20TokenMetadata): ERC20TokenMetadataAmino {
     const obj: any = {};
     obj.asset = message.asset;
-    obj.chain_id = message.chainId;
+    obj.chain_id = message.chainId ? base64FromBytes(message.chainId) : undefined;
     obj.details = message.details ? TokenDetails.toAmino(message.details) : undefined;
     obj.token_address = message.tokenAddress;
     obj.tx_hash = message.txHash;
     obj.status = message.status;
     obj.is_external = message.isExternal;
-    obj.burner_code = message.burnerCode;
+    obj.burner_code = message.burnerCode ? base64FromBytes(message.burnerCode) : undefined;
     return obj;
   },
   fromAminoMsg(object: ERC20TokenMetadataAminoMsg): ERC20TokenMetadata {
@@ -1981,15 +2093,19 @@ export const TransactionMetadata = {
     return message;
   },
   fromAmino(object: TransactionMetadataAmino): TransactionMetadata {
-    return {
-      rawTx: object.raw_tx,
-      pubKey: object.pub_key
-    };
+    const message = createBaseTransactionMetadata();
+    if (object.raw_tx !== undefined && object.raw_tx !== null) {
+      message.rawTx = bytesFromBase64(object.raw_tx);
+    }
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = bytesFromBase64(object.pub_key);
+    }
+    return message;
   },
   toAmino(message: TransactionMetadata): TransactionMetadataAmino {
     const obj: any = {};
-    obj.raw_tx = message.rawTx;
-    obj.pub_key = message.pubKey;
+    obj.raw_tx = message.rawTx ? base64FromBytes(message.rawTx) : undefined;
+    obj.pub_key = message.pubKey ? base64FromBytes(message.pubKey) : undefined;
     return obj;
   },
   fromAminoMsg(object: TransactionMetadataAminoMsg): TransactionMetadata {
@@ -2062,20 +2178,32 @@ export const Command = {
     return message;
   },
   fromAmino(object: CommandAmino): Command {
-    return {
-      id: object.id,
-      command: object.command,
-      params: object.params,
-      keyId: object.key_id,
-      maxGasCost: object.max_gas_cost,
-      type: isSet(object.type) ? commandTypeFromJSON(object.type) : -1
-    };
+    const message = createBaseCommand();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = bytesFromBase64(object.id);
+    }
+    if (object.command !== undefined && object.command !== null) {
+      message.command = object.command;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = bytesFromBase64(object.params);
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    if (object.max_gas_cost !== undefined && object.max_gas_cost !== null) {
+      message.maxGasCost = object.max_gas_cost;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = commandTypeFromJSON(object.type);
+    }
+    return message;
   },
   toAmino(message: Command): CommandAmino {
     const obj: any = {};
-    obj.id = message.id;
+    obj.id = message.id ? base64FromBytes(message.id) : undefined;
     obj.command = message.command;
-    obj.params = message.params;
+    obj.params = message.params ? base64FromBytes(message.params) : undefined;
     obj.key_id = message.keyId;
     obj.max_gas_cost = message.maxGasCost;
     obj.type = message.type;
@@ -2106,7 +2234,7 @@ function createBaseCommandBatchMetadata(): CommandBatchMetadata {
     status: 0,
     keyId: "",
     prevBatchedCommandsId: new Uint8Array(),
-    signature: Any.fromPartial({})
+    signature: undefined
   };
 }
 export const CommandBatchMetadata = {
@@ -2163,30 +2291,44 @@ export const CommandBatchMetadata = {
     return message;
   },
   fromAmino(object: CommandBatchMetadataAmino): CommandBatchMetadata {
-    return {
-      id: object.id,
-      commandIds: Array.isArray(object?.command_ids) ? object.command_ids.map((e: any) => e) : [],
-      data: object.data,
-      sigHash: object.sig_hash,
-      status: isSet(object.status) ? batchedCommandsStatusFromJSON(object.status) : -1,
-      keyId: object.key_id,
-      prevBatchedCommandsId: object.prev_batched_commands_id,
-      signature: object?.signature ? Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.signature) : undefined
-    };
+    const message = createBaseCommandBatchMetadata();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = bytesFromBase64(object.id);
+    }
+    message.commandIds = object.command_ids?.map(e => bytesFromBase64(e)) || [];
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    if (object.sig_hash !== undefined && object.sig_hash !== null) {
+      message.sigHash = bytesFromBase64(object.sig_hash);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = batchedCommandsStatusFromJSON(object.status);
+    }
+    if (object.key_id !== undefined && object.key_id !== null) {
+      message.keyId = object.key_id;
+    }
+    if (object.prev_batched_commands_id !== undefined && object.prev_batched_commands_id !== null) {
+      message.prevBatchedCommandsId = bytesFromBase64(object.prev_batched_commands_id);
+    }
+    if (object.signature !== undefined && object.signature !== null) {
+      message.signature = Github_com_cosmos_codec_ProtoMarshaler_FromAmino(object.signature);
+    }
+    return message;
   },
   toAmino(message: CommandBatchMetadata): CommandBatchMetadataAmino {
     const obj: any = {};
-    obj.id = message.id;
+    obj.id = message.id ? base64FromBytes(message.id) : undefined;
     if (message.commandIds) {
-      obj.command_ids = message.commandIds.map(e => e);
+      obj.command_ids = message.commandIds.map(e => base64FromBytes(e));
     } else {
       obj.command_ids = [];
     }
-    obj.data = message.data;
-    obj.sig_hash = message.sigHash;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
+    obj.sig_hash = message.sigHash ? base64FromBytes(message.sigHash) : undefined;
     obj.status = message.status;
     obj.key_id = message.keyId;
-    obj.prev_batched_commands_id = message.prevBatchedCommandsId;
+    obj.prev_batched_commands_id = message.prevBatchedCommandsId ? base64FromBytes(message.prevBatchedCommandsId) : undefined;
     obj.signature = message.signature ? Github_com_cosmos_codec_ProtoMarshaler_ToAmino((message.signature as Any)) : undefined;
     return obj;
   },
@@ -2242,17 +2384,23 @@ export const SigMetadata = {
     return message;
   },
   fromAmino(object: SigMetadataAmino): SigMetadata {
-    return {
-      type: isSet(object.type) ? sigTypeFromJSON(object.type) : -1,
-      chain: object.chain,
-      commandBatchId: object.command_batch_id
-    };
+    const message = createBaseSigMetadata();
+    if (object.type !== undefined && object.type !== null) {
+      message.type = sigTypeFromJSON(object.type);
+    }
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.command_batch_id !== undefined && object.command_batch_id !== null) {
+      message.commandBatchId = bytesFromBase64(object.command_batch_id);
+    }
+    return message;
   },
   toAmino(message: SigMetadata): SigMetadataAmino {
     const obj: any = {};
     obj.type = message.type;
     obj.chain = message.chain;
-    obj.command_batch_id = message.commandBatchId;
+    obj.command_batch_id = message.commandBatchId ? base64FromBytes(message.commandBatchId) : undefined;
     return obj;
   },
   fromAminoMsg(object: SigMetadataAminoMsg): SigMetadata {
@@ -2301,14 +2449,18 @@ export const TransferKey = {
     return message;
   },
   fromAmino(object: TransferKeyAmino): TransferKey {
-    return {
-      txId: object.tx_id,
-      nextKeyId: object.next_key_id
-    };
+    const message = createBaseTransferKey();
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    if (object.next_key_id !== undefined && object.next_key_id !== null) {
+      message.nextKeyId = object.next_key_id;
+    }
+    return message;
   },
   toAmino(message: TransferKey): TransferKeyAmino {
     const obj: any = {};
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     obj.next_key_id = message.nextKeyId;
     return obj;
   },
@@ -2358,10 +2510,14 @@ export const Asset = {
     return message;
   },
   fromAmino(object: AssetAmino): Asset {
-    return {
-      chain: object.chain,
-      name: object.name
-    };
+    const message = createBaseAsset();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    return message;
   },
   toAmino(message: Asset): AssetAmino {
     const obj: any = {};
@@ -2427,19 +2583,27 @@ export const TokenDetails = {
     return message;
   },
   fromAmino(object: TokenDetailsAmino): TokenDetails {
-    return {
-      tokenName: object.token_name,
-      symbol: object.symbol,
-      decimals: object.decimals,
-      capacity: object.capacity
-    };
+    const message = createBaseTokenDetails();
+    if (object.token_name !== undefined && object.token_name !== null) {
+      message.tokenName = object.token_name;
+    }
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.decimals !== undefined && object.decimals !== null) {
+      message.decimals = object.decimals;
+    }
+    if (object.capacity !== undefined && object.capacity !== null) {
+      message.capacity = bytesFromBase64(object.capacity);
+    }
+    return message;
   },
   toAmino(message: TokenDetails): TokenDetailsAmino {
     const obj: any = {};
     obj.token_name = message.tokenName;
     obj.symbol = message.symbol;
     obj.decimals = message.decimals;
-    obj.capacity = message.capacity;
+    obj.capacity = message.capacity ? base64FromBytes(message.capacity) : undefined;
     return obj;
   },
   fromAminoMsg(object: TokenDetailsAminoMsg): TokenDetails {
@@ -2482,13 +2646,15 @@ export const Gateway = {
     return message;
   },
   fromAmino(object: GatewayAmino): Gateway {
-    return {
-      address: object.address
-    };
+    const message = createBaseGateway();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = bytesFromBase64(object.address);
+    }
+    return message;
   },
   toAmino(message: Gateway): GatewayAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address ? base64FromBytes(message.address) : undefined;
     return obj;
   },
   fromAminoMsg(object: GatewayAminoMsg): Gateway {
@@ -2537,15 +2703,19 @@ export const PollMetadata = {
     return message;
   },
   fromAmino(object: PollMetadataAmino): PollMetadata {
-    return {
-      chain: object.chain,
-      txId: object.tx_id
-    };
+    const message = createBasePollMetadata();
+    if (object.chain !== undefined && object.chain !== null) {
+      message.chain = object.chain;
+    }
+    if (object.tx_id !== undefined && object.tx_id !== null) {
+      message.txId = bytesFromBase64(object.tx_id);
+    }
+    return message;
   },
   toAmino(message: PollMetadata): PollMetadataAmino {
     const obj: any = {};
     obj.chain = message.chain;
-    obj.tx_id = message.txId;
+    obj.tx_id = message.txId ? base64FromBytes(message.txId) : undefined;
     return obj;
   },
   fromAminoMsg(object: PollMetadataAminoMsg): PollMetadata {
