@@ -14,9 +14,9 @@ export interface QueryParamsRequestProtoMsg {
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequestAmino {
     /** subspace defines the module to query the parameter for. */
-    subspace: string;
+    subspace?: string;
     /** key defines the key of the parameter in the subspace. */
-    key: string;
+    key?: string;
 }
 export interface QueryParamsRequestAminoMsg {
     type: "cosmos-sdk/QueryParamsRequest";

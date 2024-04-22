@@ -51,11 +51,11 @@ export interface SnapshotsResponseProtoMsg {
     value: Uint8Array;
 }
 export interface SnapshotsResponseAmino {
-    height: string;
-    format: number;
-    chunks: number;
-    hash: Uint8Array;
-    metadata: Uint8Array;
+    height?: string;
+    format?: number;
+    chunks?: number;
+    hash?: string;
+    metadata?: string;
 }
 export interface SnapshotsResponseAminoMsg {
     type: "/tendermint.statesync.SnapshotsResponse";
@@ -78,9 +78,9 @@ export interface ChunkRequestProtoMsg {
     value: Uint8Array;
 }
 export interface ChunkRequestAmino {
-    height: string;
-    format: number;
-    index: number;
+    height?: string;
+    format?: number;
+    index?: number;
 }
 export interface ChunkRequestAminoMsg {
     type: "/tendermint.statesync.ChunkRequest";
@@ -103,11 +103,11 @@ export interface ChunkResponseProtoMsg {
     value: Uint8Array;
 }
 export interface ChunkResponseAmino {
-    height: string;
-    format: number;
-    index: number;
-    chunk: Uint8Array;
-    missing: boolean;
+    height?: string;
+    format?: number;
+    index?: number;
+    chunk?: string;
+    missing?: boolean;
 }
 export interface ChunkResponseAminoMsg {
     type: "/tendermint.statesync.ChunkResponse";

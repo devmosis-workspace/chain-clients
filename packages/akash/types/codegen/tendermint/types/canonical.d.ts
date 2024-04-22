@@ -1,5 +1,5 @@
 import { SignedMsgType } from "./types";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../binary";
 export interface CanonicalBlockID {
     hash: Uint8Array;
@@ -10,7 +10,7 @@ export interface CanonicalBlockIDProtoMsg {
     value: Uint8Array;
 }
 export interface CanonicalBlockIDAmino {
-    hash: Uint8Array;
+    hash?: string;
     part_set_header?: CanonicalPartSetHeaderAmino;
 }
 export interface CanonicalBlockIDAminoMsg {
@@ -30,8 +30,8 @@ export interface CanonicalPartSetHeaderProtoMsg {
     value: Uint8Array;
 }
 export interface CanonicalPartSetHeaderAmino {
-    total: number;
-    hash: Uint8Array;
+    total?: number;
+    hash?: string;
 }
 export interface CanonicalPartSetHeaderAminoMsg {
     type: "/tendermint.types.CanonicalPartSetHeader";
@@ -49,7 +49,7 @@ export interface CanonicalProposal {
     /** canonicalization requires fixed size encoding here */
     round: bigint;
     polRound: bigint;
-    blockId: CanonicalBlockID;
+    blockId?: CanonicalBlockID;
     timestamp: Timestamp;
     chainId: string;
 }
@@ -59,15 +59,15 @@ export interface CanonicalProposalProtoMsg {
 }
 export interface CanonicalProposalAmino {
     /** type alias for byte */
-    type: SignedMsgType;
+    type?: SignedMsgType;
     /** canonicalization requires fixed size encoding here */
-    height: string;
+    height?: string;
     /** canonicalization requires fixed size encoding here */
-    round: string;
-    pol_round: string;
+    round?: string;
+    pol_round?: string;
     block_id?: CanonicalBlockIDAmino;
-    timestamp?: TimestampAmino;
-    chain_id: string;
+    timestamp?: string;
+    chain_id?: string;
 }
 export interface CanonicalProposalAminoMsg {
     type: "/tendermint.types.CanonicalProposal";
@@ -78,7 +78,7 @@ export interface CanonicalProposalSDKType {
     height: bigint;
     round: bigint;
     pol_round: bigint;
-    block_id: CanonicalBlockIDSDKType;
+    block_id?: CanonicalBlockIDSDKType;
     timestamp: TimestampSDKType;
     chain_id: string;
 }
@@ -89,7 +89,7 @@ export interface CanonicalVote {
     height: bigint;
     /** canonicalization requires fixed size encoding here */
     round: bigint;
-    blockId: CanonicalBlockID;
+    blockId?: CanonicalBlockID;
     timestamp: Timestamp;
     chainId: string;
 }
@@ -99,14 +99,14 @@ export interface CanonicalVoteProtoMsg {
 }
 export interface CanonicalVoteAmino {
     /** type alias for byte */
-    type: SignedMsgType;
+    type?: SignedMsgType;
     /** canonicalization requires fixed size encoding here */
-    height: string;
+    height?: string;
     /** canonicalization requires fixed size encoding here */
-    round: string;
+    round?: string;
     block_id?: CanonicalBlockIDAmino;
-    timestamp?: TimestampAmino;
-    chain_id: string;
+    timestamp?: string;
+    chain_id?: string;
 }
 export interface CanonicalVoteAminoMsg {
     type: "/tendermint.types.CanonicalVote";
@@ -116,7 +116,7 @@ export interface CanonicalVoteSDKType {
     type: SignedMsgType;
     height: bigint;
     round: bigint;
-    block_id: CanonicalBlockIDSDKType;
+    block_id?: CanonicalBlockIDSDKType;
     timestamp: TimestampSDKType;
     chain_id: string;
 }

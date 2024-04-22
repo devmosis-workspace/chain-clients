@@ -1,7 +1,7 @@
 import { Message, MessageAmino, MessageSDKType } from "./types";
 import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
 import { EventDataRoundState, EventDataRoundStateAmino, EventDataRoundStateSDKType } from "../types/events";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../binary";
 /** MsgInfo are msgs from the reactor which may update the state */
 export interface MsgInfo {
@@ -15,7 +15,7 @@ export interface MsgInfoProtoMsg {
 /** MsgInfo are msgs from the reactor which may update the state */
 export interface MsgInfoAmino {
     msg?: MessageAmino;
-    peer_id: string;
+    peer_id?: string;
 }
 export interface MsgInfoAminoMsg {
     type: "/tendermint.consensus.MsgInfo";
@@ -40,9 +40,9 @@ export interface TimeoutInfoProtoMsg {
 /** TimeoutInfo internally generated messages which may update the state */
 export interface TimeoutInfoAmino {
     duration?: DurationAmino;
-    height: string;
-    round: number;
-    step: number;
+    height?: string;
+    round?: number;
+    step?: number;
 }
 export interface TimeoutInfoAminoMsg {
     type: "/tendermint.consensus.TimeoutInfo";
@@ -71,7 +71,7 @@ export interface EndHeightProtoMsg {
  * @internal used by scripts/wal2json util.
  */
 export interface EndHeightAmino {
-    height: string;
+    height?: string;
 }
 export interface EndHeightAminoMsg {
     type: "/tendermint.consensus.EndHeight";
@@ -113,7 +113,7 @@ export interface WALMessageSDKType {
 /** TimedWALMessage wraps WALMessage and adds Time for debugging purposes. */
 export interface TimedWALMessage {
     time: Timestamp;
-    msg: WALMessage;
+    msg?: WALMessage;
 }
 export interface TimedWALMessageProtoMsg {
     typeUrl: "/tendermint.consensus.TimedWALMessage";
@@ -121,7 +121,7 @@ export interface TimedWALMessageProtoMsg {
 }
 /** TimedWALMessage wraps WALMessage and adds Time for debugging purposes. */
 export interface TimedWALMessageAmino {
-    time?: TimestampAmino;
+    time?: string;
     msg?: WALMessageAmino;
 }
 export interface TimedWALMessageAminoMsg {
@@ -131,7 +131,7 @@ export interface TimedWALMessageAminoMsg {
 /** TimedWALMessage wraps WALMessage and adds Time for debugging purposes. */
 export interface TimedWALMessageSDKType {
     time: TimestampSDKType;
-    msg: WALMessageSDKType;
+    msg?: WALMessageSDKType;
 }
 export declare const MsgInfo: {
     typeUrl: string;

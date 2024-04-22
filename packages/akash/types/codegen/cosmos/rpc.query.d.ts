@@ -8,6 +8,7 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 accounts(request?: import("./auth/v1beta1/query").QueryAccountsRequest): Promise<import("./auth/v1beta1/query").QueryAccountsResponse>;
                 account(request: import("./auth/v1beta1/query").QueryAccountRequest): Promise<import("./auth/v1beta1/query").QueryAccountResponse>;
                 params(request?: import("./auth/v1beta1/query").QueryParamsRequest): Promise<import("./auth/v1beta1/query").QueryParamsResponse>;
+                moduleAccountByName(request: import("./auth/v1beta1/query").QueryModuleAccountByNameRequest): Promise<import("./auth/v1beta1/query").QueryModuleAccountByNameResponse>;
             };
         };
         authz: {
@@ -30,6 +31,11 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
             };
         };
         base: {
+            node: {
+                v1beta1: {
+                    config(request?: import("./base/node/v1beta1/query").ConfigRequest): Promise<import("./base/node/v1beta1/query").ConfigResponse>;
+                };
+            };
             tendermint: {
                 v1beta1: {
                     getNodeInfo(request?: import("./base/tendermint/v1beta1/query").GetNodeInfoRequest): Promise<import("./base/tendermint/v1beta1/query").GetNodeInfoResponse>;

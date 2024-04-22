@@ -1,11 +1,5 @@
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
-import { DepositDeploymentAuthorization as DepositDeploymentAuthorization1 } from "../../../akash/deployment/v1beta1/authz";
-import { DepositDeploymentAuthorizationProtoMsg as DepositDeploymentAuthorization1ProtoMsg } from "../../../akash/deployment/v1beta1/authz";
-import { DepositDeploymentAuthorizationSDKType as DepositDeploymentAuthorization1SDKType } from "../../../akash/deployment/v1beta1/authz";
-import { DepositDeploymentAuthorization as DepositDeploymentAuthorization2 } from "../../../akash/deployment/v1beta2/authz";
-import { DepositDeploymentAuthorizationProtoMsg as DepositDeploymentAuthorization2ProtoMsg } from "../../../akash/deployment/v1beta2/authz";
-import { DepositDeploymentAuthorizationSDKType as DepositDeploymentAuthorization2SDKType } from "../../../akash/deployment/v1beta2/authz";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { SendAuthorization, SendAuthorizationProtoMsg, SendAuthorizationSDKType } from "../../bank/v1beta1/authz";
 import { StakeAuthorization, StakeAuthorizationProtoMsg, StakeAuthorizationSDKType } from "../../staking/v1beta1/authz";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -14,7 +8,7 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
  * the provided method on behalf of the granter's account.
  */
 export interface GenericAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/cosmos.authz.v1beta1.GenericAuthorization";
     /** Msg, identified by it's type URL, to grant unrestricted permissions to execute */
     msg: string;
 }
@@ -28,7 +22,7 @@ export interface GenericAuthorizationProtoMsg {
  */
 export interface GenericAuthorizationAmino {
     /** Msg, identified by it's type URL, to grant unrestricted permissions to execute */
-    msg: string;
+    msg?: string;
 }
 export interface GenericAuthorizationAminoMsg {
     type: "cosmos-sdk/GenericAuthorization";
@@ -39,7 +33,7 @@ export interface GenericAuthorizationAminoMsg {
  * the provided method on behalf of the granter's account.
  */
 export interface GenericAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/cosmos.authz.v1beta1.GenericAuthorization";
     msg: string;
 }
 /**
@@ -47,7 +41,7 @@ export interface GenericAuthorizationSDKType {
  * the provide method with expiration time.
  */
 export interface Grant {
-    authorization: (GenericAuthorization & DepositDeploymentAuthorization1 & DepositDeploymentAuthorization2 & SendAuthorization & StakeAuthorization & Any) | undefined;
+    authorization?: (GenericAuthorization & SendAuthorization & StakeAuthorization & Any) | undefined;
     expiration: Timestamp;
 }
 export interface GrantProtoMsg {
@@ -55,7 +49,7 @@ export interface GrantProtoMsg {
     value: Uint8Array;
 }
 export type GrantEncoded = Omit<Grant, "authorization"> & {
-    authorization?: GenericAuthorizationProtoMsg | DepositDeploymentAuthorization1ProtoMsg | DepositDeploymentAuthorization2ProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
+    authorization?: GenericAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * Grant gives permissions to execute
@@ -63,7 +57,7 @@ export type GrantEncoded = Omit<Grant, "authorization"> & {
  */
 export interface GrantAmino {
     authorization?: AnyAmino;
-    expiration?: TimestampAmino;
+    expiration?: string;
 }
 export interface GrantAminoMsg {
     type: "cosmos-sdk/Grant";
@@ -74,7 +68,7 @@ export interface GrantAminoMsg {
  * the provide method with expiration time.
  */
 export interface GrantSDKType {
-    authorization: GenericAuthorizationSDKType | DepositDeploymentAuthorization1SDKType | DepositDeploymentAuthorization2SDKType | SendAuthorizationSDKType | StakeAuthorizationSDKType | AnySDKType | undefined;
+    authorization?: GenericAuthorizationSDKType | SendAuthorizationSDKType | StakeAuthorizationSDKType | AnySDKType | undefined;
     expiration: TimestampSDKType;
 }
 /**
@@ -86,7 +80,7 @@ export interface GrantSDKType {
 export interface GrantAuthorization {
     granter: string;
     grantee: string;
-    authorization: (GenericAuthorization & DepositDeploymentAuthorization1 & DepositDeploymentAuthorization2 & SendAuthorization & StakeAuthorization & Any) | undefined;
+    authorization?: (GenericAuthorization & SendAuthorization & StakeAuthorization & Any) | undefined;
     expiration: Timestamp;
 }
 export interface GrantAuthorizationProtoMsg {
@@ -94,7 +88,7 @@ export interface GrantAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export type GrantAuthorizationEncoded = Omit<GrantAuthorization, "authorization"> & {
-    authorization?: GenericAuthorizationProtoMsg | DepositDeploymentAuthorization1ProtoMsg | DepositDeploymentAuthorization2ProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
+    authorization?: GenericAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * GrantAuthorization extends a grant with both the addresses of the grantee and granter.
@@ -103,10 +97,10 @@ export type GrantAuthorizationEncoded = Omit<GrantAuthorization, "authorization"
  * Since: cosmos-sdk 0.45.2
  */
 export interface GrantAuthorizationAmino {
-    granter: string;
-    grantee: string;
+    granter?: string;
+    grantee?: string;
     authorization?: AnyAmino;
-    expiration?: TimestampAmino;
+    expiration?: string;
 }
 export interface GrantAuthorizationAminoMsg {
     type: "cosmos-sdk/GrantAuthorization";
@@ -121,7 +115,7 @@ export interface GrantAuthorizationAminoMsg {
 export interface GrantAuthorizationSDKType {
     granter: string;
     grantee: string;
-    authorization: GenericAuthorizationSDKType | DepositDeploymentAuthorization1SDKType | DepositDeploymentAuthorization2SDKType | SendAuthorizationSDKType | StakeAuthorizationSDKType | AnySDKType | undefined;
+    authorization?: GenericAuthorizationSDKType | SendAuthorizationSDKType | StakeAuthorizationSDKType | AnySDKType | undefined;
     expiration: TimestampSDKType;
 }
 export declare const GenericAuthorization: {
@@ -163,6 +157,6 @@ export declare const GrantAuthorization: {
     toProto(message: GrantAuthorization): Uint8Array;
     toProtoMsg(message: GrantAuthorization): GrantAuthorizationProtoMsg;
 };
-export declare const Authorization_InterfaceDecoder: (input: BinaryReader | Uint8Array) => DepositDeploymentAuthorization1 | DepositDeploymentAuthorization2 | GenericAuthorization | SendAuthorization | StakeAuthorization | Any;
+export declare const Authorization_InterfaceDecoder: (input: BinaryReader | Uint8Array) => GenericAuthorization | SendAuthorization | StakeAuthorization | Any;
 export declare const Authorization_FromAmino: (content: AnyAmino) => Any;
 export declare const Authorization_ToAmino: (content: Any) => AnyAmino;

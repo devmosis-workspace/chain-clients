@@ -10,9 +10,9 @@ export interface EventDataRoundStateProtoMsg {
   value: Uint8Array;
 }
 export interface EventDataRoundStateAmino {
-  height: string;
-  round: number;
-  step: string;
+  height?: string;
+  round?: number;
+  step?: string;
 }
 export interface EventDataRoundStateAminoMsg {
   type: "/tendermint.types.EventDataRoundState";
@@ -59,11 +59,17 @@ export const EventDataRoundState = {
     return message;
   },
   fromAmino(object: EventDataRoundStateAmino): EventDataRoundState {
-    return {
-      height: BigInt(object.height),
-      round: object.round,
-      step: object.step
-    };
+    const message = createBaseEventDataRoundState();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.round !== undefined && object.round !== null) {
+      message.round = object.round;
+    }
+    if (object.step !== undefined && object.step !== null) {
+      message.step = object.step;
+    }
+    return message;
   },
   toAmino(message: EventDataRoundState): EventDataRoundStateAmino {
     const obj: any = {};
