@@ -1,8 +1,11 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
+import { FeeAccrualCounters, FeeAccrualCountersAmino, FeeAccrualCountersSDKType } from "./cellarfees";
 import { BinaryWriter } from "../../binary";
 /** GenesisState defines the cellarfees module's genesis state. */
 export interface GenesisState {
     params: Params;
+    feeAccrualCounters: FeeAccrualCounters;
+    lastRewardSupplyPeak: string;
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/cellarfees.v1.GenesisState";
@@ -11,6 +14,8 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the cellarfees module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
+    fee_accrual_counters?: FeeAccrualCountersAmino;
+    last_reward_supply_peak?: string;
 }
 export interface GenesisStateAminoMsg {
     type: "/cellarfees.v1.GenesisState";
@@ -19,6 +24,8 @@ export interface GenesisStateAminoMsg {
 /** GenesisState defines the cellarfees module's genesis state. */
 export interface GenesisStateSDKType {
     params: ParamsSDKType;
+    fee_accrual_counters: FeeAccrualCountersSDKType;
+    last_reward_supply_peak: string;
 }
 export declare const GenesisState: {
     typeUrl: string;

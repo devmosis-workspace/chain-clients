@@ -1,86 +1,86 @@
-import * as _8 from "./v1/genesis";
-import * as _9 from "./v1/query";
-import * as _120 from "./v1/query.lcd";
-import * as _121 from "./v1/query.rpc.Query";
+import * as _20 from "./v1/genesis";
+import * as _21 from "./v1/query";
+import * as _160 from "./v1/query.lcd";
+import * as _161 from "./v1/query.rpc.Query";
 export declare namespace incentives {
     const v1: {
-        QueryClientImpl: typeof _121.QueryClientImpl;
+        QueryClientImpl: typeof _161.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
-            queryParams(request?: _9.QueryParamsRequest): Promise<_9.QueryParamsResponse>;
-            queryAPY(request?: _9.QueryAPYRequest): Promise<_9.QueryAPYResponse>;
+            queryParams(request?: _21.QueryParamsRequest): Promise<_21.QueryParamsResponse>;
+            queryAPY(request?: _21.QueryAPYRequest): Promise<_21.QueryAPYResponse>;
         };
-        LCDQueryClient: typeof _120.LCDQueryClient;
+        LCDQueryClient: typeof _160.LCDQueryClient;
         QueryParamsRequest: {
             typeUrl: string;
-            encode(_: _9.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-            fromJSON(_: any): _9.QueryParamsRequest;
-            fromPartial(_: Partial<_9.QueryParamsRequest>): _9.QueryParamsRequest;
-            fromAmino(_: _9.QueryParamsRequestAmino): _9.QueryParamsRequest;
-            toAmino(_: _9.QueryParamsRequest): _9.QueryParamsRequestAmino;
-            fromAminoMsg(object: _9.QueryParamsRequestAminoMsg): _9.QueryParamsRequest;
-            fromProtoMsg(message: _9.QueryParamsRequestProtoMsg): _9.QueryParamsRequest;
-            toProto(message: _9.QueryParamsRequest): Uint8Array;
-            toProtoMsg(message: _9.QueryParamsRequest): _9.QueryParamsRequestProtoMsg;
+            encode(_: _21.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+            fromJSON(_: any): _21.QueryParamsRequest;
+            fromPartial(_: Partial<_21.QueryParamsRequest>): _21.QueryParamsRequest;
+            fromAmino(_: _21.QueryParamsRequestAmino): _21.QueryParamsRequest;
+            toAmino(_: _21.QueryParamsRequest): _21.QueryParamsRequestAmino;
+            fromAminoMsg(object: _21.QueryParamsRequestAminoMsg): _21.QueryParamsRequest;
+            fromProtoMsg(message: _21.QueryParamsRequestProtoMsg): _21.QueryParamsRequest;
+            toProto(message: _21.QueryParamsRequest): Uint8Array;
+            toProtoMsg(message: _21.QueryParamsRequest): _21.QueryParamsRequestProtoMsg;
         };
         QueryParamsResponse: {
             typeUrl: string;
-            encode(message: _9.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-            fromJSON(object: any): _9.QueryParamsResponse;
-            fromPartial(object: Partial<_9.QueryParamsResponse>): _9.QueryParamsResponse;
-            fromAmino(object: _9.QueryParamsResponseAmino): _9.QueryParamsResponse;
-            toAmino(message: _9.QueryParamsResponse): _9.QueryParamsResponseAmino;
-            fromAminoMsg(object: _9.QueryParamsResponseAminoMsg): _9.QueryParamsResponse;
-            fromProtoMsg(message: _9.QueryParamsResponseProtoMsg): _9.QueryParamsResponse;
-            toProto(message: _9.QueryParamsResponse): Uint8Array;
-            toProtoMsg(message: _9.QueryParamsResponse): _9.QueryParamsResponseProtoMsg;
+            encode(message: _21.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+            fromJSON(object: any): _21.QueryParamsResponse;
+            fromPartial(object: Partial<_21.QueryParamsResponse>): _21.QueryParamsResponse;
+            fromAmino(object: _21.QueryParamsResponseAmino): _21.QueryParamsResponse;
+            toAmino(message: _21.QueryParamsResponse): _21.QueryParamsResponseAmino;
+            fromAminoMsg(object: _21.QueryParamsResponseAminoMsg): _21.QueryParamsResponse;
+            fromProtoMsg(message: _21.QueryParamsResponseProtoMsg): _21.QueryParamsResponse;
+            toProto(message: _21.QueryParamsResponse): Uint8Array;
+            toProtoMsg(message: _21.QueryParamsResponse): _21.QueryParamsResponseProtoMsg;
         };
         QueryAPYRequest: {
             typeUrl: string;
-            encode(_: _9.QueryAPYRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-            fromJSON(_: any): _9.QueryAPYRequest;
-            fromPartial(_: Partial<_9.QueryAPYRequest>): _9.QueryAPYRequest;
-            fromAmino(_: _9.QueryAPYRequestAmino): _9.QueryAPYRequest;
-            toAmino(_: _9.QueryAPYRequest): _9.QueryAPYRequestAmino;
-            fromAminoMsg(object: _9.QueryAPYRequestAminoMsg): _9.QueryAPYRequest;
-            fromProtoMsg(message: _9.QueryAPYRequestProtoMsg): _9.QueryAPYRequest;
-            toProto(message: _9.QueryAPYRequest): Uint8Array;
-            toProtoMsg(message: _9.QueryAPYRequest): _9.QueryAPYRequestProtoMsg;
+            encode(_: _21.QueryAPYRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+            fromJSON(_: any): _21.QueryAPYRequest;
+            fromPartial(_: Partial<_21.QueryAPYRequest>): _21.QueryAPYRequest;
+            fromAmino(_: _21.QueryAPYRequestAmino): _21.QueryAPYRequest;
+            toAmino(_: _21.QueryAPYRequest): _21.QueryAPYRequestAmino;
+            fromAminoMsg(object: _21.QueryAPYRequestAminoMsg): _21.QueryAPYRequest;
+            fromProtoMsg(message: _21.QueryAPYRequestProtoMsg): _21.QueryAPYRequest;
+            toProto(message: _21.QueryAPYRequest): Uint8Array;
+            toProtoMsg(message: _21.QueryAPYRequest): _21.QueryAPYRequestProtoMsg;
         };
         QueryAPYResponse: {
             typeUrl: string;
-            encode(message: _9.QueryAPYResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-            fromJSON(object: any): _9.QueryAPYResponse;
-            fromPartial(object: Partial<_9.QueryAPYResponse>): _9.QueryAPYResponse;
-            fromAmino(object: _9.QueryAPYResponseAmino): _9.QueryAPYResponse;
-            toAmino(message: _9.QueryAPYResponse): _9.QueryAPYResponseAmino;
-            fromAminoMsg(object: _9.QueryAPYResponseAminoMsg): _9.QueryAPYResponse;
-            fromProtoMsg(message: _9.QueryAPYResponseProtoMsg): _9.QueryAPYResponse;
-            toProto(message: _9.QueryAPYResponse): Uint8Array;
-            toProtoMsg(message: _9.QueryAPYResponse): _9.QueryAPYResponseProtoMsg;
+            encode(message: _21.QueryAPYResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+            fromJSON(object: any): _21.QueryAPYResponse;
+            fromPartial(object: Partial<_21.QueryAPYResponse>): _21.QueryAPYResponse;
+            fromAmino(object: _21.QueryAPYResponseAmino): _21.QueryAPYResponse;
+            toAmino(message: _21.QueryAPYResponse): _21.QueryAPYResponseAmino;
+            fromAminoMsg(object: _21.QueryAPYResponseAminoMsg): _21.QueryAPYResponse;
+            fromProtoMsg(message: _21.QueryAPYResponseProtoMsg): _21.QueryAPYResponse;
+            toProto(message: _21.QueryAPYResponse): Uint8Array;
+            toProtoMsg(message: _21.QueryAPYResponse): _21.QueryAPYResponseProtoMsg;
         };
         GenesisState: {
             typeUrl: string;
-            encode(message: _8.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-            fromJSON(object: any): _8.GenesisState;
-            fromPartial(object: Partial<_8.GenesisState>): _8.GenesisState;
-            fromAmino(object: _8.GenesisStateAmino): _8.GenesisState;
-            toAmino(message: _8.GenesisState): _8.GenesisStateAmino;
-            fromAminoMsg(object: _8.GenesisStateAminoMsg): _8.GenesisState;
-            fromProtoMsg(message: _8.GenesisStateProtoMsg): _8.GenesisState;
-            toProto(message: _8.GenesisState): Uint8Array;
-            toProtoMsg(message: _8.GenesisState): _8.GenesisStateProtoMsg;
+            encode(message: _20.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+            fromJSON(object: any): _20.GenesisState;
+            fromPartial(object: Partial<_20.GenesisState>): _20.GenesisState;
+            fromAmino(object: _20.GenesisStateAmino): _20.GenesisState;
+            toAmino(message: _20.GenesisState): _20.GenesisStateAmino;
+            fromAminoMsg(object: _20.GenesisStateAminoMsg): _20.GenesisState;
+            fromProtoMsg(message: _20.GenesisStateProtoMsg): _20.GenesisState;
+            toProto(message: _20.GenesisState): Uint8Array;
+            toProtoMsg(message: _20.GenesisState): _20.GenesisStateProtoMsg;
         };
         Params: {
             typeUrl: string;
-            encode(message: _8.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-            fromJSON(object: any): _8.Params;
-            fromPartial(object: Partial<_8.Params>): _8.Params;
-            fromAmino(object: _8.ParamsAmino): _8.Params;
-            toAmino(message: _8.Params): _8.ParamsAmino;
-            fromAminoMsg(object: _8.ParamsAminoMsg): _8.Params;
-            fromProtoMsg(message: _8.ParamsProtoMsg): _8.Params;
-            toProto(message: _8.Params): Uint8Array;
-            toProtoMsg(message: _8.Params): _8.ParamsProtoMsg;
+            encode(message: _20.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+            fromJSON(object: any): _20.Params;
+            fromPartial(object: Partial<_20.Params>): _20.Params;
+            fromAmino(object: _20.ParamsAmino): _20.Params;
+            toAmino(message: _20.Params): _20.ParamsAmino;
+            fromAminoMsg(object: _20.ParamsAminoMsg): _20.Params;
+            fromProtoMsg(message: _20.ParamsProtoMsg): _20.Params;
+            toProto(message: _20.Params): Uint8Array;
+            toProtoMsg(message: _20.Params): _20.ParamsProtoMsg;
         };
     };
     const ClientFactory: {
@@ -89,17 +89,27 @@ export declare namespace incentives {
         }) => Promise<{
             incentives: {
                 v1: {
-                    queryParams(request?: _9.QueryParamsRequest): Promise<_9.QueryParamsResponse>;
-                    queryAPY(request?: _9.QueryAPYRequest): Promise<_9.QueryAPYResponse>;
+                    queryParams(request?: _21.QueryParamsRequest): Promise<_21.QueryParamsResponse>;
+                    queryAPY(request?: _21.QueryAPYRequest): Promise<_21.QueryAPYResponse>;
                 };
             };
             cosmos: {
+                app: {
+                    v1alpha1: {
+                        config(request?: import("../cosmos/app/v1alpha1/query").QueryConfigRequest): Promise<import("../cosmos/app/v1alpha1/query").QueryConfigResponse>;
+                    };
+                };
                 auth: {
                     v1beta1: {
                         accounts(request?: import("../cosmos/auth/v1beta1/query").QueryAccountsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountsResponse>;
                         account(request: import("../cosmos/auth/v1beta1/query").QueryAccountRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountResponse>;
+                        accountAddressByID(request: import("../cosmos/auth/v1beta1/query").QueryAccountAddressByIDRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountAddressByIDResponse>;
                         params(request?: import("../cosmos/auth/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryParamsResponse>;
+                        moduleAccounts(request?: import("../cosmos/auth/v1beta1/query").QueryModuleAccountsRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryModuleAccountsResponse>;
                         moduleAccountByName(request: import("../cosmos/auth/v1beta1/query").QueryModuleAccountByNameRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryModuleAccountByNameResponse>;
+                        bech32Prefix(request?: import("../cosmos/auth/v1beta1/query").Bech32PrefixRequest): Promise<import("../cosmos/auth/v1beta1/query").Bech32PrefixResponse>;
+                        addressBytesToString(request: import("../cosmos/auth/v1beta1/query").AddressBytesToStringRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressBytesToStringResponse>;
+                        addressStringToBytes(request: import("../cosmos/auth/v1beta1/query").AddressStringToBytesRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressStringToBytesResponse>;
                     };
                 };
                 authz: {
@@ -119,6 +129,7 @@ export declare namespace incentives {
                         params(request?: import("../cosmos/bank/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryParamsResponse>;
                         denomMetadata(request: import("../cosmos/bank/v1beta1/query").QueryDenomMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomMetadataResponse>;
                         denomsMetadata(request?: import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataResponse>;
+                        denomOwners(request: import("../cosmos/bank/v1beta1/query").QueryDenomOwnersRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomOwnersResponse>;
                     };
                 };
                 base: {
@@ -135,6 +146,7 @@ export declare namespace incentives {
                             getBlockByHeight(request: import("../cosmos/base/tendermint/v1beta1/query").GetBlockByHeightRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetBlockByHeightResponse>;
                             getLatestValidatorSet(request?: import("../cosmos/base/tendermint/v1beta1/query").GetLatestValidatorSetRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetLatestValidatorSetResponse>;
                             getValidatorSetByHeight(request: import("../cosmos/base/tendermint/v1beta1/query").GetValidatorSetByHeightRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").GetValidatorSetByHeightResponse>;
+                            aBCIQuery(request: import("../cosmos/base/tendermint/v1beta1/query").ABCIQueryRequest): Promise<import("../cosmos/base/tendermint/v1beta1/query").ABCIQueryResponse>;
                         };
                     };
                 };
@@ -165,6 +177,16 @@ export declare namespace incentives {
                     };
                 };
                 gov: {
+                    v1: {
+                        proposal(request: import("../cosmos/gov/v1/query").QueryProposalRequest): Promise<import("../cosmos/gov/v1/query").QueryProposalResponse>;
+                        proposals(request: import("../cosmos/gov/v1/query").QueryProposalsRequest): Promise<import("../cosmos/gov/v1/query").QueryProposalsResponse>;
+                        vote(request: import("../cosmos/gov/v1/query").QueryVoteRequest): Promise<import("../cosmos/gov/v1/query").QueryVoteResponse>;
+                        votes(request: import("../cosmos/gov/v1/query").QueryVotesRequest): Promise<import("../cosmos/gov/v1/query").QueryVotesResponse>;
+                        params(request: import("../cosmos/gov/v1/query").QueryParamsRequest): Promise<import("../cosmos/gov/v1/query").QueryParamsResponse>;
+                        deposit(request: import("../cosmos/gov/v1/query").QueryDepositRequest): Promise<import("../cosmos/gov/v1/query").QueryDepositResponse>;
+                        deposits(request: import("../cosmos/gov/v1/query").QueryDepositsRequest): Promise<import("../cosmos/gov/v1/query").QueryDepositsResponse>;
+                        tallyResult(request: import("../cosmos/gov/v1/query").QueryTallyResultRequest): Promise<import("../cosmos/gov/v1/query").QueryTallyResultResponse>;
+                    };
                     v1beta1: {
                         proposal(request: import("../cosmos/gov/v1beta1/query").QueryProposalRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryProposalResponse>;
                         proposals(request: import("../cosmos/gov/v1beta1/query").QueryProposalsRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryProposalsResponse>;
@@ -176,6 +198,24 @@ export declare namespace incentives {
                         tallyResult(request: import("../cosmos/gov/v1beta1/query").QueryTallyResultRequest): Promise<import("../cosmos/gov/v1beta1/query").QueryTallyResultResponse>;
                     };
                 };
+                group: {
+                    v1: {
+                        groupInfo(request: import("../cosmos/group/v1/query").QueryGroupInfoRequest): Promise<import("../cosmos/group/v1/query").QueryGroupInfoResponse>;
+                        groupPolicyInfo(request: import("../cosmos/group/v1/query").QueryGroupPolicyInfoRequest): Promise<import("../cosmos/group/v1/query").QueryGroupPolicyInfoResponse>;
+                        groupMembers(request: import("../cosmos/group/v1/query").QueryGroupMembersRequest): Promise<import("../cosmos/group/v1/query").QueryGroupMembersResponse>;
+                        groupsByAdmin(request: import("../cosmos/group/v1/query").QueryGroupsByAdminRequest): Promise<import("../cosmos/group/v1/query").QueryGroupsByAdminResponse>;
+                        groupPoliciesByGroup(request: import("../cosmos/group/v1/query").QueryGroupPoliciesByGroupRequest): Promise<import("../cosmos/group/v1/query").QueryGroupPoliciesByGroupResponse>;
+                        groupPoliciesByAdmin(request: import("../cosmos/group/v1/query").QueryGroupPoliciesByAdminRequest): Promise<import("../cosmos/group/v1/query").QueryGroupPoliciesByAdminResponse>;
+                        proposal(request: import("../cosmos/group/v1/query").QueryProposalRequest): Promise<import("../cosmos/group/v1/query").QueryProposalResponse>;
+                        proposalsByGroupPolicy(request: import("../cosmos/group/v1/query").QueryProposalsByGroupPolicyRequest): Promise<import("../cosmos/group/v1/query").QueryProposalsByGroupPolicyResponse>;
+                        voteByProposalVoter(request: import("../cosmos/group/v1/query").QueryVoteByProposalVoterRequest): Promise<import("../cosmos/group/v1/query").QueryVoteByProposalVoterResponse>;
+                        votesByProposal(request: import("../cosmos/group/v1/query").QueryVotesByProposalRequest): Promise<import("../cosmos/group/v1/query").QueryVotesByProposalResponse>;
+                        votesByVoter(request: import("../cosmos/group/v1/query").QueryVotesByVoterRequest): Promise<import("../cosmos/group/v1/query").QueryVotesByVoterResponse>;
+                        groupsByMember(request: import("../cosmos/group/v1/query").QueryGroupsByMemberRequest): Promise<import("../cosmos/group/v1/query").QueryGroupsByMemberResponse>;
+                        tallyResult(request: import("../cosmos/group/v1/query").QueryTallyResultRequest): Promise<import("../cosmos/group/v1/query").QueryTallyResultResponse>;
+                        groups(request?: import("../cosmos/group/v1/query").QueryGroupsRequest): Promise<import("../cosmos/group/v1/query").QueryGroupsResponse>;
+                    };
+                };
                 mint: {
                     v1beta1: {
                         params(request?: import("../cosmos/mint/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/mint/v1beta1/query").QueryParamsResponse>;
@@ -183,9 +223,21 @@ export declare namespace incentives {
                         annualProvisions(request?: import("../cosmos/mint/v1beta1/query").QueryAnnualProvisionsRequest): Promise<import("../cosmos/mint/v1beta1/query").QueryAnnualProvisionsResponse>;
                     };
                 };
+                nft: {
+                    v1beta1: {
+                        balance(request: import("../cosmos/nft/v1beta1/query").QueryBalanceRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryBalanceResponse>;
+                        owner(request: import("../cosmos/nft/v1beta1/query").QueryOwnerRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryOwnerResponse>;
+                        supply(request: import("../cosmos/nft/v1beta1/query").QuerySupplyRequest): Promise<import("../cosmos/nft/v1beta1/query").QuerySupplyResponse>;
+                        nFTs(request: import("../cosmos/nft/v1beta1/query").QueryNFTsRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryNFTsResponse>;
+                        nFT(request: import("../cosmos/nft/v1beta1/query").QueryNFTRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryNFTResponse>;
+                        class(request: import("../cosmos/nft/v1beta1/query").QueryClassRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryClassResponse>;
+                        classes(request?: import("../cosmos/nft/v1beta1/query").QueryClassesRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryClassesResponse>;
+                    };
+                };
                 params: {
                     v1beta1: {
                         params(request: import("../cosmos/params/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/params/v1beta1/query").QueryParamsResponse>;
+                        subspaces(request?: import("../cosmos/params/v1beta1/query").QuerySubspacesRequest): Promise<import("../cosmos/params/v1beta1/query").QuerySubspacesResponse>;
                     };
                 };
                 slashing: {
@@ -228,6 +280,7 @@ export declare namespace incentives {
                         appliedPlan(request: import("../cosmos/upgrade/v1beta1/query").QueryAppliedPlanRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryAppliedPlanResponse>;
                         upgradedConsensusState(request: import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryUpgradedConsensusStateResponse>;
                         moduleVersions(request: import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryModuleVersionsResponse>;
+                        authority(request?: import("../cosmos/upgrade/v1beta1/query").QueryAuthorityRequest): Promise<import("../cosmos/upgrade/v1beta1/query").QueryAuthorityResponse>;
                     };
                 };
             };
@@ -236,7 +289,7 @@ export declare namespace incentives {
             restEndpoint: string;
         }) => Promise<{
             incentives: {
-                v1: _120.LCDQueryClient;
+                v1: _160.LCDQueryClient;
             };
             cosmos: {
                 auth: {
@@ -266,10 +319,17 @@ export declare namespace incentives {
                     v1beta1: import("../cosmos/feegrant/v1beta1/query.lcd").LCDQueryClient;
                 };
                 gov: {
+                    v1: import("../cosmos/gov/v1/query.lcd").LCDQueryClient;
                     v1beta1: import("../cosmos/gov/v1beta1/query.lcd").LCDQueryClient;
+                };
+                group: {
+                    v1: import("../cosmos/group/v1/query.lcd").LCDQueryClient;
                 };
                 mint: {
                     v1beta1: import("../cosmos/mint/v1beta1/query.lcd").LCDQueryClient;
+                };
+                nft: {
+                    v1beta1: import("../cosmos/nft/v1beta1/query.lcd").LCDQueryClient;
                 };
                 params: {
                     v1beta1: import("../cosmos/params/v1beta1/query.lcd").LCDQueryClient;

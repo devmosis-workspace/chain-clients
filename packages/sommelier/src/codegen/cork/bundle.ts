@@ -1,32 +1,32 @@
-import * as _3 from "./v1/cork";
-import * as _4 from "./v1/genesis";
-import * as _5 from "./v1/proposal";
-import * as _6 from "./v1/query";
-import * as _7 from "./v1/tx";
-import * as _115 from "./v1/tx.amino";
-import * as _116 from "./v1/tx.registry";
-import * as _117 from "./v1/query.lcd";
-import * as _118 from "./v1/query.rpc.Query";
-import * as _119 from "./v1/tx.rpc.msg";
-import * as _184 from "./lcd";
-import * as _185 from "./rpc.query";
-import * as _186 from "./rpc.tx";
+import * as _15 from "./v2/cork";
+import * as _16 from "./v2/genesis";
+import * as _17 from "./v2/proposal";
+import * as _18 from "./v2/query";
+import * as _19 from "./v2/tx";
+import * as _155 from "./v2/tx.amino";
+import * as _156 from "./v2/tx.registry";
+import * as _157 from "./v2/query.lcd";
+import * as _158 from "./v2/query.rpc.Query";
+import * as _159 from "./v2/tx.rpc.msg";
+import * as _254 from "./lcd";
+import * as _255 from "./rpc.query";
+import * as _256 from "./rpc.tx";
 export namespace cork {
-  export const v1 = {
-    ..._3,
-    ..._4,
-    ..._5,
-    ..._6,
-    ..._7,
-    ..._115,
-    ..._116,
-    ..._117,
-    ..._118,
-    ..._119
+  export const v2 = {
+    ..._15,
+    ..._16,
+    ..._17,
+    ..._18,
+    ..._19,
+    ..._155,
+    ..._156,
+    ..._157,
+    ..._158,
+    ..._159
   };
   export const ClientFactory = {
-    ..._184,
-    ..._185,
-    ..._186
+    ..._254,
+    ..._255,
+    ..._256
   };
 }

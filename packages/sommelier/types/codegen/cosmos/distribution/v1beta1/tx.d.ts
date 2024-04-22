@@ -17,8 +17,8 @@ export interface MsgSetWithdrawAddressProtoMsg {
  * a delegator (or validator self-delegation).
  */
 export interface MsgSetWithdrawAddressAmino {
-    delegator_address: string;
-    withdraw_address: string;
+    delegator_address?: string;
+    withdraw_address?: string;
 }
 export interface MsgSetWithdrawAddressAminoMsg {
     type: "cosmos-sdk/MsgModifyWithdrawAddress";
@@ -66,8 +66,8 @@ export interface MsgWithdrawDelegatorRewardProtoMsg {
  * from a single validator.
  */
 export interface MsgWithdrawDelegatorRewardAmino {
-    delegator_address: string;
-    validator_address: string;
+    delegator_address?: string;
+    validator_address?: string;
 }
 export interface MsgWithdrawDelegatorRewardAminoMsg {
     type: "cosmos-sdk/MsgWithdrawDelegationReward";
@@ -83,6 +83,8 @@ export interface MsgWithdrawDelegatorRewardSDKType {
 }
 /** MsgWithdrawDelegatorRewardResponse defines the Msg/WithdrawDelegatorReward response type. */
 export interface MsgWithdrawDelegatorRewardResponse {
+    /** Since: cosmos-sdk 0.46 */
+    amount: Coin[];
 }
 export interface MsgWithdrawDelegatorRewardResponseProtoMsg {
     typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorRewardResponse";
@@ -90,6 +92,8 @@ export interface MsgWithdrawDelegatorRewardResponseProtoMsg {
 }
 /** MsgWithdrawDelegatorRewardResponse defines the Msg/WithdrawDelegatorReward response type. */
 export interface MsgWithdrawDelegatorRewardResponseAmino {
+    /** Since: cosmos-sdk 0.46 */
+    amount?: CoinAmino[];
 }
 export interface MsgWithdrawDelegatorRewardResponseAminoMsg {
     type: "cosmos-sdk/MsgWithdrawDelegatorRewardResponse";
@@ -97,6 +101,7 @@ export interface MsgWithdrawDelegatorRewardResponseAminoMsg {
 }
 /** MsgWithdrawDelegatorRewardResponse defines the Msg/WithdrawDelegatorReward response type. */
 export interface MsgWithdrawDelegatorRewardResponseSDKType {
+    amount: CoinSDKType[];
 }
 /**
  * MsgWithdrawValidatorCommission withdraws the full commission to the validator
@@ -114,7 +119,7 @@ export interface MsgWithdrawValidatorCommissionProtoMsg {
  * address.
  */
 export interface MsgWithdrawValidatorCommissionAmino {
-    validator_address: string;
+    validator_address?: string;
 }
 export interface MsgWithdrawValidatorCommissionAminoMsg {
     type: "cosmos-sdk/MsgWithdrawValidatorCommission";
@@ -129,6 +134,8 @@ export interface MsgWithdrawValidatorCommissionSDKType {
 }
 /** MsgWithdrawValidatorCommissionResponse defines the Msg/WithdrawValidatorCommission response type. */
 export interface MsgWithdrawValidatorCommissionResponse {
+    /** Since: cosmos-sdk 0.46 */
+    amount: Coin[];
 }
 export interface MsgWithdrawValidatorCommissionResponseProtoMsg {
     typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommissionResponse";
@@ -136,6 +143,8 @@ export interface MsgWithdrawValidatorCommissionResponseProtoMsg {
 }
 /** MsgWithdrawValidatorCommissionResponse defines the Msg/WithdrawValidatorCommission response type. */
 export interface MsgWithdrawValidatorCommissionResponseAmino {
+    /** Since: cosmos-sdk 0.46 */
+    amount?: CoinAmino[];
 }
 export interface MsgWithdrawValidatorCommissionResponseAminoMsg {
     type: "cosmos-sdk/MsgWithdrawValidatorCommissionResponse";
@@ -143,6 +152,7 @@ export interface MsgWithdrawValidatorCommissionResponseAminoMsg {
 }
 /** MsgWithdrawValidatorCommissionResponse defines the Msg/WithdrawValidatorCommission response type. */
 export interface MsgWithdrawValidatorCommissionResponseSDKType {
+    amount: CoinSDKType[];
 }
 /**
  * MsgFundCommunityPool allows an account to directly
@@ -161,8 +171,8 @@ export interface MsgFundCommunityPoolProtoMsg {
  * fund the community pool.
  */
 export interface MsgFundCommunityPoolAmino {
-    amount: CoinAmino[];
-    depositor: string;
+    amount?: CoinAmino[];
+    depositor?: string;
 }
 export interface MsgFundCommunityPoolAminoMsg {
     type: "cosmos-sdk/MsgFundCommunityPool";
@@ -234,11 +244,11 @@ export declare const MsgWithdrawDelegatorReward: {
 };
 export declare const MsgWithdrawDelegatorRewardResponse: {
     typeUrl: string;
-    encode(_: MsgWithdrawDelegatorRewardResponse, writer?: BinaryWriter): BinaryWriter;
-    fromJSON(_: any): MsgWithdrawDelegatorRewardResponse;
-    fromPartial(_: Partial<MsgWithdrawDelegatorRewardResponse>): MsgWithdrawDelegatorRewardResponse;
-    fromAmino(_: MsgWithdrawDelegatorRewardResponseAmino): MsgWithdrawDelegatorRewardResponse;
-    toAmino(_: MsgWithdrawDelegatorRewardResponse): MsgWithdrawDelegatorRewardResponseAmino;
+    encode(message: MsgWithdrawDelegatorRewardResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgWithdrawDelegatorRewardResponse;
+    fromPartial(object: Partial<MsgWithdrawDelegatorRewardResponse>): MsgWithdrawDelegatorRewardResponse;
+    fromAmino(object: MsgWithdrawDelegatorRewardResponseAmino): MsgWithdrawDelegatorRewardResponse;
+    toAmino(message: MsgWithdrawDelegatorRewardResponse): MsgWithdrawDelegatorRewardResponseAmino;
     fromAminoMsg(object: MsgWithdrawDelegatorRewardResponseAminoMsg): MsgWithdrawDelegatorRewardResponse;
     toAminoMsg(message: MsgWithdrawDelegatorRewardResponse): MsgWithdrawDelegatorRewardResponseAminoMsg;
     fromProtoMsg(message: MsgWithdrawDelegatorRewardResponseProtoMsg): MsgWithdrawDelegatorRewardResponse;
@@ -260,11 +270,11 @@ export declare const MsgWithdrawValidatorCommission: {
 };
 export declare const MsgWithdrawValidatorCommissionResponse: {
     typeUrl: string;
-    encode(_: MsgWithdrawValidatorCommissionResponse, writer?: BinaryWriter): BinaryWriter;
-    fromJSON(_: any): MsgWithdrawValidatorCommissionResponse;
-    fromPartial(_: Partial<MsgWithdrawValidatorCommissionResponse>): MsgWithdrawValidatorCommissionResponse;
-    fromAmino(_: MsgWithdrawValidatorCommissionResponseAmino): MsgWithdrawValidatorCommissionResponse;
-    toAmino(_: MsgWithdrawValidatorCommissionResponse): MsgWithdrawValidatorCommissionResponseAmino;
+    encode(message: MsgWithdrawValidatorCommissionResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgWithdrawValidatorCommissionResponse;
+    fromPartial(object: Partial<MsgWithdrawValidatorCommissionResponse>): MsgWithdrawValidatorCommissionResponse;
+    fromAmino(object: MsgWithdrawValidatorCommissionResponseAmino): MsgWithdrawValidatorCommissionResponse;
+    toAmino(message: MsgWithdrawValidatorCommissionResponse): MsgWithdrawValidatorCommissionResponseAmino;
     fromAminoMsg(object: MsgWithdrawValidatorCommissionResponseAminoMsg): MsgWithdrawValidatorCommissionResponse;
     toAminoMsg(message: MsgWithdrawValidatorCommissionResponse): MsgWithdrawValidatorCommissionResponseAminoMsg;
     fromProtoMsg(message: MsgWithdrawValidatorCommissionResponseProtoMsg): MsgWithdrawValidatorCommissionResponse;

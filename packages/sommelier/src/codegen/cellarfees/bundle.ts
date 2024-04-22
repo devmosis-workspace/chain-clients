@@ -1,20 +1,22 @@
-import * as _0 from "./v1/genesis";
-import * as _1 from "./v1/params";
-import * as _2 from "./v1/query";
-import * as _113 from "./v1/query.lcd";
-import * as _114 from "./v1/query.rpc.Query";
-import * as _182 from "./lcd";
-import * as _183 from "./rpc.query";
+import * as _11 from "./v1/cellarfees";
+import * as _12 from "./v1/genesis";
+import * as _13 from "./v1/params";
+import * as _14 from "./v1/query";
+import * as _153 from "./v1/query.lcd";
+import * as _154 from "./v1/query.rpc.Query";
+import * as _252 from "./lcd";
+import * as _253 from "./rpc.query";
 export namespace cellarfees {
   export const v1 = {
-    ..._0,
-    ..._1,
-    ..._2,
-    ..._113,
-    ..._114
+    ..._11,
+    ..._12,
+    ..._13,
+    ..._14,
+    ..._153,
+    ..._154
   };
   export const ClientFactory = {
-    ..._182,
-    ..._183
+    ..._252,
+    ..._253
   };
 }

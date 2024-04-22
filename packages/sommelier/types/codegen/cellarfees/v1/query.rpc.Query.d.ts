@@ -1,17 +1,26 @@
 import { Rpc } from "../../helpers";
 import { QueryClient } from "@cosmjs/stargate";
-import { QueryParamsRequest, QueryParamsResponse, QueryModuleAccountsRequest, QueryModuleAccountsResponse } from "./query";
+import { QueryParamsRequest, QueryParamsResponse, QueryModuleAccountsRequest, QueryModuleAccountsResponse, QueryLastRewardSupplyPeakRequest, QueryLastRewardSupplyPeakResponse, QueryFeeAccrualCountersRequest, QueryFeeAccrualCountersResponse, QueryAPYRequest, QueryAPYResponse } from "./query";
 export interface Query {
-    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-    moduleAccounts(request?: QueryModuleAccountsRequest): Promise<QueryModuleAccountsResponse>;
+    queryParams(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    queryModuleAccounts(request?: QueryModuleAccountsRequest): Promise<QueryModuleAccountsResponse>;
+    queryLastRewardSupplyPeak(request?: QueryLastRewardSupplyPeakRequest): Promise<QueryLastRewardSupplyPeakResponse>;
+    queryFeeAccrualCounters(request?: QueryFeeAccrualCountersRequest): Promise<QueryFeeAccrualCountersResponse>;
+    queryAPY(request?: QueryAPYRequest): Promise<QueryAPYResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
-    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-    moduleAccounts(request?: QueryModuleAccountsRequest): Promise<QueryModuleAccountsResponse>;
+    queryParams(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    queryModuleAccounts(request?: QueryModuleAccountsRequest): Promise<QueryModuleAccountsResponse>;
+    queryLastRewardSupplyPeak(request?: QueryLastRewardSupplyPeakRequest): Promise<QueryLastRewardSupplyPeakResponse>;
+    queryFeeAccrualCounters(request?: QueryFeeAccrualCountersRequest): Promise<QueryFeeAccrualCountersResponse>;
+    queryAPY(request?: QueryAPYRequest): Promise<QueryAPYResponse>;
 }
 export declare const createRpcQueryExtension: (base: QueryClient) => {
-    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-    moduleAccounts(request?: QueryModuleAccountsRequest): Promise<QueryModuleAccountsResponse>;
+    queryParams(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    queryModuleAccounts(request?: QueryModuleAccountsRequest): Promise<QueryModuleAccountsResponse>;
+    queryLastRewardSupplyPeak(request?: QueryLastRewardSupplyPeakRequest): Promise<QueryLastRewardSupplyPeakResponse>;
+    queryFeeAccrualCounters(request?: QueryFeeAccrualCountersRequest): Promise<QueryFeeAccrualCountersResponse>;
+    queryAPY(request?: QueryAPYRequest): Promise<QueryAPYResponse>;
 };

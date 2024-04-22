@@ -39,7 +39,7 @@ export interface ParamsAmino {
      * IncentivesCutoffHeight defines the block height after which the incentives module will stop sending coins to the distribution module from
      * the community pool
      */
-    incentives_cutoff_height: string;
+    incentives_cutoff_height?: string;
 }
 export interface ParamsAminoMsg {
     type: "/incentives.v1.Params";

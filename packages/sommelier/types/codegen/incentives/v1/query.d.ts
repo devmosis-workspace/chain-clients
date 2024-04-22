@@ -66,7 +66,7 @@ export interface QueryAPYResponseProtoMsg {
 }
 /** QueryAPYRequest is the response type for the QueryAPY gRPC method. */
 export interface QueryAPYResponseAmino {
-    apy: string;
+    apy?: string;
 }
 export interface QueryAPYResponseAminoMsg {
     type: "/incentives.v1.QueryAPYResponse";

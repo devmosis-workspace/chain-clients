@@ -6,7 +6,7 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
  */
 export interface MsgSubmitEvidence {
     submitter: string;
-    evidence: (Any) | undefined;
+    evidence?: (Any) | undefined;
 }
 export interface MsgSubmitEvidenceProtoMsg {
     typeUrl: "/cosmos.evidence.v1beta1.MsgSubmitEvidence";
@@ -20,7 +20,7 @@ export type MsgSubmitEvidenceEncoded = Omit<MsgSubmitEvidence, "evidence"> & {
  * Evidence of misbehavior such as equivocation or counterfactual signing.
  */
 export interface MsgSubmitEvidenceAmino {
-    submitter: string;
+    submitter?: string;
     evidence?: AnyAmino;
 }
 export interface MsgSubmitEvidenceAminoMsg {
@@ -33,7 +33,7 @@ export interface MsgSubmitEvidenceAminoMsg {
  */
 export interface MsgSubmitEvidenceSDKType {
     submitter: string;
-    evidence: AnySDKType | undefined;
+    evidence?: AnySDKType | undefined;
 }
 /** MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type. */
 export interface MsgSubmitEvidenceResponse {
@@ -47,7 +47,7 @@ export interface MsgSubmitEvidenceResponseProtoMsg {
 /** MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type. */
 export interface MsgSubmitEvidenceResponseAmino {
     /** hash defines the hash of the evidence. */
-    hash: Uint8Array;
+    hash?: string;
 }
 export interface MsgSubmitEvidenceResponseAminoMsg {
     type: "cosmos-sdk/MsgSubmitEvidenceResponse";

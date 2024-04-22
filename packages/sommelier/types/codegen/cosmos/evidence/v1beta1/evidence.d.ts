@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /**
  * Equivocation implements the Evidence interface and defines evidence of double
@@ -19,10 +19,10 @@ export interface EquivocationProtoMsg {
  * signing misbehavior.
  */
 export interface EquivocationAmino {
-    height: string;
-    time?: TimestampAmino;
-    power: string;
-    consensus_address: string;
+    height?: string;
+    time?: string;
+    power?: string;
+    consensus_address?: string;
 }
 export interface EquivocationAminoMsg {
     type: "cosmos-sdk/Equivocation";

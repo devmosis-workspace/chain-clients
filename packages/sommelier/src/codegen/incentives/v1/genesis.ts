@@ -40,7 +40,7 @@ export interface ParamsAmino {
    * IncentivesCutoffHeight defines the block height after which the incentives module will stop sending coins to the distribution module from
    * the community pool
    */
-  incentives_cutoff_height: string;
+  incentives_cutoff_height?: string;
 }
 export interface ParamsAminoMsg {
   type: "/incentives.v1.Params";
@@ -75,9 +75,11 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -130,10 +132,14 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      distributionPerBlock: object?.distribution_per_block ? Coin.fromAmino(object.distribution_per_block) : undefined,
-      incentivesCutoffHeight: BigInt(object.incentives_cutoff_height)
-    };
+    const message = createBaseParams();
+    if (object.distribution_per_block !== undefined && object.distribution_per_block !== null) {
+      message.distributionPerBlock = Coin.fromAmino(object.distribution_per_block);
+    }
+    if (object.incentives_cutoff_height !== undefined && object.incentives_cutoff_height !== null) {
+      message.incentivesCutoffHeight = BigInt(object.incentives_cutoff_height);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

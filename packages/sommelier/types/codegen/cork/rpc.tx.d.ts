@@ -3,7 +3,7 @@ export declare const createRPCMsgClient: ({ rpc }: {
     rpc: Rpc;
 }) => Promise<{
     cork: {
-        v1: import("./v1/tx.rpc.msg").MsgClientImpl;
+        v2: import("./v2/tx.rpc.msg").MsgClientImpl;
     };
     cosmos: {
         authz: {
@@ -25,13 +25,23 @@ export declare const createRPCMsgClient: ({ rpc }: {
             v1beta1: import("../cosmos/feegrant/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
         gov: {
+            v1: import("../cosmos/gov/v1/tx.rpc.msg").MsgClientImpl;
             v1beta1: import("../cosmos/gov/v1beta1/tx.rpc.msg").MsgClientImpl;
+        };
+        group: {
+            v1: import("../cosmos/group/v1/tx.rpc.msg").MsgClientImpl;
+        };
+        nft: {
+            v1beta1: import("../cosmos/nft/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
         slashing: {
             v1beta1: import("../cosmos/slashing/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
         staking: {
             v1beta1: import("../cosmos/staking/v1beta1/tx.rpc.msg").MsgClientImpl;
+        };
+        upgrade: {
+            v1beta1: import("../cosmos/upgrade/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
         vesting: {
             v1beta1: import("../cosmos/vesting/v1beta1/tx.rpc.msg").MsgClientImpl;

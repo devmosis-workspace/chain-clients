@@ -61,7 +61,7 @@ export interface QueryAPYResponseProtoMsg {
 }
 /** QueryAPYRequest is the response type for the QueryAPY gRPC method. */
 export interface QueryAPYResponseAmino {
-  apy: string;
+  apy?: string;
 }
 export interface QueryAPYResponseAminoMsg {
   type: "/incentives.v1.QueryAPYResponse";
@@ -87,7 +87,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -133,9 +134,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -174,7 +177,8 @@ export const QueryAPYRequest = {
     return message;
   },
   fromAmino(_: QueryAPYRequestAmino): QueryAPYRequest {
-    return {};
+    const message = createBaseQueryAPYRequest();
+    return message;
   },
   toAmino(_: QueryAPYRequest): QueryAPYRequestAmino {
     const obj: any = {};
@@ -220,9 +224,11 @@ export const QueryAPYResponse = {
     return message;
   },
   fromAmino(object: QueryAPYResponseAmino): QueryAPYResponse {
-    return {
-      apy: object.apy
-    };
+    const message = createBaseQueryAPYResponse();
+    if (object.apy !== undefined && object.apy !== null) {
+      message.apy = object.apy;
+    }
+    return message;
   },
   toAmino(message: QueryAPYResponse): QueryAPYResponseAmino {
     const obj: any = {};

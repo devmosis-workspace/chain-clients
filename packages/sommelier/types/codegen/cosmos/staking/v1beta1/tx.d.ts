@@ -1,8 +1,9 @@
 import { Description, DescriptionAmino, DescriptionSDKType, CommissionRates, CommissionRatesAmino, CommissionRatesSDKType } from "./staking";
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { Coin, CoinAmino, CoinSDKType } from "../../base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Pubkey } from "@cosmjs/amino";
 /** MsgCreateValidator defines a SDK message for creating a new validator. */
 export interface MsgCreateValidator {
     description: Description;
@@ -10,7 +11,7 @@ export interface MsgCreateValidator {
     minSelfDelegation: string;
     delegatorAddress: string;
     validatorAddress: string;
-    pubkey: (Any) | undefined;
+    pubkey?: (Any) | undefined;
     value: Coin;
 }
 export interface MsgCreateValidatorProtoMsg {
@@ -24,9 +25,9 @@ export type MsgCreateValidatorEncoded = Omit<MsgCreateValidator, "pubkey"> & {
 export interface MsgCreateValidatorAmino {
     description?: DescriptionAmino;
     commission?: CommissionRatesAmino;
-    min_self_delegation: string;
-    delegator_address: string;
-    validator_address: string;
+    min_self_delegation?: string;
+    delegator_address?: string;
+    validator_address?: string;
     pubkey?: AnyAmino;
     value?: CoinAmino;
 }
@@ -41,7 +42,7 @@ export interface MsgCreateValidatorSDKType {
     min_self_delegation: string;
     delegator_address: string;
     validator_address: string;
-    pubkey: AnySDKType | undefined;
+    pubkey?: AnySDKType | undefined;
     value: CoinSDKType;
 }
 /** MsgCreateValidatorResponse defines the Msg/CreateValidator response type. */
@@ -81,15 +82,15 @@ export interface MsgEditValidatorProtoMsg {
 /** MsgEditValidator defines a SDK message for editing an existing validator. */
 export interface MsgEditValidatorAmino {
     description?: DescriptionAmino;
-    validator_address: string;
+    validator_address?: string;
     /**
      * We pass a reference to the new commission rate and min self delegation as
      * it's not mandatory to update. If not updated, the deserialized rate will be
      * zero with no way to distinguish if an update was intended.
      * REF: #2373
      */
-    commission_rate: string;
-    min_self_delegation: string;
+    commission_rate?: string;
+    min_self_delegation?: string;
 }
 export interface MsgEditValidatorAminoMsg {
     type: "cosmos-sdk/MsgEditValidator";
@@ -137,8 +138,8 @@ export interface MsgDelegateProtoMsg {
  * from a delegator to a validator.
  */
 export interface MsgDelegateAmino {
-    delegator_address: string;
-    validator_address: string;
+    delegator_address?: string;
+    validator_address?: string;
     amount?: CoinAmino;
 }
 export interface MsgDelegateAminoMsg {
@@ -190,9 +191,9 @@ export interface MsgBeginRedelegateProtoMsg {
  * of coins from a delegator and source validator to a destination validator.
  */
 export interface MsgBeginRedelegateAmino {
-    delegator_address: string;
-    validator_src_address: string;
-    validator_dst_address: string;
+    delegator_address?: string;
+    validator_src_address?: string;
+    validator_dst_address?: string;
     amount?: CoinAmino;
 }
 export interface MsgBeginRedelegateAminoMsg {
@@ -219,7 +220,7 @@ export interface MsgBeginRedelegateResponseProtoMsg {
 }
 /** MsgBeginRedelegateResponse defines the Msg/BeginRedelegate response type. */
 export interface MsgBeginRedelegateResponseAmino {
-    completion_time?: TimestampAmino;
+    completion_time?: string;
 }
 export interface MsgBeginRedelegateResponseAminoMsg {
     type: "cosmos-sdk/MsgBeginRedelegateResponse";
@@ -247,8 +248,8 @@ export interface MsgUndelegateProtoMsg {
  * delegate and a validator.
  */
 export interface MsgUndelegateAmino {
-    delegator_address: string;
-    validator_address: string;
+    delegator_address?: string;
+    validator_address?: string;
     amount?: CoinAmino;
 }
 export interface MsgUndelegateAminoMsg {
@@ -274,7 +275,7 @@ export interface MsgUndelegateResponseProtoMsg {
 }
 /** MsgUndelegateResponse defines the Msg/Undelegate response type. */
 export interface MsgUndelegateResponseAmino {
-    completion_time?: TimestampAmino;
+    completion_time?: string;
 }
 export interface MsgUndelegateResponseAminoMsg {
     type: "cosmos-sdk/MsgUndelegateResponse";
@@ -283,6 +284,80 @@ export interface MsgUndelegateResponseAminoMsg {
 /** MsgUndelegateResponse defines the Msg/Undelegate response type. */
 export interface MsgUndelegateResponseSDKType {
     completion_time: TimestampSDKType;
+}
+/**
+ * MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCancelUnbondingDelegation {
+    delegatorAddress: string;
+    validatorAddress: string;
+    /** amount is always less than or equal to unbonding delegation entry balance */
+    amount: Coin;
+    /** creation_height is the height which the unbonding took place. */
+    creationHeight: bigint;
+}
+export interface MsgCancelUnbondingDelegationProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation";
+    value: Uint8Array;
+}
+/**
+ * MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCancelUnbondingDelegationAmino {
+    delegator_address?: string;
+    validator_address?: string;
+    /** amount is always less than or equal to unbonding delegation entry balance */
+    amount?: CoinAmino;
+    /** creation_height is the height which the unbonding took place. */
+    creation_height?: string;
+}
+export interface MsgCancelUnbondingDelegationAminoMsg {
+    type: "cosmos-sdk/MsgCancelUnbondingDelegation";
+    value: MsgCancelUnbondingDelegationAmino;
+}
+/**
+ * MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCancelUnbondingDelegationSDKType {
+    delegator_address: string;
+    validator_address: string;
+    amount: CoinSDKType;
+    creation_height: bigint;
+}
+/**
+ * MsgCancelUnbondingDelegationResponse
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCancelUnbondingDelegationResponse {
+}
+export interface MsgCancelUnbondingDelegationResponseProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegationResponse";
+    value: Uint8Array;
+}
+/**
+ * MsgCancelUnbondingDelegationResponse
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCancelUnbondingDelegationResponseAmino {
+}
+export interface MsgCancelUnbondingDelegationResponseAminoMsg {
+    type: "cosmos-sdk/MsgCancelUnbondingDelegationResponse";
+    value: MsgCancelUnbondingDelegationResponseAmino;
+}
+/**
+ * MsgCancelUnbondingDelegationResponse
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface MsgCancelUnbondingDelegationResponseSDKType {
 }
 export declare const MsgCreateValidator: {
     typeUrl: string;
@@ -414,6 +489,32 @@ export declare const MsgUndelegateResponse: {
     toProto(message: MsgUndelegateResponse): Uint8Array;
     toProtoMsg(message: MsgUndelegateResponse): MsgUndelegateResponseProtoMsg;
 };
+export declare const MsgCancelUnbondingDelegation: {
+    typeUrl: string;
+    encode(message: MsgCancelUnbondingDelegation, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgCancelUnbondingDelegation;
+    fromPartial(object: Partial<MsgCancelUnbondingDelegation>): MsgCancelUnbondingDelegation;
+    fromAmino(object: MsgCancelUnbondingDelegationAmino): MsgCancelUnbondingDelegation;
+    toAmino(message: MsgCancelUnbondingDelegation): MsgCancelUnbondingDelegationAmino;
+    fromAminoMsg(object: MsgCancelUnbondingDelegationAminoMsg): MsgCancelUnbondingDelegation;
+    toAminoMsg(message: MsgCancelUnbondingDelegation): MsgCancelUnbondingDelegationAminoMsg;
+    fromProtoMsg(message: MsgCancelUnbondingDelegationProtoMsg): MsgCancelUnbondingDelegation;
+    toProto(message: MsgCancelUnbondingDelegation): Uint8Array;
+    toProtoMsg(message: MsgCancelUnbondingDelegation): MsgCancelUnbondingDelegationProtoMsg;
+};
+export declare const MsgCancelUnbondingDelegationResponse: {
+    typeUrl: string;
+    encode(_: MsgCancelUnbondingDelegationResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgCancelUnbondingDelegationResponse;
+    fromPartial(_: Partial<MsgCancelUnbondingDelegationResponse>): MsgCancelUnbondingDelegationResponse;
+    fromAmino(_: MsgCancelUnbondingDelegationResponseAmino): MsgCancelUnbondingDelegationResponse;
+    toAmino(_: MsgCancelUnbondingDelegationResponse): MsgCancelUnbondingDelegationResponseAmino;
+    fromAminoMsg(object: MsgCancelUnbondingDelegationResponseAminoMsg): MsgCancelUnbondingDelegationResponse;
+    toAminoMsg(message: MsgCancelUnbondingDelegationResponse): MsgCancelUnbondingDelegationResponseAminoMsg;
+    fromProtoMsg(message: MsgCancelUnbondingDelegationResponseProtoMsg): MsgCancelUnbondingDelegationResponse;
+    toProto(message: MsgCancelUnbondingDelegationResponse): Uint8Array;
+    toProtoMsg(message: MsgCancelUnbondingDelegationResponse): MsgCancelUnbondingDelegationResponseProtoMsg;
+};
 export declare const Cosmos_cryptoPubKey_InterfaceDecoder: (input: BinaryReader | Uint8Array) => Any;
 export declare const Cosmos_cryptoPubKey_FromAmino: (content: AnyAmino) => import("cosmjs-types/google/protobuf/any").Any;
-export declare const Cosmos_cryptoPubKey_ToAmino: (content: Any) => import("@cosmjs/amino").Pubkey;
+export declare const Cosmos_cryptoPubKey_ToAmino: (content: Any) => Pubkey | null;
