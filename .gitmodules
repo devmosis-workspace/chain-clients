@@ -265,3 +265,9 @@
 [submodule "packages/akash/akash-api"]
 	path = packages/akash/akash-api
 	url = https://github.com/akash-network/akash-api
+[submodule "packages/chihuahua/cosmos-sdk"]
+	path = packages/chihuahua/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/chihuahua/chihuahua"]
+	path = packages/chihuahua/chihuahua
+	url = https://github.com/ChihuahuaChain/chihuahua

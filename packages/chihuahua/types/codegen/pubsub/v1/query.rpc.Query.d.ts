@@ -1,0 +1,62 @@
+import { Rpc } from "../../helpers";
+import { QueryClient } from "@cosmjs/stargate";
+import { QueryParamsRequest, QueryParamsResponse, QueryPublisherRequest, QueryPublisherResponse, QueryPublishersRequest, QueryPublishersResponse, QuerySubscriberRequest, QuerySubscriberResponse, QuerySubscribersRequest, QuerySubscribersResponse, QueryValidatorSubscribersRequest, QueryValidatorSubscribersResponse, QueryPublisherIntentRequest, QueryPublisherIntentResponse, QueryPublisherIntentsRequest, QueryPublisherIntentsResponse, QueryPublisherIntentsByPublisherDomainRequest, QueryPublisherIntentsByPublisherDomainResponse, QueryPublisherIntentsBySubscriptionIDRequest, QueryPublisherIntentsBySubscriptionIDResponse, QuerySubscriberIntentRequest, QuerySubscriberIntentResponse, QuerySubscriberIntentsRequest, QuerySubscriberIntentsResponse, QuerySubscriberIntentsBySubscriberAddressRequest, QuerySubscriberIntentsBySubscriberAddressResponse, QuerySubscriberIntentsBySubscriptionIDRequest, QuerySubscriberIntentsBySubscriptionIDResponse, QuerySubscriberIntentsByPublisherDomainRequest, QuerySubscriberIntentsByPublisherDomainResponse, QueryDefaultSubscriptionRequest, QueryDefaultSubscriptionResponse, QueryDefaultSubscriptionsRequest, QueryDefaultSubscriptionsResponse } from "./query";
+export interface Query {
+    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    queryPublisher(request: QueryPublisherRequest): Promise<QueryPublisherResponse>;
+    queryPublishers(request?: QueryPublishersRequest): Promise<QueryPublishersResponse>;
+    querySubscriber(request: QuerySubscriberRequest): Promise<QuerySubscriberResponse>;
+    querySubscribers(request?: QuerySubscribersRequest): Promise<QuerySubscribersResponse>;
+    queryValidatorSubscribers(request?: QueryValidatorSubscribersRequest): Promise<QueryValidatorSubscribersResponse>;
+    queryPublisherIntent(request: QueryPublisherIntentRequest): Promise<QueryPublisherIntentResponse>;
+    queryPublisherIntents(request?: QueryPublisherIntentsRequest): Promise<QueryPublisherIntentsResponse>;
+    queryPublisherIntentsByPublisherDomain(request: QueryPublisherIntentsByPublisherDomainRequest): Promise<QueryPublisherIntentsByPublisherDomainResponse>;
+    queryPublisherIntentsBySubscriptionID(request: QueryPublisherIntentsBySubscriptionIDRequest): Promise<QueryPublisherIntentsBySubscriptionIDResponse>;
+    querySubscriberIntent(request: QuerySubscriberIntentRequest): Promise<QuerySubscriberIntentResponse>;
+    querySubscriberIntents(request?: QuerySubscriberIntentsRequest): Promise<QuerySubscriberIntentsResponse>;
+    querySubscriberIntentsBySubscriberAddress(request: QuerySubscriberIntentsBySubscriberAddressRequest): Promise<QuerySubscriberIntentsBySubscriberAddressResponse>;
+    querySubscriberIntentsBySubscriptionID(request: QuerySubscriberIntentsBySubscriptionIDRequest): Promise<QuerySubscriberIntentsBySubscriptionIDResponse>;
+    querySubscriberIntentsByPublisherDomain(request: QuerySubscriberIntentsByPublisherDomainRequest): Promise<QuerySubscriberIntentsByPublisherDomainResponse>;
+    queryDefaultSubscription(request: QueryDefaultSubscriptionRequest): Promise<QueryDefaultSubscriptionResponse>;
+    queryDefaultSubscriptions(request?: QueryDefaultSubscriptionsRequest): Promise<QueryDefaultSubscriptionsResponse>;
+}
+export declare class QueryClientImpl implements Query {
+    private readonly rpc;
+    constructor(rpc: Rpc);
+    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    queryPublisher(request: QueryPublisherRequest): Promise<QueryPublisherResponse>;
+    queryPublishers(request?: QueryPublishersRequest): Promise<QueryPublishersResponse>;
+    querySubscriber(request: QuerySubscriberRequest): Promise<QuerySubscriberResponse>;
+    querySubscribers(request?: QuerySubscribersRequest): Promise<QuerySubscribersResponse>;
+    queryValidatorSubscribers(request?: QueryValidatorSubscribersRequest): Promise<QueryValidatorSubscribersResponse>;
+    queryPublisherIntent(request: QueryPublisherIntentRequest): Promise<QueryPublisherIntentResponse>;
+    queryPublisherIntents(request?: QueryPublisherIntentsRequest): Promise<QueryPublisherIntentsResponse>;
+    queryPublisherIntentsByPublisherDomain(request: QueryPublisherIntentsByPublisherDomainRequest): Promise<QueryPublisherIntentsByPublisherDomainResponse>;
+    queryPublisherIntentsBySubscriptionID(request: QueryPublisherIntentsBySubscriptionIDRequest): Promise<QueryPublisherIntentsBySubscriptionIDResponse>;
+    querySubscriberIntent(request: QuerySubscriberIntentRequest): Promise<QuerySubscriberIntentResponse>;
+    querySubscriberIntents(request?: QuerySubscriberIntentsRequest): Promise<QuerySubscriberIntentsResponse>;
+    querySubscriberIntentsBySubscriberAddress(request: QuerySubscriberIntentsBySubscriberAddressRequest): Promise<QuerySubscriberIntentsBySubscriberAddressResponse>;
+    querySubscriberIntentsBySubscriptionID(request: QuerySubscriberIntentsBySubscriptionIDRequest): Promise<QuerySubscriberIntentsBySubscriptionIDResponse>;
+    querySubscriberIntentsByPublisherDomain(request: QuerySubscriberIntentsByPublisherDomainRequest): Promise<QuerySubscriberIntentsByPublisherDomainResponse>;
+    queryDefaultSubscription(request: QueryDefaultSubscriptionRequest): Promise<QueryDefaultSubscriptionResponse>;
+    queryDefaultSubscriptions(request?: QueryDefaultSubscriptionsRequest): Promise<QueryDefaultSubscriptionsResponse>;
+}
+export declare const createRpcQueryExtension: (base: QueryClient) => {
+    params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+    queryPublisher(request: QueryPublisherRequest): Promise<QueryPublisherResponse>;
+    queryPublishers(request?: QueryPublishersRequest): Promise<QueryPublishersResponse>;
+    querySubscriber(request: QuerySubscriberRequest): Promise<QuerySubscriberResponse>;
+    querySubscribers(request?: QuerySubscribersRequest): Promise<QuerySubscribersResponse>;
+    queryValidatorSubscribers(request?: QueryValidatorSubscribersRequest): Promise<QueryValidatorSubscribersResponse>;
+    queryPublisherIntent(request: QueryPublisherIntentRequest): Promise<QueryPublisherIntentResponse>;
+    queryPublisherIntents(request?: QueryPublisherIntentsRequest): Promise<QueryPublisherIntentsResponse>;
+    queryPublisherIntentsByPublisherDomain(request: QueryPublisherIntentsByPublisherDomainRequest): Promise<QueryPublisherIntentsByPublisherDomainResponse>;
+    queryPublisherIntentsBySubscriptionID(request: QueryPublisherIntentsBySubscriptionIDRequest): Promise<QueryPublisherIntentsBySubscriptionIDResponse>;
+    querySubscriberIntent(request: QuerySubscriberIntentRequest): Promise<QuerySubscriberIntentResponse>;
+    querySubscriberIntents(request?: QuerySubscriberIntentsRequest): Promise<QuerySubscriberIntentsResponse>;
+    querySubscriberIntentsBySubscriberAddress(request: QuerySubscriberIntentsBySubscriberAddressRequest): Promise<QuerySubscriberIntentsBySubscriberAddressResponse>;
+    querySubscriberIntentsBySubscriptionID(request: QuerySubscriberIntentsBySubscriptionIDRequest): Promise<QuerySubscriberIntentsBySubscriptionIDResponse>;
+    querySubscriberIntentsByPublisherDomain(request: QuerySubscriberIntentsByPublisherDomainRequest): Promise<QuerySubscriberIntentsByPublisherDomainResponse>;
+    queryDefaultSubscription(request: QueryDefaultSubscriptionRequest): Promise<QueryDefaultSubscriptionResponse>;
+    queryDefaultSubscriptions(request?: QueryDefaultSubscriptionsRequest): Promise<QueryDefaultSubscriptionsResponse>;
+};

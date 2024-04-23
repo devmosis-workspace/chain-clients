@@ -30,6 +30,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:packages/celestia"\
     },\
     {\
+      "name": "@chain-clients/chihuahua",\
+      "reference": "workspace:packages/chihuahua"\
+    },\
+    {\
       "name": "@chain-clients/cosmoshub",\
       "reference": "workspace:packages/cosmoshub"\
     },\
@@ -141,6 +145,7 @@ const RAW_RUNTIME_STATE =
     ["@chain-clients/akash", ["workspace:packages/akash"]],\
     ["@chain-clients/axelar", ["workspace:packages/axelar"]],\
     ["@chain-clients/celestia", ["workspace:packages/celestia"]],\
+    ["@chain-clients/chihuahua", ["workspace:packages/chihuahua"]],\
     ["@chain-clients/cosmoshub", ["workspace:packages/cosmoshub"]],\
     ["@chain-clients/cryptoorg", ["workspace:packages/cryptoorg"]],\
     ["@chain-clients/dydx", ["workspace:packages/dydx"]],\
@@ -645,6 +650,10 @@ const RAW_RUNTIME_STATE =
     [\
       "@chain-clients/celestia",\
       "workspace:packages/celestia"\
+    ],\
+    [\
+      "@chain-clients/chihuahua",\
+      "workspace:packages/chihuahua"\
     ],\
     [\
       "@chain-clients/cosmoshub",\
@@ -7335,6 +7344,49 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-prettier", "virtual:f4f18ff919d6cefc7a07758da0f4bdd3f4f92cef96490749eb290e4bd47a85b4635310c259720fa93036f66f30f6b7624cc6346acaf869fae36098e4dd5f3e80#npm:4.2.1"],\
           ["prettier", "npm:2.8.8"],\
           ["publish-scripts", "npm:0.1.0"],\
+          ["rimraf", "npm:5.0.1"],\
+          ["typescript", "patch:typescript@npm%3A5.1.6#optional!builtin<compat/typescript>::version=5.1.6&hash=5da071"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@chain-clients/chihuahua", [\
+      ["workspace:packages/chihuahua", {\
+        "packageLocation": "./packages/chihuahua/",\
+        "packageDependencies": [\
+          ["@chain-clients/chihuahua", "workspace:packages/chihuahua"],\
+          ["@babel/cli", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.21.0"],\
+          ["@babel/core", "npm:7.21.4"],\
+          ["@babel/eslint-parser", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.22.9"],\
+          ["@babel/node", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.22.6"],\
+          ["@babel/plugin-proposal-class-properties", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.18.6"],\
+          ["@babel/plugin-proposal-export-default-from", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.18.10"],\
+          ["@babel/plugin-proposal-nullish-coalescing-operator", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.18.6"],\
+          ["@babel/plugin-proposal-numeric-separator", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.18.6"],\
+          ["@babel/plugin-proposal-object-rest-spread", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.20.7"],\
+          ["@babel/plugin-proposal-optional-chaining", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.21.0"],\
+          ["@babel/plugin-transform-runtime", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.21.4"],\
+          ["@babel/preset-env", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.21.4"],\
+          ["@babel/preset-typescript", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.22.5"],\
+          ["@babel/runtime", "npm:7.22.6"],\
+          ["@cosmjs/amino", "npm:0.31.1"],\
+          ["@cosmjs/encoding", "npm:0.31.1"],\
+          ["@cosmjs/math", "npm:0.31.1"],\
+          ["@cosmjs/proto-signing", "npm:0.31.1"],\
+          ["@cosmjs/stargate", "npm:0.31.1"],\
+          ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.4.12"],\
+          ["babel-core", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.0.0-bridge.0"],\
+          ["babel-watch", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.8.1"],\
+          ["cross-env", "npm:7.0.3"],\
+          ["eslint", "npm:8.38.0"],\
+          ["eslint-config-prettier", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:8.8.0"],\
+          ["eslint-plugin-prettier", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:4.2.1"],\
+          ["long", "npm:5.2.3"],\
+          ["prettier", "npm:2.8.8"],\
+          ["protobufjs", "npm:6.11.3"],\
+          ["regenerator-runtime", "npm:0.13.11"],\
           ["rimraf", "npm:5.0.1"],\
           ["typescript", "patch:typescript@npm%3A5.1.6#optional!builtin<compat/typescript>::version=5.1.6&hash=5da071"]\
         ],\
