@@ -271,3 +271,9 @@
 [submodule "packages/chihuahua/chihuahua"]
 	path = packages/chihuahua/chihuahua
 	url = https://github.com/ChihuahuaChain/chihuahua
+[submodule "packages/dymension/dymension"]
+	path = packages/dymension/dymension
+	url = https://github.com/dymensionxyz/dymension
+[submodule "packages/dymension/cosmos-sdk"]
+	path = packages/dymension/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
