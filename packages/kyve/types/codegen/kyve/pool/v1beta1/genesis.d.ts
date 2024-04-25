@@ -19,9 +19,9 @@ export interface GenesisStateAmino {
     /** params ... */
     params?: ParamsAmino;
     /** pool_list ... */
-    pool_list: PoolAmino[];
+    pool_list?: PoolAmino[];
     /** pool_count ... */
-    pool_count: string;
+    pool_count?: string;
 }
 export interface GenesisStateAminoMsg {
     type: "/kyve.pool.v1beta1.GenesisState";

@@ -1,11 +1,7 @@
 import { Rpc } from "../../../helpers";
-import { MsgFundPool, MsgFundPoolResponse, MsgDefundPool, MsgDefundPoolResponse, MsgCreatePool, MsgCreatePoolResponse, MsgUpdatePool, MsgUpdatePoolResponse, MsgDisablePool, MsgDisablePoolResponse, MsgEnablePool, MsgEnablePoolResponse, MsgScheduleRuntimeUpgrade, MsgScheduleRuntimeUpgradeResponse, MsgCancelRuntimeUpgrade, MsgCancelRuntimeUpgradeResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
+import { MsgCreatePool, MsgCreatePoolResponse, MsgUpdatePool, MsgUpdatePoolResponse, MsgDisablePool, MsgDisablePoolResponse, MsgEnablePool, MsgEnablePoolResponse, MsgScheduleRuntimeUpgrade, MsgScheduleRuntimeUpgradeResponse, MsgCancelRuntimeUpgrade, MsgCancelRuntimeUpgradeResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the Msg service. */
 export interface Msg {
-    /** FundPool ... */
-    fundPool(request: MsgFundPool): Promise<MsgFundPoolResponse>;
-    /** DefundPool ... */
-    defundPool(request: MsgDefundPool): Promise<MsgDefundPoolResponse>;
     /**
      * CreatePool defines a governance operation for creating a new pool.
      * The authority is hard-coded to the x/gov module account.
@@ -45,8 +41,6 @@ export interface Msg {
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
-    fundPool(request: MsgFundPool): Promise<MsgFundPoolResponse>;
-    defundPool(request: MsgDefundPool): Promise<MsgDefundPoolResponse>;
     createPool(request: MsgCreatePool): Promise<MsgCreatePoolResponse>;
     updatePool(request: MsgUpdatePool): Promise<MsgUpdatePoolResponse>;
     disablePool(request: MsgDisablePool): Promise<MsgDisablePoolResponse>;

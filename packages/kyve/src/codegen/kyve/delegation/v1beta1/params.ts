@@ -23,17 +23,17 @@ export interface ParamsProtoMsg {
 /** Params defines the delegation module parameters. */
 export interface ParamsAmino {
   /** unbonding_delegation_time ... */
-  unbonding_delegation_time: string;
+  unbonding_delegation_time?: string;
   /** unbonding_delegation_time ... */
-  redelegation_cooldown: string;
+  redelegation_cooldown?: string;
   /** unbonding_delegation_time ... */
-  redelegation_max_amount: string;
+  redelegation_max_amount?: string;
   /** vote_slash ... */
-  vote_slash: string;
+  vote_slash?: string;
   /** upload_slash ... */
-  upload_slash: string;
+  upload_slash?: string;
   /** timeout_slash ... */
-  timeout_slash: string;
+  timeout_slash?: string;
 }
 export interface ParamsAminoMsg {
   type: "/kyve.delegation.v1beta1.Params";
@@ -102,14 +102,26 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      unbondingDelegationTime: BigInt(object.unbonding_delegation_time),
-      redelegationCooldown: BigInt(object.redelegation_cooldown),
-      redelegationMaxAmount: BigInt(object.redelegation_max_amount),
-      voteSlash: object.vote_slash,
-      uploadSlash: object.upload_slash,
-      timeoutSlash: object.timeout_slash
-    };
+    const message = createBaseParams();
+    if (object.unbonding_delegation_time !== undefined && object.unbonding_delegation_time !== null) {
+      message.unbondingDelegationTime = BigInt(object.unbonding_delegation_time);
+    }
+    if (object.redelegation_cooldown !== undefined && object.redelegation_cooldown !== null) {
+      message.redelegationCooldown = BigInt(object.redelegation_cooldown);
+    }
+    if (object.redelegation_max_amount !== undefined && object.redelegation_max_amount !== null) {
+      message.redelegationMaxAmount = BigInt(object.redelegation_max_amount);
+    }
+    if (object.vote_slash !== undefined && object.vote_slash !== null) {
+      message.voteSlash = object.vote_slash;
+    }
+    if (object.upload_slash !== undefined && object.upload_slash !== null) {
+      message.uploadSlash = object.upload_slash;
+    }
+    if (object.timeout_slash !== undefined && object.timeout_slash !== null) {
+      message.timeoutSlash = object.timeout_slash;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

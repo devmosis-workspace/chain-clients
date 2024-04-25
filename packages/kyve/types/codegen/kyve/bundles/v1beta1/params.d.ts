@@ -17,13 +17,13 @@ export interface ParamsProtoMsg {
 /** Params defines the bundles module parameters. */
 export interface ParamsAmino {
     /** upload_timeout ... */
-    upload_timeout: string;
+    upload_timeout?: string;
     /** storage_cost ... */
-    storage_cost: string;
+    storage_cost?: string;
     /** network_fee ... */
-    network_fee: string;
+    network_fee?: string;
     /** max_points ... */
-    max_points: string;
+    max_points?: string;
 }
 export interface ParamsAminoMsg {
     type: "/kyve.bundles.v1beta1.Params";

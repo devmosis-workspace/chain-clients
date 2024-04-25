@@ -29,7 +29,7 @@ export interface EventUpdateParamsAmino {
   /** new_params is the module's new parameters. */
   new_params?: ParamsAmino;
   /** payload is the parameter updates that were performed. */
-  payload: string;
+  payload?: string;
 }
 export interface EventUpdateParamsAminoMsg {
   type: "/kyve.bundles.v1beta1.EventUpdateParams";
@@ -68,13 +68,13 @@ export interface EventBundleVoteProtoMsg {
  */
 export interface EventBundleVoteAmino {
   /** pool_id is the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** staker is the account staker of the protocol node. */
-  staker: string;
+  staker?: string;
   /** storage_id is the unique ID of the bundle. */
-  storage_id: string;
+  storage_id?: string;
   /** vote is for what the validator voted with */
-  vote: VoteType;
+  vote?: VoteType;
 }
 export interface EventBundleVoteAminoMsg {
   type: "/kyve.bundles.v1beta1.EventBundleVote";
@@ -146,45 +146,45 @@ export interface EventBundleProposedProtoMsg {
  */
 export interface EventBundleProposedAmino {
   /** pool_id is the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** internal id for the KYVE-bundle */
-  id: string;
+  id?: string;
   /**
    * storage_id is the ID to retrieve to data item from the configured storage provider
    * e.g. the ARWEAVE-id
    */
-  storage_id: string;
+  storage_id?: string;
   /** Address of the uploader/proposer of the bundle */
-  uploader: string;
+  uploader?: string;
   /** data_size size in bytes of the data */
-  data_size: string;
+  data_size?: string;
   /** from_index starting index of the bundle (inclusive) */
-  from_index: string;
+  from_index?: string;
   /** bundle_size amount of data items in the bundle */
-  bundle_size: string;
+  bundle_size?: string;
   /** from_key the key of the first data item in the bundle */
-  from_key: string;
+  from_key?: string;
   /** to_key the key of the last data item in the bundle */
-  to_key: string;
+  to_key?: string;
   /**
    * bundle_summary is a short string holding some useful information of
    * the bundle which will get stored on-chain
    */
-  bundle_summary: string;
+  bundle_summary?: string;
   /** data_hash is a sha256 hash of the raw compressed data */
-  data_hash: string;
+  data_hash?: string;
   /** proposed_at the unix time when the bundle was proposed */
-  proposed_at: string;
+  proposed_at?: string;
   /**
    * storage_provider_id the unique id of the storage provider where
    * the data of the bundle is tored
    */
-  storage_provider_id: number;
+  storage_provider_id?: number;
   /**
    * compression_id  the unique id of the compression type the data
    * of the bundle was compressed with
    */
-  compression_id: number;
+  compression_id?: number;
 }
 export interface EventBundleProposedAminoMsg {
   type: "/kyve.bundles.v1beta1.EventBundleProposed";
@@ -258,37 +258,37 @@ export interface EventBundleFinalizedProtoMsg {
  */
 export interface EventBundleFinalizedAmino {
   /** pool_id is the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** internal id for the KYVE-bundle */
-  id: string;
+  id?: string;
   /** total voting power which voted for valid */
-  valid: string;
+  valid?: string;
   /** total voting power which voted for invalid */
-  invalid: string;
+  invalid?: string;
   /** total voting power which voted for abstain */
-  abstain: string;
+  abstain?: string;
   /** total voting power of the pool */
-  total: string;
+  total?: string;
   /** status of the finalized bundle */
-  status: BundleStatus;
+  status?: BundleStatus;
   /** amount which funders provided to the total bundle reward (in ukyve) */
-  funders_payout: string;
+  funders_payout?: string;
   /** amount which the inflation pool provided to the total reward (in ukyve) */
-  inflation_payout: string;
+  inflation_payout?: string;
   /** rewards transferred to treasury (in ukyve) */
-  reward_treasury: string;
+  reward_treasury?: string;
   /** rewardUploader rewards directly transferred to uploader (in ukyve) */
-  reward_uploader: string;
+  reward_uploader?: string;
   /** rewardDelegation rewards distributed among all delegators (in ukyve) */
-  reward_delegation: string;
+  reward_delegation?: string;
   /** rewardTotal the total bundle reward */
-  reward_total: string;
+  reward_total?: string;
   /** finalized_at the block height where the bundle got finalized */
-  finalized_at: string;
+  finalized_at?: string;
   /** uploader the address of the uploader of this bundle */
-  uploader: string;
+  uploader?: string;
   /** next_uploader the address of the next uploader after this bundle */
-  next_uploader: string;
+  next_uploader?: string;
 }
 export interface EventBundleFinalizedAminoMsg {
   type: "/kyve.bundles.v1beta1.EventBundleFinalized";
@@ -341,14 +341,14 @@ export interface EventClaimedUploaderRoleProtoMsg {
  */
 export interface EventClaimedUploaderRoleAmino {
   /** pool_id is the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** id internal id for the KYVE-bundle */
-  id: string;
+  id?: string;
   /**
    * new_uploader the address of the participant who claimed
    * the free uploader role
    */
-  new_uploader: string;
+  new_uploader?: string;
 }
 export interface EventClaimedUploaderRoleAminoMsg {
   type: "/kyve.bundles.v1beta1.EventClaimedUploaderRole";
@@ -387,13 +387,13 @@ export interface EventSkippedUploaderRoleProtoMsg {
  */
 export interface EventSkippedUploaderRoleAmino {
   /** pool_id is the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** id internal id for the KYVE-bundle */
-  id: string;
+  id?: string;
   /** previous_uploader is the address of the staker who skipped his uploader role */
-  previous_uploader: string;
+  previous_uploader?: string;
   /** new_uploader is the address of the new uploader who got automatically selected */
-  new_uploader: string;
+  new_uploader?: string;
 }
 export interface EventSkippedUploaderRoleAminoMsg {
   type: "/kyve.bundles.v1beta1.EventSkippedUploaderRole";
@@ -431,11 +431,11 @@ export interface EventPointIncreasedProtoMsg {
  */
 export interface EventPointIncreasedAmino {
   /** pool_id is the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** staker is the address of the staker who received the point */
-  staker: string;
+  staker?: string;
   /** current_points is the amount of points the staker has now */
-  current_points: string;
+  current_points?: string;
 }
 export interface EventPointIncreasedAminoMsg {
   type: "/kyve.bundles.v1beta1.EventPointIncreased";
@@ -470,9 +470,9 @@ export interface EventPointsResetProtoMsg {
  */
 export interface EventPointsResetAmino {
   /** pool_id is the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** staker is the address of the staker who has zero points now */
-  staker: string;
+  staker?: string;
 }
 export interface EventPointsResetAminoMsg {
   type: "/kyve.bundles.v1beta1.EventPointsReset";
@@ -522,11 +522,17 @@ export const EventUpdateParams = {
     return message;
   },
   fromAmino(object: EventUpdateParamsAmino): EventUpdateParams {
-    return {
-      oldParams: object?.old_params ? Params.fromAmino(object.old_params) : undefined,
-      newParams: object?.new_params ? Params.fromAmino(object.new_params) : undefined,
-      payload: object.payload
-    };
+    const message = createBaseEventUpdateParams();
+    if (object.old_params !== undefined && object.old_params !== null) {
+      message.oldParams = Params.fromAmino(object.old_params);
+    }
+    if (object.new_params !== undefined && object.new_params !== null) {
+      message.newParams = Params.fromAmino(object.new_params);
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = object.payload;
+    }
+    return message;
   },
   toAmino(message: EventUpdateParams): EventUpdateParamsAmino {
     const obj: any = {};
@@ -593,12 +599,20 @@ export const EventBundleVote = {
     return message;
   },
   fromAmino(object: EventBundleVoteAmino): EventBundleVote {
-    return {
-      poolId: BigInt(object.pool_id),
-      staker: object.staker,
-      storageId: object.storage_id,
-      vote: isSet(object.vote) ? voteTypeFromJSON(object.vote) : -1
-    };
+    const message = createBaseEventBundleVote();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.storage_id !== undefined && object.storage_id !== null) {
+      message.storageId = object.storage_id;
+    }
+    if (object.vote !== undefined && object.vote !== null) {
+      message.vote = voteTypeFromJSON(object.vote);
+    }
+    return message;
   },
   toAmino(message: EventBundleVote): EventBundleVoteAmino {
     const obj: any = {};
@@ -726,22 +740,50 @@ export const EventBundleProposed = {
     return message;
   },
   fromAmino(object: EventBundleProposedAmino): EventBundleProposed {
-    return {
-      poolId: BigInt(object.pool_id),
-      id: BigInt(object.id),
-      storageId: object.storage_id,
-      uploader: object.uploader,
-      dataSize: BigInt(object.data_size),
-      fromIndex: BigInt(object.from_index),
-      bundleSize: BigInt(object.bundle_size),
-      fromKey: object.from_key,
-      toKey: object.to_key,
-      bundleSummary: object.bundle_summary,
-      dataHash: object.data_hash,
-      proposedAt: BigInt(object.proposed_at),
-      storageProviderId: object.storage_provider_id,
-      compressionId: object.compression_id
-    };
+    const message = createBaseEventBundleProposed();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.storage_id !== undefined && object.storage_id !== null) {
+      message.storageId = object.storage_id;
+    }
+    if (object.uploader !== undefined && object.uploader !== null) {
+      message.uploader = object.uploader;
+    }
+    if (object.data_size !== undefined && object.data_size !== null) {
+      message.dataSize = BigInt(object.data_size);
+    }
+    if (object.from_index !== undefined && object.from_index !== null) {
+      message.fromIndex = BigInt(object.from_index);
+    }
+    if (object.bundle_size !== undefined && object.bundle_size !== null) {
+      message.bundleSize = BigInt(object.bundle_size);
+    }
+    if (object.from_key !== undefined && object.from_key !== null) {
+      message.fromKey = object.from_key;
+    }
+    if (object.to_key !== undefined && object.to_key !== null) {
+      message.toKey = object.to_key;
+    }
+    if (object.bundle_summary !== undefined && object.bundle_summary !== null) {
+      message.bundleSummary = object.bundle_summary;
+    }
+    if (object.data_hash !== undefined && object.data_hash !== null) {
+      message.dataHash = object.data_hash;
+    }
+    if (object.proposed_at !== undefined && object.proposed_at !== null) {
+      message.proposedAt = BigInt(object.proposed_at);
+    }
+    if (object.storage_provider_id !== undefined && object.storage_provider_id !== null) {
+      message.storageProviderId = object.storage_provider_id;
+    }
+    if (object.compression_id !== undefined && object.compression_id !== null) {
+      message.compressionId = object.compression_id;
+    }
+    return message;
   },
   toAmino(message: EventBundleProposed): EventBundleProposedAmino {
     const obj: any = {};
@@ -891,24 +933,56 @@ export const EventBundleFinalized = {
     return message;
   },
   fromAmino(object: EventBundleFinalizedAmino): EventBundleFinalized {
-    return {
-      poolId: BigInt(object.pool_id),
-      id: BigInt(object.id),
-      valid: BigInt(object.valid),
-      invalid: BigInt(object.invalid),
-      abstain: BigInt(object.abstain),
-      total: BigInt(object.total),
-      status: isSet(object.status) ? bundleStatusFromJSON(object.status) : -1,
-      fundersPayout: BigInt(object.funders_payout),
-      inflationPayout: BigInt(object.inflation_payout),
-      rewardTreasury: BigInt(object.reward_treasury),
-      rewardUploader: BigInt(object.reward_uploader),
-      rewardDelegation: BigInt(object.reward_delegation),
-      rewardTotal: BigInt(object.reward_total),
-      finalizedAt: BigInt(object.finalized_at),
-      uploader: object.uploader,
-      nextUploader: object.next_uploader
-    };
+    const message = createBaseEventBundleFinalized();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.valid !== undefined && object.valid !== null) {
+      message.valid = BigInt(object.valid);
+    }
+    if (object.invalid !== undefined && object.invalid !== null) {
+      message.invalid = BigInt(object.invalid);
+    }
+    if (object.abstain !== undefined && object.abstain !== null) {
+      message.abstain = BigInt(object.abstain);
+    }
+    if (object.total !== undefined && object.total !== null) {
+      message.total = BigInt(object.total);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = bundleStatusFromJSON(object.status);
+    }
+    if (object.funders_payout !== undefined && object.funders_payout !== null) {
+      message.fundersPayout = BigInt(object.funders_payout);
+    }
+    if (object.inflation_payout !== undefined && object.inflation_payout !== null) {
+      message.inflationPayout = BigInt(object.inflation_payout);
+    }
+    if (object.reward_treasury !== undefined && object.reward_treasury !== null) {
+      message.rewardTreasury = BigInt(object.reward_treasury);
+    }
+    if (object.reward_uploader !== undefined && object.reward_uploader !== null) {
+      message.rewardUploader = BigInt(object.reward_uploader);
+    }
+    if (object.reward_delegation !== undefined && object.reward_delegation !== null) {
+      message.rewardDelegation = BigInt(object.reward_delegation);
+    }
+    if (object.reward_total !== undefined && object.reward_total !== null) {
+      message.rewardTotal = BigInt(object.reward_total);
+    }
+    if (object.finalized_at !== undefined && object.finalized_at !== null) {
+      message.finalizedAt = BigInt(object.finalized_at);
+    }
+    if (object.uploader !== undefined && object.uploader !== null) {
+      message.uploader = object.uploader;
+    }
+    if (object.next_uploader !== undefined && object.next_uploader !== null) {
+      message.nextUploader = object.next_uploader;
+    }
+    return message;
   },
   toAmino(message: EventBundleFinalized): EventBundleFinalizedAmino {
     const obj: any = {};
@@ -982,11 +1056,17 @@ export const EventClaimedUploaderRole = {
     return message;
   },
   fromAmino(object: EventClaimedUploaderRoleAmino): EventClaimedUploaderRole {
-    return {
-      poolId: BigInt(object.pool_id),
-      id: BigInt(object.id),
-      newUploader: object.new_uploader
-    };
+    const message = createBaseEventClaimedUploaderRole();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.new_uploader !== undefined && object.new_uploader !== null) {
+      message.newUploader = object.new_uploader;
+    }
+    return message;
   },
   toAmino(message: EventClaimedUploaderRole): EventClaimedUploaderRoleAmino {
     const obj: any = {};
@@ -1053,12 +1133,20 @@ export const EventSkippedUploaderRole = {
     return message;
   },
   fromAmino(object: EventSkippedUploaderRoleAmino): EventSkippedUploaderRole {
-    return {
-      poolId: BigInt(object.pool_id),
-      id: BigInt(object.id),
-      previousUploader: object.previous_uploader,
-      newUploader: object.new_uploader
-    };
+    const message = createBaseEventSkippedUploaderRole();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.previous_uploader !== undefined && object.previous_uploader !== null) {
+      message.previousUploader = object.previous_uploader;
+    }
+    if (object.new_uploader !== undefined && object.new_uploader !== null) {
+      message.newUploader = object.new_uploader;
+    }
+    return message;
   },
   toAmino(message: EventSkippedUploaderRole): EventSkippedUploaderRoleAmino {
     const obj: any = {};
@@ -1120,11 +1208,17 @@ export const EventPointIncreased = {
     return message;
   },
   fromAmino(object: EventPointIncreasedAmino): EventPointIncreased {
-    return {
-      poolId: BigInt(object.pool_id),
-      staker: object.staker,
-      currentPoints: BigInt(object.current_points)
-    };
+    const message = createBaseEventPointIncreased();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.current_points !== undefined && object.current_points !== null) {
+      message.currentPoints = BigInt(object.current_points);
+    }
+    return message;
   },
   toAmino(message: EventPointIncreased): EventPointIncreasedAmino {
     const obj: any = {};
@@ -1179,10 +1273,14 @@ export const EventPointsReset = {
     return message;
   },
   fromAmino(object: EventPointsResetAmino): EventPointsReset {
-    return {
-      poolId: BigInt(object.pool_id),
-      staker: object.staker
-    };
+    const message = createBaseEventPointsReset();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    return message;
   },
   toAmino(message: EventPointsReset): EventPointsResetAmino {
     const obj: any = {};

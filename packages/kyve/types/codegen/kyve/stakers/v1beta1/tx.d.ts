@@ -18,14 +18,14 @@ export interface MsgCreateStakerProtoMsg {
 /** MsgCreateStaker defines a SDK message for creating a staker. */
 export interface MsgCreateStakerAmino {
     /** creator is the address of the staker. */
-    creator: string;
+    creator?: string;
     /** amount is the initial self-stake of the staker. */
-    amount: string;
+    amount?: string;
     /**
      * commission is the percentage that is deducted from rewards before
      * distributing the staker's delegators.
      */
-    commission: string;
+    commission?: string;
 }
 export interface MsgCreateStakerAminoMsg {
     type: "/kyve.stakers.v1beta1.MsgCreateStaker";
@@ -76,17 +76,17 @@ export interface MsgUpdateMetadataProtoMsg {
 /** MsgUpdateMetadata defines a SDK message for claiming the uploader role. */
 export interface MsgUpdateMetadataAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** moniker ... */
-    moniker: string;
+    moniker?: string;
     /** website ... */
-    website: string;
+    website?: string;
     /** identity from keybase.io */
-    identity: string;
+    identity?: string;
     /** security_contact ... */
-    security_contact: string;
+    security_contact?: string;
     /** details ... */
-    details: string;
+    details?: string;
 }
 export interface MsgUpdateMetadataAminoMsg {
     type: "/kyve.stakers.v1beta1.MsgUpdateMetadata";
@@ -132,9 +132,9 @@ export interface MsgUpdateCommissionProtoMsg {
 /** MsgUpdateCommission ... */
 export interface MsgUpdateCommissionAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** commission ... */
-    commission: string;
+    commission?: string;
 }
 export interface MsgUpdateCommissionAminoMsg {
     type: "/kyve.stakers.v1beta1.MsgUpdateCommission";
@@ -176,9 +176,9 @@ export interface MsgClaimCommissionRewardsProtoMsg {
 /** MsgClaimCommissionRewards ... */
 export interface MsgClaimCommissionRewardsAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
 }
 export interface MsgClaimCommissionRewardsAminoMsg {
     type: "/kyve.stakers.v1beta1.MsgClaimCommissionRewards";
@@ -224,13 +224,13 @@ export interface MsgJoinPoolProtoMsg {
 /** MsgJoinPool ... */
 export interface MsgJoinPoolAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** pool_id ... */
-    pool_id: string;
+    pool_id?: string;
     /** valaddress ... */
-    valaddress: string;
+    valaddress?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
 }
 export interface MsgJoinPoolAminoMsg {
     type: "/kyve.stakers.v1beta1.MsgJoinPool";
@@ -274,9 +274,9 @@ export interface MsgLeavePoolProtoMsg {
 /** MsgLeavePool ... */
 export interface MsgLeavePoolAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** pool_id ... */
-    pool_id: string;
+    pool_id?: string;
 }
 export interface MsgLeavePoolAminoMsg {
     type: "/kyve.stakers.v1beta1.MsgLeavePool";
@@ -318,9 +318,9 @@ export interface MsgUpdateParamsProtoMsg {
 /** MsgUpdateParams defines a SDK message for updating the module parameters. */
 export interface MsgUpdateParamsAmino {
     /** authority is the address of the governance account. */
-    authority: string;
+    authority?: string;
     /** payload defines the x/stakers parameters to update. */
-    payload: string;
+    payload?: string;
 }
 export interface MsgUpdateParamsAminoMsg {
     type: "/kyve.stakers.v1beta1.MsgUpdateParams";

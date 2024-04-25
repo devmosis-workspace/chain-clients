@@ -26,7 +26,7 @@ export interface EventUpdateParamsAmino {
     /** new_params is the module's new parameters. */
     new_params?: ParamsAmino;
     /** payload is the parameter updates that were performed. */
-    payload: string;
+    payload?: string;
 }
 export interface EventUpdateParamsAminoMsg {
     type: "/kyve.pool.v1beta1.EventUpdateParams";
@@ -70,10 +70,10 @@ export interface EventCreatePool {
      */
     uploadInterval: bigint;
     /**
-     * operating_cost is the fixed cost which gets paid out
+     * inflation_share_weight is the fixed cost which gets paid out
      * to every successful uploader
      */
-    operatingCost: bigint;
+    inflationShareWeight: bigint;
     /**
      * min_delegation is the minimum amount of $KYVE the pool has
      * to have in order to produce bundles
@@ -109,57 +109,57 @@ export interface EventCreatePoolProtoMsg {
  */
 export interface EventCreatePoolAmino {
     /** id is the unique ID of the pool. */
-    id: string;
+    id?: string;
     /** name is the human readable name of the pool */
-    name: string;
+    name?: string;
     /** runtime is the runtime name of the pool */
-    runtime: string;
+    runtime?: string;
     /** logo is the logo url of the pool */
-    logo: string;
+    logo?: string;
     /**
      * config is either a json stringified config or an
      * external link pointing to the config
      */
-    config: string;
+    config?: string;
     /**
      * start_key is the first key the pool should start
      * indexing
      */
-    start_key: string;
+    start_key?: string;
     /**
      * upload_interval is the interval the pool should validate
      * bundles with
      */
-    upload_interval: string;
+    upload_interval?: string;
     /**
-     * operating_cost is the fixed cost which gets paid out
+     * inflation_share_weight is the fixed cost which gets paid out
      * to every successful uploader
      */
-    operating_cost: string;
+    inflation_share_weight?: string;
     /**
      * min_delegation is the minimum amount of $KYVE the pool has
      * to have in order to produce bundles
      */
-    min_delegation: string;
+    min_delegation?: string;
     /**
      * max_bundle_size is the max size a data bundle can have
      * (amount of data items)
      */
-    max_bundle_size: string;
+    max_bundle_size?: string;
     /** version is the current version of the protocol nodes */
-    version: string;
+    version?: string;
     /** binaries points to the current binaries of the protocol node */
-    binaries: string;
+    binaries?: string;
     /**
      * storage_provider_id is the unique id of the storage provider
      * the pool is archiving the data on
      */
-    storage_provider_id: number;
+    storage_provider_id?: number;
     /**
      * compression_id is the unique id of the compression type the bundles
      * get compressed with
      */
-    compression_id: number;
+    compression_id?: number;
 }
 export interface EventCreatePoolAminoMsg {
     type: "/kyve.pool.v1beta1.EventCreatePool";
@@ -177,7 +177,7 @@ export interface EventCreatePoolSDKType {
     config: string;
     start_key: string;
     upload_interval: bigint;
-    operating_cost: bigint;
+    inflation_share_weight: bigint;
     min_delegation: bigint;
     max_bundle_size: bigint;
     version: string;
@@ -203,7 +203,7 @@ export interface EventPoolEnabledProtoMsg {
  */
 export interface EventPoolEnabledAmino {
     /** id is the unique ID of the affected pool. */
-    id: string;
+    id?: string;
 }
 export interface EventPoolEnabledAminoMsg {
     type: "/kyve.pool.v1beta1.EventPoolEnabled";
@@ -234,7 +234,7 @@ export interface EventPoolDisabledProtoMsg {
  */
 export interface EventPoolDisabledAmino {
     /** id is the unique ID of the affected pool. */
-    id: string;
+    id?: string;
 }
 export interface EventPoolDisabledAminoMsg {
     type: "/kyve.pool.v1beta1.EventPoolDisabled";
@@ -279,21 +279,21 @@ export interface EventRuntimeUpgradeScheduledProtoMsg {
  */
 export interface EventRuntimeUpgradeScheduledAmino {
     /** runtime is the name of the runtime that will be upgraded. */
-    runtime: string;
+    runtime?: string;
     /** version is the new version that the runtime will be upgraded to. */
-    version: string;
+    version?: string;
     /** scheduled_at is the time in UNIX seconds when the upgrade will occur. */
-    scheduled_at: string;
+    scheduled_at?: string;
     /**
      * duration is the amount of seconds the pool will be paused after the
      * scheduled time is reached. This will give node operators time to upgrade
      * their node.
      */
-    duration: string;
+    duration?: string;
     /** binaries contain download links for prebuilt binaries (in JSON format). */
-    binaries: string;
+    binaries?: string;
     /** affected_pools contains all IDs of pools that will be affected by this runtime upgrade. */
-    affected_pools: string[];
+    affected_pools?: string[];
 }
 export interface EventRuntimeUpgradeScheduledAminoMsg {
     type: "/kyve.pool.v1beta1.EventRuntimeUpgradeScheduled";
@@ -334,12 +334,12 @@ export interface EventRuntimeUpgradeCancelledProtoMsg {
  */
 export interface EventRuntimeUpgradeCancelledAmino {
     /** runtime is the name of the runtime that will be upgraded. */
-    runtime: string;
+    runtime?: string;
     /**
      * affected_pools contains all IDs of pools that are affected by the
      * cancellation of this runtime upgrade.
      */
-    affected_pools: string[];
+    affected_pools?: string[];
 }
 export interface EventRuntimeUpgradeCancelledAminoMsg {
     type: "/kyve.pool.v1beta1.EventRuntimeUpgradeCancelled";
@@ -379,10 +379,10 @@ export interface EventPoolUpdated {
      */
     uploadInterval: bigint;
     /**
-     * operating_cost is the fixed cost which gets paid out
+     * inflation_share_weight is the fixed cost which gets paid out
      * to every successful uploader
      */
-    operatingCost: bigint;
+    inflationShareWeight: bigint;
     /**
      * min_delegation is the minimum amount of $KYVE the pool has
      * to have in order to produce bundles
@@ -414,50 +414,50 @@ export interface EventPoolUpdatedProtoMsg {
  */
 export interface EventPoolUpdatedAmino {
     /** id is the unique ID of the pool. */
-    id: string;
+    id?: string;
     /** raw update string */
-    raw_update_string: string;
+    raw_update_string?: string;
     /** name is the human readable name of the pool */
-    name: string;
+    name?: string;
     /** runtime is the runtime name of the pool */
-    runtime: string;
+    runtime?: string;
     /** logo is the logo url of the pool */
-    logo: string;
+    logo?: string;
     /**
      * config is either a json stringified config or an
      * external link pointing to the config
      */
-    config: string;
+    config?: string;
     /**
      * upload_interval is the interval the pool should validate
      * bundles with
      */
-    upload_interval: string;
+    upload_interval?: string;
     /**
-     * operating_cost is the fixed cost which gets paid out
+     * inflation_share_weight is the fixed cost which gets paid out
      * to every successful uploader
      */
-    operating_cost: string;
+    inflation_share_weight?: string;
     /**
      * min_delegation is the minimum amount of $KYVE the pool has
      * to have in order to produce bundles
      */
-    min_delegation: string;
+    min_delegation?: string;
     /**
      * max_bundle_size is the max size a data bundle can have
      * (amount of data items)
      */
-    max_bundle_size: string;
+    max_bundle_size?: string;
     /**
      * storage_provider_id is the unique id of the storage provider
      * the pool is archiving the data on
      */
-    storage_provider_id: number;
+    storage_provider_id?: number;
     /**
      * compression_id is the unique id of the compression type the bundles
      * get compressed with
      */
-    compression_id: number;
+    compression_id?: number;
 }
 export interface EventPoolUpdatedAminoMsg {
     type: "/kyve.pool.v1beta1.EventPoolUpdated";
@@ -475,93 +475,11 @@ export interface EventPoolUpdatedSDKType {
     logo: string;
     config: string;
     upload_interval: bigint;
-    operating_cost: bigint;
+    inflation_share_weight: bigint;
     min_delegation: bigint;
     max_bundle_size: bigint;
     storage_provider_id: number;
     compression_id: number;
-}
-/**
- * EventFundPool is an event emitted when a pool is funded.
- * emitted_by: MsgFundPool
- */
-export interface EventFundPool {
-    /** pool_id is the unique ID of the pool. */
-    poolId: bigint;
-    /** address is the account address of the pool funder. */
-    address: string;
-    /** amount is the amount in ukyve the funder has funded */
-    amount: bigint;
-}
-export interface EventFundPoolProtoMsg {
-    typeUrl: "/kyve.pool.v1beta1.EventFundPool";
-    value: Uint8Array;
-}
-/**
- * EventFundPool is an event emitted when a pool is funded.
- * emitted_by: MsgFundPool
- */
-export interface EventFundPoolAmino {
-    /** pool_id is the unique ID of the pool. */
-    pool_id: string;
-    /** address is the account address of the pool funder. */
-    address: string;
-    /** amount is the amount in ukyve the funder has funded */
-    amount: string;
-}
-export interface EventFundPoolAminoMsg {
-    type: "/kyve.pool.v1beta1.EventFundPool";
-    value: EventFundPoolAmino;
-}
-/**
- * EventFundPool is an event emitted when a pool is funded.
- * emitted_by: MsgFundPool
- */
-export interface EventFundPoolSDKType {
-    pool_id: bigint;
-    address: string;
-    amount: bigint;
-}
-/**
- * EventDefundPool is an event emitted when a pool is defunded.
- * emitted_by: MsgDefundPool
- */
-export interface EventDefundPool {
-    /** pool_id is the unique ID of the pool. */
-    poolId: bigint;
-    /** address is the account address of the pool funder. */
-    address: string;
-    /** amount is the amount in ukyve the funder has defunded */
-    amount: bigint;
-}
-export interface EventDefundPoolProtoMsg {
-    typeUrl: "/kyve.pool.v1beta1.EventDefundPool";
-    value: Uint8Array;
-}
-/**
- * EventDefundPool is an event emitted when a pool is defunded.
- * emitted_by: MsgDefundPool
- */
-export interface EventDefundPoolAmino {
-    /** pool_id is the unique ID of the pool. */
-    pool_id: string;
-    /** address is the account address of the pool funder. */
-    address: string;
-    /** amount is the amount in ukyve the funder has defunded */
-    amount: string;
-}
-export interface EventDefundPoolAminoMsg {
-    type: "/kyve.pool.v1beta1.EventDefundPool";
-    value: EventDefundPoolAmino;
-}
-/**
- * EventDefundPool is an event emitted when a pool is defunded.
- * emitted_by: MsgDefundPool
- */
-export interface EventDefundPoolSDKType {
-    pool_id: bigint;
-    address: string;
-    amount: bigint;
 }
 /**
  * EventDefundPool is an event emitted when a pool is defunded.
@@ -585,11 +503,11 @@ export interface EventPoolFundsSlashedProtoMsg {
  */
 export interface EventPoolFundsSlashedAmino {
     /** pool_id is the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** address is the account address of the pool funder. */
-    address: string;
+    address?: string;
     /** amount is the amount in ukyve the validator has lost due to the slash */
-    amount: string;
+    amount?: string;
 }
 export interface EventPoolFundsSlashedAminoMsg {
     type: "/kyve.pool.v1beta1.EventPoolFundsSlashed";
@@ -603,37 +521,6 @@ export interface EventPoolFundsSlashedSDKType {
     pool_id: bigint;
     address: string;
     amount: bigint;
-}
-/**
- * EventPoolOutOfFunds is an event emitted when a pool has run out of funds
- * emitted_by: MsgSubmitBundleProposal
- */
-export interface EventPoolOutOfFunds {
-    /** pool_id is the unique ID of the pool. */
-    poolId: bigint;
-}
-export interface EventPoolOutOfFundsProtoMsg {
-    typeUrl: "/kyve.pool.v1beta1.EventPoolOutOfFunds";
-    value: Uint8Array;
-}
-/**
- * EventPoolOutOfFunds is an event emitted when a pool has run out of funds
- * emitted_by: MsgSubmitBundleProposal
- */
-export interface EventPoolOutOfFundsAmino {
-    /** pool_id is the unique ID of the pool. */
-    pool_id: string;
-}
-export interface EventPoolOutOfFundsAminoMsg {
-    type: "/kyve.pool.v1beta1.EventPoolOutOfFunds";
-    value: EventPoolOutOfFundsAmino;
-}
-/**
- * EventPoolOutOfFunds is an event emitted when a pool has run out of funds
- * emitted_by: MsgSubmitBundleProposal
- */
-export interface EventPoolOutOfFundsSDKType {
-    pool_id: bigint;
 }
 export declare const EventUpdateParams: {
     typeUrl: string;
@@ -719,30 +606,6 @@ export declare const EventPoolUpdated: {
     toProto(message: EventPoolUpdated): Uint8Array;
     toProtoMsg(message: EventPoolUpdated): EventPoolUpdatedProtoMsg;
 };
-export declare const EventFundPool: {
-    typeUrl: string;
-    encode(message: EventFundPool, writer?: BinaryWriter): BinaryWriter;
-    fromJSON(object: any): EventFundPool;
-    fromPartial(object: Partial<EventFundPool>): EventFundPool;
-    fromAmino(object: EventFundPoolAmino): EventFundPool;
-    toAmino(message: EventFundPool): EventFundPoolAmino;
-    fromAminoMsg(object: EventFundPoolAminoMsg): EventFundPool;
-    fromProtoMsg(message: EventFundPoolProtoMsg): EventFundPool;
-    toProto(message: EventFundPool): Uint8Array;
-    toProtoMsg(message: EventFundPool): EventFundPoolProtoMsg;
-};
-export declare const EventDefundPool: {
-    typeUrl: string;
-    encode(message: EventDefundPool, writer?: BinaryWriter): BinaryWriter;
-    fromJSON(object: any): EventDefundPool;
-    fromPartial(object: Partial<EventDefundPool>): EventDefundPool;
-    fromAmino(object: EventDefundPoolAmino): EventDefundPool;
-    toAmino(message: EventDefundPool): EventDefundPoolAmino;
-    fromAminoMsg(object: EventDefundPoolAminoMsg): EventDefundPool;
-    fromProtoMsg(message: EventDefundPoolProtoMsg): EventDefundPool;
-    toProto(message: EventDefundPool): Uint8Array;
-    toProtoMsg(message: EventDefundPool): EventDefundPoolProtoMsg;
-};
 export declare const EventPoolFundsSlashed: {
     typeUrl: string;
     encode(message: EventPoolFundsSlashed, writer?: BinaryWriter): BinaryWriter;
@@ -754,16 +617,4 @@ export declare const EventPoolFundsSlashed: {
     fromProtoMsg(message: EventPoolFundsSlashedProtoMsg): EventPoolFundsSlashed;
     toProto(message: EventPoolFundsSlashed): Uint8Array;
     toProtoMsg(message: EventPoolFundsSlashed): EventPoolFundsSlashedProtoMsg;
-};
-export declare const EventPoolOutOfFunds: {
-    typeUrl: string;
-    encode(message: EventPoolOutOfFunds, writer?: BinaryWriter): BinaryWriter;
-    fromJSON(object: any): EventPoolOutOfFunds;
-    fromPartial(object: Partial<EventPoolOutOfFunds>): EventPoolOutOfFunds;
-    fromAmino(object: EventPoolOutOfFundsAmino): EventPoolOutOfFunds;
-    toAmino(message: EventPoolOutOfFunds): EventPoolOutOfFundsAmino;
-    fromAminoMsg(object: EventPoolOutOfFundsAminoMsg): EventPoolOutOfFunds;
-    fromProtoMsg(message: EventPoolOutOfFundsProtoMsg): EventPoolOutOfFunds;
-    toProto(message: EventPoolOutOfFunds): Uint8Array;
-    toProtoMsg(message: EventPoolOutOfFunds): EventPoolOutOfFundsProtoMsg;
 };

@@ -80,19 +80,19 @@ export interface DelegatorProtoMsg {
  */
 export interface DelegatorAmino {
   /** staker corresponds to a KYVE-staker on the protocol-side */
-  staker: string;
+  staker?: string;
   /**
    * delegator the user who delegate to the staker.
    * If staker and delegator are the same we call it: self-delegation
    */
-  delegator: string;
+  delegator?: string;
   /** k_index is an internal index for the f1-distribution algorithm */
-  k_index: string;
+  k_index?: string;
   /**
    * initial_amount of stake the user had when it delegated.
    * slashes can cause that the actual stake is lower.
    */
-  initial_amount: string;
+  initial_amount?: string;
 }
 export interface DelegatorAminoMsg {
   type: "/kyve.delegation.v1beta1.Delegator";
@@ -130,11 +130,11 @@ export interface DelegationEntryProtoMsg {
  */
 export interface DelegationEntryAmino {
   /** staker on protocol level */
-  staker: string;
+  staker?: string;
   /** k_index is the of the period this entry ends */
-  k_index: string;
+  k_index?: string;
   /** value is the quotient of collected rewards and total stake according to F1-distribution */
-  value: string;
+  value?: string;
 }
 export interface DelegationEntryAminoMsg {
   type: "/kyve.delegation.v1beta1.DelegationEntry";
@@ -171,17 +171,17 @@ export interface DelegationDataProtoMsg {
 /** DelegationPoolData stores general delegation information for every staker */
 export interface DelegationDataAmino {
   /** Every staker has one DelegationData */
-  staker: string;
+  staker?: string;
   /** current_rewards ... */
-  current_rewards: string;
+  current_rewards?: string;
   /** total_delegation ... */
-  total_delegation: string;
+  total_delegation?: string;
   /** latest_index_k ... */
-  latest_index_k: string;
+  latest_index_k?: string;
   /** delegator_count the amount of different addresses delegating to the staker */
-  delegator_count: string;
+  delegator_count?: string;
   /** latest_index_was_undelegation helps indicates when an entry can be deleted */
-  latest_index_was_undelegation: boolean;
+  latest_index_was_undelegation?: boolean;
 }
 export interface DelegationDataAminoMsg {
   type: "/kyve.delegation.v1beta1.DelegationData";
@@ -220,11 +220,11 @@ export interface DelegationSlashProtoMsg {
  */
 export interface DelegationSlashAmino {
   /** staker who got slashed */
-  staker: string;
+  staker?: string;
   /** k_index for f1-algorithm */
-  k_index: string;
+  k_index?: string;
   /** fraction that got slashed */
-  fraction: string;
+  fraction?: string;
 }
 export interface DelegationSlashAminoMsg {
   type: "/kyve.delegation.v1beta1.DelegationSlash";
@@ -260,15 +260,15 @@ export interface UndelegationQueueEntryProtoMsg {
 /** UndelegationQueueEntry ... */
 export interface UndelegationQueueEntryAmino {
   /** index ... */
-  index: string;
+  index?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
   /** delegator ... */
-  delegator: string;
+  delegator?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
   /** creation_time ... */
-  creation_time: string;
+  creation_time?: string;
 }
 export interface UndelegationQueueEntryAminoMsg {
   type: "/kyve.delegation.v1beta1.UndelegationQueueEntry";
@@ -296,9 +296,9 @@ export interface QueueStateProtoMsg {
 /** QueueState ... */
 export interface QueueStateAmino {
   /** low_index ... */
-  low_index: string;
+  low_index?: string;
   /** high_index ... */
-  high_index: string;
+  high_index?: string;
 }
 export interface QueueStateAminoMsg {
   type: "/kyve.delegation.v1beta1.QueueState";
@@ -323,9 +323,9 @@ export interface RedelegationCooldownProtoMsg {
 /** RedelegationCooldown ... */
 export interface RedelegationCooldownAmino {
   /** low_index ... */
-  address: string;
+  address?: string;
   /** high_index ... */
-  creation_date: string;
+  creation_date?: string;
 }
 export interface RedelegationCooldownAminoMsg {
   type: "/kyve.delegation.v1beta1.RedelegationCooldown";
@@ -378,12 +378,20 @@ export const Delegator = {
     return message;
   },
   fromAmino(object: DelegatorAmino): Delegator {
-    return {
-      staker: object.staker,
-      delegator: object.delegator,
-      kIndex: BigInt(object.k_index),
-      initialAmount: BigInt(object.initial_amount)
-    };
+    const message = createBaseDelegator();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.delegator !== undefined && object.delegator !== null) {
+      message.delegator = object.delegator;
+    }
+    if (object.k_index !== undefined && object.k_index !== null) {
+      message.kIndex = BigInt(object.k_index);
+    }
+    if (object.initial_amount !== undefined && object.initial_amount !== null) {
+      message.initialAmount = BigInt(object.initial_amount);
+    }
+    return message;
   },
   toAmino(message: Delegator): DelegatorAmino {
     const obj: any = {};
@@ -445,11 +453,17 @@ export const DelegationEntry = {
     return message;
   },
   fromAmino(object: DelegationEntryAmino): DelegationEntry {
-    return {
-      staker: object.staker,
-      kIndex: BigInt(object.k_index),
-      value: object.value
-    };
+    const message = createBaseDelegationEntry();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.k_index !== undefined && object.k_index !== null) {
+      message.kIndex = BigInt(object.k_index);
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: DelegationEntry): DelegationEntryAmino {
     const obj: any = {};
@@ -528,14 +542,26 @@ export const DelegationData = {
     return message;
   },
   fromAmino(object: DelegationDataAmino): DelegationData {
-    return {
-      staker: object.staker,
-      currentRewards: BigInt(object.current_rewards),
-      totalDelegation: BigInt(object.total_delegation),
-      latestIndexK: BigInt(object.latest_index_k),
-      delegatorCount: BigInt(object.delegator_count),
-      latestIndexWasUndelegation: object.latest_index_was_undelegation
-    };
+    const message = createBaseDelegationData();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.current_rewards !== undefined && object.current_rewards !== null) {
+      message.currentRewards = BigInt(object.current_rewards);
+    }
+    if (object.total_delegation !== undefined && object.total_delegation !== null) {
+      message.totalDelegation = BigInt(object.total_delegation);
+    }
+    if (object.latest_index_k !== undefined && object.latest_index_k !== null) {
+      message.latestIndexK = BigInt(object.latest_index_k);
+    }
+    if (object.delegator_count !== undefined && object.delegator_count !== null) {
+      message.delegatorCount = BigInt(object.delegator_count);
+    }
+    if (object.latest_index_was_undelegation !== undefined && object.latest_index_was_undelegation !== null) {
+      message.latestIndexWasUndelegation = object.latest_index_was_undelegation;
+    }
+    return message;
   },
   toAmino(message: DelegationData): DelegationDataAmino {
     const obj: any = {};
@@ -599,11 +625,17 @@ export const DelegationSlash = {
     return message;
   },
   fromAmino(object: DelegationSlashAmino): DelegationSlash {
-    return {
-      staker: object.staker,
-      kIndex: BigInt(object.k_index),
-      fraction: object.fraction
-    };
+    const message = createBaseDelegationSlash();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.k_index !== undefined && object.k_index !== null) {
+      message.kIndex = BigInt(object.k_index);
+    }
+    if (object.fraction !== undefined && object.fraction !== null) {
+      message.fraction = object.fraction;
+    }
+    return message;
   },
   toAmino(message: DelegationSlash): DelegationSlashAmino {
     const obj: any = {};
@@ -676,13 +708,23 @@ export const UndelegationQueueEntry = {
     return message;
   },
   fromAmino(object: UndelegationQueueEntryAmino): UndelegationQueueEntry {
-    return {
-      index: BigInt(object.index),
-      staker: object.staker,
-      delegator: object.delegator,
-      amount: BigInt(object.amount),
-      creationTime: BigInt(object.creation_time)
-    };
+    const message = createBaseUndelegationQueueEntry();
+    if (object.index !== undefined && object.index !== null) {
+      message.index = BigInt(object.index);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.delegator !== undefined && object.delegator !== null) {
+      message.delegator = object.delegator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.creation_time !== undefined && object.creation_time !== null) {
+      message.creationTime = BigInt(object.creation_time);
+    }
+    return message;
   },
   toAmino(message: UndelegationQueueEntry): UndelegationQueueEntryAmino {
     const obj: any = {};
@@ -739,10 +781,14 @@ export const QueueState = {
     return message;
   },
   fromAmino(object: QueueStateAmino): QueueState {
-    return {
-      lowIndex: BigInt(object.low_index),
-      highIndex: BigInt(object.high_index)
-    };
+    const message = createBaseQueueState();
+    if (object.low_index !== undefined && object.low_index !== null) {
+      message.lowIndex = BigInt(object.low_index);
+    }
+    if (object.high_index !== undefined && object.high_index !== null) {
+      message.highIndex = BigInt(object.high_index);
+    }
+    return message;
   },
   toAmino(message: QueueState): QueueStateAmino {
     const obj: any = {};
@@ -796,10 +842,14 @@ export const RedelegationCooldown = {
     return message;
   },
   fromAmino(object: RedelegationCooldownAmino): RedelegationCooldown {
-    return {
-      address: object.address,
-      creationDate: BigInt(object.creation_date)
-    };
+    const message = createBaseRedelegationCooldown();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.creation_date !== undefined && object.creation_date !== null) {
+      message.creationDate = BigInt(object.creation_date);
+    }
+    return message;
   },
   toAmino(message: RedelegationCooldown): RedelegationCooldownAmino {
     const obj: any = {};

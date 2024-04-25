@@ -13,9 +13,9 @@ export interface MsgUpdateParamsProtoMsg {
 /** MsgUpdateParams defines a SDK message for updating the module parameters. */
 export interface MsgUpdateParamsAmino {
     /** authority is the address of the governance account. */
-    authority: string;
+    authority?: string;
     /** payload defines the x/global parameters to update. */
-    payload: string;
+    payload?: string;
 }
 export interface MsgUpdateParamsAminoMsg {
     type: "/kyve.global.v1beta1.MsgUpdateParams";

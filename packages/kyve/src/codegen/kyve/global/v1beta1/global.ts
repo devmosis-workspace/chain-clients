@@ -25,6 +25,7 @@ export interface Params {
    * governance proposal. This is used to avoid spamming of proposals and
    * polluting the proposals page.
    */
+  /** @deprecated */
   minInitialDepositRatio: string;
 }
 export interface ParamsProtoMsg {
@@ -34,28 +35,29 @@ export interface ParamsProtoMsg {
 /** Params defines the global module parameters. */
 export interface ParamsAmino {
   /** min_gas_price defines the minimum gas price value for all transactions. */
-  min_gas_price: string;
+  min_gas_price?: string;
   /** burn_ratio defines the ratio of transaction fees burnt. */
-  burn_ratio: string;
+  burn_ratio?: string;
   /**
    * gas_adjustments can add a constant amount of gas to a specific message type.
    * This gives more control to make certain messages more expensive to avoid spamming
    * of certain types of messages.
    */
-  gas_adjustments: GasAdjustmentAmino[];
+  gas_adjustments?: GasAdjustmentAmino[];
   /**
    * gas_refunds lets the governance specify a fraction of how much gas
    * a user gets refunded for a certain type of transaction.
    * This could be used to make transactions which support to network cheaper.
    * Gas refunds only work if the transaction only included one message.
    */
-  gas_refunds: GasRefundAmino[];
+  gas_refunds?: GasRefundAmino[];
   /**
    * min_initial_deposit_ratio sets a minimum fraction of initial deposit for a
    * governance proposal. This is used to avoid spamming of proposals and
    * polluting the proposals page.
    */
-  min_initial_deposit_ratio: string;
+  /** @deprecated */
+  min_initial_deposit_ratio?: string;
 }
 export interface ParamsAminoMsg {
   type: "/kyve.global.v1beta1.Params";
@@ -67,6 +69,7 @@ export interface ParamsSDKType {
   burn_ratio: string;
   gas_adjustments: GasAdjustmentSDKType[];
   gas_refunds: GasRefundSDKType[];
+  /** @deprecated */
   min_initial_deposit_ratio: string;
 }
 /**
@@ -89,9 +92,9 @@ export interface GasAdjustmentProtoMsg {
  */
 export interface GasAdjustmentAmino {
   /** type of the sdk-message */
-  type: string;
+  type?: string;
   /** amount of gas which is added to the message */
-  amount: string;
+  amount?: string;
 }
 export interface GasAdjustmentAminoMsg {
   type: "/kyve.global.v1beta1.GasAdjustment";
@@ -127,9 +130,9 @@ export interface GasRefundProtoMsg {
  */
 export interface GasRefundAmino {
   /** type of the sdk-message */
-  type: string;
+  type?: string;
   /** fraction in decimal representation between 0 and 1 */
-  fraction: string;
+  fraction?: string;
 }
 export interface GasRefundAminoMsg {
   type: "/kyve.global.v1beta1.GasRefund";
@@ -192,13 +195,19 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      minGasPrice: object.min_gas_price,
-      burnRatio: object.burn_ratio,
-      gasAdjustments: Array.isArray(object?.gas_adjustments) ? object.gas_adjustments.map((e: any) => GasAdjustment.fromAmino(e)) : [],
-      gasRefunds: Array.isArray(object?.gas_refunds) ? object.gas_refunds.map((e: any) => GasRefund.fromAmino(e)) : [],
-      minInitialDepositRatio: object.min_initial_deposit_ratio
-    };
+    const message = createBaseParams();
+    if (object.min_gas_price !== undefined && object.min_gas_price !== null) {
+      message.minGasPrice = object.min_gas_price;
+    }
+    if (object.burn_ratio !== undefined && object.burn_ratio !== null) {
+      message.burnRatio = object.burn_ratio;
+    }
+    message.gasAdjustments = object.gas_adjustments?.map(e => GasAdjustment.fromAmino(e)) || [];
+    message.gasRefunds = object.gas_refunds?.map(e => GasRefund.fromAmino(e)) || [];
+    if (object.min_initial_deposit_ratio !== undefined && object.min_initial_deposit_ratio !== null) {
+      message.minInitialDepositRatio = object.min_initial_deposit_ratio;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -263,10 +272,14 @@ export const GasAdjustment = {
     return message;
   },
   fromAmino(object: GasAdjustmentAmino): GasAdjustment {
-    return {
-      type: object.type,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseGasAdjustment();
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: GasAdjustment): GasAdjustmentAmino {
     const obj: any = {};
@@ -320,10 +333,14 @@ export const GasRefund = {
     return message;
   },
   fromAmino(object: GasRefundAmino): GasRefund {
-    return {
-      type: object.type,
-      fraction: object.fraction
-    };
+    const message = createBaseGasRefund();
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.fraction !== undefined && object.fraction !== null) {
+      message.fraction = object.fraction;
+    }
+    return message;
   },
   toAmino(message: GasRefund): GasRefundAmino {
     const obj: any = {};

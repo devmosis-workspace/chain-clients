@@ -24,7 +24,7 @@ export interface FinalizedBundle {
   /** data_hash is a sha256 hash of the uploaded data. */
   dataHash: string;
   /** finalized_at contains details of the block that finalized this bundle. */
-  finalizedAt: FinalizedAt;
+  finalizedAt?: FinalizedAt;
   /** storage_provider_id the id of the storage provider where the bundle is stored */
   storageProviderId: bigint;
   /** compression_id the id of the compression type with which the data was compressed */
@@ -33,7 +33,7 @@ export interface FinalizedBundle {
    * stake_security defines the amount of stake which was present in the pool during the finalization of the bundle.
    * This field was added in schema version 2. Bundles finalized before that return `null`.
    */
-  stakeSecurity: StakeSecurity;
+  stakeSecurity?: StakeSecurity;
 }
 export interface FinalizedBundleProtoMsg {
   typeUrl: "/kyve.query.v1beta1.FinalizedBundle";
@@ -42,31 +42,31 @@ export interface FinalizedBundleProtoMsg {
 /** FinalizedBundle represents the latest version of a valid bundle of a pool */
 export interface FinalizedBundleAmino {
   /** pool_id in which the bundle was created */
-  pool_id: string;
+  pool_id?: string;
   /** id is is integrated with each valid bundle produced. */
-  id: string;
+  id?: string;
   /** storage_id is the id with which the data can be retrieved from the configured data provider */
-  storage_id: string;
+  storage_id?: string;
   /** uploader is the address of the staker who submitted this bundle */
-  uploader: string;
+  uploader?: string;
   /** from_index is the index from where the bundle starts (inclusive) */
-  from_index: string;
+  from_index?: string;
   /** to_index is the index to which the bundle goes (exclusive) */
-  to_index: string;
+  to_index?: string;
   /** from_key is the key of the first data item in the bundle proposal */
-  from_key: string;
+  from_key?: string;
   /** to_key the key of the last data item in the bundle */
-  to_key: string;
+  to_key?: string;
   /** bundle_summary is a summary of the bundle. */
-  bundle_summary: string;
+  bundle_summary?: string;
   /** data_hash is a sha256 hash of the uploaded data. */
-  data_hash: string;
+  data_hash?: string;
   /** finalized_at contains details of the block that finalized this bundle. */
   finalized_at?: FinalizedAtAmino;
   /** storage_provider_id the id of the storage provider where the bundle is stored */
-  storage_provider_id: string;
+  storage_provider_id?: string;
   /** compression_id the id of the compression type with which the data was compressed */
-  compression_id: string;
+  compression_id?: string;
   /**
    * stake_security defines the amount of stake which was present in the pool during the finalization of the bundle.
    * This field was added in schema version 2. Bundles finalized before that return `null`.
@@ -89,10 +89,10 @@ export interface FinalizedBundleSDKType {
   to_key: string;
   bundle_summary: string;
   data_hash: string;
-  finalized_at: FinalizedAtSDKType;
+  finalized_at?: FinalizedAtSDKType;
   storage_provider_id: bigint;
   compression_id: bigint;
-  stake_security: StakeSecuritySDKType;
+  stake_security?: StakeSecuritySDKType;
 }
 /** FinalizedAt stores information about finalization block and time. */
 export interface FinalizedAt {
@@ -108,9 +108,9 @@ export interface FinalizedAtProtoMsg {
 /** FinalizedAt stores information about finalization block and time. */
 export interface FinalizedAtAmino {
   /** height is the block height in which the bundle got finalized. */
-  height: string;
+  height?: string;
   /** timestamp is the UNIX timestamp of the block in which the bundle got finalized. */
-  timestamp: string;
+  timestamp?: string;
 }
 export interface FinalizedAtAminoMsg {
   type: "/kyve.query.v1beta1.FinalizedAt";
@@ -138,12 +138,12 @@ export interface StakeSecurityProtoMsg {
 /** StakeSecurity represents the relative security of a finalized bundle */
 export interface StakeSecurityAmino {
   /** valid_vote_power gives the amount of $KYVE stake that voted `valid`. */
-  valid_vote_power: string;
+  valid_vote_power?: string;
   /**
    * total_vote_power gives the amount of total $KYVE stake that was present in the pool
    * during finalization.
    */
-  total_vote_power: string;
+  total_vote_power?: string;
 }
 export interface StakeSecurityAminoMsg {
   type: "/kyve.query.v1beta1.StakeSecurity";
@@ -157,7 +157,7 @@ export interface StakeSecuritySDKType {
 /** QueryFinalizedBundlesRequest is the request type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundlesRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   /** pool_id ... */
   poolId: bigint;
   /**
@@ -175,12 +175,12 @@ export interface QueryFinalizedBundlesRequestAmino {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
   /** pool_id ... */
-  pool_id: string;
+  pool_id?: string;
   /**
    * index is an optional parameter which tells the server to only show
    * the bundle with the given index. This can not be combined with pagination.
    */
-  index: string;
+  index?: string;
 }
 export interface QueryFinalizedBundlesRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryFinalizedBundlesRequest";
@@ -188,7 +188,7 @@ export interface QueryFinalizedBundlesRequestAminoMsg {
 }
 /** QueryFinalizedBundlesRequest is the request type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundlesRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
   pool_id: bigint;
   index: string;
 }
@@ -197,7 +197,7 @@ export interface QueryFinalizedBundlesResponse {
   /** finalized_bundles ... */
   finalizedBundles: FinalizedBundle[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryFinalizedBundlesResponseProtoMsg {
   typeUrl: "/kyve.query.v1beta1.QueryFinalizedBundlesResponse";
@@ -206,7 +206,7 @@ export interface QueryFinalizedBundlesResponseProtoMsg {
 /** QueryStakersByPoolResponse is the response type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundlesResponseAmino {
   /** finalized_bundles ... */
-  finalized_bundles: FinalizedBundleAmino[];
+  finalized_bundles?: FinalizedBundleAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -217,7 +217,7 @@ export interface QueryFinalizedBundlesResponseAminoMsg {
 /** QueryStakersByPoolResponse is the response type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundlesResponseSDKType {
   finalized_bundles: FinalizedBundleSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryFinalizedBundleRequest is the request type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundleRequest {
@@ -233,9 +233,9 @@ export interface QueryFinalizedBundleRequestProtoMsg {
 /** QueryFinalizedBundleRequest is the request type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundleRequestAmino {
   /** pool_id ... */
-  pool_id: string;
+  pool_id?: string;
   /** id ... */
-  id: string;
+  id?: string;
 }
 export interface QueryFinalizedBundleRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryFinalizedBundleRequest";
@@ -280,7 +280,7 @@ export interface QueryCurrentVoteStatusRequestProtoMsg {
 /** QueryCurrentVoteStatusRequest is the request type for the Query/Staker RPC method. */
 export interface QueryCurrentVoteStatusRequestAmino {
   /** pool_id ... */
-  pool_id: string;
+  pool_id?: string;
 }
 export interface QueryCurrentVoteStatusRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryCurrentVoteStatusRequest";
@@ -308,13 +308,13 @@ export interface QueryCurrentVoteStatusResponseProtoMsg {
 /** QueryCurrentVoteStatusResponse is the response type for the Query/Staker RPC method. */
 export interface QueryCurrentVoteStatusResponseAmino {
   /** valid ... */
-  valid: string;
+  valid?: string;
   /** invalid ... */
-  invalid: string;
+  invalid?: string;
   /** abstain ... */
-  abstain: string;
+  abstain?: string;
   /** total ... */
-  total: string;
+  total?: string;
 }
 export interface QueryCurrentVoteStatusResponseAminoMsg {
   type: "/kyve.query.v1beta1.QueryCurrentVoteStatusResponse";
@@ -341,9 +341,9 @@ export interface QueryCanValidateRequestProtoMsg {
 /** QueryCanProposeRequest is the request type for the Query/CanPropose RPC method. */
 export interface QueryCanValidateRequestAmino {
   /** pool_id defines the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** valaddress ... */
-  valaddress: string;
+  valaddress?: string;
 }
 export interface QueryCanValidateRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryCanValidateRequest";
@@ -368,9 +368,9 @@ export interface QueryCanValidateResponseProtoMsg {
 /** QueryCanProposeResponse is the response type for the Query/CanPropose RPC method. */
 export interface QueryCanValidateResponseAmino {
   /** possible ... */
-  possible: boolean;
+  possible?: boolean;
   /** reason ... */
-  reason: string;
+  reason?: string;
 }
 export interface QueryCanValidateResponseAminoMsg {
   type: "/kyve.query.v1beta1.QueryCanValidateResponse";
@@ -399,13 +399,13 @@ export interface QueryCanProposeRequestProtoMsg {
 /** QueryCanProposeRequest is the request type for the Query/CanPropose RPC method. */
 export interface QueryCanProposeRequestAmino {
   /** pool_id defines the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
   /** proposer ... */
-  proposer: string;
+  proposer?: string;
   /** from_index ... */
-  from_index: string;
+  from_index?: string;
 }
 export interface QueryCanProposeRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryCanProposeRequest";
@@ -432,9 +432,9 @@ export interface QueryCanProposeResponseProtoMsg {
 /** QueryCanProposeResponse is the response type for the Query/CanPropose RPC method. */
 export interface QueryCanProposeResponseAmino {
   /** possible ... */
-  possible: boolean;
+  possible?: boolean;
   /** reason ... */
-  reason: string;
+  reason?: string;
 }
 export interface QueryCanProposeResponseAminoMsg {
   type: "/kyve.query.v1beta1.QueryCanProposeResponse";
@@ -463,13 +463,13 @@ export interface QueryCanVoteRequestProtoMsg {
 /** QueryCanVoteRequest is the request type for the Query/CanVote RPC method. */
 export interface QueryCanVoteRequestAmino {
   /** pool_id defines the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
   /** voter ... */
-  voter: string;
+  voter?: string;
   /** storage_id ... */
-  storage_id: string;
+  storage_id?: string;
 }
 export interface QueryCanVoteRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryCanVoteRequest";
@@ -496,9 +496,9 @@ export interface QueryCanVoteResponseProtoMsg {
 /** QueryCanVoteResponse is the response type for the Query/CanVote RPC method. */
 export interface QueryCanVoteResponseAmino {
   /** possible ... */
-  possible: boolean;
+  possible?: boolean;
   /** reason ... */
-  reason: string;
+  reason?: string;
 }
 export interface QueryCanVoteResponseAminoMsg {
   type: "/kyve.query.v1beta1.QueryCanVoteResponse";
@@ -521,10 +521,10 @@ function createBaseFinalizedBundle(): FinalizedBundle {
     toKey: "",
     bundleSummary: "",
     dataHash: "",
-    finalizedAt: FinalizedAt.fromPartial({}),
+    finalizedAt: undefined,
     storageProviderId: BigInt(0),
     compressionId: BigInt(0),
-    stakeSecurity: StakeSecurity.fromPartial({})
+    stakeSecurity: undefined
   };
 }
 export const FinalizedBundle = {
@@ -611,22 +611,50 @@ export const FinalizedBundle = {
     return message;
   },
   fromAmino(object: FinalizedBundleAmino): FinalizedBundle {
-    return {
-      poolId: BigInt(object.pool_id),
-      id: BigInt(object.id),
-      storageId: object.storage_id,
-      uploader: object.uploader,
-      fromIndex: BigInt(object.from_index),
-      toIndex: BigInt(object.to_index),
-      fromKey: object.from_key,
-      toKey: object.to_key,
-      bundleSummary: object.bundle_summary,
-      dataHash: object.data_hash,
-      finalizedAt: object?.finalized_at ? FinalizedAt.fromAmino(object.finalized_at) : undefined,
-      storageProviderId: BigInt(object.storage_provider_id),
-      compressionId: BigInt(object.compression_id),
-      stakeSecurity: object?.stake_security ? StakeSecurity.fromAmino(object.stake_security) : undefined
-    };
+    const message = createBaseFinalizedBundle();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.storage_id !== undefined && object.storage_id !== null) {
+      message.storageId = object.storage_id;
+    }
+    if (object.uploader !== undefined && object.uploader !== null) {
+      message.uploader = object.uploader;
+    }
+    if (object.from_index !== undefined && object.from_index !== null) {
+      message.fromIndex = BigInt(object.from_index);
+    }
+    if (object.to_index !== undefined && object.to_index !== null) {
+      message.toIndex = BigInt(object.to_index);
+    }
+    if (object.from_key !== undefined && object.from_key !== null) {
+      message.fromKey = object.from_key;
+    }
+    if (object.to_key !== undefined && object.to_key !== null) {
+      message.toKey = object.to_key;
+    }
+    if (object.bundle_summary !== undefined && object.bundle_summary !== null) {
+      message.bundleSummary = object.bundle_summary;
+    }
+    if (object.data_hash !== undefined && object.data_hash !== null) {
+      message.dataHash = object.data_hash;
+    }
+    if (object.finalized_at !== undefined && object.finalized_at !== null) {
+      message.finalizedAt = FinalizedAt.fromAmino(object.finalized_at);
+    }
+    if (object.storage_provider_id !== undefined && object.storage_provider_id !== null) {
+      message.storageProviderId = BigInt(object.storage_provider_id);
+    }
+    if (object.compression_id !== undefined && object.compression_id !== null) {
+      message.compressionId = BigInt(object.compression_id);
+    }
+    if (object.stake_security !== undefined && object.stake_security !== null) {
+      message.stakeSecurity = StakeSecurity.fromAmino(object.stake_security);
+    }
+    return message;
   },
   toAmino(message: FinalizedBundle): FinalizedBundleAmino {
     const obj: any = {};
@@ -692,10 +720,14 @@ export const FinalizedAt = {
     return message;
   },
   fromAmino(object: FinalizedAtAmino): FinalizedAt {
-    return {
-      height: object.height,
-      timestamp: object.timestamp
-    };
+    const message = createBaseFinalizedAt();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = object.height;
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = object.timestamp;
+    }
+    return message;
   },
   toAmino(message: FinalizedAt): FinalizedAtAmino {
     const obj: any = {};
@@ -749,10 +781,14 @@ export const StakeSecurity = {
     return message;
   },
   fromAmino(object: StakeSecurityAmino): StakeSecurity {
-    return {
-      validVotePower: object.valid_vote_power,
-      totalVotePower: object.total_vote_power
-    };
+    const message = createBaseStakeSecurity();
+    if (object.valid_vote_power !== undefined && object.valid_vote_power !== null) {
+      message.validVotePower = object.valid_vote_power;
+    }
+    if (object.total_vote_power !== undefined && object.total_vote_power !== null) {
+      message.totalVotePower = object.total_vote_power;
+    }
+    return message;
   },
   toAmino(message: StakeSecurity): StakeSecurityAmino {
     const obj: any = {};
@@ -778,7 +814,7 @@ export const StakeSecurity = {
 };
 function createBaseQueryFinalizedBundlesRequest(): QueryFinalizedBundlesRequest {
   return {
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
     poolId: BigInt(0),
     index: ""
   };
@@ -812,11 +848,17 @@ export const QueryFinalizedBundlesRequest = {
     return message;
   },
   fromAmino(object: QueryFinalizedBundlesRequestAmino): QueryFinalizedBundlesRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
-      poolId: BigInt(object.pool_id),
-      index: object.index
-    };
+    const message = createBaseQueryFinalizedBundlesRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    }
+    return message;
   },
   toAmino(message: QueryFinalizedBundlesRequest): QueryFinalizedBundlesRequestAmino {
     const obj: any = {};
@@ -844,7 +886,7 @@ export const QueryFinalizedBundlesRequest = {
 function createBaseQueryFinalizedBundlesResponse(): QueryFinalizedBundlesResponse {
   return {
     finalizedBundles: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryFinalizedBundlesResponse = {
@@ -871,10 +913,12 @@ export const QueryFinalizedBundlesResponse = {
     return message;
   },
   fromAmino(object: QueryFinalizedBundlesResponseAmino): QueryFinalizedBundlesResponse {
-    return {
-      finalizedBundles: Array.isArray(object?.finalized_bundles) ? object.finalized_bundles.map((e: any) => FinalizedBundle.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryFinalizedBundlesResponse();
+    message.finalizedBundles = object.finalized_bundles?.map(e => FinalizedBundle.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryFinalizedBundlesResponse): QueryFinalizedBundlesResponseAmino {
     const obj: any = {};
@@ -932,10 +976,14 @@ export const QueryFinalizedBundleRequest = {
     return message;
   },
   fromAmino(object: QueryFinalizedBundleRequestAmino): QueryFinalizedBundleRequest {
-    return {
-      poolId: BigInt(object.pool_id),
-      id: BigInt(object.id)
-    };
+    const message = createBaseQueryFinalizedBundleRequest();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: QueryFinalizedBundleRequest): QueryFinalizedBundleRequestAmino {
     const obj: any = {};
@@ -983,9 +1031,11 @@ export const QueryFinalizedBundleResponse = {
     return message;
   },
   fromAmino(object: QueryFinalizedBundleResponseAmino): QueryFinalizedBundleResponse {
-    return {
-      finalizedBundles: object?.finalized_bundles ? FinalizedBundle.fromAmino(object.finalized_bundles) : undefined
-    };
+    const message = createBaseQueryFinalizedBundleResponse();
+    if (object.finalized_bundles !== undefined && object.finalized_bundles !== null) {
+      message.finalizedBundles = FinalizedBundle.fromAmino(object.finalized_bundles);
+    }
+    return message;
   },
   toAmino(message: QueryFinalizedBundleResponse): QueryFinalizedBundleResponseAmino {
     const obj: any = {};
@@ -1032,9 +1082,11 @@ export const QueryCurrentVoteStatusRequest = {
     return message;
   },
   fromAmino(object: QueryCurrentVoteStatusRequestAmino): QueryCurrentVoteStatusRequest {
-    return {
-      poolId: BigInt(object.pool_id)
-    };
+    const message = createBaseQueryCurrentVoteStatusRequest();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    return message;
   },
   toAmino(message: QueryCurrentVoteStatusRequest): QueryCurrentVoteStatusRequestAmino {
     const obj: any = {};
@@ -1099,12 +1151,20 @@ export const QueryCurrentVoteStatusResponse = {
     return message;
   },
   fromAmino(object: QueryCurrentVoteStatusResponseAmino): QueryCurrentVoteStatusResponse {
-    return {
-      valid: BigInt(object.valid),
-      invalid: BigInt(object.invalid),
-      abstain: BigInt(object.abstain),
-      total: BigInt(object.total)
-    };
+    const message = createBaseQueryCurrentVoteStatusResponse();
+    if (object.valid !== undefined && object.valid !== null) {
+      message.valid = BigInt(object.valid);
+    }
+    if (object.invalid !== undefined && object.invalid !== null) {
+      message.invalid = BigInt(object.invalid);
+    }
+    if (object.abstain !== undefined && object.abstain !== null) {
+      message.abstain = BigInt(object.abstain);
+    }
+    if (object.total !== undefined && object.total !== null) {
+      message.total = BigInt(object.total);
+    }
+    return message;
   },
   toAmino(message: QueryCurrentVoteStatusResponse): QueryCurrentVoteStatusResponseAmino {
     const obj: any = {};
@@ -1160,10 +1220,14 @@ export const QueryCanValidateRequest = {
     return message;
   },
   fromAmino(object: QueryCanValidateRequestAmino): QueryCanValidateRequest {
-    return {
-      poolId: BigInt(object.pool_id),
-      valaddress: object.valaddress
-    };
+    const message = createBaseQueryCanValidateRequest();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.valaddress !== undefined && object.valaddress !== null) {
+      message.valaddress = object.valaddress;
+    }
+    return message;
   },
   toAmino(message: QueryCanValidateRequest): QueryCanValidateRequestAmino {
     const obj: any = {};
@@ -1217,10 +1281,14 @@ export const QueryCanValidateResponse = {
     return message;
   },
   fromAmino(object: QueryCanValidateResponseAmino): QueryCanValidateResponse {
-    return {
-      possible: object.possible,
-      reason: object.reason
-    };
+    const message = createBaseQueryCanValidateResponse();
+    if (object.possible !== undefined && object.possible !== null) {
+      message.possible = object.possible;
+    }
+    if (object.reason !== undefined && object.reason !== null) {
+      message.reason = object.reason;
+    }
+    return message;
   },
   toAmino(message: QueryCanValidateResponse): QueryCanValidateResponseAmino {
     const obj: any = {};
@@ -1286,12 +1354,20 @@ export const QueryCanProposeRequest = {
     return message;
   },
   fromAmino(object: QueryCanProposeRequestAmino): QueryCanProposeRequest {
-    return {
-      poolId: BigInt(object.pool_id),
-      staker: object.staker,
-      proposer: object.proposer,
-      fromIndex: BigInt(object.from_index)
-    };
+    const message = createBaseQueryCanProposeRequest();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.proposer !== undefined && object.proposer !== null) {
+      message.proposer = object.proposer;
+    }
+    if (object.from_index !== undefined && object.from_index !== null) {
+      message.fromIndex = BigInt(object.from_index);
+    }
+    return message;
   },
   toAmino(message: QueryCanProposeRequest): QueryCanProposeRequestAmino {
     const obj: any = {};
@@ -1347,10 +1423,14 @@ export const QueryCanProposeResponse = {
     return message;
   },
   fromAmino(object: QueryCanProposeResponseAmino): QueryCanProposeResponse {
-    return {
-      possible: object.possible,
-      reason: object.reason
-    };
+    const message = createBaseQueryCanProposeResponse();
+    if (object.possible !== undefined && object.possible !== null) {
+      message.possible = object.possible;
+    }
+    if (object.reason !== undefined && object.reason !== null) {
+      message.reason = object.reason;
+    }
+    return message;
   },
   toAmino(message: QueryCanProposeResponse): QueryCanProposeResponseAmino {
     const obj: any = {};
@@ -1416,12 +1496,20 @@ export const QueryCanVoteRequest = {
     return message;
   },
   fromAmino(object: QueryCanVoteRequestAmino): QueryCanVoteRequest {
-    return {
-      poolId: BigInt(object.pool_id),
-      staker: object.staker,
-      voter: object.voter,
-      storageId: object.storage_id
-    };
+    const message = createBaseQueryCanVoteRequest();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.voter !== undefined && object.voter !== null) {
+      message.voter = object.voter;
+    }
+    if (object.storage_id !== undefined && object.storage_id !== null) {
+      message.storageId = object.storage_id;
+    }
+    return message;
   },
   toAmino(message: QueryCanVoteRequest): QueryCanVoteRequestAmino {
     const obj: any = {};
@@ -1477,10 +1565,14 @@ export const QueryCanVoteResponse = {
     return message;
   },
   fromAmino(object: QueryCanVoteResponseAmino): QueryCanVoteResponse {
-    return {
-      possible: object.possible,
-      reason: object.reason
-    };
+    const message = createBaseQueryCanVoteResponse();
+    if (object.possible !== undefined && object.possible !== null) {
+      message.possible = object.possible;
+    }
+    if (object.reason !== undefined && object.reason !== null) {
+      message.reason = object.reason;
+    }
+    return message;
   },
   toAmino(message: QueryCanVoteResponse): QueryCanVoteResponseAmino {
     const obj: any = {};

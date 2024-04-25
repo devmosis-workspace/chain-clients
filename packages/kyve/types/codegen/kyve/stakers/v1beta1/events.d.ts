@@ -26,7 +26,7 @@ export interface EventUpdateParamsAmino {
     /** new_params is the module's new parameters. */
     new_params?: ParamsAmino;
     /** payload is the parameter updates that were performed. */
-    payload: string;
+    payload?: string;
 }
 export interface EventUpdateParamsAminoMsg {
     type: "/kyve.stakers.v1beta1.EventUpdateParams";
@@ -63,11 +63,11 @@ export interface EventCreateStakerProtoMsg {
  */
 export interface EventCreateStakerAmino {
     /** staker is the account address of the protocol node. */
-    staker: string;
+    staker?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
     /** commission */
-    commission: string;
+    commission?: string;
 }
 export interface EventCreateStakerAminoMsg {
     type: "/kyve.stakers.v1beta1.EventCreateStaker";
@@ -110,17 +110,17 @@ export interface EventUpdateMetadataProtoMsg {
  */
 export interface EventUpdateMetadataAmino {
     /** staker is the account address of the protocol node. */
-    staker: string;
+    staker?: string;
     /** moniker ... */
-    moniker: string;
+    moniker?: string;
     /** website ... */
-    website: string;
+    website?: string;
     /** identity ... */
-    identity: string;
+    identity?: string;
     /** security_contact ... */
-    security_contact: string;
+    security_contact?: string;
     /** details ... */
-    details: string;
+    details?: string;
 }
 export interface EventUpdateMetadataAminoMsg {
     type: "/kyve.stakers.v1beta1.EventUpdateMetadata";
@@ -158,9 +158,9 @@ export interface EventUpdateCommissionProtoMsg {
  */
 export interface EventUpdateCommissionAmino {
     /** staker is the account address of the protocol node. */
-    staker: string;
+    staker?: string;
     /** commission ... */
-    commission: string;
+    commission?: string;
 }
 export interface EventUpdateCommissionAminoMsg {
     type: "/kyve.stakers.v1beta1.EventUpdateCommission";
@@ -194,9 +194,9 @@ export interface EventClaimCommissionRewardsProtoMsg {
  */
 export interface EventClaimCommissionRewardsAmino {
     /** staker is the account address of the protocol node. */
-    staker: string;
+    staker?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
 }
 export interface EventClaimCommissionRewardsAminoMsg {
     type: "/kyve.stakers.v1beta1.EventClaimCommissionRewards";
@@ -237,16 +237,16 @@ export interface EventJoinPoolProtoMsg {
  */
 export interface EventJoinPoolAmino {
     /** pool_id is the pool the staker joined */
-    pool_id: string;
+    pool_id?: string;
     /** staker is the address of the staker */
-    staker: string;
+    staker?: string;
     /**
      * valaddress is the address of the protocol node which
      * votes in favor of the staker
      */
-    valaddress: string;
+    valaddress?: string;
     /** amount is the amount of funds transferred to the valaddress */
-    amount: string;
+    amount?: string;
 }
 export interface EventJoinPoolAminoMsg {
     type: "/kyve.stakers.v1beta1.EventJoinPool";
@@ -282,9 +282,9 @@ export interface EventLeavePoolProtoMsg {
  */
 export interface EventLeavePoolAmino {
     /** pool_id ... */
-    pool_id: string;
+    pool_id?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
 }
 export interface EventLeavePoolAminoMsg {
     type: "/kyve.stakers.v1beta1.EventLeavePool";

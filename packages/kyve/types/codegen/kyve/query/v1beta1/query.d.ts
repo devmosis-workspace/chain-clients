@@ -16,8 +16,8 @@ export interface BasicPool {
     runtime: string;
     /** logo of the pool */
     logo: string;
-    /** operating_cost is the base payout for each bundle reward */
-    operatingCost: bigint;
+    /** inflation_share_weight is the base payout for each bundle reward */
+    inflationShareWeight: bigint;
     /** upload_interval is the interval bundles get created */
     uploadInterval: bigint;
     /**
@@ -43,32 +43,32 @@ export interface BasicPoolProtoMsg {
  */
 export interface BasicPoolAmino {
     /** id is the ID of the pool */
-    id: string;
+    id?: string;
     /** name of the pool */
-    name: string;
+    name?: string;
     /**
      * runtime for the protocol nodes
      * like evm, bitcoin, etc.
      */
-    runtime: string;
+    runtime?: string;
     /** logo of the pool */
-    logo: string;
-    /** operating_cost is the base payout for each bundle reward */
-    operating_cost: string;
+    logo?: string;
+    /** inflation_share_weight is the base payout for each bundle reward */
+    inflation_share_weight?: string;
     /** upload_interval is the interval bundles get created */
-    upload_interval: string;
+    upload_interval?: string;
     /**
      * total_funds of the pool. If the pool runs
      * out of funds no more bundles will be produced
      */
-    total_funds: string;
+    total_funds?: string;
     /** total_delegation of the pool */
-    total_delegation: string;
+    total_delegation?: string;
     /**
      * status of the pool if pool is able
      * to produce bundles, etc.
      */
-    status: PoolStatus;
+    status?: PoolStatus;
 }
 export interface BasicPoolAminoMsg {
     type: "/kyve.query.v1beta1.BasicPool";
@@ -83,7 +83,7 @@ export interface BasicPoolSDKType {
     name: string;
     runtime: string;
     logo: string;
-    operating_cost: bigint;
+    inflation_share_weight: bigint;
     upload_interval: bigint;
     total_funds: bigint;
     total_delegation: bigint;
@@ -98,7 +98,7 @@ export interface FullStaker {
     /** address of the staker */
     address: string;
     /** metadata as logo, moniker, etc. */
-    metadata: StakerMetadata;
+    metadata?: StakerMetadata;
     /** amount the staker has delegated to himself */
     selfDelegation: bigint;
     /**
@@ -137,11 +137,11 @@ export interface FullStakerProtoMsg {
  */
 export interface FullStakerAmino {
     /** address of the staker */
-    address: string;
+    address?: string;
     /** metadata as logo, moniker, etc. */
     metadata?: StakerMetadataAmino;
     /** amount the staker has delegated to himself */
-    self_delegation: string;
+    self_delegation?: string;
     /**
      * unbonding_amount is the amount the staker is currently unbonding
      * from the self-delegation.
@@ -150,22 +150,22 @@ export interface FullStakerAmino {
      * the unbonding period this amount is double checked with the
      * remaining amount.
      */
-    self_delegation_unbonding: string;
+    self_delegation_unbonding?: string;
     /**
      * total_delegation returns the sum of all $KYVE users
      * have delegated to this staker
      */
-    total_delegation: string;
+    total_delegation?: string;
     /**
      * delegator_count is the total number of individual
      * delegator addresses for that user.
      */
-    delegator_count: string;
+    delegator_count?: string;
     /**
      * pools is a list of all pools the staker is currently
      * participating, i.e. allowed to vote and upload data.
      */
-    pools: PoolMembershipAmino[];
+    pools?: PoolMembershipAmino[];
 }
 export interface FullStakerAminoMsg {
     type: "/kyve.query.v1beta1.FullStaker";
@@ -178,7 +178,7 @@ export interface FullStakerAminoMsg {
  */
 export interface FullStakerSDKType {
     address: string;
-    metadata: StakerMetadataSDKType;
+    metadata?: StakerMetadataSDKType;
     self_delegation: bigint;
     self_delegation_unbonding: bigint;
     total_delegation: bigint;
@@ -213,7 +213,7 @@ export interface StakerMetadata {
      * the commission is applied. Users have time to redelegate
      * if they not agree with the new commission.
      */
-    pendingCommissionChange: CommissionChangeEntry;
+    pendingCommissionChange?: CommissionChangeEntry;
     /** commission_rewards are the rewards in $KYVE earned through commission */
     commissionRewards: bigint;
 }
@@ -228,20 +228,20 @@ export interface StakerMetadataAmino {
      * get transferred to the staker before the remaining
      * rewards are split across all delegators
      */
-    commission: string;
+    commission?: string;
     /**
      * moniker is a human-readable name for displaying
      * the staker in the UI
      */
-    moniker: string;
+    moniker?: string;
     /** website is a https-link to the website of the staker */
-    website: string;
+    website?: string;
     /** identity from keybase.io */
-    identity: string;
+    identity?: string;
     /** security_contact ... */
-    security_contact: string;
+    security_contact?: string;
     /** details ... */
-    details: string;
+    details?: string;
     /**
      * pending_commission_change shows if the staker plans
      * to change its commission. Delegators will see a warning in
@@ -251,7 +251,7 @@ export interface StakerMetadataAmino {
      */
     pending_commission_change?: CommissionChangeEntryAmino;
     /** commission_rewards are the rewards in $KYVE earned through commission */
-    commission_rewards: string;
+    commission_rewards?: string;
 }
 export interface StakerMetadataAminoMsg {
     type: "/kyve.query.v1beta1.StakerMetadata";
@@ -265,7 +265,7 @@ export interface StakerMetadataSDKType {
     identity: string;
     security_contact: string;
     details: string;
-    pending_commission_change: CommissionChangeEntrySDKType;
+    pending_commission_change?: CommissionChangeEntrySDKType;
     commission_rewards: bigint;
 }
 /**
@@ -297,12 +297,12 @@ export interface CommissionChangeEntryAmino {
      * commission is the new commission that will
      * become active once the change-time is over
      */
-    commission: string;
+    commission?: string;
     /**
      * creation_date is the UNIX-timestamp (in seconds)
      * of when the entry was created.
      */
-    creation_date: string;
+    creation_date?: string;
 }
 export interface CommissionChangeEntryAminoMsg {
     type: "/kyve.query.v1beta1.CommissionChangeEntry";
@@ -322,7 +322,7 @@ export interface CommissionChangeEntrySDKType {
  */
 export interface PoolMembership {
     /** pool contains useful information about the pool */
-    pool: BasicPool;
+    pool?: BasicPool;
     /**
      * points indicates if the staker is inactive
      * If the staker misses a vote, a point is added.
@@ -366,25 +366,25 @@ export interface PoolMembershipAmino {
      * After 5 points the staker is removed from
      * the stakers set.
      */
-    points: string;
+    points?: string;
     /**
      * is_leaving indicates if a user has scheduled a
      * a PoolLeave entry. After the leave-time is over
      * the staker will no longer participate in that pool
      */
-    is_leaving: boolean;
+    is_leaving?: boolean;
     /**
      * Valaddress is the address which is authorized to vote
      * and submit bundles. If the server gets compromised
      * the staker can just change the valaddress.
      */
-    valaddress: string;
+    valaddress?: string;
     /**
      * balance is the valaddress account balance and indicates
      * whether or not the valaccount needs additional funds to
      * pay for gas fees
      */
-    balance: string;
+    balance?: string;
 }
 export interface PoolMembershipAminoMsg {
     type: "/kyve.query.v1beta1.PoolMembership";
@@ -395,7 +395,7 @@ export interface PoolMembershipAminoMsg {
  * is participating
  */
 export interface PoolMembershipSDKType {
-    pool: BasicPoolSDKType;
+    pool?: BasicPoolSDKType;
     points: bigint;
     is_leaving: boolean;
     valaddress: string;

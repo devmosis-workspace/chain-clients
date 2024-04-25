@@ -27,7 +27,7 @@ export interface EventUpdateParamsAmino {
     /** new_params is the module's new parameters. */
     new_params?: ParamsAmino;
     /** payload is the parameter updates that were performed. */
-    payload: string;
+    payload?: string;
 }
 export interface EventUpdateParamsAminoMsg {
     type: "/kyve.delegation.v1beta1.EventUpdateParams";
@@ -64,11 +64,11 @@ export interface EventDelegateProtoMsg {
  */
 export interface EventDelegateAmino {
     /** address is the account address of the delegator. */
-    address: string;
+    address?: string;
     /** staker is the account address of the protocol node. */
-    staker: string;
+    staker?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
 }
 export interface EventDelegateAminoMsg {
     type: "/kyve.delegation.v1beta1.EventDelegate";
@@ -110,16 +110,16 @@ export interface EventStartUndelegationProtoMsg {
  */
 export interface EventStartUndelegationAmino {
     /** address is the address of the delegator. */
-    address: string;
+    address?: string;
     /** staker is the address of the protocol node. */
-    staker: string;
+    staker?: string;
     /** amount is the amount to be undelegated from the protocol node. */
-    amount: string;
+    amount?: string;
     /**
      * estimated_undelegation_date is the date in UNIX seconds on when the undelegation will be performed.
      * Note, this number will be incorrect if a governance proposal changes `UnbondingDelegationTime` while unbonding.
      */
-    estimated_undelegation_date: string;
+    estimated_undelegation_date?: string;
 }
 export interface EventStartUndelegationAminoMsg {
     type: "/kyve.delegation.v1beta1.EventStartUndelegation";
@@ -157,11 +157,11 @@ export interface EventUndelegateProtoMsg {
  */
 export interface EventUndelegateAmino {
     /** address is the account address of the delegator. */
-    address: string;
+    address?: string;
     /** staker is the account address of the protocol node. */
-    staker: string;
+    staker?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
 }
 export interface EventUndelegateAminoMsg {
     type: "/kyve.delegation.v1beta1.EventUndelegate";
@@ -200,13 +200,13 @@ export interface EventRedelegateProtoMsg {
  */
 export interface EventRedelegateAmino {
     /** address is the account address of the delegator. */
-    address: string;
+    address?: string;
     /** from_staker ... */
-    from_staker: string;
+    from_staker?: string;
     /** to_staker is the account address of the new staker in the the pool */
-    to_staker: string;
+    to_staker?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
 }
 export interface EventRedelegateAminoMsg {
     type: "/kyve.delegation.v1beta1.EventRedelegate";
@@ -244,11 +244,11 @@ export interface EventWithdrawRewardsProtoMsg {
  */
 export interface EventWithdrawRewardsAmino {
     /** address is the account address of the delegator. */
-    address: string;
+    address?: string;
     /** staker is the account address of the protocol node the users withdraws from. */
-    staker: string;
+    staker?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
 }
 export interface EventWithdrawRewardsAminoMsg {
     type: "/kyve.delegation.v1beta1.EventWithdrawRewards";
@@ -287,13 +287,13 @@ export interface EventSlashProtoMsg {
  */
 export interface EventSlashAmino {
     /** pool_id is the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** staker is the account address of the protocol node. */
-    staker: string;
+    staker?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
     /** slash_type */
-    slash_type: SlashType;
+    slash_type?: SlashType;
 }
 export interface EventSlashAminoMsg {
     type: "/kyve.delegation.v1beta1.EventSlash";

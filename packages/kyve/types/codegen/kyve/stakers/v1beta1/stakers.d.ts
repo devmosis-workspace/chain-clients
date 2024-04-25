@@ -31,21 +31,21 @@ export interface StakerProtoMsg {
  */
 export interface StakerAmino {
     /** address ... */
-    address: string;
+    address?: string;
     /** commission ... */
-    commission: string;
+    commission?: string;
     /** moniker ... */
-    moniker: string;
+    moniker?: string;
     /** website ... */
-    website: string;
+    website?: string;
     /** identity is the 64 bit keybase.io identity string */
-    identity: string;
+    identity?: string;
     /** security_contact ... */
-    security_contact: string;
+    security_contact?: string;
     /** details are some additional notes the staker finds important */
-    details: string;
+    details?: string;
     /** commission_rewards are the rewards in $KYVE earned through commission */
-    commission_rewards: string;
+    commission_rewards?: string;
 }
 export interface StakerAminoMsg {
     type: "/kyve.stakers.v1beta1.Staker";
@@ -104,22 +104,22 @@ export interface ValaccountAmino {
      * pool_id defines the pool in which the address
      * is allowed to vote in.
      */
-    pool_id: string;
+    pool_id?: string;
     /** staker is the address the valaccount is voting for. */
-    staker: string;
+    staker?: string;
     /**
      * valaddress is the account stored on the protocol
      * node which votes for the staker in the given pool
      */
-    valaddress: string;
+    valaddress?: string;
     /**
      * When a node is inactive (does not vote at all)
      * A point is added, after a certain amount of points
      * is reached the node gets kicked out.
      */
-    points: string;
+    points?: string;
     /** isLeaving indicates if a staker is leaving the given pool. */
-    is_leaving: boolean;
+    is_leaving?: boolean;
 }
 export interface ValaccountAminoMsg {
     type: "/kyve.stakers.v1beta1.Valaccount";
@@ -176,19 +176,19 @@ export interface CommissionChangeEntryAmino {
      * index is needed for the queue-algorithm which
      * processes the commission changes
      */
-    index: string;
+    index?: string;
     /** staker is the address of the affected staker */
-    staker: string;
+    staker?: string;
     /**
      * commission is the new commission which will
      * be applied after the waiting time is over.
      */
-    commission: string;
+    commission?: string;
     /**
      * creation_date is the UNIX-timestamp in seconds
      * when the entry was created.
      */
-    creation_date: string;
+    creation_date?: string;
 }
 export interface CommissionChangeEntryAminoMsg {
     type: "/kyve.stakers.v1beta1.CommissionChangeEntry";
@@ -245,16 +245,16 @@ export interface LeavePoolEntryAmino {
      * index is needed for the queue-algorithm which
      * processes the commission changes
      */
-    index: string;
+    index?: string;
     /** staker is the address of the affected staker */
-    staker: string;
+    staker?: string;
     /** pool_id indicates the pool the staker wants to leave */
-    pool_id: string;
+    pool_id?: string;
     /**
      * creation_date is the UNIX-timestamp in seconds
      * when the entry was created.
      */
-    creation_date: string;
+    creation_date?: string;
 }
 export interface LeavePoolEntryAminoMsg {
     type: "/kyve.stakers.v1beta1.LeavePoolEntry";
@@ -298,12 +298,12 @@ export interface QueueStateAmino {
      * oldest entry in the queue. If this entry isn't
      * due, non of the other entries is.
      */
-    low_index: string;
+    low_index?: string;
     /**
      * high_index is the head of the queue. New entries
      * are added to the top.
      */
-    high_index: string;
+    high_index?: string;
 }
 export interface QueueStateAminoMsg {
     type: "/kyve.stakers.v1beta1.QueueState";

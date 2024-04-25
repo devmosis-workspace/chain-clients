@@ -10,62 +10,72 @@ import * as _8 from "./delegation/v1beta1/genesis";
 import * as _9 from "./delegation/v1beta1/params";
 import * as _10 from "./delegation/v1beta1/query";
 import * as _11 from "./delegation/v1beta1/tx";
-import * as _12 from "./global/v1beta1/events";
-import * as _13 from "./global/v1beta1/genesis";
-import * as _14 from "./global/v1beta1/global";
-import * as _15 from "./global/v1beta1/query";
-import * as _16 from "./global/v1beta1/tx";
-import * as _17 from "./pool/v1beta1/events";
-import * as _18 from "./pool/v1beta1/genesis";
-import * as _19 from "./pool/v1beta1/params";
-import * as _20 from "./pool/v1beta1/pool";
-import * as _21 from "./pool/v1beta1/query";
-import * as _22 from "./pool/v1beta1/tx";
-import * as _23 from "./query/v1beta1/account";
-import * as _24 from "./query/v1beta1/bundles";
-import * as _25 from "./query/v1beta1/delegation";
-import * as _26 from "./query/v1beta1/params";
-import * as _27 from "./query/v1beta1/pools";
-import * as _28 from "./query/v1beta1/query";
-import * as _29 from "./query/v1beta1/stakers";
-import * as _30 from "./stakers/v1beta1/events";
-import * as _31 from "./stakers/v1beta1/genesis";
-import * as _32 from "./stakers/v1beta1/params";
-import * as _33 from "./stakers/v1beta1/query";
-import * as _34 from "./stakers/v1beta1/stakers";
-import * as _35 from "./stakers/v1beta1/tx";
-import * as _36 from "./team/v1beta1/events";
-import * as _37 from "./team/v1beta1/genesis";
-import * as _38 from "./team/v1beta1/query";
-import * as _39 from "./team/v1beta1/team";
-import * as _40 from "./team/v1beta1/tx";
-import * as _168 from "./bundles/v1beta1/query.lcd";
-import * as _169 from "./delegation/v1beta1/query.lcd";
-import * as _170 from "./global/v1beta1/query.lcd";
-import * as _171 from "./pool/v1beta1/query.lcd";
-import * as _172 from "./stakers/v1beta1/query.lcd";
-import * as _173 from "./team/v1beta1/query.lcd";
-import * as _174 from "./bundles/v1beta1/query.rpc.Query";
-import * as _175 from "./delegation/v1beta1/query.rpc.Query";
-import * as _176 from "./global/v1beta1/query.rpc.Query";
-import * as _177 from "./pool/v1beta1/query.rpc.Query";
-import * as _178 from "./stakers/v1beta1/query.rpc.Query";
-import * as _179 from "./team/v1beta1/query.rpc.Query";
-import * as _180 from "./bundles/v1beta1/tx.rpc.msg";
-import * as _181 from "./delegation/v1beta1/tx.rpc.msg";
-import * as _182 from "./global/v1beta1/tx.rpc.msg";
-import * as _183 from "./pool/v1beta1/tx.rpc.msg";
-import * as _184 from "./stakers/v1beta1/tx.rpc.msg";
-import * as _185 from "./team/v1beta1/tx.rpc.msg";
+import * as _12 from "./funders/v1beta1/events";
+import * as _13 from "./funders/v1beta1/funders";
+import * as _14 from "./funders/v1beta1/genesis";
+import * as _15 from "./funders/v1beta1/params";
+import * as _16 from "./funders/v1beta1/query";
+import * as _17 from "./funders/v1beta1/tx";
+import * as _18 from "./global/v1beta1/events";
+import * as _19 from "./global/v1beta1/genesis";
+import * as _20 from "./global/v1beta1/global";
+import * as _21 from "./global/v1beta1/query";
+import * as _22 from "./global/v1beta1/tx";
+import * as _23 from "./pool/v1beta1/events";
+import * as _24 from "./pool/v1beta1/genesis";
+import * as _25 from "./pool/v1beta1/params";
+import * as _26 from "./pool/v1beta1/pool";
+import * as _27 from "./pool/v1beta1/query";
+import * as _28 from "./pool/v1beta1/tx";
+import * as _29 from "./query/v1beta1/account";
+import * as _30 from "./query/v1beta1/bundles";
+import * as _31 from "./query/v1beta1/delegation";
+import * as _32 from "./query/v1beta1/funders";
+import * as _33 from "./query/v1beta1/params";
+import * as _34 from "./query/v1beta1/pools";
+import * as _35 from "./query/v1beta1/query";
+import * as _36 from "./query/v1beta1/stakers";
+import * as _37 from "./stakers/v1beta1/events";
+import * as _38 from "./stakers/v1beta1/genesis";
+import * as _39 from "./stakers/v1beta1/params";
+import * as _40 from "./stakers/v1beta1/query";
+import * as _41 from "./stakers/v1beta1/stakers";
+import * as _42 from "./stakers/v1beta1/tx";
+import * as _43 from "./team/v1beta1/events";
+import * as _44 from "./team/v1beta1/genesis";
+import * as _45 from "./team/v1beta1/query";
+import * as _46 from "./team/v1beta1/team";
+import * as _47 from "./team/v1beta1/tx";
+import * as _207 from "./bundles/v1beta1/query.lcd";
+import * as _208 from "./delegation/v1beta1/query.lcd";
+import * as _209 from "./funders/v1beta1/query.lcd";
+import * as _210 from "./global/v1beta1/query.lcd";
+import * as _211 from "./pool/v1beta1/query.lcd";
+import * as _212 from "./stakers/v1beta1/query.lcd";
+import * as _213 from "./team/v1beta1/query.lcd";
+import * as _214 from "./bundles/v1beta1/query.rpc.Query";
+import * as _215 from "./delegation/v1beta1/query.rpc.Query";
+import * as _216 from "./funders/v1beta1/query.rpc.Query";
+import * as _217 from "./global/v1beta1/query.rpc.Query";
+import * as _218 from "./pool/v1beta1/query.rpc.Query";
+import * as _219 from "./stakers/v1beta1/query.rpc.Query";
+import * as _220 from "./team/v1beta1/query.rpc.Query";
+import * as _221 from "./bundles/v1beta1/tx.rpc.msg";
+import * as _222 from "./delegation/v1beta1/tx.rpc.msg";
+import * as _223 from "./funders/v1beta1/tx.rpc.msg";
+import * as _224 from "./global/v1beta1/tx.rpc.msg";
+import * as _225 from "./pool/v1beta1/tx.rpc.msg";
+import * as _226 from "./stakers/v1beta1/tx.rpc.msg";
+import * as _227 from "./team/v1beta1/tx.rpc.msg";
 export declare namespace kyve {
     namespace bundles {
         const v1beta1: {
-            MsgClientImpl: typeof _180.MsgClientImpl;
-            QueryClientImpl: typeof _174.QueryClientImpl;
+            MsgClientImpl: typeof _221.MsgClientImpl;
+            QueryClientImpl: typeof _214.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _4.QueryParamsRequest): Promise<_4.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _168.LCDQueryClient;
+            LCDQueryClient: typeof _207.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -559,12 +569,12 @@ export declare namespace kyve {
     }
     namespace delegation {
         const v1beta1: {
-            MsgClientImpl: typeof _181.MsgClientImpl;
-            QueryClientImpl: typeof _175.QueryClientImpl;
+            MsgClientImpl: typeof _222.MsgClientImpl;
+            QueryClientImpl: typeof _215.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _10.QueryParamsRequest): Promise<_10.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _169.LCDQueryClient;
+            LCDQueryClient: typeof _208.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -1027,144 +1037,336 @@ export declare namespace kyve {
             };
         };
     }
-    namespace global {
+    namespace funders {
         const v1beta1: {
-            MsgClientImpl: typeof _182.MsgClientImpl;
-            QueryClientImpl: typeof _176.QueryClientImpl;
+            MsgClientImpl: typeof _223.MsgClientImpl;
+            QueryClientImpl: typeof _216.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
-                params(request?: _15.QueryParamsRequest): Promise<_15.QueryParamsResponse>;
+                params(request?: _16.QueryParamsRequest): Promise<_16.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _170.LCDQueryClient;
+            LCDQueryClient: typeof _209.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
                 encoded: {
-                    updateParams(value: _16.MsgUpdateParams): {
+                    createFunder(value: _17.MsgCreateFunder): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    updateFunder(value: _17.MsgUpdateFunder): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    fundPool(value: _17.MsgFundPool): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    defundPool(value: _17.MsgDefundPool): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    updateParams(value: _17.MsgUpdateParams): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
                 };
                 withTypeUrl: {
-                    updateParams(value: _16.MsgUpdateParams): {
+                    createFunder(value: _17.MsgCreateFunder): {
                         typeUrl: string;
-                        value: _16.MsgUpdateParams;
+                        value: _17.MsgCreateFunder;
+                    };
+                    updateFunder(value: _17.MsgUpdateFunder): {
+                        typeUrl: string;
+                        value: _17.MsgUpdateFunder;
+                    };
+                    fundPool(value: _17.MsgFundPool): {
+                        typeUrl: string;
+                        value: _17.MsgFundPool;
+                    };
+                    defundPool(value: _17.MsgDefundPool): {
+                        typeUrl: string;
+                        value: _17.MsgDefundPool;
+                    };
+                    updateParams(value: _17.MsgUpdateParams): {
+                        typeUrl: string;
+                        value: _17.MsgUpdateParams;
                     };
                 };
                 fromJSON: {
+                    createFunder(value: any): {
+                        typeUrl: string;
+                        value: _17.MsgCreateFunder;
+                    };
+                    updateFunder(value: any): {
+                        typeUrl: string;
+                        value: _17.MsgUpdateFunder;
+                    };
+                    fundPool(value: any): {
+                        typeUrl: string;
+                        value: _17.MsgFundPool;
+                    };
+                    defundPool(value: any): {
+                        typeUrl: string;
+                        value: _17.MsgDefundPool;
+                    };
                     updateParams(value: any): {
                         typeUrl: string;
-                        value: _16.MsgUpdateParams;
+                        value: _17.MsgUpdateParams;
                     };
                 };
                 fromPartial: {
-                    updateParams(value: _16.MsgUpdateParams): {
+                    createFunder(value: _17.MsgCreateFunder): {
                         typeUrl: string;
-                        value: _16.MsgUpdateParams;
+                        value: _17.MsgCreateFunder;
+                    };
+                    updateFunder(value: _17.MsgUpdateFunder): {
+                        typeUrl: string;
+                        value: _17.MsgUpdateFunder;
+                    };
+                    fundPool(value: _17.MsgFundPool): {
+                        typeUrl: string;
+                        value: _17.MsgFundPool;
+                    };
+                    defundPool(value: _17.MsgDefundPool): {
+                        typeUrl: string;
+                        value: _17.MsgDefundPool;
+                    };
+                    updateParams(value: _17.MsgUpdateParams): {
+                        typeUrl: string;
+                        value: _17.MsgUpdateParams;
                     };
                 };
             };
             AminoConverter: {
-                "/kyve.global.v1beta1.MsgUpdateParams": {
+                "/kyve.funders.v1beta1.MsgCreateFunder": {
                     aminoType: string;
-                    toAmino: (message: _16.MsgUpdateParams) => _16.MsgUpdateParamsAmino;
-                    fromAmino: (object: _16.MsgUpdateParamsAmino) => _16.MsgUpdateParams;
+                    toAmino: (message: _17.MsgCreateFunder) => _17.MsgCreateFunderAmino;
+                    fromAmino: (object: _17.MsgCreateFunderAmino) => _17.MsgCreateFunder;
                 };
+                "/kyve.funders.v1beta1.MsgUpdateFunder": {
+                    aminoType: string;
+                    toAmino: (message: _17.MsgUpdateFunder) => _17.MsgUpdateFunderAmino;
+                    fromAmino: (object: _17.MsgUpdateFunderAmino) => _17.MsgUpdateFunder;
+                };
+                "/kyve.funders.v1beta1.MsgFundPool": {
+                    aminoType: string;
+                    toAmino: (message: _17.MsgFundPool) => _17.MsgFundPoolAmino;
+                    fromAmino: (object: _17.MsgFundPoolAmino) => _17.MsgFundPool;
+                };
+                "/kyve.funders.v1beta1.MsgDefundPool": {
+                    aminoType: string;
+                    toAmino: (message: _17.MsgDefundPool) => _17.MsgDefundPoolAmino;
+                    fromAmino: (object: _17.MsgDefundPoolAmino) => _17.MsgDefundPool;
+                };
+                "/kyve.funders.v1beta1.MsgUpdateParams": {
+                    aminoType: string;
+                    toAmino: (message: _17.MsgUpdateParams) => _17.MsgUpdateParamsAmino;
+                    fromAmino: (object: _17.MsgUpdateParamsAmino) => _17.MsgUpdateParams;
+                };
+            };
+            MsgCreateFunder: {
+                typeUrl: string;
+                encode(message: _17.MsgCreateFunder, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _17.MsgCreateFunder;
+                fromPartial(object: Partial<_17.MsgCreateFunder>): _17.MsgCreateFunder;
+                fromAmino(object: _17.MsgCreateFunderAmino): _17.MsgCreateFunder;
+                toAmino(message: _17.MsgCreateFunder): _17.MsgCreateFunderAmino;
+                fromAminoMsg(object: _17.MsgCreateFunderAminoMsg): _17.MsgCreateFunder;
+                fromProtoMsg(message: _17.MsgCreateFunderProtoMsg): _17.MsgCreateFunder;
+                toProto(message: _17.MsgCreateFunder): Uint8Array;
+                toProtoMsg(message: _17.MsgCreateFunder): _17.MsgCreateFunderProtoMsg;
+            };
+            MsgCreateFunderResponse: {
+                typeUrl: string;
+                encode(_: _17.MsgCreateFunderResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _17.MsgCreateFunderResponse;
+                fromPartial(_: Partial<_17.MsgCreateFunderResponse>): _17.MsgCreateFunderResponse;
+                fromAmino(_: _17.MsgCreateFunderResponseAmino): _17.MsgCreateFunderResponse;
+                toAmino(_: _17.MsgCreateFunderResponse): _17.MsgCreateFunderResponseAmino;
+                fromAminoMsg(object: _17.MsgCreateFunderResponseAminoMsg): _17.MsgCreateFunderResponse;
+                fromProtoMsg(message: _17.MsgCreateFunderResponseProtoMsg): _17.MsgCreateFunderResponse;
+                toProto(message: _17.MsgCreateFunderResponse): Uint8Array;
+                toProtoMsg(message: _17.MsgCreateFunderResponse): _17.MsgCreateFunderResponseProtoMsg;
+            };
+            MsgUpdateFunder: {
+                typeUrl: string;
+                encode(message: _17.MsgUpdateFunder, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _17.MsgUpdateFunder;
+                fromPartial(object: Partial<_17.MsgUpdateFunder>): _17.MsgUpdateFunder;
+                fromAmino(object: _17.MsgUpdateFunderAmino): _17.MsgUpdateFunder;
+                toAmino(message: _17.MsgUpdateFunder): _17.MsgUpdateFunderAmino;
+                fromAminoMsg(object: _17.MsgUpdateFunderAminoMsg): _17.MsgUpdateFunder;
+                fromProtoMsg(message: _17.MsgUpdateFunderProtoMsg): _17.MsgUpdateFunder;
+                toProto(message: _17.MsgUpdateFunder): Uint8Array;
+                toProtoMsg(message: _17.MsgUpdateFunder): _17.MsgUpdateFunderProtoMsg;
+            };
+            MsgUpdateFunderResponse: {
+                typeUrl: string;
+                encode(_: _17.MsgUpdateFunderResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _17.MsgUpdateFunderResponse;
+                fromPartial(_: Partial<_17.MsgUpdateFunderResponse>): _17.MsgUpdateFunderResponse;
+                fromAmino(_: _17.MsgUpdateFunderResponseAmino): _17.MsgUpdateFunderResponse;
+                toAmino(_: _17.MsgUpdateFunderResponse): _17.MsgUpdateFunderResponseAmino;
+                fromAminoMsg(object: _17.MsgUpdateFunderResponseAminoMsg): _17.MsgUpdateFunderResponse;
+                fromProtoMsg(message: _17.MsgUpdateFunderResponseProtoMsg): _17.MsgUpdateFunderResponse;
+                toProto(message: _17.MsgUpdateFunderResponse): Uint8Array;
+                toProtoMsg(message: _17.MsgUpdateFunderResponse): _17.MsgUpdateFunderResponseProtoMsg;
+            };
+            MsgFundPool: {
+                typeUrl: string;
+                encode(message: _17.MsgFundPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _17.MsgFundPool;
+                fromPartial(object: Partial<_17.MsgFundPool>): _17.MsgFundPool;
+                fromAmino(object: _17.MsgFundPoolAmino): _17.MsgFundPool;
+                toAmino(message: _17.MsgFundPool): _17.MsgFundPoolAmino;
+                fromAminoMsg(object: _17.MsgFundPoolAminoMsg): _17.MsgFundPool;
+                fromProtoMsg(message: _17.MsgFundPoolProtoMsg): _17.MsgFundPool;
+                toProto(message: _17.MsgFundPool): Uint8Array;
+                toProtoMsg(message: _17.MsgFundPool): _17.MsgFundPoolProtoMsg;
+            };
+            MsgFundPoolResponse: {
+                typeUrl: string;
+                encode(_: _17.MsgFundPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _17.MsgFundPoolResponse;
+                fromPartial(_: Partial<_17.MsgFundPoolResponse>): _17.MsgFundPoolResponse;
+                fromAmino(_: _17.MsgFundPoolResponseAmino): _17.MsgFundPoolResponse;
+                toAmino(_: _17.MsgFundPoolResponse): _17.MsgFundPoolResponseAmino;
+                fromAminoMsg(object: _17.MsgFundPoolResponseAminoMsg): _17.MsgFundPoolResponse;
+                fromProtoMsg(message: _17.MsgFundPoolResponseProtoMsg): _17.MsgFundPoolResponse;
+                toProto(message: _17.MsgFundPoolResponse): Uint8Array;
+                toProtoMsg(message: _17.MsgFundPoolResponse): _17.MsgFundPoolResponseProtoMsg;
+            };
+            MsgDefundPool: {
+                typeUrl: string;
+                encode(message: _17.MsgDefundPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _17.MsgDefundPool;
+                fromPartial(object: Partial<_17.MsgDefundPool>): _17.MsgDefundPool;
+                fromAmino(object: _17.MsgDefundPoolAmino): _17.MsgDefundPool;
+                toAmino(message: _17.MsgDefundPool): _17.MsgDefundPoolAmino;
+                fromAminoMsg(object: _17.MsgDefundPoolAminoMsg): _17.MsgDefundPool;
+                fromProtoMsg(message: _17.MsgDefundPoolProtoMsg): _17.MsgDefundPool;
+                toProto(message: _17.MsgDefundPool): Uint8Array;
+                toProtoMsg(message: _17.MsgDefundPool): _17.MsgDefundPoolProtoMsg;
+            };
+            MsgDefundPoolResponse: {
+                typeUrl: string;
+                encode(_: _17.MsgDefundPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _17.MsgDefundPoolResponse;
+                fromPartial(_: Partial<_17.MsgDefundPoolResponse>): _17.MsgDefundPoolResponse;
+                fromAmino(_: _17.MsgDefundPoolResponseAmino): _17.MsgDefundPoolResponse;
+                toAmino(_: _17.MsgDefundPoolResponse): _17.MsgDefundPoolResponseAmino;
+                fromAminoMsg(object: _17.MsgDefundPoolResponseAminoMsg): _17.MsgDefundPoolResponse;
+                fromProtoMsg(message: _17.MsgDefundPoolResponseProtoMsg): _17.MsgDefundPoolResponse;
+                toProto(message: _17.MsgDefundPoolResponse): Uint8Array;
+                toProtoMsg(message: _17.MsgDefundPoolResponse): _17.MsgDefundPoolResponseProtoMsg;
             };
             MsgUpdateParams: {
                 typeUrl: string;
-                encode(message: _16.MsgUpdateParams, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _16.MsgUpdateParams;
-                fromPartial(object: Partial<_16.MsgUpdateParams>): _16.MsgUpdateParams;
-                fromAmino(object: _16.MsgUpdateParamsAmino): _16.MsgUpdateParams;
-                toAmino(message: _16.MsgUpdateParams): _16.MsgUpdateParamsAmino;
-                fromAminoMsg(object: _16.MsgUpdateParamsAminoMsg): _16.MsgUpdateParams;
-                fromProtoMsg(message: _16.MsgUpdateParamsProtoMsg): _16.MsgUpdateParams;
-                toProto(message: _16.MsgUpdateParams): Uint8Array;
-                toProtoMsg(message: _16.MsgUpdateParams): _16.MsgUpdateParamsProtoMsg;
+                encode(message: _17.MsgUpdateParams, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _17.MsgUpdateParams;
+                fromPartial(object: Partial<_17.MsgUpdateParams>): _17.MsgUpdateParams;
+                fromAmino(object: _17.MsgUpdateParamsAmino): _17.MsgUpdateParams;
+                toAmino(message: _17.MsgUpdateParams): _17.MsgUpdateParamsAmino;
+                fromAminoMsg(object: _17.MsgUpdateParamsAminoMsg): _17.MsgUpdateParams;
+                fromProtoMsg(message: _17.MsgUpdateParamsProtoMsg): _17.MsgUpdateParams;
+                toProto(message: _17.MsgUpdateParams): Uint8Array;
+                toProtoMsg(message: _17.MsgUpdateParams): _17.MsgUpdateParamsProtoMsg;
             };
             MsgUpdateParamsResponse: {
                 typeUrl: string;
-                encode(_: _16.MsgUpdateParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _16.MsgUpdateParamsResponse;
-                fromPartial(_: Partial<_16.MsgUpdateParamsResponse>): _16.MsgUpdateParamsResponse;
-                fromAmino(_: _16.MsgUpdateParamsResponseAmino): _16.MsgUpdateParamsResponse;
-                toAmino(_: _16.MsgUpdateParamsResponse): _16.MsgUpdateParamsResponseAmino;
-                fromAminoMsg(object: _16.MsgUpdateParamsResponseAminoMsg): _16.MsgUpdateParamsResponse;
-                fromProtoMsg(message: _16.MsgUpdateParamsResponseProtoMsg): _16.MsgUpdateParamsResponse;
-                toProto(message: _16.MsgUpdateParamsResponse): Uint8Array;
-                toProtoMsg(message: _16.MsgUpdateParamsResponse): _16.MsgUpdateParamsResponseProtoMsg;
+                encode(_: _17.MsgUpdateParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _17.MsgUpdateParamsResponse;
+                fromPartial(_: Partial<_17.MsgUpdateParamsResponse>): _17.MsgUpdateParamsResponse;
+                fromAmino(_: _17.MsgUpdateParamsResponseAmino): _17.MsgUpdateParamsResponse;
+                toAmino(_: _17.MsgUpdateParamsResponse): _17.MsgUpdateParamsResponseAmino;
+                fromAminoMsg(object: _17.MsgUpdateParamsResponseAminoMsg): _17.MsgUpdateParamsResponse;
+                fromProtoMsg(message: _17.MsgUpdateParamsResponseProtoMsg): _17.MsgUpdateParamsResponse;
+                toProto(message: _17.MsgUpdateParamsResponse): Uint8Array;
+                toProtoMsg(message: _17.MsgUpdateParamsResponse): _17.MsgUpdateParamsResponseProtoMsg;
             };
             QueryParamsRequest: {
                 typeUrl: string;
-                encode(_: _15.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _15.QueryParamsRequest;
-                fromPartial(_: Partial<_15.QueryParamsRequest>): _15.QueryParamsRequest;
-                fromAmino(_: _15.QueryParamsRequestAmino): _15.QueryParamsRequest;
-                toAmino(_: _15.QueryParamsRequest): _15.QueryParamsRequestAmino;
-                fromAminoMsg(object: _15.QueryParamsRequestAminoMsg): _15.QueryParamsRequest;
-                fromProtoMsg(message: _15.QueryParamsRequestProtoMsg): _15.QueryParamsRequest;
-                toProto(message: _15.QueryParamsRequest): Uint8Array;
-                toProtoMsg(message: _15.QueryParamsRequest): _15.QueryParamsRequestProtoMsg;
+                encode(_: _16.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _16.QueryParamsRequest;
+                fromPartial(_: Partial<_16.QueryParamsRequest>): _16.QueryParamsRequest;
+                fromAmino(_: _16.QueryParamsRequestAmino): _16.QueryParamsRequest;
+                toAmino(_: _16.QueryParamsRequest): _16.QueryParamsRequestAmino;
+                fromAminoMsg(object: _16.QueryParamsRequestAminoMsg): _16.QueryParamsRequest;
+                fromProtoMsg(message: _16.QueryParamsRequestProtoMsg): _16.QueryParamsRequest;
+                toProto(message: _16.QueryParamsRequest): Uint8Array;
+                toProtoMsg(message: _16.QueryParamsRequest): _16.QueryParamsRequestProtoMsg;
             };
             QueryParamsResponse: {
                 typeUrl: string;
-                encode(message: _15.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _15.QueryParamsResponse;
-                fromPartial(object: Partial<_15.QueryParamsResponse>): _15.QueryParamsResponse;
-                fromAmino(object: _15.QueryParamsResponseAmino): _15.QueryParamsResponse;
-                toAmino(message: _15.QueryParamsResponse): _15.QueryParamsResponseAmino;
-                fromAminoMsg(object: _15.QueryParamsResponseAminoMsg): _15.QueryParamsResponse;
-                fromProtoMsg(message: _15.QueryParamsResponseProtoMsg): _15.QueryParamsResponse;
-                toProto(message: _15.QueryParamsResponse): Uint8Array;
-                toProtoMsg(message: _15.QueryParamsResponse): _15.QueryParamsResponseProtoMsg;
+                encode(message: _16.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _16.QueryParamsResponse;
+                fromPartial(object: Partial<_16.QueryParamsResponse>): _16.QueryParamsResponse;
+                fromAmino(object: _16.QueryParamsResponseAmino): _16.QueryParamsResponse;
+                toAmino(message: _16.QueryParamsResponse): _16.QueryParamsResponseAmino;
+                fromAminoMsg(object: _16.QueryParamsResponseAminoMsg): _16.QueryParamsResponse;
+                fromProtoMsg(message: _16.QueryParamsResponseProtoMsg): _16.QueryParamsResponse;
+                toProto(message: _16.QueryParamsResponse): Uint8Array;
+                toProtoMsg(message: _16.QueryParamsResponse): _16.QueryParamsResponseProtoMsg;
             };
             Params: {
                 typeUrl: string;
-                encode(message: _14.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _14.Params;
-                fromPartial(object: Partial<_14.Params>): _14.Params;
-                fromAmino(object: _14.ParamsAmino): _14.Params;
-                toAmino(message: _14.Params): _14.ParamsAmino;
-                fromAminoMsg(object: _14.ParamsAminoMsg): _14.Params;
-                fromProtoMsg(message: _14.ParamsProtoMsg): _14.Params;
-                toProto(message: _14.Params): Uint8Array;
-                toProtoMsg(message: _14.Params): _14.ParamsProtoMsg;
-            };
-            GasAdjustment: {
-                typeUrl: string;
-                encode(message: _14.GasAdjustment, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _14.GasAdjustment;
-                fromPartial(object: Partial<_14.GasAdjustment>): _14.GasAdjustment;
-                fromAmino(object: _14.GasAdjustmentAmino): _14.GasAdjustment;
-                toAmino(message: _14.GasAdjustment): _14.GasAdjustmentAmino;
-                fromAminoMsg(object: _14.GasAdjustmentAminoMsg): _14.GasAdjustment;
-                fromProtoMsg(message: _14.GasAdjustmentProtoMsg): _14.GasAdjustment;
-                toProto(message: _14.GasAdjustment): Uint8Array;
-                toProtoMsg(message: _14.GasAdjustment): _14.GasAdjustmentProtoMsg;
-            };
-            GasRefund: {
-                typeUrl: string;
-                encode(message: _14.GasRefund, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _14.GasRefund;
-                fromPartial(object: Partial<_14.GasRefund>): _14.GasRefund;
-                fromAmino(object: _14.GasRefundAmino): _14.GasRefund;
-                toAmino(message: _14.GasRefund): _14.GasRefundAmino;
-                fromAminoMsg(object: _14.GasRefundAminoMsg): _14.GasRefund;
-                fromProtoMsg(message: _14.GasRefundProtoMsg): _14.GasRefund;
-                toProto(message: _14.GasRefund): Uint8Array;
-                toProtoMsg(message: _14.GasRefund): _14.GasRefundProtoMsg;
+                encode(message: _15.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _15.Params;
+                fromPartial(object: Partial<_15.Params>): _15.Params;
+                fromAmino(object: _15.ParamsAmino): _15.Params;
+                toAmino(message: _15.Params): _15.ParamsAmino;
+                fromAminoMsg(object: _15.ParamsAminoMsg): _15.Params;
+                fromProtoMsg(message: _15.ParamsProtoMsg): _15.Params;
+                toProto(message: _15.Params): Uint8Array;
+                toProtoMsg(message: _15.Params): _15.ParamsProtoMsg;
             };
             GenesisState: {
                 typeUrl: string;
-                encode(message: _13.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _13.GenesisState;
-                fromPartial(object: Partial<_13.GenesisState>): _13.GenesisState;
-                fromAmino(object: _13.GenesisStateAmino): _13.GenesisState;
-                toAmino(message: _13.GenesisState): _13.GenesisStateAmino;
-                fromAminoMsg(object: _13.GenesisStateAminoMsg): _13.GenesisState;
-                fromProtoMsg(message: _13.GenesisStateProtoMsg): _13.GenesisState;
-                toProto(message: _13.GenesisState): Uint8Array;
-                toProtoMsg(message: _13.GenesisState): _13.GenesisStateProtoMsg;
+                encode(message: _14.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _14.GenesisState;
+                fromPartial(object: Partial<_14.GenesisState>): _14.GenesisState;
+                fromAmino(object: _14.GenesisStateAmino): _14.GenesisState;
+                toAmino(message: _14.GenesisState): _14.GenesisStateAmino;
+                fromAminoMsg(object: _14.GenesisStateAminoMsg): _14.GenesisState;
+                fromProtoMsg(message: _14.GenesisStateProtoMsg): _14.GenesisState;
+                toProto(message: _14.GenesisState): Uint8Array;
+                toProtoMsg(message: _14.GenesisState): _14.GenesisStateProtoMsg;
+            };
+            Funder: {
+                typeUrl: string;
+                encode(message: _13.Funder, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _13.Funder;
+                fromPartial(object: Partial<_13.Funder>): _13.Funder;
+                fromAmino(object: _13.FunderAmino): _13.Funder;
+                toAmino(message: _13.Funder): _13.FunderAmino;
+                fromAminoMsg(object: _13.FunderAminoMsg): _13.Funder;
+                fromProtoMsg(message: _13.FunderProtoMsg): _13.Funder;
+                toProto(message: _13.Funder): Uint8Array;
+                toProtoMsg(message: _13.Funder): _13.FunderProtoMsg;
+            };
+            Funding: {
+                typeUrl: string;
+                encode(message: _13.Funding, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _13.Funding;
+                fromPartial(object: Partial<_13.Funding>): _13.Funding;
+                fromAmino(object: _13.FundingAmino): _13.Funding;
+                toAmino(message: _13.Funding): _13.FundingAmino;
+                fromAminoMsg(object: _13.FundingAminoMsg): _13.Funding;
+                fromProtoMsg(message: _13.FundingProtoMsg): _13.Funding;
+                toProto(message: _13.Funding): Uint8Array;
+                toProtoMsg(message: _13.Funding): _13.FundingProtoMsg;
+            };
+            FundingState: {
+                typeUrl: string;
+                encode(message: _13.FundingState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _13.FundingState;
+                fromPartial(object: Partial<_13.FundingState>): _13.FundingState;
+                fromAmino(object: _13.FundingStateAmino): _13.FundingState;
+                toAmino(message: _13.FundingState): _13.FundingStateAmino;
+                fromAminoMsg(object: _13.FundingStateAminoMsg): _13.FundingState;
+                fromProtoMsg(message: _13.FundingStateProtoMsg): _13.FundingState;
+                toProto(message: _13.FundingState): Uint8Array;
+                toProtoMsg(message: _13.FundingState): _13.FundingStateProtoMsg;
             };
             EventUpdateParams: {
                 typeUrl: string;
@@ -1178,166 +1380,98 @@ export declare namespace kyve {
                 toProto(message: _12.EventUpdateParams): Uint8Array;
                 toProtoMsg(message: _12.EventUpdateParams): _12.EventUpdateParamsProtoMsg;
             };
+            EventCreateFunder: {
+                typeUrl: string;
+                encode(message: _12.EventCreateFunder, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _12.EventCreateFunder;
+                fromPartial(object: Partial<_12.EventCreateFunder>): _12.EventCreateFunder;
+                fromAmino(object: _12.EventCreateFunderAmino): _12.EventCreateFunder;
+                toAmino(message: _12.EventCreateFunder): _12.EventCreateFunderAmino;
+                fromAminoMsg(object: _12.EventCreateFunderAminoMsg): _12.EventCreateFunder;
+                fromProtoMsg(message: _12.EventCreateFunderProtoMsg): _12.EventCreateFunder;
+                toProto(message: _12.EventCreateFunder): Uint8Array;
+                toProtoMsg(message: _12.EventCreateFunder): _12.EventCreateFunderProtoMsg;
+            };
+            EventUpdateFunder: {
+                typeUrl: string;
+                encode(message: _12.EventUpdateFunder, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _12.EventUpdateFunder;
+                fromPartial(object: Partial<_12.EventUpdateFunder>): _12.EventUpdateFunder;
+                fromAmino(object: _12.EventUpdateFunderAmino): _12.EventUpdateFunder;
+                toAmino(message: _12.EventUpdateFunder): _12.EventUpdateFunderAmino;
+                fromAminoMsg(object: _12.EventUpdateFunderAminoMsg): _12.EventUpdateFunder;
+                fromProtoMsg(message: _12.EventUpdateFunderProtoMsg): _12.EventUpdateFunder;
+                toProto(message: _12.EventUpdateFunder): Uint8Array;
+                toProtoMsg(message: _12.EventUpdateFunder): _12.EventUpdateFunderProtoMsg;
+            };
+            EventFundPool: {
+                typeUrl: string;
+                encode(message: _12.EventFundPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _12.EventFundPool;
+                fromPartial(object: Partial<_12.EventFundPool>): _12.EventFundPool;
+                fromAmino(object: _12.EventFundPoolAmino): _12.EventFundPool;
+                toAmino(message: _12.EventFundPool): _12.EventFundPoolAmino;
+                fromAminoMsg(object: _12.EventFundPoolAminoMsg): _12.EventFundPool;
+                fromProtoMsg(message: _12.EventFundPoolProtoMsg): _12.EventFundPool;
+                toProto(message: _12.EventFundPool): Uint8Array;
+                toProtoMsg(message: _12.EventFundPool): _12.EventFundPoolProtoMsg;
+            };
+            EventDefundPool: {
+                typeUrl: string;
+                encode(message: _12.EventDefundPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _12.EventDefundPool;
+                fromPartial(object: Partial<_12.EventDefundPool>): _12.EventDefundPool;
+                fromAmino(object: _12.EventDefundPoolAmino): _12.EventDefundPool;
+                toAmino(message: _12.EventDefundPool): _12.EventDefundPoolAmino;
+                fromAminoMsg(object: _12.EventDefundPoolAminoMsg): _12.EventDefundPool;
+                fromProtoMsg(message: _12.EventDefundPoolProtoMsg): _12.EventDefundPool;
+                toProto(message: _12.EventDefundPool): Uint8Array;
+                toProtoMsg(message: _12.EventDefundPool): _12.EventDefundPoolProtoMsg;
+            };
+            EventPoolOutOfFunds: {
+                typeUrl: string;
+                encode(message: _12.EventPoolOutOfFunds, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _12.EventPoolOutOfFunds;
+                fromPartial(object: Partial<_12.EventPoolOutOfFunds>): _12.EventPoolOutOfFunds;
+                fromAmino(object: _12.EventPoolOutOfFundsAmino): _12.EventPoolOutOfFunds;
+                toAmino(message: _12.EventPoolOutOfFunds): _12.EventPoolOutOfFundsAmino;
+                fromAminoMsg(object: _12.EventPoolOutOfFundsAminoMsg): _12.EventPoolOutOfFunds;
+                fromProtoMsg(message: _12.EventPoolOutOfFundsProtoMsg): _12.EventPoolOutOfFunds;
+                toProto(message: _12.EventPoolOutOfFunds): Uint8Array;
+                toProtoMsg(message: _12.EventPoolOutOfFunds): _12.EventPoolOutOfFundsProtoMsg;
+            };
         };
     }
-    namespace pool {
+    namespace global {
         const v1beta1: {
-            MsgClientImpl: typeof _183.MsgClientImpl;
-            QueryClientImpl: typeof _177.QueryClientImpl;
+            MsgClientImpl: typeof _224.MsgClientImpl;
+            QueryClientImpl: typeof _217.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _21.QueryParamsRequest): Promise<_21.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _171.LCDQueryClient;
+            LCDQueryClient: typeof _210.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
                 encoded: {
-                    fundPool(value: _22.MsgFundPool): {
-                        typeUrl: string;
-                        value: Uint8Array;
-                    };
-                    defundPool(value: _22.MsgDefundPool): {
-                        typeUrl: string;
-                        value: Uint8Array;
-                    };
-                    createPool(value: _22.MsgCreatePool): {
-                        typeUrl: string;
-                        value: Uint8Array;
-                    };
-                    updatePool(value: _22.MsgUpdatePool): {
-                        typeUrl: string;
-                        value: Uint8Array;
-                    };
-                    disablePool(value: _22.MsgDisablePool): {
-                        typeUrl: string;
-                        value: Uint8Array;
-                    };
-                    enablePool(value: _22.MsgEnablePool): {
-                        typeUrl: string;
-                        value: Uint8Array;
-                    };
-                    scheduleRuntimeUpgrade(value: _22.MsgScheduleRuntimeUpgrade): {
-                        typeUrl: string;
-                        value: Uint8Array;
-                    };
-                    cancelRuntimeUpgrade(value: _22.MsgCancelRuntimeUpgrade): {
-                        typeUrl: string;
-                        value: Uint8Array;
-                    };
                     updateParams(value: _22.MsgUpdateParams): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
                 };
                 withTypeUrl: {
-                    fundPool(value: _22.MsgFundPool): {
-                        typeUrl: string;
-                        value: _22.MsgFundPool;
-                    };
-                    defundPool(value: _22.MsgDefundPool): {
-                        typeUrl: string;
-                        value: _22.MsgDefundPool;
-                    };
-                    createPool(value: _22.MsgCreatePool): {
-                        typeUrl: string;
-                        value: _22.MsgCreatePool;
-                    };
-                    updatePool(value: _22.MsgUpdatePool): {
-                        typeUrl: string;
-                        value: _22.MsgUpdatePool;
-                    };
-                    disablePool(value: _22.MsgDisablePool): {
-                        typeUrl: string;
-                        value: _22.MsgDisablePool;
-                    };
-                    enablePool(value: _22.MsgEnablePool): {
-                        typeUrl: string;
-                        value: _22.MsgEnablePool;
-                    };
-                    scheduleRuntimeUpgrade(value: _22.MsgScheduleRuntimeUpgrade): {
-                        typeUrl: string;
-                        value: _22.MsgScheduleRuntimeUpgrade;
-                    };
-                    cancelRuntimeUpgrade(value: _22.MsgCancelRuntimeUpgrade): {
-                        typeUrl: string;
-                        value: _22.MsgCancelRuntimeUpgrade;
-                    };
                     updateParams(value: _22.MsgUpdateParams): {
                         typeUrl: string;
                         value: _22.MsgUpdateParams;
                     };
                 };
                 fromJSON: {
-                    fundPool(value: any): {
-                        typeUrl: string;
-                        value: _22.MsgFundPool;
-                    };
-                    defundPool(value: any): {
-                        typeUrl: string;
-                        value: _22.MsgDefundPool;
-                    };
-                    createPool(value: any): {
-                        typeUrl: string;
-                        value: _22.MsgCreatePool;
-                    };
-                    updatePool(value: any): {
-                        typeUrl: string;
-                        value: _22.MsgUpdatePool;
-                    };
-                    disablePool(value: any): {
-                        typeUrl: string;
-                        value: _22.MsgDisablePool;
-                    };
-                    enablePool(value: any): {
-                        typeUrl: string;
-                        value: _22.MsgEnablePool;
-                    };
-                    scheduleRuntimeUpgrade(value: any): {
-                        typeUrl: string;
-                        value: _22.MsgScheduleRuntimeUpgrade;
-                    };
-                    cancelRuntimeUpgrade(value: any): {
-                        typeUrl: string;
-                        value: _22.MsgCancelRuntimeUpgrade;
-                    };
                     updateParams(value: any): {
                         typeUrl: string;
                         value: _22.MsgUpdateParams;
                     };
                 };
                 fromPartial: {
-                    fundPool(value: _22.MsgFundPool): {
-                        typeUrl: string;
-                        value: _22.MsgFundPool;
-                    };
-                    defundPool(value: _22.MsgDefundPool): {
-                        typeUrl: string;
-                        value: _22.MsgDefundPool;
-                    };
-                    createPool(value: _22.MsgCreatePool): {
-                        typeUrl: string;
-                        value: _22.MsgCreatePool;
-                    };
-                    updatePool(value: _22.MsgUpdatePool): {
-                        typeUrl: string;
-                        value: _22.MsgUpdatePool;
-                    };
-                    disablePool(value: _22.MsgDisablePool): {
-                        typeUrl: string;
-                        value: _22.MsgDisablePool;
-                    };
-                    enablePool(value: _22.MsgEnablePool): {
-                        typeUrl: string;
-                        value: _22.MsgEnablePool;
-                    };
-                    scheduleRuntimeUpgrade(value: _22.MsgScheduleRuntimeUpgrade): {
-                        typeUrl: string;
-                        value: _22.MsgScheduleRuntimeUpgrade;
-                    };
-                    cancelRuntimeUpgrade(value: _22.MsgCancelRuntimeUpgrade): {
-                        typeUrl: string;
-                        value: _22.MsgCancelRuntimeUpgrade;
-                    };
                     updateParams(value: _22.MsgUpdateParams): {
                         typeUrl: string;
                         value: _22.MsgUpdateParams;
@@ -1345,243 +1479,11 @@ export declare namespace kyve {
                 };
             };
             AminoConverter: {
-                "/kyve.pool.v1beta1.MsgFundPool": {
-                    aminoType: string;
-                    toAmino: (message: _22.MsgFundPool) => _22.MsgFundPoolAmino;
-                    fromAmino: (object: _22.MsgFundPoolAmino) => _22.MsgFundPool;
-                };
-                "/kyve.pool.v1beta1.MsgDefundPool": {
-                    aminoType: string;
-                    toAmino: (message: _22.MsgDefundPool) => _22.MsgDefundPoolAmino;
-                    fromAmino: (object: _22.MsgDefundPoolAmino) => _22.MsgDefundPool;
-                };
-                "/kyve.pool.v1beta1.MsgCreatePool": {
-                    aminoType: string;
-                    toAmino: (message: _22.MsgCreatePool) => _22.MsgCreatePoolAmino;
-                    fromAmino: (object: _22.MsgCreatePoolAmino) => _22.MsgCreatePool;
-                };
-                "/kyve.pool.v1beta1.MsgUpdatePool": {
-                    aminoType: string;
-                    toAmino: (message: _22.MsgUpdatePool) => _22.MsgUpdatePoolAmino;
-                    fromAmino: (object: _22.MsgUpdatePoolAmino) => _22.MsgUpdatePool;
-                };
-                "/kyve.pool.v1beta1.MsgDisablePool": {
-                    aminoType: string;
-                    toAmino: (message: _22.MsgDisablePool) => _22.MsgDisablePoolAmino;
-                    fromAmino: (object: _22.MsgDisablePoolAmino) => _22.MsgDisablePool;
-                };
-                "/kyve.pool.v1beta1.MsgEnablePool": {
-                    aminoType: string;
-                    toAmino: (message: _22.MsgEnablePool) => _22.MsgEnablePoolAmino;
-                    fromAmino: (object: _22.MsgEnablePoolAmino) => _22.MsgEnablePool;
-                };
-                "/kyve.pool.v1beta1.MsgScheduleRuntimeUpgrade": {
-                    aminoType: string;
-                    toAmino: (message: _22.MsgScheduleRuntimeUpgrade) => _22.MsgScheduleRuntimeUpgradeAmino;
-                    fromAmino: (object: _22.MsgScheduleRuntimeUpgradeAmino) => _22.MsgScheduleRuntimeUpgrade;
-                };
-                "/kyve.pool.v1beta1.MsgCancelRuntimeUpgrade": {
-                    aminoType: string;
-                    toAmino: (message: _22.MsgCancelRuntimeUpgrade) => _22.MsgCancelRuntimeUpgradeAmino;
-                    fromAmino: (object: _22.MsgCancelRuntimeUpgradeAmino) => _22.MsgCancelRuntimeUpgrade;
-                };
-                "/kyve.pool.v1beta1.MsgUpdateParams": {
+                "/kyve.global.v1beta1.MsgUpdateParams": {
                     aminoType: string;
                     toAmino: (message: _22.MsgUpdateParams) => _22.MsgUpdateParamsAmino;
                     fromAmino: (object: _22.MsgUpdateParamsAmino) => _22.MsgUpdateParams;
                 };
-            };
-            MsgFundPool: {
-                typeUrl: string;
-                encode(message: _22.MsgFundPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _22.MsgFundPool;
-                fromPartial(object: Partial<_22.MsgFundPool>): _22.MsgFundPool;
-                fromAmino(object: _22.MsgFundPoolAmino): _22.MsgFundPool;
-                toAmino(message: _22.MsgFundPool): _22.MsgFundPoolAmino;
-                fromAminoMsg(object: _22.MsgFundPoolAminoMsg): _22.MsgFundPool;
-                fromProtoMsg(message: _22.MsgFundPoolProtoMsg): _22.MsgFundPool;
-                toProto(message: _22.MsgFundPool): Uint8Array;
-                toProtoMsg(message: _22.MsgFundPool): _22.MsgFundPoolProtoMsg;
-            };
-            MsgFundPoolResponse: {
-                typeUrl: string;
-                encode(_: _22.MsgFundPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _22.MsgFundPoolResponse;
-                fromPartial(_: Partial<_22.MsgFundPoolResponse>): _22.MsgFundPoolResponse;
-                fromAmino(_: _22.MsgFundPoolResponseAmino): _22.MsgFundPoolResponse;
-                toAmino(_: _22.MsgFundPoolResponse): _22.MsgFundPoolResponseAmino;
-                fromAminoMsg(object: _22.MsgFundPoolResponseAminoMsg): _22.MsgFundPoolResponse;
-                fromProtoMsg(message: _22.MsgFundPoolResponseProtoMsg): _22.MsgFundPoolResponse;
-                toProto(message: _22.MsgFundPoolResponse): Uint8Array;
-                toProtoMsg(message: _22.MsgFundPoolResponse): _22.MsgFundPoolResponseProtoMsg;
-            };
-            MsgDefundPool: {
-                typeUrl: string;
-                encode(message: _22.MsgDefundPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _22.MsgDefundPool;
-                fromPartial(object: Partial<_22.MsgDefundPool>): _22.MsgDefundPool;
-                fromAmino(object: _22.MsgDefundPoolAmino): _22.MsgDefundPool;
-                toAmino(message: _22.MsgDefundPool): _22.MsgDefundPoolAmino;
-                fromAminoMsg(object: _22.MsgDefundPoolAminoMsg): _22.MsgDefundPool;
-                fromProtoMsg(message: _22.MsgDefundPoolProtoMsg): _22.MsgDefundPool;
-                toProto(message: _22.MsgDefundPool): Uint8Array;
-                toProtoMsg(message: _22.MsgDefundPool): _22.MsgDefundPoolProtoMsg;
-            };
-            MsgDefundPoolResponse: {
-                typeUrl: string;
-                encode(_: _22.MsgDefundPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _22.MsgDefundPoolResponse;
-                fromPartial(_: Partial<_22.MsgDefundPoolResponse>): _22.MsgDefundPoolResponse;
-                fromAmino(_: _22.MsgDefundPoolResponseAmino): _22.MsgDefundPoolResponse;
-                toAmino(_: _22.MsgDefundPoolResponse): _22.MsgDefundPoolResponseAmino;
-                fromAminoMsg(object: _22.MsgDefundPoolResponseAminoMsg): _22.MsgDefundPoolResponse;
-                fromProtoMsg(message: _22.MsgDefundPoolResponseProtoMsg): _22.MsgDefundPoolResponse;
-                toProto(message: _22.MsgDefundPoolResponse): Uint8Array;
-                toProtoMsg(message: _22.MsgDefundPoolResponse): _22.MsgDefundPoolResponseProtoMsg;
-            };
-            MsgCreatePool: {
-                typeUrl: string;
-                encode(message: _22.MsgCreatePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _22.MsgCreatePool;
-                fromPartial(object: Partial<_22.MsgCreatePool>): _22.MsgCreatePool;
-                fromAmino(object: _22.MsgCreatePoolAmino): _22.MsgCreatePool;
-                toAmino(message: _22.MsgCreatePool): _22.MsgCreatePoolAmino;
-                fromAminoMsg(object: _22.MsgCreatePoolAminoMsg): _22.MsgCreatePool;
-                fromProtoMsg(message: _22.MsgCreatePoolProtoMsg): _22.MsgCreatePool;
-                toProto(message: _22.MsgCreatePool): Uint8Array;
-                toProtoMsg(message: _22.MsgCreatePool): _22.MsgCreatePoolProtoMsg;
-            };
-            MsgCreatePoolResponse: {
-                typeUrl: string;
-                encode(_: _22.MsgCreatePoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _22.MsgCreatePoolResponse;
-                fromPartial(_: Partial<_22.MsgCreatePoolResponse>): _22.MsgCreatePoolResponse;
-                fromAmino(_: _22.MsgCreatePoolResponseAmino): _22.MsgCreatePoolResponse;
-                toAmino(_: _22.MsgCreatePoolResponse): _22.MsgCreatePoolResponseAmino;
-                fromAminoMsg(object: _22.MsgCreatePoolResponseAminoMsg): _22.MsgCreatePoolResponse;
-                fromProtoMsg(message: _22.MsgCreatePoolResponseProtoMsg): _22.MsgCreatePoolResponse;
-                toProto(message: _22.MsgCreatePoolResponse): Uint8Array;
-                toProtoMsg(message: _22.MsgCreatePoolResponse): _22.MsgCreatePoolResponseProtoMsg;
-            };
-            MsgUpdatePool: {
-                typeUrl: string;
-                encode(message: _22.MsgUpdatePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _22.MsgUpdatePool;
-                fromPartial(object: Partial<_22.MsgUpdatePool>): _22.MsgUpdatePool;
-                fromAmino(object: _22.MsgUpdatePoolAmino): _22.MsgUpdatePool;
-                toAmino(message: _22.MsgUpdatePool): _22.MsgUpdatePoolAmino;
-                fromAminoMsg(object: _22.MsgUpdatePoolAminoMsg): _22.MsgUpdatePool;
-                fromProtoMsg(message: _22.MsgUpdatePoolProtoMsg): _22.MsgUpdatePool;
-                toProto(message: _22.MsgUpdatePool): Uint8Array;
-                toProtoMsg(message: _22.MsgUpdatePool): _22.MsgUpdatePoolProtoMsg;
-            };
-            MsgUpdatePoolResponse: {
-                typeUrl: string;
-                encode(_: _22.MsgUpdatePoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _22.MsgUpdatePoolResponse;
-                fromPartial(_: Partial<_22.MsgUpdatePoolResponse>): _22.MsgUpdatePoolResponse;
-                fromAmino(_: _22.MsgUpdatePoolResponseAmino): _22.MsgUpdatePoolResponse;
-                toAmino(_: _22.MsgUpdatePoolResponse): _22.MsgUpdatePoolResponseAmino;
-                fromAminoMsg(object: _22.MsgUpdatePoolResponseAminoMsg): _22.MsgUpdatePoolResponse;
-                fromProtoMsg(message: _22.MsgUpdatePoolResponseProtoMsg): _22.MsgUpdatePoolResponse;
-                toProto(message: _22.MsgUpdatePoolResponse): Uint8Array;
-                toProtoMsg(message: _22.MsgUpdatePoolResponse): _22.MsgUpdatePoolResponseProtoMsg;
-            };
-            MsgDisablePool: {
-                typeUrl: string;
-                encode(message: _22.MsgDisablePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _22.MsgDisablePool;
-                fromPartial(object: Partial<_22.MsgDisablePool>): _22.MsgDisablePool;
-                fromAmino(object: _22.MsgDisablePoolAmino): _22.MsgDisablePool;
-                toAmino(message: _22.MsgDisablePool): _22.MsgDisablePoolAmino;
-                fromAminoMsg(object: _22.MsgDisablePoolAminoMsg): _22.MsgDisablePool;
-                fromProtoMsg(message: _22.MsgDisablePoolProtoMsg): _22.MsgDisablePool;
-                toProto(message: _22.MsgDisablePool): Uint8Array;
-                toProtoMsg(message: _22.MsgDisablePool): _22.MsgDisablePoolProtoMsg;
-            };
-            MsgDisablePoolResponse: {
-                typeUrl: string;
-                encode(_: _22.MsgDisablePoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _22.MsgDisablePoolResponse;
-                fromPartial(_: Partial<_22.MsgDisablePoolResponse>): _22.MsgDisablePoolResponse;
-                fromAmino(_: _22.MsgDisablePoolResponseAmino): _22.MsgDisablePoolResponse;
-                toAmino(_: _22.MsgDisablePoolResponse): _22.MsgDisablePoolResponseAmino;
-                fromAminoMsg(object: _22.MsgDisablePoolResponseAminoMsg): _22.MsgDisablePoolResponse;
-                fromProtoMsg(message: _22.MsgDisablePoolResponseProtoMsg): _22.MsgDisablePoolResponse;
-                toProto(message: _22.MsgDisablePoolResponse): Uint8Array;
-                toProtoMsg(message: _22.MsgDisablePoolResponse): _22.MsgDisablePoolResponseProtoMsg;
-            };
-            MsgEnablePool: {
-                typeUrl: string;
-                encode(message: _22.MsgEnablePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _22.MsgEnablePool;
-                fromPartial(object: Partial<_22.MsgEnablePool>): _22.MsgEnablePool;
-                fromAmino(object: _22.MsgEnablePoolAmino): _22.MsgEnablePool;
-                toAmino(message: _22.MsgEnablePool): _22.MsgEnablePoolAmino;
-                fromAminoMsg(object: _22.MsgEnablePoolAminoMsg): _22.MsgEnablePool;
-                fromProtoMsg(message: _22.MsgEnablePoolProtoMsg): _22.MsgEnablePool;
-                toProto(message: _22.MsgEnablePool): Uint8Array;
-                toProtoMsg(message: _22.MsgEnablePool): _22.MsgEnablePoolProtoMsg;
-            };
-            MsgEnablePoolResponse: {
-                typeUrl: string;
-                encode(_: _22.MsgEnablePoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _22.MsgEnablePoolResponse;
-                fromPartial(_: Partial<_22.MsgEnablePoolResponse>): _22.MsgEnablePoolResponse;
-                fromAmino(_: _22.MsgEnablePoolResponseAmino): _22.MsgEnablePoolResponse;
-                toAmino(_: _22.MsgEnablePoolResponse): _22.MsgEnablePoolResponseAmino;
-                fromAminoMsg(object: _22.MsgEnablePoolResponseAminoMsg): _22.MsgEnablePoolResponse;
-                fromProtoMsg(message: _22.MsgEnablePoolResponseProtoMsg): _22.MsgEnablePoolResponse;
-                toProto(message: _22.MsgEnablePoolResponse): Uint8Array;
-                toProtoMsg(message: _22.MsgEnablePoolResponse): _22.MsgEnablePoolResponseProtoMsg;
-            };
-            MsgScheduleRuntimeUpgrade: {
-                typeUrl: string;
-                encode(message: _22.MsgScheduleRuntimeUpgrade, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _22.MsgScheduleRuntimeUpgrade;
-                fromPartial(object: Partial<_22.MsgScheduleRuntimeUpgrade>): _22.MsgScheduleRuntimeUpgrade;
-                fromAmino(object: _22.MsgScheduleRuntimeUpgradeAmino): _22.MsgScheduleRuntimeUpgrade;
-                toAmino(message: _22.MsgScheduleRuntimeUpgrade): _22.MsgScheduleRuntimeUpgradeAmino;
-                fromAminoMsg(object: _22.MsgScheduleRuntimeUpgradeAminoMsg): _22.MsgScheduleRuntimeUpgrade;
-                fromProtoMsg(message: _22.MsgScheduleRuntimeUpgradeProtoMsg): _22.MsgScheduleRuntimeUpgrade;
-                toProto(message: _22.MsgScheduleRuntimeUpgrade): Uint8Array;
-                toProtoMsg(message: _22.MsgScheduleRuntimeUpgrade): _22.MsgScheduleRuntimeUpgradeProtoMsg;
-            };
-            MsgScheduleRuntimeUpgradeResponse: {
-                typeUrl: string;
-                encode(_: _22.MsgScheduleRuntimeUpgradeResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _22.MsgScheduleRuntimeUpgradeResponse;
-                fromPartial(_: Partial<_22.MsgScheduleRuntimeUpgradeResponse>): _22.MsgScheduleRuntimeUpgradeResponse;
-                fromAmino(_: _22.MsgScheduleRuntimeUpgradeResponseAmino): _22.MsgScheduleRuntimeUpgradeResponse;
-                toAmino(_: _22.MsgScheduleRuntimeUpgradeResponse): _22.MsgScheduleRuntimeUpgradeResponseAmino;
-                fromAminoMsg(object: _22.MsgScheduleRuntimeUpgradeResponseAminoMsg): _22.MsgScheduleRuntimeUpgradeResponse;
-                fromProtoMsg(message: _22.MsgScheduleRuntimeUpgradeResponseProtoMsg): _22.MsgScheduleRuntimeUpgradeResponse;
-                toProto(message: _22.MsgScheduleRuntimeUpgradeResponse): Uint8Array;
-                toProtoMsg(message: _22.MsgScheduleRuntimeUpgradeResponse): _22.MsgScheduleRuntimeUpgradeResponseProtoMsg;
-            };
-            MsgCancelRuntimeUpgrade: {
-                typeUrl: string;
-                encode(message: _22.MsgCancelRuntimeUpgrade, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _22.MsgCancelRuntimeUpgrade;
-                fromPartial(object: Partial<_22.MsgCancelRuntimeUpgrade>): _22.MsgCancelRuntimeUpgrade;
-                fromAmino(object: _22.MsgCancelRuntimeUpgradeAmino): _22.MsgCancelRuntimeUpgrade;
-                toAmino(message: _22.MsgCancelRuntimeUpgrade): _22.MsgCancelRuntimeUpgradeAmino;
-                fromAminoMsg(object: _22.MsgCancelRuntimeUpgradeAminoMsg): _22.MsgCancelRuntimeUpgrade;
-                fromProtoMsg(message: _22.MsgCancelRuntimeUpgradeProtoMsg): _22.MsgCancelRuntimeUpgrade;
-                toProto(message: _22.MsgCancelRuntimeUpgrade): Uint8Array;
-                toProtoMsg(message: _22.MsgCancelRuntimeUpgrade): _22.MsgCancelRuntimeUpgradeProtoMsg;
-            };
-            MsgCancelRuntimeUpgradeResponse: {
-                typeUrl: string;
-                encode(_: _22.MsgCancelRuntimeUpgradeResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _22.MsgCancelRuntimeUpgradeResponse;
-                fromPartial(_: Partial<_22.MsgCancelRuntimeUpgradeResponse>): _22.MsgCancelRuntimeUpgradeResponse;
-                fromAmino(_: _22.MsgCancelRuntimeUpgradeResponseAmino): _22.MsgCancelRuntimeUpgradeResponse;
-                toAmino(_: _22.MsgCancelRuntimeUpgradeResponse): _22.MsgCancelRuntimeUpgradeResponseAmino;
-                fromAminoMsg(object: _22.MsgCancelRuntimeUpgradeResponseAminoMsg): _22.MsgCancelRuntimeUpgradeResponse;
-                fromProtoMsg(message: _22.MsgCancelRuntimeUpgradeResponseProtoMsg): _22.MsgCancelRuntimeUpgradeResponse;
-                toProto(message: _22.MsgCancelRuntimeUpgradeResponse): Uint8Array;
-                toProtoMsg(message: _22.MsgCancelRuntimeUpgradeResponse): _22.MsgCancelRuntimeUpgradeResponseProtoMsg;
             };
             MsgUpdateParams: {
                 typeUrl: string;
@@ -1631,1282 +1533,826 @@ export declare namespace kyve {
                 toProto(message: _21.QueryParamsResponse): Uint8Array;
                 toProtoMsg(message: _21.QueryParamsResponse): _21.QueryParamsResponseProtoMsg;
             };
-            poolStatusFromJSON(object: any): _20.PoolStatus;
-            poolStatusToJSON(object: _20.PoolStatus): string;
-            PoolStatus: typeof _20.PoolStatus;
-            PoolStatusSDKType: typeof _20.PoolStatus;
-            PoolStatusAmino: typeof _20.PoolStatus;
-            Protocol: {
-                typeUrl: string;
-                encode(message: _20.Protocol, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _20.Protocol;
-                fromPartial(object: Partial<_20.Protocol>): _20.Protocol;
-                fromAmino(object: _20.ProtocolAmino): _20.Protocol;
-                toAmino(message: _20.Protocol): _20.ProtocolAmino;
-                fromAminoMsg(object: _20.ProtocolAminoMsg): _20.Protocol;
-                fromProtoMsg(message: _20.ProtocolProtoMsg): _20.Protocol;
-                toProto(message: _20.Protocol): Uint8Array;
-                toProtoMsg(message: _20.Protocol): _20.ProtocolProtoMsg;
-            };
-            UpgradePlan: {
-                typeUrl: string;
-                encode(message: _20.UpgradePlan, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _20.UpgradePlan;
-                fromPartial(object: Partial<_20.UpgradePlan>): _20.UpgradePlan;
-                fromAmino(object: _20.UpgradePlanAmino): _20.UpgradePlan;
-                toAmino(message: _20.UpgradePlan): _20.UpgradePlanAmino;
-                fromAminoMsg(object: _20.UpgradePlanAminoMsg): _20.UpgradePlan;
-                fromProtoMsg(message: _20.UpgradePlanProtoMsg): _20.UpgradePlan;
-                toProto(message: _20.UpgradePlan): Uint8Array;
-                toProtoMsg(message: _20.UpgradePlan): _20.UpgradePlanProtoMsg;
-            };
-            Funder: {
-                typeUrl: string;
-                encode(message: _20.Funder, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _20.Funder;
-                fromPartial(object: Partial<_20.Funder>): _20.Funder;
-                fromAmino(object: _20.FunderAmino): _20.Funder;
-                toAmino(message: _20.Funder): _20.FunderAmino;
-                fromAminoMsg(object: _20.FunderAminoMsg): _20.Funder;
-                fromProtoMsg(message: _20.FunderProtoMsg): _20.Funder;
-                toProto(message: _20.Funder): Uint8Array;
-                toProtoMsg(message: _20.Funder): _20.FunderProtoMsg;
-            };
-            Pool: {
-                typeUrl: string;
-                encode(message: _20.Pool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _20.Pool;
-                fromPartial(object: Partial<_20.Pool>): _20.Pool;
-                fromAmino(object: _20.PoolAmino): _20.Pool;
-                toAmino(message: _20.Pool): _20.PoolAmino;
-                fromAminoMsg(object: _20.PoolAminoMsg): _20.Pool;
-                fromProtoMsg(message: _20.PoolProtoMsg): _20.Pool;
-                toProto(message: _20.Pool): Uint8Array;
-                toProtoMsg(message: _20.Pool): _20.PoolProtoMsg;
-            };
             Params: {
                 typeUrl: string;
-                encode(message: _19.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _19.Params;
-                fromPartial(object: Partial<_19.Params>): _19.Params;
-                fromAmino(object: _19.ParamsAmino): _19.Params;
-                toAmino(message: _19.Params): _19.ParamsAmino;
-                fromAminoMsg(object: _19.ParamsAminoMsg): _19.Params;
-                fromProtoMsg(message: _19.ParamsProtoMsg): _19.Params;
-                toProto(message: _19.Params): Uint8Array;
-                toProtoMsg(message: _19.Params): _19.ParamsProtoMsg;
+                encode(message: _20.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _20.Params;
+                fromPartial(object: Partial<_20.Params>): _20.Params;
+                fromAmino(object: _20.ParamsAmino): _20.Params;
+                toAmino(message: _20.Params): _20.ParamsAmino;
+                fromAminoMsg(object: _20.ParamsAminoMsg): _20.Params;
+                fromProtoMsg(message: _20.ParamsProtoMsg): _20.Params;
+                toProto(message: _20.Params): Uint8Array;
+                toProtoMsg(message: _20.Params): _20.ParamsProtoMsg;
+            };
+            GasAdjustment: {
+                typeUrl: string;
+                encode(message: _20.GasAdjustment, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _20.GasAdjustment;
+                fromPartial(object: Partial<_20.GasAdjustment>): _20.GasAdjustment;
+                fromAmino(object: _20.GasAdjustmentAmino): _20.GasAdjustment;
+                toAmino(message: _20.GasAdjustment): _20.GasAdjustmentAmino;
+                fromAminoMsg(object: _20.GasAdjustmentAminoMsg): _20.GasAdjustment;
+                fromProtoMsg(message: _20.GasAdjustmentProtoMsg): _20.GasAdjustment;
+                toProto(message: _20.GasAdjustment): Uint8Array;
+                toProtoMsg(message: _20.GasAdjustment): _20.GasAdjustmentProtoMsg;
+            };
+            GasRefund: {
+                typeUrl: string;
+                encode(message: _20.GasRefund, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _20.GasRefund;
+                fromPartial(object: Partial<_20.GasRefund>): _20.GasRefund;
+                fromAmino(object: _20.GasRefundAmino): _20.GasRefund;
+                toAmino(message: _20.GasRefund): _20.GasRefundAmino;
+                fromAminoMsg(object: _20.GasRefundAminoMsg): _20.GasRefund;
+                fromProtoMsg(message: _20.GasRefundProtoMsg): _20.GasRefund;
+                toProto(message: _20.GasRefund): Uint8Array;
+                toProtoMsg(message: _20.GasRefund): _20.GasRefundProtoMsg;
             };
             GenesisState: {
                 typeUrl: string;
-                encode(message: _18.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _18.GenesisState;
-                fromPartial(object: Partial<_18.GenesisState>): _18.GenesisState;
-                fromAmino(object: _18.GenesisStateAmino): _18.GenesisState;
-                toAmino(message: _18.GenesisState): _18.GenesisStateAmino;
-                fromAminoMsg(object: _18.GenesisStateAminoMsg): _18.GenesisState;
-                fromProtoMsg(message: _18.GenesisStateProtoMsg): _18.GenesisState;
-                toProto(message: _18.GenesisState): Uint8Array;
-                toProtoMsg(message: _18.GenesisState): _18.GenesisStateProtoMsg;
+                encode(message: _19.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _19.GenesisState;
+                fromPartial(object: Partial<_19.GenesisState>): _19.GenesisState;
+                fromAmino(object: _19.GenesisStateAmino): _19.GenesisState;
+                toAmino(message: _19.GenesisState): _19.GenesisStateAmino;
+                fromAminoMsg(object: _19.GenesisStateAminoMsg): _19.GenesisState;
+                fromProtoMsg(message: _19.GenesisStateProtoMsg): _19.GenesisState;
+                toProto(message: _19.GenesisState): Uint8Array;
+                toProtoMsg(message: _19.GenesisState): _19.GenesisStateProtoMsg;
             };
             EventUpdateParams: {
                 typeUrl: string;
-                encode(message: _17.EventUpdateParams, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _17.EventUpdateParams;
-                fromPartial(object: Partial<_17.EventUpdateParams>): _17.EventUpdateParams;
-                fromAmino(object: _17.EventUpdateParamsAmino): _17.EventUpdateParams;
-                toAmino(message: _17.EventUpdateParams): _17.EventUpdateParamsAmino;
-                fromAminoMsg(object: _17.EventUpdateParamsAminoMsg): _17.EventUpdateParams;
-                fromProtoMsg(message: _17.EventUpdateParamsProtoMsg): _17.EventUpdateParams;
-                toProto(message: _17.EventUpdateParams): Uint8Array;
-                toProtoMsg(message: _17.EventUpdateParams): _17.EventUpdateParamsProtoMsg;
-            };
-            EventCreatePool: {
-                typeUrl: string;
-                encode(message: _17.EventCreatePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _17.EventCreatePool;
-                fromPartial(object: Partial<_17.EventCreatePool>): _17.EventCreatePool;
-                fromAmino(object: _17.EventCreatePoolAmino): _17.EventCreatePool;
-                toAmino(message: _17.EventCreatePool): _17.EventCreatePoolAmino;
-                fromAminoMsg(object: _17.EventCreatePoolAminoMsg): _17.EventCreatePool;
-                fromProtoMsg(message: _17.EventCreatePoolProtoMsg): _17.EventCreatePool;
-                toProto(message: _17.EventCreatePool): Uint8Array;
-                toProtoMsg(message: _17.EventCreatePool): _17.EventCreatePoolProtoMsg;
-            };
-            EventPoolEnabled: {
-                typeUrl: string;
-                encode(message: _17.EventPoolEnabled, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _17.EventPoolEnabled;
-                fromPartial(object: Partial<_17.EventPoolEnabled>): _17.EventPoolEnabled;
-                fromAmino(object: _17.EventPoolEnabledAmino): _17.EventPoolEnabled;
-                toAmino(message: _17.EventPoolEnabled): _17.EventPoolEnabledAmino;
-                fromAminoMsg(object: _17.EventPoolEnabledAminoMsg): _17.EventPoolEnabled;
-                fromProtoMsg(message: _17.EventPoolEnabledProtoMsg): _17.EventPoolEnabled;
-                toProto(message: _17.EventPoolEnabled): Uint8Array;
-                toProtoMsg(message: _17.EventPoolEnabled): _17.EventPoolEnabledProtoMsg;
-            };
-            EventPoolDisabled: {
-                typeUrl: string;
-                encode(message: _17.EventPoolDisabled, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _17.EventPoolDisabled;
-                fromPartial(object: Partial<_17.EventPoolDisabled>): _17.EventPoolDisabled;
-                fromAmino(object: _17.EventPoolDisabledAmino): _17.EventPoolDisabled;
-                toAmino(message: _17.EventPoolDisabled): _17.EventPoolDisabledAmino;
-                fromAminoMsg(object: _17.EventPoolDisabledAminoMsg): _17.EventPoolDisabled;
-                fromProtoMsg(message: _17.EventPoolDisabledProtoMsg): _17.EventPoolDisabled;
-                toProto(message: _17.EventPoolDisabled): Uint8Array;
-                toProtoMsg(message: _17.EventPoolDisabled): _17.EventPoolDisabledProtoMsg;
-            };
-            EventRuntimeUpgradeScheduled: {
-                typeUrl: string;
-                encode(message: _17.EventRuntimeUpgradeScheduled, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _17.EventRuntimeUpgradeScheduled;
-                fromPartial(object: Partial<_17.EventRuntimeUpgradeScheduled>): _17.EventRuntimeUpgradeScheduled;
-                fromAmino(object: _17.EventRuntimeUpgradeScheduledAmino): _17.EventRuntimeUpgradeScheduled;
-                toAmino(message: _17.EventRuntimeUpgradeScheduled): _17.EventRuntimeUpgradeScheduledAmino;
-                fromAminoMsg(object: _17.EventRuntimeUpgradeScheduledAminoMsg): _17.EventRuntimeUpgradeScheduled;
-                fromProtoMsg(message: _17.EventRuntimeUpgradeScheduledProtoMsg): _17.EventRuntimeUpgradeScheduled;
-                toProto(message: _17.EventRuntimeUpgradeScheduled): Uint8Array;
-                toProtoMsg(message: _17.EventRuntimeUpgradeScheduled): _17.EventRuntimeUpgradeScheduledProtoMsg;
-            };
-            EventRuntimeUpgradeCancelled: {
-                typeUrl: string;
-                encode(message: _17.EventRuntimeUpgradeCancelled, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _17.EventRuntimeUpgradeCancelled;
-                fromPartial(object: Partial<_17.EventRuntimeUpgradeCancelled>): _17.EventRuntimeUpgradeCancelled;
-                fromAmino(object: _17.EventRuntimeUpgradeCancelledAmino): _17.EventRuntimeUpgradeCancelled;
-                toAmino(message: _17.EventRuntimeUpgradeCancelled): _17.EventRuntimeUpgradeCancelledAmino;
-                fromAminoMsg(object: _17.EventRuntimeUpgradeCancelledAminoMsg): _17.EventRuntimeUpgradeCancelled;
-                fromProtoMsg(message: _17.EventRuntimeUpgradeCancelledProtoMsg): _17.EventRuntimeUpgradeCancelled;
-                toProto(message: _17.EventRuntimeUpgradeCancelled): Uint8Array;
-                toProtoMsg(message: _17.EventRuntimeUpgradeCancelled): _17.EventRuntimeUpgradeCancelledProtoMsg;
-            };
-            EventPoolUpdated: {
-                typeUrl: string;
-                encode(message: _17.EventPoolUpdated, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _17.EventPoolUpdated;
-                fromPartial(object: Partial<_17.EventPoolUpdated>): _17.EventPoolUpdated;
-                fromAmino(object: _17.EventPoolUpdatedAmino): _17.EventPoolUpdated;
-                toAmino(message: _17.EventPoolUpdated): _17.EventPoolUpdatedAmino;
-                fromAminoMsg(object: _17.EventPoolUpdatedAminoMsg): _17.EventPoolUpdated;
-                fromProtoMsg(message: _17.EventPoolUpdatedProtoMsg): _17.EventPoolUpdated;
-                toProto(message: _17.EventPoolUpdated): Uint8Array;
-                toProtoMsg(message: _17.EventPoolUpdated): _17.EventPoolUpdatedProtoMsg;
-            };
-            EventFundPool: {
-                typeUrl: string;
-                encode(message: _17.EventFundPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _17.EventFundPool;
-                fromPartial(object: Partial<_17.EventFundPool>): _17.EventFundPool;
-                fromAmino(object: _17.EventFundPoolAmino): _17.EventFundPool;
-                toAmino(message: _17.EventFundPool): _17.EventFundPoolAmino;
-                fromAminoMsg(object: _17.EventFundPoolAminoMsg): _17.EventFundPool;
-                fromProtoMsg(message: _17.EventFundPoolProtoMsg): _17.EventFundPool;
-                toProto(message: _17.EventFundPool): Uint8Array;
-                toProtoMsg(message: _17.EventFundPool): _17.EventFundPoolProtoMsg;
-            };
-            EventDefundPool: {
-                typeUrl: string;
-                encode(message: _17.EventDefundPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _17.EventDefundPool;
-                fromPartial(object: Partial<_17.EventDefundPool>): _17.EventDefundPool;
-                fromAmino(object: _17.EventDefundPoolAmino): _17.EventDefundPool;
-                toAmino(message: _17.EventDefundPool): _17.EventDefundPoolAmino;
-                fromAminoMsg(object: _17.EventDefundPoolAminoMsg): _17.EventDefundPool;
-                fromProtoMsg(message: _17.EventDefundPoolProtoMsg): _17.EventDefundPool;
-                toProto(message: _17.EventDefundPool): Uint8Array;
-                toProtoMsg(message: _17.EventDefundPool): _17.EventDefundPoolProtoMsg;
-            };
-            EventPoolFundsSlashed: {
-                typeUrl: string;
-                encode(message: _17.EventPoolFundsSlashed, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _17.EventPoolFundsSlashed;
-                fromPartial(object: Partial<_17.EventPoolFundsSlashed>): _17.EventPoolFundsSlashed;
-                fromAmino(object: _17.EventPoolFundsSlashedAmino): _17.EventPoolFundsSlashed;
-                toAmino(message: _17.EventPoolFundsSlashed): _17.EventPoolFundsSlashedAmino;
-                fromAminoMsg(object: _17.EventPoolFundsSlashedAminoMsg): _17.EventPoolFundsSlashed;
-                fromProtoMsg(message: _17.EventPoolFundsSlashedProtoMsg): _17.EventPoolFundsSlashed;
-                toProto(message: _17.EventPoolFundsSlashed): Uint8Array;
-                toProtoMsg(message: _17.EventPoolFundsSlashed): _17.EventPoolFundsSlashedProtoMsg;
-            };
-            EventPoolOutOfFunds: {
-                typeUrl: string;
-                encode(message: _17.EventPoolOutOfFunds, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _17.EventPoolOutOfFunds;
-                fromPartial(object: Partial<_17.EventPoolOutOfFunds>): _17.EventPoolOutOfFunds;
-                fromAmino(object: _17.EventPoolOutOfFundsAmino): _17.EventPoolOutOfFunds;
-                toAmino(message: _17.EventPoolOutOfFunds): _17.EventPoolOutOfFundsAmino;
-                fromAminoMsg(object: _17.EventPoolOutOfFundsAminoMsg): _17.EventPoolOutOfFunds;
-                fromProtoMsg(message: _17.EventPoolOutOfFundsProtoMsg): _17.EventPoolOutOfFunds;
-                toProto(message: _17.EventPoolOutOfFunds): Uint8Array;
-                toProtoMsg(message: _17.EventPoolOutOfFunds): _17.EventPoolOutOfFundsProtoMsg;
+                encode(message: _18.EventUpdateParams, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _18.EventUpdateParams;
+                fromPartial(object: Partial<_18.EventUpdateParams>): _18.EventUpdateParams;
+                fromAmino(object: _18.EventUpdateParamsAmino): _18.EventUpdateParams;
+                toAmino(message: _18.EventUpdateParams): _18.EventUpdateParamsAmino;
+                fromAminoMsg(object: _18.EventUpdateParamsAminoMsg): _18.EventUpdateParams;
+                fromProtoMsg(message: _18.EventUpdateParamsProtoMsg): _18.EventUpdateParams;
+                toProto(message: _18.EventUpdateParams): Uint8Array;
+                toProtoMsg(message: _18.EventUpdateParams): _18.EventUpdateParamsProtoMsg;
             };
         };
     }
-    namespace query {
+    namespace pool {
         const v1beta1: {
-            stakerStatusFromJSON(object: any): _29.StakerStatus;
-            stakerStatusToJSON(object: _29.StakerStatus): string;
-            StakerStatus: typeof _29.StakerStatus;
-            StakerStatusSDKType: typeof _29.StakerStatus;
-            StakerStatusAmino: typeof _29.StakerStatus;
-            QueryStakersRequest: {
-                typeUrl: string;
-                encode(message: _29.QueryStakersRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _29.QueryStakersRequest;
-                fromPartial(object: Partial<_29.QueryStakersRequest>): _29.QueryStakersRequest;
-                fromAmino(object: _29.QueryStakersRequestAmino): _29.QueryStakersRequest;
-                toAmino(message: _29.QueryStakersRequest): _29.QueryStakersRequestAmino;
-                fromAminoMsg(object: _29.QueryStakersRequestAminoMsg): _29.QueryStakersRequest;
-                fromProtoMsg(message: _29.QueryStakersRequestProtoMsg): _29.QueryStakersRequest;
-                toProto(message: _29.QueryStakersRequest): Uint8Array;
-                toProtoMsg(message: _29.QueryStakersRequest): _29.QueryStakersRequestProtoMsg;
-            };
-            QueryStakersResponse: {
-                typeUrl: string;
-                encode(message: _29.QueryStakersResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _29.QueryStakersResponse;
-                fromPartial(object: Partial<_29.QueryStakersResponse>): _29.QueryStakersResponse;
-                fromAmino(object: _29.QueryStakersResponseAmino): _29.QueryStakersResponse;
-                toAmino(message: _29.QueryStakersResponse): _29.QueryStakersResponseAmino;
-                fromAminoMsg(object: _29.QueryStakersResponseAminoMsg): _29.QueryStakersResponse;
-                fromProtoMsg(message: _29.QueryStakersResponseProtoMsg): _29.QueryStakersResponse;
-                toProto(message: _29.QueryStakersResponse): Uint8Array;
-                toProtoMsg(message: _29.QueryStakersResponse): _29.QueryStakersResponseProtoMsg;
-            };
-            QueryStakerRequest: {
-                typeUrl: string;
-                encode(message: _29.QueryStakerRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _29.QueryStakerRequest;
-                fromPartial(object: Partial<_29.QueryStakerRequest>): _29.QueryStakerRequest;
-                fromAmino(object: _29.QueryStakerRequestAmino): _29.QueryStakerRequest;
-                toAmino(message: _29.QueryStakerRequest): _29.QueryStakerRequestAmino;
-                fromAminoMsg(object: _29.QueryStakerRequestAminoMsg): _29.QueryStakerRequest;
-                fromProtoMsg(message: _29.QueryStakerRequestProtoMsg): _29.QueryStakerRequest;
-                toProto(message: _29.QueryStakerRequest): Uint8Array;
-                toProtoMsg(message: _29.QueryStakerRequest): _29.QueryStakerRequestProtoMsg;
-            };
-            QueryStakerResponse: {
-                typeUrl: string;
-                encode(message: _29.QueryStakerResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _29.QueryStakerResponse;
-                fromPartial(object: Partial<_29.QueryStakerResponse>): _29.QueryStakerResponse;
-                fromAmino(object: _29.QueryStakerResponseAmino): _29.QueryStakerResponse;
-                toAmino(message: _29.QueryStakerResponse): _29.QueryStakerResponseAmino;
-                fromAminoMsg(object: _29.QueryStakerResponseAminoMsg): _29.QueryStakerResponse;
-                fromProtoMsg(message: _29.QueryStakerResponseProtoMsg): _29.QueryStakerResponse;
-                toProto(message: _29.QueryStakerResponse): Uint8Array;
-                toProtoMsg(message: _29.QueryStakerResponse): _29.QueryStakerResponseProtoMsg;
-            };
-            QueryStakersByPoolRequest: {
-                typeUrl: string;
-                encode(message: _29.QueryStakersByPoolRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _29.QueryStakersByPoolRequest;
-                fromPartial(object: Partial<_29.QueryStakersByPoolRequest>): _29.QueryStakersByPoolRequest;
-                fromAmino(object: _29.QueryStakersByPoolRequestAmino): _29.QueryStakersByPoolRequest;
-                toAmino(message: _29.QueryStakersByPoolRequest): _29.QueryStakersByPoolRequestAmino;
-                fromAminoMsg(object: _29.QueryStakersByPoolRequestAminoMsg): _29.QueryStakersByPoolRequest;
-                fromProtoMsg(message: _29.QueryStakersByPoolRequestProtoMsg): _29.QueryStakersByPoolRequest;
-                toProto(message: _29.QueryStakersByPoolRequest): Uint8Array;
-                toProtoMsg(message: _29.QueryStakersByPoolRequest): _29.QueryStakersByPoolRequestProtoMsg;
-            };
-            QueryStakersByPoolResponse: {
-                typeUrl: string;
-                encode(message: _29.QueryStakersByPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _29.QueryStakersByPoolResponse;
-                fromPartial(object: Partial<_29.QueryStakersByPoolResponse>): _29.QueryStakersByPoolResponse;
-                fromAmino(object: _29.QueryStakersByPoolResponseAmino): _29.QueryStakersByPoolResponse;
-                toAmino(message: _29.QueryStakersByPoolResponse): _29.QueryStakersByPoolResponseAmino;
-                fromAminoMsg(object: _29.QueryStakersByPoolResponseAminoMsg): _29.QueryStakersByPoolResponse;
-                fromProtoMsg(message: _29.QueryStakersByPoolResponseProtoMsg): _29.QueryStakersByPoolResponse;
-                toProto(message: _29.QueryStakersByPoolResponse): Uint8Array;
-                toProtoMsg(message: _29.QueryStakersByPoolResponse): _29.QueryStakersByPoolResponseProtoMsg;
-            };
-            StakerPoolResponse: {
-                typeUrl: string;
-                encode(message: _29.StakerPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _29.StakerPoolResponse;
-                fromPartial(object: Partial<_29.StakerPoolResponse>): _29.StakerPoolResponse;
-                fromAmino(object: _29.StakerPoolResponseAmino): _29.StakerPoolResponse;
-                toAmino(message: _29.StakerPoolResponse): _29.StakerPoolResponseAmino;
-                fromAminoMsg(object: _29.StakerPoolResponseAminoMsg): _29.StakerPoolResponse;
-                fromProtoMsg(message: _29.StakerPoolResponseProtoMsg): _29.StakerPoolResponse;
-                toProto(message: _29.StakerPoolResponse): Uint8Array;
-                toProtoMsg(message: _29.StakerPoolResponse): _29.StakerPoolResponseProtoMsg;
-            };
-            QueryStakersByPoolCountRequest: {
-                typeUrl: string;
-                encode(message: _29.QueryStakersByPoolCountRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _29.QueryStakersByPoolCountRequest;
-                fromPartial(object: Partial<_29.QueryStakersByPoolCountRequest>): _29.QueryStakersByPoolCountRequest;
-                fromAmino(object: _29.QueryStakersByPoolCountRequestAmino): _29.QueryStakersByPoolCountRequest;
-                toAmino(message: _29.QueryStakersByPoolCountRequest): _29.QueryStakersByPoolCountRequestAmino;
-                fromAminoMsg(object: _29.QueryStakersByPoolCountRequestAminoMsg): _29.QueryStakersByPoolCountRequest;
-                fromProtoMsg(message: _29.QueryStakersByPoolCountRequestProtoMsg): _29.QueryStakersByPoolCountRequest;
-                toProto(message: _29.QueryStakersByPoolCountRequest): Uint8Array;
-                toProtoMsg(message: _29.QueryStakersByPoolCountRequest): _29.QueryStakersByPoolCountRequestProtoMsg;
-            };
-            QueryStakersByPoolCountResponse: {
-                typeUrl: string;
-                encode(message: _29.QueryStakersByPoolCountResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _29.QueryStakersByPoolCountResponse;
-                fromPartial(object: Partial<_29.QueryStakersByPoolCountResponse>): _29.QueryStakersByPoolCountResponse;
-                fromAmino(object: _29.QueryStakersByPoolCountResponseAmino): _29.QueryStakersByPoolCountResponse;
-                toAmino(message: _29.QueryStakersByPoolCountResponse): _29.QueryStakersByPoolCountResponseAmino;
-                fromAminoMsg(object: _29.QueryStakersByPoolCountResponseAminoMsg): _29.QueryStakersByPoolCountResponse;
-                fromProtoMsg(message: _29.QueryStakersByPoolCountResponseProtoMsg): _29.QueryStakersByPoolCountResponse;
-                toProto(message: _29.QueryStakersByPoolCountResponse): Uint8Array;
-                toProtoMsg(message: _29.QueryStakersByPoolCountResponse): _29.QueryStakersByPoolCountResponseProtoMsg;
-            };
-            BasicPool: {
-                typeUrl: string;
-                encode(message: _28.BasicPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _28.BasicPool;
-                fromPartial(object: Partial<_28.BasicPool>): _28.BasicPool;
-                fromAmino(object: _28.BasicPoolAmino): _28.BasicPool;
-                toAmino(message: _28.BasicPool): _28.BasicPoolAmino;
-                fromAminoMsg(object: _28.BasicPoolAminoMsg): _28.BasicPool;
-                fromProtoMsg(message: _28.BasicPoolProtoMsg): _28.BasicPool;
-                toProto(message: _28.BasicPool): Uint8Array;
-                toProtoMsg(message: _28.BasicPool): _28.BasicPoolProtoMsg;
-            };
-            FullStaker: {
-                typeUrl: string;
-                encode(message: _28.FullStaker, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _28.FullStaker;
-                fromPartial(object: Partial<_28.FullStaker>): _28.FullStaker;
-                fromAmino(object: _28.FullStakerAmino): _28.FullStaker;
-                toAmino(message: _28.FullStaker): _28.FullStakerAmino;
-                fromAminoMsg(object: _28.FullStakerAminoMsg): _28.FullStaker;
-                fromProtoMsg(message: _28.FullStakerProtoMsg): _28.FullStaker;
-                toProto(message: _28.FullStaker): Uint8Array;
-                toProtoMsg(message: _28.FullStaker): _28.FullStakerProtoMsg;
-            };
-            StakerMetadata: {
-                typeUrl: string;
-                encode(message: _28.StakerMetadata, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _28.StakerMetadata;
-                fromPartial(object: Partial<_28.StakerMetadata>): _28.StakerMetadata;
-                fromAmino(object: _28.StakerMetadataAmino): _28.StakerMetadata;
-                toAmino(message: _28.StakerMetadata): _28.StakerMetadataAmino;
-                fromAminoMsg(object: _28.StakerMetadataAminoMsg): _28.StakerMetadata;
-                fromProtoMsg(message: _28.StakerMetadataProtoMsg): _28.StakerMetadata;
-                toProto(message: _28.StakerMetadata): Uint8Array;
-                toProtoMsg(message: _28.StakerMetadata): _28.StakerMetadataProtoMsg;
-            };
-            CommissionChangeEntry: {
-                typeUrl: string;
-                encode(message: _28.CommissionChangeEntry, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _28.CommissionChangeEntry;
-                fromPartial(object: Partial<_28.CommissionChangeEntry>): _28.CommissionChangeEntry;
-                fromAmino(object: _28.CommissionChangeEntryAmino): _28.CommissionChangeEntry;
-                toAmino(message: _28.CommissionChangeEntry): _28.CommissionChangeEntryAmino;
-                fromAminoMsg(object: _28.CommissionChangeEntryAminoMsg): _28.CommissionChangeEntry;
-                fromProtoMsg(message: _28.CommissionChangeEntryProtoMsg): _28.CommissionChangeEntry;
-                toProto(message: _28.CommissionChangeEntry): Uint8Array;
-                toProtoMsg(message: _28.CommissionChangeEntry): _28.CommissionChangeEntryProtoMsg;
-            };
-            PoolMembership: {
-                typeUrl: string;
-                encode(message: _28.PoolMembership, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _28.PoolMembership;
-                fromPartial(object: Partial<_28.PoolMembership>): _28.PoolMembership;
-                fromAmino(object: _28.PoolMembershipAmino): _28.PoolMembership;
-                toAmino(message: _28.PoolMembership): _28.PoolMembershipAmino;
-                fromAminoMsg(object: _28.PoolMembershipAminoMsg): _28.PoolMembership;
-                fromProtoMsg(message: _28.PoolMembershipProtoMsg): _28.PoolMembership;
-                toProto(message: _28.PoolMembership): Uint8Array;
-                toProtoMsg(message: _28.PoolMembership): _28.PoolMembershipProtoMsg;
-            };
-            QueryPoolsRequest: {
-                typeUrl: string;
-                encode(message: _27.QueryPoolsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _27.QueryPoolsRequest;
-                fromPartial(object: Partial<_27.QueryPoolsRequest>): _27.QueryPoolsRequest;
-                fromAmino(object: _27.QueryPoolsRequestAmino): _27.QueryPoolsRequest;
-                toAmino(message: _27.QueryPoolsRequest): _27.QueryPoolsRequestAmino;
-                fromAminoMsg(object: _27.QueryPoolsRequestAminoMsg): _27.QueryPoolsRequest;
-                fromProtoMsg(message: _27.QueryPoolsRequestProtoMsg): _27.QueryPoolsRequest;
-                toProto(message: _27.QueryPoolsRequest): Uint8Array;
-                toProtoMsg(message: _27.QueryPoolsRequest): _27.QueryPoolsRequestProtoMsg;
-            };
-            QueryPoolsResponse: {
-                typeUrl: string;
-                encode(message: _27.QueryPoolsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _27.QueryPoolsResponse;
-                fromPartial(object: Partial<_27.QueryPoolsResponse>): _27.QueryPoolsResponse;
-                fromAmino(object: _27.QueryPoolsResponseAmino): _27.QueryPoolsResponse;
-                toAmino(message: _27.QueryPoolsResponse): _27.QueryPoolsResponseAmino;
-                fromAminoMsg(object: _27.QueryPoolsResponseAminoMsg): _27.QueryPoolsResponse;
-                fromProtoMsg(message: _27.QueryPoolsResponseProtoMsg): _27.QueryPoolsResponse;
-                toProto(message: _27.QueryPoolsResponse): Uint8Array;
-                toProtoMsg(message: _27.QueryPoolsResponse): _27.QueryPoolsResponseProtoMsg;
-            };
-            PoolResponse: {
-                typeUrl: string;
-                encode(message: _27.PoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _27.PoolResponse;
-                fromPartial(object: Partial<_27.PoolResponse>): _27.PoolResponse;
-                fromAmino(object: _27.PoolResponseAmino): _27.PoolResponse;
-                toAmino(message: _27.PoolResponse): _27.PoolResponseAmino;
-                fromAminoMsg(object: _27.PoolResponseAminoMsg): _27.PoolResponse;
-                fromProtoMsg(message: _27.PoolResponseProtoMsg): _27.PoolResponse;
-                toProto(message: _27.PoolResponse): Uint8Array;
-                toProtoMsg(message: _27.PoolResponse): _27.PoolResponseProtoMsg;
-            };
-            QueryPoolRequest: {
-                typeUrl: string;
-                encode(message: _27.QueryPoolRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _27.QueryPoolRequest;
-                fromPartial(object: Partial<_27.QueryPoolRequest>): _27.QueryPoolRequest;
-                fromAmino(object: _27.QueryPoolRequestAmino): _27.QueryPoolRequest;
-                toAmino(message: _27.QueryPoolRequest): _27.QueryPoolRequestAmino;
-                fromAminoMsg(object: _27.QueryPoolRequestAminoMsg): _27.QueryPoolRequest;
-                fromProtoMsg(message: _27.QueryPoolRequestProtoMsg): _27.QueryPoolRequest;
-                toProto(message: _27.QueryPoolRequest): Uint8Array;
-                toProtoMsg(message: _27.QueryPoolRequest): _27.QueryPoolRequestProtoMsg;
-            };
-            QueryPoolResponse: {
-                typeUrl: string;
-                encode(message: _27.QueryPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _27.QueryPoolResponse;
-                fromPartial(object: Partial<_27.QueryPoolResponse>): _27.QueryPoolResponse;
-                fromAmino(object: _27.QueryPoolResponseAmino): _27.QueryPoolResponse;
-                toAmino(message: _27.QueryPoolResponse): _27.QueryPoolResponseAmino;
-                fromAminoMsg(object: _27.QueryPoolResponseAminoMsg): _27.QueryPoolResponse;
-                fromProtoMsg(message: _27.QueryPoolResponseProtoMsg): _27.QueryPoolResponse;
-                toProto(message: _27.QueryPoolResponse): Uint8Array;
-                toProtoMsg(message: _27.QueryPoolResponse): _27.QueryPoolResponseProtoMsg;
-            };
-            QueryParamsRequest: {
-                typeUrl: string;
-                encode(_: _26.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _26.QueryParamsRequest;
-                fromPartial(_: Partial<_26.QueryParamsRequest>): _26.QueryParamsRequest;
-                fromAmino(_: _26.QueryParamsRequestAmino): _26.QueryParamsRequest;
-                toAmino(_: _26.QueryParamsRequest): _26.QueryParamsRequestAmino;
-                fromAminoMsg(object: _26.QueryParamsRequestAminoMsg): _26.QueryParamsRequest;
-                fromProtoMsg(message: _26.QueryParamsRequestProtoMsg): _26.QueryParamsRequest;
-                toProto(message: _26.QueryParamsRequest): Uint8Array;
-                toProtoMsg(message: _26.QueryParamsRequest): _26.QueryParamsRequestProtoMsg;
-            };
-            QueryParamsResponse: {
-                typeUrl: string;
-                encode(message: _26.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _26.QueryParamsResponse;
-                fromPartial(object: Partial<_26.QueryParamsResponse>): _26.QueryParamsResponse;
-                fromAmino(object: _26.QueryParamsResponseAmino): _26.QueryParamsResponse;
-                toAmino(message: _26.QueryParamsResponse): _26.QueryParamsResponseAmino;
-                fromAminoMsg(object: _26.QueryParamsResponseAminoMsg): _26.QueryParamsResponse;
-                fromProtoMsg(message: _26.QueryParamsResponseProtoMsg): _26.QueryParamsResponse;
-                toProto(message: _26.QueryParamsResponse): Uint8Array;
-                toProtoMsg(message: _26.QueryParamsResponse): _26.QueryParamsResponseProtoMsg;
-            };
-            QueryDelegatorRequest: {
-                typeUrl: string;
-                encode(message: _25.QueryDelegatorRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _25.QueryDelegatorRequest;
-                fromPartial(object: Partial<_25.QueryDelegatorRequest>): _25.QueryDelegatorRequest;
-                fromAmino(object: _25.QueryDelegatorRequestAmino): _25.QueryDelegatorRequest;
-                toAmino(message: _25.QueryDelegatorRequest): _25.QueryDelegatorRequestAmino;
-                fromAminoMsg(object: _25.QueryDelegatorRequestAminoMsg): _25.QueryDelegatorRequest;
-                fromProtoMsg(message: _25.QueryDelegatorRequestProtoMsg): _25.QueryDelegatorRequest;
-                toProto(message: _25.QueryDelegatorRequest): Uint8Array;
-                toProtoMsg(message: _25.QueryDelegatorRequest): _25.QueryDelegatorRequestProtoMsg;
-            };
-            QueryDelegatorResponse: {
-                typeUrl: string;
-                encode(message: _25.QueryDelegatorResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _25.QueryDelegatorResponse;
-                fromPartial(object: Partial<_25.QueryDelegatorResponse>): _25.QueryDelegatorResponse;
-                fromAmino(object: _25.QueryDelegatorResponseAmino): _25.QueryDelegatorResponse;
-                toAmino(message: _25.QueryDelegatorResponse): _25.QueryDelegatorResponseAmino;
-                fromAminoMsg(object: _25.QueryDelegatorResponseAminoMsg): _25.QueryDelegatorResponse;
-                fromProtoMsg(message: _25.QueryDelegatorResponseProtoMsg): _25.QueryDelegatorResponse;
-                toProto(message: _25.QueryDelegatorResponse): Uint8Array;
-                toProtoMsg(message: _25.QueryDelegatorResponse): _25.QueryDelegatorResponseProtoMsg;
-            };
-            StakerDelegatorResponse: {
-                typeUrl: string;
-                encode(message: _25.StakerDelegatorResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _25.StakerDelegatorResponse;
-                fromPartial(object: Partial<_25.StakerDelegatorResponse>): _25.StakerDelegatorResponse;
-                fromAmino(object: _25.StakerDelegatorResponseAmino): _25.StakerDelegatorResponse;
-                toAmino(message: _25.StakerDelegatorResponse): _25.StakerDelegatorResponseAmino;
-                fromAminoMsg(object: _25.StakerDelegatorResponseAminoMsg): _25.StakerDelegatorResponse;
-                fromProtoMsg(message: _25.StakerDelegatorResponseProtoMsg): _25.StakerDelegatorResponse;
-                toProto(message: _25.StakerDelegatorResponse): Uint8Array;
-                toProtoMsg(message: _25.StakerDelegatorResponse): _25.StakerDelegatorResponseProtoMsg;
-            };
-            QueryDelegatorsByStakerRequest: {
-                typeUrl: string;
-                encode(message: _25.QueryDelegatorsByStakerRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _25.QueryDelegatorsByStakerRequest;
-                fromPartial(object: Partial<_25.QueryDelegatorsByStakerRequest>): _25.QueryDelegatorsByStakerRequest;
-                fromAmino(object: _25.QueryDelegatorsByStakerRequestAmino): _25.QueryDelegatorsByStakerRequest;
-                toAmino(message: _25.QueryDelegatorsByStakerRequest): _25.QueryDelegatorsByStakerRequestAmino;
-                fromAminoMsg(object: _25.QueryDelegatorsByStakerRequestAminoMsg): _25.QueryDelegatorsByStakerRequest;
-                fromProtoMsg(message: _25.QueryDelegatorsByStakerRequestProtoMsg): _25.QueryDelegatorsByStakerRequest;
-                toProto(message: _25.QueryDelegatorsByStakerRequest): Uint8Array;
-                toProtoMsg(message: _25.QueryDelegatorsByStakerRequest): _25.QueryDelegatorsByStakerRequestProtoMsg;
-            };
-            QueryDelegatorsByStakerResponse: {
-                typeUrl: string;
-                encode(message: _25.QueryDelegatorsByStakerResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _25.QueryDelegatorsByStakerResponse;
-                fromPartial(object: Partial<_25.QueryDelegatorsByStakerResponse>): _25.QueryDelegatorsByStakerResponse;
-                fromAmino(object: _25.QueryDelegatorsByStakerResponseAmino): _25.QueryDelegatorsByStakerResponse;
-                toAmino(message: _25.QueryDelegatorsByStakerResponse): _25.QueryDelegatorsByStakerResponseAmino;
-                fromAminoMsg(object: _25.QueryDelegatorsByStakerResponseAminoMsg): _25.QueryDelegatorsByStakerResponse;
-                fromProtoMsg(message: _25.QueryDelegatorsByStakerResponseProtoMsg): _25.QueryDelegatorsByStakerResponse;
-                toProto(message: _25.QueryDelegatorsByStakerResponse): Uint8Array;
-                toProtoMsg(message: _25.QueryDelegatorsByStakerResponse): _25.QueryDelegatorsByStakerResponseProtoMsg;
-            };
-            QueryStakersByDelegatorRequest: {
-                typeUrl: string;
-                encode(message: _25.QueryStakersByDelegatorRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _25.QueryStakersByDelegatorRequest;
-                fromPartial(object: Partial<_25.QueryStakersByDelegatorRequest>): _25.QueryStakersByDelegatorRequest;
-                fromAmino(object: _25.QueryStakersByDelegatorRequestAmino): _25.QueryStakersByDelegatorRequest;
-                toAmino(message: _25.QueryStakersByDelegatorRequest): _25.QueryStakersByDelegatorRequestAmino;
-                fromAminoMsg(object: _25.QueryStakersByDelegatorRequestAminoMsg): _25.QueryStakersByDelegatorRequest;
-                fromProtoMsg(message: _25.QueryStakersByDelegatorRequestProtoMsg): _25.QueryStakersByDelegatorRequest;
-                toProto(message: _25.QueryStakersByDelegatorRequest): Uint8Array;
-                toProtoMsg(message: _25.QueryStakersByDelegatorRequest): _25.QueryStakersByDelegatorRequestProtoMsg;
-            };
-            QueryStakersByDelegatorResponse: {
-                typeUrl: string;
-                encode(message: _25.QueryStakersByDelegatorResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _25.QueryStakersByDelegatorResponse;
-                fromPartial(object: Partial<_25.QueryStakersByDelegatorResponse>): _25.QueryStakersByDelegatorResponse;
-                fromAmino(object: _25.QueryStakersByDelegatorResponseAmino): _25.QueryStakersByDelegatorResponse;
-                toAmino(message: _25.QueryStakersByDelegatorResponse): _25.QueryStakersByDelegatorResponseAmino;
-                fromAminoMsg(object: _25.QueryStakersByDelegatorResponseAminoMsg): _25.QueryStakersByDelegatorResponse;
-                fromProtoMsg(message: _25.QueryStakersByDelegatorResponseProtoMsg): _25.QueryStakersByDelegatorResponse;
-                toProto(message: _25.QueryStakersByDelegatorResponse): Uint8Array;
-                toProtoMsg(message: _25.QueryStakersByDelegatorResponse): _25.QueryStakersByDelegatorResponseProtoMsg;
-            };
-            DelegationForStakerResponse: {
-                typeUrl: string;
-                encode(message: _25.DelegationForStakerResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _25.DelegationForStakerResponse;
-                fromPartial(object: Partial<_25.DelegationForStakerResponse>): _25.DelegationForStakerResponse;
-                fromAmino(object: _25.DelegationForStakerResponseAmino): _25.DelegationForStakerResponse;
-                toAmino(message: _25.DelegationForStakerResponse): _25.DelegationForStakerResponseAmino;
-                fromAminoMsg(object: _25.DelegationForStakerResponseAminoMsg): _25.DelegationForStakerResponse;
-                fromProtoMsg(message: _25.DelegationForStakerResponseProtoMsg): _25.DelegationForStakerResponse;
-                toProto(message: _25.DelegationForStakerResponse): Uint8Array;
-                toProtoMsg(message: _25.DelegationForStakerResponse): _25.DelegationForStakerResponseProtoMsg;
-            };
-            FinalizedBundle: {
-                typeUrl: string;
-                encode(message: _24.FinalizedBundle, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.FinalizedBundle;
-                fromPartial(object: Partial<_24.FinalizedBundle>): _24.FinalizedBundle;
-                fromAmino(object: _24.FinalizedBundleAmino): _24.FinalizedBundle;
-                toAmino(message: _24.FinalizedBundle): _24.FinalizedBundleAmino;
-                fromAminoMsg(object: _24.FinalizedBundleAminoMsg): _24.FinalizedBundle;
-                fromProtoMsg(message: _24.FinalizedBundleProtoMsg): _24.FinalizedBundle;
-                toProto(message: _24.FinalizedBundle): Uint8Array;
-                toProtoMsg(message: _24.FinalizedBundle): _24.FinalizedBundleProtoMsg;
-            };
-            FinalizedAt: {
-                typeUrl: string;
-                encode(message: _24.FinalizedAt, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.FinalizedAt;
-                fromPartial(object: Partial<_24.FinalizedAt>): _24.FinalizedAt;
-                fromAmino(object: _24.FinalizedAtAmino): _24.FinalizedAt;
-                toAmino(message: _24.FinalizedAt): _24.FinalizedAtAmino;
-                fromAminoMsg(object: _24.FinalizedAtAminoMsg): _24.FinalizedAt;
-                fromProtoMsg(message: _24.FinalizedAtProtoMsg): _24.FinalizedAt;
-                toProto(message: _24.FinalizedAt): Uint8Array;
-                toProtoMsg(message: _24.FinalizedAt): _24.FinalizedAtProtoMsg;
-            };
-            StakeSecurity: {
-                typeUrl: string;
-                encode(message: _24.StakeSecurity, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.StakeSecurity;
-                fromPartial(object: Partial<_24.StakeSecurity>): _24.StakeSecurity;
-                fromAmino(object: _24.StakeSecurityAmino): _24.StakeSecurity;
-                toAmino(message: _24.StakeSecurity): _24.StakeSecurityAmino;
-                fromAminoMsg(object: _24.StakeSecurityAminoMsg): _24.StakeSecurity;
-                fromProtoMsg(message: _24.StakeSecurityProtoMsg): _24.StakeSecurity;
-                toProto(message: _24.StakeSecurity): Uint8Array;
-                toProtoMsg(message: _24.StakeSecurity): _24.StakeSecurityProtoMsg;
-            };
-            QueryFinalizedBundlesRequest: {
-                typeUrl: string;
-                encode(message: _24.QueryFinalizedBundlesRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryFinalizedBundlesRequest;
-                fromPartial(object: Partial<_24.QueryFinalizedBundlesRequest>): _24.QueryFinalizedBundlesRequest;
-                fromAmino(object: _24.QueryFinalizedBundlesRequestAmino): _24.QueryFinalizedBundlesRequest;
-                toAmino(message: _24.QueryFinalizedBundlesRequest): _24.QueryFinalizedBundlesRequestAmino;
-                fromAminoMsg(object: _24.QueryFinalizedBundlesRequestAminoMsg): _24.QueryFinalizedBundlesRequest;
-                fromProtoMsg(message: _24.QueryFinalizedBundlesRequestProtoMsg): _24.QueryFinalizedBundlesRequest;
-                toProto(message: _24.QueryFinalizedBundlesRequest): Uint8Array;
-                toProtoMsg(message: _24.QueryFinalizedBundlesRequest): _24.QueryFinalizedBundlesRequestProtoMsg;
-            };
-            QueryFinalizedBundlesResponse: {
-                typeUrl: string;
-                encode(message: _24.QueryFinalizedBundlesResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryFinalizedBundlesResponse;
-                fromPartial(object: Partial<_24.QueryFinalizedBundlesResponse>): _24.QueryFinalizedBundlesResponse;
-                fromAmino(object: _24.QueryFinalizedBundlesResponseAmino): _24.QueryFinalizedBundlesResponse;
-                toAmino(message: _24.QueryFinalizedBundlesResponse): _24.QueryFinalizedBundlesResponseAmino;
-                fromAminoMsg(object: _24.QueryFinalizedBundlesResponseAminoMsg): _24.QueryFinalizedBundlesResponse;
-                fromProtoMsg(message: _24.QueryFinalizedBundlesResponseProtoMsg): _24.QueryFinalizedBundlesResponse;
-                toProto(message: _24.QueryFinalizedBundlesResponse): Uint8Array;
-                toProtoMsg(message: _24.QueryFinalizedBundlesResponse): _24.QueryFinalizedBundlesResponseProtoMsg;
-            };
-            QueryFinalizedBundleRequest: {
-                typeUrl: string;
-                encode(message: _24.QueryFinalizedBundleRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryFinalizedBundleRequest;
-                fromPartial(object: Partial<_24.QueryFinalizedBundleRequest>): _24.QueryFinalizedBundleRequest;
-                fromAmino(object: _24.QueryFinalizedBundleRequestAmino): _24.QueryFinalizedBundleRequest;
-                toAmino(message: _24.QueryFinalizedBundleRequest): _24.QueryFinalizedBundleRequestAmino;
-                fromAminoMsg(object: _24.QueryFinalizedBundleRequestAminoMsg): _24.QueryFinalizedBundleRequest;
-                fromProtoMsg(message: _24.QueryFinalizedBundleRequestProtoMsg): _24.QueryFinalizedBundleRequest;
-                toProto(message: _24.QueryFinalizedBundleRequest): Uint8Array;
-                toProtoMsg(message: _24.QueryFinalizedBundleRequest): _24.QueryFinalizedBundleRequestProtoMsg;
-            };
-            QueryFinalizedBundleResponse: {
-                typeUrl: string;
-                encode(message: _24.QueryFinalizedBundleResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryFinalizedBundleResponse;
-                fromPartial(object: Partial<_24.QueryFinalizedBundleResponse>): _24.QueryFinalizedBundleResponse;
-                fromAmino(object: _24.QueryFinalizedBundleResponseAmino): _24.QueryFinalizedBundleResponse;
-                toAmino(message: _24.QueryFinalizedBundleResponse): _24.QueryFinalizedBundleResponseAmino;
-                fromAminoMsg(object: _24.QueryFinalizedBundleResponseAminoMsg): _24.QueryFinalizedBundleResponse;
-                fromProtoMsg(message: _24.QueryFinalizedBundleResponseProtoMsg): _24.QueryFinalizedBundleResponse;
-                toProto(message: _24.QueryFinalizedBundleResponse): Uint8Array;
-                toProtoMsg(message: _24.QueryFinalizedBundleResponse): _24.QueryFinalizedBundleResponseProtoMsg;
-            };
-            QueryCurrentVoteStatusRequest: {
-                typeUrl: string;
-                encode(message: _24.QueryCurrentVoteStatusRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryCurrentVoteStatusRequest;
-                fromPartial(object: Partial<_24.QueryCurrentVoteStatusRequest>): _24.QueryCurrentVoteStatusRequest;
-                fromAmino(object: _24.QueryCurrentVoteStatusRequestAmino): _24.QueryCurrentVoteStatusRequest;
-                toAmino(message: _24.QueryCurrentVoteStatusRequest): _24.QueryCurrentVoteStatusRequestAmino;
-                fromAminoMsg(object: _24.QueryCurrentVoteStatusRequestAminoMsg): _24.QueryCurrentVoteStatusRequest;
-                fromProtoMsg(message: _24.QueryCurrentVoteStatusRequestProtoMsg): _24.QueryCurrentVoteStatusRequest;
-                toProto(message: _24.QueryCurrentVoteStatusRequest): Uint8Array;
-                toProtoMsg(message: _24.QueryCurrentVoteStatusRequest): _24.QueryCurrentVoteStatusRequestProtoMsg;
-            };
-            QueryCurrentVoteStatusResponse: {
-                typeUrl: string;
-                encode(message: _24.QueryCurrentVoteStatusResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryCurrentVoteStatusResponse;
-                fromPartial(object: Partial<_24.QueryCurrentVoteStatusResponse>): _24.QueryCurrentVoteStatusResponse;
-                fromAmino(object: _24.QueryCurrentVoteStatusResponseAmino): _24.QueryCurrentVoteStatusResponse;
-                toAmino(message: _24.QueryCurrentVoteStatusResponse): _24.QueryCurrentVoteStatusResponseAmino;
-                fromAminoMsg(object: _24.QueryCurrentVoteStatusResponseAminoMsg): _24.QueryCurrentVoteStatusResponse;
-                fromProtoMsg(message: _24.QueryCurrentVoteStatusResponseProtoMsg): _24.QueryCurrentVoteStatusResponse;
-                toProto(message: _24.QueryCurrentVoteStatusResponse): Uint8Array;
-                toProtoMsg(message: _24.QueryCurrentVoteStatusResponse): _24.QueryCurrentVoteStatusResponseProtoMsg;
-            };
-            QueryCanValidateRequest: {
-                typeUrl: string;
-                encode(message: _24.QueryCanValidateRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryCanValidateRequest;
-                fromPartial(object: Partial<_24.QueryCanValidateRequest>): _24.QueryCanValidateRequest;
-                fromAmino(object: _24.QueryCanValidateRequestAmino): _24.QueryCanValidateRequest;
-                toAmino(message: _24.QueryCanValidateRequest): _24.QueryCanValidateRequestAmino;
-                fromAminoMsg(object: _24.QueryCanValidateRequestAminoMsg): _24.QueryCanValidateRequest;
-                fromProtoMsg(message: _24.QueryCanValidateRequestProtoMsg): _24.QueryCanValidateRequest;
-                toProto(message: _24.QueryCanValidateRequest): Uint8Array;
-                toProtoMsg(message: _24.QueryCanValidateRequest): _24.QueryCanValidateRequestProtoMsg;
-            };
-            QueryCanValidateResponse: {
-                typeUrl: string;
-                encode(message: _24.QueryCanValidateResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryCanValidateResponse;
-                fromPartial(object: Partial<_24.QueryCanValidateResponse>): _24.QueryCanValidateResponse;
-                fromAmino(object: _24.QueryCanValidateResponseAmino): _24.QueryCanValidateResponse;
-                toAmino(message: _24.QueryCanValidateResponse): _24.QueryCanValidateResponseAmino;
-                fromAminoMsg(object: _24.QueryCanValidateResponseAminoMsg): _24.QueryCanValidateResponse;
-                fromProtoMsg(message: _24.QueryCanValidateResponseProtoMsg): _24.QueryCanValidateResponse;
-                toProto(message: _24.QueryCanValidateResponse): Uint8Array;
-                toProtoMsg(message: _24.QueryCanValidateResponse): _24.QueryCanValidateResponseProtoMsg;
-            };
-            QueryCanProposeRequest: {
-                typeUrl: string;
-                encode(message: _24.QueryCanProposeRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryCanProposeRequest;
-                fromPartial(object: Partial<_24.QueryCanProposeRequest>): _24.QueryCanProposeRequest;
-                fromAmino(object: _24.QueryCanProposeRequestAmino): _24.QueryCanProposeRequest;
-                toAmino(message: _24.QueryCanProposeRequest): _24.QueryCanProposeRequestAmino;
-                fromAminoMsg(object: _24.QueryCanProposeRequestAminoMsg): _24.QueryCanProposeRequest;
-                fromProtoMsg(message: _24.QueryCanProposeRequestProtoMsg): _24.QueryCanProposeRequest;
-                toProto(message: _24.QueryCanProposeRequest): Uint8Array;
-                toProtoMsg(message: _24.QueryCanProposeRequest): _24.QueryCanProposeRequestProtoMsg;
-            };
-            QueryCanProposeResponse: {
-                typeUrl: string;
-                encode(message: _24.QueryCanProposeResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryCanProposeResponse;
-                fromPartial(object: Partial<_24.QueryCanProposeResponse>): _24.QueryCanProposeResponse;
-                fromAmino(object: _24.QueryCanProposeResponseAmino): _24.QueryCanProposeResponse;
-                toAmino(message: _24.QueryCanProposeResponse): _24.QueryCanProposeResponseAmino;
-                fromAminoMsg(object: _24.QueryCanProposeResponseAminoMsg): _24.QueryCanProposeResponse;
-                fromProtoMsg(message: _24.QueryCanProposeResponseProtoMsg): _24.QueryCanProposeResponse;
-                toProto(message: _24.QueryCanProposeResponse): Uint8Array;
-                toProtoMsg(message: _24.QueryCanProposeResponse): _24.QueryCanProposeResponseProtoMsg;
-            };
-            QueryCanVoteRequest: {
-                typeUrl: string;
-                encode(message: _24.QueryCanVoteRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryCanVoteRequest;
-                fromPartial(object: Partial<_24.QueryCanVoteRequest>): _24.QueryCanVoteRequest;
-                fromAmino(object: _24.QueryCanVoteRequestAmino): _24.QueryCanVoteRequest;
-                toAmino(message: _24.QueryCanVoteRequest): _24.QueryCanVoteRequestAmino;
-                fromAminoMsg(object: _24.QueryCanVoteRequestAminoMsg): _24.QueryCanVoteRequest;
-                fromProtoMsg(message: _24.QueryCanVoteRequestProtoMsg): _24.QueryCanVoteRequest;
-                toProto(message: _24.QueryCanVoteRequest): Uint8Array;
-                toProtoMsg(message: _24.QueryCanVoteRequest): _24.QueryCanVoteRequestProtoMsg;
-            };
-            QueryCanVoteResponse: {
-                typeUrl: string;
-                encode(message: _24.QueryCanVoteResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _24.QueryCanVoteResponse;
-                fromPartial(object: Partial<_24.QueryCanVoteResponse>): _24.QueryCanVoteResponse;
-                fromAmino(object: _24.QueryCanVoteResponseAmino): _24.QueryCanVoteResponse;
-                toAmino(message: _24.QueryCanVoteResponse): _24.QueryCanVoteResponseAmino;
-                fromAminoMsg(object: _24.QueryCanVoteResponseAminoMsg): _24.QueryCanVoteResponse;
-                fromProtoMsg(message: _24.QueryCanVoteResponseProtoMsg): _24.QueryCanVoteResponse;
-                toProto(message: _24.QueryCanVoteResponse): Uint8Array;
-                toProtoMsg(message: _24.QueryCanVoteResponse): _24.QueryCanVoteResponseProtoMsg;
-            };
-            QueryAccountAssetsRequest: {
-                typeUrl: string;
-                encode(message: _23.QueryAccountAssetsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _23.QueryAccountAssetsRequest;
-                fromPartial(object: Partial<_23.QueryAccountAssetsRequest>): _23.QueryAccountAssetsRequest;
-                fromAmino(object: _23.QueryAccountAssetsRequestAmino): _23.QueryAccountAssetsRequest;
-                toAmino(message: _23.QueryAccountAssetsRequest): _23.QueryAccountAssetsRequestAmino;
-                fromAminoMsg(object: _23.QueryAccountAssetsRequestAminoMsg): _23.QueryAccountAssetsRequest;
-                fromProtoMsg(message: _23.QueryAccountAssetsRequestProtoMsg): _23.QueryAccountAssetsRequest;
-                toProto(message: _23.QueryAccountAssetsRequest): Uint8Array;
-                toProtoMsg(message: _23.QueryAccountAssetsRequest): _23.QueryAccountAssetsRequestProtoMsg;
-            };
-            QueryAccountAssetsResponse: {
-                typeUrl: string;
-                encode(message: _23.QueryAccountAssetsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _23.QueryAccountAssetsResponse;
-                fromPartial(object: Partial<_23.QueryAccountAssetsResponse>): _23.QueryAccountAssetsResponse;
-                fromAmino(object: _23.QueryAccountAssetsResponseAmino): _23.QueryAccountAssetsResponse;
-                toAmino(message: _23.QueryAccountAssetsResponse): _23.QueryAccountAssetsResponseAmino;
-                fromAminoMsg(object: _23.QueryAccountAssetsResponseAminoMsg): _23.QueryAccountAssetsResponse;
-                fromProtoMsg(message: _23.QueryAccountAssetsResponseProtoMsg): _23.QueryAccountAssetsResponse;
-                toProto(message: _23.QueryAccountAssetsResponse): Uint8Array;
-                toProtoMsg(message: _23.QueryAccountAssetsResponse): _23.QueryAccountAssetsResponseProtoMsg;
-            };
-            QueryAccountDelegationUnbondingsRequest: {
-                typeUrl: string;
-                encode(message: _23.QueryAccountDelegationUnbondingsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _23.QueryAccountDelegationUnbondingsRequest;
-                fromPartial(object: Partial<_23.QueryAccountDelegationUnbondingsRequest>): _23.QueryAccountDelegationUnbondingsRequest;
-                fromAmino(object: _23.QueryAccountDelegationUnbondingsRequestAmino): _23.QueryAccountDelegationUnbondingsRequest;
-                toAmino(message: _23.QueryAccountDelegationUnbondingsRequest): _23.QueryAccountDelegationUnbondingsRequestAmino;
-                fromAminoMsg(object: _23.QueryAccountDelegationUnbondingsRequestAminoMsg): _23.QueryAccountDelegationUnbondingsRequest;
-                fromProtoMsg(message: _23.QueryAccountDelegationUnbondingsRequestProtoMsg): _23.QueryAccountDelegationUnbondingsRequest;
-                toProto(message: _23.QueryAccountDelegationUnbondingsRequest): Uint8Array;
-                toProtoMsg(message: _23.QueryAccountDelegationUnbondingsRequest): _23.QueryAccountDelegationUnbondingsRequestProtoMsg;
-            };
-            QueryAccountDelegationUnbondingsResponse: {
-                typeUrl: string;
-                encode(message: _23.QueryAccountDelegationUnbondingsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _23.QueryAccountDelegationUnbondingsResponse;
-                fromPartial(object: Partial<_23.QueryAccountDelegationUnbondingsResponse>): _23.QueryAccountDelegationUnbondingsResponse;
-                fromAmino(object: _23.QueryAccountDelegationUnbondingsResponseAmino): _23.QueryAccountDelegationUnbondingsResponse;
-                toAmino(message: _23.QueryAccountDelegationUnbondingsResponse): _23.QueryAccountDelegationUnbondingsResponseAmino;
-                fromAminoMsg(object: _23.QueryAccountDelegationUnbondingsResponseAminoMsg): _23.QueryAccountDelegationUnbondingsResponse;
-                fromProtoMsg(message: _23.QueryAccountDelegationUnbondingsResponseProtoMsg): _23.QueryAccountDelegationUnbondingsResponse;
-                toProto(message: _23.QueryAccountDelegationUnbondingsResponse): Uint8Array;
-                toProtoMsg(message: _23.QueryAccountDelegationUnbondingsResponse): _23.QueryAccountDelegationUnbondingsResponseProtoMsg;
-            };
-            DelegationUnbonding: {
-                typeUrl: string;
-                encode(message: _23.DelegationUnbonding, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _23.DelegationUnbonding;
-                fromPartial(object: Partial<_23.DelegationUnbonding>): _23.DelegationUnbonding;
-                fromAmino(object: _23.DelegationUnbondingAmino): _23.DelegationUnbonding;
-                toAmino(message: _23.DelegationUnbonding): _23.DelegationUnbondingAmino;
-                fromAminoMsg(object: _23.DelegationUnbondingAminoMsg): _23.DelegationUnbonding;
-                fromProtoMsg(message: _23.DelegationUnbondingProtoMsg): _23.DelegationUnbonding;
-                toProto(message: _23.DelegationUnbonding): Uint8Array;
-                toProtoMsg(message: _23.DelegationUnbonding): _23.DelegationUnbondingProtoMsg;
-            };
-            QueryAccountFundedListRequest: {
-                typeUrl: string;
-                encode(message: _23.QueryAccountFundedListRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _23.QueryAccountFundedListRequest;
-                fromPartial(object: Partial<_23.QueryAccountFundedListRequest>): _23.QueryAccountFundedListRequest;
-                fromAmino(object: _23.QueryAccountFundedListRequestAmino): _23.QueryAccountFundedListRequest;
-                toAmino(message: _23.QueryAccountFundedListRequest): _23.QueryAccountFundedListRequestAmino;
-                fromAminoMsg(object: _23.QueryAccountFundedListRequestAminoMsg): _23.QueryAccountFundedListRequest;
-                fromProtoMsg(message: _23.QueryAccountFundedListRequestProtoMsg): _23.QueryAccountFundedListRequest;
-                toProto(message: _23.QueryAccountFundedListRequest): Uint8Array;
-                toProtoMsg(message: _23.QueryAccountFundedListRequest): _23.QueryAccountFundedListRequestProtoMsg;
-            };
-            QueryAccountFundedListResponse: {
-                typeUrl: string;
-                encode(message: _23.QueryAccountFundedListResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _23.QueryAccountFundedListResponse;
-                fromPartial(object: Partial<_23.QueryAccountFundedListResponse>): _23.QueryAccountFundedListResponse;
-                fromAmino(object: _23.QueryAccountFundedListResponseAmino): _23.QueryAccountFundedListResponse;
-                toAmino(message: _23.QueryAccountFundedListResponse): _23.QueryAccountFundedListResponseAmino;
-                fromAminoMsg(object: _23.QueryAccountFundedListResponseAminoMsg): _23.QueryAccountFundedListResponse;
-                fromProtoMsg(message: _23.QueryAccountFundedListResponseProtoMsg): _23.QueryAccountFundedListResponse;
-                toProto(message: _23.QueryAccountFundedListResponse): Uint8Array;
-                toProtoMsg(message: _23.QueryAccountFundedListResponse): _23.QueryAccountFundedListResponseProtoMsg;
-            };
-            Funded: {
-                typeUrl: string;
-                encode(message: _23.Funded, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _23.Funded;
-                fromPartial(object: Partial<_23.Funded>): _23.Funded;
-                fromAmino(object: _23.FundedAmino): _23.Funded;
-                toAmino(message: _23.Funded): _23.FundedAmino;
-                fromAminoMsg(object: _23.FundedAminoMsg): _23.Funded;
-                fromProtoMsg(message: _23.FundedProtoMsg): _23.Funded;
-                toProto(message: _23.Funded): Uint8Array;
-                toProtoMsg(message: _23.Funded): _23.FundedProtoMsg;
-            };
-            QueryAccountRedelegationRequest: {
-                typeUrl: string;
-                encode(message: _23.QueryAccountRedelegationRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _23.QueryAccountRedelegationRequest;
-                fromPartial(object: Partial<_23.QueryAccountRedelegationRequest>): _23.QueryAccountRedelegationRequest;
-                fromAmino(object: _23.QueryAccountRedelegationRequestAmino): _23.QueryAccountRedelegationRequest;
-                toAmino(message: _23.QueryAccountRedelegationRequest): _23.QueryAccountRedelegationRequestAmino;
-                fromAminoMsg(object: _23.QueryAccountRedelegationRequestAminoMsg): _23.QueryAccountRedelegationRequest;
-                fromProtoMsg(message: _23.QueryAccountRedelegationRequestProtoMsg): _23.QueryAccountRedelegationRequest;
-                toProto(message: _23.QueryAccountRedelegationRequest): Uint8Array;
-                toProtoMsg(message: _23.QueryAccountRedelegationRequest): _23.QueryAccountRedelegationRequestProtoMsg;
-            };
-            QueryAccountRedelegationResponse: {
-                typeUrl: string;
-                encode(message: _23.QueryAccountRedelegationResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _23.QueryAccountRedelegationResponse;
-                fromPartial(object: Partial<_23.QueryAccountRedelegationResponse>): _23.QueryAccountRedelegationResponse;
-                fromAmino(object: _23.QueryAccountRedelegationResponseAmino): _23.QueryAccountRedelegationResponse;
-                toAmino(message: _23.QueryAccountRedelegationResponse): _23.QueryAccountRedelegationResponseAmino;
-                fromAminoMsg(object: _23.QueryAccountRedelegationResponseAminoMsg): _23.QueryAccountRedelegationResponse;
-                fromProtoMsg(message: _23.QueryAccountRedelegationResponseProtoMsg): _23.QueryAccountRedelegationResponse;
-                toProto(message: _23.QueryAccountRedelegationResponse): Uint8Array;
-                toProtoMsg(message: _23.QueryAccountRedelegationResponse): _23.QueryAccountRedelegationResponseProtoMsg;
-            };
-            RedelegationEntry: {
-                typeUrl: string;
-                encode(message: _23.RedelegationEntry, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _23.RedelegationEntry;
-                fromPartial(object: Partial<_23.RedelegationEntry>): _23.RedelegationEntry;
-                fromAmino(object: _23.RedelegationEntryAmino): _23.RedelegationEntry;
-                toAmino(message: _23.RedelegationEntry): _23.RedelegationEntryAmino;
-                fromAminoMsg(object: _23.RedelegationEntryAminoMsg): _23.RedelegationEntry;
-                fromProtoMsg(message: _23.RedelegationEntryProtoMsg): _23.RedelegationEntry;
-                toProto(message: _23.RedelegationEntry): Uint8Array;
-                toProtoMsg(message: _23.RedelegationEntry): _23.RedelegationEntryProtoMsg;
-            };
-        };
-    }
-    namespace stakers {
-        const v1beta1: {
-            MsgClientImpl: typeof _184.MsgClientImpl;
-            QueryClientImpl: typeof _178.QueryClientImpl;
+            MsgClientImpl: typeof _225.MsgClientImpl;
+            QueryClientImpl: typeof _218.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
-                params(request?: _33.QueryParamsRequest): Promise<_33.QueryParamsResponse>;
+                params(request?: _27.QueryParamsRequest): Promise<_27.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _172.LCDQueryClient;
+            LCDQueryClient: typeof _211.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
                 encoded: {
-                    createStaker(value: _35.MsgCreateStaker): {
+                    createPool(value: _28.MsgCreatePool): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    updateMetadata(value: _35.MsgUpdateMetadata): {
+                    updatePool(value: _28.MsgUpdatePool): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    updateCommission(value: _35.MsgUpdateCommission): {
+                    disablePool(value: _28.MsgDisablePool): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    claimCommissionRewards(value: _35.MsgClaimCommissionRewards): {
+                    enablePool(value: _28.MsgEnablePool): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    joinPool(value: _35.MsgJoinPool): {
+                    scheduleRuntimeUpgrade(value: _28.MsgScheduleRuntimeUpgrade): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    leavePool(value: _35.MsgLeavePool): {
+                    cancelRuntimeUpgrade(value: _28.MsgCancelRuntimeUpgrade): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    updateParams(value: _35.MsgUpdateParams): {
+                    updateParams(value: _28.MsgUpdateParams): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
                 };
                 withTypeUrl: {
-                    createStaker(value: _35.MsgCreateStaker): {
+                    createPool(value: _28.MsgCreatePool): {
                         typeUrl: string;
-                        value: _35.MsgCreateStaker;
+                        value: _28.MsgCreatePool;
                     };
-                    updateMetadata(value: _35.MsgUpdateMetadata): {
+                    updatePool(value: _28.MsgUpdatePool): {
                         typeUrl: string;
-                        value: _35.MsgUpdateMetadata;
+                        value: _28.MsgUpdatePool;
                     };
-                    updateCommission(value: _35.MsgUpdateCommission): {
+                    disablePool(value: _28.MsgDisablePool): {
                         typeUrl: string;
-                        value: _35.MsgUpdateCommission;
+                        value: _28.MsgDisablePool;
                     };
-                    claimCommissionRewards(value: _35.MsgClaimCommissionRewards): {
+                    enablePool(value: _28.MsgEnablePool): {
                         typeUrl: string;
-                        value: _35.MsgClaimCommissionRewards;
+                        value: _28.MsgEnablePool;
                     };
-                    joinPool(value: _35.MsgJoinPool): {
+                    scheduleRuntimeUpgrade(value: _28.MsgScheduleRuntimeUpgrade): {
                         typeUrl: string;
-                        value: _35.MsgJoinPool;
+                        value: _28.MsgScheduleRuntimeUpgrade;
                     };
-                    leavePool(value: _35.MsgLeavePool): {
+                    cancelRuntimeUpgrade(value: _28.MsgCancelRuntimeUpgrade): {
                         typeUrl: string;
-                        value: _35.MsgLeavePool;
+                        value: _28.MsgCancelRuntimeUpgrade;
                     };
-                    updateParams(value: _35.MsgUpdateParams): {
+                    updateParams(value: _28.MsgUpdateParams): {
                         typeUrl: string;
-                        value: _35.MsgUpdateParams;
+                        value: _28.MsgUpdateParams;
                     };
                 };
                 fromJSON: {
-                    createStaker(value: any): {
+                    createPool(value: any): {
                         typeUrl: string;
-                        value: _35.MsgCreateStaker;
+                        value: _28.MsgCreatePool;
                     };
-                    updateMetadata(value: any): {
+                    updatePool(value: any): {
                         typeUrl: string;
-                        value: _35.MsgUpdateMetadata;
+                        value: _28.MsgUpdatePool;
                     };
-                    updateCommission(value: any): {
+                    disablePool(value: any): {
                         typeUrl: string;
-                        value: _35.MsgUpdateCommission;
+                        value: _28.MsgDisablePool;
                     };
-                    claimCommissionRewards(value: any): {
+                    enablePool(value: any): {
                         typeUrl: string;
-                        value: _35.MsgClaimCommissionRewards;
+                        value: _28.MsgEnablePool;
                     };
-                    joinPool(value: any): {
+                    scheduleRuntimeUpgrade(value: any): {
                         typeUrl: string;
-                        value: _35.MsgJoinPool;
+                        value: _28.MsgScheduleRuntimeUpgrade;
                     };
-                    leavePool(value: any): {
+                    cancelRuntimeUpgrade(value: any): {
                         typeUrl: string;
-                        value: _35.MsgLeavePool;
+                        value: _28.MsgCancelRuntimeUpgrade;
                     };
                     updateParams(value: any): {
                         typeUrl: string;
-                        value: _35.MsgUpdateParams;
+                        value: _28.MsgUpdateParams;
                     };
                 };
                 fromPartial: {
-                    createStaker(value: _35.MsgCreateStaker): {
+                    createPool(value: _28.MsgCreatePool): {
                         typeUrl: string;
-                        value: _35.MsgCreateStaker;
+                        value: _28.MsgCreatePool;
                     };
-                    updateMetadata(value: _35.MsgUpdateMetadata): {
+                    updatePool(value: _28.MsgUpdatePool): {
                         typeUrl: string;
-                        value: _35.MsgUpdateMetadata;
+                        value: _28.MsgUpdatePool;
                     };
-                    updateCommission(value: _35.MsgUpdateCommission): {
+                    disablePool(value: _28.MsgDisablePool): {
                         typeUrl: string;
-                        value: _35.MsgUpdateCommission;
+                        value: _28.MsgDisablePool;
                     };
-                    claimCommissionRewards(value: _35.MsgClaimCommissionRewards): {
+                    enablePool(value: _28.MsgEnablePool): {
                         typeUrl: string;
-                        value: _35.MsgClaimCommissionRewards;
+                        value: _28.MsgEnablePool;
                     };
-                    joinPool(value: _35.MsgJoinPool): {
+                    scheduleRuntimeUpgrade(value: _28.MsgScheduleRuntimeUpgrade): {
                         typeUrl: string;
-                        value: _35.MsgJoinPool;
+                        value: _28.MsgScheduleRuntimeUpgrade;
                     };
-                    leavePool(value: _35.MsgLeavePool): {
+                    cancelRuntimeUpgrade(value: _28.MsgCancelRuntimeUpgrade): {
                         typeUrl: string;
-                        value: _35.MsgLeavePool;
+                        value: _28.MsgCancelRuntimeUpgrade;
                     };
-                    updateParams(value: _35.MsgUpdateParams): {
+                    updateParams(value: _28.MsgUpdateParams): {
                         typeUrl: string;
-                        value: _35.MsgUpdateParams;
+                        value: _28.MsgUpdateParams;
                     };
                 };
             };
             AminoConverter: {
-                "/kyve.stakers.v1beta1.MsgCreateStaker": {
+                "/kyve.pool.v1beta1.MsgCreatePool": {
                     aminoType: string;
-                    toAmino: (message: _35.MsgCreateStaker) => _35.MsgCreateStakerAmino;
-                    fromAmino: (object: _35.MsgCreateStakerAmino) => _35.MsgCreateStaker;
+                    toAmino: (message: _28.MsgCreatePool) => _28.MsgCreatePoolAmino;
+                    fromAmino: (object: _28.MsgCreatePoolAmino) => _28.MsgCreatePool;
                 };
-                "/kyve.stakers.v1beta1.MsgUpdateMetadata": {
+                "/kyve.pool.v1beta1.MsgUpdatePool": {
                     aminoType: string;
-                    toAmino: (message: _35.MsgUpdateMetadata) => _35.MsgUpdateMetadataAmino;
-                    fromAmino: (object: _35.MsgUpdateMetadataAmino) => _35.MsgUpdateMetadata;
+                    toAmino: (message: _28.MsgUpdatePool) => _28.MsgUpdatePoolAmino;
+                    fromAmino: (object: _28.MsgUpdatePoolAmino) => _28.MsgUpdatePool;
                 };
-                "/kyve.stakers.v1beta1.MsgUpdateCommission": {
+                "/kyve.pool.v1beta1.MsgDisablePool": {
                     aminoType: string;
-                    toAmino: (message: _35.MsgUpdateCommission) => _35.MsgUpdateCommissionAmino;
-                    fromAmino: (object: _35.MsgUpdateCommissionAmino) => _35.MsgUpdateCommission;
+                    toAmino: (message: _28.MsgDisablePool) => _28.MsgDisablePoolAmino;
+                    fromAmino: (object: _28.MsgDisablePoolAmino) => _28.MsgDisablePool;
                 };
-                "/kyve.stakers.v1beta1.MsgClaimCommissionRewards": {
+                "/kyve.pool.v1beta1.MsgEnablePool": {
                     aminoType: string;
-                    toAmino: (message: _35.MsgClaimCommissionRewards) => _35.MsgClaimCommissionRewardsAmino;
-                    fromAmino: (object: _35.MsgClaimCommissionRewardsAmino) => _35.MsgClaimCommissionRewards;
+                    toAmino: (message: _28.MsgEnablePool) => _28.MsgEnablePoolAmino;
+                    fromAmino: (object: _28.MsgEnablePoolAmino) => _28.MsgEnablePool;
                 };
-                "/kyve.stakers.v1beta1.MsgJoinPool": {
+                "/kyve.pool.v1beta1.MsgScheduleRuntimeUpgrade": {
                     aminoType: string;
-                    toAmino: (message: _35.MsgJoinPool) => _35.MsgJoinPoolAmino;
-                    fromAmino: (object: _35.MsgJoinPoolAmino) => _35.MsgJoinPool;
+                    toAmino: (message: _28.MsgScheduleRuntimeUpgrade) => _28.MsgScheduleRuntimeUpgradeAmino;
+                    fromAmino: (object: _28.MsgScheduleRuntimeUpgradeAmino) => _28.MsgScheduleRuntimeUpgrade;
                 };
-                "/kyve.stakers.v1beta1.MsgLeavePool": {
+                "/kyve.pool.v1beta1.MsgCancelRuntimeUpgrade": {
                     aminoType: string;
-                    toAmino: (message: _35.MsgLeavePool) => _35.MsgLeavePoolAmino;
-                    fromAmino: (object: _35.MsgLeavePoolAmino) => _35.MsgLeavePool;
+                    toAmino: (message: _28.MsgCancelRuntimeUpgrade) => _28.MsgCancelRuntimeUpgradeAmino;
+                    fromAmino: (object: _28.MsgCancelRuntimeUpgradeAmino) => _28.MsgCancelRuntimeUpgrade;
                 };
-                "/kyve.stakers.v1beta1.MsgUpdateParams": {
+                "/kyve.pool.v1beta1.MsgUpdateParams": {
                     aminoType: string;
-                    toAmino: (message: _35.MsgUpdateParams) => _35.MsgUpdateParamsAmino;
-                    fromAmino: (object: _35.MsgUpdateParamsAmino) => _35.MsgUpdateParams;
+                    toAmino: (message: _28.MsgUpdateParams) => _28.MsgUpdateParamsAmino;
+                    fromAmino: (object: _28.MsgUpdateParamsAmino) => _28.MsgUpdateParams;
                 };
             };
-            MsgCreateStaker: {
+            MsgCreatePool: {
                 typeUrl: string;
-                encode(message: _35.MsgCreateStaker, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _35.MsgCreateStaker;
-                fromPartial(object: Partial<_35.MsgCreateStaker>): _35.MsgCreateStaker;
-                fromAmino(object: _35.MsgCreateStakerAmino): _35.MsgCreateStaker;
-                toAmino(message: _35.MsgCreateStaker): _35.MsgCreateStakerAmino;
-                fromAminoMsg(object: _35.MsgCreateStakerAminoMsg): _35.MsgCreateStaker;
-                fromProtoMsg(message: _35.MsgCreateStakerProtoMsg): _35.MsgCreateStaker;
-                toProto(message: _35.MsgCreateStaker): Uint8Array;
-                toProtoMsg(message: _35.MsgCreateStaker): _35.MsgCreateStakerProtoMsg;
+                encode(message: _28.MsgCreatePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _28.MsgCreatePool;
+                fromPartial(object: Partial<_28.MsgCreatePool>): _28.MsgCreatePool;
+                fromAmino(object: _28.MsgCreatePoolAmino): _28.MsgCreatePool;
+                toAmino(message: _28.MsgCreatePool): _28.MsgCreatePoolAmino;
+                fromAminoMsg(object: _28.MsgCreatePoolAminoMsg): _28.MsgCreatePool;
+                fromProtoMsg(message: _28.MsgCreatePoolProtoMsg): _28.MsgCreatePool;
+                toProto(message: _28.MsgCreatePool): Uint8Array;
+                toProtoMsg(message: _28.MsgCreatePool): _28.MsgCreatePoolProtoMsg;
             };
-            MsgCreateStakerResponse: {
+            MsgCreatePoolResponse: {
                 typeUrl: string;
-                encode(_: _35.MsgCreateStakerResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _35.MsgCreateStakerResponse;
-                fromPartial(_: Partial<_35.MsgCreateStakerResponse>): _35.MsgCreateStakerResponse;
-                fromAmino(_: _35.MsgCreateStakerResponseAmino): _35.MsgCreateStakerResponse;
-                toAmino(_: _35.MsgCreateStakerResponse): _35.MsgCreateStakerResponseAmino;
-                fromAminoMsg(object: _35.MsgCreateStakerResponseAminoMsg): _35.MsgCreateStakerResponse;
-                fromProtoMsg(message: _35.MsgCreateStakerResponseProtoMsg): _35.MsgCreateStakerResponse;
-                toProto(message: _35.MsgCreateStakerResponse): Uint8Array;
-                toProtoMsg(message: _35.MsgCreateStakerResponse): _35.MsgCreateStakerResponseProtoMsg;
+                encode(_: _28.MsgCreatePoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _28.MsgCreatePoolResponse;
+                fromPartial(_: Partial<_28.MsgCreatePoolResponse>): _28.MsgCreatePoolResponse;
+                fromAmino(_: _28.MsgCreatePoolResponseAmino): _28.MsgCreatePoolResponse;
+                toAmino(_: _28.MsgCreatePoolResponse): _28.MsgCreatePoolResponseAmino;
+                fromAminoMsg(object: _28.MsgCreatePoolResponseAminoMsg): _28.MsgCreatePoolResponse;
+                fromProtoMsg(message: _28.MsgCreatePoolResponseProtoMsg): _28.MsgCreatePoolResponse;
+                toProto(message: _28.MsgCreatePoolResponse): Uint8Array;
+                toProtoMsg(message: _28.MsgCreatePoolResponse): _28.MsgCreatePoolResponseProtoMsg;
             };
-            MsgUpdateMetadata: {
+            MsgUpdatePool: {
                 typeUrl: string;
-                encode(message: _35.MsgUpdateMetadata, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _35.MsgUpdateMetadata;
-                fromPartial(object: Partial<_35.MsgUpdateMetadata>): _35.MsgUpdateMetadata;
-                fromAmino(object: _35.MsgUpdateMetadataAmino): _35.MsgUpdateMetadata;
-                toAmino(message: _35.MsgUpdateMetadata): _35.MsgUpdateMetadataAmino;
-                fromAminoMsg(object: _35.MsgUpdateMetadataAminoMsg): _35.MsgUpdateMetadata;
-                fromProtoMsg(message: _35.MsgUpdateMetadataProtoMsg): _35.MsgUpdateMetadata;
-                toProto(message: _35.MsgUpdateMetadata): Uint8Array;
-                toProtoMsg(message: _35.MsgUpdateMetadata): _35.MsgUpdateMetadataProtoMsg;
+                encode(message: _28.MsgUpdatePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _28.MsgUpdatePool;
+                fromPartial(object: Partial<_28.MsgUpdatePool>): _28.MsgUpdatePool;
+                fromAmino(object: _28.MsgUpdatePoolAmino): _28.MsgUpdatePool;
+                toAmino(message: _28.MsgUpdatePool): _28.MsgUpdatePoolAmino;
+                fromAminoMsg(object: _28.MsgUpdatePoolAminoMsg): _28.MsgUpdatePool;
+                fromProtoMsg(message: _28.MsgUpdatePoolProtoMsg): _28.MsgUpdatePool;
+                toProto(message: _28.MsgUpdatePool): Uint8Array;
+                toProtoMsg(message: _28.MsgUpdatePool): _28.MsgUpdatePoolProtoMsg;
             };
-            MsgUpdateMetadataResponse: {
+            MsgUpdatePoolResponse: {
                 typeUrl: string;
-                encode(_: _35.MsgUpdateMetadataResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _35.MsgUpdateMetadataResponse;
-                fromPartial(_: Partial<_35.MsgUpdateMetadataResponse>): _35.MsgUpdateMetadataResponse;
-                fromAmino(_: _35.MsgUpdateMetadataResponseAmino): _35.MsgUpdateMetadataResponse;
-                toAmino(_: _35.MsgUpdateMetadataResponse): _35.MsgUpdateMetadataResponseAmino;
-                fromAminoMsg(object: _35.MsgUpdateMetadataResponseAminoMsg): _35.MsgUpdateMetadataResponse;
-                fromProtoMsg(message: _35.MsgUpdateMetadataResponseProtoMsg): _35.MsgUpdateMetadataResponse;
-                toProto(message: _35.MsgUpdateMetadataResponse): Uint8Array;
-                toProtoMsg(message: _35.MsgUpdateMetadataResponse): _35.MsgUpdateMetadataResponseProtoMsg;
+                encode(_: _28.MsgUpdatePoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _28.MsgUpdatePoolResponse;
+                fromPartial(_: Partial<_28.MsgUpdatePoolResponse>): _28.MsgUpdatePoolResponse;
+                fromAmino(_: _28.MsgUpdatePoolResponseAmino): _28.MsgUpdatePoolResponse;
+                toAmino(_: _28.MsgUpdatePoolResponse): _28.MsgUpdatePoolResponseAmino;
+                fromAminoMsg(object: _28.MsgUpdatePoolResponseAminoMsg): _28.MsgUpdatePoolResponse;
+                fromProtoMsg(message: _28.MsgUpdatePoolResponseProtoMsg): _28.MsgUpdatePoolResponse;
+                toProto(message: _28.MsgUpdatePoolResponse): Uint8Array;
+                toProtoMsg(message: _28.MsgUpdatePoolResponse): _28.MsgUpdatePoolResponseProtoMsg;
             };
-            MsgUpdateCommission: {
+            MsgDisablePool: {
                 typeUrl: string;
-                encode(message: _35.MsgUpdateCommission, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _35.MsgUpdateCommission;
-                fromPartial(object: Partial<_35.MsgUpdateCommission>): _35.MsgUpdateCommission;
-                fromAmino(object: _35.MsgUpdateCommissionAmino): _35.MsgUpdateCommission;
-                toAmino(message: _35.MsgUpdateCommission): _35.MsgUpdateCommissionAmino;
-                fromAminoMsg(object: _35.MsgUpdateCommissionAminoMsg): _35.MsgUpdateCommission;
-                fromProtoMsg(message: _35.MsgUpdateCommissionProtoMsg): _35.MsgUpdateCommission;
-                toProto(message: _35.MsgUpdateCommission): Uint8Array;
-                toProtoMsg(message: _35.MsgUpdateCommission): _35.MsgUpdateCommissionProtoMsg;
+                encode(message: _28.MsgDisablePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _28.MsgDisablePool;
+                fromPartial(object: Partial<_28.MsgDisablePool>): _28.MsgDisablePool;
+                fromAmino(object: _28.MsgDisablePoolAmino): _28.MsgDisablePool;
+                toAmino(message: _28.MsgDisablePool): _28.MsgDisablePoolAmino;
+                fromAminoMsg(object: _28.MsgDisablePoolAminoMsg): _28.MsgDisablePool;
+                fromProtoMsg(message: _28.MsgDisablePoolProtoMsg): _28.MsgDisablePool;
+                toProto(message: _28.MsgDisablePool): Uint8Array;
+                toProtoMsg(message: _28.MsgDisablePool): _28.MsgDisablePoolProtoMsg;
             };
-            MsgUpdateCommissionResponse: {
+            MsgDisablePoolResponse: {
                 typeUrl: string;
-                encode(_: _35.MsgUpdateCommissionResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _35.MsgUpdateCommissionResponse;
-                fromPartial(_: Partial<_35.MsgUpdateCommissionResponse>): _35.MsgUpdateCommissionResponse;
-                fromAmino(_: _35.MsgUpdateCommissionResponseAmino): _35.MsgUpdateCommissionResponse;
-                toAmino(_: _35.MsgUpdateCommissionResponse): _35.MsgUpdateCommissionResponseAmino;
-                fromAminoMsg(object: _35.MsgUpdateCommissionResponseAminoMsg): _35.MsgUpdateCommissionResponse;
-                fromProtoMsg(message: _35.MsgUpdateCommissionResponseProtoMsg): _35.MsgUpdateCommissionResponse;
-                toProto(message: _35.MsgUpdateCommissionResponse): Uint8Array;
-                toProtoMsg(message: _35.MsgUpdateCommissionResponse): _35.MsgUpdateCommissionResponseProtoMsg;
+                encode(_: _28.MsgDisablePoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _28.MsgDisablePoolResponse;
+                fromPartial(_: Partial<_28.MsgDisablePoolResponse>): _28.MsgDisablePoolResponse;
+                fromAmino(_: _28.MsgDisablePoolResponseAmino): _28.MsgDisablePoolResponse;
+                toAmino(_: _28.MsgDisablePoolResponse): _28.MsgDisablePoolResponseAmino;
+                fromAminoMsg(object: _28.MsgDisablePoolResponseAminoMsg): _28.MsgDisablePoolResponse;
+                fromProtoMsg(message: _28.MsgDisablePoolResponseProtoMsg): _28.MsgDisablePoolResponse;
+                toProto(message: _28.MsgDisablePoolResponse): Uint8Array;
+                toProtoMsg(message: _28.MsgDisablePoolResponse): _28.MsgDisablePoolResponseProtoMsg;
             };
-            MsgClaimCommissionRewards: {
+            MsgEnablePool: {
                 typeUrl: string;
-                encode(message: _35.MsgClaimCommissionRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _35.MsgClaimCommissionRewards;
-                fromPartial(object: Partial<_35.MsgClaimCommissionRewards>): _35.MsgClaimCommissionRewards;
-                fromAmino(object: _35.MsgClaimCommissionRewardsAmino): _35.MsgClaimCommissionRewards;
-                toAmino(message: _35.MsgClaimCommissionRewards): _35.MsgClaimCommissionRewardsAmino;
-                fromAminoMsg(object: _35.MsgClaimCommissionRewardsAminoMsg): _35.MsgClaimCommissionRewards;
-                fromProtoMsg(message: _35.MsgClaimCommissionRewardsProtoMsg): _35.MsgClaimCommissionRewards;
-                toProto(message: _35.MsgClaimCommissionRewards): Uint8Array;
-                toProtoMsg(message: _35.MsgClaimCommissionRewards): _35.MsgClaimCommissionRewardsProtoMsg;
+                encode(message: _28.MsgEnablePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _28.MsgEnablePool;
+                fromPartial(object: Partial<_28.MsgEnablePool>): _28.MsgEnablePool;
+                fromAmino(object: _28.MsgEnablePoolAmino): _28.MsgEnablePool;
+                toAmino(message: _28.MsgEnablePool): _28.MsgEnablePoolAmino;
+                fromAminoMsg(object: _28.MsgEnablePoolAminoMsg): _28.MsgEnablePool;
+                fromProtoMsg(message: _28.MsgEnablePoolProtoMsg): _28.MsgEnablePool;
+                toProto(message: _28.MsgEnablePool): Uint8Array;
+                toProtoMsg(message: _28.MsgEnablePool): _28.MsgEnablePoolProtoMsg;
             };
-            MsgClaimCommissionRewardsResponse: {
+            MsgEnablePoolResponse: {
                 typeUrl: string;
-                encode(_: _35.MsgClaimCommissionRewardsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _35.MsgClaimCommissionRewardsResponse;
-                fromPartial(_: Partial<_35.MsgClaimCommissionRewardsResponse>): _35.MsgClaimCommissionRewardsResponse;
-                fromAmino(_: _35.MsgClaimCommissionRewardsResponseAmino): _35.MsgClaimCommissionRewardsResponse;
-                toAmino(_: _35.MsgClaimCommissionRewardsResponse): _35.MsgClaimCommissionRewardsResponseAmino;
-                fromAminoMsg(object: _35.MsgClaimCommissionRewardsResponseAminoMsg): _35.MsgClaimCommissionRewardsResponse;
-                fromProtoMsg(message: _35.MsgClaimCommissionRewardsResponseProtoMsg): _35.MsgClaimCommissionRewardsResponse;
-                toProto(message: _35.MsgClaimCommissionRewardsResponse): Uint8Array;
-                toProtoMsg(message: _35.MsgClaimCommissionRewardsResponse): _35.MsgClaimCommissionRewardsResponseProtoMsg;
+                encode(_: _28.MsgEnablePoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _28.MsgEnablePoolResponse;
+                fromPartial(_: Partial<_28.MsgEnablePoolResponse>): _28.MsgEnablePoolResponse;
+                fromAmino(_: _28.MsgEnablePoolResponseAmino): _28.MsgEnablePoolResponse;
+                toAmino(_: _28.MsgEnablePoolResponse): _28.MsgEnablePoolResponseAmino;
+                fromAminoMsg(object: _28.MsgEnablePoolResponseAminoMsg): _28.MsgEnablePoolResponse;
+                fromProtoMsg(message: _28.MsgEnablePoolResponseProtoMsg): _28.MsgEnablePoolResponse;
+                toProto(message: _28.MsgEnablePoolResponse): Uint8Array;
+                toProtoMsg(message: _28.MsgEnablePoolResponse): _28.MsgEnablePoolResponseProtoMsg;
             };
-            MsgJoinPool: {
+            MsgScheduleRuntimeUpgrade: {
                 typeUrl: string;
-                encode(message: _35.MsgJoinPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _35.MsgJoinPool;
-                fromPartial(object: Partial<_35.MsgJoinPool>): _35.MsgJoinPool;
-                fromAmino(object: _35.MsgJoinPoolAmino): _35.MsgJoinPool;
-                toAmino(message: _35.MsgJoinPool): _35.MsgJoinPoolAmino;
-                fromAminoMsg(object: _35.MsgJoinPoolAminoMsg): _35.MsgJoinPool;
-                fromProtoMsg(message: _35.MsgJoinPoolProtoMsg): _35.MsgJoinPool;
-                toProto(message: _35.MsgJoinPool): Uint8Array;
-                toProtoMsg(message: _35.MsgJoinPool): _35.MsgJoinPoolProtoMsg;
+                encode(message: _28.MsgScheduleRuntimeUpgrade, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _28.MsgScheduleRuntimeUpgrade;
+                fromPartial(object: Partial<_28.MsgScheduleRuntimeUpgrade>): _28.MsgScheduleRuntimeUpgrade;
+                fromAmino(object: _28.MsgScheduleRuntimeUpgradeAmino): _28.MsgScheduleRuntimeUpgrade;
+                toAmino(message: _28.MsgScheduleRuntimeUpgrade): _28.MsgScheduleRuntimeUpgradeAmino;
+                fromAminoMsg(object: _28.MsgScheduleRuntimeUpgradeAminoMsg): _28.MsgScheduleRuntimeUpgrade;
+                fromProtoMsg(message: _28.MsgScheduleRuntimeUpgradeProtoMsg): _28.MsgScheduleRuntimeUpgrade;
+                toProto(message: _28.MsgScheduleRuntimeUpgrade): Uint8Array;
+                toProtoMsg(message: _28.MsgScheduleRuntimeUpgrade): _28.MsgScheduleRuntimeUpgradeProtoMsg;
             };
-            MsgJoinPoolResponse: {
+            MsgScheduleRuntimeUpgradeResponse: {
                 typeUrl: string;
-                encode(_: _35.MsgJoinPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _35.MsgJoinPoolResponse;
-                fromPartial(_: Partial<_35.MsgJoinPoolResponse>): _35.MsgJoinPoolResponse;
-                fromAmino(_: _35.MsgJoinPoolResponseAmino): _35.MsgJoinPoolResponse;
-                toAmino(_: _35.MsgJoinPoolResponse): _35.MsgJoinPoolResponseAmino;
-                fromAminoMsg(object: _35.MsgJoinPoolResponseAminoMsg): _35.MsgJoinPoolResponse;
-                fromProtoMsg(message: _35.MsgJoinPoolResponseProtoMsg): _35.MsgJoinPoolResponse;
-                toProto(message: _35.MsgJoinPoolResponse): Uint8Array;
-                toProtoMsg(message: _35.MsgJoinPoolResponse): _35.MsgJoinPoolResponseProtoMsg;
+                encode(_: _28.MsgScheduleRuntimeUpgradeResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _28.MsgScheduleRuntimeUpgradeResponse;
+                fromPartial(_: Partial<_28.MsgScheduleRuntimeUpgradeResponse>): _28.MsgScheduleRuntimeUpgradeResponse;
+                fromAmino(_: _28.MsgScheduleRuntimeUpgradeResponseAmino): _28.MsgScheduleRuntimeUpgradeResponse;
+                toAmino(_: _28.MsgScheduleRuntimeUpgradeResponse): _28.MsgScheduleRuntimeUpgradeResponseAmino;
+                fromAminoMsg(object: _28.MsgScheduleRuntimeUpgradeResponseAminoMsg): _28.MsgScheduleRuntimeUpgradeResponse;
+                fromProtoMsg(message: _28.MsgScheduleRuntimeUpgradeResponseProtoMsg): _28.MsgScheduleRuntimeUpgradeResponse;
+                toProto(message: _28.MsgScheduleRuntimeUpgradeResponse): Uint8Array;
+                toProtoMsg(message: _28.MsgScheduleRuntimeUpgradeResponse): _28.MsgScheduleRuntimeUpgradeResponseProtoMsg;
             };
-            MsgLeavePool: {
+            MsgCancelRuntimeUpgrade: {
                 typeUrl: string;
-                encode(message: _35.MsgLeavePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _35.MsgLeavePool;
-                fromPartial(object: Partial<_35.MsgLeavePool>): _35.MsgLeavePool;
-                fromAmino(object: _35.MsgLeavePoolAmino): _35.MsgLeavePool;
-                toAmino(message: _35.MsgLeavePool): _35.MsgLeavePoolAmino;
-                fromAminoMsg(object: _35.MsgLeavePoolAminoMsg): _35.MsgLeavePool;
-                fromProtoMsg(message: _35.MsgLeavePoolProtoMsg): _35.MsgLeavePool;
-                toProto(message: _35.MsgLeavePool): Uint8Array;
-                toProtoMsg(message: _35.MsgLeavePool): _35.MsgLeavePoolProtoMsg;
+                encode(message: _28.MsgCancelRuntimeUpgrade, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _28.MsgCancelRuntimeUpgrade;
+                fromPartial(object: Partial<_28.MsgCancelRuntimeUpgrade>): _28.MsgCancelRuntimeUpgrade;
+                fromAmino(object: _28.MsgCancelRuntimeUpgradeAmino): _28.MsgCancelRuntimeUpgrade;
+                toAmino(message: _28.MsgCancelRuntimeUpgrade): _28.MsgCancelRuntimeUpgradeAmino;
+                fromAminoMsg(object: _28.MsgCancelRuntimeUpgradeAminoMsg): _28.MsgCancelRuntimeUpgrade;
+                fromProtoMsg(message: _28.MsgCancelRuntimeUpgradeProtoMsg): _28.MsgCancelRuntimeUpgrade;
+                toProto(message: _28.MsgCancelRuntimeUpgrade): Uint8Array;
+                toProtoMsg(message: _28.MsgCancelRuntimeUpgrade): _28.MsgCancelRuntimeUpgradeProtoMsg;
             };
-            MsgLeavePoolResponse: {
+            MsgCancelRuntimeUpgradeResponse: {
                 typeUrl: string;
-                encode(_: _35.MsgLeavePoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _35.MsgLeavePoolResponse;
-                fromPartial(_: Partial<_35.MsgLeavePoolResponse>): _35.MsgLeavePoolResponse;
-                fromAmino(_: _35.MsgLeavePoolResponseAmino): _35.MsgLeavePoolResponse;
-                toAmino(_: _35.MsgLeavePoolResponse): _35.MsgLeavePoolResponseAmino;
-                fromAminoMsg(object: _35.MsgLeavePoolResponseAminoMsg): _35.MsgLeavePoolResponse;
-                fromProtoMsg(message: _35.MsgLeavePoolResponseProtoMsg): _35.MsgLeavePoolResponse;
-                toProto(message: _35.MsgLeavePoolResponse): Uint8Array;
-                toProtoMsg(message: _35.MsgLeavePoolResponse): _35.MsgLeavePoolResponseProtoMsg;
+                encode(_: _28.MsgCancelRuntimeUpgradeResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _28.MsgCancelRuntimeUpgradeResponse;
+                fromPartial(_: Partial<_28.MsgCancelRuntimeUpgradeResponse>): _28.MsgCancelRuntimeUpgradeResponse;
+                fromAmino(_: _28.MsgCancelRuntimeUpgradeResponseAmino): _28.MsgCancelRuntimeUpgradeResponse;
+                toAmino(_: _28.MsgCancelRuntimeUpgradeResponse): _28.MsgCancelRuntimeUpgradeResponseAmino;
+                fromAminoMsg(object: _28.MsgCancelRuntimeUpgradeResponseAminoMsg): _28.MsgCancelRuntimeUpgradeResponse;
+                fromProtoMsg(message: _28.MsgCancelRuntimeUpgradeResponseProtoMsg): _28.MsgCancelRuntimeUpgradeResponse;
+                toProto(message: _28.MsgCancelRuntimeUpgradeResponse): Uint8Array;
+                toProtoMsg(message: _28.MsgCancelRuntimeUpgradeResponse): _28.MsgCancelRuntimeUpgradeResponseProtoMsg;
             };
             MsgUpdateParams: {
                 typeUrl: string;
-                encode(message: _35.MsgUpdateParams, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _35.MsgUpdateParams;
-                fromPartial(object: Partial<_35.MsgUpdateParams>): _35.MsgUpdateParams;
-                fromAmino(object: _35.MsgUpdateParamsAmino): _35.MsgUpdateParams;
-                toAmino(message: _35.MsgUpdateParams): _35.MsgUpdateParamsAmino;
-                fromAminoMsg(object: _35.MsgUpdateParamsAminoMsg): _35.MsgUpdateParams;
-                fromProtoMsg(message: _35.MsgUpdateParamsProtoMsg): _35.MsgUpdateParams;
-                toProto(message: _35.MsgUpdateParams): Uint8Array;
-                toProtoMsg(message: _35.MsgUpdateParams): _35.MsgUpdateParamsProtoMsg;
+                encode(message: _28.MsgUpdateParams, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _28.MsgUpdateParams;
+                fromPartial(object: Partial<_28.MsgUpdateParams>): _28.MsgUpdateParams;
+                fromAmino(object: _28.MsgUpdateParamsAmino): _28.MsgUpdateParams;
+                toAmino(message: _28.MsgUpdateParams): _28.MsgUpdateParamsAmino;
+                fromAminoMsg(object: _28.MsgUpdateParamsAminoMsg): _28.MsgUpdateParams;
+                fromProtoMsg(message: _28.MsgUpdateParamsProtoMsg): _28.MsgUpdateParams;
+                toProto(message: _28.MsgUpdateParams): Uint8Array;
+                toProtoMsg(message: _28.MsgUpdateParams): _28.MsgUpdateParamsProtoMsg;
             };
             MsgUpdateParamsResponse: {
                 typeUrl: string;
-                encode(_: _35.MsgUpdateParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _35.MsgUpdateParamsResponse;
-                fromPartial(_: Partial<_35.MsgUpdateParamsResponse>): _35.MsgUpdateParamsResponse;
-                fromAmino(_: _35.MsgUpdateParamsResponseAmino): _35.MsgUpdateParamsResponse;
-                toAmino(_: _35.MsgUpdateParamsResponse): _35.MsgUpdateParamsResponseAmino;
-                fromAminoMsg(object: _35.MsgUpdateParamsResponseAminoMsg): _35.MsgUpdateParamsResponse;
-                fromProtoMsg(message: _35.MsgUpdateParamsResponseProtoMsg): _35.MsgUpdateParamsResponse;
-                toProto(message: _35.MsgUpdateParamsResponse): Uint8Array;
-                toProtoMsg(message: _35.MsgUpdateParamsResponse): _35.MsgUpdateParamsResponseProtoMsg;
+                encode(_: _28.MsgUpdateParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _28.MsgUpdateParamsResponse;
+                fromPartial(_: Partial<_28.MsgUpdateParamsResponse>): _28.MsgUpdateParamsResponse;
+                fromAmino(_: _28.MsgUpdateParamsResponseAmino): _28.MsgUpdateParamsResponse;
+                toAmino(_: _28.MsgUpdateParamsResponse): _28.MsgUpdateParamsResponseAmino;
+                fromAminoMsg(object: _28.MsgUpdateParamsResponseAminoMsg): _28.MsgUpdateParamsResponse;
+                fromProtoMsg(message: _28.MsgUpdateParamsResponseProtoMsg): _28.MsgUpdateParamsResponse;
+                toProto(message: _28.MsgUpdateParamsResponse): Uint8Array;
+                toProtoMsg(message: _28.MsgUpdateParamsResponse): _28.MsgUpdateParamsResponseProtoMsg;
             };
-            Staker: {
+            QueryParamsRequest: {
                 typeUrl: string;
-                encode(message: _34.Staker, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _34.Staker;
-                fromPartial(object: Partial<_34.Staker>): _34.Staker;
-                fromAmino(object: _34.StakerAmino): _34.Staker;
-                toAmino(message: _34.Staker): _34.StakerAmino;
-                fromAminoMsg(object: _34.StakerAminoMsg): _34.Staker;
-                fromProtoMsg(message: _34.StakerProtoMsg): _34.Staker;
-                toProto(message: _34.Staker): Uint8Array;
-                toProtoMsg(message: _34.Staker): _34.StakerProtoMsg;
+                encode(_: _27.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _27.QueryParamsRequest;
+                fromPartial(_: Partial<_27.QueryParamsRequest>): _27.QueryParamsRequest;
+                fromAmino(_: _27.QueryParamsRequestAmino): _27.QueryParamsRequest;
+                toAmino(_: _27.QueryParamsRequest): _27.QueryParamsRequestAmino;
+                fromAminoMsg(object: _27.QueryParamsRequestAminoMsg): _27.QueryParamsRequest;
+                fromProtoMsg(message: _27.QueryParamsRequestProtoMsg): _27.QueryParamsRequest;
+                toProto(message: _27.QueryParamsRequest): Uint8Array;
+                toProtoMsg(message: _27.QueryParamsRequest): _27.QueryParamsRequestProtoMsg;
             };
-            Valaccount: {
+            QueryParamsResponse: {
                 typeUrl: string;
-                encode(message: _34.Valaccount, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _34.Valaccount;
-                fromPartial(object: Partial<_34.Valaccount>): _34.Valaccount;
-                fromAmino(object: _34.ValaccountAmino): _34.Valaccount;
-                toAmino(message: _34.Valaccount): _34.ValaccountAmino;
-                fromAminoMsg(object: _34.ValaccountAminoMsg): _34.Valaccount;
-                fromProtoMsg(message: _34.ValaccountProtoMsg): _34.Valaccount;
-                toProto(message: _34.Valaccount): Uint8Array;
-                toProtoMsg(message: _34.Valaccount): _34.ValaccountProtoMsg;
+                encode(message: _27.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _27.QueryParamsResponse;
+                fromPartial(object: Partial<_27.QueryParamsResponse>): _27.QueryParamsResponse;
+                fromAmino(object: _27.QueryParamsResponseAmino): _27.QueryParamsResponse;
+                toAmino(message: _27.QueryParamsResponse): _27.QueryParamsResponseAmino;
+                fromAminoMsg(object: _27.QueryParamsResponseAminoMsg): _27.QueryParamsResponse;
+                fromProtoMsg(message: _27.QueryParamsResponseProtoMsg): _27.QueryParamsResponse;
+                toProto(message: _27.QueryParamsResponse): Uint8Array;
+                toProtoMsg(message: _27.QueryParamsResponse): _27.QueryParamsResponseProtoMsg;
+            };
+            poolStatusFromJSON(object: any): _26.PoolStatus;
+            poolStatusToJSON(object: _26.PoolStatus): string;
+            PoolStatus: typeof _26.PoolStatus;
+            PoolStatusSDKType: typeof _26.PoolStatus;
+            PoolStatusAmino: typeof _26.PoolStatus;
+            Protocol: {
+                typeUrl: string;
+                encode(message: _26.Protocol, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _26.Protocol;
+                fromPartial(object: Partial<_26.Protocol>): _26.Protocol;
+                fromAmino(object: _26.ProtocolAmino): _26.Protocol;
+                toAmino(message: _26.Protocol): _26.ProtocolAmino;
+                fromAminoMsg(object: _26.ProtocolAminoMsg): _26.Protocol;
+                fromProtoMsg(message: _26.ProtocolProtoMsg): _26.Protocol;
+                toProto(message: _26.Protocol): Uint8Array;
+                toProtoMsg(message: _26.Protocol): _26.ProtocolProtoMsg;
+            };
+            UpgradePlan: {
+                typeUrl: string;
+                encode(message: _26.UpgradePlan, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _26.UpgradePlan;
+                fromPartial(object: Partial<_26.UpgradePlan>): _26.UpgradePlan;
+                fromAmino(object: _26.UpgradePlanAmino): _26.UpgradePlan;
+                toAmino(message: _26.UpgradePlan): _26.UpgradePlanAmino;
+                fromAminoMsg(object: _26.UpgradePlanAminoMsg): _26.UpgradePlan;
+                fromProtoMsg(message: _26.UpgradePlanProtoMsg): _26.UpgradePlan;
+                toProto(message: _26.UpgradePlan): Uint8Array;
+                toProtoMsg(message: _26.UpgradePlan): _26.UpgradePlanProtoMsg;
+            };
+            Pool: {
+                typeUrl: string;
+                encode(message: _26.Pool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _26.Pool;
+                fromPartial(object: Partial<_26.Pool>): _26.Pool;
+                fromAmino(object: _26.PoolAmino): _26.Pool;
+                toAmino(message: _26.Pool): _26.PoolAmino;
+                fromAminoMsg(object: _26.PoolAminoMsg): _26.Pool;
+                fromProtoMsg(message: _26.PoolProtoMsg): _26.Pool;
+                toProto(message: _26.Pool): Uint8Array;
+                toProtoMsg(message: _26.Pool): _26.PoolProtoMsg;
+            };
+            Params: {
+                typeUrl: string;
+                encode(message: _25.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _25.Params;
+                fromPartial(object: Partial<_25.Params>): _25.Params;
+                fromAmino(object: _25.ParamsAmino): _25.Params;
+                toAmino(message: _25.Params): _25.ParamsAmino;
+                fromAminoMsg(object: _25.ParamsAminoMsg): _25.Params;
+                fromProtoMsg(message: _25.ParamsProtoMsg): _25.Params;
+                toProto(message: _25.Params): Uint8Array;
+                toProtoMsg(message: _25.Params): _25.ParamsProtoMsg;
+            };
+            GenesisState: {
+                typeUrl: string;
+                encode(message: _24.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _24.GenesisState;
+                fromPartial(object: Partial<_24.GenesisState>): _24.GenesisState;
+                fromAmino(object: _24.GenesisStateAmino): _24.GenesisState;
+                toAmino(message: _24.GenesisState): _24.GenesisStateAmino;
+                fromAminoMsg(object: _24.GenesisStateAminoMsg): _24.GenesisState;
+                fromProtoMsg(message: _24.GenesisStateProtoMsg): _24.GenesisState;
+                toProto(message: _24.GenesisState): Uint8Array;
+                toProtoMsg(message: _24.GenesisState): _24.GenesisStateProtoMsg;
+            };
+            EventUpdateParams: {
+                typeUrl: string;
+                encode(message: _23.EventUpdateParams, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _23.EventUpdateParams;
+                fromPartial(object: Partial<_23.EventUpdateParams>): _23.EventUpdateParams;
+                fromAmino(object: _23.EventUpdateParamsAmino): _23.EventUpdateParams;
+                toAmino(message: _23.EventUpdateParams): _23.EventUpdateParamsAmino;
+                fromAminoMsg(object: _23.EventUpdateParamsAminoMsg): _23.EventUpdateParams;
+                fromProtoMsg(message: _23.EventUpdateParamsProtoMsg): _23.EventUpdateParams;
+                toProto(message: _23.EventUpdateParams): Uint8Array;
+                toProtoMsg(message: _23.EventUpdateParams): _23.EventUpdateParamsProtoMsg;
+            };
+            EventCreatePool: {
+                typeUrl: string;
+                encode(message: _23.EventCreatePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _23.EventCreatePool;
+                fromPartial(object: Partial<_23.EventCreatePool>): _23.EventCreatePool;
+                fromAmino(object: _23.EventCreatePoolAmino): _23.EventCreatePool;
+                toAmino(message: _23.EventCreatePool): _23.EventCreatePoolAmino;
+                fromAminoMsg(object: _23.EventCreatePoolAminoMsg): _23.EventCreatePool;
+                fromProtoMsg(message: _23.EventCreatePoolProtoMsg): _23.EventCreatePool;
+                toProto(message: _23.EventCreatePool): Uint8Array;
+                toProtoMsg(message: _23.EventCreatePool): _23.EventCreatePoolProtoMsg;
+            };
+            EventPoolEnabled: {
+                typeUrl: string;
+                encode(message: _23.EventPoolEnabled, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _23.EventPoolEnabled;
+                fromPartial(object: Partial<_23.EventPoolEnabled>): _23.EventPoolEnabled;
+                fromAmino(object: _23.EventPoolEnabledAmino): _23.EventPoolEnabled;
+                toAmino(message: _23.EventPoolEnabled): _23.EventPoolEnabledAmino;
+                fromAminoMsg(object: _23.EventPoolEnabledAminoMsg): _23.EventPoolEnabled;
+                fromProtoMsg(message: _23.EventPoolEnabledProtoMsg): _23.EventPoolEnabled;
+                toProto(message: _23.EventPoolEnabled): Uint8Array;
+                toProtoMsg(message: _23.EventPoolEnabled): _23.EventPoolEnabledProtoMsg;
+            };
+            EventPoolDisabled: {
+                typeUrl: string;
+                encode(message: _23.EventPoolDisabled, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _23.EventPoolDisabled;
+                fromPartial(object: Partial<_23.EventPoolDisabled>): _23.EventPoolDisabled;
+                fromAmino(object: _23.EventPoolDisabledAmino): _23.EventPoolDisabled;
+                toAmino(message: _23.EventPoolDisabled): _23.EventPoolDisabledAmino;
+                fromAminoMsg(object: _23.EventPoolDisabledAminoMsg): _23.EventPoolDisabled;
+                fromProtoMsg(message: _23.EventPoolDisabledProtoMsg): _23.EventPoolDisabled;
+                toProto(message: _23.EventPoolDisabled): Uint8Array;
+                toProtoMsg(message: _23.EventPoolDisabled): _23.EventPoolDisabledProtoMsg;
+            };
+            EventRuntimeUpgradeScheduled: {
+                typeUrl: string;
+                encode(message: _23.EventRuntimeUpgradeScheduled, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _23.EventRuntimeUpgradeScheduled;
+                fromPartial(object: Partial<_23.EventRuntimeUpgradeScheduled>): _23.EventRuntimeUpgradeScheduled;
+                fromAmino(object: _23.EventRuntimeUpgradeScheduledAmino): _23.EventRuntimeUpgradeScheduled;
+                toAmino(message: _23.EventRuntimeUpgradeScheduled): _23.EventRuntimeUpgradeScheduledAmino;
+                fromAminoMsg(object: _23.EventRuntimeUpgradeScheduledAminoMsg): _23.EventRuntimeUpgradeScheduled;
+                fromProtoMsg(message: _23.EventRuntimeUpgradeScheduledProtoMsg): _23.EventRuntimeUpgradeScheduled;
+                toProto(message: _23.EventRuntimeUpgradeScheduled): Uint8Array;
+                toProtoMsg(message: _23.EventRuntimeUpgradeScheduled): _23.EventRuntimeUpgradeScheduledProtoMsg;
+            };
+            EventRuntimeUpgradeCancelled: {
+                typeUrl: string;
+                encode(message: _23.EventRuntimeUpgradeCancelled, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _23.EventRuntimeUpgradeCancelled;
+                fromPartial(object: Partial<_23.EventRuntimeUpgradeCancelled>): _23.EventRuntimeUpgradeCancelled;
+                fromAmino(object: _23.EventRuntimeUpgradeCancelledAmino): _23.EventRuntimeUpgradeCancelled;
+                toAmino(message: _23.EventRuntimeUpgradeCancelled): _23.EventRuntimeUpgradeCancelledAmino;
+                fromAminoMsg(object: _23.EventRuntimeUpgradeCancelledAminoMsg): _23.EventRuntimeUpgradeCancelled;
+                fromProtoMsg(message: _23.EventRuntimeUpgradeCancelledProtoMsg): _23.EventRuntimeUpgradeCancelled;
+                toProto(message: _23.EventRuntimeUpgradeCancelled): Uint8Array;
+                toProtoMsg(message: _23.EventRuntimeUpgradeCancelled): _23.EventRuntimeUpgradeCancelledProtoMsg;
+            };
+            EventPoolUpdated: {
+                typeUrl: string;
+                encode(message: _23.EventPoolUpdated, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _23.EventPoolUpdated;
+                fromPartial(object: Partial<_23.EventPoolUpdated>): _23.EventPoolUpdated;
+                fromAmino(object: _23.EventPoolUpdatedAmino): _23.EventPoolUpdated;
+                toAmino(message: _23.EventPoolUpdated): _23.EventPoolUpdatedAmino;
+                fromAminoMsg(object: _23.EventPoolUpdatedAminoMsg): _23.EventPoolUpdated;
+                fromProtoMsg(message: _23.EventPoolUpdatedProtoMsg): _23.EventPoolUpdated;
+                toProto(message: _23.EventPoolUpdated): Uint8Array;
+                toProtoMsg(message: _23.EventPoolUpdated): _23.EventPoolUpdatedProtoMsg;
+            };
+            EventPoolFundsSlashed: {
+                typeUrl: string;
+                encode(message: _23.EventPoolFundsSlashed, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _23.EventPoolFundsSlashed;
+                fromPartial(object: Partial<_23.EventPoolFundsSlashed>): _23.EventPoolFundsSlashed;
+                fromAmino(object: _23.EventPoolFundsSlashedAmino): _23.EventPoolFundsSlashed;
+                toAmino(message: _23.EventPoolFundsSlashed): _23.EventPoolFundsSlashedAmino;
+                fromAminoMsg(object: _23.EventPoolFundsSlashedAminoMsg): _23.EventPoolFundsSlashed;
+                fromProtoMsg(message: _23.EventPoolFundsSlashedProtoMsg): _23.EventPoolFundsSlashed;
+                toProto(message: _23.EventPoolFundsSlashed): Uint8Array;
+                toProtoMsg(message: _23.EventPoolFundsSlashed): _23.EventPoolFundsSlashedProtoMsg;
+            };
+        };
+    }
+    namespace query {
+        const v1beta1: {
+            stakerStatusFromJSON(object: any): _36.StakerStatus;
+            stakerStatusToJSON(object: _36.StakerStatus): string;
+            StakerStatus: typeof _36.StakerStatus;
+            StakerStatusSDKType: typeof _36.StakerStatus;
+            StakerStatusAmino: typeof _36.StakerStatus;
+            QueryStakersRequest: {
+                typeUrl: string;
+                encode(message: _36.QueryStakersRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _36.QueryStakersRequest;
+                fromPartial(object: Partial<_36.QueryStakersRequest>): _36.QueryStakersRequest;
+                fromAmino(object: _36.QueryStakersRequestAmino): _36.QueryStakersRequest;
+                toAmino(message: _36.QueryStakersRequest): _36.QueryStakersRequestAmino;
+                fromAminoMsg(object: _36.QueryStakersRequestAminoMsg): _36.QueryStakersRequest;
+                fromProtoMsg(message: _36.QueryStakersRequestProtoMsg): _36.QueryStakersRequest;
+                toProto(message: _36.QueryStakersRequest): Uint8Array;
+                toProtoMsg(message: _36.QueryStakersRequest): _36.QueryStakersRequestProtoMsg;
+            };
+            QueryStakersResponse: {
+                typeUrl: string;
+                encode(message: _36.QueryStakersResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _36.QueryStakersResponse;
+                fromPartial(object: Partial<_36.QueryStakersResponse>): _36.QueryStakersResponse;
+                fromAmino(object: _36.QueryStakersResponseAmino): _36.QueryStakersResponse;
+                toAmino(message: _36.QueryStakersResponse): _36.QueryStakersResponseAmino;
+                fromAminoMsg(object: _36.QueryStakersResponseAminoMsg): _36.QueryStakersResponse;
+                fromProtoMsg(message: _36.QueryStakersResponseProtoMsg): _36.QueryStakersResponse;
+                toProto(message: _36.QueryStakersResponse): Uint8Array;
+                toProtoMsg(message: _36.QueryStakersResponse): _36.QueryStakersResponseProtoMsg;
+            };
+            QueryStakerRequest: {
+                typeUrl: string;
+                encode(message: _36.QueryStakerRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _36.QueryStakerRequest;
+                fromPartial(object: Partial<_36.QueryStakerRequest>): _36.QueryStakerRequest;
+                fromAmino(object: _36.QueryStakerRequestAmino): _36.QueryStakerRequest;
+                toAmino(message: _36.QueryStakerRequest): _36.QueryStakerRequestAmino;
+                fromAminoMsg(object: _36.QueryStakerRequestAminoMsg): _36.QueryStakerRequest;
+                fromProtoMsg(message: _36.QueryStakerRequestProtoMsg): _36.QueryStakerRequest;
+                toProto(message: _36.QueryStakerRequest): Uint8Array;
+                toProtoMsg(message: _36.QueryStakerRequest): _36.QueryStakerRequestProtoMsg;
+            };
+            QueryStakerResponse: {
+                typeUrl: string;
+                encode(message: _36.QueryStakerResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _36.QueryStakerResponse;
+                fromPartial(object: Partial<_36.QueryStakerResponse>): _36.QueryStakerResponse;
+                fromAmino(object: _36.QueryStakerResponseAmino): _36.QueryStakerResponse;
+                toAmino(message: _36.QueryStakerResponse): _36.QueryStakerResponseAmino;
+                fromAminoMsg(object: _36.QueryStakerResponseAminoMsg): _36.QueryStakerResponse;
+                fromProtoMsg(message: _36.QueryStakerResponseProtoMsg): _36.QueryStakerResponse;
+                toProto(message: _36.QueryStakerResponse): Uint8Array;
+                toProtoMsg(message: _36.QueryStakerResponse): _36.QueryStakerResponseProtoMsg;
+            };
+            QueryStakersByPoolRequest: {
+                typeUrl: string;
+                encode(message: _36.QueryStakersByPoolRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _36.QueryStakersByPoolRequest;
+                fromPartial(object: Partial<_36.QueryStakersByPoolRequest>): _36.QueryStakersByPoolRequest;
+                fromAmino(object: _36.QueryStakersByPoolRequestAmino): _36.QueryStakersByPoolRequest;
+                toAmino(message: _36.QueryStakersByPoolRequest): _36.QueryStakersByPoolRequestAmino;
+                fromAminoMsg(object: _36.QueryStakersByPoolRequestAminoMsg): _36.QueryStakersByPoolRequest;
+                fromProtoMsg(message: _36.QueryStakersByPoolRequestProtoMsg): _36.QueryStakersByPoolRequest;
+                toProto(message: _36.QueryStakersByPoolRequest): Uint8Array;
+                toProtoMsg(message: _36.QueryStakersByPoolRequest): _36.QueryStakersByPoolRequestProtoMsg;
+            };
+            QueryStakersByPoolResponse: {
+                typeUrl: string;
+                encode(message: _36.QueryStakersByPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _36.QueryStakersByPoolResponse;
+                fromPartial(object: Partial<_36.QueryStakersByPoolResponse>): _36.QueryStakersByPoolResponse;
+                fromAmino(object: _36.QueryStakersByPoolResponseAmino): _36.QueryStakersByPoolResponse;
+                toAmino(message: _36.QueryStakersByPoolResponse): _36.QueryStakersByPoolResponseAmino;
+                fromAminoMsg(object: _36.QueryStakersByPoolResponseAminoMsg): _36.QueryStakersByPoolResponse;
+                fromProtoMsg(message: _36.QueryStakersByPoolResponseProtoMsg): _36.QueryStakersByPoolResponse;
+                toProto(message: _36.QueryStakersByPoolResponse): Uint8Array;
+                toProtoMsg(message: _36.QueryStakersByPoolResponse): _36.QueryStakersByPoolResponseProtoMsg;
+            };
+            StakerPoolResponse: {
+                typeUrl: string;
+                encode(message: _36.StakerPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _36.StakerPoolResponse;
+                fromPartial(object: Partial<_36.StakerPoolResponse>): _36.StakerPoolResponse;
+                fromAmino(object: _36.StakerPoolResponseAmino): _36.StakerPoolResponse;
+                toAmino(message: _36.StakerPoolResponse): _36.StakerPoolResponseAmino;
+                fromAminoMsg(object: _36.StakerPoolResponseAminoMsg): _36.StakerPoolResponse;
+                fromProtoMsg(message: _36.StakerPoolResponseProtoMsg): _36.StakerPoolResponse;
+                toProto(message: _36.StakerPoolResponse): Uint8Array;
+                toProtoMsg(message: _36.StakerPoolResponse): _36.StakerPoolResponseProtoMsg;
+            };
+            QueryStakersByPoolCountRequest: {
+                typeUrl: string;
+                encode(message: _36.QueryStakersByPoolCountRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _36.QueryStakersByPoolCountRequest;
+                fromPartial(object: Partial<_36.QueryStakersByPoolCountRequest>): _36.QueryStakersByPoolCountRequest;
+                fromAmino(object: _36.QueryStakersByPoolCountRequestAmino): _36.QueryStakersByPoolCountRequest;
+                toAmino(message: _36.QueryStakersByPoolCountRequest): _36.QueryStakersByPoolCountRequestAmino;
+                fromAminoMsg(object: _36.QueryStakersByPoolCountRequestAminoMsg): _36.QueryStakersByPoolCountRequest;
+                fromProtoMsg(message: _36.QueryStakersByPoolCountRequestProtoMsg): _36.QueryStakersByPoolCountRequest;
+                toProto(message: _36.QueryStakersByPoolCountRequest): Uint8Array;
+                toProtoMsg(message: _36.QueryStakersByPoolCountRequest): _36.QueryStakersByPoolCountRequestProtoMsg;
+            };
+            QueryStakersByPoolCountResponse: {
+                typeUrl: string;
+                encode(message: _36.QueryStakersByPoolCountResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _36.QueryStakersByPoolCountResponse;
+                fromPartial(object: Partial<_36.QueryStakersByPoolCountResponse>): _36.QueryStakersByPoolCountResponse;
+                fromAmino(object: _36.QueryStakersByPoolCountResponseAmino): _36.QueryStakersByPoolCountResponse;
+                toAmino(message: _36.QueryStakersByPoolCountResponse): _36.QueryStakersByPoolCountResponseAmino;
+                fromAminoMsg(object: _36.QueryStakersByPoolCountResponseAminoMsg): _36.QueryStakersByPoolCountResponse;
+                fromProtoMsg(message: _36.QueryStakersByPoolCountResponseProtoMsg): _36.QueryStakersByPoolCountResponse;
+                toProto(message: _36.QueryStakersByPoolCountResponse): Uint8Array;
+                toProtoMsg(message: _36.QueryStakersByPoolCountResponse): _36.QueryStakersByPoolCountResponseProtoMsg;
+            };
+            BasicPool: {
+                typeUrl: string;
+                encode(message: _35.BasicPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _35.BasicPool;
+                fromPartial(object: Partial<_35.BasicPool>): _35.BasicPool;
+                fromAmino(object: _35.BasicPoolAmino): _35.BasicPool;
+                toAmino(message: _35.BasicPool): _35.BasicPoolAmino;
+                fromAminoMsg(object: _35.BasicPoolAminoMsg): _35.BasicPool;
+                fromProtoMsg(message: _35.BasicPoolProtoMsg): _35.BasicPool;
+                toProto(message: _35.BasicPool): Uint8Array;
+                toProtoMsg(message: _35.BasicPool): _35.BasicPoolProtoMsg;
+            };
+            FullStaker: {
+                typeUrl: string;
+                encode(message: _35.FullStaker, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _35.FullStaker;
+                fromPartial(object: Partial<_35.FullStaker>): _35.FullStaker;
+                fromAmino(object: _35.FullStakerAmino): _35.FullStaker;
+                toAmino(message: _35.FullStaker): _35.FullStakerAmino;
+                fromAminoMsg(object: _35.FullStakerAminoMsg): _35.FullStaker;
+                fromProtoMsg(message: _35.FullStakerProtoMsg): _35.FullStaker;
+                toProto(message: _35.FullStaker): Uint8Array;
+                toProtoMsg(message: _35.FullStaker): _35.FullStakerProtoMsg;
+            };
+            StakerMetadata: {
+                typeUrl: string;
+                encode(message: _35.StakerMetadata, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _35.StakerMetadata;
+                fromPartial(object: Partial<_35.StakerMetadata>): _35.StakerMetadata;
+                fromAmino(object: _35.StakerMetadataAmino): _35.StakerMetadata;
+                toAmino(message: _35.StakerMetadata): _35.StakerMetadataAmino;
+                fromAminoMsg(object: _35.StakerMetadataAminoMsg): _35.StakerMetadata;
+                fromProtoMsg(message: _35.StakerMetadataProtoMsg): _35.StakerMetadata;
+                toProto(message: _35.StakerMetadata): Uint8Array;
+                toProtoMsg(message: _35.StakerMetadata): _35.StakerMetadataProtoMsg;
             };
             CommissionChangeEntry: {
                 typeUrl: string;
-                encode(message: _34.CommissionChangeEntry, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _34.CommissionChangeEntry;
-                fromPartial(object: Partial<_34.CommissionChangeEntry>): _34.CommissionChangeEntry;
-                fromAmino(object: _34.CommissionChangeEntryAmino): _34.CommissionChangeEntry;
-                toAmino(message: _34.CommissionChangeEntry): _34.CommissionChangeEntryAmino;
-                fromAminoMsg(object: _34.CommissionChangeEntryAminoMsg): _34.CommissionChangeEntry;
-                fromProtoMsg(message: _34.CommissionChangeEntryProtoMsg): _34.CommissionChangeEntry;
-                toProto(message: _34.CommissionChangeEntry): Uint8Array;
-                toProtoMsg(message: _34.CommissionChangeEntry): _34.CommissionChangeEntryProtoMsg;
+                encode(message: _35.CommissionChangeEntry, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _35.CommissionChangeEntry;
+                fromPartial(object: Partial<_35.CommissionChangeEntry>): _35.CommissionChangeEntry;
+                fromAmino(object: _35.CommissionChangeEntryAmino): _35.CommissionChangeEntry;
+                toAmino(message: _35.CommissionChangeEntry): _35.CommissionChangeEntryAmino;
+                fromAminoMsg(object: _35.CommissionChangeEntryAminoMsg): _35.CommissionChangeEntry;
+                fromProtoMsg(message: _35.CommissionChangeEntryProtoMsg): _35.CommissionChangeEntry;
+                toProto(message: _35.CommissionChangeEntry): Uint8Array;
+                toProtoMsg(message: _35.CommissionChangeEntry): _35.CommissionChangeEntryProtoMsg;
             };
-            LeavePoolEntry: {
+            PoolMembership: {
                 typeUrl: string;
-                encode(message: _34.LeavePoolEntry, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _34.LeavePoolEntry;
-                fromPartial(object: Partial<_34.LeavePoolEntry>): _34.LeavePoolEntry;
-                fromAmino(object: _34.LeavePoolEntryAmino): _34.LeavePoolEntry;
-                toAmino(message: _34.LeavePoolEntry): _34.LeavePoolEntryAmino;
-                fromAminoMsg(object: _34.LeavePoolEntryAminoMsg): _34.LeavePoolEntry;
-                fromProtoMsg(message: _34.LeavePoolEntryProtoMsg): _34.LeavePoolEntry;
-                toProto(message: _34.LeavePoolEntry): Uint8Array;
-                toProtoMsg(message: _34.LeavePoolEntry): _34.LeavePoolEntryProtoMsg;
+                encode(message: _35.PoolMembership, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _35.PoolMembership;
+                fromPartial(object: Partial<_35.PoolMembership>): _35.PoolMembership;
+                fromAmino(object: _35.PoolMembershipAmino): _35.PoolMembership;
+                toAmino(message: _35.PoolMembership): _35.PoolMembershipAmino;
+                fromAminoMsg(object: _35.PoolMembershipAminoMsg): _35.PoolMembership;
+                fromProtoMsg(message: _35.PoolMembershipProtoMsg): _35.PoolMembership;
+                toProto(message: _35.PoolMembership): Uint8Array;
+                toProtoMsg(message: _35.PoolMembership): _35.PoolMembershipProtoMsg;
             };
-            QueueState: {
+            QueryPoolsRequest: {
                 typeUrl: string;
-                encode(message: _34.QueueState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _34.QueueState;
-                fromPartial(object: Partial<_34.QueueState>): _34.QueueState;
-                fromAmino(object: _34.QueueStateAmino): _34.QueueState;
-                toAmino(message: _34.QueueState): _34.QueueStateAmino;
-                fromAminoMsg(object: _34.QueueStateAminoMsg): _34.QueueState;
-                fromProtoMsg(message: _34.QueueStateProtoMsg): _34.QueueState;
-                toProto(message: _34.QueueState): Uint8Array;
-                toProtoMsg(message: _34.QueueState): _34.QueueStateProtoMsg;
+                encode(message: _34.QueryPoolsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _34.QueryPoolsRequest;
+                fromPartial(object: Partial<_34.QueryPoolsRequest>): _34.QueryPoolsRequest;
+                fromAmino(object: _34.QueryPoolsRequestAmino): _34.QueryPoolsRequest;
+                toAmino(message: _34.QueryPoolsRequest): _34.QueryPoolsRequestAmino;
+                fromAminoMsg(object: _34.QueryPoolsRequestAminoMsg): _34.QueryPoolsRequest;
+                fromProtoMsg(message: _34.QueryPoolsRequestProtoMsg): _34.QueryPoolsRequest;
+                toProto(message: _34.QueryPoolsRequest): Uint8Array;
+                toProtoMsg(message: _34.QueryPoolsRequest): _34.QueryPoolsRequestProtoMsg;
+            };
+            QueryPoolsResponse: {
+                typeUrl: string;
+                encode(message: _34.QueryPoolsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _34.QueryPoolsResponse;
+                fromPartial(object: Partial<_34.QueryPoolsResponse>): _34.QueryPoolsResponse;
+                fromAmino(object: _34.QueryPoolsResponseAmino): _34.QueryPoolsResponse;
+                toAmino(message: _34.QueryPoolsResponse): _34.QueryPoolsResponseAmino;
+                fromAminoMsg(object: _34.QueryPoolsResponseAminoMsg): _34.QueryPoolsResponse;
+                fromProtoMsg(message: _34.QueryPoolsResponseProtoMsg): _34.QueryPoolsResponse;
+                toProto(message: _34.QueryPoolsResponse): Uint8Array;
+                toProtoMsg(message: _34.QueryPoolsResponse): _34.QueryPoolsResponseProtoMsg;
+            };
+            PoolResponse: {
+                typeUrl: string;
+                encode(message: _34.PoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _34.PoolResponse;
+                fromPartial(object: Partial<_34.PoolResponse>): _34.PoolResponse;
+                fromAmino(object: _34.PoolResponseAmino): _34.PoolResponse;
+                toAmino(message: _34.PoolResponse): _34.PoolResponseAmino;
+                fromAminoMsg(object: _34.PoolResponseAminoMsg): _34.PoolResponse;
+                fromProtoMsg(message: _34.PoolResponseProtoMsg): _34.PoolResponse;
+                toProto(message: _34.PoolResponse): Uint8Array;
+                toProtoMsg(message: _34.PoolResponse): _34.PoolResponseProtoMsg;
+            };
+            QueryPoolRequest: {
+                typeUrl: string;
+                encode(message: _34.QueryPoolRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _34.QueryPoolRequest;
+                fromPartial(object: Partial<_34.QueryPoolRequest>): _34.QueryPoolRequest;
+                fromAmino(object: _34.QueryPoolRequestAmino): _34.QueryPoolRequest;
+                toAmino(message: _34.QueryPoolRequest): _34.QueryPoolRequestAmino;
+                fromAminoMsg(object: _34.QueryPoolRequestAminoMsg): _34.QueryPoolRequest;
+                fromProtoMsg(message: _34.QueryPoolRequestProtoMsg): _34.QueryPoolRequest;
+                toProto(message: _34.QueryPoolRequest): Uint8Array;
+                toProtoMsg(message: _34.QueryPoolRequest): _34.QueryPoolRequestProtoMsg;
+            };
+            QueryPoolResponse: {
+                typeUrl: string;
+                encode(message: _34.QueryPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _34.QueryPoolResponse;
+                fromPartial(object: Partial<_34.QueryPoolResponse>): _34.QueryPoolResponse;
+                fromAmino(object: _34.QueryPoolResponseAmino): _34.QueryPoolResponse;
+                toAmino(message: _34.QueryPoolResponse): _34.QueryPoolResponseAmino;
+                fromAminoMsg(object: _34.QueryPoolResponseAminoMsg): _34.QueryPoolResponse;
+                fromProtoMsg(message: _34.QueryPoolResponseProtoMsg): _34.QueryPoolResponse;
+                toProto(message: _34.QueryPoolResponse): Uint8Array;
+                toProtoMsg(message: _34.QueryPoolResponse): _34.QueryPoolResponseProtoMsg;
             };
             QueryParamsRequest: {
                 typeUrl: string;
@@ -2932,606 +2378,1574 @@ export declare namespace kyve {
                 toProto(message: _33.QueryParamsResponse): Uint8Array;
                 toProtoMsg(message: _33.QueryParamsResponse): _33.QueryParamsResponseProtoMsg;
             };
-            Params: {
+            fundingStatusFromJSON(object: any): _32.FundingStatus;
+            fundingStatusToJSON(object: _32.FundingStatus): string;
+            FundingStatus: typeof _32.FundingStatus;
+            FundingStatusSDKType: typeof _32.FundingStatus;
+            FundingStatusAmino: typeof _32.FundingStatus;
+            Funder: {
                 typeUrl: string;
-                encode(message: _32.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _32.Params;
-                fromPartial(object: Partial<_32.Params>): _32.Params;
-                fromAmino(object: _32.ParamsAmino): _32.Params;
-                toAmino(message: _32.Params): _32.ParamsAmino;
-                fromAminoMsg(object: _32.ParamsAminoMsg): _32.Params;
-                fromProtoMsg(message: _32.ParamsProtoMsg): _32.Params;
-                toProto(message: _32.Params): Uint8Array;
-                toProtoMsg(message: _32.Params): _32.ParamsProtoMsg;
+                encode(message: _32.Funder, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _32.Funder;
+                fromPartial(object: Partial<_32.Funder>): _32.Funder;
+                fromAmino(object: _32.FunderAmino): _32.Funder;
+                toAmino(message: _32.Funder): _32.FunderAmino;
+                fromAminoMsg(object: _32.FunderAminoMsg): _32.Funder;
+                fromProtoMsg(message: _32.FunderProtoMsg): _32.Funder;
+                toProto(message: _32.Funder): Uint8Array;
+                toProtoMsg(message: _32.Funder): _32.FunderProtoMsg;
             };
-            GenesisState: {
+            FundingStats: {
                 typeUrl: string;
-                encode(message: _31.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _31.GenesisState;
-                fromPartial(object: Partial<_31.GenesisState>): _31.GenesisState;
-                fromAmino(object: _31.GenesisStateAmino): _31.GenesisState;
-                toAmino(message: _31.GenesisState): _31.GenesisStateAmino;
-                fromAminoMsg(object: _31.GenesisStateAminoMsg): _31.GenesisState;
-                fromProtoMsg(message: _31.GenesisStateProtoMsg): _31.GenesisState;
-                toProto(message: _31.GenesisState): Uint8Array;
-                toProtoMsg(message: _31.GenesisState): _31.GenesisStateProtoMsg;
+                encode(message: _32.FundingStats, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _32.FundingStats;
+                fromPartial(object: Partial<_32.FundingStats>): _32.FundingStats;
+                fromAmino(object: _32.FundingStatsAmino): _32.FundingStats;
+                toAmino(message: _32.FundingStats): _32.FundingStatsAmino;
+                fromAminoMsg(object: _32.FundingStatsAminoMsg): _32.FundingStats;
+                fromProtoMsg(message: _32.FundingStatsProtoMsg): _32.FundingStats;
+                toProto(message: _32.FundingStats): Uint8Array;
+                toProtoMsg(message: _32.FundingStats): _32.FundingStatsProtoMsg;
             };
-            EventUpdateParams: {
+            Funding: {
                 typeUrl: string;
-                encode(message: _30.EventUpdateParams, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _30.EventUpdateParams;
-                fromPartial(object: Partial<_30.EventUpdateParams>): _30.EventUpdateParams;
-                fromAmino(object: _30.EventUpdateParamsAmino): _30.EventUpdateParams;
-                toAmino(message: _30.EventUpdateParams): _30.EventUpdateParamsAmino;
-                fromAminoMsg(object: _30.EventUpdateParamsAminoMsg): _30.EventUpdateParams;
-                fromProtoMsg(message: _30.EventUpdateParamsProtoMsg): _30.EventUpdateParams;
-                toProto(message: _30.EventUpdateParams): Uint8Array;
-                toProtoMsg(message: _30.EventUpdateParams): _30.EventUpdateParamsProtoMsg;
+                encode(message: _32.Funding, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _32.Funding;
+                fromPartial(object: Partial<_32.Funding>): _32.Funding;
+                fromAmino(object: _32.FundingAmino): _32.Funding;
+                toAmino(message: _32.Funding): _32.FundingAmino;
+                fromAminoMsg(object: _32.FundingAminoMsg): _32.Funding;
+                fromProtoMsg(message: _32.FundingProtoMsg): _32.Funding;
+                toProto(message: _32.Funding): Uint8Array;
+                toProtoMsg(message: _32.Funding): _32.FundingProtoMsg;
             };
-            EventCreateStaker: {
+            QueryFundersRequest: {
                 typeUrl: string;
-                encode(message: _30.EventCreateStaker, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _30.EventCreateStaker;
-                fromPartial(object: Partial<_30.EventCreateStaker>): _30.EventCreateStaker;
-                fromAmino(object: _30.EventCreateStakerAmino): _30.EventCreateStaker;
-                toAmino(message: _30.EventCreateStaker): _30.EventCreateStakerAmino;
-                fromAminoMsg(object: _30.EventCreateStakerAminoMsg): _30.EventCreateStaker;
-                fromProtoMsg(message: _30.EventCreateStakerProtoMsg): _30.EventCreateStaker;
-                toProto(message: _30.EventCreateStaker): Uint8Array;
-                toProtoMsg(message: _30.EventCreateStaker): _30.EventCreateStakerProtoMsg;
+                encode(message: _32.QueryFundersRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _32.QueryFundersRequest;
+                fromPartial(object: Partial<_32.QueryFundersRequest>): _32.QueryFundersRequest;
+                fromAmino(object: _32.QueryFundersRequestAmino): _32.QueryFundersRequest;
+                toAmino(message: _32.QueryFundersRequest): _32.QueryFundersRequestAmino;
+                fromAminoMsg(object: _32.QueryFundersRequestAminoMsg): _32.QueryFundersRequest;
+                fromProtoMsg(message: _32.QueryFundersRequestProtoMsg): _32.QueryFundersRequest;
+                toProto(message: _32.QueryFundersRequest): Uint8Array;
+                toProtoMsg(message: _32.QueryFundersRequest): _32.QueryFundersRequestProtoMsg;
             };
-            EventUpdateMetadata: {
+            QueryFundersResponse: {
                 typeUrl: string;
-                encode(message: _30.EventUpdateMetadata, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _30.EventUpdateMetadata;
-                fromPartial(object: Partial<_30.EventUpdateMetadata>): _30.EventUpdateMetadata;
-                fromAmino(object: _30.EventUpdateMetadataAmino): _30.EventUpdateMetadata;
-                toAmino(message: _30.EventUpdateMetadata): _30.EventUpdateMetadataAmino;
-                fromAminoMsg(object: _30.EventUpdateMetadataAminoMsg): _30.EventUpdateMetadata;
-                fromProtoMsg(message: _30.EventUpdateMetadataProtoMsg): _30.EventUpdateMetadata;
-                toProto(message: _30.EventUpdateMetadata): Uint8Array;
-                toProtoMsg(message: _30.EventUpdateMetadata): _30.EventUpdateMetadataProtoMsg;
+                encode(message: _32.QueryFundersResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _32.QueryFundersResponse;
+                fromPartial(object: Partial<_32.QueryFundersResponse>): _32.QueryFundersResponse;
+                fromAmino(object: _32.QueryFundersResponseAmino): _32.QueryFundersResponse;
+                toAmino(message: _32.QueryFundersResponse): _32.QueryFundersResponseAmino;
+                fromAminoMsg(object: _32.QueryFundersResponseAminoMsg): _32.QueryFundersResponse;
+                fromProtoMsg(message: _32.QueryFundersResponseProtoMsg): _32.QueryFundersResponse;
+                toProto(message: _32.QueryFundersResponse): Uint8Array;
+                toProtoMsg(message: _32.QueryFundersResponse): _32.QueryFundersResponseProtoMsg;
             };
-            EventUpdateCommission: {
+            QueryFunderRequest: {
                 typeUrl: string;
-                encode(message: _30.EventUpdateCommission, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _30.EventUpdateCommission;
-                fromPartial(object: Partial<_30.EventUpdateCommission>): _30.EventUpdateCommission;
-                fromAmino(object: _30.EventUpdateCommissionAmino): _30.EventUpdateCommission;
-                toAmino(message: _30.EventUpdateCommission): _30.EventUpdateCommissionAmino;
-                fromAminoMsg(object: _30.EventUpdateCommissionAminoMsg): _30.EventUpdateCommission;
-                fromProtoMsg(message: _30.EventUpdateCommissionProtoMsg): _30.EventUpdateCommission;
-                toProto(message: _30.EventUpdateCommission): Uint8Array;
-                toProtoMsg(message: _30.EventUpdateCommission): _30.EventUpdateCommissionProtoMsg;
+                encode(message: _32.QueryFunderRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _32.QueryFunderRequest;
+                fromPartial(object: Partial<_32.QueryFunderRequest>): _32.QueryFunderRequest;
+                fromAmino(object: _32.QueryFunderRequestAmino): _32.QueryFunderRequest;
+                toAmino(message: _32.QueryFunderRequest): _32.QueryFunderRequestAmino;
+                fromAminoMsg(object: _32.QueryFunderRequestAminoMsg): _32.QueryFunderRequest;
+                fromProtoMsg(message: _32.QueryFunderRequestProtoMsg): _32.QueryFunderRequest;
+                toProto(message: _32.QueryFunderRequest): Uint8Array;
+                toProtoMsg(message: _32.QueryFunderRequest): _32.QueryFunderRequestProtoMsg;
             };
-            EventClaimCommissionRewards: {
+            QueryFunderResponse: {
                 typeUrl: string;
-                encode(message: _30.EventClaimCommissionRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _30.EventClaimCommissionRewards;
-                fromPartial(object: Partial<_30.EventClaimCommissionRewards>): _30.EventClaimCommissionRewards;
-                fromAmino(object: _30.EventClaimCommissionRewardsAmino): _30.EventClaimCommissionRewards;
-                toAmino(message: _30.EventClaimCommissionRewards): _30.EventClaimCommissionRewardsAmino;
-                fromAminoMsg(object: _30.EventClaimCommissionRewardsAminoMsg): _30.EventClaimCommissionRewards;
-                fromProtoMsg(message: _30.EventClaimCommissionRewardsProtoMsg): _30.EventClaimCommissionRewards;
-                toProto(message: _30.EventClaimCommissionRewards): Uint8Array;
-                toProtoMsg(message: _30.EventClaimCommissionRewards): _30.EventClaimCommissionRewardsProtoMsg;
+                encode(message: _32.QueryFunderResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _32.QueryFunderResponse;
+                fromPartial(object: Partial<_32.QueryFunderResponse>): _32.QueryFunderResponse;
+                fromAmino(object: _32.QueryFunderResponseAmino): _32.QueryFunderResponse;
+                toAmino(message: _32.QueryFunderResponse): _32.QueryFunderResponseAmino;
+                fromAminoMsg(object: _32.QueryFunderResponseAminoMsg): _32.QueryFunderResponse;
+                fromProtoMsg(message: _32.QueryFunderResponseProtoMsg): _32.QueryFunderResponse;
+                toProto(message: _32.QueryFunderResponse): Uint8Array;
+                toProtoMsg(message: _32.QueryFunderResponse): _32.QueryFunderResponseProtoMsg;
             };
-            EventJoinPool: {
+            QueryFundingsByFunderRequest: {
                 typeUrl: string;
-                encode(message: _30.EventJoinPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _30.EventJoinPool;
-                fromPartial(object: Partial<_30.EventJoinPool>): _30.EventJoinPool;
-                fromAmino(object: _30.EventJoinPoolAmino): _30.EventJoinPool;
-                toAmino(message: _30.EventJoinPool): _30.EventJoinPoolAmino;
-                fromAminoMsg(object: _30.EventJoinPoolAminoMsg): _30.EventJoinPool;
-                fromProtoMsg(message: _30.EventJoinPoolProtoMsg): _30.EventJoinPool;
-                toProto(message: _30.EventJoinPool): Uint8Array;
-                toProtoMsg(message: _30.EventJoinPool): _30.EventJoinPoolProtoMsg;
+                encode(message: _32.QueryFundingsByFunderRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _32.QueryFundingsByFunderRequest;
+                fromPartial(object: Partial<_32.QueryFundingsByFunderRequest>): _32.QueryFundingsByFunderRequest;
+                fromAmino(object: _32.QueryFundingsByFunderRequestAmino): _32.QueryFundingsByFunderRequest;
+                toAmino(message: _32.QueryFundingsByFunderRequest): _32.QueryFundingsByFunderRequestAmino;
+                fromAminoMsg(object: _32.QueryFundingsByFunderRequestAminoMsg): _32.QueryFundingsByFunderRequest;
+                fromProtoMsg(message: _32.QueryFundingsByFunderRequestProtoMsg): _32.QueryFundingsByFunderRequest;
+                toProto(message: _32.QueryFundingsByFunderRequest): Uint8Array;
+                toProtoMsg(message: _32.QueryFundingsByFunderRequest): _32.QueryFundingsByFunderRequestProtoMsg;
             };
-            EventLeavePool: {
+            QueryFundingsByFunderResponse: {
                 typeUrl: string;
-                encode(message: _30.EventLeavePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _30.EventLeavePool;
-                fromPartial(object: Partial<_30.EventLeavePool>): _30.EventLeavePool;
-                fromAmino(object: _30.EventLeavePoolAmino): _30.EventLeavePool;
-                toAmino(message: _30.EventLeavePool): _30.EventLeavePoolAmino;
-                fromAminoMsg(object: _30.EventLeavePoolAminoMsg): _30.EventLeavePool;
-                fromProtoMsg(message: _30.EventLeavePoolProtoMsg): _30.EventLeavePool;
-                toProto(message: _30.EventLeavePool): Uint8Array;
-                toProtoMsg(message: _30.EventLeavePool): _30.EventLeavePoolProtoMsg;
+                encode(message: _32.QueryFundingsByFunderResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _32.QueryFundingsByFunderResponse;
+                fromPartial(object: Partial<_32.QueryFundingsByFunderResponse>): _32.QueryFundingsByFunderResponse;
+                fromAmino(object: _32.QueryFundingsByFunderResponseAmino): _32.QueryFundingsByFunderResponse;
+                toAmino(message: _32.QueryFundingsByFunderResponse): _32.QueryFundingsByFunderResponseAmino;
+                fromAminoMsg(object: _32.QueryFundingsByFunderResponseAminoMsg): _32.QueryFundingsByFunderResponse;
+                fromProtoMsg(message: _32.QueryFundingsByFunderResponseProtoMsg): _32.QueryFundingsByFunderResponse;
+                toProto(message: _32.QueryFundingsByFunderResponse): Uint8Array;
+                toProtoMsg(message: _32.QueryFundingsByFunderResponse): _32.QueryFundingsByFunderResponseProtoMsg;
+            };
+            QueryFundingsByPoolRequest: {
+                typeUrl: string;
+                encode(message: _32.QueryFundingsByPoolRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _32.QueryFundingsByPoolRequest;
+                fromPartial(object: Partial<_32.QueryFundingsByPoolRequest>): _32.QueryFundingsByPoolRequest;
+                fromAmino(object: _32.QueryFundingsByPoolRequestAmino): _32.QueryFundingsByPoolRequest;
+                toAmino(message: _32.QueryFundingsByPoolRequest): _32.QueryFundingsByPoolRequestAmino;
+                fromAminoMsg(object: _32.QueryFundingsByPoolRequestAminoMsg): _32.QueryFundingsByPoolRequest;
+                fromProtoMsg(message: _32.QueryFundingsByPoolRequestProtoMsg): _32.QueryFundingsByPoolRequest;
+                toProto(message: _32.QueryFundingsByPoolRequest): Uint8Array;
+                toProtoMsg(message: _32.QueryFundingsByPoolRequest): _32.QueryFundingsByPoolRequestProtoMsg;
+            };
+            QueryFundingsByPoolResponse: {
+                typeUrl: string;
+                encode(message: _32.QueryFundingsByPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _32.QueryFundingsByPoolResponse;
+                fromPartial(object: Partial<_32.QueryFundingsByPoolResponse>): _32.QueryFundingsByPoolResponse;
+                fromAmino(object: _32.QueryFundingsByPoolResponseAmino): _32.QueryFundingsByPoolResponse;
+                toAmino(message: _32.QueryFundingsByPoolResponse): _32.QueryFundingsByPoolResponseAmino;
+                fromAminoMsg(object: _32.QueryFundingsByPoolResponseAminoMsg): _32.QueryFundingsByPoolResponse;
+                fromProtoMsg(message: _32.QueryFundingsByPoolResponseProtoMsg): _32.QueryFundingsByPoolResponse;
+                toProto(message: _32.QueryFundingsByPoolResponse): Uint8Array;
+                toProtoMsg(message: _32.QueryFundingsByPoolResponse): _32.QueryFundingsByPoolResponseProtoMsg;
+            };
+            QueryDelegatorRequest: {
+                typeUrl: string;
+                encode(message: _31.QueryDelegatorRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _31.QueryDelegatorRequest;
+                fromPartial(object: Partial<_31.QueryDelegatorRequest>): _31.QueryDelegatorRequest;
+                fromAmino(object: _31.QueryDelegatorRequestAmino): _31.QueryDelegatorRequest;
+                toAmino(message: _31.QueryDelegatorRequest): _31.QueryDelegatorRequestAmino;
+                fromAminoMsg(object: _31.QueryDelegatorRequestAminoMsg): _31.QueryDelegatorRequest;
+                fromProtoMsg(message: _31.QueryDelegatorRequestProtoMsg): _31.QueryDelegatorRequest;
+                toProto(message: _31.QueryDelegatorRequest): Uint8Array;
+                toProtoMsg(message: _31.QueryDelegatorRequest): _31.QueryDelegatorRequestProtoMsg;
+            };
+            QueryDelegatorResponse: {
+                typeUrl: string;
+                encode(message: _31.QueryDelegatorResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _31.QueryDelegatorResponse;
+                fromPartial(object: Partial<_31.QueryDelegatorResponse>): _31.QueryDelegatorResponse;
+                fromAmino(object: _31.QueryDelegatorResponseAmino): _31.QueryDelegatorResponse;
+                toAmino(message: _31.QueryDelegatorResponse): _31.QueryDelegatorResponseAmino;
+                fromAminoMsg(object: _31.QueryDelegatorResponseAminoMsg): _31.QueryDelegatorResponse;
+                fromProtoMsg(message: _31.QueryDelegatorResponseProtoMsg): _31.QueryDelegatorResponse;
+                toProto(message: _31.QueryDelegatorResponse): Uint8Array;
+                toProtoMsg(message: _31.QueryDelegatorResponse): _31.QueryDelegatorResponseProtoMsg;
+            };
+            StakerDelegatorResponse: {
+                typeUrl: string;
+                encode(message: _31.StakerDelegatorResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _31.StakerDelegatorResponse;
+                fromPartial(object: Partial<_31.StakerDelegatorResponse>): _31.StakerDelegatorResponse;
+                fromAmino(object: _31.StakerDelegatorResponseAmino): _31.StakerDelegatorResponse;
+                toAmino(message: _31.StakerDelegatorResponse): _31.StakerDelegatorResponseAmino;
+                fromAminoMsg(object: _31.StakerDelegatorResponseAminoMsg): _31.StakerDelegatorResponse;
+                fromProtoMsg(message: _31.StakerDelegatorResponseProtoMsg): _31.StakerDelegatorResponse;
+                toProto(message: _31.StakerDelegatorResponse): Uint8Array;
+                toProtoMsg(message: _31.StakerDelegatorResponse): _31.StakerDelegatorResponseProtoMsg;
+            };
+            QueryDelegatorsByStakerRequest: {
+                typeUrl: string;
+                encode(message: _31.QueryDelegatorsByStakerRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _31.QueryDelegatorsByStakerRequest;
+                fromPartial(object: Partial<_31.QueryDelegatorsByStakerRequest>): _31.QueryDelegatorsByStakerRequest;
+                fromAmino(object: _31.QueryDelegatorsByStakerRequestAmino): _31.QueryDelegatorsByStakerRequest;
+                toAmino(message: _31.QueryDelegatorsByStakerRequest): _31.QueryDelegatorsByStakerRequestAmino;
+                fromAminoMsg(object: _31.QueryDelegatorsByStakerRequestAminoMsg): _31.QueryDelegatorsByStakerRequest;
+                fromProtoMsg(message: _31.QueryDelegatorsByStakerRequestProtoMsg): _31.QueryDelegatorsByStakerRequest;
+                toProto(message: _31.QueryDelegatorsByStakerRequest): Uint8Array;
+                toProtoMsg(message: _31.QueryDelegatorsByStakerRequest): _31.QueryDelegatorsByStakerRequestProtoMsg;
+            };
+            QueryDelegatorsByStakerResponse: {
+                typeUrl: string;
+                encode(message: _31.QueryDelegatorsByStakerResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _31.QueryDelegatorsByStakerResponse;
+                fromPartial(object: Partial<_31.QueryDelegatorsByStakerResponse>): _31.QueryDelegatorsByStakerResponse;
+                fromAmino(object: _31.QueryDelegatorsByStakerResponseAmino): _31.QueryDelegatorsByStakerResponse;
+                toAmino(message: _31.QueryDelegatorsByStakerResponse): _31.QueryDelegatorsByStakerResponseAmino;
+                fromAminoMsg(object: _31.QueryDelegatorsByStakerResponseAminoMsg): _31.QueryDelegatorsByStakerResponse;
+                fromProtoMsg(message: _31.QueryDelegatorsByStakerResponseProtoMsg): _31.QueryDelegatorsByStakerResponse;
+                toProto(message: _31.QueryDelegatorsByStakerResponse): Uint8Array;
+                toProtoMsg(message: _31.QueryDelegatorsByStakerResponse): _31.QueryDelegatorsByStakerResponseProtoMsg;
+            };
+            QueryStakersByDelegatorRequest: {
+                typeUrl: string;
+                encode(message: _31.QueryStakersByDelegatorRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _31.QueryStakersByDelegatorRequest;
+                fromPartial(object: Partial<_31.QueryStakersByDelegatorRequest>): _31.QueryStakersByDelegatorRequest;
+                fromAmino(object: _31.QueryStakersByDelegatorRequestAmino): _31.QueryStakersByDelegatorRequest;
+                toAmino(message: _31.QueryStakersByDelegatorRequest): _31.QueryStakersByDelegatorRequestAmino;
+                fromAminoMsg(object: _31.QueryStakersByDelegatorRequestAminoMsg): _31.QueryStakersByDelegatorRequest;
+                fromProtoMsg(message: _31.QueryStakersByDelegatorRequestProtoMsg): _31.QueryStakersByDelegatorRequest;
+                toProto(message: _31.QueryStakersByDelegatorRequest): Uint8Array;
+                toProtoMsg(message: _31.QueryStakersByDelegatorRequest): _31.QueryStakersByDelegatorRequestProtoMsg;
+            };
+            QueryStakersByDelegatorResponse: {
+                typeUrl: string;
+                encode(message: _31.QueryStakersByDelegatorResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _31.QueryStakersByDelegatorResponse;
+                fromPartial(object: Partial<_31.QueryStakersByDelegatorResponse>): _31.QueryStakersByDelegatorResponse;
+                fromAmino(object: _31.QueryStakersByDelegatorResponseAmino): _31.QueryStakersByDelegatorResponse;
+                toAmino(message: _31.QueryStakersByDelegatorResponse): _31.QueryStakersByDelegatorResponseAmino;
+                fromAminoMsg(object: _31.QueryStakersByDelegatorResponseAminoMsg): _31.QueryStakersByDelegatorResponse;
+                fromProtoMsg(message: _31.QueryStakersByDelegatorResponseProtoMsg): _31.QueryStakersByDelegatorResponse;
+                toProto(message: _31.QueryStakersByDelegatorResponse): Uint8Array;
+                toProtoMsg(message: _31.QueryStakersByDelegatorResponse): _31.QueryStakersByDelegatorResponseProtoMsg;
+            };
+            DelegationForStakerResponse: {
+                typeUrl: string;
+                encode(message: _31.DelegationForStakerResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _31.DelegationForStakerResponse;
+                fromPartial(object: Partial<_31.DelegationForStakerResponse>): _31.DelegationForStakerResponse;
+                fromAmino(object: _31.DelegationForStakerResponseAmino): _31.DelegationForStakerResponse;
+                toAmino(message: _31.DelegationForStakerResponse): _31.DelegationForStakerResponseAmino;
+                fromAminoMsg(object: _31.DelegationForStakerResponseAminoMsg): _31.DelegationForStakerResponse;
+                fromProtoMsg(message: _31.DelegationForStakerResponseProtoMsg): _31.DelegationForStakerResponse;
+                toProto(message: _31.DelegationForStakerResponse): Uint8Array;
+                toProtoMsg(message: _31.DelegationForStakerResponse): _31.DelegationForStakerResponseProtoMsg;
+            };
+            FinalizedBundle: {
+                typeUrl: string;
+                encode(message: _30.FinalizedBundle, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.FinalizedBundle;
+                fromPartial(object: Partial<_30.FinalizedBundle>): _30.FinalizedBundle;
+                fromAmino(object: _30.FinalizedBundleAmino): _30.FinalizedBundle;
+                toAmino(message: _30.FinalizedBundle): _30.FinalizedBundleAmino;
+                fromAminoMsg(object: _30.FinalizedBundleAminoMsg): _30.FinalizedBundle;
+                fromProtoMsg(message: _30.FinalizedBundleProtoMsg): _30.FinalizedBundle;
+                toProto(message: _30.FinalizedBundle): Uint8Array;
+                toProtoMsg(message: _30.FinalizedBundle): _30.FinalizedBundleProtoMsg;
+            };
+            FinalizedAt: {
+                typeUrl: string;
+                encode(message: _30.FinalizedAt, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.FinalizedAt;
+                fromPartial(object: Partial<_30.FinalizedAt>): _30.FinalizedAt;
+                fromAmino(object: _30.FinalizedAtAmino): _30.FinalizedAt;
+                toAmino(message: _30.FinalizedAt): _30.FinalizedAtAmino;
+                fromAminoMsg(object: _30.FinalizedAtAminoMsg): _30.FinalizedAt;
+                fromProtoMsg(message: _30.FinalizedAtProtoMsg): _30.FinalizedAt;
+                toProto(message: _30.FinalizedAt): Uint8Array;
+                toProtoMsg(message: _30.FinalizedAt): _30.FinalizedAtProtoMsg;
+            };
+            StakeSecurity: {
+                typeUrl: string;
+                encode(message: _30.StakeSecurity, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.StakeSecurity;
+                fromPartial(object: Partial<_30.StakeSecurity>): _30.StakeSecurity;
+                fromAmino(object: _30.StakeSecurityAmino): _30.StakeSecurity;
+                toAmino(message: _30.StakeSecurity): _30.StakeSecurityAmino;
+                fromAminoMsg(object: _30.StakeSecurityAminoMsg): _30.StakeSecurity;
+                fromProtoMsg(message: _30.StakeSecurityProtoMsg): _30.StakeSecurity;
+                toProto(message: _30.StakeSecurity): Uint8Array;
+                toProtoMsg(message: _30.StakeSecurity): _30.StakeSecurityProtoMsg;
+            };
+            QueryFinalizedBundlesRequest: {
+                typeUrl: string;
+                encode(message: _30.QueryFinalizedBundlesRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryFinalizedBundlesRequest;
+                fromPartial(object: Partial<_30.QueryFinalizedBundlesRequest>): _30.QueryFinalizedBundlesRequest;
+                fromAmino(object: _30.QueryFinalizedBundlesRequestAmino): _30.QueryFinalizedBundlesRequest;
+                toAmino(message: _30.QueryFinalizedBundlesRequest): _30.QueryFinalizedBundlesRequestAmino;
+                fromAminoMsg(object: _30.QueryFinalizedBundlesRequestAminoMsg): _30.QueryFinalizedBundlesRequest;
+                fromProtoMsg(message: _30.QueryFinalizedBundlesRequestProtoMsg): _30.QueryFinalizedBundlesRequest;
+                toProto(message: _30.QueryFinalizedBundlesRequest): Uint8Array;
+                toProtoMsg(message: _30.QueryFinalizedBundlesRequest): _30.QueryFinalizedBundlesRequestProtoMsg;
+            };
+            QueryFinalizedBundlesResponse: {
+                typeUrl: string;
+                encode(message: _30.QueryFinalizedBundlesResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryFinalizedBundlesResponse;
+                fromPartial(object: Partial<_30.QueryFinalizedBundlesResponse>): _30.QueryFinalizedBundlesResponse;
+                fromAmino(object: _30.QueryFinalizedBundlesResponseAmino): _30.QueryFinalizedBundlesResponse;
+                toAmino(message: _30.QueryFinalizedBundlesResponse): _30.QueryFinalizedBundlesResponseAmino;
+                fromAminoMsg(object: _30.QueryFinalizedBundlesResponseAminoMsg): _30.QueryFinalizedBundlesResponse;
+                fromProtoMsg(message: _30.QueryFinalizedBundlesResponseProtoMsg): _30.QueryFinalizedBundlesResponse;
+                toProto(message: _30.QueryFinalizedBundlesResponse): Uint8Array;
+                toProtoMsg(message: _30.QueryFinalizedBundlesResponse): _30.QueryFinalizedBundlesResponseProtoMsg;
+            };
+            QueryFinalizedBundleRequest: {
+                typeUrl: string;
+                encode(message: _30.QueryFinalizedBundleRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryFinalizedBundleRequest;
+                fromPartial(object: Partial<_30.QueryFinalizedBundleRequest>): _30.QueryFinalizedBundleRequest;
+                fromAmino(object: _30.QueryFinalizedBundleRequestAmino): _30.QueryFinalizedBundleRequest;
+                toAmino(message: _30.QueryFinalizedBundleRequest): _30.QueryFinalizedBundleRequestAmino;
+                fromAminoMsg(object: _30.QueryFinalizedBundleRequestAminoMsg): _30.QueryFinalizedBundleRequest;
+                fromProtoMsg(message: _30.QueryFinalizedBundleRequestProtoMsg): _30.QueryFinalizedBundleRequest;
+                toProto(message: _30.QueryFinalizedBundleRequest): Uint8Array;
+                toProtoMsg(message: _30.QueryFinalizedBundleRequest): _30.QueryFinalizedBundleRequestProtoMsg;
+            };
+            QueryFinalizedBundleResponse: {
+                typeUrl: string;
+                encode(message: _30.QueryFinalizedBundleResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryFinalizedBundleResponse;
+                fromPartial(object: Partial<_30.QueryFinalizedBundleResponse>): _30.QueryFinalizedBundleResponse;
+                fromAmino(object: _30.QueryFinalizedBundleResponseAmino): _30.QueryFinalizedBundleResponse;
+                toAmino(message: _30.QueryFinalizedBundleResponse): _30.QueryFinalizedBundleResponseAmino;
+                fromAminoMsg(object: _30.QueryFinalizedBundleResponseAminoMsg): _30.QueryFinalizedBundleResponse;
+                fromProtoMsg(message: _30.QueryFinalizedBundleResponseProtoMsg): _30.QueryFinalizedBundleResponse;
+                toProto(message: _30.QueryFinalizedBundleResponse): Uint8Array;
+                toProtoMsg(message: _30.QueryFinalizedBundleResponse): _30.QueryFinalizedBundleResponseProtoMsg;
+            };
+            QueryCurrentVoteStatusRequest: {
+                typeUrl: string;
+                encode(message: _30.QueryCurrentVoteStatusRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryCurrentVoteStatusRequest;
+                fromPartial(object: Partial<_30.QueryCurrentVoteStatusRequest>): _30.QueryCurrentVoteStatusRequest;
+                fromAmino(object: _30.QueryCurrentVoteStatusRequestAmino): _30.QueryCurrentVoteStatusRequest;
+                toAmino(message: _30.QueryCurrentVoteStatusRequest): _30.QueryCurrentVoteStatusRequestAmino;
+                fromAminoMsg(object: _30.QueryCurrentVoteStatusRequestAminoMsg): _30.QueryCurrentVoteStatusRequest;
+                fromProtoMsg(message: _30.QueryCurrentVoteStatusRequestProtoMsg): _30.QueryCurrentVoteStatusRequest;
+                toProto(message: _30.QueryCurrentVoteStatusRequest): Uint8Array;
+                toProtoMsg(message: _30.QueryCurrentVoteStatusRequest): _30.QueryCurrentVoteStatusRequestProtoMsg;
+            };
+            QueryCurrentVoteStatusResponse: {
+                typeUrl: string;
+                encode(message: _30.QueryCurrentVoteStatusResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryCurrentVoteStatusResponse;
+                fromPartial(object: Partial<_30.QueryCurrentVoteStatusResponse>): _30.QueryCurrentVoteStatusResponse;
+                fromAmino(object: _30.QueryCurrentVoteStatusResponseAmino): _30.QueryCurrentVoteStatusResponse;
+                toAmino(message: _30.QueryCurrentVoteStatusResponse): _30.QueryCurrentVoteStatusResponseAmino;
+                fromAminoMsg(object: _30.QueryCurrentVoteStatusResponseAminoMsg): _30.QueryCurrentVoteStatusResponse;
+                fromProtoMsg(message: _30.QueryCurrentVoteStatusResponseProtoMsg): _30.QueryCurrentVoteStatusResponse;
+                toProto(message: _30.QueryCurrentVoteStatusResponse): Uint8Array;
+                toProtoMsg(message: _30.QueryCurrentVoteStatusResponse): _30.QueryCurrentVoteStatusResponseProtoMsg;
+            };
+            QueryCanValidateRequest: {
+                typeUrl: string;
+                encode(message: _30.QueryCanValidateRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryCanValidateRequest;
+                fromPartial(object: Partial<_30.QueryCanValidateRequest>): _30.QueryCanValidateRequest;
+                fromAmino(object: _30.QueryCanValidateRequestAmino): _30.QueryCanValidateRequest;
+                toAmino(message: _30.QueryCanValidateRequest): _30.QueryCanValidateRequestAmino;
+                fromAminoMsg(object: _30.QueryCanValidateRequestAminoMsg): _30.QueryCanValidateRequest;
+                fromProtoMsg(message: _30.QueryCanValidateRequestProtoMsg): _30.QueryCanValidateRequest;
+                toProto(message: _30.QueryCanValidateRequest): Uint8Array;
+                toProtoMsg(message: _30.QueryCanValidateRequest): _30.QueryCanValidateRequestProtoMsg;
+            };
+            QueryCanValidateResponse: {
+                typeUrl: string;
+                encode(message: _30.QueryCanValidateResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryCanValidateResponse;
+                fromPartial(object: Partial<_30.QueryCanValidateResponse>): _30.QueryCanValidateResponse;
+                fromAmino(object: _30.QueryCanValidateResponseAmino): _30.QueryCanValidateResponse;
+                toAmino(message: _30.QueryCanValidateResponse): _30.QueryCanValidateResponseAmino;
+                fromAminoMsg(object: _30.QueryCanValidateResponseAminoMsg): _30.QueryCanValidateResponse;
+                fromProtoMsg(message: _30.QueryCanValidateResponseProtoMsg): _30.QueryCanValidateResponse;
+                toProto(message: _30.QueryCanValidateResponse): Uint8Array;
+                toProtoMsg(message: _30.QueryCanValidateResponse): _30.QueryCanValidateResponseProtoMsg;
+            };
+            QueryCanProposeRequest: {
+                typeUrl: string;
+                encode(message: _30.QueryCanProposeRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryCanProposeRequest;
+                fromPartial(object: Partial<_30.QueryCanProposeRequest>): _30.QueryCanProposeRequest;
+                fromAmino(object: _30.QueryCanProposeRequestAmino): _30.QueryCanProposeRequest;
+                toAmino(message: _30.QueryCanProposeRequest): _30.QueryCanProposeRequestAmino;
+                fromAminoMsg(object: _30.QueryCanProposeRequestAminoMsg): _30.QueryCanProposeRequest;
+                fromProtoMsg(message: _30.QueryCanProposeRequestProtoMsg): _30.QueryCanProposeRequest;
+                toProto(message: _30.QueryCanProposeRequest): Uint8Array;
+                toProtoMsg(message: _30.QueryCanProposeRequest): _30.QueryCanProposeRequestProtoMsg;
+            };
+            QueryCanProposeResponse: {
+                typeUrl: string;
+                encode(message: _30.QueryCanProposeResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryCanProposeResponse;
+                fromPartial(object: Partial<_30.QueryCanProposeResponse>): _30.QueryCanProposeResponse;
+                fromAmino(object: _30.QueryCanProposeResponseAmino): _30.QueryCanProposeResponse;
+                toAmino(message: _30.QueryCanProposeResponse): _30.QueryCanProposeResponseAmino;
+                fromAminoMsg(object: _30.QueryCanProposeResponseAminoMsg): _30.QueryCanProposeResponse;
+                fromProtoMsg(message: _30.QueryCanProposeResponseProtoMsg): _30.QueryCanProposeResponse;
+                toProto(message: _30.QueryCanProposeResponse): Uint8Array;
+                toProtoMsg(message: _30.QueryCanProposeResponse): _30.QueryCanProposeResponseProtoMsg;
+            };
+            QueryCanVoteRequest: {
+                typeUrl: string;
+                encode(message: _30.QueryCanVoteRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryCanVoteRequest;
+                fromPartial(object: Partial<_30.QueryCanVoteRequest>): _30.QueryCanVoteRequest;
+                fromAmino(object: _30.QueryCanVoteRequestAmino): _30.QueryCanVoteRequest;
+                toAmino(message: _30.QueryCanVoteRequest): _30.QueryCanVoteRequestAmino;
+                fromAminoMsg(object: _30.QueryCanVoteRequestAminoMsg): _30.QueryCanVoteRequest;
+                fromProtoMsg(message: _30.QueryCanVoteRequestProtoMsg): _30.QueryCanVoteRequest;
+                toProto(message: _30.QueryCanVoteRequest): Uint8Array;
+                toProtoMsg(message: _30.QueryCanVoteRequest): _30.QueryCanVoteRequestProtoMsg;
+            };
+            QueryCanVoteResponse: {
+                typeUrl: string;
+                encode(message: _30.QueryCanVoteResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _30.QueryCanVoteResponse;
+                fromPartial(object: Partial<_30.QueryCanVoteResponse>): _30.QueryCanVoteResponse;
+                fromAmino(object: _30.QueryCanVoteResponseAmino): _30.QueryCanVoteResponse;
+                toAmino(message: _30.QueryCanVoteResponse): _30.QueryCanVoteResponseAmino;
+                fromAminoMsg(object: _30.QueryCanVoteResponseAminoMsg): _30.QueryCanVoteResponse;
+                fromProtoMsg(message: _30.QueryCanVoteResponseProtoMsg): _30.QueryCanVoteResponse;
+                toProto(message: _30.QueryCanVoteResponse): Uint8Array;
+                toProtoMsg(message: _30.QueryCanVoteResponse): _30.QueryCanVoteResponseProtoMsg;
+            };
+            QueryAccountAssetsRequest: {
+                typeUrl: string;
+                encode(message: _29.QueryAccountAssetsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _29.QueryAccountAssetsRequest;
+                fromPartial(object: Partial<_29.QueryAccountAssetsRequest>): _29.QueryAccountAssetsRequest;
+                fromAmino(object: _29.QueryAccountAssetsRequestAmino): _29.QueryAccountAssetsRequest;
+                toAmino(message: _29.QueryAccountAssetsRequest): _29.QueryAccountAssetsRequestAmino;
+                fromAminoMsg(object: _29.QueryAccountAssetsRequestAminoMsg): _29.QueryAccountAssetsRequest;
+                fromProtoMsg(message: _29.QueryAccountAssetsRequestProtoMsg): _29.QueryAccountAssetsRequest;
+                toProto(message: _29.QueryAccountAssetsRequest): Uint8Array;
+                toProtoMsg(message: _29.QueryAccountAssetsRequest): _29.QueryAccountAssetsRequestProtoMsg;
+            };
+            QueryAccountAssetsResponse: {
+                typeUrl: string;
+                encode(message: _29.QueryAccountAssetsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _29.QueryAccountAssetsResponse;
+                fromPartial(object: Partial<_29.QueryAccountAssetsResponse>): _29.QueryAccountAssetsResponse;
+                fromAmino(object: _29.QueryAccountAssetsResponseAmino): _29.QueryAccountAssetsResponse;
+                toAmino(message: _29.QueryAccountAssetsResponse): _29.QueryAccountAssetsResponseAmino;
+                fromAminoMsg(object: _29.QueryAccountAssetsResponseAminoMsg): _29.QueryAccountAssetsResponse;
+                fromProtoMsg(message: _29.QueryAccountAssetsResponseProtoMsg): _29.QueryAccountAssetsResponse;
+                toProto(message: _29.QueryAccountAssetsResponse): Uint8Array;
+                toProtoMsg(message: _29.QueryAccountAssetsResponse): _29.QueryAccountAssetsResponseProtoMsg;
+            };
+            QueryAccountDelegationUnbondingsRequest: {
+                typeUrl: string;
+                encode(message: _29.QueryAccountDelegationUnbondingsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _29.QueryAccountDelegationUnbondingsRequest;
+                fromPartial(object: Partial<_29.QueryAccountDelegationUnbondingsRequest>): _29.QueryAccountDelegationUnbondingsRequest;
+                fromAmino(object: _29.QueryAccountDelegationUnbondingsRequestAmino): _29.QueryAccountDelegationUnbondingsRequest;
+                toAmino(message: _29.QueryAccountDelegationUnbondingsRequest): _29.QueryAccountDelegationUnbondingsRequestAmino;
+                fromAminoMsg(object: _29.QueryAccountDelegationUnbondingsRequestAminoMsg): _29.QueryAccountDelegationUnbondingsRequest;
+                fromProtoMsg(message: _29.QueryAccountDelegationUnbondingsRequestProtoMsg): _29.QueryAccountDelegationUnbondingsRequest;
+                toProto(message: _29.QueryAccountDelegationUnbondingsRequest): Uint8Array;
+                toProtoMsg(message: _29.QueryAccountDelegationUnbondingsRequest): _29.QueryAccountDelegationUnbondingsRequestProtoMsg;
+            };
+            QueryAccountDelegationUnbondingsResponse: {
+                typeUrl: string;
+                encode(message: _29.QueryAccountDelegationUnbondingsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _29.QueryAccountDelegationUnbondingsResponse;
+                fromPartial(object: Partial<_29.QueryAccountDelegationUnbondingsResponse>): _29.QueryAccountDelegationUnbondingsResponse;
+                fromAmino(object: _29.QueryAccountDelegationUnbondingsResponseAmino): _29.QueryAccountDelegationUnbondingsResponse;
+                toAmino(message: _29.QueryAccountDelegationUnbondingsResponse): _29.QueryAccountDelegationUnbondingsResponseAmino;
+                fromAminoMsg(object: _29.QueryAccountDelegationUnbondingsResponseAminoMsg): _29.QueryAccountDelegationUnbondingsResponse;
+                fromProtoMsg(message: _29.QueryAccountDelegationUnbondingsResponseProtoMsg): _29.QueryAccountDelegationUnbondingsResponse;
+                toProto(message: _29.QueryAccountDelegationUnbondingsResponse): Uint8Array;
+                toProtoMsg(message: _29.QueryAccountDelegationUnbondingsResponse): _29.QueryAccountDelegationUnbondingsResponseProtoMsg;
+            };
+            DelegationUnbonding: {
+                typeUrl: string;
+                encode(message: _29.DelegationUnbonding, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _29.DelegationUnbonding;
+                fromPartial(object: Partial<_29.DelegationUnbonding>): _29.DelegationUnbonding;
+                fromAmino(object: _29.DelegationUnbondingAmino): _29.DelegationUnbonding;
+                toAmino(message: _29.DelegationUnbonding): _29.DelegationUnbondingAmino;
+                fromAminoMsg(object: _29.DelegationUnbondingAminoMsg): _29.DelegationUnbonding;
+                fromProtoMsg(message: _29.DelegationUnbondingProtoMsg): _29.DelegationUnbonding;
+                toProto(message: _29.DelegationUnbonding): Uint8Array;
+                toProtoMsg(message: _29.DelegationUnbonding): _29.DelegationUnbondingProtoMsg;
+            };
+            QueryAccountFundedListRequest: {
+                typeUrl: string;
+                encode(message: _29.QueryAccountFundedListRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _29.QueryAccountFundedListRequest;
+                fromPartial(object: Partial<_29.QueryAccountFundedListRequest>): _29.QueryAccountFundedListRequest;
+                fromAmino(object: _29.QueryAccountFundedListRequestAmino): _29.QueryAccountFundedListRequest;
+                toAmino(message: _29.QueryAccountFundedListRequest): _29.QueryAccountFundedListRequestAmino;
+                fromAminoMsg(object: _29.QueryAccountFundedListRequestAminoMsg): _29.QueryAccountFundedListRequest;
+                fromProtoMsg(message: _29.QueryAccountFundedListRequestProtoMsg): _29.QueryAccountFundedListRequest;
+                toProto(message: _29.QueryAccountFundedListRequest): Uint8Array;
+                toProtoMsg(message: _29.QueryAccountFundedListRequest): _29.QueryAccountFundedListRequestProtoMsg;
+            };
+            QueryAccountFundedListResponse: {
+                typeUrl: string;
+                encode(message: _29.QueryAccountFundedListResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _29.QueryAccountFundedListResponse;
+                fromPartial(object: Partial<_29.QueryAccountFundedListResponse>): _29.QueryAccountFundedListResponse;
+                fromAmino(object: _29.QueryAccountFundedListResponseAmino): _29.QueryAccountFundedListResponse;
+                toAmino(message: _29.QueryAccountFundedListResponse): _29.QueryAccountFundedListResponseAmino;
+                fromAminoMsg(object: _29.QueryAccountFundedListResponseAminoMsg): _29.QueryAccountFundedListResponse;
+                fromProtoMsg(message: _29.QueryAccountFundedListResponseProtoMsg): _29.QueryAccountFundedListResponse;
+                toProto(message: _29.QueryAccountFundedListResponse): Uint8Array;
+                toProtoMsg(message: _29.QueryAccountFundedListResponse): _29.QueryAccountFundedListResponseProtoMsg;
+            };
+            Funded: {
+                typeUrl: string;
+                encode(message: _29.Funded, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _29.Funded;
+                fromPartial(object: Partial<_29.Funded>): _29.Funded;
+                fromAmino(object: _29.FundedAmino): _29.Funded;
+                toAmino(message: _29.Funded): _29.FundedAmino;
+                fromAminoMsg(object: _29.FundedAminoMsg): _29.Funded;
+                fromProtoMsg(message: _29.FundedProtoMsg): _29.Funded;
+                toProto(message: _29.Funded): Uint8Array;
+                toProtoMsg(message: _29.Funded): _29.FundedProtoMsg;
+            };
+            QueryAccountRedelegationRequest: {
+                typeUrl: string;
+                encode(message: _29.QueryAccountRedelegationRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _29.QueryAccountRedelegationRequest;
+                fromPartial(object: Partial<_29.QueryAccountRedelegationRequest>): _29.QueryAccountRedelegationRequest;
+                fromAmino(object: _29.QueryAccountRedelegationRequestAmino): _29.QueryAccountRedelegationRequest;
+                toAmino(message: _29.QueryAccountRedelegationRequest): _29.QueryAccountRedelegationRequestAmino;
+                fromAminoMsg(object: _29.QueryAccountRedelegationRequestAminoMsg): _29.QueryAccountRedelegationRequest;
+                fromProtoMsg(message: _29.QueryAccountRedelegationRequestProtoMsg): _29.QueryAccountRedelegationRequest;
+                toProto(message: _29.QueryAccountRedelegationRequest): Uint8Array;
+                toProtoMsg(message: _29.QueryAccountRedelegationRequest): _29.QueryAccountRedelegationRequestProtoMsg;
+            };
+            QueryAccountRedelegationResponse: {
+                typeUrl: string;
+                encode(message: _29.QueryAccountRedelegationResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _29.QueryAccountRedelegationResponse;
+                fromPartial(object: Partial<_29.QueryAccountRedelegationResponse>): _29.QueryAccountRedelegationResponse;
+                fromAmino(object: _29.QueryAccountRedelegationResponseAmino): _29.QueryAccountRedelegationResponse;
+                toAmino(message: _29.QueryAccountRedelegationResponse): _29.QueryAccountRedelegationResponseAmino;
+                fromAminoMsg(object: _29.QueryAccountRedelegationResponseAminoMsg): _29.QueryAccountRedelegationResponse;
+                fromProtoMsg(message: _29.QueryAccountRedelegationResponseProtoMsg): _29.QueryAccountRedelegationResponse;
+                toProto(message: _29.QueryAccountRedelegationResponse): Uint8Array;
+                toProtoMsg(message: _29.QueryAccountRedelegationResponse): _29.QueryAccountRedelegationResponseProtoMsg;
+            };
+            RedelegationEntry: {
+                typeUrl: string;
+                encode(message: _29.RedelegationEntry, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _29.RedelegationEntry;
+                fromPartial(object: Partial<_29.RedelegationEntry>): _29.RedelegationEntry;
+                fromAmino(object: _29.RedelegationEntryAmino): _29.RedelegationEntry;
+                toAmino(message: _29.RedelegationEntry): _29.RedelegationEntryAmino;
+                fromAminoMsg(object: _29.RedelegationEntryAminoMsg): _29.RedelegationEntry;
+                fromProtoMsg(message: _29.RedelegationEntryProtoMsg): _29.RedelegationEntry;
+                toProto(message: _29.RedelegationEntry): Uint8Array;
+                toProtoMsg(message: _29.RedelegationEntry): _29.RedelegationEntryProtoMsg;
             };
         };
     }
-    namespace team {
+    namespace stakers {
         const v1beta1: {
-            MsgClientImpl: typeof _185.MsgClientImpl;
-            QueryClientImpl: typeof _179.QueryClientImpl;
+            MsgClientImpl: typeof _226.MsgClientImpl;
+            QueryClientImpl: typeof _219.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
-                teamInfo(request?: _38.QueryTeamInfoRequest): Promise<_38.QueryTeamInfoResponse>;
-                teamVestingAccounts(request?: _38.QueryTeamVestingAccountsRequest): Promise<_38.QueryTeamVestingAccountsResponse>;
-                teamVestingAccount(request: _38.QueryTeamVestingAccountRequest): Promise<_38.QueryTeamVestingAccountResponse>;
-                teamVestingStatus(request: _38.QueryTeamVestingStatusRequest): Promise<_38.QueryTeamVestingStatusResponse>;
-                teamVestingStatusByTime(request: _38.QueryTeamVestingStatusByTimeRequest): Promise<_38.QueryTeamVestingStatusByTimeResponse>;
+                params(request?: _40.QueryParamsRequest): Promise<_40.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _173.LCDQueryClient;
+            LCDQueryClient: typeof _212.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
                 encoded: {
-                    claimUnlocked(value: _40.MsgClaimUnlocked): {
+                    createStaker(value: _42.MsgCreateStaker): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    clawback(value: _40.MsgClawback): {
+                    updateMetadata(value: _42.MsgUpdateMetadata): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    createTeamVestingAccount(value: _40.MsgCreateTeamVestingAccount): {
+                    updateCommission(value: _42.MsgUpdateCommission): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    claimAuthorityRewards(value: _40.MsgClaimAuthorityRewards): {
+                    claimCommissionRewards(value: _42.MsgClaimCommissionRewards): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
-                    claimAccountRewards(value: _40.MsgClaimAccountRewards): {
+                    joinPool(value: _42.MsgJoinPool): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    leavePool(value: _42.MsgLeavePool): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    updateParams(value: _42.MsgUpdateParams): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
                 };
                 withTypeUrl: {
-                    claimUnlocked(value: _40.MsgClaimUnlocked): {
+                    createStaker(value: _42.MsgCreateStaker): {
                         typeUrl: string;
-                        value: _40.MsgClaimUnlocked;
+                        value: _42.MsgCreateStaker;
                     };
-                    clawback(value: _40.MsgClawback): {
+                    updateMetadata(value: _42.MsgUpdateMetadata): {
                         typeUrl: string;
-                        value: _40.MsgClawback;
+                        value: _42.MsgUpdateMetadata;
                     };
-                    createTeamVestingAccount(value: _40.MsgCreateTeamVestingAccount): {
+                    updateCommission(value: _42.MsgUpdateCommission): {
                         typeUrl: string;
-                        value: _40.MsgCreateTeamVestingAccount;
+                        value: _42.MsgUpdateCommission;
                     };
-                    claimAuthorityRewards(value: _40.MsgClaimAuthorityRewards): {
+                    claimCommissionRewards(value: _42.MsgClaimCommissionRewards): {
                         typeUrl: string;
-                        value: _40.MsgClaimAuthorityRewards;
+                        value: _42.MsgClaimCommissionRewards;
                     };
-                    claimAccountRewards(value: _40.MsgClaimAccountRewards): {
+                    joinPool(value: _42.MsgJoinPool): {
                         typeUrl: string;
-                        value: _40.MsgClaimAccountRewards;
+                        value: _42.MsgJoinPool;
+                    };
+                    leavePool(value: _42.MsgLeavePool): {
+                        typeUrl: string;
+                        value: _42.MsgLeavePool;
+                    };
+                    updateParams(value: _42.MsgUpdateParams): {
+                        typeUrl: string;
+                        value: _42.MsgUpdateParams;
+                    };
+                };
+                fromJSON: {
+                    createStaker(value: any): {
+                        typeUrl: string;
+                        value: _42.MsgCreateStaker;
+                    };
+                    updateMetadata(value: any): {
+                        typeUrl: string;
+                        value: _42.MsgUpdateMetadata;
+                    };
+                    updateCommission(value: any): {
+                        typeUrl: string;
+                        value: _42.MsgUpdateCommission;
+                    };
+                    claimCommissionRewards(value: any): {
+                        typeUrl: string;
+                        value: _42.MsgClaimCommissionRewards;
+                    };
+                    joinPool(value: any): {
+                        typeUrl: string;
+                        value: _42.MsgJoinPool;
+                    };
+                    leavePool(value: any): {
+                        typeUrl: string;
+                        value: _42.MsgLeavePool;
+                    };
+                    updateParams(value: any): {
+                        typeUrl: string;
+                        value: _42.MsgUpdateParams;
+                    };
+                };
+                fromPartial: {
+                    createStaker(value: _42.MsgCreateStaker): {
+                        typeUrl: string;
+                        value: _42.MsgCreateStaker;
+                    };
+                    updateMetadata(value: _42.MsgUpdateMetadata): {
+                        typeUrl: string;
+                        value: _42.MsgUpdateMetadata;
+                    };
+                    updateCommission(value: _42.MsgUpdateCommission): {
+                        typeUrl: string;
+                        value: _42.MsgUpdateCommission;
+                    };
+                    claimCommissionRewards(value: _42.MsgClaimCommissionRewards): {
+                        typeUrl: string;
+                        value: _42.MsgClaimCommissionRewards;
+                    };
+                    joinPool(value: _42.MsgJoinPool): {
+                        typeUrl: string;
+                        value: _42.MsgJoinPool;
+                    };
+                    leavePool(value: _42.MsgLeavePool): {
+                        typeUrl: string;
+                        value: _42.MsgLeavePool;
+                    };
+                    updateParams(value: _42.MsgUpdateParams): {
+                        typeUrl: string;
+                        value: _42.MsgUpdateParams;
+                    };
+                };
+            };
+            AminoConverter: {
+                "/kyve.stakers.v1beta1.MsgCreateStaker": {
+                    aminoType: string;
+                    toAmino: (message: _42.MsgCreateStaker) => _42.MsgCreateStakerAmino;
+                    fromAmino: (object: _42.MsgCreateStakerAmino) => _42.MsgCreateStaker;
+                };
+                "/kyve.stakers.v1beta1.MsgUpdateMetadata": {
+                    aminoType: string;
+                    toAmino: (message: _42.MsgUpdateMetadata) => _42.MsgUpdateMetadataAmino;
+                    fromAmino: (object: _42.MsgUpdateMetadataAmino) => _42.MsgUpdateMetadata;
+                };
+                "/kyve.stakers.v1beta1.MsgUpdateCommission": {
+                    aminoType: string;
+                    toAmino: (message: _42.MsgUpdateCommission) => _42.MsgUpdateCommissionAmino;
+                    fromAmino: (object: _42.MsgUpdateCommissionAmino) => _42.MsgUpdateCommission;
+                };
+                "/kyve.stakers.v1beta1.MsgClaimCommissionRewards": {
+                    aminoType: string;
+                    toAmino: (message: _42.MsgClaimCommissionRewards) => _42.MsgClaimCommissionRewardsAmino;
+                    fromAmino: (object: _42.MsgClaimCommissionRewardsAmino) => _42.MsgClaimCommissionRewards;
+                };
+                "/kyve.stakers.v1beta1.MsgJoinPool": {
+                    aminoType: string;
+                    toAmino: (message: _42.MsgJoinPool) => _42.MsgJoinPoolAmino;
+                    fromAmino: (object: _42.MsgJoinPoolAmino) => _42.MsgJoinPool;
+                };
+                "/kyve.stakers.v1beta1.MsgLeavePool": {
+                    aminoType: string;
+                    toAmino: (message: _42.MsgLeavePool) => _42.MsgLeavePoolAmino;
+                    fromAmino: (object: _42.MsgLeavePoolAmino) => _42.MsgLeavePool;
+                };
+                "/kyve.stakers.v1beta1.MsgUpdateParams": {
+                    aminoType: string;
+                    toAmino: (message: _42.MsgUpdateParams) => _42.MsgUpdateParamsAmino;
+                    fromAmino: (object: _42.MsgUpdateParamsAmino) => _42.MsgUpdateParams;
+                };
+            };
+            MsgCreateStaker: {
+                typeUrl: string;
+                encode(message: _42.MsgCreateStaker, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _42.MsgCreateStaker;
+                fromPartial(object: Partial<_42.MsgCreateStaker>): _42.MsgCreateStaker;
+                fromAmino(object: _42.MsgCreateStakerAmino): _42.MsgCreateStaker;
+                toAmino(message: _42.MsgCreateStaker): _42.MsgCreateStakerAmino;
+                fromAminoMsg(object: _42.MsgCreateStakerAminoMsg): _42.MsgCreateStaker;
+                fromProtoMsg(message: _42.MsgCreateStakerProtoMsg): _42.MsgCreateStaker;
+                toProto(message: _42.MsgCreateStaker): Uint8Array;
+                toProtoMsg(message: _42.MsgCreateStaker): _42.MsgCreateStakerProtoMsg;
+            };
+            MsgCreateStakerResponse: {
+                typeUrl: string;
+                encode(_: _42.MsgCreateStakerResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _42.MsgCreateStakerResponse;
+                fromPartial(_: Partial<_42.MsgCreateStakerResponse>): _42.MsgCreateStakerResponse;
+                fromAmino(_: _42.MsgCreateStakerResponseAmino): _42.MsgCreateStakerResponse;
+                toAmino(_: _42.MsgCreateStakerResponse): _42.MsgCreateStakerResponseAmino;
+                fromAminoMsg(object: _42.MsgCreateStakerResponseAminoMsg): _42.MsgCreateStakerResponse;
+                fromProtoMsg(message: _42.MsgCreateStakerResponseProtoMsg): _42.MsgCreateStakerResponse;
+                toProto(message: _42.MsgCreateStakerResponse): Uint8Array;
+                toProtoMsg(message: _42.MsgCreateStakerResponse): _42.MsgCreateStakerResponseProtoMsg;
+            };
+            MsgUpdateMetadata: {
+                typeUrl: string;
+                encode(message: _42.MsgUpdateMetadata, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _42.MsgUpdateMetadata;
+                fromPartial(object: Partial<_42.MsgUpdateMetadata>): _42.MsgUpdateMetadata;
+                fromAmino(object: _42.MsgUpdateMetadataAmino): _42.MsgUpdateMetadata;
+                toAmino(message: _42.MsgUpdateMetadata): _42.MsgUpdateMetadataAmino;
+                fromAminoMsg(object: _42.MsgUpdateMetadataAminoMsg): _42.MsgUpdateMetadata;
+                fromProtoMsg(message: _42.MsgUpdateMetadataProtoMsg): _42.MsgUpdateMetadata;
+                toProto(message: _42.MsgUpdateMetadata): Uint8Array;
+                toProtoMsg(message: _42.MsgUpdateMetadata): _42.MsgUpdateMetadataProtoMsg;
+            };
+            MsgUpdateMetadataResponse: {
+                typeUrl: string;
+                encode(_: _42.MsgUpdateMetadataResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _42.MsgUpdateMetadataResponse;
+                fromPartial(_: Partial<_42.MsgUpdateMetadataResponse>): _42.MsgUpdateMetadataResponse;
+                fromAmino(_: _42.MsgUpdateMetadataResponseAmino): _42.MsgUpdateMetadataResponse;
+                toAmino(_: _42.MsgUpdateMetadataResponse): _42.MsgUpdateMetadataResponseAmino;
+                fromAminoMsg(object: _42.MsgUpdateMetadataResponseAminoMsg): _42.MsgUpdateMetadataResponse;
+                fromProtoMsg(message: _42.MsgUpdateMetadataResponseProtoMsg): _42.MsgUpdateMetadataResponse;
+                toProto(message: _42.MsgUpdateMetadataResponse): Uint8Array;
+                toProtoMsg(message: _42.MsgUpdateMetadataResponse): _42.MsgUpdateMetadataResponseProtoMsg;
+            };
+            MsgUpdateCommission: {
+                typeUrl: string;
+                encode(message: _42.MsgUpdateCommission, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _42.MsgUpdateCommission;
+                fromPartial(object: Partial<_42.MsgUpdateCommission>): _42.MsgUpdateCommission;
+                fromAmino(object: _42.MsgUpdateCommissionAmino): _42.MsgUpdateCommission;
+                toAmino(message: _42.MsgUpdateCommission): _42.MsgUpdateCommissionAmino;
+                fromAminoMsg(object: _42.MsgUpdateCommissionAminoMsg): _42.MsgUpdateCommission;
+                fromProtoMsg(message: _42.MsgUpdateCommissionProtoMsg): _42.MsgUpdateCommission;
+                toProto(message: _42.MsgUpdateCommission): Uint8Array;
+                toProtoMsg(message: _42.MsgUpdateCommission): _42.MsgUpdateCommissionProtoMsg;
+            };
+            MsgUpdateCommissionResponse: {
+                typeUrl: string;
+                encode(_: _42.MsgUpdateCommissionResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _42.MsgUpdateCommissionResponse;
+                fromPartial(_: Partial<_42.MsgUpdateCommissionResponse>): _42.MsgUpdateCommissionResponse;
+                fromAmino(_: _42.MsgUpdateCommissionResponseAmino): _42.MsgUpdateCommissionResponse;
+                toAmino(_: _42.MsgUpdateCommissionResponse): _42.MsgUpdateCommissionResponseAmino;
+                fromAminoMsg(object: _42.MsgUpdateCommissionResponseAminoMsg): _42.MsgUpdateCommissionResponse;
+                fromProtoMsg(message: _42.MsgUpdateCommissionResponseProtoMsg): _42.MsgUpdateCommissionResponse;
+                toProto(message: _42.MsgUpdateCommissionResponse): Uint8Array;
+                toProtoMsg(message: _42.MsgUpdateCommissionResponse): _42.MsgUpdateCommissionResponseProtoMsg;
+            };
+            MsgClaimCommissionRewards: {
+                typeUrl: string;
+                encode(message: _42.MsgClaimCommissionRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _42.MsgClaimCommissionRewards;
+                fromPartial(object: Partial<_42.MsgClaimCommissionRewards>): _42.MsgClaimCommissionRewards;
+                fromAmino(object: _42.MsgClaimCommissionRewardsAmino): _42.MsgClaimCommissionRewards;
+                toAmino(message: _42.MsgClaimCommissionRewards): _42.MsgClaimCommissionRewardsAmino;
+                fromAminoMsg(object: _42.MsgClaimCommissionRewardsAminoMsg): _42.MsgClaimCommissionRewards;
+                fromProtoMsg(message: _42.MsgClaimCommissionRewardsProtoMsg): _42.MsgClaimCommissionRewards;
+                toProto(message: _42.MsgClaimCommissionRewards): Uint8Array;
+                toProtoMsg(message: _42.MsgClaimCommissionRewards): _42.MsgClaimCommissionRewardsProtoMsg;
+            };
+            MsgClaimCommissionRewardsResponse: {
+                typeUrl: string;
+                encode(_: _42.MsgClaimCommissionRewardsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _42.MsgClaimCommissionRewardsResponse;
+                fromPartial(_: Partial<_42.MsgClaimCommissionRewardsResponse>): _42.MsgClaimCommissionRewardsResponse;
+                fromAmino(_: _42.MsgClaimCommissionRewardsResponseAmino): _42.MsgClaimCommissionRewardsResponse;
+                toAmino(_: _42.MsgClaimCommissionRewardsResponse): _42.MsgClaimCommissionRewardsResponseAmino;
+                fromAminoMsg(object: _42.MsgClaimCommissionRewardsResponseAminoMsg): _42.MsgClaimCommissionRewardsResponse;
+                fromProtoMsg(message: _42.MsgClaimCommissionRewardsResponseProtoMsg): _42.MsgClaimCommissionRewardsResponse;
+                toProto(message: _42.MsgClaimCommissionRewardsResponse): Uint8Array;
+                toProtoMsg(message: _42.MsgClaimCommissionRewardsResponse): _42.MsgClaimCommissionRewardsResponseProtoMsg;
+            };
+            MsgJoinPool: {
+                typeUrl: string;
+                encode(message: _42.MsgJoinPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _42.MsgJoinPool;
+                fromPartial(object: Partial<_42.MsgJoinPool>): _42.MsgJoinPool;
+                fromAmino(object: _42.MsgJoinPoolAmino): _42.MsgJoinPool;
+                toAmino(message: _42.MsgJoinPool): _42.MsgJoinPoolAmino;
+                fromAminoMsg(object: _42.MsgJoinPoolAminoMsg): _42.MsgJoinPool;
+                fromProtoMsg(message: _42.MsgJoinPoolProtoMsg): _42.MsgJoinPool;
+                toProto(message: _42.MsgJoinPool): Uint8Array;
+                toProtoMsg(message: _42.MsgJoinPool): _42.MsgJoinPoolProtoMsg;
+            };
+            MsgJoinPoolResponse: {
+                typeUrl: string;
+                encode(_: _42.MsgJoinPoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _42.MsgJoinPoolResponse;
+                fromPartial(_: Partial<_42.MsgJoinPoolResponse>): _42.MsgJoinPoolResponse;
+                fromAmino(_: _42.MsgJoinPoolResponseAmino): _42.MsgJoinPoolResponse;
+                toAmino(_: _42.MsgJoinPoolResponse): _42.MsgJoinPoolResponseAmino;
+                fromAminoMsg(object: _42.MsgJoinPoolResponseAminoMsg): _42.MsgJoinPoolResponse;
+                fromProtoMsg(message: _42.MsgJoinPoolResponseProtoMsg): _42.MsgJoinPoolResponse;
+                toProto(message: _42.MsgJoinPoolResponse): Uint8Array;
+                toProtoMsg(message: _42.MsgJoinPoolResponse): _42.MsgJoinPoolResponseProtoMsg;
+            };
+            MsgLeavePool: {
+                typeUrl: string;
+                encode(message: _42.MsgLeavePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _42.MsgLeavePool;
+                fromPartial(object: Partial<_42.MsgLeavePool>): _42.MsgLeavePool;
+                fromAmino(object: _42.MsgLeavePoolAmino): _42.MsgLeavePool;
+                toAmino(message: _42.MsgLeavePool): _42.MsgLeavePoolAmino;
+                fromAminoMsg(object: _42.MsgLeavePoolAminoMsg): _42.MsgLeavePool;
+                fromProtoMsg(message: _42.MsgLeavePoolProtoMsg): _42.MsgLeavePool;
+                toProto(message: _42.MsgLeavePool): Uint8Array;
+                toProtoMsg(message: _42.MsgLeavePool): _42.MsgLeavePoolProtoMsg;
+            };
+            MsgLeavePoolResponse: {
+                typeUrl: string;
+                encode(_: _42.MsgLeavePoolResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _42.MsgLeavePoolResponse;
+                fromPartial(_: Partial<_42.MsgLeavePoolResponse>): _42.MsgLeavePoolResponse;
+                fromAmino(_: _42.MsgLeavePoolResponseAmino): _42.MsgLeavePoolResponse;
+                toAmino(_: _42.MsgLeavePoolResponse): _42.MsgLeavePoolResponseAmino;
+                fromAminoMsg(object: _42.MsgLeavePoolResponseAminoMsg): _42.MsgLeavePoolResponse;
+                fromProtoMsg(message: _42.MsgLeavePoolResponseProtoMsg): _42.MsgLeavePoolResponse;
+                toProto(message: _42.MsgLeavePoolResponse): Uint8Array;
+                toProtoMsg(message: _42.MsgLeavePoolResponse): _42.MsgLeavePoolResponseProtoMsg;
+            };
+            MsgUpdateParams: {
+                typeUrl: string;
+                encode(message: _42.MsgUpdateParams, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _42.MsgUpdateParams;
+                fromPartial(object: Partial<_42.MsgUpdateParams>): _42.MsgUpdateParams;
+                fromAmino(object: _42.MsgUpdateParamsAmino): _42.MsgUpdateParams;
+                toAmino(message: _42.MsgUpdateParams): _42.MsgUpdateParamsAmino;
+                fromAminoMsg(object: _42.MsgUpdateParamsAminoMsg): _42.MsgUpdateParams;
+                fromProtoMsg(message: _42.MsgUpdateParamsProtoMsg): _42.MsgUpdateParams;
+                toProto(message: _42.MsgUpdateParams): Uint8Array;
+                toProtoMsg(message: _42.MsgUpdateParams): _42.MsgUpdateParamsProtoMsg;
+            };
+            MsgUpdateParamsResponse: {
+                typeUrl: string;
+                encode(_: _42.MsgUpdateParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _42.MsgUpdateParamsResponse;
+                fromPartial(_: Partial<_42.MsgUpdateParamsResponse>): _42.MsgUpdateParamsResponse;
+                fromAmino(_: _42.MsgUpdateParamsResponseAmino): _42.MsgUpdateParamsResponse;
+                toAmino(_: _42.MsgUpdateParamsResponse): _42.MsgUpdateParamsResponseAmino;
+                fromAminoMsg(object: _42.MsgUpdateParamsResponseAminoMsg): _42.MsgUpdateParamsResponse;
+                fromProtoMsg(message: _42.MsgUpdateParamsResponseProtoMsg): _42.MsgUpdateParamsResponse;
+                toProto(message: _42.MsgUpdateParamsResponse): Uint8Array;
+                toProtoMsg(message: _42.MsgUpdateParamsResponse): _42.MsgUpdateParamsResponseProtoMsg;
+            };
+            Staker: {
+                typeUrl: string;
+                encode(message: _41.Staker, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _41.Staker;
+                fromPartial(object: Partial<_41.Staker>): _41.Staker;
+                fromAmino(object: _41.StakerAmino): _41.Staker;
+                toAmino(message: _41.Staker): _41.StakerAmino;
+                fromAminoMsg(object: _41.StakerAminoMsg): _41.Staker;
+                fromProtoMsg(message: _41.StakerProtoMsg): _41.Staker;
+                toProto(message: _41.Staker): Uint8Array;
+                toProtoMsg(message: _41.Staker): _41.StakerProtoMsg;
+            };
+            Valaccount: {
+                typeUrl: string;
+                encode(message: _41.Valaccount, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _41.Valaccount;
+                fromPartial(object: Partial<_41.Valaccount>): _41.Valaccount;
+                fromAmino(object: _41.ValaccountAmino): _41.Valaccount;
+                toAmino(message: _41.Valaccount): _41.ValaccountAmino;
+                fromAminoMsg(object: _41.ValaccountAminoMsg): _41.Valaccount;
+                fromProtoMsg(message: _41.ValaccountProtoMsg): _41.Valaccount;
+                toProto(message: _41.Valaccount): Uint8Array;
+                toProtoMsg(message: _41.Valaccount): _41.ValaccountProtoMsg;
+            };
+            CommissionChangeEntry: {
+                typeUrl: string;
+                encode(message: _41.CommissionChangeEntry, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _41.CommissionChangeEntry;
+                fromPartial(object: Partial<_41.CommissionChangeEntry>): _41.CommissionChangeEntry;
+                fromAmino(object: _41.CommissionChangeEntryAmino): _41.CommissionChangeEntry;
+                toAmino(message: _41.CommissionChangeEntry): _41.CommissionChangeEntryAmino;
+                fromAminoMsg(object: _41.CommissionChangeEntryAminoMsg): _41.CommissionChangeEntry;
+                fromProtoMsg(message: _41.CommissionChangeEntryProtoMsg): _41.CommissionChangeEntry;
+                toProto(message: _41.CommissionChangeEntry): Uint8Array;
+                toProtoMsg(message: _41.CommissionChangeEntry): _41.CommissionChangeEntryProtoMsg;
+            };
+            LeavePoolEntry: {
+                typeUrl: string;
+                encode(message: _41.LeavePoolEntry, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _41.LeavePoolEntry;
+                fromPartial(object: Partial<_41.LeavePoolEntry>): _41.LeavePoolEntry;
+                fromAmino(object: _41.LeavePoolEntryAmino): _41.LeavePoolEntry;
+                toAmino(message: _41.LeavePoolEntry): _41.LeavePoolEntryAmino;
+                fromAminoMsg(object: _41.LeavePoolEntryAminoMsg): _41.LeavePoolEntry;
+                fromProtoMsg(message: _41.LeavePoolEntryProtoMsg): _41.LeavePoolEntry;
+                toProto(message: _41.LeavePoolEntry): Uint8Array;
+                toProtoMsg(message: _41.LeavePoolEntry): _41.LeavePoolEntryProtoMsg;
+            };
+            QueueState: {
+                typeUrl: string;
+                encode(message: _41.QueueState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _41.QueueState;
+                fromPartial(object: Partial<_41.QueueState>): _41.QueueState;
+                fromAmino(object: _41.QueueStateAmino): _41.QueueState;
+                toAmino(message: _41.QueueState): _41.QueueStateAmino;
+                fromAminoMsg(object: _41.QueueStateAminoMsg): _41.QueueState;
+                fromProtoMsg(message: _41.QueueStateProtoMsg): _41.QueueState;
+                toProto(message: _41.QueueState): Uint8Array;
+                toProtoMsg(message: _41.QueueState): _41.QueueStateProtoMsg;
+            };
+            QueryParamsRequest: {
+                typeUrl: string;
+                encode(_: _40.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _40.QueryParamsRequest;
+                fromPartial(_: Partial<_40.QueryParamsRequest>): _40.QueryParamsRequest;
+                fromAmino(_: _40.QueryParamsRequestAmino): _40.QueryParamsRequest;
+                toAmino(_: _40.QueryParamsRequest): _40.QueryParamsRequestAmino;
+                fromAminoMsg(object: _40.QueryParamsRequestAminoMsg): _40.QueryParamsRequest;
+                fromProtoMsg(message: _40.QueryParamsRequestProtoMsg): _40.QueryParamsRequest;
+                toProto(message: _40.QueryParamsRequest): Uint8Array;
+                toProtoMsg(message: _40.QueryParamsRequest): _40.QueryParamsRequestProtoMsg;
+            };
+            QueryParamsResponse: {
+                typeUrl: string;
+                encode(message: _40.QueryParamsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _40.QueryParamsResponse;
+                fromPartial(object: Partial<_40.QueryParamsResponse>): _40.QueryParamsResponse;
+                fromAmino(object: _40.QueryParamsResponseAmino): _40.QueryParamsResponse;
+                toAmino(message: _40.QueryParamsResponse): _40.QueryParamsResponseAmino;
+                fromAminoMsg(object: _40.QueryParamsResponseAminoMsg): _40.QueryParamsResponse;
+                fromProtoMsg(message: _40.QueryParamsResponseProtoMsg): _40.QueryParamsResponse;
+                toProto(message: _40.QueryParamsResponse): Uint8Array;
+                toProtoMsg(message: _40.QueryParamsResponse): _40.QueryParamsResponseProtoMsg;
+            };
+            Params: {
+                typeUrl: string;
+                encode(message: _39.Params, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _39.Params;
+                fromPartial(object: Partial<_39.Params>): _39.Params;
+                fromAmino(object: _39.ParamsAmino): _39.Params;
+                toAmino(message: _39.Params): _39.ParamsAmino;
+                fromAminoMsg(object: _39.ParamsAminoMsg): _39.Params;
+                fromProtoMsg(message: _39.ParamsProtoMsg): _39.Params;
+                toProto(message: _39.Params): Uint8Array;
+                toProtoMsg(message: _39.Params): _39.ParamsProtoMsg;
+            };
+            GenesisState: {
+                typeUrl: string;
+                encode(message: _38.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _38.GenesisState;
+                fromPartial(object: Partial<_38.GenesisState>): _38.GenesisState;
+                fromAmino(object: _38.GenesisStateAmino): _38.GenesisState;
+                toAmino(message: _38.GenesisState): _38.GenesisStateAmino;
+                fromAminoMsg(object: _38.GenesisStateAminoMsg): _38.GenesisState;
+                fromProtoMsg(message: _38.GenesisStateProtoMsg): _38.GenesisState;
+                toProto(message: _38.GenesisState): Uint8Array;
+                toProtoMsg(message: _38.GenesisState): _38.GenesisStateProtoMsg;
+            };
+            EventUpdateParams: {
+                typeUrl: string;
+                encode(message: _37.EventUpdateParams, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _37.EventUpdateParams;
+                fromPartial(object: Partial<_37.EventUpdateParams>): _37.EventUpdateParams;
+                fromAmino(object: _37.EventUpdateParamsAmino): _37.EventUpdateParams;
+                toAmino(message: _37.EventUpdateParams): _37.EventUpdateParamsAmino;
+                fromAminoMsg(object: _37.EventUpdateParamsAminoMsg): _37.EventUpdateParams;
+                fromProtoMsg(message: _37.EventUpdateParamsProtoMsg): _37.EventUpdateParams;
+                toProto(message: _37.EventUpdateParams): Uint8Array;
+                toProtoMsg(message: _37.EventUpdateParams): _37.EventUpdateParamsProtoMsg;
+            };
+            EventCreateStaker: {
+                typeUrl: string;
+                encode(message: _37.EventCreateStaker, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _37.EventCreateStaker;
+                fromPartial(object: Partial<_37.EventCreateStaker>): _37.EventCreateStaker;
+                fromAmino(object: _37.EventCreateStakerAmino): _37.EventCreateStaker;
+                toAmino(message: _37.EventCreateStaker): _37.EventCreateStakerAmino;
+                fromAminoMsg(object: _37.EventCreateStakerAminoMsg): _37.EventCreateStaker;
+                fromProtoMsg(message: _37.EventCreateStakerProtoMsg): _37.EventCreateStaker;
+                toProto(message: _37.EventCreateStaker): Uint8Array;
+                toProtoMsg(message: _37.EventCreateStaker): _37.EventCreateStakerProtoMsg;
+            };
+            EventUpdateMetadata: {
+                typeUrl: string;
+                encode(message: _37.EventUpdateMetadata, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _37.EventUpdateMetadata;
+                fromPartial(object: Partial<_37.EventUpdateMetadata>): _37.EventUpdateMetadata;
+                fromAmino(object: _37.EventUpdateMetadataAmino): _37.EventUpdateMetadata;
+                toAmino(message: _37.EventUpdateMetadata): _37.EventUpdateMetadataAmino;
+                fromAminoMsg(object: _37.EventUpdateMetadataAminoMsg): _37.EventUpdateMetadata;
+                fromProtoMsg(message: _37.EventUpdateMetadataProtoMsg): _37.EventUpdateMetadata;
+                toProto(message: _37.EventUpdateMetadata): Uint8Array;
+                toProtoMsg(message: _37.EventUpdateMetadata): _37.EventUpdateMetadataProtoMsg;
+            };
+            EventUpdateCommission: {
+                typeUrl: string;
+                encode(message: _37.EventUpdateCommission, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _37.EventUpdateCommission;
+                fromPartial(object: Partial<_37.EventUpdateCommission>): _37.EventUpdateCommission;
+                fromAmino(object: _37.EventUpdateCommissionAmino): _37.EventUpdateCommission;
+                toAmino(message: _37.EventUpdateCommission): _37.EventUpdateCommissionAmino;
+                fromAminoMsg(object: _37.EventUpdateCommissionAminoMsg): _37.EventUpdateCommission;
+                fromProtoMsg(message: _37.EventUpdateCommissionProtoMsg): _37.EventUpdateCommission;
+                toProto(message: _37.EventUpdateCommission): Uint8Array;
+                toProtoMsg(message: _37.EventUpdateCommission): _37.EventUpdateCommissionProtoMsg;
+            };
+            EventClaimCommissionRewards: {
+                typeUrl: string;
+                encode(message: _37.EventClaimCommissionRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _37.EventClaimCommissionRewards;
+                fromPartial(object: Partial<_37.EventClaimCommissionRewards>): _37.EventClaimCommissionRewards;
+                fromAmino(object: _37.EventClaimCommissionRewardsAmino): _37.EventClaimCommissionRewards;
+                toAmino(message: _37.EventClaimCommissionRewards): _37.EventClaimCommissionRewardsAmino;
+                fromAminoMsg(object: _37.EventClaimCommissionRewardsAminoMsg): _37.EventClaimCommissionRewards;
+                fromProtoMsg(message: _37.EventClaimCommissionRewardsProtoMsg): _37.EventClaimCommissionRewards;
+                toProto(message: _37.EventClaimCommissionRewards): Uint8Array;
+                toProtoMsg(message: _37.EventClaimCommissionRewards): _37.EventClaimCommissionRewardsProtoMsg;
+            };
+            EventJoinPool: {
+                typeUrl: string;
+                encode(message: _37.EventJoinPool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _37.EventJoinPool;
+                fromPartial(object: Partial<_37.EventJoinPool>): _37.EventJoinPool;
+                fromAmino(object: _37.EventJoinPoolAmino): _37.EventJoinPool;
+                toAmino(message: _37.EventJoinPool): _37.EventJoinPoolAmino;
+                fromAminoMsg(object: _37.EventJoinPoolAminoMsg): _37.EventJoinPool;
+                fromProtoMsg(message: _37.EventJoinPoolProtoMsg): _37.EventJoinPool;
+                toProto(message: _37.EventJoinPool): Uint8Array;
+                toProtoMsg(message: _37.EventJoinPool): _37.EventJoinPoolProtoMsg;
+            };
+            EventLeavePool: {
+                typeUrl: string;
+                encode(message: _37.EventLeavePool, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _37.EventLeavePool;
+                fromPartial(object: Partial<_37.EventLeavePool>): _37.EventLeavePool;
+                fromAmino(object: _37.EventLeavePoolAmino): _37.EventLeavePool;
+                toAmino(message: _37.EventLeavePool): _37.EventLeavePoolAmino;
+                fromAminoMsg(object: _37.EventLeavePoolAminoMsg): _37.EventLeavePool;
+                fromProtoMsg(message: _37.EventLeavePoolProtoMsg): _37.EventLeavePool;
+                toProto(message: _37.EventLeavePool): Uint8Array;
+                toProtoMsg(message: _37.EventLeavePool): _37.EventLeavePoolProtoMsg;
+            };
+        };
+    }
+    namespace team {
+        const v1beta1: {
+            MsgClientImpl: typeof _227.MsgClientImpl;
+            QueryClientImpl: typeof _220.QueryClientImpl;
+            createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+                teamInfo(request?: _45.QueryTeamInfoRequest): Promise<_45.QueryTeamInfoResponse>;
+                teamVestingAccounts(request?: _45.QueryTeamVestingAccountsRequest): Promise<_45.QueryTeamVestingAccountsResponse>;
+                teamVestingAccount(request: _45.QueryTeamVestingAccountRequest): Promise<_45.QueryTeamVestingAccountResponse>;
+                teamVestingStatus(request: _45.QueryTeamVestingStatusRequest): Promise<_45.QueryTeamVestingStatusResponse>;
+                teamVestingStatusByTime(request: _45.QueryTeamVestingStatusByTimeRequest): Promise<_45.QueryTeamVestingStatusByTimeResponse>;
+            };
+            LCDQueryClient: typeof _213.LCDQueryClient;
+            registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
+            load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
+            MessageComposer: {
+                encoded: {
+                    claimUnlocked(value: _47.MsgClaimUnlocked): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    clawback(value: _47.MsgClawback): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    createTeamVestingAccount(value: _47.MsgCreateTeamVestingAccount): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    claimAuthorityRewards(value: _47.MsgClaimAuthorityRewards): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    claimAccountRewards(value: _47.MsgClaimAccountRewards): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                };
+                withTypeUrl: {
+                    claimUnlocked(value: _47.MsgClaimUnlocked): {
+                        typeUrl: string;
+                        value: _47.MsgClaimUnlocked;
+                    };
+                    clawback(value: _47.MsgClawback): {
+                        typeUrl: string;
+                        value: _47.MsgClawback;
+                    };
+                    createTeamVestingAccount(value: _47.MsgCreateTeamVestingAccount): {
+                        typeUrl: string;
+                        value: _47.MsgCreateTeamVestingAccount;
+                    };
+                    claimAuthorityRewards(value: _47.MsgClaimAuthorityRewards): {
+                        typeUrl: string;
+                        value: _47.MsgClaimAuthorityRewards;
+                    };
+                    claimAccountRewards(value: _47.MsgClaimAccountRewards): {
+                        typeUrl: string;
+                        value: _47.MsgClaimAccountRewards;
                     };
                 };
                 fromJSON: {
                     claimUnlocked(value: any): {
                         typeUrl: string;
-                        value: _40.MsgClaimUnlocked;
+                        value: _47.MsgClaimUnlocked;
                     };
                     clawback(value: any): {
                         typeUrl: string;
-                        value: _40.MsgClawback;
+                        value: _47.MsgClawback;
                     };
                     createTeamVestingAccount(value: any): {
                         typeUrl: string;
-                        value: _40.MsgCreateTeamVestingAccount;
+                        value: _47.MsgCreateTeamVestingAccount;
                     };
                     claimAuthorityRewards(value: any): {
                         typeUrl: string;
-                        value: _40.MsgClaimAuthorityRewards;
+                        value: _47.MsgClaimAuthorityRewards;
                     };
                     claimAccountRewards(value: any): {
                         typeUrl: string;
-                        value: _40.MsgClaimAccountRewards;
+                        value: _47.MsgClaimAccountRewards;
                     };
                 };
                 fromPartial: {
-                    claimUnlocked(value: _40.MsgClaimUnlocked): {
+                    claimUnlocked(value: _47.MsgClaimUnlocked): {
                         typeUrl: string;
-                        value: _40.MsgClaimUnlocked;
+                        value: _47.MsgClaimUnlocked;
                     };
-                    clawback(value: _40.MsgClawback): {
+                    clawback(value: _47.MsgClawback): {
                         typeUrl: string;
-                        value: _40.MsgClawback;
+                        value: _47.MsgClawback;
                     };
-                    createTeamVestingAccount(value: _40.MsgCreateTeamVestingAccount): {
+                    createTeamVestingAccount(value: _47.MsgCreateTeamVestingAccount): {
                         typeUrl: string;
-                        value: _40.MsgCreateTeamVestingAccount;
+                        value: _47.MsgCreateTeamVestingAccount;
                     };
-                    claimAuthorityRewards(value: _40.MsgClaimAuthorityRewards): {
+                    claimAuthorityRewards(value: _47.MsgClaimAuthorityRewards): {
                         typeUrl: string;
-                        value: _40.MsgClaimAuthorityRewards;
+                        value: _47.MsgClaimAuthorityRewards;
                     };
-                    claimAccountRewards(value: _40.MsgClaimAccountRewards): {
+                    claimAccountRewards(value: _47.MsgClaimAccountRewards): {
                         typeUrl: string;
-                        value: _40.MsgClaimAccountRewards;
+                        value: _47.MsgClaimAccountRewards;
                     };
                 };
             };
             AminoConverter: {
                 "/kyve.team.v1beta1.MsgClaimUnlocked": {
                     aminoType: string;
-                    toAmino: (message: _40.MsgClaimUnlocked) => _40.MsgClaimUnlockedAmino;
-                    fromAmino: (object: _40.MsgClaimUnlockedAmino) => _40.MsgClaimUnlocked;
+                    toAmino: (message: _47.MsgClaimUnlocked) => _47.MsgClaimUnlockedAmino;
+                    fromAmino: (object: _47.MsgClaimUnlockedAmino) => _47.MsgClaimUnlocked;
                 };
                 "/kyve.team.v1beta1.MsgClawback": {
                     aminoType: string;
-                    toAmino: (message: _40.MsgClawback) => _40.MsgClawbackAmino;
-                    fromAmino: (object: _40.MsgClawbackAmino) => _40.MsgClawback;
+                    toAmino: (message: _47.MsgClawback) => _47.MsgClawbackAmino;
+                    fromAmino: (object: _47.MsgClawbackAmino) => _47.MsgClawback;
                 };
                 "/kyve.team.v1beta1.MsgCreateTeamVestingAccount": {
                     aminoType: string;
-                    toAmino: (message: _40.MsgCreateTeamVestingAccount) => _40.MsgCreateTeamVestingAccountAmino;
-                    fromAmino: (object: _40.MsgCreateTeamVestingAccountAmino) => _40.MsgCreateTeamVestingAccount;
+                    toAmino: (message: _47.MsgCreateTeamVestingAccount) => _47.MsgCreateTeamVestingAccountAmino;
+                    fromAmino: (object: _47.MsgCreateTeamVestingAccountAmino) => _47.MsgCreateTeamVestingAccount;
                 };
                 "/kyve.team.v1beta1.MsgClaimAuthorityRewards": {
                     aminoType: string;
-                    toAmino: (message: _40.MsgClaimAuthorityRewards) => _40.MsgClaimAuthorityRewardsAmino;
-                    fromAmino: (object: _40.MsgClaimAuthorityRewardsAmino) => _40.MsgClaimAuthorityRewards;
+                    toAmino: (message: _47.MsgClaimAuthorityRewards) => _47.MsgClaimAuthorityRewardsAmino;
+                    fromAmino: (object: _47.MsgClaimAuthorityRewardsAmino) => _47.MsgClaimAuthorityRewards;
                 };
                 "/kyve.team.v1beta1.MsgClaimAccountRewards": {
                     aminoType: string;
-                    toAmino: (message: _40.MsgClaimAccountRewards) => _40.MsgClaimAccountRewardsAmino;
-                    fromAmino: (object: _40.MsgClaimAccountRewardsAmino) => _40.MsgClaimAccountRewards;
+                    toAmino: (message: _47.MsgClaimAccountRewards) => _47.MsgClaimAccountRewardsAmino;
+                    fromAmino: (object: _47.MsgClaimAccountRewardsAmino) => _47.MsgClaimAccountRewards;
                 };
             };
             MsgClaimUnlocked: {
                 typeUrl: string;
-                encode(message: _40.MsgClaimUnlocked, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _40.MsgClaimUnlocked;
-                fromPartial(object: Partial<_40.MsgClaimUnlocked>): _40.MsgClaimUnlocked;
-                fromAmino(object: _40.MsgClaimUnlockedAmino): _40.MsgClaimUnlocked;
-                toAmino(message: _40.MsgClaimUnlocked): _40.MsgClaimUnlockedAmino;
-                fromAminoMsg(object: _40.MsgClaimUnlockedAminoMsg): _40.MsgClaimUnlocked;
-                fromProtoMsg(message: _40.MsgClaimUnlockedProtoMsg): _40.MsgClaimUnlocked;
-                toProto(message: _40.MsgClaimUnlocked): Uint8Array;
-                toProtoMsg(message: _40.MsgClaimUnlocked): _40.MsgClaimUnlockedProtoMsg;
+                encode(message: _47.MsgClaimUnlocked, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _47.MsgClaimUnlocked;
+                fromPartial(object: Partial<_47.MsgClaimUnlocked>): _47.MsgClaimUnlocked;
+                fromAmino(object: _47.MsgClaimUnlockedAmino): _47.MsgClaimUnlocked;
+                toAmino(message: _47.MsgClaimUnlocked): _47.MsgClaimUnlockedAmino;
+                fromAminoMsg(object: _47.MsgClaimUnlockedAminoMsg): _47.MsgClaimUnlocked;
+                fromProtoMsg(message: _47.MsgClaimUnlockedProtoMsg): _47.MsgClaimUnlocked;
+                toProto(message: _47.MsgClaimUnlocked): Uint8Array;
+                toProtoMsg(message: _47.MsgClaimUnlocked): _47.MsgClaimUnlockedProtoMsg;
             };
             MsgClaimUnlockedResponse: {
                 typeUrl: string;
-                encode(_: _40.MsgClaimUnlockedResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _40.MsgClaimUnlockedResponse;
-                fromPartial(_: Partial<_40.MsgClaimUnlockedResponse>): _40.MsgClaimUnlockedResponse;
-                fromAmino(_: _40.MsgClaimUnlockedResponseAmino): _40.MsgClaimUnlockedResponse;
-                toAmino(_: _40.MsgClaimUnlockedResponse): _40.MsgClaimUnlockedResponseAmino;
-                fromAminoMsg(object: _40.MsgClaimUnlockedResponseAminoMsg): _40.MsgClaimUnlockedResponse;
-                fromProtoMsg(message: _40.MsgClaimUnlockedResponseProtoMsg): _40.MsgClaimUnlockedResponse;
-                toProto(message: _40.MsgClaimUnlockedResponse): Uint8Array;
-                toProtoMsg(message: _40.MsgClaimUnlockedResponse): _40.MsgClaimUnlockedResponseProtoMsg;
+                encode(_: _47.MsgClaimUnlockedResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _47.MsgClaimUnlockedResponse;
+                fromPartial(_: Partial<_47.MsgClaimUnlockedResponse>): _47.MsgClaimUnlockedResponse;
+                fromAmino(_: _47.MsgClaimUnlockedResponseAmino): _47.MsgClaimUnlockedResponse;
+                toAmino(_: _47.MsgClaimUnlockedResponse): _47.MsgClaimUnlockedResponseAmino;
+                fromAminoMsg(object: _47.MsgClaimUnlockedResponseAminoMsg): _47.MsgClaimUnlockedResponse;
+                fromProtoMsg(message: _47.MsgClaimUnlockedResponseProtoMsg): _47.MsgClaimUnlockedResponse;
+                toProto(message: _47.MsgClaimUnlockedResponse): Uint8Array;
+                toProtoMsg(message: _47.MsgClaimUnlockedResponse): _47.MsgClaimUnlockedResponseProtoMsg;
             };
             MsgClaimAuthorityRewards: {
                 typeUrl: string;
-                encode(message: _40.MsgClaimAuthorityRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _40.MsgClaimAuthorityRewards;
-                fromPartial(object: Partial<_40.MsgClaimAuthorityRewards>): _40.MsgClaimAuthorityRewards;
-                fromAmino(object: _40.MsgClaimAuthorityRewardsAmino): _40.MsgClaimAuthorityRewards;
-                toAmino(message: _40.MsgClaimAuthorityRewards): _40.MsgClaimAuthorityRewardsAmino;
-                fromAminoMsg(object: _40.MsgClaimAuthorityRewardsAminoMsg): _40.MsgClaimAuthorityRewards;
-                fromProtoMsg(message: _40.MsgClaimAuthorityRewardsProtoMsg): _40.MsgClaimAuthorityRewards;
-                toProto(message: _40.MsgClaimAuthorityRewards): Uint8Array;
-                toProtoMsg(message: _40.MsgClaimAuthorityRewards): _40.MsgClaimAuthorityRewardsProtoMsg;
+                encode(message: _47.MsgClaimAuthorityRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _47.MsgClaimAuthorityRewards;
+                fromPartial(object: Partial<_47.MsgClaimAuthorityRewards>): _47.MsgClaimAuthorityRewards;
+                fromAmino(object: _47.MsgClaimAuthorityRewardsAmino): _47.MsgClaimAuthorityRewards;
+                toAmino(message: _47.MsgClaimAuthorityRewards): _47.MsgClaimAuthorityRewardsAmino;
+                fromAminoMsg(object: _47.MsgClaimAuthorityRewardsAminoMsg): _47.MsgClaimAuthorityRewards;
+                fromProtoMsg(message: _47.MsgClaimAuthorityRewardsProtoMsg): _47.MsgClaimAuthorityRewards;
+                toProto(message: _47.MsgClaimAuthorityRewards): Uint8Array;
+                toProtoMsg(message: _47.MsgClaimAuthorityRewards): _47.MsgClaimAuthorityRewardsProtoMsg;
             };
             MsgClaimAuthorityRewardsResponse: {
                 typeUrl: string;
-                encode(_: _40.MsgClaimAuthorityRewardsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _40.MsgClaimAuthorityRewardsResponse;
-                fromPartial(_: Partial<_40.MsgClaimAuthorityRewardsResponse>): _40.MsgClaimAuthorityRewardsResponse;
-                fromAmino(_: _40.MsgClaimAuthorityRewardsResponseAmino): _40.MsgClaimAuthorityRewardsResponse;
-                toAmino(_: _40.MsgClaimAuthorityRewardsResponse): _40.MsgClaimAuthorityRewardsResponseAmino;
-                fromAminoMsg(object: _40.MsgClaimAuthorityRewardsResponseAminoMsg): _40.MsgClaimAuthorityRewardsResponse;
-                fromProtoMsg(message: _40.MsgClaimAuthorityRewardsResponseProtoMsg): _40.MsgClaimAuthorityRewardsResponse;
-                toProto(message: _40.MsgClaimAuthorityRewardsResponse): Uint8Array;
-                toProtoMsg(message: _40.MsgClaimAuthorityRewardsResponse): _40.MsgClaimAuthorityRewardsResponseProtoMsg;
+                encode(_: _47.MsgClaimAuthorityRewardsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _47.MsgClaimAuthorityRewardsResponse;
+                fromPartial(_: Partial<_47.MsgClaimAuthorityRewardsResponse>): _47.MsgClaimAuthorityRewardsResponse;
+                fromAmino(_: _47.MsgClaimAuthorityRewardsResponseAmino): _47.MsgClaimAuthorityRewardsResponse;
+                toAmino(_: _47.MsgClaimAuthorityRewardsResponse): _47.MsgClaimAuthorityRewardsResponseAmino;
+                fromAminoMsg(object: _47.MsgClaimAuthorityRewardsResponseAminoMsg): _47.MsgClaimAuthorityRewardsResponse;
+                fromProtoMsg(message: _47.MsgClaimAuthorityRewardsResponseProtoMsg): _47.MsgClaimAuthorityRewardsResponse;
+                toProto(message: _47.MsgClaimAuthorityRewardsResponse): Uint8Array;
+                toProtoMsg(message: _47.MsgClaimAuthorityRewardsResponse): _47.MsgClaimAuthorityRewardsResponseProtoMsg;
             };
             MsgClaimAccountRewards: {
                 typeUrl: string;
-                encode(message: _40.MsgClaimAccountRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _40.MsgClaimAccountRewards;
-                fromPartial(object: Partial<_40.MsgClaimAccountRewards>): _40.MsgClaimAccountRewards;
-                fromAmino(object: _40.MsgClaimAccountRewardsAmino): _40.MsgClaimAccountRewards;
-                toAmino(message: _40.MsgClaimAccountRewards): _40.MsgClaimAccountRewardsAmino;
-                fromAminoMsg(object: _40.MsgClaimAccountRewardsAminoMsg): _40.MsgClaimAccountRewards;
-                fromProtoMsg(message: _40.MsgClaimAccountRewardsProtoMsg): _40.MsgClaimAccountRewards;
-                toProto(message: _40.MsgClaimAccountRewards): Uint8Array;
-                toProtoMsg(message: _40.MsgClaimAccountRewards): _40.MsgClaimAccountRewardsProtoMsg;
+                encode(message: _47.MsgClaimAccountRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _47.MsgClaimAccountRewards;
+                fromPartial(object: Partial<_47.MsgClaimAccountRewards>): _47.MsgClaimAccountRewards;
+                fromAmino(object: _47.MsgClaimAccountRewardsAmino): _47.MsgClaimAccountRewards;
+                toAmino(message: _47.MsgClaimAccountRewards): _47.MsgClaimAccountRewardsAmino;
+                fromAminoMsg(object: _47.MsgClaimAccountRewardsAminoMsg): _47.MsgClaimAccountRewards;
+                fromProtoMsg(message: _47.MsgClaimAccountRewardsProtoMsg): _47.MsgClaimAccountRewards;
+                toProto(message: _47.MsgClaimAccountRewards): Uint8Array;
+                toProtoMsg(message: _47.MsgClaimAccountRewards): _47.MsgClaimAccountRewardsProtoMsg;
             };
             MsgClaimAccountRewardsResponse: {
                 typeUrl: string;
-                encode(_: _40.MsgClaimAccountRewardsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _40.MsgClaimAccountRewardsResponse;
-                fromPartial(_: Partial<_40.MsgClaimAccountRewardsResponse>): _40.MsgClaimAccountRewardsResponse;
-                fromAmino(_: _40.MsgClaimAccountRewardsResponseAmino): _40.MsgClaimAccountRewardsResponse;
-                toAmino(_: _40.MsgClaimAccountRewardsResponse): _40.MsgClaimAccountRewardsResponseAmino;
-                fromAminoMsg(object: _40.MsgClaimAccountRewardsResponseAminoMsg): _40.MsgClaimAccountRewardsResponse;
-                fromProtoMsg(message: _40.MsgClaimAccountRewardsResponseProtoMsg): _40.MsgClaimAccountRewardsResponse;
-                toProto(message: _40.MsgClaimAccountRewardsResponse): Uint8Array;
-                toProtoMsg(message: _40.MsgClaimAccountRewardsResponse): _40.MsgClaimAccountRewardsResponseProtoMsg;
+                encode(_: _47.MsgClaimAccountRewardsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _47.MsgClaimAccountRewardsResponse;
+                fromPartial(_: Partial<_47.MsgClaimAccountRewardsResponse>): _47.MsgClaimAccountRewardsResponse;
+                fromAmino(_: _47.MsgClaimAccountRewardsResponseAmino): _47.MsgClaimAccountRewardsResponse;
+                toAmino(_: _47.MsgClaimAccountRewardsResponse): _47.MsgClaimAccountRewardsResponseAmino;
+                fromAminoMsg(object: _47.MsgClaimAccountRewardsResponseAminoMsg): _47.MsgClaimAccountRewardsResponse;
+                fromProtoMsg(message: _47.MsgClaimAccountRewardsResponseProtoMsg): _47.MsgClaimAccountRewardsResponse;
+                toProto(message: _47.MsgClaimAccountRewardsResponse): Uint8Array;
+                toProtoMsg(message: _47.MsgClaimAccountRewardsResponse): _47.MsgClaimAccountRewardsResponseProtoMsg;
             };
             MsgClawback: {
                 typeUrl: string;
-                encode(message: _40.MsgClawback, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _40.MsgClawback;
-                fromPartial(object: Partial<_40.MsgClawback>): _40.MsgClawback;
-                fromAmino(object: _40.MsgClawbackAmino): _40.MsgClawback;
-                toAmino(message: _40.MsgClawback): _40.MsgClawbackAmino;
-                fromAminoMsg(object: _40.MsgClawbackAminoMsg): _40.MsgClawback;
-                fromProtoMsg(message: _40.MsgClawbackProtoMsg): _40.MsgClawback;
-                toProto(message: _40.MsgClawback): Uint8Array;
-                toProtoMsg(message: _40.MsgClawback): _40.MsgClawbackProtoMsg;
+                encode(message: _47.MsgClawback, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _47.MsgClawback;
+                fromPartial(object: Partial<_47.MsgClawback>): _47.MsgClawback;
+                fromAmino(object: _47.MsgClawbackAmino): _47.MsgClawback;
+                toAmino(message: _47.MsgClawback): _47.MsgClawbackAmino;
+                fromAminoMsg(object: _47.MsgClawbackAminoMsg): _47.MsgClawback;
+                fromProtoMsg(message: _47.MsgClawbackProtoMsg): _47.MsgClawback;
+                toProto(message: _47.MsgClawback): Uint8Array;
+                toProtoMsg(message: _47.MsgClawback): _47.MsgClawbackProtoMsg;
             };
             MsgClawbackResponse: {
                 typeUrl: string;
-                encode(_: _40.MsgClawbackResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _40.MsgClawbackResponse;
-                fromPartial(_: Partial<_40.MsgClawbackResponse>): _40.MsgClawbackResponse;
-                fromAmino(_: _40.MsgClawbackResponseAmino): _40.MsgClawbackResponse;
-                toAmino(_: _40.MsgClawbackResponse): _40.MsgClawbackResponseAmino;
-                fromAminoMsg(object: _40.MsgClawbackResponseAminoMsg): _40.MsgClawbackResponse;
-                fromProtoMsg(message: _40.MsgClawbackResponseProtoMsg): _40.MsgClawbackResponse;
-                toProto(message: _40.MsgClawbackResponse): Uint8Array;
-                toProtoMsg(message: _40.MsgClawbackResponse): _40.MsgClawbackResponseProtoMsg;
+                encode(_: _47.MsgClawbackResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _47.MsgClawbackResponse;
+                fromPartial(_: Partial<_47.MsgClawbackResponse>): _47.MsgClawbackResponse;
+                fromAmino(_: _47.MsgClawbackResponseAmino): _47.MsgClawbackResponse;
+                toAmino(_: _47.MsgClawbackResponse): _47.MsgClawbackResponseAmino;
+                fromAminoMsg(object: _47.MsgClawbackResponseAminoMsg): _47.MsgClawbackResponse;
+                fromProtoMsg(message: _47.MsgClawbackResponseProtoMsg): _47.MsgClawbackResponse;
+                toProto(message: _47.MsgClawbackResponse): Uint8Array;
+                toProtoMsg(message: _47.MsgClawbackResponse): _47.MsgClawbackResponseProtoMsg;
             };
             MsgCreateTeamVestingAccount: {
                 typeUrl: string;
-                encode(message: _40.MsgCreateTeamVestingAccount, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _40.MsgCreateTeamVestingAccount;
-                fromPartial(object: Partial<_40.MsgCreateTeamVestingAccount>): _40.MsgCreateTeamVestingAccount;
-                fromAmino(object: _40.MsgCreateTeamVestingAccountAmino): _40.MsgCreateTeamVestingAccount;
-                toAmino(message: _40.MsgCreateTeamVestingAccount): _40.MsgCreateTeamVestingAccountAmino;
-                fromAminoMsg(object: _40.MsgCreateTeamVestingAccountAminoMsg): _40.MsgCreateTeamVestingAccount;
-                fromProtoMsg(message: _40.MsgCreateTeamVestingAccountProtoMsg): _40.MsgCreateTeamVestingAccount;
-                toProto(message: _40.MsgCreateTeamVestingAccount): Uint8Array;
-                toProtoMsg(message: _40.MsgCreateTeamVestingAccount): _40.MsgCreateTeamVestingAccountProtoMsg;
+                encode(message: _47.MsgCreateTeamVestingAccount, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _47.MsgCreateTeamVestingAccount;
+                fromPartial(object: Partial<_47.MsgCreateTeamVestingAccount>): _47.MsgCreateTeamVestingAccount;
+                fromAmino(object: _47.MsgCreateTeamVestingAccountAmino): _47.MsgCreateTeamVestingAccount;
+                toAmino(message: _47.MsgCreateTeamVestingAccount): _47.MsgCreateTeamVestingAccountAmino;
+                fromAminoMsg(object: _47.MsgCreateTeamVestingAccountAminoMsg): _47.MsgCreateTeamVestingAccount;
+                fromProtoMsg(message: _47.MsgCreateTeamVestingAccountProtoMsg): _47.MsgCreateTeamVestingAccount;
+                toProto(message: _47.MsgCreateTeamVestingAccount): Uint8Array;
+                toProtoMsg(message: _47.MsgCreateTeamVestingAccount): _47.MsgCreateTeamVestingAccountProtoMsg;
             };
             MsgCreateTeamVestingAccountResponse: {
                 typeUrl: string;
-                encode(_: _40.MsgCreateTeamVestingAccountResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _40.MsgCreateTeamVestingAccountResponse;
-                fromPartial(_: Partial<_40.MsgCreateTeamVestingAccountResponse>): _40.MsgCreateTeamVestingAccountResponse;
-                fromAmino(_: _40.MsgCreateTeamVestingAccountResponseAmino): _40.MsgCreateTeamVestingAccountResponse;
-                toAmino(_: _40.MsgCreateTeamVestingAccountResponse): _40.MsgCreateTeamVestingAccountResponseAmino;
-                fromAminoMsg(object: _40.MsgCreateTeamVestingAccountResponseAminoMsg): _40.MsgCreateTeamVestingAccountResponse;
-                fromProtoMsg(message: _40.MsgCreateTeamVestingAccountResponseProtoMsg): _40.MsgCreateTeamVestingAccountResponse;
-                toProto(message: _40.MsgCreateTeamVestingAccountResponse): Uint8Array;
-                toProtoMsg(message: _40.MsgCreateTeamVestingAccountResponse): _40.MsgCreateTeamVestingAccountResponseProtoMsg;
+                encode(_: _47.MsgCreateTeamVestingAccountResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _47.MsgCreateTeamVestingAccountResponse;
+                fromPartial(_: Partial<_47.MsgCreateTeamVestingAccountResponse>): _47.MsgCreateTeamVestingAccountResponse;
+                fromAmino(_: _47.MsgCreateTeamVestingAccountResponseAmino): _47.MsgCreateTeamVestingAccountResponse;
+                toAmino(_: _47.MsgCreateTeamVestingAccountResponse): _47.MsgCreateTeamVestingAccountResponseAmino;
+                fromAminoMsg(object: _47.MsgCreateTeamVestingAccountResponseAminoMsg): _47.MsgCreateTeamVestingAccountResponse;
+                fromProtoMsg(message: _47.MsgCreateTeamVestingAccountResponseProtoMsg): _47.MsgCreateTeamVestingAccountResponse;
+                toProto(message: _47.MsgCreateTeamVestingAccountResponse): Uint8Array;
+                toProtoMsg(message: _47.MsgCreateTeamVestingAccountResponse): _47.MsgCreateTeamVestingAccountResponseProtoMsg;
             };
             Authority: {
                 typeUrl: string;
-                encode(message: _39.Authority, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _39.Authority;
-                fromPartial(object: Partial<_39.Authority>): _39.Authority;
-                fromAmino(object: _39.AuthorityAmino): _39.Authority;
-                toAmino(message: _39.Authority): _39.AuthorityAmino;
-                fromAminoMsg(object: _39.AuthorityAminoMsg): _39.Authority;
-                fromProtoMsg(message: _39.AuthorityProtoMsg): _39.Authority;
-                toProto(message: _39.Authority): Uint8Array;
-                toProtoMsg(message: _39.Authority): _39.AuthorityProtoMsg;
+                encode(message: _46.Authority, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _46.Authority;
+                fromPartial(object: Partial<_46.Authority>): _46.Authority;
+                fromAmino(object: _46.AuthorityAmino): _46.Authority;
+                toAmino(message: _46.Authority): _46.AuthorityAmino;
+                fromAminoMsg(object: _46.AuthorityAminoMsg): _46.Authority;
+                fromProtoMsg(message: _46.AuthorityProtoMsg): _46.Authority;
+                toProto(message: _46.Authority): Uint8Array;
+                toProtoMsg(message: _46.Authority): _46.AuthorityProtoMsg;
             };
             TeamVestingAccount: {
                 typeUrl: string;
-                encode(message: _39.TeamVestingAccount, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _39.TeamVestingAccount;
-                fromPartial(object: Partial<_39.TeamVestingAccount>): _39.TeamVestingAccount;
-                fromAmino(object: _39.TeamVestingAccountAmino): _39.TeamVestingAccount;
-                toAmino(message: _39.TeamVestingAccount): _39.TeamVestingAccountAmino;
-                fromAminoMsg(object: _39.TeamVestingAccountAminoMsg): _39.TeamVestingAccount;
-                fromProtoMsg(message: _39.TeamVestingAccountProtoMsg): _39.TeamVestingAccount;
-                toProto(message: _39.TeamVestingAccount): Uint8Array;
-                toProtoMsg(message: _39.TeamVestingAccount): _39.TeamVestingAccountProtoMsg;
+                encode(message: _46.TeamVestingAccount, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _46.TeamVestingAccount;
+                fromPartial(object: Partial<_46.TeamVestingAccount>): _46.TeamVestingAccount;
+                fromAmino(object: _46.TeamVestingAccountAmino): _46.TeamVestingAccount;
+                toAmino(message: _46.TeamVestingAccount): _46.TeamVestingAccountAmino;
+                fromAminoMsg(object: _46.TeamVestingAccountAminoMsg): _46.TeamVestingAccount;
+                fromProtoMsg(message: _46.TeamVestingAccountProtoMsg): _46.TeamVestingAccount;
+                toProto(message: _46.TeamVestingAccount): Uint8Array;
+                toProtoMsg(message: _46.TeamVestingAccount): _46.TeamVestingAccountProtoMsg;
             };
             QueryTeamInfoRequest: {
                 typeUrl: string;
-                encode(_: _38.QueryTeamInfoRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _38.QueryTeamInfoRequest;
-                fromPartial(_: Partial<_38.QueryTeamInfoRequest>): _38.QueryTeamInfoRequest;
-                fromAmino(_: _38.QueryTeamInfoRequestAmino): _38.QueryTeamInfoRequest;
-                toAmino(_: _38.QueryTeamInfoRequest): _38.QueryTeamInfoRequestAmino;
-                fromAminoMsg(object: _38.QueryTeamInfoRequestAminoMsg): _38.QueryTeamInfoRequest;
-                fromProtoMsg(message: _38.QueryTeamInfoRequestProtoMsg): _38.QueryTeamInfoRequest;
-                toProto(message: _38.QueryTeamInfoRequest): Uint8Array;
-                toProtoMsg(message: _38.QueryTeamInfoRequest): _38.QueryTeamInfoRequestProtoMsg;
+                encode(_: _45.QueryTeamInfoRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _45.QueryTeamInfoRequest;
+                fromPartial(_: Partial<_45.QueryTeamInfoRequest>): _45.QueryTeamInfoRequest;
+                fromAmino(_: _45.QueryTeamInfoRequestAmino): _45.QueryTeamInfoRequest;
+                toAmino(_: _45.QueryTeamInfoRequest): _45.QueryTeamInfoRequestAmino;
+                fromAminoMsg(object: _45.QueryTeamInfoRequestAminoMsg): _45.QueryTeamInfoRequest;
+                fromProtoMsg(message: _45.QueryTeamInfoRequestProtoMsg): _45.QueryTeamInfoRequest;
+                toProto(message: _45.QueryTeamInfoRequest): Uint8Array;
+                toProtoMsg(message: _45.QueryTeamInfoRequest): _45.QueryTeamInfoRequestProtoMsg;
             };
             QueryTeamInfoResponse: {
                 typeUrl: string;
-                encode(message: _38.QueryTeamInfoResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _38.QueryTeamInfoResponse;
-                fromPartial(object: Partial<_38.QueryTeamInfoResponse>): _38.QueryTeamInfoResponse;
-                fromAmino(object: _38.QueryTeamInfoResponseAmino): _38.QueryTeamInfoResponse;
-                toAmino(message: _38.QueryTeamInfoResponse): _38.QueryTeamInfoResponseAmino;
-                fromAminoMsg(object: _38.QueryTeamInfoResponseAminoMsg): _38.QueryTeamInfoResponse;
-                fromProtoMsg(message: _38.QueryTeamInfoResponseProtoMsg): _38.QueryTeamInfoResponse;
-                toProto(message: _38.QueryTeamInfoResponse): Uint8Array;
-                toProtoMsg(message: _38.QueryTeamInfoResponse): _38.QueryTeamInfoResponseProtoMsg;
+                encode(message: _45.QueryTeamInfoResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _45.QueryTeamInfoResponse;
+                fromPartial(object: Partial<_45.QueryTeamInfoResponse>): _45.QueryTeamInfoResponse;
+                fromAmino(object: _45.QueryTeamInfoResponseAmino): _45.QueryTeamInfoResponse;
+                toAmino(message: _45.QueryTeamInfoResponse): _45.QueryTeamInfoResponseAmino;
+                fromAminoMsg(object: _45.QueryTeamInfoResponseAminoMsg): _45.QueryTeamInfoResponse;
+                fromProtoMsg(message: _45.QueryTeamInfoResponseProtoMsg): _45.QueryTeamInfoResponse;
+                toProto(message: _45.QueryTeamInfoResponse): Uint8Array;
+                toProtoMsg(message: _45.QueryTeamInfoResponse): _45.QueryTeamInfoResponseProtoMsg;
             };
             QueryTeamVestingAccountsRequest: {
                 typeUrl: string;
-                encode(_: _38.QueryTeamVestingAccountsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(_: any): _38.QueryTeamVestingAccountsRequest;
-                fromPartial(_: Partial<_38.QueryTeamVestingAccountsRequest>): _38.QueryTeamVestingAccountsRequest;
-                fromAmino(_: _38.QueryTeamVestingAccountsRequestAmino): _38.QueryTeamVestingAccountsRequest;
-                toAmino(_: _38.QueryTeamVestingAccountsRequest): _38.QueryTeamVestingAccountsRequestAmino;
-                fromAminoMsg(object: _38.QueryTeamVestingAccountsRequestAminoMsg): _38.QueryTeamVestingAccountsRequest;
-                fromProtoMsg(message: _38.QueryTeamVestingAccountsRequestProtoMsg): _38.QueryTeamVestingAccountsRequest;
-                toProto(message: _38.QueryTeamVestingAccountsRequest): Uint8Array;
-                toProtoMsg(message: _38.QueryTeamVestingAccountsRequest): _38.QueryTeamVestingAccountsRequestProtoMsg;
+                encode(_: _45.QueryTeamVestingAccountsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _45.QueryTeamVestingAccountsRequest;
+                fromPartial(_: Partial<_45.QueryTeamVestingAccountsRequest>): _45.QueryTeamVestingAccountsRequest;
+                fromAmino(_: _45.QueryTeamVestingAccountsRequestAmino): _45.QueryTeamVestingAccountsRequest;
+                toAmino(_: _45.QueryTeamVestingAccountsRequest): _45.QueryTeamVestingAccountsRequestAmino;
+                fromAminoMsg(object: _45.QueryTeamVestingAccountsRequestAminoMsg): _45.QueryTeamVestingAccountsRequest;
+                fromProtoMsg(message: _45.QueryTeamVestingAccountsRequestProtoMsg): _45.QueryTeamVestingAccountsRequest;
+                toProto(message: _45.QueryTeamVestingAccountsRequest): Uint8Array;
+                toProtoMsg(message: _45.QueryTeamVestingAccountsRequest): _45.QueryTeamVestingAccountsRequestProtoMsg;
             };
             QueryTeamVestingAccountsResponse: {
                 typeUrl: string;
-                encode(message: _38.QueryTeamVestingAccountsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _38.QueryTeamVestingAccountsResponse;
-                fromPartial(object: Partial<_38.QueryTeamVestingAccountsResponse>): _38.QueryTeamVestingAccountsResponse;
-                fromAmino(object: _38.QueryTeamVestingAccountsResponseAmino): _38.QueryTeamVestingAccountsResponse;
-                toAmino(message: _38.QueryTeamVestingAccountsResponse): _38.QueryTeamVestingAccountsResponseAmino;
-                fromAminoMsg(object: _38.QueryTeamVestingAccountsResponseAminoMsg): _38.QueryTeamVestingAccountsResponse;
-                fromProtoMsg(message: _38.QueryTeamVestingAccountsResponseProtoMsg): _38.QueryTeamVestingAccountsResponse;
-                toProto(message: _38.QueryTeamVestingAccountsResponse): Uint8Array;
-                toProtoMsg(message: _38.QueryTeamVestingAccountsResponse): _38.QueryTeamVestingAccountsResponseProtoMsg;
+                encode(message: _45.QueryTeamVestingAccountsResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _45.QueryTeamVestingAccountsResponse;
+                fromPartial(object: Partial<_45.QueryTeamVestingAccountsResponse>): _45.QueryTeamVestingAccountsResponse;
+                fromAmino(object: _45.QueryTeamVestingAccountsResponseAmino): _45.QueryTeamVestingAccountsResponse;
+                toAmino(message: _45.QueryTeamVestingAccountsResponse): _45.QueryTeamVestingAccountsResponseAmino;
+                fromAminoMsg(object: _45.QueryTeamVestingAccountsResponseAminoMsg): _45.QueryTeamVestingAccountsResponse;
+                fromProtoMsg(message: _45.QueryTeamVestingAccountsResponseProtoMsg): _45.QueryTeamVestingAccountsResponse;
+                toProto(message: _45.QueryTeamVestingAccountsResponse): Uint8Array;
+                toProtoMsg(message: _45.QueryTeamVestingAccountsResponse): _45.QueryTeamVestingAccountsResponseProtoMsg;
             };
             QueryTeamVestingAccountRequest: {
                 typeUrl: string;
-                encode(message: _38.QueryTeamVestingAccountRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _38.QueryTeamVestingAccountRequest;
-                fromPartial(object: Partial<_38.QueryTeamVestingAccountRequest>): _38.QueryTeamVestingAccountRequest;
-                fromAmino(object: _38.QueryTeamVestingAccountRequestAmino): _38.QueryTeamVestingAccountRequest;
-                toAmino(message: _38.QueryTeamVestingAccountRequest): _38.QueryTeamVestingAccountRequestAmino;
-                fromAminoMsg(object: _38.QueryTeamVestingAccountRequestAminoMsg): _38.QueryTeamVestingAccountRequest;
-                fromProtoMsg(message: _38.QueryTeamVestingAccountRequestProtoMsg): _38.QueryTeamVestingAccountRequest;
-                toProto(message: _38.QueryTeamVestingAccountRequest): Uint8Array;
-                toProtoMsg(message: _38.QueryTeamVestingAccountRequest): _38.QueryTeamVestingAccountRequestProtoMsg;
+                encode(message: _45.QueryTeamVestingAccountRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _45.QueryTeamVestingAccountRequest;
+                fromPartial(object: Partial<_45.QueryTeamVestingAccountRequest>): _45.QueryTeamVestingAccountRequest;
+                fromAmino(object: _45.QueryTeamVestingAccountRequestAmino): _45.QueryTeamVestingAccountRequest;
+                toAmino(message: _45.QueryTeamVestingAccountRequest): _45.QueryTeamVestingAccountRequestAmino;
+                fromAminoMsg(object: _45.QueryTeamVestingAccountRequestAminoMsg): _45.QueryTeamVestingAccountRequest;
+                fromProtoMsg(message: _45.QueryTeamVestingAccountRequestProtoMsg): _45.QueryTeamVestingAccountRequest;
+                toProto(message: _45.QueryTeamVestingAccountRequest): Uint8Array;
+                toProtoMsg(message: _45.QueryTeamVestingAccountRequest): _45.QueryTeamVestingAccountRequestProtoMsg;
             };
             QueryTeamVestingAccountResponse: {
                 typeUrl: string;
-                encode(message: _38.QueryTeamVestingAccountResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _38.QueryTeamVestingAccountResponse;
-                fromPartial(object: Partial<_38.QueryTeamVestingAccountResponse>): _38.QueryTeamVestingAccountResponse;
-                fromAmino(object: _38.QueryTeamVestingAccountResponseAmino): _38.QueryTeamVestingAccountResponse;
-                toAmino(message: _38.QueryTeamVestingAccountResponse): _38.QueryTeamVestingAccountResponseAmino;
-                fromAminoMsg(object: _38.QueryTeamVestingAccountResponseAminoMsg): _38.QueryTeamVestingAccountResponse;
-                fromProtoMsg(message: _38.QueryTeamVestingAccountResponseProtoMsg): _38.QueryTeamVestingAccountResponse;
-                toProto(message: _38.QueryTeamVestingAccountResponse): Uint8Array;
-                toProtoMsg(message: _38.QueryTeamVestingAccountResponse): _38.QueryTeamVestingAccountResponseProtoMsg;
+                encode(message: _45.QueryTeamVestingAccountResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _45.QueryTeamVestingAccountResponse;
+                fromPartial(object: Partial<_45.QueryTeamVestingAccountResponse>): _45.QueryTeamVestingAccountResponse;
+                fromAmino(object: _45.QueryTeamVestingAccountResponseAmino): _45.QueryTeamVestingAccountResponse;
+                toAmino(message: _45.QueryTeamVestingAccountResponse): _45.QueryTeamVestingAccountResponseAmino;
+                fromAminoMsg(object: _45.QueryTeamVestingAccountResponseAminoMsg): _45.QueryTeamVestingAccountResponse;
+                fromProtoMsg(message: _45.QueryTeamVestingAccountResponseProtoMsg): _45.QueryTeamVestingAccountResponse;
+                toProto(message: _45.QueryTeamVestingAccountResponse): Uint8Array;
+                toProtoMsg(message: _45.QueryTeamVestingAccountResponse): _45.QueryTeamVestingAccountResponseProtoMsg;
             };
             QueryTeamVestingStatusRequest: {
                 typeUrl: string;
-                encode(message: _38.QueryTeamVestingStatusRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _38.QueryTeamVestingStatusRequest;
-                fromPartial(object: Partial<_38.QueryTeamVestingStatusRequest>): _38.QueryTeamVestingStatusRequest;
-                fromAmino(object: _38.QueryTeamVestingStatusRequestAmino): _38.QueryTeamVestingStatusRequest;
-                toAmino(message: _38.QueryTeamVestingStatusRequest): _38.QueryTeamVestingStatusRequestAmino;
-                fromAminoMsg(object: _38.QueryTeamVestingStatusRequestAminoMsg): _38.QueryTeamVestingStatusRequest;
-                fromProtoMsg(message: _38.QueryTeamVestingStatusRequestProtoMsg): _38.QueryTeamVestingStatusRequest;
-                toProto(message: _38.QueryTeamVestingStatusRequest): Uint8Array;
-                toProtoMsg(message: _38.QueryTeamVestingStatusRequest): _38.QueryTeamVestingStatusRequestProtoMsg;
+                encode(message: _45.QueryTeamVestingStatusRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _45.QueryTeamVestingStatusRequest;
+                fromPartial(object: Partial<_45.QueryTeamVestingStatusRequest>): _45.QueryTeamVestingStatusRequest;
+                fromAmino(object: _45.QueryTeamVestingStatusRequestAmino): _45.QueryTeamVestingStatusRequest;
+                toAmino(message: _45.QueryTeamVestingStatusRequest): _45.QueryTeamVestingStatusRequestAmino;
+                fromAminoMsg(object: _45.QueryTeamVestingStatusRequestAminoMsg): _45.QueryTeamVestingStatusRequest;
+                fromProtoMsg(message: _45.QueryTeamVestingStatusRequestProtoMsg): _45.QueryTeamVestingStatusRequest;
+                toProto(message: _45.QueryTeamVestingStatusRequest): Uint8Array;
+                toProtoMsg(message: _45.QueryTeamVestingStatusRequest): _45.QueryTeamVestingStatusRequestProtoMsg;
             };
             QueryTeamVestingStatusResponse: {
                 typeUrl: string;
-                encode(message: _38.QueryTeamVestingStatusResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _38.QueryTeamVestingStatusResponse;
-                fromPartial(object: Partial<_38.QueryTeamVestingStatusResponse>): _38.QueryTeamVestingStatusResponse;
-                fromAmino(object: _38.QueryTeamVestingStatusResponseAmino): _38.QueryTeamVestingStatusResponse;
-                toAmino(message: _38.QueryTeamVestingStatusResponse): _38.QueryTeamVestingStatusResponseAmino;
-                fromAminoMsg(object: _38.QueryTeamVestingStatusResponseAminoMsg): _38.QueryTeamVestingStatusResponse;
-                fromProtoMsg(message: _38.QueryTeamVestingStatusResponseProtoMsg): _38.QueryTeamVestingStatusResponse;
-                toProto(message: _38.QueryTeamVestingStatusResponse): Uint8Array;
-                toProtoMsg(message: _38.QueryTeamVestingStatusResponse): _38.QueryTeamVestingStatusResponseProtoMsg;
+                encode(message: _45.QueryTeamVestingStatusResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _45.QueryTeamVestingStatusResponse;
+                fromPartial(object: Partial<_45.QueryTeamVestingStatusResponse>): _45.QueryTeamVestingStatusResponse;
+                fromAmino(object: _45.QueryTeamVestingStatusResponseAmino): _45.QueryTeamVestingStatusResponse;
+                toAmino(message: _45.QueryTeamVestingStatusResponse): _45.QueryTeamVestingStatusResponseAmino;
+                fromAminoMsg(object: _45.QueryTeamVestingStatusResponseAminoMsg): _45.QueryTeamVestingStatusResponse;
+                fromProtoMsg(message: _45.QueryTeamVestingStatusResponseProtoMsg): _45.QueryTeamVestingStatusResponse;
+                toProto(message: _45.QueryTeamVestingStatusResponse): Uint8Array;
+                toProtoMsg(message: _45.QueryTeamVestingStatusResponse): _45.QueryTeamVestingStatusResponseProtoMsg;
             };
             QueryTeamVestingStatusByTimeRequest: {
                 typeUrl: string;
-                encode(message: _38.QueryTeamVestingStatusByTimeRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _38.QueryTeamVestingStatusByTimeRequest;
-                fromPartial(object: Partial<_38.QueryTeamVestingStatusByTimeRequest>): _38.QueryTeamVestingStatusByTimeRequest;
-                fromAmino(object: _38.QueryTeamVestingStatusByTimeRequestAmino): _38.QueryTeamVestingStatusByTimeRequest;
-                toAmino(message: _38.QueryTeamVestingStatusByTimeRequest): _38.QueryTeamVestingStatusByTimeRequestAmino;
-                fromAminoMsg(object: _38.QueryTeamVestingStatusByTimeRequestAminoMsg): _38.QueryTeamVestingStatusByTimeRequest;
-                fromProtoMsg(message: _38.QueryTeamVestingStatusByTimeRequestProtoMsg): _38.QueryTeamVestingStatusByTimeRequest;
-                toProto(message: _38.QueryTeamVestingStatusByTimeRequest): Uint8Array;
-                toProtoMsg(message: _38.QueryTeamVestingStatusByTimeRequest): _38.QueryTeamVestingStatusByTimeRequestProtoMsg;
+                encode(message: _45.QueryTeamVestingStatusByTimeRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _45.QueryTeamVestingStatusByTimeRequest;
+                fromPartial(object: Partial<_45.QueryTeamVestingStatusByTimeRequest>): _45.QueryTeamVestingStatusByTimeRequest;
+                fromAmino(object: _45.QueryTeamVestingStatusByTimeRequestAmino): _45.QueryTeamVestingStatusByTimeRequest;
+                toAmino(message: _45.QueryTeamVestingStatusByTimeRequest): _45.QueryTeamVestingStatusByTimeRequestAmino;
+                fromAminoMsg(object: _45.QueryTeamVestingStatusByTimeRequestAminoMsg): _45.QueryTeamVestingStatusByTimeRequest;
+                fromProtoMsg(message: _45.QueryTeamVestingStatusByTimeRequestProtoMsg): _45.QueryTeamVestingStatusByTimeRequest;
+                toProto(message: _45.QueryTeamVestingStatusByTimeRequest): Uint8Array;
+                toProtoMsg(message: _45.QueryTeamVestingStatusByTimeRequest): _45.QueryTeamVestingStatusByTimeRequestProtoMsg;
             };
             QueryTeamVestingStatusByTimeResponse: {
                 typeUrl: string;
-                encode(message: _38.QueryTeamVestingStatusByTimeResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _38.QueryTeamVestingStatusByTimeResponse;
-                fromPartial(object: Partial<_38.QueryTeamVestingStatusByTimeResponse>): _38.QueryTeamVestingStatusByTimeResponse;
-                fromAmino(object: _38.QueryTeamVestingStatusByTimeResponseAmino): _38.QueryTeamVestingStatusByTimeResponse;
-                toAmino(message: _38.QueryTeamVestingStatusByTimeResponse): _38.QueryTeamVestingStatusByTimeResponseAmino;
-                fromAminoMsg(object: _38.QueryTeamVestingStatusByTimeResponseAminoMsg): _38.QueryTeamVestingStatusByTimeResponse;
-                fromProtoMsg(message: _38.QueryTeamVestingStatusByTimeResponseProtoMsg): _38.QueryTeamVestingStatusByTimeResponse;
-                toProto(message: _38.QueryTeamVestingStatusByTimeResponse): Uint8Array;
-                toProtoMsg(message: _38.QueryTeamVestingStatusByTimeResponse): _38.QueryTeamVestingStatusByTimeResponseProtoMsg;
+                encode(message: _45.QueryTeamVestingStatusByTimeResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _45.QueryTeamVestingStatusByTimeResponse;
+                fromPartial(object: Partial<_45.QueryTeamVestingStatusByTimeResponse>): _45.QueryTeamVestingStatusByTimeResponse;
+                fromAmino(object: _45.QueryTeamVestingStatusByTimeResponseAmino): _45.QueryTeamVestingStatusByTimeResponse;
+                toAmino(message: _45.QueryTeamVestingStatusByTimeResponse): _45.QueryTeamVestingStatusByTimeResponseAmino;
+                fromAminoMsg(object: _45.QueryTeamVestingStatusByTimeResponseAminoMsg): _45.QueryTeamVestingStatusByTimeResponse;
+                fromProtoMsg(message: _45.QueryTeamVestingStatusByTimeResponseProtoMsg): _45.QueryTeamVestingStatusByTimeResponse;
+                toProto(message: _45.QueryTeamVestingStatusByTimeResponse): Uint8Array;
+                toProtoMsg(message: _45.QueryTeamVestingStatusByTimeResponse): _45.QueryTeamVestingStatusByTimeResponseProtoMsg;
             };
             QueryVestingStatus: {
                 typeUrl: string;
-                encode(message: _38.QueryVestingStatus, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _38.QueryVestingStatus;
-                fromPartial(object: Partial<_38.QueryVestingStatus>): _38.QueryVestingStatus;
-                fromAmino(object: _38.QueryVestingStatusAmino): _38.QueryVestingStatus;
-                toAmino(message: _38.QueryVestingStatus): _38.QueryVestingStatusAmino;
-                fromAminoMsg(object: _38.QueryVestingStatusAminoMsg): _38.QueryVestingStatus;
-                fromProtoMsg(message: _38.QueryVestingStatusProtoMsg): _38.QueryVestingStatus;
-                toProto(message: _38.QueryVestingStatus): Uint8Array;
-                toProtoMsg(message: _38.QueryVestingStatus): _38.QueryVestingStatusProtoMsg;
+                encode(message: _45.QueryVestingStatus, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _45.QueryVestingStatus;
+                fromPartial(object: Partial<_45.QueryVestingStatus>): _45.QueryVestingStatus;
+                fromAmino(object: _45.QueryVestingStatusAmino): _45.QueryVestingStatus;
+                toAmino(message: _45.QueryVestingStatus): _45.QueryVestingStatusAmino;
+                fromAminoMsg(object: _45.QueryVestingStatusAminoMsg): _45.QueryVestingStatus;
+                fromProtoMsg(message: _45.QueryVestingStatusProtoMsg): _45.QueryVestingStatus;
+                toProto(message: _45.QueryVestingStatus): Uint8Array;
+                toProtoMsg(message: _45.QueryVestingStatus): _45.QueryVestingStatusProtoMsg;
             };
             QueryVestingPlan: {
                 typeUrl: string;
-                encode(message: _38.QueryVestingPlan, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _38.QueryVestingPlan;
-                fromPartial(object: Partial<_38.QueryVestingPlan>): _38.QueryVestingPlan;
-                fromAmino(object: _38.QueryVestingPlanAmino): _38.QueryVestingPlan;
-                toAmino(message: _38.QueryVestingPlan): _38.QueryVestingPlanAmino;
-                fromAminoMsg(object: _38.QueryVestingPlanAminoMsg): _38.QueryVestingPlan;
-                fromProtoMsg(message: _38.QueryVestingPlanProtoMsg): _38.QueryVestingPlan;
-                toProto(message: _38.QueryVestingPlan): Uint8Array;
-                toProtoMsg(message: _38.QueryVestingPlan): _38.QueryVestingPlanProtoMsg;
+                encode(message: _45.QueryVestingPlan, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _45.QueryVestingPlan;
+                fromPartial(object: Partial<_45.QueryVestingPlan>): _45.QueryVestingPlan;
+                fromAmino(object: _45.QueryVestingPlanAmino): _45.QueryVestingPlan;
+                toAmino(message: _45.QueryVestingPlan): _45.QueryVestingPlanAmino;
+                fromAminoMsg(object: _45.QueryVestingPlanAminoMsg): _45.QueryVestingPlan;
+                fromProtoMsg(message: _45.QueryVestingPlanProtoMsg): _45.QueryVestingPlan;
+                toProto(message: _45.QueryVestingPlan): Uint8Array;
+                toProtoMsg(message: _45.QueryVestingPlan): _45.QueryVestingPlanProtoMsg;
             };
             GenesisState: {
                 typeUrl: string;
-                encode(message: _37.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _37.GenesisState;
-                fromPartial(object: Partial<_37.GenesisState>): _37.GenesisState;
-                fromAmino(object: _37.GenesisStateAmino): _37.GenesisState;
-                toAmino(message: _37.GenesisState): _37.GenesisStateAmino;
-                fromAminoMsg(object: _37.GenesisStateAminoMsg): _37.GenesisState;
-                fromProtoMsg(message: _37.GenesisStateProtoMsg): _37.GenesisState;
-                toProto(message: _37.GenesisState): Uint8Array;
-                toProtoMsg(message: _37.GenesisState): _37.GenesisStateProtoMsg;
+                encode(message: _44.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _44.GenesisState;
+                fromPartial(object: Partial<_44.GenesisState>): _44.GenesisState;
+                fromAmino(object: _44.GenesisStateAmino): _44.GenesisState;
+                toAmino(message: _44.GenesisState): _44.GenesisStateAmino;
+                fromAminoMsg(object: _44.GenesisStateAminoMsg): _44.GenesisState;
+                fromProtoMsg(message: _44.GenesisStateProtoMsg): _44.GenesisState;
+                toProto(message: _44.GenesisState): Uint8Array;
+                toProtoMsg(message: _44.GenesisState): _44.GenesisStateProtoMsg;
             };
             EventCreateTeamVestingAccount: {
                 typeUrl: string;
-                encode(message: _36.EventCreateTeamVestingAccount, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _36.EventCreateTeamVestingAccount;
-                fromPartial(object: Partial<_36.EventCreateTeamVestingAccount>): _36.EventCreateTeamVestingAccount;
-                fromAmino(object: _36.EventCreateTeamVestingAccountAmino): _36.EventCreateTeamVestingAccount;
-                toAmino(message: _36.EventCreateTeamVestingAccount): _36.EventCreateTeamVestingAccountAmino;
-                fromAminoMsg(object: _36.EventCreateTeamVestingAccountAminoMsg): _36.EventCreateTeamVestingAccount;
-                fromProtoMsg(message: _36.EventCreateTeamVestingAccountProtoMsg): _36.EventCreateTeamVestingAccount;
-                toProto(message: _36.EventCreateTeamVestingAccount): Uint8Array;
-                toProtoMsg(message: _36.EventCreateTeamVestingAccount): _36.EventCreateTeamVestingAccountProtoMsg;
+                encode(message: _43.EventCreateTeamVestingAccount, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _43.EventCreateTeamVestingAccount;
+                fromPartial(object: Partial<_43.EventCreateTeamVestingAccount>): _43.EventCreateTeamVestingAccount;
+                fromAmino(object: _43.EventCreateTeamVestingAccountAmino): _43.EventCreateTeamVestingAccount;
+                toAmino(message: _43.EventCreateTeamVestingAccount): _43.EventCreateTeamVestingAccountAmino;
+                fromAminoMsg(object: _43.EventCreateTeamVestingAccountAminoMsg): _43.EventCreateTeamVestingAccount;
+                fromProtoMsg(message: _43.EventCreateTeamVestingAccountProtoMsg): _43.EventCreateTeamVestingAccount;
+                toProto(message: _43.EventCreateTeamVestingAccount): Uint8Array;
+                toProtoMsg(message: _43.EventCreateTeamVestingAccount): _43.EventCreateTeamVestingAccountProtoMsg;
             };
             EventClawback: {
                 typeUrl: string;
-                encode(message: _36.EventClawback, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _36.EventClawback;
-                fromPartial(object: Partial<_36.EventClawback>): _36.EventClawback;
-                fromAmino(object: _36.EventClawbackAmino): _36.EventClawback;
-                toAmino(message: _36.EventClawback): _36.EventClawbackAmino;
-                fromAminoMsg(object: _36.EventClawbackAminoMsg): _36.EventClawback;
-                fromProtoMsg(message: _36.EventClawbackProtoMsg): _36.EventClawback;
-                toProto(message: _36.EventClawback): Uint8Array;
-                toProtoMsg(message: _36.EventClawback): _36.EventClawbackProtoMsg;
+                encode(message: _43.EventClawback, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _43.EventClawback;
+                fromPartial(object: Partial<_43.EventClawback>): _43.EventClawback;
+                fromAmino(object: _43.EventClawbackAmino): _43.EventClawback;
+                toAmino(message: _43.EventClawback): _43.EventClawbackAmino;
+                fromAminoMsg(object: _43.EventClawbackAminoMsg): _43.EventClawback;
+                fromProtoMsg(message: _43.EventClawbackProtoMsg): _43.EventClawback;
+                toProto(message: _43.EventClawback): Uint8Array;
+                toProtoMsg(message: _43.EventClawback): _43.EventClawbackProtoMsg;
             };
             EventClaimedUnlocked: {
                 typeUrl: string;
-                encode(message: _36.EventClaimedUnlocked, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _36.EventClaimedUnlocked;
-                fromPartial(object: Partial<_36.EventClaimedUnlocked>): _36.EventClaimedUnlocked;
-                fromAmino(object: _36.EventClaimedUnlockedAmino): _36.EventClaimedUnlocked;
-                toAmino(message: _36.EventClaimedUnlocked): _36.EventClaimedUnlockedAmino;
-                fromAminoMsg(object: _36.EventClaimedUnlockedAminoMsg): _36.EventClaimedUnlocked;
-                fromProtoMsg(message: _36.EventClaimedUnlockedProtoMsg): _36.EventClaimedUnlocked;
-                toProto(message: _36.EventClaimedUnlocked): Uint8Array;
-                toProtoMsg(message: _36.EventClaimedUnlocked): _36.EventClaimedUnlockedProtoMsg;
+                encode(message: _43.EventClaimedUnlocked, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _43.EventClaimedUnlocked;
+                fromPartial(object: Partial<_43.EventClaimedUnlocked>): _43.EventClaimedUnlocked;
+                fromAmino(object: _43.EventClaimedUnlockedAmino): _43.EventClaimedUnlocked;
+                toAmino(message: _43.EventClaimedUnlocked): _43.EventClaimedUnlockedAmino;
+                fromAminoMsg(object: _43.EventClaimedUnlockedAminoMsg): _43.EventClaimedUnlocked;
+                fromProtoMsg(message: _43.EventClaimedUnlockedProtoMsg): _43.EventClaimedUnlocked;
+                toProto(message: _43.EventClaimedUnlocked): Uint8Array;
+                toProtoMsg(message: _43.EventClaimedUnlocked): _43.EventClaimedUnlockedProtoMsg;
             };
             EventClaimInflationRewards: {
                 typeUrl: string;
-                encode(message: _36.EventClaimInflationRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _36.EventClaimInflationRewards;
-                fromPartial(object: Partial<_36.EventClaimInflationRewards>): _36.EventClaimInflationRewards;
-                fromAmino(object: _36.EventClaimInflationRewardsAmino): _36.EventClaimInflationRewards;
-                toAmino(message: _36.EventClaimInflationRewards): _36.EventClaimInflationRewardsAmino;
-                fromAminoMsg(object: _36.EventClaimInflationRewardsAminoMsg): _36.EventClaimInflationRewards;
-                fromProtoMsg(message: _36.EventClaimInflationRewardsProtoMsg): _36.EventClaimInflationRewards;
-                toProto(message: _36.EventClaimInflationRewards): Uint8Array;
-                toProtoMsg(message: _36.EventClaimInflationRewards): _36.EventClaimInflationRewardsProtoMsg;
+                encode(message: _43.EventClaimInflationRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _43.EventClaimInflationRewards;
+                fromPartial(object: Partial<_43.EventClaimInflationRewards>): _43.EventClaimInflationRewards;
+                fromAmino(object: _43.EventClaimInflationRewardsAmino): _43.EventClaimInflationRewards;
+                toAmino(message: _43.EventClaimInflationRewards): _43.EventClaimInflationRewardsAmino;
+                fromAminoMsg(object: _43.EventClaimInflationRewardsAminoMsg): _43.EventClaimInflationRewards;
+                fromProtoMsg(message: _43.EventClaimInflationRewardsProtoMsg): _43.EventClaimInflationRewards;
+                toProto(message: _43.EventClaimInflationRewards): Uint8Array;
+                toProtoMsg(message: _43.EventClaimInflationRewards): _43.EventClaimInflationRewardsProtoMsg;
             };
             EventClaimAuthorityRewards: {
                 typeUrl: string;
-                encode(message: _36.EventClaimAuthorityRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
-                fromJSON(object: any): _36.EventClaimAuthorityRewards;
-                fromPartial(object: Partial<_36.EventClaimAuthorityRewards>): _36.EventClaimAuthorityRewards;
-                fromAmino(object: _36.EventClaimAuthorityRewardsAmino): _36.EventClaimAuthorityRewards;
-                toAmino(message: _36.EventClaimAuthorityRewards): _36.EventClaimAuthorityRewardsAmino;
-                fromAminoMsg(object: _36.EventClaimAuthorityRewardsAminoMsg): _36.EventClaimAuthorityRewards;
-                fromProtoMsg(message: _36.EventClaimAuthorityRewardsProtoMsg): _36.EventClaimAuthorityRewards;
-                toProto(message: _36.EventClaimAuthorityRewards): Uint8Array;
-                toProtoMsg(message: _36.EventClaimAuthorityRewards): _36.EventClaimAuthorityRewardsProtoMsg;
+                encode(message: _43.EventClaimAuthorityRewards, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _43.EventClaimAuthorityRewards;
+                fromPartial(object: Partial<_43.EventClaimAuthorityRewards>): _43.EventClaimAuthorityRewards;
+                fromAmino(object: _43.EventClaimAuthorityRewardsAmino): _43.EventClaimAuthorityRewards;
+                toAmino(message: _43.EventClaimAuthorityRewards): _43.EventClaimAuthorityRewardsAmino;
+                fromAminoMsg(object: _43.EventClaimAuthorityRewardsAminoMsg): _43.EventClaimAuthorityRewards;
+                fromProtoMsg(message: _43.EventClaimAuthorityRewardsProtoMsg): _43.EventClaimAuthorityRewards;
+                toProto(message: _43.EventClaimAuthorityRewards): Uint8Array;
+                toProtoMsg(message: _43.EventClaimAuthorityRewards): _43.EventClaimAuthorityRewardsProtoMsg;
             };
         };
     }
@@ -3541,30 +3955,39 @@ export declare namespace kyve {
         }) => Promise<{
             kyve: {
                 bundles: {
-                    v1beta1: _180.MsgClientImpl;
+                    v1beta1: _221.MsgClientImpl;
                 };
                 delegation: {
-                    v1beta1: _181.MsgClientImpl;
+                    v1beta1: _222.MsgClientImpl;
+                };
+                funders: {
+                    v1beta1: _223.MsgClientImpl;
                 };
                 global: {
-                    v1beta1: _182.MsgClientImpl;
+                    v1beta1: _224.MsgClientImpl;
                 };
                 pool: {
-                    v1beta1: _183.MsgClientImpl;
+                    v1beta1: _225.MsgClientImpl;
                 };
                 stakers: {
-                    v1beta1: _184.MsgClientImpl;
+                    v1beta1: _226.MsgClientImpl;
                 };
                 team: {
-                    v1beta1: _185.MsgClientImpl;
+                    v1beta1: _227.MsgClientImpl;
                 };
             };
             cosmos: {
+                auth: {
+                    v1beta1: import("../cosmos/auth/v1beta1/tx.rpc.msg").MsgClientImpl;
+                };
                 authz: {
                     v1beta1: import("../cosmos/authz/v1beta1/tx.rpc.msg").MsgClientImpl;
                 };
                 bank: {
                     v1beta1: import("../cosmos/bank/v1beta1/tx.rpc.msg").MsgClientImpl;
+                };
+                consensus: {
+                    v1: import("../cosmos/consensus/v1/tx.rpc.msg").MsgClientImpl;
                 };
                 crisis: {
                     v1beta1: import("../cosmos/crisis/v1beta1/tx.rpc.msg").MsgClientImpl;
@@ -3584,6 +4007,9 @@ export declare namespace kyve {
                 };
                 group: {
                     v1: import("../cosmos/group/v1/tx.rpc.msg").MsgClientImpl;
+                };
+                mint: {
+                    v1beta1: import("../cosmos/mint/v1beta1/tx.rpc.msg").MsgClientImpl;
                 };
                 nft: {
                     v1beta1: import("../cosmos/nft/v1beta1/tx.rpc.msg").MsgClientImpl;
@@ -3616,28 +4042,33 @@ export declare namespace kyve {
                         params(request?: _10.QueryParamsRequest): Promise<_10.QueryParamsResponse>;
                     };
                 };
-                global: {
+                funders: {
                     v1beta1: {
-                        params(request?: _15.QueryParamsRequest): Promise<_15.QueryParamsResponse>;
+                        params(request?: _16.QueryParamsRequest): Promise<_16.QueryParamsResponse>;
                     };
                 };
-                pool: {
+                global: {
                     v1beta1: {
                         params(request?: _21.QueryParamsRequest): Promise<_21.QueryParamsResponse>;
                     };
                 };
+                pool: {
+                    v1beta1: {
+                        params(request?: _27.QueryParamsRequest): Promise<_27.QueryParamsResponse>;
+                    };
+                };
                 stakers: {
                     v1beta1: {
-                        params(request?: _33.QueryParamsRequest): Promise<_33.QueryParamsResponse>;
+                        params(request?: _40.QueryParamsRequest): Promise<_40.QueryParamsResponse>;
                     };
                 };
                 team: {
                     v1beta1: {
-                        teamInfo(request?: _38.QueryTeamInfoRequest): Promise<_38.QueryTeamInfoResponse>;
-                        teamVestingAccounts(request?: _38.QueryTeamVestingAccountsRequest): Promise<_38.QueryTeamVestingAccountsResponse>;
-                        teamVestingAccount(request: _38.QueryTeamVestingAccountRequest): Promise<_38.QueryTeamVestingAccountResponse>;
-                        teamVestingStatus(request: _38.QueryTeamVestingStatusRequest): Promise<_38.QueryTeamVestingStatusResponse>;
-                        teamVestingStatusByTime(request: _38.QueryTeamVestingStatusByTimeRequest): Promise<_38.QueryTeamVestingStatusByTimeResponse>;
+                        teamInfo(request?: _45.QueryTeamInfoRequest): Promise<_45.QueryTeamInfoResponse>;
+                        teamVestingAccounts(request?: _45.QueryTeamVestingAccountsRequest): Promise<_45.QueryTeamVestingAccountsResponse>;
+                        teamVestingAccount(request: _45.QueryTeamVestingAccountRequest): Promise<_45.QueryTeamVestingAccountResponse>;
+                        teamVestingStatus(request: _45.QueryTeamVestingStatusRequest): Promise<_45.QueryTeamVestingStatusResponse>;
+                        teamVestingStatusByTime(request: _45.QueryTeamVestingStatusByTimeRequest): Promise<_45.QueryTeamVestingStatusByTimeResponse>;
                     };
                 };
             };
@@ -3658,6 +4089,7 @@ export declare namespace kyve {
                         bech32Prefix(request?: import("../cosmos/auth/v1beta1/query").Bech32PrefixRequest): Promise<import("../cosmos/auth/v1beta1/query").Bech32PrefixResponse>;
                         addressBytesToString(request: import("../cosmos/auth/v1beta1/query").AddressBytesToStringRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressBytesToStringResponse>;
                         addressStringToBytes(request: import("../cosmos/auth/v1beta1/query").AddressStringToBytesRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressStringToBytesResponse>;
+                        accountInfo(request: import("../cosmos/auth/v1beta1/query").QueryAccountInfoRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountInfoResponse>;
                     };
                 };
                 authz: {
@@ -3667,17 +4099,24 @@ export declare namespace kyve {
                         granteeGrants(request: import("../cosmos/authz/v1beta1/query").QueryGranteeGrantsRequest): Promise<import("../cosmos/authz/v1beta1/query").QueryGranteeGrantsResponse>;
                     };
                 };
+                autocli: {
+                    v1: {
+                        appOptions(request?: import("../cosmos/autocli/v1/query").AppOptionsRequest): Promise<import("../cosmos/autocli/v1/query").AppOptionsResponse>;
+                    };
+                };
                 bank: {
                     v1beta1: {
                         balance(request: import("../cosmos/bank/v1beta1/query").QueryBalanceRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryBalanceResponse>;
                         allBalances(request: import("../cosmos/bank/v1beta1/query").QueryAllBalancesRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryAllBalancesResponse>;
                         spendableBalances(request: import("../cosmos/bank/v1beta1/query").QuerySpendableBalancesRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySpendableBalancesResponse>;
+                        spendableBalanceByDenom(request: import("../cosmos/bank/v1beta1/query").QuerySpendableBalanceByDenomRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySpendableBalanceByDenomResponse>;
                         totalSupply(request?: import("../cosmos/bank/v1beta1/query").QueryTotalSupplyRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryTotalSupplyResponse>;
                         supplyOf(request: import("../cosmos/bank/v1beta1/query").QuerySupplyOfRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySupplyOfResponse>;
                         params(request?: import("../cosmos/bank/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryParamsResponse>;
                         denomMetadata(request: import("../cosmos/bank/v1beta1/query").QueryDenomMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomMetadataResponse>;
                         denomsMetadata(request?: import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataResponse>;
                         denomOwners(request: import("../cosmos/bank/v1beta1/query").QueryDenomOwnersRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomOwnersResponse>;
+                        sendEnabled(request: import("../cosmos/bank/v1beta1/query").QuerySendEnabledRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySendEnabledResponse>;
                     };
                 };
                 base: {
@@ -3698,9 +4137,15 @@ export declare namespace kyve {
                         };
                     };
                 };
+                consensus: {
+                    v1: {
+                        params(request?: import("../cosmos/consensus/v1/query").QueryParamsRequest): Promise<import("../cosmos/consensus/v1/query").QueryParamsResponse>;
+                    };
+                };
                 distribution: {
                     v1beta1: {
                         params(request?: import("../cosmos/distribution/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryParamsResponse>;
+                        validatorDistributionInfo(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorDistributionInfoRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorDistributionInfoResponse>;
                         validatorOutstandingRewards(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorOutstandingRewardsRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorOutstandingRewardsResponse>;
                         validatorCommission(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorCommissionRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorCommissionResponse>;
                         validatorSlashes(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorSlashesRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorSlashesResponse>;
@@ -3782,6 +4227,14 @@ export declare namespace kyve {
                         classes(request?: import("../cosmos/nft/v1beta1/query").QueryClassesRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryClassesResponse>;
                     };
                 };
+                orm: {
+                    query: {
+                        v1alpha1: {
+                            get(request: import("../cosmos/orm/query/v1alpha1/query").GetRequest): Promise<import("../cosmos/orm/query/v1alpha1/query").GetResponse>;
+                            list(request: import("../cosmos/orm/query/v1alpha1/query").ListRequest): Promise<import("../cosmos/orm/query/v1alpha1/query").ListResponse>;
+                        };
+                    };
+                };
                 params: {
                     v1beta1: {
                         params(request: import("../cosmos/params/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/params/v1beta1/query").QueryParamsResponse>;
@@ -3820,6 +4273,10 @@ export declare namespace kyve {
                         broadcastTx(request: import("../cosmos/tx/v1beta1/service").BroadcastTxRequest): Promise<import("../cosmos/tx/v1beta1/service").BroadcastTxResponse>;
                         getTxsEvent(request: import("../cosmos/tx/v1beta1/service").GetTxsEventRequest): Promise<import("../cosmos/tx/v1beta1/service").GetTxsEventResponse>;
                         getBlockWithTxs(request: import("../cosmos/tx/v1beta1/service").GetBlockWithTxsRequest): Promise<import("../cosmos/tx/v1beta1/service").GetBlockWithTxsResponse>;
+                        txDecode(request: import("../cosmos/tx/v1beta1/service").TxDecodeRequest): Promise<import("../cosmos/tx/v1beta1/service").TxDecodeResponse>;
+                        txEncode(request: import("../cosmos/tx/v1beta1/service").TxEncodeRequest): Promise<import("../cosmos/tx/v1beta1/service").TxEncodeResponse>;
+                        txEncodeAmino(request: import("../cosmos/tx/v1beta1/service").TxEncodeAminoRequest): Promise<import("../cosmos/tx/v1beta1/service").TxEncodeAminoResponse>;
+                        txDecodeAmino(request: import("../cosmos/tx/v1beta1/service").TxDecodeAminoRequest): Promise<import("../cosmos/tx/v1beta1/service").TxDecodeAminoResponse>;
                     };
                 };
                 upgrade: {
@@ -3838,22 +4295,25 @@ export declare namespace kyve {
         }) => Promise<{
             kyve: {
                 bundles: {
-                    v1beta1: _168.LCDQueryClient;
+                    v1beta1: _207.LCDQueryClient;
                 };
                 delegation: {
-                    v1beta1: _169.LCDQueryClient;
+                    v1beta1: _208.LCDQueryClient;
+                };
+                funders: {
+                    v1beta1: _209.LCDQueryClient;
                 };
                 global: {
-                    v1beta1: _170.LCDQueryClient;
+                    v1beta1: _210.LCDQueryClient;
                 };
                 pool: {
-                    v1beta1: _171.LCDQueryClient;
+                    v1beta1: _211.LCDQueryClient;
                 };
                 stakers: {
-                    v1beta1: _172.LCDQueryClient;
+                    v1beta1: _212.LCDQueryClient;
                 };
                 team: {
-                    v1beta1: _173.LCDQueryClient;
+                    v1beta1: _213.LCDQueryClient;
                 };
             };
             cosmos: {
@@ -3873,6 +4333,9 @@ export declare namespace kyve {
                     tendermint: {
                         v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
                     };
+                };
+                consensus: {
+                    v1: import("../cosmos/consensus/v1/query.lcd").LCDQueryClient;
                 };
                 distribution: {
                     v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;

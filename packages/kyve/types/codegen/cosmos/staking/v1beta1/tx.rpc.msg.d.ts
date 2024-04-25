@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import { MsgCreateValidator, MsgCreateValidatorResponse, MsgEditValidator, MsgEditValidatorResponse, MsgDelegate, MsgDelegateResponse, MsgBeginRedelegate, MsgBeginRedelegateResponse, MsgUndelegate, MsgUndelegateResponse, MsgCancelUnbondingDelegation, MsgCancelUnbondingDelegationResponse } from "./tx";
+import { MsgCreateValidator, MsgCreateValidatorResponse, MsgEditValidator, MsgEditValidatorResponse, MsgDelegate, MsgDelegateResponse, MsgBeginRedelegate, MsgBeginRedelegateResponse, MsgUndelegate, MsgUndelegateResponse, MsgCancelUnbondingDelegation, MsgCancelUnbondingDelegationResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the staking Msg service. */
 export interface Msg {
     /** CreateValidator defines a method for creating a new validator. */
@@ -28,6 +28,12 @@ export interface Msg {
      * Since: cosmos-sdk 0.46
      */
     cancelUnbondingDelegation(request: MsgCancelUnbondingDelegation): Promise<MsgCancelUnbondingDelegationResponse>;
+    /**
+     * UpdateParams defines an operation for updating the x/staking module
+     * parameters.
+     * Since: cosmos-sdk 0.47
+     */
+    updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -38,4 +44,5 @@ export declare class MsgClientImpl implements Msg {
     beginRedelegate(request: MsgBeginRedelegate): Promise<MsgBeginRedelegateResponse>;
     undelegate(request: MsgUndelegate): Promise<MsgUndelegateResponse>;
     cancelUnbondingDelegation(request: MsgCancelUnbondingDelegation): Promise<MsgCancelUnbondingDelegationResponse>;
+    updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }

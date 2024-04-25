@@ -1,5 +1,5 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
-import { BundleProposal, BundleProposalAmino, BundleProposalSDKType, FinalizedBundle, FinalizedBundleAmino, FinalizedBundleSDKType, RoundRobinProgress, RoundRobinProgressAmino, RoundRobinProgressSDKType } from "./bundles";
+import { BundleProposal, BundleProposalAmino, BundleProposalSDKType, FinalizedBundle, FinalizedBundleAmino, FinalizedBundleSDKType, RoundRobinProgress, RoundRobinProgressAmino, RoundRobinProgressSDKType, BundleVersionMap, BundleVersionMapAmino, BundleVersionMapSDKType } from "./bundles";
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the bundles module's genesis state. */
 export interface GenesisState {
@@ -11,6 +11,8 @@ export interface GenesisState {
     finalizedBundleList: FinalizedBundle[];
     /** round_robin_progress_list ... */
     roundRobinProgressList: RoundRobinProgress[];
+    /** bundle_version_map ... */
+    bundleVersionMap: BundleVersionMap;
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/kyve.bundles.v1beta1.GenesisState";
@@ -21,11 +23,13 @@ export interface GenesisStateAmino {
     /** params defines all the parameters of the module. */
     params?: ParamsAmino;
     /** bundle_proposal_list ... */
-    bundle_proposal_list: BundleProposalAmino[];
+    bundle_proposal_list?: BundleProposalAmino[];
     /** finalized_bundle_list ... */
-    finalized_bundle_list: FinalizedBundleAmino[];
+    finalized_bundle_list?: FinalizedBundleAmino[];
     /** round_robin_progress_list ... */
-    round_robin_progress_list: RoundRobinProgressAmino[];
+    round_robin_progress_list?: RoundRobinProgressAmino[];
+    /** bundle_version_map ... */
+    bundle_version_map?: BundleVersionMapAmino;
 }
 export interface GenesisStateAminoMsg {
     type: "/kyve.bundles.v1beta1.GenesisState";
@@ -37,6 +41,7 @@ export interface GenesisStateSDKType {
     bundle_proposal_list: BundleProposalSDKType[];
     finalized_bundle_list: FinalizedBundleSDKType[];
     round_robin_progress_list: RoundRobinProgressSDKType[];
+    bundle_version_map: BundleVersionMapSDKType;
 }
 export declare const GenesisState: {
     typeUrl: string;

@@ -6,7 +6,7 @@ import { isSet } from "../../../helpers";
 /** QueryPoolsRequest is the request type for the Query/Pools RPC method. */
 export interface QueryPoolsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   /** search ... */
   search: string;
   /** runtime ... */
@@ -25,13 +25,13 @@ export interface QueryPoolsRequestAmino {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
   /** search ... */
-  search: string;
+  search?: string;
   /** runtime ... */
-  runtime: string;
+  runtime?: string;
   /** disabled ... */
-  disabled: boolean;
+  disabled?: boolean;
   /** storage_provider_id ... */
-  storage_provider_id: number;
+  storage_provider_id?: number;
 }
 export interface QueryPoolsRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryPoolsRequest";
@@ -39,7 +39,7 @@ export interface QueryPoolsRequestAminoMsg {
 }
 /** QueryPoolsRequest is the request type for the Query/Pools RPC method. */
 export interface QueryPoolsRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
   search: string;
   runtime: string;
   disabled: boolean;
@@ -50,7 +50,7 @@ export interface QueryPoolsResponse {
   /** pools ... */
   pools: PoolResponse[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryPoolsResponseProtoMsg {
   typeUrl: "/kyve.query.v1beta1.QueryPoolsResponse";
@@ -59,7 +59,7 @@ export interface QueryPoolsResponseProtoMsg {
 /** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
 export interface QueryPoolsResponseAmino {
   /** pools ... */
-  pools: PoolResponseAmino[];
+  pools?: PoolResponseAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -70,16 +70,16 @@ export interface QueryPoolsResponseAminoMsg {
 /** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
 export interface QueryPoolsResponseSDKType {
   pools: PoolResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** PoolResponse ... */
 export interface PoolResponse {
   /** id ... */
   id: bigint;
   /** data ... */
-  data: Pool;
+  data?: Pool;
   /** bundle_proposal ... */
-  bundleProposal: BundleProposal;
+  bundleProposal?: BundleProposal;
   /** stakers ... */
   stakers: string[];
   /** total_stake ... */
@@ -100,23 +100,23 @@ export interface PoolResponseProtoMsg {
 /** PoolResponse ... */
 export interface PoolResponseAmino {
   /** id ... */
-  id: string;
+  id?: string;
   /** data ... */
   data?: PoolAmino;
   /** bundle_proposal ... */
   bundle_proposal?: BundleProposalAmino;
   /** stakers ... */
-  stakers: string[];
+  stakers?: string[];
   /** total_stake ... */
-  total_self_delegation: string;
+  total_self_delegation?: string;
   /** total_delegation ... */
-  total_delegation: string;
+  total_delegation?: string;
   /** status ... */
-  status: PoolStatus;
+  status?: PoolStatus;
   /** account ... */
-  account: string;
+  account?: string;
   /** account_balance ... */
-  account_balance: string;
+  account_balance?: string;
 }
 export interface PoolResponseAminoMsg {
   type: "/kyve.query.v1beta1.PoolResponse";
@@ -125,8 +125,8 @@ export interface PoolResponseAminoMsg {
 /** PoolResponse ... */
 export interface PoolResponseSDKType {
   id: bigint;
-  data: PoolSDKType;
-  bundle_proposal: BundleProposalSDKType;
+  data?: PoolSDKType;
+  bundle_proposal?: BundleProposalSDKType;
   stakers: string[];
   total_self_delegation: bigint;
   total_delegation: bigint;
@@ -146,7 +146,7 @@ export interface QueryPoolRequestProtoMsg {
 /** QueryPoolRequest is the request type for the Query/Pool RPC method. */
 export interface QueryPoolRequestAmino {
   /** id defines the unique ID of the pool. */
-  id: string;
+  id?: string;
 }
 export interface QueryPoolRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryPoolRequest";
@@ -180,7 +180,7 @@ export interface QueryPoolResponseSDKType {
 }
 function createBaseQueryPoolsRequest(): QueryPoolsRequest {
   return {
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
     search: "",
     runtime: "",
     disabled: false,
@@ -226,13 +226,23 @@ export const QueryPoolsRequest = {
     return message;
   },
   fromAmino(object: QueryPoolsRequestAmino): QueryPoolsRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
-      search: object.search,
-      runtime: object.runtime,
-      disabled: object.disabled,
-      storageProviderId: object.storage_provider_id
-    };
+    const message = createBaseQueryPoolsRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    if (object.search !== undefined && object.search !== null) {
+      message.search = object.search;
+    }
+    if (object.runtime !== undefined && object.runtime !== null) {
+      message.runtime = object.runtime;
+    }
+    if (object.disabled !== undefined && object.disabled !== null) {
+      message.disabled = object.disabled;
+    }
+    if (object.storage_provider_id !== undefined && object.storage_provider_id !== null) {
+      message.storageProviderId = object.storage_provider_id;
+    }
+    return message;
   },
   toAmino(message: QueryPoolsRequest): QueryPoolsRequestAmino {
     const obj: any = {};
@@ -262,7 +272,7 @@ export const QueryPoolsRequest = {
 function createBaseQueryPoolsResponse(): QueryPoolsResponse {
   return {
     pools: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryPoolsResponse = {
@@ -289,10 +299,12 @@ export const QueryPoolsResponse = {
     return message;
   },
   fromAmino(object: QueryPoolsResponseAmino): QueryPoolsResponse {
-    return {
-      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => PoolResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryPoolsResponse();
+    message.pools = object.pools?.map(e => PoolResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryPoolsResponse): QueryPoolsResponseAmino {
     const obj: any = {};
@@ -323,8 +335,8 @@ export const QueryPoolsResponse = {
 function createBasePoolResponse(): PoolResponse {
   return {
     id: BigInt(0),
-    data: Pool.fromPartial({}),
-    bundleProposal: BundleProposal.fromPartial({}),
+    data: undefined,
+    bundleProposal: undefined,
     stakers: [],
     totalSelfDelegation: BigInt(0),
     totalDelegation: BigInt(0),
@@ -392,17 +404,33 @@ export const PoolResponse = {
     return message;
   },
   fromAmino(object: PoolResponseAmino): PoolResponse {
-    return {
-      id: BigInt(object.id),
-      data: object?.data ? Pool.fromAmino(object.data) : undefined,
-      bundleProposal: object?.bundle_proposal ? BundleProposal.fromAmino(object.bundle_proposal) : undefined,
-      stakers: Array.isArray(object?.stakers) ? object.stakers.map((e: any) => e) : [],
-      totalSelfDelegation: BigInt(object.total_self_delegation),
-      totalDelegation: BigInt(object.total_delegation),
-      status: isSet(object.status) ? poolStatusFromJSON(object.status) : -1,
-      account: object.account,
-      accountBalance: BigInt(object.account_balance)
-    };
+    const message = createBasePoolResponse();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = Pool.fromAmino(object.data);
+    }
+    if (object.bundle_proposal !== undefined && object.bundle_proposal !== null) {
+      message.bundleProposal = BundleProposal.fromAmino(object.bundle_proposal);
+    }
+    message.stakers = object.stakers?.map(e => e) || [];
+    if (object.total_self_delegation !== undefined && object.total_self_delegation !== null) {
+      message.totalSelfDelegation = BigInt(object.total_self_delegation);
+    }
+    if (object.total_delegation !== undefined && object.total_delegation !== null) {
+      message.totalDelegation = BigInt(object.total_delegation);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = poolStatusFromJSON(object.status);
+    }
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    if (object.account_balance !== undefined && object.account_balance !== null) {
+      message.accountBalance = BigInt(object.account_balance);
+    }
+    return message;
   },
   toAmino(message: PoolResponse): PoolResponseAmino {
     const obj: any = {};
@@ -461,9 +489,11 @@ export const QueryPoolRequest = {
     return message;
   },
   fromAmino(object: QueryPoolRequestAmino): QueryPoolRequest {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseQueryPoolRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: QueryPoolRequest): QueryPoolRequestAmino {
     const obj: any = {};
@@ -510,9 +540,11 @@ export const QueryPoolResponse = {
     return message;
   },
   fromAmino(object: QueryPoolResponseAmino): QueryPoolResponse {
-    return {
-      pool: object?.pool ? PoolResponse.fromAmino(object.pool) : undefined
-    };
+    const message = createBaseQueryPoolResponse();
+    if (object.pool !== undefined && object.pool !== null) {
+      message.pool = PoolResponse.fromAmino(object.pool);
+    }
+    return message;
   },
   toAmino(message: QueryPoolResponse): QueryPoolResponseAmino {
     const obj: any = {};

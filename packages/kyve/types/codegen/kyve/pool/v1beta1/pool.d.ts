@@ -1,18 +1,42 @@
 import { BinaryWriter } from "../../../binary";
 /** PoolStatus ... */
 export declare enum PoolStatus {
-    /** POOL_STATUS_UNSPECIFIED - POOL_STATUS_UNSPECIFIED ... */
+    /**
+     * POOL_STATUS_UNSPECIFIED - POOL_STATUS_UNSPECIFIED indicates an unknown status, likely
+     * due to an error
+     */
     POOL_STATUS_UNSPECIFIED = 0,
-    /** POOL_STATUS_ACTIVE - POOL_STATUS_ACTIVE ... */
+    /**
+     * POOL_STATUS_ACTIVE - POOL_STATUS_ACTIVE indicates, that the pool is running
+     * normally
+     */
     POOL_STATUS_ACTIVE = 1,
-    /** POOL_STATUS_DISABLED - POOL_STATUS_DISABLED ... */
+    /**
+     * POOL_STATUS_DISABLED - POOL_STATUS_DISABLED indicates, that the pool was disabled
+     * by the governance and does not continue until it is enabled
+     * by the governance again
+     */
     POOL_STATUS_DISABLED = 2,
-    /** POOL_STATUS_NO_FUNDS - POOL_STATUS_NO_FUNDS ... */
+    /**
+     * POOL_STATUS_NO_FUNDS - POOL_STATUS_NO_FUNDS indicates, that the pool currently has no
+     * funds, but is continuing normally anyway, due to inflation splitting
+     */
     POOL_STATUS_NO_FUNDS = 3,
-    /** POOL_STATUS_NOT_ENOUGH_DELEGATION - POOL_STATUS_NOT_ENOUGH_DELEGATION ... */
+    /**
+     * POOL_STATUS_NOT_ENOUGH_DELEGATION - POOL_STATUS_NOT_ENOUGH_DELEGATION indicates, that the min delegation
+     * requirement has not been met and that the pool is halted
+     */
     POOL_STATUS_NOT_ENOUGH_DELEGATION = 4,
-    /** POOL_STATUS_UPGRADING - POOL_STATUS_UPGRADING ... */
+    /**
+     * POOL_STATUS_UPGRADING - POOL_STATUS_UPGRADING indicates, that the runtime is currently
+     * being upgraded and that the pool is halted
+     */
     POOL_STATUS_UPGRADING = 5,
+    /**
+     * POOL_STATUS_VOTING_POWER_TOO_HIGH - POOL_STATUS_VOTING_POWER_TOO_HIGH indicates, that one validator
+     * has more than 50% voting power and that the pool is halted
+     */
+    POOL_STATUS_VOTING_POWER_TOO_HIGH = 6,
     UNRECOGNIZED = -1
 }
 export declare const PoolStatusSDKType: typeof PoolStatus;
@@ -44,14 +68,14 @@ export interface ProtocolProtoMsg {
  */
 export interface ProtocolAmino {
     /** version holds the current software version tag of the pool binaries */
-    version: string;
+    version?: string;
     /**
      * binaries is a stringified json object which holds binaries in the
      * current version for multiple platforms and architectures
      */
-    binaries: string;
+    binaries?: string;
     /** last_upgrade is the unix time the pool was upgraded the last time */
-    last_upgrade: string;
+    last_upgrade?: string;
 }
 export interface ProtocolAminoMsg {
     type: "/kyve.pool.v1beta1.Protocol";
@@ -91,20 +115,20 @@ export interface UpgradePlanProtoMsg {
 /** Upgrade holds all info when a pool has a scheduled upgrade */
 export interface UpgradePlanAmino {
     /** version is the new software version tag of the upgrade */
-    version: string;
+    version?: string;
     /**
      * binaries is the new stringified json object which holds binaries in the
      * upgrade version for multiple platforms and architectures
      */
-    binaries: string;
+    binaries?: string;
     /** scheduled_at is the unix time the upgrade is supposed to be done */
-    scheduled_at: string;
+    scheduled_at?: string;
     /**
      * duration is the time in seconds how long the pool should halt
      * during the upgrade to give all validators a chance of switching
      * to the new binaries
      */
-    duration: string;
+    duration?: string;
 }
 export interface UpgradePlanAminoMsg {
     type: "/kyve.pool.v1beta1.UpgradePlan";
@@ -116,39 +140,6 @@ export interface UpgradePlanSDKType {
     binaries: string;
     scheduled_at: bigint;
     duration: bigint;
-}
-/** Funder is the object which holds info about a single pool funder */
-export interface Funder {
-    /** address is the address of the funder */
-    address: string;
-    /**
-     * amount is the current amount of funds in ukyve the funder has
-     * still funded the pool with
-     */
-    amount: bigint;
-}
-export interface FunderProtoMsg {
-    typeUrl: "/kyve.pool.v1beta1.Funder";
-    value: Uint8Array;
-}
-/** Funder is the object which holds info about a single pool funder */
-export interface FunderAmino {
-    /** address is the address of the funder */
-    address: string;
-    /**
-     * amount is the current amount of funds in ukyve the funder has
-     * still funded the pool with
-     */
-    amount: string;
-}
-export interface FunderAminoMsg {
-    type: "/kyve.pool.v1beta1.Funder";
-    value: FunderAmino;
-}
-/** Funder is the object which holds info about a single pool funder */
-export interface FunderSDKType {
-    address: string;
-    amount: bigint;
 }
 /** Pool ... */
 export interface Pool {
@@ -177,8 +168,8 @@ export interface Pool {
     totalBundles: bigint;
     /** upload_interval ... */
     uploadInterval: bigint;
-    /** operating_cost ... */
-    operatingCost: bigint;
+    /** inflation_share_weight ... */
+    inflationShareWeight: bigint;
     /** min_delegation ... */
     minDelegation: bigint;
     /** max_bundle_size ... */
@@ -188,14 +179,10 @@ export interface Pool {
      * Can only be done via governance.
      */
     disabled: boolean;
-    /** funders ... */
-    funders: Funder[];
-    /** total_funds ... */
-    totalFunds: bigint;
     /** protocol ... */
-    protocol: Protocol;
+    protocol?: Protocol;
     /** upgrade_plan ... */
-    upgradePlan: UpgradePlan;
+    upgradePlan?: UpgradePlan;
     /** storage_provider_id ... */
     currentStorageProviderId: number;
     /** compression_id ... */
@@ -208,53 +195,49 @@ export interface PoolProtoMsg {
 /** Pool ... */
 export interface PoolAmino {
     /** id - unique identifier of the pool, can not be changed */
-    id: string;
+    id?: string;
     /** name is a human readable name for the pool */
-    name: string;
+    name?: string;
     /** runtime specified which protocol and which version needs is required */
-    runtime: string;
+    runtime?: string;
     /** logo is a link to an image file */
-    logo: string;
+    logo?: string;
     /**
      * config is either a JSON encoded string or a link to an external storage provider.
      * This is up to the implementation of the protocol node.
      */
-    config: string;
+    config?: string;
     /** start_key ... */
-    start_key: string;
+    start_key?: string;
     /** current_key ... */
-    current_key: string;
+    current_key?: string;
     /** current_summary ... */
-    current_summary: string;
+    current_summary?: string;
     /** current_index ... */
-    current_index: string;
+    current_index?: string;
     /** total_bundles is the number of total finalized bundles */
-    total_bundles: string;
+    total_bundles?: string;
     /** upload_interval ... */
-    upload_interval: string;
-    /** operating_cost ... */
-    operating_cost: string;
+    upload_interval?: string;
+    /** inflation_share_weight ... */
+    inflation_share_weight?: string;
     /** min_delegation ... */
-    min_delegation: string;
+    min_delegation?: string;
     /** max_bundle_size ... */
-    max_bundle_size: string;
+    max_bundle_size?: string;
     /**
      * disabled is true when the pool is disabled.
      * Can only be done via governance.
      */
-    disabled: boolean;
-    /** funders ... */
-    funders: FunderAmino[];
-    /** total_funds ... */
-    total_funds: string;
+    disabled?: boolean;
     /** protocol ... */
     protocol?: ProtocolAmino;
     /** upgrade_plan ... */
     upgrade_plan?: UpgradePlanAmino;
     /** storage_provider_id ... */
-    current_storage_provider_id: number;
+    current_storage_provider_id?: number;
     /** compression_id ... */
-    current_compression_id: number;
+    current_compression_id?: number;
 }
 export interface PoolAminoMsg {
     type: "/kyve.pool.v1beta1.Pool";
@@ -273,14 +256,12 @@ export interface PoolSDKType {
     current_index: bigint;
     total_bundles: bigint;
     upload_interval: bigint;
-    operating_cost: bigint;
+    inflation_share_weight: bigint;
     min_delegation: bigint;
     max_bundle_size: bigint;
     disabled: boolean;
-    funders: FunderSDKType[];
-    total_funds: bigint;
-    protocol: ProtocolSDKType;
-    upgrade_plan: UpgradePlanSDKType;
+    protocol?: ProtocolSDKType;
+    upgrade_plan?: UpgradePlanSDKType;
     current_storage_provider_id: number;
     current_compression_id: number;
 }
@@ -307,18 +288,6 @@ export declare const UpgradePlan: {
     fromProtoMsg(message: UpgradePlanProtoMsg): UpgradePlan;
     toProto(message: UpgradePlan): Uint8Array;
     toProtoMsg(message: UpgradePlan): UpgradePlanProtoMsg;
-};
-export declare const Funder: {
-    typeUrl: string;
-    encode(message: Funder, writer?: BinaryWriter): BinaryWriter;
-    fromJSON(object: any): Funder;
-    fromPartial(object: Partial<Funder>): Funder;
-    fromAmino(object: FunderAmino): Funder;
-    toAmino(message: Funder): FunderAmino;
-    fromAminoMsg(object: FunderAminoMsg): Funder;
-    fromProtoMsg(message: FunderProtoMsg): Funder;
-    toProto(message: Funder): Uint8Array;
-    toProtoMsg(message: Funder): FunderProtoMsg;
 };
 export declare const Pool: {
     typeUrl: string;

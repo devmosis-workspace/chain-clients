@@ -19,9 +19,9 @@ export interface GenesisStateAmino {
   /** authority ... */
   authority?: AuthorityAmino;
   /** account_list ... */
-  account_list: TeamVestingAccountAmino[];
+  account_list?: TeamVestingAccountAmino[];
   /** account_count ... */
-  account_count: string;
+  account_count?: string;
 }
 export interface GenesisStateAminoMsg {
   type: "/kyve.team.v1beta1.GenesisState";
@@ -69,11 +69,15 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      authority: object?.authority ? Authority.fromAmino(object.authority) : undefined,
-      accountList: Array.isArray(object?.account_list) ? object.account_list.map((e: any) => TeamVestingAccount.fromAmino(e)) : [],
-      accountCount: BigInt(object.account_count)
-    };
+    const message = createBaseGenesisState();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = Authority.fromAmino(object.authority);
+    }
+    message.accountList = object.account_list?.map(e => TeamVestingAccount.fromAmino(e)) || [];
+    if (object.account_count !== undefined && object.account_count !== null) {
+      message.accountCount = BigInt(object.account_count);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

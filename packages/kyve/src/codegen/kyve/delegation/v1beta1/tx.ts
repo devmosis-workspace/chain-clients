@@ -16,11 +16,11 @@ export interface MsgDelegateProtoMsg {
 /** MsgDelegate ... */
 export interface MsgDelegateAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
 }
 export interface MsgDelegateAminoMsg {
   type: "/kyve.delegation.v1beta1.MsgDelegate";
@@ -60,9 +60,9 @@ export interface MsgWithdrawRewardsProtoMsg {
 /** MsgWithdrawPool defines a SDK message for withdrawing delegation rewards from a specific pool. */
 export interface MsgWithdrawRewardsAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
 }
 export interface MsgWithdrawRewardsAminoMsg {
   type: "/kyve.delegation.v1beta1.MsgWithdrawRewards";
@@ -103,11 +103,11 @@ export interface MsgUndelegateProtoMsg {
 /** MsgUndelegatePool defines a SDK message for undelegating from a specific pool. */
 export interface MsgUndelegateAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
 }
 export interface MsgUndelegateAminoMsg {
   type: "/kyve.delegation.v1beta1.MsgUndelegate";
@@ -157,13 +157,13 @@ export interface MsgRedelegateProtoMsg {
  */
 export interface MsgRedelegateAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** staker ... */
-  from_staker: string;
+  from_staker?: string;
   /** staker ... */
-  to_staker: string;
+  to_staker?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
 }
 export interface MsgRedelegateAminoMsg {
   type: "/kyve.delegation.v1beta1.MsgRedelegate";
@@ -207,9 +207,9 @@ export interface MsgUpdateParamsProtoMsg {
 /** MsgUpdateParams defines a SDK message for updating the module parameters. */
 export interface MsgUpdateParamsAmino {
   /** authority is the address of the governance account. */
-  authority: string;
+  authority?: string;
   /** payload defines the x/delegation parameters to update. */
-  payload: string;
+  payload?: string;
 }
 export interface MsgUpdateParamsAminoMsg {
   type: "/kyve.delegation.v1beta1.MsgUpdateParams";
@@ -270,11 +270,17 @@ export const MsgDelegate = {
     return message;
   },
   fromAmino(object: MsgDelegateAmino): MsgDelegate {
-    return {
-      creator: object.creator,
-      staker: object.staker,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseMsgDelegate();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgDelegate): MsgDelegateAmino {
     const obj: any = {};
@@ -315,7 +321,8 @@ export const MsgDelegateResponse = {
     return message;
   },
   fromAmino(_: MsgDelegateResponseAmino): MsgDelegateResponse {
-    return {};
+    const message = createBaseMsgDelegateResponse();
+    return message;
   },
   toAmino(_: MsgDelegateResponse): MsgDelegateResponseAmino {
     const obj: any = {};
@@ -367,10 +374,14 @@ export const MsgWithdrawRewards = {
     return message;
   },
   fromAmino(object: MsgWithdrawRewardsAmino): MsgWithdrawRewards {
-    return {
-      creator: object.creator,
-      staker: object.staker
-    };
+    const message = createBaseMsgWithdrawRewards();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    return message;
   },
   toAmino(message: MsgWithdrawRewards): MsgWithdrawRewardsAmino {
     const obj: any = {};
@@ -410,7 +421,8 @@ export const MsgWithdrawRewardsResponse = {
     return message;
   },
   fromAmino(_: MsgWithdrawRewardsResponseAmino): MsgWithdrawRewardsResponse {
-    return {};
+    const message = createBaseMsgWithdrawRewardsResponse();
+    return message;
   },
   toAmino(_: MsgWithdrawRewardsResponse): MsgWithdrawRewardsResponseAmino {
     const obj: any = {};
@@ -468,11 +480,17 @@ export const MsgUndelegate = {
     return message;
   },
   fromAmino(object: MsgUndelegateAmino): MsgUndelegate {
-    return {
-      creator: object.creator,
-      staker: object.staker,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseMsgUndelegate();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgUndelegate): MsgUndelegateAmino {
     const obj: any = {};
@@ -513,7 +531,8 @@ export const MsgUndelegateResponse = {
     return message;
   },
   fromAmino(_: MsgUndelegateResponseAmino): MsgUndelegateResponse {
-    return {};
+    const message = createBaseMsgUndelegateResponse();
+    return message;
   },
   toAmino(_: MsgUndelegateResponse): MsgUndelegateResponseAmino {
     const obj: any = {};
@@ -577,12 +596,20 @@ export const MsgRedelegate = {
     return message;
   },
   fromAmino(object: MsgRedelegateAmino): MsgRedelegate {
-    return {
-      creator: object.creator,
-      fromStaker: object.from_staker,
-      toStaker: object.to_staker,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseMsgRedelegate();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.from_staker !== undefined && object.from_staker !== null) {
+      message.fromStaker = object.from_staker;
+    }
+    if (object.to_staker !== undefined && object.to_staker !== null) {
+      message.toStaker = object.to_staker;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgRedelegate): MsgRedelegateAmino {
     const obj: any = {};
@@ -624,7 +651,8 @@ export const MsgRedelegateResponse = {
     return message;
   },
   fromAmino(_: MsgRedelegateResponseAmino): MsgRedelegateResponse {
-    return {};
+    const message = createBaseMsgRedelegateResponse();
+    return message;
   },
   toAmino(_: MsgRedelegateResponse): MsgRedelegateResponseAmino {
     const obj: any = {};
@@ -676,10 +704,14 @@ export const MsgUpdateParams = {
     return message;
   },
   fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    return {
-      authority: object.authority,
-      payload: object.payload
-    };
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = object.payload;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
     const obj: any = {};
@@ -719,7 +751,8 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    return {};
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
     const obj: any = {};

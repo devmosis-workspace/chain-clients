@@ -23,13 +23,13 @@ export interface EventCreateTeamVestingAccountProtoMsg {
  */
 export interface EventCreateTeamVestingAccountAmino {
     /** authority which initiated this action */
-    authority: string;
+    authority?: string;
     /** id is a unique identify for each vesting account, tied to a single team member. */
-    id: string;
+    id?: string;
     /** total_allocation is the number of tokens reserved for this team member. */
-    total_allocation: string;
+    total_allocation?: string;
     /** commencement is the unix timestamp of the member's official start date. */
-    commencement: string;
+    commencement?: string;
 }
 export interface EventCreateTeamVestingAccountAminoMsg {
     type: "/kyve.team.v1beta1.EventCreateTeamVestingAccount";
@@ -72,16 +72,16 @@ export interface EventClawbackProtoMsg {
  */
 export interface EventClawbackAmino {
     /** authority which initiated this action */
-    authority: string;
+    authority?: string;
     /** id is a unique identify for each vesting account, tied to a single team member. */
-    id: string;
+    id?: string;
     /**
      * clawback is a unix timestamp of a clawback. If timestamp is zero
      * it means that the account has not received a clawback
      */
-    clawback: string;
+    clawback?: string;
     /** amount which got clawed back. */
-    amount: string;
+    amount?: string;
 }
 export interface EventClawbackAminoMsg {
     type: "/kyve.team.v1beta1.EventClawback";
@@ -121,13 +121,13 @@ export interface EventClaimedUnlockedProtoMsg {
  */
 export interface EventClaimedUnlockedAmino {
     /** authority which initiated this action */
-    authority: string;
+    authority?: string;
     /** id is a unique identify for each vesting account, tied to a single team member. */
-    id: string;
+    id?: string;
     /** amount is the number of tokens claimed from the unlocked amount. */
-    amount: string;
+    amount?: string;
     /** recipient is the receiver address of the claim. */
-    recipient: string;
+    recipient?: string;
 }
 export interface EventClaimedUnlockedAminoMsg {
     type: "/kyve.team.v1beta1.EventClaimedUnlocked";
@@ -167,13 +167,13 @@ export interface EventClaimInflationRewardsProtoMsg {
  */
 export interface EventClaimInflationRewardsAmino {
     /** authority which initiated this action */
-    authority: string;
+    authority?: string;
     /** id is a unique identify for each vesting account, tied to a single team member. */
-    id: string;
+    id?: string;
     /** amount is the amount of inflation rewards the authority should claim for the account holder */
-    amount: string;
+    amount?: string;
     /** recipient is the receiver address of the claim. */
-    recipient: string;
+    recipient?: string;
 }
 export interface EventClaimInflationRewardsAminoMsg {
     type: "/kyve.team.v1beta1.EventClaimInflationRewards";
@@ -211,11 +211,11 @@ export interface EventClaimAuthorityRewardsProtoMsg {
  */
 export interface EventClaimAuthorityRewardsAmino {
     /** authority which initiated this action */
-    authority: string;
+    authority?: string;
     /** amount is the amount of inflation rewards the authority should claim for the account holder */
-    amount: string;
+    amount?: string;
     /** recipient is the receiver address of the claim. */
-    recipient: string;
+    recipient?: string;
 }
 export interface EventClaimAuthorityRewardsAminoMsg {
     type: "/kyve.team.v1beta1.EventClaimAuthorityRewards";

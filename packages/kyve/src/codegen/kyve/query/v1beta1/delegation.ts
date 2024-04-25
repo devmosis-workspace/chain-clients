@@ -16,9 +16,9 @@ export interface QueryDelegatorRequestProtoMsg {
 /** QueryDelegatorRequest is the request type for the Query/Delegator RPC method. */
 export interface QueryDelegatorRequestAmino {
   /** staker ... */
-  staker: string;
+  staker?: string;
   /** delegator ... */
-  delegator: string;
+  delegator?: string;
 }
 export interface QueryDelegatorRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryDelegatorRequest";
@@ -32,7 +32,7 @@ export interface QueryDelegatorRequestSDKType {
 /** QueryDelegatorResponse is the response type for the Query/Delegator RPC method. */
 export interface QueryDelegatorResponse {
   /** delegator ... */
-  delegator: StakerDelegatorResponse;
+  delegator?: StakerDelegatorResponse;
 }
 export interface QueryDelegatorResponseProtoMsg {
   typeUrl: "/kyve.query.v1beta1.QueryDelegatorResponse";
@@ -49,7 +49,7 @@ export interface QueryDelegatorResponseAminoMsg {
 }
 /** QueryDelegatorResponse is the response type for the Query/Delegator RPC method. */
 export interface QueryDelegatorResponseSDKType {
-  delegator: StakerDelegatorResponseSDKType;
+  delegator?: StakerDelegatorResponseSDKType;
 }
 /** StakerDelegatorResponse ... */
 export interface StakerDelegatorResponse {
@@ -69,13 +69,13 @@ export interface StakerDelegatorResponseProtoMsg {
 /** StakerDelegatorResponse ... */
 export interface StakerDelegatorResponseAmino {
   /** delegator ... */
-  delegator: string;
+  delegator?: string;
   /** current_reward ... */
-  current_reward: string;
+  current_reward?: string;
   /** delegation_amount ... */
-  delegation_amount: string;
+  delegation_amount?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
 }
 export interface StakerDelegatorResponseAminoMsg {
   type: "/kyve.query.v1beta1.StakerDelegatorResponse";
@@ -91,7 +91,7 @@ export interface StakerDelegatorResponseSDKType {
 /** QueryDelegatorsByStakerRequest ... */
 export interface QueryDelegatorsByStakerRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   /** staker ... */
   staker: string;
 }
@@ -104,7 +104,7 @@ export interface QueryDelegatorsByStakerRequestAmino {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
   /** staker ... */
-  staker: string;
+  staker?: string;
 }
 export interface QueryDelegatorsByStakerRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryDelegatorsByStakerRequest";
@@ -112,7 +112,7 @@ export interface QueryDelegatorsByStakerRequestAminoMsg {
 }
 /** QueryDelegatorsByStakerRequest ... */
 export interface QueryDelegatorsByStakerRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
   staker: string;
 }
 /** QueryDelegatorsByStakerResponse ... */
@@ -124,7 +124,7 @@ export interface QueryDelegatorsByStakerResponse {
   /** total_delegation ... */
   totalDelegatorCount: bigint;
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryDelegatorsByStakerResponseProtoMsg {
   typeUrl: "/kyve.query.v1beta1.QueryDelegatorsByStakerResponse";
@@ -133,11 +133,11 @@ export interface QueryDelegatorsByStakerResponseProtoMsg {
 /** QueryDelegatorsByStakerResponse ... */
 export interface QueryDelegatorsByStakerResponseAmino {
   /** delegators ... */
-  delegators: StakerDelegatorResponseAmino[];
+  delegators?: StakerDelegatorResponseAmino[];
   /** total_delegation ... (consider metadata object) */
-  total_delegation: string;
+  total_delegation?: string;
   /** total_delegation ... */
-  total_delegator_count: string;
+  total_delegator_count?: string;
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -150,12 +150,12 @@ export interface QueryDelegatorsByStakerResponseSDKType {
   delegators: StakerDelegatorResponseSDKType[];
   total_delegation: bigint;
   total_delegator_count: bigint;
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryStakersByDelegatorRequest ... */
 export interface QueryStakersByDelegatorRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   /** delegator ... */
   delegator: string;
 }
@@ -168,7 +168,7 @@ export interface QueryStakersByDelegatorRequestAmino {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
   /** delegator ... */
-  delegator: string;
+  delegator?: string;
 }
 export interface QueryStakersByDelegatorRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryStakersByDelegatorRequest";
@@ -176,7 +176,7 @@ export interface QueryStakersByDelegatorRequestAminoMsg {
 }
 /** QueryStakersByDelegatorRequest ... */
 export interface QueryStakersByDelegatorRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
   delegator: string;
 }
 /** QueryStakersByDelegatorResponse ... */
@@ -186,7 +186,7 @@ export interface QueryStakersByDelegatorResponse {
   /** stakers ... */
   stakers: DelegationForStakerResponse[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryStakersByDelegatorResponseProtoMsg {
   typeUrl: "/kyve.query.v1beta1.QueryStakersByDelegatorResponse";
@@ -195,9 +195,9 @@ export interface QueryStakersByDelegatorResponseProtoMsg {
 /** QueryStakersByDelegatorResponse ... */
 export interface QueryStakersByDelegatorResponseAmino {
   /** delegator ... */
-  delegator: string;
+  delegator?: string;
   /** stakers ... */
-  stakers: DelegationForStakerResponseAmino[];
+  stakers?: DelegationForStakerResponseAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -209,12 +209,12 @@ export interface QueryStakersByDelegatorResponseAminoMsg {
 export interface QueryStakersByDelegatorResponseSDKType {
   delegator: string;
   stakers: DelegationForStakerResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** DelegationForStakerResponse ... */
 export interface DelegationForStakerResponse {
   /** staker ... */
-  staker: FullStaker;
+  staker?: FullStaker;
   /** current_reward ... */
   currentReward: bigint;
   /** delegation_amount ... */
@@ -229,9 +229,9 @@ export interface DelegationForStakerResponseAmino {
   /** staker ... */
   staker?: FullStakerAmino;
   /** current_reward ... */
-  current_reward: string;
+  current_reward?: string;
   /** delegation_amount ... */
-  delegation_amount: string;
+  delegation_amount?: string;
 }
 export interface DelegationForStakerResponseAminoMsg {
   type: "/kyve.query.v1beta1.DelegationForStakerResponse";
@@ -239,7 +239,7 @@ export interface DelegationForStakerResponseAminoMsg {
 }
 /** DelegationForStakerResponse ... */
 export interface DelegationForStakerResponseSDKType {
-  staker: FullStakerSDKType;
+  staker?: FullStakerSDKType;
   current_reward: bigint;
   delegation_amount: bigint;
 }
@@ -273,10 +273,14 @@ export const QueryDelegatorRequest = {
     return message;
   },
   fromAmino(object: QueryDelegatorRequestAmino): QueryDelegatorRequest {
-    return {
-      staker: object.staker,
-      delegator: object.delegator
-    };
+    const message = createBaseQueryDelegatorRequest();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.delegator !== undefined && object.delegator !== null) {
+      message.delegator = object.delegator;
+    }
+    return message;
   },
   toAmino(message: QueryDelegatorRequest): QueryDelegatorRequestAmino {
     const obj: any = {};
@@ -302,7 +306,7 @@ export const QueryDelegatorRequest = {
 };
 function createBaseQueryDelegatorResponse(): QueryDelegatorResponse {
   return {
-    delegator: StakerDelegatorResponse.fromPartial({})
+    delegator: undefined
   };
 }
 export const QueryDelegatorResponse = {
@@ -324,9 +328,11 @@ export const QueryDelegatorResponse = {
     return message;
   },
   fromAmino(object: QueryDelegatorResponseAmino): QueryDelegatorResponse {
-    return {
-      delegator: object?.delegator ? StakerDelegatorResponse.fromAmino(object.delegator) : undefined
-    };
+    const message = createBaseQueryDelegatorResponse();
+    if (object.delegator !== undefined && object.delegator !== null) {
+      message.delegator = StakerDelegatorResponse.fromAmino(object.delegator);
+    }
+    return message;
   },
   toAmino(message: QueryDelegatorResponse): QueryDelegatorResponseAmino {
     const obj: any = {};
@@ -391,12 +397,20 @@ export const StakerDelegatorResponse = {
     return message;
   },
   fromAmino(object: StakerDelegatorResponseAmino): StakerDelegatorResponse {
-    return {
-      delegator: object.delegator,
-      currentReward: BigInt(object.current_reward),
-      delegationAmount: BigInt(object.delegation_amount),
-      staker: object.staker
-    };
+    const message = createBaseStakerDelegatorResponse();
+    if (object.delegator !== undefined && object.delegator !== null) {
+      message.delegator = object.delegator;
+    }
+    if (object.current_reward !== undefined && object.current_reward !== null) {
+      message.currentReward = BigInt(object.current_reward);
+    }
+    if (object.delegation_amount !== undefined && object.delegation_amount !== null) {
+      message.delegationAmount = BigInt(object.delegation_amount);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    return message;
   },
   toAmino(message: StakerDelegatorResponse): StakerDelegatorResponseAmino {
     const obj: any = {};
@@ -424,7 +438,7 @@ export const StakerDelegatorResponse = {
 };
 function createBaseQueryDelegatorsByStakerRequest(): QueryDelegatorsByStakerRequest {
   return {
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
     staker: ""
   };
 }
@@ -452,10 +466,14 @@ export const QueryDelegatorsByStakerRequest = {
     return message;
   },
   fromAmino(object: QueryDelegatorsByStakerRequestAmino): QueryDelegatorsByStakerRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
-      staker: object.staker
-    };
+    const message = createBaseQueryDelegatorsByStakerRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    return message;
   },
   toAmino(message: QueryDelegatorsByStakerRequest): QueryDelegatorsByStakerRequestAmino {
     const obj: any = {};
@@ -484,7 +502,7 @@ function createBaseQueryDelegatorsByStakerResponse(): QueryDelegatorsByStakerRes
     delegators: [],
     totalDelegation: BigInt(0),
     totalDelegatorCount: BigInt(0),
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDelegatorsByStakerResponse = {
@@ -521,12 +539,18 @@ export const QueryDelegatorsByStakerResponse = {
     return message;
   },
   fromAmino(object: QueryDelegatorsByStakerResponseAmino): QueryDelegatorsByStakerResponse {
-    return {
-      delegators: Array.isArray(object?.delegators) ? object.delegators.map((e: any) => StakerDelegatorResponse.fromAmino(e)) : [],
-      totalDelegation: BigInt(object.total_delegation),
-      totalDelegatorCount: BigInt(object.total_delegator_count),
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDelegatorsByStakerResponse();
+    message.delegators = object.delegators?.map(e => StakerDelegatorResponse.fromAmino(e)) || [];
+    if (object.total_delegation !== undefined && object.total_delegation !== null) {
+      message.totalDelegation = BigInt(object.total_delegation);
+    }
+    if (object.total_delegator_count !== undefined && object.total_delegator_count !== null) {
+      message.totalDelegatorCount = BigInt(object.total_delegator_count);
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDelegatorsByStakerResponse): QueryDelegatorsByStakerResponseAmino {
     const obj: any = {};
@@ -558,7 +582,7 @@ export const QueryDelegatorsByStakerResponse = {
 };
 function createBaseQueryStakersByDelegatorRequest(): QueryStakersByDelegatorRequest {
   return {
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
     delegator: ""
   };
 }
@@ -586,10 +610,14 @@ export const QueryStakersByDelegatorRequest = {
     return message;
   },
   fromAmino(object: QueryStakersByDelegatorRequestAmino): QueryStakersByDelegatorRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
-      delegator: object.delegator
-    };
+    const message = createBaseQueryStakersByDelegatorRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    if (object.delegator !== undefined && object.delegator !== null) {
+      message.delegator = object.delegator;
+    }
+    return message;
   },
   toAmino(message: QueryStakersByDelegatorRequest): QueryStakersByDelegatorRequestAmino {
     const obj: any = {};
@@ -617,7 +645,7 @@ function createBaseQueryStakersByDelegatorResponse(): QueryStakersByDelegatorRes
   return {
     delegator: "",
     stakers: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryStakersByDelegatorResponse = {
@@ -649,11 +677,15 @@ export const QueryStakersByDelegatorResponse = {
     return message;
   },
   fromAmino(object: QueryStakersByDelegatorResponseAmino): QueryStakersByDelegatorResponse {
-    return {
-      delegator: object.delegator,
-      stakers: Array.isArray(object?.stakers) ? object.stakers.map((e: any) => DelegationForStakerResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryStakersByDelegatorResponse();
+    if (object.delegator !== undefined && object.delegator !== null) {
+      message.delegator = object.delegator;
+    }
+    message.stakers = object.stakers?.map(e => DelegationForStakerResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryStakersByDelegatorResponse): QueryStakersByDelegatorResponseAmino {
     const obj: any = {};
@@ -684,7 +716,7 @@ export const QueryStakersByDelegatorResponse = {
 };
 function createBaseDelegationForStakerResponse(): DelegationForStakerResponse {
   return {
-    staker: FullStaker.fromPartial({}),
+    staker: undefined,
     currentReward: BigInt(0),
     delegationAmount: BigInt(0)
   };
@@ -718,11 +750,17 @@ export const DelegationForStakerResponse = {
     return message;
   },
   fromAmino(object: DelegationForStakerResponseAmino): DelegationForStakerResponse {
-    return {
-      staker: object?.staker ? FullStaker.fromAmino(object.staker) : undefined,
-      currentReward: BigInt(object.current_reward),
-      delegationAmount: BigInt(object.delegation_amount)
-    };
+    const message = createBaseDelegationForStakerResponse();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = FullStaker.fromAmino(object.staker);
+    }
+    if (object.current_reward !== undefined && object.current_reward !== null) {
+      message.currentReward = BigInt(object.current_reward);
+    }
+    if (object.delegation_amount !== undefined && object.delegation_amount !== null) {
+      message.delegationAmount = BigInt(object.delegation_amount);
+    }
+    return message;
   },
   toAmino(message: DelegationForStakerResponse): DelegationForStakerResponseAmino {
     const obj: any = {};

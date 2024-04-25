@@ -26,7 +26,7 @@ export interface EventUpdateParamsAmino {
     /** new_params is the module's new parameters. */
     new_params?: ParamsAmino;
     /** payload is the parameter updates that were performed. */
-    payload: string;
+    payload?: string;
 }
 export interface EventUpdateParamsAminoMsg {
     type: "/kyve.global.v1beta1.EventUpdateParams";

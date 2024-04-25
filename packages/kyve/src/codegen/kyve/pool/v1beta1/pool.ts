@@ -2,18 +2,42 @@ import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** PoolStatus ... */
 export enum PoolStatus {
-  /** POOL_STATUS_UNSPECIFIED - POOL_STATUS_UNSPECIFIED ... */
+  /**
+   * POOL_STATUS_UNSPECIFIED - POOL_STATUS_UNSPECIFIED indicates an unknown status, likely
+   * due to an error
+   */
   POOL_STATUS_UNSPECIFIED = 0,
-  /** POOL_STATUS_ACTIVE - POOL_STATUS_ACTIVE ... */
+  /**
+   * POOL_STATUS_ACTIVE - POOL_STATUS_ACTIVE indicates, that the pool is running
+   * normally
+   */
   POOL_STATUS_ACTIVE = 1,
-  /** POOL_STATUS_DISABLED - POOL_STATUS_DISABLED ... */
+  /**
+   * POOL_STATUS_DISABLED - POOL_STATUS_DISABLED indicates, that the pool was disabled
+   * by the governance and does not continue until it is enabled
+   * by the governance again
+   */
   POOL_STATUS_DISABLED = 2,
-  /** POOL_STATUS_NO_FUNDS - POOL_STATUS_NO_FUNDS ... */
+  /**
+   * POOL_STATUS_NO_FUNDS - POOL_STATUS_NO_FUNDS indicates, that the pool currently has no
+   * funds, but is continuing normally anyway, due to inflation splitting
+   */
   POOL_STATUS_NO_FUNDS = 3,
-  /** POOL_STATUS_NOT_ENOUGH_DELEGATION - POOL_STATUS_NOT_ENOUGH_DELEGATION ... */
+  /**
+   * POOL_STATUS_NOT_ENOUGH_DELEGATION - POOL_STATUS_NOT_ENOUGH_DELEGATION indicates, that the min delegation
+   * requirement has not been met and that the pool is halted
+   */
   POOL_STATUS_NOT_ENOUGH_DELEGATION = 4,
-  /** POOL_STATUS_UPGRADING - POOL_STATUS_UPGRADING ... */
+  /**
+   * POOL_STATUS_UPGRADING - POOL_STATUS_UPGRADING indicates, that the runtime is currently
+   * being upgraded and that the pool is halted
+   */
   POOL_STATUS_UPGRADING = 5,
+  /**
+   * POOL_STATUS_VOTING_POWER_TOO_HIGH - POOL_STATUS_VOTING_POWER_TOO_HIGH indicates, that one validator
+   * has more than 50% voting power and that the pool is halted
+   */
+  POOL_STATUS_VOTING_POWER_TOO_HIGH = 6,
   UNRECOGNIZED = -1,
 }
 export const PoolStatusSDKType = PoolStatus;
@@ -38,6 +62,9 @@ export function poolStatusFromJSON(object: any): PoolStatus {
     case 5:
     case "POOL_STATUS_UPGRADING":
       return PoolStatus.POOL_STATUS_UPGRADING;
+    case 6:
+    case "POOL_STATUS_VOTING_POWER_TOO_HIGH":
+      return PoolStatus.POOL_STATUS_VOTING_POWER_TOO_HIGH;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -58,6 +85,8 @@ export function poolStatusToJSON(object: PoolStatus): string {
       return "POOL_STATUS_NOT_ENOUGH_DELEGATION";
     case PoolStatus.POOL_STATUS_UPGRADING:
       return "POOL_STATUS_UPGRADING";
+    case PoolStatus.POOL_STATUS_VOTING_POWER_TOO_HIGH:
+      return "POOL_STATUS_VOTING_POWER_TOO_HIGH";
     case PoolStatus.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
@@ -88,14 +117,14 @@ export interface ProtocolProtoMsg {
  */
 export interface ProtocolAmino {
   /** version holds the current software version tag of the pool binaries */
-  version: string;
+  version?: string;
   /**
    * binaries is a stringified json object which holds binaries in the
    * current version for multiple platforms and architectures
    */
-  binaries: string;
+  binaries?: string;
   /** last_upgrade is the unix time the pool was upgraded the last time */
-  last_upgrade: string;
+  last_upgrade?: string;
 }
 export interface ProtocolAminoMsg {
   type: "/kyve.pool.v1beta1.Protocol";
@@ -135,20 +164,20 @@ export interface UpgradePlanProtoMsg {
 /** Upgrade holds all info when a pool has a scheduled upgrade */
 export interface UpgradePlanAmino {
   /** version is the new software version tag of the upgrade */
-  version: string;
+  version?: string;
   /**
    * binaries is the new stringified json object which holds binaries in the
    * upgrade version for multiple platforms and architectures
    */
-  binaries: string;
+  binaries?: string;
   /** scheduled_at is the unix time the upgrade is supposed to be done */
-  scheduled_at: string;
+  scheduled_at?: string;
   /**
    * duration is the time in seconds how long the pool should halt
    * during the upgrade to give all validators a chance of switching
    * to the new binaries
    */
-  duration: string;
+  duration?: string;
 }
 export interface UpgradePlanAminoMsg {
   type: "/kyve.pool.v1beta1.UpgradePlan";
@@ -160,39 +189,6 @@ export interface UpgradePlanSDKType {
   binaries: string;
   scheduled_at: bigint;
   duration: bigint;
-}
-/** Funder is the object which holds info about a single pool funder */
-export interface Funder {
-  /** address is the address of the funder */
-  address: string;
-  /**
-   * amount is the current amount of funds in ukyve the funder has
-   * still funded the pool with
-   */
-  amount: bigint;
-}
-export interface FunderProtoMsg {
-  typeUrl: "/kyve.pool.v1beta1.Funder";
-  value: Uint8Array;
-}
-/** Funder is the object which holds info about a single pool funder */
-export interface FunderAmino {
-  /** address is the address of the funder */
-  address: string;
-  /**
-   * amount is the current amount of funds in ukyve the funder has
-   * still funded the pool with
-   */
-  amount: string;
-}
-export interface FunderAminoMsg {
-  type: "/kyve.pool.v1beta1.Funder";
-  value: FunderAmino;
-}
-/** Funder is the object which holds info about a single pool funder */
-export interface FunderSDKType {
-  address: string;
-  amount: bigint;
 }
 /** Pool ... */
 export interface Pool {
@@ -221,8 +217,8 @@ export interface Pool {
   totalBundles: bigint;
   /** upload_interval ... */
   uploadInterval: bigint;
-  /** operating_cost ... */
-  operatingCost: bigint;
+  /** inflation_share_weight ... */
+  inflationShareWeight: bigint;
   /** min_delegation ... */
   minDelegation: bigint;
   /** max_bundle_size ... */
@@ -232,14 +228,10 @@ export interface Pool {
    * Can only be done via governance.
    */
   disabled: boolean;
-  /** funders ... */
-  funders: Funder[];
-  /** total_funds ... */
-  totalFunds: bigint;
   /** protocol ... */
-  protocol: Protocol;
+  protocol?: Protocol;
   /** upgrade_plan ... */
-  upgradePlan: UpgradePlan;
+  upgradePlan?: UpgradePlan;
   /** storage_provider_id ... */
   currentStorageProviderId: number;
   /** compression_id ... */
@@ -252,53 +244,49 @@ export interface PoolProtoMsg {
 /** Pool ... */
 export interface PoolAmino {
   /** id - unique identifier of the pool, can not be changed */
-  id: string;
+  id?: string;
   /** name is a human readable name for the pool */
-  name: string;
+  name?: string;
   /** runtime specified which protocol and which version needs is required */
-  runtime: string;
+  runtime?: string;
   /** logo is a link to an image file */
-  logo: string;
+  logo?: string;
   /**
    * config is either a JSON encoded string or a link to an external storage provider.
    * This is up to the implementation of the protocol node.
    */
-  config: string;
+  config?: string;
   /** start_key ... */
-  start_key: string;
+  start_key?: string;
   /** current_key ... */
-  current_key: string;
+  current_key?: string;
   /** current_summary ... */
-  current_summary: string;
+  current_summary?: string;
   /** current_index ... */
-  current_index: string;
+  current_index?: string;
   /** total_bundles is the number of total finalized bundles */
-  total_bundles: string;
+  total_bundles?: string;
   /** upload_interval ... */
-  upload_interval: string;
-  /** operating_cost ... */
-  operating_cost: string;
+  upload_interval?: string;
+  /** inflation_share_weight ... */
+  inflation_share_weight?: string;
   /** min_delegation ... */
-  min_delegation: string;
+  min_delegation?: string;
   /** max_bundle_size ... */
-  max_bundle_size: string;
+  max_bundle_size?: string;
   /**
    * disabled is true when the pool is disabled.
    * Can only be done via governance.
    */
-  disabled: boolean;
-  /** funders ... */
-  funders: FunderAmino[];
-  /** total_funds ... */
-  total_funds: string;
+  disabled?: boolean;
   /** protocol ... */
   protocol?: ProtocolAmino;
   /** upgrade_plan ... */
   upgrade_plan?: UpgradePlanAmino;
   /** storage_provider_id ... */
-  current_storage_provider_id: number;
+  current_storage_provider_id?: number;
   /** compression_id ... */
-  current_compression_id: number;
+  current_compression_id?: number;
 }
 export interface PoolAminoMsg {
   type: "/kyve.pool.v1beta1.Pool";
@@ -317,14 +305,12 @@ export interface PoolSDKType {
   current_index: bigint;
   total_bundles: bigint;
   upload_interval: bigint;
-  operating_cost: bigint;
+  inflation_share_weight: bigint;
   min_delegation: bigint;
   max_bundle_size: bigint;
   disabled: boolean;
-  funders: FunderSDKType[];
-  total_funds: bigint;
-  protocol: ProtocolSDKType;
-  upgrade_plan: UpgradePlanSDKType;
+  protocol?: ProtocolSDKType;
+  upgrade_plan?: UpgradePlanSDKType;
   current_storage_provider_id: number;
   current_compression_id: number;
 }
@@ -364,11 +350,17 @@ export const Protocol = {
     return message;
   },
   fromAmino(object: ProtocolAmino): Protocol {
-    return {
-      version: object.version,
-      binaries: object.binaries,
-      lastUpgrade: BigInt(object.last_upgrade)
-    };
+    const message = createBaseProtocol();
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    if (object.binaries !== undefined && object.binaries !== null) {
+      message.binaries = object.binaries;
+    }
+    if (object.last_upgrade !== undefined && object.last_upgrade !== null) {
+      message.lastUpgrade = BigInt(object.last_upgrade);
+    }
+    return message;
   },
   toAmino(message: Protocol): ProtocolAmino {
     const obj: any = {};
@@ -435,12 +427,20 @@ export const UpgradePlan = {
     return message;
   },
   fromAmino(object: UpgradePlanAmino): UpgradePlan {
-    return {
-      version: object.version,
-      binaries: object.binaries,
-      scheduledAt: BigInt(object.scheduled_at),
-      duration: BigInt(object.duration)
-    };
+    const message = createBaseUpgradePlan();
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    if (object.binaries !== undefined && object.binaries !== null) {
+      message.binaries = object.binaries;
+    }
+    if (object.scheduled_at !== undefined && object.scheduled_at !== null) {
+      message.scheduledAt = BigInt(object.scheduled_at);
+    }
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = BigInt(object.duration);
+    }
+    return message;
   },
   toAmino(message: UpgradePlan): UpgradePlanAmino {
     const obj: any = {};
@@ -466,63 +466,6 @@ export const UpgradePlan = {
     };
   }
 };
-function createBaseFunder(): Funder {
-  return {
-    address: "",
-    amount: BigInt(0)
-  };
-}
-export const Funder = {
-  typeUrl: "/kyve.pool.v1beta1.Funder",
-  encode(message: Funder, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
-    }
-    if (message.amount !== BigInt(0)) {
-      writer.uint32(16).uint64(message.amount);
-    }
-    return writer;
-  },
-  fromJSON(object: any): Funder {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-      amount: isSet(object.amount) ? BigInt(object.amount.toString()) : BigInt(0)
-    };
-  },
-  fromPartial(object: Partial<Funder>): Funder {
-    const message = createBaseFunder();
-    message.address = object.address ?? "";
-    message.amount = object.amount !== undefined && object.amount !== null ? BigInt(object.amount.toString()) : BigInt(0);
-    return message;
-  },
-  fromAmino(object: FunderAmino): Funder {
-    return {
-      address: object.address,
-      amount: BigInt(object.amount)
-    };
-  },
-  toAmino(message: Funder): FunderAmino {
-    const obj: any = {};
-    obj.address = message.address;
-    obj.amount = message.amount ? message.amount.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: FunderAminoMsg): Funder {
-    return Funder.fromAmino(object.value);
-  },
-  fromProtoMsg(message: FunderProtoMsg): Funder {
-    return Funder.decode(message.value);
-  },
-  toProto(message: Funder): Uint8Array {
-    return Funder.encode(message).finish();
-  },
-  toProtoMsg(message: Funder): FunderProtoMsg {
-    return {
-      typeUrl: "/kyve.pool.v1beta1.Funder",
-      value: Funder.encode(message).finish()
-    };
-  }
-};
 function createBasePool(): Pool {
   return {
     id: BigInt(0),
@@ -536,14 +479,12 @@ function createBasePool(): Pool {
     currentIndex: BigInt(0),
     totalBundles: BigInt(0),
     uploadInterval: BigInt(0),
-    operatingCost: BigInt(0),
+    inflationShareWeight: BigInt(0),
     minDelegation: BigInt(0),
     maxBundleSize: BigInt(0),
     disabled: false,
-    funders: [],
-    totalFunds: BigInt(0),
-    protocol: Protocol.fromPartial({}),
-    upgradePlan: UpgradePlan.fromPartial({}),
+    protocol: undefined,
+    upgradePlan: undefined,
     currentStorageProviderId: 0,
     currentCompressionId: 0
   };
@@ -584,8 +525,8 @@ export const Pool = {
     if (message.uploadInterval !== BigInt(0)) {
       writer.uint32(88).uint64(message.uploadInterval);
     }
-    if (message.operatingCost !== BigInt(0)) {
-      writer.uint32(96).uint64(message.operatingCost);
+    if (message.inflationShareWeight !== BigInt(0)) {
+      writer.uint32(96).uint64(message.inflationShareWeight);
     }
     if (message.minDelegation !== BigInt(0)) {
       writer.uint32(104).uint64(message.minDelegation);
@@ -596,23 +537,17 @@ export const Pool = {
     if (message.disabled === true) {
       writer.uint32(120).bool(message.disabled);
     }
-    for (const v of message.funders) {
-      Funder.encode(v!, writer.uint32(130).fork()).ldelim();
-    }
-    if (message.totalFunds !== BigInt(0)) {
-      writer.uint32(136).uint64(message.totalFunds);
-    }
     if (message.protocol !== undefined) {
-      Protocol.encode(message.protocol, writer.uint32(146).fork()).ldelim();
+      Protocol.encode(message.protocol, writer.uint32(130).fork()).ldelim();
     }
     if (message.upgradePlan !== undefined) {
-      UpgradePlan.encode(message.upgradePlan, writer.uint32(154).fork()).ldelim();
+      UpgradePlan.encode(message.upgradePlan, writer.uint32(138).fork()).ldelim();
     }
     if (message.currentStorageProviderId !== 0) {
-      writer.uint32(160).uint32(message.currentStorageProviderId);
+      writer.uint32(144).uint32(message.currentStorageProviderId);
     }
     if (message.currentCompressionId !== 0) {
-      writer.uint32(168).uint32(message.currentCompressionId);
+      writer.uint32(152).uint32(message.currentCompressionId);
     }
     return writer;
   },
@@ -629,12 +564,10 @@ export const Pool = {
       currentIndex: isSet(object.currentIndex) ? BigInt(object.currentIndex.toString()) : BigInt(0),
       totalBundles: isSet(object.totalBundles) ? BigInt(object.totalBundles.toString()) : BigInt(0),
       uploadInterval: isSet(object.uploadInterval) ? BigInt(object.uploadInterval.toString()) : BigInt(0),
-      operatingCost: isSet(object.operatingCost) ? BigInt(object.operatingCost.toString()) : BigInt(0),
+      inflationShareWeight: isSet(object.inflationShareWeight) ? BigInt(object.inflationShareWeight.toString()) : BigInt(0),
       minDelegation: isSet(object.minDelegation) ? BigInt(object.minDelegation.toString()) : BigInt(0),
       maxBundleSize: isSet(object.maxBundleSize) ? BigInt(object.maxBundleSize.toString()) : BigInt(0),
       disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
-      funders: Array.isArray(object?.funders) ? object.funders.map((e: any) => Funder.fromJSON(e)) : [],
-      totalFunds: isSet(object.totalFunds) ? BigInt(object.totalFunds.toString()) : BigInt(0),
       protocol: isSet(object.protocol) ? Protocol.fromJSON(object.protocol) : undefined,
       upgradePlan: isSet(object.upgradePlan) ? UpgradePlan.fromJSON(object.upgradePlan) : undefined,
       currentStorageProviderId: isSet(object.currentStorageProviderId) ? Number(object.currentStorageProviderId) : 0,
@@ -654,12 +587,10 @@ export const Pool = {
     message.currentIndex = object.currentIndex !== undefined && object.currentIndex !== null ? BigInt(object.currentIndex.toString()) : BigInt(0);
     message.totalBundles = object.totalBundles !== undefined && object.totalBundles !== null ? BigInt(object.totalBundles.toString()) : BigInt(0);
     message.uploadInterval = object.uploadInterval !== undefined && object.uploadInterval !== null ? BigInt(object.uploadInterval.toString()) : BigInt(0);
-    message.operatingCost = object.operatingCost !== undefined && object.operatingCost !== null ? BigInt(object.operatingCost.toString()) : BigInt(0);
+    message.inflationShareWeight = object.inflationShareWeight !== undefined && object.inflationShareWeight !== null ? BigInt(object.inflationShareWeight.toString()) : BigInt(0);
     message.minDelegation = object.minDelegation !== undefined && object.minDelegation !== null ? BigInt(object.minDelegation.toString()) : BigInt(0);
     message.maxBundleSize = object.maxBundleSize !== undefined && object.maxBundleSize !== null ? BigInt(object.maxBundleSize.toString()) : BigInt(0);
     message.disabled = object.disabled ?? false;
-    message.funders = object.funders?.map(e => Funder.fromPartial(e)) || [];
-    message.totalFunds = object.totalFunds !== undefined && object.totalFunds !== null ? BigInt(object.totalFunds.toString()) : BigInt(0);
     message.protocol = object.protocol !== undefined && object.protocol !== null ? Protocol.fromPartial(object.protocol) : undefined;
     message.upgradePlan = object.upgradePlan !== undefined && object.upgradePlan !== null ? UpgradePlan.fromPartial(object.upgradePlan) : undefined;
     message.currentStorageProviderId = object.currentStorageProviderId ?? 0;
@@ -667,29 +598,65 @@ export const Pool = {
     return message;
   },
   fromAmino(object: PoolAmino): Pool {
-    return {
-      id: BigInt(object.id),
-      name: object.name,
-      runtime: object.runtime,
-      logo: object.logo,
-      config: object.config,
-      startKey: object.start_key,
-      currentKey: object.current_key,
-      currentSummary: object.current_summary,
-      currentIndex: BigInt(object.current_index),
-      totalBundles: BigInt(object.total_bundles),
-      uploadInterval: BigInt(object.upload_interval),
-      operatingCost: BigInt(object.operating_cost),
-      minDelegation: BigInt(object.min_delegation),
-      maxBundleSize: BigInt(object.max_bundle_size),
-      disabled: object.disabled,
-      funders: Array.isArray(object?.funders) ? object.funders.map((e: any) => Funder.fromAmino(e)) : [],
-      totalFunds: BigInt(object.total_funds),
-      protocol: object?.protocol ? Protocol.fromAmino(object.protocol) : undefined,
-      upgradePlan: object?.upgrade_plan ? UpgradePlan.fromAmino(object.upgrade_plan) : undefined,
-      currentStorageProviderId: object.current_storage_provider_id,
-      currentCompressionId: object.current_compression_id
-    };
+    const message = createBasePool();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.runtime !== undefined && object.runtime !== null) {
+      message.runtime = object.runtime;
+    }
+    if (object.logo !== undefined && object.logo !== null) {
+      message.logo = object.logo;
+    }
+    if (object.config !== undefined && object.config !== null) {
+      message.config = object.config;
+    }
+    if (object.start_key !== undefined && object.start_key !== null) {
+      message.startKey = object.start_key;
+    }
+    if (object.current_key !== undefined && object.current_key !== null) {
+      message.currentKey = object.current_key;
+    }
+    if (object.current_summary !== undefined && object.current_summary !== null) {
+      message.currentSummary = object.current_summary;
+    }
+    if (object.current_index !== undefined && object.current_index !== null) {
+      message.currentIndex = BigInt(object.current_index);
+    }
+    if (object.total_bundles !== undefined && object.total_bundles !== null) {
+      message.totalBundles = BigInt(object.total_bundles);
+    }
+    if (object.upload_interval !== undefined && object.upload_interval !== null) {
+      message.uploadInterval = BigInt(object.upload_interval);
+    }
+    if (object.inflation_share_weight !== undefined && object.inflation_share_weight !== null) {
+      message.inflationShareWeight = BigInt(object.inflation_share_weight);
+    }
+    if (object.min_delegation !== undefined && object.min_delegation !== null) {
+      message.minDelegation = BigInt(object.min_delegation);
+    }
+    if (object.max_bundle_size !== undefined && object.max_bundle_size !== null) {
+      message.maxBundleSize = BigInt(object.max_bundle_size);
+    }
+    if (object.disabled !== undefined && object.disabled !== null) {
+      message.disabled = object.disabled;
+    }
+    if (object.protocol !== undefined && object.protocol !== null) {
+      message.protocol = Protocol.fromAmino(object.protocol);
+    }
+    if (object.upgrade_plan !== undefined && object.upgrade_plan !== null) {
+      message.upgradePlan = UpgradePlan.fromAmino(object.upgrade_plan);
+    }
+    if (object.current_storage_provider_id !== undefined && object.current_storage_provider_id !== null) {
+      message.currentStorageProviderId = object.current_storage_provider_id;
+    }
+    if (object.current_compression_id !== undefined && object.current_compression_id !== null) {
+      message.currentCompressionId = object.current_compression_id;
+    }
+    return message;
   },
   toAmino(message: Pool): PoolAmino {
     const obj: any = {};
@@ -704,16 +671,10 @@ export const Pool = {
     obj.current_index = message.currentIndex ? message.currentIndex.toString() : undefined;
     obj.total_bundles = message.totalBundles ? message.totalBundles.toString() : undefined;
     obj.upload_interval = message.uploadInterval ? message.uploadInterval.toString() : undefined;
-    obj.operating_cost = message.operatingCost ? message.operatingCost.toString() : undefined;
+    obj.inflation_share_weight = message.inflationShareWeight ? message.inflationShareWeight.toString() : undefined;
     obj.min_delegation = message.minDelegation ? message.minDelegation.toString() : undefined;
     obj.max_bundle_size = message.maxBundleSize ? message.maxBundleSize.toString() : undefined;
     obj.disabled = message.disabled;
-    if (message.funders) {
-      obj.funders = message.funders.map(e => e ? Funder.toAmino(e) : undefined);
-    } else {
-      obj.funders = [];
-    }
-    obj.total_funds = message.totalFunds ? message.totalFunds.toString() : undefined;
     obj.protocol = message.protocol ? Protocol.toAmino(message.protocol) : undefined;
     obj.upgrade_plan = message.upgradePlan ? UpgradePlan.toAmino(message.upgradePlan) : undefined;
     obj.current_storage_provider_id = message.currentStorageProviderId;

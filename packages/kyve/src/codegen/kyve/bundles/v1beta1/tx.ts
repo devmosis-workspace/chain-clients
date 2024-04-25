@@ -81,27 +81,27 @@ export interface MsgSubmitBundleProposalProtoMsg {
 /** MsgSubmitBundleProposal defines a SDK message for submitting a bundle proposal. */
 export interface MsgSubmitBundleProposalAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
   /** pool_id ... */
-  pool_id: string;
+  pool_id?: string;
   /** storage_id ... */
-  storage_id: string;
+  storage_id?: string;
   /** data_size ... */
-  data_size: string;
+  data_size?: string;
   /** data_hash ... */
-  data_hash: string;
+  data_hash?: string;
   /** from_index ... */
-  from_index: string;
+  from_index?: string;
   /** bundle_size ... */
-  bundle_size: string;
+  bundle_size?: string;
   /** from_key */
-  from_key: string;
+  from_key?: string;
   /** to_key ... */
-  to_key: string;
+  to_key?: string;
   /** bundle_summary ... */
-  bundle_summary: string;
+  bundle_summary?: string;
 }
 export interface MsgSubmitBundleProposalAminoMsg {
   type: "/kyve.bundles.v1beta1.MsgSubmitBundleProposal";
@@ -155,15 +155,15 @@ export interface MsgVoteBundleProposalProtoMsg {
 /** MsgVoteBundleProposal defines a SDK message for voting on a bundle proposal. */
 export interface MsgVoteBundleProposalAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
   /** id ... */
-  pool_id: string;
+  pool_id?: string;
   /** storage_id ... */
-  storage_id: string;
+  storage_id?: string;
   /** vote ... */
-  vote: VoteType;
+  vote?: VoteType;
 }
 export interface MsgVoteBundleProposalAminoMsg {
   type: "/kyve.bundles.v1beta1.MsgVoteBundleProposal";
@@ -207,11 +207,11 @@ export interface MsgClaimUploaderRoleProtoMsg {
 /** MsgClaimUploaderRole defines a SDK message for claiming the uploader role. */
 export interface MsgClaimUploaderRoleAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
   /** id ... */
-  pool_id: string;
+  pool_id?: string;
 }
 export interface MsgClaimUploaderRoleAminoMsg {
   type: "/kyve.bundles.v1beta1.MsgClaimUploaderRole";
@@ -255,13 +255,13 @@ export interface MsgSkipUploaderRoleProtoMsg {
 /** MsgSubmitBundleProposal defines a SDK message for submitting a bundle proposal. */
 export interface MsgSkipUploaderRoleAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
   /** pool_id ... */
-  pool_id: string;
+  pool_id?: string;
   /** from_index ... */
-  from_index: string;
+  from_index?: string;
 }
 export interface MsgSkipUploaderRoleAminoMsg {
   type: "/kyve.bundles.v1beta1.MsgSkipUploaderRole";
@@ -302,9 +302,9 @@ export interface MsgUpdateParamsProtoMsg {
 /** MsgUpdateParams defines a SDK message for updating the module parameters. */
 export interface MsgUpdateParamsAmino {
   /** authority is the address of the governance account. */
-  authority: string;
+  authority?: string;
   /** payload defines the x/bundles parameters to update. */
-  payload: string;
+  payload?: string;
 }
 export interface MsgUpdateParamsAminoMsg {
   type: "/kyve.bundles.v1beta1.MsgUpdateParams";
@@ -413,19 +413,41 @@ export const MsgSubmitBundleProposal = {
     return message;
   },
   fromAmino(object: MsgSubmitBundleProposalAmino): MsgSubmitBundleProposal {
-    return {
-      creator: object.creator,
-      staker: object.staker,
-      poolId: BigInt(object.pool_id),
-      storageId: object.storage_id,
-      dataSize: BigInt(object.data_size),
-      dataHash: object.data_hash,
-      fromIndex: BigInt(object.from_index),
-      bundleSize: BigInt(object.bundle_size),
-      fromKey: object.from_key,
-      toKey: object.to_key,
-      bundleSummary: object.bundle_summary
-    };
+    const message = createBaseMsgSubmitBundleProposal();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.storage_id !== undefined && object.storage_id !== null) {
+      message.storageId = object.storage_id;
+    }
+    if (object.data_size !== undefined && object.data_size !== null) {
+      message.dataSize = BigInt(object.data_size);
+    }
+    if (object.data_hash !== undefined && object.data_hash !== null) {
+      message.dataHash = object.data_hash;
+    }
+    if (object.from_index !== undefined && object.from_index !== null) {
+      message.fromIndex = BigInt(object.from_index);
+    }
+    if (object.bundle_size !== undefined && object.bundle_size !== null) {
+      message.bundleSize = BigInt(object.bundle_size);
+    }
+    if (object.from_key !== undefined && object.from_key !== null) {
+      message.fromKey = object.from_key;
+    }
+    if (object.to_key !== undefined && object.to_key !== null) {
+      message.toKey = object.to_key;
+    }
+    if (object.bundle_summary !== undefined && object.bundle_summary !== null) {
+      message.bundleSummary = object.bundle_summary;
+    }
+    return message;
   },
   toAmino(message: MsgSubmitBundleProposal): MsgSubmitBundleProposalAmino {
     const obj: any = {};
@@ -474,7 +496,8 @@ export const MsgSubmitBundleProposalResponse = {
     return message;
   },
   fromAmino(_: MsgSubmitBundleProposalResponseAmino): MsgSubmitBundleProposalResponse {
-    return {};
+    const message = createBaseMsgSubmitBundleProposalResponse();
+    return message;
   },
   toAmino(_: MsgSubmitBundleProposalResponse): MsgSubmitBundleProposalResponseAmino {
     const obj: any = {};
@@ -544,13 +567,23 @@ export const MsgVoteBundleProposal = {
     return message;
   },
   fromAmino(object: MsgVoteBundleProposalAmino): MsgVoteBundleProposal {
-    return {
-      creator: object.creator,
-      staker: object.staker,
-      poolId: BigInt(object.pool_id),
-      storageId: object.storage_id,
-      vote: isSet(object.vote) ? voteTypeFromJSON(object.vote) : -1
-    };
+    const message = createBaseMsgVoteBundleProposal();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.storage_id !== undefined && object.storage_id !== null) {
+      message.storageId = object.storage_id;
+    }
+    if (object.vote !== undefined && object.vote !== null) {
+      message.vote = voteTypeFromJSON(object.vote);
+    }
+    return message;
   },
   toAmino(message: MsgVoteBundleProposal): MsgVoteBundleProposalAmino {
     const obj: any = {};
@@ -593,7 +626,8 @@ export const MsgVoteBundleProposalResponse = {
     return message;
   },
   fromAmino(_: MsgVoteBundleProposalResponseAmino): MsgVoteBundleProposalResponse {
-    return {};
+    const message = createBaseMsgVoteBundleProposalResponse();
+    return message;
   },
   toAmino(_: MsgVoteBundleProposalResponse): MsgVoteBundleProposalResponseAmino {
     const obj: any = {};
@@ -651,11 +685,17 @@ export const MsgClaimUploaderRole = {
     return message;
   },
   fromAmino(object: MsgClaimUploaderRoleAmino): MsgClaimUploaderRole {
-    return {
-      creator: object.creator,
-      staker: object.staker,
-      poolId: BigInt(object.pool_id)
-    };
+    const message = createBaseMsgClaimUploaderRole();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    return message;
   },
   toAmino(message: MsgClaimUploaderRole): MsgClaimUploaderRoleAmino {
     const obj: any = {};
@@ -696,7 +736,8 @@ export const MsgClaimUploaderRoleResponse = {
     return message;
   },
   fromAmino(_: MsgClaimUploaderRoleResponseAmino): MsgClaimUploaderRoleResponse {
-    return {};
+    const message = createBaseMsgClaimUploaderRoleResponse();
+    return message;
   },
   toAmino(_: MsgClaimUploaderRoleResponse): MsgClaimUploaderRoleResponseAmino {
     const obj: any = {};
@@ -760,12 +801,20 @@ export const MsgSkipUploaderRole = {
     return message;
   },
   fromAmino(object: MsgSkipUploaderRoleAmino): MsgSkipUploaderRole {
-    return {
-      creator: object.creator,
-      staker: object.staker,
-      poolId: BigInt(object.pool_id),
-      fromIndex: BigInt(object.from_index)
-    };
+    const message = createBaseMsgSkipUploaderRole();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.from_index !== undefined && object.from_index !== null) {
+      message.fromIndex = BigInt(object.from_index);
+    }
+    return message;
   },
   toAmino(message: MsgSkipUploaderRole): MsgSkipUploaderRoleAmino {
     const obj: any = {};
@@ -807,7 +856,8 @@ export const MsgSkipUploaderRoleResponse = {
     return message;
   },
   fromAmino(_: MsgSkipUploaderRoleResponseAmino): MsgSkipUploaderRoleResponse {
-    return {};
+    const message = createBaseMsgSkipUploaderRoleResponse();
+    return message;
   },
   toAmino(_: MsgSkipUploaderRoleResponse): MsgSkipUploaderRoleResponseAmino {
     const obj: any = {};
@@ -859,10 +909,14 @@ export const MsgUpdateParams = {
     return message;
   },
   fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    return {
-      authority: object.authority,
-      payload: object.payload
-    };
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = object.payload;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
     const obj: any = {};
@@ -902,7 +956,8 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    return {};
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
     const obj: any = {};

@@ -20,9 +20,9 @@ export interface GenesisStateAmino {
   /** params ... */
   params?: ParamsAmino;
   /** pool_list ... */
-  pool_list: PoolAmino[];
+  pool_list?: PoolAmino[];
   /** pool_count ... */
-  pool_count: string;
+  pool_count?: string;
 }
 export interface GenesisStateAminoMsg {
   type: "/kyve.pool.v1beta1.GenesisState";
@@ -70,11 +70,15 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      poolList: Array.isArray(object?.pool_list) ? object.pool_list.map((e: any) => Pool.fromAmino(e)) : [],
-      poolCount: BigInt(object.pool_count)
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.poolList = object.pool_list?.map(e => Pool.fromAmino(e)) || [];
+    if (object.pool_count !== undefined && object.pool_count !== null) {
+      message.poolCount = BigInt(object.pool_count);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

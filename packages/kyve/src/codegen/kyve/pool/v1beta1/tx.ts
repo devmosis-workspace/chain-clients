@@ -1,97 +1,5 @@
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
-/** MsgFundPool defines a SDK message for funding a pool. */
-export interface MsgFundPool {
-  /** creator ... */
-  creator: string;
-  /** id ... */
-  id: bigint;
-  /** amount ... */
-  amount: bigint;
-}
-export interface MsgFundPoolProtoMsg {
-  typeUrl: "/kyve.pool.v1beta1.MsgFundPool";
-  value: Uint8Array;
-}
-/** MsgFundPool defines a SDK message for funding a pool. */
-export interface MsgFundPoolAmino {
-  /** creator ... */
-  creator: string;
-  /** id ... */
-  id: string;
-  /** amount ... */
-  amount: string;
-}
-export interface MsgFundPoolAminoMsg {
-  type: "/kyve.pool.v1beta1.MsgFundPool";
-  value: MsgFundPoolAmino;
-}
-/** MsgFundPool defines a SDK message for funding a pool. */
-export interface MsgFundPoolSDKType {
-  creator: string;
-  id: bigint;
-  amount: bigint;
-}
-/** MsgFundPoolResponse defines the Msg/DefundPool response type. */
-export interface MsgFundPoolResponse {}
-export interface MsgFundPoolResponseProtoMsg {
-  typeUrl: "/kyve.pool.v1beta1.MsgFundPoolResponse";
-  value: Uint8Array;
-}
-/** MsgFundPoolResponse defines the Msg/DefundPool response type. */
-export interface MsgFundPoolResponseAmino {}
-export interface MsgFundPoolResponseAminoMsg {
-  type: "/kyve.pool.v1beta1.MsgFundPoolResponse";
-  value: MsgFundPoolResponseAmino;
-}
-/** MsgFundPoolResponse defines the Msg/DefundPool response type. */
-export interface MsgFundPoolResponseSDKType {}
-/** MsgDefundPool defines a SDK message for defunding a pool. */
-export interface MsgDefundPool {
-  /** creator ... */
-  creator: string;
-  /** id ... */
-  id: bigint;
-  /** amount ... */
-  amount: bigint;
-}
-export interface MsgDefundPoolProtoMsg {
-  typeUrl: "/kyve.pool.v1beta1.MsgDefundPool";
-  value: Uint8Array;
-}
-/** MsgDefundPool defines a SDK message for defunding a pool. */
-export interface MsgDefundPoolAmino {
-  /** creator ... */
-  creator: string;
-  /** id ... */
-  id: string;
-  /** amount ... */
-  amount: string;
-}
-export interface MsgDefundPoolAminoMsg {
-  type: "/kyve.pool.v1beta1.MsgDefundPool";
-  value: MsgDefundPoolAmino;
-}
-/** MsgDefundPool defines a SDK message for defunding a pool. */
-export interface MsgDefundPoolSDKType {
-  creator: string;
-  id: bigint;
-  amount: bigint;
-}
-/** MsgDefundPoolResponse defines the Msg/DefundPool response type. */
-export interface MsgDefundPoolResponse {}
-export interface MsgDefundPoolResponseProtoMsg {
-  typeUrl: "/kyve.pool.v1beta1.MsgDefundPoolResponse";
-  value: Uint8Array;
-}
-/** MsgDefundPoolResponse defines the Msg/DefundPool response type. */
-export interface MsgDefundPoolResponseAmino {}
-export interface MsgDefundPoolResponseAminoMsg {
-  type: "/kyve.pool.v1beta1.MsgDefundPoolResponse";
-  value: MsgDefundPoolResponseAmino;
-}
-/** MsgDefundPoolResponse defines the Msg/DefundPool response type. */
-export interface MsgDefundPoolResponseSDKType {}
 /** MsgCreatePool defines a SDK message for creating a new pool. */
 export interface MsgCreatePool {
   /** authority is the address of the governance account. */
@@ -108,8 +16,8 @@ export interface MsgCreatePool {
   startKey: string;
   /** upload_interval ... */
   uploadInterval: bigint;
-  /** operating_cost ... */
-  operatingCost: bigint;
+  /** inflation_share_weight ... */
+  inflationShareWeight: bigint;
   /** min_delegation ... */
   minDelegation: bigint;
   /** max_bundle_size ... */
@@ -130,33 +38,33 @@ export interface MsgCreatePoolProtoMsg {
 /** MsgCreatePool defines a SDK message for creating a new pool. */
 export interface MsgCreatePoolAmino {
   /** authority is the address of the governance account. */
-  authority: string;
+  authority?: string;
   /** name ... */
-  name: string;
+  name?: string;
   /** runtime ... */
-  runtime: string;
+  runtime?: string;
   /** logo ... */
-  logo: string;
+  logo?: string;
   /** config ... */
-  config: string;
+  config?: string;
   /** start_key ... */
-  start_key: string;
+  start_key?: string;
   /** upload_interval ... */
-  upload_interval: string;
-  /** operating_cost ... */
-  operating_cost: string;
+  upload_interval?: string;
+  /** inflation_share_weight ... */
+  inflation_share_weight?: string;
   /** min_delegation ... */
-  min_delegation: string;
+  min_delegation?: string;
   /** max_bundle_size ... */
-  max_bundle_size: string;
+  max_bundle_size?: string;
   /** version ... */
-  version: string;
+  version?: string;
   /** binaries ... */
-  binaries: string;
+  binaries?: string;
   /** storage_provider_id ... */
-  storage_provider_id: number;
+  storage_provider_id?: number;
   /** compression_id ... */
-  compression_id: number;
+  compression_id?: number;
 }
 export interface MsgCreatePoolAminoMsg {
   type: "/kyve.pool.v1beta1.MsgCreatePool";
@@ -171,7 +79,7 @@ export interface MsgCreatePoolSDKType {
   config: string;
   start_key: string;
   upload_interval: bigint;
-  operating_cost: bigint;
+  inflation_share_weight: bigint;
   min_delegation: bigint;
   max_bundle_size: bigint;
   version: string;
@@ -209,11 +117,11 @@ export interface MsgUpdatePoolProtoMsg {
 /** MsgUpdatePool defines a SDK message for updating an existing pool. */
 export interface MsgUpdatePoolAmino {
   /** authority is the address of the governance account. */
-  authority: string;
+  authority?: string;
   /** id ... */
-  id: string;
+  id?: string;
   /** payload ... */
-  payload: string;
+  payload?: string;
 }
 export interface MsgUpdatePoolAminoMsg {
   type: "/kyve.pool.v1beta1.MsgUpdatePool";
@@ -253,9 +161,9 @@ export interface MsgDisablePoolProtoMsg {
 /** MsgDisablePool defines a SDK message for disabling an existing pool. */
 export interface MsgDisablePoolAmino {
   /** authority is the address of the governance account. */
-  authority: string;
+  authority?: string;
   /** id ... */
-  id: string;
+  id?: string;
 }
 export interface MsgDisablePoolAminoMsg {
   type: "/kyve.pool.v1beta1.MsgDisablePool";
@@ -294,9 +202,9 @@ export interface MsgEnablePoolProtoMsg {
 /** MsgEnablePool defines a SDK message for enabling an existing pool. */
 export interface MsgEnablePoolAmino {
   /** authority is the address of the governance account. */
-  authority: string;
+  authority?: string;
   /** id ... */
-  id: string;
+  id?: string;
 }
 export interface MsgEnablePoolAminoMsg {
   type: "/kyve.pool.v1beta1.MsgEnablePool";
@@ -343,17 +251,17 @@ export interface MsgScheduleRuntimeUpgradeProtoMsg {
 /** MsgScheduleRuntimeUpgrade defines a SDK message for scheduling a runtime upgrade. */
 export interface MsgScheduleRuntimeUpgradeAmino {
   /** authority is the address of the governance account. */
-  authority: string;
+  authority?: string;
   /** runtime ... */
-  runtime: string;
+  runtime?: string;
   /** version ... */
-  version: string;
+  version?: string;
   /** scheduled_at ... */
-  scheduled_at: string;
+  scheduled_at?: string;
   /** duration ... */
-  duration: string;
+  duration?: string;
   /** binaries ... */
-  binaries: string;
+  binaries?: string;
 }
 export interface MsgScheduleRuntimeUpgradeAminoMsg {
   type: "/kyve.pool.v1beta1.MsgScheduleRuntimeUpgrade";
@@ -396,9 +304,9 @@ export interface MsgCancelRuntimeUpgradeProtoMsg {
 /** MsgCancelRuntimeUpgrade defines a SDK message for cancelling a runtime upgrade. */
 export interface MsgCancelRuntimeUpgradeAmino {
   /** authority is the address of the governance account. */
-  authority: string;
+  authority?: string;
   /** runtime ... */
-  runtime: string;
+  runtime?: string;
 }
 export interface MsgCancelRuntimeUpgradeAminoMsg {
   type: "/kyve.pool.v1beta1.MsgCancelRuntimeUpgrade";
@@ -437,9 +345,9 @@ export interface MsgUpdateParamsProtoMsg {
 /** MsgUpdateParams defines a SDK message for updating the module parameters. */
 export interface MsgUpdateParamsAmino {
   /** authority is the address of the governance account. */
-  authority: string;
+  authority?: string;
   /** payload defines the x/stakers parameters to update. */
-  payload: string;
+  payload?: string;
 }
 export interface MsgUpdateParamsAminoMsg {
   type: "/kyve.pool.v1beta1.MsgUpdateParams";
@@ -464,212 +372,6 @@ export interface MsgUpdateParamsResponseAminoMsg {
 }
 /** MsgUpdateParamsResponse defines the Msg/UpdateParams response type. */
 export interface MsgUpdateParamsResponseSDKType {}
-function createBaseMsgFundPool(): MsgFundPool {
-  return {
-    creator: "",
-    id: BigInt(0),
-    amount: BigInt(0)
-  };
-}
-export const MsgFundPool = {
-  typeUrl: "/kyve.pool.v1beta1.MsgFundPool",
-  encode(message: MsgFundPool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
-    }
-    if (message.id !== BigInt(0)) {
-      writer.uint32(16).uint64(message.id);
-    }
-    if (message.amount !== BigInt(0)) {
-      writer.uint32(24).uint64(message.amount);
-    }
-    return writer;
-  },
-  fromJSON(object: any): MsgFundPool {
-    return {
-      creator: isSet(object.creator) ? String(object.creator) : "",
-      id: isSet(object.id) ? BigInt(object.id.toString()) : BigInt(0),
-      amount: isSet(object.amount) ? BigInt(object.amount.toString()) : BigInt(0)
-    };
-  },
-  fromPartial(object: Partial<MsgFundPool>): MsgFundPool {
-    const message = createBaseMsgFundPool();
-    message.creator = object.creator ?? "";
-    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
-    message.amount = object.amount !== undefined && object.amount !== null ? BigInt(object.amount.toString()) : BigInt(0);
-    return message;
-  },
-  fromAmino(object: MsgFundPoolAmino): MsgFundPool {
-    return {
-      creator: object.creator,
-      id: BigInt(object.id),
-      amount: BigInt(object.amount)
-    };
-  },
-  toAmino(message: MsgFundPool): MsgFundPoolAmino {
-    const obj: any = {};
-    obj.creator = message.creator;
-    obj.id = message.id ? message.id.toString() : undefined;
-    obj.amount = message.amount ? message.amount.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgFundPoolAminoMsg): MsgFundPool {
-    return MsgFundPool.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgFundPoolProtoMsg): MsgFundPool {
-    return MsgFundPool.decode(message.value);
-  },
-  toProto(message: MsgFundPool): Uint8Array {
-    return MsgFundPool.encode(message).finish();
-  },
-  toProtoMsg(message: MsgFundPool): MsgFundPoolProtoMsg {
-    return {
-      typeUrl: "/kyve.pool.v1beta1.MsgFundPool",
-      value: MsgFundPool.encode(message).finish()
-    };
-  }
-};
-function createBaseMsgFundPoolResponse(): MsgFundPoolResponse {
-  return {};
-}
-export const MsgFundPoolResponse = {
-  typeUrl: "/kyve.pool.v1beta1.MsgFundPoolResponse",
-  encode(_: MsgFundPoolResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    return writer;
-  },
-  fromJSON(_: any): MsgFundPoolResponse {
-    return {};
-  },
-  fromPartial(_: Partial<MsgFundPoolResponse>): MsgFundPoolResponse {
-    const message = createBaseMsgFundPoolResponse();
-    return message;
-  },
-  fromAmino(_: MsgFundPoolResponseAmino): MsgFundPoolResponse {
-    return {};
-  },
-  toAmino(_: MsgFundPoolResponse): MsgFundPoolResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgFundPoolResponseAminoMsg): MsgFundPoolResponse {
-    return MsgFundPoolResponse.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgFundPoolResponseProtoMsg): MsgFundPoolResponse {
-    return MsgFundPoolResponse.decode(message.value);
-  },
-  toProto(message: MsgFundPoolResponse): Uint8Array {
-    return MsgFundPoolResponse.encode(message).finish();
-  },
-  toProtoMsg(message: MsgFundPoolResponse): MsgFundPoolResponseProtoMsg {
-    return {
-      typeUrl: "/kyve.pool.v1beta1.MsgFundPoolResponse",
-      value: MsgFundPoolResponse.encode(message).finish()
-    };
-  }
-};
-function createBaseMsgDefundPool(): MsgDefundPool {
-  return {
-    creator: "",
-    id: BigInt(0),
-    amount: BigInt(0)
-  };
-}
-export const MsgDefundPool = {
-  typeUrl: "/kyve.pool.v1beta1.MsgDefundPool",
-  encode(message: MsgDefundPool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
-    }
-    if (message.id !== BigInt(0)) {
-      writer.uint32(16).uint64(message.id);
-    }
-    if (message.amount !== BigInt(0)) {
-      writer.uint32(24).uint64(message.amount);
-    }
-    return writer;
-  },
-  fromJSON(object: any): MsgDefundPool {
-    return {
-      creator: isSet(object.creator) ? String(object.creator) : "",
-      id: isSet(object.id) ? BigInt(object.id.toString()) : BigInt(0),
-      amount: isSet(object.amount) ? BigInt(object.amount.toString()) : BigInt(0)
-    };
-  },
-  fromPartial(object: Partial<MsgDefundPool>): MsgDefundPool {
-    const message = createBaseMsgDefundPool();
-    message.creator = object.creator ?? "";
-    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
-    message.amount = object.amount !== undefined && object.amount !== null ? BigInt(object.amount.toString()) : BigInt(0);
-    return message;
-  },
-  fromAmino(object: MsgDefundPoolAmino): MsgDefundPool {
-    return {
-      creator: object.creator,
-      id: BigInt(object.id),
-      amount: BigInt(object.amount)
-    };
-  },
-  toAmino(message: MsgDefundPool): MsgDefundPoolAmino {
-    const obj: any = {};
-    obj.creator = message.creator;
-    obj.id = message.id ? message.id.toString() : undefined;
-    obj.amount = message.amount ? message.amount.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgDefundPoolAminoMsg): MsgDefundPool {
-    return MsgDefundPool.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgDefundPoolProtoMsg): MsgDefundPool {
-    return MsgDefundPool.decode(message.value);
-  },
-  toProto(message: MsgDefundPool): Uint8Array {
-    return MsgDefundPool.encode(message).finish();
-  },
-  toProtoMsg(message: MsgDefundPool): MsgDefundPoolProtoMsg {
-    return {
-      typeUrl: "/kyve.pool.v1beta1.MsgDefundPool",
-      value: MsgDefundPool.encode(message).finish()
-    };
-  }
-};
-function createBaseMsgDefundPoolResponse(): MsgDefundPoolResponse {
-  return {};
-}
-export const MsgDefundPoolResponse = {
-  typeUrl: "/kyve.pool.v1beta1.MsgDefundPoolResponse",
-  encode(_: MsgDefundPoolResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    return writer;
-  },
-  fromJSON(_: any): MsgDefundPoolResponse {
-    return {};
-  },
-  fromPartial(_: Partial<MsgDefundPoolResponse>): MsgDefundPoolResponse {
-    const message = createBaseMsgDefundPoolResponse();
-    return message;
-  },
-  fromAmino(_: MsgDefundPoolResponseAmino): MsgDefundPoolResponse {
-    return {};
-  },
-  toAmino(_: MsgDefundPoolResponse): MsgDefundPoolResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgDefundPoolResponseAminoMsg): MsgDefundPoolResponse {
-    return MsgDefundPoolResponse.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgDefundPoolResponseProtoMsg): MsgDefundPoolResponse {
-    return MsgDefundPoolResponse.decode(message.value);
-  },
-  toProto(message: MsgDefundPoolResponse): Uint8Array {
-    return MsgDefundPoolResponse.encode(message).finish();
-  },
-  toProtoMsg(message: MsgDefundPoolResponse): MsgDefundPoolResponseProtoMsg {
-    return {
-      typeUrl: "/kyve.pool.v1beta1.MsgDefundPoolResponse",
-      value: MsgDefundPoolResponse.encode(message).finish()
-    };
-  }
-};
 function createBaseMsgCreatePool(): MsgCreatePool {
   return {
     authority: "",
@@ -679,7 +381,7 @@ function createBaseMsgCreatePool(): MsgCreatePool {
     config: "",
     startKey: "",
     uploadInterval: BigInt(0),
-    operatingCost: BigInt(0),
+    inflationShareWeight: BigInt(0),
     minDelegation: BigInt(0),
     maxBundleSize: BigInt(0),
     version: "",
@@ -712,8 +414,8 @@ export const MsgCreatePool = {
     if (message.uploadInterval !== BigInt(0)) {
       writer.uint32(56).uint64(message.uploadInterval);
     }
-    if (message.operatingCost !== BigInt(0)) {
-      writer.uint32(64).uint64(message.operatingCost);
+    if (message.inflationShareWeight !== BigInt(0)) {
+      writer.uint32(64).uint64(message.inflationShareWeight);
     }
     if (message.minDelegation !== BigInt(0)) {
       writer.uint32(72).uint64(message.minDelegation);
@@ -744,7 +446,7 @@ export const MsgCreatePool = {
       config: isSet(object.config) ? String(object.config) : "",
       startKey: isSet(object.startKey) ? String(object.startKey) : "",
       uploadInterval: isSet(object.uploadInterval) ? BigInt(object.uploadInterval.toString()) : BigInt(0),
-      operatingCost: isSet(object.operatingCost) ? BigInt(object.operatingCost.toString()) : BigInt(0),
+      inflationShareWeight: isSet(object.inflationShareWeight) ? BigInt(object.inflationShareWeight.toString()) : BigInt(0),
       minDelegation: isSet(object.minDelegation) ? BigInt(object.minDelegation.toString()) : BigInt(0),
       maxBundleSize: isSet(object.maxBundleSize) ? BigInt(object.maxBundleSize.toString()) : BigInt(0),
       version: isSet(object.version) ? String(object.version) : "",
@@ -762,7 +464,7 @@ export const MsgCreatePool = {
     message.config = object.config ?? "";
     message.startKey = object.startKey ?? "";
     message.uploadInterval = object.uploadInterval !== undefined && object.uploadInterval !== null ? BigInt(object.uploadInterval.toString()) : BigInt(0);
-    message.operatingCost = object.operatingCost !== undefined && object.operatingCost !== null ? BigInt(object.operatingCost.toString()) : BigInt(0);
+    message.inflationShareWeight = object.inflationShareWeight !== undefined && object.inflationShareWeight !== null ? BigInt(object.inflationShareWeight.toString()) : BigInt(0);
     message.minDelegation = object.minDelegation !== undefined && object.minDelegation !== null ? BigInt(object.minDelegation.toString()) : BigInt(0);
     message.maxBundleSize = object.maxBundleSize !== undefined && object.maxBundleSize !== null ? BigInt(object.maxBundleSize.toString()) : BigInt(0);
     message.version = object.version ?? "";
@@ -772,22 +474,50 @@ export const MsgCreatePool = {
     return message;
   },
   fromAmino(object: MsgCreatePoolAmino): MsgCreatePool {
-    return {
-      authority: object.authority,
-      name: object.name,
-      runtime: object.runtime,
-      logo: object.logo,
-      config: object.config,
-      startKey: object.start_key,
-      uploadInterval: BigInt(object.upload_interval),
-      operatingCost: BigInt(object.operating_cost),
-      minDelegation: BigInt(object.min_delegation),
-      maxBundleSize: BigInt(object.max_bundle_size),
-      version: object.version,
-      binaries: object.binaries,
-      storageProviderId: object.storage_provider_id,
-      compressionId: object.compression_id
-    };
+    const message = createBaseMsgCreatePool();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.runtime !== undefined && object.runtime !== null) {
+      message.runtime = object.runtime;
+    }
+    if (object.logo !== undefined && object.logo !== null) {
+      message.logo = object.logo;
+    }
+    if (object.config !== undefined && object.config !== null) {
+      message.config = object.config;
+    }
+    if (object.start_key !== undefined && object.start_key !== null) {
+      message.startKey = object.start_key;
+    }
+    if (object.upload_interval !== undefined && object.upload_interval !== null) {
+      message.uploadInterval = BigInt(object.upload_interval);
+    }
+    if (object.inflation_share_weight !== undefined && object.inflation_share_weight !== null) {
+      message.inflationShareWeight = BigInt(object.inflation_share_weight);
+    }
+    if (object.min_delegation !== undefined && object.min_delegation !== null) {
+      message.minDelegation = BigInt(object.min_delegation);
+    }
+    if (object.max_bundle_size !== undefined && object.max_bundle_size !== null) {
+      message.maxBundleSize = BigInt(object.max_bundle_size);
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    if (object.binaries !== undefined && object.binaries !== null) {
+      message.binaries = object.binaries;
+    }
+    if (object.storage_provider_id !== undefined && object.storage_provider_id !== null) {
+      message.storageProviderId = object.storage_provider_id;
+    }
+    if (object.compression_id !== undefined && object.compression_id !== null) {
+      message.compressionId = object.compression_id;
+    }
+    return message;
   },
   toAmino(message: MsgCreatePool): MsgCreatePoolAmino {
     const obj: any = {};
@@ -798,7 +528,7 @@ export const MsgCreatePool = {
     obj.config = message.config;
     obj.start_key = message.startKey;
     obj.upload_interval = message.uploadInterval ? message.uploadInterval.toString() : undefined;
-    obj.operating_cost = message.operatingCost ? message.operatingCost.toString() : undefined;
+    obj.inflation_share_weight = message.inflationShareWeight ? message.inflationShareWeight.toString() : undefined;
     obj.min_delegation = message.minDelegation ? message.minDelegation.toString() : undefined;
     obj.max_bundle_size = message.maxBundleSize ? message.maxBundleSize.toString() : undefined;
     obj.version = message.version;
@@ -839,7 +569,8 @@ export const MsgCreatePoolResponse = {
     return message;
   },
   fromAmino(_: MsgCreatePoolResponseAmino): MsgCreatePoolResponse {
-    return {};
+    const message = createBaseMsgCreatePoolResponse();
+    return message;
   },
   toAmino(_: MsgCreatePoolResponse): MsgCreatePoolResponseAmino {
     const obj: any = {};
@@ -897,11 +628,17 @@ export const MsgUpdatePool = {
     return message;
   },
   fromAmino(object: MsgUpdatePoolAmino): MsgUpdatePool {
-    return {
-      authority: object.authority,
-      id: BigInt(object.id),
-      payload: object.payload
-    };
+    const message = createBaseMsgUpdatePool();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = object.payload;
+    }
+    return message;
   },
   toAmino(message: MsgUpdatePool): MsgUpdatePoolAmino {
     const obj: any = {};
@@ -942,7 +679,8 @@ export const MsgUpdatePoolResponse = {
     return message;
   },
   fromAmino(_: MsgUpdatePoolResponseAmino): MsgUpdatePoolResponse {
-    return {};
+    const message = createBaseMsgUpdatePoolResponse();
+    return message;
   },
   toAmino(_: MsgUpdatePoolResponse): MsgUpdatePoolResponseAmino {
     const obj: any = {};
@@ -994,10 +732,14 @@ export const MsgDisablePool = {
     return message;
   },
   fromAmino(object: MsgDisablePoolAmino): MsgDisablePool {
-    return {
-      authority: object.authority,
-      id: BigInt(object.id)
-    };
+    const message = createBaseMsgDisablePool();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: MsgDisablePool): MsgDisablePoolAmino {
     const obj: any = {};
@@ -1037,7 +779,8 @@ export const MsgDisablePoolResponse = {
     return message;
   },
   fromAmino(_: MsgDisablePoolResponseAmino): MsgDisablePoolResponse {
-    return {};
+    const message = createBaseMsgDisablePoolResponse();
+    return message;
   },
   toAmino(_: MsgDisablePoolResponse): MsgDisablePoolResponseAmino {
     const obj: any = {};
@@ -1089,10 +832,14 @@ export const MsgEnablePool = {
     return message;
   },
   fromAmino(object: MsgEnablePoolAmino): MsgEnablePool {
-    return {
-      authority: object.authority,
-      id: BigInt(object.id)
-    };
+    const message = createBaseMsgEnablePool();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: MsgEnablePool): MsgEnablePoolAmino {
     const obj: any = {};
@@ -1132,7 +879,8 @@ export const MsgEnablePoolResponse = {
     return message;
   },
   fromAmino(_: MsgEnablePoolResponseAmino): MsgEnablePoolResponse {
-    return {};
+    const message = createBaseMsgEnablePoolResponse();
+    return message;
   },
   toAmino(_: MsgEnablePoolResponse): MsgEnablePoolResponseAmino {
     const obj: any = {};
@@ -1208,14 +956,26 @@ export const MsgScheduleRuntimeUpgrade = {
     return message;
   },
   fromAmino(object: MsgScheduleRuntimeUpgradeAmino): MsgScheduleRuntimeUpgrade {
-    return {
-      authority: object.authority,
-      runtime: object.runtime,
-      version: object.version,
-      scheduledAt: BigInt(object.scheduled_at),
-      duration: BigInt(object.duration),
-      binaries: object.binaries
-    };
+    const message = createBaseMsgScheduleRuntimeUpgrade();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.runtime !== undefined && object.runtime !== null) {
+      message.runtime = object.runtime;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    if (object.scheduled_at !== undefined && object.scheduled_at !== null) {
+      message.scheduledAt = BigInt(object.scheduled_at);
+    }
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = BigInt(object.duration);
+    }
+    if (object.binaries !== undefined && object.binaries !== null) {
+      message.binaries = object.binaries;
+    }
+    return message;
   },
   toAmino(message: MsgScheduleRuntimeUpgrade): MsgScheduleRuntimeUpgradeAmino {
     const obj: any = {};
@@ -1259,7 +1019,8 @@ export const MsgScheduleRuntimeUpgradeResponse = {
     return message;
   },
   fromAmino(_: MsgScheduleRuntimeUpgradeResponseAmino): MsgScheduleRuntimeUpgradeResponse {
-    return {};
+    const message = createBaseMsgScheduleRuntimeUpgradeResponse();
+    return message;
   },
   toAmino(_: MsgScheduleRuntimeUpgradeResponse): MsgScheduleRuntimeUpgradeResponseAmino {
     const obj: any = {};
@@ -1311,10 +1072,14 @@ export const MsgCancelRuntimeUpgrade = {
     return message;
   },
   fromAmino(object: MsgCancelRuntimeUpgradeAmino): MsgCancelRuntimeUpgrade {
-    return {
-      authority: object.authority,
-      runtime: object.runtime
-    };
+    const message = createBaseMsgCancelRuntimeUpgrade();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.runtime !== undefined && object.runtime !== null) {
+      message.runtime = object.runtime;
+    }
+    return message;
   },
   toAmino(message: MsgCancelRuntimeUpgrade): MsgCancelRuntimeUpgradeAmino {
     const obj: any = {};
@@ -1354,7 +1119,8 @@ export const MsgCancelRuntimeUpgradeResponse = {
     return message;
   },
   fromAmino(_: MsgCancelRuntimeUpgradeResponseAmino): MsgCancelRuntimeUpgradeResponse {
-    return {};
+    const message = createBaseMsgCancelRuntimeUpgradeResponse();
+    return message;
   },
   toAmino(_: MsgCancelRuntimeUpgradeResponse): MsgCancelRuntimeUpgradeResponseAmino {
     const obj: any = {};
@@ -1406,10 +1172,14 @@ export const MsgUpdateParams = {
     return message;
   },
   fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    return {
-      authority: object.authority,
-      payload: object.payload
-    };
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = object.payload;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
     const obj: any = {};
@@ -1449,7 +1219,8 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    return {};
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
     const obj: any = {};

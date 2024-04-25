@@ -14,9 +14,9 @@ export interface AuthorityProtoMsg {
 /** Authority ... */
 export interface AuthorityAmino {
   /** total inflation rewards is the total amount of rewards the authority has received ever */
-  total_rewards: string;
+  total_rewards?: string;
   /** claimed is the amount of inflation rewards claimed by the authority */
-  rewards_claimed: string;
+  rewards_claimed?: string;
 }
 export interface AuthorityAminoMsg {
   type: "/kyve.team.v1beta1.Authority";
@@ -56,24 +56,24 @@ export interface TeamVestingAccountProtoMsg {
 /** TeamVestingAccount ... */
 export interface TeamVestingAccountAmino {
   /** id is a unique identify for each vesting account, tied to a single team member. */
-  id: string;
+  id?: string;
   /** total_allocation is the number of tokens reserved for this team member. */
-  total_allocation: string;
+  total_allocation?: string;
   /** commencement is the unix timestamp of the member's official start date in seconds */
-  commencement: string;
+  commencement?: string;
   /**
    * clawback is a unix timestamp of a clawback in seconds. If timestamp is zero
    * it means that the account has not received a clawback
    */
-  clawback: string;
+  clawback?: string;
   /** unlocked_claimed is the amount of $KYVE already claimed by the account holder */
-  unlocked_claimed: string;
+  unlocked_claimed?: string;
   /** the last time the unlocked amount was claimed */
-  last_claimed_time: string;
+  last_claimed_time?: string;
   /** total rewards is the total amount of rewards the account has received ever */
-  total_rewards: string;
+  total_rewards?: string;
   /** rewards claimed is the amount inflation rewards claimed by account holder */
-  rewards_claimed: string;
+  rewards_claimed?: string;
 }
 export interface TeamVestingAccountAminoMsg {
   type: "/kyve.team.v1beta1.TeamVestingAccount";
@@ -120,10 +120,14 @@ export const Authority = {
     return message;
   },
   fromAmino(object: AuthorityAmino): Authority {
-    return {
-      totalRewards: BigInt(object.total_rewards),
-      rewardsClaimed: BigInt(object.rewards_claimed)
-    };
+    const message = createBaseAuthority();
+    if (object.total_rewards !== undefined && object.total_rewards !== null) {
+      message.totalRewards = BigInt(object.total_rewards);
+    }
+    if (object.rewards_claimed !== undefined && object.rewards_claimed !== null) {
+      message.rewardsClaimed = BigInt(object.rewards_claimed);
+    }
+    return message;
   },
   toAmino(message: Authority): AuthorityAmino {
     const obj: any = {};
@@ -213,16 +217,32 @@ export const TeamVestingAccount = {
     return message;
   },
   fromAmino(object: TeamVestingAccountAmino): TeamVestingAccount {
-    return {
-      id: BigInt(object.id),
-      totalAllocation: BigInt(object.total_allocation),
-      commencement: BigInt(object.commencement),
-      clawback: BigInt(object.clawback),
-      unlockedClaimed: BigInt(object.unlocked_claimed),
-      lastClaimedTime: BigInt(object.last_claimed_time),
-      totalRewards: BigInt(object.total_rewards),
-      rewardsClaimed: BigInt(object.rewards_claimed)
-    };
+    const message = createBaseTeamVestingAccount();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.total_allocation !== undefined && object.total_allocation !== null) {
+      message.totalAllocation = BigInt(object.total_allocation);
+    }
+    if (object.commencement !== undefined && object.commencement !== null) {
+      message.commencement = BigInt(object.commencement);
+    }
+    if (object.clawback !== undefined && object.clawback !== null) {
+      message.clawback = BigInt(object.clawback);
+    }
+    if (object.unlocked_claimed !== undefined && object.unlocked_claimed !== null) {
+      message.unlockedClaimed = BigInt(object.unlocked_claimed);
+    }
+    if (object.last_claimed_time !== undefined && object.last_claimed_time !== null) {
+      message.lastClaimedTime = BigInt(object.last_claimed_time);
+    }
+    if (object.total_rewards !== undefined && object.total_rewards !== null) {
+      message.totalRewards = BigInt(object.total_rewards);
+    }
+    if (object.rewards_claimed !== undefined && object.rewards_claimed !== null) {
+      message.rewardsClaimed = BigInt(object.rewards_claimed);
+    }
+    return message;
   },
   toAmino(message: TeamVestingAccount): TeamVestingAccountAmino {
     const obj: any = {};

@@ -15,9 +15,9 @@ export interface QueryDelegatorRequestProtoMsg {
 /** QueryDelegatorRequest is the request type for the Query/Delegator RPC method. */
 export interface QueryDelegatorRequestAmino {
     /** staker ... */
-    staker: string;
+    staker?: string;
     /** delegator ... */
-    delegator: string;
+    delegator?: string;
 }
 export interface QueryDelegatorRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryDelegatorRequest";
@@ -31,7 +31,7 @@ export interface QueryDelegatorRequestSDKType {
 /** QueryDelegatorResponse is the response type for the Query/Delegator RPC method. */
 export interface QueryDelegatorResponse {
     /** delegator ... */
-    delegator: StakerDelegatorResponse;
+    delegator?: StakerDelegatorResponse;
 }
 export interface QueryDelegatorResponseProtoMsg {
     typeUrl: "/kyve.query.v1beta1.QueryDelegatorResponse";
@@ -48,7 +48,7 @@ export interface QueryDelegatorResponseAminoMsg {
 }
 /** QueryDelegatorResponse is the response type for the Query/Delegator RPC method. */
 export interface QueryDelegatorResponseSDKType {
-    delegator: StakerDelegatorResponseSDKType;
+    delegator?: StakerDelegatorResponseSDKType;
 }
 /** StakerDelegatorResponse ... */
 export interface StakerDelegatorResponse {
@@ -68,13 +68,13 @@ export interface StakerDelegatorResponseProtoMsg {
 /** StakerDelegatorResponse ... */
 export interface StakerDelegatorResponseAmino {
     /** delegator ... */
-    delegator: string;
+    delegator?: string;
     /** current_reward ... */
-    current_reward: string;
+    current_reward?: string;
     /** delegation_amount ... */
-    delegation_amount: string;
+    delegation_amount?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
 }
 export interface StakerDelegatorResponseAminoMsg {
     type: "/kyve.query.v1beta1.StakerDelegatorResponse";
@@ -90,7 +90,7 @@ export interface StakerDelegatorResponseSDKType {
 /** QueryDelegatorsByStakerRequest ... */
 export interface QueryDelegatorsByStakerRequest {
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
     /** staker ... */
     staker: string;
 }
@@ -103,7 +103,7 @@ export interface QueryDelegatorsByStakerRequestAmino {
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
     /** staker ... */
-    staker: string;
+    staker?: string;
 }
 export interface QueryDelegatorsByStakerRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryDelegatorsByStakerRequest";
@@ -111,7 +111,7 @@ export interface QueryDelegatorsByStakerRequestAminoMsg {
 }
 /** QueryDelegatorsByStakerRequest ... */
 export interface QueryDelegatorsByStakerRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
     staker: string;
 }
 /** QueryDelegatorsByStakerResponse ... */
@@ -123,7 +123,7 @@ export interface QueryDelegatorsByStakerResponse {
     /** total_delegation ... */
     totalDelegatorCount: bigint;
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDelegatorsByStakerResponseProtoMsg {
     typeUrl: "/kyve.query.v1beta1.QueryDelegatorsByStakerResponse";
@@ -132,11 +132,11 @@ export interface QueryDelegatorsByStakerResponseProtoMsg {
 /** QueryDelegatorsByStakerResponse ... */
 export interface QueryDelegatorsByStakerResponseAmino {
     /** delegators ... */
-    delegators: StakerDelegatorResponseAmino[];
+    delegators?: StakerDelegatorResponseAmino[];
     /** total_delegation ... (consider metadata object) */
-    total_delegation: string;
+    total_delegation?: string;
     /** total_delegation ... */
-    total_delegator_count: string;
+    total_delegator_count?: string;
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -149,12 +149,12 @@ export interface QueryDelegatorsByStakerResponseSDKType {
     delegators: StakerDelegatorResponseSDKType[];
     total_delegation: bigint;
     total_delegator_count: bigint;
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryStakersByDelegatorRequest ... */
 export interface QueryStakersByDelegatorRequest {
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
     /** delegator ... */
     delegator: string;
 }
@@ -167,7 +167,7 @@ export interface QueryStakersByDelegatorRequestAmino {
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
     /** delegator ... */
-    delegator: string;
+    delegator?: string;
 }
 export interface QueryStakersByDelegatorRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryStakersByDelegatorRequest";
@@ -175,7 +175,7 @@ export interface QueryStakersByDelegatorRequestAminoMsg {
 }
 /** QueryStakersByDelegatorRequest ... */
 export interface QueryStakersByDelegatorRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
     delegator: string;
 }
 /** QueryStakersByDelegatorResponse ... */
@@ -185,7 +185,7 @@ export interface QueryStakersByDelegatorResponse {
     /** stakers ... */
     stakers: DelegationForStakerResponse[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryStakersByDelegatorResponseProtoMsg {
     typeUrl: "/kyve.query.v1beta1.QueryStakersByDelegatorResponse";
@@ -194,9 +194,9 @@ export interface QueryStakersByDelegatorResponseProtoMsg {
 /** QueryStakersByDelegatorResponse ... */
 export interface QueryStakersByDelegatorResponseAmino {
     /** delegator ... */
-    delegator: string;
+    delegator?: string;
     /** stakers ... */
-    stakers: DelegationForStakerResponseAmino[];
+    stakers?: DelegationForStakerResponseAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -208,12 +208,12 @@ export interface QueryStakersByDelegatorResponseAminoMsg {
 export interface QueryStakersByDelegatorResponseSDKType {
     delegator: string;
     stakers: DelegationForStakerResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** DelegationForStakerResponse ... */
 export interface DelegationForStakerResponse {
     /** staker ... */
-    staker: FullStaker;
+    staker?: FullStaker;
     /** current_reward ... */
     currentReward: bigint;
     /** delegation_amount ... */
@@ -228,9 +228,9 @@ export interface DelegationForStakerResponseAmino {
     /** staker ... */
     staker?: FullStakerAmino;
     /** current_reward ... */
-    current_reward: string;
+    current_reward?: string;
     /** delegation_amount ... */
-    delegation_amount: string;
+    delegation_amount?: string;
 }
 export interface DelegationForStakerResponseAminoMsg {
     type: "/kyve.query.v1beta1.DelegationForStakerResponse";
@@ -238,7 +238,7 @@ export interface DelegationForStakerResponseAminoMsg {
 }
 /** DelegationForStakerResponse ... */
 export interface DelegationForStakerResponseSDKType {
-    staker: FullStakerSDKType;
+    staker?: FullStakerSDKType;
     current_reward: bigint;
     delegation_amount: bigint;
 }

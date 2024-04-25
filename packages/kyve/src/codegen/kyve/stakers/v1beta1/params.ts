@@ -14,9 +14,9 @@ export interface ParamsProtoMsg {
 /** Params defines the stakers module parameters. */
 export interface ParamsAmino {
   /** commission_change_time ... */
-  commission_change_time: string;
+  commission_change_time?: string;
   /** commission_change_time ... */
-  leave_pool_time: string;
+  leave_pool_time?: string;
 }
 export interface ParamsAminoMsg {
   type: "/kyve.stakers.v1beta1.Params";
@@ -57,10 +57,14 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      commissionChangeTime: BigInt(object.commission_change_time),
-      leavePoolTime: BigInt(object.leave_pool_time)
-    };
+    const message = createBaseParams();
+    if (object.commission_change_time !== undefined && object.commission_change_time !== null) {
+      message.commissionChangeTime = BigInt(object.commission_change_time);
+    }
+    if (object.leave_pool_time !== undefined && object.leave_pool_time !== null) {
+      message.leavePoolTime = BigInt(object.leave_pool_time);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

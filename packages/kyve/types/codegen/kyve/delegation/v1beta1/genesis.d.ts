@@ -29,19 +29,19 @@ export interface GenesisStateAmino {
     /** params defines all the parameters of the module. */
     params?: ParamsAmino;
     /** delegator_list ... */
-    delegator_list: DelegatorAmino[];
+    delegator_list?: DelegatorAmino[];
     /** delegation_entry_list ... */
-    delegation_entry_list: DelegationEntryAmino[];
+    delegation_entry_list?: DelegationEntryAmino[];
     /** delegation_data_list ... */
-    delegation_data_list: DelegationDataAmino[];
+    delegation_data_list?: DelegationDataAmino[];
     /** delegation_slash_list ... */
-    delegation_slash_list: DelegationSlashAmino[];
+    delegation_slash_list?: DelegationSlashAmino[];
     /** undelegation_queue_entry_list ... */
-    undelegation_queue_entry_list: UndelegationQueueEntryAmino[];
+    undelegation_queue_entry_list?: UndelegationQueueEntryAmino[];
     /** queue_state_undelegation ... */
     queue_state_undelegation?: QueueStateAmino;
     /** redelegation_cooldown_list ... */
-    redelegation_cooldown_list: RedelegationCooldownAmino[];
+    redelegation_cooldown_list?: RedelegationCooldownAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/kyve.delegation.v1beta1.GenesisState";

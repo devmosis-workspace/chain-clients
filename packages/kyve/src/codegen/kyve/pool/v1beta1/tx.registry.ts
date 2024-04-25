@@ -1,6 +1,6 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgFundPool, MsgDefundPool, MsgCreatePool, MsgUpdatePool, MsgDisablePool, MsgEnablePool, MsgScheduleRuntimeUpgrade, MsgCancelRuntimeUpgrade, MsgUpdateParams } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/kyve.pool.v1beta1.MsgFundPool", MsgFundPool], ["/kyve.pool.v1beta1.MsgDefundPool", MsgDefundPool], ["/kyve.pool.v1beta1.MsgCreatePool", MsgCreatePool], ["/kyve.pool.v1beta1.MsgUpdatePool", MsgUpdatePool], ["/kyve.pool.v1beta1.MsgDisablePool", MsgDisablePool], ["/kyve.pool.v1beta1.MsgEnablePool", MsgEnablePool], ["/kyve.pool.v1beta1.MsgScheduleRuntimeUpgrade", MsgScheduleRuntimeUpgrade], ["/kyve.pool.v1beta1.MsgCancelRuntimeUpgrade", MsgCancelRuntimeUpgrade], ["/kyve.pool.v1beta1.MsgUpdateParams", MsgUpdateParams]];
+import { MsgCreatePool, MsgUpdatePool, MsgDisablePool, MsgEnablePool, MsgScheduleRuntimeUpgrade, MsgCancelRuntimeUpgrade, MsgUpdateParams } from "./tx";
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/kyve.pool.v1beta1.MsgCreatePool", MsgCreatePool], ["/kyve.pool.v1beta1.MsgUpdatePool", MsgUpdatePool], ["/kyve.pool.v1beta1.MsgDisablePool", MsgDisablePool], ["/kyve.pool.v1beta1.MsgEnablePool", MsgEnablePool], ["/kyve.pool.v1beta1.MsgScheduleRuntimeUpgrade", MsgScheduleRuntimeUpgrade], ["/kyve.pool.v1beta1.MsgCancelRuntimeUpgrade", MsgCancelRuntimeUpgrade], ["/kyve.pool.v1beta1.MsgUpdateParams", MsgUpdateParams]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -8,18 +8,6 @@ export const load = (protoRegistry: Registry) => {
 };
 export const MessageComposer = {
   encoded: {
-    fundPool(value: MsgFundPool) {
-      return {
-        typeUrl: "/kyve.pool.v1beta1.MsgFundPool",
-        value: MsgFundPool.encode(value).finish()
-      };
-    },
-    defundPool(value: MsgDefundPool) {
-      return {
-        typeUrl: "/kyve.pool.v1beta1.MsgDefundPool",
-        value: MsgDefundPool.encode(value).finish()
-      };
-    },
     createPool(value: MsgCreatePool) {
       return {
         typeUrl: "/kyve.pool.v1beta1.MsgCreatePool",
@@ -64,18 +52,6 @@ export const MessageComposer = {
     }
   },
   withTypeUrl: {
-    fundPool(value: MsgFundPool) {
-      return {
-        typeUrl: "/kyve.pool.v1beta1.MsgFundPool",
-        value
-      };
-    },
-    defundPool(value: MsgDefundPool) {
-      return {
-        typeUrl: "/kyve.pool.v1beta1.MsgDefundPool",
-        value
-      };
-    },
     createPool(value: MsgCreatePool) {
       return {
         typeUrl: "/kyve.pool.v1beta1.MsgCreatePool",
@@ -120,18 +96,6 @@ export const MessageComposer = {
     }
   },
   fromJSON: {
-    fundPool(value: any) {
-      return {
-        typeUrl: "/kyve.pool.v1beta1.MsgFundPool",
-        value: MsgFundPool.fromJSON(value)
-      };
-    },
-    defundPool(value: any) {
-      return {
-        typeUrl: "/kyve.pool.v1beta1.MsgDefundPool",
-        value: MsgDefundPool.fromJSON(value)
-      };
-    },
     createPool(value: any) {
       return {
         typeUrl: "/kyve.pool.v1beta1.MsgCreatePool",
@@ -176,18 +140,6 @@ export const MessageComposer = {
     }
   },
   fromPartial: {
-    fundPool(value: MsgFundPool) {
-      return {
-        typeUrl: "/kyve.pool.v1beta1.MsgFundPool",
-        value: MsgFundPool.fromPartial(value)
-      };
-    },
-    defundPool(value: MsgDefundPool) {
-      return {
-        typeUrl: "/kyve.pool.v1beta1.MsgDefundPool",
-        value: MsgDefundPool.fromPartial(value)
-      };
-    },
     createPool(value: MsgCreatePool) {
       return {
         typeUrl: "/kyve.pool.v1beta1.MsgCreatePool",

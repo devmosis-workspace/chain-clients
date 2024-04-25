@@ -9,6 +9,9 @@ export declare const createRPCMsgClient: ({ rpc }: {
         delegation: {
             v1beta1: import("./delegation/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
+        funders: {
+            v1beta1: import("./funders/v1beta1/tx.rpc.msg").MsgClientImpl;
+        };
         global: {
             v1beta1: import("./global/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
@@ -23,11 +26,17 @@ export declare const createRPCMsgClient: ({ rpc }: {
         };
     };
     cosmos: {
+        auth: {
+            v1beta1: import("../cosmos/auth/v1beta1/tx.rpc.msg").MsgClientImpl;
+        };
         authz: {
             v1beta1: import("../cosmos/authz/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
         bank: {
             v1beta1: import("../cosmos/bank/v1beta1/tx.rpc.msg").MsgClientImpl;
+        };
+        consensus: {
+            v1: import("../cosmos/consensus/v1/tx.rpc.msg").MsgClientImpl;
         };
         crisis: {
             v1beta1: import("../cosmos/crisis/v1beta1/tx.rpc.msg").MsgClientImpl;
@@ -47,6 +56,9 @@ export declare const createRPCMsgClient: ({ rpc }: {
         };
         group: {
             v1: import("../cosmos/group/v1/tx.rpc.msg").MsgClientImpl;
+        };
+        mint: {
+            v1beta1: import("../cosmos/mint/v1beta1/tx.rpc.msg").MsgClientImpl;
         };
         nft: {
             v1beta1: import("../cosmos/nft/v1beta1/tx.rpc.msg").MsgClientImpl;

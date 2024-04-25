@@ -19,7 +19,7 @@ export declare function stakerStatusToJSON(object: StakerStatus): string;
 /** QueryStakersRequest is the request type for the Query/Stakers RPC method. */
 export interface QueryStakersRequest {
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
     /** status looks whether a staker is participating in pools or not */
     status: StakerStatus;
     /** search searches for moniker OR address */
@@ -34,9 +34,9 @@ export interface QueryStakersRequestAmino {
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
     /** status looks whether a staker is participating in pools or not */
-    status: StakerStatus;
+    status?: StakerStatus;
     /** search searches for moniker OR address */
-    search: string;
+    search?: string;
 }
 export interface QueryStakersRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryStakersRequest";
@@ -44,7 +44,7 @@ export interface QueryStakersRequestAminoMsg {
 }
 /** QueryStakersRequest is the request type for the Query/Stakers RPC method. */
 export interface QueryStakersRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
     status: StakerStatus;
     search: string;
 }
@@ -53,7 +53,7 @@ export interface QueryStakersResponse {
     /** stakers ... */
     stakers: FullStaker[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryStakersResponseProtoMsg {
     typeUrl: "/kyve.query.v1beta1.QueryStakersResponse";
@@ -62,7 +62,7 @@ export interface QueryStakersResponseProtoMsg {
 /** QueryStakersResponse is the response type for the Query/Stakers RPC method. */
 export interface QueryStakersResponseAmino {
     /** stakers ... */
-    stakers: FullStakerAmino[];
+    stakers?: FullStakerAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -73,7 +73,7 @@ export interface QueryStakersResponseAminoMsg {
 /** QueryStakersResponse is the response type for the Query/Stakers RPC method. */
 export interface QueryStakersResponseSDKType {
     stakers: FullStakerSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryStakerRequest is the request type for the Query/Staker RPC method. */
 export interface QueryStakerRequest {
@@ -87,7 +87,7 @@ export interface QueryStakerRequestProtoMsg {
 /** QueryStakerRequest is the request type for the Query/Staker RPC method. */
 export interface QueryStakerRequestAmino {
     /** address ... */
-    address: string;
+    address?: string;
 }
 export interface QueryStakerRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryStakerRequest";
@@ -131,7 +131,7 @@ export interface QueryStakersByPoolRequestProtoMsg {
 /** QueryStakersByPoolRequest is the request type for the Query/Staker RPC method. */
 export interface QueryStakersByPoolRequestAmino {
     /** pool_id ... */
-    pool_id: string;
+    pool_id?: string;
 }
 export interface QueryStakersByPoolRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryStakersByPoolRequest";
@@ -153,7 +153,7 @@ export interface QueryStakersByPoolResponseProtoMsg {
 /** QueryStakersByPoolResponse is the response type for the Query/Staker RPC method. */
 export interface QueryStakersByPoolResponseAmino {
     /** stakers ... */
-    stakers: StakerPoolResponseAmino[];
+    stakers?: StakerPoolResponseAmino[];
 }
 export interface QueryStakersByPoolResponseAminoMsg {
     type: "/kyve.query.v1beta1.QueryStakersByPoolResponse";
@@ -166,9 +166,9 @@ export interface QueryStakersByPoolResponseSDKType {
 /** StakerPoolResponse ... */
 export interface StakerPoolResponse {
     /** staker ... */
-    staker: FullStaker;
+    staker?: FullStaker;
     /** valaccount ... */
-    valaccount: Valaccount;
+    valaccount?: Valaccount;
 }
 export interface StakerPoolResponseProtoMsg {
     typeUrl: "/kyve.query.v1beta1.StakerPoolResponse";
@@ -187,13 +187,13 @@ export interface StakerPoolResponseAminoMsg {
 }
 /** StakerPoolResponse ... */
 export interface StakerPoolResponseSDKType {
-    staker: FullStakerSDKType;
-    valaccount: ValaccountSDKType;
+    staker?: FullStakerSDKType;
+    valaccount?: ValaccountSDKType;
 }
 /** QueryStakersByPoolCountRequest ... */
 export interface QueryStakersByPoolCountRequest {
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryStakersByPoolCountRequestProtoMsg {
     typeUrl: "/kyve.query.v1beta1.QueryStakersByPoolCountRequest";
@@ -210,14 +210,14 @@ export interface QueryStakersByPoolCountRequestAminoMsg {
 }
 /** QueryStakersByPoolCountRequest ... */
 export interface QueryStakersByPoolCountRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryStakersByPoolCountResponse ... */
 export interface QueryStakersByPoolCountResponse {
     /** stakers ... */
     stakers: FullStaker[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryStakersByPoolCountResponseProtoMsg {
     typeUrl: "/kyve.query.v1beta1.QueryStakersByPoolCountResponse";
@@ -226,7 +226,7 @@ export interface QueryStakersByPoolCountResponseProtoMsg {
 /** QueryStakersByPoolCountResponse ... */
 export interface QueryStakersByPoolCountResponseAmino {
     /** stakers ... */
-    stakers: FullStakerAmino[];
+    stakers?: FullStakerAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -237,7 +237,7 @@ export interface QueryStakersByPoolCountResponseAminoMsg {
 /** QueryStakersByPoolCountResponse ... */
 export interface QueryStakersByPoolCountResponseSDKType {
     stakers: FullStakerSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export declare const QueryStakersRequest: {
     typeUrl: string;

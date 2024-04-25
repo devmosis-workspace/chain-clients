@@ -13,9 +13,9 @@ export interface ParamsProtoMsg {
 /** Params defines the pool module parameters. */
 export interface ParamsAmino {
     /** protocol_inflation_share ... */
-    protocol_inflation_share: string;
+    protocol_inflation_share?: string;
     /** pool_inflation_payout_rate ... */
-    pool_inflation_payout_rate: string;
+    pool_inflation_payout_rate?: string;
 }
 export interface ParamsAminoMsg {
     type: "/kyve.pool.v1beta1.Params";

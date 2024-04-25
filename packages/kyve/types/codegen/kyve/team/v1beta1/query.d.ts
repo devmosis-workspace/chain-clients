@@ -62,40 +62,40 @@ export interface QueryTeamInfoResponseProtoMsg {
 /** QueryAccountsResponse is response type for the Query/TeamInfo RPC method. */
 export interface QueryTeamInfoResponseAmino {
     /** foundation is the authority foundation address */
-    foundation_authority: string;
+    foundation_authority?: string;
     /** bcp is the authority bcp address */
-    bcp_authority: string;
+    bcp_authority?: string;
     /** total_team_allocation is the total allocation in $KYVE the team module has in order to reward team members */
-    total_team_allocation: string;
+    total_team_allocation?: string;
     /** issued_team_allocation is the amount in $KYVE tied to team vesting accounts and which are not available anymore */
-    issued_team_allocation: string;
+    issued_team_allocation?: string;
     /**
      * available_team_allocation is the amount in $KYVE with which further team vesting accounts can be created.
      * if the available amount is zero no new vesting accounts can be created
      */
-    available_team_allocation: string;
+    available_team_allocation?: string;
     /**
      * total_authority_rewards is the amount in $KYVE the authority has earned in total with inflation rewards.
      * Those rewards can be payed out for different purposes
      */
-    total_authority_rewards: string;
+    total_authority_rewards?: string;
     /** claimed_authority_rewards is the amount in $KYVE of how much the authority already claimed */
-    claimed_authority_rewards: string;
+    claimed_authority_rewards?: string;
     /** available_authority_rewards is the amount in $KYVE of how much rewards the authority can claim right now */
-    available_authority_rewards: string;
+    available_authority_rewards?: string;
     /** total_account_rewards is the amount in $KYVE all team vesting accounts have ever received */
-    total_account_rewards: string;
+    total_account_rewards?: string;
     /** claimed_account_rewards is the amount in $KYVE all team vesting accounts have ever claimed */
-    claimed_account_rewards: string;
+    claimed_account_rewards?: string;
     /** available_account_rewards is the total amount of $KYVE all team vesting accounts can currently claim */
-    available_account_rewards: string;
+    available_account_rewards?: string;
     /**
      * required_module_balance is the balance the team module should have. If this is less than the module balance
      * something went wrong
      */
-    required_module_balance: string;
+    required_module_balance?: string;
     /** team_module_balance is the team module balance in $KYVE */
-    team_module_balance: string;
+    team_module_balance?: string;
 }
 export interface QueryTeamInfoResponseAminoMsg {
     type: "/kyve.team.v1beta1.QueryTeamInfoResponse";
@@ -146,7 +146,7 @@ export interface QueryTeamVestingAccountsResponseProtoMsg {
 /** QueryAccountsResponse is response type for the Query/TeamVestingAccounts RPC method. */
 export interface QueryTeamVestingAccountsResponseAmino {
     /** accounts holds all the team vesting accounts of this module. */
-    accounts: TeamVestingAccountAmino[];
+    accounts?: TeamVestingAccountAmino[];
 }
 export interface QueryTeamVestingAccountsResponseAminoMsg {
     type: "/kyve.team.v1beta1.QueryTeamVestingAccountsResponse";
@@ -168,7 +168,7 @@ export interface QueryTeamVestingAccountRequestProtoMsg {
 /** QueryTeamVestingAccountRequest is request type for the Query/TeamVestingAccount RPC method. */
 export interface QueryTeamVestingAccountRequestAmino {
     /** id is a unique identify for each vesting account, tied to a single team member. */
-    id: string;
+    id?: string;
 }
 export interface QueryTeamVestingAccountRequestAminoMsg {
     type: "/kyve.team.v1beta1.QueryTeamVestingAccountRequest";
@@ -212,7 +212,7 @@ export interface QueryTeamVestingStatusRequestProtoMsg {
 /** QueryTeamCurrentVestingStatusRequest is request type for the Query/TeamCurrentVestingStatus RPC method. */
 export interface QueryTeamVestingStatusRequestAmino {
     /** id is a unique identify for each vesting account, tied to a single team member. */
-    id: string;
+    id?: string;
 }
 export interface QueryTeamVestingStatusRequestAminoMsg {
     type: "/kyve.team.v1beta1.QueryTeamVestingStatusRequest";
@@ -227,9 +227,9 @@ export interface QueryTeamVestingStatusResponse {
     /** request_date .. */
     requestDate: string;
     /** plan ... */
-    plan: QueryVestingPlan;
+    plan?: QueryVestingPlan;
     /** status .. */
-    status: QueryVestingStatus;
+    status?: QueryVestingStatus;
 }
 export interface QueryTeamVestingStatusResponseProtoMsg {
     typeUrl: "/kyve.team.v1beta1.QueryTeamVestingStatusResponse";
@@ -238,7 +238,7 @@ export interface QueryTeamVestingStatusResponseProtoMsg {
 /** QueryTeamCurrentVestingStatusResponse is the response type for the Query/TeamCurrentVestingStatus RPC method. */
 export interface QueryTeamVestingStatusResponseAmino {
     /** request_date .. */
-    request_date: string;
+    request_date?: string;
     /** plan ... */
     plan?: QueryVestingPlanAmino;
     /** status .. */
@@ -251,8 +251,8 @@ export interface QueryTeamVestingStatusResponseAminoMsg {
 /** QueryTeamCurrentVestingStatusResponse is the response type for the Query/TeamCurrentVestingStatus RPC method. */
 export interface QueryTeamVestingStatusResponseSDKType {
     request_date: string;
-    plan: QueryVestingPlanSDKType;
-    status: QueryVestingStatusSDKType;
+    plan?: QueryVestingPlanSDKType;
+    status?: QueryVestingStatusSDKType;
 }
 /** QueryTeamVestingStatusByTimeRequest is request type for the Query/TeamCurrentVestingByTimeStatus RPC method. */
 export interface QueryTeamVestingStatusByTimeRequest {
@@ -268,9 +268,9 @@ export interface QueryTeamVestingStatusByTimeRequestProtoMsg {
 /** QueryTeamVestingStatusByTimeRequest is request type for the Query/TeamCurrentVestingByTimeStatus RPC method. */
 export interface QueryTeamVestingStatusByTimeRequestAmino {
     /** id is a unique identify for each vesting account, tied to a single team member. */
-    id: string;
+    id?: string;
     /** time is a unix timestamp of the time the vesting progress should be calculated */
-    time: string;
+    time?: string;
 }
 export interface QueryTeamVestingStatusByTimeRequestAminoMsg {
     type: "/kyve.team.v1beta1.QueryTeamVestingStatusByTimeRequest";
@@ -286,9 +286,9 @@ export interface QueryTeamVestingStatusByTimeResponse {
     /** request_date .. */
     requestDate: string;
     /** plan ... */
-    plan: QueryVestingPlan;
+    plan?: QueryVestingPlan;
     /** status .. */
-    status: QueryVestingStatus;
+    status?: QueryVestingStatus;
 }
 export interface QueryTeamVestingStatusByTimeResponseProtoMsg {
     typeUrl: "/kyve.team.v1beta1.QueryTeamVestingStatusByTimeResponse";
@@ -297,7 +297,7 @@ export interface QueryTeamVestingStatusByTimeResponseProtoMsg {
 /** QueryTeamVestingStatusByTimeResponse is the response type for the Query/TeamCurrentVestingByTimeStatus RPC method. */
 export interface QueryTeamVestingStatusByTimeResponseAmino {
     /** request_date .. */
-    request_date: string;
+    request_date?: string;
     /** plan ... */
     plan?: QueryVestingPlanAmino;
     /** status .. */
@@ -310,8 +310,8 @@ export interface QueryTeamVestingStatusByTimeResponseAminoMsg {
 /** QueryTeamVestingStatusByTimeResponse is the response type for the Query/TeamCurrentVestingByTimeStatus RPC method. */
 export interface QueryTeamVestingStatusByTimeResponseSDKType {
     request_date: string;
-    plan: QueryVestingPlanSDKType;
-    status: QueryVestingStatusSDKType;
+    plan?: QueryVestingPlanSDKType;
+    status?: QueryVestingStatusSDKType;
 }
 /** QueryVestingStatus is a type holding information about the account's vesting progress */
 export interface QueryVestingStatus {
@@ -341,23 +341,23 @@ export interface QueryVestingStatusProtoMsg {
 /** QueryVestingStatus is a type holding information about the account's vesting progress */
 export interface QueryVestingStatusAmino {
     /** total_vested_amount ... */
-    total_vested_amount: string;
+    total_vested_amount?: string;
     /** total_unlocked_amount ... */
-    total_unlocked_amount: string;
+    total_unlocked_amount?: string;
     /** current_claimable_amount ... */
-    current_claimable_amount: string;
+    current_claimable_amount?: string;
     /** locked_vested_amount ... */
-    locked_vested_amount: string;
+    locked_vested_amount?: string;
     /** remaining_unvested_amount ... */
-    remaining_unvested_amount: string;
+    remaining_unvested_amount?: string;
     /** claimed_amount ... */
-    claimed_amount: string;
+    claimed_amount?: string;
     /** total_rewards ... */
-    total_rewards: string;
+    total_rewards?: string;
     /** claimed_rewards ... */
-    claimed_rewards: string;
+    claimed_rewards?: string;
     /** available_rewards ... */
-    available_rewards: string;
+    available_rewards?: string;
 }
 export interface QueryVestingStatusAminoMsg {
     type: "/kyve.team.v1beta1.QueryVestingStatus";
@@ -401,21 +401,21 @@ export interface QueryVestingPlanProtoMsg {
 /** QueryVestingPlan is a type holding information about the account's vesting data which does not change */
 export interface QueryVestingPlanAmino {
     /** commencement ... */
-    commencement: string;
+    commencement?: string;
     /** token_vesting_start ... */
-    token_vesting_start: string;
+    token_vesting_start?: string;
     /** token_vesting_finished ... */
-    token_vesting_finished: string;
+    token_vesting_finished?: string;
     /** token_unlock_start ... */
-    token_unlock_start: string;
+    token_unlock_start?: string;
     /** token_unlock_finished ... */
-    token_unlock_finished: string;
+    token_unlock_finished?: string;
     /** clawback ... */
-    clawback: string;
+    clawback?: string;
     /** clawback_amount ... */
-    clawback_amount: string;
+    clawback_amount?: string;
     /** maximum_vesting_amount ... */
-    maximum_vesting_amount: string;
+    maximum_vesting_amount?: string;
 }
 export interface QueryVestingPlanAminoMsg {
     type: "/kyve.team.v1beta1.QueryVestingPlan";

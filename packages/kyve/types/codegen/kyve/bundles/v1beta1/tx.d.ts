@@ -47,27 +47,27 @@ export interface MsgSubmitBundleProposalProtoMsg {
 /** MsgSubmitBundleProposal defines a SDK message for submitting a bundle proposal. */
 export interface MsgSubmitBundleProposalAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
     /** pool_id ... */
-    pool_id: string;
+    pool_id?: string;
     /** storage_id ... */
-    storage_id: string;
+    storage_id?: string;
     /** data_size ... */
-    data_size: string;
+    data_size?: string;
     /** data_hash ... */
-    data_hash: string;
+    data_hash?: string;
     /** from_index ... */
-    from_index: string;
+    from_index?: string;
     /** bundle_size ... */
-    bundle_size: string;
+    bundle_size?: string;
     /** from_key */
-    from_key: string;
+    from_key?: string;
     /** to_key ... */
-    to_key: string;
+    to_key?: string;
     /** bundle_summary ... */
-    bundle_summary: string;
+    bundle_summary?: string;
 }
 export interface MsgSubmitBundleProposalAminoMsg {
     type: "/kyve.bundles.v1beta1.MsgSubmitBundleProposal";
@@ -124,15 +124,15 @@ export interface MsgVoteBundleProposalProtoMsg {
 /** MsgVoteBundleProposal defines a SDK message for voting on a bundle proposal. */
 export interface MsgVoteBundleProposalAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
     /** id ... */
-    pool_id: string;
+    pool_id?: string;
     /** storage_id ... */
-    storage_id: string;
+    storage_id?: string;
     /** vote ... */
-    vote: VoteType;
+    vote?: VoteType;
 }
 export interface MsgVoteBundleProposalAminoMsg {
     type: "/kyve.bundles.v1beta1.MsgVoteBundleProposal";
@@ -179,11 +179,11 @@ export interface MsgClaimUploaderRoleProtoMsg {
 /** MsgClaimUploaderRole defines a SDK message for claiming the uploader role. */
 export interface MsgClaimUploaderRoleAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
     /** id ... */
-    pool_id: string;
+    pool_id?: string;
 }
 export interface MsgClaimUploaderRoleAminoMsg {
     type: "/kyve.bundles.v1beta1.MsgClaimUploaderRole";
@@ -230,13 +230,13 @@ export interface MsgSkipUploaderRoleProtoMsg {
 /** MsgSubmitBundleProposal defines a SDK message for submitting a bundle proposal. */
 export interface MsgSkipUploaderRoleAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
     /** pool_id ... */
-    pool_id: string;
+    pool_id?: string;
     /** from_index ... */
-    from_index: string;
+    from_index?: string;
 }
 export interface MsgSkipUploaderRoleAminoMsg {
     type: "/kyve.bundles.v1beta1.MsgSkipUploaderRole";
@@ -280,9 +280,9 @@ export interface MsgUpdateParamsProtoMsg {
 /** MsgUpdateParams defines a SDK message for updating the module parameters. */
 export interface MsgUpdateParamsAmino {
     /** authority is the address of the governance account. */
-    authority: string;
+    authority?: string;
     /** payload defines the x/bundles parameters to update. */
-    payload: string;
+    payload?: string;
 }
 export interface MsgUpdateParamsAminoMsg {
     type: "/kyve.bundles.v1beta1.MsgUpdateParams";

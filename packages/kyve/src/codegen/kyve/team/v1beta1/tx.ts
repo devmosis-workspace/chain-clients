@@ -18,13 +18,13 @@ export interface MsgClaimUnlockedProtoMsg {
 /** MsgClaimUnlockedTokens ... */
 export interface MsgClaimUnlockedAmino {
   /** authority is the foundation which is allowed to payout unlocked tokens */
-  authority: string;
+  authority?: string;
   /** id is the unique identifier of the team member */
-  id: string;
+  id?: string;
   /** amount of $KYVE that will be paid to the recipient and marked as deducted from the unlocked amount. */
-  amount: string;
+  amount?: string;
   /** recipient is the recipient address chosen by the team member. */
-  recipient: string;
+  recipient?: string;
 }
 export interface MsgClaimUnlockedAminoMsg {
   type: "/kyve.team.v1beta1.MsgClaimUnlocked";
@@ -67,11 +67,11 @@ export interface MsgClaimAuthorityRewardsProtoMsg {
 /** MsgClaimAuthorityRewards ... */
 export interface MsgClaimAuthorityRewardsAmino {
   /** authority is the foundation which is allowed to payout unlocked tokens */
-  authority: string;
+  authority?: string;
   /** amount of $KYVE that will be paid to the recipient and marked as deducted from the authority inflation rewards */
-  amount: string;
+  amount?: string;
   /** recipient is the recipient address chosen by the team member. */
-  recipient: string;
+  recipient?: string;
 }
 export interface MsgClaimAuthorityRewardsAminoMsg {
   type: "/kyve.team.v1beta1.MsgClaimAuthorityRewards";
@@ -115,13 +115,13 @@ export interface MsgClaimAccountRewardsProtoMsg {
 /** MsgClaimAccountRewards ... */
 export interface MsgClaimAccountRewardsAmino {
   /** authority is the foundation which is allowed to payout unlocked tokens */
-  authority: string;
+  authority?: string;
   /** id is the unique identifier of the team member */
-  id: string;
+  id?: string;
   /** amount of $KYVE that will be paid to the recipient and marked as deducted from the inflation rewards */
-  amount: string;
+  amount?: string;
   /** recipient is the recipient address chosen by the team member. */
-  recipient: string;
+  recipient?: string;
 }
 export interface MsgClaimAccountRewardsAminoMsg {
   type: "/kyve.team.v1beta1.MsgClaimAccountRewards";
@@ -164,11 +164,11 @@ export interface MsgClawbackProtoMsg {
 /** MsgClawback ... */
 export interface MsgClawbackAmino {
   /** authority is the foundation which is allowed to modify team accounts */
-  authority: string;
+  authority?: string;
   /** id is the unique identifier of the team member */
-  id: string;
+  id?: string;
   /** clawback is a unix timestamp (in seconds) of when the clawback should be applied */
-  clawback: string;
+  clawback?: string;
 }
 export interface MsgClawbackAminoMsg {
   type: "/kyve.team.v1beta1.MsgClawback";
@@ -210,11 +210,11 @@ export interface MsgCreateTeamVestingAccountProtoMsg {
 /** MsgCreateTeamVestingAccount ... */
 export interface MsgCreateTeamVestingAccountAmino {
   /** authority ... */
-  authority: string;
+  authority?: string;
   /** total_allocation is the number of tokens reserved for this team member. */
-  total_allocation: string;
+  total_allocation?: string;
   /** commencement is the unix timestamp of the member's official start date. */
-  commencement: string;
+  commencement?: string;
 }
 export interface MsgCreateTeamVestingAccountAminoMsg {
   type: "/kyve.team.v1beta1.MsgCreateTeamVestingAccount";
@@ -282,12 +282,20 @@ export const MsgClaimUnlocked = {
     return message;
   },
   fromAmino(object: MsgClaimUnlockedAmino): MsgClaimUnlocked {
-    return {
-      authority: object.authority,
-      id: BigInt(object.id),
-      amount: BigInt(object.amount),
-      recipient: object.recipient
-    };
+    const message = createBaseMsgClaimUnlocked();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    return message;
   },
   toAmino(message: MsgClaimUnlocked): MsgClaimUnlockedAmino {
     const obj: any = {};
@@ -329,7 +337,8 @@ export const MsgClaimUnlockedResponse = {
     return message;
   },
   fromAmino(_: MsgClaimUnlockedResponseAmino): MsgClaimUnlockedResponse {
-    return {};
+    const message = createBaseMsgClaimUnlockedResponse();
+    return message;
   },
   toAmino(_: MsgClaimUnlockedResponse): MsgClaimUnlockedResponseAmino {
     const obj: any = {};
@@ -387,11 +396,17 @@ export const MsgClaimAuthorityRewards = {
     return message;
   },
   fromAmino(object: MsgClaimAuthorityRewardsAmino): MsgClaimAuthorityRewards {
-    return {
-      authority: object.authority,
-      amount: BigInt(object.amount),
-      recipient: object.recipient
-    };
+    const message = createBaseMsgClaimAuthorityRewards();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    return message;
   },
   toAmino(message: MsgClaimAuthorityRewards): MsgClaimAuthorityRewardsAmino {
     const obj: any = {};
@@ -432,7 +447,8 @@ export const MsgClaimAuthorityRewardsResponse = {
     return message;
   },
   fromAmino(_: MsgClaimAuthorityRewardsResponseAmino): MsgClaimAuthorityRewardsResponse {
-    return {};
+    const message = createBaseMsgClaimAuthorityRewardsResponse();
+    return message;
   },
   toAmino(_: MsgClaimAuthorityRewardsResponse): MsgClaimAuthorityRewardsResponseAmino {
     const obj: any = {};
@@ -496,12 +512,20 @@ export const MsgClaimAccountRewards = {
     return message;
   },
   fromAmino(object: MsgClaimAccountRewardsAmino): MsgClaimAccountRewards {
-    return {
-      authority: object.authority,
-      id: BigInt(object.id),
-      amount: BigInt(object.amount),
-      recipient: object.recipient
-    };
+    const message = createBaseMsgClaimAccountRewards();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    return message;
   },
   toAmino(message: MsgClaimAccountRewards): MsgClaimAccountRewardsAmino {
     const obj: any = {};
@@ -543,7 +567,8 @@ export const MsgClaimAccountRewardsResponse = {
     return message;
   },
   fromAmino(_: MsgClaimAccountRewardsResponseAmino): MsgClaimAccountRewardsResponse {
-    return {};
+    const message = createBaseMsgClaimAccountRewardsResponse();
+    return message;
   },
   toAmino(_: MsgClaimAccountRewardsResponse): MsgClaimAccountRewardsResponseAmino {
     const obj: any = {};
@@ -601,11 +626,17 @@ export const MsgClawback = {
     return message;
   },
   fromAmino(object: MsgClawbackAmino): MsgClawback {
-    return {
-      authority: object.authority,
-      id: BigInt(object.id),
-      clawback: BigInt(object.clawback)
-    };
+    const message = createBaseMsgClawback();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.clawback !== undefined && object.clawback !== null) {
+      message.clawback = BigInt(object.clawback);
+    }
+    return message;
   },
   toAmino(message: MsgClawback): MsgClawbackAmino {
     const obj: any = {};
@@ -646,7 +677,8 @@ export const MsgClawbackResponse = {
     return message;
   },
   fromAmino(_: MsgClawbackResponseAmino): MsgClawbackResponse {
-    return {};
+    const message = createBaseMsgClawbackResponse();
+    return message;
   },
   toAmino(_: MsgClawbackResponse): MsgClawbackResponseAmino {
     const obj: any = {};
@@ -704,11 +736,17 @@ export const MsgCreateTeamVestingAccount = {
     return message;
   },
   fromAmino(object: MsgCreateTeamVestingAccountAmino): MsgCreateTeamVestingAccount {
-    return {
-      authority: object.authority,
-      totalAllocation: BigInt(object.total_allocation),
-      commencement: BigInt(object.commencement)
-    };
+    const message = createBaseMsgCreateTeamVestingAccount();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.total_allocation !== undefined && object.total_allocation !== null) {
+      message.totalAllocation = BigInt(object.total_allocation);
+    }
+    if (object.commencement !== undefined && object.commencement !== null) {
+      message.commencement = BigInt(object.commencement);
+    }
+    return message;
   },
   toAmino(message: MsgCreateTeamVestingAccount): MsgCreateTeamVestingAccountAmino {
     const obj: any = {};
@@ -749,7 +787,8 @@ export const MsgCreateTeamVestingAccountResponse = {
     return message;
   },
   fromAmino(_: MsgCreateTeamVestingAccountResponseAmino): MsgCreateTeamVestingAccountResponse {
-    return {};
+    const message = createBaseMsgCreateTeamVestingAccountResponse();
+    return message;
   },
   toAmino(_: MsgCreateTeamVestingAccountResponse): MsgCreateTeamVestingAccountResponseAmino {
     const obj: any = {};

@@ -27,7 +27,7 @@ export interface EventUpdateParamsAmino {
   /** new_params is the module's new parameters. */
   new_params?: ParamsAmino;
   /** payload is the parameter updates that were performed. */
-  payload: string;
+  payload?: string;
 }
 export interface EventUpdateParamsAminoMsg {
   type: "/kyve.global.v1beta1.EventUpdateParams";
@@ -78,11 +78,17 @@ export const EventUpdateParams = {
     return message;
   },
   fromAmino(object: EventUpdateParamsAmino): EventUpdateParams {
-    return {
-      oldParams: object?.old_params ? Params.fromAmino(object.old_params) : undefined,
-      newParams: object?.new_params ? Params.fromAmino(object.new_params) : undefined,
-      payload: object.payload
-    };
+    const message = createBaseEventUpdateParams();
+    if (object.old_params !== undefined && object.old_params !== null) {
+      message.oldParams = Params.fromAmino(object.old_params);
+    }
+    if (object.new_params !== undefined && object.new_params !== null) {
+      message.newParams = Params.fromAmino(object.new_params);
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = object.payload;
+    }
+    return message;
   },
   toAmino(message: EventUpdateParams): EventUpdateParamsAmino {
     const obj: any = {};

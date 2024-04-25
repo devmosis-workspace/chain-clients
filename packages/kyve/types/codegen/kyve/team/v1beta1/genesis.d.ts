@@ -18,9 +18,9 @@ export interface GenesisStateAmino {
     /** authority ... */
     authority?: AuthorityAmino;
     /** account_list ... */
-    account_list: TeamVestingAccountAmino[];
+    account_list?: TeamVestingAccountAmino[];
     /** account_count ... */
-    account_count: string;
+    account_count?: string;
 }
 export interface GenesisStateAminoMsg {
     type: "/kyve.team.v1beta1.GenesisState";

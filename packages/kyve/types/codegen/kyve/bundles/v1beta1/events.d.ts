@@ -28,7 +28,7 @@ export interface EventUpdateParamsAmino {
     /** new_params is the module's new parameters. */
     new_params?: ParamsAmino;
     /** payload is the parameter updates that were performed. */
-    payload: string;
+    payload?: string;
 }
 export interface EventUpdateParamsAminoMsg {
     type: "/kyve.bundles.v1beta1.EventUpdateParams";
@@ -67,13 +67,13 @@ export interface EventBundleVoteProtoMsg {
  */
 export interface EventBundleVoteAmino {
     /** pool_id is the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** staker is the account staker of the protocol node. */
-    staker: string;
+    staker?: string;
     /** storage_id is the unique ID of the bundle. */
-    storage_id: string;
+    storage_id?: string;
     /** vote is for what the validator voted with */
-    vote: VoteType;
+    vote?: VoteType;
 }
 export interface EventBundleVoteAminoMsg {
     type: "/kyve.bundles.v1beta1.EventBundleVote";
@@ -145,45 +145,45 @@ export interface EventBundleProposedProtoMsg {
  */
 export interface EventBundleProposedAmino {
     /** pool_id is the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** internal id for the KYVE-bundle */
-    id: string;
+    id?: string;
     /**
      * storage_id is the ID to retrieve to data item from the configured storage provider
      * e.g. the ARWEAVE-id
      */
-    storage_id: string;
+    storage_id?: string;
     /** Address of the uploader/proposer of the bundle */
-    uploader: string;
+    uploader?: string;
     /** data_size size in bytes of the data */
-    data_size: string;
+    data_size?: string;
     /** from_index starting index of the bundle (inclusive) */
-    from_index: string;
+    from_index?: string;
     /** bundle_size amount of data items in the bundle */
-    bundle_size: string;
+    bundle_size?: string;
     /** from_key the key of the first data item in the bundle */
-    from_key: string;
+    from_key?: string;
     /** to_key the key of the last data item in the bundle */
-    to_key: string;
+    to_key?: string;
     /**
      * bundle_summary is a short string holding some useful information of
      * the bundle which will get stored on-chain
      */
-    bundle_summary: string;
+    bundle_summary?: string;
     /** data_hash is a sha256 hash of the raw compressed data */
-    data_hash: string;
+    data_hash?: string;
     /** proposed_at the unix time when the bundle was proposed */
-    proposed_at: string;
+    proposed_at?: string;
     /**
      * storage_provider_id the unique id of the storage provider where
      * the data of the bundle is tored
      */
-    storage_provider_id: number;
+    storage_provider_id?: number;
     /**
      * compression_id  the unique id of the compression type the data
      * of the bundle was compressed with
      */
-    compression_id: number;
+    compression_id?: number;
 }
 export interface EventBundleProposedAminoMsg {
     type: "/kyve.bundles.v1beta1.EventBundleProposed";
@@ -257,37 +257,37 @@ export interface EventBundleFinalizedProtoMsg {
  */
 export interface EventBundleFinalizedAmino {
     /** pool_id is the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** internal id for the KYVE-bundle */
-    id: string;
+    id?: string;
     /** total voting power which voted for valid */
-    valid: string;
+    valid?: string;
     /** total voting power which voted for invalid */
-    invalid: string;
+    invalid?: string;
     /** total voting power which voted for abstain */
-    abstain: string;
+    abstain?: string;
     /** total voting power of the pool */
-    total: string;
+    total?: string;
     /** status of the finalized bundle */
-    status: BundleStatus;
+    status?: BundleStatus;
     /** amount which funders provided to the total bundle reward (in ukyve) */
-    funders_payout: string;
+    funders_payout?: string;
     /** amount which the inflation pool provided to the total reward (in ukyve) */
-    inflation_payout: string;
+    inflation_payout?: string;
     /** rewards transferred to treasury (in ukyve) */
-    reward_treasury: string;
+    reward_treasury?: string;
     /** rewardUploader rewards directly transferred to uploader (in ukyve) */
-    reward_uploader: string;
+    reward_uploader?: string;
     /** rewardDelegation rewards distributed among all delegators (in ukyve) */
-    reward_delegation: string;
+    reward_delegation?: string;
     /** rewardTotal the total bundle reward */
-    reward_total: string;
+    reward_total?: string;
     /** finalized_at the block height where the bundle got finalized */
-    finalized_at: string;
+    finalized_at?: string;
     /** uploader the address of the uploader of this bundle */
-    uploader: string;
+    uploader?: string;
     /** next_uploader the address of the next uploader after this bundle */
-    next_uploader: string;
+    next_uploader?: string;
 }
 export interface EventBundleFinalizedAminoMsg {
     type: "/kyve.bundles.v1beta1.EventBundleFinalized";
@@ -340,14 +340,14 @@ export interface EventClaimedUploaderRoleProtoMsg {
  */
 export interface EventClaimedUploaderRoleAmino {
     /** pool_id is the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** id internal id for the KYVE-bundle */
-    id: string;
+    id?: string;
     /**
      * new_uploader the address of the participant who claimed
      * the free uploader role
      */
-    new_uploader: string;
+    new_uploader?: string;
 }
 export interface EventClaimedUploaderRoleAminoMsg {
     type: "/kyve.bundles.v1beta1.EventClaimedUploaderRole";
@@ -386,13 +386,13 @@ export interface EventSkippedUploaderRoleProtoMsg {
  */
 export interface EventSkippedUploaderRoleAmino {
     /** pool_id is the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** id internal id for the KYVE-bundle */
-    id: string;
+    id?: string;
     /** previous_uploader is the address of the staker who skipped his uploader role */
-    previous_uploader: string;
+    previous_uploader?: string;
     /** new_uploader is the address of the new uploader who got automatically selected */
-    new_uploader: string;
+    new_uploader?: string;
 }
 export interface EventSkippedUploaderRoleAminoMsg {
     type: "/kyve.bundles.v1beta1.EventSkippedUploaderRole";
@@ -430,11 +430,11 @@ export interface EventPointIncreasedProtoMsg {
  */
 export interface EventPointIncreasedAmino {
     /** pool_id is the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** staker is the address of the staker who received the point */
-    staker: string;
+    staker?: string;
     /** current_points is the amount of points the staker has now */
-    current_points: string;
+    current_points?: string;
 }
 export interface EventPointIncreasedAminoMsg {
     type: "/kyve.bundles.v1beta1.EventPointIncreased";
@@ -469,9 +469,9 @@ export interface EventPointsResetProtoMsg {
  */
 export interface EventPointsResetAmino {
     /** pool_id is the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** staker is the address of the staker who has zero points now */
-    staker: string;
+    staker?: string;
 }
 export interface EventPointsResetAminoMsg {
     type: "/kyve.bundles.v1beta1.EventPointsReset";

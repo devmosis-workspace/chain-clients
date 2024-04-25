@@ -20,14 +20,14 @@ export interface MsgCreateStakerProtoMsg {
 /** MsgCreateStaker defines a SDK message for creating a staker. */
 export interface MsgCreateStakerAmino {
   /** creator is the address of the staker. */
-  creator: string;
+  creator?: string;
   /** amount is the initial self-stake of the staker. */
-  amount: string;
+  amount?: string;
   /**
    * commission is the percentage that is deducted from rewards before
    * distributing the staker's delegators.
    */
-  commission: string;
+  commission?: string;
 }
 export interface MsgCreateStakerAminoMsg {
   type: "/kyve.stakers.v1beta1.MsgCreateStaker";
@@ -75,17 +75,17 @@ export interface MsgUpdateMetadataProtoMsg {
 /** MsgUpdateMetadata defines a SDK message for claiming the uploader role. */
 export interface MsgUpdateMetadataAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** moniker ... */
-  moniker: string;
+  moniker?: string;
   /** website ... */
-  website: string;
+  website?: string;
   /** identity from keybase.io */
-  identity: string;
+  identity?: string;
   /** security_contact ... */
-  security_contact: string;
+  security_contact?: string;
   /** details ... */
-  details: string;
+  details?: string;
 }
 export interface MsgUpdateMetadataAminoMsg {
   type: "/kyve.stakers.v1beta1.MsgUpdateMetadata";
@@ -128,9 +128,9 @@ export interface MsgUpdateCommissionProtoMsg {
 /** MsgUpdateCommission ... */
 export interface MsgUpdateCommissionAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** commission ... */
-  commission: string;
+  commission?: string;
 }
 export interface MsgUpdateCommissionAminoMsg {
   type: "/kyve.stakers.v1beta1.MsgUpdateCommission";
@@ -169,9 +169,9 @@ export interface MsgClaimCommissionRewardsProtoMsg {
 /** MsgClaimCommissionRewards ... */
 export interface MsgClaimCommissionRewardsAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
 }
 export interface MsgClaimCommissionRewardsAminoMsg {
   type: "/kyve.stakers.v1beta1.MsgClaimCommissionRewards";
@@ -214,13 +214,13 @@ export interface MsgJoinPoolProtoMsg {
 /** MsgJoinPool ... */
 export interface MsgJoinPoolAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** pool_id ... */
-  pool_id: string;
+  pool_id?: string;
   /** valaddress ... */
-  valaddress: string;
+  valaddress?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
 }
 export interface MsgJoinPoolAminoMsg {
   type: "/kyve.stakers.v1beta1.MsgJoinPool";
@@ -261,9 +261,9 @@ export interface MsgLeavePoolProtoMsg {
 /** MsgLeavePool ... */
 export interface MsgLeavePoolAmino {
   /** creator ... */
-  creator: string;
+  creator?: string;
   /** pool_id ... */
-  pool_id: string;
+  pool_id?: string;
 }
 export interface MsgLeavePoolAminoMsg {
   type: "/kyve.stakers.v1beta1.MsgLeavePool";
@@ -302,9 +302,9 @@ export interface MsgUpdateParamsProtoMsg {
 /** MsgUpdateParams defines a SDK message for updating the module parameters. */
 export interface MsgUpdateParamsAmino {
   /** authority is the address of the governance account. */
-  authority: string;
+  authority?: string;
   /** payload defines the x/stakers parameters to update. */
-  payload: string;
+  payload?: string;
 }
 export interface MsgUpdateParamsAminoMsg {
   type: "/kyve.stakers.v1beta1.MsgUpdateParams";
@@ -365,11 +365,17 @@ export const MsgCreateStaker = {
     return message;
   },
   fromAmino(object: MsgCreateStakerAmino): MsgCreateStaker {
-    return {
-      creator: object.creator,
-      amount: BigInt(object.amount),
-      commission: object.commission
-    };
+    const message = createBaseMsgCreateStaker();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.commission !== undefined && object.commission !== null) {
+      message.commission = object.commission;
+    }
+    return message;
   },
   toAmino(message: MsgCreateStaker): MsgCreateStakerAmino {
     const obj: any = {};
@@ -410,7 +416,8 @@ export const MsgCreateStakerResponse = {
     return message;
   },
   fromAmino(_: MsgCreateStakerResponseAmino): MsgCreateStakerResponse {
-    return {};
+    const message = createBaseMsgCreateStakerResponse();
+    return message;
   },
   toAmino(_: MsgCreateStakerResponse): MsgCreateStakerResponseAmino {
     const obj: any = {};
@@ -486,14 +493,26 @@ export const MsgUpdateMetadata = {
     return message;
   },
   fromAmino(object: MsgUpdateMetadataAmino): MsgUpdateMetadata {
-    return {
-      creator: object.creator,
-      moniker: object.moniker,
-      website: object.website,
-      identity: object.identity,
-      securityContact: object.security_contact,
-      details: object.details
-    };
+    const message = createBaseMsgUpdateMetadata();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.moniker !== undefined && object.moniker !== null) {
+      message.moniker = object.moniker;
+    }
+    if (object.website !== undefined && object.website !== null) {
+      message.website = object.website;
+    }
+    if (object.identity !== undefined && object.identity !== null) {
+      message.identity = object.identity;
+    }
+    if (object.security_contact !== undefined && object.security_contact !== null) {
+      message.securityContact = object.security_contact;
+    }
+    if (object.details !== undefined && object.details !== null) {
+      message.details = object.details;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateMetadata): MsgUpdateMetadataAmino {
     const obj: any = {};
@@ -537,7 +556,8 @@ export const MsgUpdateMetadataResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateMetadataResponseAmino): MsgUpdateMetadataResponse {
-    return {};
+    const message = createBaseMsgUpdateMetadataResponse();
+    return message;
   },
   toAmino(_: MsgUpdateMetadataResponse): MsgUpdateMetadataResponseAmino {
     const obj: any = {};
@@ -589,10 +609,14 @@ export const MsgUpdateCommission = {
     return message;
   },
   fromAmino(object: MsgUpdateCommissionAmino): MsgUpdateCommission {
-    return {
-      creator: object.creator,
-      commission: object.commission
-    };
+    const message = createBaseMsgUpdateCommission();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.commission !== undefined && object.commission !== null) {
+      message.commission = object.commission;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateCommission): MsgUpdateCommissionAmino {
     const obj: any = {};
@@ -632,7 +656,8 @@ export const MsgUpdateCommissionResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateCommissionResponseAmino): MsgUpdateCommissionResponse {
-    return {};
+    const message = createBaseMsgUpdateCommissionResponse();
+    return message;
   },
   toAmino(_: MsgUpdateCommissionResponse): MsgUpdateCommissionResponseAmino {
     const obj: any = {};
@@ -684,10 +709,14 @@ export const MsgClaimCommissionRewards = {
     return message;
   },
   fromAmino(object: MsgClaimCommissionRewardsAmino): MsgClaimCommissionRewards {
-    return {
-      creator: object.creator,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseMsgClaimCommissionRewards();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgClaimCommissionRewards): MsgClaimCommissionRewardsAmino {
     const obj: any = {};
@@ -727,7 +756,8 @@ export const MsgClaimCommissionRewardsResponse = {
     return message;
   },
   fromAmino(_: MsgClaimCommissionRewardsResponseAmino): MsgClaimCommissionRewardsResponse {
-    return {};
+    const message = createBaseMsgClaimCommissionRewardsResponse();
+    return message;
   },
   toAmino(_: MsgClaimCommissionRewardsResponse): MsgClaimCommissionRewardsResponseAmino {
     const obj: any = {};
@@ -791,12 +821,20 @@ export const MsgJoinPool = {
     return message;
   },
   fromAmino(object: MsgJoinPoolAmino): MsgJoinPool {
-    return {
-      creator: object.creator,
-      poolId: BigInt(object.pool_id),
-      valaddress: object.valaddress,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseMsgJoinPool();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.valaddress !== undefined && object.valaddress !== null) {
+      message.valaddress = object.valaddress;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgJoinPool): MsgJoinPoolAmino {
     const obj: any = {};
@@ -838,7 +876,8 @@ export const MsgJoinPoolResponse = {
     return message;
   },
   fromAmino(_: MsgJoinPoolResponseAmino): MsgJoinPoolResponse {
-    return {};
+    const message = createBaseMsgJoinPoolResponse();
+    return message;
   },
   toAmino(_: MsgJoinPoolResponse): MsgJoinPoolResponseAmino {
     const obj: any = {};
@@ -890,10 +929,14 @@ export const MsgLeavePool = {
     return message;
   },
   fromAmino(object: MsgLeavePoolAmino): MsgLeavePool {
-    return {
-      creator: object.creator,
-      poolId: BigInt(object.pool_id)
-    };
+    const message = createBaseMsgLeavePool();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    return message;
   },
   toAmino(message: MsgLeavePool): MsgLeavePoolAmino {
     const obj: any = {};
@@ -933,7 +976,8 @@ export const MsgLeavePoolResponse = {
     return message;
   },
   fromAmino(_: MsgLeavePoolResponseAmino): MsgLeavePoolResponse {
-    return {};
+    const message = createBaseMsgLeavePoolResponse();
+    return message;
   },
   toAmino(_: MsgLeavePoolResponse): MsgLeavePoolResponseAmino {
     const obj: any = {};
@@ -985,10 +1029,14 @@ export const MsgUpdateParams = {
     return message;
   },
   fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    return {
-      authority: object.authority,
-      payload: object.payload
-    };
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = object.payload;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
     const obj: any = {};
@@ -1028,7 +1076,8 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    return {};
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
   },
   toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
     const obj: any = {};

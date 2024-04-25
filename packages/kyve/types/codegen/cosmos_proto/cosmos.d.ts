@@ -42,12 +42,12 @@ export interface InterfaceDescriptorAmino {
      * package.name, ex. for the package a.b and interface named C, the
      * fully-qualified name will be a.b.C.
      */
-    name: string;
+    name?: string;
     /**
      * description is a human-readable description of the interface and its
      * purpose.
      */
-    description: string;
+    description?: string;
 }
 export interface InterfaceDescriptorAminoMsg {
     type: "/cosmos_proto.InterfaceDescriptor";
@@ -91,18 +91,6 @@ export interface ScalarDescriptor {
      * bytes fields are supported for scalars.
      */
     fieldType: ScalarType[];
-    /**
-     * legacy_amino_encoding is an optional string to describe the encoding
-     * format used by Amino. The field type is chosen to be a string so that
-     * the value can either be:
-     * - a machine-readable string, such as "base64", "bech32" or "utf8",
-     * - or a human-readable string, for instance a short specification of how
-     * a big integer would be encoded using Amino.
-     *
-     * If left empty, then the Amino encoding is expected to be the same as the
-     * Protobuf one.
-     */
-    legacyAminoEncoding: string;
 }
 export interface ScalarDescriptorProtoMsg {
     typeUrl: "/cosmos_proto.ScalarDescriptor";
@@ -124,32 +112,20 @@ export interface ScalarDescriptorAmino {
      * package.name, ex. for the package a.b and scalar named C, the
      * fully-qualified name will be a.b.C.
      */
-    name: string;
+    name?: string;
     /**
      * description is a human-readable description of the scalar and its
      * encoding format. For instance a big integer or decimal scalar should
      * specify precisely the expected encoding format.
      */
-    description: string;
+    description?: string;
     /**
      * field_type is the type of field with which this scalar can be used.
      * Scalars can be used with one and only one type of field so that
      * encoding standards and simple and clear. Currently only string and
      * bytes fields are supported for scalars.
      */
-    field_type: ScalarType[];
-    /**
-     * legacy_amino_encoding is an optional string to describe the encoding
-     * format used by Amino. The field type is chosen to be a string so that
-     * the value can either be:
-     * - a machine-readable string, such as "base64", "bech32" or "utf8",
-     * - or a human-readable string, for instance a short specification of how
-     * a big integer would be encoded using Amino.
-     *
-     * If left empty, then the Amino encoding is expected to be the same as the
-     * Protobuf one.
-     */
-    legacy_amino_encoding: string;
+    field_type?: ScalarType[];
 }
 export interface ScalarDescriptorAminoMsg {
     type: "/cosmos_proto.ScalarDescriptor";
@@ -168,7 +144,6 @@ export interface ScalarDescriptorSDKType {
     name: string;
     description: string;
     field_type: ScalarType[];
-    legacy_amino_encoding: string;
 }
 export declare const InterfaceDescriptor: {
     typeUrl: string;

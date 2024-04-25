@@ -45,19 +45,19 @@ export interface DelegatorProtoMsg {
  */
 export interface DelegatorAmino {
     /** staker corresponds to a KYVE-staker on the protocol-side */
-    staker: string;
+    staker?: string;
     /**
      * delegator the user who delegate to the staker.
      * If staker and delegator are the same we call it: self-delegation
      */
-    delegator: string;
+    delegator?: string;
     /** k_index is an internal index for the f1-distribution algorithm */
-    k_index: string;
+    k_index?: string;
     /**
      * initial_amount of stake the user had when it delegated.
      * slashes can cause that the actual stake is lower.
      */
-    initial_amount: string;
+    initial_amount?: string;
 }
 export interface DelegatorAminoMsg {
     type: "/kyve.delegation.v1beta1.Delegator";
@@ -95,11 +95,11 @@ export interface DelegationEntryProtoMsg {
  */
 export interface DelegationEntryAmino {
     /** staker on protocol level */
-    staker: string;
+    staker?: string;
     /** k_index is the of the period this entry ends */
-    k_index: string;
+    k_index?: string;
     /** value is the quotient of collected rewards and total stake according to F1-distribution */
-    value: string;
+    value?: string;
 }
 export interface DelegationEntryAminoMsg {
     type: "/kyve.delegation.v1beta1.DelegationEntry";
@@ -136,17 +136,17 @@ export interface DelegationDataProtoMsg {
 /** DelegationPoolData stores general delegation information for every staker */
 export interface DelegationDataAmino {
     /** Every staker has one DelegationData */
-    staker: string;
+    staker?: string;
     /** current_rewards ... */
-    current_rewards: string;
+    current_rewards?: string;
     /** total_delegation ... */
-    total_delegation: string;
+    total_delegation?: string;
     /** latest_index_k ... */
-    latest_index_k: string;
+    latest_index_k?: string;
     /** delegator_count the amount of different addresses delegating to the staker */
-    delegator_count: string;
+    delegator_count?: string;
     /** latest_index_was_undelegation helps indicates when an entry can be deleted */
-    latest_index_was_undelegation: boolean;
+    latest_index_was_undelegation?: boolean;
 }
 export interface DelegationDataAminoMsg {
     type: "/kyve.delegation.v1beta1.DelegationData";
@@ -185,11 +185,11 @@ export interface DelegationSlashProtoMsg {
  */
 export interface DelegationSlashAmino {
     /** staker who got slashed */
-    staker: string;
+    staker?: string;
     /** k_index for f1-algorithm */
-    k_index: string;
+    k_index?: string;
     /** fraction that got slashed */
-    fraction: string;
+    fraction?: string;
 }
 export interface DelegationSlashAminoMsg {
     type: "/kyve.delegation.v1beta1.DelegationSlash";
@@ -225,15 +225,15 @@ export interface UndelegationQueueEntryProtoMsg {
 /** UndelegationQueueEntry ... */
 export interface UndelegationQueueEntryAmino {
     /** index ... */
-    index: string;
+    index?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
     /** delegator ... */
-    delegator: string;
+    delegator?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
     /** creation_time ... */
-    creation_time: string;
+    creation_time?: string;
 }
 export interface UndelegationQueueEntryAminoMsg {
     type: "/kyve.delegation.v1beta1.UndelegationQueueEntry";
@@ -261,9 +261,9 @@ export interface QueueStateProtoMsg {
 /** QueueState ... */
 export interface QueueStateAmino {
     /** low_index ... */
-    low_index: string;
+    low_index?: string;
     /** high_index ... */
-    high_index: string;
+    high_index?: string;
 }
 export interface QueueStateAminoMsg {
     type: "/kyve.delegation.v1beta1.QueueState";
@@ -288,9 +288,9 @@ export interface RedelegationCooldownProtoMsg {
 /** RedelegationCooldown ... */
 export interface RedelegationCooldownAmino {
     /** low_index ... */
-    address: string;
+    address?: string;
     /** high_index ... */
-    creation_date: string;
+    creation_date?: string;
 }
 export interface RedelegationCooldownAminoMsg {
     type: "/kyve.delegation.v1beta1.RedelegationCooldown";

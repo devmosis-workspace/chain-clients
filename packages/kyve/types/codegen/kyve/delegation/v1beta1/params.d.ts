@@ -21,17 +21,17 @@ export interface ParamsProtoMsg {
 /** Params defines the delegation module parameters. */
 export interface ParamsAmino {
     /** unbonding_delegation_time ... */
-    unbonding_delegation_time: string;
+    unbonding_delegation_time?: string;
     /** unbonding_delegation_time ... */
-    redelegation_cooldown: string;
+    redelegation_cooldown?: string;
     /** unbonding_delegation_time ... */
-    redelegation_max_amount: string;
+    redelegation_max_amount?: string;
     /** vote_slash ... */
-    vote_slash: string;
+    vote_slash?: string;
     /** upload_slash ... */
-    upload_slash: string;
+    upload_slash?: string;
     /** timeout_slash ... */
-    timeout_slash: string;
+    timeout_slash?: string;
 }
 export interface ParamsAminoMsg {
     type: "/kyve.delegation.v1beta1.Params";

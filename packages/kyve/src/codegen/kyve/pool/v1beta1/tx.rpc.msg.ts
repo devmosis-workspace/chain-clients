@@ -1,12 +1,8 @@
 import { Rpc } from "../../../helpers";
 import { BinaryReader } from "../../../binary";
-import { MsgFundPool, MsgFundPoolResponse, MsgDefundPool, MsgDefundPoolResponse, MsgCreatePool, MsgCreatePoolResponse, MsgUpdatePool, MsgUpdatePoolResponse, MsgDisablePool, MsgDisablePoolResponse, MsgEnablePool, MsgEnablePoolResponse, MsgScheduleRuntimeUpgrade, MsgScheduleRuntimeUpgradeResponse, MsgCancelRuntimeUpgrade, MsgCancelRuntimeUpgradeResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
+import { MsgCreatePool, MsgCreatePoolResponse, MsgUpdatePool, MsgUpdatePoolResponse, MsgDisablePool, MsgDisablePoolResponse, MsgEnablePool, MsgEnablePoolResponse, MsgScheduleRuntimeUpgrade, MsgScheduleRuntimeUpgradeResponse, MsgCancelRuntimeUpgrade, MsgCancelRuntimeUpgradeResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the Msg service. */
 export interface Msg {
-  /** FundPool ... */
-  fundPool(request: MsgFundPool): Promise<MsgFundPoolResponse>;
-  /** DefundPool ... */
-  defundPool(request: MsgDefundPool): Promise<MsgDefundPoolResponse>;
   /**
    * CreatePool defines a governance operation for creating a new pool.
    * The authority is hard-coded to the x/gov module account.
@@ -47,8 +43,6 @@ export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
-    this.fundPool = this.fundPool.bind(this);
-    this.defundPool = this.defundPool.bind(this);
     this.createPool = this.createPool.bind(this);
     this.updatePool = this.updatePool.bind(this);
     this.disablePool = this.disablePool.bind(this);
@@ -56,16 +50,6 @@ export class MsgClientImpl implements Msg {
     this.scheduleRuntimeUpgrade = this.scheduleRuntimeUpgrade.bind(this);
     this.cancelRuntimeUpgrade = this.cancelRuntimeUpgrade.bind(this);
     this.updateParams = this.updateParams.bind(this);
-  }
-  fundPool(request: MsgFundPool): Promise<MsgFundPoolResponse> {
-    const data = MsgFundPool.encode(request).finish();
-    const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "FundPool", data);
-    return promise.then(data => MsgFundPoolResponse.decode(new BinaryReader(data)));
-  }
-  defundPool(request: MsgDefundPool): Promise<MsgDefundPoolResponse> {
-    const data = MsgDefundPool.encode(request).finish();
-    const promise = this.rpc.request("kyve.pool.v1beta1.Msg", "DefundPool", data);
-    return promise.then(data => MsgDefundPoolResponse.decode(new BinaryReader(data)));
   }
   createPool(request: MsgCreatePool): Promise<MsgCreatePoolResponse> {
     const data = MsgCreatePool.encode(request).finish();

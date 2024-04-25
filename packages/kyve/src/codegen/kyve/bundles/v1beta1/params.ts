@@ -19,13 +19,13 @@ export interface ParamsProtoMsg {
 /** Params defines the bundles module parameters. */
 export interface ParamsAmino {
   /** upload_timeout ... */
-  upload_timeout: string;
+  upload_timeout?: string;
   /** storage_cost ... */
-  storage_cost: string;
+  storage_cost?: string;
   /** network_fee ... */
-  network_fee: string;
+  network_fee?: string;
   /** max_points ... */
-  max_points: string;
+  max_points?: string;
 }
 export interface ParamsAminoMsg {
   type: "/kyve.bundles.v1beta1.Params";
@@ -80,12 +80,20 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      uploadTimeout: BigInt(object.upload_timeout),
-      storageCost: object.storage_cost,
-      networkFee: object.network_fee,
-      maxPoints: BigInt(object.max_points)
-    };
+    const message = createBaseParams();
+    if (object.upload_timeout !== undefined && object.upload_timeout !== null) {
+      message.uploadTimeout = BigInt(object.upload_timeout);
+    }
+    if (object.storage_cost !== undefined && object.storage_cost !== null) {
+      message.storageCost = object.storage_cost;
+    }
+    if (object.network_fee !== undefined && object.network_fee !== null) {
+      message.networkFee = object.network_fee;
+    }
+    if (object.max_points !== undefined && object.max_points !== null) {
+      message.maxPoints = BigInt(object.max_points);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

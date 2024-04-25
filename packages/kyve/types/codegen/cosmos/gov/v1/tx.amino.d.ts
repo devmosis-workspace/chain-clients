@@ -1,4 +1,4 @@
-import { MsgSubmitProposal, MsgExecLegacyContent, MsgVote, MsgVoteWeighted, MsgDeposit } from "./tx";
+import { MsgSubmitProposal, MsgExecLegacyContent, MsgVote, MsgVoteWeighted, MsgDeposit, MsgUpdateParams } from "./tx";
 export declare const AminoConverter: {
     "/cosmos.gov.v1.MsgSubmitProposal": {
         aminoType: string;
@@ -24,5 +24,10 @@ export declare const AminoConverter: {
         aminoType: string;
         toAmino: (message: MsgDeposit) => import("./tx").MsgDepositAmino;
         fromAmino: (object: import("./tx").MsgDepositAmino) => MsgDeposit;
+    };
+    "/cosmos.gov.v1.MsgUpdateParams": {
+        aminoType: string;
+        toAmino: (message: MsgUpdateParams) => import("./tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./tx").MsgUpdateParamsAmino) => MsgUpdateParams;
     };
 };

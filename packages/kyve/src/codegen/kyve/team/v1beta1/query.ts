@@ -60,40 +60,40 @@ export interface QueryTeamInfoResponseProtoMsg {
 /** QueryAccountsResponse is response type for the Query/TeamInfo RPC method. */
 export interface QueryTeamInfoResponseAmino {
   /** foundation is the authority foundation address */
-  foundation_authority: string;
+  foundation_authority?: string;
   /** bcp is the authority bcp address */
-  bcp_authority: string;
+  bcp_authority?: string;
   /** total_team_allocation is the total allocation in $KYVE the team module has in order to reward team members */
-  total_team_allocation: string;
+  total_team_allocation?: string;
   /** issued_team_allocation is the amount in $KYVE tied to team vesting accounts and which are not available anymore */
-  issued_team_allocation: string;
+  issued_team_allocation?: string;
   /**
    * available_team_allocation is the amount in $KYVE with which further team vesting accounts can be created.
    * if the available amount is zero no new vesting accounts can be created
    */
-  available_team_allocation: string;
+  available_team_allocation?: string;
   /**
    * total_authority_rewards is the amount in $KYVE the authority has earned in total with inflation rewards.
    * Those rewards can be payed out for different purposes
    */
-  total_authority_rewards: string;
+  total_authority_rewards?: string;
   /** claimed_authority_rewards is the amount in $KYVE of how much the authority already claimed */
-  claimed_authority_rewards: string;
+  claimed_authority_rewards?: string;
   /** available_authority_rewards is the amount in $KYVE of how much rewards the authority can claim right now */
-  available_authority_rewards: string;
+  available_authority_rewards?: string;
   /** total_account_rewards is the amount in $KYVE all team vesting accounts have ever received */
-  total_account_rewards: string;
+  total_account_rewards?: string;
   /** claimed_account_rewards is the amount in $KYVE all team vesting accounts have ever claimed */
-  claimed_account_rewards: string;
+  claimed_account_rewards?: string;
   /** available_account_rewards is the total amount of $KYVE all team vesting accounts can currently claim */
-  available_account_rewards: string;
+  available_account_rewards?: string;
   /**
    * required_module_balance is the balance the team module should have. If this is less than the module balance
    * something went wrong
    */
-  required_module_balance: string;
+  required_module_balance?: string;
   /** team_module_balance is the team module balance in $KYVE */
-  team_module_balance: string;
+  team_module_balance?: string;
 }
 export interface QueryTeamInfoResponseAminoMsg {
   type: "/kyve.team.v1beta1.QueryTeamInfoResponse";
@@ -141,7 +141,7 @@ export interface QueryTeamVestingAccountsResponseProtoMsg {
 /** QueryAccountsResponse is response type for the Query/TeamVestingAccounts RPC method. */
 export interface QueryTeamVestingAccountsResponseAmino {
   /** accounts holds all the team vesting accounts of this module. */
-  accounts: TeamVestingAccountAmino[];
+  accounts?: TeamVestingAccountAmino[];
 }
 export interface QueryTeamVestingAccountsResponseAminoMsg {
   type: "/kyve.team.v1beta1.QueryTeamVestingAccountsResponse";
@@ -163,7 +163,7 @@ export interface QueryTeamVestingAccountRequestProtoMsg {
 /** QueryTeamVestingAccountRequest is request type for the Query/TeamVestingAccount RPC method. */
 export interface QueryTeamVestingAccountRequestAmino {
   /** id is a unique identify for each vesting account, tied to a single team member. */
-  id: string;
+  id?: string;
 }
 export interface QueryTeamVestingAccountRequestAminoMsg {
   type: "/kyve.team.v1beta1.QueryTeamVestingAccountRequest";
@@ -207,7 +207,7 @@ export interface QueryTeamVestingStatusRequestProtoMsg {
 /** QueryTeamCurrentVestingStatusRequest is request type for the Query/TeamCurrentVestingStatus RPC method. */
 export interface QueryTeamVestingStatusRequestAmino {
   /** id is a unique identify for each vesting account, tied to a single team member. */
-  id: string;
+  id?: string;
 }
 export interface QueryTeamVestingStatusRequestAminoMsg {
   type: "/kyve.team.v1beta1.QueryTeamVestingStatusRequest";
@@ -222,9 +222,9 @@ export interface QueryTeamVestingStatusResponse {
   /** request_date .. */
   requestDate: string;
   /** plan ... */
-  plan: QueryVestingPlan;
+  plan?: QueryVestingPlan;
   /** status .. */
-  status: QueryVestingStatus;
+  status?: QueryVestingStatus;
 }
 export interface QueryTeamVestingStatusResponseProtoMsg {
   typeUrl: "/kyve.team.v1beta1.QueryTeamVestingStatusResponse";
@@ -233,7 +233,7 @@ export interface QueryTeamVestingStatusResponseProtoMsg {
 /** QueryTeamCurrentVestingStatusResponse is the response type for the Query/TeamCurrentVestingStatus RPC method. */
 export interface QueryTeamVestingStatusResponseAmino {
   /** request_date .. */
-  request_date: string;
+  request_date?: string;
   /** plan ... */
   plan?: QueryVestingPlanAmino;
   /** status .. */
@@ -246,8 +246,8 @@ export interface QueryTeamVestingStatusResponseAminoMsg {
 /** QueryTeamCurrentVestingStatusResponse is the response type for the Query/TeamCurrentVestingStatus RPC method. */
 export interface QueryTeamVestingStatusResponseSDKType {
   request_date: string;
-  plan: QueryVestingPlanSDKType;
-  status: QueryVestingStatusSDKType;
+  plan?: QueryVestingPlanSDKType;
+  status?: QueryVestingStatusSDKType;
 }
 /** QueryTeamVestingStatusByTimeRequest is request type for the Query/TeamCurrentVestingByTimeStatus RPC method. */
 export interface QueryTeamVestingStatusByTimeRequest {
@@ -263,9 +263,9 @@ export interface QueryTeamVestingStatusByTimeRequestProtoMsg {
 /** QueryTeamVestingStatusByTimeRequest is request type for the Query/TeamCurrentVestingByTimeStatus RPC method. */
 export interface QueryTeamVestingStatusByTimeRequestAmino {
   /** id is a unique identify for each vesting account, tied to a single team member. */
-  id: string;
+  id?: string;
   /** time is a unix timestamp of the time the vesting progress should be calculated */
-  time: string;
+  time?: string;
 }
 export interface QueryTeamVestingStatusByTimeRequestAminoMsg {
   type: "/kyve.team.v1beta1.QueryTeamVestingStatusByTimeRequest";
@@ -281,9 +281,9 @@ export interface QueryTeamVestingStatusByTimeResponse {
   /** request_date .. */
   requestDate: string;
   /** plan ... */
-  plan: QueryVestingPlan;
+  plan?: QueryVestingPlan;
   /** status .. */
-  status: QueryVestingStatus;
+  status?: QueryVestingStatus;
 }
 export interface QueryTeamVestingStatusByTimeResponseProtoMsg {
   typeUrl: "/kyve.team.v1beta1.QueryTeamVestingStatusByTimeResponse";
@@ -292,7 +292,7 @@ export interface QueryTeamVestingStatusByTimeResponseProtoMsg {
 /** QueryTeamVestingStatusByTimeResponse is the response type for the Query/TeamCurrentVestingByTimeStatus RPC method. */
 export interface QueryTeamVestingStatusByTimeResponseAmino {
   /** request_date .. */
-  request_date: string;
+  request_date?: string;
   /** plan ... */
   plan?: QueryVestingPlanAmino;
   /** status .. */
@@ -305,8 +305,8 @@ export interface QueryTeamVestingStatusByTimeResponseAminoMsg {
 /** QueryTeamVestingStatusByTimeResponse is the response type for the Query/TeamCurrentVestingByTimeStatus RPC method. */
 export interface QueryTeamVestingStatusByTimeResponseSDKType {
   request_date: string;
-  plan: QueryVestingPlanSDKType;
-  status: QueryVestingStatusSDKType;
+  plan?: QueryVestingPlanSDKType;
+  status?: QueryVestingStatusSDKType;
 }
 /** QueryVestingStatus is a type holding information about the account's vesting progress */
 export interface QueryVestingStatus {
@@ -336,23 +336,23 @@ export interface QueryVestingStatusProtoMsg {
 /** QueryVestingStatus is a type holding information about the account's vesting progress */
 export interface QueryVestingStatusAmino {
   /** total_vested_amount ... */
-  total_vested_amount: string;
+  total_vested_amount?: string;
   /** total_unlocked_amount ... */
-  total_unlocked_amount: string;
+  total_unlocked_amount?: string;
   /** current_claimable_amount ... */
-  current_claimable_amount: string;
+  current_claimable_amount?: string;
   /** locked_vested_amount ... */
-  locked_vested_amount: string;
+  locked_vested_amount?: string;
   /** remaining_unvested_amount ... */
-  remaining_unvested_amount: string;
+  remaining_unvested_amount?: string;
   /** claimed_amount ... */
-  claimed_amount: string;
+  claimed_amount?: string;
   /** total_rewards ... */
-  total_rewards: string;
+  total_rewards?: string;
   /** claimed_rewards ... */
-  claimed_rewards: string;
+  claimed_rewards?: string;
   /** available_rewards ... */
-  available_rewards: string;
+  available_rewards?: string;
 }
 export interface QueryVestingStatusAminoMsg {
   type: "/kyve.team.v1beta1.QueryVestingStatus";
@@ -396,21 +396,21 @@ export interface QueryVestingPlanProtoMsg {
 /** QueryVestingPlan is a type holding information about the account's vesting data which does not change */
 export interface QueryVestingPlanAmino {
   /** commencement ... */
-  commencement: string;
+  commencement?: string;
   /** token_vesting_start ... */
-  token_vesting_start: string;
+  token_vesting_start?: string;
   /** token_vesting_finished ... */
-  token_vesting_finished: string;
+  token_vesting_finished?: string;
   /** token_unlock_start ... */
-  token_unlock_start: string;
+  token_unlock_start?: string;
   /** token_unlock_finished ... */
-  token_unlock_finished: string;
+  token_unlock_finished?: string;
   /** clawback ... */
-  clawback: string;
+  clawback?: string;
   /** clawback_amount ... */
-  clawback_amount: string;
+  clawback_amount?: string;
   /** maximum_vesting_amount ... */
-  maximum_vesting_amount: string;
+  maximum_vesting_amount?: string;
 }
 export interface QueryVestingPlanAminoMsg {
   type: "/kyve.team.v1beta1.QueryVestingPlan";
@@ -443,7 +443,8 @@ export const QueryTeamInfoRequest = {
     return message;
   },
   fromAmino(_: QueryTeamInfoRequestAmino): QueryTeamInfoRequest {
-    return {};
+    const message = createBaseQueryTeamInfoRequest();
+    return message;
   },
   toAmino(_: QueryTeamInfoRequest): QueryTeamInfoRequestAmino {
     const obj: any = {};
@@ -561,21 +562,47 @@ export const QueryTeamInfoResponse = {
     return message;
   },
   fromAmino(object: QueryTeamInfoResponseAmino): QueryTeamInfoResponse {
-    return {
-      foundationAuthority: object.foundation_authority,
-      bcpAuthority: object.bcp_authority,
-      totalTeamAllocation: BigInt(object.total_team_allocation),
-      issuedTeamAllocation: BigInt(object.issued_team_allocation),
-      availableTeamAllocation: BigInt(object.available_team_allocation),
-      totalAuthorityRewards: BigInt(object.total_authority_rewards),
-      claimedAuthorityRewards: BigInt(object.claimed_authority_rewards),
-      availableAuthorityRewards: BigInt(object.available_authority_rewards),
-      totalAccountRewards: BigInt(object.total_account_rewards),
-      claimedAccountRewards: BigInt(object.claimed_account_rewards),
-      availableAccountRewards: BigInt(object.available_account_rewards),
-      requiredModuleBalance: BigInt(object.required_module_balance),
-      teamModuleBalance: BigInt(object.team_module_balance)
-    };
+    const message = createBaseQueryTeamInfoResponse();
+    if (object.foundation_authority !== undefined && object.foundation_authority !== null) {
+      message.foundationAuthority = object.foundation_authority;
+    }
+    if (object.bcp_authority !== undefined && object.bcp_authority !== null) {
+      message.bcpAuthority = object.bcp_authority;
+    }
+    if (object.total_team_allocation !== undefined && object.total_team_allocation !== null) {
+      message.totalTeamAllocation = BigInt(object.total_team_allocation);
+    }
+    if (object.issued_team_allocation !== undefined && object.issued_team_allocation !== null) {
+      message.issuedTeamAllocation = BigInt(object.issued_team_allocation);
+    }
+    if (object.available_team_allocation !== undefined && object.available_team_allocation !== null) {
+      message.availableTeamAllocation = BigInt(object.available_team_allocation);
+    }
+    if (object.total_authority_rewards !== undefined && object.total_authority_rewards !== null) {
+      message.totalAuthorityRewards = BigInt(object.total_authority_rewards);
+    }
+    if (object.claimed_authority_rewards !== undefined && object.claimed_authority_rewards !== null) {
+      message.claimedAuthorityRewards = BigInt(object.claimed_authority_rewards);
+    }
+    if (object.available_authority_rewards !== undefined && object.available_authority_rewards !== null) {
+      message.availableAuthorityRewards = BigInt(object.available_authority_rewards);
+    }
+    if (object.total_account_rewards !== undefined && object.total_account_rewards !== null) {
+      message.totalAccountRewards = BigInt(object.total_account_rewards);
+    }
+    if (object.claimed_account_rewards !== undefined && object.claimed_account_rewards !== null) {
+      message.claimedAccountRewards = BigInt(object.claimed_account_rewards);
+    }
+    if (object.available_account_rewards !== undefined && object.available_account_rewards !== null) {
+      message.availableAccountRewards = BigInt(object.available_account_rewards);
+    }
+    if (object.required_module_balance !== undefined && object.required_module_balance !== null) {
+      message.requiredModuleBalance = BigInt(object.required_module_balance);
+    }
+    if (object.team_module_balance !== undefined && object.team_module_balance !== null) {
+      message.teamModuleBalance = BigInt(object.team_module_balance);
+    }
+    return message;
   },
   toAmino(message: QueryTeamInfoResponse): QueryTeamInfoResponseAmino {
     const obj: any = {};
@@ -626,7 +653,8 @@ export const QueryTeamVestingAccountsRequest = {
     return message;
   },
   fromAmino(_: QueryTeamVestingAccountsRequestAmino): QueryTeamVestingAccountsRequest {
-    return {};
+    const message = createBaseQueryTeamVestingAccountsRequest();
+    return message;
   },
   toAmino(_: QueryTeamVestingAccountsRequest): QueryTeamVestingAccountsRequestAmino {
     const obj: any = {};
@@ -672,9 +700,9 @@ export const QueryTeamVestingAccountsResponse = {
     return message;
   },
   fromAmino(object: QueryTeamVestingAccountsResponseAmino): QueryTeamVestingAccountsResponse {
-    return {
-      accounts: Array.isArray(object?.accounts) ? object.accounts.map((e: any) => TeamVestingAccount.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTeamVestingAccountsResponse();
+    message.accounts = object.accounts?.map(e => TeamVestingAccount.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTeamVestingAccountsResponse): QueryTeamVestingAccountsResponseAmino {
     const obj: any = {};
@@ -725,9 +753,11 @@ export const QueryTeamVestingAccountRequest = {
     return message;
   },
   fromAmino(object: QueryTeamVestingAccountRequestAmino): QueryTeamVestingAccountRequest {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseQueryTeamVestingAccountRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: QueryTeamVestingAccountRequest): QueryTeamVestingAccountRequestAmino {
     const obj: any = {};
@@ -774,9 +804,11 @@ export const QueryTeamVestingAccountResponse = {
     return message;
   },
   fromAmino(object: QueryTeamVestingAccountResponseAmino): QueryTeamVestingAccountResponse {
-    return {
-      account: object?.account ? TeamVestingAccount.fromAmino(object.account) : undefined
-    };
+    const message = createBaseQueryTeamVestingAccountResponse();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = TeamVestingAccount.fromAmino(object.account);
+    }
+    return message;
   },
   toAmino(message: QueryTeamVestingAccountResponse): QueryTeamVestingAccountResponseAmino {
     const obj: any = {};
@@ -823,9 +855,11 @@ export const QueryTeamVestingStatusRequest = {
     return message;
   },
   fromAmino(object: QueryTeamVestingStatusRequestAmino): QueryTeamVestingStatusRequest {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseQueryTeamVestingStatusRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: QueryTeamVestingStatusRequest): QueryTeamVestingStatusRequestAmino {
     const obj: any = {};
@@ -851,8 +885,8 @@ export const QueryTeamVestingStatusRequest = {
 function createBaseQueryTeamVestingStatusResponse(): QueryTeamVestingStatusResponse {
   return {
     requestDate: "",
-    plan: QueryVestingPlan.fromPartial({}),
-    status: QueryVestingStatus.fromPartial({})
+    plan: undefined,
+    status: undefined
   };
 }
 export const QueryTeamVestingStatusResponse = {
@@ -884,11 +918,17 @@ export const QueryTeamVestingStatusResponse = {
     return message;
   },
   fromAmino(object: QueryTeamVestingStatusResponseAmino): QueryTeamVestingStatusResponse {
-    return {
-      requestDate: object.request_date,
-      plan: object?.plan ? QueryVestingPlan.fromAmino(object.plan) : undefined,
-      status: object?.status ? QueryVestingStatus.fromAmino(object.status) : undefined
-    };
+    const message = createBaseQueryTeamVestingStatusResponse();
+    if (object.request_date !== undefined && object.request_date !== null) {
+      message.requestDate = object.request_date;
+    }
+    if (object.plan !== undefined && object.plan !== null) {
+      message.plan = QueryVestingPlan.fromAmino(object.plan);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = QueryVestingStatus.fromAmino(object.status);
+    }
+    return message;
   },
   toAmino(message: QueryTeamVestingStatusResponse): QueryTeamVestingStatusResponseAmino {
     const obj: any = {};
@@ -943,10 +983,14 @@ export const QueryTeamVestingStatusByTimeRequest = {
     return message;
   },
   fromAmino(object: QueryTeamVestingStatusByTimeRequestAmino): QueryTeamVestingStatusByTimeRequest {
-    return {
-      id: BigInt(object.id),
-      time: BigInt(object.time)
-    };
+    const message = createBaseQueryTeamVestingStatusByTimeRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.time !== undefined && object.time !== null) {
+      message.time = BigInt(object.time);
+    }
+    return message;
   },
   toAmino(message: QueryTeamVestingStatusByTimeRequest): QueryTeamVestingStatusByTimeRequestAmino {
     const obj: any = {};
@@ -973,8 +1017,8 @@ export const QueryTeamVestingStatusByTimeRequest = {
 function createBaseQueryTeamVestingStatusByTimeResponse(): QueryTeamVestingStatusByTimeResponse {
   return {
     requestDate: "",
-    plan: QueryVestingPlan.fromPartial({}),
-    status: QueryVestingStatus.fromPartial({})
+    plan: undefined,
+    status: undefined
   };
 }
 export const QueryTeamVestingStatusByTimeResponse = {
@@ -1006,11 +1050,17 @@ export const QueryTeamVestingStatusByTimeResponse = {
     return message;
   },
   fromAmino(object: QueryTeamVestingStatusByTimeResponseAmino): QueryTeamVestingStatusByTimeResponse {
-    return {
-      requestDate: object.request_date,
-      plan: object?.plan ? QueryVestingPlan.fromAmino(object.plan) : undefined,
-      status: object?.status ? QueryVestingStatus.fromAmino(object.status) : undefined
-    };
+    const message = createBaseQueryTeamVestingStatusByTimeResponse();
+    if (object.request_date !== undefined && object.request_date !== null) {
+      message.requestDate = object.request_date;
+    }
+    if (object.plan !== undefined && object.plan !== null) {
+      message.plan = QueryVestingPlan.fromAmino(object.plan);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = QueryVestingStatus.fromAmino(object.status);
+    }
+    return message;
   },
   toAmino(message: QueryTeamVestingStatusByTimeResponse): QueryTeamVestingStatusByTimeResponseAmino {
     const obj: any = {};
@@ -1107,17 +1157,35 @@ export const QueryVestingStatus = {
     return message;
   },
   fromAmino(object: QueryVestingStatusAmino): QueryVestingStatus {
-    return {
-      totalVestedAmount: BigInt(object.total_vested_amount),
-      totalUnlockedAmount: BigInt(object.total_unlocked_amount),
-      currentClaimableAmount: BigInt(object.current_claimable_amount),
-      lockedVestedAmount: BigInt(object.locked_vested_amount),
-      remainingUnvestedAmount: BigInt(object.remaining_unvested_amount),
-      claimedAmount: BigInt(object.claimed_amount),
-      totalRewards: BigInt(object.total_rewards),
-      claimedRewards: BigInt(object.claimed_rewards),
-      availableRewards: BigInt(object.available_rewards)
-    };
+    const message = createBaseQueryVestingStatus();
+    if (object.total_vested_amount !== undefined && object.total_vested_amount !== null) {
+      message.totalVestedAmount = BigInt(object.total_vested_amount);
+    }
+    if (object.total_unlocked_amount !== undefined && object.total_unlocked_amount !== null) {
+      message.totalUnlockedAmount = BigInt(object.total_unlocked_amount);
+    }
+    if (object.current_claimable_amount !== undefined && object.current_claimable_amount !== null) {
+      message.currentClaimableAmount = BigInt(object.current_claimable_amount);
+    }
+    if (object.locked_vested_amount !== undefined && object.locked_vested_amount !== null) {
+      message.lockedVestedAmount = BigInt(object.locked_vested_amount);
+    }
+    if (object.remaining_unvested_amount !== undefined && object.remaining_unvested_amount !== null) {
+      message.remainingUnvestedAmount = BigInt(object.remaining_unvested_amount);
+    }
+    if (object.claimed_amount !== undefined && object.claimed_amount !== null) {
+      message.claimedAmount = BigInt(object.claimed_amount);
+    }
+    if (object.total_rewards !== undefined && object.total_rewards !== null) {
+      message.totalRewards = BigInt(object.total_rewards);
+    }
+    if (object.claimed_rewards !== undefined && object.claimed_rewards !== null) {
+      message.claimedRewards = BigInt(object.claimed_rewards);
+    }
+    if (object.available_rewards !== undefined && object.available_rewards !== null) {
+      message.availableRewards = BigInt(object.available_rewards);
+    }
+    return message;
   },
   toAmino(message: QueryVestingStatus): QueryVestingStatusAmino {
     const obj: any = {};
@@ -1214,16 +1282,32 @@ export const QueryVestingPlan = {
     return message;
   },
   fromAmino(object: QueryVestingPlanAmino): QueryVestingPlan {
-    return {
-      commencement: object.commencement,
-      tokenVestingStart: object.token_vesting_start,
-      tokenVestingFinished: object.token_vesting_finished,
-      tokenUnlockStart: object.token_unlock_start,
-      tokenUnlockFinished: object.token_unlock_finished,
-      clawback: BigInt(object.clawback),
-      clawbackAmount: BigInt(object.clawback_amount),
-      maximumVestingAmount: BigInt(object.maximum_vesting_amount)
-    };
+    const message = createBaseQueryVestingPlan();
+    if (object.commencement !== undefined && object.commencement !== null) {
+      message.commencement = object.commencement;
+    }
+    if (object.token_vesting_start !== undefined && object.token_vesting_start !== null) {
+      message.tokenVestingStart = object.token_vesting_start;
+    }
+    if (object.token_vesting_finished !== undefined && object.token_vesting_finished !== null) {
+      message.tokenVestingFinished = object.token_vesting_finished;
+    }
+    if (object.token_unlock_start !== undefined && object.token_unlock_start !== null) {
+      message.tokenUnlockStart = object.token_unlock_start;
+    }
+    if (object.token_unlock_finished !== undefined && object.token_unlock_finished !== null) {
+      message.tokenUnlockFinished = object.token_unlock_finished;
+    }
+    if (object.clawback !== undefined && object.clawback !== null) {
+      message.clawback = BigInt(object.clawback);
+    }
+    if (object.clawback_amount !== undefined && object.clawback_amount !== null) {
+      message.clawbackAmount = BigInt(object.clawback_amount);
+    }
+    if (object.maximum_vesting_amount !== undefined && object.maximum_vesting_amount !== null) {
+      message.maximumVestingAmount = BigInt(object.maximum_vesting_amount);
+    }
+    return message;
   },
   toAmino(message: QueryVestingPlan): QueryVestingPlanAmino {
     const obj: any = {};

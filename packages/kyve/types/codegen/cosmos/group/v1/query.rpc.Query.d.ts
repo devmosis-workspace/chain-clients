@@ -7,13 +7,13 @@ export interface Query {
     groupInfo(request: QueryGroupInfoRequest): Promise<QueryGroupInfoResponse>;
     /** GroupPolicyInfo queries group policy info based on account address of group policy. */
     groupPolicyInfo(request: QueryGroupPolicyInfoRequest): Promise<QueryGroupPolicyInfoResponse>;
-    /** GroupMembers queries members of a group */
+    /** GroupMembers queries members of a group by group id. */
     groupMembers(request: QueryGroupMembersRequest): Promise<QueryGroupMembersResponse>;
     /** GroupsByAdmin queries groups by admin address. */
     groupsByAdmin(request: QueryGroupsByAdminRequest): Promise<QueryGroupsByAdminResponse>;
     /** GroupPoliciesByGroup queries group policies by group id. */
     groupPoliciesByGroup(request: QueryGroupPoliciesByGroupRequest): Promise<QueryGroupPoliciesByGroupResponse>;
-    /** GroupsByAdmin queries group policies by admin address. */
+    /** GroupPoliciesByAdmin queries group policies by admin address. */
     groupPoliciesByAdmin(request: QueryGroupPoliciesByAdminRequest): Promise<QueryGroupPoliciesByAdminResponse>;
     /** Proposal queries a proposal based on proposal id. */
     proposal(request: QueryProposalRequest): Promise<QueryProposalResponse>;
@@ -21,7 +21,7 @@ export interface Query {
     proposalsByGroupPolicy(request: QueryProposalsByGroupPolicyRequest): Promise<QueryProposalsByGroupPolicyResponse>;
     /** VoteByProposalVoter queries a vote by proposal id and voter. */
     voteByProposalVoter(request: QueryVoteByProposalVoterRequest): Promise<QueryVoteByProposalVoterResponse>;
-    /** VotesByProposal queries a vote by proposal. */
+    /** VotesByProposal queries a vote by proposal id. */
     votesByProposal(request: QueryVotesByProposalRequest): Promise<QueryVotesByProposalResponse>;
     /** VotesByVoter queries a vote by voter. */
     votesByVoter(request: QueryVotesByVoterRequest): Promise<QueryVotesByVoterResponse>;

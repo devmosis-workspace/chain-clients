@@ -62,16 +62,6 @@ export declare const kyveAminoConverters: {
         toAmino: (message: import("./stakers/v1beta1/tx").MsgUpdateParams) => import("./stakers/v1beta1/tx").MsgUpdateParamsAmino;
         fromAmino: (object: import("./stakers/v1beta1/tx").MsgUpdateParamsAmino) => import("./stakers/v1beta1/tx").MsgUpdateParams;
     };
-    "/kyve.pool.v1beta1.MsgFundPool": {
-        aminoType: string;
-        toAmino: (message: import("./pool/v1beta1/tx").MsgFundPool) => import("./pool/v1beta1/tx").MsgFundPoolAmino;
-        fromAmino: (object: import("./pool/v1beta1/tx").MsgFundPoolAmino) => import("./pool/v1beta1/tx").MsgFundPool;
-    };
-    "/kyve.pool.v1beta1.MsgDefundPool": {
-        aminoType: string;
-        toAmino: (message: import("./pool/v1beta1/tx").MsgDefundPool) => import("./pool/v1beta1/tx").MsgDefundPoolAmino;
-        fromAmino: (object: import("./pool/v1beta1/tx").MsgDefundPoolAmino) => import("./pool/v1beta1/tx").MsgDefundPool;
-    };
     "/kyve.pool.v1beta1.MsgCreatePool": {
         aminoType: string;
         toAmino: (message: import("./pool/v1beta1/tx").MsgCreatePool) => import("./pool/v1beta1/tx").MsgCreatePoolAmino;
@@ -111,6 +101,31 @@ export declare const kyveAminoConverters: {
         aminoType: string;
         toAmino: (message: import("./global/v1beta1/tx").MsgUpdateParams) => import("./global/v1beta1/tx").MsgUpdateParamsAmino;
         fromAmino: (object: import("./global/v1beta1/tx").MsgUpdateParamsAmino) => import("./global/v1beta1/tx").MsgUpdateParams;
+    };
+    "/kyve.funders.v1beta1.MsgCreateFunder": {
+        aminoType: string;
+        toAmino: (message: import("./funders/v1beta1/tx").MsgCreateFunder) => import("./funders/v1beta1/tx").MsgCreateFunderAmino;
+        fromAmino: (object: import("./funders/v1beta1/tx").MsgCreateFunderAmino) => import("./funders/v1beta1/tx").MsgCreateFunder;
+    };
+    "/kyve.funders.v1beta1.MsgUpdateFunder": {
+        aminoType: string;
+        toAmino: (message: import("./funders/v1beta1/tx").MsgUpdateFunder) => import("./funders/v1beta1/tx").MsgUpdateFunderAmino;
+        fromAmino: (object: import("./funders/v1beta1/tx").MsgUpdateFunderAmino) => import("./funders/v1beta1/tx").MsgUpdateFunder;
+    };
+    "/kyve.funders.v1beta1.MsgFundPool": {
+        aminoType: string;
+        toAmino: (message: import("./funders/v1beta1/tx").MsgFundPool) => import("./funders/v1beta1/tx").MsgFundPoolAmino;
+        fromAmino: (object: import("./funders/v1beta1/tx").MsgFundPoolAmino) => import("./funders/v1beta1/tx").MsgFundPool;
+    };
+    "/kyve.funders.v1beta1.MsgDefundPool": {
+        aminoType: string;
+        toAmino: (message: import("./funders/v1beta1/tx").MsgDefundPool) => import("./funders/v1beta1/tx").MsgDefundPoolAmino;
+        fromAmino: (object: import("./funders/v1beta1/tx").MsgDefundPoolAmino) => import("./funders/v1beta1/tx").MsgDefundPool;
+    };
+    "/kyve.funders.v1beta1.MsgUpdateParams": {
+        aminoType: string;
+        toAmino: (message: import("./funders/v1beta1/tx").MsgUpdateParams) => import("./funders/v1beta1/tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./funders/v1beta1/tx").MsgUpdateParamsAmino) => import("./funders/v1beta1/tx").MsgUpdateParams;
     };
     "/kyve.delegation.v1beta1.MsgDelegate": {
         aminoType: string;

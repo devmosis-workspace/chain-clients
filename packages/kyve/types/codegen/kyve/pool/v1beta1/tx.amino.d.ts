@@ -1,15 +1,5 @@
-import { MsgFundPool, MsgDefundPool, MsgCreatePool, MsgUpdatePool, MsgDisablePool, MsgEnablePool, MsgScheduleRuntimeUpgrade, MsgCancelRuntimeUpgrade, MsgUpdateParams } from "./tx";
+import { MsgCreatePool, MsgUpdatePool, MsgDisablePool, MsgEnablePool, MsgScheduleRuntimeUpgrade, MsgCancelRuntimeUpgrade, MsgUpdateParams } from "./tx";
 export declare const AminoConverter: {
-    "/kyve.pool.v1beta1.MsgFundPool": {
-        aminoType: string;
-        toAmino: (message: MsgFundPool) => import("./tx").MsgFundPoolAmino;
-        fromAmino: (object: import("./tx").MsgFundPoolAmino) => MsgFundPool;
-    };
-    "/kyve.pool.v1beta1.MsgDefundPool": {
-        aminoType: string;
-        toAmino: (message: MsgDefundPool) => import("./tx").MsgDefundPoolAmino;
-        fromAmino: (object: import("./tx").MsgDefundPoolAmino) => MsgDefundPool;
-    };
     "/kyve.pool.v1beta1.MsgCreatePool": {
         aminoType: string;
         toAmino: (message: MsgCreatePool) => import("./tx").MsgCreatePoolAmino;

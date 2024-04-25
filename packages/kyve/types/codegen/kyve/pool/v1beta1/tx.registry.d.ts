@@ -1,17 +1,9 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgFundPool, MsgDefundPool, MsgCreatePool, MsgUpdatePool, MsgDisablePool, MsgEnablePool, MsgScheduleRuntimeUpgrade, MsgCancelRuntimeUpgrade, MsgUpdateParams } from "./tx";
+import { MsgCreatePool, MsgUpdatePool, MsgDisablePool, MsgEnablePool, MsgScheduleRuntimeUpgrade, MsgCancelRuntimeUpgrade, MsgUpdateParams } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
     encoded: {
-        fundPool(value: MsgFundPool): {
-            typeUrl: string;
-            value: Uint8Array;
-        };
-        defundPool(value: MsgDefundPool): {
-            typeUrl: string;
-            value: Uint8Array;
-        };
         createPool(value: MsgCreatePool): {
             typeUrl: string;
             value: Uint8Array;
@@ -42,14 +34,6 @@ export declare const MessageComposer: {
         };
     };
     withTypeUrl: {
-        fundPool(value: MsgFundPool): {
-            typeUrl: string;
-            value: MsgFundPool;
-        };
-        defundPool(value: MsgDefundPool): {
-            typeUrl: string;
-            value: MsgDefundPool;
-        };
         createPool(value: MsgCreatePool): {
             typeUrl: string;
             value: MsgCreatePool;
@@ -80,14 +64,6 @@ export declare const MessageComposer: {
         };
     };
     fromJSON: {
-        fundPool(value: any): {
-            typeUrl: string;
-            value: MsgFundPool;
-        };
-        defundPool(value: any): {
-            typeUrl: string;
-            value: MsgDefundPool;
-        };
         createPool(value: any): {
             typeUrl: string;
             value: MsgCreatePool;
@@ -118,14 +94,6 @@ export declare const MessageComposer: {
         };
     };
     fromPartial: {
-        fundPool(value: MsgFundPool): {
-            typeUrl: string;
-            value: MsgFundPool;
-        };
-        defundPool(value: MsgDefundPool): {
-            typeUrl: string;
-            value: MsgDefundPool;
-        };
         createPool(value: MsgCreatePool): {
             typeUrl: string;
             value: MsgCreatePool;

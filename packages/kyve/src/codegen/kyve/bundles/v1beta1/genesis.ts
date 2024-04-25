@@ -1,5 +1,5 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
-import { BundleProposal, BundleProposalAmino, BundleProposalSDKType, FinalizedBundle, FinalizedBundleAmino, FinalizedBundleSDKType, RoundRobinProgress, RoundRobinProgressAmino, RoundRobinProgressSDKType } from "./bundles";
+import { BundleProposal, BundleProposalAmino, BundleProposalSDKType, FinalizedBundle, FinalizedBundleAmino, FinalizedBundleSDKType, RoundRobinProgress, RoundRobinProgressAmino, RoundRobinProgressSDKType, BundleVersionMap, BundleVersionMapAmino, BundleVersionMapSDKType } from "./bundles";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** GenesisState defines the bundles module's genesis state. */
@@ -12,6 +12,8 @@ export interface GenesisState {
   finalizedBundleList: FinalizedBundle[];
   /** round_robin_progress_list ... */
   roundRobinProgressList: RoundRobinProgress[];
+  /** bundle_version_map ... */
+  bundleVersionMap: BundleVersionMap;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/kyve.bundles.v1beta1.GenesisState";
@@ -22,11 +24,13 @@ export interface GenesisStateAmino {
   /** params defines all the parameters of the module. */
   params?: ParamsAmino;
   /** bundle_proposal_list ... */
-  bundle_proposal_list: BundleProposalAmino[];
+  bundle_proposal_list?: BundleProposalAmino[];
   /** finalized_bundle_list ... */
-  finalized_bundle_list: FinalizedBundleAmino[];
+  finalized_bundle_list?: FinalizedBundleAmino[];
   /** round_robin_progress_list ... */
-  round_robin_progress_list: RoundRobinProgressAmino[];
+  round_robin_progress_list?: RoundRobinProgressAmino[];
+  /** bundle_version_map ... */
+  bundle_version_map?: BundleVersionMapAmino;
 }
 export interface GenesisStateAminoMsg {
   type: "/kyve.bundles.v1beta1.GenesisState";
@@ -38,13 +42,15 @@ export interface GenesisStateSDKType {
   bundle_proposal_list: BundleProposalSDKType[];
   finalized_bundle_list: FinalizedBundleSDKType[];
   round_robin_progress_list: RoundRobinProgressSDKType[];
+  bundle_version_map: BundleVersionMapSDKType;
 }
 function createBaseGenesisState(): GenesisState {
   return {
     params: Params.fromPartial({}),
     bundleProposalList: [],
     finalizedBundleList: [],
-    roundRobinProgressList: []
+    roundRobinProgressList: [],
+    bundleVersionMap: BundleVersionMap.fromPartial({})
   };
 }
 export const GenesisState = {
@@ -62,6 +68,9 @@ export const GenesisState = {
     for (const v of message.roundRobinProgressList) {
       RoundRobinProgress.encode(v!, writer.uint32(34).fork()).ldelim();
     }
+    if (message.bundleVersionMap !== undefined) {
+      BundleVersionMap.encode(message.bundleVersionMap, writer.uint32(42).fork()).ldelim();
+    }
     return writer;
   },
   fromJSON(object: any): GenesisState {
@@ -69,7 +78,8 @@ export const GenesisState = {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       bundleProposalList: Array.isArray(object?.bundleProposalList) ? object.bundleProposalList.map((e: any) => BundleProposal.fromJSON(e)) : [],
       finalizedBundleList: Array.isArray(object?.finalizedBundleList) ? object.finalizedBundleList.map((e: any) => FinalizedBundle.fromJSON(e)) : [],
-      roundRobinProgressList: Array.isArray(object?.roundRobinProgressList) ? object.roundRobinProgressList.map((e: any) => RoundRobinProgress.fromJSON(e)) : []
+      roundRobinProgressList: Array.isArray(object?.roundRobinProgressList) ? object.roundRobinProgressList.map((e: any) => RoundRobinProgress.fromJSON(e)) : [],
+      bundleVersionMap: isSet(object.bundleVersionMap) ? BundleVersionMap.fromJSON(object.bundleVersionMap) : undefined
     };
   },
   fromPartial(object: Partial<GenesisState>): GenesisState {
@@ -78,15 +88,21 @@ export const GenesisState = {
     message.bundleProposalList = object.bundleProposalList?.map(e => BundleProposal.fromPartial(e)) || [];
     message.finalizedBundleList = object.finalizedBundleList?.map(e => FinalizedBundle.fromPartial(e)) || [];
     message.roundRobinProgressList = object.roundRobinProgressList?.map(e => RoundRobinProgress.fromPartial(e)) || [];
+    message.bundleVersionMap = object.bundleVersionMap !== undefined && object.bundleVersionMap !== null ? BundleVersionMap.fromPartial(object.bundleVersionMap) : undefined;
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      bundleProposalList: Array.isArray(object?.bundle_proposal_list) ? object.bundle_proposal_list.map((e: any) => BundleProposal.fromAmino(e)) : [],
-      finalizedBundleList: Array.isArray(object?.finalized_bundle_list) ? object.finalized_bundle_list.map((e: any) => FinalizedBundle.fromAmino(e)) : [],
-      roundRobinProgressList: Array.isArray(object?.round_robin_progress_list) ? object.round_robin_progress_list.map((e: any) => RoundRobinProgress.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.bundleProposalList = object.bundle_proposal_list?.map(e => BundleProposal.fromAmino(e)) || [];
+    message.finalizedBundleList = object.finalized_bundle_list?.map(e => FinalizedBundle.fromAmino(e)) || [];
+    message.roundRobinProgressList = object.round_robin_progress_list?.map(e => RoundRobinProgress.fromAmino(e)) || [];
+    if (object.bundle_version_map !== undefined && object.bundle_version_map !== null) {
+      message.bundleVersionMap = BundleVersionMap.fromAmino(object.bundle_version_map);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -106,6 +122,7 @@ export const GenesisState = {
     } else {
       obj.round_robin_progress_list = [];
     }
+    obj.bundle_version_map = message.bundleVersionMap ? BundleVersionMap.toAmino(message.bundleVersionMap) : undefined;
     return obj;
   },
   fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {

@@ -28,7 +28,7 @@ export interface EventUpdateParamsAmino {
   /** new_params is the module's new parameters. */
   new_params?: ParamsAmino;
   /** payload is the parameter updates that were performed. */
-  payload: string;
+  payload?: string;
 }
 export interface EventUpdateParamsAminoMsg {
   type: "/kyve.stakers.v1beta1.EventUpdateParams";
@@ -65,11 +65,11 @@ export interface EventCreateStakerProtoMsg {
  */
 export interface EventCreateStakerAmino {
   /** staker is the account address of the protocol node. */
-  staker: string;
+  staker?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
   /** commission */
-  commission: string;
+  commission?: string;
 }
 export interface EventCreateStakerAminoMsg {
   type: "/kyve.stakers.v1beta1.EventCreateStaker";
@@ -112,17 +112,17 @@ export interface EventUpdateMetadataProtoMsg {
  */
 export interface EventUpdateMetadataAmino {
   /** staker is the account address of the protocol node. */
-  staker: string;
+  staker?: string;
   /** moniker ... */
-  moniker: string;
+  moniker?: string;
   /** website ... */
-  website: string;
+  website?: string;
   /** identity ... */
-  identity: string;
+  identity?: string;
   /** security_contact ... */
-  security_contact: string;
+  security_contact?: string;
   /** details ... */
-  details: string;
+  details?: string;
 }
 export interface EventUpdateMetadataAminoMsg {
   type: "/kyve.stakers.v1beta1.EventUpdateMetadata";
@@ -160,9 +160,9 @@ export interface EventUpdateCommissionProtoMsg {
  */
 export interface EventUpdateCommissionAmino {
   /** staker is the account address of the protocol node. */
-  staker: string;
+  staker?: string;
   /** commission ... */
-  commission: string;
+  commission?: string;
 }
 export interface EventUpdateCommissionAminoMsg {
   type: "/kyve.stakers.v1beta1.EventUpdateCommission";
@@ -196,9 +196,9 @@ export interface EventClaimCommissionRewardsProtoMsg {
  */
 export interface EventClaimCommissionRewardsAmino {
   /** staker is the account address of the protocol node. */
-  staker: string;
+  staker?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
 }
 export interface EventClaimCommissionRewardsAminoMsg {
   type: "/kyve.stakers.v1beta1.EventClaimCommissionRewards";
@@ -239,16 +239,16 @@ export interface EventJoinPoolProtoMsg {
  */
 export interface EventJoinPoolAmino {
   /** pool_id is the pool the staker joined */
-  pool_id: string;
+  pool_id?: string;
   /** staker is the address of the staker */
-  staker: string;
+  staker?: string;
   /**
    * valaddress is the address of the protocol node which
    * votes in favor of the staker
    */
-  valaddress: string;
+  valaddress?: string;
   /** amount is the amount of funds transferred to the valaddress */
-  amount: string;
+  amount?: string;
 }
 export interface EventJoinPoolAminoMsg {
   type: "/kyve.stakers.v1beta1.EventJoinPool";
@@ -284,9 +284,9 @@ export interface EventLeavePoolProtoMsg {
  */
 export interface EventLeavePoolAmino {
   /** pool_id ... */
-  pool_id: string;
+  pool_id?: string;
   /** staker ... */
-  staker: string;
+  staker?: string;
 }
 export interface EventLeavePoolAminoMsg {
   type: "/kyve.stakers.v1beta1.EventLeavePool";
@@ -336,11 +336,17 @@ export const EventUpdateParams = {
     return message;
   },
   fromAmino(object: EventUpdateParamsAmino): EventUpdateParams {
-    return {
-      oldParams: object?.old_params ? Params.fromAmino(object.old_params) : undefined,
-      newParams: object?.new_params ? Params.fromAmino(object.new_params) : undefined,
-      payload: object.payload
-    };
+    const message = createBaseEventUpdateParams();
+    if (object.old_params !== undefined && object.old_params !== null) {
+      message.oldParams = Params.fromAmino(object.old_params);
+    }
+    if (object.new_params !== undefined && object.new_params !== null) {
+      message.newParams = Params.fromAmino(object.new_params);
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = object.payload;
+    }
+    return message;
   },
   toAmino(message: EventUpdateParams): EventUpdateParamsAmino {
     const obj: any = {};
@@ -401,11 +407,17 @@ export const EventCreateStaker = {
     return message;
   },
   fromAmino(object: EventCreateStakerAmino): EventCreateStaker {
-    return {
-      staker: object.staker,
-      amount: BigInt(object.amount),
-      commission: object.commission
-    };
+    const message = createBaseEventCreateStaker();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.commission !== undefined && object.commission !== null) {
+      message.commission = object.commission;
+    }
+    return message;
   },
   toAmino(message: EventCreateStaker): EventCreateStakerAmino {
     const obj: any = {};
@@ -484,14 +496,26 @@ export const EventUpdateMetadata = {
     return message;
   },
   fromAmino(object: EventUpdateMetadataAmino): EventUpdateMetadata {
-    return {
-      staker: object.staker,
-      moniker: object.moniker,
-      website: object.website,
-      identity: object.identity,
-      securityContact: object.security_contact,
-      details: object.details
-    };
+    const message = createBaseEventUpdateMetadata();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.moniker !== undefined && object.moniker !== null) {
+      message.moniker = object.moniker;
+    }
+    if (object.website !== undefined && object.website !== null) {
+      message.website = object.website;
+    }
+    if (object.identity !== undefined && object.identity !== null) {
+      message.identity = object.identity;
+    }
+    if (object.security_contact !== undefined && object.security_contact !== null) {
+      message.securityContact = object.security_contact;
+    }
+    if (object.details !== undefined && object.details !== null) {
+      message.details = object.details;
+    }
+    return message;
   },
   toAmino(message: EventUpdateMetadata): EventUpdateMetadataAmino {
     const obj: any = {};
@@ -549,10 +573,14 @@ export const EventUpdateCommission = {
     return message;
   },
   fromAmino(object: EventUpdateCommissionAmino): EventUpdateCommission {
-    return {
-      staker: object.staker,
-      commission: object.commission
-    };
+    const message = createBaseEventUpdateCommission();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.commission !== undefined && object.commission !== null) {
+      message.commission = object.commission;
+    }
+    return message;
   },
   toAmino(message: EventUpdateCommission): EventUpdateCommissionAmino {
     const obj: any = {};
@@ -606,10 +634,14 @@ export const EventClaimCommissionRewards = {
     return message;
   },
   fromAmino(object: EventClaimCommissionRewardsAmino): EventClaimCommissionRewards {
-    return {
-      staker: object.staker,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseEventClaimCommissionRewards();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: EventClaimCommissionRewards): EventClaimCommissionRewardsAmino {
     const obj: any = {};
@@ -675,12 +707,20 @@ export const EventJoinPool = {
     return message;
   },
   fromAmino(object: EventJoinPoolAmino): EventJoinPool {
-    return {
-      poolId: BigInt(object.pool_id),
-      staker: object.staker,
-      valaddress: object.valaddress,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseEventJoinPool();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.valaddress !== undefined && object.valaddress !== null) {
+      message.valaddress = object.valaddress;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: EventJoinPool): EventJoinPoolAmino {
     const obj: any = {};
@@ -736,10 +776,14 @@ export const EventLeavePool = {
     return message;
   },
   fromAmino(object: EventLeavePoolAmino): EventLeavePool {
-    return {
-      poolId: BigInt(object.pool_id),
-      staker: object.staker
-    };
+    const message = createBaseEventLeavePool();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    return message;
   },
   toAmino(message: EventLeavePool): EventLeavePoolAmino {
     const obj: any = {};

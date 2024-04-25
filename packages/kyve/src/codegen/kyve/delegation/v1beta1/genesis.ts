@@ -30,19 +30,19 @@ export interface GenesisStateAmino {
   /** params defines all the parameters of the module. */
   params?: ParamsAmino;
   /** delegator_list ... */
-  delegator_list: DelegatorAmino[];
+  delegator_list?: DelegatorAmino[];
   /** delegation_entry_list ... */
-  delegation_entry_list: DelegationEntryAmino[];
+  delegation_entry_list?: DelegationEntryAmino[];
   /** delegation_data_list ... */
-  delegation_data_list: DelegationDataAmino[];
+  delegation_data_list?: DelegationDataAmino[];
   /** delegation_slash_list ... */
-  delegation_slash_list: DelegationSlashAmino[];
+  delegation_slash_list?: DelegationSlashAmino[];
   /** undelegation_queue_entry_list ... */
-  undelegation_queue_entry_list: UndelegationQueueEntryAmino[];
+  undelegation_queue_entry_list?: UndelegationQueueEntryAmino[];
   /** queue_state_undelegation ... */
   queue_state_undelegation?: QueueStateAmino;
   /** redelegation_cooldown_list ... */
-  redelegation_cooldown_list: RedelegationCooldownAmino[];
+  redelegation_cooldown_list?: RedelegationCooldownAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/kyve.delegation.v1beta1.GenesisState";
@@ -125,16 +125,20 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      delegatorList: Array.isArray(object?.delegator_list) ? object.delegator_list.map((e: any) => Delegator.fromAmino(e)) : [],
-      delegationEntryList: Array.isArray(object?.delegation_entry_list) ? object.delegation_entry_list.map((e: any) => DelegationEntry.fromAmino(e)) : [],
-      delegationDataList: Array.isArray(object?.delegation_data_list) ? object.delegation_data_list.map((e: any) => DelegationData.fromAmino(e)) : [],
-      delegationSlashList: Array.isArray(object?.delegation_slash_list) ? object.delegation_slash_list.map((e: any) => DelegationSlash.fromAmino(e)) : [],
-      undelegationQueueEntryList: Array.isArray(object?.undelegation_queue_entry_list) ? object.undelegation_queue_entry_list.map((e: any) => UndelegationQueueEntry.fromAmino(e)) : [],
-      queueStateUndelegation: object?.queue_state_undelegation ? QueueState.fromAmino(object.queue_state_undelegation) : undefined,
-      redelegationCooldownList: Array.isArray(object?.redelegation_cooldown_list) ? object.redelegation_cooldown_list.map((e: any) => RedelegationCooldown.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.delegatorList = object.delegator_list?.map(e => Delegator.fromAmino(e)) || [];
+    message.delegationEntryList = object.delegation_entry_list?.map(e => DelegationEntry.fromAmino(e)) || [];
+    message.delegationDataList = object.delegation_data_list?.map(e => DelegationData.fromAmino(e)) || [];
+    message.delegationSlashList = object.delegation_slash_list?.map(e => DelegationSlash.fromAmino(e)) || [];
+    message.undelegationQueueEntryList = object.undelegation_queue_entry_list?.map(e => UndelegationQueueEntry.fromAmino(e)) || [];
+    if (object.queue_state_undelegation !== undefined && object.queue_state_undelegation !== null) {
+      message.queueStateUndelegation = QueueState.fromAmino(object.queue_state_undelegation);
+    }
+    message.redelegationCooldownList = object.redelegation_cooldown_list?.map(e => RedelegationCooldown.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

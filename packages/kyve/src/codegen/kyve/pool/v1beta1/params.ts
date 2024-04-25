@@ -15,9 +15,9 @@ export interface ParamsProtoMsg {
 /** Params defines the pool module parameters. */
 export interface ParamsAmino {
   /** protocol_inflation_share ... */
-  protocol_inflation_share: string;
+  protocol_inflation_share?: string;
   /** pool_inflation_payout_rate ... */
-  pool_inflation_payout_rate: string;
+  pool_inflation_payout_rate?: string;
 }
 export interface ParamsAminoMsg {
   type: "/kyve.pool.v1beta1.Params";
@@ -58,10 +58,14 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      protocolInflationShare: object.protocol_inflation_share,
-      poolInflationPayoutRate: object.pool_inflation_payout_rate
-    };
+    const message = createBaseParams();
+    if (object.protocol_inflation_share !== undefined && object.protocol_inflation_share !== null) {
+      message.protocolInflationShare = object.protocol_inflation_share;
+    }
+    if (object.pool_inflation_payout_rate !== undefined && object.pool_inflation_payout_rate !== null) {
+      message.poolInflationPayoutRate = object.pool_inflation_payout_rate;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

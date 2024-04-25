@@ -27,15 +27,15 @@ export interface GenesisStateAmino {
     /** params defines all the parameters of the module. */
     params?: ParamsAmino;
     /** staker_list ... */
-    staker_list: StakerAmino[];
+    staker_list?: StakerAmino[];
     /** valaccount_list ... */
-    valaccount_list: ValaccountAmino[];
+    valaccount_list?: ValaccountAmino[];
     /** commission_change_entries ... */
-    commission_change_entries: CommissionChangeEntryAmino[];
+    commission_change_entries?: CommissionChangeEntryAmino[];
     /** queue_state_commission ... */
     queue_state_commission?: QueueStateAmino;
     /** leave_pool_entries ... */
-    leave_pool_entries: LeavePoolEntryAmino[];
+    leave_pool_entries?: LeavePoolEntryAmino[];
     /** queue_state_leave ... */
     queue_state_leave?: QueueStateAmino;
 }

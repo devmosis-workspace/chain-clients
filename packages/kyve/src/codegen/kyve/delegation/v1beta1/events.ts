@@ -28,7 +28,7 @@ export interface EventUpdateParamsAmino {
   /** new_params is the module's new parameters. */
   new_params?: ParamsAmino;
   /** payload is the parameter updates that were performed. */
-  payload: string;
+  payload?: string;
 }
 export interface EventUpdateParamsAminoMsg {
   type: "/kyve.delegation.v1beta1.EventUpdateParams";
@@ -65,11 +65,11 @@ export interface EventDelegateProtoMsg {
  */
 export interface EventDelegateAmino {
   /** address is the account address of the delegator. */
-  address: string;
+  address?: string;
   /** staker is the account address of the protocol node. */
-  staker: string;
+  staker?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
 }
 export interface EventDelegateAminoMsg {
   type: "/kyve.delegation.v1beta1.EventDelegate";
@@ -111,16 +111,16 @@ export interface EventStartUndelegationProtoMsg {
  */
 export interface EventStartUndelegationAmino {
   /** address is the address of the delegator. */
-  address: string;
+  address?: string;
   /** staker is the address of the protocol node. */
-  staker: string;
+  staker?: string;
   /** amount is the amount to be undelegated from the protocol node. */
-  amount: string;
+  amount?: string;
   /**
    * estimated_undelegation_date is the date in UNIX seconds on when the undelegation will be performed.
    * Note, this number will be incorrect if a governance proposal changes `UnbondingDelegationTime` while unbonding.
    */
-  estimated_undelegation_date: string;
+  estimated_undelegation_date?: string;
 }
 export interface EventStartUndelegationAminoMsg {
   type: "/kyve.delegation.v1beta1.EventStartUndelegation";
@@ -158,11 +158,11 @@ export interface EventUndelegateProtoMsg {
  */
 export interface EventUndelegateAmino {
   /** address is the account address of the delegator. */
-  address: string;
+  address?: string;
   /** staker is the account address of the protocol node. */
-  staker: string;
+  staker?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
 }
 export interface EventUndelegateAminoMsg {
   type: "/kyve.delegation.v1beta1.EventUndelegate";
@@ -201,13 +201,13 @@ export interface EventRedelegateProtoMsg {
  */
 export interface EventRedelegateAmino {
   /** address is the account address of the delegator. */
-  address: string;
+  address?: string;
   /** from_staker ... */
-  from_staker: string;
+  from_staker?: string;
   /** to_staker is the account address of the new staker in the the pool */
-  to_staker: string;
+  to_staker?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
 }
 export interface EventRedelegateAminoMsg {
   type: "/kyve.delegation.v1beta1.EventRedelegate";
@@ -245,11 +245,11 @@ export interface EventWithdrawRewardsProtoMsg {
  */
 export interface EventWithdrawRewardsAmino {
   /** address is the account address of the delegator. */
-  address: string;
+  address?: string;
   /** staker is the account address of the protocol node the users withdraws from. */
-  staker: string;
+  staker?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
 }
 export interface EventWithdrawRewardsAminoMsg {
   type: "/kyve.delegation.v1beta1.EventWithdrawRewards";
@@ -288,13 +288,13 @@ export interface EventSlashProtoMsg {
  */
 export interface EventSlashAmino {
   /** pool_id is the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** staker is the account address of the protocol node. */
-  staker: string;
+  staker?: string;
   /** amount ... */
-  amount: string;
+  amount?: string;
   /** slash_type */
-  slash_type: SlashType;
+  slash_type?: SlashType;
 }
 export interface EventSlashAminoMsg {
   type: "/kyve.delegation.v1beta1.EventSlash";
@@ -346,11 +346,17 @@ export const EventUpdateParams = {
     return message;
   },
   fromAmino(object: EventUpdateParamsAmino): EventUpdateParams {
-    return {
-      oldParams: object?.old_params ? Params.fromAmino(object.old_params) : undefined,
-      newParams: object?.new_params ? Params.fromAmino(object.new_params) : undefined,
-      payload: object.payload
-    };
+    const message = createBaseEventUpdateParams();
+    if (object.old_params !== undefined && object.old_params !== null) {
+      message.oldParams = Params.fromAmino(object.old_params);
+    }
+    if (object.new_params !== undefined && object.new_params !== null) {
+      message.newParams = Params.fromAmino(object.new_params);
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = object.payload;
+    }
+    return message;
   },
   toAmino(message: EventUpdateParams): EventUpdateParamsAmino {
     const obj: any = {};
@@ -411,11 +417,17 @@ export const EventDelegate = {
     return message;
   },
   fromAmino(object: EventDelegateAmino): EventDelegate {
-    return {
-      address: object.address,
-      staker: object.staker,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseEventDelegate();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: EventDelegate): EventDelegateAmino {
     const obj: any = {};
@@ -482,12 +494,20 @@ export const EventStartUndelegation = {
     return message;
   },
   fromAmino(object: EventStartUndelegationAmino): EventStartUndelegation {
-    return {
-      address: object.address,
-      staker: object.staker,
-      amount: BigInt(object.amount),
-      estimatedUndelegationDate: BigInt(object.estimated_undelegation_date)
-    };
+    const message = createBaseEventStartUndelegation();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.estimated_undelegation_date !== undefined && object.estimated_undelegation_date !== null) {
+      message.estimatedUndelegationDate = BigInt(object.estimated_undelegation_date);
+    }
+    return message;
   },
   toAmino(message: EventStartUndelegation): EventStartUndelegationAmino {
     const obj: any = {};
@@ -549,11 +569,17 @@ export const EventUndelegate = {
     return message;
   },
   fromAmino(object: EventUndelegateAmino): EventUndelegate {
-    return {
-      address: object.address,
-      staker: object.staker,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseEventUndelegate();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: EventUndelegate): EventUndelegateAmino {
     const obj: any = {};
@@ -620,12 +646,20 @@ export const EventRedelegate = {
     return message;
   },
   fromAmino(object: EventRedelegateAmino): EventRedelegate {
-    return {
-      address: object.address,
-      fromStaker: object.from_staker,
-      toStaker: object.to_staker,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseEventRedelegate();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.from_staker !== undefined && object.from_staker !== null) {
+      message.fromStaker = object.from_staker;
+    }
+    if (object.to_staker !== undefined && object.to_staker !== null) {
+      message.toStaker = object.to_staker;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: EventRedelegate): EventRedelegateAmino {
     const obj: any = {};
@@ -687,11 +721,17 @@ export const EventWithdrawRewards = {
     return message;
   },
   fromAmino(object: EventWithdrawRewardsAmino): EventWithdrawRewards {
-    return {
-      address: object.address,
-      staker: object.staker,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseEventWithdrawRewards();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: EventWithdrawRewards): EventWithdrawRewardsAmino {
     const obj: any = {};
@@ -758,12 +798,20 @@ export const EventSlash = {
     return message;
   },
   fromAmino(object: EventSlashAmino): EventSlash {
-    return {
-      poolId: BigInt(object.pool_id),
-      staker: object.staker,
-      amount: BigInt(object.amount),
-      slashType: isSet(object.slash_type) ? slashTypeFromJSON(object.slash_type) : -1
-    };
+    const message = createBaseEventSlash();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.slash_type !== undefined && object.slash_type !== null) {
+      message.slashType = slashTypeFromJSON(object.slash_type);
+    }
+    return message;
   },
   toAmino(message: EventSlash): EventSlashAmino {
     const obj: any = {};

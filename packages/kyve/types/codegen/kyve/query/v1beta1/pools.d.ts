@@ -5,7 +5,7 @@ import { BinaryWriter } from "../../../binary";
 /** QueryPoolsRequest is the request type for the Query/Pools RPC method. */
 export interface QueryPoolsRequest {
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
     /** search ... */
     search: string;
     /** runtime ... */
@@ -24,13 +24,13 @@ export interface QueryPoolsRequestAmino {
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
     /** search ... */
-    search: string;
+    search?: string;
     /** runtime ... */
-    runtime: string;
+    runtime?: string;
     /** disabled ... */
-    disabled: boolean;
+    disabled?: boolean;
     /** storage_provider_id ... */
-    storage_provider_id: number;
+    storage_provider_id?: number;
 }
 export interface QueryPoolsRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryPoolsRequest";
@@ -38,7 +38,7 @@ export interface QueryPoolsRequestAminoMsg {
 }
 /** QueryPoolsRequest is the request type for the Query/Pools RPC method. */
 export interface QueryPoolsRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
     search: string;
     runtime: string;
     disabled: boolean;
@@ -49,7 +49,7 @@ export interface QueryPoolsResponse {
     /** pools ... */
     pools: PoolResponse[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryPoolsResponseProtoMsg {
     typeUrl: "/kyve.query.v1beta1.QueryPoolsResponse";
@@ -58,7 +58,7 @@ export interface QueryPoolsResponseProtoMsg {
 /** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
 export interface QueryPoolsResponseAmino {
     /** pools ... */
-    pools: PoolResponseAmino[];
+    pools?: PoolResponseAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -69,16 +69,16 @@ export interface QueryPoolsResponseAminoMsg {
 /** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
 export interface QueryPoolsResponseSDKType {
     pools: PoolResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** PoolResponse ... */
 export interface PoolResponse {
     /** id ... */
     id: bigint;
     /** data ... */
-    data: Pool;
+    data?: Pool;
     /** bundle_proposal ... */
-    bundleProposal: BundleProposal;
+    bundleProposal?: BundleProposal;
     /** stakers ... */
     stakers: string[];
     /** total_stake ... */
@@ -99,23 +99,23 @@ export interface PoolResponseProtoMsg {
 /** PoolResponse ... */
 export interface PoolResponseAmino {
     /** id ... */
-    id: string;
+    id?: string;
     /** data ... */
     data?: PoolAmino;
     /** bundle_proposal ... */
     bundle_proposal?: BundleProposalAmino;
     /** stakers ... */
-    stakers: string[];
+    stakers?: string[];
     /** total_stake ... */
-    total_self_delegation: string;
+    total_self_delegation?: string;
     /** total_delegation ... */
-    total_delegation: string;
+    total_delegation?: string;
     /** status ... */
-    status: PoolStatus;
+    status?: PoolStatus;
     /** account ... */
-    account: string;
+    account?: string;
     /** account_balance ... */
-    account_balance: string;
+    account_balance?: string;
 }
 export interface PoolResponseAminoMsg {
     type: "/kyve.query.v1beta1.PoolResponse";
@@ -124,8 +124,8 @@ export interface PoolResponseAminoMsg {
 /** PoolResponse ... */
 export interface PoolResponseSDKType {
     id: bigint;
-    data: PoolSDKType;
-    bundle_proposal: BundleProposalSDKType;
+    data?: PoolSDKType;
+    bundle_proposal?: BundleProposalSDKType;
     stakers: string[];
     total_self_delegation: bigint;
     total_delegation: bigint;
@@ -145,7 +145,7 @@ export interface QueryPoolRequestProtoMsg {
 /** QueryPoolRequest is the request type for the Query/Pool RPC method. */
 export interface QueryPoolRequestAmino {
     /** id defines the unique ID of the pool. */
-    id: string;
+    id?: string;
 }
 export interface QueryPoolRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryPoolRequest";

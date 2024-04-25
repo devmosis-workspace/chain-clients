@@ -27,7 +27,7 @@ export interface EventUpdateParamsAmino {
   /** new_params is the module's new parameters. */
   new_params?: ParamsAmino;
   /** payload is the parameter updates that were performed. */
-  payload: string;
+  payload?: string;
 }
 export interface EventUpdateParamsAminoMsg {
   type: "/kyve.pool.v1beta1.EventUpdateParams";
@@ -71,10 +71,10 @@ export interface EventCreatePool {
    */
   uploadInterval: bigint;
   /**
-   * operating_cost is the fixed cost which gets paid out
+   * inflation_share_weight is the fixed cost which gets paid out
    * to every successful uploader
    */
-  operatingCost: bigint;
+  inflationShareWeight: bigint;
   /**
    * min_delegation is the minimum amount of $KYVE the pool has
    * to have in order to produce bundles
@@ -110,57 +110,57 @@ export interface EventCreatePoolProtoMsg {
  */
 export interface EventCreatePoolAmino {
   /** id is the unique ID of the pool. */
-  id: string;
+  id?: string;
   /** name is the human readable name of the pool */
-  name: string;
+  name?: string;
   /** runtime is the runtime name of the pool */
-  runtime: string;
+  runtime?: string;
   /** logo is the logo url of the pool */
-  logo: string;
+  logo?: string;
   /**
    * config is either a json stringified config or an
    * external link pointing to the config
    */
-  config: string;
+  config?: string;
   /**
    * start_key is the first key the pool should start
    * indexing
    */
-  start_key: string;
+  start_key?: string;
   /**
    * upload_interval is the interval the pool should validate
    * bundles with
    */
-  upload_interval: string;
+  upload_interval?: string;
   /**
-   * operating_cost is the fixed cost which gets paid out
+   * inflation_share_weight is the fixed cost which gets paid out
    * to every successful uploader
    */
-  operating_cost: string;
+  inflation_share_weight?: string;
   /**
    * min_delegation is the minimum amount of $KYVE the pool has
    * to have in order to produce bundles
    */
-  min_delegation: string;
+  min_delegation?: string;
   /**
    * max_bundle_size is the max size a data bundle can have
    * (amount of data items)
    */
-  max_bundle_size: string;
+  max_bundle_size?: string;
   /** version is the current version of the protocol nodes */
-  version: string;
+  version?: string;
   /** binaries points to the current binaries of the protocol node */
-  binaries: string;
+  binaries?: string;
   /**
    * storage_provider_id is the unique id of the storage provider
    * the pool is archiving the data on
    */
-  storage_provider_id: number;
+  storage_provider_id?: number;
   /**
    * compression_id is the unique id of the compression type the bundles
    * get compressed with
    */
-  compression_id: number;
+  compression_id?: number;
 }
 export interface EventCreatePoolAminoMsg {
   type: "/kyve.pool.v1beta1.EventCreatePool";
@@ -178,7 +178,7 @@ export interface EventCreatePoolSDKType {
   config: string;
   start_key: string;
   upload_interval: bigint;
-  operating_cost: bigint;
+  inflation_share_weight: bigint;
   min_delegation: bigint;
   max_bundle_size: bigint;
   version: string;
@@ -204,7 +204,7 @@ export interface EventPoolEnabledProtoMsg {
  */
 export interface EventPoolEnabledAmino {
   /** id is the unique ID of the affected pool. */
-  id: string;
+  id?: string;
 }
 export interface EventPoolEnabledAminoMsg {
   type: "/kyve.pool.v1beta1.EventPoolEnabled";
@@ -235,7 +235,7 @@ export interface EventPoolDisabledProtoMsg {
  */
 export interface EventPoolDisabledAmino {
   /** id is the unique ID of the affected pool. */
-  id: string;
+  id?: string;
 }
 export interface EventPoolDisabledAminoMsg {
   type: "/kyve.pool.v1beta1.EventPoolDisabled";
@@ -280,21 +280,21 @@ export interface EventRuntimeUpgradeScheduledProtoMsg {
  */
 export interface EventRuntimeUpgradeScheduledAmino {
   /** runtime is the name of the runtime that will be upgraded. */
-  runtime: string;
+  runtime?: string;
   /** version is the new version that the runtime will be upgraded to. */
-  version: string;
+  version?: string;
   /** scheduled_at is the time in UNIX seconds when the upgrade will occur. */
-  scheduled_at: string;
+  scheduled_at?: string;
   /**
    * duration is the amount of seconds the pool will be paused after the
    * scheduled time is reached. This will give node operators time to upgrade
    * their node.
    */
-  duration: string;
+  duration?: string;
   /** binaries contain download links for prebuilt binaries (in JSON format). */
-  binaries: string;
+  binaries?: string;
   /** affected_pools contains all IDs of pools that will be affected by this runtime upgrade. */
-  affected_pools: string[];
+  affected_pools?: string[];
 }
 export interface EventRuntimeUpgradeScheduledAminoMsg {
   type: "/kyve.pool.v1beta1.EventRuntimeUpgradeScheduled";
@@ -335,12 +335,12 @@ export interface EventRuntimeUpgradeCancelledProtoMsg {
  */
 export interface EventRuntimeUpgradeCancelledAmino {
   /** runtime is the name of the runtime that will be upgraded. */
-  runtime: string;
+  runtime?: string;
   /**
    * affected_pools contains all IDs of pools that are affected by the
    * cancellation of this runtime upgrade.
    */
-  affected_pools: string[];
+  affected_pools?: string[];
 }
 export interface EventRuntimeUpgradeCancelledAminoMsg {
   type: "/kyve.pool.v1beta1.EventRuntimeUpgradeCancelled";
@@ -380,10 +380,10 @@ export interface EventPoolUpdated {
    */
   uploadInterval: bigint;
   /**
-   * operating_cost is the fixed cost which gets paid out
+   * inflation_share_weight is the fixed cost which gets paid out
    * to every successful uploader
    */
-  operatingCost: bigint;
+  inflationShareWeight: bigint;
   /**
    * min_delegation is the minimum amount of $KYVE the pool has
    * to have in order to produce bundles
@@ -415,50 +415,50 @@ export interface EventPoolUpdatedProtoMsg {
  */
 export interface EventPoolUpdatedAmino {
   /** id is the unique ID of the pool. */
-  id: string;
+  id?: string;
   /** raw update string */
-  raw_update_string: string;
+  raw_update_string?: string;
   /** name is the human readable name of the pool */
-  name: string;
+  name?: string;
   /** runtime is the runtime name of the pool */
-  runtime: string;
+  runtime?: string;
   /** logo is the logo url of the pool */
-  logo: string;
+  logo?: string;
   /**
    * config is either a json stringified config or an
    * external link pointing to the config
    */
-  config: string;
+  config?: string;
   /**
    * upload_interval is the interval the pool should validate
    * bundles with
    */
-  upload_interval: string;
+  upload_interval?: string;
   /**
-   * operating_cost is the fixed cost which gets paid out
+   * inflation_share_weight is the fixed cost which gets paid out
    * to every successful uploader
    */
-  operating_cost: string;
+  inflation_share_weight?: string;
   /**
    * min_delegation is the minimum amount of $KYVE the pool has
    * to have in order to produce bundles
    */
-  min_delegation: string;
+  min_delegation?: string;
   /**
    * max_bundle_size is the max size a data bundle can have
    * (amount of data items)
    */
-  max_bundle_size: string;
+  max_bundle_size?: string;
   /**
    * storage_provider_id is the unique id of the storage provider
    * the pool is archiving the data on
    */
-  storage_provider_id: number;
+  storage_provider_id?: number;
   /**
    * compression_id is the unique id of the compression type the bundles
    * get compressed with
    */
-  compression_id: number;
+  compression_id?: number;
 }
 export interface EventPoolUpdatedAminoMsg {
   type: "/kyve.pool.v1beta1.EventPoolUpdated";
@@ -476,93 +476,11 @@ export interface EventPoolUpdatedSDKType {
   logo: string;
   config: string;
   upload_interval: bigint;
-  operating_cost: bigint;
+  inflation_share_weight: bigint;
   min_delegation: bigint;
   max_bundle_size: bigint;
   storage_provider_id: number;
   compression_id: number;
-}
-/**
- * EventFundPool is an event emitted when a pool is funded.
- * emitted_by: MsgFundPool
- */
-export interface EventFundPool {
-  /** pool_id is the unique ID of the pool. */
-  poolId: bigint;
-  /** address is the account address of the pool funder. */
-  address: string;
-  /** amount is the amount in ukyve the funder has funded */
-  amount: bigint;
-}
-export interface EventFundPoolProtoMsg {
-  typeUrl: "/kyve.pool.v1beta1.EventFundPool";
-  value: Uint8Array;
-}
-/**
- * EventFundPool is an event emitted when a pool is funded.
- * emitted_by: MsgFundPool
- */
-export interface EventFundPoolAmino {
-  /** pool_id is the unique ID of the pool. */
-  pool_id: string;
-  /** address is the account address of the pool funder. */
-  address: string;
-  /** amount is the amount in ukyve the funder has funded */
-  amount: string;
-}
-export interface EventFundPoolAminoMsg {
-  type: "/kyve.pool.v1beta1.EventFundPool";
-  value: EventFundPoolAmino;
-}
-/**
- * EventFundPool is an event emitted when a pool is funded.
- * emitted_by: MsgFundPool
- */
-export interface EventFundPoolSDKType {
-  pool_id: bigint;
-  address: string;
-  amount: bigint;
-}
-/**
- * EventDefundPool is an event emitted when a pool is defunded.
- * emitted_by: MsgDefundPool
- */
-export interface EventDefundPool {
-  /** pool_id is the unique ID of the pool. */
-  poolId: bigint;
-  /** address is the account address of the pool funder. */
-  address: string;
-  /** amount is the amount in ukyve the funder has defunded */
-  amount: bigint;
-}
-export interface EventDefundPoolProtoMsg {
-  typeUrl: "/kyve.pool.v1beta1.EventDefundPool";
-  value: Uint8Array;
-}
-/**
- * EventDefundPool is an event emitted when a pool is defunded.
- * emitted_by: MsgDefundPool
- */
-export interface EventDefundPoolAmino {
-  /** pool_id is the unique ID of the pool. */
-  pool_id: string;
-  /** address is the account address of the pool funder. */
-  address: string;
-  /** amount is the amount in ukyve the funder has defunded */
-  amount: string;
-}
-export interface EventDefundPoolAminoMsg {
-  type: "/kyve.pool.v1beta1.EventDefundPool";
-  value: EventDefundPoolAmino;
-}
-/**
- * EventDefundPool is an event emitted when a pool is defunded.
- * emitted_by: MsgDefundPool
- */
-export interface EventDefundPoolSDKType {
-  pool_id: bigint;
-  address: string;
-  amount: bigint;
 }
 /**
  * EventDefundPool is an event emitted when a pool is defunded.
@@ -586,11 +504,11 @@ export interface EventPoolFundsSlashedProtoMsg {
  */
 export interface EventPoolFundsSlashedAmino {
   /** pool_id is the unique ID of the pool. */
-  pool_id: string;
+  pool_id?: string;
   /** address is the account address of the pool funder. */
-  address: string;
+  address?: string;
   /** amount is the amount in ukyve the validator has lost due to the slash */
-  amount: string;
+  amount?: string;
 }
 export interface EventPoolFundsSlashedAminoMsg {
   type: "/kyve.pool.v1beta1.EventPoolFundsSlashed";
@@ -604,37 +522,6 @@ export interface EventPoolFundsSlashedSDKType {
   pool_id: bigint;
   address: string;
   amount: bigint;
-}
-/**
- * EventPoolOutOfFunds is an event emitted when a pool has run out of funds
- * emitted_by: MsgSubmitBundleProposal
- */
-export interface EventPoolOutOfFunds {
-  /** pool_id is the unique ID of the pool. */
-  poolId: bigint;
-}
-export interface EventPoolOutOfFundsProtoMsg {
-  typeUrl: "/kyve.pool.v1beta1.EventPoolOutOfFunds";
-  value: Uint8Array;
-}
-/**
- * EventPoolOutOfFunds is an event emitted when a pool has run out of funds
- * emitted_by: MsgSubmitBundleProposal
- */
-export interface EventPoolOutOfFundsAmino {
-  /** pool_id is the unique ID of the pool. */
-  pool_id: string;
-}
-export interface EventPoolOutOfFundsAminoMsg {
-  type: "/kyve.pool.v1beta1.EventPoolOutOfFunds";
-  value: EventPoolOutOfFundsAmino;
-}
-/**
- * EventPoolOutOfFunds is an event emitted when a pool has run out of funds
- * emitted_by: MsgSubmitBundleProposal
- */
-export interface EventPoolOutOfFundsSDKType {
-  pool_id: bigint;
 }
 function createBaseEventUpdateParams(): EventUpdateParams {
   return {
@@ -672,11 +559,17 @@ export const EventUpdateParams = {
     return message;
   },
   fromAmino(object: EventUpdateParamsAmino): EventUpdateParams {
-    return {
-      oldParams: object?.old_params ? Params.fromAmino(object.old_params) : undefined,
-      newParams: object?.new_params ? Params.fromAmino(object.new_params) : undefined,
-      payload: object.payload
-    };
+    const message = createBaseEventUpdateParams();
+    if (object.old_params !== undefined && object.old_params !== null) {
+      message.oldParams = Params.fromAmino(object.old_params);
+    }
+    if (object.new_params !== undefined && object.new_params !== null) {
+      message.newParams = Params.fromAmino(object.new_params);
+    }
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = object.payload;
+    }
+    return message;
   },
   toAmino(message: EventUpdateParams): EventUpdateParamsAmino {
     const obj: any = {};
@@ -710,7 +603,7 @@ function createBaseEventCreatePool(): EventCreatePool {
     config: "",
     startKey: "",
     uploadInterval: BigInt(0),
-    operatingCost: BigInt(0),
+    inflationShareWeight: BigInt(0),
     minDelegation: BigInt(0),
     maxBundleSize: BigInt(0),
     version: "",
@@ -743,8 +636,8 @@ export const EventCreatePool = {
     if (message.uploadInterval !== BigInt(0)) {
       writer.uint32(56).uint64(message.uploadInterval);
     }
-    if (message.operatingCost !== BigInt(0)) {
-      writer.uint32(64).uint64(message.operatingCost);
+    if (message.inflationShareWeight !== BigInt(0)) {
+      writer.uint32(64).uint64(message.inflationShareWeight);
     }
     if (message.minDelegation !== BigInt(0)) {
       writer.uint32(72).uint64(message.minDelegation);
@@ -775,7 +668,7 @@ export const EventCreatePool = {
       config: isSet(object.config) ? String(object.config) : "",
       startKey: isSet(object.startKey) ? String(object.startKey) : "",
       uploadInterval: isSet(object.uploadInterval) ? BigInt(object.uploadInterval.toString()) : BigInt(0),
-      operatingCost: isSet(object.operatingCost) ? BigInt(object.operatingCost.toString()) : BigInt(0),
+      inflationShareWeight: isSet(object.inflationShareWeight) ? BigInt(object.inflationShareWeight.toString()) : BigInt(0),
       minDelegation: isSet(object.minDelegation) ? BigInt(object.minDelegation.toString()) : BigInt(0),
       maxBundleSize: isSet(object.maxBundleSize) ? BigInt(object.maxBundleSize.toString()) : BigInt(0),
       version: isSet(object.version) ? String(object.version) : "",
@@ -793,7 +686,7 @@ export const EventCreatePool = {
     message.config = object.config ?? "";
     message.startKey = object.startKey ?? "";
     message.uploadInterval = object.uploadInterval !== undefined && object.uploadInterval !== null ? BigInt(object.uploadInterval.toString()) : BigInt(0);
-    message.operatingCost = object.operatingCost !== undefined && object.operatingCost !== null ? BigInt(object.operatingCost.toString()) : BigInt(0);
+    message.inflationShareWeight = object.inflationShareWeight !== undefined && object.inflationShareWeight !== null ? BigInt(object.inflationShareWeight.toString()) : BigInt(0);
     message.minDelegation = object.minDelegation !== undefined && object.minDelegation !== null ? BigInt(object.minDelegation.toString()) : BigInt(0);
     message.maxBundleSize = object.maxBundleSize !== undefined && object.maxBundleSize !== null ? BigInt(object.maxBundleSize.toString()) : BigInt(0);
     message.version = object.version ?? "";
@@ -803,22 +696,50 @@ export const EventCreatePool = {
     return message;
   },
   fromAmino(object: EventCreatePoolAmino): EventCreatePool {
-    return {
-      id: BigInt(object.id),
-      name: object.name,
-      runtime: object.runtime,
-      logo: object.logo,
-      config: object.config,
-      startKey: object.start_key,
-      uploadInterval: BigInt(object.upload_interval),
-      operatingCost: BigInt(object.operating_cost),
-      minDelegation: BigInt(object.min_delegation),
-      maxBundleSize: BigInt(object.max_bundle_size),
-      version: object.version,
-      binaries: object.binaries,
-      storageProviderId: object.storage_provider_id,
-      compressionId: object.compression_id
-    };
+    const message = createBaseEventCreatePool();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.runtime !== undefined && object.runtime !== null) {
+      message.runtime = object.runtime;
+    }
+    if (object.logo !== undefined && object.logo !== null) {
+      message.logo = object.logo;
+    }
+    if (object.config !== undefined && object.config !== null) {
+      message.config = object.config;
+    }
+    if (object.start_key !== undefined && object.start_key !== null) {
+      message.startKey = object.start_key;
+    }
+    if (object.upload_interval !== undefined && object.upload_interval !== null) {
+      message.uploadInterval = BigInt(object.upload_interval);
+    }
+    if (object.inflation_share_weight !== undefined && object.inflation_share_weight !== null) {
+      message.inflationShareWeight = BigInt(object.inflation_share_weight);
+    }
+    if (object.min_delegation !== undefined && object.min_delegation !== null) {
+      message.minDelegation = BigInt(object.min_delegation);
+    }
+    if (object.max_bundle_size !== undefined && object.max_bundle_size !== null) {
+      message.maxBundleSize = BigInt(object.max_bundle_size);
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    if (object.binaries !== undefined && object.binaries !== null) {
+      message.binaries = object.binaries;
+    }
+    if (object.storage_provider_id !== undefined && object.storage_provider_id !== null) {
+      message.storageProviderId = object.storage_provider_id;
+    }
+    if (object.compression_id !== undefined && object.compression_id !== null) {
+      message.compressionId = object.compression_id;
+    }
+    return message;
   },
   toAmino(message: EventCreatePool): EventCreatePoolAmino {
     const obj: any = {};
@@ -829,7 +750,7 @@ export const EventCreatePool = {
     obj.config = message.config;
     obj.start_key = message.startKey;
     obj.upload_interval = message.uploadInterval ? message.uploadInterval.toString() : undefined;
-    obj.operating_cost = message.operatingCost ? message.operatingCost.toString() : undefined;
+    obj.inflation_share_weight = message.inflationShareWeight ? message.inflationShareWeight.toString() : undefined;
     obj.min_delegation = message.minDelegation ? message.minDelegation.toString() : undefined;
     obj.max_bundle_size = message.maxBundleSize ? message.maxBundleSize.toString() : undefined;
     obj.version = message.version;
@@ -878,9 +799,11 @@ export const EventPoolEnabled = {
     return message;
   },
   fromAmino(object: EventPoolEnabledAmino): EventPoolEnabled {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseEventPoolEnabled();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: EventPoolEnabled): EventPoolEnabledAmino {
     const obj: any = {};
@@ -927,9 +850,11 @@ export const EventPoolDisabled = {
     return message;
   },
   fromAmino(object: EventPoolDisabledAmino): EventPoolDisabled {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseEventPoolDisabled();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: EventPoolDisabled): EventPoolDisabledAmino {
     const obj: any = {};
@@ -1008,14 +933,24 @@ export const EventRuntimeUpgradeScheduled = {
     return message;
   },
   fromAmino(object: EventRuntimeUpgradeScheduledAmino): EventRuntimeUpgradeScheduled {
-    return {
-      runtime: object.runtime,
-      version: object.version,
-      scheduledAt: BigInt(object.scheduled_at),
-      duration: BigInt(object.duration),
-      binaries: object.binaries,
-      affectedPools: Array.isArray(object?.affected_pools) ? object.affected_pools.map((e: any) => BigInt(e)) : []
-    };
+    const message = createBaseEventRuntimeUpgradeScheduled();
+    if (object.runtime !== undefined && object.runtime !== null) {
+      message.runtime = object.runtime;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    if (object.scheduled_at !== undefined && object.scheduled_at !== null) {
+      message.scheduledAt = BigInt(object.scheduled_at);
+    }
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = BigInt(object.duration);
+    }
+    if (object.binaries !== undefined && object.binaries !== null) {
+      message.binaries = object.binaries;
+    }
+    message.affectedPools = object.affected_pools?.map(e => BigInt(e)) || [];
+    return message;
   },
   toAmino(message: EventRuntimeUpgradeScheduled): EventRuntimeUpgradeScheduledAmino {
     const obj: any = {};
@@ -1079,10 +1014,12 @@ export const EventRuntimeUpgradeCancelled = {
     return message;
   },
   fromAmino(object: EventRuntimeUpgradeCancelledAmino): EventRuntimeUpgradeCancelled {
-    return {
-      runtime: object.runtime,
-      affectedPools: Array.isArray(object?.affected_pools) ? object.affected_pools.map((e: any) => BigInt(e)) : []
-    };
+    const message = createBaseEventRuntimeUpgradeCancelled();
+    if (object.runtime !== undefined && object.runtime !== null) {
+      message.runtime = object.runtime;
+    }
+    message.affectedPools = object.affected_pools?.map(e => BigInt(e)) || [];
+    return message;
   },
   toAmino(message: EventRuntimeUpgradeCancelled): EventRuntimeUpgradeCancelledAmino {
     const obj: any = {};
@@ -1119,7 +1056,7 @@ function createBaseEventPoolUpdated(): EventPoolUpdated {
     logo: "",
     config: "",
     uploadInterval: BigInt(0),
-    operatingCost: BigInt(0),
+    inflationShareWeight: BigInt(0),
     minDelegation: BigInt(0),
     maxBundleSize: BigInt(0),
     storageProviderId: 0,
@@ -1150,8 +1087,8 @@ export const EventPoolUpdated = {
     if (message.uploadInterval !== BigInt(0)) {
       writer.uint32(56).uint64(message.uploadInterval);
     }
-    if (message.operatingCost !== BigInt(0)) {
-      writer.uint32(64).uint64(message.operatingCost);
+    if (message.inflationShareWeight !== BigInt(0)) {
+      writer.uint32(64).uint64(message.inflationShareWeight);
     }
     if (message.minDelegation !== BigInt(0)) {
       writer.uint32(72).uint64(message.minDelegation);
@@ -1176,7 +1113,7 @@ export const EventPoolUpdated = {
       logo: isSet(object.logo) ? String(object.logo) : "",
       config: isSet(object.config) ? String(object.config) : "",
       uploadInterval: isSet(object.uploadInterval) ? BigInt(object.uploadInterval.toString()) : BigInt(0),
-      operatingCost: isSet(object.operatingCost) ? BigInt(object.operatingCost.toString()) : BigInt(0),
+      inflationShareWeight: isSet(object.inflationShareWeight) ? BigInt(object.inflationShareWeight.toString()) : BigInt(0),
       minDelegation: isSet(object.minDelegation) ? BigInt(object.minDelegation.toString()) : BigInt(0),
       maxBundleSize: isSet(object.maxBundleSize) ? BigInt(object.maxBundleSize.toString()) : BigInt(0),
       storageProviderId: isSet(object.storageProviderId) ? Number(object.storageProviderId) : 0,
@@ -1192,7 +1129,7 @@ export const EventPoolUpdated = {
     message.logo = object.logo ?? "";
     message.config = object.config ?? "";
     message.uploadInterval = object.uploadInterval !== undefined && object.uploadInterval !== null ? BigInt(object.uploadInterval.toString()) : BigInt(0);
-    message.operatingCost = object.operatingCost !== undefined && object.operatingCost !== null ? BigInt(object.operatingCost.toString()) : BigInt(0);
+    message.inflationShareWeight = object.inflationShareWeight !== undefined && object.inflationShareWeight !== null ? BigInt(object.inflationShareWeight.toString()) : BigInt(0);
     message.minDelegation = object.minDelegation !== undefined && object.minDelegation !== null ? BigInt(object.minDelegation.toString()) : BigInt(0);
     message.maxBundleSize = object.maxBundleSize !== undefined && object.maxBundleSize !== null ? BigInt(object.maxBundleSize.toString()) : BigInt(0);
     message.storageProviderId = object.storageProviderId ?? 0;
@@ -1200,20 +1137,44 @@ export const EventPoolUpdated = {
     return message;
   },
   fromAmino(object: EventPoolUpdatedAmino): EventPoolUpdated {
-    return {
-      id: BigInt(object.id),
-      rawUpdateString: object.raw_update_string,
-      name: object.name,
-      runtime: object.runtime,
-      logo: object.logo,
-      config: object.config,
-      uploadInterval: BigInt(object.upload_interval),
-      operatingCost: BigInt(object.operating_cost),
-      minDelegation: BigInt(object.min_delegation),
-      maxBundleSize: BigInt(object.max_bundle_size),
-      storageProviderId: object.storage_provider_id,
-      compressionId: object.compression_id
-    };
+    const message = createBaseEventPoolUpdated();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.raw_update_string !== undefined && object.raw_update_string !== null) {
+      message.rawUpdateString = object.raw_update_string;
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.runtime !== undefined && object.runtime !== null) {
+      message.runtime = object.runtime;
+    }
+    if (object.logo !== undefined && object.logo !== null) {
+      message.logo = object.logo;
+    }
+    if (object.config !== undefined && object.config !== null) {
+      message.config = object.config;
+    }
+    if (object.upload_interval !== undefined && object.upload_interval !== null) {
+      message.uploadInterval = BigInt(object.upload_interval);
+    }
+    if (object.inflation_share_weight !== undefined && object.inflation_share_weight !== null) {
+      message.inflationShareWeight = BigInt(object.inflation_share_weight);
+    }
+    if (object.min_delegation !== undefined && object.min_delegation !== null) {
+      message.minDelegation = BigInt(object.min_delegation);
+    }
+    if (object.max_bundle_size !== undefined && object.max_bundle_size !== null) {
+      message.maxBundleSize = BigInt(object.max_bundle_size);
+    }
+    if (object.storage_provider_id !== undefined && object.storage_provider_id !== null) {
+      message.storageProviderId = object.storage_provider_id;
+    }
+    if (object.compression_id !== undefined && object.compression_id !== null) {
+      message.compressionId = object.compression_id;
+    }
+    return message;
   },
   toAmino(message: EventPoolUpdated): EventPoolUpdatedAmino {
     const obj: any = {};
@@ -1224,7 +1185,7 @@ export const EventPoolUpdated = {
     obj.logo = message.logo;
     obj.config = message.config;
     obj.upload_interval = message.uploadInterval ? message.uploadInterval.toString() : undefined;
-    obj.operating_cost = message.operatingCost ? message.operatingCost.toString() : undefined;
+    obj.inflation_share_weight = message.inflationShareWeight ? message.inflationShareWeight.toString() : undefined;
     obj.min_delegation = message.minDelegation ? message.minDelegation.toString() : undefined;
     obj.max_bundle_size = message.maxBundleSize ? message.maxBundleSize.toString() : undefined;
     obj.storage_provider_id = message.storageProviderId;
@@ -1244,136 +1205,6 @@ export const EventPoolUpdated = {
     return {
       typeUrl: "/kyve.pool.v1beta1.EventPoolUpdated",
       value: EventPoolUpdated.encode(message).finish()
-    };
-  }
-};
-function createBaseEventFundPool(): EventFundPool {
-  return {
-    poolId: BigInt(0),
-    address: "",
-    amount: BigInt(0)
-  };
-}
-export const EventFundPool = {
-  typeUrl: "/kyve.pool.v1beta1.EventFundPool",
-  encode(message: EventFundPool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.poolId !== BigInt(0)) {
-      writer.uint32(8).uint64(message.poolId);
-    }
-    if (message.address !== "") {
-      writer.uint32(18).string(message.address);
-    }
-    if (message.amount !== BigInt(0)) {
-      writer.uint32(24).uint64(message.amount);
-    }
-    return writer;
-  },
-  fromJSON(object: any): EventFundPool {
-    return {
-      poolId: isSet(object.poolId) ? BigInt(object.poolId.toString()) : BigInt(0),
-      address: isSet(object.address) ? String(object.address) : "",
-      amount: isSet(object.amount) ? BigInt(object.amount.toString()) : BigInt(0)
-    };
-  },
-  fromPartial(object: Partial<EventFundPool>): EventFundPool {
-    const message = createBaseEventFundPool();
-    message.poolId = object.poolId !== undefined && object.poolId !== null ? BigInt(object.poolId.toString()) : BigInt(0);
-    message.address = object.address ?? "";
-    message.amount = object.amount !== undefined && object.amount !== null ? BigInt(object.amount.toString()) : BigInt(0);
-    return message;
-  },
-  fromAmino(object: EventFundPoolAmino): EventFundPool {
-    return {
-      poolId: BigInt(object.pool_id),
-      address: object.address,
-      amount: BigInt(object.amount)
-    };
-  },
-  toAmino(message: EventFundPool): EventFundPoolAmino {
-    const obj: any = {};
-    obj.pool_id = message.poolId ? message.poolId.toString() : undefined;
-    obj.address = message.address;
-    obj.amount = message.amount ? message.amount.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: EventFundPoolAminoMsg): EventFundPool {
-    return EventFundPool.fromAmino(object.value);
-  },
-  fromProtoMsg(message: EventFundPoolProtoMsg): EventFundPool {
-    return EventFundPool.decode(message.value);
-  },
-  toProto(message: EventFundPool): Uint8Array {
-    return EventFundPool.encode(message).finish();
-  },
-  toProtoMsg(message: EventFundPool): EventFundPoolProtoMsg {
-    return {
-      typeUrl: "/kyve.pool.v1beta1.EventFundPool",
-      value: EventFundPool.encode(message).finish()
-    };
-  }
-};
-function createBaseEventDefundPool(): EventDefundPool {
-  return {
-    poolId: BigInt(0),
-    address: "",
-    amount: BigInt(0)
-  };
-}
-export const EventDefundPool = {
-  typeUrl: "/kyve.pool.v1beta1.EventDefundPool",
-  encode(message: EventDefundPool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.poolId !== BigInt(0)) {
-      writer.uint32(8).uint64(message.poolId);
-    }
-    if (message.address !== "") {
-      writer.uint32(18).string(message.address);
-    }
-    if (message.amount !== BigInt(0)) {
-      writer.uint32(24).uint64(message.amount);
-    }
-    return writer;
-  },
-  fromJSON(object: any): EventDefundPool {
-    return {
-      poolId: isSet(object.poolId) ? BigInt(object.poolId.toString()) : BigInt(0),
-      address: isSet(object.address) ? String(object.address) : "",
-      amount: isSet(object.amount) ? BigInt(object.amount.toString()) : BigInt(0)
-    };
-  },
-  fromPartial(object: Partial<EventDefundPool>): EventDefundPool {
-    const message = createBaseEventDefundPool();
-    message.poolId = object.poolId !== undefined && object.poolId !== null ? BigInt(object.poolId.toString()) : BigInt(0);
-    message.address = object.address ?? "";
-    message.amount = object.amount !== undefined && object.amount !== null ? BigInt(object.amount.toString()) : BigInt(0);
-    return message;
-  },
-  fromAmino(object: EventDefundPoolAmino): EventDefundPool {
-    return {
-      poolId: BigInt(object.pool_id),
-      address: object.address,
-      amount: BigInt(object.amount)
-    };
-  },
-  toAmino(message: EventDefundPool): EventDefundPoolAmino {
-    const obj: any = {};
-    obj.pool_id = message.poolId ? message.poolId.toString() : undefined;
-    obj.address = message.address;
-    obj.amount = message.amount ? message.amount.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: EventDefundPoolAminoMsg): EventDefundPool {
-    return EventDefundPool.fromAmino(object.value);
-  },
-  fromProtoMsg(message: EventDefundPoolProtoMsg): EventDefundPool {
-    return EventDefundPool.decode(message.value);
-  },
-  toProto(message: EventDefundPool): Uint8Array {
-    return EventDefundPool.encode(message).finish();
-  },
-  toProtoMsg(message: EventDefundPool): EventDefundPoolProtoMsg {
-    return {
-      typeUrl: "/kyve.pool.v1beta1.EventDefundPool",
-      value: EventDefundPool.encode(message).finish()
     };
   }
 };
@@ -1413,11 +1244,17 @@ export const EventPoolFundsSlashed = {
     return message;
   },
   fromAmino(object: EventPoolFundsSlashedAmino): EventPoolFundsSlashed {
-    return {
-      poolId: BigInt(object.pool_id),
-      address: object.address,
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseEventPoolFundsSlashed();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: EventPoolFundsSlashed): EventPoolFundsSlashedAmino {
     const obj: any = {};
@@ -1439,55 +1276,6 @@ export const EventPoolFundsSlashed = {
     return {
       typeUrl: "/kyve.pool.v1beta1.EventPoolFundsSlashed",
       value: EventPoolFundsSlashed.encode(message).finish()
-    };
-  }
-};
-function createBaseEventPoolOutOfFunds(): EventPoolOutOfFunds {
-  return {
-    poolId: BigInt(0)
-  };
-}
-export const EventPoolOutOfFunds = {
-  typeUrl: "/kyve.pool.v1beta1.EventPoolOutOfFunds",
-  encode(message: EventPoolOutOfFunds, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.poolId !== BigInt(0)) {
-      writer.uint32(8).uint64(message.poolId);
-    }
-    return writer;
-  },
-  fromJSON(object: any): EventPoolOutOfFunds {
-    return {
-      poolId: isSet(object.poolId) ? BigInt(object.poolId.toString()) : BigInt(0)
-    };
-  },
-  fromPartial(object: Partial<EventPoolOutOfFunds>): EventPoolOutOfFunds {
-    const message = createBaseEventPoolOutOfFunds();
-    message.poolId = object.poolId !== undefined && object.poolId !== null ? BigInt(object.poolId.toString()) : BigInt(0);
-    return message;
-  },
-  fromAmino(object: EventPoolOutOfFundsAmino): EventPoolOutOfFunds {
-    return {
-      poolId: BigInt(object.pool_id)
-    };
-  },
-  toAmino(message: EventPoolOutOfFunds): EventPoolOutOfFundsAmino {
-    const obj: any = {};
-    obj.pool_id = message.poolId ? message.poolId.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: EventPoolOutOfFundsAminoMsg): EventPoolOutOfFunds {
-    return EventPoolOutOfFunds.fromAmino(object.value);
-  },
-  fromProtoMsg(message: EventPoolOutOfFundsProtoMsg): EventPoolOutOfFunds {
-    return EventPoolOutOfFunds.decode(message.value);
-  },
-  toProto(message: EventPoolOutOfFunds): Uint8Array {
-    return EventPoolOutOfFunds.encode(message).finish();
-  },
-  toProtoMsg(message: EventPoolOutOfFunds): EventPoolOutOfFundsProtoMsg {
-    return {
-      typeUrl: "/kyve.pool.v1beta1.EventPoolOutOfFunds",
-      value: EventPoolOutOfFunds.encode(message).finish()
     };
   }
 };

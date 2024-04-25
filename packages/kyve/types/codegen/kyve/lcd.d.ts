@@ -8,6 +8,9 @@ export declare const createLCDClient: ({ restEndpoint }: {
         delegation: {
             v1beta1: import("./delegation/v1beta1/query.lcd").LCDQueryClient;
         };
+        funders: {
+            v1beta1: import("./funders/v1beta1/query.lcd").LCDQueryClient;
+        };
         global: {
             v1beta1: import("./global/v1beta1/query.lcd").LCDQueryClient;
         };
@@ -38,6 +41,9 @@ export declare const createLCDClient: ({ restEndpoint }: {
             tendermint: {
                 v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
             };
+        };
+        consensus: {
+            v1: import("../cosmos/consensus/v1/query.lcd").LCDQueryClient;
         };
         distribution: {
             v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;

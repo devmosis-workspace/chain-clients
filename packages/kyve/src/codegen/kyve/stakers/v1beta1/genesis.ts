@@ -28,15 +28,15 @@ export interface GenesisStateAmino {
   /** params defines all the parameters of the module. */
   params?: ParamsAmino;
   /** staker_list ... */
-  staker_list: StakerAmino[];
+  staker_list?: StakerAmino[];
   /** valaccount_list ... */
-  valaccount_list: ValaccountAmino[];
+  valaccount_list?: ValaccountAmino[];
   /** commission_change_entries ... */
-  commission_change_entries: CommissionChangeEntryAmino[];
+  commission_change_entries?: CommissionChangeEntryAmino[];
   /** queue_state_commission ... */
   queue_state_commission?: QueueStateAmino;
   /** leave_pool_entries ... */
-  leave_pool_entries: LeavePoolEntryAmino[];
+  leave_pool_entries?: LeavePoolEntryAmino[];
   /** queue_state_leave ... */
   queue_state_leave?: QueueStateAmino;
 }
@@ -114,15 +114,21 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      stakerList: Array.isArray(object?.staker_list) ? object.staker_list.map((e: any) => Staker.fromAmino(e)) : [],
-      valaccountList: Array.isArray(object?.valaccount_list) ? object.valaccount_list.map((e: any) => Valaccount.fromAmino(e)) : [],
-      commissionChangeEntries: Array.isArray(object?.commission_change_entries) ? object.commission_change_entries.map((e: any) => CommissionChangeEntry.fromAmino(e)) : [],
-      queueStateCommission: object?.queue_state_commission ? QueueState.fromAmino(object.queue_state_commission) : undefined,
-      leavePoolEntries: Array.isArray(object?.leave_pool_entries) ? object.leave_pool_entries.map((e: any) => LeavePoolEntry.fromAmino(e)) : [],
-      queueStateLeave: object?.queue_state_leave ? QueueState.fromAmino(object.queue_state_leave) : undefined
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.stakerList = object.staker_list?.map(e => Staker.fromAmino(e)) || [];
+    message.valaccountList = object.valaccount_list?.map(e => Valaccount.fromAmino(e)) || [];
+    message.commissionChangeEntries = object.commission_change_entries?.map(e => CommissionChangeEntry.fromAmino(e)) || [];
+    if (object.queue_state_commission !== undefined && object.queue_state_commission !== null) {
+      message.queueStateCommission = QueueState.fromAmino(object.queue_state_commission);
+    }
+    message.leavePoolEntries = object.leave_pool_entries?.map(e => LeavePoolEntry.fromAmino(e)) || [];
+    if (object.queue_state_leave !== undefined && object.queue_state_leave !== null) {
+      message.queueStateLeave = QueueState.fromAmino(object.queue_state_leave);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

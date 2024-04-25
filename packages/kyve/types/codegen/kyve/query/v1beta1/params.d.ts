@@ -7,15 +7,18 @@ import { ParamsSDKType as Params2SDKType } from "../../delegation/v1beta1/params
 import { Params as Params3 } from "../../global/v1beta1/global";
 import { ParamsAmino as Params3Amino } from "../../global/v1beta1/global";
 import { ParamsSDKType as Params3SDKType } from "../../global/v1beta1/global";
-import { QueryParamsResponse as QueryParamsResponse1 } from "../../../cosmos/gov/v1/query";
-import { QueryParamsResponseAmino as QueryParamsResponse1Amino } from "../../../cosmos/gov/v1/query";
-import { QueryParamsResponseSDKType as QueryParamsResponse1SDKType } from "../../../cosmos/gov/v1/query";
-import { Params as Params4 } from "../../stakers/v1beta1/params";
-import { ParamsAmino as Params4Amino } from "../../stakers/v1beta1/params";
-import { ParamsSDKType as Params4SDKType } from "../../stakers/v1beta1/params";
-import { Params as Params5 } from "../../pool/v1beta1/params";
-import { ParamsAmino as Params5Amino } from "../../pool/v1beta1/params";
-import { ParamsSDKType as Params5SDKType } from "../../pool/v1beta1/params";
+import { Params as Params4 } from "../../../cosmos/gov/v1/gov";
+import { ParamsAmino as Params4Amino } from "../../../cosmos/gov/v1/gov";
+import { ParamsSDKType as Params4SDKType } from "../../../cosmos/gov/v1/gov";
+import { Params as Params5 } from "../../stakers/v1beta1/params";
+import { ParamsAmino as Params5Amino } from "../../stakers/v1beta1/params";
+import { ParamsSDKType as Params5SDKType } from "../../stakers/v1beta1/params";
+import { Params as Params6 } from "../../pool/v1beta1/params";
+import { ParamsAmino as Params6Amino } from "../../pool/v1beta1/params";
+import { ParamsSDKType as Params6SDKType } from "../../pool/v1beta1/params";
+import { Params as Params7 } from "../../funders/v1beta1/params";
+import { ParamsAmino as Params7Amino } from "../../funders/v1beta1/params";
+import { ParamsSDKType as Params7SDKType } from "../../funders/v1beta1/params";
 import { BinaryWriter } from "../../../binary";
 /** QueryParamsRequest ... */
 export interface QueryParamsRequest {
@@ -37,17 +40,19 @@ export interface QueryParamsRequestSDKType {
 /** QueryParamsResponse ... */
 export interface QueryParamsResponse {
     /** bundles_params ... */
-    bundlesParams: Params1;
+    bundlesParams?: Params1;
     /** delegation_params ... */
-    delegationParams: Params2;
+    delegationParams?: Params2;
     /** global_params ... */
-    globalParams: Params3;
+    globalParams?: Params3;
     /** gov_params ... */
-    govParams: QueryParamsResponse1;
+    govParams?: Params4;
     /** stakers_params ... */
-    stakersParams: Params4;
+    stakersParams?: Params5;
     /** pool_params ... */
-    poolParams: Params5;
+    poolParams?: Params6;
+    /** funders_params ... */
+    fundersParams?: Params7;
 }
 export interface QueryParamsResponseProtoMsg {
     typeUrl: "/kyve.query.v1beta1.QueryParamsResponse";
@@ -62,11 +67,13 @@ export interface QueryParamsResponseAmino {
     /** global_params ... */
     global_params?: Params3Amino;
     /** gov_params ... */
-    gov_params?: QueryParamsResponse1Amino;
+    gov_params?: Params4Amino;
     /** stakers_params ... */
-    stakers_params?: Params4Amino;
+    stakers_params?: Params5Amino;
     /** pool_params ... */
-    pool_params?: Params5Amino;
+    pool_params?: Params6Amino;
+    /** funders_params ... */
+    funders_params?: Params7Amino;
 }
 export interface QueryParamsResponseAminoMsg {
     type: "/kyve.query.v1beta1.QueryParamsResponse";
@@ -74,12 +81,13 @@ export interface QueryParamsResponseAminoMsg {
 }
 /** QueryParamsResponse ... */
 export interface QueryParamsResponseSDKType {
-    bundles_params: Params1SDKType;
-    delegation_params: Params2SDKType;
-    global_params: Params3SDKType;
-    gov_params: QueryParamsResponse1SDKType;
-    stakers_params: Params4SDKType;
-    pool_params: Params5SDKType;
+    bundles_params?: Params1SDKType;
+    delegation_params?: Params2SDKType;
+    global_params?: Params3SDKType;
+    gov_params?: Params4SDKType;
+    stakers_params?: Params5SDKType;
+    pool_params?: Params6SDKType;
+    funders_params?: Params7SDKType;
 }
 export declare const QueryParamsRequest: {
     typeUrl: string;

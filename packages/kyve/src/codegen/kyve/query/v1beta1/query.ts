@@ -18,8 +18,8 @@ export interface BasicPool {
   runtime: string;
   /** logo of the pool */
   logo: string;
-  /** operating_cost is the base payout for each bundle reward */
-  operatingCost: bigint;
+  /** inflation_share_weight is the base payout for each bundle reward */
+  inflationShareWeight: bigint;
   /** upload_interval is the interval bundles get created */
   uploadInterval: bigint;
   /**
@@ -45,32 +45,32 @@ export interface BasicPoolProtoMsg {
  */
 export interface BasicPoolAmino {
   /** id is the ID of the pool */
-  id: string;
+  id?: string;
   /** name of the pool */
-  name: string;
+  name?: string;
   /**
    * runtime for the protocol nodes
    * like evm, bitcoin, etc.
    */
-  runtime: string;
+  runtime?: string;
   /** logo of the pool */
-  logo: string;
-  /** operating_cost is the base payout for each bundle reward */
-  operating_cost: string;
+  logo?: string;
+  /** inflation_share_weight is the base payout for each bundle reward */
+  inflation_share_weight?: string;
   /** upload_interval is the interval bundles get created */
-  upload_interval: string;
+  upload_interval?: string;
   /**
    * total_funds of the pool. If the pool runs
    * out of funds no more bundles will be produced
    */
-  total_funds: string;
+  total_funds?: string;
   /** total_delegation of the pool */
-  total_delegation: string;
+  total_delegation?: string;
   /**
    * status of the pool if pool is able
    * to produce bundles, etc.
    */
-  status: PoolStatus;
+  status?: PoolStatus;
 }
 export interface BasicPoolAminoMsg {
   type: "/kyve.query.v1beta1.BasicPool";
@@ -85,7 +85,7 @@ export interface BasicPoolSDKType {
   name: string;
   runtime: string;
   logo: string;
-  operating_cost: bigint;
+  inflation_share_weight: bigint;
   upload_interval: bigint;
   total_funds: bigint;
   total_delegation: bigint;
@@ -100,7 +100,7 @@ export interface FullStaker {
   /** address of the staker */
   address: string;
   /** metadata as logo, moniker, etc. */
-  metadata: StakerMetadata;
+  metadata?: StakerMetadata;
   /** amount the staker has delegated to himself */
   selfDelegation: bigint;
   /**
@@ -139,11 +139,11 @@ export interface FullStakerProtoMsg {
  */
 export interface FullStakerAmino {
   /** address of the staker */
-  address: string;
+  address?: string;
   /** metadata as logo, moniker, etc. */
   metadata?: StakerMetadataAmino;
   /** amount the staker has delegated to himself */
-  self_delegation: string;
+  self_delegation?: string;
   /**
    * unbonding_amount is the amount the staker is currently unbonding
    * from the self-delegation.
@@ -152,22 +152,22 @@ export interface FullStakerAmino {
    * the unbonding period this amount is double checked with the
    * remaining amount.
    */
-  self_delegation_unbonding: string;
+  self_delegation_unbonding?: string;
   /**
    * total_delegation returns the sum of all $KYVE users
    * have delegated to this staker
    */
-  total_delegation: string;
+  total_delegation?: string;
   /**
    * delegator_count is the total number of individual
    * delegator addresses for that user.
    */
-  delegator_count: string;
+  delegator_count?: string;
   /**
    * pools is a list of all pools the staker is currently
    * participating, i.e. allowed to vote and upload data.
    */
-  pools: PoolMembershipAmino[];
+  pools?: PoolMembershipAmino[];
 }
 export interface FullStakerAminoMsg {
   type: "/kyve.query.v1beta1.FullStaker";
@@ -180,7 +180,7 @@ export interface FullStakerAminoMsg {
  */
 export interface FullStakerSDKType {
   address: string;
-  metadata: StakerMetadataSDKType;
+  metadata?: StakerMetadataSDKType;
   self_delegation: bigint;
   self_delegation_unbonding: bigint;
   total_delegation: bigint;
@@ -215,7 +215,7 @@ export interface StakerMetadata {
    * the commission is applied. Users have time to redelegate
    * if they not agree with the new commission.
    */
-  pendingCommissionChange: CommissionChangeEntry;
+  pendingCommissionChange?: CommissionChangeEntry;
   /** commission_rewards are the rewards in $KYVE earned through commission */
   commissionRewards: bigint;
 }
@@ -230,20 +230,20 @@ export interface StakerMetadataAmino {
    * get transferred to the staker before the remaining
    * rewards are split across all delegators
    */
-  commission: string;
+  commission?: string;
   /**
    * moniker is a human-readable name for displaying
    * the staker in the UI
    */
-  moniker: string;
+  moniker?: string;
   /** website is a https-link to the website of the staker */
-  website: string;
+  website?: string;
   /** identity from keybase.io */
-  identity: string;
+  identity?: string;
   /** security_contact ... */
-  security_contact: string;
+  security_contact?: string;
   /** details ... */
-  details: string;
+  details?: string;
   /**
    * pending_commission_change shows if the staker plans
    * to change its commission. Delegators will see a warning in
@@ -253,7 +253,7 @@ export interface StakerMetadataAmino {
    */
   pending_commission_change?: CommissionChangeEntryAmino;
   /** commission_rewards are the rewards in $KYVE earned through commission */
-  commission_rewards: string;
+  commission_rewards?: string;
 }
 export interface StakerMetadataAminoMsg {
   type: "/kyve.query.v1beta1.StakerMetadata";
@@ -267,7 +267,7 @@ export interface StakerMetadataSDKType {
   identity: string;
   security_contact: string;
   details: string;
-  pending_commission_change: CommissionChangeEntrySDKType;
+  pending_commission_change?: CommissionChangeEntrySDKType;
   commission_rewards: bigint;
 }
 /**
@@ -299,12 +299,12 @@ export interface CommissionChangeEntryAmino {
    * commission is the new commission that will
    * become active once the change-time is over
    */
-  commission: string;
+  commission?: string;
   /**
    * creation_date is the UNIX-timestamp (in seconds)
    * of when the entry was created.
    */
-  creation_date: string;
+  creation_date?: string;
 }
 export interface CommissionChangeEntryAminoMsg {
   type: "/kyve.query.v1beta1.CommissionChangeEntry";
@@ -324,7 +324,7 @@ export interface CommissionChangeEntrySDKType {
  */
 export interface PoolMembership {
   /** pool contains useful information about the pool */
-  pool: BasicPool;
+  pool?: BasicPool;
   /**
    * points indicates if the staker is inactive
    * If the staker misses a vote, a point is added.
@@ -368,25 +368,25 @@ export interface PoolMembershipAmino {
    * After 5 points the staker is removed from
    * the stakers set.
    */
-  points: string;
+  points?: string;
   /**
    * is_leaving indicates if a user has scheduled a
    * a PoolLeave entry. After the leave-time is over
    * the staker will no longer participate in that pool
    */
-  is_leaving: boolean;
+  is_leaving?: boolean;
   /**
    * Valaddress is the address which is authorized to vote
    * and submit bundles. If the server gets compromised
    * the staker can just change the valaddress.
    */
-  valaddress: string;
+  valaddress?: string;
   /**
    * balance is the valaddress account balance and indicates
    * whether or not the valaccount needs additional funds to
    * pay for gas fees
    */
-  balance: string;
+  balance?: string;
 }
 export interface PoolMembershipAminoMsg {
   type: "/kyve.query.v1beta1.PoolMembership";
@@ -397,7 +397,7 @@ export interface PoolMembershipAminoMsg {
  * is participating
  */
 export interface PoolMembershipSDKType {
-  pool: BasicPoolSDKType;
+  pool?: BasicPoolSDKType;
   points: bigint;
   is_leaving: boolean;
   valaddress: string;
@@ -409,7 +409,7 @@ function createBaseBasicPool(): BasicPool {
     name: "",
     runtime: "",
     logo: "",
-    operatingCost: BigInt(0),
+    inflationShareWeight: BigInt(0),
     uploadInterval: BigInt(0),
     totalFunds: BigInt(0),
     totalDelegation: BigInt(0),
@@ -431,8 +431,8 @@ export const BasicPool = {
     if (message.logo !== "") {
       writer.uint32(34).string(message.logo);
     }
-    if (message.operatingCost !== BigInt(0)) {
-      writer.uint32(40).uint64(message.operatingCost);
+    if (message.inflationShareWeight !== BigInt(0)) {
+      writer.uint32(40).uint64(message.inflationShareWeight);
     }
     if (message.uploadInterval !== BigInt(0)) {
       writer.uint32(48).uint64(message.uploadInterval);
@@ -454,7 +454,7 @@ export const BasicPool = {
       name: isSet(object.name) ? String(object.name) : "",
       runtime: isSet(object.runtime) ? String(object.runtime) : "",
       logo: isSet(object.logo) ? String(object.logo) : "",
-      operatingCost: isSet(object.operatingCost) ? BigInt(object.operatingCost.toString()) : BigInt(0),
+      inflationShareWeight: isSet(object.inflationShareWeight) ? BigInt(object.inflationShareWeight.toString()) : BigInt(0),
       uploadInterval: isSet(object.uploadInterval) ? BigInt(object.uploadInterval.toString()) : BigInt(0),
       totalFunds: isSet(object.totalFunds) ? BigInt(object.totalFunds.toString()) : BigInt(0),
       totalDelegation: isSet(object.totalDelegation) ? BigInt(object.totalDelegation.toString()) : BigInt(0),
@@ -467,7 +467,7 @@ export const BasicPool = {
     message.name = object.name ?? "";
     message.runtime = object.runtime ?? "";
     message.logo = object.logo ?? "";
-    message.operatingCost = object.operatingCost !== undefined && object.operatingCost !== null ? BigInt(object.operatingCost.toString()) : BigInt(0);
+    message.inflationShareWeight = object.inflationShareWeight !== undefined && object.inflationShareWeight !== null ? BigInt(object.inflationShareWeight.toString()) : BigInt(0);
     message.uploadInterval = object.uploadInterval !== undefined && object.uploadInterval !== null ? BigInt(object.uploadInterval.toString()) : BigInt(0);
     message.totalFunds = object.totalFunds !== undefined && object.totalFunds !== null ? BigInt(object.totalFunds.toString()) : BigInt(0);
     message.totalDelegation = object.totalDelegation !== undefined && object.totalDelegation !== null ? BigInt(object.totalDelegation.toString()) : BigInt(0);
@@ -475,17 +475,35 @@ export const BasicPool = {
     return message;
   },
   fromAmino(object: BasicPoolAmino): BasicPool {
-    return {
-      id: BigInt(object.id),
-      name: object.name,
-      runtime: object.runtime,
-      logo: object.logo,
-      operatingCost: BigInt(object.operating_cost),
-      uploadInterval: BigInt(object.upload_interval),
-      totalFunds: BigInt(object.total_funds),
-      totalDelegation: BigInt(object.total_delegation),
-      status: isSet(object.status) ? poolStatusFromJSON(object.status) : -1
-    };
+    const message = createBaseBasicPool();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.runtime !== undefined && object.runtime !== null) {
+      message.runtime = object.runtime;
+    }
+    if (object.logo !== undefined && object.logo !== null) {
+      message.logo = object.logo;
+    }
+    if (object.inflation_share_weight !== undefined && object.inflation_share_weight !== null) {
+      message.inflationShareWeight = BigInt(object.inflation_share_weight);
+    }
+    if (object.upload_interval !== undefined && object.upload_interval !== null) {
+      message.uploadInterval = BigInt(object.upload_interval);
+    }
+    if (object.total_funds !== undefined && object.total_funds !== null) {
+      message.totalFunds = BigInt(object.total_funds);
+    }
+    if (object.total_delegation !== undefined && object.total_delegation !== null) {
+      message.totalDelegation = BigInt(object.total_delegation);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = poolStatusFromJSON(object.status);
+    }
+    return message;
   },
   toAmino(message: BasicPool): BasicPoolAmino {
     const obj: any = {};
@@ -493,7 +511,7 @@ export const BasicPool = {
     obj.name = message.name;
     obj.runtime = message.runtime;
     obj.logo = message.logo;
-    obj.operating_cost = message.operatingCost ? message.operatingCost.toString() : undefined;
+    obj.inflation_share_weight = message.inflationShareWeight ? message.inflationShareWeight.toString() : undefined;
     obj.upload_interval = message.uploadInterval ? message.uploadInterval.toString() : undefined;
     obj.total_funds = message.totalFunds ? message.totalFunds.toString() : undefined;
     obj.total_delegation = message.totalDelegation ? message.totalDelegation.toString() : undefined;
@@ -519,7 +537,7 @@ export const BasicPool = {
 function createBaseFullStaker(): FullStaker {
   return {
     address: "",
-    metadata: StakerMetadata.fromPartial({}),
+    metadata: undefined,
     selfDelegation: BigInt(0),
     selfDelegationUnbonding: BigInt(0),
     totalDelegation: BigInt(0),
@@ -576,15 +594,27 @@ export const FullStaker = {
     return message;
   },
   fromAmino(object: FullStakerAmino): FullStaker {
-    return {
-      address: object.address,
-      metadata: object?.metadata ? StakerMetadata.fromAmino(object.metadata) : undefined,
-      selfDelegation: BigInt(object.self_delegation),
-      selfDelegationUnbonding: BigInt(object.self_delegation_unbonding),
-      totalDelegation: BigInt(object.total_delegation),
-      delegatorCount: BigInt(object.delegator_count),
-      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => PoolMembership.fromAmino(e)) : []
-    };
+    const message = createBaseFullStaker();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.metadata !== undefined && object.metadata !== null) {
+      message.metadata = StakerMetadata.fromAmino(object.metadata);
+    }
+    if (object.self_delegation !== undefined && object.self_delegation !== null) {
+      message.selfDelegation = BigInt(object.self_delegation);
+    }
+    if (object.self_delegation_unbonding !== undefined && object.self_delegation_unbonding !== null) {
+      message.selfDelegationUnbonding = BigInt(object.self_delegation_unbonding);
+    }
+    if (object.total_delegation !== undefined && object.total_delegation !== null) {
+      message.totalDelegation = BigInt(object.total_delegation);
+    }
+    if (object.delegator_count !== undefined && object.delegator_count !== null) {
+      message.delegatorCount = BigInt(object.delegator_count);
+    }
+    message.pools = object.pools?.map(e => PoolMembership.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: FullStaker): FullStakerAmino {
     const obj: any = {};
@@ -625,7 +655,7 @@ function createBaseStakerMetadata(): StakerMetadata {
     identity: "",
     securityContact: "",
     details: "",
-    pendingCommissionChange: CommissionChangeEntry.fromPartial({}),
+    pendingCommissionChange: undefined,
     commissionRewards: BigInt(0)
   };
 }
@@ -683,16 +713,32 @@ export const StakerMetadata = {
     return message;
   },
   fromAmino(object: StakerMetadataAmino): StakerMetadata {
-    return {
-      commission: object.commission,
-      moniker: object.moniker,
-      website: object.website,
-      identity: object.identity,
-      securityContact: object.security_contact,
-      details: object.details,
-      pendingCommissionChange: object?.pending_commission_change ? CommissionChangeEntry.fromAmino(object.pending_commission_change) : undefined,
-      commissionRewards: BigInt(object.commission_rewards)
-    };
+    const message = createBaseStakerMetadata();
+    if (object.commission !== undefined && object.commission !== null) {
+      message.commission = object.commission;
+    }
+    if (object.moniker !== undefined && object.moniker !== null) {
+      message.moniker = object.moniker;
+    }
+    if (object.website !== undefined && object.website !== null) {
+      message.website = object.website;
+    }
+    if (object.identity !== undefined && object.identity !== null) {
+      message.identity = object.identity;
+    }
+    if (object.security_contact !== undefined && object.security_contact !== null) {
+      message.securityContact = object.security_contact;
+    }
+    if (object.details !== undefined && object.details !== null) {
+      message.details = object.details;
+    }
+    if (object.pending_commission_change !== undefined && object.pending_commission_change !== null) {
+      message.pendingCommissionChange = CommissionChangeEntry.fromAmino(object.pending_commission_change);
+    }
+    if (object.commission_rewards !== undefined && object.commission_rewards !== null) {
+      message.commissionRewards = BigInt(object.commission_rewards);
+    }
+    return message;
   },
   toAmino(message: StakerMetadata): StakerMetadataAmino {
     const obj: any = {};
@@ -752,10 +798,14 @@ export const CommissionChangeEntry = {
     return message;
   },
   fromAmino(object: CommissionChangeEntryAmino): CommissionChangeEntry {
-    return {
-      commission: object.commission,
-      creationDate: BigInt(object.creation_date)
-    };
+    const message = createBaseCommissionChangeEntry();
+    if (object.commission !== undefined && object.commission !== null) {
+      message.commission = object.commission;
+    }
+    if (object.creation_date !== undefined && object.creation_date !== null) {
+      message.creationDate = BigInt(object.creation_date);
+    }
+    return message;
   },
   toAmino(message: CommissionChangeEntry): CommissionChangeEntryAmino {
     const obj: any = {};
@@ -781,7 +831,7 @@ export const CommissionChangeEntry = {
 };
 function createBasePoolMembership(): PoolMembership {
   return {
-    pool: BasicPool.fromPartial({}),
+    pool: undefined,
     points: BigInt(0),
     isLeaving: false,
     valaddress: "",
@@ -827,13 +877,23 @@ export const PoolMembership = {
     return message;
   },
   fromAmino(object: PoolMembershipAmino): PoolMembership {
-    return {
-      pool: object?.pool ? BasicPool.fromAmino(object.pool) : undefined,
-      points: BigInt(object.points),
-      isLeaving: object.is_leaving,
-      valaddress: object.valaddress,
-      balance: BigInt(object.balance)
-    };
+    const message = createBasePoolMembership();
+    if (object.pool !== undefined && object.pool !== null) {
+      message.pool = BasicPool.fromAmino(object.pool);
+    }
+    if (object.points !== undefined && object.points !== null) {
+      message.points = BigInt(object.points);
+    }
+    if (object.is_leaving !== undefined && object.is_leaving !== null) {
+      message.isLeaving = object.is_leaving;
+    }
+    if (object.valaddress !== undefined && object.valaddress !== null) {
+      message.valaddress = object.valaddress;
+    }
+    if (object.balance !== undefined && object.balance !== null) {
+      message.balance = BigInt(object.balance);
+    }
+    return message;
   },
   toAmino(message: PoolMembership): PoolMembershipAmino {
     const obj: any = {};

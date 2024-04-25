@@ -70,37 +70,37 @@ export interface BundleProposalProtoMsg {
  */
 export interface BundleProposalAmino {
     /** pool_id is the id of the pool for which this proposal is for */
-    pool_id: string;
+    pool_id?: string;
     /** storage_id is the id with which the data can be retrieved from */
-    storage_id: string;
+    storage_id?: string;
     /** uploader is the address of the staker who submitted the current proposal */
-    uploader: string;
+    uploader?: string;
     /** next_uploader is the address of the staker who should upload the next proposal */
-    next_uploader: string;
+    next_uploader?: string;
     /** data_size the size of the data in bytes */
-    data_size: string;
+    data_size?: string;
     /** bundle_size the size of the bundle (amount of data items) */
-    bundle_size: string;
+    bundle_size?: string;
     /** to_key the key of the last data item in the bundle proposal */
-    to_key: string;
+    to_key?: string;
     /** bundle_summary a string summary of the current proposal */
-    bundle_summary: string;
+    bundle_summary?: string;
     /** data_hash a sha256 hash of the raw compressed data */
-    data_hash: string;
+    data_hash?: string;
     /** updated_at the last time this proposal was edited */
-    updated_at: string;
+    updated_at?: string;
     /** voters_valid list of all stakers who voted in favor for current proposal */
-    voters_valid: string[];
+    voters_valid?: string[];
     /** voters_invalid list of all stakers who voted against for current proposal */
-    voters_invalid: string[];
+    voters_invalid?: string[];
     /** voters_abstain list of all stakers who voted abstain for current proposal */
-    voters_abstain: string[];
+    voters_abstain?: string[];
     /** from_key the key of the first data item in the bundle proposal */
-    from_key: string;
+    from_key?: string;
     /** storage_provider_id the id of the storage provider where the bundle is stored */
-    storage_provider_id: number;
+    storage_provider_id?: number;
     /** compression_id the id of the compression type with which the data was compressed */
-    compression_id: number;
+    compression_id?: number;
 }
 export interface BundleProposalAminoMsg {
     type: "/kyve.bundles.v1beta1.BundleProposal";
@@ -152,7 +152,7 @@ export interface FinalizedBundle {
     /** data_hash a sha256 hash of the raw compressed data */
     dataHash: string;
     /** finalized_at contains details of the block that finalized this bundle. */
-    finalizedAt: FinalizedAt;
+    finalizedAt?: FinalizedAt;
     /** from_key the key of the first data item in the bundle proposal */
     fromKey: string;
     /** storage_provider_id the id of the storage provider where the bundle is stored */
@@ -160,7 +160,7 @@ export interface FinalizedBundle {
     /** compression_id the id of the compression type with which the data was compressed */
     compressionId: number;
     /** stake_security */
-    stakeSecurity: StakeSecurity;
+    stakeSecurity?: StakeSecurity;
 }
 export interface FinalizedBundleProtoMsg {
     typeUrl: "/kyve.bundles.v1beta1.FinalizedBundle";
@@ -172,31 +172,31 @@ export interface FinalizedBundleProtoMsg {
  */
 export interface FinalizedBundleAmino {
     /** pool_id is the id of the pool for which this proposal is for */
-    pool_id: string;
+    pool_id?: string;
     /** id is a unique identifier for each finalized bundle in a pool */
-    id: string;
+    id?: string;
     /** storage_id is the id with which the data can be retrieved from */
-    storage_id: string;
+    storage_id?: string;
     /** uploader is the address of the staker who submitted this bundle */
-    uploader: string;
+    uploader?: string;
     /** from_index is the index from where the bundle starts (inclusive) */
-    from_index: string;
+    from_index?: string;
     /** to_index is the index to which the bundle goes (exclusive) */
-    to_index: string;
+    to_index?: string;
     /** to_key the key of the last data item in the bundle proposal */
-    to_key: string;
+    to_key?: string;
     /** bundle_summary a string summary of the current proposal */
-    bundle_summary: string;
+    bundle_summary?: string;
     /** data_hash a sha256 hash of the raw compressed data */
-    data_hash: string;
+    data_hash?: string;
     /** finalized_at contains details of the block that finalized this bundle. */
     finalized_at?: FinalizedAtAmino;
     /** from_key the key of the first data item in the bundle proposal */
-    from_key: string;
+    from_key?: string;
     /** storage_provider_id the id of the storage provider where the bundle is stored */
-    storage_provider_id: number;
+    storage_provider_id?: number;
     /** compression_id the id of the compression type with which the data was compressed */
-    compression_id: number;
+    compression_id?: number;
     /** stake_security */
     stake_security?: StakeSecurityAmino;
 }
@@ -218,11 +218,11 @@ export interface FinalizedBundleSDKType {
     to_key: string;
     bundle_summary: string;
     data_hash: string;
-    finalized_at: FinalizedAtSDKType;
+    finalized_at?: FinalizedAtSDKType;
     from_key: string;
     storage_provider_id: number;
     compression_id: number;
-    stake_security: StakeSecuritySDKType;
+    stake_security?: StakeSecuritySDKType;
 }
 /** FinalizedAt ... */
 export interface FinalizedAt {
@@ -238,9 +238,9 @@ export interface FinalizedAtProtoMsg {
 /** FinalizedAt ... */
 export interface FinalizedAtAmino {
     /** height ... */
-    height: string;
+    height?: string;
     /** timestamp ... */
-    timestamp: string;
+    timestamp?: string;
 }
 export interface FinalizedAtAminoMsg {
     type: "/kyve.bundles.v1beta1.FinalizedAt";
@@ -265,9 +265,9 @@ export interface StakeSecurityProtoMsg {
 /** StakeSecurity stores information about total stake and valid votes with which the bundle got finalized. */
 export interface StakeSecurityAmino {
     /** valid_vote_power is the total amount of stake of all pool stakers which voted valid for the given bundle. */
-    valid_vote_power: string;
+    valid_vote_power?: string;
     /** total_vote_power is the total amount of stake that was present during the finalization of the bundle */
-    total_vote_power: string;
+    total_vote_power?: string;
 }
 export interface StakeSecurityAminoMsg {
     type: "/kyve.bundles.v1beta1.StakeSecurity";
@@ -292,9 +292,9 @@ export interface BundleVersionEntryProtoMsg {
 /** BundleVersionEntry ... */
 export interface BundleVersionEntryAmino {
     /** height ... */
-    height: string;
+    height?: string;
     /** version ... */
-    version: number;
+    version?: number;
 }
 export interface BundleVersionEntryAminoMsg {
     type: "/kyve.bundles.v1beta1.BundleVersionEntry";
@@ -317,7 +317,7 @@ export interface BundleVersionMapProtoMsg {
 /** BundleVersionMap ... */
 export interface BundleVersionMapAmino {
     /** versions ... */
-    versions: BundleVersionEntryAmino[];
+    versions?: BundleVersionEntryAmino[];
 }
 export interface BundleVersionMapAminoMsg {
     type: "/kyve.bundles.v1beta1.BundleVersionMap";
@@ -341,9 +341,9 @@ export interface RoundRobinSingleValidatorProgressProtoMsg {
 /** RoundRobinSingleValidatorProgress ... */
 export interface RoundRobinSingleValidatorProgressAmino {
     /** address ... */
-    address: string;
+    address?: string;
     /** progress ... */
-    progress: string;
+    progress?: string;
 }
 export interface RoundRobinSingleValidatorProgressAminoMsg {
     type: "/kyve.bundles.v1beta1.RoundRobinSingleValidatorProgress";
@@ -368,9 +368,9 @@ export interface RoundRobinProgressProtoMsg {
 /** RoundRobinProgress ... */
 export interface RoundRobinProgressAmino {
     /** pool_id ... */
-    pool_id: string;
+    pool_id?: string;
     /** progress_list ... */
-    progress_list: RoundRobinSingleValidatorProgressAmino[];
+    progress_list?: RoundRobinSingleValidatorProgressAmino[];
 }
 export interface RoundRobinProgressAminoMsg {
     type: "/kyve.bundles.v1beta1.RoundRobinProgress";

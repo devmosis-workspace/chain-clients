@@ -48,7 +48,7 @@ export function stakerStatusToJSON(object: StakerStatus): string {
 /** QueryStakersRequest is the request type for the Query/Stakers RPC method. */
 export interface QueryStakersRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   /** status looks whether a staker is participating in pools or not */
   status: StakerStatus;
   /** search searches for moniker OR address */
@@ -63,9 +63,9 @@ export interface QueryStakersRequestAmino {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
   /** status looks whether a staker is participating in pools or not */
-  status: StakerStatus;
+  status?: StakerStatus;
   /** search searches for moniker OR address */
-  search: string;
+  search?: string;
 }
 export interface QueryStakersRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryStakersRequest";
@@ -73,7 +73,7 @@ export interface QueryStakersRequestAminoMsg {
 }
 /** QueryStakersRequest is the request type for the Query/Stakers RPC method. */
 export interface QueryStakersRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
   status: StakerStatus;
   search: string;
 }
@@ -82,7 +82,7 @@ export interface QueryStakersResponse {
   /** stakers ... */
   stakers: FullStaker[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryStakersResponseProtoMsg {
   typeUrl: "/kyve.query.v1beta1.QueryStakersResponse";
@@ -91,7 +91,7 @@ export interface QueryStakersResponseProtoMsg {
 /** QueryStakersResponse is the response type for the Query/Stakers RPC method. */
 export interface QueryStakersResponseAmino {
   /** stakers ... */
-  stakers: FullStakerAmino[];
+  stakers?: FullStakerAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -102,7 +102,7 @@ export interface QueryStakersResponseAminoMsg {
 /** QueryStakersResponse is the response type for the Query/Stakers RPC method. */
 export interface QueryStakersResponseSDKType {
   stakers: FullStakerSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryStakerRequest is the request type for the Query/Staker RPC method. */
 export interface QueryStakerRequest {
@@ -116,7 +116,7 @@ export interface QueryStakerRequestProtoMsg {
 /** QueryStakerRequest is the request type for the Query/Staker RPC method. */
 export interface QueryStakerRequestAmino {
   /** address ... */
-  address: string;
+  address?: string;
 }
 export interface QueryStakerRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryStakerRequest";
@@ -160,7 +160,7 @@ export interface QueryStakersByPoolRequestProtoMsg {
 /** QueryStakersByPoolRequest is the request type for the Query/Staker RPC method. */
 export interface QueryStakersByPoolRequestAmino {
   /** pool_id ... */
-  pool_id: string;
+  pool_id?: string;
 }
 export interface QueryStakersByPoolRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryStakersByPoolRequest";
@@ -182,7 +182,7 @@ export interface QueryStakersByPoolResponseProtoMsg {
 /** QueryStakersByPoolResponse is the response type for the Query/Staker RPC method. */
 export interface QueryStakersByPoolResponseAmino {
   /** stakers ... */
-  stakers: StakerPoolResponseAmino[];
+  stakers?: StakerPoolResponseAmino[];
 }
 export interface QueryStakersByPoolResponseAminoMsg {
   type: "/kyve.query.v1beta1.QueryStakersByPoolResponse";
@@ -195,9 +195,9 @@ export interface QueryStakersByPoolResponseSDKType {
 /** StakerPoolResponse ... */
 export interface StakerPoolResponse {
   /** staker ... */
-  staker: FullStaker;
+  staker?: FullStaker;
   /** valaccount ... */
-  valaccount: Valaccount;
+  valaccount?: Valaccount;
 }
 export interface StakerPoolResponseProtoMsg {
   typeUrl: "/kyve.query.v1beta1.StakerPoolResponse";
@@ -216,13 +216,13 @@ export interface StakerPoolResponseAminoMsg {
 }
 /** StakerPoolResponse ... */
 export interface StakerPoolResponseSDKType {
-  staker: FullStakerSDKType;
-  valaccount: ValaccountSDKType;
+  staker?: FullStakerSDKType;
+  valaccount?: ValaccountSDKType;
 }
 /** QueryStakersByPoolCountRequest ... */
 export interface QueryStakersByPoolCountRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryStakersByPoolCountRequestProtoMsg {
   typeUrl: "/kyve.query.v1beta1.QueryStakersByPoolCountRequest";
@@ -239,14 +239,14 @@ export interface QueryStakersByPoolCountRequestAminoMsg {
 }
 /** QueryStakersByPoolCountRequest ... */
 export interface QueryStakersByPoolCountRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryStakersByPoolCountResponse ... */
 export interface QueryStakersByPoolCountResponse {
   /** stakers ... */
   stakers: FullStaker[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryStakersByPoolCountResponseProtoMsg {
   typeUrl: "/kyve.query.v1beta1.QueryStakersByPoolCountResponse";
@@ -255,7 +255,7 @@ export interface QueryStakersByPoolCountResponseProtoMsg {
 /** QueryStakersByPoolCountResponse ... */
 export interface QueryStakersByPoolCountResponseAmino {
   /** stakers ... */
-  stakers: FullStakerAmino[];
+  stakers?: FullStakerAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -266,11 +266,11 @@ export interface QueryStakersByPoolCountResponseAminoMsg {
 /** QueryStakersByPoolCountResponse ... */
 export interface QueryStakersByPoolCountResponseSDKType {
   stakers: FullStakerSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 function createBaseQueryStakersRequest(): QueryStakersRequest {
   return {
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
     status: 0,
     search: ""
   };
@@ -304,11 +304,17 @@ export const QueryStakersRequest = {
     return message;
   },
   fromAmino(object: QueryStakersRequestAmino): QueryStakersRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
-      status: isSet(object.status) ? stakerStatusFromJSON(object.status) : -1,
-      search: object.search
-    };
+    const message = createBaseQueryStakersRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = stakerStatusFromJSON(object.status);
+    }
+    if (object.search !== undefined && object.search !== null) {
+      message.search = object.search;
+    }
+    return message;
   },
   toAmino(message: QueryStakersRequest): QueryStakersRequestAmino {
     const obj: any = {};
@@ -336,7 +342,7 @@ export const QueryStakersRequest = {
 function createBaseQueryStakersResponse(): QueryStakersResponse {
   return {
     stakers: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryStakersResponse = {
@@ -363,10 +369,12 @@ export const QueryStakersResponse = {
     return message;
   },
   fromAmino(object: QueryStakersResponseAmino): QueryStakersResponse {
-    return {
-      stakers: Array.isArray(object?.stakers) ? object.stakers.map((e: any) => FullStaker.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryStakersResponse();
+    message.stakers = object.stakers?.map(e => FullStaker.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryStakersResponse): QueryStakersResponseAmino {
     const obj: any = {};
@@ -418,9 +426,11 @@ export const QueryStakerRequest = {
     return message;
   },
   fromAmino(object: QueryStakerRequestAmino): QueryStakerRequest {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryStakerRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryStakerRequest): QueryStakerRequestAmino {
     const obj: any = {};
@@ -467,9 +477,11 @@ export const QueryStakerResponse = {
     return message;
   },
   fromAmino(object: QueryStakerResponseAmino): QueryStakerResponse {
-    return {
-      staker: object?.staker ? FullStaker.fromAmino(object.staker) : undefined
-    };
+    const message = createBaseQueryStakerResponse();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = FullStaker.fromAmino(object.staker);
+    }
+    return message;
   },
   toAmino(message: QueryStakerResponse): QueryStakerResponseAmino {
     const obj: any = {};
@@ -516,9 +528,11 @@ export const QueryStakersByPoolRequest = {
     return message;
   },
   fromAmino(object: QueryStakersByPoolRequestAmino): QueryStakersByPoolRequest {
-    return {
-      poolId: BigInt(object.pool_id)
-    };
+    const message = createBaseQueryStakersByPoolRequest();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    return message;
   },
   toAmino(message: QueryStakersByPoolRequest): QueryStakersByPoolRequestAmino {
     const obj: any = {};
@@ -565,9 +579,9 @@ export const QueryStakersByPoolResponse = {
     return message;
   },
   fromAmino(object: QueryStakersByPoolResponseAmino): QueryStakersByPoolResponse {
-    return {
-      stakers: Array.isArray(object?.stakers) ? object.stakers.map((e: any) => StakerPoolResponse.fromAmino(e)) : []
-    };
+    const message = createBaseQueryStakersByPoolResponse();
+    message.stakers = object.stakers?.map(e => StakerPoolResponse.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryStakersByPoolResponse): QueryStakersByPoolResponseAmino {
     const obj: any = {};
@@ -596,8 +610,8 @@ export const QueryStakersByPoolResponse = {
 };
 function createBaseStakerPoolResponse(): StakerPoolResponse {
   return {
-    staker: FullStaker.fromPartial({}),
-    valaccount: Valaccount.fromPartial({})
+    staker: undefined,
+    valaccount: undefined
   };
 }
 export const StakerPoolResponse = {
@@ -624,10 +638,14 @@ export const StakerPoolResponse = {
     return message;
   },
   fromAmino(object: StakerPoolResponseAmino): StakerPoolResponse {
-    return {
-      staker: object?.staker ? FullStaker.fromAmino(object.staker) : undefined,
-      valaccount: object?.valaccount ? Valaccount.fromAmino(object.valaccount) : undefined
-    };
+    const message = createBaseStakerPoolResponse();
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = FullStaker.fromAmino(object.staker);
+    }
+    if (object.valaccount !== undefined && object.valaccount !== null) {
+      message.valaccount = Valaccount.fromAmino(object.valaccount);
+    }
+    return message;
   },
   toAmino(message: StakerPoolResponse): StakerPoolResponseAmino {
     const obj: any = {};
@@ -653,7 +671,7 @@ export const StakerPoolResponse = {
 };
 function createBaseQueryStakersByPoolCountRequest(): QueryStakersByPoolCountRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryStakersByPoolCountRequest = {
@@ -675,9 +693,11 @@ export const QueryStakersByPoolCountRequest = {
     return message;
   },
   fromAmino(object: QueryStakersByPoolCountRequestAmino): QueryStakersByPoolCountRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryStakersByPoolCountRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryStakersByPoolCountRequest): QueryStakersByPoolCountRequestAmino {
     const obj: any = {};
@@ -703,7 +723,7 @@ export const QueryStakersByPoolCountRequest = {
 function createBaseQueryStakersByPoolCountResponse(): QueryStakersByPoolCountResponse {
   return {
     stakers: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryStakersByPoolCountResponse = {
@@ -730,10 +750,12 @@ export const QueryStakersByPoolCountResponse = {
     return message;
   },
   fromAmino(object: QueryStakersByPoolCountResponseAmino): QueryStakersByPoolCountResponse {
-    return {
-      stakers: Array.isArray(object?.stakers) ? object.stakers.map((e: any) => FullStaker.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryStakersByPoolCountResponse();
+    message.stakers = object.stakers?.map(e => FullStaker.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryStakersByPoolCountResponse): QueryStakersByPoolCountResponseAmino {
     const obj: any = {};

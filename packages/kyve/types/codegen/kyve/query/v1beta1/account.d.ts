@@ -13,7 +13,7 @@ export interface QueryAccountAssetsRequestProtoMsg {
 /** QueryAccountAssetsRequest is the request type for the Query/AccountAssets RPC method. */
 export interface QueryAccountAssetsRequestAmino {
     /** address ... */
-    address: string;
+    address?: string;
 }
 export interface QueryAccountAssetsRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryAccountAssetsRequest";
@@ -47,19 +47,19 @@ export interface QueryAccountAssetsResponseProtoMsg {
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
 export interface QueryAccountAssetsResponseAmino {
     /** balance ... */
-    balance: string;
+    balance?: string;
     /** protocol_staking ... */
-    protocol_self_delegation: string;
+    protocol_self_delegation?: string;
     /** protocol_staking_unbonding */
-    protocol_self_delegation_unbonding: string;
+    protocol_self_delegation_unbonding?: string;
     /** protocol_delegation ... */
-    protocol_delegation: string;
+    protocol_delegation?: string;
     /** protocol_delegation_unbonding */
-    protocol_delegation_unbonding: string;
+    protocol_delegation_unbonding?: string;
     /** protocol_rewards ... */
-    protocol_rewards: string;
+    protocol_rewards?: string;
     /** protocol_funding ... */
-    protocol_funding: string;
+    protocol_funding?: string;
 }
 export interface QueryAccountAssetsResponseAminoMsg {
     type: "/kyve.query.v1beta1.QueryAccountAssetsResponse";
@@ -78,7 +78,7 @@ export interface QueryAccountAssetsResponseSDKType {
 /** QueryAccountFundedListRequest ... */
 export interface QueryAccountDelegationUnbondingsRequest {
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
     /** address ... */
     address: string;
 }
@@ -91,7 +91,7 @@ export interface QueryAccountDelegationUnbondingsRequestAmino {
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
     /** address ... */
-    address: string;
+    address?: string;
 }
 export interface QueryAccountDelegationUnbondingsRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryAccountDelegationUnbondingsRequest";
@@ -99,7 +99,7 @@ export interface QueryAccountDelegationUnbondingsRequestAminoMsg {
 }
 /** QueryAccountFundedListRequest ... */
 export interface QueryAccountDelegationUnbondingsRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
     address: string;
 }
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
@@ -107,7 +107,7 @@ export interface QueryAccountDelegationUnbondingsResponse {
     /** balance ... */
     unbondings: DelegationUnbonding[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAccountDelegationUnbondingsResponseProtoMsg {
     typeUrl: "/kyve.query.v1beta1.QueryAccountDelegationUnbondingsResponse";
@@ -116,7 +116,7 @@ export interface QueryAccountDelegationUnbondingsResponseProtoMsg {
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
 export interface QueryAccountDelegationUnbondingsResponseAmino {
     /** balance ... */
-    unbondings: DelegationUnbondingAmino[];
+    unbondings?: DelegationUnbondingAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -127,7 +127,7 @@ export interface QueryAccountDelegationUnbondingsResponseAminoMsg {
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
 export interface QueryAccountDelegationUnbondingsResponseSDKType {
     unbondings: DelegationUnbondingSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
 export interface DelegationUnbonding {
@@ -136,7 +136,7 @@ export interface DelegationUnbonding {
     /** creation_time */
     creationTime: bigint;
     /** staker */
-    staker: FullStaker;
+    staker?: FullStaker;
 }
 export interface DelegationUnbondingProtoMsg {
     typeUrl: "/kyve.query.v1beta1.DelegationUnbonding";
@@ -145,9 +145,9 @@ export interface DelegationUnbondingProtoMsg {
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
 export interface DelegationUnbondingAmino {
     /** amount */
-    amount: string;
+    amount?: string;
     /** creation_time */
-    creation_time: string;
+    creation_time?: string;
     /** staker */
     staker?: FullStakerAmino;
 }
@@ -159,7 +159,7 @@ export interface DelegationUnbondingAminoMsg {
 export interface DelegationUnbondingSDKType {
     amount: bigint;
     creation_time: bigint;
-    staker: FullStakerSDKType;
+    staker?: FullStakerSDKType;
 }
 /** QueryAccountFundedListRequest is the request type for the account queries with pagination */
 export interface QueryAccountFundedListRequest {
@@ -173,7 +173,7 @@ export interface QueryAccountFundedListRequestProtoMsg {
 /** QueryAccountFundedListRequest is the request type for the account queries with pagination */
 export interface QueryAccountFundedListRequestAmino {
     /** address ... */
-    address: string;
+    address?: string;
 }
 export interface QueryAccountFundedListRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryAccountFundedListRequest";
@@ -195,7 +195,7 @@ export interface QueryAccountFundedListResponseProtoMsg {
 /** QueryAccountFundedListResponse is the response type for the Query/AccountFundedList RPC method. */
 export interface QueryAccountFundedListResponseAmino {
     /** funded ... */
-    funded: FundedAmino[];
+    funded?: FundedAmino[];
 }
 export interface QueryAccountFundedListResponseAminoMsg {
     type: "/kyve.query.v1beta1.QueryAccountFundedListResponse";
@@ -210,7 +210,7 @@ export interface Funded {
     /** amount ... */
     amount: bigint;
     /** pool ... */
-    pool: BasicPool;
+    pool?: BasicPool;
 }
 export interface FundedProtoMsg {
     typeUrl: "/kyve.query.v1beta1.Funded";
@@ -219,7 +219,7 @@ export interface FundedProtoMsg {
 /** Funded ... */
 export interface FundedAmino {
     /** amount ... */
-    amount: string;
+    amount?: string;
     /** pool ... */
     pool?: BasicPoolAmino;
 }
@@ -230,7 +230,7 @@ export interface FundedAminoMsg {
 /** Funded ... */
 export interface FundedSDKType {
     amount: bigint;
-    pool: BasicPoolSDKType;
+    pool?: BasicPoolSDKType;
 }
 /** QueryAccountDelegationListRequest ... */
 export interface QueryAccountRedelegationRequest {
@@ -244,7 +244,7 @@ export interface QueryAccountRedelegationRequestProtoMsg {
 /** QueryAccountDelegationListRequest ... */
 export interface QueryAccountRedelegationRequestAmino {
     /** address ... */
-    address: string;
+    address?: string;
 }
 export interface QueryAccountRedelegationRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryAccountRedelegationRequest";
@@ -268,9 +268,9 @@ export interface QueryAccountRedelegationResponseProtoMsg {
 /** QueryAccountDelegationListRequest is the response type for the Query/AccountDelegationList RPC method. */
 export interface QueryAccountRedelegationResponseAmino {
     /** redelegation_cooldown_entries ... */
-    redelegation_cooldown_entries: RedelegationEntryAmino[];
+    redelegation_cooldown_entries?: RedelegationEntryAmino[];
     /** availableSlots ... */
-    available_slots: string;
+    available_slots?: string;
 }
 export interface QueryAccountRedelegationResponseAminoMsg {
     type: "/kyve.query.v1beta1.QueryAccountRedelegationResponse";
@@ -295,9 +295,9 @@ export interface RedelegationEntryProtoMsg {
 /** RedelegationEntry ... */
 export interface RedelegationEntryAmino {
     /** creation_date ... */
-    creation_date: string;
+    creation_date?: string;
     /** finish_date ... */
-    finish_date: string;
+    finish_date?: string;
 }
 export interface RedelegationEntryAminoMsg {
     type: "/kyve.query.v1beta1.RedelegationEntry";

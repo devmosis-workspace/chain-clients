@@ -21,10 +21,10 @@ export interface PubKeyProtoMsg {
  * This prefix is followed with the x-coordinate.
  */
 export interface PubKeyAmino {
-    key: Uint8Array;
+    key?: string;
 }
 export interface PubKeyAminoMsg {
-    type: "cosmos-sdk/PubKey";
+    type: "tendermint/PubKeySecp256k1";
     value: PubKeyAmino;
 }
 /**
@@ -47,10 +47,10 @@ export interface PrivKeyProtoMsg {
 }
 /** PrivKey defines a secp256k1 private key. */
 export interface PrivKeyAmino {
-    key: Uint8Array;
+    key?: string;
 }
 export interface PrivKeyAminoMsg {
-    type: "cosmos-sdk/PrivKey";
+    type: "tendermint/PrivKeySecp256k1";
     value: PrivKeyAmino;
 }
 /** PrivKey defines a secp256k1 private key. */

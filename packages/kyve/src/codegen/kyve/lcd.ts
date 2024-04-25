@@ -19,6 +19,11 @@ export const createLCDClient = async ({
           requestClient
         })
       },
+      funders: {
+        v1beta1: new (await import("./funders/v1beta1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
       global: {
         v1beta1: new (await import("./global/v1beta1/query.lcd")).LCDQueryClient({
           requestClient
@@ -67,6 +72,11 @@ export const createLCDClient = async ({
             requestClient
           })
         }
+      },
+      consensus: {
+        v1: new (await import("../cosmos/consensus/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
       },
       distribution: {
         v1beta1: new (await import("../cosmos/distribution/v1beta1/query.lcd")).LCDQueryClient({

@@ -17,13 +17,13 @@ export interface MsgClaimUnlockedProtoMsg {
 /** MsgClaimUnlockedTokens ... */
 export interface MsgClaimUnlockedAmino {
     /** authority is the foundation which is allowed to payout unlocked tokens */
-    authority: string;
+    authority?: string;
     /** id is the unique identifier of the team member */
-    id: string;
+    id?: string;
     /** amount of $KYVE that will be paid to the recipient and marked as deducted from the unlocked amount. */
-    amount: string;
+    amount?: string;
     /** recipient is the recipient address chosen by the team member. */
-    recipient: string;
+    recipient?: string;
 }
 export interface MsgClaimUnlockedAminoMsg {
     type: "/kyve.team.v1beta1.MsgClaimUnlocked";
@@ -69,11 +69,11 @@ export interface MsgClaimAuthorityRewardsProtoMsg {
 /** MsgClaimAuthorityRewards ... */
 export interface MsgClaimAuthorityRewardsAmino {
     /** authority is the foundation which is allowed to payout unlocked tokens */
-    authority: string;
+    authority?: string;
     /** amount of $KYVE that will be paid to the recipient and marked as deducted from the authority inflation rewards */
-    amount: string;
+    amount?: string;
     /** recipient is the recipient address chosen by the team member. */
-    recipient: string;
+    recipient?: string;
 }
 export interface MsgClaimAuthorityRewardsAminoMsg {
     type: "/kyve.team.v1beta1.MsgClaimAuthorityRewards";
@@ -120,13 +120,13 @@ export interface MsgClaimAccountRewardsProtoMsg {
 /** MsgClaimAccountRewards ... */
 export interface MsgClaimAccountRewardsAmino {
     /** authority is the foundation which is allowed to payout unlocked tokens */
-    authority: string;
+    authority?: string;
     /** id is the unique identifier of the team member */
-    id: string;
+    id?: string;
     /** amount of $KYVE that will be paid to the recipient and marked as deducted from the inflation rewards */
-    amount: string;
+    amount?: string;
     /** recipient is the recipient address chosen by the team member. */
-    recipient: string;
+    recipient?: string;
 }
 export interface MsgClaimAccountRewardsAminoMsg {
     type: "/kyve.team.v1beta1.MsgClaimAccountRewards";
@@ -172,11 +172,11 @@ export interface MsgClawbackProtoMsg {
 /** MsgClawback ... */
 export interface MsgClawbackAmino {
     /** authority is the foundation which is allowed to modify team accounts */
-    authority: string;
+    authority?: string;
     /** id is the unique identifier of the team member */
-    id: string;
+    id?: string;
     /** clawback is a unix timestamp (in seconds) of when the clawback should be applied */
-    clawback: string;
+    clawback?: string;
 }
 export interface MsgClawbackAminoMsg {
     type: "/kyve.team.v1beta1.MsgClawback";
@@ -221,11 +221,11 @@ export interface MsgCreateTeamVestingAccountProtoMsg {
 /** MsgCreateTeamVestingAccount ... */
 export interface MsgCreateTeamVestingAccountAmino {
     /** authority ... */
-    authority: string;
+    authority?: string;
     /** total_allocation is the number of tokens reserved for this team member. */
-    total_allocation: string;
+    total_allocation?: string;
     /** commencement is the unix timestamp of the member's official start date. */
-    commencement: string;
+    commencement?: string;
 }
 export interface MsgCreateTeamVestingAccountAminoMsg {
     type: "/kyve.team.v1beta1.MsgCreateTeamVestingAccount";

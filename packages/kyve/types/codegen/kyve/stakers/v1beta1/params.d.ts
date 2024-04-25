@@ -13,9 +13,9 @@ export interface ParamsProtoMsg {
 /** Params defines the stakers module parameters. */
 export interface ParamsAmino {
     /** commission_change_time ... */
-    commission_change_time: string;
+    commission_change_time?: string;
     /** commission_change_time ... */
-    leave_pool_time: string;
+    leave_pool_time?: string;
 }
 export interface ParamsAminoMsg {
     type: "/kyve.stakers.v1beta1.Params";

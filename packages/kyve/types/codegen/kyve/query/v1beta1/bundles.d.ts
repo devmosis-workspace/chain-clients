@@ -23,7 +23,7 @@ export interface FinalizedBundle {
     /** data_hash is a sha256 hash of the uploaded data. */
     dataHash: string;
     /** finalized_at contains details of the block that finalized this bundle. */
-    finalizedAt: FinalizedAt;
+    finalizedAt?: FinalizedAt;
     /** storage_provider_id the id of the storage provider where the bundle is stored */
     storageProviderId: bigint;
     /** compression_id the id of the compression type with which the data was compressed */
@@ -32,7 +32,7 @@ export interface FinalizedBundle {
      * stake_security defines the amount of stake which was present in the pool during the finalization of the bundle.
      * This field was added in schema version 2. Bundles finalized before that return `null`.
      */
-    stakeSecurity: StakeSecurity;
+    stakeSecurity?: StakeSecurity;
 }
 export interface FinalizedBundleProtoMsg {
     typeUrl: "/kyve.query.v1beta1.FinalizedBundle";
@@ -41,31 +41,31 @@ export interface FinalizedBundleProtoMsg {
 /** FinalizedBundle represents the latest version of a valid bundle of a pool */
 export interface FinalizedBundleAmino {
     /** pool_id in which the bundle was created */
-    pool_id: string;
+    pool_id?: string;
     /** id is is integrated with each valid bundle produced. */
-    id: string;
+    id?: string;
     /** storage_id is the id with which the data can be retrieved from the configured data provider */
-    storage_id: string;
+    storage_id?: string;
     /** uploader is the address of the staker who submitted this bundle */
-    uploader: string;
+    uploader?: string;
     /** from_index is the index from where the bundle starts (inclusive) */
-    from_index: string;
+    from_index?: string;
     /** to_index is the index to which the bundle goes (exclusive) */
-    to_index: string;
+    to_index?: string;
     /** from_key is the key of the first data item in the bundle proposal */
-    from_key: string;
+    from_key?: string;
     /** to_key the key of the last data item in the bundle */
-    to_key: string;
+    to_key?: string;
     /** bundle_summary is a summary of the bundle. */
-    bundle_summary: string;
+    bundle_summary?: string;
     /** data_hash is a sha256 hash of the uploaded data. */
-    data_hash: string;
+    data_hash?: string;
     /** finalized_at contains details of the block that finalized this bundle. */
     finalized_at?: FinalizedAtAmino;
     /** storage_provider_id the id of the storage provider where the bundle is stored */
-    storage_provider_id: string;
+    storage_provider_id?: string;
     /** compression_id the id of the compression type with which the data was compressed */
-    compression_id: string;
+    compression_id?: string;
     /**
      * stake_security defines the amount of stake which was present in the pool during the finalization of the bundle.
      * This field was added in schema version 2. Bundles finalized before that return `null`.
@@ -88,10 +88,10 @@ export interface FinalizedBundleSDKType {
     to_key: string;
     bundle_summary: string;
     data_hash: string;
-    finalized_at: FinalizedAtSDKType;
+    finalized_at?: FinalizedAtSDKType;
     storage_provider_id: bigint;
     compression_id: bigint;
-    stake_security: StakeSecuritySDKType;
+    stake_security?: StakeSecuritySDKType;
 }
 /** FinalizedAt stores information about finalization block and time. */
 export interface FinalizedAt {
@@ -107,9 +107,9 @@ export interface FinalizedAtProtoMsg {
 /** FinalizedAt stores information about finalization block and time. */
 export interface FinalizedAtAmino {
     /** height is the block height in which the bundle got finalized. */
-    height: string;
+    height?: string;
     /** timestamp is the UNIX timestamp of the block in which the bundle got finalized. */
-    timestamp: string;
+    timestamp?: string;
 }
 export interface FinalizedAtAminoMsg {
     type: "/kyve.query.v1beta1.FinalizedAt";
@@ -137,12 +137,12 @@ export interface StakeSecurityProtoMsg {
 /** StakeSecurity represents the relative security of a finalized bundle */
 export interface StakeSecurityAmino {
     /** valid_vote_power gives the amount of $KYVE stake that voted `valid`. */
-    valid_vote_power: string;
+    valid_vote_power?: string;
     /**
      * total_vote_power gives the amount of total $KYVE stake that was present in the pool
      * during finalization.
      */
-    total_vote_power: string;
+    total_vote_power?: string;
 }
 export interface StakeSecurityAminoMsg {
     type: "/kyve.query.v1beta1.StakeSecurity";
@@ -156,7 +156,7 @@ export interface StakeSecuritySDKType {
 /** QueryFinalizedBundlesRequest is the request type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundlesRequest {
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
     /** pool_id ... */
     poolId: bigint;
     /**
@@ -174,12 +174,12 @@ export interface QueryFinalizedBundlesRequestAmino {
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
     /** pool_id ... */
-    pool_id: string;
+    pool_id?: string;
     /**
      * index is an optional parameter which tells the server to only show
      * the bundle with the given index. This can not be combined with pagination.
      */
-    index: string;
+    index?: string;
 }
 export interface QueryFinalizedBundlesRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryFinalizedBundlesRequest";
@@ -187,7 +187,7 @@ export interface QueryFinalizedBundlesRequestAminoMsg {
 }
 /** QueryFinalizedBundlesRequest is the request type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundlesRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
     pool_id: bigint;
     index: string;
 }
@@ -196,7 +196,7 @@ export interface QueryFinalizedBundlesResponse {
     /** finalized_bundles ... */
     finalizedBundles: FinalizedBundle[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryFinalizedBundlesResponseProtoMsg {
     typeUrl: "/kyve.query.v1beta1.QueryFinalizedBundlesResponse";
@@ -205,7 +205,7 @@ export interface QueryFinalizedBundlesResponseProtoMsg {
 /** QueryStakersByPoolResponse is the response type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundlesResponseAmino {
     /** finalized_bundles ... */
-    finalized_bundles: FinalizedBundleAmino[];
+    finalized_bundles?: FinalizedBundleAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -216,7 +216,7 @@ export interface QueryFinalizedBundlesResponseAminoMsg {
 /** QueryStakersByPoolResponse is the response type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundlesResponseSDKType {
     finalized_bundles: FinalizedBundleSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryFinalizedBundleRequest is the request type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundleRequest {
@@ -232,9 +232,9 @@ export interface QueryFinalizedBundleRequestProtoMsg {
 /** QueryFinalizedBundleRequest is the request type for the Query/Staker RPC method. */
 export interface QueryFinalizedBundleRequestAmino {
     /** pool_id ... */
-    pool_id: string;
+    pool_id?: string;
     /** id ... */
-    id: string;
+    id?: string;
 }
 export interface QueryFinalizedBundleRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryFinalizedBundleRequest";
@@ -279,7 +279,7 @@ export interface QueryCurrentVoteStatusRequestProtoMsg {
 /** QueryCurrentVoteStatusRequest is the request type for the Query/Staker RPC method. */
 export interface QueryCurrentVoteStatusRequestAmino {
     /** pool_id ... */
-    pool_id: string;
+    pool_id?: string;
 }
 export interface QueryCurrentVoteStatusRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryCurrentVoteStatusRequest";
@@ -307,13 +307,13 @@ export interface QueryCurrentVoteStatusResponseProtoMsg {
 /** QueryCurrentVoteStatusResponse is the response type for the Query/Staker RPC method. */
 export interface QueryCurrentVoteStatusResponseAmino {
     /** valid ... */
-    valid: string;
+    valid?: string;
     /** invalid ... */
-    invalid: string;
+    invalid?: string;
     /** abstain ... */
-    abstain: string;
+    abstain?: string;
     /** total ... */
-    total: string;
+    total?: string;
 }
 export interface QueryCurrentVoteStatusResponseAminoMsg {
     type: "/kyve.query.v1beta1.QueryCurrentVoteStatusResponse";
@@ -340,9 +340,9 @@ export interface QueryCanValidateRequestProtoMsg {
 /** QueryCanProposeRequest is the request type for the Query/CanPropose RPC method. */
 export interface QueryCanValidateRequestAmino {
     /** pool_id defines the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** valaddress ... */
-    valaddress: string;
+    valaddress?: string;
 }
 export interface QueryCanValidateRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryCanValidateRequest";
@@ -367,9 +367,9 @@ export interface QueryCanValidateResponseProtoMsg {
 /** QueryCanProposeResponse is the response type for the Query/CanPropose RPC method. */
 export interface QueryCanValidateResponseAmino {
     /** possible ... */
-    possible: boolean;
+    possible?: boolean;
     /** reason ... */
-    reason: string;
+    reason?: string;
 }
 export interface QueryCanValidateResponseAminoMsg {
     type: "/kyve.query.v1beta1.QueryCanValidateResponse";
@@ -398,13 +398,13 @@ export interface QueryCanProposeRequestProtoMsg {
 /** QueryCanProposeRequest is the request type for the Query/CanPropose RPC method. */
 export interface QueryCanProposeRequestAmino {
     /** pool_id defines the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
     /** proposer ... */
-    proposer: string;
+    proposer?: string;
     /** from_index ... */
-    from_index: string;
+    from_index?: string;
 }
 export interface QueryCanProposeRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryCanProposeRequest";
@@ -431,9 +431,9 @@ export interface QueryCanProposeResponseProtoMsg {
 /** QueryCanProposeResponse is the response type for the Query/CanPropose RPC method. */
 export interface QueryCanProposeResponseAmino {
     /** possible ... */
-    possible: boolean;
+    possible?: boolean;
     /** reason ... */
-    reason: string;
+    reason?: string;
 }
 export interface QueryCanProposeResponseAminoMsg {
     type: "/kyve.query.v1beta1.QueryCanProposeResponse";
@@ -462,13 +462,13 @@ export interface QueryCanVoteRequestProtoMsg {
 /** QueryCanVoteRequest is the request type for the Query/CanVote RPC method. */
 export interface QueryCanVoteRequestAmino {
     /** pool_id defines the unique ID of the pool. */
-    pool_id: string;
+    pool_id?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
     /** voter ... */
-    voter: string;
+    voter?: string;
     /** storage_id ... */
-    storage_id: string;
+    storage_id?: string;
 }
 export interface QueryCanVoteRequestAminoMsg {
     type: "/kyve.query.v1beta1.QueryCanVoteRequest";
@@ -495,9 +495,9 @@ export interface QueryCanVoteResponseProtoMsg {
 /** QueryCanVoteResponse is the response type for the Query/CanVote RPC method. */
 export interface QueryCanVoteResponseAmino {
     /** possible ... */
-    possible: boolean;
+    possible?: boolean;
     /** reason ... */
-    reason: string;
+    reason?: string;
 }
 export interface QueryCanVoteResponseAminoMsg {
     type: "/kyve.query.v1beta1.QueryCanVoteResponse";

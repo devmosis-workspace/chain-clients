@@ -14,7 +14,7 @@ export interface QueryAccountAssetsRequestProtoMsg {
 /** QueryAccountAssetsRequest is the request type for the Query/AccountAssets RPC method. */
 export interface QueryAccountAssetsRequestAmino {
   /** address ... */
-  address: string;
+  address?: string;
 }
 export interface QueryAccountAssetsRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryAccountAssetsRequest";
@@ -48,19 +48,19 @@ export interface QueryAccountAssetsResponseProtoMsg {
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
 export interface QueryAccountAssetsResponseAmino {
   /** balance ... */
-  balance: string;
+  balance?: string;
   /** protocol_staking ... */
-  protocol_self_delegation: string;
+  protocol_self_delegation?: string;
   /** protocol_staking_unbonding */
-  protocol_self_delegation_unbonding: string;
+  protocol_self_delegation_unbonding?: string;
   /** protocol_delegation ... */
-  protocol_delegation: string;
+  protocol_delegation?: string;
   /** protocol_delegation_unbonding */
-  protocol_delegation_unbonding: string;
+  protocol_delegation_unbonding?: string;
   /** protocol_rewards ... */
-  protocol_rewards: string;
+  protocol_rewards?: string;
   /** protocol_funding ... */
-  protocol_funding: string;
+  protocol_funding?: string;
 }
 export interface QueryAccountAssetsResponseAminoMsg {
   type: "/kyve.query.v1beta1.QueryAccountAssetsResponse";
@@ -79,7 +79,7 @@ export interface QueryAccountAssetsResponseSDKType {
 /** QueryAccountFundedListRequest ... */
 export interface QueryAccountDelegationUnbondingsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   /** address ... */
   address: string;
 }
@@ -92,7 +92,7 @@ export interface QueryAccountDelegationUnbondingsRequestAmino {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
   /** address ... */
-  address: string;
+  address?: string;
 }
 export interface QueryAccountDelegationUnbondingsRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryAccountDelegationUnbondingsRequest";
@@ -100,7 +100,7 @@ export interface QueryAccountDelegationUnbondingsRequestAminoMsg {
 }
 /** QueryAccountFundedListRequest ... */
 export interface QueryAccountDelegationUnbondingsRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
   address: string;
 }
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
@@ -108,7 +108,7 @@ export interface QueryAccountDelegationUnbondingsResponse {
   /** balance ... */
   unbondings: DelegationUnbonding[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAccountDelegationUnbondingsResponseProtoMsg {
   typeUrl: "/kyve.query.v1beta1.QueryAccountDelegationUnbondingsResponse";
@@ -117,7 +117,7 @@ export interface QueryAccountDelegationUnbondingsResponseProtoMsg {
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
 export interface QueryAccountDelegationUnbondingsResponseAmino {
   /** balance ... */
-  unbondings: DelegationUnbondingAmino[];
+  unbondings?: DelegationUnbondingAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -128,7 +128,7 @@ export interface QueryAccountDelegationUnbondingsResponseAminoMsg {
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
 export interface QueryAccountDelegationUnbondingsResponseSDKType {
   unbondings: DelegationUnbondingSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
 export interface DelegationUnbonding {
@@ -137,7 +137,7 @@ export interface DelegationUnbonding {
   /** creation_time */
   creationTime: bigint;
   /** staker */
-  staker: FullStaker;
+  staker?: FullStaker;
 }
 export interface DelegationUnbondingProtoMsg {
   typeUrl: "/kyve.query.v1beta1.DelegationUnbonding";
@@ -146,9 +146,9 @@ export interface DelegationUnbondingProtoMsg {
 /** QueryAccountAssetsResponse is the response type for the Query/AccountAssets RPC method. */
 export interface DelegationUnbondingAmino {
   /** amount */
-  amount: string;
+  amount?: string;
   /** creation_time */
-  creation_time: string;
+  creation_time?: string;
   /** staker */
   staker?: FullStakerAmino;
 }
@@ -160,7 +160,7 @@ export interface DelegationUnbondingAminoMsg {
 export interface DelegationUnbondingSDKType {
   amount: bigint;
   creation_time: bigint;
-  staker: FullStakerSDKType;
+  staker?: FullStakerSDKType;
 }
 /** QueryAccountFundedListRequest is the request type for the account queries with pagination */
 export interface QueryAccountFundedListRequest {
@@ -174,7 +174,7 @@ export interface QueryAccountFundedListRequestProtoMsg {
 /** QueryAccountFundedListRequest is the request type for the account queries with pagination */
 export interface QueryAccountFundedListRequestAmino {
   /** address ... */
-  address: string;
+  address?: string;
 }
 export interface QueryAccountFundedListRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryAccountFundedListRequest";
@@ -196,7 +196,7 @@ export interface QueryAccountFundedListResponseProtoMsg {
 /** QueryAccountFundedListResponse is the response type for the Query/AccountFundedList RPC method. */
 export interface QueryAccountFundedListResponseAmino {
   /** funded ... */
-  funded: FundedAmino[];
+  funded?: FundedAmino[];
 }
 export interface QueryAccountFundedListResponseAminoMsg {
   type: "/kyve.query.v1beta1.QueryAccountFundedListResponse";
@@ -211,7 +211,7 @@ export interface Funded {
   /** amount ... */
   amount: bigint;
   /** pool ... */
-  pool: BasicPool;
+  pool?: BasicPool;
 }
 export interface FundedProtoMsg {
   typeUrl: "/kyve.query.v1beta1.Funded";
@@ -220,7 +220,7 @@ export interface FundedProtoMsg {
 /** Funded ... */
 export interface FundedAmino {
   /** amount ... */
-  amount: string;
+  amount?: string;
   /** pool ... */
   pool?: BasicPoolAmino;
 }
@@ -231,7 +231,7 @@ export interface FundedAminoMsg {
 /** Funded ... */
 export interface FundedSDKType {
   amount: bigint;
-  pool: BasicPoolSDKType;
+  pool?: BasicPoolSDKType;
 }
 /** QueryAccountDelegationListRequest ... */
 export interface QueryAccountRedelegationRequest {
@@ -245,7 +245,7 @@ export interface QueryAccountRedelegationRequestProtoMsg {
 /** QueryAccountDelegationListRequest ... */
 export interface QueryAccountRedelegationRequestAmino {
   /** address ... */
-  address: string;
+  address?: string;
 }
 export interface QueryAccountRedelegationRequestAminoMsg {
   type: "/kyve.query.v1beta1.QueryAccountRedelegationRequest";
@@ -269,9 +269,9 @@ export interface QueryAccountRedelegationResponseProtoMsg {
 /** QueryAccountDelegationListRequest is the response type for the Query/AccountDelegationList RPC method. */
 export interface QueryAccountRedelegationResponseAmino {
   /** redelegation_cooldown_entries ... */
-  redelegation_cooldown_entries: RedelegationEntryAmino[];
+  redelegation_cooldown_entries?: RedelegationEntryAmino[];
   /** availableSlots ... */
-  available_slots: string;
+  available_slots?: string;
 }
 export interface QueryAccountRedelegationResponseAminoMsg {
   type: "/kyve.query.v1beta1.QueryAccountRedelegationResponse";
@@ -296,9 +296,9 @@ export interface RedelegationEntryProtoMsg {
 /** RedelegationEntry ... */
 export interface RedelegationEntryAmino {
   /** creation_date ... */
-  creation_date: string;
+  creation_date?: string;
   /** finish_date ... */
-  finish_date: string;
+  finish_date?: string;
 }
 export interface RedelegationEntryAminoMsg {
   type: "/kyve.query.v1beta1.RedelegationEntry";
@@ -333,9 +333,11 @@ export const QueryAccountAssetsRequest = {
     return message;
   },
   fromAmino(object: QueryAccountAssetsRequestAmino): QueryAccountAssetsRequest {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryAccountAssetsRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryAccountAssetsRequest): QueryAccountAssetsRequestAmino {
     const obj: any = {};
@@ -418,15 +420,29 @@ export const QueryAccountAssetsResponse = {
     return message;
   },
   fromAmino(object: QueryAccountAssetsResponseAmino): QueryAccountAssetsResponse {
-    return {
-      balance: BigInt(object.balance),
-      protocolSelfDelegation: BigInt(object.protocol_self_delegation),
-      protocolSelfDelegationUnbonding: BigInt(object.protocol_self_delegation_unbonding),
-      protocolDelegation: BigInt(object.protocol_delegation),
-      protocolDelegationUnbonding: BigInt(object.protocol_delegation_unbonding),
-      protocolRewards: BigInt(object.protocol_rewards),
-      protocolFunding: BigInt(object.protocol_funding)
-    };
+    const message = createBaseQueryAccountAssetsResponse();
+    if (object.balance !== undefined && object.balance !== null) {
+      message.balance = BigInt(object.balance);
+    }
+    if (object.protocol_self_delegation !== undefined && object.protocol_self_delegation !== null) {
+      message.protocolSelfDelegation = BigInt(object.protocol_self_delegation);
+    }
+    if (object.protocol_self_delegation_unbonding !== undefined && object.protocol_self_delegation_unbonding !== null) {
+      message.protocolSelfDelegationUnbonding = BigInt(object.protocol_self_delegation_unbonding);
+    }
+    if (object.protocol_delegation !== undefined && object.protocol_delegation !== null) {
+      message.protocolDelegation = BigInt(object.protocol_delegation);
+    }
+    if (object.protocol_delegation_unbonding !== undefined && object.protocol_delegation_unbonding !== null) {
+      message.protocolDelegationUnbonding = BigInt(object.protocol_delegation_unbonding);
+    }
+    if (object.protocol_rewards !== undefined && object.protocol_rewards !== null) {
+      message.protocolRewards = BigInt(object.protocol_rewards);
+    }
+    if (object.protocol_funding !== undefined && object.protocol_funding !== null) {
+      message.protocolFunding = BigInt(object.protocol_funding);
+    }
+    return message;
   },
   toAmino(message: QueryAccountAssetsResponse): QueryAccountAssetsResponseAmino {
     const obj: any = {};
@@ -457,7 +473,7 @@ export const QueryAccountAssetsResponse = {
 };
 function createBaseQueryAccountDelegationUnbondingsRequest(): QueryAccountDelegationUnbondingsRequest {
   return {
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
     address: ""
   };
 }
@@ -485,10 +501,14 @@ export const QueryAccountDelegationUnbondingsRequest = {
     return message;
   },
   fromAmino(object: QueryAccountDelegationUnbondingsRequestAmino): QueryAccountDelegationUnbondingsRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
-      address: object.address
-    };
+    const message = createBaseQueryAccountDelegationUnbondingsRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryAccountDelegationUnbondingsRequest): QueryAccountDelegationUnbondingsRequestAmino {
     const obj: any = {};
@@ -515,7 +535,7 @@ export const QueryAccountDelegationUnbondingsRequest = {
 function createBaseQueryAccountDelegationUnbondingsResponse(): QueryAccountDelegationUnbondingsResponse {
   return {
     unbondings: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAccountDelegationUnbondingsResponse = {
@@ -542,10 +562,12 @@ export const QueryAccountDelegationUnbondingsResponse = {
     return message;
   },
   fromAmino(object: QueryAccountDelegationUnbondingsResponseAmino): QueryAccountDelegationUnbondingsResponse {
-    return {
-      unbondings: Array.isArray(object?.unbondings) ? object.unbondings.map((e: any) => DelegationUnbonding.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAccountDelegationUnbondingsResponse();
+    message.unbondings = object.unbondings?.map(e => DelegationUnbonding.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAccountDelegationUnbondingsResponse): QueryAccountDelegationUnbondingsResponseAmino {
     const obj: any = {};
@@ -577,7 +599,7 @@ function createBaseDelegationUnbonding(): DelegationUnbonding {
   return {
     amount: BigInt(0),
     creationTime: BigInt(0),
-    staker: FullStaker.fromPartial({})
+    staker: undefined
   };
 }
 export const DelegationUnbonding = {
@@ -609,11 +631,17 @@ export const DelegationUnbonding = {
     return message;
   },
   fromAmino(object: DelegationUnbondingAmino): DelegationUnbonding {
-    return {
-      amount: BigInt(object.amount),
-      creationTime: BigInt(object.creation_time),
-      staker: object?.staker ? FullStaker.fromAmino(object.staker) : undefined
-    };
+    const message = createBaseDelegationUnbonding();
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.creation_time !== undefined && object.creation_time !== null) {
+      message.creationTime = BigInt(object.creation_time);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = FullStaker.fromAmino(object.staker);
+    }
+    return message;
   },
   toAmino(message: DelegationUnbonding): DelegationUnbondingAmino {
     const obj: any = {};
@@ -662,9 +690,11 @@ export const QueryAccountFundedListRequest = {
     return message;
   },
   fromAmino(object: QueryAccountFundedListRequestAmino): QueryAccountFundedListRequest {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryAccountFundedListRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryAccountFundedListRequest): QueryAccountFundedListRequestAmino {
     const obj: any = {};
@@ -711,9 +741,9 @@ export const QueryAccountFundedListResponse = {
     return message;
   },
   fromAmino(object: QueryAccountFundedListResponseAmino): QueryAccountFundedListResponse {
-    return {
-      funded: Array.isArray(object?.funded) ? object.funded.map((e: any) => Funded.fromAmino(e)) : []
-    };
+    const message = createBaseQueryAccountFundedListResponse();
+    message.funded = object.funded?.map(e => Funded.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryAccountFundedListResponse): QueryAccountFundedListResponseAmino {
     const obj: any = {};
@@ -743,7 +773,7 @@ export const QueryAccountFundedListResponse = {
 function createBaseFunded(): Funded {
   return {
     amount: BigInt(0),
-    pool: BasicPool.fromPartial({})
+    pool: undefined
   };
 }
 export const Funded = {
@@ -770,10 +800,14 @@ export const Funded = {
     return message;
   },
   fromAmino(object: FundedAmino): Funded {
-    return {
-      amount: BigInt(object.amount),
-      pool: object?.pool ? BasicPool.fromAmino(object.pool) : undefined
-    };
+    const message = createBaseFunded();
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.pool !== undefined && object.pool !== null) {
+      message.pool = BasicPool.fromAmino(object.pool);
+    }
+    return message;
   },
   toAmino(message: Funded): FundedAmino {
     const obj: any = {};
@@ -821,9 +855,11 @@ export const QueryAccountRedelegationRequest = {
     return message;
   },
   fromAmino(object: QueryAccountRedelegationRequestAmino): QueryAccountRedelegationRequest {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryAccountRedelegationRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryAccountRedelegationRequest): QueryAccountRedelegationRequestAmino {
     const obj: any = {};
@@ -876,10 +912,12 @@ export const QueryAccountRedelegationResponse = {
     return message;
   },
   fromAmino(object: QueryAccountRedelegationResponseAmino): QueryAccountRedelegationResponse {
-    return {
-      redelegationCooldownEntries: Array.isArray(object?.redelegation_cooldown_entries) ? object.redelegation_cooldown_entries.map((e: any) => RedelegationEntry.fromAmino(e)) : [],
-      availableSlots: BigInt(object.available_slots)
-    };
+    const message = createBaseQueryAccountRedelegationResponse();
+    message.redelegationCooldownEntries = object.redelegation_cooldown_entries?.map(e => RedelegationEntry.fromAmino(e)) || [];
+    if (object.available_slots !== undefined && object.available_slots !== null) {
+      message.availableSlots = BigInt(object.available_slots);
+    }
+    return message;
   },
   toAmino(message: QueryAccountRedelegationResponse): QueryAccountRedelegationResponseAmino {
     const obj: any = {};
@@ -937,10 +975,14 @@ export const RedelegationEntry = {
     return message;
   },
   fromAmino(object: RedelegationEntryAmino): RedelegationEntry {
-    return {
-      creationDate: BigInt(object.creation_date),
-      finishDate: BigInt(object.finish_date)
-    };
+    const message = createBaseRedelegationEntry();
+    if (object.creation_date !== undefined && object.creation_date !== null) {
+      message.creationDate = BigInt(object.creation_date);
+    }
+    if (object.finish_date !== undefined && object.finish_date !== null) {
+      message.finishDate = BigInt(object.finish_date);
+    }
+    return message;
   },
   toAmino(message: RedelegationEntry): RedelegationEntryAmino {
     const obj: any = {};

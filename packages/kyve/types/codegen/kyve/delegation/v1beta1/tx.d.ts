@@ -15,11 +15,11 @@ export interface MsgDelegateProtoMsg {
 /** MsgDelegate ... */
 export interface MsgDelegateAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
 }
 export interface MsgDelegateAminoMsg {
     type: "/kyve.delegation.v1beta1.MsgDelegate";
@@ -62,9 +62,9 @@ export interface MsgWithdrawRewardsProtoMsg {
 /** MsgWithdrawPool defines a SDK message for withdrawing delegation rewards from a specific pool. */
 export interface MsgWithdrawRewardsAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
 }
 export interface MsgWithdrawRewardsAminoMsg {
     type: "/kyve.delegation.v1beta1.MsgWithdrawRewards";
@@ -108,11 +108,11 @@ export interface MsgUndelegateProtoMsg {
 /** MsgUndelegatePool defines a SDK message for undelegating from a specific pool. */
 export interface MsgUndelegateAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** staker ... */
-    staker: string;
+    staker?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
 }
 export interface MsgUndelegateAminoMsg {
     type: "/kyve.delegation.v1beta1.MsgUndelegate";
@@ -165,13 +165,13 @@ export interface MsgRedelegateProtoMsg {
  */
 export interface MsgRedelegateAmino {
     /** creator ... */
-    creator: string;
+    creator?: string;
     /** staker ... */
-    from_staker: string;
+    from_staker?: string;
     /** staker ... */
-    to_staker: string;
+    to_staker?: string;
     /** amount ... */
-    amount: string;
+    amount?: string;
 }
 export interface MsgRedelegateAminoMsg {
     type: "/kyve.delegation.v1beta1.MsgRedelegate";
@@ -218,9 +218,9 @@ export interface MsgUpdateParamsProtoMsg {
 /** MsgUpdateParams defines a SDK message for updating the module parameters. */
 export interface MsgUpdateParamsAmino {
     /** authority is the address of the governance account. */
-    authority: string;
+    authority?: string;
     /** payload defines the x/delegation parameters to update. */
-    payload: string;
+    payload?: string;
 }
 export interface MsgUpdateParamsAminoMsg {
     type: "/kyve.delegation.v1beta1.MsgUpdateParams";

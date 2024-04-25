@@ -33,21 +33,21 @@ export interface StakerProtoMsg {
  */
 export interface StakerAmino {
   /** address ... */
-  address: string;
+  address?: string;
   /** commission ... */
-  commission: string;
+  commission?: string;
   /** moniker ... */
-  moniker: string;
+  moniker?: string;
   /** website ... */
-  website: string;
+  website?: string;
   /** identity is the 64 bit keybase.io identity string */
-  identity: string;
+  identity?: string;
   /** security_contact ... */
-  security_contact: string;
+  security_contact?: string;
   /** details are some additional notes the staker finds important */
-  details: string;
+  details?: string;
   /** commission_rewards are the rewards in $KYVE earned through commission */
-  commission_rewards: string;
+  commission_rewards?: string;
 }
 export interface StakerAminoMsg {
   type: "/kyve.stakers.v1beta1.Staker";
@@ -106,22 +106,22 @@ export interface ValaccountAmino {
    * pool_id defines the pool in which the address
    * is allowed to vote in.
    */
-  pool_id: string;
+  pool_id?: string;
   /** staker is the address the valaccount is voting for. */
-  staker: string;
+  staker?: string;
   /**
    * valaddress is the account stored on the protocol
    * node which votes for the staker in the given pool
    */
-  valaddress: string;
+  valaddress?: string;
   /**
    * When a node is inactive (does not vote at all)
    * A point is added, after a certain amount of points
    * is reached the node gets kicked out.
    */
-  points: string;
+  points?: string;
   /** isLeaving indicates if a staker is leaving the given pool. */
-  is_leaving: boolean;
+  is_leaving?: boolean;
 }
 export interface ValaccountAminoMsg {
   type: "/kyve.stakers.v1beta1.Valaccount";
@@ -178,19 +178,19 @@ export interface CommissionChangeEntryAmino {
    * index is needed for the queue-algorithm which
    * processes the commission changes
    */
-  index: string;
+  index?: string;
   /** staker is the address of the affected staker */
-  staker: string;
+  staker?: string;
   /**
    * commission is the new commission which will
    * be applied after the waiting time is over.
    */
-  commission: string;
+  commission?: string;
   /**
    * creation_date is the UNIX-timestamp in seconds
    * when the entry was created.
    */
-  creation_date: string;
+  creation_date?: string;
 }
 export interface CommissionChangeEntryAminoMsg {
   type: "/kyve.stakers.v1beta1.CommissionChangeEntry";
@@ -247,16 +247,16 @@ export interface LeavePoolEntryAmino {
    * index is needed for the queue-algorithm which
    * processes the commission changes
    */
-  index: string;
+  index?: string;
   /** staker is the address of the affected staker */
-  staker: string;
+  staker?: string;
   /** pool_id indicates the pool the staker wants to leave */
-  pool_id: string;
+  pool_id?: string;
   /**
    * creation_date is the UNIX-timestamp in seconds
    * when the entry was created.
    */
-  creation_date: string;
+  creation_date?: string;
 }
 export interface LeavePoolEntryAminoMsg {
   type: "/kyve.stakers.v1beta1.LeavePoolEntry";
@@ -300,12 +300,12 @@ export interface QueueStateAmino {
    * oldest entry in the queue. If this entry isn't
    * due, non of the other entries is.
    */
-  low_index: string;
+  low_index?: string;
   /**
    * high_index is the head of the queue. New entries
    * are added to the top.
    */
-  high_index: string;
+  high_index?: string;
 }
 export interface QueueStateAminoMsg {
   type: "/kyve.stakers.v1beta1.QueueState";
@@ -382,16 +382,32 @@ export const Staker = {
     return message;
   },
   fromAmino(object: StakerAmino): Staker {
-    return {
-      address: object.address,
-      commission: object.commission,
-      moniker: object.moniker,
-      website: object.website,
-      identity: object.identity,
-      securityContact: object.security_contact,
-      details: object.details,
-      commissionRewards: BigInt(object.commission_rewards)
-    };
+    const message = createBaseStaker();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.commission !== undefined && object.commission !== null) {
+      message.commission = object.commission;
+    }
+    if (object.moniker !== undefined && object.moniker !== null) {
+      message.moniker = object.moniker;
+    }
+    if (object.website !== undefined && object.website !== null) {
+      message.website = object.website;
+    }
+    if (object.identity !== undefined && object.identity !== null) {
+      message.identity = object.identity;
+    }
+    if (object.security_contact !== undefined && object.security_contact !== null) {
+      message.securityContact = object.security_contact;
+    }
+    if (object.details !== undefined && object.details !== null) {
+      message.details = object.details;
+    }
+    if (object.commission_rewards !== undefined && object.commission_rewards !== null) {
+      message.commissionRewards = BigInt(object.commission_rewards);
+    }
+    return message;
   },
   toAmino(message: Staker): StakerAmino {
     const obj: any = {};
@@ -469,13 +485,23 @@ export const Valaccount = {
     return message;
   },
   fromAmino(object: ValaccountAmino): Valaccount {
-    return {
-      poolId: BigInt(object.pool_id),
-      staker: object.staker,
-      valaddress: object.valaddress,
-      points: BigInt(object.points),
-      isLeaving: object.is_leaving
-    };
+    const message = createBaseValaccount();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.valaddress !== undefined && object.valaddress !== null) {
+      message.valaddress = object.valaddress;
+    }
+    if (object.points !== undefined && object.points !== null) {
+      message.points = BigInt(object.points);
+    }
+    if (object.is_leaving !== undefined && object.is_leaving !== null) {
+      message.isLeaving = object.is_leaving;
+    }
+    return message;
   },
   toAmino(message: Valaccount): ValaccountAmino {
     const obj: any = {};
@@ -544,12 +570,20 @@ export const CommissionChangeEntry = {
     return message;
   },
   fromAmino(object: CommissionChangeEntryAmino): CommissionChangeEntry {
-    return {
-      index: BigInt(object.index),
-      staker: object.staker,
-      commission: object.commission,
-      creationDate: BigInt(object.creation_date)
-    };
+    const message = createBaseCommissionChangeEntry();
+    if (object.index !== undefined && object.index !== null) {
+      message.index = BigInt(object.index);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.commission !== undefined && object.commission !== null) {
+      message.commission = object.commission;
+    }
+    if (object.creation_date !== undefined && object.creation_date !== null) {
+      message.creationDate = BigInt(object.creation_date);
+    }
+    return message;
   },
   toAmino(message: CommissionChangeEntry): CommissionChangeEntryAmino {
     const obj: any = {};
@@ -617,12 +651,20 @@ export const LeavePoolEntry = {
     return message;
   },
   fromAmino(object: LeavePoolEntryAmino): LeavePoolEntry {
-    return {
-      index: BigInt(object.index),
-      staker: object.staker,
-      poolId: BigInt(object.pool_id),
-      creationDate: BigInt(object.creation_date)
-    };
+    const message = createBaseLeavePoolEntry();
+    if (object.index !== undefined && object.index !== null) {
+      message.index = BigInt(object.index);
+    }
+    if (object.staker !== undefined && object.staker !== null) {
+      message.staker = object.staker;
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.creation_date !== undefined && object.creation_date !== null) {
+      message.creationDate = BigInt(object.creation_date);
+    }
+    return message;
   },
   toAmino(message: LeavePoolEntry): LeavePoolEntryAmino {
     const obj: any = {};
@@ -678,10 +720,14 @@ export const QueueState = {
     return message;
   },
   fromAmino(object: QueueStateAmino): QueueState {
-    return {
-      lowIndex: BigInt(object.low_index),
-      highIndex: BigInt(object.high_index)
-    };
+    const message = createBaseQueueState();
+    if (object.low_index !== undefined && object.low_index !== null) {
+      message.lowIndex = BigInt(object.low_index);
+    }
+    if (object.high_index !== undefined && object.high_index !== null) {
+      message.highIndex = BigInt(object.high_index);
+    }
+    return message;
   },
   toAmino(message: QueueState): QueueStateAmino {
     const obj: any = {};

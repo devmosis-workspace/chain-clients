@@ -114,37 +114,37 @@ export interface BundleProposalProtoMsg {
  */
 export interface BundleProposalAmino {
   /** pool_id is the id of the pool for which this proposal is for */
-  pool_id: string;
+  pool_id?: string;
   /** storage_id is the id with which the data can be retrieved from */
-  storage_id: string;
+  storage_id?: string;
   /** uploader is the address of the staker who submitted the current proposal */
-  uploader: string;
+  uploader?: string;
   /** next_uploader is the address of the staker who should upload the next proposal */
-  next_uploader: string;
+  next_uploader?: string;
   /** data_size the size of the data in bytes */
-  data_size: string;
+  data_size?: string;
   /** bundle_size the size of the bundle (amount of data items) */
-  bundle_size: string;
+  bundle_size?: string;
   /** to_key the key of the last data item in the bundle proposal */
-  to_key: string;
+  to_key?: string;
   /** bundle_summary a string summary of the current proposal */
-  bundle_summary: string;
+  bundle_summary?: string;
   /** data_hash a sha256 hash of the raw compressed data */
-  data_hash: string;
+  data_hash?: string;
   /** updated_at the last time this proposal was edited */
-  updated_at: string;
+  updated_at?: string;
   /** voters_valid list of all stakers who voted in favor for current proposal */
-  voters_valid: string[];
+  voters_valid?: string[];
   /** voters_invalid list of all stakers who voted against for current proposal */
-  voters_invalid: string[];
+  voters_invalid?: string[];
   /** voters_abstain list of all stakers who voted abstain for current proposal */
-  voters_abstain: string[];
+  voters_abstain?: string[];
   /** from_key the key of the first data item in the bundle proposal */
-  from_key: string;
+  from_key?: string;
   /** storage_provider_id the id of the storage provider where the bundle is stored */
-  storage_provider_id: number;
+  storage_provider_id?: number;
   /** compression_id the id of the compression type with which the data was compressed */
-  compression_id: number;
+  compression_id?: number;
 }
 export interface BundleProposalAminoMsg {
   type: "/kyve.bundles.v1beta1.BundleProposal";
@@ -196,7 +196,7 @@ export interface FinalizedBundle {
   /** data_hash a sha256 hash of the raw compressed data */
   dataHash: string;
   /** finalized_at contains details of the block that finalized this bundle. */
-  finalizedAt: FinalizedAt;
+  finalizedAt?: FinalizedAt;
   /** from_key the key of the first data item in the bundle proposal */
   fromKey: string;
   /** storage_provider_id the id of the storage provider where the bundle is stored */
@@ -204,7 +204,7 @@ export interface FinalizedBundle {
   /** compression_id the id of the compression type with which the data was compressed */
   compressionId: number;
   /** stake_security */
-  stakeSecurity: StakeSecurity;
+  stakeSecurity?: StakeSecurity;
 }
 export interface FinalizedBundleProtoMsg {
   typeUrl: "/kyve.bundles.v1beta1.FinalizedBundle";
@@ -216,31 +216,31 @@ export interface FinalizedBundleProtoMsg {
  */
 export interface FinalizedBundleAmino {
   /** pool_id is the id of the pool for which this proposal is for */
-  pool_id: string;
+  pool_id?: string;
   /** id is a unique identifier for each finalized bundle in a pool */
-  id: string;
+  id?: string;
   /** storage_id is the id with which the data can be retrieved from */
-  storage_id: string;
+  storage_id?: string;
   /** uploader is the address of the staker who submitted this bundle */
-  uploader: string;
+  uploader?: string;
   /** from_index is the index from where the bundle starts (inclusive) */
-  from_index: string;
+  from_index?: string;
   /** to_index is the index to which the bundle goes (exclusive) */
-  to_index: string;
+  to_index?: string;
   /** to_key the key of the last data item in the bundle proposal */
-  to_key: string;
+  to_key?: string;
   /** bundle_summary a string summary of the current proposal */
-  bundle_summary: string;
+  bundle_summary?: string;
   /** data_hash a sha256 hash of the raw compressed data */
-  data_hash: string;
+  data_hash?: string;
   /** finalized_at contains details of the block that finalized this bundle. */
   finalized_at?: FinalizedAtAmino;
   /** from_key the key of the first data item in the bundle proposal */
-  from_key: string;
+  from_key?: string;
   /** storage_provider_id the id of the storage provider where the bundle is stored */
-  storage_provider_id: number;
+  storage_provider_id?: number;
   /** compression_id the id of the compression type with which the data was compressed */
-  compression_id: number;
+  compression_id?: number;
   /** stake_security */
   stake_security?: StakeSecurityAmino;
 }
@@ -262,11 +262,11 @@ export interface FinalizedBundleSDKType {
   to_key: string;
   bundle_summary: string;
   data_hash: string;
-  finalized_at: FinalizedAtSDKType;
+  finalized_at?: FinalizedAtSDKType;
   from_key: string;
   storage_provider_id: number;
   compression_id: number;
-  stake_security: StakeSecuritySDKType;
+  stake_security?: StakeSecuritySDKType;
 }
 /** FinalizedAt ... */
 export interface FinalizedAt {
@@ -282,9 +282,9 @@ export interface FinalizedAtProtoMsg {
 /** FinalizedAt ... */
 export interface FinalizedAtAmino {
   /** height ... */
-  height: string;
+  height?: string;
   /** timestamp ... */
-  timestamp: string;
+  timestamp?: string;
 }
 export interface FinalizedAtAminoMsg {
   type: "/kyve.bundles.v1beta1.FinalizedAt";
@@ -309,9 +309,9 @@ export interface StakeSecurityProtoMsg {
 /** StakeSecurity stores information about total stake and valid votes with which the bundle got finalized. */
 export interface StakeSecurityAmino {
   /** valid_vote_power is the total amount of stake of all pool stakers which voted valid for the given bundle. */
-  valid_vote_power: string;
+  valid_vote_power?: string;
   /** total_vote_power is the total amount of stake that was present during the finalization of the bundle */
-  total_vote_power: string;
+  total_vote_power?: string;
 }
 export interface StakeSecurityAminoMsg {
   type: "/kyve.bundles.v1beta1.StakeSecurity";
@@ -336,9 +336,9 @@ export interface BundleVersionEntryProtoMsg {
 /** BundleVersionEntry ... */
 export interface BundleVersionEntryAmino {
   /** height ... */
-  height: string;
+  height?: string;
   /** version ... */
-  version: number;
+  version?: number;
 }
 export interface BundleVersionEntryAminoMsg {
   type: "/kyve.bundles.v1beta1.BundleVersionEntry";
@@ -361,7 +361,7 @@ export interface BundleVersionMapProtoMsg {
 /** BundleVersionMap ... */
 export interface BundleVersionMapAmino {
   /** versions ... */
-  versions: BundleVersionEntryAmino[];
+  versions?: BundleVersionEntryAmino[];
 }
 export interface BundleVersionMapAminoMsg {
   type: "/kyve.bundles.v1beta1.BundleVersionMap";
@@ -385,9 +385,9 @@ export interface RoundRobinSingleValidatorProgressProtoMsg {
 /** RoundRobinSingleValidatorProgress ... */
 export interface RoundRobinSingleValidatorProgressAmino {
   /** address ... */
-  address: string;
+  address?: string;
   /** progress ... */
-  progress: string;
+  progress?: string;
 }
 export interface RoundRobinSingleValidatorProgressAminoMsg {
   type: "/kyve.bundles.v1beta1.RoundRobinSingleValidatorProgress";
@@ -412,9 +412,9 @@ export interface RoundRobinProgressProtoMsg {
 /** RoundRobinProgress ... */
 export interface RoundRobinProgressAmino {
   /** pool_id ... */
-  pool_id: string;
+  pool_id?: string;
   /** progress_list ... */
-  progress_list: RoundRobinSingleValidatorProgressAmino[];
+  progress_list?: RoundRobinSingleValidatorProgressAmino[];
 }
 export interface RoundRobinProgressAminoMsg {
   type: "/kyve.bundles.v1beta1.RoundRobinProgress";
@@ -539,24 +539,50 @@ export const BundleProposal = {
     return message;
   },
   fromAmino(object: BundleProposalAmino): BundleProposal {
-    return {
-      poolId: BigInt(object.pool_id),
-      storageId: object.storage_id,
-      uploader: object.uploader,
-      nextUploader: object.next_uploader,
-      dataSize: BigInt(object.data_size),
-      bundleSize: BigInt(object.bundle_size),
-      toKey: object.to_key,
-      bundleSummary: object.bundle_summary,
-      dataHash: object.data_hash,
-      updatedAt: BigInt(object.updated_at),
-      votersValid: Array.isArray(object?.voters_valid) ? object.voters_valid.map((e: any) => e) : [],
-      votersInvalid: Array.isArray(object?.voters_invalid) ? object.voters_invalid.map((e: any) => e) : [],
-      votersAbstain: Array.isArray(object?.voters_abstain) ? object.voters_abstain.map((e: any) => e) : [],
-      fromKey: object.from_key,
-      storageProviderId: object.storage_provider_id,
-      compressionId: object.compression_id
-    };
+    const message = createBaseBundleProposal();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.storage_id !== undefined && object.storage_id !== null) {
+      message.storageId = object.storage_id;
+    }
+    if (object.uploader !== undefined && object.uploader !== null) {
+      message.uploader = object.uploader;
+    }
+    if (object.next_uploader !== undefined && object.next_uploader !== null) {
+      message.nextUploader = object.next_uploader;
+    }
+    if (object.data_size !== undefined && object.data_size !== null) {
+      message.dataSize = BigInt(object.data_size);
+    }
+    if (object.bundle_size !== undefined && object.bundle_size !== null) {
+      message.bundleSize = BigInt(object.bundle_size);
+    }
+    if (object.to_key !== undefined && object.to_key !== null) {
+      message.toKey = object.to_key;
+    }
+    if (object.bundle_summary !== undefined && object.bundle_summary !== null) {
+      message.bundleSummary = object.bundle_summary;
+    }
+    if (object.data_hash !== undefined && object.data_hash !== null) {
+      message.dataHash = object.data_hash;
+    }
+    if (object.updated_at !== undefined && object.updated_at !== null) {
+      message.updatedAt = BigInt(object.updated_at);
+    }
+    message.votersValid = object.voters_valid?.map(e => e) || [];
+    message.votersInvalid = object.voters_invalid?.map(e => e) || [];
+    message.votersAbstain = object.voters_abstain?.map(e => e) || [];
+    if (object.from_key !== undefined && object.from_key !== null) {
+      message.fromKey = object.from_key;
+    }
+    if (object.storage_provider_id !== undefined && object.storage_provider_id !== null) {
+      message.storageProviderId = object.storage_provider_id;
+    }
+    if (object.compression_id !== undefined && object.compression_id !== null) {
+      message.compressionId = object.compression_id;
+    }
+    return message;
   },
   toAmino(message: BundleProposal): BundleProposalAmino {
     const obj: any = {};
@@ -617,11 +643,11 @@ function createBaseFinalizedBundle(): FinalizedBundle {
     toKey: "",
     bundleSummary: "",
     dataHash: "",
-    finalizedAt: FinalizedAt.fromPartial({}),
+    finalizedAt: undefined,
     fromKey: "",
     storageProviderId: 0,
     compressionId: 0,
-    stakeSecurity: StakeSecurity.fromPartial({})
+    stakeSecurity: undefined
   };
 }
 export const FinalizedBundle = {
@@ -708,22 +734,50 @@ export const FinalizedBundle = {
     return message;
   },
   fromAmino(object: FinalizedBundleAmino): FinalizedBundle {
-    return {
-      poolId: BigInt(object.pool_id),
-      id: BigInt(object.id),
-      storageId: object.storage_id,
-      uploader: object.uploader,
-      fromIndex: BigInt(object.from_index),
-      toIndex: BigInt(object.to_index),
-      toKey: object.to_key,
-      bundleSummary: object.bundle_summary,
-      dataHash: object.data_hash,
-      finalizedAt: object?.finalized_at ? FinalizedAt.fromAmino(object.finalized_at) : undefined,
-      fromKey: object.from_key,
-      storageProviderId: object.storage_provider_id,
-      compressionId: object.compression_id,
-      stakeSecurity: object?.stake_security ? StakeSecurity.fromAmino(object.stake_security) : undefined
-    };
+    const message = createBaseFinalizedBundle();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.storage_id !== undefined && object.storage_id !== null) {
+      message.storageId = object.storage_id;
+    }
+    if (object.uploader !== undefined && object.uploader !== null) {
+      message.uploader = object.uploader;
+    }
+    if (object.from_index !== undefined && object.from_index !== null) {
+      message.fromIndex = BigInt(object.from_index);
+    }
+    if (object.to_index !== undefined && object.to_index !== null) {
+      message.toIndex = BigInt(object.to_index);
+    }
+    if (object.to_key !== undefined && object.to_key !== null) {
+      message.toKey = object.to_key;
+    }
+    if (object.bundle_summary !== undefined && object.bundle_summary !== null) {
+      message.bundleSummary = object.bundle_summary;
+    }
+    if (object.data_hash !== undefined && object.data_hash !== null) {
+      message.dataHash = object.data_hash;
+    }
+    if (object.finalized_at !== undefined && object.finalized_at !== null) {
+      message.finalizedAt = FinalizedAt.fromAmino(object.finalized_at);
+    }
+    if (object.from_key !== undefined && object.from_key !== null) {
+      message.fromKey = object.from_key;
+    }
+    if (object.storage_provider_id !== undefined && object.storage_provider_id !== null) {
+      message.storageProviderId = object.storage_provider_id;
+    }
+    if (object.compression_id !== undefined && object.compression_id !== null) {
+      message.compressionId = object.compression_id;
+    }
+    if (object.stake_security !== undefined && object.stake_security !== null) {
+      message.stakeSecurity = StakeSecurity.fromAmino(object.stake_security);
+    }
+    return message;
   },
   toAmino(message: FinalizedBundle): FinalizedBundleAmino {
     const obj: any = {};
@@ -789,10 +843,14 @@ export const FinalizedAt = {
     return message;
   },
   fromAmino(object: FinalizedAtAmino): FinalizedAt {
-    return {
-      height: BigInt(object.height),
-      timestamp: BigInt(object.timestamp)
-    };
+    const message = createBaseFinalizedAt();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = BigInt(object.timestamp);
+    }
+    return message;
   },
   toAmino(message: FinalizedAt): FinalizedAtAmino {
     const obj: any = {};
@@ -846,10 +904,14 @@ export const StakeSecurity = {
     return message;
   },
   fromAmino(object: StakeSecurityAmino): StakeSecurity {
-    return {
-      validVotePower: BigInt(object.valid_vote_power),
-      totalVotePower: BigInt(object.total_vote_power)
-    };
+    const message = createBaseStakeSecurity();
+    if (object.valid_vote_power !== undefined && object.valid_vote_power !== null) {
+      message.validVotePower = BigInt(object.valid_vote_power);
+    }
+    if (object.total_vote_power !== undefined && object.total_vote_power !== null) {
+      message.totalVotePower = BigInt(object.total_vote_power);
+    }
+    return message;
   },
   toAmino(message: StakeSecurity): StakeSecurityAmino {
     const obj: any = {};
@@ -903,10 +965,14 @@ export const BundleVersionEntry = {
     return message;
   },
   fromAmino(object: BundleVersionEntryAmino): BundleVersionEntry {
-    return {
-      height: BigInt(object.height),
-      version: object.version
-    };
+    const message = createBaseBundleVersionEntry();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
   },
   toAmino(message: BundleVersionEntry): BundleVersionEntryAmino {
     const obj: any = {};
@@ -954,9 +1020,9 @@ export const BundleVersionMap = {
     return message;
   },
   fromAmino(object: BundleVersionMapAmino): BundleVersionMap {
-    return {
-      versions: Array.isArray(object?.versions) ? object.versions.map((e: any) => BundleVersionEntry.fromAmino(e)) : []
-    };
+    const message = createBaseBundleVersionMap();
+    message.versions = object.versions?.map(e => BundleVersionEntry.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: BundleVersionMap): BundleVersionMapAmino {
     const obj: any = {};
@@ -1013,10 +1079,14 @@ export const RoundRobinSingleValidatorProgress = {
     return message;
   },
   fromAmino(object: RoundRobinSingleValidatorProgressAmino): RoundRobinSingleValidatorProgress {
-    return {
-      address: object.address,
-      progress: BigInt(object.progress)
-    };
+    const message = createBaseRoundRobinSingleValidatorProgress();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.progress !== undefined && object.progress !== null) {
+      message.progress = BigInt(object.progress);
+    }
+    return message;
   },
   toAmino(message: RoundRobinSingleValidatorProgress): RoundRobinSingleValidatorProgressAmino {
     const obj: any = {};
@@ -1070,10 +1140,12 @@ export const RoundRobinProgress = {
     return message;
   },
   fromAmino(object: RoundRobinProgressAmino): RoundRobinProgress {
-    return {
-      poolId: BigInt(object.pool_id),
-      progressList: Array.isArray(object?.progress_list) ? object.progress_list.map((e: any) => RoundRobinSingleValidatorProgress.fromAmino(e)) : []
-    };
+    const message = createBaseRoundRobinProgress();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = BigInt(object.pool_id);
+    }
+    message.progressList = object.progress_list?.map(e => RoundRobinSingleValidatorProgress.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: RoundRobinProgress): RoundRobinProgressAmino {
     const obj: any = {};

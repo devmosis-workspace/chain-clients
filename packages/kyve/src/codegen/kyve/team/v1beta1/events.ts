@@ -24,13 +24,13 @@ export interface EventCreateTeamVestingAccountProtoMsg {
  */
 export interface EventCreateTeamVestingAccountAmino {
   /** authority which initiated this action */
-  authority: string;
+  authority?: string;
   /** id is a unique identify for each vesting account, tied to a single team member. */
-  id: string;
+  id?: string;
   /** total_allocation is the number of tokens reserved for this team member. */
-  total_allocation: string;
+  total_allocation?: string;
   /** commencement is the unix timestamp of the member's official start date. */
-  commencement: string;
+  commencement?: string;
 }
 export interface EventCreateTeamVestingAccountAminoMsg {
   type: "/kyve.team.v1beta1.EventCreateTeamVestingAccount";
@@ -73,16 +73,16 @@ export interface EventClawbackProtoMsg {
  */
 export interface EventClawbackAmino {
   /** authority which initiated this action */
-  authority: string;
+  authority?: string;
   /** id is a unique identify for each vesting account, tied to a single team member. */
-  id: string;
+  id?: string;
   /**
    * clawback is a unix timestamp of a clawback. If timestamp is zero
    * it means that the account has not received a clawback
    */
-  clawback: string;
+  clawback?: string;
   /** amount which got clawed back. */
-  amount: string;
+  amount?: string;
 }
 export interface EventClawbackAminoMsg {
   type: "/kyve.team.v1beta1.EventClawback";
@@ -122,13 +122,13 @@ export interface EventClaimedUnlockedProtoMsg {
  */
 export interface EventClaimedUnlockedAmino {
   /** authority which initiated this action */
-  authority: string;
+  authority?: string;
   /** id is a unique identify for each vesting account, tied to a single team member. */
-  id: string;
+  id?: string;
   /** amount is the number of tokens claimed from the unlocked amount. */
-  amount: string;
+  amount?: string;
   /** recipient is the receiver address of the claim. */
-  recipient: string;
+  recipient?: string;
 }
 export interface EventClaimedUnlockedAminoMsg {
   type: "/kyve.team.v1beta1.EventClaimedUnlocked";
@@ -168,13 +168,13 @@ export interface EventClaimInflationRewardsProtoMsg {
  */
 export interface EventClaimInflationRewardsAmino {
   /** authority which initiated this action */
-  authority: string;
+  authority?: string;
   /** id is a unique identify for each vesting account, tied to a single team member. */
-  id: string;
+  id?: string;
   /** amount is the amount of inflation rewards the authority should claim for the account holder */
-  amount: string;
+  amount?: string;
   /** recipient is the receiver address of the claim. */
-  recipient: string;
+  recipient?: string;
 }
 export interface EventClaimInflationRewardsAminoMsg {
   type: "/kyve.team.v1beta1.EventClaimInflationRewards";
@@ -212,11 +212,11 @@ export interface EventClaimAuthorityRewardsProtoMsg {
  */
 export interface EventClaimAuthorityRewardsAmino {
   /** authority which initiated this action */
-  authority: string;
+  authority?: string;
   /** amount is the amount of inflation rewards the authority should claim for the account holder */
-  amount: string;
+  amount?: string;
   /** recipient is the receiver address of the claim. */
-  recipient: string;
+  recipient?: string;
 }
 export interface EventClaimAuthorityRewardsAminoMsg {
   type: "/kyve.team.v1beta1.EventClaimAuthorityRewards";
@@ -273,12 +273,20 @@ export const EventCreateTeamVestingAccount = {
     return message;
   },
   fromAmino(object: EventCreateTeamVestingAccountAmino): EventCreateTeamVestingAccount {
-    return {
-      authority: object.authority,
-      id: BigInt(object.id),
-      totalAllocation: BigInt(object.total_allocation),
-      commencement: BigInt(object.commencement)
-    };
+    const message = createBaseEventCreateTeamVestingAccount();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.total_allocation !== undefined && object.total_allocation !== null) {
+      message.totalAllocation = BigInt(object.total_allocation);
+    }
+    if (object.commencement !== undefined && object.commencement !== null) {
+      message.commencement = BigInt(object.commencement);
+    }
+    return message;
   },
   toAmino(message: EventCreateTeamVestingAccount): EventCreateTeamVestingAccountAmino {
     const obj: any = {};
@@ -346,12 +354,20 @@ export const EventClawback = {
     return message;
   },
   fromAmino(object: EventClawbackAmino): EventClawback {
-    return {
-      authority: object.authority,
-      id: BigInt(object.id),
-      clawback: BigInt(object.clawback),
-      amount: BigInt(object.amount)
-    };
+    const message = createBaseEventClawback();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.clawback !== undefined && object.clawback !== null) {
+      message.clawback = BigInt(object.clawback);
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    return message;
   },
   toAmino(message: EventClawback): EventClawbackAmino {
     const obj: any = {};
@@ -419,12 +435,20 @@ export const EventClaimedUnlocked = {
     return message;
   },
   fromAmino(object: EventClaimedUnlockedAmino): EventClaimedUnlocked {
-    return {
-      authority: object.authority,
-      id: BigInt(object.id),
-      amount: BigInt(object.amount),
-      recipient: object.recipient
-    };
+    const message = createBaseEventClaimedUnlocked();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    return message;
   },
   toAmino(message: EventClaimedUnlocked): EventClaimedUnlockedAmino {
     const obj: any = {};
@@ -492,12 +516,20 @@ export const EventClaimInflationRewards = {
     return message;
   },
   fromAmino(object: EventClaimInflationRewardsAmino): EventClaimInflationRewards {
-    return {
-      authority: object.authority,
-      id: BigInt(object.id),
-      amount: BigInt(object.amount),
-      recipient: object.recipient
-    };
+    const message = createBaseEventClaimInflationRewards();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    return message;
   },
   toAmino(message: EventClaimInflationRewards): EventClaimInflationRewardsAmino {
     const obj: any = {};
@@ -559,11 +591,17 @@ export const EventClaimAuthorityRewards = {
     return message;
   },
   fromAmino(object: EventClaimAuthorityRewardsAmino): EventClaimAuthorityRewards {
-    return {
-      authority: object.authority,
-      amount: BigInt(object.amount),
-      recipient: object.recipient
-    };
+    const message = createBaseEventClaimAuthorityRewards();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    return message;
   },
   toAmino(message: EventClaimAuthorityRewards): EventClaimAuthorityRewardsAmino {
     const obj: any = {};
