@@ -1,18 +1,37 @@
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { Coin, CoinAmino, CoinSDKType } from "../../base/v1beta1/coin";
-import { VoteOption, WeightedVoteOption, WeightedVoteOptionAmino, WeightedVoteOptionSDKType } from "./gov";
+import { VoteOption, WeightedVoteOption, WeightedVoteOptionAmino, WeightedVoteOptionSDKType, Params, ParamsAmino, ParamsSDKType } from "./gov";
+import { CommitteeChangeProposal, CommitteeChangeProposalProtoMsg, CommitteeChangeProposalSDKType, CommitteeDeleteProposal, CommitteeDeleteProposalProtoMsg, CommitteeDeleteProposalSDKType } from "../../../kava/committee/v1beta1/proposal";
+import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalSDKType, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg, CommunityPoolSpendProposalWithDepositSDKType } from "../../distribution/v1beta1/distribution";
 import { TextProposal, TextProposalProtoMsg, TextProposalSDKType } from "../v1beta1/gov";
+import { ParameterChangeProposal, ParameterChangeProposalProtoMsg, ParameterChangeProposalSDKType } from "../../params/v1beta1/params";
+import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, SoftwareUpgradeProposalSDKType, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposalSDKType } from "../../upgrade/v1beta1/upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
  * proposal Content.
  */
 export interface MsgSubmitProposal {
+    /** messages are the arbitrary messages to be executed if proposal passes. */
     messages: Any[];
+    /** initial_deposit is the deposit value that must be paid at proposal submission. */
     initialDeposit: Coin[];
+    /** proposer is the account address of the proposer. */
     proposer: string;
     /** metadata is any arbitrary metadata attached to the proposal. */
     metadata: string;
+    /**
+     * title is the title of the proposal.
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    title: string;
+    /**
+     * summary is the summary of the proposal
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    summary: string;
 }
 export interface MsgSubmitProposalProtoMsg {
     typeUrl: "/cosmos.gov.v1.MsgSubmitProposal";
@@ -23,11 +42,26 @@ export interface MsgSubmitProposalProtoMsg {
  * proposal Content.
  */
 export interface MsgSubmitProposalAmino {
-    messages: AnyAmino[];
+    /** messages are the arbitrary messages to be executed if proposal passes. */
+    messages?: AnyAmino[];
+    /** initial_deposit is the deposit value that must be paid at proposal submission. */
     initial_deposit: CoinAmino[];
-    proposer: string;
+    /** proposer is the account address of the proposer. */
+    proposer?: string;
     /** metadata is any arbitrary metadata attached to the proposal. */
-    metadata: string;
+    metadata?: string;
+    /**
+     * title is the title of the proposal.
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    title?: string;
+    /**
+     * summary is the summary of the proposal
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    summary?: string;
 }
 export interface MsgSubmitProposalAminoMsg {
     type: "cosmos-sdk/v1/MsgSubmitProposal";
@@ -42,9 +76,12 @@ export interface MsgSubmitProposalSDKType {
     initial_deposit: CoinSDKType[];
     proposer: string;
     metadata: string;
+    title: string;
+    summary: string;
 }
 /** MsgSubmitProposalResponse defines the Msg/SubmitProposal response type. */
 export interface MsgSubmitProposalResponse {
+    /** proposal_id defines the unique id of the proposal. */
     proposalId: bigint;
 }
 export interface MsgSubmitProposalResponseProtoMsg {
@@ -53,7 +90,8 @@ export interface MsgSubmitProposalResponseProtoMsg {
 }
 /** MsgSubmitProposalResponse defines the Msg/SubmitProposal response type. */
 export interface MsgSubmitProposalResponseAmino {
-    proposal_id: string;
+    /** proposal_id defines the unique id of the proposal. */
+    proposal_id?: string;
 }
 export interface MsgSubmitProposalResponseAminoMsg {
     type: "cosmos-sdk/v1/MsgSubmitProposalResponse";
@@ -69,7 +107,7 @@ export interface MsgSubmitProposalResponseSDKType {
  */
 export interface MsgExecLegacyContent {
     /** content is the proposal's content. */
-    content: (TextProposal & Any) | undefined;
+    content?: (CommitteeChangeProposal & CommitteeDeleteProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & TextProposal & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
     /** authority must be the gov module address. */
     authority: string;
 }
@@ -78,7 +116,7 @@ export interface MsgExecLegacyContentProtoMsg {
     value: Uint8Array;
 }
 export type MsgExecLegacyContentEncoded = Omit<MsgExecLegacyContent, "content"> & {
-    /** content is the proposal's content. */ content?: TextProposalProtoMsg | AnyProtoMsg | undefined;
+    /** content is the proposal's content. */ content?: CommitteeChangeProposalProtoMsg | CommitteeDeleteProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * MsgExecLegacyContent is used to wrap the legacy content field into a message.
@@ -88,7 +126,7 @@ export interface MsgExecLegacyContentAmino {
     /** content is the proposal's content. */
     content?: AnyAmino;
     /** authority must be the gov module address. */
-    authority: string;
+    authority?: string;
 }
 export interface MsgExecLegacyContentAminoMsg {
     type: "cosmos-sdk/v1/MsgExecLegacyContent";
@@ -99,7 +137,7 @@ export interface MsgExecLegacyContentAminoMsg {
  * This ensures backwards compatibility with v1beta1.MsgSubmitProposal.
  */
 export interface MsgExecLegacyContentSDKType {
-    content: TextProposalSDKType | AnySDKType | undefined;
+    content?: CommitteeChangeProposalSDKType | CommitteeDeleteProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | TextProposalSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
     authority: string;
 }
 /** MsgExecLegacyContentResponse defines the Msg/ExecLegacyContent response type. */
@@ -121,9 +159,13 @@ export interface MsgExecLegacyContentResponseSDKType {
 }
 /** MsgVote defines a message to cast a vote. */
 export interface MsgVote {
+    /** proposal_id defines the unique id of the proposal. */
     proposalId: bigint;
+    /** voter is the voter address for the proposal. */
     voter: string;
+    /** option defines the vote option. */
     option: VoteOption;
+    /** metadata is any arbitrary metadata attached to the Vote. */
     metadata: string;
 }
 export interface MsgVoteProtoMsg {
@@ -132,10 +174,14 @@ export interface MsgVoteProtoMsg {
 }
 /** MsgVote defines a message to cast a vote. */
 export interface MsgVoteAmino {
+    /** proposal_id defines the unique id of the proposal. */
     proposal_id: string;
-    voter: string;
-    option: VoteOption;
-    metadata: string;
+    /** voter is the voter address for the proposal. */
+    voter?: string;
+    /** option defines the vote option. */
+    option?: VoteOption;
+    /** metadata is any arbitrary metadata attached to the Vote. */
+    metadata?: string;
 }
 export interface MsgVoteAminoMsg {
     type: "cosmos-sdk/v1/MsgVote";
@@ -167,9 +213,13 @@ export interface MsgVoteResponseSDKType {
 }
 /** MsgVoteWeighted defines a message to cast a vote. */
 export interface MsgVoteWeighted {
+    /** proposal_id defines the unique id of the proposal. */
     proposalId: bigint;
+    /** voter is the voter address for the proposal. */
     voter: string;
+    /** options defines the weighted vote options. */
     options: WeightedVoteOption[];
+    /** metadata is any arbitrary metadata attached to the VoteWeighted. */
     metadata: string;
 }
 export interface MsgVoteWeightedProtoMsg {
@@ -178,10 +228,14 @@ export interface MsgVoteWeightedProtoMsg {
 }
 /** MsgVoteWeighted defines a message to cast a vote. */
 export interface MsgVoteWeightedAmino {
+    /** proposal_id defines the unique id of the proposal. */
     proposal_id: string;
-    voter: string;
-    options: WeightedVoteOptionAmino[];
-    metadata: string;
+    /** voter is the voter address for the proposal. */
+    voter?: string;
+    /** options defines the weighted vote options. */
+    options?: WeightedVoteOptionAmino[];
+    /** metadata is any arbitrary metadata attached to the VoteWeighted. */
+    metadata?: string;
 }
 export interface MsgVoteWeightedAminoMsg {
     type: "cosmos-sdk/v1/MsgVoteWeighted";
@@ -213,8 +267,11 @@ export interface MsgVoteWeightedResponseSDKType {
 }
 /** MsgDeposit defines a message to submit a deposit to an existing proposal. */
 export interface MsgDeposit {
+    /** proposal_id defines the unique id of the proposal. */
     proposalId: bigint;
+    /** depositor defines the deposit addresses from the proposals. */
     depositor: string;
+    /** amount to be deposited by depositor. */
     amount: Coin[];
 }
 export interface MsgDepositProtoMsg {
@@ -223,8 +280,11 @@ export interface MsgDepositProtoMsg {
 }
 /** MsgDeposit defines a message to submit a deposit to an existing proposal. */
 export interface MsgDepositAmino {
+    /** proposal_id defines the unique id of the proposal. */
     proposal_id: string;
-    depositor: string;
+    /** depositor defines the deposit addresses from the proposals. */
+    depositor?: string;
+    /** amount to be deposited by depositor. */
     amount: CoinAmino[];
 }
 export interface MsgDepositAminoMsg {
@@ -253,6 +313,85 @@ export interface MsgDepositResponseAminoMsg {
 }
 /** MsgDepositResponse defines the Msg/Deposit response type. */
 export interface MsgDepositResponseSDKType {
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParams {
+    /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+    authority: string;
+    /**
+     * params defines the x/gov parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     */
+    params: Params;
+}
+export interface MsgUpdateParamsProtoMsg {
+    typeUrl: "/cosmos.gov.v1.MsgUpdateParams";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsAmino {
+    /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+    authority?: string;
+    /**
+     * params defines the x/gov parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     */
+    params: ParamsAmino;
+}
+export interface MsgUpdateParamsAminoMsg {
+    type: "cosmos-sdk/x/gov/v1/MsgUpdateParams";
+    value: MsgUpdateParamsAmino;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsSDKType {
+    authority: string;
+    params: ParamsSDKType;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponse {
+}
+export interface MsgUpdateParamsResponseProtoMsg {
+    typeUrl: "/cosmos.gov.v1.MsgUpdateParamsResponse";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseAmino {
+}
+export interface MsgUpdateParamsResponseAminoMsg {
+    type: "cosmos-sdk/v1/MsgUpdateParamsResponse";
+    value: MsgUpdateParamsResponseAmino;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseSDKType {
 }
 export declare const MsgSubmitProposal: {
     typeUrl: string;
@@ -384,6 +523,32 @@ export declare const MsgDepositResponse: {
     toProto(message: MsgDepositResponse): Uint8Array;
     toProtoMsg(message: MsgDepositResponse): MsgDepositResponseProtoMsg;
 };
-export declare const Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => TextProposal | Any;
-export declare const Content_FromAmino: (content: AnyAmino) => Any;
-export declare const Content_ToAmino: (content: Any) => AnyAmino;
+export declare const MsgUpdateParams: {
+    typeUrl: string;
+    encode(message: MsgUpdateParams, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgUpdateParams;
+    fromPartial(object: Partial<MsgUpdateParams>): MsgUpdateParams;
+    fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams;
+    toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino;
+    fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams;
+    toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg;
+    fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams;
+    toProto(message: MsgUpdateParams): Uint8Array;
+    toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg;
+};
+export declare const MsgUpdateParamsResponse: {
+    typeUrl: string;
+    encode(_: MsgUpdateParamsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgUpdateParamsResponse;
+    fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse;
+    fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse;
+    toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino;
+    fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse;
+    toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg;
+    fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse;
+    toProto(message: MsgUpdateParamsResponse): Uint8Array;
+    toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg;
+};
+export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => CommitteeChangeProposal | CommitteeDeleteProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any;
+export declare const Cosmos_govv1beta1Content_FromAmino: (content: AnyAmino) => Any;
+export declare const Cosmos_govv1beta1Content_ToAmino: (content: Any) => AnyAmino;

@@ -22,15 +22,15 @@ export interface MsgDepositProtoMsg {
 /** MsgDeposit represents a message for depositing liquidity into a pool */
 export interface MsgDepositAmino {
   /** depositor represents the address to deposit funds from */
-  depositor: string;
+  depositor?: string;
   /** token_a represents one token of deposit pair */
   token_a?: CoinAmino;
   /** token_b represents one token of deposit pair */
   token_b?: CoinAmino;
   /** slippage represents the max decimal percentage price change */
-  slippage: string;
+  slippage?: string;
   /** deadline represents the unix timestamp to complete the deposit by */
-  deadline: string;
+  deadline?: string;
 }
 export interface MsgDepositAminoMsg {
   type: "/kava.swap.v1beta1.MsgDeposit";
@@ -78,15 +78,15 @@ export interface MsgWithdrawProtoMsg {
 /** MsgWithdraw represents a message for withdrawing liquidity from a pool */
 export interface MsgWithdrawAmino {
   /** from represents the address we are withdrawing for */
-  from: string;
+  from?: string;
   /** shares represents the amount of shares to withdraw */
-  shares: string;
+  shares?: string;
   /** min_token_a represents the minimum a token to withdraw */
   min_token_a?: CoinAmino;
   /** min_token_a represents the minimum a token to withdraw */
   min_token_b?: CoinAmino;
   /** deadline represents the unix timestamp to complete the withdraw by */
-  deadline: string;
+  deadline?: string;
 }
 export interface MsgWithdrawAminoMsg {
   type: "/kava.swap.v1beta1.MsgWithdraw";
@@ -134,15 +134,15 @@ export interface MsgSwapExactForTokensProtoMsg {
 /** MsgSwapExactForTokens represents a message for trading exact coinA for coinB */
 export interface MsgSwapExactForTokensAmino {
   /** represents the address swaping the tokens */
-  requester: string;
+  requester?: string;
   /** exact_token_a represents the exact amount to swap for token_b */
   exact_token_a?: CoinAmino;
   /** token_b represents the desired token_b to swap for */
   token_b?: CoinAmino;
   /** slippage represents the maximum change in token_b allowed */
-  slippage: string;
+  slippage?: string;
   /** deadline represents the unix timestamp to complete the swap by */
-  deadline: string;
+  deadline?: string;
 }
 export interface MsgSwapExactForTokensAminoMsg {
   type: "/kava.swap.v1beta1.MsgSwapExactForTokens";
@@ -205,15 +205,15 @@ export interface MsgSwapForExactTokensProtoMsg {
  */
 export interface MsgSwapForExactTokensAmino {
   /** represents the address swaping the tokens */
-  requester: string;
+  requester?: string;
   /** token_a represents the desired token_a to swap for */
   token_a?: CoinAmino;
   /** exact_token_b represents the exact token b amount to swap for token a */
   exact_token_b?: CoinAmino;
   /** slippage represents the maximum change in token_a allowed */
-  slippage: string;
+  slippage?: string;
   /** deadline represents the unix timestamp to complete the swap by */
-  deadline: string;
+  deadline?: string;
 }
 export interface MsgSwapForExactTokensAminoMsg {
   type: "/kava.swap.v1beta1.MsgSwapForExactTokens";
@@ -301,13 +301,23 @@ export const MsgDeposit = {
     return message;
   },
   fromAmino(object: MsgDepositAmino): MsgDeposit {
-    return {
-      depositor: object.depositor,
-      tokenA: object?.token_a ? Coin.fromAmino(object.token_a) : undefined,
-      tokenB: object?.token_b ? Coin.fromAmino(object.token_b) : undefined,
-      slippage: object.slippage,
-      deadline: BigInt(object.deadline)
-    };
+    const message = createBaseMsgDeposit();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    if (object.token_a !== undefined && object.token_a !== null) {
+      message.tokenA = Coin.fromAmino(object.token_a);
+    }
+    if (object.token_b !== undefined && object.token_b !== null) {
+      message.tokenB = Coin.fromAmino(object.token_b);
+    }
+    if (object.slippage !== undefined && object.slippage !== null) {
+      message.slippage = object.slippage;
+    }
+    if (object.deadline !== undefined && object.deadline !== null) {
+      message.deadline = BigInt(object.deadline);
+    }
+    return message;
   },
   toAmino(message: MsgDeposit): MsgDepositAmino {
     const obj: any = {};
@@ -350,7 +360,8 @@ export const MsgDepositResponse = {
     return message;
   },
   fromAmino(_: MsgDepositResponseAmino): MsgDepositResponse {
-    return {};
+    const message = createBaseMsgDepositResponse();
+    return message;
   },
   toAmino(_: MsgDepositResponse): MsgDepositResponseAmino {
     const obj: any = {};
@@ -420,13 +431,23 @@ export const MsgWithdraw = {
     return message;
   },
   fromAmino(object: MsgWithdrawAmino): MsgWithdraw {
-    return {
-      from: object.from,
-      shares: object.shares,
-      minTokenA: object?.min_token_a ? Coin.fromAmino(object.min_token_a) : undefined,
-      minTokenB: object?.min_token_b ? Coin.fromAmino(object.min_token_b) : undefined,
-      deadline: BigInt(object.deadline)
-    };
+    const message = createBaseMsgWithdraw();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.shares !== undefined && object.shares !== null) {
+      message.shares = object.shares;
+    }
+    if (object.min_token_a !== undefined && object.min_token_a !== null) {
+      message.minTokenA = Coin.fromAmino(object.min_token_a);
+    }
+    if (object.min_token_b !== undefined && object.min_token_b !== null) {
+      message.minTokenB = Coin.fromAmino(object.min_token_b);
+    }
+    if (object.deadline !== undefined && object.deadline !== null) {
+      message.deadline = BigInt(object.deadline);
+    }
+    return message;
   },
   toAmino(message: MsgWithdraw): MsgWithdrawAmino {
     const obj: any = {};
@@ -469,7 +490,8 @@ export const MsgWithdrawResponse = {
     return message;
   },
   fromAmino(_: MsgWithdrawResponseAmino): MsgWithdrawResponse {
-    return {};
+    const message = createBaseMsgWithdrawResponse();
+    return message;
   },
   toAmino(_: MsgWithdrawResponse): MsgWithdrawResponseAmino {
     const obj: any = {};
@@ -539,13 +561,23 @@ export const MsgSwapExactForTokens = {
     return message;
   },
   fromAmino(object: MsgSwapExactForTokensAmino): MsgSwapExactForTokens {
-    return {
-      requester: object.requester,
-      exactTokenA: object?.exact_token_a ? Coin.fromAmino(object.exact_token_a) : undefined,
-      tokenB: object?.token_b ? Coin.fromAmino(object.token_b) : undefined,
-      slippage: object.slippage,
-      deadline: BigInt(object.deadline)
-    };
+    const message = createBaseMsgSwapExactForTokens();
+    if (object.requester !== undefined && object.requester !== null) {
+      message.requester = object.requester;
+    }
+    if (object.exact_token_a !== undefined && object.exact_token_a !== null) {
+      message.exactTokenA = Coin.fromAmino(object.exact_token_a);
+    }
+    if (object.token_b !== undefined && object.token_b !== null) {
+      message.tokenB = Coin.fromAmino(object.token_b);
+    }
+    if (object.slippage !== undefined && object.slippage !== null) {
+      message.slippage = object.slippage;
+    }
+    if (object.deadline !== undefined && object.deadline !== null) {
+      message.deadline = BigInt(object.deadline);
+    }
+    return message;
   },
   toAmino(message: MsgSwapExactForTokens): MsgSwapExactForTokensAmino {
     const obj: any = {};
@@ -588,7 +620,8 @@ export const MsgSwapExactForTokensResponse = {
     return message;
   },
   fromAmino(_: MsgSwapExactForTokensResponseAmino): MsgSwapExactForTokensResponse {
-    return {};
+    const message = createBaseMsgSwapExactForTokensResponse();
+    return message;
   },
   toAmino(_: MsgSwapExactForTokensResponse): MsgSwapExactForTokensResponseAmino {
     const obj: any = {};
@@ -658,13 +691,23 @@ export const MsgSwapForExactTokens = {
     return message;
   },
   fromAmino(object: MsgSwapForExactTokensAmino): MsgSwapForExactTokens {
-    return {
-      requester: object.requester,
-      tokenA: object?.token_a ? Coin.fromAmino(object.token_a) : undefined,
-      exactTokenB: object?.exact_token_b ? Coin.fromAmino(object.exact_token_b) : undefined,
-      slippage: object.slippage,
-      deadline: BigInt(object.deadline)
-    };
+    const message = createBaseMsgSwapForExactTokens();
+    if (object.requester !== undefined && object.requester !== null) {
+      message.requester = object.requester;
+    }
+    if (object.token_a !== undefined && object.token_a !== null) {
+      message.tokenA = Coin.fromAmino(object.token_a);
+    }
+    if (object.exact_token_b !== undefined && object.exact_token_b !== null) {
+      message.exactTokenB = Coin.fromAmino(object.exact_token_b);
+    }
+    if (object.slippage !== undefined && object.slippage !== null) {
+      message.slippage = object.slippage;
+    }
+    if (object.deadline !== undefined && object.deadline !== null) {
+      message.deadline = BigInt(object.deadline);
+    }
+    return message;
   },
   toAmino(message: MsgSwapForExactTokens): MsgSwapForExactTokensAmino {
     const obj: any = {};
@@ -707,7 +750,8 @@ export const MsgSwapForExactTokensResponse = {
     return message;
   },
   fromAmino(_: MsgSwapForExactTokensResponseAmino): MsgSwapForExactTokensResponse {
-    return {};
+    const message = createBaseMsgSwapForExactTokensResponse();
+    return message;
   },
   toAmino(_: MsgSwapForExactTokensResponse): MsgSwapForExactTokensResponseAmino {
     const obj: any = {};

@@ -14,7 +14,7 @@ export interface GenesisStateProtoMsg {
 export interface GenesisStateAmino {
     /** params defines all the parameters of the module. */
     params?: ParamsAmino;
-    deposits: DepositAmino[];
+    deposits?: DepositAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.savings.v1beta1.GenesisState";

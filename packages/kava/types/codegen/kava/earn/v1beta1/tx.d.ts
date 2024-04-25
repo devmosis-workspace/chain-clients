@@ -21,14 +21,14 @@ export interface MsgDepositProtoMsg {
 /** MsgDeposit represents a message for depositing assedts into a vault */
 export interface MsgDepositAmino {
     /** depositor represents the address to deposit funds from */
-    depositor: string;
+    depositor?: string;
     /**
      * Amount represents the token to deposit. The vault corresponds to the denom
      * of the amount coin.
      */
     amount?: CoinAmino;
     /** Strategy is the vault strategy to use. */
-    strategy: StrategyType;
+    strategy?: StrategyType;
 }
 export interface MsgDepositAminoMsg {
     type: "/kava.earn.v1beta1.MsgDeposit";
@@ -79,14 +79,14 @@ export interface MsgWithdrawProtoMsg {
 /** MsgWithdraw represents a message for withdrawing liquidity from a vault */
 export interface MsgWithdrawAmino {
     /** from represents the address we are withdrawing for */
-    from: string;
+    from?: string;
     /**
      * Amount represents the token to withdraw. The vault corresponds to the denom
      * of the amount coin.
      */
     amount?: CoinAmino;
     /** Strategy is the vault strategy to use. */
-    strategy: StrategyType;
+    strategy?: StrategyType;
 }
 export interface MsgWithdrawAminoMsg {
     type: "/kava.earn.v1beta1.MsgWithdraw";

@@ -13,9 +13,9 @@ export interface MsgIssueTokensProtoMsg {
 }
 /** MsgIssueTokens represents a message used by the issuer to issue new tokens */
 export interface MsgIssueTokensAmino {
-  sender: string;
+  sender?: string;
   tokens?: CoinAmino;
-  receiver: string;
+  receiver?: string;
 }
 export interface MsgIssueTokensAminoMsg {
   type: "/kava.issuance.v1beta1.MsgIssueTokens";
@@ -52,7 +52,7 @@ export interface MsgRedeemTokensProtoMsg {
 }
 /** MsgRedeemTokens represents a message used by the issuer to redeem (burn) tokens */
 export interface MsgRedeemTokensAmino {
-  sender: string;
+  sender?: string;
   tokens?: CoinAmino;
 }
 export interface MsgRedeemTokensAminoMsg {
@@ -90,9 +90,9 @@ export interface MsgBlockAddressProtoMsg {
 }
 /** MsgBlockAddress represents a message used by the issuer to block an address from holding or transferring tokens */
 export interface MsgBlockAddressAmino {
-  sender: string;
-  denom: string;
-  blocked_address: string;
+  sender?: string;
+  denom?: string;
+  blocked_address?: string;
 }
 export interface MsgBlockAddressAminoMsg {
   type: "/kava.issuance.v1beta1.MsgBlockAddress";
@@ -130,9 +130,9 @@ export interface MsgUnblockAddressProtoMsg {
 }
 /** MsgUnblockAddress message type used by the issuer to unblock an address from holding or transferring tokens */
 export interface MsgUnblockAddressAmino {
-  sender: string;
-  denom: string;
-  blocked_address: string;
+  sender?: string;
+  denom?: string;
+  blocked_address?: string;
 }
 export interface MsgUnblockAddressAminoMsg {
   type: "/kava.issuance.v1beta1.MsgUnblockAddress";
@@ -170,9 +170,9 @@ export interface MsgSetPauseStatusProtoMsg {
 }
 /** MsgSetPauseStatus message type used by the issuer to pause or unpause status */
 export interface MsgSetPauseStatusAmino {
-  sender: string;
-  denom: string;
-  status: boolean;
+  sender?: string;
+  denom?: string;
+  status?: boolean;
 }
 export interface MsgSetPauseStatusAminoMsg {
   type: "/kava.issuance.v1beta1.MsgSetPauseStatus";
@@ -234,11 +234,17 @@ export const MsgIssueTokens = {
     return message;
   },
   fromAmino(object: MsgIssueTokensAmino): MsgIssueTokens {
-    return {
-      sender: object.sender,
-      tokens: object?.tokens ? Coin.fromAmino(object.tokens) : undefined,
-      receiver: object.receiver
-    };
+    const message = createBaseMsgIssueTokens();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.tokens !== undefined && object.tokens !== null) {
+      message.tokens = Coin.fromAmino(object.tokens);
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    return message;
   },
   toAmino(message: MsgIssueTokens): MsgIssueTokensAmino {
     const obj: any = {};
@@ -279,7 +285,8 @@ export const MsgIssueTokensResponse = {
     return message;
   },
   fromAmino(_: MsgIssueTokensResponseAmino): MsgIssueTokensResponse {
-    return {};
+    const message = createBaseMsgIssueTokensResponse();
+    return message;
   },
   toAmino(_: MsgIssueTokensResponse): MsgIssueTokensResponseAmino {
     const obj: any = {};
@@ -331,10 +338,14 @@ export const MsgRedeemTokens = {
     return message;
   },
   fromAmino(object: MsgRedeemTokensAmino): MsgRedeemTokens {
-    return {
-      sender: object.sender,
-      tokens: object?.tokens ? Coin.fromAmino(object.tokens) : undefined
-    };
+    const message = createBaseMsgRedeemTokens();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.tokens !== undefined && object.tokens !== null) {
+      message.tokens = Coin.fromAmino(object.tokens);
+    }
+    return message;
   },
   toAmino(message: MsgRedeemTokens): MsgRedeemTokensAmino {
     const obj: any = {};
@@ -374,7 +385,8 @@ export const MsgRedeemTokensResponse = {
     return message;
   },
   fromAmino(_: MsgRedeemTokensResponseAmino): MsgRedeemTokensResponse {
-    return {};
+    const message = createBaseMsgRedeemTokensResponse();
+    return message;
   },
   toAmino(_: MsgRedeemTokensResponse): MsgRedeemTokensResponseAmino {
     const obj: any = {};
@@ -432,11 +444,17 @@ export const MsgBlockAddress = {
     return message;
   },
   fromAmino(object: MsgBlockAddressAmino): MsgBlockAddress {
-    return {
-      sender: object.sender,
-      denom: object.denom,
-      blockedAddress: object.blocked_address
-    };
+    const message = createBaseMsgBlockAddress();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.blocked_address !== undefined && object.blocked_address !== null) {
+      message.blockedAddress = object.blocked_address;
+    }
+    return message;
   },
   toAmino(message: MsgBlockAddress): MsgBlockAddressAmino {
     const obj: any = {};
@@ -477,7 +495,8 @@ export const MsgBlockAddressResponse = {
     return message;
   },
   fromAmino(_: MsgBlockAddressResponseAmino): MsgBlockAddressResponse {
-    return {};
+    const message = createBaseMsgBlockAddressResponse();
+    return message;
   },
   toAmino(_: MsgBlockAddressResponse): MsgBlockAddressResponseAmino {
     const obj: any = {};
@@ -535,11 +554,17 @@ export const MsgUnblockAddress = {
     return message;
   },
   fromAmino(object: MsgUnblockAddressAmino): MsgUnblockAddress {
-    return {
-      sender: object.sender,
-      denom: object.denom,
-      blockedAddress: object.blocked_address
-    };
+    const message = createBaseMsgUnblockAddress();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.blocked_address !== undefined && object.blocked_address !== null) {
+      message.blockedAddress = object.blocked_address;
+    }
+    return message;
   },
   toAmino(message: MsgUnblockAddress): MsgUnblockAddressAmino {
     const obj: any = {};
@@ -580,7 +605,8 @@ export const MsgUnblockAddressResponse = {
     return message;
   },
   fromAmino(_: MsgUnblockAddressResponseAmino): MsgUnblockAddressResponse {
-    return {};
+    const message = createBaseMsgUnblockAddressResponse();
+    return message;
   },
   toAmino(_: MsgUnblockAddressResponse): MsgUnblockAddressResponseAmino {
     const obj: any = {};
@@ -638,11 +664,17 @@ export const MsgSetPauseStatus = {
     return message;
   },
   fromAmino(object: MsgSetPauseStatusAmino): MsgSetPauseStatus {
-    return {
-      sender: object.sender,
-      denom: object.denom,
-      status: object.status
-    };
+    const message = createBaseMsgSetPauseStatus();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = object.status;
+    }
+    return message;
   },
   toAmino(message: MsgSetPauseStatus): MsgSetPauseStatusAmino {
     const obj: any = {};
@@ -683,7 +715,8 @@ export const MsgSetPauseStatusResponse = {
     return message;
   },
   fromAmino(_: MsgSetPauseStatusResponseAmino): MsgSetPauseStatusResponse {
-    return {};
+    const message = createBaseMsgSetPauseStatusResponse();
+    return message;
   },
   toAmino(_: MsgSetPauseStatusResponse): MsgSetPauseStatusResponseAmino {
     const obj: any = {};

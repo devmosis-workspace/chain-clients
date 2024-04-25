@@ -17,10 +17,10 @@ export type GenesisStateEncoded = Omit<GenesisState, "auctions"> & {
 };
 /** GenesisState defines the auction module's genesis state. */
 export interface GenesisStateAmino {
-    next_auction_id: string;
+    next_auction_id?: string;
     params?: ParamsAmino;
     /** Genesis auctions */
-    auctions: AnyAmino[];
+    auctions?: AnyAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.auction.v1beta1.GenesisState";
@@ -50,9 +50,9 @@ export interface ParamsAmino {
     max_auction_duration?: DurationAmino;
     forward_bid_duration?: DurationAmino;
     reverse_bid_duration?: DurationAmino;
-    increment_surplus: Uint8Array;
-    increment_debt: Uint8Array;
-    increment_collateral: Uint8Array;
+    increment_surplus?: string;
+    increment_debt?: string;
+    increment_collateral?: string;
 }
 export interface ParamsAminoMsg {
     type: "/kava.auction.v1beta1.Params";

@@ -18,14 +18,14 @@ export interface MsgCreateAtomicSwapProtoMsg {
 }
 /** MsgCreateAtomicSwap defines the Msg/CreateAtomicSwap request type. */
 export interface MsgCreateAtomicSwapAmino {
-  from: string;
-  to: string;
-  recipient_other_chain: string;
-  sender_other_chain: string;
-  random_number_hash: string;
-  timestamp: string;
-  amount: CoinAmino[];
-  height_span: string;
+  from?: string;
+  to?: string;
+  recipient_other_chain?: string;
+  sender_other_chain?: string;
+  random_number_hash?: string;
+  timestamp?: string;
+  amount?: CoinAmino[];
+  height_span?: string;
 }
 export interface MsgCreateAtomicSwapAminoMsg {
   type: "/kava.bep3.v1beta1.MsgCreateAtomicSwap";
@@ -68,9 +68,9 @@ export interface MsgClaimAtomicSwapProtoMsg {
 }
 /** MsgClaimAtomicSwap defines the Msg/ClaimAtomicSwap request type. */
 export interface MsgClaimAtomicSwapAmino {
-  from: string;
-  swap_id: string;
-  random_number: string;
+  from?: string;
+  swap_id?: string;
+  random_number?: string;
 }
 export interface MsgClaimAtomicSwapAminoMsg {
   type: "/kava.bep3.v1beta1.MsgClaimAtomicSwap";
@@ -107,8 +107,8 @@ export interface MsgRefundAtomicSwapProtoMsg {
 }
 /** MsgRefundAtomicSwap defines the Msg/RefundAtomicSwap request type. */
 export interface MsgRefundAtomicSwapAmino {
-  from: string;
-  swap_id: string;
+  from?: string;
+  swap_id?: string;
 }
 export interface MsgRefundAtomicSwapAminoMsg {
   type: "/kava.bep3.v1beta1.MsgRefundAtomicSwap";
@@ -199,16 +199,30 @@ export const MsgCreateAtomicSwap = {
     return message;
   },
   fromAmino(object: MsgCreateAtomicSwapAmino): MsgCreateAtomicSwap {
-    return {
-      from: object.from,
-      to: object.to,
-      recipientOtherChain: object.recipient_other_chain,
-      senderOtherChain: object.sender_other_chain,
-      randomNumberHash: object.random_number_hash,
-      timestamp: BigInt(object.timestamp),
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : [],
-      heightSpan: BigInt(object.height_span)
-    };
+    const message = createBaseMsgCreateAtomicSwap();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.to !== undefined && object.to !== null) {
+      message.to = object.to;
+    }
+    if (object.recipient_other_chain !== undefined && object.recipient_other_chain !== null) {
+      message.recipientOtherChain = object.recipient_other_chain;
+    }
+    if (object.sender_other_chain !== undefined && object.sender_other_chain !== null) {
+      message.senderOtherChain = object.sender_other_chain;
+    }
+    if (object.random_number_hash !== undefined && object.random_number_hash !== null) {
+      message.randomNumberHash = object.random_number_hash;
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = BigInt(object.timestamp);
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    if (object.height_span !== undefined && object.height_span !== null) {
+      message.heightSpan = BigInt(object.height_span);
+    }
+    return message;
   },
   toAmino(message: MsgCreateAtomicSwap): MsgCreateAtomicSwapAmino {
     const obj: any = {};
@@ -258,7 +272,8 @@ export const MsgCreateAtomicSwapResponse = {
     return message;
   },
   fromAmino(_: MsgCreateAtomicSwapResponseAmino): MsgCreateAtomicSwapResponse {
-    return {};
+    const message = createBaseMsgCreateAtomicSwapResponse();
+    return message;
   },
   toAmino(_: MsgCreateAtomicSwapResponse): MsgCreateAtomicSwapResponseAmino {
     const obj: any = {};
@@ -316,11 +331,17 @@ export const MsgClaimAtomicSwap = {
     return message;
   },
   fromAmino(object: MsgClaimAtomicSwapAmino): MsgClaimAtomicSwap {
-    return {
-      from: object.from,
-      swapId: object.swap_id,
-      randomNumber: object.random_number
-    };
+    const message = createBaseMsgClaimAtomicSwap();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.swap_id !== undefined && object.swap_id !== null) {
+      message.swapId = object.swap_id;
+    }
+    if (object.random_number !== undefined && object.random_number !== null) {
+      message.randomNumber = object.random_number;
+    }
+    return message;
   },
   toAmino(message: MsgClaimAtomicSwap): MsgClaimAtomicSwapAmino {
     const obj: any = {};
@@ -361,7 +382,8 @@ export const MsgClaimAtomicSwapResponse = {
     return message;
   },
   fromAmino(_: MsgClaimAtomicSwapResponseAmino): MsgClaimAtomicSwapResponse {
-    return {};
+    const message = createBaseMsgClaimAtomicSwapResponse();
+    return message;
   },
   toAmino(_: MsgClaimAtomicSwapResponse): MsgClaimAtomicSwapResponseAmino {
     const obj: any = {};
@@ -413,10 +435,14 @@ export const MsgRefundAtomicSwap = {
     return message;
   },
   fromAmino(object: MsgRefundAtomicSwapAmino): MsgRefundAtomicSwap {
-    return {
-      from: object.from,
-      swapId: object.swap_id
-    };
+    const message = createBaseMsgRefundAtomicSwap();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.swap_id !== undefined && object.swap_id !== null) {
+      message.swapId = object.swap_id;
+    }
+    return message;
   },
   toAmino(message: MsgRefundAtomicSwap): MsgRefundAtomicSwapAmino {
     const obj: any = {};
@@ -456,7 +482,8 @@ export const MsgRefundAtomicSwapResponse = {
     return message;
   },
   fromAmino(_: MsgRefundAtomicSwapResponseAmino): MsgRefundAtomicSwapResponse {
-    return {};
+    const message = createBaseMsgRefundAtomicSwapResponse();
+    return message;
   },
   toAmino(_: MsgRefundAtomicSwapResponse): MsgRefundAtomicSwapResponseAmino {
     const obj: any = {};

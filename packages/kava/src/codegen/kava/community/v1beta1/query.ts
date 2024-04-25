@@ -1,5 +1,44 @@
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { Coin, CoinAmino, CoinSDKType, DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
+import { isSet } from "../../../helpers";
+import { Decimal } from "@cosmjs/math";
+/** QueryParams defines the request type for querying x/community params. */
+export interface QueryParamsRequest {}
+export interface QueryParamsRequestProtoMsg {
+  typeUrl: "/kava.community.v1beta1.QueryParamsRequest";
+  value: Uint8Array;
+}
+/** QueryParams defines the request type for querying x/community params. */
+export interface QueryParamsRequestAmino {}
+export interface QueryParamsRequestAminoMsg {
+  type: "/kava.community.v1beta1.QueryParamsRequest";
+  value: QueryParamsRequestAmino;
+}
+/** QueryParams defines the request type for querying x/community params. */
+export interface QueryParamsRequestSDKType {}
+/** QueryParamsResponse defines the response type for querying x/community params. */
+export interface QueryParamsResponse {
+  /** params represents the community module parameters */
+  params: Params;
+}
+export interface QueryParamsResponseProtoMsg {
+  typeUrl: "/kava.community.v1beta1.QueryParamsResponse";
+  value: Uint8Array;
+}
+/** QueryParamsResponse defines the response type for querying x/community params. */
+export interface QueryParamsResponseAmino {
+  /** params represents the community module parameters */
+  params?: ParamsAmino;
+}
+export interface QueryParamsResponseAminoMsg {
+  type: "/kava.community.v1beta1.QueryParamsResponse";
+  value: QueryParamsResponseAmino;
+}
+/** QueryParamsResponse defines the response type for querying x/community params. */
+export interface QueryParamsResponseSDKType {
+  params: ParamsSDKType;
+}
 /** QueryBalanceRequest defines the request type for querying x/community balance. */
 export interface QueryBalanceRequest {}
 export interface QueryBalanceRequestProtoMsg {
@@ -24,7 +63,7 @@ export interface QueryBalanceResponseProtoMsg {
 }
 /** QueryBalanceResponse defines the response type for querying x/community balance. */
 export interface QueryBalanceResponseAmino {
-  coins: CoinAmino[];
+  coins?: CoinAmino[];
 }
 export interface QueryBalanceResponseAminoMsg {
   type: "/kava.community.v1beta1.QueryBalanceResponse";
@@ -66,7 +105,7 @@ export interface QueryTotalBalanceResponseProtoMsg {
  */
 export interface QueryTotalBalanceResponseAmino {
   /** pool defines community pool's coins. */
-  pool: DecCoinAmino[];
+  pool?: DecCoinAmino[];
 }
 export interface QueryTotalBalanceResponseAminoMsg {
   type: "/kava.community.v1beta1.QueryTotalBalanceResponse";
@@ -79,6 +118,132 @@ export interface QueryTotalBalanceResponseAminoMsg {
 export interface QueryTotalBalanceResponseSDKType {
   pool: DecCoinSDKType[];
 }
+/** QueryAnnualizedRewardsRequest defines the request type for querying the annualized rewards. */
+export interface QueryAnnualizedRewardsRequest {}
+export interface QueryAnnualizedRewardsRequestProtoMsg {
+  typeUrl: "/kava.community.v1beta1.QueryAnnualizedRewardsRequest";
+  value: Uint8Array;
+}
+/** QueryAnnualizedRewardsRequest defines the request type for querying the annualized rewards. */
+export interface QueryAnnualizedRewardsRequestAmino {}
+export interface QueryAnnualizedRewardsRequestAminoMsg {
+  type: "/kava.community.v1beta1.QueryAnnualizedRewardsRequest";
+  value: QueryAnnualizedRewardsRequestAmino;
+}
+/** QueryAnnualizedRewardsRequest defines the request type for querying the annualized rewards. */
+export interface QueryAnnualizedRewardsRequestSDKType {}
+/** QueryAnnualizedRewardsResponse defines the response type for querying the annualized rewards. */
+export interface QueryAnnualizedRewardsResponse {
+  /** staking_rewards is the calculated annualized staking rewards percentage rate */
+  stakingRewards: string;
+}
+export interface QueryAnnualizedRewardsResponseProtoMsg {
+  typeUrl: "/kava.community.v1beta1.QueryAnnualizedRewardsResponse";
+  value: Uint8Array;
+}
+/** QueryAnnualizedRewardsResponse defines the response type for querying the annualized rewards. */
+export interface QueryAnnualizedRewardsResponseAmino {
+  /** staking_rewards is the calculated annualized staking rewards percentage rate */
+  staking_rewards?: string;
+}
+export interface QueryAnnualizedRewardsResponseAminoMsg {
+  type: "/kava.community.v1beta1.QueryAnnualizedRewardsResponse";
+  value: QueryAnnualizedRewardsResponseAmino;
+}
+/** QueryAnnualizedRewardsResponse defines the response type for querying the annualized rewards. */
+export interface QueryAnnualizedRewardsResponseSDKType {
+  staking_rewards: string;
+}
+function createBaseQueryParamsRequest(): QueryParamsRequest {
+  return {};
+}
+export const QueryParamsRequest = {
+  typeUrl: "/kava.community.v1beta1.QueryParamsRequest",
+  encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryParamsRequest {
+    return {};
+  },
+  fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest {
+    const message = createBaseQueryParamsRequest();
+    return message;
+  },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    const message = createBaseQueryParamsRequest();
+    return message;
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsRequestProtoMsg): QueryParamsRequest {
+    return QueryParamsRequest.decode(message.value);
+  },
+  toProto(message: QueryParamsRequest): Uint8Array {
+    return QueryParamsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsRequest): QueryParamsRequestProtoMsg {
+    return {
+      typeUrl: "/kava.community.v1beta1.QueryParamsRequest",
+      value: QueryParamsRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryParamsResponse(): QueryParamsResponse {
+  return {
+    params: Params.fromPartial({})
+  };
+}
+export const QueryParamsResponse = {
+  typeUrl: "/kava.community.v1beta1.QueryParamsResponse",
+  encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryParamsResponse {
+    return {
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryParamsResponse>): QueryParamsResponse {
+    const message = createBaseQueryParamsResponse();
+    message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryParamsResponseProtoMsg): QueryParamsResponse {
+    return QueryParamsResponse.decode(message.value);
+  },
+  toProto(message: QueryParamsResponse): Uint8Array {
+    return QueryParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg {
+    return {
+      typeUrl: "/kava.community.v1beta1.QueryParamsResponse",
+      value: QueryParamsResponse.encode(message).finish()
+    };
+  }
+};
 function createBaseQueryBalanceRequest(): QueryBalanceRequest {
   return {};
 }
@@ -95,7 +260,8 @@ export const QueryBalanceRequest = {
     return message;
   },
   fromAmino(_: QueryBalanceRequestAmino): QueryBalanceRequest {
-    return {};
+    const message = createBaseQueryBalanceRequest();
+    return message;
   },
   toAmino(_: QueryBalanceRequest): QueryBalanceRequestAmino {
     const obj: any = {};
@@ -141,9 +307,9 @@ export const QueryBalanceResponse = {
     return message;
   },
   fromAmino(object: QueryBalanceResponseAmino): QueryBalanceResponse {
-    return {
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryBalanceResponse();
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryBalanceResponse): QueryBalanceResponseAmino {
     const obj: any = {};
@@ -186,7 +352,8 @@ export const QueryTotalBalanceRequest = {
     return message;
   },
   fromAmino(_: QueryTotalBalanceRequestAmino): QueryTotalBalanceRequest {
-    return {};
+    const message = createBaseQueryTotalBalanceRequest();
+    return message;
   },
   toAmino(_: QueryTotalBalanceRequest): QueryTotalBalanceRequestAmino {
     const obj: any = {};
@@ -232,9 +399,9 @@ export const QueryTotalBalanceResponse = {
     return message;
   },
   fromAmino(object: QueryTotalBalanceResponseAmino): QueryTotalBalanceResponse {
-    return {
-      pool: Array.isArray(object?.pool) ? object.pool.map((e: any) => DecCoin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTotalBalanceResponse();
+    message.pool = object.pool?.map(e => DecCoin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTotalBalanceResponse): QueryTotalBalanceResponseAmino {
     const obj: any = {};
@@ -258,6 +425,96 @@ export const QueryTotalBalanceResponse = {
     return {
       typeUrl: "/kava.community.v1beta1.QueryTotalBalanceResponse",
       value: QueryTotalBalanceResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAnnualizedRewardsRequest(): QueryAnnualizedRewardsRequest {
+  return {};
+}
+export const QueryAnnualizedRewardsRequest = {
+  typeUrl: "/kava.community.v1beta1.QueryAnnualizedRewardsRequest",
+  encode(_: QueryAnnualizedRewardsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryAnnualizedRewardsRequest {
+    return {};
+  },
+  fromPartial(_: Partial<QueryAnnualizedRewardsRequest>): QueryAnnualizedRewardsRequest {
+    const message = createBaseQueryAnnualizedRewardsRequest();
+    return message;
+  },
+  fromAmino(_: QueryAnnualizedRewardsRequestAmino): QueryAnnualizedRewardsRequest {
+    const message = createBaseQueryAnnualizedRewardsRequest();
+    return message;
+  },
+  toAmino(_: QueryAnnualizedRewardsRequest): QueryAnnualizedRewardsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryAnnualizedRewardsRequestAminoMsg): QueryAnnualizedRewardsRequest {
+    return QueryAnnualizedRewardsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAnnualizedRewardsRequestProtoMsg): QueryAnnualizedRewardsRequest {
+    return QueryAnnualizedRewardsRequest.decode(message.value);
+  },
+  toProto(message: QueryAnnualizedRewardsRequest): Uint8Array {
+    return QueryAnnualizedRewardsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAnnualizedRewardsRequest): QueryAnnualizedRewardsRequestProtoMsg {
+    return {
+      typeUrl: "/kava.community.v1beta1.QueryAnnualizedRewardsRequest",
+      value: QueryAnnualizedRewardsRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryAnnualizedRewardsResponse(): QueryAnnualizedRewardsResponse {
+  return {
+    stakingRewards: ""
+  };
+}
+export const QueryAnnualizedRewardsResponse = {
+  typeUrl: "/kava.community.v1beta1.QueryAnnualizedRewardsResponse",
+  encode(message: QueryAnnualizedRewardsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.stakingRewards !== "") {
+      writer.uint32(10).string(Decimal.fromUserInput(message.stakingRewards, 18).atomics);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryAnnualizedRewardsResponse {
+    return {
+      stakingRewards: isSet(object.stakingRewards) ? String(object.stakingRewards) : ""
+    };
+  },
+  fromPartial(object: Partial<QueryAnnualizedRewardsResponse>): QueryAnnualizedRewardsResponse {
+    const message = createBaseQueryAnnualizedRewardsResponse();
+    message.stakingRewards = object.stakingRewards ?? "";
+    return message;
+  },
+  fromAmino(object: QueryAnnualizedRewardsResponseAmino): QueryAnnualizedRewardsResponse {
+    const message = createBaseQueryAnnualizedRewardsResponse();
+    if (object.staking_rewards !== undefined && object.staking_rewards !== null) {
+      message.stakingRewards = object.staking_rewards;
+    }
+    return message;
+  },
+  toAmino(message: QueryAnnualizedRewardsResponse): QueryAnnualizedRewardsResponseAmino {
+    const obj: any = {};
+    obj.staking_rewards = message.stakingRewards;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAnnualizedRewardsResponseAminoMsg): QueryAnnualizedRewardsResponse {
+    return QueryAnnualizedRewardsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryAnnualizedRewardsResponseProtoMsg): QueryAnnualizedRewardsResponse {
+    return QueryAnnualizedRewardsResponse.decode(message.value);
+  },
+  toProto(message: QueryAnnualizedRewardsResponse): Uint8Array {
+    return QueryAnnualizedRewardsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryAnnualizedRewardsResponse): QueryAnnualizedRewardsResponseProtoMsg {
+    return {
+      typeUrl: "/kava.community.v1beta1.QueryAnnualizedRewardsResponse",
+      value: QueryAnnualizedRewardsResponse.encode(message).finish()
     };
   }
 };

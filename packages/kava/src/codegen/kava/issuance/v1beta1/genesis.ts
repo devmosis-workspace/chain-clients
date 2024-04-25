@@ -1,10 +1,10 @@
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** GenesisState defines the issuance module's genesis state. */
 export interface GenesisState {
-  /** params defines all the paramaters of the module. */
+  /** params defines all the parameters of the module. */
   params: Params;
   supplies: AssetSupply[];
 }
@@ -14,9 +14,9 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the issuance module's genesis state. */
 export interface GenesisStateAmino {
-  /** params defines all the paramaters of the module. */
+  /** params defines all the parameters of the module. */
   params?: ParamsAmino;
-  supplies: AssetSupplyAmino[];
+  supplies?: AssetSupplyAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/kava.issuance.v1beta1.GenesisState";
@@ -37,7 +37,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the issuance module. */
 export interface ParamsAmino {
-  assets: AssetAmino[];
+  assets?: AssetAmino[];
 }
 export interface ParamsAminoMsg {
   type: "/kava.issuance.v1beta1.Params";
@@ -62,11 +62,11 @@ export interface AssetProtoMsg {
 }
 /** Asset type for assets in the issuance module */
 export interface AssetAmino {
-  owner: string;
-  denom: string;
-  blocked_addresses: string[];
-  paused: boolean;
-  blockable: boolean;
+  owner?: string;
+  denom?: string;
+  blocked_addresses?: string[];
+  paused?: boolean;
+  blockable?: boolean;
   rate_limit?: RateLimitAmino;
 }
 export interface AssetAminoMsg {
@@ -94,8 +94,8 @@ export interface RateLimitProtoMsg {
 }
 /** RateLimit parameters for rate-limiting the supply of an issued asset */
 export interface RateLimitAmino {
-  active: boolean;
-  limit: Uint8Array;
+  active?: boolean;
+  limit?: string;
   time_period?: DurationAmino;
 }
 export interface RateLimitAminoMsg {
@@ -170,10 +170,12 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      supplies: Array.isArray(object?.supplies) ? object.supplies.map((e: any) => AssetSupply.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.supplies = object.supplies?.map(e => AssetSupply.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -225,9 +227,9 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      assets: Array.isArray(object?.assets) ? object.assets.map((e: any) => Asset.fromAmino(e)) : []
-    };
+    const message = createBaseParams();
+    message.assets = object.assets?.map(e => Asset.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -308,14 +310,24 @@ export const Asset = {
     return message;
   },
   fromAmino(object: AssetAmino): Asset {
-    return {
-      owner: object.owner,
-      denom: object.denom,
-      blockedAddresses: Array.isArray(object?.blocked_addresses) ? object.blocked_addresses.map((e: any) => e) : [],
-      paused: object.paused,
-      blockable: object.blockable,
-      rateLimit: object?.rate_limit ? RateLimit.fromAmino(object.rate_limit) : undefined
-    };
+    const message = createBaseAsset();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    message.blockedAddresses = object.blocked_addresses?.map(e => e) || [];
+    if (object.paused !== undefined && object.paused !== null) {
+      message.paused = object.paused;
+    }
+    if (object.blockable !== undefined && object.blockable !== null) {
+      message.blockable = object.blockable;
+    }
+    if (object.rate_limit !== undefined && object.rate_limit !== null) {
+      message.rateLimit = RateLimit.fromAmino(object.rate_limit);
+    }
+    return message;
   },
   toAmino(message: Asset): AssetAmino {
     const obj: any = {};
@@ -383,16 +395,22 @@ export const RateLimit = {
     return message;
   },
   fromAmino(object: RateLimitAmino): RateLimit {
-    return {
-      active: object.active,
-      limit: object.limit,
-      timePeriod: object?.time_period ? Duration.fromAmino(object.time_period) : undefined
-    };
+    const message = createBaseRateLimit();
+    if (object.active !== undefined && object.active !== null) {
+      message.active = object.active;
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = bytesFromBase64(object.limit);
+    }
+    if (object.time_period !== undefined && object.time_period !== null) {
+      message.timePeriod = Duration.fromAmino(object.time_period);
+    }
+    return message;
   },
   toAmino(message: RateLimit): RateLimitAmino {
     const obj: any = {};
     obj.active = message.active;
-    obj.limit = message.limit;
+    obj.limit = message.limit ? base64FromBytes(message.limit) : undefined;
     obj.time_period = message.timePeriod ? Duration.toAmino(message.timePeriod) : undefined;
     return obj;
   },
@@ -442,10 +460,14 @@ export const AssetSupply = {
     return message;
   },
   fromAmino(object: AssetSupplyAmino): AssetSupply {
-    return {
-      currentSupply: object?.current_supply ? Coin.fromAmino(object.current_supply) : undefined,
-      timeElapsed: object?.time_elapsed ? Duration.fromAmino(object.time_elapsed) : undefined
-    };
+    const message = createBaseAssetSupply();
+    if (object.current_supply !== undefined && object.current_supply !== null) {
+      message.currentSupply = Coin.fromAmino(object.current_supply);
+    }
+    if (object.time_elapsed !== undefined && object.time_elapsed !== null) {
+      message.timeElapsed = Duration.fromAmino(object.time_elapsed);
+    }
+    return message;
   },
   toAmino(message: AssetSupply): AssetSupplyAmino {
     const obj: any = {};

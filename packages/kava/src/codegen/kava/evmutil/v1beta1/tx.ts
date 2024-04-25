@@ -8,7 +8,7 @@ export interface MsgConvertCoinToERC20 {
   /** EVM 0x hex address that will receive the converted Kava ERC20 tokens. */
   receiver: string;
   /** Amount is the sdk.Coin amount to convert. */
-  amount: Coin;
+  amount?: Coin;
 }
 export interface MsgConvertCoinToERC20ProtoMsg {
   typeUrl: "/kava.evmutil.v1beta1.MsgConvertCoinToERC20";
@@ -17,9 +17,9 @@ export interface MsgConvertCoinToERC20ProtoMsg {
 /** MsgConvertCoinToERC20 defines a conversion from sdk.Coin to Kava ERC20 for EVM-native assets. */
 export interface MsgConvertCoinToERC20Amino {
   /** Kava bech32 address initiating the conversion. */
-  initiator: string;
+  initiator?: string;
   /** EVM 0x hex address that will receive the converted Kava ERC20 tokens. */
-  receiver: string;
+  receiver?: string;
   /** Amount is the sdk.Coin amount to convert. */
   amount?: CoinAmino;
 }
@@ -31,7 +31,7 @@ export interface MsgConvertCoinToERC20AminoMsg {
 export interface MsgConvertCoinToERC20SDKType {
   initiator: string;
   receiver: string;
-  amount: CoinSDKType;
+  amount?: CoinSDKType;
 }
 /** MsgConvertCoinToERC20Response defines the response value from Msg/ConvertCoinToERC20. */
 export interface MsgConvertCoinToERC20Response {}
@@ -65,13 +65,13 @@ export interface MsgConvertERC20ToCoinProtoMsg {
 /** MsgConvertERC20ToCoin defines a conversion from Kava ERC20 to sdk.Coin for EVM-native assets. */
 export interface MsgConvertERC20ToCoinAmino {
   /** EVM 0x hex address initiating the conversion. */
-  initiator: string;
+  initiator?: string;
   /** Kava bech32 address that will receive the converted sdk.Coin. */
-  receiver: string;
+  receiver?: string;
   /** EVM 0x hex address of the ERC20 contract. */
-  kava_erc20_address: string;
+  kava_erc20_address?: string;
   /** ERC20 token amount to convert. */
-  amount: string;
+  amount?: string;
 }
 export interface MsgConvertERC20ToCoinAminoMsg {
   type: "/kava.evmutil.v1beta1.MsgConvertERC20ToCoin";
@@ -114,7 +114,7 @@ export interface MsgConvertCosmosCoinToERC20 {
   /** EVM hex address that will receive the ERC20 tokens. */
   receiver: string;
   /** Amount is the sdk.Coin amount to convert. */
-  amount: Coin;
+  amount?: Coin;
 }
 export interface MsgConvertCosmosCoinToERC20ProtoMsg {
   typeUrl: "/kava.evmutil.v1beta1.MsgConvertCosmosCoinToERC20";
@@ -123,9 +123,9 @@ export interface MsgConvertCosmosCoinToERC20ProtoMsg {
 /** MsgConvertCosmosCoinToERC20 defines a conversion from cosmos sdk.Coin to ERC20 for cosmos-native assets. */
 export interface MsgConvertCosmosCoinToERC20Amino {
   /** Kava bech32 address initiating the conversion. */
-  initiator: string;
+  initiator?: string;
   /** EVM hex address that will receive the ERC20 tokens. */
-  receiver: string;
+  receiver?: string;
   /** Amount is the sdk.Coin amount to convert. */
   amount?: CoinAmino;
 }
@@ -137,7 +137,7 @@ export interface MsgConvertCosmosCoinToERC20AminoMsg {
 export interface MsgConvertCosmosCoinToERC20SDKType {
   initiator: string;
   receiver: string;
-  amount: CoinSDKType;
+  amount?: CoinSDKType;
 }
 /** MsgConvertCosmosCoinToERC20Response defines the response value from Msg/MsgConvertCosmosCoinToERC20. */
 export interface MsgConvertCosmosCoinToERC20Response {}
@@ -160,7 +160,7 @@ export interface MsgConvertCosmosCoinFromERC20 {
   /** Kava bech32 address that will receive the cosmos coins. */
   receiver: string;
   /** Amount is the amount to convert, expressed as a Cosmos coin. */
-  amount: Coin;
+  amount?: Coin;
 }
 export interface MsgConvertCosmosCoinFromERC20ProtoMsg {
   typeUrl: "/kava.evmutil.v1beta1.MsgConvertCosmosCoinFromERC20";
@@ -169,9 +169,9 @@ export interface MsgConvertCosmosCoinFromERC20ProtoMsg {
 /** MsgConvertCosmosCoinFromERC20 defines a conversion from ERC20 to cosmos coins for cosmos-native assets. */
 export interface MsgConvertCosmosCoinFromERC20Amino {
   /** EVM hex address initiating the conversion. */
-  initiator: string;
+  initiator?: string;
   /** Kava bech32 address that will receive the cosmos coins. */
-  receiver: string;
+  receiver?: string;
   /** Amount is the amount to convert, expressed as a Cosmos coin. */
   amount?: CoinAmino;
 }
@@ -183,7 +183,7 @@ export interface MsgConvertCosmosCoinFromERC20AminoMsg {
 export interface MsgConvertCosmosCoinFromERC20SDKType {
   initiator: string;
   receiver: string;
-  amount: CoinSDKType;
+  amount?: CoinSDKType;
 }
 /** MsgConvertCosmosCoinFromERC20Response defines the response value from Msg/MsgConvertCosmosCoinFromERC20. */
 export interface MsgConvertCosmosCoinFromERC20Response {}
@@ -203,7 +203,7 @@ function createBaseMsgConvertCoinToERC20(): MsgConvertCoinToERC20 {
   return {
     initiator: "",
     receiver: "",
-    amount: Coin.fromPartial({})
+    amount: undefined
   };
 }
 export const MsgConvertCoinToERC20 = {
@@ -235,11 +235,17 @@ export const MsgConvertCoinToERC20 = {
     return message;
   },
   fromAmino(object: MsgConvertCoinToERC20Amino): MsgConvertCoinToERC20 {
-    return {
-      initiator: object.initiator,
-      receiver: object.receiver,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgConvertCoinToERC20();
+    if (object.initiator !== undefined && object.initiator !== null) {
+      message.initiator = object.initiator;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgConvertCoinToERC20): MsgConvertCoinToERC20Amino {
     const obj: any = {};
@@ -280,7 +286,8 @@ export const MsgConvertCoinToERC20Response = {
     return message;
   },
   fromAmino(_: MsgConvertCoinToERC20ResponseAmino): MsgConvertCoinToERC20Response {
-    return {};
+    const message = createBaseMsgConvertCoinToERC20Response();
+    return message;
   },
   toAmino(_: MsgConvertCoinToERC20Response): MsgConvertCoinToERC20ResponseAmino {
     const obj: any = {};
@@ -344,12 +351,20 @@ export const MsgConvertERC20ToCoin = {
     return message;
   },
   fromAmino(object: MsgConvertERC20ToCoinAmino): MsgConvertERC20ToCoin {
-    return {
-      initiator: object.initiator,
-      receiver: object.receiver,
-      kavaErc20Address: object.kava_erc20_address,
-      amount: object.amount
-    };
+    const message = createBaseMsgConvertERC20ToCoin();
+    if (object.initiator !== undefined && object.initiator !== null) {
+      message.initiator = object.initiator;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.kava_erc20_address !== undefined && object.kava_erc20_address !== null) {
+      message.kavaErc20Address = object.kava_erc20_address;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
   },
   toAmino(message: MsgConvertERC20ToCoin): MsgConvertERC20ToCoinAmino {
     const obj: any = {};
@@ -391,7 +406,8 @@ export const MsgConvertERC20ToCoinResponse = {
     return message;
   },
   fromAmino(_: MsgConvertERC20ToCoinResponseAmino): MsgConvertERC20ToCoinResponse {
-    return {};
+    const message = createBaseMsgConvertERC20ToCoinResponse();
+    return message;
   },
   toAmino(_: MsgConvertERC20ToCoinResponse): MsgConvertERC20ToCoinResponseAmino {
     const obj: any = {};
@@ -417,7 +433,7 @@ function createBaseMsgConvertCosmosCoinToERC20(): MsgConvertCosmosCoinToERC20 {
   return {
     initiator: "",
     receiver: "",
-    amount: Coin.fromPartial({})
+    amount: undefined
   };
 }
 export const MsgConvertCosmosCoinToERC20 = {
@@ -449,11 +465,17 @@ export const MsgConvertCosmosCoinToERC20 = {
     return message;
   },
   fromAmino(object: MsgConvertCosmosCoinToERC20Amino): MsgConvertCosmosCoinToERC20 {
-    return {
-      initiator: object.initiator,
-      receiver: object.receiver,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgConvertCosmosCoinToERC20();
+    if (object.initiator !== undefined && object.initiator !== null) {
+      message.initiator = object.initiator;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgConvertCosmosCoinToERC20): MsgConvertCosmosCoinToERC20Amino {
     const obj: any = {};
@@ -494,7 +516,8 @@ export const MsgConvertCosmosCoinToERC20Response = {
     return message;
   },
   fromAmino(_: MsgConvertCosmosCoinToERC20ResponseAmino): MsgConvertCosmosCoinToERC20Response {
-    return {};
+    const message = createBaseMsgConvertCosmosCoinToERC20Response();
+    return message;
   },
   toAmino(_: MsgConvertCosmosCoinToERC20Response): MsgConvertCosmosCoinToERC20ResponseAmino {
     const obj: any = {};
@@ -520,7 +543,7 @@ function createBaseMsgConvertCosmosCoinFromERC20(): MsgConvertCosmosCoinFromERC2
   return {
     initiator: "",
     receiver: "",
-    amount: Coin.fromPartial({})
+    amount: undefined
   };
 }
 export const MsgConvertCosmosCoinFromERC20 = {
@@ -552,11 +575,17 @@ export const MsgConvertCosmosCoinFromERC20 = {
     return message;
   },
   fromAmino(object: MsgConvertCosmosCoinFromERC20Amino): MsgConvertCosmosCoinFromERC20 {
-    return {
-      initiator: object.initiator,
-      receiver: object.receiver,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgConvertCosmosCoinFromERC20();
+    if (object.initiator !== undefined && object.initiator !== null) {
+      message.initiator = object.initiator;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgConvertCosmosCoinFromERC20): MsgConvertCosmosCoinFromERC20Amino {
     const obj: any = {};
@@ -597,7 +626,8 @@ export const MsgConvertCosmosCoinFromERC20Response = {
     return message;
   },
   fromAmino(_: MsgConvertCosmosCoinFromERC20ResponseAmino): MsgConvertCosmosCoinFromERC20Response {
-    return {};
+    const message = createBaseMsgConvertCosmosCoinFromERC20Response();
+    return message;
   },
   toAmino(_: MsgConvertCosmosCoinFromERC20Response): MsgConvertCosmosCoinFromERC20ResponseAmino {
     const obj: any = {};

@@ -1,5 +1,5 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** Params governance parameters for kavadist module */
 export interface Params {
@@ -13,8 +13,8 @@ export interface ParamsProtoMsg {
 }
 /** Params governance parameters for kavadist module */
 export interface ParamsAmino {
-    active: boolean;
-    periods: PeriodAmino[];
+    active?: boolean;
+    periods?: PeriodAmino[];
     infrastructure_params?: InfrastructureParamsAmino;
 }
 export interface ParamsAminoMsg {
@@ -39,9 +39,9 @@ export interface InfrastructureParamsProtoMsg {
 }
 /** InfrastructureParams define the parameters for infrastructure rewards. */
 export interface InfrastructureParamsAmino {
-    infrastructure_periods: PeriodAmino[];
-    core_rewards: CoreRewardAmino[];
-    partner_rewards: PartnerRewardAmino[];
+    infrastructure_periods?: PeriodAmino[];
+    core_rewards?: CoreRewardAmino[];
+    partner_rewards?: PartnerRewardAmino[];
 }
 export interface InfrastructureParamsAminoMsg {
     type: "/kava.kavadist.v1beta1.InfrastructureParams";
@@ -64,8 +64,8 @@ export interface CoreRewardProtoMsg {
 }
 /** CoreReward defines the reward weights for core infrastructure providers. */
 export interface CoreRewardAmino {
-    address: Uint8Array;
-    weight: string;
+    address?: string;
+    weight?: string;
 }
 export interface CoreRewardAminoMsg {
     type: "/kava.kavadist.v1beta1.CoreReward";
@@ -87,7 +87,7 @@ export interface PartnerRewardProtoMsg {
 }
 /** PartnerRewards defines the reward schedule for partner infrastructure providers. */
 export interface PartnerRewardAmino {
-    address: Uint8Array;
+    address?: string;
     rewards_per_second?: CoinAmino;
 }
 export interface PartnerRewardAminoMsg {
@@ -121,11 +121,11 @@ export interface PeriodProtoMsg {
  */
 export interface PeriodAmino {
     /** example "2020-03-01T15:20:00Z" */
-    start?: TimestampAmino;
+    start?: string;
     /** example "2020-06-01T15:20:00Z" */
-    end?: TimestampAmino;
+    end?: string;
     /** example "1.000000003022265980"  - 10% inflation */
-    inflation: Uint8Array;
+    inflation?: string;
 }
 export interface PeriodAminoMsg {
     type: "/kava.kavadist.v1beta1.Period";

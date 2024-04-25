@@ -45,7 +45,7 @@ export interface QueryDeployedCosmosCoinContractsRequest {
    */
   cosmosDenoms: string[];
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryDeployedCosmosCoinContractsRequestProtoMsg {
   typeUrl: "/kava.evmutil.v1beta1.QueryDeployedCosmosCoinContractsRequest";
@@ -58,7 +58,7 @@ export interface QueryDeployedCosmosCoinContractsRequestAmino {
    * denoms that do not have deployed contracts will be omitted from the result
    * must request fewer than 100 denoms at a time.
    */
-  cosmos_denoms: string[];
+  cosmos_denoms?: string[];
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
 }
@@ -69,14 +69,14 @@ export interface QueryDeployedCosmosCoinContractsRequestAminoMsg {
 /** QueryDeployedCosmosCoinContractsRequest defines the request type for Query/DeployedCosmosCoinContracts method. */
 export interface QueryDeployedCosmosCoinContractsRequestSDKType {
   cosmos_denoms: string[];
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryDeployedCosmosCoinContractsResponse defines the response type for the Query/DeployedCosmosCoinContracts method. */
 export interface QueryDeployedCosmosCoinContractsResponse {
   /** deployed_cosmos_coin_contracts is a list of cosmos-sdk coin denom and its deployed contract address */
   deployedCosmosCoinContracts: DeployedCosmosCoinContract[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryDeployedCosmosCoinContractsResponseProtoMsg {
   typeUrl: "/kava.evmutil.v1beta1.QueryDeployedCosmosCoinContractsResponse";
@@ -85,7 +85,7 @@ export interface QueryDeployedCosmosCoinContractsResponseProtoMsg {
 /** QueryDeployedCosmosCoinContractsResponse defines the response type for the Query/DeployedCosmosCoinContracts method. */
 export interface QueryDeployedCosmosCoinContractsResponseAmino {
   /** deployed_cosmos_coin_contracts is a list of cosmos-sdk coin denom and its deployed contract address */
-  deployed_cosmos_coin_contracts: DeployedCosmosCoinContractAmino[];
+  deployed_cosmos_coin_contracts?: DeployedCosmosCoinContractAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -96,7 +96,7 @@ export interface QueryDeployedCosmosCoinContractsResponseAminoMsg {
 /** QueryDeployedCosmosCoinContractsResponse defines the response type for the Query/DeployedCosmosCoinContracts method. */
 export interface QueryDeployedCosmosCoinContractsResponseSDKType {
   deployed_cosmos_coin_contracts: DeployedCosmosCoinContractSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** DeployedCosmosCoinContract defines a deployed token contract to the evm representing a native cosmos-sdk coin */
 export interface DeployedCosmosCoinContract {
@@ -109,8 +109,8 @@ export interface DeployedCosmosCoinContractProtoMsg {
 }
 /** DeployedCosmosCoinContract defines a deployed token contract to the evm representing a native cosmos-sdk coin */
 export interface DeployedCosmosCoinContractAmino {
-  cosmos_denom: string;
-  address: string;
+  cosmos_denom?: string;
+  address?: string;
 }
 export interface DeployedCosmosCoinContractAminoMsg {
   type: "/kava.evmutil.v1beta1.DeployedCosmosCoinContract";
@@ -137,7 +137,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -183,9 +184,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -211,7 +214,7 @@ export const QueryParamsResponse = {
 function createBaseQueryDeployedCosmosCoinContractsRequest(): QueryDeployedCosmosCoinContractsRequest {
   return {
     cosmosDenoms: [],
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDeployedCosmosCoinContractsRequest = {
@@ -238,10 +241,12 @@ export const QueryDeployedCosmosCoinContractsRequest = {
     return message;
   },
   fromAmino(object: QueryDeployedCosmosCoinContractsRequestAmino): QueryDeployedCosmosCoinContractsRequest {
-    return {
-      cosmosDenoms: Array.isArray(object?.cosmos_denoms) ? object.cosmos_denoms.map((e: any) => e) : [],
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDeployedCosmosCoinContractsRequest();
+    message.cosmosDenoms = object.cosmos_denoms?.map(e => e) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDeployedCosmosCoinContractsRequest): QueryDeployedCosmosCoinContractsRequestAmino {
     const obj: any = {};
@@ -272,7 +277,7 @@ export const QueryDeployedCosmosCoinContractsRequest = {
 function createBaseQueryDeployedCosmosCoinContractsResponse(): QueryDeployedCosmosCoinContractsResponse {
   return {
     deployedCosmosCoinContracts: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDeployedCosmosCoinContractsResponse = {
@@ -299,10 +304,12 @@ export const QueryDeployedCosmosCoinContractsResponse = {
     return message;
   },
   fromAmino(object: QueryDeployedCosmosCoinContractsResponseAmino): QueryDeployedCosmosCoinContractsResponse {
-    return {
-      deployedCosmosCoinContracts: Array.isArray(object?.deployed_cosmos_coin_contracts) ? object.deployed_cosmos_coin_contracts.map((e: any) => DeployedCosmosCoinContract.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDeployedCosmosCoinContractsResponse();
+    message.deployedCosmosCoinContracts = object.deployed_cosmos_coin_contracts?.map(e => DeployedCosmosCoinContract.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDeployedCosmosCoinContractsResponse): QueryDeployedCosmosCoinContractsResponseAmino {
     const obj: any = {};
@@ -360,10 +367,14 @@ export const DeployedCosmosCoinContract = {
     return message;
   },
   fromAmino(object: DeployedCosmosCoinContractAmino): DeployedCosmosCoinContract {
-    return {
-      cosmosDenom: object.cosmos_denom,
-      address: object.address
-    };
+    const message = createBaseDeployedCosmosCoinContract();
+    if (object.cosmos_denom !== undefined && object.cosmos_denom !== null) {
+      message.cosmosDenom = object.cosmos_denom;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: DeployedCosmosCoinContract): DeployedCosmosCoinContractAmino {
     const obj: any = {};

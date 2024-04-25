@@ -12,9 +12,9 @@ export interface MsgIssueTokensProtoMsg {
 }
 /** MsgIssueTokens represents a message used by the issuer to issue new tokens */
 export interface MsgIssueTokensAmino {
-    sender: string;
+    sender?: string;
     tokens?: CoinAmino;
-    receiver: string;
+    receiver?: string;
 }
 export interface MsgIssueTokensAminoMsg {
     type: "/kava.issuance.v1beta1.MsgIssueTokens";
@@ -54,7 +54,7 @@ export interface MsgRedeemTokensProtoMsg {
 }
 /** MsgRedeemTokens represents a message used by the issuer to redeem (burn) tokens */
 export interface MsgRedeemTokensAmino {
-    sender: string;
+    sender?: string;
     tokens?: CoinAmino;
 }
 export interface MsgRedeemTokensAminoMsg {
@@ -95,9 +95,9 @@ export interface MsgBlockAddressProtoMsg {
 }
 /** MsgBlockAddress represents a message used by the issuer to block an address from holding or transferring tokens */
 export interface MsgBlockAddressAmino {
-    sender: string;
-    denom: string;
-    blocked_address: string;
+    sender?: string;
+    denom?: string;
+    blocked_address?: string;
 }
 export interface MsgBlockAddressAminoMsg {
     type: "/kava.issuance.v1beta1.MsgBlockAddress";
@@ -138,9 +138,9 @@ export interface MsgUnblockAddressProtoMsg {
 }
 /** MsgUnblockAddress message type used by the issuer to unblock an address from holding or transferring tokens */
 export interface MsgUnblockAddressAmino {
-    sender: string;
-    denom: string;
-    blocked_address: string;
+    sender?: string;
+    denom?: string;
+    blocked_address?: string;
 }
 export interface MsgUnblockAddressAminoMsg {
     type: "/kava.issuance.v1beta1.MsgUnblockAddress";
@@ -181,9 +181,9 @@ export interface MsgSetPauseStatusProtoMsg {
 }
 /** MsgSetPauseStatus message type used by the issuer to pause or unpause status */
 export interface MsgSetPauseStatusAmino {
-    sender: string;
-    denom: string;
-    status: boolean;
+    sender?: string;
+    denom?: string;
+    status?: boolean;
 }
 export interface MsgSetPauseStatusAminoMsg {
     type: "/kava.issuance.v1beta1.MsgSetPauseStatus";

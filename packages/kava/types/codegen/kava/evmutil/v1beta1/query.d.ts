@@ -47,7 +47,7 @@ export interface QueryDeployedCosmosCoinContractsRequest {
      */
     cosmosDenoms: string[];
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDeployedCosmosCoinContractsRequestProtoMsg {
     typeUrl: "/kava.evmutil.v1beta1.QueryDeployedCosmosCoinContractsRequest";
@@ -60,7 +60,7 @@ export interface QueryDeployedCosmosCoinContractsRequestAmino {
      * denoms that do not have deployed contracts will be omitted from the result
      * must request fewer than 100 denoms at a time.
      */
-    cosmos_denoms: string[];
+    cosmos_denoms?: string[];
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -71,14 +71,14 @@ export interface QueryDeployedCosmosCoinContractsRequestAminoMsg {
 /** QueryDeployedCosmosCoinContractsRequest defines the request type for Query/DeployedCosmosCoinContracts method. */
 export interface QueryDeployedCosmosCoinContractsRequestSDKType {
     cosmos_denoms: string[];
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryDeployedCosmosCoinContractsResponse defines the response type for the Query/DeployedCosmosCoinContracts method. */
 export interface QueryDeployedCosmosCoinContractsResponse {
     /** deployed_cosmos_coin_contracts is a list of cosmos-sdk coin denom and its deployed contract address */
     deployedCosmosCoinContracts: DeployedCosmosCoinContract[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDeployedCosmosCoinContractsResponseProtoMsg {
     typeUrl: "/kava.evmutil.v1beta1.QueryDeployedCosmosCoinContractsResponse";
@@ -87,7 +87,7 @@ export interface QueryDeployedCosmosCoinContractsResponseProtoMsg {
 /** QueryDeployedCosmosCoinContractsResponse defines the response type for the Query/DeployedCosmosCoinContracts method. */
 export interface QueryDeployedCosmosCoinContractsResponseAmino {
     /** deployed_cosmos_coin_contracts is a list of cosmos-sdk coin denom and its deployed contract address */
-    deployed_cosmos_coin_contracts: DeployedCosmosCoinContractAmino[];
+    deployed_cosmos_coin_contracts?: DeployedCosmosCoinContractAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -98,7 +98,7 @@ export interface QueryDeployedCosmosCoinContractsResponseAminoMsg {
 /** QueryDeployedCosmosCoinContractsResponse defines the response type for the Query/DeployedCosmosCoinContracts method. */
 export interface QueryDeployedCosmosCoinContractsResponseSDKType {
     deployed_cosmos_coin_contracts: DeployedCosmosCoinContractSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** DeployedCosmosCoinContract defines a deployed token contract to the evm representing a native cosmos-sdk coin */
 export interface DeployedCosmosCoinContract {
@@ -111,8 +111,8 @@ export interface DeployedCosmosCoinContractProtoMsg {
 }
 /** DeployedCosmosCoinContract defines a deployed token contract to the evm representing a native cosmos-sdk coin */
 export interface DeployedCosmosCoinContractAmino {
-    cosmos_denom: string;
-    address: string;
+    cosmos_denom?: string;
+    address?: string;
 }
 export interface DeployedCosmosCoinContractAminoMsg {
     type: "/kava.evmutil.v1beta1.DeployedCosmosCoinContract";

@@ -60,7 +60,7 @@ export interface QueryBalanceResponseProtoMsg {
 }
 /** QueryBalanceResponse defines the response type for querying x/kavadist balance. */
 export interface QueryBalanceResponseAmino {
-  coins: CoinAmino[];
+  coins?: CoinAmino[];
 }
 export interface QueryBalanceResponseAminoMsg {
   type: "/kava.kavadist.v1beta1.QueryBalanceResponse";
@@ -86,7 +86,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -132,9 +133,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -173,7 +176,8 @@ export const QueryBalanceRequest = {
     return message;
   },
   fromAmino(_: QueryBalanceRequestAmino): QueryBalanceRequest {
-    return {};
+    const message = createBaseQueryBalanceRequest();
+    return message;
   },
   toAmino(_: QueryBalanceRequest): QueryBalanceRequestAmino {
     const obj: any = {};
@@ -219,9 +223,9 @@ export const QueryBalanceResponse = {
     return message;
   },
   fromAmino(object: QueryBalanceResponseAmino): QueryBalanceResponse {
-    return {
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryBalanceResponse();
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryBalanceResponse): QueryBalanceResponseAmino {
     const obj: any = {};

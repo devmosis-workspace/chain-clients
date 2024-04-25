@@ -12,8 +12,8 @@ export interface CommunityPoolDepositProposalProtoMsg {
 }
 /** CommunityPoolDepositProposal deposits from the community pool into an earn vault */
 export interface CommunityPoolDepositProposalAmino {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     amount?: CoinAmino;
 }
 export interface CommunityPoolDepositProposalAminoMsg {
@@ -39,10 +39,10 @@ export interface CommunityPoolDepositProposalJSONProtoMsg {
 }
 /** CommunityPoolDepositProposalJSON defines a CommunityPoolDepositProposal with a deposit */
 export interface CommunityPoolDepositProposalJSONAmino {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     amount?: CoinAmino;
-    deposit: CoinAmino[];
+    deposit?: CoinAmino[];
 }
 export interface CommunityPoolDepositProposalJSONAminoMsg {
     type: "/kava.earn.v1beta1.CommunityPoolDepositProposalJSON";
@@ -67,8 +67,8 @@ export interface CommunityPoolWithdrawProposalProtoMsg {
 }
 /** CommunityPoolWithdrawProposal withdraws from an earn vault back to community pool */
 export interface CommunityPoolWithdrawProposalAmino {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     amount?: CoinAmino;
 }
 export interface CommunityPoolWithdrawProposalAminoMsg {
@@ -94,10 +94,10 @@ export interface CommunityPoolWithdrawProposalJSONProtoMsg {
 }
 /** CommunityPoolWithdrawProposalJSON defines a CommunityPoolWithdrawProposal with a deposit */
 export interface CommunityPoolWithdrawProposalJSONAmino {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     amount?: CoinAmino;
-    deposit: CoinAmino[];
+    deposit?: CoinAmino[];
 }
 export interface CommunityPoolWithdrawProposalJSONAminoMsg {
     type: "/kava.earn.v1beta1.CommunityPoolWithdrawProposalJSON";

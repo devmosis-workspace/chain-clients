@@ -11,8 +11,8 @@ export interface MsgDepositProtoMsg {
 }
 /** MsgDeposit defines the Msg/Deposit request type. */
 export interface MsgDepositAmino {
-    depositor: string;
-    amount: CoinAmino[];
+    depositor?: string;
+    amount?: CoinAmino[];
 }
 export interface MsgDepositAminoMsg {
     type: "/kava.hard.v1beta1.MsgDeposit";
@@ -51,8 +51,8 @@ export interface MsgWithdrawProtoMsg {
 }
 /** MsgWithdraw defines the Msg/Withdraw request type. */
 export interface MsgWithdrawAmino {
-    depositor: string;
-    amount: CoinAmino[];
+    depositor?: string;
+    amount?: CoinAmino[];
 }
 export interface MsgWithdrawAminoMsg {
     type: "/kava.hard.v1beta1.MsgWithdraw";
@@ -91,8 +91,8 @@ export interface MsgBorrowProtoMsg {
 }
 /** MsgBorrow defines the Msg/Borrow request type. */
 export interface MsgBorrowAmino {
-    borrower: string;
-    amount: CoinAmino[];
+    borrower?: string;
+    amount?: CoinAmino[];
 }
 export interface MsgBorrowAminoMsg {
     type: "/kava.hard.v1beta1.MsgBorrow";
@@ -132,9 +132,9 @@ export interface MsgRepayProtoMsg {
 }
 /** MsgRepay defines the Msg/Repay request type. */
 export interface MsgRepayAmino {
-    sender: string;
-    owner: string;
-    amount: CoinAmino[];
+    sender?: string;
+    owner?: string;
+    amount?: CoinAmino[];
 }
 export interface MsgRepayAminoMsg {
     type: "/kava.hard.v1beta1.MsgRepay";
@@ -174,8 +174,8 @@ export interface MsgLiquidateProtoMsg {
 }
 /** MsgLiquidate defines the Msg/Liquidate request type. */
 export interface MsgLiquidateAmino {
-    keeper: string;
-    borrower: string;
+    keeper?: string;
+    borrower?: string;
 }
 export interface MsgLiquidateAminoMsg {
     type: "/kava.hard.v1beta1.MsgLiquidate";

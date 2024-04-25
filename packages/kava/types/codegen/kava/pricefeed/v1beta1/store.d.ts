@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** Params defines the parameters for the pricefeed module. */
 export interface Params {
@@ -10,7 +10,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the pricefeed module. */
 export interface ParamsAmino {
-    markets: MarketAmino[];
+    markets?: MarketAmino[];
 }
 export interface ParamsAminoMsg {
     type: "/kava.pricefeed.v1beta1.Params";
@@ -34,11 +34,11 @@ export interface MarketProtoMsg {
 }
 /** Market defines an asset in the pricefeed. */
 export interface MarketAmino {
-    market_id: string;
-    base_asset: string;
-    quote_asset: string;
-    oracles: Uint8Array[];
-    active: boolean;
+    market_id?: string;
+    base_asset?: string;
+    quote_asset?: string;
+    oracles?: string[];
+    active?: boolean;
 }
 export interface MarketAminoMsg {
     type: "/kava.pricefeed.v1beta1.Market";
@@ -65,10 +65,10 @@ export interface PostedPriceProtoMsg {
 }
 /** PostedPrice defines a price for market posted by a specific oracle. */
 export interface PostedPriceAmino {
-    market_id: string;
-    oracle_address: Uint8Array;
-    price: string;
-    expiry?: TimestampAmino;
+    market_id?: string;
+    oracle_address?: string;
+    price?: string;
+    expiry?: string;
 }
 export interface PostedPriceAminoMsg {
     type: "/kava.pricefeed.v1beta1.PostedPrice";
@@ -98,8 +98,8 @@ export interface CurrentPriceProtoMsg {
  * module.
  */
 export interface CurrentPriceAmino {
-    market_id: string;
-    price: string;
+    market_id?: string;
+    price?: string;
 }
 export interface CurrentPriceAminoMsg {
     type: "/kava.pricefeed.v1beta1.CurrentPrice";

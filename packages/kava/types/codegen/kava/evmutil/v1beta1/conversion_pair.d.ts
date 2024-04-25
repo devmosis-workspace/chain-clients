@@ -19,9 +19,9 @@ export interface ConversionPairProtoMsg {
  */
 export interface ConversionPairAmino {
     /** ERC20 address of the token on the Kava EVM */
-    kava_erc20_address: Uint8Array;
+    kava_erc20_address?: string;
     /** Denom of the corresponding sdk.Coin */
-    denom: string;
+    denom?: string;
 }
 export interface ConversionPairAminoMsg {
     type: "/kava.evmutil.v1beta1.ConversionPair";
@@ -63,13 +63,13 @@ export interface AllowedCosmosCoinERC20TokenProtoMsg {
  */
 export interface AllowedCosmosCoinERC20TokenAmino {
     /** Denom of the sdk.Coin */
-    cosmos_denom: string;
+    cosmos_denom?: string;
     /** Name of ERC20 contract */
-    name: string;
+    name?: string;
     /** Symbol of ERC20 contract */
-    symbol: string;
+    symbol?: string;
     /** Number of decimals ERC20 contract is deployed with. */
-    decimals: number;
+    decimals?: number;
 }
 export interface AllowedCosmosCoinERC20TokenAminoMsg {
     type: "/kava.evmutil.v1beta1.AllowedCosmosCoinERC20Token";

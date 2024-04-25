@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
 /** RewardPeriod stores the state of an ongoing reward */
@@ -15,10 +15,10 @@ export interface RewardPeriodProtoMsg {
 }
 /** RewardPeriod stores the state of an ongoing reward */
 export interface RewardPeriodAmino {
-    active: boolean;
-    collateral_type: string;
-    start?: TimestampAmino;
-    end?: TimestampAmino;
+    active?: boolean;
+    collateral_type?: string;
+    start?: string;
+    end?: string;
     rewards_per_second?: CoinAmino;
 }
 export interface RewardPeriodAminoMsg {
@@ -47,11 +47,11 @@ export interface MultiRewardPeriodProtoMsg {
 }
 /** MultiRewardPeriod supports multiple reward types */
 export interface MultiRewardPeriodAmino {
-    active: boolean;
-    collateral_type: string;
-    start?: TimestampAmino;
-    end?: TimestampAmino;
-    rewards_per_second: CoinAmino[];
+    active?: boolean;
+    collateral_type?: string;
+    start?: string;
+    end?: string;
+    rewards_per_second?: CoinAmino[];
 }
 export interface MultiRewardPeriodAminoMsg {
     type: "/kava.incentive.v1beta1.MultiRewardPeriod";
@@ -77,9 +77,9 @@ export interface MultiplierProtoMsg {
 }
 /** Multiplier amount the claim rewards get increased by, along with how long the claim rewards are locked */
 export interface MultiplierAmino {
-    name: string;
-    months_lockup: string;
-    factor: Uint8Array;
+    name?: string;
+    months_lockup?: string;
+    factor?: string;
 }
 export interface MultiplierAminoMsg {
     type: "/kava.incentive.v1beta1.Multiplier";
@@ -102,8 +102,8 @@ export interface MultipliersPerDenomProtoMsg {
 }
 /** MultipliersPerDenom is a map of denoms to a set of multipliers */
 export interface MultipliersPerDenomAmino {
-    denom: string;
-    multipliers: MultiplierAmino[];
+    denom?: string;
+    multipliers?: MultiplierAmino[];
 }
 export interface MultipliersPerDenomAminoMsg {
     type: "/kava.incentive.v1beta1.MultipliersPerDenom";
@@ -132,15 +132,15 @@ export interface ParamsProtoMsg {
 }
 /** Params */
 export interface ParamsAmino {
-    usdx_minting_reward_periods: RewardPeriodAmino[];
-    hard_supply_reward_periods: MultiRewardPeriodAmino[];
-    hard_borrow_reward_periods: MultiRewardPeriodAmino[];
-    delegator_reward_periods: MultiRewardPeriodAmino[];
-    swap_reward_periods: MultiRewardPeriodAmino[];
-    claim_multipliers: MultipliersPerDenomAmino[];
-    claim_end?: TimestampAmino;
-    savings_reward_periods: MultiRewardPeriodAmino[];
-    earn_reward_periods: MultiRewardPeriodAmino[];
+    usdx_minting_reward_periods?: RewardPeriodAmino[];
+    hard_supply_reward_periods?: MultiRewardPeriodAmino[];
+    hard_borrow_reward_periods?: MultiRewardPeriodAmino[];
+    delegator_reward_periods?: MultiRewardPeriodAmino[];
+    swap_reward_periods?: MultiRewardPeriodAmino[];
+    claim_multipliers?: MultipliersPerDenomAmino[];
+    claim_end?: string;
+    savings_reward_periods?: MultiRewardPeriodAmino[];
+    earn_reward_periods?: MultiRewardPeriodAmino[];
 }
 export interface ParamsAminoMsg {
     type: "/kava.incentive.v1beta1.Params";

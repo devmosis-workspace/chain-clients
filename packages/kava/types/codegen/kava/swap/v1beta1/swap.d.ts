@@ -14,9 +14,9 @@ export interface ParamsProtoMsg {
 /** Params defines the parameters for the swap module. */
 export interface ParamsAmino {
     /** allowed_pools defines that pools that are allowed to be created */
-    allowed_pools: AllowedPoolAmino[];
+    allowed_pools?: AllowedPoolAmino[];
     /** swap_fee defines the swap fee for all pools */
-    swap_fee: string;
+    swap_fee?: string;
 }
 export interface ParamsAminoMsg {
     type: "/kava.swap.v1beta1.Params";
@@ -41,9 +41,9 @@ export interface AllowedPoolProtoMsg {
 /** AllowedPool defines a pool that is allowed to be created */
 export interface AllowedPoolAmino {
     /** token_a represents the a token allowed */
-    token_a: string;
+    token_a?: string;
     /** token_b represents the b token allowed */
-    token_b: string;
+    token_b?: string;
 }
 export interface AllowedPoolAminoMsg {
     type: "/kava.swap.v1beta1.AllowedPool";
@@ -78,13 +78,13 @@ export interface PoolRecordProtoMsg {
  */
 export interface PoolRecordAmino {
     /** pool_id represents the unique id of the pool */
-    pool_id: string;
+    pool_id?: string;
     /** reserves_a is the a token coin reserves */
     reserves_a?: CoinAmino;
     /** reserves_b is the a token coin reserves */
     reserves_b?: CoinAmino;
     /** total_shares is the total distrubuted shares of the pool */
-    total_shares: string;
+    total_shares?: string;
 }
 export interface PoolRecordAminoMsg {
     type: "/kava.swap.v1beta1.PoolRecord";
@@ -116,11 +116,11 @@ export interface ShareRecordProtoMsg {
 /** ShareRecord stores the shares owned for a depositor and pool */
 export interface ShareRecordAmino {
     /** depositor represents the owner of the shares */
-    depositor: Uint8Array;
+    depositor?: string;
     /** pool_id represents the pool the shares belong to */
-    pool_id: string;
+    pool_id?: string;
     /** shares_owned represents the number of shares owned by depsoitor for the pool_id */
-    shares_owned: string;
+    shares_owned?: string;
 }
 export interface ShareRecordAminoMsg {
     type: "/kava.swap.v1beta1.ShareRecord";

@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { MultiRewardIndex, MultiRewardIndexAmino, MultiRewardIndexSDKType, USDXMintingClaim, USDXMintingClaimAmino, USDXMintingClaimSDKType, HardLiquidityProviderClaim, HardLiquidityProviderClaimAmino, HardLiquidityProviderClaimSDKType, DelegatorClaim, DelegatorClaimAmino, DelegatorClaimSDKType, SwapClaim, SwapClaimAmino, SwapClaimSDKType, SavingsClaim, SavingsClaimAmino, SavingsClaimSDKType, EarnClaim, EarnClaimAmino, EarnClaimSDKType } from "./claims";
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
@@ -13,8 +13,8 @@ export interface AccumulationTimeProtoMsg {
 }
 /** AccumulationTime stores the previous reward distribution time and its corresponding collateral type */
 export interface AccumulationTimeAmino {
-    collateral_type: string;
-    previous_accumulation_time?: TimestampAmino;
+    collateral_type?: string;
+    previous_accumulation_time?: string;
 }
 export interface AccumulationTimeAminoMsg {
     type: "/kava.incentive.v1beta1.AccumulationTime";
@@ -36,8 +36,8 @@ export interface GenesisRewardStateProtoMsg {
 }
 /** GenesisRewardState groups together the global state for a particular reward so it can be exported in genesis. */
 export interface GenesisRewardStateAmino {
-    accumulation_times: AccumulationTimeAmino[];
-    multi_reward_indexes: MultiRewardIndexAmino[];
+    accumulation_times?: AccumulationTimeAmino[];
+    multi_reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface GenesisRewardStateAminoMsg {
     type: "/kava.incentive.v1beta1.GenesisRewardState";
@@ -77,14 +77,14 @@ export interface GenesisStateAmino {
     hard_borrow_reward_state?: GenesisRewardStateAmino;
     delegator_reward_state?: GenesisRewardStateAmino;
     swap_reward_state?: GenesisRewardStateAmino;
-    usdx_minting_claims: USDXMintingClaimAmino[];
-    hard_liquidity_provider_claims: HardLiquidityProviderClaimAmino[];
-    delegator_claims: DelegatorClaimAmino[];
-    swap_claims: SwapClaimAmino[];
+    usdx_minting_claims?: USDXMintingClaimAmino[];
+    hard_liquidity_provider_claims?: HardLiquidityProviderClaimAmino[];
+    delegator_claims?: DelegatorClaimAmino[];
+    swap_claims?: SwapClaimAmino[];
     savings_reward_state?: GenesisRewardStateAmino;
-    savings_claims: SavingsClaimAmino[];
+    savings_claims?: SavingsClaimAmino[];
     earn_reward_state?: GenesisRewardStateAmino;
-    earn_claims: EarnClaimAmino[];
+    earn_claims?: EarnClaimAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.incentive.v1beta1.GenesisState";

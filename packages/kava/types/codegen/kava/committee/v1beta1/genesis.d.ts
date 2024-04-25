@@ -1,8 +1,9 @@
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BaseCommittee, BaseCommitteeProtoMsg, BaseCommitteeSDKType, MemberCommittee, MemberCommitteeProtoMsg, MemberCommitteeSDKType, TokenCommittee, TokenCommitteeProtoMsg, TokenCommitteeSDKType } from "./committee";
 import { CommitteeChangeProposal, CommitteeChangeProposalProtoMsg, CommitteeChangeProposalSDKType, CommitteeDeleteProposal, CommitteeDeleteProposalProtoMsg, CommitteeDeleteProposalSDKType } from "./proposal";
 import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalSDKType, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg, CommunityPoolSpendProposalWithDepositSDKType } from "../../../cosmos/distribution/v1beta1/distribution";
+import { TextProposal, TextProposalProtoMsg, TextProposalSDKType } from "../../../cosmos/gov/v1beta1/gov";
 import { ParameterChangeProposal, ParameterChangeProposalProtoMsg, ParameterChangeProposalSDKType } from "../../../cosmos/params/v1beta1/params";
 import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, SoftwareUpgradeProposalSDKType, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposalSDKType } from "../../../cosmos/upgrade/v1beta1/upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -38,10 +39,10 @@ export type GenesisStateEncoded = Omit<GenesisState, "committees"> & {
 };
 /** GenesisState defines the committee module's genesis state. */
 export interface GenesisStateAmino {
-    next_proposal_id: string;
-    committees: AnyAmino[];
-    proposals: ProposalAmino[];
-    votes: VoteAmino[];
+    next_proposal_id?: string;
+    committees?: AnyAmino[];
+    proposals?: ProposalAmino[];
+    votes?: VoteAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.committee.v1beta1.GenesisState";
@@ -56,7 +57,7 @@ export interface GenesisStateSDKType {
 }
 /** Proposal is an internal record of a governance proposal submitted to a committee. */
 export interface Proposal {
-    content: (CommitteeChangeProposal & CommitteeDeleteProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
+    content?: (CommitteeChangeProposal & CommitteeDeleteProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & TextProposal & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
     id: bigint;
     committeeId: bigint;
     deadline: Timestamp;
@@ -66,14 +67,14 @@ export interface ProposalProtoMsg {
     value: Uint8Array;
 }
 export type ProposalEncoded = Omit<Proposal, "content"> & {
-    content?: CommitteeChangeProposalProtoMsg | CommitteeDeleteProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
+    content?: CommitteeChangeProposalProtoMsg | CommitteeDeleteProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /** Proposal is an internal record of a governance proposal submitted to a committee. */
 export interface ProposalAmino {
     content?: AnyAmino;
-    id: string;
-    committee_id: string;
-    deadline?: TimestampAmino;
+    id?: string;
+    committee_id?: string;
+    deadline?: string;
 }
 export interface ProposalAminoMsg {
     type: "/kava.committee.v1beta1.Proposal";
@@ -81,7 +82,7 @@ export interface ProposalAminoMsg {
 }
 /** Proposal is an internal record of a governance proposal submitted to a committee. */
 export interface ProposalSDKType {
-    content: CommitteeChangeProposalSDKType | CommitteeDeleteProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
+    content?: CommitteeChangeProposalSDKType | CommitteeDeleteProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | TextProposalSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
     id: bigint;
     committee_id: bigint;
     deadline: TimestampSDKType;
@@ -98,9 +99,9 @@ export interface VoteProtoMsg {
 }
 /** Vote is an internal record of a single governance vote. */
 export interface VoteAmino {
-    proposal_id: string;
-    voter: Uint8Array;
-    vote_type: VoteType;
+    proposal_id?: string;
+    voter?: string;
+    vote_type?: VoteType;
 }
 export interface VoteAminoMsg {
     type: "/kava.committee.v1beta1.Vote";
@@ -151,6 +152,6 @@ export declare const Vote: {
 export declare const Committee_InterfaceDecoder: (input: BinaryReader | Uint8Array) => BaseCommittee | MemberCommittee | TokenCommittee | Any;
 export declare const Committee_FromAmino: (content: AnyAmino) => Any;
 export declare const Committee_ToAmino: (content: Any) => AnyAmino;
-export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => CommitteeChangeProposal | CommitteeDeleteProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any;
+export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => CommitteeChangeProposal | CommitteeDeleteProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any;
 export declare const Cosmos_govv1beta1Content_FromAmino: (content: AnyAmino) => Any;
 export declare const Cosmos_govv1beta1Content_ToAmino: (content: Any) => AnyAmino;

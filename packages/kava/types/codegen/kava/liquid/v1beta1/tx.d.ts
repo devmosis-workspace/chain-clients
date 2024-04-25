@@ -16,9 +16,9 @@ export interface MsgMintDerivativeProtoMsg {
 /** MsgMintDerivative defines the Msg/MintDerivative request type. */
 export interface MsgMintDerivativeAmino {
     /** sender is the owner of the delegation to be converted */
-    sender: string;
+    sender?: string;
     /** validator is the validator of the delegation to be converted */
-    validator: string;
+    validator?: string;
     /** amount is the quantity of staked assets to be converted */
     amount?: CoinAmino;
 }
@@ -70,9 +70,9 @@ export interface MsgBurnDerivativeProtoMsg {
 /** MsgBurnDerivative defines the Msg/BurnDerivative request type. */
 export interface MsgBurnDerivativeAmino {
     /** sender is the owner of the derivatives to be converted */
-    sender: string;
+    sender?: string;
     /** validator is the validator of the derivatives to be converted */
-    validator: string;
+    validator?: string;
     /** amount is the quantity of derivatives to be converted */
     amount?: CoinAmino;
 }
@@ -98,7 +98,7 @@ export interface MsgBurnDerivativeResponseProtoMsg {
 /** MsgBurnDerivativeResponse defines the Msg/BurnDerivative response type. */
 export interface MsgBurnDerivativeResponseAmino {
     /** received is the number of delegation shares sent to the sender */
-    received: string;
+    received?: string;
 }
 export interface MsgBurnDerivativeResponseAminoMsg {
     type: "/kava.liquid.v1beta1.MsgBurnDerivativeResponse";

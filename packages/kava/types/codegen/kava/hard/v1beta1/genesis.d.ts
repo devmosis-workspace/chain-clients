@@ -1,6 +1,6 @@
 import { Params, ParamsAmino, ParamsSDKType, Deposit, DepositAmino, DepositSDKType, Borrow, BorrowAmino, BorrowSDKType } from "./hard";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the hard module's genesis state. */
 export interface GenesisState {
@@ -19,12 +19,12 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the hard module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    previous_accumulation_times: GenesisAccumulationTimeAmino[];
-    deposits: DepositAmino[];
-    borrows: BorrowAmino[];
-    total_supplied: CoinAmino[];
-    total_borrowed: CoinAmino[];
-    total_reserves: CoinAmino[];
+    previous_accumulation_times?: GenesisAccumulationTimeAmino[];
+    deposits?: DepositAmino[];
+    borrows?: BorrowAmino[];
+    total_supplied?: CoinAmino[];
+    total_borrowed?: CoinAmino[];
+    total_reserves?: CoinAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.hard.v1beta1.GenesisState";
@@ -53,10 +53,10 @@ export interface GenesisAccumulationTimeProtoMsg {
 }
 /** GenesisAccumulationTime stores the previous distribution time and its corresponding denom. */
 export interface GenesisAccumulationTimeAmino {
-    collateral_type: string;
-    previous_accumulation_time?: TimestampAmino;
-    supply_interest_factor: string;
-    borrow_interest_factor: string;
+    collateral_type?: string;
+    previous_accumulation_time?: string;
+    supply_interest_factor?: string;
+    borrow_interest_factor?: string;
 }
 export interface GenesisAccumulationTimeAminoMsg {
     type: "/kava.hard.v1beta1.GenesisAccumulationTime";

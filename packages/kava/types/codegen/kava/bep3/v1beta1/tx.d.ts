@@ -17,14 +17,14 @@ export interface MsgCreateAtomicSwapProtoMsg {
 }
 /** MsgCreateAtomicSwap defines the Msg/CreateAtomicSwap request type. */
 export interface MsgCreateAtomicSwapAmino {
-    from: string;
-    to: string;
-    recipient_other_chain: string;
-    sender_other_chain: string;
-    random_number_hash: string;
-    timestamp: string;
-    amount: CoinAmino[];
-    height_span: string;
+    from?: string;
+    to?: string;
+    recipient_other_chain?: string;
+    sender_other_chain?: string;
+    random_number_hash?: string;
+    timestamp?: string;
+    amount?: CoinAmino[];
+    height_span?: string;
 }
 export interface MsgCreateAtomicSwapAminoMsg {
     type: "/kava.bep3.v1beta1.MsgCreateAtomicSwap";
@@ -70,9 +70,9 @@ export interface MsgClaimAtomicSwapProtoMsg {
 }
 /** MsgClaimAtomicSwap defines the Msg/ClaimAtomicSwap request type. */
 export interface MsgClaimAtomicSwapAmino {
-    from: string;
-    swap_id: string;
-    random_number: string;
+    from?: string;
+    swap_id?: string;
+    random_number?: string;
 }
 export interface MsgClaimAtomicSwapAminoMsg {
     type: "/kava.bep3.v1beta1.MsgClaimAtomicSwap";
@@ -112,8 +112,8 @@ export interface MsgRefundAtomicSwapProtoMsg {
 }
 /** MsgRefundAtomicSwap defines the Msg/RefundAtomicSwap request type. */
 export interface MsgRefundAtomicSwapAmino {
-    from: string;
-    swap_id: string;
+    from?: string;
+    swap_id?: string;
 }
 export interface MsgRefundAtomicSwapAminoMsg {
     type: "/kava.bep3.v1beta1.MsgRefundAtomicSwap";

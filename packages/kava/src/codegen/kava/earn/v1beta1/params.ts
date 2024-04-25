@@ -10,7 +10,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters of the earn module. */
 export interface ParamsAmino {
-  allowed_vaults: AllowedVaultAmino[];
+  allowed_vaults?: AllowedVaultAmino[];
 }
 export interface ParamsAminoMsg {
   type: "/kava.earn.v1beta1.Params";
@@ -44,9 +44,9 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      allowedVaults: Array.isArray(object?.allowed_vaults) ? object.allowed_vaults.map((e: any) => AllowedVault.fromAmino(e)) : []
-    };
+    const message = createBaseParams();
+    message.allowedVaults = object.allowed_vaults?.map(e => AllowedVault.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

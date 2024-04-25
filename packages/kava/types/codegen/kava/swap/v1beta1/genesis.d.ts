@@ -2,7 +2,7 @@ import { Params, ParamsAmino, ParamsSDKType, PoolRecord, PoolRecordAmino, PoolRe
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the swap module's genesis state. */
 export interface GenesisState {
-    /** params defines all the paramaters related to swap */
+    /** params defines all the parameters related to swap */
     params: Params;
     /** pool_records defines the available pools */
     poolRecords: PoolRecord[];
@@ -15,12 +15,12 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the swap module's genesis state. */
 export interface GenesisStateAmino {
-    /** params defines all the paramaters related to swap */
+    /** params defines all the parameters related to swap */
     params?: ParamsAmino;
     /** pool_records defines the available pools */
-    pool_records: PoolRecordAmino[];
+    pool_records?: PoolRecordAmino[];
     /** share_records defines the owned shares of each pool */
-    share_records: ShareRecordAmino[];
+    share_records?: ShareRecordAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.swap.v1beta1.GenesisState";

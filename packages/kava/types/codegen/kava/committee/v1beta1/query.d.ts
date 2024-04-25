@@ -1,10 +1,11 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { VoteType } from "./genesis";
 import { BaseCommittee, BaseCommitteeProtoMsg, BaseCommitteeSDKType, MemberCommittee, MemberCommitteeProtoMsg, MemberCommitteeSDKType, TokenCommittee, TokenCommitteeProtoMsg, TokenCommitteeSDKType } from "./committee";
 import { CommitteeChangeProposal, CommitteeChangeProposalProtoMsg, CommitteeChangeProposalSDKType, CommitteeDeleteProposal, CommitteeDeleteProposalProtoMsg, CommitteeDeleteProposalSDKType } from "./proposal";
 import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalSDKType, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg, CommunityPoolSpendProposalWithDepositSDKType } from "../../../cosmos/distribution/v1beta1/distribution";
+import { TextProposal, TextProposalProtoMsg, TextProposalSDKType } from "../../../cosmos/gov/v1beta1/gov";
 import { ParameterChangeProposal, ParameterChangeProposalProtoMsg, ParameterChangeProposalSDKType } from "../../../cosmos/params/v1beta1/params";
 import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, SoftwareUpgradeProposalSDKType, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposalSDKType } from "../../../cosmos/upgrade/v1beta1/upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -38,7 +39,7 @@ export type QueryCommitteesResponseEncoded = Omit<QueryCommitteesResponse, "comm
 };
 /** QueryCommitteesResponse defines the response type for querying x/committee committees. */
 export interface QueryCommitteesResponseAmino {
-    committees: AnyAmino[];
+    committees?: AnyAmino[];
 }
 export interface QueryCommitteesResponseAminoMsg {
     type: "/kava.committee.v1beta1.QueryCommitteesResponse";
@@ -58,7 +59,7 @@ export interface QueryCommitteeRequestProtoMsg {
 }
 /** QueryCommitteeRequest defines the request type for querying x/committee committee. */
 export interface QueryCommitteeRequestAmino {
-    committee_id: string;
+    committee_id?: string;
 }
 export interface QueryCommitteeRequestAminoMsg {
     type: "/kava.committee.v1beta1.QueryCommitteeRequest";
@@ -70,7 +71,7 @@ export interface QueryCommitteeRequestSDKType {
 }
 /** QueryCommitteeResponse defines the response type for querying x/committee committee. */
 export interface QueryCommitteeResponse {
-    committee: (BaseCommittee & MemberCommittee & TokenCommittee & Any) | undefined;
+    committee?: (BaseCommittee & MemberCommittee & TokenCommittee & Any) | undefined;
 }
 export interface QueryCommitteeResponseProtoMsg {
     typeUrl: "/kava.committee.v1beta1.QueryCommitteeResponse";
@@ -89,7 +90,7 @@ export interface QueryCommitteeResponseAminoMsg {
 }
 /** QueryCommitteeResponse defines the response type for querying x/committee committee. */
 export interface QueryCommitteeResponseSDKType {
-    committee: BaseCommitteeSDKType | MemberCommitteeSDKType | TokenCommitteeSDKType | AnySDKType | undefined;
+    committee?: BaseCommitteeSDKType | MemberCommitteeSDKType | TokenCommitteeSDKType | AnySDKType | undefined;
 }
 /** QueryProposalsRequest defines the request type for querying x/committee proposals. */
 export interface QueryProposalsRequest {
@@ -101,7 +102,7 @@ export interface QueryProposalsRequestProtoMsg {
 }
 /** QueryProposalsRequest defines the request type for querying x/committee proposals. */
 export interface QueryProposalsRequestAmino {
-    committee_id: string;
+    committee_id?: string;
 }
 export interface QueryProposalsRequestAminoMsg {
     type: "/kava.committee.v1beta1.QueryProposalsRequest";
@@ -121,7 +122,7 @@ export interface QueryProposalsResponseProtoMsg {
 }
 /** QueryProposalsResponse defines the response type for querying x/committee proposals. */
 export interface QueryProposalsResponseAmino {
-    proposals: QueryProposalResponseAmino[];
+    proposals?: QueryProposalResponseAmino[];
 }
 export interface QueryProposalsResponseAminoMsg {
     type: "/kava.committee.v1beta1.QueryProposalsResponse";
@@ -141,7 +142,7 @@ export interface QueryProposalRequestProtoMsg {
 }
 /** QueryProposalRequest defines the request type for querying x/committee proposal. */
 export interface QueryProposalRequestAmino {
-    proposal_id: string;
+    proposal_id?: string;
 }
 export interface QueryProposalRequestAminoMsg {
     type: "/kava.committee.v1beta1.QueryProposalRequest";
@@ -153,7 +154,7 @@ export interface QueryProposalRequestSDKType {
 }
 /** QueryProposalResponse defines the response type for querying x/committee proposal. */
 export interface QueryProposalResponse {
-    pubProposal: (CommitteeChangeProposal & CommitteeDeleteProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
+    pubProposal?: (CommitteeChangeProposal & CommitteeDeleteProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & TextProposal & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
     id: bigint;
     committeeId: bigint;
     deadline: Timestamp;
@@ -163,14 +164,14 @@ export interface QueryProposalResponseProtoMsg {
     value: Uint8Array;
 }
 export type QueryProposalResponseEncoded = Omit<QueryProposalResponse, "pubProposal"> & {
-    pubProposal?: CommitteeChangeProposalProtoMsg | CommitteeDeleteProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
+    pubProposal?: CommitteeChangeProposalProtoMsg | CommitteeDeleteProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /** QueryProposalResponse defines the response type for querying x/committee proposal. */
 export interface QueryProposalResponseAmino {
     pub_proposal?: AnyAmino;
-    id: string;
-    committee_id: string;
-    deadline?: TimestampAmino;
+    id?: string;
+    committee_id?: string;
+    deadline?: string;
 }
 export interface QueryProposalResponseAminoMsg {
     type: "/kava.committee.v1beta1.QueryProposalResponse";
@@ -178,7 +179,7 @@ export interface QueryProposalResponseAminoMsg {
 }
 /** QueryProposalResponse defines the response type for querying x/committee proposal. */
 export interface QueryProposalResponseSDKType {
-    pub_proposal: CommitteeChangeProposalSDKType | CommitteeDeleteProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
+    pub_proposal?: CommitteeChangeProposalSDKType | CommitteeDeleteProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | TextProposalSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
     id: bigint;
     committee_id: bigint;
     deadline: TimestampSDKType;
@@ -210,7 +211,7 @@ export interface QueryNextProposalIDResponseProtoMsg {
 }
 /** QueryNextProposalIDRequest defines the response type for querying x/committee NextProposalID. */
 export interface QueryNextProposalIDResponseAmino {
-    next_proposal_id: string;
+    next_proposal_id?: string;
 }
 export interface QueryNextProposalIDResponseAminoMsg {
     type: "/kava.committee.v1beta1.QueryNextProposalIDResponse";
@@ -223,7 +224,7 @@ export interface QueryNextProposalIDResponseSDKType {
 /** QueryVotesRequest defines the request type for querying x/committee votes. */
 export interface QueryVotesRequest {
     proposalId: bigint;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryVotesRequestProtoMsg {
     typeUrl: "/kava.committee.v1beta1.QueryVotesRequest";
@@ -231,7 +232,7 @@ export interface QueryVotesRequestProtoMsg {
 }
 /** QueryVotesRequest defines the request type for querying x/committee votes. */
 export interface QueryVotesRequestAmino {
-    proposal_id: string;
+    proposal_id?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryVotesRequestAminoMsg {
@@ -241,14 +242,14 @@ export interface QueryVotesRequestAminoMsg {
 /** QueryVotesRequest defines the request type for querying x/committee votes. */
 export interface QueryVotesRequestSDKType {
     proposal_id: bigint;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryVotesResponse defines the response type for querying x/committee votes. */
 export interface QueryVotesResponse {
     /** votes defined the queried votes. */
     votes: QueryVoteResponse[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryVotesResponseProtoMsg {
     typeUrl: "/kava.committee.v1beta1.QueryVotesResponse";
@@ -257,7 +258,7 @@ export interface QueryVotesResponseProtoMsg {
 /** QueryVotesResponse defines the response type for querying x/committee votes. */
 export interface QueryVotesResponseAmino {
     /** votes defined the queried votes. */
-    votes: QueryVoteResponseAmino[];
+    votes?: QueryVoteResponseAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -268,7 +269,7 @@ export interface QueryVotesResponseAminoMsg {
 /** QueryVotesResponse defines the response type for querying x/committee votes. */
 export interface QueryVotesResponseSDKType {
     votes: QueryVoteResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryVoteRequest defines the request type for querying x/committee vote. */
 export interface QueryVoteRequest {
@@ -281,8 +282,8 @@ export interface QueryVoteRequestProtoMsg {
 }
 /** QueryVoteRequest defines the request type for querying x/committee vote. */
 export interface QueryVoteRequestAmino {
-    proposal_id: string;
-    voter: string;
+    proposal_id?: string;
+    voter?: string;
 }
 export interface QueryVoteRequestAminoMsg {
     type: "/kava.committee.v1beta1.QueryVoteRequest";
@@ -305,9 +306,9 @@ export interface QueryVoteResponseProtoMsg {
 }
 /** QueryVoteResponse defines the response type for querying x/committee vote. */
 export interface QueryVoteResponseAmino {
-    proposal_id: string;
-    voter: string;
-    vote_type: VoteType;
+    proposal_id?: string;
+    voter?: string;
+    vote_type?: VoteType;
 }
 export interface QueryVoteResponseAminoMsg {
     type: "/kava.committee.v1beta1.QueryVoteResponse";
@@ -329,7 +330,7 @@ export interface QueryTallyRequestProtoMsg {
 }
 /** QueryTallyRequest defines the request type for querying x/committee tally. */
 export interface QueryTallyRequestAmino {
-    proposal_id: string;
+    proposal_id?: string;
 }
 export interface QueryTallyRequestAminoMsg {
     type: "/kava.committee.v1beta1.QueryTallyRequest";
@@ -355,13 +356,13 @@ export interface QueryTallyResponseProtoMsg {
 }
 /** QueryTallyResponse defines the response type for querying x/committee tally. */
 export interface QueryTallyResponseAmino {
-    proposal_id: string;
-    yes_votes: string;
-    no_votes: string;
-    current_votes: string;
-    possible_votes: string;
-    vote_threshold: string;
-    quorum: string;
+    proposal_id?: string;
+    yes_votes?: string;
+    no_votes?: string;
+    current_votes?: string;
+    possible_votes?: string;
+    vote_threshold?: string;
+    quorum?: string;
 }
 export interface QueryTallyResponseAminoMsg {
     type: "/kava.committee.v1beta1.QueryTallyResponse";
@@ -388,8 +389,8 @@ export interface QueryRawParamsRequestProtoMsg {
 }
 /** QueryRawParamsRequest defines the request type for querying x/committee raw params. */
 export interface QueryRawParamsRequestAmino {
-    subspace: string;
-    key: string;
+    subspace?: string;
+    key?: string;
 }
 export interface QueryRawParamsRequestAminoMsg {
     type: "/kava.committee.v1beta1.QueryRawParamsRequest";
@@ -410,7 +411,7 @@ export interface QueryRawParamsResponseProtoMsg {
 }
 /** QueryRawParamsResponse defines the response type for querying x/committee raw params. */
 export interface QueryRawParamsResponseAmino {
-    raw_data: string;
+    raw_data?: string;
 }
 export interface QueryRawParamsResponseAminoMsg {
     type: "/kava.committee.v1beta1.QueryRawParamsResponse";
@@ -639,6 +640,6 @@ export declare const QueryRawParamsResponse: {
 export declare const Committee_InterfaceDecoder: (input: BinaryReader | Uint8Array) => BaseCommittee | MemberCommittee | TokenCommittee | Any;
 export declare const Committee_FromAmino: (content: AnyAmino) => Any;
 export declare const Committee_ToAmino: (content: Any) => AnyAmino;
-export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => CommitteeChangeProposal | CommitteeDeleteProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any;
+export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => CommitteeChangeProposal | CommitteeDeleteProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any;
 export declare const Cosmos_govv1beta1Content_FromAmino: (content: AnyAmino) => Any;
 export declare const Cosmos_govv1beta1Content_ToAmino: (content: Any) => AnyAmino;

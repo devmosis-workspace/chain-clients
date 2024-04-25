@@ -1,8 +1,8 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { Decimal } from "@cosmjs/math";
-import { isSet, bytesFromBase64, fromJsonTimestamp } from "../../../helpers";
+import { isSet, bytesFromBase64, fromJsonTimestamp, base64FromBytes } from "../../../helpers";
 /** CDP defines the state of a single collateralized debt position. */
 export interface CDP {
   id: bigint;
@@ -20,14 +20,14 @@ export interface CDPProtoMsg {
 }
 /** CDP defines the state of a single collateralized debt position. */
 export interface CDPAmino {
-  id: string;
-  owner: Uint8Array;
-  type: string;
+  id?: string;
+  owner?: string;
+  type?: string;
   collateral?: CoinAmino;
   principal?: CoinAmino;
   accumulated_fees?: CoinAmino;
-  fees_updated?: TimestampAmino;
-  interest_factor: string;
+  fees_updated?: string;
+  interest_factor?: string;
 }
 export interface CDPAminoMsg {
   type: "/kava.cdp.v1beta1.CDP";
@@ -56,8 +56,8 @@ export interface DepositProtoMsg {
 }
 /** Deposit defines an amount of coins deposited by an account to a cdp */
 export interface DepositAmino {
-  cdp_id: string;
-  depositor: string;
+  cdp_id?: string;
+  depositor?: string;
   amount?: CoinAmino;
 }
 export interface DepositAminoMsg {
@@ -81,7 +81,7 @@ export interface TotalPrincipalProtoMsg {
 }
 /** TotalPrincipal defines the total principal of a given collateral type */
 export interface TotalPrincipalAmino {
-  collateral_type: string;
+  collateral_type?: string;
   amount?: CoinAmino;
 }
 export interface TotalPrincipalAminoMsg {
@@ -104,7 +104,7 @@ export interface TotalCollateralProtoMsg {
 }
 /** TotalCollateral defines the total collateral of a given collateral type */
 export interface TotalCollateralAmino {
-  collateral_type: string;
+  collateral_type?: string;
   amount?: CoinAmino;
 }
 export interface TotalCollateralAminoMsg {
@@ -126,7 +126,7 @@ export interface OwnerCDPIndexProtoMsg {
 }
 /** OwnerCDPIndex defines the cdp ids for a single cdp owner */
 export interface OwnerCDPIndexAmino {
-  cdp_ids: string[];
+  cdp_ids?: string[];
 }
 export interface OwnerCDPIndexAminoMsg {
   type: "/kava.cdp.v1beta1.OwnerCDPIndex";
@@ -202,26 +202,42 @@ export const CDP = {
     return message;
   },
   fromAmino(object: CDPAmino): CDP {
-    return {
-      id: BigInt(object.id),
-      owner: object.owner,
-      type: object.type,
-      collateral: object?.collateral ? Coin.fromAmino(object.collateral) : undefined,
-      principal: object?.principal ? Coin.fromAmino(object.principal) : undefined,
-      accumulatedFees: object?.accumulated_fees ? Coin.fromAmino(object.accumulated_fees) : undefined,
-      feesUpdated: object.fees_updated,
-      interestFactor: object.interest_factor
-    };
+    const message = createBaseCDP();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = bytesFromBase64(object.owner);
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.collateral !== undefined && object.collateral !== null) {
+      message.collateral = Coin.fromAmino(object.collateral);
+    }
+    if (object.principal !== undefined && object.principal !== null) {
+      message.principal = Coin.fromAmino(object.principal);
+    }
+    if (object.accumulated_fees !== undefined && object.accumulated_fees !== null) {
+      message.accumulatedFees = Coin.fromAmino(object.accumulated_fees);
+    }
+    if (object.fees_updated !== undefined && object.fees_updated !== null) {
+      message.feesUpdated = Timestamp.fromAmino(object.fees_updated);
+    }
+    if (object.interest_factor !== undefined && object.interest_factor !== null) {
+      message.interestFactor = object.interest_factor;
+    }
+    return message;
   },
   toAmino(message: CDP): CDPAmino {
     const obj: any = {};
     obj.id = message.id ? message.id.toString() : undefined;
-    obj.owner = message.owner;
+    obj.owner = message.owner ? base64FromBytes(message.owner) : undefined;
     obj.type = message.type;
     obj.collateral = message.collateral ? Coin.toAmino(message.collateral) : undefined;
     obj.principal = message.principal ? Coin.toAmino(message.principal) : undefined;
     obj.accumulated_fees = message.accumulatedFees ? Coin.toAmino(message.accumulatedFees) : undefined;
-    obj.fees_updated = message.feesUpdated;
+    obj.fees_updated = message.feesUpdated ? Timestamp.toAmino(message.feesUpdated) : undefined;
     obj.interest_factor = message.interestFactor;
     return obj;
   },
@@ -277,11 +293,17 @@ export const Deposit = {
     return message;
   },
   fromAmino(object: DepositAmino): Deposit {
-    return {
-      cdpId: BigInt(object.cdp_id),
-      depositor: object.depositor,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseDeposit();
+    if (object.cdp_id !== undefined && object.cdp_id !== null) {
+      message.cdpId = BigInt(object.cdp_id);
+    }
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: Deposit): DepositAmino {
     const obj: any = {};
@@ -336,10 +358,14 @@ export const TotalPrincipal = {
     return message;
   },
   fromAmino(object: TotalPrincipalAmino): TotalPrincipal {
-    return {
-      collateralType: object.collateral_type,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseTotalPrincipal();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: TotalPrincipal): TotalPrincipalAmino {
     const obj: any = {};
@@ -393,10 +419,14 @@ export const TotalCollateral = {
     return message;
   },
   fromAmino(object: TotalCollateralAmino): TotalCollateral {
-    return {
-      collateralType: object.collateral_type,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseTotalCollateral();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: TotalCollateral): TotalCollateralAmino {
     const obj: any = {};
@@ -446,9 +476,9 @@ export const OwnerCDPIndex = {
     return message;
   },
   fromAmino(object: OwnerCDPIndexAmino): OwnerCDPIndex {
-    return {
-      cdpIds: Array.isArray(object?.cdp_ids) ? object.cdp_ids.map((e: any) => BigInt(e)) : []
-    };
+    const message = createBaseOwnerCDPIndex();
+    message.cdpIds = object.cdp_ids?.map(e => BigInt(e)) || [];
+    return message;
   },
   toAmino(message: OwnerCDPIndex): OwnerCDPIndexAmino {
     const obj: any = {};

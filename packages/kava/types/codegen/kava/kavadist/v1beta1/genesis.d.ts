@@ -1,5 +1,5 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the kavadist module's genesis state. */
 export interface GenesisState {
@@ -13,7 +13,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the kavadist module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    previous_block_time?: TimestampAmino;
+    previous_block_time?: string;
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.kavadist.v1beta1.GenesisState";

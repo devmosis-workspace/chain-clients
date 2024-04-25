@@ -43,7 +43,7 @@ export interface ParamsProtoMsg {
 /** Params defines the parameters for the bep3 module. */
 export interface ParamsAmino {
     /** asset_params define the parameters for each bep3 asset */
-    asset_params: AssetParamAmino[];
+    asset_params?: AssetParamAmino[];
 }
 export interface ParamsAminoMsg {
     type: "/kava.bep3.v1beta1.Params";
@@ -83,25 +83,25 @@ export interface AssetParamProtoMsg {
 /** AssetParam defines parameters for each bep3 asset. */
 export interface AssetParamAmino {
     /** denom represents the denominatin for this asset */
-    denom: string;
+    denom?: string;
     /** coin_id represents the registered coin type to use (https://github.com/satoshilabs/slips/blob/master/slip-0044.md) */
-    coin_id: string;
+    coin_id?: string;
     /** supply_limit defines the maximum supply allowed for the asset - a total or time based rate limit */
     supply_limit?: SupplyLimitAmino;
     /** active specifies if the asset is live or paused */
-    active: boolean;
+    active?: boolean;
     /** deputy_address the kava address of the deputy */
-    deputy_address: Uint8Array;
+    deputy_address?: string;
     /** fixed_fee defines the fee for incoming swaps */
-    fixed_fee: string;
+    fixed_fee?: string;
     /** min_swap_amount defines the minimum amount able to be swapped in a single message */
-    min_swap_amount: string;
+    min_swap_amount?: string;
     /** max_swap_amount defines the maximum amount able to be swapped in a single message */
-    max_swap_amount: string;
+    max_swap_amount?: string;
     /** min_block_lock defined the minimum blocks to lock */
-    min_block_lock: string;
+    min_block_lock?: string;
     /** min_block_lock defined the maximum blocks to lock */
-    max_block_lock: string;
+    max_block_lock?: string;
 }
 export interface AssetParamAminoMsg {
     type: "/kava.bep3.v1beta1.AssetParam";
@@ -138,13 +138,13 @@ export interface SupplyLimitProtoMsg {
 /** SupplyLimit define the absolute and time-based limits for an assets's supply. */
 export interface SupplyLimitAmino {
     /** limit defines the total supply allowed */
-    limit: string;
+    limit?: string;
     /** time_limited enables or disables time based supply limiting */
-    time_limited: boolean;
+    time_limited?: boolean;
     /** time_period specifies the duration that time_based_limit is evalulated */
     time_period?: DurationAmino;
     /** time_based_limit defines the maximum supply that can be swapped within time_period */
-    time_based_limit: string;
+    time_based_limit?: string;
 }
 export interface SupplyLimitAminoMsg {
     type: "/kava.bep3.v1beta1.SupplyLimit";
@@ -191,29 +191,29 @@ export interface AtomicSwapProtoMsg {
 /** AtomicSwap defines an atomic swap between chains for the pricefeed module. */
 export interface AtomicSwapAmino {
     /** amount represents the amount being swapped */
-    amount: CoinAmino[];
+    amount?: CoinAmino[];
     /** random_number_hash represents the hash of the random number */
-    random_number_hash: Uint8Array;
+    random_number_hash?: string;
     /** expire_height represents the height when the swap expires */
-    expire_height: string;
+    expire_height?: string;
     /** timestamp represents the timestamp of the swap */
-    timestamp: string;
+    timestamp?: string;
     /** sender is the kava chain sender of the swap */
-    sender: Uint8Array;
+    sender?: string;
     /** recipient is the kava chain recipient of the swap */
-    recipient: Uint8Array;
+    recipient?: string;
     /** sender_other_chain is the sender on the other chain */
-    sender_other_chain: string;
+    sender_other_chain?: string;
     /** recipient_other_chain is the recipient on the other chain */
-    recipient_other_chain: string;
+    recipient_other_chain?: string;
     /** closed_block is the block when the swap is closed */
-    closed_block: string;
+    closed_block?: string;
     /** status represents the current status of the swap */
-    status: SwapStatus;
+    status?: SwapStatus;
     /** cross_chain identifies whether the atomic swap is cross chain */
-    cross_chain: boolean;
+    cross_chain?: boolean;
     /** direction identifies if the swap is incoming or outgoing */
-    direction: SwapDirection;
+    direction?: SwapDirection;
 }
 export interface AtomicSwapAminoMsg {
     type: "/kava.bep3.v1beta1.AtomicSwap";

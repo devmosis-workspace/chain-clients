@@ -15,7 +15,7 @@ export interface GenesisStateProtoMsg {
 export interface GenesisStateAmino {
   /** params defines all the parameters of the module. */
   params?: ParamsAmino;
-  deposits: DepositAmino[];
+  deposits?: DepositAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/kava.savings.v1beta1.GenesisState";
@@ -56,10 +56,12 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.deposits = object.deposits?.map(e => Deposit.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

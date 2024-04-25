@@ -61,7 +61,7 @@ export interface QueryAccountsResponseProtoMsg {
 }
 /** QueryAccountsResponse is the response type for the Query/Accounts RPC method. */
 export interface QueryAccountsResponseAmino {
-  accounts: ModuleAccountAmino[];
+  accounts?: ModuleAccountAmino[];
 }
 export interface QueryAccountsResponseAminoMsg {
   type: "/kava.hard.v1beta1.QueryAccountsResponse";
@@ -75,7 +75,7 @@ export interface QueryAccountsResponseSDKType {
 export interface QueryDepositsRequest {
   denom: string;
   owner: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryDepositsRequestProtoMsg {
   typeUrl: "/kava.hard.v1beta1.QueryDepositsRequest";
@@ -83,8 +83,8 @@ export interface QueryDepositsRequestProtoMsg {
 }
 /** QueryDepositsRequest is the request type for the Query/Deposits RPC method. */
 export interface QueryDepositsRequestAmino {
-  denom: string;
-  owner: string;
+  denom?: string;
+  owner?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryDepositsRequestAminoMsg {
@@ -95,12 +95,12 @@ export interface QueryDepositsRequestAminoMsg {
 export interface QueryDepositsRequestSDKType {
   denom: string;
   owner: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponse {
   deposits: DepositResponse[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryDepositsResponseProtoMsg {
   typeUrl: "/kava.hard.v1beta1.QueryDepositsResponse";
@@ -108,7 +108,7 @@ export interface QueryDepositsResponseProtoMsg {
 }
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseAmino {
-  deposits: DepositResponseAmino[];
+  deposits?: DepositResponseAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryDepositsResponseAminoMsg {
@@ -118,13 +118,13 @@ export interface QueryDepositsResponseAminoMsg {
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseSDKType {
   deposits: DepositResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryUnsyncedDepositsRequest is the request type for the Query/UnsyncedDeposits RPC method. */
 export interface QueryUnsyncedDepositsRequest {
   denom: string;
   owner: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryUnsyncedDepositsRequestProtoMsg {
   typeUrl: "/kava.hard.v1beta1.QueryUnsyncedDepositsRequest";
@@ -132,8 +132,8 @@ export interface QueryUnsyncedDepositsRequestProtoMsg {
 }
 /** QueryUnsyncedDepositsRequest is the request type for the Query/UnsyncedDeposits RPC method. */
 export interface QueryUnsyncedDepositsRequestAmino {
-  denom: string;
-  owner: string;
+  denom?: string;
+  owner?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryUnsyncedDepositsRequestAminoMsg {
@@ -144,12 +144,12 @@ export interface QueryUnsyncedDepositsRequestAminoMsg {
 export interface QueryUnsyncedDepositsRequestSDKType {
   denom: string;
   owner: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryUnsyncedDepositsResponse is the response type for the Query/UnsyncedDeposits RPC method. */
 export interface QueryUnsyncedDepositsResponse {
   deposits: DepositResponse[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryUnsyncedDepositsResponseProtoMsg {
   typeUrl: "/kava.hard.v1beta1.QueryUnsyncedDepositsResponse";
@@ -157,7 +157,7 @@ export interface QueryUnsyncedDepositsResponseProtoMsg {
 }
 /** QueryUnsyncedDepositsResponse is the response type for the Query/UnsyncedDeposits RPC method. */
 export interface QueryUnsyncedDepositsResponseAmino {
-  deposits: DepositResponseAmino[];
+  deposits?: DepositResponseAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryUnsyncedDepositsResponseAminoMsg {
@@ -167,7 +167,7 @@ export interface QueryUnsyncedDepositsResponseAminoMsg {
 /** QueryUnsyncedDepositsResponse is the response type for the Query/UnsyncedDeposits RPC method. */
 export interface QueryUnsyncedDepositsResponseSDKType {
   deposits: DepositResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryTotalDepositedRequest is the request type for the Query/TotalDeposited RPC method. */
 export interface QueryTotalDepositedRequest {
@@ -179,7 +179,7 @@ export interface QueryTotalDepositedRequestProtoMsg {
 }
 /** QueryTotalDepositedRequest is the request type for the Query/TotalDeposited RPC method. */
 export interface QueryTotalDepositedRequestAmino {
-  denom: string;
+  denom?: string;
 }
 export interface QueryTotalDepositedRequestAminoMsg {
   type: "/kava.hard.v1beta1.QueryTotalDepositedRequest";
@@ -199,7 +199,7 @@ export interface QueryTotalDepositedResponseProtoMsg {
 }
 /** QueryTotalDepositedResponse is the response type for the Query/TotalDeposited RPC method. */
 export interface QueryTotalDepositedResponseAmino {
-  supplied_coins: CoinAmino[];
+  supplied_coins?: CoinAmino[];
 }
 export interface QueryTotalDepositedResponseAminoMsg {
   type: "/kava.hard.v1beta1.QueryTotalDepositedResponse";
@@ -213,7 +213,7 @@ export interface QueryTotalDepositedResponseSDKType {
 export interface QueryBorrowsRequest {
   denom: string;
   owner: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryBorrowsRequestProtoMsg {
   typeUrl: "/kava.hard.v1beta1.QueryBorrowsRequest";
@@ -221,8 +221,8 @@ export interface QueryBorrowsRequestProtoMsg {
 }
 /** QueryBorrowsRequest is the request type for the Query/Borrows RPC method. */
 export interface QueryBorrowsRequestAmino {
-  denom: string;
-  owner: string;
+  denom?: string;
+  owner?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryBorrowsRequestAminoMsg {
@@ -233,12 +233,12 @@ export interface QueryBorrowsRequestAminoMsg {
 export interface QueryBorrowsRequestSDKType {
   denom: string;
   owner: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryBorrowsResponse is the response type for the Query/Borrows RPC method. */
 export interface QueryBorrowsResponse {
   borrows: BorrowResponse[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryBorrowsResponseProtoMsg {
   typeUrl: "/kava.hard.v1beta1.QueryBorrowsResponse";
@@ -246,7 +246,7 @@ export interface QueryBorrowsResponseProtoMsg {
 }
 /** QueryBorrowsResponse is the response type for the Query/Borrows RPC method. */
 export interface QueryBorrowsResponseAmino {
-  borrows: BorrowResponseAmino[];
+  borrows?: BorrowResponseAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryBorrowsResponseAminoMsg {
@@ -256,13 +256,13 @@ export interface QueryBorrowsResponseAminoMsg {
 /** QueryBorrowsResponse is the response type for the Query/Borrows RPC method. */
 export interface QueryBorrowsResponseSDKType {
   borrows: BorrowResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryUnsyncedBorrowsRequest is the request type for the Query/UnsyncedBorrows RPC method. */
 export interface QueryUnsyncedBorrowsRequest {
   denom: string;
   owner: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryUnsyncedBorrowsRequestProtoMsg {
   typeUrl: "/kava.hard.v1beta1.QueryUnsyncedBorrowsRequest";
@@ -270,8 +270,8 @@ export interface QueryUnsyncedBorrowsRequestProtoMsg {
 }
 /** QueryUnsyncedBorrowsRequest is the request type for the Query/UnsyncedBorrows RPC method. */
 export interface QueryUnsyncedBorrowsRequestAmino {
-  denom: string;
-  owner: string;
+  denom?: string;
+  owner?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryUnsyncedBorrowsRequestAminoMsg {
@@ -282,12 +282,12 @@ export interface QueryUnsyncedBorrowsRequestAminoMsg {
 export interface QueryUnsyncedBorrowsRequestSDKType {
   denom: string;
   owner: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryUnsyncedBorrowsResponse is the response type for the Query/UnsyncedBorrows RPC method. */
 export interface QueryUnsyncedBorrowsResponse {
   borrows: BorrowResponse[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryUnsyncedBorrowsResponseProtoMsg {
   typeUrl: "/kava.hard.v1beta1.QueryUnsyncedBorrowsResponse";
@@ -295,7 +295,7 @@ export interface QueryUnsyncedBorrowsResponseProtoMsg {
 }
 /** QueryUnsyncedBorrowsResponse is the response type for the Query/UnsyncedBorrows RPC method. */
 export interface QueryUnsyncedBorrowsResponseAmino {
-  borrows: BorrowResponseAmino[];
+  borrows?: BorrowResponseAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryUnsyncedBorrowsResponseAminoMsg {
@@ -305,7 +305,7 @@ export interface QueryUnsyncedBorrowsResponseAminoMsg {
 /** QueryUnsyncedBorrowsResponse is the response type for the Query/UnsyncedBorrows RPC method. */
 export interface QueryUnsyncedBorrowsResponseSDKType {
   borrows: BorrowResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryTotalBorrowedRequest is the request type for the Query/TotalBorrowed RPC method. */
 export interface QueryTotalBorrowedRequest {
@@ -317,7 +317,7 @@ export interface QueryTotalBorrowedRequestProtoMsg {
 }
 /** QueryTotalBorrowedRequest is the request type for the Query/TotalBorrowed RPC method. */
 export interface QueryTotalBorrowedRequestAmino {
-  denom: string;
+  denom?: string;
 }
 export interface QueryTotalBorrowedRequestAminoMsg {
   type: "/kava.hard.v1beta1.QueryTotalBorrowedRequest";
@@ -337,7 +337,7 @@ export interface QueryTotalBorrowedResponseProtoMsg {
 }
 /** QueryTotalBorrowedResponse is the response type for the Query/TotalBorrowed RPC method. */
 export interface QueryTotalBorrowedResponseAmino {
-  borrowed_coins: CoinAmino[];
+  borrowed_coins?: CoinAmino[];
 }
 export interface QueryTotalBorrowedResponseAminoMsg {
   type: "/kava.hard.v1beta1.QueryTotalBorrowedResponse";
@@ -357,7 +357,7 @@ export interface QueryInterestRateRequestProtoMsg {
 }
 /** QueryInterestRateRequest is the request type for the Query/InterestRate RPC method. */
 export interface QueryInterestRateRequestAmino {
-  denom: string;
+  denom?: string;
 }
 export interface QueryInterestRateRequestAminoMsg {
   type: "/kava.hard.v1beta1.QueryInterestRateRequest";
@@ -377,7 +377,7 @@ export interface QueryInterestRateResponseProtoMsg {
 }
 /** QueryInterestRateResponse is the response type for the Query/InterestRate RPC method. */
 export interface QueryInterestRateResponseAmino {
-  interest_rates: MoneyMarketInterestRateAmino[];
+  interest_rates?: MoneyMarketInterestRateAmino[];
 }
 export interface QueryInterestRateResponseAminoMsg {
   type: "/kava.hard.v1beta1.QueryInterestRateResponse";
@@ -397,7 +397,7 @@ export interface QueryReservesRequestProtoMsg {
 }
 /** QueryReservesRequest is the request type for the Query/Reserves RPC method. */
 export interface QueryReservesRequestAmino {
-  denom: string;
+  denom?: string;
 }
 export interface QueryReservesRequestAminoMsg {
   type: "/kava.hard.v1beta1.QueryReservesRequest";
@@ -417,7 +417,7 @@ export interface QueryReservesResponseProtoMsg {
 }
 /** QueryReservesResponse is the response type for the Query/Reserves RPC method. */
 export interface QueryReservesResponseAmino {
-  amount: CoinAmino[];
+  amount?: CoinAmino[];
 }
 export interface QueryReservesResponseAminoMsg {
   type: "/kava.hard.v1beta1.QueryReservesResponse";
@@ -437,7 +437,7 @@ export interface QueryInterestFactorsRequestProtoMsg {
 }
 /** QueryInterestFactorsRequest is the request type for the Query/InterestFactors RPC method. */
 export interface QueryInterestFactorsRequestAmino {
-  denom: string;
+  denom?: string;
 }
 export interface QueryInterestFactorsRequestAminoMsg {
   type: "/kava.hard.v1beta1.QueryInterestFactorsRequest";
@@ -457,7 +457,7 @@ export interface QueryInterestFactorsResponseProtoMsg {
 }
 /** QueryInterestFactorsResponse is the response type for the Query/InterestFactors RPC method. */
 export interface QueryInterestFactorsResponseAmino {
-  interest_factors: InterestFactorAmino[];
+  interest_factors?: InterestFactorAmino[];
 }
 export interface QueryInterestFactorsResponseAminoMsg {
   type: "/kava.hard.v1beta1.QueryInterestFactorsResponse";
@@ -479,9 +479,9 @@ export interface DepositResponseProtoMsg {
 }
 /** DepositResponse defines an amount of coins deposited into a hard module account. */
 export interface DepositResponseAmino {
-  depositor: string;
-  amount: CoinAmino[];
-  index: SupplyInterestFactorResponseAmino[];
+  depositor?: string;
+  amount?: CoinAmino[];
+  index?: SupplyInterestFactorResponseAmino[];
 }
 export interface DepositResponseAminoMsg {
   type: "/kava.hard.v1beta1.DepositResponse";
@@ -505,9 +505,9 @@ export interface SupplyInterestFactorResponseProtoMsg {
 }
 /** SupplyInterestFactorResponse defines an individual borrow interest factor. */
 export interface SupplyInterestFactorResponseAmino {
-  denom: string;
+  denom?: string;
   /** sdk.Dec as string */
-  value: string;
+  value?: string;
 }
 export interface SupplyInterestFactorResponseAminoMsg {
   type: "/kava.hard.v1beta1.SupplyInterestFactorResponse";
@@ -530,9 +530,9 @@ export interface BorrowResponseProtoMsg {
 }
 /** BorrowResponse defines an amount of coins borrowed from a hard module account. */
 export interface BorrowResponseAmino {
-  borrower: string;
-  amount: CoinAmino[];
-  index: BorrowInterestFactorResponseAmino[];
+  borrower?: string;
+  amount?: CoinAmino[];
+  index?: BorrowInterestFactorResponseAmino[];
 }
 export interface BorrowResponseAminoMsg {
   type: "/kava.hard.v1beta1.BorrowResponse";
@@ -556,9 +556,9 @@ export interface BorrowInterestFactorResponseProtoMsg {
 }
 /** BorrowInterestFactorResponse defines an individual borrow interest factor. */
 export interface BorrowInterestFactorResponseAmino {
-  denom: string;
+  denom?: string;
   /** sdk.Dec as string */
-  value: string;
+  value?: string;
 }
 export interface BorrowInterestFactorResponseAminoMsg {
   type: "/kava.hard.v1beta1.BorrowInterestFactorResponse";
@@ -583,11 +583,11 @@ export interface MoneyMarketInterestRateProtoMsg {
 }
 /** MoneyMarketInterestRate is a unique type returned by interest rate queries */
 export interface MoneyMarketInterestRateAmino {
-  denom: string;
+  denom?: string;
   /** sdk.Dec as String */
-  supply_interest_rate: string;
+  supply_interest_rate?: string;
   /** sdk.Dec as String */
-  borrow_interest_rate: string;
+  borrow_interest_rate?: string;
 }
 export interface MoneyMarketInterestRateAminoMsg {
   type: "/kava.hard.v1beta1.MoneyMarketInterestRate";
@@ -613,11 +613,11 @@ export interface InterestFactorProtoMsg {
 }
 /** InterestFactor is a unique type returned by interest factor queries */
 export interface InterestFactorAmino {
-  denom: string;
+  denom?: string;
   /** sdk.Dec as String */
-  borrow_interest_factor: string;
+  borrow_interest_factor?: string;
   /** sdk.Dec as String */
-  supply_interest_factor: string;
+  supply_interest_factor?: string;
 }
 export interface InterestFactorAminoMsg {
   type: "/kava.hard.v1beta1.InterestFactor";
@@ -645,7 +645,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -691,9 +692,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -732,7 +735,8 @@ export const QueryAccountsRequest = {
     return message;
   },
   fromAmino(_: QueryAccountsRequestAmino): QueryAccountsRequest {
-    return {};
+    const message = createBaseQueryAccountsRequest();
+    return message;
   },
   toAmino(_: QueryAccountsRequest): QueryAccountsRequestAmino {
     const obj: any = {};
@@ -778,9 +782,9 @@ export const QueryAccountsResponse = {
     return message;
   },
   fromAmino(object: QueryAccountsResponseAmino): QueryAccountsResponse {
-    return {
-      accounts: Array.isArray(object?.accounts) ? object.accounts.map((e: any) => ModuleAccount.fromAmino(e)) : []
-    };
+    const message = createBaseQueryAccountsResponse();
+    message.accounts = object.accounts?.map(e => ModuleAccount.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryAccountsResponse): QueryAccountsResponseAmino {
     const obj: any = {};
@@ -811,7 +815,7 @@ function createBaseQueryDepositsRequest(): QueryDepositsRequest {
   return {
     denom: "",
     owner: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDepositsRequest = {
@@ -843,11 +847,17 @@ export const QueryDepositsRequest = {
     return message;
   },
   fromAmino(object: QueryDepositsRequestAmino): QueryDepositsRequest {
-    return {
-      denom: object.denom,
-      owner: object.owner,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDepositsRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDepositsRequest): QueryDepositsRequestAmino {
     const obj: any = {};
@@ -875,7 +885,7 @@ export const QueryDepositsRequest = {
 function createBaseQueryDepositsResponse(): QueryDepositsResponse {
   return {
     deposits: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDepositsResponse = {
@@ -902,10 +912,12 @@ export const QueryDepositsResponse = {
     return message;
   },
   fromAmino(object: QueryDepositsResponseAmino): QueryDepositsResponse {
-    return {
-      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => DepositResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDepositsResponse();
+    message.deposits = object.deposits?.map(e => DepositResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDepositsResponse): QueryDepositsResponseAmino {
     const obj: any = {};
@@ -937,7 +949,7 @@ function createBaseQueryUnsyncedDepositsRequest(): QueryUnsyncedDepositsRequest 
   return {
     denom: "",
     owner: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryUnsyncedDepositsRequest = {
@@ -969,11 +981,17 @@ export const QueryUnsyncedDepositsRequest = {
     return message;
   },
   fromAmino(object: QueryUnsyncedDepositsRequestAmino): QueryUnsyncedDepositsRequest {
-    return {
-      denom: object.denom,
-      owner: object.owner,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryUnsyncedDepositsRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryUnsyncedDepositsRequest): QueryUnsyncedDepositsRequestAmino {
     const obj: any = {};
@@ -1001,7 +1019,7 @@ export const QueryUnsyncedDepositsRequest = {
 function createBaseQueryUnsyncedDepositsResponse(): QueryUnsyncedDepositsResponse {
   return {
     deposits: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryUnsyncedDepositsResponse = {
@@ -1028,10 +1046,12 @@ export const QueryUnsyncedDepositsResponse = {
     return message;
   },
   fromAmino(object: QueryUnsyncedDepositsResponseAmino): QueryUnsyncedDepositsResponse {
-    return {
-      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => DepositResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryUnsyncedDepositsResponse();
+    message.deposits = object.deposits?.map(e => DepositResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryUnsyncedDepositsResponse): QueryUnsyncedDepositsResponseAmino {
     const obj: any = {};
@@ -1083,9 +1103,11 @@ export const QueryTotalDepositedRequest = {
     return message;
   },
   fromAmino(object: QueryTotalDepositedRequestAmino): QueryTotalDepositedRequest {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseQueryTotalDepositedRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryTotalDepositedRequest): QueryTotalDepositedRequestAmino {
     const obj: any = {};
@@ -1132,9 +1154,9 @@ export const QueryTotalDepositedResponse = {
     return message;
   },
   fromAmino(object: QueryTotalDepositedResponseAmino): QueryTotalDepositedResponse {
-    return {
-      suppliedCoins: Array.isArray(object?.supplied_coins) ? object.supplied_coins.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTotalDepositedResponse();
+    message.suppliedCoins = object.supplied_coins?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTotalDepositedResponse): QueryTotalDepositedResponseAmino {
     const obj: any = {};
@@ -1165,7 +1187,7 @@ function createBaseQueryBorrowsRequest(): QueryBorrowsRequest {
   return {
     denom: "",
     owner: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryBorrowsRequest = {
@@ -1197,11 +1219,17 @@ export const QueryBorrowsRequest = {
     return message;
   },
   fromAmino(object: QueryBorrowsRequestAmino): QueryBorrowsRequest {
-    return {
-      denom: object.denom,
-      owner: object.owner,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryBorrowsRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryBorrowsRequest): QueryBorrowsRequestAmino {
     const obj: any = {};
@@ -1229,7 +1257,7 @@ export const QueryBorrowsRequest = {
 function createBaseQueryBorrowsResponse(): QueryBorrowsResponse {
   return {
     borrows: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryBorrowsResponse = {
@@ -1256,10 +1284,12 @@ export const QueryBorrowsResponse = {
     return message;
   },
   fromAmino(object: QueryBorrowsResponseAmino): QueryBorrowsResponse {
-    return {
-      borrows: Array.isArray(object?.borrows) ? object.borrows.map((e: any) => BorrowResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryBorrowsResponse();
+    message.borrows = object.borrows?.map(e => BorrowResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryBorrowsResponse): QueryBorrowsResponseAmino {
     const obj: any = {};
@@ -1291,7 +1321,7 @@ function createBaseQueryUnsyncedBorrowsRequest(): QueryUnsyncedBorrowsRequest {
   return {
     denom: "",
     owner: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryUnsyncedBorrowsRequest = {
@@ -1323,11 +1353,17 @@ export const QueryUnsyncedBorrowsRequest = {
     return message;
   },
   fromAmino(object: QueryUnsyncedBorrowsRequestAmino): QueryUnsyncedBorrowsRequest {
-    return {
-      denom: object.denom,
-      owner: object.owner,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryUnsyncedBorrowsRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryUnsyncedBorrowsRequest): QueryUnsyncedBorrowsRequestAmino {
     const obj: any = {};
@@ -1355,7 +1391,7 @@ export const QueryUnsyncedBorrowsRequest = {
 function createBaseQueryUnsyncedBorrowsResponse(): QueryUnsyncedBorrowsResponse {
   return {
     borrows: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryUnsyncedBorrowsResponse = {
@@ -1382,10 +1418,12 @@ export const QueryUnsyncedBorrowsResponse = {
     return message;
   },
   fromAmino(object: QueryUnsyncedBorrowsResponseAmino): QueryUnsyncedBorrowsResponse {
-    return {
-      borrows: Array.isArray(object?.borrows) ? object.borrows.map((e: any) => BorrowResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryUnsyncedBorrowsResponse();
+    message.borrows = object.borrows?.map(e => BorrowResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryUnsyncedBorrowsResponse): QueryUnsyncedBorrowsResponseAmino {
     const obj: any = {};
@@ -1437,9 +1475,11 @@ export const QueryTotalBorrowedRequest = {
     return message;
   },
   fromAmino(object: QueryTotalBorrowedRequestAmino): QueryTotalBorrowedRequest {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseQueryTotalBorrowedRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryTotalBorrowedRequest): QueryTotalBorrowedRequestAmino {
     const obj: any = {};
@@ -1486,9 +1526,9 @@ export const QueryTotalBorrowedResponse = {
     return message;
   },
   fromAmino(object: QueryTotalBorrowedResponseAmino): QueryTotalBorrowedResponse {
-    return {
-      borrowedCoins: Array.isArray(object?.borrowed_coins) ? object.borrowed_coins.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTotalBorrowedResponse();
+    message.borrowedCoins = object.borrowed_coins?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTotalBorrowedResponse): QueryTotalBorrowedResponseAmino {
     const obj: any = {};
@@ -1539,9 +1579,11 @@ export const QueryInterestRateRequest = {
     return message;
   },
   fromAmino(object: QueryInterestRateRequestAmino): QueryInterestRateRequest {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseQueryInterestRateRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryInterestRateRequest): QueryInterestRateRequestAmino {
     const obj: any = {};
@@ -1588,9 +1630,9 @@ export const QueryInterestRateResponse = {
     return message;
   },
   fromAmino(object: QueryInterestRateResponseAmino): QueryInterestRateResponse {
-    return {
-      interestRates: Array.isArray(object?.interest_rates) ? object.interest_rates.map((e: any) => MoneyMarketInterestRate.fromAmino(e)) : []
-    };
+    const message = createBaseQueryInterestRateResponse();
+    message.interestRates = object.interest_rates?.map(e => MoneyMarketInterestRate.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryInterestRateResponse): QueryInterestRateResponseAmino {
     const obj: any = {};
@@ -1641,9 +1683,11 @@ export const QueryReservesRequest = {
     return message;
   },
   fromAmino(object: QueryReservesRequestAmino): QueryReservesRequest {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseQueryReservesRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryReservesRequest): QueryReservesRequestAmino {
     const obj: any = {};
@@ -1690,9 +1734,9 @@ export const QueryReservesResponse = {
     return message;
   },
   fromAmino(object: QueryReservesResponseAmino): QueryReservesResponse {
-    return {
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryReservesResponse();
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryReservesResponse): QueryReservesResponseAmino {
     const obj: any = {};
@@ -1743,9 +1787,11 @@ export const QueryInterestFactorsRequest = {
     return message;
   },
   fromAmino(object: QueryInterestFactorsRequestAmino): QueryInterestFactorsRequest {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseQueryInterestFactorsRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryInterestFactorsRequest): QueryInterestFactorsRequestAmino {
     const obj: any = {};
@@ -1792,9 +1838,9 @@ export const QueryInterestFactorsResponse = {
     return message;
   },
   fromAmino(object: QueryInterestFactorsResponseAmino): QueryInterestFactorsResponse {
-    return {
-      interestFactors: Array.isArray(object?.interest_factors) ? object.interest_factors.map((e: any) => InterestFactor.fromAmino(e)) : []
-    };
+    const message = createBaseQueryInterestFactorsResponse();
+    message.interestFactors = object.interest_factors?.map(e => InterestFactor.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryInterestFactorsResponse): QueryInterestFactorsResponseAmino {
     const obj: any = {};
@@ -1857,11 +1903,13 @@ export const DepositResponse = {
     return message;
   },
   fromAmino(object: DepositResponseAmino): DepositResponse {
-    return {
-      depositor: object.depositor,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : [],
-      index: Array.isArray(object?.index) ? object.index.map((e: any) => SupplyInterestFactorResponse.fromAmino(e)) : []
-    };
+    const message = createBaseDepositResponse();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    message.index = object.index?.map(e => SupplyInterestFactorResponse.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: DepositResponse): DepositResponseAmino {
     const obj: any = {};
@@ -1924,10 +1972,14 @@ export const SupplyInterestFactorResponse = {
     return message;
   },
   fromAmino(object: SupplyInterestFactorResponseAmino): SupplyInterestFactorResponse {
-    return {
-      denom: object.denom,
-      value: object.value
-    };
+    const message = createBaseSupplyInterestFactorResponse();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: SupplyInterestFactorResponse): SupplyInterestFactorResponseAmino {
     const obj: any = {};
@@ -1987,11 +2039,13 @@ export const BorrowResponse = {
     return message;
   },
   fromAmino(object: BorrowResponseAmino): BorrowResponse {
-    return {
-      borrower: object.borrower,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : [],
-      index: Array.isArray(object?.index) ? object.index.map((e: any) => BorrowInterestFactorResponse.fromAmino(e)) : []
-    };
+    const message = createBaseBorrowResponse();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    message.index = object.index?.map(e => BorrowInterestFactorResponse.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: BorrowResponse): BorrowResponseAmino {
     const obj: any = {};
@@ -2054,10 +2108,14 @@ export const BorrowInterestFactorResponse = {
     return message;
   },
   fromAmino(object: BorrowInterestFactorResponseAmino): BorrowInterestFactorResponse {
-    return {
-      denom: object.denom,
-      value: object.value
-    };
+    const message = createBaseBorrowInterestFactorResponse();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: BorrowInterestFactorResponse): BorrowInterestFactorResponseAmino {
     const obj: any = {};
@@ -2117,11 +2175,17 @@ export const MoneyMarketInterestRate = {
     return message;
   },
   fromAmino(object: MoneyMarketInterestRateAmino): MoneyMarketInterestRate {
-    return {
-      denom: object.denom,
-      supplyInterestRate: object.supply_interest_rate,
-      borrowInterestRate: object.borrow_interest_rate
-    };
+    const message = createBaseMoneyMarketInterestRate();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.supply_interest_rate !== undefined && object.supply_interest_rate !== null) {
+      message.supplyInterestRate = object.supply_interest_rate;
+    }
+    if (object.borrow_interest_rate !== undefined && object.borrow_interest_rate !== null) {
+      message.borrowInterestRate = object.borrow_interest_rate;
+    }
+    return message;
   },
   toAmino(message: MoneyMarketInterestRate): MoneyMarketInterestRateAmino {
     const obj: any = {};
@@ -2182,11 +2246,17 @@ export const InterestFactor = {
     return message;
   },
   fromAmino(object: InterestFactorAmino): InterestFactor {
-    return {
-      denom: object.denom,
-      borrowInterestFactor: object.borrow_interest_factor,
-      supplyInterestFactor: object.supply_interest_factor
-    };
+    const message = createBaseInterestFactor();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.borrow_interest_factor !== undefined && object.borrow_interest_factor !== null) {
+      message.borrowInterestFactor = object.borrow_interest_factor;
+    }
+    if (object.supply_interest_factor !== undefined && object.supply_interest_factor !== null) {
+      message.supplyInterestFactor = object.supply_interest_factor;
+    }
+    return message;
   },
   toAmino(message: InterestFactor): InterestFactorAmino {
     const obj: any = {};

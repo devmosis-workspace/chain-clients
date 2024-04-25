@@ -1,19 +1,19 @@
 import { Rpc } from "../../../helpers";
 import { QueryClient } from "@cosmjs/stargate";
-import { QueryGroupInfoRequest, QueryGroupInfoResponse, QueryGroupPolicyInfoRequest, QueryGroupPolicyInfoResponse, QueryGroupMembersRequest, QueryGroupMembersResponse, QueryGroupsByAdminRequest, QueryGroupsByAdminResponse, QueryGroupPoliciesByGroupRequest, QueryGroupPoliciesByGroupResponse, QueryGroupPoliciesByAdminRequest, QueryGroupPoliciesByAdminResponse, QueryProposalRequest, QueryProposalResponse, QueryProposalsByGroupPolicyRequest, QueryProposalsByGroupPolicyResponse, QueryVoteByProposalVoterRequest, QueryVoteByProposalVoterResponse, QueryVotesByProposalRequest, QueryVotesByProposalResponse, QueryVotesByVoterRequest, QueryVotesByVoterResponse, QueryGroupsByMemberRequest, QueryGroupsByMemberResponse, QueryTallyResultRequest, QueryTallyResultResponse } from "./query";
+import { QueryGroupInfoRequest, QueryGroupInfoResponse, QueryGroupPolicyInfoRequest, QueryGroupPolicyInfoResponse, QueryGroupMembersRequest, QueryGroupMembersResponse, QueryGroupsByAdminRequest, QueryGroupsByAdminResponse, QueryGroupPoliciesByGroupRequest, QueryGroupPoliciesByGroupResponse, QueryGroupPoliciesByAdminRequest, QueryGroupPoliciesByAdminResponse, QueryProposalRequest, QueryProposalResponse, QueryProposalsByGroupPolicyRequest, QueryProposalsByGroupPolicyResponse, QueryVoteByProposalVoterRequest, QueryVoteByProposalVoterResponse, QueryVotesByProposalRequest, QueryVotesByProposalResponse, QueryVotesByVoterRequest, QueryVotesByVoterResponse, QueryGroupsByMemberRequest, QueryGroupsByMemberResponse, QueryTallyResultRequest, QueryTallyResultResponse, QueryGroupsRequest, QueryGroupsResponse } from "./query";
 /** Query is the cosmos.group.v1 Query service. */
 export interface Query {
     /** GroupInfo queries group info based on group id. */
     groupInfo(request: QueryGroupInfoRequest): Promise<QueryGroupInfoResponse>;
     /** GroupPolicyInfo queries group policy info based on account address of group policy. */
     groupPolicyInfo(request: QueryGroupPolicyInfoRequest): Promise<QueryGroupPolicyInfoResponse>;
-    /** GroupMembers queries members of a group */
+    /** GroupMembers queries members of a group by group id. */
     groupMembers(request: QueryGroupMembersRequest): Promise<QueryGroupMembersResponse>;
     /** GroupsByAdmin queries groups by admin address. */
     groupsByAdmin(request: QueryGroupsByAdminRequest): Promise<QueryGroupsByAdminResponse>;
     /** GroupPoliciesByGroup queries group policies by group id. */
     groupPoliciesByGroup(request: QueryGroupPoliciesByGroupRequest): Promise<QueryGroupPoliciesByGroupResponse>;
-    /** GroupsByAdmin queries group policies by admin address. */
+    /** GroupPoliciesByAdmin queries group policies by admin address. */
     groupPoliciesByAdmin(request: QueryGroupPoliciesByAdminRequest): Promise<QueryGroupPoliciesByAdminResponse>;
     /** Proposal queries a proposal based on proposal id. */
     proposal(request: QueryProposalRequest): Promise<QueryProposalResponse>;
@@ -21,7 +21,7 @@ export interface Query {
     proposalsByGroupPolicy(request: QueryProposalsByGroupPolicyRequest): Promise<QueryProposalsByGroupPolicyResponse>;
     /** VoteByProposalVoter queries a vote by proposal id and voter. */
     voteByProposalVoter(request: QueryVoteByProposalVoterRequest): Promise<QueryVoteByProposalVoterResponse>;
-    /** VotesByProposal queries a vote by proposal. */
+    /** VotesByProposal queries a vote by proposal id. */
     votesByProposal(request: QueryVotesByProposalRequest): Promise<QueryVotesByProposalResponse>;
     /** VotesByVoter queries a vote by voter. */
     votesByVoter(request: QueryVotesByVoterRequest): Promise<QueryVotesByVoterResponse>;
@@ -35,6 +35,12 @@ export interface Query {
      * proposal itself.
      */
     tallyResult(request: QueryTallyResultRequest): Promise<QueryTallyResultResponse>;
+    /**
+     * Groups queries all groups in state.
+     *
+     * Since: cosmos-sdk 0.47.1
+     */
+    groups(request?: QueryGroupsRequest): Promise<QueryGroupsResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -52,6 +58,7 @@ export declare class QueryClientImpl implements Query {
     votesByVoter(request: QueryVotesByVoterRequest): Promise<QueryVotesByVoterResponse>;
     groupsByMember(request: QueryGroupsByMemberRequest): Promise<QueryGroupsByMemberResponse>;
     tallyResult(request: QueryTallyResultRequest): Promise<QueryTallyResultResponse>;
+    groups(request?: QueryGroupsRequest): Promise<QueryGroupsResponse>;
 }
 export declare const createRpcQueryExtension: (base: QueryClient) => {
     groupInfo(request: QueryGroupInfoRequest): Promise<QueryGroupInfoResponse>;
@@ -67,4 +74,5 @@ export declare const createRpcQueryExtension: (base: QueryClient) => {
     votesByVoter(request: QueryVotesByVoterRequest): Promise<QueryVotesByVoterResponse>;
     groupsByMember(request: QueryGroupsByMemberRequest): Promise<QueryGroupsByMemberResponse>;
     tallyResult(request: QueryTallyResultRequest): Promise<QueryTallyResultResponse>;
+    groups(request?: QueryGroupsRequest): Promise<QueryGroupsResponse>;
 };

@@ -10,7 +10,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the savings module. */
 export interface ParamsAmino {
-    supported_denoms: string[];
+    supported_denoms?: string[];
 }
 export interface ParamsAminoMsg {
     type: "/kava.savings.v1beta1.Params";
@@ -31,8 +31,8 @@ export interface DepositProtoMsg {
 }
 /** Deposit defines an amount of coins deposited into a savings module account. */
 export interface DepositAmino {
-    depositor: string;
-    amount: CoinAmino[];
+    depositor?: string;
+    amount?: CoinAmino[];
 }
 export interface DepositAminoMsg {
     type: "/kava.savings.v1beta1.Deposit";

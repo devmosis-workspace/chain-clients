@@ -1,5 +1,5 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** CDP defines the state of a single collateralized debt position. */
 export interface CDP {
@@ -18,14 +18,14 @@ export interface CDPProtoMsg {
 }
 /** CDP defines the state of a single collateralized debt position. */
 export interface CDPAmino {
-    id: string;
-    owner: Uint8Array;
-    type: string;
+    id?: string;
+    owner?: string;
+    type?: string;
     collateral?: CoinAmino;
     principal?: CoinAmino;
     accumulated_fees?: CoinAmino;
-    fees_updated?: TimestampAmino;
-    interest_factor: string;
+    fees_updated?: string;
+    interest_factor?: string;
 }
 export interface CDPAminoMsg {
     type: "/kava.cdp.v1beta1.CDP";
@@ -54,8 +54,8 @@ export interface DepositProtoMsg {
 }
 /** Deposit defines an amount of coins deposited by an account to a cdp */
 export interface DepositAmino {
-    cdp_id: string;
-    depositor: string;
+    cdp_id?: string;
+    depositor?: string;
     amount?: CoinAmino;
 }
 export interface DepositAminoMsg {
@@ -79,7 +79,7 @@ export interface TotalPrincipalProtoMsg {
 }
 /** TotalPrincipal defines the total principal of a given collateral type */
 export interface TotalPrincipalAmino {
-    collateral_type: string;
+    collateral_type?: string;
     amount?: CoinAmino;
 }
 export interface TotalPrincipalAminoMsg {
@@ -102,7 +102,7 @@ export interface TotalCollateralProtoMsg {
 }
 /** TotalCollateral defines the total collateral of a given collateral type */
 export interface TotalCollateralAmino {
-    collateral_type: string;
+    collateral_type?: string;
     amount?: CoinAmino;
 }
 export interface TotalCollateralAminoMsg {
@@ -124,7 +124,7 @@ export interface OwnerCDPIndexProtoMsg {
 }
 /** OwnerCDPIndex defines the cdp ids for a single cdp owner */
 export interface OwnerCDPIndexAmino {
-    cdp_ids: string[];
+    cdp_ids?: string[];
 }
 export interface OwnerCDPIndexAminoMsg {
     type: "/kava.cdp.v1beta1.OwnerCDPIndex";

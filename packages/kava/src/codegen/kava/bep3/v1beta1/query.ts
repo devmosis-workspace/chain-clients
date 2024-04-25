@@ -52,7 +52,7 @@ export interface QueryAssetSupplyRequestProtoMsg {
 /** QueryAssetSupplyRequest is the request type for the Query/AssetSupply RPC method. */
 export interface QueryAssetSupplyRequestAmino {
   /** denom filters the asset response for the specified denom */
-  denom: string;
+  denom?: string;
 }
 export interface QueryAssetSupplyRequestAminoMsg {
   type: "/kava.bep3.v1beta1.QueryAssetSupplyRequest";
@@ -152,7 +152,7 @@ export interface QueryAssetSuppliesResponseProtoMsg {
 /** QueryAssetSuppliesResponse is the response type for the Query/AssetSupplies RPC method. */
 export interface QueryAssetSuppliesResponseAmino {
   /** asset_supplies represents the supplies of returned assets */
-  asset_supplies: AssetSupplyResponseAmino[];
+  asset_supplies?: AssetSupplyResponseAmino[];
 }
 export interface QueryAssetSuppliesResponseAminoMsg {
   type: "/kava.bep3.v1beta1.QueryAssetSuppliesResponse";
@@ -174,7 +174,7 @@ export interface QueryAtomicSwapRequestProtoMsg {
 /** QueryAtomicSwapRequest is the request type for the Query/AtomicSwap RPC method. */
 export interface QueryAtomicSwapRequestAmino {
   /** swap_id represents the id of the swap to query */
-  swap_id: string;
+  swap_id?: string;
 }
 export interface QueryAtomicSwapRequestAminoMsg {
   type: "/kava.bep3.v1beta1.QueryAtomicSwapRequest";
@@ -240,31 +240,31 @@ export interface AtomicSwapResponseProtoMsg {
 /** AtomicSwapResponse represents the returned atomic swap properties */
 export interface AtomicSwapResponseAmino {
   /** id represents the id of the atomic swap */
-  id: string;
+  id?: string;
   /** amount represents the amount being swapped */
-  amount: CoinAmino[];
+  amount?: CoinAmino[];
   /** random_number_hash represents the hash of the random number */
-  random_number_hash: string;
+  random_number_hash?: string;
   /** expire_height represents the height when the swap expires */
-  expire_height: string;
+  expire_height?: string;
   /** timestamp represents the timestamp of the swap */
-  timestamp: string;
+  timestamp?: string;
   /** sender is the kava chain sender of the swap */
-  sender: string;
+  sender?: string;
   /** recipient is the kava chain recipient of the swap */
-  recipient: string;
+  recipient?: string;
   /** sender_other_chain is the sender on the other chain */
-  sender_other_chain: string;
+  sender_other_chain?: string;
   /** recipient_other_chain is the recipient on the other chain */
-  recipient_other_chain: string;
+  recipient_other_chain?: string;
   /** closed_block is the block when the swap is closed */
-  closed_block: string;
+  closed_block?: string;
   /** status represents the current status of the swap */
-  status: SwapStatus;
+  status?: SwapStatus;
   /** cross_chain identifies whether the atomic swap is cross chain */
-  cross_chain: boolean;
+  cross_chain?: boolean;
   /** direction identifies if the swap is incoming or outgoing */
-  direction: SwapDirection;
+  direction?: SwapDirection;
 }
 export interface AtomicSwapResponseAminoMsg {
   type: "/kava.bep3.v1beta1.AtomicSwapResponse";
@@ -296,7 +296,7 @@ export interface QueryAtomicSwapsRequest {
   status: SwapStatus;
   /** direction fitlers by swap direction */
   direction: SwapDirection;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAtomicSwapsRequestProtoMsg {
   typeUrl: "/kava.bep3.v1beta1.QueryAtomicSwapsRequest";
@@ -305,13 +305,13 @@ export interface QueryAtomicSwapsRequestProtoMsg {
 /** QueryAtomicSwapsRequest is the request type for the Query/AtomicSwaps RPC method. */
 export interface QueryAtomicSwapsRequestAmino {
   /** involve filters by address */
-  involve: string;
+  involve?: string;
   /** expiration filters by expiration block height */
-  expiration: string;
+  expiration?: string;
   /** status filters by swap status */
-  status: SwapStatus;
+  status?: SwapStatus;
   /** direction fitlers by swap direction */
-  direction: SwapDirection;
+  direction?: SwapDirection;
   pagination?: PageRequestAmino;
 }
 export interface QueryAtomicSwapsRequestAminoMsg {
@@ -324,13 +324,13 @@ export interface QueryAtomicSwapsRequestSDKType {
   expiration: bigint;
   status: SwapStatus;
   direction: SwapDirection;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryAtomicSwapsResponse is the response type for the Query/AtomicSwaps RPC method. */
 export interface QueryAtomicSwapsResponse {
   /** atomic_swap represents the returned atomic swaps for the request */
   atomicSwaps: AtomicSwapResponse[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAtomicSwapsResponseProtoMsg {
   typeUrl: "/kava.bep3.v1beta1.QueryAtomicSwapsResponse";
@@ -339,7 +339,7 @@ export interface QueryAtomicSwapsResponseProtoMsg {
 /** QueryAtomicSwapsResponse is the response type for the Query/AtomicSwaps RPC method. */
 export interface QueryAtomicSwapsResponseAmino {
   /** atomic_swap represents the returned atomic swaps for the request */
-  atomic_swaps: AtomicSwapResponseAmino[];
+  atomic_swaps?: AtomicSwapResponseAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAtomicSwapsResponseAminoMsg {
@@ -349,7 +349,7 @@ export interface QueryAtomicSwapsResponseAminoMsg {
 /** QueryAtomicSwapsResponse is the response type for the Query/AtomicSwaps RPC method. */
 export interface QueryAtomicSwapsResponseSDKType {
   atomic_swaps: AtomicSwapResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -367,7 +367,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -413,9 +414,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -462,9 +465,11 @@ export const QueryAssetSupplyRequest = {
     return message;
   },
   fromAmino(object: QueryAssetSupplyRequestAmino): QueryAssetSupplyRequest {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseQueryAssetSupplyRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryAssetSupplyRequest): QueryAssetSupplyRequestAmino {
     const obj: any = {};
@@ -535,13 +540,23 @@ export const AssetSupplyResponse = {
     return message;
   },
   fromAmino(object: AssetSupplyResponseAmino): AssetSupplyResponse {
-    return {
-      incomingSupply: object?.incoming_supply ? Coin.fromAmino(object.incoming_supply) : undefined,
-      outgoingSupply: object?.outgoing_supply ? Coin.fromAmino(object.outgoing_supply) : undefined,
-      currentSupply: object?.current_supply ? Coin.fromAmino(object.current_supply) : undefined,
-      timeLimitedCurrentSupply: object?.time_limited_current_supply ? Coin.fromAmino(object.time_limited_current_supply) : undefined,
-      timeElapsed: object?.time_elapsed ? Duration.fromAmino(object.time_elapsed) : undefined
-    };
+    const message = createBaseAssetSupplyResponse();
+    if (object.incoming_supply !== undefined && object.incoming_supply !== null) {
+      message.incomingSupply = Coin.fromAmino(object.incoming_supply);
+    }
+    if (object.outgoing_supply !== undefined && object.outgoing_supply !== null) {
+      message.outgoingSupply = Coin.fromAmino(object.outgoing_supply);
+    }
+    if (object.current_supply !== undefined && object.current_supply !== null) {
+      message.currentSupply = Coin.fromAmino(object.current_supply);
+    }
+    if (object.time_limited_current_supply !== undefined && object.time_limited_current_supply !== null) {
+      message.timeLimitedCurrentSupply = Coin.fromAmino(object.time_limited_current_supply);
+    }
+    if (object.time_elapsed !== undefined && object.time_elapsed !== null) {
+      message.timeElapsed = Duration.fromAmino(object.time_elapsed);
+    }
+    return message;
   },
   toAmino(message: AssetSupplyResponse): AssetSupplyResponseAmino {
     const obj: any = {};
@@ -592,9 +607,11 @@ export const QueryAssetSupplyResponse = {
     return message;
   },
   fromAmino(object: QueryAssetSupplyResponseAmino): QueryAssetSupplyResponse {
-    return {
-      assetSupply: object?.asset_supply ? AssetSupplyResponse.fromAmino(object.asset_supply) : undefined
-    };
+    const message = createBaseQueryAssetSupplyResponse();
+    if (object.asset_supply !== undefined && object.asset_supply !== null) {
+      message.assetSupply = AssetSupplyResponse.fromAmino(object.asset_supply);
+    }
+    return message;
   },
   toAmino(message: QueryAssetSupplyResponse): QueryAssetSupplyResponseAmino {
     const obj: any = {};
@@ -633,7 +650,8 @@ export const QueryAssetSuppliesRequest = {
     return message;
   },
   fromAmino(_: QueryAssetSuppliesRequestAmino): QueryAssetSuppliesRequest {
-    return {};
+    const message = createBaseQueryAssetSuppliesRequest();
+    return message;
   },
   toAmino(_: QueryAssetSuppliesRequest): QueryAssetSuppliesRequestAmino {
     const obj: any = {};
@@ -679,9 +697,9 @@ export const QueryAssetSuppliesResponse = {
     return message;
   },
   fromAmino(object: QueryAssetSuppliesResponseAmino): QueryAssetSuppliesResponse {
-    return {
-      assetSupplies: Array.isArray(object?.asset_supplies) ? object.asset_supplies.map((e: any) => AssetSupplyResponse.fromAmino(e)) : []
-    };
+    const message = createBaseQueryAssetSuppliesResponse();
+    message.assetSupplies = object.asset_supplies?.map(e => AssetSupplyResponse.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryAssetSuppliesResponse): QueryAssetSuppliesResponseAmino {
     const obj: any = {};
@@ -732,9 +750,11 @@ export const QueryAtomicSwapRequest = {
     return message;
   },
   fromAmino(object: QueryAtomicSwapRequestAmino): QueryAtomicSwapRequest {
-    return {
-      swapId: object.swap_id
-    };
+    const message = createBaseQueryAtomicSwapRequest();
+    if (object.swap_id !== undefined && object.swap_id !== null) {
+      message.swapId = object.swap_id;
+    }
+    return message;
   },
   toAmino(message: QueryAtomicSwapRequest): QueryAtomicSwapRequestAmino {
     const obj: any = {};
@@ -781,9 +801,11 @@ export const QueryAtomicSwapResponse = {
     return message;
   },
   fromAmino(object: QueryAtomicSwapResponseAmino): QueryAtomicSwapResponse {
-    return {
-      atomicSwap: object?.atomic_swap ? AtomicSwapResponse.fromAmino(object.atomic_swap) : undefined
-    };
+    const message = createBaseQueryAtomicSwapResponse();
+    if (object.atomic_swap !== undefined && object.atomic_swap !== null) {
+      message.atomicSwap = AtomicSwapResponse.fromAmino(object.atomic_swap);
+    }
+    return message;
   },
   toAmino(message: QueryAtomicSwapResponse): QueryAtomicSwapResponseAmino {
     const obj: any = {};
@@ -902,21 +924,45 @@ export const AtomicSwapResponse = {
     return message;
   },
   fromAmino(object: AtomicSwapResponseAmino): AtomicSwapResponse {
-    return {
-      id: object.id,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : [],
-      randomNumberHash: object.random_number_hash,
-      expireHeight: BigInt(object.expire_height),
-      timestamp: BigInt(object.timestamp),
-      sender: object.sender,
-      recipient: object.recipient,
-      senderOtherChain: object.sender_other_chain,
-      recipientOtherChain: object.recipient_other_chain,
-      closedBlock: BigInt(object.closed_block),
-      status: isSet(object.status) ? swapStatusFromJSON(object.status) : -1,
-      crossChain: object.cross_chain,
-      direction: isSet(object.direction) ? swapDirectionFromJSON(object.direction) : -1
-    };
+    const message = createBaseAtomicSwapResponse();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    if (object.random_number_hash !== undefined && object.random_number_hash !== null) {
+      message.randomNumberHash = object.random_number_hash;
+    }
+    if (object.expire_height !== undefined && object.expire_height !== null) {
+      message.expireHeight = BigInt(object.expire_height);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = BigInt(object.timestamp);
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    if (object.sender_other_chain !== undefined && object.sender_other_chain !== null) {
+      message.senderOtherChain = object.sender_other_chain;
+    }
+    if (object.recipient_other_chain !== undefined && object.recipient_other_chain !== null) {
+      message.recipientOtherChain = object.recipient_other_chain;
+    }
+    if (object.closed_block !== undefined && object.closed_block !== null) {
+      message.closedBlock = BigInt(object.closed_block);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = swapStatusFromJSON(object.status);
+    }
+    if (object.cross_chain !== undefined && object.cross_chain !== null) {
+      message.crossChain = object.cross_chain;
+    }
+    if (object.direction !== undefined && object.direction !== null) {
+      message.direction = swapDirectionFromJSON(object.direction);
+    }
+    return message;
   },
   toAmino(message: AtomicSwapResponse): AtomicSwapResponseAmino {
     const obj: any = {};
@@ -961,7 +1007,7 @@ function createBaseQueryAtomicSwapsRequest(): QueryAtomicSwapsRequest {
     expiration: BigInt(0),
     status: 0,
     direction: 0,
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAtomicSwapsRequest = {
@@ -1003,13 +1049,23 @@ export const QueryAtomicSwapsRequest = {
     return message;
   },
   fromAmino(object: QueryAtomicSwapsRequestAmino): QueryAtomicSwapsRequest {
-    return {
-      involve: object.involve,
-      expiration: BigInt(object.expiration),
-      status: isSet(object.status) ? swapStatusFromJSON(object.status) : -1,
-      direction: isSet(object.direction) ? swapDirectionFromJSON(object.direction) : -1,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAtomicSwapsRequest();
+    if (object.involve !== undefined && object.involve !== null) {
+      message.involve = object.involve;
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = BigInt(object.expiration);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = swapStatusFromJSON(object.status);
+    }
+    if (object.direction !== undefined && object.direction !== null) {
+      message.direction = swapDirectionFromJSON(object.direction);
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAtomicSwapsRequest): QueryAtomicSwapsRequestAmino {
     const obj: any = {};
@@ -1039,7 +1095,7 @@ export const QueryAtomicSwapsRequest = {
 function createBaseQueryAtomicSwapsResponse(): QueryAtomicSwapsResponse {
   return {
     atomicSwaps: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAtomicSwapsResponse = {
@@ -1066,10 +1122,12 @@ export const QueryAtomicSwapsResponse = {
     return message;
   },
   fromAmino(object: QueryAtomicSwapsResponseAmino): QueryAtomicSwapsResponse {
-    return {
-      atomicSwaps: Array.isArray(object?.atomic_swaps) ? object.atomic_swaps.map((e: any) => AtomicSwapResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAtomicSwapsResponse();
+    message.atomicSwaps = object.atomic_swaps?.map(e => AtomicSwapResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAtomicSwapsResponse): QueryAtomicSwapsResponseAmino {
     const obj: any = {};

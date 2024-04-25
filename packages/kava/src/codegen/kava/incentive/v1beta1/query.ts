@@ -59,17 +59,17 @@ export interface QueryRewardsRequestProtoMsg {
 /** QueryRewardsRequest is the request type for the Query/Rewards RPC method. */
 export interface QueryRewardsRequestAmino {
   /** owner is the address of the user to query rewards for. */
-  owner: string;
+  owner?: string;
   /**
    * reward_type is the type of reward to query rewards for, e.g. hard, earn,
    * swap.
    */
-  reward_type: string;
+  reward_type?: string;
   /**
    * unsynchronized is a flag to query rewards that are not simulated for reward
    * synchronized for the current block.
    */
-  unsynchronized: boolean;
+  unsynchronized?: boolean;
 }
 export interface QueryRewardsRequestAminoMsg {
   type: "/kava.incentive.v1beta1.QueryRewardsRequest";
@@ -96,12 +96,12 @@ export interface QueryRewardsResponseProtoMsg {
 }
 /** QueryRewardsResponse is the response type for the Query/Rewards RPC method. */
 export interface QueryRewardsResponseAmino {
-  usdx_minting_claims: USDXMintingClaimAmino[];
-  hard_liquidity_provider_claims: HardLiquidityProviderClaimAmino[];
-  delegator_claims: DelegatorClaimAmino[];
-  swap_claims: SwapClaimAmino[];
-  savings_claims: SavingsClaimAmino[];
-  earn_claims: EarnClaimAmino[];
+  usdx_minting_claims?: USDXMintingClaimAmino[];
+  hard_liquidity_provider_claims?: HardLiquidityProviderClaimAmino[];
+  delegator_claims?: DelegatorClaimAmino[];
+  swap_claims?: SwapClaimAmino[];
+  savings_claims?: SavingsClaimAmino[];
+  earn_claims?: EarnClaimAmino[];
 }
 export interface QueryRewardsResponseAminoMsg {
   type: "/kava.incentive.v1beta1.QueryRewardsResponse";
@@ -146,13 +146,13 @@ export interface QueryRewardFactorsResponseProtoMsg {
 }
 /** QueryRewardFactorsResponse is the response type for the Query/RewardFactors RPC method. */
 export interface QueryRewardFactorsResponseAmino {
-  usdx_minting_reward_factors: RewardIndexAmino[];
-  hard_supply_reward_factors: MultiRewardIndexAmino[];
-  hard_borrow_reward_factors: MultiRewardIndexAmino[];
-  delegator_reward_factors: MultiRewardIndexAmino[];
-  swap_reward_factors: MultiRewardIndexAmino[];
-  savings_reward_factors: MultiRewardIndexAmino[];
-  earn_reward_factors: MultiRewardIndexAmino[];
+  usdx_minting_reward_factors?: RewardIndexAmino[];
+  hard_supply_reward_factors?: MultiRewardIndexAmino[];
+  hard_borrow_reward_factors?: MultiRewardIndexAmino[];
+  delegator_reward_factors?: MultiRewardIndexAmino[];
+  swap_reward_factors?: MultiRewardIndexAmino[];
+  savings_reward_factors?: MultiRewardIndexAmino[];
+  earn_reward_factors?: MultiRewardIndexAmino[];
 }
 export interface QueryRewardFactorsResponseAminoMsg {
   type: "/kava.incentive.v1beta1.QueryRewardFactorsResponse";
@@ -192,7 +192,7 @@ export interface QueryApyResponseProtoMsg {
 }
 /** QueryApysResponse is the response type for the Query/Apys RPC method. */
 export interface QueryApyResponseAmino {
-  earn: ApyAmino[];
+  earn?: ApyAmino[];
 }
 export interface QueryApyResponseAminoMsg {
   type: "/kava.incentive.v1beta1.QueryApyResponse";
@@ -218,7 +218,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -264,9 +265,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -325,11 +328,17 @@ export const QueryRewardsRequest = {
     return message;
   },
   fromAmino(object: QueryRewardsRequestAmino): QueryRewardsRequest {
-    return {
-      owner: object.owner,
-      rewardType: object.reward_type,
-      unsynchronized: object.unsynchronized
-    };
+    const message = createBaseQueryRewardsRequest();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.reward_type !== undefined && object.reward_type !== null) {
+      message.rewardType = object.reward_type;
+    }
+    if (object.unsynchronized !== undefined && object.unsynchronized !== null) {
+      message.unsynchronized = object.unsynchronized;
+    }
+    return message;
   },
   toAmino(message: QueryRewardsRequest): QueryRewardsRequestAmino {
     const obj: any = {};
@@ -408,14 +417,14 @@ export const QueryRewardsResponse = {
     return message;
   },
   fromAmino(object: QueryRewardsResponseAmino): QueryRewardsResponse {
-    return {
-      usdxMintingClaims: Array.isArray(object?.usdx_minting_claims) ? object.usdx_minting_claims.map((e: any) => USDXMintingClaim.fromAmino(e)) : [],
-      hardLiquidityProviderClaims: Array.isArray(object?.hard_liquidity_provider_claims) ? object.hard_liquidity_provider_claims.map((e: any) => HardLiquidityProviderClaim.fromAmino(e)) : [],
-      delegatorClaims: Array.isArray(object?.delegator_claims) ? object.delegator_claims.map((e: any) => DelegatorClaim.fromAmino(e)) : [],
-      swapClaims: Array.isArray(object?.swap_claims) ? object.swap_claims.map((e: any) => SwapClaim.fromAmino(e)) : [],
-      savingsClaims: Array.isArray(object?.savings_claims) ? object.savings_claims.map((e: any) => SavingsClaim.fromAmino(e)) : [],
-      earnClaims: Array.isArray(object?.earn_claims) ? object.earn_claims.map((e: any) => EarnClaim.fromAmino(e)) : []
-    };
+    const message = createBaseQueryRewardsResponse();
+    message.usdxMintingClaims = object.usdx_minting_claims?.map(e => USDXMintingClaim.fromAmino(e)) || [];
+    message.hardLiquidityProviderClaims = object.hard_liquidity_provider_claims?.map(e => HardLiquidityProviderClaim.fromAmino(e)) || [];
+    message.delegatorClaims = object.delegator_claims?.map(e => DelegatorClaim.fromAmino(e)) || [];
+    message.swapClaims = object.swap_claims?.map(e => SwapClaim.fromAmino(e)) || [];
+    message.savingsClaims = object.savings_claims?.map(e => SavingsClaim.fromAmino(e)) || [];
+    message.earnClaims = object.earn_claims?.map(e => EarnClaim.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryRewardsResponse): QueryRewardsResponseAmino {
     const obj: any = {};
@@ -483,7 +492,8 @@ export const QueryRewardFactorsRequest = {
     return message;
   },
   fromAmino(_: QueryRewardFactorsRequestAmino): QueryRewardFactorsRequest {
-    return {};
+    const message = createBaseQueryRewardFactorsRequest();
+    return message;
   },
   toAmino(_: QueryRewardFactorsRequest): QueryRewardFactorsRequestAmino {
     const obj: any = {};
@@ -565,15 +575,15 @@ export const QueryRewardFactorsResponse = {
     return message;
   },
   fromAmino(object: QueryRewardFactorsResponseAmino): QueryRewardFactorsResponse {
-    return {
-      usdxMintingRewardFactors: Array.isArray(object?.usdx_minting_reward_factors) ? object.usdx_minting_reward_factors.map((e: any) => RewardIndex.fromAmino(e)) : [],
-      hardSupplyRewardFactors: Array.isArray(object?.hard_supply_reward_factors) ? object.hard_supply_reward_factors.map((e: any) => MultiRewardIndex.fromAmino(e)) : [],
-      hardBorrowRewardFactors: Array.isArray(object?.hard_borrow_reward_factors) ? object.hard_borrow_reward_factors.map((e: any) => MultiRewardIndex.fromAmino(e)) : [],
-      delegatorRewardFactors: Array.isArray(object?.delegator_reward_factors) ? object.delegator_reward_factors.map((e: any) => MultiRewardIndex.fromAmino(e)) : [],
-      swapRewardFactors: Array.isArray(object?.swap_reward_factors) ? object.swap_reward_factors.map((e: any) => MultiRewardIndex.fromAmino(e)) : [],
-      savingsRewardFactors: Array.isArray(object?.savings_reward_factors) ? object.savings_reward_factors.map((e: any) => MultiRewardIndex.fromAmino(e)) : [],
-      earnRewardFactors: Array.isArray(object?.earn_reward_factors) ? object.earn_reward_factors.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
-    };
+    const message = createBaseQueryRewardFactorsResponse();
+    message.usdxMintingRewardFactors = object.usdx_minting_reward_factors?.map(e => RewardIndex.fromAmino(e)) || [];
+    message.hardSupplyRewardFactors = object.hard_supply_reward_factors?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    message.hardBorrowRewardFactors = object.hard_borrow_reward_factors?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    message.delegatorRewardFactors = object.delegator_reward_factors?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    message.swapRewardFactors = object.swap_reward_factors?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    message.savingsRewardFactors = object.savings_reward_factors?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    message.earnRewardFactors = object.earn_reward_factors?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryRewardFactorsResponse): QueryRewardFactorsResponseAmino {
     const obj: any = {};
@@ -646,7 +656,8 @@ export const QueryApyRequest = {
     return message;
   },
   fromAmino(_: QueryApyRequestAmino): QueryApyRequest {
-    return {};
+    const message = createBaseQueryApyRequest();
+    return message;
   },
   toAmino(_: QueryApyRequest): QueryApyRequestAmino {
     const obj: any = {};
@@ -692,9 +703,9 @@ export const QueryApyResponse = {
     return message;
   },
   fromAmino(object: QueryApyResponseAmino): QueryApyResponse {
-    return {
-      earn: Array.isArray(object?.earn) ? object.earn.map((e: any) => Apy.fromAmino(e)) : []
-    };
+    const message = createBaseQueryApyResponse();
+    message.earn = object.earn?.map(e => Apy.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryApyResponse): QueryApyResponseAmino {
     const obj: any = {};

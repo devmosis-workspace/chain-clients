@@ -13,10 +13,10 @@ export interface MsgCreateCDPProtoMsg {
 }
 /** MsgCreateCDP defines a message to create a new CDP. */
 export interface MsgCreateCDPAmino {
-    sender: string;
+    sender?: string;
     collateral?: CoinAmino;
     principal?: CoinAmino;
-    collateral_type: string;
+    collateral_type?: string;
 }
 export interface MsgCreateCDPAminoMsg {
     type: "/kava.cdp.v1beta1.MsgCreateCDP";
@@ -39,7 +39,7 @@ export interface MsgCreateCDPResponseProtoMsg {
 }
 /** MsgCreateCDPResponse defines the Msg/CreateCDP response type. */
 export interface MsgCreateCDPResponseAmino {
-    cdp_id: string;
+    cdp_id?: string;
 }
 export interface MsgCreateCDPResponseAminoMsg {
     type: "/kava.cdp.v1beta1.MsgCreateCDPResponse";
@@ -62,10 +62,10 @@ export interface MsgDepositProtoMsg {
 }
 /** MsgDeposit defines a message to deposit to a CDP. */
 export interface MsgDepositAmino {
-    depositor: string;
-    owner: string;
+    depositor?: string;
+    owner?: string;
     collateral?: CoinAmino;
-    collateral_type: string;
+    collateral_type?: string;
 }
 export interface MsgDepositAminoMsg {
     type: "/kava.cdp.v1beta1.MsgDeposit";
@@ -108,10 +108,10 @@ export interface MsgWithdrawProtoMsg {
 }
 /** MsgWithdraw defines a message to withdraw collateral from a CDP. */
 export interface MsgWithdrawAmino {
-    depositor: string;
-    owner: string;
+    depositor?: string;
+    owner?: string;
     collateral?: CoinAmino;
-    collateral_type: string;
+    collateral_type?: string;
 }
 export interface MsgWithdrawAminoMsg {
     type: "/kava.cdp.v1beta1.MsgWithdraw";
@@ -153,8 +153,8 @@ export interface MsgDrawDebtProtoMsg {
 }
 /** MsgDrawDebt defines a message to draw debt from a CDP. */
 export interface MsgDrawDebtAmino {
-    sender: string;
-    collateral_type: string;
+    sender?: string;
+    collateral_type?: string;
     principal?: CoinAmino;
 }
 export interface MsgDrawDebtAminoMsg {
@@ -196,8 +196,8 @@ export interface MsgRepayDebtProtoMsg {
 }
 /** MsgRepayDebt defines a message to repay debt from a CDP. */
 export interface MsgRepayDebtAmino {
-    sender: string;
-    collateral_type: string;
+    sender?: string;
+    collateral_type?: string;
     payment?: CoinAmino;
 }
 export interface MsgRepayDebtAminoMsg {
@@ -245,9 +245,9 @@ export interface MsgLiquidateProtoMsg {
  * collateralization ratio is under its liquidation ratio.
  */
 export interface MsgLiquidateAmino {
-    keeper: string;
-    borrower: string;
-    collateral_type: string;
+    keeper?: string;
+    borrower?: string;
+    collateral_type?: string;
 }
 export interface MsgLiquidateAminoMsg {
     type: "/kava.cdp.v1beta1.MsgLiquidate";

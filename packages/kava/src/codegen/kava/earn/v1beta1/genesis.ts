@@ -4,7 +4,7 @@ import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** GenesisState defines the earn module's genesis state. */
 export interface GenesisState {
-  /** params defines all the paramaters related to earn */
+  /** params defines all the parameters related to earn */
   params: Params;
   /** vault_records defines the available vaults */
   vaultRecords: VaultRecord[];
@@ -17,12 +17,12 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the earn module's genesis state. */
 export interface GenesisStateAmino {
-  /** params defines all the paramaters related to earn */
+  /** params defines all the parameters related to earn */
   params?: ParamsAmino;
   /** vault_records defines the available vaults */
-  vault_records: VaultRecordAmino[];
+  vault_records?: VaultRecordAmino[];
   /** share_records defines the owned shares of each vault */
-  vault_share_records: VaultShareRecordAmino[];
+  vault_share_records?: VaultShareRecordAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/kava.earn.v1beta1.GenesisState";
@@ -70,11 +70,13 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      vaultRecords: Array.isArray(object?.vault_records) ? object.vault_records.map((e: any) => VaultRecord.fromAmino(e)) : [],
-      vaultShareRecords: Array.isArray(object?.vault_share_records) ? object.vault_share_records.map((e: any) => VaultShareRecord.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.vaultRecords = object.vault_records?.map(e => VaultRecord.fromAmino(e)) || [];
+    message.vaultShareRecords = object.vault_share_records?.map(e => VaultShareRecord.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

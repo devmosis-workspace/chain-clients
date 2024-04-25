@@ -1,7 +1,7 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
 import { Decimal } from "@cosmjs/math";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** Params defines the parameters for the swap module. */
 export interface Params {
   /** allowed_pools defines that pools that are allowed to be created */
@@ -16,9 +16,9 @@ export interface ParamsProtoMsg {
 /** Params defines the parameters for the swap module. */
 export interface ParamsAmino {
   /** allowed_pools defines that pools that are allowed to be created */
-  allowed_pools: AllowedPoolAmino[];
+  allowed_pools?: AllowedPoolAmino[];
   /** swap_fee defines the swap fee for all pools */
-  swap_fee: string;
+  swap_fee?: string;
 }
 export interface ParamsAminoMsg {
   type: "/kava.swap.v1beta1.Params";
@@ -43,9 +43,9 @@ export interface AllowedPoolProtoMsg {
 /** AllowedPool defines a pool that is allowed to be created */
 export interface AllowedPoolAmino {
   /** token_a represents the a token allowed */
-  token_a: string;
+  token_a?: string;
   /** token_b represents the b token allowed */
-  token_b: string;
+  token_b?: string;
 }
 export interface AllowedPoolAminoMsg {
   type: "/kava.swap.v1beta1.AllowedPool";
@@ -80,13 +80,13 @@ export interface PoolRecordProtoMsg {
  */
 export interface PoolRecordAmino {
   /** pool_id represents the unique id of the pool */
-  pool_id: string;
+  pool_id?: string;
   /** reserves_a is the a token coin reserves */
   reserves_a?: CoinAmino;
   /** reserves_b is the a token coin reserves */
   reserves_b?: CoinAmino;
   /** total_shares is the total distrubuted shares of the pool */
-  total_shares: string;
+  total_shares?: string;
 }
 export interface PoolRecordAminoMsg {
   type: "/kava.swap.v1beta1.PoolRecord";
@@ -118,11 +118,11 @@ export interface ShareRecordProtoMsg {
 /** ShareRecord stores the shares owned for a depositor and pool */
 export interface ShareRecordAmino {
   /** depositor represents the owner of the shares */
-  depositor: Uint8Array;
+  depositor?: string;
   /** pool_id represents the pool the shares belong to */
-  pool_id: string;
+  pool_id?: string;
   /** shares_owned represents the number of shares owned by depsoitor for the pool_id */
-  shares_owned: string;
+  shares_owned?: string;
 }
 export interface ShareRecordAminoMsg {
   type: "/kava.swap.v1beta1.ShareRecord";
@@ -164,10 +164,12 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      allowedPools: Array.isArray(object?.allowed_pools) ? object.allowed_pools.map((e: any) => AllowedPool.fromAmino(e)) : [],
-      swapFee: object.swap_fee
-    };
+    const message = createBaseParams();
+    message.allowedPools = object.allowed_pools?.map(e => AllowedPool.fromAmino(e)) || [];
+    if (object.swap_fee !== undefined && object.swap_fee !== null) {
+      message.swapFee = object.swap_fee;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -225,10 +227,14 @@ export const AllowedPool = {
     return message;
   },
   fromAmino(object: AllowedPoolAmino): AllowedPool {
-    return {
-      tokenA: object.token_a,
-      tokenB: object.token_b
-    };
+    const message = createBaseAllowedPool();
+    if (object.token_a !== undefined && object.token_a !== null) {
+      message.tokenA = object.token_a;
+    }
+    if (object.token_b !== undefined && object.token_b !== null) {
+      message.tokenB = object.token_b;
+    }
+    return message;
   },
   toAmino(message: AllowedPool): AllowedPoolAmino {
     const obj: any = {};
@@ -294,12 +300,20 @@ export const PoolRecord = {
     return message;
   },
   fromAmino(object: PoolRecordAmino): PoolRecord {
-    return {
-      poolId: object.pool_id,
-      reservesA: object?.reserves_a ? Coin.fromAmino(object.reserves_a) : undefined,
-      reservesB: object?.reserves_b ? Coin.fromAmino(object.reserves_b) : undefined,
-      totalShares: object.total_shares
-    };
+    const message = createBasePoolRecord();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = object.pool_id;
+    }
+    if (object.reserves_a !== undefined && object.reserves_a !== null) {
+      message.reservesA = Coin.fromAmino(object.reserves_a);
+    }
+    if (object.reserves_b !== undefined && object.reserves_b !== null) {
+      message.reservesB = Coin.fromAmino(object.reserves_b);
+    }
+    if (object.total_shares !== undefined && object.total_shares !== null) {
+      message.totalShares = object.total_shares;
+    }
+    return message;
   },
   toAmino(message: PoolRecord): PoolRecordAmino {
     const obj: any = {};
@@ -361,15 +375,21 @@ export const ShareRecord = {
     return message;
   },
   fromAmino(object: ShareRecordAmino): ShareRecord {
-    return {
-      depositor: object.depositor,
-      poolId: object.pool_id,
-      sharesOwned: object.shares_owned
-    };
+    const message = createBaseShareRecord();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = bytesFromBase64(object.depositor);
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = object.pool_id;
+    }
+    if (object.shares_owned !== undefined && object.shares_owned !== null) {
+      message.sharesOwned = object.shares_owned;
+    }
+    return message;
   },
   toAmino(message: ShareRecord): ShareRecordAmino {
     const obj: any = {};
-    obj.depositor = message.depositor;
+    obj.depositor = message.depositor ? base64FromBytes(message.depositor) : undefined;
     obj.pool_id = message.poolId;
     obj.shares_owned = message.sharesOwned;
     return obj;

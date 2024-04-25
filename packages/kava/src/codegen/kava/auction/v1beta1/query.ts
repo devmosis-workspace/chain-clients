@@ -47,7 +47,7 @@ export interface QueryAuctionRequestProtoMsg {
 }
 /** QueryAuctionRequest is the request type for the Query/Auction RPC method. */
 export interface QueryAuctionRequestAmino {
-  auction_id: string;
+  auction_id?: string;
 }
 export interface QueryAuctionRequestAminoMsg {
   type: "/kava.auction.v1beta1.QueryAuctionRequest";
@@ -59,7 +59,7 @@ export interface QueryAuctionRequestSDKType {
 }
 /** QueryAuctionResponse is the response type for the Query/Auction RPC method. */
 export interface QueryAuctionResponse {
-  auction: Any;
+  auction?: Any;
 }
 export interface QueryAuctionResponseProtoMsg {
   typeUrl: "/kava.auction.v1beta1.QueryAuctionResponse";
@@ -75,7 +75,7 @@ export interface QueryAuctionResponseAminoMsg {
 }
 /** QueryAuctionResponse is the response type for the Query/Auction RPC method. */
 export interface QueryAuctionResponseSDKType {
-  auction: AnySDKType;
+  auction?: AnySDKType;
 }
 /** QueryAuctionsRequest is the request type for the Query/Auctions RPC method. */
 export interface QueryAuctionsRequest {
@@ -84,7 +84,7 @@ export interface QueryAuctionsRequest {
   denom: string;
   phase: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAuctionsRequestProtoMsg {
   typeUrl: "/kava.auction.v1beta1.QueryAuctionsRequest";
@@ -92,10 +92,10 @@ export interface QueryAuctionsRequestProtoMsg {
 }
 /** QueryAuctionsRequest is the request type for the Query/Auctions RPC method. */
 export interface QueryAuctionsRequestAmino {
-  type: string;
-  owner: string;
-  denom: string;
-  phase: string;
+  type?: string;
+  owner?: string;
+  denom?: string;
+  phase?: string;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
 }
@@ -109,13 +109,13 @@ export interface QueryAuctionsRequestSDKType {
   owner: string;
   denom: string;
   phase: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryAuctionsResponse is the response type for the Query/Auctions RPC method. */
 export interface QueryAuctionsResponse {
   auctions: Any[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAuctionsResponseProtoMsg {
   typeUrl: "/kava.auction.v1beta1.QueryAuctionsResponse";
@@ -123,7 +123,7 @@ export interface QueryAuctionsResponseProtoMsg {
 }
 /** QueryAuctionsResponse is the response type for the Query/Auctions RPC method. */
 export interface QueryAuctionsResponseAmino {
-  auctions: AnyAmino[];
+  auctions?: AnyAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -134,7 +134,7 @@ export interface QueryAuctionsResponseAminoMsg {
 /** QueryAuctionsResponse is the response type for the Query/Auctions RPC method. */
 export interface QueryAuctionsResponseSDKType {
   auctions: AnySDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryNextAuctionIDRequest defines the request type for querying x/auction next auction ID. */
 export interface QueryNextAuctionIDRequest {}
@@ -160,7 +160,7 @@ export interface QueryNextAuctionIDResponseProtoMsg {
 }
 /** QueryNextAuctionIDResponse defines the response type for querying x/auction next auction ID. */
 export interface QueryNextAuctionIDResponseAmino {
-  id: string;
+  id?: string;
 }
 export interface QueryNextAuctionIDResponseAminoMsg {
   type: "/kava.auction.v1beta1.QueryNextAuctionIDResponse";
@@ -186,7 +186,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -232,9 +233,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -281,9 +284,11 @@ export const QueryAuctionRequest = {
     return message;
   },
   fromAmino(object: QueryAuctionRequestAmino): QueryAuctionRequest {
-    return {
-      auctionId: BigInt(object.auction_id)
-    };
+    const message = createBaseQueryAuctionRequest();
+    if (object.auction_id !== undefined && object.auction_id !== null) {
+      message.auctionId = BigInt(object.auction_id);
+    }
+    return message;
   },
   toAmino(message: QueryAuctionRequest): QueryAuctionRequestAmino {
     const obj: any = {};
@@ -308,7 +313,7 @@ export const QueryAuctionRequest = {
 };
 function createBaseQueryAuctionResponse(): QueryAuctionResponse {
   return {
-    auction: Any.fromPartial({})
+    auction: undefined
   };
 }
 export const QueryAuctionResponse = {
@@ -330,9 +335,11 @@ export const QueryAuctionResponse = {
     return message;
   },
   fromAmino(object: QueryAuctionResponseAmino): QueryAuctionResponse {
-    return {
-      auction: object?.auction ? Any.fromAmino(object.auction) : undefined
-    };
+    const message = createBaseQueryAuctionResponse();
+    if (object.auction !== undefined && object.auction !== null) {
+      message.auction = Any.fromAmino(object.auction);
+    }
+    return message;
   },
   toAmino(message: QueryAuctionResponse): QueryAuctionResponseAmino {
     const obj: any = {};
@@ -361,7 +368,7 @@ function createBaseQueryAuctionsRequest(): QueryAuctionsRequest {
     owner: "",
     denom: "",
     phase: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAuctionsRequest = {
@@ -403,13 +410,23 @@ export const QueryAuctionsRequest = {
     return message;
   },
   fromAmino(object: QueryAuctionsRequestAmino): QueryAuctionsRequest {
-    return {
-      type: object.type,
-      owner: object.owner,
-      denom: object.denom,
-      phase: object.phase,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAuctionsRequest();
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.phase !== undefined && object.phase !== null) {
+      message.phase = object.phase;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAuctionsRequest): QueryAuctionsRequestAmino {
     const obj: any = {};
@@ -439,7 +456,7 @@ export const QueryAuctionsRequest = {
 function createBaseQueryAuctionsResponse(): QueryAuctionsResponse {
   return {
     auctions: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAuctionsResponse = {
@@ -466,10 +483,12 @@ export const QueryAuctionsResponse = {
     return message;
   },
   fromAmino(object: QueryAuctionsResponseAmino): QueryAuctionsResponse {
-    return {
-      auctions: Array.isArray(object?.auctions) ? object.auctions.map((e: any) => Any.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAuctionsResponse();
+    message.auctions = object.auctions?.map(e => Any.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAuctionsResponse): QueryAuctionsResponseAmino {
     const obj: any = {};
@@ -513,7 +532,8 @@ export const QueryNextAuctionIDRequest = {
     return message;
   },
   fromAmino(_: QueryNextAuctionIDRequestAmino): QueryNextAuctionIDRequest {
-    return {};
+    const message = createBaseQueryNextAuctionIDRequest();
+    return message;
   },
   toAmino(_: QueryNextAuctionIDRequest): QueryNextAuctionIDRequestAmino {
     const obj: any = {};
@@ -559,9 +579,11 @@ export const QueryNextAuctionIDResponse = {
     return message;
   },
   fromAmino(object: QueryNextAuctionIDResponseAmino): QueryNextAuctionIDResponse {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseQueryNextAuctionIDResponse();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: QueryNextAuctionIDResponse): QueryNextAuctionIDResponseAmino {
     const obj: any = {};

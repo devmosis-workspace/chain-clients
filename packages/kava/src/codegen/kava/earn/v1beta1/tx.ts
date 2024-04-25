@@ -22,14 +22,14 @@ export interface MsgDepositProtoMsg {
 /** MsgDeposit represents a message for depositing assedts into a vault */
 export interface MsgDepositAmino {
   /** depositor represents the address to deposit funds from */
-  depositor: string;
+  depositor?: string;
   /**
    * Amount represents the token to deposit. The vault corresponds to the denom
    * of the amount coin.
    */
   amount?: CoinAmino;
   /** Strategy is the vault strategy to use. */
-  strategy: StrategyType;
+  strategy?: StrategyType;
 }
 export interface MsgDepositAminoMsg {
   type: "/kava.earn.v1beta1.MsgDeposit";
@@ -80,14 +80,14 @@ export interface MsgWithdrawProtoMsg {
 /** MsgWithdraw represents a message for withdrawing liquidity from a vault */
 export interface MsgWithdrawAmino {
   /** from represents the address we are withdrawing for */
-  from: string;
+  from?: string;
   /**
    * Amount represents the token to withdraw. The vault corresponds to the denom
    * of the amount coin.
    */
   amount?: CoinAmino;
   /** Strategy is the vault strategy to use. */
-  strategy: StrategyType;
+  strategy?: StrategyType;
 }
 export interface MsgWithdrawAminoMsg {
   type: "/kava.earn.v1beta1.MsgWithdraw";
@@ -155,11 +155,17 @@ export const MsgDeposit = {
     return message;
   },
   fromAmino(object: MsgDepositAmino): MsgDeposit {
-    return {
-      depositor: object.depositor,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
-      strategy: isSet(object.strategy) ? strategyTypeFromJSON(object.strategy) : -1
-    };
+    const message = createBaseMsgDeposit();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.strategy !== undefined && object.strategy !== null) {
+      message.strategy = strategyTypeFromJSON(object.strategy);
+    }
+    return message;
   },
   toAmino(message: MsgDeposit): MsgDepositAmino {
     const obj: any = {};
@@ -208,9 +214,11 @@ export const MsgDepositResponse = {
     return message;
   },
   fromAmino(object: MsgDepositResponseAmino): MsgDepositResponse {
-    return {
-      shares: object?.shares ? VaultShare.fromAmino(object.shares) : undefined
-    };
+    const message = createBaseMsgDepositResponse();
+    if (object.shares !== undefined && object.shares !== null) {
+      message.shares = VaultShare.fromAmino(object.shares);
+    }
+    return message;
   },
   toAmino(message: MsgDepositResponse): MsgDepositResponseAmino {
     const obj: any = {};
@@ -269,11 +277,17 @@ export const MsgWithdraw = {
     return message;
   },
   fromAmino(object: MsgWithdrawAmino): MsgWithdraw {
-    return {
-      from: object.from,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
-      strategy: isSet(object.strategy) ? strategyTypeFromJSON(object.strategy) : -1
-    };
+    const message = createBaseMsgWithdraw();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.strategy !== undefined && object.strategy !== null) {
+      message.strategy = strategyTypeFromJSON(object.strategy);
+    }
+    return message;
   },
   toAmino(message: MsgWithdraw): MsgWithdrawAmino {
     const obj: any = {};
@@ -322,9 +336,11 @@ export const MsgWithdrawResponse = {
     return message;
   },
   fromAmino(object: MsgWithdrawResponseAmino): MsgWithdrawResponse {
-    return {
-      shares: object?.shares ? VaultShare.fromAmino(object.shares) : undefined
-    };
+    const message = createBaseMsgWithdrawResponse();
+    if (object.shares !== undefined && object.shares !== null) {
+      message.shares = VaultShare.fromAmino(object.shares);
+    }
+    return message;
   },
   toAmino(message: MsgWithdrawResponse): MsgWithdrawResponseAmino {
     const obj: any = {};

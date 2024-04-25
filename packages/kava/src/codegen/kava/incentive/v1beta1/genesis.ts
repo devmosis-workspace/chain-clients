@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { MultiRewardIndex, MultiRewardIndexAmino, MultiRewardIndexSDKType, USDXMintingClaim, USDXMintingClaimAmino, USDXMintingClaimSDKType, HardLiquidityProviderClaim, HardLiquidityProviderClaimAmino, HardLiquidityProviderClaimSDKType, DelegatorClaim, DelegatorClaimAmino, DelegatorClaimSDKType, SwapClaim, SwapClaimAmino, SwapClaimSDKType, SavingsClaim, SavingsClaimAmino, SavingsClaimSDKType, EarnClaim, EarnClaimAmino, EarnClaimSDKType } from "./claims";
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
@@ -14,8 +14,8 @@ export interface AccumulationTimeProtoMsg {
 }
 /** AccumulationTime stores the previous reward distribution time and its corresponding collateral type */
 export interface AccumulationTimeAmino {
-  collateral_type: string;
-  previous_accumulation_time?: TimestampAmino;
+  collateral_type?: string;
+  previous_accumulation_time?: string;
 }
 export interface AccumulationTimeAminoMsg {
   type: "/kava.incentive.v1beta1.AccumulationTime";
@@ -37,8 +37,8 @@ export interface GenesisRewardStateProtoMsg {
 }
 /** GenesisRewardState groups together the global state for a particular reward so it can be exported in genesis. */
 export interface GenesisRewardStateAmino {
-  accumulation_times: AccumulationTimeAmino[];
-  multi_reward_indexes: MultiRewardIndexAmino[];
+  accumulation_times?: AccumulationTimeAmino[];
+  multi_reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface GenesisRewardStateAminoMsg {
   type: "/kava.incentive.v1beta1.GenesisRewardState";
@@ -78,14 +78,14 @@ export interface GenesisStateAmino {
   hard_borrow_reward_state?: GenesisRewardStateAmino;
   delegator_reward_state?: GenesisRewardStateAmino;
   swap_reward_state?: GenesisRewardStateAmino;
-  usdx_minting_claims: USDXMintingClaimAmino[];
-  hard_liquidity_provider_claims: HardLiquidityProviderClaimAmino[];
-  delegator_claims: DelegatorClaimAmino[];
-  swap_claims: SwapClaimAmino[];
+  usdx_minting_claims?: USDXMintingClaimAmino[];
+  hard_liquidity_provider_claims?: HardLiquidityProviderClaimAmino[];
+  delegator_claims?: DelegatorClaimAmino[];
+  swap_claims?: SwapClaimAmino[];
   savings_reward_state?: GenesisRewardStateAmino;
-  savings_claims: SavingsClaimAmino[];
+  savings_claims?: SavingsClaimAmino[];
   earn_reward_state?: GenesisRewardStateAmino;
-  earn_claims: EarnClaimAmino[];
+  earn_claims?: EarnClaimAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/kava.incentive.v1beta1.GenesisState";
@@ -138,15 +138,19 @@ export const AccumulationTime = {
     return message;
   },
   fromAmino(object: AccumulationTimeAmino): AccumulationTime {
-    return {
-      collateralType: object.collateral_type,
-      previousAccumulationTime: object.previous_accumulation_time
-    };
+    const message = createBaseAccumulationTime();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.previous_accumulation_time !== undefined && object.previous_accumulation_time !== null) {
+      message.previousAccumulationTime = Timestamp.fromAmino(object.previous_accumulation_time);
+    }
+    return message;
   },
   toAmino(message: AccumulationTime): AccumulationTimeAmino {
     const obj: any = {};
     obj.collateral_type = message.collateralType;
-    obj.previous_accumulation_time = message.previousAccumulationTime;
+    obj.previous_accumulation_time = message.previousAccumulationTime ? Timestamp.toAmino(message.previousAccumulationTime) : undefined;
     return obj;
   },
   fromAminoMsg(object: AccumulationTimeAminoMsg): AccumulationTime {
@@ -195,10 +199,10 @@ export const GenesisRewardState = {
     return message;
   },
   fromAmino(object: GenesisRewardStateAmino): GenesisRewardState {
-    return {
-      accumulationTimes: Array.isArray(object?.accumulation_times) ? object.accumulation_times.map((e: any) => AccumulationTime.fromAmino(e)) : [],
-      multiRewardIndexes: Array.isArray(object?.multi_reward_indexes) ? object.multi_reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisRewardState();
+    message.accumulationTimes = object.accumulation_times?.map(e => AccumulationTime.fromAmino(e)) || [];
+    message.multiRewardIndexes = object.multi_reward_indexes?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisRewardState): GenesisRewardStateAmino {
     const obj: any = {};
@@ -332,22 +336,38 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      usdxRewardState: object?.usdx_reward_state ? GenesisRewardState.fromAmino(object.usdx_reward_state) : undefined,
-      hardSupplyRewardState: object?.hard_supply_reward_state ? GenesisRewardState.fromAmino(object.hard_supply_reward_state) : undefined,
-      hardBorrowRewardState: object?.hard_borrow_reward_state ? GenesisRewardState.fromAmino(object.hard_borrow_reward_state) : undefined,
-      delegatorRewardState: object?.delegator_reward_state ? GenesisRewardState.fromAmino(object.delegator_reward_state) : undefined,
-      swapRewardState: object?.swap_reward_state ? GenesisRewardState.fromAmino(object.swap_reward_state) : undefined,
-      usdxMintingClaims: Array.isArray(object?.usdx_minting_claims) ? object.usdx_minting_claims.map((e: any) => USDXMintingClaim.fromAmino(e)) : [],
-      hardLiquidityProviderClaims: Array.isArray(object?.hard_liquidity_provider_claims) ? object.hard_liquidity_provider_claims.map((e: any) => HardLiquidityProviderClaim.fromAmino(e)) : [],
-      delegatorClaims: Array.isArray(object?.delegator_claims) ? object.delegator_claims.map((e: any) => DelegatorClaim.fromAmino(e)) : [],
-      swapClaims: Array.isArray(object?.swap_claims) ? object.swap_claims.map((e: any) => SwapClaim.fromAmino(e)) : [],
-      savingsRewardState: object?.savings_reward_state ? GenesisRewardState.fromAmino(object.savings_reward_state) : undefined,
-      savingsClaims: Array.isArray(object?.savings_claims) ? object.savings_claims.map((e: any) => SavingsClaim.fromAmino(e)) : [],
-      earnRewardState: object?.earn_reward_state ? GenesisRewardState.fromAmino(object.earn_reward_state) : undefined,
-      earnClaims: Array.isArray(object?.earn_claims) ? object.earn_claims.map((e: any) => EarnClaim.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    if (object.usdx_reward_state !== undefined && object.usdx_reward_state !== null) {
+      message.usdxRewardState = GenesisRewardState.fromAmino(object.usdx_reward_state);
+    }
+    if (object.hard_supply_reward_state !== undefined && object.hard_supply_reward_state !== null) {
+      message.hardSupplyRewardState = GenesisRewardState.fromAmino(object.hard_supply_reward_state);
+    }
+    if (object.hard_borrow_reward_state !== undefined && object.hard_borrow_reward_state !== null) {
+      message.hardBorrowRewardState = GenesisRewardState.fromAmino(object.hard_borrow_reward_state);
+    }
+    if (object.delegator_reward_state !== undefined && object.delegator_reward_state !== null) {
+      message.delegatorRewardState = GenesisRewardState.fromAmino(object.delegator_reward_state);
+    }
+    if (object.swap_reward_state !== undefined && object.swap_reward_state !== null) {
+      message.swapRewardState = GenesisRewardState.fromAmino(object.swap_reward_state);
+    }
+    message.usdxMintingClaims = object.usdx_minting_claims?.map(e => USDXMintingClaim.fromAmino(e)) || [];
+    message.hardLiquidityProviderClaims = object.hard_liquidity_provider_claims?.map(e => HardLiquidityProviderClaim.fromAmino(e)) || [];
+    message.delegatorClaims = object.delegator_claims?.map(e => DelegatorClaim.fromAmino(e)) || [];
+    message.swapClaims = object.swap_claims?.map(e => SwapClaim.fromAmino(e)) || [];
+    if (object.savings_reward_state !== undefined && object.savings_reward_state !== null) {
+      message.savingsRewardState = GenesisRewardState.fromAmino(object.savings_reward_state);
+    }
+    message.savingsClaims = object.savings_claims?.map(e => SavingsClaim.fromAmino(e)) || [];
+    if (object.earn_reward_state !== undefined && object.earn_reward_state !== null) {
+      message.earnRewardState = GenesisRewardState.fromAmino(object.earn_reward_state);
+    }
+    message.earnClaims = object.earn_claims?.map(e => EarnClaim.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

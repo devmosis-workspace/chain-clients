@@ -3,7 +3,7 @@ import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** GenesisState defines the swap module's genesis state. */
 export interface GenesisState {
-  /** params defines all the paramaters related to swap */
+  /** params defines all the parameters related to swap */
   params: Params;
   /** pool_records defines the available pools */
   poolRecords: PoolRecord[];
@@ -16,12 +16,12 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the swap module's genesis state. */
 export interface GenesisStateAmino {
-  /** params defines all the paramaters related to swap */
+  /** params defines all the parameters related to swap */
   params?: ParamsAmino;
   /** pool_records defines the available pools */
-  pool_records: PoolRecordAmino[];
+  pool_records?: PoolRecordAmino[];
   /** share_records defines the owned shares of each pool */
-  share_records: ShareRecordAmino[];
+  share_records?: ShareRecordAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/kava.swap.v1beta1.GenesisState";
@@ -69,11 +69,13 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      poolRecords: Array.isArray(object?.pool_records) ? object.pool_records.map((e: any) => PoolRecord.fromAmino(e)) : [],
-      shareRecords: Array.isArray(object?.share_records) ? object.share_records.map((e: any) => ShareRecord.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.poolRecords = object.pool_records?.map(e => PoolRecord.fromAmino(e)) || [];
+    message.shareRecords = object.share_records?.map(e => ShareRecord.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

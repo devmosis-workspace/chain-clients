@@ -44,7 +44,7 @@ export interface QueryPoolsRequest {
   /** pool_id filters pools by id */
   poolId: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryPoolsRequestProtoMsg {
   typeUrl: "/kava.swap.v1beta1.QueryPoolsRequest";
@@ -53,7 +53,7 @@ export interface QueryPoolsRequestProtoMsg {
 /** QueryPoolsRequest is the request type for the Query/Pools RPC method. */
 export interface QueryPoolsRequestAmino {
   /** pool_id filters pools by id */
-  pool_id: string;
+  pool_id?: string;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
 }
@@ -64,14 +64,14 @@ export interface QueryPoolsRequestAminoMsg {
 /** QueryPoolsRequest is the request type for the Query/Pools RPC method. */
 export interface QueryPoolsRequestSDKType {
   pool_id: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
 export interface QueryPoolsResponse {
   /** pools represents returned pools */
   pools: PoolResponse[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryPoolsResponseProtoMsg {
   typeUrl: "/kava.swap.v1beta1.QueryPoolsResponse";
@@ -80,7 +80,7 @@ export interface QueryPoolsResponseProtoMsg {
 /** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
 export interface QueryPoolsResponseAmino {
   /** pools represents returned pools */
-  pools: PoolResponseAmino[];
+  pools?: PoolResponseAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -91,7 +91,7 @@ export interface QueryPoolsResponseAminoMsg {
 /** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
 export interface QueryPoolsResponseSDKType {
   pools: PoolResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** Pool represents the state of a single pool */
 export interface PoolResponse {
@@ -109,11 +109,11 @@ export interface PoolResponseProtoMsg {
 /** Pool represents the state of a single pool */
 export interface PoolResponseAmino {
   /** name represents the name of the pool */
-  name: string;
+  name?: string;
   /** coins represents the total reserves of the pool */
-  coins: CoinAmino[];
+  coins?: CoinAmino[];
   /** total_shares represents the total shares of the pool */
-  total_shares: string;
+  total_shares?: string;
 }
 export interface PoolResponseAminoMsg {
   type: "/kava.swap.v1beta1.PoolResponse";
@@ -132,7 +132,7 @@ export interface QueryDepositsRequest {
   /** pool_id optionally fitlers deposits by pool id */
   poolId: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryDepositsRequestProtoMsg {
   typeUrl: "/kava.swap.v1beta1.QueryDepositsRequest";
@@ -141,9 +141,9 @@ export interface QueryDepositsRequestProtoMsg {
 /** QueryDepositsRequest is the request type for the Query/Deposits RPC method. */
 export interface QueryDepositsRequestAmino {
   /** owner optionally filters deposits by owner */
-  owner: string;
+  owner?: string;
   /** pool_id optionally fitlers deposits by pool id */
-  pool_id: string;
+  pool_id?: string;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
 }
@@ -155,14 +155,14 @@ export interface QueryDepositsRequestAminoMsg {
 export interface QueryDepositsRequestSDKType {
   owner: string;
   pool_id: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponse {
   /** deposits returns the deposits matching the requested parameters */
   deposits: DepositResponse[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryDepositsResponseProtoMsg {
   typeUrl: "/kava.swap.v1beta1.QueryDepositsResponse";
@@ -171,7 +171,7 @@ export interface QueryDepositsResponseProtoMsg {
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseAmino {
   /** deposits returns the deposits matching the requested parameters */
-  deposits: DepositResponseAmino[];
+  deposits?: DepositResponseAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -182,7 +182,7 @@ export interface QueryDepositsResponseAminoMsg {
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseSDKType {
   deposits: DepositResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** DepositResponse defines a single deposit query response type. */
 export interface DepositResponse {
@@ -202,13 +202,13 @@ export interface DepositResponseProtoMsg {
 /** DepositResponse defines a single deposit query response type. */
 export interface DepositResponseAmino {
   /** depositor represents the owner of the deposit */
-  depositor: string;
+  depositor?: string;
   /** pool_id represents the pool the deposit is for */
-  pool_id: string;
+  pool_id?: string;
   /** shares_owned presents the shares owned by the depositor for the pool */
-  shares_owned: string;
+  shares_owned?: string;
   /** shares_value represents the coin value of the shares_owned */
-  shares_value: CoinAmino[];
+  shares_value?: CoinAmino[];
 }
 export interface DepositResponseAminoMsg {
   type: "/kava.swap.v1beta1.DepositResponse";
@@ -237,7 +237,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -283,9 +284,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -311,7 +314,7 @@ export const QueryParamsResponse = {
 function createBaseQueryPoolsRequest(): QueryPoolsRequest {
   return {
     poolId: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryPoolsRequest = {
@@ -338,10 +341,14 @@ export const QueryPoolsRequest = {
     return message;
   },
   fromAmino(object: QueryPoolsRequestAmino): QueryPoolsRequest {
-    return {
-      poolId: object.pool_id,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryPoolsRequest();
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = object.pool_id;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryPoolsRequest): QueryPoolsRequestAmino {
     const obj: any = {};
@@ -368,7 +375,7 @@ export const QueryPoolsRequest = {
 function createBaseQueryPoolsResponse(): QueryPoolsResponse {
   return {
     pools: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryPoolsResponse = {
@@ -395,10 +402,12 @@ export const QueryPoolsResponse = {
     return message;
   },
   fromAmino(object: QueryPoolsResponseAmino): QueryPoolsResponse {
-    return {
-      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => PoolResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryPoolsResponse();
+    message.pools = object.pools?.map(e => PoolResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryPoolsResponse): QueryPoolsResponseAmino {
     const obj: any = {};
@@ -462,11 +471,15 @@ export const PoolResponse = {
     return message;
   },
   fromAmino(object: PoolResponseAmino): PoolResponse {
-    return {
-      name: object.name,
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : [],
-      totalShares: object.total_shares
-    };
+    const message = createBasePoolResponse();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    if (object.total_shares !== undefined && object.total_shares !== null) {
+      message.totalShares = object.total_shares;
+    }
+    return message;
   },
   toAmino(message: PoolResponse): PoolResponseAmino {
     const obj: any = {};
@@ -499,7 +512,7 @@ function createBaseQueryDepositsRequest(): QueryDepositsRequest {
   return {
     owner: "",
     poolId: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDepositsRequest = {
@@ -531,11 +544,17 @@ export const QueryDepositsRequest = {
     return message;
   },
   fromAmino(object: QueryDepositsRequestAmino): QueryDepositsRequest {
-    return {
-      owner: object.owner,
-      poolId: object.pool_id,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDepositsRequest();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = object.pool_id;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDepositsRequest): QueryDepositsRequestAmino {
     const obj: any = {};
@@ -563,7 +582,7 @@ export const QueryDepositsRequest = {
 function createBaseQueryDepositsResponse(): QueryDepositsResponse {
   return {
     deposits: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDepositsResponse = {
@@ -590,10 +609,12 @@ export const QueryDepositsResponse = {
     return message;
   },
   fromAmino(object: QueryDepositsResponseAmino): QueryDepositsResponse {
-    return {
-      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => DepositResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDepositsResponse();
+    message.deposits = object.deposits?.map(e => DepositResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDepositsResponse): QueryDepositsResponseAmino {
     const obj: any = {};
@@ -663,12 +684,18 @@ export const DepositResponse = {
     return message;
   },
   fromAmino(object: DepositResponseAmino): DepositResponse {
-    return {
-      depositor: object.depositor,
-      poolId: object.pool_id,
-      sharesOwned: object.shares_owned,
-      sharesValue: Array.isArray(object?.shares_value) ? object.shares_value.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseDepositResponse();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    if (object.pool_id !== undefined && object.pool_id !== null) {
+      message.poolId = object.pool_id;
+    }
+    if (object.shares_owned !== undefined && object.shares_owned !== null) {
+      message.sharesOwned = object.shares_owned;
+    }
+    message.sharesValue = object.shares_value?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: DepositResponse): DepositResponseAmino {
     const obj: any = {};

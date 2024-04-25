@@ -1,7 +1,7 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
-import { isSet, fromJsonTimestamp, bytesFromBase64 } from "../../../helpers";
+import { isSet, fromJsonTimestamp, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** RewardPeriod stores the state of an ongoing reward */
 export interface RewardPeriod {
   active: boolean;
@@ -16,10 +16,10 @@ export interface RewardPeriodProtoMsg {
 }
 /** RewardPeriod stores the state of an ongoing reward */
 export interface RewardPeriodAmino {
-  active: boolean;
-  collateral_type: string;
-  start?: TimestampAmino;
-  end?: TimestampAmino;
+  active?: boolean;
+  collateral_type?: string;
+  start?: string;
+  end?: string;
   rewards_per_second?: CoinAmino;
 }
 export interface RewardPeriodAminoMsg {
@@ -48,11 +48,11 @@ export interface MultiRewardPeriodProtoMsg {
 }
 /** MultiRewardPeriod supports multiple reward types */
 export interface MultiRewardPeriodAmino {
-  active: boolean;
-  collateral_type: string;
-  start?: TimestampAmino;
-  end?: TimestampAmino;
-  rewards_per_second: CoinAmino[];
+  active?: boolean;
+  collateral_type?: string;
+  start?: string;
+  end?: string;
+  rewards_per_second?: CoinAmino[];
 }
 export interface MultiRewardPeriodAminoMsg {
   type: "/kava.incentive.v1beta1.MultiRewardPeriod";
@@ -78,9 +78,9 @@ export interface MultiplierProtoMsg {
 }
 /** Multiplier amount the claim rewards get increased by, along with how long the claim rewards are locked */
 export interface MultiplierAmino {
-  name: string;
-  months_lockup: string;
-  factor: Uint8Array;
+  name?: string;
+  months_lockup?: string;
+  factor?: string;
 }
 export interface MultiplierAminoMsg {
   type: "/kava.incentive.v1beta1.Multiplier";
@@ -103,8 +103,8 @@ export interface MultipliersPerDenomProtoMsg {
 }
 /** MultipliersPerDenom is a map of denoms to a set of multipliers */
 export interface MultipliersPerDenomAmino {
-  denom: string;
-  multipliers: MultiplierAmino[];
+  denom?: string;
+  multipliers?: MultiplierAmino[];
 }
 export interface MultipliersPerDenomAminoMsg {
   type: "/kava.incentive.v1beta1.MultipliersPerDenom";
@@ -133,15 +133,15 @@ export interface ParamsProtoMsg {
 }
 /** Params */
 export interface ParamsAmino {
-  usdx_minting_reward_periods: RewardPeriodAmino[];
-  hard_supply_reward_periods: MultiRewardPeriodAmino[];
-  hard_borrow_reward_periods: MultiRewardPeriodAmino[];
-  delegator_reward_periods: MultiRewardPeriodAmino[];
-  swap_reward_periods: MultiRewardPeriodAmino[];
-  claim_multipliers: MultipliersPerDenomAmino[];
-  claim_end?: TimestampAmino;
-  savings_reward_periods: MultiRewardPeriodAmino[];
-  earn_reward_periods: MultiRewardPeriodAmino[];
+  usdx_minting_reward_periods?: RewardPeriodAmino[];
+  hard_supply_reward_periods?: MultiRewardPeriodAmino[];
+  hard_borrow_reward_periods?: MultiRewardPeriodAmino[];
+  delegator_reward_periods?: MultiRewardPeriodAmino[];
+  swap_reward_periods?: MultiRewardPeriodAmino[];
+  claim_multipliers?: MultipliersPerDenomAmino[];
+  claim_end?: string;
+  savings_reward_periods?: MultiRewardPeriodAmino[];
+  earn_reward_periods?: MultiRewardPeriodAmino[];
 }
 export interface ParamsAminoMsg {
   type: "/kava.incentive.v1beta1.Params";
@@ -207,20 +207,30 @@ export const RewardPeriod = {
     return message;
   },
   fromAmino(object: RewardPeriodAmino): RewardPeriod {
-    return {
-      active: object.active,
-      collateralType: object.collateral_type,
-      start: object.start,
-      end: object.end,
-      rewardsPerSecond: object?.rewards_per_second ? Coin.fromAmino(object.rewards_per_second) : undefined
-    };
+    const message = createBaseRewardPeriod();
+    if (object.active !== undefined && object.active !== null) {
+      message.active = object.active;
+    }
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.start !== undefined && object.start !== null) {
+      message.start = Timestamp.fromAmino(object.start);
+    }
+    if (object.end !== undefined && object.end !== null) {
+      message.end = Timestamp.fromAmino(object.end);
+    }
+    if (object.rewards_per_second !== undefined && object.rewards_per_second !== null) {
+      message.rewardsPerSecond = Coin.fromAmino(object.rewards_per_second);
+    }
+    return message;
   },
   toAmino(message: RewardPeriod): RewardPeriodAmino {
     const obj: any = {};
     obj.active = message.active;
     obj.collateral_type = message.collateralType;
-    obj.start = message.start;
-    obj.end = message.end;
+    obj.start = message.start ? Timestamp.toAmino(message.start) : undefined;
+    obj.end = message.end ? Timestamp.toAmino(message.end) : undefined;
     obj.rewards_per_second = message.rewardsPerSecond ? Coin.toAmino(message.rewardsPerSecond) : undefined;
     return obj;
   },
@@ -288,20 +298,28 @@ export const MultiRewardPeriod = {
     return message;
   },
   fromAmino(object: MultiRewardPeriodAmino): MultiRewardPeriod {
-    return {
-      active: object.active,
-      collateralType: object.collateral_type,
-      start: object.start,
-      end: object.end,
-      rewardsPerSecond: Array.isArray(object?.rewards_per_second) ? object.rewards_per_second.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMultiRewardPeriod();
+    if (object.active !== undefined && object.active !== null) {
+      message.active = object.active;
+    }
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.start !== undefined && object.start !== null) {
+      message.start = Timestamp.fromAmino(object.start);
+    }
+    if (object.end !== undefined && object.end !== null) {
+      message.end = Timestamp.fromAmino(object.end);
+    }
+    message.rewardsPerSecond = object.rewards_per_second?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MultiRewardPeriod): MultiRewardPeriodAmino {
     const obj: any = {};
     obj.active = message.active;
     obj.collateral_type = message.collateralType;
-    obj.start = message.start;
-    obj.end = message.end;
+    obj.start = message.start ? Timestamp.toAmino(message.start) : undefined;
+    obj.end = message.end ? Timestamp.toAmino(message.end) : undefined;
     if (message.rewardsPerSecond) {
       obj.rewards_per_second = message.rewardsPerSecond.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
@@ -361,17 +379,23 @@ export const Multiplier = {
     return message;
   },
   fromAmino(object: MultiplierAmino): Multiplier {
-    return {
-      name: object.name,
-      monthsLockup: BigInt(object.months_lockup),
-      factor: object.factor
-    };
+    const message = createBaseMultiplier();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.months_lockup !== undefined && object.months_lockup !== null) {
+      message.monthsLockup = BigInt(object.months_lockup);
+    }
+    if (object.factor !== undefined && object.factor !== null) {
+      message.factor = bytesFromBase64(object.factor);
+    }
+    return message;
   },
   toAmino(message: Multiplier): MultiplierAmino {
     const obj: any = {};
     obj.name = message.name;
     obj.months_lockup = message.monthsLockup ? message.monthsLockup.toString() : undefined;
-    obj.factor = message.factor;
+    obj.factor = message.factor ? base64FromBytes(message.factor) : undefined;
     return obj;
   },
   fromAminoMsg(object: MultiplierAminoMsg): Multiplier {
@@ -420,10 +444,12 @@ export const MultipliersPerDenom = {
     return message;
   },
   fromAmino(object: MultipliersPerDenomAmino): MultipliersPerDenom {
-    return {
-      denom: object.denom,
-      multipliers: Array.isArray(object?.multipliers) ? object.multipliers.map((e: any) => Multiplier.fromAmino(e)) : []
-    };
+    const message = createBaseMultipliersPerDenom();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    message.multipliers = object.multipliers?.map(e => Multiplier.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MultipliersPerDenom): MultipliersPerDenomAmino {
     const obj: any = {};
@@ -523,17 +549,19 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      usdxMintingRewardPeriods: Array.isArray(object?.usdx_minting_reward_periods) ? object.usdx_minting_reward_periods.map((e: any) => RewardPeriod.fromAmino(e)) : [],
-      hardSupplyRewardPeriods: Array.isArray(object?.hard_supply_reward_periods) ? object.hard_supply_reward_periods.map((e: any) => MultiRewardPeriod.fromAmino(e)) : [],
-      hardBorrowRewardPeriods: Array.isArray(object?.hard_borrow_reward_periods) ? object.hard_borrow_reward_periods.map((e: any) => MultiRewardPeriod.fromAmino(e)) : [],
-      delegatorRewardPeriods: Array.isArray(object?.delegator_reward_periods) ? object.delegator_reward_periods.map((e: any) => MultiRewardPeriod.fromAmino(e)) : [],
-      swapRewardPeriods: Array.isArray(object?.swap_reward_periods) ? object.swap_reward_periods.map((e: any) => MultiRewardPeriod.fromAmino(e)) : [],
-      claimMultipliers: Array.isArray(object?.claim_multipliers) ? object.claim_multipliers.map((e: any) => MultipliersPerDenom.fromAmino(e)) : [],
-      claimEnd: object.claim_end,
-      savingsRewardPeriods: Array.isArray(object?.savings_reward_periods) ? object.savings_reward_periods.map((e: any) => MultiRewardPeriod.fromAmino(e)) : [],
-      earnRewardPeriods: Array.isArray(object?.earn_reward_periods) ? object.earn_reward_periods.map((e: any) => MultiRewardPeriod.fromAmino(e)) : []
-    };
+    const message = createBaseParams();
+    message.usdxMintingRewardPeriods = object.usdx_minting_reward_periods?.map(e => RewardPeriod.fromAmino(e)) || [];
+    message.hardSupplyRewardPeriods = object.hard_supply_reward_periods?.map(e => MultiRewardPeriod.fromAmino(e)) || [];
+    message.hardBorrowRewardPeriods = object.hard_borrow_reward_periods?.map(e => MultiRewardPeriod.fromAmino(e)) || [];
+    message.delegatorRewardPeriods = object.delegator_reward_periods?.map(e => MultiRewardPeriod.fromAmino(e)) || [];
+    message.swapRewardPeriods = object.swap_reward_periods?.map(e => MultiRewardPeriod.fromAmino(e)) || [];
+    message.claimMultipliers = object.claim_multipliers?.map(e => MultipliersPerDenom.fromAmino(e)) || [];
+    if (object.claim_end !== undefined && object.claim_end !== null) {
+      message.claimEnd = Timestamp.fromAmino(object.claim_end);
+    }
+    message.savingsRewardPeriods = object.savings_reward_periods?.map(e => MultiRewardPeriod.fromAmino(e)) || [];
+    message.earnRewardPeriods = object.earn_reward_periods?.map(e => MultiRewardPeriod.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -567,7 +595,7 @@ export const Params = {
     } else {
       obj.claim_multipliers = [];
     }
-    obj.claim_end = message.claimEnd;
+    obj.claim_end = message.claimEnd ? Timestamp.toAmino(message.claimEnd) : undefined;
     if (message.savingsRewardPeriods) {
       obj.savings_reward_periods = message.savingsRewardPeriods.map(e => e ? MultiRewardPeriod.toAmino(e) : undefined);
     } else {

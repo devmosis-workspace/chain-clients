@@ -49,7 +49,7 @@ export interface QueryAuctionRequestProtoMsg {
 }
 /** QueryAuctionRequest is the request type for the Query/Auction RPC method. */
 export interface QueryAuctionRequestAmino {
-    auction_id: string;
+    auction_id?: string;
 }
 export interface QueryAuctionRequestAminoMsg {
     type: "/kava.auction.v1beta1.QueryAuctionRequest";
@@ -61,7 +61,7 @@ export interface QueryAuctionRequestSDKType {
 }
 /** QueryAuctionResponse is the response type for the Query/Auction RPC method. */
 export interface QueryAuctionResponse {
-    auction: Any;
+    auction?: Any;
 }
 export interface QueryAuctionResponseProtoMsg {
     typeUrl: "/kava.auction.v1beta1.QueryAuctionResponse";
@@ -77,7 +77,7 @@ export interface QueryAuctionResponseAminoMsg {
 }
 /** QueryAuctionResponse is the response type for the Query/Auction RPC method. */
 export interface QueryAuctionResponseSDKType {
-    auction: AnySDKType;
+    auction?: AnySDKType;
 }
 /** QueryAuctionsRequest is the request type for the Query/Auctions RPC method. */
 export interface QueryAuctionsRequest {
@@ -86,7 +86,7 @@ export interface QueryAuctionsRequest {
     denom: string;
     phase: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAuctionsRequestProtoMsg {
     typeUrl: "/kava.auction.v1beta1.QueryAuctionsRequest";
@@ -94,10 +94,10 @@ export interface QueryAuctionsRequestProtoMsg {
 }
 /** QueryAuctionsRequest is the request type for the Query/Auctions RPC method. */
 export interface QueryAuctionsRequestAmino {
-    type: string;
-    owner: string;
-    denom: string;
-    phase: string;
+    type?: string;
+    owner?: string;
+    denom?: string;
+    phase?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -111,13 +111,13 @@ export interface QueryAuctionsRequestSDKType {
     owner: string;
     denom: string;
     phase: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryAuctionsResponse is the response type for the Query/Auctions RPC method. */
 export interface QueryAuctionsResponse {
     auctions: Any[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAuctionsResponseProtoMsg {
     typeUrl: "/kava.auction.v1beta1.QueryAuctionsResponse";
@@ -125,7 +125,7 @@ export interface QueryAuctionsResponseProtoMsg {
 }
 /** QueryAuctionsResponse is the response type for the Query/Auctions RPC method. */
 export interface QueryAuctionsResponseAmino {
-    auctions: AnyAmino[];
+    auctions?: AnyAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -136,7 +136,7 @@ export interface QueryAuctionsResponseAminoMsg {
 /** QueryAuctionsResponse is the response type for the Query/Auctions RPC method. */
 export interface QueryAuctionsResponseSDKType {
     auctions: AnySDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryNextAuctionIDRequest defines the request type for querying x/auction next auction ID. */
 export interface QueryNextAuctionIDRequest {
@@ -165,7 +165,7 @@ export interface QueryNextAuctionIDResponseProtoMsg {
 }
 /** QueryNextAuctionIDResponse defines the response type for querying x/auction next auction ID. */
 export interface QueryNextAuctionIDResponseAmino {
-    id: string;
+    id?: string;
 }
 export interface QueryNextAuctionIDResponseAminoMsg {
     type: "/kava.auction.v1beta1.QueryNextAuctionIDResponse";

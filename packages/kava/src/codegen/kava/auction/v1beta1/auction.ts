@@ -1,10 +1,10 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, fromJsonTimestamp } from "../../../helpers";
+import { isSet, bytesFromBase64, fromJsonTimestamp, base64FromBytes } from "../../../helpers";
 /** BaseAuction defines common attributes of all auctions */
 export interface BaseAuction {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.auction.v1beta1.BaseAuction";
   id: bigint;
   initiator: string;
   lot: Coin;
@@ -20,14 +20,14 @@ export interface BaseAuctionProtoMsg {
 }
 /** BaseAuction defines common attributes of all auctions */
 export interface BaseAuctionAmino {
-  id: string;
-  initiator: string;
+  id?: string;
+  initiator?: string;
   lot?: CoinAmino;
-  bidder: Uint8Array;
+  bidder?: string;
   bid?: CoinAmino;
-  has_received_bids: boolean;
-  end_time?: TimestampAmino;
-  max_end_time?: TimestampAmino;
+  has_received_bids?: boolean;
+  end_time?: string;
+  max_end_time?: string;
 }
 export interface BaseAuctionAminoMsg {
   type: "/kava.auction.v1beta1.BaseAuction";
@@ -35,7 +35,7 @@ export interface BaseAuctionAminoMsg {
 }
 /** BaseAuction defines common attributes of all auctions */
 export interface BaseAuctionSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.auction.v1beta1.BaseAuction";
   id: bigint;
   initiator: string;
   lot: CoinSDKType;
@@ -50,7 +50,7 @@ export interface BaseAuctionSDKType {
  * It is normally used to sell off excess pegged asset acquired by the CDP system.
  */
 export interface SurplusAuction {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.auction.v1beta1.SurplusAuction";
   baseAuction: BaseAuction;
 }
 export interface SurplusAuctionProtoMsg {
@@ -73,7 +73,7 @@ export interface SurplusAuctionAminoMsg {
  * It is normally used to sell off excess pegged asset acquired by the CDP system.
  */
 export interface SurplusAuctionSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.auction.v1beta1.SurplusAuction";
   base_auction: BaseAuctionSDKType;
 }
 /**
@@ -82,7 +82,7 @@ export interface SurplusAuctionSDKType {
  * collateral.
  */
 export interface DebtAuction {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.auction.v1beta1.DebtAuction";
   baseAuction: BaseAuction;
   correspondingDebt: Coin;
 }
@@ -109,7 +109,7 @@ export interface DebtAuctionAminoMsg {
  * collateral.
  */
 export interface DebtAuctionSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.auction.v1beta1.DebtAuction";
   base_auction: BaseAuctionSDKType;
   corresponding_debt: CoinSDKType;
 }
@@ -121,7 +121,7 @@ export interface DebtAuctionSDKType {
  * Collateral auctions are normally used to sell off collateral seized from CDPs.
  */
 export interface CollateralAuction {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.auction.v1beta1.CollateralAuction";
   baseAuction: BaseAuction;
   correspondingDebt: Coin;
   maxBid: Coin;
@@ -156,7 +156,7 @@ export interface CollateralAuctionAminoMsg {
  * Collateral auctions are normally used to sell off collateral seized from CDPs.
  */
 export interface CollateralAuctionSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.auction.v1beta1.CollateralAuction";
   base_auction: BaseAuctionSDKType;
   corresponding_debt: CoinSDKType;
   max_bid: CoinSDKType;
@@ -173,8 +173,8 @@ export interface WeightedAddressesProtoMsg {
 }
 /** WeightedAddresses is a type for storing some addresses and associated weights. */
 export interface WeightedAddressesAmino {
-  addresses: Uint8Array[];
-  weights: Uint8Array[];
+  addresses?: string[];
+  weights?: string[];
 }
 export interface WeightedAddressesAminoMsg {
   type: "/kava.auction.v1beta1.WeightedAddresses";
@@ -252,27 +252,43 @@ export const BaseAuction = {
     return message;
   },
   fromAmino(object: BaseAuctionAmino): BaseAuction {
-    return {
-      id: BigInt(object.id),
-      initiator: object.initiator,
-      lot: object?.lot ? Coin.fromAmino(object.lot) : undefined,
-      bidder: object.bidder,
-      bid: object?.bid ? Coin.fromAmino(object.bid) : undefined,
-      hasReceivedBids: object.has_received_bids,
-      endTime: object.end_time,
-      maxEndTime: object.max_end_time
-    };
+    const message = createBaseBaseAuction();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.initiator !== undefined && object.initiator !== null) {
+      message.initiator = object.initiator;
+    }
+    if (object.lot !== undefined && object.lot !== null) {
+      message.lot = Coin.fromAmino(object.lot);
+    }
+    if (object.bidder !== undefined && object.bidder !== null) {
+      message.bidder = bytesFromBase64(object.bidder);
+    }
+    if (object.bid !== undefined && object.bid !== null) {
+      message.bid = Coin.fromAmino(object.bid);
+    }
+    if (object.has_received_bids !== undefined && object.has_received_bids !== null) {
+      message.hasReceivedBids = object.has_received_bids;
+    }
+    if (object.end_time !== undefined && object.end_time !== null) {
+      message.endTime = Timestamp.fromAmino(object.end_time);
+    }
+    if (object.max_end_time !== undefined && object.max_end_time !== null) {
+      message.maxEndTime = Timestamp.fromAmino(object.max_end_time);
+    }
+    return message;
   },
   toAmino(message: BaseAuction): BaseAuctionAmino {
     const obj: any = {};
     obj.id = message.id ? message.id.toString() : undefined;
     obj.initiator = message.initiator;
     obj.lot = message.lot ? Coin.toAmino(message.lot) : undefined;
-    obj.bidder = message.bidder;
+    obj.bidder = message.bidder ? base64FromBytes(message.bidder) : undefined;
     obj.bid = message.bid ? Coin.toAmino(message.bid) : undefined;
     obj.has_received_bids = message.hasReceivedBids;
-    obj.end_time = message.endTime;
-    obj.max_end_time = message.maxEndTime;
+    obj.end_time = message.endTime ? Timestamp.toAmino(message.endTime) : undefined;
+    obj.max_end_time = message.maxEndTime ? Timestamp.toAmino(message.maxEndTime) : undefined;
     return obj;
   },
   fromAminoMsg(object: BaseAuctionAminoMsg): BaseAuction {
@@ -316,9 +332,11 @@ export const SurplusAuction = {
     return message;
   },
   fromAmino(object: SurplusAuctionAmino): SurplusAuction {
-    return {
-      baseAuction: object?.base_auction ? BaseAuction.fromAmino(object.base_auction) : undefined
-    };
+    const message = createBaseSurplusAuction();
+    if (object.base_auction !== undefined && object.base_auction !== null) {
+      message.baseAuction = BaseAuction.fromAmino(object.base_auction);
+    }
+    return message;
   },
   toAmino(message: SurplusAuction): SurplusAuctionAmino {
     const obj: any = {};
@@ -372,10 +390,14 @@ export const DebtAuction = {
     return message;
   },
   fromAmino(object: DebtAuctionAmino): DebtAuction {
-    return {
-      baseAuction: object?.base_auction ? BaseAuction.fromAmino(object.base_auction) : undefined,
-      correspondingDebt: object?.corresponding_debt ? Coin.fromAmino(object.corresponding_debt) : undefined
-    };
+    const message = createBaseDebtAuction();
+    if (object.base_auction !== undefined && object.base_auction !== null) {
+      message.baseAuction = BaseAuction.fromAmino(object.base_auction);
+    }
+    if (object.corresponding_debt !== undefined && object.corresponding_debt !== null) {
+      message.correspondingDebt = Coin.fromAmino(object.corresponding_debt);
+    }
+    return message;
   },
   toAmino(message: DebtAuction): DebtAuctionAmino {
     const obj: any = {};
@@ -442,12 +464,20 @@ export const CollateralAuction = {
     return message;
   },
   fromAmino(object: CollateralAuctionAmino): CollateralAuction {
-    return {
-      baseAuction: object?.base_auction ? BaseAuction.fromAmino(object.base_auction) : undefined,
-      correspondingDebt: object?.corresponding_debt ? Coin.fromAmino(object.corresponding_debt) : undefined,
-      maxBid: object?.max_bid ? Coin.fromAmino(object.max_bid) : undefined,
-      lotReturns: object?.lot_returns ? WeightedAddresses.fromAmino(object.lot_returns) : undefined
-    };
+    const message = createBaseCollateralAuction();
+    if (object.base_auction !== undefined && object.base_auction !== null) {
+      message.baseAuction = BaseAuction.fromAmino(object.base_auction);
+    }
+    if (object.corresponding_debt !== undefined && object.corresponding_debt !== null) {
+      message.correspondingDebt = Coin.fromAmino(object.corresponding_debt);
+    }
+    if (object.max_bid !== undefined && object.max_bid !== null) {
+      message.maxBid = Coin.fromAmino(object.max_bid);
+    }
+    if (object.lot_returns !== undefined && object.lot_returns !== null) {
+      message.lotReturns = WeightedAddresses.fromAmino(object.lot_returns);
+    }
+    return message;
   },
   toAmino(message: CollateralAuction): CollateralAuctionAmino {
     const obj: any = {};
@@ -503,20 +533,20 @@ export const WeightedAddresses = {
     return message;
   },
   fromAmino(object: WeightedAddressesAmino): WeightedAddresses {
-    return {
-      addresses: Array.isArray(object?.addresses) ? object.addresses.map((e: any) => e) : [],
-      weights: Array.isArray(object?.weights) ? object.weights.map((e: any) => e) : []
-    };
+    const message = createBaseWeightedAddresses();
+    message.addresses = object.addresses?.map(e => bytesFromBase64(e)) || [];
+    message.weights = object.weights?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: WeightedAddresses): WeightedAddressesAmino {
     const obj: any = {};
     if (message.addresses) {
-      obj.addresses = message.addresses.map(e => e);
+      obj.addresses = message.addresses.map(e => base64FromBytes(e));
     } else {
       obj.addresses = [];
     }
     if (message.weights) {
-      obj.weights = message.weights.map(e => e);
+      obj.weights = message.weights.map(e => base64FromBytes(e));
     } else {
       obj.weights = [];
     }

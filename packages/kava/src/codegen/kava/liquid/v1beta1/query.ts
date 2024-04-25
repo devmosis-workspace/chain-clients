@@ -13,7 +13,7 @@ export interface QueryDelegatedBalanceRequestProtoMsg {
 /** QueryDelegatedBalanceRequest defines the request type for Query/DelegatedBalance method. */
 export interface QueryDelegatedBalanceRequestAmino {
   /** delegator is the address of the account to query */
-  delegator: string;
+  delegator?: string;
 }
 export interface QueryDelegatedBalanceRequestAminoMsg {
   type: "/kava.liquid.v1beta1.QueryDelegatedBalanceRequest";
@@ -78,9 +78,9 @@ export interface QueryTotalSupplyResponseProtoMsg {
 /** TotalSupplyResponse defines the response type for the Query/TotalSupply method. */
 export interface QueryTotalSupplyResponseAmino {
   /** Height is the block height at which these totals apply */
-  height: string;
+  height?: string;
   /** Result is a list of coins supplied to liquid */
-  result: CoinAmino[];
+  result?: CoinAmino[];
 }
 export interface QueryTotalSupplyResponseAminoMsg {
   type: "/kava.liquid.v1beta1.QueryTotalSupplyResponse";
@@ -115,9 +115,11 @@ export const QueryDelegatedBalanceRequest = {
     return message;
   },
   fromAmino(object: QueryDelegatedBalanceRequestAmino): QueryDelegatedBalanceRequest {
-    return {
-      delegator: object.delegator
-    };
+    const message = createBaseQueryDelegatedBalanceRequest();
+    if (object.delegator !== undefined && object.delegator !== null) {
+      message.delegator = object.delegator;
+    }
+    return message;
   },
   toAmino(message: QueryDelegatedBalanceRequest): QueryDelegatedBalanceRequestAmino {
     const obj: any = {};
@@ -170,10 +172,14 @@ export const QueryDelegatedBalanceResponse = {
     return message;
   },
   fromAmino(object: QueryDelegatedBalanceResponseAmino): QueryDelegatedBalanceResponse {
-    return {
-      vested: object?.vested ? Coin.fromAmino(object.vested) : undefined,
-      vesting: object?.vesting ? Coin.fromAmino(object.vesting) : undefined
-    };
+    const message = createBaseQueryDelegatedBalanceResponse();
+    if (object.vested !== undefined && object.vested !== null) {
+      message.vested = Coin.fromAmino(object.vested);
+    }
+    if (object.vesting !== undefined && object.vesting !== null) {
+      message.vesting = Coin.fromAmino(object.vesting);
+    }
+    return message;
   },
   toAmino(message: QueryDelegatedBalanceResponse): QueryDelegatedBalanceResponseAmino {
     const obj: any = {};
@@ -213,7 +219,8 @@ export const QueryTotalSupplyRequest = {
     return message;
   },
   fromAmino(_: QueryTotalSupplyRequestAmino): QueryTotalSupplyRequest {
-    return {};
+    const message = createBaseQueryTotalSupplyRequest();
+    return message;
   },
   toAmino(_: QueryTotalSupplyRequest): QueryTotalSupplyRequestAmino {
     const obj: any = {};
@@ -265,10 +272,12 @@ export const QueryTotalSupplyResponse = {
     return message;
   },
   fromAmino(object: QueryTotalSupplyResponseAmino): QueryTotalSupplyResponse {
-    return {
-      height: BigInt(object.height),
-      result: Array.isArray(object?.result) ? object.result.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTotalSupplyResponse();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    message.result = object.result?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTotalSupplyResponse): QueryTotalSupplyResponseAmino {
     const obj: any = {};

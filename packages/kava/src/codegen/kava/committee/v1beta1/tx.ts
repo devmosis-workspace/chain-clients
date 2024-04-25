@@ -2,13 +2,14 @@ import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf
 import { VoteType, voteTypeFromJSON } from "./genesis";
 import { CommitteeChangeProposal, CommitteeChangeProposalProtoMsg, CommitteeChangeProposalSDKType, CommitteeDeleteProposal, CommitteeDeleteProposalProtoMsg, CommitteeDeleteProposalSDKType } from "./proposal";
 import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalSDKType, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg, CommunityPoolSpendProposalWithDepositSDKType } from "../../../cosmos/distribution/v1beta1/distribution";
+import { TextProposal, TextProposalProtoMsg, TextProposalSDKType } from "../../../cosmos/gov/v1beta1/gov";
 import { ParameterChangeProposal, ParameterChangeProposalProtoMsg, ParameterChangeProposalSDKType } from "../../../cosmos/params/v1beta1/params";
 import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, SoftwareUpgradeProposalSDKType, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposalSDKType } from "../../../cosmos/upgrade/v1beta1/upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** MsgSubmitProposal is used by committee members to create a new proposal that they can vote on. */
 export interface MsgSubmitProposal {
-  pubProposal: (CommitteeChangeProposal & CommitteeDeleteProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
+  pubProposal?: (CommitteeChangeProposal & CommitteeDeleteProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & TextProposal & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
   proposer: string;
   committeeId: bigint;
 }
@@ -17,13 +18,13 @@ export interface MsgSubmitProposalProtoMsg {
   value: Uint8Array;
 }
 export type MsgSubmitProposalEncoded = Omit<MsgSubmitProposal, "pubProposal"> & {
-  pubProposal?: CommitteeChangeProposalProtoMsg | CommitteeDeleteProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
+  pubProposal?: CommitteeChangeProposalProtoMsg | CommitteeDeleteProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /** MsgSubmitProposal is used by committee members to create a new proposal that they can vote on. */
 export interface MsgSubmitProposalAmino {
   pub_proposal?: AnyAmino;
-  proposer: string;
-  committee_id: string;
+  proposer?: string;
+  committee_id?: string;
 }
 export interface MsgSubmitProposalAminoMsg {
   type: "/kava.committee.v1beta1.MsgSubmitProposal";
@@ -31,7 +32,7 @@ export interface MsgSubmitProposalAminoMsg {
 }
 /** MsgSubmitProposal is used by committee members to create a new proposal that they can vote on. */
 export interface MsgSubmitProposalSDKType {
-  pub_proposal: CommitteeChangeProposalSDKType | CommitteeDeleteProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
+  pub_proposal?: CommitteeChangeProposalSDKType | CommitteeDeleteProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | TextProposalSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
   proposer: string;
   committee_id: bigint;
 }
@@ -45,7 +46,7 @@ export interface MsgSubmitProposalResponseProtoMsg {
 }
 /** MsgSubmitProposalResponse defines the SubmitProposal response type */
 export interface MsgSubmitProposalResponseAmino {
-  proposal_id: string;
+  proposal_id?: string;
 }
 export interface MsgSubmitProposalResponseAminoMsg {
   type: "/kava.committee.v1beta1.MsgSubmitProposalResponse";
@@ -67,9 +68,9 @@ export interface MsgVoteProtoMsg {
 }
 /** MsgVote is submitted by committee members to vote on proposals. */
 export interface MsgVoteAmino {
-  proposal_id: string;
-  voter: string;
-  vote_type: VoteType;
+  proposal_id?: string;
+  voter?: string;
+  vote_type?: VoteType;
 }
 export interface MsgVoteAminoMsg {
   type: "/kava.committee.v1beta1.MsgVote";
@@ -97,7 +98,7 @@ export interface MsgVoteResponseAminoMsg {
 export interface MsgVoteResponseSDKType {}
 function createBaseMsgSubmitProposal(): MsgSubmitProposal {
   return {
-    pubProposal: Any.fromPartial({}),
+    pubProposal: undefined,
     proposer: "",
     committeeId: BigInt(0)
   };
@@ -131,11 +132,17 @@ export const MsgSubmitProposal = {
     return message;
   },
   fromAmino(object: MsgSubmitProposalAmino): MsgSubmitProposal {
-    return {
-      pubProposal: object?.pub_proposal ? Cosmos_govv1beta1Content_FromAmino(object.pub_proposal) : undefined,
-      proposer: object.proposer,
-      committeeId: BigInt(object.committee_id)
-    };
+    const message = createBaseMsgSubmitProposal();
+    if (object.pub_proposal !== undefined && object.pub_proposal !== null) {
+      message.pubProposal = Cosmos_govv1beta1Content_FromAmino(object.pub_proposal);
+    }
+    if (object.proposer !== undefined && object.proposer !== null) {
+      message.proposer = object.proposer;
+    }
+    if (object.committee_id !== undefined && object.committee_id !== null) {
+      message.committeeId = BigInt(object.committee_id);
+    }
+    return message;
   },
   toAmino(message: MsgSubmitProposal): MsgSubmitProposalAmino {
     const obj: any = {};
@@ -184,9 +191,11 @@ export const MsgSubmitProposalResponse = {
     return message;
   },
   fromAmino(object: MsgSubmitProposalResponseAmino): MsgSubmitProposalResponse {
-    return {
-      proposalId: BigInt(object.proposal_id)
-    };
+    const message = createBaseMsgSubmitProposalResponse();
+    if (object.proposal_id !== undefined && object.proposal_id !== null) {
+      message.proposalId = BigInt(object.proposal_id);
+    }
+    return message;
   },
   toAmino(message: MsgSubmitProposalResponse): MsgSubmitProposalResponseAmino {
     const obj: any = {};
@@ -245,11 +254,17 @@ export const MsgVote = {
     return message;
   },
   fromAmino(object: MsgVoteAmino): MsgVote {
-    return {
-      proposalId: BigInt(object.proposal_id),
-      voter: object.voter,
-      voteType: isSet(object.vote_type) ? voteTypeFromJSON(object.vote_type) : -1
-    };
+    const message = createBaseMsgVote();
+    if (object.proposal_id !== undefined && object.proposal_id !== null) {
+      message.proposalId = BigInt(object.proposal_id);
+    }
+    if (object.voter !== undefined && object.voter !== null) {
+      message.voter = object.voter;
+    }
+    if (object.vote_type !== undefined && object.vote_type !== null) {
+      message.voteType = voteTypeFromJSON(object.vote_type);
+    }
+    return message;
   },
   toAmino(message: MsgVote): MsgVoteAmino {
     const obj: any = {};
@@ -290,7 +305,8 @@ export const MsgVoteResponse = {
     return message;
   },
   fromAmino(_: MsgVoteResponseAmino): MsgVoteResponse {
-    return {};
+    const message = createBaseMsgVoteResponse();
+    return message;
   },
   toAmino(_: MsgVoteResponse): MsgVoteResponseAmino {
     const obj: any = {};
@@ -312,7 +328,7 @@ export const MsgVoteResponse = {
     };
   }
 };
-export const Cosmos_govv1beta1Content_InterfaceDecoder = (input: BinaryReader | Uint8Array): CommitteeChangeProposal | CommitteeDeleteProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any => {
+export const Cosmos_govv1beta1Content_InterfaceDecoder = (input: BinaryReader | Uint8Array): CommitteeChangeProposal | CommitteeDeleteProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any => {
   const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
   const data = Any.decode(reader, reader.uint32());
   switch (data.typeUrl) {
@@ -324,6 +340,8 @@ export const Cosmos_govv1beta1Content_InterfaceDecoder = (input: BinaryReader | 
       return CommunityPoolSpendProposal.decode(data.value);
     case "/cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit":
       return CommunityPoolSpendProposalWithDeposit.decode(data.value);
+    case "/cosmos.gov.v1beta1.TextProposal":
+      return TextProposal.decode(data.value);
     case "/cosmos.params.v1beta1.ParameterChangeProposal":
       return ParameterChangeProposal.decode(data.value);
     case "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal":
@@ -356,6 +374,11 @@ export const Cosmos_govv1beta1Content_FromAmino = (content: AnyAmino) => {
         typeUrl: "/cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit",
         value: CommunityPoolSpendProposalWithDeposit.encode(CommunityPoolSpendProposalWithDeposit.fromPartial(CommunityPoolSpendProposalWithDeposit.fromAmino(content.value))).finish()
       });
+    case "cosmos-sdk/TextProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmos.gov.v1beta1.TextProposal",
+        value: TextProposal.encode(TextProposal.fromPartial(TextProposal.fromAmino(content.value))).finish()
+      });
     case "cosmos-sdk/ParameterChangeProposal":
       return Any.fromPartial({
         typeUrl: "/cosmos.params.v1beta1.ParameterChangeProposal",
@@ -380,37 +403,42 @@ export const Cosmos_govv1beta1Content_ToAmino = (content: Any) => {
     case "/kava.committee.v1beta1.CommitteeChangeProposal":
       return {
         type: "/kava.committee.v1beta1.CommitteeChangeProposal",
-        value: CommitteeChangeProposal.toAmino(CommitteeChangeProposal.decode(content.value))
+        value: CommitteeChangeProposal.toAmino(CommitteeChangeProposal.decode(content.value, undefined))
       };
     case "/kava.committee.v1beta1.CommitteeDeleteProposal":
       return {
         type: "/kava.committee.v1beta1.CommitteeDeleteProposal",
-        value: CommitteeDeleteProposal.toAmino(CommitteeDeleteProposal.decode(content.value))
+        value: CommitteeDeleteProposal.toAmino(CommitteeDeleteProposal.decode(content.value, undefined))
       };
     case "/cosmos.distribution.v1beta1.CommunityPoolSpendProposal":
       return {
         type: "cosmos-sdk/CommunityPoolSpendProposal",
-        value: CommunityPoolSpendProposal.toAmino(CommunityPoolSpendProposal.decode(content.value))
+        value: CommunityPoolSpendProposal.toAmino(CommunityPoolSpendProposal.decode(content.value, undefined))
       };
     case "/cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit":
       return {
         type: "cosmos-sdk/CommunityPoolSpendProposalWithDeposit",
-        value: CommunityPoolSpendProposalWithDeposit.toAmino(CommunityPoolSpendProposalWithDeposit.decode(content.value))
+        value: CommunityPoolSpendProposalWithDeposit.toAmino(CommunityPoolSpendProposalWithDeposit.decode(content.value, undefined))
+      };
+    case "/cosmos.gov.v1beta1.TextProposal":
+      return {
+        type: "cosmos-sdk/TextProposal",
+        value: TextProposal.toAmino(TextProposal.decode(content.value, undefined))
       };
     case "/cosmos.params.v1beta1.ParameterChangeProposal":
       return {
         type: "cosmos-sdk/ParameterChangeProposal",
-        value: ParameterChangeProposal.toAmino(ParameterChangeProposal.decode(content.value))
+        value: ParameterChangeProposal.toAmino(ParameterChangeProposal.decode(content.value, undefined))
       };
     case "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal":
       return {
         type: "cosmos-sdk/SoftwareUpgradeProposal",
-        value: SoftwareUpgradeProposal.toAmino(SoftwareUpgradeProposal.decode(content.value))
+        value: SoftwareUpgradeProposal.toAmino(SoftwareUpgradeProposal.decode(content.value, undefined))
       };
     case "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal":
       return {
         type: "cosmos-sdk/CancelSoftwareUpgradeProposal",
-        value: CancelSoftwareUpgradeProposal.toAmino(CancelSoftwareUpgradeProposal.decode(content.value))
+        value: CancelSoftwareUpgradeProposal.toAmino(CancelSoftwareUpgradeProposal.decode(content.value, undefined))
       };
     default:
       return Any.toAmino(content);

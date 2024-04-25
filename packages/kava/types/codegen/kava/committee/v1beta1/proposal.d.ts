@@ -3,10 +3,10 @@ import { BaseCommittee, BaseCommitteeProtoMsg, BaseCommitteeSDKType, MemberCommi
 import { BinaryReader, BinaryWriter } from "../../../binary";
 /** CommitteeChangeProposal is a gov proposal for creating a new committee or modifying an existing one. */
 export interface CommitteeChangeProposal {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.CommitteeChangeProposal";
     title: string;
     description: string;
-    newCommittee: (BaseCommittee & MemberCommittee & TokenCommittee & Any) | undefined;
+    newCommittee?: (BaseCommittee & MemberCommittee & TokenCommittee & Any) | undefined;
 }
 export interface CommitteeChangeProposalProtoMsg {
     typeUrl: "/kava.committee.v1beta1.CommitteeChangeProposal";
@@ -17,8 +17,8 @@ export type CommitteeChangeProposalEncoded = Omit<CommitteeChangeProposal, "newC
 };
 /** CommitteeChangeProposal is a gov proposal for creating a new committee or modifying an existing one. */
 export interface CommitteeChangeProposalAmino {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     new_committee?: AnyAmino;
 }
 export interface CommitteeChangeProposalAminoMsg {
@@ -27,14 +27,14 @@ export interface CommitteeChangeProposalAminoMsg {
 }
 /** CommitteeChangeProposal is a gov proposal for creating a new committee or modifying an existing one. */
 export interface CommitteeChangeProposalSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.CommitteeChangeProposal";
     title: string;
     description: string;
-    new_committee: BaseCommitteeSDKType | MemberCommitteeSDKType | TokenCommitteeSDKType | AnySDKType | undefined;
+    new_committee?: BaseCommitteeSDKType | MemberCommitteeSDKType | TokenCommitteeSDKType | AnySDKType | undefined;
 }
 /** CommitteeDeleteProposal is a gov proposal for removing a committee. */
 export interface CommitteeDeleteProposal {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.CommitteeDeleteProposal";
     title: string;
     description: string;
     committeeId: bigint;
@@ -45,9 +45,9 @@ export interface CommitteeDeleteProposalProtoMsg {
 }
 /** CommitteeDeleteProposal is a gov proposal for removing a committee. */
 export interface CommitteeDeleteProposalAmino {
-    title: string;
-    description: string;
-    committee_id: string;
+    title?: string;
+    description?: string;
+    committee_id?: string;
 }
 export interface CommitteeDeleteProposalAminoMsg {
     type: "/kava.committee.v1beta1.CommitteeDeleteProposal";
@@ -55,7 +55,7 @@ export interface CommitteeDeleteProposalAminoMsg {
 }
 /** CommitteeDeleteProposal is a gov proposal for removing a committee. */
 export interface CommitteeDeleteProposalSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.CommitteeDeleteProposal";
     title: string;
     description: string;
     committee_id: bigint;

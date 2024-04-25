@@ -1,9 +1,9 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** BaseClaim is a claim with a single reward coin types */
 export interface BaseClaim {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.BaseClaim";
   owner: Uint8Array;
   reward: Coin;
 }
@@ -13,7 +13,7 @@ export interface BaseClaimProtoMsg {
 }
 /** BaseClaim is a claim with a single reward coin types */
 export interface BaseClaimAmino {
-  owner: Uint8Array;
+  owner?: string;
   reward?: CoinAmino;
 }
 export interface BaseClaimAminoMsg {
@@ -22,13 +22,13 @@ export interface BaseClaimAminoMsg {
 }
 /** BaseClaim is a claim with a single reward coin types */
 export interface BaseClaimSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.BaseClaim";
   owner: Uint8Array;
   reward: CoinSDKType;
 }
 /** BaseMultiClaim is a claim with multiple reward coin types */
 export interface BaseMultiClaim {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.BaseMultiClaim";
   owner: Uint8Array;
   reward: Coin[];
 }
@@ -38,8 +38,8 @@ export interface BaseMultiClaimProtoMsg {
 }
 /** BaseMultiClaim is a claim with multiple reward coin types */
 export interface BaseMultiClaimAmino {
-  owner: Uint8Array;
-  reward: CoinAmino[];
+  owner?: string;
+  reward?: CoinAmino[];
 }
 export interface BaseMultiClaimAminoMsg {
   type: "/kava.incentive.v1beta1.BaseMultiClaim";
@@ -47,7 +47,7 @@ export interface BaseMultiClaimAminoMsg {
 }
 /** BaseMultiClaim is a claim with multiple reward coin types */
 export interface BaseMultiClaimSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.BaseMultiClaim";
   owner: Uint8Array;
   reward: CoinSDKType[];
 }
@@ -62,8 +62,8 @@ export interface RewardIndexProtoMsg {
 }
 /** RewardIndex stores reward accumulation information */
 export interface RewardIndexAmino {
-  collateral_type: string;
-  reward_factor: Uint8Array;
+  collateral_type?: string;
+  reward_factor?: string;
 }
 export interface RewardIndexAminoMsg {
   type: "/kava.incentive.v1beta1.RewardIndex";
@@ -84,7 +84,7 @@ export interface RewardIndexesProtoProtoMsg {
 }
 /** RewardIndexesProto defines a Protobuf wrapper around a RewardIndexes slice */
 export interface RewardIndexesProtoAmino {
-  reward_indexes: RewardIndexAmino[];
+  reward_indexes?: RewardIndexAmino[];
 }
 export interface RewardIndexesProtoAminoMsg {
   type: "/kava.incentive.v1beta1.RewardIndexesProto";
@@ -105,8 +105,8 @@ export interface MultiRewardIndexProtoMsg {
 }
 /** MultiRewardIndex stores reward accumulation information on multiple reward types */
 export interface MultiRewardIndexAmino {
-  collateral_type: string;
-  reward_indexes: RewardIndexAmino[];
+  collateral_type?: string;
+  reward_indexes?: RewardIndexAmino[];
 }
 export interface MultiRewardIndexAminoMsg {
   type: "/kava.incentive.v1beta1.MultiRewardIndex";
@@ -127,7 +127,7 @@ export interface MultiRewardIndexesProtoProtoMsg {
 }
 /** MultiRewardIndexesProto defines a Protobuf wrapper around a MultiRewardIndexes slice */
 export interface MultiRewardIndexesProtoAmino {
-  multi_reward_indexes: MultiRewardIndexAmino[];
+  multi_reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface MultiRewardIndexesProtoAminoMsg {
   type: "/kava.incentive.v1beta1.MultiRewardIndexesProto";
@@ -139,7 +139,7 @@ export interface MultiRewardIndexesProtoSDKType {
 }
 /** USDXMintingClaim is for USDX minting rewards */
 export interface USDXMintingClaim {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.USDXMintingClaim";
   baseClaim: BaseClaim;
   rewardIndexes: RewardIndex[];
 }
@@ -150,7 +150,7 @@ export interface USDXMintingClaimProtoMsg {
 /** USDXMintingClaim is for USDX minting rewards */
 export interface USDXMintingClaimAmino {
   base_claim?: BaseClaimAmino;
-  reward_indexes: RewardIndexAmino[];
+  reward_indexes?: RewardIndexAmino[];
 }
 export interface USDXMintingClaimAminoMsg {
   type: "/kava.incentive.v1beta1.USDXMintingClaim";
@@ -158,13 +158,13 @@ export interface USDXMintingClaimAminoMsg {
 }
 /** USDXMintingClaim is for USDX minting rewards */
 export interface USDXMintingClaimSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.USDXMintingClaim";
   base_claim: BaseClaimSDKType;
   reward_indexes: RewardIndexSDKType[];
 }
 /** HardLiquidityProviderClaim stores the hard liquidity provider rewards that can be claimed by owner */
 export interface HardLiquidityProviderClaim {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.HardLiquidityProviderClaim";
   baseClaim: BaseMultiClaim;
   supplyRewardIndexes: MultiRewardIndex[];
   borrowRewardIndexes: MultiRewardIndex[];
@@ -176,8 +176,8 @@ export interface HardLiquidityProviderClaimProtoMsg {
 /** HardLiquidityProviderClaim stores the hard liquidity provider rewards that can be claimed by owner */
 export interface HardLiquidityProviderClaimAmino {
   base_claim?: BaseMultiClaimAmino;
-  supply_reward_indexes: MultiRewardIndexAmino[];
-  borrow_reward_indexes: MultiRewardIndexAmino[];
+  supply_reward_indexes?: MultiRewardIndexAmino[];
+  borrow_reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface HardLiquidityProviderClaimAminoMsg {
   type: "/kava.incentive.v1beta1.HardLiquidityProviderClaim";
@@ -185,14 +185,14 @@ export interface HardLiquidityProviderClaimAminoMsg {
 }
 /** HardLiquidityProviderClaim stores the hard liquidity provider rewards that can be claimed by owner */
 export interface HardLiquidityProviderClaimSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.HardLiquidityProviderClaim";
   base_claim: BaseMultiClaimSDKType;
   supply_reward_indexes: MultiRewardIndexSDKType[];
   borrow_reward_indexes: MultiRewardIndexSDKType[];
 }
 /** DelegatorClaim stores delegation rewards that can be claimed by owner */
 export interface DelegatorClaim {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.DelegatorClaim";
   baseClaim: BaseMultiClaim;
   rewardIndexes: MultiRewardIndex[];
 }
@@ -203,7 +203,7 @@ export interface DelegatorClaimProtoMsg {
 /** DelegatorClaim stores delegation rewards that can be claimed by owner */
 export interface DelegatorClaimAmino {
   base_claim?: BaseMultiClaimAmino;
-  reward_indexes: MultiRewardIndexAmino[];
+  reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface DelegatorClaimAminoMsg {
   type: "/kava.incentive.v1beta1.DelegatorClaim";
@@ -211,13 +211,13 @@ export interface DelegatorClaimAminoMsg {
 }
 /** DelegatorClaim stores delegation rewards that can be claimed by owner */
 export interface DelegatorClaimSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.DelegatorClaim";
   base_claim: BaseMultiClaimSDKType;
   reward_indexes: MultiRewardIndexSDKType[];
 }
 /** SwapClaim stores the swap rewards that can be claimed by owner */
 export interface SwapClaim {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.SwapClaim";
   baseClaim: BaseMultiClaim;
   rewardIndexes: MultiRewardIndex[];
 }
@@ -228,7 +228,7 @@ export interface SwapClaimProtoMsg {
 /** SwapClaim stores the swap rewards that can be claimed by owner */
 export interface SwapClaimAmino {
   base_claim?: BaseMultiClaimAmino;
-  reward_indexes: MultiRewardIndexAmino[];
+  reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface SwapClaimAminoMsg {
   type: "/kava.incentive.v1beta1.SwapClaim";
@@ -236,13 +236,13 @@ export interface SwapClaimAminoMsg {
 }
 /** SwapClaim stores the swap rewards that can be claimed by owner */
 export interface SwapClaimSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.SwapClaim";
   base_claim: BaseMultiClaimSDKType;
   reward_indexes: MultiRewardIndexSDKType[];
 }
 /** SavingsClaim stores the savings rewards that can be claimed by owner */
 export interface SavingsClaim {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.SavingsClaim";
   baseClaim: BaseMultiClaim;
   rewardIndexes: MultiRewardIndex[];
 }
@@ -253,7 +253,7 @@ export interface SavingsClaimProtoMsg {
 /** SavingsClaim stores the savings rewards that can be claimed by owner */
 export interface SavingsClaimAmino {
   base_claim?: BaseMultiClaimAmino;
-  reward_indexes: MultiRewardIndexAmino[];
+  reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface SavingsClaimAminoMsg {
   type: "/kava.incentive.v1beta1.SavingsClaim";
@@ -261,13 +261,13 @@ export interface SavingsClaimAminoMsg {
 }
 /** SavingsClaim stores the savings rewards that can be claimed by owner */
 export interface SavingsClaimSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.SavingsClaim";
   base_claim: BaseMultiClaimSDKType;
   reward_indexes: MultiRewardIndexSDKType[];
 }
 /** EarnClaim stores the earn rewards that can be claimed by owner */
 export interface EarnClaim {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.EarnClaim";
   baseClaim: BaseMultiClaim;
   rewardIndexes: MultiRewardIndex[];
 }
@@ -278,7 +278,7 @@ export interface EarnClaimProtoMsg {
 /** EarnClaim stores the earn rewards that can be claimed by owner */
 export interface EarnClaimAmino {
   base_claim?: BaseMultiClaimAmino;
-  reward_indexes: MultiRewardIndexAmino[];
+  reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface EarnClaimAminoMsg {
   type: "/kava.incentive.v1beta1.EarnClaim";
@@ -286,7 +286,7 @@ export interface EarnClaimAminoMsg {
 }
 /** EarnClaim stores the earn rewards that can be claimed by owner */
 export interface EarnClaimSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.incentive.v1beta1.EarnClaim";
   base_claim: BaseMultiClaimSDKType;
   reward_indexes: MultiRewardIndexSDKType[];
 }
@@ -321,14 +321,18 @@ export const BaseClaim = {
     return message;
   },
   fromAmino(object: BaseClaimAmino): BaseClaim {
-    return {
-      owner: object.owner,
-      reward: object?.reward ? Coin.fromAmino(object.reward) : undefined
-    };
+    const message = createBaseBaseClaim();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = bytesFromBase64(object.owner);
+    }
+    if (object.reward !== undefined && object.reward !== null) {
+      message.reward = Coin.fromAmino(object.reward);
+    }
+    return message;
   },
   toAmino(message: BaseClaim): BaseClaimAmino {
     const obj: any = {};
-    obj.owner = message.owner;
+    obj.owner = message.owner ? base64FromBytes(message.owner) : undefined;
     obj.reward = message.reward ? Coin.toAmino(message.reward) : undefined;
     return obj;
   },
@@ -379,14 +383,16 @@ export const BaseMultiClaim = {
     return message;
   },
   fromAmino(object: BaseMultiClaimAmino): BaseMultiClaim {
-    return {
-      owner: object.owner,
-      reward: Array.isArray(object?.reward) ? object.reward.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseBaseMultiClaim();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = bytesFromBase64(object.owner);
+    }
+    message.reward = object.reward?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: BaseMultiClaim): BaseMultiClaimAmino {
     const obj: any = {};
-    obj.owner = message.owner;
+    obj.owner = message.owner ? base64FromBytes(message.owner) : undefined;
     if (message.reward) {
       obj.reward = message.reward.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
@@ -440,15 +446,19 @@ export const RewardIndex = {
     return message;
   },
   fromAmino(object: RewardIndexAmino): RewardIndex {
-    return {
-      collateralType: object.collateral_type,
-      rewardFactor: object.reward_factor
-    };
+    const message = createBaseRewardIndex();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.reward_factor !== undefined && object.reward_factor !== null) {
+      message.rewardFactor = bytesFromBase64(object.reward_factor);
+    }
+    return message;
   },
   toAmino(message: RewardIndex): RewardIndexAmino {
     const obj: any = {};
     obj.collateral_type = message.collateralType;
-    obj.reward_factor = message.rewardFactor;
+    obj.reward_factor = message.rewardFactor ? base64FromBytes(message.rewardFactor) : undefined;
     return obj;
   },
   fromAminoMsg(object: RewardIndexAminoMsg): RewardIndex {
@@ -491,9 +501,9 @@ export const RewardIndexesProto = {
     return message;
   },
   fromAmino(object: RewardIndexesProtoAmino): RewardIndexesProto {
-    return {
-      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => RewardIndex.fromAmino(e)) : []
-    };
+    const message = createBaseRewardIndexesProto();
+    message.rewardIndexes = object.reward_indexes?.map(e => RewardIndex.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: RewardIndexesProto): RewardIndexesProtoAmino {
     const obj: any = {};
@@ -550,10 +560,12 @@ export const MultiRewardIndex = {
     return message;
   },
   fromAmino(object: MultiRewardIndexAmino): MultiRewardIndex {
-    return {
-      collateralType: object.collateral_type,
-      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => RewardIndex.fromAmino(e)) : []
-    };
+    const message = createBaseMultiRewardIndex();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    message.rewardIndexes = object.reward_indexes?.map(e => RewardIndex.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MultiRewardIndex): MultiRewardIndexAmino {
     const obj: any = {};
@@ -605,9 +617,9 @@ export const MultiRewardIndexesProto = {
     return message;
   },
   fromAmino(object: MultiRewardIndexesProtoAmino): MultiRewardIndexesProto {
-    return {
-      multiRewardIndexes: Array.isArray(object?.multi_reward_indexes) ? object.multi_reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
-    };
+    const message = createBaseMultiRewardIndexesProto();
+    message.multiRewardIndexes = object.multi_reward_indexes?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MultiRewardIndexesProto): MultiRewardIndexesProtoAmino {
     const obj: any = {};
@@ -665,10 +677,12 @@ export const USDXMintingClaim = {
     return message;
   },
   fromAmino(object: USDXMintingClaimAmino): USDXMintingClaim {
-    return {
-      baseClaim: object?.base_claim ? BaseClaim.fromAmino(object.base_claim) : undefined,
-      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => RewardIndex.fromAmino(e)) : []
-    };
+    const message = createBaseUSDXMintingClaim();
+    if (object.base_claim !== undefined && object.base_claim !== null) {
+      message.baseClaim = BaseClaim.fromAmino(object.base_claim);
+    }
+    message.rewardIndexes = object.reward_indexes?.map(e => RewardIndex.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: USDXMintingClaim): USDXMintingClaimAmino {
     const obj: any = {};
@@ -733,11 +747,13 @@ export const HardLiquidityProviderClaim = {
     return message;
   },
   fromAmino(object: HardLiquidityProviderClaimAmino): HardLiquidityProviderClaim {
-    return {
-      baseClaim: object?.base_claim ? BaseMultiClaim.fromAmino(object.base_claim) : undefined,
-      supplyRewardIndexes: Array.isArray(object?.supply_reward_indexes) ? object.supply_reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : [],
-      borrowRewardIndexes: Array.isArray(object?.borrow_reward_indexes) ? object.borrow_reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
-    };
+    const message = createBaseHardLiquidityProviderClaim();
+    if (object.base_claim !== undefined && object.base_claim !== null) {
+      message.baseClaim = BaseMultiClaim.fromAmino(object.base_claim);
+    }
+    message.supplyRewardIndexes = object.supply_reward_indexes?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    message.borrowRewardIndexes = object.borrow_reward_indexes?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: HardLiquidityProviderClaim): HardLiquidityProviderClaimAmino {
     const obj: any = {};
@@ -801,10 +817,12 @@ export const DelegatorClaim = {
     return message;
   },
   fromAmino(object: DelegatorClaimAmino): DelegatorClaim {
-    return {
-      baseClaim: object?.base_claim ? BaseMultiClaim.fromAmino(object.base_claim) : undefined,
-      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
-    };
+    const message = createBaseDelegatorClaim();
+    if (object.base_claim !== undefined && object.base_claim !== null) {
+      message.baseClaim = BaseMultiClaim.fromAmino(object.base_claim);
+    }
+    message.rewardIndexes = object.reward_indexes?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: DelegatorClaim): DelegatorClaimAmino {
     const obj: any = {};
@@ -863,10 +881,12 @@ export const SwapClaim = {
     return message;
   },
   fromAmino(object: SwapClaimAmino): SwapClaim {
-    return {
-      baseClaim: object?.base_claim ? BaseMultiClaim.fromAmino(object.base_claim) : undefined,
-      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
-    };
+    const message = createBaseSwapClaim();
+    if (object.base_claim !== undefined && object.base_claim !== null) {
+      message.baseClaim = BaseMultiClaim.fromAmino(object.base_claim);
+    }
+    message.rewardIndexes = object.reward_indexes?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: SwapClaim): SwapClaimAmino {
     const obj: any = {};
@@ -925,10 +945,12 @@ export const SavingsClaim = {
     return message;
   },
   fromAmino(object: SavingsClaimAmino): SavingsClaim {
-    return {
-      baseClaim: object?.base_claim ? BaseMultiClaim.fromAmino(object.base_claim) : undefined,
-      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
-    };
+    const message = createBaseSavingsClaim();
+    if (object.base_claim !== undefined && object.base_claim !== null) {
+      message.baseClaim = BaseMultiClaim.fromAmino(object.base_claim);
+    }
+    message.rewardIndexes = object.reward_indexes?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: SavingsClaim): SavingsClaimAmino {
     const obj: any = {};
@@ -987,10 +1009,12 @@ export const EarnClaim = {
     return message;
   },
   fromAmino(object: EarnClaimAmino): EarnClaim {
-    return {
-      baseClaim: object?.base_claim ? BaseMultiClaim.fromAmino(object.base_claim) : undefined,
-      rewardIndexes: Array.isArray(object?.reward_indexes) ? object.reward_indexes.map((e: any) => MultiRewardIndex.fromAmino(e)) : []
-    };
+    const message = createBaseEarnClaim();
+    if (object.base_claim !== undefined && object.base_claim !== null) {
+      message.baseClaim = BaseMultiClaim.fromAmino(object.base_claim);
+    }
+    message.rewardIndexes = object.reward_indexes?.map(e => MultiRewardIndex.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: EarnClaim): EarnClaimAmino {
     const obj: any = {};

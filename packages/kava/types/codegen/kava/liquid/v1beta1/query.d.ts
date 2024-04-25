@@ -12,7 +12,7 @@ export interface QueryDelegatedBalanceRequestProtoMsg {
 /** QueryDelegatedBalanceRequest defines the request type for Query/DelegatedBalance method. */
 export interface QueryDelegatedBalanceRequestAmino {
     /** delegator is the address of the account to query */
-    delegator: string;
+    delegator?: string;
 }
 export interface QueryDelegatedBalanceRequestAminoMsg {
     type: "/kava.liquid.v1beta1.QueryDelegatedBalanceRequest";
@@ -80,9 +80,9 @@ export interface QueryTotalSupplyResponseProtoMsg {
 /** TotalSupplyResponse defines the response type for the Query/TotalSupply method. */
 export interface QueryTotalSupplyResponseAmino {
     /** Height is the block height at which these totals apply */
-    height: string;
+    height?: string;
     /** Result is a list of coins supplied to liquid */
-    result: CoinAmino[];
+    result?: CoinAmino[];
 }
 export interface QueryTotalSupplyResponseAminoMsg {
     type: "/kava.liquid.v1beta1.QueryTotalSupplyResponse";

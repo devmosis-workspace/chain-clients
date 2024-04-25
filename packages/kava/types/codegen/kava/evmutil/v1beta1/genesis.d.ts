@@ -12,7 +12,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the evmutil module's genesis state. */
 export interface GenesisStateAmino {
-    accounts: AccountAmino[];
+    accounts?: AccountAmino[];
     /** params defines all the parameters of the module. */
     params?: ParamsAmino;
 }
@@ -37,9 +37,9 @@ export interface AccountProtoMsg {
 }
 /** BalanceAccount defines an account in the evmutil module. */
 export interface AccountAmino {
-    address: Uint8Array;
+    address?: string;
     /** balance indicates the amount of akava owned by the address. */
-    balance: string;
+    balance?: string;
 }
 export interface AccountAminoMsg {
     type: "/kava.evmutil.v1beta1.Account";
@@ -73,12 +73,12 @@ export interface ParamsAmino {
      * enabled_conversion_pairs defines the list of conversion pairs allowed to be
      * converted between Kava ERC20 and sdk.Coin
      */
-    enabled_conversion_pairs: ConversionPairAmino[];
+    enabled_conversion_pairs?: ConversionPairAmino[];
     /**
      * allowed_cosmos_denoms is a list of denom & erc20 token metadata pairs.
      * if a denom is in the list, it is allowed to be converted to an erc20 in the evm.
      */
-    allowed_cosmos_denoms: AllowedCosmosCoinERC20TokenAmino[];
+    allowed_cosmos_denoms?: AllowedCosmosCoinERC20TokenAmino[];
 }
 export interface ParamsAminoMsg {
     type: "/kava.evmutil.v1beta1.Params";

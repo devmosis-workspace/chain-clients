@@ -1,6 +1,6 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, fromJsonTimestamp } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, fromJsonTimestamp } from "../../../helpers";
 import { Decimal } from "@cosmjs/math";
 /** Params defines the parameters for the pricefeed module. */
 export interface Params {
@@ -12,7 +12,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the pricefeed module. */
 export interface ParamsAmino {
-  markets: MarketAmino[];
+  markets?: MarketAmino[];
 }
 export interface ParamsAminoMsg {
   type: "/kava.pricefeed.v1beta1.Params";
@@ -36,11 +36,11 @@ export interface MarketProtoMsg {
 }
 /** Market defines an asset in the pricefeed. */
 export interface MarketAmino {
-  market_id: string;
-  base_asset: string;
-  quote_asset: string;
-  oracles: Uint8Array[];
-  active: boolean;
+  market_id?: string;
+  base_asset?: string;
+  quote_asset?: string;
+  oracles?: string[];
+  active?: boolean;
 }
 export interface MarketAminoMsg {
   type: "/kava.pricefeed.v1beta1.Market";
@@ -67,10 +67,10 @@ export interface PostedPriceProtoMsg {
 }
 /** PostedPrice defines a price for market posted by a specific oracle. */
 export interface PostedPriceAmino {
-  market_id: string;
-  oracle_address: Uint8Array;
-  price: string;
-  expiry?: TimestampAmino;
+  market_id?: string;
+  oracle_address?: string;
+  price?: string;
+  expiry?: string;
 }
 export interface PostedPriceAminoMsg {
   type: "/kava.pricefeed.v1beta1.PostedPrice";
@@ -100,8 +100,8 @@ export interface CurrentPriceProtoMsg {
  * module.
  */
 export interface CurrentPriceAmino {
-  market_id: string;
-  price: string;
+  market_id?: string;
+  price?: string;
 }
 export interface CurrentPriceAminoMsg {
   type: "/kava.pricefeed.v1beta1.CurrentPrice";
@@ -139,9 +139,9 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      markets: Array.isArray(object?.markets) ? object.markets.map((e: any) => Market.fromAmino(e)) : []
-    };
+    const message = createBaseParams();
+    message.markets = object.markets?.map(e => Market.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -216,13 +216,21 @@ export const Market = {
     return message;
   },
   fromAmino(object: MarketAmino): Market {
-    return {
-      marketId: object.market_id,
-      baseAsset: object.base_asset,
-      quoteAsset: object.quote_asset,
-      oracles: Array.isArray(object?.oracles) ? object.oracles.map((e: any) => e) : [],
-      active: object.active
-    };
+    const message = createBaseMarket();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.base_asset !== undefined && object.base_asset !== null) {
+      message.baseAsset = object.base_asset;
+    }
+    if (object.quote_asset !== undefined && object.quote_asset !== null) {
+      message.quoteAsset = object.quote_asset;
+    }
+    message.oracles = object.oracles?.map(e => bytesFromBase64(e)) || [];
+    if (object.active !== undefined && object.active !== null) {
+      message.active = object.active;
+    }
+    return message;
   },
   toAmino(message: Market): MarketAmino {
     const obj: any = {};
@@ -230,7 +238,7 @@ export const Market = {
     obj.base_asset = message.baseAsset;
     obj.quote_asset = message.quoteAsset;
     if (message.oracles) {
-      obj.oracles = message.oracles.map(e => e);
+      obj.oracles = message.oracles.map(e => base64FromBytes(e));
     } else {
       obj.oracles = [];
     }
@@ -295,19 +303,27 @@ export const PostedPrice = {
     return message;
   },
   fromAmino(object: PostedPriceAmino): PostedPrice {
-    return {
-      marketId: object.market_id,
-      oracleAddress: object.oracle_address,
-      price: object.price,
-      expiry: object.expiry
-    };
+    const message = createBasePostedPrice();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.oracle_address !== undefined && object.oracle_address !== null) {
+      message.oracleAddress = bytesFromBase64(object.oracle_address);
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = object.price;
+    }
+    if (object.expiry !== undefined && object.expiry !== null) {
+      message.expiry = Timestamp.fromAmino(object.expiry);
+    }
+    return message;
   },
   toAmino(message: PostedPrice): PostedPriceAmino {
     const obj: any = {};
     obj.market_id = message.marketId;
-    obj.oracle_address = message.oracleAddress;
+    obj.oracle_address = message.oracleAddress ? base64FromBytes(message.oracleAddress) : undefined;
     obj.price = message.price;
-    obj.expiry = message.expiry;
+    obj.expiry = message.expiry ? Timestamp.toAmino(message.expiry) : undefined;
     return obj;
   },
   fromAminoMsg(object: PostedPriceAminoMsg): PostedPrice {
@@ -356,10 +372,14 @@ export const CurrentPrice = {
     return message;
   },
   fromAmino(object: CurrentPriceAmino): CurrentPrice {
-    return {
-      marketId: object.market_id,
-      price: object.price
-    };
+    const message = createBaseCurrentPrice();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = object.price;
+    }
+    return message;
   },
   toAmino(message: CurrentPrice): CurrentPriceAmino {
     const obj: any = {};

@@ -12,8 +12,8 @@ export interface MsgDepositProtoMsg {
 }
 /** MsgDeposit defines the Msg/Deposit request type. */
 export interface MsgDepositAmino {
-  depositor: string;
-  amount: CoinAmino[];
+  depositor?: string;
+  amount?: CoinAmino[];
 }
 export interface MsgDepositAminoMsg {
   type: "/kava.hard.v1beta1.MsgDeposit";
@@ -49,8 +49,8 @@ export interface MsgWithdrawProtoMsg {
 }
 /** MsgWithdraw defines the Msg/Withdraw request type. */
 export interface MsgWithdrawAmino {
-  depositor: string;
-  amount: CoinAmino[];
+  depositor?: string;
+  amount?: CoinAmino[];
 }
 export interface MsgWithdrawAminoMsg {
   type: "/kava.hard.v1beta1.MsgWithdraw";
@@ -86,8 +86,8 @@ export interface MsgBorrowProtoMsg {
 }
 /** MsgBorrow defines the Msg/Borrow request type. */
 export interface MsgBorrowAmino {
-  borrower: string;
-  amount: CoinAmino[];
+  borrower?: string;
+  amount?: CoinAmino[];
 }
 export interface MsgBorrowAminoMsg {
   type: "/kava.hard.v1beta1.MsgBorrow";
@@ -124,9 +124,9 @@ export interface MsgRepayProtoMsg {
 }
 /** MsgRepay defines the Msg/Repay request type. */
 export interface MsgRepayAmino {
-  sender: string;
-  owner: string;
-  amount: CoinAmino[];
+  sender?: string;
+  owner?: string;
+  amount?: CoinAmino[];
 }
 export interface MsgRepayAminoMsg {
   type: "/kava.hard.v1beta1.MsgRepay";
@@ -163,8 +163,8 @@ export interface MsgLiquidateProtoMsg {
 }
 /** MsgLiquidate defines the Msg/Liquidate request type. */
 export interface MsgLiquidateAmino {
-  keeper: string;
-  borrower: string;
+  keeper?: string;
+  borrower?: string;
 }
 export interface MsgLiquidateAminoMsg {
   type: "/kava.hard.v1beta1.MsgLiquidate";
@@ -219,10 +219,12 @@ export const MsgDeposit = {
     return message;
   },
   fromAmino(object: MsgDepositAmino): MsgDeposit {
-    return {
-      depositor: object.depositor,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgDeposit();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgDeposit): MsgDepositAmino {
     const obj: any = {};
@@ -266,7 +268,8 @@ export const MsgDepositResponse = {
     return message;
   },
   fromAmino(_: MsgDepositResponseAmino): MsgDepositResponse {
-    return {};
+    const message = createBaseMsgDepositResponse();
+    return message;
   },
   toAmino(_: MsgDepositResponse): MsgDepositResponseAmino {
     const obj: any = {};
@@ -318,10 +321,12 @@ export const MsgWithdraw = {
     return message;
   },
   fromAmino(object: MsgWithdrawAmino): MsgWithdraw {
-    return {
-      depositor: object.depositor,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgWithdraw();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgWithdraw): MsgWithdrawAmino {
     const obj: any = {};
@@ -365,7 +370,8 @@ export const MsgWithdrawResponse = {
     return message;
   },
   fromAmino(_: MsgWithdrawResponseAmino): MsgWithdrawResponse {
-    return {};
+    const message = createBaseMsgWithdrawResponse();
+    return message;
   },
   toAmino(_: MsgWithdrawResponse): MsgWithdrawResponseAmino {
     const obj: any = {};
@@ -417,10 +423,12 @@ export const MsgBorrow = {
     return message;
   },
   fromAmino(object: MsgBorrowAmino): MsgBorrow {
-    return {
-      borrower: object.borrower,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgBorrow();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgBorrow): MsgBorrowAmino {
     const obj: any = {};
@@ -464,7 +472,8 @@ export const MsgBorrowResponse = {
     return message;
   },
   fromAmino(_: MsgBorrowResponseAmino): MsgBorrowResponse {
-    return {};
+    const message = createBaseMsgBorrowResponse();
+    return message;
   },
   toAmino(_: MsgBorrowResponse): MsgBorrowResponseAmino {
     const obj: any = {};
@@ -522,11 +531,15 @@ export const MsgRepay = {
     return message;
   },
   fromAmino(object: MsgRepayAmino): MsgRepay {
-    return {
-      sender: object.sender,
-      owner: object.owner,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgRepay();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgRepay): MsgRepayAmino {
     const obj: any = {};
@@ -571,7 +584,8 @@ export const MsgRepayResponse = {
     return message;
   },
   fromAmino(_: MsgRepayResponseAmino): MsgRepayResponse {
-    return {};
+    const message = createBaseMsgRepayResponse();
+    return message;
   },
   toAmino(_: MsgRepayResponse): MsgRepayResponseAmino {
     const obj: any = {};
@@ -623,10 +637,14 @@ export const MsgLiquidate = {
     return message;
   },
   fromAmino(object: MsgLiquidateAmino): MsgLiquidate {
-    return {
-      keeper: object.keeper,
-      borrower: object.borrower
-    };
+    const message = createBaseMsgLiquidate();
+    if (object.keeper !== undefined && object.keeper !== null) {
+      message.keeper = object.keeper;
+    }
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    return message;
   },
   toAmino(message: MsgLiquidate): MsgLiquidateAmino {
     const obj: any = {};
@@ -666,7 +684,8 @@ export const MsgLiquidateResponse = {
     return message;
   },
   fromAmino(_: MsgLiquidateResponseAmino): MsgLiquidateResponse {
-    return {};
+    const message = createBaseMsgLiquidateResponse();
+    return message;
   },
   toAmino(_: MsgLiquidateResponse): MsgLiquidateResponseAmino {
     const obj: any = {};

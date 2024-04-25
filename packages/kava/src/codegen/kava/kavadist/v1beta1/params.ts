@@ -1,7 +1,7 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, fromJsonTimestamp } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, fromJsonTimestamp } from "../../../helpers";
 import { Decimal } from "@cosmjs/math";
 /** Params governance parameters for kavadist module */
 export interface Params {
@@ -15,8 +15,8 @@ export interface ParamsProtoMsg {
 }
 /** Params governance parameters for kavadist module */
 export interface ParamsAmino {
-  active: boolean;
-  periods: PeriodAmino[];
+  active?: boolean;
+  periods?: PeriodAmino[];
   infrastructure_params?: InfrastructureParamsAmino;
 }
 export interface ParamsAminoMsg {
@@ -41,9 +41,9 @@ export interface InfrastructureParamsProtoMsg {
 }
 /** InfrastructureParams define the parameters for infrastructure rewards. */
 export interface InfrastructureParamsAmino {
-  infrastructure_periods: PeriodAmino[];
-  core_rewards: CoreRewardAmino[];
-  partner_rewards: PartnerRewardAmino[];
+  infrastructure_periods?: PeriodAmino[];
+  core_rewards?: CoreRewardAmino[];
+  partner_rewards?: PartnerRewardAmino[];
 }
 export interface InfrastructureParamsAminoMsg {
   type: "/kava.kavadist.v1beta1.InfrastructureParams";
@@ -66,8 +66,8 @@ export interface CoreRewardProtoMsg {
 }
 /** CoreReward defines the reward weights for core infrastructure providers. */
 export interface CoreRewardAmino {
-  address: Uint8Array;
-  weight: string;
+  address?: string;
+  weight?: string;
 }
 export interface CoreRewardAminoMsg {
   type: "/kava.kavadist.v1beta1.CoreReward";
@@ -89,7 +89,7 @@ export interface PartnerRewardProtoMsg {
 }
 /** PartnerRewards defines the reward schedule for partner infrastructure providers. */
 export interface PartnerRewardAmino {
-  address: Uint8Array;
+  address?: string;
   rewards_per_second?: CoinAmino;
 }
 export interface PartnerRewardAminoMsg {
@@ -123,11 +123,11 @@ export interface PeriodProtoMsg {
  */
 export interface PeriodAmino {
   /** example "2020-03-01T15:20:00Z" */
-  start?: TimestampAmino;
+  start?: string;
   /** example "2020-06-01T15:20:00Z" */
-  end?: TimestampAmino;
+  end?: string;
   /** example "1.000000003022265980"  - 10% inflation */
-  inflation: Uint8Array;
+  inflation?: string;
 }
 export interface PeriodAminoMsg {
   type: "/kava.kavadist.v1beta1.Period";
@@ -178,11 +178,15 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      active: object.active,
-      periods: Array.isArray(object?.periods) ? object.periods.map((e: any) => Period.fromAmino(e)) : [],
-      infrastructureParams: object?.infrastructure_params ? InfrastructureParams.fromAmino(object.infrastructure_params) : undefined
-    };
+    const message = createBaseParams();
+    if (object.active !== undefined && object.active !== null) {
+      message.active = object.active;
+    }
+    message.periods = object.periods?.map(e => Period.fromAmino(e)) || [];
+    if (object.infrastructure_params !== undefined && object.infrastructure_params !== null) {
+      message.infrastructureParams = InfrastructureParams.fromAmino(object.infrastructure_params);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -247,11 +251,11 @@ export const InfrastructureParams = {
     return message;
   },
   fromAmino(object: InfrastructureParamsAmino): InfrastructureParams {
-    return {
-      infrastructurePeriods: Array.isArray(object?.infrastructure_periods) ? object.infrastructure_periods.map((e: any) => Period.fromAmino(e)) : [],
-      coreRewards: Array.isArray(object?.core_rewards) ? object.core_rewards.map((e: any) => CoreReward.fromAmino(e)) : [],
-      partnerRewards: Array.isArray(object?.partner_rewards) ? object.partner_rewards.map((e: any) => PartnerReward.fromAmino(e)) : []
-    };
+    const message = createBaseInfrastructureParams();
+    message.infrastructurePeriods = object.infrastructure_periods?.map(e => Period.fromAmino(e)) || [];
+    message.coreRewards = object.core_rewards?.map(e => CoreReward.fromAmino(e)) || [];
+    message.partnerRewards = object.partner_rewards?.map(e => PartnerReward.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: InfrastructureParams): InfrastructureParamsAmino {
     const obj: any = {};
@@ -318,14 +322,18 @@ export const CoreReward = {
     return message;
   },
   fromAmino(object: CoreRewardAmino): CoreReward {
-    return {
-      address: object.address,
-      weight: object.weight
-    };
+    const message = createBaseCoreReward();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = bytesFromBase64(object.address);
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = object.weight;
+    }
+    return message;
   },
   toAmino(message: CoreReward): CoreRewardAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address ? base64FromBytes(message.address) : undefined;
     obj.weight = message.weight;
     return obj;
   },
@@ -375,14 +383,18 @@ export const PartnerReward = {
     return message;
   },
   fromAmino(object: PartnerRewardAmino): PartnerReward {
-    return {
-      address: object.address,
-      rewardsPerSecond: object?.rewards_per_second ? Coin.fromAmino(object.rewards_per_second) : undefined
-    };
+    const message = createBasePartnerReward();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = bytesFromBase64(object.address);
+    }
+    if (object.rewards_per_second !== undefined && object.rewards_per_second !== null) {
+      message.rewardsPerSecond = Coin.fromAmino(object.rewards_per_second);
+    }
+    return message;
   },
   toAmino(message: PartnerReward): PartnerRewardAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address ? base64FromBytes(message.address) : undefined;
     obj.rewards_per_second = message.rewardsPerSecond ? Coin.toAmino(message.rewardsPerSecond) : undefined;
     return obj;
   },
@@ -438,17 +450,23 @@ export const Period = {
     return message;
   },
   fromAmino(object: PeriodAmino): Period {
-    return {
-      start: object.start,
-      end: object.end,
-      inflation: object.inflation
-    };
+    const message = createBasePeriod();
+    if (object.start !== undefined && object.start !== null) {
+      message.start = Timestamp.fromAmino(object.start);
+    }
+    if (object.end !== undefined && object.end !== null) {
+      message.end = Timestamp.fromAmino(object.end);
+    }
+    if (object.inflation !== undefined && object.inflation !== null) {
+      message.inflation = bytesFromBase64(object.inflation);
+    }
+    return message;
   },
   toAmino(message: Period): PeriodAmino {
     const obj: any = {};
-    obj.start = message.start;
-    obj.end = message.end;
-    obj.inflation = message.inflation;
+    obj.start = message.start ? Timestamp.toAmino(message.start) : undefined;
+    obj.end = message.end ? Timestamp.toAmino(message.end) : undefined;
+    obj.inflation = message.inflation ? base64FromBytes(message.inflation) : undefined;
     return obj;
   },
   fromAminoMsg(object: PeriodAminoMsg): Period {

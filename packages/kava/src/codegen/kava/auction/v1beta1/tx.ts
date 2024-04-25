@@ -13,8 +13,8 @@ export interface MsgPlaceBidProtoMsg {
 }
 /** MsgPlaceBid represents a message used by bidders to place bids on auctions */
 export interface MsgPlaceBidAmino {
-  auction_id: string;
-  bidder: string;
+  auction_id?: string;
+  bidder?: string;
   amount?: CoinAmino;
 }
 export interface MsgPlaceBidAminoMsg {
@@ -77,11 +77,17 @@ export const MsgPlaceBid = {
     return message;
   },
   fromAmino(object: MsgPlaceBidAmino): MsgPlaceBid {
-    return {
-      auctionId: BigInt(object.auction_id),
-      bidder: object.bidder,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgPlaceBid();
+    if (object.auction_id !== undefined && object.auction_id !== null) {
+      message.auctionId = BigInt(object.auction_id);
+    }
+    if (object.bidder !== undefined && object.bidder !== null) {
+      message.bidder = object.bidder;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgPlaceBid): MsgPlaceBidAmino {
     const obj: any = {};
@@ -122,7 +128,8 @@ export const MsgPlaceBidResponse = {
     return message;
   },
   fromAmino(_: MsgPlaceBidResponseAmino): MsgPlaceBidResponse {
-    return {};
+    const message = createBaseMsgPlaceBidResponse();
+    return message;
   },
   toAmino(_: MsgPlaceBidResponse): MsgPlaceBidResponseAmino {
     const obj: any = {};

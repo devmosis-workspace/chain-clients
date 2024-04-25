@@ -2,7 +2,7 @@ import { Params, ParamsAmino, ParamsSDKType, PostedPrice, PostedPriceAmino, Post
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the pricefeed module's genesis state. */
 export interface GenesisState {
-    /** params defines all the paramaters of the module. */
+    /** params defines all the parameters of the module. */
     params: Params;
     postedPrices: PostedPrice[];
 }
@@ -12,9 +12,9 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the pricefeed module's genesis state. */
 export interface GenesisStateAmino {
-    /** params defines all the paramaters of the module. */
+    /** params defines all the parameters of the module. */
     params?: ParamsAmino;
-    posted_prices: PostedPriceAmino[];
+    posted_prices?: PostedPriceAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.pricefeed.v1beta1.GenesisState";

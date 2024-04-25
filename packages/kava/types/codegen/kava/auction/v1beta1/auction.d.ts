@@ -1,9 +1,9 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** BaseAuction defines common attributes of all auctions */
 export interface BaseAuction {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.auction.v1beta1.BaseAuction";
     id: bigint;
     initiator: string;
     lot: Coin;
@@ -19,14 +19,14 @@ export interface BaseAuctionProtoMsg {
 }
 /** BaseAuction defines common attributes of all auctions */
 export interface BaseAuctionAmino {
-    id: string;
-    initiator: string;
+    id?: string;
+    initiator?: string;
     lot?: CoinAmino;
-    bidder: Uint8Array;
+    bidder?: string;
     bid?: CoinAmino;
-    has_received_bids: boolean;
-    end_time?: TimestampAmino;
-    max_end_time?: TimestampAmino;
+    has_received_bids?: boolean;
+    end_time?: string;
+    max_end_time?: string;
 }
 export interface BaseAuctionAminoMsg {
     type: "/kava.auction.v1beta1.BaseAuction";
@@ -34,7 +34,7 @@ export interface BaseAuctionAminoMsg {
 }
 /** BaseAuction defines common attributes of all auctions */
 export interface BaseAuctionSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.auction.v1beta1.BaseAuction";
     id: bigint;
     initiator: string;
     lot: CoinSDKType;
@@ -49,7 +49,7 @@ export interface BaseAuctionSDKType {
  * It is normally used to sell off excess pegged asset acquired by the CDP system.
  */
 export interface SurplusAuction {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.auction.v1beta1.SurplusAuction";
     baseAuction: BaseAuction;
 }
 export interface SurplusAuctionProtoMsg {
@@ -72,7 +72,7 @@ export interface SurplusAuctionAminoMsg {
  * It is normally used to sell off excess pegged asset acquired by the CDP system.
  */
 export interface SurplusAuctionSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.auction.v1beta1.SurplusAuction";
     base_auction: BaseAuctionSDKType;
 }
 /**
@@ -81,7 +81,7 @@ export interface SurplusAuctionSDKType {
  * collateral.
  */
 export interface DebtAuction {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.auction.v1beta1.DebtAuction";
     baseAuction: BaseAuction;
     correspondingDebt: Coin;
 }
@@ -108,7 +108,7 @@ export interface DebtAuctionAminoMsg {
  * collateral.
  */
 export interface DebtAuctionSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.auction.v1beta1.DebtAuction";
     base_auction: BaseAuctionSDKType;
     corresponding_debt: CoinSDKType;
 }
@@ -120,7 +120,7 @@ export interface DebtAuctionSDKType {
  * Collateral auctions are normally used to sell off collateral seized from CDPs.
  */
 export interface CollateralAuction {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.auction.v1beta1.CollateralAuction";
     baseAuction: BaseAuction;
     correspondingDebt: Coin;
     maxBid: Coin;
@@ -155,7 +155,7 @@ export interface CollateralAuctionAminoMsg {
  * Collateral auctions are normally used to sell off collateral seized from CDPs.
  */
 export interface CollateralAuctionSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.auction.v1beta1.CollateralAuction";
     base_auction: BaseAuctionSDKType;
     corresponding_debt: CoinSDKType;
     max_bid: CoinSDKType;
@@ -172,8 +172,8 @@ export interface WeightedAddressesProtoMsg {
 }
 /** WeightedAddresses is a type for storing some addresses and associated weights. */
 export interface WeightedAddressesAmino {
-    addresses: Uint8Array[];
-    weights: Uint8Array[];
+    addresses?: string[];
+    weights?: string[];
 }
 export interface WeightedAddressesAminoMsg {
     type: "/kava.auction.v1beta1.WeightedAddresses";

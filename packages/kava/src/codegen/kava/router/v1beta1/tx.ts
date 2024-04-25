@@ -17,9 +17,9 @@ export interface MsgMintDepositProtoMsg {
 /** MsgMintDeposit converts a delegation into staking derivatives and deposits it all into an earn vault. */
 export interface MsgMintDepositAmino {
   /** depositor represents the owner of the delegation to convert */
-  depositor: string;
+  depositor?: string;
   /** validator is the validator for the depositor's delegation */
-  validator: string;
+  validator?: string;
   /** amount is the delegation balance to convert */
   amount?: CoinAmino;
 }
@@ -69,9 +69,9 @@ export interface MsgDelegateMintDepositProtoMsg {
  */
 export interface MsgDelegateMintDepositAmino {
   /** depositor represents the owner of the tokens to delegate */
-  depositor: string;
+  depositor?: string;
   /** validator is the address of the validator to delegate to */
-  validator: string;
+  validator?: string;
   /** amount is the tokens to delegate */
   amount?: CoinAmino;
 }
@@ -118,9 +118,9 @@ export interface MsgWithdrawBurnProtoMsg {
 /** MsgWithdrawBurn removes staking derivatives from an earn vault and converts them back to a staking delegation. */
 export interface MsgWithdrawBurnAmino {
   /** from is the owner of the earn vault to withdraw from */
-  from: string;
+  from?: string;
   /** validator is the address to select the derivative denom to withdraw */
-  validator: string;
+  validator?: string;
   /** amount is the staked token equivalent to withdraw */
   amount?: CoinAmino;
 }
@@ -170,9 +170,9 @@ export interface MsgWithdrawBurnUndelegateProtoMsg {
  */
 export interface MsgWithdrawBurnUndelegateAmino {
   /** from is the owner of the earn vault to withdraw from */
-  from: string;
+  from?: string;
   /** validator is the address to select the derivative denom to withdraw */
-  validator: string;
+  validator?: string;
   /** amount is the staked token equivalent to withdraw */
   amount?: CoinAmino;
 }
@@ -239,11 +239,17 @@ export const MsgMintDeposit = {
     return message;
   },
   fromAmino(object: MsgMintDepositAmino): MsgMintDeposit {
-    return {
-      depositor: object.depositor,
-      validator: object.validator,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgMintDeposit();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = object.validator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgMintDeposit): MsgMintDepositAmino {
     const obj: any = {};
@@ -284,7 +290,8 @@ export const MsgMintDepositResponse = {
     return message;
   },
   fromAmino(_: MsgMintDepositResponseAmino): MsgMintDepositResponse {
-    return {};
+    const message = createBaseMsgMintDepositResponse();
+    return message;
   },
   toAmino(_: MsgMintDepositResponse): MsgMintDepositResponseAmino {
     const obj: any = {};
@@ -342,11 +349,17 @@ export const MsgDelegateMintDeposit = {
     return message;
   },
   fromAmino(object: MsgDelegateMintDepositAmino): MsgDelegateMintDeposit {
-    return {
-      depositor: object.depositor,
-      validator: object.validator,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgDelegateMintDeposit();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = object.validator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgDelegateMintDeposit): MsgDelegateMintDepositAmino {
     const obj: any = {};
@@ -387,7 +400,8 @@ export const MsgDelegateMintDepositResponse = {
     return message;
   },
   fromAmino(_: MsgDelegateMintDepositResponseAmino): MsgDelegateMintDepositResponse {
-    return {};
+    const message = createBaseMsgDelegateMintDepositResponse();
+    return message;
   },
   toAmino(_: MsgDelegateMintDepositResponse): MsgDelegateMintDepositResponseAmino {
     const obj: any = {};
@@ -445,11 +459,17 @@ export const MsgWithdrawBurn = {
     return message;
   },
   fromAmino(object: MsgWithdrawBurnAmino): MsgWithdrawBurn {
-    return {
-      from: object.from,
-      validator: object.validator,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgWithdrawBurn();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = object.validator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgWithdrawBurn): MsgWithdrawBurnAmino {
     const obj: any = {};
@@ -490,7 +510,8 @@ export const MsgWithdrawBurnResponse = {
     return message;
   },
   fromAmino(_: MsgWithdrawBurnResponseAmino): MsgWithdrawBurnResponse {
-    return {};
+    const message = createBaseMsgWithdrawBurnResponse();
+    return message;
   },
   toAmino(_: MsgWithdrawBurnResponse): MsgWithdrawBurnResponseAmino {
     const obj: any = {};
@@ -548,11 +569,17 @@ export const MsgWithdrawBurnUndelegate = {
     return message;
   },
   fromAmino(object: MsgWithdrawBurnUndelegateAmino): MsgWithdrawBurnUndelegate {
-    return {
-      from: object.from,
-      validator: object.validator,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgWithdrawBurnUndelegate();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = object.validator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgWithdrawBurnUndelegate): MsgWithdrawBurnUndelegateAmino {
     const obj: any = {};
@@ -593,7 +620,8 @@ export const MsgWithdrawBurnUndelegateResponse = {
     return message;
   },
   fromAmino(_: MsgWithdrawBurnUndelegateResponseAmino): MsgWithdrawBurnUndelegateResponse {
-    return {};
+    const message = createBaseMsgWithdrawBurnUndelegateResponse();
+    return message;
   },
   toAmino(_: MsgWithdrawBurnUndelegateResponse): MsgWithdrawBurnUndelegateResponseAmino {
     const obj: any = {};

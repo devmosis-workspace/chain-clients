@@ -20,15 +20,15 @@ export interface MsgDepositProtoMsg {
 /** MsgDeposit represents a message for depositing liquidity into a pool */
 export interface MsgDepositAmino {
     /** depositor represents the address to deposit funds from */
-    depositor: string;
+    depositor?: string;
     /** token_a represents one token of deposit pair */
     token_a?: CoinAmino;
     /** token_b represents one token of deposit pair */
     token_b?: CoinAmino;
     /** slippage represents the max decimal percentage price change */
-    slippage: string;
+    slippage?: string;
     /** deadline represents the unix timestamp to complete the deposit by */
-    deadline: string;
+    deadline?: string;
 }
 export interface MsgDepositAminoMsg {
     type: "/kava.swap.v1beta1.MsgDeposit";
@@ -79,15 +79,15 @@ export interface MsgWithdrawProtoMsg {
 /** MsgWithdraw represents a message for withdrawing liquidity from a pool */
 export interface MsgWithdrawAmino {
     /** from represents the address we are withdrawing for */
-    from: string;
+    from?: string;
     /** shares represents the amount of shares to withdraw */
-    shares: string;
+    shares?: string;
     /** min_token_a represents the minimum a token to withdraw */
     min_token_a?: CoinAmino;
     /** min_token_a represents the minimum a token to withdraw */
     min_token_b?: CoinAmino;
     /** deadline represents the unix timestamp to complete the withdraw by */
-    deadline: string;
+    deadline?: string;
 }
 export interface MsgWithdrawAminoMsg {
     type: "/kava.swap.v1beta1.MsgWithdraw";
@@ -138,15 +138,15 @@ export interface MsgSwapExactForTokensProtoMsg {
 /** MsgSwapExactForTokens represents a message for trading exact coinA for coinB */
 export interface MsgSwapExactForTokensAmino {
     /** represents the address swaping the tokens */
-    requester: string;
+    requester?: string;
     /** exact_token_a represents the exact amount to swap for token_b */
     exact_token_a?: CoinAmino;
     /** token_b represents the desired token_b to swap for */
     token_b?: CoinAmino;
     /** slippage represents the maximum change in token_b allowed */
-    slippage: string;
+    slippage?: string;
     /** deadline represents the unix timestamp to complete the swap by */
-    deadline: string;
+    deadline?: string;
 }
 export interface MsgSwapExactForTokensAminoMsg {
     type: "/kava.swap.v1beta1.MsgSwapExactForTokens";
@@ -212,15 +212,15 @@ export interface MsgSwapForExactTokensProtoMsg {
  */
 export interface MsgSwapForExactTokensAmino {
     /** represents the address swaping the tokens */
-    requester: string;
+    requester?: string;
     /** token_a represents the desired token_a to swap for */
     token_a?: CoinAmino;
     /** exact_token_b represents the exact token b amount to swap for token a */
     exact_token_b?: CoinAmino;
     /** slippage represents the maximum change in token_a allowed */
-    slippage: string;
+    slippage?: string;
     /** deadline represents the unix timestamp to complete the swap by */
-    deadline: string;
+    deadline?: string;
 }
 export interface MsgSwapForExactTokensAminoMsg {
     type: "/kava.swap.v1beta1.MsgSwapForExactTokens";

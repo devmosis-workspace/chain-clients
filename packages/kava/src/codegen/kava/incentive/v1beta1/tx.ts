@@ -17,8 +17,8 @@ export interface SelectionProtoMsg {
  * denom.
  */
 export interface SelectionAmino {
-  denom: string;
-  multiplier_name: string;
+  denom?: string;
+  multiplier_name?: string;
 }
 export interface SelectionAminoMsg {
   type: "/kava.incentive.v1beta1.Selection";
@@ -43,8 +43,8 @@ export interface MsgClaimUSDXMintingRewardProtoMsg {
 }
 /** MsgClaimUSDXMintingReward message type used to claim USDX minting rewards */
 export interface MsgClaimUSDXMintingRewardAmino {
-  sender: string;
-  multiplier_name: string;
+  sender?: string;
+  multiplier_name?: string;
 }
 export interface MsgClaimUSDXMintingRewardAminoMsg {
   type: "/kava.incentive.v1beta1.MsgClaimUSDXMintingReward";
@@ -80,8 +80,8 @@ export interface MsgClaimHardRewardProtoMsg {
 }
 /** MsgClaimHardReward message type used to claim Hard liquidity provider rewards */
 export interface MsgClaimHardRewardAmino {
-  sender: string;
-  denoms_to_claim: SelectionAmino[];
+  sender?: string;
+  denoms_to_claim?: SelectionAmino[];
 }
 export interface MsgClaimHardRewardAminoMsg {
   type: "/kava.incentive.v1beta1.MsgClaimHardReward";
@@ -117,8 +117,8 @@ export interface MsgClaimDelegatorRewardProtoMsg {
 }
 /** MsgClaimDelegatorReward message type used to claim delegator rewards */
 export interface MsgClaimDelegatorRewardAmino {
-  sender: string;
-  denoms_to_claim: SelectionAmino[];
+  sender?: string;
+  denoms_to_claim?: SelectionAmino[];
 }
 export interface MsgClaimDelegatorRewardAminoMsg {
   type: "/kava.incentive.v1beta1.MsgClaimDelegatorReward";
@@ -154,8 +154,8 @@ export interface MsgClaimSwapRewardProtoMsg {
 }
 /** MsgClaimSwapReward message type used to claim delegator rewards */
 export interface MsgClaimSwapRewardAmino {
-  sender: string;
-  denoms_to_claim: SelectionAmino[];
+  sender?: string;
+  denoms_to_claim?: SelectionAmino[];
 }
 export interface MsgClaimSwapRewardAminoMsg {
   type: "/kava.incentive.v1beta1.MsgClaimSwapReward";
@@ -191,8 +191,8 @@ export interface MsgClaimSavingsRewardProtoMsg {
 }
 /** MsgClaimSavingsReward message type used to claim savings rewards */
 export interface MsgClaimSavingsRewardAmino {
-  sender: string;
-  denoms_to_claim: SelectionAmino[];
+  sender?: string;
+  denoms_to_claim?: SelectionAmino[];
 }
 export interface MsgClaimSavingsRewardAminoMsg {
   type: "/kava.incentive.v1beta1.MsgClaimSavingsReward";
@@ -228,8 +228,8 @@ export interface MsgClaimEarnRewardProtoMsg {
 }
 /** MsgClaimEarnReward message type used to claim earn rewards */
 export interface MsgClaimEarnRewardAmino {
-  sender: string;
-  denoms_to_claim: SelectionAmino[];
+  sender?: string;
+  denoms_to_claim?: SelectionAmino[];
 }
 export interface MsgClaimEarnRewardAminoMsg {
   type: "/kava.incentive.v1beta1.MsgClaimEarnReward";
@@ -284,10 +284,14 @@ export const Selection = {
     return message;
   },
   fromAmino(object: SelectionAmino): Selection {
-    return {
-      denom: object.denom,
-      multiplierName: object.multiplier_name
-    };
+    const message = createBaseSelection();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.multiplier_name !== undefined && object.multiplier_name !== null) {
+      message.multiplierName = object.multiplier_name;
+    }
+    return message;
   },
   toAmino(message: Selection): SelectionAmino {
     const obj: any = {};
@@ -341,10 +345,14 @@ export const MsgClaimUSDXMintingReward = {
     return message;
   },
   fromAmino(object: MsgClaimUSDXMintingRewardAmino): MsgClaimUSDXMintingReward {
-    return {
-      sender: object.sender,
-      multiplierName: object.multiplier_name
-    };
+    const message = createBaseMsgClaimUSDXMintingReward();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.multiplier_name !== undefined && object.multiplier_name !== null) {
+      message.multiplierName = object.multiplier_name;
+    }
+    return message;
   },
   toAmino(message: MsgClaimUSDXMintingReward): MsgClaimUSDXMintingRewardAmino {
     const obj: any = {};
@@ -384,7 +392,8 @@ export const MsgClaimUSDXMintingRewardResponse = {
     return message;
   },
   fromAmino(_: MsgClaimUSDXMintingRewardResponseAmino): MsgClaimUSDXMintingRewardResponse {
-    return {};
+    const message = createBaseMsgClaimUSDXMintingRewardResponse();
+    return message;
   },
   toAmino(_: MsgClaimUSDXMintingRewardResponse): MsgClaimUSDXMintingRewardResponseAmino {
     const obj: any = {};
@@ -436,10 +445,12 @@ export const MsgClaimHardReward = {
     return message;
   },
   fromAmino(object: MsgClaimHardRewardAmino): MsgClaimHardReward {
-    return {
-      sender: object.sender,
-      denomsToClaim: Array.isArray(object?.denoms_to_claim) ? object.denoms_to_claim.map((e: any) => Selection.fromAmino(e)) : []
-    };
+    const message = createBaseMsgClaimHardReward();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    message.denomsToClaim = object.denoms_to_claim?.map(e => Selection.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgClaimHardReward): MsgClaimHardRewardAmino {
     const obj: any = {};
@@ -483,7 +494,8 @@ export const MsgClaimHardRewardResponse = {
     return message;
   },
   fromAmino(_: MsgClaimHardRewardResponseAmino): MsgClaimHardRewardResponse {
-    return {};
+    const message = createBaseMsgClaimHardRewardResponse();
+    return message;
   },
   toAmino(_: MsgClaimHardRewardResponse): MsgClaimHardRewardResponseAmino {
     const obj: any = {};
@@ -535,10 +547,12 @@ export const MsgClaimDelegatorReward = {
     return message;
   },
   fromAmino(object: MsgClaimDelegatorRewardAmino): MsgClaimDelegatorReward {
-    return {
-      sender: object.sender,
-      denomsToClaim: Array.isArray(object?.denoms_to_claim) ? object.denoms_to_claim.map((e: any) => Selection.fromAmino(e)) : []
-    };
+    const message = createBaseMsgClaimDelegatorReward();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    message.denomsToClaim = object.denoms_to_claim?.map(e => Selection.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgClaimDelegatorReward): MsgClaimDelegatorRewardAmino {
     const obj: any = {};
@@ -582,7 +596,8 @@ export const MsgClaimDelegatorRewardResponse = {
     return message;
   },
   fromAmino(_: MsgClaimDelegatorRewardResponseAmino): MsgClaimDelegatorRewardResponse {
-    return {};
+    const message = createBaseMsgClaimDelegatorRewardResponse();
+    return message;
   },
   toAmino(_: MsgClaimDelegatorRewardResponse): MsgClaimDelegatorRewardResponseAmino {
     const obj: any = {};
@@ -634,10 +649,12 @@ export const MsgClaimSwapReward = {
     return message;
   },
   fromAmino(object: MsgClaimSwapRewardAmino): MsgClaimSwapReward {
-    return {
-      sender: object.sender,
-      denomsToClaim: Array.isArray(object?.denoms_to_claim) ? object.denoms_to_claim.map((e: any) => Selection.fromAmino(e)) : []
-    };
+    const message = createBaseMsgClaimSwapReward();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    message.denomsToClaim = object.denoms_to_claim?.map(e => Selection.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgClaimSwapReward): MsgClaimSwapRewardAmino {
     const obj: any = {};
@@ -681,7 +698,8 @@ export const MsgClaimSwapRewardResponse = {
     return message;
   },
   fromAmino(_: MsgClaimSwapRewardResponseAmino): MsgClaimSwapRewardResponse {
-    return {};
+    const message = createBaseMsgClaimSwapRewardResponse();
+    return message;
   },
   toAmino(_: MsgClaimSwapRewardResponse): MsgClaimSwapRewardResponseAmino {
     const obj: any = {};
@@ -733,10 +751,12 @@ export const MsgClaimSavingsReward = {
     return message;
   },
   fromAmino(object: MsgClaimSavingsRewardAmino): MsgClaimSavingsReward {
-    return {
-      sender: object.sender,
-      denomsToClaim: Array.isArray(object?.denoms_to_claim) ? object.denoms_to_claim.map((e: any) => Selection.fromAmino(e)) : []
-    };
+    const message = createBaseMsgClaimSavingsReward();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    message.denomsToClaim = object.denoms_to_claim?.map(e => Selection.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgClaimSavingsReward): MsgClaimSavingsRewardAmino {
     const obj: any = {};
@@ -780,7 +800,8 @@ export const MsgClaimSavingsRewardResponse = {
     return message;
   },
   fromAmino(_: MsgClaimSavingsRewardResponseAmino): MsgClaimSavingsRewardResponse {
-    return {};
+    const message = createBaseMsgClaimSavingsRewardResponse();
+    return message;
   },
   toAmino(_: MsgClaimSavingsRewardResponse): MsgClaimSavingsRewardResponseAmino {
     const obj: any = {};
@@ -832,10 +853,12 @@ export const MsgClaimEarnReward = {
     return message;
   },
   fromAmino(object: MsgClaimEarnRewardAmino): MsgClaimEarnReward {
-    return {
-      sender: object.sender,
-      denomsToClaim: Array.isArray(object?.denoms_to_claim) ? object.denoms_to_claim.map((e: any) => Selection.fromAmino(e)) : []
-    };
+    const message = createBaseMsgClaimEarnReward();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    message.denomsToClaim = object.denoms_to_claim?.map(e => Selection.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgClaimEarnReward): MsgClaimEarnRewardAmino {
     const obj: any = {};
@@ -879,7 +902,8 @@ export const MsgClaimEarnRewardResponse = {
     return message;
   },
   fromAmino(_: MsgClaimEarnRewardResponseAmino): MsgClaimEarnRewardResponse {
-    return {};
+    const message = createBaseMsgClaimEarnRewardResponse();
+    return message;
   },
   toAmino(_: MsgClaimEarnRewardResponse): MsgClaimEarnRewardResponseAmino {
     const obj: any = {};

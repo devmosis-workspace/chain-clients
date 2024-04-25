@@ -3,7 +3,7 @@ import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** GenesisState defines the pricefeed module's genesis state. */
 export interface GenesisState {
-  /** params defines all the paramaters of the module. */
+  /** params defines all the parameters of the module. */
   params: Params;
   postedPrices: PostedPrice[];
 }
@@ -13,9 +13,9 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the pricefeed module's genesis state. */
 export interface GenesisStateAmino {
-  /** params defines all the paramaters of the module. */
+  /** params defines all the parameters of the module. */
   params?: ParamsAmino;
-  posted_prices: PostedPriceAmino[];
+  posted_prices?: PostedPriceAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/kava.pricefeed.v1beta1.GenesisState";
@@ -56,10 +56,12 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      postedPrices: Array.isArray(object?.posted_prices) ? object.posted_prices.map((e: any) => PostedPrice.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.postedPrices = object.posted_prices?.map(e => PostedPrice.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

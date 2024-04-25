@@ -64,7 +64,7 @@ export interface QueryParamsResponseSDKType {
 export interface QueryDepositsRequest {
     denom: string;
     owner: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDepositsRequestProtoMsg {
     typeUrl: "/kava.savings.v1beta1.QueryDepositsRequest";
@@ -75,8 +75,8 @@ export interface QueryDepositsRequestProtoMsg {
  * deposits.
  */
 export interface QueryDepositsRequestAmino {
-    denom: string;
-    owner: string;
+    denom?: string;
+    owner?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryDepositsRequestAminoMsg {
@@ -90,7 +90,7 @@ export interface QueryDepositsRequestAminoMsg {
 export interface QueryDepositsRequestSDKType {
     denom: string;
     owner: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryDepositsResponse defines the response type for querying x/savings
@@ -98,7 +98,7 @@ export interface QueryDepositsRequestSDKType {
  */
 export interface QueryDepositsResponse {
     deposits: Deposit[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDepositsResponseProtoMsg {
     typeUrl: "/kava.savings.v1beta1.QueryDepositsResponse";
@@ -109,7 +109,7 @@ export interface QueryDepositsResponseProtoMsg {
  * deposits.
  */
 export interface QueryDepositsResponseAmino {
-    deposits: DepositAmino[];
+    deposits?: DepositAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryDepositsResponseAminoMsg {
@@ -122,7 +122,7 @@ export interface QueryDepositsResponseAminoMsg {
  */
 export interface QueryDepositsResponseSDKType {
     deposits: DepositSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryTotalSupplyRequest defines the request type for Query/TotalSupply method. */
 export interface QueryTotalSupplyRequest {
@@ -155,9 +155,9 @@ export interface QueryTotalSupplyResponseProtoMsg {
 /** TotalSupplyResponse defines the response type for the Query/TotalSupply method. */
 export interface QueryTotalSupplyResponseAmino {
     /** Height is the block height at which these totals apply */
-    height: string;
+    height?: string;
     /** Result is a list of coins supplied to savings */
-    result: CoinAmino[];
+    result?: CoinAmino[];
 }
 export interface QueryTotalSupplyResponseAminoMsg {
     type: "/kava.savings.v1beta1.QueryTotalSupplyResponse";

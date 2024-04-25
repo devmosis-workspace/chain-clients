@@ -66,7 +66,7 @@ export interface QueryAccountsResponseProtoMsg {
 }
 /** QueryAccountsResponse is the response type for the Query/Accounts RPC method. */
 export interface QueryAccountsResponseAmino {
-    accounts: ModuleAccountAmino[];
+    accounts?: ModuleAccountAmino[];
 }
 export interface QueryAccountsResponseAminoMsg {
     type: "/kava.hard.v1beta1.QueryAccountsResponse";
@@ -80,7 +80,7 @@ export interface QueryAccountsResponseSDKType {
 export interface QueryDepositsRequest {
     denom: string;
     owner: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDepositsRequestProtoMsg {
     typeUrl: "/kava.hard.v1beta1.QueryDepositsRequest";
@@ -88,8 +88,8 @@ export interface QueryDepositsRequestProtoMsg {
 }
 /** QueryDepositsRequest is the request type for the Query/Deposits RPC method. */
 export interface QueryDepositsRequestAmino {
-    denom: string;
-    owner: string;
+    denom?: string;
+    owner?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryDepositsRequestAminoMsg {
@@ -100,12 +100,12 @@ export interface QueryDepositsRequestAminoMsg {
 export interface QueryDepositsRequestSDKType {
     denom: string;
     owner: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponse {
     deposits: DepositResponse[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDepositsResponseProtoMsg {
     typeUrl: "/kava.hard.v1beta1.QueryDepositsResponse";
@@ -113,7 +113,7 @@ export interface QueryDepositsResponseProtoMsg {
 }
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseAmino {
-    deposits: DepositResponseAmino[];
+    deposits?: DepositResponseAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryDepositsResponseAminoMsg {
@@ -123,13 +123,13 @@ export interface QueryDepositsResponseAminoMsg {
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseSDKType {
     deposits: DepositResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryUnsyncedDepositsRequest is the request type for the Query/UnsyncedDeposits RPC method. */
 export interface QueryUnsyncedDepositsRequest {
     denom: string;
     owner: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryUnsyncedDepositsRequestProtoMsg {
     typeUrl: "/kava.hard.v1beta1.QueryUnsyncedDepositsRequest";
@@ -137,8 +137,8 @@ export interface QueryUnsyncedDepositsRequestProtoMsg {
 }
 /** QueryUnsyncedDepositsRequest is the request type for the Query/UnsyncedDeposits RPC method. */
 export interface QueryUnsyncedDepositsRequestAmino {
-    denom: string;
-    owner: string;
+    denom?: string;
+    owner?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryUnsyncedDepositsRequestAminoMsg {
@@ -149,12 +149,12 @@ export interface QueryUnsyncedDepositsRequestAminoMsg {
 export interface QueryUnsyncedDepositsRequestSDKType {
     denom: string;
     owner: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryUnsyncedDepositsResponse is the response type for the Query/UnsyncedDeposits RPC method. */
 export interface QueryUnsyncedDepositsResponse {
     deposits: DepositResponse[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryUnsyncedDepositsResponseProtoMsg {
     typeUrl: "/kava.hard.v1beta1.QueryUnsyncedDepositsResponse";
@@ -162,7 +162,7 @@ export interface QueryUnsyncedDepositsResponseProtoMsg {
 }
 /** QueryUnsyncedDepositsResponse is the response type for the Query/UnsyncedDeposits RPC method. */
 export interface QueryUnsyncedDepositsResponseAmino {
-    deposits: DepositResponseAmino[];
+    deposits?: DepositResponseAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryUnsyncedDepositsResponseAminoMsg {
@@ -172,7 +172,7 @@ export interface QueryUnsyncedDepositsResponseAminoMsg {
 /** QueryUnsyncedDepositsResponse is the response type for the Query/UnsyncedDeposits RPC method. */
 export interface QueryUnsyncedDepositsResponseSDKType {
     deposits: DepositResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryTotalDepositedRequest is the request type for the Query/TotalDeposited RPC method. */
 export interface QueryTotalDepositedRequest {
@@ -184,7 +184,7 @@ export interface QueryTotalDepositedRequestProtoMsg {
 }
 /** QueryTotalDepositedRequest is the request type for the Query/TotalDeposited RPC method. */
 export interface QueryTotalDepositedRequestAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryTotalDepositedRequestAminoMsg {
     type: "/kava.hard.v1beta1.QueryTotalDepositedRequest";
@@ -204,7 +204,7 @@ export interface QueryTotalDepositedResponseProtoMsg {
 }
 /** QueryTotalDepositedResponse is the response type for the Query/TotalDeposited RPC method. */
 export interface QueryTotalDepositedResponseAmino {
-    supplied_coins: CoinAmino[];
+    supplied_coins?: CoinAmino[];
 }
 export interface QueryTotalDepositedResponseAminoMsg {
     type: "/kava.hard.v1beta1.QueryTotalDepositedResponse";
@@ -218,7 +218,7 @@ export interface QueryTotalDepositedResponseSDKType {
 export interface QueryBorrowsRequest {
     denom: string;
     owner: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryBorrowsRequestProtoMsg {
     typeUrl: "/kava.hard.v1beta1.QueryBorrowsRequest";
@@ -226,8 +226,8 @@ export interface QueryBorrowsRequestProtoMsg {
 }
 /** QueryBorrowsRequest is the request type for the Query/Borrows RPC method. */
 export interface QueryBorrowsRequestAmino {
-    denom: string;
-    owner: string;
+    denom?: string;
+    owner?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryBorrowsRequestAminoMsg {
@@ -238,12 +238,12 @@ export interface QueryBorrowsRequestAminoMsg {
 export interface QueryBorrowsRequestSDKType {
     denom: string;
     owner: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryBorrowsResponse is the response type for the Query/Borrows RPC method. */
 export interface QueryBorrowsResponse {
     borrows: BorrowResponse[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryBorrowsResponseProtoMsg {
     typeUrl: "/kava.hard.v1beta1.QueryBorrowsResponse";
@@ -251,7 +251,7 @@ export interface QueryBorrowsResponseProtoMsg {
 }
 /** QueryBorrowsResponse is the response type for the Query/Borrows RPC method. */
 export interface QueryBorrowsResponseAmino {
-    borrows: BorrowResponseAmino[];
+    borrows?: BorrowResponseAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryBorrowsResponseAminoMsg {
@@ -261,13 +261,13 @@ export interface QueryBorrowsResponseAminoMsg {
 /** QueryBorrowsResponse is the response type for the Query/Borrows RPC method. */
 export interface QueryBorrowsResponseSDKType {
     borrows: BorrowResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryUnsyncedBorrowsRequest is the request type for the Query/UnsyncedBorrows RPC method. */
 export interface QueryUnsyncedBorrowsRequest {
     denom: string;
     owner: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryUnsyncedBorrowsRequestProtoMsg {
     typeUrl: "/kava.hard.v1beta1.QueryUnsyncedBorrowsRequest";
@@ -275,8 +275,8 @@ export interface QueryUnsyncedBorrowsRequestProtoMsg {
 }
 /** QueryUnsyncedBorrowsRequest is the request type for the Query/UnsyncedBorrows RPC method. */
 export interface QueryUnsyncedBorrowsRequestAmino {
-    denom: string;
-    owner: string;
+    denom?: string;
+    owner?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryUnsyncedBorrowsRequestAminoMsg {
@@ -287,12 +287,12 @@ export interface QueryUnsyncedBorrowsRequestAminoMsg {
 export interface QueryUnsyncedBorrowsRequestSDKType {
     denom: string;
     owner: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryUnsyncedBorrowsResponse is the response type for the Query/UnsyncedBorrows RPC method. */
 export interface QueryUnsyncedBorrowsResponse {
     borrows: BorrowResponse[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryUnsyncedBorrowsResponseProtoMsg {
     typeUrl: "/kava.hard.v1beta1.QueryUnsyncedBorrowsResponse";
@@ -300,7 +300,7 @@ export interface QueryUnsyncedBorrowsResponseProtoMsg {
 }
 /** QueryUnsyncedBorrowsResponse is the response type for the Query/UnsyncedBorrows RPC method. */
 export interface QueryUnsyncedBorrowsResponseAmino {
-    borrows: BorrowResponseAmino[];
+    borrows?: BorrowResponseAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryUnsyncedBorrowsResponseAminoMsg {
@@ -310,7 +310,7 @@ export interface QueryUnsyncedBorrowsResponseAminoMsg {
 /** QueryUnsyncedBorrowsResponse is the response type for the Query/UnsyncedBorrows RPC method. */
 export interface QueryUnsyncedBorrowsResponseSDKType {
     borrows: BorrowResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryTotalBorrowedRequest is the request type for the Query/TotalBorrowed RPC method. */
 export interface QueryTotalBorrowedRequest {
@@ -322,7 +322,7 @@ export interface QueryTotalBorrowedRequestProtoMsg {
 }
 /** QueryTotalBorrowedRequest is the request type for the Query/TotalBorrowed RPC method. */
 export interface QueryTotalBorrowedRequestAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryTotalBorrowedRequestAminoMsg {
     type: "/kava.hard.v1beta1.QueryTotalBorrowedRequest";
@@ -342,7 +342,7 @@ export interface QueryTotalBorrowedResponseProtoMsg {
 }
 /** QueryTotalBorrowedResponse is the response type for the Query/TotalBorrowed RPC method. */
 export interface QueryTotalBorrowedResponseAmino {
-    borrowed_coins: CoinAmino[];
+    borrowed_coins?: CoinAmino[];
 }
 export interface QueryTotalBorrowedResponseAminoMsg {
     type: "/kava.hard.v1beta1.QueryTotalBorrowedResponse";
@@ -362,7 +362,7 @@ export interface QueryInterestRateRequestProtoMsg {
 }
 /** QueryInterestRateRequest is the request type for the Query/InterestRate RPC method. */
 export interface QueryInterestRateRequestAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryInterestRateRequestAminoMsg {
     type: "/kava.hard.v1beta1.QueryInterestRateRequest";
@@ -382,7 +382,7 @@ export interface QueryInterestRateResponseProtoMsg {
 }
 /** QueryInterestRateResponse is the response type for the Query/InterestRate RPC method. */
 export interface QueryInterestRateResponseAmino {
-    interest_rates: MoneyMarketInterestRateAmino[];
+    interest_rates?: MoneyMarketInterestRateAmino[];
 }
 export interface QueryInterestRateResponseAminoMsg {
     type: "/kava.hard.v1beta1.QueryInterestRateResponse";
@@ -402,7 +402,7 @@ export interface QueryReservesRequestProtoMsg {
 }
 /** QueryReservesRequest is the request type for the Query/Reserves RPC method. */
 export interface QueryReservesRequestAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryReservesRequestAminoMsg {
     type: "/kava.hard.v1beta1.QueryReservesRequest";
@@ -422,7 +422,7 @@ export interface QueryReservesResponseProtoMsg {
 }
 /** QueryReservesResponse is the response type for the Query/Reserves RPC method. */
 export interface QueryReservesResponseAmino {
-    amount: CoinAmino[];
+    amount?: CoinAmino[];
 }
 export interface QueryReservesResponseAminoMsg {
     type: "/kava.hard.v1beta1.QueryReservesResponse";
@@ -442,7 +442,7 @@ export interface QueryInterestFactorsRequestProtoMsg {
 }
 /** QueryInterestFactorsRequest is the request type for the Query/InterestFactors RPC method. */
 export interface QueryInterestFactorsRequestAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryInterestFactorsRequestAminoMsg {
     type: "/kava.hard.v1beta1.QueryInterestFactorsRequest";
@@ -462,7 +462,7 @@ export interface QueryInterestFactorsResponseProtoMsg {
 }
 /** QueryInterestFactorsResponse is the response type for the Query/InterestFactors RPC method. */
 export interface QueryInterestFactorsResponseAmino {
-    interest_factors: InterestFactorAmino[];
+    interest_factors?: InterestFactorAmino[];
 }
 export interface QueryInterestFactorsResponseAminoMsg {
     type: "/kava.hard.v1beta1.QueryInterestFactorsResponse";
@@ -484,9 +484,9 @@ export interface DepositResponseProtoMsg {
 }
 /** DepositResponse defines an amount of coins deposited into a hard module account. */
 export interface DepositResponseAmino {
-    depositor: string;
-    amount: CoinAmino[];
-    index: SupplyInterestFactorResponseAmino[];
+    depositor?: string;
+    amount?: CoinAmino[];
+    index?: SupplyInterestFactorResponseAmino[];
 }
 export interface DepositResponseAminoMsg {
     type: "/kava.hard.v1beta1.DepositResponse";
@@ -510,9 +510,9 @@ export interface SupplyInterestFactorResponseProtoMsg {
 }
 /** SupplyInterestFactorResponse defines an individual borrow interest factor. */
 export interface SupplyInterestFactorResponseAmino {
-    denom: string;
+    denom?: string;
     /** sdk.Dec as string */
-    value: string;
+    value?: string;
 }
 export interface SupplyInterestFactorResponseAminoMsg {
     type: "/kava.hard.v1beta1.SupplyInterestFactorResponse";
@@ -535,9 +535,9 @@ export interface BorrowResponseProtoMsg {
 }
 /** BorrowResponse defines an amount of coins borrowed from a hard module account. */
 export interface BorrowResponseAmino {
-    borrower: string;
-    amount: CoinAmino[];
-    index: BorrowInterestFactorResponseAmino[];
+    borrower?: string;
+    amount?: CoinAmino[];
+    index?: BorrowInterestFactorResponseAmino[];
 }
 export interface BorrowResponseAminoMsg {
     type: "/kava.hard.v1beta1.BorrowResponse";
@@ -561,9 +561,9 @@ export interface BorrowInterestFactorResponseProtoMsg {
 }
 /** BorrowInterestFactorResponse defines an individual borrow interest factor. */
 export interface BorrowInterestFactorResponseAmino {
-    denom: string;
+    denom?: string;
     /** sdk.Dec as string */
-    value: string;
+    value?: string;
 }
 export interface BorrowInterestFactorResponseAminoMsg {
     type: "/kava.hard.v1beta1.BorrowInterestFactorResponse";
@@ -588,11 +588,11 @@ export interface MoneyMarketInterestRateProtoMsg {
 }
 /** MoneyMarketInterestRate is a unique type returned by interest rate queries */
 export interface MoneyMarketInterestRateAmino {
-    denom: string;
+    denom?: string;
     /** sdk.Dec as String */
-    supply_interest_rate: string;
+    supply_interest_rate?: string;
     /** sdk.Dec as String */
-    borrow_interest_rate: string;
+    borrow_interest_rate?: string;
 }
 export interface MoneyMarketInterestRateAminoMsg {
     type: "/kava.hard.v1beta1.MoneyMarketInterestRate";
@@ -618,11 +618,11 @@ export interface InterestFactorProtoMsg {
 }
 /** InterestFactor is a unique type returned by interest factor queries */
 export interface InterestFactorAmino {
-    denom: string;
+    denom?: string;
     /** sdk.Dec as String */
-    borrow_interest_factor: string;
+    borrow_interest_factor?: string;
     /** sdk.Dec as String */
-    supply_interest_factor: string;
+    supply_interest_factor?: string;
 }
 export interface InterestFactorAminoMsg {
     type: "/kava.hard.v1beta1.InterestFactor";

@@ -1,10 +1,11 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { VoteType, voteTypeFromJSON } from "./genesis";
 import { BaseCommittee, BaseCommitteeProtoMsg, BaseCommitteeSDKType, MemberCommittee, MemberCommitteeProtoMsg, MemberCommitteeSDKType, TokenCommittee, TokenCommitteeProtoMsg, TokenCommitteeSDKType } from "./committee";
 import { CommitteeChangeProposal, CommitteeChangeProposalProtoMsg, CommitteeChangeProposalSDKType, CommitteeDeleteProposal, CommitteeDeleteProposalProtoMsg, CommitteeDeleteProposalSDKType } from "./proposal";
 import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalSDKType, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg, CommunityPoolSpendProposalWithDepositSDKType } from "../../../cosmos/distribution/v1beta1/distribution";
+import { TextProposal, TextProposalProtoMsg, TextProposalSDKType } from "../../../cosmos/gov/v1beta1/gov";
 import { ParameterChangeProposal, ParameterChangeProposalProtoMsg, ParameterChangeProposalSDKType } from "../../../cosmos/params/v1beta1/params";
 import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, SoftwareUpgradeProposalSDKType, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposalSDKType } from "../../../cosmos/upgrade/v1beta1/upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -37,7 +38,7 @@ export type QueryCommitteesResponseEncoded = Omit<QueryCommitteesResponse, "comm
 };
 /** QueryCommitteesResponse defines the response type for querying x/committee committees. */
 export interface QueryCommitteesResponseAmino {
-  committees: AnyAmino[];
+  committees?: AnyAmino[];
 }
 export interface QueryCommitteesResponseAminoMsg {
   type: "/kava.committee.v1beta1.QueryCommitteesResponse";
@@ -57,7 +58,7 @@ export interface QueryCommitteeRequestProtoMsg {
 }
 /** QueryCommitteeRequest defines the request type for querying x/committee committee. */
 export interface QueryCommitteeRequestAmino {
-  committee_id: string;
+  committee_id?: string;
 }
 export interface QueryCommitteeRequestAminoMsg {
   type: "/kava.committee.v1beta1.QueryCommitteeRequest";
@@ -69,7 +70,7 @@ export interface QueryCommitteeRequestSDKType {
 }
 /** QueryCommitteeResponse defines the response type for querying x/committee committee. */
 export interface QueryCommitteeResponse {
-  committee: (BaseCommittee & MemberCommittee & TokenCommittee & Any) | undefined;
+  committee?: (BaseCommittee & MemberCommittee & TokenCommittee & Any) | undefined;
 }
 export interface QueryCommitteeResponseProtoMsg {
   typeUrl: "/kava.committee.v1beta1.QueryCommitteeResponse";
@@ -88,7 +89,7 @@ export interface QueryCommitteeResponseAminoMsg {
 }
 /** QueryCommitteeResponse defines the response type for querying x/committee committee. */
 export interface QueryCommitteeResponseSDKType {
-  committee: BaseCommitteeSDKType | MemberCommitteeSDKType | TokenCommitteeSDKType | AnySDKType | undefined;
+  committee?: BaseCommitteeSDKType | MemberCommitteeSDKType | TokenCommitteeSDKType | AnySDKType | undefined;
 }
 /** QueryProposalsRequest defines the request type for querying x/committee proposals. */
 export interface QueryProposalsRequest {
@@ -100,7 +101,7 @@ export interface QueryProposalsRequestProtoMsg {
 }
 /** QueryProposalsRequest defines the request type for querying x/committee proposals. */
 export interface QueryProposalsRequestAmino {
-  committee_id: string;
+  committee_id?: string;
 }
 export interface QueryProposalsRequestAminoMsg {
   type: "/kava.committee.v1beta1.QueryProposalsRequest";
@@ -120,7 +121,7 @@ export interface QueryProposalsResponseProtoMsg {
 }
 /** QueryProposalsResponse defines the response type for querying x/committee proposals. */
 export interface QueryProposalsResponseAmino {
-  proposals: QueryProposalResponseAmino[];
+  proposals?: QueryProposalResponseAmino[];
 }
 export interface QueryProposalsResponseAminoMsg {
   type: "/kava.committee.v1beta1.QueryProposalsResponse";
@@ -140,7 +141,7 @@ export interface QueryProposalRequestProtoMsg {
 }
 /** QueryProposalRequest defines the request type for querying x/committee proposal. */
 export interface QueryProposalRequestAmino {
-  proposal_id: string;
+  proposal_id?: string;
 }
 export interface QueryProposalRequestAminoMsg {
   type: "/kava.committee.v1beta1.QueryProposalRequest";
@@ -152,7 +153,7 @@ export interface QueryProposalRequestSDKType {
 }
 /** QueryProposalResponse defines the response type for querying x/committee proposal. */
 export interface QueryProposalResponse {
-  pubProposal: (CommitteeChangeProposal & CommitteeDeleteProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
+  pubProposal?: (CommitteeChangeProposal & CommitteeDeleteProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & TextProposal & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
   id: bigint;
   committeeId: bigint;
   deadline: Timestamp;
@@ -162,14 +163,14 @@ export interface QueryProposalResponseProtoMsg {
   value: Uint8Array;
 }
 export type QueryProposalResponseEncoded = Omit<QueryProposalResponse, "pubProposal"> & {
-  pubProposal?: CommitteeChangeProposalProtoMsg | CommitteeDeleteProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
+  pubProposal?: CommitteeChangeProposalProtoMsg | CommitteeDeleteProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /** QueryProposalResponse defines the response type for querying x/committee proposal. */
 export interface QueryProposalResponseAmino {
   pub_proposal?: AnyAmino;
-  id: string;
-  committee_id: string;
-  deadline?: TimestampAmino;
+  id?: string;
+  committee_id?: string;
+  deadline?: string;
 }
 export interface QueryProposalResponseAminoMsg {
   type: "/kava.committee.v1beta1.QueryProposalResponse";
@@ -177,7 +178,7 @@ export interface QueryProposalResponseAminoMsg {
 }
 /** QueryProposalResponse defines the response type for querying x/committee proposal. */
 export interface QueryProposalResponseSDKType {
-  pub_proposal: CommitteeChangeProposalSDKType | CommitteeDeleteProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
+  pub_proposal?: CommitteeChangeProposalSDKType | CommitteeDeleteProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | TextProposalSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
   id: bigint;
   committee_id: bigint;
   deadline: TimestampSDKType;
@@ -206,7 +207,7 @@ export interface QueryNextProposalIDResponseProtoMsg {
 }
 /** QueryNextProposalIDRequest defines the response type for querying x/committee NextProposalID. */
 export interface QueryNextProposalIDResponseAmino {
-  next_proposal_id: string;
+  next_proposal_id?: string;
 }
 export interface QueryNextProposalIDResponseAminoMsg {
   type: "/kava.committee.v1beta1.QueryNextProposalIDResponse";
@@ -219,7 +220,7 @@ export interface QueryNextProposalIDResponseSDKType {
 /** QueryVotesRequest defines the request type for querying x/committee votes. */
 export interface QueryVotesRequest {
   proposalId: bigint;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryVotesRequestProtoMsg {
   typeUrl: "/kava.committee.v1beta1.QueryVotesRequest";
@@ -227,7 +228,7 @@ export interface QueryVotesRequestProtoMsg {
 }
 /** QueryVotesRequest defines the request type for querying x/committee votes. */
 export interface QueryVotesRequestAmino {
-  proposal_id: string;
+  proposal_id?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryVotesRequestAminoMsg {
@@ -237,14 +238,14 @@ export interface QueryVotesRequestAminoMsg {
 /** QueryVotesRequest defines the request type for querying x/committee votes. */
 export interface QueryVotesRequestSDKType {
   proposal_id: bigint;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryVotesResponse defines the response type for querying x/committee votes. */
 export interface QueryVotesResponse {
   /** votes defined the queried votes. */
   votes: QueryVoteResponse[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryVotesResponseProtoMsg {
   typeUrl: "/kava.committee.v1beta1.QueryVotesResponse";
@@ -253,7 +254,7 @@ export interface QueryVotesResponseProtoMsg {
 /** QueryVotesResponse defines the response type for querying x/committee votes. */
 export interface QueryVotesResponseAmino {
   /** votes defined the queried votes. */
-  votes: QueryVoteResponseAmino[];
+  votes?: QueryVoteResponseAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -264,7 +265,7 @@ export interface QueryVotesResponseAminoMsg {
 /** QueryVotesResponse defines the response type for querying x/committee votes. */
 export interface QueryVotesResponseSDKType {
   votes: QueryVoteResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryVoteRequest defines the request type for querying x/committee vote. */
 export interface QueryVoteRequest {
@@ -277,8 +278,8 @@ export interface QueryVoteRequestProtoMsg {
 }
 /** QueryVoteRequest defines the request type for querying x/committee vote. */
 export interface QueryVoteRequestAmino {
-  proposal_id: string;
-  voter: string;
+  proposal_id?: string;
+  voter?: string;
 }
 export interface QueryVoteRequestAminoMsg {
   type: "/kava.committee.v1beta1.QueryVoteRequest";
@@ -301,9 +302,9 @@ export interface QueryVoteResponseProtoMsg {
 }
 /** QueryVoteResponse defines the response type for querying x/committee vote. */
 export interface QueryVoteResponseAmino {
-  proposal_id: string;
-  voter: string;
-  vote_type: VoteType;
+  proposal_id?: string;
+  voter?: string;
+  vote_type?: VoteType;
 }
 export interface QueryVoteResponseAminoMsg {
   type: "/kava.committee.v1beta1.QueryVoteResponse";
@@ -325,7 +326,7 @@ export interface QueryTallyRequestProtoMsg {
 }
 /** QueryTallyRequest defines the request type for querying x/committee tally. */
 export interface QueryTallyRequestAmino {
-  proposal_id: string;
+  proposal_id?: string;
 }
 export interface QueryTallyRequestAminoMsg {
   type: "/kava.committee.v1beta1.QueryTallyRequest";
@@ -351,13 +352,13 @@ export interface QueryTallyResponseProtoMsg {
 }
 /** QueryTallyResponse defines the response type for querying x/committee tally. */
 export interface QueryTallyResponseAmino {
-  proposal_id: string;
-  yes_votes: string;
-  no_votes: string;
-  current_votes: string;
-  possible_votes: string;
-  vote_threshold: string;
-  quorum: string;
+  proposal_id?: string;
+  yes_votes?: string;
+  no_votes?: string;
+  current_votes?: string;
+  possible_votes?: string;
+  vote_threshold?: string;
+  quorum?: string;
 }
 export interface QueryTallyResponseAminoMsg {
   type: "/kava.committee.v1beta1.QueryTallyResponse";
@@ -384,8 +385,8 @@ export interface QueryRawParamsRequestProtoMsg {
 }
 /** QueryRawParamsRequest defines the request type for querying x/committee raw params. */
 export interface QueryRawParamsRequestAmino {
-  subspace: string;
-  key: string;
+  subspace?: string;
+  key?: string;
 }
 export interface QueryRawParamsRequestAminoMsg {
   type: "/kava.committee.v1beta1.QueryRawParamsRequest";
@@ -406,7 +407,7 @@ export interface QueryRawParamsResponseProtoMsg {
 }
 /** QueryRawParamsResponse defines the response type for querying x/committee raw params. */
 export interface QueryRawParamsResponseAmino {
-  raw_data: string;
+  raw_data?: string;
 }
 export interface QueryRawParamsResponseAminoMsg {
   type: "/kava.committee.v1beta1.QueryRawParamsResponse";
@@ -432,7 +433,8 @@ export const QueryCommitteesRequest = {
     return message;
   },
   fromAmino(_: QueryCommitteesRequestAmino): QueryCommitteesRequest {
-    return {};
+    const message = createBaseQueryCommitteesRequest();
+    return message;
   },
   toAmino(_: QueryCommitteesRequest): QueryCommitteesRequestAmino {
     const obj: any = {};
@@ -478,9 +480,9 @@ export const QueryCommitteesResponse = {
     return message;
   },
   fromAmino(object: QueryCommitteesResponseAmino): QueryCommitteesResponse {
-    return {
-      committees: Array.isArray(object?.committees) ? object.committees.map((e: any) => Committee_FromAmino(e)) : []
-    };
+    const message = createBaseQueryCommitteesResponse();
+    message.committees = object.committees?.map(e => Committee_FromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryCommitteesResponse): QueryCommitteesResponseAmino {
     const obj: any = {};
@@ -531,9 +533,11 @@ export const QueryCommitteeRequest = {
     return message;
   },
   fromAmino(object: QueryCommitteeRequestAmino): QueryCommitteeRequest {
-    return {
-      committeeId: BigInt(object.committee_id)
-    };
+    const message = createBaseQueryCommitteeRequest();
+    if (object.committee_id !== undefined && object.committee_id !== null) {
+      message.committeeId = BigInt(object.committee_id);
+    }
+    return message;
   },
   toAmino(message: QueryCommitteeRequest): QueryCommitteeRequestAmino {
     const obj: any = {};
@@ -558,7 +562,7 @@ export const QueryCommitteeRequest = {
 };
 function createBaseQueryCommitteeResponse(): QueryCommitteeResponse {
   return {
-    committee: Any.fromPartial({})
+    committee: undefined
   };
 }
 export const QueryCommitteeResponse = {
@@ -580,9 +584,11 @@ export const QueryCommitteeResponse = {
     return message;
   },
   fromAmino(object: QueryCommitteeResponseAmino): QueryCommitteeResponse {
-    return {
-      committee: object?.committee ? Committee_FromAmino(object.committee) : undefined
-    };
+    const message = createBaseQueryCommitteeResponse();
+    if (object.committee !== undefined && object.committee !== null) {
+      message.committee = Committee_FromAmino(object.committee);
+    }
+    return message;
   },
   toAmino(message: QueryCommitteeResponse): QueryCommitteeResponseAmino {
     const obj: any = {};
@@ -629,9 +635,11 @@ export const QueryProposalsRequest = {
     return message;
   },
   fromAmino(object: QueryProposalsRequestAmino): QueryProposalsRequest {
-    return {
-      committeeId: BigInt(object.committee_id)
-    };
+    const message = createBaseQueryProposalsRequest();
+    if (object.committee_id !== undefined && object.committee_id !== null) {
+      message.committeeId = BigInt(object.committee_id);
+    }
+    return message;
   },
   toAmino(message: QueryProposalsRequest): QueryProposalsRequestAmino {
     const obj: any = {};
@@ -678,9 +686,9 @@ export const QueryProposalsResponse = {
     return message;
   },
   fromAmino(object: QueryProposalsResponseAmino): QueryProposalsResponse {
-    return {
-      proposals: Array.isArray(object?.proposals) ? object.proposals.map((e: any) => QueryProposalResponse.fromAmino(e)) : []
-    };
+    const message = createBaseQueryProposalsResponse();
+    message.proposals = object.proposals?.map(e => QueryProposalResponse.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryProposalsResponse): QueryProposalsResponseAmino {
     const obj: any = {};
@@ -731,9 +739,11 @@ export const QueryProposalRequest = {
     return message;
   },
   fromAmino(object: QueryProposalRequestAmino): QueryProposalRequest {
-    return {
-      proposalId: BigInt(object.proposal_id)
-    };
+    const message = createBaseQueryProposalRequest();
+    if (object.proposal_id !== undefined && object.proposal_id !== null) {
+      message.proposalId = BigInt(object.proposal_id);
+    }
+    return message;
   },
   toAmino(message: QueryProposalRequest): QueryProposalRequestAmino {
     const obj: any = {};
@@ -758,7 +768,7 @@ export const QueryProposalRequest = {
 };
 function createBaseQueryProposalResponse(): QueryProposalResponse {
   return {
-    pubProposal: Any.fromPartial({}),
+    pubProposal: undefined,
     id: BigInt(0),
     committeeId: BigInt(0),
     deadline: Timestamp.fromPartial({})
@@ -798,19 +808,27 @@ export const QueryProposalResponse = {
     return message;
   },
   fromAmino(object: QueryProposalResponseAmino): QueryProposalResponse {
-    return {
-      pubProposal: object?.pub_proposal ? Cosmos_govv1beta1Content_FromAmino(object.pub_proposal) : undefined,
-      id: BigInt(object.id),
-      committeeId: BigInt(object.committee_id),
-      deadline: object.deadline
-    };
+    const message = createBaseQueryProposalResponse();
+    if (object.pub_proposal !== undefined && object.pub_proposal !== null) {
+      message.pubProposal = Cosmos_govv1beta1Content_FromAmino(object.pub_proposal);
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.committee_id !== undefined && object.committee_id !== null) {
+      message.committeeId = BigInt(object.committee_id);
+    }
+    if (object.deadline !== undefined && object.deadline !== null) {
+      message.deadline = Timestamp.fromAmino(object.deadline);
+    }
+    return message;
   },
   toAmino(message: QueryProposalResponse): QueryProposalResponseAmino {
     const obj: any = {};
     obj.pub_proposal = message.pubProposal ? Cosmos_govv1beta1Content_ToAmino((message.pubProposal as Any)) : undefined;
     obj.id = message.id ? message.id.toString() : undefined;
     obj.committee_id = message.committeeId ? message.committeeId.toString() : undefined;
-    obj.deadline = message.deadline;
+    obj.deadline = message.deadline ? Timestamp.toAmino(message.deadline) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryProposalResponseAminoMsg): QueryProposalResponse {
@@ -845,7 +863,8 @@ export const QueryNextProposalIDRequest = {
     return message;
   },
   fromAmino(_: QueryNextProposalIDRequestAmino): QueryNextProposalIDRequest {
-    return {};
+    const message = createBaseQueryNextProposalIDRequest();
+    return message;
   },
   toAmino(_: QueryNextProposalIDRequest): QueryNextProposalIDRequestAmino {
     const obj: any = {};
@@ -891,9 +910,11 @@ export const QueryNextProposalIDResponse = {
     return message;
   },
   fromAmino(object: QueryNextProposalIDResponseAmino): QueryNextProposalIDResponse {
-    return {
-      nextProposalId: BigInt(object.next_proposal_id)
-    };
+    const message = createBaseQueryNextProposalIDResponse();
+    if (object.next_proposal_id !== undefined && object.next_proposal_id !== null) {
+      message.nextProposalId = BigInt(object.next_proposal_id);
+    }
+    return message;
   },
   toAmino(message: QueryNextProposalIDResponse): QueryNextProposalIDResponseAmino {
     const obj: any = {};
@@ -919,7 +940,7 @@ export const QueryNextProposalIDResponse = {
 function createBaseQueryVotesRequest(): QueryVotesRequest {
   return {
     proposalId: BigInt(0),
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryVotesRequest = {
@@ -946,10 +967,14 @@ export const QueryVotesRequest = {
     return message;
   },
   fromAmino(object: QueryVotesRequestAmino): QueryVotesRequest {
-    return {
-      proposalId: BigInt(object.proposal_id),
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryVotesRequest();
+    if (object.proposal_id !== undefined && object.proposal_id !== null) {
+      message.proposalId = BigInt(object.proposal_id);
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryVotesRequest): QueryVotesRequestAmino {
     const obj: any = {};
@@ -976,7 +1001,7 @@ export const QueryVotesRequest = {
 function createBaseQueryVotesResponse(): QueryVotesResponse {
   return {
     votes: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryVotesResponse = {
@@ -1003,10 +1028,12 @@ export const QueryVotesResponse = {
     return message;
   },
   fromAmino(object: QueryVotesResponseAmino): QueryVotesResponse {
-    return {
-      votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => QueryVoteResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryVotesResponse();
+    message.votes = object.votes?.map(e => QueryVoteResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryVotesResponse): QueryVotesResponseAmino {
     const obj: any = {};
@@ -1064,10 +1091,14 @@ export const QueryVoteRequest = {
     return message;
   },
   fromAmino(object: QueryVoteRequestAmino): QueryVoteRequest {
-    return {
-      proposalId: BigInt(object.proposal_id),
-      voter: object.voter
-    };
+    const message = createBaseQueryVoteRequest();
+    if (object.proposal_id !== undefined && object.proposal_id !== null) {
+      message.proposalId = BigInt(object.proposal_id);
+    }
+    if (object.voter !== undefined && object.voter !== null) {
+      message.voter = object.voter;
+    }
+    return message;
   },
   toAmino(message: QueryVoteRequest): QueryVoteRequestAmino {
     const obj: any = {};
@@ -1127,11 +1158,17 @@ export const QueryVoteResponse = {
     return message;
   },
   fromAmino(object: QueryVoteResponseAmino): QueryVoteResponse {
-    return {
-      proposalId: BigInt(object.proposal_id),
-      voter: object.voter,
-      voteType: isSet(object.vote_type) ? voteTypeFromJSON(object.vote_type) : -1
-    };
+    const message = createBaseQueryVoteResponse();
+    if (object.proposal_id !== undefined && object.proposal_id !== null) {
+      message.proposalId = BigInt(object.proposal_id);
+    }
+    if (object.voter !== undefined && object.voter !== null) {
+      message.voter = object.voter;
+    }
+    if (object.vote_type !== undefined && object.vote_type !== null) {
+      message.voteType = voteTypeFromJSON(object.vote_type);
+    }
+    return message;
   },
   toAmino(message: QueryVoteResponse): QueryVoteResponseAmino {
     const obj: any = {};
@@ -1180,9 +1217,11 @@ export const QueryTallyRequest = {
     return message;
   },
   fromAmino(object: QueryTallyRequestAmino): QueryTallyRequest {
-    return {
-      proposalId: BigInt(object.proposal_id)
-    };
+    const message = createBaseQueryTallyRequest();
+    if (object.proposal_id !== undefined && object.proposal_id !== null) {
+      message.proposalId = BigInt(object.proposal_id);
+    }
+    return message;
   },
   toAmino(message: QueryTallyRequest): QueryTallyRequestAmino {
     const obj: any = {};
@@ -1265,15 +1304,29 @@ export const QueryTallyResponse = {
     return message;
   },
   fromAmino(object: QueryTallyResponseAmino): QueryTallyResponse {
-    return {
-      proposalId: BigInt(object.proposal_id),
-      yesVotes: object.yes_votes,
-      noVotes: object.no_votes,
-      currentVotes: object.current_votes,
-      possibleVotes: object.possible_votes,
-      voteThreshold: object.vote_threshold,
-      quorum: object.quorum
-    };
+    const message = createBaseQueryTallyResponse();
+    if (object.proposal_id !== undefined && object.proposal_id !== null) {
+      message.proposalId = BigInt(object.proposal_id);
+    }
+    if (object.yes_votes !== undefined && object.yes_votes !== null) {
+      message.yesVotes = object.yes_votes;
+    }
+    if (object.no_votes !== undefined && object.no_votes !== null) {
+      message.noVotes = object.no_votes;
+    }
+    if (object.current_votes !== undefined && object.current_votes !== null) {
+      message.currentVotes = object.current_votes;
+    }
+    if (object.possible_votes !== undefined && object.possible_votes !== null) {
+      message.possibleVotes = object.possible_votes;
+    }
+    if (object.vote_threshold !== undefined && object.vote_threshold !== null) {
+      message.voteThreshold = object.vote_threshold;
+    }
+    if (object.quorum !== undefined && object.quorum !== null) {
+      message.quorum = object.quorum;
+    }
+    return message;
   },
   toAmino(message: QueryTallyResponse): QueryTallyResponseAmino {
     const obj: any = {};
@@ -1332,10 +1385,14 @@ export const QueryRawParamsRequest = {
     return message;
   },
   fromAmino(object: QueryRawParamsRequestAmino): QueryRawParamsRequest {
-    return {
-      subspace: object.subspace,
-      key: object.key
-    };
+    const message = createBaseQueryRawParamsRequest();
+    if (object.subspace !== undefined && object.subspace !== null) {
+      message.subspace = object.subspace;
+    }
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    return message;
   },
   toAmino(message: QueryRawParamsRequest): QueryRawParamsRequestAmino {
     const obj: any = {};
@@ -1383,9 +1440,11 @@ export const QueryRawParamsResponse = {
     return message;
   },
   fromAmino(object: QueryRawParamsResponseAmino): QueryRawParamsResponse {
-    return {
-      rawData: object.raw_data
-    };
+    const message = createBaseQueryRawParamsResponse();
+    if (object.raw_data !== undefined && object.raw_data !== null) {
+      message.rawData = object.raw_data;
+    }
+    return message;
   },
   toAmino(message: QueryRawParamsResponse): QueryRawParamsResponseAmino {
     const obj: any = {};
@@ -1448,23 +1507,23 @@ export const Committee_ToAmino = (content: Any) => {
     case "/kava.committee.v1beta1.BaseCommittee":
       return {
         type: "/kava.committee.v1beta1.BaseCommittee",
-        value: BaseCommittee.toAmino(BaseCommittee.decode(content.value))
+        value: BaseCommittee.toAmino(BaseCommittee.decode(content.value, undefined))
       };
     case "/kava.committee.v1beta1.MemberCommittee":
       return {
         type: "/kava.committee.v1beta1.MemberCommittee",
-        value: MemberCommittee.toAmino(MemberCommittee.decode(content.value))
+        value: MemberCommittee.toAmino(MemberCommittee.decode(content.value, undefined))
       };
     case "/kava.committee.v1beta1.TokenCommittee":
       return {
         type: "/kava.committee.v1beta1.TokenCommittee",
-        value: TokenCommittee.toAmino(TokenCommittee.decode(content.value))
+        value: TokenCommittee.toAmino(TokenCommittee.decode(content.value, undefined))
       };
     default:
       return Any.toAmino(content);
   }
 };
-export const Cosmos_govv1beta1Content_InterfaceDecoder = (input: BinaryReader | Uint8Array): CommitteeChangeProposal | CommitteeDeleteProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any => {
+export const Cosmos_govv1beta1Content_InterfaceDecoder = (input: BinaryReader | Uint8Array): CommitteeChangeProposal | CommitteeDeleteProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any => {
   const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
   const data = Any.decode(reader, reader.uint32());
   switch (data.typeUrl) {
@@ -1476,6 +1535,8 @@ export const Cosmos_govv1beta1Content_InterfaceDecoder = (input: BinaryReader | 
       return CommunityPoolSpendProposal.decode(data.value);
     case "/cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit":
       return CommunityPoolSpendProposalWithDeposit.decode(data.value);
+    case "/cosmos.gov.v1beta1.TextProposal":
+      return TextProposal.decode(data.value);
     case "/cosmos.params.v1beta1.ParameterChangeProposal":
       return ParameterChangeProposal.decode(data.value);
     case "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal":
@@ -1508,6 +1569,11 @@ export const Cosmos_govv1beta1Content_FromAmino = (content: AnyAmino) => {
         typeUrl: "/cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit",
         value: CommunityPoolSpendProposalWithDeposit.encode(CommunityPoolSpendProposalWithDeposit.fromPartial(CommunityPoolSpendProposalWithDeposit.fromAmino(content.value))).finish()
       });
+    case "cosmos-sdk/TextProposal":
+      return Any.fromPartial({
+        typeUrl: "/cosmos.gov.v1beta1.TextProposal",
+        value: TextProposal.encode(TextProposal.fromPartial(TextProposal.fromAmino(content.value))).finish()
+      });
     case "cosmos-sdk/ParameterChangeProposal":
       return Any.fromPartial({
         typeUrl: "/cosmos.params.v1beta1.ParameterChangeProposal",
@@ -1532,37 +1598,42 @@ export const Cosmos_govv1beta1Content_ToAmino = (content: Any) => {
     case "/kava.committee.v1beta1.CommitteeChangeProposal":
       return {
         type: "/kava.committee.v1beta1.CommitteeChangeProposal",
-        value: CommitteeChangeProposal.toAmino(CommitteeChangeProposal.decode(content.value))
+        value: CommitteeChangeProposal.toAmino(CommitteeChangeProposal.decode(content.value, undefined))
       };
     case "/kava.committee.v1beta1.CommitteeDeleteProposal":
       return {
         type: "/kava.committee.v1beta1.CommitteeDeleteProposal",
-        value: CommitteeDeleteProposal.toAmino(CommitteeDeleteProposal.decode(content.value))
+        value: CommitteeDeleteProposal.toAmino(CommitteeDeleteProposal.decode(content.value, undefined))
       };
     case "/cosmos.distribution.v1beta1.CommunityPoolSpendProposal":
       return {
         type: "cosmos-sdk/CommunityPoolSpendProposal",
-        value: CommunityPoolSpendProposal.toAmino(CommunityPoolSpendProposal.decode(content.value))
+        value: CommunityPoolSpendProposal.toAmino(CommunityPoolSpendProposal.decode(content.value, undefined))
       };
     case "/cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit":
       return {
         type: "cosmos-sdk/CommunityPoolSpendProposalWithDeposit",
-        value: CommunityPoolSpendProposalWithDeposit.toAmino(CommunityPoolSpendProposalWithDeposit.decode(content.value))
+        value: CommunityPoolSpendProposalWithDeposit.toAmino(CommunityPoolSpendProposalWithDeposit.decode(content.value, undefined))
+      };
+    case "/cosmos.gov.v1beta1.TextProposal":
+      return {
+        type: "cosmos-sdk/TextProposal",
+        value: TextProposal.toAmino(TextProposal.decode(content.value, undefined))
       };
     case "/cosmos.params.v1beta1.ParameterChangeProposal":
       return {
         type: "cosmos-sdk/ParameterChangeProposal",
-        value: ParameterChangeProposal.toAmino(ParameterChangeProposal.decode(content.value))
+        value: ParameterChangeProposal.toAmino(ParameterChangeProposal.decode(content.value, undefined))
       };
     case "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal":
       return {
         type: "cosmos-sdk/SoftwareUpgradeProposal",
-        value: SoftwareUpgradeProposal.toAmino(SoftwareUpgradeProposal.decode(content.value))
+        value: SoftwareUpgradeProposal.toAmino(SoftwareUpgradeProposal.decode(content.value, undefined))
       };
     case "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal":
       return {
         type: "cosmos-sdk/CancelSoftwareUpgradeProposal",
-        value: CancelSoftwareUpgradeProposal.toAmino(CancelSoftwareUpgradeProposal.decode(content.value))
+        value: CancelSoftwareUpgradeProposal.toAmino(CancelSoftwareUpgradeProposal.decode(content.value, undefined))
       };
     default:
       return Any.toAmino(content);

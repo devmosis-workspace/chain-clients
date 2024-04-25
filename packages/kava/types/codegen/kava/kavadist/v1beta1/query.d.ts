@@ -65,7 +65,7 @@ export interface QueryBalanceResponseProtoMsg {
 }
 /** QueryBalanceResponse defines the response type for querying x/kavadist balance. */
 export interface QueryBalanceResponseAmino {
-    coins: CoinAmino[];
+    coins?: CoinAmino[];
 }
 export interface QueryBalanceResponseAminoMsg {
     type: "/kava.kavadist.v1beta1.QueryBalanceResponse";

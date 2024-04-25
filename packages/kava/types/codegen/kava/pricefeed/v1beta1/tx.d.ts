@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** MsgPostPrice represents a method for creating a new post price */
 export interface MsgPostPrice {
@@ -15,10 +15,10 @@ export interface MsgPostPriceProtoMsg {
 /** MsgPostPrice represents a method for creating a new post price */
 export interface MsgPostPriceAmino {
     /** address of client */
-    from: string;
-    market_id: string;
-    price: string;
-    expiry?: TimestampAmino;
+    from?: string;
+    market_id?: string;
+    price?: string;
+    expiry?: string;
 }
 export interface MsgPostPriceAminoMsg {
     type: "/kava.pricefeed.v1beta1.MsgPostPrice";

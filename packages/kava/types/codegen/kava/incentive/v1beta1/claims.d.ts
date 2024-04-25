@@ -2,7 +2,7 @@ import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin"
 import { BinaryWriter } from "../../../binary";
 /** BaseClaim is a claim with a single reward coin types */
 export interface BaseClaim {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.BaseClaim";
     owner: Uint8Array;
     reward: Coin;
 }
@@ -12,7 +12,7 @@ export interface BaseClaimProtoMsg {
 }
 /** BaseClaim is a claim with a single reward coin types */
 export interface BaseClaimAmino {
-    owner: Uint8Array;
+    owner?: string;
     reward?: CoinAmino;
 }
 export interface BaseClaimAminoMsg {
@@ -21,13 +21,13 @@ export interface BaseClaimAminoMsg {
 }
 /** BaseClaim is a claim with a single reward coin types */
 export interface BaseClaimSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.BaseClaim";
     owner: Uint8Array;
     reward: CoinSDKType;
 }
 /** BaseMultiClaim is a claim with multiple reward coin types */
 export interface BaseMultiClaim {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.BaseMultiClaim";
     owner: Uint8Array;
     reward: Coin[];
 }
@@ -37,8 +37,8 @@ export interface BaseMultiClaimProtoMsg {
 }
 /** BaseMultiClaim is a claim with multiple reward coin types */
 export interface BaseMultiClaimAmino {
-    owner: Uint8Array;
-    reward: CoinAmino[];
+    owner?: string;
+    reward?: CoinAmino[];
 }
 export interface BaseMultiClaimAminoMsg {
     type: "/kava.incentive.v1beta1.BaseMultiClaim";
@@ -46,7 +46,7 @@ export interface BaseMultiClaimAminoMsg {
 }
 /** BaseMultiClaim is a claim with multiple reward coin types */
 export interface BaseMultiClaimSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.BaseMultiClaim";
     owner: Uint8Array;
     reward: CoinSDKType[];
 }
@@ -61,8 +61,8 @@ export interface RewardIndexProtoMsg {
 }
 /** RewardIndex stores reward accumulation information */
 export interface RewardIndexAmino {
-    collateral_type: string;
-    reward_factor: Uint8Array;
+    collateral_type?: string;
+    reward_factor?: string;
 }
 export interface RewardIndexAminoMsg {
     type: "/kava.incentive.v1beta1.RewardIndex";
@@ -83,7 +83,7 @@ export interface RewardIndexesProtoProtoMsg {
 }
 /** RewardIndexesProto defines a Protobuf wrapper around a RewardIndexes slice */
 export interface RewardIndexesProtoAmino {
-    reward_indexes: RewardIndexAmino[];
+    reward_indexes?: RewardIndexAmino[];
 }
 export interface RewardIndexesProtoAminoMsg {
     type: "/kava.incentive.v1beta1.RewardIndexesProto";
@@ -104,8 +104,8 @@ export interface MultiRewardIndexProtoMsg {
 }
 /** MultiRewardIndex stores reward accumulation information on multiple reward types */
 export interface MultiRewardIndexAmino {
-    collateral_type: string;
-    reward_indexes: RewardIndexAmino[];
+    collateral_type?: string;
+    reward_indexes?: RewardIndexAmino[];
 }
 export interface MultiRewardIndexAminoMsg {
     type: "/kava.incentive.v1beta1.MultiRewardIndex";
@@ -126,7 +126,7 @@ export interface MultiRewardIndexesProtoProtoMsg {
 }
 /** MultiRewardIndexesProto defines a Protobuf wrapper around a MultiRewardIndexes slice */
 export interface MultiRewardIndexesProtoAmino {
-    multi_reward_indexes: MultiRewardIndexAmino[];
+    multi_reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface MultiRewardIndexesProtoAminoMsg {
     type: "/kava.incentive.v1beta1.MultiRewardIndexesProto";
@@ -138,7 +138,7 @@ export interface MultiRewardIndexesProtoSDKType {
 }
 /** USDXMintingClaim is for USDX minting rewards */
 export interface USDXMintingClaim {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.USDXMintingClaim";
     baseClaim: BaseClaim;
     rewardIndexes: RewardIndex[];
 }
@@ -149,7 +149,7 @@ export interface USDXMintingClaimProtoMsg {
 /** USDXMintingClaim is for USDX minting rewards */
 export interface USDXMintingClaimAmino {
     base_claim?: BaseClaimAmino;
-    reward_indexes: RewardIndexAmino[];
+    reward_indexes?: RewardIndexAmino[];
 }
 export interface USDXMintingClaimAminoMsg {
     type: "/kava.incentive.v1beta1.USDXMintingClaim";
@@ -157,13 +157,13 @@ export interface USDXMintingClaimAminoMsg {
 }
 /** USDXMintingClaim is for USDX minting rewards */
 export interface USDXMintingClaimSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.USDXMintingClaim";
     base_claim: BaseClaimSDKType;
     reward_indexes: RewardIndexSDKType[];
 }
 /** HardLiquidityProviderClaim stores the hard liquidity provider rewards that can be claimed by owner */
 export interface HardLiquidityProviderClaim {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.HardLiquidityProviderClaim";
     baseClaim: BaseMultiClaim;
     supplyRewardIndexes: MultiRewardIndex[];
     borrowRewardIndexes: MultiRewardIndex[];
@@ -175,8 +175,8 @@ export interface HardLiquidityProviderClaimProtoMsg {
 /** HardLiquidityProviderClaim stores the hard liquidity provider rewards that can be claimed by owner */
 export interface HardLiquidityProviderClaimAmino {
     base_claim?: BaseMultiClaimAmino;
-    supply_reward_indexes: MultiRewardIndexAmino[];
-    borrow_reward_indexes: MultiRewardIndexAmino[];
+    supply_reward_indexes?: MultiRewardIndexAmino[];
+    borrow_reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface HardLiquidityProviderClaimAminoMsg {
     type: "/kava.incentive.v1beta1.HardLiquidityProviderClaim";
@@ -184,14 +184,14 @@ export interface HardLiquidityProviderClaimAminoMsg {
 }
 /** HardLiquidityProviderClaim stores the hard liquidity provider rewards that can be claimed by owner */
 export interface HardLiquidityProviderClaimSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.HardLiquidityProviderClaim";
     base_claim: BaseMultiClaimSDKType;
     supply_reward_indexes: MultiRewardIndexSDKType[];
     borrow_reward_indexes: MultiRewardIndexSDKType[];
 }
 /** DelegatorClaim stores delegation rewards that can be claimed by owner */
 export interface DelegatorClaim {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.DelegatorClaim";
     baseClaim: BaseMultiClaim;
     rewardIndexes: MultiRewardIndex[];
 }
@@ -202,7 +202,7 @@ export interface DelegatorClaimProtoMsg {
 /** DelegatorClaim stores delegation rewards that can be claimed by owner */
 export interface DelegatorClaimAmino {
     base_claim?: BaseMultiClaimAmino;
-    reward_indexes: MultiRewardIndexAmino[];
+    reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface DelegatorClaimAminoMsg {
     type: "/kava.incentive.v1beta1.DelegatorClaim";
@@ -210,13 +210,13 @@ export interface DelegatorClaimAminoMsg {
 }
 /** DelegatorClaim stores delegation rewards that can be claimed by owner */
 export interface DelegatorClaimSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.DelegatorClaim";
     base_claim: BaseMultiClaimSDKType;
     reward_indexes: MultiRewardIndexSDKType[];
 }
 /** SwapClaim stores the swap rewards that can be claimed by owner */
 export interface SwapClaim {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.SwapClaim";
     baseClaim: BaseMultiClaim;
     rewardIndexes: MultiRewardIndex[];
 }
@@ -227,7 +227,7 @@ export interface SwapClaimProtoMsg {
 /** SwapClaim stores the swap rewards that can be claimed by owner */
 export interface SwapClaimAmino {
     base_claim?: BaseMultiClaimAmino;
-    reward_indexes: MultiRewardIndexAmino[];
+    reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface SwapClaimAminoMsg {
     type: "/kava.incentive.v1beta1.SwapClaim";
@@ -235,13 +235,13 @@ export interface SwapClaimAminoMsg {
 }
 /** SwapClaim stores the swap rewards that can be claimed by owner */
 export interface SwapClaimSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.SwapClaim";
     base_claim: BaseMultiClaimSDKType;
     reward_indexes: MultiRewardIndexSDKType[];
 }
 /** SavingsClaim stores the savings rewards that can be claimed by owner */
 export interface SavingsClaim {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.SavingsClaim";
     baseClaim: BaseMultiClaim;
     rewardIndexes: MultiRewardIndex[];
 }
@@ -252,7 +252,7 @@ export interface SavingsClaimProtoMsg {
 /** SavingsClaim stores the savings rewards that can be claimed by owner */
 export interface SavingsClaimAmino {
     base_claim?: BaseMultiClaimAmino;
-    reward_indexes: MultiRewardIndexAmino[];
+    reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface SavingsClaimAminoMsg {
     type: "/kava.incentive.v1beta1.SavingsClaim";
@@ -260,13 +260,13 @@ export interface SavingsClaimAminoMsg {
 }
 /** SavingsClaim stores the savings rewards that can be claimed by owner */
 export interface SavingsClaimSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.SavingsClaim";
     base_claim: BaseMultiClaimSDKType;
     reward_indexes: MultiRewardIndexSDKType[];
 }
 /** EarnClaim stores the earn rewards that can be claimed by owner */
 export interface EarnClaim {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.EarnClaim";
     baseClaim: BaseMultiClaim;
     rewardIndexes: MultiRewardIndex[];
 }
@@ -277,7 +277,7 @@ export interface EarnClaimProtoMsg {
 /** EarnClaim stores the earn rewards that can be claimed by owner */
 export interface EarnClaimAmino {
     base_claim?: BaseMultiClaimAmino;
-    reward_indexes: MultiRewardIndexAmino[];
+    reward_indexes?: MultiRewardIndexAmino[];
 }
 export interface EarnClaimAminoMsg {
     type: "/kava.incentive.v1beta1.EarnClaim";
@@ -285,7 +285,7 @@ export interface EarnClaimAminoMsg {
 }
 /** EarnClaim stores the earn rewards that can be claimed by owner */
 export interface EarnClaimSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.incentive.v1beta1.EarnClaim";
     base_claim: BaseMultiClaimSDKType;
     reward_indexes: MultiRewardIndexSDKType[];
 }

@@ -9,6 +9,7 @@ export interface MsgCreateVestingAccount {
     fromAddress: string;
     toAddress: string;
     amount: Coin[];
+    /** end of vesting as unix time (in seconds). */
     endTime: bigint;
     delayed: boolean;
 }
@@ -21,11 +22,12 @@ export interface MsgCreateVestingAccountProtoMsg {
  * account.
  */
 export interface MsgCreateVestingAccountAmino {
-    from_address: string;
-    to_address: string;
+    from_address?: string;
+    to_address?: string;
     amount: CoinAmino[];
-    end_time: string;
-    delayed: boolean;
+    /** end of vesting as unix time (in seconds). */
+    end_time?: string;
+    delayed?: boolean;
 }
 export interface MsgCreateVestingAccountAminoMsg {
     type: "cosmos-sdk/MsgCreateVestingAccount";
@@ -81,12 +83,12 @@ export interface MsgCreatePermanentLockedAccountProtoMsg {
  * Since: cosmos-sdk 0.46
  */
 export interface MsgCreatePermanentLockedAccountAmino {
-    from_address: string;
-    to_address: string;
+    from_address?: string;
+    to_address?: string;
     amount: CoinAmino[];
 }
 export interface MsgCreatePermanentLockedAccountAminoMsg {
-    type: "cosmos-sdk/MsgCreatePermanentLockedAccount";
+    type: "cosmos-sdk/MsgCreatePermLockedAccount";
     value: MsgCreatePermanentLockedAccountAmino;
 }
 /**
@@ -138,6 +140,7 @@ export interface MsgCreatePermanentLockedAccountResponseSDKType {
 export interface MsgCreatePeriodicVestingAccount {
     fromAddress: string;
     toAddress: string;
+    /** start of vesting as unix time (in seconds). */
     startTime: bigint;
     vestingPeriods: Period[];
 }
@@ -152,9 +155,10 @@ export interface MsgCreatePeriodicVestingAccountProtoMsg {
  * Since: cosmos-sdk 0.46
  */
 export interface MsgCreatePeriodicVestingAccountAmino {
-    from_address: string;
-    to_address: string;
-    start_time: string;
+    from_address?: string;
+    to_address?: string;
+    /** start of vesting as unix time (in seconds). */
+    start_time?: string;
     vesting_periods: PeriodAmino[];
 }
 export interface MsgCreatePeriodicVestingAccountAminoMsg {

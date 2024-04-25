@@ -16,9 +16,9 @@ export interface MsgMintDepositProtoMsg {
 /** MsgMintDeposit converts a delegation into staking derivatives and deposits it all into an earn vault. */
 export interface MsgMintDepositAmino {
     /** depositor represents the owner of the delegation to convert */
-    depositor: string;
+    depositor?: string;
     /** validator is the validator for the depositor's delegation */
-    validator: string;
+    validator?: string;
     /** amount is the delegation balance to convert */
     amount?: CoinAmino;
 }
@@ -71,9 +71,9 @@ export interface MsgDelegateMintDepositProtoMsg {
  */
 export interface MsgDelegateMintDepositAmino {
     /** depositor represents the owner of the tokens to delegate */
-    depositor: string;
+    depositor?: string;
     /** validator is the address of the validator to delegate to */
-    validator: string;
+    validator?: string;
     /** amount is the tokens to delegate */
     amount?: CoinAmino;
 }
@@ -123,9 +123,9 @@ export interface MsgWithdrawBurnProtoMsg {
 /** MsgWithdrawBurn removes staking derivatives from an earn vault and converts them back to a staking delegation. */
 export interface MsgWithdrawBurnAmino {
     /** from is the owner of the earn vault to withdraw from */
-    from: string;
+    from?: string;
     /** validator is the address to select the derivative denom to withdraw */
-    validator: string;
+    validator?: string;
     /** amount is the staked token equivalent to withdraw */
     amount?: CoinAmino;
 }
@@ -178,9 +178,9 @@ export interface MsgWithdrawBurnUndelegateProtoMsg {
  */
 export interface MsgWithdrawBurnUndelegateAmino {
     /** from is the owner of the earn vault to withdraw from */
-    from: string;
+    from?: string;
     /** validator is the address to select the derivative denom to withdraw */
-    validator: string;
+    validator?: string;
     /** amount is the staked token equivalent to withdraw */
     amount?: CoinAmino;
 }

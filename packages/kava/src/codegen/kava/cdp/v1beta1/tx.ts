@@ -14,10 +14,10 @@ export interface MsgCreateCDPProtoMsg {
 }
 /** MsgCreateCDP defines a message to create a new CDP. */
 export interface MsgCreateCDPAmino {
-  sender: string;
+  sender?: string;
   collateral?: CoinAmino;
   principal?: CoinAmino;
-  collateral_type: string;
+  collateral_type?: string;
 }
 export interface MsgCreateCDPAminoMsg {
   type: "/kava.cdp.v1beta1.MsgCreateCDP";
@@ -40,7 +40,7 @@ export interface MsgCreateCDPResponseProtoMsg {
 }
 /** MsgCreateCDPResponse defines the Msg/CreateCDP response type. */
 export interface MsgCreateCDPResponseAmino {
-  cdp_id: string;
+  cdp_id?: string;
 }
 export interface MsgCreateCDPResponseAminoMsg {
   type: "/kava.cdp.v1beta1.MsgCreateCDPResponse";
@@ -63,10 +63,10 @@ export interface MsgDepositProtoMsg {
 }
 /** MsgDeposit defines a message to deposit to a CDP. */
 export interface MsgDepositAmino {
-  depositor: string;
-  owner: string;
+  depositor?: string;
+  owner?: string;
   collateral?: CoinAmino;
-  collateral_type: string;
+  collateral_type?: string;
 }
 export interface MsgDepositAminoMsg {
   type: "/kava.cdp.v1beta1.MsgDeposit";
@@ -106,10 +106,10 @@ export interface MsgWithdrawProtoMsg {
 }
 /** MsgWithdraw defines a message to withdraw collateral from a CDP. */
 export interface MsgWithdrawAmino {
-  depositor: string;
-  owner: string;
+  depositor?: string;
+  owner?: string;
   collateral?: CoinAmino;
-  collateral_type: string;
+  collateral_type?: string;
 }
 export interface MsgWithdrawAminoMsg {
   type: "/kava.cdp.v1beta1.MsgWithdraw";
@@ -148,8 +148,8 @@ export interface MsgDrawDebtProtoMsg {
 }
 /** MsgDrawDebt defines a message to draw debt from a CDP. */
 export interface MsgDrawDebtAmino {
-  sender: string;
-  collateral_type: string;
+  sender?: string;
+  collateral_type?: string;
   principal?: CoinAmino;
 }
 export interface MsgDrawDebtAminoMsg {
@@ -188,8 +188,8 @@ export interface MsgRepayDebtProtoMsg {
 }
 /** MsgRepayDebt defines a message to repay debt from a CDP. */
 export interface MsgRepayDebtAmino {
-  sender: string;
-  collateral_type: string;
+  sender?: string;
+  collateral_type?: string;
   payment?: CoinAmino;
 }
 export interface MsgRepayDebtAminoMsg {
@@ -234,9 +234,9 @@ export interface MsgLiquidateProtoMsg {
  * collateralization ratio is under its liquidation ratio.
  */
 export interface MsgLiquidateAmino {
-  keeper: string;
-  borrower: string;
-  collateral_type: string;
+  keeper?: string;
+  borrower?: string;
+  collateral_type?: string;
 }
 export interface MsgLiquidateAminoMsg {
   type: "/kava.cdp.v1beta1.MsgLiquidate";
@@ -307,12 +307,20 @@ export const MsgCreateCDP = {
     return message;
   },
   fromAmino(object: MsgCreateCDPAmino): MsgCreateCDP {
-    return {
-      sender: object.sender,
-      collateral: object?.collateral ? Coin.fromAmino(object.collateral) : undefined,
-      principal: object?.principal ? Coin.fromAmino(object.principal) : undefined,
-      collateralType: object.collateral_type
-    };
+    const message = createBaseMsgCreateCDP();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.collateral !== undefined && object.collateral !== null) {
+      message.collateral = Coin.fromAmino(object.collateral);
+    }
+    if (object.principal !== undefined && object.principal !== null) {
+      message.principal = Coin.fromAmino(object.principal);
+    }
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    return message;
   },
   toAmino(message: MsgCreateCDP): MsgCreateCDPAmino {
     const obj: any = {};
@@ -362,9 +370,11 @@ export const MsgCreateCDPResponse = {
     return message;
   },
   fromAmino(object: MsgCreateCDPResponseAmino): MsgCreateCDPResponse {
-    return {
-      cdpId: BigInt(object.cdp_id)
-    };
+    const message = createBaseMsgCreateCDPResponse();
+    if (object.cdp_id !== undefined && object.cdp_id !== null) {
+      message.cdpId = BigInt(object.cdp_id);
+    }
+    return message;
   },
   toAmino(message: MsgCreateCDPResponse): MsgCreateCDPResponseAmino {
     const obj: any = {};
@@ -429,12 +439,20 @@ export const MsgDeposit = {
     return message;
   },
   fromAmino(object: MsgDepositAmino): MsgDeposit {
-    return {
-      depositor: object.depositor,
-      owner: object.owner,
-      collateral: object?.collateral ? Coin.fromAmino(object.collateral) : undefined,
-      collateralType: object.collateral_type
-    };
+    const message = createBaseMsgDeposit();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.collateral !== undefined && object.collateral !== null) {
+      message.collateral = Coin.fromAmino(object.collateral);
+    }
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    return message;
   },
   toAmino(message: MsgDeposit): MsgDepositAmino {
     const obj: any = {};
@@ -476,7 +494,8 @@ export const MsgDepositResponse = {
     return message;
   },
   fromAmino(_: MsgDepositResponseAmino): MsgDepositResponse {
-    return {};
+    const message = createBaseMsgDepositResponse();
+    return message;
   },
   toAmino(_: MsgDepositResponse): MsgDepositResponseAmino {
     const obj: any = {};
@@ -540,12 +559,20 @@ export const MsgWithdraw = {
     return message;
   },
   fromAmino(object: MsgWithdrawAmino): MsgWithdraw {
-    return {
-      depositor: object.depositor,
-      owner: object.owner,
-      collateral: object?.collateral ? Coin.fromAmino(object.collateral) : undefined,
-      collateralType: object.collateral_type
-    };
+    const message = createBaseMsgWithdraw();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.collateral !== undefined && object.collateral !== null) {
+      message.collateral = Coin.fromAmino(object.collateral);
+    }
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    return message;
   },
   toAmino(message: MsgWithdraw): MsgWithdrawAmino {
     const obj: any = {};
@@ -587,7 +614,8 @@ export const MsgWithdrawResponse = {
     return message;
   },
   fromAmino(_: MsgWithdrawResponseAmino): MsgWithdrawResponse {
-    return {};
+    const message = createBaseMsgWithdrawResponse();
+    return message;
   },
   toAmino(_: MsgWithdrawResponse): MsgWithdrawResponseAmino {
     const obj: any = {};
@@ -645,11 +673,17 @@ export const MsgDrawDebt = {
     return message;
   },
   fromAmino(object: MsgDrawDebtAmino): MsgDrawDebt {
-    return {
-      sender: object.sender,
-      collateralType: object.collateral_type,
-      principal: object?.principal ? Coin.fromAmino(object.principal) : undefined
-    };
+    const message = createBaseMsgDrawDebt();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.principal !== undefined && object.principal !== null) {
+      message.principal = Coin.fromAmino(object.principal);
+    }
+    return message;
   },
   toAmino(message: MsgDrawDebt): MsgDrawDebtAmino {
     const obj: any = {};
@@ -690,7 +724,8 @@ export const MsgDrawDebtResponse = {
     return message;
   },
   fromAmino(_: MsgDrawDebtResponseAmino): MsgDrawDebtResponse {
-    return {};
+    const message = createBaseMsgDrawDebtResponse();
+    return message;
   },
   toAmino(_: MsgDrawDebtResponse): MsgDrawDebtResponseAmino {
     const obj: any = {};
@@ -748,11 +783,17 @@ export const MsgRepayDebt = {
     return message;
   },
   fromAmino(object: MsgRepayDebtAmino): MsgRepayDebt {
-    return {
-      sender: object.sender,
-      collateralType: object.collateral_type,
-      payment: object?.payment ? Coin.fromAmino(object.payment) : undefined
-    };
+    const message = createBaseMsgRepayDebt();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.payment !== undefined && object.payment !== null) {
+      message.payment = Coin.fromAmino(object.payment);
+    }
+    return message;
   },
   toAmino(message: MsgRepayDebt): MsgRepayDebtAmino {
     const obj: any = {};
@@ -793,7 +834,8 @@ export const MsgRepayDebtResponse = {
     return message;
   },
   fromAmino(_: MsgRepayDebtResponseAmino): MsgRepayDebtResponse {
-    return {};
+    const message = createBaseMsgRepayDebtResponse();
+    return message;
   },
   toAmino(_: MsgRepayDebtResponse): MsgRepayDebtResponseAmino {
     const obj: any = {};
@@ -851,11 +893,17 @@ export const MsgLiquidate = {
     return message;
   },
   fromAmino(object: MsgLiquidateAmino): MsgLiquidate {
-    return {
-      keeper: object.keeper,
-      borrower: object.borrower,
-      collateralType: object.collateral_type
-    };
+    const message = createBaseMsgLiquidate();
+    if (object.keeper !== undefined && object.keeper !== null) {
+      message.keeper = object.keeper;
+    }
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    return message;
   },
   toAmino(message: MsgLiquidate): MsgLiquidateAmino {
     const obj: any = {};
@@ -896,7 +944,8 @@ export const MsgLiquidateResponse = {
     return message;
   },
   fromAmino(_: MsgLiquidateResponseAmino): MsgLiquidateResponse {
-    return {};
+    const message = createBaseMsgLiquidateResponse();
+    return message;
   },
   toAmino(_: MsgLiquidateResponse): MsgLiquidateResponseAmino {
     const obj: any = {};

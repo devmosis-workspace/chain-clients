@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { Decimal } from "@cosmjs/math";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
@@ -17,10 +17,10 @@ export interface MsgPostPriceProtoMsg {
 /** MsgPostPrice represents a method for creating a new post price */
 export interface MsgPostPriceAmino {
   /** address of client */
-  from: string;
-  market_id: string;
-  price: string;
-  expiry?: TimestampAmino;
+  from?: string;
+  market_id?: string;
+  price?: string;
+  expiry?: string;
 }
 export interface MsgPostPriceAminoMsg {
   type: "/kava.pricefeed.v1beta1.MsgPostPrice";
@@ -89,19 +89,27 @@ export const MsgPostPrice = {
     return message;
   },
   fromAmino(object: MsgPostPriceAmino): MsgPostPrice {
-    return {
-      from: object.from,
-      marketId: object.market_id,
-      price: object.price,
-      expiry: object.expiry
-    };
+    const message = createBaseMsgPostPrice();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = object.price;
+    }
+    if (object.expiry !== undefined && object.expiry !== null) {
+      message.expiry = Timestamp.fromAmino(object.expiry);
+    }
+    return message;
   },
   toAmino(message: MsgPostPrice): MsgPostPriceAmino {
     const obj: any = {};
     obj.from = message.from;
     obj.market_id = message.marketId;
     obj.price = message.price;
-    obj.expiry = message.expiry;
+    obj.expiry = message.expiry ? Timestamp.toAmino(message.expiry) : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgPostPriceAminoMsg): MsgPostPrice {
@@ -136,7 +144,8 @@ export const MsgPostPriceResponse = {
     return message;
   },
   fromAmino(_: MsgPostPriceResponseAmino): MsgPostPriceResponse {
-    return {};
+    const message = createBaseMsgPostPriceResponse();
+    return message;
   },
   toAmino(_: MsgPostPriceResponse): MsgPostPriceResponseAmino {
     const obj: any = {};

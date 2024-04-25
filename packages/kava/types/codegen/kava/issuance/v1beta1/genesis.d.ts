@@ -3,7 +3,7 @@ import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin"
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the issuance module's genesis state. */
 export interface GenesisState {
-    /** params defines all the paramaters of the module. */
+    /** params defines all the parameters of the module. */
     params: Params;
     supplies: AssetSupply[];
 }
@@ -13,9 +13,9 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the issuance module's genesis state. */
 export interface GenesisStateAmino {
-    /** params defines all the paramaters of the module. */
+    /** params defines all the parameters of the module. */
     params?: ParamsAmino;
-    supplies: AssetSupplyAmino[];
+    supplies?: AssetSupplyAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.issuance.v1beta1.GenesisState";
@@ -36,7 +36,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the issuance module. */
 export interface ParamsAmino {
-    assets: AssetAmino[];
+    assets?: AssetAmino[];
 }
 export interface ParamsAminoMsg {
     type: "/kava.issuance.v1beta1.Params";
@@ -61,11 +61,11 @@ export interface AssetProtoMsg {
 }
 /** Asset type for assets in the issuance module */
 export interface AssetAmino {
-    owner: string;
-    denom: string;
-    blocked_addresses: string[];
-    paused: boolean;
-    blockable: boolean;
+    owner?: string;
+    denom?: string;
+    blocked_addresses?: string[];
+    paused?: boolean;
+    blockable?: boolean;
     rate_limit?: RateLimitAmino;
 }
 export interface AssetAminoMsg {
@@ -93,8 +93,8 @@ export interface RateLimitProtoMsg {
 }
 /** RateLimit parameters for rate-limiting the supply of an issued asset */
 export interface RateLimitAmino {
-    active: boolean;
-    limit: Uint8Array;
+    active?: boolean;
+    limit?: string;
     time_period?: DurationAmino;
 }
 export interface RateLimitAminoMsg {

@@ -12,8 +12,8 @@ export interface MsgDepositProtoMsg {
 }
 /** MsgDeposit defines the Msg/Deposit request type. */
 export interface MsgDepositAmino {
-  depositor: string;
-  amount: CoinAmino[];
+  depositor?: string;
+  amount?: CoinAmino[];
 }
 export interface MsgDepositAminoMsg {
   type: "/kava.savings.v1beta1.MsgDeposit";
@@ -49,8 +49,8 @@ export interface MsgWithdrawProtoMsg {
 }
 /** MsgWithdraw defines the Msg/Withdraw request type. */
 export interface MsgWithdrawAmino {
-  depositor: string;
-  amount: CoinAmino[];
+  depositor?: string;
+  amount?: CoinAmino[];
 }
 export interface MsgWithdrawAminoMsg {
   type: "/kava.savings.v1beta1.MsgWithdraw";
@@ -105,10 +105,12 @@ export const MsgDeposit = {
     return message;
   },
   fromAmino(object: MsgDepositAmino): MsgDeposit {
-    return {
-      depositor: object.depositor,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgDeposit();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgDeposit): MsgDepositAmino {
     const obj: any = {};
@@ -152,7 +154,8 @@ export const MsgDepositResponse = {
     return message;
   },
   fromAmino(_: MsgDepositResponseAmino): MsgDepositResponse {
-    return {};
+    const message = createBaseMsgDepositResponse();
+    return message;
   },
   toAmino(_: MsgDepositResponse): MsgDepositResponseAmino {
     const obj: any = {};
@@ -204,10 +207,12 @@ export const MsgWithdraw = {
     return message;
   },
   fromAmino(object: MsgWithdrawAmino): MsgWithdraw {
-    return {
-      depositor: object.depositor,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgWithdraw();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgWithdraw): MsgWithdrawAmino {
     const obj: any = {};
@@ -251,7 +256,8 @@ export const MsgWithdrawResponse = {
     return message;
   },
   fromAmino(_: MsgWithdrawResponseAmino): MsgWithdrawResponse {
-    return {};
+    const message = createBaseMsgWithdrawResponse();
+    return message;
   },
   toAmino(_: MsgWithdrawResponse): MsgWithdrawResponseAmino {
     const obj: any = {};

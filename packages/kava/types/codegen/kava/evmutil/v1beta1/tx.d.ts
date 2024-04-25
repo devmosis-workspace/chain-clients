@@ -7,7 +7,7 @@ export interface MsgConvertCoinToERC20 {
     /** EVM 0x hex address that will receive the converted Kava ERC20 tokens. */
     receiver: string;
     /** Amount is the sdk.Coin amount to convert. */
-    amount: Coin;
+    amount?: Coin;
 }
 export interface MsgConvertCoinToERC20ProtoMsg {
     typeUrl: "/kava.evmutil.v1beta1.MsgConvertCoinToERC20";
@@ -16,9 +16,9 @@ export interface MsgConvertCoinToERC20ProtoMsg {
 /** MsgConvertCoinToERC20 defines a conversion from sdk.Coin to Kava ERC20 for EVM-native assets. */
 export interface MsgConvertCoinToERC20Amino {
     /** Kava bech32 address initiating the conversion. */
-    initiator: string;
+    initiator?: string;
     /** EVM 0x hex address that will receive the converted Kava ERC20 tokens. */
-    receiver: string;
+    receiver?: string;
     /** Amount is the sdk.Coin amount to convert. */
     amount?: CoinAmino;
 }
@@ -30,7 +30,7 @@ export interface MsgConvertCoinToERC20AminoMsg {
 export interface MsgConvertCoinToERC20SDKType {
     initiator: string;
     receiver: string;
-    amount: CoinSDKType;
+    amount?: CoinSDKType;
 }
 /** MsgConvertCoinToERC20Response defines the response value from Msg/ConvertCoinToERC20. */
 export interface MsgConvertCoinToERC20Response {
@@ -67,13 +67,13 @@ export interface MsgConvertERC20ToCoinProtoMsg {
 /** MsgConvertERC20ToCoin defines a conversion from Kava ERC20 to sdk.Coin for EVM-native assets. */
 export interface MsgConvertERC20ToCoinAmino {
     /** EVM 0x hex address initiating the conversion. */
-    initiator: string;
+    initiator?: string;
     /** Kava bech32 address that will receive the converted sdk.Coin. */
-    receiver: string;
+    receiver?: string;
     /** EVM 0x hex address of the ERC20 contract. */
-    kava_erc20_address: string;
+    kava_erc20_address?: string;
     /** ERC20 token amount to convert. */
-    amount: string;
+    amount?: string;
 }
 export interface MsgConvertERC20ToCoinAminoMsg {
     type: "/kava.evmutil.v1beta1.MsgConvertERC20ToCoin";
@@ -119,7 +119,7 @@ export interface MsgConvertCosmosCoinToERC20 {
     /** EVM hex address that will receive the ERC20 tokens. */
     receiver: string;
     /** Amount is the sdk.Coin amount to convert. */
-    amount: Coin;
+    amount?: Coin;
 }
 export interface MsgConvertCosmosCoinToERC20ProtoMsg {
     typeUrl: "/kava.evmutil.v1beta1.MsgConvertCosmosCoinToERC20";
@@ -128,9 +128,9 @@ export interface MsgConvertCosmosCoinToERC20ProtoMsg {
 /** MsgConvertCosmosCoinToERC20 defines a conversion from cosmos sdk.Coin to ERC20 for cosmos-native assets. */
 export interface MsgConvertCosmosCoinToERC20Amino {
     /** Kava bech32 address initiating the conversion. */
-    initiator: string;
+    initiator?: string;
     /** EVM hex address that will receive the ERC20 tokens. */
-    receiver: string;
+    receiver?: string;
     /** Amount is the sdk.Coin amount to convert. */
     amount?: CoinAmino;
 }
@@ -142,7 +142,7 @@ export interface MsgConvertCosmosCoinToERC20AminoMsg {
 export interface MsgConvertCosmosCoinToERC20SDKType {
     initiator: string;
     receiver: string;
-    amount: CoinSDKType;
+    amount?: CoinSDKType;
 }
 /** MsgConvertCosmosCoinToERC20Response defines the response value from Msg/MsgConvertCosmosCoinToERC20. */
 export interface MsgConvertCosmosCoinToERC20Response {
@@ -168,7 +168,7 @@ export interface MsgConvertCosmosCoinFromERC20 {
     /** Kava bech32 address that will receive the cosmos coins. */
     receiver: string;
     /** Amount is the amount to convert, expressed as a Cosmos coin. */
-    amount: Coin;
+    amount?: Coin;
 }
 export interface MsgConvertCosmosCoinFromERC20ProtoMsg {
     typeUrl: "/kava.evmutil.v1beta1.MsgConvertCosmosCoinFromERC20";
@@ -177,9 +177,9 @@ export interface MsgConvertCosmosCoinFromERC20ProtoMsg {
 /** MsgConvertCosmosCoinFromERC20 defines a conversion from ERC20 to cosmos coins for cosmos-native assets. */
 export interface MsgConvertCosmosCoinFromERC20Amino {
     /** EVM hex address initiating the conversion. */
-    initiator: string;
+    initiator?: string;
     /** Kava bech32 address that will receive the cosmos coins. */
-    receiver: string;
+    receiver?: string;
     /** Amount is the amount to convert, expressed as a Cosmos coin. */
     amount?: CoinAmino;
 }
@@ -191,7 +191,7 @@ export interface MsgConvertCosmosCoinFromERC20AminoMsg {
 export interface MsgConvertCosmosCoinFromERC20SDKType {
     initiator: string;
     receiver: string;
-    amount: CoinSDKType;
+    amount?: CoinSDKType;
 }
 /** MsgConvertCosmosCoinFromERC20Response defines the response value from Msg/MsgConvertCosmosCoinFromERC20. */
 export interface MsgConvertCosmosCoinFromERC20Response {

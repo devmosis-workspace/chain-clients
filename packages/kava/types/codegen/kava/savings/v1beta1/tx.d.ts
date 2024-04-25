@@ -11,8 +11,8 @@ export interface MsgDepositProtoMsg {
 }
 /** MsgDeposit defines the Msg/Deposit request type. */
 export interface MsgDepositAmino {
-    depositor: string;
-    amount: CoinAmino[];
+    depositor?: string;
+    amount?: CoinAmino[];
 }
 export interface MsgDepositAminoMsg {
     type: "/kava.savings.v1beta1.MsgDeposit";
@@ -51,8 +51,8 @@ export interface MsgWithdrawProtoMsg {
 }
 /** MsgWithdraw defines the Msg/Withdraw request type. */
 export interface MsgWithdrawAmino {
-    depositor: string;
-    amount: CoinAmino[];
+    depositor?: string;
+    amount?: CoinAmino[];
 }
 export interface MsgWithdrawAminoMsg {
     type: "/kava.savings.v1beta1.MsgWithdraw";

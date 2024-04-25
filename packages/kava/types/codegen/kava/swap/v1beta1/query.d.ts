@@ -46,7 +46,7 @@ export interface QueryPoolsRequest {
     /** pool_id filters pools by id */
     poolId: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryPoolsRequestProtoMsg {
     typeUrl: "/kava.swap.v1beta1.QueryPoolsRequest";
@@ -55,7 +55,7 @@ export interface QueryPoolsRequestProtoMsg {
 /** QueryPoolsRequest is the request type for the Query/Pools RPC method. */
 export interface QueryPoolsRequestAmino {
     /** pool_id filters pools by id */
-    pool_id: string;
+    pool_id?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -66,14 +66,14 @@ export interface QueryPoolsRequestAminoMsg {
 /** QueryPoolsRequest is the request type for the Query/Pools RPC method. */
 export interface QueryPoolsRequestSDKType {
     pool_id: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
 export interface QueryPoolsResponse {
     /** pools represents returned pools */
     pools: PoolResponse[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryPoolsResponseProtoMsg {
     typeUrl: "/kava.swap.v1beta1.QueryPoolsResponse";
@@ -82,7 +82,7 @@ export interface QueryPoolsResponseProtoMsg {
 /** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
 export interface QueryPoolsResponseAmino {
     /** pools represents returned pools */
-    pools: PoolResponseAmino[];
+    pools?: PoolResponseAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -93,7 +93,7 @@ export interface QueryPoolsResponseAminoMsg {
 /** QueryPoolsResponse is the response type for the Query/Pools RPC method. */
 export interface QueryPoolsResponseSDKType {
     pools: PoolResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** Pool represents the state of a single pool */
 export interface PoolResponse {
@@ -111,11 +111,11 @@ export interface PoolResponseProtoMsg {
 /** Pool represents the state of a single pool */
 export interface PoolResponseAmino {
     /** name represents the name of the pool */
-    name: string;
+    name?: string;
     /** coins represents the total reserves of the pool */
-    coins: CoinAmino[];
+    coins?: CoinAmino[];
     /** total_shares represents the total shares of the pool */
-    total_shares: string;
+    total_shares?: string;
 }
 export interface PoolResponseAminoMsg {
     type: "/kava.swap.v1beta1.PoolResponse";
@@ -134,7 +134,7 @@ export interface QueryDepositsRequest {
     /** pool_id optionally fitlers deposits by pool id */
     poolId: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDepositsRequestProtoMsg {
     typeUrl: "/kava.swap.v1beta1.QueryDepositsRequest";
@@ -143,9 +143,9 @@ export interface QueryDepositsRequestProtoMsg {
 /** QueryDepositsRequest is the request type for the Query/Deposits RPC method. */
 export interface QueryDepositsRequestAmino {
     /** owner optionally filters deposits by owner */
-    owner: string;
+    owner?: string;
     /** pool_id optionally fitlers deposits by pool id */
-    pool_id: string;
+    pool_id?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -157,14 +157,14 @@ export interface QueryDepositsRequestAminoMsg {
 export interface QueryDepositsRequestSDKType {
     owner: string;
     pool_id: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponse {
     /** deposits returns the deposits matching the requested parameters */
     deposits: DepositResponse[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDepositsResponseProtoMsg {
     typeUrl: "/kava.swap.v1beta1.QueryDepositsResponse";
@@ -173,7 +173,7 @@ export interface QueryDepositsResponseProtoMsg {
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseAmino {
     /** deposits returns the deposits matching the requested parameters */
-    deposits: DepositResponseAmino[];
+    deposits?: DepositResponseAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -184,7 +184,7 @@ export interface QueryDepositsResponseAminoMsg {
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseSDKType {
     deposits: DepositResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** DepositResponse defines a single deposit query response type. */
 export interface DepositResponse {
@@ -204,13 +204,13 @@ export interface DepositResponseProtoMsg {
 /** DepositResponse defines a single deposit query response type. */
 export interface DepositResponseAmino {
     /** depositor represents the owner of the deposit */
-    depositor: string;
+    depositor?: string;
     /** pool_id represents the pool the deposit is for */
-    pool_id: string;
+    pool_id?: string;
     /** shares_owned presents the shares owned by the depositor for the pool */
-    shares_owned: string;
+    shares_owned?: string;
     /** shares_value represents the coin value of the shares_owned */
-    shares_value: CoinAmino[];
+    shares_value?: CoinAmino[];
 }
 export interface DepositResponseAminoMsg {
     type: "/kava.swap.v1beta1.DepositResponse";

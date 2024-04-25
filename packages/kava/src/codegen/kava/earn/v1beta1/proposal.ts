@@ -13,8 +13,8 @@ export interface CommunityPoolDepositProposalProtoMsg {
 }
 /** CommunityPoolDepositProposal deposits from the community pool into an earn vault */
 export interface CommunityPoolDepositProposalAmino {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   amount?: CoinAmino;
 }
 export interface CommunityPoolDepositProposalAminoMsg {
@@ -40,10 +40,10 @@ export interface CommunityPoolDepositProposalJSONProtoMsg {
 }
 /** CommunityPoolDepositProposalJSON defines a CommunityPoolDepositProposal with a deposit */
 export interface CommunityPoolDepositProposalJSONAmino {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   amount?: CoinAmino;
-  deposit: CoinAmino[];
+  deposit?: CoinAmino[];
 }
 export interface CommunityPoolDepositProposalJSONAminoMsg {
   type: "/kava.earn.v1beta1.CommunityPoolDepositProposalJSON";
@@ -68,8 +68,8 @@ export interface CommunityPoolWithdrawProposalProtoMsg {
 }
 /** CommunityPoolWithdrawProposal withdraws from an earn vault back to community pool */
 export interface CommunityPoolWithdrawProposalAmino {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   amount?: CoinAmino;
 }
 export interface CommunityPoolWithdrawProposalAminoMsg {
@@ -95,10 +95,10 @@ export interface CommunityPoolWithdrawProposalJSONProtoMsg {
 }
 /** CommunityPoolWithdrawProposalJSON defines a CommunityPoolWithdrawProposal with a deposit */
 export interface CommunityPoolWithdrawProposalJSONAmino {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   amount?: CoinAmino;
-  deposit: CoinAmino[];
+  deposit?: CoinAmino[];
 }
 export interface CommunityPoolWithdrawProposalJSONAminoMsg {
   type: "/kava.earn.v1beta1.CommunityPoolWithdrawProposalJSON";
@@ -147,11 +147,17 @@ export const CommunityPoolDepositProposal = {
     return message;
   },
   fromAmino(object: CommunityPoolDepositProposalAmino): CommunityPoolDepositProposal {
-    return {
-      title: object.title,
-      description: object.description,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseCommunityPoolDepositProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: CommunityPoolDepositProposal): CommunityPoolDepositProposalAmino {
     const obj: any = {};
@@ -218,12 +224,18 @@ export const CommunityPoolDepositProposalJSON = {
     return message;
   },
   fromAmino(object: CommunityPoolDepositProposalJSONAmino): CommunityPoolDepositProposalJSON {
-    return {
-      title: object.title,
-      description: object.description,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
-      deposit: Array.isArray(object?.deposit) ? object.deposit.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseCommunityPoolDepositProposalJSON();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    message.deposit = object.deposit?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: CommunityPoolDepositProposalJSON): CommunityPoolDepositProposalJSONAmino {
     const obj: any = {};
@@ -289,11 +301,17 @@ export const CommunityPoolWithdrawProposal = {
     return message;
   },
   fromAmino(object: CommunityPoolWithdrawProposalAmino): CommunityPoolWithdrawProposal {
-    return {
-      title: object.title,
-      description: object.description,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseCommunityPoolWithdrawProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: CommunityPoolWithdrawProposal): CommunityPoolWithdrawProposalAmino {
     const obj: any = {};
@@ -360,12 +378,18 @@ export const CommunityPoolWithdrawProposalJSON = {
     return message;
   },
   fromAmino(object: CommunityPoolWithdrawProposalJSONAmino): CommunityPoolWithdrawProposalJSON {
-    return {
-      title: object.title,
-      description: object.description,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
-      deposit: Array.isArray(object?.deposit) ? object.deposit.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseCommunityPoolWithdrawProposalJSON();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    message.deposit = object.deposit?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: CommunityPoolWithdrawProposalJSON): CommunityPoolWithdrawProposalJSONAmino {
     const obj: any = {};

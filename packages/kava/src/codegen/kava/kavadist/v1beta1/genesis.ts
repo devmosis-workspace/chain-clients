@@ -1,5 +1,5 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 /** GenesisState defines the kavadist module's genesis state. */
@@ -14,7 +14,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the kavadist module's genesis state. */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  previous_block_time?: TimestampAmino;
+  previous_block_time?: string;
 }
 export interface GenesisStateAminoMsg {
   type: "/kava.kavadist.v1beta1.GenesisState";
@@ -55,15 +55,19 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      previousBlockTime: object.previous_block_time
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    if (object.previous_block_time !== undefined && object.previous_block_time !== null) {
+      message.previousBlockTime = Timestamp.fromAmino(object.previous_block_time);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
     obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    obj.previous_block_time = message.previousBlockTime;
+    obj.previous_block_time = message.previousBlockTime ? Timestamp.toAmino(message.previousBlockTime) : undefined;
     return obj;
   },
   fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {

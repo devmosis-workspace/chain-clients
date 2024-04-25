@@ -1,6 +1,6 @@
 import { setPaginationParams } from "../../../helpers";
 import { LCDClient } from "@cosmology/lcd";
-import { QueryAccountsRequest, QueryAccountsResponseSDKType, QueryAccountRequest, QueryAccountResponseSDKType, QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponseSDKType, QueryParamsRequest, QueryParamsResponseSDKType, QueryModuleAccountsRequest, QueryModuleAccountsResponseSDKType, QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponseSDKType, Bech32PrefixRequest, Bech32PrefixResponseSDKType, AddressBytesToStringRequest, AddressBytesToStringResponseSDKType, AddressStringToBytesRequest, AddressStringToBytesResponseSDKType } from "./query";
+import { QueryAccountsRequest, QueryAccountsResponseSDKType, QueryAccountRequest, QueryAccountResponseSDKType, QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponseSDKType, QueryParamsRequest, QueryParamsResponseSDKType, QueryModuleAccountsRequest, QueryModuleAccountsResponseSDKType, QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponseSDKType, Bech32PrefixRequest, Bech32PrefixResponseSDKType, AddressBytesToStringRequest, AddressBytesToStringResponseSDKType, AddressStringToBytesRequest, AddressStringToBytesResponseSDKType, QueryAccountInfoRequest, QueryAccountInfoResponseSDKType } from "./query";
 export class LCDQueryClient {
   req: LCDClient;
   constructor({
@@ -18,8 +18,12 @@ export class LCDQueryClient {
     this.bech32Prefix = this.bech32Prefix.bind(this);
     this.addressBytesToString = this.addressBytesToString.bind(this);
     this.addressStringToBytes = this.addressStringToBytes.bind(this);
+    this.accountInfo = this.accountInfo.bind(this);
   }
-  /* Accounts returns all the existing accounts
+  /* Accounts returns all the existing accounts.
+  
+   When called from another module, this query might consume a high amount of
+   gas if the pagination field is incorrectly set.
   
    Since: cosmos-sdk 0.43 */
   async accounts(params: QueryAccountsRequest = {
@@ -43,8 +47,14 @@ export class LCDQueryClient {
   
    Since: cosmos-sdk 0.46.2 */
   async accountAddressByID(params: QueryAccountAddressByIDRequest): Promise<QueryAccountAddressByIDResponseSDKType> {
+    const options: any = {
+      params: {}
+    };
+    if (typeof params?.accountId !== "undefined") {
+      options.params.account_id = params.accountId;
+    }
     const endpoint = `cosmos/auth/v1beta1/address_by_id/${params.id}`;
-    return await this.req.get<QueryAccountAddressByIDResponseSDKType>(endpoint);
+    return await this.req.get<QueryAccountAddressByIDResponseSDKType>(endpoint, options);
   }
   /* Params queries all parameters. */
   async params(_params: QueryParamsRequest = {}): Promise<QueryParamsResponseSDKType> {
@@ -83,5 +93,12 @@ export class LCDQueryClient {
   async addressStringToBytes(params: AddressStringToBytesRequest): Promise<AddressStringToBytesResponseSDKType> {
     const endpoint = `cosmos/auth/v1beta1/bech32/${params.addressString}`;
     return await this.req.get<AddressStringToBytesResponseSDKType>(endpoint);
+  }
+  /* AccountInfo queries account info which is common to all account types.
+  
+   Since: cosmos-sdk 0.47 */
+  async accountInfo(params: QueryAccountInfoRequest): Promise<QueryAccountInfoResponseSDKType> {
+    const endpoint = `cosmos/auth/v1beta1/account_info/${params.address}`;
+    return await this.req.get<QueryAccountInfoResponseSDKType>(endpoint);
   }
 }

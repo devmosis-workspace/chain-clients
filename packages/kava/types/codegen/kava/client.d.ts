@@ -182,6 +182,11 @@ export declare const kavaAminoConverters: {
         toAmino: (message: import("./community/v1beta1/tx").MsgFundCommunityPool) => import("./community/v1beta1/tx").MsgFundCommunityPoolAmino;
         fromAmino: (object: import("./community/v1beta1/tx").MsgFundCommunityPoolAmino) => import("./community/v1beta1/tx").MsgFundCommunityPool;
     };
+    "/kava.community.v1beta1.MsgUpdateParams": {
+        aminoType: string;
+        toAmino: (message: import("./community/v1beta1/tx").MsgUpdateParams) => import("./community/v1beta1/tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./community/v1beta1/tx").MsgUpdateParamsAmino) => import("./community/v1beta1/tx").MsgUpdateParams;
+    };
     "/kava.committee.v1beta1.MsgSubmitProposal": {
         aminoType: string;
         toAmino: (message: import("./committee/v1beta1/tx").MsgSubmitProposal) => import("./committee/v1beta1/tx").MsgSubmitProposalAmino;

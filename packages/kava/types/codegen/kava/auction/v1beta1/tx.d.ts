@@ -12,8 +12,8 @@ export interface MsgPlaceBidProtoMsg {
 }
 /** MsgPlaceBid represents a message used by bidders to place bids on auctions */
 export interface MsgPlaceBidAmino {
-    auction_id: string;
-    bidder: string;
+    auction_id?: string;
+    bidder?: string;
     amount?: CoinAmino;
 }
 export interface MsgPlaceBidAminoMsg {

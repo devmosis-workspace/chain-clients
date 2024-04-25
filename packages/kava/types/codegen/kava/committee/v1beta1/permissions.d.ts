@@ -1,7 +1,7 @@
 import { BinaryWriter } from "../../../binary";
 /** GodPermission allows any governance proposal. It is used mainly for testing. */
 export interface GodPermission {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.GodPermission";
 }
 export interface GodPermissionProtoMsg {
     typeUrl: "/kava.committee.v1beta1.GodPermission";
@@ -16,11 +16,11 @@ export interface GodPermissionAminoMsg {
 }
 /** GodPermission allows any governance proposal. It is used mainly for testing. */
 export interface GodPermissionSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.GodPermission";
 }
 /** SoftwareUpgradePermission permission type for software upgrade proposals */
 export interface SoftwareUpgradePermission {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.SoftwareUpgradePermission";
 }
 export interface SoftwareUpgradePermissionProtoMsg {
     typeUrl: "/kava.committee.v1beta1.SoftwareUpgradePermission";
@@ -35,11 +35,11 @@ export interface SoftwareUpgradePermissionAminoMsg {
 }
 /** SoftwareUpgradePermission permission type for software upgrade proposals */
 export interface SoftwareUpgradePermissionSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.SoftwareUpgradePermission";
 }
 /** TextPermission allows any text governance proposal. */
 export interface TextPermission {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.TextPermission";
 }
 export interface TextPermissionProtoMsg {
     typeUrl: "/kava.committee.v1beta1.TextPermission";
@@ -54,11 +54,11 @@ export interface TextPermissionAminoMsg {
 }
 /** TextPermission allows any text governance proposal. */
 export interface TextPermissionSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.TextPermission";
 }
 /** CommunityCDPRepayDebtPermission allows submission of CommunityCDPRepayDebtProposal */
 export interface CommunityCDPRepayDebtPermission {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.CommunityCDPRepayDebtPermission";
 }
 export interface CommunityCDPRepayDebtPermissionProtoMsg {
     typeUrl: "/kava.committee.v1beta1.CommunityCDPRepayDebtPermission";
@@ -73,11 +73,11 @@ export interface CommunityCDPRepayDebtPermissionAminoMsg {
 }
 /** CommunityCDPRepayDebtPermission allows submission of CommunityCDPRepayDebtProposal */
 export interface CommunityCDPRepayDebtPermissionSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.CommunityCDPRepayDebtPermission";
 }
 /** CommunityCDPWithdrawCollateralPermission allows submission of CommunityCDPWithdrawCollateralProposal */
 export interface CommunityCDPWithdrawCollateralPermission {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.CommunityCDPWithdrawCollateralPermission";
 }
 export interface CommunityCDPWithdrawCollateralPermissionProtoMsg {
     typeUrl: "/kava.committee.v1beta1.CommunityCDPWithdrawCollateralPermission";
@@ -92,11 +92,11 @@ export interface CommunityCDPWithdrawCollateralPermissionAminoMsg {
 }
 /** CommunityCDPWithdrawCollateralPermission allows submission of CommunityCDPWithdrawCollateralProposal */
 export interface CommunityCDPWithdrawCollateralPermissionSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.CommunityCDPWithdrawCollateralPermission";
 }
 /** CommunityPoolLendWithdrawPermission allows submission of CommunityPoolLendWithdrawProposal */
 export interface CommunityPoolLendWithdrawPermission {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.CommunityPoolLendWithdrawPermission";
 }
 export interface CommunityPoolLendWithdrawPermissionProtoMsg {
     typeUrl: "/kava.committee.v1beta1.CommunityPoolLendWithdrawPermission";
@@ -111,11 +111,11 @@ export interface CommunityPoolLendWithdrawPermissionAminoMsg {
 }
 /** CommunityPoolLendWithdrawPermission allows submission of CommunityPoolLendWithdrawProposal */
 export interface CommunityPoolLendWithdrawPermissionSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.CommunityPoolLendWithdrawPermission";
 }
 /** ParamsChangePermission allows any parameter or sub parameter change proposal. */
 export interface ParamsChangePermission {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.ParamsChangePermission";
     allowedParamsChanges: AllowedParamsChange[];
 }
 export interface ParamsChangePermissionProtoMsg {
@@ -124,7 +124,7 @@ export interface ParamsChangePermissionProtoMsg {
 }
 /** ParamsChangePermission allows any parameter or sub parameter change proposal. */
 export interface ParamsChangePermissionAmino {
-    allowed_params_changes: AllowedParamsChangeAmino[];
+    allowed_params_changes?: AllowedParamsChangeAmino[];
 }
 export interface ParamsChangePermissionAminoMsg {
     type: "/kava.committee.v1beta1.ParamsChangePermission";
@@ -132,7 +132,7 @@ export interface ParamsChangePermissionAminoMsg {
 }
 /** ParamsChangePermission allows any parameter or sub parameter change proposal. */
 export interface ParamsChangePermissionSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.ParamsChangePermission";
     allowed_params_changes: AllowedParamsChangeSDKType[];
 }
 /** AllowedParamsChange contains data on the allowed parameter changes for subspace, key, and sub params requirements. */
@@ -156,18 +156,18 @@ export interface AllowedParamsChangeProtoMsg {
 }
 /** AllowedParamsChange contains data on the allowed parameter changes for subspace, key, and sub params requirements. */
 export interface AllowedParamsChangeAmino {
-    subspace: string;
-    key: string;
+    subspace?: string;
+    key?: string;
     /**
      * Requirements for when the subparam value is a single record. This contains list of allowed attribute keys that can
      * be changed on the subparam record.
      */
-    single_subparam_allowed_attrs: string[];
+    single_subparam_allowed_attrs?: string[];
     /**
      * Requirements for when the subparam value is a list of records. The requirements contains requirements for each
      * record in the list.
      */
-    multi_subparams_requirements: SubparamRequirementAmino[];
+    multi_subparams_requirements?: SubparamRequirementAmino[];
 }
 export interface AllowedParamsChangeAminoMsg {
     type: "/kava.committee.v1beta1.AllowedParamsChange";
@@ -196,11 +196,11 @@ export interface SubparamRequirementProtoMsg {
 /** SubparamRequirement contains requirements for a single record in a subparam value list */
 export interface SubparamRequirementAmino {
     /** The required attr key of the param record. */
-    key: string;
+    key?: string;
     /** The required param value for the param record key. The key and value is used to match to the target param record. */
-    val: string;
+    val?: string;
     /** The sub param attrs that are allowed to be changed. */
-    allowed_subparam_attr_changes: string[];
+    allowed_subparam_attr_changes?: string[];
 }
 export interface SubparamRequirementAminoMsg {
     type: "/kava.committee.v1beta1.SubparamRequirement";

@@ -2,7 +2,7 @@ import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageRe
 import { Params, ParamsAmino, ParamsSDKType, ModuleAccount, ModuleAccountAmino, ModuleAccountSDKType } from "../../../cosmos/auth/v1beta1/auth";
 import { Deposit, DepositAmino, DepositSDKType, TotalPrincipal, TotalPrincipalAmino, TotalPrincipalSDKType, TotalCollateral, TotalCollateralAmino, TotalCollateralSDKType } from "./cdp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** QueryParamsRequest defines the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -68,7 +68,7 @@ export interface QueryAccountsResponseProtoMsg {
 }
 /** QueryAccountsResponse defines the response type for the Query/Accounts RPC method. */
 export interface QueryAccountsResponseAmino {
-    accounts: ModuleAccountAmino[];
+    accounts?: ModuleAccountAmino[];
 }
 export interface QueryAccountsResponseAminoMsg {
     type: "/kava.cdp.v1beta1.QueryAccountsResponse";
@@ -89,8 +89,8 @@ export interface QueryCdpRequestProtoMsg {
 }
 /** QueryCdpRequest defines the request type for the Query/Cdp RPC method. */
 export interface QueryCdpRequestAmino {
-    collateral_type: string;
-    owner: string;
+    collateral_type?: string;
+    owner?: string;
 }
 export interface QueryCdpRequestAminoMsg {
     type: "/kava.cdp.v1beta1.QueryCdpRequest";
@@ -128,7 +128,7 @@ export interface QueryCdpsRequest {
     id: bigint;
     /** sdk.Dec as a string */
     ratio: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryCdpsRequestProtoMsg {
     typeUrl: "/kava.cdp.v1beta1.QueryCdpsRequest";
@@ -136,11 +136,11 @@ export interface QueryCdpsRequestProtoMsg {
 }
 /** QueryCdpsRequest is the params for a filtered CDP query, the request type for the Query/Cdps RPC method. */
 export interface QueryCdpsRequestAmino {
-    collateral_type: string;
-    owner: string;
-    id: string;
+    collateral_type?: string;
+    owner?: string;
+    id?: string;
     /** sdk.Dec as a string */
-    ratio: string;
+    ratio?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryCdpsRequestAminoMsg {
@@ -153,12 +153,12 @@ export interface QueryCdpsRequestSDKType {
     owner: string;
     id: bigint;
     ratio: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryCdpsResponse defines the response type for the Query/Cdps RPC method. */
 export interface QueryCdpsResponse {
     cdps: CDPResponse[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryCdpsResponseProtoMsg {
     typeUrl: "/kava.cdp.v1beta1.QueryCdpsResponse";
@@ -166,7 +166,7 @@ export interface QueryCdpsResponseProtoMsg {
 }
 /** QueryCdpsResponse defines the response type for the Query/Cdps RPC method. */
 export interface QueryCdpsResponseAmino {
-    cdps: CDPResponseAmino[];
+    cdps?: CDPResponseAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryCdpsResponseAminoMsg {
@@ -176,7 +176,7 @@ export interface QueryCdpsResponseAminoMsg {
 /** QueryCdpsResponse defines the response type for the Query/Cdps RPC method. */
 export interface QueryCdpsResponseSDKType {
     cdps: CDPResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryDepositsRequest defines the request type for the Query/Deposits RPC method. */
 export interface QueryDepositsRequest {
@@ -189,8 +189,8 @@ export interface QueryDepositsRequestProtoMsg {
 }
 /** QueryDepositsRequest defines the request type for the Query/Deposits RPC method. */
 export interface QueryDepositsRequestAmino {
-    collateral_type: string;
-    owner: string;
+    collateral_type?: string;
+    owner?: string;
 }
 export interface QueryDepositsRequestAminoMsg {
     type: "/kava.cdp.v1beta1.QueryDepositsRequest";
@@ -211,7 +211,7 @@ export interface QueryDepositsResponseProtoMsg {
 }
 /** QueryDepositsResponse defines the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseAmino {
-    deposits: DepositAmino[];
+    deposits?: DepositAmino[];
 }
 export interface QueryDepositsResponseAminoMsg {
     type: "/kava.cdp.v1beta1.QueryDepositsResponse";
@@ -231,7 +231,7 @@ export interface QueryTotalPrincipalRequestProtoMsg {
 }
 /** QueryTotalPrincipalRequest defines the request type for the Query/TotalPrincipal RPC method. */
 export interface QueryTotalPrincipalRequestAmino {
-    collateral_type: string;
+    collateral_type?: string;
 }
 export interface QueryTotalPrincipalRequestAminoMsg {
     type: "/kava.cdp.v1beta1.QueryTotalPrincipalRequest";
@@ -251,7 +251,7 @@ export interface QueryTotalPrincipalResponseProtoMsg {
 }
 /** QueryTotalPrincipalResponse defines the response type for the Query/TotalPrincipal RPC method. */
 export interface QueryTotalPrincipalResponseAmino {
-    total_principal: TotalPrincipalAmino[];
+    total_principal?: TotalPrincipalAmino[];
 }
 export interface QueryTotalPrincipalResponseAminoMsg {
     type: "/kava.cdp.v1beta1.QueryTotalPrincipalResponse";
@@ -271,7 +271,7 @@ export interface QueryTotalCollateralRequestProtoMsg {
 }
 /** QueryTotalCollateralRequest defines the request type for the Query/TotalCollateral RPC method. */
 export interface QueryTotalCollateralRequestAmino {
-    collateral_type: string;
+    collateral_type?: string;
 }
 export interface QueryTotalCollateralRequestAminoMsg {
     type: "/kava.cdp.v1beta1.QueryTotalCollateralRequest";
@@ -291,7 +291,7 @@ export interface QueryTotalCollateralResponseProtoMsg {
 }
 /** QueryTotalCollateralResponse defines the response type for the Query/TotalCollateral RPC method. */
 export interface QueryTotalCollateralResponseAmino {
-    total_collateral: TotalCollateralAmino[];
+    total_collateral?: TotalCollateralAmino[];
 }
 export interface QueryTotalCollateralResponseAminoMsg {
     type: "/kava.cdp.v1beta1.QueryTotalCollateralResponse";
@@ -320,16 +320,16 @@ export interface CDPResponseProtoMsg {
 }
 /** CDPResponse defines the state of a single collateralized debt position. */
 export interface CDPResponseAmino {
-    id: string;
-    owner: string;
-    type: string;
+    id?: string;
+    owner?: string;
+    type?: string;
     collateral?: CoinAmino;
     principal?: CoinAmino;
     accumulated_fees?: CoinAmino;
-    fees_updated?: TimestampAmino;
-    interest_factor: string;
+    fees_updated?: string;
+    interest_factor?: string;
     collateral_value?: CoinAmino;
-    collateralization_ratio: string;
+    collateralization_ratio?: string;
 }
 export interface CDPResponseAminoMsg {
     type: "/kava.cdp.v1beta1.CDPResponse";

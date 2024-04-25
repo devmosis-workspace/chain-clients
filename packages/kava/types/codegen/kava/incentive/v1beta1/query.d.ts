@@ -61,17 +61,17 @@ export interface QueryRewardsRequestProtoMsg {
 /** QueryRewardsRequest is the request type for the Query/Rewards RPC method. */
 export interface QueryRewardsRequestAmino {
     /** owner is the address of the user to query rewards for. */
-    owner: string;
+    owner?: string;
     /**
      * reward_type is the type of reward to query rewards for, e.g. hard, earn,
      * swap.
      */
-    reward_type: string;
+    reward_type?: string;
     /**
      * unsynchronized is a flag to query rewards that are not simulated for reward
      * synchronized for the current block.
      */
-    unsynchronized: boolean;
+    unsynchronized?: boolean;
 }
 export interface QueryRewardsRequestAminoMsg {
     type: "/kava.incentive.v1beta1.QueryRewardsRequest";
@@ -98,12 +98,12 @@ export interface QueryRewardsResponseProtoMsg {
 }
 /** QueryRewardsResponse is the response type for the Query/Rewards RPC method. */
 export interface QueryRewardsResponseAmino {
-    usdx_minting_claims: USDXMintingClaimAmino[];
-    hard_liquidity_provider_claims: HardLiquidityProviderClaimAmino[];
-    delegator_claims: DelegatorClaimAmino[];
-    swap_claims: SwapClaimAmino[];
-    savings_claims: SavingsClaimAmino[];
-    earn_claims: EarnClaimAmino[];
+    usdx_minting_claims?: USDXMintingClaimAmino[];
+    hard_liquidity_provider_claims?: HardLiquidityProviderClaimAmino[];
+    delegator_claims?: DelegatorClaimAmino[];
+    swap_claims?: SwapClaimAmino[];
+    savings_claims?: SavingsClaimAmino[];
+    earn_claims?: EarnClaimAmino[];
 }
 export interface QueryRewardsResponseAminoMsg {
     type: "/kava.incentive.v1beta1.QueryRewardsResponse";
@@ -151,13 +151,13 @@ export interface QueryRewardFactorsResponseProtoMsg {
 }
 /** QueryRewardFactorsResponse is the response type for the Query/RewardFactors RPC method. */
 export interface QueryRewardFactorsResponseAmino {
-    usdx_minting_reward_factors: RewardIndexAmino[];
-    hard_supply_reward_factors: MultiRewardIndexAmino[];
-    hard_borrow_reward_factors: MultiRewardIndexAmino[];
-    delegator_reward_factors: MultiRewardIndexAmino[];
-    swap_reward_factors: MultiRewardIndexAmino[];
-    savings_reward_factors: MultiRewardIndexAmino[];
-    earn_reward_factors: MultiRewardIndexAmino[];
+    usdx_minting_reward_factors?: RewardIndexAmino[];
+    hard_supply_reward_factors?: MultiRewardIndexAmino[];
+    hard_borrow_reward_factors?: MultiRewardIndexAmino[];
+    delegator_reward_factors?: MultiRewardIndexAmino[];
+    swap_reward_factors?: MultiRewardIndexAmino[];
+    savings_reward_factors?: MultiRewardIndexAmino[];
+    earn_reward_factors?: MultiRewardIndexAmino[];
 }
 export interface QueryRewardFactorsResponseAminoMsg {
     type: "/kava.incentive.v1beta1.QueryRewardFactorsResponse";
@@ -200,7 +200,7 @@ export interface QueryApyResponseProtoMsg {
 }
 /** QueryApysResponse is the response type for the Query/Apys RPC method. */
 export interface QueryApyResponseAmino {
-    earn: ApyAmino[];
+    earn?: ApyAmino[];
 }
 export interface QueryApyResponseAminoMsg {
     type: "/kava.incentive.v1beta1.QueryApyResponse";

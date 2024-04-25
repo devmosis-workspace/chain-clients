@@ -32,21 +32,21 @@ export interface AllowedVaultProtoMsg {
  */
 export interface AllowedVaultAmino {
     /** Denom is the only supported denomination of the vault for deposits and withdrawals. */
-    denom: string;
+    denom?: string;
     /** VaultStrategy is the strategy used for this vault. */
-    strategies: StrategyType[];
+    strategies?: StrategyType[];
     /**
      * IsPrivateVault is true if the vault only allows depositors contained in
      * AllowedDepositors.
      */
-    is_private_vault: boolean;
+    is_private_vault?: boolean;
     /**
      * AllowedDepositors is a list of addresses that are allowed to deposit to
      * this vault if IsPrivateVault is true. Addresses not contained in this list
      * are not allowed to deposit into this vault. If IsPrivateVault is false,
      * this should be empty and ignored.
      */
-    allowed_depositors: Uint8Array[];
+    allowed_depositors?: string[];
 }
 export interface AllowedVaultAminoMsg {
     type: "/kava.earn.v1beta1.AllowedVault";
@@ -98,9 +98,9 @@ export interface VaultShareRecordProtoMsg {
 /** VaultShareRecord defines the vault shares owned by a depositor. */
 export interface VaultShareRecordAmino {
     /** Depositor represents the owner of the shares */
-    depositor: Uint8Array;
+    depositor?: string;
     /** Shares represent the vault shares owned by the depositor. */
-    shares: VaultShareAmino[];
+    shares?: VaultShareAmino[];
 }
 export interface VaultShareRecordAminoMsg {
     type: "/kava.earn.v1beta1.VaultShareRecord";
@@ -122,8 +122,8 @@ export interface VaultShareProtoMsg {
 }
 /** VaultShare defines shares of a vault owned by a depositor. */
 export interface VaultShareAmino {
-    denom: string;
-    amount: string;
+    denom?: string;
+    amount?: string;
 }
 export interface VaultShareAminoMsg {
     type: "/kava.earn.v1beta1.VaultShare";

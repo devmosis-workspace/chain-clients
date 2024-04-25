@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /**
  * ConversionPair defines a Kava ERC20 address and corresponding denom that is
  * allowed to be converted between ERC20 and sdk.Coin
@@ -20,9 +20,9 @@ export interface ConversionPairProtoMsg {
  */
 export interface ConversionPairAmino {
   /** ERC20 address of the token on the Kava EVM */
-  kava_erc20_address: Uint8Array;
+  kava_erc20_address?: string;
   /** Denom of the corresponding sdk.Coin */
-  denom: string;
+  denom?: string;
 }
 export interface ConversionPairAminoMsg {
   type: "/kava.evmutil.v1beta1.ConversionPair";
@@ -64,13 +64,13 @@ export interface AllowedCosmosCoinERC20TokenProtoMsg {
  */
 export interface AllowedCosmosCoinERC20TokenAmino {
   /** Denom of the sdk.Coin */
-  cosmos_denom: string;
+  cosmos_denom?: string;
   /** Name of ERC20 contract */
-  name: string;
+  name?: string;
   /** Symbol of ERC20 contract */
-  symbol: string;
+  symbol?: string;
   /** Number of decimals ERC20 contract is deployed with. */
-  decimals: number;
+  decimals?: number;
 }
 export interface AllowedCosmosCoinERC20TokenAminoMsg {
   type: "/kava.evmutil.v1beta1.AllowedCosmosCoinERC20Token";
@@ -118,14 +118,18 @@ export const ConversionPair = {
     return message;
   },
   fromAmino(object: ConversionPairAmino): ConversionPair {
-    return {
-      kavaErc20Address: object.kava_erc20_address,
-      denom: object.denom
-    };
+    const message = createBaseConversionPair();
+    if (object.kava_erc20_address !== undefined && object.kava_erc20_address !== null) {
+      message.kavaErc20Address = bytesFromBase64(object.kava_erc20_address);
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: ConversionPair): ConversionPairAmino {
     const obj: any = {};
-    obj.kava_erc20_address = message.kavaErc20Address;
+    obj.kava_erc20_address = message.kavaErc20Address ? base64FromBytes(message.kavaErc20Address) : undefined;
     obj.denom = message.denom;
     return obj;
   },
@@ -187,12 +191,20 @@ export const AllowedCosmosCoinERC20Token = {
     return message;
   },
   fromAmino(object: AllowedCosmosCoinERC20TokenAmino): AllowedCosmosCoinERC20Token {
-    return {
-      cosmosDenom: object.cosmos_denom,
-      name: object.name,
-      symbol: object.symbol,
-      decimals: object.decimals
-    };
+    const message = createBaseAllowedCosmosCoinERC20Token();
+    if (object.cosmos_denom !== undefined && object.cosmos_denom !== null) {
+      message.cosmosDenom = object.cosmos_denom;
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.decimals !== undefined && object.decimals !== null) {
+      message.decimals = object.decimals;
+    }
+    return message;
   },
   toAmino(message: AllowedCosmosCoinERC20Token): AllowedCosmosCoinERC20TokenAmino {
     const obj: any = {};

@@ -62,7 +62,7 @@ export interface QueryParamsResponseSDKType {
 export interface QueryDepositsRequest {
   denom: string;
   owner: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryDepositsRequestProtoMsg {
   typeUrl: "/kava.savings.v1beta1.QueryDepositsRequest";
@@ -73,8 +73,8 @@ export interface QueryDepositsRequestProtoMsg {
  * deposits.
  */
 export interface QueryDepositsRequestAmino {
-  denom: string;
-  owner: string;
+  denom?: string;
+  owner?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryDepositsRequestAminoMsg {
@@ -88,7 +88,7 @@ export interface QueryDepositsRequestAminoMsg {
 export interface QueryDepositsRequestSDKType {
   denom: string;
   owner: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /**
  * QueryDepositsResponse defines the response type for querying x/savings
@@ -96,7 +96,7 @@ export interface QueryDepositsRequestSDKType {
  */
 export interface QueryDepositsResponse {
   deposits: Deposit[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryDepositsResponseProtoMsg {
   typeUrl: "/kava.savings.v1beta1.QueryDepositsResponse";
@@ -107,7 +107,7 @@ export interface QueryDepositsResponseProtoMsg {
  * deposits.
  */
 export interface QueryDepositsResponseAmino {
-  deposits: DepositAmino[];
+  deposits?: DepositAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryDepositsResponseAminoMsg {
@@ -120,7 +120,7 @@ export interface QueryDepositsResponseAminoMsg {
  */
 export interface QueryDepositsResponseSDKType {
   deposits: DepositSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryTotalSupplyRequest defines the request type for Query/TotalSupply method. */
 export interface QueryTotalSupplyRequest {}
@@ -150,9 +150,9 @@ export interface QueryTotalSupplyResponseProtoMsg {
 /** TotalSupplyResponse defines the response type for the Query/TotalSupply method. */
 export interface QueryTotalSupplyResponseAmino {
   /** Height is the block height at which these totals apply */
-  height: string;
+  height?: string;
   /** Result is a list of coins supplied to savings */
-  result: CoinAmino[];
+  result?: CoinAmino[];
 }
 export interface QueryTotalSupplyResponseAminoMsg {
   type: "/kava.savings.v1beta1.QueryTotalSupplyResponse";
@@ -179,7 +179,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -225,9 +226,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -254,7 +257,7 @@ function createBaseQueryDepositsRequest(): QueryDepositsRequest {
   return {
     denom: "",
     owner: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDepositsRequest = {
@@ -286,11 +289,17 @@ export const QueryDepositsRequest = {
     return message;
   },
   fromAmino(object: QueryDepositsRequestAmino): QueryDepositsRequest {
-    return {
-      denom: object.denom,
-      owner: object.owner,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDepositsRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDepositsRequest): QueryDepositsRequestAmino {
     const obj: any = {};
@@ -318,7 +327,7 @@ export const QueryDepositsRequest = {
 function createBaseQueryDepositsResponse(): QueryDepositsResponse {
   return {
     deposits: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDepositsResponse = {
@@ -345,10 +354,12 @@ export const QueryDepositsResponse = {
     return message;
   },
   fromAmino(object: QueryDepositsResponseAmino): QueryDepositsResponse {
-    return {
-      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDepositsResponse();
+    message.deposits = object.deposits?.map(e => Deposit.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDepositsResponse): QueryDepositsResponseAmino {
     const obj: any = {};
@@ -392,7 +403,8 @@ export const QueryTotalSupplyRequest = {
     return message;
   },
   fromAmino(_: QueryTotalSupplyRequestAmino): QueryTotalSupplyRequest {
-    return {};
+    const message = createBaseQueryTotalSupplyRequest();
+    return message;
   },
   toAmino(_: QueryTotalSupplyRequest): QueryTotalSupplyRequestAmino {
     const obj: any = {};
@@ -444,10 +456,12 @@ export const QueryTotalSupplyResponse = {
     return message;
   },
   fromAmino(object: QueryTotalSupplyResponseAmino): QueryTotalSupplyResponse {
-    return {
-      height: BigInt(object.height),
-      result: Array.isArray(object?.result) ? object.result.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTotalSupplyResponse();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    message.result = object.result?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTotalSupplyResponse): QueryTotalSupplyResponseAmino {
     const obj: any = {};

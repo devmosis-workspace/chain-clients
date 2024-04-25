@@ -72,7 +72,7 @@ export interface QueryVaultsResponseProtoMsg {
 /** QueryVaultsResponse is the response type for the Query/Vaults RPC method. */
 export interface QueryVaultsResponseAmino {
     /** vaults represents the earn module vaults */
-    vaults: VaultResponseAmino[];
+    vaults?: VaultResponseAmino[];
 }
 export interface QueryVaultsResponseAminoMsg {
     type: "/kava.earn.v1beta1.QueryVaultsResponse";
@@ -94,7 +94,7 @@ export interface QueryVaultRequestProtoMsg {
 /** QueryVaultRequest is the request type for the Query/Vault RPC method. */
 export interface QueryVaultRequestAmino {
     /** vault filters vault by denom */
-    denom: string;
+    denom?: string;
 }
 export interface QueryVaultRequestAminoMsg {
     type: "/kava.earn.v1beta1.QueryVaultRequest";
@@ -159,28 +159,28 @@ export interface VaultResponseProtoMsg {
 /** VaultResponse is the response type for a vault. */
 export interface VaultResponseAmino {
     /** denom represents the denom of the vault */
-    denom: string;
+    denom?: string;
     /** VaultStrategy is the strategy used for this vault. */
-    strategies: StrategyType[];
+    strategies?: StrategyType[];
     /**
      * IsPrivateVault is true if the vault only allows depositors contained in
      * AllowedDepositors.
      */
-    is_private_vault: boolean;
+    is_private_vault?: boolean;
     /**
      * AllowedDepositors is a list of addresses that are allowed to deposit to
      * this vault if IsPrivateVault is true. Addresses not contained in this list
      * are not allowed to deposit into this vault. If IsPrivateVault is false,
      * this should be empty and ignored.
      */
-    allowed_depositors: string[];
+    allowed_depositors?: string[];
     /** TotalShares is the total amount of shares issued to depositors. */
-    total_shares: string;
+    total_shares?: string;
     /**
      * TotalValue is the total value of denom coins supplied to the vault if the
      * vault were to be liquidated.
      */
-    total_value: string;
+    total_value?: string;
 }
 export interface VaultResponseAminoMsg {
     type: "/kava.earn.v1beta1.VaultResponse";
@@ -204,7 +204,7 @@ export interface QueryDepositsRequest {
     /** respond with vault value in ukava for bkava vaults */
     valueInStakedTokens: boolean;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDepositsRequestProtoMsg {
     typeUrl: "/kava.earn.v1beta1.QueryDepositsRequest";
@@ -213,11 +213,11 @@ export interface QueryDepositsRequestProtoMsg {
 /** QueryDepositsRequest is the request type for the Query/Deposits RPC method. */
 export interface QueryDepositsRequestAmino {
     /** depositor optionally filters deposits by depositor */
-    depositor: string;
+    depositor?: string;
     /** denom optionally filters deposits by vault denom */
-    denom: string;
+    denom?: string;
     /** respond with vault value in ukava for bkava vaults */
-    value_in_staked_tokens: boolean;
+    value_in_staked_tokens?: boolean;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -230,14 +230,14 @@ export interface QueryDepositsRequestSDKType {
     depositor: string;
     denom: string;
     value_in_staked_tokens: boolean;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponse {
     /** deposits returns the deposits matching the requested parameters */
     deposits: DepositResponse[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDepositsResponseProtoMsg {
     typeUrl: "/kava.earn.v1beta1.QueryDepositsResponse";
@@ -246,7 +246,7 @@ export interface QueryDepositsResponseProtoMsg {
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseAmino {
     /** deposits returns the deposits matching the requested parameters */
-    deposits: DepositResponseAmino[];
+    deposits?: DepositResponseAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -257,7 +257,7 @@ export interface QueryDepositsResponseAminoMsg {
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseSDKType {
     deposits: DepositResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** DepositResponse defines a deposit query response type. */
 export interface DepositResponse {
@@ -279,15 +279,15 @@ export interface DepositResponseProtoMsg {
 /** DepositResponse defines a deposit query response type. */
 export interface DepositResponseAmino {
     /** depositor represents the owner of the deposit. */
-    depositor: string;
+    depositor?: string;
     /** Shares represent the issued shares from their corresponding vaults. */
-    shares: VaultShareAmino[];
+    shares?: VaultShareAmino[];
     /**
      * Value represents the total accumulated value of denom coins supplied to
      * vaults. This may be greater than or equal to amount_supplied depending on
      * the strategy.
      */
-    value: CoinAmino[];
+    value?: CoinAmino[];
 }
 export interface DepositResponseAminoMsg {
     type: "/kava.earn.v1beta1.DepositResponse";
@@ -330,9 +330,9 @@ export interface QueryTotalSupplyResponseProtoMsg {
 /** TotalSupplyResponse defines the response type for the Query/TotalSupply method. */
 export interface QueryTotalSupplyResponseAmino {
     /** Height is the block height at which these totals apply */
-    height: string;
+    height?: string;
     /** Result is a list of coins supplied to earn */
-    result: CoinAmino[];
+    result?: CoinAmino[];
 }
 export interface QueryTotalSupplyResponseAminoMsg {
     type: "/kava.earn.v1beta1.QueryTotalSupplyResponse";

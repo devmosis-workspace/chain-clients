@@ -1,5 +1,5 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./store";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /**
  * QueryParamsRequest defines the request type for querying x/pricefeed
@@ -66,7 +66,7 @@ export interface QueryPriceRequestProtoMsg {
 }
 /** QueryPriceRequest is the request type for the Query/PriceRequest RPC method. */
 export interface QueryPriceRequestAmino {
-    market_id: string;
+    market_id?: string;
 }
 export interface QueryPriceRequestAminoMsg {
     type: "/kava.pricefeed.v1beta1.QueryPriceRequest";
@@ -123,7 +123,7 @@ export interface QueryPricesResponseProtoMsg {
 }
 /** QueryPricesResponse is the response type for the Query/Prices RPC method. */
 export interface QueryPricesResponseAmino {
-    prices: CurrentPriceResponseAmino[];
+    prices?: CurrentPriceResponseAmino[];
 }
 export interface QueryPricesResponseAminoMsg {
     type: "/kava.pricefeed.v1beta1.QueryPricesResponse";
@@ -143,7 +143,7 @@ export interface QueryRawPricesRequestProtoMsg {
 }
 /** QueryRawPricesRequest is the request type for the Query/RawPrices RPC method. */
 export interface QueryRawPricesRequestAmino {
-    market_id: string;
+    market_id?: string;
 }
 export interface QueryRawPricesRequestAminoMsg {
     type: "/kava.pricefeed.v1beta1.QueryRawPricesRequest";
@@ -169,7 +169,7 @@ export interface QueryRawPricesResponseProtoMsg {
  * method.
  */
 export interface QueryRawPricesResponseAmino {
-    raw_prices: PostedPriceResponseAmino[];
+    raw_prices?: PostedPriceResponseAmino[];
 }
 export interface QueryRawPricesResponseAminoMsg {
     type: "/kava.pricefeed.v1beta1.QueryRawPricesResponse";
@@ -192,7 +192,7 @@ export interface QueryOraclesRequestProtoMsg {
 }
 /** QueryOraclesRequest is the request type for the Query/Oracles RPC method. */
 export interface QueryOraclesRequestAmino {
-    market_id: string;
+    market_id?: string;
 }
 export interface QueryOraclesRequestAminoMsg {
     type: "/kava.pricefeed.v1beta1.QueryOraclesRequest";
@@ -214,7 +214,7 @@ export interface QueryOraclesResponseProtoMsg {
 /** QueryOraclesResponse is the response type for the Query/Oracles RPC method. */
 export interface QueryOraclesResponseAmino {
     /** List of oracle addresses */
-    oracles: string[];
+    oracles?: string[];
 }
 export interface QueryOraclesResponseAminoMsg {
     type: "/kava.pricefeed.v1beta1.QueryOraclesResponse";
@@ -253,7 +253,7 @@ export interface QueryMarketsResponseProtoMsg {
 /** QueryMarketsResponse is the response type for the Query/Markets RPC method. */
 export interface QueryMarketsResponseAmino {
     /** List of markets */
-    markets: MarketResponseAmino[];
+    markets?: MarketResponseAmino[];
 }
 export interface QueryMarketsResponseAminoMsg {
     type: "/kava.pricefeed.v1beta1.QueryMarketsResponse";
@@ -276,10 +276,10 @@ export interface PostedPriceResponseProtoMsg {
 }
 /** PostedPriceResponse defines a price for market posted by a specific oracle. */
 export interface PostedPriceResponseAmino {
-    market_id: string;
-    oracle_address: string;
-    price: string;
-    expiry?: TimestampAmino;
+    market_id?: string;
+    oracle_address?: string;
+    price?: string;
+    expiry?: string;
 }
 export interface PostedPriceResponseAminoMsg {
     type: "/kava.pricefeed.v1beta1.PostedPriceResponse";
@@ -309,8 +309,8 @@ export interface CurrentPriceResponseProtoMsg {
  * module.
  */
 export interface CurrentPriceResponseAmino {
-    market_id: string;
-    price: string;
+    market_id?: string;
+    price?: string;
 }
 export interface CurrentPriceResponseAminoMsg {
     type: "/kava.pricefeed.v1beta1.CurrentPriceResponse";
@@ -338,11 +338,11 @@ export interface MarketResponseProtoMsg {
 }
 /** MarketResponse defines an asset in the pricefeed. */
 export interface MarketResponseAmino {
-    market_id: string;
-    base_asset: string;
-    quote_asset: string;
-    oracles: string[];
-    active: boolean;
+    market_id?: string;
+    base_asset?: string;
+    quote_asset?: string;
+    oracles?: string[];
+    active?: boolean;
 }
 export interface MarketResponseAminoMsg {
     type: "/kava.pricefeed.v1beta1.MarketResponse";

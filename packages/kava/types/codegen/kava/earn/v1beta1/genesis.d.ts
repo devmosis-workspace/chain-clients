@@ -3,7 +3,7 @@ import { VaultRecord, VaultRecordAmino, VaultRecordSDKType, VaultShareRecord, Va
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the earn module's genesis state. */
 export interface GenesisState {
-    /** params defines all the paramaters related to earn */
+    /** params defines all the parameters related to earn */
     params: Params;
     /** vault_records defines the available vaults */
     vaultRecords: VaultRecord[];
@@ -16,12 +16,12 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the earn module's genesis state. */
 export interface GenesisStateAmino {
-    /** params defines all the paramaters related to earn */
+    /** params defines all the parameters related to earn */
     params?: ParamsAmino;
     /** vault_records defines the available vaults */
-    vault_records: VaultRecordAmino[];
+    vault_records?: VaultRecordAmino[];
     /** share_records defines the owned shares of each vault */
-    vault_share_records: VaultShareRecordAmino[];
+    vault_share_records?: VaultShareRecordAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.earn.v1beta1.GenesisState";

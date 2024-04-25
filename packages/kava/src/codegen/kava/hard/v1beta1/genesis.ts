@@ -1,6 +1,6 @@
 import { Params, ParamsAmino, ParamsSDKType, Deposit, DepositAmino, DepositSDKType, Borrow, BorrowAmino, BorrowSDKType } from "./hard";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 import { Decimal } from "@cosmjs/math";
@@ -21,12 +21,12 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the hard module's genesis state. */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  previous_accumulation_times: GenesisAccumulationTimeAmino[];
-  deposits: DepositAmino[];
-  borrows: BorrowAmino[];
-  total_supplied: CoinAmino[];
-  total_borrowed: CoinAmino[];
-  total_reserves: CoinAmino[];
+  previous_accumulation_times?: GenesisAccumulationTimeAmino[];
+  deposits?: DepositAmino[];
+  borrows?: BorrowAmino[];
+  total_supplied?: CoinAmino[];
+  total_borrowed?: CoinAmino[];
+  total_reserves?: CoinAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/kava.hard.v1beta1.GenesisState";
@@ -55,10 +55,10 @@ export interface GenesisAccumulationTimeProtoMsg {
 }
 /** GenesisAccumulationTime stores the previous distribution time and its corresponding denom. */
 export interface GenesisAccumulationTimeAmino {
-  collateral_type: string;
-  previous_accumulation_time?: TimestampAmino;
-  supply_interest_factor: string;
-  borrow_interest_factor: string;
+  collateral_type?: string;
+  previous_accumulation_time?: string;
+  supply_interest_factor?: string;
+  borrow_interest_factor?: string;
 }
 export interface GenesisAccumulationTimeAminoMsg {
   type: "/kava.hard.v1beta1.GenesisAccumulationTime";
@@ -131,15 +131,17 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      previousAccumulationTimes: Array.isArray(object?.previous_accumulation_times) ? object.previous_accumulation_times.map((e: any) => GenesisAccumulationTime.fromAmino(e)) : [],
-      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromAmino(e)) : [],
-      borrows: Array.isArray(object?.borrows) ? object.borrows.map((e: any) => Borrow.fromAmino(e)) : [],
-      totalSupplied: Array.isArray(object?.total_supplied) ? object.total_supplied.map((e: any) => Coin.fromAmino(e)) : [],
-      totalBorrowed: Array.isArray(object?.total_borrowed) ? object.total_borrowed.map((e: any) => Coin.fromAmino(e)) : [],
-      totalReserves: Array.isArray(object?.total_reserves) ? object.total_reserves.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.previousAccumulationTimes = object.previous_accumulation_times?.map(e => GenesisAccumulationTime.fromAmino(e)) || [];
+    message.deposits = object.deposits?.map(e => Deposit.fromAmino(e)) || [];
+    message.borrows = object.borrows?.map(e => Borrow.fromAmino(e)) || [];
+    message.totalSupplied = object.total_supplied?.map(e => Coin.fromAmino(e)) || [];
+    message.totalBorrowed = object.total_borrowed?.map(e => Coin.fromAmino(e)) || [];
+    message.totalReserves = object.total_reserves?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -234,17 +236,25 @@ export const GenesisAccumulationTime = {
     return message;
   },
   fromAmino(object: GenesisAccumulationTimeAmino): GenesisAccumulationTime {
-    return {
-      collateralType: object.collateral_type,
-      previousAccumulationTime: object.previous_accumulation_time,
-      supplyInterestFactor: object.supply_interest_factor,
-      borrowInterestFactor: object.borrow_interest_factor
-    };
+    const message = createBaseGenesisAccumulationTime();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.previous_accumulation_time !== undefined && object.previous_accumulation_time !== null) {
+      message.previousAccumulationTime = Timestamp.fromAmino(object.previous_accumulation_time);
+    }
+    if (object.supply_interest_factor !== undefined && object.supply_interest_factor !== null) {
+      message.supplyInterestFactor = object.supply_interest_factor;
+    }
+    if (object.borrow_interest_factor !== undefined && object.borrow_interest_factor !== null) {
+      message.borrowInterestFactor = object.borrow_interest_factor;
+    }
+    return message;
   },
   toAmino(message: GenesisAccumulationTime): GenesisAccumulationTimeAmino {
     const obj: any = {};
     obj.collateral_type = message.collateralType;
-    obj.previous_accumulation_time = message.previousAccumulationTime;
+    obj.previous_accumulation_time = message.previousAccumulationTime ? Timestamp.toAmino(message.previousAccumulationTime) : undefined;
     obj.supply_interest_factor = message.supplyInterestFactor;
     obj.borrow_interest_factor = message.borrowInterestFactor;
     return obj;

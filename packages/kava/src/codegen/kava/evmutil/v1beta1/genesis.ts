@@ -1,6 +1,6 @@
 import { ConversionPair, ConversionPairAmino, ConversionPairSDKType, AllowedCosmosCoinERC20Token, AllowedCosmosCoinERC20TokenAmino, AllowedCosmosCoinERC20TokenSDKType } from "./conversion_pair";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** GenesisState defines the evmutil module's genesis state. */
 export interface GenesisState {
   accounts: Account[];
@@ -13,7 +13,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the evmutil module's genesis state. */
 export interface GenesisStateAmino {
-  accounts: AccountAmino[];
+  accounts?: AccountAmino[];
   /** params defines all the parameters of the module. */
   params?: ParamsAmino;
 }
@@ -38,9 +38,9 @@ export interface AccountProtoMsg {
 }
 /** BalanceAccount defines an account in the evmutil module. */
 export interface AccountAmino {
-  address: Uint8Array;
+  address?: string;
   /** balance indicates the amount of akava owned by the address. */
-  balance: string;
+  balance?: string;
 }
 export interface AccountAminoMsg {
   type: "/kava.evmutil.v1beta1.Account";
@@ -74,12 +74,12 @@ export interface ParamsAmino {
    * enabled_conversion_pairs defines the list of conversion pairs allowed to be
    * converted between Kava ERC20 and sdk.Coin
    */
-  enabled_conversion_pairs: ConversionPairAmino[];
+  enabled_conversion_pairs?: ConversionPairAmino[];
   /**
    * allowed_cosmos_denoms is a list of denom & erc20 token metadata pairs.
    * if a denom is in the list, it is allowed to be converted to an erc20 in the evm.
    */
-  allowed_cosmos_denoms: AllowedCosmosCoinERC20TokenAmino[];
+  allowed_cosmos_denoms?: AllowedCosmosCoinERC20TokenAmino[];
 }
 export interface ParamsAminoMsg {
   type: "/kava.evmutil.v1beta1.Params";
@@ -120,10 +120,12 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      accounts: Array.isArray(object?.accounts) ? object.accounts.map((e: any) => Account.fromAmino(e)) : [],
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseGenesisState();
+    message.accounts = object.accounts?.map(e => Account.fromAmino(e)) || [];
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -181,14 +183,18 @@ export const Account = {
     return message;
   },
   fromAmino(object: AccountAmino): Account {
-    return {
-      address: object.address,
-      balance: object.balance
-    };
+    const message = createBaseAccount();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = bytesFromBase64(object.address);
+    }
+    if (object.balance !== undefined && object.balance !== null) {
+      message.balance = object.balance;
+    }
+    return message;
   },
   toAmino(message: Account): AccountAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address ? base64FromBytes(message.address) : undefined;
     obj.balance = message.balance;
     return obj;
   },
@@ -238,10 +244,10 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      enabledConversionPairs: Array.isArray(object?.enabled_conversion_pairs) ? object.enabled_conversion_pairs.map((e: any) => ConversionPair.fromAmino(e)) : [],
-      allowedCosmosDenoms: Array.isArray(object?.allowed_cosmos_denoms) ? object.allowed_cosmos_denoms.map((e: any) => AllowedCosmosCoinERC20Token.fromAmino(e)) : []
-    };
+    const message = createBaseParams();
+    message.enabledConversionPairs = object.enabled_conversion_pairs?.map(e => ConversionPair.fromAmino(e)) || [];
+    message.allowedCosmosDenoms = object.allowed_cosmos_denoms?.map(e => AllowedCosmosCoinERC20Token.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

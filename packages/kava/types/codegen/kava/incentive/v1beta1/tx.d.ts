@@ -16,8 +16,8 @@ export interface SelectionProtoMsg {
  * denom.
  */
 export interface SelectionAmino {
-    denom: string;
-    multiplier_name: string;
+    denom?: string;
+    multiplier_name?: string;
 }
 export interface SelectionAminoMsg {
     type: "/kava.incentive.v1beta1.Selection";
@@ -42,8 +42,8 @@ export interface MsgClaimUSDXMintingRewardProtoMsg {
 }
 /** MsgClaimUSDXMintingReward message type used to claim USDX minting rewards */
 export interface MsgClaimUSDXMintingRewardAmino {
-    sender: string;
-    multiplier_name: string;
+    sender?: string;
+    multiplier_name?: string;
 }
 export interface MsgClaimUSDXMintingRewardAminoMsg {
     type: "/kava.incentive.v1beta1.MsgClaimUSDXMintingReward";
@@ -82,8 +82,8 @@ export interface MsgClaimHardRewardProtoMsg {
 }
 /** MsgClaimHardReward message type used to claim Hard liquidity provider rewards */
 export interface MsgClaimHardRewardAmino {
-    sender: string;
-    denoms_to_claim: SelectionAmino[];
+    sender?: string;
+    denoms_to_claim?: SelectionAmino[];
 }
 export interface MsgClaimHardRewardAminoMsg {
     type: "/kava.incentive.v1beta1.MsgClaimHardReward";
@@ -122,8 +122,8 @@ export interface MsgClaimDelegatorRewardProtoMsg {
 }
 /** MsgClaimDelegatorReward message type used to claim delegator rewards */
 export interface MsgClaimDelegatorRewardAmino {
-    sender: string;
-    denoms_to_claim: SelectionAmino[];
+    sender?: string;
+    denoms_to_claim?: SelectionAmino[];
 }
 export interface MsgClaimDelegatorRewardAminoMsg {
     type: "/kava.incentive.v1beta1.MsgClaimDelegatorReward";
@@ -162,8 +162,8 @@ export interface MsgClaimSwapRewardProtoMsg {
 }
 /** MsgClaimSwapReward message type used to claim delegator rewards */
 export interface MsgClaimSwapRewardAmino {
-    sender: string;
-    denoms_to_claim: SelectionAmino[];
+    sender?: string;
+    denoms_to_claim?: SelectionAmino[];
 }
 export interface MsgClaimSwapRewardAminoMsg {
     type: "/kava.incentive.v1beta1.MsgClaimSwapReward";
@@ -202,8 +202,8 @@ export interface MsgClaimSavingsRewardProtoMsg {
 }
 /** MsgClaimSavingsReward message type used to claim savings rewards */
 export interface MsgClaimSavingsRewardAmino {
-    sender: string;
-    denoms_to_claim: SelectionAmino[];
+    sender?: string;
+    denoms_to_claim?: SelectionAmino[];
 }
 export interface MsgClaimSavingsRewardAminoMsg {
     type: "/kava.incentive.v1beta1.MsgClaimSavingsReward";
@@ -242,8 +242,8 @@ export interface MsgClaimEarnRewardProtoMsg {
 }
 /** MsgClaimEarnReward message type used to claim earn rewards */
 export interface MsgClaimEarnRewardAmino {
-    sender: string;
-    denoms_to_claim: SelectionAmino[];
+    sender?: string;
+    denoms_to_claim?: SelectionAmino[];
 }
 export interface MsgClaimEarnRewardAminoMsg {
     type: "/kava.incentive.v1beta1.MsgClaimEarnReward";

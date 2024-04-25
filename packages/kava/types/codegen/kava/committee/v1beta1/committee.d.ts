@@ -18,7 +18,7 @@ export declare function tallyOptionFromJSON(object: any): TallyOption;
 export declare function tallyOptionToJSON(object: TallyOption): string;
 /** BaseCommittee is a common type shared by all Committees */
 export interface BaseCommittee {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.BaseCommittee";
     id: bigint;
     description: string;
     members: Uint8Array[];
@@ -38,15 +38,15 @@ export type BaseCommitteeEncoded = Omit<BaseCommittee, "permissions"> & {
 };
 /** BaseCommittee is a common type shared by all Committees */
 export interface BaseCommitteeAmino {
-    id: string;
-    description: string;
-    members: Uint8Array[];
-    permissions: AnyAmino[];
+    id?: string;
+    description?: string;
+    members?: string[];
+    permissions?: AnyAmino[];
     /** Smallest percentage that must vote for a proposal to pass */
-    vote_threshold: string;
+    vote_threshold?: string;
     /** The length of time a proposal remains active for. Proposals will close earlier if they get enough votes. */
     proposal_duration?: DurationAmino;
-    tally_option: TallyOption;
+    tally_option?: TallyOption;
 }
 export interface BaseCommitteeAminoMsg {
     type: "/kava.committee.v1beta1.BaseCommittee";
@@ -54,7 +54,7 @@ export interface BaseCommitteeAminoMsg {
 }
 /** BaseCommittee is a common type shared by all Committees */
 export interface BaseCommitteeSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/kava.committee.v1beta1.BaseCommittee";
     id: bigint;
     description: string;
     members: Uint8Array[];
@@ -65,8 +65,8 @@ export interface BaseCommitteeSDKType {
 }
 /** MemberCommittee is an alias of BaseCommittee */
 export interface MemberCommittee {
-    $typeUrl?: string;
-    baseCommittee: BaseCommittee;
+    $typeUrl?: "/kava.committee.v1beta1.MemberCommittee";
+    baseCommittee?: BaseCommittee;
 }
 export interface MemberCommitteeProtoMsg {
     typeUrl: "/kava.committee.v1beta1.MemberCommittee";
@@ -82,13 +82,13 @@ export interface MemberCommitteeAminoMsg {
 }
 /** MemberCommittee is an alias of BaseCommittee */
 export interface MemberCommitteeSDKType {
-    $typeUrl?: string;
-    base_committee: BaseCommitteeSDKType;
+    $typeUrl?: "/kava.committee.v1beta1.MemberCommittee";
+    base_committee?: BaseCommitteeSDKType;
 }
 /** TokenCommittee supports voting on proposals by token holders */
 export interface TokenCommittee {
-    $typeUrl?: string;
-    baseCommittee: BaseCommittee;
+    $typeUrl?: "/kava.committee.v1beta1.TokenCommittee";
+    baseCommittee?: BaseCommittee;
     quorum: string;
     tallyDenom: string;
 }
@@ -99,8 +99,8 @@ export interface TokenCommitteeProtoMsg {
 /** TokenCommittee supports voting on proposals by token holders */
 export interface TokenCommitteeAmino {
     base_committee?: BaseCommitteeAmino;
-    quorum: string;
-    tally_denom: string;
+    quorum?: string;
+    tally_denom?: string;
 }
 export interface TokenCommitteeAminoMsg {
     type: "/kava.committee.v1beta1.TokenCommittee";
@@ -108,8 +108,8 @@ export interface TokenCommitteeAminoMsg {
 }
 /** TokenCommittee supports voting on proposals by token holders */
 export interface TokenCommitteeSDKType {
-    $typeUrl?: string;
-    base_committee: BaseCommitteeSDKType;
+    $typeUrl?: "/kava.committee.v1beta1.TokenCommittee";
+    base_committee?: BaseCommitteeSDKType;
     quorum: string;
     tally_denom: string;
 }

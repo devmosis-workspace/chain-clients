@@ -271,3 +271,6 @@
 [submodule "packages/dymension/cosmos-sdk"]
 	path = packages/dymension/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/kava/cosmos-sdk"]
+	path = packages/kava/cosmos-sdk
+	url = https://github.com/kava-labs/cosmos-sdk

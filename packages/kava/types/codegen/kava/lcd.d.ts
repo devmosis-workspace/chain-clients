@@ -47,6 +47,9 @@ export declare const createLCDClient: ({ restEndpoint }: {
         swap: {
             v1beta1: import("./swap/v1beta1/query.lcd").LCDQueryClient;
         };
+        validatorvesting: {
+            v1beta1: import("./validatorvesting/v1beta1/query.lcd").LCDQueryClient;
+        };
     };
     cosmos: {
         auth: {
@@ -65,6 +68,9 @@ export declare const createLCDClient: ({ restEndpoint }: {
             tendermint: {
                 v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
             };
+        };
+        consensus: {
+            v1: import("../cosmos/consensus/v1/query.lcd").LCDQueryClient;
         };
         distribution: {
             v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;

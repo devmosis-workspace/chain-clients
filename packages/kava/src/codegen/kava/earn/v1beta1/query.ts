@@ -1,6 +1,6 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
-import { StrategyType, strategyTypeFromJSON, strategyTypeToJSON } from "./strategy";
+import { StrategyType, strategyTypeFromJSON } from "./strategy";
 import { VaultShare, VaultShareAmino, VaultShareSDKType } from "./vault";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
@@ -67,7 +67,7 @@ export interface QueryVaultsResponseProtoMsg {
 /** QueryVaultsResponse is the response type for the Query/Vaults RPC method. */
 export interface QueryVaultsResponseAmino {
   /** vaults represents the earn module vaults */
-  vaults: VaultResponseAmino[];
+  vaults?: VaultResponseAmino[];
 }
 export interface QueryVaultsResponseAminoMsg {
   type: "/kava.earn.v1beta1.QueryVaultsResponse";
@@ -89,7 +89,7 @@ export interface QueryVaultRequestProtoMsg {
 /** QueryVaultRequest is the request type for the Query/Vault RPC method. */
 export interface QueryVaultRequestAmino {
   /** vault filters vault by denom */
-  denom: string;
+  denom?: string;
 }
 export interface QueryVaultRequestAminoMsg {
   type: "/kava.earn.v1beta1.QueryVaultRequest";
@@ -154,28 +154,28 @@ export interface VaultResponseProtoMsg {
 /** VaultResponse is the response type for a vault. */
 export interface VaultResponseAmino {
   /** denom represents the denom of the vault */
-  denom: string;
+  denom?: string;
   /** VaultStrategy is the strategy used for this vault. */
-  strategies: StrategyType[];
+  strategies?: StrategyType[];
   /**
    * IsPrivateVault is true if the vault only allows depositors contained in
    * AllowedDepositors.
    */
-  is_private_vault: boolean;
+  is_private_vault?: boolean;
   /**
    * AllowedDepositors is a list of addresses that are allowed to deposit to
    * this vault if IsPrivateVault is true. Addresses not contained in this list
    * are not allowed to deposit into this vault. If IsPrivateVault is false,
    * this should be empty and ignored.
    */
-  allowed_depositors: string[];
+  allowed_depositors?: string[];
   /** TotalShares is the total amount of shares issued to depositors. */
-  total_shares: string;
+  total_shares?: string;
   /**
    * TotalValue is the total value of denom coins supplied to the vault if the
    * vault were to be liquidated.
    */
-  total_value: string;
+  total_value?: string;
 }
 export interface VaultResponseAminoMsg {
   type: "/kava.earn.v1beta1.VaultResponse";
@@ -199,7 +199,7 @@ export interface QueryDepositsRequest {
   /** respond with vault value in ukava for bkava vaults */
   valueInStakedTokens: boolean;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryDepositsRequestProtoMsg {
   typeUrl: "/kava.earn.v1beta1.QueryDepositsRequest";
@@ -208,11 +208,11 @@ export interface QueryDepositsRequestProtoMsg {
 /** QueryDepositsRequest is the request type for the Query/Deposits RPC method. */
 export interface QueryDepositsRequestAmino {
   /** depositor optionally filters deposits by depositor */
-  depositor: string;
+  depositor?: string;
   /** denom optionally filters deposits by vault denom */
-  denom: string;
+  denom?: string;
   /** respond with vault value in ukava for bkava vaults */
-  value_in_staked_tokens: boolean;
+  value_in_staked_tokens?: boolean;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
 }
@@ -225,14 +225,14 @@ export interface QueryDepositsRequestSDKType {
   depositor: string;
   denom: string;
   value_in_staked_tokens: boolean;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponse {
   /** deposits returns the deposits matching the requested parameters */
   deposits: DepositResponse[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryDepositsResponseProtoMsg {
   typeUrl: "/kava.earn.v1beta1.QueryDepositsResponse";
@@ -241,7 +241,7 @@ export interface QueryDepositsResponseProtoMsg {
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseAmino {
   /** deposits returns the deposits matching the requested parameters */
-  deposits: DepositResponseAmino[];
+  deposits?: DepositResponseAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -252,7 +252,7 @@ export interface QueryDepositsResponseAminoMsg {
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseSDKType {
   deposits: DepositResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** DepositResponse defines a deposit query response type. */
 export interface DepositResponse {
@@ -274,15 +274,15 @@ export interface DepositResponseProtoMsg {
 /** DepositResponse defines a deposit query response type. */
 export interface DepositResponseAmino {
   /** depositor represents the owner of the deposit. */
-  depositor: string;
+  depositor?: string;
   /** Shares represent the issued shares from their corresponding vaults. */
-  shares: VaultShareAmino[];
+  shares?: VaultShareAmino[];
   /**
    * Value represents the total accumulated value of denom coins supplied to
    * vaults. This may be greater than or equal to amount_supplied depending on
    * the strategy.
    */
-  value: CoinAmino[];
+  value?: CoinAmino[];
 }
 export interface DepositResponseAminoMsg {
   type: "/kava.earn.v1beta1.DepositResponse";
@@ -322,9 +322,9 @@ export interface QueryTotalSupplyResponseProtoMsg {
 /** TotalSupplyResponse defines the response type for the Query/TotalSupply method. */
 export interface QueryTotalSupplyResponseAmino {
   /** Height is the block height at which these totals apply */
-  height: string;
+  height?: string;
   /** Result is a list of coins supplied to earn */
-  result: CoinAmino[];
+  result?: CoinAmino[];
 }
 export interface QueryTotalSupplyResponseAminoMsg {
   type: "/kava.earn.v1beta1.QueryTotalSupplyResponse";
@@ -351,7 +351,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -397,9 +398,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -438,7 +441,8 @@ export const QueryVaultsRequest = {
     return message;
   },
   fromAmino(_: QueryVaultsRequestAmino): QueryVaultsRequest {
-    return {};
+    const message = createBaseQueryVaultsRequest();
+    return message;
   },
   toAmino(_: QueryVaultsRequest): QueryVaultsRequestAmino {
     const obj: any = {};
@@ -484,9 +488,9 @@ export const QueryVaultsResponse = {
     return message;
   },
   fromAmino(object: QueryVaultsResponseAmino): QueryVaultsResponse {
-    return {
-      vaults: Array.isArray(object?.vaults) ? object.vaults.map((e: any) => VaultResponse.fromAmino(e)) : []
-    };
+    const message = createBaseQueryVaultsResponse();
+    message.vaults = object.vaults?.map(e => VaultResponse.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryVaultsResponse): QueryVaultsResponseAmino {
     const obj: any = {};
@@ -537,9 +541,11 @@ export const QueryVaultRequest = {
     return message;
   },
   fromAmino(object: QueryVaultRequestAmino): QueryVaultRequest {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseQueryVaultRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryVaultRequest): QueryVaultRequestAmino {
     const obj: any = {};
@@ -586,9 +592,11 @@ export const QueryVaultResponse = {
     return message;
   },
   fromAmino(object: QueryVaultResponseAmino): QueryVaultResponse {
-    return {
-      vault: object?.vault ? VaultResponse.fromAmino(object.vault) : undefined
-    };
+    const message = createBaseQueryVaultResponse();
+    if (object.vault !== undefined && object.vault !== null) {
+      message.vault = VaultResponse.fromAmino(object.vault);
+    }
+    return message;
   },
   toAmino(message: QueryVaultResponse): QueryVaultResponseAmino {
     const obj: any = {};
@@ -667,20 +675,28 @@ export const VaultResponse = {
     return message;
   },
   fromAmino(object: VaultResponseAmino): VaultResponse {
-    return {
-      denom: object.denom,
-      strategies: Array.isArray(object?.strategies) ? object.strategies.map((e: any) => strategyTypeFromJSON(e)) : [],
-      isPrivateVault: object.is_private_vault,
-      allowedDepositors: Array.isArray(object?.allowed_depositors) ? object.allowed_depositors.map((e: any) => e) : [],
-      totalShares: object.total_shares,
-      totalValue: object.total_value
-    };
+    const message = createBaseVaultResponse();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    message.strategies = object.strategies?.map(e => strategyTypeFromJSON(e)) || [];
+    if (object.is_private_vault !== undefined && object.is_private_vault !== null) {
+      message.isPrivateVault = object.is_private_vault;
+    }
+    message.allowedDepositors = object.allowed_depositors?.map(e => e) || [];
+    if (object.total_shares !== undefined && object.total_shares !== null) {
+      message.totalShares = object.total_shares;
+    }
+    if (object.total_value !== undefined && object.total_value !== null) {
+      message.totalValue = object.total_value;
+    }
+    return message;
   },
   toAmino(message: VaultResponse): VaultResponseAmino {
     const obj: any = {};
     obj.denom = message.denom;
     if (message.strategies) {
-      obj.strategies = message.strategies.map(e => strategyTypeToJSON(e));
+      obj.strategies = message.strategies.map(e => e);
     } else {
       obj.strategies = [];
     }
@@ -715,7 +731,7 @@ function createBaseQueryDepositsRequest(): QueryDepositsRequest {
     depositor: "",
     denom: "",
     valueInStakedTokens: false,
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDepositsRequest = {
@@ -752,12 +768,20 @@ export const QueryDepositsRequest = {
     return message;
   },
   fromAmino(object: QueryDepositsRequestAmino): QueryDepositsRequest {
-    return {
-      depositor: object.depositor,
-      denom: object.denom,
-      valueInStakedTokens: object.value_in_staked_tokens,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDepositsRequest();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.value_in_staked_tokens !== undefined && object.value_in_staked_tokens !== null) {
+      message.valueInStakedTokens = object.value_in_staked_tokens;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDepositsRequest): QueryDepositsRequestAmino {
     const obj: any = {};
@@ -786,7 +810,7 @@ export const QueryDepositsRequest = {
 function createBaseQueryDepositsResponse(): QueryDepositsResponse {
   return {
     deposits: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDepositsResponse = {
@@ -813,10 +837,12 @@ export const QueryDepositsResponse = {
     return message;
   },
   fromAmino(object: QueryDepositsResponseAmino): QueryDepositsResponse {
-    return {
-      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => DepositResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDepositsResponse();
+    message.deposits = object.deposits?.map(e => DepositResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDepositsResponse): QueryDepositsResponseAmino {
     const obj: any = {};
@@ -880,11 +906,13 @@ export const DepositResponse = {
     return message;
   },
   fromAmino(object: DepositResponseAmino): DepositResponse {
-    return {
-      depositor: object.depositor,
-      shares: Array.isArray(object?.shares) ? object.shares.map((e: any) => VaultShare.fromAmino(e)) : [],
-      value: Array.isArray(object?.value) ? object.value.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseDepositResponse();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    message.shares = object.shares?.map(e => VaultShare.fromAmino(e)) || [];
+    message.value = object.value?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: DepositResponse): DepositResponseAmino {
     const obj: any = {};
@@ -933,7 +961,8 @@ export const QueryTotalSupplyRequest = {
     return message;
   },
   fromAmino(_: QueryTotalSupplyRequestAmino): QueryTotalSupplyRequest {
-    return {};
+    const message = createBaseQueryTotalSupplyRequest();
+    return message;
   },
   toAmino(_: QueryTotalSupplyRequest): QueryTotalSupplyRequestAmino {
     const obj: any = {};
@@ -985,10 +1014,12 @@ export const QueryTotalSupplyResponse = {
     return message;
   },
   fromAmino(object: QueryTotalSupplyResponseAmino): QueryTotalSupplyResponse {
-    return {
-      height: BigInt(object.height),
-      result: Array.isArray(object?.result) ? object.result.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTotalSupplyResponse();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    message.result = object.result?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTotalSupplyResponse): QueryTotalSupplyResponseAmino {
     const obj: any = {};

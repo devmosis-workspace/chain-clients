@@ -83,6 +83,11 @@ export const createLCDClient = async ({
         v1beta1: new (await import("./swap/v1beta1/query.lcd")).LCDQueryClient({
           requestClient
         })
+      },
+      validatorvesting: {
+        v1beta1: new (await import("./validatorvesting/v1beta1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
       }
     },
     cosmos: {
@@ -112,6 +117,11 @@ export const createLCDClient = async ({
             requestClient
           })
         }
+      },
+      consensus: {
+        v1: new (await import("../cosmos/consensus/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
       },
       distribution: {
         v1beta1: new (await import("../cosmos/distribution/v1beta1/query.lcd")).LCDQueryClient({

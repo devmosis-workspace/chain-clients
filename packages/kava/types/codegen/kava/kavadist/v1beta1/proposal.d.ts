@@ -18,9 +18,9 @@ export interface CommunityPoolMultiSpendProposalProtoMsg {
  * addresses
  */
 export interface CommunityPoolMultiSpendProposalAmino {
-    title: string;
-    description: string;
-    recipient_list: MultiSpendRecipientAmino[];
+    title?: string;
+    description?: string;
+    recipient_list?: MultiSpendRecipientAmino[];
 }
 export interface CommunityPoolMultiSpendProposalAminoMsg {
     type: "/kava.kavadist.v1beta1.CommunityPoolMultiSpendProposal";
@@ -48,10 +48,10 @@ export interface CommunityPoolMultiSpendProposalJSONProtoMsg {
 }
 /** CommunityPoolMultiSpendProposalJSON defines a CommunityPoolMultiSpendProposal with a deposit */
 export interface CommunityPoolMultiSpendProposalJSONAmino {
-    title: string;
-    description: string;
-    recipient_list: MultiSpendRecipientAmino[];
-    deposit: CoinAmino[];
+    title?: string;
+    description?: string;
+    recipient_list?: MultiSpendRecipientAmino[];
+    deposit?: CoinAmino[];
 }
 export interface CommunityPoolMultiSpendProposalJSONAminoMsg {
     type: "/kava.kavadist.v1beta1.CommunityPoolMultiSpendProposalJSON";
@@ -75,8 +75,8 @@ export interface MultiSpendRecipientProtoMsg {
 }
 /** MultiSpendRecipient defines a recipient and the amount of coins they are receiving */
 export interface MultiSpendRecipientAmino {
-    address: string;
-    amount: CoinAmino[];
+    address?: string;
+    amount?: CoinAmino[];
 }
 export interface MultiSpendRecipientAminoMsg {
     type: "/kava.kavadist.v1beta1.MultiSpendRecipient";

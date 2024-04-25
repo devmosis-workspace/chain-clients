@@ -18,9 +18,9 @@ export interface MsgMintDerivativeProtoMsg {
 /** MsgMintDerivative defines the Msg/MintDerivative request type. */
 export interface MsgMintDerivativeAmino {
   /** sender is the owner of the delegation to be converted */
-  sender: string;
+  sender?: string;
   /** validator is the validator of the delegation to be converted */
-  validator: string;
+  validator?: string;
   /** amount is the quantity of staked assets to be converted */
   amount?: CoinAmino;
 }
@@ -72,9 +72,9 @@ export interface MsgBurnDerivativeProtoMsg {
 /** MsgBurnDerivative defines the Msg/BurnDerivative request type. */
 export interface MsgBurnDerivativeAmino {
   /** sender is the owner of the derivatives to be converted */
-  sender: string;
+  sender?: string;
   /** validator is the validator of the derivatives to be converted */
-  validator: string;
+  validator?: string;
   /** amount is the quantity of derivatives to be converted */
   amount?: CoinAmino;
 }
@@ -100,7 +100,7 @@ export interface MsgBurnDerivativeResponseProtoMsg {
 /** MsgBurnDerivativeResponse defines the Msg/BurnDerivative response type. */
 export interface MsgBurnDerivativeResponseAmino {
   /** received is the number of delegation shares sent to the sender */
-  received: string;
+  received?: string;
 }
 export interface MsgBurnDerivativeResponseAminoMsg {
   type: "/kava.liquid.v1beta1.MsgBurnDerivativeResponse";
@@ -146,11 +146,17 @@ export const MsgMintDerivative = {
     return message;
   },
   fromAmino(object: MsgMintDerivativeAmino): MsgMintDerivative {
-    return {
-      sender: object.sender,
-      validator: object.validator,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgMintDerivative();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = object.validator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgMintDerivative): MsgMintDerivativeAmino {
     const obj: any = {};
@@ -199,9 +205,11 @@ export const MsgMintDerivativeResponse = {
     return message;
   },
   fromAmino(object: MsgMintDerivativeResponseAmino): MsgMintDerivativeResponse {
-    return {
-      received: object?.received ? Coin.fromAmino(object.received) : undefined
-    };
+    const message = createBaseMsgMintDerivativeResponse();
+    if (object.received !== undefined && object.received !== null) {
+      message.received = Coin.fromAmino(object.received);
+    }
+    return message;
   },
   toAmino(message: MsgMintDerivativeResponse): MsgMintDerivativeResponseAmino {
     const obj: any = {};
@@ -260,11 +268,17 @@ export const MsgBurnDerivative = {
     return message;
   },
   fromAmino(object: MsgBurnDerivativeAmino): MsgBurnDerivative {
-    return {
-      sender: object.sender,
-      validator: object.validator,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgBurnDerivative();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = object.validator;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgBurnDerivative): MsgBurnDerivativeAmino {
     const obj: any = {};
@@ -313,9 +327,11 @@ export const MsgBurnDerivativeResponse = {
     return message;
   },
   fromAmino(object: MsgBurnDerivativeResponseAmino): MsgBurnDerivativeResponse {
-    return {
-      received: object.received
-    };
+    const message = createBaseMsgBurnDerivativeResponse();
+    if (object.received !== undefined && object.received !== null) {
+      message.received = object.received;
+    }
+    return message;
   },
   toAmino(message: MsgBurnDerivativeResponse): MsgBurnDerivativeResponseAmino {
     const obj: any = {};

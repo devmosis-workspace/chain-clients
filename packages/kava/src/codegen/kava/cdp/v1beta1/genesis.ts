@@ -1,12 +1,12 @@
 import { CDP, CDPAmino, CDPSDKType, Deposit, DepositAmino, DepositSDKType } from "./cdp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 import { Decimal } from "@cosmjs/math";
 /** GenesisState defines the cdp module's genesis state. */
 export interface GenesisState {
-  /** params defines all the paramaters of the module. */
+  /** params defines all the parameters of the module. */
   params: Params;
   cdps: CDP[];
   deposits: Deposit[];
@@ -22,15 +22,15 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the cdp module's genesis state. */
 export interface GenesisStateAmino {
-  /** params defines all the paramaters of the module. */
+  /** params defines all the parameters of the module. */
   params?: ParamsAmino;
-  cdps: CDPAmino[];
-  deposits: DepositAmino[];
-  starting_cdp_id: string;
-  debt_denom: string;
-  gov_denom: string;
-  previous_accumulation_times: GenesisAccumulationTimeAmino[];
-  total_principals: GenesisTotalPrincipalAmino[];
+  cdps?: CDPAmino[];
+  deposits?: DepositAmino[];
+  starting_cdp_id?: string;
+  debt_denom?: string;
+  gov_denom?: string;
+  previous_accumulation_times?: GenesisAccumulationTimeAmino[];
+  total_principals?: GenesisTotalPrincipalAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/kava.cdp.v1beta1.GenesisState";
@@ -57,6 +57,7 @@ export interface Params {
   debtAuctionThreshold: string;
   debtAuctionLot: string;
   circuitBreaker: boolean;
+  liquidationBlockInterval: bigint;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/kava.cdp.v1beta1.Params";
@@ -64,14 +65,15 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the cdp module. */
 export interface ParamsAmino {
-  collateral_params: CollateralParamAmino[];
+  collateral_params?: CollateralParamAmino[];
   debt_param?: DebtParamAmino;
   global_debt_limit?: CoinAmino;
-  surplus_auction_threshold: string;
-  surplus_auction_lot: string;
-  debt_auction_threshold: string;
-  debt_auction_lot: string;
-  circuit_breaker: boolean;
+  surplus_auction_threshold?: string;
+  surplus_auction_lot?: string;
+  debt_auction_threshold?: string;
+  debt_auction_lot?: string;
+  circuit_breaker?: boolean;
+  liquidation_block_interval?: string;
 }
 export interface ParamsAminoMsg {
   type: "/kava.cdp.v1beta1.Params";
@@ -87,6 +89,7 @@ export interface ParamsSDKType {
   debt_auction_threshold: string;
   debt_auction_lot: string;
   circuit_breaker: boolean;
+  liquidation_block_interval: bigint;
 }
 /** DebtParam defines governance params for debt assets */
 export interface DebtParam {
@@ -101,10 +104,10 @@ export interface DebtParamProtoMsg {
 }
 /** DebtParam defines governance params for debt assets */
 export interface DebtParamAmino {
-  denom: string;
-  reference_asset: string;
-  conversion_factor: string;
-  debt_floor: string;
+  denom?: string;
+  reference_asset?: string;
+  conversion_factor?: string;
+  debt_floor?: string;
 }
 export interface DebtParamAminoMsg {
   type: "/kava.cdp.v1beta1.DebtParam";
@@ -138,18 +141,18 @@ export interface CollateralParamProtoMsg {
 }
 /** CollateralParam defines governance parameters for each collateral type within the cdp module */
 export interface CollateralParamAmino {
-  denom: string;
-  type: string;
-  liquidation_ratio: string;
+  denom?: string;
+  type?: string;
+  liquidation_ratio?: string;
   debt_limit?: CoinAmino;
-  stability_fee: string;
-  auction_size: string;
-  liquidation_penalty: string;
-  spot_market_id: string;
-  liquidation_market_id: string;
-  keeper_reward_percentage: string;
-  check_collateralization_index_count: string;
-  conversion_factor: string;
+  stability_fee?: string;
+  auction_size?: string;
+  liquidation_penalty?: string;
+  spot_market_id?: string;
+  liquidation_market_id?: string;
+  keeper_reward_percentage?: string;
+  check_collateralization_index_count?: string;
+  conversion_factor?: string;
 }
 export interface CollateralParamAminoMsg {
   type: "/kava.cdp.v1beta1.CollateralParam";
@@ -182,9 +185,9 @@ export interface GenesisAccumulationTimeProtoMsg {
 }
 /** GenesisAccumulationTime defines the previous distribution time and its corresponding denom */
 export interface GenesisAccumulationTimeAmino {
-  collateral_type: string;
-  previous_accumulation_time?: TimestampAmino;
-  interest_factor: string;
+  collateral_type?: string;
+  previous_accumulation_time?: string;
+  interest_factor?: string;
 }
 export interface GenesisAccumulationTimeAminoMsg {
   type: "/kava.cdp.v1beta1.GenesisAccumulationTime";
@@ -207,8 +210,8 @@ export interface GenesisTotalPrincipalProtoMsg {
 }
 /** GenesisTotalPrincipal defines the total principal and its corresponding collateral type */
 export interface GenesisTotalPrincipalAmino {
-  collateral_type: string;
-  total_principal: string;
+  collateral_type?: string;
+  total_principal?: string;
 }
 export interface GenesisTotalPrincipalAminoMsg {
   type: "/kava.cdp.v1beta1.GenesisTotalPrincipal";
@@ -285,16 +288,24 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      cdps: Array.isArray(object?.cdps) ? object.cdps.map((e: any) => CDP.fromAmino(e)) : [],
-      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromAmino(e)) : [],
-      startingCdpId: BigInt(object.starting_cdp_id),
-      debtDenom: object.debt_denom,
-      govDenom: object.gov_denom,
-      previousAccumulationTimes: Array.isArray(object?.previous_accumulation_times) ? object.previous_accumulation_times.map((e: any) => GenesisAccumulationTime.fromAmino(e)) : [],
-      totalPrincipals: Array.isArray(object?.total_principals) ? object.total_principals.map((e: any) => GenesisTotalPrincipal.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.cdps = object.cdps?.map(e => CDP.fromAmino(e)) || [];
+    message.deposits = object.deposits?.map(e => Deposit.fromAmino(e)) || [];
+    if (object.starting_cdp_id !== undefined && object.starting_cdp_id !== null) {
+      message.startingCdpId = BigInt(object.starting_cdp_id);
+    }
+    if (object.debt_denom !== undefined && object.debt_denom !== null) {
+      message.debtDenom = object.debt_denom;
+    }
+    if (object.gov_denom !== undefined && object.gov_denom !== null) {
+      message.govDenom = object.gov_denom;
+    }
+    message.previousAccumulationTimes = object.previous_accumulation_times?.map(e => GenesisAccumulationTime.fromAmino(e)) || [];
+    message.totalPrincipals = object.total_principals?.map(e => GenesisTotalPrincipal.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -349,7 +360,8 @@ function createBaseParams(): Params {
     surplusAuctionLot: "",
     debtAuctionThreshold: "",
     debtAuctionLot: "",
-    circuitBreaker: false
+    circuitBreaker: false,
+    liquidationBlockInterval: BigInt(0)
   };
 }
 export const Params = {
@@ -379,6 +391,9 @@ export const Params = {
     if (message.circuitBreaker === true) {
       writer.uint32(64).bool(message.circuitBreaker);
     }
+    if (message.liquidationBlockInterval !== BigInt(0)) {
+      writer.uint32(72).int64(message.liquidationBlockInterval);
+    }
     return writer;
   },
   fromJSON(object: any): Params {
@@ -390,7 +405,8 @@ export const Params = {
       surplusAuctionLot: isSet(object.surplusAuctionLot) ? String(object.surplusAuctionLot) : "",
       debtAuctionThreshold: isSet(object.debtAuctionThreshold) ? String(object.debtAuctionThreshold) : "",
       debtAuctionLot: isSet(object.debtAuctionLot) ? String(object.debtAuctionLot) : "",
-      circuitBreaker: isSet(object.circuitBreaker) ? Boolean(object.circuitBreaker) : false
+      circuitBreaker: isSet(object.circuitBreaker) ? Boolean(object.circuitBreaker) : false,
+      liquidationBlockInterval: isSet(object.liquidationBlockInterval) ? BigInt(object.liquidationBlockInterval.toString()) : BigInt(0)
     };
   },
   fromPartial(object: Partial<Params>): Params {
@@ -403,19 +419,37 @@ export const Params = {
     message.debtAuctionThreshold = object.debtAuctionThreshold ?? "";
     message.debtAuctionLot = object.debtAuctionLot ?? "";
     message.circuitBreaker = object.circuitBreaker ?? false;
+    message.liquidationBlockInterval = object.liquidationBlockInterval !== undefined && object.liquidationBlockInterval !== null ? BigInt(object.liquidationBlockInterval.toString()) : BigInt(0);
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      collateralParams: Array.isArray(object?.collateral_params) ? object.collateral_params.map((e: any) => CollateralParam.fromAmino(e)) : [],
-      debtParam: object?.debt_param ? DebtParam.fromAmino(object.debt_param) : undefined,
-      globalDebtLimit: object?.global_debt_limit ? Coin.fromAmino(object.global_debt_limit) : undefined,
-      surplusAuctionThreshold: object.surplus_auction_threshold,
-      surplusAuctionLot: object.surplus_auction_lot,
-      debtAuctionThreshold: object.debt_auction_threshold,
-      debtAuctionLot: object.debt_auction_lot,
-      circuitBreaker: object.circuit_breaker
-    };
+    const message = createBaseParams();
+    message.collateralParams = object.collateral_params?.map(e => CollateralParam.fromAmino(e)) || [];
+    if (object.debt_param !== undefined && object.debt_param !== null) {
+      message.debtParam = DebtParam.fromAmino(object.debt_param);
+    }
+    if (object.global_debt_limit !== undefined && object.global_debt_limit !== null) {
+      message.globalDebtLimit = Coin.fromAmino(object.global_debt_limit);
+    }
+    if (object.surplus_auction_threshold !== undefined && object.surplus_auction_threshold !== null) {
+      message.surplusAuctionThreshold = object.surplus_auction_threshold;
+    }
+    if (object.surplus_auction_lot !== undefined && object.surplus_auction_lot !== null) {
+      message.surplusAuctionLot = object.surplus_auction_lot;
+    }
+    if (object.debt_auction_threshold !== undefined && object.debt_auction_threshold !== null) {
+      message.debtAuctionThreshold = object.debt_auction_threshold;
+    }
+    if (object.debt_auction_lot !== undefined && object.debt_auction_lot !== null) {
+      message.debtAuctionLot = object.debt_auction_lot;
+    }
+    if (object.circuit_breaker !== undefined && object.circuit_breaker !== null) {
+      message.circuitBreaker = object.circuit_breaker;
+    }
+    if (object.liquidation_block_interval !== undefined && object.liquidation_block_interval !== null) {
+      message.liquidationBlockInterval = BigInt(object.liquidation_block_interval);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -431,6 +465,7 @@ export const Params = {
     obj.debt_auction_threshold = message.debtAuctionThreshold;
     obj.debt_auction_lot = message.debtAuctionLot;
     obj.circuit_breaker = message.circuitBreaker;
+    obj.liquidation_block_interval = message.liquidationBlockInterval ? message.liquidationBlockInterval.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {
@@ -491,12 +526,20 @@ export const DebtParam = {
     return message;
   },
   fromAmino(object: DebtParamAmino): DebtParam {
-    return {
-      denom: object.denom,
-      referenceAsset: object.reference_asset,
-      conversionFactor: object.conversion_factor,
-      debtFloor: object.debt_floor
-    };
+    const message = createBaseDebtParam();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.reference_asset !== undefined && object.reference_asset !== null) {
+      message.referenceAsset = object.reference_asset;
+    }
+    if (object.conversion_factor !== undefined && object.conversion_factor !== null) {
+      message.conversionFactor = object.conversion_factor;
+    }
+    if (object.debt_floor !== undefined && object.debt_floor !== null) {
+      message.debtFloor = object.debt_floor;
+    }
+    return message;
   },
   toAmino(message: DebtParam): DebtParamAmino {
     const obj: any = {};
@@ -612,20 +655,44 @@ export const CollateralParam = {
     return message;
   },
   fromAmino(object: CollateralParamAmino): CollateralParam {
-    return {
-      denom: object.denom,
-      type: object.type,
-      liquidationRatio: object.liquidation_ratio,
-      debtLimit: object?.debt_limit ? Coin.fromAmino(object.debt_limit) : undefined,
-      stabilityFee: object.stability_fee,
-      auctionSize: object.auction_size,
-      liquidationPenalty: object.liquidation_penalty,
-      spotMarketId: object.spot_market_id,
-      liquidationMarketId: object.liquidation_market_id,
-      keeperRewardPercentage: object.keeper_reward_percentage,
-      checkCollateralizationIndexCount: object.check_collateralization_index_count,
-      conversionFactor: object.conversion_factor
-    };
+    const message = createBaseCollateralParam();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.liquidation_ratio !== undefined && object.liquidation_ratio !== null) {
+      message.liquidationRatio = object.liquidation_ratio;
+    }
+    if (object.debt_limit !== undefined && object.debt_limit !== null) {
+      message.debtLimit = Coin.fromAmino(object.debt_limit);
+    }
+    if (object.stability_fee !== undefined && object.stability_fee !== null) {
+      message.stabilityFee = object.stability_fee;
+    }
+    if (object.auction_size !== undefined && object.auction_size !== null) {
+      message.auctionSize = object.auction_size;
+    }
+    if (object.liquidation_penalty !== undefined && object.liquidation_penalty !== null) {
+      message.liquidationPenalty = object.liquidation_penalty;
+    }
+    if (object.spot_market_id !== undefined && object.spot_market_id !== null) {
+      message.spotMarketId = object.spot_market_id;
+    }
+    if (object.liquidation_market_id !== undefined && object.liquidation_market_id !== null) {
+      message.liquidationMarketId = object.liquidation_market_id;
+    }
+    if (object.keeper_reward_percentage !== undefined && object.keeper_reward_percentage !== null) {
+      message.keeperRewardPercentage = object.keeper_reward_percentage;
+    }
+    if (object.check_collateralization_index_count !== undefined && object.check_collateralization_index_count !== null) {
+      message.checkCollateralizationIndexCount = object.check_collateralization_index_count;
+    }
+    if (object.conversion_factor !== undefined && object.conversion_factor !== null) {
+      message.conversionFactor = object.conversion_factor;
+    }
+    return message;
   },
   toAmino(message: CollateralParam): CollateralParamAmino {
     const obj: any = {};
@@ -695,16 +762,22 @@ export const GenesisAccumulationTime = {
     return message;
   },
   fromAmino(object: GenesisAccumulationTimeAmino): GenesisAccumulationTime {
-    return {
-      collateralType: object.collateral_type,
-      previousAccumulationTime: object.previous_accumulation_time,
-      interestFactor: object.interest_factor
-    };
+    const message = createBaseGenesisAccumulationTime();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.previous_accumulation_time !== undefined && object.previous_accumulation_time !== null) {
+      message.previousAccumulationTime = Timestamp.fromAmino(object.previous_accumulation_time);
+    }
+    if (object.interest_factor !== undefined && object.interest_factor !== null) {
+      message.interestFactor = object.interest_factor;
+    }
+    return message;
   },
   toAmino(message: GenesisAccumulationTime): GenesisAccumulationTimeAmino {
     const obj: any = {};
     obj.collateral_type = message.collateralType;
-    obj.previous_accumulation_time = message.previousAccumulationTime;
+    obj.previous_accumulation_time = message.previousAccumulationTime ? Timestamp.toAmino(message.previousAccumulationTime) : undefined;
     obj.interest_factor = message.interestFactor;
     return obj;
   },
@@ -754,10 +827,14 @@ export const GenesisTotalPrincipal = {
     return message;
   },
   fromAmino(object: GenesisTotalPrincipalAmino): GenesisTotalPrincipal {
-    return {
-      collateralType: object.collateral_type,
-      totalPrincipal: object.total_principal
-    };
+    const message = createBaseGenesisTotalPrincipal();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.total_principal !== undefined && object.total_principal !== null) {
+      message.totalPrincipal = object.total_principal;
+    }
+    return message;
   },
   toAmino(message: GenesisTotalPrincipal): GenesisTotalPrincipalAmino {
     const obj: any = {};

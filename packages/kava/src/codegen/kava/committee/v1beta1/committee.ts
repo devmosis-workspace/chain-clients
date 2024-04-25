@@ -3,7 +3,7 @@ import { Duration, DurationAmino, DurationSDKType } from "../../../google/protob
 import { GodPermission, GodPermissionProtoMsg, GodPermissionSDKType, SoftwareUpgradePermission, SoftwareUpgradePermissionProtoMsg, SoftwareUpgradePermissionSDKType, TextPermission, TextPermissionProtoMsg, TextPermissionSDKType, CommunityCDPRepayDebtPermission, CommunityCDPRepayDebtPermissionProtoMsg, CommunityCDPRepayDebtPermissionSDKType, CommunityCDPWithdrawCollateralPermission, CommunityCDPWithdrawCollateralPermissionProtoMsg, CommunityCDPWithdrawCollateralPermissionSDKType, CommunityPoolLendWithdrawPermission, CommunityPoolLendWithdrawPermissionProtoMsg, CommunityPoolLendWithdrawPermissionSDKType, ParamsChangePermission, ParamsChangePermissionProtoMsg, ParamsChangePermissionSDKType } from "./permissions";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@cosmjs/math";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** TallyOption enumerates the valid types of a tally. */
 export enum TallyOption {
   /** TALLY_OPTION_UNSPECIFIED - TALLY_OPTION_UNSPECIFIED defines a null tally option. */
@@ -48,7 +48,7 @@ export function tallyOptionToJSON(object: TallyOption): string {
 }
 /** BaseCommittee is a common type shared by all Committees */
 export interface BaseCommittee {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.committee.v1beta1.BaseCommittee";
   id: bigint;
   description: string;
   members: Uint8Array[];
@@ -68,15 +68,15 @@ export type BaseCommitteeEncoded = Omit<BaseCommittee, "permissions"> & {
 };
 /** BaseCommittee is a common type shared by all Committees */
 export interface BaseCommitteeAmino {
-  id: string;
-  description: string;
-  members: Uint8Array[];
-  permissions: AnyAmino[];
+  id?: string;
+  description?: string;
+  members?: string[];
+  permissions?: AnyAmino[];
   /** Smallest percentage that must vote for a proposal to pass */
-  vote_threshold: string;
+  vote_threshold?: string;
   /** The length of time a proposal remains active for. Proposals will close earlier if they get enough votes. */
   proposal_duration?: DurationAmino;
-  tally_option: TallyOption;
+  tally_option?: TallyOption;
 }
 export interface BaseCommitteeAminoMsg {
   type: "/kava.committee.v1beta1.BaseCommittee";
@@ -84,7 +84,7 @@ export interface BaseCommitteeAminoMsg {
 }
 /** BaseCommittee is a common type shared by all Committees */
 export interface BaseCommitteeSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/kava.committee.v1beta1.BaseCommittee";
   id: bigint;
   description: string;
   members: Uint8Array[];
@@ -95,8 +95,8 @@ export interface BaseCommitteeSDKType {
 }
 /** MemberCommittee is an alias of BaseCommittee */
 export interface MemberCommittee {
-  $typeUrl?: string;
-  baseCommittee: BaseCommittee;
+  $typeUrl?: "/kava.committee.v1beta1.MemberCommittee";
+  baseCommittee?: BaseCommittee;
 }
 export interface MemberCommitteeProtoMsg {
   typeUrl: "/kava.committee.v1beta1.MemberCommittee";
@@ -112,13 +112,13 @@ export interface MemberCommitteeAminoMsg {
 }
 /** MemberCommittee is an alias of BaseCommittee */
 export interface MemberCommitteeSDKType {
-  $typeUrl?: string;
-  base_committee: BaseCommitteeSDKType;
+  $typeUrl?: "/kava.committee.v1beta1.MemberCommittee";
+  base_committee?: BaseCommitteeSDKType;
 }
 /** TokenCommittee supports voting on proposals by token holders */
 export interface TokenCommittee {
-  $typeUrl?: string;
-  baseCommittee: BaseCommittee;
+  $typeUrl?: "/kava.committee.v1beta1.TokenCommittee";
+  baseCommittee?: BaseCommittee;
   quorum: string;
   tallyDenom: string;
 }
@@ -129,8 +129,8 @@ export interface TokenCommitteeProtoMsg {
 /** TokenCommittee supports voting on proposals by token holders */
 export interface TokenCommitteeAmino {
   base_committee?: BaseCommitteeAmino;
-  quorum: string;
-  tally_denom: string;
+  quorum?: string;
+  tally_denom?: string;
 }
 export interface TokenCommitteeAminoMsg {
   type: "/kava.committee.v1beta1.TokenCommittee";
@@ -138,8 +138,8 @@ export interface TokenCommitteeAminoMsg {
 }
 /** TokenCommittee supports voting on proposals by token holders */
 export interface TokenCommitteeSDKType {
-  $typeUrl?: string;
-  base_committee: BaseCommitteeSDKType;
+  $typeUrl?: "/kava.committee.v1beta1.TokenCommittee";
+  base_committee?: BaseCommitteeSDKType;
   quorum: string;
   tally_denom: string;
 }
@@ -204,22 +204,32 @@ export const BaseCommittee = {
     return message;
   },
   fromAmino(object: BaseCommitteeAmino): BaseCommittee {
-    return {
-      id: BigInt(object.id),
-      description: object.description,
-      members: Array.isArray(object?.members) ? object.members.map((e: any) => e) : [],
-      permissions: Array.isArray(object?.permissions) ? object.permissions.map((e: any) => Permission_FromAmino(e)) : [],
-      voteThreshold: object.vote_threshold,
-      proposalDuration: object?.proposal_duration ? Duration.fromAmino(object.proposal_duration) : undefined,
-      tallyOption: isSet(object.tally_option) ? tallyOptionFromJSON(object.tally_option) : -1
-    };
+    const message = createBaseBaseCommittee();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    message.members = object.members?.map(e => bytesFromBase64(e)) || [];
+    message.permissions = object.permissions?.map(e => Permission_FromAmino(e)) || [];
+    if (object.vote_threshold !== undefined && object.vote_threshold !== null) {
+      message.voteThreshold = object.vote_threshold;
+    }
+    if (object.proposal_duration !== undefined && object.proposal_duration !== null) {
+      message.proposalDuration = Duration.fromAmino(object.proposal_duration);
+    }
+    if (object.tally_option !== undefined && object.tally_option !== null) {
+      message.tallyOption = tallyOptionFromJSON(object.tally_option);
+    }
+    return message;
   },
   toAmino(message: BaseCommittee): BaseCommitteeAmino {
     const obj: any = {};
     obj.id = message.id ? message.id.toString() : undefined;
     obj.description = message.description;
     if (message.members) {
-      obj.members = message.members.map(e => e);
+      obj.members = message.members.map(e => base64FromBytes(e));
     } else {
       obj.members = [];
     }
@@ -252,7 +262,7 @@ export const BaseCommittee = {
 function createBaseMemberCommittee(): MemberCommittee {
   return {
     $typeUrl: "/kava.committee.v1beta1.MemberCommittee",
-    baseCommittee: BaseCommittee.fromPartial({})
+    baseCommittee: undefined
   };
 }
 export const MemberCommittee = {
@@ -274,9 +284,11 @@ export const MemberCommittee = {
     return message;
   },
   fromAmino(object: MemberCommitteeAmino): MemberCommittee {
-    return {
-      baseCommittee: object?.base_committee ? BaseCommittee.fromAmino(object.base_committee) : undefined
-    };
+    const message = createBaseMemberCommittee();
+    if (object.base_committee !== undefined && object.base_committee !== null) {
+      message.baseCommittee = BaseCommittee.fromAmino(object.base_committee);
+    }
+    return message;
   },
   toAmino(message: MemberCommittee): MemberCommitteeAmino {
     const obj: any = {};
@@ -302,7 +314,7 @@ export const MemberCommittee = {
 function createBaseTokenCommittee(): TokenCommittee {
   return {
     $typeUrl: "/kava.committee.v1beta1.TokenCommittee",
-    baseCommittee: BaseCommittee.fromPartial({}),
+    baseCommittee: undefined,
     quorum: "",
     tallyDenom: ""
   };
@@ -336,11 +348,17 @@ export const TokenCommittee = {
     return message;
   },
   fromAmino(object: TokenCommitteeAmino): TokenCommittee {
-    return {
-      baseCommittee: object?.base_committee ? BaseCommittee.fromAmino(object.base_committee) : undefined,
-      quorum: object.quorum,
-      tallyDenom: object.tally_denom
-    };
+    const message = createBaseTokenCommittee();
+    if (object.base_committee !== undefined && object.base_committee !== null) {
+      message.baseCommittee = BaseCommittee.fromAmino(object.base_committee);
+    }
+    if (object.quorum !== undefined && object.quorum !== null) {
+      message.quorum = object.quorum;
+    }
+    if (object.tally_denom !== undefined && object.tally_denom !== null) {
+      message.tallyDenom = object.tally_denom;
+    }
+    return message;
   },
   toAmino(message: TokenCommittee): TokenCommitteeAmino {
     const obj: any = {};
@@ -433,37 +451,37 @@ export const Permission_ToAmino = (content: Any) => {
     case "/kava.committee.v1beta1.GodPermission":
       return {
         type: "/kava.committee.v1beta1.GodPermission",
-        value: GodPermission.toAmino(GodPermission.decode(content.value))
+        value: GodPermission.toAmino(GodPermission.decode(content.value, undefined))
       };
     case "/kava.committee.v1beta1.SoftwareUpgradePermission":
       return {
         type: "/kava.committee.v1beta1.SoftwareUpgradePermission",
-        value: SoftwareUpgradePermission.toAmino(SoftwareUpgradePermission.decode(content.value))
+        value: SoftwareUpgradePermission.toAmino(SoftwareUpgradePermission.decode(content.value, undefined))
       };
     case "/kava.committee.v1beta1.TextPermission":
       return {
         type: "/kava.committee.v1beta1.TextPermission",
-        value: TextPermission.toAmino(TextPermission.decode(content.value))
+        value: TextPermission.toAmino(TextPermission.decode(content.value, undefined))
       };
     case "/kava.committee.v1beta1.CommunityCDPRepayDebtPermission":
       return {
         type: "/kava.committee.v1beta1.CommunityCDPRepayDebtPermission",
-        value: CommunityCDPRepayDebtPermission.toAmino(CommunityCDPRepayDebtPermission.decode(content.value))
+        value: CommunityCDPRepayDebtPermission.toAmino(CommunityCDPRepayDebtPermission.decode(content.value, undefined))
       };
     case "/kava.committee.v1beta1.CommunityCDPWithdrawCollateralPermission":
       return {
         type: "/kava.committee.v1beta1.CommunityCDPWithdrawCollateralPermission",
-        value: CommunityCDPWithdrawCollateralPermission.toAmino(CommunityCDPWithdrawCollateralPermission.decode(content.value))
+        value: CommunityCDPWithdrawCollateralPermission.toAmino(CommunityCDPWithdrawCollateralPermission.decode(content.value, undefined))
       };
     case "/kava.committee.v1beta1.CommunityPoolLendWithdrawPermission":
       return {
         type: "/kava.committee.v1beta1.CommunityPoolLendWithdrawPermission",
-        value: CommunityPoolLendWithdrawPermission.toAmino(CommunityPoolLendWithdrawPermission.decode(content.value))
+        value: CommunityPoolLendWithdrawPermission.toAmino(CommunityPoolLendWithdrawPermission.decode(content.value, undefined))
       };
     case "/kava.committee.v1beta1.ParamsChangePermission":
       return {
         type: "/kava.committee.v1beta1.ParamsChangePermission",
-        value: ParamsChangePermission.toAmino(ParamsChangePermission.decode(content.value))
+        value: ParamsChangePermission.toAmino(ParamsChangePermission.decode(content.value, undefined))
       };
     default:
       return Any.toAmino(content);

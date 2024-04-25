@@ -11,7 +11,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the savings module. */
 export interface ParamsAmino {
-  supported_denoms: string[];
+  supported_denoms?: string[];
 }
 export interface ParamsAminoMsg {
   type: "/kava.savings.v1beta1.Params";
@@ -32,8 +32,8 @@ export interface DepositProtoMsg {
 }
 /** Deposit defines an amount of coins deposited into a savings module account. */
 export interface DepositAmino {
-  depositor: string;
-  amount: CoinAmino[];
+  depositor?: string;
+  amount?: CoinAmino[];
 }
 export interface DepositAminoMsg {
   type: "/kava.savings.v1beta1.Deposit";
@@ -68,9 +68,9 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      supportedDenoms: Array.isArray(object?.supported_denoms) ? object.supported_denoms.map((e: any) => e) : []
-    };
+    const message = createBaseParams();
+    message.supportedDenoms = object.supported_denoms?.map(e => e) || [];
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -127,10 +127,12 @@ export const Deposit = {
     return message;
   },
   fromAmino(object: DepositAmino): Deposit {
-    return {
-      depositor: object.depositor,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseDeposit();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Deposit): DepositAmino {
     const obj: any = {};

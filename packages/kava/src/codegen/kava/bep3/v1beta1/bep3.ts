@@ -1,7 +1,7 @@
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** SwapStatus is the status of an AtomicSwap */
 export enum SwapStatus {
   /** SWAP_STATUS_UNSPECIFIED - SWAP_STATUS_UNSPECIFIED represents an unspecified status */
@@ -105,7 +105,7 @@ export interface ParamsProtoMsg {
 /** Params defines the parameters for the bep3 module. */
 export interface ParamsAmino {
   /** asset_params define the parameters for each bep3 asset */
-  asset_params: AssetParamAmino[];
+  asset_params?: AssetParamAmino[];
 }
 export interface ParamsAminoMsg {
   type: "/kava.bep3.v1beta1.Params";
@@ -145,25 +145,25 @@ export interface AssetParamProtoMsg {
 /** AssetParam defines parameters for each bep3 asset. */
 export interface AssetParamAmino {
   /** denom represents the denominatin for this asset */
-  denom: string;
+  denom?: string;
   /** coin_id represents the registered coin type to use (https://github.com/satoshilabs/slips/blob/master/slip-0044.md) */
-  coin_id: string;
+  coin_id?: string;
   /** supply_limit defines the maximum supply allowed for the asset - a total or time based rate limit */
   supply_limit?: SupplyLimitAmino;
   /** active specifies if the asset is live or paused */
-  active: boolean;
+  active?: boolean;
   /** deputy_address the kava address of the deputy */
-  deputy_address: Uint8Array;
+  deputy_address?: string;
   /** fixed_fee defines the fee for incoming swaps */
-  fixed_fee: string;
+  fixed_fee?: string;
   /** min_swap_amount defines the minimum amount able to be swapped in a single message */
-  min_swap_amount: string;
+  min_swap_amount?: string;
   /** max_swap_amount defines the maximum amount able to be swapped in a single message */
-  max_swap_amount: string;
+  max_swap_amount?: string;
   /** min_block_lock defined the minimum blocks to lock */
-  min_block_lock: string;
+  min_block_lock?: string;
   /** min_block_lock defined the maximum blocks to lock */
-  max_block_lock: string;
+  max_block_lock?: string;
 }
 export interface AssetParamAminoMsg {
   type: "/kava.bep3.v1beta1.AssetParam";
@@ -200,13 +200,13 @@ export interface SupplyLimitProtoMsg {
 /** SupplyLimit define the absolute and time-based limits for an assets's supply. */
 export interface SupplyLimitAmino {
   /** limit defines the total supply allowed */
-  limit: string;
+  limit?: string;
   /** time_limited enables or disables time based supply limiting */
-  time_limited: boolean;
+  time_limited?: boolean;
   /** time_period specifies the duration that time_based_limit is evalulated */
   time_period?: DurationAmino;
   /** time_based_limit defines the maximum supply that can be swapped within time_period */
-  time_based_limit: string;
+  time_based_limit?: string;
 }
 export interface SupplyLimitAminoMsg {
   type: "/kava.bep3.v1beta1.SupplyLimit";
@@ -253,29 +253,29 @@ export interface AtomicSwapProtoMsg {
 /** AtomicSwap defines an atomic swap between chains for the pricefeed module. */
 export interface AtomicSwapAmino {
   /** amount represents the amount being swapped */
-  amount: CoinAmino[];
+  amount?: CoinAmino[];
   /** random_number_hash represents the hash of the random number */
-  random_number_hash: Uint8Array;
+  random_number_hash?: string;
   /** expire_height represents the height when the swap expires */
-  expire_height: string;
+  expire_height?: string;
   /** timestamp represents the timestamp of the swap */
-  timestamp: string;
+  timestamp?: string;
   /** sender is the kava chain sender of the swap */
-  sender: Uint8Array;
+  sender?: string;
   /** recipient is the kava chain recipient of the swap */
-  recipient: Uint8Array;
+  recipient?: string;
   /** sender_other_chain is the sender on the other chain */
-  sender_other_chain: string;
+  sender_other_chain?: string;
   /** recipient_other_chain is the recipient on the other chain */
-  recipient_other_chain: string;
+  recipient_other_chain?: string;
   /** closed_block is the block when the swap is closed */
-  closed_block: string;
+  closed_block?: string;
   /** status represents the current status of the swap */
-  status: SwapStatus;
+  status?: SwapStatus;
   /** cross_chain identifies whether the atomic swap is cross chain */
-  cross_chain: boolean;
+  cross_chain?: boolean;
   /** direction identifies if the swap is incoming or outgoing */
-  direction: SwapDirection;
+  direction?: SwapDirection;
 }
 export interface AtomicSwapAminoMsg {
   type: "/kava.bep3.v1beta1.AtomicSwap";
@@ -362,9 +362,9 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      assetParams: Array.isArray(object?.asset_params) ? object.asset_params.map((e: any) => AssetParam.fromAmino(e)) : []
-    };
+    const message = createBaseParams();
+    message.assetParams = object.asset_params?.map(e => AssetParam.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -469,18 +469,38 @@ export const AssetParam = {
     return message;
   },
   fromAmino(object: AssetParamAmino): AssetParam {
-    return {
-      denom: object.denom,
-      coinId: BigInt(object.coin_id),
-      supplyLimit: object?.supply_limit ? SupplyLimit.fromAmino(object.supply_limit) : undefined,
-      active: object.active,
-      deputyAddress: object.deputy_address,
-      fixedFee: object.fixed_fee,
-      minSwapAmount: object.min_swap_amount,
-      maxSwapAmount: object.max_swap_amount,
-      minBlockLock: BigInt(object.min_block_lock),
-      maxBlockLock: BigInt(object.max_block_lock)
-    };
+    const message = createBaseAssetParam();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.coin_id !== undefined && object.coin_id !== null) {
+      message.coinId = BigInt(object.coin_id);
+    }
+    if (object.supply_limit !== undefined && object.supply_limit !== null) {
+      message.supplyLimit = SupplyLimit.fromAmino(object.supply_limit);
+    }
+    if (object.active !== undefined && object.active !== null) {
+      message.active = object.active;
+    }
+    if (object.deputy_address !== undefined && object.deputy_address !== null) {
+      message.deputyAddress = bytesFromBase64(object.deputy_address);
+    }
+    if (object.fixed_fee !== undefined && object.fixed_fee !== null) {
+      message.fixedFee = object.fixed_fee;
+    }
+    if (object.min_swap_amount !== undefined && object.min_swap_amount !== null) {
+      message.minSwapAmount = object.min_swap_amount;
+    }
+    if (object.max_swap_amount !== undefined && object.max_swap_amount !== null) {
+      message.maxSwapAmount = object.max_swap_amount;
+    }
+    if (object.min_block_lock !== undefined && object.min_block_lock !== null) {
+      message.minBlockLock = BigInt(object.min_block_lock);
+    }
+    if (object.max_block_lock !== undefined && object.max_block_lock !== null) {
+      message.maxBlockLock = BigInt(object.max_block_lock);
+    }
+    return message;
   },
   toAmino(message: AssetParam): AssetParamAmino {
     const obj: any = {};
@@ -488,7 +508,7 @@ export const AssetParam = {
     obj.coin_id = message.coinId ? message.coinId.toString() : undefined;
     obj.supply_limit = message.supplyLimit ? SupplyLimit.toAmino(message.supplyLimit) : undefined;
     obj.active = message.active;
-    obj.deputy_address = message.deputyAddress;
+    obj.deputy_address = message.deputyAddress ? base64FromBytes(message.deputyAddress) : undefined;
     obj.fixed_fee = message.fixedFee;
     obj.min_swap_amount = message.minSwapAmount;
     obj.max_swap_amount = message.maxSwapAmount;
@@ -554,12 +574,20 @@ export const SupplyLimit = {
     return message;
   },
   fromAmino(object: SupplyLimitAmino): SupplyLimit {
-    return {
-      limit: object.limit,
-      timeLimited: object.time_limited,
-      timePeriod: object?.time_period ? Duration.fromAmino(object.time_period) : undefined,
-      timeBasedLimit: object.time_based_limit
-    };
+    const message = createBaseSupplyLimit();
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = object.limit;
+    }
+    if (object.time_limited !== undefined && object.time_limited !== null) {
+      message.timeLimited = object.time_limited;
+    }
+    if (object.time_period !== undefined && object.time_period !== null) {
+      message.timePeriod = Duration.fromAmino(object.time_period);
+    }
+    if (object.time_based_limit !== undefined && object.time_based_limit !== null) {
+      message.timeBasedLimit = object.time_based_limit;
+    }
+    return message;
   },
   toAmino(message: SupplyLimit): SupplyLimitAmino {
     const obj: any = {};
@@ -675,20 +703,42 @@ export const AtomicSwap = {
     return message;
   },
   fromAmino(object: AtomicSwapAmino): AtomicSwap {
-    return {
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : [],
-      randomNumberHash: object.random_number_hash,
-      expireHeight: BigInt(object.expire_height),
-      timestamp: BigInt(object.timestamp),
-      sender: object.sender,
-      recipient: object.recipient,
-      senderOtherChain: object.sender_other_chain,
-      recipientOtherChain: object.recipient_other_chain,
-      closedBlock: BigInt(object.closed_block),
-      status: isSet(object.status) ? swapStatusFromJSON(object.status) : -1,
-      crossChain: object.cross_chain,
-      direction: isSet(object.direction) ? swapDirectionFromJSON(object.direction) : -1
-    };
+    const message = createBaseAtomicSwap();
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    if (object.random_number_hash !== undefined && object.random_number_hash !== null) {
+      message.randomNumberHash = bytesFromBase64(object.random_number_hash);
+    }
+    if (object.expire_height !== undefined && object.expire_height !== null) {
+      message.expireHeight = BigInt(object.expire_height);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = BigInt(object.timestamp);
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = bytesFromBase64(object.recipient);
+    }
+    if (object.sender_other_chain !== undefined && object.sender_other_chain !== null) {
+      message.senderOtherChain = object.sender_other_chain;
+    }
+    if (object.recipient_other_chain !== undefined && object.recipient_other_chain !== null) {
+      message.recipientOtherChain = object.recipient_other_chain;
+    }
+    if (object.closed_block !== undefined && object.closed_block !== null) {
+      message.closedBlock = BigInt(object.closed_block);
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = swapStatusFromJSON(object.status);
+    }
+    if (object.cross_chain !== undefined && object.cross_chain !== null) {
+      message.crossChain = object.cross_chain;
+    }
+    if (object.direction !== undefined && object.direction !== null) {
+      message.direction = swapDirectionFromJSON(object.direction);
+    }
+    return message;
   },
   toAmino(message: AtomicSwap): AtomicSwapAmino {
     const obj: any = {};
@@ -697,11 +747,11 @@ export const AtomicSwap = {
     } else {
       obj.amount = [];
     }
-    obj.random_number_hash = message.randomNumberHash;
+    obj.random_number_hash = message.randomNumberHash ? base64FromBytes(message.randomNumberHash) : undefined;
     obj.expire_height = message.expireHeight ? message.expireHeight.toString() : undefined;
     obj.timestamp = message.timestamp ? message.timestamp.toString() : undefined;
-    obj.sender = message.sender;
-    obj.recipient = message.recipient;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
+    obj.recipient = message.recipient ? base64FromBytes(message.recipient) : undefined;
     obj.sender_other_chain = message.senderOtherChain;
     obj.recipient_other_chain = message.recipientOtherChain;
     obj.closed_block = message.closedBlock ? message.closedBlock.toString() : undefined;
@@ -774,13 +824,23 @@ export const AssetSupply = {
     return message;
   },
   fromAmino(object: AssetSupplyAmino): AssetSupply {
-    return {
-      incomingSupply: object?.incoming_supply ? Coin.fromAmino(object.incoming_supply) : undefined,
-      outgoingSupply: object?.outgoing_supply ? Coin.fromAmino(object.outgoing_supply) : undefined,
-      currentSupply: object?.current_supply ? Coin.fromAmino(object.current_supply) : undefined,
-      timeLimitedCurrentSupply: object?.time_limited_current_supply ? Coin.fromAmino(object.time_limited_current_supply) : undefined,
-      timeElapsed: object?.time_elapsed ? Duration.fromAmino(object.time_elapsed) : undefined
-    };
+    const message = createBaseAssetSupply();
+    if (object.incoming_supply !== undefined && object.incoming_supply !== null) {
+      message.incomingSupply = Coin.fromAmino(object.incoming_supply);
+    }
+    if (object.outgoing_supply !== undefined && object.outgoing_supply !== null) {
+      message.outgoingSupply = Coin.fromAmino(object.outgoing_supply);
+    }
+    if (object.current_supply !== undefined && object.current_supply !== null) {
+      message.currentSupply = Coin.fromAmino(object.current_supply);
+    }
+    if (object.time_limited_current_supply !== undefined && object.time_limited_current_supply !== null) {
+      message.timeLimitedCurrentSupply = Coin.fromAmino(object.time_limited_current_supply);
+    }
+    if (object.time_elapsed !== undefined && object.time_elapsed !== null) {
+      message.timeElapsed = Duration.fromAmino(object.time_elapsed);
+    }
+    return message;
   },
   toAmino(message: AssetSupply): AssetSupplyAmino {
     const obj: any = {};

@@ -10,7 +10,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters of the earn module. */
 export interface ParamsAmino {
-    allowed_vaults: AllowedVaultAmino[];
+    allowed_vaults?: AllowedVaultAmino[];
 }
 export interface ParamsAminoMsg {
     type: "/kava.earn.v1beta1.Params";

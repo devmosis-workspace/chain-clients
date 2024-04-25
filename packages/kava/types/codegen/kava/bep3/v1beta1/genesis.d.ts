@@ -1,9 +1,9 @@
 import { Params, ParamsAmino, ParamsSDKType, AtomicSwap, AtomicSwapAmino, AtomicSwapSDKType, AssetSupply, AssetSupplyAmino, AssetSupplySDKType } from "./bep3";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the pricefeed module's genesis state. */
 export interface GenesisState {
-    /** params defines all the paramaters of the module. */
+    /** params defines all the parameters of the module. */
     params: Params;
     /** atomic_swaps represents the state of stored atomic swaps */
     atomicSwaps: AtomicSwap[];
@@ -18,14 +18,14 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the pricefeed module's genesis state. */
 export interface GenesisStateAmino {
-    /** params defines all the paramaters of the module. */
+    /** params defines all the parameters of the module. */
     params?: ParamsAmino;
     /** atomic_swaps represents the state of stored atomic swaps */
-    atomic_swaps: AtomicSwapAmino[];
+    atomic_swaps?: AtomicSwapAmino[];
     /** supplies represents the supply information of each atomic swap */
-    supplies: AssetSupplyAmino[];
+    supplies?: AssetSupplyAmino[];
     /** previous_block_time represents the time of the previous block */
-    previous_block_time?: TimestampAmino;
+    previous_block_time?: string;
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.bep3.v1beta1.GenesisState";

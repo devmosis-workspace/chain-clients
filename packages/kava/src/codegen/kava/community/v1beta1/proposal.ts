@@ -13,9 +13,9 @@ export interface CommunityPoolLendDepositProposalProtoMsg {
 }
 /** CommunityPoolLendDepositProposal deposits from the community pool into lend */
 export interface CommunityPoolLendDepositProposalAmino {
-  title: string;
-  description: string;
-  amount: CoinAmino[];
+  title?: string;
+  description?: string;
+  amount?: CoinAmino[];
 }
 export interface CommunityPoolLendDepositProposalAminoMsg {
   type: "/kava.community.v1beta1.CommunityPoolLendDepositProposal";
@@ -39,9 +39,9 @@ export interface CommunityPoolLendWithdrawProposalProtoMsg {
 }
 /** CommunityPoolLendWithdrawProposal withdraws a lend position back to the community pool */
 export interface CommunityPoolLendWithdrawProposalAmino {
-  title: string;
-  description: string;
-  amount: CoinAmino[];
+  title?: string;
+  description?: string;
+  amount?: CoinAmino[];
 }
 export interface CommunityPoolLendWithdrawProposalAminoMsg {
   type: "/kava.community.v1beta1.CommunityPoolLendWithdrawProposal";
@@ -72,9 +72,9 @@ export interface CommunityCDPRepayDebtProposalProtoMsg {
  * This proposal exists primarily to allow committees to repay community module cdp debts.
  */
 export interface CommunityCDPRepayDebtProposalAmino {
-  title: string;
-  description: string;
-  collateral_type: string;
+  title?: string;
+  description?: string;
+  collateral_type?: string;
   payment?: CoinAmino;
 }
 export interface CommunityCDPRepayDebtProposalAminoMsg {
@@ -110,9 +110,9 @@ export interface CommunityCDPWithdrawCollateralProposalProtoMsg {
  * This proposal exists primarily to allow committees to withdraw community module cdp collateral.
  */
 export interface CommunityCDPWithdrawCollateralProposalAmino {
-  title: string;
-  description: string;
-  collateral_type: string;
+  title?: string;
+  description?: string;
+  collateral_type?: string;
   collateral?: CoinAmino;
 }
 export interface CommunityCDPWithdrawCollateralProposalAminoMsg {
@@ -165,11 +165,15 @@ export const CommunityPoolLendDepositProposal = {
     return message;
   },
   fromAmino(object: CommunityPoolLendDepositProposalAmino): CommunityPoolLendDepositProposal {
-    return {
-      title: object.title,
-      description: object.description,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseCommunityPoolLendDepositProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: CommunityPoolLendDepositProposal): CommunityPoolLendDepositProposalAmino {
     const obj: any = {};
@@ -234,11 +238,15 @@ export const CommunityPoolLendWithdrawProposal = {
     return message;
   },
   fromAmino(object: CommunityPoolLendWithdrawProposalAmino): CommunityPoolLendWithdrawProposal {
-    return {
-      title: object.title,
-      description: object.description,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseCommunityPoolLendWithdrawProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: CommunityPoolLendWithdrawProposal): CommunityPoolLendWithdrawProposalAmino {
     const obj: any = {};
@@ -309,12 +317,20 @@ export const CommunityCDPRepayDebtProposal = {
     return message;
   },
   fromAmino(object: CommunityCDPRepayDebtProposalAmino): CommunityCDPRepayDebtProposal {
-    return {
-      title: object.title,
-      description: object.description,
-      collateralType: object.collateral_type,
-      payment: object?.payment ? Coin.fromAmino(object.payment) : undefined
-    };
+    const message = createBaseCommunityCDPRepayDebtProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.payment !== undefined && object.payment !== null) {
+      message.payment = Coin.fromAmino(object.payment);
+    }
+    return message;
   },
   toAmino(message: CommunityCDPRepayDebtProposal): CommunityCDPRepayDebtProposalAmino {
     const obj: any = {};
@@ -382,12 +398,20 @@ export const CommunityCDPWithdrawCollateralProposal = {
     return message;
   },
   fromAmino(object: CommunityCDPWithdrawCollateralProposalAmino): CommunityCDPWithdrawCollateralProposal {
-    return {
-      title: object.title,
-      description: object.description,
-      collateralType: object.collateral_type,
-      collateral: object?.collateral ? Coin.fromAmino(object.collateral) : undefined
-    };
+    const message = createBaseCommunityCDPWithdrawCollateralProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.collateral !== undefined && object.collateral !== null) {
+      message.collateral = Coin.fromAmino(object.collateral);
+    }
+    return message;
   },
   toAmino(message: CommunityCDPWithdrawCollateralProposal): CommunityCDPWithdrawCollateralProposalAmino {
     const obj: any = {};

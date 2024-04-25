@@ -13,8 +13,8 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the hard module. */
 export interface ParamsAmino {
-  money_markets: MoneyMarketAmino[];
-  minimum_borrow_usd_value: string;
+  money_markets?: MoneyMarketAmino[];
+  minimum_borrow_usd_value?: string;
 }
 export interface ParamsAminoMsg {
   type: "/kava.hard.v1beta1.Params";
@@ -41,13 +41,13 @@ export interface MoneyMarketProtoMsg {
 }
 /** MoneyMarket is a money market for an individual asset. */
 export interface MoneyMarketAmino {
-  denom: string;
+  denom?: string;
   borrow_limit?: BorrowLimitAmino;
-  spot_market_id: string;
-  conversion_factor: string;
+  spot_market_id?: string;
+  conversion_factor?: string;
   interest_rate_model?: InterestRateModelAmino;
-  reserve_factor: string;
-  keeper_reward_percentage: string;
+  reserve_factor?: string;
+  keeper_reward_percentage?: string;
 }
 export interface MoneyMarketAminoMsg {
   type: "/kava.hard.v1beta1.MoneyMarket";
@@ -75,9 +75,9 @@ export interface BorrowLimitProtoMsg {
 }
 /** BorrowLimit enforces restrictions on a money market. */
 export interface BorrowLimitAmino {
-  has_max_limit: boolean;
-  maximum_limit: string;
-  loan_to_value: string;
+  has_max_limit?: boolean;
+  maximum_limit?: string;
+  loan_to_value?: string;
 }
 export interface BorrowLimitAminoMsg {
   type: "/kava.hard.v1beta1.BorrowLimit";
@@ -102,10 +102,10 @@ export interface InterestRateModelProtoMsg {
 }
 /** InterestRateModel contains information about an asset's interest rate. */
 export interface InterestRateModelAmino {
-  base_rate_apy: string;
-  base_multiplier: string;
-  kink: string;
-  jump_multiplier: string;
+  base_rate_apy?: string;
+  base_multiplier?: string;
+  kink?: string;
+  jump_multiplier?: string;
 }
 export interface InterestRateModelAminoMsg {
   type: "/kava.hard.v1beta1.InterestRateModel";
@@ -130,9 +130,9 @@ export interface DepositProtoMsg {
 }
 /** Deposit defines an amount of coins deposited into a hard module account. */
 export interface DepositAmino {
-  depositor: string;
-  amount: CoinAmino[];
-  index: SupplyInterestFactorAmino[];
+  depositor?: string;
+  amount?: CoinAmino[];
+  index?: SupplyInterestFactorAmino[];
 }
 export interface DepositAminoMsg {
   type: "/kava.hard.v1beta1.Deposit";
@@ -156,9 +156,9 @@ export interface BorrowProtoMsg {
 }
 /** Borrow defines an amount of coins borrowed from a hard module account. */
 export interface BorrowAmino {
-  borrower: string;
-  amount: CoinAmino[];
-  index: BorrowInterestFactorAmino[];
+  borrower?: string;
+  amount?: CoinAmino[];
+  index?: BorrowInterestFactorAmino[];
 }
 export interface BorrowAminoMsg {
   type: "/kava.hard.v1beta1.Borrow";
@@ -181,8 +181,8 @@ export interface SupplyInterestFactorProtoMsg {
 }
 /** SupplyInterestFactor defines an individual borrow interest factor. */
 export interface SupplyInterestFactorAmino {
-  denom: string;
-  value: string;
+  denom?: string;
+  value?: string;
 }
 export interface SupplyInterestFactorAminoMsg {
   type: "/kava.hard.v1beta1.SupplyInterestFactor";
@@ -204,8 +204,8 @@ export interface BorrowInterestFactorProtoMsg {
 }
 /** BorrowInterestFactor defines an individual borrow interest factor. */
 export interface BorrowInterestFactorAmino {
-  denom: string;
-  value: string;
+  denom?: string;
+  value?: string;
 }
 export interface BorrowInterestFactorAminoMsg {
   type: "/kava.hard.v1beta1.BorrowInterestFactor";
@@ -226,7 +226,7 @@ export interface CoinsProtoProtoMsg {
 }
 /** CoinsProto defines a Protobuf wrapper around a Coins slice */
 export interface CoinsProtoAmino {
-  coins: CoinAmino[];
+  coins?: CoinAmino[];
 }
 export interface CoinsProtoAminoMsg {
   type: "/kava.hard.v1beta1.CoinsProto";
@@ -266,10 +266,12 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      moneyMarkets: Array.isArray(object?.money_markets) ? object.money_markets.map((e: any) => MoneyMarket.fromAmino(e)) : [],
-      minimumBorrowUsdValue: object.minimum_borrow_usd_value
-    };
+    const message = createBaseParams();
+    message.moneyMarkets = object.money_markets?.map(e => MoneyMarket.fromAmino(e)) || [];
+    if (object.minimum_borrow_usd_value !== undefined && object.minimum_borrow_usd_value !== null) {
+      message.minimumBorrowUsdValue = object.minimum_borrow_usd_value;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -357,15 +359,29 @@ export const MoneyMarket = {
     return message;
   },
   fromAmino(object: MoneyMarketAmino): MoneyMarket {
-    return {
-      denom: object.denom,
-      borrowLimit: object?.borrow_limit ? BorrowLimit.fromAmino(object.borrow_limit) : undefined,
-      spotMarketId: object.spot_market_id,
-      conversionFactor: object.conversion_factor,
-      interestRateModel: object?.interest_rate_model ? InterestRateModel.fromAmino(object.interest_rate_model) : undefined,
-      reserveFactor: object.reserve_factor,
-      keeperRewardPercentage: object.keeper_reward_percentage
-    };
+    const message = createBaseMoneyMarket();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.borrow_limit !== undefined && object.borrow_limit !== null) {
+      message.borrowLimit = BorrowLimit.fromAmino(object.borrow_limit);
+    }
+    if (object.spot_market_id !== undefined && object.spot_market_id !== null) {
+      message.spotMarketId = object.spot_market_id;
+    }
+    if (object.conversion_factor !== undefined && object.conversion_factor !== null) {
+      message.conversionFactor = object.conversion_factor;
+    }
+    if (object.interest_rate_model !== undefined && object.interest_rate_model !== null) {
+      message.interestRateModel = InterestRateModel.fromAmino(object.interest_rate_model);
+    }
+    if (object.reserve_factor !== undefined && object.reserve_factor !== null) {
+      message.reserveFactor = object.reserve_factor;
+    }
+    if (object.keeper_reward_percentage !== undefined && object.keeper_reward_percentage !== null) {
+      message.keeperRewardPercentage = object.keeper_reward_percentage;
+    }
+    return message;
   },
   toAmino(message: MoneyMarket): MoneyMarketAmino {
     const obj: any = {};
@@ -430,11 +446,17 @@ export const BorrowLimit = {
     return message;
   },
   fromAmino(object: BorrowLimitAmino): BorrowLimit {
-    return {
-      hasMaxLimit: object.has_max_limit,
-      maximumLimit: object.maximum_limit,
-      loanToValue: object.loan_to_value
-    };
+    const message = createBaseBorrowLimit();
+    if (object.has_max_limit !== undefined && object.has_max_limit !== null) {
+      message.hasMaxLimit = object.has_max_limit;
+    }
+    if (object.maximum_limit !== undefined && object.maximum_limit !== null) {
+      message.maximumLimit = object.maximum_limit;
+    }
+    if (object.loan_to_value !== undefined && object.loan_to_value !== null) {
+      message.loanToValue = object.loan_to_value;
+    }
+    return message;
   },
   toAmino(message: BorrowLimit): BorrowLimitAmino {
     const obj: any = {};
@@ -501,12 +523,20 @@ export const InterestRateModel = {
     return message;
   },
   fromAmino(object: InterestRateModelAmino): InterestRateModel {
-    return {
-      baseRateApy: object.base_rate_apy,
-      baseMultiplier: object.base_multiplier,
-      kink: object.kink,
-      jumpMultiplier: object.jump_multiplier
-    };
+    const message = createBaseInterestRateModel();
+    if (object.base_rate_apy !== undefined && object.base_rate_apy !== null) {
+      message.baseRateApy = object.base_rate_apy;
+    }
+    if (object.base_multiplier !== undefined && object.base_multiplier !== null) {
+      message.baseMultiplier = object.base_multiplier;
+    }
+    if (object.kink !== undefined && object.kink !== null) {
+      message.kink = object.kink;
+    }
+    if (object.jump_multiplier !== undefined && object.jump_multiplier !== null) {
+      message.jumpMultiplier = object.jump_multiplier;
+    }
+    return message;
   },
   toAmino(message: InterestRateModel): InterestRateModelAmino {
     const obj: any = {};
@@ -568,11 +598,13 @@ export const Deposit = {
     return message;
   },
   fromAmino(object: DepositAmino): Deposit {
-    return {
-      depositor: object.depositor,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : [],
-      index: Array.isArray(object?.index) ? object.index.map((e: any) => SupplyInterestFactor.fromAmino(e)) : []
-    };
+    const message = createBaseDeposit();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    message.index = object.index?.map(e => SupplyInterestFactor.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Deposit): DepositAmino {
     const obj: any = {};
@@ -641,11 +673,13 @@ export const Borrow = {
     return message;
   },
   fromAmino(object: BorrowAmino): Borrow {
-    return {
-      borrower: object.borrower,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : [],
-      index: Array.isArray(object?.index) ? object.index.map((e: any) => BorrowInterestFactor.fromAmino(e)) : []
-    };
+    const message = createBaseBorrow();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    message.index = object.index?.map(e => BorrowInterestFactor.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Borrow): BorrowAmino {
     const obj: any = {};
@@ -708,10 +742,14 @@ export const SupplyInterestFactor = {
     return message;
   },
   fromAmino(object: SupplyInterestFactorAmino): SupplyInterestFactor {
-    return {
-      denom: object.denom,
-      value: object.value
-    };
+    const message = createBaseSupplyInterestFactor();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: SupplyInterestFactor): SupplyInterestFactorAmino {
     const obj: any = {};
@@ -765,10 +803,14 @@ export const BorrowInterestFactor = {
     return message;
   },
   fromAmino(object: BorrowInterestFactorAmino): BorrowInterestFactor {
-    return {
-      denom: object.denom,
-      value: object.value
-    };
+    const message = createBaseBorrowInterestFactor();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: BorrowInterestFactor): BorrowInterestFactorAmino {
     const obj: any = {};
@@ -816,9 +858,9 @@ export const CoinsProto = {
     return message;
   },
   fromAmino(object: CoinsProtoAmino): CoinsProto {
-    return {
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseCoinsProto();
+    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: CoinsProto): CoinsProtoAmino {
     const obj: any = {};

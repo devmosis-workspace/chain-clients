@@ -1,7 +1,7 @@
 import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** GenesisState defines the auction module's genesis state. */
 export interface GenesisState {
   nextAuctionId: bigint;
@@ -18,10 +18,10 @@ export type GenesisStateEncoded = Omit<GenesisState, "auctions"> & {
 };
 /** GenesisState defines the auction module's genesis state. */
 export interface GenesisStateAmino {
-  next_auction_id: string;
+  next_auction_id?: string;
   params?: ParamsAmino;
   /** Genesis auctions */
-  auctions: AnyAmino[];
+  auctions?: AnyAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/kava.auction.v1beta1.GenesisState";
@@ -51,9 +51,9 @@ export interface ParamsAmino {
   max_auction_duration?: DurationAmino;
   forward_bid_duration?: DurationAmino;
   reverse_bid_duration?: DurationAmino;
-  increment_surplus: Uint8Array;
-  increment_debt: Uint8Array;
-  increment_collateral: Uint8Array;
+  increment_surplus?: string;
+  increment_debt?: string;
+  increment_collateral?: string;
 }
 export interface ParamsAminoMsg {
   type: "/kava.auction.v1beta1.Params";
@@ -104,11 +104,15 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      nextAuctionId: BigInt(object.next_auction_id),
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      auctions: Array.isArray(object?.auctions) ? object.auctions.map((e: any) => GenesisAuction_FromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.next_auction_id !== undefined && object.next_auction_id !== null) {
+      message.nextAuctionId = BigInt(object.next_auction_id);
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.auctions = object.auctions?.map(e => GenesisAuction_FromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -191,23 +195,35 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      maxAuctionDuration: object?.max_auction_duration ? Duration.fromAmino(object.max_auction_duration) : undefined,
-      forwardBidDuration: object?.forward_bid_duration ? Duration.fromAmino(object.forward_bid_duration) : undefined,
-      reverseBidDuration: object?.reverse_bid_duration ? Duration.fromAmino(object.reverse_bid_duration) : undefined,
-      incrementSurplus: object.increment_surplus,
-      incrementDebt: object.increment_debt,
-      incrementCollateral: object.increment_collateral
-    };
+    const message = createBaseParams();
+    if (object.max_auction_duration !== undefined && object.max_auction_duration !== null) {
+      message.maxAuctionDuration = Duration.fromAmino(object.max_auction_duration);
+    }
+    if (object.forward_bid_duration !== undefined && object.forward_bid_duration !== null) {
+      message.forwardBidDuration = Duration.fromAmino(object.forward_bid_duration);
+    }
+    if (object.reverse_bid_duration !== undefined && object.reverse_bid_duration !== null) {
+      message.reverseBidDuration = Duration.fromAmino(object.reverse_bid_duration);
+    }
+    if (object.increment_surplus !== undefined && object.increment_surplus !== null) {
+      message.incrementSurplus = bytesFromBase64(object.increment_surplus);
+    }
+    if (object.increment_debt !== undefined && object.increment_debt !== null) {
+      message.incrementDebt = bytesFromBase64(object.increment_debt);
+    }
+    if (object.increment_collateral !== undefined && object.increment_collateral !== null) {
+      message.incrementCollateral = bytesFromBase64(object.increment_collateral);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
     obj.max_auction_duration = message.maxAuctionDuration ? Duration.toAmino(message.maxAuctionDuration) : undefined;
     obj.forward_bid_duration = message.forwardBidDuration ? Duration.toAmino(message.forwardBidDuration) : undefined;
     obj.reverse_bid_duration = message.reverseBidDuration ? Duration.toAmino(message.reverseBidDuration) : undefined;
-    obj.increment_surplus = message.incrementSurplus;
-    obj.increment_debt = message.incrementDebt;
-    obj.increment_collateral = message.incrementCollateral;
+    obj.increment_surplus = message.incrementSurplus ? base64FromBytes(message.incrementSurplus) : undefined;
+    obj.increment_debt = message.incrementDebt ? base64FromBytes(message.incrementDebt) : undefined;
+    obj.increment_collateral = message.incrementCollateral ? base64FromBytes(message.incrementCollateral) : undefined;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

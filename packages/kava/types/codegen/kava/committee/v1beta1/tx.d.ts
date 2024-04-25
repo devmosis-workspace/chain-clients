@@ -2,12 +2,13 @@ import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf
 import { VoteType } from "./genesis";
 import { CommitteeChangeProposal, CommitteeChangeProposalProtoMsg, CommitteeChangeProposalSDKType, CommitteeDeleteProposal, CommitteeDeleteProposalProtoMsg, CommitteeDeleteProposalSDKType } from "./proposal";
 import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalSDKType, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg, CommunityPoolSpendProposalWithDepositSDKType } from "../../../cosmos/distribution/v1beta1/distribution";
+import { TextProposal, TextProposalProtoMsg, TextProposalSDKType } from "../../../cosmos/gov/v1beta1/gov";
 import { ParameterChangeProposal, ParameterChangeProposalProtoMsg, ParameterChangeProposalSDKType } from "../../../cosmos/params/v1beta1/params";
 import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, SoftwareUpgradeProposalSDKType, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposalSDKType } from "../../../cosmos/upgrade/v1beta1/upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 /** MsgSubmitProposal is used by committee members to create a new proposal that they can vote on. */
 export interface MsgSubmitProposal {
-    pubProposal: (CommitteeChangeProposal & CommitteeDeleteProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
+    pubProposal?: (CommitteeChangeProposal & CommitteeDeleteProposal & CommunityPoolSpendProposal & CommunityPoolSpendProposalWithDeposit & TextProposal & ParameterChangeProposal & SoftwareUpgradeProposal & CancelSoftwareUpgradeProposal & Any) | undefined;
     proposer: string;
     committeeId: bigint;
 }
@@ -16,13 +17,13 @@ export interface MsgSubmitProposalProtoMsg {
     value: Uint8Array;
 }
 export type MsgSubmitProposalEncoded = Omit<MsgSubmitProposal, "pubProposal"> & {
-    pubProposal?: CommitteeChangeProposalProtoMsg | CommitteeDeleteProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
+    pubProposal?: CommitteeChangeProposalProtoMsg | CommitteeDeleteProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /** MsgSubmitProposal is used by committee members to create a new proposal that they can vote on. */
 export interface MsgSubmitProposalAmino {
     pub_proposal?: AnyAmino;
-    proposer: string;
-    committee_id: string;
+    proposer?: string;
+    committee_id?: string;
 }
 export interface MsgSubmitProposalAminoMsg {
     type: "/kava.committee.v1beta1.MsgSubmitProposal";
@@ -30,7 +31,7 @@ export interface MsgSubmitProposalAminoMsg {
 }
 /** MsgSubmitProposal is used by committee members to create a new proposal that they can vote on. */
 export interface MsgSubmitProposalSDKType {
-    pub_proposal: CommitteeChangeProposalSDKType | CommitteeDeleteProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
+    pub_proposal?: CommitteeChangeProposalSDKType | CommitteeDeleteProposalSDKType | CommunityPoolSpendProposalSDKType | CommunityPoolSpendProposalWithDepositSDKType | TextProposalSDKType | ParameterChangeProposalSDKType | SoftwareUpgradeProposalSDKType | CancelSoftwareUpgradeProposalSDKType | AnySDKType | undefined;
     proposer: string;
     committee_id: bigint;
 }
@@ -44,7 +45,7 @@ export interface MsgSubmitProposalResponseProtoMsg {
 }
 /** MsgSubmitProposalResponse defines the SubmitProposal response type */
 export interface MsgSubmitProposalResponseAmino {
-    proposal_id: string;
+    proposal_id?: string;
 }
 export interface MsgSubmitProposalResponseAminoMsg {
     type: "/kava.committee.v1beta1.MsgSubmitProposalResponse";
@@ -66,9 +67,9 @@ export interface MsgVoteProtoMsg {
 }
 /** MsgVote is submitted by committee members to vote on proposals. */
 export interface MsgVoteAmino {
-    proposal_id: string;
-    voter: string;
-    vote_type: VoteType;
+    proposal_id?: string;
+    voter?: string;
+    vote_type?: VoteType;
 }
 export interface MsgVoteAminoMsg {
     type: "/kava.committee.v1beta1.MsgVote";
@@ -145,6 +146,6 @@ export declare const MsgVoteResponse: {
     toProto(message: MsgVoteResponse): Uint8Array;
     toProtoMsg(message: MsgVoteResponse): MsgVoteResponseProtoMsg;
 };
-export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => CommitteeChangeProposal | CommitteeDeleteProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any;
+export declare const Cosmos_govv1beta1Content_InterfaceDecoder: (input: BinaryReader | Uint8Array) => CommitteeChangeProposal | CommitteeDeleteProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any;
 export declare const Cosmos_govv1beta1Content_FromAmino: (content: AnyAmino) => Any;
 export declare const Cosmos_govv1beta1Content_ToAmino: (content: Any) => AnyAmino;

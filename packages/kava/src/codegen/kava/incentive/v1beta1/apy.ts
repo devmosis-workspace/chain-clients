@@ -18,8 +18,8 @@ export interface ApyProtoMsg {
  * instant in time.
  */
 export interface ApyAmino {
-  collateral_type: string;
-  apy: string;
+  collateral_type?: string;
+  apy?: string;
 }
 export interface ApyAminoMsg {
   type: "/kava.incentive.v1beta1.Apy";
@@ -63,10 +63,14 @@ export const Apy = {
     return message;
   },
   fromAmino(object: ApyAmino): Apy {
-    return {
-      collateralType: object.collateral_type,
-      apy: object.apy
-    };
+    const message = createBaseApy();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.apy !== undefined && object.apy !== null) {
+      message.apy = object.apy;
+    }
+    return message;
   },
   toAmino(message: Apy): ApyAmino {
     const obj: any = {};

@@ -1,5 +1,5 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./store";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 import { Decimal } from "@cosmjs/math";
@@ -65,7 +65,7 @@ export interface QueryPriceRequestProtoMsg {
 }
 /** QueryPriceRequest is the request type for the Query/PriceRequest RPC method. */
 export interface QueryPriceRequestAmino {
-  market_id: string;
+  market_id?: string;
 }
 export interface QueryPriceRequestAminoMsg {
   type: "/kava.pricefeed.v1beta1.QueryPriceRequest";
@@ -119,7 +119,7 @@ export interface QueryPricesResponseProtoMsg {
 }
 /** QueryPricesResponse is the response type for the Query/Prices RPC method. */
 export interface QueryPricesResponseAmino {
-  prices: CurrentPriceResponseAmino[];
+  prices?: CurrentPriceResponseAmino[];
 }
 export interface QueryPricesResponseAminoMsg {
   type: "/kava.pricefeed.v1beta1.QueryPricesResponse";
@@ -139,7 +139,7 @@ export interface QueryRawPricesRequestProtoMsg {
 }
 /** QueryRawPricesRequest is the request type for the Query/RawPrices RPC method. */
 export interface QueryRawPricesRequestAmino {
-  market_id: string;
+  market_id?: string;
 }
 export interface QueryRawPricesRequestAminoMsg {
   type: "/kava.pricefeed.v1beta1.QueryRawPricesRequest";
@@ -165,7 +165,7 @@ export interface QueryRawPricesResponseProtoMsg {
  * method.
  */
 export interface QueryRawPricesResponseAmino {
-  raw_prices: PostedPriceResponseAmino[];
+  raw_prices?: PostedPriceResponseAmino[];
 }
 export interface QueryRawPricesResponseAminoMsg {
   type: "/kava.pricefeed.v1beta1.QueryRawPricesResponse";
@@ -188,7 +188,7 @@ export interface QueryOraclesRequestProtoMsg {
 }
 /** QueryOraclesRequest is the request type for the Query/Oracles RPC method. */
 export interface QueryOraclesRequestAmino {
-  market_id: string;
+  market_id?: string;
 }
 export interface QueryOraclesRequestAminoMsg {
   type: "/kava.pricefeed.v1beta1.QueryOraclesRequest";
@@ -210,7 +210,7 @@ export interface QueryOraclesResponseProtoMsg {
 /** QueryOraclesResponse is the response type for the Query/Oracles RPC method. */
 export interface QueryOraclesResponseAmino {
   /** List of oracle addresses */
-  oracles: string[];
+  oracles?: string[];
 }
 export interface QueryOraclesResponseAminoMsg {
   type: "/kava.pricefeed.v1beta1.QueryOraclesResponse";
@@ -246,7 +246,7 @@ export interface QueryMarketsResponseProtoMsg {
 /** QueryMarketsResponse is the response type for the Query/Markets RPC method. */
 export interface QueryMarketsResponseAmino {
   /** List of markets */
-  markets: MarketResponseAmino[];
+  markets?: MarketResponseAmino[];
 }
 export interface QueryMarketsResponseAminoMsg {
   type: "/kava.pricefeed.v1beta1.QueryMarketsResponse";
@@ -269,10 +269,10 @@ export interface PostedPriceResponseProtoMsg {
 }
 /** PostedPriceResponse defines a price for market posted by a specific oracle. */
 export interface PostedPriceResponseAmino {
-  market_id: string;
-  oracle_address: string;
-  price: string;
-  expiry?: TimestampAmino;
+  market_id?: string;
+  oracle_address?: string;
+  price?: string;
+  expiry?: string;
 }
 export interface PostedPriceResponseAminoMsg {
   type: "/kava.pricefeed.v1beta1.PostedPriceResponse";
@@ -302,8 +302,8 @@ export interface CurrentPriceResponseProtoMsg {
  * module.
  */
 export interface CurrentPriceResponseAmino {
-  market_id: string;
-  price: string;
+  market_id?: string;
+  price?: string;
 }
 export interface CurrentPriceResponseAminoMsg {
   type: "/kava.pricefeed.v1beta1.CurrentPriceResponse";
@@ -331,11 +331,11 @@ export interface MarketResponseProtoMsg {
 }
 /** MarketResponse defines an asset in the pricefeed. */
 export interface MarketResponseAmino {
-  market_id: string;
-  base_asset: string;
-  quote_asset: string;
-  oracles: string[];
-  active: boolean;
+  market_id?: string;
+  base_asset?: string;
+  quote_asset?: string;
+  oracles?: string[];
+  active?: boolean;
 }
 export interface MarketResponseAminoMsg {
   type: "/kava.pricefeed.v1beta1.MarketResponse";
@@ -365,7 +365,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -411,9 +412,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -460,9 +463,11 @@ export const QueryPriceRequest = {
     return message;
   },
   fromAmino(object: QueryPriceRequestAmino): QueryPriceRequest {
-    return {
-      marketId: object.market_id
-    };
+    const message = createBaseQueryPriceRequest();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    return message;
   },
   toAmino(message: QueryPriceRequest): QueryPriceRequestAmino {
     const obj: any = {};
@@ -509,9 +514,11 @@ export const QueryPriceResponse = {
     return message;
   },
   fromAmino(object: QueryPriceResponseAmino): QueryPriceResponse {
-    return {
-      price: object?.price ? CurrentPriceResponse.fromAmino(object.price) : undefined
-    };
+    const message = createBaseQueryPriceResponse();
+    if (object.price !== undefined && object.price !== null) {
+      message.price = CurrentPriceResponse.fromAmino(object.price);
+    }
+    return message;
   },
   toAmino(message: QueryPriceResponse): QueryPriceResponseAmino {
     const obj: any = {};
@@ -550,7 +557,8 @@ export const QueryPricesRequest = {
     return message;
   },
   fromAmino(_: QueryPricesRequestAmino): QueryPricesRequest {
-    return {};
+    const message = createBaseQueryPricesRequest();
+    return message;
   },
   toAmino(_: QueryPricesRequest): QueryPricesRequestAmino {
     const obj: any = {};
@@ -596,9 +604,9 @@ export const QueryPricesResponse = {
     return message;
   },
   fromAmino(object: QueryPricesResponseAmino): QueryPricesResponse {
-    return {
-      prices: Array.isArray(object?.prices) ? object.prices.map((e: any) => CurrentPriceResponse.fromAmino(e)) : []
-    };
+    const message = createBaseQueryPricesResponse();
+    message.prices = object.prices?.map(e => CurrentPriceResponse.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryPricesResponse): QueryPricesResponseAmino {
     const obj: any = {};
@@ -649,9 +657,11 @@ export const QueryRawPricesRequest = {
     return message;
   },
   fromAmino(object: QueryRawPricesRequestAmino): QueryRawPricesRequest {
-    return {
-      marketId: object.market_id
-    };
+    const message = createBaseQueryRawPricesRequest();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    return message;
   },
   toAmino(message: QueryRawPricesRequest): QueryRawPricesRequestAmino {
     const obj: any = {};
@@ -698,9 +708,9 @@ export const QueryRawPricesResponse = {
     return message;
   },
   fromAmino(object: QueryRawPricesResponseAmino): QueryRawPricesResponse {
-    return {
-      rawPrices: Array.isArray(object?.raw_prices) ? object.raw_prices.map((e: any) => PostedPriceResponse.fromAmino(e)) : []
-    };
+    const message = createBaseQueryRawPricesResponse();
+    message.rawPrices = object.raw_prices?.map(e => PostedPriceResponse.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryRawPricesResponse): QueryRawPricesResponseAmino {
     const obj: any = {};
@@ -751,9 +761,11 @@ export const QueryOraclesRequest = {
     return message;
   },
   fromAmino(object: QueryOraclesRequestAmino): QueryOraclesRequest {
-    return {
-      marketId: object.market_id
-    };
+    const message = createBaseQueryOraclesRequest();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    return message;
   },
   toAmino(message: QueryOraclesRequest): QueryOraclesRequestAmino {
     const obj: any = {};
@@ -800,9 +812,9 @@ export const QueryOraclesResponse = {
     return message;
   },
   fromAmino(object: QueryOraclesResponseAmino): QueryOraclesResponse {
-    return {
-      oracles: Array.isArray(object?.oracles) ? object.oracles.map((e: any) => e) : []
-    };
+    const message = createBaseQueryOraclesResponse();
+    message.oracles = object.oracles?.map(e => e) || [];
+    return message;
   },
   toAmino(message: QueryOraclesResponse): QueryOraclesResponseAmino {
     const obj: any = {};
@@ -845,7 +857,8 @@ export const QueryMarketsRequest = {
     return message;
   },
   fromAmino(_: QueryMarketsRequestAmino): QueryMarketsRequest {
-    return {};
+    const message = createBaseQueryMarketsRequest();
+    return message;
   },
   toAmino(_: QueryMarketsRequest): QueryMarketsRequestAmino {
     const obj: any = {};
@@ -891,9 +904,9 @@ export const QueryMarketsResponse = {
     return message;
   },
   fromAmino(object: QueryMarketsResponseAmino): QueryMarketsResponse {
-    return {
-      markets: Array.isArray(object?.markets) ? object.markets.map((e: any) => MarketResponse.fromAmino(e)) : []
-    };
+    const message = createBaseQueryMarketsResponse();
+    message.markets = object.markets?.map(e => MarketResponse.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryMarketsResponse): QueryMarketsResponseAmino {
     const obj: any = {};
@@ -962,19 +975,27 @@ export const PostedPriceResponse = {
     return message;
   },
   fromAmino(object: PostedPriceResponseAmino): PostedPriceResponse {
-    return {
-      marketId: object.market_id,
-      oracleAddress: object.oracle_address,
-      price: object.price,
-      expiry: object.expiry
-    };
+    const message = createBasePostedPriceResponse();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.oracle_address !== undefined && object.oracle_address !== null) {
+      message.oracleAddress = object.oracle_address;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = object.price;
+    }
+    if (object.expiry !== undefined && object.expiry !== null) {
+      message.expiry = Timestamp.fromAmino(object.expiry);
+    }
+    return message;
   },
   toAmino(message: PostedPriceResponse): PostedPriceResponseAmino {
     const obj: any = {};
     obj.market_id = message.marketId;
     obj.oracle_address = message.oracleAddress;
     obj.price = message.price;
-    obj.expiry = message.expiry;
+    obj.expiry = message.expiry ? Timestamp.toAmino(message.expiry) : undefined;
     return obj;
   },
   fromAminoMsg(object: PostedPriceResponseAminoMsg): PostedPriceResponse {
@@ -1023,10 +1044,14 @@ export const CurrentPriceResponse = {
     return message;
   },
   fromAmino(object: CurrentPriceResponseAmino): CurrentPriceResponse {
-    return {
-      marketId: object.market_id,
-      price: object.price
-    };
+    const message = createBaseCurrentPriceResponse();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = object.price;
+    }
+    return message;
   },
   toAmino(message: CurrentPriceResponse): CurrentPriceResponseAmino {
     const obj: any = {};
@@ -1098,13 +1123,21 @@ export const MarketResponse = {
     return message;
   },
   fromAmino(object: MarketResponseAmino): MarketResponse {
-    return {
-      marketId: object.market_id,
-      baseAsset: object.base_asset,
-      quoteAsset: object.quote_asset,
-      oracles: Array.isArray(object?.oracles) ? object.oracles.map((e: any) => e) : [],
-      active: object.active
-    };
+    const message = createBaseMarketResponse();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.base_asset !== undefined && object.base_asset !== null) {
+      message.baseAsset = object.base_asset;
+    }
+    if (object.quote_asset !== undefined && object.quote_asset !== null) {
+      message.quoteAsset = object.quote_asset;
+    }
+    message.oracles = object.oracles?.map(e => e) || [];
+    if (object.active !== undefined && object.active !== null) {
+      message.active = object.active;
+    }
+    return message;
   },
   toAmino(message: MarketResponse): MarketResponseAmino {
     const obj: any = {};

@@ -1,10 +1,10 @@
 import { CDP, CDPAmino, CDPSDKType, Deposit, DepositAmino, DepositSDKType } from "./cdp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the cdp module's genesis state. */
 export interface GenesisState {
-    /** params defines all the paramaters of the module. */
+    /** params defines all the parameters of the module. */
     params: Params;
     cdps: CDP[];
     deposits: Deposit[];
@@ -20,15 +20,15 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the cdp module's genesis state. */
 export interface GenesisStateAmino {
-    /** params defines all the paramaters of the module. */
+    /** params defines all the parameters of the module. */
     params?: ParamsAmino;
-    cdps: CDPAmino[];
-    deposits: DepositAmino[];
-    starting_cdp_id: string;
-    debt_denom: string;
-    gov_denom: string;
-    previous_accumulation_times: GenesisAccumulationTimeAmino[];
-    total_principals: GenesisTotalPrincipalAmino[];
+    cdps?: CDPAmino[];
+    deposits?: DepositAmino[];
+    starting_cdp_id?: string;
+    debt_denom?: string;
+    gov_denom?: string;
+    previous_accumulation_times?: GenesisAccumulationTimeAmino[];
+    total_principals?: GenesisTotalPrincipalAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/kava.cdp.v1beta1.GenesisState";
@@ -55,6 +55,7 @@ export interface Params {
     debtAuctionThreshold: string;
     debtAuctionLot: string;
     circuitBreaker: boolean;
+    liquidationBlockInterval: bigint;
 }
 export interface ParamsProtoMsg {
     typeUrl: "/kava.cdp.v1beta1.Params";
@@ -62,14 +63,15 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the cdp module. */
 export interface ParamsAmino {
-    collateral_params: CollateralParamAmino[];
+    collateral_params?: CollateralParamAmino[];
     debt_param?: DebtParamAmino;
     global_debt_limit?: CoinAmino;
-    surplus_auction_threshold: string;
-    surplus_auction_lot: string;
-    debt_auction_threshold: string;
-    debt_auction_lot: string;
-    circuit_breaker: boolean;
+    surplus_auction_threshold?: string;
+    surplus_auction_lot?: string;
+    debt_auction_threshold?: string;
+    debt_auction_lot?: string;
+    circuit_breaker?: boolean;
+    liquidation_block_interval?: string;
 }
 export interface ParamsAminoMsg {
     type: "/kava.cdp.v1beta1.Params";
@@ -85,6 +87,7 @@ export interface ParamsSDKType {
     debt_auction_threshold: string;
     debt_auction_lot: string;
     circuit_breaker: boolean;
+    liquidation_block_interval: bigint;
 }
 /** DebtParam defines governance params for debt assets */
 export interface DebtParam {
@@ -99,10 +102,10 @@ export interface DebtParamProtoMsg {
 }
 /** DebtParam defines governance params for debt assets */
 export interface DebtParamAmino {
-    denom: string;
-    reference_asset: string;
-    conversion_factor: string;
-    debt_floor: string;
+    denom?: string;
+    reference_asset?: string;
+    conversion_factor?: string;
+    debt_floor?: string;
 }
 export interface DebtParamAminoMsg {
     type: "/kava.cdp.v1beta1.DebtParam";
@@ -136,18 +139,18 @@ export interface CollateralParamProtoMsg {
 }
 /** CollateralParam defines governance parameters for each collateral type within the cdp module */
 export interface CollateralParamAmino {
-    denom: string;
-    type: string;
-    liquidation_ratio: string;
+    denom?: string;
+    type?: string;
+    liquidation_ratio?: string;
     debt_limit?: CoinAmino;
-    stability_fee: string;
-    auction_size: string;
-    liquidation_penalty: string;
-    spot_market_id: string;
-    liquidation_market_id: string;
-    keeper_reward_percentage: string;
-    check_collateralization_index_count: string;
-    conversion_factor: string;
+    stability_fee?: string;
+    auction_size?: string;
+    liquidation_penalty?: string;
+    spot_market_id?: string;
+    liquidation_market_id?: string;
+    keeper_reward_percentage?: string;
+    check_collateralization_index_count?: string;
+    conversion_factor?: string;
 }
 export interface CollateralParamAminoMsg {
     type: "/kava.cdp.v1beta1.CollateralParam";
@@ -180,9 +183,9 @@ export interface GenesisAccumulationTimeProtoMsg {
 }
 /** GenesisAccumulationTime defines the previous distribution time and its corresponding denom */
 export interface GenesisAccumulationTimeAmino {
-    collateral_type: string;
-    previous_accumulation_time?: TimestampAmino;
-    interest_factor: string;
+    collateral_type?: string;
+    previous_accumulation_time?: string;
+    interest_factor?: string;
 }
 export interface GenesisAccumulationTimeAminoMsg {
     type: "/kava.cdp.v1beta1.GenesisAccumulationTime";
@@ -205,8 +208,8 @@ export interface GenesisTotalPrincipalProtoMsg {
 }
 /** GenesisTotalPrincipal defines the total principal and its corresponding collateral type */
 export interface GenesisTotalPrincipalAmino {
-    collateral_type: string;
-    total_principal: string;
+    collateral_type?: string;
+    total_principal?: string;
 }
 export interface GenesisTotalPrincipalAminoMsg {
     type: "/kava.cdp.v1beta1.GenesisTotalPrincipal";

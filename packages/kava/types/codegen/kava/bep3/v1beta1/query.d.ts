@@ -54,7 +54,7 @@ export interface QueryAssetSupplyRequestProtoMsg {
 /** QueryAssetSupplyRequest is the request type for the Query/AssetSupply RPC method. */
 export interface QueryAssetSupplyRequestAmino {
     /** denom filters the asset response for the specified denom */
-    denom: string;
+    denom?: string;
 }
 export interface QueryAssetSupplyRequestAminoMsg {
     type: "/kava.bep3.v1beta1.QueryAssetSupplyRequest";
@@ -157,7 +157,7 @@ export interface QueryAssetSuppliesResponseProtoMsg {
 /** QueryAssetSuppliesResponse is the response type for the Query/AssetSupplies RPC method. */
 export interface QueryAssetSuppliesResponseAmino {
     /** asset_supplies represents the supplies of returned assets */
-    asset_supplies: AssetSupplyResponseAmino[];
+    asset_supplies?: AssetSupplyResponseAmino[];
 }
 export interface QueryAssetSuppliesResponseAminoMsg {
     type: "/kava.bep3.v1beta1.QueryAssetSuppliesResponse";
@@ -179,7 +179,7 @@ export interface QueryAtomicSwapRequestProtoMsg {
 /** QueryAtomicSwapRequest is the request type for the Query/AtomicSwap RPC method. */
 export interface QueryAtomicSwapRequestAmino {
     /** swap_id represents the id of the swap to query */
-    swap_id: string;
+    swap_id?: string;
 }
 export interface QueryAtomicSwapRequestAminoMsg {
     type: "/kava.bep3.v1beta1.QueryAtomicSwapRequest";
@@ -245,31 +245,31 @@ export interface AtomicSwapResponseProtoMsg {
 /** AtomicSwapResponse represents the returned atomic swap properties */
 export interface AtomicSwapResponseAmino {
     /** id represents the id of the atomic swap */
-    id: string;
+    id?: string;
     /** amount represents the amount being swapped */
-    amount: CoinAmino[];
+    amount?: CoinAmino[];
     /** random_number_hash represents the hash of the random number */
-    random_number_hash: string;
+    random_number_hash?: string;
     /** expire_height represents the height when the swap expires */
-    expire_height: string;
+    expire_height?: string;
     /** timestamp represents the timestamp of the swap */
-    timestamp: string;
+    timestamp?: string;
     /** sender is the kava chain sender of the swap */
-    sender: string;
+    sender?: string;
     /** recipient is the kava chain recipient of the swap */
-    recipient: string;
+    recipient?: string;
     /** sender_other_chain is the sender on the other chain */
-    sender_other_chain: string;
+    sender_other_chain?: string;
     /** recipient_other_chain is the recipient on the other chain */
-    recipient_other_chain: string;
+    recipient_other_chain?: string;
     /** closed_block is the block when the swap is closed */
-    closed_block: string;
+    closed_block?: string;
     /** status represents the current status of the swap */
-    status: SwapStatus;
+    status?: SwapStatus;
     /** cross_chain identifies whether the atomic swap is cross chain */
-    cross_chain: boolean;
+    cross_chain?: boolean;
     /** direction identifies if the swap is incoming or outgoing */
-    direction: SwapDirection;
+    direction?: SwapDirection;
 }
 export interface AtomicSwapResponseAminoMsg {
     type: "/kava.bep3.v1beta1.AtomicSwapResponse";
@@ -301,7 +301,7 @@ export interface QueryAtomicSwapsRequest {
     status: SwapStatus;
     /** direction fitlers by swap direction */
     direction: SwapDirection;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAtomicSwapsRequestProtoMsg {
     typeUrl: "/kava.bep3.v1beta1.QueryAtomicSwapsRequest";
@@ -310,13 +310,13 @@ export interface QueryAtomicSwapsRequestProtoMsg {
 /** QueryAtomicSwapsRequest is the request type for the Query/AtomicSwaps RPC method. */
 export interface QueryAtomicSwapsRequestAmino {
     /** involve filters by address */
-    involve: string;
+    involve?: string;
     /** expiration filters by expiration block height */
-    expiration: string;
+    expiration?: string;
     /** status filters by swap status */
-    status: SwapStatus;
+    status?: SwapStatus;
     /** direction fitlers by swap direction */
-    direction: SwapDirection;
+    direction?: SwapDirection;
     pagination?: PageRequestAmino;
 }
 export interface QueryAtomicSwapsRequestAminoMsg {
@@ -329,13 +329,13 @@ export interface QueryAtomicSwapsRequestSDKType {
     expiration: bigint;
     status: SwapStatus;
     direction: SwapDirection;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryAtomicSwapsResponse is the response type for the Query/AtomicSwaps RPC method. */
 export interface QueryAtomicSwapsResponse {
     /** atomic_swap represents the returned atomic swaps for the request */
     atomicSwaps: AtomicSwapResponse[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAtomicSwapsResponseProtoMsg {
     typeUrl: "/kava.bep3.v1beta1.QueryAtomicSwapsResponse";
@@ -344,7 +344,7 @@ export interface QueryAtomicSwapsResponseProtoMsg {
 /** QueryAtomicSwapsResponse is the response type for the Query/AtomicSwaps RPC method. */
 export interface QueryAtomicSwapsResponseAmino {
     /** atomic_swap represents the returned atomic swaps for the request */
-    atomic_swaps: AtomicSwapResponseAmino[];
+    atomic_swaps?: AtomicSwapResponseAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryAtomicSwapsResponseAminoMsg {
@@ -354,7 +354,7 @@ export interface QueryAtomicSwapsResponseAminoMsg {
 /** QueryAtomicSwapsResponse is the response type for the Query/AtomicSwaps RPC method. */
 export interface QueryAtomicSwapsResponseSDKType {
     atomic_swaps: AtomicSwapResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export declare const QueryParamsRequest: {
     typeUrl: string;

@@ -1,6 +1,6 @@
-import { StrategyType, strategyTypeFromJSON, strategyTypeToJSON } from "./strategy";
+import { StrategyType, strategyTypeFromJSON } from "./strategy";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { Decimal } from "@cosmjs/math";
 /**
  * AllowedVault is a vault that is allowed to be created. These can be
@@ -34,21 +34,21 @@ export interface AllowedVaultProtoMsg {
  */
 export interface AllowedVaultAmino {
   /** Denom is the only supported denomination of the vault for deposits and withdrawals. */
-  denom: string;
+  denom?: string;
   /** VaultStrategy is the strategy used for this vault. */
-  strategies: StrategyType[];
+  strategies?: StrategyType[];
   /**
    * IsPrivateVault is true if the vault only allows depositors contained in
    * AllowedDepositors.
    */
-  is_private_vault: boolean;
+  is_private_vault?: boolean;
   /**
    * AllowedDepositors is a list of addresses that are allowed to deposit to
    * this vault if IsPrivateVault is true. Addresses not contained in this list
    * are not allowed to deposit into this vault. If IsPrivateVault is false,
    * this should be empty and ignored.
    */
-  allowed_depositors: Uint8Array[];
+  allowed_depositors?: string[];
 }
 export interface AllowedVaultAminoMsg {
   type: "/kava.earn.v1beta1.AllowedVault";
@@ -100,9 +100,9 @@ export interface VaultShareRecordProtoMsg {
 /** VaultShareRecord defines the vault shares owned by a depositor. */
 export interface VaultShareRecordAmino {
   /** Depositor represents the owner of the shares */
-  depositor: Uint8Array;
+  depositor?: string;
   /** Shares represent the vault shares owned by the depositor. */
-  shares: VaultShareAmino[];
+  shares?: VaultShareAmino[];
 }
 export interface VaultShareRecordAminoMsg {
   type: "/kava.earn.v1beta1.VaultShareRecord";
@@ -124,8 +124,8 @@ export interface VaultShareProtoMsg {
 }
 /** VaultShare defines shares of a vault owned by a depositor. */
 export interface VaultShareAmino {
-  denom: string;
-  amount: string;
+  denom?: string;
+  amount?: string;
 }
 export interface VaultShareAminoMsg {
   type: "/kava.earn.v1beta1.VaultShare";
@@ -180,24 +180,28 @@ export const AllowedVault = {
     return message;
   },
   fromAmino(object: AllowedVaultAmino): AllowedVault {
-    return {
-      denom: object.denom,
-      strategies: Array.isArray(object?.strategies) ? object.strategies.map((e: any) => strategyTypeFromJSON(e)) : [],
-      isPrivateVault: object.is_private_vault,
-      allowedDepositors: Array.isArray(object?.allowed_depositors) ? object.allowed_depositors.map((e: any) => e) : []
-    };
+    const message = createBaseAllowedVault();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    message.strategies = object.strategies?.map(e => strategyTypeFromJSON(e)) || [];
+    if (object.is_private_vault !== undefined && object.is_private_vault !== null) {
+      message.isPrivateVault = object.is_private_vault;
+    }
+    message.allowedDepositors = object.allowed_depositors?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: AllowedVault): AllowedVaultAmino {
     const obj: any = {};
     obj.denom = message.denom;
     if (message.strategies) {
-      obj.strategies = message.strategies.map(e => strategyTypeToJSON(e));
+      obj.strategies = message.strategies.map(e => e);
     } else {
       obj.strategies = [];
     }
     obj.is_private_vault = message.isPrivateVault;
     if (message.allowedDepositors) {
-      obj.allowed_depositors = message.allowedDepositors.map(e => e);
+      obj.allowed_depositors = message.allowedDepositors.map(e => base64FromBytes(e));
     } else {
       obj.allowed_depositors = [];
     }
@@ -243,9 +247,11 @@ export const VaultRecord = {
     return message;
   },
   fromAmino(object: VaultRecordAmino): VaultRecord {
-    return {
-      totalShares: object?.total_shares ? VaultShare.fromAmino(object.total_shares) : undefined
-    };
+    const message = createBaseVaultRecord();
+    if (object.total_shares !== undefined && object.total_shares !== null) {
+      message.totalShares = VaultShare.fromAmino(object.total_shares);
+    }
+    return message;
   },
   toAmino(message: VaultRecord): VaultRecordAmino {
     const obj: any = {};
@@ -298,14 +304,16 @@ export const VaultShareRecord = {
     return message;
   },
   fromAmino(object: VaultShareRecordAmino): VaultShareRecord {
-    return {
-      depositor: object.depositor,
-      shares: Array.isArray(object?.shares) ? object.shares.map((e: any) => VaultShare.fromAmino(e)) : []
-    };
+    const message = createBaseVaultShareRecord();
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = bytesFromBase64(object.depositor);
+    }
+    message.shares = object.shares?.map(e => VaultShare.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: VaultShareRecord): VaultShareRecordAmino {
     const obj: any = {};
-    obj.depositor = message.depositor;
+    obj.depositor = message.depositor ? base64FromBytes(message.depositor) : undefined;
     if (message.shares) {
       obj.shares = message.shares.map(e => e ? VaultShare.toAmino(e) : undefined);
     } else {
@@ -359,10 +367,14 @@ export const VaultShare = {
     return message;
   },
   fromAmino(object: VaultShareAmino): VaultShare {
-    return {
-      denom: object.denom,
-      amount: object.amount
-    };
+    const message = createBaseVaultShare();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
   },
   toAmino(message: VaultShare): VaultShareAmino {
     const obj: any = {};

@@ -11,8 +11,8 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the hard module. */
 export interface ParamsAmino {
-    money_markets: MoneyMarketAmino[];
-    minimum_borrow_usd_value: string;
+    money_markets?: MoneyMarketAmino[];
+    minimum_borrow_usd_value?: string;
 }
 export interface ParamsAminoMsg {
     type: "/kava.hard.v1beta1.Params";
@@ -39,13 +39,13 @@ export interface MoneyMarketProtoMsg {
 }
 /** MoneyMarket is a money market for an individual asset. */
 export interface MoneyMarketAmino {
-    denom: string;
+    denom?: string;
     borrow_limit?: BorrowLimitAmino;
-    spot_market_id: string;
-    conversion_factor: string;
+    spot_market_id?: string;
+    conversion_factor?: string;
     interest_rate_model?: InterestRateModelAmino;
-    reserve_factor: string;
-    keeper_reward_percentage: string;
+    reserve_factor?: string;
+    keeper_reward_percentage?: string;
 }
 export interface MoneyMarketAminoMsg {
     type: "/kava.hard.v1beta1.MoneyMarket";
@@ -73,9 +73,9 @@ export interface BorrowLimitProtoMsg {
 }
 /** BorrowLimit enforces restrictions on a money market. */
 export interface BorrowLimitAmino {
-    has_max_limit: boolean;
-    maximum_limit: string;
-    loan_to_value: string;
+    has_max_limit?: boolean;
+    maximum_limit?: string;
+    loan_to_value?: string;
 }
 export interface BorrowLimitAminoMsg {
     type: "/kava.hard.v1beta1.BorrowLimit";
@@ -100,10 +100,10 @@ export interface InterestRateModelProtoMsg {
 }
 /** InterestRateModel contains information about an asset's interest rate. */
 export interface InterestRateModelAmino {
-    base_rate_apy: string;
-    base_multiplier: string;
-    kink: string;
-    jump_multiplier: string;
+    base_rate_apy?: string;
+    base_multiplier?: string;
+    kink?: string;
+    jump_multiplier?: string;
 }
 export interface InterestRateModelAminoMsg {
     type: "/kava.hard.v1beta1.InterestRateModel";
@@ -128,9 +128,9 @@ export interface DepositProtoMsg {
 }
 /** Deposit defines an amount of coins deposited into a hard module account. */
 export interface DepositAmino {
-    depositor: string;
-    amount: CoinAmino[];
-    index: SupplyInterestFactorAmino[];
+    depositor?: string;
+    amount?: CoinAmino[];
+    index?: SupplyInterestFactorAmino[];
 }
 export interface DepositAminoMsg {
     type: "/kava.hard.v1beta1.Deposit";
@@ -154,9 +154,9 @@ export interface BorrowProtoMsg {
 }
 /** Borrow defines an amount of coins borrowed from a hard module account. */
 export interface BorrowAmino {
-    borrower: string;
-    amount: CoinAmino[];
-    index: BorrowInterestFactorAmino[];
+    borrower?: string;
+    amount?: CoinAmino[];
+    index?: BorrowInterestFactorAmino[];
 }
 export interface BorrowAminoMsg {
     type: "/kava.hard.v1beta1.Borrow";
@@ -179,8 +179,8 @@ export interface SupplyInterestFactorProtoMsg {
 }
 /** SupplyInterestFactor defines an individual borrow interest factor. */
 export interface SupplyInterestFactorAmino {
-    denom: string;
-    value: string;
+    denom?: string;
+    value?: string;
 }
 export interface SupplyInterestFactorAminoMsg {
     type: "/kava.hard.v1beta1.SupplyInterestFactor";
@@ -202,8 +202,8 @@ export interface BorrowInterestFactorProtoMsg {
 }
 /** BorrowInterestFactor defines an individual borrow interest factor. */
 export interface BorrowInterestFactorAmino {
-    denom: string;
-    value: string;
+    denom?: string;
+    value?: string;
 }
 export interface BorrowInterestFactorAminoMsg {
     type: "/kava.hard.v1beta1.BorrowInterestFactor";
@@ -224,7 +224,7 @@ export interface CoinsProtoProtoMsg {
 }
 /** CoinsProto defines a Protobuf wrapper around a Coins slice */
 export interface CoinsProtoAmino {
-    coins: CoinAmino[];
+    coins?: CoinAmino[];
 }
 export interface CoinsProtoAminoMsg {
     type: "/kava.hard.v1beta1.CoinsProto";

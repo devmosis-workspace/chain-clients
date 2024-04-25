@@ -2,7 +2,7 @@ import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageRe
 import { Params, ParamsAmino, ParamsSDKType, ModuleAccount, ModuleAccountAmino, ModuleAccountSDKType } from "../../../cosmos/auth/v1beta1/auth";
 import { Deposit, DepositAmino, DepositSDKType, TotalPrincipal, TotalPrincipalAmino, TotalPrincipalSDKType, TotalCollateral, TotalCollateralAmino, TotalCollateralSDKType } from "./cdp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 /** QueryParamsRequest defines the request type for the Query/Params RPC method. */
@@ -63,7 +63,7 @@ export interface QueryAccountsResponseProtoMsg {
 }
 /** QueryAccountsResponse defines the response type for the Query/Accounts RPC method. */
 export interface QueryAccountsResponseAmino {
-  accounts: ModuleAccountAmino[];
+  accounts?: ModuleAccountAmino[];
 }
 export interface QueryAccountsResponseAminoMsg {
   type: "/kava.cdp.v1beta1.QueryAccountsResponse";
@@ -84,8 +84,8 @@ export interface QueryCdpRequestProtoMsg {
 }
 /** QueryCdpRequest defines the request type for the Query/Cdp RPC method. */
 export interface QueryCdpRequestAmino {
-  collateral_type: string;
-  owner: string;
+  collateral_type?: string;
+  owner?: string;
 }
 export interface QueryCdpRequestAminoMsg {
   type: "/kava.cdp.v1beta1.QueryCdpRequest";
@@ -123,7 +123,7 @@ export interface QueryCdpsRequest {
   id: bigint;
   /** sdk.Dec as a string */
   ratio: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryCdpsRequestProtoMsg {
   typeUrl: "/kava.cdp.v1beta1.QueryCdpsRequest";
@@ -131,11 +131,11 @@ export interface QueryCdpsRequestProtoMsg {
 }
 /** QueryCdpsRequest is the params for a filtered CDP query, the request type for the Query/Cdps RPC method. */
 export interface QueryCdpsRequestAmino {
-  collateral_type: string;
-  owner: string;
-  id: string;
+  collateral_type?: string;
+  owner?: string;
+  id?: string;
   /** sdk.Dec as a string */
-  ratio: string;
+  ratio?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryCdpsRequestAminoMsg {
@@ -148,12 +148,12 @@ export interface QueryCdpsRequestSDKType {
   owner: string;
   id: bigint;
   ratio: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryCdpsResponse defines the response type for the Query/Cdps RPC method. */
 export interface QueryCdpsResponse {
   cdps: CDPResponse[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryCdpsResponseProtoMsg {
   typeUrl: "/kava.cdp.v1beta1.QueryCdpsResponse";
@@ -161,7 +161,7 @@ export interface QueryCdpsResponseProtoMsg {
 }
 /** QueryCdpsResponse defines the response type for the Query/Cdps RPC method. */
 export interface QueryCdpsResponseAmino {
-  cdps: CDPResponseAmino[];
+  cdps?: CDPResponseAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryCdpsResponseAminoMsg {
@@ -171,7 +171,7 @@ export interface QueryCdpsResponseAminoMsg {
 /** QueryCdpsResponse defines the response type for the Query/Cdps RPC method. */
 export interface QueryCdpsResponseSDKType {
   cdps: CDPResponseSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryDepositsRequest defines the request type for the Query/Deposits RPC method. */
 export interface QueryDepositsRequest {
@@ -184,8 +184,8 @@ export interface QueryDepositsRequestProtoMsg {
 }
 /** QueryDepositsRequest defines the request type for the Query/Deposits RPC method. */
 export interface QueryDepositsRequestAmino {
-  collateral_type: string;
-  owner: string;
+  collateral_type?: string;
+  owner?: string;
 }
 export interface QueryDepositsRequestAminoMsg {
   type: "/kava.cdp.v1beta1.QueryDepositsRequest";
@@ -206,7 +206,7 @@ export interface QueryDepositsResponseProtoMsg {
 }
 /** QueryDepositsResponse defines the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponseAmino {
-  deposits: DepositAmino[];
+  deposits?: DepositAmino[];
 }
 export interface QueryDepositsResponseAminoMsg {
   type: "/kava.cdp.v1beta1.QueryDepositsResponse";
@@ -226,7 +226,7 @@ export interface QueryTotalPrincipalRequestProtoMsg {
 }
 /** QueryTotalPrincipalRequest defines the request type for the Query/TotalPrincipal RPC method. */
 export interface QueryTotalPrincipalRequestAmino {
-  collateral_type: string;
+  collateral_type?: string;
 }
 export interface QueryTotalPrincipalRequestAminoMsg {
   type: "/kava.cdp.v1beta1.QueryTotalPrincipalRequest";
@@ -246,7 +246,7 @@ export interface QueryTotalPrincipalResponseProtoMsg {
 }
 /** QueryTotalPrincipalResponse defines the response type for the Query/TotalPrincipal RPC method. */
 export interface QueryTotalPrincipalResponseAmino {
-  total_principal: TotalPrincipalAmino[];
+  total_principal?: TotalPrincipalAmino[];
 }
 export interface QueryTotalPrincipalResponseAminoMsg {
   type: "/kava.cdp.v1beta1.QueryTotalPrincipalResponse";
@@ -266,7 +266,7 @@ export interface QueryTotalCollateralRequestProtoMsg {
 }
 /** QueryTotalCollateralRequest defines the request type for the Query/TotalCollateral RPC method. */
 export interface QueryTotalCollateralRequestAmino {
-  collateral_type: string;
+  collateral_type?: string;
 }
 export interface QueryTotalCollateralRequestAminoMsg {
   type: "/kava.cdp.v1beta1.QueryTotalCollateralRequest";
@@ -286,7 +286,7 @@ export interface QueryTotalCollateralResponseProtoMsg {
 }
 /** QueryTotalCollateralResponse defines the response type for the Query/TotalCollateral RPC method. */
 export interface QueryTotalCollateralResponseAmino {
-  total_collateral: TotalCollateralAmino[];
+  total_collateral?: TotalCollateralAmino[];
 }
 export interface QueryTotalCollateralResponseAminoMsg {
   type: "/kava.cdp.v1beta1.QueryTotalCollateralResponse";
@@ -315,16 +315,16 @@ export interface CDPResponseProtoMsg {
 }
 /** CDPResponse defines the state of a single collateralized debt position. */
 export interface CDPResponseAmino {
-  id: string;
-  owner: string;
-  type: string;
+  id?: string;
+  owner?: string;
+  type?: string;
   collateral?: CoinAmino;
   principal?: CoinAmino;
   accumulated_fees?: CoinAmino;
-  fees_updated?: TimestampAmino;
-  interest_factor: string;
+  fees_updated?: string;
+  interest_factor?: string;
   collateral_value?: CoinAmino;
-  collateralization_ratio: string;
+  collateralization_ratio?: string;
 }
 export interface CDPResponseAminoMsg {
   type: "/kava.cdp.v1beta1.CDPResponse";
@@ -359,7 +359,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -405,9 +406,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -446,7 +449,8 @@ export const QueryAccountsRequest = {
     return message;
   },
   fromAmino(_: QueryAccountsRequestAmino): QueryAccountsRequest {
-    return {};
+    const message = createBaseQueryAccountsRequest();
+    return message;
   },
   toAmino(_: QueryAccountsRequest): QueryAccountsRequestAmino {
     const obj: any = {};
@@ -492,9 +496,9 @@ export const QueryAccountsResponse = {
     return message;
   },
   fromAmino(object: QueryAccountsResponseAmino): QueryAccountsResponse {
-    return {
-      accounts: Array.isArray(object?.accounts) ? object.accounts.map((e: any) => ModuleAccount.fromAmino(e)) : []
-    };
+    const message = createBaseQueryAccountsResponse();
+    message.accounts = object.accounts?.map(e => ModuleAccount.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryAccountsResponse): QueryAccountsResponseAmino {
     const obj: any = {};
@@ -551,10 +555,14 @@ export const QueryCdpRequest = {
     return message;
   },
   fromAmino(object: QueryCdpRequestAmino): QueryCdpRequest {
-    return {
-      collateralType: object.collateral_type,
-      owner: object.owner
-    };
+    const message = createBaseQueryCdpRequest();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    return message;
   },
   toAmino(message: QueryCdpRequest): QueryCdpRequestAmino {
     const obj: any = {};
@@ -602,9 +610,11 @@ export const QueryCdpResponse = {
     return message;
   },
   fromAmino(object: QueryCdpResponseAmino): QueryCdpResponse {
-    return {
-      cdp: object?.cdp ? CDPResponse.fromAmino(object.cdp) : undefined
-    };
+    const message = createBaseQueryCdpResponse();
+    if (object.cdp !== undefined && object.cdp !== null) {
+      message.cdp = CDPResponse.fromAmino(object.cdp);
+    }
+    return message;
   },
   toAmino(message: QueryCdpResponse): QueryCdpResponseAmino {
     const obj: any = {};
@@ -633,7 +643,7 @@ function createBaseQueryCdpsRequest(): QueryCdpsRequest {
     owner: "",
     id: BigInt(0),
     ratio: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryCdpsRequest = {
@@ -675,13 +685,23 @@ export const QueryCdpsRequest = {
     return message;
   },
   fromAmino(object: QueryCdpsRequestAmino): QueryCdpsRequest {
-    return {
-      collateralType: object.collateral_type,
-      owner: object.owner,
-      id: BigInt(object.id),
-      ratio: object.ratio,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryCdpsRequest();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.ratio !== undefined && object.ratio !== null) {
+      message.ratio = object.ratio;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryCdpsRequest): QueryCdpsRequestAmino {
     const obj: any = {};
@@ -711,7 +731,7 @@ export const QueryCdpsRequest = {
 function createBaseQueryCdpsResponse(): QueryCdpsResponse {
   return {
     cdps: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryCdpsResponse = {
@@ -738,10 +758,12 @@ export const QueryCdpsResponse = {
     return message;
   },
   fromAmino(object: QueryCdpsResponseAmino): QueryCdpsResponse {
-    return {
-      cdps: Array.isArray(object?.cdps) ? object.cdps.map((e: any) => CDPResponse.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryCdpsResponse();
+    message.cdps = object.cdps?.map(e => CDPResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryCdpsResponse): QueryCdpsResponseAmino {
     const obj: any = {};
@@ -799,10 +821,14 @@ export const QueryDepositsRequest = {
     return message;
   },
   fromAmino(object: QueryDepositsRequestAmino): QueryDepositsRequest {
-    return {
-      collateralType: object.collateral_type,
-      owner: object.owner
-    };
+    const message = createBaseQueryDepositsRequest();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    return message;
   },
   toAmino(message: QueryDepositsRequest): QueryDepositsRequestAmino {
     const obj: any = {};
@@ -850,9 +876,9 @@ export const QueryDepositsResponse = {
     return message;
   },
   fromAmino(object: QueryDepositsResponseAmino): QueryDepositsResponse {
-    return {
-      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromAmino(e)) : []
-    };
+    const message = createBaseQueryDepositsResponse();
+    message.deposits = object.deposits?.map(e => Deposit.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryDepositsResponse): QueryDepositsResponseAmino {
     const obj: any = {};
@@ -903,9 +929,11 @@ export const QueryTotalPrincipalRequest = {
     return message;
   },
   fromAmino(object: QueryTotalPrincipalRequestAmino): QueryTotalPrincipalRequest {
-    return {
-      collateralType: object.collateral_type
-    };
+    const message = createBaseQueryTotalPrincipalRequest();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    return message;
   },
   toAmino(message: QueryTotalPrincipalRequest): QueryTotalPrincipalRequestAmino {
     const obj: any = {};
@@ -952,9 +980,9 @@ export const QueryTotalPrincipalResponse = {
     return message;
   },
   fromAmino(object: QueryTotalPrincipalResponseAmino): QueryTotalPrincipalResponse {
-    return {
-      totalPrincipal: Array.isArray(object?.total_principal) ? object.total_principal.map((e: any) => TotalPrincipal.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTotalPrincipalResponse();
+    message.totalPrincipal = object.total_principal?.map(e => TotalPrincipal.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTotalPrincipalResponse): QueryTotalPrincipalResponseAmino {
     const obj: any = {};
@@ -1005,9 +1033,11 @@ export const QueryTotalCollateralRequest = {
     return message;
   },
   fromAmino(object: QueryTotalCollateralRequestAmino): QueryTotalCollateralRequest {
-    return {
-      collateralType: object.collateral_type
-    };
+    const message = createBaseQueryTotalCollateralRequest();
+    if (object.collateral_type !== undefined && object.collateral_type !== null) {
+      message.collateralType = object.collateral_type;
+    }
+    return message;
   },
   toAmino(message: QueryTotalCollateralRequest): QueryTotalCollateralRequestAmino {
     const obj: any = {};
@@ -1054,9 +1084,9 @@ export const QueryTotalCollateralResponse = {
     return message;
   },
   fromAmino(object: QueryTotalCollateralResponseAmino): QueryTotalCollateralResponse {
-    return {
-      totalCollateral: Array.isArray(object?.total_collateral) ? object.total_collateral.map((e: any) => TotalCollateral.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTotalCollateralResponse();
+    message.totalCollateral = object.total_collateral?.map(e => TotalCollateral.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTotalCollateralResponse): QueryTotalCollateralResponseAmino {
     const obj: any = {};
@@ -1161,18 +1191,38 @@ export const CDPResponse = {
     return message;
   },
   fromAmino(object: CDPResponseAmino): CDPResponse {
-    return {
-      id: BigInt(object.id),
-      owner: object.owner,
-      type: object.type,
-      collateral: object?.collateral ? Coin.fromAmino(object.collateral) : undefined,
-      principal: object?.principal ? Coin.fromAmino(object.principal) : undefined,
-      accumulatedFees: object?.accumulated_fees ? Coin.fromAmino(object.accumulated_fees) : undefined,
-      feesUpdated: object.fees_updated,
-      interestFactor: object.interest_factor,
-      collateralValue: object?.collateral_value ? Coin.fromAmino(object.collateral_value) : undefined,
-      collateralizationRatio: object.collateralization_ratio
-    };
+    const message = createBaseCDPResponse();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.collateral !== undefined && object.collateral !== null) {
+      message.collateral = Coin.fromAmino(object.collateral);
+    }
+    if (object.principal !== undefined && object.principal !== null) {
+      message.principal = Coin.fromAmino(object.principal);
+    }
+    if (object.accumulated_fees !== undefined && object.accumulated_fees !== null) {
+      message.accumulatedFees = Coin.fromAmino(object.accumulated_fees);
+    }
+    if (object.fees_updated !== undefined && object.fees_updated !== null) {
+      message.feesUpdated = Timestamp.fromAmino(object.fees_updated);
+    }
+    if (object.interest_factor !== undefined && object.interest_factor !== null) {
+      message.interestFactor = object.interest_factor;
+    }
+    if (object.collateral_value !== undefined && object.collateral_value !== null) {
+      message.collateralValue = Coin.fromAmino(object.collateral_value);
+    }
+    if (object.collateralization_ratio !== undefined && object.collateralization_ratio !== null) {
+      message.collateralizationRatio = object.collateralization_ratio;
+    }
+    return message;
   },
   toAmino(message: CDPResponse): CDPResponseAmino {
     const obj: any = {};
@@ -1182,7 +1232,7 @@ export const CDPResponse = {
     obj.collateral = message.collateral ? Coin.toAmino(message.collateral) : undefined;
     obj.principal = message.principal ? Coin.toAmino(message.principal) : undefined;
     obj.accumulated_fees = message.accumulatedFees ? Coin.toAmino(message.accumulatedFees) : undefined;
-    obj.fees_updated = message.feesUpdated;
+    obj.fees_updated = message.feesUpdated ? Timestamp.toAmino(message.feesUpdated) : undefined;
     obj.interest_factor = message.interestFactor;
     obj.collateral_value = message.collateralValue ? Coin.toAmino(message.collateralValue) : undefined;
     obj.collateralization_ratio = message.collateralizationRatio;

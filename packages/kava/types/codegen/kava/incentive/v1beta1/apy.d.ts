@@ -16,8 +16,8 @@ export interface ApyProtoMsg {
  * instant in time.
  */
 export interface ApyAmino {
-    collateral_type: string;
-    apy: string;
+    collateral_type?: string;
+    apy?: string;
 }
 export interface ApyAminoMsg {
     type: "/kava.incentive.v1beta1.Apy";

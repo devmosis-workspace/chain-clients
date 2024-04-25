@@ -12,9 +12,9 @@ export interface CommunityPoolLendDepositProposalProtoMsg {
 }
 /** CommunityPoolLendDepositProposal deposits from the community pool into lend */
 export interface CommunityPoolLendDepositProposalAmino {
-    title: string;
-    description: string;
-    amount: CoinAmino[];
+    title?: string;
+    description?: string;
+    amount?: CoinAmino[];
 }
 export interface CommunityPoolLendDepositProposalAminoMsg {
     type: "/kava.community.v1beta1.CommunityPoolLendDepositProposal";
@@ -38,9 +38,9 @@ export interface CommunityPoolLendWithdrawProposalProtoMsg {
 }
 /** CommunityPoolLendWithdrawProposal withdraws a lend position back to the community pool */
 export interface CommunityPoolLendWithdrawProposalAmino {
-    title: string;
-    description: string;
-    amount: CoinAmino[];
+    title?: string;
+    description?: string;
+    amount?: CoinAmino[];
 }
 export interface CommunityPoolLendWithdrawProposalAminoMsg {
     type: "/kava.community.v1beta1.CommunityPoolLendWithdrawProposal";
@@ -71,9 +71,9 @@ export interface CommunityCDPRepayDebtProposalProtoMsg {
  * This proposal exists primarily to allow committees to repay community module cdp debts.
  */
 export interface CommunityCDPRepayDebtProposalAmino {
-    title: string;
-    description: string;
-    collateral_type: string;
+    title?: string;
+    description?: string;
+    collateral_type?: string;
     payment?: CoinAmino;
 }
 export interface CommunityCDPRepayDebtProposalAminoMsg {
@@ -109,9 +109,9 @@ export interface CommunityCDPWithdrawCollateralProposalProtoMsg {
  * This proposal exists primarily to allow committees to withdraw community module cdp collateral.
  */
 export interface CommunityCDPWithdrawCollateralProposalAmino {
-    title: string;
-    description: string;
-    collateral_type: string;
+    title?: string;
+    description?: string;
+    collateral_type?: string;
     collateral?: CoinAmino;
 }
 export interface CommunityCDPWithdrawCollateralProposalAminoMsg {
