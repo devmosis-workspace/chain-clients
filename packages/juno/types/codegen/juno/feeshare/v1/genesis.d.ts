@@ -16,7 +16,7 @@ export interface GenesisStateAmino {
     /** params are the feeshare module parameters */
     params?: ParamsAmino;
     /** FeeShare is a slice of active registered contracts for fee distribution */
-    fee_share: FeeShareAmino[];
+    fee_share?: FeeShareAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/juno.feeshare.v1.GenesisState";
@@ -51,19 +51,19 @@ export interface ParamsProtoMsg {
 /** Params defines the feeshare module params */
 export interface ParamsAmino {
     /** enable_feeshare defines a parameter to enable the feeshare module */
-    enable_fee_share: boolean;
+    enable_fee_share?: boolean;
     /**
      * developer_shares defines the proportion of the transaction fees to be
      * distributed to the registered contract owner
      */
-    developer_shares: string;
+    developer_shares?: string;
     /**
      * allowed_denoms defines the list of denoms that are allowed to be paid to
      * the contract withdraw addresses. If said denom is not in the list, the fees
      * will ONLY be sent to the community pool.
      * If this list is empty, all denoms are allowed.
      */
-    allowed_denoms: string[];
+    allowed_denoms?: string[];
 }
 export interface ParamsAminoMsg {
     type: "/juno.feeshare.v1.Params";

@@ -1,6 +1,6 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./mint";
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
@@ -69,7 +69,7 @@ export interface QueryInflationResponseProtoMsg {
  */
 export interface QueryInflationResponseAmino {
   /** inflation is the current minting inflation value. */
-  inflation: Uint8Array;
+  inflation?: string;
 }
 export interface QueryInflationResponseAminoMsg {
   type: "/juno.mint.QueryInflationResponse";
@@ -123,7 +123,7 @@ export interface QueryAnnualProvisionsResponseProtoMsg {
  */
 export interface QueryAnnualProvisionsResponseAmino {
   /** annual_provisions is the current minting annual provisions value. */
-  annual_provisions: Uint8Array;
+  annual_provisions?: string;
 }
 export interface QueryAnnualProvisionsResponseAminoMsg {
   type: "/juno.mint.QueryAnnualProvisionsResponse";
@@ -135,6 +135,60 @@ export interface QueryAnnualProvisionsResponseAminoMsg {
  */
 export interface QueryAnnualProvisionsResponseSDKType {
   annual_provisions: Uint8Array;
+}
+/**
+ * QueryTargetSupplyRequest is the request type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyRequest {}
+export interface QueryTargetSupplyRequestProtoMsg {
+  typeUrl: "/juno.mint.QueryTargetSupplyRequest";
+  value: Uint8Array;
+}
+/**
+ * QueryTargetSupplyRequest is the request type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyRequestAmino {}
+export interface QueryTargetSupplyRequestAminoMsg {
+  type: "/juno.mint.QueryTargetSupplyRequest";
+  value: QueryTargetSupplyRequestAmino;
+}
+/**
+ * QueryTargetSupplyRequest is the request type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyRequestSDKType {}
+/**
+ * QueryTargetSupplyResponse is the response type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyResponse {
+  /** target_supply is the target supply for this phase value. */
+  targetSupply: Uint8Array;
+}
+export interface QueryTargetSupplyResponseProtoMsg {
+  typeUrl: "/juno.mint.QueryTargetSupplyResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryTargetSupplyResponse is the response type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyResponseAmino {
+  /** target_supply is the target supply for this phase value. */
+  target_supply?: string;
+}
+export interface QueryTargetSupplyResponseAminoMsg {
+  type: "/juno.mint.QueryTargetSupplyResponse";
+  value: QueryTargetSupplyResponseAmino;
+}
+/**
+ * QueryTargetSupplyResponse is the response type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyResponseSDKType {
+  target_supply: Uint8Array;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -152,7 +206,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -198,9 +253,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -239,7 +296,8 @@ export const QueryInflationRequest = {
     return message;
   },
   fromAmino(_: QueryInflationRequestAmino): QueryInflationRequest {
-    return {};
+    const message = createBaseQueryInflationRequest();
+    return message;
   },
   toAmino(_: QueryInflationRequest): QueryInflationRequestAmino {
     const obj: any = {};
@@ -285,13 +343,15 @@ export const QueryInflationResponse = {
     return message;
   },
   fromAmino(object: QueryInflationResponseAmino): QueryInflationResponse {
-    return {
-      inflation: object.inflation
-    };
+    const message = createBaseQueryInflationResponse();
+    if (object.inflation !== undefined && object.inflation !== null) {
+      message.inflation = bytesFromBase64(object.inflation);
+    }
+    return message;
   },
   toAmino(message: QueryInflationResponse): QueryInflationResponseAmino {
     const obj: any = {};
-    obj.inflation = message.inflation;
+    obj.inflation = message.inflation ? base64FromBytes(message.inflation) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryInflationResponseAminoMsg): QueryInflationResponse {
@@ -326,7 +386,8 @@ export const QueryAnnualProvisionsRequest = {
     return message;
   },
   fromAmino(_: QueryAnnualProvisionsRequestAmino): QueryAnnualProvisionsRequest {
-    return {};
+    const message = createBaseQueryAnnualProvisionsRequest();
+    return message;
   },
   toAmino(_: QueryAnnualProvisionsRequest): QueryAnnualProvisionsRequestAmino {
     const obj: any = {};
@@ -372,13 +433,15 @@ export const QueryAnnualProvisionsResponse = {
     return message;
   },
   fromAmino(object: QueryAnnualProvisionsResponseAmino): QueryAnnualProvisionsResponse {
-    return {
-      annualProvisions: object.annual_provisions
-    };
+    const message = createBaseQueryAnnualProvisionsResponse();
+    if (object.annual_provisions !== undefined && object.annual_provisions !== null) {
+      message.annualProvisions = bytesFromBase64(object.annual_provisions);
+    }
+    return message;
   },
   toAmino(message: QueryAnnualProvisionsResponse): QueryAnnualProvisionsResponseAmino {
     const obj: any = {};
-    obj.annual_provisions = message.annualProvisions;
+    obj.annual_provisions = message.annualProvisions ? base64FromBytes(message.annualProvisions) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryAnnualProvisionsResponseAminoMsg): QueryAnnualProvisionsResponse {
@@ -394,6 +457,96 @@ export const QueryAnnualProvisionsResponse = {
     return {
       typeUrl: "/juno.mint.QueryAnnualProvisionsResponse",
       value: QueryAnnualProvisionsResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryTargetSupplyRequest(): QueryTargetSupplyRequest {
+  return {};
+}
+export const QueryTargetSupplyRequest = {
+  typeUrl: "/juno.mint.QueryTargetSupplyRequest",
+  encode(_: QueryTargetSupplyRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryTargetSupplyRequest {
+    return {};
+  },
+  fromPartial(_: Partial<QueryTargetSupplyRequest>): QueryTargetSupplyRequest {
+    const message = createBaseQueryTargetSupplyRequest();
+    return message;
+  },
+  fromAmino(_: QueryTargetSupplyRequestAmino): QueryTargetSupplyRequest {
+    const message = createBaseQueryTargetSupplyRequest();
+    return message;
+  },
+  toAmino(_: QueryTargetSupplyRequest): QueryTargetSupplyRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryTargetSupplyRequestAminoMsg): QueryTargetSupplyRequest {
+    return QueryTargetSupplyRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryTargetSupplyRequestProtoMsg): QueryTargetSupplyRequest {
+    return QueryTargetSupplyRequest.decode(message.value);
+  },
+  toProto(message: QueryTargetSupplyRequest): Uint8Array {
+    return QueryTargetSupplyRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryTargetSupplyRequest): QueryTargetSupplyRequestProtoMsg {
+    return {
+      typeUrl: "/juno.mint.QueryTargetSupplyRequest",
+      value: QueryTargetSupplyRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryTargetSupplyResponse(): QueryTargetSupplyResponse {
+  return {
+    targetSupply: new Uint8Array()
+  };
+}
+export const QueryTargetSupplyResponse = {
+  typeUrl: "/juno.mint.QueryTargetSupplyResponse",
+  encode(message: QueryTargetSupplyResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.targetSupply.length !== 0) {
+      writer.uint32(10).bytes(message.targetSupply);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryTargetSupplyResponse {
+    return {
+      targetSupply: isSet(object.targetSupply) ? bytesFromBase64(object.targetSupply) : new Uint8Array()
+    };
+  },
+  fromPartial(object: Partial<QueryTargetSupplyResponse>): QueryTargetSupplyResponse {
+    const message = createBaseQueryTargetSupplyResponse();
+    message.targetSupply = object.targetSupply ?? new Uint8Array();
+    return message;
+  },
+  fromAmino(object: QueryTargetSupplyResponseAmino): QueryTargetSupplyResponse {
+    const message = createBaseQueryTargetSupplyResponse();
+    if (object.target_supply !== undefined && object.target_supply !== null) {
+      message.targetSupply = bytesFromBase64(object.target_supply);
+    }
+    return message;
+  },
+  toAmino(message: QueryTargetSupplyResponse): QueryTargetSupplyResponseAmino {
+    const obj: any = {};
+    obj.target_supply = message.targetSupply ? base64FromBytes(message.targetSupply) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryTargetSupplyResponseAminoMsg): QueryTargetSupplyResponse {
+    return QueryTargetSupplyResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryTargetSupplyResponseProtoMsg): QueryTargetSupplyResponse {
+    return QueryTargetSupplyResponse.decode(message.value);
+  },
+  toProto(message: QueryTargetSupplyResponse): Uint8Array {
+    return QueryTargetSupplyResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryTargetSupplyResponse): QueryTargetSupplyResponseProtoMsg {
+    return {
+      typeUrl: "/juno.mint.QueryTargetSupplyResponse",
+      value: QueryTargetSupplyResponse.encode(message).finish()
     };
   }
 };

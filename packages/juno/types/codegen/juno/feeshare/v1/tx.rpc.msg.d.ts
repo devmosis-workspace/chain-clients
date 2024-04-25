@@ -1,5 +1,5 @@
 import { Rpc } from "../../../helpers";
-import { MsgRegisterFeeShare, MsgRegisterFeeShareResponse, MsgUpdateFeeShare, MsgUpdateFeeShareResponse, MsgCancelFeeShare, MsgCancelFeeShareResponse } from "./tx";
+import { MsgRegisterFeeShare, MsgRegisterFeeShareResponse, MsgUpdateFeeShare, MsgUpdateFeeShareResponse, MsgCancelFeeShare, MsgCancelFeeShareResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the fees Msg service. */
 export interface Msg {
     /** RegisterFeeShare registers a new contract for receiving transaction fees */
@@ -11,6 +11,8 @@ export interface Msg {
      * of transaction fees
      */
     cancelFeeShare(request: MsgCancelFeeShare): Promise<MsgCancelFeeShareResponse>;
+    /** Update the params of the module through gov v1 type. */
+    updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -18,4 +20,5 @@ export declare class MsgClientImpl implements Msg {
     registerFeeShare(request: MsgRegisterFeeShare): Promise<MsgRegisterFeeShareResponse>;
     updateFeeShare(request: MsgUpdateFeeShare): Promise<MsgUpdateFeeShareResponse>;
     cancelFeeShare(request: MsgCancelFeeShare): Promise<MsgCancelFeeShareResponse>;
+    updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }

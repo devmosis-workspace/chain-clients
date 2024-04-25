@@ -1,4 +1,4 @@
-import { MsgRegisterFeeShare, MsgUpdateFeeShare, MsgCancelFeeShare } from "./tx";
+import { MsgRegisterFeeShare, MsgUpdateFeeShare, MsgCancelFeeShare, MsgUpdateParams } from "./tx";
 export declare const AminoConverter: {
     "/juno.feeshare.v1.MsgRegisterFeeShare": {
         aminoType: string;
@@ -14,5 +14,10 @@ export declare const AminoConverter: {
         aminoType: string;
         toAmino: (message: MsgCancelFeeShare) => import("./tx").MsgCancelFeeShareAmino;
         fromAmino: (object: import("./tx").MsgCancelFeeShareAmino) => MsgCancelFeeShare;
+    };
+    "/juno.feeshare.v1.MsgUpdateParams": {
+        aminoType: string;
+        toAmino: (message: MsgUpdateParams) => import("./tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./tx").MsgUpdateParamsAmino) => MsgUpdateParams;
     };
 };

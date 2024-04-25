@@ -5,7 +5,7 @@ import { BinaryWriter } from "../../../binary";
 /** QueryFeeSharesRequest is the request type for the Query/FeeShares RPC method. */
 export interface QueryFeeSharesRequest {
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryFeeSharesRequestProtoMsg {
     typeUrl: "/juno.feeshare.v1.QueryFeeSharesRequest";
@@ -22,7 +22,7 @@ export interface QueryFeeSharesRequestAminoMsg {
 }
 /** QueryFeeSharesRequest is the request type for the Query/FeeShares RPC method. */
 export interface QueryFeeSharesRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryFeeSharesResponse is the response type for the Query/FeeShares RPC
@@ -32,7 +32,7 @@ export interface QueryFeeSharesResponse {
     /** FeeShare is a slice of all stored Reveneue */
     feeshare: FeeShare[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryFeeSharesResponseProtoMsg {
     typeUrl: "/juno.feeshare.v1.QueryFeeSharesResponse";
@@ -44,7 +44,7 @@ export interface QueryFeeSharesResponseProtoMsg {
  */
 export interface QueryFeeSharesResponseAmino {
     /** FeeShare is a slice of all stored Reveneue */
-    feeshare: FeeShareAmino[];
+    feeshare?: FeeShareAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -58,7 +58,7 @@ export interface QueryFeeSharesResponseAminoMsg {
  */
 export interface QueryFeeSharesResponseSDKType {
     feeshare: FeeShareSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryFeeShareRequest is the request type for the Query/FeeShare RPC method. */
 export interface QueryFeeShareRequest {
@@ -72,7 +72,7 @@ export interface QueryFeeShareRequestProtoMsg {
 /** QueryFeeShareRequest is the request type for the Query/FeeShare RPC method. */
 export interface QueryFeeShareRequestAmino {
     /** contract_address of a registered contract in bech32 format */
-    contract_address: string;
+    contract_address?: string;
 }
 export interface QueryFeeShareRequestAminoMsg {
     type: "/juno.feeshare.v1.QueryFeeShareRequest";
@@ -151,7 +151,7 @@ export interface QueryDeployerFeeSharesRequest {
     /** deployer_address in bech32 format */
     deployerAddress: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDeployerFeeSharesRequestProtoMsg {
     typeUrl: "/juno.feeshare.v1.QueryDeployerFeeSharesRequest";
@@ -163,7 +163,7 @@ export interface QueryDeployerFeeSharesRequestProtoMsg {
  */
 export interface QueryDeployerFeeSharesRequestAmino {
     /** deployer_address in bech32 format */
-    deployer_address: string;
+    deployer_address?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -177,7 +177,7 @@ export interface QueryDeployerFeeSharesRequestAminoMsg {
  */
 export interface QueryDeployerFeeSharesRequestSDKType {
     deployer_address: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryDeployerFeeSharesResponse is the response type for the
@@ -190,7 +190,7 @@ export interface QueryDeployerFeeSharesResponse {
      */
     contractAddresses: string[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDeployerFeeSharesResponseProtoMsg {
     typeUrl: "/juno.feeshare.v1.QueryDeployerFeeSharesResponse";
@@ -205,7 +205,7 @@ export interface QueryDeployerFeeSharesResponseAmino {
      * contract_addresses is the slice of registered contract addresses for a
      * deployer
      */
-    contract_addresses: string[];
+    contract_addresses?: string[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -219,7 +219,7 @@ export interface QueryDeployerFeeSharesResponseAminoMsg {
  */
 export interface QueryDeployerFeeSharesResponseSDKType {
     contract_addresses: string[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /**
  * QueryWithdrawerFeeSharesRequest is the request type for the
@@ -229,7 +229,7 @@ export interface QueryWithdrawerFeeSharesRequest {
     /** withdrawer_address in bech32 format */
     withdrawerAddress: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryWithdrawerFeeSharesRequestProtoMsg {
     typeUrl: "/juno.feeshare.v1.QueryWithdrawerFeeSharesRequest";
@@ -241,7 +241,7 @@ export interface QueryWithdrawerFeeSharesRequestProtoMsg {
  */
 export interface QueryWithdrawerFeeSharesRequestAmino {
     /** withdrawer_address in bech32 format */
-    withdrawer_address: string;
+    withdrawer_address?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -255,7 +255,7 @@ export interface QueryWithdrawerFeeSharesRequestAminoMsg {
  */
 export interface QueryWithdrawerFeeSharesRequestSDKType {
     withdrawer_address: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryWithdrawerFeeSharesResponse is the response type for the
@@ -268,7 +268,7 @@ export interface QueryWithdrawerFeeSharesResponse {
      */
     contractAddresses: string[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryWithdrawerFeeSharesResponseProtoMsg {
     typeUrl: "/juno.feeshare.v1.QueryWithdrawerFeeSharesResponse";
@@ -283,7 +283,7 @@ export interface QueryWithdrawerFeeSharesResponseAmino {
      * contract_addresses is the slice of registered contract addresses for a
      * withdrawer
      */
-    contract_addresses: string[];
+    contract_addresses?: string[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -297,7 +297,7 @@ export interface QueryWithdrawerFeeSharesResponseAminoMsg {
  */
 export interface QueryWithdrawerFeeSharesResponseSDKType {
     contract_addresses: string[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export declare const QueryFeeSharesRequest: {
     typeUrl: string;

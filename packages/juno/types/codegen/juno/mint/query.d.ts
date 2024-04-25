@@ -74,7 +74,7 @@ export interface QueryInflationResponseProtoMsg {
  */
 export interface QueryInflationResponseAmino {
     /** inflation is the current minting inflation value. */
-    inflation: Uint8Array;
+    inflation?: string;
 }
 export interface QueryInflationResponseAminoMsg {
     type: "/juno.mint.QueryInflationResponse";
@@ -131,7 +131,7 @@ export interface QueryAnnualProvisionsResponseProtoMsg {
  */
 export interface QueryAnnualProvisionsResponseAmino {
     /** annual_provisions is the current minting annual provisions value. */
-    annual_provisions: Uint8Array;
+    annual_provisions?: string;
 }
 export interface QueryAnnualProvisionsResponseAminoMsg {
     type: "/juno.mint.QueryAnnualProvisionsResponse";
@@ -143,6 +143,63 @@ export interface QueryAnnualProvisionsResponseAminoMsg {
  */
 export interface QueryAnnualProvisionsResponseSDKType {
     annual_provisions: Uint8Array;
+}
+/**
+ * QueryTargetSupplyRequest is the request type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyRequest {
+}
+export interface QueryTargetSupplyRequestProtoMsg {
+    typeUrl: "/juno.mint.QueryTargetSupplyRequest";
+    value: Uint8Array;
+}
+/**
+ * QueryTargetSupplyRequest is the request type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyRequestAmino {
+}
+export interface QueryTargetSupplyRequestAminoMsg {
+    type: "/juno.mint.QueryTargetSupplyRequest";
+    value: QueryTargetSupplyRequestAmino;
+}
+/**
+ * QueryTargetSupplyRequest is the request type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyRequestSDKType {
+}
+/**
+ * QueryTargetSupplyResponse is the response type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyResponse {
+    /** target_supply is the target supply for this phase value. */
+    targetSupply: Uint8Array;
+}
+export interface QueryTargetSupplyResponseProtoMsg {
+    typeUrl: "/juno.mint.QueryTargetSupplyResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryTargetSupplyResponse is the response type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyResponseAmino {
+    /** target_supply is the target supply for this phase value. */
+    target_supply?: string;
+}
+export interface QueryTargetSupplyResponseAminoMsg {
+    type: "/juno.mint.QueryTargetSupplyResponse";
+    value: QueryTargetSupplyResponseAmino;
+}
+/**
+ * QueryTargetSupplyResponse is the response type for the
+ * Query/TargetSupply RPC method.
+ */
+export interface QueryTargetSupplyResponseSDKType {
+    target_supply: Uint8Array;
 }
 export declare const QueryParamsRequest: {
     typeUrl: string;
@@ -215,4 +272,28 @@ export declare const QueryAnnualProvisionsResponse: {
     fromProtoMsg(message: QueryAnnualProvisionsResponseProtoMsg): QueryAnnualProvisionsResponse;
     toProto(message: QueryAnnualProvisionsResponse): Uint8Array;
     toProtoMsg(message: QueryAnnualProvisionsResponse): QueryAnnualProvisionsResponseProtoMsg;
+};
+export declare const QueryTargetSupplyRequest: {
+    typeUrl: string;
+    encode(_: QueryTargetSupplyRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): QueryTargetSupplyRequest;
+    fromPartial(_: Partial<QueryTargetSupplyRequest>): QueryTargetSupplyRequest;
+    fromAmino(_: QueryTargetSupplyRequestAmino): QueryTargetSupplyRequest;
+    toAmino(_: QueryTargetSupplyRequest): QueryTargetSupplyRequestAmino;
+    fromAminoMsg(object: QueryTargetSupplyRequestAminoMsg): QueryTargetSupplyRequest;
+    fromProtoMsg(message: QueryTargetSupplyRequestProtoMsg): QueryTargetSupplyRequest;
+    toProto(message: QueryTargetSupplyRequest): Uint8Array;
+    toProtoMsg(message: QueryTargetSupplyRequest): QueryTargetSupplyRequestProtoMsg;
+};
+export declare const QueryTargetSupplyResponse: {
+    typeUrl: string;
+    encode(message: QueryTargetSupplyResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTargetSupplyResponse;
+    fromPartial(object: Partial<QueryTargetSupplyResponse>): QueryTargetSupplyResponse;
+    fromAmino(object: QueryTargetSupplyResponseAmino): QueryTargetSupplyResponse;
+    toAmino(message: QueryTargetSupplyResponse): QueryTargetSupplyResponseAmino;
+    fromAminoMsg(object: QueryTargetSupplyResponseAminoMsg): QueryTargetSupplyResponse;
+    fromProtoMsg(message: QueryTargetSupplyResponseProtoMsg): QueryTargetSupplyResponse;
+    toProto(message: QueryTargetSupplyResponse): Uint8Array;
+    toProtoMsg(message: QueryTargetSupplyResponse): QueryTargetSupplyResponseProtoMsg;
 };

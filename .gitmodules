@@ -31,9 +31,6 @@
 [submodule "packages/juno/cosmos-proto"]
 	path = packages/juno/cosmos-proto
 	url = https://github.com/cosmos/cosmos-proto
-[submodule "packages/juno/mev-cometbft"]
-	path = packages/juno/mev-cometbft
-	url = https://github.com/skip-mev/mev-cometbft
 [submodule "packages/osmosis/cosmos-sdk"]
 	path = packages/osmosis/cosmos-sdk
 	url = https://github.com/osmosis-labs/cosmos-sdk
@@ -133,9 +130,6 @@
 [submodule "packages/kava/kava"]
 	path = packages/kava/kava
 	url = https://github.com/kava-Labs/kava
-[submodule "packages/kava/kava-cosmos-sdk-dev"]
-	path = packages/kava/kava-cosmos-sdk-dev
-	url = https://github.com/devmosis-workspace/kava-cosmos-sdk-dev
 [submodule "packages/kava/cosmos-proto"]
 	path = packages/kava/cosmos-proto
 	url = https://github.com/cosmos/cosmos-proto

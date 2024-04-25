@@ -1,3 +1,4 @@
+import { Params, ParamsAmino, ParamsSDKType } from "./genesis";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** MsgRegisterFeeShare defines a message that registers a FeeShare */
@@ -22,17 +23,17 @@ export interface MsgRegisterFeeShareProtoMsg {
 /** MsgRegisterFeeShare defines a message that registers a FeeShare */
 export interface MsgRegisterFeeShareAmino {
   /** contract_address in bech32 format */
-  contract_address: string;
+  contract_address?: string;
   /**
    * deployer_address is the bech32 address of message sender. It must be the
    * same the contract's admin address
    */
-  deployer_address: string;
+  deployer_address?: string;
   /**
    * withdrawer_address is the bech32 address of account receiving the
    * transaction fees
    */
-  withdrawer_address: string;
+  withdrawer_address?: string;
 }
 export interface MsgRegisterFeeShareAminoMsg {
   type: "/juno.feeshare.v1.MsgRegisterFeeShare";
@@ -86,17 +87,17 @@ export interface MsgUpdateFeeShareProtoMsg {
  */
 export interface MsgUpdateFeeShareAmino {
   /** contract_address in bech32 format */
-  contract_address: string;
+  contract_address?: string;
   /**
    * deployer_address is the bech32 address of message sender. It must be the
    * same the contract's admin address
    */
-  deployer_address: string;
+  deployer_address?: string;
   /**
    * withdrawer_address is the bech32 address of account receiving the
    * transaction fees
    */
-  withdrawer_address: string;
+  withdrawer_address?: string;
 }
 export interface MsgUpdateFeeShareAminoMsg {
   type: "/juno.feeshare.v1.MsgUpdateFeeShare";
@@ -142,12 +143,12 @@ export interface MsgCancelFeeShareProtoMsg {
 /** MsgCancelFeeShare defines a message that cancels a registered FeeShare */
 export interface MsgCancelFeeShareAmino {
   /** contract_address in bech32 format */
-  contract_address: string;
+  contract_address?: string;
   /**
    * deployer_address is the bech32 address of message sender. It must be the
    * same the contract's admin address
    */
-  deployer_address: string;
+  deployer_address?: string;
 }
 export interface MsgCancelFeeShareAminoMsg {
   type: "/juno.feeshare.v1.MsgCancelFeeShare";
@@ -172,6 +173,82 @@ export interface MsgCancelFeeShareResponseAminoMsg {
 }
 /** MsgCancelFeeShareResponse defines the MsgCancelFeeShare response type */
 export interface MsgCancelFeeShareResponseSDKType {}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParams {
+  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  authority: string;
+  /**
+   * params defines the x/feeshare parameters to update.
+   * 
+   * NOTE: All parameters must be supplied.
+   */
+  params: Params;
+}
+export interface MsgUpdateParamsProtoMsg {
+  typeUrl: "/juno.feeshare.v1.MsgUpdateParams";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsAmino {
+  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  authority?: string;
+  /**
+   * params defines the x/feeshare parameters to update.
+   * 
+   * NOTE: All parameters must be supplied.
+   */
+  params?: ParamsAmino;
+}
+export interface MsgUpdateParamsAminoMsg {
+  type: "/juno.feeshare.v1.MsgUpdateParams";
+  value: MsgUpdateParamsAmino;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsSDKType {
+  authority: string;
+  params: ParamsSDKType;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponse {}
+export interface MsgUpdateParamsResponseProtoMsg {
+  typeUrl: "/juno.feeshare.v1.MsgUpdateParamsResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseAmino {}
+export interface MsgUpdateParamsResponseAminoMsg {
+  type: "/juno.feeshare.v1.MsgUpdateParamsResponse";
+  value: MsgUpdateParamsResponseAmino;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseSDKType {}
 function createBaseMsgRegisterFeeShare(): MsgRegisterFeeShare {
   return {
     contractAddress: "",
@@ -208,11 +285,17 @@ export const MsgRegisterFeeShare = {
     return message;
   },
   fromAmino(object: MsgRegisterFeeShareAmino): MsgRegisterFeeShare {
-    return {
-      contractAddress: object.contract_address,
-      deployerAddress: object.deployer_address,
-      withdrawerAddress: object.withdrawer_address
-    };
+    const message = createBaseMsgRegisterFeeShare();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.deployer_address !== undefined && object.deployer_address !== null) {
+      message.deployerAddress = object.deployer_address;
+    }
+    if (object.withdrawer_address !== undefined && object.withdrawer_address !== null) {
+      message.withdrawerAddress = object.withdrawer_address;
+    }
+    return message;
   },
   toAmino(message: MsgRegisterFeeShare): MsgRegisterFeeShareAmino {
     const obj: any = {};
@@ -253,7 +336,8 @@ export const MsgRegisterFeeShareResponse = {
     return message;
   },
   fromAmino(_: MsgRegisterFeeShareResponseAmino): MsgRegisterFeeShareResponse {
-    return {};
+    const message = createBaseMsgRegisterFeeShareResponse();
+    return message;
   },
   toAmino(_: MsgRegisterFeeShareResponse): MsgRegisterFeeShareResponseAmino {
     const obj: any = {};
@@ -311,11 +395,17 @@ export const MsgUpdateFeeShare = {
     return message;
   },
   fromAmino(object: MsgUpdateFeeShareAmino): MsgUpdateFeeShare {
-    return {
-      contractAddress: object.contract_address,
-      deployerAddress: object.deployer_address,
-      withdrawerAddress: object.withdrawer_address
-    };
+    const message = createBaseMsgUpdateFeeShare();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.deployer_address !== undefined && object.deployer_address !== null) {
+      message.deployerAddress = object.deployer_address;
+    }
+    if (object.withdrawer_address !== undefined && object.withdrawer_address !== null) {
+      message.withdrawerAddress = object.withdrawer_address;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateFeeShare): MsgUpdateFeeShareAmino {
     const obj: any = {};
@@ -356,7 +446,8 @@ export const MsgUpdateFeeShareResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateFeeShareResponseAmino): MsgUpdateFeeShareResponse {
-    return {};
+    const message = createBaseMsgUpdateFeeShareResponse();
+    return message;
   },
   toAmino(_: MsgUpdateFeeShareResponse): MsgUpdateFeeShareResponseAmino {
     const obj: any = {};
@@ -408,10 +499,14 @@ export const MsgCancelFeeShare = {
     return message;
   },
   fromAmino(object: MsgCancelFeeShareAmino): MsgCancelFeeShare {
-    return {
-      contractAddress: object.contract_address,
-      deployerAddress: object.deployer_address
-    };
+    const message = createBaseMsgCancelFeeShare();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.deployer_address !== undefined && object.deployer_address !== null) {
+      message.deployerAddress = object.deployer_address;
+    }
+    return message;
   },
   toAmino(message: MsgCancelFeeShare): MsgCancelFeeShareAmino {
     const obj: any = {};
@@ -451,7 +546,8 @@ export const MsgCancelFeeShareResponse = {
     return message;
   },
   fromAmino(_: MsgCancelFeeShareResponseAmino): MsgCancelFeeShareResponse {
-    return {};
+    const message = createBaseMsgCancelFeeShareResponse();
+    return message;
   },
   toAmino(_: MsgCancelFeeShareResponse): MsgCancelFeeShareResponseAmino {
     const obj: any = {};
@@ -470,6 +566,106 @@ export const MsgCancelFeeShareResponse = {
     return {
       typeUrl: "/juno.feeshare.v1.MsgCancelFeeShareResponse",
       value: MsgCancelFeeShareResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUpdateParams(): MsgUpdateParams {
+  return {
+    authority: "",
+    params: Params.fromPartial({})
+  };
+}
+export const MsgUpdateParams = {
+  typeUrl: "/juno.feeshare.v1.MsgUpdateParams",
+  encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgUpdateParams {
+    return {
+      authority: isSet(object.authority) ? String(object.authority) : "",
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined
+    };
+  },
+  fromPartial(object: Partial<MsgUpdateParams>): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    message.authority = object.authority ?? "";
+    message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams {
+    return MsgUpdateParams.decode(message.value);
+  },
+  toProto(message: MsgUpdateParams): Uint8Array {
+    return MsgUpdateParams.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg {
+    return {
+      typeUrl: "/juno.feeshare.v1.MsgUpdateParams",
+      value: MsgUpdateParams.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
+  return {};
+}
+export const MsgUpdateParamsResponse = {
+  typeUrl: "/juno.feeshare.v1.MsgUpdateParamsResponse",
+  encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgUpdateParamsResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.decode(message.value);
+  },
+  toProto(message: MsgUpdateParamsResponse): Uint8Array {
+    return MsgUpdateParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg {
+    return {
+      typeUrl: "/juno.feeshare.v1.MsgUpdateParamsResponse",
+      value: MsgUpdateParamsResponse.encode(message).finish()
     };
   }
 };

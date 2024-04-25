@@ -1,6 +1,6 @@
 import { Rpc } from "../../../helpers";
 import { BinaryReader } from "../../../binary";
-import { MsgRegisterFeeShare, MsgRegisterFeeShareResponse, MsgUpdateFeeShare, MsgUpdateFeeShareResponse, MsgCancelFeeShare, MsgCancelFeeShareResponse } from "./tx";
+import { MsgRegisterFeeShare, MsgRegisterFeeShareResponse, MsgUpdateFeeShare, MsgUpdateFeeShareResponse, MsgCancelFeeShare, MsgCancelFeeShareResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 /** Msg defines the fees Msg service. */
 export interface Msg {
   /** RegisterFeeShare registers a new contract for receiving transaction fees */
@@ -12,6 +12,8 @@ export interface Msg {
    * of transaction fees
    */
   cancelFeeShare(request: MsgCancelFeeShare): Promise<MsgCancelFeeShareResponse>;
+  /** Update the params of the module through gov v1 type. */
+  updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
@@ -20,6 +22,7 @@ export class MsgClientImpl implements Msg {
     this.registerFeeShare = this.registerFeeShare.bind(this);
     this.updateFeeShare = this.updateFeeShare.bind(this);
     this.cancelFeeShare = this.cancelFeeShare.bind(this);
+    this.updateParams = this.updateParams.bind(this);
   }
   registerFeeShare(request: MsgRegisterFeeShare): Promise<MsgRegisterFeeShareResponse> {
     const data = MsgRegisterFeeShare.encode(request).finish();
@@ -35,5 +38,10 @@ export class MsgClientImpl implements Msg {
     const data = MsgCancelFeeShare.encode(request).finish();
     const promise = this.rpc.request("juno.feeshare.v1.Msg", "CancelFeeShare", data);
     return promise.then(data => MsgCancelFeeShareResponse.decode(new BinaryReader(data)));
+  }
+  updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
+    const data = MsgUpdateParams.encode(request).finish();
+    const promise = this.rpc.request("juno.feeshare.v1.Msg", "UpdateParams", data);
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }

@@ -33,17 +33,17 @@ export interface FeeShareAmino {
      * contract_address is the bech32 address of a registered contract in string
      * form
      */
-    contract_address: string;
+    contract_address?: string;
     /**
      * deployer_address is the bech32 address of message sender. It must be the
      * same as the contracts admin address.
      */
-    deployer_address: string;
+    deployer_address?: string;
     /**
      * withdrawer_address is the bech32 address of account receiving the
      * transaction fees.
      */
-    withdrawer_address: string;
+    withdrawer_address?: string;
 }
 export interface FeeShareAminoMsg {
     type: "/juno.feeshare.v1.FeeShare";

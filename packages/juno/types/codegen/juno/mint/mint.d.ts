@@ -16,12 +16,12 @@ export interface MinterProtoMsg {
 /** Minter represents the minting state. */
 export interface MinterAmino {
     /** current annual inflation rate */
-    inflation: string;
-    phase: string;
-    start_phase_block: string;
+    inflation?: string;
+    phase?: string;
+    start_phase_block?: string;
     /** current annual expected provisions */
-    annual_provisions: string;
-    target_supply: string;
+    annual_provisions?: string;
+    target_supply?: string;
 }
 export interface MinterAminoMsg {
     type: "/juno.mint.Minter";
@@ -49,9 +49,9 @@ export interface ParamsProtoMsg {
 /** Params holds parameters for the mint module. */
 export interface ParamsAmino {
     /** type of coin to mint */
-    mint_denom: string;
+    mint_denom?: string;
     /** expected blocks per year */
-    blocks_per_year: string;
+    blocks_per_year?: string;
 }
 export interface ParamsAminoMsg {
     type: "/juno.mint.Params";

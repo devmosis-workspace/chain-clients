@@ -6,7 +6,7 @@ import { isSet } from "../../../helpers";
 /** QueryFeeSharesRequest is the request type for the Query/FeeShares RPC method. */
 export interface QueryFeeSharesRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryFeeSharesRequestProtoMsg {
   typeUrl: "/juno.feeshare.v1.QueryFeeSharesRequest";
@@ -23,7 +23,7 @@ export interface QueryFeeSharesRequestAminoMsg {
 }
 /** QueryFeeSharesRequest is the request type for the Query/FeeShares RPC method. */
 export interface QueryFeeSharesRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /**
  * QueryFeeSharesResponse is the response type for the Query/FeeShares RPC
@@ -33,7 +33,7 @@ export interface QueryFeeSharesResponse {
   /** FeeShare is a slice of all stored Reveneue */
   feeshare: FeeShare[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryFeeSharesResponseProtoMsg {
   typeUrl: "/juno.feeshare.v1.QueryFeeSharesResponse";
@@ -45,7 +45,7 @@ export interface QueryFeeSharesResponseProtoMsg {
  */
 export interface QueryFeeSharesResponseAmino {
   /** FeeShare is a slice of all stored Reveneue */
-  feeshare: FeeShareAmino[];
+  feeshare?: FeeShareAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -59,7 +59,7 @@ export interface QueryFeeSharesResponseAminoMsg {
  */
 export interface QueryFeeSharesResponseSDKType {
   feeshare: FeeShareSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryFeeShareRequest is the request type for the Query/FeeShare RPC method. */
 export interface QueryFeeShareRequest {
@@ -73,7 +73,7 @@ export interface QueryFeeShareRequestProtoMsg {
 /** QueryFeeShareRequest is the request type for the Query/FeeShare RPC method. */
 export interface QueryFeeShareRequestAmino {
   /** contract_address of a registered contract in bech32 format */
-  contract_address: string;
+  contract_address?: string;
 }
 export interface QueryFeeShareRequestAminoMsg {
   type: "/juno.feeshare.v1.QueryFeeShareRequest";
@@ -149,7 +149,7 @@ export interface QueryDeployerFeeSharesRequest {
   /** deployer_address in bech32 format */
   deployerAddress: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryDeployerFeeSharesRequestProtoMsg {
   typeUrl: "/juno.feeshare.v1.QueryDeployerFeeSharesRequest";
@@ -161,7 +161,7 @@ export interface QueryDeployerFeeSharesRequestProtoMsg {
  */
 export interface QueryDeployerFeeSharesRequestAmino {
   /** deployer_address in bech32 format */
-  deployer_address: string;
+  deployer_address?: string;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
 }
@@ -175,7 +175,7 @@ export interface QueryDeployerFeeSharesRequestAminoMsg {
  */
 export interface QueryDeployerFeeSharesRequestSDKType {
   deployer_address: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /**
  * QueryDeployerFeeSharesResponse is the response type for the
@@ -188,7 +188,7 @@ export interface QueryDeployerFeeSharesResponse {
    */
   contractAddresses: string[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryDeployerFeeSharesResponseProtoMsg {
   typeUrl: "/juno.feeshare.v1.QueryDeployerFeeSharesResponse";
@@ -203,7 +203,7 @@ export interface QueryDeployerFeeSharesResponseAmino {
    * contract_addresses is the slice of registered contract addresses for a
    * deployer
    */
-  contract_addresses: string[];
+  contract_addresses?: string[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -217,7 +217,7 @@ export interface QueryDeployerFeeSharesResponseAminoMsg {
  */
 export interface QueryDeployerFeeSharesResponseSDKType {
   contract_addresses: string[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /**
  * QueryWithdrawerFeeSharesRequest is the request type for the
@@ -227,7 +227,7 @@ export interface QueryWithdrawerFeeSharesRequest {
   /** withdrawer_address in bech32 format */
   withdrawerAddress: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryWithdrawerFeeSharesRequestProtoMsg {
   typeUrl: "/juno.feeshare.v1.QueryWithdrawerFeeSharesRequest";
@@ -239,7 +239,7 @@ export interface QueryWithdrawerFeeSharesRequestProtoMsg {
  */
 export interface QueryWithdrawerFeeSharesRequestAmino {
   /** withdrawer_address in bech32 format */
-  withdrawer_address: string;
+  withdrawer_address?: string;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequestAmino;
 }
@@ -253,7 +253,7 @@ export interface QueryWithdrawerFeeSharesRequestAminoMsg {
  */
 export interface QueryWithdrawerFeeSharesRequestSDKType {
   withdrawer_address: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /**
  * QueryWithdrawerFeeSharesResponse is the response type for the
@@ -266,7 +266,7 @@ export interface QueryWithdrawerFeeSharesResponse {
    */
   contractAddresses: string[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryWithdrawerFeeSharesResponseProtoMsg {
   typeUrl: "/juno.feeshare.v1.QueryWithdrawerFeeSharesResponse";
@@ -281,7 +281,7 @@ export interface QueryWithdrawerFeeSharesResponseAmino {
    * contract_addresses is the slice of registered contract addresses for a
    * withdrawer
    */
-  contract_addresses: string[];
+  contract_addresses?: string[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -295,11 +295,11 @@ export interface QueryWithdrawerFeeSharesResponseAminoMsg {
  */
 export interface QueryWithdrawerFeeSharesResponseSDKType {
   contract_addresses: string[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 function createBaseQueryFeeSharesRequest(): QueryFeeSharesRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryFeeSharesRequest = {
@@ -321,9 +321,11 @@ export const QueryFeeSharesRequest = {
     return message;
   },
   fromAmino(object: QueryFeeSharesRequestAmino): QueryFeeSharesRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryFeeSharesRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryFeeSharesRequest): QueryFeeSharesRequestAmino {
     const obj: any = {};
@@ -349,7 +351,7 @@ export const QueryFeeSharesRequest = {
 function createBaseQueryFeeSharesResponse(): QueryFeeSharesResponse {
   return {
     feeshare: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryFeeSharesResponse = {
@@ -376,10 +378,12 @@ export const QueryFeeSharesResponse = {
     return message;
   },
   fromAmino(object: QueryFeeSharesResponseAmino): QueryFeeSharesResponse {
-    return {
-      feeshare: Array.isArray(object?.feeshare) ? object.feeshare.map((e: any) => FeeShare.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryFeeSharesResponse();
+    message.feeshare = object.feeshare?.map(e => FeeShare.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryFeeSharesResponse): QueryFeeSharesResponseAmino {
     const obj: any = {};
@@ -431,9 +435,11 @@ export const QueryFeeShareRequest = {
     return message;
   },
   fromAmino(object: QueryFeeShareRequestAmino): QueryFeeShareRequest {
-    return {
-      contractAddress: object.contract_address
-    };
+    const message = createBaseQueryFeeShareRequest();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    return message;
   },
   toAmino(message: QueryFeeShareRequest): QueryFeeShareRequestAmino {
     const obj: any = {};
@@ -480,9 +486,11 @@ export const QueryFeeShareResponse = {
     return message;
   },
   fromAmino(object: QueryFeeShareResponseAmino): QueryFeeShareResponse {
-    return {
-      feeshare: object?.feeshare ? FeeShare.fromAmino(object.feeshare) : undefined
-    };
+    const message = createBaseQueryFeeShareResponse();
+    if (object.feeshare !== undefined && object.feeshare !== null) {
+      message.feeshare = FeeShare.fromAmino(object.feeshare);
+    }
+    return message;
   },
   toAmino(message: QueryFeeShareResponse): QueryFeeShareResponseAmino {
     const obj: any = {};
@@ -521,7 +529,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -567,9 +576,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -595,7 +606,7 @@ export const QueryParamsResponse = {
 function createBaseQueryDeployerFeeSharesRequest(): QueryDeployerFeeSharesRequest {
   return {
     deployerAddress: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDeployerFeeSharesRequest = {
@@ -622,10 +633,14 @@ export const QueryDeployerFeeSharesRequest = {
     return message;
   },
   fromAmino(object: QueryDeployerFeeSharesRequestAmino): QueryDeployerFeeSharesRequest {
-    return {
-      deployerAddress: object.deployer_address,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDeployerFeeSharesRequest();
+    if (object.deployer_address !== undefined && object.deployer_address !== null) {
+      message.deployerAddress = object.deployer_address;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDeployerFeeSharesRequest): QueryDeployerFeeSharesRequestAmino {
     const obj: any = {};
@@ -652,7 +667,7 @@ export const QueryDeployerFeeSharesRequest = {
 function createBaseQueryDeployerFeeSharesResponse(): QueryDeployerFeeSharesResponse {
   return {
     contractAddresses: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryDeployerFeeSharesResponse = {
@@ -679,10 +694,12 @@ export const QueryDeployerFeeSharesResponse = {
     return message;
   },
   fromAmino(object: QueryDeployerFeeSharesResponseAmino): QueryDeployerFeeSharesResponse {
-    return {
-      contractAddresses: Array.isArray(object?.contract_addresses) ? object.contract_addresses.map((e: any) => e) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryDeployerFeeSharesResponse();
+    message.contractAddresses = object.contract_addresses?.map(e => e) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryDeployerFeeSharesResponse): QueryDeployerFeeSharesResponseAmino {
     const obj: any = {};
@@ -713,7 +730,7 @@ export const QueryDeployerFeeSharesResponse = {
 function createBaseQueryWithdrawerFeeSharesRequest(): QueryWithdrawerFeeSharesRequest {
   return {
     withdrawerAddress: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryWithdrawerFeeSharesRequest = {
@@ -740,10 +757,14 @@ export const QueryWithdrawerFeeSharesRequest = {
     return message;
   },
   fromAmino(object: QueryWithdrawerFeeSharesRequestAmino): QueryWithdrawerFeeSharesRequest {
-    return {
-      withdrawerAddress: object.withdrawer_address,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryWithdrawerFeeSharesRequest();
+    if (object.withdrawer_address !== undefined && object.withdrawer_address !== null) {
+      message.withdrawerAddress = object.withdrawer_address;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryWithdrawerFeeSharesRequest): QueryWithdrawerFeeSharesRequestAmino {
     const obj: any = {};
@@ -770,7 +791,7 @@ export const QueryWithdrawerFeeSharesRequest = {
 function createBaseQueryWithdrawerFeeSharesResponse(): QueryWithdrawerFeeSharesResponse {
   return {
     contractAddresses: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryWithdrawerFeeSharesResponse = {
@@ -797,10 +818,12 @@ export const QueryWithdrawerFeeSharesResponse = {
     return message;
   },
   fromAmino(object: QueryWithdrawerFeeSharesResponseAmino): QueryWithdrawerFeeSharesResponse {
-    return {
-      contractAddresses: Array.isArray(object?.contract_addresses) ? object.contract_addresses.map((e: any) => e) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryWithdrawerFeeSharesResponse();
+    message.contractAddresses = object.contract_addresses?.map(e => e) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryWithdrawerFeeSharesResponse): QueryWithdrawerFeeSharesResponseAmino {
     const obj: any = {};

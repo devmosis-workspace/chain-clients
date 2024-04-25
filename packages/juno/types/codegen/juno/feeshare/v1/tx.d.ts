@@ -1,3 +1,4 @@
+import { Params, ParamsAmino, ParamsSDKType } from "./genesis";
 import { BinaryWriter } from "../../../binary";
 /** MsgRegisterFeeShare defines a message that registers a FeeShare */
 export interface MsgRegisterFeeShare {
@@ -21,17 +22,17 @@ export interface MsgRegisterFeeShareProtoMsg {
 /** MsgRegisterFeeShare defines a message that registers a FeeShare */
 export interface MsgRegisterFeeShareAmino {
     /** contract_address in bech32 format */
-    contract_address: string;
+    contract_address?: string;
     /**
      * deployer_address is the bech32 address of message sender. It must be the
      * same the contract's admin address
      */
-    deployer_address: string;
+    deployer_address?: string;
     /**
      * withdrawer_address is the bech32 address of account receiving the
      * transaction fees
      */
-    withdrawer_address: string;
+    withdrawer_address?: string;
 }
 export interface MsgRegisterFeeShareAminoMsg {
     type: "/juno.feeshare.v1.MsgRegisterFeeShare";
@@ -88,17 +89,17 @@ export interface MsgUpdateFeeShareProtoMsg {
  */
 export interface MsgUpdateFeeShareAmino {
     /** contract_address in bech32 format */
-    contract_address: string;
+    contract_address?: string;
     /**
      * deployer_address is the bech32 address of message sender. It must be the
      * same the contract's admin address
      */
-    deployer_address: string;
+    deployer_address?: string;
     /**
      * withdrawer_address is the bech32 address of account receiving the
      * transaction fees
      */
-    withdrawer_address: string;
+    withdrawer_address?: string;
 }
 export interface MsgUpdateFeeShareAminoMsg {
     type: "/juno.feeshare.v1.MsgUpdateFeeShare";
@@ -147,12 +148,12 @@ export interface MsgCancelFeeShareProtoMsg {
 /** MsgCancelFeeShare defines a message that cancels a registered FeeShare */
 export interface MsgCancelFeeShareAmino {
     /** contract_address in bech32 format */
-    contract_address: string;
+    contract_address?: string;
     /**
      * deployer_address is the bech32 address of message sender. It must be the
      * same the contract's admin address
      */
-    deployer_address: string;
+    deployer_address?: string;
 }
 export interface MsgCancelFeeShareAminoMsg {
     type: "/juno.feeshare.v1.MsgCancelFeeShare";
@@ -179,6 +180,85 @@ export interface MsgCancelFeeShareResponseAminoMsg {
 }
 /** MsgCancelFeeShareResponse defines the MsgCancelFeeShare response type */
 export interface MsgCancelFeeShareResponseSDKType {
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParams {
+    /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+    authority: string;
+    /**
+     * params defines the x/feeshare parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     */
+    params: Params;
+}
+export interface MsgUpdateParamsProtoMsg {
+    typeUrl: "/juno.feeshare.v1.MsgUpdateParams";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsAmino {
+    /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+    authority?: string;
+    /**
+     * params defines the x/feeshare parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     */
+    params?: ParamsAmino;
+}
+export interface MsgUpdateParamsAminoMsg {
+    type: "/juno.feeshare.v1.MsgUpdateParams";
+    value: MsgUpdateParamsAmino;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsSDKType {
+    authority: string;
+    params: ParamsSDKType;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponse {
+}
+export interface MsgUpdateParamsResponseProtoMsg {
+    typeUrl: "/juno.feeshare.v1.MsgUpdateParamsResponse";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseAmino {
+}
+export interface MsgUpdateParamsResponseAminoMsg {
+    type: "/juno.feeshare.v1.MsgUpdateParamsResponse";
+    value: MsgUpdateParamsResponseAmino;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseSDKType {
 }
 export declare const MsgRegisterFeeShare: {
     typeUrl: string;
@@ -251,4 +331,28 @@ export declare const MsgCancelFeeShareResponse: {
     fromProtoMsg(message: MsgCancelFeeShareResponseProtoMsg): MsgCancelFeeShareResponse;
     toProto(message: MsgCancelFeeShareResponse): Uint8Array;
     toProtoMsg(message: MsgCancelFeeShareResponse): MsgCancelFeeShareResponseProtoMsg;
+};
+export declare const MsgUpdateParams: {
+    typeUrl: string;
+    encode(message: MsgUpdateParams, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgUpdateParams;
+    fromPartial(object: Partial<MsgUpdateParams>): MsgUpdateParams;
+    fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams;
+    toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino;
+    fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams;
+    fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams;
+    toProto(message: MsgUpdateParams): Uint8Array;
+    toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg;
+};
+export declare const MsgUpdateParamsResponse: {
+    typeUrl: string;
+    encode(_: MsgUpdateParamsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgUpdateParamsResponse;
+    fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse;
+    fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse;
+    toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino;
+    fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse;
+    fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse;
+    toProto(message: MsgUpdateParamsResponse): Uint8Array;
+    toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg;
 };

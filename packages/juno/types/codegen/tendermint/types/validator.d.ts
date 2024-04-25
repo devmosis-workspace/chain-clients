@@ -2,7 +2,7 @@ import { PublicKey, PublicKeyAmino, PublicKeySDKType } from "../crypto/keys";
 import { BinaryWriter } from "../../binary";
 export interface ValidatorSet {
     validators: Validator[];
-    proposer: Validator;
+    proposer?: Validator;
     totalVotingPower: bigint;
 }
 export interface ValidatorSetProtoMsg {
@@ -10,9 +10,9 @@ export interface ValidatorSetProtoMsg {
     value: Uint8Array;
 }
 export interface ValidatorSetAmino {
-    validators: ValidatorAmino[];
+    validators?: ValidatorAmino[];
     proposer?: ValidatorAmino;
-    total_voting_power: string;
+    total_voting_power?: string;
 }
 export interface ValidatorSetAminoMsg {
     type: "/tendermint.types.ValidatorSet";
@@ -20,7 +20,7 @@ export interface ValidatorSetAminoMsg {
 }
 export interface ValidatorSetSDKType {
     validators: ValidatorSDKType[];
-    proposer: ValidatorSDKType;
+    proposer?: ValidatorSDKType;
     total_voting_power: bigint;
 }
 export interface Validator {
@@ -34,10 +34,10 @@ export interface ValidatorProtoMsg {
     value: Uint8Array;
 }
 export interface ValidatorAmino {
-    address: Uint8Array;
+    address?: string;
     pub_key?: PublicKeyAmino;
-    voting_power: string;
-    proposer_priority: string;
+    voting_power?: string;
+    proposer_priority?: string;
 }
 export interface ValidatorAminoMsg {
     type: "/tendermint.types.Validator";
@@ -50,7 +50,7 @@ export interface ValidatorSDKType {
     proposer_priority: bigint;
 }
 export interface SimpleValidator {
-    pubKey: PublicKey;
+    pubKey?: PublicKey;
     votingPower: bigint;
 }
 export interface SimpleValidatorProtoMsg {
@@ -59,14 +59,14 @@ export interface SimpleValidatorProtoMsg {
 }
 export interface SimpleValidatorAmino {
     pub_key?: PublicKeyAmino;
-    voting_power: string;
+    voting_power?: string;
 }
 export interface SimpleValidatorAminoMsg {
     type: "/tendermint.types.SimpleValidator";
     value: SimpleValidatorAmino;
 }
 export interface SimpleValidatorSDKType {
-    pub_key: PublicKeySDKType;
+    pub_key?: PublicKeySDKType;
     voting_power: bigint;
 }
 export declare const ValidatorSet: {

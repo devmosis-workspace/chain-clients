@@ -5,7 +5,7 @@ import { isSet } from "../../helpers";
 export interface GenesisState {
   /** minter is a space for holding current inflation information. */
   minter: Minter;
-  /** params defines all the paramaters of the module. */
+  /** params defines all the parameters of the module. */
   params: Params;
 }
 export interface GenesisStateProtoMsg {
@@ -16,7 +16,7 @@ export interface GenesisStateProtoMsg {
 export interface GenesisStateAmino {
   /** minter is a space for holding current inflation information. */
   minter?: MinterAmino;
-  /** params defines all the paramaters of the module. */
+  /** params defines all the parameters of the module. */
   params?: ParamsAmino;
 }
 export interface GenesisStateAminoMsg {
@@ -58,10 +58,14 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      minter: object?.minter ? Minter.fromAmino(object.minter) : undefined,
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseGenesisState();
+    if (object.minter !== undefined && object.minter !== null) {
+      message.minter = Minter.fromAmino(object.minter);
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

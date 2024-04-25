@@ -1,5 +1,5 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgRegisterFeeShare, MsgUpdateFeeShare, MsgCancelFeeShare } from "./tx";
+import { MsgRegisterFeeShare, MsgUpdateFeeShare, MsgCancelFeeShare, MsgUpdateParams } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
@@ -13,6 +13,10 @@ export declare const MessageComposer: {
             value: Uint8Array;
         };
         cancelFeeShare(value: MsgCancelFeeShare): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        updateParams(value: MsgUpdateParams): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -30,6 +34,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgCancelFeeShare;
         };
+        updateParams(value: MsgUpdateParams): {
+            typeUrl: string;
+            value: MsgUpdateParams;
+        };
     };
     fromJSON: {
         registerFeeShare(value: any): {
@@ -44,6 +52,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgCancelFeeShare;
         };
+        updateParams(value: any): {
+            typeUrl: string;
+            value: MsgUpdateParams;
+        };
     };
     fromPartial: {
         registerFeeShare(value: MsgRegisterFeeShare): {
@@ -57,6 +69,10 @@ export declare const MessageComposer: {
         cancelFeeShare(value: MsgCancelFeeShare): {
             typeUrl: string;
             value: MsgCancelFeeShare;
+        };
+        updateParams(value: MsgUpdateParams): {
+            typeUrl: string;
+            value: MsgUpdateParams;
         };
     };
 };
