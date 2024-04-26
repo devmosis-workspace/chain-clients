@@ -20,35 +20,35 @@ import * as _21 from "./mint/genesis";
 import * as _22 from "./mint/mint";
 import * as _23 from "./mint/query";
 import * as _24 from "./mint/tx";
-import * as _192 from "./clock/v1/query.lcd";
-import * as _193 from "./cwhooks/v1/query.lcd";
-import * as _194 from "./drip/v1/query.lcd";
-import * as _195 from "./feepay/v1/query.lcd";
-import * as _196 from "./feeshare/v1/query.lcd";
-import * as _197 from "./mint/query.lcd";
-import * as _198 from "./clock/v1/query.rpc.Query";
-import * as _199 from "./cwhooks/v1/query.rpc.Query";
-import * as _200 from "./drip/v1/query.rpc.Query";
-import * as _201 from "./feepay/v1/query.rpc.Query";
-import * as _202 from "./feeshare/v1/query.rpc.Query";
-import * as _203 from "./mint/query.rpc.Query";
-import * as _204 from "./clock/v1/tx.rpc.msg";
-import * as _205 from "./cwhooks/v1/tx.rpc.msg";
-import * as _206 from "./drip/v1/tx.rpc.msg";
-import * as _207 from "./feepay/v1/tx.rpc.msg";
-import * as _208 from "./feeshare/v1/tx.rpc.msg";
-import * as _209 from "./mint/tx.rpc.msg";
+import * as _199 from "./clock/v1/query.lcd";
+import * as _200 from "./cwhooks/v1/query.lcd";
+import * as _201 from "./drip/v1/query.lcd";
+import * as _202 from "./feepay/v1/query.lcd";
+import * as _203 from "./feeshare/v1/query.lcd";
+import * as _204 from "./mint/query.lcd";
+import * as _205 from "./clock/v1/query.rpc.Query";
+import * as _206 from "./cwhooks/v1/query.rpc.Query";
+import * as _207 from "./drip/v1/query.rpc.Query";
+import * as _208 from "./feepay/v1/query.rpc.Query";
+import * as _209 from "./feeshare/v1/query.rpc.Query";
+import * as _210 from "./mint/query.rpc.Query";
+import * as _211 from "./clock/v1/tx.rpc.msg";
+import * as _212 from "./cwhooks/v1/tx.rpc.msg";
+import * as _213 from "./drip/v1/tx.rpc.msg";
+import * as _214 from "./feepay/v1/tx.rpc.msg";
+import * as _215 from "./feeshare/v1/tx.rpc.msg";
+import * as _216 from "./mint/tx.rpc.msg";
 export declare namespace juno {
     namespace clock {
         const v1: {
-            MsgClientImpl: typeof _204.MsgClientImpl;
-            QueryClientImpl: typeof _198.QueryClientImpl;
+            MsgClientImpl: typeof _211.MsgClientImpl;
+            QueryClientImpl: typeof _205.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 clockContracts(request?: _5.QueryClockContracts): Promise<_5.QueryClockContractsResponse>;
                 clockContract(request: _5.QueryClockContract): Promise<_5.QueryClockContractResponse>;
                 params(request?: _5.QueryParamsRequest): Promise<_5.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _192.LCDQueryClient;
+            LCDQueryClient: typeof _199.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -355,14 +355,14 @@ export declare namespace juno {
     }
     namespace cwhooks {
         const v1: {
-            MsgClientImpl: typeof _205.MsgClientImpl;
-            QueryClientImpl: typeof _199.QueryClientImpl;
+            MsgClientImpl: typeof _212.MsgClientImpl;
+            QueryClientImpl: typeof _206.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _8.QueryParamsRequest): Promise<_8.QueryParamsResponse>;
                 stakingContracts(request?: _8.QueryStakingContractsRequest): Promise<_8.QueryStakingContractsResponse>;
                 governanceContracts(request?: _8.QueryGovernanceContractsRequest): Promise<_8.QueryGovernanceContractsResponse>;
             };
-            LCDQueryClient: typeof _193.LCDQueryClient;
+            LCDQueryClient: typeof _200.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -702,12 +702,12 @@ export declare namespace juno {
     }
     namespace drip {
         const v1: {
-            MsgClientImpl: typeof _206.MsgClientImpl;
-            QueryClientImpl: typeof _200.QueryClientImpl;
+            MsgClientImpl: typeof _213.MsgClientImpl;
+            QueryClientImpl: typeof _207.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _11.QueryParamsRequest): Promise<_11.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _194.LCDQueryClient;
+            LCDQueryClient: typeof _201.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -865,8 +865,8 @@ export declare namespace juno {
     }
     namespace feepay {
         const v1: {
-            MsgClientImpl: typeof _207.MsgClientImpl;
-            QueryClientImpl: typeof _201.QueryClientImpl;
+            MsgClientImpl: typeof _214.MsgClientImpl;
+            QueryClientImpl: typeof _208.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 feePayContract(request: _15.QueryFeePayContract): Promise<_15.QueryFeePayContractResponse>;
                 feePayContracts(request?: _15.QueryFeePayContracts): Promise<_15.QueryFeePayContractsResponse>;
@@ -874,7 +874,7 @@ export declare namespace juno {
                 feePayWalletIsEligible(request: _15.QueryFeePayWalletIsEligible): Promise<_15.QueryFeePayWalletIsEligibleResponse>;
                 params(request?: _15.QueryParamsRequest): Promise<_15.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _195.LCDQueryClient;
+            LCDQueryClient: typeof _202.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -1286,8 +1286,8 @@ export declare namespace juno {
     }
     namespace feeshare {
         const v1: {
-            MsgClientImpl: typeof _208.MsgClientImpl;
-            QueryClientImpl: typeof _202.QueryClientImpl;
+            MsgClientImpl: typeof _215.MsgClientImpl;
+            QueryClientImpl: typeof _209.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 feeShares(request?: _19.QueryFeeSharesRequest): Promise<_19.QueryFeeSharesResponse>;
                 feeShare(request: _19.QueryFeeShareRequest): Promise<_19.QueryFeeShareResponse>;
@@ -1295,7 +1295,7 @@ export declare namespace juno {
                 deployerFeeShares(request: _19.QueryDeployerFeeSharesRequest): Promise<_19.QueryDeployerFeeSharesResponse>;
                 withdrawerFeeShares(request: _19.QueryWithdrawerFeeSharesRequest): Promise<_19.QueryWithdrawerFeeSharesResponse>;
             };
-            LCDQueryClient: typeof _196.LCDQueryClient;
+            LCDQueryClient: typeof _203.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -1649,15 +1649,15 @@ export declare namespace juno {
         };
     }
     const mint: {
-        MsgClientImpl: typeof _209.MsgClientImpl;
-        QueryClientImpl: typeof _203.QueryClientImpl;
+        MsgClientImpl: typeof _216.MsgClientImpl;
+        QueryClientImpl: typeof _210.QueryClientImpl;
         createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
             params(request?: _23.QueryParamsRequest): Promise<_23.QueryParamsResponse>;
             inflation(request?: _23.QueryInflationRequest): Promise<_23.QueryInflationResponse>;
             annualProvisions(request?: _23.QueryAnnualProvisionsRequest): Promise<_23.QueryAnnualProvisionsResponse>;
             targetSupply(request?: _23.QueryTargetSupplyRequest): Promise<_23.QueryTargetSupplyResponse>;
         };
-        LCDQueryClient: typeof _197.LCDQueryClient;
+        LCDQueryClient: typeof _204.LCDQueryClient;
         registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
         load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
         MessageComposer: {
@@ -1856,21 +1856,21 @@ export declare namespace juno {
         }) => Promise<{
             juno: {
                 clock: {
-                    v1: _204.MsgClientImpl;
+                    v1: _211.MsgClientImpl;
                 };
                 cwhooks: {
-                    v1: _205.MsgClientImpl;
+                    v1: _212.MsgClientImpl;
                 };
                 drip: {
-                    v1: _206.MsgClientImpl;
+                    v1: _213.MsgClientImpl;
                 };
                 feepay: {
-                    v1: _207.MsgClientImpl;
+                    v1: _214.MsgClientImpl;
                 };
                 feeshare: {
-                    v1: _208.MsgClientImpl;
+                    v1: _215.MsgClientImpl;
                 };
-                mint: _209.MsgClientImpl;
+                mint: _216.MsgClientImpl;
             };
             cosmos: {
                 auth: {
@@ -2195,21 +2195,21 @@ export declare namespace juno {
         }) => Promise<{
             juno: {
                 clock: {
-                    v1: _192.LCDQueryClient;
+                    v1: _199.LCDQueryClient;
                 };
                 cwhooks: {
-                    v1: _193.LCDQueryClient;
+                    v1: _200.LCDQueryClient;
                 };
                 drip: {
-                    v1: _194.LCDQueryClient;
+                    v1: _201.LCDQueryClient;
                 };
                 feepay: {
-                    v1: _195.LCDQueryClient;
+                    v1: _202.LCDQueryClient;
                 };
                 feeshare: {
-                    v1: _196.LCDQueryClient;
+                    v1: _203.LCDQueryClient;
                 };
-                mint: _197.LCDQueryClient;
+                mint: _204.LCDQueryClient;
             };
             cosmos: {
                 auth: {

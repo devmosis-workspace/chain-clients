@@ -1,18 +1,18 @@
 import * as _0 from "./globalfee/v1beta1/genesis";
 import * as _1 from "./globalfee/v1beta1/query";
 import * as _2 from "./globalfee/v1beta1/tx";
-import * as _177 from "./globalfee/v1beta1/query.lcd";
-import * as _178 from "./globalfee/v1beta1/query.rpc.Query";
-import * as _179 from "./globalfee/v1beta1/tx.rpc.msg";
+import * as _184 from "./globalfee/v1beta1/query.lcd";
+import * as _185 from "./globalfee/v1beta1/query.rpc.Query";
+import * as _186 from "./globalfee/v1beta1/tx.rpc.msg";
 export declare namespace gaia {
     namespace globalfee {
         const v1beta1: {
-            MsgClientImpl: typeof _179.MsgClientImpl;
-            QueryClientImpl: typeof _178.QueryClientImpl;
+            MsgClientImpl: typeof _186.MsgClientImpl;
+            QueryClientImpl: typeof _185.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 minimumGasPrices(request?: _1.QueryMinimumGasPricesRequest): Promise<_1.QueryMinimumGasPricesResponse>;
             };
-            LCDQueryClient: typeof _177.LCDQueryClient;
+            LCDQueryClient: typeof _184.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -128,7 +128,7 @@ export declare namespace gaia {
         }) => Promise<{
             gaia: {
                 globalfee: {
-                    v1beta1: _179.MsgClientImpl;
+                    v1beta1: _186.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -416,7 +416,7 @@ export declare namespace gaia {
         }) => Promise<{
             gaia: {
                 globalfee: {
-                    v1beta1: _177.LCDQueryClient;
+                    v1beta1: _184.LCDQueryClient;
                 };
             };
             cosmos: {

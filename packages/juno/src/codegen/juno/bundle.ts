@@ -20,39 +20,39 @@ import * as _21 from "./mint/genesis";
 import * as _22 from "./mint/mint";
 import * as _23 from "./mint/query";
 import * as _24 from "./mint/tx";
-import * as _180 from "./clock/v1/tx.amino";
-import * as _181 from "./cwhooks/v1/tx.amino";
-import * as _182 from "./drip/v1/tx.amino";
-import * as _183 from "./feepay/v1/tx.amino";
-import * as _184 from "./feeshare/v1/tx.amino";
-import * as _185 from "./mint/tx.amino";
-import * as _186 from "./clock/v1/tx.registry";
-import * as _187 from "./cwhooks/v1/tx.registry";
-import * as _188 from "./drip/v1/tx.registry";
-import * as _189 from "./feepay/v1/tx.registry";
-import * as _190 from "./feeshare/v1/tx.registry";
-import * as _191 from "./mint/tx.registry";
-import * as _192 from "./clock/v1/query.lcd";
-import * as _193 from "./cwhooks/v1/query.lcd";
-import * as _194 from "./drip/v1/query.lcd";
-import * as _195 from "./feepay/v1/query.lcd";
-import * as _196 from "./feeshare/v1/query.lcd";
-import * as _197 from "./mint/query.lcd";
-import * as _198 from "./clock/v1/query.rpc.Query";
-import * as _199 from "./cwhooks/v1/query.rpc.Query";
-import * as _200 from "./drip/v1/query.rpc.Query";
-import * as _201 from "./feepay/v1/query.rpc.Query";
-import * as _202 from "./feeshare/v1/query.rpc.Query";
-import * as _203 from "./mint/query.rpc.Query";
-import * as _204 from "./clock/v1/tx.rpc.msg";
-import * as _205 from "./cwhooks/v1/tx.rpc.msg";
-import * as _206 from "./drip/v1/tx.rpc.msg";
-import * as _207 from "./feepay/v1/tx.rpc.msg";
-import * as _208 from "./feeshare/v1/tx.rpc.msg";
-import * as _209 from "./mint/tx.rpc.msg";
-import * as _310 from "./lcd";
-import * as _311 from "./rpc.query";
-import * as _312 from "./rpc.tx";
+import * as _187 from "./clock/v1/tx.amino";
+import * as _188 from "./cwhooks/v1/tx.amino";
+import * as _189 from "./drip/v1/tx.amino";
+import * as _190 from "./feepay/v1/tx.amino";
+import * as _191 from "./feeshare/v1/tx.amino";
+import * as _192 from "./mint/tx.amino";
+import * as _193 from "./clock/v1/tx.registry";
+import * as _194 from "./cwhooks/v1/tx.registry";
+import * as _195 from "./drip/v1/tx.registry";
+import * as _196 from "./feepay/v1/tx.registry";
+import * as _197 from "./feeshare/v1/tx.registry";
+import * as _198 from "./mint/tx.registry";
+import * as _199 from "./clock/v1/query.lcd";
+import * as _200 from "./cwhooks/v1/query.lcd";
+import * as _201 from "./drip/v1/query.lcd";
+import * as _202 from "./feepay/v1/query.lcd";
+import * as _203 from "./feeshare/v1/query.lcd";
+import * as _204 from "./mint/query.lcd";
+import * as _205 from "./clock/v1/query.rpc.Query";
+import * as _206 from "./cwhooks/v1/query.rpc.Query";
+import * as _207 from "./drip/v1/query.rpc.Query";
+import * as _208 from "./feepay/v1/query.rpc.Query";
+import * as _209 from "./feeshare/v1/query.rpc.Query";
+import * as _210 from "./mint/query.rpc.Query";
+import * as _211 from "./clock/v1/tx.rpc.msg";
+import * as _212 from "./cwhooks/v1/tx.rpc.msg";
+import * as _213 from "./drip/v1/tx.rpc.msg";
+import * as _214 from "./feepay/v1/tx.rpc.msg";
+import * as _215 from "./feeshare/v1/tx.rpc.msg";
+import * as _216 from "./mint/tx.rpc.msg";
+import * as _322 from "./lcd";
+import * as _323 from "./rpc.query";
+import * as _324 from "./rpc.tx";
 export namespace juno {
   export namespace clock {
     export const v1 = {
@@ -60,11 +60,11 @@ export namespace juno {
       ..._4,
       ..._5,
       ..._6,
-      ..._180,
-      ..._186,
-      ..._192,
-      ..._198,
-      ..._204
+      ..._187,
+      ..._193,
+      ..._199,
+      ..._205,
+      ..._211
     };
   }
   export namespace cwhooks {
@@ -72,11 +72,11 @@ export namespace juno {
       ..._7,
       ..._8,
       ..._9,
-      ..._181,
-      ..._187,
-      ..._193,
-      ..._199,
-      ..._205
+      ..._188,
+      ..._194,
+      ..._200,
+      ..._206,
+      ..._212
     };
   }
   export namespace drip {
@@ -84,11 +84,11 @@ export namespace juno {
       ..._10,
       ..._11,
       ..._12,
-      ..._182,
-      ..._188,
-      ..._194,
-      ..._200,
-      ..._206
+      ..._189,
+      ..._195,
+      ..._201,
+      ..._207,
+      ..._213
     };
   }
   export namespace feepay {
@@ -97,11 +97,11 @@ export namespace juno {
       ..._14,
       ..._15,
       ..._16,
-      ..._183,
-      ..._189,
-      ..._195,
-      ..._201,
-      ..._207
+      ..._190,
+      ..._196,
+      ..._202,
+      ..._208,
+      ..._214
     };
   }
   export namespace feeshare {
@@ -110,11 +110,11 @@ export namespace juno {
       ..._18,
       ..._19,
       ..._20,
-      ..._184,
-      ..._190,
-      ..._196,
-      ..._202,
-      ..._208
+      ..._191,
+      ..._197,
+      ..._203,
+      ..._209,
+      ..._215
     };
   }
   export const mint = {
@@ -122,15 +122,15 @@ export namespace juno {
     ..._22,
     ..._23,
     ..._24,
-    ..._185,
-    ..._191,
-    ..._197,
-    ..._203,
-    ..._209
+    ..._192,
+    ..._198,
+    ..._204,
+    ..._210,
+    ..._216
   };
   export const ClientFactory = {
-    ..._310,
-    ..._311,
-    ..._312
+    ..._322,
+    ..._323,
+    ..._324
   };
 }

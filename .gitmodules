@@ -274,3 +274,6 @@
 [submodule "packages/kava/cosmos-sdk"]
 	path = packages/kava/cosmos-sdk
 	url = https://github.com/kava-labs/cosmos-sdk
+[submodule "packages/juno/wasmd"]
+	path = packages/juno/wasmd
+	url = https://github.com/CosmWasm/wasmd

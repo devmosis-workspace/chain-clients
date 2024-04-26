@@ -3,20 +3,20 @@ import * as _26 from "./tokenfactory/v1beta1/genesis";
 import * as _27 from "./tokenfactory/v1beta1/params";
 import * as _28 from "./tokenfactory/v1beta1/query";
 import * as _29 from "./tokenfactory/v1beta1/tx";
-import * as _212 from "./tokenfactory/v1beta1/query.lcd";
-import * as _213 from "./tokenfactory/v1beta1/query.rpc.Query";
-import * as _214 from "./tokenfactory/v1beta1/tx.rpc.msg";
+import * as _219 from "./tokenfactory/v1beta1/query.lcd";
+import * as _220 from "./tokenfactory/v1beta1/query.rpc.Query";
+import * as _221 from "./tokenfactory/v1beta1/tx.rpc.msg";
 export declare namespace osmosis {
     namespace tokenfactory {
         const v1beta1: {
-            MsgClientImpl: typeof _214.MsgClientImpl;
-            QueryClientImpl: typeof _213.QueryClientImpl;
+            MsgClientImpl: typeof _221.MsgClientImpl;
+            QueryClientImpl: typeof _220.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _28.QueryParamsRequest): Promise<_28.QueryParamsResponse>;
                 denomAuthorityMetadata(request: _28.QueryDenomAuthorityMetadataRequest): Promise<_28.QueryDenomAuthorityMetadataResponse>;
                 denomsFromCreator(request: _28.QueryDenomsFromCreatorRequest): Promise<_28.QueryDenomsFromCreatorResponse>;
             };
-            LCDQueryClient: typeof _212.LCDQueryClient;
+            LCDQueryClient: typeof _219.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -498,7 +498,7 @@ export declare namespace osmosis {
         }) => Promise<{
             osmosis: {
                 tokenfactory: {
-                    v1beta1: _214.MsgClientImpl;
+                    v1beta1: _221.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -788,7 +788,7 @@ export declare namespace osmosis {
         }) => Promise<{
             osmosis: {
                 tokenfactory: {
-                    v1beta1: _212.LCDQueryClient;
+                    v1beta1: _219.LCDQueryClient;
                 };
             };
             cosmos: {
