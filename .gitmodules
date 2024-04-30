@@ -193,12 +193,6 @@
 [submodule "packages/sommelier/cosmos-sdk"]
 	path = packages/sommelier/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
-[submodule "packages/starname/starnamed"]
-	path = packages/starname/starnamed
-	url = https://github.com/iov-one/starnamed
-[submodule "packages/starname/cosmos-sdk"]
-	path = packages/starname/cosmos-sdk
-	url = https://github.com/iov-one/cosmos-sdk
 [submodule "packages/terra2/core"]
 	path = packages/terra2/core
 	url = https://github.com/terra-money/core
