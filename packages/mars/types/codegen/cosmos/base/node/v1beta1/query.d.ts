@@ -26,7 +26,7 @@ export interface ConfigResponseProtoMsg {
 }
 /** ConfigResponse defines the response structure for the Config gRPC query. */
 export interface ConfigResponseAmino {
-    minimum_gas_price: string;
+    minimum_gas_price?: string;
 }
 export interface ConfigResponseAminoMsg {
     type: "cosmos-sdk/ConfigResponse";

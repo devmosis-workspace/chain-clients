@@ -15,9 +15,9 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the incentives module's genesis state */
 export interface GenesisStateAmino {
   /** NextScheduleId is the id for the next incentives schedule to be created */
-  next_schedule_id: string;
+  next_schedule_id?: string;
   /** Schedules is an array of active incentives schedules */
-  schedules: ScheduleAmino[];
+  schedules?: ScheduleAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/mars.incentives.v1beta1.GenesisState";
@@ -58,10 +58,12 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      nextScheduleId: BigInt(object.next_schedule_id),
-      schedules: Array.isArray(object?.schedules) ? object.schedules.map((e: any) => Schedule.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.next_schedule_id !== undefined && object.next_schedule_id !== null) {
+      message.nextScheduleId = BigInt(object.next_schedule_id);
+    }
+    message.schedules = object.schedules?.map(e => Schedule.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

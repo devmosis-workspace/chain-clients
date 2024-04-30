@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/mars",
-  "version": "1.0.2-6",
+  "version": "1.0.2-7",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

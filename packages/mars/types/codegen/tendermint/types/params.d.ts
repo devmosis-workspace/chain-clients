@@ -68,19 +68,19 @@ export interface BlockParamsAmino {
      * Max block size, in bytes.
      * Note: must be greater than 0
      */
-    max_bytes: string;
+    max_bytes?: string;
     /**
      * Max gas per block.
      * Note: must be greater or equal to -1
      */
-    max_gas: string;
+    max_gas?: string;
     /**
      * Minimum time increment between consecutive blocks (in milliseconds) If the
      * block header timestamp is ahead of the system clock, decrease this value.
      *
      * Not exposed to the application.
      */
-    time_iota_ms: string;
+    time_iota_ms?: string;
 }
 export interface BlockParamsAminoMsg {
     type: "/tendermint.types.BlockParams";
@@ -128,7 +128,7 @@ export interface EvidenceParamsAmino {
      * The basic formula for calculating this is: MaxAgeDuration / {average block
      * time}.
      */
-    max_age_num_blocks: string;
+    max_age_num_blocks?: string;
     /**
      * Max age of evidence, in time.
      *
@@ -142,7 +142,7 @@ export interface EvidenceParamsAmino {
      * and should fall comfortably under the max block bytes.
      * Default is 1048576 or 1MB
      */
-    max_bytes: string;
+    max_bytes?: string;
 }
 export interface EvidenceParamsAminoMsg {
     type: "/tendermint.types.EvidenceParams";
@@ -170,7 +170,7 @@ export interface ValidatorParamsProtoMsg {
  * NOTE: uses ABCI pubkey naming, not Amino names.
  */
 export interface ValidatorParamsAmino {
-    pub_key_types: string[];
+    pub_key_types?: string[];
 }
 export interface ValidatorParamsAminoMsg {
     type: "/tendermint.types.ValidatorParams";
@@ -193,7 +193,7 @@ export interface VersionParamsProtoMsg {
 }
 /** VersionParams contains the ABCI application version. */
 export interface VersionParamsAmino {
-    app_version: string;
+    app_version?: string;
 }
 export interface VersionParamsAminoMsg {
     type: "/tendermint.types.VersionParams";
@@ -222,8 +222,8 @@ export interface HashedParamsProtoMsg {
  * It is hashed into the Header.ConsensusHash.
  */
 export interface HashedParamsAmino {
-    block_max_bytes: string;
-    block_max_gas: string;
+    block_max_bytes?: string;
+    block_max_gas?: string;
 }
 export interface HashedParamsAminoMsg {
     type: "/tendermint.types.HashedParams";

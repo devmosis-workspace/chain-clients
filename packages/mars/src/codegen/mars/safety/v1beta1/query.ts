@@ -26,7 +26,7 @@ export interface QueryBalancesResponseProtoMsg {
 /** QueBalancesResponse is the response type of the QuerBalancesRPC method */
 export interface QueryBalancesResponseAmino {
   /** Balances is the coins available in the safety fund */
-  balances: CoinAmino[];
+  balances?: CoinAmino[];
 }
 export interface QueryBalancesResponseAminoMsg {
   type: "/mars.safety.v1beta1.QueryBalancesResponse";
@@ -52,7 +52,8 @@ export const QueryBalancesRequest = {
     return message;
   },
   fromAmino(_: QueryBalancesRequestAmino): QueryBalancesRequest {
-    return {};
+    const message = createBaseQueryBalancesRequest();
+    return message;
   },
   toAmino(_: QueryBalancesRequest): QueryBalancesRequestAmino {
     const obj: any = {};
@@ -98,9 +99,9 @@ export const QueryBalancesResponse = {
     return message;
   },
   fromAmino(object: QueryBalancesResponseAmino): QueryBalancesResponse {
-    return {
-      balances: Array.isArray(object?.balances) ? object.balances.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryBalancesResponse();
+    message.balances = object.balances?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryBalancesResponse): QueryBalancesResponseAmino {
     const obj: any = {};

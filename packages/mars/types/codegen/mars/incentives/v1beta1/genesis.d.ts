@@ -14,9 +14,9 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the incentives module's genesis state */
 export interface GenesisStateAmino {
     /** NextScheduleId is the id for the next incentives schedule to be created */
-    next_schedule_id: string;
+    next_schedule_id?: string;
     /** Schedules is an array of active incentives schedules */
-    schedules: ScheduleAmino[];
+    schedules?: ScheduleAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/mars.incentives.v1beta1.GenesisState";

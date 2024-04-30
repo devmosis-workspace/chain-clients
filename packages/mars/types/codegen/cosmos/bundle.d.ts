@@ -93,57 +93,57 @@ import * as _99 from "./upgrade/v1beta1/tx";
 import * as _100 from "./upgrade/v1beta1/upgrade";
 import * as _101 from "./vesting/v1beta1/tx";
 import * as _102 from "./vesting/v1beta1/vesting";
-import * as _160 from "./auth/v1beta1/query.lcd";
-import * as _161 from "./authz/v1beta1/query.lcd";
-import * as _162 from "./bank/v1beta1/query.lcd";
-import * as _163 from "./base/node/v1beta1/query.lcd";
-import * as _164 from "./base/tendermint/v1beta1/query.lcd";
-import * as _165 from "./distribution/v1beta1/query.lcd";
-import * as _166 from "./evidence/v1beta1/query.lcd";
-import * as _167 from "./feegrant/v1beta1/query.lcd";
-import * as _168 from "./gov/v1/query.lcd";
-import * as _169 from "./gov/v1beta1/query.lcd";
-import * as _170 from "./group/v1/query.lcd";
-import * as _171 from "./mint/v1beta1/query.lcd";
-import * as _172 from "./nft/v1beta1/query.lcd";
-import * as _173 from "./params/v1beta1/query.lcd";
-import * as _174 from "./slashing/v1beta1/query.lcd";
-import * as _175 from "./staking/v1beta1/query.lcd";
-import * as _176 from "./tx/v1beta1/service.lcd";
-import * as _177 from "./upgrade/v1beta1/query.lcd";
-import * as _178 from "./app/v1alpha1/query.rpc.Query";
-import * as _179 from "./auth/v1beta1/query.rpc.Query";
-import * as _180 from "./authz/v1beta1/query.rpc.Query";
-import * as _181 from "./bank/v1beta1/query.rpc.Query";
-import * as _182 from "./base/node/v1beta1/query.rpc.Service";
-import * as _183 from "./base/tendermint/v1beta1/query.rpc.Service";
-import * as _184 from "./distribution/v1beta1/query.rpc.Query";
-import * as _185 from "./evidence/v1beta1/query.rpc.Query";
-import * as _186 from "./feegrant/v1beta1/query.rpc.Query";
-import * as _187 from "./gov/v1/query.rpc.Query";
-import * as _188 from "./gov/v1beta1/query.rpc.Query";
-import * as _189 from "./group/v1/query.rpc.Query";
-import * as _190 from "./mint/v1beta1/query.rpc.Query";
-import * as _191 from "./nft/v1beta1/query.rpc.Query";
-import * as _192 from "./params/v1beta1/query.rpc.Query";
-import * as _193 from "./slashing/v1beta1/query.rpc.Query";
-import * as _194 from "./staking/v1beta1/query.rpc.Query";
-import * as _195 from "./tx/v1beta1/service.rpc.Service";
-import * as _196 from "./upgrade/v1beta1/query.rpc.Query";
-import * as _197 from "./authz/v1beta1/tx.rpc.msg";
-import * as _198 from "./bank/v1beta1/tx.rpc.msg";
-import * as _199 from "./crisis/v1beta1/tx.rpc.msg";
-import * as _200 from "./distribution/v1beta1/tx.rpc.msg";
-import * as _201 from "./evidence/v1beta1/tx.rpc.msg";
-import * as _202 from "./feegrant/v1beta1/tx.rpc.msg";
-import * as _203 from "./gov/v1/tx.rpc.msg";
-import * as _204 from "./gov/v1beta1/tx.rpc.msg";
-import * as _205 from "./group/v1/tx.rpc.msg";
-import * as _206 from "./nft/v1beta1/tx.rpc.msg";
-import * as _207 from "./slashing/v1beta1/tx.rpc.msg";
-import * as _208 from "./staking/v1beta1/tx.rpc.msg";
-import * as _209 from "./upgrade/v1beta1/tx.rpc.msg";
-import * as _210 from "./vesting/v1beta1/tx.rpc.msg";
+import * as _167 from "./auth/v1beta1/query.lcd";
+import * as _168 from "./authz/v1beta1/query.lcd";
+import * as _169 from "./bank/v1beta1/query.lcd";
+import * as _170 from "./base/node/v1beta1/query.lcd";
+import * as _171 from "./base/tendermint/v1beta1/query.lcd";
+import * as _172 from "./distribution/v1beta1/query.lcd";
+import * as _173 from "./evidence/v1beta1/query.lcd";
+import * as _174 from "./feegrant/v1beta1/query.lcd";
+import * as _175 from "./gov/v1/query.lcd";
+import * as _176 from "./gov/v1beta1/query.lcd";
+import * as _177 from "./group/v1/query.lcd";
+import * as _178 from "./mint/v1beta1/query.lcd";
+import * as _179 from "./nft/v1beta1/query.lcd";
+import * as _180 from "./params/v1beta1/query.lcd";
+import * as _181 from "./slashing/v1beta1/query.lcd";
+import * as _182 from "./staking/v1beta1/query.lcd";
+import * as _183 from "./tx/v1beta1/service.lcd";
+import * as _184 from "./upgrade/v1beta1/query.lcd";
+import * as _185 from "./app/v1alpha1/query.rpc.Query";
+import * as _186 from "./auth/v1beta1/query.rpc.Query";
+import * as _187 from "./authz/v1beta1/query.rpc.Query";
+import * as _188 from "./bank/v1beta1/query.rpc.Query";
+import * as _189 from "./base/node/v1beta1/query.rpc.Service";
+import * as _190 from "./base/tendermint/v1beta1/query.rpc.Service";
+import * as _191 from "./distribution/v1beta1/query.rpc.Query";
+import * as _192 from "./evidence/v1beta1/query.rpc.Query";
+import * as _193 from "./feegrant/v1beta1/query.rpc.Query";
+import * as _194 from "./gov/v1/query.rpc.Query";
+import * as _195 from "./gov/v1beta1/query.rpc.Query";
+import * as _196 from "./group/v1/query.rpc.Query";
+import * as _197 from "./mint/v1beta1/query.rpc.Query";
+import * as _198 from "./nft/v1beta1/query.rpc.Query";
+import * as _199 from "./params/v1beta1/query.rpc.Query";
+import * as _200 from "./slashing/v1beta1/query.rpc.Query";
+import * as _201 from "./staking/v1beta1/query.rpc.Query";
+import * as _202 from "./tx/v1beta1/service.rpc.Service";
+import * as _203 from "./upgrade/v1beta1/query.rpc.Query";
+import * as _204 from "./authz/v1beta1/tx.rpc.msg";
+import * as _205 from "./bank/v1beta1/tx.rpc.msg";
+import * as _206 from "./crisis/v1beta1/tx.rpc.msg";
+import * as _207 from "./distribution/v1beta1/tx.rpc.msg";
+import * as _208 from "./evidence/v1beta1/tx.rpc.msg";
+import * as _209 from "./feegrant/v1beta1/tx.rpc.msg";
+import * as _210 from "./gov/v1/tx.rpc.msg";
+import * as _211 from "./gov/v1beta1/tx.rpc.msg";
+import * as _212 from "./group/v1/tx.rpc.msg";
+import * as _213 from "./nft/v1beta1/tx.rpc.msg";
+import * as _214 from "./slashing/v1beta1/tx.rpc.msg";
+import * as _215 from "./staking/v1beta1/tx.rpc.msg";
+import * as _216 from "./upgrade/v1beta1/tx.rpc.msg";
+import * as _217 from "./vesting/v1beta1/tx.rpc.msg";
 export declare namespace cosmos {
     namespace app {
         namespace module {
@@ -164,7 +164,7 @@ export declare namespace cosmos {
             };
         }
         const v1alpha1: {
-            QueryClientImpl: typeof _178.QueryClientImpl;
+            QueryClientImpl: typeof _185.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 config(request?: _10.QueryConfigRequest): Promise<_10.QueryConfigResponse>;
             };
@@ -263,7 +263,7 @@ export declare namespace cosmos {
     }
     namespace auth {
         const v1beta1: {
-            QueryClientImpl: typeof _179.QueryClientImpl;
+            QueryClientImpl: typeof _186.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 accounts(request?: _13.QueryAccountsRequest): Promise<_13.QueryAccountsResponse>;
                 account(request: _13.QueryAccountRequest): Promise<_13.QueryAccountResponse>;
@@ -275,7 +275,7 @@ export declare namespace cosmos {
                 addressBytesToString(request: _13.AddressBytesToStringRequest): Promise<_13.AddressBytesToStringResponse>;
                 addressStringToBytes(request: _13.AddressStringToBytesRequest): Promise<_13.AddressStringToBytesResponse>;
             };
-            LCDQueryClient: typeof _160.LCDQueryClient;
+            LCDQueryClient: typeof _167.LCDQueryClient;
             QueryAccountsRequest: {
                 typeUrl: string;
                 encode(message: _13.QueryAccountsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
@@ -572,14 +572,14 @@ export declare namespace cosmos {
     }
     namespace authz {
         const v1beta1: {
-            MsgClientImpl: typeof _197.MsgClientImpl;
-            QueryClientImpl: typeof _180.QueryClientImpl;
+            MsgClientImpl: typeof _204.MsgClientImpl;
+            QueryClientImpl: typeof _187.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 grants(request: _17.QueryGrantsRequest): Promise<_17.QueryGrantsResponse>;
                 granterGrants(request: _17.QueryGranterGrantsRequest): Promise<_17.QueryGranterGrantsResponse>;
                 granteeGrants(request: _17.QueryGranteeGrantsRequest): Promise<_17.QueryGranteeGrantsResponse>;
             };
-            LCDQueryClient: typeof _161.LCDQueryClient;
+            LCDQueryClient: typeof _168.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -910,15 +910,15 @@ export declare namespace cosmos {
                 toProto(message: _14.GrantQueueItem): Uint8Array;
                 toProtoMsg(message: _14.GrantQueueItem): _14.GrantQueueItemProtoMsg;
             };
-            Authorization_InterfaceDecoder: (input: Uint8Array | import("..").BinaryReader) => import("../google/protobuf/any").Any | _19.SendAuthorization | _90.StakeAuthorization | _14.GenericAuthorization;
+            Authorization_InterfaceDecoder: (input: Uint8Array | import("..").BinaryReader) => import("../google/protobuf/any").Any | _19.SendAuthorization | _90.StakeAuthorization | import("../cosmwasm/wasm/v1/authz").ContractExecutionAuthorization | import("../cosmwasm/wasm/v1/authz").ContractMigrationAuthorization | _14.GenericAuthorization;
             Authorization_FromAmino: (content: import("../google/protobuf/any").AnyAmino) => import("../google/protobuf/any").Any;
             Authorization_ToAmino: (content: import("../google/protobuf/any").Any) => import("../google/protobuf/any").AnyAmino;
         };
     }
     namespace bank {
         const v1beta1: {
-            MsgClientImpl: typeof _198.MsgClientImpl;
-            QueryClientImpl: typeof _181.QueryClientImpl;
+            MsgClientImpl: typeof _205.MsgClientImpl;
+            QueryClientImpl: typeof _188.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 balance(request: _22.QueryBalanceRequest): Promise<_22.QueryBalanceResponse>;
                 allBalances(request: _22.QueryAllBalancesRequest): Promise<_22.QueryAllBalancesResponse>;
@@ -930,7 +930,7 @@ export declare namespace cosmos {
                 denomsMetadata(request?: _22.QueryDenomsMetadataRequest): Promise<_22.QueryDenomsMetadataResponse>;
                 denomOwners(request: _22.QueryDenomOwnersRequest): Promise<_22.QueryDenomOwnersResponse>;
             };
-            LCDQueryClient: typeof _162.LCDQueryClient;
+            LCDQueryClient: typeof _169.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -1585,11 +1585,11 @@ export declare namespace cosmos {
         }
         namespace node {
             const v1beta1: {
-                ServiceClientImpl: typeof _182.ServiceClientImpl;
+                ServiceClientImpl: typeof _189.ServiceClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     config(request?: _26.ConfigRequest): Promise<_26.ConfigResponse>;
                 };
-                LCDQueryClient: typeof _163.LCDQueryClient;
+                LCDQueryClient: typeof _170.LCDQueryClient;
                 ConfigRequest: {
                     typeUrl: string;
                     encode(_: _26.ConfigRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
@@ -2249,7 +2249,7 @@ export declare namespace cosmos {
         }
         namespace tendermint {
             const v1beta1: {
-                ServiceClientImpl: typeof _183.ServiceClientImpl;
+                ServiceClientImpl: typeof _190.ServiceClientImpl;
                 createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                     getNodeInfo(request?: _33.GetNodeInfoRequest): Promise<_33.GetNodeInfoResponse>;
                     getSyncing(request?: _33.GetSyncingRequest): Promise<_33.GetSyncingResponse>;
@@ -2259,7 +2259,7 @@ export declare namespace cosmos {
                     getValidatorSetByHeight(request: _33.GetValidatorSetByHeightRequest): Promise<_33.GetValidatorSetByHeightResponse>;
                     aBCIQuery(request: _33.ABCIQueryRequest): Promise<_33.ABCIQueryResponse>;
                 };
-                LCDQueryClient: typeof _164.LCDQueryClient;
+                LCDQueryClient: typeof _171.LCDQueryClient;
                 Block: {
                     typeUrl: string;
                     encode(message: _34.Block, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
@@ -2661,7 +2661,7 @@ export declare namespace cosmos {
     }
     namespace crisis {
         const v1beta1: {
-            MsgClientImpl: typeof _199.MsgClientImpl;
+            MsgClientImpl: typeof _206.MsgClientImpl;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -2927,8 +2927,8 @@ export declare namespace cosmos {
     }
     namespace distribution {
         const v1beta1: {
-            MsgClientImpl: typeof _200.MsgClientImpl;
-            QueryClientImpl: typeof _184.QueryClientImpl;
+            MsgClientImpl: typeof _207.MsgClientImpl;
+            QueryClientImpl: typeof _191.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _48.QueryParamsRequest): Promise<_48.QueryParamsResponse>;
                 validatorOutstandingRewards(request: _48.QueryValidatorOutstandingRewardsRequest): Promise<_48.QueryValidatorOutstandingRewardsResponse>;
@@ -2940,7 +2940,7 @@ export declare namespace cosmos {
                 delegatorWithdrawAddress(request: _48.QueryDelegatorWithdrawAddressRequest): Promise<_48.QueryDelegatorWithdrawAddressResponse>;
                 communityPool(request?: _48.QueryCommunityPoolRequest): Promise<_48.QueryCommunityPoolResponse>;
             };
-            LCDQueryClient: typeof _165.LCDQueryClient;
+            LCDQueryClient: typeof _172.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -3641,13 +3641,13 @@ export declare namespace cosmos {
     }
     namespace evidence {
         const v1beta1: {
-            MsgClientImpl: typeof _201.MsgClientImpl;
-            QueryClientImpl: typeof _185.QueryClientImpl;
+            MsgClientImpl: typeof _208.MsgClientImpl;
+            QueryClientImpl: typeof _192.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 evidence(request: _52.QueryEvidenceRequest): Promise<_52.QueryEvidenceResponse>;
                 allEvidence(request?: _52.QueryAllEvidenceRequest): Promise<_52.QueryAllEvidenceResponse>;
             };
-            LCDQueryClient: typeof _166.LCDQueryClient;
+            LCDQueryClient: typeof _173.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -3794,14 +3794,14 @@ export declare namespace cosmos {
     }
     namespace feegrant {
         const v1beta1: {
-            MsgClientImpl: typeof _202.MsgClientImpl;
-            QueryClientImpl: typeof _186.QueryClientImpl;
+            MsgClientImpl: typeof _209.MsgClientImpl;
+            QueryClientImpl: typeof _193.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 allowance(request: _56.QueryAllowanceRequest): Promise<_56.QueryAllowanceResponse>;
                 allowances(request: _56.QueryAllowancesRequest): Promise<_56.QueryAllowancesResponse>;
                 allowancesByGranter(request: _56.QueryAllowancesByGranterRequest): Promise<_56.QueryAllowancesByGranterResponse>;
             };
-            LCDQueryClient: typeof _167.LCDQueryClient;
+            LCDQueryClient: typeof _174.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -4077,8 +4077,8 @@ export declare namespace cosmos {
     }
     namespace gov {
         const v1: {
-            MsgClientImpl: typeof _203.MsgClientImpl;
-            QueryClientImpl: typeof _187.QueryClientImpl;
+            MsgClientImpl: typeof _210.MsgClientImpl;
+            QueryClientImpl: typeof _194.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 proposal(request: _61.QueryProposalRequest): Promise<_61.QueryProposalResponse>;
                 proposals(request: _61.QueryProposalsRequest): Promise<_61.QueryProposalsResponse>;
@@ -4089,7 +4089,7 @@ export declare namespace cosmos {
                 deposits(request: _61.QueryDepositsRequest): Promise<_61.QueryDepositsResponse>;
                 tallyResult(request: _61.QueryTallyResultRequest): Promise<_61.QueryTallyResultResponse>;
             };
-            LCDQueryClient: typeof _168.LCDQueryClient;
+            LCDQueryClient: typeof _175.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -4679,8 +4679,8 @@ export declare namespace cosmos {
             };
         };
         const v1beta1: {
-            MsgClientImpl: typeof _204.MsgClientImpl;
-            QueryClientImpl: typeof _188.QueryClientImpl;
+            MsgClientImpl: typeof _211.MsgClientImpl;
+            QueryClientImpl: typeof _195.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 proposal(request: _65.QueryProposalRequest): Promise<_65.QueryProposalResponse>;
                 proposals(request: _65.QueryProposalsRequest): Promise<_65.QueryProposalsResponse>;
@@ -4691,7 +4691,7 @@ export declare namespace cosmos {
                 deposits(request: _65.QueryDepositsRequest): Promise<_65.QueryDepositsResponse>;
                 tallyResult(request: _65.QueryTallyResultRequest): Promise<_65.QueryTallyResultResponse>;
             };
-            LCDQueryClient: typeof _169.LCDQueryClient;
+            LCDQueryClient: typeof _176.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -5249,8 +5249,8 @@ export declare namespace cosmos {
     }
     namespace group {
         const v1: {
-            MsgClientImpl: typeof _205.MsgClientImpl;
-            QueryClientImpl: typeof _189.QueryClientImpl;
+            MsgClientImpl: typeof _212.MsgClientImpl;
+            QueryClientImpl: typeof _196.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 groupInfo(request: _69.QueryGroupInfoRequest): Promise<_69.QueryGroupInfoResponse>;
                 groupPolicyInfo(request: _69.QueryGroupPolicyInfoRequest): Promise<_69.QueryGroupPolicyInfoResponse>;
@@ -5267,7 +5267,7 @@ export declare namespace cosmos {
                 tallyResult(request: _69.QueryTallyResultRequest): Promise<_69.QueryTallyResultResponse>;
                 groups(request?: _69.QueryGroupsRequest): Promise<_69.QueryGroupsResponse>;
             };
-            LCDQueryClient: typeof _170.LCDQueryClient;
+            LCDQueryClient: typeof _177.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -6617,13 +6617,13 @@ export declare namespace cosmos {
     }
     namespace mint {
         const v1beta1: {
-            QueryClientImpl: typeof _190.QueryClientImpl;
+            QueryClientImpl: typeof _197.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _74.QueryParamsRequest): Promise<_74.QueryParamsResponse>;
                 inflation(request?: _74.QueryInflationRequest): Promise<_74.QueryInflationResponse>;
                 annualProvisions(request?: _74.QueryAnnualProvisionsRequest): Promise<_74.QueryAnnualProvisionsResponse>;
             };
-            LCDQueryClient: typeof _171.LCDQueryClient;
+            LCDQueryClient: typeof _178.LCDQueryClient;
             QueryParamsRequest: {
                 typeUrl: string;
                 encode(_: _74.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
@@ -6748,8 +6748,8 @@ export declare namespace cosmos {
     }
     namespace nft {
         const v1beta1: {
-            MsgClientImpl: typeof _206.MsgClientImpl;
-            QueryClientImpl: typeof _191.QueryClientImpl;
+            MsgClientImpl: typeof _213.MsgClientImpl;
+            QueryClientImpl: typeof _198.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 balance(request: _79.QueryBalanceRequest): Promise<_79.QueryBalanceResponse>;
                 owner(request: _79.QueryOwnerRequest): Promise<_79.QueryOwnerResponse>;
@@ -6759,7 +6759,7 @@ export declare namespace cosmos {
                 class(request: _79.QueryClassRequest): Promise<_79.QueryClassResponse>;
                 classes(request?: _79.QueryClassesRequest): Promise<_79.QueryClassesResponse>;
             };
-            LCDQueryClient: typeof _172.LCDQueryClient;
+            LCDQueryClient: typeof _179.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -7204,12 +7204,12 @@ export declare namespace cosmos {
     }
     namespace params {
         const v1beta1: {
-            QueryClientImpl: typeof _192.QueryClientImpl;
+            QueryClientImpl: typeof _199.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request: _85.QueryParamsRequest): Promise<_85.QueryParamsResponse>;
                 subspaces(request?: _85.QuerySubspacesRequest): Promise<_85.QuerySubspacesResponse>;
             };
-            LCDQueryClient: typeof _173.LCDQueryClient;
+            LCDQueryClient: typeof _180.LCDQueryClient;
             QueryParamsRequest: {
                 typeUrl: string;
                 encode(message: _85.QueryParamsRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
@@ -7305,14 +7305,14 @@ export declare namespace cosmos {
     }
     namespace slashing {
         const v1beta1: {
-            MsgClientImpl: typeof _207.MsgClientImpl;
-            QueryClientImpl: typeof _193.QueryClientImpl;
+            MsgClientImpl: typeof _214.MsgClientImpl;
+            QueryClientImpl: typeof _200.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 params(request?: _87.QueryParamsRequest): Promise<_87.QueryParamsResponse>;
                 signingInfo(request: _87.QuerySigningInfoRequest): Promise<_87.QuerySigningInfoResponse>;
                 signingInfos(request?: _87.QuerySigningInfosRequest): Promise<_87.QuerySigningInfosResponse>;
             };
-            LCDQueryClient: typeof _174.LCDQueryClient;
+            LCDQueryClient: typeof _181.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -7534,8 +7534,8 @@ export declare namespace cosmos {
     }
     namespace staking {
         const v1beta1: {
-            MsgClientImpl: typeof _208.MsgClientImpl;
-            QueryClientImpl: typeof _194.QueryClientImpl;
+            MsgClientImpl: typeof _215.MsgClientImpl;
+            QueryClientImpl: typeof _201.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 validators(request: _92.QueryValidatorsRequest): Promise<_92.QueryValidatorsResponse>;
                 validator(request: _92.QueryValidatorRequest): Promise<_92.QueryValidatorResponse>;
@@ -7552,7 +7552,7 @@ export declare namespace cosmos {
                 pool(request?: _92.QueryPoolRequest): Promise<_92.QueryPoolResponse>;
                 params(request?: _92.QueryParamsRequest): Promise<_92.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _175.LCDQueryClient;
+            LCDQueryClient: typeof _182.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -8616,7 +8616,7 @@ export declare namespace cosmos {
             };
         }
         const v1beta1: {
-            ServiceClientImpl: typeof _195.ServiceClientImpl;
+            ServiceClientImpl: typeof _202.ServiceClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 simulate(request: _96.SimulateRequest): Promise<_96.SimulateResponse>;
                 getTx(request: _96.GetTxRequest): Promise<_96.GetTxResponse>;
@@ -8624,7 +8624,7 @@ export declare namespace cosmos {
                 getTxsEvent(request: _96.GetTxsEventRequest): Promise<_96.GetTxsEventResponse>;
                 getBlockWithTxs(request: _96.GetBlockWithTxsRequest): Promise<_96.GetBlockWithTxsResponse>;
             };
-            LCDQueryClient: typeof _176.LCDQueryClient;
+            LCDQueryClient: typeof _183.LCDQueryClient;
             Tx: {
                 typeUrl: string;
                 encode(message: _97.Tx, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
@@ -8938,8 +8938,8 @@ export declare namespace cosmos {
     }
     namespace upgrade {
         const v1beta1: {
-            MsgClientImpl: typeof _209.MsgClientImpl;
-            QueryClientImpl: typeof _196.QueryClientImpl;
+            MsgClientImpl: typeof _216.MsgClientImpl;
+            QueryClientImpl: typeof _203.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 currentPlan(request?: _98.QueryCurrentPlanRequest): Promise<_98.QueryCurrentPlanResponse>;
                 appliedPlan(request: _98.QueryAppliedPlanRequest): Promise<_98.QueryAppliedPlanResponse>;
@@ -8947,7 +8947,7 @@ export declare namespace cosmos {
                 moduleVersions(request: _98.QueryModuleVersionsRequest): Promise<_98.QueryModuleVersionsResponse>;
                 authority(request?: _98.QueryAuthorityRequest): Promise<_98.QueryAuthorityResponse>;
             };
-            LCDQueryClient: typeof _177.LCDQueryClient;
+            LCDQueryClient: typeof _184.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -9242,7 +9242,7 @@ export declare namespace cosmos {
     }
     namespace vesting {
         const v1beta1: {
-            MsgClientImpl: typeof _210.MsgClientImpl;
+            MsgClientImpl: typeof _217.MsgClientImpl;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -9484,44 +9484,44 @@ export declare namespace cosmos {
         }) => Promise<{
             cosmos: {
                 authz: {
-                    v1beta1: _197.MsgClientImpl;
-                };
-                bank: {
-                    v1beta1: _198.MsgClientImpl;
-                };
-                crisis: {
-                    v1beta1: _199.MsgClientImpl;
-                };
-                distribution: {
-                    v1beta1: _200.MsgClientImpl;
-                };
-                evidence: {
-                    v1beta1: _201.MsgClientImpl;
-                };
-                feegrant: {
-                    v1beta1: _202.MsgClientImpl;
-                };
-                gov: {
-                    v1: _203.MsgClientImpl;
                     v1beta1: _204.MsgClientImpl;
                 };
-                group: {
-                    v1: _205.MsgClientImpl;
+                bank: {
+                    v1beta1: _205.MsgClientImpl;
                 };
-                nft: {
+                crisis: {
                     v1beta1: _206.MsgClientImpl;
                 };
-                slashing: {
+                distribution: {
                     v1beta1: _207.MsgClientImpl;
                 };
-                staking: {
+                evidence: {
                     v1beta1: _208.MsgClientImpl;
                 };
-                upgrade: {
+                feegrant: {
                     v1beta1: _209.MsgClientImpl;
                 };
+                gov: {
+                    v1: _210.MsgClientImpl;
+                    v1beta1: _211.MsgClientImpl;
+                };
+                group: {
+                    v1: _212.MsgClientImpl;
+                };
+                nft: {
+                    v1beta1: _213.MsgClientImpl;
+                };
+                slashing: {
+                    v1beta1: _214.MsgClientImpl;
+                };
+                staking: {
+                    v1beta1: _215.MsgClientImpl;
+                };
+                upgrade: {
+                    v1beta1: _216.MsgClientImpl;
+                };
                 vesting: {
-                    v1beta1: _210.MsgClientImpl;
+                    v1beta1: _217.MsgClientImpl;
                 };
             };
         }>;
@@ -9725,58 +9725,58 @@ export declare namespace cosmos {
         }) => Promise<{
             cosmos: {
                 auth: {
-                    v1beta1: _160.LCDQueryClient;
+                    v1beta1: _167.LCDQueryClient;
                 };
                 authz: {
-                    v1beta1: _161.LCDQueryClient;
+                    v1beta1: _168.LCDQueryClient;
                 };
                 bank: {
-                    v1beta1: _162.LCDQueryClient;
+                    v1beta1: _169.LCDQueryClient;
                 };
                 base: {
                     node: {
-                        v1beta1: _163.LCDQueryClient;
+                        v1beta1: _170.LCDQueryClient;
                     };
                     tendermint: {
-                        v1beta1: _164.LCDQueryClient;
+                        v1beta1: _171.LCDQueryClient;
                     };
                 };
                 distribution: {
-                    v1beta1: _165.LCDQueryClient;
-                };
-                evidence: {
-                    v1beta1: _166.LCDQueryClient;
-                };
-                feegrant: {
-                    v1beta1: _167.LCDQueryClient;
-                };
-                gov: {
-                    v1: _168.LCDQueryClient;
-                    v1beta1: _169.LCDQueryClient;
-                };
-                group: {
-                    v1: _170.LCDQueryClient;
-                };
-                mint: {
-                    v1beta1: _171.LCDQueryClient;
-                };
-                nft: {
                     v1beta1: _172.LCDQueryClient;
                 };
-                params: {
+                evidence: {
                     v1beta1: _173.LCDQueryClient;
                 };
-                slashing: {
+                feegrant: {
                     v1beta1: _174.LCDQueryClient;
                 };
-                staking: {
-                    v1beta1: _175.LCDQueryClient;
-                };
-                tx: {
+                gov: {
+                    v1: _175.LCDQueryClient;
                     v1beta1: _176.LCDQueryClient;
                 };
+                group: {
+                    v1: _177.LCDQueryClient;
+                };
+                mint: {
+                    v1beta1: _178.LCDQueryClient;
+                };
+                nft: {
+                    v1beta1: _179.LCDQueryClient;
+                };
+                params: {
+                    v1beta1: _180.LCDQueryClient;
+                };
+                slashing: {
+                    v1beta1: _181.LCDQueryClient;
+                };
+                staking: {
+                    v1beta1: _182.LCDQueryClient;
+                };
+                tx: {
+                    v1beta1: _183.LCDQueryClient;
+                };
                 upgrade: {
-                    v1beta1: _177.LCDQueryClient;
+                    v1beta1: _184.LCDQueryClient;
                 };
             };
         }>;

@@ -12,10 +12,10 @@ export interface EventSendProtoMsg {
 }
 /** EventSend is emitted on Msg/Send */
 export interface EventSendAmino {
-    class_id: string;
-    id: string;
-    sender: string;
-    receiver: string;
+    class_id?: string;
+    id?: string;
+    sender?: string;
+    receiver?: string;
 }
 export interface EventSendAminoMsg {
     type: "cosmos-sdk/EventSend";
@@ -40,9 +40,9 @@ export interface EventMintProtoMsg {
 }
 /** EventMint is emitted on Mint */
 export interface EventMintAmino {
-    class_id: string;
-    id: string;
-    owner: string;
+    class_id?: string;
+    id?: string;
+    owner?: string;
 }
 export interface EventMintAminoMsg {
     type: "cosmos-sdk/EventMint";
@@ -66,9 +66,9 @@ export interface EventBurnProtoMsg {
 }
 /** EventBurn is emitted on Burn */
 export interface EventBurnAmino {
-    class_id: string;
-    id: string;
-    owner: string;
+    class_id?: string;
+    id?: string;
+    owner?: string;
 }
 export interface EventBurnAminoMsg {
     type: "cosmos-sdk/EventBurn";

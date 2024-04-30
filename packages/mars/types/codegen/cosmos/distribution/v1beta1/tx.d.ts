@@ -17,8 +17,8 @@ export interface MsgSetWithdrawAddressProtoMsg {
  * a delegator (or validator self-delegation).
  */
 export interface MsgSetWithdrawAddressAmino {
-    delegator_address: string;
-    withdraw_address: string;
+    delegator_address?: string;
+    withdraw_address?: string;
 }
 export interface MsgSetWithdrawAddressAminoMsg {
     type: "cosmos-sdk/MsgModifyWithdrawAddress";
@@ -66,8 +66,8 @@ export interface MsgWithdrawDelegatorRewardProtoMsg {
  * from a single validator.
  */
 export interface MsgWithdrawDelegatorRewardAmino {
-    delegator_address: string;
-    validator_address: string;
+    delegator_address?: string;
+    validator_address?: string;
 }
 export interface MsgWithdrawDelegatorRewardAminoMsg {
     type: "cosmos-sdk/MsgWithdrawDelegationReward";
@@ -93,7 +93,7 @@ export interface MsgWithdrawDelegatorRewardResponseProtoMsg {
 /** MsgWithdrawDelegatorRewardResponse defines the Msg/WithdrawDelegatorReward response type. */
 export interface MsgWithdrawDelegatorRewardResponseAmino {
     /** Since: cosmos-sdk 0.46 */
-    amount: CoinAmino[];
+    amount?: CoinAmino[];
 }
 export interface MsgWithdrawDelegatorRewardResponseAminoMsg {
     type: "cosmos-sdk/MsgWithdrawDelegatorRewardResponse";
@@ -119,7 +119,7 @@ export interface MsgWithdrawValidatorCommissionProtoMsg {
  * address.
  */
 export interface MsgWithdrawValidatorCommissionAmino {
-    validator_address: string;
+    validator_address?: string;
 }
 export interface MsgWithdrawValidatorCommissionAminoMsg {
     type: "cosmos-sdk/MsgWithdrawValidatorCommission";
@@ -144,7 +144,7 @@ export interface MsgWithdrawValidatorCommissionResponseProtoMsg {
 /** MsgWithdrawValidatorCommissionResponse defines the Msg/WithdrawValidatorCommission response type. */
 export interface MsgWithdrawValidatorCommissionResponseAmino {
     /** Since: cosmos-sdk 0.46 */
-    amount: CoinAmino[];
+    amount?: CoinAmino[];
 }
 export interface MsgWithdrawValidatorCommissionResponseAminoMsg {
     type: "cosmos-sdk/MsgWithdrawValidatorCommissionResponse";
@@ -171,8 +171,8 @@ export interface MsgFundCommunityPoolProtoMsg {
  * fund the community pool.
  */
 export interface MsgFundCommunityPoolAmino {
-    amount: CoinAmino[];
-    depositor: string;
+    amount?: CoinAmino[];
+    depositor?: string;
 }
 export interface MsgFundCommunityPoolAminoMsg {
     type: "cosmos-sdk/MsgFundCommunityPool";

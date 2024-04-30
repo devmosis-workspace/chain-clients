@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
@@ -28,21 +28,21 @@ export interface ScheduleProtoMsg {
 /** Schedule defines the parameters of an incentives releasing schedule */
 export interface ScheduleAmino {
   /** Id is the identifier of this incentives schedule */
-  id: string;
+  id?: string;
   /** StartTime is the UNIX timestamp of which this incentives schedule shall begin */
-  start_time?: TimestampAmino;
+  start_time?: string;
   /** EndTime is the UNIX timestamp of which this incentives schedule shall finish */
-  end_time?: TimestampAmino;
+  end_time?: string;
   /**
    * TotalAmount is the total amount of coins that shall be released to stakers
    * throughout the span of this incentives schedule
    */
-  total_amount: CoinAmino[];
+  total_amount?: CoinAmino[];
   /**
    * ReleasedAmount is the amount of coins that have already been released to
    * the stakers as part of this incentives schedule
    */
-  released_amount: CoinAmino[];
+  released_amount?: CoinAmino[];
 }
 export interface ScheduleAminoMsg {
   type: "/mars.incentives.v1beta1.Schedule";
@@ -104,19 +104,25 @@ export const Schedule = {
     return message;
   },
   fromAmino(object: ScheduleAmino): Schedule {
-    return {
-      id: BigInt(object.id),
-      startTime: object.start_time,
-      endTime: object.end_time,
-      totalAmount: Array.isArray(object?.total_amount) ? object.total_amount.map((e: any) => Coin.fromAmino(e)) : [],
-      releasedAmount: Array.isArray(object?.released_amount) ? object.released_amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseSchedule();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = Timestamp.fromAmino(object.start_time);
+    }
+    if (object.end_time !== undefined && object.end_time !== null) {
+      message.endTime = Timestamp.fromAmino(object.end_time);
+    }
+    message.totalAmount = object.total_amount?.map(e => Coin.fromAmino(e)) || [];
+    message.releasedAmount = object.released_amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Schedule): ScheduleAmino {
     const obj: any = {};
     obj.id = message.id ? message.id.toString() : undefined;
-    obj.start_time = message.startTime;
-    obj.end_time = message.endTime;
+    obj.start_time = message.startTime ? Timestamp.toAmino(message.startTime) : undefined;
+    obj.end_time = message.endTime ? Timestamp.toAmino(message.endTime) : undefined;
     if (message.totalAmount) {
       obj.total_amount = message.totalAmount.map(e => e ? Coin.toAmino(e) : undefined);
     } else {

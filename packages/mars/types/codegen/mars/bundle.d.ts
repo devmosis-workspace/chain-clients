@@ -5,22 +5,22 @@ import * as _3 from "./incentives/v1beta1/tx";
 import * as _4 from "./safety/v1beta1/genesis";
 import * as _5 from "./safety/v1beta1/query";
 import * as _6 from "./safety/v1beta1/tx";
-import * as _126 from "./incentives/v1beta1/query.lcd";
-import * as _127 from "./safety/v1beta1/query.lcd";
-import * as _128 from "./incentives/v1beta1/query.rpc.Query";
-import * as _129 from "./safety/v1beta1/query.rpc.Query";
-import * as _130 from "./incentives/v1beta1/tx.rpc.msg";
-import * as _131 from "./safety/v1beta1/tx.rpc.msg";
+import * as _133 from "./incentives/v1beta1/query.lcd";
+import * as _134 from "./safety/v1beta1/query.lcd";
+import * as _135 from "./incentives/v1beta1/query.rpc.Query";
+import * as _136 from "./safety/v1beta1/query.rpc.Query";
+import * as _137 from "./incentives/v1beta1/tx.rpc.msg";
+import * as _138 from "./safety/v1beta1/tx.rpc.msg";
 export declare namespace mars {
     namespace incentives {
         const v1beta1: {
-            MsgClientImpl: typeof _130.MsgClientImpl;
-            QueryClientImpl: typeof _128.QueryClientImpl;
+            MsgClientImpl: typeof _137.MsgClientImpl;
+            QueryClientImpl: typeof _135.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 schedule(request: _1.QueryScheduleRequest): Promise<_1.QueryScheduleResponse>;
                 schedules(request?: _1.QuerySchedulesRequest): Promise<_1.QuerySchedulesResponse>;
             };
-            LCDQueryClient: typeof _126.LCDQueryClient;
+            LCDQueryClient: typeof _133.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -201,12 +201,12 @@ export declare namespace mars {
     }
     namespace safety {
         const v1beta1: {
-            MsgClientImpl: typeof _131.MsgClientImpl;
-            QueryClientImpl: typeof _129.QueryClientImpl;
+            MsgClientImpl: typeof _138.MsgClientImpl;
+            QueryClientImpl: typeof _136.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 balances(request?: _5.QueryBalancesRequest): Promise<_5.QueryBalancesResponse>;
             };
-            LCDQueryClient: typeof _127.LCDQueryClient;
+            LCDQueryClient: typeof _134.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -310,10 +310,10 @@ export declare namespace mars {
         }) => Promise<{
             mars: {
                 incentives: {
-                    v1beta1: _130.MsgClientImpl;
+                    v1beta1: _137.MsgClientImpl;
                 };
                 safety: {
-                    v1beta1: _131.MsgClientImpl;
+                    v1beta1: _138.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -572,10 +572,10 @@ export declare namespace mars {
         }) => Promise<{
             mars: {
                 incentives: {
-                    v1beta1: _126.LCDQueryClient;
+                    v1beta1: _133.LCDQueryClient;
                 };
                 safety: {
-                    v1beta1: _127.LCDQueryClient;
+                    v1beta1: _134.LCDQueryClient;
                 };
             };
             cosmos: {

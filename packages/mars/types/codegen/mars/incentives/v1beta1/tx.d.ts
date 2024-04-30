@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
 /**
@@ -38,16 +38,16 @@ export interface MsgCreateScheduleAmino {
      * Authority is the account executing the safety fund spend.
      * It should be the gov module account.
      */
-    authority: string;
+    authority?: string;
     /** StartTime is the timestamp at which this incentives schedule shall begin. */
-    start_time?: TimestampAmino;
+    start_time?: string;
     /** EndTime is the timestamp at which this incentives schedule shall finish. */
-    end_time?: TimestampAmino;
+    end_time?: string;
     /**
      * Amount is the total amount of coins that shall be released to stakers
      * throughout the span of this incentives schedule.
      */
-    amount: CoinAmino[];
+    amount?: CoinAmino[];
 }
 export interface MsgCreateScheduleAminoMsg {
     type: "/mars.incentives.v1beta1.MsgCreateSchedule";
@@ -126,12 +126,12 @@ export interface MsgTerminateSchedulesAmino {
      * Authority is the account executing the safety fund spend.
      * It should be the gov module account.
      */
-    authority: string;
+    authority?: string;
     /**
      * Ids is the array of identifiers of the incentives schedules which are to be
      * terminated.
      */
-    ids: string[];
+    ids?: string[];
 }
 export interface MsgTerminateSchedulesAminoMsg {
     type: "/mars.incentives.v1beta1.MsgTerminateSchedules";
@@ -172,7 +172,7 @@ export interface MsgTerminateSchedulesResponseAmino {
      * RefundedAmount is the unreleased incentives that were refunded to the
      * community pool.
      */
-    refunded_amount: CoinAmino[];
+    refunded_amount?: CoinAmino[];
 }
 export interface MsgTerminateSchedulesResponseAminoMsg {
     type: "/mars.incentives.v1beta1.MsgTerminateSchedulesResponse";

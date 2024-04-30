@@ -14,7 +14,7 @@ export interface QueryScheduleRequestProtoMsg {
 /** QueryScheduleRequest is the request type for the Query/Schedule RPC method */
 export interface QueryScheduleRequestAmino {
   /** ID is the identifier of the incentives schedule to be queried */
-  id: string;
+  id?: string;
 }
 export interface QueryScheduleRequestAminoMsg {
   type: "/mars.incentives.v1beta1.QueryScheduleRequest";
@@ -49,7 +49,7 @@ export interface QueryScheduleResponseSDKType {
 /** QuerySchedulesRequest is the request type for the Query/Schedules RPC method */
 export interface QuerySchedulesRequest {
   /** Pagination defines an optional pagination for the request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QuerySchedulesRequestProtoMsg {
   typeUrl: "/mars.incentives.v1beta1.QuerySchedulesRequest";
@@ -66,14 +66,14 @@ export interface QuerySchedulesRequestAminoMsg {
 }
 /** QuerySchedulesRequest is the request type for the Query/Schedules RPC method */
 export interface QuerySchedulesRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /** QueryScheduleResponse is the response type for the Query/Schedules RPC method */
 export interface QuerySchedulesResponse {
   /** Schedule is the parameters of the incentives schedule */
   schedules: Schedule[];
   /** Pagination defines the pagination in the response */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QuerySchedulesResponseProtoMsg {
   typeUrl: "/mars.incentives.v1beta1.QuerySchedulesResponse";
@@ -82,7 +82,7 @@ export interface QuerySchedulesResponseProtoMsg {
 /** QueryScheduleResponse is the response type for the Query/Schedules RPC method */
 export interface QuerySchedulesResponseAmino {
   /** Schedule is the parameters of the incentives schedule */
-  schedules: ScheduleAmino[];
+  schedules?: ScheduleAmino[];
   /** Pagination defines the pagination in the response */
   pagination?: PageResponseAmino;
 }
@@ -93,7 +93,7 @@ export interface QuerySchedulesResponseAminoMsg {
 /** QueryScheduleResponse is the response type for the Query/Schedules RPC method */
 export interface QuerySchedulesResponseSDKType {
   schedules: ScheduleSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 function createBaseQueryScheduleRequest(): QueryScheduleRequest {
   return {
@@ -119,9 +119,11 @@ export const QueryScheduleRequest = {
     return message;
   },
   fromAmino(object: QueryScheduleRequestAmino): QueryScheduleRequest {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseQueryScheduleRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: QueryScheduleRequest): QueryScheduleRequestAmino {
     const obj: any = {};
@@ -168,9 +170,11 @@ export const QueryScheduleResponse = {
     return message;
   },
   fromAmino(object: QueryScheduleResponseAmino): QueryScheduleResponse {
-    return {
-      schedule: object?.schedule ? Schedule.fromAmino(object.schedule) : undefined
-    };
+    const message = createBaseQueryScheduleResponse();
+    if (object.schedule !== undefined && object.schedule !== null) {
+      message.schedule = Schedule.fromAmino(object.schedule);
+    }
+    return message;
   },
   toAmino(message: QueryScheduleResponse): QueryScheduleResponseAmino {
     const obj: any = {};
@@ -195,7 +199,7 @@ export const QueryScheduleResponse = {
 };
 function createBaseQuerySchedulesRequest(): QuerySchedulesRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QuerySchedulesRequest = {
@@ -217,9 +221,11 @@ export const QuerySchedulesRequest = {
     return message;
   },
   fromAmino(object: QuerySchedulesRequestAmino): QuerySchedulesRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQuerySchedulesRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QuerySchedulesRequest): QuerySchedulesRequestAmino {
     const obj: any = {};
@@ -245,7 +251,7 @@ export const QuerySchedulesRequest = {
 function createBaseQuerySchedulesResponse(): QuerySchedulesResponse {
   return {
     schedules: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QuerySchedulesResponse = {
@@ -272,10 +278,12 @@ export const QuerySchedulesResponse = {
     return message;
   },
   fromAmino(object: QuerySchedulesResponseAmino): QuerySchedulesResponse {
-    return {
-      schedules: Array.isArray(object?.schedules) ? object.schedules.map((e: any) => Schedule.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQuerySchedulesResponse();
+    message.schedules = object.schedules?.map(e => Schedule.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QuerySchedulesResponse): QuerySchedulesResponseAmino {
     const obj: any = {};

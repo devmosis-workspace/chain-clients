@@ -35,11 +35,11 @@ export interface MsgSafetyFundSpendAmino {
    * Authority is the account executing the safety fund spend.
    * It should be the gov module account.
    */
-  authority: string;
+  authority?: string;
   /** Recipient is the account to receive the funds */
-  recipient: string;
+  recipient?: string;
   /** Amount is the coins that are to be released from the safety funds */
-  amount: CoinAmino[];
+  amount?: CoinAmino[];
 }
 export interface MsgSafetyFundSpendAminoMsg {
   type: "/mars.safety.v1beta1.MsgSafetyFundSpend";
@@ -116,11 +116,15 @@ export const MsgSafetyFundSpend = {
     return message;
   },
   fromAmino(object: MsgSafetyFundSpendAmino): MsgSafetyFundSpend {
-    return {
-      authority: object.authority,
-      recipient: object.recipient,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgSafetyFundSpend();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.recipient !== undefined && object.recipient !== null) {
+      message.recipient = object.recipient;
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgSafetyFundSpend): MsgSafetyFundSpendAmino {
     const obj: any = {};
@@ -165,7 +169,8 @@ export const MsgSafetyFundSpendResponse = {
     return message;
   },
   fromAmino(_: MsgSafetyFundSpendResponseAmino): MsgSafetyFundSpendResponse {
-    return {};
+    const message = createBaseMsgSafetyFundSpendResponse();
+    return message;
   },
   toAmino(_: MsgSafetyFundSpendResponse): MsgSafetyFundSpendResponseAmino {
     const obj: any = {};

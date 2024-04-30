@@ -5,19 +5,19 @@ import * as _3 from "./incentives/v1beta1/tx";
 import * as _4 from "./safety/v1beta1/genesis";
 import * as _5 from "./safety/v1beta1/query";
 import * as _6 from "./safety/v1beta1/tx";
-import * as _122 from "./incentives/v1beta1/tx.amino";
-import * as _123 from "./safety/v1beta1/tx.amino";
-import * as _124 from "./incentives/v1beta1/tx.registry";
-import * as _125 from "./safety/v1beta1/tx.registry";
-import * as _126 from "./incentives/v1beta1/query.lcd";
-import * as _127 from "./safety/v1beta1/query.lcd";
-import * as _128 from "./incentives/v1beta1/query.rpc.Query";
-import * as _129 from "./safety/v1beta1/query.rpc.Query";
-import * as _130 from "./incentives/v1beta1/tx.rpc.msg";
-import * as _131 from "./safety/v1beta1/tx.rpc.msg";
-import * as _211 from "./lcd";
-import * as _212 from "./rpc.query";
-import * as _213 from "./rpc.tx";
+import * as _129 from "./incentives/v1beta1/tx.amino";
+import * as _130 from "./safety/v1beta1/tx.amino";
+import * as _131 from "./incentives/v1beta1/tx.registry";
+import * as _132 from "./safety/v1beta1/tx.registry";
+import * as _133 from "./incentives/v1beta1/query.lcd";
+import * as _134 from "./safety/v1beta1/query.lcd";
+import * as _135 from "./incentives/v1beta1/query.rpc.Query";
+import * as _136 from "./safety/v1beta1/query.rpc.Query";
+import * as _137 from "./incentives/v1beta1/tx.rpc.msg";
+import * as _138 from "./safety/v1beta1/tx.rpc.msg";
+import * as _223 from "./lcd";
+import * as _224 from "./rpc.query";
+import * as _225 from "./rpc.tx";
 export namespace mars {
   export namespace incentives {
     export const v1beta1 = {
@@ -25,11 +25,11 @@ export namespace mars {
       ..._1,
       ..._2,
       ..._3,
-      ..._122,
-      ..._124,
-      ..._126,
-      ..._128,
-      ..._130
+      ..._129,
+      ..._131,
+      ..._133,
+      ..._135,
+      ..._137
     };
   }
   export namespace safety {
@@ -37,16 +37,16 @@ export namespace mars {
       ..._4,
       ..._5,
       ..._6,
-      ..._123,
-      ..._125,
-      ..._127,
-      ..._129,
-      ..._131
+      ..._130,
+      ..._132,
+      ..._134,
+      ..._136,
+      ..._138
     };
   }
   export const ClientFactory = {
-    ..._211,
-    ..._212,
-    ..._213
+    ..._223,
+    ..._224,
+    ..._225
   };
 }

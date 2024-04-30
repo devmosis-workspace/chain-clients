@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
@@ -39,16 +39,16 @@ export interface MsgCreateScheduleAmino {
    * Authority is the account executing the safety fund spend.
    * It should be the gov module account.
    */
-  authority: string;
+  authority?: string;
   /** StartTime is the timestamp at which this incentives schedule shall begin. */
-  start_time?: TimestampAmino;
+  start_time?: string;
   /** EndTime is the timestamp at which this incentives schedule shall finish. */
-  end_time?: TimestampAmino;
+  end_time?: string;
   /**
    * Amount is the total amount of coins that shall be released to stakers
    * throughout the span of this incentives schedule.
    */
-  amount: CoinAmino[];
+  amount?: CoinAmino[];
 }
 export interface MsgCreateScheduleAminoMsg {
   type: "/mars.incentives.v1beta1.MsgCreateSchedule";
@@ -124,12 +124,12 @@ export interface MsgTerminateSchedulesAmino {
    * Authority is the account executing the safety fund spend.
    * It should be the gov module account.
    */
-  authority: string;
+  authority?: string;
   /**
    * Ids is the array of identifiers of the incentives schedules which are to be
    * terminated.
    */
-  ids: string[];
+  ids?: string[];
 }
 export interface MsgTerminateSchedulesAminoMsg {
   type: "/mars.incentives.v1beta1.MsgTerminateSchedules";
@@ -170,7 +170,7 @@ export interface MsgTerminateSchedulesResponseAmino {
    * RefundedAmount is the unreleased incentives that were refunded to the
    * community pool.
    */
-  refunded_amount: CoinAmino[];
+  refunded_amount?: CoinAmino[];
 }
 export interface MsgTerminateSchedulesResponseAminoMsg {
   type: "/mars.incentives.v1beta1.MsgTerminateSchedulesResponse";
@@ -225,18 +225,24 @@ export const MsgCreateSchedule = {
     return message;
   },
   fromAmino(object: MsgCreateScheduleAmino): MsgCreateSchedule {
-    return {
-      authority: object.authority,
-      startTime: object.start_time,
-      endTime: object.end_time,
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgCreateSchedule();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = Timestamp.fromAmino(object.start_time);
+    }
+    if (object.end_time !== undefined && object.end_time !== null) {
+      message.endTime = Timestamp.fromAmino(object.end_time);
+    }
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgCreateSchedule): MsgCreateScheduleAmino {
     const obj: any = {};
     obj.authority = message.authority;
-    obj.start_time = message.startTime;
-    obj.end_time = message.endTime;
+    obj.start_time = message.startTime ? Timestamp.toAmino(message.startTime) : undefined;
+    obj.end_time = message.endTime ? Timestamp.toAmino(message.endTime) : undefined;
     if (message.amount) {
       obj.amount = message.amount.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
@@ -276,7 +282,8 @@ export const MsgCreateScheduleResponse = {
     return message;
   },
   fromAmino(_: MsgCreateScheduleResponseAmino): MsgCreateScheduleResponse {
-    return {};
+    const message = createBaseMsgCreateScheduleResponse();
+    return message;
   },
   toAmino(_: MsgCreateScheduleResponse): MsgCreateScheduleResponseAmino {
     const obj: any = {};
@@ -330,10 +337,12 @@ export const MsgTerminateSchedules = {
     return message;
   },
   fromAmino(object: MsgTerminateSchedulesAmino): MsgTerminateSchedules {
-    return {
-      authority: object.authority,
-      ids: Array.isArray(object?.ids) ? object.ids.map((e: any) => BigInt(e)) : []
-    };
+    const message = createBaseMsgTerminateSchedules();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    message.ids = object.ids?.map(e => BigInt(e)) || [];
+    return message;
   },
   toAmino(message: MsgTerminateSchedules): MsgTerminateSchedulesAmino {
     const obj: any = {};
@@ -385,9 +394,9 @@ export const MsgTerminateSchedulesResponse = {
     return message;
   },
   fromAmino(object: MsgTerminateSchedulesResponseAmino): MsgTerminateSchedulesResponse {
-    return {
-      refundedAmount: Array.isArray(object?.refunded_amount) ? object.refunded_amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgTerminateSchedulesResponse();
+    message.refundedAmount = object.refunded_amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgTerminateSchedulesResponse): MsgTerminateSchedulesResponseAmino {
     const obj: any = {};

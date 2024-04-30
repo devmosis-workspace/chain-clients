@@ -271,3 +271,6 @@
 [submodule "packages/juno/wasmd"]
 	path = packages/juno/wasmd
 	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/mars/wasmd"]
+	path = packages/mars/wasmd
+	url = https://github.com/notional-labs/wasmd

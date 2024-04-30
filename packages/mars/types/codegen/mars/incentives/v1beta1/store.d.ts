@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
 /** Schedule defines the parameters of an incentives releasing schedule */
@@ -27,21 +27,21 @@ export interface ScheduleProtoMsg {
 /** Schedule defines the parameters of an incentives releasing schedule */
 export interface ScheduleAmino {
     /** Id is the identifier of this incentives schedule */
-    id: string;
+    id?: string;
     /** StartTime is the UNIX timestamp of which this incentives schedule shall begin */
-    start_time?: TimestampAmino;
+    start_time?: string;
     /** EndTime is the UNIX timestamp of which this incentives schedule shall finish */
-    end_time?: TimestampAmino;
+    end_time?: string;
     /**
      * TotalAmount is the total amount of coins that shall be released to stakers
      * throughout the span of this incentives schedule
      */
-    total_amount: CoinAmino[];
+    total_amount?: CoinAmino[];
     /**
      * ReleasedAmount is the amount of coins that have already been released to
      * the stakers as part of this incentives schedule
      */
-    released_amount: CoinAmino[];
+    released_amount?: CoinAmino[];
 }
 export interface ScheduleAminoMsg {
     type: "/mars.incentives.v1beta1.Schedule";

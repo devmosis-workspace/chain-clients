@@ -34,11 +34,11 @@ export interface MsgSafetyFundSpendAmino {
      * Authority is the account executing the safety fund spend.
      * It should be the gov module account.
      */
-    authority: string;
+    authority?: string;
     /** Recipient is the account to receive the funds */
-    recipient: string;
+    recipient?: string;
     /** Amount is the coins that are to be released from the safety funds */
-    amount: CoinAmino[];
+    amount?: CoinAmino[];
 }
 export interface MsgSafetyFundSpendAminoMsg {
     type: "/mars.safety.v1beta1.MsgSafetyFundSpend";

@@ -13,7 +13,7 @@ export interface QueryScheduleRequestProtoMsg {
 /** QueryScheduleRequest is the request type for the Query/Schedule RPC method */
 export interface QueryScheduleRequestAmino {
     /** ID is the identifier of the incentives schedule to be queried */
-    id: string;
+    id?: string;
 }
 export interface QueryScheduleRequestAminoMsg {
     type: "/mars.incentives.v1beta1.QueryScheduleRequest";
@@ -48,7 +48,7 @@ export interface QueryScheduleResponseSDKType {
 /** QuerySchedulesRequest is the request type for the Query/Schedules RPC method */
 export interface QuerySchedulesRequest {
     /** Pagination defines an optional pagination for the request */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QuerySchedulesRequestProtoMsg {
     typeUrl: "/mars.incentives.v1beta1.QuerySchedulesRequest";
@@ -65,14 +65,14 @@ export interface QuerySchedulesRequestAminoMsg {
 }
 /** QuerySchedulesRequest is the request type for the Query/Schedules RPC method */
 export interface QuerySchedulesRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryScheduleResponse is the response type for the Query/Schedules RPC method */
 export interface QuerySchedulesResponse {
     /** Schedule is the parameters of the incentives schedule */
     schedules: Schedule[];
     /** Pagination defines the pagination in the response */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QuerySchedulesResponseProtoMsg {
     typeUrl: "/mars.incentives.v1beta1.QuerySchedulesResponse";
@@ -81,7 +81,7 @@ export interface QuerySchedulesResponseProtoMsg {
 /** QueryScheduleResponse is the response type for the Query/Schedules RPC method */
 export interface QuerySchedulesResponseAmino {
     /** Schedule is the parameters of the incentives schedule */
-    schedules: ScheduleAmino[];
+    schedules?: ScheduleAmino[];
     /** Pagination defines the pagination in the response */
     pagination?: PageResponseAmino;
 }
@@ -92,7 +92,7 @@ export interface QuerySchedulesResponseAminoMsg {
 /** QueryScheduleResponse is the response type for the Query/Schedules RPC method */
 export interface QuerySchedulesResponseSDKType {
     schedules: ScheduleSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export declare const QueryScheduleRequest: {
     typeUrl: string;

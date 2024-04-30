@@ -29,7 +29,7 @@ export interface QueryBalancesResponseProtoMsg {
 /** QueBalancesResponse is the response type of the QuerBalancesRPC method */
 export interface QueryBalancesResponseAmino {
     /** Balances is the coins available in the safety fund */
-    balances: CoinAmino[];
+    balances?: CoinAmino[];
 }
 export interface QueryBalancesResponseAminoMsg {
     type: "/mars.safety.v1beta1.QueryBalancesResponse";
