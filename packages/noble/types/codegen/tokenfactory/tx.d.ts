@@ -9,8 +9,8 @@ export interface MsgUpdateMasterMinterProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUpdateMasterMinterAmino {
-    from: string;
-    address: string;
+    from?: string;
+    address?: string;
 }
 export interface MsgUpdateMasterMinterAminoMsg {
     type: "/noble.tokenfactory.MsgUpdateMasterMinter";
@@ -43,8 +43,8 @@ export interface MsgUpdatePauserProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUpdatePauserAmino {
-    from: string;
-    address: string;
+    from?: string;
+    address?: string;
 }
 export interface MsgUpdatePauserAminoMsg {
     type: "/noble.tokenfactory.MsgUpdatePauser";
@@ -77,8 +77,8 @@ export interface MsgUpdateBlacklisterProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUpdateBlacklisterAmino {
-    from: string;
-    address: string;
+    from?: string;
+    address?: string;
 }
 export interface MsgUpdateBlacklisterAminoMsg {
     type: "/noble.tokenfactory.MsgUpdateBlacklister";
@@ -111,8 +111,8 @@ export interface MsgUpdateOwnerProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUpdateOwnerAmino {
-    from: string;
-    address: string;
+    from?: string;
+    address?: string;
 }
 export interface MsgUpdateOwnerAminoMsg {
     type: "/noble.tokenfactory.MsgUpdateOwner";
@@ -144,7 +144,7 @@ export interface MsgAcceptOwnerProtoMsg {
     value: Uint8Array;
 }
 export interface MsgAcceptOwnerAmino {
-    from: string;
+    from?: string;
 }
 export interface MsgAcceptOwnerAminoMsg {
     type: "/noble.tokenfactory.MsgAcceptOwner";
@@ -177,8 +177,8 @@ export interface MsgConfigureMinterProtoMsg {
     value: Uint8Array;
 }
 export interface MsgConfigureMinterAmino {
-    from: string;
-    address: string;
+    from?: string;
+    address?: string;
     allowance?: CoinAmino;
 }
 export interface MsgConfigureMinterAminoMsg {
@@ -213,8 +213,8 @@ export interface MsgRemoveMinterProtoMsg {
     value: Uint8Array;
 }
 export interface MsgRemoveMinterAmino {
-    from: string;
-    address: string;
+    from?: string;
+    address?: string;
 }
 export interface MsgRemoveMinterAminoMsg {
     type: "/noble.tokenfactory.MsgRemoveMinter";
@@ -248,8 +248,8 @@ export interface MsgMintProtoMsg {
     value: Uint8Array;
 }
 export interface MsgMintAmino {
-    from: string;
-    address: string;
+    from?: string;
+    address?: string;
     amount?: CoinAmino;
 }
 export interface MsgMintAminoMsg {
@@ -284,7 +284,7 @@ export interface MsgBurnProtoMsg {
     value: Uint8Array;
 }
 export interface MsgBurnAmino {
-    from: string;
+    from?: string;
     amount?: CoinAmino;
 }
 export interface MsgBurnAminoMsg {
@@ -318,8 +318,8 @@ export interface MsgBlacklistProtoMsg {
     value: Uint8Array;
 }
 export interface MsgBlacklistAmino {
-    from: string;
-    address: string;
+    from?: string;
+    address?: string;
 }
 export interface MsgBlacklistAminoMsg {
     type: "/noble.tokenfactory.MsgBlacklist";
@@ -352,8 +352,8 @@ export interface MsgUnblacklistProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUnblacklistAmino {
-    from: string;
-    address: string;
+    from?: string;
+    address?: string;
 }
 export interface MsgUnblacklistAminoMsg {
     type: "/noble.tokenfactory.MsgUnblacklist";
@@ -385,7 +385,7 @@ export interface MsgPauseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgPauseAmino {
-    from: string;
+    from?: string;
 }
 export interface MsgPauseAminoMsg {
     type: "/noble.tokenfactory.MsgPause";
@@ -416,7 +416,7 @@ export interface MsgUnpauseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUnpauseAmino {
-    from: string;
+    from?: string;
 }
 export interface MsgUnpauseAminoMsg {
     type: "/noble.tokenfactory.MsgUnpause";
@@ -449,9 +449,9 @@ export interface MsgConfigureMinterControllerProtoMsg {
     value: Uint8Array;
 }
 export interface MsgConfigureMinterControllerAmino {
-    from: string;
-    controller: string;
-    minter: string;
+    from?: string;
+    controller?: string;
+    minter?: string;
 }
 export interface MsgConfigureMinterControllerAminoMsg {
     type: "/noble.tokenfactory.MsgConfigureMinterController";
@@ -485,8 +485,8 @@ export interface MsgRemoveMinterControllerProtoMsg {
     value: Uint8Array;
 }
 export interface MsgRemoveMinterControllerAmino {
-    from: string;
-    controller: string;
+    from?: string;
+    controller?: string;
 }
 export interface MsgRemoveMinterControllerAminoMsg {
     type: "/noble.tokenfactory.MsgRemoveMinterController";

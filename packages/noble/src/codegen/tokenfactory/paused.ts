@@ -8,7 +8,7 @@ export interface PausedProtoMsg {
   value: Uint8Array;
 }
 export interface PausedAmino {
-  paused: boolean;
+  paused?: boolean;
 }
 export interface PausedAminoMsg {
   type: "/noble.tokenfactory.Paused";
@@ -41,9 +41,11 @@ export const Paused = {
     return message;
   },
   fromAmino(object: PausedAmino): Paused {
-    return {
-      paused: object.paused
-    };
+    const message = createBasePaused();
+    if (object.paused !== undefined && object.paused !== null) {
+      message.paused = object.paused;
+    }
+    return message;
   },
   toAmino(message: Paused): PausedAmino {
     const obj: any = {};

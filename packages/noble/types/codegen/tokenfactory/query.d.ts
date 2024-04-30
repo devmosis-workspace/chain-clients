@@ -57,7 +57,7 @@ export interface QueryGetBlacklistedRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetBlacklistedRequestAmino {
-    address: string;
+    address?: string;
 }
 export interface QueryGetBlacklistedRequestAminoMsg {
     type: "/noble.tokenfactory.QueryGetBlacklistedRequest";
@@ -84,7 +84,7 @@ export interface QueryGetBlacklistedResponseSDKType {
     blacklisted: BlacklistedSDKType;
 }
 export interface QueryAllBlacklistedRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAllBlacklistedRequestProtoMsg {
     typeUrl: "/noble.tokenfactory.QueryAllBlacklistedRequest";
@@ -98,18 +98,18 @@ export interface QueryAllBlacklistedRequestAminoMsg {
     value: QueryAllBlacklistedRequestAmino;
 }
 export interface QueryAllBlacklistedRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryAllBlacklistedResponse {
     blacklisted: Blacklisted[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAllBlacklistedResponseProtoMsg {
     typeUrl: "/noble.tokenfactory.QueryAllBlacklistedResponse";
     value: Uint8Array;
 }
 export interface QueryAllBlacklistedResponseAmino {
-    blacklisted: BlacklistedAmino[];
+    blacklisted?: BlacklistedAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryAllBlacklistedResponseAminoMsg {
@@ -118,7 +118,7 @@ export interface QueryAllBlacklistedResponseAminoMsg {
 }
 export interface QueryAllBlacklistedResponseSDKType {
     blacklisted: BlacklistedSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryGetPausedRequest {
 }
@@ -190,7 +190,7 @@ export interface QueryGetMintersRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetMintersRequestAmino {
-    address: string;
+    address?: string;
 }
 export interface QueryGetMintersRequestAminoMsg {
     type: "/noble.tokenfactory.QueryGetMintersRequest";
@@ -217,7 +217,7 @@ export interface QueryGetMintersResponseSDKType {
     minters: MintersSDKType;
 }
 export interface QueryAllMintersRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAllMintersRequestProtoMsg {
     typeUrl: "/noble.tokenfactory.QueryAllMintersRequest";
@@ -231,18 +231,18 @@ export interface QueryAllMintersRequestAminoMsg {
     value: QueryAllMintersRequestAmino;
 }
 export interface QueryAllMintersRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryAllMintersResponse {
     minters: Minters[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAllMintersResponseProtoMsg {
     typeUrl: "/noble.tokenfactory.QueryAllMintersResponse";
     value: Uint8Array;
 }
 export interface QueryAllMintersResponseAmino {
-    minters: MintersAmino[];
+    minters?: MintersAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryAllMintersResponseAminoMsg {
@@ -251,7 +251,7 @@ export interface QueryAllMintersResponseAminoMsg {
 }
 export interface QueryAllMintersResponseSDKType {
     minters: MintersSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryGetPauserRequest {
 }
@@ -354,7 +354,7 @@ export interface QueryGetMinterControllerRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetMinterControllerRequestAmino {
-    controllerAddress: string;
+    controllerAddress?: string;
 }
 export interface QueryGetMinterControllerRequestAminoMsg {
     type: "/noble.tokenfactory.QueryGetMinterControllerRequest";
@@ -381,7 +381,7 @@ export interface QueryGetMinterControllerResponseSDKType {
     minterController: MinterControllerSDKType;
 }
 export interface QueryAllMinterControllerRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAllMinterControllerRequestProtoMsg {
     typeUrl: "/noble.tokenfactory.QueryAllMinterControllerRequest";
@@ -395,18 +395,18 @@ export interface QueryAllMinterControllerRequestAminoMsg {
     value: QueryAllMinterControllerRequestAmino;
 }
 export interface QueryAllMinterControllerRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryAllMinterControllerResponse {
     minterController: MinterController[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAllMinterControllerResponseProtoMsg {
     typeUrl: "/noble.tokenfactory.QueryAllMinterControllerResponse";
     value: Uint8Array;
 }
 export interface QueryAllMinterControllerResponseAmino {
-    minterController: MinterControllerAmino[];
+    minterController?: MinterControllerAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryAllMinterControllerResponseAminoMsg {
@@ -415,7 +415,7 @@ export interface QueryAllMinterControllerResponseAminoMsg {
 }
 export interface QueryAllMinterControllerResponseSDKType {
     minterController: MinterControllerSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryGetMintingDenomRequest {
 }

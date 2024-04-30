@@ -2,8 +2,11 @@ export declare const createLCDClient: ({ restEndpoint }: {
     restEndpoint: string;
 }) => Promise<{
     noble: {
-        fiattokenfactory: import("../fiattokenfactory/query.lcd").LCDQueryClient;
         globalfee: import("../globalfee/query.lcd").LCDQueryClient;
+        forwarding: {
+            v1: import("./forwarding/v1/query.lcd").LCDQueryClient;
+        };
+        tariff: import("../tariff/query.lcd").LCDQueryClient;
         tokenfactory: import("../tokenfactory/query.lcd").LCDQueryClient;
     };
     cosmos: {

@@ -8,8 +8,8 @@ export interface MinterControllerProtoMsg {
     value: Uint8Array;
 }
 export interface MinterControllerAmino {
-    minter: string;
-    controller: string;
+    minter?: string;
+    controller?: string;
 }
 export interface MinterControllerAminoMsg {
     type: "/noble.tokenfactory.MinterController";

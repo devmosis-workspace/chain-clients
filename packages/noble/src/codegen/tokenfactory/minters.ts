@@ -10,7 +10,7 @@ export interface MintersProtoMsg {
   value: Uint8Array;
 }
 export interface MintersAmino {
-  address: string;
+  address?: string;
   allowance?: CoinAmino;
 }
 export interface MintersAminoMsg {
@@ -51,10 +51,14 @@ export const Minters = {
     return message;
   },
   fromAmino(object: MintersAmino): Minters {
-    return {
-      address: object.address,
-      allowance: object?.allowance ? Coin.fromAmino(object.allowance) : undefined
-    };
+    const message = createBaseMinters();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.allowance !== undefined && object.allowance !== null) {
+      message.allowance = Coin.fromAmino(object.allowance);
+    }
+    return message;
   },
   toAmino(message: Minters): MintersAmino {
     const obj: any = {};

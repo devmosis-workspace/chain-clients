@@ -10,8 +10,8 @@ export interface MsgUpdateMasterMinterProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdateMasterMinterAmino {
-  from: string;
-  address: string;
+  from?: string;
+  address?: string;
 }
 export interface MsgUpdateMasterMinterAminoMsg {
   type: "/noble.tokenfactory.MsgUpdateMasterMinter";
@@ -41,8 +41,8 @@ export interface MsgUpdatePauserProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdatePauserAmino {
-  from: string;
-  address: string;
+  from?: string;
+  address?: string;
 }
 export interface MsgUpdatePauserAminoMsg {
   type: "/noble.tokenfactory.MsgUpdatePauser";
@@ -72,8 +72,8 @@ export interface MsgUpdateBlacklisterProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdateBlacklisterAmino {
-  from: string;
-  address: string;
+  from?: string;
+  address?: string;
 }
 export interface MsgUpdateBlacklisterAminoMsg {
   type: "/noble.tokenfactory.MsgUpdateBlacklister";
@@ -103,8 +103,8 @@ export interface MsgUpdateOwnerProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdateOwnerAmino {
-  from: string;
-  address: string;
+  from?: string;
+  address?: string;
 }
 export interface MsgUpdateOwnerAminoMsg {
   type: "/noble.tokenfactory.MsgUpdateOwner";
@@ -133,7 +133,7 @@ export interface MsgAcceptOwnerProtoMsg {
   value: Uint8Array;
 }
 export interface MsgAcceptOwnerAmino {
-  from: string;
+  from?: string;
 }
 export interface MsgAcceptOwnerAminoMsg {
   type: "/noble.tokenfactory.MsgAcceptOwner";
@@ -163,8 +163,8 @@ export interface MsgConfigureMinterProtoMsg {
   value: Uint8Array;
 }
 export interface MsgConfigureMinterAmino {
-  from: string;
-  address: string;
+  from?: string;
+  address?: string;
   allowance?: CoinAmino;
 }
 export interface MsgConfigureMinterAminoMsg {
@@ -196,8 +196,8 @@ export interface MsgRemoveMinterProtoMsg {
   value: Uint8Array;
 }
 export interface MsgRemoveMinterAmino {
-  from: string;
-  address: string;
+  from?: string;
+  address?: string;
 }
 export interface MsgRemoveMinterAminoMsg {
   type: "/noble.tokenfactory.MsgRemoveMinter";
@@ -228,8 +228,8 @@ export interface MsgMintProtoMsg {
   value: Uint8Array;
 }
 export interface MsgMintAmino {
-  from: string;
-  address: string;
+  from?: string;
+  address?: string;
   amount?: CoinAmino;
 }
 export interface MsgMintAminoMsg {
@@ -261,7 +261,7 @@ export interface MsgBurnProtoMsg {
   value: Uint8Array;
 }
 export interface MsgBurnAmino {
-  from: string;
+  from?: string;
   amount?: CoinAmino;
 }
 export interface MsgBurnAminoMsg {
@@ -292,8 +292,8 @@ export interface MsgBlacklistProtoMsg {
   value: Uint8Array;
 }
 export interface MsgBlacklistAmino {
-  from: string;
-  address: string;
+  from?: string;
+  address?: string;
 }
 export interface MsgBlacklistAminoMsg {
   type: "/noble.tokenfactory.MsgBlacklist";
@@ -323,8 +323,8 @@ export interface MsgUnblacklistProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUnblacklistAmino {
-  from: string;
-  address: string;
+  from?: string;
+  address?: string;
 }
 export interface MsgUnblacklistAminoMsg {
   type: "/noble.tokenfactory.MsgUnblacklist";
@@ -353,7 +353,7 @@ export interface MsgPauseProtoMsg {
   value: Uint8Array;
 }
 export interface MsgPauseAmino {
-  from: string;
+  from?: string;
 }
 export interface MsgPauseAminoMsg {
   type: "/noble.tokenfactory.MsgPause";
@@ -381,7 +381,7 @@ export interface MsgUnpauseProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUnpauseAmino {
-  from: string;
+  from?: string;
 }
 export interface MsgUnpauseAminoMsg {
   type: "/noble.tokenfactory.MsgUnpause";
@@ -411,9 +411,9 @@ export interface MsgConfigureMinterControllerProtoMsg {
   value: Uint8Array;
 }
 export interface MsgConfigureMinterControllerAmino {
-  from: string;
-  controller: string;
-  minter: string;
+  from?: string;
+  controller?: string;
+  minter?: string;
 }
 export interface MsgConfigureMinterControllerAminoMsg {
   type: "/noble.tokenfactory.MsgConfigureMinterController";
@@ -444,8 +444,8 @@ export interface MsgRemoveMinterControllerProtoMsg {
   value: Uint8Array;
 }
 export interface MsgRemoveMinterControllerAmino {
-  from: string;
-  controller: string;
+  from?: string;
+  controller?: string;
 }
 export interface MsgRemoveMinterControllerAminoMsg {
   type: "/noble.tokenfactory.MsgRemoveMinterController";
@@ -496,10 +496,14 @@ export const MsgUpdateMasterMinter = {
     return message;
   },
   fromAmino(object: MsgUpdateMasterMinterAmino): MsgUpdateMasterMinter {
-    return {
-      from: object.from,
-      address: object.address
-    };
+    const message = createBaseMsgUpdateMasterMinter();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateMasterMinter): MsgUpdateMasterMinterAmino {
     const obj: any = {};
@@ -539,7 +543,8 @@ export const MsgUpdateMasterMinterResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateMasterMinterResponseAmino): MsgUpdateMasterMinterResponse {
-    return {};
+    const message = createBaseMsgUpdateMasterMinterResponse();
+    return message;
   },
   toAmino(_: MsgUpdateMasterMinterResponse): MsgUpdateMasterMinterResponseAmino {
     const obj: any = {};
@@ -591,10 +596,14 @@ export const MsgUpdatePauser = {
     return message;
   },
   fromAmino(object: MsgUpdatePauserAmino): MsgUpdatePauser {
-    return {
-      from: object.from,
-      address: object.address
-    };
+    const message = createBaseMsgUpdatePauser();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: MsgUpdatePauser): MsgUpdatePauserAmino {
     const obj: any = {};
@@ -634,7 +643,8 @@ export const MsgUpdatePauserResponse = {
     return message;
   },
   fromAmino(_: MsgUpdatePauserResponseAmino): MsgUpdatePauserResponse {
-    return {};
+    const message = createBaseMsgUpdatePauserResponse();
+    return message;
   },
   toAmino(_: MsgUpdatePauserResponse): MsgUpdatePauserResponseAmino {
     const obj: any = {};
@@ -686,10 +696,14 @@ export const MsgUpdateBlacklister = {
     return message;
   },
   fromAmino(object: MsgUpdateBlacklisterAmino): MsgUpdateBlacklister {
-    return {
-      from: object.from,
-      address: object.address
-    };
+    const message = createBaseMsgUpdateBlacklister();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateBlacklister): MsgUpdateBlacklisterAmino {
     const obj: any = {};
@@ -729,7 +743,8 @@ export const MsgUpdateBlacklisterResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateBlacklisterResponseAmino): MsgUpdateBlacklisterResponse {
-    return {};
+    const message = createBaseMsgUpdateBlacklisterResponse();
+    return message;
   },
   toAmino(_: MsgUpdateBlacklisterResponse): MsgUpdateBlacklisterResponseAmino {
     const obj: any = {};
@@ -781,10 +796,14 @@ export const MsgUpdateOwner = {
     return message;
   },
   fromAmino(object: MsgUpdateOwnerAmino): MsgUpdateOwner {
-    return {
-      from: object.from,
-      address: object.address
-    };
+    const message = createBaseMsgUpdateOwner();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateOwner): MsgUpdateOwnerAmino {
     const obj: any = {};
@@ -824,7 +843,8 @@ export const MsgUpdateOwnerResponse = {
     return message;
   },
   fromAmino(_: MsgUpdateOwnerResponseAmino): MsgUpdateOwnerResponse {
-    return {};
+    const message = createBaseMsgUpdateOwnerResponse();
+    return message;
   },
   toAmino(_: MsgUpdateOwnerResponse): MsgUpdateOwnerResponseAmino {
     const obj: any = {};
@@ -870,9 +890,11 @@ export const MsgAcceptOwner = {
     return message;
   },
   fromAmino(object: MsgAcceptOwnerAmino): MsgAcceptOwner {
-    return {
-      from: object.from
-    };
+    const message = createBaseMsgAcceptOwner();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    return message;
   },
   toAmino(message: MsgAcceptOwner): MsgAcceptOwnerAmino {
     const obj: any = {};
@@ -911,7 +933,8 @@ export const MsgAcceptOwnerResponse = {
     return message;
   },
   fromAmino(_: MsgAcceptOwnerResponseAmino): MsgAcceptOwnerResponse {
-    return {};
+    const message = createBaseMsgAcceptOwnerResponse();
+    return message;
   },
   toAmino(_: MsgAcceptOwnerResponse): MsgAcceptOwnerResponseAmino {
     const obj: any = {};
@@ -969,11 +992,17 @@ export const MsgConfigureMinter = {
     return message;
   },
   fromAmino(object: MsgConfigureMinterAmino): MsgConfigureMinter {
-    return {
-      from: object.from,
-      address: object.address,
-      allowance: object?.allowance ? Coin.fromAmino(object.allowance) : undefined
-    };
+    const message = createBaseMsgConfigureMinter();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.allowance !== undefined && object.allowance !== null) {
+      message.allowance = Coin.fromAmino(object.allowance);
+    }
+    return message;
   },
   toAmino(message: MsgConfigureMinter): MsgConfigureMinterAmino {
     const obj: any = {};
@@ -1014,7 +1043,8 @@ export const MsgConfigureMinterResponse = {
     return message;
   },
   fromAmino(_: MsgConfigureMinterResponseAmino): MsgConfigureMinterResponse {
-    return {};
+    const message = createBaseMsgConfigureMinterResponse();
+    return message;
   },
   toAmino(_: MsgConfigureMinterResponse): MsgConfigureMinterResponseAmino {
     const obj: any = {};
@@ -1066,10 +1096,14 @@ export const MsgRemoveMinter = {
     return message;
   },
   fromAmino(object: MsgRemoveMinterAmino): MsgRemoveMinter {
-    return {
-      from: object.from,
-      address: object.address
-    };
+    const message = createBaseMsgRemoveMinter();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: MsgRemoveMinter): MsgRemoveMinterAmino {
     const obj: any = {};
@@ -1109,7 +1143,8 @@ export const MsgRemoveMinterResponse = {
     return message;
   },
   fromAmino(_: MsgRemoveMinterResponseAmino): MsgRemoveMinterResponse {
-    return {};
+    const message = createBaseMsgRemoveMinterResponse();
+    return message;
   },
   toAmino(_: MsgRemoveMinterResponse): MsgRemoveMinterResponseAmino {
     const obj: any = {};
@@ -1167,11 +1202,17 @@ export const MsgMint = {
     return message;
   },
   fromAmino(object: MsgMintAmino): MsgMint {
-    return {
-      from: object.from,
-      address: object.address,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgMint();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgMint): MsgMintAmino {
     const obj: any = {};
@@ -1212,7 +1253,8 @@ export const MsgMintResponse = {
     return message;
   },
   fromAmino(_: MsgMintResponseAmino): MsgMintResponse {
-    return {};
+    const message = createBaseMsgMintResponse();
+    return message;
   },
   toAmino(_: MsgMintResponse): MsgMintResponseAmino {
     const obj: any = {};
@@ -1264,10 +1306,14 @@ export const MsgBurn = {
     return message;
   },
   fromAmino(object: MsgBurnAmino): MsgBurn {
-    return {
-      from: object.from,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseMsgBurn();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: MsgBurn): MsgBurnAmino {
     const obj: any = {};
@@ -1307,7 +1353,8 @@ export const MsgBurnResponse = {
     return message;
   },
   fromAmino(_: MsgBurnResponseAmino): MsgBurnResponse {
-    return {};
+    const message = createBaseMsgBurnResponse();
+    return message;
   },
   toAmino(_: MsgBurnResponse): MsgBurnResponseAmino {
     const obj: any = {};
@@ -1359,10 +1406,14 @@ export const MsgBlacklist = {
     return message;
   },
   fromAmino(object: MsgBlacklistAmino): MsgBlacklist {
-    return {
-      from: object.from,
-      address: object.address
-    };
+    const message = createBaseMsgBlacklist();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: MsgBlacklist): MsgBlacklistAmino {
     const obj: any = {};
@@ -1402,7 +1453,8 @@ export const MsgBlacklistResponse = {
     return message;
   },
   fromAmino(_: MsgBlacklistResponseAmino): MsgBlacklistResponse {
-    return {};
+    const message = createBaseMsgBlacklistResponse();
+    return message;
   },
   toAmino(_: MsgBlacklistResponse): MsgBlacklistResponseAmino {
     const obj: any = {};
@@ -1454,10 +1506,14 @@ export const MsgUnblacklist = {
     return message;
   },
   fromAmino(object: MsgUnblacklistAmino): MsgUnblacklist {
-    return {
-      from: object.from,
-      address: object.address
-    };
+    const message = createBaseMsgUnblacklist();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: MsgUnblacklist): MsgUnblacklistAmino {
     const obj: any = {};
@@ -1497,7 +1553,8 @@ export const MsgUnblacklistResponse = {
     return message;
   },
   fromAmino(_: MsgUnblacklistResponseAmino): MsgUnblacklistResponse {
-    return {};
+    const message = createBaseMsgUnblacklistResponse();
+    return message;
   },
   toAmino(_: MsgUnblacklistResponse): MsgUnblacklistResponseAmino {
     const obj: any = {};
@@ -1543,9 +1600,11 @@ export const MsgPause = {
     return message;
   },
   fromAmino(object: MsgPauseAmino): MsgPause {
-    return {
-      from: object.from
-    };
+    const message = createBaseMsgPause();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    return message;
   },
   toAmino(message: MsgPause): MsgPauseAmino {
     const obj: any = {};
@@ -1584,7 +1643,8 @@ export const MsgPauseResponse = {
     return message;
   },
   fromAmino(_: MsgPauseResponseAmino): MsgPauseResponse {
-    return {};
+    const message = createBaseMsgPauseResponse();
+    return message;
   },
   toAmino(_: MsgPauseResponse): MsgPauseResponseAmino {
     const obj: any = {};
@@ -1630,9 +1690,11 @@ export const MsgUnpause = {
     return message;
   },
   fromAmino(object: MsgUnpauseAmino): MsgUnpause {
-    return {
-      from: object.from
-    };
+    const message = createBaseMsgUnpause();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    return message;
   },
   toAmino(message: MsgUnpause): MsgUnpauseAmino {
     const obj: any = {};
@@ -1671,7 +1733,8 @@ export const MsgUnpauseResponse = {
     return message;
   },
   fromAmino(_: MsgUnpauseResponseAmino): MsgUnpauseResponse {
-    return {};
+    const message = createBaseMsgUnpauseResponse();
+    return message;
   },
   toAmino(_: MsgUnpauseResponse): MsgUnpauseResponseAmino {
     const obj: any = {};
@@ -1729,11 +1792,17 @@ export const MsgConfigureMinterController = {
     return message;
   },
   fromAmino(object: MsgConfigureMinterControllerAmino): MsgConfigureMinterController {
-    return {
-      from: object.from,
-      controller: object.controller,
-      minter: object.minter
-    };
+    const message = createBaseMsgConfigureMinterController();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.controller !== undefined && object.controller !== null) {
+      message.controller = object.controller;
+    }
+    if (object.minter !== undefined && object.minter !== null) {
+      message.minter = object.minter;
+    }
+    return message;
   },
   toAmino(message: MsgConfigureMinterController): MsgConfigureMinterControllerAmino {
     const obj: any = {};
@@ -1774,7 +1843,8 @@ export const MsgConfigureMinterControllerResponse = {
     return message;
   },
   fromAmino(_: MsgConfigureMinterControllerResponseAmino): MsgConfigureMinterControllerResponse {
-    return {};
+    const message = createBaseMsgConfigureMinterControllerResponse();
+    return message;
   },
   toAmino(_: MsgConfigureMinterControllerResponse): MsgConfigureMinterControllerResponseAmino {
     const obj: any = {};
@@ -1826,10 +1896,14 @@ export const MsgRemoveMinterController = {
     return message;
   },
   fromAmino(object: MsgRemoveMinterControllerAmino): MsgRemoveMinterController {
-    return {
-      from: object.from,
-      controller: object.controller
-    };
+    const message = createBaseMsgRemoveMinterController();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.controller !== undefined && object.controller !== null) {
+      message.controller = object.controller;
+    }
+    return message;
   },
   toAmino(message: MsgRemoveMinterController): MsgRemoveMinterControllerAmino {
     const obj: any = {};
@@ -1869,7 +1943,8 @@ export const MsgRemoveMinterControllerResponse = {
     return message;
   },
   fromAmino(_: MsgRemoveMinterControllerResponseAmino): MsgRemoveMinterControllerResponse {
-    return {};
+    const message = createBaseMsgRemoveMinterControllerResponse();
+    return message;
   },
   toAmino(_: MsgRemoveMinterControllerResponse): MsgRemoveMinterControllerResponseAmino {
     const obj: any = {};

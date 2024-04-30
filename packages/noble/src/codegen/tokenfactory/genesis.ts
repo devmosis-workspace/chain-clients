@@ -14,14 +14,14 @@ import { isSet } from "../helpers";
 export interface GenesisState {
   params: Params;
   blacklistedList: Blacklisted[];
-  paused: Paused;
-  masterMinter: MasterMinter;
+  paused?: Paused;
+  masterMinter?: MasterMinter;
   mintersList: Minters[];
-  pauser: Pauser;
-  blacklister: Blacklister;
-  owner: Owner;
+  pauser?: Pauser;
+  blacklister?: Blacklister;
+  owner?: Owner;
   minterControllerList: MinterController[];
-  mintingDenom: MintingDenom;
+  mintingDenom?: MintingDenom;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/noble.tokenfactory.GenesisState";
@@ -30,14 +30,14 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the tokenfactory module's genesis state. */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  blacklistedList: BlacklistedAmino[];
+  blacklistedList?: BlacklistedAmino[];
   paused?: PausedAmino;
   masterMinter?: MasterMinterAmino;
-  mintersList: MintersAmino[];
+  mintersList?: MintersAmino[];
   pauser?: PauserAmino;
   blacklister?: BlacklisterAmino;
   owner?: OwnerAmino;
-  minterControllerList: MinterControllerAmino[];
+  minterControllerList?: MinterControllerAmino[];
   mintingDenom?: MintingDenomAmino;
 }
 export interface GenesisStateAminoMsg {
@@ -48,27 +48,27 @@ export interface GenesisStateAminoMsg {
 export interface GenesisStateSDKType {
   params: ParamsSDKType;
   blacklistedList: BlacklistedSDKType[];
-  paused: PausedSDKType;
-  masterMinter: MasterMinterSDKType;
+  paused?: PausedSDKType;
+  masterMinter?: MasterMinterSDKType;
   mintersList: MintersSDKType[];
-  pauser: PauserSDKType;
-  blacklister: BlacklisterSDKType;
-  owner: OwnerSDKType;
+  pauser?: PauserSDKType;
+  blacklister?: BlacklisterSDKType;
+  owner?: OwnerSDKType;
   minterControllerList: MinterControllerSDKType[];
-  mintingDenom: MintingDenomSDKType;
+  mintingDenom?: MintingDenomSDKType;
 }
 function createBaseGenesisState(): GenesisState {
   return {
     params: Params.fromPartial({}),
     blacklistedList: [],
-    paused: Paused.fromPartial({}),
-    masterMinter: MasterMinter.fromPartial({}),
+    paused: undefined,
+    masterMinter: undefined,
     mintersList: [],
-    pauser: Pauser.fromPartial({}),
-    blacklister: Blacklister.fromPartial({}),
-    owner: Owner.fromPartial({}),
+    pauser: undefined,
+    blacklister: undefined,
+    owner: undefined,
     minterControllerList: [],
-    mintingDenom: MintingDenom.fromPartial({})
+    mintingDenom: undefined
   };
 }
 export const GenesisState = {
@@ -135,18 +135,32 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      blacklistedList: Array.isArray(object?.blacklistedList) ? object.blacklistedList.map((e: any) => Blacklisted.fromAmino(e)) : [],
-      paused: object?.paused ? Paused.fromAmino(object.paused) : undefined,
-      masterMinter: object?.masterMinter ? MasterMinter.fromAmino(object.masterMinter) : undefined,
-      mintersList: Array.isArray(object?.mintersList) ? object.mintersList.map((e: any) => Minters.fromAmino(e)) : [],
-      pauser: object?.pauser ? Pauser.fromAmino(object.pauser) : undefined,
-      blacklister: object?.blacklister ? Blacklister.fromAmino(object.blacklister) : undefined,
-      owner: object?.owner ? Owner.fromAmino(object.owner) : undefined,
-      minterControllerList: Array.isArray(object?.minterControllerList) ? object.minterControllerList.map((e: any) => MinterController.fromAmino(e)) : [],
-      mintingDenom: object?.mintingDenom ? MintingDenom.fromAmino(object.mintingDenom) : undefined
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.blacklistedList = object.blacklistedList?.map(e => Blacklisted.fromAmino(e)) || [];
+    if (object.paused !== undefined && object.paused !== null) {
+      message.paused = Paused.fromAmino(object.paused);
+    }
+    if (object.masterMinter !== undefined && object.masterMinter !== null) {
+      message.masterMinter = MasterMinter.fromAmino(object.masterMinter);
+    }
+    message.mintersList = object.mintersList?.map(e => Minters.fromAmino(e)) || [];
+    if (object.pauser !== undefined && object.pauser !== null) {
+      message.pauser = Pauser.fromAmino(object.pauser);
+    }
+    if (object.blacklister !== undefined && object.blacklister !== null) {
+      message.blacklister = Blacklister.fromAmino(object.blacklister);
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = Owner.fromAmino(object.owner);
+    }
+    message.minterControllerList = object.minterControllerList?.map(e => MinterController.fromAmino(e)) || [];
+    if (object.mintingDenom !== undefined && object.mintingDenom !== null) {
+      message.mintingDenom = MintingDenom.fromAmino(object.mintingDenom);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

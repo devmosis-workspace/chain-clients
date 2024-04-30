@@ -7,7 +7,7 @@ export interface OwnerProtoMsg {
     value: Uint8Array;
 }
 export interface OwnerAmino {
-    address: string;
+    address?: string;
 }
 export interface OwnerAminoMsg {
     type: "/noble.tokenfactory.Owner";

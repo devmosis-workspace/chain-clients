@@ -3,23 +3,17 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
     rpcEndpoint: string | HttpEndpoint;
 }) => Promise<{
     noble: {
-        fiattokenfactory: {
-            params(request?: import("../fiattokenfactory/query").QueryParamsRequest): Promise<import("../fiattokenfactory/query").QueryParamsResponse>;
-            blacklisted(request: import("../fiattokenfactory/query").QueryGetBlacklistedRequest): Promise<import("../fiattokenfactory/query").QueryGetBlacklistedResponse>;
-            blacklistedAll(request?: import("../fiattokenfactory/query").QueryAllBlacklistedRequest): Promise<import("../fiattokenfactory/query").QueryAllBlacklistedResponse>;
-            paused(request?: import("../fiattokenfactory/query").QueryGetPausedRequest): Promise<import("../fiattokenfactory/query").QueryGetPausedResponse>;
-            masterMinter(request?: import("../fiattokenfactory/query").QueryGetMasterMinterRequest): Promise<import("../fiattokenfactory/query").QueryGetMasterMinterResponse>;
-            minters(request: import("../fiattokenfactory/query").QueryGetMintersRequest): Promise<import("../fiattokenfactory/query").QueryGetMintersResponse>;
-            mintersAll(request?: import("../fiattokenfactory/query").QueryAllMintersRequest): Promise<import("../fiattokenfactory/query").QueryAllMintersResponse>;
-            pauser(request?: import("../fiattokenfactory/query").QueryGetPauserRequest): Promise<import("../fiattokenfactory/query").QueryGetPauserResponse>;
-            blacklister(request?: import("../fiattokenfactory/query").QueryGetBlacklisterRequest): Promise<import("../fiattokenfactory/query").QueryGetBlacklisterResponse>;
-            owner(request?: import("../fiattokenfactory/query").QueryGetOwnerRequest): Promise<import("../fiattokenfactory/query").QueryGetOwnerResponse>;
-            minterController(request: import("../fiattokenfactory/query").QueryGetMinterControllerRequest): Promise<import("../fiattokenfactory/query").QueryGetMinterControllerResponse>;
-            minterControllerAll(request?: import("../fiattokenfactory/query").QueryAllMinterControllerRequest): Promise<import("../fiattokenfactory/query").QueryAllMinterControllerResponse>;
-            mintingDenom(request?: import("../fiattokenfactory/query").QueryGetMintingDenomRequest): Promise<import("../fiattokenfactory/query").QueryGetMintingDenomResponse>;
-        };
         globalfee: {
-            params(request?: import("../globalfee/query").QueryParamsRequest): Promise<import("../globalfee/genesis").Params>;
+            params(request?: import("../globalfee/query").QueryParamsRequest): Promise<import("../globalfee/query").QueryParamsResponse>;
+        };
+        forwarding: {
+            v1: {
+                address(request: import("./forwarding/v1/query").QueryAddress): Promise<import("./forwarding/v1/query").QueryAddressResponse>;
+                statsByChannel(request: import("./forwarding/v1/query").QueryStatsByChannel): Promise<import("./forwarding/v1/query").QueryStatsByChannelResponse>;
+            };
+        };
+        tariff: {
+            params(request?: import("../tariff/query").QueryParamsRequest): Promise<import("../tariff/query").QueryParamsResponse>;
         };
         tokenfactory: {
             params(request?: import("../tokenfactory/query").QueryParamsRequest): Promise<import("../tokenfactory/query").QueryParamsResponse>;

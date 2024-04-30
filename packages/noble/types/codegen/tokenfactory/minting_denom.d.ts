@@ -7,7 +7,7 @@ export interface MintingDenomProtoMsg {
     value: Uint8Array;
 }
 export interface MintingDenomAmino {
-    denom: string;
+    denom?: string;
 }
 export interface MintingDenomAminoMsg {
     type: "/noble.tokenfactory.MintingDenom";

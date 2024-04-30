@@ -8,7 +8,7 @@ export interface MasterMinterProtoMsg {
   value: Uint8Array;
 }
 export interface MasterMinterAmino {
-  address: string;
+  address?: string;
 }
 export interface MasterMinterAminoMsg {
   type: "/noble.tokenfactory.MasterMinter";
@@ -41,9 +41,11 @@ export const MasterMinter = {
     return message;
   },
   fromAmino(object: MasterMinterAmino): MasterMinter {
-    return {
-      address: object.address
-    };
+    const message = createBaseMasterMinter();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: MasterMinter): MasterMinterAmino {
     const obj: any = {};

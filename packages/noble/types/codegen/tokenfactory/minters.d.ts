@@ -9,7 +9,7 @@ export interface MintersProtoMsg {
     value: Uint8Array;
 }
 export interface MintersAmino {
-    address: string;
+    address?: string;
     allowance?: CoinAmino;
 }
 export interface MintersAminoMsg {

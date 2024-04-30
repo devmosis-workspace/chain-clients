@@ -47,8 +47,8 @@ export interface ParamsAmino {
      * values allowed. For more information see
      * https://docs.cosmos.network/main/modules/auth#concepts
      */
-    minimum_gas_prices: DecCoinAmino[];
-    bypass_min_fee_msg_types: string[];
+    minimum_gas_prices?: DecCoinAmino[];
+    bypass_min_fee_msg_types?: string[];
 }
 export interface ParamsAminoMsg {
     type: "/noble.globalfee.Params";

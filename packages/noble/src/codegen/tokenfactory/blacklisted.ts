@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../binary";
-import { isSet, bytesFromBase64 } from "../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../helpers";
 export interface Blacklisted {
   addressBz: Uint8Array;
 }
@@ -8,7 +8,7 @@ export interface BlacklistedProtoMsg {
   value: Uint8Array;
 }
 export interface BlacklistedAmino {
-  addressBz: Uint8Array;
+  addressBz?: string;
 }
 export interface BlacklistedAminoMsg {
   type: "/noble.tokenfactory.Blacklisted";
@@ -41,13 +41,15 @@ export const Blacklisted = {
     return message;
   },
   fromAmino(object: BlacklistedAmino): Blacklisted {
-    return {
-      addressBz: object.addressBz
-    };
+    const message = createBaseBlacklisted();
+    if (object.addressBz !== undefined && object.addressBz !== null) {
+      message.addressBz = bytesFromBase64(object.addressBz);
+    }
+    return message;
   },
   toAmino(message: Blacklisted): BlacklistedAmino {
     const obj: any = {};
-    obj.addressBz = message.addressBz;
+    obj.addressBz = message.addressBz ? base64FromBytes(message.addressBz) : undefined;
     return obj;
   },
   fromAminoMsg(object: BlacklistedAminoMsg): Blacklisted {

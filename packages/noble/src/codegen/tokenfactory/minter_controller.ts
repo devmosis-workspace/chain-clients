@@ -9,8 +9,8 @@ export interface MinterControllerProtoMsg {
   value: Uint8Array;
 }
 export interface MinterControllerAmino {
-  minter: string;
-  controller: string;
+  minter?: string;
+  controller?: string;
 }
 export interface MinterControllerAminoMsg {
   type: "/noble.tokenfactory.MinterController";
@@ -50,10 +50,14 @@ export const MinterController = {
     return message;
   },
   fromAmino(object: MinterControllerAmino): MinterController {
-    return {
-      minter: object.minter,
-      controller: object.controller
-    };
+    const message = createBaseMinterController();
+    if (object.minter !== undefined && object.minter !== null) {
+      message.minter = object.minter;
+    }
+    if (object.controller !== undefined && object.controller !== null) {
+      message.controller = object.controller;
+    }
+    return message;
   },
   toAmino(message: MinterController): MinterControllerAmino {
     const obj: any = {};

@@ -13,14 +13,14 @@ import { BinaryWriter } from "../binary";
 export interface GenesisState {
     params: Params;
     blacklistedList: Blacklisted[];
-    paused: Paused;
-    masterMinter: MasterMinter;
+    paused?: Paused;
+    masterMinter?: MasterMinter;
     mintersList: Minters[];
-    pauser: Pauser;
-    blacklister: Blacklister;
-    owner: Owner;
+    pauser?: Pauser;
+    blacklister?: Blacklister;
+    owner?: Owner;
     minterControllerList: MinterController[];
-    mintingDenom: MintingDenom;
+    mintingDenom?: MintingDenom;
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/noble.tokenfactory.GenesisState";
@@ -29,14 +29,14 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the tokenfactory module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    blacklistedList: BlacklistedAmino[];
+    blacklistedList?: BlacklistedAmino[];
     paused?: PausedAmino;
     masterMinter?: MasterMinterAmino;
-    mintersList: MintersAmino[];
+    mintersList?: MintersAmino[];
     pauser?: PauserAmino;
     blacklister?: BlacklisterAmino;
     owner?: OwnerAmino;
-    minterControllerList: MinterControllerAmino[];
+    minterControllerList?: MinterControllerAmino[];
     mintingDenom?: MintingDenomAmino;
 }
 export interface GenesisStateAminoMsg {
@@ -47,14 +47,14 @@ export interface GenesisStateAminoMsg {
 export interface GenesisStateSDKType {
     params: ParamsSDKType;
     blacklistedList: BlacklistedSDKType[];
-    paused: PausedSDKType;
-    masterMinter: MasterMinterSDKType;
+    paused?: PausedSDKType;
+    masterMinter?: MasterMinterSDKType;
     mintersList: MintersSDKType[];
-    pauser: PauserSDKType;
-    blacklister: BlacklisterSDKType;
-    owner: OwnerSDKType;
+    pauser?: PauserSDKType;
+    blacklister?: BlacklisterSDKType;
+    owner?: OwnerSDKType;
     minterControllerList: MinterControllerSDKType[];
-    mintingDenom: MintingDenomSDKType;
+    mintingDenom?: MintingDenomSDKType;
 }
 export declare const GenesisState: {
     typeUrl: string;

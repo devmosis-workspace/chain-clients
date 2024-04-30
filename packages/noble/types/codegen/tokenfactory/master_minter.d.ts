@@ -7,7 +7,7 @@ export interface MasterMinterProtoMsg {
     value: Uint8Array;
 }
 export interface MasterMinterAmino {
-    address: string;
+    address?: string;
 }
 export interface MasterMinterAminoMsg {
     type: "/noble.tokenfactory.MasterMinter";

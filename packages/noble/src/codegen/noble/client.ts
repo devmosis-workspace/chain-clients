@@ -1,15 +1,15 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as fiattokenfactoryTxRegistry from "../fiattokenfactory/tx.registry";
+import * as nobleForwardingV1TxRegistry from "./forwarding/v1/tx.registry";
 import * as tokenfactoryTxRegistry from "../tokenfactory/tx.registry";
-import * as fiattokenfactoryTxAmino from "../fiattokenfactory/tx.amino";
+import * as nobleForwardingV1TxAmino from "./forwarding/v1/tx.amino";
 import * as tokenfactoryTxAmino from "../tokenfactory/tx.amino";
 export const nobleAminoConverters = {
-  ...fiattokenfactoryTxAmino.AminoConverter,
+  ...nobleForwardingV1TxAmino.AminoConverter,
   ...tokenfactoryTxAmino.AminoConverter
 };
-export const nobleProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...fiattokenfactoryTxRegistry.registry, ...tokenfactoryTxRegistry.registry];
+export const nobleProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...nobleForwardingV1TxRegistry.registry, ...tokenfactoryTxRegistry.registry];
 export const getSigningNobleClientOptions = ({
   defaultTypes = defaultRegistryTypes
 }: {

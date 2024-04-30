@@ -55,7 +55,7 @@ export interface QueryGetBlacklistedRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetBlacklistedRequestAmino {
-  address: string;
+  address?: string;
 }
 export interface QueryGetBlacklistedRequestAminoMsg {
   type: "/noble.tokenfactory.QueryGetBlacklistedRequest";
@@ -82,7 +82,7 @@ export interface QueryGetBlacklistedResponseSDKType {
   blacklisted: BlacklistedSDKType;
 }
 export interface QueryAllBlacklistedRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllBlacklistedRequestProtoMsg {
   typeUrl: "/noble.tokenfactory.QueryAllBlacklistedRequest";
@@ -96,18 +96,18 @@ export interface QueryAllBlacklistedRequestAminoMsg {
   value: QueryAllBlacklistedRequestAmino;
 }
 export interface QueryAllBlacklistedRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryAllBlacklistedResponse {
   blacklisted: Blacklisted[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllBlacklistedResponseProtoMsg {
   typeUrl: "/noble.tokenfactory.QueryAllBlacklistedResponse";
   value: Uint8Array;
 }
 export interface QueryAllBlacklistedResponseAmino {
-  blacklisted: BlacklistedAmino[];
+  blacklisted?: BlacklistedAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllBlacklistedResponseAminoMsg {
@@ -116,7 +116,7 @@ export interface QueryAllBlacklistedResponseAminoMsg {
 }
 export interface QueryAllBlacklistedResponseSDKType {
   blacklisted: BlacklistedSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryGetPausedRequest {}
 export interface QueryGetPausedRequestProtoMsg {
@@ -182,7 +182,7 @@ export interface QueryGetMintersRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetMintersRequestAmino {
-  address: string;
+  address?: string;
 }
 export interface QueryGetMintersRequestAminoMsg {
   type: "/noble.tokenfactory.QueryGetMintersRequest";
@@ -209,7 +209,7 @@ export interface QueryGetMintersResponseSDKType {
   minters: MintersSDKType;
 }
 export interface QueryAllMintersRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllMintersRequestProtoMsg {
   typeUrl: "/noble.tokenfactory.QueryAllMintersRequest";
@@ -223,18 +223,18 @@ export interface QueryAllMintersRequestAminoMsg {
   value: QueryAllMintersRequestAmino;
 }
 export interface QueryAllMintersRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryAllMintersResponse {
   minters: Minters[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllMintersResponseProtoMsg {
   typeUrl: "/noble.tokenfactory.QueryAllMintersResponse";
   value: Uint8Array;
 }
 export interface QueryAllMintersResponseAmino {
-  minters: MintersAmino[];
+  minters?: MintersAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllMintersResponseAminoMsg {
@@ -243,7 +243,7 @@ export interface QueryAllMintersResponseAminoMsg {
 }
 export interface QueryAllMintersResponseSDKType {
   minters: MintersSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryGetPauserRequest {}
 export interface QueryGetPauserRequestProtoMsg {
@@ -337,7 +337,7 @@ export interface QueryGetMinterControllerRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetMinterControllerRequestAmino {
-  controllerAddress: string;
+  controllerAddress?: string;
 }
 export interface QueryGetMinterControllerRequestAminoMsg {
   type: "/noble.tokenfactory.QueryGetMinterControllerRequest";
@@ -364,7 +364,7 @@ export interface QueryGetMinterControllerResponseSDKType {
   minterController: MinterControllerSDKType;
 }
 export interface QueryAllMinterControllerRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllMinterControllerRequestProtoMsg {
   typeUrl: "/noble.tokenfactory.QueryAllMinterControllerRequest";
@@ -378,18 +378,18 @@ export interface QueryAllMinterControllerRequestAminoMsg {
   value: QueryAllMinterControllerRequestAmino;
 }
 export interface QueryAllMinterControllerRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryAllMinterControllerResponse {
   minterController: MinterController[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllMinterControllerResponseProtoMsg {
   typeUrl: "/noble.tokenfactory.QueryAllMinterControllerResponse";
   value: Uint8Array;
 }
 export interface QueryAllMinterControllerResponseAmino {
-  minterController: MinterControllerAmino[];
+  minterController?: MinterControllerAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAllMinterControllerResponseAminoMsg {
@@ -398,7 +398,7 @@ export interface QueryAllMinterControllerResponseAminoMsg {
 }
 export interface QueryAllMinterControllerResponseSDKType {
   minterController: MinterControllerSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryGetMintingDenomRequest {}
 export interface QueryGetMintingDenomRequestProtoMsg {
@@ -444,7 +444,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -490,9 +491,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -539,9 +542,11 @@ export const QueryGetBlacklistedRequest = {
     return message;
   },
   fromAmino(object: QueryGetBlacklistedRequestAmino): QueryGetBlacklistedRequest {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryGetBlacklistedRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryGetBlacklistedRequest): QueryGetBlacklistedRequestAmino {
     const obj: any = {};
@@ -588,9 +593,11 @@ export const QueryGetBlacklistedResponse = {
     return message;
   },
   fromAmino(object: QueryGetBlacklistedResponseAmino): QueryGetBlacklistedResponse {
-    return {
-      blacklisted: object?.blacklisted ? Blacklisted.fromAmino(object.blacklisted) : undefined
-    };
+    const message = createBaseQueryGetBlacklistedResponse();
+    if (object.blacklisted !== undefined && object.blacklisted !== null) {
+      message.blacklisted = Blacklisted.fromAmino(object.blacklisted);
+    }
+    return message;
   },
   toAmino(message: QueryGetBlacklistedResponse): QueryGetBlacklistedResponseAmino {
     const obj: any = {};
@@ -615,7 +622,7 @@ export const QueryGetBlacklistedResponse = {
 };
 function createBaseQueryAllBlacklistedRequest(): QueryAllBlacklistedRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllBlacklistedRequest = {
@@ -637,9 +644,11 @@ export const QueryAllBlacklistedRequest = {
     return message;
   },
   fromAmino(object: QueryAllBlacklistedRequestAmino): QueryAllBlacklistedRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllBlacklistedRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllBlacklistedRequest): QueryAllBlacklistedRequestAmino {
     const obj: any = {};
@@ -665,7 +674,7 @@ export const QueryAllBlacklistedRequest = {
 function createBaseQueryAllBlacklistedResponse(): QueryAllBlacklistedResponse {
   return {
     blacklisted: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllBlacklistedResponse = {
@@ -692,10 +701,12 @@ export const QueryAllBlacklistedResponse = {
     return message;
   },
   fromAmino(object: QueryAllBlacklistedResponseAmino): QueryAllBlacklistedResponse {
-    return {
-      blacklisted: Array.isArray(object?.blacklisted) ? object.blacklisted.map((e: any) => Blacklisted.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllBlacklistedResponse();
+    message.blacklisted = object.blacklisted?.map(e => Blacklisted.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllBlacklistedResponse): QueryAllBlacklistedResponseAmino {
     const obj: any = {};
@@ -739,7 +750,8 @@ export const QueryGetPausedRequest = {
     return message;
   },
   fromAmino(_: QueryGetPausedRequestAmino): QueryGetPausedRequest {
-    return {};
+    const message = createBaseQueryGetPausedRequest();
+    return message;
   },
   toAmino(_: QueryGetPausedRequest): QueryGetPausedRequestAmino {
     const obj: any = {};
@@ -785,9 +797,11 @@ export const QueryGetPausedResponse = {
     return message;
   },
   fromAmino(object: QueryGetPausedResponseAmino): QueryGetPausedResponse {
-    return {
-      paused: object?.paused ? Paused.fromAmino(object.paused) : undefined
-    };
+    const message = createBaseQueryGetPausedResponse();
+    if (object.paused !== undefined && object.paused !== null) {
+      message.paused = Paused.fromAmino(object.paused);
+    }
+    return message;
   },
   toAmino(message: QueryGetPausedResponse): QueryGetPausedResponseAmino {
     const obj: any = {};
@@ -826,7 +840,8 @@ export const QueryGetMasterMinterRequest = {
     return message;
   },
   fromAmino(_: QueryGetMasterMinterRequestAmino): QueryGetMasterMinterRequest {
-    return {};
+    const message = createBaseQueryGetMasterMinterRequest();
+    return message;
   },
   toAmino(_: QueryGetMasterMinterRequest): QueryGetMasterMinterRequestAmino {
     const obj: any = {};
@@ -872,9 +887,11 @@ export const QueryGetMasterMinterResponse = {
     return message;
   },
   fromAmino(object: QueryGetMasterMinterResponseAmino): QueryGetMasterMinterResponse {
-    return {
-      masterMinter: object?.masterMinter ? MasterMinter.fromAmino(object.masterMinter) : undefined
-    };
+    const message = createBaseQueryGetMasterMinterResponse();
+    if (object.masterMinter !== undefined && object.masterMinter !== null) {
+      message.masterMinter = MasterMinter.fromAmino(object.masterMinter);
+    }
+    return message;
   },
   toAmino(message: QueryGetMasterMinterResponse): QueryGetMasterMinterResponseAmino {
     const obj: any = {};
@@ -921,9 +938,11 @@ export const QueryGetMintersRequest = {
     return message;
   },
   fromAmino(object: QueryGetMintersRequestAmino): QueryGetMintersRequest {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryGetMintersRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryGetMintersRequest): QueryGetMintersRequestAmino {
     const obj: any = {};
@@ -970,9 +989,11 @@ export const QueryGetMintersResponse = {
     return message;
   },
   fromAmino(object: QueryGetMintersResponseAmino): QueryGetMintersResponse {
-    return {
-      minters: object?.minters ? Minters.fromAmino(object.minters) : undefined
-    };
+    const message = createBaseQueryGetMintersResponse();
+    if (object.minters !== undefined && object.minters !== null) {
+      message.minters = Minters.fromAmino(object.minters);
+    }
+    return message;
   },
   toAmino(message: QueryGetMintersResponse): QueryGetMintersResponseAmino {
     const obj: any = {};
@@ -997,7 +1018,7 @@ export const QueryGetMintersResponse = {
 };
 function createBaseQueryAllMintersRequest(): QueryAllMintersRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllMintersRequest = {
@@ -1019,9 +1040,11 @@ export const QueryAllMintersRequest = {
     return message;
   },
   fromAmino(object: QueryAllMintersRequestAmino): QueryAllMintersRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllMintersRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllMintersRequest): QueryAllMintersRequestAmino {
     const obj: any = {};
@@ -1047,7 +1070,7 @@ export const QueryAllMintersRequest = {
 function createBaseQueryAllMintersResponse(): QueryAllMintersResponse {
   return {
     minters: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllMintersResponse = {
@@ -1074,10 +1097,12 @@ export const QueryAllMintersResponse = {
     return message;
   },
   fromAmino(object: QueryAllMintersResponseAmino): QueryAllMintersResponse {
-    return {
-      minters: Array.isArray(object?.minters) ? object.minters.map((e: any) => Minters.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllMintersResponse();
+    message.minters = object.minters?.map(e => Minters.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllMintersResponse): QueryAllMintersResponseAmino {
     const obj: any = {};
@@ -1121,7 +1146,8 @@ export const QueryGetPauserRequest = {
     return message;
   },
   fromAmino(_: QueryGetPauserRequestAmino): QueryGetPauserRequest {
-    return {};
+    const message = createBaseQueryGetPauserRequest();
+    return message;
   },
   toAmino(_: QueryGetPauserRequest): QueryGetPauserRequestAmino {
     const obj: any = {};
@@ -1167,9 +1193,11 @@ export const QueryGetPauserResponse = {
     return message;
   },
   fromAmino(object: QueryGetPauserResponseAmino): QueryGetPauserResponse {
-    return {
-      pauser: object?.pauser ? Pauser.fromAmino(object.pauser) : undefined
-    };
+    const message = createBaseQueryGetPauserResponse();
+    if (object.pauser !== undefined && object.pauser !== null) {
+      message.pauser = Pauser.fromAmino(object.pauser);
+    }
+    return message;
   },
   toAmino(message: QueryGetPauserResponse): QueryGetPauserResponseAmino {
     const obj: any = {};
@@ -1208,7 +1236,8 @@ export const QueryGetBlacklisterRequest = {
     return message;
   },
   fromAmino(_: QueryGetBlacklisterRequestAmino): QueryGetBlacklisterRequest {
-    return {};
+    const message = createBaseQueryGetBlacklisterRequest();
+    return message;
   },
   toAmino(_: QueryGetBlacklisterRequest): QueryGetBlacklisterRequestAmino {
     const obj: any = {};
@@ -1254,9 +1283,11 @@ export const QueryGetBlacklisterResponse = {
     return message;
   },
   fromAmino(object: QueryGetBlacklisterResponseAmino): QueryGetBlacklisterResponse {
-    return {
-      blacklister: object?.blacklister ? Blacklister.fromAmino(object.blacklister) : undefined
-    };
+    const message = createBaseQueryGetBlacklisterResponse();
+    if (object.blacklister !== undefined && object.blacklister !== null) {
+      message.blacklister = Blacklister.fromAmino(object.blacklister);
+    }
+    return message;
   },
   toAmino(message: QueryGetBlacklisterResponse): QueryGetBlacklisterResponseAmino {
     const obj: any = {};
@@ -1295,7 +1326,8 @@ export const QueryGetOwnerRequest = {
     return message;
   },
   fromAmino(_: QueryGetOwnerRequestAmino): QueryGetOwnerRequest {
-    return {};
+    const message = createBaseQueryGetOwnerRequest();
+    return message;
   },
   toAmino(_: QueryGetOwnerRequest): QueryGetOwnerRequestAmino {
     const obj: any = {};
@@ -1341,9 +1373,11 @@ export const QueryGetOwnerResponse = {
     return message;
   },
   fromAmino(object: QueryGetOwnerResponseAmino): QueryGetOwnerResponse {
-    return {
-      owner: object?.owner ? Owner.fromAmino(object.owner) : undefined
-    };
+    const message = createBaseQueryGetOwnerResponse();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = Owner.fromAmino(object.owner);
+    }
+    return message;
   },
   toAmino(message: QueryGetOwnerResponse): QueryGetOwnerResponseAmino {
     const obj: any = {};
@@ -1390,9 +1424,11 @@ export const QueryGetMinterControllerRequest = {
     return message;
   },
   fromAmino(object: QueryGetMinterControllerRequestAmino): QueryGetMinterControllerRequest {
-    return {
-      controllerAddress: object.controllerAddress
-    };
+    const message = createBaseQueryGetMinterControllerRequest();
+    if (object.controllerAddress !== undefined && object.controllerAddress !== null) {
+      message.controllerAddress = object.controllerAddress;
+    }
+    return message;
   },
   toAmino(message: QueryGetMinterControllerRequest): QueryGetMinterControllerRequestAmino {
     const obj: any = {};
@@ -1439,9 +1475,11 @@ export const QueryGetMinterControllerResponse = {
     return message;
   },
   fromAmino(object: QueryGetMinterControllerResponseAmino): QueryGetMinterControllerResponse {
-    return {
-      minterController: object?.minterController ? MinterController.fromAmino(object.minterController) : undefined
-    };
+    const message = createBaseQueryGetMinterControllerResponse();
+    if (object.minterController !== undefined && object.minterController !== null) {
+      message.minterController = MinterController.fromAmino(object.minterController);
+    }
+    return message;
   },
   toAmino(message: QueryGetMinterControllerResponse): QueryGetMinterControllerResponseAmino {
     const obj: any = {};
@@ -1466,7 +1504,7 @@ export const QueryGetMinterControllerResponse = {
 };
 function createBaseQueryAllMinterControllerRequest(): QueryAllMinterControllerRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllMinterControllerRequest = {
@@ -1488,9 +1526,11 @@ export const QueryAllMinterControllerRequest = {
     return message;
   },
   fromAmino(object: QueryAllMinterControllerRequestAmino): QueryAllMinterControllerRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllMinterControllerRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllMinterControllerRequest): QueryAllMinterControllerRequestAmino {
     const obj: any = {};
@@ -1516,7 +1556,7 @@ export const QueryAllMinterControllerRequest = {
 function createBaseQueryAllMinterControllerResponse(): QueryAllMinterControllerResponse {
   return {
     minterController: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllMinterControllerResponse = {
@@ -1543,10 +1583,12 @@ export const QueryAllMinterControllerResponse = {
     return message;
   },
   fromAmino(object: QueryAllMinterControllerResponseAmino): QueryAllMinterControllerResponse {
-    return {
-      minterController: Array.isArray(object?.minterController) ? object.minterController.map((e: any) => MinterController.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllMinterControllerResponse();
+    message.minterController = object.minterController?.map(e => MinterController.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllMinterControllerResponse): QueryAllMinterControllerResponseAmino {
     const obj: any = {};
@@ -1590,7 +1632,8 @@ export const QueryGetMintingDenomRequest = {
     return message;
   },
   fromAmino(_: QueryGetMintingDenomRequestAmino): QueryGetMintingDenomRequest {
-    return {};
+    const message = createBaseQueryGetMintingDenomRequest();
+    return message;
   },
   toAmino(_: QueryGetMintingDenomRequest): QueryGetMintingDenomRequestAmino {
     const obj: any = {};
@@ -1636,9 +1679,11 @@ export const QueryGetMintingDenomResponse = {
     return message;
   },
   fromAmino(object: QueryGetMintingDenomResponseAmino): QueryGetMintingDenomResponse {
-    return {
-      mintingDenom: object?.mintingDenom ? MintingDenom.fromAmino(object.mintingDenom) : undefined
-    };
+    const message = createBaseQueryGetMintingDenomResponse();
+    if (object.mintingDenom !== undefined && object.mintingDenom !== null) {
+      message.mintingDenom = MintingDenom.fromAmino(object.mintingDenom);
+    }
+    return message;
   },
   toAmino(message: QueryGetMintingDenomResponse): QueryGetMintingDenomResponseAmino {
     const obj: any = {};

@@ -8,7 +8,7 @@ export interface MintingDenomProtoMsg {
   value: Uint8Array;
 }
 export interface MintingDenomAmino {
-  denom: string;
+  denom?: string;
 }
 export interface MintingDenomAminoMsg {
   type: "/noble.tokenfactory.MintingDenom";
@@ -41,9 +41,11 @@ export const MintingDenom = {
     return message;
   },
   fromAmino(object: MintingDenomAmino): MintingDenom {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseMintingDenom();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: MintingDenom): MintingDenomAmino {
     const obj: any = {};

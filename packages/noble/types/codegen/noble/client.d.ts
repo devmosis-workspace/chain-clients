@@ -77,80 +77,15 @@ export declare const nobleAminoConverters: {
         toAmino: (message: import("../tokenfactory/tx").MsgRemoveMinterController) => import("../tokenfactory/tx").MsgRemoveMinterControllerAmino;
         fromAmino: (object: import("../tokenfactory/tx").MsgRemoveMinterControllerAmino) => import("../tokenfactory/tx").MsgRemoveMinterController;
     };
-    "/noble.fiattokenfactory.MsgUpdateMasterMinter": {
+    "/noble.forwarding.v1.MsgRegisterAccount": {
         aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgUpdateMasterMinter) => import("../fiattokenfactory/tx").MsgUpdateMasterMinterAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgUpdateMasterMinterAmino) => import("../fiattokenfactory/tx").MsgUpdateMasterMinter;
+        toAmino: (message: import("./forwarding/v1/tx").MsgRegisterAccount) => import("./forwarding/v1/tx").MsgRegisterAccountAmino;
+        fromAmino: (object: import("./forwarding/v1/tx").MsgRegisterAccountAmino) => import("./forwarding/v1/tx").MsgRegisterAccount;
     };
-    "/noble.fiattokenfactory.MsgUpdatePauser": {
+    "/noble.forwarding.v1.MsgClearAccount": {
         aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgUpdatePauser) => import("../fiattokenfactory/tx").MsgUpdatePauserAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgUpdatePauserAmino) => import("../fiattokenfactory/tx").MsgUpdatePauser;
-    };
-    "/noble.fiattokenfactory.MsgUpdateBlacklister": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgUpdateBlacklister) => import("../fiattokenfactory/tx").MsgUpdateBlacklisterAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgUpdateBlacklisterAmino) => import("../fiattokenfactory/tx").MsgUpdateBlacklister;
-    };
-    "/noble.fiattokenfactory.MsgUpdateOwner": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgUpdateOwner) => import("../fiattokenfactory/tx").MsgUpdateOwnerAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgUpdateOwnerAmino) => import("../fiattokenfactory/tx").MsgUpdateOwner;
-    };
-    "/noble.fiattokenfactory.MsgAcceptOwner": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgAcceptOwner) => import("../fiattokenfactory/tx").MsgAcceptOwnerAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgAcceptOwnerAmino) => import("../fiattokenfactory/tx").MsgAcceptOwner;
-    };
-    "/noble.fiattokenfactory.MsgConfigureMinter": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgConfigureMinter) => import("../fiattokenfactory/tx").MsgConfigureMinterAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgConfigureMinterAmino) => import("../fiattokenfactory/tx").MsgConfigureMinter;
-    };
-    "/noble.fiattokenfactory.MsgRemoveMinter": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgRemoveMinter) => import("../fiattokenfactory/tx").MsgRemoveMinterAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgRemoveMinterAmino) => import("../fiattokenfactory/tx").MsgRemoveMinter;
-    };
-    "/noble.fiattokenfactory.MsgMint": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgMint) => import("../fiattokenfactory/tx").MsgMintAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgMintAmino) => import("../fiattokenfactory/tx").MsgMint;
-    };
-    "/noble.fiattokenfactory.MsgBurn": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgBurn) => import("../fiattokenfactory/tx").MsgBurnAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgBurnAmino) => import("../fiattokenfactory/tx").MsgBurn;
-    };
-    "/noble.fiattokenfactory.MsgBlacklist": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgBlacklist) => import("../fiattokenfactory/tx").MsgBlacklistAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgBlacklistAmino) => import("../fiattokenfactory/tx").MsgBlacklist;
-    };
-    "/noble.fiattokenfactory.MsgUnblacklist": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgUnblacklist) => import("../fiattokenfactory/tx").MsgUnblacklistAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgUnblacklistAmino) => import("../fiattokenfactory/tx").MsgUnblacklist;
-    };
-    "/noble.fiattokenfactory.MsgPause": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgPause) => import("../fiattokenfactory/tx").MsgPauseAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgPauseAmino) => import("../fiattokenfactory/tx").MsgPause;
-    };
-    "/noble.fiattokenfactory.MsgUnpause": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgUnpause) => import("../fiattokenfactory/tx").MsgUnpauseAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgUnpauseAmino) => import("../fiattokenfactory/tx").MsgUnpause;
-    };
-    "/noble.fiattokenfactory.MsgConfigureMinterController": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgConfigureMinterController) => import("../fiattokenfactory/tx").MsgConfigureMinterControllerAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgConfigureMinterControllerAmino) => import("../fiattokenfactory/tx").MsgConfigureMinterController;
-    };
-    "/noble.fiattokenfactory.MsgRemoveMinterController": {
-        aminoType: string;
-        toAmino: (message: import("../fiattokenfactory/tx").MsgRemoveMinterController) => import("../fiattokenfactory/tx").MsgRemoveMinterControllerAmino;
-        fromAmino: (object: import("../fiattokenfactory/tx").MsgRemoveMinterControllerAmino) => import("../fiattokenfactory/tx").MsgRemoveMinterController;
+        toAmino: (message: import("./forwarding/v1/tx").MsgClearAccount) => import("./forwarding/v1/tx").MsgClearAccountAmino;
+        fromAmino: (object: import("./forwarding/v1/tx").MsgClearAccountAmino) => import("./forwarding/v1/tx").MsgClearAccount;
     };
 };
 export declare const nobleProtoRegistry: ReadonlyArray<[string, GeneratedType]>;

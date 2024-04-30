@@ -3,7 +3,9 @@ export declare const createRPCMsgClient: ({ rpc }: {
     rpc: Rpc;
 }) => Promise<{
     noble: {
-        fiattokenfactory: import("../fiattokenfactory/tx.rpc.msg").MsgClientImpl;
+        forwarding: {
+            v1: import("./forwarding/v1/tx.rpc.msg").MsgClientImpl;
+        };
         tokenfactory: import("../tokenfactory/tx.rpc.msg").MsgClientImpl;
     };
     cosmos: {

@@ -7,7 +7,7 @@ export interface PausedProtoMsg {
     value: Uint8Array;
 }
 export interface PausedAmino {
-    paused: boolean;
+    paused?: boolean;
 }
 export interface PausedAminoMsg {
     type: "/noble.tokenfactory.Paused";

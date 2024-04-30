@@ -8,7 +8,7 @@ export interface OwnerProtoMsg {
   value: Uint8Array;
 }
 export interface OwnerAmino {
-  address: string;
+  address?: string;
 }
 export interface OwnerAminoMsg {
   type: "/noble.tokenfactory.Owner";
@@ -41,9 +41,11 @@ export const Owner = {
     return message;
   },
   fromAmino(object: OwnerAmino): Owner {
-    return {
-      address: object.address
-    };
+    const message = createBaseOwner();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: Owner): OwnerAmino {
     const obj: any = {};

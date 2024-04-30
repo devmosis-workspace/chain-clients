@@ -9,10 +9,15 @@ export const createLCDClient = async ({
   });
   return {
     noble: {
-      fiattokenfactory: new (await import("../fiattokenfactory/query.lcd")).LCDQueryClient({
+      globalfee: new (await import("../globalfee/query.lcd")).LCDQueryClient({
         requestClient
       }),
-      globalfee: new (await import("../globalfee/query.lcd")).LCDQueryClient({
+      forwarding: {
+        v1: new (await import("./forwarding/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      tariff: new (await import("../tariff/query.lcd")).LCDQueryClient({
         requestClient
       }),
       tokenfactory: new (await import("../tokenfactory/query.lcd")).LCDQueryClient({

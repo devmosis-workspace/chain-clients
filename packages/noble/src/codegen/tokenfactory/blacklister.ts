@@ -8,7 +8,7 @@ export interface BlacklisterProtoMsg {
   value: Uint8Array;
 }
 export interface BlacklisterAmino {
-  address: string;
+  address?: string;
 }
 export interface BlacklisterAminoMsg {
   type: "/noble.tokenfactory.Blacklister";
@@ -41,9 +41,11 @@ export const Blacklister = {
     return message;
   },
   fromAmino(object: BlacklisterAmino): Blacklister {
-    return {
-      address: object.address
-    };
+    const message = createBaseBlacklister();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: Blacklister): BlacklisterAmino {
     const obj: any = {};

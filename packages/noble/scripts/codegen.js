@@ -2,7 +2,7 @@ import { join } from 'path';
 import telescope from '@cosmology/telescope';
 import { rimrafSync as rimraf } from 'rimraf';
 
-const protoDirs = [join(__dirname, '/../noble/proto'), join(__dirname, '/../noble/third_party/proto'), join(__dirname, '/../cometbft/proto'), join(__dirname, '/../cosmos-sdk/proto')];
+const protoDirs = [join(__dirname, '/../noble/proto'), join(__dirname, '/../noble/third_party/proto'), join(__dirname, '/../cometbft/proto'), join(__dirname, '/../cosmos-sdk/proto'), join(__dirname, '/../proto')];
 const outPath = join(__dirname, '../src/codegen');
 rimraf(outPath);
 

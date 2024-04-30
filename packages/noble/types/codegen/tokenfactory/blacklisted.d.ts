@@ -7,7 +7,7 @@ export interface BlacklistedProtoMsg {
     value: Uint8Array;
 }
 export interface BlacklistedAmino {
-    addressBz: Uint8Array;
+    addressBz?: string;
 }
 export interface BlacklistedAminoMsg {
     type: "/noble.tokenfactory.Blacklisted";

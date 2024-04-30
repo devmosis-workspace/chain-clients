@@ -7,7 +7,7 @@ export interface PauserProtoMsg {
     value: Uint8Array;
 }
 export interface PauserAmino {
-    address: string;
+    address?: string;
 }
 export interface PauserAminoMsg {
     type: "/noble.tokenfactory.Pauser";

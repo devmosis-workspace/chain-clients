@@ -7,7 +7,7 @@ export interface BlacklisterProtoMsg {
     value: Uint8Array;
 }
 export interface BlacklisterAmino {
-    address: string;
+    address?: string;
 }
 export interface BlacklisterAminoMsg {
     type: "/noble.tokenfactory.Blacklister";

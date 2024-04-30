@@ -5,7 +5,9 @@ export const createRPCMsgClient = async ({
   rpc: Rpc;
 }) => ({
   noble: {
-    fiattokenfactory: new (await import("../fiattokenfactory/tx.rpc.msg")).MsgClientImpl(rpc),
+    forwarding: {
+      v1: new (await import("./forwarding/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
     tokenfactory: new (await import("../tokenfactory/tx.rpc.msg")).MsgClientImpl(rpc)
   },
   cosmos: {

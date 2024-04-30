@@ -8,7 +8,7 @@ export interface PauserProtoMsg {
   value: Uint8Array;
 }
 export interface PauserAmino {
-  address: string;
+  address?: string;
 }
 export interface PauserAminoMsg {
   type: "/noble.tokenfactory.Pauser";
@@ -41,9 +41,11 @@ export const Pauser = {
     return message;
   },
   fromAmino(object: PauserAmino): Pauser {
-    return {
-      address: object.address
-    };
+    const message = createBasePauser();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: Pauser): PauserAmino {
     const obj: any = {};

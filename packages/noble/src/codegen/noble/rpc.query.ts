@@ -9,8 +9,11 @@ export const createRPCQueryClient = async ({
   const client = new QueryClient(tmClient);
   return {
     noble: {
-      fiattokenfactory: (await import("../fiattokenfactory/query.rpc.Query")).createRpcQueryExtension(client),
       globalfee: (await import("../globalfee/query.rpc.Query")).createRpcQueryExtension(client),
+      forwarding: {
+        v1: (await import("./forwarding/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      tariff: (await import("../tariff/query.rpc.Query")).createRpcQueryExtension(client),
       tokenfactory: (await import("../tokenfactory/query.rpc.Query")).createRpcQueryExtension(client)
     },
     cosmos: {
