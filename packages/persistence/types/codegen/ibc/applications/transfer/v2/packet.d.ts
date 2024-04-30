@@ -13,8 +13,6 @@ export interface FungibleTokenPacketData {
     sender: string;
     /** the recipient address on the destination chain */
     receiver: string;
-    /** optional memo */
-    memo: string;
 }
 export interface FungibleTokenPacketDataProtoMsg {
     typeUrl: "/ibc.applications.transfer.v2.FungibleTokenPacketData";
@@ -27,15 +25,13 @@ export interface FungibleTokenPacketDataProtoMsg {
  */
 export interface FungibleTokenPacketDataAmino {
     /** the token denomination to be transferred */
-    denom: string;
+    denom?: string;
     /** the token amount to be transferred */
-    amount: string;
+    amount?: string;
     /** the sender address */
-    sender: string;
+    sender?: string;
     /** the recipient address on the destination chain */
-    receiver: string;
-    /** optional memo */
-    memo: string;
+    receiver?: string;
 }
 export interface FungibleTokenPacketDataAminoMsg {
     type: "cosmos-sdk/FungibleTokenPacketData";
@@ -51,7 +47,6 @@ export interface FungibleTokenPacketDataSDKType {
     amount: string;
     sender: string;
     receiver: string;
-    memo: string;
 }
 export declare const FungibleTokenPacketData: {
     typeUrl: string;

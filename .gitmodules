@@ -181,9 +181,6 @@
 [submodule "packages/omniflixhub/cosmos-sdk"]
 	path = packages/omniflixhub/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
-[submodule "packages/persistence/cosmos-sdk"]
-	path = packages/persistence/cosmos-sdk
-	url = https://github.com/cosmos/cosmos-sdk
 [submodule "packages/persistence/persistence-sdk"]
 	path = packages/persistence/persistence-sdk
 	url = https://github.com/persistenceOne/persistence-sdk
@@ -276,4 +273,10 @@
 	url = https://github.com/notional-labs/wasmd
 [submodule "packages/omniflixhub/wasmd"]
 	path = packages/omniflixhub/wasmd
+	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/persistence/cosmos-sdk"]
+	path = packages/persistence/cosmos-sdk
+	url = https://github.com/persistenceOne/cosmos-sdk
+[submodule "packages/persistence/wasmd"]
+	path = packages/persistence/wasmd
 	url = https://github.com/CosmWasm/wasmd

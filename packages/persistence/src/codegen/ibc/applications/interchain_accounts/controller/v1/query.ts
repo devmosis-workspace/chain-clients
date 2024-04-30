@@ -1,49 +1,6 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./controller";
 import { BinaryWriter } from "../../../../../binary";
 import { isSet } from "../../../../../helpers";
-/** QueryInterchainAccountRequest is the request type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountRequest {
-  owner: string;
-  connectionId: string;
-}
-export interface QueryInterchainAccountRequestProtoMsg {
-  typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountRequest";
-  value: Uint8Array;
-}
-/** QueryInterchainAccountRequest is the request type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountRequestAmino {
-  owner: string;
-  connection_id: string;
-}
-export interface QueryInterchainAccountRequestAminoMsg {
-  type: "cosmos-sdk/QueryInterchainAccountRequest";
-  value: QueryInterchainAccountRequestAmino;
-}
-/** QueryInterchainAccountRequest is the request type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountRequestSDKType {
-  owner: string;
-  connection_id: string;
-}
-/** QueryInterchainAccountResponse the response type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountResponse {
-  address: string;
-}
-export interface QueryInterchainAccountResponseProtoMsg {
-  typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountResponse";
-  value: Uint8Array;
-}
-/** QueryInterchainAccountResponse the response type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountResponseAmino {
-  address: string;
-}
-export interface QueryInterchainAccountResponseAminoMsg {
-  type: "cosmos-sdk/QueryInterchainAccountResponse";
-  value: QueryInterchainAccountResponseAmino;
-}
-/** QueryInterchainAccountResponse the response type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountResponseSDKType {
-  address: string;
-}
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
@@ -61,7 +18,7 @@ export interface QueryParamsRequestSDKType {}
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
-  params: Params;
+  params?: Params;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryParamsResponse";
@@ -78,126 +35,8 @@ export interface QueryParamsResponseAminoMsg {
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseSDKType {
-  params: ParamsSDKType;
+  params?: ParamsSDKType;
 }
-function createBaseQueryInterchainAccountRequest(): QueryInterchainAccountRequest {
-  return {
-    owner: "",
-    connectionId: ""
-  };
-}
-export const QueryInterchainAccountRequest = {
-  typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountRequest",
-  encode(message: QueryInterchainAccountRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.owner !== "") {
-      writer.uint32(10).string(message.owner);
-    }
-    if (message.connectionId !== "") {
-      writer.uint32(18).string(message.connectionId);
-    }
-    return writer;
-  },
-  fromJSON(object: any): QueryInterchainAccountRequest {
-    return {
-      owner: isSet(object.owner) ? String(object.owner) : "",
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : ""
-    };
-  },
-  fromPartial(object: Partial<QueryInterchainAccountRequest>): QueryInterchainAccountRequest {
-    const message = createBaseQueryInterchainAccountRequest();
-    message.owner = object.owner ?? "";
-    message.connectionId = object.connectionId ?? "";
-    return message;
-  },
-  fromAmino(object: QueryInterchainAccountRequestAmino): QueryInterchainAccountRequest {
-    return {
-      owner: object.owner,
-      connectionId: object.connection_id
-    };
-  },
-  toAmino(message: QueryInterchainAccountRequest): QueryInterchainAccountRequestAmino {
-    const obj: any = {};
-    obj.owner = message.owner;
-    obj.connection_id = message.connectionId;
-    return obj;
-  },
-  fromAminoMsg(object: QueryInterchainAccountRequestAminoMsg): QueryInterchainAccountRequest {
-    return QueryInterchainAccountRequest.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryInterchainAccountRequest): QueryInterchainAccountRequestAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryInterchainAccountRequest",
-      value: QueryInterchainAccountRequest.toAmino(message)
-    };
-  },
-  fromProtoMsg(message: QueryInterchainAccountRequestProtoMsg): QueryInterchainAccountRequest {
-    return QueryInterchainAccountRequest.decode(message.value);
-  },
-  toProto(message: QueryInterchainAccountRequest): Uint8Array {
-    return QueryInterchainAccountRequest.encode(message).finish();
-  },
-  toProtoMsg(message: QueryInterchainAccountRequest): QueryInterchainAccountRequestProtoMsg {
-    return {
-      typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountRequest",
-      value: QueryInterchainAccountRequest.encode(message).finish()
-    };
-  }
-};
-function createBaseQueryInterchainAccountResponse(): QueryInterchainAccountResponse {
-  return {
-    address: ""
-  };
-}
-export const QueryInterchainAccountResponse = {
-  typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountResponse",
-  encode(message: QueryInterchainAccountResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
-    }
-    return writer;
-  },
-  fromJSON(object: any): QueryInterchainAccountResponse {
-    return {
-      address: isSet(object.address) ? String(object.address) : ""
-    };
-  },
-  fromPartial(object: Partial<QueryInterchainAccountResponse>): QueryInterchainAccountResponse {
-    const message = createBaseQueryInterchainAccountResponse();
-    message.address = object.address ?? "";
-    return message;
-  },
-  fromAmino(object: QueryInterchainAccountResponseAmino): QueryInterchainAccountResponse {
-    return {
-      address: object.address
-    };
-  },
-  toAmino(message: QueryInterchainAccountResponse): QueryInterchainAccountResponseAmino {
-    const obj: any = {};
-    obj.address = message.address;
-    return obj;
-  },
-  fromAminoMsg(object: QueryInterchainAccountResponseAminoMsg): QueryInterchainAccountResponse {
-    return QueryInterchainAccountResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryInterchainAccountResponse): QueryInterchainAccountResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryInterchainAccountResponse",
-      value: QueryInterchainAccountResponse.toAmino(message)
-    };
-  },
-  fromProtoMsg(message: QueryInterchainAccountResponseProtoMsg): QueryInterchainAccountResponse {
-    return QueryInterchainAccountResponse.decode(message.value);
-  },
-  toProto(message: QueryInterchainAccountResponse): Uint8Array {
-    return QueryInterchainAccountResponse.encode(message).finish();
-  },
-  toProtoMsg(message: QueryInterchainAccountResponse): QueryInterchainAccountResponseProtoMsg {
-    return {
-      typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountResponse",
-      value: QueryInterchainAccountResponse.encode(message).finish()
-    };
-  }
-};
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -214,7 +53,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -244,7 +84,7 @@ export const QueryParamsRequest = {
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: Params.fromPartial({})
+    params: undefined
   };
 }
 export const QueryParamsResponse = {
@@ -266,9 +106,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};

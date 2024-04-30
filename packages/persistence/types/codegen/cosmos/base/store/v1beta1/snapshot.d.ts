@@ -32,7 +32,7 @@ export interface SnapshotStoreItemProtoMsg {
 }
 /** SnapshotStoreItem contains metadata about a snapshotted store. */
 export interface SnapshotStoreItemAmino {
-    name: string;
+    name?: string;
 }
 export interface SnapshotStoreItemAminoMsg {
     type: "cosmos-sdk/SnapshotStoreItem";
@@ -55,10 +55,10 @@ export interface SnapshotIAVLItemProtoMsg {
 }
 /** SnapshotIAVLItem is an exported IAVL node. */
 export interface SnapshotIAVLItemAmino {
-    key: Uint8Array;
-    value: Uint8Array;
-    version: string;
-    height: number;
+    key?: string;
+    value?: string;
+    version?: string;
+    height?: number;
 }
 export interface SnapshotIAVLItemAminoMsg {
     type: "cosmos-sdk/SnapshotIAVLItem";

@@ -1,11 +1,21 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
 import { Any, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 export interface QueryEvidenceRequest {
-  /** evidence_hash defines the hash of the requested evidence. */
+  /**
+   * evidence_hash defines the hash of the requested evidence.
+   * Deprecated: Use hash, a HEX encoded string, instead.
+   */
+  /** @deprecated */
   evidenceHash: Uint8Array;
+  /**
+   * hash defines the evidence hash of the requested evidence.
+   * 
+   * Since: cosmos-sdk 0.47
+   */
+  hash: string;
 }
 export interface QueryEvidenceRequestProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.QueryEvidenceRequest";
@@ -13,8 +23,18 @@ export interface QueryEvidenceRequestProtoMsg {
 }
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 export interface QueryEvidenceRequestAmino {
-  /** evidence_hash defines the hash of the requested evidence. */
-  evidence_hash: Uint8Array;
+  /**
+   * evidence_hash defines the hash of the requested evidence.
+   * Deprecated: Use hash, a HEX encoded string, instead.
+   */
+  /** @deprecated */
+  evidence_hash?: string;
+  /**
+   * hash defines the evidence hash of the requested evidence.
+   * 
+   * Since: cosmos-sdk 0.47
+   */
+  hash?: string;
 }
 export interface QueryEvidenceRequestAminoMsg {
   type: "cosmos-sdk/QueryEvidenceRequest";
@@ -22,12 +42,14 @@ export interface QueryEvidenceRequestAminoMsg {
 }
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 export interface QueryEvidenceRequestSDKType {
+  /** @deprecated */
   evidence_hash: Uint8Array;
+  hash: string;
 }
 /** QueryEvidenceResponse is the response type for the Query/Evidence RPC method. */
 export interface QueryEvidenceResponse {
   /** evidence returns the requested evidence. */
-  evidence: Any;
+  evidence?: Any;
 }
 export interface QueryEvidenceResponseProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.QueryEvidenceResponse";
@@ -44,7 +66,7 @@ export interface QueryEvidenceResponseAminoMsg {
 }
 /** QueryEvidenceResponse is the response type for the Query/Evidence RPC method. */
 export interface QueryEvidenceResponseSDKType {
-  evidence: AnySDKType;
+  evidence?: AnySDKType;
 }
 /**
  * QueryEvidenceRequest is the request type for the Query/AllEvidence RPC
@@ -52,7 +74,7 @@ export interface QueryEvidenceResponseSDKType {
  */
 export interface QueryAllEvidenceRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAllEvidenceRequestProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.QueryAllEvidenceRequest";
@@ -75,7 +97,7 @@ export interface QueryAllEvidenceRequestAminoMsg {
  * method.
  */
 export interface QueryAllEvidenceRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /**
  * QueryAllEvidenceResponse is the response type for the Query/AllEvidence RPC
@@ -85,7 +107,7 @@ export interface QueryAllEvidenceResponse {
   /** evidence returns all evidences. */
   evidence: Any[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAllEvidenceResponseProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.QueryAllEvidenceResponse";
@@ -97,7 +119,7 @@ export interface QueryAllEvidenceResponseProtoMsg {
  */
 export interface QueryAllEvidenceResponseAmino {
   /** evidence returns all evidences. */
-  evidence: AnyAmino[];
+  evidence?: AnyAmino[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponseAmino;
 }
@@ -111,11 +133,12 @@ export interface QueryAllEvidenceResponseAminoMsg {
  */
 export interface QueryAllEvidenceResponseSDKType {
   evidence: AnySDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 function createBaseQueryEvidenceRequest(): QueryEvidenceRequest {
   return {
-    evidenceHash: new Uint8Array()
+    evidenceHash: new Uint8Array(),
+    hash: ""
   };
 }
 export const QueryEvidenceRequest = {
@@ -124,26 +147,37 @@ export const QueryEvidenceRequest = {
     if (message.evidenceHash.length !== 0) {
       writer.uint32(10).bytes(message.evidenceHash);
     }
+    if (message.hash !== "") {
+      writer.uint32(18).string(message.hash);
+    }
     return writer;
   },
   fromJSON(object: any): QueryEvidenceRequest {
     return {
-      evidenceHash: isSet(object.evidenceHash) ? bytesFromBase64(object.evidenceHash) : new Uint8Array()
+      evidenceHash: isSet(object.evidenceHash) ? bytesFromBase64(object.evidenceHash) : new Uint8Array(),
+      hash: isSet(object.hash) ? String(object.hash) : ""
     };
   },
   fromPartial(object: Partial<QueryEvidenceRequest>): QueryEvidenceRequest {
     const message = createBaseQueryEvidenceRequest();
     message.evidenceHash = object.evidenceHash ?? new Uint8Array();
+    message.hash = object.hash ?? "";
     return message;
   },
   fromAmino(object: QueryEvidenceRequestAmino): QueryEvidenceRequest {
-    return {
-      evidenceHash: object.evidence_hash
-    };
+    const message = createBaseQueryEvidenceRequest();
+    if (object.evidence_hash !== undefined && object.evidence_hash !== null) {
+      message.evidenceHash = bytesFromBase64(object.evidence_hash);
+    }
+    if (object.hash !== undefined && object.hash !== null) {
+      message.hash = object.hash;
+    }
+    return message;
   },
   toAmino(message: QueryEvidenceRequest): QueryEvidenceRequestAmino {
     const obj: any = {};
-    obj.evidence_hash = message.evidenceHash;
+    obj.evidence_hash = message.evidenceHash ? base64FromBytes(message.evidenceHash) : undefined;
+    obj.hash = message.hash;
     return obj;
   },
   fromAminoMsg(object: QueryEvidenceRequestAminoMsg): QueryEvidenceRequest {
@@ -170,7 +204,7 @@ export const QueryEvidenceRequest = {
 };
 function createBaseQueryEvidenceResponse(): QueryEvidenceResponse {
   return {
-    evidence: Any.fromPartial({})
+    evidence: undefined
   };
 }
 export const QueryEvidenceResponse = {
@@ -192,9 +226,11 @@ export const QueryEvidenceResponse = {
     return message;
   },
   fromAmino(object: QueryEvidenceResponseAmino): QueryEvidenceResponse {
-    return {
-      evidence: object?.evidence ? Any.fromAmino(object.evidence) : undefined
-    };
+    const message = createBaseQueryEvidenceResponse();
+    if (object.evidence !== undefined && object.evidence !== null) {
+      message.evidence = Any.fromAmino(object.evidence);
+    }
+    return message;
   },
   toAmino(message: QueryEvidenceResponse): QueryEvidenceResponseAmino {
     const obj: any = {};
@@ -225,7 +261,7 @@ export const QueryEvidenceResponse = {
 };
 function createBaseQueryAllEvidenceRequest(): QueryAllEvidenceRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllEvidenceRequest = {
@@ -247,9 +283,11 @@ export const QueryAllEvidenceRequest = {
     return message;
   },
   fromAmino(object: QueryAllEvidenceRequestAmino): QueryAllEvidenceRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllEvidenceRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllEvidenceRequest): QueryAllEvidenceRequestAmino {
     const obj: any = {};
@@ -281,7 +319,7 @@ export const QueryAllEvidenceRequest = {
 function createBaseQueryAllEvidenceResponse(): QueryAllEvidenceResponse {
   return {
     evidence: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAllEvidenceResponse = {
@@ -308,10 +346,12 @@ export const QueryAllEvidenceResponse = {
     return message;
   },
   fromAmino(object: QueryAllEvidenceResponseAmino): QueryAllEvidenceResponse {
-    return {
-      evidence: Array.isArray(object?.evidence) ? object.evidence.map((e: any) => Any.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAllEvidenceResponse();
+    message.evidence = object.evidence?.map(e => Any.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAllEvidenceResponse): QueryAllEvidenceResponseAmino {
     const obj: any = {};

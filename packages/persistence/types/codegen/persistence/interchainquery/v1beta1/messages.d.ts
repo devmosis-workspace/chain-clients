@@ -5,7 +5,7 @@ export interface MsgSubmitQueryResponse {
     chainId: string;
     queryId: string;
     result: Uint8Array;
-    proofOps: ProofOps;
+    proofOps?: ProofOps;
     height: bigint;
     fromAddress: string;
 }
@@ -15,12 +15,12 @@ export interface MsgSubmitQueryResponseProtoMsg {
 }
 /** MsgSubmitQueryResponse represents a message type to fulfil a query request. */
 export interface MsgSubmitQueryResponseAmino {
-    chain_id: string;
-    query_id: string;
-    result: Uint8Array;
+    chain_id?: string;
+    query_id?: string;
+    result?: string;
     proof_ops?: ProofOpsAmino;
-    height: string;
-    from_address: string;
+    height?: string;
+    from_address?: string;
 }
 export interface MsgSubmitQueryResponseAminoMsg {
     type: "/persistence.interchainquery.v1beta1.MsgSubmitQueryResponse";
@@ -31,7 +31,7 @@ export interface MsgSubmitQueryResponseSDKType {
     chain_id: string;
     query_id: string;
     result: Uint8Array;
-    proof_ops: ProofOpsSDKType;
+    proof_ops?: ProofOpsSDKType;
     height: bigint;
     from_address: string;
 }

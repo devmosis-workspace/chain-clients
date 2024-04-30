@@ -12,7 +12,7 @@ export interface ParamsProtoMsg {
 /** Params holds parameters for the halving module. */
 export interface ParamsAmino {
   /** periodic height at which inflation decreases */
-  blockHeight: string;
+  blockHeight?: string;
 }
 export interface ParamsAminoMsg {
   type: "/persistence.halving.v1beta1.Params";
@@ -46,9 +46,11 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      blockHeight: BigInt(object.blockHeight)
-    };
+    const message = createBaseParams();
+    if (object.blockHeight !== undefined && object.blockHeight !== null) {
+      message.blockHeight = BigInt(object.blockHeight);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

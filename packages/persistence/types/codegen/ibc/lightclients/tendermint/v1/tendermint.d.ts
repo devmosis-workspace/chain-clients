@@ -1,7 +1,7 @@
 import { Duration, DurationAmino, DurationSDKType } from "../../../../google/protobuf/duration";
 import { Height, HeightAmino, HeightSDKType } from "../../../core/client/v1/client";
 import { ProofSpec, ProofSpecAmino, ProofSpecSDKType } from "../../../../confio/proofs";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../../google/protobuf/timestamp";
 import { MerkleRoot, MerkleRootAmino, MerkleRootSDKType } from "../../../core/commitment/v1/commitment";
 import { SignedHeader, SignedHeaderAmino, SignedHeaderSDKType } from "../../../../tendermint/types/types";
 import { ValidatorSet, ValidatorSetAmino, ValidatorSetSDKType } from "../../../../tendermint/types/validator";
@@ -54,7 +54,7 @@ export interface ClientStateProtoMsg {
  * and a possible frozen height.
  */
 export interface ClientStateAmino {
-    chain_id: string;
+    chain_id?: string;
     trust_level?: FractionAmino;
     /**
      * duration of the period since the LastestTimestamp during which the
@@ -70,7 +70,7 @@ export interface ClientStateAmino {
     /** Latest height the client was updated to */
     latest_height?: HeightAmino;
     /** Proof specifications used in verifying counterparty state */
-    proof_specs: ProofSpecAmino[];
+    proof_specs?: ProofSpecAmino[];
     /**
      * Path at which next upgraded client will be committed.
      * Each element corresponds to the key for a single CommitmentProof in the
@@ -80,13 +80,13 @@ export interface ClientStateAmino {
      * the default upgrade module, upgrade_path should be []string{"upgrade",
      * "upgradedIBCState"}`
      */
-    upgrade_path: string[];
+    upgrade_path?: string[];
     /** allow_update_after_expiry is deprecated */
     /** @deprecated */
-    allow_update_after_expiry: boolean;
+    allow_update_after_expiry?: boolean;
     /** allow_update_after_misbehaviour is deprecated */
     /** @deprecated */
-    allow_update_after_misbehaviour: boolean;
+    allow_update_after_misbehaviour?: boolean;
 }
 export interface ClientStateAminoMsg {
     type: "cosmos-sdk/ClientState";
@@ -132,10 +132,10 @@ export interface ConsensusStateAmino {
      * timestamp that corresponds to the block height in which the ConsensusState
      * was stored.
      */
-    timestamp?: TimestampAmino;
+    timestamp?: string;
     /** commitment root (i.e app hash) */
     root?: MerkleRootAmino;
-    next_validators_hash: Uint8Array;
+    next_validators_hash?: string;
 }
 export interface ConsensusStateAminoMsg {
     type: "cosmos-sdk/ConsensusState";
@@ -153,8 +153,8 @@ export interface ConsensusStateSDKType {
  */
 export interface Misbehaviour {
     clientId: string;
-    header1: Header;
-    header2: Header;
+    header1?: Header;
+    header2?: Header;
 }
 export interface MisbehaviourProtoMsg {
     typeUrl: "/ibc.lightclients.tendermint.v1.Misbehaviour";
@@ -165,7 +165,7 @@ export interface MisbehaviourProtoMsg {
  * that implements Misbehaviour interface expected by ICS-02
  */
 export interface MisbehaviourAmino {
-    client_id: string;
+    client_id?: string;
     header_1?: HeaderAmino;
     header_2?: HeaderAmino;
 }
@@ -179,8 +179,8 @@ export interface MisbehaviourAminoMsg {
  */
 export interface MisbehaviourSDKType {
     client_id: string;
-    header_1: HeaderSDKType;
-    header_2: HeaderSDKType;
+    header_1?: HeaderSDKType;
+    header_2?: HeaderSDKType;
 }
 /**
  * Header defines the Tendermint client consensus Header.
@@ -197,10 +197,10 @@ export interface MisbehaviourSDKType {
  * trusted validator set at the TrustedHeight.
  */
 export interface Header {
-    signedHeader: SignedHeader;
-    validatorSet: ValidatorSet;
+    signedHeader?: SignedHeader;
+    validatorSet?: ValidatorSet;
     trustedHeight: Height;
-    trustedValidators: ValidatorSet;
+    trustedValidators?: ValidatorSet;
 }
 export interface HeaderProtoMsg {
     typeUrl: "/ibc.lightclients.tendermint.v1.Header";
@@ -245,10 +245,10 @@ export interface HeaderAminoMsg {
  * trusted validator set at the TrustedHeight.
  */
 export interface HeaderSDKType {
-    signed_header: SignedHeaderSDKType;
-    validator_set: ValidatorSetSDKType;
+    signed_header?: SignedHeaderSDKType;
+    validator_set?: ValidatorSetSDKType;
     trusted_height: HeightSDKType;
-    trusted_validators: ValidatorSetSDKType;
+    trusted_validators?: ValidatorSetSDKType;
 }
 /**
  * Fraction defines the protobuf message type for tmmath.Fraction that only
@@ -267,8 +267,8 @@ export interface FractionProtoMsg {
  * supports positive values.
  */
 export interface FractionAmino {
-    numerator: string;
-    denominator: string;
+    numerator?: string;
+    denominator?: string;
 }
 export interface FractionAminoMsg {
     type: "cosmos-sdk/Fraction";

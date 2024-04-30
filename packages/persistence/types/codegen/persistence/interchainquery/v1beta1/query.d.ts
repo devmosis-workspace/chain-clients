@@ -7,7 +7,7 @@ import { Header, HeaderAmino, HeaderSDKType } from "../../../ibc/lightclients/te
 import { BinaryWriter } from "../../../binary";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryRequestsRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
     chainId: string;
 }
 export interface QueryRequestsRequestProtoMsg {
@@ -17,7 +17,7 @@ export interface QueryRequestsRequestProtoMsg {
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryRequestsRequestAmino {
     pagination?: PageRequestAmino;
-    chain_id: string;
+    chain_id?: string;
 }
 export interface QueryRequestsRequestAminoMsg {
     type: "/persistence.interchainquery.v1beta1.QueryRequestsRequest";
@@ -25,14 +25,14 @@ export interface QueryRequestsRequestAminoMsg {
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryRequestsRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
     chain_id: string;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryRequestsResponse {
     /** params defines the parameters of the module. */
     queries: Query[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryRequestsResponseProtoMsg {
     typeUrl: "/persistence.interchainquery.v1beta1.QueryRequestsResponse";
@@ -41,7 +41,7 @@ export interface QueryRequestsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryRequestsResponseAmino {
     /** params defines the parameters of the module. */
-    queries: QueryAmino[];
+    queries?: QueryAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryRequestsResponseAminoMsg {
@@ -51,18 +51,18 @@ export interface QueryRequestsResponseAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryRequestsResponseSDKType {
     queries: QuerySDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxWithProofResponse {
     /** tx is the queried transaction. */
-    tx: Tx;
+    tx?: Tx;
     /** tx_response is the queried TxResponses. */
-    txResponse: TxResponse;
+    txResponse?: TxResponse;
     /** proof is the tmproto.TxProof for the queried tx */
-    proof: TxProof;
+    proof?: TxProof;
     /** ibc-go header to validate txs */
-    header: Header;
+    header?: Header;
 }
 export interface GetTxWithProofResponseProtoMsg {
     typeUrl: "/persistence.interchainquery.v1beta1.GetTxWithProofResponse";
@@ -85,10 +85,10 @@ export interface GetTxWithProofResponseAminoMsg {
 }
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxWithProofResponseSDKType {
-    tx: TxSDKType;
-    tx_response: TxResponseSDKType;
-    proof: TxProofSDKType;
-    header: HeaderSDKType;
+    tx?: TxSDKType;
+    tx_response?: TxResponseSDKType;
+    proof?: TxProofSDKType;
+    header?: HeaderSDKType;
 }
 export declare const QueryRequestsRequest: {
     typeUrl: string;

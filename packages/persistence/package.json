@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/persistence",
-  "version": "2.0.1-6",
+  "version": "11.10.0",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

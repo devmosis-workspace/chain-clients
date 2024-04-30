@@ -1,48 +1,5 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./controller";
 import { BinaryWriter } from "../../../../../binary";
-/** QueryInterchainAccountRequest is the request type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountRequest {
-    owner: string;
-    connectionId: string;
-}
-export interface QueryInterchainAccountRequestProtoMsg {
-    typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountRequest";
-    value: Uint8Array;
-}
-/** QueryInterchainAccountRequest is the request type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountRequestAmino {
-    owner: string;
-    connection_id: string;
-}
-export interface QueryInterchainAccountRequestAminoMsg {
-    type: "cosmos-sdk/QueryInterchainAccountRequest";
-    value: QueryInterchainAccountRequestAmino;
-}
-/** QueryInterchainAccountRequest is the request type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountRequestSDKType {
-    owner: string;
-    connection_id: string;
-}
-/** QueryInterchainAccountResponse the response type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountResponse {
-    address: string;
-}
-export interface QueryInterchainAccountResponseProtoMsg {
-    typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountResponse";
-    value: Uint8Array;
-}
-/** QueryInterchainAccountResponse the response type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountResponseAmino {
-    address: string;
-}
-export interface QueryInterchainAccountResponseAminoMsg {
-    type: "cosmos-sdk/QueryInterchainAccountResponse";
-    value: QueryInterchainAccountResponseAmino;
-}
-/** QueryInterchainAccountResponse the response type for the Query/InterchainAccount RPC method. */
-export interface QueryInterchainAccountResponseSDKType {
-    address: string;
-}
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
 }
@@ -63,7 +20,7 @@ export interface QueryParamsRequestSDKType {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
     /** params defines the parameters of the module. */
-    params: Params;
+    params?: Params;
 }
 export interface QueryParamsResponseProtoMsg {
     typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryParamsResponse";
@@ -80,34 +37,8 @@ export interface QueryParamsResponseAminoMsg {
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseSDKType {
-    params: ParamsSDKType;
+    params?: ParamsSDKType;
 }
-export declare const QueryInterchainAccountRequest: {
-    typeUrl: string;
-    encode(message: QueryInterchainAccountRequest, writer?: BinaryWriter): BinaryWriter;
-    fromJSON(object: any): QueryInterchainAccountRequest;
-    fromPartial(object: Partial<QueryInterchainAccountRequest>): QueryInterchainAccountRequest;
-    fromAmino(object: QueryInterchainAccountRequestAmino): QueryInterchainAccountRequest;
-    toAmino(message: QueryInterchainAccountRequest): QueryInterchainAccountRequestAmino;
-    fromAminoMsg(object: QueryInterchainAccountRequestAminoMsg): QueryInterchainAccountRequest;
-    toAminoMsg(message: QueryInterchainAccountRequest): QueryInterchainAccountRequestAminoMsg;
-    fromProtoMsg(message: QueryInterchainAccountRequestProtoMsg): QueryInterchainAccountRequest;
-    toProto(message: QueryInterchainAccountRequest): Uint8Array;
-    toProtoMsg(message: QueryInterchainAccountRequest): QueryInterchainAccountRequestProtoMsg;
-};
-export declare const QueryInterchainAccountResponse: {
-    typeUrl: string;
-    encode(message: QueryInterchainAccountResponse, writer?: BinaryWriter): BinaryWriter;
-    fromJSON(object: any): QueryInterchainAccountResponse;
-    fromPartial(object: Partial<QueryInterchainAccountResponse>): QueryInterchainAccountResponse;
-    fromAmino(object: QueryInterchainAccountResponseAmino): QueryInterchainAccountResponse;
-    toAmino(message: QueryInterchainAccountResponse): QueryInterchainAccountResponseAmino;
-    fromAminoMsg(object: QueryInterchainAccountResponseAminoMsg): QueryInterchainAccountResponse;
-    toAminoMsg(message: QueryInterchainAccountResponse): QueryInterchainAccountResponseAminoMsg;
-    fromProtoMsg(message: QueryInterchainAccountResponseProtoMsg): QueryInterchainAccountResponse;
-    toProto(message: QueryInterchainAccountResponse): Uint8Array;
-    toProtoMsg(message: QueryInterchainAccountResponse): QueryInterchainAccountResponseProtoMsg;
-};
 export declare const QueryParamsRequest: {
     typeUrl: string;
     encode(_: QueryParamsRequest, writer?: BinaryWriter): BinaryWriter;

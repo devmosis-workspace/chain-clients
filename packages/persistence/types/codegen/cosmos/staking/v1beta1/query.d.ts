@@ -1,12 +1,13 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
-import { Validator, ValidatorAmino, ValidatorSDKType, DelegationResponse, DelegationResponseAmino, DelegationResponseSDKType, UnbondingDelegation, UnbondingDelegationAmino, UnbondingDelegationSDKType, RedelegationResponse, RedelegationResponseAmino, RedelegationResponseSDKType, HistoricalInfo, HistoricalInfoAmino, HistoricalInfoSDKType, Pool, PoolAmino, PoolSDKType, Params, ParamsAmino, ParamsSDKType } from "./staking";
+import { Validator, ValidatorAmino, ValidatorSDKType, DelegationResponse, DelegationResponseAmino, DelegationResponseSDKType, UnbondingDelegation, UnbondingDelegationAmino, UnbondingDelegationSDKType, RedelegationResponse, RedelegationResponseAmino, RedelegationResponseSDKType, HistoricalInfo, HistoricalInfoAmino, HistoricalInfoSDKType, Pool, PoolAmino, PoolSDKType, Params, ParamsAmino, ParamsSDKType, TokenizeShareRecord, TokenizeShareRecordAmino, TokenizeShareRecordSDKType } from "./staking";
+import { Coin, CoinAmino, CoinSDKType } from "../../base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
 /** QueryValidatorsRequest is request type for Query/Validators RPC method. */
 export interface QueryValidatorsRequest {
     /** status enables to query for validators matching a given status. */
     status: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryValidatorsRequestProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryValidatorsRequest";
@@ -15,7 +16,7 @@ export interface QueryValidatorsRequestProtoMsg {
 /** QueryValidatorsRequest is request type for Query/Validators RPC method. */
 export interface QueryValidatorsRequestAmino {
     /** status enables to query for validators matching a given status. */
-    status: string;
+    status?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -26,14 +27,14 @@ export interface QueryValidatorsRequestAminoMsg {
 /** QueryValidatorsRequest is request type for Query/Validators RPC method. */
 export interface QueryValidatorsRequestSDKType {
     status: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /** QueryValidatorsResponse is response type for the Query/Validators RPC method */
 export interface QueryValidatorsResponse {
     /** validators contains all the queried validators. */
     validators: Validator[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryValidatorsResponseProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryValidatorsResponse";
@@ -53,7 +54,7 @@ export interface QueryValidatorsResponseAminoMsg {
 /** QueryValidatorsResponse is response type for the Query/Validators RPC method */
 export interface QueryValidatorsResponseSDKType {
     validators: ValidatorSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryValidatorRequest is response type for the Query/Validator RPC method */
 export interface QueryValidatorRequest {
@@ -67,7 +68,7 @@ export interface QueryValidatorRequestProtoMsg {
 /** QueryValidatorRequest is response type for the Query/Validator RPC method */
 export interface QueryValidatorRequestAmino {
     /** validator_addr defines the validator address to query for. */
-    validator_addr: string;
+    validator_addr?: string;
 }
 export interface QueryValidatorRequestAminoMsg {
     type: "cosmos-sdk/QueryValidatorRequest";
@@ -79,7 +80,7 @@ export interface QueryValidatorRequestSDKType {
 }
 /** QueryValidatorResponse is response type for the Query/Validator RPC method */
 export interface QueryValidatorResponse {
-    /** validator defines the the validator info. */
+    /** validator defines the validator info. */
     validator: Validator;
 }
 export interface QueryValidatorResponseProtoMsg {
@@ -88,8 +89,8 @@ export interface QueryValidatorResponseProtoMsg {
 }
 /** QueryValidatorResponse is response type for the Query/Validator RPC method */
 export interface QueryValidatorResponseAmino {
-    /** validator defines the the validator info. */
-    validator?: ValidatorAmino;
+    /** validator defines the validator info. */
+    validator: ValidatorAmino;
 }
 export interface QueryValidatorResponseAminoMsg {
     type: "cosmos-sdk/QueryValidatorResponse";
@@ -107,7 +108,7 @@ export interface QueryValidatorDelegationsRequest {
     /** validator_addr defines the validator address to query for. */
     validatorAddr: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryValidatorDelegationsRequestProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryValidatorDelegationsRequest";
@@ -119,7 +120,7 @@ export interface QueryValidatorDelegationsRequestProtoMsg {
  */
 export interface QueryValidatorDelegationsRequestAmino {
     /** validator_addr defines the validator address to query for. */
-    validator_addr: string;
+    validator_addr?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -133,7 +134,7 @@ export interface QueryValidatorDelegationsRequestAminoMsg {
  */
 export interface QueryValidatorDelegationsRequestSDKType {
     validator_addr: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryValidatorDelegationsResponse is response type for the
@@ -142,7 +143,7 @@ export interface QueryValidatorDelegationsRequestSDKType {
 export interface QueryValidatorDelegationsResponse {
     delegationResponses: DelegationResponse[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryValidatorDelegationsResponseProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryValidatorDelegationsResponse";
@@ -167,7 +168,7 @@ export interface QueryValidatorDelegationsResponseAminoMsg {
  */
 export interface QueryValidatorDelegationsResponseSDKType {
     delegation_responses: DelegationResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /**
  * QueryValidatorUnbondingDelegationsRequest is required type for the
@@ -177,7 +178,7 @@ export interface QueryValidatorUnbondingDelegationsRequest {
     /** validator_addr defines the validator address to query for. */
     validatorAddr: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryValidatorUnbondingDelegationsRequestProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsRequest";
@@ -189,7 +190,7 @@ export interface QueryValidatorUnbondingDelegationsRequestProtoMsg {
  */
 export interface QueryValidatorUnbondingDelegationsRequestAmino {
     /** validator_addr defines the validator address to query for. */
-    validator_addr: string;
+    validator_addr?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -203,7 +204,7 @@ export interface QueryValidatorUnbondingDelegationsRequestAminoMsg {
  */
 export interface QueryValidatorUnbondingDelegationsRequestSDKType {
     validator_addr: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryValidatorUnbondingDelegationsResponse is response type for the
@@ -212,7 +213,7 @@ export interface QueryValidatorUnbondingDelegationsRequestSDKType {
 export interface QueryValidatorUnbondingDelegationsResponse {
     unbondingResponses: UnbondingDelegation[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryValidatorUnbondingDelegationsResponseProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsResponse";
@@ -237,7 +238,7 @@ export interface QueryValidatorUnbondingDelegationsResponseAminoMsg {
  */
 export interface QueryValidatorUnbondingDelegationsResponseSDKType {
     unbonding_responses: UnbondingDelegationSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryDelegationRequest is request type for the Query/Delegation RPC method. */
 export interface QueryDelegationRequest {
@@ -253,9 +254,9 @@ export interface QueryDelegationRequestProtoMsg {
 /** QueryDelegationRequest is request type for the Query/Delegation RPC method. */
 export interface QueryDelegationRequestAmino {
     /** delegator_addr defines the delegator address to query for. */
-    delegator_addr: string;
+    delegator_addr?: string;
     /** validator_addr defines the validator address to query for. */
-    validator_addr: string;
+    validator_addr?: string;
 }
 export interface QueryDelegationRequestAminoMsg {
     type: "cosmos-sdk/QueryDelegationRequest";
@@ -269,7 +270,7 @@ export interface QueryDelegationRequestSDKType {
 /** QueryDelegationResponse is response type for the Query/Delegation RPC method. */
 export interface QueryDelegationResponse {
     /** delegation_responses defines the delegation info of a delegation. */
-    delegationResponse: DelegationResponse;
+    delegationResponse?: DelegationResponse;
 }
 export interface QueryDelegationResponseProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryDelegationResponse";
@@ -286,7 +287,7 @@ export interface QueryDelegationResponseAminoMsg {
 }
 /** QueryDelegationResponse is response type for the Query/Delegation RPC method. */
 export interface QueryDelegationResponseSDKType {
-    delegation_response: DelegationResponseSDKType;
+    delegation_response?: DelegationResponseSDKType;
 }
 /**
  * QueryUnbondingDelegationRequest is request type for the
@@ -308,9 +309,9 @@ export interface QueryUnbondingDelegationRequestProtoMsg {
  */
 export interface QueryUnbondingDelegationRequestAmino {
     /** delegator_addr defines the delegator address to query for. */
-    delegator_addr: string;
+    delegator_addr?: string;
     /** validator_addr defines the validator address to query for. */
-    validator_addr: string;
+    validator_addr?: string;
 }
 export interface QueryUnbondingDelegationRequestAminoMsg {
     type: "cosmos-sdk/QueryUnbondingDelegationRequest";
@@ -342,7 +343,7 @@ export interface QueryUnbondingDelegationResponseProtoMsg {
  */
 export interface QueryUnbondingDelegationResponseAmino {
     /** unbond defines the unbonding information of a delegation. */
-    unbond?: UnbondingDelegationAmino;
+    unbond: UnbondingDelegationAmino;
 }
 export interface QueryUnbondingDelegationResponseAminoMsg {
     type: "cosmos-sdk/QueryUnbondingDelegationResponse";
@@ -363,7 +364,7 @@ export interface QueryDelegatorDelegationsRequest {
     /** delegator_addr defines the delegator address to query for. */
     delegatorAddr: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDelegatorDelegationsRequestProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorDelegationsRequest";
@@ -375,7 +376,7 @@ export interface QueryDelegatorDelegationsRequestProtoMsg {
  */
 export interface QueryDelegatorDelegationsRequestAmino {
     /** delegator_addr defines the delegator address to query for. */
-    delegator_addr: string;
+    delegator_addr?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -389,7 +390,7 @@ export interface QueryDelegatorDelegationsRequestAminoMsg {
  */
 export interface QueryDelegatorDelegationsRequestSDKType {
     delegator_addr: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryDelegatorDelegationsResponse is response type for the
@@ -399,7 +400,7 @@ export interface QueryDelegatorDelegationsResponse {
     /** delegation_responses defines all the delegations' info of a delegator. */
     delegationResponses: DelegationResponse[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDelegatorDelegationsResponseProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorDelegationsResponse";
@@ -425,7 +426,7 @@ export interface QueryDelegatorDelegationsResponseAminoMsg {
  */
 export interface QueryDelegatorDelegationsResponseSDKType {
     delegation_responses: DelegationResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /**
  * QueryDelegatorUnbondingDelegationsRequest is request type for the
@@ -435,7 +436,7 @@ export interface QueryDelegatorUnbondingDelegationsRequest {
     /** delegator_addr defines the delegator address to query for. */
     delegatorAddr: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDelegatorUnbondingDelegationsRequestProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsRequest";
@@ -447,7 +448,7 @@ export interface QueryDelegatorUnbondingDelegationsRequestProtoMsg {
  */
 export interface QueryDelegatorUnbondingDelegationsRequestAmino {
     /** delegator_addr defines the delegator address to query for. */
-    delegator_addr: string;
+    delegator_addr?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -461,7 +462,7 @@ export interface QueryDelegatorUnbondingDelegationsRequestAminoMsg {
  */
 export interface QueryDelegatorUnbondingDelegationsRequestSDKType {
     delegator_addr: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryUnbondingDelegatorDelegationsResponse is response type for the
@@ -470,7 +471,7 @@ export interface QueryDelegatorUnbondingDelegationsRequestSDKType {
 export interface QueryDelegatorUnbondingDelegationsResponse {
     unbondingResponses: UnbondingDelegation[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDelegatorUnbondingDelegationsResponseProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsResponse";
@@ -495,7 +496,7 @@ export interface QueryDelegatorUnbondingDelegationsResponseAminoMsg {
  */
 export interface QueryDelegatorUnbondingDelegationsResponseSDKType {
     unbonding_responses: UnbondingDelegationSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /**
  * QueryRedelegationsRequest is request type for the Query/Redelegations RPC
@@ -509,7 +510,7 @@ export interface QueryRedelegationsRequest {
     /** dst_validator_addr defines the validator address to redelegate to. */
     dstValidatorAddr: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryRedelegationsRequestProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryRedelegationsRequest";
@@ -521,11 +522,11 @@ export interface QueryRedelegationsRequestProtoMsg {
  */
 export interface QueryRedelegationsRequestAmino {
     /** delegator_addr defines the delegator address to query for. */
-    delegator_addr: string;
+    delegator_addr?: string;
     /** src_validator_addr defines the validator address to redelegate from. */
-    src_validator_addr: string;
+    src_validator_addr?: string;
     /** dst_validator_addr defines the validator address to redelegate to. */
-    dst_validator_addr: string;
+    dst_validator_addr?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -541,7 +542,7 @@ export interface QueryRedelegationsRequestSDKType {
     delegator_addr: string;
     src_validator_addr: string;
     dst_validator_addr: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryRedelegationsResponse is response type for the Query/Redelegations RPC
@@ -550,7 +551,7 @@ export interface QueryRedelegationsRequestSDKType {
 export interface QueryRedelegationsResponse {
     redelegationResponses: RedelegationResponse[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryRedelegationsResponseProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryRedelegationsResponse";
@@ -575,7 +576,7 @@ export interface QueryRedelegationsResponseAminoMsg {
  */
 export interface QueryRedelegationsResponseSDKType {
     redelegation_responses: RedelegationResponseSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /**
  * QueryDelegatorValidatorsRequest is request type for the
@@ -585,7 +586,7 @@ export interface QueryDelegatorValidatorsRequest {
     /** delegator_addr defines the delegator address to query for. */
     delegatorAddr: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDelegatorValidatorsRequestProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorsRequest";
@@ -597,7 +598,7 @@ export interface QueryDelegatorValidatorsRequestProtoMsg {
  */
 export interface QueryDelegatorValidatorsRequestAmino {
     /** delegator_addr defines the delegator address to query for. */
-    delegator_addr: string;
+    delegator_addr?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -611,17 +612,17 @@ export interface QueryDelegatorValidatorsRequestAminoMsg {
  */
 export interface QueryDelegatorValidatorsRequestSDKType {
     delegator_addr: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryDelegatorValidatorsResponse is response type for the
  * Query/DelegatorValidators RPC method.
  */
 export interface QueryDelegatorValidatorsResponse {
-    /** validators defines the the validators' info of a delegator. */
+    /** validators defines the validators' info of a delegator. */
     validators: Validator[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDelegatorValidatorsResponseProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorsResponse";
@@ -632,7 +633,7 @@ export interface QueryDelegatorValidatorsResponseProtoMsg {
  * Query/DelegatorValidators RPC method.
  */
 export interface QueryDelegatorValidatorsResponseAmino {
-    /** validators defines the the validators' info of a delegator. */
+    /** validators defines the validators' info of a delegator. */
     validators: ValidatorAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
@@ -647,7 +648,7 @@ export interface QueryDelegatorValidatorsResponseAminoMsg {
  */
 export interface QueryDelegatorValidatorsResponseSDKType {
     validators: ValidatorSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /**
  * QueryDelegatorValidatorRequest is request type for the
@@ -669,9 +670,9 @@ export interface QueryDelegatorValidatorRequestProtoMsg {
  */
 export interface QueryDelegatorValidatorRequestAmino {
     /** delegator_addr defines the delegator address to query for. */
-    delegator_addr: string;
+    delegator_addr?: string;
     /** validator_addr defines the validator address to query for. */
-    validator_addr: string;
+    validator_addr?: string;
 }
 export interface QueryDelegatorValidatorRequestAminoMsg {
     type: "cosmos-sdk/QueryDelegatorValidatorRequest";
@@ -690,7 +691,7 @@ export interface QueryDelegatorValidatorRequestSDKType {
  * Query/DelegatorValidator RPC method.
  */
 export interface QueryDelegatorValidatorResponse {
-    /** validator defines the the validator info. */
+    /** validator defines the validator info. */
     validator: Validator;
 }
 export interface QueryDelegatorValidatorResponseProtoMsg {
@@ -702,8 +703,8 @@ export interface QueryDelegatorValidatorResponseProtoMsg {
  * Query/DelegatorValidator RPC method.
  */
 export interface QueryDelegatorValidatorResponseAmino {
-    /** validator defines the the validator info. */
-    validator?: ValidatorAmino;
+    /** validator defines the validator info. */
+    validator: ValidatorAmino;
 }
 export interface QueryDelegatorValidatorResponseAminoMsg {
     type: "cosmos-sdk/QueryDelegatorValidatorResponse";
@@ -734,7 +735,7 @@ export interface QueryHistoricalInfoRequestProtoMsg {
  */
 export interface QueryHistoricalInfoRequestAmino {
     /** height defines at which height to query the historical info. */
-    height: string;
+    height?: string;
 }
 export interface QueryHistoricalInfoRequestAminoMsg {
     type: "cosmos-sdk/QueryHistoricalInfoRequest";
@@ -753,7 +754,7 @@ export interface QueryHistoricalInfoRequestSDKType {
  */
 export interface QueryHistoricalInfoResponse {
     /** hist defines the historical info at the given height. */
-    hist: HistoricalInfo;
+    hist?: HistoricalInfo;
 }
 export interface QueryHistoricalInfoResponseProtoMsg {
     typeUrl: "/cosmos.staking.v1beta1.QueryHistoricalInfoResponse";
@@ -776,7 +777,7 @@ export interface QueryHistoricalInfoResponseAminoMsg {
  * method.
  */
 export interface QueryHistoricalInfoResponseSDKType {
-    hist: HistoricalInfoSDKType;
+    hist?: HistoricalInfoSDKType;
 }
 /** QueryPoolRequest is request type for the Query/Pool RPC method. */
 export interface QueryPoolRequest {
@@ -807,7 +808,7 @@ export interface QueryPoolResponseProtoMsg {
 /** QueryPoolResponse is response type for the Query/Pool RPC method. */
 export interface QueryPoolResponseAmino {
     /** pool defines the pool info. */
-    pool?: PoolAmino;
+    pool: PoolAmino;
 }
 export interface QueryPoolResponseAminoMsg {
     type: "cosmos-sdk/QueryPoolResponse";
@@ -846,7 +847,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
     /** params holds all the parameters of this module. */
-    params?: ParamsAmino;
+    params: ParamsAmino;
 }
 export interface QueryParamsResponseAminoMsg {
     type: "cosmos-sdk/QueryParamsResponse";
@@ -855,6 +856,561 @@ export interface QueryParamsResponseAminoMsg {
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponseSDKType {
     params: ParamsSDKType;
+}
+/**
+ * QueryTokenizeShareRecordByIdRequest is request type for the
+ * Query/QueryTokenizeShareRecordById RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByIdRequest {
+    id: bigint;
+}
+export interface QueryTokenizeShareRecordByIdRequestProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTokenizeShareRecordByIdRequest";
+    value: Uint8Array;
+}
+/**
+ * QueryTokenizeShareRecordByIdRequest is request type for the
+ * Query/QueryTokenizeShareRecordById RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByIdRequestAmino {
+    id?: string;
+}
+export interface QueryTokenizeShareRecordByIdRequestAminoMsg {
+    type: "cosmos-sdk/QueryTokenizeShareRecordByIdRequest";
+    value: QueryTokenizeShareRecordByIdRequestAmino;
+}
+/**
+ * QueryTokenizeShareRecordByIdRequest is request type for the
+ * Query/QueryTokenizeShareRecordById RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByIdRequestSDKType {
+    id: bigint;
+}
+/**
+ * QueryTokenizeShareRecordByIdRequest is response type for the
+ * Query/QueryTokenizeShareRecordById RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByIdResponse {
+    record: TokenizeShareRecord;
+}
+export interface QueryTokenizeShareRecordByIdResponseProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTokenizeShareRecordByIdResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryTokenizeShareRecordByIdRequest is response type for the
+ * Query/QueryTokenizeShareRecordById RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByIdResponseAmino {
+    record?: TokenizeShareRecordAmino;
+}
+export interface QueryTokenizeShareRecordByIdResponseAminoMsg {
+    type: "cosmos-sdk/QueryTokenizeShareRecordByIdResponse";
+    value: QueryTokenizeShareRecordByIdResponseAmino;
+}
+/**
+ * QueryTokenizeShareRecordByIdRequest is response type for the
+ * Query/QueryTokenizeShareRecordById RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByIdResponseSDKType {
+    record: TokenizeShareRecordSDKType;
+}
+/**
+ * QueryTokenizeShareRecordByDenomRequest is request type for the
+ * Query/QueryTokenizeShareRecordByDenom RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByDenomRequest {
+    denom: string;
+}
+export interface QueryTokenizeShareRecordByDenomRequestProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTokenizeShareRecordByDenomRequest";
+    value: Uint8Array;
+}
+/**
+ * QueryTokenizeShareRecordByDenomRequest is request type for the
+ * Query/QueryTokenizeShareRecordByDenom RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByDenomRequestAmino {
+    denom?: string;
+}
+export interface QueryTokenizeShareRecordByDenomRequestAminoMsg {
+    type: "cosmos-sdk/QueryTokenizeShareRecordByDenomRequest";
+    value: QueryTokenizeShareRecordByDenomRequestAmino;
+}
+/**
+ * QueryTokenizeShareRecordByDenomRequest is request type for the
+ * Query/QueryTokenizeShareRecordByDenom RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByDenomRequestSDKType {
+    denom: string;
+}
+/**
+ * QueryTokenizeShareRecordByDenomResponse is response type for the
+ * Query/QueryTokenizeShareRecordByDenom RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByDenomResponse {
+    record: TokenizeShareRecord;
+}
+export interface QueryTokenizeShareRecordByDenomResponseProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTokenizeShareRecordByDenomResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryTokenizeShareRecordByDenomResponse is response type for the
+ * Query/QueryTokenizeShareRecordByDenom RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByDenomResponseAmino {
+    record?: TokenizeShareRecordAmino;
+}
+export interface QueryTokenizeShareRecordByDenomResponseAminoMsg {
+    type: "cosmos-sdk/QueryTokenizeShareRecordByDenomResponse";
+    value: QueryTokenizeShareRecordByDenomResponseAmino;
+}
+/**
+ * QueryTokenizeShareRecordByDenomResponse is response type for the
+ * Query/QueryTokenizeShareRecordByDenom RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordByDenomResponseSDKType {
+    record: TokenizeShareRecordSDKType;
+}
+/**
+ * QueryTokenizeShareRecordsOwnedRequest is request type for the
+ * Query/QueryTokenizeShareRecordsOwned RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordsOwnedRequest {
+    owner: string;
+}
+export interface QueryTokenizeShareRecordsOwnedRequestProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTokenizeShareRecordsOwnedRequest";
+    value: Uint8Array;
+}
+/**
+ * QueryTokenizeShareRecordsOwnedRequest is request type for the
+ * Query/QueryTokenizeShareRecordsOwned RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordsOwnedRequestAmino {
+    owner?: string;
+}
+export interface QueryTokenizeShareRecordsOwnedRequestAminoMsg {
+    type: "cosmos-sdk/QueryTokenizeShareRecordsOwnedRequest";
+    value: QueryTokenizeShareRecordsOwnedRequestAmino;
+}
+/**
+ * QueryTokenizeShareRecordsOwnedRequest is request type for the
+ * Query/QueryTokenizeShareRecordsOwned RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordsOwnedRequestSDKType {
+    owner: string;
+}
+/**
+ * QueryTokenizeShareRecordsOwnedResponse is response type for the
+ * Query/QueryTokenizeShareRecordsOwned RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordsOwnedResponse {
+    records: TokenizeShareRecord[];
+}
+export interface QueryTokenizeShareRecordsOwnedResponseProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTokenizeShareRecordsOwnedResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryTokenizeShareRecordsOwnedResponse is response type for the
+ * Query/QueryTokenizeShareRecordsOwned RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordsOwnedResponseAmino {
+    records?: TokenizeShareRecordAmino[];
+}
+export interface QueryTokenizeShareRecordsOwnedResponseAminoMsg {
+    type: "cosmos-sdk/QueryTokenizeShareRecordsOwnedResponse";
+    value: QueryTokenizeShareRecordsOwnedResponseAmino;
+}
+/**
+ * QueryTokenizeShareRecordsOwnedResponse is response type for the
+ * Query/QueryTokenizeShareRecordsOwned RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareRecordsOwnedResponseSDKType {
+    records: TokenizeShareRecordSDKType[];
+}
+/**
+ * QueryAllTokenizeShareRecordsRequest is request type for the
+ * Query/QueryAllTokenizeShareRecords RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryAllTokenizeShareRecordsRequest {
+    /** pagination defines an optional pagination for the request. */
+    pagination?: PageRequest;
+}
+export interface QueryAllTokenizeShareRecordsRequestProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryAllTokenizeShareRecordsRequest";
+    value: Uint8Array;
+}
+/**
+ * QueryAllTokenizeShareRecordsRequest is request type for the
+ * Query/QueryAllTokenizeShareRecords RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryAllTokenizeShareRecordsRequestAmino {
+    /** pagination defines an optional pagination for the request. */
+    pagination?: PageRequestAmino;
+}
+export interface QueryAllTokenizeShareRecordsRequestAminoMsg {
+    type: "cosmos-sdk/QueryAllTokenizeShareRecordsRequest";
+    value: QueryAllTokenizeShareRecordsRequestAmino;
+}
+/**
+ * QueryAllTokenizeShareRecordsRequest is request type for the
+ * Query/QueryAllTokenizeShareRecords RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryAllTokenizeShareRecordsRequestSDKType {
+    pagination?: PageRequestSDKType;
+}
+/**
+ * QueryAllTokenizeShareRecordsResponse is response type for the
+ * Query/QueryAllTokenizeShareRecords RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryAllTokenizeShareRecordsResponse {
+    records: TokenizeShareRecord[];
+    /** pagination defines the pagination in the response. */
+    pagination?: PageResponse;
+}
+export interface QueryAllTokenizeShareRecordsResponseProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryAllTokenizeShareRecordsResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryAllTokenizeShareRecordsResponse is response type for the
+ * Query/QueryAllTokenizeShareRecords RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryAllTokenizeShareRecordsResponseAmino {
+    records?: TokenizeShareRecordAmino[];
+    /** pagination defines the pagination in the response. */
+    pagination?: PageResponseAmino;
+}
+export interface QueryAllTokenizeShareRecordsResponseAminoMsg {
+    type: "cosmos-sdk/QueryAllTokenizeShareRecordsResponse";
+    value: QueryAllTokenizeShareRecordsResponseAmino;
+}
+/**
+ * QueryAllTokenizeShareRecordsResponse is response type for the
+ * Query/QueryAllTokenizeShareRecords RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryAllTokenizeShareRecordsResponseSDKType {
+    records: TokenizeShareRecordSDKType[];
+    pagination?: PageResponseSDKType;
+}
+/**
+ * QueryLastTokenizeShareRecordIdRequest
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryLastTokenizeShareRecordIdRequest {
+}
+export interface QueryLastTokenizeShareRecordIdRequestProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryLastTokenizeShareRecordIdRequest";
+    value: Uint8Array;
+}
+/**
+ * QueryLastTokenizeShareRecordIdRequest
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryLastTokenizeShareRecordIdRequestAmino {
+}
+export interface QueryLastTokenizeShareRecordIdRequestAminoMsg {
+    type: "cosmos-sdk/QueryLastTokenizeShareRecordIdRequest";
+    value: QueryLastTokenizeShareRecordIdRequestAmino;
+}
+/**
+ * QueryLastTokenizeShareRecordIdRequest
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryLastTokenizeShareRecordIdRequestSDKType {
+}
+/**
+ * QueryLastTokenizeShareRecordIdResponse
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryLastTokenizeShareRecordIdResponse {
+    id: bigint;
+}
+export interface QueryLastTokenizeShareRecordIdResponseProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryLastTokenizeShareRecordIdResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryLastTokenizeShareRecordIdResponse
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryLastTokenizeShareRecordIdResponseAmino {
+    id?: string;
+}
+export interface QueryLastTokenizeShareRecordIdResponseAminoMsg {
+    type: "cosmos-sdk/QueryLastTokenizeShareRecordIdResponse";
+    value: QueryLastTokenizeShareRecordIdResponseAmino;
+}
+/**
+ * QueryLastTokenizeShareRecordIdResponse
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryLastTokenizeShareRecordIdResponseSDKType {
+    id: bigint;
+}
+/**
+ * QueryTotalTokenizeSharedAssetsRequest is request type for the
+ * Query/QueryTotalTokenizeSharedAssets RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalTokenizeSharedAssetsRequest {
+}
+export interface QueryTotalTokenizeSharedAssetsRequestProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTotalTokenizeSharedAssetsRequest";
+    value: Uint8Array;
+}
+/**
+ * QueryTotalTokenizeSharedAssetsRequest is request type for the
+ * Query/QueryTotalTokenizeSharedAssets RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalTokenizeSharedAssetsRequestAmino {
+}
+export interface QueryTotalTokenizeSharedAssetsRequestAminoMsg {
+    type: "cosmos-sdk/QueryTotalTokenizeSharedAssetsRequest";
+    value: QueryTotalTokenizeSharedAssetsRequestAmino;
+}
+/**
+ * QueryTotalTokenizeSharedAssetsRequest is request type for the
+ * Query/QueryTotalTokenizeSharedAssets RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalTokenizeSharedAssetsRequestSDKType {
+}
+/**
+ * QueryTotalTokenizeSharedAssetsResponse is response type for the
+ * Query/QueryTotalTokenizeSharedAssets RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalTokenizeSharedAssetsResponse {
+    value: Coin;
+}
+export interface QueryTotalTokenizeSharedAssetsResponseProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTotalTokenizeSharedAssetsResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryTotalTokenizeSharedAssetsResponse is response type for the
+ * Query/QueryTotalTokenizeSharedAssets RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalTokenizeSharedAssetsResponseAmino {
+    value?: CoinAmino;
+}
+export interface QueryTotalTokenizeSharedAssetsResponseAminoMsg {
+    type: "cosmos-sdk/QueryTotalTokenizeSharedAssetsResponse";
+    value: QueryTotalTokenizeSharedAssetsResponseAmino;
+}
+/**
+ * QueryTotalTokenizeSharedAssetsResponse is response type for the
+ * Query/QueryTotalTokenizeSharedAssets RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalTokenizeSharedAssetsResponseSDKType {
+    value: CoinSDKType;
+}
+/**
+ * QueryQueryTotalLiquidStakedRequest is request type for the
+ * Query/QueryQueryTotalLiquidStaked RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalLiquidStaked {
+}
+export interface QueryTotalLiquidStakedProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTotalLiquidStaked";
+    value: Uint8Array;
+}
+/**
+ * QueryQueryTotalLiquidStakedRequest is request type for the
+ * Query/QueryQueryTotalLiquidStaked RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalLiquidStakedAmino {
+}
+export interface QueryTotalLiquidStakedAminoMsg {
+    type: "cosmos-sdk/QueryTotalLiquidStaked";
+    value: QueryTotalLiquidStakedAmino;
+}
+/**
+ * QueryQueryTotalLiquidStakedRequest is request type for the
+ * Query/QueryQueryTotalLiquidStaked RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalLiquidStakedSDKType {
+}
+/**
+ * QueryQueryTotalLiquidStakedResponse is response type for the
+ * Query/QueryQueryTotalLiquidStaked RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalLiquidStakedResponse {
+    tokens: string;
+}
+export interface QueryTotalLiquidStakedResponseProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTotalLiquidStakedResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryQueryTotalLiquidStakedResponse is response type for the
+ * Query/QueryQueryTotalLiquidStaked RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalLiquidStakedResponseAmino {
+    tokens?: string;
+}
+export interface QueryTotalLiquidStakedResponseAminoMsg {
+    type: "cosmos-sdk/QueryTotalLiquidStakedResponse";
+    value: QueryTotalLiquidStakedResponseAmino;
+}
+/**
+ * QueryQueryTotalLiquidStakedResponse is response type for the
+ * Query/QueryQueryTotalLiquidStaked RPC method.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTotalLiquidStakedResponseSDKType {
+    tokens: string;
+}
+/**
+ * QueryTokenizeShareLockInfo queries the tokenize share lock information
+ * associated with given account.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareLockInfo {
+    address: string;
+}
+export interface QueryTokenizeShareLockInfoProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTokenizeShareLockInfo";
+    value: Uint8Array;
+}
+/**
+ * QueryTokenizeShareLockInfo queries the tokenize share lock information
+ * associated with given account.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareLockInfoAmino {
+    address?: string;
+}
+export interface QueryTokenizeShareLockInfoAminoMsg {
+    type: "cosmos-sdk/QueryTokenizeShareLockInfo";
+    value: QueryTokenizeShareLockInfoAmino;
+}
+/**
+ * QueryTokenizeShareLockInfo queries the tokenize share lock information
+ * associated with given account.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareLockInfoSDKType {
+    address: string;
+}
+/**
+ * QueryTokenizeShareLockInfoResponse is the response from the
+ * QueryTokenizeShareLockInfo query.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareLockInfoResponse {
+    status: string;
+    expirationTime: string;
+}
+export interface QueryTokenizeShareLockInfoResponseProtoMsg {
+    typeUrl: "/cosmos.staking.v1beta1.QueryTokenizeShareLockInfoResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryTokenizeShareLockInfoResponse is the response from the
+ * QueryTokenizeShareLockInfo query.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareLockInfoResponseAmino {
+    status?: string;
+    expiration_time?: string;
+}
+export interface QueryTokenizeShareLockInfoResponseAminoMsg {
+    type: "cosmos-sdk/QueryTokenizeShareLockInfoResponse";
+    value: QueryTokenizeShareLockInfoResponseAmino;
+}
+/**
+ * QueryTokenizeShareLockInfoResponse is the response from the
+ * QueryTokenizeShareLockInfo query.
+ *
+ * Since: cosmos-sdk 0.47-lsm
+ */
+export interface QueryTokenizeShareLockInfoResponseSDKType {
+    status: string;
+    expiration_time: string;
 }
 export declare const QueryValidatorsRequest: {
     typeUrl: string;
@@ -1219,4 +1775,212 @@ export declare const QueryParamsResponse: {
     fromProtoMsg(message: QueryParamsResponseProtoMsg): QueryParamsResponse;
     toProto(message: QueryParamsResponse): Uint8Array;
     toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg;
+};
+export declare const QueryTokenizeShareRecordByIdRequest: {
+    typeUrl: string;
+    encode(message: QueryTokenizeShareRecordByIdRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTokenizeShareRecordByIdRequest;
+    fromPartial(object: Partial<QueryTokenizeShareRecordByIdRequest>): QueryTokenizeShareRecordByIdRequest;
+    fromAmino(object: QueryTokenizeShareRecordByIdRequestAmino): QueryTokenizeShareRecordByIdRequest;
+    toAmino(message: QueryTokenizeShareRecordByIdRequest): QueryTokenizeShareRecordByIdRequestAmino;
+    fromAminoMsg(object: QueryTokenizeShareRecordByIdRequestAminoMsg): QueryTokenizeShareRecordByIdRequest;
+    toAminoMsg(message: QueryTokenizeShareRecordByIdRequest): QueryTokenizeShareRecordByIdRequestAminoMsg;
+    fromProtoMsg(message: QueryTokenizeShareRecordByIdRequestProtoMsg): QueryTokenizeShareRecordByIdRequest;
+    toProto(message: QueryTokenizeShareRecordByIdRequest): Uint8Array;
+    toProtoMsg(message: QueryTokenizeShareRecordByIdRequest): QueryTokenizeShareRecordByIdRequestProtoMsg;
+};
+export declare const QueryTokenizeShareRecordByIdResponse: {
+    typeUrl: string;
+    encode(message: QueryTokenizeShareRecordByIdResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTokenizeShareRecordByIdResponse;
+    fromPartial(object: Partial<QueryTokenizeShareRecordByIdResponse>): QueryTokenizeShareRecordByIdResponse;
+    fromAmino(object: QueryTokenizeShareRecordByIdResponseAmino): QueryTokenizeShareRecordByIdResponse;
+    toAmino(message: QueryTokenizeShareRecordByIdResponse): QueryTokenizeShareRecordByIdResponseAmino;
+    fromAminoMsg(object: QueryTokenizeShareRecordByIdResponseAminoMsg): QueryTokenizeShareRecordByIdResponse;
+    toAminoMsg(message: QueryTokenizeShareRecordByIdResponse): QueryTokenizeShareRecordByIdResponseAminoMsg;
+    fromProtoMsg(message: QueryTokenizeShareRecordByIdResponseProtoMsg): QueryTokenizeShareRecordByIdResponse;
+    toProto(message: QueryTokenizeShareRecordByIdResponse): Uint8Array;
+    toProtoMsg(message: QueryTokenizeShareRecordByIdResponse): QueryTokenizeShareRecordByIdResponseProtoMsg;
+};
+export declare const QueryTokenizeShareRecordByDenomRequest: {
+    typeUrl: string;
+    encode(message: QueryTokenizeShareRecordByDenomRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTokenizeShareRecordByDenomRequest;
+    fromPartial(object: Partial<QueryTokenizeShareRecordByDenomRequest>): QueryTokenizeShareRecordByDenomRequest;
+    fromAmino(object: QueryTokenizeShareRecordByDenomRequestAmino): QueryTokenizeShareRecordByDenomRequest;
+    toAmino(message: QueryTokenizeShareRecordByDenomRequest): QueryTokenizeShareRecordByDenomRequestAmino;
+    fromAminoMsg(object: QueryTokenizeShareRecordByDenomRequestAminoMsg): QueryTokenizeShareRecordByDenomRequest;
+    toAminoMsg(message: QueryTokenizeShareRecordByDenomRequest): QueryTokenizeShareRecordByDenomRequestAminoMsg;
+    fromProtoMsg(message: QueryTokenizeShareRecordByDenomRequestProtoMsg): QueryTokenizeShareRecordByDenomRequest;
+    toProto(message: QueryTokenizeShareRecordByDenomRequest): Uint8Array;
+    toProtoMsg(message: QueryTokenizeShareRecordByDenomRequest): QueryTokenizeShareRecordByDenomRequestProtoMsg;
+};
+export declare const QueryTokenizeShareRecordByDenomResponse: {
+    typeUrl: string;
+    encode(message: QueryTokenizeShareRecordByDenomResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTokenizeShareRecordByDenomResponse;
+    fromPartial(object: Partial<QueryTokenizeShareRecordByDenomResponse>): QueryTokenizeShareRecordByDenomResponse;
+    fromAmino(object: QueryTokenizeShareRecordByDenomResponseAmino): QueryTokenizeShareRecordByDenomResponse;
+    toAmino(message: QueryTokenizeShareRecordByDenomResponse): QueryTokenizeShareRecordByDenomResponseAmino;
+    fromAminoMsg(object: QueryTokenizeShareRecordByDenomResponseAminoMsg): QueryTokenizeShareRecordByDenomResponse;
+    toAminoMsg(message: QueryTokenizeShareRecordByDenomResponse): QueryTokenizeShareRecordByDenomResponseAminoMsg;
+    fromProtoMsg(message: QueryTokenizeShareRecordByDenomResponseProtoMsg): QueryTokenizeShareRecordByDenomResponse;
+    toProto(message: QueryTokenizeShareRecordByDenomResponse): Uint8Array;
+    toProtoMsg(message: QueryTokenizeShareRecordByDenomResponse): QueryTokenizeShareRecordByDenomResponseProtoMsg;
+};
+export declare const QueryTokenizeShareRecordsOwnedRequest: {
+    typeUrl: string;
+    encode(message: QueryTokenizeShareRecordsOwnedRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTokenizeShareRecordsOwnedRequest;
+    fromPartial(object: Partial<QueryTokenizeShareRecordsOwnedRequest>): QueryTokenizeShareRecordsOwnedRequest;
+    fromAmino(object: QueryTokenizeShareRecordsOwnedRequestAmino): QueryTokenizeShareRecordsOwnedRequest;
+    toAmino(message: QueryTokenizeShareRecordsOwnedRequest): QueryTokenizeShareRecordsOwnedRequestAmino;
+    fromAminoMsg(object: QueryTokenizeShareRecordsOwnedRequestAminoMsg): QueryTokenizeShareRecordsOwnedRequest;
+    toAminoMsg(message: QueryTokenizeShareRecordsOwnedRequest): QueryTokenizeShareRecordsOwnedRequestAminoMsg;
+    fromProtoMsg(message: QueryTokenizeShareRecordsOwnedRequestProtoMsg): QueryTokenizeShareRecordsOwnedRequest;
+    toProto(message: QueryTokenizeShareRecordsOwnedRequest): Uint8Array;
+    toProtoMsg(message: QueryTokenizeShareRecordsOwnedRequest): QueryTokenizeShareRecordsOwnedRequestProtoMsg;
+};
+export declare const QueryTokenizeShareRecordsOwnedResponse: {
+    typeUrl: string;
+    encode(message: QueryTokenizeShareRecordsOwnedResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTokenizeShareRecordsOwnedResponse;
+    fromPartial(object: Partial<QueryTokenizeShareRecordsOwnedResponse>): QueryTokenizeShareRecordsOwnedResponse;
+    fromAmino(object: QueryTokenizeShareRecordsOwnedResponseAmino): QueryTokenizeShareRecordsOwnedResponse;
+    toAmino(message: QueryTokenizeShareRecordsOwnedResponse): QueryTokenizeShareRecordsOwnedResponseAmino;
+    fromAminoMsg(object: QueryTokenizeShareRecordsOwnedResponseAminoMsg): QueryTokenizeShareRecordsOwnedResponse;
+    toAminoMsg(message: QueryTokenizeShareRecordsOwnedResponse): QueryTokenizeShareRecordsOwnedResponseAminoMsg;
+    fromProtoMsg(message: QueryTokenizeShareRecordsOwnedResponseProtoMsg): QueryTokenizeShareRecordsOwnedResponse;
+    toProto(message: QueryTokenizeShareRecordsOwnedResponse): Uint8Array;
+    toProtoMsg(message: QueryTokenizeShareRecordsOwnedResponse): QueryTokenizeShareRecordsOwnedResponseProtoMsg;
+};
+export declare const QueryAllTokenizeShareRecordsRequest: {
+    typeUrl: string;
+    encode(message: QueryAllTokenizeShareRecordsRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryAllTokenizeShareRecordsRequest;
+    fromPartial(object: Partial<QueryAllTokenizeShareRecordsRequest>): QueryAllTokenizeShareRecordsRequest;
+    fromAmino(object: QueryAllTokenizeShareRecordsRequestAmino): QueryAllTokenizeShareRecordsRequest;
+    toAmino(message: QueryAllTokenizeShareRecordsRequest): QueryAllTokenizeShareRecordsRequestAmino;
+    fromAminoMsg(object: QueryAllTokenizeShareRecordsRequestAminoMsg): QueryAllTokenizeShareRecordsRequest;
+    toAminoMsg(message: QueryAllTokenizeShareRecordsRequest): QueryAllTokenizeShareRecordsRequestAminoMsg;
+    fromProtoMsg(message: QueryAllTokenizeShareRecordsRequestProtoMsg): QueryAllTokenizeShareRecordsRequest;
+    toProto(message: QueryAllTokenizeShareRecordsRequest): Uint8Array;
+    toProtoMsg(message: QueryAllTokenizeShareRecordsRequest): QueryAllTokenizeShareRecordsRequestProtoMsg;
+};
+export declare const QueryAllTokenizeShareRecordsResponse: {
+    typeUrl: string;
+    encode(message: QueryAllTokenizeShareRecordsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryAllTokenizeShareRecordsResponse;
+    fromPartial(object: Partial<QueryAllTokenizeShareRecordsResponse>): QueryAllTokenizeShareRecordsResponse;
+    fromAmino(object: QueryAllTokenizeShareRecordsResponseAmino): QueryAllTokenizeShareRecordsResponse;
+    toAmino(message: QueryAllTokenizeShareRecordsResponse): QueryAllTokenizeShareRecordsResponseAmino;
+    fromAminoMsg(object: QueryAllTokenizeShareRecordsResponseAminoMsg): QueryAllTokenizeShareRecordsResponse;
+    toAminoMsg(message: QueryAllTokenizeShareRecordsResponse): QueryAllTokenizeShareRecordsResponseAminoMsg;
+    fromProtoMsg(message: QueryAllTokenizeShareRecordsResponseProtoMsg): QueryAllTokenizeShareRecordsResponse;
+    toProto(message: QueryAllTokenizeShareRecordsResponse): Uint8Array;
+    toProtoMsg(message: QueryAllTokenizeShareRecordsResponse): QueryAllTokenizeShareRecordsResponseProtoMsg;
+};
+export declare const QueryLastTokenizeShareRecordIdRequest: {
+    typeUrl: string;
+    encode(_: QueryLastTokenizeShareRecordIdRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): QueryLastTokenizeShareRecordIdRequest;
+    fromPartial(_: Partial<QueryLastTokenizeShareRecordIdRequest>): QueryLastTokenizeShareRecordIdRequest;
+    fromAmino(_: QueryLastTokenizeShareRecordIdRequestAmino): QueryLastTokenizeShareRecordIdRequest;
+    toAmino(_: QueryLastTokenizeShareRecordIdRequest): QueryLastTokenizeShareRecordIdRequestAmino;
+    fromAminoMsg(object: QueryLastTokenizeShareRecordIdRequestAminoMsg): QueryLastTokenizeShareRecordIdRequest;
+    toAminoMsg(message: QueryLastTokenizeShareRecordIdRequest): QueryLastTokenizeShareRecordIdRequestAminoMsg;
+    fromProtoMsg(message: QueryLastTokenizeShareRecordIdRequestProtoMsg): QueryLastTokenizeShareRecordIdRequest;
+    toProto(message: QueryLastTokenizeShareRecordIdRequest): Uint8Array;
+    toProtoMsg(message: QueryLastTokenizeShareRecordIdRequest): QueryLastTokenizeShareRecordIdRequestProtoMsg;
+};
+export declare const QueryLastTokenizeShareRecordIdResponse: {
+    typeUrl: string;
+    encode(message: QueryLastTokenizeShareRecordIdResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryLastTokenizeShareRecordIdResponse;
+    fromPartial(object: Partial<QueryLastTokenizeShareRecordIdResponse>): QueryLastTokenizeShareRecordIdResponse;
+    fromAmino(object: QueryLastTokenizeShareRecordIdResponseAmino): QueryLastTokenizeShareRecordIdResponse;
+    toAmino(message: QueryLastTokenizeShareRecordIdResponse): QueryLastTokenizeShareRecordIdResponseAmino;
+    fromAminoMsg(object: QueryLastTokenizeShareRecordIdResponseAminoMsg): QueryLastTokenizeShareRecordIdResponse;
+    toAminoMsg(message: QueryLastTokenizeShareRecordIdResponse): QueryLastTokenizeShareRecordIdResponseAminoMsg;
+    fromProtoMsg(message: QueryLastTokenizeShareRecordIdResponseProtoMsg): QueryLastTokenizeShareRecordIdResponse;
+    toProto(message: QueryLastTokenizeShareRecordIdResponse): Uint8Array;
+    toProtoMsg(message: QueryLastTokenizeShareRecordIdResponse): QueryLastTokenizeShareRecordIdResponseProtoMsg;
+};
+export declare const QueryTotalTokenizeSharedAssetsRequest: {
+    typeUrl: string;
+    encode(_: QueryTotalTokenizeSharedAssetsRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): QueryTotalTokenizeSharedAssetsRequest;
+    fromPartial(_: Partial<QueryTotalTokenizeSharedAssetsRequest>): QueryTotalTokenizeSharedAssetsRequest;
+    fromAmino(_: QueryTotalTokenizeSharedAssetsRequestAmino): QueryTotalTokenizeSharedAssetsRequest;
+    toAmino(_: QueryTotalTokenizeSharedAssetsRequest): QueryTotalTokenizeSharedAssetsRequestAmino;
+    fromAminoMsg(object: QueryTotalTokenizeSharedAssetsRequestAminoMsg): QueryTotalTokenizeSharedAssetsRequest;
+    toAminoMsg(message: QueryTotalTokenizeSharedAssetsRequest): QueryTotalTokenizeSharedAssetsRequestAminoMsg;
+    fromProtoMsg(message: QueryTotalTokenizeSharedAssetsRequestProtoMsg): QueryTotalTokenizeSharedAssetsRequest;
+    toProto(message: QueryTotalTokenizeSharedAssetsRequest): Uint8Array;
+    toProtoMsg(message: QueryTotalTokenizeSharedAssetsRequest): QueryTotalTokenizeSharedAssetsRequestProtoMsg;
+};
+export declare const QueryTotalTokenizeSharedAssetsResponse: {
+    typeUrl: string;
+    encode(message: QueryTotalTokenizeSharedAssetsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTotalTokenizeSharedAssetsResponse;
+    fromPartial(object: Partial<QueryTotalTokenizeSharedAssetsResponse>): QueryTotalTokenizeSharedAssetsResponse;
+    fromAmino(object: QueryTotalTokenizeSharedAssetsResponseAmino): QueryTotalTokenizeSharedAssetsResponse;
+    toAmino(message: QueryTotalTokenizeSharedAssetsResponse): QueryTotalTokenizeSharedAssetsResponseAmino;
+    fromAminoMsg(object: QueryTotalTokenizeSharedAssetsResponseAminoMsg): QueryTotalTokenizeSharedAssetsResponse;
+    toAminoMsg(message: QueryTotalTokenizeSharedAssetsResponse): QueryTotalTokenizeSharedAssetsResponseAminoMsg;
+    fromProtoMsg(message: QueryTotalTokenizeSharedAssetsResponseProtoMsg): QueryTotalTokenizeSharedAssetsResponse;
+    toProto(message: QueryTotalTokenizeSharedAssetsResponse): Uint8Array;
+    toProtoMsg(message: QueryTotalTokenizeSharedAssetsResponse): QueryTotalTokenizeSharedAssetsResponseProtoMsg;
+};
+export declare const QueryTotalLiquidStaked: {
+    typeUrl: string;
+    encode(_: QueryTotalLiquidStaked, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): QueryTotalLiquidStaked;
+    fromPartial(_: Partial<QueryTotalLiquidStaked>): QueryTotalLiquidStaked;
+    fromAmino(_: QueryTotalLiquidStakedAmino): QueryTotalLiquidStaked;
+    toAmino(_: QueryTotalLiquidStaked): QueryTotalLiquidStakedAmino;
+    fromAminoMsg(object: QueryTotalLiquidStakedAminoMsg): QueryTotalLiquidStaked;
+    toAminoMsg(message: QueryTotalLiquidStaked): QueryTotalLiquidStakedAminoMsg;
+    fromProtoMsg(message: QueryTotalLiquidStakedProtoMsg): QueryTotalLiquidStaked;
+    toProto(message: QueryTotalLiquidStaked): Uint8Array;
+    toProtoMsg(message: QueryTotalLiquidStaked): QueryTotalLiquidStakedProtoMsg;
+};
+export declare const QueryTotalLiquidStakedResponse: {
+    typeUrl: string;
+    encode(message: QueryTotalLiquidStakedResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTotalLiquidStakedResponse;
+    fromPartial(object: Partial<QueryTotalLiquidStakedResponse>): QueryTotalLiquidStakedResponse;
+    fromAmino(object: QueryTotalLiquidStakedResponseAmino): QueryTotalLiquidStakedResponse;
+    toAmino(message: QueryTotalLiquidStakedResponse): QueryTotalLiquidStakedResponseAmino;
+    fromAminoMsg(object: QueryTotalLiquidStakedResponseAminoMsg): QueryTotalLiquidStakedResponse;
+    toAminoMsg(message: QueryTotalLiquidStakedResponse): QueryTotalLiquidStakedResponseAminoMsg;
+    fromProtoMsg(message: QueryTotalLiquidStakedResponseProtoMsg): QueryTotalLiquidStakedResponse;
+    toProto(message: QueryTotalLiquidStakedResponse): Uint8Array;
+    toProtoMsg(message: QueryTotalLiquidStakedResponse): QueryTotalLiquidStakedResponseProtoMsg;
+};
+export declare const QueryTokenizeShareLockInfo: {
+    typeUrl: string;
+    encode(message: QueryTokenizeShareLockInfo, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTokenizeShareLockInfo;
+    fromPartial(object: Partial<QueryTokenizeShareLockInfo>): QueryTokenizeShareLockInfo;
+    fromAmino(object: QueryTokenizeShareLockInfoAmino): QueryTokenizeShareLockInfo;
+    toAmino(message: QueryTokenizeShareLockInfo): QueryTokenizeShareLockInfoAmino;
+    fromAminoMsg(object: QueryTokenizeShareLockInfoAminoMsg): QueryTokenizeShareLockInfo;
+    toAminoMsg(message: QueryTokenizeShareLockInfo): QueryTokenizeShareLockInfoAminoMsg;
+    fromProtoMsg(message: QueryTokenizeShareLockInfoProtoMsg): QueryTokenizeShareLockInfo;
+    toProto(message: QueryTokenizeShareLockInfo): Uint8Array;
+    toProtoMsg(message: QueryTokenizeShareLockInfo): QueryTokenizeShareLockInfoProtoMsg;
+};
+export declare const QueryTokenizeShareLockInfoResponse: {
+    typeUrl: string;
+    encode(message: QueryTokenizeShareLockInfoResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryTokenizeShareLockInfoResponse;
+    fromPartial(object: Partial<QueryTokenizeShareLockInfoResponse>): QueryTokenizeShareLockInfoResponse;
+    fromAmino(object: QueryTokenizeShareLockInfoResponseAmino): QueryTokenizeShareLockInfoResponse;
+    toAmino(message: QueryTokenizeShareLockInfoResponse): QueryTokenizeShareLockInfoResponseAmino;
+    fromAminoMsg(object: QueryTokenizeShareLockInfoResponseAminoMsg): QueryTokenizeShareLockInfoResponse;
+    toAminoMsg(message: QueryTokenizeShareLockInfoResponse): QueryTokenizeShareLockInfoResponseAminoMsg;
+    fromProtoMsg(message: QueryTokenizeShareLockInfoResponseProtoMsg): QueryTokenizeShareLockInfoResponse;
+    toProto(message: QueryTokenizeShareLockInfoResponse): Uint8Array;
+    toProtoMsg(message: QueryTokenizeShareLockInfoResponse): QueryTokenizeShareLockInfoResponseProtoMsg;
 };

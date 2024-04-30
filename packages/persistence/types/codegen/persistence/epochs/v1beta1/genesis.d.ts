@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { BinaryWriter } from "../../../binary";
 export interface EpochInfo {
@@ -15,13 +15,13 @@ export interface EpochInfoProtoMsg {
     value: Uint8Array;
 }
 export interface EpochInfoAmino {
-    identifier: string;
-    start_time?: TimestampAmino;
+    identifier?: string;
+    start_time?: string;
     duration?: DurationAmino;
-    current_epoch: string;
-    current_epoch_start_time?: TimestampAmino;
-    epoch_counting_started: boolean;
-    current_epoch_start_height: string;
+    current_epoch?: string;
+    current_epoch_start_time?: string;
+    epoch_counting_started?: boolean;
+    current_epoch_start_height?: string;
 }
 export interface EpochInfoAminoMsg {
     type: "/persistence.epochs.v1beta1.EpochInfo";
@@ -46,7 +46,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the epochs module's genesis state. */
 export interface GenesisStateAmino {
-    epochs: EpochInfoAmino[];
+    epochs?: EpochInfoAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/persistence.epochs.v1beta1.GenesisState";

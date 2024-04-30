@@ -20,7 +20,7 @@ export interface QueryClientStateRequestProtoMsg {
  */
 export interface QueryClientStateRequestAmino {
     /** client state unique identifier */
-    client_id: string;
+    client_id?: string;
 }
 export interface QueryClientStateRequestAminoMsg {
     type: "cosmos-sdk/QueryClientStateRequest";
@@ -40,7 +40,7 @@ export interface QueryClientStateRequestSDKType {
  */
 export interface QueryClientStateResponse {
     /** client state associated with the request identifier */
-    clientState: Any;
+    clientState?: Any;
     /** merkle proof of existence */
     proof: Uint8Array;
     /** height at which the proof was retrieved */
@@ -59,7 +59,7 @@ export interface QueryClientStateResponseAmino {
     /** client state associated with the request identifier */
     client_state?: AnyAmino;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }
@@ -73,7 +73,7 @@ export interface QueryClientStateResponseAminoMsg {
  * which the proof was retrieved.
  */
 export interface QueryClientStateResponseSDKType {
-    client_state: AnySDKType;
+    client_state?: AnySDKType;
     proof: Uint8Array;
     proof_height: HeightSDKType;
 }
@@ -83,7 +83,7 @@ export interface QueryClientStateResponseSDKType {
  */
 export interface QueryClientStatesRequest {
     /** pagination request */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryClientStatesRequestProtoMsg {
     typeUrl: "/ibc.core.client.v1.QueryClientStatesRequest";
@@ -106,7 +106,7 @@ export interface QueryClientStatesRequestAminoMsg {
  * method
  */
 export interface QueryClientStatesRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryClientStatesResponse is the response type for the Query/ClientStates RPC
@@ -116,7 +116,7 @@ export interface QueryClientStatesResponse {
     /** list of stored ClientStates of the chain. */
     clientStates: IdentifiedClientState[];
     /** pagination response */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryClientStatesResponseProtoMsg {
     typeUrl: "/ibc.core.client.v1.QueryClientStatesResponse";
@@ -128,7 +128,7 @@ export interface QueryClientStatesResponseProtoMsg {
  */
 export interface QueryClientStatesResponseAmino {
     /** list of stored ClientStates of the chain. */
-    client_states: IdentifiedClientStateAmino[];
+    client_states?: IdentifiedClientStateAmino[];
     /** pagination response */
     pagination?: PageResponseAmino;
 }
@@ -142,7 +142,7 @@ export interface QueryClientStatesResponseAminoMsg {
  */
 export interface QueryClientStatesResponseSDKType {
     client_states: IdentifiedClientStateSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /**
  * QueryConsensusStateRequest is the request type for the Query/ConsensusState
@@ -173,16 +173,16 @@ export interface QueryConsensusStateRequestProtoMsg {
  */
 export interface QueryConsensusStateRequestAmino {
     /** client identifier */
-    client_id: string;
+    client_id?: string;
     /** consensus state revision number */
-    revision_number: string;
+    revision_number?: string;
     /** consensus state revision height */
-    revision_height: string;
+    revision_height?: string;
     /**
      * latest_height overrrides the height field and queries the latest stored
      * ConsensusState
      */
-    latest_height: boolean;
+    latest_height?: boolean;
 }
 export interface QueryConsensusStateRequestAminoMsg {
     type: "cosmos-sdk/QueryConsensusStateRequest";
@@ -205,7 +205,7 @@ export interface QueryConsensusStateRequestSDKType {
  */
 export interface QueryConsensusStateResponse {
     /** consensus state associated with the client identifier at the given height */
-    consensusState: Any;
+    consensusState?: Any;
     /** merkle proof of existence */
     proof: Uint8Array;
     /** height at which the proof was retrieved */
@@ -223,7 +223,7 @@ export interface QueryConsensusStateResponseAmino {
     /** consensus state associated with the client identifier at the given height */
     consensus_state?: AnyAmino;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }
@@ -236,7 +236,7 @@ export interface QueryConsensusStateResponseAminoMsg {
  * RPC method
  */
 export interface QueryConsensusStateResponseSDKType {
-    consensus_state: AnySDKType;
+    consensus_state?: AnySDKType;
     proof: Uint8Array;
     proof_height: HeightSDKType;
 }
@@ -248,7 +248,7 @@ export interface QueryConsensusStatesRequest {
     /** client identifier */
     clientId: string;
     /** pagination request */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryConsensusStatesRequestProtoMsg {
     typeUrl: "/ibc.core.client.v1.QueryConsensusStatesRequest";
@@ -260,7 +260,7 @@ export interface QueryConsensusStatesRequestProtoMsg {
  */
 export interface QueryConsensusStatesRequestAmino {
     /** client identifier */
-    client_id: string;
+    client_id?: string;
     /** pagination request */
     pagination?: PageRequestAmino;
 }
@@ -274,7 +274,7 @@ export interface QueryConsensusStatesRequestAminoMsg {
  */
 export interface QueryConsensusStatesRequestSDKType {
     client_id: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryConsensusStatesResponse is the response type for the
@@ -284,7 +284,7 @@ export interface QueryConsensusStatesResponse {
     /** consensus states associated with the identifier */
     consensusStates: ConsensusStateWithHeight[];
     /** pagination response */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryConsensusStatesResponseProtoMsg {
     typeUrl: "/ibc.core.client.v1.QueryConsensusStatesResponse";
@@ -296,7 +296,7 @@ export interface QueryConsensusStatesResponseProtoMsg {
  */
 export interface QueryConsensusStatesResponseAmino {
     /** consensus states associated with the identifier */
-    consensus_states: ConsensusStateWithHeightAmino[];
+    consensus_states?: ConsensusStateWithHeightAmino[];
     /** pagination response */
     pagination?: PageResponseAmino;
 }
@@ -310,7 +310,7 @@ export interface QueryConsensusStatesResponseAminoMsg {
  */
 export interface QueryConsensusStatesResponseSDKType {
     consensus_states: ConsensusStateWithHeightSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /**
  * QueryConsensusStateHeightsRequest is the request type for Query/ConsensusStateHeights
@@ -320,7 +320,7 @@ export interface QueryConsensusStateHeightsRequest {
     /** client identifier */
     clientId: string;
     /** pagination request */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryConsensusStateHeightsRequestProtoMsg {
     typeUrl: "/ibc.core.client.v1.QueryConsensusStateHeightsRequest";
@@ -332,7 +332,7 @@ export interface QueryConsensusStateHeightsRequestProtoMsg {
  */
 export interface QueryConsensusStateHeightsRequestAmino {
     /** client identifier */
-    client_id: string;
+    client_id?: string;
     /** pagination request */
     pagination?: PageRequestAmino;
 }
@@ -346,7 +346,7 @@ export interface QueryConsensusStateHeightsRequestAminoMsg {
  */
 export interface QueryConsensusStateHeightsRequestSDKType {
     client_id: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryConsensusStateHeightsResponse is the response type for the
@@ -356,7 +356,7 @@ export interface QueryConsensusStateHeightsResponse {
     /** consensus state heights */
     consensusStateHeights: Height[];
     /** pagination response */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryConsensusStateHeightsResponseProtoMsg {
     typeUrl: "/ibc.core.client.v1.QueryConsensusStateHeightsResponse";
@@ -368,7 +368,7 @@ export interface QueryConsensusStateHeightsResponseProtoMsg {
  */
 export interface QueryConsensusStateHeightsResponseAmino {
     /** consensus state heights */
-    consensus_state_heights: HeightAmino[];
+    consensus_state_heights?: HeightAmino[];
     /** pagination response */
     pagination?: PageResponseAmino;
 }
@@ -382,7 +382,7 @@ export interface QueryConsensusStateHeightsResponseAminoMsg {
  */
 export interface QueryConsensusStateHeightsResponseSDKType {
     consensus_state_heights: HeightSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /**
  * QueryClientStatusRequest is the request type for the Query/ClientStatus RPC
@@ -402,7 +402,7 @@ export interface QueryClientStatusRequestProtoMsg {
  */
 export interface QueryClientStatusRequestAmino {
     /** client unique identifier */
-    client_id: string;
+    client_id?: string;
 }
 export interface QueryClientStatusRequestAminoMsg {
     type: "cosmos-sdk/QueryClientStatusRequest";
@@ -431,7 +431,7 @@ export interface QueryClientStatusResponseProtoMsg {
  * method. It returns the current status of the IBC client.
  */
 export interface QueryClientStatusResponseAmino {
-    status: string;
+    status?: string;
 }
 export interface QueryClientStatusResponseAminoMsg {
     type: "cosmos-sdk/QueryClientStatusResponse";
@@ -476,7 +476,7 @@ export interface QueryClientParamsRequestSDKType {
  */
 export interface QueryClientParamsResponse {
     /** params defines the parameters of the module. */
-    params: Params;
+    params?: Params;
 }
 export interface QueryClientParamsResponseProtoMsg {
     typeUrl: "/ibc.core.client.v1.QueryClientParamsResponse";
@@ -499,7 +499,7 @@ export interface QueryClientParamsResponseAminoMsg {
  * method.
  */
 export interface QueryClientParamsResponseSDKType {
-    params: ParamsSDKType;
+    params?: ParamsSDKType;
 }
 /**
  * QueryUpgradedClientStateRequest is the request type for the
@@ -533,7 +533,7 @@ export interface QueryUpgradedClientStateRequestSDKType {
  */
 export interface QueryUpgradedClientStateResponse {
     /** client state associated with the request identifier */
-    upgradedClientState: Any;
+    upgradedClientState?: Any;
 }
 export interface QueryUpgradedClientStateResponseProtoMsg {
     typeUrl: "/ibc.core.client.v1.QueryUpgradedClientStateResponse";
@@ -556,7 +556,7 @@ export interface QueryUpgradedClientStateResponseAminoMsg {
  * Query/UpgradedClientState RPC method.
  */
 export interface QueryUpgradedClientStateResponseSDKType {
-    upgraded_client_state: AnySDKType;
+    upgraded_client_state?: AnySDKType;
 }
 /**
  * QueryUpgradedConsensusStateRequest is the request type for the
@@ -590,7 +590,7 @@ export interface QueryUpgradedConsensusStateRequestSDKType {
  */
 export interface QueryUpgradedConsensusStateResponse {
     /** Consensus state associated with the request identifier */
-    upgradedConsensusState: Any;
+    upgradedConsensusState?: Any;
 }
 export interface QueryUpgradedConsensusStateResponseProtoMsg {
     typeUrl: "/ibc.core.client.v1.QueryUpgradedConsensusStateResponse";
@@ -613,7 +613,7 @@ export interface QueryUpgradedConsensusStateResponseAminoMsg {
  * Query/UpgradedConsensusState RPC method.
  */
 export interface QueryUpgradedConsensusStateResponseSDKType {
-    upgraded_consensus_state: AnySDKType;
+    upgraded_consensus_state?: AnySDKType;
 }
 export declare const QueryClientStateRequest: {
     typeUrl: string;

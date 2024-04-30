@@ -8,7 +8,7 @@ import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryRequestsRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
   chainId: string;
 }
 export interface QueryRequestsRequestProtoMsg {
@@ -18,7 +18,7 @@ export interface QueryRequestsRequestProtoMsg {
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryRequestsRequestAmino {
   pagination?: PageRequestAmino;
-  chain_id: string;
+  chain_id?: string;
 }
 export interface QueryRequestsRequestAminoMsg {
   type: "/persistence.interchainquery.v1beta1.QueryRequestsRequest";
@@ -26,14 +26,14 @@ export interface QueryRequestsRequestAminoMsg {
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryRequestsRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
   chain_id: string;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryRequestsResponse {
   /** params defines the parameters of the module. */
   queries: Query[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryRequestsResponseProtoMsg {
   typeUrl: "/persistence.interchainquery.v1beta1.QueryRequestsResponse";
@@ -42,7 +42,7 @@ export interface QueryRequestsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryRequestsResponseAmino {
   /** params defines the parameters of the module. */
-  queries: QueryAmino[];
+  queries?: QueryAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryRequestsResponseAminoMsg {
@@ -52,18 +52,18 @@ export interface QueryRequestsResponseAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryRequestsResponseSDKType {
   queries: QuerySDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxWithProofResponse {
   /** tx is the queried transaction. */
-  tx: Tx;
+  tx?: Tx;
   /** tx_response is the queried TxResponses. */
-  txResponse: TxResponse;
+  txResponse?: TxResponse;
   /** proof is the tmproto.TxProof for the queried tx */
-  proof: TxProof;
+  proof?: TxProof;
   /** ibc-go header to validate txs */
-  header: Header;
+  header?: Header;
 }
 export interface GetTxWithProofResponseProtoMsg {
   typeUrl: "/persistence.interchainquery.v1beta1.GetTxWithProofResponse";
@@ -86,14 +86,14 @@ export interface GetTxWithProofResponseAminoMsg {
 }
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxWithProofResponseSDKType {
-  tx: TxSDKType;
-  tx_response: TxResponseSDKType;
-  proof: TxProofSDKType;
-  header: HeaderSDKType;
+  tx?: TxSDKType;
+  tx_response?: TxResponseSDKType;
+  proof?: TxProofSDKType;
+  header?: HeaderSDKType;
 }
 function createBaseQueryRequestsRequest(): QueryRequestsRequest {
   return {
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
     chainId: ""
   };
 }
@@ -121,10 +121,14 @@ export const QueryRequestsRequest = {
     return message;
   },
   fromAmino(object: QueryRequestsRequestAmino): QueryRequestsRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
-      chainId: object.chain_id
-    };
+    const message = createBaseQueryRequestsRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    return message;
   },
   toAmino(message: QueryRequestsRequest): QueryRequestsRequestAmino {
     const obj: any = {};
@@ -151,7 +155,7 @@ export const QueryRequestsRequest = {
 function createBaseQueryRequestsResponse(): QueryRequestsResponse {
   return {
     queries: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryRequestsResponse = {
@@ -178,10 +182,12 @@ export const QueryRequestsResponse = {
     return message;
   },
   fromAmino(object: QueryRequestsResponseAmino): QueryRequestsResponse {
-    return {
-      queries: Array.isArray(object?.queries) ? object.queries.map((e: any) => Query.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryRequestsResponse();
+    message.queries = object.queries?.map(e => Query.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryRequestsResponse): QueryRequestsResponseAmino {
     const obj: any = {};
@@ -211,10 +217,10 @@ export const QueryRequestsResponse = {
 };
 function createBaseGetTxWithProofResponse(): GetTxWithProofResponse {
   return {
-    tx: Tx.fromPartial({}),
-    txResponse: TxResponse.fromPartial({}),
-    proof: TxProof.fromPartial({}),
-    header: Header.fromPartial({})
+    tx: undefined,
+    txResponse: undefined,
+    proof: undefined,
+    header: undefined
   };
 }
 export const GetTxWithProofResponse = {
@@ -251,12 +257,20 @@ export const GetTxWithProofResponse = {
     return message;
   },
   fromAmino(object: GetTxWithProofResponseAmino): GetTxWithProofResponse {
-    return {
-      tx: object?.tx ? Tx.fromAmino(object.tx) : undefined,
-      txResponse: object?.tx_response ? TxResponse.fromAmino(object.tx_response) : undefined,
-      proof: object?.proof ? TxProof.fromAmino(object.proof) : undefined,
-      header: object?.header ? Header.fromAmino(object.header) : undefined
-    };
+    const message = createBaseGetTxWithProofResponse();
+    if (object.tx !== undefined && object.tx !== null) {
+      message.tx = Tx.fromAmino(object.tx);
+    }
+    if (object.tx_response !== undefined && object.tx_response !== null) {
+      message.txResponse = TxResponse.fromAmino(object.tx_response);
+    }
+    if (object.proof !== undefined && object.proof !== null) {
+      message.proof = TxProof.fromAmino(object.proof);
+    }
+    if (object.header !== undefined && object.header !== null) {
+      message.header = Header.fromAmino(object.header);
+    }
+    return message;
   },
   toAmino(message: GetTxWithProofResponse): GetTxWithProofResponseAmino {
     const obj: any = {};

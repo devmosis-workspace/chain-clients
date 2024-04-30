@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface Query {
   id: string;
   connectionId: string;
@@ -18,17 +18,17 @@ export interface QueryProtoMsg {
   value: Uint8Array;
 }
 export interface QueryAmino {
-  id: string;
-  connection_id: string;
-  chain_id: string;
-  query_type: string;
-  request: Uint8Array;
+  id?: string;
+  connection_id?: string;
+  chain_id?: string;
+  query_type?: string;
+  request?: string;
   /** change these to uint64 in v0.5.0 */
-  period: string;
-  last_height: string;
-  callback_id: string;
-  ttl: string;
-  last_emission: string;
+  period?: string;
+  last_height?: string;
+  callback_id?: string;
+  ttl?: string;
+  last_emission?: string;
 }
 export interface QueryAminoMsg {
   type: "/persistence.interchainquery.v1beta1.Query";
@@ -58,11 +58,11 @@ export interface DataPointProtoMsg {
   value: Uint8Array;
 }
 export interface DataPointAmino {
-  id: string;
+  id?: string;
   /** change these to uint64 in v0.5.0 */
-  remote_height: string;
-  local_height: string;
-  value: Uint8Array;
+  remote_height?: string;
+  local_height?: string;
+  value?: string;
 }
 export interface DataPointAminoMsg {
   type: "/persistence.interchainquery.v1beta1.DataPoint";
@@ -84,7 +84,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the epochs module's genesis state. */
 export interface GenesisStateAmino {
-  queries: QueryAmino[];
+  queries?: QueryAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/persistence.interchainquery.v1beta1.GenesisState";
@@ -172,18 +172,38 @@ export const Query = {
     return message;
   },
   fromAmino(object: QueryAmino): Query {
-    return {
-      id: object.id,
-      connectionId: object.connection_id,
-      chainId: object.chain_id,
-      queryType: object.query_type,
-      request: object.request,
-      period: object.period,
-      lastHeight: object.last_height,
-      callbackId: object.callback_id,
-      ttl: BigInt(object.ttl),
-      lastEmission: object.last_emission
-    };
+    const message = createBaseQuery();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.query_type !== undefined && object.query_type !== null) {
+      message.queryType = object.query_type;
+    }
+    if (object.request !== undefined && object.request !== null) {
+      message.request = bytesFromBase64(object.request);
+    }
+    if (object.period !== undefined && object.period !== null) {
+      message.period = object.period;
+    }
+    if (object.last_height !== undefined && object.last_height !== null) {
+      message.lastHeight = object.last_height;
+    }
+    if (object.callback_id !== undefined && object.callback_id !== null) {
+      message.callbackId = object.callback_id;
+    }
+    if (object.ttl !== undefined && object.ttl !== null) {
+      message.ttl = BigInt(object.ttl);
+    }
+    if (object.last_emission !== undefined && object.last_emission !== null) {
+      message.lastEmission = object.last_emission;
+    }
+    return message;
   },
   toAmino(message: Query): QueryAmino {
     const obj: any = {};
@@ -191,7 +211,7 @@ export const Query = {
     obj.connection_id = message.connectionId;
     obj.chain_id = message.chainId;
     obj.query_type = message.queryType;
-    obj.request = message.request;
+    obj.request = message.request ? base64FromBytes(message.request) : undefined;
     obj.period = message.period;
     obj.last_height = message.lastHeight;
     obj.callback_id = message.callbackId;
@@ -257,19 +277,27 @@ export const DataPoint = {
     return message;
   },
   fromAmino(object: DataPointAmino): DataPoint {
-    return {
-      id: object.id,
-      remoteHeight: object.remote_height,
-      localHeight: object.local_height,
-      value: object.value
-    };
+    const message = createBaseDataPoint();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.remote_height !== undefined && object.remote_height !== null) {
+      message.remoteHeight = object.remote_height;
+    }
+    if (object.local_height !== undefined && object.local_height !== null) {
+      message.localHeight = object.local_height;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = bytesFromBase64(object.value);
+    }
+    return message;
   },
   toAmino(message: DataPoint): DataPointAmino {
     const obj: any = {};
     obj.id = message.id;
     obj.remote_height = message.remoteHeight;
     obj.local_height = message.localHeight;
-    obj.value = message.value;
+    obj.value = message.value ? base64FromBytes(message.value) : undefined;
     return obj;
   },
   fromAminoMsg(object: DataPointAminoMsg): DataPoint {
@@ -312,9 +340,9 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      queries: Array.isArray(object?.queries) ? object.queries.map((e: any) => Query.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.queries = object.queries?.map(e => Query.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

@@ -11,7 +11,7 @@ export interface ParamsProtoMsg {
 /** Params holds parameters for the halving module. */
 export interface ParamsAmino {
     /** periodic height at which inflation decreases */
-    blockHeight: string;
+    blockHeight?: string;
 }
 export interface ParamsAminoMsg {
     type: "/persistence.halving.v1beta1.Params";

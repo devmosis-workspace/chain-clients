@@ -21,7 +21,7 @@ export interface QueryConnectionRequestProtoMsg {
  */
 export interface QueryConnectionRequestAmino {
     /** connection unique identifier */
-    connection_id: string;
+    connection_id?: string;
 }
 export interface QueryConnectionRequestAminoMsg {
     type: "cosmos-sdk/QueryConnectionRequest";
@@ -41,7 +41,7 @@ export interface QueryConnectionRequestSDKType {
  */
 export interface QueryConnectionResponse {
     /** connection associated with the request identifier */
-    connection: ConnectionEnd;
+    connection?: ConnectionEnd;
     /** merkle proof of existence */
     proof: Uint8Array;
     /** height at which the proof was retrieved */
@@ -60,7 +60,7 @@ export interface QueryConnectionResponseAmino {
     /** connection associated with the request identifier */
     connection?: ConnectionEndAmino;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }
@@ -74,7 +74,7 @@ export interface QueryConnectionResponseAminoMsg {
  * which the proof was retrieved.
  */
 export interface QueryConnectionResponseSDKType {
-    connection: ConnectionEndSDKType;
+    connection?: ConnectionEndSDKType;
     proof: Uint8Array;
     proof_height: HeightSDKType;
 }
@@ -83,7 +83,7 @@ export interface QueryConnectionResponseSDKType {
  * method
  */
 export interface QueryConnectionsRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryConnectionsRequestProtoMsg {
     typeUrl: "/ibc.core.connection.v1.QueryConnectionsRequest";
@@ -105,7 +105,7 @@ export interface QueryConnectionsRequestAminoMsg {
  * method
  */
 export interface QueryConnectionsRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryConnectionsResponse is the response type for the Query/Connections RPC
@@ -115,7 +115,7 @@ export interface QueryConnectionsResponse {
     /** list of stored connections of the chain. */
     connections: IdentifiedConnection[];
     /** pagination response */
-    pagination: PageResponse;
+    pagination?: PageResponse;
     /** query block height */
     height: Height;
 }
@@ -129,7 +129,7 @@ export interface QueryConnectionsResponseProtoMsg {
  */
 export interface QueryConnectionsResponseAmino {
     /** list of stored connections of the chain. */
-    connections: IdentifiedConnectionAmino[];
+    connections?: IdentifiedConnectionAmino[];
     /** pagination response */
     pagination?: PageResponseAmino;
     /** query block height */
@@ -145,7 +145,7 @@ export interface QueryConnectionsResponseAminoMsg {
  */
 export interface QueryConnectionsResponseSDKType {
     connections: IdentifiedConnectionSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
     height: HeightSDKType;
 }
 /**
@@ -166,7 +166,7 @@ export interface QueryClientConnectionsRequestProtoMsg {
  */
 export interface QueryClientConnectionsRequestAmino {
     /** client identifier associated with a connection */
-    client_id: string;
+    client_id?: string;
 }
 export interface QueryClientConnectionsRequestAminoMsg {
     type: "cosmos-sdk/QueryClientConnectionsRequest";
@@ -201,9 +201,9 @@ export interface QueryClientConnectionsResponseProtoMsg {
  */
 export interface QueryClientConnectionsResponseAmino {
     /** slice of all the connection paths associated with a client. */
-    connection_paths: string[];
+    connection_paths?: string[];
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was generated */
     proof_height?: HeightAmino;
 }
@@ -238,7 +238,7 @@ export interface QueryConnectionClientStateRequestProtoMsg {
  */
 export interface QueryConnectionClientStateRequestAmino {
     /** connection identifier */
-    connection_id: string;
+    connection_id?: string;
 }
 export interface QueryConnectionClientStateRequestAminoMsg {
     type: "cosmos-sdk/QueryConnectionClientStateRequest";
@@ -257,7 +257,7 @@ export interface QueryConnectionClientStateRequestSDKType {
  */
 export interface QueryConnectionClientStateResponse {
     /** client state associated with the channel */
-    identifiedClientState: IdentifiedClientState;
+    identifiedClientState?: IdentifiedClientState;
     /** merkle proof of existence */
     proof: Uint8Array;
     /** height at which the proof was retrieved */
@@ -275,7 +275,7 @@ export interface QueryConnectionClientStateResponseAmino {
     /** client state associated with the channel */
     identified_client_state?: IdentifiedClientStateAmino;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }
@@ -288,7 +288,7 @@ export interface QueryConnectionClientStateResponseAminoMsg {
  * Query/ConnectionClientState RPC method
  */
 export interface QueryConnectionClientStateResponseSDKType {
-    identified_client_state: IdentifiedClientStateSDKType;
+    identified_client_state?: IdentifiedClientStateSDKType;
     proof: Uint8Array;
     proof_height: HeightSDKType;
 }
@@ -312,9 +312,9 @@ export interface QueryConnectionConsensusStateRequestProtoMsg {
  */
 export interface QueryConnectionConsensusStateRequestAmino {
     /** connection identifier */
-    connection_id: string;
-    revision_number: string;
-    revision_height: string;
+    connection_id?: string;
+    revision_number?: string;
+    revision_height?: string;
 }
 export interface QueryConnectionConsensusStateRequestAminoMsg {
     type: "cosmos-sdk/QueryConnectionConsensusStateRequest";
@@ -335,7 +335,7 @@ export interface QueryConnectionConsensusStateRequestSDKType {
  */
 export interface QueryConnectionConsensusStateResponse {
     /** consensus state associated with the channel */
-    consensusState: Any;
+    consensusState?: Any;
     /** client ID associated with the consensus state */
     clientId: string;
     /** merkle proof of existence */
@@ -355,9 +355,9 @@ export interface QueryConnectionConsensusStateResponseAmino {
     /** consensus state associated with the channel */
     consensus_state?: AnyAmino;
     /** client ID associated with the consensus state */
-    client_id: string;
+    client_id?: string;
     /** merkle proof of existence */
-    proof: Uint8Array;
+    proof?: string;
     /** height at which the proof was retrieved */
     proof_height?: HeightAmino;
 }
@@ -370,7 +370,7 @@ export interface QueryConnectionConsensusStateResponseAminoMsg {
  * Query/ConnectionConsensusState RPC method
  */
 export interface QueryConnectionConsensusStateResponseSDKType {
-    consensus_state: AnySDKType;
+    consensus_state?: AnySDKType;
     client_id: string;
     proof: Uint8Array;
     proof_height: HeightSDKType;

@@ -17,17 +17,17 @@ export interface QueryProtoMsg {
     value: Uint8Array;
 }
 export interface QueryAmino {
-    id: string;
-    connection_id: string;
-    chain_id: string;
-    query_type: string;
-    request: Uint8Array;
+    id?: string;
+    connection_id?: string;
+    chain_id?: string;
+    query_type?: string;
+    request?: string;
     /** change these to uint64 in v0.5.0 */
-    period: string;
-    last_height: string;
-    callback_id: string;
-    ttl: string;
-    last_emission: string;
+    period?: string;
+    last_height?: string;
+    callback_id?: string;
+    ttl?: string;
+    last_emission?: string;
 }
 export interface QueryAminoMsg {
     type: "/persistence.interchainquery.v1beta1.Query";
@@ -57,11 +57,11 @@ export interface DataPointProtoMsg {
     value: Uint8Array;
 }
 export interface DataPointAmino {
-    id: string;
+    id?: string;
     /** change these to uint64 in v0.5.0 */
-    remote_height: string;
-    local_height: string;
-    value: Uint8Array;
+    remote_height?: string;
+    local_height?: string;
+    value?: string;
 }
 export interface DataPointAminoMsg {
     type: "/persistence.interchainquery.v1beta1.DataPoint";
@@ -83,7 +83,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the epochs module's genesis state. */
 export interface GenesisStateAmino {
-    queries: QueryAmino[];
+    queries?: QueryAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/persistence.interchainquery.v1beta1.GenesisState";
