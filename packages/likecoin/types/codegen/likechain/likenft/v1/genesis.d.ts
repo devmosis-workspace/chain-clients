@@ -29,15 +29,15 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the likenft module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    classes_by_iscn_list: ClassesByISCNAmino[];
-    classes_by_account_list: ClassesByAccountAmino[];
-    blind_box_content_list: BlindBoxContentAmino[];
-    class_reveal_queue: ClassRevealQueueEntryAmino[];
-    offer_list: OfferAmino[];
-    listing_list: ListingAmino[];
-    offer_expire_queue: OfferExpireQueueEntryAmino[];
-    listing_expire_queue: ListingExpireQueueEntryAmino[];
-    royalty_config_by_class_list: RoyaltyConfigByClassAmino[];
+    classes_by_iscn_list?: ClassesByISCNAmino[];
+    classes_by_account_list?: ClassesByAccountAmino[];
+    blind_box_content_list?: BlindBoxContentAmino[];
+    class_reveal_queue?: ClassRevealQueueEntryAmino[];
+    offer_list?: OfferAmino[];
+    listing_list?: ListingAmino[];
+    offer_expire_queue?: OfferExpireQueueEntryAmino[];
+    listing_expire_queue?: ListingExpireQueueEntryAmino[];
+    royalty_config_by_class_list?: RoyaltyConfigByClassAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/likechain.likenft.v1.GenesisState";

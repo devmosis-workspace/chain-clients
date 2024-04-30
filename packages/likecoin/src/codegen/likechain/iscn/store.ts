@@ -1,6 +1,6 @@
 import { IscnId, IscnIdAmino, IscnIdSDKType } from "./iscnid";
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 export interface StoreRecord {
   iscnId: IscnId;
   cidBytes: Uint8Array;
@@ -12,8 +12,8 @@ export interface StoreRecordProtoMsg {
 }
 export interface StoreRecordAmino {
   iscn_id?: IscnIdAmino;
-  cid_bytes: Uint8Array;
-  data: Uint8Array;
+  cid_bytes?: string;
+  data?: string;
 }
 export interface StoreRecordAminoMsg {
   type: "/likechain.iscn.StoreRecord";
@@ -33,8 +33,8 @@ export interface ContentIdRecordProtoMsg {
   value: Uint8Array;
 }
 export interface ContentIdRecordAmino {
-  owner_address_bytes: Uint8Array;
-  latest_version: string;
+  owner_address_bytes?: string;
+  latest_version?: string;
 }
 export interface ContentIdRecordAminoMsg {
   type: "/likechain.iscn.ContentIdRecord";
@@ -80,17 +80,23 @@ export const StoreRecord = {
     return message;
   },
   fromAmino(object: StoreRecordAmino): StoreRecord {
-    return {
-      iscnId: object?.iscn_id ? IscnId.fromAmino(object.iscn_id) : undefined,
-      cidBytes: object.cid_bytes,
-      data: object.data
-    };
+    const message = createBaseStoreRecord();
+    if (object.iscn_id !== undefined && object.iscn_id !== null) {
+      message.iscnId = IscnId.fromAmino(object.iscn_id);
+    }
+    if (object.cid_bytes !== undefined && object.cid_bytes !== null) {
+      message.cidBytes = bytesFromBase64(object.cid_bytes);
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
   },
   toAmino(message: StoreRecord): StoreRecordAmino {
     const obj: any = {};
     obj.iscn_id = message.iscnId ? IscnId.toAmino(message.iscnId) : undefined;
-    obj.cid_bytes = message.cidBytes;
-    obj.data = message.data;
+    obj.cid_bytes = message.cidBytes ? base64FromBytes(message.cidBytes) : undefined;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
     return obj;
   },
   fromAminoMsg(object: StoreRecordAminoMsg): StoreRecord {
@@ -139,14 +145,18 @@ export const ContentIdRecord = {
     return message;
   },
   fromAmino(object: ContentIdRecordAmino): ContentIdRecord {
-    return {
-      ownerAddressBytes: object.owner_address_bytes,
-      latestVersion: BigInt(object.latest_version)
-    };
+    const message = createBaseContentIdRecord();
+    if (object.owner_address_bytes !== undefined && object.owner_address_bytes !== null) {
+      message.ownerAddressBytes = bytesFromBase64(object.owner_address_bytes);
+    }
+    if (object.latest_version !== undefined && object.latest_version !== null) {
+      message.latestVersion = BigInt(object.latest_version);
+    }
+    return message;
   },
   toAmino(message: ContentIdRecord): ContentIdRecordAmino {
     const obj: any = {};
-    obj.owner_address_bytes = message.ownerAddressBytes;
+    obj.owner_address_bytes = message.ownerAddressBytes ? base64FromBytes(message.ownerAddressBytes) : undefined;
     obj.latest_version = message.latestVersion ? message.latestVersion.toString() : undefined;
     return obj;
   },

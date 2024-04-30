@@ -8,8 +8,8 @@ export interface ClassesByAccountProtoMsg {
     value: Uint8Array;
 }
 export interface ClassesByAccountAmino {
-    account: string;
-    class_ids: string[];
+    account?: string;
+    class_ids?: string[];
 }
 export interface ClassesByAccountAminoMsg {
     type: "/likechain.likenft.v1.ClassesByAccount";
@@ -28,8 +28,8 @@ export interface ClassesByAccountStoreRecordProtoMsg {
     value: Uint8Array;
 }
 export interface ClassesByAccountStoreRecordAmino {
-    acc_address: Uint8Array;
-    class_ids: string[];
+    acc_address?: string;
+    class_ids?: string[];
 }
 export interface ClassesByAccountStoreRecordAminoMsg {
     type: "/likechain.likenft.v1.ClassesByAccountStoreRecord";

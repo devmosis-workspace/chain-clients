@@ -1,6 +1,6 @@
 import { ClassParentInput, ClassParentInputAmino, ClassParentInputSDKType, ClassInput, ClassInputAmino, ClassInputSDKType } from "./class_input";
 import { NFTInput, NFTInputAmino, NFTInputSDKType } from "./nft_input";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { RoyaltyConfigInput, RoyaltyConfigInputAmino, RoyaltyConfigInputSDKType, RoyaltyConfig, RoyaltyConfigAmino, RoyaltyConfigSDKType } from "./royalty_config";
 import { Class, ClassAmino, ClassSDKType, NFT, NFTAmino, NFTSDKType } from "../../../cosmos/nft/v1beta1/nft";
 import { BlindBoxContent, BlindBoxContentAmino, BlindBoxContentSDKType } from "./blind_box_content";
@@ -18,7 +18,7 @@ export interface MsgNewClassProtoMsg {
   value: Uint8Array;
 }
 export interface MsgNewClassAmino {
-  creator: string;
+  creator?: string;
   parent?: ClassParentInputAmino;
   input?: ClassInputAmino;
 }
@@ -58,8 +58,8 @@ export interface MsgUpdateClassProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdateClassAmino {
-  creator: string;
-  class_id: string;
+  creator?: string;
+  class_id?: string;
   input?: ClassInputAmino;
 }
 export interface MsgUpdateClassAminoMsg {
@@ -99,9 +99,9 @@ export interface MsgMintNFTProtoMsg {
   value: Uint8Array;
 }
 export interface MsgMintNFTAmino {
-  creator: string;
-  class_id: string;
-  id: string;
+  creator?: string;
+  class_id?: string;
+  id?: string;
   input?: NFTInputAmino;
 }
 export interface MsgMintNFTAminoMsg {
@@ -141,9 +141,9 @@ export interface MsgBurnNFTProtoMsg {
   value: Uint8Array;
 }
 export interface MsgBurnNFTAmino {
-  creator: string;
-  class_id: string;
-  nft_id: string;
+  creator?: string;
+  class_id?: string;
+  nft_id?: string;
 }
 export interface MsgBurnNFTAminoMsg {
   type: "/likechain.likenft.v1.MsgBurnNFT";
@@ -176,9 +176,9 @@ export interface MsgCreateBlindBoxContentProtoMsg {
   value: Uint8Array;
 }
 export interface MsgCreateBlindBoxContentAmino {
-  creator: string;
-  class_id: string;
-  id: string;
+  creator?: string;
+  class_id?: string;
+  id?: string;
   input?: NFTInputAmino;
 }
 export interface MsgCreateBlindBoxContentAminoMsg {
@@ -219,9 +219,9 @@ export interface MsgUpdateBlindBoxContentProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdateBlindBoxContentAmino {
-  creator: string;
-  class_id: string;
-  id: string;
+  creator?: string;
+  class_id?: string;
+  id?: string;
   input?: NFTInputAmino;
 }
 export interface MsgUpdateBlindBoxContentAminoMsg {
@@ -261,9 +261,9 @@ export interface MsgDeleteBlindBoxContentProtoMsg {
   value: Uint8Array;
 }
 export interface MsgDeleteBlindBoxContentAmino {
-  creator: string;
-  class_id: string;
-  id: string;
+  creator?: string;
+  class_id?: string;
+  id?: string;
 }
 export interface MsgDeleteBlindBoxContentAminoMsg {
   type: "/likechain.likenft.v1.MsgDeleteBlindBoxContent";
@@ -297,11 +297,11 @@ export interface MsgCreateOfferProtoMsg {
   value: Uint8Array;
 }
 export interface MsgCreateOfferAmino {
-  creator: string;
-  class_id: string;
-  nft_id: string;
-  price: string;
-  expiration?: TimestampAmino;
+  creator?: string;
+  class_id?: string;
+  nft_id?: string;
+  price?: string;
+  expiration?: string;
 }
 export interface MsgCreateOfferAminoMsg {
   type: "/likechain.likenft.v1.MsgCreateOffer";
@@ -343,11 +343,11 @@ export interface MsgUpdateOfferProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdateOfferAmino {
-  creator: string;
-  class_id: string;
-  nft_id: string;
-  price: string;
-  expiration?: TimestampAmino;
+  creator?: string;
+  class_id?: string;
+  nft_id?: string;
+  price?: string;
+  expiration?: string;
 }
 export interface MsgUpdateOfferAminoMsg {
   type: "/likechain.likenft.v1.MsgUpdateOffer";
@@ -387,9 +387,9 @@ export interface MsgDeleteOfferProtoMsg {
   value: Uint8Array;
 }
 export interface MsgDeleteOfferAmino {
-  creator: string;
-  class_id: string;
-  nft_id: string;
+  creator?: string;
+  class_id?: string;
+  nft_id?: string;
 }
 export interface MsgDeleteOfferAminoMsg {
   type: "/likechain.likenft.v1.MsgDeleteOffer";
@@ -424,12 +424,12 @@ export interface MsgCreateListingProtoMsg {
   value: Uint8Array;
 }
 export interface MsgCreateListingAmino {
-  creator: string;
-  class_id: string;
-  nft_id: string;
-  price: string;
-  expiration?: TimestampAmino;
-  full_pay_to_royalty: boolean;
+  creator?: string;
+  class_id?: string;
+  nft_id?: string;
+  price?: string;
+  expiration?: string;
+  full_pay_to_royalty?: boolean;
 }
 export interface MsgCreateListingAminoMsg {
   type: "/likechain.likenft.v1.MsgCreateListing";
@@ -473,12 +473,12 @@ export interface MsgUpdateListingProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdateListingAmino {
-  creator: string;
-  class_id: string;
-  nft_id: string;
-  price: string;
-  expiration?: TimestampAmino;
-  full_pay_to_royalty: boolean;
+  creator?: string;
+  class_id?: string;
+  nft_id?: string;
+  price?: string;
+  expiration?: string;
+  full_pay_to_royalty?: boolean;
 }
 export interface MsgUpdateListingAminoMsg {
   type: "/likechain.likenft.v1.MsgUpdateListing";
@@ -519,9 +519,9 @@ export interface MsgDeleteListingProtoMsg {
   value: Uint8Array;
 }
 export interface MsgDeleteListingAmino {
-  creator: string;
-  class_id: string;
-  nft_id: string;
+  creator?: string;
+  class_id?: string;
+  nft_id?: string;
 }
 export interface MsgDeleteListingAminoMsg {
   type: "/likechain.likenft.v1.MsgDeleteListing";
@@ -556,12 +556,12 @@ export interface MsgSellNFTProtoMsg {
   value: Uint8Array;
 }
 export interface MsgSellNFTAmino {
-  creator: string;
-  class_id: string;
-  nft_id: string;
-  buyer: string;
-  price: string;
-  full_pay_to_royalty: boolean;
+  creator?: string;
+  class_id?: string;
+  nft_id?: string;
+  buyer?: string;
+  price?: string;
+  full_pay_to_royalty?: boolean;
 }
 export interface MsgSellNFTAminoMsg {
   type: "/likechain.likenft.v1.MsgSellNFT";
@@ -598,11 +598,11 @@ export interface MsgBuyNFTProtoMsg {
   value: Uint8Array;
 }
 export interface MsgBuyNFTAmino {
-  creator: string;
-  class_id: string;
-  nft_id: string;
-  seller: string;
-  price: string;
+  creator?: string;
+  class_id?: string;
+  nft_id?: string;
+  seller?: string;
+  price?: string;
 }
 export interface MsgBuyNFTAminoMsg {
   type: "/likechain.likenft.v1.MsgBuyNFT";
@@ -636,8 +636,8 @@ export interface MsgCreateRoyaltyConfigProtoMsg {
   value: Uint8Array;
 }
 export interface MsgCreateRoyaltyConfigAmino {
-  creator: string;
-  class_id: string;
+  creator?: string;
+  class_id?: string;
   royalty_config?: RoyaltyConfigInputAmino;
 }
 export interface MsgCreateRoyaltyConfigAminoMsg {
@@ -676,8 +676,8 @@ export interface MsgUpdateRoyaltyConfigProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdateRoyaltyConfigAmino {
-  creator: string;
-  class_id: string;
+  creator?: string;
+  class_id?: string;
   royalty_config?: RoyaltyConfigInputAmino;
 }
 export interface MsgUpdateRoyaltyConfigAminoMsg {
@@ -715,8 +715,8 @@ export interface MsgDeleteRoyaltyConfigProtoMsg {
   value: Uint8Array;
 }
 export interface MsgDeleteRoyaltyConfigAmino {
-  creator: string;
-  class_id: string;
+  creator?: string;
+  class_id?: string;
 }
 export interface MsgDeleteRoyaltyConfigAminoMsg {
   type: "/likechain.likenft.v1.MsgDeleteRoyaltyConfig";
@@ -773,11 +773,17 @@ export const MsgNewClass = {
     return message;
   },
   fromAmino(object: MsgNewClassAmino): MsgNewClass {
-    return {
-      creator: object.creator,
-      parent: object?.parent ? ClassParentInput.fromAmino(object.parent) : undefined,
-      input: object?.input ? ClassInput.fromAmino(object.input) : undefined
-    };
+    const message = createBaseMsgNewClass();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.parent !== undefined && object.parent !== null) {
+      message.parent = ClassParentInput.fromAmino(object.parent);
+    }
+    if (object.input !== undefined && object.input !== null) {
+      message.input = ClassInput.fromAmino(object.input);
+    }
+    return message;
   },
   toAmino(message: MsgNewClass): MsgNewClassAmino {
     const obj: any = {};
@@ -826,9 +832,11 @@ export const MsgNewClassResponse = {
     return message;
   },
   fromAmino(object: MsgNewClassResponseAmino): MsgNewClassResponse {
-    return {
-      class: object?.class ? Class.fromAmino(object.class) : undefined
-    };
+    const message = createBaseMsgNewClassResponse();
+    if (object.class !== undefined && object.class !== null) {
+      message.class = Class.fromAmino(object.class);
+    }
+    return message;
   },
   toAmino(message: MsgNewClassResponse): MsgNewClassResponseAmino {
     const obj: any = {};
@@ -887,11 +895,17 @@ export const MsgUpdateClass = {
     return message;
   },
   fromAmino(object: MsgUpdateClassAmino): MsgUpdateClass {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      input: object?.input ? ClassInput.fromAmino(object.input) : undefined
-    };
+    const message = createBaseMsgUpdateClass();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.input !== undefined && object.input !== null) {
+      message.input = ClassInput.fromAmino(object.input);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateClass): MsgUpdateClassAmino {
     const obj: any = {};
@@ -940,9 +954,11 @@ export const MsgUpdateClassResponse = {
     return message;
   },
   fromAmino(object: MsgUpdateClassResponseAmino): MsgUpdateClassResponse {
-    return {
-      class: object?.class ? Class.fromAmino(object.class) : undefined
-    };
+    const message = createBaseMsgUpdateClassResponse();
+    if (object.class !== undefined && object.class !== null) {
+      message.class = Class.fromAmino(object.class);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateClassResponse): MsgUpdateClassResponseAmino {
     const obj: any = {};
@@ -1007,12 +1023,20 @@ export const MsgMintNFT = {
     return message;
   },
   fromAmino(object: MsgMintNFTAmino): MsgMintNFT {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      id: object.id,
-      input: object?.input ? NFTInput.fromAmino(object.input) : undefined
-    };
+    const message = createBaseMsgMintNFT();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.input !== undefined && object.input !== null) {
+      message.input = NFTInput.fromAmino(object.input);
+    }
+    return message;
   },
   toAmino(message: MsgMintNFT): MsgMintNFTAmino {
     const obj: any = {};
@@ -1062,9 +1086,11 @@ export const MsgMintNFTResponse = {
     return message;
   },
   fromAmino(object: MsgMintNFTResponseAmino): MsgMintNFTResponse {
-    return {
-      nft: object?.nft ? NFT.fromAmino(object.nft) : undefined
-    };
+    const message = createBaseMsgMintNFTResponse();
+    if (object.nft !== undefined && object.nft !== null) {
+      message.nft = NFT.fromAmino(object.nft);
+    }
+    return message;
   },
   toAmino(message: MsgMintNFTResponse): MsgMintNFTResponseAmino {
     const obj: any = {};
@@ -1123,11 +1149,17 @@ export const MsgBurnNFT = {
     return message;
   },
   fromAmino(object: MsgBurnNFTAmino): MsgBurnNFT {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      nftId: object.nft_id
-    };
+    const message = createBaseMsgBurnNFT();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    return message;
   },
   toAmino(message: MsgBurnNFT): MsgBurnNFTAmino {
     const obj: any = {};
@@ -1168,7 +1200,8 @@ export const MsgBurnNFTResponse = {
     return message;
   },
   fromAmino(_: MsgBurnNFTResponseAmino): MsgBurnNFTResponse {
-    return {};
+    const message = createBaseMsgBurnNFTResponse();
+    return message;
   },
   toAmino(_: MsgBurnNFTResponse): MsgBurnNFTResponseAmino {
     const obj: any = {};
@@ -1232,12 +1265,20 @@ export const MsgCreateBlindBoxContent = {
     return message;
   },
   fromAmino(object: MsgCreateBlindBoxContentAmino): MsgCreateBlindBoxContent {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      id: object.id,
-      input: object?.input ? NFTInput.fromAmino(object.input) : undefined
-    };
+    const message = createBaseMsgCreateBlindBoxContent();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.input !== undefined && object.input !== null) {
+      message.input = NFTInput.fromAmino(object.input);
+    }
+    return message;
   },
   toAmino(message: MsgCreateBlindBoxContent): MsgCreateBlindBoxContentAmino {
     const obj: any = {};
@@ -1287,9 +1328,11 @@ export const MsgCreateBlindBoxContentResponse = {
     return message;
   },
   fromAmino(object: MsgCreateBlindBoxContentResponseAmino): MsgCreateBlindBoxContentResponse {
-    return {
-      blindBoxContent: object?.blind_box_content ? BlindBoxContent.fromAmino(object.blind_box_content) : undefined
-    };
+    const message = createBaseMsgCreateBlindBoxContentResponse();
+    if (object.blind_box_content !== undefined && object.blind_box_content !== null) {
+      message.blindBoxContent = BlindBoxContent.fromAmino(object.blind_box_content);
+    }
+    return message;
   },
   toAmino(message: MsgCreateBlindBoxContentResponse): MsgCreateBlindBoxContentResponseAmino {
     const obj: any = {};
@@ -1354,12 +1397,20 @@ export const MsgUpdateBlindBoxContent = {
     return message;
   },
   fromAmino(object: MsgUpdateBlindBoxContentAmino): MsgUpdateBlindBoxContent {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      id: object.id,
-      input: object?.input ? NFTInput.fromAmino(object.input) : undefined
-    };
+    const message = createBaseMsgUpdateBlindBoxContent();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.input !== undefined && object.input !== null) {
+      message.input = NFTInput.fromAmino(object.input);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateBlindBoxContent): MsgUpdateBlindBoxContentAmino {
     const obj: any = {};
@@ -1409,9 +1460,11 @@ export const MsgUpdateBlindBoxContentResponse = {
     return message;
   },
   fromAmino(object: MsgUpdateBlindBoxContentResponseAmino): MsgUpdateBlindBoxContentResponse {
-    return {
-      blindBoxContent: object?.blind_box_content ? BlindBoxContent.fromAmino(object.blind_box_content) : undefined
-    };
+    const message = createBaseMsgUpdateBlindBoxContentResponse();
+    if (object.blind_box_content !== undefined && object.blind_box_content !== null) {
+      message.blindBoxContent = BlindBoxContent.fromAmino(object.blind_box_content);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateBlindBoxContentResponse): MsgUpdateBlindBoxContentResponseAmino {
     const obj: any = {};
@@ -1470,11 +1523,17 @@ export const MsgDeleteBlindBoxContent = {
     return message;
   },
   fromAmino(object: MsgDeleteBlindBoxContentAmino): MsgDeleteBlindBoxContent {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      id: object.id
-    };
+    const message = createBaseMsgDeleteBlindBoxContent();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: MsgDeleteBlindBoxContent): MsgDeleteBlindBoxContentAmino {
     const obj: any = {};
@@ -1515,7 +1574,8 @@ export const MsgDeleteBlindBoxContentResponse = {
     return message;
   },
   fromAmino(_: MsgDeleteBlindBoxContentResponseAmino): MsgDeleteBlindBoxContentResponse {
-    return {};
+    const message = createBaseMsgDeleteBlindBoxContentResponse();
+    return message;
   },
   toAmino(_: MsgDeleteBlindBoxContentResponse): MsgDeleteBlindBoxContentResponseAmino {
     const obj: any = {};
@@ -1585,13 +1645,23 @@ export const MsgCreateOffer = {
     return message;
   },
   fromAmino(object: MsgCreateOfferAmino): MsgCreateOffer {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      nftId: object.nft_id,
-      price: BigInt(object.price),
-      expiration: object.expiration
-    };
+    const message = createBaseMsgCreateOffer();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromAmino(object.expiration);
+    }
+    return message;
   },
   toAmino(message: MsgCreateOffer): MsgCreateOfferAmino {
     const obj: any = {};
@@ -1599,7 +1669,7 @@ export const MsgCreateOffer = {
     obj.class_id = message.classId;
     obj.nft_id = message.nftId;
     obj.price = message.price ? message.price.toString() : undefined;
-    obj.expiration = message.expiration;
+    obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgCreateOfferAminoMsg): MsgCreateOffer {
@@ -1642,9 +1712,11 @@ export const MsgCreateOfferResponse = {
     return message;
   },
   fromAmino(object: MsgCreateOfferResponseAmino): MsgCreateOfferResponse {
-    return {
-      offer: object?.offer ? Offer.fromAmino(object.offer) : undefined
-    };
+    const message = createBaseMsgCreateOfferResponse();
+    if (object.offer !== undefined && object.offer !== null) {
+      message.offer = Offer.fromAmino(object.offer);
+    }
+    return message;
   },
   toAmino(message: MsgCreateOfferResponse): MsgCreateOfferResponseAmino {
     const obj: any = {};
@@ -1715,13 +1787,23 @@ export const MsgUpdateOffer = {
     return message;
   },
   fromAmino(object: MsgUpdateOfferAmino): MsgUpdateOffer {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      nftId: object.nft_id,
-      price: BigInt(object.price),
-      expiration: object.expiration
-    };
+    const message = createBaseMsgUpdateOffer();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromAmino(object.expiration);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateOffer): MsgUpdateOfferAmino {
     const obj: any = {};
@@ -1729,7 +1811,7 @@ export const MsgUpdateOffer = {
     obj.class_id = message.classId;
     obj.nft_id = message.nftId;
     obj.price = message.price ? message.price.toString() : undefined;
-    obj.expiration = message.expiration;
+    obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgUpdateOfferAminoMsg): MsgUpdateOffer {
@@ -1772,9 +1854,11 @@ export const MsgUpdateOfferResponse = {
     return message;
   },
   fromAmino(object: MsgUpdateOfferResponseAmino): MsgUpdateOfferResponse {
-    return {
-      offer: object?.offer ? Offer.fromAmino(object.offer) : undefined
-    };
+    const message = createBaseMsgUpdateOfferResponse();
+    if (object.offer !== undefined && object.offer !== null) {
+      message.offer = Offer.fromAmino(object.offer);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateOfferResponse): MsgUpdateOfferResponseAmino {
     const obj: any = {};
@@ -1833,11 +1917,17 @@ export const MsgDeleteOffer = {
     return message;
   },
   fromAmino(object: MsgDeleteOfferAmino): MsgDeleteOffer {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      nftId: object.nft_id
-    };
+    const message = createBaseMsgDeleteOffer();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    return message;
   },
   toAmino(message: MsgDeleteOffer): MsgDeleteOfferAmino {
     const obj: any = {};
@@ -1878,7 +1968,8 @@ export const MsgDeleteOfferResponse = {
     return message;
   },
   fromAmino(_: MsgDeleteOfferResponseAmino): MsgDeleteOfferResponse {
-    return {};
+    const message = createBaseMsgDeleteOfferResponse();
+    return message;
   },
   toAmino(_: MsgDeleteOfferResponse): MsgDeleteOfferResponseAmino {
     const obj: any = {};
@@ -1954,14 +2045,26 @@ export const MsgCreateListing = {
     return message;
   },
   fromAmino(object: MsgCreateListingAmino): MsgCreateListing {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      nftId: object.nft_id,
-      price: BigInt(object.price),
-      expiration: object.expiration,
-      fullPayToRoyalty: object.full_pay_to_royalty
-    };
+    const message = createBaseMsgCreateListing();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromAmino(object.expiration);
+    }
+    if (object.full_pay_to_royalty !== undefined && object.full_pay_to_royalty !== null) {
+      message.fullPayToRoyalty = object.full_pay_to_royalty;
+    }
+    return message;
   },
   toAmino(message: MsgCreateListing): MsgCreateListingAmino {
     const obj: any = {};
@@ -1969,7 +2072,7 @@ export const MsgCreateListing = {
     obj.class_id = message.classId;
     obj.nft_id = message.nftId;
     obj.price = message.price ? message.price.toString() : undefined;
-    obj.expiration = message.expiration;
+    obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
     obj.full_pay_to_royalty = message.fullPayToRoyalty;
     return obj;
   },
@@ -2013,9 +2116,11 @@ export const MsgCreateListingResponse = {
     return message;
   },
   fromAmino(object: MsgCreateListingResponseAmino): MsgCreateListingResponse {
-    return {
-      listing: object?.listing ? Listing.fromAmino(object.listing) : undefined
-    };
+    const message = createBaseMsgCreateListingResponse();
+    if (object.listing !== undefined && object.listing !== null) {
+      message.listing = Listing.fromAmino(object.listing);
+    }
+    return message;
   },
   toAmino(message: MsgCreateListingResponse): MsgCreateListingResponseAmino {
     const obj: any = {};
@@ -2092,14 +2197,26 @@ export const MsgUpdateListing = {
     return message;
   },
   fromAmino(object: MsgUpdateListingAmino): MsgUpdateListing {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      nftId: object.nft_id,
-      price: BigInt(object.price),
-      expiration: object.expiration,
-      fullPayToRoyalty: object.full_pay_to_royalty
-    };
+    const message = createBaseMsgUpdateListing();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromAmino(object.expiration);
+    }
+    if (object.full_pay_to_royalty !== undefined && object.full_pay_to_royalty !== null) {
+      message.fullPayToRoyalty = object.full_pay_to_royalty;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateListing): MsgUpdateListingAmino {
     const obj: any = {};
@@ -2107,7 +2224,7 @@ export const MsgUpdateListing = {
     obj.class_id = message.classId;
     obj.nft_id = message.nftId;
     obj.price = message.price ? message.price.toString() : undefined;
-    obj.expiration = message.expiration;
+    obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
     obj.full_pay_to_royalty = message.fullPayToRoyalty;
     return obj;
   },
@@ -2151,9 +2268,11 @@ export const MsgUpdateListingResponse = {
     return message;
   },
   fromAmino(object: MsgUpdateListingResponseAmino): MsgUpdateListingResponse {
-    return {
-      listing: object?.listing ? Listing.fromAmino(object.listing) : undefined
-    };
+    const message = createBaseMsgUpdateListingResponse();
+    if (object.listing !== undefined && object.listing !== null) {
+      message.listing = Listing.fromAmino(object.listing);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateListingResponse): MsgUpdateListingResponseAmino {
     const obj: any = {};
@@ -2212,11 +2331,17 @@ export const MsgDeleteListing = {
     return message;
   },
   fromAmino(object: MsgDeleteListingAmino): MsgDeleteListing {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      nftId: object.nft_id
-    };
+    const message = createBaseMsgDeleteListing();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    return message;
   },
   toAmino(message: MsgDeleteListing): MsgDeleteListingAmino {
     const obj: any = {};
@@ -2257,7 +2382,8 @@ export const MsgDeleteListingResponse = {
     return message;
   },
   fromAmino(_: MsgDeleteListingResponseAmino): MsgDeleteListingResponse {
-    return {};
+    const message = createBaseMsgDeleteListingResponse();
+    return message;
   },
   toAmino(_: MsgDeleteListingResponse): MsgDeleteListingResponseAmino {
     const obj: any = {};
@@ -2333,14 +2459,26 @@ export const MsgSellNFT = {
     return message;
   },
   fromAmino(object: MsgSellNFTAmino): MsgSellNFT {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      nftId: object.nft_id,
-      buyer: object.buyer,
-      price: BigInt(object.price),
-      fullPayToRoyalty: object.full_pay_to_royalty
-    };
+    const message = createBaseMsgSellNFT();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = object.buyer;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.full_pay_to_royalty !== undefined && object.full_pay_to_royalty !== null) {
+      message.fullPayToRoyalty = object.full_pay_to_royalty;
+    }
+    return message;
   },
   toAmino(message: MsgSellNFT): MsgSellNFTAmino {
     const obj: any = {};
@@ -2384,7 +2522,8 @@ export const MsgSellNFTResponse = {
     return message;
   },
   fromAmino(_: MsgSellNFTResponseAmino): MsgSellNFTResponse {
-    return {};
+    const message = createBaseMsgSellNFTResponse();
+    return message;
   },
   toAmino(_: MsgSellNFTResponse): MsgSellNFTResponseAmino {
     const obj: any = {};
@@ -2454,13 +2593,23 @@ export const MsgBuyNFT = {
     return message;
   },
   fromAmino(object: MsgBuyNFTAmino): MsgBuyNFT {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      nftId: object.nft_id,
-      seller: object.seller,
-      price: BigInt(object.price)
-    };
+    const message = createBaseMsgBuyNFT();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = object.seller;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    return message;
   },
   toAmino(message: MsgBuyNFT): MsgBuyNFTAmino {
     const obj: any = {};
@@ -2503,7 +2652,8 @@ export const MsgBuyNFTResponse = {
     return message;
   },
   fromAmino(_: MsgBuyNFTResponseAmino): MsgBuyNFTResponse {
-    return {};
+    const message = createBaseMsgBuyNFTResponse();
+    return message;
   },
   toAmino(_: MsgBuyNFTResponse): MsgBuyNFTResponseAmino {
     const obj: any = {};
@@ -2561,11 +2711,17 @@ export const MsgCreateRoyaltyConfig = {
     return message;
   },
   fromAmino(object: MsgCreateRoyaltyConfigAmino): MsgCreateRoyaltyConfig {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      royaltyConfig: object?.royalty_config ? RoyaltyConfigInput.fromAmino(object.royalty_config) : undefined
-    };
+    const message = createBaseMsgCreateRoyaltyConfig();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.royalty_config !== undefined && object.royalty_config !== null) {
+      message.royaltyConfig = RoyaltyConfigInput.fromAmino(object.royalty_config);
+    }
+    return message;
   },
   toAmino(message: MsgCreateRoyaltyConfig): MsgCreateRoyaltyConfigAmino {
     const obj: any = {};
@@ -2614,9 +2770,11 @@ export const MsgCreateRoyaltyConfigResponse = {
     return message;
   },
   fromAmino(object: MsgCreateRoyaltyConfigResponseAmino): MsgCreateRoyaltyConfigResponse {
-    return {
-      royaltyConfig: object?.royalty_config ? RoyaltyConfig.fromAmino(object.royalty_config) : undefined
-    };
+    const message = createBaseMsgCreateRoyaltyConfigResponse();
+    if (object.royalty_config !== undefined && object.royalty_config !== null) {
+      message.royaltyConfig = RoyaltyConfig.fromAmino(object.royalty_config);
+    }
+    return message;
   },
   toAmino(message: MsgCreateRoyaltyConfigResponse): MsgCreateRoyaltyConfigResponseAmino {
     const obj: any = {};
@@ -2675,11 +2833,17 @@ export const MsgUpdateRoyaltyConfig = {
     return message;
   },
   fromAmino(object: MsgUpdateRoyaltyConfigAmino): MsgUpdateRoyaltyConfig {
-    return {
-      creator: object.creator,
-      classId: object.class_id,
-      royaltyConfig: object?.royalty_config ? RoyaltyConfigInput.fromAmino(object.royalty_config) : undefined
-    };
+    const message = createBaseMsgUpdateRoyaltyConfig();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.royalty_config !== undefined && object.royalty_config !== null) {
+      message.royaltyConfig = RoyaltyConfigInput.fromAmino(object.royalty_config);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateRoyaltyConfig): MsgUpdateRoyaltyConfigAmino {
     const obj: any = {};
@@ -2728,9 +2892,11 @@ export const MsgUpdateRoyaltyConfigResponse = {
     return message;
   },
   fromAmino(object: MsgUpdateRoyaltyConfigResponseAmino): MsgUpdateRoyaltyConfigResponse {
-    return {
-      royaltyConfig: object?.royalty_config ? RoyaltyConfig.fromAmino(object.royalty_config) : undefined
-    };
+    const message = createBaseMsgUpdateRoyaltyConfigResponse();
+    if (object.royalty_config !== undefined && object.royalty_config !== null) {
+      message.royaltyConfig = RoyaltyConfig.fromAmino(object.royalty_config);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateRoyaltyConfigResponse): MsgUpdateRoyaltyConfigResponseAmino {
     const obj: any = {};
@@ -2783,10 +2949,14 @@ export const MsgDeleteRoyaltyConfig = {
     return message;
   },
   fromAmino(object: MsgDeleteRoyaltyConfigAmino): MsgDeleteRoyaltyConfig {
-    return {
-      creator: object.creator,
-      classId: object.class_id
-    };
+    const message = createBaseMsgDeleteRoyaltyConfig();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    return message;
   },
   toAmino(message: MsgDeleteRoyaltyConfig): MsgDeleteRoyaltyConfigAmino {
     const obj: any = {};
@@ -2826,7 +2996,8 @@ export const MsgDeleteRoyaltyConfigResponse = {
     return message;
   },
   fromAmino(_: MsgDeleteRoyaltyConfigResponseAmino): MsgDeleteRoyaltyConfigResponse {
-    return {};
+    const message = createBaseMsgDeleteRoyaltyConfigResponse();
+    return message;
   },
   toAmino(_: MsgDeleteRoyaltyConfigResponse): MsgDeleteRoyaltyConfigResponseAmino {
     const obj: any = {};

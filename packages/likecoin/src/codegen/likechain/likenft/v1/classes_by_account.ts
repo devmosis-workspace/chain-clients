@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface ClassesByAccount {
   account: string;
   classIds: string[];
@@ -9,8 +9,8 @@ export interface ClassesByAccountProtoMsg {
   value: Uint8Array;
 }
 export interface ClassesByAccountAmino {
-  account: string;
-  class_ids: string[];
+  account?: string;
+  class_ids?: string[];
 }
 export interface ClassesByAccountAminoMsg {
   type: "/likechain.likenft.v1.ClassesByAccount";
@@ -29,8 +29,8 @@ export interface ClassesByAccountStoreRecordProtoMsg {
   value: Uint8Array;
 }
 export interface ClassesByAccountStoreRecordAmino {
-  acc_address: Uint8Array;
-  class_ids: string[];
+  acc_address?: string;
+  class_ids?: string[];
 }
 export interface ClassesByAccountStoreRecordAminoMsg {
   type: "/likechain.likenft.v1.ClassesByAccountStoreRecord";
@@ -70,10 +70,12 @@ export const ClassesByAccount = {
     return message;
   },
   fromAmino(object: ClassesByAccountAmino): ClassesByAccount {
-    return {
-      account: object.account,
-      classIds: Array.isArray(object?.class_ids) ? object.class_ids.map((e: any) => e) : []
-    };
+    const message = createBaseClassesByAccount();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    message.classIds = object.class_ids?.map(e => e) || [];
+    return message;
   },
   toAmino(message: ClassesByAccount): ClassesByAccountAmino {
     const obj: any = {};
@@ -131,14 +133,16 @@ export const ClassesByAccountStoreRecord = {
     return message;
   },
   fromAmino(object: ClassesByAccountStoreRecordAmino): ClassesByAccountStoreRecord {
-    return {
-      accAddress: object.acc_address,
-      classIds: Array.isArray(object?.class_ids) ? object.class_ids.map((e: any) => e) : []
-    };
+    const message = createBaseClassesByAccountStoreRecord();
+    if (object.acc_address !== undefined && object.acc_address !== null) {
+      message.accAddress = bytesFromBase64(object.acc_address);
+    }
+    message.classIds = object.class_ids?.map(e => e) || [];
+    return message;
   },
   toAmino(message: ClassesByAccountStoreRecord): ClassesByAccountStoreRecordAmino {
     const obj: any = {};
-    obj.acc_address = message.accAddress;
+    obj.acc_address = message.accAddress ? base64FromBytes(message.accAddress) : undefined;
     if (message.classIds) {
       obj.class_ids = message.classIds.map(e => e);
     } else {

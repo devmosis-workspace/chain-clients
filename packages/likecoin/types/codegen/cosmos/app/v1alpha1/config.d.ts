@@ -28,7 +28,7 @@ export interface ConfigProtoMsg {
  */
 export interface ConfigAmino {
     /** modules are the module configurations for the app. */
-    modules: ModuleConfigAmino[];
+    modules?: ModuleConfigAmino[];
 }
 export interface ConfigAminoMsg {
     type: "cosmos-sdk/Config";
@@ -65,7 +65,7 @@ export interface ModuleConfig {
      * config is the config object for the module. Module config messages should
      * define a ModuleDescriptor using the cosmos.app.v1alpha1.is_module extension.
      */
-    config: Any;
+    config?: Any;
 }
 export interface ModuleConfigProtoMsg {
     typeUrl: "/cosmos.app.v1alpha1.ModuleConfig";
@@ -85,7 +85,7 @@ export interface ModuleConfigAmino {
      * that the v1 module had. Note: modules should provide info on which versions
      * they can migrate from in the ModuleDescriptor.can_migration_from field.
      */
-    name: string;
+    name?: string;
     /**
      * config is the config object for the module. Module config messages should
      * define a ModuleDescriptor using the cosmos.app.v1alpha1.is_module extension.
@@ -99,7 +99,7 @@ export interface ModuleConfigAminoMsg {
 /** ModuleConfig is a module configuration for an app. */
 export interface ModuleConfigSDKType {
     name: string;
-    config: AnySDKType;
+    config?: AnySDKType;
 }
 export declare const Config: {
     typeUrl: string;

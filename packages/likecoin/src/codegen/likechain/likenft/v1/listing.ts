@@ -1,6 +1,6 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
-import { isSet, fromJsonTimestamp, bytesFromBase64 } from "../../../helpers";
+import { isSet, fromJsonTimestamp, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface Listing {
   classId: string;
   nftId: string;
@@ -14,12 +14,12 @@ export interface ListingProtoMsg {
   value: Uint8Array;
 }
 export interface ListingAmino {
-  class_id: string;
-  nft_id: string;
-  seller: string;
-  price: string;
-  expiration?: TimestampAmino;
-  full_pay_to_royalty: boolean;
+  class_id?: string;
+  nft_id?: string;
+  seller?: string;
+  price?: string;
+  expiration?: string;
+  full_pay_to_royalty?: boolean;
 }
 export interface ListingAminoMsg {
   type: "/likechain.likenft.v1.Listing";
@@ -46,12 +46,12 @@ export interface ListingStoreRecordProtoMsg {
   value: Uint8Array;
 }
 export interface ListingStoreRecordAmino {
-  class_id: string;
-  nft_id: string;
-  seller: Uint8Array;
-  price: string;
-  expiration?: TimestampAmino;
-  full_pay_to_royalty: boolean;
+  class_id?: string;
+  nft_id?: string;
+  seller?: string;
+  price?: string;
+  expiration?: string;
+  full_pay_to_royalty?: boolean;
 }
 export interface ListingStoreRecordAminoMsg {
   type: "/likechain.likenft.v1.ListingStoreRecord";
@@ -119,14 +119,26 @@ export const Listing = {
     return message;
   },
   fromAmino(object: ListingAmino): Listing {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      seller: object.seller,
-      price: BigInt(object.price),
-      expiration: object.expiration,
-      fullPayToRoyalty: object.full_pay_to_royalty
-    };
+    const message = createBaseListing();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = object.seller;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromAmino(object.expiration);
+    }
+    if (object.full_pay_to_royalty !== undefined && object.full_pay_to_royalty !== null) {
+      message.fullPayToRoyalty = object.full_pay_to_royalty;
+    }
+    return message;
   },
   toAmino(message: Listing): ListingAmino {
     const obj: any = {};
@@ -134,7 +146,7 @@ export const Listing = {
     obj.nft_id = message.nftId;
     obj.seller = message.seller;
     obj.price = message.price ? message.price.toString() : undefined;
-    obj.expiration = message.expiration;
+    obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
     obj.full_pay_to_royalty = message.fullPayToRoyalty;
     return obj;
   },
@@ -208,22 +220,34 @@ export const ListingStoreRecord = {
     return message;
   },
   fromAmino(object: ListingStoreRecordAmino): ListingStoreRecord {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      seller: object.seller,
-      price: BigInt(object.price),
-      expiration: object.expiration,
-      fullPayToRoyalty: object.full_pay_to_royalty
-    };
+    const message = createBaseListingStoreRecord();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = bytesFromBase64(object.seller);
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromAmino(object.expiration);
+    }
+    if (object.full_pay_to_royalty !== undefined && object.full_pay_to_royalty !== null) {
+      message.fullPayToRoyalty = object.full_pay_to_royalty;
+    }
+    return message;
   },
   toAmino(message: ListingStoreRecord): ListingStoreRecordAmino {
     const obj: any = {};
     obj.class_id = message.classId;
     obj.nft_id = message.nftId;
-    obj.seller = message.seller;
+    obj.seller = message.seller ? base64FromBytes(message.seller) : undefined;
     obj.price = message.price ? message.price.toString() : undefined;
-    obj.expiration = message.expiration;
+    obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
     obj.full_pay_to_royalty = message.fullPayToRoyalty;
     return obj;
   },

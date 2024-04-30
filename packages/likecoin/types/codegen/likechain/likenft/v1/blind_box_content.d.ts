@@ -10,8 +10,8 @@ export interface BlindBoxContentProtoMsg {
     value: Uint8Array;
 }
 export interface BlindBoxContentAmino {
-    class_id: string;
-    id: string;
+    class_id?: string;
+    id?: string;
     input?: NFTInputAmino;
 }
 export interface BlindBoxContentAminoMsg {

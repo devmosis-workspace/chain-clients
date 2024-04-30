@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface RoyaltyConfigByClass {
   classId: string;
   royaltyConfig: RoyaltyConfig;
@@ -9,7 +9,7 @@ export interface RoyaltyConfigByClassProtoMsg {
   value: Uint8Array;
 }
 export interface RoyaltyConfigByClassAmino {
-  class_id: string;
+  class_id?: string;
   royalty_config?: RoyaltyConfigAmino;
 }
 export interface RoyaltyConfigByClassAminoMsg {
@@ -29,8 +29,8 @@ export interface RoyaltyConfigProtoMsg {
   value: Uint8Array;
 }
 export interface RoyaltyConfigAmino {
-  rate_basis_points: string;
-  stakeholders: RoyaltyStakeholderAmino[];
+  rate_basis_points?: string;
+  stakeholders?: RoyaltyStakeholderAmino[];
 }
 export interface RoyaltyConfigAminoMsg {
   type: "/likechain.likenft.v1.RoyaltyConfig";
@@ -49,8 +49,8 @@ export interface RoyaltyStakeholderProtoMsg {
   value: Uint8Array;
 }
 export interface RoyaltyStakeholderAmino {
-  account: Uint8Array;
-  weight: string;
+  account?: string;
+  weight?: string;
 }
 export interface RoyaltyStakeholderAminoMsg {
   type: "/likechain.likenft.v1.RoyaltyStakeholder";
@@ -69,8 +69,8 @@ export interface RoyaltyConfigInputProtoMsg {
   value: Uint8Array;
 }
 export interface RoyaltyConfigInputAmino {
-  rate_basis_points: string;
-  stakeholders: RoyaltyStakeholderInputAmino[];
+  rate_basis_points?: string;
+  stakeholders?: RoyaltyStakeholderInputAmino[];
 }
 export interface RoyaltyConfigInputAminoMsg {
   type: "/likechain.likenft.v1.RoyaltyConfigInput";
@@ -89,8 +89,8 @@ export interface RoyaltyStakeholderInputProtoMsg {
   value: Uint8Array;
 }
 export interface RoyaltyStakeholderInputAmino {
-  account: string;
-  weight: string;
+  account?: string;
+  weight?: string;
 }
 export interface RoyaltyStakeholderInputAminoMsg {
   type: "/likechain.likenft.v1.RoyaltyStakeholderInput";
@@ -130,10 +130,14 @@ export const RoyaltyConfigByClass = {
     return message;
   },
   fromAmino(object: RoyaltyConfigByClassAmino): RoyaltyConfigByClass {
-    return {
-      classId: object.class_id,
-      royaltyConfig: object?.royalty_config ? RoyaltyConfig.fromAmino(object.royalty_config) : undefined
-    };
+    const message = createBaseRoyaltyConfigByClass();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.royalty_config !== undefined && object.royalty_config !== null) {
+      message.royaltyConfig = RoyaltyConfig.fromAmino(object.royalty_config);
+    }
+    return message;
   },
   toAmino(message: RoyaltyConfigByClass): RoyaltyConfigByClassAmino {
     const obj: any = {};
@@ -187,10 +191,12 @@ export const RoyaltyConfig = {
     return message;
   },
   fromAmino(object: RoyaltyConfigAmino): RoyaltyConfig {
-    return {
-      rateBasisPoints: BigInt(object.rate_basis_points),
-      stakeholders: Array.isArray(object?.stakeholders) ? object.stakeholders.map((e: any) => RoyaltyStakeholder.fromAmino(e)) : []
-    };
+    const message = createBaseRoyaltyConfig();
+    if (object.rate_basis_points !== undefined && object.rate_basis_points !== null) {
+      message.rateBasisPoints = BigInt(object.rate_basis_points);
+    }
+    message.stakeholders = object.stakeholders?.map(e => RoyaltyStakeholder.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: RoyaltyConfig): RoyaltyConfigAmino {
     const obj: any = {};
@@ -248,14 +254,18 @@ export const RoyaltyStakeholder = {
     return message;
   },
   fromAmino(object: RoyaltyStakeholderAmino): RoyaltyStakeholder {
-    return {
-      account: object.account,
-      weight: BigInt(object.weight)
-    };
+    const message = createBaseRoyaltyStakeholder();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = bytesFromBase64(object.account);
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = BigInt(object.weight);
+    }
+    return message;
   },
   toAmino(message: RoyaltyStakeholder): RoyaltyStakeholderAmino {
     const obj: any = {};
-    obj.account = message.account;
+    obj.account = message.account ? base64FromBytes(message.account) : undefined;
     obj.weight = message.weight ? message.weight.toString() : undefined;
     return obj;
   },
@@ -305,10 +315,12 @@ export const RoyaltyConfigInput = {
     return message;
   },
   fromAmino(object: RoyaltyConfigInputAmino): RoyaltyConfigInput {
-    return {
-      rateBasisPoints: BigInt(object.rate_basis_points),
-      stakeholders: Array.isArray(object?.stakeholders) ? object.stakeholders.map((e: any) => RoyaltyStakeholderInput.fromAmino(e)) : []
-    };
+    const message = createBaseRoyaltyConfigInput();
+    if (object.rate_basis_points !== undefined && object.rate_basis_points !== null) {
+      message.rateBasisPoints = BigInt(object.rate_basis_points);
+    }
+    message.stakeholders = object.stakeholders?.map(e => RoyaltyStakeholderInput.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: RoyaltyConfigInput): RoyaltyConfigInputAmino {
     const obj: any = {};
@@ -366,10 +378,14 @@ export const RoyaltyStakeholderInput = {
     return message;
   },
   fromAmino(object: RoyaltyStakeholderInputAmino): RoyaltyStakeholderInput {
-    return {
-      account: object.account,
-      weight: BigInt(object.weight)
-    };
+    const message = createBaseRoyaltyStakeholderInput();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = BigInt(object.weight);
+    }
+    return message;
   },
   toAmino(message: RoyaltyStakeholderInput): RoyaltyStakeholderInputAmino {
     const obj: any = {};

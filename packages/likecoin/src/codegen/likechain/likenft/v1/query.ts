@@ -48,14 +48,14 @@ export interface QueryParamsResponseSDKType {
 }
 export interface QueryClassesByISCNRequest {
   iscnIdPrefix: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryClassesByISCNRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryClassesByISCNRequest";
   value: Uint8Array;
 }
 export interface QueryClassesByISCNRequestAmino {
-  iscn_id_prefix: string;
+  iscn_id_prefix?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryClassesByISCNRequestAminoMsg {
@@ -64,20 +64,20 @@ export interface QueryClassesByISCNRequestAminoMsg {
 }
 export interface QueryClassesByISCNRequestSDKType {
   iscn_id_prefix: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryClassesByISCNResponse {
   iscnIdPrefix: string;
   classes: Class[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryClassesByISCNResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryClassesByISCNResponse";
   value: Uint8Array;
 }
 export interface QueryClassesByISCNResponseAmino {
-  iscn_id_prefix: string;
-  classes: ClassAmino[];
+  iscn_id_prefix?: string;
+  classes?: ClassAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryClassesByISCNResponseAminoMsg {
@@ -87,10 +87,10 @@ export interface QueryClassesByISCNResponseAminoMsg {
 export interface QueryClassesByISCNResponseSDKType {
   iscn_id_prefix: string;
   classes: ClassSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryClassesByISCNIndexRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryClassesByISCNIndexRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryClassesByISCNIndexRequest";
@@ -104,18 +104,18 @@ export interface QueryClassesByISCNIndexRequestAminoMsg {
   value: QueryClassesByISCNIndexRequestAmino;
 }
 export interface QueryClassesByISCNIndexRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryClassesByISCNIndexResponse {
   classesByIscns: ClassesByISCN[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryClassesByISCNIndexResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryClassesByISCNIndexResponse";
   value: Uint8Array;
 }
 export interface QueryClassesByISCNIndexResponseAmino {
-  classes_by_iscns: ClassesByISCNAmino[];
+  classes_by_iscns?: ClassesByISCNAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryClassesByISCNIndexResponseAminoMsg {
@@ -124,7 +124,7 @@ export interface QueryClassesByISCNIndexResponseAminoMsg {
 }
 export interface QueryClassesByISCNIndexResponseSDKType {
   classes_by_iscns: ClassesByISCNSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryISCNByClassRequest {
   classId: string;
@@ -134,7 +134,7 @@ export interface QueryISCNByClassRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryISCNByClassRequestAmino {
-  class_id: string;
+  class_id?: string;
 }
 export interface QueryISCNByClassRequestAminoMsg {
   type: "/likechain.likenft.v1.QueryISCNByClassRequest";
@@ -154,9 +154,9 @@ export interface QueryISCNByClassResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryISCNByClassResponseAmino {
-  iscn_id_prefix: string;
-  owner: string;
-  latest_version: string;
+  iscn_id_prefix?: string;
+  owner?: string;
+  latest_version?: string;
   latest_record?: QueryResponseRecordAmino;
 }
 export interface QueryISCNByClassResponseAminoMsg {
@@ -171,14 +171,14 @@ export interface QueryISCNByClassResponseSDKType {
 }
 export interface QueryClassesByAccountRequest {
   account: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryClassesByAccountRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryClassesByAccountRequest";
   value: Uint8Array;
 }
 export interface QueryClassesByAccountRequestAmino {
-  account: string;
+  account?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryClassesByAccountRequestAminoMsg {
@@ -187,20 +187,20 @@ export interface QueryClassesByAccountRequestAminoMsg {
 }
 export interface QueryClassesByAccountRequestSDKType {
   account: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryClassesByAccountResponse {
   account: string;
   classes: Class[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryClassesByAccountResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryClassesByAccountResponse";
   value: Uint8Array;
 }
 export interface QueryClassesByAccountResponseAmino {
-  account: string;
-  classes: ClassAmino[];
+  account?: string;
+  classes?: ClassAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryClassesByAccountResponseAminoMsg {
@@ -210,10 +210,10 @@ export interface QueryClassesByAccountResponseAminoMsg {
 export interface QueryClassesByAccountResponseSDKType {
   account: string;
   classes: ClassSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryClassesByAccountIndexRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryClassesByAccountIndexRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryClassesByAccountIndexRequest";
@@ -227,18 +227,18 @@ export interface QueryClassesByAccountIndexRequestAminoMsg {
   value: QueryClassesByAccountIndexRequestAmino;
 }
 export interface QueryClassesByAccountIndexRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryClassesByAccountIndexResponse {
   classesByAccounts: ClassesByAccount[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryClassesByAccountIndexResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryClassesByAccountIndexResponse";
   value: Uint8Array;
 }
 export interface QueryClassesByAccountIndexResponseAmino {
-  classes_by_accounts: ClassesByAccountAmino[];
+  classes_by_accounts?: ClassesByAccountAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryClassesByAccountIndexResponseAminoMsg {
@@ -247,7 +247,7 @@ export interface QueryClassesByAccountIndexResponseAminoMsg {
 }
 export interface QueryClassesByAccountIndexResponseSDKType {
   classes_by_accounts: ClassesByAccountSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryAccountByClassRequest {
   classId: string;
@@ -257,7 +257,7 @@ export interface QueryAccountByClassRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryAccountByClassRequestAmino {
-  class_id: string;
+  class_id?: string;
 }
 export interface QueryAccountByClassRequestAminoMsg {
   type: "/likechain.likenft.v1.QueryAccountByClassRequest";
@@ -274,7 +274,7 @@ export interface QueryAccountByClassResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryAccountByClassResponseAmino {
-  address: string;
+  address?: string;
 }
 export interface QueryAccountByClassResponseAminoMsg {
   type: "/likechain.likenft.v1.QueryAccountByClassResponse";
@@ -292,8 +292,8 @@ export interface QueryBlindBoxContentRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryBlindBoxContentRequestAmino {
-  class_id: string;
-  id: string;
+  class_id?: string;
+  id?: string;
 }
 export interface QueryBlindBoxContentRequestAminoMsg {
   type: "/likechain.likenft.v1.QueryBlindBoxContentRequest";
@@ -321,7 +321,7 @@ export interface QueryBlindBoxContentResponseSDKType {
   blind_box_content: BlindBoxContentSDKType;
 }
 export interface QueryBlindBoxContentIndexRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryBlindBoxContentIndexRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryBlindBoxContentIndexRequest";
@@ -335,18 +335,18 @@ export interface QueryBlindBoxContentIndexRequestAminoMsg {
   value: QueryBlindBoxContentIndexRequestAmino;
 }
 export interface QueryBlindBoxContentIndexRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryBlindBoxContentIndexResponse {
   blindBoxContents: BlindBoxContent[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryBlindBoxContentIndexResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryBlindBoxContentIndexResponse";
   value: Uint8Array;
 }
 export interface QueryBlindBoxContentIndexResponseAmino {
-  blind_box_contents: BlindBoxContentAmino[];
+  blind_box_contents?: BlindBoxContentAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryBlindBoxContentIndexResponseAminoMsg {
@@ -355,18 +355,18 @@ export interface QueryBlindBoxContentIndexResponseAminoMsg {
 }
 export interface QueryBlindBoxContentIndexResponseSDKType {
   blind_box_contents: BlindBoxContentSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryBlindBoxContentsRequest {
   classId: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryBlindBoxContentsRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryBlindBoxContentsRequest";
   value: Uint8Array;
 }
 export interface QueryBlindBoxContentsRequestAmino {
-  class_id: string;
+  class_id?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryBlindBoxContentsRequestAminoMsg {
@@ -375,18 +375,18 @@ export interface QueryBlindBoxContentsRequestAminoMsg {
 }
 export interface QueryBlindBoxContentsRequestSDKType {
   class_id: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryBlindBoxContentsResponse {
   blindBoxContents: BlindBoxContent[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryBlindBoxContentsResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryBlindBoxContentsResponse";
   value: Uint8Array;
 }
 export interface QueryBlindBoxContentsResponseAmino {
-  blind_box_contents: BlindBoxContentAmino[];
+  blind_box_contents?: BlindBoxContentAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryBlindBoxContentsResponseAminoMsg {
@@ -395,7 +395,7 @@ export interface QueryBlindBoxContentsResponseAminoMsg {
 }
 export interface QueryBlindBoxContentsResponseSDKType {
   blind_box_contents: BlindBoxContentSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryOfferRequest {
   classId: string;
@@ -407,9 +407,9 @@ export interface QueryOfferRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryOfferRequestAmino {
-  class_id: string;
-  nft_id: string;
-  buyer: string;
+  class_id?: string;
+  nft_id?: string;
+  buyer?: string;
 }
 export interface QueryOfferRequestAminoMsg {
   type: "/likechain.likenft.v1.QueryOfferRequest";
@@ -438,7 +438,7 @@ export interface QueryOfferResponseSDKType {
   offer: OfferSDKType;
 }
 export interface QueryOfferIndexRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryOfferIndexRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryOfferIndexRequest";
@@ -452,18 +452,18 @@ export interface QueryOfferIndexRequestAminoMsg {
   value: QueryOfferIndexRequestAmino;
 }
 export interface QueryOfferIndexRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryOfferIndexResponse {
   offers: Offer[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryOfferIndexResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryOfferIndexResponse";
   value: Uint8Array;
 }
 export interface QueryOfferIndexResponseAmino {
-  offers: OfferAmino[];
+  offers?: OfferAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryOfferIndexResponseAminoMsg {
@@ -472,18 +472,18 @@ export interface QueryOfferIndexResponseAminoMsg {
 }
 export interface QueryOfferIndexResponseSDKType {
   offers: OfferSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryOffersByClassRequest {
   classId: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryOffersByClassRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryOffersByClassRequest";
   value: Uint8Array;
 }
 export interface QueryOffersByClassRequestAmino {
-  class_id: string;
+  class_id?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryOffersByClassRequestAminoMsg {
@@ -492,18 +492,18 @@ export interface QueryOffersByClassRequestAminoMsg {
 }
 export interface QueryOffersByClassRequestSDKType {
   class_id: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryOffersByClassResponse {
   offers: Offer[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryOffersByClassResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryOffersByClassResponse";
   value: Uint8Array;
 }
 export interface QueryOffersByClassResponseAmino {
-  offers: OfferAmino[];
+  offers?: OfferAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryOffersByClassResponseAminoMsg {
@@ -512,20 +512,20 @@ export interface QueryOffersByClassResponseAminoMsg {
 }
 export interface QueryOffersByClassResponseSDKType {
   offers: OfferSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryOffersByNFTRequest {
   classId: string;
   nftId: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryOffersByNFTRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryOffersByNFTRequest";
   value: Uint8Array;
 }
 export interface QueryOffersByNFTRequestAmino {
-  class_id: string;
-  nft_id: string;
+  class_id?: string;
+  nft_id?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryOffersByNFTRequestAminoMsg {
@@ -535,18 +535,18 @@ export interface QueryOffersByNFTRequestAminoMsg {
 export interface QueryOffersByNFTRequestSDKType {
   class_id: string;
   nft_id: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryOffersByNFTResponse {
   offers: Offer[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryOffersByNFTResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryOffersByNFTResponse";
   value: Uint8Array;
 }
 export interface QueryOffersByNFTResponseAmino {
-  offers: OfferAmino[];
+  offers?: OfferAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryOffersByNFTResponseAminoMsg {
@@ -555,7 +555,7 @@ export interface QueryOffersByNFTResponseAminoMsg {
 }
 export interface QueryOffersByNFTResponseSDKType {
   offers: OfferSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryListingRequest {
   classId: string;
@@ -567,9 +567,9 @@ export interface QueryListingRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryListingRequestAmino {
-  class_id: string;
-  nft_id: string;
-  seller: string;
+  class_id?: string;
+  nft_id?: string;
+  seller?: string;
 }
 export interface QueryListingRequestAminoMsg {
   type: "/likechain.likenft.v1.QueryListingRequest";
@@ -598,7 +598,7 @@ export interface QueryListingResponseSDKType {
   listing: ListingSDKType;
 }
 export interface QueryListingIndexRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryListingIndexRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryListingIndexRequest";
@@ -612,18 +612,18 @@ export interface QueryListingIndexRequestAminoMsg {
   value: QueryListingIndexRequestAmino;
 }
 export interface QueryListingIndexRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryListingIndexResponse {
   listings: Listing[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryListingIndexResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryListingIndexResponse";
   value: Uint8Array;
 }
 export interface QueryListingIndexResponseAmino {
-  listings: ListingAmino[];
+  listings?: ListingAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryListingIndexResponseAminoMsg {
@@ -632,18 +632,18 @@ export interface QueryListingIndexResponseAminoMsg {
 }
 export interface QueryListingIndexResponseSDKType {
   listings: ListingSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryListingsByClassRequest {
   classId: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryListingsByClassRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryListingsByClassRequest";
   value: Uint8Array;
 }
 export interface QueryListingsByClassRequestAmino {
-  class_id: string;
+  class_id?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryListingsByClassRequestAminoMsg {
@@ -652,18 +652,18 @@ export interface QueryListingsByClassRequestAminoMsg {
 }
 export interface QueryListingsByClassRequestSDKType {
   class_id: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryListingsByClassResponse {
   listings: Listing[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryListingsByClassResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryListingsByClassResponse";
   value: Uint8Array;
 }
 export interface QueryListingsByClassResponseAmino {
-  listings: ListingAmino[];
+  listings?: ListingAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryListingsByClassResponseAminoMsg {
@@ -672,20 +672,20 @@ export interface QueryListingsByClassResponseAminoMsg {
 }
 export interface QueryListingsByClassResponseSDKType {
   listings: ListingSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryListingsByNFTRequest {
   classId: string;
   nftId: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryListingsByNFTRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryListingsByNFTRequest";
   value: Uint8Array;
 }
 export interface QueryListingsByNFTRequestAmino {
-  class_id: string;
-  nft_id: string;
+  class_id?: string;
+  nft_id?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryListingsByNFTRequestAminoMsg {
@@ -695,18 +695,18 @@ export interface QueryListingsByNFTRequestAminoMsg {
 export interface QueryListingsByNFTRequestSDKType {
   class_id: string;
   nft_id: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryListingsByNFTResponse {
   listings: Listing[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryListingsByNFTResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryListingsByNFTResponse";
   value: Uint8Array;
 }
 export interface QueryListingsByNFTResponseAmino {
-  listings: ListingAmino[];
+  listings?: ListingAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryListingsByNFTResponseAminoMsg {
@@ -715,7 +715,7 @@ export interface QueryListingsByNFTResponseAminoMsg {
 }
 export interface QueryListingsByNFTResponseSDKType {
   listings: ListingSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryRoyaltyConfigRequest {
   classId: string;
@@ -725,7 +725,7 @@ export interface QueryRoyaltyConfigRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryRoyaltyConfigRequestAmino {
-  class_id: string;
+  class_id?: string;
 }
 export interface QueryRoyaltyConfigRequestAminoMsg {
   type: "/likechain.likenft.v1.QueryRoyaltyConfigRequest";
@@ -752,7 +752,7 @@ export interface QueryRoyaltyConfigResponseSDKType {
   royalty_config: RoyaltyConfigSDKType;
 }
 export interface QueryRoyaltyConfigIndexRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryRoyaltyConfigIndexRequestProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryRoyaltyConfigIndexRequest";
@@ -766,18 +766,18 @@ export interface QueryRoyaltyConfigIndexRequestAminoMsg {
   value: QueryRoyaltyConfigIndexRequestAmino;
 }
 export interface QueryRoyaltyConfigIndexRequestSDKType {
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryRoyaltyConfigIndexResponse {
   royaltyConfigByClass: RoyaltyConfigByClass[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryRoyaltyConfigIndexResponseProtoMsg {
   typeUrl: "/likechain.likenft.v1.QueryRoyaltyConfigIndexResponse";
   value: Uint8Array;
 }
 export interface QueryRoyaltyConfigIndexResponseAmino {
-  royalty_config_by_class: RoyaltyConfigByClassAmino[];
+  royalty_config_by_class?: RoyaltyConfigByClassAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryRoyaltyConfigIndexResponseAminoMsg {
@@ -786,7 +786,7 @@ export interface QueryRoyaltyConfigIndexResponseAminoMsg {
 }
 export interface QueryRoyaltyConfigIndexResponseSDKType {
   royalty_config_by_class: RoyaltyConfigByClassSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -804,7 +804,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -850,9 +851,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -878,7 +881,7 @@ export const QueryParamsResponse = {
 function createBaseQueryClassesByISCNRequest(): QueryClassesByISCNRequest {
   return {
     iscnIdPrefix: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryClassesByISCNRequest = {
@@ -905,10 +908,14 @@ export const QueryClassesByISCNRequest = {
     return message;
   },
   fromAmino(object: QueryClassesByISCNRequestAmino): QueryClassesByISCNRequest {
-    return {
-      iscnIdPrefix: object.iscn_id_prefix,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryClassesByISCNRequest();
+    if (object.iscn_id_prefix !== undefined && object.iscn_id_prefix !== null) {
+      message.iscnIdPrefix = object.iscn_id_prefix;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryClassesByISCNRequest): QueryClassesByISCNRequestAmino {
     const obj: any = {};
@@ -936,7 +943,7 @@ function createBaseQueryClassesByISCNResponse(): QueryClassesByISCNResponse {
   return {
     iscnIdPrefix: "",
     classes: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryClassesByISCNResponse = {
@@ -968,11 +975,15 @@ export const QueryClassesByISCNResponse = {
     return message;
   },
   fromAmino(object: QueryClassesByISCNResponseAmino): QueryClassesByISCNResponse {
-    return {
-      iscnIdPrefix: object.iscn_id_prefix,
-      classes: Array.isArray(object?.classes) ? object.classes.map((e: any) => Class.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryClassesByISCNResponse();
+    if (object.iscn_id_prefix !== undefined && object.iscn_id_prefix !== null) {
+      message.iscnIdPrefix = object.iscn_id_prefix;
+    }
+    message.classes = object.classes?.map(e => Class.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryClassesByISCNResponse): QueryClassesByISCNResponseAmino {
     const obj: any = {};
@@ -1003,7 +1014,7 @@ export const QueryClassesByISCNResponse = {
 };
 function createBaseQueryClassesByISCNIndexRequest(): QueryClassesByISCNIndexRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryClassesByISCNIndexRequest = {
@@ -1025,9 +1036,11 @@ export const QueryClassesByISCNIndexRequest = {
     return message;
   },
   fromAmino(object: QueryClassesByISCNIndexRequestAmino): QueryClassesByISCNIndexRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryClassesByISCNIndexRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryClassesByISCNIndexRequest): QueryClassesByISCNIndexRequestAmino {
     const obj: any = {};
@@ -1053,7 +1066,7 @@ export const QueryClassesByISCNIndexRequest = {
 function createBaseQueryClassesByISCNIndexResponse(): QueryClassesByISCNIndexResponse {
   return {
     classesByIscns: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryClassesByISCNIndexResponse = {
@@ -1080,10 +1093,12 @@ export const QueryClassesByISCNIndexResponse = {
     return message;
   },
   fromAmino(object: QueryClassesByISCNIndexResponseAmino): QueryClassesByISCNIndexResponse {
-    return {
-      classesByIscns: Array.isArray(object?.classes_by_iscns) ? object.classes_by_iscns.map((e: any) => ClassesByISCN.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryClassesByISCNIndexResponse();
+    message.classesByIscns = object.classes_by_iscns?.map(e => ClassesByISCN.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryClassesByISCNIndexResponse): QueryClassesByISCNIndexResponseAmino {
     const obj: any = {};
@@ -1135,9 +1150,11 @@ export const QueryISCNByClassRequest = {
     return message;
   },
   fromAmino(object: QueryISCNByClassRequestAmino): QueryISCNByClassRequest {
-    return {
-      classId: object.class_id
-    };
+    const message = createBaseQueryISCNByClassRequest();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    return message;
   },
   toAmino(message: QueryISCNByClassRequest): QueryISCNByClassRequestAmino {
     const obj: any = {};
@@ -1202,12 +1219,20 @@ export const QueryISCNByClassResponse = {
     return message;
   },
   fromAmino(object: QueryISCNByClassResponseAmino): QueryISCNByClassResponse {
-    return {
-      iscnIdPrefix: object.iscn_id_prefix,
-      owner: object.owner,
-      latestVersion: BigInt(object.latest_version),
-      latestRecord: object?.latest_record ? QueryResponseRecord.fromAmino(object.latest_record) : undefined
-    };
+    const message = createBaseQueryISCNByClassResponse();
+    if (object.iscn_id_prefix !== undefined && object.iscn_id_prefix !== null) {
+      message.iscnIdPrefix = object.iscn_id_prefix;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.latest_version !== undefined && object.latest_version !== null) {
+      message.latestVersion = BigInt(object.latest_version);
+    }
+    if (object.latest_record !== undefined && object.latest_record !== null) {
+      message.latestRecord = QueryResponseRecord.fromAmino(object.latest_record);
+    }
+    return message;
   },
   toAmino(message: QueryISCNByClassResponse): QueryISCNByClassResponseAmino {
     const obj: any = {};
@@ -1236,7 +1261,7 @@ export const QueryISCNByClassResponse = {
 function createBaseQueryClassesByAccountRequest(): QueryClassesByAccountRequest {
   return {
     account: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryClassesByAccountRequest = {
@@ -1263,10 +1288,14 @@ export const QueryClassesByAccountRequest = {
     return message;
   },
   fromAmino(object: QueryClassesByAccountRequestAmino): QueryClassesByAccountRequest {
-    return {
-      account: object.account,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryClassesByAccountRequest();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryClassesByAccountRequest): QueryClassesByAccountRequestAmino {
     const obj: any = {};
@@ -1294,7 +1323,7 @@ function createBaseQueryClassesByAccountResponse(): QueryClassesByAccountRespons
   return {
     account: "",
     classes: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryClassesByAccountResponse = {
@@ -1326,11 +1355,15 @@ export const QueryClassesByAccountResponse = {
     return message;
   },
   fromAmino(object: QueryClassesByAccountResponseAmino): QueryClassesByAccountResponse {
-    return {
-      account: object.account,
-      classes: Array.isArray(object?.classes) ? object.classes.map((e: any) => Class.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryClassesByAccountResponse();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    message.classes = object.classes?.map(e => Class.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryClassesByAccountResponse): QueryClassesByAccountResponseAmino {
     const obj: any = {};
@@ -1361,7 +1394,7 @@ export const QueryClassesByAccountResponse = {
 };
 function createBaseQueryClassesByAccountIndexRequest(): QueryClassesByAccountIndexRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryClassesByAccountIndexRequest = {
@@ -1383,9 +1416,11 @@ export const QueryClassesByAccountIndexRequest = {
     return message;
   },
   fromAmino(object: QueryClassesByAccountIndexRequestAmino): QueryClassesByAccountIndexRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryClassesByAccountIndexRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryClassesByAccountIndexRequest): QueryClassesByAccountIndexRequestAmino {
     const obj: any = {};
@@ -1411,7 +1446,7 @@ export const QueryClassesByAccountIndexRequest = {
 function createBaseQueryClassesByAccountIndexResponse(): QueryClassesByAccountIndexResponse {
   return {
     classesByAccounts: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryClassesByAccountIndexResponse = {
@@ -1438,10 +1473,12 @@ export const QueryClassesByAccountIndexResponse = {
     return message;
   },
   fromAmino(object: QueryClassesByAccountIndexResponseAmino): QueryClassesByAccountIndexResponse {
-    return {
-      classesByAccounts: Array.isArray(object?.classes_by_accounts) ? object.classes_by_accounts.map((e: any) => ClassesByAccount.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryClassesByAccountIndexResponse();
+    message.classesByAccounts = object.classes_by_accounts?.map(e => ClassesByAccount.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryClassesByAccountIndexResponse): QueryClassesByAccountIndexResponseAmino {
     const obj: any = {};
@@ -1493,9 +1530,11 @@ export const QueryAccountByClassRequest = {
     return message;
   },
   fromAmino(object: QueryAccountByClassRequestAmino): QueryAccountByClassRequest {
-    return {
-      classId: object.class_id
-    };
+    const message = createBaseQueryAccountByClassRequest();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    return message;
   },
   toAmino(message: QueryAccountByClassRequest): QueryAccountByClassRequestAmino {
     const obj: any = {};
@@ -1542,9 +1581,11 @@ export const QueryAccountByClassResponse = {
     return message;
   },
   fromAmino(object: QueryAccountByClassResponseAmino): QueryAccountByClassResponse {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryAccountByClassResponse();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryAccountByClassResponse): QueryAccountByClassResponseAmino {
     const obj: any = {};
@@ -1597,10 +1638,14 @@ export const QueryBlindBoxContentRequest = {
     return message;
   },
   fromAmino(object: QueryBlindBoxContentRequestAmino): QueryBlindBoxContentRequest {
-    return {
-      classId: object.class_id,
-      id: object.id
-    };
+    const message = createBaseQueryBlindBoxContentRequest();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: QueryBlindBoxContentRequest): QueryBlindBoxContentRequestAmino {
     const obj: any = {};
@@ -1648,9 +1693,11 @@ export const QueryBlindBoxContentResponse = {
     return message;
   },
   fromAmino(object: QueryBlindBoxContentResponseAmino): QueryBlindBoxContentResponse {
-    return {
-      blindBoxContent: object?.blind_box_content ? BlindBoxContent.fromAmino(object.blind_box_content) : undefined
-    };
+    const message = createBaseQueryBlindBoxContentResponse();
+    if (object.blind_box_content !== undefined && object.blind_box_content !== null) {
+      message.blindBoxContent = BlindBoxContent.fromAmino(object.blind_box_content);
+    }
+    return message;
   },
   toAmino(message: QueryBlindBoxContentResponse): QueryBlindBoxContentResponseAmino {
     const obj: any = {};
@@ -1675,7 +1722,7 @@ export const QueryBlindBoxContentResponse = {
 };
 function createBaseQueryBlindBoxContentIndexRequest(): QueryBlindBoxContentIndexRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryBlindBoxContentIndexRequest = {
@@ -1697,9 +1744,11 @@ export const QueryBlindBoxContentIndexRequest = {
     return message;
   },
   fromAmino(object: QueryBlindBoxContentIndexRequestAmino): QueryBlindBoxContentIndexRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryBlindBoxContentIndexRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryBlindBoxContentIndexRequest): QueryBlindBoxContentIndexRequestAmino {
     const obj: any = {};
@@ -1725,7 +1774,7 @@ export const QueryBlindBoxContentIndexRequest = {
 function createBaseQueryBlindBoxContentIndexResponse(): QueryBlindBoxContentIndexResponse {
   return {
     blindBoxContents: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryBlindBoxContentIndexResponse = {
@@ -1752,10 +1801,12 @@ export const QueryBlindBoxContentIndexResponse = {
     return message;
   },
   fromAmino(object: QueryBlindBoxContentIndexResponseAmino): QueryBlindBoxContentIndexResponse {
-    return {
-      blindBoxContents: Array.isArray(object?.blind_box_contents) ? object.blind_box_contents.map((e: any) => BlindBoxContent.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryBlindBoxContentIndexResponse();
+    message.blindBoxContents = object.blind_box_contents?.map(e => BlindBoxContent.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryBlindBoxContentIndexResponse): QueryBlindBoxContentIndexResponseAmino {
     const obj: any = {};
@@ -1786,7 +1837,7 @@ export const QueryBlindBoxContentIndexResponse = {
 function createBaseQueryBlindBoxContentsRequest(): QueryBlindBoxContentsRequest {
   return {
     classId: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryBlindBoxContentsRequest = {
@@ -1813,10 +1864,14 @@ export const QueryBlindBoxContentsRequest = {
     return message;
   },
   fromAmino(object: QueryBlindBoxContentsRequestAmino): QueryBlindBoxContentsRequest {
-    return {
-      classId: object.class_id,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryBlindBoxContentsRequest();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryBlindBoxContentsRequest): QueryBlindBoxContentsRequestAmino {
     const obj: any = {};
@@ -1843,7 +1898,7 @@ export const QueryBlindBoxContentsRequest = {
 function createBaseQueryBlindBoxContentsResponse(): QueryBlindBoxContentsResponse {
   return {
     blindBoxContents: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryBlindBoxContentsResponse = {
@@ -1870,10 +1925,12 @@ export const QueryBlindBoxContentsResponse = {
     return message;
   },
   fromAmino(object: QueryBlindBoxContentsResponseAmino): QueryBlindBoxContentsResponse {
-    return {
-      blindBoxContents: Array.isArray(object?.blind_box_contents) ? object.blind_box_contents.map((e: any) => BlindBoxContent.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryBlindBoxContentsResponse();
+    message.blindBoxContents = object.blind_box_contents?.map(e => BlindBoxContent.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryBlindBoxContentsResponse): QueryBlindBoxContentsResponseAmino {
     const obj: any = {};
@@ -1937,11 +1994,17 @@ export const QueryOfferRequest = {
     return message;
   },
   fromAmino(object: QueryOfferRequestAmino): QueryOfferRequest {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      buyer: object.buyer
-    };
+    const message = createBaseQueryOfferRequest();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = object.buyer;
+    }
+    return message;
   },
   toAmino(message: QueryOfferRequest): QueryOfferRequestAmino {
     const obj: any = {};
@@ -1990,9 +2053,11 @@ export const QueryOfferResponse = {
     return message;
   },
   fromAmino(object: QueryOfferResponseAmino): QueryOfferResponse {
-    return {
-      offer: object?.offer ? Offer.fromAmino(object.offer) : undefined
-    };
+    const message = createBaseQueryOfferResponse();
+    if (object.offer !== undefined && object.offer !== null) {
+      message.offer = Offer.fromAmino(object.offer);
+    }
+    return message;
   },
   toAmino(message: QueryOfferResponse): QueryOfferResponseAmino {
     const obj: any = {};
@@ -2017,7 +2082,7 @@ export const QueryOfferResponse = {
 };
 function createBaseQueryOfferIndexRequest(): QueryOfferIndexRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryOfferIndexRequest = {
@@ -2039,9 +2104,11 @@ export const QueryOfferIndexRequest = {
     return message;
   },
   fromAmino(object: QueryOfferIndexRequestAmino): QueryOfferIndexRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryOfferIndexRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryOfferIndexRequest): QueryOfferIndexRequestAmino {
     const obj: any = {};
@@ -2067,7 +2134,7 @@ export const QueryOfferIndexRequest = {
 function createBaseQueryOfferIndexResponse(): QueryOfferIndexResponse {
   return {
     offers: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryOfferIndexResponse = {
@@ -2094,10 +2161,12 @@ export const QueryOfferIndexResponse = {
     return message;
   },
   fromAmino(object: QueryOfferIndexResponseAmino): QueryOfferIndexResponse {
-    return {
-      offers: Array.isArray(object?.offers) ? object.offers.map((e: any) => Offer.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryOfferIndexResponse();
+    message.offers = object.offers?.map(e => Offer.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryOfferIndexResponse): QueryOfferIndexResponseAmino {
     const obj: any = {};
@@ -2128,7 +2197,7 @@ export const QueryOfferIndexResponse = {
 function createBaseQueryOffersByClassRequest(): QueryOffersByClassRequest {
   return {
     classId: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryOffersByClassRequest = {
@@ -2155,10 +2224,14 @@ export const QueryOffersByClassRequest = {
     return message;
   },
   fromAmino(object: QueryOffersByClassRequestAmino): QueryOffersByClassRequest {
-    return {
-      classId: object.class_id,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryOffersByClassRequest();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryOffersByClassRequest): QueryOffersByClassRequestAmino {
     const obj: any = {};
@@ -2185,7 +2258,7 @@ export const QueryOffersByClassRequest = {
 function createBaseQueryOffersByClassResponse(): QueryOffersByClassResponse {
   return {
     offers: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryOffersByClassResponse = {
@@ -2212,10 +2285,12 @@ export const QueryOffersByClassResponse = {
     return message;
   },
   fromAmino(object: QueryOffersByClassResponseAmino): QueryOffersByClassResponse {
-    return {
-      offers: Array.isArray(object?.offers) ? object.offers.map((e: any) => Offer.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryOffersByClassResponse();
+    message.offers = object.offers?.map(e => Offer.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryOffersByClassResponse): QueryOffersByClassResponseAmino {
     const obj: any = {};
@@ -2247,7 +2322,7 @@ function createBaseQueryOffersByNFTRequest(): QueryOffersByNFTRequest {
   return {
     classId: "",
     nftId: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryOffersByNFTRequest = {
@@ -2279,11 +2354,17 @@ export const QueryOffersByNFTRequest = {
     return message;
   },
   fromAmino(object: QueryOffersByNFTRequestAmino): QueryOffersByNFTRequest {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryOffersByNFTRequest();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryOffersByNFTRequest): QueryOffersByNFTRequestAmino {
     const obj: any = {};
@@ -2311,7 +2392,7 @@ export const QueryOffersByNFTRequest = {
 function createBaseQueryOffersByNFTResponse(): QueryOffersByNFTResponse {
   return {
     offers: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryOffersByNFTResponse = {
@@ -2338,10 +2419,12 @@ export const QueryOffersByNFTResponse = {
     return message;
   },
   fromAmino(object: QueryOffersByNFTResponseAmino): QueryOffersByNFTResponse {
-    return {
-      offers: Array.isArray(object?.offers) ? object.offers.map((e: any) => Offer.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryOffersByNFTResponse();
+    message.offers = object.offers?.map(e => Offer.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryOffersByNFTResponse): QueryOffersByNFTResponseAmino {
     const obj: any = {};
@@ -2405,11 +2488,17 @@ export const QueryListingRequest = {
     return message;
   },
   fromAmino(object: QueryListingRequestAmino): QueryListingRequest {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      seller: object.seller
-    };
+    const message = createBaseQueryListingRequest();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = object.seller;
+    }
+    return message;
   },
   toAmino(message: QueryListingRequest): QueryListingRequestAmino {
     const obj: any = {};
@@ -2458,9 +2547,11 @@ export const QueryListingResponse = {
     return message;
   },
   fromAmino(object: QueryListingResponseAmino): QueryListingResponse {
-    return {
-      listing: object?.listing ? Listing.fromAmino(object.listing) : undefined
-    };
+    const message = createBaseQueryListingResponse();
+    if (object.listing !== undefined && object.listing !== null) {
+      message.listing = Listing.fromAmino(object.listing);
+    }
+    return message;
   },
   toAmino(message: QueryListingResponse): QueryListingResponseAmino {
     const obj: any = {};
@@ -2485,7 +2576,7 @@ export const QueryListingResponse = {
 };
 function createBaseQueryListingIndexRequest(): QueryListingIndexRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingIndexRequest = {
@@ -2507,9 +2598,11 @@ export const QueryListingIndexRequest = {
     return message;
   },
   fromAmino(object: QueryListingIndexRequestAmino): QueryListingIndexRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingIndexRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingIndexRequest): QueryListingIndexRequestAmino {
     const obj: any = {};
@@ -2535,7 +2628,7 @@ export const QueryListingIndexRequest = {
 function createBaseQueryListingIndexResponse(): QueryListingIndexResponse {
   return {
     listings: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingIndexResponse = {
@@ -2562,10 +2655,12 @@ export const QueryListingIndexResponse = {
     return message;
   },
   fromAmino(object: QueryListingIndexResponseAmino): QueryListingIndexResponse {
-    return {
-      listings: Array.isArray(object?.listings) ? object.listings.map((e: any) => Listing.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingIndexResponse();
+    message.listings = object.listings?.map(e => Listing.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingIndexResponse): QueryListingIndexResponseAmino {
     const obj: any = {};
@@ -2596,7 +2691,7 @@ export const QueryListingIndexResponse = {
 function createBaseQueryListingsByClassRequest(): QueryListingsByClassRequest {
   return {
     classId: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingsByClassRequest = {
@@ -2623,10 +2718,14 @@ export const QueryListingsByClassRequest = {
     return message;
   },
   fromAmino(object: QueryListingsByClassRequestAmino): QueryListingsByClassRequest {
-    return {
-      classId: object.class_id,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingsByClassRequest();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingsByClassRequest): QueryListingsByClassRequestAmino {
     const obj: any = {};
@@ -2653,7 +2752,7 @@ export const QueryListingsByClassRequest = {
 function createBaseQueryListingsByClassResponse(): QueryListingsByClassResponse {
   return {
     listings: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingsByClassResponse = {
@@ -2680,10 +2779,12 @@ export const QueryListingsByClassResponse = {
     return message;
   },
   fromAmino(object: QueryListingsByClassResponseAmino): QueryListingsByClassResponse {
-    return {
-      listings: Array.isArray(object?.listings) ? object.listings.map((e: any) => Listing.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingsByClassResponse();
+    message.listings = object.listings?.map(e => Listing.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingsByClassResponse): QueryListingsByClassResponseAmino {
     const obj: any = {};
@@ -2715,7 +2816,7 @@ function createBaseQueryListingsByNFTRequest(): QueryListingsByNFTRequest {
   return {
     classId: "",
     nftId: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingsByNFTRequest = {
@@ -2747,11 +2848,17 @@ export const QueryListingsByNFTRequest = {
     return message;
   },
   fromAmino(object: QueryListingsByNFTRequestAmino): QueryListingsByNFTRequest {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingsByNFTRequest();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingsByNFTRequest): QueryListingsByNFTRequestAmino {
     const obj: any = {};
@@ -2779,7 +2886,7 @@ export const QueryListingsByNFTRequest = {
 function createBaseQueryListingsByNFTResponse(): QueryListingsByNFTResponse {
   return {
     listings: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingsByNFTResponse = {
@@ -2806,10 +2913,12 @@ export const QueryListingsByNFTResponse = {
     return message;
   },
   fromAmino(object: QueryListingsByNFTResponseAmino): QueryListingsByNFTResponse {
-    return {
-      listings: Array.isArray(object?.listings) ? object.listings.map((e: any) => Listing.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingsByNFTResponse();
+    message.listings = object.listings?.map(e => Listing.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingsByNFTResponse): QueryListingsByNFTResponseAmino {
     const obj: any = {};
@@ -2861,9 +2970,11 @@ export const QueryRoyaltyConfigRequest = {
     return message;
   },
   fromAmino(object: QueryRoyaltyConfigRequestAmino): QueryRoyaltyConfigRequest {
-    return {
-      classId: object.class_id
-    };
+    const message = createBaseQueryRoyaltyConfigRequest();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    return message;
   },
   toAmino(message: QueryRoyaltyConfigRequest): QueryRoyaltyConfigRequestAmino {
     const obj: any = {};
@@ -2910,9 +3021,11 @@ export const QueryRoyaltyConfigResponse = {
     return message;
   },
   fromAmino(object: QueryRoyaltyConfigResponseAmino): QueryRoyaltyConfigResponse {
-    return {
-      royaltyConfig: object?.royalty_config ? RoyaltyConfig.fromAmino(object.royalty_config) : undefined
-    };
+    const message = createBaseQueryRoyaltyConfigResponse();
+    if (object.royalty_config !== undefined && object.royalty_config !== null) {
+      message.royaltyConfig = RoyaltyConfig.fromAmino(object.royalty_config);
+    }
+    return message;
   },
   toAmino(message: QueryRoyaltyConfigResponse): QueryRoyaltyConfigResponseAmino {
     const obj: any = {};
@@ -2937,7 +3050,7 @@ export const QueryRoyaltyConfigResponse = {
 };
 function createBaseQueryRoyaltyConfigIndexRequest(): QueryRoyaltyConfigIndexRequest {
   return {
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryRoyaltyConfigIndexRequest = {
@@ -2959,9 +3072,11 @@ export const QueryRoyaltyConfigIndexRequest = {
     return message;
   },
   fromAmino(object: QueryRoyaltyConfigIndexRequestAmino): QueryRoyaltyConfigIndexRequest {
-    return {
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryRoyaltyConfigIndexRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryRoyaltyConfigIndexRequest): QueryRoyaltyConfigIndexRequestAmino {
     const obj: any = {};
@@ -2987,7 +3102,7 @@ export const QueryRoyaltyConfigIndexRequest = {
 function createBaseQueryRoyaltyConfigIndexResponse(): QueryRoyaltyConfigIndexResponse {
   return {
     royaltyConfigByClass: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryRoyaltyConfigIndexResponse = {
@@ -3014,10 +3129,12 @@ export const QueryRoyaltyConfigIndexResponse = {
     return message;
   },
   fromAmino(object: QueryRoyaltyConfigIndexResponseAmino): QueryRoyaltyConfigIndexResponse {
-    return {
-      royaltyConfigByClass: Array.isArray(object?.royalty_config_by_class) ? object.royalty_config_by_class.map((e: any) => RoyaltyConfigByClass.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryRoyaltyConfigIndexResponse();
+    message.royaltyConfigByClass = object.royalty_config_by_class?.map(e => RoyaltyConfigByClass.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryRoyaltyConfigIndexResponse): QueryRoyaltyConfigIndexResponseAmino {
     const obj: any = {};

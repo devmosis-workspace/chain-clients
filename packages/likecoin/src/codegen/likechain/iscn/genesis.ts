@@ -1,6 +1,6 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 export interface GenesisState {
   params: Params;
   contentIdRecords: GenesisState_ContentIdRecord[];
@@ -12,8 +12,8 @@ export interface GenesisStateProtoMsg {
 }
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  content_id_records: GenesisState_ContentIdRecordAmino[];
-  iscn_records: Uint8Array[];
+  content_id_records?: GenesisState_ContentIdRecordAmino[];
+  iscn_records?: string[];
 }
 export interface GenesisStateAminoMsg {
   type: "/likechain.iscn.GenesisState";
@@ -34,9 +34,9 @@ export interface GenesisState_ContentIdRecordProtoMsg {
   value: Uint8Array;
 }
 export interface GenesisState_ContentIdRecordAmino {
-  iscn_id: string;
-  owner: string;
-  latest_version: string;
+  iscn_id?: string;
+  owner?: string;
+  latest_version?: string;
 }
 export interface GenesisState_ContentIdRecordAminoMsg {
   type: "/likechain.iscn.ContentIdRecord";
@@ -83,11 +83,13 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      contentIdRecords: Array.isArray(object?.content_id_records) ? object.content_id_records.map((e: any) => GenesisState_ContentIdRecord.fromAmino(e)) : [],
-      iscnRecords: Array.isArray(object?.iscn_records) ? object.iscn_records.map((e: any) => e) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.contentIdRecords = object.content_id_records?.map(e => GenesisState_ContentIdRecord.fromAmino(e)) || [];
+    message.iscnRecords = object.iscn_records?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -98,7 +100,7 @@ export const GenesisState = {
       obj.content_id_records = [];
     }
     if (message.iscnRecords) {
-      obj.iscn_records = message.iscnRecords.map(e => e);
+      obj.iscn_records = message.iscnRecords.map(e => base64FromBytes(e));
     } else {
       obj.iscn_records = [];
     }
@@ -156,11 +158,17 @@ export const GenesisState_ContentIdRecord = {
     return message;
   },
   fromAmino(object: GenesisState_ContentIdRecordAmino): GenesisState_ContentIdRecord {
-    return {
-      iscnId: object.iscn_id,
-      owner: object.owner,
-      latestVersion: BigInt(object.latest_version)
-    };
+    const message = createBaseGenesisState_ContentIdRecord();
+    if (object.iscn_id !== undefined && object.iscn_id !== null) {
+      message.iscnId = object.iscn_id;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.latest_version !== undefined && object.latest_version !== null) {
+      message.latestVersion = BigInt(object.latest_version);
+    }
+    return message;
   },
   toAmino(message: GenesisState_ContentIdRecord): GenesisState_ContentIdRecordAmino {
     const obj: any = {};

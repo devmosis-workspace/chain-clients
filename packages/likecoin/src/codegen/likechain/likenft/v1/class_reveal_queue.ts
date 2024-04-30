@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 export interface ClassRevealQueueEntry {
@@ -10,8 +10,8 @@ export interface ClassRevealQueueEntryProtoMsg {
   value: Uint8Array;
 }
 export interface ClassRevealQueueEntryAmino {
-  reveal_time?: TimestampAmino;
-  class_id: string;
+  reveal_time?: string;
+  class_id?: string;
 }
 export interface ClassRevealQueueEntryAminoMsg {
   type: "/likechain.likenft.v1.ClassRevealQueueEntry";
@@ -51,14 +51,18 @@ export const ClassRevealQueueEntry = {
     return message;
   },
   fromAmino(object: ClassRevealQueueEntryAmino): ClassRevealQueueEntry {
-    return {
-      revealTime: object.reveal_time,
-      classId: object.class_id
-    };
+    const message = createBaseClassRevealQueueEntry();
+    if (object.reveal_time !== undefined && object.reveal_time !== null) {
+      message.revealTime = Timestamp.fromAmino(object.reveal_time);
+    }
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    return message;
   },
   toAmino(message: ClassRevealQueueEntry): ClassRevealQueueEntryAmino {
     const obj: any = {};
-    obj.reveal_time = message.revealTime;
+    obj.reveal_time = message.revealTime ? Timestamp.toAmino(message.revealTime) : undefined;
     obj.class_id = message.classId;
     return obj;
   },

@@ -8,7 +8,7 @@ export interface RoyaltyConfigByClassProtoMsg {
     value: Uint8Array;
 }
 export interface RoyaltyConfigByClassAmino {
-    class_id: string;
+    class_id?: string;
     royalty_config?: RoyaltyConfigAmino;
 }
 export interface RoyaltyConfigByClassAminoMsg {
@@ -28,8 +28,8 @@ export interface RoyaltyConfigProtoMsg {
     value: Uint8Array;
 }
 export interface RoyaltyConfigAmino {
-    rate_basis_points: string;
-    stakeholders: RoyaltyStakeholderAmino[];
+    rate_basis_points?: string;
+    stakeholders?: RoyaltyStakeholderAmino[];
 }
 export interface RoyaltyConfigAminoMsg {
     type: "/likechain.likenft.v1.RoyaltyConfig";
@@ -48,8 +48,8 @@ export interface RoyaltyStakeholderProtoMsg {
     value: Uint8Array;
 }
 export interface RoyaltyStakeholderAmino {
-    account: Uint8Array;
-    weight: string;
+    account?: string;
+    weight?: string;
 }
 export interface RoyaltyStakeholderAminoMsg {
     type: "/likechain.likenft.v1.RoyaltyStakeholder";
@@ -68,8 +68,8 @@ export interface RoyaltyConfigInputProtoMsg {
     value: Uint8Array;
 }
 export interface RoyaltyConfigInputAmino {
-    rate_basis_points: string;
-    stakeholders: RoyaltyStakeholderInputAmino[];
+    rate_basis_points?: string;
+    stakeholders?: RoyaltyStakeholderInputAmino[];
 }
 export interface RoyaltyConfigInputAminoMsg {
     type: "/likechain.likenft.v1.RoyaltyConfigInput";
@@ -88,8 +88,8 @@ export interface RoyaltyStakeholderInputProtoMsg {
     value: Uint8Array;
 }
 export interface RoyaltyStakeholderInputAmino {
-    account: string;
-    weight: string;
+    account?: string;
+    weight?: string;
 }
 export interface RoyaltyStakeholderInputAminoMsg {
     type: "/likechain.likenft.v1.RoyaltyStakeholderInput";

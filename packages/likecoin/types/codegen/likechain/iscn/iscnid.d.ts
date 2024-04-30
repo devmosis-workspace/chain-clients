@@ -8,8 +8,8 @@ export interface IscnIdPrefixProtoMsg {
     value: Uint8Array;
 }
 export interface IscnIdPrefixAmino {
-    registry_name: string;
-    content_id: string;
+    registry_name?: string;
+    content_id?: string;
 }
 export interface IscnIdPrefixAminoMsg {
     type: "/likechain.iscn.IscnIdPrefix";
@@ -29,7 +29,7 @@ export interface IscnIdProtoMsg {
 }
 export interface IscnIdAmino {
     prefix?: IscnIdPrefixAmino;
-    version: string;
+    version?: string;
 }
 export interface IscnIdAminoMsg {
     type: "/likechain.iscn.IscnId";

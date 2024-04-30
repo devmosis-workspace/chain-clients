@@ -9,8 +9,8 @@ export interface QueryResponseRecordProtoMsg {
     value: Uint8Array;
 }
 export interface QueryResponseRecordAmino {
-    ipld: string;
-    data: Uint8Array;
+    ipld?: string;
+    data?: string;
 }
 export interface QueryResponseRecordAminoMsg {
     type: "/likechain.iscn.QueryResponseRecord";
@@ -50,17 +50,17 @@ export interface QueryRecordsByIdRequestAmino {
      * If version part omitted, version is default to 0.
      * if non-zero version exists, then from_version and to_version are ignored.
      */
-    iscn_id: string;
+    iscn_id?: string;
     /**
      * The initial version in the resulting records.
      * If omitted or is 0, then it will be interpreted as the latest version.
      */
-    from_version: string;
+    from_version?: string;
     /**
      * The final version in the resulting records.
      * If omitted or is 0, then it will be interpreted as the latest version.
      */
-    to_version: string;
+    to_version?: string;
 }
 export interface QueryRecordsByIdRequestAminoMsg {
     type: "/likechain.iscn.QueryRecordsByIdRequest";
@@ -81,9 +81,9 @@ export interface QueryRecordsByIdResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryRecordsByIdResponseAmino {
-    owner: string;
-    latest_version: string;
-    records: QueryResponseRecordAmino[];
+    owner?: string;
+    latest_version?: string;
+    records?: QueryResponseRecordAmino[];
 }
 export interface QueryRecordsByIdResponseAminoMsg {
     type: "/likechain.iscn.QueryRecordsByIdResponse";
@@ -116,13 +116,13 @@ export interface QueryRecordsByFingerprintRequestAmino {
      * The fingerprint of the record(s) to be queried.
      * All fingerprints in records should be URIs.
      */
-    fingerprint: string;
+    fingerprint?: string;
     /**
      * For pagination.
      * For the first query, fill in 0 or just omit this field.
      * For continuous queries, fill in the `next_sequence` field in the previous response.
      */
-    from_sequence: string;
+    from_sequence?: string;
 }
 export interface QueryRecordsByFingerprintRequestAminoMsg {
     type: "/likechain.iscn.QueryRecordsByFingerprintRequest";
@@ -142,9 +142,9 @@ export interface QueryRecordsByFingerprintResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryRecordsByFingerprintResponseAmino {
-    records: QueryResponseRecordAmino[];
+    records?: QueryResponseRecordAmino[];
     /** For pagination. */
-    next_sequence: string;
+    next_sequence?: string;
 }
 export interface QueryRecordsByFingerprintResponseAminoMsg {
     type: "/likechain.iscn.QueryRecordsByFingerprintResponse";
@@ -170,13 +170,13 @@ export interface QueryRecordsByOwnerRequestProtoMsg {
 }
 export interface QueryRecordsByOwnerRequestAmino {
     /** Owner address of the record(s) to be queried. */
-    owner: string;
+    owner?: string;
     /**
      * For pagination.
      * For the first query, fill in 0 or just omit this field.
      * For continuous queries, fill in the `next_sequence` field in the previous response.
      */
-    from_sequence: string;
+    from_sequence?: string;
 }
 export interface QueryRecordsByOwnerRequestAminoMsg {
     type: "/likechain.iscn.QueryRecordsByOwnerRequest";
@@ -195,8 +195,8 @@ export interface QueryRecordsByOwnerResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryRecordsByOwnerResponseAmino {
-    records: QueryResponseRecordAmino[];
-    next_sequence: string;
+    records?: QueryResponseRecordAmino[];
+    next_sequence?: string;
 }
 export interface QueryRecordsByOwnerResponseAminoMsg {
     type: "/likechain.iscn.QueryRecordsByOwnerResponse";
@@ -245,7 +245,7 @@ export interface QueryGetCidRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetCidRequestAmino {
-    cid: string;
+    cid?: string;
 }
 export interface QueryGetCidRequestAminoMsg {
     type: "/likechain.iscn.QueryGetCidRequest";
@@ -262,7 +262,7 @@ export interface QueryGetCidResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetCidResponseAmino {
-    data: Uint8Array;
+    data?: string;
 }
 export interface QueryGetCidResponseAminoMsg {
     type: "/likechain.iscn.QueryGetCidResponse";
@@ -279,7 +279,7 @@ export interface QueryGetCidSizeRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetCidSizeRequestAmino {
-    cid: string;
+    cid?: string;
 }
 export interface QueryGetCidSizeRequestAminoMsg {
     type: "/likechain.iscn.QueryGetCidSizeRequest";
@@ -296,7 +296,7 @@ export interface QueryGetCidSizeResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryGetCidSizeResponseAmino {
-    size: string;
+    size?: string;
 }
 export interface QueryGetCidSizeResponseAminoMsg {
     type: "/likechain.iscn.QueryGetCidSizeResponse";
@@ -313,7 +313,7 @@ export interface QueryHasCidRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryHasCidRequestAmino {
-    cid: string;
+    cid?: string;
 }
 export interface QueryHasCidRequestAminoMsg {
     type: "/likechain.iscn.QueryHasCidRequest";
@@ -330,7 +330,7 @@ export interface QueryHasCidResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryHasCidResponseAmino {
-    exist: boolean;
+    exist?: boolean;
 }
 export interface QueryHasCidResponseAminoMsg {
     type: "/likechain.iscn.QueryHasCidResponse";

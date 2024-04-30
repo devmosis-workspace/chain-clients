@@ -10,9 +10,9 @@ export interface EventNewClassProtoMsg {
   value: Uint8Array;
 }
 export interface EventNewClassAmino {
-  class_id: string;
-  parent_iscn_id_prefix: string;
-  parent_account: string;
+  class_id?: string;
+  parent_iscn_id_prefix?: string;
+  parent_account?: string;
 }
 export interface EventNewClassAminoMsg {
   type: "/likechain.likenft.v1.EventNewClass";
@@ -33,9 +33,9 @@ export interface EventUpdateClassProtoMsg {
   value: Uint8Array;
 }
 export interface EventUpdateClassAmino {
-  class_id: string;
-  parent_iscn_id_prefix: string;
-  parent_account: string;
+  class_id?: string;
+  parent_iscn_id_prefix?: string;
+  parent_account?: string;
 }
 export interface EventUpdateClassAminoMsg {
   type: "/likechain.likenft.v1.EventUpdateClass";
@@ -56,9 +56,9 @@ export interface EventRevealClassProtoMsg {
   value: Uint8Array;
 }
 export interface EventRevealClassAmino {
-  class_id: string;
-  success: boolean;
-  error: string;
+  class_id?: string;
+  success?: boolean;
+  error?: string;
 }
 export interface EventRevealClassAminoMsg {
   type: "/likechain.likenft.v1.EventRevealClass";
@@ -81,11 +81,11 @@ export interface EventMintNFTProtoMsg {
   value: Uint8Array;
 }
 export interface EventMintNFTAmino {
-  class_id: string;
-  nft_id: string;
-  owner: string;
-  class_parent_iscn_id_prefix: string;
-  class_parent_account: string;
+  class_id?: string;
+  nft_id?: string;
+  owner?: string;
+  class_parent_iscn_id_prefix?: string;
+  class_parent_account?: string;
 }
 export interface EventMintNFTAminoMsg {
   type: "/likechain.likenft.v1.EventMintNFT";
@@ -110,11 +110,11 @@ export interface EventBurnNFTProtoMsg {
   value: Uint8Array;
 }
 export interface EventBurnNFTAmino {
-  class_id: string;
-  nft_id: string;
-  owner: string;
-  class_parent_iscn_id_prefix: string;
-  class_parent_account: string;
+  class_id?: string;
+  nft_id?: string;
+  owner?: string;
+  class_parent_iscn_id_prefix?: string;
+  class_parent_account?: string;
 }
 export interface EventBurnNFTAminoMsg {
   type: "/likechain.likenft.v1.EventBurnNFT";
@@ -138,10 +138,10 @@ export interface EventCreateBlindBoxContentProtoMsg {
   value: Uint8Array;
 }
 export interface EventCreateBlindBoxContentAmino {
-  class_id: string;
-  content_id: string;
-  class_parent_iscn_id_prefix: string;
-  class_parent_account: string;
+  class_id?: string;
+  content_id?: string;
+  class_parent_iscn_id_prefix?: string;
+  class_parent_account?: string;
 }
 export interface EventCreateBlindBoxContentAminoMsg {
   type: "/likechain.likenft.v1.EventCreateBlindBoxContent";
@@ -164,10 +164,10 @@ export interface EventUpdateBlindBoxContentProtoMsg {
   value: Uint8Array;
 }
 export interface EventUpdateBlindBoxContentAmino {
-  class_id: string;
-  content_id: string;
-  class_parent_iscn_id_prefix: string;
-  class_parent_account: string;
+  class_id?: string;
+  content_id?: string;
+  class_parent_iscn_id_prefix?: string;
+  class_parent_account?: string;
 }
 export interface EventUpdateBlindBoxContentAminoMsg {
   type: "/likechain.likenft.v1.EventUpdateBlindBoxContent";
@@ -190,10 +190,10 @@ export interface EventDeleteBlindBoxContentProtoMsg {
   value: Uint8Array;
 }
 export interface EventDeleteBlindBoxContentAmino {
-  class_id: string;
-  content_id: string;
-  class_parent_iscn_id_prefix: string;
-  class_parent_account: string;
+  class_id?: string;
+  content_id?: string;
+  class_parent_iscn_id_prefix?: string;
+  class_parent_account?: string;
 }
 export interface EventDeleteBlindBoxContentAminoMsg {
   type: "/likechain.likenft.v1.EventDeleteBlindBoxContent";
@@ -215,9 +215,9 @@ export interface EventCreateOfferProtoMsg {
   value: Uint8Array;
 }
 export interface EventCreateOfferAmino {
-  class_id: string;
-  nft_id: string;
-  buyer: string;
+  class_id?: string;
+  nft_id?: string;
+  buyer?: string;
 }
 export interface EventCreateOfferAminoMsg {
   type: "/likechain.likenft.v1.EventCreateOffer";
@@ -238,9 +238,9 @@ export interface EventUpdateOfferProtoMsg {
   value: Uint8Array;
 }
 export interface EventUpdateOfferAmino {
-  class_id: string;
-  nft_id: string;
-  buyer: string;
+  class_id?: string;
+  nft_id?: string;
+  buyer?: string;
 }
 export interface EventUpdateOfferAminoMsg {
   type: "/likechain.likenft.v1.EventUpdateOffer";
@@ -261,9 +261,9 @@ export interface EventDeleteOfferProtoMsg {
   value: Uint8Array;
 }
 export interface EventDeleteOfferAmino {
-  class_id: string;
-  nft_id: string;
-  buyer: string;
+  class_id?: string;
+  nft_id?: string;
+  buyer?: string;
 }
 export interface EventDeleteOfferAminoMsg {
   type: "/likechain.likenft.v1.EventDeleteOffer";
@@ -284,9 +284,9 @@ export interface EventCreateListingProtoMsg {
   value: Uint8Array;
 }
 export interface EventCreateListingAmino {
-  class_id: string;
-  nft_id: string;
-  seller: string;
+  class_id?: string;
+  nft_id?: string;
+  seller?: string;
 }
 export interface EventCreateListingAminoMsg {
   type: "/likechain.likenft.v1.EventCreateListing";
@@ -307,9 +307,9 @@ export interface EventUpdateListingProtoMsg {
   value: Uint8Array;
 }
 export interface EventUpdateListingAmino {
-  class_id: string;
-  nft_id: string;
-  seller: string;
+  class_id?: string;
+  nft_id?: string;
+  seller?: string;
 }
 export interface EventUpdateListingAminoMsg {
   type: "/likechain.likenft.v1.EventUpdateListing";
@@ -330,9 +330,9 @@ export interface EventDeleteListingProtoMsg {
   value: Uint8Array;
 }
 export interface EventDeleteListingAmino {
-  class_id: string;
-  nft_id: string;
-  seller: string;
+  class_id?: string;
+  nft_id?: string;
+  seller?: string;
 }
 export interface EventDeleteListingAminoMsg {
   type: "/likechain.likenft.v1.EventDeleteListing";
@@ -356,12 +356,12 @@ export interface EventSellNFTProtoMsg {
   value: Uint8Array;
 }
 export interface EventSellNFTAmino {
-  class_id: string;
-  nft_id: string;
-  seller: string;
-  buyer: string;
-  price: string;
-  full_pay_to_royalty: boolean;
+  class_id?: string;
+  nft_id?: string;
+  seller?: string;
+  buyer?: string;
+  price?: string;
+  full_pay_to_royalty?: boolean;
 }
 export interface EventSellNFTAminoMsg {
   type: "/likechain.likenft.v1.EventSellNFT";
@@ -387,11 +387,11 @@ export interface EventBuyNFTProtoMsg {
   value: Uint8Array;
 }
 export interface EventBuyNFTAmino {
-  class_id: string;
-  nft_id: string;
-  seller: string;
-  buyer: string;
-  price: string;
+  class_id?: string;
+  nft_id?: string;
+  seller?: string;
+  buyer?: string;
+  price?: string;
 }
 export interface EventBuyNFTAminoMsg {
   type: "/likechain.likenft.v1.EventBuyNFT";
@@ -416,11 +416,11 @@ export interface EventExpireOfferProtoMsg {
   value: Uint8Array;
 }
 export interface EventExpireOfferAmino {
-  class_id: string;
-  nft_id: string;
-  buyer: string;
-  success: boolean;
-  error: string;
+  class_id?: string;
+  nft_id?: string;
+  buyer?: string;
+  success?: boolean;
+  error?: string;
 }
 export interface EventExpireOfferAminoMsg {
   type: "/likechain.likenft.v1.EventExpireOffer";
@@ -445,11 +445,11 @@ export interface EventExpireListingProtoMsg {
   value: Uint8Array;
 }
 export interface EventExpireListingAmino {
-  class_id: string;
-  nft_id: string;
-  seller: string;
-  success: boolean;
-  error: string;
+  class_id?: string;
+  nft_id?: string;
+  seller?: string;
+  success?: boolean;
+  error?: string;
 }
 export interface EventExpireListingAminoMsg {
   type: "/likechain.likenft.v1.EventExpireListing";
@@ -470,7 +470,7 @@ export interface EventCreateRoyaltyConfigProtoMsg {
   value: Uint8Array;
 }
 export interface EventCreateRoyaltyConfigAmino {
-  class_id: string;
+  class_id?: string;
 }
 export interface EventCreateRoyaltyConfigAminoMsg {
   type: "/likechain.likenft.v1.EventCreateRoyaltyConfig";
@@ -487,7 +487,7 @@ export interface EventUpdateRoyaltyConfigProtoMsg {
   value: Uint8Array;
 }
 export interface EventUpdateRoyaltyConfigAmino {
-  class_id: string;
+  class_id?: string;
 }
 export interface EventUpdateRoyaltyConfigAminoMsg {
   type: "/likechain.likenft.v1.EventUpdateRoyaltyConfig";
@@ -504,7 +504,7 @@ export interface EventDeleteRoyaltyConfigProtoMsg {
   value: Uint8Array;
 }
 export interface EventDeleteRoyaltyConfigAmino {
-  class_id: string;
+  class_id?: string;
 }
 export interface EventDeleteRoyaltyConfigAminoMsg {
   type: "/likechain.likenft.v1.EventDeleteRoyaltyConfig";
@@ -549,11 +549,17 @@ export const EventNewClass = {
     return message;
   },
   fromAmino(object: EventNewClassAmino): EventNewClass {
-    return {
-      classId: object.class_id,
-      parentIscnIdPrefix: object.parent_iscn_id_prefix,
-      parentAccount: object.parent_account
-    };
+    const message = createBaseEventNewClass();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.parent_iscn_id_prefix !== undefined && object.parent_iscn_id_prefix !== null) {
+      message.parentIscnIdPrefix = object.parent_iscn_id_prefix;
+    }
+    if (object.parent_account !== undefined && object.parent_account !== null) {
+      message.parentAccount = object.parent_account;
+    }
+    return message;
   },
   toAmino(message: EventNewClass): EventNewClassAmino {
     const obj: any = {};
@@ -614,11 +620,17 @@ export const EventUpdateClass = {
     return message;
   },
   fromAmino(object: EventUpdateClassAmino): EventUpdateClass {
-    return {
-      classId: object.class_id,
-      parentIscnIdPrefix: object.parent_iscn_id_prefix,
-      parentAccount: object.parent_account
-    };
+    const message = createBaseEventUpdateClass();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.parent_iscn_id_prefix !== undefined && object.parent_iscn_id_prefix !== null) {
+      message.parentIscnIdPrefix = object.parent_iscn_id_prefix;
+    }
+    if (object.parent_account !== undefined && object.parent_account !== null) {
+      message.parentAccount = object.parent_account;
+    }
+    return message;
   },
   toAmino(message: EventUpdateClass): EventUpdateClassAmino {
     const obj: any = {};
@@ -679,11 +691,17 @@ export const EventRevealClass = {
     return message;
   },
   fromAmino(object: EventRevealClassAmino): EventRevealClass {
-    return {
-      classId: object.class_id,
-      success: object.success,
-      error: object.error
-    };
+    const message = createBaseEventRevealClass();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.success !== undefined && object.success !== null) {
+      message.success = object.success;
+    }
+    if (object.error !== undefined && object.error !== null) {
+      message.error = object.error;
+    }
+    return message;
   },
   toAmino(message: EventRevealClass): EventRevealClassAmino {
     const obj: any = {};
@@ -756,13 +774,23 @@ export const EventMintNFT = {
     return message;
   },
   fromAmino(object: EventMintNFTAmino): EventMintNFT {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      owner: object.owner,
-      classParentIscnIdPrefix: object.class_parent_iscn_id_prefix,
-      classParentAccount: object.class_parent_account
-    };
+    const message = createBaseEventMintNFT();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.class_parent_iscn_id_prefix !== undefined && object.class_parent_iscn_id_prefix !== null) {
+      message.classParentIscnIdPrefix = object.class_parent_iscn_id_prefix;
+    }
+    if (object.class_parent_account !== undefined && object.class_parent_account !== null) {
+      message.classParentAccount = object.class_parent_account;
+    }
+    return message;
   },
   toAmino(message: EventMintNFT): EventMintNFTAmino {
     const obj: any = {};
@@ -837,13 +865,23 @@ export const EventBurnNFT = {
     return message;
   },
   fromAmino(object: EventBurnNFTAmino): EventBurnNFT {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      owner: object.owner,
-      classParentIscnIdPrefix: object.class_parent_iscn_id_prefix,
-      classParentAccount: object.class_parent_account
-    };
+    const message = createBaseEventBurnNFT();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.class_parent_iscn_id_prefix !== undefined && object.class_parent_iscn_id_prefix !== null) {
+      message.classParentIscnIdPrefix = object.class_parent_iscn_id_prefix;
+    }
+    if (object.class_parent_account !== undefined && object.class_parent_account !== null) {
+      message.classParentAccount = object.class_parent_account;
+    }
+    return message;
   },
   toAmino(message: EventBurnNFT): EventBurnNFTAmino {
     const obj: any = {};
@@ -912,12 +950,20 @@ export const EventCreateBlindBoxContent = {
     return message;
   },
   fromAmino(object: EventCreateBlindBoxContentAmino): EventCreateBlindBoxContent {
-    return {
-      classId: object.class_id,
-      contentId: object.content_id,
-      classParentIscnIdPrefix: object.class_parent_iscn_id_prefix,
-      classParentAccount: object.class_parent_account
-    };
+    const message = createBaseEventCreateBlindBoxContent();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.content_id !== undefined && object.content_id !== null) {
+      message.contentId = object.content_id;
+    }
+    if (object.class_parent_iscn_id_prefix !== undefined && object.class_parent_iscn_id_prefix !== null) {
+      message.classParentIscnIdPrefix = object.class_parent_iscn_id_prefix;
+    }
+    if (object.class_parent_account !== undefined && object.class_parent_account !== null) {
+      message.classParentAccount = object.class_parent_account;
+    }
+    return message;
   },
   toAmino(message: EventCreateBlindBoxContent): EventCreateBlindBoxContentAmino {
     const obj: any = {};
@@ -985,12 +1031,20 @@ export const EventUpdateBlindBoxContent = {
     return message;
   },
   fromAmino(object: EventUpdateBlindBoxContentAmino): EventUpdateBlindBoxContent {
-    return {
-      classId: object.class_id,
-      contentId: object.content_id,
-      classParentIscnIdPrefix: object.class_parent_iscn_id_prefix,
-      classParentAccount: object.class_parent_account
-    };
+    const message = createBaseEventUpdateBlindBoxContent();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.content_id !== undefined && object.content_id !== null) {
+      message.contentId = object.content_id;
+    }
+    if (object.class_parent_iscn_id_prefix !== undefined && object.class_parent_iscn_id_prefix !== null) {
+      message.classParentIscnIdPrefix = object.class_parent_iscn_id_prefix;
+    }
+    if (object.class_parent_account !== undefined && object.class_parent_account !== null) {
+      message.classParentAccount = object.class_parent_account;
+    }
+    return message;
   },
   toAmino(message: EventUpdateBlindBoxContent): EventUpdateBlindBoxContentAmino {
     const obj: any = {};
@@ -1058,12 +1112,20 @@ export const EventDeleteBlindBoxContent = {
     return message;
   },
   fromAmino(object: EventDeleteBlindBoxContentAmino): EventDeleteBlindBoxContent {
-    return {
-      classId: object.class_id,
-      contentId: object.content_id,
-      classParentIscnIdPrefix: object.class_parent_iscn_id_prefix,
-      classParentAccount: object.class_parent_account
-    };
+    const message = createBaseEventDeleteBlindBoxContent();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.content_id !== undefined && object.content_id !== null) {
+      message.contentId = object.content_id;
+    }
+    if (object.class_parent_iscn_id_prefix !== undefined && object.class_parent_iscn_id_prefix !== null) {
+      message.classParentIscnIdPrefix = object.class_parent_iscn_id_prefix;
+    }
+    if (object.class_parent_account !== undefined && object.class_parent_account !== null) {
+      message.classParentAccount = object.class_parent_account;
+    }
+    return message;
   },
   toAmino(message: EventDeleteBlindBoxContent): EventDeleteBlindBoxContentAmino {
     const obj: any = {};
@@ -1125,11 +1187,17 @@ export const EventCreateOffer = {
     return message;
   },
   fromAmino(object: EventCreateOfferAmino): EventCreateOffer {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      buyer: object.buyer
-    };
+    const message = createBaseEventCreateOffer();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = object.buyer;
+    }
+    return message;
   },
   toAmino(message: EventCreateOffer): EventCreateOfferAmino {
     const obj: any = {};
@@ -1190,11 +1258,17 @@ export const EventUpdateOffer = {
     return message;
   },
   fromAmino(object: EventUpdateOfferAmino): EventUpdateOffer {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      buyer: object.buyer
-    };
+    const message = createBaseEventUpdateOffer();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = object.buyer;
+    }
+    return message;
   },
   toAmino(message: EventUpdateOffer): EventUpdateOfferAmino {
     const obj: any = {};
@@ -1255,11 +1329,17 @@ export const EventDeleteOffer = {
     return message;
   },
   fromAmino(object: EventDeleteOfferAmino): EventDeleteOffer {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      buyer: object.buyer
-    };
+    const message = createBaseEventDeleteOffer();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = object.buyer;
+    }
+    return message;
   },
   toAmino(message: EventDeleteOffer): EventDeleteOfferAmino {
     const obj: any = {};
@@ -1320,11 +1400,17 @@ export const EventCreateListing = {
     return message;
   },
   fromAmino(object: EventCreateListingAmino): EventCreateListing {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      seller: object.seller
-    };
+    const message = createBaseEventCreateListing();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = object.seller;
+    }
+    return message;
   },
   toAmino(message: EventCreateListing): EventCreateListingAmino {
     const obj: any = {};
@@ -1385,11 +1471,17 @@ export const EventUpdateListing = {
     return message;
   },
   fromAmino(object: EventUpdateListingAmino): EventUpdateListing {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      seller: object.seller
-    };
+    const message = createBaseEventUpdateListing();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = object.seller;
+    }
+    return message;
   },
   toAmino(message: EventUpdateListing): EventUpdateListingAmino {
     const obj: any = {};
@@ -1450,11 +1542,17 @@ export const EventDeleteListing = {
     return message;
   },
   fromAmino(object: EventDeleteListingAmino): EventDeleteListing {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      seller: object.seller
-    };
+    const message = createBaseEventDeleteListing();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = object.seller;
+    }
+    return message;
   },
   toAmino(message: EventDeleteListing): EventDeleteListingAmino {
     const obj: any = {};
@@ -1533,14 +1631,26 @@ export const EventSellNFT = {
     return message;
   },
   fromAmino(object: EventSellNFTAmino): EventSellNFT {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      seller: object.seller,
-      buyer: object.buyer,
-      price: BigInt(object.price),
-      fullPayToRoyalty: object.full_pay_to_royalty
-    };
+    const message = createBaseEventSellNFT();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = object.seller;
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = object.buyer;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.full_pay_to_royalty !== undefined && object.full_pay_to_royalty !== null) {
+      message.fullPayToRoyalty = object.full_pay_to_royalty;
+    }
+    return message;
   },
   toAmino(message: EventSellNFT): EventSellNFTAmino {
     const obj: any = {};
@@ -1616,13 +1726,23 @@ export const EventBuyNFT = {
     return message;
   },
   fromAmino(object: EventBuyNFTAmino): EventBuyNFT {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      seller: object.seller,
-      buyer: object.buyer,
-      price: BigInt(object.price)
-    };
+    const message = createBaseEventBuyNFT();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = object.seller;
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = object.buyer;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    return message;
   },
   toAmino(message: EventBuyNFT): EventBuyNFTAmino {
     const obj: any = {};
@@ -1697,13 +1817,23 @@ export const EventExpireOffer = {
     return message;
   },
   fromAmino(object: EventExpireOfferAmino): EventExpireOffer {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      buyer: object.buyer,
-      success: object.success,
-      error: object.error
-    };
+    const message = createBaseEventExpireOffer();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = object.buyer;
+    }
+    if (object.success !== undefined && object.success !== null) {
+      message.success = object.success;
+    }
+    if (object.error !== undefined && object.error !== null) {
+      message.error = object.error;
+    }
+    return message;
   },
   toAmino(message: EventExpireOffer): EventExpireOfferAmino {
     const obj: any = {};
@@ -1778,13 +1908,23 @@ export const EventExpireListing = {
     return message;
   },
   fromAmino(object: EventExpireListingAmino): EventExpireListing {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      seller: object.seller,
-      success: object.success,
-      error: object.error
-    };
+    const message = createBaseEventExpireListing();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = object.seller;
+    }
+    if (object.success !== undefined && object.success !== null) {
+      message.success = object.success;
+    }
+    if (object.error !== undefined && object.error !== null) {
+      message.error = object.error;
+    }
+    return message;
   },
   toAmino(message: EventExpireListing): EventExpireListingAmino {
     const obj: any = {};
@@ -1835,9 +1975,11 @@ export const EventCreateRoyaltyConfig = {
     return message;
   },
   fromAmino(object: EventCreateRoyaltyConfigAmino): EventCreateRoyaltyConfig {
-    return {
-      classId: object.class_id
-    };
+    const message = createBaseEventCreateRoyaltyConfig();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    return message;
   },
   toAmino(message: EventCreateRoyaltyConfig): EventCreateRoyaltyConfigAmino {
     const obj: any = {};
@@ -1884,9 +2026,11 @@ export const EventUpdateRoyaltyConfig = {
     return message;
   },
   fromAmino(object: EventUpdateRoyaltyConfigAmino): EventUpdateRoyaltyConfig {
-    return {
-      classId: object.class_id
-    };
+    const message = createBaseEventUpdateRoyaltyConfig();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    return message;
   },
   toAmino(message: EventUpdateRoyaltyConfig): EventUpdateRoyaltyConfigAmino {
     const obj: any = {};
@@ -1933,9 +2077,11 @@ export const EventDeleteRoyaltyConfig = {
     return message;
   },
   fromAmino(object: EventDeleteRoyaltyConfigAmino): EventDeleteRoyaltyConfig {
-    return {
-      classId: object.class_id
-    };
+    const message = createBaseEventDeleteRoyaltyConfig();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    return message;
   },
   toAmino(message: EventDeleteRoyaltyConfig): EventDeleteRoyaltyConfigAmino {
     const obj: any = {};

@@ -1,6 +1,6 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, fromJsonTimestamp } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, fromJsonTimestamp } from "../../../helpers";
 export enum ClassParentType {
   UNKNOWN = 0,
   ISCN = 1,
@@ -50,7 +50,7 @@ export interface ClassDataProtoMsg {
   value: Uint8Array;
 }
 export interface ClassDataAmino {
-  metadata: Uint8Array;
+  metadata?: string;
   parent?: ClassParentAmino;
   config?: ClassConfigAmino;
   blind_box_state?: BlindBoxStateAmino;
@@ -76,10 +76,10 @@ export interface ClassParentProtoMsg {
   value: Uint8Array;
 }
 export interface ClassParentAmino {
-  type: ClassParentType;
-  iscn_id_prefix: string;
-  iscn_version_at_mint: string;
-  account: string;
+  type?: ClassParentType;
+  iscn_id_prefix?: string;
+  iscn_version_at_mint?: string;
+  account?: string;
 }
 export interface ClassParentAminoMsg {
   type: "/likechain.likenft.v1.ClassParent";
@@ -101,9 +101,9 @@ export interface MintPeriodProtoMsg {
   value: Uint8Array;
 }
 export interface MintPeriodAmino {
-  start_time?: TimestampAmino;
-  allowed_addresses: string[];
-  mint_price: string;
+  start_time?: string;
+  allowed_addresses?: string[];
+  mint_price?: string;
 }
 export interface MintPeriodAminoMsg {
   type: "/likechain.likenft.v1.MintPeriod";
@@ -124,8 +124,8 @@ export interface ClassConfigProtoMsg {
   value: Uint8Array;
 }
 export interface ClassConfigAmino {
-  burnable: boolean;
-  max_supply: string;
+  burnable?: boolean;
+  max_supply?: string;
   blind_box_config?: BlindBoxConfigAmino;
 }
 export interface ClassConfigAminoMsg {
@@ -146,8 +146,8 @@ export interface BlindBoxConfigProtoMsg {
   value: Uint8Array;
 }
 export interface BlindBoxConfigAmino {
-  mint_periods: MintPeriodAmino[];
-  reveal_time?: TimestampAmino;
+  mint_periods?: MintPeriodAmino[];
+  reveal_time?: string;
 }
 export interface BlindBoxConfigAminoMsg {
   type: "/likechain.likenft.v1.BlindBoxConfig";
@@ -166,8 +166,8 @@ export interface BlindBoxStateProtoMsg {
   value: Uint8Array;
 }
 export interface BlindBoxStateAmino {
-  content_count: string;
-  to_be_revealed: boolean;
+  content_count?: string;
+  to_be_revealed?: boolean;
 }
 export interface BlindBoxStateAminoMsg {
   type: "/likechain.likenft.v1.BlindBoxState";
@@ -219,16 +219,24 @@ export const ClassData = {
     return message;
   },
   fromAmino(object: ClassDataAmino): ClassData {
-    return {
-      metadata: object.metadata,
-      parent: object?.parent ? ClassParent.fromAmino(object.parent) : undefined,
-      config: object?.config ? ClassConfig.fromAmino(object.config) : undefined,
-      blindBoxState: object?.blind_box_state ? BlindBoxState.fromAmino(object.blind_box_state) : undefined
-    };
+    const message = createBaseClassData();
+    if (object.metadata !== undefined && object.metadata !== null) {
+      message.metadata = bytesFromBase64(object.metadata);
+    }
+    if (object.parent !== undefined && object.parent !== null) {
+      message.parent = ClassParent.fromAmino(object.parent);
+    }
+    if (object.config !== undefined && object.config !== null) {
+      message.config = ClassConfig.fromAmino(object.config);
+    }
+    if (object.blind_box_state !== undefined && object.blind_box_state !== null) {
+      message.blindBoxState = BlindBoxState.fromAmino(object.blind_box_state);
+    }
+    return message;
   },
   toAmino(message: ClassData): ClassDataAmino {
     const obj: any = {};
-    obj.metadata = message.metadata;
+    obj.metadata = message.metadata ? base64FromBytes(message.metadata) : undefined;
     obj.parent = message.parent ? ClassParent.toAmino(message.parent) : undefined;
     obj.config = message.config ? ClassConfig.toAmino(message.config) : undefined;
     obj.blind_box_state = message.blindBoxState ? BlindBoxState.toAmino(message.blindBoxState) : undefined;
@@ -292,12 +300,20 @@ export const ClassParent = {
     return message;
   },
   fromAmino(object: ClassParentAmino): ClassParent {
-    return {
-      type: isSet(object.type) ? classParentTypeFromJSON(object.type) : -1,
-      iscnIdPrefix: object?.iscn_id_prefix,
-      iscnVersionAtMint: object?.iscn_version_at_mint ? BigInt(object.iscn_version_at_mint) : undefined,
-      account: object?.account
-    };
+    const message = createBaseClassParent();
+    if (object.type !== undefined && object.type !== null) {
+      message.type = classParentTypeFromJSON(object.type);
+    }
+    if (object.iscn_id_prefix !== undefined && object.iscn_id_prefix !== null) {
+      message.iscnIdPrefix = object.iscn_id_prefix;
+    }
+    if (object.iscn_version_at_mint !== undefined && object.iscn_version_at_mint !== null) {
+      message.iscnVersionAtMint = BigInt(object.iscn_version_at_mint);
+    }
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    return message;
   },
   toAmino(message: ClassParent): ClassParentAmino {
     const obj: any = {};
@@ -359,15 +375,19 @@ export const MintPeriod = {
     return message;
   },
   fromAmino(object: MintPeriodAmino): MintPeriod {
-    return {
-      startTime: object.start_time,
-      allowedAddresses: Array.isArray(object?.allowed_addresses) ? object.allowed_addresses.map((e: any) => e) : [],
-      mintPrice: BigInt(object.mint_price)
-    };
+    const message = createBaseMintPeriod();
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = Timestamp.fromAmino(object.start_time);
+    }
+    message.allowedAddresses = object.allowed_addresses?.map(e => e) || [];
+    if (object.mint_price !== undefined && object.mint_price !== null) {
+      message.mintPrice = BigInt(object.mint_price);
+    }
+    return message;
   },
   toAmino(message: MintPeriod): MintPeriodAmino {
     const obj: any = {};
-    obj.start_time = message.startTime;
+    obj.start_time = message.startTime ? Timestamp.toAmino(message.startTime) : undefined;
     if (message.allowedAddresses) {
       obj.allowed_addresses = message.allowedAddresses.map(e => e);
     } else {
@@ -428,11 +448,17 @@ export const ClassConfig = {
     return message;
   },
   fromAmino(object: ClassConfigAmino): ClassConfig {
-    return {
-      burnable: object.burnable,
-      maxSupply: BigInt(object.max_supply),
-      blindBoxConfig: object?.blind_box_config ? BlindBoxConfig.fromAmino(object.blind_box_config) : undefined
-    };
+    const message = createBaseClassConfig();
+    if (object.burnable !== undefined && object.burnable !== null) {
+      message.burnable = object.burnable;
+    }
+    if (object.max_supply !== undefined && object.max_supply !== null) {
+      message.maxSupply = BigInt(object.max_supply);
+    }
+    if (object.blind_box_config !== undefined && object.blind_box_config !== null) {
+      message.blindBoxConfig = BlindBoxConfig.fromAmino(object.blind_box_config);
+    }
+    return message;
   },
   toAmino(message: ClassConfig): ClassConfigAmino {
     const obj: any = {};
@@ -487,10 +513,12 @@ export const BlindBoxConfig = {
     return message;
   },
   fromAmino(object: BlindBoxConfigAmino): BlindBoxConfig {
-    return {
-      mintPeriods: Array.isArray(object?.mint_periods) ? object.mint_periods.map((e: any) => MintPeriod.fromAmino(e)) : [],
-      revealTime: object.reveal_time
-    };
+    const message = createBaseBlindBoxConfig();
+    message.mintPeriods = object.mint_periods?.map(e => MintPeriod.fromAmino(e)) || [];
+    if (object.reveal_time !== undefined && object.reveal_time !== null) {
+      message.revealTime = Timestamp.fromAmino(object.reveal_time);
+    }
+    return message;
   },
   toAmino(message: BlindBoxConfig): BlindBoxConfigAmino {
     const obj: any = {};
@@ -499,7 +527,7 @@ export const BlindBoxConfig = {
     } else {
       obj.mint_periods = [];
     }
-    obj.reveal_time = message.revealTime;
+    obj.reveal_time = message.revealTime ? Timestamp.toAmino(message.revealTime) : undefined;
     return obj;
   },
   fromAminoMsg(object: BlindBoxConfigAminoMsg): BlindBoxConfig {
@@ -548,10 +576,14 @@ export const BlindBoxState = {
     return message;
   },
   fromAmino(object: BlindBoxStateAmino): BlindBoxState {
-    return {
-      contentCount: BigInt(object.content_count),
-      toBeRevealed: object.to_be_revealed
-    };
+    const message = createBaseBlindBoxState();
+    if (object.content_count !== undefined && object.content_count !== null) {
+      message.contentCount = BigInt(object.content_count);
+    }
+    if (object.to_be_revealed !== undefined && object.to_be_revealed !== null) {
+      message.toBeRevealed = object.to_be_revealed;
+    }
+    return message;
   },
   toAmino(message: BlindBoxState): BlindBoxStateAmino {
     const obj: any = {};

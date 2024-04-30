@@ -1,6 +1,6 @@
 import { ClassParentInput, ClassParentInputAmino, ClassParentInputSDKType, ClassInput, ClassInputAmino, ClassInputSDKType } from "./class_input";
 import { NFTInput, NFTInputAmino, NFTInputSDKType } from "./nft_input";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { RoyaltyConfigInput, RoyaltyConfigInputAmino, RoyaltyConfigInputSDKType, RoyaltyConfig, RoyaltyConfigAmino, RoyaltyConfigSDKType } from "./royalty_config";
 import { Class, ClassAmino, ClassSDKType, NFT, NFTAmino, NFTSDKType } from "../../../cosmos/nft/v1beta1/nft";
 import { BlindBoxContent, BlindBoxContentAmino, BlindBoxContentSDKType } from "./blind_box_content";
@@ -17,7 +17,7 @@ export interface MsgNewClassProtoMsg {
     value: Uint8Array;
 }
 export interface MsgNewClassAmino {
-    creator: string;
+    creator?: string;
     parent?: ClassParentInputAmino;
     input?: ClassInputAmino;
 }
@@ -57,8 +57,8 @@ export interface MsgUpdateClassProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUpdateClassAmino {
-    creator: string;
-    class_id: string;
+    creator?: string;
+    class_id?: string;
     input?: ClassInputAmino;
 }
 export interface MsgUpdateClassAminoMsg {
@@ -98,9 +98,9 @@ export interface MsgMintNFTProtoMsg {
     value: Uint8Array;
 }
 export interface MsgMintNFTAmino {
-    creator: string;
-    class_id: string;
-    id: string;
+    creator?: string;
+    class_id?: string;
+    id?: string;
     input?: NFTInputAmino;
 }
 export interface MsgMintNFTAminoMsg {
@@ -140,9 +140,9 @@ export interface MsgBurnNFTProtoMsg {
     value: Uint8Array;
 }
 export interface MsgBurnNFTAmino {
-    creator: string;
-    class_id: string;
-    nft_id: string;
+    creator?: string;
+    class_id?: string;
+    nft_id?: string;
 }
 export interface MsgBurnNFTAminoMsg {
     type: "/likechain.likenft.v1.MsgBurnNFT";
@@ -178,9 +178,9 @@ export interface MsgCreateBlindBoxContentProtoMsg {
     value: Uint8Array;
 }
 export interface MsgCreateBlindBoxContentAmino {
-    creator: string;
-    class_id: string;
-    id: string;
+    creator?: string;
+    class_id?: string;
+    id?: string;
     input?: NFTInputAmino;
 }
 export interface MsgCreateBlindBoxContentAminoMsg {
@@ -221,9 +221,9 @@ export interface MsgUpdateBlindBoxContentProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUpdateBlindBoxContentAmino {
-    creator: string;
-    class_id: string;
-    id: string;
+    creator?: string;
+    class_id?: string;
+    id?: string;
     input?: NFTInputAmino;
 }
 export interface MsgUpdateBlindBoxContentAminoMsg {
@@ -263,9 +263,9 @@ export interface MsgDeleteBlindBoxContentProtoMsg {
     value: Uint8Array;
 }
 export interface MsgDeleteBlindBoxContentAmino {
-    creator: string;
-    class_id: string;
-    id: string;
+    creator?: string;
+    class_id?: string;
+    id?: string;
 }
 export interface MsgDeleteBlindBoxContentAminoMsg {
     type: "/likechain.likenft.v1.MsgDeleteBlindBoxContent";
@@ -302,11 +302,11 @@ export interface MsgCreateOfferProtoMsg {
     value: Uint8Array;
 }
 export interface MsgCreateOfferAmino {
-    creator: string;
-    class_id: string;
-    nft_id: string;
-    price: string;
-    expiration?: TimestampAmino;
+    creator?: string;
+    class_id?: string;
+    nft_id?: string;
+    price?: string;
+    expiration?: string;
 }
 export interface MsgCreateOfferAminoMsg {
     type: "/likechain.likenft.v1.MsgCreateOffer";
@@ -348,11 +348,11 @@ export interface MsgUpdateOfferProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUpdateOfferAmino {
-    creator: string;
-    class_id: string;
-    nft_id: string;
-    price: string;
-    expiration?: TimestampAmino;
+    creator?: string;
+    class_id?: string;
+    nft_id?: string;
+    price?: string;
+    expiration?: string;
 }
 export interface MsgUpdateOfferAminoMsg {
     type: "/likechain.likenft.v1.MsgUpdateOffer";
@@ -392,9 +392,9 @@ export interface MsgDeleteOfferProtoMsg {
     value: Uint8Array;
 }
 export interface MsgDeleteOfferAmino {
-    creator: string;
-    class_id: string;
-    nft_id: string;
+    creator?: string;
+    class_id?: string;
+    nft_id?: string;
 }
 export interface MsgDeleteOfferAminoMsg {
     type: "/likechain.likenft.v1.MsgDeleteOffer";
@@ -432,12 +432,12 @@ export interface MsgCreateListingProtoMsg {
     value: Uint8Array;
 }
 export interface MsgCreateListingAmino {
-    creator: string;
-    class_id: string;
-    nft_id: string;
-    price: string;
-    expiration?: TimestampAmino;
-    full_pay_to_royalty: boolean;
+    creator?: string;
+    class_id?: string;
+    nft_id?: string;
+    price?: string;
+    expiration?: string;
+    full_pay_to_royalty?: boolean;
 }
 export interface MsgCreateListingAminoMsg {
     type: "/likechain.likenft.v1.MsgCreateListing";
@@ -481,12 +481,12 @@ export interface MsgUpdateListingProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUpdateListingAmino {
-    creator: string;
-    class_id: string;
-    nft_id: string;
-    price: string;
-    expiration?: TimestampAmino;
-    full_pay_to_royalty: boolean;
+    creator?: string;
+    class_id?: string;
+    nft_id?: string;
+    price?: string;
+    expiration?: string;
+    full_pay_to_royalty?: boolean;
 }
 export interface MsgUpdateListingAminoMsg {
     type: "/likechain.likenft.v1.MsgUpdateListing";
@@ -527,9 +527,9 @@ export interface MsgDeleteListingProtoMsg {
     value: Uint8Array;
 }
 export interface MsgDeleteListingAmino {
-    creator: string;
-    class_id: string;
-    nft_id: string;
+    creator?: string;
+    class_id?: string;
+    nft_id?: string;
 }
 export interface MsgDeleteListingAminoMsg {
     type: "/likechain.likenft.v1.MsgDeleteListing";
@@ -567,12 +567,12 @@ export interface MsgSellNFTProtoMsg {
     value: Uint8Array;
 }
 export interface MsgSellNFTAmino {
-    creator: string;
-    class_id: string;
-    nft_id: string;
-    buyer: string;
-    price: string;
-    full_pay_to_royalty: boolean;
+    creator?: string;
+    class_id?: string;
+    nft_id?: string;
+    buyer?: string;
+    price?: string;
+    full_pay_to_royalty?: boolean;
 }
 export interface MsgSellNFTAminoMsg {
     type: "/likechain.likenft.v1.MsgSellNFT";
@@ -612,11 +612,11 @@ export interface MsgBuyNFTProtoMsg {
     value: Uint8Array;
 }
 export interface MsgBuyNFTAmino {
-    creator: string;
-    class_id: string;
-    nft_id: string;
-    seller: string;
-    price: string;
+    creator?: string;
+    class_id?: string;
+    nft_id?: string;
+    seller?: string;
+    price?: string;
 }
 export interface MsgBuyNFTAminoMsg {
     type: "/likechain.likenft.v1.MsgBuyNFT";
@@ -653,8 +653,8 @@ export interface MsgCreateRoyaltyConfigProtoMsg {
     value: Uint8Array;
 }
 export interface MsgCreateRoyaltyConfigAmino {
-    creator: string;
-    class_id: string;
+    creator?: string;
+    class_id?: string;
     royalty_config?: RoyaltyConfigInputAmino;
 }
 export interface MsgCreateRoyaltyConfigAminoMsg {
@@ -693,8 +693,8 @@ export interface MsgUpdateRoyaltyConfigProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUpdateRoyaltyConfigAmino {
-    creator: string;
-    class_id: string;
+    creator?: string;
+    class_id?: string;
     royalty_config?: RoyaltyConfigInputAmino;
 }
 export interface MsgUpdateRoyaltyConfigAminoMsg {
@@ -732,8 +732,8 @@ export interface MsgDeleteRoyaltyConfigProtoMsg {
     value: Uint8Array;
 }
 export interface MsgDeleteRoyaltyConfigAmino {
-    creator: string;
-    class_id: string;
+    creator?: string;
+    class_id?: string;
 }
 export interface MsgDeleteRoyaltyConfigAminoMsg {
     type: "/likechain.likenft.v1.MsgDeleteRoyaltyConfig";

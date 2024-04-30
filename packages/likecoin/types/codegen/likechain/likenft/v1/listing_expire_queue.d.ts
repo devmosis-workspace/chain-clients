@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 export interface ListingExpireQueueEntry {
     expireTime: Timestamp;
@@ -9,8 +9,8 @@ export interface ListingExpireQueueEntryProtoMsg {
     value: Uint8Array;
 }
 export interface ListingExpireQueueEntryAmino {
-    expire_time?: TimestampAmino;
-    listing_key: Uint8Array;
+    expire_time?: string;
+    listing_key?: string;
 }
 export interface ListingExpireQueueEntryAminoMsg {
     type: "/likechain.likenft.v1.ListingExpireQueueEntry";

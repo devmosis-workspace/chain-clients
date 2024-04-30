@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 export interface Offer {
     classId: string;
@@ -12,11 +12,11 @@ export interface OfferProtoMsg {
     value: Uint8Array;
 }
 export interface OfferAmino {
-    class_id: string;
-    nft_id: string;
-    buyer: string;
-    price: string;
-    expiration?: TimestampAmino;
+    class_id?: string;
+    nft_id?: string;
+    buyer?: string;
+    price?: string;
+    expiration?: string;
 }
 export interface OfferAminoMsg {
     type: "/likechain.likenft.v1.Offer";
@@ -41,11 +41,11 @@ export interface OfferStoreRecordProtoMsg {
     value: Uint8Array;
 }
 export interface OfferStoreRecordAmino {
-    class_id: string;
-    nft_id: string;
-    buyer: Uint8Array;
-    price: string;
-    expiration?: TimestampAmino;
+    class_id?: string;
+    nft_id?: string;
+    buyer?: string;
+    price?: string;
+    expiration?: string;
 }
 export interface OfferStoreRecordAminoMsg {
     type: "/likechain.likenft.v1.OfferStoreRecord";

@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface NFTInput {
   uri: string;
   uriHash: string;
@@ -10,9 +10,9 @@ export interface NFTInputProtoMsg {
   value: Uint8Array;
 }
 export interface NFTInputAmino {
-  uri: string;
-  uri_hash: string;
-  metadata: Uint8Array;
+  uri?: string;
+  uri_hash?: string;
+  metadata?: string;
 }
 export interface NFTInputAminoMsg {
   type: "/likechain.likenft.v1.NFTInput";
@@ -59,17 +59,23 @@ export const NFTInput = {
     return message;
   },
   fromAmino(object: NFTInputAmino): NFTInput {
-    return {
-      uri: object.uri,
-      uriHash: object.uri_hash,
-      metadata: object.metadata
-    };
+    const message = createBaseNFTInput();
+    if (object.uri !== undefined && object.uri !== null) {
+      message.uri = object.uri;
+    }
+    if (object.uri_hash !== undefined && object.uri_hash !== null) {
+      message.uriHash = object.uri_hash;
+    }
+    if (object.metadata !== undefined && object.metadata !== null) {
+      message.metadata = bytesFromBase64(object.metadata);
+    }
+    return message;
   },
   toAmino(message: NFTInput): NFTInputAmino {
     const obj: any = {};
     obj.uri = message.uri;
     obj.uri_hash = message.uriHash;
-    obj.metadata = message.metadata;
+    obj.metadata = message.metadata ? base64FromBytes(message.metadata) : undefined;
     return obj;
   },
   fromAminoMsg(object: NFTInputAminoMsg): NFTInput {

@@ -1,6 +1,6 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 export interface QueryResponseRecord {
   ipld: string;
   data: Uint8Array;
@@ -10,8 +10,8 @@ export interface QueryResponseRecordProtoMsg {
   value: Uint8Array;
 }
 export interface QueryResponseRecordAmino {
-  ipld: string;
-  data: Uint8Array;
+  ipld?: string;
+  data?: string;
 }
 export interface QueryResponseRecordAminoMsg {
   type: "/likechain.iscn.QueryResponseRecord";
@@ -51,17 +51,17 @@ export interface QueryRecordsByIdRequestAmino {
    * If version part omitted, version is default to 0.
    * if non-zero version exists, then from_version and to_version are ignored.
    */
-  iscn_id: string;
+  iscn_id?: string;
   /**
    * The initial version in the resulting records.
    * If omitted or is 0, then it will be interpreted as the latest version.
    */
-  from_version: string;
+  from_version?: string;
   /**
    * The final version in the resulting records.
    * If omitted or is 0, then it will be interpreted as the latest version.
    */
-  to_version: string;
+  to_version?: string;
 }
 export interface QueryRecordsByIdRequestAminoMsg {
   type: "/likechain.iscn.QueryRecordsByIdRequest";
@@ -82,9 +82,9 @@ export interface QueryRecordsByIdResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryRecordsByIdResponseAmino {
-  owner: string;
-  latest_version: string;
-  records: QueryResponseRecordAmino[];
+  owner?: string;
+  latest_version?: string;
+  records?: QueryResponseRecordAmino[];
 }
 export interface QueryRecordsByIdResponseAminoMsg {
   type: "/likechain.iscn.QueryRecordsByIdResponse";
@@ -117,13 +117,13 @@ export interface QueryRecordsByFingerprintRequestAmino {
    * The fingerprint of the record(s) to be queried.
    * All fingerprints in records should be URIs.
    */
-  fingerprint: string;
+  fingerprint?: string;
   /**
    * For pagination.
    * For the first query, fill in 0 or just omit this field.
    * For continuous queries, fill in the `next_sequence` field in the previous response.
    */
-  from_sequence: string;
+  from_sequence?: string;
 }
 export interface QueryRecordsByFingerprintRequestAminoMsg {
   type: "/likechain.iscn.QueryRecordsByFingerprintRequest";
@@ -143,9 +143,9 @@ export interface QueryRecordsByFingerprintResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryRecordsByFingerprintResponseAmino {
-  records: QueryResponseRecordAmino[];
+  records?: QueryResponseRecordAmino[];
   /** For pagination. */
-  next_sequence: string;
+  next_sequence?: string;
 }
 export interface QueryRecordsByFingerprintResponseAminoMsg {
   type: "/likechain.iscn.QueryRecordsByFingerprintResponse";
@@ -171,13 +171,13 @@ export interface QueryRecordsByOwnerRequestProtoMsg {
 }
 export interface QueryRecordsByOwnerRequestAmino {
   /** Owner address of the record(s) to be queried. */
-  owner: string;
+  owner?: string;
   /**
    * For pagination.
    * For the first query, fill in 0 or just omit this field.
    * For continuous queries, fill in the `next_sequence` field in the previous response.
    */
-  from_sequence: string;
+  from_sequence?: string;
 }
 export interface QueryRecordsByOwnerRequestAminoMsg {
   type: "/likechain.iscn.QueryRecordsByOwnerRequest";
@@ -196,8 +196,8 @@ export interface QueryRecordsByOwnerResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryRecordsByOwnerResponseAmino {
-  records: QueryResponseRecordAmino[];
-  next_sequence: string;
+  records?: QueryResponseRecordAmino[];
+  next_sequence?: string;
 }
 export interface QueryRecordsByOwnerResponseAminoMsg {
   type: "/likechain.iscn.QueryRecordsByOwnerResponse";
@@ -243,7 +243,7 @@ export interface QueryGetCidRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetCidRequestAmino {
-  cid: string;
+  cid?: string;
 }
 export interface QueryGetCidRequestAminoMsg {
   type: "/likechain.iscn.QueryGetCidRequest";
@@ -260,7 +260,7 @@ export interface QueryGetCidResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetCidResponseAmino {
-  data: Uint8Array;
+  data?: string;
 }
 export interface QueryGetCidResponseAminoMsg {
   type: "/likechain.iscn.QueryGetCidResponse";
@@ -277,7 +277,7 @@ export interface QueryGetCidSizeRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetCidSizeRequestAmino {
-  cid: string;
+  cid?: string;
 }
 export interface QueryGetCidSizeRequestAminoMsg {
   type: "/likechain.iscn.QueryGetCidSizeRequest";
@@ -294,7 +294,7 @@ export interface QueryGetCidSizeResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryGetCidSizeResponseAmino {
-  size: string;
+  size?: string;
 }
 export interface QueryGetCidSizeResponseAminoMsg {
   type: "/likechain.iscn.QueryGetCidSizeResponse";
@@ -311,7 +311,7 @@ export interface QueryHasCidRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryHasCidRequestAmino {
-  cid: string;
+  cid?: string;
 }
 export interface QueryHasCidRequestAminoMsg {
   type: "/likechain.iscn.QueryHasCidRequest";
@@ -328,7 +328,7 @@ export interface QueryHasCidResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryHasCidResponseAmino {
-  exist: boolean;
+  exist?: boolean;
 }
 export interface QueryHasCidResponseAminoMsg {
   type: "/likechain.iscn.QueryHasCidResponse";
@@ -367,15 +367,19 @@ export const QueryResponseRecord = {
     return message;
   },
   fromAmino(object: QueryResponseRecordAmino): QueryResponseRecord {
-    return {
-      ipld: object.ipld,
-      data: object.data
-    };
+    const message = createBaseQueryResponseRecord();
+    if (object.ipld !== undefined && object.ipld !== null) {
+      message.ipld = object.ipld;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
   },
   toAmino(message: QueryResponseRecord): QueryResponseRecordAmino {
     const obj: any = {};
     obj.ipld = message.ipld;
-    obj.data = message.data;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryResponseRecordAminoMsg): QueryResponseRecord {
@@ -430,11 +434,17 @@ export const QueryRecordsByIdRequest = {
     return message;
   },
   fromAmino(object: QueryRecordsByIdRequestAmino): QueryRecordsByIdRequest {
-    return {
-      iscnId: object.iscn_id,
-      fromVersion: BigInt(object.from_version),
-      toVersion: BigInt(object.to_version)
-    };
+    const message = createBaseQueryRecordsByIdRequest();
+    if (object.iscn_id !== undefined && object.iscn_id !== null) {
+      message.iscnId = object.iscn_id;
+    }
+    if (object.from_version !== undefined && object.from_version !== null) {
+      message.fromVersion = BigInt(object.from_version);
+    }
+    if (object.to_version !== undefined && object.to_version !== null) {
+      message.toVersion = BigInt(object.to_version);
+    }
+    return message;
   },
   toAmino(message: QueryRecordsByIdRequest): QueryRecordsByIdRequestAmino {
     const obj: any = {};
@@ -495,11 +505,15 @@ export const QueryRecordsByIdResponse = {
     return message;
   },
   fromAmino(object: QueryRecordsByIdResponseAmino): QueryRecordsByIdResponse {
-    return {
-      owner: object.owner,
-      latestVersion: BigInt(object.latest_version),
-      records: Array.isArray(object?.records) ? object.records.map((e: any) => QueryResponseRecord.fromAmino(e)) : []
-    };
+    const message = createBaseQueryRecordsByIdResponse();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.latest_version !== undefined && object.latest_version !== null) {
+      message.latestVersion = BigInt(object.latest_version);
+    }
+    message.records = object.records?.map(e => QueryResponseRecord.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryRecordsByIdResponse): QueryRecordsByIdResponseAmino {
     const obj: any = {};
@@ -558,10 +572,14 @@ export const QueryRecordsByFingerprintRequest = {
     return message;
   },
   fromAmino(object: QueryRecordsByFingerprintRequestAmino): QueryRecordsByFingerprintRequest {
-    return {
-      fingerprint: object.fingerprint,
-      fromSequence: BigInt(object.from_sequence)
-    };
+    const message = createBaseQueryRecordsByFingerprintRequest();
+    if (object.fingerprint !== undefined && object.fingerprint !== null) {
+      message.fingerprint = object.fingerprint;
+    }
+    if (object.from_sequence !== undefined && object.from_sequence !== null) {
+      message.fromSequence = BigInt(object.from_sequence);
+    }
+    return message;
   },
   toAmino(message: QueryRecordsByFingerprintRequest): QueryRecordsByFingerprintRequestAmino {
     const obj: any = {};
@@ -615,10 +633,12 @@ export const QueryRecordsByFingerprintResponse = {
     return message;
   },
   fromAmino(object: QueryRecordsByFingerprintResponseAmino): QueryRecordsByFingerprintResponse {
-    return {
-      records: Array.isArray(object?.records) ? object.records.map((e: any) => QueryResponseRecord.fromAmino(e)) : [],
-      nextSequence: BigInt(object.next_sequence)
-    };
+    const message = createBaseQueryRecordsByFingerprintResponse();
+    message.records = object.records?.map(e => QueryResponseRecord.fromAmino(e)) || [];
+    if (object.next_sequence !== undefined && object.next_sequence !== null) {
+      message.nextSequence = BigInt(object.next_sequence);
+    }
+    return message;
   },
   toAmino(message: QueryRecordsByFingerprintResponse): QueryRecordsByFingerprintResponseAmino {
     const obj: any = {};
@@ -676,10 +696,14 @@ export const QueryRecordsByOwnerRequest = {
     return message;
   },
   fromAmino(object: QueryRecordsByOwnerRequestAmino): QueryRecordsByOwnerRequest {
-    return {
-      owner: object.owner,
-      fromSequence: BigInt(object.from_sequence)
-    };
+    const message = createBaseQueryRecordsByOwnerRequest();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.from_sequence !== undefined && object.from_sequence !== null) {
+      message.fromSequence = BigInt(object.from_sequence);
+    }
+    return message;
   },
   toAmino(message: QueryRecordsByOwnerRequest): QueryRecordsByOwnerRequestAmino {
     const obj: any = {};
@@ -733,10 +757,12 @@ export const QueryRecordsByOwnerResponse = {
     return message;
   },
   fromAmino(object: QueryRecordsByOwnerResponseAmino): QueryRecordsByOwnerResponse {
-    return {
-      records: Array.isArray(object?.records) ? object.records.map((e: any) => QueryResponseRecord.fromAmino(e)) : [],
-      nextSequence: BigInt(object.next_sequence)
-    };
+    const message = createBaseQueryRecordsByOwnerResponse();
+    message.records = object.records?.map(e => QueryResponseRecord.fromAmino(e)) || [];
+    if (object.next_sequence !== undefined && object.next_sequence !== null) {
+      message.nextSequence = BigInt(object.next_sequence);
+    }
+    return message;
   },
   toAmino(message: QueryRecordsByOwnerResponse): QueryRecordsByOwnerResponseAmino {
     const obj: any = {};
@@ -780,7 +806,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -826,9 +853,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -875,9 +904,11 @@ export const QueryGetCidRequest = {
     return message;
   },
   fromAmino(object: QueryGetCidRequestAmino): QueryGetCidRequest {
-    return {
-      cid: object.cid
-    };
+    const message = createBaseQueryGetCidRequest();
+    if (object.cid !== undefined && object.cid !== null) {
+      message.cid = object.cid;
+    }
+    return message;
   },
   toAmino(message: QueryGetCidRequest): QueryGetCidRequestAmino {
     const obj: any = {};
@@ -924,13 +955,15 @@ export const QueryGetCidResponse = {
     return message;
   },
   fromAmino(object: QueryGetCidResponseAmino): QueryGetCidResponse {
-    return {
-      data: object.data
-    };
+    const message = createBaseQueryGetCidResponse();
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
   },
   toAmino(message: QueryGetCidResponse): QueryGetCidResponseAmino {
     const obj: any = {};
-    obj.data = message.data;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryGetCidResponseAminoMsg): QueryGetCidResponse {
@@ -973,9 +1006,11 @@ export const QueryGetCidSizeRequest = {
     return message;
   },
   fromAmino(object: QueryGetCidSizeRequestAmino): QueryGetCidSizeRequest {
-    return {
-      cid: object.cid
-    };
+    const message = createBaseQueryGetCidSizeRequest();
+    if (object.cid !== undefined && object.cid !== null) {
+      message.cid = object.cid;
+    }
+    return message;
   },
   toAmino(message: QueryGetCidSizeRequest): QueryGetCidSizeRequestAmino {
     const obj: any = {};
@@ -1022,9 +1057,11 @@ export const QueryGetCidSizeResponse = {
     return message;
   },
   fromAmino(object: QueryGetCidSizeResponseAmino): QueryGetCidSizeResponse {
-    return {
-      size: BigInt(object.size)
-    };
+    const message = createBaseQueryGetCidSizeResponse();
+    if (object.size !== undefined && object.size !== null) {
+      message.size = BigInt(object.size);
+    }
+    return message;
   },
   toAmino(message: QueryGetCidSizeResponse): QueryGetCidSizeResponseAmino {
     const obj: any = {};
@@ -1071,9 +1108,11 @@ export const QueryHasCidRequest = {
     return message;
   },
   fromAmino(object: QueryHasCidRequestAmino): QueryHasCidRequest {
-    return {
-      cid: object.cid
-    };
+    const message = createBaseQueryHasCidRequest();
+    if (object.cid !== undefined && object.cid !== null) {
+      message.cid = object.cid;
+    }
+    return message;
   },
   toAmino(message: QueryHasCidRequest): QueryHasCidRequestAmino {
     const obj: any = {};
@@ -1120,9 +1159,11 @@ export const QueryHasCidResponse = {
     return message;
   },
   fromAmino(object: QueryHasCidResponseAmino): QueryHasCidResponse {
-    return {
-      exist: object.exist
-    };
+    const message = createBaseQueryHasCidResponse();
+    if (object.exist !== undefined && object.exist !== null) {
+      message.exist = object.exist;
+    }
+    return message;
   },
   toAmino(message: QueryHasCidResponse): QueryHasCidResponseAmino {
     const obj: any = {};

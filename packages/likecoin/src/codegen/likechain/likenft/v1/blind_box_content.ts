@@ -11,8 +11,8 @@ export interface BlindBoxContentProtoMsg {
   value: Uint8Array;
 }
 export interface BlindBoxContentAmino {
-  class_id: string;
-  id: string;
+  class_id?: string;
+  id?: string;
   input?: NFTInputAmino;
 }
 export interface BlindBoxContentAminoMsg {
@@ -60,11 +60,17 @@ export const BlindBoxContent = {
     return message;
   },
   fromAmino(object: BlindBoxContentAmino): BlindBoxContent {
-    return {
-      classId: object.class_id,
-      id: object.id,
-      input: object?.input ? NFTInput.fromAmino(object.input) : undefined
-    };
+    const message = createBaseBlindBoxContent();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.input !== undefined && object.input !== null) {
+      message.input = NFTInput.fromAmino(object.input);
+    }
+    return message;
   },
   toAmino(message: BlindBoxContent): BlindBoxContentAmino {
     const obj: any = {};

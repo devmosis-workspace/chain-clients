@@ -14,11 +14,11 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the module. */
 export interface ParamsAmino {
-    price_denom: string;
+    price_denom?: string;
     fee_per_byte?: DecCoinAmino;
-    max_offer_duration_days: string;
-    max_listing_duration_days: string;
-    max_royalty_basis_points: string;
+    max_offer_duration_days?: string;
+    max_listing_duration_days?: string;
+    max_royalty_basis_points?: string;
 }
 export interface ParamsAminoMsg {
     type: "/likechain.likenft.v1.Params";

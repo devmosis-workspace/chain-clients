@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 export interface IscnRecord {
   /** Using camelCases to make the record JSON in tx more like general JSON documents */
   recordNotes: string;
@@ -14,11 +14,11 @@ export interface IscnRecordProtoMsg {
 }
 export interface IscnRecordAmino {
   /** Using camelCases to make the record JSON in tx more like general JSON documents */
-  recordNotes: string;
-  contentFingerprints: string[];
+  recordNotes?: string;
+  contentFingerprints?: string[];
   /** Here, `IscnInput` is JSON encoded bytes */
-  stakeholders: Uint8Array[];
-  contentMetadata: Uint8Array;
+  stakeholders?: string[];
+  contentMetadata?: string;
 }
 export interface IscnRecordAminoMsg {
   type: "/likechain.iscn.IscnRecord";
@@ -40,9 +40,9 @@ export interface MsgCreateIscnRecordProtoMsg {
   value: Uint8Array;
 }
 export interface MsgCreateIscnRecordAmino {
-  from: string;
+  from?: string;
   record?: IscnRecordAmino;
-  nonce: string;
+  nonce?: string;
 }
 export interface MsgCreateIscnRecordAminoMsg {
   type: "/likechain.iscn.MsgCreateIscnRecord";
@@ -62,8 +62,8 @@ export interface MsgCreateIscnRecordResponseProtoMsg {
   value: Uint8Array;
 }
 export interface MsgCreateIscnRecordResponseAmino {
-  iscn_id: string;
-  record_ipld: string;
+  iscn_id?: string;
+  record_ipld?: string;
 }
 export interface MsgCreateIscnRecordResponseAminoMsg {
   type: "/likechain.iscn.MsgCreateIscnRecordResponse";
@@ -83,8 +83,8 @@ export interface MsgUpdateIscnRecordProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdateIscnRecordAmino {
-  from: string;
-  iscn_id: string;
+  from?: string;
+  iscn_id?: string;
   record?: IscnRecordAmino;
 }
 export interface MsgUpdateIscnRecordAminoMsg {
@@ -105,8 +105,8 @@ export interface MsgUpdateIscnRecordResponseProtoMsg {
   value: Uint8Array;
 }
 export interface MsgUpdateIscnRecordResponseAmino {
-  iscn_id: string;
-  record_ipld: string;
+  iscn_id?: string;
+  record_ipld?: string;
 }
 export interface MsgUpdateIscnRecordResponseAminoMsg {
   type: "/likechain.iscn.MsgUpdateIscnRecordResponse";
@@ -126,9 +126,9 @@ export interface MsgChangeIscnRecordOwnershipProtoMsg {
   value: Uint8Array;
 }
 export interface MsgChangeIscnRecordOwnershipAmino {
-  from: string;
-  iscn_id: string;
-  new_owner: string;
+  from?: string;
+  iscn_id?: string;
+  new_owner?: string;
 }
 export interface MsgChangeIscnRecordOwnershipAminoMsg {
   type: "/likechain.iscn.MsgChangeIscnRecordOwnership";
@@ -192,12 +192,16 @@ export const IscnRecord = {
     return message;
   },
   fromAmino(object: IscnRecordAmino): IscnRecord {
-    return {
-      recordNotes: object.recordNotes,
-      contentFingerprints: Array.isArray(object?.contentFingerprints) ? object.contentFingerprints.map((e: any) => e) : [],
-      stakeholders: Array.isArray(object?.stakeholders) ? object.stakeholders.map((e: any) => e) : [],
-      contentMetadata: object.contentMetadata
-    };
+    const message = createBaseIscnRecord();
+    if (object.recordNotes !== undefined && object.recordNotes !== null) {
+      message.recordNotes = object.recordNotes;
+    }
+    message.contentFingerprints = object.contentFingerprints?.map(e => e) || [];
+    message.stakeholders = object.stakeholders?.map(e => bytesFromBase64(e)) || [];
+    if (object.contentMetadata !== undefined && object.contentMetadata !== null) {
+      message.contentMetadata = bytesFromBase64(object.contentMetadata);
+    }
+    return message;
   },
   toAmino(message: IscnRecord): IscnRecordAmino {
     const obj: any = {};
@@ -208,11 +212,11 @@ export const IscnRecord = {
       obj.contentFingerprints = [];
     }
     if (message.stakeholders) {
-      obj.stakeholders = message.stakeholders.map(e => e);
+      obj.stakeholders = message.stakeholders.map(e => base64FromBytes(e));
     } else {
       obj.stakeholders = [];
     }
-    obj.contentMetadata = message.contentMetadata;
+    obj.contentMetadata = message.contentMetadata ? base64FromBytes(message.contentMetadata) : undefined;
     return obj;
   },
   fromAminoMsg(object: IscnRecordAminoMsg): IscnRecord {
@@ -267,11 +271,17 @@ export const MsgCreateIscnRecord = {
     return message;
   },
   fromAmino(object: MsgCreateIscnRecordAmino): MsgCreateIscnRecord {
-    return {
-      from: object.from,
-      record: object?.record ? IscnRecord.fromAmino(object.record) : undefined,
-      nonce: BigInt(object.nonce)
-    };
+    const message = createBaseMsgCreateIscnRecord();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.record !== undefined && object.record !== null) {
+      message.record = IscnRecord.fromAmino(object.record);
+    }
+    if (object.nonce !== undefined && object.nonce !== null) {
+      message.nonce = BigInt(object.nonce);
+    }
+    return message;
   },
   toAmino(message: MsgCreateIscnRecord): MsgCreateIscnRecordAmino {
     const obj: any = {};
@@ -326,10 +336,14 @@ export const MsgCreateIscnRecordResponse = {
     return message;
   },
   fromAmino(object: MsgCreateIscnRecordResponseAmino): MsgCreateIscnRecordResponse {
-    return {
-      iscnId: object.iscn_id,
-      recordIpld: object.record_ipld
-    };
+    const message = createBaseMsgCreateIscnRecordResponse();
+    if (object.iscn_id !== undefined && object.iscn_id !== null) {
+      message.iscnId = object.iscn_id;
+    }
+    if (object.record_ipld !== undefined && object.record_ipld !== null) {
+      message.recordIpld = object.record_ipld;
+    }
+    return message;
   },
   toAmino(message: MsgCreateIscnRecordResponse): MsgCreateIscnRecordResponseAmino {
     const obj: any = {};
@@ -389,11 +403,17 @@ export const MsgUpdateIscnRecord = {
     return message;
   },
   fromAmino(object: MsgUpdateIscnRecordAmino): MsgUpdateIscnRecord {
-    return {
-      from: object.from,
-      iscnId: object.iscn_id,
-      record: object?.record ? IscnRecord.fromAmino(object.record) : undefined
-    };
+    const message = createBaseMsgUpdateIscnRecord();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.iscn_id !== undefined && object.iscn_id !== null) {
+      message.iscnId = object.iscn_id;
+    }
+    if (object.record !== undefined && object.record !== null) {
+      message.record = IscnRecord.fromAmino(object.record);
+    }
+    return message;
   },
   toAmino(message: MsgUpdateIscnRecord): MsgUpdateIscnRecordAmino {
     const obj: any = {};
@@ -448,10 +468,14 @@ export const MsgUpdateIscnRecordResponse = {
     return message;
   },
   fromAmino(object: MsgUpdateIscnRecordResponseAmino): MsgUpdateIscnRecordResponse {
-    return {
-      iscnId: object.iscn_id,
-      recordIpld: object.record_ipld
-    };
+    const message = createBaseMsgUpdateIscnRecordResponse();
+    if (object.iscn_id !== undefined && object.iscn_id !== null) {
+      message.iscnId = object.iscn_id;
+    }
+    if (object.record_ipld !== undefined && object.record_ipld !== null) {
+      message.recordIpld = object.record_ipld;
+    }
+    return message;
   },
   toAmino(message: MsgUpdateIscnRecordResponse): MsgUpdateIscnRecordResponseAmino {
     const obj: any = {};
@@ -511,11 +535,17 @@ export const MsgChangeIscnRecordOwnership = {
     return message;
   },
   fromAmino(object: MsgChangeIscnRecordOwnershipAmino): MsgChangeIscnRecordOwnership {
-    return {
-      from: object.from,
-      iscnId: object.iscn_id,
-      newOwner: object.new_owner
-    };
+    const message = createBaseMsgChangeIscnRecordOwnership();
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    }
+    if (object.iscn_id !== undefined && object.iscn_id !== null) {
+      message.iscnId = object.iscn_id;
+    }
+    if (object.new_owner !== undefined && object.new_owner !== null) {
+      message.newOwner = object.new_owner;
+    }
+    return message;
   },
   toAmino(message: MsgChangeIscnRecordOwnership): MsgChangeIscnRecordOwnershipAmino {
     const obj: any = {};
@@ -556,7 +586,8 @@ export const MsgChangeIscnRecordOwnershipResponse = {
     return message;
   },
   fromAmino(_: MsgChangeIscnRecordOwnershipResponseAmino): MsgChangeIscnRecordOwnershipResponse {
-    return {};
+    const message = createBaseMsgChangeIscnRecordOwnershipResponse();
+    return message;
   },
   toAmino(_: MsgChangeIscnRecordOwnershipResponse): MsgChangeIscnRecordOwnershipResponseAmino {
     const obj: any = {};

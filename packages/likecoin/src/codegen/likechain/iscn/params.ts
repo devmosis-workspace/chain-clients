@@ -10,7 +10,7 @@ export interface ParamsProtoMsg {
   value: Uint8Array;
 }
 export interface ParamsAmino {
-  registry_name: string;
+  registry_name?: string;
   fee_per_byte?: DecCoinAmino;
 }
 export interface ParamsAminoMsg {
@@ -51,10 +51,14 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      registryName: object.registry_name,
-      feePerByte: object?.fee_per_byte ? DecCoin.fromAmino(object.fee_per_byte) : undefined
-    };
+    const message = createBaseParams();
+    if (object.registry_name !== undefined && object.registry_name !== null) {
+      message.registryName = object.registry_name;
+    }
+    if (object.fee_per_byte !== undefined && object.fee_per_byte !== null) {
+      message.feePerByte = DecCoin.fromAmino(object.fee_per_byte);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

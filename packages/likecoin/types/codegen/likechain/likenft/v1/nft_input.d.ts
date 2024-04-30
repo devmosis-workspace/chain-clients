@@ -9,9 +9,9 @@ export interface NFTInputProtoMsg {
     value: Uint8Array;
 }
 export interface NFTInputAmino {
-    uri: string;
-    uri_hash: string;
-    metadata: Uint8Array;
+    uri?: string;
+    uri_hash?: string;
+    metadata?: string;
 }
 export interface NFTInputAminoMsg {
     type: "/likechain.likenft.v1.NFTInput";

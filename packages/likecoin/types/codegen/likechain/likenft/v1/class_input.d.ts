@@ -14,12 +14,12 @@ export interface ClassInputProtoMsg {
     value: Uint8Array;
 }
 export interface ClassInputAmino {
-    name: string;
-    symbol: string;
-    description: string;
-    uri: string;
-    uri_hash: string;
-    metadata: Uint8Array;
+    name?: string;
+    symbol?: string;
+    description?: string;
+    uri?: string;
+    uri_hash?: string;
+    metadata?: string;
     config?: ClassConfigAmino;
 }
 export interface ClassInputAminoMsg {
@@ -44,8 +44,8 @@ export interface ClassParentInputProtoMsg {
     value: Uint8Array;
 }
 export interface ClassParentInputAmino {
-    type: ClassParentType;
-    iscn_id_prefix: string;
+    type?: ClassParentType;
+    iscn_id_prefix?: string;
 }
 export interface ClassParentInputAminoMsg {
     type: "/likechain.likenft.v1.ClassParentInput";

@@ -11,8 +11,8 @@ export interface GenesisStateProtoMsg {
 }
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    content_id_records: GenesisState_ContentIdRecordAmino[];
-    iscn_records: Uint8Array[];
+    content_id_records?: GenesisState_ContentIdRecordAmino[];
+    iscn_records?: string[];
 }
 export interface GenesisStateAminoMsg {
     type: "/likechain.iscn.GenesisState";
@@ -33,9 +33,9 @@ export interface GenesisState_ContentIdRecordProtoMsg {
     value: Uint8Array;
 }
 export interface GenesisState_ContentIdRecordAmino {
-    iscn_id: string;
-    owner: string;
-    latest_version: string;
+    iscn_id?: string;
+    owner?: string;
+    latest_version?: string;
 }
 export interface GenesisState_ContentIdRecordAminoMsg {
     type: "/likechain.iscn.ContentIdRecord";

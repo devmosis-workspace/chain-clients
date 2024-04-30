@@ -8,8 +8,8 @@ export interface ClassesByISCNProtoMsg {
     value: Uint8Array;
 }
 export interface ClassesByISCNAmino {
-    iscn_id_prefix: string;
-    class_ids: string[];
+    iscn_id_prefix?: string;
+    class_ids?: string[];
 }
 export interface ClassesByISCNAminoMsg {
     type: "/likechain.likenft.v1.ClassesByISCN";

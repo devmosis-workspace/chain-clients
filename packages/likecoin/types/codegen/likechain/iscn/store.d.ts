@@ -11,8 +11,8 @@ export interface StoreRecordProtoMsg {
 }
 export interface StoreRecordAmino {
     iscn_id?: IscnIdAmino;
-    cid_bytes: Uint8Array;
-    data: Uint8Array;
+    cid_bytes?: string;
+    data?: string;
 }
 export interface StoreRecordAminoMsg {
     type: "/likechain.iscn.StoreRecord";
@@ -32,8 +32,8 @@ export interface ContentIdRecordProtoMsg {
     value: Uint8Array;
 }
 export interface ContentIdRecordAmino {
-    owner_address_bytes: Uint8Array;
-    latest_version: string;
+    owner_address_bytes?: string;
+    latest_version?: string;
 }
 export interface ContentIdRecordAminoMsg {
     type: "/likechain.iscn.ContentIdRecord";

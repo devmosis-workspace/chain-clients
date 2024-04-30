@@ -1,6 +1,6 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
-import { isSet, fromJsonTimestamp, bytesFromBase64 } from "../../../helpers";
+import { isSet, fromJsonTimestamp, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface OfferExpireQueueEntry {
   expireTime: Timestamp;
   offerKey: Uint8Array;
@@ -10,8 +10,8 @@ export interface OfferExpireQueueEntryProtoMsg {
   value: Uint8Array;
 }
 export interface OfferExpireQueueEntryAmino {
-  expire_time?: TimestampAmino;
-  offer_key: Uint8Array;
+  expire_time?: string;
+  offer_key?: string;
 }
 export interface OfferExpireQueueEntryAminoMsg {
   type: "/likechain.likenft.v1.OfferExpireQueueEntry";
@@ -51,15 +51,19 @@ export const OfferExpireQueueEntry = {
     return message;
   },
   fromAmino(object: OfferExpireQueueEntryAmino): OfferExpireQueueEntry {
-    return {
-      expireTime: object.expire_time,
-      offerKey: object.offer_key
-    };
+    const message = createBaseOfferExpireQueueEntry();
+    if (object.expire_time !== undefined && object.expire_time !== null) {
+      message.expireTime = Timestamp.fromAmino(object.expire_time);
+    }
+    if (object.offer_key !== undefined && object.offer_key !== null) {
+      message.offerKey = bytesFromBase64(object.offer_key);
+    }
+    return message;
   },
   toAmino(message: OfferExpireQueueEntry): OfferExpireQueueEntryAmino {
     const obj: any = {};
-    obj.expire_time = message.expireTime;
-    obj.offer_key = message.offerKey;
+    obj.expire_time = message.expireTime ? Timestamp.toAmino(message.expireTime) : undefined;
+    obj.offer_key = message.offerKey ? base64FromBytes(message.offerKey) : undefined;
     return obj;
   },
   fromAminoMsg(object: OfferExpireQueueEntryAminoMsg): OfferExpireQueueEntry {

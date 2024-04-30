@@ -9,9 +9,9 @@ export interface EventNewClassProtoMsg {
     value: Uint8Array;
 }
 export interface EventNewClassAmino {
-    class_id: string;
-    parent_iscn_id_prefix: string;
-    parent_account: string;
+    class_id?: string;
+    parent_iscn_id_prefix?: string;
+    parent_account?: string;
 }
 export interface EventNewClassAminoMsg {
     type: "/likechain.likenft.v1.EventNewClass";
@@ -32,9 +32,9 @@ export interface EventUpdateClassProtoMsg {
     value: Uint8Array;
 }
 export interface EventUpdateClassAmino {
-    class_id: string;
-    parent_iscn_id_prefix: string;
-    parent_account: string;
+    class_id?: string;
+    parent_iscn_id_prefix?: string;
+    parent_account?: string;
 }
 export interface EventUpdateClassAminoMsg {
     type: "/likechain.likenft.v1.EventUpdateClass";
@@ -55,9 +55,9 @@ export interface EventRevealClassProtoMsg {
     value: Uint8Array;
 }
 export interface EventRevealClassAmino {
-    class_id: string;
-    success: boolean;
-    error: string;
+    class_id?: string;
+    success?: boolean;
+    error?: string;
 }
 export interface EventRevealClassAminoMsg {
     type: "/likechain.likenft.v1.EventRevealClass";
@@ -80,11 +80,11 @@ export interface EventMintNFTProtoMsg {
     value: Uint8Array;
 }
 export interface EventMintNFTAmino {
-    class_id: string;
-    nft_id: string;
-    owner: string;
-    class_parent_iscn_id_prefix: string;
-    class_parent_account: string;
+    class_id?: string;
+    nft_id?: string;
+    owner?: string;
+    class_parent_iscn_id_prefix?: string;
+    class_parent_account?: string;
 }
 export interface EventMintNFTAminoMsg {
     type: "/likechain.likenft.v1.EventMintNFT";
@@ -109,11 +109,11 @@ export interface EventBurnNFTProtoMsg {
     value: Uint8Array;
 }
 export interface EventBurnNFTAmino {
-    class_id: string;
-    nft_id: string;
-    owner: string;
-    class_parent_iscn_id_prefix: string;
-    class_parent_account: string;
+    class_id?: string;
+    nft_id?: string;
+    owner?: string;
+    class_parent_iscn_id_prefix?: string;
+    class_parent_account?: string;
 }
 export interface EventBurnNFTAminoMsg {
     type: "/likechain.likenft.v1.EventBurnNFT";
@@ -137,10 +137,10 @@ export interface EventCreateBlindBoxContentProtoMsg {
     value: Uint8Array;
 }
 export interface EventCreateBlindBoxContentAmino {
-    class_id: string;
-    content_id: string;
-    class_parent_iscn_id_prefix: string;
-    class_parent_account: string;
+    class_id?: string;
+    content_id?: string;
+    class_parent_iscn_id_prefix?: string;
+    class_parent_account?: string;
 }
 export interface EventCreateBlindBoxContentAminoMsg {
     type: "/likechain.likenft.v1.EventCreateBlindBoxContent";
@@ -163,10 +163,10 @@ export interface EventUpdateBlindBoxContentProtoMsg {
     value: Uint8Array;
 }
 export interface EventUpdateBlindBoxContentAmino {
-    class_id: string;
-    content_id: string;
-    class_parent_iscn_id_prefix: string;
-    class_parent_account: string;
+    class_id?: string;
+    content_id?: string;
+    class_parent_iscn_id_prefix?: string;
+    class_parent_account?: string;
 }
 export interface EventUpdateBlindBoxContentAminoMsg {
     type: "/likechain.likenft.v1.EventUpdateBlindBoxContent";
@@ -189,10 +189,10 @@ export interface EventDeleteBlindBoxContentProtoMsg {
     value: Uint8Array;
 }
 export interface EventDeleteBlindBoxContentAmino {
-    class_id: string;
-    content_id: string;
-    class_parent_iscn_id_prefix: string;
-    class_parent_account: string;
+    class_id?: string;
+    content_id?: string;
+    class_parent_iscn_id_prefix?: string;
+    class_parent_account?: string;
 }
 export interface EventDeleteBlindBoxContentAminoMsg {
     type: "/likechain.likenft.v1.EventDeleteBlindBoxContent";
@@ -214,9 +214,9 @@ export interface EventCreateOfferProtoMsg {
     value: Uint8Array;
 }
 export interface EventCreateOfferAmino {
-    class_id: string;
-    nft_id: string;
-    buyer: string;
+    class_id?: string;
+    nft_id?: string;
+    buyer?: string;
 }
 export interface EventCreateOfferAminoMsg {
     type: "/likechain.likenft.v1.EventCreateOffer";
@@ -237,9 +237,9 @@ export interface EventUpdateOfferProtoMsg {
     value: Uint8Array;
 }
 export interface EventUpdateOfferAmino {
-    class_id: string;
-    nft_id: string;
-    buyer: string;
+    class_id?: string;
+    nft_id?: string;
+    buyer?: string;
 }
 export interface EventUpdateOfferAminoMsg {
     type: "/likechain.likenft.v1.EventUpdateOffer";
@@ -260,9 +260,9 @@ export interface EventDeleteOfferProtoMsg {
     value: Uint8Array;
 }
 export interface EventDeleteOfferAmino {
-    class_id: string;
-    nft_id: string;
-    buyer: string;
+    class_id?: string;
+    nft_id?: string;
+    buyer?: string;
 }
 export interface EventDeleteOfferAminoMsg {
     type: "/likechain.likenft.v1.EventDeleteOffer";
@@ -283,9 +283,9 @@ export interface EventCreateListingProtoMsg {
     value: Uint8Array;
 }
 export interface EventCreateListingAmino {
-    class_id: string;
-    nft_id: string;
-    seller: string;
+    class_id?: string;
+    nft_id?: string;
+    seller?: string;
 }
 export interface EventCreateListingAminoMsg {
     type: "/likechain.likenft.v1.EventCreateListing";
@@ -306,9 +306,9 @@ export interface EventUpdateListingProtoMsg {
     value: Uint8Array;
 }
 export interface EventUpdateListingAmino {
-    class_id: string;
-    nft_id: string;
-    seller: string;
+    class_id?: string;
+    nft_id?: string;
+    seller?: string;
 }
 export interface EventUpdateListingAminoMsg {
     type: "/likechain.likenft.v1.EventUpdateListing";
@@ -329,9 +329,9 @@ export interface EventDeleteListingProtoMsg {
     value: Uint8Array;
 }
 export interface EventDeleteListingAmino {
-    class_id: string;
-    nft_id: string;
-    seller: string;
+    class_id?: string;
+    nft_id?: string;
+    seller?: string;
 }
 export interface EventDeleteListingAminoMsg {
     type: "/likechain.likenft.v1.EventDeleteListing";
@@ -355,12 +355,12 @@ export interface EventSellNFTProtoMsg {
     value: Uint8Array;
 }
 export interface EventSellNFTAmino {
-    class_id: string;
-    nft_id: string;
-    seller: string;
-    buyer: string;
-    price: string;
-    full_pay_to_royalty: boolean;
+    class_id?: string;
+    nft_id?: string;
+    seller?: string;
+    buyer?: string;
+    price?: string;
+    full_pay_to_royalty?: boolean;
 }
 export interface EventSellNFTAminoMsg {
     type: "/likechain.likenft.v1.EventSellNFT";
@@ -386,11 +386,11 @@ export interface EventBuyNFTProtoMsg {
     value: Uint8Array;
 }
 export interface EventBuyNFTAmino {
-    class_id: string;
-    nft_id: string;
-    seller: string;
-    buyer: string;
-    price: string;
+    class_id?: string;
+    nft_id?: string;
+    seller?: string;
+    buyer?: string;
+    price?: string;
 }
 export interface EventBuyNFTAminoMsg {
     type: "/likechain.likenft.v1.EventBuyNFT";
@@ -415,11 +415,11 @@ export interface EventExpireOfferProtoMsg {
     value: Uint8Array;
 }
 export interface EventExpireOfferAmino {
-    class_id: string;
-    nft_id: string;
-    buyer: string;
-    success: boolean;
-    error: string;
+    class_id?: string;
+    nft_id?: string;
+    buyer?: string;
+    success?: boolean;
+    error?: string;
 }
 export interface EventExpireOfferAminoMsg {
     type: "/likechain.likenft.v1.EventExpireOffer";
@@ -444,11 +444,11 @@ export interface EventExpireListingProtoMsg {
     value: Uint8Array;
 }
 export interface EventExpireListingAmino {
-    class_id: string;
-    nft_id: string;
-    seller: string;
-    success: boolean;
-    error: string;
+    class_id?: string;
+    nft_id?: string;
+    seller?: string;
+    success?: boolean;
+    error?: string;
 }
 export interface EventExpireListingAminoMsg {
     type: "/likechain.likenft.v1.EventExpireListing";
@@ -469,7 +469,7 @@ export interface EventCreateRoyaltyConfigProtoMsg {
     value: Uint8Array;
 }
 export interface EventCreateRoyaltyConfigAmino {
-    class_id: string;
+    class_id?: string;
 }
 export interface EventCreateRoyaltyConfigAminoMsg {
     type: "/likechain.likenft.v1.EventCreateRoyaltyConfig";
@@ -486,7 +486,7 @@ export interface EventUpdateRoyaltyConfigProtoMsg {
     value: Uint8Array;
 }
 export interface EventUpdateRoyaltyConfigAmino {
-    class_id: string;
+    class_id?: string;
 }
 export interface EventUpdateRoyaltyConfigAminoMsg {
     type: "/likechain.likenft.v1.EventUpdateRoyaltyConfig";
@@ -503,7 +503,7 @@ export interface EventDeleteRoyaltyConfigProtoMsg {
     value: Uint8Array;
 }
 export interface EventDeleteRoyaltyConfigAmino {
-    class_id: string;
+    class_id?: string;
 }
 export interface EventDeleteRoyaltyConfigAminoMsg {
     type: "/likechain.likenft.v1.EventDeleteRoyaltyConfig";

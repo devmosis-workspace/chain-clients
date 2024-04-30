@@ -30,15 +30,15 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the likenft module's genesis state. */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  classes_by_iscn_list: ClassesByISCNAmino[];
-  classes_by_account_list: ClassesByAccountAmino[];
-  blind_box_content_list: BlindBoxContentAmino[];
-  class_reveal_queue: ClassRevealQueueEntryAmino[];
-  offer_list: OfferAmino[];
-  listing_list: ListingAmino[];
-  offer_expire_queue: OfferExpireQueueEntryAmino[];
-  listing_expire_queue: ListingExpireQueueEntryAmino[];
-  royalty_config_by_class_list: RoyaltyConfigByClassAmino[];
+  classes_by_iscn_list?: ClassesByISCNAmino[];
+  classes_by_account_list?: ClassesByAccountAmino[];
+  blind_box_content_list?: BlindBoxContentAmino[];
+  class_reveal_queue?: ClassRevealQueueEntryAmino[];
+  offer_list?: OfferAmino[];
+  listing_list?: ListingAmino[];
+  offer_expire_queue?: OfferExpireQueueEntryAmino[];
+  listing_expire_queue?: ListingExpireQueueEntryAmino[];
+  royalty_config_by_class_list?: RoyaltyConfigByClassAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/likechain.likenft.v1.GenesisState";
@@ -135,18 +135,20 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      classesByIscnList: Array.isArray(object?.classes_by_iscn_list) ? object.classes_by_iscn_list.map((e: any) => ClassesByISCN.fromAmino(e)) : [],
-      classesByAccountList: Array.isArray(object?.classes_by_account_list) ? object.classes_by_account_list.map((e: any) => ClassesByAccount.fromAmino(e)) : [],
-      blindBoxContentList: Array.isArray(object?.blind_box_content_list) ? object.blind_box_content_list.map((e: any) => BlindBoxContent.fromAmino(e)) : [],
-      classRevealQueue: Array.isArray(object?.class_reveal_queue) ? object.class_reveal_queue.map((e: any) => ClassRevealQueueEntry.fromAmino(e)) : [],
-      offerList: Array.isArray(object?.offer_list) ? object.offer_list.map((e: any) => Offer.fromAmino(e)) : [],
-      listingList: Array.isArray(object?.listing_list) ? object.listing_list.map((e: any) => Listing.fromAmino(e)) : [],
-      offerExpireQueue: Array.isArray(object?.offer_expire_queue) ? object.offer_expire_queue.map((e: any) => OfferExpireQueueEntry.fromAmino(e)) : [],
-      listingExpireQueue: Array.isArray(object?.listing_expire_queue) ? object.listing_expire_queue.map((e: any) => ListingExpireQueueEntry.fromAmino(e)) : [],
-      royaltyConfigByClassList: Array.isArray(object?.royalty_config_by_class_list) ? object.royalty_config_by_class_list.map((e: any) => RoyaltyConfigByClass.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.classesByIscnList = object.classes_by_iscn_list?.map(e => ClassesByISCN.fromAmino(e)) || [];
+    message.classesByAccountList = object.classes_by_account_list?.map(e => ClassesByAccount.fromAmino(e)) || [];
+    message.blindBoxContentList = object.blind_box_content_list?.map(e => BlindBoxContent.fromAmino(e)) || [];
+    message.classRevealQueue = object.class_reveal_queue?.map(e => ClassRevealQueueEntry.fromAmino(e)) || [];
+    message.offerList = object.offer_list?.map(e => Offer.fromAmino(e)) || [];
+    message.listingList = object.listing_list?.map(e => Listing.fromAmino(e)) || [];
+    message.offerExpireQueue = object.offer_expire_queue?.map(e => OfferExpireQueueEntry.fromAmino(e)) || [];
+    message.listingExpireQueue = object.listing_expire_queue?.map(e => ListingExpireQueueEntry.fromAmino(e)) || [];
+    message.royaltyConfigByClassList = object.royalty_config_by_class_list?.map(e => RoyaltyConfigByClass.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

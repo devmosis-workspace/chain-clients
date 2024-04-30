@@ -1,6 +1,6 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
-import { isSet, fromJsonTimestamp, bytesFromBase64 } from "../../../helpers";
+import { isSet, fromJsonTimestamp, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface ListingExpireQueueEntry {
   expireTime: Timestamp;
   listingKey: Uint8Array;
@@ -10,8 +10,8 @@ export interface ListingExpireQueueEntryProtoMsg {
   value: Uint8Array;
 }
 export interface ListingExpireQueueEntryAmino {
-  expire_time?: TimestampAmino;
-  listing_key: Uint8Array;
+  expire_time?: string;
+  listing_key?: string;
 }
 export interface ListingExpireQueueEntryAminoMsg {
   type: "/likechain.likenft.v1.ListingExpireQueueEntry";
@@ -51,15 +51,19 @@ export const ListingExpireQueueEntry = {
     return message;
   },
   fromAmino(object: ListingExpireQueueEntryAmino): ListingExpireQueueEntry {
-    return {
-      expireTime: object.expire_time,
-      listingKey: object.listing_key
-    };
+    const message = createBaseListingExpireQueueEntry();
+    if (object.expire_time !== undefined && object.expire_time !== null) {
+      message.expireTime = Timestamp.fromAmino(object.expire_time);
+    }
+    if (object.listing_key !== undefined && object.listing_key !== null) {
+      message.listingKey = bytesFromBase64(object.listing_key);
+    }
+    return message;
   },
   toAmino(message: ListingExpireQueueEntry): ListingExpireQueueEntryAmino {
     const obj: any = {};
-    obj.expire_time = message.expireTime;
-    obj.listing_key = message.listingKey;
+    obj.expire_time = message.expireTime ? Timestamp.toAmino(message.expireTime) : undefined;
+    obj.listing_key = message.listingKey ? base64FromBytes(message.listingKey) : undefined;
     return obj;
   },
   fromAminoMsg(object: ListingExpireQueueEntryAminoMsg): ListingExpireQueueEntry {

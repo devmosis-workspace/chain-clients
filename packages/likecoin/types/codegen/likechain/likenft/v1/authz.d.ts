@@ -1,6 +1,6 @@
 import { BinaryWriter } from "../../../binary";
 export interface CreateRoyaltyConfigAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.CreateRoyaltyConfigAuthorization";
     classId: string;
 }
 export interface CreateRoyaltyConfigAuthorizationProtoMsg {
@@ -8,18 +8,18 @@ export interface CreateRoyaltyConfigAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface CreateRoyaltyConfigAuthorizationAmino {
-    class_id: string;
+    class_id?: string;
 }
 export interface CreateRoyaltyConfigAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.CreateRoyaltyConfigAuthorization";
     value: CreateRoyaltyConfigAuthorizationAmino;
 }
 export interface CreateRoyaltyConfigAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.CreateRoyaltyConfigAuthorization";
     class_id: string;
 }
 export interface UpdateRoyaltyConfigAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.UpdateRoyaltyConfigAuthorization";
     classId: string;
 }
 export interface UpdateRoyaltyConfigAuthorizationProtoMsg {
@@ -27,18 +27,18 @@ export interface UpdateRoyaltyConfigAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface UpdateRoyaltyConfigAuthorizationAmino {
-    class_id: string;
+    class_id?: string;
 }
 export interface UpdateRoyaltyConfigAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.UpdateRoyaltyConfigAuthorization";
     value: UpdateRoyaltyConfigAuthorizationAmino;
 }
 export interface UpdateRoyaltyConfigAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.UpdateRoyaltyConfigAuthorization";
     class_id: string;
 }
 export interface DeleteRoyaltyConfigAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.DeleteRoyaltyConfigAuthorization";
     classId: string;
 }
 export interface DeleteRoyaltyConfigAuthorizationProtoMsg {
@@ -46,18 +46,18 @@ export interface DeleteRoyaltyConfigAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface DeleteRoyaltyConfigAuthorizationAmino {
-    class_id: string;
+    class_id?: string;
 }
 export interface DeleteRoyaltyConfigAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.DeleteRoyaltyConfigAuthorization";
     value: DeleteRoyaltyConfigAuthorizationAmino;
 }
 export interface DeleteRoyaltyConfigAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.DeleteRoyaltyConfigAuthorization";
     class_id: string;
 }
 export interface CreateListingAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.CreateListingAuthorization";
     classId: string;
     nftId: string;
 }
@@ -66,20 +66,20 @@ export interface CreateListingAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface CreateListingAuthorizationAmino {
-    class_id: string;
-    nft_id: string;
+    class_id?: string;
+    nft_id?: string;
 }
 export interface CreateListingAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.CreateListingAuthorization";
     value: CreateListingAuthorizationAmino;
 }
 export interface CreateListingAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.CreateListingAuthorization";
     class_id: string;
     nft_id: string;
 }
 export interface UpdateListingAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.UpdateListingAuthorization";
     classId: string;
     nftId: string;
 }
@@ -88,20 +88,20 @@ export interface UpdateListingAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface UpdateListingAuthorizationAmino {
-    class_id: string;
-    nft_id: string;
+    class_id?: string;
+    nft_id?: string;
 }
 export interface UpdateListingAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.UpdateListingAuthorization";
     value: UpdateListingAuthorizationAmino;
 }
 export interface UpdateListingAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.UpdateListingAuthorization";
     class_id: string;
     nft_id: string;
 }
 export interface DeleteListingAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.DeleteListingAuthorization";
     classId: string;
     nftId: string;
 }
@@ -110,20 +110,20 @@ export interface DeleteListingAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface DeleteListingAuthorizationAmino {
-    class_id: string;
-    nft_id: string;
+    class_id?: string;
+    nft_id?: string;
 }
 export interface DeleteListingAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.DeleteListingAuthorization";
     value: DeleteListingAuthorizationAmino;
 }
 export interface DeleteListingAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.DeleteListingAuthorization";
     class_id: string;
     nft_id: string;
 }
 export interface CreateOfferAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.CreateOfferAuthorization";
     classId: string;
     nftId: string;
 }
@@ -132,20 +132,20 @@ export interface CreateOfferAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface CreateOfferAuthorizationAmino {
-    class_id: string;
-    nft_id: string;
+    class_id?: string;
+    nft_id?: string;
 }
 export interface CreateOfferAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.CreateOfferAuthorization";
     value: CreateOfferAuthorizationAmino;
 }
 export interface CreateOfferAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.CreateOfferAuthorization";
     class_id: string;
     nft_id: string;
 }
 export interface UpdateOfferAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.UpdateOfferAuthorization";
     classId: string;
     nftId: string;
 }
@@ -154,20 +154,20 @@ export interface UpdateOfferAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface UpdateOfferAuthorizationAmino {
-    class_id: string;
-    nft_id: string;
+    class_id?: string;
+    nft_id?: string;
 }
 export interface UpdateOfferAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.UpdateOfferAuthorization";
     value: UpdateOfferAuthorizationAmino;
 }
 export interface UpdateOfferAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.UpdateOfferAuthorization";
     class_id: string;
     nft_id: string;
 }
 export interface DeleteOfferAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.DeleteOfferAuthorization";
     classId: string;
     nftId: string;
 }
@@ -176,20 +176,20 @@ export interface DeleteOfferAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface DeleteOfferAuthorizationAmino {
-    class_id: string;
-    nft_id: string;
+    class_id?: string;
+    nft_id?: string;
 }
 export interface DeleteOfferAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.DeleteOfferAuthorization";
     value: DeleteOfferAuthorizationAmino;
 }
 export interface DeleteOfferAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.DeleteOfferAuthorization";
     class_id: string;
     nft_id: string;
 }
 export interface NewClassAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.NewClassAuthorization";
     iscnIdPrefix: string;
 }
 export interface NewClassAuthorizationProtoMsg {
@@ -197,18 +197,18 @@ export interface NewClassAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface NewClassAuthorizationAmino {
-    iscn_id_prefix: string;
+    iscn_id_prefix?: string;
 }
 export interface NewClassAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.NewClassAuthorization";
     value: NewClassAuthorizationAmino;
 }
 export interface NewClassAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.NewClassAuthorization";
     iscn_id_prefix: string;
 }
 export interface UpdateClassAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.UpdateClassAuthorization";
     classId: string;
 }
 export interface UpdateClassAuthorizationProtoMsg {
@@ -216,18 +216,18 @@ export interface UpdateClassAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface UpdateClassAuthorizationAmino {
-    class_id: string;
+    class_id?: string;
 }
 export interface UpdateClassAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.UpdateClassAuthorization";
     value: UpdateClassAuthorizationAmino;
 }
 export interface UpdateClassAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.UpdateClassAuthorization";
     class_id: string;
 }
 export interface MintNFTAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.MintNFTAuthorization";
     classId: string;
 }
 export interface MintNFTAuthorizationProtoMsg {
@@ -235,18 +235,18 @@ export interface MintNFTAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface MintNFTAuthorizationAmino {
-    class_id: string;
+    class_id?: string;
 }
 export interface MintNFTAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.MintNFTAuthorization";
     value: MintNFTAuthorizationAmino;
 }
 export interface MintNFTAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.MintNFTAuthorization";
     class_id: string;
 }
 export interface SendNFTAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.SendNFTAuthorization";
     classId: string;
     id: string;
 }
@@ -255,15 +255,15 @@ export interface SendNFTAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface SendNFTAuthorizationAmino {
-    class_id: string;
-    id: string;
+    class_id?: string;
+    id?: string;
 }
 export interface SendNFTAuthorizationAminoMsg {
     type: "/likechain.likenft.v1.SendNFTAuthorization";
     value: SendNFTAuthorizationAmino;
 }
 export interface SendNFTAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.likenft.v1.SendNFTAuthorization";
     class_id: string;
     id: string;
 }

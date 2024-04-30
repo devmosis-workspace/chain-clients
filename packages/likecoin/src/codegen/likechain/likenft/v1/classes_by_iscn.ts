@@ -9,8 +9,8 @@ export interface ClassesByISCNProtoMsg {
   value: Uint8Array;
 }
 export interface ClassesByISCNAmino {
-  iscn_id_prefix: string;
-  class_ids: string[];
+  iscn_id_prefix?: string;
+  class_ids?: string[];
 }
 export interface ClassesByISCNAminoMsg {
   type: "/likechain.likenft.v1.ClassesByISCN";
@@ -50,10 +50,12 @@ export const ClassesByISCN = {
     return message;
   },
   fromAmino(object: ClassesByISCNAmino): ClassesByISCN {
-    return {
-      iscnIdPrefix: object.iscn_id_prefix,
-      classIds: Array.isArray(object?.class_ids) ? object.class_ids.map((e: any) => e) : []
-    };
+    const message = createBaseClassesByISCN();
+    if (object.iscn_id_prefix !== undefined && object.iscn_id_prefix !== null) {
+      message.iscnIdPrefix = object.iscn_id_prefix;
+    }
+    message.classIds = object.class_ids?.map(e => e) || [];
+    return message;
   },
   toAmino(message: ClassesByISCN): ClassesByISCNAmino {
     const obj: any = {};

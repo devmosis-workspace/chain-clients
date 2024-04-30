@@ -15,11 +15,11 @@ export interface EventGrantProtoMsg {
 /** EventGrant is emitted on Msg/Grant */
 export interface EventGrantAmino {
     /** Msg type URL for which an autorization is granted */
-    msg_type_url: string;
+    msg_type_url?: string;
     /** Granter account address */
-    granter: string;
+    granter?: string;
     /** Grantee account address */
-    grantee: string;
+    grantee?: string;
 }
 export interface EventGrantAminoMsg {
     type: "cosmos-sdk/EventGrant";
@@ -47,11 +47,11 @@ export interface EventRevokeProtoMsg {
 /** EventRevoke is emitted on Msg/Revoke */
 export interface EventRevokeAmino {
     /** Msg type URL for which an autorization is revoked */
-    msg_type_url: string;
+    msg_type_url?: string;
     /** Granter account address */
-    granter: string;
+    granter?: string;
     /** Grantee account address */
-    grantee: string;
+    grantee?: string;
 }
 export interface EventRevokeAminoMsg {
     type: "cosmos-sdk/EventRevoke";

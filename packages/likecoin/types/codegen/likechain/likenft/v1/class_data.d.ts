@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 export declare enum ClassParentType {
     UNKNOWN = 0,
@@ -21,7 +21,7 @@ export interface ClassDataProtoMsg {
     value: Uint8Array;
 }
 export interface ClassDataAmino {
-    metadata: Uint8Array;
+    metadata?: string;
     parent?: ClassParentAmino;
     config?: ClassConfigAmino;
     blind_box_state?: BlindBoxStateAmino;
@@ -47,10 +47,10 @@ export interface ClassParentProtoMsg {
     value: Uint8Array;
 }
 export interface ClassParentAmino {
-    type: ClassParentType;
-    iscn_id_prefix: string;
-    iscn_version_at_mint: string;
-    account: string;
+    type?: ClassParentType;
+    iscn_id_prefix?: string;
+    iscn_version_at_mint?: string;
+    account?: string;
 }
 export interface ClassParentAminoMsg {
     type: "/likechain.likenft.v1.ClassParent";
@@ -72,9 +72,9 @@ export interface MintPeriodProtoMsg {
     value: Uint8Array;
 }
 export interface MintPeriodAmino {
-    start_time?: TimestampAmino;
-    allowed_addresses: string[];
-    mint_price: string;
+    start_time?: string;
+    allowed_addresses?: string[];
+    mint_price?: string;
 }
 export interface MintPeriodAminoMsg {
     type: "/likechain.likenft.v1.MintPeriod";
@@ -95,8 +95,8 @@ export interface ClassConfigProtoMsg {
     value: Uint8Array;
 }
 export interface ClassConfigAmino {
-    burnable: boolean;
-    max_supply: string;
+    burnable?: boolean;
+    max_supply?: string;
     blind_box_config?: BlindBoxConfigAmino;
 }
 export interface ClassConfigAminoMsg {
@@ -117,8 +117,8 @@ export interface BlindBoxConfigProtoMsg {
     value: Uint8Array;
 }
 export interface BlindBoxConfigAmino {
-    mint_periods: MintPeriodAmino[];
-    reveal_time?: TimestampAmino;
+    mint_periods?: MintPeriodAmino[];
+    reveal_time?: string;
 }
 export interface BlindBoxConfigAminoMsg {
     type: "/likechain.likenft.v1.BlindBoxConfig";
@@ -137,8 +137,8 @@ export interface BlindBoxStateProtoMsg {
     value: Uint8Array;
 }
 export interface BlindBoxStateAmino {
-    content_count: string;
-    to_be_revealed: boolean;
+    content_count?: string;
+    to_be_revealed?: boolean;
 }
 export interface BlindBoxStateAminoMsg {
     type: "/likechain.likenft.v1.BlindBoxState";

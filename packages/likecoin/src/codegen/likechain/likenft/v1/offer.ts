@@ -1,6 +1,6 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
-import { isSet, fromJsonTimestamp, bytesFromBase64 } from "../../../helpers";
+import { isSet, fromJsonTimestamp, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface Offer {
   classId: string;
   nftId: string;
@@ -13,11 +13,11 @@ export interface OfferProtoMsg {
   value: Uint8Array;
 }
 export interface OfferAmino {
-  class_id: string;
-  nft_id: string;
-  buyer: string;
-  price: string;
-  expiration?: TimestampAmino;
+  class_id?: string;
+  nft_id?: string;
+  buyer?: string;
+  price?: string;
+  expiration?: string;
 }
 export interface OfferAminoMsg {
   type: "/likechain.likenft.v1.Offer";
@@ -42,11 +42,11 @@ export interface OfferStoreRecordProtoMsg {
   value: Uint8Array;
 }
 export interface OfferStoreRecordAmino {
-  class_id: string;
-  nft_id: string;
-  buyer: Uint8Array;
-  price: string;
-  expiration?: TimestampAmino;
+  class_id?: string;
+  nft_id?: string;
+  buyer?: string;
+  price?: string;
+  expiration?: string;
 }
 export interface OfferStoreRecordAminoMsg {
   type: "/likechain.likenft.v1.OfferStoreRecord";
@@ -107,13 +107,23 @@ export const Offer = {
     return message;
   },
   fromAmino(object: OfferAmino): Offer {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      buyer: object.buyer,
-      price: BigInt(object.price),
-      expiration: object.expiration
-    };
+    const message = createBaseOffer();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = object.buyer;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromAmino(object.expiration);
+    }
+    return message;
   },
   toAmino(message: Offer): OfferAmino {
     const obj: any = {};
@@ -121,7 +131,7 @@ export const Offer = {
     obj.nft_id = message.nftId;
     obj.buyer = message.buyer;
     obj.price = message.price ? message.price.toString() : undefined;
-    obj.expiration = message.expiration;
+    obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
     return obj;
   },
   fromAminoMsg(object: OfferAminoMsg): Offer {
@@ -188,21 +198,31 @@ export const OfferStoreRecord = {
     return message;
   },
   fromAmino(object: OfferStoreRecordAmino): OfferStoreRecord {
-    return {
-      classId: object.class_id,
-      nftId: object.nft_id,
-      buyer: object.buyer,
-      price: BigInt(object.price),
-      expiration: object.expiration
-    };
+    const message = createBaseOfferStoreRecord();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = bytesFromBase64(object.buyer);
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = BigInt(object.price);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromAmino(object.expiration);
+    }
+    return message;
   },
   toAmino(message: OfferStoreRecord): OfferStoreRecordAmino {
     const obj: any = {};
     obj.class_id = message.classId;
     obj.nft_id = message.nftId;
-    obj.buyer = message.buyer;
+    obj.buyer = message.buyer ? base64FromBytes(message.buyer) : undefined;
     obj.price = message.price ? message.price.toString() : undefined;
-    obj.expiration = message.expiration;
+    obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
     return obj;
   },
   fromAminoMsg(object: OfferStoreRecordAminoMsg): OfferStoreRecord {

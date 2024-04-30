@@ -9,7 +9,7 @@ export interface ParamsProtoMsg {
     value: Uint8Array;
 }
 export interface ParamsAmino {
-    registry_name: string;
+    registry_name?: string;
     fee_per_byte?: DecCoinAmino;
 }
 export interface ParamsAminoMsg {

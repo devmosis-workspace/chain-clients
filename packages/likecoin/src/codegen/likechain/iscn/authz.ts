@@ -1,7 +1,7 @@
 import { BinaryWriter } from "../../binary";
 import { isSet } from "../../helpers";
 export interface UpdateAuthorization {
-  $typeUrl?: string;
+  $typeUrl?: "/likechain.iscn.UpdateAuthorization";
   iscnIdPrefix: string;
 }
 export interface UpdateAuthorizationProtoMsg {
@@ -9,14 +9,14 @@ export interface UpdateAuthorizationProtoMsg {
   value: Uint8Array;
 }
 export interface UpdateAuthorizationAmino {
-  iscn_id_prefix: string;
+  iscn_id_prefix?: string;
 }
 export interface UpdateAuthorizationAminoMsg {
   type: "/likechain.iscn.UpdateAuthorization";
   value: UpdateAuthorizationAmino;
 }
 export interface UpdateAuthorizationSDKType {
-  $typeUrl?: string;
+  $typeUrl?: "/likechain.iscn.UpdateAuthorization";
   iscn_id_prefix: string;
 }
 function createBaseUpdateAuthorization(): UpdateAuthorization {
@@ -44,9 +44,11 @@ export const UpdateAuthorization = {
     return message;
   },
   fromAmino(object: UpdateAuthorizationAmino): UpdateAuthorization {
-    return {
-      iscnIdPrefix: object.iscn_id_prefix
-    };
+    const message = createBaseUpdateAuthorization();
+    if (object.iscn_id_prefix !== undefined && object.iscn_id_prefix !== null) {
+      message.iscnIdPrefix = object.iscn_id_prefix;
+    }
+    return message;
   },
   toAmino(message: UpdateAuthorization): UpdateAuthorizationAmino {
     const obj: any = {};

@@ -13,11 +13,11 @@ export interface IscnRecordProtoMsg {
 }
 export interface IscnRecordAmino {
     /** Using camelCases to make the record JSON in tx more like general JSON documents */
-    recordNotes: string;
-    contentFingerprints: string[];
+    recordNotes?: string;
+    contentFingerprints?: string[];
     /** Here, `IscnInput` is JSON encoded bytes */
-    stakeholders: Uint8Array[];
-    contentMetadata: Uint8Array;
+    stakeholders?: string[];
+    contentMetadata?: string;
 }
 export interface IscnRecordAminoMsg {
     type: "/likechain.iscn.IscnRecord";
@@ -39,9 +39,9 @@ export interface MsgCreateIscnRecordProtoMsg {
     value: Uint8Array;
 }
 export interface MsgCreateIscnRecordAmino {
-    from: string;
+    from?: string;
     record?: IscnRecordAmino;
-    nonce: string;
+    nonce?: string;
 }
 export interface MsgCreateIscnRecordAminoMsg {
     type: "/likechain.iscn.MsgCreateIscnRecord";
@@ -61,8 +61,8 @@ export interface MsgCreateIscnRecordResponseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgCreateIscnRecordResponseAmino {
-    iscn_id: string;
-    record_ipld: string;
+    iscn_id?: string;
+    record_ipld?: string;
 }
 export interface MsgCreateIscnRecordResponseAminoMsg {
     type: "/likechain.iscn.MsgCreateIscnRecordResponse";
@@ -82,8 +82,8 @@ export interface MsgUpdateIscnRecordProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUpdateIscnRecordAmino {
-    from: string;
-    iscn_id: string;
+    from?: string;
+    iscn_id?: string;
     record?: IscnRecordAmino;
 }
 export interface MsgUpdateIscnRecordAminoMsg {
@@ -104,8 +104,8 @@ export interface MsgUpdateIscnRecordResponseProtoMsg {
     value: Uint8Array;
 }
 export interface MsgUpdateIscnRecordResponseAmino {
-    iscn_id: string;
-    record_ipld: string;
+    iscn_id?: string;
+    record_ipld?: string;
 }
 export interface MsgUpdateIscnRecordResponseAminoMsg {
     type: "/likechain.iscn.MsgUpdateIscnRecordResponse";
@@ -125,9 +125,9 @@ export interface MsgChangeIscnRecordOwnershipProtoMsg {
     value: Uint8Array;
 }
 export interface MsgChangeIscnRecordOwnershipAmino {
-    from: string;
-    iscn_id: string;
-    new_owner: string;
+    from?: string;
+    iscn_id?: string;
+    new_owner?: string;
 }
 export interface MsgChangeIscnRecordOwnershipAminoMsg {
     type: "/likechain.iscn.MsgChangeIscnRecordOwnership";

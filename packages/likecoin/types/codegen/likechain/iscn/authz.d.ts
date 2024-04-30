@@ -1,6 +1,6 @@
 import { BinaryWriter } from "../../binary";
 export interface UpdateAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.iscn.UpdateAuthorization";
     iscnIdPrefix: string;
 }
 export interface UpdateAuthorizationProtoMsg {
@@ -8,14 +8,14 @@ export interface UpdateAuthorizationProtoMsg {
     value: Uint8Array;
 }
 export interface UpdateAuthorizationAmino {
-    iscn_id_prefix: string;
+    iscn_id_prefix?: string;
 }
 export interface UpdateAuthorizationAminoMsg {
     type: "/likechain.iscn.UpdateAuthorization";
     value: UpdateAuthorizationAmino;
 }
 export interface UpdateAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/likechain.iscn.UpdateAuthorization";
     iscn_id_prefix: string;
 }
 export declare const UpdateAuthorization: {

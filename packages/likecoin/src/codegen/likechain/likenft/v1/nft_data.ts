@@ -1,6 +1,6 @@
 import { ClassParent, ClassParentAmino, ClassParentSDKType } from "./class_data";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface NFTData {
   metadata: Uint8Array;
   classParent: ClassParent;
@@ -11,9 +11,9 @@ export interface NFTDataProtoMsg {
   value: Uint8Array;
 }
 export interface NFTDataAmino {
-  metadata: Uint8Array;
+  metadata?: string;
   class_parent?: ClassParentAmino;
-  to_be_revealed: boolean;
+  to_be_revealed?: boolean;
 }
 export interface NFTDataAminoMsg {
   type: "/likechain.likenft.v1.NFTData";
@@ -60,15 +60,21 @@ export const NFTData = {
     return message;
   },
   fromAmino(object: NFTDataAmino): NFTData {
-    return {
-      metadata: object.metadata,
-      classParent: object?.class_parent ? ClassParent.fromAmino(object.class_parent) : undefined,
-      toBeRevealed: object.to_be_revealed
-    };
+    const message = createBaseNFTData();
+    if (object.metadata !== undefined && object.metadata !== null) {
+      message.metadata = bytesFromBase64(object.metadata);
+    }
+    if (object.class_parent !== undefined && object.class_parent !== null) {
+      message.classParent = ClassParent.fromAmino(object.class_parent);
+    }
+    if (object.to_be_revealed !== undefined && object.to_be_revealed !== null) {
+      message.toBeRevealed = object.to_be_revealed;
+    }
+    return message;
   },
   toAmino(message: NFTData): NFTDataAmino {
     const obj: any = {};
-    obj.metadata = message.metadata;
+    obj.metadata = message.metadata ? base64FromBytes(message.metadata) : undefined;
     obj.class_parent = message.classParent ? ClassParent.toAmino(message.classParent) : undefined;
     obj.to_be_revealed = message.toBeRevealed;
     return obj;

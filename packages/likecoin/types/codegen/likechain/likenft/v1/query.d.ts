@@ -50,14 +50,14 @@ export interface QueryParamsResponseSDKType {
 }
 export interface QueryClassesByISCNRequest {
     iscnIdPrefix: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryClassesByISCNRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryClassesByISCNRequest";
     value: Uint8Array;
 }
 export interface QueryClassesByISCNRequestAmino {
-    iscn_id_prefix: string;
+    iscn_id_prefix?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryClassesByISCNRequestAminoMsg {
@@ -66,20 +66,20 @@ export interface QueryClassesByISCNRequestAminoMsg {
 }
 export interface QueryClassesByISCNRequestSDKType {
     iscn_id_prefix: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryClassesByISCNResponse {
     iscnIdPrefix: string;
     classes: Class[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryClassesByISCNResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryClassesByISCNResponse";
     value: Uint8Array;
 }
 export interface QueryClassesByISCNResponseAmino {
-    iscn_id_prefix: string;
-    classes: ClassAmino[];
+    iscn_id_prefix?: string;
+    classes?: ClassAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryClassesByISCNResponseAminoMsg {
@@ -89,10 +89,10 @@ export interface QueryClassesByISCNResponseAminoMsg {
 export interface QueryClassesByISCNResponseSDKType {
     iscn_id_prefix: string;
     classes: ClassSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryClassesByISCNIndexRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryClassesByISCNIndexRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryClassesByISCNIndexRequest";
@@ -106,18 +106,18 @@ export interface QueryClassesByISCNIndexRequestAminoMsg {
     value: QueryClassesByISCNIndexRequestAmino;
 }
 export interface QueryClassesByISCNIndexRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryClassesByISCNIndexResponse {
     classesByIscns: ClassesByISCN[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryClassesByISCNIndexResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryClassesByISCNIndexResponse";
     value: Uint8Array;
 }
 export interface QueryClassesByISCNIndexResponseAmino {
-    classes_by_iscns: ClassesByISCNAmino[];
+    classes_by_iscns?: ClassesByISCNAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryClassesByISCNIndexResponseAminoMsg {
@@ -126,7 +126,7 @@ export interface QueryClassesByISCNIndexResponseAminoMsg {
 }
 export interface QueryClassesByISCNIndexResponseSDKType {
     classes_by_iscns: ClassesByISCNSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryISCNByClassRequest {
     classId: string;
@@ -136,7 +136,7 @@ export interface QueryISCNByClassRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryISCNByClassRequestAmino {
-    class_id: string;
+    class_id?: string;
 }
 export interface QueryISCNByClassRequestAminoMsg {
     type: "/likechain.likenft.v1.QueryISCNByClassRequest";
@@ -156,9 +156,9 @@ export interface QueryISCNByClassResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryISCNByClassResponseAmino {
-    iscn_id_prefix: string;
-    owner: string;
-    latest_version: string;
+    iscn_id_prefix?: string;
+    owner?: string;
+    latest_version?: string;
     latest_record?: QueryResponseRecordAmino;
 }
 export interface QueryISCNByClassResponseAminoMsg {
@@ -173,14 +173,14 @@ export interface QueryISCNByClassResponseSDKType {
 }
 export interface QueryClassesByAccountRequest {
     account: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryClassesByAccountRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryClassesByAccountRequest";
     value: Uint8Array;
 }
 export interface QueryClassesByAccountRequestAmino {
-    account: string;
+    account?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryClassesByAccountRequestAminoMsg {
@@ -189,20 +189,20 @@ export interface QueryClassesByAccountRequestAminoMsg {
 }
 export interface QueryClassesByAccountRequestSDKType {
     account: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryClassesByAccountResponse {
     account: string;
     classes: Class[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryClassesByAccountResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryClassesByAccountResponse";
     value: Uint8Array;
 }
 export interface QueryClassesByAccountResponseAmino {
-    account: string;
-    classes: ClassAmino[];
+    account?: string;
+    classes?: ClassAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryClassesByAccountResponseAminoMsg {
@@ -212,10 +212,10 @@ export interface QueryClassesByAccountResponseAminoMsg {
 export interface QueryClassesByAccountResponseSDKType {
     account: string;
     classes: ClassSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryClassesByAccountIndexRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryClassesByAccountIndexRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryClassesByAccountIndexRequest";
@@ -229,18 +229,18 @@ export interface QueryClassesByAccountIndexRequestAminoMsg {
     value: QueryClassesByAccountIndexRequestAmino;
 }
 export interface QueryClassesByAccountIndexRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryClassesByAccountIndexResponse {
     classesByAccounts: ClassesByAccount[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryClassesByAccountIndexResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryClassesByAccountIndexResponse";
     value: Uint8Array;
 }
 export interface QueryClassesByAccountIndexResponseAmino {
-    classes_by_accounts: ClassesByAccountAmino[];
+    classes_by_accounts?: ClassesByAccountAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryClassesByAccountIndexResponseAminoMsg {
@@ -249,7 +249,7 @@ export interface QueryClassesByAccountIndexResponseAminoMsg {
 }
 export interface QueryClassesByAccountIndexResponseSDKType {
     classes_by_accounts: ClassesByAccountSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryAccountByClassRequest {
     classId: string;
@@ -259,7 +259,7 @@ export interface QueryAccountByClassRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryAccountByClassRequestAmino {
-    class_id: string;
+    class_id?: string;
 }
 export interface QueryAccountByClassRequestAminoMsg {
     type: "/likechain.likenft.v1.QueryAccountByClassRequest";
@@ -276,7 +276,7 @@ export interface QueryAccountByClassResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryAccountByClassResponseAmino {
-    address: string;
+    address?: string;
 }
 export interface QueryAccountByClassResponseAminoMsg {
     type: "/likechain.likenft.v1.QueryAccountByClassResponse";
@@ -294,8 +294,8 @@ export interface QueryBlindBoxContentRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryBlindBoxContentRequestAmino {
-    class_id: string;
-    id: string;
+    class_id?: string;
+    id?: string;
 }
 export interface QueryBlindBoxContentRequestAminoMsg {
     type: "/likechain.likenft.v1.QueryBlindBoxContentRequest";
@@ -323,7 +323,7 @@ export interface QueryBlindBoxContentResponseSDKType {
     blind_box_content: BlindBoxContentSDKType;
 }
 export interface QueryBlindBoxContentIndexRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryBlindBoxContentIndexRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryBlindBoxContentIndexRequest";
@@ -337,18 +337,18 @@ export interface QueryBlindBoxContentIndexRequestAminoMsg {
     value: QueryBlindBoxContentIndexRequestAmino;
 }
 export interface QueryBlindBoxContentIndexRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryBlindBoxContentIndexResponse {
     blindBoxContents: BlindBoxContent[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryBlindBoxContentIndexResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryBlindBoxContentIndexResponse";
     value: Uint8Array;
 }
 export interface QueryBlindBoxContentIndexResponseAmino {
-    blind_box_contents: BlindBoxContentAmino[];
+    blind_box_contents?: BlindBoxContentAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryBlindBoxContentIndexResponseAminoMsg {
@@ -357,18 +357,18 @@ export interface QueryBlindBoxContentIndexResponseAminoMsg {
 }
 export interface QueryBlindBoxContentIndexResponseSDKType {
     blind_box_contents: BlindBoxContentSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryBlindBoxContentsRequest {
     classId: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryBlindBoxContentsRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryBlindBoxContentsRequest";
     value: Uint8Array;
 }
 export interface QueryBlindBoxContentsRequestAmino {
-    class_id: string;
+    class_id?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryBlindBoxContentsRequestAminoMsg {
@@ -377,18 +377,18 @@ export interface QueryBlindBoxContentsRequestAminoMsg {
 }
 export interface QueryBlindBoxContentsRequestSDKType {
     class_id: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryBlindBoxContentsResponse {
     blindBoxContents: BlindBoxContent[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryBlindBoxContentsResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryBlindBoxContentsResponse";
     value: Uint8Array;
 }
 export interface QueryBlindBoxContentsResponseAmino {
-    blind_box_contents: BlindBoxContentAmino[];
+    blind_box_contents?: BlindBoxContentAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryBlindBoxContentsResponseAminoMsg {
@@ -397,7 +397,7 @@ export interface QueryBlindBoxContentsResponseAminoMsg {
 }
 export interface QueryBlindBoxContentsResponseSDKType {
     blind_box_contents: BlindBoxContentSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryOfferRequest {
     classId: string;
@@ -409,9 +409,9 @@ export interface QueryOfferRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryOfferRequestAmino {
-    class_id: string;
-    nft_id: string;
-    buyer: string;
+    class_id?: string;
+    nft_id?: string;
+    buyer?: string;
 }
 export interface QueryOfferRequestAminoMsg {
     type: "/likechain.likenft.v1.QueryOfferRequest";
@@ -440,7 +440,7 @@ export interface QueryOfferResponseSDKType {
     offer: OfferSDKType;
 }
 export interface QueryOfferIndexRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryOfferIndexRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryOfferIndexRequest";
@@ -454,18 +454,18 @@ export interface QueryOfferIndexRequestAminoMsg {
     value: QueryOfferIndexRequestAmino;
 }
 export interface QueryOfferIndexRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryOfferIndexResponse {
     offers: Offer[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryOfferIndexResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryOfferIndexResponse";
     value: Uint8Array;
 }
 export interface QueryOfferIndexResponseAmino {
-    offers: OfferAmino[];
+    offers?: OfferAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryOfferIndexResponseAminoMsg {
@@ -474,18 +474,18 @@ export interface QueryOfferIndexResponseAminoMsg {
 }
 export interface QueryOfferIndexResponseSDKType {
     offers: OfferSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryOffersByClassRequest {
     classId: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryOffersByClassRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryOffersByClassRequest";
     value: Uint8Array;
 }
 export interface QueryOffersByClassRequestAmino {
-    class_id: string;
+    class_id?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryOffersByClassRequestAminoMsg {
@@ -494,18 +494,18 @@ export interface QueryOffersByClassRequestAminoMsg {
 }
 export interface QueryOffersByClassRequestSDKType {
     class_id: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryOffersByClassResponse {
     offers: Offer[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryOffersByClassResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryOffersByClassResponse";
     value: Uint8Array;
 }
 export interface QueryOffersByClassResponseAmino {
-    offers: OfferAmino[];
+    offers?: OfferAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryOffersByClassResponseAminoMsg {
@@ -514,20 +514,20 @@ export interface QueryOffersByClassResponseAminoMsg {
 }
 export interface QueryOffersByClassResponseSDKType {
     offers: OfferSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryOffersByNFTRequest {
     classId: string;
     nftId: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryOffersByNFTRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryOffersByNFTRequest";
     value: Uint8Array;
 }
 export interface QueryOffersByNFTRequestAmino {
-    class_id: string;
-    nft_id: string;
+    class_id?: string;
+    nft_id?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryOffersByNFTRequestAminoMsg {
@@ -537,18 +537,18 @@ export interface QueryOffersByNFTRequestAminoMsg {
 export interface QueryOffersByNFTRequestSDKType {
     class_id: string;
     nft_id: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryOffersByNFTResponse {
     offers: Offer[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryOffersByNFTResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryOffersByNFTResponse";
     value: Uint8Array;
 }
 export interface QueryOffersByNFTResponseAmino {
-    offers: OfferAmino[];
+    offers?: OfferAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryOffersByNFTResponseAminoMsg {
@@ -557,7 +557,7 @@ export interface QueryOffersByNFTResponseAminoMsg {
 }
 export interface QueryOffersByNFTResponseSDKType {
     offers: OfferSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryListingRequest {
     classId: string;
@@ -569,9 +569,9 @@ export interface QueryListingRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryListingRequestAmino {
-    class_id: string;
-    nft_id: string;
-    seller: string;
+    class_id?: string;
+    nft_id?: string;
+    seller?: string;
 }
 export interface QueryListingRequestAminoMsg {
     type: "/likechain.likenft.v1.QueryListingRequest";
@@ -600,7 +600,7 @@ export interface QueryListingResponseSDKType {
     listing: ListingSDKType;
 }
 export interface QueryListingIndexRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryListingIndexRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryListingIndexRequest";
@@ -614,18 +614,18 @@ export interface QueryListingIndexRequestAminoMsg {
     value: QueryListingIndexRequestAmino;
 }
 export interface QueryListingIndexRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryListingIndexResponse {
     listings: Listing[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryListingIndexResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryListingIndexResponse";
     value: Uint8Array;
 }
 export interface QueryListingIndexResponseAmino {
-    listings: ListingAmino[];
+    listings?: ListingAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryListingIndexResponseAminoMsg {
@@ -634,18 +634,18 @@ export interface QueryListingIndexResponseAminoMsg {
 }
 export interface QueryListingIndexResponseSDKType {
     listings: ListingSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryListingsByClassRequest {
     classId: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryListingsByClassRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryListingsByClassRequest";
     value: Uint8Array;
 }
 export interface QueryListingsByClassRequestAmino {
-    class_id: string;
+    class_id?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryListingsByClassRequestAminoMsg {
@@ -654,18 +654,18 @@ export interface QueryListingsByClassRequestAminoMsg {
 }
 export interface QueryListingsByClassRequestSDKType {
     class_id: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryListingsByClassResponse {
     listings: Listing[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryListingsByClassResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryListingsByClassResponse";
     value: Uint8Array;
 }
 export interface QueryListingsByClassResponseAmino {
-    listings: ListingAmino[];
+    listings?: ListingAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryListingsByClassResponseAminoMsg {
@@ -674,20 +674,20 @@ export interface QueryListingsByClassResponseAminoMsg {
 }
 export interface QueryListingsByClassResponseSDKType {
     listings: ListingSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryListingsByNFTRequest {
     classId: string;
     nftId: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryListingsByNFTRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryListingsByNFTRequest";
     value: Uint8Array;
 }
 export interface QueryListingsByNFTRequestAmino {
-    class_id: string;
-    nft_id: string;
+    class_id?: string;
+    nft_id?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryListingsByNFTRequestAminoMsg {
@@ -697,18 +697,18 @@ export interface QueryListingsByNFTRequestAminoMsg {
 export interface QueryListingsByNFTRequestSDKType {
     class_id: string;
     nft_id: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryListingsByNFTResponse {
     listings: Listing[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryListingsByNFTResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryListingsByNFTResponse";
     value: Uint8Array;
 }
 export interface QueryListingsByNFTResponseAmino {
-    listings: ListingAmino[];
+    listings?: ListingAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryListingsByNFTResponseAminoMsg {
@@ -717,7 +717,7 @@ export interface QueryListingsByNFTResponseAminoMsg {
 }
 export interface QueryListingsByNFTResponseSDKType {
     listings: ListingSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryRoyaltyConfigRequest {
     classId: string;
@@ -727,7 +727,7 @@ export interface QueryRoyaltyConfigRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryRoyaltyConfigRequestAmino {
-    class_id: string;
+    class_id?: string;
 }
 export interface QueryRoyaltyConfigRequestAminoMsg {
     type: "/likechain.likenft.v1.QueryRoyaltyConfigRequest";
@@ -754,7 +754,7 @@ export interface QueryRoyaltyConfigResponseSDKType {
     royalty_config: RoyaltyConfigSDKType;
 }
 export interface QueryRoyaltyConfigIndexRequest {
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryRoyaltyConfigIndexRequestProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryRoyaltyConfigIndexRequest";
@@ -768,18 +768,18 @@ export interface QueryRoyaltyConfigIndexRequestAminoMsg {
     value: QueryRoyaltyConfigIndexRequestAmino;
 }
 export interface QueryRoyaltyConfigIndexRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryRoyaltyConfigIndexResponse {
     royaltyConfigByClass: RoyaltyConfigByClass[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryRoyaltyConfigIndexResponseProtoMsg {
     typeUrl: "/likechain.likenft.v1.QueryRoyaltyConfigIndexResponse";
     value: Uint8Array;
 }
 export interface QueryRoyaltyConfigIndexResponseAmino {
-    royalty_config_by_class: RoyaltyConfigByClassAmino[];
+    royalty_config_by_class?: RoyaltyConfigByClassAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryRoyaltyConfigIndexResponseAminoMsg {
@@ -788,7 +788,7 @@ export interface QueryRoyaltyConfigIndexResponseAminoMsg {
 }
 export interface QueryRoyaltyConfigIndexResponseSDKType {
     royalty_config_by_class: RoyaltyConfigByClassSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export declare const QueryParamsRequest: {
     typeUrl: string;

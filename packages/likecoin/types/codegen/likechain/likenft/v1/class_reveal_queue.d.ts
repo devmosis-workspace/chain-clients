@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 export interface ClassRevealQueueEntry {
     revealTime: Timestamp;
@@ -9,8 +9,8 @@ export interface ClassRevealQueueEntryProtoMsg {
     value: Uint8Array;
 }
 export interface ClassRevealQueueEntryAmino {
-    reveal_time?: TimestampAmino;
-    class_id: string;
+    reveal_time?: string;
+    class_id?: string;
 }
 export interface ClassRevealQueueEntryAminoMsg {
     type: "/likechain.likenft.v1.ClassRevealQueueEntry";

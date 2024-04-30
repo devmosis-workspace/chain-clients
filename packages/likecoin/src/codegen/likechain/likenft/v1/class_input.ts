@@ -1,6 +1,6 @@
 import { ClassConfig, ClassConfigAmino, ClassConfigSDKType, ClassParentType, classParentTypeFromJSON } from "./class_data";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface ClassInput {
   name: string;
   symbol: string;
@@ -15,12 +15,12 @@ export interface ClassInputProtoMsg {
   value: Uint8Array;
 }
 export interface ClassInputAmino {
-  name: string;
-  symbol: string;
-  description: string;
-  uri: string;
-  uri_hash: string;
-  metadata: Uint8Array;
+  name?: string;
+  symbol?: string;
+  description?: string;
+  uri?: string;
+  uri_hash?: string;
+  metadata?: string;
   config?: ClassConfigAmino;
 }
 export interface ClassInputAminoMsg {
@@ -45,8 +45,8 @@ export interface ClassParentInputProtoMsg {
   value: Uint8Array;
 }
 export interface ClassParentInputAmino {
-  type: ClassParentType;
-  iscn_id_prefix: string;
+  type?: ClassParentType;
+  iscn_id_prefix?: string;
 }
 export interface ClassParentInputAminoMsg {
   type: "/likechain.likenft.v1.ClassParentInput";
@@ -116,15 +116,29 @@ export const ClassInput = {
     return message;
   },
   fromAmino(object: ClassInputAmino): ClassInput {
-    return {
-      name: object.name,
-      symbol: object.symbol,
-      description: object.description,
-      uri: object.uri,
-      uriHash: object.uri_hash,
-      metadata: object.metadata,
-      config: object?.config ? ClassConfig.fromAmino(object.config) : undefined
-    };
+    const message = createBaseClassInput();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.uri !== undefined && object.uri !== null) {
+      message.uri = object.uri;
+    }
+    if (object.uri_hash !== undefined && object.uri_hash !== null) {
+      message.uriHash = object.uri_hash;
+    }
+    if (object.metadata !== undefined && object.metadata !== null) {
+      message.metadata = bytesFromBase64(object.metadata);
+    }
+    if (object.config !== undefined && object.config !== null) {
+      message.config = ClassConfig.fromAmino(object.config);
+    }
+    return message;
   },
   toAmino(message: ClassInput): ClassInputAmino {
     const obj: any = {};
@@ -133,7 +147,7 @@ export const ClassInput = {
     obj.description = message.description;
     obj.uri = message.uri;
     obj.uri_hash = message.uriHash;
-    obj.metadata = message.metadata;
+    obj.metadata = message.metadata ? base64FromBytes(message.metadata) : undefined;
     obj.config = message.config ? ClassConfig.toAmino(message.config) : undefined;
     return obj;
   },
@@ -183,10 +197,14 @@ export const ClassParentInput = {
     return message;
   },
   fromAmino(object: ClassParentInputAmino): ClassParentInput {
-    return {
-      type: isSet(object.type) ? classParentTypeFromJSON(object.type) : -1,
-      iscnIdPrefix: object?.iscn_id_prefix
-    };
+    const message = createBaseClassParentInput();
+    if (object.type !== undefined && object.type !== null) {
+      message.type = classParentTypeFromJSON(object.type);
+    }
+    if (object.iscn_id_prefix !== undefined && object.iscn_id_prefix !== null) {
+      message.iscnIdPrefix = object.iscn_id_prefix;
+    }
+    return message;
   },
   toAmino(message: ClassParentInput): ClassParentInputAmino {
     const obj: any = {};

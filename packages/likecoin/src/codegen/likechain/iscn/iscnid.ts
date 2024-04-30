@@ -9,8 +9,8 @@ export interface IscnIdPrefixProtoMsg {
   value: Uint8Array;
 }
 export interface IscnIdPrefixAmino {
-  registry_name: string;
-  content_id: string;
+  registry_name?: string;
+  content_id?: string;
 }
 export interface IscnIdPrefixAminoMsg {
   type: "/likechain.iscn.IscnIdPrefix";
@@ -30,7 +30,7 @@ export interface IscnIdProtoMsg {
 }
 export interface IscnIdAmino {
   prefix?: IscnIdPrefixAmino;
-  version: string;
+  version?: string;
 }
 export interface IscnIdAminoMsg {
   type: "/likechain.iscn.IscnId";
@@ -70,10 +70,14 @@ export const IscnIdPrefix = {
     return message;
   },
   fromAmino(object: IscnIdPrefixAmino): IscnIdPrefix {
-    return {
-      registryName: object.registry_name,
-      contentId: object.content_id
-    };
+    const message = createBaseIscnIdPrefix();
+    if (object.registry_name !== undefined && object.registry_name !== null) {
+      message.registryName = object.registry_name;
+    }
+    if (object.content_id !== undefined && object.content_id !== null) {
+      message.contentId = object.content_id;
+    }
+    return message;
   },
   toAmino(message: IscnIdPrefix): IscnIdPrefixAmino {
     const obj: any = {};
@@ -127,10 +131,14 @@ export const IscnId = {
     return message;
   },
   fromAmino(object: IscnIdAmino): IscnId {
-    return {
-      prefix: object?.prefix ? IscnIdPrefix.fromAmino(object.prefix) : undefined,
-      version: BigInt(object.version)
-    };
+    const message = createBaseIscnId();
+    if (object.prefix !== undefined && object.prefix !== null) {
+      message.prefix = IscnIdPrefix.fromAmino(object.prefix);
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = BigInt(object.version);
+    }
+    return message;
   },
   toAmino(message: IscnId): IscnIdAmino {
     const obj: any = {};

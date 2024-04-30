@@ -15,11 +15,11 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the module. */
 export interface ParamsAmino {
-  price_denom: string;
+  price_denom?: string;
   fee_per_byte?: DecCoinAmino;
-  max_offer_duration_days: string;
-  max_listing_duration_days: string;
-  max_royalty_basis_points: string;
+  max_offer_duration_days?: string;
+  max_listing_duration_days?: string;
+  max_royalty_basis_points?: string;
 }
 export interface ParamsAminoMsg {
   type: "/likechain.likenft.v1.Params";
@@ -81,13 +81,23 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      priceDenom: object.price_denom,
-      feePerByte: object?.fee_per_byte ? DecCoin.fromAmino(object.fee_per_byte) : undefined,
-      maxOfferDurationDays: BigInt(object.max_offer_duration_days),
-      maxListingDurationDays: BigInt(object.max_listing_duration_days),
-      maxRoyaltyBasisPoints: BigInt(object.max_royalty_basis_points)
-    };
+    const message = createBaseParams();
+    if (object.price_denom !== undefined && object.price_denom !== null) {
+      message.priceDenom = object.price_denom;
+    }
+    if (object.fee_per_byte !== undefined && object.fee_per_byte !== null) {
+      message.feePerByte = DecCoin.fromAmino(object.fee_per_byte);
+    }
+    if (object.max_offer_duration_days !== undefined && object.max_offer_duration_days !== null) {
+      message.maxOfferDurationDays = BigInt(object.max_offer_duration_days);
+    }
+    if (object.max_listing_duration_days !== undefined && object.max_listing_duration_days !== null) {
+      message.maxListingDurationDays = BigInt(object.max_listing_duration_days);
+    }
+    if (object.max_royalty_basis_points !== undefined && object.max_royalty_basis_points !== null) {
+      message.maxRoyaltyBasisPoints = BigInt(object.max_royalty_basis_points);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

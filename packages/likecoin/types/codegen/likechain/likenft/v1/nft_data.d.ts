@@ -10,9 +10,9 @@ export interface NFTDataProtoMsg {
     value: Uint8Array;
 }
 export interface NFTDataAmino {
-    metadata: Uint8Array;
+    metadata?: string;
     class_parent?: ClassParentAmino;
-    to_be_revealed: boolean;
+    to_be_revealed?: boolean;
 }
 export interface NFTDataAminoMsg {
     type: "/likechain.likenft.v1.NFTData";
