@@ -13,7 +13,7 @@ export interface ParamsProtoMsg {
   value: Uint8Array;
 }
 export interface ParamsAmino {
-  sale_commission: string;
+  sale_commission?: string;
   distribution?: DistributionAmino;
   bid_close_duration?: DurationAmino;
   max_auction_duration?: DurationAmino;
@@ -37,8 +37,8 @@ export interface DistributionProtoMsg {
   value: Uint8Array;
 }
 export interface DistributionAmino {
-  staking: string;
-  community_pool: string;
+  staking?: string;
+  community_pool?: string;
 }
 export interface DistributionAminoMsg {
   type: "/OmniFlix.marketplace.v1beta1.Distribution";
@@ -90,12 +90,20 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      saleCommission: object.sale_commission,
-      distribution: object?.distribution ? Distribution.fromAmino(object.distribution) : undefined,
-      bidCloseDuration: object?.bid_close_duration ? Duration.fromAmino(object.bid_close_duration) : undefined,
-      maxAuctionDuration: object?.max_auction_duration ? Duration.fromAmino(object.max_auction_duration) : undefined
-    };
+    const message = createBaseParams();
+    if (object.sale_commission !== undefined && object.sale_commission !== null) {
+      message.saleCommission = object.sale_commission;
+    }
+    if (object.distribution !== undefined && object.distribution !== null) {
+      message.distribution = Distribution.fromAmino(object.distribution);
+    }
+    if (object.bid_close_duration !== undefined && object.bid_close_duration !== null) {
+      message.bidCloseDuration = Duration.fromAmino(object.bid_close_duration);
+    }
+    if (object.max_auction_duration !== undefined && object.max_auction_duration !== null) {
+      message.maxAuctionDuration = Duration.fromAmino(object.max_auction_duration);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -151,10 +159,14 @@ export const Distribution = {
     return message;
   },
   fromAmino(object: DistributionAmino): Distribution {
-    return {
-      staking: object.staking,
-      communityPool: object.community_pool
-    };
+    const message = createBaseDistribution();
+    if (object.staking !== undefined && object.staking !== null) {
+      message.staking = object.staking;
+    }
+    if (object.community_pool !== undefined && object.community_pool !== null) {
+      message.communityPool = object.community_pool;
+    }
+    return message;
   },
   toAmino(message: Distribution): DistributionAmino {
     const obj: any = {};

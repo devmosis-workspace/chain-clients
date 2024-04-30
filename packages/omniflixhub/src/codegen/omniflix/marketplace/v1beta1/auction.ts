@@ -1,5 +1,5 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { WeightedAddress, WeightedAddressAmino, WeightedAddressSDKType } from "./listing";
 import { BinaryWriter } from "../../../binary";
 import { Decimal } from "@cosmjs/math";
@@ -48,7 +48,7 @@ export interface AuctionListing {
   denomId: string;
   startPrice: Coin;
   startTime: Timestamp;
-  endTime: Timestamp;
+  endTime?: Timestamp;
   owner: string;
   incrementPercentage: string;
   whitelistAccounts: string[];
@@ -59,16 +59,16 @@ export interface AuctionListingProtoMsg {
   value: Uint8Array;
 }
 export interface AuctionListingAmino {
-  id: string;
-  nft_id: string;
-  denom_id: string;
+  id?: string;
+  nft_id?: string;
+  denom_id?: string;
   start_price?: CoinAmino;
-  start_time?: TimestampAmino;
-  end_time?: TimestampAmino;
-  owner: string;
-  increment_percentage: string;
-  whitelist_accounts: string[];
-  split_shares: WeightedAddressAmino[];
+  start_time?: string;
+  end_time?: string;
+  owner?: string;
+  increment_percentage?: string;
+  whitelist_accounts?: string[];
+  split_shares?: WeightedAddressAmino[];
 }
 export interface AuctionListingAminoMsg {
   type: "/OmniFlix.marketplace.v1beta1.AuctionListing";
@@ -80,7 +80,7 @@ export interface AuctionListingSDKType {
   denom_id: string;
   start_price: CoinSDKType;
   start_time: TimestampSDKType;
-  end_time: TimestampSDKType;
+  end_time?: TimestampSDKType;
   owner: string;
   increment_percentage: string;
   whitelist_accounts: string[];
@@ -97,10 +97,10 @@ export interface BidProtoMsg {
   value: Uint8Array;
 }
 export interface BidAmino {
-  auction_id: string;
-  bidder: string;
+  auction_id?: string;
+  bidder?: string;
   amount?: CoinAmino;
-  time?: TimestampAmino;
+  time?: string;
 }
 export interface BidAminoMsg {
   type: "/OmniFlix.marketplace.v1beta1.Bid";
@@ -119,7 +119,7 @@ function createBaseAuctionListing(): AuctionListing {
     denomId: "",
     startPrice: Coin.fromPartial({}),
     startTime: Timestamp.fromPartial({}),
-    endTime: Timestamp.fromPartial({}),
+    endTime: undefined,
     owner: "",
     incrementPercentage: "",
     whitelistAccounts: [],
@@ -190,18 +190,34 @@ export const AuctionListing = {
     return message;
   },
   fromAmino(object: AuctionListingAmino): AuctionListing {
-    return {
-      id: BigInt(object.id),
-      nftId: object.nft_id,
-      denomId: object.denom_id,
-      startPrice: object?.start_price ? Coin.fromAmino(object.start_price) : undefined,
-      startTime: object.start_time,
-      endTime: object.end_time,
-      owner: object.owner,
-      incrementPercentage: object.increment_percentage,
-      whitelistAccounts: Array.isArray(object?.whitelist_accounts) ? object.whitelist_accounts.map((e: any) => e) : [],
-      splitShares: Array.isArray(object?.split_shares) ? object.split_shares.map((e: any) => WeightedAddress.fromAmino(e)) : []
-    };
+    const message = createBaseAuctionListing();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.denom_id !== undefined && object.denom_id !== null) {
+      message.denomId = object.denom_id;
+    }
+    if (object.start_price !== undefined && object.start_price !== null) {
+      message.startPrice = Coin.fromAmino(object.start_price);
+    }
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = Timestamp.fromAmino(object.start_time);
+    }
+    if (object.end_time !== undefined && object.end_time !== null) {
+      message.endTime = Timestamp.fromAmino(object.end_time);
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.increment_percentage !== undefined && object.increment_percentage !== null) {
+      message.incrementPercentage = object.increment_percentage;
+    }
+    message.whitelistAccounts = object.whitelist_accounts?.map(e => e) || [];
+    message.splitShares = object.split_shares?.map(e => WeightedAddress.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: AuctionListing): AuctionListingAmino {
     const obj: any = {};
@@ -209,8 +225,8 @@ export const AuctionListing = {
     obj.nft_id = message.nftId;
     obj.denom_id = message.denomId;
     obj.start_price = message.startPrice ? Coin.toAmino(message.startPrice) : undefined;
-    obj.start_time = message.startTime;
-    obj.end_time = message.endTime;
+    obj.start_time = message.startTime ? Timestamp.toAmino(message.startTime) : undefined;
+    obj.end_time = message.endTime ? Timestamp.toAmino(message.endTime) : undefined;
     obj.owner = message.owner;
     obj.increment_percentage = message.incrementPercentage;
     if (message.whitelistAccounts) {
@@ -283,19 +299,27 @@ export const Bid = {
     return message;
   },
   fromAmino(object: BidAmino): Bid {
-    return {
-      auctionId: BigInt(object.auction_id),
-      bidder: object.bidder,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
-      time: object.time
-    };
+    const message = createBaseBid();
+    if (object.auction_id !== undefined && object.auction_id !== null) {
+      message.auctionId = BigInt(object.auction_id);
+    }
+    if (object.bidder !== undefined && object.bidder !== null) {
+      message.bidder = object.bidder;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.time !== undefined && object.time !== null) {
+      message.time = Timestamp.fromAmino(object.time);
+    }
+    return message;
   },
   toAmino(message: Bid): BidAmino {
     const obj: any = {};
     obj.auction_id = message.auctionId ? message.auctionId.toString() : undefined;
     obj.bidder = message.bidder;
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
-    obj.time = message.time;
+    obj.time = message.time ? Timestamp.toAmino(message.time) : undefined;
     return obj;
   },
   fromAminoMsg(object: BidAminoMsg): Bid {

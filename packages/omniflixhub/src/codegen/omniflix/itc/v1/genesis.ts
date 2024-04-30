@@ -15,9 +15,9 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the itc module's genesis state. */
 export interface GenesisStateAmino {
-  campaigns: CampaignAmino[];
-  next_campaign_number: string;
-  claims: ClaimAmino[];
+  campaigns?: CampaignAmino[];
+  next_campaign_number?: string;
+  claims?: ClaimAmino[];
   params?: ParamsAmino;
 }
 export interface GenesisStateAminoMsg {
@@ -73,12 +73,16 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      campaigns: Array.isArray(object?.campaigns) ? object.campaigns.map((e: any) => Campaign.fromAmino(e)) : [],
-      nextCampaignNumber: BigInt(object.next_campaign_number),
-      claims: Array.isArray(object?.claims) ? object.claims.map((e: any) => Claim.fromAmino(e)) : [],
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseGenesisState();
+    message.campaigns = object.campaigns?.map(e => Campaign.fromAmino(e)) || [];
+    if (object.next_campaign_number !== undefined && object.next_campaign_number !== null) {
+      message.nextCampaignNumber = BigInt(object.next_campaign_number);
+    }
+    message.claims = object.claims?.map(e => Claim.fromAmino(e)) || [];
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

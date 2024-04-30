@@ -14,9 +14,9 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the itc module's genesis state. */
 export interface GenesisStateAmino {
-    campaigns: CampaignAmino[];
-    next_campaign_number: string;
-    claims: ClaimAmino[];
+    campaigns?: CampaignAmino[];
+    next_campaign_number?: string;
+    claims?: ClaimAmino[];
     params?: ParamsAmino;
 }
 export interface GenesisStateAminoMsg {

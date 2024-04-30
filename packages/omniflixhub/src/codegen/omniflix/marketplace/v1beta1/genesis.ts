@@ -18,12 +18,12 @@ export interface GenesisStateProtoMsg {
 }
 export interface GenesisStateAmino {
   /** NFTs that are listed in marketplace */
-  listings: ListingAmino[];
-  ListingCount: string;
+  listings?: ListingAmino[];
+  ListingCount?: string;
   params?: ParamsAmino;
-  auctions: AuctionListingAmino[];
-  bids: BidAmino[];
-  next_auction_number: string;
+  auctions?: AuctionListingAmino[];
+  bids?: BidAmino[];
+  next_auction_number?: string;
 }
 export interface GenesisStateAminoMsg {
   type: "/OmniFlix.marketplace.v1beta1.GenesisState";
@@ -91,14 +91,20 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      listings: Array.isArray(object?.listings) ? object.listings.map((e: any) => Listing.fromAmino(e)) : [],
-      ListingCount: BigInt(object.ListingCount),
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      auctions: Array.isArray(object?.auctions) ? object.auctions.map((e: any) => AuctionListing.fromAmino(e)) : [],
-      bids: Array.isArray(object?.bids) ? object.bids.map((e: any) => Bid.fromAmino(e)) : [],
-      nextAuctionNumber: BigInt(object.next_auction_number)
-    };
+    const message = createBaseGenesisState();
+    message.listings = object.listings?.map(e => Listing.fromAmino(e)) || [];
+    if (object.ListingCount !== undefined && object.ListingCount !== null) {
+      message.ListingCount = BigInt(object.ListingCount);
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.auctions = object.auctions?.map(e => AuctionListing.fromAmino(e)) || [];
+    message.bids = object.bids?.map(e => Bid.fromAmino(e)) || [];
+    if (object.next_auction_number !== undefined && object.next_auction_number !== null) {
+      message.nextAuctionNumber = BigInt(object.next_auction_number);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};

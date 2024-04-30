@@ -6,7 +6,7 @@ export interface GenesisState {
   params: Params;
 }
 export interface GenesisStateProtoMsg {
-  typeUrl: "/omniflix.alloc.v1beta1.GenesisState";
+  typeUrl: "/OmniFlix.alloc.v1beta1.GenesisState";
   value: Uint8Array;
 }
 /** GenesisState defines the alloc module's genesis state. */
@@ -14,7 +14,7 @@ export interface GenesisStateAmino {
   params?: ParamsAmino;
 }
 export interface GenesisStateAminoMsg {
-  type: "/omniflix.alloc.v1beta1.GenesisState";
+  type: "/OmniFlix.alloc.v1beta1.GenesisState";
   value: GenesisStateAmino;
 }
 /** GenesisState defines the alloc module's genesis state. */
@@ -27,7 +27,7 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
-  typeUrl: "/omniflix.alloc.v1beta1.GenesisState",
+  typeUrl: "/OmniFlix.alloc.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -45,9 +45,11 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -65,7 +67,7 @@ export const GenesisState = {
   },
   toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
     return {
-      typeUrl: "/omniflix.alloc.v1beta1.GenesisState",
+      typeUrl: "/OmniFlix.alloc.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
   }

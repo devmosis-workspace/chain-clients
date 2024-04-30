@@ -1,6 +1,6 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgListNFT, MsgEditListing, MsgDeListNFT, MsgBuyNFT, MsgCreateAuction, MsgCancelAuction, MsgPlaceBid } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/OmniFlix.marketplace.v1beta1.MsgListNFT", MsgListNFT], ["/OmniFlix.marketplace.v1beta1.MsgEditListing", MsgEditListing], ["/OmniFlix.marketplace.v1beta1.MsgDeListNFT", MsgDeListNFT], ["/OmniFlix.marketplace.v1beta1.MsgBuyNFT", MsgBuyNFT], ["/OmniFlix.marketplace.v1beta1.MsgCreateAuction", MsgCreateAuction], ["/OmniFlix.marketplace.v1beta1.MsgCancelAuction", MsgCancelAuction], ["/OmniFlix.marketplace.v1beta1.MsgPlaceBid", MsgPlaceBid]];
+import { MsgListNFT, MsgEditListing, MsgDeListNFT, MsgBuyNFT, MsgCreateAuction, MsgCancelAuction, MsgPlaceBid, MsgUpdateParams } from "./tx";
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/OmniFlix.marketplace.v1beta1.MsgListNFT", MsgListNFT], ["/OmniFlix.marketplace.v1beta1.MsgEditListing", MsgEditListing], ["/OmniFlix.marketplace.v1beta1.MsgDeListNFT", MsgDeListNFT], ["/OmniFlix.marketplace.v1beta1.MsgBuyNFT", MsgBuyNFT], ["/OmniFlix.marketplace.v1beta1.MsgCreateAuction", MsgCreateAuction], ["/OmniFlix.marketplace.v1beta1.MsgCancelAuction", MsgCancelAuction], ["/OmniFlix.marketplace.v1beta1.MsgPlaceBid", MsgPlaceBid], ["/OmniFlix.marketplace.v1beta1.MsgUpdateParams", MsgUpdateParams]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -49,6 +49,12 @@ export const MessageComposer = {
         typeUrl: "/OmniFlix.marketplace.v1beta1.MsgPlaceBid",
         value: MsgPlaceBid.encode(value).finish()
       };
+    },
+    updateParams(value: MsgUpdateParams) {
+      return {
+        typeUrl: "/OmniFlix.marketplace.v1beta1.MsgUpdateParams",
+        value: MsgUpdateParams.encode(value).finish()
+      };
     }
   },
   withTypeUrl: {
@@ -91,6 +97,12 @@ export const MessageComposer = {
     placeBid(value: MsgPlaceBid) {
       return {
         typeUrl: "/OmniFlix.marketplace.v1beta1.MsgPlaceBid",
+        value
+      };
+    },
+    updateParams(value: MsgUpdateParams) {
+      return {
+        typeUrl: "/OmniFlix.marketplace.v1beta1.MsgUpdateParams",
         value
       };
     }
@@ -137,6 +149,12 @@ export const MessageComposer = {
         typeUrl: "/OmniFlix.marketplace.v1beta1.MsgPlaceBid",
         value: MsgPlaceBid.fromJSON(value)
       };
+    },
+    updateParams(value: any) {
+      return {
+        typeUrl: "/OmniFlix.marketplace.v1beta1.MsgUpdateParams",
+        value: MsgUpdateParams.fromJSON(value)
+      };
     }
   },
   fromPartial: {
@@ -180,6 +198,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/OmniFlix.marketplace.v1beta1.MsgPlaceBid",
         value: MsgPlaceBid.fromPartial(value)
+      };
+    },
+    updateParams(value: MsgUpdateParams) {
+      return {
+        typeUrl: "/OmniFlix.marketplace.v1beta1.MsgUpdateParams",
+        value: MsgUpdateParams.fromPartial(value)
       };
     }
   }

@@ -13,12 +13,12 @@ export interface ListingProtoMsg {
     value: Uint8Array;
 }
 export interface ListingAmino {
-    id: string;
-    nft_id: string;
-    denom_id: string;
+    id?: string;
+    nft_id?: string;
+    denom_id?: string;
     price?: CoinAmino;
-    owner: string;
-    split_shares: WeightedAddressAmino[];
+    owner?: string;
+    split_shares?: WeightedAddressAmino[];
 }
 export interface ListingAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.Listing";
@@ -41,8 +41,8 @@ export interface WeightedAddressProtoMsg {
     value: Uint8Array;
 }
 export interface WeightedAddressAmino {
-    address: string;
-    weight: string;
+    address?: string;
+    weight?: string;
 }
 export interface WeightedAddressAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.WeightedAddress";

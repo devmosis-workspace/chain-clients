@@ -4,15 +4,15 @@ export interface WeightedAddress {
     weight: string;
 }
 export interface WeightedAddressProtoMsg {
-    typeUrl: "/omniflix.alloc.v1beta1.WeightedAddress";
+    typeUrl: "/OmniFlix.alloc.v1beta1.WeightedAddress";
     value: Uint8Array;
 }
 export interface WeightedAddressAmino {
-    address: string;
-    weight: string;
+    address?: string;
+    weight?: string;
 }
 export interface WeightedAddressAminoMsg {
-    type: "/omniflix.alloc.v1beta1.WeightedAddress";
+    type: "/OmniFlix.alloc.v1beta1.WeightedAddress";
     value: WeightedAddressAmino;
 }
 export interface WeightedAddressSDKType {
@@ -27,18 +27,18 @@ export interface DistributionProportions {
     communityPool: string;
 }
 export interface DistributionProportionsProtoMsg {
-    typeUrl: "/omniflix.alloc.v1beta1.DistributionProportions";
+    typeUrl: "/OmniFlix.alloc.v1beta1.DistributionProportions";
     value: Uint8Array;
 }
 export interface DistributionProportionsAmino {
-    staking_rewards: string;
-    nft_incentives: string;
-    node_hosts_incentives: string;
-    developer_rewards: string;
-    community_pool: string;
+    staking_rewards?: string;
+    nft_incentives?: string;
+    node_hosts_incentives?: string;
+    developer_rewards?: string;
+    community_pool?: string;
 }
 export interface DistributionProportionsAminoMsg {
-    type: "/omniflix.alloc.v1beta1.DistributionProportions";
+    type: "/OmniFlix.alloc.v1beta1.DistributionProportions";
     value: DistributionProportionsAmino;
 }
 export interface DistributionProportionsSDKType {
@@ -59,21 +59,21 @@ export interface Params {
     weightedNodeHostsIncentivesReceivers: WeightedAddress[];
 }
 export interface ParamsProtoMsg {
-    typeUrl: "/omniflix.alloc.v1beta1.Params";
+    typeUrl: "/OmniFlix.alloc.v1beta1.Params";
     value: Uint8Array;
 }
 export interface ParamsAmino {
     /** distribution_proportions defines the proportion of the minted denom */
     distribution_proportions?: DistributionProportionsAmino;
     /** address to receive developer rewards */
-    weighted_developer_rewards_receivers: WeightedAddressAmino[];
+    weighted_developer_rewards_receivers?: WeightedAddressAmino[];
     /** address to receive nft incentives */
-    weighted_nft_incentives_receivers: WeightedAddressAmino[];
+    weighted_nft_incentives_receivers?: WeightedAddressAmino[];
     /** address to receive node host incentives */
-    weighted_node_hosts_incentives_receivers: WeightedAddressAmino[];
+    weighted_node_hosts_incentives_receivers?: WeightedAddressAmino[];
 }
 export interface ParamsAminoMsg {
-    type: "/omniflix.alloc.v1beta1.Params";
+    type: "/OmniFlix.alloc.v1beta1.Params";
     value: ParamsAmino;
 }
 export interface ParamsSDKType {

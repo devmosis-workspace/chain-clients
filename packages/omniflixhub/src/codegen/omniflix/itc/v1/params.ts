@@ -52,10 +52,14 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      maxCampaignDuration: object?.max_campaign_duration ? Duration.fromAmino(object.max_campaign_duration) : undefined,
-      creationFee: object?.creation_fee ? Coin.fromAmino(object.creation_fee) : undefined
-    };
+    const message = createBaseParams();
+    if (object.max_campaign_duration !== undefined && object.max_campaign_duration !== null) {
+      message.maxCampaignDuration = Duration.fromAmino(object.max_campaign_duration);
+    }
+    if (object.creation_fee !== undefined && object.creation_fee !== null) {
+      message.creationFee = Coin.fromAmino(object.creation_fee);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};

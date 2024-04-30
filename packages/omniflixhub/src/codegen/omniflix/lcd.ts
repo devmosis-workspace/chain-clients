@@ -9,13 +9,28 @@ export const createLCDClient = async ({
   });
   return {
     OmniFlix: {
+      alloc: {
+        v1beta1: new (await import("./alloc/v1beta1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      globalfee: {
+        v1beta1: new (await import("./globalfee/v1beta1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
       itc: {
-        v1: new (await import("../omniflix/itc/v1/query.lcd")).LCDQueryClient({
+        v1: new (await import("./itc/v1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },
       marketplace: {
-        v1beta1: new (await import("../omniflix/marketplace/v1beta1/query.lcd")).LCDQueryClient({
+        v1beta1: new (await import("./marketplace/v1beta1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      onft: {
+        v1beta1: new (await import("./onft/v1beta1/query.lcd")).LCDQueryClient({
           requestClient
         })
       }
@@ -48,6 +63,11 @@ export const createLCDClient = async ({
           })
         }
       },
+      consensus: {
+        v1: new (await import("../cosmos/consensus/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
       distribution: {
         v1beta1: new (await import("../cosmos/distribution/v1beta1/query.lcd")).LCDQueryClient({
           requestClient
@@ -64,12 +84,25 @@ export const createLCDClient = async ({
         })
       },
       gov: {
+        v1: new (await import("../cosmos/gov/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        }),
         v1beta1: new (await import("../cosmos/gov/v1beta1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      group: {
+        v1: new (await import("../cosmos/group/v1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },
       mint: {
         v1beta1: new (await import("../cosmos/mint/v1beta1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      nft: {
+        v1beta1: new (await import("../cosmos/nft/v1beta1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },

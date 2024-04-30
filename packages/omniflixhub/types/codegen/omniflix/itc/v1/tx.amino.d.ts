@@ -1,4 +1,4 @@
-import { MsgCreateCampaign, MsgCancelCampaign, MsgClaim, MsgDepositCampaign } from "./tx";
+import { MsgCreateCampaign, MsgCancelCampaign, MsgClaim, MsgDepositCampaign, MsgUpdateParams } from "./tx";
 export declare const AminoConverter: {
     "/OmniFlix.itc.v1.MsgCreateCampaign": {
         aminoType: string;
@@ -19,5 +19,10 @@ export declare const AminoConverter: {
         aminoType: string;
         toAmino: (message: MsgDepositCampaign) => import("./tx").MsgDepositCampaignAmino;
         fromAmino: (object: import("./tx").MsgDepositCampaignAmino) => MsgDepositCampaign;
+    };
+    "/OmniFlix.itc.v1.MsgUpdateParams": {
+        aminoType: string;
+        toAmino: (message: MsgUpdateParams) => import("./tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./tx").MsgUpdateParamsAmino) => MsgUpdateParams;
     };
 };

@@ -1,7 +1,8 @@
 import { InteractionType, ClaimType, NFTDetails, NFTDetailsAmino, NFTDetailsSDKType, Distribution, DistributionAmino, DistributionSDKType } from "./itc";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
 export interface MsgCreateCampaign {
     name: string;
@@ -12,10 +13,10 @@ export interface MsgCreateCampaign {
     tokensPerClaim: Coin;
     maxAllowedClaims: bigint;
     deposit: Coin;
-    nftMintDetails: NFTDetails;
+    nftMintDetails?: NFTDetails;
     startTime: Timestamp;
     duration: Duration;
-    distribution: Distribution;
+    distribution?: Distribution;
     creator: string;
     creationFee: Coin;
 }
@@ -24,23 +25,23 @@ export interface MsgCreateCampaignProtoMsg {
     value: Uint8Array;
 }
 export interface MsgCreateCampaignAmino {
-    name: string;
-    description: string;
-    interaction: InteractionType;
-    claim_type: ClaimType;
-    nft_denom_id: string;
+    name?: string;
+    description?: string;
+    interaction?: InteractionType;
+    claim_type?: ClaimType;
+    nft_denom_id?: string;
     tokens_per_claim?: CoinAmino;
-    max_allowed_claims: string;
+    max_allowed_claims?: string;
     deposit?: CoinAmino;
     nft_mint_details?: NFTDetailsAmino;
-    start_time?: TimestampAmino;
+    start_time?: string;
     duration?: DurationAmino;
     distribution?: DistributionAmino;
-    creator: string;
+    creator?: string;
     creation_fee?: CoinAmino;
 }
 export interface MsgCreateCampaignAminoMsg {
-    type: "/OmniFlix.itc.v1.MsgCreateCampaign";
+    type: "OmniFlix/itc/MsgCreateCampaign";
     value: MsgCreateCampaignAmino;
 }
 export interface MsgCreateCampaignSDKType {
@@ -52,10 +53,10 @@ export interface MsgCreateCampaignSDKType {
     tokens_per_claim: CoinSDKType;
     max_allowed_claims: bigint;
     deposit: CoinSDKType;
-    nft_mint_details: NFTDetailsSDKType;
+    nft_mint_details?: NFTDetailsSDKType;
     start_time: TimestampSDKType;
     duration: DurationSDKType;
-    distribution: DistributionSDKType;
+    distribution?: DistributionSDKType;
     creator: string;
     creation_fee: CoinSDKType;
 }
@@ -82,11 +83,11 @@ export interface MsgCancelCampaignProtoMsg {
     value: Uint8Array;
 }
 export interface MsgCancelCampaignAmino {
-    campaign_id: string;
-    creator: string;
+    campaign_id?: string;
+    creator?: string;
 }
 export interface MsgCancelCampaignAminoMsg {
-    type: "/OmniFlix.itc.v1.MsgCancelCampaign";
+    type: "OmniFlix/itc/MsgCancelCampaign";
     value: MsgCancelCampaignAmino;
 }
 export interface MsgCancelCampaignSDKType {
@@ -118,13 +119,13 @@ export interface MsgClaimProtoMsg {
     value: Uint8Array;
 }
 export interface MsgClaimAmino {
-    campaign_id: string;
-    nft_id: string;
-    interaction: InteractionType;
-    claimer: string;
+    campaign_id?: string;
+    nft_id?: string;
+    interaction?: InteractionType;
+    claimer?: string;
 }
 export interface MsgClaimAminoMsg {
-    type: "/OmniFlix.itc.v1.MsgClaim";
+    type: "OmniFlix/itc/MsgClaim";
     value: MsgClaimAmino;
 }
 export interface MsgClaimSDKType {
@@ -157,12 +158,12 @@ export interface MsgDepositCampaignProtoMsg {
     value: Uint8Array;
 }
 export interface MsgDepositCampaignAmino {
-    campaign_id: string;
+    campaign_id?: string;
     amount?: CoinAmino;
-    depositor: string;
+    depositor?: string;
 }
 export interface MsgDepositCampaignAminoMsg {
-    type: "/OmniFlix.itc.v1.MsgDepositCampaign";
+    type: "OmniFlix/itc/MsgDepositCampaign";
     value: MsgDepositCampaignAmino;
 }
 export interface MsgDepositCampaignSDKType {
@@ -184,6 +185,85 @@ export interface MsgDepositCampaignResponseAminoMsg {
 }
 export interface MsgDepositCampaignResponseSDKType {
 }
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParams {
+    /** authority is the address of the governance account. */
+    authority: string;
+    /**
+     * params defines the x/itc parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     */
+    params: Params;
+}
+export interface MsgUpdateParamsProtoMsg {
+    typeUrl: "/OmniFlix.itc.v1.MsgUpdateParams";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsAmino {
+    /** authority is the address of the governance account. */
+    authority?: string;
+    /**
+     * params defines the x/itc parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     */
+    params?: ParamsAmino;
+}
+export interface MsgUpdateParamsAminoMsg {
+    type: "/OmniFlix.itc.v1.MsgUpdateParams";
+    value: MsgUpdateParamsAmino;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsSDKType {
+    authority: string;
+    params: ParamsSDKType;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponse {
+}
+export interface MsgUpdateParamsResponseProtoMsg {
+    typeUrl: "/OmniFlix.itc.v1.MsgUpdateParamsResponse";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseAmino {
+}
+export interface MsgUpdateParamsResponseAminoMsg {
+    type: "/OmniFlix.itc.v1.MsgUpdateParamsResponse";
+    value: MsgUpdateParamsResponseAmino;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseSDKType {
+}
 export declare const MsgCreateCampaign: {
     typeUrl: string;
     encode(message: MsgCreateCampaign, writer?: BinaryWriter): BinaryWriter;
@@ -192,6 +272,7 @@ export declare const MsgCreateCampaign: {
     fromAmino(object: MsgCreateCampaignAmino): MsgCreateCampaign;
     toAmino(message: MsgCreateCampaign): MsgCreateCampaignAmino;
     fromAminoMsg(object: MsgCreateCampaignAminoMsg): MsgCreateCampaign;
+    toAminoMsg(message: MsgCreateCampaign): MsgCreateCampaignAminoMsg;
     fromProtoMsg(message: MsgCreateCampaignProtoMsg): MsgCreateCampaign;
     toProto(message: MsgCreateCampaign): Uint8Array;
     toProtoMsg(message: MsgCreateCampaign): MsgCreateCampaignProtoMsg;
@@ -216,6 +297,7 @@ export declare const MsgCancelCampaign: {
     fromAmino(object: MsgCancelCampaignAmino): MsgCancelCampaign;
     toAmino(message: MsgCancelCampaign): MsgCancelCampaignAmino;
     fromAminoMsg(object: MsgCancelCampaignAminoMsg): MsgCancelCampaign;
+    toAminoMsg(message: MsgCancelCampaign): MsgCancelCampaignAminoMsg;
     fromProtoMsg(message: MsgCancelCampaignProtoMsg): MsgCancelCampaign;
     toProto(message: MsgCancelCampaign): Uint8Array;
     toProtoMsg(message: MsgCancelCampaign): MsgCancelCampaignProtoMsg;
@@ -240,6 +322,7 @@ export declare const MsgClaim: {
     fromAmino(object: MsgClaimAmino): MsgClaim;
     toAmino(message: MsgClaim): MsgClaimAmino;
     fromAminoMsg(object: MsgClaimAminoMsg): MsgClaim;
+    toAminoMsg(message: MsgClaim): MsgClaimAminoMsg;
     fromProtoMsg(message: MsgClaimProtoMsg): MsgClaim;
     toProto(message: MsgClaim): Uint8Array;
     toProtoMsg(message: MsgClaim): MsgClaimProtoMsg;
@@ -264,6 +347,7 @@ export declare const MsgDepositCampaign: {
     fromAmino(object: MsgDepositCampaignAmino): MsgDepositCampaign;
     toAmino(message: MsgDepositCampaign): MsgDepositCampaignAmino;
     fromAminoMsg(object: MsgDepositCampaignAminoMsg): MsgDepositCampaign;
+    toAminoMsg(message: MsgDepositCampaign): MsgDepositCampaignAminoMsg;
     fromProtoMsg(message: MsgDepositCampaignProtoMsg): MsgDepositCampaign;
     toProto(message: MsgDepositCampaign): Uint8Array;
     toProtoMsg(message: MsgDepositCampaign): MsgDepositCampaignProtoMsg;
@@ -279,4 +363,28 @@ export declare const MsgDepositCampaignResponse: {
     fromProtoMsg(message: MsgDepositCampaignResponseProtoMsg): MsgDepositCampaignResponse;
     toProto(message: MsgDepositCampaignResponse): Uint8Array;
     toProtoMsg(message: MsgDepositCampaignResponse): MsgDepositCampaignResponseProtoMsg;
+};
+export declare const MsgUpdateParams: {
+    typeUrl: string;
+    encode(message: MsgUpdateParams, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgUpdateParams;
+    fromPartial(object: Partial<MsgUpdateParams>): MsgUpdateParams;
+    fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams;
+    toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino;
+    fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams;
+    fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams;
+    toProto(message: MsgUpdateParams): Uint8Array;
+    toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg;
+};
+export declare const MsgUpdateParamsResponse: {
+    typeUrl: string;
+    encode(_: MsgUpdateParamsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgUpdateParamsResponse;
+    fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse;
+    fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse;
+    toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino;
+    fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse;
+    fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse;
+    toProto(message: MsgUpdateParamsResponse): Uint8Array;
+    toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg;
 };

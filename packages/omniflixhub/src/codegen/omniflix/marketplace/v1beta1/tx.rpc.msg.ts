@@ -1,6 +1,6 @@
 import { Rpc } from "../../../helpers";
 import { BinaryReader } from "../../../binary";
-import { MsgListNFT, MsgListNFTResponse, MsgEditListing, MsgEditListingResponse, MsgDeListNFT, MsgDeListNFTResponse, MsgBuyNFT, MsgBuyNFTResponse, MsgCreateAuction, MsgCreateAuctionResponse, MsgCancelAuction, MsgCancelAuctionResponse, MsgPlaceBid, MsgPlaceBidResponse } from "./tx";
+import { MsgListNFT, MsgListNFTResponse, MsgEditListing, MsgEditListingResponse, MsgDeListNFT, MsgDeListNFTResponse, MsgBuyNFT, MsgBuyNFTResponse, MsgCreateAuction, MsgCreateAuctionResponse, MsgCancelAuction, MsgCancelAuctionResponse, MsgPlaceBid, MsgPlaceBidResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
 export interface Msg {
   listNFT(request: MsgListNFT): Promise<MsgListNFTResponse>;
   editListing(request: MsgEditListing): Promise<MsgEditListingResponse>;
@@ -9,6 +9,13 @@ export interface Msg {
   createAuction(request: MsgCreateAuction): Promise<MsgCreateAuctionResponse>;
   cancelAuction(request: MsgCancelAuction): Promise<MsgCancelAuctionResponse>;
   placeBid(request: MsgPlaceBid): Promise<MsgPlaceBidResponse>;
+  /**
+   * UpdateParams defines a governance operation for updating the x/marketplace module
+   * parameters. The authority is hard-coded to the x/marketplace module account.
+   * 
+   * Since: cosmos-sdk 0.47
+   */
+  updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
@@ -21,6 +28,7 @@ export class MsgClientImpl implements Msg {
     this.createAuction = this.createAuction.bind(this);
     this.cancelAuction = this.cancelAuction.bind(this);
     this.placeBid = this.placeBid.bind(this);
+    this.updateParams = this.updateParams.bind(this);
   }
   listNFT(request: MsgListNFT): Promise<MsgListNFTResponse> {
     const data = MsgListNFT.encode(request).finish();
@@ -56,5 +64,10 @@ export class MsgClientImpl implements Msg {
     const data = MsgPlaceBid.encode(request).finish();
     const promise = this.rpc.request("OmniFlix.marketplace.v1beta1.Msg", "PlaceBid", data);
     return promise.then(data => MsgPlaceBidResponse.decode(new BinaryReader(data)));
+  }
+  updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
+    const data = MsgUpdateParams.encode(request).finish();
+    const promise = this.rpc.request("OmniFlix.marketplace.v1beta1.Msg", "UpdateParams", data);
+    return promise.then(data => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }

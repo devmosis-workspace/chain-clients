@@ -1,6 +1,6 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgCreateCampaign, MsgCancelCampaign, MsgClaim, MsgDepositCampaign } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/OmniFlix.itc.v1.MsgCreateCampaign", MsgCreateCampaign], ["/OmniFlix.itc.v1.MsgCancelCampaign", MsgCancelCampaign], ["/OmniFlix.itc.v1.MsgClaim", MsgClaim], ["/OmniFlix.itc.v1.MsgDepositCampaign", MsgDepositCampaign]];
+import { MsgCreateCampaign, MsgCancelCampaign, MsgClaim, MsgDepositCampaign, MsgUpdateParams } from "./tx";
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/OmniFlix.itc.v1.MsgCreateCampaign", MsgCreateCampaign], ["/OmniFlix.itc.v1.MsgCancelCampaign", MsgCancelCampaign], ["/OmniFlix.itc.v1.MsgClaim", MsgClaim], ["/OmniFlix.itc.v1.MsgDepositCampaign", MsgDepositCampaign], ["/OmniFlix.itc.v1.MsgUpdateParams", MsgUpdateParams]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -31,6 +31,12 @@ export const MessageComposer = {
         typeUrl: "/OmniFlix.itc.v1.MsgDepositCampaign",
         value: MsgDepositCampaign.encode(value).finish()
       };
+    },
+    updateParams(value: MsgUpdateParams) {
+      return {
+        typeUrl: "/OmniFlix.itc.v1.MsgUpdateParams",
+        value: MsgUpdateParams.encode(value).finish()
+      };
     }
   },
   withTypeUrl: {
@@ -55,6 +61,12 @@ export const MessageComposer = {
     depositCampaign(value: MsgDepositCampaign) {
       return {
         typeUrl: "/OmniFlix.itc.v1.MsgDepositCampaign",
+        value
+      };
+    },
+    updateParams(value: MsgUpdateParams) {
+      return {
+        typeUrl: "/OmniFlix.itc.v1.MsgUpdateParams",
         value
       };
     }
@@ -83,6 +95,12 @@ export const MessageComposer = {
         typeUrl: "/OmniFlix.itc.v1.MsgDepositCampaign",
         value: MsgDepositCampaign.fromJSON(value)
       };
+    },
+    updateParams(value: any) {
+      return {
+        typeUrl: "/OmniFlix.itc.v1.MsgUpdateParams",
+        value: MsgUpdateParams.fromJSON(value)
+      };
     }
   },
   fromPartial: {
@@ -108,6 +126,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/OmniFlix.itc.v1.MsgDepositCampaign",
         value: MsgDepositCampaign.fromPartial(value)
+      };
+    },
+    updateParams(value: MsgUpdateParams) {
+      return {
+        typeUrl: "/OmniFlix.itc.v1.MsgUpdateParams",
+        value: MsgUpdateParams.fromPartial(value)
       };
     }
   }

@@ -1,5 +1,5 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgCreateCampaign, MsgCancelCampaign, MsgClaim, MsgDepositCampaign } from "./tx";
+import { MsgCreateCampaign, MsgCancelCampaign, MsgClaim, MsgDepositCampaign, MsgUpdateParams } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
@@ -17,6 +17,10 @@ export declare const MessageComposer: {
             value: Uint8Array;
         };
         depositCampaign(value: MsgDepositCampaign): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        updateParams(value: MsgUpdateParams): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -38,6 +42,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgDepositCampaign;
         };
+        updateParams(value: MsgUpdateParams): {
+            typeUrl: string;
+            value: MsgUpdateParams;
+        };
     };
     fromJSON: {
         createCampaign(value: any): {
@@ -56,6 +64,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgDepositCampaign;
         };
+        updateParams(value: any): {
+            typeUrl: string;
+            value: MsgUpdateParams;
+        };
     };
     fromPartial: {
         createCampaign(value: MsgCreateCampaign): {
@@ -73,6 +85,10 @@ export declare const MessageComposer: {
         depositCampaign(value: MsgDepositCampaign): {
             typeUrl: string;
             value: MsgDepositCampaign;
+        };
+        updateParams(value: MsgUpdateParams): {
+            typeUrl: string;
+            value: MsgUpdateParams;
         };
     };
 };

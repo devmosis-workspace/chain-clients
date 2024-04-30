@@ -17,12 +17,12 @@ export interface GenesisStateProtoMsg {
 }
 export interface GenesisStateAmino {
     /** NFTs that are listed in marketplace */
-    listings: ListingAmino[];
-    ListingCount: string;
+    listings?: ListingAmino[];
+    ListingCount?: string;
     params?: ParamsAmino;
-    auctions: AuctionListingAmino[];
-    bids: BidAmino[];
-    next_auction_number: string;
+    auctions?: AuctionListingAmino[];
+    bids?: BidAmino[];
+    next_auction_number?: string;
 }
 export interface GenesisStateAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.GenesisState";

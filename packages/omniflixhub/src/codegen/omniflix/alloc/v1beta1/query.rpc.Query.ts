@@ -14,7 +14,7 @@ export class QueryClientImpl implements Query {
   }
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("omniflix.alloc.v1beta1.Query", "Params", data);
+    const promise = this.rpc.request("OmniFlix.alloc.v1beta1.Query", "Params", data);
     return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   }
 }

@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { BinaryWriter } from "../../../binary";
@@ -165,8 +165,8 @@ export interface Campaign {
   totalTokens: Coin;
   availableTokens: Coin;
   receivedNftIds: string[];
-  nftMintDetails: NFTDetails;
-  distribution: Distribution;
+  nftMintDetails?: NFTDetails;
+  distribution?: Distribution;
   mintCount: bigint;
   claimCount: bigint;
 }
@@ -175,24 +175,24 @@ export interface CampaignProtoMsg {
   value: Uint8Array;
 }
 export interface CampaignAmino {
-  id: string;
-  name: string;
-  description: string;
-  start_time?: TimestampAmino;
-  end_time?: TimestampAmino;
-  creator: string;
-  nft_denom_id: string;
-  max_allowed_claims: string;
-  interaction: InteractionType;
-  claim_type: ClaimType;
+  id?: string;
+  name?: string;
+  description?: string;
+  start_time?: string;
+  end_time?: string;
+  creator?: string;
+  nft_denom_id?: string;
+  max_allowed_claims?: string;
+  interaction?: InteractionType;
+  claim_type?: ClaimType;
   tokens_per_claim?: CoinAmino;
   total_tokens?: CoinAmino;
   available_tokens?: CoinAmino;
-  received_nft_ids: string[];
+  received_nft_ids?: string[];
   nft_mint_details?: NFTDetailsAmino;
   distribution?: DistributionAmino;
-  mint_count: string;
-  claim_count: string;
+  mint_count?: string;
+  claim_count?: string;
 }
 export interface CampaignAminoMsg {
   type: "/OmniFlix.itc.v1.Campaign";
@@ -213,8 +213,8 @@ export interface CampaignSDKType {
   total_tokens: CoinSDKType;
   available_tokens: CoinSDKType;
   received_nft_ids: string[];
-  nft_mint_details: NFTDetailsSDKType;
-  distribution: DistributionSDKType;
+  nft_mint_details?: NFTDetailsSDKType;
+  distribution?: DistributionSDKType;
   mint_count: bigint;
   claim_count: bigint;
 }
@@ -227,7 +227,7 @@ export interface DistributionProtoMsg {
   value: Uint8Array;
 }
 export interface DistributionAmino {
-  type: DistributionType;
+  type?: DistributionType;
   stream_duration?: DurationAmino;
 }
 export interface DistributionAminoMsg {
@@ -249,22 +249,24 @@ export interface NFTDetails {
   extensible: boolean;
   nsfw: boolean;
   data: string;
+  uriHash: string;
 }
 export interface NFTDetailsProtoMsg {
   typeUrl: "/OmniFlix.itc.v1.NFTDetails";
   value: Uint8Array;
 }
 export interface NFTDetailsAmino {
-  denom_id: string;
-  name: string;
-  description: string;
-  media_uri: string;
-  preview_uri: string;
-  royalty_share: string;
-  transferable: boolean;
-  extensible: boolean;
-  nsfw: boolean;
-  data: string;
+  denom_id?: string;
+  name?: string;
+  description?: string;
+  media_uri?: string;
+  preview_uri?: string;
+  royalty_share?: string;
+  transferable?: boolean;
+  extensible?: boolean;
+  nsfw?: boolean;
+  data?: string;
+  uri_hash?: string;
 }
 export interface NFTDetailsAminoMsg {
   type: "/OmniFlix.itc.v1.NFTDetails";
@@ -281,6 +283,7 @@ export interface NFTDetailsSDKType {
   extensible: boolean;
   nsfw: boolean;
   data: string;
+  uri_hash: string;
 }
 export interface Claim {
   campaignId: bigint;
@@ -293,10 +296,10 @@ export interface ClaimProtoMsg {
   value: Uint8Array;
 }
 export interface ClaimAmino {
-  campaign_id: string;
-  address: string;
-  nft_id: string;
-  interaction: InteractionType;
+  campaign_id?: string;
+  address?: string;
+  nft_id?: string;
+  interaction?: InteractionType;
 }
 export interface ClaimAminoMsg {
   type: "/OmniFlix.itc.v1.Claim";
@@ -324,8 +327,8 @@ function createBaseCampaign(): Campaign {
     totalTokens: Coin.fromPartial({}),
     availableTokens: Coin.fromPartial({}),
     receivedNftIds: [],
-    nftMintDetails: NFTDetails.fromPartial({}),
-    distribution: Distribution.fromPartial({}),
+    nftMintDetails: undefined,
+    distribution: undefined,
     mintCount: BigInt(0),
     claimCount: BigInt(0)
   };
@@ -434,34 +437,68 @@ export const Campaign = {
     return message;
   },
   fromAmino(object: CampaignAmino): Campaign {
-    return {
-      id: BigInt(object.id),
-      name: object.name,
-      description: object.description,
-      startTime: object.start_time,
-      endTime: object.end_time,
-      creator: object.creator,
-      nftDenomId: object.nft_denom_id,
-      maxAllowedClaims: BigInt(object.max_allowed_claims),
-      interaction: isSet(object.interaction) ? interactionTypeFromJSON(object.interaction) : -1,
-      claimType: isSet(object.claim_type) ? claimTypeFromJSON(object.claim_type) : -1,
-      tokensPerClaim: object?.tokens_per_claim ? Coin.fromAmino(object.tokens_per_claim) : undefined,
-      totalTokens: object?.total_tokens ? Coin.fromAmino(object.total_tokens) : undefined,
-      availableTokens: object?.available_tokens ? Coin.fromAmino(object.available_tokens) : undefined,
-      receivedNftIds: Array.isArray(object?.received_nft_ids) ? object.received_nft_ids.map((e: any) => e) : [],
-      nftMintDetails: object?.nft_mint_details ? NFTDetails.fromAmino(object.nft_mint_details) : undefined,
-      distribution: object?.distribution ? Distribution.fromAmino(object.distribution) : undefined,
-      mintCount: BigInt(object.mint_count),
-      claimCount: BigInt(object.claim_count)
-    };
+    const message = createBaseCampaign();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = Timestamp.fromAmino(object.start_time);
+    }
+    if (object.end_time !== undefined && object.end_time !== null) {
+      message.endTime = Timestamp.fromAmino(object.end_time);
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.nft_denom_id !== undefined && object.nft_denom_id !== null) {
+      message.nftDenomId = object.nft_denom_id;
+    }
+    if (object.max_allowed_claims !== undefined && object.max_allowed_claims !== null) {
+      message.maxAllowedClaims = BigInt(object.max_allowed_claims);
+    }
+    if (object.interaction !== undefined && object.interaction !== null) {
+      message.interaction = interactionTypeFromJSON(object.interaction);
+    }
+    if (object.claim_type !== undefined && object.claim_type !== null) {
+      message.claimType = claimTypeFromJSON(object.claim_type);
+    }
+    if (object.tokens_per_claim !== undefined && object.tokens_per_claim !== null) {
+      message.tokensPerClaim = Coin.fromAmino(object.tokens_per_claim);
+    }
+    if (object.total_tokens !== undefined && object.total_tokens !== null) {
+      message.totalTokens = Coin.fromAmino(object.total_tokens);
+    }
+    if (object.available_tokens !== undefined && object.available_tokens !== null) {
+      message.availableTokens = Coin.fromAmino(object.available_tokens);
+    }
+    message.receivedNftIds = object.received_nft_ids?.map(e => e) || [];
+    if (object.nft_mint_details !== undefined && object.nft_mint_details !== null) {
+      message.nftMintDetails = NFTDetails.fromAmino(object.nft_mint_details);
+    }
+    if (object.distribution !== undefined && object.distribution !== null) {
+      message.distribution = Distribution.fromAmino(object.distribution);
+    }
+    if (object.mint_count !== undefined && object.mint_count !== null) {
+      message.mintCount = BigInt(object.mint_count);
+    }
+    if (object.claim_count !== undefined && object.claim_count !== null) {
+      message.claimCount = BigInt(object.claim_count);
+    }
+    return message;
   },
   toAmino(message: Campaign): CampaignAmino {
     const obj: any = {};
     obj.id = message.id ? message.id.toString() : undefined;
     obj.name = message.name;
     obj.description = message.description;
-    obj.start_time = message.startTime;
-    obj.end_time = message.endTime;
+    obj.start_time = message.startTime ? Timestamp.toAmino(message.startTime) : undefined;
+    obj.end_time = message.endTime ? Timestamp.toAmino(message.endTime) : undefined;
     obj.creator = message.creator;
     obj.nft_denom_id = message.nftDenomId;
     obj.max_allowed_claims = message.maxAllowedClaims ? message.maxAllowedClaims.toString() : undefined;
@@ -527,10 +564,14 @@ export const Distribution = {
     return message;
   },
   fromAmino(object: DistributionAmino): Distribution {
-    return {
-      type: isSet(object.type) ? distributionTypeFromJSON(object.type) : -1,
-      streamDuration: object?.stream_duration ? Duration.fromAmino(object.stream_duration) : undefined
-    };
+    const message = createBaseDistribution();
+    if (object.type !== undefined && object.type !== null) {
+      message.type = distributionTypeFromJSON(object.type);
+    }
+    if (object.stream_duration !== undefined && object.stream_duration !== null) {
+      message.streamDuration = Duration.fromAmino(object.stream_duration);
+    }
+    return message;
   },
   toAmino(message: Distribution): DistributionAmino {
     const obj: any = {};
@@ -565,7 +606,8 @@ function createBaseNFTDetails(): NFTDetails {
     transferable: false,
     extensible: false,
     nsfw: false,
-    data: ""
+    data: "",
+    uriHash: ""
   };
 }
 export const NFTDetails = {
@@ -601,6 +643,9 @@ export const NFTDetails = {
     if (message.data !== "") {
       writer.uint32(82).string(message.data);
     }
+    if (message.uriHash !== "") {
+      writer.uint32(90).string(message.uriHash);
+    }
     return writer;
   },
   fromJSON(object: any): NFTDetails {
@@ -614,7 +659,8 @@ export const NFTDetails = {
       transferable: isSet(object.transferable) ? Boolean(object.transferable) : false,
       extensible: isSet(object.extensible) ? Boolean(object.extensible) : false,
       nsfw: isSet(object.nsfw) ? Boolean(object.nsfw) : false,
-      data: isSet(object.data) ? String(object.data) : ""
+      data: isSet(object.data) ? String(object.data) : "",
+      uriHash: isSet(object.uriHash) ? String(object.uriHash) : ""
     };
   },
   fromPartial(object: Partial<NFTDetails>): NFTDetails {
@@ -629,21 +675,45 @@ export const NFTDetails = {
     message.extensible = object.extensible ?? false;
     message.nsfw = object.nsfw ?? false;
     message.data = object.data ?? "";
+    message.uriHash = object.uriHash ?? "";
     return message;
   },
   fromAmino(object: NFTDetailsAmino): NFTDetails {
-    return {
-      denomId: object.denom_id,
-      name: object.name,
-      description: object.description,
-      mediaUri: object.media_uri,
-      previewUri: object.preview_uri,
-      royaltyShare: object.royalty_share,
-      transferable: object.transferable,
-      extensible: object.extensible,
-      nsfw: object.nsfw,
-      data: object.data
-    };
+    const message = createBaseNFTDetails();
+    if (object.denom_id !== undefined && object.denom_id !== null) {
+      message.denomId = object.denom_id;
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.media_uri !== undefined && object.media_uri !== null) {
+      message.mediaUri = object.media_uri;
+    }
+    if (object.preview_uri !== undefined && object.preview_uri !== null) {
+      message.previewUri = object.preview_uri;
+    }
+    if (object.royalty_share !== undefined && object.royalty_share !== null) {
+      message.royaltyShare = object.royalty_share;
+    }
+    if (object.transferable !== undefined && object.transferable !== null) {
+      message.transferable = object.transferable;
+    }
+    if (object.extensible !== undefined && object.extensible !== null) {
+      message.extensible = object.extensible;
+    }
+    if (object.nsfw !== undefined && object.nsfw !== null) {
+      message.nsfw = object.nsfw;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = object.data;
+    }
+    if (object.uri_hash !== undefined && object.uri_hash !== null) {
+      message.uriHash = object.uri_hash;
+    }
+    return message;
   },
   toAmino(message: NFTDetails): NFTDetailsAmino {
     const obj: any = {};
@@ -657,6 +727,7 @@ export const NFTDetails = {
     obj.extensible = message.extensible;
     obj.nsfw = message.nsfw;
     obj.data = message.data;
+    obj.uri_hash = message.uriHash;
     return obj;
   },
   fromAminoMsg(object: NFTDetailsAminoMsg): NFTDetails {
@@ -717,12 +788,20 @@ export const Claim = {
     return message;
   },
   fromAmino(object: ClaimAmino): Claim {
-    return {
-      campaignId: BigInt(object.campaign_id),
-      address: object.address,
-      nftId: object.nft_id,
-      interaction: isSet(object.interaction) ? interactionTypeFromJSON(object.interaction) : -1
-    };
+    const message = createBaseClaim();
+    if (object.campaign_id !== undefined && object.campaign_id !== null) {
+      message.campaignId = BigInt(object.campaign_id);
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.interaction !== undefined && object.interaction !== null) {
+      message.interaction = interactionTypeFromJSON(object.interaction);
+    }
+    return message;
   },
   toAmino(message: Claim): ClaimAmino {
     const obj: any = {};

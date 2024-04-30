@@ -6,15 +6,15 @@ export interface WeightedAddress {
   weight: string;
 }
 export interface WeightedAddressProtoMsg {
-  typeUrl: "/omniflix.alloc.v1beta1.WeightedAddress";
+  typeUrl: "/OmniFlix.alloc.v1beta1.WeightedAddress";
   value: Uint8Array;
 }
 export interface WeightedAddressAmino {
-  address: string;
-  weight: string;
+  address?: string;
+  weight?: string;
 }
 export interface WeightedAddressAminoMsg {
-  type: "/omniflix.alloc.v1beta1.WeightedAddress";
+  type: "/OmniFlix.alloc.v1beta1.WeightedAddress";
   value: WeightedAddressAmino;
 }
 export interface WeightedAddressSDKType {
@@ -29,18 +29,18 @@ export interface DistributionProportions {
   communityPool: string;
 }
 export interface DistributionProportionsProtoMsg {
-  typeUrl: "/omniflix.alloc.v1beta1.DistributionProportions";
+  typeUrl: "/OmniFlix.alloc.v1beta1.DistributionProportions";
   value: Uint8Array;
 }
 export interface DistributionProportionsAmino {
-  staking_rewards: string;
-  nft_incentives: string;
-  node_hosts_incentives: string;
-  developer_rewards: string;
-  community_pool: string;
+  staking_rewards?: string;
+  nft_incentives?: string;
+  node_hosts_incentives?: string;
+  developer_rewards?: string;
+  community_pool?: string;
 }
 export interface DistributionProportionsAminoMsg {
-  type: "/omniflix.alloc.v1beta1.DistributionProportions";
+  type: "/OmniFlix.alloc.v1beta1.DistributionProportions";
   value: DistributionProportionsAmino;
 }
 export interface DistributionProportionsSDKType {
@@ -61,21 +61,21 @@ export interface Params {
   weightedNodeHostsIncentivesReceivers: WeightedAddress[];
 }
 export interface ParamsProtoMsg {
-  typeUrl: "/omniflix.alloc.v1beta1.Params";
+  typeUrl: "/OmniFlix.alloc.v1beta1.Params";
   value: Uint8Array;
 }
 export interface ParamsAmino {
   /** distribution_proportions defines the proportion of the minted denom */
   distribution_proportions?: DistributionProportionsAmino;
   /** address to receive developer rewards */
-  weighted_developer_rewards_receivers: WeightedAddressAmino[];
+  weighted_developer_rewards_receivers?: WeightedAddressAmino[];
   /** address to receive nft incentives */
-  weighted_nft_incentives_receivers: WeightedAddressAmino[];
+  weighted_nft_incentives_receivers?: WeightedAddressAmino[];
   /** address to receive node host incentives */
-  weighted_node_hosts_incentives_receivers: WeightedAddressAmino[];
+  weighted_node_hosts_incentives_receivers?: WeightedAddressAmino[];
 }
 export interface ParamsAminoMsg {
-  type: "/omniflix.alloc.v1beta1.Params";
+  type: "/OmniFlix.alloc.v1beta1.Params";
   value: ParamsAmino;
 }
 export interface ParamsSDKType {
@@ -91,7 +91,7 @@ function createBaseWeightedAddress(): WeightedAddress {
   };
 }
 export const WeightedAddress = {
-  typeUrl: "/omniflix.alloc.v1beta1.WeightedAddress",
+  typeUrl: "/OmniFlix.alloc.v1beta1.WeightedAddress",
   encode(message: WeightedAddress, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -114,10 +114,14 @@ export const WeightedAddress = {
     return message;
   },
   fromAmino(object: WeightedAddressAmino): WeightedAddress {
-    return {
-      address: object.address,
-      weight: object.weight
-    };
+    const message = createBaseWeightedAddress();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = object.weight;
+    }
+    return message;
   },
   toAmino(message: WeightedAddress): WeightedAddressAmino {
     const obj: any = {};
@@ -136,7 +140,7 @@ export const WeightedAddress = {
   },
   toProtoMsg(message: WeightedAddress): WeightedAddressProtoMsg {
     return {
-      typeUrl: "/omniflix.alloc.v1beta1.WeightedAddress",
+      typeUrl: "/OmniFlix.alloc.v1beta1.WeightedAddress",
       value: WeightedAddress.encode(message).finish()
     };
   }
@@ -151,7 +155,7 @@ function createBaseDistributionProportions(): DistributionProportions {
   };
 }
 export const DistributionProportions = {
-  typeUrl: "/omniflix.alloc.v1beta1.DistributionProportions",
+  typeUrl: "/OmniFlix.alloc.v1beta1.DistributionProportions",
   encode(message: DistributionProportions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.stakingRewards !== "") {
       writer.uint32(10).string(Decimal.fromUserInput(message.stakingRewards, 18).atomics);
@@ -189,13 +193,23 @@ export const DistributionProportions = {
     return message;
   },
   fromAmino(object: DistributionProportionsAmino): DistributionProportions {
-    return {
-      stakingRewards: object.staking_rewards,
-      nftIncentives: object.nft_incentives,
-      nodeHostsIncentives: object.node_hosts_incentives,
-      developerRewards: object.developer_rewards,
-      communityPool: object.community_pool
-    };
+    const message = createBaseDistributionProportions();
+    if (object.staking_rewards !== undefined && object.staking_rewards !== null) {
+      message.stakingRewards = object.staking_rewards;
+    }
+    if (object.nft_incentives !== undefined && object.nft_incentives !== null) {
+      message.nftIncentives = object.nft_incentives;
+    }
+    if (object.node_hosts_incentives !== undefined && object.node_hosts_incentives !== null) {
+      message.nodeHostsIncentives = object.node_hosts_incentives;
+    }
+    if (object.developer_rewards !== undefined && object.developer_rewards !== null) {
+      message.developerRewards = object.developer_rewards;
+    }
+    if (object.community_pool !== undefined && object.community_pool !== null) {
+      message.communityPool = object.community_pool;
+    }
+    return message;
   },
   toAmino(message: DistributionProportions): DistributionProportionsAmino {
     const obj: any = {};
@@ -217,7 +231,7 @@ export const DistributionProportions = {
   },
   toProtoMsg(message: DistributionProportions): DistributionProportionsProtoMsg {
     return {
-      typeUrl: "/omniflix.alloc.v1beta1.DistributionProportions",
+      typeUrl: "/OmniFlix.alloc.v1beta1.DistributionProportions",
       value: DistributionProportions.encode(message).finish()
     };
   }
@@ -231,7 +245,7 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  typeUrl: "/omniflix.alloc.v1beta1.Params",
+  typeUrl: "/OmniFlix.alloc.v1beta1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.distributionProportions !== undefined) {
       DistributionProportions.encode(message.distributionProportions, writer.uint32(10).fork()).ldelim();
@@ -264,12 +278,14 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      distributionProportions: object?.distribution_proportions ? DistributionProportions.fromAmino(object.distribution_proportions) : undefined,
-      weightedDeveloperRewardsReceivers: Array.isArray(object?.weighted_developer_rewards_receivers) ? object.weighted_developer_rewards_receivers.map((e: any) => WeightedAddress.fromAmino(e)) : [],
-      weightedNftIncentivesReceivers: Array.isArray(object?.weighted_nft_incentives_receivers) ? object.weighted_nft_incentives_receivers.map((e: any) => WeightedAddress.fromAmino(e)) : [],
-      weightedNodeHostsIncentivesReceivers: Array.isArray(object?.weighted_node_hosts_incentives_receivers) ? object.weighted_node_hosts_incentives_receivers.map((e: any) => WeightedAddress.fromAmino(e)) : []
-    };
+    const message = createBaseParams();
+    if (object.distribution_proportions !== undefined && object.distribution_proportions !== null) {
+      message.distributionProportions = DistributionProportions.fromAmino(object.distribution_proportions);
+    }
+    message.weightedDeveloperRewardsReceivers = object.weighted_developer_rewards_receivers?.map(e => WeightedAddress.fromAmino(e)) || [];
+    message.weightedNftIncentivesReceivers = object.weighted_nft_incentives_receivers?.map(e => WeightedAddress.fromAmino(e)) || [];
+    message.weightedNodeHostsIncentivesReceivers = object.weighted_node_hosts_incentives_receivers?.map(e => WeightedAddress.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
@@ -302,7 +318,7 @@ export const Params = {
   },
   toProtoMsg(message: Params): ParamsProtoMsg {
     return {
-      typeUrl: "/omniflix.alloc.v1beta1.Params",
+      typeUrl: "/OmniFlix.alloc.v1beta1.Params",
       value: Params.encode(message).finish()
     };
   }

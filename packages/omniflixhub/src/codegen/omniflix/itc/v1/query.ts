@@ -43,7 +43,7 @@ export interface QueryParamsResponseSDKType {
 export interface QueryCampaignsRequest {
   status: CampaignStatus;
   creator: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryCampaignsRequestProtoMsg {
   typeUrl: "/OmniFlix.itc.v1.QueryCampaignsRequest";
@@ -51,8 +51,8 @@ export interface QueryCampaignsRequestProtoMsg {
 }
 /** QueryCampaignsRequest is the request type for the Query/Campaigns RPC method. */
 export interface QueryCampaignsRequestAmino {
-  status: CampaignStatus;
-  creator: string;
+  status?: CampaignStatus;
+  creator?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryCampaignsRequestAminoMsg {
@@ -63,7 +63,7 @@ export interface QueryCampaignsRequestAminoMsg {
 export interface QueryCampaignsRequestSDKType {
   status: CampaignStatus;
   creator: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 /**
  * QueryCampaignsResponse is the response type for the Query/Campaigns RPC
@@ -71,7 +71,7 @@ export interface QueryCampaignsRequestSDKType {
  */
 export interface QueryCampaignsResponse {
   campaigns: Campaign[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryCampaignsResponseProtoMsg {
   typeUrl: "/OmniFlix.itc.v1.QueryCampaignsResponse";
@@ -82,7 +82,7 @@ export interface QueryCampaignsResponseProtoMsg {
  * method.
  */
 export interface QueryCampaignsResponseAmino {
-  campaigns: CampaignAmino[];
+  campaigns?: CampaignAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryCampaignsResponseAminoMsg {
@@ -95,7 +95,7 @@ export interface QueryCampaignsResponseAminoMsg {
  */
 export interface QueryCampaignsResponseSDKType {
   campaigns: CampaignSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 /** QueryCampaignRequest is the request type for the Query/Campaign RPC method. */
 export interface QueryCampaignRequest {
@@ -107,7 +107,7 @@ export interface QueryCampaignRequestProtoMsg {
 }
 /** QueryCampaignRequest is the request type for the Query/Campaign RPC method. */
 export interface QueryCampaignRequestAmino {
-  campaign_id: string;
+  campaign_id?: string;
 }
 export interface QueryCampaignRequestAminoMsg {
   type: "/OmniFlix.itc.v1.QueryCampaignRequest";
@@ -141,7 +141,7 @@ export interface QueryCampaignResponseSDKType {
 export interface QueryClaimsRequest {
   campaignId: bigint;
   address: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryClaimsRequestProtoMsg {
   typeUrl: "/OmniFlix.itc.v1.QueryClaimsRequest";
@@ -149,8 +149,8 @@ export interface QueryClaimsRequestProtoMsg {
 }
 /** QueryClaimsRequest is the request type for the Query/Claims RPC method. */
 export interface QueryClaimsRequestAmino {
-  campaign_id: string;
-  address: string;
+  campaign_id?: string;
+  address?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryClaimsRequestAminoMsg {
@@ -161,18 +161,18 @@ export interface QueryClaimsRequestAminoMsg {
 export interface QueryClaimsRequestSDKType {
   campaign_id: bigint;
   address: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryClaimsResponse {
   claims: Claim[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryClaimsResponseProtoMsg {
   typeUrl: "/OmniFlix.itc.v1.QueryClaimsResponse";
   value: Uint8Array;
 }
 export interface QueryClaimsResponseAmino {
-  claims: ClaimAmino[];
+  claims?: ClaimAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryClaimsResponseAminoMsg {
@@ -181,7 +181,7 @@ export interface QueryClaimsResponseAminoMsg {
 }
 export interface QueryClaimsResponseSDKType {
   claims: ClaimSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -199,7 +199,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -245,9 +246,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -274,7 +277,7 @@ function createBaseQueryCampaignsRequest(): QueryCampaignsRequest {
   return {
     status: 0,
     creator: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryCampaignsRequest = {
@@ -306,11 +309,17 @@ export const QueryCampaignsRequest = {
     return message;
   },
   fromAmino(object: QueryCampaignsRequestAmino): QueryCampaignsRequest {
-    return {
-      status: isSet(object.status) ? campaignStatusFromJSON(object.status) : -1,
-      creator: object.creator,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryCampaignsRequest();
+    if (object.status !== undefined && object.status !== null) {
+      message.status = campaignStatusFromJSON(object.status);
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryCampaignsRequest): QueryCampaignsRequestAmino {
     const obj: any = {};
@@ -338,7 +347,7 @@ export const QueryCampaignsRequest = {
 function createBaseQueryCampaignsResponse(): QueryCampaignsResponse {
   return {
     campaigns: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryCampaignsResponse = {
@@ -365,10 +374,12 @@ export const QueryCampaignsResponse = {
     return message;
   },
   fromAmino(object: QueryCampaignsResponseAmino): QueryCampaignsResponse {
-    return {
-      campaigns: Array.isArray(object?.campaigns) ? object.campaigns.map((e: any) => Campaign.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryCampaignsResponse();
+    message.campaigns = object.campaigns?.map(e => Campaign.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryCampaignsResponse): QueryCampaignsResponseAmino {
     const obj: any = {};
@@ -420,9 +431,11 @@ export const QueryCampaignRequest = {
     return message;
   },
   fromAmino(object: QueryCampaignRequestAmino): QueryCampaignRequest {
-    return {
-      campaignId: BigInt(object.campaign_id)
-    };
+    const message = createBaseQueryCampaignRequest();
+    if (object.campaign_id !== undefined && object.campaign_id !== null) {
+      message.campaignId = BigInt(object.campaign_id);
+    }
+    return message;
   },
   toAmino(message: QueryCampaignRequest): QueryCampaignRequestAmino {
     const obj: any = {};
@@ -469,9 +482,11 @@ export const QueryCampaignResponse = {
     return message;
   },
   fromAmino(object: QueryCampaignResponseAmino): QueryCampaignResponse {
-    return {
-      Campaign: object?.Campaign ? Campaign.fromAmino(object.Campaign) : undefined
-    };
+    const message = createBaseQueryCampaignResponse();
+    if (object.Campaign !== undefined && object.Campaign !== null) {
+      message.Campaign = Campaign.fromAmino(object.Campaign);
+    }
+    return message;
   },
   toAmino(message: QueryCampaignResponse): QueryCampaignResponseAmino {
     const obj: any = {};
@@ -498,7 +513,7 @@ function createBaseQueryClaimsRequest(): QueryClaimsRequest {
   return {
     campaignId: BigInt(0),
     address: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryClaimsRequest = {
@@ -530,11 +545,17 @@ export const QueryClaimsRequest = {
     return message;
   },
   fromAmino(object: QueryClaimsRequestAmino): QueryClaimsRequest {
-    return {
-      campaignId: BigInt(object.campaign_id),
-      address: object.address,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryClaimsRequest();
+    if (object.campaign_id !== undefined && object.campaign_id !== null) {
+      message.campaignId = BigInt(object.campaign_id);
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryClaimsRequest): QueryClaimsRequestAmino {
     const obj: any = {};
@@ -562,7 +583,7 @@ export const QueryClaimsRequest = {
 function createBaseQueryClaimsResponse(): QueryClaimsResponse {
   return {
     claims: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryClaimsResponse = {
@@ -589,10 +610,12 @@ export const QueryClaimsResponse = {
     return message;
   },
   fromAmino(object: QueryClaimsResponseAmino): QueryClaimsResponse {
-    return {
-      claims: Array.isArray(object?.claims) ? object.claims.map((e: any) => Claim.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryClaimsResponse();
+    message.claims = object.claims?.map(e => Claim.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryClaimsResponse): QueryClaimsResponseAmino {
     const obj: any = {};

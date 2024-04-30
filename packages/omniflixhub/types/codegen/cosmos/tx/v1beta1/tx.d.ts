@@ -6,12 +6,12 @@ import { BinaryWriter } from "../../../binary";
 /** Tx is the standard type used for broadcasting transactions. */
 export interface Tx {
     /** body is the processable content of the transaction */
-    body: TxBody;
+    body?: TxBody;
     /**
      * auth_info is the authorization related content of the transaction,
      * specifically signers, signer modes and fee
      */
-    authInfo: AuthInfo;
+    authInfo?: AuthInfo;
     /**
      * signatures is a list of signatures that matches the length and order of
      * AuthInfo's signer_infos to allow connecting signature meta information like
@@ -37,7 +37,7 @@ export interface TxAmino {
      * AuthInfo's signer_infos to allow connecting signature meta information like
      * public key and signing mode by position.
      */
-    signatures: Uint8Array[];
+    signatures?: string[];
 }
 export interface TxAminoMsg {
     type: "cosmos-sdk/Tx";
@@ -45,8 +45,8 @@ export interface TxAminoMsg {
 }
 /** Tx is the standard type used for broadcasting transactions. */
 export interface TxSDKType {
-    body: TxBodySDKType;
-    auth_info: AuthInfoSDKType;
+    body?: TxBodySDKType;
+    auth_info?: AuthInfoSDKType;
     signatures: Uint8Array[];
 }
 /**
@@ -90,18 +90,18 @@ export interface TxRawAmino {
      * body_bytes is a protobuf serialization of a TxBody that matches the
      * representation in SignDoc.
      */
-    body_bytes: Uint8Array;
+    body_bytes?: string;
     /**
      * auth_info_bytes is a protobuf serialization of an AuthInfo that matches the
      * representation in SignDoc.
      */
-    auth_info_bytes: Uint8Array;
+    auth_info_bytes?: string;
     /**
      * signatures is a list of signatures that matches the length and order of
      * AuthInfo's signer_infos to allow connecting signature meta information like
      * public key and signing mode by position.
      */
-    signatures: Uint8Array[];
+    signatures?: string[];
 }
 export interface TxRawAminoMsg {
     type: "cosmos-sdk/TxRaw";
@@ -150,20 +150,20 @@ export interface SignDocAmino {
      * body_bytes is protobuf serialization of a TxBody that matches the
      * representation in TxRaw.
      */
-    body_bytes: Uint8Array;
+    body_bytes?: string;
     /**
      * auth_info_bytes is a protobuf serialization of an AuthInfo that matches the
      * representation in TxRaw.
      */
-    auth_info_bytes: Uint8Array;
+    auth_info_bytes?: string;
     /**
      * chain_id is the unique identifier of the chain this transaction targets.
      * It prevents signed transactions from being used on another chain by an
      * attacker
      */
-    chain_id: string;
+    chain_id?: string;
     /** account_number is the account number of the account in state */
-    account_number: string;
+    account_number?: string;
 }
 export interface SignDocAminoMsg {
     type: "cosmos-sdk/SignDoc";
@@ -175,6 +175,96 @@ export interface SignDocSDKType {
     auth_info_bytes: Uint8Array;
     chain_id: string;
     account_number: bigint;
+}
+/**
+ * SignDocDirectAux is the type used for generating sign bytes for
+ * SIGN_MODE_DIRECT_AUX.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface SignDocDirectAux {
+    /**
+     * body_bytes is protobuf serialization of a TxBody that matches the
+     * representation in TxRaw.
+     */
+    bodyBytes: Uint8Array;
+    /** public_key is the public key of the signing account. */
+    publicKey?: Any;
+    /**
+     * chain_id is the identifier of the chain this transaction targets.
+     * It prevents signed transactions from being used on another chain by an
+     * attacker.
+     */
+    chainId: string;
+    /** account_number is the account number of the account in state. */
+    accountNumber: bigint;
+    /** sequence is the sequence number of the signing account. */
+    sequence: bigint;
+    /**
+     * Tip is the optional tip used for transactions fees paid in another denom.
+     * It should be left empty if the signer is not the tipper for this
+     * transaction.
+     *
+     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
+     * `TipDecorator` in its posthandler.
+     */
+    tip?: Tip;
+}
+export interface SignDocDirectAuxProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.SignDocDirectAux";
+    value: Uint8Array;
+}
+/**
+ * SignDocDirectAux is the type used for generating sign bytes for
+ * SIGN_MODE_DIRECT_AUX.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface SignDocDirectAuxAmino {
+    /**
+     * body_bytes is protobuf serialization of a TxBody that matches the
+     * representation in TxRaw.
+     */
+    body_bytes?: string;
+    /** public_key is the public key of the signing account. */
+    public_key?: AnyAmino;
+    /**
+     * chain_id is the identifier of the chain this transaction targets.
+     * It prevents signed transactions from being used on another chain by an
+     * attacker.
+     */
+    chain_id?: string;
+    /** account_number is the account number of the account in state. */
+    account_number?: string;
+    /** sequence is the sequence number of the signing account. */
+    sequence?: string;
+    /**
+     * Tip is the optional tip used for transactions fees paid in another denom.
+     * It should be left empty if the signer is not the tipper for this
+     * transaction.
+     *
+     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
+     * `TipDecorator` in its posthandler.
+     */
+    tip?: TipAmino;
+}
+export interface SignDocDirectAuxAminoMsg {
+    type: "cosmos-sdk/SignDocDirectAux";
+    value: SignDocDirectAuxAmino;
+}
+/**
+ * SignDocDirectAux is the type used for generating sign bytes for
+ * SIGN_MODE_DIRECT_AUX.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface SignDocDirectAuxSDKType {
+    body_bytes: Uint8Array;
+    public_key?: AnySDKType;
+    chain_id: string;
+    account_number: bigint;
+    sequence: bigint;
+    tip?: TipSDKType;
 }
 /** TxBody is the body of a transaction that all signers sign over. */
 export interface TxBody {
@@ -227,30 +317,30 @@ export interface TxBodyAmino {
      * is referred to as the primary signer and pays the fee for the whole
      * transaction.
      */
-    messages: AnyAmino[];
+    messages?: AnyAmino[];
     /**
      * memo is any arbitrary note/comment to be added to the transaction.
      * WARNING: in clients, any publicly exposed text should not be called memo,
      * but should be called `note` instead (see https://github.com/cosmos/cosmos-sdk/issues/9122).
      */
-    memo: string;
+    memo?: string;
     /**
      * timeout is the block height after which this transaction will not
      * be processed by the chain
      */
-    timeout_height: string;
+    timeout_height?: string;
     /**
      * extension_options are arbitrary options that can be added by chains
      * when the default options are not sufficient. If any of these are present
      * and can't be handled, the transaction will be rejected
      */
-    extension_options: AnyAmino[];
+    extension_options?: AnyAmino[];
     /**
      * extension_options are arbitrary options that can be added by chains
      * when the default options are not sufficient. If any of these are present
      * and can't be handled, they will be ignored
      */
-    non_critical_extension_options: AnyAmino[];
+    non_critical_extension_options?: AnyAmino[];
 }
 export interface TxBodyAminoMsg {
     type: "cosmos-sdk/TxBody";
@@ -282,7 +372,16 @@ export interface AuthInfo {
      * based on the cost of evaluating the body and doing signature verification
      * of the signers. This can be estimated via simulation.
      */
-    fee: Fee;
+    fee?: Fee;
+    /**
+     * Tip is the optional tip used for transactions fees paid in another denom.
+     *
+     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
+     * `TipDecorator` in its posthandler.
+     *
+     * Since: cosmos-sdk 0.46
+     */
+    tip?: Tip;
 }
 export interface AuthInfoProtoMsg {
     typeUrl: "/cosmos.tx.v1beta1.AuthInfo";
@@ -299,7 +398,7 @@ export interface AuthInfoAmino {
      * messages. The first element is the primary signer and the one which pays
      * the fee.
      */
-    signer_infos: SignerInfoAmino[];
+    signer_infos?: SignerInfoAmino[];
     /**
      * Fee is the fee and gas limit for the transaction. The first signer is the
      * primary signer and the one which pays the fee. The fee can be calculated
@@ -307,6 +406,15 @@ export interface AuthInfoAmino {
      * of the signers. This can be estimated via simulation.
      */
     fee?: FeeAmino;
+    /**
+     * Tip is the optional tip used for transactions fees paid in another denom.
+     *
+     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
+     * `TipDecorator` in its posthandler.
+     *
+     * Since: cosmos-sdk 0.46
+     */
+    tip?: TipAmino;
 }
 export interface AuthInfoAminoMsg {
     type: "cosmos-sdk/AuthInfo";
@@ -318,7 +426,8 @@ export interface AuthInfoAminoMsg {
  */
 export interface AuthInfoSDKType {
     signer_infos: SignerInfoSDKType[];
-    fee: FeeSDKType;
+    fee?: FeeSDKType;
+    tip?: TipSDKType;
 }
 /**
  * SignerInfo describes the public key and signing mode of a single top-level
@@ -330,12 +439,12 @@ export interface SignerInfo {
      * that already exist in state. If unset, the verifier can use the required \
      * signer address for this position and lookup the public key.
      */
-    publicKey: Any;
+    publicKey?: Any;
     /**
      * mode_info describes the signing mode of the signer and is a nested
      * structure to support nested multisig pubkey's
      */
-    modeInfo: ModeInfo;
+    modeInfo?: ModeInfo;
     /**
      * sequence is the sequence of the account, which describes the
      * number of committed transactions signed by a given address. It is used to
@@ -368,7 +477,7 @@ export interface SignerInfoAmino {
      * number of committed transactions signed by a given address. It is used to
      * prevent replay attacks.
      */
-    sequence: string;
+    sequence?: string;
 }
 export interface SignerInfoAminoMsg {
     type: "cosmos-sdk/SignerInfo";
@@ -379,8 +488,8 @@ export interface SignerInfoAminoMsg {
  * signer.
  */
 export interface SignerInfoSDKType {
-    public_key: AnySDKType;
-    mode_info: ModeInfoSDKType;
+    public_key?: AnySDKType;
+    mode_info?: ModeInfoSDKType;
     sequence: bigint;
 }
 /** ModeInfo describes the signing mode of a single or nested multisig signer. */
@@ -430,7 +539,7 @@ export interface ModeInfo_SingleProtoMsg {
  */
 export interface ModeInfo_SingleAmino {
     /** mode is the signing mode of the single signer */
-    mode: SignMode;
+    mode?: SignMode;
 }
 export interface ModeInfo_SingleAminoMsg {
     type: "cosmos-sdk/Single";
@@ -447,7 +556,7 @@ export interface ModeInfo_SingleSDKType {
 /** Multi is the mode info for a multisig public key */
 export interface ModeInfo_Multi {
     /** bitarray specifies which keys within the multisig are signing */
-    bitarray: CompactBitArray;
+    bitarray?: CompactBitArray;
     /**
      * mode_infos is the corresponding modes of the signers of the multisig
      * which could include nested multisig public keys
@@ -466,7 +575,7 @@ export interface ModeInfo_MultiAmino {
      * mode_infos is the corresponding modes of the signers of the multisig
      * which could include nested multisig public keys
      */
-    mode_infos: ModeInfoAmino[];
+    mode_infos?: ModeInfoAmino[];
 }
 export interface ModeInfo_MultiAminoMsg {
     type: "cosmos-sdk/Multi";
@@ -474,7 +583,7 @@ export interface ModeInfo_MultiAminoMsg {
 }
 /** Multi is the mode info for a multisig public key */
 export interface ModeInfo_MultiSDKType {
-    bitarray: CompactBitArraySDKType;
+    bitarray?: CompactBitArraySDKType;
     mode_infos: ModeInfoSDKType[];
 }
 /**
@@ -514,24 +623,24 @@ export interface FeeProtoMsg {
  */
 export interface FeeAmino {
     /** amount is the amount of coins to be paid as a fee */
-    amount: CoinAmino[];
+    amount?: CoinAmino[];
     /**
      * gas_limit is the maximum gas that can be used in transaction processing
      * before an out of gas error occurs
      */
-    gas_limit: string;
+    gas_limit?: string;
     /**
      * if unset, the first signer is responsible for paying the fees. If set, the specified account must pay the fees.
      * the payer must be a tx signer (and thus have signed this field in AuthInfo).
      * setting this field does *not* change the ordering of required signers for the transaction.
      */
-    payer: string;
+    payer?: string;
     /**
      * if set, the fee payer (either the first signer or the value of the payer field) requests that a fee grant be used
      * to pay fees instead of the fee payer's own balance. If an appropriate fee grant does not exist or the chain does
      * not support fee grants, this will fail
      */
-    granter: string;
+    granter?: string;
 }
 export interface FeeAminoMsg {
     type: "cosmos-sdk/Fee";
@@ -547,6 +656,119 @@ export interface FeeSDKType {
     gas_limit: bigint;
     payer: string;
     granter: string;
+}
+/**
+ * Tip is the tip used for meta-transactions.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface Tip {
+    /** amount is the amount of the tip */
+    amount: Coin[];
+    /** tipper is the address of the account paying for the tip */
+    tipper: string;
+}
+export interface TipProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.Tip";
+    value: Uint8Array;
+}
+/**
+ * Tip is the tip used for meta-transactions.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface TipAmino {
+    /** amount is the amount of the tip */
+    amount?: CoinAmino[];
+    /** tipper is the address of the account paying for the tip */
+    tipper?: string;
+}
+export interface TipAminoMsg {
+    type: "cosmos-sdk/Tip";
+    value: TipAmino;
+}
+/**
+ * Tip is the tip used for meta-transactions.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface TipSDKType {
+    amount: CoinSDKType[];
+    tipper: string;
+}
+/**
+ * AuxSignerData is the intermediary format that an auxiliary signer (e.g. a
+ * tipper) builds and sends to the fee payer (who will build and broadcast the
+ * actual tx). AuxSignerData is not a valid tx in itself, and will be rejected
+ * by the node if sent directly as-is.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface AuxSignerData {
+    /**
+     * address is the bech32-encoded address of the auxiliary signer. If using
+     * AuxSignerData across different chains, the bech32 prefix of the target
+     * chain (where the final transaction is broadcasted) should be used.
+     */
+    address: string;
+    /**
+     * sign_doc is the SIGN_MODE_DIRECT_AUX sign doc that the auxiliary signer
+     * signs. Note: we use the same sign doc even if we're signing with
+     * LEGACY_AMINO_JSON.
+     */
+    signDoc?: SignDocDirectAux;
+    /** mode is the signing mode of the single signer. */
+    mode: SignMode;
+    /** sig is the signature of the sign doc. */
+    sig: Uint8Array;
+}
+export interface AuxSignerDataProtoMsg {
+    typeUrl: "/cosmos.tx.v1beta1.AuxSignerData";
+    value: Uint8Array;
+}
+/**
+ * AuxSignerData is the intermediary format that an auxiliary signer (e.g. a
+ * tipper) builds and sends to the fee payer (who will build and broadcast the
+ * actual tx). AuxSignerData is not a valid tx in itself, and will be rejected
+ * by the node if sent directly as-is.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface AuxSignerDataAmino {
+    /**
+     * address is the bech32-encoded address of the auxiliary signer. If using
+     * AuxSignerData across different chains, the bech32 prefix of the target
+     * chain (where the final transaction is broadcasted) should be used.
+     */
+    address?: string;
+    /**
+     * sign_doc is the SIGN_MODE_DIRECT_AUX sign doc that the auxiliary signer
+     * signs. Note: we use the same sign doc even if we're signing with
+     * LEGACY_AMINO_JSON.
+     */
+    sign_doc?: SignDocDirectAuxAmino;
+    /** mode is the signing mode of the single signer. */
+    mode?: SignMode;
+    /** sig is the signature of the sign doc. */
+    sig?: string;
+}
+export interface AuxSignerDataAminoMsg {
+    type: "cosmos-sdk/AuxSignerData";
+    value: AuxSignerDataAmino;
+}
+/**
+ * AuxSignerData is the intermediary format that an auxiliary signer (e.g. a
+ * tipper) builds and sends to the fee payer (who will build and broadcast the
+ * actual tx). AuxSignerData is not a valid tx in itself, and will be rejected
+ * by the node if sent directly as-is.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface AuxSignerDataSDKType {
+    address: string;
+    sign_doc?: SignDocDirectAuxSDKType;
+    mode: SignMode;
+    sig: Uint8Array;
 }
 export declare const Tx: {
     typeUrl: string;
@@ -586,6 +808,19 @@ export declare const SignDoc: {
     fromProtoMsg(message: SignDocProtoMsg): SignDoc;
     toProto(message: SignDoc): Uint8Array;
     toProtoMsg(message: SignDoc): SignDocProtoMsg;
+};
+export declare const SignDocDirectAux: {
+    typeUrl: string;
+    encode(message: SignDocDirectAux, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): SignDocDirectAux;
+    fromPartial(object: Partial<SignDocDirectAux>): SignDocDirectAux;
+    fromAmino(object: SignDocDirectAuxAmino): SignDocDirectAux;
+    toAmino(message: SignDocDirectAux): SignDocDirectAuxAmino;
+    fromAminoMsg(object: SignDocDirectAuxAminoMsg): SignDocDirectAux;
+    toAminoMsg(message: SignDocDirectAux): SignDocDirectAuxAminoMsg;
+    fromProtoMsg(message: SignDocDirectAuxProtoMsg): SignDocDirectAux;
+    toProto(message: SignDocDirectAux): Uint8Array;
+    toProtoMsg(message: SignDocDirectAux): SignDocDirectAuxProtoMsg;
 };
 export declare const TxBody: {
     typeUrl: string;
@@ -677,4 +912,30 @@ export declare const Fee: {
     fromProtoMsg(message: FeeProtoMsg): Fee;
     toProto(message: Fee): Uint8Array;
     toProtoMsg(message: Fee): FeeProtoMsg;
+};
+export declare const Tip: {
+    typeUrl: string;
+    encode(message: Tip, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): Tip;
+    fromPartial(object: Partial<Tip>): Tip;
+    fromAmino(object: TipAmino): Tip;
+    toAmino(message: Tip): TipAmino;
+    fromAminoMsg(object: TipAminoMsg): Tip;
+    toAminoMsg(message: Tip): TipAminoMsg;
+    fromProtoMsg(message: TipProtoMsg): Tip;
+    toProto(message: Tip): Uint8Array;
+    toProtoMsg(message: Tip): TipProtoMsg;
+};
+export declare const AuxSignerData: {
+    typeUrl: string;
+    encode(message: AuxSignerData, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): AuxSignerData;
+    fromPartial(object: Partial<AuxSignerData>): AuxSignerData;
+    fromAmino(object: AuxSignerDataAmino): AuxSignerData;
+    toAmino(message: AuxSignerData): AuxSignerDataAmino;
+    fromAminoMsg(object: AuxSignerDataAminoMsg): AuxSignerData;
+    toAminoMsg(message: AuxSignerData): AuxSignerDataAminoMsg;
+    fromProtoMsg(message: AuxSignerDataProtoMsg): AuxSignerData;
+    toProto(message: AuxSignerData): Uint8Array;
+    toProtoMsg(message: AuxSignerData): AuxSignerDataProtoMsg;
 };

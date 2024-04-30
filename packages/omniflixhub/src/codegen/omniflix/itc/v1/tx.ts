@@ -1,7 +1,8 @@
 import { InteractionType, ClaimType, NFTDetails, NFTDetailsAmino, NFTDetailsSDKType, Distribution, DistributionAmino, DistributionSDKType, interactionTypeFromJSON, claimTypeFromJSON } from "./itc";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { BinaryWriter } from "../../../binary";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
 export interface MsgCreateCampaign {
@@ -13,10 +14,10 @@ export interface MsgCreateCampaign {
   tokensPerClaim: Coin;
   maxAllowedClaims: bigint;
   deposit: Coin;
-  nftMintDetails: NFTDetails;
+  nftMintDetails?: NFTDetails;
   startTime: Timestamp;
   duration: Duration;
-  distribution: Distribution;
+  distribution?: Distribution;
   creator: string;
   creationFee: Coin;
 }
@@ -25,23 +26,23 @@ export interface MsgCreateCampaignProtoMsg {
   value: Uint8Array;
 }
 export interface MsgCreateCampaignAmino {
-  name: string;
-  description: string;
-  interaction: InteractionType;
-  claim_type: ClaimType;
-  nft_denom_id: string;
+  name?: string;
+  description?: string;
+  interaction?: InteractionType;
+  claim_type?: ClaimType;
+  nft_denom_id?: string;
   tokens_per_claim?: CoinAmino;
-  max_allowed_claims: string;
+  max_allowed_claims?: string;
   deposit?: CoinAmino;
   nft_mint_details?: NFTDetailsAmino;
-  start_time?: TimestampAmino;
+  start_time?: string;
   duration?: DurationAmino;
   distribution?: DistributionAmino;
-  creator: string;
+  creator?: string;
   creation_fee?: CoinAmino;
 }
 export interface MsgCreateCampaignAminoMsg {
-  type: "/OmniFlix.itc.v1.MsgCreateCampaign";
+  type: "OmniFlix/itc/MsgCreateCampaign";
   value: MsgCreateCampaignAmino;
 }
 export interface MsgCreateCampaignSDKType {
@@ -53,10 +54,10 @@ export interface MsgCreateCampaignSDKType {
   tokens_per_claim: CoinSDKType;
   max_allowed_claims: bigint;
   deposit: CoinSDKType;
-  nft_mint_details: NFTDetailsSDKType;
+  nft_mint_details?: NFTDetailsSDKType;
   start_time: TimestampSDKType;
   duration: DurationSDKType;
-  distribution: DistributionSDKType;
+  distribution?: DistributionSDKType;
   creator: string;
   creation_fee: CoinSDKType;
 }
@@ -80,11 +81,11 @@ export interface MsgCancelCampaignProtoMsg {
   value: Uint8Array;
 }
 export interface MsgCancelCampaignAmino {
-  campaign_id: string;
-  creator: string;
+  campaign_id?: string;
+  creator?: string;
 }
 export interface MsgCancelCampaignAminoMsg {
-  type: "/OmniFlix.itc.v1.MsgCancelCampaign";
+  type: "OmniFlix/itc/MsgCancelCampaign";
   value: MsgCancelCampaignAmino;
 }
 export interface MsgCancelCampaignSDKType {
@@ -113,13 +114,13 @@ export interface MsgClaimProtoMsg {
   value: Uint8Array;
 }
 export interface MsgClaimAmino {
-  campaign_id: string;
-  nft_id: string;
-  interaction: InteractionType;
-  claimer: string;
+  campaign_id?: string;
+  nft_id?: string;
+  interaction?: InteractionType;
+  claimer?: string;
 }
 export interface MsgClaimAminoMsg {
-  type: "/OmniFlix.itc.v1.MsgClaim";
+  type: "OmniFlix/itc/MsgClaim";
   value: MsgClaimAmino;
 }
 export interface MsgClaimSDKType {
@@ -149,12 +150,12 @@ export interface MsgDepositCampaignProtoMsg {
   value: Uint8Array;
 }
 export interface MsgDepositCampaignAmino {
-  campaign_id: string;
+  campaign_id?: string;
   amount?: CoinAmino;
-  depositor: string;
+  depositor?: string;
 }
 export interface MsgDepositCampaignAminoMsg {
-  type: "/OmniFlix.itc.v1.MsgDepositCampaign";
+  type: "OmniFlix/itc/MsgDepositCampaign";
   value: MsgDepositCampaignAmino;
 }
 export interface MsgDepositCampaignSDKType {
@@ -173,6 +174,82 @@ export interface MsgDepositCampaignResponseAminoMsg {
   value: MsgDepositCampaignResponseAmino;
 }
 export interface MsgDepositCampaignResponseSDKType {}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParams {
+  /** authority is the address of the governance account. */
+  authority: string;
+  /**
+   * params defines the x/itc parameters to update.
+   * 
+   * NOTE: All parameters must be supplied.
+   */
+  params: Params;
+}
+export interface MsgUpdateParamsProtoMsg {
+  typeUrl: "/OmniFlix.itc.v1.MsgUpdateParams";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsAmino {
+  /** authority is the address of the governance account. */
+  authority?: string;
+  /**
+   * params defines the x/itc parameters to update.
+   * 
+   * NOTE: All parameters must be supplied.
+   */
+  params?: ParamsAmino;
+}
+export interface MsgUpdateParamsAminoMsg {
+  type: "/OmniFlix.itc.v1.MsgUpdateParams";
+  value: MsgUpdateParamsAmino;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsSDKType {
+  authority: string;
+  params: ParamsSDKType;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponse {}
+export interface MsgUpdateParamsResponseProtoMsg {
+  typeUrl: "/OmniFlix.itc.v1.MsgUpdateParamsResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseAmino {}
+export interface MsgUpdateParamsResponseAminoMsg {
+  type: "/OmniFlix.itc.v1.MsgUpdateParamsResponse";
+  value: MsgUpdateParamsResponseAmino;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * 
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseSDKType {}
 function createBaseMsgCreateCampaign(): MsgCreateCampaign {
   return {
     name: "",
@@ -183,10 +260,10 @@ function createBaseMsgCreateCampaign(): MsgCreateCampaign {
     tokensPerClaim: Coin.fromPartial({}),
     maxAllowedClaims: BigInt(0),
     deposit: Coin.fromPartial({}),
-    nftMintDetails: NFTDetails.fromPartial({}),
+    nftMintDetails: undefined,
     startTime: Timestamp.fromPartial({}),
     duration: Duration.fromPartial({}),
-    distribution: Distribution.fromPartial({}),
+    distribution: undefined,
     creator: "",
     creationFee: Coin.fromPartial({})
   };
@@ -275,22 +352,50 @@ export const MsgCreateCampaign = {
     return message;
   },
   fromAmino(object: MsgCreateCampaignAmino): MsgCreateCampaign {
-    return {
-      name: object.name,
-      description: object.description,
-      interaction: isSet(object.interaction) ? interactionTypeFromJSON(object.interaction) : -1,
-      claimType: isSet(object.claim_type) ? claimTypeFromJSON(object.claim_type) : -1,
-      nftDenomId: object.nft_denom_id,
-      tokensPerClaim: object?.tokens_per_claim ? Coin.fromAmino(object.tokens_per_claim) : undefined,
-      maxAllowedClaims: BigInt(object.max_allowed_claims),
-      deposit: object?.deposit ? Coin.fromAmino(object.deposit) : undefined,
-      nftMintDetails: object?.nft_mint_details ? NFTDetails.fromAmino(object.nft_mint_details) : undefined,
-      startTime: object.start_time,
-      duration: object?.duration ? Duration.fromAmino(object.duration) : undefined,
-      distribution: object?.distribution ? Distribution.fromAmino(object.distribution) : undefined,
-      creator: object.creator,
-      creationFee: object?.creation_fee ? Coin.fromAmino(object.creation_fee) : undefined
-    };
+    const message = createBaseMsgCreateCampaign();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.interaction !== undefined && object.interaction !== null) {
+      message.interaction = interactionTypeFromJSON(object.interaction);
+    }
+    if (object.claim_type !== undefined && object.claim_type !== null) {
+      message.claimType = claimTypeFromJSON(object.claim_type);
+    }
+    if (object.nft_denom_id !== undefined && object.nft_denom_id !== null) {
+      message.nftDenomId = object.nft_denom_id;
+    }
+    if (object.tokens_per_claim !== undefined && object.tokens_per_claim !== null) {
+      message.tokensPerClaim = Coin.fromAmino(object.tokens_per_claim);
+    }
+    if (object.max_allowed_claims !== undefined && object.max_allowed_claims !== null) {
+      message.maxAllowedClaims = BigInt(object.max_allowed_claims);
+    }
+    if (object.deposit !== undefined && object.deposit !== null) {
+      message.deposit = Coin.fromAmino(object.deposit);
+    }
+    if (object.nft_mint_details !== undefined && object.nft_mint_details !== null) {
+      message.nftMintDetails = NFTDetails.fromAmino(object.nft_mint_details);
+    }
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = Timestamp.fromAmino(object.start_time);
+    }
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = Duration.fromAmino(object.duration);
+    }
+    if (object.distribution !== undefined && object.distribution !== null) {
+      message.distribution = Distribution.fromAmino(object.distribution);
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.creation_fee !== undefined && object.creation_fee !== null) {
+      message.creationFee = Coin.fromAmino(object.creation_fee);
+    }
+    return message;
   },
   toAmino(message: MsgCreateCampaign): MsgCreateCampaignAmino {
     const obj: any = {};
@@ -303,7 +408,7 @@ export const MsgCreateCampaign = {
     obj.max_allowed_claims = message.maxAllowedClaims ? message.maxAllowedClaims.toString() : undefined;
     obj.deposit = message.deposit ? Coin.toAmino(message.deposit) : undefined;
     obj.nft_mint_details = message.nftMintDetails ? NFTDetails.toAmino(message.nftMintDetails) : undefined;
-    obj.start_time = message.startTime;
+    obj.start_time = message.startTime ? Timestamp.toAmino(message.startTime) : undefined;
     obj.duration = message.duration ? Duration.toAmino(message.duration) : undefined;
     obj.distribution = message.distribution ? Distribution.toAmino(message.distribution) : undefined;
     obj.creator = message.creator;
@@ -312,6 +417,12 @@ export const MsgCreateCampaign = {
   },
   fromAminoMsg(object: MsgCreateCampaignAminoMsg): MsgCreateCampaign {
     return MsgCreateCampaign.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreateCampaign): MsgCreateCampaignAminoMsg {
+    return {
+      type: "OmniFlix/itc/MsgCreateCampaign",
+      value: MsgCreateCampaign.toAmino(message)
+    };
   },
   fromProtoMsg(message: MsgCreateCampaignProtoMsg): MsgCreateCampaign {
     return MsgCreateCampaign.decode(message.value);
@@ -342,7 +453,8 @@ export const MsgCreateCampaignResponse = {
     return message;
   },
   fromAmino(_: MsgCreateCampaignResponseAmino): MsgCreateCampaignResponse {
-    return {};
+    const message = createBaseMsgCreateCampaignResponse();
+    return message;
   },
   toAmino(_: MsgCreateCampaignResponse): MsgCreateCampaignResponseAmino {
     const obj: any = {};
@@ -394,10 +506,14 @@ export const MsgCancelCampaign = {
     return message;
   },
   fromAmino(object: MsgCancelCampaignAmino): MsgCancelCampaign {
-    return {
-      campaignId: BigInt(object.campaign_id),
-      creator: object.creator
-    };
+    const message = createBaseMsgCancelCampaign();
+    if (object.campaign_id !== undefined && object.campaign_id !== null) {
+      message.campaignId = BigInt(object.campaign_id);
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    return message;
   },
   toAmino(message: MsgCancelCampaign): MsgCancelCampaignAmino {
     const obj: any = {};
@@ -407,6 +523,12 @@ export const MsgCancelCampaign = {
   },
   fromAminoMsg(object: MsgCancelCampaignAminoMsg): MsgCancelCampaign {
     return MsgCancelCampaign.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCancelCampaign): MsgCancelCampaignAminoMsg {
+    return {
+      type: "OmniFlix/itc/MsgCancelCampaign",
+      value: MsgCancelCampaign.toAmino(message)
+    };
   },
   fromProtoMsg(message: MsgCancelCampaignProtoMsg): MsgCancelCampaign {
     return MsgCancelCampaign.decode(message.value);
@@ -437,7 +559,8 @@ export const MsgCancelCampaignResponse = {
     return message;
   },
   fromAmino(_: MsgCancelCampaignResponseAmino): MsgCancelCampaignResponse {
-    return {};
+    const message = createBaseMsgCancelCampaignResponse();
+    return message;
   },
   toAmino(_: MsgCancelCampaignResponse): MsgCancelCampaignResponseAmino {
     const obj: any = {};
@@ -501,12 +624,20 @@ export const MsgClaim = {
     return message;
   },
   fromAmino(object: MsgClaimAmino): MsgClaim {
-    return {
-      campaignId: BigInt(object.campaign_id),
-      nftId: object.nft_id,
-      interaction: isSet(object.interaction) ? interactionTypeFromJSON(object.interaction) : -1,
-      claimer: object.claimer
-    };
+    const message = createBaseMsgClaim();
+    if (object.campaign_id !== undefined && object.campaign_id !== null) {
+      message.campaignId = BigInt(object.campaign_id);
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.interaction !== undefined && object.interaction !== null) {
+      message.interaction = interactionTypeFromJSON(object.interaction);
+    }
+    if (object.claimer !== undefined && object.claimer !== null) {
+      message.claimer = object.claimer;
+    }
+    return message;
   },
   toAmino(message: MsgClaim): MsgClaimAmino {
     const obj: any = {};
@@ -518,6 +649,12 @@ export const MsgClaim = {
   },
   fromAminoMsg(object: MsgClaimAminoMsg): MsgClaim {
     return MsgClaim.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgClaim): MsgClaimAminoMsg {
+    return {
+      type: "OmniFlix/itc/MsgClaim",
+      value: MsgClaim.toAmino(message)
+    };
   },
   fromProtoMsg(message: MsgClaimProtoMsg): MsgClaim {
     return MsgClaim.decode(message.value);
@@ -548,7 +685,8 @@ export const MsgClaimResponse = {
     return message;
   },
   fromAmino(_: MsgClaimResponseAmino): MsgClaimResponse {
-    return {};
+    const message = createBaseMsgClaimResponse();
+    return message;
   },
   toAmino(_: MsgClaimResponse): MsgClaimResponseAmino {
     const obj: any = {};
@@ -606,11 +744,17 @@ export const MsgDepositCampaign = {
     return message;
   },
   fromAmino(object: MsgDepositCampaignAmino): MsgDepositCampaign {
-    return {
-      campaignId: BigInt(object.campaign_id),
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined,
-      depositor: object.depositor
-    };
+    const message = createBaseMsgDepositCampaign();
+    if (object.campaign_id !== undefined && object.campaign_id !== null) {
+      message.campaignId = BigInt(object.campaign_id);
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.depositor !== undefined && object.depositor !== null) {
+      message.depositor = object.depositor;
+    }
+    return message;
   },
   toAmino(message: MsgDepositCampaign): MsgDepositCampaignAmino {
     const obj: any = {};
@@ -621,6 +765,12 @@ export const MsgDepositCampaign = {
   },
   fromAminoMsg(object: MsgDepositCampaignAminoMsg): MsgDepositCampaign {
     return MsgDepositCampaign.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgDepositCampaign): MsgDepositCampaignAminoMsg {
+    return {
+      type: "OmniFlix/itc/MsgDepositCampaign",
+      value: MsgDepositCampaign.toAmino(message)
+    };
   },
   fromProtoMsg(message: MsgDepositCampaignProtoMsg): MsgDepositCampaign {
     return MsgDepositCampaign.decode(message.value);
@@ -651,7 +801,8 @@ export const MsgDepositCampaignResponse = {
     return message;
   },
   fromAmino(_: MsgDepositCampaignResponseAmino): MsgDepositCampaignResponse {
-    return {};
+    const message = createBaseMsgDepositCampaignResponse();
+    return message;
   },
   toAmino(_: MsgDepositCampaignResponse): MsgDepositCampaignResponseAmino {
     const obj: any = {};
@@ -670,6 +821,106 @@ export const MsgDepositCampaignResponse = {
     return {
       typeUrl: "/OmniFlix.itc.v1.MsgDepositCampaignResponse",
       value: MsgDepositCampaignResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUpdateParams(): MsgUpdateParams {
+  return {
+    authority: "",
+    params: Params.fromPartial({})
+  };
+}
+export const MsgUpdateParams = {
+  typeUrl: "/OmniFlix.itc.v1.MsgUpdateParams",
+  encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgUpdateParams {
+    return {
+      authority: isSet(object.authority) ? String(object.authority) : "",
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined
+    };
+  },
+  fromPartial(object: Partial<MsgUpdateParams>): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    message.authority = object.authority ?? "";
+    message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams {
+    return MsgUpdateParams.decode(message.value);
+  },
+  toProto(message: MsgUpdateParams): Uint8Array {
+    return MsgUpdateParams.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg {
+    return {
+      typeUrl: "/OmniFlix.itc.v1.MsgUpdateParams",
+      value: MsgUpdateParams.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
+  return {};
+}
+export const MsgUpdateParamsResponse = {
+  typeUrl: "/OmniFlix.itc.v1.MsgUpdateParamsResponse",
+  encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgUpdateParamsResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.decode(message.value);
+  },
+  toProto(message: MsgUpdateParamsResponse): Uint8Array {
+    return MsgUpdateParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg {
+    return {
+      typeUrl: "/OmniFlix.itc.v1.MsgUpdateParamsResponse",
+      value: MsgUpdateParamsResponse.encode(message).finish()
     };
   }
 };

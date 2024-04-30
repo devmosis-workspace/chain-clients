@@ -43,15 +43,15 @@ export interface QueryParamsResponseSDKType {
 export interface QueryListingsRequest {
   owner: string;
   priceDenom: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryListingsRequestProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsRequest";
   value: Uint8Array;
 }
 export interface QueryListingsRequestAmino {
-  owner: string;
-  price_denom: string;
+  owner?: string;
+  price_denom?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryListingsRequestAminoMsg {
@@ -61,18 +61,18 @@ export interface QueryListingsRequestAminoMsg {
 export interface QueryListingsRequestSDKType {
   owner: string;
   price_denom: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryListingsResponse {
   listings: Listing[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryListingsResponseProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsResponse";
   value: Uint8Array;
 }
 export interface QueryListingsResponseAmino {
-  listings: ListingAmino[];
+  listings?: ListingAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryListingsResponseAminoMsg {
@@ -81,7 +81,7 @@ export interface QueryListingsResponseAminoMsg {
 }
 export interface QueryListingsResponseSDKType {
   listings: ListingSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryListingRequest {
   id: string;
@@ -91,7 +91,7 @@ export interface QueryListingRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryListingRequestAmino {
-  id: string;
+  id?: string;
 }
 export interface QueryListingRequestAminoMsg {
   type: "/OmniFlix.marketplace.v1beta1.QueryListingRequest";
@@ -101,7 +101,7 @@ export interface QueryListingRequestSDKType {
   id: string;
 }
 export interface QueryListingResponse {
-  listing: Listing;
+  listing?: Listing;
 }
 export interface QueryListingResponseProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingResponse";
@@ -115,18 +115,18 @@ export interface QueryListingResponseAminoMsg {
   value: QueryListingResponseAmino;
 }
 export interface QueryListingResponseSDKType {
-  listing: ListingSDKType;
+  listing?: ListingSDKType;
 }
 export interface QueryListingsByOwnerRequest {
   owner: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryListingsByOwnerRequestProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsByOwnerRequest";
   value: Uint8Array;
 }
 export interface QueryListingsByOwnerRequestAmino {
-  owner: string;
+  owner?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryListingsByOwnerRequestAminoMsg {
@@ -135,18 +135,18 @@ export interface QueryListingsByOwnerRequestAminoMsg {
 }
 export interface QueryListingsByOwnerRequestSDKType {
   owner: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryListingsByOwnerResponse {
   listings: Listing[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryListingsByOwnerResponseProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsByOwnerResponse";
   value: Uint8Array;
 }
 export interface QueryListingsByOwnerResponseAmino {
-  listings: ListingAmino[];
+  listings?: ListingAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryListingsByOwnerResponseAminoMsg {
@@ -155,7 +155,7 @@ export interface QueryListingsByOwnerResponseAminoMsg {
 }
 export interface QueryListingsByOwnerResponseSDKType {
   listings: ListingSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryListingByNFTIDRequest {
   nftId: string;
@@ -165,7 +165,7 @@ export interface QueryListingByNFTIDRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryListingByNFTIDRequestAmino {
-  nft_id: string;
+  nft_id?: string;
 }
 export interface QueryListingByNFTIDRequestAminoMsg {
   type: "/OmniFlix.marketplace.v1beta1.QueryListingByNFTIDRequest";
@@ -176,14 +176,14 @@ export interface QueryListingByNFTIDRequestSDKType {
 }
 export interface QueryListingsByPriceDenomRequest {
   priceDenom: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryListingsByPriceDenomRequestProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsByPriceDenomRequest";
   value: Uint8Array;
 }
 export interface QueryListingsByPriceDenomRequestAmino {
-  price_denom: string;
+  price_denom?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryListingsByPriceDenomRequestAminoMsg {
@@ -192,18 +192,18 @@ export interface QueryListingsByPriceDenomRequestAminoMsg {
 }
 export interface QueryListingsByPriceDenomRequestSDKType {
   price_denom: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryListingsByPriceDenomResponse {
   listings: Listing[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryListingsByPriceDenomResponseProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsByPriceDenomResponse";
   value: Uint8Array;
 }
 export interface QueryListingsByPriceDenomResponseAmino {
-  listings: ListingAmino[];
+  listings?: ListingAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryListingsByPriceDenomResponseAminoMsg {
@@ -212,22 +212,22 @@ export interface QueryListingsByPriceDenomResponseAminoMsg {
 }
 export interface QueryListingsByPriceDenomResponseSDKType {
   listings: ListingSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryAuctionsRequest {
   status: AuctionStatus;
   owner: string;
   priceDenom: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAuctionsRequestProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryAuctionsRequest";
   value: Uint8Array;
 }
 export interface QueryAuctionsRequestAmino {
-  status: AuctionStatus;
-  owner: string;
-  price_denom: string;
+  status?: AuctionStatus;
+  owner?: string;
+  price_denom?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryAuctionsRequestAminoMsg {
@@ -238,18 +238,18 @@ export interface QueryAuctionsRequestSDKType {
   status: AuctionStatus;
   owner: string;
   price_denom: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryAuctionsResponse {
   auctions: AuctionListing[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryAuctionsResponseProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryAuctionsResponse";
   value: Uint8Array;
 }
 export interface QueryAuctionsResponseAmino {
-  auctions: AuctionListingAmino[];
+  auctions?: AuctionListingAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryAuctionsResponseAminoMsg {
@@ -258,7 +258,7 @@ export interface QueryAuctionsResponseAminoMsg {
 }
 export interface QueryAuctionsResponseSDKType {
   auctions: AuctionListingSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryAuctionRequest {
   id: bigint;
@@ -268,7 +268,7 @@ export interface QueryAuctionRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryAuctionRequestAmino {
-  id: string;
+  id?: string;
 }
 export interface QueryAuctionRequestAminoMsg {
   type: "/OmniFlix.marketplace.v1beta1.QueryAuctionRequest";
@@ -278,7 +278,7 @@ export interface QueryAuctionRequestSDKType {
   id: bigint;
 }
 export interface QueryAuctionResponse {
-  auction: AuctionListing;
+  auction?: AuctionListing;
 }
 export interface QueryAuctionResponseProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryAuctionResponse";
@@ -292,18 +292,18 @@ export interface QueryAuctionResponseAminoMsg {
   value: QueryAuctionResponseAmino;
 }
 export interface QueryAuctionResponseSDKType {
-  auction: AuctionListingSDKType;
+  auction?: AuctionListingSDKType;
 }
 export interface QueryAuctionsByOwnerRequest {
   owner: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAuctionsByOwnerRequestProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryAuctionsByOwnerRequest";
   value: Uint8Array;
 }
 export interface QueryAuctionsByOwnerRequestAmino {
-  owner: string;
+  owner?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryAuctionsByOwnerRequestAminoMsg {
@@ -312,7 +312,7 @@ export interface QueryAuctionsByOwnerRequestAminoMsg {
 }
 export interface QueryAuctionsByOwnerRequestSDKType {
   owner: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryAuctionByNFTIDRequest {
   nftId: string;
@@ -322,7 +322,7 @@ export interface QueryAuctionByNFTIDRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryAuctionByNFTIDRequestAmino {
-  nft_id: string;
+  nft_id?: string;
 }
 export interface QueryAuctionByNFTIDRequestAminoMsg {
   type: "/OmniFlix.marketplace.v1beta1.QueryAuctionByNFTIDRequest";
@@ -333,14 +333,14 @@ export interface QueryAuctionByNFTIDRequestSDKType {
 }
 export interface QueryAuctionsByPriceDenomRequest {
   priceDenom: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryAuctionsByPriceDenomRequestProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryAuctionsByPriceDenomRequest";
   value: Uint8Array;
 }
 export interface QueryAuctionsByPriceDenomRequestAmino {
-  price_denom: string;
+  price_denom?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryAuctionsByPriceDenomRequestAminoMsg {
@@ -349,18 +349,18 @@ export interface QueryAuctionsByPriceDenomRequestAminoMsg {
 }
 export interface QueryAuctionsByPriceDenomRequestSDKType {
   price_denom: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryBidsRequest {
   bidder: string;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 export interface QueryBidsRequestProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryBidsRequest";
   value: Uint8Array;
 }
 export interface QueryBidsRequestAmino {
-  bidder: string;
+  bidder?: string;
   pagination?: PageRequestAmino;
 }
 export interface QueryBidsRequestAminoMsg {
@@ -369,18 +369,18 @@ export interface QueryBidsRequestAminoMsg {
 }
 export interface QueryBidsRequestSDKType {
   bidder: string;
-  pagination: PageRequestSDKType;
+  pagination?: PageRequestSDKType;
 }
 export interface QueryBidsResponse {
   bids: Bid[];
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 export interface QueryBidsResponseProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryBidsResponse";
   value: Uint8Array;
 }
 export interface QueryBidsResponseAmino {
-  bids: BidAmino[];
+  bids?: BidAmino[];
   pagination?: PageResponseAmino;
 }
 export interface QueryBidsResponseAminoMsg {
@@ -389,7 +389,7 @@ export interface QueryBidsResponseAminoMsg {
 }
 export interface QueryBidsResponseSDKType {
   bids: BidSDKType[];
-  pagination: PageResponseSDKType;
+  pagination?: PageResponseSDKType;
 }
 export interface QueryBidRequest {
   id: bigint;
@@ -399,7 +399,7 @@ export interface QueryBidRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryBidRequestAmino {
-  id: string;
+  id?: string;
 }
 export interface QueryBidRequestAminoMsg {
   type: "/OmniFlix.marketplace.v1beta1.QueryBidRequest";
@@ -409,7 +409,7 @@ export interface QueryBidRequestSDKType {
   id: bigint;
 }
 export interface QueryBidResponse {
-  bid: Bid;
+  bid?: Bid;
 }
 export interface QueryBidResponseProtoMsg {
   typeUrl: "/OmniFlix.marketplace.v1beta1.QueryBidResponse";
@@ -423,7 +423,7 @@ export interface QueryBidResponseAminoMsg {
   value: QueryBidResponseAmino;
 }
 export interface QueryBidResponseSDKType {
-  bid: BidSDKType;
+  bid?: BidSDKType;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -441,7 +441,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -487,9 +488,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -516,7 +519,7 @@ function createBaseQueryListingsRequest(): QueryListingsRequest {
   return {
     owner: "",
     priceDenom: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingsRequest = {
@@ -548,11 +551,17 @@ export const QueryListingsRequest = {
     return message;
   },
   fromAmino(object: QueryListingsRequestAmino): QueryListingsRequest {
-    return {
-      owner: object.owner,
-      priceDenom: object.price_denom,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingsRequest();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.price_denom !== undefined && object.price_denom !== null) {
+      message.priceDenom = object.price_denom;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingsRequest): QueryListingsRequestAmino {
     const obj: any = {};
@@ -580,7 +589,7 @@ export const QueryListingsRequest = {
 function createBaseQueryListingsResponse(): QueryListingsResponse {
   return {
     listings: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingsResponse = {
@@ -607,10 +616,12 @@ export const QueryListingsResponse = {
     return message;
   },
   fromAmino(object: QueryListingsResponseAmino): QueryListingsResponse {
-    return {
-      listings: Array.isArray(object?.listings) ? object.listings.map((e: any) => Listing.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingsResponse();
+    message.listings = object.listings?.map(e => Listing.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingsResponse): QueryListingsResponseAmino {
     const obj: any = {};
@@ -662,9 +673,11 @@ export const QueryListingRequest = {
     return message;
   },
   fromAmino(object: QueryListingRequestAmino): QueryListingRequest {
-    return {
-      id: object.id
-    };
+    const message = createBaseQueryListingRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: QueryListingRequest): QueryListingRequestAmino {
     const obj: any = {};
@@ -689,7 +702,7 @@ export const QueryListingRequest = {
 };
 function createBaseQueryListingResponse(): QueryListingResponse {
   return {
-    listing: Listing.fromPartial({})
+    listing: undefined
   };
 }
 export const QueryListingResponse = {
@@ -711,9 +724,11 @@ export const QueryListingResponse = {
     return message;
   },
   fromAmino(object: QueryListingResponseAmino): QueryListingResponse {
-    return {
-      listing: object?.listing ? Listing.fromAmino(object.listing) : undefined
-    };
+    const message = createBaseQueryListingResponse();
+    if (object.listing !== undefined && object.listing !== null) {
+      message.listing = Listing.fromAmino(object.listing);
+    }
+    return message;
   },
   toAmino(message: QueryListingResponse): QueryListingResponseAmino {
     const obj: any = {};
@@ -739,7 +754,7 @@ export const QueryListingResponse = {
 function createBaseQueryListingsByOwnerRequest(): QueryListingsByOwnerRequest {
   return {
     owner: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingsByOwnerRequest = {
@@ -766,10 +781,14 @@ export const QueryListingsByOwnerRequest = {
     return message;
   },
   fromAmino(object: QueryListingsByOwnerRequestAmino): QueryListingsByOwnerRequest {
-    return {
-      owner: object.owner,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingsByOwnerRequest();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingsByOwnerRequest): QueryListingsByOwnerRequestAmino {
     const obj: any = {};
@@ -796,7 +815,7 @@ export const QueryListingsByOwnerRequest = {
 function createBaseQueryListingsByOwnerResponse(): QueryListingsByOwnerResponse {
   return {
     listings: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingsByOwnerResponse = {
@@ -823,10 +842,12 @@ export const QueryListingsByOwnerResponse = {
     return message;
   },
   fromAmino(object: QueryListingsByOwnerResponseAmino): QueryListingsByOwnerResponse {
-    return {
-      listings: Array.isArray(object?.listings) ? object.listings.map((e: any) => Listing.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingsByOwnerResponse();
+    message.listings = object.listings?.map(e => Listing.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingsByOwnerResponse): QueryListingsByOwnerResponseAmino {
     const obj: any = {};
@@ -878,9 +899,11 @@ export const QueryListingByNFTIDRequest = {
     return message;
   },
   fromAmino(object: QueryListingByNFTIDRequestAmino): QueryListingByNFTIDRequest {
-    return {
-      nftId: object.nft_id
-    };
+    const message = createBaseQueryListingByNFTIDRequest();
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    return message;
   },
   toAmino(message: QueryListingByNFTIDRequest): QueryListingByNFTIDRequestAmino {
     const obj: any = {};
@@ -906,7 +929,7 @@ export const QueryListingByNFTIDRequest = {
 function createBaseQueryListingsByPriceDenomRequest(): QueryListingsByPriceDenomRequest {
   return {
     priceDenom: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingsByPriceDenomRequest = {
@@ -933,10 +956,14 @@ export const QueryListingsByPriceDenomRequest = {
     return message;
   },
   fromAmino(object: QueryListingsByPriceDenomRequestAmino): QueryListingsByPriceDenomRequest {
-    return {
-      priceDenom: object.price_denom,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingsByPriceDenomRequest();
+    if (object.price_denom !== undefined && object.price_denom !== null) {
+      message.priceDenom = object.price_denom;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingsByPriceDenomRequest): QueryListingsByPriceDenomRequestAmino {
     const obj: any = {};
@@ -963,7 +990,7 @@ export const QueryListingsByPriceDenomRequest = {
 function createBaseQueryListingsByPriceDenomResponse(): QueryListingsByPriceDenomResponse {
   return {
     listings: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryListingsByPriceDenomResponse = {
@@ -990,10 +1017,12 @@ export const QueryListingsByPriceDenomResponse = {
     return message;
   },
   fromAmino(object: QueryListingsByPriceDenomResponseAmino): QueryListingsByPriceDenomResponse {
-    return {
-      listings: Array.isArray(object?.listings) ? object.listings.map((e: any) => Listing.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryListingsByPriceDenomResponse();
+    message.listings = object.listings?.map(e => Listing.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryListingsByPriceDenomResponse): QueryListingsByPriceDenomResponseAmino {
     const obj: any = {};
@@ -1026,7 +1055,7 @@ function createBaseQueryAuctionsRequest(): QueryAuctionsRequest {
     status: 0,
     owner: "",
     priceDenom: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAuctionsRequest = {
@@ -1063,12 +1092,20 @@ export const QueryAuctionsRequest = {
     return message;
   },
   fromAmino(object: QueryAuctionsRequestAmino): QueryAuctionsRequest {
-    return {
-      status: isSet(object.status) ? auctionStatusFromJSON(object.status) : -1,
-      owner: object.owner,
-      priceDenom: object.price_denom,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAuctionsRequest();
+    if (object.status !== undefined && object.status !== null) {
+      message.status = auctionStatusFromJSON(object.status);
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.price_denom !== undefined && object.price_denom !== null) {
+      message.priceDenom = object.price_denom;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAuctionsRequest): QueryAuctionsRequestAmino {
     const obj: any = {};
@@ -1097,7 +1134,7 @@ export const QueryAuctionsRequest = {
 function createBaseQueryAuctionsResponse(): QueryAuctionsResponse {
   return {
     auctions: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAuctionsResponse = {
@@ -1124,10 +1161,12 @@ export const QueryAuctionsResponse = {
     return message;
   },
   fromAmino(object: QueryAuctionsResponseAmino): QueryAuctionsResponse {
-    return {
-      auctions: Array.isArray(object?.auctions) ? object.auctions.map((e: any) => AuctionListing.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAuctionsResponse();
+    message.auctions = object.auctions?.map(e => AuctionListing.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAuctionsResponse): QueryAuctionsResponseAmino {
     const obj: any = {};
@@ -1179,9 +1218,11 @@ export const QueryAuctionRequest = {
     return message;
   },
   fromAmino(object: QueryAuctionRequestAmino): QueryAuctionRequest {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseQueryAuctionRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: QueryAuctionRequest): QueryAuctionRequestAmino {
     const obj: any = {};
@@ -1206,7 +1247,7 @@ export const QueryAuctionRequest = {
 };
 function createBaseQueryAuctionResponse(): QueryAuctionResponse {
   return {
-    auction: AuctionListing.fromPartial({})
+    auction: undefined
   };
 }
 export const QueryAuctionResponse = {
@@ -1228,9 +1269,11 @@ export const QueryAuctionResponse = {
     return message;
   },
   fromAmino(object: QueryAuctionResponseAmino): QueryAuctionResponse {
-    return {
-      auction: object?.auction ? AuctionListing.fromAmino(object.auction) : undefined
-    };
+    const message = createBaseQueryAuctionResponse();
+    if (object.auction !== undefined && object.auction !== null) {
+      message.auction = AuctionListing.fromAmino(object.auction);
+    }
+    return message;
   },
   toAmino(message: QueryAuctionResponse): QueryAuctionResponseAmino {
     const obj: any = {};
@@ -1256,7 +1299,7 @@ export const QueryAuctionResponse = {
 function createBaseQueryAuctionsByOwnerRequest(): QueryAuctionsByOwnerRequest {
   return {
     owner: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAuctionsByOwnerRequest = {
@@ -1283,10 +1326,14 @@ export const QueryAuctionsByOwnerRequest = {
     return message;
   },
   fromAmino(object: QueryAuctionsByOwnerRequestAmino): QueryAuctionsByOwnerRequest {
-    return {
-      owner: object.owner,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAuctionsByOwnerRequest();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAuctionsByOwnerRequest): QueryAuctionsByOwnerRequestAmino {
     const obj: any = {};
@@ -1334,9 +1381,11 @@ export const QueryAuctionByNFTIDRequest = {
     return message;
   },
   fromAmino(object: QueryAuctionByNFTIDRequestAmino): QueryAuctionByNFTIDRequest {
-    return {
-      nftId: object.nft_id
-    };
+    const message = createBaseQueryAuctionByNFTIDRequest();
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    return message;
   },
   toAmino(message: QueryAuctionByNFTIDRequest): QueryAuctionByNFTIDRequestAmino {
     const obj: any = {};
@@ -1362,7 +1411,7 @@ export const QueryAuctionByNFTIDRequest = {
 function createBaseQueryAuctionsByPriceDenomRequest(): QueryAuctionsByPriceDenomRequest {
   return {
     priceDenom: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryAuctionsByPriceDenomRequest = {
@@ -1389,10 +1438,14 @@ export const QueryAuctionsByPriceDenomRequest = {
     return message;
   },
   fromAmino(object: QueryAuctionsByPriceDenomRequestAmino): QueryAuctionsByPriceDenomRequest {
-    return {
-      priceDenom: object.price_denom,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryAuctionsByPriceDenomRequest();
+    if (object.price_denom !== undefined && object.price_denom !== null) {
+      message.priceDenom = object.price_denom;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryAuctionsByPriceDenomRequest): QueryAuctionsByPriceDenomRequestAmino {
     const obj: any = {};
@@ -1419,7 +1472,7 @@ export const QueryAuctionsByPriceDenomRequest = {
 function createBaseQueryBidsRequest(): QueryBidsRequest {
   return {
     bidder: "",
-    pagination: PageRequest.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryBidsRequest = {
@@ -1446,10 +1499,14 @@ export const QueryBidsRequest = {
     return message;
   },
   fromAmino(object: QueryBidsRequestAmino): QueryBidsRequest {
-    return {
-      bidder: object.bidder,
-      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryBidsRequest();
+    if (object.bidder !== undefined && object.bidder !== null) {
+      message.bidder = object.bidder;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryBidsRequest): QueryBidsRequestAmino {
     const obj: any = {};
@@ -1476,7 +1533,7 @@ export const QueryBidsRequest = {
 function createBaseQueryBidsResponse(): QueryBidsResponse {
   return {
     bids: [],
-    pagination: PageResponse.fromPartial({})
+    pagination: undefined
   };
 }
 export const QueryBidsResponse = {
@@ -1503,10 +1560,12 @@ export const QueryBidsResponse = {
     return message;
   },
   fromAmino(object: QueryBidsResponseAmino): QueryBidsResponse {
-    return {
-      bids: Array.isArray(object?.bids) ? object.bids.map((e: any) => Bid.fromAmino(e)) : [],
-      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined
-    };
+    const message = createBaseQueryBidsResponse();
+    message.bids = object.bids?.map(e => Bid.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
   },
   toAmino(message: QueryBidsResponse): QueryBidsResponseAmino {
     const obj: any = {};
@@ -1558,9 +1617,11 @@ export const QueryBidRequest = {
     return message;
   },
   fromAmino(object: QueryBidRequestAmino): QueryBidRequest {
-    return {
-      id: BigInt(object.id)
-    };
+    const message = createBaseQueryBidRequest();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    return message;
   },
   toAmino(message: QueryBidRequest): QueryBidRequestAmino {
     const obj: any = {};
@@ -1585,7 +1646,7 @@ export const QueryBidRequest = {
 };
 function createBaseQueryBidResponse(): QueryBidResponse {
   return {
-    bid: Bid.fromPartial({})
+    bid: undefined
   };
 }
 export const QueryBidResponse = {
@@ -1607,9 +1668,11 @@ export const QueryBidResponse = {
     return message;
   },
   fromAmino(object: QueryBidResponseAmino): QueryBidResponse {
-    return {
-      bid: object?.bid ? Bid.fromAmino(object.bid) : undefined
-    };
+    const message = createBaseQueryBidResponse();
+    if (object.bid !== undefined && object.bid !== null) {
+      message.bid = Bid.fromAmino(object.bid);
+    }
+    return message;
   },
   toAmino(message: QueryBidResponse): QueryBidResponseAmino {
     const obj: any = {};

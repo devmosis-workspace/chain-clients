@@ -1,4 +1,4 @@
-import { MsgListNFT, MsgEditListing, MsgDeListNFT, MsgBuyNFT, MsgCreateAuction, MsgCancelAuction, MsgPlaceBid } from "./tx";
+import { MsgListNFT, MsgEditListing, MsgDeListNFT, MsgBuyNFT, MsgCreateAuction, MsgCancelAuction, MsgPlaceBid, MsgUpdateParams } from "./tx";
 export declare const AminoConverter: {
     "/OmniFlix.marketplace.v1beta1.MsgListNFT": {
         aminoType: string;
@@ -34,5 +34,10 @@ export declare const AminoConverter: {
         aminoType: string;
         toAmino: (message: MsgPlaceBid) => import("./tx").MsgPlaceBidAmino;
         fromAmino: (object: import("./tx").MsgPlaceBidAmino) => MsgPlaceBid;
+    };
+    "/OmniFlix.marketplace.v1beta1.MsgUpdateParams": {
+        aminoType: string;
+        toAmino: (message: MsgUpdateParams) => import("./tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./tx").MsgUpdateParamsAmino) => MsgUpdateParams;
     };
 };

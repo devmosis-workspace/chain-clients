@@ -15,12 +15,12 @@ export interface ListingProtoMsg {
   value: Uint8Array;
 }
 export interface ListingAmino {
-  id: string;
-  nft_id: string;
-  denom_id: string;
+  id?: string;
+  nft_id?: string;
+  denom_id?: string;
   price?: CoinAmino;
-  owner: string;
-  split_shares: WeightedAddressAmino[];
+  owner?: string;
+  split_shares?: WeightedAddressAmino[];
 }
 export interface ListingAminoMsg {
   type: "/OmniFlix.marketplace.v1beta1.Listing";
@@ -43,8 +43,8 @@ export interface WeightedAddressProtoMsg {
   value: Uint8Array;
 }
 export interface WeightedAddressAmino {
-  address: string;
-  weight: string;
+  address?: string;
+  weight?: string;
 }
 export interface WeightedAddressAminoMsg {
   type: "/OmniFlix.marketplace.v1beta1.WeightedAddress";
@@ -108,14 +108,24 @@ export const Listing = {
     return message;
   },
   fromAmino(object: ListingAmino): Listing {
-    return {
-      id: object.id,
-      nftId: object.nft_id,
-      denomId: object.denom_id,
-      price: object?.price ? Coin.fromAmino(object.price) : undefined,
-      owner: object.owner,
-      splitShares: Array.isArray(object?.split_shares) ? object.split_shares.map((e: any) => WeightedAddress.fromAmino(e)) : []
-    };
+    const message = createBaseListing();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.nft_id !== undefined && object.nft_id !== null) {
+      message.nftId = object.nft_id;
+    }
+    if (object.denom_id !== undefined && object.denom_id !== null) {
+      message.denomId = object.denom_id;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = Coin.fromAmino(object.price);
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    message.splitShares = object.split_shares?.map(e => WeightedAddress.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Listing): ListingAmino {
     const obj: any = {};
@@ -177,10 +187,14 @@ export const WeightedAddress = {
     return message;
   },
   fromAmino(object: WeightedAddressAmino): WeightedAddress {
-    return {
-      address: object.address,
-      weight: object.weight
-    };
+    const message = createBaseWeightedAddress();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = object.weight;
+    }
+    return message;
   },
   toAmino(message: WeightedAddress): WeightedAddressAmino {
     const obj: any = {};

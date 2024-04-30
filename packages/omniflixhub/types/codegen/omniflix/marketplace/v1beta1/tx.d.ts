@@ -1,7 +1,8 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { WeightedAddress, WeightedAddressAmino, WeightedAddressSDKType } from "./listing";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { Params, ParamsAmino, ParamsSDKType } from "./params";
 import { AuctionListing, AuctionListingAmino, AuctionListingSDKType } from "./auction";
 import { BinaryWriter } from "../../../binary";
 export interface MsgListNFT {
@@ -17,15 +18,15 @@ export interface MsgListNFTProtoMsg {
     value: Uint8Array;
 }
 export interface MsgListNFTAmino {
-    id: string;
-    nft_id: string;
-    denom_id: string;
+    id?: string;
+    nft_id?: string;
+    denom_id?: string;
     price?: CoinAmino;
-    owner: string;
-    split_shares: WeightedAddressAmino[];
+    owner?: string;
+    split_shares?: WeightedAddressAmino[];
 }
 export interface MsgListNFTAminoMsg {
-    type: "/OmniFlix.marketplace.v1beta1.MsgListNFT";
+    type: "OmniFlix/marketplace/MsgListNFT";
     value: MsgListNFTAmino;
 }
 export interface MsgListNFTSDKType {
@@ -60,12 +61,12 @@ export interface MsgEditListingProtoMsg {
     value: Uint8Array;
 }
 export interface MsgEditListingAmino {
-    id: string;
+    id?: string;
     price?: CoinAmino;
-    owner: string;
+    owner?: string;
 }
 export interface MsgEditListingAminoMsg {
-    type: "/OmniFlix.marketplace.v1beta1.MsgEditListing";
+    type: "OmniFlix/marketplace/MsgEditListing";
     value: MsgEditListingAmino;
 }
 export interface MsgEditListingSDKType {
@@ -96,11 +97,11 @@ export interface MsgDeListNFTProtoMsg {
     value: Uint8Array;
 }
 export interface MsgDeListNFTAmino {
-    id: string;
-    owner: string;
+    id?: string;
+    owner?: string;
 }
 export interface MsgDeListNFTAminoMsg {
-    type: "/OmniFlix.marketplace.v1beta1.MsgDeListNFT";
+    type: "OmniFlix/marketplace/MsgDeListNFT";
     value: MsgDeListNFTAmino;
 }
 export interface MsgDeListNFTSDKType {
@@ -131,12 +132,12 @@ export interface MsgBuyNFTProtoMsg {
     value: Uint8Array;
 }
 export interface MsgBuyNFTAmino {
-    id: string;
+    id?: string;
     price?: CoinAmino;
-    buyer: string;
+    buyer?: string;
 }
 export interface MsgBuyNFTAminoMsg {
-    type: "/OmniFlix.marketplace.v1beta1.MsgBuyNFT";
+    type: "OmniFlix/marketplace/MsgBuyNFT";
     value: MsgBuyNFTAmino;
 }
 export interface MsgBuyNFTSDKType {
@@ -163,7 +164,7 @@ export interface MsgCreateAuction {
     denomId: string;
     startTime: Timestamp;
     startPrice: Coin;
-    duration: Duration;
+    duration?: Duration;
     incrementPercentage: string;
     whitelistAccounts: string[];
     splitShares: WeightedAddress[];
@@ -174,18 +175,18 @@ export interface MsgCreateAuctionProtoMsg {
     value: Uint8Array;
 }
 export interface MsgCreateAuctionAmino {
-    nft_id: string;
-    denom_id: string;
-    start_time?: TimestampAmino;
+    nft_id?: string;
+    denom_id?: string;
+    start_time?: string;
     start_price?: CoinAmino;
     duration?: DurationAmino;
-    increment_percentage: string;
-    whitelist_accounts: string[];
-    split_shares: WeightedAddressAmino[];
-    owner: string;
+    increment_percentage?: string;
+    whitelist_accounts?: string[];
+    split_shares?: WeightedAddressAmino[];
+    owner?: string;
 }
 export interface MsgCreateAuctionAminoMsg {
-    type: "/OmniFlix.marketplace.v1beta1.MsgCreateAuction";
+    type: "OmniFlix/marketplace/MsgCreateAuction";
     value: MsgCreateAuctionAmino;
 }
 export interface MsgCreateAuctionSDKType {
@@ -193,14 +194,14 @@ export interface MsgCreateAuctionSDKType {
     denom_id: string;
     start_time: TimestampSDKType;
     start_price: CoinSDKType;
-    duration: DurationSDKType;
+    duration?: DurationSDKType;
     increment_percentage: string;
     whitelist_accounts: string[];
     split_shares: WeightedAddressSDKType[];
     owner: string;
 }
 export interface MsgCreateAuctionResponse {
-    auction: AuctionListing;
+    auction?: AuctionListing;
 }
 export interface MsgCreateAuctionResponseProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.MsgCreateAuctionResponse";
@@ -214,7 +215,7 @@ export interface MsgCreateAuctionResponseAminoMsg {
     value: MsgCreateAuctionResponseAmino;
 }
 export interface MsgCreateAuctionResponseSDKType {
-    auction: AuctionListingSDKType;
+    auction?: AuctionListingSDKType;
 }
 export interface MsgCancelAuction {
     auctionId: bigint;
@@ -225,11 +226,11 @@ export interface MsgCancelAuctionProtoMsg {
     value: Uint8Array;
 }
 export interface MsgCancelAuctionAmino {
-    auction_id: string;
-    owner: string;
+    auction_id?: string;
+    owner?: string;
 }
 export interface MsgCancelAuctionAminoMsg {
-    type: "/OmniFlix.marketplace.v1beta1.MsgCancelAuction";
+    type: "OmniFlix/marketplace/MsgCancelAuction";
     value: MsgCancelAuctionAmino;
 }
 export interface MsgCancelAuctionSDKType {
@@ -260,12 +261,12 @@ export interface MsgPlaceBidProtoMsg {
     value: Uint8Array;
 }
 export interface MsgPlaceBidAmino {
-    auction_id: string;
+    auction_id?: string;
     amount?: CoinAmino;
-    bidder: string;
+    bidder?: string;
 }
 export interface MsgPlaceBidAminoMsg {
-    type: "/OmniFlix.marketplace.v1beta1.MsgPlaceBid";
+    type: "OmniFlix/marketplace/MsgPlaceBid";
     value: MsgPlaceBidAmino;
 }
 export interface MsgPlaceBidSDKType {
@@ -287,6 +288,85 @@ export interface MsgPlaceBidResponseAminoMsg {
 }
 export interface MsgPlaceBidResponseSDKType {
 }
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParams {
+    /** authority is the address of the governance account. */
+    authority: string;
+    /**
+     * params defines the x/marketplace parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     */
+    params: Params;
+}
+export interface MsgUpdateParamsProtoMsg {
+    typeUrl: "/OmniFlix.marketplace.v1beta1.MsgUpdateParams";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsAmino {
+    /** authority is the address of the governance account. */
+    authority?: string;
+    /**
+     * params defines the x/marketplace parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     */
+    params?: ParamsAmino;
+}
+export interface MsgUpdateParamsAminoMsg {
+    type: "/OmniFlix.marketplace.v1beta1.MsgUpdateParams";
+    value: MsgUpdateParamsAmino;
+}
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsSDKType {
+    authority: string;
+    params: ParamsSDKType;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponse {
+}
+export interface MsgUpdateParamsResponseProtoMsg {
+    typeUrl: "/OmniFlix.marketplace.v1beta1.MsgUpdateParamsResponse";
+    value: Uint8Array;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseAmino {
+}
+export interface MsgUpdateParamsResponseAminoMsg {
+    type: "/OmniFlix.marketplace.v1beta1.MsgUpdateParamsResponse";
+    value: MsgUpdateParamsResponseAmino;
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface MsgUpdateParamsResponseSDKType {
+}
 export declare const MsgListNFT: {
     typeUrl: string;
     encode(message: MsgListNFT, writer?: BinaryWriter): BinaryWriter;
@@ -295,6 +375,7 @@ export declare const MsgListNFT: {
     fromAmino(object: MsgListNFTAmino): MsgListNFT;
     toAmino(message: MsgListNFT): MsgListNFTAmino;
     fromAminoMsg(object: MsgListNFTAminoMsg): MsgListNFT;
+    toAminoMsg(message: MsgListNFT): MsgListNFTAminoMsg;
     fromProtoMsg(message: MsgListNFTProtoMsg): MsgListNFT;
     toProto(message: MsgListNFT): Uint8Array;
     toProtoMsg(message: MsgListNFT): MsgListNFTProtoMsg;
@@ -319,6 +400,7 @@ export declare const MsgEditListing: {
     fromAmino(object: MsgEditListingAmino): MsgEditListing;
     toAmino(message: MsgEditListing): MsgEditListingAmino;
     fromAminoMsg(object: MsgEditListingAminoMsg): MsgEditListing;
+    toAminoMsg(message: MsgEditListing): MsgEditListingAminoMsg;
     fromProtoMsg(message: MsgEditListingProtoMsg): MsgEditListing;
     toProto(message: MsgEditListing): Uint8Array;
     toProtoMsg(message: MsgEditListing): MsgEditListingProtoMsg;
@@ -343,6 +425,7 @@ export declare const MsgDeListNFT: {
     fromAmino(object: MsgDeListNFTAmino): MsgDeListNFT;
     toAmino(message: MsgDeListNFT): MsgDeListNFTAmino;
     fromAminoMsg(object: MsgDeListNFTAminoMsg): MsgDeListNFT;
+    toAminoMsg(message: MsgDeListNFT): MsgDeListNFTAminoMsg;
     fromProtoMsg(message: MsgDeListNFTProtoMsg): MsgDeListNFT;
     toProto(message: MsgDeListNFT): Uint8Array;
     toProtoMsg(message: MsgDeListNFT): MsgDeListNFTProtoMsg;
@@ -367,6 +450,7 @@ export declare const MsgBuyNFT: {
     fromAmino(object: MsgBuyNFTAmino): MsgBuyNFT;
     toAmino(message: MsgBuyNFT): MsgBuyNFTAmino;
     fromAminoMsg(object: MsgBuyNFTAminoMsg): MsgBuyNFT;
+    toAminoMsg(message: MsgBuyNFT): MsgBuyNFTAminoMsg;
     fromProtoMsg(message: MsgBuyNFTProtoMsg): MsgBuyNFT;
     toProto(message: MsgBuyNFT): Uint8Array;
     toProtoMsg(message: MsgBuyNFT): MsgBuyNFTProtoMsg;
@@ -391,6 +475,7 @@ export declare const MsgCreateAuction: {
     fromAmino(object: MsgCreateAuctionAmino): MsgCreateAuction;
     toAmino(message: MsgCreateAuction): MsgCreateAuctionAmino;
     fromAminoMsg(object: MsgCreateAuctionAminoMsg): MsgCreateAuction;
+    toAminoMsg(message: MsgCreateAuction): MsgCreateAuctionAminoMsg;
     fromProtoMsg(message: MsgCreateAuctionProtoMsg): MsgCreateAuction;
     toProto(message: MsgCreateAuction): Uint8Array;
     toProtoMsg(message: MsgCreateAuction): MsgCreateAuctionProtoMsg;
@@ -415,6 +500,7 @@ export declare const MsgCancelAuction: {
     fromAmino(object: MsgCancelAuctionAmino): MsgCancelAuction;
     toAmino(message: MsgCancelAuction): MsgCancelAuctionAmino;
     fromAminoMsg(object: MsgCancelAuctionAminoMsg): MsgCancelAuction;
+    toAminoMsg(message: MsgCancelAuction): MsgCancelAuctionAminoMsg;
     fromProtoMsg(message: MsgCancelAuctionProtoMsg): MsgCancelAuction;
     toProto(message: MsgCancelAuction): Uint8Array;
     toProtoMsg(message: MsgCancelAuction): MsgCancelAuctionProtoMsg;
@@ -439,6 +525,7 @@ export declare const MsgPlaceBid: {
     fromAmino(object: MsgPlaceBidAmino): MsgPlaceBid;
     toAmino(message: MsgPlaceBid): MsgPlaceBidAmino;
     fromAminoMsg(object: MsgPlaceBidAminoMsg): MsgPlaceBid;
+    toAminoMsg(message: MsgPlaceBid): MsgPlaceBidAminoMsg;
     fromProtoMsg(message: MsgPlaceBidProtoMsg): MsgPlaceBid;
     toProto(message: MsgPlaceBid): Uint8Array;
     toProtoMsg(message: MsgPlaceBid): MsgPlaceBidProtoMsg;
@@ -454,4 +541,28 @@ export declare const MsgPlaceBidResponse: {
     fromProtoMsg(message: MsgPlaceBidResponseProtoMsg): MsgPlaceBidResponse;
     toProto(message: MsgPlaceBidResponse): Uint8Array;
     toProtoMsg(message: MsgPlaceBidResponse): MsgPlaceBidResponseProtoMsg;
+};
+export declare const MsgUpdateParams: {
+    typeUrl: string;
+    encode(message: MsgUpdateParams, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgUpdateParams;
+    fromPartial(object: Partial<MsgUpdateParams>): MsgUpdateParams;
+    fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams;
+    toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino;
+    fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams;
+    fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams;
+    toProto(message: MsgUpdateParams): Uint8Array;
+    toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg;
+};
+export declare const MsgUpdateParamsResponse: {
+    typeUrl: string;
+    encode(_: MsgUpdateParamsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgUpdateParamsResponse;
+    fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse;
+    fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse;
+    toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino;
+    fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse;
+    fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse;
+    toProto(message: MsgUpdateParamsResponse): Uint8Array;
+    toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg;
 };

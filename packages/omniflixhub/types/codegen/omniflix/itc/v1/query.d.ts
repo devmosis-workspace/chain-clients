@@ -45,7 +45,7 @@ export interface QueryParamsResponseSDKType {
 export interface QueryCampaignsRequest {
     status: CampaignStatus;
     creator: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryCampaignsRequestProtoMsg {
     typeUrl: "/OmniFlix.itc.v1.QueryCampaignsRequest";
@@ -53,8 +53,8 @@ export interface QueryCampaignsRequestProtoMsg {
 }
 /** QueryCampaignsRequest is the request type for the Query/Campaigns RPC method. */
 export interface QueryCampaignsRequestAmino {
-    status: CampaignStatus;
-    creator: string;
+    status?: CampaignStatus;
+    creator?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryCampaignsRequestAminoMsg {
@@ -65,7 +65,7 @@ export interface QueryCampaignsRequestAminoMsg {
 export interface QueryCampaignsRequestSDKType {
     status: CampaignStatus;
     creator: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryCampaignsResponse is the response type for the Query/Campaigns RPC
@@ -73,7 +73,7 @@ export interface QueryCampaignsRequestSDKType {
  */
 export interface QueryCampaignsResponse {
     campaigns: Campaign[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryCampaignsResponseProtoMsg {
     typeUrl: "/OmniFlix.itc.v1.QueryCampaignsResponse";
@@ -84,7 +84,7 @@ export interface QueryCampaignsResponseProtoMsg {
  * method.
  */
 export interface QueryCampaignsResponseAmino {
-    campaigns: CampaignAmino[];
+    campaigns?: CampaignAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryCampaignsResponseAminoMsg {
@@ -97,7 +97,7 @@ export interface QueryCampaignsResponseAminoMsg {
  */
 export interface QueryCampaignsResponseSDKType {
     campaigns: CampaignSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryCampaignRequest is the request type for the Query/Campaign RPC method. */
 export interface QueryCampaignRequest {
@@ -109,7 +109,7 @@ export interface QueryCampaignRequestProtoMsg {
 }
 /** QueryCampaignRequest is the request type for the Query/Campaign RPC method. */
 export interface QueryCampaignRequestAmino {
-    campaign_id: string;
+    campaign_id?: string;
 }
 export interface QueryCampaignRequestAminoMsg {
     type: "/OmniFlix.itc.v1.QueryCampaignRequest";
@@ -143,7 +143,7 @@ export interface QueryCampaignResponseSDKType {
 export interface QueryClaimsRequest {
     campaignId: bigint;
     address: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryClaimsRequestProtoMsg {
     typeUrl: "/OmniFlix.itc.v1.QueryClaimsRequest";
@@ -151,8 +151,8 @@ export interface QueryClaimsRequestProtoMsg {
 }
 /** QueryClaimsRequest is the request type for the Query/Claims RPC method. */
 export interface QueryClaimsRequestAmino {
-    campaign_id: string;
-    address: string;
+    campaign_id?: string;
+    address?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryClaimsRequestAminoMsg {
@@ -163,18 +163,18 @@ export interface QueryClaimsRequestAminoMsg {
 export interface QueryClaimsRequestSDKType {
     campaign_id: bigint;
     address: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryClaimsResponse {
     claims: Claim[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryClaimsResponseProtoMsg {
     typeUrl: "/OmniFlix.itc.v1.QueryClaimsResponse";
     value: Uint8Array;
 }
 export interface QueryClaimsResponseAmino {
-    claims: ClaimAmino[];
+    claims?: ClaimAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryClaimsResponseAminoMsg {
@@ -183,7 +183,7 @@ export interface QueryClaimsResponseAminoMsg {
 }
 export interface QueryClaimsResponseSDKType {
     claims: ClaimSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export declare const QueryParamsRequest: {
     typeUrl: string;

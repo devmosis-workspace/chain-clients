@@ -14,9 +14,9 @@ export interface GenesisOwnersProtoMsg {
 /** GenesisOwners defines the capability owners with their corresponding index. */
 export interface GenesisOwnersAmino {
     /** index is the index of the capability owner. */
-    index: string;
+    index?: string;
     /** index_owners are the owners at the given index. */
-    index_owners?: CapabilityOwnersAmino;
+    index_owners: CapabilityOwnersAmino;
 }
 export interface GenesisOwnersAminoMsg {
     type: "cosmos-sdk/GenesisOwners";
@@ -44,7 +44,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the capability module's genesis state. */
 export interface GenesisStateAmino {
     /** index is the capability global index. */
-    index: string;
+    index?: string;
     /**
      * owners represents a map from index to owners of the capability index
      * index key is string to allow amino marshalling.

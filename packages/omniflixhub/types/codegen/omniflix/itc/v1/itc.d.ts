@@ -1,4 +1,4 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { BinaryWriter } from "../../../binary";
@@ -56,8 +56,8 @@ export interface Campaign {
     totalTokens: Coin;
     availableTokens: Coin;
     receivedNftIds: string[];
-    nftMintDetails: NFTDetails;
-    distribution: Distribution;
+    nftMintDetails?: NFTDetails;
+    distribution?: Distribution;
     mintCount: bigint;
     claimCount: bigint;
 }
@@ -66,24 +66,24 @@ export interface CampaignProtoMsg {
     value: Uint8Array;
 }
 export interface CampaignAmino {
-    id: string;
-    name: string;
-    description: string;
-    start_time?: TimestampAmino;
-    end_time?: TimestampAmino;
-    creator: string;
-    nft_denom_id: string;
-    max_allowed_claims: string;
-    interaction: InteractionType;
-    claim_type: ClaimType;
+    id?: string;
+    name?: string;
+    description?: string;
+    start_time?: string;
+    end_time?: string;
+    creator?: string;
+    nft_denom_id?: string;
+    max_allowed_claims?: string;
+    interaction?: InteractionType;
+    claim_type?: ClaimType;
     tokens_per_claim?: CoinAmino;
     total_tokens?: CoinAmino;
     available_tokens?: CoinAmino;
-    received_nft_ids: string[];
+    received_nft_ids?: string[];
     nft_mint_details?: NFTDetailsAmino;
     distribution?: DistributionAmino;
-    mint_count: string;
-    claim_count: string;
+    mint_count?: string;
+    claim_count?: string;
 }
 export interface CampaignAminoMsg {
     type: "/OmniFlix.itc.v1.Campaign";
@@ -104,8 +104,8 @@ export interface CampaignSDKType {
     total_tokens: CoinSDKType;
     available_tokens: CoinSDKType;
     received_nft_ids: string[];
-    nft_mint_details: NFTDetailsSDKType;
-    distribution: DistributionSDKType;
+    nft_mint_details?: NFTDetailsSDKType;
+    distribution?: DistributionSDKType;
     mint_count: bigint;
     claim_count: bigint;
 }
@@ -118,7 +118,7 @@ export interface DistributionProtoMsg {
     value: Uint8Array;
 }
 export interface DistributionAmino {
-    type: DistributionType;
+    type?: DistributionType;
     stream_duration?: DurationAmino;
 }
 export interface DistributionAminoMsg {
@@ -140,22 +140,24 @@ export interface NFTDetails {
     extensible: boolean;
     nsfw: boolean;
     data: string;
+    uriHash: string;
 }
 export interface NFTDetailsProtoMsg {
     typeUrl: "/OmniFlix.itc.v1.NFTDetails";
     value: Uint8Array;
 }
 export interface NFTDetailsAmino {
-    denom_id: string;
-    name: string;
-    description: string;
-    media_uri: string;
-    preview_uri: string;
-    royalty_share: string;
-    transferable: boolean;
-    extensible: boolean;
-    nsfw: boolean;
-    data: string;
+    denom_id?: string;
+    name?: string;
+    description?: string;
+    media_uri?: string;
+    preview_uri?: string;
+    royalty_share?: string;
+    transferable?: boolean;
+    extensible?: boolean;
+    nsfw?: boolean;
+    data?: string;
+    uri_hash?: string;
 }
 export interface NFTDetailsAminoMsg {
     type: "/OmniFlix.itc.v1.NFTDetails";
@@ -172,6 +174,7 @@ export interface NFTDetailsSDKType {
     extensible: boolean;
     nsfw: boolean;
     data: string;
+    uri_hash: string;
 }
 export interface Claim {
     campaignId: bigint;
@@ -184,10 +187,10 @@ export interface ClaimProtoMsg {
     value: Uint8Array;
 }
 export interface ClaimAmino {
-    campaign_id: string;
-    address: string;
-    nft_id: string;
-    interaction: InteractionType;
+    campaign_id?: string;
+    address?: string;
+    nft_id?: string;
+    interaction?: InteractionType;
 }
 export interface ClaimAminoMsg {
     type: "/OmniFlix.itc.v1.Claim";

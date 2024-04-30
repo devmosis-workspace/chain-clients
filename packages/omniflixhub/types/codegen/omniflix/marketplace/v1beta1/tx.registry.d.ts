@@ -1,5 +1,5 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgListNFT, MsgEditListing, MsgDeListNFT, MsgBuyNFT, MsgCreateAuction, MsgCancelAuction, MsgPlaceBid } from "./tx";
+import { MsgListNFT, MsgEditListing, MsgDeListNFT, MsgBuyNFT, MsgCreateAuction, MsgCancelAuction, MsgPlaceBid, MsgUpdateParams } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
@@ -29,6 +29,10 @@ export declare const MessageComposer: {
             value: Uint8Array;
         };
         placeBid(value: MsgPlaceBid): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        updateParams(value: MsgUpdateParams): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -62,6 +66,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgPlaceBid;
         };
+        updateParams(value: MsgUpdateParams): {
+            typeUrl: string;
+            value: MsgUpdateParams;
+        };
     };
     fromJSON: {
         listNFT(value: any): {
@@ -92,6 +100,10 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgPlaceBid;
         };
+        updateParams(value: any): {
+            typeUrl: string;
+            value: MsgUpdateParams;
+        };
     };
     fromPartial: {
         listNFT(value: MsgListNFT): {
@@ -121,6 +133,10 @@ export declare const MessageComposer: {
         placeBid(value: MsgPlaceBid): {
             typeUrl: string;
             value: MsgPlaceBid;
+        };
+        updateParams(value: MsgUpdateParams): {
+            typeUrl: string;
+            value: MsgUpdateParams;
         };
     };
 };

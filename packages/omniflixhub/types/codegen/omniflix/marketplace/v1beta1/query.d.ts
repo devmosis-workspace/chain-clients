@@ -45,15 +45,15 @@ export interface QueryParamsResponseSDKType {
 export interface QueryListingsRequest {
     owner: string;
     priceDenom: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryListingsRequestProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsRequest";
     value: Uint8Array;
 }
 export interface QueryListingsRequestAmino {
-    owner: string;
-    price_denom: string;
+    owner?: string;
+    price_denom?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryListingsRequestAminoMsg {
@@ -63,18 +63,18 @@ export interface QueryListingsRequestAminoMsg {
 export interface QueryListingsRequestSDKType {
     owner: string;
     price_denom: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryListingsResponse {
     listings: Listing[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryListingsResponseProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsResponse";
     value: Uint8Array;
 }
 export interface QueryListingsResponseAmino {
-    listings: ListingAmino[];
+    listings?: ListingAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryListingsResponseAminoMsg {
@@ -83,7 +83,7 @@ export interface QueryListingsResponseAminoMsg {
 }
 export interface QueryListingsResponseSDKType {
     listings: ListingSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryListingRequest {
     id: string;
@@ -93,7 +93,7 @@ export interface QueryListingRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryListingRequestAmino {
-    id: string;
+    id?: string;
 }
 export interface QueryListingRequestAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.QueryListingRequest";
@@ -103,7 +103,7 @@ export interface QueryListingRequestSDKType {
     id: string;
 }
 export interface QueryListingResponse {
-    listing: Listing;
+    listing?: Listing;
 }
 export interface QueryListingResponseProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingResponse";
@@ -117,18 +117,18 @@ export interface QueryListingResponseAminoMsg {
     value: QueryListingResponseAmino;
 }
 export interface QueryListingResponseSDKType {
-    listing: ListingSDKType;
+    listing?: ListingSDKType;
 }
 export interface QueryListingsByOwnerRequest {
     owner: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryListingsByOwnerRequestProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsByOwnerRequest";
     value: Uint8Array;
 }
 export interface QueryListingsByOwnerRequestAmino {
-    owner: string;
+    owner?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryListingsByOwnerRequestAminoMsg {
@@ -137,18 +137,18 @@ export interface QueryListingsByOwnerRequestAminoMsg {
 }
 export interface QueryListingsByOwnerRequestSDKType {
     owner: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryListingsByOwnerResponse {
     listings: Listing[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryListingsByOwnerResponseProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsByOwnerResponse";
     value: Uint8Array;
 }
 export interface QueryListingsByOwnerResponseAmino {
-    listings: ListingAmino[];
+    listings?: ListingAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryListingsByOwnerResponseAminoMsg {
@@ -157,7 +157,7 @@ export interface QueryListingsByOwnerResponseAminoMsg {
 }
 export interface QueryListingsByOwnerResponseSDKType {
     listings: ListingSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryListingByNFTIDRequest {
     nftId: string;
@@ -167,7 +167,7 @@ export interface QueryListingByNFTIDRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryListingByNFTIDRequestAmino {
-    nft_id: string;
+    nft_id?: string;
 }
 export interface QueryListingByNFTIDRequestAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.QueryListingByNFTIDRequest";
@@ -178,14 +178,14 @@ export interface QueryListingByNFTIDRequestSDKType {
 }
 export interface QueryListingsByPriceDenomRequest {
     priceDenom: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryListingsByPriceDenomRequestProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsByPriceDenomRequest";
     value: Uint8Array;
 }
 export interface QueryListingsByPriceDenomRequestAmino {
-    price_denom: string;
+    price_denom?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryListingsByPriceDenomRequestAminoMsg {
@@ -194,18 +194,18 @@ export interface QueryListingsByPriceDenomRequestAminoMsg {
 }
 export interface QueryListingsByPriceDenomRequestSDKType {
     price_denom: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryListingsByPriceDenomResponse {
     listings: Listing[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryListingsByPriceDenomResponseProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryListingsByPriceDenomResponse";
     value: Uint8Array;
 }
 export interface QueryListingsByPriceDenomResponseAmino {
-    listings: ListingAmino[];
+    listings?: ListingAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryListingsByPriceDenomResponseAminoMsg {
@@ -214,22 +214,22 @@ export interface QueryListingsByPriceDenomResponseAminoMsg {
 }
 export interface QueryListingsByPriceDenomResponseSDKType {
     listings: ListingSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryAuctionsRequest {
     status: AuctionStatus;
     owner: string;
     priceDenom: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAuctionsRequestProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryAuctionsRequest";
     value: Uint8Array;
 }
 export interface QueryAuctionsRequestAmino {
-    status: AuctionStatus;
-    owner: string;
-    price_denom: string;
+    status?: AuctionStatus;
+    owner?: string;
+    price_denom?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryAuctionsRequestAminoMsg {
@@ -240,18 +240,18 @@ export interface QueryAuctionsRequestSDKType {
     status: AuctionStatus;
     owner: string;
     price_denom: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryAuctionsResponse {
     auctions: AuctionListing[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAuctionsResponseProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryAuctionsResponse";
     value: Uint8Array;
 }
 export interface QueryAuctionsResponseAmino {
-    auctions: AuctionListingAmino[];
+    auctions?: AuctionListingAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryAuctionsResponseAminoMsg {
@@ -260,7 +260,7 @@ export interface QueryAuctionsResponseAminoMsg {
 }
 export interface QueryAuctionsResponseSDKType {
     auctions: AuctionListingSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryAuctionRequest {
     id: bigint;
@@ -270,7 +270,7 @@ export interface QueryAuctionRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryAuctionRequestAmino {
-    id: string;
+    id?: string;
 }
 export interface QueryAuctionRequestAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.QueryAuctionRequest";
@@ -280,7 +280,7 @@ export interface QueryAuctionRequestSDKType {
     id: bigint;
 }
 export interface QueryAuctionResponse {
-    auction: AuctionListing;
+    auction?: AuctionListing;
 }
 export interface QueryAuctionResponseProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryAuctionResponse";
@@ -294,18 +294,18 @@ export interface QueryAuctionResponseAminoMsg {
     value: QueryAuctionResponseAmino;
 }
 export interface QueryAuctionResponseSDKType {
-    auction: AuctionListingSDKType;
+    auction?: AuctionListingSDKType;
 }
 export interface QueryAuctionsByOwnerRequest {
     owner: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAuctionsByOwnerRequestProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryAuctionsByOwnerRequest";
     value: Uint8Array;
 }
 export interface QueryAuctionsByOwnerRequestAmino {
-    owner: string;
+    owner?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryAuctionsByOwnerRequestAminoMsg {
@@ -314,7 +314,7 @@ export interface QueryAuctionsByOwnerRequestAminoMsg {
 }
 export interface QueryAuctionsByOwnerRequestSDKType {
     owner: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryAuctionByNFTIDRequest {
     nftId: string;
@@ -324,7 +324,7 @@ export interface QueryAuctionByNFTIDRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryAuctionByNFTIDRequestAmino {
-    nft_id: string;
+    nft_id?: string;
 }
 export interface QueryAuctionByNFTIDRequestAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.QueryAuctionByNFTIDRequest";
@@ -335,14 +335,14 @@ export interface QueryAuctionByNFTIDRequestSDKType {
 }
 export interface QueryAuctionsByPriceDenomRequest {
     priceDenom: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAuctionsByPriceDenomRequestProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryAuctionsByPriceDenomRequest";
     value: Uint8Array;
 }
 export interface QueryAuctionsByPriceDenomRequestAmino {
-    price_denom: string;
+    price_denom?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryAuctionsByPriceDenomRequestAminoMsg {
@@ -351,18 +351,18 @@ export interface QueryAuctionsByPriceDenomRequestAminoMsg {
 }
 export interface QueryAuctionsByPriceDenomRequestSDKType {
     price_denom: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryBidsRequest {
     bidder: string;
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryBidsRequestProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryBidsRequest";
     value: Uint8Array;
 }
 export interface QueryBidsRequestAmino {
-    bidder: string;
+    bidder?: string;
     pagination?: PageRequestAmino;
 }
 export interface QueryBidsRequestAminoMsg {
@@ -371,18 +371,18 @@ export interface QueryBidsRequestAminoMsg {
 }
 export interface QueryBidsRequestSDKType {
     bidder: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 export interface QueryBidsResponse {
     bids: Bid[];
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryBidsResponseProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryBidsResponse";
     value: Uint8Array;
 }
 export interface QueryBidsResponseAmino {
-    bids: BidAmino[];
+    bids?: BidAmino[];
     pagination?: PageResponseAmino;
 }
 export interface QueryBidsResponseAminoMsg {
@@ -391,7 +391,7 @@ export interface QueryBidsResponseAminoMsg {
 }
 export interface QueryBidsResponseSDKType {
     bids: BidSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 export interface QueryBidRequest {
     id: bigint;
@@ -401,7 +401,7 @@ export interface QueryBidRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryBidRequestAmino {
-    id: string;
+    id?: string;
 }
 export interface QueryBidRequestAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.QueryBidRequest";
@@ -411,7 +411,7 @@ export interface QueryBidRequestSDKType {
     id: bigint;
 }
 export interface QueryBidResponse {
-    bid: Bid;
+    bid?: Bid;
 }
 export interface QueryBidResponseProtoMsg {
     typeUrl: "/OmniFlix.marketplace.v1beta1.QueryBidResponse";
@@ -425,7 +425,7 @@ export interface QueryBidResponseAminoMsg {
     value: QueryBidResponseAmino;
 }
 export interface QueryBidResponseSDKType {
-    bid: BidSDKType;
+    bid?: BidSDKType;
 }
 export declare const QueryParamsRequest: {
     typeUrl: string;

@@ -4,14 +4,14 @@ import { BinaryWriter } from "../../../binary";
 export interface QueryParamsRequest {
 }
 export interface QueryParamsRequestProtoMsg {
-    typeUrl: "/omniflix.alloc.v1beta1.QueryParamsRequest";
+    typeUrl: "/OmniFlix.alloc.v1beta1.QueryParamsRequest";
     value: Uint8Array;
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequestAmino {
 }
 export interface QueryParamsRequestAminoMsg {
-    type: "/omniflix.alloc.v1beta1.QueryParamsRequest";
+    type: "/OmniFlix.alloc.v1beta1.QueryParamsRequest";
     value: QueryParamsRequestAmino;
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
@@ -23,7 +23,7 @@ export interface QueryParamsResponse {
     params: Params;
 }
 export interface QueryParamsResponseProtoMsg {
-    typeUrl: "/omniflix.alloc.v1beta1.QueryParamsResponse";
+    typeUrl: "/OmniFlix.alloc.v1beta1.QueryParamsResponse";
     value: Uint8Array;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
@@ -32,7 +32,7 @@ export interface QueryParamsResponseAmino {
     params?: ParamsAmino;
 }
 export interface QueryParamsResponseAminoMsg {
-    type: "/omniflix.alloc.v1beta1.QueryParamsResponse";
+    type: "/OmniFlix.alloc.v1beta1.QueryParamsResponse";
     value: QueryParamsResponseAmino;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */

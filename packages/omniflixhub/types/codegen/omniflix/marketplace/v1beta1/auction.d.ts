@@ -1,5 +1,5 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { WeightedAddress, WeightedAddressAmino, WeightedAddressSDKType } from "./listing";
 import { BinaryWriter } from "../../../binary";
 export declare enum AuctionStatus {
@@ -18,7 +18,7 @@ export interface AuctionListing {
     denomId: string;
     startPrice: Coin;
     startTime: Timestamp;
-    endTime: Timestamp;
+    endTime?: Timestamp;
     owner: string;
     incrementPercentage: string;
     whitelistAccounts: string[];
@@ -29,16 +29,16 @@ export interface AuctionListingProtoMsg {
     value: Uint8Array;
 }
 export interface AuctionListingAmino {
-    id: string;
-    nft_id: string;
-    denom_id: string;
+    id?: string;
+    nft_id?: string;
+    denom_id?: string;
     start_price?: CoinAmino;
-    start_time?: TimestampAmino;
-    end_time?: TimestampAmino;
-    owner: string;
-    increment_percentage: string;
-    whitelist_accounts: string[];
-    split_shares: WeightedAddressAmino[];
+    start_time?: string;
+    end_time?: string;
+    owner?: string;
+    increment_percentage?: string;
+    whitelist_accounts?: string[];
+    split_shares?: WeightedAddressAmino[];
 }
 export interface AuctionListingAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.AuctionListing";
@@ -50,7 +50,7 @@ export interface AuctionListingSDKType {
     denom_id: string;
     start_price: CoinSDKType;
     start_time: TimestampSDKType;
-    end_time: TimestampSDKType;
+    end_time?: TimestampSDKType;
     owner: string;
     increment_percentage: string;
     whitelist_accounts: string[];
@@ -67,10 +67,10 @@ export interface BidProtoMsg {
     value: Uint8Array;
 }
 export interface BidAmino {
-    auction_id: string;
-    bidder: string;
+    auction_id?: string;
+    bidder?: string;
     amount?: CoinAmino;
-    time?: TimestampAmino;
+    time?: string;
 }
 export interface BidAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.Bid";

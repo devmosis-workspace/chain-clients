@@ -12,10 +12,10 @@ export interface EventListNFTProtoMsg {
 }
 /** EventListONFT is emitted on NFT Listing on market */
 export interface EventListNFTAmino {
-    id: string;
-    nft_id: string;
-    denom_id: string;
-    owner: string;
+    id?: string;
+    nft_id?: string;
+    denom_id?: string;
+    owner?: string;
 }
 export interface EventListNFTAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.EventListNFT";
@@ -41,10 +41,10 @@ export interface EventEditListingProtoMsg {
 }
 /** EventEditListing is emitted on edit Listing on market */
 export interface EventEditListingAmino {
-    id: string;
-    nft_id: string;
-    denom_id: string;
-    owner: string;
+    id?: string;
+    nft_id?: string;
+    denom_id?: string;
+    owner?: string;
 }
 export interface EventEditListingAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.EventEditListing";
@@ -70,10 +70,10 @@ export interface EventDeListNFTProtoMsg {
 }
 /** EventDeListONFT is emitted on NFT DeListing from market */
 export interface EventDeListNFTAmino {
-    id: string;
-    nft_id: string;
-    denom_id: string;
-    owner: string;
+    id?: string;
+    nft_id?: string;
+    denom_id?: string;
+    owner?: string;
 }
 export interface EventDeListNFTAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.EventDeListNFT";
@@ -100,11 +100,11 @@ export interface EventBuyNFTProtoMsg {
 }
 /** EventBuyONFT is emitted on NFT Buy */
 export interface EventBuyNFTAmino {
-    id: string;
-    nft_id: string;
-    denom_id: string;
-    owner: string;
-    buyer: string;
+    id?: string;
+    nft_id?: string;
+    denom_id?: string;
+    owner?: string;
+    buyer?: string;
 }
 export interface EventBuyNFTAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.EventBuyNFT";
@@ -132,11 +132,11 @@ export interface EventCreateAuctionProtoMsg {
 }
 /** EventCreateAuction is emitted on creating auction */
 export interface EventCreateAuctionAmino {
-    id: string;
-    nft_id: string;
-    denom_id: string;
-    owner: string;
-    min_price: string;
+    id?: string;
+    nft_id?: string;
+    denom_id?: string;
+    owner?: string;
+    min_price?: string;
 }
 export interface EventCreateAuctionAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.EventCreateAuction";
@@ -163,10 +163,10 @@ export interface EventCancelAuctionProtoMsg {
 }
 /** EventCancelAuction is emitted on canceling auction */
 export interface EventCancelAuctionAmino {
-    id: string;
-    nft_id: string;
-    denom_id: string;
-    owner: string;
+    id?: string;
+    nft_id?: string;
+    denom_id?: string;
+    owner?: string;
 }
 export interface EventCancelAuctionAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.EventCancelAuction";
@@ -193,11 +193,11 @@ export interface EventPlaceBidProtoMsg {
 }
 /** EventPlaceBid is emitted on placing bid for an auction */
 export interface EventPlaceBidAmino {
-    auction_id: string;
-    nft_id: string;
-    denom_id: string;
-    bidder: string;
-    amount: string;
+    auction_id?: string;
+    nft_id?: string;
+    denom_id?: string;
+    bidder?: string;
+    amount?: string;
 }
 export interface EventPlaceBidAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.EventPlaceBid";

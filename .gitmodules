@@ -274,3 +274,6 @@
 [submodule "packages/mars/wasmd"]
 	path = packages/mars/wasmd
 	url = https://github.com/notional-labs/wasmd
+[submodule "packages/omniflixhub/wasmd"]
+	path = packages/omniflixhub/wasmd
+	url = https://github.com/CosmWasm/wasmd

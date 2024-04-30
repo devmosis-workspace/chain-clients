@@ -5,22 +5,26 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
  * Evidence of misbehavior such as equivocation or counterfactual signing.
  */
 export interface MsgSubmitEvidence {
+    /** submitter is the signer account address of evidence. */
     submitter: string;
-    evidence: (Any) | undefined;
+    /** evidence defines the evidence of misbehavior. */
+    evidence?: (Any) | undefined;
 }
 export interface MsgSubmitEvidenceProtoMsg {
     typeUrl: "/cosmos.evidence.v1beta1.MsgSubmitEvidence";
     value: Uint8Array;
 }
 export type MsgSubmitEvidenceEncoded = Omit<MsgSubmitEvidence, "evidence"> & {
-    evidence?: AnyProtoMsg | undefined;
+    /** evidence defines the evidence of misbehavior. */ evidence?: AnyProtoMsg | undefined;
 };
 /**
  * MsgSubmitEvidence represents a message that supports submitting arbitrary
  * Evidence of misbehavior such as equivocation or counterfactual signing.
  */
 export interface MsgSubmitEvidenceAmino {
-    submitter: string;
+    /** submitter is the signer account address of evidence. */
+    submitter?: string;
+    /** evidence defines the evidence of misbehavior. */
     evidence?: AnyAmino;
 }
 export interface MsgSubmitEvidenceAminoMsg {
@@ -33,7 +37,7 @@ export interface MsgSubmitEvidenceAminoMsg {
  */
 export interface MsgSubmitEvidenceSDKType {
     submitter: string;
-    evidence: AnySDKType | undefined;
+    evidence?: AnySDKType | undefined;
 }
 /** MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type. */
 export interface MsgSubmitEvidenceResponse {
@@ -47,7 +51,7 @@ export interface MsgSubmitEvidenceResponseProtoMsg {
 /** MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type. */
 export interface MsgSubmitEvidenceResponseAmino {
     /** hash defines the hash of the evidence. */
-    hash: Uint8Array;
+    hash?: string;
 }
 export interface MsgSubmitEvidenceResponseAminoMsg {
     type: "cosmos-sdk/MsgSubmitEvidenceResponse";
@@ -83,6 +87,6 @@ export declare const MsgSubmitEvidenceResponse: {
     toProto(message: MsgSubmitEvidenceResponse): Uint8Array;
     toProtoMsg(message: MsgSubmitEvidenceResponse): MsgSubmitEvidenceResponseProtoMsg;
 };
-export declare const Evidence_InterfaceDecoder: (input: BinaryReader | Uint8Array) => Any;
-export declare const Evidence_FromAmino: (content: AnyAmino) => Any;
-export declare const Evidence_ToAmino: (content: Any) => AnyAmino;
+export declare const Cosmos_evidencev1beta1Evidence_InterfaceDecoder: (input: BinaryReader | Uint8Array) => Any;
+export declare const Cosmos_evidencev1beta1Evidence_FromAmino: (content: AnyAmino) => Any;
+export declare const Cosmos_evidencev1beta1Evidence_ToAmino: (content: Any) => AnyAmino;

@@ -1,4 +1,4 @@
-import { MsgSetWithdrawAddress, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission, MsgFundCommunityPool } from "./tx";
+import { MsgSetWithdrawAddress, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission, MsgFundCommunityPool, MsgUpdateParams, MsgCommunityPoolSpend } from "./tx";
 export declare const AminoConverter: {
     "/cosmos.distribution.v1beta1.MsgSetWithdrawAddress": {
         aminoType: string;
@@ -19,5 +19,15 @@ export declare const AminoConverter: {
         aminoType: string;
         toAmino: (message: MsgFundCommunityPool) => import("./tx").MsgFundCommunityPoolAmino;
         fromAmino: (object: import("./tx").MsgFundCommunityPoolAmino) => MsgFundCommunityPool;
+    };
+    "/cosmos.distribution.v1beta1.MsgUpdateParams": {
+        aminoType: string;
+        toAmino: (message: MsgUpdateParams) => import("./tx").MsgUpdateParamsAmino;
+        fromAmino: (object: import("./tx").MsgUpdateParamsAmino) => MsgUpdateParams;
+    };
+    "/cosmos.distribution.v1beta1.MsgCommunityPoolSpend": {
+        aminoType: string;
+        toAmino: (message: MsgCommunityPoolSpend) => import("./tx").MsgCommunityPoolSpendAmino;
+        fromAmino: (object: import("./tx").MsgCommunityPoolSpendAmino) => MsgCommunityPoolSpend;
     };
 };

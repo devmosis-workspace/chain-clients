@@ -11,7 +11,7 @@ export interface ParamsProtoMsg {
     value: Uint8Array;
 }
 export interface ParamsAmino {
-    sale_commission: string;
+    sale_commission?: string;
     distribution?: DistributionAmino;
     bid_close_duration?: DurationAmino;
     max_auction_duration?: DurationAmino;
@@ -35,8 +35,8 @@ export interface DistributionProtoMsg {
     value: Uint8Array;
 }
 export interface DistributionAmino {
-    staking: string;
-    community_pool: string;
+    staking?: string;
+    community_pool?: string;
 }
 export interface DistributionAminoMsg {
     type: "/OmniFlix.marketplace.v1beta1.Distribution";
