@@ -280,3 +280,12 @@
 [submodule "packages/persistence/wasmd"]
 	path = packages/persistence/wasmd
 	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/quasar/quasar"]
+	path = packages/quasar/quasar
+	url = https://github.com/quasar-finance/quasar
+[submodule "packages/quasar/cosmos-sdk"]
+	path = packages/quasar/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/quasar/wasmd"]
+	path = packages/quasar/wasmd
+	url = https://github.com/CosmWasm/wasmd
