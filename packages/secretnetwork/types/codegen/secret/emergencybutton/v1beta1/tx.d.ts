@@ -9,7 +9,7 @@ export interface MsgToggleIbcSwitchProtoMsg {
 }
 /** MsgToggleIbcSwitch represents a message to toggle the emergencybutton status by the defined pauser. */
 export interface MsgToggleIbcSwitchAmino {
-    sender: string;
+    sender?: string;
 }
 export interface MsgToggleIbcSwitchAminoMsg {
     type: "/secret.emergencybutton.v1beta1.MsgToggleIbcSwitch";

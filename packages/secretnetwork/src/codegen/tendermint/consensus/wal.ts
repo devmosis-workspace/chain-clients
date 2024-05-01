@@ -1,7 +1,7 @@
 import { Message, MessageAmino, MessageSDKType } from "./types";
 import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
 import { EventDataRoundState, EventDataRoundStateAmino, EventDataRoundStateSDKType } from "../types/events";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../binary";
 import { isSet, fromJsonTimestamp } from "../../helpers";
 /** MsgInfo are msgs from the reactor which may update the state */
@@ -16,7 +16,7 @@ export interface MsgInfoProtoMsg {
 /** MsgInfo are msgs from the reactor which may update the state */
 export interface MsgInfoAmino {
   msg?: MessageAmino;
-  peer_id: string;
+  peer_id?: string;
 }
 export interface MsgInfoAminoMsg {
   type: "/tendermint.consensus.MsgInfo";
@@ -41,9 +41,9 @@ export interface TimeoutInfoProtoMsg {
 /** TimeoutInfo internally generated messages which may update the state */
 export interface TimeoutInfoAmino {
   duration?: DurationAmino;
-  height: string;
-  round: number;
-  step: number;
+  height?: string;
+  round?: number;
+  step?: number;
 }
 export interface TimeoutInfoAminoMsg {
   type: "/tendermint.consensus.TimeoutInfo";
@@ -72,7 +72,7 @@ export interface EndHeightProtoMsg {
  * @internal used by scripts/wal2json util.
  */
 export interface EndHeightAmino {
-  height: string;
+  height?: string;
 }
 export interface EndHeightAminoMsg {
   type: "/tendermint.consensus.EndHeight";
@@ -114,7 +114,7 @@ export interface WALMessageSDKType {
 /** TimedWALMessage wraps WALMessage and adds Time for debugging purposes. */
 export interface TimedWALMessage {
   time: Timestamp;
-  msg: WALMessage;
+  msg?: WALMessage;
 }
 export interface TimedWALMessageProtoMsg {
   typeUrl: "/tendermint.consensus.TimedWALMessage";
@@ -122,7 +122,7 @@ export interface TimedWALMessageProtoMsg {
 }
 /** TimedWALMessage wraps WALMessage and adds Time for debugging purposes. */
 export interface TimedWALMessageAmino {
-  time?: TimestampAmino;
+  time?: string;
   msg?: WALMessageAmino;
 }
 export interface TimedWALMessageAminoMsg {
@@ -132,7 +132,7 @@ export interface TimedWALMessageAminoMsg {
 /** TimedWALMessage wraps WALMessage and adds Time for debugging purposes. */
 export interface TimedWALMessageSDKType {
   time: TimestampSDKType;
-  msg: WALMessageSDKType;
+  msg?: WALMessageSDKType;
 }
 function createBaseMsgInfo(): MsgInfo {
   return {
@@ -164,15 +164,19 @@ export const MsgInfo = {
     return message;
   },
   fromAmino(object: MsgInfoAmino): MsgInfo {
-    return {
-      msg: object?.msg ? Message.fromAmino(object.msg) : undefined,
-      peerId: object.peer_id
-    };
+    const message = createBaseMsgInfo();
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = Message.fromAmino(object.msg);
+    }
+    if (object.peer_id !== undefined && object.peer_id !== null) {
+      message.peerId = object.peer_id;
+    }
+    return message;
   },
   toAmino(message: MsgInfo): MsgInfoAmino {
     const obj: any = {};
     obj.msg = message.msg ? Message.toAmino(message.msg) : undefined;
-    obj.peer_id = message.peerId;
+    obj.peer_id = message.peerId === "" ? undefined : message.peerId;
     return obj;
   },
   fromAminoMsg(object: MsgInfoAminoMsg): MsgInfo {
@@ -233,19 +237,27 @@ export const TimeoutInfo = {
     return message;
   },
   fromAmino(object: TimeoutInfoAmino): TimeoutInfo {
-    return {
-      duration: object?.duration ? Duration.fromAmino(object.duration) : undefined,
-      height: BigInt(object.height),
-      round: object.round,
-      step: object.step
-    };
+    const message = createBaseTimeoutInfo();
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = Duration.fromAmino(object.duration);
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.round !== undefined && object.round !== null) {
+      message.round = object.round;
+    }
+    if (object.step !== undefined && object.step !== null) {
+      message.step = object.step;
+    }
+    return message;
   },
   toAmino(message: TimeoutInfo): TimeoutInfoAmino {
     const obj: any = {};
     obj.duration = message.duration ? Duration.toAmino(message.duration) : undefined;
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.round = message.round;
-    obj.step = message.step;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.round = message.round === 0 ? undefined : message.round;
+    obj.step = message.step === 0 ? undefined : message.step;
     return obj;
   },
   fromAminoMsg(object: TimeoutInfoAminoMsg): TimeoutInfo {
@@ -288,13 +300,15 @@ export const EndHeight = {
     return message;
   },
   fromAmino(object: EndHeightAmino): EndHeight {
-    return {
-      height: BigInt(object.height)
-    };
+    const message = createBaseEndHeight();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    return message;
   },
   toAmino(message: EndHeight): EndHeightAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: EndHeightAminoMsg): EndHeight {
@@ -355,12 +369,20 @@ export const WALMessage = {
     return message;
   },
   fromAmino(object: WALMessageAmino): WALMessage {
-    return {
-      eventDataRoundState: object?.event_data_round_state ? EventDataRoundState.fromAmino(object.event_data_round_state) : undefined,
-      msgInfo: object?.msg_info ? MsgInfo.fromAmino(object.msg_info) : undefined,
-      timeoutInfo: object?.timeout_info ? TimeoutInfo.fromAmino(object.timeout_info) : undefined,
-      endHeight: object?.end_height ? EndHeight.fromAmino(object.end_height) : undefined
-    };
+    const message = createBaseWALMessage();
+    if (object.event_data_round_state !== undefined && object.event_data_round_state !== null) {
+      message.eventDataRoundState = EventDataRoundState.fromAmino(object.event_data_round_state);
+    }
+    if (object.msg_info !== undefined && object.msg_info !== null) {
+      message.msgInfo = MsgInfo.fromAmino(object.msg_info);
+    }
+    if (object.timeout_info !== undefined && object.timeout_info !== null) {
+      message.timeoutInfo = TimeoutInfo.fromAmino(object.timeout_info);
+    }
+    if (object.end_height !== undefined && object.end_height !== null) {
+      message.endHeight = EndHeight.fromAmino(object.end_height);
+    }
+    return message;
   },
   toAmino(message: WALMessage): WALMessageAmino {
     const obj: any = {};
@@ -389,7 +411,7 @@ export const WALMessage = {
 function createBaseTimedWALMessage(): TimedWALMessage {
   return {
     time: Timestamp.fromPartial({}),
-    msg: WALMessage.fromPartial({})
+    msg: undefined
   };
 }
 export const TimedWALMessage = {
@@ -416,14 +438,18 @@ export const TimedWALMessage = {
     return message;
   },
   fromAmino(object: TimedWALMessageAmino): TimedWALMessage {
-    return {
-      time: object.time,
-      msg: object?.msg ? WALMessage.fromAmino(object.msg) : undefined
-    };
+    const message = createBaseTimedWALMessage();
+    if (object.time !== undefined && object.time !== null) {
+      message.time = Timestamp.fromAmino(object.time);
+    }
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = WALMessage.fromAmino(object.msg);
+    }
+    return message;
   },
   toAmino(message: TimedWALMessage): TimedWALMessageAmino {
     const obj: any = {};
-    obj.time = message.time;
+    obj.time = message.time ? Timestamp.toAmino(message.time) : undefined;
     obj.msg = message.msg ? WALMessage.toAmino(message.msg) : undefined;
     return obj;
   },

@@ -10,8 +10,8 @@ export interface QueryInterchainAccountFromAddressRequestProtoMsg {
 }
 /** QueryInterchainAccountFromAddressRequest is the request type for the Query/InterchainAccountAddress RPC */
 export interface QueryInterchainAccountFromAddressRequestAmino {
-    owner: string;
-    connection_id: string;
+    owner?: string;
+    connection_id?: string;
 }
 export interface QueryInterchainAccountFromAddressRequestAminoMsg {
     type: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressRequest";
@@ -32,7 +32,7 @@ export interface QueryInterchainAccountFromAddressResponseProtoMsg {
 }
 /** QueryInterchainAccountFromAddressResponse the response type for the Query/InterchainAccountAddress RPC */
 export interface QueryInterchainAccountFromAddressResponseAmino {
-    interchain_account_address: string;
+    interchain_account_address?: string;
 }
 export interface QueryInterchainAccountFromAddressResponseAminoMsg {
     type: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressResponse";

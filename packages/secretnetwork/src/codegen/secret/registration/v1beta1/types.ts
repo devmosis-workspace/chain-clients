@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface SeedConfig {
   masterKey: string;
   encryptedKey: string;
@@ -52,8 +52,8 @@ export interface RegistrationNodeInfoProtoMsg {
   value: Uint8Array;
 }
 export interface RegistrationNodeInfoAmino {
-  certificate: Uint8Array;
-  encrypted_seed: Uint8Array;
+  certificate?: string;
+  encrypted_seed?: string;
 }
 export interface RegistrationNodeInfoAminoMsg {
   type: "/secret.registration.v1beta1.RegistrationNodeInfo";
@@ -99,17 +99,23 @@ export const SeedConfig = {
     return message;
   },
   fromAmino(object: SeedConfigAmino): SeedConfig {
-    return {
-      masterKey: object.master_key,
-      encryptedKey: object.encrypted_key,
-      version: object.version
-    };
+    const message = createBaseSeedConfig();
+    if (object.master_key !== undefined && object.master_key !== null) {
+      message.masterKey = object.master_key;
+    }
+    if (object.encrypted_key !== undefined && object.encrypted_key !== null) {
+      message.encryptedKey = object.encrypted_key;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
   },
   toAmino(message: SeedConfig): SeedConfigAmino {
     const obj: any = {};
-    obj.master_key = message.masterKey;
-    obj.encrypted_key = message.encryptedKey;
-    obj.version = message.version;
+    obj.master_key = message.masterKey ?? "";
+    obj.encrypted_key = message.encryptedKey ?? "";
+    obj.version = message.version ?? 0;
     return obj;
   },
   fromAminoMsg(object: SeedConfigAminoMsg): SeedConfig {
@@ -158,15 +164,19 @@ export const LegacySeedConfig = {
     return message;
   },
   fromAmino(object: LegacySeedConfigAmino): LegacySeedConfig {
-    return {
-      masterCert: object.master_cert,
-      encryptedKey: object.encrypted_key
-    };
+    const message = createBaseLegacySeedConfig();
+    if (object.master_cert !== undefined && object.master_cert !== null) {
+      message.masterCert = object.master_cert;
+    }
+    if (object.encrypted_key !== undefined && object.encrypted_key !== null) {
+      message.encryptedKey = object.encrypted_key;
+    }
+    return message;
   },
   toAmino(message: LegacySeedConfig): LegacySeedConfigAmino {
     const obj: any = {};
-    obj.master_cert = message.masterCert;
-    obj.encrypted_key = message.encryptedKey;
+    obj.master_cert = message.masterCert ?? "";
+    obj.encrypted_key = message.encryptedKey ?? "";
     return obj;
   },
   fromAminoMsg(object: LegacySeedConfigAminoMsg): LegacySeedConfig {
@@ -215,15 +225,19 @@ export const RegistrationNodeInfo = {
     return message;
   },
   fromAmino(object: RegistrationNodeInfoAmino): RegistrationNodeInfo {
-    return {
-      certificate: object.certificate,
-      encryptedSeed: object.encrypted_seed
-    };
+    const message = createBaseRegistrationNodeInfo();
+    if (object.certificate !== undefined && object.certificate !== null) {
+      message.certificate = bytesFromBase64(object.certificate);
+    }
+    if (object.encrypted_seed !== undefined && object.encrypted_seed !== null) {
+      message.encryptedSeed = bytesFromBase64(object.encrypted_seed);
+    }
+    return message;
   },
   toAmino(message: RegistrationNodeInfo): RegistrationNodeInfoAmino {
     const obj: any = {};
-    obj.certificate = message.certificate;
-    obj.encrypted_seed = message.encryptedSeed;
+    obj.certificate = message.certificate ? base64FromBytes(message.certificate) : undefined;
+    obj.encrypted_seed = message.encryptedSeed ? base64FromBytes(message.encryptedSeed) : undefined;
     return obj;
   },
   fromAminoMsg(object: RegistrationNodeInfoAminoMsg): RegistrationNodeInfo {

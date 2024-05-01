@@ -1,6 +1,6 @@
 import { CodeInfo, CodeInfoAmino, CodeInfoSDKType, ContractInfo, ContractInfoAmino, ContractInfoSDKType, Model, ModelAmino, ModelSDKType, ContractCustomInfo, ContractCustomInfoAmino, ContractCustomInfoSDKType } from "./types";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** GenesisState - genesis state of x/wasm */
 export interface GenesisState {
   /** Params params = 1 [(gogoproto.nullable) = false]; */
@@ -15,9 +15,9 @@ export interface GenesisStateProtoMsg {
 /** GenesisState - genesis state of x/wasm */
 export interface GenesisStateAmino {
   /** Params params = 1 [(gogoproto.nullable) = false]; */
-  codes: CodeAmino[];
-  contracts: ContractAmino[];
-  sequences: SequenceAmino[];
+  codes?: CodeAmino[];
+  contracts?: ContractAmino[];
+  sequences?: SequenceAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/secret.compute.v1beta1.GenesisState";
@@ -41,9 +41,9 @@ export interface CodeProtoMsg {
 }
 /** Code struct encompasses CodeInfo and CodeBytes */
 export interface CodeAmino {
-  code_id: string;
+  code_id?: string;
   code_info?: CodeInfoAmino;
-  code_bytes: Uint8Array;
+  code_bytes?: string;
 }
 export interface CodeAminoMsg {
   type: "/secret.compute.v1beta1.Code";
@@ -60,7 +60,7 @@ export interface Contract {
   contractAddress: Uint8Array;
   contractInfo: ContractInfo;
   contractState: Model[];
-  contractCustomInfo: ContractCustomInfo;
+  contractCustomInfo?: ContractCustomInfo;
 }
 export interface ContractProtoMsg {
   typeUrl: "/secret.compute.v1beta1.Contract";
@@ -68,9 +68,9 @@ export interface ContractProtoMsg {
 }
 /** Contract struct encompasses ContractAddress, ContractInfo, and ContractState */
 export interface ContractAmino {
-  contract_address: Uint8Array;
+  contract_address?: string;
   contract_info?: ContractInfoAmino;
-  contract_state: ModelAmino[];
+  contract_state?: ModelAmino[];
   contract_custom_info?: ContractCustomInfoAmino;
 }
 export interface ContractAminoMsg {
@@ -82,7 +82,7 @@ export interface ContractSDKType {
   contract_address: Uint8Array;
   contract_info: ContractInfoSDKType;
   contract_state: ModelSDKType[];
-  contract_custom_info: ContractCustomInfoSDKType;
+  contract_custom_info?: ContractCustomInfoSDKType;
 }
 /** Sequence id and value of a counter */
 export interface Sequence {
@@ -95,8 +95,8 @@ export interface SequenceProtoMsg {
 }
 /** Sequence id and value of a counter */
 export interface SequenceAmino {
-  id_key: Uint8Array;
-  value: string;
+  id_key?: string;
+  value?: string;
 }
 export interface SequenceAminoMsg {
   type: "/secret.compute.v1beta1.Sequence";
@@ -143,28 +143,28 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      codes: Array.isArray(object?.codes) ? object.codes.map((e: any) => Code.fromAmino(e)) : [],
-      contracts: Array.isArray(object?.contracts) ? object.contracts.map((e: any) => Contract.fromAmino(e)) : [],
-      sequences: Array.isArray(object?.sequences) ? object.sequences.map((e: any) => Sequence.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.codes = object.codes?.map(e => Code.fromAmino(e)) || [];
+    message.contracts = object.contracts?.map(e => Contract.fromAmino(e)) || [];
+    message.sequences = object.sequences?.map(e => Sequence.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
     if (message.codes) {
       obj.codes = message.codes.map(e => e ? Code.toAmino(e) : undefined);
     } else {
-      obj.codes = [];
+      obj.codes = message.codes;
     }
     if (message.contracts) {
       obj.contracts = message.contracts.map(e => e ? Contract.toAmino(e) : undefined);
     } else {
-      obj.contracts = [];
+      obj.contracts = message.contracts;
     }
     if (message.sequences) {
       obj.sequences = message.sequences.map(e => e ? Sequence.toAmino(e) : undefined);
     } else {
-      obj.sequences = [];
+      obj.sequences = message.sequences;
     }
     return obj;
   },
@@ -220,17 +220,23 @@ export const Code = {
     return message;
   },
   fromAmino(object: CodeAmino): Code {
-    return {
-      codeId: BigInt(object.code_id),
-      codeInfo: object?.code_info ? CodeInfo.fromAmino(object.code_info) : undefined,
-      codeBytes: object.code_bytes
-    };
+    const message = createBaseCode();
+    if (object.code_id !== undefined && object.code_id !== null) {
+      message.codeId = BigInt(object.code_id);
+    }
+    if (object.code_info !== undefined && object.code_info !== null) {
+      message.codeInfo = CodeInfo.fromAmino(object.code_info);
+    }
+    if (object.code_bytes !== undefined && object.code_bytes !== null) {
+      message.codeBytes = bytesFromBase64(object.code_bytes);
+    }
+    return message;
   },
   toAmino(message: Code): CodeAmino {
     const obj: any = {};
-    obj.code_id = message.codeId ? message.codeId.toString() : undefined;
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId.toString() : undefined;
     obj.code_info = message.codeInfo ? CodeInfo.toAmino(message.codeInfo) : undefined;
-    obj.code_bytes = message.codeBytes;
+    obj.code_bytes = message.codeBytes ? base64FromBytes(message.codeBytes) : undefined;
     return obj;
   },
   fromAminoMsg(object: CodeAminoMsg): Code {
@@ -254,7 +260,7 @@ function createBaseContract(): Contract {
     contractAddress: new Uint8Array(),
     contractInfo: ContractInfo.fromPartial({}),
     contractState: [],
-    contractCustomInfo: ContractCustomInfo.fromPartial({})
+    contractCustomInfo: undefined
   };
 }
 export const Contract = {
@@ -291,21 +297,27 @@ export const Contract = {
     return message;
   },
   fromAmino(object: ContractAmino): Contract {
-    return {
-      contractAddress: object.contract_address,
-      contractInfo: object?.contract_info ? ContractInfo.fromAmino(object.contract_info) : undefined,
-      contractState: Array.isArray(object?.contract_state) ? object.contract_state.map((e: any) => Model.fromAmino(e)) : [],
-      contractCustomInfo: object?.contract_custom_info ? ContractCustomInfo.fromAmino(object.contract_custom_info) : undefined
-    };
+    const message = createBaseContract();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = bytesFromBase64(object.contract_address);
+    }
+    if (object.contract_info !== undefined && object.contract_info !== null) {
+      message.contractInfo = ContractInfo.fromAmino(object.contract_info);
+    }
+    message.contractState = object.contract_state?.map(e => Model.fromAmino(e)) || [];
+    if (object.contract_custom_info !== undefined && object.contract_custom_info !== null) {
+      message.contractCustomInfo = ContractCustomInfo.fromAmino(object.contract_custom_info);
+    }
+    return message;
   },
   toAmino(message: Contract): ContractAmino {
     const obj: any = {};
-    obj.contract_address = message.contractAddress;
+    obj.contract_address = message.contractAddress ? base64FromBytes(message.contractAddress) : undefined;
     obj.contract_info = message.contractInfo ? ContractInfo.toAmino(message.contractInfo) : undefined;
     if (message.contractState) {
       obj.contract_state = message.contractState.map(e => e ? Model.toAmino(e) : undefined);
     } else {
-      obj.contract_state = [];
+      obj.contract_state = message.contractState;
     }
     obj.contract_custom_info = message.contractCustomInfo ? ContractCustomInfo.toAmino(message.contractCustomInfo) : undefined;
     return obj;
@@ -356,15 +368,19 @@ export const Sequence = {
     return message;
   },
   fromAmino(object: SequenceAmino): Sequence {
-    return {
-      idKey: object.id_key,
-      value: BigInt(object.value)
-    };
+    const message = createBaseSequence();
+    if (object.id_key !== undefined && object.id_key !== null) {
+      message.idKey = bytesFromBase64(object.id_key);
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = BigInt(object.value);
+    }
+    return message;
   },
   toAmino(message: Sequence): SequenceAmino {
     const obj: any = {};
-    obj.id_key = message.idKey;
-    obj.value = message.value ? message.value.toString() : undefined;
+    obj.id_key = message.idKey ? base64FromBytes(message.idKey) : undefined;
+    obj.value = message.value !== BigInt(0) ? message.value.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: SequenceAminoMsg): Sequence {

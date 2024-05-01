@@ -1,7 +1,7 @@
 import { Rpc } from "../../../helpers";
 import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryByContractAddressRequest, QueryContractInfoResponse, QueryByCodeIdRequest, QueryContractsByCodeIdResponse, QuerySecretContractRequest, QuerySecretContractResponse, QueryCodeResponse, QueryCodesResponse, QueryCodeHashResponse, QueryContractLabelResponse, QueryByLabelRequest, QueryContractAddressResponse } from "./query";
+import { QueryByContractAddressRequest, QueryContractInfoResponse, QueryByCodeIdRequest, QueryContractsByCodeIdResponse, QuerySecretContractRequest, QuerySecretContractResponse, QueryCodeResponse, QueryCodesResponse, QueryCodeHashResponse, QueryContractLabelResponse, QueryByLabelRequest, QueryContractAddressResponse, QueryContractHistoryRequest, QueryContractHistoryResponse } from "./query";
 import { Empty } from "../../../google/protobuf/empty";
 /** Query defines the gRPC querier service */
 export interface Query {
@@ -23,6 +23,8 @@ export interface Query {
   labelByAddress(request: QueryByContractAddressRequest): Promise<QueryContractLabelResponse>;
   /** Query contract address by label */
   addressByLabel(request: QueryByLabelRequest): Promise<QueryContractAddressResponse>;
+  /** ContractHistory gets the contract code history */
+  contractHistory(request: QueryContractHistoryRequest): Promise<QueryContractHistoryResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
@@ -37,6 +39,7 @@ export class QueryClientImpl implements Query {
     this.codeHashByCodeId = this.codeHashByCodeId.bind(this);
     this.labelByAddress = this.labelByAddress.bind(this);
     this.addressByLabel = this.addressByLabel.bind(this);
+    this.contractHistory = this.contractHistory.bind(this);
   }
   contractInfo(request: QueryByContractAddressRequest): Promise<QueryContractInfoResponse> {
     const data = QueryByContractAddressRequest.encode(request).finish();
@@ -83,6 +86,11 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("secret.compute.v1beta1.Query", "AddressByLabel", data);
     return promise.then(data => QueryContractAddressResponse.decode(new BinaryReader(data)));
   }
+  contractHistory(request: QueryContractHistoryRequest): Promise<QueryContractHistoryResponse> {
+    const data = QueryContractHistoryRequest.encode(request).finish();
+    const promise = this.rpc.request("secret.compute.v1beta1.Query", "ContractHistory", data);
+    return promise.then(data => QueryContractHistoryResponse.decode(new BinaryReader(data)));
+  }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {
   const rpc = createProtobufRpcClient(base);
@@ -114,6 +122,9 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     addressByLabel(request: QueryByLabelRequest): Promise<QueryContractAddressResponse> {
       return queryService.addressByLabel(request);
+    },
+    contractHistory(request: QueryContractHistoryRequest): Promise<QueryContractHistoryResponse> {
+      return queryService.contractHistory(request);
     }
   };
 };

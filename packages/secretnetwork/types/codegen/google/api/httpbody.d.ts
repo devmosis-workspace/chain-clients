@@ -99,14 +99,14 @@ export interface HttpBodyProtoMsg {
  */
 export interface HttpBodyAmino {
     /** The HTTP Content-Type header value specifying the content type of the body. */
-    content_type: string;
+    content_type?: string;
     /** The HTTP request/response body as raw binary. */
-    data: Uint8Array;
+    data?: string;
     /**
      * Application specific response metadata. Must be set in the first response
      * for streaming APIs.
      */
-    extensions: AnyAmino[];
+    extensions?: AnyAmino[];
 }
 export interface HttpBodyAminoMsg {
     type: "/google.api.HttpBody";

@@ -1,5 +1,5 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
-import { AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
+import { AminoTypes } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const secretAminoConverters: {
     "/secret.intertx.v1beta1.MsgRegisterAccount": {
@@ -32,6 +32,21 @@ export declare const secretAminoConverters: {
         toAmino: (message: import("./compute/v1beta1/msg").MsgExecuteContract) => import("./compute/v1beta1/msg").MsgExecuteContractAmino;
         fromAmino: (object: import("./compute/v1beta1/msg").MsgExecuteContractAmino) => import("./compute/v1beta1/msg").MsgExecuteContract;
     };
+    "/secret.compute.v1beta1.MsgMigrateContract": {
+        aminoType: string;
+        toAmino: (message: import("./compute/v1beta1/msg").MsgMigrateContract) => import("./compute/v1beta1/msg").MsgMigrateContractAmino;
+        fromAmino: (object: import("./compute/v1beta1/msg").MsgMigrateContractAmino) => import("./compute/v1beta1/msg").MsgMigrateContract;
+    };
+    "/secret.compute.v1beta1.MsgUpdateAdmin": {
+        aminoType: string;
+        toAmino: (message: import("./compute/v1beta1/msg").MsgUpdateAdmin) => import("./compute/v1beta1/msg").MsgUpdateAdminAmino;
+        fromAmino: (object: import("./compute/v1beta1/msg").MsgUpdateAdminAmino) => import("./compute/v1beta1/msg").MsgUpdateAdmin;
+    };
+    "/secret.compute.v1beta1.MsgClearAdmin": {
+        aminoType: string;
+        toAmino: (message: import("./compute/v1beta1/msg").MsgClearAdmin) => import("./compute/v1beta1/msg").MsgClearAdminAmino;
+        fromAmino: (object: import("./compute/v1beta1/msg").MsgClearAdminAmino) => import("./compute/v1beta1/msg").MsgClearAdmin;
+    };
 };
 export declare const secretProtoRegistry: ReadonlyArray<[string, GeneratedType]>;
 export declare const getSigningSecretClientOptions: ({ defaultTypes }?: {
@@ -44,4 +59,4 @@ export declare const getSigningSecretClient: ({ rpcEndpoint, signer, defaultType
     rpcEndpoint: string | HttpEndpoint;
     signer: OfflineSigner;
     defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
-}) => Promise<SigningStargateClient>;
+}) => Promise<any>;

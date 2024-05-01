@@ -10,8 +10,8 @@ export interface PublicKeyProtoMsg {
 }
 /** PublicKey defines the keys available for use with Tendermint Validators */
 export interface PublicKeyAmino {
-    ed25519?: Uint8Array;
-    secp256k1?: Uint8Array;
+    ed25519?: string;
+    secp256k1?: string;
 }
 export interface PublicKeyAminoMsg {
     type: "/tendermint.crypto.PublicKey";

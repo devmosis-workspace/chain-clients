@@ -67,8 +67,8 @@ export interface RemoteSignerErrorProtoMsg {
   value: Uint8Array;
 }
 export interface RemoteSignerErrorAmino {
-  code: number;
-  description: string;
+  code?: number;
+  description?: string;
 }
 export interface RemoteSignerErrorAminoMsg {
   type: "/tendermint.privval.RemoteSignerError";
@@ -88,7 +88,7 @@ export interface PubKeyRequestProtoMsg {
 }
 /** PubKeyRequest requests the consensus public key from the remote signer. */
 export interface PubKeyRequestAmino {
-  chain_id: string;
+  chain_id?: string;
 }
 export interface PubKeyRequestAminoMsg {
   type: "/tendermint.privval.PubKeyRequest";
@@ -101,7 +101,7 @@ export interface PubKeyRequestSDKType {
 /** PubKeyResponse is a response message containing the public key. */
 export interface PubKeyResponse {
   pubKey: PublicKey;
-  error: RemoteSignerError;
+  error?: RemoteSignerError;
 }
 export interface PubKeyResponseProtoMsg {
   typeUrl: "/tendermint.privval.PubKeyResponse";
@@ -119,11 +119,11 @@ export interface PubKeyResponseAminoMsg {
 /** PubKeyResponse is a response message containing the public key. */
 export interface PubKeyResponseSDKType {
   pub_key: PublicKeySDKType;
-  error: RemoteSignerErrorSDKType;
+  error?: RemoteSignerErrorSDKType;
 }
 /** SignVoteRequest is a request to sign a vote */
 export interface SignVoteRequest {
-  vote: Vote;
+  vote?: Vote;
   chainId: string;
 }
 export interface SignVoteRequestProtoMsg {
@@ -133,7 +133,7 @@ export interface SignVoteRequestProtoMsg {
 /** SignVoteRequest is a request to sign a vote */
 export interface SignVoteRequestAmino {
   vote?: VoteAmino;
-  chain_id: string;
+  chain_id?: string;
 }
 export interface SignVoteRequestAminoMsg {
   type: "/tendermint.privval.SignVoteRequest";
@@ -141,13 +141,13 @@ export interface SignVoteRequestAminoMsg {
 }
 /** SignVoteRequest is a request to sign a vote */
 export interface SignVoteRequestSDKType {
-  vote: VoteSDKType;
+  vote?: VoteSDKType;
   chain_id: string;
 }
 /** SignedVoteResponse is a response containing a signed vote or an error */
 export interface SignedVoteResponse {
   vote: Vote;
-  error: RemoteSignerError;
+  error?: RemoteSignerError;
 }
 export interface SignedVoteResponseProtoMsg {
   typeUrl: "/tendermint.privval.SignedVoteResponse";
@@ -165,11 +165,11 @@ export interface SignedVoteResponseAminoMsg {
 /** SignedVoteResponse is a response containing a signed vote or an error */
 export interface SignedVoteResponseSDKType {
   vote: VoteSDKType;
-  error: RemoteSignerErrorSDKType;
+  error?: RemoteSignerErrorSDKType;
 }
 /** SignProposalRequest is a request to sign a proposal */
 export interface SignProposalRequest {
-  proposal: Proposal;
+  proposal?: Proposal;
   chainId: string;
 }
 export interface SignProposalRequestProtoMsg {
@@ -179,7 +179,7 @@ export interface SignProposalRequestProtoMsg {
 /** SignProposalRequest is a request to sign a proposal */
 export interface SignProposalRequestAmino {
   proposal?: ProposalAmino;
-  chain_id: string;
+  chain_id?: string;
 }
 export interface SignProposalRequestAminoMsg {
   type: "/tendermint.privval.SignProposalRequest";
@@ -187,13 +187,13 @@ export interface SignProposalRequestAminoMsg {
 }
 /** SignProposalRequest is a request to sign a proposal */
 export interface SignProposalRequestSDKType {
-  proposal: ProposalSDKType;
+  proposal?: ProposalSDKType;
   chain_id: string;
 }
 /** SignedProposalResponse is response containing a signed proposal or an error */
 export interface SignedProposalResponse {
   proposal: Proposal;
-  error: RemoteSignerError;
+  error?: RemoteSignerError;
 }
 export interface SignedProposalResponseProtoMsg {
   typeUrl: "/tendermint.privval.SignedProposalResponse";
@@ -211,7 +211,7 @@ export interface SignedProposalResponseAminoMsg {
 /** SignedProposalResponse is response containing a signed proposal or an error */
 export interface SignedProposalResponseSDKType {
   proposal: ProposalSDKType;
-  error: RemoteSignerErrorSDKType;
+  error?: RemoteSignerErrorSDKType;
 }
 /** PingRequest is a request to confirm that the connection is alive. */
 export interface PingRequest {}
@@ -309,15 +309,19 @@ export const RemoteSignerError = {
     return message;
   },
   fromAmino(object: RemoteSignerErrorAmino): RemoteSignerError {
-    return {
-      code: object.code,
-      description: object.description
-    };
+    const message = createBaseRemoteSignerError();
+    if (object.code !== undefined && object.code !== null) {
+      message.code = object.code;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    return message;
   },
   toAmino(message: RemoteSignerError): RemoteSignerErrorAmino {
     const obj: any = {};
-    obj.code = message.code;
-    obj.description = message.description;
+    obj.code = message.code === 0 ? undefined : message.code;
+    obj.description = message.description === "" ? undefined : message.description;
     return obj;
   },
   fromAminoMsg(object: RemoteSignerErrorAminoMsg): RemoteSignerError {
@@ -360,13 +364,15 @@ export const PubKeyRequest = {
     return message;
   },
   fromAmino(object: PubKeyRequestAmino): PubKeyRequest {
-    return {
-      chainId: object.chain_id
-    };
+    const message = createBasePubKeyRequest();
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    return message;
   },
   toAmino(message: PubKeyRequest): PubKeyRequestAmino {
     const obj: any = {};
-    obj.chain_id = message.chainId;
+    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
     return obj;
   },
   fromAminoMsg(object: PubKeyRequestAminoMsg): PubKeyRequest {
@@ -388,7 +394,7 @@ export const PubKeyRequest = {
 function createBasePubKeyResponse(): PubKeyResponse {
   return {
     pubKey: PublicKey.fromPartial({}),
-    error: RemoteSignerError.fromPartial({})
+    error: undefined
   };
 }
 export const PubKeyResponse = {
@@ -415,10 +421,14 @@ export const PubKeyResponse = {
     return message;
   },
   fromAmino(object: PubKeyResponseAmino): PubKeyResponse {
-    return {
-      pubKey: object?.pub_key ? PublicKey.fromAmino(object.pub_key) : undefined,
-      error: object?.error ? RemoteSignerError.fromAmino(object.error) : undefined
-    };
+    const message = createBasePubKeyResponse();
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = PublicKey.fromAmino(object.pub_key);
+    }
+    if (object.error !== undefined && object.error !== null) {
+      message.error = RemoteSignerError.fromAmino(object.error);
+    }
+    return message;
   },
   toAmino(message: PubKeyResponse): PubKeyResponseAmino {
     const obj: any = {};
@@ -444,7 +454,7 @@ export const PubKeyResponse = {
 };
 function createBaseSignVoteRequest(): SignVoteRequest {
   return {
-    vote: Vote.fromPartial({}),
+    vote: undefined,
     chainId: ""
   };
 }
@@ -472,15 +482,19 @@ export const SignVoteRequest = {
     return message;
   },
   fromAmino(object: SignVoteRequestAmino): SignVoteRequest {
-    return {
-      vote: object?.vote ? Vote.fromAmino(object.vote) : undefined,
-      chainId: object.chain_id
-    };
+    const message = createBaseSignVoteRequest();
+    if (object.vote !== undefined && object.vote !== null) {
+      message.vote = Vote.fromAmino(object.vote);
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    return message;
   },
   toAmino(message: SignVoteRequest): SignVoteRequestAmino {
     const obj: any = {};
     obj.vote = message.vote ? Vote.toAmino(message.vote) : undefined;
-    obj.chain_id = message.chainId;
+    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
     return obj;
   },
   fromAminoMsg(object: SignVoteRequestAminoMsg): SignVoteRequest {
@@ -502,7 +516,7 @@ export const SignVoteRequest = {
 function createBaseSignedVoteResponse(): SignedVoteResponse {
   return {
     vote: Vote.fromPartial({}),
-    error: RemoteSignerError.fromPartial({})
+    error: undefined
   };
 }
 export const SignedVoteResponse = {
@@ -529,10 +543,14 @@ export const SignedVoteResponse = {
     return message;
   },
   fromAmino(object: SignedVoteResponseAmino): SignedVoteResponse {
-    return {
-      vote: object?.vote ? Vote.fromAmino(object.vote) : undefined,
-      error: object?.error ? RemoteSignerError.fromAmino(object.error) : undefined
-    };
+    const message = createBaseSignedVoteResponse();
+    if (object.vote !== undefined && object.vote !== null) {
+      message.vote = Vote.fromAmino(object.vote);
+    }
+    if (object.error !== undefined && object.error !== null) {
+      message.error = RemoteSignerError.fromAmino(object.error);
+    }
+    return message;
   },
   toAmino(message: SignedVoteResponse): SignedVoteResponseAmino {
     const obj: any = {};
@@ -558,7 +576,7 @@ export const SignedVoteResponse = {
 };
 function createBaseSignProposalRequest(): SignProposalRequest {
   return {
-    proposal: Proposal.fromPartial({}),
+    proposal: undefined,
     chainId: ""
   };
 }
@@ -586,15 +604,19 @@ export const SignProposalRequest = {
     return message;
   },
   fromAmino(object: SignProposalRequestAmino): SignProposalRequest {
-    return {
-      proposal: object?.proposal ? Proposal.fromAmino(object.proposal) : undefined,
-      chainId: object.chain_id
-    };
+    const message = createBaseSignProposalRequest();
+    if (object.proposal !== undefined && object.proposal !== null) {
+      message.proposal = Proposal.fromAmino(object.proposal);
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    return message;
   },
   toAmino(message: SignProposalRequest): SignProposalRequestAmino {
     const obj: any = {};
     obj.proposal = message.proposal ? Proposal.toAmino(message.proposal) : undefined;
-    obj.chain_id = message.chainId;
+    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
     return obj;
   },
   fromAminoMsg(object: SignProposalRequestAminoMsg): SignProposalRequest {
@@ -616,7 +638,7 @@ export const SignProposalRequest = {
 function createBaseSignedProposalResponse(): SignedProposalResponse {
   return {
     proposal: Proposal.fromPartial({}),
-    error: RemoteSignerError.fromPartial({})
+    error: undefined
   };
 }
 export const SignedProposalResponse = {
@@ -643,10 +665,14 @@ export const SignedProposalResponse = {
     return message;
   },
   fromAmino(object: SignedProposalResponseAmino): SignedProposalResponse {
-    return {
-      proposal: object?.proposal ? Proposal.fromAmino(object.proposal) : undefined,
-      error: object?.error ? RemoteSignerError.fromAmino(object.error) : undefined
-    };
+    const message = createBaseSignedProposalResponse();
+    if (object.proposal !== undefined && object.proposal !== null) {
+      message.proposal = Proposal.fromAmino(object.proposal);
+    }
+    if (object.error !== undefined && object.error !== null) {
+      message.error = RemoteSignerError.fromAmino(object.error);
+    }
+    return message;
   },
   toAmino(message: SignedProposalResponse): SignedProposalResponseAmino {
     const obj: any = {};
@@ -686,7 +712,8 @@ export const PingRequest = {
     return message;
   },
   fromAmino(_: PingRequestAmino): PingRequest {
-    return {};
+    const message = createBasePingRequest();
+    return message;
   },
   toAmino(_: PingRequest): PingRequestAmino {
     const obj: any = {};
@@ -724,7 +751,8 @@ export const PingResponse = {
     return message;
   },
   fromAmino(_: PingResponseAmino): PingResponse {
-    return {};
+    const message = createBasePingResponse();
+    return message;
   },
   toAmino(_: PingResponse): PingResponseAmino {
     const obj: any = {};
@@ -812,16 +840,32 @@ export const Message = {
     return message;
   },
   fromAmino(object: MessageAmino): Message {
-    return {
-      pubKeyRequest: object?.pub_key_request ? PubKeyRequest.fromAmino(object.pub_key_request) : undefined,
-      pubKeyResponse: object?.pub_key_response ? PubKeyResponse.fromAmino(object.pub_key_response) : undefined,
-      signVoteRequest: object?.sign_vote_request ? SignVoteRequest.fromAmino(object.sign_vote_request) : undefined,
-      signedVoteResponse: object?.signed_vote_response ? SignedVoteResponse.fromAmino(object.signed_vote_response) : undefined,
-      signProposalRequest: object?.sign_proposal_request ? SignProposalRequest.fromAmino(object.sign_proposal_request) : undefined,
-      signedProposalResponse: object?.signed_proposal_response ? SignedProposalResponse.fromAmino(object.signed_proposal_response) : undefined,
-      pingRequest: object?.ping_request ? PingRequest.fromAmino(object.ping_request) : undefined,
-      pingResponse: object?.ping_response ? PingResponse.fromAmino(object.ping_response) : undefined
-    };
+    const message = createBaseMessage();
+    if (object.pub_key_request !== undefined && object.pub_key_request !== null) {
+      message.pubKeyRequest = PubKeyRequest.fromAmino(object.pub_key_request);
+    }
+    if (object.pub_key_response !== undefined && object.pub_key_response !== null) {
+      message.pubKeyResponse = PubKeyResponse.fromAmino(object.pub_key_response);
+    }
+    if (object.sign_vote_request !== undefined && object.sign_vote_request !== null) {
+      message.signVoteRequest = SignVoteRequest.fromAmino(object.sign_vote_request);
+    }
+    if (object.signed_vote_response !== undefined && object.signed_vote_response !== null) {
+      message.signedVoteResponse = SignedVoteResponse.fromAmino(object.signed_vote_response);
+    }
+    if (object.sign_proposal_request !== undefined && object.sign_proposal_request !== null) {
+      message.signProposalRequest = SignProposalRequest.fromAmino(object.sign_proposal_request);
+    }
+    if (object.signed_proposal_response !== undefined && object.signed_proposal_response !== null) {
+      message.signedProposalResponse = SignedProposalResponse.fromAmino(object.signed_proposal_response);
+    }
+    if (object.ping_request !== undefined && object.ping_request !== null) {
+      message.pingRequest = PingRequest.fromAmino(object.ping_request);
+    }
+    if (object.ping_response !== undefined && object.ping_response !== null) {
+      message.pingResponse = PingResponse.fromAmino(object.ping_response);
+    }
+    return message;
   },
   toAmino(message: Message): MessageAmino {
     const obj: any = {};

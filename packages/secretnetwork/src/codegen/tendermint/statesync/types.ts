@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64 } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 export interface Message {
   snapshotsRequest?: SnapshotsRequest;
   snapshotsResponse?: SnapshotsResponse;
@@ -49,11 +49,11 @@ export interface SnapshotsResponseProtoMsg {
   value: Uint8Array;
 }
 export interface SnapshotsResponseAmino {
-  height: string;
-  format: number;
-  chunks: number;
-  hash: Uint8Array;
-  metadata: Uint8Array;
+  height?: string;
+  format?: number;
+  chunks?: number;
+  hash?: string;
+  metadata?: string;
 }
 export interface SnapshotsResponseAminoMsg {
   type: "/tendermint.statesync.SnapshotsResponse";
@@ -76,9 +76,9 @@ export interface ChunkRequestProtoMsg {
   value: Uint8Array;
 }
 export interface ChunkRequestAmino {
-  height: string;
-  format: number;
-  index: number;
+  height?: string;
+  format?: number;
+  index?: number;
 }
 export interface ChunkRequestAminoMsg {
   type: "/tendermint.statesync.ChunkRequest";
@@ -101,11 +101,11 @@ export interface ChunkResponseProtoMsg {
   value: Uint8Array;
 }
 export interface ChunkResponseAmino {
-  height: string;
-  format: number;
-  index: number;
-  chunk: Uint8Array;
-  missing: boolean;
+  height?: string;
+  format?: number;
+  index?: number;
+  chunk?: string;
+  missing?: boolean;
 }
 export interface ChunkResponseAminoMsg {
   type: "/tendermint.statesync.ChunkResponse";
@@ -160,12 +160,20 @@ export const Message = {
     return message;
   },
   fromAmino(object: MessageAmino): Message {
-    return {
-      snapshotsRequest: object?.snapshots_request ? SnapshotsRequest.fromAmino(object.snapshots_request) : undefined,
-      snapshotsResponse: object?.snapshots_response ? SnapshotsResponse.fromAmino(object.snapshots_response) : undefined,
-      chunkRequest: object?.chunk_request ? ChunkRequest.fromAmino(object.chunk_request) : undefined,
-      chunkResponse: object?.chunk_response ? ChunkResponse.fromAmino(object.chunk_response) : undefined
-    };
+    const message = createBaseMessage();
+    if (object.snapshots_request !== undefined && object.snapshots_request !== null) {
+      message.snapshotsRequest = SnapshotsRequest.fromAmino(object.snapshots_request);
+    }
+    if (object.snapshots_response !== undefined && object.snapshots_response !== null) {
+      message.snapshotsResponse = SnapshotsResponse.fromAmino(object.snapshots_response);
+    }
+    if (object.chunk_request !== undefined && object.chunk_request !== null) {
+      message.chunkRequest = ChunkRequest.fromAmino(object.chunk_request);
+    }
+    if (object.chunk_response !== undefined && object.chunk_response !== null) {
+      message.chunkResponse = ChunkResponse.fromAmino(object.chunk_response);
+    }
+    return message;
   },
   toAmino(message: Message): MessageAmino {
     const obj: any = {};
@@ -207,7 +215,8 @@ export const SnapshotsRequest = {
     return message;
   },
   fromAmino(_: SnapshotsRequestAmino): SnapshotsRequest {
-    return {};
+    const message = createBaseSnapshotsRequest();
+    return message;
   },
   toAmino(_: SnapshotsRequest): SnapshotsRequestAmino {
     const obj: any = {};
@@ -277,21 +286,31 @@ export const SnapshotsResponse = {
     return message;
   },
   fromAmino(object: SnapshotsResponseAmino): SnapshotsResponse {
-    return {
-      height: BigInt(object.height),
-      format: object.format,
-      chunks: object.chunks,
-      hash: object.hash,
-      metadata: object.metadata
-    };
+    const message = createBaseSnapshotsResponse();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.format !== undefined && object.format !== null) {
+      message.format = object.format;
+    }
+    if (object.chunks !== undefined && object.chunks !== null) {
+      message.chunks = object.chunks;
+    }
+    if (object.hash !== undefined && object.hash !== null) {
+      message.hash = bytesFromBase64(object.hash);
+    }
+    if (object.metadata !== undefined && object.metadata !== null) {
+      message.metadata = bytesFromBase64(object.metadata);
+    }
+    return message;
   },
   toAmino(message: SnapshotsResponse): SnapshotsResponseAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.format = message.format;
-    obj.chunks = message.chunks;
-    obj.hash = message.hash;
-    obj.metadata = message.metadata;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.format = message.format === 0 ? undefined : message.format;
+    obj.chunks = message.chunks === 0 ? undefined : message.chunks;
+    obj.hash = message.hash ? base64FromBytes(message.hash) : undefined;
+    obj.metadata = message.metadata ? base64FromBytes(message.metadata) : undefined;
     return obj;
   },
   fromAminoMsg(object: SnapshotsResponseAminoMsg): SnapshotsResponse {
@@ -346,17 +365,23 @@ export const ChunkRequest = {
     return message;
   },
   fromAmino(object: ChunkRequestAmino): ChunkRequest {
-    return {
-      height: BigInt(object.height),
-      format: object.format,
-      index: object.index
-    };
+    const message = createBaseChunkRequest();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.format !== undefined && object.format !== null) {
+      message.format = object.format;
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    }
+    return message;
   },
   toAmino(message: ChunkRequest): ChunkRequestAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.format = message.format;
-    obj.index = message.index;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.format = message.format === 0 ? undefined : message.format;
+    obj.index = message.index === 0 ? undefined : message.index;
     return obj;
   },
   fromAminoMsg(object: ChunkRequestAminoMsg): ChunkRequest {
@@ -423,21 +448,31 @@ export const ChunkResponse = {
     return message;
   },
   fromAmino(object: ChunkResponseAmino): ChunkResponse {
-    return {
-      height: BigInt(object.height),
-      format: object.format,
-      index: object.index,
-      chunk: object.chunk,
-      missing: object.missing
-    };
+    const message = createBaseChunkResponse();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.format !== undefined && object.format !== null) {
+      message.format = object.format;
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    }
+    if (object.chunk !== undefined && object.chunk !== null) {
+      message.chunk = bytesFromBase64(object.chunk);
+    }
+    if (object.missing !== undefined && object.missing !== null) {
+      message.missing = object.missing;
+    }
+    return message;
   },
   toAmino(message: ChunkResponse): ChunkResponseAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.format = message.format;
-    obj.index = message.index;
-    obj.chunk = message.chunk;
-    obj.missing = message.missing;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.format = message.format === 0 ? undefined : message.format;
+    obj.index = message.index === 0 ? undefined : message.index;
+    obj.chunk = message.chunk ? base64FromBytes(message.chunk) : undefined;
+    obj.missing = message.missing === false ? undefined : message.missing;
     return obj;
   },
   fromAminoMsg(object: ChunkResponseAminoMsg): ChunkResponse {

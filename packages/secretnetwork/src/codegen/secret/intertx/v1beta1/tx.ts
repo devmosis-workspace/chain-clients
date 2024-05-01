@@ -1,6 +1,6 @@
 import { Any, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** MsgRegisterAccount registers an interchain account for the given owner over the specified connection pair */
 export interface MsgRegisterAccount {
   owner: string;
@@ -13,9 +13,9 @@ export interface MsgRegisterAccountProtoMsg {
 }
 /** MsgRegisterAccount registers an interchain account for the given owner over the specified connection pair */
 export interface MsgRegisterAccountAmino {
-  owner: string;
-  connection_id: string;
-  version: string;
+  owner?: string;
+  connection_id?: string;
+  version?: string;
 }
 export interface MsgRegisterAccountAminoMsg {
   type: "/secret.intertx.v1beta1.MsgRegisterAccount";
@@ -45,7 +45,7 @@ export interface MsgRegisterAccountResponseSDKType {}
 export interface MsgSubmitTx {
   owner: Uint8Array;
   connectionId: string;
-  msg: Any;
+  msg?: Any;
 }
 export interface MsgSubmitTxProtoMsg {
   typeUrl: "/secret.intertx.v1beta1.MsgSubmitTx";
@@ -53,8 +53,8 @@ export interface MsgSubmitTxProtoMsg {
 }
 /** MsgSubmitTx creates and submits an arbitrary transaction msg to be executed using an interchain account */
 export interface MsgSubmitTxAmino {
-  owner: Uint8Array;
-  connection_id: string;
+  owner?: string;
+  connection_id?: string;
   msg?: AnyAmino;
 }
 export interface MsgSubmitTxAminoMsg {
@@ -65,7 +65,7 @@ export interface MsgSubmitTxAminoMsg {
 export interface MsgSubmitTxSDKType {
   owner: Uint8Array;
   connection_id: string;
-  msg: AnySDKType;
+  msg?: AnySDKType;
 }
 /** MsgSubmitTxResponse defines the MsgSubmitTx response type */
 export interface MsgSubmitTxResponse {}
@@ -117,17 +117,23 @@ export const MsgRegisterAccount = {
     return message;
   },
   fromAmino(object: MsgRegisterAccountAmino): MsgRegisterAccount {
-    return {
-      owner: object.owner,
-      connectionId: object.connection_id,
-      version: object.version
-    };
+    const message = createBaseMsgRegisterAccount();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
   },
   toAmino(message: MsgRegisterAccount): MsgRegisterAccountAmino {
     const obj: any = {};
-    obj.owner = message.owner;
-    obj.connection_id = message.connectionId;
-    obj.version = message.version;
+    obj.owner = message.owner === "" ? undefined : message.owner;
+    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
+    obj.version = message.version === "" ? undefined : message.version;
     return obj;
   },
   fromAminoMsg(object: MsgRegisterAccountAminoMsg): MsgRegisterAccount {
@@ -162,7 +168,8 @@ export const MsgRegisterAccountResponse = {
     return message;
   },
   fromAmino(_: MsgRegisterAccountResponseAmino): MsgRegisterAccountResponse {
-    return {};
+    const message = createBaseMsgRegisterAccountResponse();
+    return message;
   },
   toAmino(_: MsgRegisterAccountResponse): MsgRegisterAccountResponseAmino {
     const obj: any = {};
@@ -188,7 +195,7 @@ function createBaseMsgSubmitTx(): MsgSubmitTx {
   return {
     owner: new Uint8Array(),
     connectionId: "",
-    msg: Any.fromPartial({})
+    msg: undefined
   };
 }
 export const MsgSubmitTx = {
@@ -220,16 +227,22 @@ export const MsgSubmitTx = {
     return message;
   },
   fromAmino(object: MsgSubmitTxAmino): MsgSubmitTx {
-    return {
-      owner: object.owner,
-      connectionId: object.connection_id,
-      msg: object?.msg ? Any.fromAmino(object.msg) : undefined
-    };
+    const message = createBaseMsgSubmitTx();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = bytesFromBase64(object.owner);
+    }
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = Any.fromAmino(object.msg);
+    }
+    return message;
   },
   toAmino(message: MsgSubmitTx): MsgSubmitTxAmino {
     const obj: any = {};
-    obj.owner = message.owner;
-    obj.connection_id = message.connectionId;
+    obj.owner = message.owner ? base64FromBytes(message.owner) : undefined;
+    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
     obj.msg = message.msg ? Any.toAmino(message.msg) : undefined;
     return obj;
   },
@@ -265,7 +278,8 @@ export const MsgSubmitTxResponse = {
     return message;
   },
   fromAmino(_: MsgSubmitTxResponseAmino): MsgSubmitTxResponse {
-    return {};
+    const message = createBaseMsgSubmitTxResponse();
+    return message;
   },
   toAmino(_: MsgSubmitTxResponse): MsgSubmitTxResponseAmino {
     const obj: any = {};

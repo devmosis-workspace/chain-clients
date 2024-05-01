@@ -19,13 +19,13 @@ export interface MsgRegisterPayeeProtoMsg {
 /** MsgRegisterPayee defines the request type for the RegisterPayee rpc */
 export interface MsgRegisterPayeeAmino {
     /** unique port identifier */
-    port_id: string;
+    port_id?: string;
     /** unique channel identifier */
-    channel_id: string;
+    channel_id?: string;
     /** the relayer address */
-    relayer: string;
+    relayer?: string;
     /** the payee address */
-    payee: string;
+    payee?: string;
 }
 export interface MsgRegisterPayeeAminoMsg {
     type: "cosmos-sdk/MsgRegisterPayee";
@@ -73,13 +73,13 @@ export interface MsgRegisterCounterpartyPayeeProtoMsg {
 /** MsgRegisterCounterpartyPayee defines the request type for the RegisterCounterpartyPayee rpc */
 export interface MsgRegisterCounterpartyPayeeAmino {
     /** unique port identifier */
-    port_id: string;
+    port_id?: string;
     /** unique channel identifier */
-    channel_id: string;
+    channel_id?: string;
     /** the relayer address */
-    relayer: string;
+    relayer?: string;
     /** the counterparty payee address */
-    counterparty_payee: string;
+    counterparty_payee?: string;
 }
 export interface MsgRegisterCounterpartyPayeeAminoMsg {
     type: "cosmos-sdk/MsgRegisterCounterpartyPayee";
@@ -139,13 +139,13 @@ export interface MsgPayPacketFeeAmino {
     /** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
     fee?: FeeAmino;
     /** the source port unique identifier */
-    source_port_id: string;
+    source_port_id?: string;
     /** the source channel unique identifer */
-    source_channel_id: string;
+    source_channel_id?: string;
     /** account address to refund fee if necessary */
-    signer: string;
+    signer?: string;
     /** optional list of relayers permitted to the receive packet fees */
-    relayers: string[];
+    relayers?: string[];
 }
 export interface MsgPayPacketFeeAminoMsg {
     type: "cosmos-sdk/MsgPayPacketFee";

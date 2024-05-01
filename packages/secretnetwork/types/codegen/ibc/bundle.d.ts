@@ -60,7 +60,7 @@ export declare namespace ibc {
             const v1: {
                 MsgClientImpl: typeof _260.MsgClientImpl;
                 QueryClientImpl: typeof _253.QueryClientImpl;
-                createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+                createRpcQueryExtension: (base: QueryClient) => {
                     incentivizedPackets(request: _100.QueryIncentivizedPacketsRequest): Promise<_100.QueryIncentivizedPacketsResponse>;
                     incentivizedPacket(request: _100.QueryIncentivizedPacketRequest): Promise<_100.QueryIncentivizedPacketResponse>;
                     incentivizedPacketsForChannel(request: _100.QueryIncentivizedPacketsForChannelRequest): Promise<_100.QueryIncentivizedPacketsForChannelResponse>;
@@ -73,8 +73,8 @@ export declare namespace ibc {
                     feeEnabledChannel(request: _100.QueryFeeEnabledChannelRequest): Promise<_100.QueryFeeEnabledChannelResponse>;
                 };
                 LCDQueryClient: typeof _246.LCDQueryClient;
-                registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
-                load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
+                registry: readonly [string, GeneratedType][];
+                load: (protoRegistry: Registry) => void;
                 MessageComposer: {
                     encoded: {
                         registerPayee(value: _101.MsgRegisterPayee): {
@@ -684,7 +684,7 @@ export declare namespace ibc {
             namespace controller {
                 const v1: {
                     QueryClientImpl: typeof _254.QueryClientImpl;
-                    createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+                    createRpcQueryExtension: (base: QueryClient) => {
                         interchainAccount(request: _103.QueryInterchainAccountRequest): Promise<_103.QueryInterchainAccountResponse>;
                         params(request?: _103.QueryParamsRequest): Promise<_103.QueryParamsResponse>;
                     };
@@ -759,7 +759,7 @@ export declare namespace ibc {
             namespace host {
                 const v1: {
                     QueryClientImpl: typeof _255.QueryClientImpl;
-                    createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+                    createRpcQueryExtension: (base: QueryClient) => {
                         params(request?: _105.QueryParamsRequest): Promise<_105.QueryParamsResponse>;
                     };
                     LCDQueryClient: typeof _248.LCDQueryClient;
@@ -933,7 +933,7 @@ export declare namespace ibc {
             const v1: {
                 MsgClientImpl: typeof _261.MsgClientImpl;
                 QueryClientImpl: typeof _256.QueryClientImpl;
-                createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+                createRpcQueryExtension: (base: QueryClient) => {
                     denomTrace(request: _111.QueryDenomTraceRequest): Promise<_111.QueryDenomTraceResponse>;
                     denomTraces(request?: _111.QueryDenomTracesRequest): Promise<_111.QueryDenomTracesResponse>;
                     params(request?: _111.QueryParamsRequest): Promise<_111.QueryParamsResponse>;
@@ -941,8 +941,8 @@ export declare namespace ibc {
                     escrowAddress(request: _111.QueryEscrowAddressRequest): Promise<_111.QueryEscrowAddressResponse>;
                 };
                 LCDQueryClient: typeof _249.LCDQueryClient;
-                registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
-                load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
+                registry: readonly [string, GeneratedType][];
+                load: (protoRegistry: Registry) => void;
                 MessageComposer: {
                     encoded: {
                         transfer(value: _113.MsgTransfer): {
@@ -1194,7 +1194,7 @@ export declare namespace ibc {
             const v1: {
                 MsgClientImpl: typeof _262.MsgClientImpl;
                 QueryClientImpl: typeof _257.QueryClientImpl;
-                createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+                createRpcQueryExtension: (base: QueryClient) => {
                     channel(request: _117.QueryChannelRequest): Promise<_117.QueryChannelResponse>;
                     channels(request?: _117.QueryChannelsRequest): Promise<_117.QueryChannelsResponse>;
                     connectionChannels(request: _117.QueryConnectionChannelsRequest): Promise<_117.QueryConnectionChannelsResponse>;
@@ -1210,8 +1210,8 @@ export declare namespace ibc {
                     nextSequenceReceive(request: _117.QueryNextSequenceReceiveRequest): Promise<_117.QueryNextSequenceReceiveResponse>;
                 };
                 LCDQueryClient: typeof _250.LCDQueryClient;
-                registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
-                load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
+                registry: readonly [string, GeneratedType][];
+                load: (protoRegistry: Registry) => void;
                 MessageComposer: {
                     encoded: {
                         channelOpenInit(value: _118.MsgChannelOpenInit): {
@@ -2170,7 +2170,7 @@ export declare namespace ibc {
             const v1: {
                 MsgClientImpl: typeof _263.MsgClientImpl;
                 QueryClientImpl: typeof _258.QueryClientImpl;
-                createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+                createRpcQueryExtension: (base: QueryClient) => {
                     clientState(request: _121.QueryClientStateRequest): Promise<_121.QueryClientStateResponse>;
                     clientStates(request?: _121.QueryClientStatesRequest): Promise<_121.QueryClientStatesResponse>;
                     consensusState(request: _121.QueryConsensusStateRequest): Promise<_121.QueryConsensusStateResponse>;
@@ -2182,8 +2182,8 @@ export declare namespace ibc {
                     upgradedConsensusState(request?: _121.QueryUpgradedConsensusStateRequest): Promise<_121.QueryUpgradedConsensusStateResponse>;
                 };
                 LCDQueryClient: typeof _251.LCDQueryClient;
-                registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
-                load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
+                registry: readonly [string, GeneratedType][];
+                load: (protoRegistry: Registry) => void;
                 MessageComposer: {
                     encoded: {
                         createClient(value: _122.MsgCreateClient): {
@@ -2810,7 +2810,7 @@ export declare namespace ibc {
             const v1: {
                 MsgClientImpl: typeof _264.MsgClientImpl;
                 QueryClientImpl: typeof _259.QueryClientImpl;
-                createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+                createRpcQueryExtension: (base: QueryClient) => {
                     connection(request: _126.QueryConnectionRequest): Promise<_126.QueryConnectionResponse>;
                     connections(request?: _126.QueryConnectionsRequest): Promise<_126.QueryConnectionsResponse>;
                     clientConnections(request: _126.QueryClientConnectionsRequest): Promise<_126.QueryClientConnectionsResponse>;
@@ -2818,8 +2818,8 @@ export declare namespace ibc {
                     connectionConsensusState(request: _126.QueryConnectionConsensusStateRequest): Promise<_126.QueryConnectionConsensusStateResponse>;
                 };
                 LCDQueryClient: typeof _252.LCDQueryClient;
-                registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
-                load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
+                registry: readonly [string, GeneratedType][];
+                load: (protoRegistry: Registry) => void;
                 MessageComposer: {
                     encoded: {
                         connectionOpenInit(value: _127.MsgConnectionOpenInit): {
@@ -3858,7 +3858,7 @@ export declare namespace ibc {
             };
         }>;
         createRPCQueryClient: ({ rpcEndpoint }: {
-            rpcEndpoint: string | import("@cosmjs/tendermint-rpc").HttpEndpoint;
+            rpcEndpoint: any;
         }) => Promise<{
             cosmos: {
                 auth: {

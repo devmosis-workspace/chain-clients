@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/secretnetwork",
-  "version": "1.9.3-6",
+  "version": "1.12.2",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

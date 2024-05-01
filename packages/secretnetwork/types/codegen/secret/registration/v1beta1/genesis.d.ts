@@ -3,8 +3,8 @@ import { MasterKey, MasterKeyAmino, MasterKeySDKType } from "./msg";
 import { BinaryWriter } from "../../../binary";
 export interface GenesisState {
     registration: RegistrationNodeInfo[];
-    nodeExchMasterKey: MasterKey;
-    ioMasterKey: MasterKey;
+    nodeExchMasterKey?: MasterKey;
+    ioMasterKey?: MasterKey;
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/secret.registration.v1beta1.GenesisState";
@@ -12,8 +12,8 @@ export interface GenesisStateProtoMsg {
 }
 export interface GenesisStateAmino {
     registration: RegistrationNodeInfoAmino[];
-    node_exch_master_key?: MasterKeyAmino;
-    io_master_key?: MasterKeyAmino;
+    node_exch_master_key: MasterKeyAmino;
+    io_master_key: MasterKeyAmino;
 }
 export interface GenesisStateAminoMsg {
     type: "/secret.registration.v1beta1.GenesisState";
@@ -21,8 +21,8 @@ export interface GenesisStateAminoMsg {
 }
 export interface GenesisStateSDKType {
     registration: RegistrationNodeInfoSDKType[];
-    node_exch_master_key: MasterKeySDKType;
-    io_master_key: MasterKeySDKType;
+    node_exch_master_key?: MasterKeySDKType;
+    io_master_key?: MasterKeySDKType;
 }
 export declare const GenesisState: {
     typeUrl: string;

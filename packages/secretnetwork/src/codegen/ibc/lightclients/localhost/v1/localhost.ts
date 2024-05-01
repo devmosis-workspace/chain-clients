@@ -21,7 +21,7 @@ export interface ClientStateProtoMsg {
  */
 export interface ClientStateAmino {
   /** self chain ID */
-  chain_id: string;
+  chain_id?: string;
   /** self latest block height */
   height?: HeightAmino;
 }
@@ -67,14 +67,18 @@ export const ClientState = {
     return message;
   },
   fromAmino(object: ClientStateAmino): ClientState {
-    return {
-      chainId: object.chain_id,
-      height: object?.height ? Height.fromAmino(object.height) : undefined
-    };
+    const message = createBaseClientState();
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = Height.fromAmino(object.height);
+    }
+    return message;
   },
   toAmino(message: ClientState): ClientStateAmino {
     const obj: any = {};
-    obj.chain_id = message.chainId;
+    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
     obj.height = message.height ? Height.toAmino(message.height) : {};
     return obj;
   },

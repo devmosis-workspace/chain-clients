@@ -74,7 +74,7 @@ export interface QueryInflationResponseProtoMsg {
  */
 export interface QueryInflationResponseAmino {
     /** inflation is the current minting inflation value. */
-    inflation: Uint8Array;
+    inflation?: string;
 }
 export interface QueryInflationResponseAminoMsg {
     type: "cosmos-sdk/QueryInflationResponse";
@@ -131,7 +131,7 @@ export interface QueryAnnualProvisionsResponseProtoMsg {
  */
 export interface QueryAnnualProvisionsResponseAmino {
     /** annual_provisions is the current minting annual provisions value. */
-    annual_provisions: Uint8Array;
+    annual_provisions?: string;
 }
 export interface QueryAnnualProvisionsResponseAminoMsg {
     type: "cosmos-sdk/QueryAnnualProvisionsResponse";

@@ -14,6 +14,7 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 codeHashByCodeId(request: import("./compute/v1beta1/query").QueryByCodeIdRequest): Promise<import("./compute/v1beta1/query").QueryCodeHashResponse>;
                 labelByAddress(request: import("./compute/v1beta1/query").QueryByContractAddressRequest): Promise<import("./compute/v1beta1/query").QueryContractLabelResponse>;
                 addressByLabel(request: import("./compute/v1beta1/query").QueryByLabelRequest): Promise<import("./compute/v1beta1/query").QueryContractAddressResponse>;
+                contractHistory(request: import("./compute/v1beta1/query").QueryContractHistoryRequest): Promise<import("./compute/v1beta1/query").QueryContractHistoryResponse>;
             };
         };
         emergencybutton: {

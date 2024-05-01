@@ -11,8 +11,8 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the ibc-rate-limit module. */
 export interface ParamsAmino {
-  switch_status: string;
-  pauser_address: string;
+  switch_status?: string;
+  pauser_address?: string;
 }
 export interface ParamsAminoMsg {
   type: "/secret.emergencybutton.v1beta1.Params";
@@ -53,15 +53,19 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      switchStatus: object.switch_status,
-      pauserAddress: object.pauser_address
-    };
+    const message = createBaseParams();
+    if (object.switch_status !== undefined && object.switch_status !== null) {
+      message.switchStatus = object.switch_status;
+    }
+    if (object.pauser_address !== undefined && object.pauser_address !== null) {
+      message.pauserAddress = object.pauser_address;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
-    obj.switch_status = message.switchStatus;
-    obj.pauser_address = message.pauserAddress;
+    obj.switch_status = message.switchStatus === "" ? undefined : message.switchStatus;
+    obj.pauser_address = message.pauserAddress === "" ? undefined : message.pauserAddress;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

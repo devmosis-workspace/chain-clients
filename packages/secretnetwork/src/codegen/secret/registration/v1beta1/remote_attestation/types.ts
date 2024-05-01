@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64 } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export interface QuoteReport {
   id: string;
   timestamp: string;
@@ -14,9 +14,9 @@ export interface QuoteReportProtoMsg {
   value: Uint8Array;
 }
 export interface QuoteReportAmino {
-  id: string;
-  timestamp: string;
-  version: string;
+  id?: string;
+  timestamp?: string;
+  version?: string;
   isv_enclave_quote_status: string;
   platform_info_blob: string;
   isv_enclave_quote_body: string;
@@ -45,9 +45,9 @@ export interface QuoteReportBodyProtoMsg {
   value: Uint8Array;
 }
 export interface QuoteReportBodyAmino {
-  mr_enclave: string;
-  mr_signer: string;
-  report_data: string;
+  mr_enclave?: string;
+  mr_signer?: string;
+  report_data?: string;
 }
 export interface QuoteReportBodyAminoMsg {
   type: "/secret.registration.remote_attestation.v1beta1.QuoteReportBody";
@@ -61,15 +61,15 @@ export interface QuoteReportBodySDKType {
 export interface QuoteReportData {
   version: bigint;
   signType: bigint;
-  reportBody: QuoteReportBody;
+  reportBody?: QuoteReportBody;
 }
 export interface QuoteReportDataProtoMsg {
   typeUrl: "/secret.registration.remote_attestation.v1beta1.QuoteReportData";
   value: Uint8Array;
 }
 export interface QuoteReportDataAmino {
-  version: string;
-  sign_type: string;
+  version?: string;
+  sign_type?: string;
   report_body?: QuoteReportBodyAmino;
 }
 export interface QuoteReportDataAminoMsg {
@@ -79,7 +79,7 @@ export interface QuoteReportDataAminoMsg {
 export interface QuoteReportDataSDKType {
   version: bigint;
   sign_type: bigint;
-  report_body: QuoteReportBodySDKType;
+  report_body?: QuoteReportBodySDKType;
 }
 export interface EndorsedAttestationReport {
   report: Uint8Array;
@@ -91,9 +91,9 @@ export interface EndorsedAttestationReportProtoMsg {
   value: Uint8Array;
 }
 export interface EndorsedAttestationReportAmino {
-  report: Uint8Array;
-  signature: Uint8Array;
-  signing_cert: Uint8Array;
+  report?: string;
+  signature?: string;
+  signing_cert?: string;
 }
 export interface EndorsedAttestationReportAminoMsg {
   type: "/secret.registration.remote_attestation.v1beta1.EndorsedAttestationReport";
@@ -113,8 +113,8 @@ export interface SGXEC256SignatureProtoMsg {
   value: Uint8Array;
 }
 export interface SGXEC256SignatureAmino {
-  gx: string;
-  gy: string;
+  gx?: string;
+  gy?: string;
 }
 export interface SGXEC256SignatureAminoMsg {
   type: "/secret.registration.remote_attestation.v1beta1.SGXEC256Signature";
@@ -133,21 +133,21 @@ export interface PlatformInfoBlob {
   latestPsdaSvn: string;
   xeid: number;
   gid: number;
-  sgxEc256SignatureT: SGXEC256Signature;
+  sgxEc256SignatureT?: SGXEC256Signature;
 }
 export interface PlatformInfoBlobProtoMsg {
   typeUrl: "/secret.registration.remote_attestation.v1beta1.PlatformInfoBlob";
   value: Uint8Array;
 }
 export interface PlatformInfoBlobAmino {
-  sgx_epid_group_flags: number;
-  sgx_tcb_evaluation_flags: number;
-  pse_evaluation_flags: number;
-  latest_equivalent_tcb_psvn: string;
-  latest_pse_isvsvn: string;
-  latest_psda_svn: string;
-  xeid: number;
-  gid: number;
+  sgx_epid_group_flags?: number;
+  sgx_tcb_evaluation_flags?: number;
+  pse_evaluation_flags?: number;
+  latest_equivalent_tcb_psvn?: string;
+  latest_pse_isvsvn?: string;
+  latest_psda_svn?: string;
+  xeid?: number;
+  gid?: number;
   sgx_ec256_signature_t?: SGXEC256SignatureAmino;
 }
 export interface PlatformInfoBlobAminoMsg {
@@ -163,7 +163,7 @@ export interface PlatformInfoBlobSDKType {
   latest_psda_svn: string;
   xeid: number;
   gid: number;
-  sgx_ec256_signature_t: SGXEC256SignatureSDKType;
+  sgx_ec256_signature_t?: SGXEC256SignatureSDKType;
 }
 function createBaseQuoteReport(): QuoteReport {
   return {
@@ -225,28 +225,40 @@ export const QuoteReport = {
     return message;
   },
   fromAmino(object: QuoteReportAmino): QuoteReport {
-    return {
-      id: object.id,
-      timestamp: object.timestamp,
-      version: BigInt(object.version),
-      isvEnclaveQuoteStatus: object.isv_enclave_quote_status,
-      platformInfoBlob: object.platform_info_blob,
-      isvEnclaveQuoteBody: object.isv_enclave_quote_body,
-      advisoryIds: Array.isArray(object?.advisory_ids) ? object.advisory_ids.map((e: any) => e) : []
-    };
+    const message = createBaseQuoteReport();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = object.timestamp;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = BigInt(object.version);
+    }
+    if (object.isv_enclave_quote_status !== undefined && object.isv_enclave_quote_status !== null) {
+      message.isvEnclaveQuoteStatus = object.isv_enclave_quote_status;
+    }
+    if (object.platform_info_blob !== undefined && object.platform_info_blob !== null) {
+      message.platformInfoBlob = object.platform_info_blob;
+    }
+    if (object.isv_enclave_quote_body !== undefined && object.isv_enclave_quote_body !== null) {
+      message.isvEnclaveQuoteBody = object.isv_enclave_quote_body;
+    }
+    message.advisoryIds = object.advisory_ids?.map(e => e) || [];
+    return message;
   },
   toAmino(message: QuoteReport): QuoteReportAmino {
     const obj: any = {};
-    obj.id = message.id;
-    obj.timestamp = message.timestamp;
-    obj.version = message.version ? message.version.toString() : undefined;
-    obj.isv_enclave_quote_status = message.isvEnclaveQuoteStatus;
-    obj.platform_info_blob = message.platformInfoBlob;
-    obj.isv_enclave_quote_body = message.isvEnclaveQuoteBody;
+    obj.id = message.id === "" ? undefined : message.id;
+    obj.timestamp = message.timestamp === "" ? undefined : message.timestamp;
+    obj.version = message.version !== BigInt(0) ? message.version.toString() : undefined;
+    obj.isv_enclave_quote_status = message.isvEnclaveQuoteStatus ?? "";
+    obj.platform_info_blob = message.platformInfoBlob ?? "";
+    obj.isv_enclave_quote_body = message.isvEnclaveQuoteBody ?? "";
     if (message.advisoryIds) {
       obj.advisory_ids = message.advisoryIds.map(e => e);
     } else {
-      obj.advisory_ids = [];
+      obj.advisory_ids = message.advisoryIds;
     }
     return obj;
   },
@@ -302,17 +314,23 @@ export const QuoteReportBody = {
     return message;
   },
   fromAmino(object: QuoteReportBodyAmino): QuoteReportBody {
-    return {
-      mrEnclave: object.mr_enclave,
-      mrSigner: object.mr_signer,
-      reportData: object.report_data
-    };
+    const message = createBaseQuoteReportBody();
+    if (object.mr_enclave !== undefined && object.mr_enclave !== null) {
+      message.mrEnclave = object.mr_enclave;
+    }
+    if (object.mr_signer !== undefined && object.mr_signer !== null) {
+      message.mrSigner = object.mr_signer;
+    }
+    if (object.report_data !== undefined && object.report_data !== null) {
+      message.reportData = object.report_data;
+    }
+    return message;
   },
   toAmino(message: QuoteReportBody): QuoteReportBodyAmino {
     const obj: any = {};
-    obj.mr_enclave = message.mrEnclave;
-    obj.mr_signer = message.mrSigner;
-    obj.report_data = message.reportData;
+    obj.mr_enclave = message.mrEnclave === "" ? undefined : message.mrEnclave;
+    obj.mr_signer = message.mrSigner === "" ? undefined : message.mrSigner;
+    obj.report_data = message.reportData === "" ? undefined : message.reportData;
     return obj;
   },
   fromAminoMsg(object: QuoteReportBodyAminoMsg): QuoteReportBody {
@@ -335,7 +353,7 @@ function createBaseQuoteReportData(): QuoteReportData {
   return {
     version: BigInt(0),
     signType: BigInt(0),
-    reportBody: QuoteReportBody.fromPartial({})
+    reportBody: undefined
   };
 }
 export const QuoteReportData = {
@@ -367,16 +385,22 @@ export const QuoteReportData = {
     return message;
   },
   fromAmino(object: QuoteReportDataAmino): QuoteReportData {
-    return {
-      version: BigInt(object.version),
-      signType: BigInt(object.sign_type),
-      reportBody: object?.report_body ? QuoteReportBody.fromAmino(object.report_body) : undefined
-    };
+    const message = createBaseQuoteReportData();
+    if (object.version !== undefined && object.version !== null) {
+      message.version = BigInt(object.version);
+    }
+    if (object.sign_type !== undefined && object.sign_type !== null) {
+      message.signType = BigInt(object.sign_type);
+    }
+    if (object.report_body !== undefined && object.report_body !== null) {
+      message.reportBody = QuoteReportBody.fromAmino(object.report_body);
+    }
+    return message;
   },
   toAmino(message: QuoteReportData): QuoteReportDataAmino {
     const obj: any = {};
-    obj.version = message.version ? message.version.toString() : undefined;
-    obj.sign_type = message.signType ? message.signType.toString() : undefined;
+    obj.version = message.version !== BigInt(0) ? message.version.toString() : undefined;
+    obj.sign_type = message.signType !== BigInt(0) ? message.signType.toString() : undefined;
     obj.report_body = message.reportBody ? QuoteReportBody.toAmino(message.reportBody) : undefined;
     return obj;
   },
@@ -432,17 +456,23 @@ export const EndorsedAttestationReport = {
     return message;
   },
   fromAmino(object: EndorsedAttestationReportAmino): EndorsedAttestationReport {
-    return {
-      report: object.report,
-      signature: object.signature,
-      signingCert: object.signing_cert
-    };
+    const message = createBaseEndorsedAttestationReport();
+    if (object.report !== undefined && object.report !== null) {
+      message.report = bytesFromBase64(object.report);
+    }
+    if (object.signature !== undefined && object.signature !== null) {
+      message.signature = bytesFromBase64(object.signature);
+    }
+    if (object.signing_cert !== undefined && object.signing_cert !== null) {
+      message.signingCert = bytesFromBase64(object.signing_cert);
+    }
+    return message;
   },
   toAmino(message: EndorsedAttestationReport): EndorsedAttestationReportAmino {
     const obj: any = {};
-    obj.report = message.report;
-    obj.signature = message.signature;
-    obj.signing_cert = message.signingCert;
+    obj.report = message.report ? base64FromBytes(message.report) : undefined;
+    obj.signature = message.signature ? base64FromBytes(message.signature) : undefined;
+    obj.signing_cert = message.signingCert ? base64FromBytes(message.signingCert) : undefined;
     return obj;
   },
   fromAminoMsg(object: EndorsedAttestationReportAminoMsg): EndorsedAttestationReport {
@@ -491,15 +521,19 @@ export const SGXEC256Signature = {
     return message;
   },
   fromAmino(object: SGXEC256SignatureAmino): SGXEC256Signature {
-    return {
-      gx: object.gx,
-      gy: object.gy
-    };
+    const message = createBaseSGXEC256Signature();
+    if (object.gx !== undefined && object.gx !== null) {
+      message.gx = object.gx;
+    }
+    if (object.gy !== undefined && object.gy !== null) {
+      message.gy = object.gy;
+    }
+    return message;
   },
   toAmino(message: SGXEC256Signature): SGXEC256SignatureAmino {
     const obj: any = {};
-    obj.gx = message.gx;
-    obj.gy = message.gy;
+    obj.gx = message.gx === "" ? undefined : message.gx;
+    obj.gy = message.gy === "" ? undefined : message.gy;
     return obj;
   },
   fromAminoMsg(object: SGXEC256SignatureAminoMsg): SGXEC256Signature {
@@ -528,7 +562,7 @@ function createBasePlatformInfoBlob(): PlatformInfoBlob {
     latestPsdaSvn: "",
     xeid: 0,
     gid: 0,
-    sgxEc256SignatureT: SGXEC256Signature.fromPartial({})
+    sgxEc256SignatureT: undefined
   };
 }
 export const PlatformInfoBlob = {
@@ -590,28 +624,46 @@ export const PlatformInfoBlob = {
     return message;
   },
   fromAmino(object: PlatformInfoBlobAmino): PlatformInfoBlob {
-    return {
-      sgxEpidGroupFlags: object.sgx_epid_group_flags,
-      sgxTcbEvaluationFlags: object.sgx_tcb_evaluation_flags,
-      pseEvaluationFlags: object.pse_evaluation_flags,
-      latestEquivalentTcbPsvn: object.latest_equivalent_tcb_psvn,
-      latestPseIsvsvn: object.latest_pse_isvsvn,
-      latestPsdaSvn: object.latest_psda_svn,
-      xeid: object.xeid,
-      gid: object.gid,
-      sgxEc256SignatureT: object?.sgx_ec256_signature_t ? SGXEC256Signature.fromAmino(object.sgx_ec256_signature_t) : undefined
-    };
+    const message = createBasePlatformInfoBlob();
+    if (object.sgx_epid_group_flags !== undefined && object.sgx_epid_group_flags !== null) {
+      message.sgxEpidGroupFlags = object.sgx_epid_group_flags;
+    }
+    if (object.sgx_tcb_evaluation_flags !== undefined && object.sgx_tcb_evaluation_flags !== null) {
+      message.sgxTcbEvaluationFlags = object.sgx_tcb_evaluation_flags;
+    }
+    if (object.pse_evaluation_flags !== undefined && object.pse_evaluation_flags !== null) {
+      message.pseEvaluationFlags = object.pse_evaluation_flags;
+    }
+    if (object.latest_equivalent_tcb_psvn !== undefined && object.latest_equivalent_tcb_psvn !== null) {
+      message.latestEquivalentTcbPsvn = object.latest_equivalent_tcb_psvn;
+    }
+    if (object.latest_pse_isvsvn !== undefined && object.latest_pse_isvsvn !== null) {
+      message.latestPseIsvsvn = object.latest_pse_isvsvn;
+    }
+    if (object.latest_psda_svn !== undefined && object.latest_psda_svn !== null) {
+      message.latestPsdaSvn = object.latest_psda_svn;
+    }
+    if (object.xeid !== undefined && object.xeid !== null) {
+      message.xeid = object.xeid;
+    }
+    if (object.gid !== undefined && object.gid !== null) {
+      message.gid = object.gid;
+    }
+    if (object.sgx_ec256_signature_t !== undefined && object.sgx_ec256_signature_t !== null) {
+      message.sgxEc256SignatureT = SGXEC256Signature.fromAmino(object.sgx_ec256_signature_t);
+    }
+    return message;
   },
   toAmino(message: PlatformInfoBlob): PlatformInfoBlobAmino {
     const obj: any = {};
-    obj.sgx_epid_group_flags = message.sgxEpidGroupFlags;
-    obj.sgx_tcb_evaluation_flags = message.sgxTcbEvaluationFlags;
-    obj.pse_evaluation_flags = message.pseEvaluationFlags;
-    obj.latest_equivalent_tcb_psvn = message.latestEquivalentTcbPsvn;
-    obj.latest_pse_isvsvn = message.latestPseIsvsvn;
-    obj.latest_psda_svn = message.latestPsdaSvn;
-    obj.xeid = message.xeid;
-    obj.gid = message.gid;
+    obj.sgx_epid_group_flags = message.sgxEpidGroupFlags === 0 ? undefined : message.sgxEpidGroupFlags;
+    obj.sgx_tcb_evaluation_flags = message.sgxTcbEvaluationFlags === 0 ? undefined : message.sgxTcbEvaluationFlags;
+    obj.pse_evaluation_flags = message.pseEvaluationFlags === 0 ? undefined : message.pseEvaluationFlags;
+    obj.latest_equivalent_tcb_psvn = message.latestEquivalentTcbPsvn === "" ? undefined : message.latestEquivalentTcbPsvn;
+    obj.latest_pse_isvsvn = message.latestPseIsvsvn === "" ? undefined : message.latestPseIsvsvn;
+    obj.latest_psda_svn = message.latestPsdaSvn === "" ? undefined : message.latestPsdaSvn;
+    obj.xeid = message.xeid === 0 ? undefined : message.xeid;
+    obj.gid = message.gid === 0 ? undefined : message.gid;
     obj.sgx_ec256_signature_t = message.sgxEc256SignatureT ? SGXEC256Signature.toAmino(message.sgxEc256SignatureT) : undefined;
     return obj;
   },

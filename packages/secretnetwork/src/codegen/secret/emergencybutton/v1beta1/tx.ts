@@ -10,7 +10,7 @@ export interface MsgToggleIbcSwitchProtoMsg {
 }
 /** MsgToggleIbcSwitch represents a message to toggle the emergencybutton status by the defined pauser. */
 export interface MsgToggleIbcSwitchAmino {
-  sender: string;
+  sender?: string;
 }
 export interface MsgToggleIbcSwitchAminoMsg {
   type: "/secret.emergencybutton.v1beta1.MsgToggleIbcSwitch";
@@ -58,13 +58,15 @@ export const MsgToggleIbcSwitch = {
     return message;
   },
   fromAmino(object: MsgToggleIbcSwitchAmino): MsgToggleIbcSwitch {
-    return {
-      sender: object.sender
-    };
+    const message = createBaseMsgToggleIbcSwitch();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    return message;
   },
   toAmino(message: MsgToggleIbcSwitch): MsgToggleIbcSwitchAmino {
     const obj: any = {};
-    obj.sender = message.sender;
+    obj.sender = message.sender === "" ? undefined : message.sender;
     return obj;
   },
   fromAminoMsg(object: MsgToggleIbcSwitchAminoMsg): MsgToggleIbcSwitch {
@@ -99,7 +101,8 @@ export const MsgToggleIbcSwitchResponse = {
     return message;
   },
   fromAmino(_: MsgToggleIbcSwitchResponseAmino): MsgToggleIbcSwitchResponse {
-    return {};
+    const message = createBaseMsgToggleIbcSwitchResponse();
+    return message;
   },
   toAmino(_: MsgToggleIbcSwitchResponse): MsgToggleIbcSwitchResponseAmino {
     const obj: any = {};

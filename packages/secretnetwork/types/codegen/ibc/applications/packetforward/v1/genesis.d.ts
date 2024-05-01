@@ -1,14 +1,14 @@
 import { BinaryWriter } from "../../../../binary";
 export interface GenesisState_InFlightPacketsEntry {
     key: string;
-    value: InFlightPacket;
+    value?: InFlightPacket;
 }
 export interface GenesisState_InFlightPacketsEntryProtoMsg {
     typeUrl: string;
     value: Uint8Array;
 }
 export interface GenesisState_InFlightPacketsEntryAmino {
-    key: string;
+    key?: string;
     value?: InFlightPacketAmino;
 }
 export interface GenesisState_InFlightPacketsEntryAminoMsg {
@@ -17,7 +17,7 @@ export interface GenesisState_InFlightPacketsEntryAminoMsg {
 }
 export interface GenesisState_InFlightPacketsEntrySDKType {
     key: string;
-    value: InFlightPacketSDKType;
+    value?: InFlightPacketSDKType;
 }
 /** GenesisState defines the packetforward genesis state */
 export interface GenesisState {
@@ -70,7 +70,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the set of IBC packetforward parameters. */
 export interface ParamsAmino {
-    fee_percentage: string;
+    fee_percentage?: string;
 }
 export interface ParamsAminoMsg {
     type: "/packetforward.v1.Params";
@@ -107,18 +107,18 @@ export interface InFlightPacketProtoMsg {
  * writing the acknowledgement and refunding if necessary.
  */
 export interface InFlightPacketAmino {
-    original_sender_address: string;
-    refund_channel_id: string;
-    refund_port_id: string;
-    packet_src_channel_id: string;
-    packet_src_port_id: string;
-    packet_timeout_timestamp: string;
-    packet_timeout_height: string;
-    packet_data: Uint8Array;
-    refund_sequence: string;
-    retries_remaining: number;
-    timeout: string;
-    nonrefundable: boolean;
+    original_sender_address?: string;
+    refund_channel_id?: string;
+    refund_port_id?: string;
+    packet_src_channel_id?: string;
+    packet_src_port_id?: string;
+    packet_timeout_timestamp?: string;
+    packet_timeout_height?: string;
+    packet_data?: string;
+    refund_sequence?: string;
+    retries_remaining?: number;
+    timeout?: string;
+    nonrefundable?: boolean;
 }
 export interface InFlightPacketAminoMsg {
     type: "/packetforward.v1.InFlightPacket";

@@ -10,7 +10,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState contains a set of fee allowances, persisted from the store */
 export interface GenesisStateAmino {
-  allowances: GrantAmino[];
+  allowances?: GrantAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "cosmos-sdk/GenesisState";
@@ -44,16 +44,16 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      allowances: Array.isArray(object?.allowances) ? object.allowances.map((e: any) => Grant.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.allowances = object.allowances?.map(e => Grant.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
     if (message.allowances) {
       obj.allowances = message.allowances.map(e => e ? Grant.toAmino(e) : undefined);
     } else {
-      obj.allowances = [];
+      obj.allowances = message.allowances;
     }
     return obj;
   },

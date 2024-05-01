@@ -51,8 +51,8 @@ export interface RegistrationNodeInfoProtoMsg {
     value: Uint8Array;
 }
 export interface RegistrationNodeInfoAmino {
-    certificate: Uint8Array;
-    encrypted_seed: Uint8Array;
+    certificate?: string;
+    encrypted_seed?: string;
 }
 export interface RegistrationNodeInfoAminoMsg {
     type: "/secret.registration.v1beta1.RegistrationNodeInfo";

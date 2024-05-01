@@ -22,15 +22,15 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the ICS29 fee middleware genesis state */
 export interface GenesisStateAmino {
   /** list of identified packet fees */
-  identified_fees: IdentifiedPacketFeesAmino[];
+  identified_fees?: IdentifiedPacketFeesAmino[];
   /** list of fee enabled channels */
-  fee_enabled_channels: FeeEnabledChannelAmino[];
+  fee_enabled_channels?: FeeEnabledChannelAmino[];
   /** list of registered payees */
-  registered_payees: RegisteredPayeeAmino[];
+  registered_payees?: RegisteredPayeeAmino[];
   /** list of registered counterparty payees */
-  registered_counterparty_payees: RegisteredCounterpartyPayeeAmino[];
+  registered_counterparty_payees?: RegisteredCounterpartyPayeeAmino[];
   /** list of forward relayer addresses */
-  forward_relayers: ForwardRelayerAddressAmino[];
+  forward_relayers?: ForwardRelayerAddressAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "cosmos-sdk/GenesisState";
@@ -58,9 +58,9 @@ export interface FeeEnabledChannelProtoMsg {
 /** FeeEnabledChannel contains the PortID & ChannelID for a fee enabled channel */
 export interface FeeEnabledChannelAmino {
   /** unique port identifier */
-  port_id: string;
+  port_id?: string;
   /** unique channel identifier */
-  channel_id: string;
+  channel_id?: string;
 }
 export interface FeeEnabledChannelAminoMsg {
   type: "cosmos-sdk/FeeEnabledChannel";
@@ -87,11 +87,11 @@ export interface RegisteredPayeeProtoMsg {
 /** RegisteredPayee contains the relayer address and payee address for a specific channel */
 export interface RegisteredPayeeAmino {
   /** unique channel identifier */
-  channel_id: string;
+  channel_id?: string;
   /** the relayer address */
-  relayer: string;
+  relayer?: string;
   /** the payee address */
-  payee: string;
+  payee?: string;
 }
 export interface RegisteredPayeeAminoMsg {
   type: "cosmos-sdk/RegisteredPayee";
@@ -125,11 +125,11 @@ export interface RegisteredCounterpartyPayeeProtoMsg {
  */
 export interface RegisteredCounterpartyPayeeAmino {
   /** unique channel identifier */
-  channel_id: string;
+  channel_id?: string;
   /** the relayer address */
-  relayer: string;
+  relayer?: string;
   /** the counterparty payee address */
-  counterparty_payee: string;
+  counterparty_payee?: string;
 }
 export interface RegisteredCounterpartyPayeeAminoMsg {
   type: "cosmos-sdk/RegisteredCounterpartyPayee";
@@ -158,7 +158,7 @@ export interface ForwardRelayerAddressProtoMsg {
 /** ForwardRelayerAddress contains the forward relayer address and PacketId used for async acknowledgements */
 export interface ForwardRelayerAddressAmino {
   /** the forward relayer address */
-  address: string;
+  address?: string;
   /** unique packet identifer comprised of the channel ID, port ID and sequence */
   packet_id?: PacketIdAmino;
 }
@@ -219,40 +219,40 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      identifiedFees: Array.isArray(object?.identified_fees) ? object.identified_fees.map((e: any) => IdentifiedPacketFees.fromAmino(e)) : [],
-      feeEnabledChannels: Array.isArray(object?.fee_enabled_channels) ? object.fee_enabled_channels.map((e: any) => FeeEnabledChannel.fromAmino(e)) : [],
-      registeredPayees: Array.isArray(object?.registered_payees) ? object.registered_payees.map((e: any) => RegisteredPayee.fromAmino(e)) : [],
-      registeredCounterpartyPayees: Array.isArray(object?.registered_counterparty_payees) ? object.registered_counterparty_payees.map((e: any) => RegisteredCounterpartyPayee.fromAmino(e)) : [],
-      forwardRelayers: Array.isArray(object?.forward_relayers) ? object.forward_relayers.map((e: any) => ForwardRelayerAddress.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.identifiedFees = object.identified_fees?.map(e => IdentifiedPacketFees.fromAmino(e)) || [];
+    message.feeEnabledChannels = object.fee_enabled_channels?.map(e => FeeEnabledChannel.fromAmino(e)) || [];
+    message.registeredPayees = object.registered_payees?.map(e => RegisteredPayee.fromAmino(e)) || [];
+    message.registeredCounterpartyPayees = object.registered_counterparty_payees?.map(e => RegisteredCounterpartyPayee.fromAmino(e)) || [];
+    message.forwardRelayers = object.forward_relayers?.map(e => ForwardRelayerAddress.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
     if (message.identifiedFees) {
       obj.identified_fees = message.identifiedFees.map(e => e ? IdentifiedPacketFees.toAmino(e) : undefined);
     } else {
-      obj.identified_fees = [];
+      obj.identified_fees = message.identifiedFees;
     }
     if (message.feeEnabledChannels) {
       obj.fee_enabled_channels = message.feeEnabledChannels.map(e => e ? FeeEnabledChannel.toAmino(e) : undefined);
     } else {
-      obj.fee_enabled_channels = [];
+      obj.fee_enabled_channels = message.feeEnabledChannels;
     }
     if (message.registeredPayees) {
       obj.registered_payees = message.registeredPayees.map(e => e ? RegisteredPayee.toAmino(e) : undefined);
     } else {
-      obj.registered_payees = [];
+      obj.registered_payees = message.registeredPayees;
     }
     if (message.registeredCounterpartyPayees) {
       obj.registered_counterparty_payees = message.registeredCounterpartyPayees.map(e => e ? RegisteredCounterpartyPayee.toAmino(e) : undefined);
     } else {
-      obj.registered_counterparty_payees = [];
+      obj.registered_counterparty_payees = message.registeredCounterpartyPayees;
     }
     if (message.forwardRelayers) {
       obj.forward_relayers = message.forwardRelayers.map(e => e ? ForwardRelayerAddress.toAmino(e) : undefined);
     } else {
-      obj.forward_relayers = [];
+      obj.forward_relayers = message.forwardRelayers;
     }
     return obj;
   },
@@ -308,15 +308,19 @@ export const FeeEnabledChannel = {
     return message;
   },
   fromAmino(object: FeeEnabledChannelAmino): FeeEnabledChannel {
-    return {
-      portId: object.port_id,
-      channelId: object.channel_id
-    };
+    const message = createBaseFeeEnabledChannel();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    return message;
   },
   toAmino(message: FeeEnabledChannel): FeeEnabledChannelAmino {
     const obj: any = {};
-    obj.port_id = message.portId;
-    obj.channel_id = message.channelId;
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
     return obj;
   },
   fromAminoMsg(object: FeeEnabledChannelAminoMsg): FeeEnabledChannel {
@@ -377,17 +381,23 @@ export const RegisteredPayee = {
     return message;
   },
   fromAmino(object: RegisteredPayeeAmino): RegisteredPayee {
-    return {
-      channelId: object.channel_id,
-      relayer: object.relayer,
-      payee: object.payee
-    };
+    const message = createBaseRegisteredPayee();
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.relayer !== undefined && object.relayer !== null) {
+      message.relayer = object.relayer;
+    }
+    if (object.payee !== undefined && object.payee !== null) {
+      message.payee = object.payee;
+    }
+    return message;
   },
   toAmino(message: RegisteredPayee): RegisteredPayeeAmino {
     const obj: any = {};
-    obj.channel_id = message.channelId;
-    obj.relayer = message.relayer;
-    obj.payee = message.payee;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.relayer = message.relayer === "" ? undefined : message.relayer;
+    obj.payee = message.payee === "" ? undefined : message.payee;
     return obj;
   },
   fromAminoMsg(object: RegisteredPayeeAminoMsg): RegisteredPayee {
@@ -448,17 +458,23 @@ export const RegisteredCounterpartyPayee = {
     return message;
   },
   fromAmino(object: RegisteredCounterpartyPayeeAmino): RegisteredCounterpartyPayee {
-    return {
-      channelId: object.channel_id,
-      relayer: object.relayer,
-      counterpartyPayee: object.counterparty_payee
-    };
+    const message = createBaseRegisteredCounterpartyPayee();
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.relayer !== undefined && object.relayer !== null) {
+      message.relayer = object.relayer;
+    }
+    if (object.counterparty_payee !== undefined && object.counterparty_payee !== null) {
+      message.counterpartyPayee = object.counterparty_payee;
+    }
+    return message;
   },
   toAmino(message: RegisteredCounterpartyPayee): RegisteredCounterpartyPayeeAmino {
     const obj: any = {};
-    obj.channel_id = message.channelId;
-    obj.relayer = message.relayer;
-    obj.counterparty_payee = message.counterpartyPayee;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.relayer = message.relayer === "" ? undefined : message.relayer;
+    obj.counterparty_payee = message.counterpartyPayee === "" ? undefined : message.counterpartyPayee;
     return obj;
   },
   fromAminoMsg(object: RegisteredCounterpartyPayeeAminoMsg): RegisteredCounterpartyPayee {
@@ -513,14 +529,18 @@ export const ForwardRelayerAddress = {
     return message;
   },
   fromAmino(object: ForwardRelayerAddressAmino): ForwardRelayerAddress {
-    return {
-      address: object.address,
-      packetId: object?.packet_id ? PacketId.fromAmino(object.packet_id) : undefined
-    };
+    const message = createBaseForwardRelayerAddress();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.packet_id !== undefined && object.packet_id !== null) {
+      message.packetId = PacketId.fromAmino(object.packet_id);
+    }
+    return message;
   },
   toAmino(message: ForwardRelayerAddress): ForwardRelayerAddressAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     obj.packet_id = message.packetId ? PacketId.toAmino(message.packetId) : undefined;
     return obj;
   },

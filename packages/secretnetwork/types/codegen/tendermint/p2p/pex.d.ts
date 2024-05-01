@@ -22,7 +22,7 @@ export interface PexAddrsProtoMsg {
     value: Uint8Array;
 }
 export interface PexAddrsAmino {
-    addrs: NetAddressAmino[];
+    addrs?: NetAddressAmino[];
 }
 export interface PexAddrsAminoMsg {
     type: "/tendermint.p2p.PexAddrs";

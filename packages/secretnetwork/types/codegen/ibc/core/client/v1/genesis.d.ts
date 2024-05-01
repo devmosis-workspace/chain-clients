@@ -21,16 +21,16 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the ibc client submodule's genesis state. */
 export interface GenesisStateAmino {
     /** client states with their corresponding identifiers */
-    clients: IdentifiedClientStateAmino[];
+    clients?: IdentifiedClientStateAmino[];
     /** consensus states from each client */
-    clients_consensus: ClientConsensusStatesAmino[];
+    clients_consensus?: ClientConsensusStatesAmino[];
     /** metadata from each client */
-    clients_metadata: IdentifiedGenesisMetadataAmino[];
+    clients_metadata?: IdentifiedGenesisMetadataAmino[];
     params?: ParamsAmino;
     /** create localhost on initialization */
-    create_localhost: boolean;
+    create_localhost?: boolean;
     /** the sequence for the next generated client identifier */
-    next_client_sequence: string;
+    next_client_sequence?: string;
 }
 export interface GenesisStateAminoMsg {
     type: "cosmos-sdk/GenesisState";
@@ -65,9 +65,9 @@ export interface GenesisMetadataProtoMsg {
  */
 export interface GenesisMetadataAmino {
     /** store key of metadata without clientID-prefix */
-    key: Uint8Array;
+    key?: string;
     /** metadata value */
-    value: Uint8Array;
+    value?: string;
 }
 export interface GenesisMetadataAminoMsg {
     type: "cosmos-sdk/GenesisMetadata";
@@ -98,8 +98,8 @@ export interface IdentifiedGenesisMetadataProtoMsg {
  * client id.
  */
 export interface IdentifiedGenesisMetadataAmino {
-    client_id: string;
-    client_metadata: GenesisMetadataAmino[];
+    client_id?: string;
+    client_metadata?: GenesisMetadataAmino[];
 }
 export interface IdentifiedGenesisMetadataAminoMsg {
     type: "cosmos-sdk/IdentifiedGenesisMetadata";

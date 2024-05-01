@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export enum AccessType {
   UNDEFINED = 0,
   NOBODY = 1,
@@ -44,6 +44,55 @@ export function accessTypeToJSON(object: AccessType): string {
       return "UNRECOGNIZED";
   }
 }
+/** ContractCodeHistoryOperationType actions that caused a code change */
+export enum ContractCodeHistoryOperationType {
+  /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED - ContractCodeHistoryOperationTypeUnspecified placeholder for empty value */
+  CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED = 0,
+  /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT - ContractCodeHistoryOperationTypeInit on chain contract instantiation */
+  CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT = 1,
+  /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE - ContractCodeHistoryOperationTypeMigrate code migration */
+  CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE = 2,
+  /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS - ContractCodeHistoryOperationTypeGenesis based on genesis data */
+  CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS = 3,
+  UNRECOGNIZED = -1,
+}
+export const ContractCodeHistoryOperationTypeSDKType = ContractCodeHistoryOperationType;
+export const ContractCodeHistoryOperationTypeAmino = ContractCodeHistoryOperationType;
+export function contractCodeHistoryOperationTypeFromJSON(object: any): ContractCodeHistoryOperationType {
+  switch (object) {
+    case 0:
+    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED":
+      return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED;
+    case 1:
+    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT":
+      return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT;
+    case 2:
+    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE":
+      return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE;
+    case 3:
+    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS":
+      return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ContractCodeHistoryOperationType.UNRECOGNIZED;
+  }
+}
+export function contractCodeHistoryOperationTypeToJSON(object: ContractCodeHistoryOperationType): string {
+  switch (object) {
+    case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED:
+      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED";
+    case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT:
+      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT";
+    case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE:
+      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE";
+    case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS:
+      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS";
+    case ContractCodeHistoryOperationType.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
 export interface AccessTypeParam {
   value: AccessType;
 }
@@ -52,7 +101,7 @@ export interface AccessTypeParamProtoMsg {
   value: Uint8Array;
 }
 export interface AccessTypeParamAmino {
-  value: AccessType;
+  value?: AccessType;
 }
 export interface AccessTypeParamAminoMsg {
   type: "/secret.compute.v1beta1.AccessTypeParam";
@@ -74,10 +123,10 @@ export interface CodeInfoProtoMsg {
 }
 /** CodeInfo is data for the uploaded contract WASM code */
 export interface CodeInfoAmino {
-  code_hash: Uint8Array;
-  creator: Uint8Array;
-  source: string;
-  builder: string;
+  code_hash?: string;
+  creator?: string;
+  source?: string;
+  builder?: string;
 }
 export interface CodeInfoAminoMsg {
   type: "/secret.compute.v1beta1.CodeInfo";
@@ -90,8 +139,31 @@ export interface CodeInfoSDKType {
   source: string;
   builder: string;
 }
+export interface ContractKey {
+  ogContractKey: Uint8Array;
+  currentContractKey: Uint8Array;
+  currentContractKeyProof: Uint8Array;
+}
+export interface ContractKeyProtoMsg {
+  typeUrl: "/secret.compute.v1beta1.ContractKey";
+  value: Uint8Array;
+}
+export interface ContractKeyAmino {
+  og_contract_key?: string;
+  current_contract_key?: string;
+  current_contract_key_proof?: string;
+}
+export interface ContractKeyAminoMsg {
+  type: "/secret.compute.v1beta1.ContractKey";
+  value: ContractKeyAmino;
+}
+export interface ContractKeySDKType {
+  og_contract_key: Uint8Array;
+  current_contract_key: Uint8Array;
+  current_contract_key_proof: Uint8Array;
+}
 export interface ContractCustomInfo {
-  enclaveKey: Uint8Array;
+  enclaveKey?: ContractKey;
   label: string;
 }
 export interface ContractCustomInfoProtoMsg {
@@ -99,28 +171,32 @@ export interface ContractCustomInfoProtoMsg {
   value: Uint8Array;
 }
 export interface ContractCustomInfoAmino {
-  enclave_key: Uint8Array;
-  label: string;
+  enclave_key?: ContractKeyAmino;
+  label?: string;
 }
 export interface ContractCustomInfoAminoMsg {
   type: "/secret.compute.v1beta1.ContractCustomInfo";
   value: ContractCustomInfoAmino;
 }
 export interface ContractCustomInfoSDKType {
-  enclave_key: Uint8Array;
+  enclave_key?: ContractKeySDKType;
   label: string;
 }
 /** ContractInfo stores a WASM contract instance */
 export interface ContractInfo {
+  /** CodeID is the reference to the stored Wasm code */
   codeId: bigint;
+  /** Creator address who initially instantiated the contract */
   creator: Uint8Array;
+  /** Label is mandatory metadata to be stored with a contract instance. */
   label: string;
-  /**
-   * never show this in query results, just use for sorting
-   * (Note: when using json tag "-" amino refused to serialize it...)
-   */
-  created: AbsoluteTxPosition;
+  /** Created Tx position when the contract was instantiated. */
+  created?: AbsoluteTxPosition;
   ibcPortId: string;
+  /** Admin is an optional address that can execute migrations */
+  admin: string;
+  /** Proof that enclave executed the instantiate command */
+  adminProof: Uint8Array;
 }
 export interface ContractInfoProtoMsg {
   typeUrl: "/secret.compute.v1beta1.ContractInfo";
@@ -128,15 +204,19 @@ export interface ContractInfoProtoMsg {
 }
 /** ContractInfo stores a WASM contract instance */
 export interface ContractInfoAmino {
-  code_id: string;
-  creator: Uint8Array;
-  label: string;
-  /**
-   * never show this in query results, just use for sorting
-   * (Note: when using json tag "-" amino refused to serialize it...)
-   */
+  /** CodeID is the reference to the stored Wasm code */
+  code_id?: string;
+  /** Creator address who initially instantiated the contract */
+  creator?: string;
+  /** Label is mandatory metadata to be stored with a contract instance. */
+  label?: string;
+  /** Created Tx position when the contract was instantiated. */
   created?: AbsoluteTxPositionAmino;
-  ibc_port_id: string;
+  ibc_port_id?: string;
+  /** Admin is an optional address that can execute migrations */
+  admin?: string;
+  /** Proof that enclave executed the instantiate command */
+  admin_proof?: string;
 }
 export interface ContractInfoAminoMsg {
   type: "/secret.compute.v1beta1.ContractInfo";
@@ -147,8 +227,10 @@ export interface ContractInfoSDKType {
   code_id: bigint;
   creator: Uint8Array;
   label: string;
-  created: AbsoluteTxPositionSDKType;
+  created?: AbsoluteTxPositionSDKType;
   ibc_port_id: string;
+  admin: string;
+  admin_proof: Uint8Array;
 }
 /** AbsoluteTxPosition can be used to sort contracts */
 export interface AbsoluteTxPosition {
@@ -164,9 +246,9 @@ export interface AbsoluteTxPositionProtoMsg {
 /** AbsoluteTxPosition can be used to sort contracts */
 export interface AbsoluteTxPositionAmino {
   /** BlockHeight is the block the contract was created at */
-  block_height: string;
+  block_height?: string;
   /** TxIndex is a monotonic counter within the block (actual transaction index, or gas consumed) */
-  tx_index: string;
+  tx_index?: string;
 }
 export interface AbsoluteTxPositionAminoMsg {
   type: "/secret.compute.v1beta1.AbsoluteTxPosition";
@@ -191,9 +273,9 @@ export interface ModelProtoMsg {
 /** Model is a struct that holds a KV pair */
 export interface ModelAmino {
   /** hex-encode key to read it better (this is often ascii) */
-  Key: Uint8Array;
+  Key?: string;
   /** base64-encode raw value */
-  Value: Uint8Array;
+  Value?: string;
 }
 export interface ModelAminoMsg {
   type: "/secret.compute.v1beta1.Model";
@@ -203,6 +285,39 @@ export interface ModelAminoMsg {
 export interface ModelSDKType {
   Key: Uint8Array;
   Value: Uint8Array;
+}
+/** ContractCodeHistoryEntry metadata to a contract. */
+export interface ContractCodeHistoryEntry {
+  operation: ContractCodeHistoryOperationType;
+  /** CodeID is the reference to the stored WASM code */
+  codeId: bigint;
+  /** Updated Tx position when the operation was executed. */
+  updated?: AbsoluteTxPosition;
+  msg: Uint8Array;
+}
+export interface ContractCodeHistoryEntryProtoMsg {
+  typeUrl: "/secret.compute.v1beta1.ContractCodeHistoryEntry";
+  value: Uint8Array;
+}
+/** ContractCodeHistoryEntry metadata to a contract. */
+export interface ContractCodeHistoryEntryAmino {
+  operation?: ContractCodeHistoryOperationType;
+  /** CodeID is the reference to the stored WASM code */
+  code_id?: string;
+  /** Updated Tx position when the operation was executed. */
+  updated?: AbsoluteTxPositionAmino;
+  msg?: string;
+}
+export interface ContractCodeHistoryEntryAminoMsg {
+  type: "/secret.compute.v1beta1.ContractCodeHistoryEntry";
+  value: ContractCodeHistoryEntryAmino;
+}
+/** ContractCodeHistoryEntry metadata to a contract. */
+export interface ContractCodeHistoryEntrySDKType {
+  operation: ContractCodeHistoryOperationType;
+  code_id: bigint;
+  updated?: AbsoluteTxPositionSDKType;
+  msg: Uint8Array;
 }
 function createBaseAccessTypeParam(): AccessTypeParam {
   return {
@@ -228,13 +343,15 @@ export const AccessTypeParam = {
     return message;
   },
   fromAmino(object: AccessTypeParamAmino): AccessTypeParam {
-    return {
-      value: isSet(object.value) ? accessTypeFromJSON(object.value) : -1
-    };
+    const message = createBaseAccessTypeParam();
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
   },
   toAmino(message: AccessTypeParam): AccessTypeParamAmino {
     const obj: any = {};
-    obj.value = message.value;
+    obj.value = message.value === 0 ? undefined : message.value;
     return obj;
   },
   fromAminoMsg(object: AccessTypeParamAminoMsg): AccessTypeParam {
@@ -295,19 +412,27 @@ export const CodeInfo = {
     return message;
   },
   fromAmino(object: CodeInfoAmino): CodeInfo {
-    return {
-      codeHash: object.code_hash,
-      creator: object.creator,
-      source: object.source,
-      builder: object.builder
-    };
+    const message = createBaseCodeInfo();
+    if (object.code_hash !== undefined && object.code_hash !== null) {
+      message.codeHash = bytesFromBase64(object.code_hash);
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = bytesFromBase64(object.creator);
+    }
+    if (object.source !== undefined && object.source !== null) {
+      message.source = object.source;
+    }
+    if (object.builder !== undefined && object.builder !== null) {
+      message.builder = object.builder;
+    }
+    return message;
   },
   toAmino(message: CodeInfo): CodeInfoAmino {
     const obj: any = {};
-    obj.code_hash = message.codeHash;
-    obj.creator = message.creator;
-    obj.source = message.source;
-    obj.builder = message.builder;
+    obj.code_hash = message.codeHash ? base64FromBytes(message.codeHash) : undefined;
+    obj.creator = message.creator ? base64FromBytes(message.creator) : undefined;
+    obj.source = message.source === "" ? undefined : message.source;
+    obj.builder = message.builder === "" ? undefined : message.builder;
     return obj;
   },
   fromAminoMsg(object: CodeInfoAminoMsg): CodeInfo {
@@ -326,17 +451,88 @@ export const CodeInfo = {
     };
   }
 };
+function createBaseContractKey(): ContractKey {
+  return {
+    ogContractKey: new Uint8Array(),
+    currentContractKey: new Uint8Array(),
+    currentContractKeyProof: new Uint8Array()
+  };
+}
+export const ContractKey = {
+  typeUrl: "/secret.compute.v1beta1.ContractKey",
+  encode(message: ContractKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.ogContractKey.length !== 0) {
+      writer.uint32(10).bytes(message.ogContractKey);
+    }
+    if (message.currentContractKey.length !== 0) {
+      writer.uint32(18).bytes(message.currentContractKey);
+    }
+    if (message.currentContractKeyProof.length !== 0) {
+      writer.uint32(26).bytes(message.currentContractKeyProof);
+    }
+    return writer;
+  },
+  fromJSON(object: any): ContractKey {
+    return {
+      ogContractKey: isSet(object.ogContractKey) ? bytesFromBase64(object.ogContractKey) : new Uint8Array(),
+      currentContractKey: isSet(object.currentContractKey) ? bytesFromBase64(object.currentContractKey) : new Uint8Array(),
+      currentContractKeyProof: isSet(object.currentContractKeyProof) ? bytesFromBase64(object.currentContractKeyProof) : new Uint8Array()
+    };
+  },
+  fromPartial(object: Partial<ContractKey>): ContractKey {
+    const message = createBaseContractKey();
+    message.ogContractKey = object.ogContractKey ?? new Uint8Array();
+    message.currentContractKey = object.currentContractKey ?? new Uint8Array();
+    message.currentContractKeyProof = object.currentContractKeyProof ?? new Uint8Array();
+    return message;
+  },
+  fromAmino(object: ContractKeyAmino): ContractKey {
+    const message = createBaseContractKey();
+    if (object.og_contract_key !== undefined && object.og_contract_key !== null) {
+      message.ogContractKey = bytesFromBase64(object.og_contract_key);
+    }
+    if (object.current_contract_key !== undefined && object.current_contract_key !== null) {
+      message.currentContractKey = bytesFromBase64(object.current_contract_key);
+    }
+    if (object.current_contract_key_proof !== undefined && object.current_contract_key_proof !== null) {
+      message.currentContractKeyProof = bytesFromBase64(object.current_contract_key_proof);
+    }
+    return message;
+  },
+  toAmino(message: ContractKey): ContractKeyAmino {
+    const obj: any = {};
+    obj.og_contract_key = message.ogContractKey ? base64FromBytes(message.ogContractKey) : undefined;
+    obj.current_contract_key = message.currentContractKey ? base64FromBytes(message.currentContractKey) : undefined;
+    obj.current_contract_key_proof = message.currentContractKeyProof ? base64FromBytes(message.currentContractKeyProof) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ContractKeyAminoMsg): ContractKey {
+    return ContractKey.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ContractKeyProtoMsg): ContractKey {
+    return ContractKey.decode(message.value);
+  },
+  toProto(message: ContractKey): Uint8Array {
+    return ContractKey.encode(message).finish();
+  },
+  toProtoMsg(message: ContractKey): ContractKeyProtoMsg {
+    return {
+      typeUrl: "/secret.compute.v1beta1.ContractKey",
+      value: ContractKey.encode(message).finish()
+    };
+  }
+};
 function createBaseContractCustomInfo(): ContractCustomInfo {
   return {
-    enclaveKey: new Uint8Array(),
+    enclaveKey: undefined,
     label: ""
   };
 }
 export const ContractCustomInfo = {
   typeUrl: "/secret.compute.v1beta1.ContractCustomInfo",
   encode(message: ContractCustomInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.enclaveKey.length !== 0) {
-      writer.uint32(10).bytes(message.enclaveKey);
+    if (message.enclaveKey !== undefined) {
+      ContractKey.encode(message.enclaveKey, writer.uint32(10).fork()).ldelim();
     }
     if (message.label !== "") {
       writer.uint32(18).string(message.label);
@@ -345,26 +541,30 @@ export const ContractCustomInfo = {
   },
   fromJSON(object: any): ContractCustomInfo {
     return {
-      enclaveKey: isSet(object.enclaveKey) ? bytesFromBase64(object.enclaveKey) : new Uint8Array(),
+      enclaveKey: isSet(object.enclaveKey) ? ContractKey.fromJSON(object.enclaveKey) : undefined,
       label: isSet(object.label) ? String(object.label) : ""
     };
   },
   fromPartial(object: Partial<ContractCustomInfo>): ContractCustomInfo {
     const message = createBaseContractCustomInfo();
-    message.enclaveKey = object.enclaveKey ?? new Uint8Array();
+    message.enclaveKey = object.enclaveKey !== undefined && object.enclaveKey !== null ? ContractKey.fromPartial(object.enclaveKey) : undefined;
     message.label = object.label ?? "";
     return message;
   },
   fromAmino(object: ContractCustomInfoAmino): ContractCustomInfo {
-    return {
-      enclaveKey: object.enclave_key,
-      label: object.label
-    };
+    const message = createBaseContractCustomInfo();
+    if (object.enclave_key !== undefined && object.enclave_key !== null) {
+      message.enclaveKey = ContractKey.fromAmino(object.enclave_key);
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = object.label;
+    }
+    return message;
   },
   toAmino(message: ContractCustomInfo): ContractCustomInfoAmino {
     const obj: any = {};
-    obj.enclave_key = message.enclaveKey;
-    obj.label = message.label;
+    obj.enclave_key = message.enclaveKey ? ContractKey.toAmino(message.enclaveKey) : undefined;
+    obj.label = message.label === "" ? undefined : message.label;
     return obj;
   },
   fromAminoMsg(object: ContractCustomInfoAminoMsg): ContractCustomInfo {
@@ -388,8 +588,10 @@ function createBaseContractInfo(): ContractInfo {
     codeId: BigInt(0),
     creator: new Uint8Array(),
     label: "",
-    created: AbsoluteTxPosition.fromPartial({}),
-    ibcPortId: ""
+    created: undefined,
+    ibcPortId: "",
+    admin: "",
+    adminProof: new Uint8Array()
   };
 }
 export const ContractInfo = {
@@ -410,6 +612,12 @@ export const ContractInfo = {
     if (message.ibcPortId !== "") {
       writer.uint32(50).string(message.ibcPortId);
     }
+    if (message.admin !== "") {
+      writer.uint32(58).string(message.admin);
+    }
+    if (message.adminProof.length !== 0) {
+      writer.uint32(66).bytes(message.adminProof);
+    }
     return writer;
   },
   fromJSON(object: any): ContractInfo {
@@ -418,7 +626,9 @@ export const ContractInfo = {
       creator: isSet(object.creator) ? bytesFromBase64(object.creator) : new Uint8Array(),
       label: isSet(object.label) ? String(object.label) : "",
       created: isSet(object.created) ? AbsoluteTxPosition.fromJSON(object.created) : undefined,
-      ibcPortId: isSet(object.ibcPortId) ? String(object.ibcPortId) : ""
+      ibcPortId: isSet(object.ibcPortId) ? String(object.ibcPortId) : "",
+      admin: isSet(object.admin) ? String(object.admin) : "",
+      adminProof: isSet(object.adminProof) ? bytesFromBase64(object.adminProof) : new Uint8Array()
     };
   },
   fromPartial(object: Partial<ContractInfo>): ContractInfo {
@@ -428,24 +638,44 @@ export const ContractInfo = {
     message.label = object.label ?? "";
     message.created = object.created !== undefined && object.created !== null ? AbsoluteTxPosition.fromPartial(object.created) : undefined;
     message.ibcPortId = object.ibcPortId ?? "";
+    message.admin = object.admin ?? "";
+    message.adminProof = object.adminProof ?? new Uint8Array();
     return message;
   },
   fromAmino(object: ContractInfoAmino): ContractInfo {
-    return {
-      codeId: BigInt(object.code_id),
-      creator: object.creator,
-      label: object.label,
-      created: object?.created ? AbsoluteTxPosition.fromAmino(object.created) : undefined,
-      ibcPortId: object.ibc_port_id
-    };
+    const message = createBaseContractInfo();
+    if (object.code_id !== undefined && object.code_id !== null) {
+      message.codeId = BigInt(object.code_id);
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = bytesFromBase64(object.creator);
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = object.label;
+    }
+    if (object.created !== undefined && object.created !== null) {
+      message.created = AbsoluteTxPosition.fromAmino(object.created);
+    }
+    if (object.ibc_port_id !== undefined && object.ibc_port_id !== null) {
+      message.ibcPortId = object.ibc_port_id;
+    }
+    if (object.admin !== undefined && object.admin !== null) {
+      message.admin = object.admin;
+    }
+    if (object.admin_proof !== undefined && object.admin_proof !== null) {
+      message.adminProof = bytesFromBase64(object.admin_proof);
+    }
+    return message;
   },
   toAmino(message: ContractInfo): ContractInfoAmino {
     const obj: any = {};
-    obj.code_id = message.codeId ? message.codeId.toString() : undefined;
-    obj.creator = message.creator;
-    obj.label = message.label;
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId.toString() : undefined;
+    obj.creator = message.creator ? base64FromBytes(message.creator) : undefined;
+    obj.label = message.label === "" ? undefined : message.label;
     obj.created = message.created ? AbsoluteTxPosition.toAmino(message.created) : undefined;
-    obj.ibc_port_id = message.ibcPortId;
+    obj.ibc_port_id = message.ibcPortId === "" ? undefined : message.ibcPortId;
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    obj.admin_proof = message.adminProof ? base64FromBytes(message.adminProof) : undefined;
     return obj;
   },
   fromAminoMsg(object: ContractInfoAminoMsg): ContractInfo {
@@ -494,15 +724,19 @@ export const AbsoluteTxPosition = {
     return message;
   },
   fromAmino(object: AbsoluteTxPositionAmino): AbsoluteTxPosition {
-    return {
-      blockHeight: BigInt(object.block_height),
-      txIndex: BigInt(object.tx_index)
-    };
+    const message = createBaseAbsoluteTxPosition();
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = BigInt(object.block_height);
+    }
+    if (object.tx_index !== undefined && object.tx_index !== null) {
+      message.txIndex = BigInt(object.tx_index);
+    }
+    return message;
   },
   toAmino(message: AbsoluteTxPosition): AbsoluteTxPositionAmino {
     const obj: any = {};
-    obj.block_height = message.blockHeight ? message.blockHeight.toString() : undefined;
-    obj.tx_index = message.txIndex ? message.txIndex.toString() : undefined;
+    obj.block_height = message.blockHeight !== BigInt(0) ? message.blockHeight.toString() : undefined;
+    obj.tx_index = message.txIndex !== BigInt(0) ? message.txIndex.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: AbsoluteTxPositionAminoMsg): AbsoluteTxPosition {
@@ -551,15 +785,19 @@ export const Model = {
     return message;
   },
   fromAmino(object: ModelAmino): Model {
-    return {
-      Key: object.Key,
-      Value: object.Value
-    };
+    const message = createBaseModel();
+    if (object.Key !== undefined && object.Key !== null) {
+      message.Key = bytesFromBase64(object.Key);
+    }
+    if (object.Value !== undefined && object.Value !== null) {
+      message.Value = bytesFromBase64(object.Value);
+    }
+    return message;
   },
   toAmino(message: Model): ModelAmino {
     const obj: any = {};
-    obj.Key = message.Key;
-    obj.Value = message.Value;
+    obj.Key = message.Key ? base64FromBytes(message.Key) : undefined;
+    obj.Value = message.Value ? base64FromBytes(message.Value) : undefined;
     return obj;
   },
   fromAminoMsg(object: ModelAminoMsg): Model {
@@ -575,6 +813,87 @@ export const Model = {
     return {
       typeUrl: "/secret.compute.v1beta1.Model",
       value: Model.encode(message).finish()
+    };
+  }
+};
+function createBaseContractCodeHistoryEntry(): ContractCodeHistoryEntry {
+  return {
+    operation: 0,
+    codeId: BigInt(0),
+    updated: undefined,
+    msg: new Uint8Array()
+  };
+}
+export const ContractCodeHistoryEntry = {
+  typeUrl: "/secret.compute.v1beta1.ContractCodeHistoryEntry",
+  encode(message: ContractCodeHistoryEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.operation !== 0) {
+      writer.uint32(8).int32(message.operation);
+    }
+    if (message.codeId !== BigInt(0)) {
+      writer.uint32(16).uint64(message.codeId);
+    }
+    if (message.updated !== undefined) {
+      AbsoluteTxPosition.encode(message.updated, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.msg.length !== 0) {
+      writer.uint32(34).bytes(message.msg);
+    }
+    return writer;
+  },
+  fromJSON(object: any): ContractCodeHistoryEntry {
+    return {
+      operation: isSet(object.operation) ? contractCodeHistoryOperationTypeFromJSON(object.operation) : -1,
+      codeId: isSet(object.codeId) ? BigInt(object.codeId.toString()) : BigInt(0),
+      updated: isSet(object.updated) ? AbsoluteTxPosition.fromJSON(object.updated) : undefined,
+      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array()
+    };
+  },
+  fromPartial(object: Partial<ContractCodeHistoryEntry>): ContractCodeHistoryEntry {
+    const message = createBaseContractCodeHistoryEntry();
+    message.operation = object.operation ?? 0;
+    message.codeId = object.codeId !== undefined && object.codeId !== null ? BigInt(object.codeId.toString()) : BigInt(0);
+    message.updated = object.updated !== undefined && object.updated !== null ? AbsoluteTxPosition.fromPartial(object.updated) : undefined;
+    message.msg = object.msg ?? new Uint8Array();
+    return message;
+  },
+  fromAmino(object: ContractCodeHistoryEntryAmino): ContractCodeHistoryEntry {
+    const message = createBaseContractCodeHistoryEntry();
+    if (object.operation !== undefined && object.operation !== null) {
+      message.operation = object.operation;
+    }
+    if (object.code_id !== undefined && object.code_id !== null) {
+      message.codeId = BigInt(object.code_id);
+    }
+    if (object.updated !== undefined && object.updated !== null) {
+      message.updated = AbsoluteTxPosition.fromAmino(object.updated);
+    }
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = bytesFromBase64(object.msg);
+    }
+    return message;
+  },
+  toAmino(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryAmino {
+    const obj: any = {};
+    obj.operation = message.operation === 0 ? undefined : message.operation;
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId.toString() : undefined;
+    obj.updated = message.updated ? AbsoluteTxPosition.toAmino(message.updated) : undefined;
+    obj.msg = message.msg ? base64FromBytes(message.msg) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ContractCodeHistoryEntryAminoMsg): ContractCodeHistoryEntry {
+    return ContractCodeHistoryEntry.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ContractCodeHistoryEntryProtoMsg): ContractCodeHistoryEntry {
+    return ContractCodeHistoryEntry.decode(message.value);
+  },
+  toProto(message: ContractCodeHistoryEntry): Uint8Array {
+    return ContractCodeHistoryEntry.encode(message).finish();
+  },
+  toProtoMsg(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryProtoMsg {
+    return {
+      typeUrl: "/secret.compute.v1beta1.ContractCodeHistoryEntry",
+      value: ContractCodeHistoryEntry.encode(message).finish()
     };
   }
 };

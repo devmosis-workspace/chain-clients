@@ -1,4 +1,4 @@
-import { ContractInfo, ContractInfoAmino, ContractInfoSDKType } from "./types";
+import { ContractInfo, ContractInfoAmino, ContractInfoSDKType, ContractCodeHistoryEntry, ContractCodeHistoryEntryAmino, ContractCodeHistoryEntrySDKType } from "./types";
 import { StringEvent, StringEventAmino, StringEventSDKType } from "../../../cosmos/base/abci/v1beta1/abci";
 import { BinaryWriter } from "../../../binary";
 export interface QuerySecretContractRequest {
@@ -12,8 +12,8 @@ export interface QuerySecretContractRequestProtoMsg {
 }
 export interface QuerySecretContractRequestAmino {
     /** address is the bech32 human readable address of the contract */
-    contract_address: string;
-    query: Uint8Array;
+    contract_address?: string;
+    query?: string;
 }
 export interface QuerySecretContractRequestAminoMsg {
     type: "/secret.compute.v1beta1.QuerySecretContractRequest";
@@ -31,7 +31,7 @@ export interface QueryByLabelRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryByLabelRequestAmino {
-    label: string;
+    label?: string;
 }
 export interface QueryByLabelRequestAminoMsg {
     type: "/secret.compute.v1beta1.QueryByLabelRequest";
@@ -50,7 +50,7 @@ export interface QueryByContractAddressRequestProtoMsg {
 }
 export interface QueryByContractAddressRequestAmino {
     /** address is the bech32 human readable address of the contract */
-    contract_address: string;
+    contract_address?: string;
 }
 export interface QueryByContractAddressRequestAminoMsg {
     type: "/secret.compute.v1beta1.QueryByContractAddressRequest";
@@ -67,7 +67,7 @@ export interface QueryByCodeIdRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryByCodeIdRequestAmino {
-    code_id: string;
+    code_id?: string;
 }
 export interface QueryByCodeIdRequestAminoMsg {
     type: "/secret.compute.v1beta1.QueryByCodeIdRequest";
@@ -84,7 +84,7 @@ export interface QuerySecretContractResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QuerySecretContractResponseAmino {
-    data: Uint8Array;
+    data?: string;
 }
 export interface QuerySecretContractResponseAminoMsg {
     type: "/secret.compute.v1beta1.QuerySecretContractResponse";
@@ -97,7 +97,7 @@ export interface QuerySecretContractResponseSDKType {
 export interface QueryContractInfoResponse {
     /** contract_address is the bech32 human readable address of the contract */
     contractAddress: string;
-    ContractInfo: ContractInfo;
+    contractInfo?: ContractInfo;
 }
 export interface QueryContractInfoResponseProtoMsg {
     typeUrl: "/secret.compute.v1beta1.QueryContractInfoResponse";
@@ -106,8 +106,8 @@ export interface QueryContractInfoResponseProtoMsg {
 /** QueryContractInfoResponse is the response type for the Query/ContractInfo RPC method */
 export interface QueryContractInfoResponseAmino {
     /** contract_address is the bech32 human readable address of the contract */
-    contract_address: string;
-    ContractInfo?: ContractInfoAmino;
+    contract_address?: string;
+    contract_info?: ContractInfoAmino;
 }
 export interface QueryContractInfoResponseAminoMsg {
     type: "/secret.compute.v1beta1.QueryContractInfoResponse";
@@ -116,13 +116,13 @@ export interface QueryContractInfoResponseAminoMsg {
 /** QueryContractInfoResponse is the response type for the Query/ContractInfo RPC method */
 export interface QueryContractInfoResponseSDKType {
     contract_address: string;
-    ContractInfo: ContractInfoSDKType;
+    contract_info?: ContractInfoSDKType;
 }
 /** ContractInfoWithAddress adds the contract address to the ContractInfo representation */
 export interface ContractInfoWithAddress {
     /** contract_address is the bech32 human readable address of the contract */
     contractAddress: string;
-    ContractInfo: ContractInfo;
+    contractInfo?: ContractInfo;
 }
 export interface ContractInfoWithAddressProtoMsg {
     typeUrl: "/secret.compute.v1beta1.ContractInfoWithAddress";
@@ -131,8 +131,8 @@ export interface ContractInfoWithAddressProtoMsg {
 /** ContractInfoWithAddress adds the contract address to the ContractInfo representation */
 export interface ContractInfoWithAddressAmino {
     /** contract_address is the bech32 human readable address of the contract */
-    contract_address: string;
-    ContractInfo?: ContractInfoAmino;
+    contract_address?: string;
+    contract_info?: ContractInfoAmino;
 }
 export interface ContractInfoWithAddressAminoMsg {
     type: "/secret.compute.v1beta1.ContractInfoWithAddress";
@@ -141,7 +141,7 @@ export interface ContractInfoWithAddressAminoMsg {
 /** ContractInfoWithAddress adds the contract address to the ContractInfo representation */
 export interface ContractInfoWithAddressSDKType {
     contract_address: string;
-    ContractInfo: ContractInfoSDKType;
+    contract_info?: ContractInfoSDKType;
 }
 export interface QueryContractsByCodeIdResponse {
     contractInfos: ContractInfoWithAddress[];
@@ -151,7 +151,7 @@ export interface QueryContractsByCodeIdResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryContractsByCodeIdResponseAmino {
-    contract_infos: ContractInfoWithAddressAmino[];
+    contract_infos?: ContractInfoWithAddressAmino[];
 }
 export interface QueryContractsByCodeIdResponseAminoMsg {
     type: "/secret.compute.v1beta1.QueryContractsByCodeIdResponse";
@@ -173,12 +173,12 @@ export interface CodeInfoResponseProtoMsg {
     value: Uint8Array;
 }
 export interface CodeInfoResponseAmino {
-    code_id: string;
+    code_id?: string;
     /** creator is the bech32 human readable address of the contract */
-    creator: string;
-    code_hash: string;
-    source: string;
-    builder: string;
+    creator?: string;
+    code_hash?: string;
+    source?: string;
+    builder?: string;
 }
 export interface CodeInfoResponseAminoMsg {
     type: "/secret.compute.v1beta1.CodeInfoResponse";
@@ -192,7 +192,7 @@ export interface CodeInfoResponseSDKType {
     builder: string;
 }
 export interface QueryCodeResponse {
-    codeInfo: CodeInfoResponse;
+    codeInfo?: CodeInfoResponse;
     wasm: Uint8Array;
 }
 export interface QueryCodeResponseProtoMsg {
@@ -201,14 +201,14 @@ export interface QueryCodeResponseProtoMsg {
 }
 export interface QueryCodeResponseAmino {
     code_info?: CodeInfoResponseAmino;
-    wasm: Uint8Array;
+    wasm?: string;
 }
 export interface QueryCodeResponseAminoMsg {
     type: "/secret.compute.v1beta1.QueryCodeResponse";
     value: QueryCodeResponseAmino;
 }
 export interface QueryCodeResponseSDKType {
-    code_info: CodeInfoResponseSDKType;
+    code_info?: CodeInfoResponseSDKType;
     wasm: Uint8Array;
 }
 export interface QueryCodesResponse {
@@ -219,7 +219,7 @@ export interface QueryCodesResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryCodesResponseAmino {
-    code_infos: CodeInfoResponseAmino[];
+    code_infos?: CodeInfoResponseAmino[];
 }
 export interface QueryCodesResponseAminoMsg {
     type: "/secret.compute.v1beta1.QueryCodesResponse";
@@ -238,7 +238,7 @@ export interface QueryContractAddressResponseProtoMsg {
 }
 export interface QueryContractAddressResponseAmino {
     /** address is the bech32 human readable address of the contract */
-    contract_address: string;
+    contract_address?: string;
 }
 export interface QueryContractAddressResponseAminoMsg {
     type: "/secret.compute.v1beta1.QueryContractAddressResponse";
@@ -255,7 +255,7 @@ export interface QueryContractLabelResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryContractLabelResponseAmino {
-    label: string;
+    label?: string;
 }
 export interface QueryContractLabelResponseAminoMsg {
     type: "/secret.compute.v1beta1.QueryContractLabelResponse";
@@ -272,7 +272,7 @@ export interface QueryCodeHashResponseProtoMsg {
     value: Uint8Array;
 }
 export interface QueryCodeHashResponseAmino {
-    code_hash: string;
+    code_hash?: string;
 }
 export interface QueryCodeHashResponseAminoMsg {
     type: "/secret.compute.v1beta1.QueryCodeHashResponse";
@@ -294,10 +294,10 @@ export interface DecryptedAnswerProtoMsg {
 }
 /** DecryptedAnswer is a struct that represents a decrypted tx-query */
 export interface DecryptedAnswerAmino {
-    type: string;
-    input: string;
-    output_data: string;
-    output_data_as_string: string;
+    type?: string;
+    input?: string;
+    output_data?: string;
+    output_data_as_string?: string;
 }
 export interface DecryptedAnswerAminoMsg {
     type: "/secret.compute.v1beta1.DecryptedAnswer";
@@ -321,10 +321,10 @@ export interface DecryptedAnswersProtoMsg {
     value: Uint8Array;
 }
 export interface DecryptedAnswersAmino {
-    answers: DecryptedAnswerAmino[];
-    output_logs: StringEventAmino[];
-    output_error: string;
-    plaintext_error: string;
+    answers?: DecryptedAnswerAmino[];
+    output_logs?: StringEventAmino[];
+    output_error?: string;
+    plaintext_error?: string;
 }
 export interface DecryptedAnswersAminoMsg {
     type: "/secret.compute.v1beta1.DecryptedAnswers";
@@ -335,6 +335,66 @@ export interface DecryptedAnswersSDKType {
     output_logs: StringEventSDKType[];
     output_error: string;
     plaintext_error: string;
+}
+/**
+ * QueryContractHistoryRequest is the request type for the Query/ContractHistory
+ * RPC method
+ */
+export interface QueryContractHistoryRequest {
+    /** address is the address of the contract to query */
+    contractAddress: string;
+}
+export interface QueryContractHistoryRequestProtoMsg {
+    typeUrl: "/secret.compute.v1beta1.QueryContractHistoryRequest";
+    value: Uint8Array;
+}
+/**
+ * QueryContractHistoryRequest is the request type for the Query/ContractHistory
+ * RPC method
+ */
+export interface QueryContractHistoryRequestAmino {
+    /** address is the address of the contract to query */
+    contract_address?: string;
+}
+export interface QueryContractHistoryRequestAminoMsg {
+    type: "/secret.compute.v1beta1.QueryContractHistoryRequest";
+    value: QueryContractHistoryRequestAmino;
+}
+/**
+ * QueryContractHistoryRequest is the request type for the Query/ContractHistory
+ * RPC method
+ */
+export interface QueryContractHistoryRequestSDKType {
+    contract_address: string;
+}
+/**
+ * QueryContractHistoryResponse is the response type for the
+ * Query/ContractHistory RPC method
+ */
+export interface QueryContractHistoryResponse {
+    entries: ContractCodeHistoryEntry[];
+}
+export interface QueryContractHistoryResponseProtoMsg {
+    typeUrl: "/secret.compute.v1beta1.QueryContractHistoryResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryContractHistoryResponse is the response type for the
+ * Query/ContractHistory RPC method
+ */
+export interface QueryContractHistoryResponseAmino {
+    entries?: ContractCodeHistoryEntryAmino[];
+}
+export interface QueryContractHistoryResponseAminoMsg {
+    type: "/secret.compute.v1beta1.QueryContractHistoryResponse";
+    value: QueryContractHistoryResponseAmino;
+}
+/**
+ * QueryContractHistoryResponse is the response type for the
+ * Query/ContractHistory RPC method
+ */
+export interface QueryContractHistoryResponseSDKType {
+    entries: ContractCodeHistoryEntrySDKType[];
 }
 export declare const QuerySecretContractRequest: {
     typeUrl: string;
@@ -527,4 +587,28 @@ export declare const DecryptedAnswers: {
     fromProtoMsg(message: DecryptedAnswersProtoMsg): DecryptedAnswers;
     toProto(message: DecryptedAnswers): Uint8Array;
     toProtoMsg(message: DecryptedAnswers): DecryptedAnswersProtoMsg;
+};
+export declare const QueryContractHistoryRequest: {
+    typeUrl: string;
+    encode(message: QueryContractHistoryRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryContractHistoryRequest;
+    fromPartial(object: Partial<QueryContractHistoryRequest>): QueryContractHistoryRequest;
+    fromAmino(object: QueryContractHistoryRequestAmino): QueryContractHistoryRequest;
+    toAmino(message: QueryContractHistoryRequest): QueryContractHistoryRequestAmino;
+    fromAminoMsg(object: QueryContractHistoryRequestAminoMsg): QueryContractHistoryRequest;
+    fromProtoMsg(message: QueryContractHistoryRequestProtoMsg): QueryContractHistoryRequest;
+    toProto(message: QueryContractHistoryRequest): Uint8Array;
+    toProtoMsg(message: QueryContractHistoryRequest): QueryContractHistoryRequestProtoMsg;
+};
+export declare const QueryContractHistoryResponse: {
+    typeUrl: string;
+    encode(message: QueryContractHistoryResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryContractHistoryResponse;
+    fromPartial(object: Partial<QueryContractHistoryResponse>): QueryContractHistoryResponse;
+    fromAmino(object: QueryContractHistoryResponseAmino): QueryContractHistoryResponse;
+    toAmino(message: QueryContractHistoryResponse): QueryContractHistoryResponseAmino;
+    fromAminoMsg(object: QueryContractHistoryResponseAminoMsg): QueryContractHistoryResponse;
+    fromProtoMsg(message: QueryContractHistoryResponseProtoMsg): QueryContractHistoryResponse;
+    toProto(message: QueryContractHistoryResponse): Uint8Array;
+    toProtoMsg(message: QueryContractHistoryResponse): QueryContractHistoryResponseProtoMsg;
 };

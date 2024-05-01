@@ -5,7 +5,7 @@ import * as _266 from "../ibc/applications/packetforward/v1/query.rpc.Query";
 export declare namespace packetforward {
     const v1: {
         QueryClientImpl: typeof _266.QueryClientImpl;
-        createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+        createRpcQueryExtension: (base: QueryClient) => {
             params(request?: _134.QueryParamsRequest): Promise<_134.QueryParamsResponse>;
         };
         LCDQueryClient: typeof _265.LCDQueryClient;
@@ -82,7 +82,7 @@ export declare namespace packetforward {
     };
     const ClientFactory: {
         createRPCQueryClient: ({ rpcEndpoint }: {
-            rpcEndpoint: string | import("@cosmjs/tendermint-rpc").HttpEndpoint;
+            rpcEndpoint: any;
         }) => Promise<{
             cosmos: {
                 auth: {

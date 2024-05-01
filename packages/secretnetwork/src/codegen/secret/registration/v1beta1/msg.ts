@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface RaAuthenticate {
   sender: Uint8Array;
   certificate: Uint8Array;
@@ -9,8 +9,8 @@ export interface RaAuthenticateProtoMsg {
   value: Uint8Array;
 }
 export interface RaAuthenticateAmino {
-  sender: Uint8Array;
-  certificate: Uint8Array;
+  sender?: string;
+  certificate: string;
 }
 export interface RaAuthenticateAminoMsg {
   type: "/secret.registration.v1beta1.RaAuthenticate";
@@ -28,7 +28,7 @@ export interface MasterKeyProtoMsg {
   value: Uint8Array;
 }
 export interface MasterKeyAmino {
-  bytes: Uint8Array;
+  bytes?: string;
 }
 export interface MasterKeyAminoMsg {
   type: "/secret.registration.v1beta1.MasterKey";
@@ -45,7 +45,7 @@ export interface KeyProtoMsg {
   value: Uint8Array;
 }
 export interface KeyAmino {
-  key: Uint8Array;
+  key: string;
 }
 export interface KeyAminoMsg {
   type: "/secret.registration.v1beta1.Key";
@@ -84,15 +84,19 @@ export const RaAuthenticate = {
     return message;
   },
   fromAmino(object: RaAuthenticateAmino): RaAuthenticate {
-    return {
-      sender: object.sender,
-      certificate: object.certificate
-    };
+    const message = createBaseRaAuthenticate();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = bytesFromBase64(object.sender);
+    }
+    if (object.certificate !== undefined && object.certificate !== null) {
+      message.certificate = bytesFromBase64(object.certificate);
+    }
+    return message;
   },
   toAmino(message: RaAuthenticate): RaAuthenticateAmino {
     const obj: any = {};
-    obj.sender = message.sender;
-    obj.certificate = message.certificate;
+    obj.sender = message.sender ? base64FromBytes(message.sender) : undefined;
+    obj.certificate = message.certificate ? base64FromBytes(message.certificate) : "";
     return obj;
   },
   fromAminoMsg(object: RaAuthenticateAminoMsg): RaAuthenticate {
@@ -135,13 +139,15 @@ export const MasterKey = {
     return message;
   },
   fromAmino(object: MasterKeyAmino): MasterKey {
-    return {
-      bytes: object.bytes
-    };
+    const message = createBaseMasterKey();
+    if (object.bytes !== undefined && object.bytes !== null) {
+      message.bytes = bytesFromBase64(object.bytes);
+    }
+    return message;
   },
   toAmino(message: MasterKey): MasterKeyAmino {
     const obj: any = {};
-    obj.bytes = message.bytes;
+    obj.bytes = message.bytes ? base64FromBytes(message.bytes) : undefined;
     return obj;
   },
   fromAminoMsg(object: MasterKeyAminoMsg): MasterKey {
@@ -184,13 +190,15 @@ export const Key = {
     return message;
   },
   fromAmino(object: KeyAmino): Key {
-    return {
-      key: object.key
-    };
+    const message = createBaseKey();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = bytesFromBase64(object.key);
+    }
+    return message;
   },
   toAmino(message: Key): KeyAmino {
     const obj: any = {};
-    obj.key = message.key;
+    obj.key = message.key ? base64FromBytes(message.key) : "";
     return obj;
   },
   fromAminoMsg(object: KeyAminoMsg): Key {

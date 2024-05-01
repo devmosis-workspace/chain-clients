@@ -3,7 +3,7 @@ import { ValidatorSet, ValidatorSetAmino, ValidatorSetSDKType } from "../types/v
 import { ConsensusParams, ConsensusParamsAmino, ConsensusParamsSDKType } from "../types/params";
 import { Consensus, ConsensusAmino, ConsensusSDKType } from "../version/types";
 import { BlockID, BlockIDAmino, BlockIDSDKType } from "../types/types";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../binary";
 /**
  * ABCIResponses retains the responses
@@ -12,8 +12,8 @@ import { BinaryWriter } from "../../binary";
  */
 export interface ABCIResponses {
     deliverTxs: ResponseDeliverTx[];
-    endBlock: ResponseEndBlock;
-    beginBlock: ResponseBeginBlock;
+    endBlock?: ResponseEndBlock;
+    beginBlock?: ResponseBeginBlock;
 }
 export interface ABCIResponsesProtoMsg {
     typeUrl: "/tendermint.state.ABCIResponses";
@@ -25,7 +25,7 @@ export interface ABCIResponsesProtoMsg {
  * It is persisted to disk for each height before calling Commit.
  */
 export interface ABCIResponsesAmino {
-    deliver_txs: ResponseDeliverTxAmino[];
+    deliver_txs?: ResponseDeliverTxAmino[];
     end_block?: ResponseEndBlockAmino;
     begin_block?: ResponseBeginBlockAmino;
 }
@@ -40,12 +40,12 @@ export interface ABCIResponsesAminoMsg {
  */
 export interface ABCIResponsesSDKType {
     deliver_txs: ResponseDeliverTxSDKType[];
-    end_block: ResponseEndBlockSDKType;
-    begin_block: ResponseBeginBlockSDKType;
+    end_block?: ResponseEndBlockSDKType;
+    begin_block?: ResponseBeginBlockSDKType;
 }
 /** ValidatorsInfo represents the latest validator set, or the last height it changed */
 export interface ValidatorsInfo {
-    validatorSet: ValidatorSet;
+    validatorSet?: ValidatorSet;
     lastHeightChanged: bigint;
 }
 export interface ValidatorsInfoProtoMsg {
@@ -55,7 +55,7 @@ export interface ValidatorsInfoProtoMsg {
 /** ValidatorsInfo represents the latest validator set, or the last height it changed */
 export interface ValidatorsInfoAmino {
     validator_set?: ValidatorSetAmino;
-    last_height_changed: string;
+    last_height_changed?: string;
 }
 export interface ValidatorsInfoAminoMsg {
     type: "/tendermint.state.ValidatorsInfo";
@@ -63,7 +63,7 @@ export interface ValidatorsInfoAminoMsg {
 }
 /** ValidatorsInfo represents the latest validator set, or the last height it changed */
 export interface ValidatorsInfoSDKType {
-    validator_set: ValidatorSetSDKType;
+    validator_set?: ValidatorSetSDKType;
     last_height_changed: bigint;
 }
 /** ConsensusParamsInfo represents the latest consensus params, or the last height it changed */
@@ -78,7 +78,7 @@ export interface ConsensusParamsInfoProtoMsg {
 /** ConsensusParamsInfo represents the latest consensus params, or the last height it changed */
 export interface ConsensusParamsInfoAmino {
     consensus_params?: ConsensusParamsAmino;
-    last_height_changed: string;
+    last_height_changed?: string;
 }
 export interface ConsensusParamsInfoAminoMsg {
     type: "/tendermint.state.ConsensusParamsInfo";
@@ -99,7 +99,7 @@ export interface VersionProtoMsg {
 }
 export interface VersionAmino {
     consensus?: ConsensusAmino;
-    software: string;
+    software?: string;
 }
 export interface VersionAminoMsg {
     type: "/tendermint.state.Version";
@@ -126,9 +126,9 @@ export interface State {
      * we set s.LastHeightValidatorsChanged = s.LastBlockHeight + 1 + 1
      * Extra +1 due to nextValSet delay.
      */
-    nextValidators: ValidatorSet;
-    validators: ValidatorSet;
-    lastValidators: ValidatorSet;
+    nextValidators?: ValidatorSet;
+    validators?: ValidatorSet;
+    lastValidators?: ValidatorSet;
     lastHeightValidatorsChanged: bigint;
     /**
      * Consensus parameters used for validating blocks.
@@ -148,12 +148,12 @@ export interface StateProtoMsg {
 export interface StateAmino {
     version?: VersionAmino;
     /** immutable */
-    chain_id: string;
-    initial_height: string;
+    chain_id?: string;
+    initial_height?: string;
     /** LastBlockHeight=0 at genesis (ie. block(H=0) does not exist) */
-    last_block_height: string;
+    last_block_height?: string;
     last_block_id?: BlockIDAmino;
-    last_block_time?: TimestampAmino;
+    last_block_time?: string;
     /**
      * LastValidators is used to validate block.LastCommit.
      * Validators are persisted to the database separately every time they change,
@@ -165,17 +165,17 @@ export interface StateAmino {
     next_validators?: ValidatorSetAmino;
     validators?: ValidatorSetAmino;
     last_validators?: ValidatorSetAmino;
-    last_height_validators_changed: string;
+    last_height_validators_changed?: string;
     /**
      * Consensus parameters used for validating blocks.
      * Changes returned by EndBlock and updated after Commit.
      */
     consensus_params?: ConsensusParamsAmino;
-    last_height_consensus_params_changed: string;
+    last_height_consensus_params_changed?: string;
     /** Merkle root of the results from executing prev block */
-    last_results_hash: Uint8Array;
+    last_results_hash?: string;
     /** the latest AppHash we've received from calling abci.Commit() */
-    app_hash: Uint8Array;
+    app_hash?: string;
 }
 export interface StateAminoMsg {
     type: "/tendermint.state.State";
@@ -188,9 +188,9 @@ export interface StateSDKType {
     last_block_height: bigint;
     last_block_id: BlockIDSDKType;
     last_block_time: TimestampSDKType;
-    next_validators: ValidatorSetSDKType;
-    validators: ValidatorSetSDKType;
-    last_validators: ValidatorSetSDKType;
+    next_validators?: ValidatorSetSDKType;
+    validators?: ValidatorSetSDKType;
+    last_validators?: ValidatorSetSDKType;
     last_height_validators_changed: bigint;
     consensus_params: ConsensusParamsSDKType;
     last_height_consensus_params_changed: bigint;

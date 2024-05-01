@@ -1,5 +1,4 @@
 import { Rpc } from "../../../helpers";
-import { QueryClient } from "@cosmjs/stargate";
 import { QueryAccountsRequest, QueryAccountsResponse, QueryAccountRequest, QueryAccountResponse, QueryParamsRequest, QueryParamsResponse, QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {

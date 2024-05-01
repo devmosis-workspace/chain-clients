@@ -27,15 +27,15 @@ export interface FungibleTokenPacketDataProtoMsg {
  */
 export interface FungibleTokenPacketDataAmino {
     /** the token denomination to be transferred */
-    denom: string;
+    denom?: string;
     /** the token amount to be transferred */
-    amount: string;
+    amount?: string;
     /** the sender address */
-    sender: string;
+    sender?: string;
     /** the recipient address on the destination chain */
-    receiver: string;
+    receiver?: string;
     /** optional memo */
-    memo: string;
+    memo?: string;
 }
 export interface FungibleTokenPacketDataAminoMsg {
     type: "cosmos-sdk/FungibleTokenPacketData";

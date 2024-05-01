@@ -15,11 +15,11 @@ export interface IncentivizedAcknowledgementProtoMsg {
 /** IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware */
 export interface IncentivizedAcknowledgementAmino {
     /** the underlying app acknowledgement bytes */
-    app_acknowledgement: Uint8Array;
+    app_acknowledgement?: string;
     /** the relayer address which submits the recv packet message */
-    forward_relayer_address: string;
+    forward_relayer_address?: string;
     /** success flag of the base application callback */
-    underlying_app_success: boolean;
+    underlying_app_success?: boolean;
 }
 export interface IncentivizedAcknowledgementAminoMsg {
     type: "cosmos-sdk/IncentivizedAcknowledgement";

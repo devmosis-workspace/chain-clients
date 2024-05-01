@@ -1,5 +1,5 @@
 import { LCDClient } from "@cosmology/lcd";
-import { QueryByContractAddressRequest, QueryContractInfoResponseSDKType, QueryByCodeIdRequest, QueryContractsByCodeIdResponseSDKType, QuerySecretContractRequest, QuerySecretContractResponseSDKType, QueryCodeResponseSDKType, QueryCodesResponseSDKType, QueryCodeHashResponseSDKType, QueryContractLabelResponseSDKType, QueryByLabelRequest, QueryContractAddressResponseSDKType } from "./query";
+import { QueryByContractAddressRequest, QueryContractInfoResponseSDKType, QueryByCodeIdRequest, QueryContractsByCodeIdResponseSDKType, QuerySecretContractRequest, QuerySecretContractResponseSDKType, QueryCodeResponseSDKType, QueryCodesResponseSDKType, QueryCodeHashResponseSDKType, QueryContractLabelResponseSDKType, QueryByLabelRequest, QueryContractAddressResponseSDKType, QueryContractHistoryRequest, QueryContractHistoryResponseSDKType } from "./query";
 import { Empty } from "../../../google/protobuf/empty";
 export class LCDQueryClient {
   req: LCDClient;
@@ -18,6 +18,7 @@ export class LCDQueryClient {
     this.codeHashByCodeId = this.codeHashByCodeId.bind(this);
     this.labelByAddress = this.labelByAddress.bind(this);
     this.addressByLabel = this.addressByLabel.bind(this);
+    this.contractHistory = this.contractHistory.bind(this);
   }
   /* Query contract info by address */
   async contractInfo(params: QueryByContractAddressRequest): Promise<QueryContractInfoResponseSDKType> {
@@ -69,5 +70,10 @@ export class LCDQueryClient {
   async addressByLabel(params: QueryByLabelRequest): Promise<QueryContractAddressResponseSDKType> {
     const endpoint = `compute/v1beta1/contract_address/${params.label}`;
     return await this.req.get<QueryContractAddressResponseSDKType>(endpoint);
+  }
+  /* ContractHistory gets the contract code history */
+  async contractHistory(params: QueryContractHistoryRequest): Promise<QueryContractHistoryResponseSDKType> {
+    const endpoint = `compute/v1beta1/contract_history/${params.contractAddress}`;
+    return await this.req.get<QueryContractHistoryResponseSDKType>(endpoint);
   }
 }

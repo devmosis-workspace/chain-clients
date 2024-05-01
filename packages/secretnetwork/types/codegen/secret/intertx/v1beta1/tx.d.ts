@@ -12,9 +12,9 @@ export interface MsgRegisterAccountProtoMsg {
 }
 /** MsgRegisterAccount registers an interchain account for the given owner over the specified connection pair */
 export interface MsgRegisterAccountAmino {
-    owner: string;
-    connection_id: string;
-    version: string;
+    owner?: string;
+    connection_id?: string;
+    version?: string;
 }
 export interface MsgRegisterAccountAminoMsg {
     type: "/secret.intertx.v1beta1.MsgRegisterAccount";
@@ -47,7 +47,7 @@ export interface MsgRegisterAccountResponseSDKType {
 export interface MsgSubmitTx {
     owner: Uint8Array;
     connectionId: string;
-    msg: Any;
+    msg?: Any;
 }
 export interface MsgSubmitTxProtoMsg {
     typeUrl: "/secret.intertx.v1beta1.MsgSubmitTx";
@@ -55,8 +55,8 @@ export interface MsgSubmitTxProtoMsg {
 }
 /** MsgSubmitTx creates and submits an arbitrary transaction msg to be executed using an interchain account */
 export interface MsgSubmitTxAmino {
-    owner: Uint8Array;
-    connection_id: string;
+    owner?: string;
+    connection_id?: string;
     msg?: AnyAmino;
 }
 export interface MsgSubmitTxAminoMsg {
@@ -67,7 +67,7 @@ export interface MsgSubmitTxAminoMsg {
 export interface MsgSubmitTxSDKType {
     owner: Uint8Array;
     connection_id: string;
-    msg: AnySDKType;
+    msg?: AnySDKType;
 }
 /** MsgSubmitTxResponse defines the MsgSubmitTx response type */
 export interface MsgSubmitTxResponse {

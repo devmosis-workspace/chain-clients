@@ -17,7 +17,7 @@ export interface ParamsProtoMsg {
  */
 export interface ParamsAmino {
     /** controller_enabled enables or disables the controller submodule. */
-    controller_enabled: boolean;
+    controller_enabled?: boolean;
 }
 export interface ParamsAminoMsg {
     type: "cosmos-sdk/Params";

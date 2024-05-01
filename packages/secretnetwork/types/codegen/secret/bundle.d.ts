@@ -29,7 +29,7 @@ export declare namespace secret {
         const v1beta1: {
             MsgClientImpl: typeof _173.MsgClientImpl;
             QueryClientImpl: typeof _169.QueryClientImpl;
-            createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+            createRpcQueryExtension: (base: QueryClient) => {
                 contractInfo(request: _2.QueryByContractAddressRequest): Promise<_2.QueryContractInfoResponse>;
                 contractsByCodeId(request: _2.QueryByCodeIdRequest): Promise<_2.QueryContractsByCodeIdResponse>;
                 querySecretContract(request: _2.QuerySecretContractRequest): Promise<_2.QuerySecretContractResponse>;
@@ -39,10 +39,11 @@ export declare namespace secret {
                 codeHashByCodeId(request: _2.QueryByCodeIdRequest): Promise<_2.QueryCodeHashResponse>;
                 labelByAddress(request: _2.QueryByContractAddressRequest): Promise<_2.QueryContractLabelResponse>;
                 addressByLabel(request: _2.QueryByLabelRequest): Promise<_2.QueryContractAddressResponse>;
+                contractHistory(request: _2.QueryContractHistoryRequest): Promise<_2.QueryContractHistoryResponse>;
             };
             LCDQueryClient: typeof _165.LCDQueryClient;
-            registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
-            load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
+            registry: readonly [string, GeneratedType][];
+            load: (protoRegistry: Registry) => void;
             MessageComposer: {
                 encoded: {
                     storeCode(value: _1.MsgStoreCode): {
@@ -54,6 +55,18 @@ export declare namespace secret {
                         value: Uint8Array;
                     };
                     executeContract(value: _1.MsgExecuteContract): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    migrateContract(value: _1.MsgMigrateContract): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    updateAdmin(value: _1.MsgUpdateAdmin): {
+                        typeUrl: string;
+                        value: Uint8Array;
+                    };
+                    clearAdmin(value: _1.MsgClearAdmin): {
                         typeUrl: string;
                         value: Uint8Array;
                     };
@@ -71,6 +84,18 @@ export declare namespace secret {
                         typeUrl: string;
                         value: _1.MsgExecuteContract;
                     };
+                    migrateContract(value: _1.MsgMigrateContract): {
+                        typeUrl: string;
+                        value: _1.MsgMigrateContract;
+                    };
+                    updateAdmin(value: _1.MsgUpdateAdmin): {
+                        typeUrl: string;
+                        value: _1.MsgUpdateAdmin;
+                    };
+                    clearAdmin(value: _1.MsgClearAdmin): {
+                        typeUrl: string;
+                        value: _1.MsgClearAdmin;
+                    };
                 };
                 fromJSON: {
                     storeCode(value: any): {
@@ -85,6 +110,18 @@ export declare namespace secret {
                         typeUrl: string;
                         value: _1.MsgExecuteContract;
                     };
+                    migrateContract(value: any): {
+                        typeUrl: string;
+                        value: _1.MsgMigrateContract;
+                    };
+                    updateAdmin(value: any): {
+                        typeUrl: string;
+                        value: _1.MsgUpdateAdmin;
+                    };
+                    clearAdmin(value: any): {
+                        typeUrl: string;
+                        value: _1.MsgClearAdmin;
+                    };
                 };
                 fromPartial: {
                     storeCode(value: _1.MsgStoreCode): {
@@ -98,6 +135,18 @@ export declare namespace secret {
                     executeContract(value: _1.MsgExecuteContract): {
                         typeUrl: string;
                         value: _1.MsgExecuteContract;
+                    };
+                    migrateContract(value: _1.MsgMigrateContract): {
+                        typeUrl: string;
+                        value: _1.MsgMigrateContract;
+                    };
+                    updateAdmin(value: _1.MsgUpdateAdmin): {
+                        typeUrl: string;
+                        value: _1.MsgUpdateAdmin;
+                    };
+                    clearAdmin(value: _1.MsgClearAdmin): {
+                        typeUrl: string;
+                        value: _1.MsgClearAdmin;
                     };
                 };
             };
@@ -117,12 +166,32 @@ export declare namespace secret {
                     toAmino: (message: _1.MsgExecuteContract) => _1.MsgExecuteContractAmino;
                     fromAmino: (object: _1.MsgExecuteContractAmino) => _1.MsgExecuteContract;
                 };
+                "/secret.compute.v1beta1.MsgMigrateContract": {
+                    aminoType: string;
+                    toAmino: (message: _1.MsgMigrateContract) => _1.MsgMigrateContractAmino;
+                    fromAmino: (object: _1.MsgMigrateContractAmino) => _1.MsgMigrateContract;
+                };
+                "/secret.compute.v1beta1.MsgUpdateAdmin": {
+                    aminoType: string;
+                    toAmino: (message: _1.MsgUpdateAdmin) => _1.MsgUpdateAdminAmino;
+                    fromAmino: (object: _1.MsgUpdateAdminAmino) => _1.MsgUpdateAdmin;
+                };
+                "/secret.compute.v1beta1.MsgClearAdmin": {
+                    aminoType: string;
+                    toAmino: (message: _1.MsgClearAdmin) => _1.MsgClearAdminAmino;
+                    fromAmino: (object: _1.MsgClearAdminAmino) => _1.MsgClearAdmin;
+                };
             };
             accessTypeFromJSON(object: any): _3.AccessType;
             accessTypeToJSON(object: _3.AccessType): string;
+            contractCodeHistoryOperationTypeFromJSON(object: any): _3.ContractCodeHistoryOperationType;
+            contractCodeHistoryOperationTypeToJSON(object: _3.ContractCodeHistoryOperationType): string;
             AccessType: typeof _3.AccessType;
             AccessTypeSDKType: typeof _3.AccessType;
             AccessTypeAmino: typeof _3.AccessType;
+            ContractCodeHistoryOperationType: typeof _3.ContractCodeHistoryOperationType;
+            ContractCodeHistoryOperationTypeSDKType: typeof _3.ContractCodeHistoryOperationType;
+            ContractCodeHistoryOperationTypeAmino: typeof _3.ContractCodeHistoryOperationType;
             AccessTypeParam: {
                 typeUrl: string;
                 encode(message: _3.AccessTypeParam, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
@@ -146,6 +215,18 @@ export declare namespace secret {
                 fromProtoMsg(message: _3.CodeInfoProtoMsg): _3.CodeInfo;
                 toProto(message: _3.CodeInfo): Uint8Array;
                 toProtoMsg(message: _3.CodeInfo): _3.CodeInfoProtoMsg;
+            };
+            ContractKey: {
+                typeUrl: string;
+                encode(message: _3.ContractKey, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _3.ContractKey;
+                fromPartial(object: Partial<_3.ContractKey>): _3.ContractKey;
+                fromAmino(object: _3.ContractKeyAmino): _3.ContractKey;
+                toAmino(message: _3.ContractKey): _3.ContractKeyAmino;
+                fromAminoMsg(object: _3.ContractKeyAminoMsg): _3.ContractKey;
+                fromProtoMsg(message: _3.ContractKeyProtoMsg): _3.ContractKey;
+                toProto(message: _3.ContractKey): Uint8Array;
+                toProtoMsg(message: _3.ContractKey): _3.ContractKeyProtoMsg;
             };
             ContractCustomInfo: {
                 typeUrl: string;
@@ -194,6 +275,18 @@ export declare namespace secret {
                 fromProtoMsg(message: _3.ModelProtoMsg): _3.Model;
                 toProto(message: _3.Model): Uint8Array;
                 toProtoMsg(message: _3.Model): _3.ModelProtoMsg;
+            };
+            ContractCodeHistoryEntry: {
+                typeUrl: string;
+                encode(message: _3.ContractCodeHistoryEntry, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _3.ContractCodeHistoryEntry;
+                fromPartial(object: Partial<_3.ContractCodeHistoryEntry>): _3.ContractCodeHistoryEntry;
+                fromAmino(object: _3.ContractCodeHistoryEntryAmino): _3.ContractCodeHistoryEntry;
+                toAmino(message: _3.ContractCodeHistoryEntry): _3.ContractCodeHistoryEntryAmino;
+                fromAminoMsg(object: _3.ContractCodeHistoryEntryAminoMsg): _3.ContractCodeHistoryEntry;
+                fromProtoMsg(message: _3.ContractCodeHistoryEntryProtoMsg): _3.ContractCodeHistoryEntry;
+                toProto(message: _3.ContractCodeHistoryEntry): Uint8Array;
+                toProtoMsg(message: _3.ContractCodeHistoryEntry): _3.ContractCodeHistoryEntryProtoMsg;
             };
             QuerySecretContractRequest: {
                 typeUrl: string;
@@ -387,6 +480,30 @@ export declare namespace secret {
                 toProto(message: _2.DecryptedAnswers): Uint8Array;
                 toProtoMsg(message: _2.DecryptedAnswers): _2.DecryptedAnswersProtoMsg;
             };
+            QueryContractHistoryRequest: {
+                typeUrl: string;
+                encode(message: _2.QueryContractHistoryRequest, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _2.QueryContractHistoryRequest;
+                fromPartial(object: Partial<_2.QueryContractHistoryRequest>): _2.QueryContractHistoryRequest;
+                fromAmino(object: _2.QueryContractHistoryRequestAmino): _2.QueryContractHistoryRequest;
+                toAmino(message: _2.QueryContractHistoryRequest): _2.QueryContractHistoryRequestAmino;
+                fromAminoMsg(object: _2.QueryContractHistoryRequestAminoMsg): _2.QueryContractHistoryRequest;
+                fromProtoMsg(message: _2.QueryContractHistoryRequestProtoMsg): _2.QueryContractHistoryRequest;
+                toProto(message: _2.QueryContractHistoryRequest): Uint8Array;
+                toProtoMsg(message: _2.QueryContractHistoryRequest): _2.QueryContractHistoryRequestProtoMsg;
+            };
+            QueryContractHistoryResponse: {
+                typeUrl: string;
+                encode(message: _2.QueryContractHistoryResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _2.QueryContractHistoryResponse;
+                fromPartial(object: Partial<_2.QueryContractHistoryResponse>): _2.QueryContractHistoryResponse;
+                fromAmino(object: _2.QueryContractHistoryResponseAmino): _2.QueryContractHistoryResponse;
+                toAmino(message: _2.QueryContractHistoryResponse): _2.QueryContractHistoryResponseAmino;
+                fromAminoMsg(object: _2.QueryContractHistoryResponseAminoMsg): _2.QueryContractHistoryResponse;
+                fromProtoMsg(message: _2.QueryContractHistoryResponseProtoMsg): _2.QueryContractHistoryResponse;
+                toProto(message: _2.QueryContractHistoryResponse): Uint8Array;
+                toProtoMsg(message: _2.QueryContractHistoryResponse): _2.QueryContractHistoryResponseProtoMsg;
+            };
             MsgStoreCode: {
                 typeUrl: string;
                 encode(message: _1.MsgStoreCode, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
@@ -459,6 +576,78 @@ export declare namespace secret {
                 toProto(message: _1.MsgExecuteContractResponse): Uint8Array;
                 toProtoMsg(message: _1.MsgExecuteContractResponse): _1.MsgExecuteContractResponseProtoMsg;
             };
+            MsgMigrateContract: {
+                typeUrl: string;
+                encode(message: _1.MsgMigrateContract, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _1.MsgMigrateContract;
+                fromPartial(object: Partial<_1.MsgMigrateContract>): _1.MsgMigrateContract;
+                fromAmino(object: _1.MsgMigrateContractAmino): _1.MsgMigrateContract;
+                toAmino(message: _1.MsgMigrateContract): _1.MsgMigrateContractAmino;
+                fromAminoMsg(object: _1.MsgMigrateContractAminoMsg): _1.MsgMigrateContract;
+                fromProtoMsg(message: _1.MsgMigrateContractProtoMsg): _1.MsgMigrateContract;
+                toProto(message: _1.MsgMigrateContract): Uint8Array;
+                toProtoMsg(message: _1.MsgMigrateContract): _1.MsgMigrateContractProtoMsg;
+            };
+            MsgMigrateContractResponse: {
+                typeUrl: string;
+                encode(message: _1.MsgMigrateContractResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _1.MsgMigrateContractResponse;
+                fromPartial(object: Partial<_1.MsgMigrateContractResponse>): _1.MsgMigrateContractResponse;
+                fromAmino(object: _1.MsgMigrateContractResponseAmino): _1.MsgMigrateContractResponse;
+                toAmino(message: _1.MsgMigrateContractResponse): _1.MsgMigrateContractResponseAmino;
+                fromAminoMsg(object: _1.MsgMigrateContractResponseAminoMsg): _1.MsgMigrateContractResponse;
+                fromProtoMsg(message: _1.MsgMigrateContractResponseProtoMsg): _1.MsgMigrateContractResponse;
+                toProto(message: _1.MsgMigrateContractResponse): Uint8Array;
+                toProtoMsg(message: _1.MsgMigrateContractResponse): _1.MsgMigrateContractResponseProtoMsg;
+            };
+            MsgUpdateAdmin: {
+                typeUrl: string;
+                encode(message: _1.MsgUpdateAdmin, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _1.MsgUpdateAdmin;
+                fromPartial(object: Partial<_1.MsgUpdateAdmin>): _1.MsgUpdateAdmin;
+                fromAmino(object: _1.MsgUpdateAdminAmino): _1.MsgUpdateAdmin;
+                toAmino(message: _1.MsgUpdateAdmin): _1.MsgUpdateAdminAmino;
+                fromAminoMsg(object: _1.MsgUpdateAdminAminoMsg): _1.MsgUpdateAdmin;
+                fromProtoMsg(message: _1.MsgUpdateAdminProtoMsg): _1.MsgUpdateAdmin;
+                toProto(message: _1.MsgUpdateAdmin): Uint8Array;
+                toProtoMsg(message: _1.MsgUpdateAdmin): _1.MsgUpdateAdminProtoMsg;
+            };
+            MsgUpdateAdminResponse: {
+                typeUrl: string;
+                encode(_: _1.MsgUpdateAdminResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _1.MsgUpdateAdminResponse;
+                fromPartial(_: Partial<_1.MsgUpdateAdminResponse>): _1.MsgUpdateAdminResponse;
+                fromAmino(_: _1.MsgUpdateAdminResponseAmino): _1.MsgUpdateAdminResponse;
+                toAmino(_: _1.MsgUpdateAdminResponse): _1.MsgUpdateAdminResponseAmino;
+                fromAminoMsg(object: _1.MsgUpdateAdminResponseAminoMsg): _1.MsgUpdateAdminResponse;
+                fromProtoMsg(message: _1.MsgUpdateAdminResponseProtoMsg): _1.MsgUpdateAdminResponse;
+                toProto(message: _1.MsgUpdateAdminResponse): Uint8Array;
+                toProtoMsg(message: _1.MsgUpdateAdminResponse): _1.MsgUpdateAdminResponseProtoMsg;
+            };
+            MsgClearAdmin: {
+                typeUrl: string;
+                encode(message: _1.MsgClearAdmin, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(object: any): _1.MsgClearAdmin;
+                fromPartial(object: Partial<_1.MsgClearAdmin>): _1.MsgClearAdmin;
+                fromAmino(object: _1.MsgClearAdminAmino): _1.MsgClearAdmin;
+                toAmino(message: _1.MsgClearAdmin): _1.MsgClearAdminAmino;
+                fromAminoMsg(object: _1.MsgClearAdminAminoMsg): _1.MsgClearAdmin;
+                fromProtoMsg(message: _1.MsgClearAdminProtoMsg): _1.MsgClearAdmin;
+                toProto(message: _1.MsgClearAdmin): Uint8Array;
+                toProtoMsg(message: _1.MsgClearAdmin): _1.MsgClearAdminProtoMsg;
+            };
+            MsgClearAdminResponse: {
+                typeUrl: string;
+                encode(_: _1.MsgClearAdminResponse, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
+                fromJSON(_: any): _1.MsgClearAdminResponse;
+                fromPartial(_: Partial<_1.MsgClearAdminResponse>): _1.MsgClearAdminResponse;
+                fromAmino(_: _1.MsgClearAdminResponseAmino): _1.MsgClearAdminResponse;
+                toAmino(_: _1.MsgClearAdminResponse): _1.MsgClearAdminResponseAmino;
+                fromAminoMsg(object: _1.MsgClearAdminResponseAminoMsg): _1.MsgClearAdminResponse;
+                fromProtoMsg(message: _1.MsgClearAdminResponseProtoMsg): _1.MsgClearAdminResponse;
+                toProto(message: _1.MsgClearAdminResponse): Uint8Array;
+                toProtoMsg(message: _1.MsgClearAdminResponse): _1.MsgClearAdminResponseProtoMsg;
+            };
             GenesisState: {
                 typeUrl: string;
                 encode(message: _0.GenesisState, writer?: import("..").BinaryWriter): import("..").BinaryWriter;
@@ -513,12 +702,12 @@ export declare namespace secret {
         const v1beta1: {
             MsgClientImpl: typeof _174.MsgClientImpl;
             QueryClientImpl: typeof _170.QueryClientImpl;
-            createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+            createRpcQueryExtension: (base: QueryClient) => {
                 params(request?: _6.ParamsRequest): Promise<_6.ParamsResponse>;
             };
             LCDQueryClient: typeof _166.LCDQueryClient;
-            registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
-            load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
+            registry: readonly [string, GeneratedType][];
+            load: (protoRegistry: Registry) => void;
             MessageComposer: {
                 encoded: {
                     toggleIbcSwitch(value: _7.MsgToggleIbcSwitch): {
@@ -630,12 +819,12 @@ export declare namespace secret {
         const v1beta1: {
             MsgClientImpl: typeof _175.MsgClientImpl;
             QueryClientImpl: typeof _171.QueryClientImpl;
-            createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+            createRpcQueryExtension: (base: QueryClient) => {
                 interchainAccountFromAddress(request: _8.QueryInterchainAccountFromAddressRequest): Promise<_8.QueryInterchainAccountFromAddressResponse>;
             };
             LCDQueryClient: typeof _167.LCDQueryClient;
-            registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
-            load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
+            registry: readonly [string, GeneratedType][];
+            load: (protoRegistry: Registry) => void;
             MessageComposer: {
                 encoded: {
                     registerAccount(value: _9.MsgRegisterAccount): {
@@ -767,7 +956,7 @@ export declare namespace secret {
     namespace registration {
         const v1beta1: {
             QueryClientImpl: typeof _172.QueryClientImpl;
-            createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
+            createRpcQueryExtension: (base: QueryClient) => {
                 txKey(request?: google.protobuf.Empty): Promise<_11.Key>;
                 registrationKey(request?: google.protobuf.Empty): Promise<_11.Key>;
                 encryptedSeed(request: _12.QueryEncryptedSeedRequest): Promise<_12.QueryEncryptedSeedResponse>;
@@ -1008,7 +1197,7 @@ export declare namespace secret {
             };
         }>;
         createRPCQueryClient: ({ rpcEndpoint }: {
-            rpcEndpoint: string | import("@cosmjs/tendermint-rpc").HttpEndpoint;
+            rpcEndpoint: any;
         }) => Promise<{
             secret: {
                 compute: {
@@ -1022,6 +1211,7 @@ export declare namespace secret {
                         codeHashByCodeId(request: _2.QueryByCodeIdRequest): Promise<_2.QueryCodeHashResponse>;
                         labelByAddress(request: _2.QueryByContractAddressRequest): Promise<_2.QueryContractLabelResponse>;
                         addressByLabel(request: _2.QueryByLabelRequest): Promise<_2.QueryContractAddressResponse>;
+                        contractHistory(request: _2.QueryContractHistoryRequest): Promise<_2.QueryContractHistoryResponse>;
                     };
                 };
                 emergencybutton: {

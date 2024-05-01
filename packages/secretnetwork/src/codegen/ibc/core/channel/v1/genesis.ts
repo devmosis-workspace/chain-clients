@@ -19,15 +19,15 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the ibc channel submodule's genesis state. */
 export interface GenesisStateAmino {
-  channels: IdentifiedChannelAmino[];
-  acknowledgements: PacketStateAmino[];
-  commitments: PacketStateAmino[];
-  receipts: PacketStateAmino[];
-  send_sequences: PacketSequenceAmino[];
-  recv_sequences: PacketSequenceAmino[];
-  ack_sequences: PacketSequenceAmino[];
+  channels?: IdentifiedChannelAmino[];
+  acknowledgements?: PacketStateAmino[];
+  commitments?: PacketStateAmino[];
+  receipts?: PacketStateAmino[];
+  send_sequences?: PacketSequenceAmino[];
+  recv_sequences?: PacketSequenceAmino[];
+  ack_sequences?: PacketSequenceAmino[];
   /** the sequence for the next generated channel identifier */
-  next_channel_sequence: string;
+  next_channel_sequence?: string;
 }
 export interface GenesisStateAminoMsg {
   type: "cosmos-sdk/GenesisState";
@@ -62,9 +62,9 @@ export interface PacketSequenceProtoMsg {
  * next send and receive sequences.
  */
 export interface PacketSequenceAmino {
-  port_id: string;
-  channel_id: string;
-  sequence: string;
+  port_id?: string;
+  channel_id?: string;
+  sequence?: string;
 }
 export interface PacketSequenceAminoMsg {
   type: "cosmos-sdk/PacketSequence";
@@ -145,55 +145,57 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      channels: Array.isArray(object?.channels) ? object.channels.map((e: any) => IdentifiedChannel.fromAmino(e)) : [],
-      acknowledgements: Array.isArray(object?.acknowledgements) ? object.acknowledgements.map((e: any) => PacketState.fromAmino(e)) : [],
-      commitments: Array.isArray(object?.commitments) ? object.commitments.map((e: any) => PacketState.fromAmino(e)) : [],
-      receipts: Array.isArray(object?.receipts) ? object.receipts.map((e: any) => PacketState.fromAmino(e)) : [],
-      sendSequences: Array.isArray(object?.send_sequences) ? object.send_sequences.map((e: any) => PacketSequence.fromAmino(e)) : [],
-      recvSequences: Array.isArray(object?.recv_sequences) ? object.recv_sequences.map((e: any) => PacketSequence.fromAmino(e)) : [],
-      ackSequences: Array.isArray(object?.ack_sequences) ? object.ack_sequences.map((e: any) => PacketSequence.fromAmino(e)) : [],
-      nextChannelSequence: BigInt(object.next_channel_sequence)
-    };
+    const message = createBaseGenesisState();
+    message.channels = object.channels?.map(e => IdentifiedChannel.fromAmino(e)) || [];
+    message.acknowledgements = object.acknowledgements?.map(e => PacketState.fromAmino(e)) || [];
+    message.commitments = object.commitments?.map(e => PacketState.fromAmino(e)) || [];
+    message.receipts = object.receipts?.map(e => PacketState.fromAmino(e)) || [];
+    message.sendSequences = object.send_sequences?.map(e => PacketSequence.fromAmino(e)) || [];
+    message.recvSequences = object.recv_sequences?.map(e => PacketSequence.fromAmino(e)) || [];
+    message.ackSequences = object.ack_sequences?.map(e => PacketSequence.fromAmino(e)) || [];
+    if (object.next_channel_sequence !== undefined && object.next_channel_sequence !== null) {
+      message.nextChannelSequence = BigInt(object.next_channel_sequence);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
     if (message.channels) {
       obj.channels = message.channels.map(e => e ? IdentifiedChannel.toAmino(e) : undefined);
     } else {
-      obj.channels = [];
+      obj.channels = message.channels;
     }
     if (message.acknowledgements) {
       obj.acknowledgements = message.acknowledgements.map(e => e ? PacketState.toAmino(e) : undefined);
     } else {
-      obj.acknowledgements = [];
+      obj.acknowledgements = message.acknowledgements;
     }
     if (message.commitments) {
       obj.commitments = message.commitments.map(e => e ? PacketState.toAmino(e) : undefined);
     } else {
-      obj.commitments = [];
+      obj.commitments = message.commitments;
     }
     if (message.receipts) {
       obj.receipts = message.receipts.map(e => e ? PacketState.toAmino(e) : undefined);
     } else {
-      obj.receipts = [];
+      obj.receipts = message.receipts;
     }
     if (message.sendSequences) {
       obj.send_sequences = message.sendSequences.map(e => e ? PacketSequence.toAmino(e) : undefined);
     } else {
-      obj.send_sequences = [];
+      obj.send_sequences = message.sendSequences;
     }
     if (message.recvSequences) {
       obj.recv_sequences = message.recvSequences.map(e => e ? PacketSequence.toAmino(e) : undefined);
     } else {
-      obj.recv_sequences = [];
+      obj.recv_sequences = message.recvSequences;
     }
     if (message.ackSequences) {
       obj.ack_sequences = message.ackSequences.map(e => e ? PacketSequence.toAmino(e) : undefined);
     } else {
-      obj.ack_sequences = [];
+      obj.ack_sequences = message.ackSequences;
     }
-    obj.next_channel_sequence = message.nextChannelSequence ? message.nextChannelSequence.toString() : undefined;
+    obj.next_channel_sequence = message.nextChannelSequence !== BigInt(0) ? message.nextChannelSequence.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
@@ -254,17 +256,23 @@ export const PacketSequence = {
     return message;
   },
   fromAmino(object: PacketSequenceAmino): PacketSequence {
-    return {
-      portId: object.port_id,
-      channelId: object.channel_id,
-      sequence: BigInt(object.sequence)
-    };
+    const message = createBasePacketSequence();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    return message;
   },
   toAmino(message: PacketSequence): PacketSequenceAmino {
     const obj: any = {};
-    obj.port_id = message.portId;
-    obj.channel_id = message.channelId;
-    obj.sequence = message.sequence ? message.sequence.toString() : undefined;
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.sequence = message.sequence !== BigInt(0) ? message.sequence.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: PacketSequenceAminoMsg): PacketSequence {

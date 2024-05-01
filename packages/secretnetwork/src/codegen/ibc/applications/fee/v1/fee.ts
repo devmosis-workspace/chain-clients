@@ -18,11 +18,11 @@ export interface FeeProtoMsg {
 /** Fee defines the ICS29 receive, acknowledgement and timeout fees */
 export interface FeeAmino {
   /** the packet receive fee */
-  recv_fee: CoinAmino[];
+  recv_fee?: CoinAmino[];
   /** the packet acknowledgement fee */
-  ack_fee: CoinAmino[];
+  ack_fee?: CoinAmino[];
   /** the packet timeout fee */
-  timeout_fee: CoinAmino[];
+  timeout_fee?: CoinAmino[];
 }
 export interface FeeAminoMsg {
   type: "cosmos-sdk/Fee";
@@ -52,9 +52,9 @@ export interface PacketFeeAmino {
   /** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
   fee?: FeeAmino;
   /** the refund address for unspent fees */
-  refund_address: string;
+  refund_address?: string;
   /** optional list of relayers permitted to receive fees */
-  relayers: string[];
+  relayers?: string[];
 }
 export interface PacketFeeAminoMsg {
   type: "cosmos-sdk/PacketFee";
@@ -78,7 +78,7 @@ export interface PacketFeesProtoMsg {
 /** PacketFees contains a list of type PacketFee */
 export interface PacketFeesAmino {
   /** list of packet fees */
-  packet_fees: PacketFeeAmino[];
+  packet_fees?: PacketFeeAmino[];
 }
 export interface PacketFeesAminoMsg {
   type: "cosmos-sdk/PacketFees";
@@ -104,7 +104,7 @@ export interface IdentifiedPacketFeesAmino {
   /** unique packet identifier comprised of the channel ID, port ID and sequence */
   packet_id?: PacketIdAmino;
   /** list of packet fees */
-  packet_fees: PacketFeeAmino[];
+  packet_fees?: PacketFeeAmino[];
 }
 export interface IdentifiedPacketFeesAminoMsg {
   type: "cosmos-sdk/IdentifiedPacketFees";
@@ -151,28 +151,28 @@ export const Fee = {
     return message;
   },
   fromAmino(object: FeeAmino): Fee {
-    return {
-      recvFee: Array.isArray(object?.recv_fee) ? object.recv_fee.map((e: any) => Coin.fromAmino(e)) : [],
-      ackFee: Array.isArray(object?.ack_fee) ? object.ack_fee.map((e: any) => Coin.fromAmino(e)) : [],
-      timeoutFee: Array.isArray(object?.timeout_fee) ? object.timeout_fee.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseFee();
+    message.recvFee = object.recv_fee?.map(e => Coin.fromAmino(e)) || [];
+    message.ackFee = object.ack_fee?.map(e => Coin.fromAmino(e)) || [];
+    message.timeoutFee = object.timeout_fee?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: Fee): FeeAmino {
     const obj: any = {};
     if (message.recvFee) {
       obj.recv_fee = message.recvFee.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.recv_fee = [];
+      obj.recv_fee = message.recvFee;
     }
     if (message.ackFee) {
       obj.ack_fee = message.ackFee.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.ack_fee = [];
+      obj.ack_fee = message.ackFee;
     }
     if (message.timeoutFee) {
       obj.timeout_fee = message.timeoutFee.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.timeout_fee = [];
+      obj.timeout_fee = message.timeoutFee;
     }
     return obj;
   },
@@ -234,20 +234,24 @@ export const PacketFee = {
     return message;
   },
   fromAmino(object: PacketFeeAmino): PacketFee {
-    return {
-      fee: object?.fee ? Fee.fromAmino(object.fee) : undefined,
-      refundAddress: object.refund_address,
-      relayers: Array.isArray(object?.relayers) ? object.relayers.map((e: any) => e) : []
-    };
+    const message = createBasePacketFee();
+    if (object.fee !== undefined && object.fee !== null) {
+      message.fee = Fee.fromAmino(object.fee);
+    }
+    if (object.refund_address !== undefined && object.refund_address !== null) {
+      message.refundAddress = object.refund_address;
+    }
+    message.relayers = object.relayers?.map(e => e) || [];
+    return message;
   },
   toAmino(message: PacketFee): PacketFeeAmino {
     const obj: any = {};
     obj.fee = message.fee ? Fee.toAmino(message.fee) : undefined;
-    obj.refund_address = message.refundAddress;
+    obj.refund_address = message.refundAddress === "" ? undefined : message.refundAddress;
     if (message.relayers) {
       obj.relayers = message.relayers.map(e => e);
     } else {
-      obj.relayers = [];
+      obj.relayers = message.relayers;
     }
     return obj;
   },
@@ -297,16 +301,16 @@ export const PacketFees = {
     return message;
   },
   fromAmino(object: PacketFeesAmino): PacketFees {
-    return {
-      packetFees: Array.isArray(object?.packet_fees) ? object.packet_fees.map((e: any) => PacketFee.fromAmino(e)) : []
-    };
+    const message = createBasePacketFees();
+    message.packetFees = object.packet_fees?.map(e => PacketFee.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: PacketFees): PacketFeesAmino {
     const obj: any = {};
     if (message.packetFees) {
       obj.packet_fees = message.packetFees.map(e => e ? PacketFee.toAmino(e) : undefined);
     } else {
-      obj.packet_fees = [];
+      obj.packet_fees = message.packetFees;
     }
     return obj;
   },
@@ -362,10 +366,12 @@ export const IdentifiedPacketFees = {
     return message;
   },
   fromAmino(object: IdentifiedPacketFeesAmino): IdentifiedPacketFees {
-    return {
-      packetId: object?.packet_id ? PacketId.fromAmino(object.packet_id) : undefined,
-      packetFees: Array.isArray(object?.packet_fees) ? object.packet_fees.map((e: any) => PacketFee.fromAmino(e)) : []
-    };
+    const message = createBaseIdentifiedPacketFees();
+    if (object.packet_id !== undefined && object.packet_id !== null) {
+      message.packetId = PacketId.fromAmino(object.packet_id);
+    }
+    message.packetFees = object.packet_fees?.map(e => PacketFee.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: IdentifiedPacketFees): IdentifiedPacketFeesAmino {
     const obj: any = {};
@@ -373,7 +379,7 @@ export const IdentifiedPacketFees = {
     if (message.packetFees) {
       obj.packet_fees = message.packetFees.map(e => e ? PacketFee.toAmino(e) : undefined);
     } else {
-      obj.packet_fees = [];
+      obj.packet_fees = message.packetFees;
     }
     return obj;
   },

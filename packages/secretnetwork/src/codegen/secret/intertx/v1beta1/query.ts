@@ -11,8 +11,8 @@ export interface QueryInterchainAccountFromAddressRequestProtoMsg {
 }
 /** QueryInterchainAccountFromAddressRequest is the request type for the Query/InterchainAccountAddress RPC */
 export interface QueryInterchainAccountFromAddressRequestAmino {
-  owner: string;
-  connection_id: string;
+  owner?: string;
+  connection_id?: string;
 }
 export interface QueryInterchainAccountFromAddressRequestAminoMsg {
   type: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressRequest";
@@ -33,7 +33,7 @@ export interface QueryInterchainAccountFromAddressResponseProtoMsg {
 }
 /** QueryInterchainAccountFromAddressResponse the response type for the Query/InterchainAccountAddress RPC */
 export interface QueryInterchainAccountFromAddressResponseAmino {
-  interchain_account_address: string;
+  interchain_account_address?: string;
 }
 export interface QueryInterchainAccountFromAddressResponseAminoMsg {
   type: "/secret.intertx.v1beta1.QueryInterchainAccountFromAddressResponse";
@@ -73,15 +73,19 @@ export const QueryInterchainAccountFromAddressRequest = {
     return message;
   },
   fromAmino(object: QueryInterchainAccountFromAddressRequestAmino): QueryInterchainAccountFromAddressRequest {
-    return {
-      owner: object.owner,
-      connectionId: object.connection_id
-    };
+    const message = createBaseQueryInterchainAccountFromAddressRequest();
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner;
+    }
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    return message;
   },
   toAmino(message: QueryInterchainAccountFromAddressRequest): QueryInterchainAccountFromAddressRequestAmino {
     const obj: any = {};
-    obj.owner = message.owner;
-    obj.connection_id = message.connectionId;
+    obj.owner = message.owner === "" ? undefined : message.owner;
+    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
     return obj;
   },
   fromAminoMsg(object: QueryInterchainAccountFromAddressRequestAminoMsg): QueryInterchainAccountFromAddressRequest {
@@ -124,13 +128,15 @@ export const QueryInterchainAccountFromAddressResponse = {
     return message;
   },
   fromAmino(object: QueryInterchainAccountFromAddressResponseAmino): QueryInterchainAccountFromAddressResponse {
-    return {
-      interchainAccountAddress: object.interchain_account_address
-    };
+    const message = createBaseQueryInterchainAccountFromAddressResponse();
+    if (object.interchain_account_address !== undefined && object.interchain_account_address !== null) {
+      message.interchainAccountAddress = object.interchain_account_address;
+    }
+    return message;
   },
   toAmino(message: QueryInterchainAccountFromAddressResponse): QueryInterchainAccountFromAddressResponseAmino {
     const obj: any = {};
-    obj.interchain_account_address = message.interchainAccountAddress;
+    obj.interchain_account_address = message.interchainAccountAddress === "" ? undefined : message.interchainAccountAddress;
     return obj;
   },
   fromAminoMsg(object: QueryInterchainAccountFromAddressResponseAminoMsg): QueryInterchainAccountFromAddressResponse {

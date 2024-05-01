@@ -10,8 +10,8 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the ibc-rate-limit module. */
 export interface ParamsAmino {
-    switch_status: string;
-    pauser_address: string;
+    switch_status?: string;
+    pauser_address?: string;
 }
 export interface ParamsAminoMsg {
     type: "/secret.emergencybutton.v1beta1.Params";

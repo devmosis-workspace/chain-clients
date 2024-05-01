@@ -1,7 +1,7 @@
 import { SignedMsgType, signedMsgTypeFromJSON } from "./types";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64, fromJsonTimestamp } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, fromJsonTimestamp } from "../../helpers";
 export interface CanonicalBlockID {
   hash: Uint8Array;
   partSetHeader: CanonicalPartSetHeader;
@@ -11,7 +11,7 @@ export interface CanonicalBlockIDProtoMsg {
   value: Uint8Array;
 }
 export interface CanonicalBlockIDAmino {
-  hash: Uint8Array;
+  hash?: string;
   part_set_header?: CanonicalPartSetHeaderAmino;
 }
 export interface CanonicalBlockIDAminoMsg {
@@ -31,8 +31,8 @@ export interface CanonicalPartSetHeaderProtoMsg {
   value: Uint8Array;
 }
 export interface CanonicalPartSetHeaderAmino {
-  total: number;
-  hash: Uint8Array;
+  total?: number;
+  hash?: string;
 }
 export interface CanonicalPartSetHeaderAminoMsg {
   type: "/tendermint.types.CanonicalPartSetHeader";
@@ -50,7 +50,7 @@ export interface CanonicalProposal {
   /** canonicalization requires fixed size encoding here */
   round: bigint;
   polRound: bigint;
-  blockId: CanonicalBlockID;
+  blockId?: CanonicalBlockID;
   timestamp: Timestamp;
   chainId: string;
 }
@@ -60,15 +60,15 @@ export interface CanonicalProposalProtoMsg {
 }
 export interface CanonicalProposalAmino {
   /** type alias for byte */
-  type: SignedMsgType;
+  type?: SignedMsgType;
   /** canonicalization requires fixed size encoding here */
-  height: string;
+  height?: string;
   /** canonicalization requires fixed size encoding here */
-  round: string;
-  pol_round: string;
+  round?: string;
+  pol_round?: string;
   block_id?: CanonicalBlockIDAmino;
-  timestamp?: TimestampAmino;
-  chain_id: string;
+  timestamp?: string;
+  chain_id?: string;
 }
 export interface CanonicalProposalAminoMsg {
   type: "/tendermint.types.CanonicalProposal";
@@ -79,7 +79,7 @@ export interface CanonicalProposalSDKType {
   height: bigint;
   round: bigint;
   pol_round: bigint;
-  block_id: CanonicalBlockIDSDKType;
+  block_id?: CanonicalBlockIDSDKType;
   timestamp: TimestampSDKType;
   chain_id: string;
 }
@@ -90,7 +90,7 @@ export interface CanonicalVote {
   height: bigint;
   /** canonicalization requires fixed size encoding here */
   round: bigint;
-  blockId: CanonicalBlockID;
+  blockId?: CanonicalBlockID;
   timestamp: Timestamp;
   chainId: string;
 }
@@ -100,14 +100,14 @@ export interface CanonicalVoteProtoMsg {
 }
 export interface CanonicalVoteAmino {
   /** type alias for byte */
-  type: SignedMsgType;
+  type?: SignedMsgType;
   /** canonicalization requires fixed size encoding here */
-  height: string;
+  height?: string;
   /** canonicalization requires fixed size encoding here */
-  round: string;
+  round?: string;
   block_id?: CanonicalBlockIDAmino;
-  timestamp?: TimestampAmino;
-  chain_id: string;
+  timestamp?: string;
+  chain_id?: string;
 }
 export interface CanonicalVoteAminoMsg {
   type: "/tendermint.types.CanonicalVote";
@@ -117,7 +117,7 @@ export interface CanonicalVoteSDKType {
   type: SignedMsgType;
   height: bigint;
   round: bigint;
-  block_id: CanonicalBlockIDSDKType;
+  block_id?: CanonicalBlockIDSDKType;
   timestamp: TimestampSDKType;
   chain_id: string;
 }
@@ -151,14 +151,18 @@ export const CanonicalBlockID = {
     return message;
   },
   fromAmino(object: CanonicalBlockIDAmino): CanonicalBlockID {
-    return {
-      hash: object.hash,
-      partSetHeader: object?.part_set_header ? CanonicalPartSetHeader.fromAmino(object.part_set_header) : undefined
-    };
+    const message = createBaseCanonicalBlockID();
+    if (object.hash !== undefined && object.hash !== null) {
+      message.hash = bytesFromBase64(object.hash);
+    }
+    if (object.part_set_header !== undefined && object.part_set_header !== null) {
+      message.partSetHeader = CanonicalPartSetHeader.fromAmino(object.part_set_header);
+    }
+    return message;
   },
   toAmino(message: CanonicalBlockID): CanonicalBlockIDAmino {
     const obj: any = {};
-    obj.hash = message.hash;
+    obj.hash = message.hash ? base64FromBytes(message.hash) : undefined;
     obj.part_set_header = message.partSetHeader ? CanonicalPartSetHeader.toAmino(message.partSetHeader) : undefined;
     return obj;
   },
@@ -208,15 +212,19 @@ export const CanonicalPartSetHeader = {
     return message;
   },
   fromAmino(object: CanonicalPartSetHeaderAmino): CanonicalPartSetHeader {
-    return {
-      total: object.total,
-      hash: object.hash
-    };
+    const message = createBaseCanonicalPartSetHeader();
+    if (object.total !== undefined && object.total !== null) {
+      message.total = object.total;
+    }
+    if (object.hash !== undefined && object.hash !== null) {
+      message.hash = bytesFromBase64(object.hash);
+    }
+    return message;
   },
   toAmino(message: CanonicalPartSetHeader): CanonicalPartSetHeaderAmino {
     const obj: any = {};
-    obj.total = message.total;
-    obj.hash = message.hash;
+    obj.total = message.total === 0 ? undefined : message.total;
+    obj.hash = message.hash ? base64FromBytes(message.hash) : undefined;
     return obj;
   },
   fromAminoMsg(object: CanonicalPartSetHeaderAminoMsg): CanonicalPartSetHeader {
@@ -241,7 +249,7 @@ function createBaseCanonicalProposal(): CanonicalProposal {
     height: BigInt(0),
     round: BigInt(0),
     polRound: BigInt(0),
-    blockId: CanonicalBlockID.fromPartial({}),
+    blockId: undefined,
     timestamp: Timestamp.fromPartial({}),
     chainId: ""
   };
@@ -295,25 +303,39 @@ export const CanonicalProposal = {
     return message;
   },
   fromAmino(object: CanonicalProposalAmino): CanonicalProposal {
-    return {
-      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : -1,
-      height: BigInt(object.height),
-      round: BigInt(object.round),
-      polRound: BigInt(object.pol_round),
-      blockId: object?.block_id ? CanonicalBlockID.fromAmino(object.block_id) : undefined,
-      timestamp: object.timestamp,
-      chainId: object.chain_id
-    };
+    const message = createBaseCanonicalProposal();
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.round !== undefined && object.round !== null) {
+      message.round = BigInt(object.round);
+    }
+    if (object.pol_round !== undefined && object.pol_round !== null) {
+      message.polRound = BigInt(object.pol_round);
+    }
+    if (object.block_id !== undefined && object.block_id !== null) {
+      message.blockId = CanonicalBlockID.fromAmino(object.block_id);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Timestamp.fromAmino(object.timestamp);
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    return message;
   },
   toAmino(message: CanonicalProposal): CanonicalProposalAmino {
     const obj: any = {};
-    obj.type = message.type;
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.round = message.round ? message.round.toString() : undefined;
-    obj.pol_round = message.polRound ? message.polRound.toString() : undefined;
+    obj.type = message.type === 0 ? undefined : message.type;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.round = message.round !== BigInt(0) ? message.round.toString() : undefined;
+    obj.pol_round = message.polRound !== BigInt(0) ? message.polRound.toString() : undefined;
     obj.block_id = message.blockId ? CanonicalBlockID.toAmino(message.blockId) : undefined;
-    obj.timestamp = message.timestamp;
-    obj.chain_id = message.chainId;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
     return obj;
   },
   fromAminoMsg(object: CanonicalProposalAminoMsg): CanonicalProposal {
@@ -337,7 +359,7 @@ function createBaseCanonicalVote(): CanonicalVote {
     type: 0,
     height: BigInt(0),
     round: BigInt(0),
-    blockId: CanonicalBlockID.fromPartial({}),
+    blockId: undefined,
     timestamp: Timestamp.fromPartial({}),
     chainId: ""
   };
@@ -386,23 +408,35 @@ export const CanonicalVote = {
     return message;
   },
   fromAmino(object: CanonicalVoteAmino): CanonicalVote {
-    return {
-      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : -1,
-      height: BigInt(object.height),
-      round: BigInt(object.round),
-      blockId: object?.block_id ? CanonicalBlockID.fromAmino(object.block_id) : undefined,
-      timestamp: object.timestamp,
-      chainId: object.chain_id
-    };
+    const message = createBaseCanonicalVote();
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.round !== undefined && object.round !== null) {
+      message.round = BigInt(object.round);
+    }
+    if (object.block_id !== undefined && object.block_id !== null) {
+      message.blockId = CanonicalBlockID.fromAmino(object.block_id);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Timestamp.fromAmino(object.timestamp);
+    }
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    return message;
   },
   toAmino(message: CanonicalVote): CanonicalVoteAmino {
     const obj: any = {};
-    obj.type = message.type;
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.round = message.round ? message.round.toString() : undefined;
+    obj.type = message.type === 0 ? undefined : message.type;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.round = message.round !== BigInt(0) ? message.round.toString() : undefined;
     obj.block_id = message.blockId ? CanonicalBlockID.toAmino(message.blockId) : undefined;
-    obj.timestamp = message.timestamp;
-    obj.chain_id = message.chainId;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
     return obj;
   },
   fromAminoMsg(object: CanonicalVoteAminoMsg): CanonicalVote {

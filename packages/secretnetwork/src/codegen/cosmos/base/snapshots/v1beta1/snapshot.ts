@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64 } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** Snapshot contains Tendermint state sync snapshot info. */
 export interface Snapshot {
   height: bigint;
@@ -14,10 +14,10 @@ export interface SnapshotProtoMsg {
 }
 /** Snapshot contains Tendermint state sync snapshot info. */
 export interface SnapshotAmino {
-  height: string;
-  format: number;
-  chunks: number;
-  hash: Uint8Array;
+  height?: string;
+  format?: number;
+  chunks?: number;
+  hash?: string;
   metadata?: MetadataAmino;
 }
 export interface SnapshotAminoMsg {
@@ -44,7 +44,7 @@ export interface MetadataProtoMsg {
 /** Metadata contains SDK-specific snapshot metadata. */
 export interface MetadataAmino {
   /** SHA-256 chunk hashes */
-  chunk_hashes: Uint8Array[];
+  chunk_hashes?: string[];
 }
 export interface MetadataAminoMsg {
   type: "cosmos-sdk/Metadata";
@@ -93,7 +93,7 @@ export interface SnapshotStoreItemProtoMsg {
 }
 /** SnapshotStoreItem contains metadata about a snapshotted store. */
 export interface SnapshotStoreItemAmino {
-  name: string;
+  name?: string;
 }
 export interface SnapshotStoreItemAminoMsg {
   type: "cosmos-sdk/SnapshotStoreItem";
@@ -118,12 +118,12 @@ export interface SnapshotIAVLItemProtoMsg {
 }
 /** SnapshotIAVLItem is an exported IAVL node. */
 export interface SnapshotIAVLItemAmino {
-  key: Uint8Array;
-  value: Uint8Array;
+  key?: string;
+  value?: string;
   /** version is block height */
-  version: string;
+  version?: string;
   /** height is depth of the tree. */
-  height: number;
+  height?: number;
 }
 export interface SnapshotIAVLItemAminoMsg {
   type: "cosmos-sdk/SnapshotIAVLItem";
@@ -147,8 +147,8 @@ export interface SnapshotExtensionMetaProtoMsg {
 }
 /** SnapshotExtensionMeta contains metadata about an external snapshotter. */
 export interface SnapshotExtensionMetaAmino {
-  name: string;
-  format: number;
+  name?: string;
+  format?: number;
 }
 export interface SnapshotExtensionMetaAminoMsg {
   type: "cosmos-sdk/SnapshotExtensionMeta";
@@ -169,7 +169,7 @@ export interface SnapshotExtensionPayloadProtoMsg {
 }
 /** SnapshotExtensionPayload contains payloads of an external snapshotter. */
 export interface SnapshotExtensionPayloadAmino {
-  payload: Uint8Array;
+  payload?: string;
 }
 export interface SnapshotExtensionPayloadAminoMsg {
   type: "cosmos-sdk/SnapshotExtensionPayload";
@@ -227,20 +227,30 @@ export const Snapshot = {
     return message;
   },
   fromAmino(object: SnapshotAmino): Snapshot {
-    return {
-      height: BigInt(object.height),
-      format: object.format,
-      chunks: object.chunks,
-      hash: object.hash,
-      metadata: object?.metadata ? Metadata.fromAmino(object.metadata) : undefined
-    };
+    const message = createBaseSnapshot();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.format !== undefined && object.format !== null) {
+      message.format = object.format;
+    }
+    if (object.chunks !== undefined && object.chunks !== null) {
+      message.chunks = object.chunks;
+    }
+    if (object.hash !== undefined && object.hash !== null) {
+      message.hash = bytesFromBase64(object.hash);
+    }
+    if (object.metadata !== undefined && object.metadata !== null) {
+      message.metadata = Metadata.fromAmino(object.metadata);
+    }
+    return message;
   },
   toAmino(message: Snapshot): SnapshotAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.format = message.format;
-    obj.chunks = message.chunks;
-    obj.hash = message.hash;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.format = message.format === 0 ? undefined : message.format;
+    obj.chunks = message.chunks === 0 ? undefined : message.chunks;
+    obj.hash = message.hash ? base64FromBytes(message.hash) : undefined;
     obj.metadata = message.metadata ? Metadata.toAmino(message.metadata) : undefined;
     return obj;
   },
@@ -290,16 +300,16 @@ export const Metadata = {
     return message;
   },
   fromAmino(object: MetadataAmino): Metadata {
-    return {
-      chunkHashes: Array.isArray(object?.chunk_hashes) ? object.chunk_hashes.map((e: any) => e) : []
-    };
+    const message = createBaseMetadata();
+    message.chunkHashes = object.chunk_hashes?.map(e => bytesFromBase64(e)) || [];
+    return message;
   },
   toAmino(message: Metadata): MetadataAmino {
     const obj: any = {};
     if (message.chunkHashes) {
-      obj.chunk_hashes = message.chunkHashes.map(e => e);
+      obj.chunk_hashes = message.chunkHashes.map(e => base64FromBytes(e));
     } else {
-      obj.chunk_hashes = [];
+      obj.chunk_hashes = message.chunkHashes;
     }
     return obj;
   },
@@ -367,12 +377,20 @@ export const SnapshotItem = {
     return message;
   },
   fromAmino(object: SnapshotItemAmino): SnapshotItem {
-    return {
-      store: object?.store ? SnapshotStoreItem.fromAmino(object.store) : undefined,
-      iavl: object?.iavl ? SnapshotIAVLItem.fromAmino(object.iavl) : undefined,
-      extension: object?.extension ? SnapshotExtensionMeta.fromAmino(object.extension) : undefined,
-      extensionPayload: object?.extension_payload ? SnapshotExtensionPayload.fromAmino(object.extension_payload) : undefined
-    };
+    const message = createBaseSnapshotItem();
+    if (object.store !== undefined && object.store !== null) {
+      message.store = SnapshotStoreItem.fromAmino(object.store);
+    }
+    if (object.iavl !== undefined && object.iavl !== null) {
+      message.iavl = SnapshotIAVLItem.fromAmino(object.iavl);
+    }
+    if (object.extension !== undefined && object.extension !== null) {
+      message.extension = SnapshotExtensionMeta.fromAmino(object.extension);
+    }
+    if (object.extension_payload !== undefined && object.extension_payload !== null) {
+      message.extensionPayload = SnapshotExtensionPayload.fromAmino(object.extension_payload);
+    }
+    return message;
   },
   toAmino(message: SnapshotItem): SnapshotItemAmino {
     const obj: any = {};
@@ -428,13 +446,15 @@ export const SnapshotStoreItem = {
     return message;
   },
   fromAmino(object: SnapshotStoreItemAmino): SnapshotStoreItem {
-    return {
-      name: object.name
-    };
+    const message = createBaseSnapshotStoreItem();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    return message;
   },
   toAmino(message: SnapshotStoreItem): SnapshotStoreItemAmino {
     const obj: any = {};
-    obj.name = message.name;
+    obj.name = message.name === "" ? undefined : message.name;
     return obj;
   },
   fromAminoMsg(object: SnapshotStoreItemAminoMsg): SnapshotStoreItem {
@@ -501,19 +521,27 @@ export const SnapshotIAVLItem = {
     return message;
   },
   fromAmino(object: SnapshotIAVLItemAmino): SnapshotIAVLItem {
-    return {
-      key: object.key,
-      value: object.value,
-      version: BigInt(object.version),
-      height: object.height
-    };
+    const message = createBaseSnapshotIAVLItem();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = bytesFromBase64(object.key);
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = bytesFromBase64(object.value);
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = BigInt(object.version);
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = object.height;
+    }
+    return message;
   },
   toAmino(message: SnapshotIAVLItem): SnapshotIAVLItemAmino {
     const obj: any = {};
-    obj.key = message.key;
-    obj.value = message.value;
-    obj.version = message.version ? message.version.toString() : undefined;
-    obj.height = message.height;
+    obj.key = message.key ? base64FromBytes(message.key) : undefined;
+    obj.value = message.value ? base64FromBytes(message.value) : undefined;
+    obj.version = message.version !== BigInt(0) ? message.version.toString() : undefined;
+    obj.height = message.height === 0 ? undefined : message.height;
     return obj;
   },
   fromAminoMsg(object: SnapshotIAVLItemAminoMsg): SnapshotIAVLItem {
@@ -568,15 +596,19 @@ export const SnapshotExtensionMeta = {
     return message;
   },
   fromAmino(object: SnapshotExtensionMetaAmino): SnapshotExtensionMeta {
-    return {
-      name: object.name,
-      format: object.format
-    };
+    const message = createBaseSnapshotExtensionMeta();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.format !== undefined && object.format !== null) {
+      message.format = object.format;
+    }
+    return message;
   },
   toAmino(message: SnapshotExtensionMeta): SnapshotExtensionMetaAmino {
     const obj: any = {};
-    obj.name = message.name;
-    obj.format = message.format;
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.format = message.format === 0 ? undefined : message.format;
     return obj;
   },
   fromAminoMsg(object: SnapshotExtensionMetaAminoMsg): SnapshotExtensionMeta {
@@ -625,13 +657,15 @@ export const SnapshotExtensionPayload = {
     return message;
   },
   fromAmino(object: SnapshotExtensionPayloadAmino): SnapshotExtensionPayload {
-    return {
-      payload: object.payload
-    };
+    const message = createBaseSnapshotExtensionPayload();
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = bytesFromBase64(object.payload);
+    }
+    return message;
   },
   toAmino(message: SnapshotExtensionPayload): SnapshotExtensionPayloadAmino {
     const obj: any = {};
-    obj.payload = message.payload;
+    obj.payload = message.payload ? base64FromBytes(message.payload) : undefined;
     return obj;
   },
   fromAminoMsg(object: SnapshotExtensionPayloadAminoMsg): SnapshotExtensionPayload {

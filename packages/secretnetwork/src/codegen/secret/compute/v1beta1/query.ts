@@ -1,7 +1,7 @@
-import { ContractInfo, ContractInfoAmino, ContractInfoSDKType } from "./types";
+import { ContractInfo, ContractInfoAmino, ContractInfoSDKType, ContractCodeHistoryEntry, ContractCodeHistoryEntryAmino, ContractCodeHistoryEntrySDKType } from "./types";
 import { StringEvent, StringEventAmino, StringEventSDKType } from "../../../cosmos/base/abci/v1beta1/abci";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface QuerySecretContractRequest {
   /** address is the bech32 human readable address of the contract */
   contractAddress: string;
@@ -13,8 +13,8 @@ export interface QuerySecretContractRequestProtoMsg {
 }
 export interface QuerySecretContractRequestAmino {
   /** address is the bech32 human readable address of the contract */
-  contract_address: string;
-  query: Uint8Array;
+  contract_address?: string;
+  query?: string;
 }
 export interface QuerySecretContractRequestAminoMsg {
   type: "/secret.compute.v1beta1.QuerySecretContractRequest";
@@ -32,7 +32,7 @@ export interface QueryByLabelRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryByLabelRequestAmino {
-  label: string;
+  label?: string;
 }
 export interface QueryByLabelRequestAminoMsg {
   type: "/secret.compute.v1beta1.QueryByLabelRequest";
@@ -51,7 +51,7 @@ export interface QueryByContractAddressRequestProtoMsg {
 }
 export interface QueryByContractAddressRequestAmino {
   /** address is the bech32 human readable address of the contract */
-  contract_address: string;
+  contract_address?: string;
 }
 export interface QueryByContractAddressRequestAminoMsg {
   type: "/secret.compute.v1beta1.QueryByContractAddressRequest";
@@ -68,7 +68,7 @@ export interface QueryByCodeIdRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryByCodeIdRequestAmino {
-  code_id: string;
+  code_id?: string;
 }
 export interface QueryByCodeIdRequestAminoMsg {
   type: "/secret.compute.v1beta1.QueryByCodeIdRequest";
@@ -85,7 +85,7 @@ export interface QuerySecretContractResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QuerySecretContractResponseAmino {
-  data: Uint8Array;
+  data?: string;
 }
 export interface QuerySecretContractResponseAminoMsg {
   type: "/secret.compute.v1beta1.QuerySecretContractResponse";
@@ -98,7 +98,7 @@ export interface QuerySecretContractResponseSDKType {
 export interface QueryContractInfoResponse {
   /** contract_address is the bech32 human readable address of the contract */
   contractAddress: string;
-  ContractInfo: ContractInfo;
+  contractInfo?: ContractInfo;
 }
 export interface QueryContractInfoResponseProtoMsg {
   typeUrl: "/secret.compute.v1beta1.QueryContractInfoResponse";
@@ -107,8 +107,8 @@ export interface QueryContractInfoResponseProtoMsg {
 /** QueryContractInfoResponse is the response type for the Query/ContractInfo RPC method */
 export interface QueryContractInfoResponseAmino {
   /** contract_address is the bech32 human readable address of the contract */
-  contract_address: string;
-  ContractInfo?: ContractInfoAmino;
+  contract_address?: string;
+  contract_info?: ContractInfoAmino;
 }
 export interface QueryContractInfoResponseAminoMsg {
   type: "/secret.compute.v1beta1.QueryContractInfoResponse";
@@ -117,13 +117,13 @@ export interface QueryContractInfoResponseAminoMsg {
 /** QueryContractInfoResponse is the response type for the Query/ContractInfo RPC method */
 export interface QueryContractInfoResponseSDKType {
   contract_address: string;
-  ContractInfo: ContractInfoSDKType;
+  contract_info?: ContractInfoSDKType;
 }
 /** ContractInfoWithAddress adds the contract address to the ContractInfo representation */
 export interface ContractInfoWithAddress {
   /** contract_address is the bech32 human readable address of the contract */
   contractAddress: string;
-  ContractInfo: ContractInfo;
+  contractInfo?: ContractInfo;
 }
 export interface ContractInfoWithAddressProtoMsg {
   typeUrl: "/secret.compute.v1beta1.ContractInfoWithAddress";
@@ -132,8 +132,8 @@ export interface ContractInfoWithAddressProtoMsg {
 /** ContractInfoWithAddress adds the contract address to the ContractInfo representation */
 export interface ContractInfoWithAddressAmino {
   /** contract_address is the bech32 human readable address of the contract */
-  contract_address: string;
-  ContractInfo?: ContractInfoAmino;
+  contract_address?: string;
+  contract_info?: ContractInfoAmino;
 }
 export interface ContractInfoWithAddressAminoMsg {
   type: "/secret.compute.v1beta1.ContractInfoWithAddress";
@@ -142,7 +142,7 @@ export interface ContractInfoWithAddressAminoMsg {
 /** ContractInfoWithAddress adds the contract address to the ContractInfo representation */
 export interface ContractInfoWithAddressSDKType {
   contract_address: string;
-  ContractInfo: ContractInfoSDKType;
+  contract_info?: ContractInfoSDKType;
 }
 export interface QueryContractsByCodeIdResponse {
   contractInfos: ContractInfoWithAddress[];
@@ -152,7 +152,7 @@ export interface QueryContractsByCodeIdResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryContractsByCodeIdResponseAmino {
-  contract_infos: ContractInfoWithAddressAmino[];
+  contract_infos?: ContractInfoWithAddressAmino[];
 }
 export interface QueryContractsByCodeIdResponseAminoMsg {
   type: "/secret.compute.v1beta1.QueryContractsByCodeIdResponse";
@@ -174,12 +174,12 @@ export interface CodeInfoResponseProtoMsg {
   value: Uint8Array;
 }
 export interface CodeInfoResponseAmino {
-  code_id: string;
+  code_id?: string;
   /** creator is the bech32 human readable address of the contract */
-  creator: string;
-  code_hash: string;
-  source: string;
-  builder: string;
+  creator?: string;
+  code_hash?: string;
+  source?: string;
+  builder?: string;
 }
 export interface CodeInfoResponseAminoMsg {
   type: "/secret.compute.v1beta1.CodeInfoResponse";
@@ -193,7 +193,7 @@ export interface CodeInfoResponseSDKType {
   builder: string;
 }
 export interface QueryCodeResponse {
-  codeInfo: CodeInfoResponse;
+  codeInfo?: CodeInfoResponse;
   wasm: Uint8Array;
 }
 export interface QueryCodeResponseProtoMsg {
@@ -202,14 +202,14 @@ export interface QueryCodeResponseProtoMsg {
 }
 export interface QueryCodeResponseAmino {
   code_info?: CodeInfoResponseAmino;
-  wasm: Uint8Array;
+  wasm?: string;
 }
 export interface QueryCodeResponseAminoMsg {
   type: "/secret.compute.v1beta1.QueryCodeResponse";
   value: QueryCodeResponseAmino;
 }
 export interface QueryCodeResponseSDKType {
-  code_info: CodeInfoResponseSDKType;
+  code_info?: CodeInfoResponseSDKType;
   wasm: Uint8Array;
 }
 export interface QueryCodesResponse {
@@ -220,7 +220,7 @@ export interface QueryCodesResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryCodesResponseAmino {
-  code_infos: CodeInfoResponseAmino[];
+  code_infos?: CodeInfoResponseAmino[];
 }
 export interface QueryCodesResponseAminoMsg {
   type: "/secret.compute.v1beta1.QueryCodesResponse";
@@ -239,7 +239,7 @@ export interface QueryContractAddressResponseProtoMsg {
 }
 export interface QueryContractAddressResponseAmino {
   /** address is the bech32 human readable address of the contract */
-  contract_address: string;
+  contract_address?: string;
 }
 export interface QueryContractAddressResponseAminoMsg {
   type: "/secret.compute.v1beta1.QueryContractAddressResponse";
@@ -256,7 +256,7 @@ export interface QueryContractLabelResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryContractLabelResponseAmino {
-  label: string;
+  label?: string;
 }
 export interface QueryContractLabelResponseAminoMsg {
   type: "/secret.compute.v1beta1.QueryContractLabelResponse";
@@ -273,7 +273,7 @@ export interface QueryCodeHashResponseProtoMsg {
   value: Uint8Array;
 }
 export interface QueryCodeHashResponseAmino {
-  code_hash: string;
+  code_hash?: string;
 }
 export interface QueryCodeHashResponseAminoMsg {
   type: "/secret.compute.v1beta1.QueryCodeHashResponse";
@@ -295,10 +295,10 @@ export interface DecryptedAnswerProtoMsg {
 }
 /** DecryptedAnswer is a struct that represents a decrypted tx-query */
 export interface DecryptedAnswerAmino {
-  type: string;
-  input: string;
-  output_data: string;
-  output_data_as_string: string;
+  type?: string;
+  input?: string;
+  output_data?: string;
+  output_data_as_string?: string;
 }
 export interface DecryptedAnswerAminoMsg {
   type: "/secret.compute.v1beta1.DecryptedAnswer";
@@ -322,10 +322,10 @@ export interface DecryptedAnswersProtoMsg {
   value: Uint8Array;
 }
 export interface DecryptedAnswersAmino {
-  answers: DecryptedAnswerAmino[];
-  output_logs: StringEventAmino[];
-  output_error: string;
-  plaintext_error: string;
+  answers?: DecryptedAnswerAmino[];
+  output_logs?: StringEventAmino[];
+  output_error?: string;
+  plaintext_error?: string;
 }
 export interface DecryptedAnswersAminoMsg {
   type: "/secret.compute.v1beta1.DecryptedAnswers";
@@ -336,6 +336,66 @@ export interface DecryptedAnswersSDKType {
   output_logs: StringEventSDKType[];
   output_error: string;
   plaintext_error: string;
+}
+/**
+ * QueryContractHistoryRequest is the request type for the Query/ContractHistory
+ * RPC method
+ */
+export interface QueryContractHistoryRequest {
+  /** address is the address of the contract to query */
+  contractAddress: string;
+}
+export interface QueryContractHistoryRequestProtoMsg {
+  typeUrl: "/secret.compute.v1beta1.QueryContractHistoryRequest";
+  value: Uint8Array;
+}
+/**
+ * QueryContractHistoryRequest is the request type for the Query/ContractHistory
+ * RPC method
+ */
+export interface QueryContractHistoryRequestAmino {
+  /** address is the address of the contract to query */
+  contract_address?: string;
+}
+export interface QueryContractHistoryRequestAminoMsg {
+  type: "/secret.compute.v1beta1.QueryContractHistoryRequest";
+  value: QueryContractHistoryRequestAmino;
+}
+/**
+ * QueryContractHistoryRequest is the request type for the Query/ContractHistory
+ * RPC method
+ */
+export interface QueryContractHistoryRequestSDKType {
+  contract_address: string;
+}
+/**
+ * QueryContractHistoryResponse is the response type for the
+ * Query/ContractHistory RPC method
+ */
+export interface QueryContractHistoryResponse {
+  entries: ContractCodeHistoryEntry[];
+}
+export interface QueryContractHistoryResponseProtoMsg {
+  typeUrl: "/secret.compute.v1beta1.QueryContractHistoryResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryContractHistoryResponse is the response type for the
+ * Query/ContractHistory RPC method
+ */
+export interface QueryContractHistoryResponseAmino {
+  entries?: ContractCodeHistoryEntryAmino[];
+}
+export interface QueryContractHistoryResponseAminoMsg {
+  type: "/secret.compute.v1beta1.QueryContractHistoryResponse";
+  value: QueryContractHistoryResponseAmino;
+}
+/**
+ * QueryContractHistoryResponse is the response type for the
+ * Query/ContractHistory RPC method
+ */
+export interface QueryContractHistoryResponseSDKType {
+  entries: ContractCodeHistoryEntrySDKType[];
 }
 function createBaseQuerySecretContractRequest(): QuerySecretContractRequest {
   return {
@@ -367,15 +427,19 @@ export const QuerySecretContractRequest = {
     return message;
   },
   fromAmino(object: QuerySecretContractRequestAmino): QuerySecretContractRequest {
-    return {
-      contractAddress: object.contract_address,
-      query: object.query
-    };
+    const message = createBaseQuerySecretContractRequest();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.query !== undefined && object.query !== null) {
+      message.query = bytesFromBase64(object.query);
+    }
+    return message;
   },
   toAmino(message: QuerySecretContractRequest): QuerySecretContractRequestAmino {
     const obj: any = {};
-    obj.contract_address = message.contractAddress;
-    obj.query = message.query;
+    obj.contract_address = message.contractAddress === "" ? undefined : message.contractAddress;
+    obj.query = message.query ? base64FromBytes(message.query) : undefined;
     return obj;
   },
   fromAminoMsg(object: QuerySecretContractRequestAminoMsg): QuerySecretContractRequest {
@@ -418,13 +482,15 @@ export const QueryByLabelRequest = {
     return message;
   },
   fromAmino(object: QueryByLabelRequestAmino): QueryByLabelRequest {
-    return {
-      label: object.label
-    };
+    const message = createBaseQueryByLabelRequest();
+    if (object.label !== undefined && object.label !== null) {
+      message.label = object.label;
+    }
+    return message;
   },
   toAmino(message: QueryByLabelRequest): QueryByLabelRequestAmino {
     const obj: any = {};
-    obj.label = message.label;
+    obj.label = message.label === "" ? undefined : message.label;
     return obj;
   },
   fromAminoMsg(object: QueryByLabelRequestAminoMsg): QueryByLabelRequest {
@@ -467,13 +533,15 @@ export const QueryByContractAddressRequest = {
     return message;
   },
   fromAmino(object: QueryByContractAddressRequestAmino): QueryByContractAddressRequest {
-    return {
-      contractAddress: object.contract_address
-    };
+    const message = createBaseQueryByContractAddressRequest();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    return message;
   },
   toAmino(message: QueryByContractAddressRequest): QueryByContractAddressRequestAmino {
     const obj: any = {};
-    obj.contract_address = message.contractAddress;
+    obj.contract_address = message.contractAddress === "" ? undefined : message.contractAddress;
     return obj;
   },
   fromAminoMsg(object: QueryByContractAddressRequestAminoMsg): QueryByContractAddressRequest {
@@ -516,13 +584,15 @@ export const QueryByCodeIdRequest = {
     return message;
   },
   fromAmino(object: QueryByCodeIdRequestAmino): QueryByCodeIdRequest {
-    return {
-      codeId: BigInt(object.code_id)
-    };
+    const message = createBaseQueryByCodeIdRequest();
+    if (object.code_id !== undefined && object.code_id !== null) {
+      message.codeId = BigInt(object.code_id);
+    }
+    return message;
   },
   toAmino(message: QueryByCodeIdRequest): QueryByCodeIdRequestAmino {
     const obj: any = {};
-    obj.code_id = message.codeId ? message.codeId.toString() : undefined;
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryByCodeIdRequestAminoMsg): QueryByCodeIdRequest {
@@ -565,13 +635,15 @@ export const QuerySecretContractResponse = {
     return message;
   },
   fromAmino(object: QuerySecretContractResponseAmino): QuerySecretContractResponse {
-    return {
-      data: object.data
-    };
+    const message = createBaseQuerySecretContractResponse();
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
   },
   toAmino(message: QuerySecretContractResponse): QuerySecretContractResponseAmino {
     const obj: any = {};
-    obj.data = message.data;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
     return obj;
   },
   fromAminoMsg(object: QuerySecretContractResponseAminoMsg): QuerySecretContractResponse {
@@ -593,7 +665,7 @@ export const QuerySecretContractResponse = {
 function createBaseQueryContractInfoResponse(): QueryContractInfoResponse {
   return {
     contractAddress: "",
-    ContractInfo: ContractInfo.fromPartial({})
+    contractInfo: undefined
   };
 }
 export const QueryContractInfoResponse = {
@@ -602,33 +674,37 @@ export const QueryContractInfoResponse = {
     if (message.contractAddress !== "") {
       writer.uint32(10).string(message.contractAddress);
     }
-    if (message.ContractInfo !== undefined) {
-      ContractInfo.encode(message.ContractInfo, writer.uint32(18).fork()).ldelim();
+    if (message.contractInfo !== undefined) {
+      ContractInfo.encode(message.contractInfo, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
   fromJSON(object: any): QueryContractInfoResponse {
     return {
       contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
-      ContractInfo: isSet(object.ContractInfo) ? ContractInfo.fromJSON(object.ContractInfo) : undefined
+      contractInfo: isSet(object.contractInfo) ? ContractInfo.fromJSON(object.contractInfo) : undefined
     };
   },
   fromPartial(object: Partial<QueryContractInfoResponse>): QueryContractInfoResponse {
     const message = createBaseQueryContractInfoResponse();
     message.contractAddress = object.contractAddress ?? "";
-    message.ContractInfo = object.ContractInfo !== undefined && object.ContractInfo !== null ? ContractInfo.fromPartial(object.ContractInfo) : undefined;
+    message.contractInfo = object.contractInfo !== undefined && object.contractInfo !== null ? ContractInfo.fromPartial(object.contractInfo) : undefined;
     return message;
   },
   fromAmino(object: QueryContractInfoResponseAmino): QueryContractInfoResponse {
-    return {
-      contractAddress: object.contract_address,
-      ContractInfo: object?.ContractInfo ? ContractInfo.fromAmino(object.ContractInfo) : undefined
-    };
+    const message = createBaseQueryContractInfoResponse();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.contract_info !== undefined && object.contract_info !== null) {
+      message.contractInfo = ContractInfo.fromAmino(object.contract_info);
+    }
+    return message;
   },
   toAmino(message: QueryContractInfoResponse): QueryContractInfoResponseAmino {
     const obj: any = {};
-    obj.contract_address = message.contractAddress;
-    obj.ContractInfo = message.ContractInfo ? ContractInfo.toAmino(message.ContractInfo) : undefined;
+    obj.contract_address = message.contractAddress === "" ? undefined : message.contractAddress;
+    obj.contract_info = message.contractInfo ? ContractInfo.toAmino(message.contractInfo) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryContractInfoResponseAminoMsg): QueryContractInfoResponse {
@@ -650,7 +726,7 @@ export const QueryContractInfoResponse = {
 function createBaseContractInfoWithAddress(): ContractInfoWithAddress {
   return {
     contractAddress: "",
-    ContractInfo: ContractInfo.fromPartial({})
+    contractInfo: undefined
   };
 }
 export const ContractInfoWithAddress = {
@@ -659,33 +735,37 @@ export const ContractInfoWithAddress = {
     if (message.contractAddress !== "") {
       writer.uint32(10).string(message.contractAddress);
     }
-    if (message.ContractInfo !== undefined) {
-      ContractInfo.encode(message.ContractInfo, writer.uint32(18).fork()).ldelim();
+    if (message.contractInfo !== undefined) {
+      ContractInfo.encode(message.contractInfo, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
   fromJSON(object: any): ContractInfoWithAddress {
     return {
       contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
-      ContractInfo: isSet(object.ContractInfo) ? ContractInfo.fromJSON(object.ContractInfo) : undefined
+      contractInfo: isSet(object.contractInfo) ? ContractInfo.fromJSON(object.contractInfo) : undefined
     };
   },
   fromPartial(object: Partial<ContractInfoWithAddress>): ContractInfoWithAddress {
     const message = createBaseContractInfoWithAddress();
     message.contractAddress = object.contractAddress ?? "";
-    message.ContractInfo = object.ContractInfo !== undefined && object.ContractInfo !== null ? ContractInfo.fromPartial(object.ContractInfo) : undefined;
+    message.contractInfo = object.contractInfo !== undefined && object.contractInfo !== null ? ContractInfo.fromPartial(object.contractInfo) : undefined;
     return message;
   },
   fromAmino(object: ContractInfoWithAddressAmino): ContractInfoWithAddress {
-    return {
-      contractAddress: object.contract_address,
-      ContractInfo: object?.ContractInfo ? ContractInfo.fromAmino(object.ContractInfo) : undefined
-    };
+    const message = createBaseContractInfoWithAddress();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.contract_info !== undefined && object.contract_info !== null) {
+      message.contractInfo = ContractInfo.fromAmino(object.contract_info);
+    }
+    return message;
   },
   toAmino(message: ContractInfoWithAddress): ContractInfoWithAddressAmino {
     const obj: any = {};
-    obj.contract_address = message.contractAddress;
-    obj.ContractInfo = message.ContractInfo ? ContractInfo.toAmino(message.ContractInfo) : undefined;
+    obj.contract_address = message.contractAddress === "" ? undefined : message.contractAddress;
+    obj.contract_info = message.contractInfo ? ContractInfo.toAmino(message.contractInfo) : undefined;
     return obj;
   },
   fromAminoMsg(object: ContractInfoWithAddressAminoMsg): ContractInfoWithAddress {
@@ -728,16 +808,16 @@ export const QueryContractsByCodeIdResponse = {
     return message;
   },
   fromAmino(object: QueryContractsByCodeIdResponseAmino): QueryContractsByCodeIdResponse {
-    return {
-      contractInfos: Array.isArray(object?.contract_infos) ? object.contract_infos.map((e: any) => ContractInfoWithAddress.fromAmino(e)) : []
-    };
+    const message = createBaseQueryContractsByCodeIdResponse();
+    message.contractInfos = object.contract_infos?.map(e => ContractInfoWithAddress.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryContractsByCodeIdResponse): QueryContractsByCodeIdResponseAmino {
     const obj: any = {};
     if (message.contractInfos) {
       obj.contract_infos = message.contractInfos.map(e => e ? ContractInfoWithAddress.toAmino(e) : undefined);
     } else {
-      obj.contract_infos = [];
+      obj.contract_infos = message.contractInfos;
     }
     return obj;
   },
@@ -805,21 +885,31 @@ export const CodeInfoResponse = {
     return message;
   },
   fromAmino(object: CodeInfoResponseAmino): CodeInfoResponse {
-    return {
-      codeId: BigInt(object.code_id),
-      creator: object.creator,
-      codeHash: object.code_hash,
-      source: object.source,
-      builder: object.builder
-    };
+    const message = createBaseCodeInfoResponse();
+    if (object.code_id !== undefined && object.code_id !== null) {
+      message.codeId = BigInt(object.code_id);
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.code_hash !== undefined && object.code_hash !== null) {
+      message.codeHash = object.code_hash;
+    }
+    if (object.source !== undefined && object.source !== null) {
+      message.source = object.source;
+    }
+    if (object.builder !== undefined && object.builder !== null) {
+      message.builder = object.builder;
+    }
+    return message;
   },
   toAmino(message: CodeInfoResponse): CodeInfoResponseAmino {
     const obj: any = {};
-    obj.code_id = message.codeId ? message.codeId.toString() : undefined;
-    obj.creator = message.creator;
-    obj.code_hash = message.codeHash;
-    obj.source = message.source;
-    obj.builder = message.builder;
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId.toString() : undefined;
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.code_hash = message.codeHash === "" ? undefined : message.codeHash;
+    obj.source = message.source === "" ? undefined : message.source;
+    obj.builder = message.builder === "" ? undefined : message.builder;
     return obj;
   },
   fromAminoMsg(object: CodeInfoResponseAminoMsg): CodeInfoResponse {
@@ -840,7 +930,7 @@ export const CodeInfoResponse = {
 };
 function createBaseQueryCodeResponse(): QueryCodeResponse {
   return {
-    codeInfo: CodeInfoResponse.fromPartial({}),
+    codeInfo: undefined,
     wasm: new Uint8Array()
   };
 }
@@ -868,15 +958,19 @@ export const QueryCodeResponse = {
     return message;
   },
   fromAmino(object: QueryCodeResponseAmino): QueryCodeResponse {
-    return {
-      codeInfo: object?.code_info ? CodeInfoResponse.fromAmino(object.code_info) : undefined,
-      wasm: object.wasm
-    };
+    const message = createBaseQueryCodeResponse();
+    if (object.code_info !== undefined && object.code_info !== null) {
+      message.codeInfo = CodeInfoResponse.fromAmino(object.code_info);
+    }
+    if (object.wasm !== undefined && object.wasm !== null) {
+      message.wasm = bytesFromBase64(object.wasm);
+    }
+    return message;
   },
   toAmino(message: QueryCodeResponse): QueryCodeResponseAmino {
     const obj: any = {};
     obj.code_info = message.codeInfo ? CodeInfoResponse.toAmino(message.codeInfo) : undefined;
-    obj.wasm = message.wasm;
+    obj.wasm = message.wasm ? base64FromBytes(message.wasm) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryCodeResponseAminoMsg): QueryCodeResponse {
@@ -919,16 +1013,16 @@ export const QueryCodesResponse = {
     return message;
   },
   fromAmino(object: QueryCodesResponseAmino): QueryCodesResponse {
-    return {
-      codeInfos: Array.isArray(object?.code_infos) ? object.code_infos.map((e: any) => CodeInfoResponse.fromAmino(e)) : []
-    };
+    const message = createBaseQueryCodesResponse();
+    message.codeInfos = object.code_infos?.map(e => CodeInfoResponse.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryCodesResponse): QueryCodesResponseAmino {
     const obj: any = {};
     if (message.codeInfos) {
       obj.code_infos = message.codeInfos.map(e => e ? CodeInfoResponse.toAmino(e) : undefined);
     } else {
-      obj.code_infos = [];
+      obj.code_infos = message.codeInfos;
     }
     return obj;
   },
@@ -972,13 +1066,15 @@ export const QueryContractAddressResponse = {
     return message;
   },
   fromAmino(object: QueryContractAddressResponseAmino): QueryContractAddressResponse {
-    return {
-      contractAddress: object.contract_address
-    };
+    const message = createBaseQueryContractAddressResponse();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    return message;
   },
   toAmino(message: QueryContractAddressResponse): QueryContractAddressResponseAmino {
     const obj: any = {};
-    obj.contract_address = message.contractAddress;
+    obj.contract_address = message.contractAddress === "" ? undefined : message.contractAddress;
     return obj;
   },
   fromAminoMsg(object: QueryContractAddressResponseAminoMsg): QueryContractAddressResponse {
@@ -1021,13 +1117,15 @@ export const QueryContractLabelResponse = {
     return message;
   },
   fromAmino(object: QueryContractLabelResponseAmino): QueryContractLabelResponse {
-    return {
-      label: object.label
-    };
+    const message = createBaseQueryContractLabelResponse();
+    if (object.label !== undefined && object.label !== null) {
+      message.label = object.label;
+    }
+    return message;
   },
   toAmino(message: QueryContractLabelResponse): QueryContractLabelResponseAmino {
     const obj: any = {};
-    obj.label = message.label;
+    obj.label = message.label === "" ? undefined : message.label;
     return obj;
   },
   fromAminoMsg(object: QueryContractLabelResponseAminoMsg): QueryContractLabelResponse {
@@ -1070,13 +1168,15 @@ export const QueryCodeHashResponse = {
     return message;
   },
   fromAmino(object: QueryCodeHashResponseAmino): QueryCodeHashResponse {
-    return {
-      codeHash: object.code_hash
-    };
+    const message = createBaseQueryCodeHashResponse();
+    if (object.code_hash !== undefined && object.code_hash !== null) {
+      message.codeHash = object.code_hash;
+    }
+    return message;
   },
   toAmino(message: QueryCodeHashResponse): QueryCodeHashResponseAmino {
     const obj: any = {};
-    obj.code_hash = message.codeHash;
+    obj.code_hash = message.codeHash === "" ? undefined : message.codeHash;
     return obj;
   },
   fromAminoMsg(object: QueryCodeHashResponseAminoMsg): QueryCodeHashResponse {
@@ -1137,19 +1237,27 @@ export const DecryptedAnswer = {
     return message;
   },
   fromAmino(object: DecryptedAnswerAmino): DecryptedAnswer {
-    return {
-      type: object.type,
-      input: object.input,
-      outputData: object.output_data,
-      outputDataAsString: object.output_data_as_string
-    };
+    const message = createBaseDecryptedAnswer();
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.input !== undefined && object.input !== null) {
+      message.input = object.input;
+    }
+    if (object.output_data !== undefined && object.output_data !== null) {
+      message.outputData = object.output_data;
+    }
+    if (object.output_data_as_string !== undefined && object.output_data_as_string !== null) {
+      message.outputDataAsString = object.output_data_as_string;
+    }
+    return message;
   },
   toAmino(message: DecryptedAnswer): DecryptedAnswerAmino {
     const obj: any = {};
-    obj.type = message.type;
-    obj.input = message.input;
-    obj.output_data = message.outputData;
-    obj.output_data_as_string = message.outputDataAsString;
+    obj.type = message.type === "" ? undefined : message.type;
+    obj.input = message.input === "" ? undefined : message.input;
+    obj.output_data = message.outputData === "" ? undefined : message.outputData;
+    obj.output_data_as_string = message.outputDataAsString === "" ? undefined : message.outputDataAsString;
     return obj;
   },
   fromAminoMsg(object: DecryptedAnswerAminoMsg): DecryptedAnswer {
@@ -1210,27 +1318,31 @@ export const DecryptedAnswers = {
     return message;
   },
   fromAmino(object: DecryptedAnswersAmino): DecryptedAnswers {
-    return {
-      answers: Array.isArray(object?.answers) ? object.answers.map((e: any) => DecryptedAnswer.fromAmino(e)) : [],
-      outputLogs: Array.isArray(object?.output_logs) ? object.output_logs.map((e: any) => StringEvent.fromAmino(e)) : [],
-      outputError: object.output_error,
-      plaintextError: object.plaintext_error
-    };
+    const message = createBaseDecryptedAnswers();
+    message.answers = object.answers?.map(e => DecryptedAnswer.fromAmino(e)) || [];
+    message.outputLogs = object.output_logs?.map(e => StringEvent.fromAmino(e)) || [];
+    if (object.output_error !== undefined && object.output_error !== null) {
+      message.outputError = object.output_error;
+    }
+    if (object.plaintext_error !== undefined && object.plaintext_error !== null) {
+      message.plaintextError = object.plaintext_error;
+    }
+    return message;
   },
   toAmino(message: DecryptedAnswers): DecryptedAnswersAmino {
     const obj: any = {};
     if (message.answers) {
       obj.answers = message.answers.map(e => e ? DecryptedAnswer.toAmino(e) : undefined);
     } else {
-      obj.answers = [];
+      obj.answers = message.answers;
     }
     if (message.outputLogs) {
       obj.output_logs = message.outputLogs.map(e => e ? StringEvent.toAmino(e) : undefined);
     } else {
-      obj.output_logs = [];
+      obj.output_logs = message.outputLogs;
     }
-    obj.output_error = message.outputError;
-    obj.plaintext_error = message.plaintextError;
+    obj.output_error = message.outputError === "" ? undefined : message.outputError;
+    obj.plaintext_error = message.plaintextError === "" ? undefined : message.plaintextError;
     return obj;
   },
   fromAminoMsg(object: DecryptedAnswersAminoMsg): DecryptedAnswers {
@@ -1246,6 +1358,110 @@ export const DecryptedAnswers = {
     return {
       typeUrl: "/secret.compute.v1beta1.DecryptedAnswers",
       value: DecryptedAnswers.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryContractHistoryRequest(): QueryContractHistoryRequest {
+  return {
+    contractAddress: ""
+  };
+}
+export const QueryContractHistoryRequest = {
+  typeUrl: "/secret.compute.v1beta1.QueryContractHistoryRequest",
+  encode(message: QueryContractHistoryRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.contractAddress !== "") {
+      writer.uint32(10).string(message.contractAddress);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryContractHistoryRequest {
+    return {
+      contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : ""
+    };
+  },
+  fromPartial(object: Partial<QueryContractHistoryRequest>): QueryContractHistoryRequest {
+    const message = createBaseQueryContractHistoryRequest();
+    message.contractAddress = object.contractAddress ?? "";
+    return message;
+  },
+  fromAmino(object: QueryContractHistoryRequestAmino): QueryContractHistoryRequest {
+    const message = createBaseQueryContractHistoryRequest();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    return message;
+  },
+  toAmino(message: QueryContractHistoryRequest): QueryContractHistoryRequestAmino {
+    const obj: any = {};
+    obj.contract_address = message.contractAddress === "" ? undefined : message.contractAddress;
+    return obj;
+  },
+  fromAminoMsg(object: QueryContractHistoryRequestAminoMsg): QueryContractHistoryRequest {
+    return QueryContractHistoryRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryContractHistoryRequestProtoMsg): QueryContractHistoryRequest {
+    return QueryContractHistoryRequest.decode(message.value);
+  },
+  toProto(message: QueryContractHistoryRequest): Uint8Array {
+    return QueryContractHistoryRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryContractHistoryRequest): QueryContractHistoryRequestProtoMsg {
+    return {
+      typeUrl: "/secret.compute.v1beta1.QueryContractHistoryRequest",
+      value: QueryContractHistoryRequest.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryContractHistoryResponse(): QueryContractHistoryResponse {
+  return {
+    entries: []
+  };
+}
+export const QueryContractHistoryResponse = {
+  typeUrl: "/secret.compute.v1beta1.QueryContractHistoryResponse",
+  encode(message: QueryContractHistoryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.entries) {
+      ContractCodeHistoryEntry.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryContractHistoryResponse {
+    return {
+      entries: Array.isArray(object?.entries) ? object.entries.map((e: any) => ContractCodeHistoryEntry.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<QueryContractHistoryResponse>): QueryContractHistoryResponse {
+    const message = createBaseQueryContractHistoryResponse();
+    message.entries = object.entries?.map(e => ContractCodeHistoryEntry.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryContractHistoryResponseAmino): QueryContractHistoryResponse {
+    const message = createBaseQueryContractHistoryResponse();
+    message.entries = object.entries?.map(e => ContractCodeHistoryEntry.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryContractHistoryResponse): QueryContractHistoryResponseAmino {
+    const obj: any = {};
+    if (message.entries) {
+      obj.entries = message.entries.map(e => e ? ContractCodeHistoryEntry.toAmino(e) : undefined);
+    } else {
+      obj.entries = message.entries;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryContractHistoryResponseAminoMsg): QueryContractHistoryResponse {
+    return QueryContractHistoryResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryContractHistoryResponseProtoMsg): QueryContractHistoryResponse {
+    return QueryContractHistoryResponse.decode(message.value);
+  },
+  toProto(message: QueryContractHistoryResponse): Uint8Array {
+    return QueryContractHistoryResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryContractHistoryResponse): QueryContractHistoryResponseProtoMsg {
+    return {
+      typeUrl: "/secret.compute.v1beta1.QueryContractHistoryResponse",
+      value: QueryContractHistoryResponse.encode(message).finish()
     };
   }
 };

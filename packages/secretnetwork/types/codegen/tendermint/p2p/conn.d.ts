@@ -38,9 +38,9 @@ export interface PacketMsgProtoMsg {
     value: Uint8Array;
 }
 export interface PacketMsgAmino {
-    channel_id: number;
-    eof: boolean;
-    data: Uint8Array;
+    channel_id?: number;
+    eof?: boolean;
+    data?: string;
 }
 export interface PacketMsgAminoMsg {
     type: "/tendermint.p2p.PacketMsg";
@@ -84,7 +84,7 @@ export interface AuthSigMessageProtoMsg {
 }
 export interface AuthSigMessageAmino {
     pub_key?: PublicKeyAmino;
-    sig: Uint8Array;
+    sig?: string;
 }
 export interface AuthSigMessageAminoMsg {
     type: "/tendermint.p2p.AuthSigMessage";

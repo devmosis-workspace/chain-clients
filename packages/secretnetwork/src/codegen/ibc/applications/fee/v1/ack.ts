@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64 } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware */
 export interface IncentivizedAcknowledgement {
   /** the underlying app acknowledgement bytes */
@@ -16,11 +16,11 @@ export interface IncentivizedAcknowledgementProtoMsg {
 /** IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware */
 export interface IncentivizedAcknowledgementAmino {
   /** the underlying app acknowledgement bytes */
-  app_acknowledgement: Uint8Array;
+  app_acknowledgement?: string;
   /** the relayer address which submits the recv packet message */
-  forward_relayer_address: string;
+  forward_relayer_address?: string;
   /** success flag of the base application callback */
-  underlying_app_success: boolean;
+  underlying_app_success?: boolean;
 }
 export interface IncentivizedAcknowledgementAminoMsg {
   type: "cosmos-sdk/IncentivizedAcknowledgement";
@@ -68,17 +68,23 @@ export const IncentivizedAcknowledgement = {
     return message;
   },
   fromAmino(object: IncentivizedAcknowledgementAmino): IncentivizedAcknowledgement {
-    return {
-      appAcknowledgement: object.app_acknowledgement,
-      forwardRelayerAddress: object.forward_relayer_address,
-      underlyingAppSuccess: object.underlying_app_success
-    };
+    const message = createBaseIncentivizedAcknowledgement();
+    if (object.app_acknowledgement !== undefined && object.app_acknowledgement !== null) {
+      message.appAcknowledgement = bytesFromBase64(object.app_acknowledgement);
+    }
+    if (object.forward_relayer_address !== undefined && object.forward_relayer_address !== null) {
+      message.forwardRelayerAddress = object.forward_relayer_address;
+    }
+    if (object.underlying_app_success !== undefined && object.underlying_app_success !== null) {
+      message.underlyingAppSuccess = object.underlying_app_success;
+    }
+    return message;
   },
   toAmino(message: IncentivizedAcknowledgement): IncentivizedAcknowledgementAmino {
     const obj: any = {};
-    obj.app_acknowledgement = message.appAcknowledgement;
-    obj.forward_relayer_address = message.forwardRelayerAddress;
-    obj.underlying_app_success = message.underlyingAppSuccess;
+    obj.app_acknowledgement = message.appAcknowledgement ? base64FromBytes(message.appAcknowledgement) : undefined;
+    obj.forward_relayer_address = message.forwardRelayerAddress === "" ? undefined : message.forwardRelayerAddress;
+    obj.underlying_app_success = message.underlyingAppSuccess === false ? undefined : message.underlyingAppSuccess;
     return obj;
   },
   fromAminoMsg(object: IncentivizedAcknowledgementAminoMsg): IncentivizedAcknowledgement {

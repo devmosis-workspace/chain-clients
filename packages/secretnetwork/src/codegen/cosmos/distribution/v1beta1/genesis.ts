@@ -24,9 +24,9 @@ export interface DelegatorWithdrawInfoProtoMsg {
  */
 export interface DelegatorWithdrawInfoAmino {
   /** delegator_address is the address of the delegator. */
-  delegator_address: string;
+  delegator_address?: string;
   /** withdraw_address is the address to withdraw the delegation rewards to. */
-  withdraw_address: string;
+  withdraw_address?: string;
 }
 export interface DelegatorWithdrawInfoAminoMsg {
   type: "cosmos-sdk/DelegatorWithdrawInfo";
@@ -55,9 +55,9 @@ export interface ValidatorOutstandingRewardsRecordProtoMsg {
 /** ValidatorOutstandingRewardsRecord is used for import/export via genesis json. */
 export interface ValidatorOutstandingRewardsRecordAmino {
   /** validator_address is the address of the validator. */
-  validator_address: string;
+  validator_address?: string;
   /** outstanding_rewards represents the oustanding rewards of a validator. */
-  outstanding_rewards: DecCoinAmino[];
+  outstanding_rewards?: DecCoinAmino[];
 }
 export interface ValidatorOutstandingRewardsRecordAminoMsg {
   type: "cosmos-sdk/ValidatorOutstandingRewardsRecord";
@@ -88,7 +88,7 @@ export interface ValidatorAccumulatedCommissionRecordProtoMsg {
  */
 export interface ValidatorAccumulatedCommissionRecordAmino {
   /** validator_address is the address of the validator. */
-  validator_address: string;
+  validator_address?: string;
   /** accumulated is the accumulated commission of a validator. */
   accumulated?: ValidatorAccumulatedCommissionAmino;
 }
@@ -126,9 +126,9 @@ export interface ValidatorHistoricalRewardsRecordProtoMsg {
  */
 export interface ValidatorHistoricalRewardsRecordAmino {
   /** validator_address is the address of the validator. */
-  validator_address: string;
+  validator_address?: string;
   /** period defines the period the historical rewards apply to. */
-  period: string;
+  period?: string;
   /** rewards defines the historical rewards of a validator. */
   rewards?: ValidatorHistoricalRewardsAmino;
 }
@@ -159,7 +159,7 @@ export interface ValidatorCurrentRewardsRecordProtoMsg {
 /** ValidatorCurrentRewardsRecord is used for import / export via genesis json. */
 export interface ValidatorCurrentRewardsRecordAmino {
   /** validator_address is the address of the validator. */
-  validator_address: string;
+  validator_address?: string;
   /** rewards defines the current rewards of a validator. */
   rewards?: ValidatorCurrentRewardsAmino;
 }
@@ -188,9 +188,9 @@ export interface DelegatorStartingInfoRecordProtoMsg {
 /** DelegatorStartingInfoRecord used for import / export via genesis json. */
 export interface DelegatorStartingInfoRecordAmino {
   /** delegator_address is the address of the delegator. */
-  delegator_address: string;
+  delegator_address?: string;
   /** validator_address is the address of the validator. */
-  validator_address: string;
+  validator_address?: string;
   /** starting_info defines the starting info of a delegator. */
   starting_info?: DelegatorStartingInfoAmino;
 }
@@ -222,11 +222,11 @@ export interface ValidatorSlashEventRecordProtoMsg {
 /** ValidatorSlashEventRecord is used for import / export via genesis json. */
 export interface ValidatorSlashEventRecordAmino {
   /** validator_address is the address of the validator. */
-  validator_address: string;
+  validator_address?: string;
   /** height defines the block height at which the slash event occured. */
-  height: string;
+  height?: string;
   /** period is the period of the slash event. */
-  period: string;
+  period?: string;
   /** validator_slash_event describes the slash event. */
   validator_slash_event?: ValidatorSlashEventAmino;
 }
@@ -275,21 +275,21 @@ export interface GenesisStateAmino {
   /** fee_pool defines the fee pool at genesis. */
   fee_pool?: FeePoolAmino;
   /** fee_pool defines the delegator withdraw infos at genesis. */
-  delegator_withdraw_infos: DelegatorWithdrawInfoAmino[];
+  delegator_withdraw_infos?: DelegatorWithdrawInfoAmino[];
   /** fee_pool defines the previous proposer at genesis. */
-  previous_proposer: string;
+  previous_proposer?: string;
   /** fee_pool defines the outstanding rewards of all validators at genesis. */
-  outstanding_rewards: ValidatorOutstandingRewardsRecordAmino[];
+  outstanding_rewards?: ValidatorOutstandingRewardsRecordAmino[];
   /** fee_pool defines the accumulated commisions of all validators at genesis. */
-  validator_accumulated_commissions: ValidatorAccumulatedCommissionRecordAmino[];
+  validator_accumulated_commissions?: ValidatorAccumulatedCommissionRecordAmino[];
   /** fee_pool defines the historical rewards of all validators at genesis. */
-  validator_historical_rewards: ValidatorHistoricalRewardsRecordAmino[];
+  validator_historical_rewards?: ValidatorHistoricalRewardsRecordAmino[];
   /** fee_pool defines the current rewards of all validators at genesis. */
-  validator_current_rewards: ValidatorCurrentRewardsRecordAmino[];
+  validator_current_rewards?: ValidatorCurrentRewardsRecordAmino[];
   /** fee_pool defines the delegator starting infos at genesis. */
-  delegator_starting_infos: DelegatorStartingInfoRecordAmino[];
+  delegator_starting_infos?: DelegatorStartingInfoRecordAmino[];
   /** fee_pool defines the validator slash events at genesis. */
-  validator_slash_events: ValidatorSlashEventRecordAmino[];
+  validator_slash_events?: ValidatorSlashEventRecordAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "cosmos-sdk/GenesisState";
@@ -338,15 +338,19 @@ export const DelegatorWithdrawInfo = {
     return message;
   },
   fromAmino(object: DelegatorWithdrawInfoAmino): DelegatorWithdrawInfo {
-    return {
-      delegatorAddress: object.delegator_address,
-      withdrawAddress: object.withdraw_address
-    };
+    const message = createBaseDelegatorWithdrawInfo();
+    if (object.delegator_address !== undefined && object.delegator_address !== null) {
+      message.delegatorAddress = object.delegator_address;
+    }
+    if (object.withdraw_address !== undefined && object.withdraw_address !== null) {
+      message.withdrawAddress = object.withdraw_address;
+    }
+    return message;
   },
   toAmino(message: DelegatorWithdrawInfo): DelegatorWithdrawInfoAmino {
     const obj: any = {};
-    obj.delegator_address = message.delegatorAddress;
-    obj.withdraw_address = message.withdrawAddress;
+    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
+    obj.withdraw_address = message.withdrawAddress === "" ? undefined : message.withdrawAddress;
     return obj;
   },
   fromAminoMsg(object: DelegatorWithdrawInfoAminoMsg): DelegatorWithdrawInfo {
@@ -401,18 +405,20 @@ export const ValidatorOutstandingRewardsRecord = {
     return message;
   },
   fromAmino(object: ValidatorOutstandingRewardsRecordAmino): ValidatorOutstandingRewardsRecord {
-    return {
-      validatorAddress: object.validator_address,
-      outstandingRewards: Array.isArray(object?.outstanding_rewards) ? object.outstanding_rewards.map((e: any) => DecCoin.fromAmino(e)) : []
-    };
+    const message = createBaseValidatorOutstandingRewardsRecord();
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    message.outstandingRewards = object.outstanding_rewards?.map(e => DecCoin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: ValidatorOutstandingRewardsRecord): ValidatorOutstandingRewardsRecordAmino {
     const obj: any = {};
-    obj.validator_address = message.validatorAddress;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
     if (message.outstandingRewards) {
       obj.outstanding_rewards = message.outstandingRewards.map(e => e ? DecCoin.toAmino(e) : undefined);
     } else {
-      obj.outstanding_rewards = [];
+      obj.outstanding_rewards = message.outstandingRewards;
     }
     return obj;
   },
@@ -468,14 +474,18 @@ export const ValidatorAccumulatedCommissionRecord = {
     return message;
   },
   fromAmino(object: ValidatorAccumulatedCommissionRecordAmino): ValidatorAccumulatedCommissionRecord {
-    return {
-      validatorAddress: object.validator_address,
-      accumulated: object?.accumulated ? ValidatorAccumulatedCommission.fromAmino(object.accumulated) : undefined
-    };
+    const message = createBaseValidatorAccumulatedCommissionRecord();
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    if (object.accumulated !== undefined && object.accumulated !== null) {
+      message.accumulated = ValidatorAccumulatedCommission.fromAmino(object.accumulated);
+    }
+    return message;
   },
   toAmino(message: ValidatorAccumulatedCommissionRecord): ValidatorAccumulatedCommissionRecordAmino {
     const obj: any = {};
-    obj.validator_address = message.validatorAddress;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
     obj.accumulated = message.accumulated ? ValidatorAccumulatedCommission.toAmino(message.accumulated) : undefined;
     return obj;
   },
@@ -537,16 +547,22 @@ export const ValidatorHistoricalRewardsRecord = {
     return message;
   },
   fromAmino(object: ValidatorHistoricalRewardsRecordAmino): ValidatorHistoricalRewardsRecord {
-    return {
-      validatorAddress: object.validator_address,
-      period: BigInt(object.period),
-      rewards: object?.rewards ? ValidatorHistoricalRewards.fromAmino(object.rewards) : undefined
-    };
+    const message = createBaseValidatorHistoricalRewardsRecord();
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    if (object.period !== undefined && object.period !== null) {
+      message.period = BigInt(object.period);
+    }
+    if (object.rewards !== undefined && object.rewards !== null) {
+      message.rewards = ValidatorHistoricalRewards.fromAmino(object.rewards);
+    }
+    return message;
   },
   toAmino(message: ValidatorHistoricalRewardsRecord): ValidatorHistoricalRewardsRecordAmino {
     const obj: any = {};
-    obj.validator_address = message.validatorAddress;
-    obj.period = message.period ? message.period.toString() : undefined;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
+    obj.period = message.period !== BigInt(0) ? message.period.toString() : undefined;
     obj.rewards = message.rewards ? ValidatorHistoricalRewards.toAmino(message.rewards) : undefined;
     return obj;
   },
@@ -602,14 +618,18 @@ export const ValidatorCurrentRewardsRecord = {
     return message;
   },
   fromAmino(object: ValidatorCurrentRewardsRecordAmino): ValidatorCurrentRewardsRecord {
-    return {
-      validatorAddress: object.validator_address,
-      rewards: object?.rewards ? ValidatorCurrentRewards.fromAmino(object.rewards) : undefined
-    };
+    const message = createBaseValidatorCurrentRewardsRecord();
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    if (object.rewards !== undefined && object.rewards !== null) {
+      message.rewards = ValidatorCurrentRewards.fromAmino(object.rewards);
+    }
+    return message;
   },
   toAmino(message: ValidatorCurrentRewardsRecord): ValidatorCurrentRewardsRecordAmino {
     const obj: any = {};
-    obj.validator_address = message.validatorAddress;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
     obj.rewards = message.rewards ? ValidatorCurrentRewards.toAmino(message.rewards) : undefined;
     return obj;
   },
@@ -671,16 +691,22 @@ export const DelegatorStartingInfoRecord = {
     return message;
   },
   fromAmino(object: DelegatorStartingInfoRecordAmino): DelegatorStartingInfoRecord {
-    return {
-      delegatorAddress: object.delegator_address,
-      validatorAddress: object.validator_address,
-      startingInfo: object?.starting_info ? DelegatorStartingInfo.fromAmino(object.starting_info) : undefined
-    };
+    const message = createBaseDelegatorStartingInfoRecord();
+    if (object.delegator_address !== undefined && object.delegator_address !== null) {
+      message.delegatorAddress = object.delegator_address;
+    }
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    if (object.starting_info !== undefined && object.starting_info !== null) {
+      message.startingInfo = DelegatorStartingInfo.fromAmino(object.starting_info);
+    }
+    return message;
   },
   toAmino(message: DelegatorStartingInfoRecord): DelegatorStartingInfoRecordAmino {
     const obj: any = {};
-    obj.delegator_address = message.delegatorAddress;
-    obj.validator_address = message.validatorAddress;
+    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
     obj.starting_info = message.startingInfo ? DelegatorStartingInfo.toAmino(message.startingInfo) : undefined;
     return obj;
   },
@@ -748,18 +774,26 @@ export const ValidatorSlashEventRecord = {
     return message;
   },
   fromAmino(object: ValidatorSlashEventRecordAmino): ValidatorSlashEventRecord {
-    return {
-      validatorAddress: object.validator_address,
-      height: BigInt(object.height),
-      period: BigInt(object.period),
-      validatorSlashEvent: object?.validator_slash_event ? ValidatorSlashEvent.fromAmino(object.validator_slash_event) : undefined
-    };
+    const message = createBaseValidatorSlashEventRecord();
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.period !== undefined && object.period !== null) {
+      message.period = BigInt(object.period);
+    }
+    if (object.validator_slash_event !== undefined && object.validator_slash_event !== null) {
+      message.validatorSlashEvent = ValidatorSlashEvent.fromAmino(object.validator_slash_event);
+    }
+    return message;
   },
   toAmino(message: ValidatorSlashEventRecord): ValidatorSlashEventRecordAmino {
     const obj: any = {};
-    obj.validator_address = message.validatorAddress;
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.period = message.period ? message.period.toString() : undefined;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.period = message.period !== BigInt(0) ? message.period.toString() : undefined;
     obj.validator_slash_event = message.validatorSlashEvent ? ValidatorSlashEvent.toAmino(message.validatorSlashEvent) : undefined;
     return obj;
   },
@@ -863,18 +897,24 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      feePool: object?.fee_pool ? FeePool.fromAmino(object.fee_pool) : undefined,
-      delegatorWithdrawInfos: Array.isArray(object?.delegator_withdraw_infos) ? object.delegator_withdraw_infos.map((e: any) => DelegatorWithdrawInfo.fromAmino(e)) : [],
-      previousProposer: object.previous_proposer,
-      outstandingRewards: Array.isArray(object?.outstanding_rewards) ? object.outstanding_rewards.map((e: any) => ValidatorOutstandingRewardsRecord.fromAmino(e)) : [],
-      validatorAccumulatedCommissions: Array.isArray(object?.validator_accumulated_commissions) ? object.validator_accumulated_commissions.map((e: any) => ValidatorAccumulatedCommissionRecord.fromAmino(e)) : [],
-      validatorHistoricalRewards: Array.isArray(object?.validator_historical_rewards) ? object.validator_historical_rewards.map((e: any) => ValidatorHistoricalRewardsRecord.fromAmino(e)) : [],
-      validatorCurrentRewards: Array.isArray(object?.validator_current_rewards) ? object.validator_current_rewards.map((e: any) => ValidatorCurrentRewardsRecord.fromAmino(e)) : [],
-      delegatorStartingInfos: Array.isArray(object?.delegator_starting_infos) ? object.delegator_starting_infos.map((e: any) => DelegatorStartingInfoRecord.fromAmino(e)) : [],
-      validatorSlashEvents: Array.isArray(object?.validator_slash_events) ? object.validator_slash_events.map((e: any) => ValidatorSlashEventRecord.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    if (object.fee_pool !== undefined && object.fee_pool !== null) {
+      message.feePool = FeePool.fromAmino(object.fee_pool);
+    }
+    message.delegatorWithdrawInfos = object.delegator_withdraw_infos?.map(e => DelegatorWithdrawInfo.fromAmino(e)) || [];
+    if (object.previous_proposer !== undefined && object.previous_proposer !== null) {
+      message.previousProposer = object.previous_proposer;
+    }
+    message.outstandingRewards = object.outstanding_rewards?.map(e => ValidatorOutstandingRewardsRecord.fromAmino(e)) || [];
+    message.validatorAccumulatedCommissions = object.validator_accumulated_commissions?.map(e => ValidatorAccumulatedCommissionRecord.fromAmino(e)) || [];
+    message.validatorHistoricalRewards = object.validator_historical_rewards?.map(e => ValidatorHistoricalRewardsRecord.fromAmino(e)) || [];
+    message.validatorCurrentRewards = object.validator_current_rewards?.map(e => ValidatorCurrentRewardsRecord.fromAmino(e)) || [];
+    message.delegatorStartingInfos = object.delegator_starting_infos?.map(e => DelegatorStartingInfoRecord.fromAmino(e)) || [];
+    message.validatorSlashEvents = object.validator_slash_events?.map(e => ValidatorSlashEventRecord.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -883,38 +923,38 @@ export const GenesisState = {
     if (message.delegatorWithdrawInfos) {
       obj.delegator_withdraw_infos = message.delegatorWithdrawInfos.map(e => e ? DelegatorWithdrawInfo.toAmino(e) : undefined);
     } else {
-      obj.delegator_withdraw_infos = [];
+      obj.delegator_withdraw_infos = message.delegatorWithdrawInfos;
     }
-    obj.previous_proposer = message.previousProposer;
+    obj.previous_proposer = message.previousProposer === "" ? undefined : message.previousProposer;
     if (message.outstandingRewards) {
       obj.outstanding_rewards = message.outstandingRewards.map(e => e ? ValidatorOutstandingRewardsRecord.toAmino(e) : undefined);
     } else {
-      obj.outstanding_rewards = [];
+      obj.outstanding_rewards = message.outstandingRewards;
     }
     if (message.validatorAccumulatedCommissions) {
       obj.validator_accumulated_commissions = message.validatorAccumulatedCommissions.map(e => e ? ValidatorAccumulatedCommissionRecord.toAmino(e) : undefined);
     } else {
-      obj.validator_accumulated_commissions = [];
+      obj.validator_accumulated_commissions = message.validatorAccumulatedCommissions;
     }
     if (message.validatorHistoricalRewards) {
       obj.validator_historical_rewards = message.validatorHistoricalRewards.map(e => e ? ValidatorHistoricalRewardsRecord.toAmino(e) : undefined);
     } else {
-      obj.validator_historical_rewards = [];
+      obj.validator_historical_rewards = message.validatorHistoricalRewards;
     }
     if (message.validatorCurrentRewards) {
       obj.validator_current_rewards = message.validatorCurrentRewards.map(e => e ? ValidatorCurrentRewardsRecord.toAmino(e) : undefined);
     } else {
-      obj.validator_current_rewards = [];
+      obj.validator_current_rewards = message.validatorCurrentRewards;
     }
     if (message.delegatorStartingInfos) {
       obj.delegator_starting_infos = message.delegatorStartingInfos.map(e => e ? DelegatorStartingInfoRecord.toAmino(e) : undefined);
     } else {
-      obj.delegator_starting_infos = [];
+      obj.delegator_starting_infos = message.delegatorStartingInfos;
     }
     if (message.validatorSlashEvents) {
       obj.validator_slash_events = message.validatorSlashEvents.map(e => e ? ValidatorSlashEventRecord.toAmino(e) : undefined);
     } else {
-      obj.validator_slash_events = [];
+      obj.validator_slash_events = message.validatorSlashEvents;
     }
     return obj;
   },

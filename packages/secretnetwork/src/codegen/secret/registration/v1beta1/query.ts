@@ -1,5 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface QueryEncryptedSeedRequest {
   pubKey: Uint8Array;
 }
@@ -8,7 +8,7 @@ export interface QueryEncryptedSeedRequestProtoMsg {
   value: Uint8Array;
 }
 export interface QueryEncryptedSeedRequestAmino {
-  pub_key: Uint8Array;
+  pub_key?: string;
 }
 export interface QueryEncryptedSeedRequestAminoMsg {
   type: "/secret.registration.v1beta1.QueryEncryptedSeedRequest";
@@ -27,7 +27,7 @@ export interface QueryEncryptedSeedResponseProtoMsg {
 }
 export interface QueryEncryptedSeedResponseAmino {
   /** [(gogoproto.nullable) = false]; */
-  encrypted_seed: Uint8Array;
+  encrypted_seed?: string;
 }
 export interface QueryEncryptedSeedResponseAminoMsg {
   type: "/secret.registration.v1beta1.QueryEncryptedSeedResponse";
@@ -60,13 +60,15 @@ export const QueryEncryptedSeedRequest = {
     return message;
   },
   fromAmino(object: QueryEncryptedSeedRequestAmino): QueryEncryptedSeedRequest {
-    return {
-      pubKey: object.pub_key
-    };
+    const message = createBaseQueryEncryptedSeedRequest();
+    if (object.pub_key !== undefined && object.pub_key !== null) {
+      message.pubKey = bytesFromBase64(object.pub_key);
+    }
+    return message;
   },
   toAmino(message: QueryEncryptedSeedRequest): QueryEncryptedSeedRequestAmino {
     const obj: any = {};
-    obj.pub_key = message.pubKey;
+    obj.pub_key = message.pubKey ? base64FromBytes(message.pubKey) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryEncryptedSeedRequestAminoMsg): QueryEncryptedSeedRequest {
@@ -109,13 +111,15 @@ export const QueryEncryptedSeedResponse = {
     return message;
   },
   fromAmino(object: QueryEncryptedSeedResponseAmino): QueryEncryptedSeedResponse {
-    return {
-      encryptedSeed: object.encrypted_seed
-    };
+    const message = createBaseQueryEncryptedSeedResponse();
+    if (object.encrypted_seed !== undefined && object.encrypted_seed !== null) {
+      message.encryptedSeed = bytesFromBase64(object.encrypted_seed);
+    }
+    return message;
   },
   toAmino(message: QueryEncryptedSeedResponse): QueryEncryptedSeedResponseAmino {
     const obj: any = {};
-    obj.encrypted_seed = message.encryptedSeed;
+    obj.encrypted_seed = message.encryptedSeed ? base64FromBytes(message.encryptedSeed) : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryEncryptedSeedResponseAminoMsg): QueryEncryptedSeedResponse {

@@ -7,7 +7,7 @@ export interface QueryEncryptedSeedRequestProtoMsg {
     value: Uint8Array;
 }
 export interface QueryEncryptedSeedRequestAmino {
-    pub_key: Uint8Array;
+    pub_key?: string;
 }
 export interface QueryEncryptedSeedRequestAminoMsg {
     type: "/secret.registration.v1beta1.QueryEncryptedSeedRequest";
@@ -26,7 +26,7 @@ export interface QueryEncryptedSeedResponseProtoMsg {
 }
 export interface QueryEncryptedSeedResponseAmino {
     /** [(gogoproto.nullable) = false]; */
-    encrypted_seed: Uint8Array;
+    encrypted_seed?: string;
 }
 export interface QueryEncryptedSeedResponseAminoMsg {
     type: "/secret.registration.v1beta1.QueryEncryptedSeedResponse";

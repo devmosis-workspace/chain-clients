@@ -4,8 +4,8 @@ import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 export interface GenesisState {
   registration: RegistrationNodeInfo[];
-  nodeExchMasterKey: MasterKey;
-  ioMasterKey: MasterKey;
+  nodeExchMasterKey?: MasterKey;
+  ioMasterKey?: MasterKey;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/secret.registration.v1beta1.GenesisState";
@@ -13,8 +13,8 @@ export interface GenesisStateProtoMsg {
 }
 export interface GenesisStateAmino {
   registration: RegistrationNodeInfoAmino[];
-  node_exch_master_key?: MasterKeyAmino;
-  io_master_key?: MasterKeyAmino;
+  node_exch_master_key: MasterKeyAmino;
+  io_master_key: MasterKeyAmino;
 }
 export interface GenesisStateAminoMsg {
   type: "/secret.registration.v1beta1.GenesisState";
@@ -22,14 +22,14 @@ export interface GenesisStateAminoMsg {
 }
 export interface GenesisStateSDKType {
   registration: RegistrationNodeInfoSDKType[];
-  node_exch_master_key: MasterKeySDKType;
-  io_master_key: MasterKeySDKType;
+  node_exch_master_key?: MasterKeySDKType;
+  io_master_key?: MasterKeySDKType;
 }
 function createBaseGenesisState(): GenesisState {
   return {
     registration: [],
-    nodeExchMasterKey: MasterKey.fromPartial({}),
-    ioMasterKey: MasterKey.fromPartial({})
+    nodeExchMasterKey: undefined,
+    ioMasterKey: undefined
   };
 }
 export const GenesisState = {
@@ -61,21 +61,25 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      registration: Array.isArray(object?.registration) ? object.registration.map((e: any) => RegistrationNodeInfo.fromAmino(e)) : [],
-      nodeExchMasterKey: object?.node_exch_master_key ? MasterKey.fromAmino(object.node_exch_master_key) : undefined,
-      ioMasterKey: object?.io_master_key ? MasterKey.fromAmino(object.io_master_key) : undefined
-    };
+    const message = createBaseGenesisState();
+    message.registration = object.registration?.map(e => RegistrationNodeInfo.fromAmino(e)) || [];
+    if (object.node_exch_master_key !== undefined && object.node_exch_master_key !== null) {
+      message.nodeExchMasterKey = MasterKey.fromAmino(object.node_exch_master_key);
+    }
+    if (object.io_master_key !== undefined && object.io_master_key !== null) {
+      message.ioMasterKey = MasterKey.fromAmino(object.io_master_key);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
     if (message.registration) {
       obj.registration = message.registration.map(e => e ? RegistrationNodeInfo.toAmino(e) : undefined);
     } else {
-      obj.registration = [];
+      obj.registration = message.registration;
     }
-    obj.node_exch_master_key = message.nodeExchMasterKey ? MasterKey.toAmino(message.nodeExchMasterKey) : undefined;
-    obj.io_master_key = message.ioMasterKey ? MasterKey.toAmino(message.ioMasterKey) : undefined;
+    obj.node_exch_master_key = message.nodeExchMasterKey ? MasterKey.toAmino(message.nodeExchMasterKey) : MasterKey.toAmino(MasterKey.fromPartial({}));
+    obj.io_master_key = message.ioMasterKey ? MasterKey.toAmino(message.ioMasterKey) : MasterKey.toAmino(MasterKey.fromPartial({}));
     return obj;
   },
   fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {

@@ -13,9 +13,9 @@ export interface QuoteReportProtoMsg {
     value: Uint8Array;
 }
 export interface QuoteReportAmino {
-    id: string;
-    timestamp: string;
-    version: string;
+    id?: string;
+    timestamp?: string;
+    version?: string;
     isv_enclave_quote_status: string;
     platform_info_blob: string;
     isv_enclave_quote_body: string;
@@ -44,9 +44,9 @@ export interface QuoteReportBodyProtoMsg {
     value: Uint8Array;
 }
 export interface QuoteReportBodyAmino {
-    mr_enclave: string;
-    mr_signer: string;
-    report_data: string;
+    mr_enclave?: string;
+    mr_signer?: string;
+    report_data?: string;
 }
 export interface QuoteReportBodyAminoMsg {
     type: "/secret.registration.remote_attestation.v1beta1.QuoteReportBody";
@@ -60,15 +60,15 @@ export interface QuoteReportBodySDKType {
 export interface QuoteReportData {
     version: bigint;
     signType: bigint;
-    reportBody: QuoteReportBody;
+    reportBody?: QuoteReportBody;
 }
 export interface QuoteReportDataProtoMsg {
     typeUrl: "/secret.registration.remote_attestation.v1beta1.QuoteReportData";
     value: Uint8Array;
 }
 export interface QuoteReportDataAmino {
-    version: string;
-    sign_type: string;
+    version?: string;
+    sign_type?: string;
     report_body?: QuoteReportBodyAmino;
 }
 export interface QuoteReportDataAminoMsg {
@@ -78,7 +78,7 @@ export interface QuoteReportDataAminoMsg {
 export interface QuoteReportDataSDKType {
     version: bigint;
     sign_type: bigint;
-    report_body: QuoteReportBodySDKType;
+    report_body?: QuoteReportBodySDKType;
 }
 export interface EndorsedAttestationReport {
     report: Uint8Array;
@@ -90,9 +90,9 @@ export interface EndorsedAttestationReportProtoMsg {
     value: Uint8Array;
 }
 export interface EndorsedAttestationReportAmino {
-    report: Uint8Array;
-    signature: Uint8Array;
-    signing_cert: Uint8Array;
+    report?: string;
+    signature?: string;
+    signing_cert?: string;
 }
 export interface EndorsedAttestationReportAminoMsg {
     type: "/secret.registration.remote_attestation.v1beta1.EndorsedAttestationReport";
@@ -112,8 +112,8 @@ export interface SGXEC256SignatureProtoMsg {
     value: Uint8Array;
 }
 export interface SGXEC256SignatureAmino {
-    gx: string;
-    gy: string;
+    gx?: string;
+    gy?: string;
 }
 export interface SGXEC256SignatureAminoMsg {
     type: "/secret.registration.remote_attestation.v1beta1.SGXEC256Signature";
@@ -132,21 +132,21 @@ export interface PlatformInfoBlob {
     latestPsdaSvn: string;
     xeid: number;
     gid: number;
-    sgxEc256SignatureT: SGXEC256Signature;
+    sgxEc256SignatureT?: SGXEC256Signature;
 }
 export interface PlatformInfoBlobProtoMsg {
     typeUrl: "/secret.registration.remote_attestation.v1beta1.PlatformInfoBlob";
     value: Uint8Array;
 }
 export interface PlatformInfoBlobAmino {
-    sgx_epid_group_flags: number;
-    sgx_tcb_evaluation_flags: number;
-    pse_evaluation_flags: number;
-    latest_equivalent_tcb_psvn: string;
-    latest_pse_isvsvn: string;
-    latest_psda_svn: string;
-    xeid: number;
-    gid: number;
+    sgx_epid_group_flags?: number;
+    sgx_tcb_evaluation_flags?: number;
+    pse_evaluation_flags?: number;
+    latest_equivalent_tcb_psvn?: string;
+    latest_pse_isvsvn?: string;
+    latest_psda_svn?: string;
+    xeid?: number;
+    gid?: number;
     sgx_ec256_signature_t?: SGXEC256SignatureAmino;
 }
 export interface PlatformInfoBlobAminoMsg {
@@ -162,7 +162,7 @@ export interface PlatformInfoBlobSDKType {
     latest_psda_svn: string;
     xeid: number;
     gid: number;
-    sgx_ec256_signature_t: SGXEC256SignatureSDKType;
+    sgx_ec256_signature_t?: SGXEC256SignatureSDKType;
 }
 export declare const QuoteReport: {
     typeUrl: string;

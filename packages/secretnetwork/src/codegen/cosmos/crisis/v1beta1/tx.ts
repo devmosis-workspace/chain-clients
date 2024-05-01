@@ -12,9 +12,9 @@ export interface MsgVerifyInvariantProtoMsg {
 }
 /** MsgVerifyInvariant represents a message to verify a particular invariance. */
 export interface MsgVerifyInvariantAmino {
-  sender: string;
-  invariant_module_name: string;
-  invariant_route: string;
+  sender?: string;
+  invariant_module_name?: string;
+  invariant_route?: string;
 }
 export interface MsgVerifyInvariantAminoMsg {
   type: "cosmos-sdk/MsgVerifyInvariant";
@@ -76,17 +76,23 @@ export const MsgVerifyInvariant = {
     return message;
   },
   fromAmino(object: MsgVerifyInvariantAmino): MsgVerifyInvariant {
-    return {
-      sender: object.sender,
-      invariantModuleName: object.invariant_module_name,
-      invariantRoute: object.invariant_route
-    };
+    const message = createBaseMsgVerifyInvariant();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.invariant_module_name !== undefined && object.invariant_module_name !== null) {
+      message.invariantModuleName = object.invariant_module_name;
+    }
+    if (object.invariant_route !== undefined && object.invariant_route !== null) {
+      message.invariantRoute = object.invariant_route;
+    }
+    return message;
   },
   toAmino(message: MsgVerifyInvariant): MsgVerifyInvariantAmino {
     const obj: any = {};
-    obj.sender = message.sender;
-    obj.invariant_module_name = message.invariantModuleName;
-    obj.invariant_route = message.invariantRoute;
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.invariant_module_name = message.invariantModuleName === "" ? undefined : message.invariantModuleName;
+    obj.invariant_route = message.invariantRoute === "" ? undefined : message.invariantRoute;
     return obj;
   },
   fromAminoMsg(object: MsgVerifyInvariantAminoMsg): MsgVerifyInvariant {
@@ -127,7 +133,8 @@ export const MsgVerifyInvariantResponse = {
     return message;
   },
   fromAmino(_: MsgVerifyInvariantResponseAmino): MsgVerifyInvariantResponse {
-    return {};
+    const message = createBaseMsgVerifyInvariantResponse();
+    return message;
   },
   toAmino(_: MsgVerifyInvariantResponse): MsgVerifyInvariantResponseAmino {
     const obj: any = {};

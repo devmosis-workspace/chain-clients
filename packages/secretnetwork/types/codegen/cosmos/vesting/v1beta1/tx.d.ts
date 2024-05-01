@@ -20,11 +20,11 @@ export interface MsgCreateVestingAccountProtoMsg {
  * account.
  */
 export interface MsgCreateVestingAccountAmino {
-    from_address: string;
-    to_address: string;
-    amount: CoinAmino[];
-    end_time: string;
-    delayed: boolean;
+    from_address?: string;
+    to_address?: string;
+    amount?: CoinAmino[];
+    end_time?: string;
+    delayed?: boolean;
 }
 export interface MsgCreateVestingAccountAminoMsg {
     type: "cosmos-sdk/MsgCreateVestingAccount";

@@ -10,6 +10,22 @@ export declare const AccessTypeSDKType: typeof AccessType;
 export declare const AccessTypeAmino: typeof AccessType;
 export declare function accessTypeFromJSON(object: any): AccessType;
 export declare function accessTypeToJSON(object: AccessType): string;
+/** ContractCodeHistoryOperationType actions that caused a code change */
+export declare enum ContractCodeHistoryOperationType {
+    /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED - ContractCodeHistoryOperationTypeUnspecified placeholder for empty value */
+    CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED = 0,
+    /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT - ContractCodeHistoryOperationTypeInit on chain contract instantiation */
+    CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT = 1,
+    /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE - ContractCodeHistoryOperationTypeMigrate code migration */
+    CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE = 2,
+    /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS - ContractCodeHistoryOperationTypeGenesis based on genesis data */
+    CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS = 3,
+    UNRECOGNIZED = -1
+}
+export declare const ContractCodeHistoryOperationTypeSDKType: typeof ContractCodeHistoryOperationType;
+export declare const ContractCodeHistoryOperationTypeAmino: typeof ContractCodeHistoryOperationType;
+export declare function contractCodeHistoryOperationTypeFromJSON(object: any): ContractCodeHistoryOperationType;
+export declare function contractCodeHistoryOperationTypeToJSON(object: ContractCodeHistoryOperationType): string;
 export interface AccessTypeParam {
     value: AccessType;
 }
@@ -18,7 +34,7 @@ export interface AccessTypeParamProtoMsg {
     value: Uint8Array;
 }
 export interface AccessTypeParamAmino {
-    value: AccessType;
+    value?: AccessType;
 }
 export interface AccessTypeParamAminoMsg {
     type: "/secret.compute.v1beta1.AccessTypeParam";
@@ -40,10 +56,10 @@ export interface CodeInfoProtoMsg {
 }
 /** CodeInfo is data for the uploaded contract WASM code */
 export interface CodeInfoAmino {
-    code_hash: Uint8Array;
-    creator: Uint8Array;
-    source: string;
-    builder: string;
+    code_hash?: string;
+    creator?: string;
+    source?: string;
+    builder?: string;
 }
 export interface CodeInfoAminoMsg {
     type: "/secret.compute.v1beta1.CodeInfo";
@@ -56,8 +72,31 @@ export interface CodeInfoSDKType {
     source: string;
     builder: string;
 }
+export interface ContractKey {
+    ogContractKey: Uint8Array;
+    currentContractKey: Uint8Array;
+    currentContractKeyProof: Uint8Array;
+}
+export interface ContractKeyProtoMsg {
+    typeUrl: "/secret.compute.v1beta1.ContractKey";
+    value: Uint8Array;
+}
+export interface ContractKeyAmino {
+    og_contract_key?: string;
+    current_contract_key?: string;
+    current_contract_key_proof?: string;
+}
+export interface ContractKeyAminoMsg {
+    type: "/secret.compute.v1beta1.ContractKey";
+    value: ContractKeyAmino;
+}
+export interface ContractKeySDKType {
+    og_contract_key: Uint8Array;
+    current_contract_key: Uint8Array;
+    current_contract_key_proof: Uint8Array;
+}
 export interface ContractCustomInfo {
-    enclaveKey: Uint8Array;
+    enclaveKey?: ContractKey;
     label: string;
 }
 export interface ContractCustomInfoProtoMsg {
@@ -65,28 +104,32 @@ export interface ContractCustomInfoProtoMsg {
     value: Uint8Array;
 }
 export interface ContractCustomInfoAmino {
-    enclave_key: Uint8Array;
-    label: string;
+    enclave_key?: ContractKeyAmino;
+    label?: string;
 }
 export interface ContractCustomInfoAminoMsg {
     type: "/secret.compute.v1beta1.ContractCustomInfo";
     value: ContractCustomInfoAmino;
 }
 export interface ContractCustomInfoSDKType {
-    enclave_key: Uint8Array;
+    enclave_key?: ContractKeySDKType;
     label: string;
 }
 /** ContractInfo stores a WASM contract instance */
 export interface ContractInfo {
+    /** CodeID is the reference to the stored Wasm code */
     codeId: bigint;
+    /** Creator address who initially instantiated the contract */
     creator: Uint8Array;
+    /** Label is mandatory metadata to be stored with a contract instance. */
     label: string;
-    /**
-     * never show this in query results, just use for sorting
-     * (Note: when using json tag "-" amino refused to serialize it...)
-     */
-    created: AbsoluteTxPosition;
+    /** Created Tx position when the contract was instantiated. */
+    created?: AbsoluteTxPosition;
     ibcPortId: string;
+    /** Admin is an optional address that can execute migrations */
+    admin: string;
+    /** Proof that enclave executed the instantiate command */
+    adminProof: Uint8Array;
 }
 export interface ContractInfoProtoMsg {
     typeUrl: "/secret.compute.v1beta1.ContractInfo";
@@ -94,15 +137,19 @@ export interface ContractInfoProtoMsg {
 }
 /** ContractInfo stores a WASM contract instance */
 export interface ContractInfoAmino {
-    code_id: string;
-    creator: Uint8Array;
-    label: string;
-    /**
-     * never show this in query results, just use for sorting
-     * (Note: when using json tag "-" amino refused to serialize it...)
-     */
+    /** CodeID is the reference to the stored Wasm code */
+    code_id?: string;
+    /** Creator address who initially instantiated the contract */
+    creator?: string;
+    /** Label is mandatory metadata to be stored with a contract instance. */
+    label?: string;
+    /** Created Tx position when the contract was instantiated. */
     created?: AbsoluteTxPositionAmino;
-    ibc_port_id: string;
+    ibc_port_id?: string;
+    /** Admin is an optional address that can execute migrations */
+    admin?: string;
+    /** Proof that enclave executed the instantiate command */
+    admin_proof?: string;
 }
 export interface ContractInfoAminoMsg {
     type: "/secret.compute.v1beta1.ContractInfo";
@@ -113,8 +160,10 @@ export interface ContractInfoSDKType {
     code_id: bigint;
     creator: Uint8Array;
     label: string;
-    created: AbsoluteTxPositionSDKType;
+    created?: AbsoluteTxPositionSDKType;
     ibc_port_id: string;
+    admin: string;
+    admin_proof: Uint8Array;
 }
 /** AbsoluteTxPosition can be used to sort contracts */
 export interface AbsoluteTxPosition {
@@ -130,9 +179,9 @@ export interface AbsoluteTxPositionProtoMsg {
 /** AbsoluteTxPosition can be used to sort contracts */
 export interface AbsoluteTxPositionAmino {
     /** BlockHeight is the block the contract was created at */
-    block_height: string;
+    block_height?: string;
     /** TxIndex is a monotonic counter within the block (actual transaction index, or gas consumed) */
-    tx_index: string;
+    tx_index?: string;
 }
 export interface AbsoluteTxPositionAminoMsg {
     type: "/secret.compute.v1beta1.AbsoluteTxPosition";
@@ -157,9 +206,9 @@ export interface ModelProtoMsg {
 /** Model is a struct that holds a KV pair */
 export interface ModelAmino {
     /** hex-encode key to read it better (this is often ascii) */
-    Key: Uint8Array;
+    Key?: string;
     /** base64-encode raw value */
-    Value: Uint8Array;
+    Value?: string;
 }
 export interface ModelAminoMsg {
     type: "/secret.compute.v1beta1.Model";
@@ -169,6 +218,39 @@ export interface ModelAminoMsg {
 export interface ModelSDKType {
     Key: Uint8Array;
     Value: Uint8Array;
+}
+/** ContractCodeHistoryEntry metadata to a contract. */
+export interface ContractCodeHistoryEntry {
+    operation: ContractCodeHistoryOperationType;
+    /** CodeID is the reference to the stored WASM code */
+    codeId: bigint;
+    /** Updated Tx position when the operation was executed. */
+    updated?: AbsoluteTxPosition;
+    msg: Uint8Array;
+}
+export interface ContractCodeHistoryEntryProtoMsg {
+    typeUrl: "/secret.compute.v1beta1.ContractCodeHistoryEntry";
+    value: Uint8Array;
+}
+/** ContractCodeHistoryEntry metadata to a contract. */
+export interface ContractCodeHistoryEntryAmino {
+    operation?: ContractCodeHistoryOperationType;
+    /** CodeID is the reference to the stored WASM code */
+    code_id?: string;
+    /** Updated Tx position when the operation was executed. */
+    updated?: AbsoluteTxPositionAmino;
+    msg?: string;
+}
+export interface ContractCodeHistoryEntryAminoMsg {
+    type: "/secret.compute.v1beta1.ContractCodeHistoryEntry";
+    value: ContractCodeHistoryEntryAmino;
+}
+/** ContractCodeHistoryEntry metadata to a contract. */
+export interface ContractCodeHistoryEntrySDKType {
+    operation: ContractCodeHistoryOperationType;
+    code_id: bigint;
+    updated?: AbsoluteTxPositionSDKType;
+    msg: Uint8Array;
 }
 export declare const AccessTypeParam: {
     typeUrl: string;
@@ -193,6 +275,18 @@ export declare const CodeInfo: {
     fromProtoMsg(message: CodeInfoProtoMsg): CodeInfo;
     toProto(message: CodeInfo): Uint8Array;
     toProtoMsg(message: CodeInfo): CodeInfoProtoMsg;
+};
+export declare const ContractKey: {
+    typeUrl: string;
+    encode(message: ContractKey, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ContractKey;
+    fromPartial(object: Partial<ContractKey>): ContractKey;
+    fromAmino(object: ContractKeyAmino): ContractKey;
+    toAmino(message: ContractKey): ContractKeyAmino;
+    fromAminoMsg(object: ContractKeyAminoMsg): ContractKey;
+    fromProtoMsg(message: ContractKeyProtoMsg): ContractKey;
+    toProto(message: ContractKey): Uint8Array;
+    toProtoMsg(message: ContractKey): ContractKeyProtoMsg;
 };
 export declare const ContractCustomInfo: {
     typeUrl: string;
@@ -241,4 +335,16 @@ export declare const Model: {
     fromProtoMsg(message: ModelProtoMsg): Model;
     toProto(message: Model): Uint8Array;
     toProtoMsg(message: Model): ModelProtoMsg;
+};
+export declare const ContractCodeHistoryEntry: {
+    typeUrl: string;
+    encode(message: ContractCodeHistoryEntry, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): ContractCodeHistoryEntry;
+    fromPartial(object: Partial<ContractCodeHistoryEntry>): ContractCodeHistoryEntry;
+    fromAmino(object: ContractCodeHistoryEntryAmino): ContractCodeHistoryEntry;
+    toAmino(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryAmino;
+    fromAminoMsg(object: ContractCodeHistoryEntryAminoMsg): ContractCodeHistoryEntry;
+    fromProtoMsg(message: ContractCodeHistoryEntryProtoMsg): ContractCodeHistoryEntry;
+    toProto(message: ContractCodeHistoryEntry): Uint8Array;
+    toProtoMsg(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryProtoMsg;
 };

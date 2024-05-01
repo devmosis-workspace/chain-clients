@@ -1,5 +1,5 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
-import { AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
+import { AminoTypes } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const ibcAminoConverters: {
     "/ibc.core.connection.v1.MsgConnectionOpenInit": {
@@ -129,4 +129,4 @@ export declare const getSigningIbcClient: ({ rpcEndpoint, signer, defaultTypes }
     rpcEndpoint: string | HttpEndpoint;
     signer: OfflineSigner;
     defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
-}) => Promise<SigningStargateClient>;
+}) => Promise<any>;

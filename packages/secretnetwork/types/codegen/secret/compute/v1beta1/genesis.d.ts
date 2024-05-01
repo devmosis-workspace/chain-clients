@@ -14,9 +14,9 @@ export interface GenesisStateProtoMsg {
 /** GenesisState - genesis state of x/wasm */
 export interface GenesisStateAmino {
     /** Params params = 1 [(gogoproto.nullable) = false]; */
-    codes: CodeAmino[];
-    contracts: ContractAmino[];
-    sequences: SequenceAmino[];
+    codes?: CodeAmino[];
+    contracts?: ContractAmino[];
+    sequences?: SequenceAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/secret.compute.v1beta1.GenesisState";
@@ -40,9 +40,9 @@ export interface CodeProtoMsg {
 }
 /** Code struct encompasses CodeInfo and CodeBytes */
 export interface CodeAmino {
-    code_id: string;
+    code_id?: string;
     code_info?: CodeInfoAmino;
-    code_bytes: Uint8Array;
+    code_bytes?: string;
 }
 export interface CodeAminoMsg {
     type: "/secret.compute.v1beta1.Code";
@@ -59,7 +59,7 @@ export interface Contract {
     contractAddress: Uint8Array;
     contractInfo: ContractInfo;
     contractState: Model[];
-    contractCustomInfo: ContractCustomInfo;
+    contractCustomInfo?: ContractCustomInfo;
 }
 export interface ContractProtoMsg {
     typeUrl: "/secret.compute.v1beta1.Contract";
@@ -67,9 +67,9 @@ export interface ContractProtoMsg {
 }
 /** Contract struct encompasses ContractAddress, ContractInfo, and ContractState */
 export interface ContractAmino {
-    contract_address: Uint8Array;
+    contract_address?: string;
     contract_info?: ContractInfoAmino;
-    contract_state: ModelAmino[];
+    contract_state?: ModelAmino[];
     contract_custom_info?: ContractCustomInfoAmino;
 }
 export interface ContractAminoMsg {
@@ -81,7 +81,7 @@ export interface ContractSDKType {
     contract_address: Uint8Array;
     contract_info: ContractInfoSDKType;
     contract_state: ModelSDKType[];
-    contract_custom_info: ContractCustomInfoSDKType;
+    contract_custom_info?: ContractCustomInfoSDKType;
 }
 /** Sequence id and value of a counter */
 export interface Sequence {
@@ -94,8 +94,8 @@ export interface SequenceProtoMsg {
 }
 /** Sequence id and value of a counter */
 export interface SequenceAmino {
-    id_key: Uint8Array;
-    value: string;
+    id_key?: string;
+    value?: string;
 }
 export interface SequenceAminoMsg {
     type: "/secret.compute.v1beta1.Sequence";

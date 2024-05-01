@@ -28,11 +28,11 @@ export interface NewRoundStepProtoMsg {
  * For every height/round/step transition
  */
 export interface NewRoundStepAmino {
-  height: string;
-  round: number;
-  step: number;
-  seconds_since_start_time: string;
-  last_commit_round: number;
+  height?: string;
+  round?: number;
+  step?: number;
+  seconds_since_start_time?: string;
+  last_commit_round?: number;
 }
 export interface NewRoundStepAminoMsg {
   type: "/tendermint.consensus.NewRoundStep";
@@ -58,7 +58,7 @@ export interface NewValidBlock {
   height: bigint;
   round: number;
   blockPartSetHeader: PartSetHeader;
-  blockParts: BitArray;
+  blockParts?: BitArray;
   isCommit: boolean;
 }
 export interface NewValidBlockProtoMsg {
@@ -71,11 +71,11 @@ export interface NewValidBlockProtoMsg {
  * In case the block is also committed, then IsCommit flag is set to true.
  */
 export interface NewValidBlockAmino {
-  height: string;
-  round: number;
+  height?: string;
+  round?: number;
   block_part_set_header?: PartSetHeaderAmino;
   block_parts?: BitArrayAmino;
-  is_commit: boolean;
+  is_commit?: boolean;
 }
 export interface NewValidBlockAminoMsg {
   type: "/tendermint.consensus.NewValidBlock";
@@ -90,7 +90,7 @@ export interface NewValidBlockSDKType {
   height: bigint;
   round: number;
   block_part_set_header: PartSetHeaderSDKType;
-  block_parts: BitArraySDKType;
+  block_parts?: BitArraySDKType;
   is_commit: boolean;
 }
 /** Proposal is sent when a new block is proposed. */
@@ -125,8 +125,8 @@ export interface ProposalPOLProtoMsg {
 }
 /** ProposalPOL is sent when a previous proposal is re-proposed. */
 export interface ProposalPOLAmino {
-  height: string;
-  proposal_pol_round: number;
+  height?: string;
+  proposal_pol_round?: number;
   proposal_pol?: BitArrayAmino;
 }
 export interface ProposalPOLAminoMsg {
@@ -151,8 +151,8 @@ export interface BlockPartProtoMsg {
 }
 /** BlockPart is sent when gossipping a piece of the proposed block. */
 export interface BlockPartAmino {
-  height: string;
-  round: number;
+  height?: string;
+  round?: number;
   part?: PartAmino;
 }
 export interface BlockPartAminoMsg {
@@ -167,7 +167,7 @@ export interface BlockPartSDKType {
 }
 /** Vote is sent when voting for a proposal (or lack thereof). */
 export interface Vote {
-  vote: Vote1;
+  vote?: Vote1;
 }
 export interface VoteProtoMsg {
   typeUrl: "/tendermint.consensus.Vote";
@@ -183,7 +183,7 @@ export interface VoteAminoMsg {
 }
 /** Vote is sent when voting for a proposal (or lack thereof). */
 export interface VoteSDKType {
-  vote: Vote1SDKType;
+  vote?: Vote1SDKType;
 }
 /** HasVote is sent to indicate that a particular vote has been received. */
 export interface HasVote {
@@ -198,10 +198,10 @@ export interface HasVoteProtoMsg {
 }
 /** HasVote is sent to indicate that a particular vote has been received. */
 export interface HasVoteAmino {
-  height: string;
-  round: number;
-  type: SignedMsgType;
-  index: number;
+  height?: string;
+  round?: number;
+  type?: SignedMsgType;
+  index?: number;
 }
 export interface HasVoteAminoMsg {
   type: "/tendermint.consensus.HasVote";
@@ -227,9 +227,9 @@ export interface VoteSetMaj23ProtoMsg {
 }
 /** VoteSetMaj23 is sent to indicate that a given BlockID has seen +2/3 votes. */
 export interface VoteSetMaj23Amino {
-  height: string;
-  round: number;
-  type: SignedMsgType;
+  height?: string;
+  round?: number;
+  type?: SignedMsgType;
   block_id?: BlockIDAmino;
 }
 export interface VoteSetMaj23AminoMsg {
@@ -257,9 +257,9 @@ export interface VoteSetBitsProtoMsg {
 }
 /** VoteSetBits is sent to communicate the bit-array of votes seen for the BlockID. */
 export interface VoteSetBitsAmino {
-  height: string;
-  round: number;
-  type: SignedMsgType;
+  height?: string;
+  round?: number;
+  type?: SignedMsgType;
   block_id?: BlockIDAmino;
   votes?: BitArrayAmino;
 }
@@ -364,21 +364,31 @@ export const NewRoundStep = {
     return message;
   },
   fromAmino(object: NewRoundStepAmino): NewRoundStep {
-    return {
-      height: BigInt(object.height),
-      round: object.round,
-      step: object.step,
-      secondsSinceStartTime: BigInt(object.seconds_since_start_time),
-      lastCommitRound: object.last_commit_round
-    };
+    const message = createBaseNewRoundStep();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.round !== undefined && object.round !== null) {
+      message.round = object.round;
+    }
+    if (object.step !== undefined && object.step !== null) {
+      message.step = object.step;
+    }
+    if (object.seconds_since_start_time !== undefined && object.seconds_since_start_time !== null) {
+      message.secondsSinceStartTime = BigInt(object.seconds_since_start_time);
+    }
+    if (object.last_commit_round !== undefined && object.last_commit_round !== null) {
+      message.lastCommitRound = object.last_commit_round;
+    }
+    return message;
   },
   toAmino(message: NewRoundStep): NewRoundStepAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.round = message.round;
-    obj.step = message.step;
-    obj.seconds_since_start_time = message.secondsSinceStartTime ? message.secondsSinceStartTime.toString() : undefined;
-    obj.last_commit_round = message.lastCommitRound;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.round = message.round === 0 ? undefined : message.round;
+    obj.step = message.step === 0 ? undefined : message.step;
+    obj.seconds_since_start_time = message.secondsSinceStartTime !== BigInt(0) ? message.secondsSinceStartTime.toString() : undefined;
+    obj.last_commit_round = message.lastCommitRound === 0 ? undefined : message.lastCommitRound;
     return obj;
   },
   fromAminoMsg(object: NewRoundStepAminoMsg): NewRoundStep {
@@ -402,7 +412,7 @@ function createBaseNewValidBlock(): NewValidBlock {
     height: BigInt(0),
     round: 0,
     blockPartSetHeader: PartSetHeader.fromPartial({}),
-    blockParts: BitArray.fromPartial({}),
+    blockParts: undefined,
     isCommit: false
   };
 }
@@ -445,21 +455,31 @@ export const NewValidBlock = {
     return message;
   },
   fromAmino(object: NewValidBlockAmino): NewValidBlock {
-    return {
-      height: BigInt(object.height),
-      round: object.round,
-      blockPartSetHeader: object?.block_part_set_header ? PartSetHeader.fromAmino(object.block_part_set_header) : undefined,
-      blockParts: object?.block_parts ? BitArray.fromAmino(object.block_parts) : undefined,
-      isCommit: object.is_commit
-    };
+    const message = createBaseNewValidBlock();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.round !== undefined && object.round !== null) {
+      message.round = object.round;
+    }
+    if (object.block_part_set_header !== undefined && object.block_part_set_header !== null) {
+      message.blockPartSetHeader = PartSetHeader.fromAmino(object.block_part_set_header);
+    }
+    if (object.block_parts !== undefined && object.block_parts !== null) {
+      message.blockParts = BitArray.fromAmino(object.block_parts);
+    }
+    if (object.is_commit !== undefined && object.is_commit !== null) {
+      message.isCommit = object.is_commit;
+    }
+    return message;
   },
   toAmino(message: NewValidBlock): NewValidBlockAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.round = message.round;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.round = message.round === 0 ? undefined : message.round;
     obj.block_part_set_header = message.blockPartSetHeader ? PartSetHeader.toAmino(message.blockPartSetHeader) : undefined;
     obj.block_parts = message.blockParts ? BitArray.toAmino(message.blockParts) : undefined;
-    obj.is_commit = message.isCommit;
+    obj.is_commit = message.isCommit === false ? undefined : message.isCommit;
     return obj;
   },
   fromAminoMsg(object: NewValidBlockAminoMsg): NewValidBlock {
@@ -502,9 +522,11 @@ export const Proposal = {
     return message;
   },
   fromAmino(object: ProposalAmino): Proposal {
-    return {
-      proposal: object?.proposal ? Proposal1.fromAmino(object.proposal) : undefined
-    };
+    const message = createBaseProposal();
+    if (object.proposal !== undefined && object.proposal !== null) {
+      message.proposal = Proposal1.fromAmino(object.proposal);
+    }
+    return message;
   },
   toAmino(message: Proposal): ProposalAmino {
     const obj: any = {};
@@ -563,16 +585,22 @@ export const ProposalPOL = {
     return message;
   },
   fromAmino(object: ProposalPOLAmino): ProposalPOL {
-    return {
-      height: BigInt(object.height),
-      proposalPolRound: object.proposal_pol_round,
-      proposalPol: object?.proposal_pol ? BitArray.fromAmino(object.proposal_pol) : undefined
-    };
+    const message = createBaseProposalPOL();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.proposal_pol_round !== undefined && object.proposal_pol_round !== null) {
+      message.proposalPolRound = object.proposal_pol_round;
+    }
+    if (object.proposal_pol !== undefined && object.proposal_pol !== null) {
+      message.proposalPol = BitArray.fromAmino(object.proposal_pol);
+    }
+    return message;
   },
   toAmino(message: ProposalPOL): ProposalPOLAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.proposal_pol_round = message.proposalPolRound;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.proposal_pol_round = message.proposalPolRound === 0 ? undefined : message.proposalPolRound;
     obj.proposal_pol = message.proposalPol ? BitArray.toAmino(message.proposalPol) : undefined;
     return obj;
   },
@@ -628,16 +656,22 @@ export const BlockPart = {
     return message;
   },
   fromAmino(object: BlockPartAmino): BlockPart {
-    return {
-      height: BigInt(object.height),
-      round: object.round,
-      part: object?.part ? Part.fromAmino(object.part) : undefined
-    };
+    const message = createBaseBlockPart();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.round !== undefined && object.round !== null) {
+      message.round = object.round;
+    }
+    if (object.part !== undefined && object.part !== null) {
+      message.part = Part.fromAmino(object.part);
+    }
+    return message;
   },
   toAmino(message: BlockPart): BlockPartAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.round = message.round;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.round = message.round === 0 ? undefined : message.round;
     obj.part = message.part ? Part.toAmino(message.part) : undefined;
     return obj;
   },
@@ -659,7 +693,7 @@ export const BlockPart = {
 };
 function createBaseVote(): Vote {
   return {
-    vote: Vote1.fromPartial({})
+    vote: undefined
   };
 }
 export const Vote = {
@@ -681,9 +715,11 @@ export const Vote = {
     return message;
   },
   fromAmino(object: VoteAmino): Vote {
-    return {
-      vote: object?.vote ? Vote1.fromAmino(object.vote) : undefined
-    };
+    const message = createBaseVote();
+    if (object.vote !== undefined && object.vote !== null) {
+      message.vote = Vote1.fromAmino(object.vote);
+    }
+    return message;
   },
   toAmino(message: Vote): VoteAmino {
     const obj: any = {};
@@ -748,19 +784,27 @@ export const HasVote = {
     return message;
   },
   fromAmino(object: HasVoteAmino): HasVote {
-    return {
-      height: BigInt(object.height),
-      round: object.round,
-      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : -1,
-      index: object.index
-    };
+    const message = createBaseHasVote();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.round !== undefined && object.round !== null) {
+      message.round = object.round;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    }
+    return message;
   },
   toAmino(message: HasVote): HasVoteAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.round = message.round;
-    obj.type = message.type;
-    obj.index = message.index;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.round = message.round === 0 ? undefined : message.round;
+    obj.type = message.type === 0 ? undefined : message.type;
+    obj.index = message.index === 0 ? undefined : message.index;
     return obj;
   },
   fromAminoMsg(object: HasVoteAminoMsg): HasVote {
@@ -821,18 +865,26 @@ export const VoteSetMaj23 = {
     return message;
   },
   fromAmino(object: VoteSetMaj23Amino): VoteSetMaj23 {
-    return {
-      height: BigInt(object.height),
-      round: object.round,
-      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : -1,
-      blockId: object?.block_id ? BlockID.fromAmino(object.block_id) : undefined
-    };
+    const message = createBaseVoteSetMaj23();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.round !== undefined && object.round !== null) {
+      message.round = object.round;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.block_id !== undefined && object.block_id !== null) {
+      message.blockId = BlockID.fromAmino(object.block_id);
+    }
+    return message;
   },
   toAmino(message: VoteSetMaj23): VoteSetMaj23Amino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.round = message.round;
-    obj.type = message.type;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.round = message.round === 0 ? undefined : message.round;
+    obj.type = message.type === 0 ? undefined : message.type;
     obj.block_id = message.blockId ? BlockID.toAmino(message.blockId) : undefined;
     return obj;
   },
@@ -900,19 +952,29 @@ export const VoteSetBits = {
     return message;
   },
   fromAmino(object: VoteSetBitsAmino): VoteSetBits {
-    return {
-      height: BigInt(object.height),
-      round: object.round,
-      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : -1,
-      blockId: object?.block_id ? BlockID.fromAmino(object.block_id) : undefined,
-      votes: object?.votes ? BitArray.fromAmino(object.votes) : undefined
-    };
+    const message = createBaseVoteSetBits();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.round !== undefined && object.round !== null) {
+      message.round = object.round;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.block_id !== undefined && object.block_id !== null) {
+      message.blockId = BlockID.fromAmino(object.block_id);
+    }
+    if (object.votes !== undefined && object.votes !== null) {
+      message.votes = BitArray.fromAmino(object.votes);
+    }
+    return message;
   },
   toAmino(message: VoteSetBits): VoteSetBitsAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
-    obj.round = message.round;
-    obj.type = message.type;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
+    obj.round = message.round === 0 ? undefined : message.round;
+    obj.type = message.type === 0 ? undefined : message.type;
     obj.block_id = message.blockId ? BlockID.toAmino(message.blockId) : undefined;
     obj.votes = message.votes ? BitArray.toAmino(message.votes) : undefined;
     return obj;
@@ -1005,17 +1067,35 @@ export const Message = {
     return message;
   },
   fromAmino(object: MessageAmino): Message {
-    return {
-      newRoundStep: object?.new_round_step ? NewRoundStep.fromAmino(object.new_round_step) : undefined,
-      newValidBlock: object?.new_valid_block ? NewValidBlock.fromAmino(object.new_valid_block) : undefined,
-      proposal: object?.proposal ? Proposal.fromAmino(object.proposal) : undefined,
-      proposalPol: object?.proposal_pol ? ProposalPOL.fromAmino(object.proposal_pol) : undefined,
-      blockPart: object?.block_part ? BlockPart.fromAmino(object.block_part) : undefined,
-      vote: object?.vote ? Vote.fromAmino(object.vote) : undefined,
-      hasVote: object?.has_vote ? HasVote.fromAmino(object.has_vote) : undefined,
-      voteSetMaj23: object?.vote_set_maj23 ? VoteSetMaj23.fromAmino(object.vote_set_maj23) : undefined,
-      voteSetBits: object?.vote_set_bits ? VoteSetBits.fromAmino(object.vote_set_bits) : undefined
-    };
+    const message = createBaseMessage();
+    if (object.new_round_step !== undefined && object.new_round_step !== null) {
+      message.newRoundStep = NewRoundStep.fromAmino(object.new_round_step);
+    }
+    if (object.new_valid_block !== undefined && object.new_valid_block !== null) {
+      message.newValidBlock = NewValidBlock.fromAmino(object.new_valid_block);
+    }
+    if (object.proposal !== undefined && object.proposal !== null) {
+      message.proposal = Proposal.fromAmino(object.proposal);
+    }
+    if (object.proposal_pol !== undefined && object.proposal_pol !== null) {
+      message.proposalPol = ProposalPOL.fromAmino(object.proposal_pol);
+    }
+    if (object.block_part !== undefined && object.block_part !== null) {
+      message.blockPart = BlockPart.fromAmino(object.block_part);
+    }
+    if (object.vote !== undefined && object.vote !== null) {
+      message.vote = Vote.fromAmino(object.vote);
+    }
+    if (object.has_vote !== undefined && object.has_vote !== null) {
+      message.hasVote = HasVote.fromAmino(object.has_vote);
+    }
+    if (object.vote_set_maj23 !== undefined && object.vote_set_maj23 !== null) {
+      message.voteSetMaj23 = VoteSetMaj23.fromAmino(object.vote_set_maj23);
+    }
+    if (object.vote_set_bits !== undefined && object.vote_set_bits !== null) {
+      message.voteSetBits = VoteSetBits.fromAmino(object.vote_set_bits);
+    }
+    return message;
   },
   toAmino(message: Message): MessageAmino {
     const obj: any = {};

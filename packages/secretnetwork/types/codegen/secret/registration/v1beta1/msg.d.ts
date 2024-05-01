@@ -8,8 +8,8 @@ export interface RaAuthenticateProtoMsg {
     value: Uint8Array;
 }
 export interface RaAuthenticateAmino {
-    sender: Uint8Array;
-    certificate: Uint8Array;
+    sender?: string;
+    certificate: string;
 }
 export interface RaAuthenticateAminoMsg {
     type: "/secret.registration.v1beta1.RaAuthenticate";
@@ -27,7 +27,7 @@ export interface MasterKeyProtoMsg {
     value: Uint8Array;
 }
 export interface MasterKeyAmino {
-    bytes: Uint8Array;
+    bytes?: string;
 }
 export interface MasterKeyAminoMsg {
     type: "/secret.registration.v1beta1.MasterKey";
@@ -44,7 +44,7 @@ export interface KeyProtoMsg {
     value: Uint8Array;
 }
 export interface KeyAmino {
-    key: Uint8Array;
+    key: string;
 }
 export interface KeyAminoMsg {
     type: "/secret.registration.v1beta1.Key";

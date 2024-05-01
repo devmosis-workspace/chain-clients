@@ -1,6 +1,6 @@
 import { Proof, ProofAmino, ProofSDKType } from "../crypto/proof";
 import { Consensus, ConsensusAmino, ConsensusSDKType } from "../version/types";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../google/protobuf/timestamp";
 import { ValidatorSet, ValidatorSetAmino, ValidatorSetSDKType } from "./validator";
 import { BinaryWriter } from "../../binary";
 /** BlockIdFlag indicates which BlcokID the signature is for */
@@ -40,8 +40,8 @@ export interface PartSetHeaderProtoMsg {
 }
 /** PartsetHeader */
 export interface PartSetHeaderAmino {
-    total: number;
-    hash: Uint8Array;
+    total?: number;
+    hash?: string;
 }
 export interface PartSetHeaderAminoMsg {
     type: "/tendermint.types.PartSetHeader";
@@ -62,8 +62,8 @@ export interface PartProtoMsg {
     value: Uint8Array;
 }
 export interface PartAmino {
-    index: number;
-    bytes: Uint8Array;
+    index?: number;
+    bytes?: string;
     proof?: ProofAmino;
 }
 export interface PartAminoMsg {
@@ -86,7 +86,7 @@ export interface BlockIDProtoMsg {
 }
 /** BlockID */
 export interface BlockIDAmino {
-    hash: Uint8Array;
+    hash?: string;
     part_set_header?: PartSetHeaderAmino;
 }
 export interface BlockIDAminoMsg {
@@ -123,7 +123,7 @@ export interface Header {
     evidenceHash: Uint8Array;
     proposerAddress: Uint8Array;
     /** encrypted random */
-    encryptedRandom: EncryptedRandom;
+    encryptedRandom?: EncryptedRandom;
 }
 export interface HeaderProtoMsg {
     typeUrl: "/tendermint.types.Header";
@@ -133,26 +133,26 @@ export interface HeaderProtoMsg {
 export interface HeaderAmino {
     /** basic block info */
     version?: ConsensusAmino;
-    chain_id: string;
-    height: string;
-    time?: TimestampAmino;
+    chain_id?: string;
+    height?: string;
+    time?: string;
     /** prev block info */
     last_block_id?: BlockIDAmino;
     /** hashes of block data */
-    last_commit_hash: Uint8Array;
-    data_hash: Uint8Array;
+    last_commit_hash?: string;
+    data_hash?: string;
     /** hashes from the app output from the prev block */
-    validators_hash: Uint8Array;
+    validators_hash?: string;
     /** validators for the next block */
-    next_validators_hash: Uint8Array;
+    next_validators_hash?: string;
     /** consensus params for current block */
-    consensus_hash: Uint8Array;
+    consensus_hash?: string;
     /** state after txs from the previous block */
-    app_hash: Uint8Array;
-    last_results_hash: Uint8Array;
+    app_hash?: string;
+    last_results_hash?: string;
     /** consensus info */
-    evidence_hash: Uint8Array;
-    proposer_address: Uint8Array;
+    evidence_hash?: string;
+    proposer_address?: string;
     /** encrypted random */
     encrypted_random?: EncryptedRandomAmino;
 }
@@ -176,7 +176,7 @@ export interface HeaderSDKType {
     last_results_hash: Uint8Array;
     evidence_hash: Uint8Array;
     proposer_address: Uint8Array;
-    encrypted_random: EncryptedRandomSDKType;
+    encrypted_random?: EncryptedRandomSDKType;
 }
 /** Data contains the set of transactions included in the block */
 export interface EncryptedRandom {
@@ -189,8 +189,8 @@ export interface EncryptedRandomProtoMsg {
 }
 /** Data contains the set of transactions included in the block */
 export interface EncryptedRandomAmino {
-    random: Uint8Array;
-    proof: Uint8Array;
+    random?: string;
+    proof?: string;
 }
 export interface EncryptedRandomAminoMsg {
     type: "/tendermint.types.EncryptedRandom";
@@ -221,7 +221,7 @@ export interface DataAmino {
      * NOTE: not all txs here are valid.  We're just agreeing on the order first.
      * This means that block.AppHash does not include these txs.
      */
-    txs: Uint8Array[];
+    txs?: string[];
 }
 export interface DataAminoMsg {
     type: "/tendermint.types.Data";
@@ -254,14 +254,14 @@ export interface VoteProtoMsg {
  * consensus.
  */
 export interface VoteAmino {
-    type: SignedMsgType;
-    height: string;
-    round: number;
+    type?: SignedMsgType;
+    height?: string;
+    round?: number;
     block_id?: BlockIDAmino;
-    timestamp?: TimestampAmino;
-    validator_address: Uint8Array;
-    validator_index: number;
-    signature: Uint8Array;
+    timestamp?: string;
+    validator_address?: string;
+    validator_index?: number;
+    signature?: string;
 }
 export interface VoteAminoMsg {
     type: "/tendermint.types.Vote";
@@ -294,10 +294,10 @@ export interface CommitProtoMsg {
 }
 /** Commit contains the evidence that a block was committed by a set of validators. */
 export interface CommitAmino {
-    height: string;
-    round: number;
+    height?: string;
+    round?: number;
     block_id?: BlockIDAmino;
-    signatures: CommitSigAmino[];
+    signatures?: CommitSigAmino[];
 }
 export interface CommitAminoMsg {
     type: "/tendermint.types.Commit";
@@ -323,10 +323,10 @@ export interface CommitSigProtoMsg {
 }
 /** CommitSig is a part of the Vote included in a Commit. */
 export interface CommitSigAmino {
-    block_id_flag: BlockIDFlag;
-    validator_address: Uint8Array;
-    timestamp?: TimestampAmino;
-    signature: Uint8Array;
+    block_id_flag?: BlockIDFlag;
+    validator_address?: string;
+    timestamp?: string;
+    signature?: string;
 }
 export interface CommitSigAminoMsg {
     type: "/tendermint.types.CommitSig";
@@ -353,13 +353,13 @@ export interface ProposalProtoMsg {
     value: Uint8Array;
 }
 export interface ProposalAmino {
-    type: SignedMsgType;
-    height: string;
-    round: number;
-    pol_round: number;
+    type?: SignedMsgType;
+    height?: string;
+    round?: number;
+    pol_round?: number;
     block_id?: BlockIDAmino;
-    timestamp?: TimestampAmino;
-    signature: Uint8Array;
+    timestamp?: string;
+    signature?: string;
 }
 export interface ProposalAminoMsg {
     type: "/tendermint.types.Proposal";
@@ -375,8 +375,8 @@ export interface ProposalSDKType {
     signature: Uint8Array;
 }
 export interface SignedHeader {
-    header: Header;
-    commit: Commit;
+    header?: Header;
+    commit?: Commit;
 }
 export interface SignedHeaderProtoMsg {
     typeUrl: "/tendermint.types.SignedHeader";
@@ -391,12 +391,12 @@ export interface SignedHeaderAminoMsg {
     value: SignedHeaderAmino;
 }
 export interface SignedHeaderSDKType {
-    header: HeaderSDKType;
-    commit: CommitSDKType;
+    header?: HeaderSDKType;
+    commit?: CommitSDKType;
 }
 export interface LightBlock {
-    signedHeader: SignedHeader;
-    validatorSet: ValidatorSet;
+    signedHeader?: SignedHeader;
+    validatorSet?: ValidatorSet;
 }
 export interface LightBlockProtoMsg {
     typeUrl: "/tendermint.types.LightBlock";
@@ -411,8 +411,8 @@ export interface LightBlockAminoMsg {
     value: LightBlockAmino;
 }
 export interface LightBlockSDKType {
-    signed_header: SignedHeaderSDKType;
-    validator_set: ValidatorSetSDKType;
+    signed_header?: SignedHeaderSDKType;
+    validator_set?: ValidatorSetSDKType;
 }
 export interface BlockMeta {
     blockId: BlockID;
@@ -426,9 +426,9 @@ export interface BlockMetaProtoMsg {
 }
 export interface BlockMetaAmino {
     block_id?: BlockIDAmino;
-    block_size: string;
+    block_size?: string;
     header?: HeaderAmino;
-    num_txs: string;
+    num_txs?: string;
 }
 export interface BlockMetaAminoMsg {
     type: "/tendermint.types.BlockMeta";
@@ -444,7 +444,7 @@ export interface BlockMetaSDKType {
 export interface TxProof {
     rootHash: Uint8Array;
     data: Uint8Array;
-    proof: Proof;
+    proof?: Proof;
 }
 export interface TxProofProtoMsg {
     typeUrl: "/tendermint.types.TxProof";
@@ -452,8 +452,8 @@ export interface TxProofProtoMsg {
 }
 /** TxProof represents a Merkle proof of the presence of a transaction in the Merkle tree. */
 export interface TxProofAmino {
-    root_hash: Uint8Array;
-    data: Uint8Array;
+    root_hash?: string;
+    data?: string;
     proof?: ProofAmino;
 }
 export interface TxProofAminoMsg {
@@ -464,7 +464,7 @@ export interface TxProofAminoMsg {
 export interface TxProofSDKType {
     root_hash: Uint8Array;
     data: Uint8Array;
-    proof: ProofSDKType;
+    proof?: ProofSDKType;
 }
 export declare const PartSetHeader: {
     typeUrl: string;

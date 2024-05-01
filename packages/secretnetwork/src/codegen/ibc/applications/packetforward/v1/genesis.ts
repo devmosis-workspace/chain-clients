@@ -1,16 +1,16 @@
 import { BinaryWriter } from "../../../../binary";
-import { isSet, isObject, bytesFromBase64 } from "../../../../helpers";
+import { isSet, isObject, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { Decimal } from "@cosmjs/math";
 export interface GenesisState_InFlightPacketsEntry {
   key: string;
-  value: InFlightPacket;
+  value?: InFlightPacket;
 }
 export interface GenesisState_InFlightPacketsEntryProtoMsg {
   typeUrl: string;
   value: Uint8Array;
 }
 export interface GenesisState_InFlightPacketsEntryAmino {
-  key: string;
+  key?: string;
   value?: InFlightPacketAmino;
 }
 export interface GenesisState_InFlightPacketsEntryAminoMsg {
@@ -19,7 +19,7 @@ export interface GenesisState_InFlightPacketsEntryAminoMsg {
 }
 export interface GenesisState_InFlightPacketsEntrySDKType {
   key: string;
-  value: InFlightPacketSDKType;
+  value?: InFlightPacketSDKType;
 }
 /** GenesisState defines the packetforward genesis state */
 export interface GenesisState {
@@ -72,7 +72,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the set of IBC packetforward parameters. */
 export interface ParamsAmino {
-  fee_percentage: string;
+  fee_percentage?: string;
 }
 export interface ParamsAminoMsg {
   type: "/packetforward.v1.Params";
@@ -109,18 +109,18 @@ export interface InFlightPacketProtoMsg {
  * writing the acknowledgement and refunding if necessary.
  */
 export interface InFlightPacketAmino {
-  original_sender_address: string;
-  refund_channel_id: string;
-  refund_port_id: string;
-  packet_src_channel_id: string;
-  packet_src_port_id: string;
-  packet_timeout_timestamp: string;
-  packet_timeout_height: string;
-  packet_data: Uint8Array;
-  refund_sequence: string;
-  retries_remaining: number;
-  timeout: string;
-  nonrefundable: boolean;
+  original_sender_address?: string;
+  refund_channel_id?: string;
+  refund_port_id?: string;
+  packet_src_channel_id?: string;
+  packet_src_port_id?: string;
+  packet_timeout_timestamp?: string;
+  packet_timeout_height?: string;
+  packet_data?: string;
+  refund_sequence?: string;
+  retries_remaining?: number;
+  timeout?: string;
+  nonrefundable?: boolean;
 }
 export interface InFlightPacketAminoMsg {
   type: "/packetforward.v1.InFlightPacket";
@@ -147,7 +147,7 @@ export interface InFlightPacketSDKType {
 function createBaseGenesisState_InFlightPacketsEntry(): GenesisState_InFlightPacketsEntry {
   return {
     key: "",
-    value: InFlightPacket.fromPartial({})
+    value: undefined
   };
 }
 export const GenesisState_InFlightPacketsEntry = {
@@ -173,14 +173,18 @@ export const GenesisState_InFlightPacketsEntry = {
     return message;
   },
   fromAmino(object: GenesisState_InFlightPacketsEntryAmino): GenesisState_InFlightPacketsEntry {
-    return {
-      key: object.key,
-      value: object?.value ? InFlightPacket.fromAmino(object.value) : undefined
-    };
+    const message = createBaseGenesisState_InFlightPacketsEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = InFlightPacket.fromAmino(object.value);
+    }
+    return message;
   },
   toAmino(message: GenesisState_InFlightPacketsEntry): GenesisState_InFlightPacketsEntryAmino {
     const obj: any = {};
-    obj.key = message.key;
+    obj.key = message.key === "" ? undefined : message.key;
     obj.value = message.value ? InFlightPacket.toAmino(message.value) : undefined;
     return obj;
   },
@@ -239,15 +243,19 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      inFlightPackets: isObject(object.in_flight_packets) ? Object.entries(object.in_flight_packets).reduce<{
-        [key: string]: InFlightPacket;
-      }>((acc, [key, value]) => {
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.inFlightPackets = Object.entries(object.in_flight_packets ?? {}).reduce<{
+      [key: string]: InFlightPacket;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
         acc[key] = InFlightPacket.fromAmino(value);
-        return acc;
-      }, {}) : {}
-    };
+      }
+      return acc;
+    }, {});
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -300,13 +308,15 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      feePercentage: object.fee_percentage
-    };
+    const message = createBaseParams();
+    if (object.fee_percentage !== undefined && object.fee_percentage !== null) {
+      message.feePercentage = object.fee_percentage;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
-    obj.fee_percentage = message.feePercentage;
+    obj.fee_percentage = message.feePercentage === "" ? undefined : message.feePercentage;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {
@@ -415,35 +425,59 @@ export const InFlightPacket = {
     return message;
   },
   fromAmino(object: InFlightPacketAmino): InFlightPacket {
-    return {
-      originalSenderAddress: object.original_sender_address,
-      refundChannelId: object.refund_channel_id,
-      refundPortId: object.refund_port_id,
-      packetSrcChannelId: object.packet_src_channel_id,
-      packetSrcPortId: object.packet_src_port_id,
-      packetTimeoutTimestamp: BigInt(object.packet_timeout_timestamp),
-      packetTimeoutHeight: object.packet_timeout_height,
-      packetData: object.packet_data,
-      refundSequence: BigInt(object.refund_sequence),
-      retriesRemaining: object.retries_remaining,
-      timeout: BigInt(object.timeout),
-      nonrefundable: object.nonrefundable
-    };
+    const message = createBaseInFlightPacket();
+    if (object.original_sender_address !== undefined && object.original_sender_address !== null) {
+      message.originalSenderAddress = object.original_sender_address;
+    }
+    if (object.refund_channel_id !== undefined && object.refund_channel_id !== null) {
+      message.refundChannelId = object.refund_channel_id;
+    }
+    if (object.refund_port_id !== undefined && object.refund_port_id !== null) {
+      message.refundPortId = object.refund_port_id;
+    }
+    if (object.packet_src_channel_id !== undefined && object.packet_src_channel_id !== null) {
+      message.packetSrcChannelId = object.packet_src_channel_id;
+    }
+    if (object.packet_src_port_id !== undefined && object.packet_src_port_id !== null) {
+      message.packetSrcPortId = object.packet_src_port_id;
+    }
+    if (object.packet_timeout_timestamp !== undefined && object.packet_timeout_timestamp !== null) {
+      message.packetTimeoutTimestamp = BigInt(object.packet_timeout_timestamp);
+    }
+    if (object.packet_timeout_height !== undefined && object.packet_timeout_height !== null) {
+      message.packetTimeoutHeight = object.packet_timeout_height;
+    }
+    if (object.packet_data !== undefined && object.packet_data !== null) {
+      message.packetData = bytesFromBase64(object.packet_data);
+    }
+    if (object.refund_sequence !== undefined && object.refund_sequence !== null) {
+      message.refundSequence = BigInt(object.refund_sequence);
+    }
+    if (object.retries_remaining !== undefined && object.retries_remaining !== null) {
+      message.retriesRemaining = object.retries_remaining;
+    }
+    if (object.timeout !== undefined && object.timeout !== null) {
+      message.timeout = BigInt(object.timeout);
+    }
+    if (object.nonrefundable !== undefined && object.nonrefundable !== null) {
+      message.nonrefundable = object.nonrefundable;
+    }
+    return message;
   },
   toAmino(message: InFlightPacket): InFlightPacketAmino {
     const obj: any = {};
-    obj.original_sender_address = message.originalSenderAddress;
-    obj.refund_channel_id = message.refundChannelId;
-    obj.refund_port_id = message.refundPortId;
-    obj.packet_src_channel_id = message.packetSrcChannelId;
-    obj.packet_src_port_id = message.packetSrcPortId;
-    obj.packet_timeout_timestamp = message.packetTimeoutTimestamp ? message.packetTimeoutTimestamp.toString() : undefined;
-    obj.packet_timeout_height = message.packetTimeoutHeight;
-    obj.packet_data = message.packetData;
-    obj.refund_sequence = message.refundSequence ? message.refundSequence.toString() : undefined;
-    obj.retries_remaining = message.retriesRemaining;
-    obj.timeout = message.timeout ? message.timeout.toString() : undefined;
-    obj.nonrefundable = message.nonrefundable;
+    obj.original_sender_address = message.originalSenderAddress === "" ? undefined : message.originalSenderAddress;
+    obj.refund_channel_id = message.refundChannelId === "" ? undefined : message.refundChannelId;
+    obj.refund_port_id = message.refundPortId === "" ? undefined : message.refundPortId;
+    obj.packet_src_channel_id = message.packetSrcChannelId === "" ? undefined : message.packetSrcChannelId;
+    obj.packet_src_port_id = message.packetSrcPortId === "" ? undefined : message.packetSrcPortId;
+    obj.packet_timeout_timestamp = message.packetTimeoutTimestamp !== BigInt(0) ? message.packetTimeoutTimestamp.toString() : undefined;
+    obj.packet_timeout_height = message.packetTimeoutHeight === "" ? undefined : message.packetTimeoutHeight;
+    obj.packet_data = message.packetData ? base64FromBytes(message.packetData) : undefined;
+    obj.refund_sequence = message.refundSequence !== BigInt(0) ? message.refundSequence.toString() : undefined;
+    obj.retries_remaining = message.retriesRemaining === 0 ? undefined : message.retriesRemaining;
+    obj.timeout = message.timeout !== BigInt(0) ? message.timeout.toString() : undefined;
+    obj.nonrefundable = message.nonrefundable === false ? undefined : message.nonrefundable;
     return obj;
   },
   fromAminoMsg(object: InFlightPacketAminoMsg): InFlightPacket {
