@@ -298,3 +298,9 @@
 [submodule "packages/quicksilver/wasmd"]
 	path = packages/quicksilver/wasmd
 	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/regen/regen-ledger"]
+	path = packages/regen/regen-ledger
+	url = https://github.com/regen-network/regen-ledger
+[submodule "packages/regen/cosmos-sdk"]
+	path = packages/regen/cosmos-sdk
+	url = https://github.com/regen-network/cosmos-sdk
