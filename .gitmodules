@@ -316,3 +316,12 @@
 [submodule "packages/saga/cosmos-sdk"]
 	path = packages/saga/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/bostrom/go-cyber"]
+	path = packages/bostrom/go-cyber
+	url = https://github.com/cybercongress/go-cyber
+[submodule "packages/bostrom/cosmos-sdk"]
+	path = packages/bostrom/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/bostrom/wasmd"]
+	path = packages/bostrom/wasmd
+	url = https://github.com/CosmWasm/wasmd
