@@ -304,3 +304,12 @@
 [submodule "packages/regen/cosmos-sdk"]
 	path = packages/regen/cosmos-sdk
 	url = https://github.com/regen-network/cosmos-sdk
+[submodule "packages/passage/Passage3D"]
+	path = packages/passage/Passage3D
+	url = https://github.com/envadiv/Passage3D
+[submodule "packages/passage/wasmd"]
+	path = packages/passage/wasmd
+	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/passage/cosmos-sdk"]
+	path = packages/passage/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
