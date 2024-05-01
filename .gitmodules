@@ -289,3 +289,12 @@
 [submodule "packages/quasar/wasmd"]
 	path = packages/quasar/wasmd
 	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/quicksilver/quicksilver"]
+	path = packages/quicksilver/quicksilver
+	url = https://github.com/quicksilver-zone/quicksilver
+[submodule "packages/quicksilver/cosmos-sdk"]
+	path = packages/quicksilver/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/quicksilver/wasmd"]
+	path = packages/quicksilver/wasmd
+	url = https://github.com/CosmWasm/wasmd
