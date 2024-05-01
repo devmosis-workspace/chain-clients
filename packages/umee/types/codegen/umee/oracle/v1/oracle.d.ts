@@ -1,4 +1,5 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** Params defines the parameters for the oracle module. */
 export interface Params {
@@ -38,35 +39,35 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the oracle module. */
 export interface ParamsAmino {
-    vote_period: string;
-    vote_threshold: string;
-    reward_band: string;
-    reward_distribution_window: string;
-    accept_list: DenomAmino[];
-    slash_fraction: string;
-    slash_window: string;
-    min_valid_per_window: string;
+    vote_period?: string;
+    vote_threshold?: string;
+    reward_band?: string;
+    reward_distribution_window?: string;
+    accept_list?: DenomAmino[];
+    slash_fraction?: string;
+    slash_window?: string;
+    min_valid_per_window?: string;
     /**
      * Historic Stamp Period represents the amount of blocks the oracle
      * module waits before recording a new historic price.
      */
-    historic_stamp_period: string;
+    historic_stamp_period?: string;
     /**
      * Median Stamp Period represents the amount blocks the oracle module
      * waits between calculating and stamping a new median and standard
      * deviation of that median.
      */
-    median_stamp_period: string;
+    median_stamp_period?: string;
     /**
      * Maximum Price Stamps represents the maximum amount of historic prices
      * the oracle module will store before pruning via FIFO.
      */
-    maximum_price_stamps: string;
+    maximum_price_stamps?: string;
     /**
      * Maximum Median Stamps represents the maximum amount of medians the
      * oracle module will store before pruning via FIFO.
      */
-    maximum_median_stamps: string;
+    maximum_median_stamps?: string;
 }
 export interface ParamsAminoMsg {
     type: "/umee.oracle.v1.Params";
@@ -87,6 +88,33 @@ export interface ParamsSDKType {
     maximum_price_stamps: bigint;
     maximum_median_stamps: bigint;
 }
+/** AvgCounterParams - Historic avg counter params */
+export interface AvgCounterParams {
+    /** avg_period */
+    avgPeriod: Duration;
+    /** avg shift */
+    avgShift: Duration;
+}
+export interface AvgCounterParamsProtoMsg {
+    typeUrl: "/umee.oracle.v1.AvgCounterParams";
+    value: Uint8Array;
+}
+/** AvgCounterParams - Historic avg counter params */
+export interface AvgCounterParamsAmino {
+    /** avg_period */
+    avg_period?: DurationAmino;
+    /** avg shift */
+    avg_shift?: DurationAmino;
+}
+export interface AvgCounterParamsAminoMsg {
+    type: "/umee.oracle.v1.AvgCounterParams";
+    value: AvgCounterParamsAmino;
+}
+/** AvgCounterParams - Historic avg counter params */
+export interface AvgCounterParamsSDKType {
+    avg_period: DurationSDKType;
+    avg_shift: DurationSDKType;
+}
 /** Denom - the object to hold configurations of each denom */
 export interface Denom {
     baseDenom: string;
@@ -99,9 +127,9 @@ export interface DenomProtoMsg {
 }
 /** Denom - the object to hold configurations of each denom */
 export interface DenomAmino {
-    base_denom: string;
-    symbol_denom: string;
-    exponent: number;
+    base_denom?: string;
+    symbol_denom?: string;
+    exponent?: number;
 }
 export interface DenomAminoMsg {
     type: "/umee.oracle.v1.Denom";
@@ -137,9 +165,9 @@ export interface AggregateExchangeRatePrevoteProtoMsg {
  * rate}{denom},...,{exchange rate}{denom}:{voter}")
  */
 export interface AggregateExchangeRatePrevoteAmino {
-    hash: string;
-    voter: string;
-    submit_block: string;
+    hash?: string;
+    voter?: string;
+    submit_block?: string;
 }
 export interface AggregateExchangeRatePrevoteAminoMsg {
     type: "/umee.oracle.v1.AggregateExchangeRatePrevote";
@@ -174,8 +202,8 @@ export interface AggregateExchangeRateVoteProtoMsg {
  * the exchange rates of USD denominated in various assets.
  */
 export interface AggregateExchangeRateVoteAmino {
-    exchange_rate_tuples: ExchangeRateTupleAmino[];
-    voter: string;
+    exchange_rate_tuples?: ExchangeRateTupleAmino[];
+    voter?: string;
 }
 export interface AggregateExchangeRateVoteAminoMsg {
     type: "/umee.oracle.v1.AggregateExchangeRateVote";
@@ -200,8 +228,8 @@ export interface ExchangeRateTupleProtoMsg {
 }
 /** ExchangeRateTuple - struct to store interpreted exchange rates data to store */
 export interface ExchangeRateTupleAmino {
-    denom: string;
-    exchange_rate: string;
+    denom?: string;
+    exchange_rate?: string;
 }
 export interface ExchangeRateTupleAminoMsg {
     type: "/umee.oracle.v1.ExchangeRateTuple";
@@ -234,11 +262,11 @@ export interface AvgCounterProtoMsg {
  */
 export interface AvgCounterAmino {
     /** sum of prices in the counter */
-    sum: string;
+    sum?: string;
     /** number of aggregated prices in the counter */
-    num: number;
+    num?: number;
     /** Unix timestamp when the first price was aggregated in the counter */
-    start?: TimestampAmino;
+    start?: string;
 }
 export interface AvgCounterAminoMsg {
     type: "/umee.oracle.v1.AvgCounter";
@@ -253,6 +281,32 @@ export interface AvgCounterSDKType {
     num: number;
     start: TimestampSDKType;
 }
+/** DenomExchangeRate stores exchange rate with timestamp */
+export interface DenomExchangeRate {
+    denom: string;
+    rate: string;
+    timestamp: Timestamp;
+}
+export interface DenomExchangeRateProtoMsg {
+    typeUrl: "/umee.oracle.v1.DenomExchangeRate";
+    value: Uint8Array;
+}
+/** DenomExchangeRate stores exchange rate with timestamp */
+export interface DenomExchangeRateAmino {
+    denom?: string;
+    rate?: string;
+    timestamp?: string;
+}
+export interface DenomExchangeRateAminoMsg {
+    type: "/umee.oracle.v1.DenomExchangeRate";
+    value: DenomExchangeRateAmino;
+}
+/** DenomExchangeRate stores exchange rate with timestamp */
+export interface DenomExchangeRateSDKType {
+    denom: string;
+    rate: string;
+    timestamp: TimestampSDKType;
+}
 export declare const Params: {
     typeUrl: string;
     encode(message: Params, writer?: BinaryWriter): BinaryWriter;
@@ -264,6 +318,18 @@ export declare const Params: {
     fromProtoMsg(message: ParamsProtoMsg): Params;
     toProto(message: Params): Uint8Array;
     toProtoMsg(message: Params): ParamsProtoMsg;
+};
+export declare const AvgCounterParams: {
+    typeUrl: string;
+    encode(message: AvgCounterParams, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): AvgCounterParams;
+    fromPartial(object: Partial<AvgCounterParams>): AvgCounterParams;
+    fromAmino(object: AvgCounterParamsAmino): AvgCounterParams;
+    toAmino(message: AvgCounterParams): AvgCounterParamsAmino;
+    fromAminoMsg(object: AvgCounterParamsAminoMsg): AvgCounterParams;
+    fromProtoMsg(message: AvgCounterParamsProtoMsg): AvgCounterParams;
+    toProto(message: AvgCounterParams): Uint8Array;
+    toProtoMsg(message: AvgCounterParams): AvgCounterParamsProtoMsg;
 };
 export declare const Denom: {
     typeUrl: string;
@@ -324,4 +390,16 @@ export declare const AvgCounter: {
     fromProtoMsg(message: AvgCounterProtoMsg): AvgCounter;
     toProto(message: AvgCounter): Uint8Array;
     toProtoMsg(message: AvgCounter): AvgCounterProtoMsg;
+};
+export declare const DenomExchangeRate: {
+    typeUrl: string;
+    encode(message: DenomExchangeRate, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): DenomExchangeRate;
+    fromPartial(object: Partial<DenomExchangeRate>): DenomExchangeRate;
+    fromAmino(object: DenomExchangeRateAmino): DenomExchangeRate;
+    toAmino(message: DenomExchangeRate): DenomExchangeRateAmino;
+    fromAminoMsg(object: DenomExchangeRateAminoMsg): DenomExchangeRate;
+    fromProtoMsg(message: DenomExchangeRateProtoMsg): DenomExchangeRate;
+    toProto(message: DenomExchangeRate): Uint8Array;
+    toProtoMsg(message: DenomExchangeRate): DenomExchangeRateProtoMsg;
 };

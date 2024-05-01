@@ -1,6 +1,6 @@
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgSupply, MsgWithdraw, MsgMaxWithdraw, MsgCollateralize, MsgDecollateralize, MsgBorrow, MsgMaxBorrow, MsgRepay, MsgLiquidate, MsgLeveragedLiquidate, MsgSupplyCollateral, MsgGovUpdateRegistry } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/umee.leverage.v1.MsgSupply", MsgSupply], ["/umee.leverage.v1.MsgWithdraw", MsgWithdraw], ["/umee.leverage.v1.MsgMaxWithdraw", MsgMaxWithdraw], ["/umee.leverage.v1.MsgCollateralize", MsgCollateralize], ["/umee.leverage.v1.MsgDecollateralize", MsgDecollateralize], ["/umee.leverage.v1.MsgBorrow", MsgBorrow], ["/umee.leverage.v1.MsgMaxBorrow", MsgMaxBorrow], ["/umee.leverage.v1.MsgRepay", MsgRepay], ["/umee.leverage.v1.MsgLiquidate", MsgLiquidate], ["/umee.leverage.v1.MsgLeveragedLiquidate", MsgLeveragedLiquidate], ["/umee.leverage.v1.MsgSupplyCollateral", MsgSupplyCollateral], ["/umee.leverage.v1.MsgGovUpdateRegistry", MsgGovUpdateRegistry]];
+import { MsgSupply, MsgWithdraw, MsgMaxWithdraw, MsgCollateralize, MsgDecollateralize, MsgBorrow, MsgMaxBorrow, MsgRepay, MsgLiquidate, MsgLeveragedLiquidate, MsgSupplyCollateral, MsgGovUpdateRegistry, MsgGovUpdateSpecialAssets, MsgGovSetParams } from "./tx";
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/umee.leverage.v1.MsgSupply", MsgSupply], ["/umee.leverage.v1.MsgWithdraw", MsgWithdraw], ["/umee.leverage.v1.MsgMaxWithdraw", MsgMaxWithdraw], ["/umee.leverage.v1.MsgCollateralize", MsgCollateralize], ["/umee.leverage.v1.MsgDecollateralize", MsgDecollateralize], ["/umee.leverage.v1.MsgBorrow", MsgBorrow], ["/umee.leverage.v1.MsgMaxBorrow", MsgMaxBorrow], ["/umee.leverage.v1.MsgRepay", MsgRepay], ["/umee.leverage.v1.MsgLiquidate", MsgLiquidate], ["/umee.leverage.v1.MsgLeveragedLiquidate", MsgLeveragedLiquidate], ["/umee.leverage.v1.MsgSupplyCollateral", MsgSupplyCollateral], ["/umee.leverage.v1.MsgGovUpdateRegistry", MsgGovUpdateRegistry], ["/umee.leverage.v1.MsgGovUpdateSpecialAssets", MsgGovUpdateSpecialAssets], ["/umee.leverage.v1.MsgGovSetParams", MsgGovSetParams]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -79,6 +79,18 @@ export const MessageComposer = {
         typeUrl: "/umee.leverage.v1.MsgGovUpdateRegistry",
         value: MsgGovUpdateRegistry.encode(value).finish()
       };
+    },
+    govUpdateSpecialAssets(value: MsgGovUpdateSpecialAssets) {
+      return {
+        typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssets",
+        value: MsgGovUpdateSpecialAssets.encode(value).finish()
+      };
+    },
+    govSetParams(value: MsgGovSetParams) {
+      return {
+        typeUrl: "/umee.leverage.v1.MsgGovSetParams",
+        value: MsgGovSetParams.encode(value).finish()
+      };
     }
   },
   withTypeUrl: {
@@ -151,6 +163,18 @@ export const MessageComposer = {
     govUpdateRegistry(value: MsgGovUpdateRegistry) {
       return {
         typeUrl: "/umee.leverage.v1.MsgGovUpdateRegistry",
+        value
+      };
+    },
+    govUpdateSpecialAssets(value: MsgGovUpdateSpecialAssets) {
+      return {
+        typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssets",
+        value
+      };
+    },
+    govSetParams(value: MsgGovSetParams) {
+      return {
+        typeUrl: "/umee.leverage.v1.MsgGovSetParams",
         value
       };
     }
@@ -227,6 +251,18 @@ export const MessageComposer = {
         typeUrl: "/umee.leverage.v1.MsgGovUpdateRegistry",
         value: MsgGovUpdateRegistry.fromJSON(value)
       };
+    },
+    govUpdateSpecialAssets(value: any) {
+      return {
+        typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssets",
+        value: MsgGovUpdateSpecialAssets.fromJSON(value)
+      };
+    },
+    govSetParams(value: any) {
+      return {
+        typeUrl: "/umee.leverage.v1.MsgGovSetParams",
+        value: MsgGovSetParams.fromJSON(value)
+      };
     }
   },
   fromPartial: {
@@ -300,6 +336,18 @@ export const MessageComposer = {
       return {
         typeUrl: "/umee.leverage.v1.MsgGovUpdateRegistry",
         value: MsgGovUpdateRegistry.fromPartial(value)
+      };
+    },
+    govUpdateSpecialAssets(value: MsgGovUpdateSpecialAssets) {
+      return {
+        typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssets",
+        value: MsgGovUpdateSpecialAssets.fromPartial(value)
+      };
+    },
+    govSetParams(value: MsgGovSetParams) {
+      return {
+        typeUrl: "/umee.leverage.v1.MsgGovSetParams",
+        value: MsgGovSetParams.fromPartial(value)
       };
     }
   }

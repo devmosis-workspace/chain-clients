@@ -12,7 +12,7 @@ export interface MsgClaimProtoMsg {
 }
 /** MsgClaim represents a account's request to claim pending rewards. */
 export interface MsgClaimAmino {
-  account: string;
+  account?: string;
 }
 export interface MsgClaimAminoMsg {
   type: "/umee.incentive.v1.MsgClaim";
@@ -32,7 +32,7 @@ export interface MsgClaimResponseProtoMsg {
 }
 /** MsgClaimResponse defines the Msg/Claim response type. */
 export interface MsgClaimResponseAmino {
-  amount: CoinAmino[];
+  amount?: CoinAmino[];
 }
 export interface MsgClaimResponseAminoMsg {
   type: "/umee.incentive.v1.MsgClaimResponse";
@@ -53,7 +53,7 @@ export interface MsgBondProtoMsg {
 }
 /** MsgBond represents a account's request to bond uToken collateral. */
 export interface MsgBondAmino {
-  account: string;
+  account?: string;
   uToken?: CoinAmino;
 }
 export interface MsgBondAminoMsg {
@@ -90,7 +90,7 @@ export interface MsgBeginUnbondingProtoMsg {
 }
 /** MsgBeginUnbonding represents a account's request to begin unbonding uToken collateral. */
 export interface MsgBeginUnbondingAmino {
-  account: string;
+  account?: string;
   uToken?: CoinAmino;
 }
 export interface MsgBeginUnbondingAminoMsg {
@@ -127,7 +127,7 @@ export interface MsgEmergencyUnbondProtoMsg {
 }
 /** MsgEmergencyUnbond represents a account's request to instantly unbond uToken collateral for a fee. */
 export interface MsgEmergencyUnbondAmino {
-  account: string;
+  account?: string;
   uToken?: CoinAmino;
 }
 export interface MsgEmergencyUnbondAminoMsg {
@@ -174,8 +174,8 @@ export interface MsgSponsorProtoMsg {
  */
 export interface MsgSponsorAmino {
   /** Sponsor bech32 account address */
-  sponsor: string;
-  program: number;
+  sponsor?: string;
+  program?: number;
 }
 export interface MsgSponsorAminoMsg {
   type: "/umee.incentive.v1.MsgSponsor";
@@ -217,7 +217,7 @@ export interface MsgGovSetParamsProtoMsg {
 /** MsgGovSetParams is used by governance to update module parameters. */
 export interface MsgGovSetParamsAmino {
   /** authority must be the address of the governance account. */
-  authority: string;
+  authority?: string;
   params?: ParamsAmino;
 }
 export interface MsgGovSetParamsAminoMsg {
@@ -245,13 +245,12 @@ export interface MsgGovSetParamsResponseAminoMsg {
 export interface MsgGovSetParamsResponseSDKType {}
 /**
  * MsgGovCreatePrograms is used by governance to create one or more incentive programs.
- * There are two funding scenarios, depending on from_community_fund.
- * If it is true,the programs' total rewards will be automatically withdrawn from
- * the (parameter) community_fund_address to the incentive module account when this
- * message is passed. (Insufficient funds cause the parameter to be treated as false.)
- * If it is false, a MsgSponsor funding each program's full amount must be submitted
- * after this message passes, but before the program's start_time, or the program
- * will be cancelled when it would otherwise start.
+ * There are two funding scenarios. 1) If from_community_fund is true, once the proposal passes,
+ * the programs' total rewards will be automatically funded by withdrawing from the community
+ * fund to the incentive module account. Will fail if the community fund doesn't have enough coins.
+ * 2) If from_community_fund is false, a transaction with MsgSponsor must be submitted to fund
+ * all programs with full amount. It must be sent after this message passes and before the
+ * program's start_time. If it won't be funded on time, the program will be cancelled.
  */
 export interface MsgGovCreatePrograms {
   /** authority must be the address of the governance account. */
@@ -266,20 +265,19 @@ export interface MsgGovCreateProgramsProtoMsg {
 }
 /**
  * MsgGovCreatePrograms is used by governance to create one or more incentive programs.
- * There are two funding scenarios, depending on from_community_fund.
- * If it is true,the programs' total rewards will be automatically withdrawn from
- * the (parameter) community_fund_address to the incentive module account when this
- * message is passed. (Insufficient funds cause the parameter to be treated as false.)
- * If it is false, a MsgSponsor funding each program's full amount must be submitted
- * after this message passes, but before the program's start_time, or the program
- * will be cancelled when it would otherwise start.
+ * There are two funding scenarios. 1) If from_community_fund is true, once the proposal passes,
+ * the programs' total rewards will be automatically funded by withdrawing from the community
+ * fund to the incentive module account. Will fail if the community fund doesn't have enough coins.
+ * 2) If from_community_fund is false, a transaction with MsgSponsor must be submitted to fund
+ * all programs with full amount. It must be sent after this message passes and before the
+ * program's start_time. If it won't be funded on time, the program will be cancelled.
  */
 export interface MsgGovCreateProgramsAmino {
   /** authority must be the address of the governance account. */
-  authority: string;
-  programs: IncentiveProgramAmino[];
+  authority?: string;
+  programs?: IncentiveProgramAmino[];
   /** from_community_fund defines the source of funds for proposed incentive programs. */
-  from_community_fund: boolean;
+  from_community_fund?: boolean;
 }
 export interface MsgGovCreateProgramsAminoMsg {
   type: "/umee.incentive.v1.MsgGovCreatePrograms";
@@ -287,13 +285,12 @@ export interface MsgGovCreateProgramsAminoMsg {
 }
 /**
  * MsgGovCreatePrograms is used by governance to create one or more incentive programs.
- * There are two funding scenarios, depending on from_community_fund.
- * If it is true,the programs' total rewards will be automatically withdrawn from
- * the (parameter) community_fund_address to the incentive module account when this
- * message is passed. (Insufficient funds cause the parameter to be treated as false.)
- * If it is false, a MsgSponsor funding each program's full amount must be submitted
- * after this message passes, but before the program's start_time, or the program
- * will be cancelled when it would otherwise start.
+ * There are two funding scenarios. 1) If from_community_fund is true, once the proposal passes,
+ * the programs' total rewards will be automatically funded by withdrawing from the community
+ * fund to the incentive module account. Will fail if the community fund doesn't have enough coins.
+ * 2) If from_community_fund is false, a transaction with MsgSponsor must be submitted to fund
+ * all programs with full amount. It must be sent after this message passes and before the
+ * program's start_time. If it won't be funded on time, the program will be cancelled.
  */
 export interface MsgGovCreateProgramsSDKType {
   authority: string;
@@ -338,13 +335,15 @@ export const MsgClaim = {
     return message;
   },
   fromAmino(object: MsgClaimAmino): MsgClaim {
-    return {
-      account: object.account
-    };
+    const message = createBaseMsgClaim();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    return message;
   },
   toAmino(message: MsgClaim): MsgClaimAmino {
     const obj: any = {};
-    obj.account = message.account;
+    obj.account = message.account === "" ? undefined : message.account;
     return obj;
   },
   fromAminoMsg(object: MsgClaimAminoMsg): MsgClaim {
@@ -387,16 +386,16 @@ export const MsgClaimResponse = {
     return message;
   },
   fromAmino(object: MsgClaimResponseAmino): MsgClaimResponse {
-    return {
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseMsgClaimResponse();
+    message.amount = object.amount?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgClaimResponse): MsgClaimResponseAmino {
     const obj: any = {};
     if (message.amount) {
       obj.amount = message.amount.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.amount = [];
+      obj.amount = message.amount;
     }
     return obj;
   },
@@ -446,14 +445,18 @@ export const MsgBond = {
     return message;
   },
   fromAmino(object: MsgBondAmino): MsgBond {
-    return {
-      account: object.account,
-      uToken: object?.uToken ? Coin.fromAmino(object.uToken) : undefined
-    };
+    const message = createBaseMsgBond();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    if (object.uToken !== undefined && object.uToken !== null) {
+      message.uToken = Coin.fromAmino(object.uToken);
+    }
+    return message;
   },
   toAmino(message: MsgBond): MsgBondAmino {
     const obj: any = {};
-    obj.account = message.account;
+    obj.account = message.account === "" ? undefined : message.account;
     obj.uToken = message.uToken ? Coin.toAmino(message.uToken) : undefined;
     return obj;
   },
@@ -489,7 +492,8 @@ export const MsgBondResponse = {
     return message;
   },
   fromAmino(_: MsgBondResponseAmino): MsgBondResponse {
-    return {};
+    const message = createBaseMsgBondResponse();
+    return message;
   },
   toAmino(_: MsgBondResponse): MsgBondResponseAmino {
     const obj: any = {};
@@ -541,14 +545,18 @@ export const MsgBeginUnbonding = {
     return message;
   },
   fromAmino(object: MsgBeginUnbondingAmino): MsgBeginUnbonding {
-    return {
-      account: object.account,
-      uToken: object?.uToken ? Coin.fromAmino(object.uToken) : undefined
-    };
+    const message = createBaseMsgBeginUnbonding();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    if (object.uToken !== undefined && object.uToken !== null) {
+      message.uToken = Coin.fromAmino(object.uToken);
+    }
+    return message;
   },
   toAmino(message: MsgBeginUnbonding): MsgBeginUnbondingAmino {
     const obj: any = {};
-    obj.account = message.account;
+    obj.account = message.account === "" ? undefined : message.account;
     obj.uToken = message.uToken ? Coin.toAmino(message.uToken) : undefined;
     return obj;
   },
@@ -584,7 +592,8 @@ export const MsgBeginUnbondingResponse = {
     return message;
   },
   fromAmino(_: MsgBeginUnbondingResponseAmino): MsgBeginUnbondingResponse {
-    return {};
+    const message = createBaseMsgBeginUnbondingResponse();
+    return message;
   },
   toAmino(_: MsgBeginUnbondingResponse): MsgBeginUnbondingResponseAmino {
     const obj: any = {};
@@ -636,14 +645,18 @@ export const MsgEmergencyUnbond = {
     return message;
   },
   fromAmino(object: MsgEmergencyUnbondAmino): MsgEmergencyUnbond {
-    return {
-      account: object.account,
-      uToken: object?.uToken ? Coin.fromAmino(object.uToken) : undefined
-    };
+    const message = createBaseMsgEmergencyUnbond();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    if (object.uToken !== undefined && object.uToken !== null) {
+      message.uToken = Coin.fromAmino(object.uToken);
+    }
+    return message;
   },
   toAmino(message: MsgEmergencyUnbond): MsgEmergencyUnbondAmino {
     const obj: any = {};
-    obj.account = message.account;
+    obj.account = message.account === "" ? undefined : message.account;
     obj.uToken = message.uToken ? Coin.toAmino(message.uToken) : undefined;
     return obj;
   },
@@ -679,7 +692,8 @@ export const MsgEmergencyUnbondResponse = {
     return message;
   },
   fromAmino(_: MsgEmergencyUnbondResponseAmino): MsgEmergencyUnbondResponse {
-    return {};
+    const message = createBaseMsgEmergencyUnbondResponse();
+    return message;
   },
   toAmino(_: MsgEmergencyUnbondResponse): MsgEmergencyUnbondResponseAmino {
     const obj: any = {};
@@ -731,15 +745,19 @@ export const MsgSponsor = {
     return message;
   },
   fromAmino(object: MsgSponsorAmino): MsgSponsor {
-    return {
-      sponsor: object.sponsor,
-      program: object.program
-    };
+    const message = createBaseMsgSponsor();
+    if (object.sponsor !== undefined && object.sponsor !== null) {
+      message.sponsor = object.sponsor;
+    }
+    if (object.program !== undefined && object.program !== null) {
+      message.program = object.program;
+    }
+    return message;
   },
   toAmino(message: MsgSponsor): MsgSponsorAmino {
     const obj: any = {};
-    obj.sponsor = message.sponsor;
-    obj.program = message.program;
+    obj.sponsor = message.sponsor === "" ? undefined : message.sponsor;
+    obj.program = message.program === 0 ? undefined : message.program;
     return obj;
   },
   fromAminoMsg(object: MsgSponsorAminoMsg): MsgSponsor {
@@ -774,7 +792,8 @@ export const MsgSponsorResponse = {
     return message;
   },
   fromAmino(_: MsgSponsorResponseAmino): MsgSponsorResponse {
-    return {};
+    const message = createBaseMsgSponsorResponse();
+    return message;
   },
   toAmino(_: MsgSponsorResponse): MsgSponsorResponseAmino {
     const obj: any = {};
@@ -826,14 +845,18 @@ export const MsgGovSetParams = {
     return message;
   },
   fromAmino(object: MsgGovSetParamsAmino): MsgGovSetParams {
-    return {
-      authority: object.authority,
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseMsgGovSetParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: MsgGovSetParams): MsgGovSetParamsAmino {
     const obj: any = {};
-    obj.authority = message.authority;
+    obj.authority = message.authority === "" ? undefined : message.authority;
     obj.params = message.params ? Params.toAmino(message.params) : undefined;
     return obj;
   },
@@ -869,7 +892,8 @@ export const MsgGovSetParamsResponse = {
     return message;
   },
   fromAmino(_: MsgGovSetParamsResponseAmino): MsgGovSetParamsResponse {
-    return {};
+    const message = createBaseMsgGovSetParamsResponse();
+    return message;
   },
   toAmino(_: MsgGovSetParamsResponse): MsgGovSetParamsResponseAmino {
     const obj: any = {};
@@ -927,21 +951,25 @@ export const MsgGovCreatePrograms = {
     return message;
   },
   fromAmino(object: MsgGovCreateProgramsAmino): MsgGovCreatePrograms {
-    return {
-      authority: object.authority,
-      programs: Array.isArray(object?.programs) ? object.programs.map((e: any) => IncentiveProgram.fromAmino(e)) : [],
-      fromCommunityFund: object.from_community_fund
-    };
+    const message = createBaseMsgGovCreatePrograms();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    message.programs = object.programs?.map(e => IncentiveProgram.fromAmino(e)) || [];
+    if (object.from_community_fund !== undefined && object.from_community_fund !== null) {
+      message.fromCommunityFund = object.from_community_fund;
+    }
+    return message;
   },
   toAmino(message: MsgGovCreatePrograms): MsgGovCreateProgramsAmino {
     const obj: any = {};
-    obj.authority = message.authority;
+    obj.authority = message.authority === "" ? undefined : message.authority;
     if (message.programs) {
       obj.programs = message.programs.map(e => e ? IncentiveProgram.toAmino(e) : undefined);
     } else {
-      obj.programs = [];
+      obj.programs = message.programs;
     }
-    obj.from_community_fund = message.fromCommunityFund;
+    obj.from_community_fund = message.fromCommunityFund === false ? undefined : message.fromCommunityFund;
     return obj;
   },
   fromAminoMsg(object: MsgGovCreateProgramsAminoMsg): MsgGovCreatePrograms {
@@ -976,7 +1004,8 @@ export const MsgGovCreateProgramsResponse = {
     return message;
   },
   fromAmino(_: MsgGovCreateProgramsResponseAmino): MsgGovCreateProgramsResponse {
-    return {};
+    const message = createBaseMsgGovCreateProgramsResponse();
+    return message;
   },
   toAmino(_: MsgGovCreateProgramsResponse): MsgGovCreateProgramsResponseAmino {
     const obj: any = {};

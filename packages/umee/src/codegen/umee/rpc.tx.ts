@@ -11,6 +11,9 @@ export const createRPCMsgClient = async ({
     leverage: {
       v1: new (await import("./leverage/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
+    metoken: {
+      v1: new (await import("./metoken/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
     oracle: {
       v1: new (await import("./oracle/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
@@ -22,11 +25,17 @@ export const createRPCMsgClient = async ({
     }
   },
   cosmos: {
+    auth: {
+      v1beta1: new (await import("../cosmos/auth/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
     authz: {
       v1beta1: new (await import("../cosmos/authz/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
     bank: {
       v1beta1: new (await import("../cosmos/bank/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    consensus: {
+      v1: new (await import("../cosmos/consensus/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
     crisis: {
       v1beta1: new (await import("../cosmos/crisis/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)
@@ -46,6 +55,9 @@ export const createRPCMsgClient = async ({
     },
     group: {
       v1: new (await import("../cosmos/group/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    mint: {
+      v1beta1: new (await import("../cosmos/mint/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)
     },
     nft: {
       v1beta1: new (await import("../cosmos/nft/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)

@@ -1,6 +1,6 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../base/v1beta1/coin";
 import { Any, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
 import { BinaryWriter } from "../../../binary";
 /** VoteOption enumerates the valid vote options for a given governance proposal. */
@@ -58,7 +58,9 @@ export declare function proposalStatusFromJSON(object: any): ProposalStatus;
 export declare function proposalStatusToJSON(object: ProposalStatus): string;
 /** WeightedVoteOption defines a unit of vote for vote split. */
 export interface WeightedVoteOption {
+    /** option defines the valid vote options, it must not contain duplicate vote options. */
     option: VoteOption;
+    /** weight is the vote weight associated with the vote option. */
     weight: string;
 }
 export interface WeightedVoteOptionProtoMsg {
@@ -67,8 +69,10 @@ export interface WeightedVoteOptionProtoMsg {
 }
 /** WeightedVoteOption defines a unit of vote for vote split. */
 export interface WeightedVoteOptionAmino {
-    option: VoteOption;
-    weight: string;
+    /** option defines the valid vote options, it must not contain duplicate vote options. */
+    option?: VoteOption;
+    /** weight is the vote weight associated with the vote option. */
+    weight?: string;
 }
 export interface WeightedVoteOptionAminoMsg {
     type: "cosmos-sdk/v1/WeightedVoteOption";
@@ -84,8 +88,11 @@ export interface WeightedVoteOptionSDKType {
  * proposal.
  */
 export interface Deposit {
+    /** proposal_id defines the unique id of the proposal. */
     proposalId: bigint;
+    /** depositor defines the deposit addresses from the proposals. */
     depositor: string;
+    /** amount to be deposited by depositor. */
     amount: Coin[];
 }
 export interface DepositProtoMsg {
@@ -97,8 +104,11 @@ export interface DepositProtoMsg {
  * proposal.
  */
 export interface DepositAmino {
-    proposal_id: string;
-    depositor: string;
+    /** proposal_id defines the unique id of the proposal. */
+    proposal_id?: string;
+    /** depositor defines the deposit addresses from the proposals. */
+    depositor?: string;
+    /** amount to be deposited by depositor. */
     amount: CoinAmino[];
 }
 export interface DepositAminoMsg {
@@ -116,22 +126,48 @@ export interface DepositSDKType {
 }
 /** Proposal defines the core field members of a governance proposal. */
 export interface Proposal {
+    /** id defines the unique id of the proposal. */
     id: bigint;
+    /** messages are the arbitrary messages to be executed if the proposal passes. */
     messages: Any[];
+    /** status defines the proposal status. */
     status: ProposalStatus;
     /**
      * final_tally_result is the final tally result of the proposal. When
      * querying a proposal via gRPC, this field is not populated until the
      * proposal's voting period has ended.
      */
-    finalTallyResult: TallyResult;
-    submitTime: Timestamp;
-    depositEndTime: Timestamp;
+    finalTallyResult?: TallyResult;
+    /** submit_time is the time of proposal submission. */
+    submitTime?: Timestamp;
+    /** deposit_end_time is the end time for deposition. */
+    depositEndTime?: Timestamp;
+    /** total_deposit is the total deposit on the proposal. */
     totalDeposit: Coin[];
-    votingStartTime: Timestamp;
-    votingEndTime: Timestamp;
+    /** voting_start_time is the starting time to vote on a proposal. */
+    votingStartTime?: Timestamp;
+    /** voting_end_time is the end time of voting on a proposal. */
+    votingEndTime?: Timestamp;
     /** metadata is any arbitrary metadata attached to the proposal. */
     metadata: string;
+    /**
+     * title is the title of the proposal
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    title: string;
+    /**
+     * summary is a short summary of the proposal
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    summary: string;
+    /**
+     * Proposer is the address of the proposal sumbitter
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    proposer: string;
 }
 export interface ProposalProtoMsg {
     typeUrl: "/cosmos.gov.v1.Proposal";
@@ -139,22 +175,48 @@ export interface ProposalProtoMsg {
 }
 /** Proposal defines the core field members of a governance proposal. */
 export interface ProposalAmino {
-    id: string;
-    messages: AnyAmino[];
-    status: ProposalStatus;
+    /** id defines the unique id of the proposal. */
+    id?: string;
+    /** messages are the arbitrary messages to be executed if the proposal passes. */
+    messages?: AnyAmino[];
+    /** status defines the proposal status. */
+    status?: ProposalStatus;
     /**
      * final_tally_result is the final tally result of the proposal. When
      * querying a proposal via gRPC, this field is not populated until the
      * proposal's voting period has ended.
      */
     final_tally_result?: TallyResultAmino;
-    submit_time?: TimestampAmino;
-    deposit_end_time?: TimestampAmino;
+    /** submit_time is the time of proposal submission. */
+    submit_time?: string;
+    /** deposit_end_time is the end time for deposition. */
+    deposit_end_time?: string;
+    /** total_deposit is the total deposit on the proposal. */
     total_deposit: CoinAmino[];
-    voting_start_time?: TimestampAmino;
-    voting_end_time?: TimestampAmino;
+    /** voting_start_time is the starting time to vote on a proposal. */
+    voting_start_time?: string;
+    /** voting_end_time is the end time of voting on a proposal. */
+    voting_end_time?: string;
     /** metadata is any arbitrary metadata attached to the proposal. */
-    metadata: string;
+    metadata?: string;
+    /**
+     * title is the title of the proposal
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    title?: string;
+    /**
+     * summary is a short summary of the proposal
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    summary?: string;
+    /**
+     * Proposer is the address of the proposal sumbitter
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    proposer?: string;
 }
 export interface ProposalAminoMsg {
     type: "cosmos-sdk/v1/Proposal";
@@ -165,19 +227,26 @@ export interface ProposalSDKType {
     id: bigint;
     messages: AnySDKType[];
     status: ProposalStatus;
-    final_tally_result: TallyResultSDKType;
-    submit_time: TimestampSDKType;
-    deposit_end_time: TimestampSDKType;
+    final_tally_result?: TallyResultSDKType;
+    submit_time?: TimestampSDKType;
+    deposit_end_time?: TimestampSDKType;
     total_deposit: CoinSDKType[];
-    voting_start_time: TimestampSDKType;
-    voting_end_time: TimestampSDKType;
+    voting_start_time?: TimestampSDKType;
+    voting_end_time?: TimestampSDKType;
     metadata: string;
+    title: string;
+    summary: string;
+    proposer: string;
 }
 /** TallyResult defines a standard tally for a governance proposal. */
 export interface TallyResult {
+    /** yes_count is the number of yes votes on a proposal. */
     yesCount: string;
+    /** abstain_count is the number of abstain votes on a proposal. */
     abstainCount: string;
+    /** no_count is the number of no votes on a proposal. */
     noCount: string;
+    /** no_with_veto_count is the number of no with veto votes on a proposal. */
     noWithVetoCount: string;
 }
 export interface TallyResultProtoMsg {
@@ -186,10 +255,14 @@ export interface TallyResultProtoMsg {
 }
 /** TallyResult defines a standard tally for a governance proposal. */
 export interface TallyResultAmino {
-    yes_count: string;
-    abstain_count: string;
-    no_count: string;
-    no_with_veto_count: string;
+    /** yes_count is the number of yes votes on a proposal. */
+    yes_count?: string;
+    /** abstain_count is the number of abstain votes on a proposal. */
+    abstain_count?: string;
+    /** no_count is the number of no votes on a proposal. */
+    no_count?: string;
+    /** no_with_veto_count is the number of no with veto votes on a proposal. */
+    no_with_veto_count?: string;
 }
 export interface TallyResultAminoMsg {
     type: "cosmos-sdk/v1/TallyResult";
@@ -207,8 +280,11 @@ export interface TallyResultSDKType {
  * A Vote consists of a proposal ID, the voter, and the vote option.
  */
 export interface Vote {
+    /** proposal_id defines the unique id of the proposal. */
     proposalId: bigint;
+    /** voter is the voter address of the proposal. */
     voter: string;
+    /** options is the weighted vote options. */
     options: WeightedVoteOption[];
     /** metadata is any  arbitrary metadata to attached to the vote. */
     metadata: string;
@@ -222,11 +298,14 @@ export interface VoteProtoMsg {
  * A Vote consists of a proposal ID, the voter, and the vote option.
  */
 export interface VoteAmino {
-    proposal_id: string;
-    voter: string;
-    options: WeightedVoteOptionAmino[];
+    /** proposal_id defines the unique id of the proposal. */
+    proposal_id?: string;
+    /** voter is the voter address of the proposal. */
+    voter?: string;
+    /** options is the weighted vote options. */
+    options?: WeightedVoteOptionAmino[];
     /** metadata is any  arbitrary metadata to attached to the vote. */
-    metadata: string;
+    metadata?: string;
 }
 export interface VoteAminoMsg {
     type: "cosmos-sdk/v1/Vote";
@@ -248,9 +327,9 @@ export interface DepositParams {
     minDeposit: Coin[];
     /**
      * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
-     *  months.
+     * months.
      */
-    maxDepositPeriod: Duration;
+    maxDepositPeriod?: Duration;
 }
 export interface DepositParamsProtoMsg {
     typeUrl: "/cosmos.gov.v1.DepositParams";
@@ -259,10 +338,10 @@ export interface DepositParamsProtoMsg {
 /** DepositParams defines the params for deposits on governance proposals. */
 export interface DepositParamsAmino {
     /** Minimum deposit for a proposal to enter voting period. */
-    min_deposit: CoinAmino[];
+    min_deposit?: CoinAmino[];
     /**
      * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
-     *  months.
+     * months.
      */
     max_deposit_period?: DurationAmino;
 }
@@ -273,12 +352,12 @@ export interface DepositParamsAminoMsg {
 /** DepositParams defines the params for deposits on governance proposals. */
 export interface DepositParamsSDKType {
     min_deposit: CoinSDKType[];
-    max_deposit_period: DurationSDKType;
+    max_deposit_period?: DurationSDKType;
 }
 /** VotingParams defines the params for voting on governance proposals. */
 export interface VotingParams {
-    /** Length of the voting period. */
-    votingPeriod: Duration;
+    /** Duration of the voting period. */
+    votingPeriod?: Duration;
 }
 export interface VotingParamsProtoMsg {
     typeUrl: "/cosmos.gov.v1.VotingParams";
@@ -286,7 +365,7 @@ export interface VotingParamsProtoMsg {
 }
 /** VotingParams defines the params for voting on governance proposals. */
 export interface VotingParamsAmino {
-    /** Length of the voting period. */
+    /** Duration of the voting period. */
     voting_period?: DurationAmino;
 }
 export interface VotingParamsAminoMsg {
@@ -295,10 +374,67 @@ export interface VotingParamsAminoMsg {
 }
 /** VotingParams defines the params for voting on governance proposals. */
 export interface VotingParamsSDKType {
-    voting_period: DurationSDKType;
+    voting_period?: DurationSDKType;
 }
 /** TallyParams defines the params for tallying votes on governance proposals. */
 export interface TallyParams {
+    /**
+     * Minimum percentage of total stake needed to vote for a result to be
+     * considered valid.
+     */
+    quorum: string;
+    /** Minimum proportion of Yes votes for proposal to pass. Default value: 0.5. */
+    threshold: string;
+    /**
+     * Minimum value of Veto votes to Total votes ratio for proposal to be
+     * vetoed. Default value: 1/3.
+     */
+    vetoThreshold: string;
+}
+export interface TallyParamsProtoMsg {
+    typeUrl: "/cosmos.gov.v1.TallyParams";
+    value: Uint8Array;
+}
+/** TallyParams defines the params for tallying votes on governance proposals. */
+export interface TallyParamsAmino {
+    /**
+     * Minimum percentage of total stake needed to vote for a result to be
+     * considered valid.
+     */
+    quorum?: string;
+    /** Minimum proportion of Yes votes for proposal to pass. Default value: 0.5. */
+    threshold?: string;
+    /**
+     * Minimum value of Veto votes to Total votes ratio for proposal to be
+     * vetoed. Default value: 1/3.
+     */
+    veto_threshold?: string;
+}
+export interface TallyParamsAminoMsg {
+    type: "cosmos-sdk/v1/TallyParams";
+    value: TallyParamsAmino;
+}
+/** TallyParams defines the params for tallying votes on governance proposals. */
+export interface TallyParamsSDKType {
+    quorum: string;
+    threshold: string;
+    veto_threshold: string;
+}
+/**
+ * Params defines the parameters for the x/gov module.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface Params {
+    /** Minimum deposit for a proposal to enter voting period. */
+    minDeposit: Coin[];
+    /**
+     * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
+     * months.
+     */
+    maxDepositPeriod?: Duration;
+    /** Duration of the voting period. */
+    votingPeriod?: Duration;
     /**
      * Minimum percentage of total stake needed to vote for a result to be
      *  considered valid.
@@ -311,35 +447,75 @@ export interface TallyParams {
      *  vetoed. Default value: 1/3.
      */
     vetoThreshold: string;
+    /** The ratio representing the proportion of the deposit value that must be paid at proposal submission. */
+    minInitialDepositRatio: string;
+    /** burn deposits if a proposal does not meet quorum */
+    burnVoteQuorum: boolean;
+    /** burn deposits if the proposal does not enter voting period */
+    burnProposalDepositPrevote: boolean;
+    /** burn deposits if quorum with vote type no_veto is met */
+    burnVoteVeto: boolean;
 }
-export interface TallyParamsProtoMsg {
-    typeUrl: "/cosmos.gov.v1.TallyParams";
+export interface ParamsProtoMsg {
+    typeUrl: "/cosmos.gov.v1.Params";
     value: Uint8Array;
 }
-/** TallyParams defines the params for tallying votes on governance proposals. */
-export interface TallyParamsAmino {
+/**
+ * Params defines the parameters for the x/gov module.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface ParamsAmino {
+    /** Minimum deposit for a proposal to enter voting period. */
+    min_deposit: CoinAmino[];
+    /**
+     * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
+     * months.
+     */
+    max_deposit_period?: DurationAmino;
+    /** Duration of the voting period. */
+    voting_period?: DurationAmino;
     /**
      * Minimum percentage of total stake needed to vote for a result to be
      *  considered valid.
      */
-    quorum: string;
+    quorum?: string;
     /** Minimum proportion of Yes votes for proposal to pass. Default value: 0.5. */
-    threshold: string;
+    threshold?: string;
     /**
      * Minimum value of Veto votes to Total votes ratio for proposal to be
      *  vetoed. Default value: 1/3.
      */
-    veto_threshold: string;
+    veto_threshold?: string;
+    /** The ratio representing the proportion of the deposit value that must be paid at proposal submission. */
+    min_initial_deposit_ratio?: string;
+    /** burn deposits if a proposal does not meet quorum */
+    burn_vote_quorum?: boolean;
+    /** burn deposits if the proposal does not enter voting period */
+    burn_proposal_deposit_prevote?: boolean;
+    /** burn deposits if quorum with vote type no_veto is met */
+    burn_vote_veto?: boolean;
 }
-export interface TallyParamsAminoMsg {
-    type: "cosmos-sdk/v1/TallyParams";
-    value: TallyParamsAmino;
+export interface ParamsAminoMsg {
+    type: "cosmos-sdk/v1/Params";
+    value: ParamsAmino;
 }
-/** TallyParams defines the params for tallying votes on governance proposals. */
-export interface TallyParamsSDKType {
+/**
+ * Params defines the parameters for the x/gov module.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface ParamsSDKType {
+    min_deposit: CoinSDKType[];
+    max_deposit_period?: DurationSDKType;
+    voting_period?: DurationSDKType;
     quorum: string;
     threshold: string;
     veto_threshold: string;
+    min_initial_deposit_ratio: string;
+    burn_vote_quorum: boolean;
+    burn_proposal_deposit_prevote: boolean;
+    burn_vote_veto: boolean;
 }
 export declare const WeightedVoteOption: {
     typeUrl: string;
@@ -444,4 +620,17 @@ export declare const TallyParams: {
     fromProtoMsg(message: TallyParamsProtoMsg): TallyParams;
     toProto(message: TallyParams): Uint8Array;
     toProtoMsg(message: TallyParams): TallyParamsProtoMsg;
+};
+export declare const Params: {
+    typeUrl: string;
+    encode(message: Params, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): Params;
+    fromPartial(object: Partial<Params>): Params;
+    fromAmino(object: ParamsAmino): Params;
+    toAmino(message: Params): ParamsAmino;
+    fromAminoMsg(object: ParamsAminoMsg): Params;
+    toAminoMsg(message: Params): ParamsAminoMsg;
+    fromProtoMsg(message: ParamsProtoMsg): Params;
+    toProto(message: Params): Uint8Array;
+    toProtoMsg(message: Params): ParamsProtoMsg;
 };

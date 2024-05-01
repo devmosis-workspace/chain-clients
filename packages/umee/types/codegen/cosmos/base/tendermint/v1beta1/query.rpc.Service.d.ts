@@ -1,5 +1,4 @@
 import { Rpc } from "../../../../helpers";
-import { QueryClient } from "@cosmjs/stargate";
 import { GetNodeInfoRequest, GetNodeInfoResponse, GetSyncingRequest, GetSyncingResponse, GetLatestBlockRequest, GetLatestBlockResponse, GetBlockByHeightRequest, GetBlockByHeightResponse, GetLatestValidatorSetRequest, GetLatestValidatorSetResponse, GetValidatorSetByHeightRequest, GetValidatorSetByHeightResponse, ABCIQueryRequest, ABCIQueryResponse } from "./query";
 /** Service defines the gRPC querier service for tendermint queries. */
 export interface Service {
@@ -16,9 +15,9 @@ export interface Service {
     /** GetValidatorSetByHeight queries validator-set at a given height. */
     getValidatorSetByHeight(request: GetValidatorSetByHeightRequest): Promise<GetValidatorSetByHeightResponse>;
     /**
-     * ABCIQuery defines a query handler that supports ABCI queries directly to
-     * the application, bypassing Tendermint completely. The ABCI query must
-     * contain a valid and supported path, including app, custom, p2p, and store.
+     * ABCIQuery defines a query handler that supports ABCI queries directly to the
+     * application, bypassing Tendermint completely. The ABCI query must contain
+     * a valid and supported path, including app, custom, p2p, and store.
      *
      * Since: cosmos-sdk 0.46
      */

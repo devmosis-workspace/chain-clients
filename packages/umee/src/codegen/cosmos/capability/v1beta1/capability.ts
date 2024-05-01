@@ -16,7 +16,7 @@ export interface CapabilityProtoMsg {
  * provided to a Capability must be globally unique.
  */
 export interface CapabilityAmino {
-  index: string;
+  index?: string;
 }
 export interface CapabilityAminoMsg {
   type: "cosmos-sdk/Capability";
@@ -46,8 +46,8 @@ export interface OwnerProtoMsg {
  * capability and the module name.
  */
 export interface OwnerAmino {
-  module: string;
-  name: string;
+  module?: string;
+  name?: string;
 }
 export interface OwnerAminoMsg {
   type: "cosmos-sdk/Owner";
@@ -114,13 +114,15 @@ export const Capability = {
     return message;
   },
   fromAmino(object: CapabilityAmino): Capability {
-    return {
-      index: BigInt(object.index)
-    };
+    const message = createBaseCapability();
+    if (object.index !== undefined && object.index !== null) {
+      message.index = BigInt(object.index);
+    }
+    return message;
   },
   toAmino(message: Capability): CapabilityAmino {
     const obj: any = {};
-    obj.index = message.index ? message.index.toString() : undefined;
+    obj.index = message.index !== BigInt(0) ? message.index.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: CapabilityAminoMsg): Capability {
@@ -175,15 +177,19 @@ export const Owner = {
     return message;
   },
   fromAmino(object: OwnerAmino): Owner {
-    return {
-      module: object.module,
-      name: object.name
-    };
+    const message = createBaseOwner();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    return message;
   },
   toAmino(message: Owner): OwnerAmino {
     const obj: any = {};
-    obj.module = message.module;
-    obj.name = message.name;
+    obj.module = message.module === "" ? undefined : message.module;
+    obj.name = message.name === "" ? undefined : message.name;
     return obj;
   },
   fromAminoMsg(object: OwnerAminoMsg): Owner {
@@ -232,16 +238,16 @@ export const CapabilityOwners = {
     return message;
   },
   fromAmino(object: CapabilityOwnersAmino): CapabilityOwners {
-    return {
-      owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => Owner.fromAmino(e)) : []
-    };
+    const message = createBaseCapabilityOwners();
+    message.owners = object.owners?.map(e => Owner.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: CapabilityOwners): CapabilityOwnersAmino {
     const obj: any = {};
     if (message.owners) {
       obj.owners = message.owners.map(e => e ? Owner.toAmino(e) : undefined);
     } else {
-      obj.owners = [];
+      obj.owners = message.owners;
     }
     return obj;
   },

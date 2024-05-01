@@ -1,6 +1,87 @@
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { DecCoinSymbol, DecCoinSymbolAmino, DecCoinSymbolSDKType } from "./uibc";
 import { Params, ParamsAmino, ParamsSDKType } from "./quota";
-import { DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
+/** QueryAllInflows defines request type for query the inflow quota of registered denoms. */
+export interface QueryQuotaExpires {
+}
+export interface QueryQuotaExpiresProtoMsg {
+    typeUrl: "/umee.uibc.v1.QueryQuotaExpires";
+    value: Uint8Array;
+}
+/** QueryAllInflows defines request type for query the inflow quota of registered denoms. */
+export interface QueryQuotaExpiresAmino {
+}
+export interface QueryQuotaExpiresAminoMsg {
+    type: "/umee.uibc.v1.QueryQuotaExpires";
+    value: QueryQuotaExpiresAmino;
+}
+/** QueryAllInflows defines request type for query the inflow quota of registered denoms. */
+export interface QueryQuotaExpiresSDKType {
+}
+/** QueryAllInflowsResponse defines response type of Query/AllInflows */
+export interface QueryQuotaExpiresResponse {
+    endTime: Timestamp;
+}
+export interface QueryQuotaExpiresResponseProtoMsg {
+    typeUrl: "/umee.uibc.v1.QueryQuotaExpiresResponse";
+    value: Uint8Array;
+}
+/** QueryAllInflowsResponse defines response type of Query/AllInflows */
+export interface QueryQuotaExpiresResponseAmino {
+    end_time?: string;
+}
+export interface QueryQuotaExpiresResponseAminoMsg {
+    type: "/umee.uibc.v1.QueryQuotaExpiresResponse";
+    value: QueryQuotaExpiresResponseAmino;
+}
+/** QueryAllInflowsResponse defines response type of Query/AllInflows */
+export interface QueryQuotaExpiresResponseSDKType {
+    end_time: TimestampSDKType;
+}
+/** QueryInflows defines request type for query the inflow quota of denoms */
+export interface QueryInflows {
+    denom: string;
+}
+export interface QueryInflowsProtoMsg {
+    typeUrl: "/umee.uibc.v1.QueryInflows";
+    value: Uint8Array;
+}
+/** QueryInflows defines request type for query the inflow quota of denoms */
+export interface QueryInflowsAmino {
+    denom?: string;
+}
+export interface QueryInflowsAminoMsg {
+    type: "/umee.uibc.v1.QueryInflows";
+    value: QueryInflowsAmino;
+}
+/** QueryInflows defines request type for query the inflow quota of denoms */
+export interface QueryInflowsSDKType {
+    denom: string;
+}
+/** QueryInflowsResponse defines response type of Query/Inflows */
+export interface QueryInflowsResponse {
+    sum: string;
+    inflows: DecCoinSymbol[];
+}
+export interface QueryInflowsResponseProtoMsg {
+    typeUrl: "/umee.uibc.v1.QueryInflowsResponse";
+    value: Uint8Array;
+}
+/** QueryInflowsResponse defines response type of Query/Inflows */
+export interface QueryInflowsResponseAmino {
+    sum?: string;
+    inflows?: DecCoinSymbolAmino[];
+}
+export interface QueryInflowsResponseAminoMsg {
+    type: "/umee.uibc.v1.QueryInflowsResponse";
+    value: QueryInflowsResponseAmino;
+}
+/** QueryInflowsResponse defines response type of Query/Inflows */
+export interface QueryInflowsResponseSDKType {
+    sum: string;
+    inflows: DecCoinSymbolSDKType[];
+}
 /**
  * QueryParams defines the request structure for the Params gRPC service
  * handler.
@@ -66,7 +147,7 @@ export interface QueryOutflowsProtoMsg {
 }
 /** QueryOutflow defines request type for query the quota of denoms */
 export interface QueryOutflowsAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryOutflowsAminoMsg {
     type: "/umee.uibc.v1.QueryOutflows";
@@ -86,7 +167,7 @@ export interface QueryOutflowsResponseProtoMsg {
 }
 /** QueryOutflowResponse defines response type of Query/Outflow */
 export interface QueryOutflowsResponseAmino {
-    amount: string;
+    amount?: string;
 }
 export interface QueryOutflowsResponseAminoMsg {
     type: "/umee.uibc.v1.QueryOutflowsResponse";
@@ -115,7 +196,7 @@ export interface QueryAllOutflowsSDKType {
 }
 /** QueryOutflowResponse defines response type of Query/Outflow */
 export interface QueryAllOutflowsResponse {
-    outflows: DecCoin[];
+    outflows: DecCoinSymbol[];
 }
 export interface QueryAllOutflowsResponseProtoMsg {
     typeUrl: "/umee.uibc.v1.QueryAllOutflowsResponse";
@@ -123,7 +204,7 @@ export interface QueryAllOutflowsResponseProtoMsg {
 }
 /** QueryOutflowResponse defines response type of Query/Outflow */
 export interface QueryAllOutflowsResponseAmino {
-    outflows: DecCoinAmino[];
+    outflows?: DecCoinSymbolAmino[];
 }
 export interface QueryAllOutflowsResponseAminoMsg {
     type: "/umee.uibc.v1.QueryAllOutflowsResponse";
@@ -131,8 +212,56 @@ export interface QueryAllOutflowsResponseAminoMsg {
 }
 /** QueryOutflowResponse defines response type of Query/Outflow */
 export interface QueryAllOutflowsResponseSDKType {
-    outflows: DecCoinSDKType[];
+    outflows: DecCoinSymbolSDKType[];
 }
+export declare const QueryQuotaExpires: {
+    typeUrl: string;
+    encode(_: QueryQuotaExpires, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): QueryQuotaExpires;
+    fromPartial(_: Partial<QueryQuotaExpires>): QueryQuotaExpires;
+    fromAmino(_: QueryQuotaExpiresAmino): QueryQuotaExpires;
+    toAmino(_: QueryQuotaExpires): QueryQuotaExpiresAmino;
+    fromAminoMsg(object: QueryQuotaExpiresAminoMsg): QueryQuotaExpires;
+    fromProtoMsg(message: QueryQuotaExpiresProtoMsg): QueryQuotaExpires;
+    toProto(message: QueryQuotaExpires): Uint8Array;
+    toProtoMsg(message: QueryQuotaExpires): QueryQuotaExpiresProtoMsg;
+};
+export declare const QueryQuotaExpiresResponse: {
+    typeUrl: string;
+    encode(message: QueryQuotaExpiresResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryQuotaExpiresResponse;
+    fromPartial(object: Partial<QueryQuotaExpiresResponse>): QueryQuotaExpiresResponse;
+    fromAmino(object: QueryQuotaExpiresResponseAmino): QueryQuotaExpiresResponse;
+    toAmino(message: QueryQuotaExpiresResponse): QueryQuotaExpiresResponseAmino;
+    fromAminoMsg(object: QueryQuotaExpiresResponseAminoMsg): QueryQuotaExpiresResponse;
+    fromProtoMsg(message: QueryQuotaExpiresResponseProtoMsg): QueryQuotaExpiresResponse;
+    toProto(message: QueryQuotaExpiresResponse): Uint8Array;
+    toProtoMsg(message: QueryQuotaExpiresResponse): QueryQuotaExpiresResponseProtoMsg;
+};
+export declare const QueryInflows: {
+    typeUrl: string;
+    encode(message: QueryInflows, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryInflows;
+    fromPartial(object: Partial<QueryInflows>): QueryInflows;
+    fromAmino(object: QueryInflowsAmino): QueryInflows;
+    toAmino(message: QueryInflows): QueryInflowsAmino;
+    fromAminoMsg(object: QueryInflowsAminoMsg): QueryInflows;
+    fromProtoMsg(message: QueryInflowsProtoMsg): QueryInflows;
+    toProto(message: QueryInflows): Uint8Array;
+    toProtoMsg(message: QueryInflows): QueryInflowsProtoMsg;
+};
+export declare const QueryInflowsResponse: {
+    typeUrl: string;
+    encode(message: QueryInflowsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryInflowsResponse;
+    fromPartial(object: Partial<QueryInflowsResponse>): QueryInflowsResponse;
+    fromAmino(object: QueryInflowsResponseAmino): QueryInflowsResponse;
+    toAmino(message: QueryInflowsResponse): QueryInflowsResponseAmino;
+    fromAminoMsg(object: QueryInflowsResponseAminoMsg): QueryInflowsResponse;
+    fromProtoMsg(message: QueryInflowsResponseProtoMsg): QueryInflowsResponse;
+    toProto(message: QueryInflowsResponse): Uint8Array;
+    toProtoMsg(message: QueryInflowsResponse): QueryInflowsResponseProtoMsg;
+};
 export declare const QueryParams: {
     typeUrl: string;
     encode(_: QueryParams, writer?: BinaryWriter): BinaryWriter;

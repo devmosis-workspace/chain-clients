@@ -1,4 +1,4 @@
-import { Params, ParamsAmino, ParamsSDKType, Token, TokenAmino, TokenSDKType } from "./leverage";
+import { Params, ParamsAmino, ParamsSDKType, Token, TokenAmino, TokenSDKType, SpecialAssetPair, SpecialAssetPairAmino, SpecialAssetPairSDKType } from "./leverage";
 import { Coin, CoinAmino, CoinSDKType, DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BadDebt, BadDebtAmino, BadDebtSDKType } from "./genesis";
 import { BinaryWriter } from "../../../binary";
@@ -72,7 +72,7 @@ export interface QueryRegisteredTokensProtoMsg {
  * gRPC service handler.
  */
 export interface QueryRegisteredTokensAmino {
-  base_denom: string;
+  base_denom?: string;
 }
 export interface QueryRegisteredTokensAminoMsg {
   type: "/umee.leverage.v1.QueryRegisteredTokens";
@@ -101,7 +101,7 @@ export interface QueryRegisteredTokensResponseProtoMsg {
  * RegisteredTokens gRPC service handler.
  */
 export interface QueryRegisteredTokensResponseAmino {
-  registry: TokenAmino[];
+  registry?: TokenAmino[];
 }
 export interface QueryRegisteredTokensResponseAminoMsg {
   type: "/umee.leverage.v1.QueryRegisteredTokensResponse";
@@ -114,6 +114,145 @@ export interface QueryRegisteredTokensResponseAminoMsg {
 export interface QueryRegisteredTokensResponseSDKType {
   registry: TokenSDKType[];
 }
+/**
+ * QueryRegisteredTokensWithMarkets defines the request structure for the RegisteredTokenMarkets
+ * gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarkets {}
+export interface QueryRegisteredTokensWithMarketsProtoMsg {
+  typeUrl: "/umee.leverage.v1.QueryRegisteredTokensWithMarkets";
+  value: Uint8Array;
+}
+/**
+ * QueryRegisteredTokensWithMarkets defines the request structure for the RegisteredTokenMarkets
+ * gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarketsAmino {}
+export interface QueryRegisteredTokensWithMarketsAminoMsg {
+  type: "/umee.leverage.v1.QueryRegisteredTokensWithMarkets";
+  value: QueryRegisteredTokensWithMarketsAmino;
+}
+/**
+ * QueryRegisteredTokensWithMarkets defines the request structure for the RegisteredTokenMarkets
+ * gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarketsSDKType {}
+/**
+ * QueryRegisteredTokensWithMarketsResponse defines the response structure for the
+ * RegisteredTokensWithMarkets gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarketsResponse {
+  markets: TokenMarket[];
+}
+export interface QueryRegisteredTokensWithMarketsResponseProtoMsg {
+  typeUrl: "/umee.leverage.v1.QueryRegisteredTokensWithMarketsResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryRegisteredTokensWithMarketsResponse defines the response structure for the
+ * RegisteredTokensWithMarkets gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarketsResponseAmino {
+  markets?: TokenMarketAmino[];
+}
+export interface QueryRegisteredTokensWithMarketsResponseAminoMsg {
+  type: "/umee.leverage.v1.QueryRegisteredTokensWithMarketsResponse";
+  value: QueryRegisteredTokensWithMarketsResponseAmino;
+}
+/**
+ * QueryRegisteredTokensWithMarketsResponse defines the response structure for the
+ * RegisteredTokensWithMarkets gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarketsResponseSDKType {
+  markets: TokenMarketSDKType[];
+}
+/** TokenMarket is a token and its market summary. */
+export interface TokenMarket {
+  /** Token is a registered token and its parameters. */
+  token: Token;
+  /** Market is the market summary for the token. */
+  market: QueryMarketSummaryResponse;
+}
+export interface TokenMarketProtoMsg {
+  typeUrl: "/umee.leverage.v1.TokenMarket";
+  value: Uint8Array;
+}
+/** TokenMarket is a token and its market summary. */
+export interface TokenMarketAmino {
+  /** Token is a registered token and its parameters. */
+  token?: TokenAmino;
+  /** Market is the market summary for the token. */
+  market?: QueryMarketSummaryResponseAmino;
+}
+export interface TokenMarketAminoMsg {
+  type: "/umee.leverage.v1.TokenMarket";
+  value: TokenMarketAmino;
+}
+/** TokenMarket is a token and its market summary. */
+export interface TokenMarketSDKType {
+  token: TokenSDKType;
+  market: QueryMarketSummaryResponseSDKType;
+}
+/**
+ * QuerySpecialAssets defines the request structure for the SpecialAssets
+ * gRPC service handler.
+ */
+export interface QuerySpecialAssets {
+  /** denom can be used to query only pairs affecting a specific asset */
+  denom: string;
+}
+export interface QuerySpecialAssetsProtoMsg {
+  typeUrl: "/umee.leverage.v1.QuerySpecialAssets";
+  value: Uint8Array;
+}
+/**
+ * QuerySpecialAssets defines the request structure for the SpecialAssets
+ * gRPC service handler.
+ */
+export interface QuerySpecialAssetsAmino {
+  /** denom can be used to query only pairs affecting a specific asset */
+  denom?: string;
+}
+export interface QuerySpecialAssetsAminoMsg {
+  type: "/umee.leverage.v1.QuerySpecialAssets";
+  value: QuerySpecialAssetsAmino;
+}
+/**
+ * QuerySpecialAssets defines the request structure for the SpecialAssets
+ * gRPC service handler.
+ */
+export interface QuerySpecialAssetsSDKType {
+  denom: string;
+}
+/**
+ * QuerySpecialAssetsResponse defines the response structure for the
+ * SpecialAssets gRPC service handler.
+ */
+export interface QuerySpecialAssetsResponse {
+  pairs: SpecialAssetPair[];
+}
+export interface QuerySpecialAssetsResponseProtoMsg {
+  typeUrl: "/umee.leverage.v1.QuerySpecialAssetsResponse";
+  value: Uint8Array;
+}
+/**
+ * QuerySpecialAssetsResponse defines the response structure for the
+ * SpecialAssets gRPC service handler.
+ */
+export interface QuerySpecialAssetsResponseAmino {
+  pairs?: SpecialAssetPairAmino[];
+}
+export interface QuerySpecialAssetsResponseAminoMsg {
+  type: "/umee.leverage.v1.QuerySpecialAssetsResponse";
+  value: QuerySpecialAssetsResponseAmino;
+}
+/**
+ * QuerySpecialAssetsResponse defines the response structure for the
+ * SpecialAssets gRPC service handler.
+ */
+export interface QuerySpecialAssetsResponseSDKType {
+  pairs: SpecialAssetPairSDKType[];
+}
 /** QueryMarketSummary defines the request structure for the MarketSummary gRPC service handler. */
 export interface QueryMarketSummary {
   denom: string;
@@ -124,7 +263,7 @@ export interface QueryMarketSummaryProtoMsg {
 }
 /** QueryMarketSummary defines the request structure for the MarketSummary gRPC service handler. */
 export interface QueryMarketSummaryAmino {
-  denom: string;
+  denom?: string;
 }
 export interface QueryMarketSummaryAminoMsg {
   type: "/umee.leverage.v1.QueryMarketSummary";
@@ -183,11 +322,11 @@ export interface QueryMarketSummaryResponseProtoMsg {
 /** QueryMarketSummaryResponse defines the response structure for the MarketSummary gRPC service handler. */
 export interface QueryMarketSummaryResponseAmino {
   /** Symbol Denom is the human-readable representation of a token denom, for example "UMEE" or "ATOM". */
-  symbol_denom: string;
+  symbol_denom?: string;
   /** Exponent is the power of ten required to get from base denom to symbol denom. For example, an exponent of 6 means 10^6 uumee = 1 UMEE. */
-  exponent: number;
+  exponent?: number;
   /** Oracle Price is the current USD value of a token. Oracle price is nil when the oracle is down. */
-  oracle_price: string;
+  oracle_price?: string;
   /** uToken Exchange Rate is the amount of base tokens received when withdrawing 1 uToken. For example, a uToken exchange rate of 1.5 means a supplier receives 3 uumee for every 2 u/uumee they wish to withdraw. The same applies in reverse: supplying 3 uumee would award 2 u/uumee at that time. */
   uToken_exchange_rate: string;
   /** Supply APY is the current interest rate suppliers are receiving for their deposits. For example, 0.11 would mean 11% APY. Supply APY is always less than borrow APY. */
@@ -195,32 +334,32 @@ export interface QueryMarketSummaryResponseAmino {
   /** Borrow APY is the current interest rate borrowers are being charged on their loans. For example, 0.2 would mean 20% APY. */
   borrow_APY: string;
   /** Supplied is the total amount of tokens supplied to the the system by all suppliers, including any interest earned. This includes that tokens which have been borrowed out or enabled as collateral, but excludes reserves. Supplied is denominated in base tokens, so exponent must be applied to convert to symbol denom. */
-  supplied: string;
+  supplied?: string;
   /** Reserved is the total amount of tokens held in reserve by the module for emergencies. Reserves are always excluded from total supply, borrow, collateral, and liqduidity queries. Reserves are denominated in base tokens, so exponent must be applied to convert to symbol denom. */
-  reserved: string;
+  reserved?: string;
   /** Collateral is the total amount of uTokens collateralized by all borrowers. Collateral is denominated in uTokenso, so both uToken exchange rate and exponent must also be applied to convert to symbol denom. For example, if collateral is 4000000 u/uumee and uToken exchange rate is 1.2, then 5 UMEE have been collateralized. */
-  collateral: string;
+  collateral?: string;
   /** Borrowed is the total amount of debt in this token held across all borrowers. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. */
-  borrowed: string;
+  borrowed?: string;
   /** Liquidity is the amount of a token that has been supplied but not yet borrowed or reserved. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. */
-  liquidity: string;
+  liquidity?: string;
   /** Maximum Borrow is the amount of a token that is available for borrowing, including that which has already been borrowed out. This amount is less than total supply due to safety limits. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. For example, if borrowed is 3000000 uumee and maximum borrow is 4000000 uumee, then 1 UMEE is currently available for borrowing. */
-  maximum_borrow: string;
+  maximum_borrow?: string;
   /** Maximum Collateral is the amount of a token that can be collateralized, including that which is already collateral. This amount is less than total supply due to safety limits. It is denominated in uTokens, so both uToken exchange rate and exponent must be applied to convert to symbol denom. For example, if collateral is 4000000 u/uumee, uToken exchange rate is 1.2, and maximum borrow is 7000000 uumee, then a maximum of 2 additional UMEE is permitted to be collateralized. */
-  maximum_collateral: string;
+  maximum_collateral?: string;
   /** Minimum Liquidity is the minimum amount of liquidity in the module required by safety limits, based on the current collateral. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. For example, if liquidity is 9000000 uumee and minimum liquidity is 8000000 uumee, then a maximum of 1 additional UMEE is currently available for borrowing or withdrawal. */
-  minimum_liquidity: string;
+  minimum_liquidity?: string;
   /** uToken Supply is the total amount of a base token's associated uToken in circulation. */
   uToken_supply: string;
   /** Available Borrow is the maximum additional amount of base tokens than can be borrowed based on current liquidity and system safety limits. It can also be calculated by MIN(maximum_borrow - borrowed, liquidity - minimum_liquidity). It is denominated in base tokens, so exponent must be applied to convert to symbol denom. A negative availability means safety limits have been exceeded and borrowing is temporarily unavailable. */
-  available_borrow: string;
+  available_borrow?: string;
   /** Available Withdraw is the maximum amount of uTokens than can currently be withdrawn based on liquidity and system safety limits. It can also be calculated by (liquidity - minimum_liquidity). It is denominated in uTokens, so both uToken exchange rate and exponent must be applied to convert to symbol denom. A negative availability means safety limits have been exceeded and withdrawal is temporarily unavailable. */
-  available_withdraw: string;
+  available_withdraw?: string;
   /** Available Collateralize is the maximum additional amount of uTokens than can be collateralized based on current liquidity and system safety limits. It can also be calculated by (maximum_collateral, - collateral). It is denominated in uTokens, so both uToken exchange rate and exponent must be applied to convert to symbol denom. A negative availability means safety limits have been exceeded and additional collateral cannot be created until more liquidity is present. */
-  available_collateralize: string;
+  available_collateralize?: string;
   /** Oracle Historic Price is the historic USD value of a token. Historic price is defined as the median of the last N historic median prices from the oracle module, with N being this token's HistoricMedians in the leverage registry. Current price is used if required medians is zero. Price is nil when the oracle is down or insufficient historic medians are available. */
-  oracle_historic_price: string;
-  errors: string;
+  oracle_historic_price?: string;
+  errors?: string;
 }
 export interface QueryMarketSummaryResponseAminoMsg {
   type: "/umee.leverage.v1.QueryMarketSummaryResponse";
@@ -259,7 +398,7 @@ export interface QueryAccountBalancesProtoMsg {
 }
 /** QueryAccountBalances defines the request structure for the AccountBalances gRPC service handler. */
 export interface QueryAccountBalancesAmino {
-  address: string;
+  address?: string;
 }
 export interface QueryAccountBalancesAminoMsg {
   type: "/umee.leverage.v1.QueryAccountBalances";
@@ -285,11 +424,11 @@ export interface QueryAccountBalancesResponseProtoMsg {
 /** QueryAccountBalancesResponse defines the response structure for the AccountBalances gRPC service handler. */
 export interface QueryAccountBalancesResponseAmino {
   /** Supplied contains all tokens the account has supplied, including interest earned. It is denominated in base tokens, so exponent from each coin's registered_tokens entry must be applied to convert to symbol denom. */
-  supplied: CoinAmino[];
+  supplied?: CoinAmino[];
   /** Collateral contains all uTokens the account has collateralized. It is denominated in uTokens, so both exponent and uToken exchange rate from each coin's market_summary must be applied to convert to base token symbol denom. */
-  collateral: CoinAmino[];
+  collateral?: CoinAmino[];
   /** Borrowed contains all tokens the account has borrowed, including interest owed. It is denominated in base tokens, so exponent from each coin's registered_tokens entry must be applied to convert to symbol denom. */
-  borrowed: CoinAmino[];
+  borrowed?: CoinAmino[];
 }
 export interface QueryAccountBalancesResponseAminoMsg {
   type: "/umee.leverage.v1.QueryAccountBalancesResponse";
@@ -311,7 +450,7 @@ export interface QueryAccountSummaryProtoMsg {
 }
 /** QueryAccountSummary defines the request structure for the AccountSummary gRPC service handler. */
 export interface QueryAccountSummaryAmino {
-  address: string;
+  address?: string;
 }
 export interface QueryAccountSummaryAminoMsg {
   type: "/umee.leverage.v1.QueryAccountSummary";
@@ -325,19 +464,21 @@ export interface QueryAccountSummarySDKType {
 export interface QueryAccountSummaryResponse {
   /**
    * Supplied Value is the sum of the USD value of all tokens the account has supplied, including interest earned.
+   * It uses the lower of spot or historic price for each token.
    * Computation skips assets which are missing oracle prices, potentially resulting in a lower supplied
    * value than if prices were all available.
    */
   suppliedValue: string;
   /**
    * Collateral Value is the sum of the USD value of all uTokens the account has collateralized.
+   * It uses the lower of spot or historic price for each token.
    * Computation skips collateral which is missing an oracle price, potentially resulting in a lower collateral
    * value than if prices were all available.
    */
   collateralValue: string;
   /**
    * Borrowed Value is the sum of the USD value of all tokens the account has borrowed, including interest owed.
-   * It always uses spot prices.
+   * It uses the higher of spot or historic price for each token.
    * Computation skips borrows which are missing oracle prices, potentially resulting in a lower borrowed
    * value than if prices were all available.
    */
@@ -346,14 +487,23 @@ export interface QueryAccountSummaryResponse {
    * Borrow Limit is the maximum Borrowed Value the account is allowed to reach through direct borrowing.
    * The lower of spot or historic price for each collateral token is used when calculating borrow limits.
    * Computation skips collateral which is missing an oracle price, potentially resulting in a lower borrow
-   * limit than if prices were all available.
+   * limit than if prices were all available. Will be null if an oracle price required for computation is
+   * missing.
    */
-  borrowLimit: string;
+  borrowLimit?: string;
   /**
    * Liquidation Threshold is the Borrowed Value at which the account becomes eligible for liquidation.
-   * Will be null if an oracle price required for computation is missing.
+   * Computation skips borrows which are missing an oracle price, potentially resulting in a lower borrow
+   * limit than if prices were all available. Will be null if an oracle price required for computation is
+   * missing.
    */
   liquidationThreshold?: string;
+  /** Spot Supplied Value is supplied value but always uses the most recent available spot prices. */
+  spotSuppliedValue: string;
+  /** Spot Collateral Value is collateral value but always uses the most recent available spot prices. */
+  spotCollateralValue: string;
+  /** Spot Borrowed Value is borrowed value but always uses the most recent available spot prices. */
+  spotBorrowedValue: string;
 }
 export interface QueryAccountSummaryResponseProtoMsg {
   typeUrl: "/umee.leverage.v1.QueryAccountSummaryResponse";
@@ -363,35 +513,46 @@ export interface QueryAccountSummaryResponseProtoMsg {
 export interface QueryAccountSummaryResponseAmino {
   /**
    * Supplied Value is the sum of the USD value of all tokens the account has supplied, including interest earned.
+   * It uses the lower of spot or historic price for each token.
    * Computation skips assets which are missing oracle prices, potentially resulting in a lower supplied
    * value than if prices were all available.
    */
-  supplied_value: string;
+  supplied_value?: string;
   /**
    * Collateral Value is the sum of the USD value of all uTokens the account has collateralized.
+   * It uses the lower of spot or historic price for each token.
    * Computation skips collateral which is missing an oracle price, potentially resulting in a lower collateral
    * value than if prices were all available.
    */
-  collateral_value: string;
+  collateral_value?: string;
   /**
    * Borrowed Value is the sum of the USD value of all tokens the account has borrowed, including interest owed.
-   * It always uses spot prices.
+   * It uses the higher of spot or historic price for each token.
    * Computation skips borrows which are missing oracle prices, potentially resulting in a lower borrowed
    * value than if prices were all available.
    */
-  borrowed_value: string;
+  borrowed_value?: string;
   /**
    * Borrow Limit is the maximum Borrowed Value the account is allowed to reach through direct borrowing.
    * The lower of spot or historic price for each collateral token is used when calculating borrow limits.
    * Computation skips collateral which is missing an oracle price, potentially resulting in a lower borrow
-   * limit than if prices were all available.
+   * limit than if prices were all available. Will be null if an oracle price required for computation is
+   * missing.
    */
-  borrow_limit: string;
+  borrow_limit?: string;
   /**
    * Liquidation Threshold is the Borrowed Value at which the account becomes eligible for liquidation.
-   * Will be null if an oracle price required for computation is missing.
+   * Computation skips borrows which are missing an oracle price, potentially resulting in a lower borrow
+   * limit than if prices were all available. Will be null if an oracle price required for computation is
+   * missing.
    */
-  liquidation_threshold: string;
+  liquidation_threshold?: string;
+  /** Spot Supplied Value is supplied value but always uses the most recent available spot prices. */
+  spot_supplied_value?: string;
+  /** Spot Collateral Value is collateral value but always uses the most recent available spot prices. */
+  spot_collateral_value?: string;
+  /** Spot Borrowed Value is borrowed value but always uses the most recent available spot prices. */
+  spot_borrowed_value?: string;
 }
 export interface QueryAccountSummaryResponseAminoMsg {
   type: "/umee.leverage.v1.QueryAccountSummaryResponse";
@@ -402,8 +563,11 @@ export interface QueryAccountSummaryResponseSDKType {
   supplied_value: string;
   collateral_value: string;
   borrowed_value: string;
-  borrow_limit: string;
+  borrow_limit?: string;
   liquidation_threshold?: string;
+  spot_supplied_value: string;
+  spot_collateral_value: string;
+  spot_borrowed_value: string;
 }
 /** QueryLiquidationTargets defines the request structure for the LiquidationTargets gRPC service handler. */
 export interface QueryLiquidationTargets {}
@@ -431,7 +595,7 @@ export interface QueryLiquidationTargetsResponseProtoMsg {
 /** QueryLiquidationTargetsResponse defines the response structure for the LiquidationTargets gRPC service handler. */
 export interface QueryLiquidationTargetsResponseAmino {
   /** Targets are the addresses of borrowers eligible for liquidation. */
-  targets: string[];
+  targets?: string[];
 }
 export interface QueryLiquidationTargetsResponseAminoMsg {
   type: "/umee.leverage.v1.QueryLiquidationTargetsResponse";
@@ -476,7 +640,7 @@ export interface QueryBadDebtsResponseProtoMsg {
 /** QueryBadDebtsResponse defines the response structure for the BedDebts gRPC service handler. */
 export interface QueryBadDebtsResponseAmino {
   /** Targets are borrow positions currently marked for bad debt repayment. Each contains an Address and a Denom. */
-  targets: BadDebtAmino[];
+  targets?: BadDebtAmino[];
 }
 export interface QueryBadDebtsResponseAminoMsg {
   type: "/umee.leverage.v1.QueryBadDebtsResponse";
@@ -501,12 +665,12 @@ export interface QueryMaxWithdrawProtoMsg {
 }
 /** QueryMaxWithdraw defines the request structure for the MaxWithdraw gRPC service handler. */
 export interface QueryMaxWithdrawAmino {
-  address: string;
+  address?: string;
   /**
    * denom is the base token denom associated with the uToken to withdraw.
    * empty denom will query all registered tokens.
    */
-  denom: string;
+  denom?: string;
 }
 export interface QueryMaxWithdrawAminoMsg {
   type: "/umee.leverage.v1.QueryMaxWithdraw";
@@ -531,9 +695,9 @@ export interface QueryMaxWithdrawResponseProtoMsg {
 /** QueryMaxWithdrawResponse defines the response structure for the MaxWithdraw gRPC service handler. */
 export interface QueryMaxWithdrawResponseAmino {
   /** uTokens is the maximum amount of uTokens that can be withdrawn */
-  uTokens: CoinAmino[];
+  uTokens?: CoinAmino[];
   /** Tokens is the equivalent of max uTokens converted to base tokens */
-  tokens: CoinAmino[];
+  tokens?: CoinAmino[];
 }
 export interface QueryMaxWithdrawResponseAminoMsg {
   type: "/umee.leverage.v1.QueryMaxWithdrawResponse";
@@ -559,12 +723,12 @@ export interface QueryMaxBorrowProtoMsg {
 }
 /** QueryMaxBorrow defines the request structure for the MaxBorrow gRPC service handler. */
 export interface QueryMaxBorrowAmino {
-  address: string;
+  address?: string;
   /**
    * denom is the base token denom to borrow.
    * empty denom will query all registered tokens.
    */
-  denom: string;
+  denom?: string;
 }
 export interface QueryMaxBorrowAminoMsg {
   type: "/umee.leverage.v1.QueryMaxBorrow";
@@ -587,7 +751,7 @@ export interface QueryMaxBorrowResponseProtoMsg {
 /** QueryMaxBorrowResponse defines the response structure for the MaxBorrow gRPC service handler. */
 export interface QueryMaxBorrowResponseAmino {
   /** Tokens is the maximum amount of tokens that can be borrowed */
-  tokens: CoinAmino[];
+  tokens?: CoinAmino[];
 }
 export interface QueryMaxBorrowResponseAminoMsg {
   type: "/umee.leverage.v1.QueryMaxBorrowResponse";
@@ -620,18 +784,18 @@ export interface QueryInspectProtoMsg {
 /** QueryInspect defines the request structure for the Inspect gRPC service handler. */
 export interface QueryInspectAmino {
   /** Symbol selects a symbol denom to sort accounts by borrowed value. Use "all" or empty string to show all. */
-  symbol: string;
+  symbol?: string;
   /** Borrowed is the minimum USD value an account must have borrowed to show. Use 0 to show all. */
-  borrowed: number;
+  borrowed?: number;
   /** Collateral is the minimum USD value of collateral an account must have to show. Use 0 to show all. */
-  collateral: number;
+  collateral?: number;
   /**
    * Danger is the minimum progress toward liquidation an account must have to show. Use 0 to show all.
    * Measured as the ratio (borrowed value / liquidation threshold), where > 1 is liquidation-eligible.
    */
-  danger: number;
+  danger?: number;
   /** LTV is the minimum ratio (borrowed value / collateral value) an account must have to show. Use 0 to show all. */
-  ltv: number;
+  ltv?: number;
 }
 export interface QueryInspectAminoMsg {
   type: "/umee.leverage.v1.QueryInspect";
@@ -645,9 +809,31 @@ export interface QueryInspectSDKType {
   danger: number;
   ltv: number;
 }
+/** QueryInspectAccount defines the request structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccount {
+  address: string;
+}
+export interface QueryInspectAccountProtoMsg {
+  typeUrl: "/umee.leverage.v1.QueryInspectAccount";
+  value: Uint8Array;
+}
+/** QueryInspectAccount defines the request structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccountAmino {
+  address?: string;
+}
+export interface QueryInspectAccountAminoMsg {
+  type: "/umee.leverage.v1.QueryInspectAccount";
+  value: QueryInspectAccountAmino;
+}
+/** QueryInspectAccount defines the request structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccountSDKType {
+  address: string;
+}
 /** QueryInspectResponse defines the response structure for the Inspect gRPC service handler. */
 export interface QueryInspectResponse {
   borrowers: InspectAccount[];
+  /** Failures is a list of addresses for which the position calculation failed. */
+  failures: string[];
 }
 export interface QueryInspectResponseProtoMsg {
   typeUrl: "/umee.leverage.v1.QueryInspectResponse";
@@ -655,7 +841,9 @@ export interface QueryInspectResponseProtoMsg {
 }
 /** QueryInspectResponse defines the response structure for the Inspect gRPC service handler. */
 export interface QueryInspectResponseAmino {
-  borrowers: InspectAccountAmino[];
+  borrowers?: InspectAccountAmino[];
+  /** Failures is a list of addresses for which the position calculation failed. */
+  failures?: string[];
 }
 export interface QueryInspectResponseAminoMsg {
   type: "/umee.leverage.v1.QueryInspectResponse";
@@ -664,15 +852,41 @@ export interface QueryInspectResponseAminoMsg {
 /** QueryInspectResponse defines the response structure for the Inspect gRPC service handler. */
 export interface QueryInspectResponseSDKType {
   borrowers: InspectAccountSDKType[];
+  failures: string[];
+}
+/** QueryInspectAccountResponse defines the response structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccountResponse {
+  borrower: InspectAccount;
+}
+export interface QueryInspectAccountResponseProtoMsg {
+  typeUrl: "/umee.leverage.v1.QueryInspectAccountResponse";
+  value: Uint8Array;
+}
+/** QueryInspectAccountResponse defines the response structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccountResponseAmino {
+  borrower?: InspectAccountAmino;
+}
+export interface QueryInspectAccountResponseAminoMsg {
+  type: "/umee.leverage.v1.QueryInspectAccountResponse";
+  value: QueryInspectAccountResponseAmino;
+}
+/** QueryInspectAccountResponse defines the response structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccountResponseSDKType {
+  borrower: InspectAccountSDKType;
 }
 /** InspectAccount contains risk and balance info for a single account for the inspector query. */
 export interface InspectAccount {
   /** Address of a borrower */
   address: string;
   /** USD totals of borrower's collateral, debt, and liquidation threshold. */
-  analysis: RiskInfo;
+  analysis?: RiskInfo;
   /** Collateral and borrowed tokens, denoted in human-readable symbol denom instead of ibc denom. */
-  position: DecBalances;
+  position?: DecBalances;
+  /**
+   * Info is a string which can be used to report additional information of any type.
+   * UNSTABLE: We do not guarantee consistency of any data structures contained within the string.
+   */
+  info: string;
 }
 export interface InspectAccountProtoMsg {
   typeUrl: "/umee.leverage.v1.InspectAccount";
@@ -681,11 +895,16 @@ export interface InspectAccountProtoMsg {
 /** InspectAccount contains risk and balance info for a single account for the inspector query. */
 export interface InspectAccountAmino {
   /** Address of a borrower */
-  address: string;
+  address?: string;
   /** USD totals of borrower's collateral, debt, and liquidation threshold. */
   analysis?: RiskInfoAmino;
   /** Collateral and borrowed tokens, denoted in human-readable symbol denom instead of ibc denom. */
   position?: DecBalancesAmino;
+  /**
+   * Info is a string which can be used to report additional information of any type.
+   * UNSTABLE: We do not guarantee consistency of any data structures contained within the string.
+   */
+  info?: string;
 }
 export interface InspectAccountAminoMsg {
   type: "/umee.leverage.v1.InspectAccount";
@@ -694,8 +913,9 @@ export interface InspectAccountAminoMsg {
 /** InspectAccount contains risk and balance info for a single account for the inspector query. */
 export interface InspectAccountSDKType {
   address: string;
-  analysis: RiskInfoSDKType;
-  position: DecBalancesSDKType;
+  analysis?: RiskInfoSDKType;
+  position?: DecBalancesSDKType;
+  info: string;
 }
 /** RiskInfo defines a borrower's account health without requiring sdk.Dec formatting. */
 export interface RiskInfo {
@@ -713,11 +933,11 @@ export interface RiskInfoProtoMsg {
 /** RiskInfo defines a borrower's account health without requiring sdk.Dec formatting. */
 export interface RiskInfoAmino {
   /** Borrowed is account's borrowed value in USD. */
-  Borrowed: number;
+  Borrowed?: number;
   /** Liquidation is account's liquidation threshold in USD. */
-  Liquidation: number;
+  Liquidation?: number;
   /** Value is account's collateral value in USD. */
-  Value: number;
+  Value?: number;
 }
 export interface RiskInfoAminoMsg {
   type: "/umee.leverage.v1.RiskInfo";
@@ -743,9 +963,9 @@ export interface DecBalancesProtoMsg {
 /** DecBalances contains an account's position denoted in symbol denom tokens. */
 export interface DecBalancesAmino {
   /** Collateral contains all uTokens the account has collateralized. It has been converted from uTokens to tokens. */
-  collateral: DecCoinAmino[];
+  collateral?: DecCoinAmino[];
   /** Borrowed contains all tokens the account has borrowed, including interest owed. */
-  borrowed: DecCoinAmino[];
+  borrowed?: DecCoinAmino[];
 }
 export interface DecBalancesAminoMsg {
   type: "/umee.leverage.v1.DecBalances";
@@ -772,7 +992,8 @@ export const QueryParams = {
     return message;
   },
   fromAmino(_: QueryParamsAmino): QueryParams {
-    return {};
+    const message = createBaseQueryParams();
+    return message;
   },
   toAmino(_: QueryParams): QueryParamsAmino {
     const obj: any = {};
@@ -818,9 +1039,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -867,13 +1090,15 @@ export const QueryRegisteredTokens = {
     return message;
   },
   fromAmino(object: QueryRegisteredTokensAmino): QueryRegisteredTokens {
-    return {
-      baseDenom: object.base_denom
-    };
+    const message = createBaseQueryRegisteredTokens();
+    if (object.base_denom !== undefined && object.base_denom !== null) {
+      message.baseDenom = object.base_denom;
+    }
+    return message;
   },
   toAmino(message: QueryRegisteredTokens): QueryRegisteredTokensAmino {
     const obj: any = {};
-    obj.base_denom = message.baseDenom;
+    obj.base_denom = message.baseDenom === "" ? undefined : message.baseDenom;
     return obj;
   },
   fromAminoMsg(object: QueryRegisteredTokensAminoMsg): QueryRegisteredTokens {
@@ -916,16 +1141,16 @@ export const QueryRegisteredTokensResponse = {
     return message;
   },
   fromAmino(object: QueryRegisteredTokensResponseAmino): QueryRegisteredTokensResponse {
-    return {
-      registry: Array.isArray(object?.registry) ? object.registry.map((e: any) => Token.fromAmino(e)) : []
-    };
+    const message = createBaseQueryRegisteredTokensResponse();
+    message.registry = object.registry?.map(e => Token.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryRegisteredTokensResponse): QueryRegisteredTokensResponseAmino {
     const obj: any = {};
     if (message.registry) {
       obj.registry = message.registry.map(e => e ? Token.toAmino(e) : undefined);
     } else {
-      obj.registry = [];
+      obj.registry = message.registry;
     }
     return obj;
   },
@@ -942,6 +1167,263 @@ export const QueryRegisteredTokensResponse = {
     return {
       typeUrl: "/umee.leverage.v1.QueryRegisteredTokensResponse",
       value: QueryRegisteredTokensResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryRegisteredTokensWithMarkets(): QueryRegisteredTokensWithMarkets {
+  return {};
+}
+export const QueryRegisteredTokensWithMarkets = {
+  typeUrl: "/umee.leverage.v1.QueryRegisteredTokensWithMarkets",
+  encode(_: QueryRegisteredTokensWithMarkets, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryRegisteredTokensWithMarkets {
+    return {};
+  },
+  fromPartial(_: Partial<QueryRegisteredTokensWithMarkets>): QueryRegisteredTokensWithMarkets {
+    const message = createBaseQueryRegisteredTokensWithMarkets();
+    return message;
+  },
+  fromAmino(_: QueryRegisteredTokensWithMarketsAmino): QueryRegisteredTokensWithMarkets {
+    const message = createBaseQueryRegisteredTokensWithMarkets();
+    return message;
+  },
+  toAmino(_: QueryRegisteredTokensWithMarkets): QueryRegisteredTokensWithMarketsAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryRegisteredTokensWithMarketsAminoMsg): QueryRegisteredTokensWithMarkets {
+    return QueryRegisteredTokensWithMarkets.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryRegisteredTokensWithMarketsProtoMsg): QueryRegisteredTokensWithMarkets {
+    return QueryRegisteredTokensWithMarkets.decode(message.value);
+  },
+  toProto(message: QueryRegisteredTokensWithMarkets): Uint8Array {
+    return QueryRegisteredTokensWithMarkets.encode(message).finish();
+  },
+  toProtoMsg(message: QueryRegisteredTokensWithMarkets): QueryRegisteredTokensWithMarketsProtoMsg {
+    return {
+      typeUrl: "/umee.leverage.v1.QueryRegisteredTokensWithMarkets",
+      value: QueryRegisteredTokensWithMarkets.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryRegisteredTokensWithMarketsResponse(): QueryRegisteredTokensWithMarketsResponse {
+  return {
+    markets: []
+  };
+}
+export const QueryRegisteredTokensWithMarketsResponse = {
+  typeUrl: "/umee.leverage.v1.QueryRegisteredTokensWithMarketsResponse",
+  encode(message: QueryRegisteredTokensWithMarketsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.markets) {
+      TokenMarket.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryRegisteredTokensWithMarketsResponse {
+    return {
+      markets: Array.isArray(object?.markets) ? object.markets.map((e: any) => TokenMarket.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<QueryRegisteredTokensWithMarketsResponse>): QueryRegisteredTokensWithMarketsResponse {
+    const message = createBaseQueryRegisteredTokensWithMarketsResponse();
+    message.markets = object.markets?.map(e => TokenMarket.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryRegisteredTokensWithMarketsResponseAmino): QueryRegisteredTokensWithMarketsResponse {
+    const message = createBaseQueryRegisteredTokensWithMarketsResponse();
+    message.markets = object.markets?.map(e => TokenMarket.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryRegisteredTokensWithMarketsResponse): QueryRegisteredTokensWithMarketsResponseAmino {
+    const obj: any = {};
+    if (message.markets) {
+      obj.markets = message.markets.map(e => e ? TokenMarket.toAmino(e) : undefined);
+    } else {
+      obj.markets = message.markets;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryRegisteredTokensWithMarketsResponseAminoMsg): QueryRegisteredTokensWithMarketsResponse {
+    return QueryRegisteredTokensWithMarketsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryRegisteredTokensWithMarketsResponseProtoMsg): QueryRegisteredTokensWithMarketsResponse {
+    return QueryRegisteredTokensWithMarketsResponse.decode(message.value);
+  },
+  toProto(message: QueryRegisteredTokensWithMarketsResponse): Uint8Array {
+    return QueryRegisteredTokensWithMarketsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryRegisteredTokensWithMarketsResponse): QueryRegisteredTokensWithMarketsResponseProtoMsg {
+    return {
+      typeUrl: "/umee.leverage.v1.QueryRegisteredTokensWithMarketsResponse",
+      value: QueryRegisteredTokensWithMarketsResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseTokenMarket(): TokenMarket {
+  return {
+    token: Token.fromPartial({}),
+    market: QueryMarketSummaryResponse.fromPartial({})
+  };
+}
+export const TokenMarket = {
+  typeUrl: "/umee.leverage.v1.TokenMarket",
+  encode(message: TokenMarket, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.token !== undefined) {
+      Token.encode(message.token, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.market !== undefined) {
+      QueryMarketSummaryResponse.encode(message.market, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): TokenMarket {
+    return {
+      token: isSet(object.token) ? Token.fromJSON(object.token) : undefined,
+      market: isSet(object.market) ? QueryMarketSummaryResponse.fromJSON(object.market) : undefined
+    };
+  },
+  fromPartial(object: Partial<TokenMarket>): TokenMarket {
+    const message = createBaseTokenMarket();
+    message.token = object.token !== undefined && object.token !== null ? Token.fromPartial(object.token) : undefined;
+    message.market = object.market !== undefined && object.market !== null ? QueryMarketSummaryResponse.fromPartial(object.market) : undefined;
+    return message;
+  },
+  fromAmino(object: TokenMarketAmino): TokenMarket {
+    const message = createBaseTokenMarket();
+    if (object.token !== undefined && object.token !== null) {
+      message.token = Token.fromAmino(object.token);
+    }
+    if (object.market !== undefined && object.market !== null) {
+      message.market = QueryMarketSummaryResponse.fromAmino(object.market);
+    }
+    return message;
+  },
+  toAmino(message: TokenMarket): TokenMarketAmino {
+    const obj: any = {};
+    obj.token = message.token ? Token.toAmino(message.token) : undefined;
+    obj.market = message.market ? QueryMarketSummaryResponse.toAmino(message.market) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: TokenMarketAminoMsg): TokenMarket {
+    return TokenMarket.fromAmino(object.value);
+  },
+  fromProtoMsg(message: TokenMarketProtoMsg): TokenMarket {
+    return TokenMarket.decode(message.value);
+  },
+  toProto(message: TokenMarket): Uint8Array {
+    return TokenMarket.encode(message).finish();
+  },
+  toProtoMsg(message: TokenMarket): TokenMarketProtoMsg {
+    return {
+      typeUrl: "/umee.leverage.v1.TokenMarket",
+      value: TokenMarket.encode(message).finish()
+    };
+  }
+};
+function createBaseQuerySpecialAssets(): QuerySpecialAssets {
+  return {
+    denom: ""
+  };
+}
+export const QuerySpecialAssets = {
+  typeUrl: "/umee.leverage.v1.QuerySpecialAssets",
+  encode(message: QuerySpecialAssets, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.denom !== "") {
+      writer.uint32(10).string(message.denom);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QuerySpecialAssets {
+    return {
+      denom: isSet(object.denom) ? String(object.denom) : ""
+    };
+  },
+  fromPartial(object: Partial<QuerySpecialAssets>): QuerySpecialAssets {
+    const message = createBaseQuerySpecialAssets();
+    message.denom = object.denom ?? "";
+    return message;
+  },
+  fromAmino(object: QuerySpecialAssetsAmino): QuerySpecialAssets {
+    const message = createBaseQuerySpecialAssets();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
+  },
+  toAmino(message: QuerySpecialAssets): QuerySpecialAssetsAmino {
+    const obj: any = {};
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySpecialAssetsAminoMsg): QuerySpecialAssets {
+    return QuerySpecialAssets.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QuerySpecialAssetsProtoMsg): QuerySpecialAssets {
+    return QuerySpecialAssets.decode(message.value);
+  },
+  toProto(message: QuerySpecialAssets): Uint8Array {
+    return QuerySpecialAssets.encode(message).finish();
+  },
+  toProtoMsg(message: QuerySpecialAssets): QuerySpecialAssetsProtoMsg {
+    return {
+      typeUrl: "/umee.leverage.v1.QuerySpecialAssets",
+      value: QuerySpecialAssets.encode(message).finish()
+    };
+  }
+};
+function createBaseQuerySpecialAssetsResponse(): QuerySpecialAssetsResponse {
+  return {
+    pairs: []
+  };
+}
+export const QuerySpecialAssetsResponse = {
+  typeUrl: "/umee.leverage.v1.QuerySpecialAssetsResponse",
+  encode(message: QuerySpecialAssetsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.pairs) {
+      SpecialAssetPair.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QuerySpecialAssetsResponse {
+    return {
+      pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => SpecialAssetPair.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<QuerySpecialAssetsResponse>): QuerySpecialAssetsResponse {
+    const message = createBaseQuerySpecialAssetsResponse();
+    message.pairs = object.pairs?.map(e => SpecialAssetPair.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QuerySpecialAssetsResponseAmino): QuerySpecialAssetsResponse {
+    const message = createBaseQuerySpecialAssetsResponse();
+    message.pairs = object.pairs?.map(e => SpecialAssetPair.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QuerySpecialAssetsResponse): QuerySpecialAssetsResponseAmino {
+    const obj: any = {};
+    if (message.pairs) {
+      obj.pairs = message.pairs.map(e => e ? SpecialAssetPair.toAmino(e) : undefined);
+    } else {
+      obj.pairs = message.pairs;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QuerySpecialAssetsResponseAminoMsg): QuerySpecialAssetsResponse {
+    return QuerySpecialAssetsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QuerySpecialAssetsResponseProtoMsg): QuerySpecialAssetsResponse {
+    return QuerySpecialAssetsResponse.decode(message.value);
+  },
+  toProto(message: QuerySpecialAssetsResponse): Uint8Array {
+    return QuerySpecialAssetsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QuerySpecialAssetsResponse): QuerySpecialAssetsResponseProtoMsg {
+    return {
+      typeUrl: "/umee.leverage.v1.QuerySpecialAssetsResponse",
+      value: QuerySpecialAssetsResponse.encode(message).finish()
     };
   }
 };
@@ -969,13 +1451,15 @@ export const QueryMarketSummary = {
     return message;
   },
   fromAmino(object: QueryMarketSummaryAmino): QueryMarketSummary {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseQueryMarketSummary();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryMarketSummary): QueryMarketSummaryAmino {
     const obj: any = {};
-    obj.denom = message.denom;
+    obj.denom = message.denom === "" ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: QueryMarketSummaryAminoMsg): QueryMarketSummary {
@@ -1132,51 +1616,91 @@ export const QueryMarketSummaryResponse = {
     return message;
   },
   fromAmino(object: QueryMarketSummaryResponseAmino): QueryMarketSummaryResponse {
-    return {
-      symbolDenom: object.symbol_denom,
-      exponent: object.exponent,
-      oraclePrice: object?.oracle_price,
-      uTokenExchangeRate: object.uToken_exchange_rate,
-      supplyAPY: object.supply_APY,
-      borrowAPY: object.borrow_APY,
-      supplied: object.supplied,
-      reserved: object.reserved,
-      collateral: object.collateral,
-      borrowed: object.borrowed,
-      liquidity: object.liquidity,
-      maximumBorrow: object.maximum_borrow,
-      maximumCollateral: object.maximum_collateral,
-      minimumLiquidity: object.minimum_liquidity,
-      uTokenSupply: object.uToken_supply,
-      availableBorrow: object.available_borrow,
-      availableWithdraw: object.available_withdraw,
-      availableCollateralize: object.available_collateralize,
-      oracleHistoricPrice: object?.oracle_historic_price,
-      errors: object.errors
-    };
+    const message = createBaseQueryMarketSummaryResponse();
+    if (object.symbol_denom !== undefined && object.symbol_denom !== null) {
+      message.symbolDenom = object.symbol_denom;
+    }
+    if (object.exponent !== undefined && object.exponent !== null) {
+      message.exponent = object.exponent;
+    }
+    if (object.oracle_price !== undefined && object.oracle_price !== null) {
+      message.oraclePrice = object.oracle_price;
+    }
+    if (object.uToken_exchange_rate !== undefined && object.uToken_exchange_rate !== null) {
+      message.uTokenExchangeRate = object.uToken_exchange_rate;
+    }
+    if (object.supply_APY !== undefined && object.supply_APY !== null) {
+      message.supplyAPY = object.supply_APY;
+    }
+    if (object.borrow_APY !== undefined && object.borrow_APY !== null) {
+      message.borrowAPY = object.borrow_APY;
+    }
+    if (object.supplied !== undefined && object.supplied !== null) {
+      message.supplied = object.supplied;
+    }
+    if (object.reserved !== undefined && object.reserved !== null) {
+      message.reserved = object.reserved;
+    }
+    if (object.collateral !== undefined && object.collateral !== null) {
+      message.collateral = object.collateral;
+    }
+    if (object.borrowed !== undefined && object.borrowed !== null) {
+      message.borrowed = object.borrowed;
+    }
+    if (object.liquidity !== undefined && object.liquidity !== null) {
+      message.liquidity = object.liquidity;
+    }
+    if (object.maximum_borrow !== undefined && object.maximum_borrow !== null) {
+      message.maximumBorrow = object.maximum_borrow;
+    }
+    if (object.maximum_collateral !== undefined && object.maximum_collateral !== null) {
+      message.maximumCollateral = object.maximum_collateral;
+    }
+    if (object.minimum_liquidity !== undefined && object.minimum_liquidity !== null) {
+      message.minimumLiquidity = object.minimum_liquidity;
+    }
+    if (object.uToken_supply !== undefined && object.uToken_supply !== null) {
+      message.uTokenSupply = object.uToken_supply;
+    }
+    if (object.available_borrow !== undefined && object.available_borrow !== null) {
+      message.availableBorrow = object.available_borrow;
+    }
+    if (object.available_withdraw !== undefined && object.available_withdraw !== null) {
+      message.availableWithdraw = object.available_withdraw;
+    }
+    if (object.available_collateralize !== undefined && object.available_collateralize !== null) {
+      message.availableCollateralize = object.available_collateralize;
+    }
+    if (object.oracle_historic_price !== undefined && object.oracle_historic_price !== null) {
+      message.oracleHistoricPrice = object.oracle_historic_price;
+    }
+    if (object.errors !== undefined && object.errors !== null) {
+      message.errors = object.errors;
+    }
+    return message;
   },
   toAmino(message: QueryMarketSummaryResponse): QueryMarketSummaryResponseAmino {
     const obj: any = {};
-    obj.symbol_denom = message.symbolDenom;
-    obj.exponent = message.exponent;
-    obj.oracle_price = message.oraclePrice;
-    obj.uToken_exchange_rate = message.uTokenExchangeRate;
-    obj.supply_APY = message.supplyAPY;
-    obj.borrow_APY = message.borrowAPY;
-    obj.supplied = message.supplied;
-    obj.reserved = message.reserved;
-    obj.collateral = message.collateral;
-    obj.borrowed = message.borrowed;
-    obj.liquidity = message.liquidity;
-    obj.maximum_borrow = message.maximumBorrow;
-    obj.maximum_collateral = message.maximumCollateral;
-    obj.minimum_liquidity = message.minimumLiquidity;
-    obj.uToken_supply = message.uTokenSupply;
-    obj.available_borrow = message.availableBorrow;
-    obj.available_withdraw = message.availableWithdraw;
-    obj.available_collateralize = message.availableCollateralize;
-    obj.oracle_historic_price = message.oracleHistoricPrice;
-    obj.errors = message.errors;
+    obj.symbol_denom = message.symbolDenom === "" ? undefined : message.symbolDenom;
+    obj.exponent = message.exponent === 0 ? undefined : message.exponent;
+    obj.oracle_price = message.oraclePrice === null ? undefined : message.oraclePrice;
+    obj.uToken_exchange_rate = message.uTokenExchangeRate ?? "";
+    obj.supply_APY = message.supplyAPY ?? "";
+    obj.borrow_APY = message.borrowAPY ?? "";
+    obj.supplied = message.supplied === "" ? undefined : message.supplied;
+    obj.reserved = message.reserved === "" ? undefined : message.reserved;
+    obj.collateral = message.collateral === "" ? undefined : message.collateral;
+    obj.borrowed = message.borrowed === "" ? undefined : message.borrowed;
+    obj.liquidity = message.liquidity === "" ? undefined : message.liquidity;
+    obj.maximum_borrow = message.maximumBorrow === "" ? undefined : message.maximumBorrow;
+    obj.maximum_collateral = message.maximumCollateral === "" ? undefined : message.maximumCollateral;
+    obj.minimum_liquidity = message.minimumLiquidity === "" ? undefined : message.minimumLiquidity;
+    obj.uToken_supply = message.uTokenSupply ?? "";
+    obj.available_borrow = message.availableBorrow === "" ? undefined : message.availableBorrow;
+    obj.available_withdraw = message.availableWithdraw === "" ? undefined : message.availableWithdraw;
+    obj.available_collateralize = message.availableCollateralize === "" ? undefined : message.availableCollateralize;
+    obj.oracle_historic_price = message.oracleHistoricPrice === null ? undefined : message.oracleHistoricPrice;
+    obj.errors = message.errors === "" ? undefined : message.errors;
     return obj;
   },
   fromAminoMsg(object: QueryMarketSummaryResponseAminoMsg): QueryMarketSummaryResponse {
@@ -1219,13 +1743,15 @@ export const QueryAccountBalances = {
     return message;
   },
   fromAmino(object: QueryAccountBalancesAmino): QueryAccountBalances {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryAccountBalances();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryAccountBalances): QueryAccountBalancesAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     return obj;
   },
   fromAminoMsg(object: QueryAccountBalancesAminoMsg): QueryAccountBalances {
@@ -1280,28 +1806,28 @@ export const QueryAccountBalancesResponse = {
     return message;
   },
   fromAmino(object: QueryAccountBalancesResponseAmino): QueryAccountBalancesResponse {
-    return {
-      supplied: Array.isArray(object?.supplied) ? object.supplied.map((e: any) => Coin.fromAmino(e)) : [],
-      collateral: Array.isArray(object?.collateral) ? object.collateral.map((e: any) => Coin.fromAmino(e)) : [],
-      borrowed: Array.isArray(object?.borrowed) ? object.borrowed.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryAccountBalancesResponse();
+    message.supplied = object.supplied?.map(e => Coin.fromAmino(e)) || [];
+    message.collateral = object.collateral?.map(e => Coin.fromAmino(e)) || [];
+    message.borrowed = object.borrowed?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryAccountBalancesResponse): QueryAccountBalancesResponseAmino {
     const obj: any = {};
     if (message.supplied) {
       obj.supplied = message.supplied.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.supplied = [];
+      obj.supplied = message.supplied;
     }
     if (message.collateral) {
       obj.collateral = message.collateral.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.collateral = [];
+      obj.collateral = message.collateral;
     }
     if (message.borrowed) {
       obj.borrowed = message.borrowed.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.borrowed = [];
+      obj.borrowed = message.borrowed;
     }
     return obj;
   },
@@ -1345,13 +1871,15 @@ export const QueryAccountSummary = {
     return message;
   },
   fromAmino(object: QueryAccountSummaryAmino): QueryAccountSummary {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryAccountSummary();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryAccountSummary): QueryAccountSummaryAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     return obj;
   },
   fromAminoMsg(object: QueryAccountSummaryAminoMsg): QueryAccountSummary {
@@ -1375,8 +1903,11 @@ function createBaseQueryAccountSummaryResponse(): QueryAccountSummaryResponse {
     suppliedValue: "",
     collateralValue: "",
     borrowedValue: "",
-    borrowLimit: "",
-    liquidationThreshold: undefined
+    borrowLimit: undefined,
+    liquidationThreshold: undefined,
+    spotSuppliedValue: "",
+    spotCollateralValue: "",
+    spotBorrowedValue: ""
   };
 }
 export const QueryAccountSummaryResponse = {
@@ -1391,11 +1922,20 @@ export const QueryAccountSummaryResponse = {
     if (message.borrowedValue !== "") {
       writer.uint32(26).string(Decimal.fromUserInput(message.borrowedValue, 18).atomics);
     }
-    if (message.borrowLimit !== "") {
+    if (message.borrowLimit !== undefined) {
       writer.uint32(34).string(Decimal.fromUserInput(message.borrowLimit, 18).atomics);
     }
     if (message.liquidationThreshold !== undefined) {
       writer.uint32(42).string(Decimal.fromUserInput(message.liquidationThreshold, 18).atomics);
+    }
+    if (message.spotSuppliedValue !== "") {
+      writer.uint32(50).string(Decimal.fromUserInput(message.spotSuppliedValue, 18).atomics);
+    }
+    if (message.spotCollateralValue !== "") {
+      writer.uint32(58).string(Decimal.fromUserInput(message.spotCollateralValue, 18).atomics);
+    }
+    if (message.spotBorrowedValue !== "") {
+      writer.uint32(66).string(Decimal.fromUserInput(message.spotBorrowedValue, 18).atomics);
     }
     return writer;
   },
@@ -1404,8 +1944,11 @@ export const QueryAccountSummaryResponse = {
       suppliedValue: isSet(object.suppliedValue) ? String(object.suppliedValue) : "",
       collateralValue: isSet(object.collateralValue) ? String(object.collateralValue) : "",
       borrowedValue: isSet(object.borrowedValue) ? String(object.borrowedValue) : "",
-      borrowLimit: isSet(object.borrowLimit) ? String(object.borrowLimit) : "",
-      liquidationThreshold: isSet(object.liquidationThreshold) ? String(object.liquidationThreshold) : undefined
+      borrowLimit: isSet(object.borrowLimit) ? String(object.borrowLimit) : undefined,
+      liquidationThreshold: isSet(object.liquidationThreshold) ? String(object.liquidationThreshold) : undefined,
+      spotSuppliedValue: isSet(object.spotSuppliedValue) ? String(object.spotSuppliedValue) : "",
+      spotCollateralValue: isSet(object.spotCollateralValue) ? String(object.spotCollateralValue) : "",
+      spotBorrowedValue: isSet(object.spotBorrowedValue) ? String(object.spotBorrowedValue) : ""
     };
   },
   fromPartial(object: Partial<QueryAccountSummaryResponse>): QueryAccountSummaryResponse {
@@ -1413,26 +1956,51 @@ export const QueryAccountSummaryResponse = {
     message.suppliedValue = object.suppliedValue ?? "";
     message.collateralValue = object.collateralValue ?? "";
     message.borrowedValue = object.borrowedValue ?? "";
-    message.borrowLimit = object.borrowLimit ?? "";
+    message.borrowLimit = object.borrowLimit ?? undefined;
     message.liquidationThreshold = object.liquidationThreshold ?? undefined;
+    message.spotSuppliedValue = object.spotSuppliedValue ?? "";
+    message.spotCollateralValue = object.spotCollateralValue ?? "";
+    message.spotBorrowedValue = object.spotBorrowedValue ?? "";
     return message;
   },
   fromAmino(object: QueryAccountSummaryResponseAmino): QueryAccountSummaryResponse {
-    return {
-      suppliedValue: object.supplied_value,
-      collateralValue: object.collateral_value,
-      borrowedValue: object.borrowed_value,
-      borrowLimit: object.borrow_limit,
-      liquidationThreshold: object?.liquidation_threshold
-    };
+    const message = createBaseQueryAccountSummaryResponse();
+    if (object.supplied_value !== undefined && object.supplied_value !== null) {
+      message.suppliedValue = object.supplied_value;
+    }
+    if (object.collateral_value !== undefined && object.collateral_value !== null) {
+      message.collateralValue = object.collateral_value;
+    }
+    if (object.borrowed_value !== undefined && object.borrowed_value !== null) {
+      message.borrowedValue = object.borrowed_value;
+    }
+    if (object.borrow_limit !== undefined && object.borrow_limit !== null) {
+      message.borrowLimit = object.borrow_limit;
+    }
+    if (object.liquidation_threshold !== undefined && object.liquidation_threshold !== null) {
+      message.liquidationThreshold = object.liquidation_threshold;
+    }
+    if (object.spot_supplied_value !== undefined && object.spot_supplied_value !== null) {
+      message.spotSuppliedValue = object.spot_supplied_value;
+    }
+    if (object.spot_collateral_value !== undefined && object.spot_collateral_value !== null) {
+      message.spotCollateralValue = object.spot_collateral_value;
+    }
+    if (object.spot_borrowed_value !== undefined && object.spot_borrowed_value !== null) {
+      message.spotBorrowedValue = object.spot_borrowed_value;
+    }
+    return message;
   },
   toAmino(message: QueryAccountSummaryResponse): QueryAccountSummaryResponseAmino {
     const obj: any = {};
-    obj.supplied_value = message.suppliedValue;
-    obj.collateral_value = message.collateralValue;
-    obj.borrowed_value = message.borrowedValue;
-    obj.borrow_limit = message.borrowLimit;
-    obj.liquidation_threshold = message.liquidationThreshold;
+    obj.supplied_value = message.suppliedValue === "" ? undefined : message.suppliedValue;
+    obj.collateral_value = message.collateralValue === "" ? undefined : message.collateralValue;
+    obj.borrowed_value = message.borrowedValue === "" ? undefined : message.borrowedValue;
+    obj.borrow_limit = message.borrowLimit === null ? undefined : message.borrowLimit;
+    obj.liquidation_threshold = message.liquidationThreshold === null ? undefined : message.liquidationThreshold;
+    obj.spot_supplied_value = message.spotSuppliedValue === "" ? undefined : message.spotSuppliedValue;
+    obj.spot_collateral_value = message.spotCollateralValue === "" ? undefined : message.spotCollateralValue;
+    obj.spot_borrowed_value = message.spotBorrowedValue === "" ? undefined : message.spotBorrowedValue;
     return obj;
   },
   fromAminoMsg(object: QueryAccountSummaryResponseAminoMsg): QueryAccountSummaryResponse {
@@ -1467,7 +2035,8 @@ export const QueryLiquidationTargets = {
     return message;
   },
   fromAmino(_: QueryLiquidationTargetsAmino): QueryLiquidationTargets {
-    return {};
+    const message = createBaseQueryLiquidationTargets();
+    return message;
   },
   toAmino(_: QueryLiquidationTargets): QueryLiquidationTargetsAmino {
     const obj: any = {};
@@ -1513,16 +2082,16 @@ export const QueryLiquidationTargetsResponse = {
     return message;
   },
   fromAmino(object: QueryLiquidationTargetsResponseAmino): QueryLiquidationTargetsResponse {
-    return {
-      targets: Array.isArray(object?.targets) ? object.targets.map((e: any) => e) : []
-    };
+    const message = createBaseQueryLiquidationTargetsResponse();
+    message.targets = object.targets?.map(e => e) || [];
+    return message;
   },
   toAmino(message: QueryLiquidationTargetsResponse): QueryLiquidationTargetsResponseAmino {
     const obj: any = {};
     if (message.targets) {
       obj.targets = message.targets.map(e => e);
     } else {
-      obj.targets = [];
+      obj.targets = message.targets;
     }
     return obj;
   },
@@ -1558,7 +2127,8 @@ export const QueryBadDebts = {
     return message;
   },
   fromAmino(_: QueryBadDebtsAmino): QueryBadDebts {
-    return {};
+    const message = createBaseQueryBadDebts();
+    return message;
   },
   toAmino(_: QueryBadDebts): QueryBadDebtsAmino {
     const obj: any = {};
@@ -1604,16 +2174,16 @@ export const QueryBadDebtsResponse = {
     return message;
   },
   fromAmino(object: QueryBadDebtsResponseAmino): QueryBadDebtsResponse {
-    return {
-      targets: Array.isArray(object?.targets) ? object.targets.map((e: any) => BadDebt.fromAmino(e)) : []
-    };
+    const message = createBaseQueryBadDebtsResponse();
+    message.targets = object.targets?.map(e => BadDebt.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryBadDebtsResponse): QueryBadDebtsResponseAmino {
     const obj: any = {};
     if (message.targets) {
       obj.targets = message.targets.map(e => e ? BadDebt.toAmino(e) : undefined);
     } else {
-      obj.targets = [];
+      obj.targets = message.targets;
     }
     return obj;
   },
@@ -1663,15 +2233,19 @@ export const QueryMaxWithdraw = {
     return message;
   },
   fromAmino(object: QueryMaxWithdrawAmino): QueryMaxWithdraw {
-    return {
-      address: object.address,
-      denom: object.denom
-    };
+    const message = createBaseQueryMaxWithdraw();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryMaxWithdraw): QueryMaxWithdrawAmino {
     const obj: any = {};
-    obj.address = message.address;
-    obj.denom = message.denom;
+    obj.address = message.address === "" ? undefined : message.address;
+    obj.denom = message.denom === "" ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: QueryMaxWithdrawAminoMsg): QueryMaxWithdraw {
@@ -1720,22 +2294,22 @@ export const QueryMaxWithdrawResponse = {
     return message;
   },
   fromAmino(object: QueryMaxWithdrawResponseAmino): QueryMaxWithdrawResponse {
-    return {
-      uTokens: Array.isArray(object?.uTokens) ? object.uTokens.map((e: any) => Coin.fromAmino(e)) : [],
-      tokens: Array.isArray(object?.tokens) ? object.tokens.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryMaxWithdrawResponse();
+    message.uTokens = object.uTokens?.map(e => Coin.fromAmino(e)) || [];
+    message.tokens = object.tokens?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryMaxWithdrawResponse): QueryMaxWithdrawResponseAmino {
     const obj: any = {};
     if (message.uTokens) {
       obj.uTokens = message.uTokens.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.uTokens = [];
+      obj.uTokens = message.uTokens;
     }
     if (message.tokens) {
       obj.tokens = message.tokens.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.tokens = [];
+      obj.tokens = message.tokens;
     }
     return obj;
   },
@@ -1785,15 +2359,19 @@ export const QueryMaxBorrow = {
     return message;
   },
   fromAmino(object: QueryMaxBorrowAmino): QueryMaxBorrow {
-    return {
-      address: object.address,
-      denom: object.denom
-    };
+    const message = createBaseQueryMaxBorrow();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryMaxBorrow): QueryMaxBorrowAmino {
     const obj: any = {};
-    obj.address = message.address;
-    obj.denom = message.denom;
+    obj.address = message.address === "" ? undefined : message.address;
+    obj.denom = message.denom === "" ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: QueryMaxBorrowAminoMsg): QueryMaxBorrow {
@@ -1836,16 +2414,16 @@ export const QueryMaxBorrowResponse = {
     return message;
   },
   fromAmino(object: QueryMaxBorrowResponseAmino): QueryMaxBorrowResponse {
-    return {
-      tokens: Array.isArray(object?.tokens) ? object.tokens.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryMaxBorrowResponse();
+    message.tokens = object.tokens?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryMaxBorrowResponse): QueryMaxBorrowResponseAmino {
     const obj: any = {};
     if (message.tokens) {
       obj.tokens = message.tokens.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.tokens = [];
+      obj.tokens = message.tokens;
     }
     return obj;
   },
@@ -1913,21 +2491,31 @@ export const QueryInspect = {
     return message;
   },
   fromAmino(object: QueryInspectAmino): QueryInspect {
-    return {
-      symbol: object.symbol,
-      borrowed: object.borrowed,
-      collateral: object.collateral,
-      danger: object.danger,
-      ltv: object.ltv
-    };
+    const message = createBaseQueryInspect();
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.borrowed !== undefined && object.borrowed !== null) {
+      message.borrowed = object.borrowed;
+    }
+    if (object.collateral !== undefined && object.collateral !== null) {
+      message.collateral = object.collateral;
+    }
+    if (object.danger !== undefined && object.danger !== null) {
+      message.danger = object.danger;
+    }
+    if (object.ltv !== undefined && object.ltv !== null) {
+      message.ltv = object.ltv;
+    }
+    return message;
   },
   toAmino(message: QueryInspect): QueryInspectAmino {
     const obj: any = {};
-    obj.symbol = message.symbol;
-    obj.borrowed = message.borrowed;
-    obj.collateral = message.collateral;
-    obj.danger = message.danger;
-    obj.ltv = message.ltv;
+    obj.symbol = message.symbol === "" ? undefined : message.symbol;
+    obj.borrowed = message.borrowed === 0 ? undefined : message.borrowed;
+    obj.collateral = message.collateral === 0 ? undefined : message.collateral;
+    obj.danger = message.danger === 0 ? undefined : message.danger;
+    obj.ltv = message.ltv === 0 ? undefined : message.ltv;
     return obj;
   },
   fromAminoMsg(object: QueryInspectAminoMsg): QueryInspect {
@@ -1946,9 +2534,61 @@ export const QueryInspect = {
     };
   }
 };
+function createBaseQueryInspectAccount(): QueryInspectAccount {
+  return {
+    address: ""
+  };
+}
+export const QueryInspectAccount = {
+  typeUrl: "/umee.leverage.v1.QueryInspectAccount",
+  encode(message: QueryInspectAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryInspectAccount {
+    return {
+      address: isSet(object.address) ? String(object.address) : ""
+    };
+  },
+  fromPartial(object: Partial<QueryInspectAccount>): QueryInspectAccount {
+    const message = createBaseQueryInspectAccount();
+    message.address = object.address ?? "";
+    return message;
+  },
+  fromAmino(object: QueryInspectAccountAmino): QueryInspectAccount {
+    const message = createBaseQueryInspectAccount();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
+  },
+  toAmino(message: QueryInspectAccount): QueryInspectAccountAmino {
+    const obj: any = {};
+    obj.address = message.address === "" ? undefined : message.address;
+    return obj;
+  },
+  fromAminoMsg(object: QueryInspectAccountAminoMsg): QueryInspectAccount {
+    return QueryInspectAccount.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryInspectAccountProtoMsg): QueryInspectAccount {
+    return QueryInspectAccount.decode(message.value);
+  },
+  toProto(message: QueryInspectAccount): Uint8Array {
+    return QueryInspectAccount.encode(message).finish();
+  },
+  toProtoMsg(message: QueryInspectAccount): QueryInspectAccountProtoMsg {
+    return {
+      typeUrl: "/umee.leverage.v1.QueryInspectAccount",
+      value: QueryInspectAccount.encode(message).finish()
+    };
+  }
+};
 function createBaseQueryInspectResponse(): QueryInspectResponse {
   return {
-    borrowers: []
+    borrowers: [],
+    failures: []
   };
 }
 export const QueryInspectResponse = {
@@ -1957,29 +2597,40 @@ export const QueryInspectResponse = {
     for (const v of message.borrowers) {
       InspectAccount.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+    for (const v of message.failures) {
+      writer.uint32(18).string(v!);
+    }
     return writer;
   },
   fromJSON(object: any): QueryInspectResponse {
     return {
-      borrowers: Array.isArray(object?.borrowers) ? object.borrowers.map((e: any) => InspectAccount.fromJSON(e)) : []
+      borrowers: Array.isArray(object?.borrowers) ? object.borrowers.map((e: any) => InspectAccount.fromJSON(e)) : [],
+      failures: Array.isArray(object?.failures) ? object.failures.map((e: any) => String(e)) : []
     };
   },
   fromPartial(object: Partial<QueryInspectResponse>): QueryInspectResponse {
     const message = createBaseQueryInspectResponse();
     message.borrowers = object.borrowers?.map(e => InspectAccount.fromPartial(e)) || [];
+    message.failures = object.failures?.map(e => e) || [];
     return message;
   },
   fromAmino(object: QueryInspectResponseAmino): QueryInspectResponse {
-    return {
-      borrowers: Array.isArray(object?.borrowers) ? object.borrowers.map((e: any) => InspectAccount.fromAmino(e)) : []
-    };
+    const message = createBaseQueryInspectResponse();
+    message.borrowers = object.borrowers?.map(e => InspectAccount.fromAmino(e)) || [];
+    message.failures = object.failures?.map(e => e) || [];
+    return message;
   },
   toAmino(message: QueryInspectResponse): QueryInspectResponseAmino {
     const obj: any = {};
     if (message.borrowers) {
       obj.borrowers = message.borrowers.map(e => e ? InspectAccount.toAmino(e) : undefined);
     } else {
-      obj.borrowers = [];
+      obj.borrowers = message.borrowers;
+    }
+    if (message.failures) {
+      obj.failures = message.failures.map(e => e);
+    } else {
+      obj.failures = message.failures;
     }
     return obj;
   },
@@ -1999,11 +2650,63 @@ export const QueryInspectResponse = {
     };
   }
 };
+function createBaseQueryInspectAccountResponse(): QueryInspectAccountResponse {
+  return {
+    borrower: InspectAccount.fromPartial({})
+  };
+}
+export const QueryInspectAccountResponse = {
+  typeUrl: "/umee.leverage.v1.QueryInspectAccountResponse",
+  encode(message: QueryInspectAccountResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.borrower !== undefined) {
+      InspectAccount.encode(message.borrower, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryInspectAccountResponse {
+    return {
+      borrower: isSet(object.borrower) ? InspectAccount.fromJSON(object.borrower) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryInspectAccountResponse>): QueryInspectAccountResponse {
+    const message = createBaseQueryInspectAccountResponse();
+    message.borrower = object.borrower !== undefined && object.borrower !== null ? InspectAccount.fromPartial(object.borrower) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryInspectAccountResponseAmino): QueryInspectAccountResponse {
+    const message = createBaseQueryInspectAccountResponse();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = InspectAccount.fromAmino(object.borrower);
+    }
+    return message;
+  },
+  toAmino(message: QueryInspectAccountResponse): QueryInspectAccountResponseAmino {
+    const obj: any = {};
+    obj.borrower = message.borrower ? InspectAccount.toAmino(message.borrower) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryInspectAccountResponseAminoMsg): QueryInspectAccountResponse {
+    return QueryInspectAccountResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryInspectAccountResponseProtoMsg): QueryInspectAccountResponse {
+    return QueryInspectAccountResponse.decode(message.value);
+  },
+  toProto(message: QueryInspectAccountResponse): Uint8Array {
+    return QueryInspectAccountResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryInspectAccountResponse): QueryInspectAccountResponseProtoMsg {
+    return {
+      typeUrl: "/umee.leverage.v1.QueryInspectAccountResponse",
+      value: QueryInspectAccountResponse.encode(message).finish()
+    };
+  }
+};
 function createBaseInspectAccount(): InspectAccount {
   return {
     address: "",
-    analysis: RiskInfo.fromPartial({}),
-    position: DecBalances.fromPartial({})
+    analysis: undefined,
+    position: undefined,
+    info: ""
   };
 }
 export const InspectAccount = {
@@ -2018,13 +2721,17 @@ export const InspectAccount = {
     if (message.position !== undefined) {
       DecBalances.encode(message.position, writer.uint32(26).fork()).ldelim();
     }
+    if (message.info !== "") {
+      writer.uint32(34).string(message.info);
+    }
     return writer;
   },
   fromJSON(object: any): InspectAccount {
     return {
       address: isSet(object.address) ? String(object.address) : "",
       analysis: isSet(object.analysis) ? RiskInfo.fromJSON(object.analysis) : undefined,
-      position: isSet(object.position) ? DecBalances.fromJSON(object.position) : undefined
+      position: isSet(object.position) ? DecBalances.fromJSON(object.position) : undefined,
+      info: isSet(object.info) ? String(object.info) : ""
     };
   },
   fromPartial(object: Partial<InspectAccount>): InspectAccount {
@@ -2032,20 +2739,31 @@ export const InspectAccount = {
     message.address = object.address ?? "";
     message.analysis = object.analysis !== undefined && object.analysis !== null ? RiskInfo.fromPartial(object.analysis) : undefined;
     message.position = object.position !== undefined && object.position !== null ? DecBalances.fromPartial(object.position) : undefined;
+    message.info = object.info ?? "";
     return message;
   },
   fromAmino(object: InspectAccountAmino): InspectAccount {
-    return {
-      address: object.address,
-      analysis: object?.analysis ? RiskInfo.fromAmino(object.analysis) : undefined,
-      position: object?.position ? DecBalances.fromAmino(object.position) : undefined
-    };
+    const message = createBaseInspectAccount();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.analysis !== undefined && object.analysis !== null) {
+      message.analysis = RiskInfo.fromAmino(object.analysis);
+    }
+    if (object.position !== undefined && object.position !== null) {
+      message.position = DecBalances.fromAmino(object.position);
+    }
+    if (object.info !== undefined && object.info !== null) {
+      message.info = object.info;
+    }
+    return message;
   },
   toAmino(message: InspectAccount): InspectAccountAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     obj.analysis = message.analysis ? RiskInfo.toAmino(message.analysis) : undefined;
     obj.position = message.position ? DecBalances.toAmino(message.position) : undefined;
+    obj.info = message.info === "" ? undefined : message.info;
     return obj;
   },
   fromAminoMsg(object: InspectAccountAminoMsg): InspectAccount {
@@ -2100,17 +2818,23 @@ export const RiskInfo = {
     return message;
   },
   fromAmino(object: RiskInfoAmino): RiskInfo {
-    return {
-      Borrowed: object.Borrowed,
-      Liquidation: object.Liquidation,
-      Value: object.Value
-    };
+    const message = createBaseRiskInfo();
+    if (object.Borrowed !== undefined && object.Borrowed !== null) {
+      message.Borrowed = object.Borrowed;
+    }
+    if (object.Liquidation !== undefined && object.Liquidation !== null) {
+      message.Liquidation = object.Liquidation;
+    }
+    if (object.Value !== undefined && object.Value !== null) {
+      message.Value = object.Value;
+    }
+    return message;
   },
   toAmino(message: RiskInfo): RiskInfoAmino {
     const obj: any = {};
-    obj.Borrowed = message.Borrowed;
-    obj.Liquidation = message.Liquidation;
-    obj.Value = message.Value;
+    obj.Borrowed = message.Borrowed === 0 ? undefined : message.Borrowed;
+    obj.Liquidation = message.Liquidation === 0 ? undefined : message.Liquidation;
+    obj.Value = message.Value === 0 ? undefined : message.Value;
     return obj;
   },
   fromAminoMsg(object: RiskInfoAminoMsg): RiskInfo {
@@ -2159,22 +2883,22 @@ export const DecBalances = {
     return message;
   },
   fromAmino(object: DecBalancesAmino): DecBalances {
-    return {
-      collateral: Array.isArray(object?.collateral) ? object.collateral.map((e: any) => DecCoin.fromAmino(e)) : [],
-      borrowed: Array.isArray(object?.borrowed) ? object.borrowed.map((e: any) => DecCoin.fromAmino(e)) : []
-    };
+    const message = createBaseDecBalances();
+    message.collateral = object.collateral?.map(e => DecCoin.fromAmino(e)) || [];
+    message.borrowed = object.borrowed?.map(e => DecCoin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: DecBalances): DecBalancesAmino {
     const obj: any = {};
     if (message.collateral) {
       obj.collateral = message.collateral.map(e => e ? DecCoin.toAmino(e) : undefined);
     } else {
-      obj.collateral = [];
+      obj.collateral = message.collateral;
     }
     if (message.borrowed) {
       obj.borrowed = message.borrowed.map(e => e ? DecCoin.toAmino(e) : undefined);
     } else {
-      obj.borrowed = [];
+      obj.borrowed = message.borrowed;
     }
     return obj;
   },

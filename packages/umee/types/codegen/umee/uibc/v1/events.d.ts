@@ -14,9 +14,9 @@ export interface EventBadRevertProtoMsg {
 /** EventBadRevert is emitted on failure of ibc-transfer quota. */
 export interface EventBadRevertAmino {
     /** failure event type */
-    failure_type: string;
+    failure_type?: string;
     /** ibc packet data */
-    packet: string;
+    packet?: string;
 }
 export interface EventBadRevertAminoMsg {
     type: "/umee.uibc.v1.EventBadRevert";
@@ -37,7 +37,7 @@ export interface EventIBCTransferStatusProtoMsg {
 }
 /** EventIBCTransferStatus is emitted on quota tracking pause status change. */
 export interface EventIBCTransferStatusAmino {
-    status: IBCTransferStatus;
+    status?: IBCTransferStatus;
 }
 export interface EventIBCTransferStatusAminoMsg {
     type: "/umee.uibc.v1.EventIBCTransferStatus";
@@ -46,6 +46,26 @@ export interface EventIBCTransferStatusAminoMsg {
 /** EventIBCTransferStatus is emitted on quota tracking pause status change. */
 export interface EventIBCTransferStatusSDKType {
     status: IBCTransferStatus;
+}
+/** EventICS20Hooks is emitted on MsgGovToggleICS20Hooks. */
+export interface EventICS20Hooks {
+    enabled: boolean;
+}
+export interface EventICS20HooksProtoMsg {
+    typeUrl: "/umee.uibc.v1.EventICS20Hooks";
+    value: Uint8Array;
+}
+/** EventICS20Hooks is emitted on MsgGovToggleICS20Hooks. */
+export interface EventICS20HooksAmino {
+    enabled?: boolean;
+}
+export interface EventICS20HooksAminoMsg {
+    type: "/umee.uibc.v1.EventICS20Hooks";
+    value: EventICS20HooksAmino;
+}
+/** EventICS20Hooks is emitted on MsgGovToggleICS20Hooks. */
+export interface EventICS20HooksSDKType {
+    enabled: boolean;
 }
 export declare const EventBadRevert: {
     typeUrl: string;
@@ -70,4 +90,16 @@ export declare const EventIBCTransferStatus: {
     fromProtoMsg(message: EventIBCTransferStatusProtoMsg): EventIBCTransferStatus;
     toProto(message: EventIBCTransferStatus): Uint8Array;
     toProtoMsg(message: EventIBCTransferStatus): EventIBCTransferStatusProtoMsg;
+};
+export declare const EventICS20Hooks: {
+    typeUrl: string;
+    encode(message: EventICS20Hooks, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): EventICS20Hooks;
+    fromPartial(object: Partial<EventICS20Hooks>): EventICS20Hooks;
+    fromAmino(object: EventICS20HooksAmino): EventICS20Hooks;
+    toAmino(message: EventICS20Hooks): EventICS20HooksAmino;
+    fromAminoMsg(object: EventICS20HooksAminoMsg): EventICS20Hooks;
+    fromProtoMsg(message: EventICS20HooksProtoMsg): EventICS20Hooks;
+    toProto(message: EventICS20Hooks): Uint8Array;
+    toProtoMsg(message: EventICS20Hooks): EventICS20HooksProtoMsg;
 };

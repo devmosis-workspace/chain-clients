@@ -16,7 +16,7 @@ export interface EventSupplyProtoMsg {
 /** EventSupply is emitted on Msg/Supply */
 export interface EventSupplyAmino {
     /** Liquidity supplier bech32 address. */
-    supplier: string;
+    supplier?: string;
     /** Liquidity provided to the module. */
     asset?: CoinAmino;
     /** uToken received by the supplier in exchange for the provided liquidity. */
@@ -48,7 +48,7 @@ export interface EventWithdrawProtoMsg {
 /** EventWithdraw is emitted on Msg/Withdraw */
 export interface EventWithdrawAmino {
     /** Liquidity supplier bech32 address. */
-    supplier: string;
+    supplier?: string;
     /** uToken sent to the module in exchange for the underlying asset. */
     utoken?: CoinAmino;
     /** Liquidity received by the supplier. */
@@ -78,7 +78,7 @@ export interface EventCollaterizeProtoMsg {
 /** EventCollaterize is emitted on Msg/Collaterize */
 export interface EventCollaterizeAmino {
     /** Borrower bech32 address. */
-    borrower: string;
+    borrower?: string;
     /** uToken provided as a collateral. */
     utoken?: CoinAmino;
 }
@@ -105,7 +105,7 @@ export interface EventDecollaterizeProtoMsg {
 /** EventDecollaterize is emitted on Msg/Decollateralize */
 export interface EventDecollaterizeAmino {
     /** Borrower bech32 address. */
-    borrower: string;
+    borrower?: string;
     /** utoken removed from collateral. */
     utoken?: CoinAmino;
 }
@@ -132,7 +132,7 @@ export interface EventBorrowProtoMsg {
 /** EventBorrow is emitted on Msg/Borrow */
 export interface EventBorrowAmino {
     /** Borrower bech32 address. */
-    borrower: string;
+    borrower?: string;
     /** Asset borrowed. */
     asset?: CoinAmino;
 }
@@ -159,7 +159,7 @@ export interface EventRepayProtoMsg {
 /** EventRepay is emitted on Msg/Repay */
 export interface EventRepayAmino {
     /** Borrower bech32 address. */
-    borrower: string;
+    borrower?: string;
     /** Asset repaid */
     repaid?: CoinAmino;
 }
@@ -188,9 +188,9 @@ export interface EventLiquidateProtoMsg {
 /** EventLiquidate is emitted on Msg/Liquidate */
 export interface EventLiquidateAmino {
     /** Liquidator bech32 address. */
-    liquidator: string;
+    liquidator?: string;
     /** Borrower bech32 address. */
-    borrower: string;
+    borrower?: string;
     /** Assets liquidated from the borrower */
     liquidated?: CoinAmino;
 }
@@ -218,11 +218,11 @@ export interface EventInterestAccrualProtoMsg {
 }
 /** EventInterestAccrual is emitted when interest accrues in EndBlock */
 export interface EventInterestAccrualAmino {
-    block_height: string;
+    block_height?: string;
     /** Unix timestamp (in seconds) */
-    timestamp: string;
-    total_interest: CoinAmino[];
-    reserved: CoinAmino[];
+    timestamp?: string;
+    total_interest?: CoinAmino[];
+    reserved?: CoinAmino[];
 }
 export interface EventInterestAccrualAminoMsg {
     type: "/umee.leverage.v1.EventInterestAccrual";
@@ -255,7 +255,7 @@ export interface EventRepayBadDebtProtoMsg {
  */
 export interface EventRepayBadDebtAmino {
     /** Borrower bech32 address. */
-    borrower: string;
+    borrower?: string;
     /** Asset repaid */
     asset?: CoinAmino;
 }
@@ -295,7 +295,7 @@ export interface EventReservesExhaustedProtoMsg {
  */
 export interface EventReservesExhaustedAmino {
     /** Borrower bech32 address. */
-    borrower: string;
+    borrower?: string;
     /** Outstanding bad debt */
     outstanding_debt?: CoinAmino;
     /** Module balance remaining */
@@ -329,7 +329,7 @@ export interface EventFundOracleProtoMsg {
 /** EventFundOracle is emitted when sending rewards to oracle module */
 export interface EventFundOracleAmino {
     /** Assets sent to oracle module */
-    assets: CoinAmino[];
+    assets?: CoinAmino[];
 }
 export interface EventFundOracleAminoMsg {
     type: "/umee.leverage.v1.EventFundOracle";

@@ -66,7 +66,7 @@ export interface QueryPendingRewardsProtoMsg {
 }
 /** QueryPendingRewards defines the request structure for the PendingRewards gRPC service handler. */
 export interface QueryPendingRewardsAmino {
-  address: string;
+  address?: string;
 }
 export interface QueryPendingRewardsAminoMsg {
   type: "/umee.incentive.v1.QueryPendingRewards";
@@ -86,7 +86,7 @@ export interface QueryPendingRewardsResponseProtoMsg {
 }
 /** QueryPendingRewardsResponse defines the response structure for the PendingRewards gRPC service handler. */
 export interface QueryPendingRewardsResponseAmino {
-  rewards: CoinAmino[];
+  rewards?: CoinAmino[];
 }
 export interface QueryPendingRewardsResponseAminoMsg {
   type: "/umee.incentive.v1.QueryPendingRewardsResponse";
@@ -106,7 +106,7 @@ export interface QueryAccountBondsProtoMsg {
 }
 /** QueryAccountBonds defines the request structure for the AccountBonds gRPC service handler. */
 export interface QueryAccountBondsAmino {
-  address: string;
+  address?: string;
 }
 export interface QueryAccountBondsAminoMsg {
   type: "/umee.incentive.v1.QueryAccountBonds";
@@ -128,9 +128,9 @@ export interface QueryAccountBondsResponseProtoMsg {
 }
 /** QueryAccountBondsResponse defines the response structure for the AccountBonds gRPC service handler. */
 export interface QueryAccountBondsResponseAmino {
-  bonded: CoinAmino[];
-  unbonding: CoinAmino[];
-  unbondings: UnbondingAmino[];
+  bonded?: CoinAmino[];
+  unbonding?: CoinAmino[];
+  unbondings?: UnbondingAmino[];
 }
 export interface QueryAccountBondsResponseAminoMsg {
   type: "/umee.incentive.v1.QueryAccountBondsResponse";
@@ -154,7 +154,7 @@ export interface QueryTotalBondedProtoMsg {
 /** QueryTotalBonded defines the request structure for the TotalBonded gRPC service handler. */
 export interface QueryTotalBondedAmino {
   /** denom is an optional field which causes the query to return the totals of only one uToken */
-  denom: string;
+  denom?: string;
 }
 export interface QueryTotalBondedAminoMsg {
   type: "/umee.incentive.v1.QueryTotalBonded";
@@ -174,7 +174,7 @@ export interface QueryTotalBondedResponseProtoMsg {
 }
 /** QueryTotalBondedResponse defines the response structure for the TotalBonded gRPC service handler. */
 export interface QueryTotalBondedResponseAmino {
-  bonded: CoinAmino[];
+  bonded?: CoinAmino[];
 }
 export interface QueryTotalBondedResponseAminoMsg {
   type: "/umee.incentive.v1.QueryTotalBondedResponse";
@@ -196,7 +196,7 @@ export interface QueryTotalUnbondingProtoMsg {
 /** QueryTotalUnbonding defines the request structure for the TotalUnbonding gRPC service handler. */
 export interface QueryTotalUnbondingAmino {
   /** denom is an optional field which causes the query to return the totals of only one uToken */
-  denom: string;
+  denom?: string;
 }
 export interface QueryTotalUnbondingAminoMsg {
   type: "/umee.incentive.v1.QueryTotalUnbonding";
@@ -216,7 +216,7 @@ export interface QueryTotalUnbondingResponseProtoMsg {
 }
 /** QueryTotalUnbondingResponse defines the response structure for the TotalUnbonding gRPC service handler. */
 export interface QueryTotalUnbondingResponseAmino {
-  unbonding: CoinAmino[];
+  unbonding?: CoinAmino[];
 }
 export interface QueryTotalUnbondingResponseAminoMsg {
   type: "/umee.incentive.v1.QueryTotalUnbondingResponse";
@@ -265,7 +265,7 @@ export interface QueryUpcomingIncentiveProgramsResponseProtoMsg {
  * OngoingIncentivePrograms and UpcomingIncentivePrograms gRPC service handlers.
  */
 export interface QueryUpcomingIncentiveProgramsResponseAmino {
-  programs: IncentiveProgramAmino[];
+  programs?: IncentiveProgramAmino[];
 }
 export interface QueryUpcomingIncentiveProgramsResponseAminoMsg {
   type: "/umee.incentive.v1.QueryUpcomingIncentiveProgramsResponse";
@@ -317,7 +317,7 @@ export interface QueryOngoingIncentiveProgramsResponseProtoMsg {
  * OngoingIncentivePrograms and UpcomingIncentivePrograms gRPC service handlers.
  */
 export interface QueryOngoingIncentiveProgramsResponseAmino {
-  programs: IncentiveProgramAmino[];
+  programs?: IncentiveProgramAmino[];
 }
 export interface QueryOngoingIncentiveProgramsResponseAminoMsg {
   type: "/umee.incentive.v1.QueryOngoingIncentiveProgramsResponse";
@@ -369,7 +369,7 @@ export interface QueryCompletedIncentiveProgramsResponseProtoMsg {
  * CompletedIncentivePrograms gRPC service handler.
  */
 export interface QueryCompletedIncentiveProgramsResponseAmino {
-  programs: IncentiveProgramAmino[];
+  programs?: IncentiveProgramAmino[];
 }
 export interface QueryCompletedIncentiveProgramsResponseAminoMsg {
   type: "/umee.incentive.v1.QueryCompletedIncentiveProgramsResponse";
@@ -400,7 +400,7 @@ export interface QueryIncentiveProgramProtoMsg {
  */
 export interface QueryIncentiveProgramAmino {
   /** ID specifies which program to query for */
-  id: number;
+  id?: number;
 }
 export interface QueryIncentiveProgramAminoMsg {
   type: "/umee.incentive.v1.QueryIncentiveProgram";
@@ -454,7 +454,7 @@ export interface QueryCurrentRatesProtoMsg {
 /** QueryCurrentRates defines the request structure for the CurrentRates gRPC service handler. */
 export interface QueryCurrentRatesAmino {
   /** uToken is the uToken denomination whose current annual rate of rewards is being queried */
-  uToken: string;
+  uToken?: string;
 }
 export interface QueryCurrentRatesAminoMsg {
   type: "/umee.incentive.v1.QueryCurrentRates";
@@ -496,7 +496,7 @@ export interface QueryCurrentRatesResponseAmino {
    * Rewards are the amount of base token rewards that the reference amount of bonded uTokens would earn
    * if current rates continued for a full year.
    */
-  rewards: CoinAmino[];
+  rewards?: CoinAmino[];
 }
 export interface QueryCurrentRatesResponseAminoMsg {
   type: "/umee.incentive.v1.QueryCurrentRatesResponse";
@@ -546,7 +546,7 @@ export interface QueryLastRewardTimeResponseProtoMsg {
  * service handler.
  */
 export interface QueryLastRewardTimeResponseAmino {
-  time: string;
+  time?: string;
 }
 export interface QueryLastRewardTimeResponseAminoMsg {
   type: "/umee.incentive.v1.QueryLastRewardTimeResponse";
@@ -571,7 +571,7 @@ export interface QueryActualRatesProtoMsg {
 /** QueryActualRates defines the request structure for the ActualRates gRPC service handler. */
 export interface QueryActualRatesAmino {
   /** uToken is the uToken denomination whose current annual rate of rewards is being queried */
-  uToken: string;
+  uToken?: string;
 }
 export interface QueryActualRatesAminoMsg {
   type: "/umee.incentive.v1.QueryActualRates";
@@ -593,7 +593,7 @@ export interface QueryActualRatesResponseProtoMsg {
 /** QueryActualRatesResponse defines the response structure for the ActualRates gRPC service handler. */
 export interface QueryActualRatesResponseAmino {
   /** APY is the oracle price-adjusted APY of the bonded uToken. */
-  APY: string;
+  APY?: string;
 }
 export interface QueryActualRatesResponseAminoMsg {
   type: "/umee.incentive.v1.QueryActualRatesResponse";
@@ -619,7 +619,8 @@ export const QueryParams = {
     return message;
   },
   fromAmino(_: QueryParamsAmino): QueryParams {
-    return {};
+    const message = createBaseQueryParams();
+    return message;
   },
   toAmino(_: QueryParams): QueryParamsAmino {
     const obj: any = {};
@@ -665,9 +666,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -714,13 +717,15 @@ export const QueryPendingRewards = {
     return message;
   },
   fromAmino(object: QueryPendingRewardsAmino): QueryPendingRewards {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryPendingRewards();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryPendingRewards): QueryPendingRewardsAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     return obj;
   },
   fromAminoMsg(object: QueryPendingRewardsAminoMsg): QueryPendingRewards {
@@ -763,16 +768,16 @@ export const QueryPendingRewardsResponse = {
     return message;
   },
   fromAmino(object: QueryPendingRewardsResponseAmino): QueryPendingRewardsResponse {
-    return {
-      rewards: Array.isArray(object?.rewards) ? object.rewards.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryPendingRewardsResponse();
+    message.rewards = object.rewards?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryPendingRewardsResponse): QueryPendingRewardsResponseAmino {
     const obj: any = {};
     if (message.rewards) {
       obj.rewards = message.rewards.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.rewards = [];
+      obj.rewards = message.rewards;
     }
     return obj;
   },
@@ -816,13 +821,15 @@ export const QueryAccountBonds = {
     return message;
   },
   fromAmino(object: QueryAccountBondsAmino): QueryAccountBonds {
-    return {
-      address: object.address
-    };
+    const message = createBaseQueryAccountBonds();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
   },
   toAmino(message: QueryAccountBonds): QueryAccountBondsAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     return obj;
   },
   fromAminoMsg(object: QueryAccountBondsAminoMsg): QueryAccountBonds {
@@ -877,28 +884,28 @@ export const QueryAccountBondsResponse = {
     return message;
   },
   fromAmino(object: QueryAccountBondsResponseAmino): QueryAccountBondsResponse {
-    return {
-      bonded: Array.isArray(object?.bonded) ? object.bonded.map((e: any) => Coin.fromAmino(e)) : [],
-      unbonding: Array.isArray(object?.unbonding) ? object.unbonding.map((e: any) => Coin.fromAmino(e)) : [],
-      unbondings: Array.isArray(object?.unbondings) ? object.unbondings.map((e: any) => Unbonding.fromAmino(e)) : []
-    };
+    const message = createBaseQueryAccountBondsResponse();
+    message.bonded = object.bonded?.map(e => Coin.fromAmino(e)) || [];
+    message.unbonding = object.unbonding?.map(e => Coin.fromAmino(e)) || [];
+    message.unbondings = object.unbondings?.map(e => Unbonding.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryAccountBondsResponse): QueryAccountBondsResponseAmino {
     const obj: any = {};
     if (message.bonded) {
       obj.bonded = message.bonded.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.bonded = [];
+      obj.bonded = message.bonded;
     }
     if (message.unbonding) {
       obj.unbonding = message.unbonding.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.unbonding = [];
+      obj.unbonding = message.unbonding;
     }
     if (message.unbondings) {
       obj.unbondings = message.unbondings.map(e => e ? Unbonding.toAmino(e) : undefined);
     } else {
-      obj.unbondings = [];
+      obj.unbondings = message.unbondings;
     }
     return obj;
   },
@@ -942,13 +949,15 @@ export const QueryTotalBonded = {
     return message;
   },
   fromAmino(object: QueryTotalBondedAmino): QueryTotalBonded {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseQueryTotalBonded();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryTotalBonded): QueryTotalBondedAmino {
     const obj: any = {};
-    obj.denom = message.denom;
+    obj.denom = message.denom === "" ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: QueryTotalBondedAminoMsg): QueryTotalBonded {
@@ -991,16 +1000,16 @@ export const QueryTotalBondedResponse = {
     return message;
   },
   fromAmino(object: QueryTotalBondedResponseAmino): QueryTotalBondedResponse {
-    return {
-      bonded: Array.isArray(object?.bonded) ? object.bonded.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTotalBondedResponse();
+    message.bonded = object.bonded?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTotalBondedResponse): QueryTotalBondedResponseAmino {
     const obj: any = {};
     if (message.bonded) {
       obj.bonded = message.bonded.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.bonded = [];
+      obj.bonded = message.bonded;
     }
     return obj;
   },
@@ -1044,13 +1053,15 @@ export const QueryTotalUnbonding = {
     return message;
   },
   fromAmino(object: QueryTotalUnbondingAmino): QueryTotalUnbonding {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseQueryTotalUnbonding();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryTotalUnbonding): QueryTotalUnbondingAmino {
     const obj: any = {};
-    obj.denom = message.denom;
+    obj.denom = message.denom === "" ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: QueryTotalUnbondingAminoMsg): QueryTotalUnbonding {
@@ -1093,16 +1104,16 @@ export const QueryTotalUnbondingResponse = {
     return message;
   },
   fromAmino(object: QueryTotalUnbondingResponseAmino): QueryTotalUnbondingResponse {
-    return {
-      unbonding: Array.isArray(object?.unbonding) ? object.unbonding.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryTotalUnbondingResponse();
+    message.unbonding = object.unbonding?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryTotalUnbondingResponse): QueryTotalUnbondingResponseAmino {
     const obj: any = {};
     if (message.unbonding) {
       obj.unbonding = message.unbonding.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.unbonding = [];
+      obj.unbonding = message.unbonding;
     }
     return obj;
   },
@@ -1138,7 +1149,8 @@ export const QueryUpcomingIncentivePrograms = {
     return message;
   },
   fromAmino(_: QueryUpcomingIncentiveProgramsAmino): QueryUpcomingIncentivePrograms {
-    return {};
+    const message = createBaseQueryUpcomingIncentivePrograms();
+    return message;
   },
   toAmino(_: QueryUpcomingIncentivePrograms): QueryUpcomingIncentiveProgramsAmino {
     const obj: any = {};
@@ -1184,16 +1196,16 @@ export const QueryUpcomingIncentiveProgramsResponse = {
     return message;
   },
   fromAmino(object: QueryUpcomingIncentiveProgramsResponseAmino): QueryUpcomingIncentiveProgramsResponse {
-    return {
-      programs: Array.isArray(object?.programs) ? object.programs.map((e: any) => IncentiveProgram.fromAmino(e)) : []
-    };
+    const message = createBaseQueryUpcomingIncentiveProgramsResponse();
+    message.programs = object.programs?.map(e => IncentiveProgram.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryUpcomingIncentiveProgramsResponse): QueryUpcomingIncentiveProgramsResponseAmino {
     const obj: any = {};
     if (message.programs) {
       obj.programs = message.programs.map(e => e ? IncentiveProgram.toAmino(e) : undefined);
     } else {
-      obj.programs = [];
+      obj.programs = message.programs;
     }
     return obj;
   },
@@ -1229,7 +1241,8 @@ export const QueryOngoingIncentivePrograms = {
     return message;
   },
   fromAmino(_: QueryOngoingIncentiveProgramsAmino): QueryOngoingIncentivePrograms {
-    return {};
+    const message = createBaseQueryOngoingIncentivePrograms();
+    return message;
   },
   toAmino(_: QueryOngoingIncentivePrograms): QueryOngoingIncentiveProgramsAmino {
     const obj: any = {};
@@ -1275,16 +1288,16 @@ export const QueryOngoingIncentiveProgramsResponse = {
     return message;
   },
   fromAmino(object: QueryOngoingIncentiveProgramsResponseAmino): QueryOngoingIncentiveProgramsResponse {
-    return {
-      programs: Array.isArray(object?.programs) ? object.programs.map((e: any) => IncentiveProgram.fromAmino(e)) : []
-    };
+    const message = createBaseQueryOngoingIncentiveProgramsResponse();
+    message.programs = object.programs?.map(e => IncentiveProgram.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryOngoingIncentiveProgramsResponse): QueryOngoingIncentiveProgramsResponseAmino {
     const obj: any = {};
     if (message.programs) {
       obj.programs = message.programs.map(e => e ? IncentiveProgram.toAmino(e) : undefined);
     } else {
-      obj.programs = [];
+      obj.programs = message.programs;
     }
     return obj;
   },
@@ -1320,7 +1333,8 @@ export const QueryCompletedIncentivePrograms = {
     return message;
   },
   fromAmino(_: QueryCompletedIncentiveProgramsAmino): QueryCompletedIncentivePrograms {
-    return {};
+    const message = createBaseQueryCompletedIncentivePrograms();
+    return message;
   },
   toAmino(_: QueryCompletedIncentivePrograms): QueryCompletedIncentiveProgramsAmino {
     const obj: any = {};
@@ -1366,16 +1380,16 @@ export const QueryCompletedIncentiveProgramsResponse = {
     return message;
   },
   fromAmino(object: QueryCompletedIncentiveProgramsResponseAmino): QueryCompletedIncentiveProgramsResponse {
-    return {
-      programs: Array.isArray(object?.programs) ? object.programs.map((e: any) => IncentiveProgram.fromAmino(e)) : []
-    };
+    const message = createBaseQueryCompletedIncentiveProgramsResponse();
+    message.programs = object.programs?.map(e => IncentiveProgram.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryCompletedIncentiveProgramsResponse): QueryCompletedIncentiveProgramsResponseAmino {
     const obj: any = {};
     if (message.programs) {
       obj.programs = message.programs.map(e => e ? IncentiveProgram.toAmino(e) : undefined);
     } else {
-      obj.programs = [];
+      obj.programs = message.programs;
     }
     return obj;
   },
@@ -1419,13 +1433,15 @@ export const QueryIncentiveProgram = {
     return message;
   },
   fromAmino(object: QueryIncentiveProgramAmino): QueryIncentiveProgram {
-    return {
-      id: object.id
-    };
+    const message = createBaseQueryIncentiveProgram();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    return message;
   },
   toAmino(message: QueryIncentiveProgram): QueryIncentiveProgramAmino {
     const obj: any = {};
-    obj.id = message.id;
+    obj.id = message.id === 0 ? undefined : message.id;
     return obj;
   },
   fromAminoMsg(object: QueryIncentiveProgramAminoMsg): QueryIncentiveProgram {
@@ -1468,9 +1484,11 @@ export const QueryIncentiveProgramResponse = {
     return message;
   },
   fromAmino(object: QueryIncentiveProgramResponseAmino): QueryIncentiveProgramResponse {
-    return {
-      program: object?.program ? IncentiveProgram.fromAmino(object.program) : undefined
-    };
+    const message = createBaseQueryIncentiveProgramResponse();
+    if (object.program !== undefined && object.program !== null) {
+      message.program = IncentiveProgram.fromAmino(object.program);
+    }
+    return message;
   },
   toAmino(message: QueryIncentiveProgramResponse): QueryIncentiveProgramResponseAmino {
     const obj: any = {};
@@ -1517,13 +1535,15 @@ export const QueryCurrentRates = {
     return message;
   },
   fromAmino(object: QueryCurrentRatesAmino): QueryCurrentRates {
-    return {
-      uToken: object.uToken
-    };
+    const message = createBaseQueryCurrentRates();
+    if (object.uToken !== undefined && object.uToken !== null) {
+      message.uToken = object.uToken;
+    }
+    return message;
   },
   toAmino(message: QueryCurrentRates): QueryCurrentRatesAmino {
     const obj: any = {};
-    obj.uToken = message.uToken;
+    obj.uToken = message.uToken === "" ? undefined : message.uToken;
     return obj;
   },
   fromAminoMsg(object: QueryCurrentRatesAminoMsg): QueryCurrentRates {
@@ -1572,10 +1592,12 @@ export const QueryCurrentRatesResponse = {
     return message;
   },
   fromAmino(object: QueryCurrentRatesResponseAmino): QueryCurrentRatesResponse {
-    return {
-      referenceBond: object?.reference_bond ? Coin.fromAmino(object.reference_bond) : undefined,
-      rewards: Array.isArray(object?.rewards) ? object.rewards.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryCurrentRatesResponse();
+    if (object.reference_bond !== undefined && object.reference_bond !== null) {
+      message.referenceBond = Coin.fromAmino(object.reference_bond);
+    }
+    message.rewards = object.rewards?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryCurrentRatesResponse): QueryCurrentRatesResponseAmino {
     const obj: any = {};
@@ -1583,7 +1605,7 @@ export const QueryCurrentRatesResponse = {
     if (message.rewards) {
       obj.rewards = message.rewards.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.rewards = [];
+      obj.rewards = message.rewards;
     }
     return obj;
   },
@@ -1619,7 +1641,8 @@ export const QueryLastRewardTime = {
     return message;
   },
   fromAmino(_: QueryLastRewardTimeAmino): QueryLastRewardTime {
-    return {};
+    const message = createBaseQueryLastRewardTime();
+    return message;
   },
   toAmino(_: QueryLastRewardTime): QueryLastRewardTimeAmino {
     const obj: any = {};
@@ -1665,13 +1688,15 @@ export const QueryLastRewardTimeResponse = {
     return message;
   },
   fromAmino(object: QueryLastRewardTimeResponseAmino): QueryLastRewardTimeResponse {
-    return {
-      time: BigInt(object.time)
-    };
+    const message = createBaseQueryLastRewardTimeResponse();
+    if (object.time !== undefined && object.time !== null) {
+      message.time = BigInt(object.time);
+    }
+    return message;
   },
   toAmino(message: QueryLastRewardTimeResponse): QueryLastRewardTimeResponseAmino {
     const obj: any = {};
-    obj.time = message.time ? message.time.toString() : undefined;
+    obj.time = message.time !== BigInt(0) ? message.time.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryLastRewardTimeResponseAminoMsg): QueryLastRewardTimeResponse {
@@ -1714,13 +1739,15 @@ export const QueryActualRates = {
     return message;
   },
   fromAmino(object: QueryActualRatesAmino): QueryActualRates {
-    return {
-      uToken: object.uToken
-    };
+    const message = createBaseQueryActualRates();
+    if (object.uToken !== undefined && object.uToken !== null) {
+      message.uToken = object.uToken;
+    }
+    return message;
   },
   toAmino(message: QueryActualRates): QueryActualRatesAmino {
     const obj: any = {};
-    obj.uToken = message.uToken;
+    obj.uToken = message.uToken === "" ? undefined : message.uToken;
     return obj;
   },
   fromAminoMsg(object: QueryActualRatesAminoMsg): QueryActualRates {
@@ -1763,13 +1790,15 @@ export const QueryActualRatesResponse = {
     return message;
   },
   fromAmino(object: QueryActualRatesResponseAmino): QueryActualRatesResponse {
-    return {
-      APY: object.APY
-    };
+    const message = createBaseQueryActualRatesResponse();
+    if (object.APY !== undefined && object.APY !== null) {
+      message.APY = object.APY;
+    }
+    return message;
   },
   toAmino(message: QueryActualRatesResponse): QueryActualRatesResponseAmino {
     const obj: any = {};
-    obj.APY = message.APY;
+    obj.APY = message.APY === "" ? undefined : message.APY;
     return obj;
   },
   fromAminoMsg(object: QueryActualRatesResponseAminoMsg): QueryActualRatesResponse {

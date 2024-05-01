@@ -25,14 +25,14 @@ export interface ParamsAmino {
      * max_unbondings is the maximum amount of concurrent unbondings an address can have
      * of each bonded uToken denom. Zero is interpreted as no limit.
      */
-    max_unbondings: number;
+    max_unbondings?: number;
     /** unbonding_duration is the unbonding duration (in seconds). */
-    unbonding_duration: string;
+    unbonding_duration?: string;
     /**
      * emergency_unbond_fee is the portion of a bond that is paid when it is instantly
      * released using MsgEmergencyUnbond. For example, 0.01 is a 1% fee. Ranges 0-1.
      */
-    emergency_unbond_fee: string;
+    emergency_unbond_fee?: string;
 }
 export interface ParamsAminoMsg {
     type: "/umee.incentive.v1.Params";
@@ -108,31 +108,31 @@ export interface IncentiveProgramAmino {
      * It is zero when the program is being proposed by governance, and is set
      * to its final value when the proposal passes.
      */
-    ID: number;
+    ID?: number;
     /**
      * start_time is the unix time (in seconds) at which the incentives begin.
      * If a program is passed after its intended start time, its start time
      * will be increased to the current time, with program duration unchanged.
      */
-    start_time: string;
+    start_time?: string;
     /**
      * duration is the length of the incentive program from start time to
      * completion in seconds.
      */
-    duration: string;
+    duration?: string;
     /**
      * uToken is the incentivized uToken collateral denom. Suppliers who collateralize
      * this asset then bond it to the incentive module are eligible for this program's
      * rewards.
      */
-    uToken: string;
+    uToken?: string;
     /**
      * funded indicates whether a program bas been funded. This can happen when
      * a program passes if funding from community fund, or any time before the
      * program's start time if funding with MsgSponsor. A program that reaches
      * its start time without being funded is cancelled.
      */
-    funded: boolean;
+    funded?: boolean;
     /**
      * total_rewards are total amount of rewards which can be distributed to
      * suppliers by this program. This is set to its final value when the program

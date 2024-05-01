@@ -1,6 +1,6 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./quota";
 import { DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { Decimal } from "@cosmjs/math";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
@@ -8,10 +8,14 @@ import { isSet, fromJsonTimestamp } from "../../../helpers";
 export interface GenesisState {
   params: Params;
   outflows: DecCoin[];
-  /** total_outflow_sum defines the total outflow sum of ibc-transfer in USD. */
-  totalOutflowSum: string;
+  /** outflow_sum defines the total outflow sum of ibc-transfer in USD. */
+  outflowSum: string;
   /** quota_expires defines quota expire time (as unix timestamp) for ibc-transfer denom. */
   quotaExpires: Timestamp;
+  /** inflows tracks IBC inflow transfers (in USD) for each denom during quota period. */
+  inflows: DecCoin[];
+  /** inflow_sum defines tracks total sum of IBC inflow transfers (in USD) during quota period. */
+  inflowSum: string;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/umee.uibc.v1.GenesisState";
@@ -20,11 +24,15 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the uibc module's genesis state. */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  outflows: DecCoinAmino[];
-  /** total_outflow_sum defines the total outflow sum of ibc-transfer in USD. */
-  total_outflow_sum: string;
+  outflows?: DecCoinAmino[];
+  /** outflow_sum defines the total outflow sum of ibc-transfer in USD. */
+  outflow_sum?: string;
   /** quota_expires defines quota expire time (as unix timestamp) for ibc-transfer denom. */
-  quota_expires?: TimestampAmino;
+  quota_expires?: string;
+  /** inflows tracks IBC inflow transfers (in USD) for each denom during quota period. */
+  inflows?: DecCoinAmino[];
+  /** inflow_sum defines tracks total sum of IBC inflow transfers (in USD) during quota period. */
+  inflow_sum?: string;
 }
 export interface GenesisStateAminoMsg {
   type: "/umee.uibc.v1.GenesisState";
@@ -34,15 +42,19 @@ export interface GenesisStateAminoMsg {
 export interface GenesisStateSDKType {
   params: ParamsSDKType;
   outflows: DecCoinSDKType[];
-  total_outflow_sum: string;
+  outflow_sum: string;
   quota_expires: TimestampSDKType;
+  inflows: DecCoinSDKType[];
+  inflow_sum: string;
 }
 function createBaseGenesisState(): GenesisState {
   return {
     params: Params.fromPartial({}),
     outflows: [],
-    totalOutflowSum: "",
-    quotaExpires: Timestamp.fromPartial({})
+    outflowSum: "",
+    quotaExpires: Timestamp.fromPartial({}),
+    inflows: [],
+    inflowSum: ""
   };
 }
 export const GenesisState = {
@@ -54,11 +66,17 @@ export const GenesisState = {
     for (const v of message.outflows) {
       DecCoin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-    if (message.totalOutflowSum !== "") {
-      writer.uint32(26).string(Decimal.fromUserInput(message.totalOutflowSum, 18).atomics);
+    if (message.outflowSum !== "") {
+      writer.uint32(26).string(Decimal.fromUserInput(message.outflowSum, 18).atomics);
     }
     if (message.quotaExpires !== undefined) {
       Timestamp.encode(message.quotaExpires, writer.uint32(34).fork()).ldelim();
+    }
+    for (const v of message.inflows) {
+      DecCoin.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.inflowSum !== "") {
+      writer.uint32(50).string(Decimal.fromUserInput(message.inflowSum, 18).atomics);
     }
     return writer;
   },
@@ -66,25 +84,39 @@ export const GenesisState = {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       outflows: Array.isArray(object?.outflows) ? object.outflows.map((e: any) => DecCoin.fromJSON(e)) : [],
-      totalOutflowSum: isSet(object.totalOutflowSum) ? String(object.totalOutflowSum) : "",
-      quotaExpires: isSet(object.quotaExpires) ? fromJsonTimestamp(object.quotaExpires) : undefined
+      outflowSum: isSet(object.outflowSum) ? String(object.outflowSum) : "",
+      quotaExpires: isSet(object.quotaExpires) ? fromJsonTimestamp(object.quotaExpires) : undefined,
+      inflows: Array.isArray(object?.inflows) ? object.inflows.map((e: any) => DecCoin.fromJSON(e)) : [],
+      inflowSum: isSet(object.inflowSum) ? String(object.inflowSum) : ""
     };
   },
   fromPartial(object: Partial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     message.outflows = object.outflows?.map(e => DecCoin.fromPartial(e)) || [];
-    message.totalOutflowSum = object.totalOutflowSum ?? "";
+    message.outflowSum = object.outflowSum ?? "";
     message.quotaExpires = object.quotaExpires !== undefined && object.quotaExpires !== null ? Timestamp.fromPartial(object.quotaExpires) : undefined;
+    message.inflows = object.inflows?.map(e => DecCoin.fromPartial(e)) || [];
+    message.inflowSum = object.inflowSum ?? "";
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      outflows: Array.isArray(object?.outflows) ? object.outflows.map((e: any) => DecCoin.fromAmino(e)) : [],
-      totalOutflowSum: object.total_outflow_sum,
-      quotaExpires: object.quota_expires
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.outflows = object.outflows?.map(e => DecCoin.fromAmino(e)) || [];
+    if (object.outflow_sum !== undefined && object.outflow_sum !== null) {
+      message.outflowSum = object.outflow_sum;
+    }
+    if (object.quota_expires !== undefined && object.quota_expires !== null) {
+      message.quotaExpires = Timestamp.fromAmino(object.quota_expires);
+    }
+    message.inflows = object.inflows?.map(e => DecCoin.fromAmino(e)) || [];
+    if (object.inflow_sum !== undefined && object.inflow_sum !== null) {
+      message.inflowSum = object.inflow_sum;
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -92,10 +124,16 @@ export const GenesisState = {
     if (message.outflows) {
       obj.outflows = message.outflows.map(e => e ? DecCoin.toAmino(e) : undefined);
     } else {
-      obj.outflows = [];
+      obj.outflows = message.outflows;
     }
-    obj.total_outflow_sum = message.totalOutflowSum;
-    obj.quota_expires = message.quotaExpires;
+    obj.outflow_sum = message.outflowSum === "" ? undefined : message.outflowSum;
+    obj.quota_expires = message.quotaExpires ? Timestamp.toAmino(message.quotaExpires) : undefined;
+    if (message.inflows) {
+      obj.inflows = message.inflows.map(e => e ? DecCoin.toAmino(e) : undefined);
+    } else {
+      obj.inflows = message.inflows;
+    }
+    obj.inflow_sum = message.inflowSum === "" ? undefined : message.inflowSum;
     return obj;
   },
   fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {

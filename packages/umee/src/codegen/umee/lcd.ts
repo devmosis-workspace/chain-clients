@@ -19,6 +19,11 @@ export const createLCDClient = async ({
           requestClient
         })
       },
+      metoken: {
+        v1: new (await import("./metoken/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
       oracle: {
         v1: new (await import("./oracle/v1/query.lcd")).LCDQueryClient({
           requestClient
@@ -62,6 +67,11 @@ export const createLCDClient = async ({
             requestClient
           })
         }
+      },
+      consensus: {
+        v1: new (await import("../cosmos/consensus/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
       },
       distribution: {
         v1beta1: new (await import("../cosmos/distribution/v1beta1/query.lcd")).LCDQueryClient({

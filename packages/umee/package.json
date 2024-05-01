@@ -1,6 +1,6 @@
 {
   "name": "@chain-clients/umee",
-  "version": "5.1.0-6",
+  "version": "6.4.0",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",

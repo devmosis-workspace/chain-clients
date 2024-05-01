@@ -1,10 +1,12 @@
 import { Rpc } from "../../../helpers";
-import { QueryClient } from "@cosmjs/stargate";
-import { QueryAccountsRequest, QueryAccountsResponse, QueryAccountRequest, QueryAccountResponse, QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse, QueryParamsRequest, QueryParamsResponse, QueryModuleAccountsRequest, QueryModuleAccountsResponse, QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse, Bech32PrefixRequest, Bech32PrefixResponse, AddressBytesToStringRequest, AddressBytesToStringResponse, AddressStringToBytesRequest, AddressStringToBytesResponse } from "./query";
+import { QueryAccountsRequest, QueryAccountsResponse, QueryAccountRequest, QueryAccountResponse, QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse, QueryParamsRequest, QueryParamsResponse, QueryModuleAccountsRequest, QueryModuleAccountsResponse, QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse, Bech32PrefixRequest, Bech32PrefixResponse, AddressBytesToStringRequest, AddressBytesToStringResponse, AddressStringToBytesRequest, AddressStringToBytesResponse, QueryAccountInfoRequest, QueryAccountInfoResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
     /**
-     * Accounts returns all the existing accounts
+     * Accounts returns all the existing accounts.
+     *
+     * When called from another module, this query might consume a high amount of
+     * gas if the pagination field is incorrectly set.
      *
      * Since: cosmos-sdk 0.43
      */
@@ -45,6 +47,12 @@ export interface Query {
      * Since: cosmos-sdk 0.46
      */
     addressStringToBytes(request: AddressStringToBytesRequest): Promise<AddressStringToBytesResponse>;
+    /**
+     * AccountInfo queries account info which is common to all account types.
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    accountInfo(request: QueryAccountInfoRequest): Promise<QueryAccountInfoResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -58,6 +66,7 @@ export declare class QueryClientImpl implements Query {
     bech32Prefix(request?: Bech32PrefixRequest): Promise<Bech32PrefixResponse>;
     addressBytesToString(request: AddressBytesToStringRequest): Promise<AddressBytesToStringResponse>;
     addressStringToBytes(request: AddressStringToBytesRequest): Promise<AddressStringToBytesResponse>;
+    accountInfo(request: QueryAccountInfoRequest): Promise<QueryAccountInfoResponse>;
 }
 export declare const createRpcQueryExtension: (base: QueryClient) => {
     accounts(request?: QueryAccountsRequest): Promise<QueryAccountsResponse>;
@@ -69,4 +78,5 @@ export declare const createRpcQueryExtension: (base: QueryClient) => {
     bech32Prefix(request?: Bech32PrefixRequest): Promise<Bech32PrefixResponse>;
     addressBytesToString(request: AddressBytesToStringRequest): Promise<AddressBytesToStringResponse>;
     addressStringToBytes(request: AddressStringToBytesRequest): Promise<AddressStringToBytesResponse>;
+    accountInfo(request: QueryAccountInfoRequest): Promise<QueryAccountInfoResponse>;
 };

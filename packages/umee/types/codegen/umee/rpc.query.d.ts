@@ -23,6 +23,8 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
             v1: {
                 params(request?: import("./leverage/v1/query").QueryParams): Promise<import("./leverage/v1/query").QueryParamsResponse>;
                 registeredTokens(request: import("./leverage/v1/query").QueryRegisteredTokens): Promise<import("./leverage/v1/query").QueryRegisteredTokensResponse>;
+                registeredTokensWithMarkets(request?: import("./leverage/v1/query").QueryRegisteredTokensWithMarkets): Promise<import("./leverage/v1/query").QueryRegisteredTokensWithMarketsResponse>;
+                specialAssets(request: import("./leverage/v1/query").QuerySpecialAssets): Promise<import("./leverage/v1/query").QuerySpecialAssetsResponse>;
                 marketSummary(request: import("./leverage/v1/query").QueryMarketSummary): Promise<import("./leverage/v1/query").QueryMarketSummaryResponse>;
                 accountBalances(request: import("./leverage/v1/query").QueryAccountBalances): Promise<import("./leverage/v1/query").QueryAccountBalancesResponse>;
                 accountSummary(request: import("./leverage/v1/query").QueryAccountSummary): Promise<import("./leverage/v1/query").QueryAccountSummaryResponse>;
@@ -31,6 +33,17 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 maxWithdraw(request: import("./leverage/v1/query").QueryMaxWithdraw): Promise<import("./leverage/v1/query").QueryMaxWithdrawResponse>;
                 maxBorrow(request: import("./leverage/v1/query").QueryMaxBorrow): Promise<import("./leverage/v1/query").QueryMaxBorrowResponse>;
                 inspect(request: import("./leverage/v1/query").QueryInspect): Promise<import("./leverage/v1/query").QueryInspectResponse>;
+                inspectAccount(request: import("./leverage/v1/query").QueryInspectAccount): Promise<import("./leverage/v1/query").QueryInspectAccountResponse>;
+            };
+        };
+        metoken: {
+            v1: {
+                params(request?: import("./metoken/v1/query").QueryParams): Promise<import("./metoken/v1/query").QueryParamsResponse>;
+                indexes(request: import("./metoken/v1/query").QueryIndexes): Promise<import("./metoken/v1/query").QueryIndexesResponse>;
+                swapFee(request: import("./metoken/v1/query").QuerySwapFee): Promise<import("./metoken/v1/query").QuerySwapFeeResponse>;
+                redeemFee(request: import("./metoken/v1/query").QueryRedeemFee): Promise<import("./metoken/v1/query").QueryRedeemFeeResponse>;
+                indexBalances(request: import("./metoken/v1/query").QueryIndexBalances): Promise<import("./metoken/v1/query").QueryIndexBalancesResponse>;
+                indexPrices(request: import("./metoken/v1/query").QueryIndexPrices): Promise<import("./metoken/v1/query").QueryIndexPricesResponse>;
             };
         };
         oracle: {
@@ -48,11 +61,16 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 medians(request: import("./oracle/v1/query").QueryMedians): Promise<import("./oracle/v1/query").QueryMediansResponse>;
                 medianDeviations(request: import("./oracle/v1/query").QueryMedianDeviations): Promise<import("./oracle/v1/query").QueryMedianDeviationsResponse>;
                 avgPrice(request: import("./oracle/v1/query").QueryAvgPrice): Promise<import("./oracle/v1/query").QueryAvgPriceResponse>;
+                exgRatesWithTimestamp(request: import("./oracle/v1/query").QueryExgRatesWithTimestamp): Promise<import("./oracle/v1/query").QueryExgRatesWithTimestampResponse>;
+                missCounters(request: import("./oracle/v1/query").QueryMissCounters): Promise<import("./oracle/v1/query").QueryMissCountersResponse>;
             };
         };
         ugov: {
             v1: {
                 minGasPrice(request?: import("./ugov/v1/query").QueryMinGasPrice): Promise<import("./ugov/v1/query").QueryMinGasPriceResponse>;
+                emergencyGroup(request?: import("./ugov/v1/query").QueryEmergencyGroup): Promise<import("./ugov/v1/query").QueryEmergencyGroupResponse>;
+                inflationParams(request?: import("./ugov/v1/query").QueryInflationParams): Promise<import("./ugov/v1/query").QueryInflationParamsResponse>;
+                inflationCycleEnd(request?: import("./ugov/v1/query").QueryInflationCycleEnd): Promise<import("./ugov/v1/query").QueryInflationCycleEndResponse>;
             };
         };
         uibc: {
@@ -60,6 +78,8 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 params(request?: import("./uibc/v1/query").QueryParams): Promise<import("./uibc/v1/query").QueryParamsResponse>;
                 outflows(request: import("./uibc/v1/query").QueryOutflows): Promise<import("./uibc/v1/query").QueryOutflowsResponse>;
                 allOutflows(request?: import("./uibc/v1/query").QueryAllOutflows): Promise<import("./uibc/v1/query").QueryAllOutflowsResponse>;
+                inflows(request: import("./uibc/v1/query").QueryInflows): Promise<import("./uibc/v1/query").QueryInflowsResponse>;
+                quotaExpires(request?: import("./uibc/v1/query").QueryQuotaExpires): Promise<import("./uibc/v1/query").QueryQuotaExpiresResponse>;
             };
         };
     };
@@ -80,6 +100,7 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 bech32Prefix(request?: import("../cosmos/auth/v1beta1/query").Bech32PrefixRequest): Promise<import("../cosmos/auth/v1beta1/query").Bech32PrefixResponse>;
                 addressBytesToString(request: import("../cosmos/auth/v1beta1/query").AddressBytesToStringRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressBytesToStringResponse>;
                 addressStringToBytes(request: import("../cosmos/auth/v1beta1/query").AddressStringToBytesRequest): Promise<import("../cosmos/auth/v1beta1/query").AddressStringToBytesResponse>;
+                accountInfo(request: import("../cosmos/auth/v1beta1/query").QueryAccountInfoRequest): Promise<import("../cosmos/auth/v1beta1/query").QueryAccountInfoResponse>;
             };
         };
         authz: {
@@ -89,17 +110,24 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 granteeGrants(request: import("../cosmos/authz/v1beta1/query").QueryGranteeGrantsRequest): Promise<import("../cosmos/authz/v1beta1/query").QueryGranteeGrantsResponse>;
             };
         };
+        autocli: {
+            v1: {
+                appOptions(request?: import("../cosmos/autocli/v1/query").AppOptionsRequest): Promise<import("../cosmos/autocli/v1/query").AppOptionsResponse>;
+            };
+        };
         bank: {
             v1beta1: {
                 balance(request: import("../cosmos/bank/v1beta1/query").QueryBalanceRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryBalanceResponse>;
                 allBalances(request: import("../cosmos/bank/v1beta1/query").QueryAllBalancesRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryAllBalancesResponse>;
                 spendableBalances(request: import("../cosmos/bank/v1beta1/query").QuerySpendableBalancesRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySpendableBalancesResponse>;
+                spendableBalanceByDenom(request: import("../cosmos/bank/v1beta1/query").QuerySpendableBalanceByDenomRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySpendableBalanceByDenomResponse>;
                 totalSupply(request?: import("../cosmos/bank/v1beta1/query").QueryTotalSupplyRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryTotalSupplyResponse>;
                 supplyOf(request: import("../cosmos/bank/v1beta1/query").QuerySupplyOfRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySupplyOfResponse>;
                 params(request?: import("../cosmos/bank/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryParamsResponse>;
                 denomMetadata(request: import("../cosmos/bank/v1beta1/query").QueryDenomMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomMetadataResponse>;
                 denomsMetadata(request?: import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomsMetadataResponse>;
                 denomOwners(request: import("../cosmos/bank/v1beta1/query").QueryDenomOwnersRequest): Promise<import("../cosmos/bank/v1beta1/query").QueryDenomOwnersResponse>;
+                sendEnabled(request: import("../cosmos/bank/v1beta1/query").QuerySendEnabledRequest): Promise<import("../cosmos/bank/v1beta1/query").QuerySendEnabledResponse>;
             };
         };
         base: {
@@ -120,9 +148,15 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 };
             };
         };
+        consensus: {
+            v1: {
+                params(request?: import("../cosmos/consensus/v1/query").QueryParamsRequest): Promise<import("../cosmos/consensus/v1/query").QueryParamsResponse>;
+            };
+        };
         distribution: {
             v1beta1: {
                 params(request?: import("../cosmos/distribution/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryParamsResponse>;
+                validatorDistributionInfo(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorDistributionInfoRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorDistributionInfoResponse>;
                 validatorOutstandingRewards(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorOutstandingRewardsRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorOutstandingRewardsResponse>;
                 validatorCommission(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorCommissionRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorCommissionResponse>;
                 validatorSlashes(request: import("../cosmos/distribution/v1beta1/query").QueryValidatorSlashesRequest): Promise<import("../cosmos/distribution/v1beta1/query").QueryValidatorSlashesResponse>;
@@ -204,6 +238,14 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 classes(request?: import("../cosmos/nft/v1beta1/query").QueryClassesRequest): Promise<import("../cosmos/nft/v1beta1/query").QueryClassesResponse>;
             };
         };
+        orm: {
+            query: {
+                v1alpha1: {
+                    get(request: import("../cosmos/orm/query/v1alpha1/query").GetRequest): Promise<import("../cosmos/orm/query/v1alpha1/query").GetResponse>;
+                    list(request: import("../cosmos/orm/query/v1alpha1/query").ListRequest): Promise<import("../cosmos/orm/query/v1alpha1/query").ListResponse>;
+                };
+            };
+        };
         params: {
             v1beta1: {
                 params(request: import("../cosmos/params/v1beta1/query").QueryParamsRequest): Promise<import("../cosmos/params/v1beta1/query").QueryParamsResponse>;
@@ -242,6 +284,10 @@ export declare const createRPCQueryClient: ({ rpcEndpoint }: {
                 broadcastTx(request: import("../cosmos/tx/v1beta1/service").BroadcastTxRequest): Promise<import("../cosmos/tx/v1beta1/service").BroadcastTxResponse>;
                 getTxsEvent(request: import("../cosmos/tx/v1beta1/service").GetTxsEventRequest): Promise<import("../cosmos/tx/v1beta1/service").GetTxsEventResponse>;
                 getBlockWithTxs(request: import("../cosmos/tx/v1beta1/service").GetBlockWithTxsRequest): Promise<import("../cosmos/tx/v1beta1/service").GetBlockWithTxsResponse>;
+                txDecode(request: import("../cosmos/tx/v1beta1/service").TxDecodeRequest): Promise<import("../cosmos/tx/v1beta1/service").TxDecodeResponse>;
+                txEncode(request: import("../cosmos/tx/v1beta1/service").TxEncodeRequest): Promise<import("../cosmos/tx/v1beta1/service").TxEncodeResponse>;
+                txEncodeAmino(request: import("../cosmos/tx/v1beta1/service").TxEncodeAminoRequest): Promise<import("../cosmos/tx/v1beta1/service").TxEncodeAminoResponse>;
+                txDecodeAmino(request: import("../cosmos/tx/v1beta1/service").TxDecodeAminoRequest): Promise<import("../cosmos/tx/v1beta1/service").TxDecodeAminoResponse>;
             };
         };
         upgrade: {

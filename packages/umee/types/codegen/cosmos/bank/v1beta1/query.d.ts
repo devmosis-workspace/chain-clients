@@ -1,6 +1,6 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../base/query/v1beta1/pagination";
 import { Coin, CoinAmino, CoinSDKType } from "../../base/v1beta1/coin";
-import { Params, ParamsAmino, ParamsSDKType, Metadata, MetadataAmino, MetadataSDKType } from "./bank";
+import { Params, ParamsAmino, ParamsSDKType, Metadata, MetadataAmino, MetadataSDKType, SendEnabled, SendEnabledAmino, SendEnabledSDKType } from "./bank";
 import { BinaryWriter } from "../../../binary";
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method. */
 export interface QueryBalanceRequest {
@@ -16,9 +16,9 @@ export interface QueryBalanceRequestProtoMsg {
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method. */
 export interface QueryBalanceRequestAmino {
     /** address is the address to query balances for. */
-    address: string;
+    address?: string;
     /** denom is the coin denom to query balances for. */
-    denom: string;
+    denom?: string;
 }
 export interface QueryBalanceRequestAminoMsg {
     type: "cosmos-sdk/QueryBalanceRequest";
@@ -32,7 +32,7 @@ export interface QueryBalanceRequestSDKType {
 /** QueryBalanceResponse is the response type for the Query/Balance RPC method. */
 export interface QueryBalanceResponse {
     /** balance is the balance of the coin. */
-    balance: Coin;
+    balance?: Coin;
 }
 export interface QueryBalanceResponseProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.QueryBalanceResponse";
@@ -49,14 +49,14 @@ export interface QueryBalanceResponseAminoMsg {
 }
 /** QueryBalanceResponse is the response type for the Query/Balance RPC method. */
 export interface QueryBalanceResponseSDKType {
-    balance: CoinSDKType;
+    balance?: CoinSDKType;
 }
 /** QueryBalanceRequest is the request type for the Query/AllBalances RPC method. */
 export interface QueryAllBalancesRequest {
     /** address is the address to query balances for. */
     address: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryAllBalancesRequestProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.QueryAllBalancesRequest";
@@ -65,7 +65,7 @@ export interface QueryAllBalancesRequestProtoMsg {
 /** QueryBalanceRequest is the request type for the Query/AllBalances RPC method. */
 export interface QueryAllBalancesRequestAmino {
     /** address is the address to query balances for. */
-    address: string;
+    address?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -76,7 +76,7 @@ export interface QueryAllBalancesRequestAminoMsg {
 /** QueryBalanceRequest is the request type for the Query/AllBalances RPC method. */
 export interface QueryAllBalancesRequestSDKType {
     address: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryAllBalancesResponse is the response type for the Query/AllBalances RPC
@@ -86,7 +86,7 @@ export interface QueryAllBalancesResponse {
     /** balances is the balances of all the coins. */
     balances: Coin[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryAllBalancesResponseProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.QueryAllBalancesResponse";
@@ -112,7 +112,7 @@ export interface QueryAllBalancesResponseAminoMsg {
  */
 export interface QueryAllBalancesResponseSDKType {
     balances: CoinSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /**
  * QuerySpendableBalancesRequest defines the gRPC request structure for querying
@@ -124,7 +124,7 @@ export interface QuerySpendableBalancesRequest {
     /** address is the address to query spendable balances for. */
     address: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QuerySpendableBalancesRequestProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalancesRequest";
@@ -138,7 +138,7 @@ export interface QuerySpendableBalancesRequestProtoMsg {
  */
 export interface QuerySpendableBalancesRequestAmino {
     /** address is the address to query spendable balances for. */
-    address: string;
+    address?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -154,7 +154,7 @@ export interface QuerySpendableBalancesRequestAminoMsg {
  */
 export interface QuerySpendableBalancesRequestSDKType {
     address: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QuerySpendableBalancesResponse defines the gRPC response structure for querying
@@ -166,7 +166,7 @@ export interface QuerySpendableBalancesResponse {
     /** balances is the spendable balances of all the coins. */
     balances: Coin[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QuerySpendableBalancesResponseProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalancesResponse";
@@ -196,7 +196,86 @@ export interface QuerySpendableBalancesResponseAminoMsg {
  */
 export interface QuerySpendableBalancesResponseSDKType {
     balances: CoinSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
+}
+/**
+ * QuerySpendableBalanceByDenomRequest defines the gRPC request structure for
+ * querying an account's spendable balance for a specific denom.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySpendableBalanceByDenomRequest {
+    /** address is the address to query balances for. */
+    address: string;
+    /** denom is the coin denom to query balances for. */
+    denom: string;
+}
+export interface QuerySpendableBalanceByDenomRequestProtoMsg {
+    typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalanceByDenomRequest";
+    value: Uint8Array;
+}
+/**
+ * QuerySpendableBalanceByDenomRequest defines the gRPC request structure for
+ * querying an account's spendable balance for a specific denom.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySpendableBalanceByDenomRequestAmino {
+    /** address is the address to query balances for. */
+    address?: string;
+    /** denom is the coin denom to query balances for. */
+    denom?: string;
+}
+export interface QuerySpendableBalanceByDenomRequestAminoMsg {
+    type: "cosmos-sdk/QuerySpendableBalanceByDenomRequest";
+    value: QuerySpendableBalanceByDenomRequestAmino;
+}
+/**
+ * QuerySpendableBalanceByDenomRequest defines the gRPC request structure for
+ * querying an account's spendable balance for a specific denom.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySpendableBalanceByDenomRequestSDKType {
+    address: string;
+    denom: string;
+}
+/**
+ * QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
+ * querying an account's spendable balance for a specific denom.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySpendableBalanceByDenomResponse {
+    /** balance is the balance of the coin. */
+    balance?: Coin;
+}
+export interface QuerySpendableBalanceByDenomResponseProtoMsg {
+    typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalanceByDenomResponse";
+    value: Uint8Array;
+}
+/**
+ * QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
+ * querying an account's spendable balance for a specific denom.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySpendableBalanceByDenomResponseAmino {
+    /** balance is the balance of the coin. */
+    balance?: CoinAmino;
+}
+export interface QuerySpendableBalanceByDenomResponseAminoMsg {
+    type: "cosmos-sdk/QuerySpendableBalanceByDenomResponse";
+    value: QuerySpendableBalanceByDenomResponseAmino;
+}
+/**
+ * QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
+ * querying an account's spendable balance for a specific denom.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySpendableBalanceByDenomResponseSDKType {
+    balance?: CoinSDKType;
 }
 /**
  * QueryTotalSupplyRequest is the request type for the Query/TotalSupply RPC
@@ -208,7 +287,7 @@ export interface QueryTotalSupplyRequest {
      *
      * Since: cosmos-sdk 0.43
      */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryTotalSupplyRequestProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.QueryTotalSupplyRequest";
@@ -235,7 +314,7 @@ export interface QueryTotalSupplyRequestAminoMsg {
  * method.
  */
 export interface QueryTotalSupplyRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryTotalSupplyResponse is the response type for the Query/TotalSupply RPC
@@ -249,7 +328,7 @@ export interface QueryTotalSupplyResponse {
      *
      * Since: cosmos-sdk 0.43
      */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryTotalSupplyResponseProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.QueryTotalSupplyResponse";
@@ -279,7 +358,7 @@ export interface QueryTotalSupplyResponseAminoMsg {
  */
 export interface QueryTotalSupplyResponseSDKType {
     supply: CoinSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QuerySupplyOfRequest is the request type for the Query/SupplyOf RPC method. */
 export interface QuerySupplyOfRequest {
@@ -293,7 +372,7 @@ export interface QuerySupplyOfRequestProtoMsg {
 /** QuerySupplyOfRequest is the request type for the Query/SupplyOf RPC method. */
 export interface QuerySupplyOfRequestAmino {
     /** denom is the coin denom to query balances for. */
-    denom: string;
+    denom?: string;
 }
 export interface QuerySupplyOfRequestAminoMsg {
     type: "cosmos-sdk/QuerySupplyOfRequest";
@@ -315,7 +394,7 @@ export interface QuerySupplyOfResponseProtoMsg {
 /** QuerySupplyOfResponse is the response type for the Query/SupplyOf RPC method. */
 export interface QuerySupplyOfResponseAmino {
     /** amount is the supply of the coin. */
-    amount?: CoinAmino;
+    amount: CoinAmino;
 }
 export interface QuerySupplyOfResponseAminoMsg {
     type: "cosmos-sdk/QuerySupplyOfResponse";
@@ -352,7 +431,7 @@ export interface QueryParamsResponseProtoMsg {
 }
 /** QueryParamsResponse defines the response type for querying x/bank parameters. */
 export interface QueryParamsResponseAmino {
-    params?: ParamsAmino;
+    params: ParamsAmino;
 }
 export interface QueryParamsResponseAminoMsg {
     type: "cosmos-sdk/QueryParamsResponse";
@@ -365,7 +444,7 @@ export interface QueryParamsResponseSDKType {
 /** QueryDenomsMetadataRequest is the request type for the Query/DenomsMetadata RPC method. */
 export interface QueryDenomsMetadataRequest {
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDenomsMetadataRequestProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.QueryDenomsMetadataRequest";
@@ -382,7 +461,7 @@ export interface QueryDenomsMetadataRequestAminoMsg {
 }
 /** QueryDenomsMetadataRequest is the request type for the Query/DenomsMetadata RPC method. */
 export interface QueryDenomsMetadataRequestSDKType {
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * QueryDenomsMetadataResponse is the response type for the Query/DenomsMetadata RPC
@@ -392,7 +471,7 @@ export interface QueryDenomsMetadataResponse {
     /** metadata provides the client information for all the registered tokens. */
     metadatas: Metadata[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDenomsMetadataResponseProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.QueryDenomsMetadataResponse";
@@ -418,7 +497,7 @@ export interface QueryDenomsMetadataResponseAminoMsg {
  */
 export interface QueryDenomsMetadataResponseSDKType {
     metadatas: MetadataSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
 }
 /** QueryDenomMetadataRequest is the request type for the Query/DenomMetadata RPC method. */
 export interface QueryDenomMetadataRequest {
@@ -432,7 +511,7 @@ export interface QueryDenomMetadataRequestProtoMsg {
 /** QueryDenomMetadataRequest is the request type for the Query/DenomMetadata RPC method. */
 export interface QueryDenomMetadataRequestAmino {
     /** denom is the coin denom to query the metadata for. */
-    denom: string;
+    denom?: string;
 }
 export interface QueryDenomMetadataRequestAminoMsg {
     type: "cosmos-sdk/QueryDenomMetadataRequest";
@@ -460,7 +539,7 @@ export interface QueryDenomMetadataResponseProtoMsg {
  */
 export interface QueryDenomMetadataResponseAmino {
     /** metadata describes and provides all the client information for the requested token. */
-    metadata?: MetadataAmino;
+    metadata: MetadataAmino;
 }
 export interface QueryDenomMetadataResponseAminoMsg {
     type: "cosmos-sdk/QueryDenomMetadataResponse";
@@ -482,7 +561,7 @@ export interface QueryDenomOwnersRequest {
     /** denom defines the coin denomination to query all account holders for. */
     denom: string;
     /** pagination defines an optional pagination for the request. */
-    pagination: PageRequest;
+    pagination?: PageRequest;
 }
 export interface QueryDenomOwnersRequestProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.QueryDenomOwnersRequest";
@@ -495,7 +574,7 @@ export interface QueryDenomOwnersRequestProtoMsg {
  */
 export interface QueryDenomOwnersRequestAmino {
     /** denom defines the coin denomination to query all account holders for. */
-    denom: string;
+    denom?: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequestAmino;
 }
@@ -510,7 +589,7 @@ export interface QueryDenomOwnersRequestAminoMsg {
  */
 export interface QueryDenomOwnersRequestSDKType {
     denom: string;
-    pagination: PageRequestSDKType;
+    pagination?: PageRequestSDKType;
 }
 /**
  * DenomOwner defines structure representing an account that owns or holds a
@@ -538,9 +617,9 @@ export interface DenomOwnerProtoMsg {
  */
 export interface DenomOwnerAmino {
     /** address defines the address that owns a particular denomination. */
-    address: string;
+    address?: string;
     /** balance is the balance of the denominated coin for an account. */
-    balance?: CoinAmino;
+    balance: CoinAmino;
 }
 export interface DenomOwnerAminoMsg {
     type: "cosmos-sdk/DenomOwner";
@@ -565,7 +644,7 @@ export interface DenomOwnerSDKType {
 export interface QueryDenomOwnersResponse {
     denomOwners: DenomOwner[];
     /** pagination defines the pagination in the response. */
-    pagination: PageResponse;
+    pagination?: PageResponse;
 }
 export interface QueryDenomOwnersResponseProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.QueryDenomOwnersResponse";
@@ -577,7 +656,7 @@ export interface QueryDenomOwnersResponseProtoMsg {
  * Since: cosmos-sdk 0.46
  */
 export interface QueryDenomOwnersResponseAmino {
-    denom_owners: DenomOwnerAmino[];
+    denom_owners?: DenomOwnerAmino[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponseAmino;
 }
@@ -592,7 +671,95 @@ export interface QueryDenomOwnersResponseAminoMsg {
  */
 export interface QueryDenomOwnersResponseSDKType {
     denom_owners: DenomOwnerSDKType[];
-    pagination: PageResponseSDKType;
+    pagination?: PageResponseSDKType;
+}
+/**
+ * QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySendEnabledRequest {
+    /** denoms is the specific denoms you want look up. Leave empty to get all entries. */
+    denoms: string[];
+    /**
+     * pagination defines an optional pagination for the request. This field is
+     * only read if the denoms field is empty.
+     */
+    pagination?: PageRequest;
+}
+export interface QuerySendEnabledRequestProtoMsg {
+    typeUrl: "/cosmos.bank.v1beta1.QuerySendEnabledRequest";
+    value: Uint8Array;
+}
+/**
+ * QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySendEnabledRequestAmino {
+    /** denoms is the specific denoms you want look up. Leave empty to get all entries. */
+    denoms?: string[];
+    /**
+     * pagination defines an optional pagination for the request. This field is
+     * only read if the denoms field is empty.
+     */
+    pagination?: PageRequestAmino;
+}
+export interface QuerySendEnabledRequestAminoMsg {
+    type: "cosmos-sdk/QuerySendEnabledRequest";
+    value: QuerySendEnabledRequestAmino;
+}
+/**
+ * QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySendEnabledRequestSDKType {
+    denoms: string[];
+    pagination?: PageRequestSDKType;
+}
+/**
+ * QuerySendEnabledResponse defines the RPC response of a SendEnable query.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySendEnabledResponse {
+    sendEnabled: SendEnabled[];
+    /**
+     * pagination defines the pagination in the response. This field is only
+     * populated if the denoms field in the request is empty.
+     */
+    pagination?: PageResponse;
+}
+export interface QuerySendEnabledResponseProtoMsg {
+    typeUrl: "/cosmos.bank.v1beta1.QuerySendEnabledResponse";
+    value: Uint8Array;
+}
+/**
+ * QuerySendEnabledResponse defines the RPC response of a SendEnable query.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySendEnabledResponseAmino {
+    send_enabled?: SendEnabledAmino[];
+    /**
+     * pagination defines the pagination in the response. This field is only
+     * populated if the denoms field in the request is empty.
+     */
+    pagination?: PageResponseAmino;
+}
+export interface QuerySendEnabledResponseAminoMsg {
+    type: "cosmos-sdk/QuerySendEnabledResponse";
+    value: QuerySendEnabledResponseAmino;
+}
+/**
+ * QuerySendEnabledResponse defines the RPC response of a SendEnable query.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySendEnabledResponseSDKType {
+    send_enabled: SendEnabledSDKType[];
+    pagination?: PageResponseSDKType;
 }
 export declare const QueryBalanceRequest: {
     typeUrl: string;
@@ -671,6 +838,32 @@ export declare const QuerySpendableBalancesResponse: {
     fromProtoMsg(message: QuerySpendableBalancesResponseProtoMsg): QuerySpendableBalancesResponse;
     toProto(message: QuerySpendableBalancesResponse): Uint8Array;
     toProtoMsg(message: QuerySpendableBalancesResponse): QuerySpendableBalancesResponseProtoMsg;
+};
+export declare const QuerySpendableBalanceByDenomRequest: {
+    typeUrl: string;
+    encode(message: QuerySpendableBalanceByDenomRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QuerySpendableBalanceByDenomRequest;
+    fromPartial(object: Partial<QuerySpendableBalanceByDenomRequest>): QuerySpendableBalanceByDenomRequest;
+    fromAmino(object: QuerySpendableBalanceByDenomRequestAmino): QuerySpendableBalanceByDenomRequest;
+    toAmino(message: QuerySpendableBalanceByDenomRequest): QuerySpendableBalanceByDenomRequestAmino;
+    fromAminoMsg(object: QuerySpendableBalanceByDenomRequestAminoMsg): QuerySpendableBalanceByDenomRequest;
+    toAminoMsg(message: QuerySpendableBalanceByDenomRequest): QuerySpendableBalanceByDenomRequestAminoMsg;
+    fromProtoMsg(message: QuerySpendableBalanceByDenomRequestProtoMsg): QuerySpendableBalanceByDenomRequest;
+    toProto(message: QuerySpendableBalanceByDenomRequest): Uint8Array;
+    toProtoMsg(message: QuerySpendableBalanceByDenomRequest): QuerySpendableBalanceByDenomRequestProtoMsg;
+};
+export declare const QuerySpendableBalanceByDenomResponse: {
+    typeUrl: string;
+    encode(message: QuerySpendableBalanceByDenomResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QuerySpendableBalanceByDenomResponse;
+    fromPartial(object: Partial<QuerySpendableBalanceByDenomResponse>): QuerySpendableBalanceByDenomResponse;
+    fromAmino(object: QuerySpendableBalanceByDenomResponseAmino): QuerySpendableBalanceByDenomResponse;
+    toAmino(message: QuerySpendableBalanceByDenomResponse): QuerySpendableBalanceByDenomResponseAmino;
+    fromAminoMsg(object: QuerySpendableBalanceByDenomResponseAminoMsg): QuerySpendableBalanceByDenomResponse;
+    toAminoMsg(message: QuerySpendableBalanceByDenomResponse): QuerySpendableBalanceByDenomResponseAminoMsg;
+    fromProtoMsg(message: QuerySpendableBalanceByDenomResponseProtoMsg): QuerySpendableBalanceByDenomResponse;
+    toProto(message: QuerySpendableBalanceByDenomResponse): Uint8Array;
+    toProtoMsg(message: QuerySpendableBalanceByDenomResponse): QuerySpendableBalanceByDenomResponseProtoMsg;
 };
 export declare const QueryTotalSupplyRequest: {
     typeUrl: string;
@@ -840,4 +1033,30 @@ export declare const QueryDenomOwnersResponse: {
     fromProtoMsg(message: QueryDenomOwnersResponseProtoMsg): QueryDenomOwnersResponse;
     toProto(message: QueryDenomOwnersResponse): Uint8Array;
     toProtoMsg(message: QueryDenomOwnersResponse): QueryDenomOwnersResponseProtoMsg;
+};
+export declare const QuerySendEnabledRequest: {
+    typeUrl: string;
+    encode(message: QuerySendEnabledRequest, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QuerySendEnabledRequest;
+    fromPartial(object: Partial<QuerySendEnabledRequest>): QuerySendEnabledRequest;
+    fromAmino(object: QuerySendEnabledRequestAmino): QuerySendEnabledRequest;
+    toAmino(message: QuerySendEnabledRequest): QuerySendEnabledRequestAmino;
+    fromAminoMsg(object: QuerySendEnabledRequestAminoMsg): QuerySendEnabledRequest;
+    toAminoMsg(message: QuerySendEnabledRequest): QuerySendEnabledRequestAminoMsg;
+    fromProtoMsg(message: QuerySendEnabledRequestProtoMsg): QuerySendEnabledRequest;
+    toProto(message: QuerySendEnabledRequest): Uint8Array;
+    toProtoMsg(message: QuerySendEnabledRequest): QuerySendEnabledRequestProtoMsg;
+};
+export declare const QuerySendEnabledResponse: {
+    typeUrl: string;
+    encode(message: QuerySendEnabledResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QuerySendEnabledResponse;
+    fromPartial(object: Partial<QuerySendEnabledResponse>): QuerySendEnabledResponse;
+    fromAmino(object: QuerySendEnabledResponseAmino): QuerySendEnabledResponse;
+    toAmino(message: QuerySendEnabledResponse): QuerySendEnabledResponseAmino;
+    fromAminoMsg(object: QuerySendEnabledResponseAminoMsg): QuerySendEnabledResponse;
+    toAminoMsg(message: QuerySendEnabledResponse): QuerySendEnabledResponseAminoMsg;
+    fromProtoMsg(message: QuerySendEnabledResponseProtoMsg): QuerySendEnabledResponse;
+    toProto(message: QuerySendEnabledResponse): Uint8Array;
+    toProtoMsg(message: QuerySendEnabledResponse): QuerySendEnabledResponseProtoMsg;
 };

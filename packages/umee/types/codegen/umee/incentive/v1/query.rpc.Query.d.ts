@@ -1,5 +1,4 @@
 import { Rpc } from "../../../helpers";
-import { QueryClient } from "@cosmjs/stargate";
 import { QueryParams, QueryParamsResponse, QueryTotalBonded, QueryTotalBondedResponse, QueryTotalUnbonding, QueryTotalUnbondingResponse, QueryAccountBonds, QueryAccountBondsResponse, QueryPendingRewards, QueryPendingRewardsResponse, QueryCompletedIncentivePrograms, QueryCompletedIncentiveProgramsResponse, QueryOngoingIncentivePrograms, QueryOngoingIncentiveProgramsResponse, QueryUpcomingIncentivePrograms, QueryUpcomingIncentiveProgramsResponse, QueryIncentiveProgram, QueryIncentiveProgramResponse, QueryCurrentRates, QueryCurrentRatesResponse, QueryActualRates, QueryActualRatesResponse, QueryLastRewardTime, QueryLastRewardTimeResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {

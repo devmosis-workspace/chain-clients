@@ -18,10 +18,10 @@ export interface MsgAggregateExchangeRatePrevoteProtoMsg {
  * exchange rate prevote.
  */
 export interface MsgAggregateExchangeRatePrevoteAmino {
-    hash: string;
+    hash?: string;
     /** Feeder is the author and the signer of the message. */
-    feeder: string;
-    validator: string;
+    feeder?: string;
+    validator?: string;
 }
 export interface MsgAggregateExchangeRatePrevoteAminoMsg {
     type: "/umee.oracle.v1.MsgAggregateExchangeRatePrevote";
@@ -82,11 +82,11 @@ export interface MsgAggregateExchangeRateVoteProtoMsg {
  * exchange rate vote.
  */
 export interface MsgAggregateExchangeRateVoteAmino {
-    salt: string;
-    exchange_rates: string;
+    salt?: string;
+    exchange_rates?: string;
     /** Feeder is the author and the signer of the message. */
-    feeder: string;
-    validator: string;
+    feeder?: string;
+    validator?: string;
 }
 export interface MsgAggregateExchangeRateVoteAminoMsg {
     type: "/umee.oracle.v1.MsgAggregateExchangeRateVote";
@@ -147,8 +147,8 @@ export interface MsgDelegateFeedConsentProtoMsg {
  */
 export interface MsgDelegateFeedConsentAmino {
     /** Operator is the author and the signer of the message. */
-    operator: string;
-    delegate: string;
+    operator?: string;
+    delegate?: string;
 }
 export interface MsgDelegateFeedConsentAminoMsg {
     type: "/umee.oracle.v1.MsgDelegateFeedConsent";

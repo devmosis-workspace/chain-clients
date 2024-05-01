@@ -1,4 +1,4 @@
-import { Params, ParamsAmino, ParamsSDKType, Token, TokenAmino, TokenSDKType } from "./leverage";
+import { Params, ParamsAmino, ParamsSDKType, Token, TokenAmino, TokenSDKType, SpecialAssetPair, SpecialAssetPairAmino, SpecialAssetPairSDKType } from "./leverage";
 import { Coin, CoinAmino, CoinSDKType, DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BadDebt, BadDebtAmino, BadDebtSDKType } from "./genesis";
 import { BinaryWriter } from "../../../binary";
@@ -73,7 +73,7 @@ export interface QueryRegisteredTokensProtoMsg {
  * gRPC service handler.
  */
 export interface QueryRegisteredTokensAmino {
-    base_denom: string;
+    base_denom?: string;
 }
 export interface QueryRegisteredTokensAminoMsg {
     type: "/umee.leverage.v1.QueryRegisteredTokens";
@@ -102,7 +102,7 @@ export interface QueryRegisteredTokensResponseProtoMsg {
  * RegisteredTokens gRPC service handler.
  */
 export interface QueryRegisteredTokensResponseAmino {
-    registry: TokenAmino[];
+    registry?: TokenAmino[];
 }
 export interface QueryRegisteredTokensResponseAminoMsg {
     type: "/umee.leverage.v1.QueryRegisteredTokensResponse";
@@ -115,6 +115,148 @@ export interface QueryRegisteredTokensResponseAminoMsg {
 export interface QueryRegisteredTokensResponseSDKType {
     registry: TokenSDKType[];
 }
+/**
+ * QueryRegisteredTokensWithMarkets defines the request structure for the RegisteredTokenMarkets
+ * gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarkets {
+}
+export interface QueryRegisteredTokensWithMarketsProtoMsg {
+    typeUrl: "/umee.leverage.v1.QueryRegisteredTokensWithMarkets";
+    value: Uint8Array;
+}
+/**
+ * QueryRegisteredTokensWithMarkets defines the request structure for the RegisteredTokenMarkets
+ * gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarketsAmino {
+}
+export interface QueryRegisteredTokensWithMarketsAminoMsg {
+    type: "/umee.leverage.v1.QueryRegisteredTokensWithMarkets";
+    value: QueryRegisteredTokensWithMarketsAmino;
+}
+/**
+ * QueryRegisteredTokensWithMarkets defines the request structure for the RegisteredTokenMarkets
+ * gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarketsSDKType {
+}
+/**
+ * QueryRegisteredTokensWithMarketsResponse defines the response structure for the
+ * RegisteredTokensWithMarkets gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarketsResponse {
+    markets: TokenMarket[];
+}
+export interface QueryRegisteredTokensWithMarketsResponseProtoMsg {
+    typeUrl: "/umee.leverage.v1.QueryRegisteredTokensWithMarketsResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryRegisteredTokensWithMarketsResponse defines the response structure for the
+ * RegisteredTokensWithMarkets gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarketsResponseAmino {
+    markets?: TokenMarketAmino[];
+}
+export interface QueryRegisteredTokensWithMarketsResponseAminoMsg {
+    type: "/umee.leverage.v1.QueryRegisteredTokensWithMarketsResponse";
+    value: QueryRegisteredTokensWithMarketsResponseAmino;
+}
+/**
+ * QueryRegisteredTokensWithMarketsResponse defines the response structure for the
+ * RegisteredTokensWithMarkets gRPC service handler.
+ */
+export interface QueryRegisteredTokensWithMarketsResponseSDKType {
+    markets: TokenMarketSDKType[];
+}
+/** TokenMarket is a token and its market summary. */
+export interface TokenMarket {
+    /** Token is a registered token and its parameters. */
+    token: Token;
+    /** Market is the market summary for the token. */
+    market: QueryMarketSummaryResponse;
+}
+export interface TokenMarketProtoMsg {
+    typeUrl: "/umee.leverage.v1.TokenMarket";
+    value: Uint8Array;
+}
+/** TokenMarket is a token and its market summary. */
+export interface TokenMarketAmino {
+    /** Token is a registered token and its parameters. */
+    token?: TokenAmino;
+    /** Market is the market summary for the token. */
+    market?: QueryMarketSummaryResponseAmino;
+}
+export interface TokenMarketAminoMsg {
+    type: "/umee.leverage.v1.TokenMarket";
+    value: TokenMarketAmino;
+}
+/** TokenMarket is a token and its market summary. */
+export interface TokenMarketSDKType {
+    token: TokenSDKType;
+    market: QueryMarketSummaryResponseSDKType;
+}
+/**
+ * QuerySpecialAssets defines the request structure for the SpecialAssets
+ * gRPC service handler.
+ */
+export interface QuerySpecialAssets {
+    /** denom can be used to query only pairs affecting a specific asset */
+    denom: string;
+}
+export interface QuerySpecialAssetsProtoMsg {
+    typeUrl: "/umee.leverage.v1.QuerySpecialAssets";
+    value: Uint8Array;
+}
+/**
+ * QuerySpecialAssets defines the request structure for the SpecialAssets
+ * gRPC service handler.
+ */
+export interface QuerySpecialAssetsAmino {
+    /** denom can be used to query only pairs affecting a specific asset */
+    denom?: string;
+}
+export interface QuerySpecialAssetsAminoMsg {
+    type: "/umee.leverage.v1.QuerySpecialAssets";
+    value: QuerySpecialAssetsAmino;
+}
+/**
+ * QuerySpecialAssets defines the request structure for the SpecialAssets
+ * gRPC service handler.
+ */
+export interface QuerySpecialAssetsSDKType {
+    denom: string;
+}
+/**
+ * QuerySpecialAssetsResponse defines the response structure for the
+ * SpecialAssets gRPC service handler.
+ */
+export interface QuerySpecialAssetsResponse {
+    pairs: SpecialAssetPair[];
+}
+export interface QuerySpecialAssetsResponseProtoMsg {
+    typeUrl: "/umee.leverage.v1.QuerySpecialAssetsResponse";
+    value: Uint8Array;
+}
+/**
+ * QuerySpecialAssetsResponse defines the response structure for the
+ * SpecialAssets gRPC service handler.
+ */
+export interface QuerySpecialAssetsResponseAmino {
+    pairs?: SpecialAssetPairAmino[];
+}
+export interface QuerySpecialAssetsResponseAminoMsg {
+    type: "/umee.leverage.v1.QuerySpecialAssetsResponse";
+    value: QuerySpecialAssetsResponseAmino;
+}
+/**
+ * QuerySpecialAssetsResponse defines the response structure for the
+ * SpecialAssets gRPC service handler.
+ */
+export interface QuerySpecialAssetsResponseSDKType {
+    pairs: SpecialAssetPairSDKType[];
+}
 /** QueryMarketSummary defines the request structure for the MarketSummary gRPC service handler. */
 export interface QueryMarketSummary {
     denom: string;
@@ -125,7 +267,7 @@ export interface QueryMarketSummaryProtoMsg {
 }
 /** QueryMarketSummary defines the request structure for the MarketSummary gRPC service handler. */
 export interface QueryMarketSummaryAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryMarketSummaryAminoMsg {
     type: "/umee.leverage.v1.QueryMarketSummary";
@@ -184,11 +326,11 @@ export interface QueryMarketSummaryResponseProtoMsg {
 /** QueryMarketSummaryResponse defines the response structure for the MarketSummary gRPC service handler. */
 export interface QueryMarketSummaryResponseAmino {
     /** Symbol Denom is the human-readable representation of a token denom, for example "UMEE" or "ATOM". */
-    symbol_denom: string;
+    symbol_denom?: string;
     /** Exponent is the power of ten required to get from base denom to symbol denom. For example, an exponent of 6 means 10^6 uumee = 1 UMEE. */
-    exponent: number;
+    exponent?: number;
     /** Oracle Price is the current USD value of a token. Oracle price is nil when the oracle is down. */
-    oracle_price: string;
+    oracle_price?: string;
     /** uToken Exchange Rate is the amount of base tokens received when withdrawing 1 uToken. For example, a uToken exchange rate of 1.5 means a supplier receives 3 uumee for every 2 u/uumee they wish to withdraw. The same applies in reverse: supplying 3 uumee would award 2 u/uumee at that time. */
     uToken_exchange_rate: string;
     /** Supply APY is the current interest rate suppliers are receiving for their deposits. For example, 0.11 would mean 11% APY. Supply APY is always less than borrow APY. */
@@ -196,32 +338,32 @@ export interface QueryMarketSummaryResponseAmino {
     /** Borrow APY is the current interest rate borrowers are being charged on their loans. For example, 0.2 would mean 20% APY. */
     borrow_APY: string;
     /** Supplied is the total amount of tokens supplied to the the system by all suppliers, including any interest earned. This includes that tokens which have been borrowed out or enabled as collateral, but excludes reserves. Supplied is denominated in base tokens, so exponent must be applied to convert to symbol denom. */
-    supplied: string;
+    supplied?: string;
     /** Reserved is the total amount of tokens held in reserve by the module for emergencies. Reserves are always excluded from total supply, borrow, collateral, and liqduidity queries. Reserves are denominated in base tokens, so exponent must be applied to convert to symbol denom. */
-    reserved: string;
+    reserved?: string;
     /** Collateral is the total amount of uTokens collateralized by all borrowers. Collateral is denominated in uTokenso, so both uToken exchange rate and exponent must also be applied to convert to symbol denom. For example, if collateral is 4000000 u/uumee and uToken exchange rate is 1.2, then 5 UMEE have been collateralized. */
-    collateral: string;
+    collateral?: string;
     /** Borrowed is the total amount of debt in this token held across all borrowers. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. */
-    borrowed: string;
+    borrowed?: string;
     /** Liquidity is the amount of a token that has been supplied but not yet borrowed or reserved. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. */
-    liquidity: string;
+    liquidity?: string;
     /** Maximum Borrow is the amount of a token that is available for borrowing, including that which has already been borrowed out. This amount is less than total supply due to safety limits. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. For example, if borrowed is 3000000 uumee and maximum borrow is 4000000 uumee, then 1 UMEE is currently available for borrowing. */
-    maximum_borrow: string;
+    maximum_borrow?: string;
     /** Maximum Collateral is the amount of a token that can be collateralized, including that which is already collateral. This amount is less than total supply due to safety limits. It is denominated in uTokens, so both uToken exchange rate and exponent must be applied to convert to symbol denom. For example, if collateral is 4000000 u/uumee, uToken exchange rate is 1.2, and maximum borrow is 7000000 uumee, then a maximum of 2 additional UMEE is permitted to be collateralized. */
-    maximum_collateral: string;
+    maximum_collateral?: string;
     /** Minimum Liquidity is the minimum amount of liquidity in the module required by safety limits, based on the current collateral. It is denominated in base tokens, so exponent must be applied to convert to symbol denom. For example, if liquidity is 9000000 uumee and minimum liquidity is 8000000 uumee, then a maximum of 1 additional UMEE is currently available for borrowing or withdrawal. */
-    minimum_liquidity: string;
+    minimum_liquidity?: string;
     /** uToken Supply is the total amount of a base token's associated uToken in circulation. */
     uToken_supply: string;
     /** Available Borrow is the maximum additional amount of base tokens than can be borrowed based on current liquidity and system safety limits. It can also be calculated by MIN(maximum_borrow - borrowed, liquidity - minimum_liquidity). It is denominated in base tokens, so exponent must be applied to convert to symbol denom. A negative availability means safety limits have been exceeded and borrowing is temporarily unavailable. */
-    available_borrow: string;
+    available_borrow?: string;
     /** Available Withdraw is the maximum amount of uTokens than can currently be withdrawn based on liquidity and system safety limits. It can also be calculated by (liquidity - minimum_liquidity). It is denominated in uTokens, so both uToken exchange rate and exponent must be applied to convert to symbol denom. A negative availability means safety limits have been exceeded and withdrawal is temporarily unavailable. */
-    available_withdraw: string;
+    available_withdraw?: string;
     /** Available Collateralize is the maximum additional amount of uTokens than can be collateralized based on current liquidity and system safety limits. It can also be calculated by (maximum_collateral, - collateral). It is denominated in uTokens, so both uToken exchange rate and exponent must be applied to convert to symbol denom. A negative availability means safety limits have been exceeded and additional collateral cannot be created until more liquidity is present. */
-    available_collateralize: string;
+    available_collateralize?: string;
     /** Oracle Historic Price is the historic USD value of a token. Historic price is defined as the median of the last N historic median prices from the oracle module, with N being this token's HistoricMedians in the leverage registry. Current price is used if required medians is zero. Price is nil when the oracle is down or insufficient historic medians are available. */
-    oracle_historic_price: string;
-    errors: string;
+    oracle_historic_price?: string;
+    errors?: string;
 }
 export interface QueryMarketSummaryResponseAminoMsg {
     type: "/umee.leverage.v1.QueryMarketSummaryResponse";
@@ -260,7 +402,7 @@ export interface QueryAccountBalancesProtoMsg {
 }
 /** QueryAccountBalances defines the request structure for the AccountBalances gRPC service handler. */
 export interface QueryAccountBalancesAmino {
-    address: string;
+    address?: string;
 }
 export interface QueryAccountBalancesAminoMsg {
     type: "/umee.leverage.v1.QueryAccountBalances";
@@ -286,11 +428,11 @@ export interface QueryAccountBalancesResponseProtoMsg {
 /** QueryAccountBalancesResponse defines the response structure for the AccountBalances gRPC service handler. */
 export interface QueryAccountBalancesResponseAmino {
     /** Supplied contains all tokens the account has supplied, including interest earned. It is denominated in base tokens, so exponent from each coin's registered_tokens entry must be applied to convert to symbol denom. */
-    supplied: CoinAmino[];
+    supplied?: CoinAmino[];
     /** Collateral contains all uTokens the account has collateralized. It is denominated in uTokens, so both exponent and uToken exchange rate from each coin's market_summary must be applied to convert to base token symbol denom. */
-    collateral: CoinAmino[];
+    collateral?: CoinAmino[];
     /** Borrowed contains all tokens the account has borrowed, including interest owed. It is denominated in base tokens, so exponent from each coin's registered_tokens entry must be applied to convert to symbol denom. */
-    borrowed: CoinAmino[];
+    borrowed?: CoinAmino[];
 }
 export interface QueryAccountBalancesResponseAminoMsg {
     type: "/umee.leverage.v1.QueryAccountBalancesResponse";
@@ -312,7 +454,7 @@ export interface QueryAccountSummaryProtoMsg {
 }
 /** QueryAccountSummary defines the request structure for the AccountSummary gRPC service handler. */
 export interface QueryAccountSummaryAmino {
-    address: string;
+    address?: string;
 }
 export interface QueryAccountSummaryAminoMsg {
     type: "/umee.leverage.v1.QueryAccountSummary";
@@ -326,19 +468,21 @@ export interface QueryAccountSummarySDKType {
 export interface QueryAccountSummaryResponse {
     /**
      * Supplied Value is the sum of the USD value of all tokens the account has supplied, including interest earned.
+     * It uses the lower of spot or historic price for each token.
      * Computation skips assets which are missing oracle prices, potentially resulting in a lower supplied
      * value than if prices were all available.
      */
     suppliedValue: string;
     /**
      * Collateral Value is the sum of the USD value of all uTokens the account has collateralized.
+     * It uses the lower of spot or historic price for each token.
      * Computation skips collateral which is missing an oracle price, potentially resulting in a lower collateral
      * value than if prices were all available.
      */
     collateralValue: string;
     /**
      * Borrowed Value is the sum of the USD value of all tokens the account has borrowed, including interest owed.
-     * It always uses spot prices.
+     * It uses the higher of spot or historic price for each token.
      * Computation skips borrows which are missing oracle prices, potentially resulting in a lower borrowed
      * value than if prices were all available.
      */
@@ -347,14 +491,23 @@ export interface QueryAccountSummaryResponse {
      * Borrow Limit is the maximum Borrowed Value the account is allowed to reach through direct borrowing.
      * The lower of spot or historic price for each collateral token is used when calculating borrow limits.
      * Computation skips collateral which is missing an oracle price, potentially resulting in a lower borrow
-     * limit than if prices were all available.
+     * limit than if prices were all available. Will be null if an oracle price required for computation is
+     * missing.
      */
-    borrowLimit: string;
+    borrowLimit?: string;
     /**
      * Liquidation Threshold is the Borrowed Value at which the account becomes eligible for liquidation.
-     * Will be null if an oracle price required for computation is missing.
+     * Computation skips borrows which are missing an oracle price, potentially resulting in a lower borrow
+     * limit than if prices were all available. Will be null if an oracle price required for computation is
+     * missing.
      */
     liquidationThreshold?: string;
+    /** Spot Supplied Value is supplied value but always uses the most recent available spot prices. */
+    spotSuppliedValue: string;
+    /** Spot Collateral Value is collateral value but always uses the most recent available spot prices. */
+    spotCollateralValue: string;
+    /** Spot Borrowed Value is borrowed value but always uses the most recent available spot prices. */
+    spotBorrowedValue: string;
 }
 export interface QueryAccountSummaryResponseProtoMsg {
     typeUrl: "/umee.leverage.v1.QueryAccountSummaryResponse";
@@ -364,35 +517,46 @@ export interface QueryAccountSummaryResponseProtoMsg {
 export interface QueryAccountSummaryResponseAmino {
     /**
      * Supplied Value is the sum of the USD value of all tokens the account has supplied, including interest earned.
+     * It uses the lower of spot or historic price for each token.
      * Computation skips assets which are missing oracle prices, potentially resulting in a lower supplied
      * value than if prices were all available.
      */
-    supplied_value: string;
+    supplied_value?: string;
     /**
      * Collateral Value is the sum of the USD value of all uTokens the account has collateralized.
+     * It uses the lower of spot or historic price for each token.
      * Computation skips collateral which is missing an oracle price, potentially resulting in a lower collateral
      * value than if prices were all available.
      */
-    collateral_value: string;
+    collateral_value?: string;
     /**
      * Borrowed Value is the sum of the USD value of all tokens the account has borrowed, including interest owed.
-     * It always uses spot prices.
+     * It uses the higher of spot or historic price for each token.
      * Computation skips borrows which are missing oracle prices, potentially resulting in a lower borrowed
      * value than if prices were all available.
      */
-    borrowed_value: string;
+    borrowed_value?: string;
     /**
      * Borrow Limit is the maximum Borrowed Value the account is allowed to reach through direct borrowing.
      * The lower of spot or historic price for each collateral token is used when calculating borrow limits.
      * Computation skips collateral which is missing an oracle price, potentially resulting in a lower borrow
-     * limit than if prices were all available.
+     * limit than if prices were all available. Will be null if an oracle price required for computation is
+     * missing.
      */
-    borrow_limit: string;
+    borrow_limit?: string;
     /**
      * Liquidation Threshold is the Borrowed Value at which the account becomes eligible for liquidation.
-     * Will be null if an oracle price required for computation is missing.
+     * Computation skips borrows which are missing an oracle price, potentially resulting in a lower borrow
+     * limit than if prices were all available. Will be null if an oracle price required for computation is
+     * missing.
      */
-    liquidation_threshold: string;
+    liquidation_threshold?: string;
+    /** Spot Supplied Value is supplied value but always uses the most recent available spot prices. */
+    spot_supplied_value?: string;
+    /** Spot Collateral Value is collateral value but always uses the most recent available spot prices. */
+    spot_collateral_value?: string;
+    /** Spot Borrowed Value is borrowed value but always uses the most recent available spot prices. */
+    spot_borrowed_value?: string;
 }
 export interface QueryAccountSummaryResponseAminoMsg {
     type: "/umee.leverage.v1.QueryAccountSummaryResponse";
@@ -403,8 +567,11 @@ export interface QueryAccountSummaryResponseSDKType {
     supplied_value: string;
     collateral_value: string;
     borrowed_value: string;
-    borrow_limit: string;
+    borrow_limit?: string;
     liquidation_threshold?: string;
+    spot_supplied_value: string;
+    spot_collateral_value: string;
+    spot_borrowed_value: string;
 }
 /** QueryLiquidationTargets defines the request structure for the LiquidationTargets gRPC service handler. */
 export interface QueryLiquidationTargets {
@@ -435,7 +602,7 @@ export interface QueryLiquidationTargetsResponseProtoMsg {
 /** QueryLiquidationTargetsResponse defines the response structure for the LiquidationTargets gRPC service handler. */
 export interface QueryLiquidationTargetsResponseAmino {
     /** Targets are the addresses of borrowers eligible for liquidation. */
-    targets: string[];
+    targets?: string[];
 }
 export interface QueryLiquidationTargetsResponseAminoMsg {
     type: "/umee.leverage.v1.QueryLiquidationTargetsResponse";
@@ -483,7 +650,7 @@ export interface QueryBadDebtsResponseProtoMsg {
 /** QueryBadDebtsResponse defines the response structure for the BedDebts gRPC service handler. */
 export interface QueryBadDebtsResponseAmino {
     /** Targets are borrow positions currently marked for bad debt repayment. Each contains an Address and a Denom. */
-    targets: BadDebtAmino[];
+    targets?: BadDebtAmino[];
 }
 export interface QueryBadDebtsResponseAminoMsg {
     type: "/umee.leverage.v1.QueryBadDebtsResponse";
@@ -508,12 +675,12 @@ export interface QueryMaxWithdrawProtoMsg {
 }
 /** QueryMaxWithdraw defines the request structure for the MaxWithdraw gRPC service handler. */
 export interface QueryMaxWithdrawAmino {
-    address: string;
+    address?: string;
     /**
      * denom is the base token denom associated with the uToken to withdraw.
      * empty denom will query all registered tokens.
      */
-    denom: string;
+    denom?: string;
 }
 export interface QueryMaxWithdrawAminoMsg {
     type: "/umee.leverage.v1.QueryMaxWithdraw";
@@ -538,9 +705,9 @@ export interface QueryMaxWithdrawResponseProtoMsg {
 /** QueryMaxWithdrawResponse defines the response structure for the MaxWithdraw gRPC service handler. */
 export interface QueryMaxWithdrawResponseAmino {
     /** uTokens is the maximum amount of uTokens that can be withdrawn */
-    uTokens: CoinAmino[];
+    uTokens?: CoinAmino[];
     /** Tokens is the equivalent of max uTokens converted to base tokens */
-    tokens: CoinAmino[];
+    tokens?: CoinAmino[];
 }
 export interface QueryMaxWithdrawResponseAminoMsg {
     type: "/umee.leverage.v1.QueryMaxWithdrawResponse";
@@ -566,12 +733,12 @@ export interface QueryMaxBorrowProtoMsg {
 }
 /** QueryMaxBorrow defines the request structure for the MaxBorrow gRPC service handler. */
 export interface QueryMaxBorrowAmino {
-    address: string;
+    address?: string;
     /**
      * denom is the base token denom to borrow.
      * empty denom will query all registered tokens.
      */
-    denom: string;
+    denom?: string;
 }
 export interface QueryMaxBorrowAminoMsg {
     type: "/umee.leverage.v1.QueryMaxBorrow";
@@ -594,7 +761,7 @@ export interface QueryMaxBorrowResponseProtoMsg {
 /** QueryMaxBorrowResponse defines the response structure for the MaxBorrow gRPC service handler. */
 export interface QueryMaxBorrowResponseAmino {
     /** Tokens is the maximum amount of tokens that can be borrowed */
-    tokens: CoinAmino[];
+    tokens?: CoinAmino[];
 }
 export interface QueryMaxBorrowResponseAminoMsg {
     type: "/umee.leverage.v1.QueryMaxBorrowResponse";
@@ -627,18 +794,18 @@ export interface QueryInspectProtoMsg {
 /** QueryInspect defines the request structure for the Inspect gRPC service handler. */
 export interface QueryInspectAmino {
     /** Symbol selects a symbol denom to sort accounts by borrowed value. Use "all" or empty string to show all. */
-    symbol: string;
+    symbol?: string;
     /** Borrowed is the minimum USD value an account must have borrowed to show. Use 0 to show all. */
-    borrowed: number;
+    borrowed?: number;
     /** Collateral is the minimum USD value of collateral an account must have to show. Use 0 to show all. */
-    collateral: number;
+    collateral?: number;
     /**
      * Danger is the minimum progress toward liquidation an account must have to show. Use 0 to show all.
      * Measured as the ratio (borrowed value / liquidation threshold), where > 1 is liquidation-eligible.
      */
-    danger: number;
+    danger?: number;
     /** LTV is the minimum ratio (borrowed value / collateral value) an account must have to show. Use 0 to show all. */
-    ltv: number;
+    ltv?: number;
 }
 export interface QueryInspectAminoMsg {
     type: "/umee.leverage.v1.QueryInspect";
@@ -652,9 +819,31 @@ export interface QueryInspectSDKType {
     danger: number;
     ltv: number;
 }
+/** QueryInspectAccount defines the request structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccount {
+    address: string;
+}
+export interface QueryInspectAccountProtoMsg {
+    typeUrl: "/umee.leverage.v1.QueryInspectAccount";
+    value: Uint8Array;
+}
+/** QueryInspectAccount defines the request structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccountAmino {
+    address?: string;
+}
+export interface QueryInspectAccountAminoMsg {
+    type: "/umee.leverage.v1.QueryInspectAccount";
+    value: QueryInspectAccountAmino;
+}
+/** QueryInspectAccount defines the request structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccountSDKType {
+    address: string;
+}
 /** QueryInspectResponse defines the response structure for the Inspect gRPC service handler. */
 export interface QueryInspectResponse {
     borrowers: InspectAccount[];
+    /** Failures is a list of addresses for which the position calculation failed. */
+    failures: string[];
 }
 export interface QueryInspectResponseProtoMsg {
     typeUrl: "/umee.leverage.v1.QueryInspectResponse";
@@ -662,7 +851,9 @@ export interface QueryInspectResponseProtoMsg {
 }
 /** QueryInspectResponse defines the response structure for the Inspect gRPC service handler. */
 export interface QueryInspectResponseAmino {
-    borrowers: InspectAccountAmino[];
+    borrowers?: InspectAccountAmino[];
+    /** Failures is a list of addresses for which the position calculation failed. */
+    failures?: string[];
 }
 export interface QueryInspectResponseAminoMsg {
     type: "/umee.leverage.v1.QueryInspectResponse";
@@ -671,15 +862,41 @@ export interface QueryInspectResponseAminoMsg {
 /** QueryInspectResponse defines the response structure for the Inspect gRPC service handler. */
 export interface QueryInspectResponseSDKType {
     borrowers: InspectAccountSDKType[];
+    failures: string[];
+}
+/** QueryInspectAccountResponse defines the response structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccountResponse {
+    borrower: InspectAccount;
+}
+export interface QueryInspectAccountResponseProtoMsg {
+    typeUrl: "/umee.leverage.v1.QueryInspectAccountResponse";
+    value: Uint8Array;
+}
+/** QueryInspectAccountResponse defines the response structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccountResponseAmino {
+    borrower?: InspectAccountAmino;
+}
+export interface QueryInspectAccountResponseAminoMsg {
+    type: "/umee.leverage.v1.QueryInspectAccountResponse";
+    value: QueryInspectAccountResponseAmino;
+}
+/** QueryInspectAccountResponse defines the response structure for the InspectAccount gRPC service handler. */
+export interface QueryInspectAccountResponseSDKType {
+    borrower: InspectAccountSDKType;
 }
 /** InspectAccount contains risk and balance info for a single account for the inspector query. */
 export interface InspectAccount {
     /** Address of a borrower */
     address: string;
     /** USD totals of borrower's collateral, debt, and liquidation threshold. */
-    analysis: RiskInfo;
+    analysis?: RiskInfo;
     /** Collateral and borrowed tokens, denoted in human-readable symbol denom instead of ibc denom. */
-    position: DecBalances;
+    position?: DecBalances;
+    /**
+     * Info is a string which can be used to report additional information of any type.
+     * UNSTABLE: We do not guarantee consistency of any data structures contained within the string.
+     */
+    info: string;
 }
 export interface InspectAccountProtoMsg {
     typeUrl: "/umee.leverage.v1.InspectAccount";
@@ -688,11 +905,16 @@ export interface InspectAccountProtoMsg {
 /** InspectAccount contains risk and balance info for a single account for the inspector query. */
 export interface InspectAccountAmino {
     /** Address of a borrower */
-    address: string;
+    address?: string;
     /** USD totals of borrower's collateral, debt, and liquidation threshold. */
     analysis?: RiskInfoAmino;
     /** Collateral and borrowed tokens, denoted in human-readable symbol denom instead of ibc denom. */
     position?: DecBalancesAmino;
+    /**
+     * Info is a string which can be used to report additional information of any type.
+     * UNSTABLE: We do not guarantee consistency of any data structures contained within the string.
+     */
+    info?: string;
 }
 export interface InspectAccountAminoMsg {
     type: "/umee.leverage.v1.InspectAccount";
@@ -701,8 +923,9 @@ export interface InspectAccountAminoMsg {
 /** InspectAccount contains risk and balance info for a single account for the inspector query. */
 export interface InspectAccountSDKType {
     address: string;
-    analysis: RiskInfoSDKType;
-    position: DecBalancesSDKType;
+    analysis?: RiskInfoSDKType;
+    position?: DecBalancesSDKType;
+    info: string;
 }
 /** RiskInfo defines a borrower's account health without requiring sdk.Dec formatting. */
 export interface RiskInfo {
@@ -720,11 +943,11 @@ export interface RiskInfoProtoMsg {
 /** RiskInfo defines a borrower's account health without requiring sdk.Dec formatting. */
 export interface RiskInfoAmino {
     /** Borrowed is account's borrowed value in USD. */
-    Borrowed: number;
+    Borrowed?: number;
     /** Liquidation is account's liquidation threshold in USD. */
-    Liquidation: number;
+    Liquidation?: number;
     /** Value is account's collateral value in USD. */
-    Value: number;
+    Value?: number;
 }
 export interface RiskInfoAminoMsg {
     type: "/umee.leverage.v1.RiskInfo";
@@ -750,9 +973,9 @@ export interface DecBalancesProtoMsg {
 /** DecBalances contains an account's position denoted in symbol denom tokens. */
 export interface DecBalancesAmino {
     /** Collateral contains all uTokens the account has collateralized. It has been converted from uTokens to tokens. */
-    collateral: DecCoinAmino[];
+    collateral?: DecCoinAmino[];
     /** Borrowed contains all tokens the account has borrowed, including interest owed. */
-    borrowed: DecCoinAmino[];
+    borrowed?: DecCoinAmino[];
 }
 export interface DecBalancesAminoMsg {
     type: "/umee.leverage.v1.DecBalances";
@@ -810,6 +1033,66 @@ export declare const QueryRegisteredTokensResponse: {
     fromProtoMsg(message: QueryRegisteredTokensResponseProtoMsg): QueryRegisteredTokensResponse;
     toProto(message: QueryRegisteredTokensResponse): Uint8Array;
     toProtoMsg(message: QueryRegisteredTokensResponse): QueryRegisteredTokensResponseProtoMsg;
+};
+export declare const QueryRegisteredTokensWithMarkets: {
+    typeUrl: string;
+    encode(_: QueryRegisteredTokensWithMarkets, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): QueryRegisteredTokensWithMarkets;
+    fromPartial(_: Partial<QueryRegisteredTokensWithMarkets>): QueryRegisteredTokensWithMarkets;
+    fromAmino(_: QueryRegisteredTokensWithMarketsAmino): QueryRegisteredTokensWithMarkets;
+    toAmino(_: QueryRegisteredTokensWithMarkets): QueryRegisteredTokensWithMarketsAmino;
+    fromAminoMsg(object: QueryRegisteredTokensWithMarketsAminoMsg): QueryRegisteredTokensWithMarkets;
+    fromProtoMsg(message: QueryRegisteredTokensWithMarketsProtoMsg): QueryRegisteredTokensWithMarkets;
+    toProto(message: QueryRegisteredTokensWithMarkets): Uint8Array;
+    toProtoMsg(message: QueryRegisteredTokensWithMarkets): QueryRegisteredTokensWithMarketsProtoMsg;
+};
+export declare const QueryRegisteredTokensWithMarketsResponse: {
+    typeUrl: string;
+    encode(message: QueryRegisteredTokensWithMarketsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryRegisteredTokensWithMarketsResponse;
+    fromPartial(object: Partial<QueryRegisteredTokensWithMarketsResponse>): QueryRegisteredTokensWithMarketsResponse;
+    fromAmino(object: QueryRegisteredTokensWithMarketsResponseAmino): QueryRegisteredTokensWithMarketsResponse;
+    toAmino(message: QueryRegisteredTokensWithMarketsResponse): QueryRegisteredTokensWithMarketsResponseAmino;
+    fromAminoMsg(object: QueryRegisteredTokensWithMarketsResponseAminoMsg): QueryRegisteredTokensWithMarketsResponse;
+    fromProtoMsg(message: QueryRegisteredTokensWithMarketsResponseProtoMsg): QueryRegisteredTokensWithMarketsResponse;
+    toProto(message: QueryRegisteredTokensWithMarketsResponse): Uint8Array;
+    toProtoMsg(message: QueryRegisteredTokensWithMarketsResponse): QueryRegisteredTokensWithMarketsResponseProtoMsg;
+};
+export declare const TokenMarket: {
+    typeUrl: string;
+    encode(message: TokenMarket, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): TokenMarket;
+    fromPartial(object: Partial<TokenMarket>): TokenMarket;
+    fromAmino(object: TokenMarketAmino): TokenMarket;
+    toAmino(message: TokenMarket): TokenMarketAmino;
+    fromAminoMsg(object: TokenMarketAminoMsg): TokenMarket;
+    fromProtoMsg(message: TokenMarketProtoMsg): TokenMarket;
+    toProto(message: TokenMarket): Uint8Array;
+    toProtoMsg(message: TokenMarket): TokenMarketProtoMsg;
+};
+export declare const QuerySpecialAssets: {
+    typeUrl: string;
+    encode(message: QuerySpecialAssets, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QuerySpecialAssets;
+    fromPartial(object: Partial<QuerySpecialAssets>): QuerySpecialAssets;
+    fromAmino(object: QuerySpecialAssetsAmino): QuerySpecialAssets;
+    toAmino(message: QuerySpecialAssets): QuerySpecialAssetsAmino;
+    fromAminoMsg(object: QuerySpecialAssetsAminoMsg): QuerySpecialAssets;
+    fromProtoMsg(message: QuerySpecialAssetsProtoMsg): QuerySpecialAssets;
+    toProto(message: QuerySpecialAssets): Uint8Array;
+    toProtoMsg(message: QuerySpecialAssets): QuerySpecialAssetsProtoMsg;
+};
+export declare const QuerySpecialAssetsResponse: {
+    typeUrl: string;
+    encode(message: QuerySpecialAssetsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QuerySpecialAssetsResponse;
+    fromPartial(object: Partial<QuerySpecialAssetsResponse>): QuerySpecialAssetsResponse;
+    fromAmino(object: QuerySpecialAssetsResponseAmino): QuerySpecialAssetsResponse;
+    toAmino(message: QuerySpecialAssetsResponse): QuerySpecialAssetsResponseAmino;
+    fromAminoMsg(object: QuerySpecialAssetsResponseAminoMsg): QuerySpecialAssetsResponse;
+    fromProtoMsg(message: QuerySpecialAssetsResponseProtoMsg): QuerySpecialAssetsResponse;
+    toProto(message: QuerySpecialAssetsResponse): Uint8Array;
+    toProtoMsg(message: QuerySpecialAssetsResponse): QuerySpecialAssetsResponseProtoMsg;
 };
 export declare const QueryMarketSummary: {
     typeUrl: string;
@@ -991,6 +1274,18 @@ export declare const QueryInspect: {
     toProto(message: QueryInspect): Uint8Array;
     toProtoMsg(message: QueryInspect): QueryInspectProtoMsg;
 };
+export declare const QueryInspectAccount: {
+    typeUrl: string;
+    encode(message: QueryInspectAccount, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryInspectAccount;
+    fromPartial(object: Partial<QueryInspectAccount>): QueryInspectAccount;
+    fromAmino(object: QueryInspectAccountAmino): QueryInspectAccount;
+    toAmino(message: QueryInspectAccount): QueryInspectAccountAmino;
+    fromAminoMsg(object: QueryInspectAccountAminoMsg): QueryInspectAccount;
+    fromProtoMsg(message: QueryInspectAccountProtoMsg): QueryInspectAccount;
+    toProto(message: QueryInspectAccount): Uint8Array;
+    toProtoMsg(message: QueryInspectAccount): QueryInspectAccountProtoMsg;
+};
 export declare const QueryInspectResponse: {
     typeUrl: string;
     encode(message: QueryInspectResponse, writer?: BinaryWriter): BinaryWriter;
@@ -1002,6 +1297,18 @@ export declare const QueryInspectResponse: {
     fromProtoMsg(message: QueryInspectResponseProtoMsg): QueryInspectResponse;
     toProto(message: QueryInspectResponse): Uint8Array;
     toProtoMsg(message: QueryInspectResponse): QueryInspectResponseProtoMsg;
+};
+export declare const QueryInspectAccountResponse: {
+    typeUrl: string;
+    encode(message: QueryInspectAccountResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryInspectAccountResponse;
+    fromPartial(object: Partial<QueryInspectAccountResponse>): QueryInspectAccountResponse;
+    fromAmino(object: QueryInspectAccountResponseAmino): QueryInspectAccountResponse;
+    toAmino(message: QueryInspectAccountResponse): QueryInspectAccountResponseAmino;
+    fromAminoMsg(object: QueryInspectAccountResponseAminoMsg): QueryInspectAccountResponse;
+    fromProtoMsg(message: QueryInspectAccountResponseProtoMsg): QueryInspectAccountResponse;
+    toProto(message: QueryInspectAccountResponse): Uint8Array;
+    toProtoMsg(message: QueryInspectAccountResponse): QueryInspectAccountResponseProtoMsg;
 };
 export declare const InspectAccount: {
     typeUrl: string;

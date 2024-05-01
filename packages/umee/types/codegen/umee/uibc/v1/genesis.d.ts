@@ -1,15 +1,19 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./quota";
 import { DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the uibc module's genesis state. */
 export interface GenesisState {
     params: Params;
     outflows: DecCoin[];
-    /** total_outflow_sum defines the total outflow sum of ibc-transfer in USD. */
-    totalOutflowSum: string;
+    /** outflow_sum defines the total outflow sum of ibc-transfer in USD. */
+    outflowSum: string;
     /** quota_expires defines quota expire time (as unix timestamp) for ibc-transfer denom. */
     quotaExpires: Timestamp;
+    /** inflows tracks IBC inflow transfers (in USD) for each denom during quota period. */
+    inflows: DecCoin[];
+    /** inflow_sum defines tracks total sum of IBC inflow transfers (in USD) during quota period. */
+    inflowSum: string;
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/umee.uibc.v1.GenesisState";
@@ -18,11 +22,15 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the uibc module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    outflows: DecCoinAmino[];
-    /** total_outflow_sum defines the total outflow sum of ibc-transfer in USD. */
-    total_outflow_sum: string;
+    outflows?: DecCoinAmino[];
+    /** outflow_sum defines the total outflow sum of ibc-transfer in USD. */
+    outflow_sum?: string;
     /** quota_expires defines quota expire time (as unix timestamp) for ibc-transfer denom. */
-    quota_expires?: TimestampAmino;
+    quota_expires?: string;
+    /** inflows tracks IBC inflow transfers (in USD) for each denom during quota period. */
+    inflows?: DecCoinAmino[];
+    /** inflow_sum defines tracks total sum of IBC inflow transfers (in USD) during quota period. */
+    inflow_sum?: string;
 }
 export interface GenesisStateAminoMsg {
     type: "/umee.uibc.v1.GenesisState";
@@ -32,8 +40,10 @@ export interface GenesisStateAminoMsg {
 export interface GenesisStateSDKType {
     params: ParamsSDKType;
     outflows: DecCoinSDKType[];
-    total_outflow_sum: string;
+    outflow_sum: string;
     quota_expires: TimestampSDKType;
+    inflows: DecCoinSDKType[];
+    inflow_sum: string;
 }
 export declare const GenesisState: {
     typeUrl: string;

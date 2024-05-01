@@ -21,15 +21,15 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the x/incentive module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    next_program_id: number;
-    last_rewards_time: string;
-    reward_trackers: RewardTrackerAmino[];
-    reward_accumulators: RewardAccumulatorAmino[];
-    upcoming_programs: IncentiveProgramAmino[];
-    ongoing_programs: IncentiveProgramAmino[];
-    completed_programs: IncentiveProgramAmino[];
-    bonds: BondAmino[];
-    account_unbondings: AccountUnbondingsAmino[];
+    next_program_id?: number;
+    last_rewards_time?: string;
+    reward_trackers?: RewardTrackerAmino[];
+    reward_accumulators?: RewardAccumulatorAmino[];
+    upcoming_programs?: IncentiveProgramAmino[];
+    ongoing_programs?: IncentiveProgramAmino[];
+    completed_programs?: IncentiveProgramAmino[];
+    bonds?: BondAmino[];
+    account_unbondings?: AccountUnbondingsAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/umee.incentive.v1.GenesisState";
@@ -65,7 +65,7 @@ export interface BondProtoMsg {
  * by a single account.
  */
 export interface BondAmino {
-    account: string;
+    account?: string;
     uToken?: CoinAmino;
 }
 export interface BondAminoMsg {
@@ -104,9 +104,9 @@ export interface RewardTrackerProtoMsg {
  * tokens. Their pending rewards increase by only the rewards accrued in that time period.
  */
 export interface RewardTrackerAmino {
-    account: string;
-    uToken: string;
-    rewards: DecCoinAmino[];
+    account?: string;
+    uToken?: string;
+    rewards?: DecCoinAmino[];
 }
 export interface RewardTrackerAminoMsg {
     type: "/umee.incentive.v1.RewardTracker";
@@ -148,9 +148,9 @@ export interface RewardAccumulatorProtoMsg {
  * of the associated base token registered with the leverage module.
  */
 export interface RewardAccumulatorAmino {
-    uToken: string;
-    rewards: DecCoinAmino[];
-    exponent: number;
+    uToken?: string;
+    rewards?: DecCoinAmino[];
+    exponent?: number;
 }
 export interface RewardAccumulatorAminoMsg {
     type: "/umee.incentive.v1.RewardAccumulator";
@@ -190,8 +190,8 @@ export interface UnbondingProtoMsg {
  * its original end time or its new one based on the new parameter.
  */
 export interface UnbondingAmino {
-    start: string;
-    end: string;
+    start?: string;
+    end?: string;
     uToken?: CoinAmino;
 }
 export interface UnbondingAminoMsg {
@@ -227,9 +227,9 @@ export interface AccountUnbondingsProtoMsg {
  * for a single bonded uToken denom in both KVStore and genesis state.
  */
 export interface AccountUnbondingsAmino {
-    account: string;
-    uToken: string;
-    unbondings: UnbondingAmino[];
+    account?: string;
+    uToken?: string;
+    unbondings?: UnbondingAmino[];
 }
 export interface AccountUnbondingsAminoMsg {
     type: "/umee.incentive.v1.AccountUnbondings";

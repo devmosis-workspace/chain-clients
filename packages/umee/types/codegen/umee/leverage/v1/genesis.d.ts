@@ -1,4 +1,4 @@
-import { Params, ParamsAmino, ParamsSDKType, Token, TokenAmino, TokenSDKType } from "./leverage";
+import { Params, ParamsAmino, ParamsSDKType, Token, TokenAmino, TokenSDKType, SpecialAssetPair, SpecialAssetPairAmino, SpecialAssetPairSDKType } from "./leverage";
 import { Coin, CoinAmino, CoinSDKType, DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the x/leverage module's genesis state. */
@@ -12,6 +12,7 @@ export interface GenesisState {
     badDebts: BadDebt[];
     interestScalars: InterestScalar[];
     utokenSupply: Coin[];
+    specialPairs: SpecialAssetPair[];
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/umee.leverage.v1.GenesisState";
@@ -20,14 +21,15 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the x/leverage module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    registry: TokenAmino[];
-    adjusted_borrows: AdjustedBorrowAmino[];
-    collateral: CollateralAmino[];
-    reserves: CoinAmino[];
-    last_interest_time: string;
-    bad_debts: BadDebtAmino[];
-    interest_scalars: InterestScalarAmino[];
-    utoken_supply: CoinAmino[];
+    registry?: TokenAmino[];
+    adjusted_borrows?: AdjustedBorrowAmino[];
+    collateral?: CollateralAmino[];
+    reserves?: CoinAmino[];
+    last_interest_time?: string;
+    bad_debts?: BadDebtAmino[];
+    interest_scalars?: InterestScalarAmino[];
+    utoken_supply?: CoinAmino[];
+    special_pairs?: SpecialAssetPairAmino[];
 }
 export interface GenesisStateAminoMsg {
     type: "/umee.leverage.v1.GenesisState";
@@ -44,6 +46,7 @@ export interface GenesisStateSDKType {
     bad_debts: BadDebtSDKType[];
     interest_scalars: InterestScalarSDKType[];
     utoken_supply: CoinSDKType[];
+    special_pairs: SpecialAssetPairSDKType[];
 }
 /**
  * AdjustedBorrow is a borrow struct used in the leverage module's genesis
@@ -62,7 +65,7 @@ export interface AdjustedBorrowProtoMsg {
  * state.
  */
 export interface AdjustedBorrowAmino {
-    address: string;
+    address?: string;
     amount?: DecCoinAmino;
 }
 export interface AdjustedBorrowAminoMsg {
@@ -94,7 +97,7 @@ export interface CollateralProtoMsg {
  * state.
  */
 export interface CollateralAmino {
-    address: string;
+    address?: string;
     amount?: CoinAmino;
 }
 export interface CollateralAminoMsg {
@@ -120,8 +123,8 @@ export interface BadDebtProtoMsg {
 }
 /** BadDebt is a bad debt instance used in the leverage module's genesis state. */
 export interface BadDebtAmino {
-    address: string;
-    denom: string;
+    address?: string;
+    denom?: string;
 }
 export interface BadDebtAminoMsg {
     type: "/umee.leverage.v1.BadDebt";
@@ -149,8 +152,8 @@ export interface InterestScalarProtoMsg {
  * state.
  */
 export interface InterestScalarAmino {
-    denom: string;
-    scalar: string;
+    denom?: string;
+    scalar?: string;
 }
 export interface InterestScalarAminoMsg {
     type: "/umee.leverage.v1.InterestScalar";

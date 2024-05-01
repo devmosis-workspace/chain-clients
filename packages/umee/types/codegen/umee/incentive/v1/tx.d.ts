@@ -11,7 +11,7 @@ export interface MsgClaimProtoMsg {
 }
 /** MsgClaim represents a account's request to claim pending rewards. */
 export interface MsgClaimAmino {
-    account: string;
+    account?: string;
 }
 export interface MsgClaimAminoMsg {
     type: "/umee.incentive.v1.MsgClaim";
@@ -31,7 +31,7 @@ export interface MsgClaimResponseProtoMsg {
 }
 /** MsgClaimResponse defines the Msg/Claim response type. */
 export interface MsgClaimResponseAmino {
-    amount: CoinAmino[];
+    amount?: CoinAmino[];
 }
 export interface MsgClaimResponseAminoMsg {
     type: "/umee.incentive.v1.MsgClaimResponse";
@@ -52,7 +52,7 @@ export interface MsgBondProtoMsg {
 }
 /** MsgBond represents a account's request to bond uToken collateral. */
 export interface MsgBondAmino {
-    account: string;
+    account?: string;
     uToken?: CoinAmino;
 }
 export interface MsgBondAminoMsg {
@@ -92,7 +92,7 @@ export interface MsgBeginUnbondingProtoMsg {
 }
 /** MsgBeginUnbonding represents a account's request to begin unbonding uToken collateral. */
 export interface MsgBeginUnbondingAmino {
-    account: string;
+    account?: string;
     uToken?: CoinAmino;
 }
 export interface MsgBeginUnbondingAminoMsg {
@@ -132,7 +132,7 @@ export interface MsgEmergencyUnbondProtoMsg {
 }
 /** MsgEmergencyUnbond represents a account's request to instantly unbond uToken collateral for a fee. */
 export interface MsgEmergencyUnbondAmino {
-    account: string;
+    account?: string;
     uToken?: CoinAmino;
 }
 export interface MsgEmergencyUnbondAminoMsg {
@@ -182,8 +182,8 @@ export interface MsgSponsorProtoMsg {
  */
 export interface MsgSponsorAmino {
     /** Sponsor bech32 account address */
-    sponsor: string;
-    program: number;
+    sponsor?: string;
+    program?: number;
 }
 export interface MsgSponsorAminoMsg {
     type: "/umee.incentive.v1.MsgSponsor";
@@ -228,7 +228,7 @@ export interface MsgGovSetParamsProtoMsg {
 /** MsgGovSetParams is used by governance to update module parameters. */
 export interface MsgGovSetParamsAmino {
     /** authority must be the address of the governance account. */
-    authority: string;
+    authority?: string;
     params?: ParamsAmino;
 }
 export interface MsgGovSetParamsAminoMsg {
@@ -259,13 +259,12 @@ export interface MsgGovSetParamsResponseSDKType {
 }
 /**
  * MsgGovCreatePrograms is used by governance to create one or more incentive programs.
- * There are two funding scenarios, depending on from_community_fund.
- * If it is true,the programs' total rewards will be automatically withdrawn from
- * the (parameter) community_fund_address to the incentive module account when this
- * message is passed. (Insufficient funds cause the parameter to be treated as false.)
- * If it is false, a MsgSponsor funding each program's full amount must be submitted
- * after this message passes, but before the program's start_time, or the program
- * will be cancelled when it would otherwise start.
+ * There are two funding scenarios. 1) If from_community_fund is true, once the proposal passes,
+ * the programs' total rewards will be automatically funded by withdrawing from the community
+ * fund to the incentive module account. Will fail if the community fund doesn't have enough coins.
+ * 2) If from_community_fund is false, a transaction with MsgSponsor must be submitted to fund
+ * all programs with full amount. It must be sent after this message passes and before the
+ * program's start_time. If it won't be funded on time, the program will be cancelled.
  */
 export interface MsgGovCreatePrograms {
     /** authority must be the address of the governance account. */
@@ -280,20 +279,19 @@ export interface MsgGovCreateProgramsProtoMsg {
 }
 /**
  * MsgGovCreatePrograms is used by governance to create one or more incentive programs.
- * There are two funding scenarios, depending on from_community_fund.
- * If it is true,the programs' total rewards will be automatically withdrawn from
- * the (parameter) community_fund_address to the incentive module account when this
- * message is passed. (Insufficient funds cause the parameter to be treated as false.)
- * If it is false, a MsgSponsor funding each program's full amount must be submitted
- * after this message passes, but before the program's start_time, or the program
- * will be cancelled when it would otherwise start.
+ * There are two funding scenarios. 1) If from_community_fund is true, once the proposal passes,
+ * the programs' total rewards will be automatically funded by withdrawing from the community
+ * fund to the incentive module account. Will fail if the community fund doesn't have enough coins.
+ * 2) If from_community_fund is false, a transaction with MsgSponsor must be submitted to fund
+ * all programs with full amount. It must be sent after this message passes and before the
+ * program's start_time. If it won't be funded on time, the program will be cancelled.
  */
 export interface MsgGovCreateProgramsAmino {
     /** authority must be the address of the governance account. */
-    authority: string;
-    programs: IncentiveProgramAmino[];
+    authority?: string;
+    programs?: IncentiveProgramAmino[];
     /** from_community_fund defines the source of funds for proposed incentive programs. */
-    from_community_fund: boolean;
+    from_community_fund?: boolean;
 }
 export interface MsgGovCreateProgramsAminoMsg {
     type: "/umee.incentive.v1.MsgGovCreatePrograms";
@@ -301,13 +299,12 @@ export interface MsgGovCreateProgramsAminoMsg {
 }
 /**
  * MsgGovCreatePrograms is used by governance to create one or more incentive programs.
- * There are two funding scenarios, depending on from_community_fund.
- * If it is true,the programs' total rewards will be automatically withdrawn from
- * the (parameter) community_fund_address to the incentive module account when this
- * message is passed. (Insufficient funds cause the parameter to be treated as false.)
- * If it is false, a MsgSponsor funding each program's full amount must be submitted
- * after this message passes, but before the program's start_time, or the program
- * will be cancelled when it would otherwise start.
+ * There are two funding scenarios. 1) If from_community_fund is true, once the proposal passes,
+ * the programs' total rewards will be automatically funded by withdrawing from the community
+ * fund to the incentive module account. Will fail if the community fund doesn't have enough coins.
+ * 2) If from_community_fund is false, a transaction with MsgSponsor must be submitted to fund
+ * all programs with full amount. It must be sent after this message passes and before the
+ * program's start_time. If it won't be funded on time, the program will be cancelled.
  */
 export interface MsgGovCreateProgramsSDKType {
     authority: string;

@@ -15,9 +15,9 @@ export interface EventDelegateFeedConsentProtoMsg {
 /** EventDelegateFeedConsent is emitted on Msg/DelegateFeedConsent */
 export interface EventDelegateFeedConsentAmino {
   /** Operator bech32 address who delegates his feed consent */
-  operator: string;
+  operator?: string;
   /** Delegate bech32 address */
-  delegate: string;
+  delegate?: string;
 }
 export interface EventDelegateFeedConsentAminoMsg {
   type: "/umee.oracle.v1.EventDelegateFeedConsent";
@@ -42,9 +42,9 @@ export interface EventSetFxRateProtoMsg {
 /** EventSetFxRate is emitted on exchange rate update */
 export interface EventSetFxRateAmino {
   /** uToken denom */
-  denom: string;
+  denom?: string;
   /** Exchange rate (based to USD) */
-  rate: string;
+  rate?: string;
 }
 export interface EventSetFxRateAminoMsg {
   type: "/umee.oracle.v1.EventSetFxRate";
@@ -85,15 +85,19 @@ export const EventDelegateFeedConsent = {
     return message;
   },
   fromAmino(object: EventDelegateFeedConsentAmino): EventDelegateFeedConsent {
-    return {
-      operator: object.operator,
-      delegate: object.delegate
-    };
+    const message = createBaseEventDelegateFeedConsent();
+    if (object.operator !== undefined && object.operator !== null) {
+      message.operator = object.operator;
+    }
+    if (object.delegate !== undefined && object.delegate !== null) {
+      message.delegate = object.delegate;
+    }
+    return message;
   },
   toAmino(message: EventDelegateFeedConsent): EventDelegateFeedConsentAmino {
     const obj: any = {};
-    obj.operator = message.operator;
-    obj.delegate = message.delegate;
+    obj.operator = message.operator === "" ? undefined : message.operator;
+    obj.delegate = message.delegate === "" ? undefined : message.delegate;
     return obj;
   },
   fromAminoMsg(object: EventDelegateFeedConsentAminoMsg): EventDelegateFeedConsent {
@@ -142,15 +146,19 @@ export const EventSetFxRate = {
     return message;
   },
   fromAmino(object: EventSetFxRateAmino): EventSetFxRate {
-    return {
-      denom: object.denom,
-      rate: object.rate
-    };
+    const message = createBaseEventSetFxRate();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.rate !== undefined && object.rate !== null) {
+      message.rate = object.rate;
+    }
+    return message;
   },
   toAmino(message: EventSetFxRate): EventSetFxRateAmino {
     const obj: any = {};
-    obj.denom = message.denom;
-    obj.rate = message.rate;
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.rate = message.rate === "" ? undefined : message.rate;
     return obj;
   },
   fromAminoMsg(object: EventSetFxRateAminoMsg): EventSetFxRate {

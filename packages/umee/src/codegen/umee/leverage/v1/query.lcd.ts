@@ -1,5 +1,5 @@
 import { LCDClient } from "@cosmology/lcd";
-import { QueryParams, QueryParamsResponseSDKType, QueryRegisteredTokens, QueryRegisteredTokensResponseSDKType, QueryMarketSummary, QueryMarketSummaryResponseSDKType, QueryAccountBalances, QueryAccountBalancesResponseSDKType, QueryAccountSummary, QueryAccountSummaryResponseSDKType, QueryLiquidationTargets, QueryLiquidationTargetsResponseSDKType, QueryBadDebts, QueryBadDebtsResponseSDKType, QueryMaxWithdraw, QueryMaxWithdrawResponseSDKType, QueryMaxBorrow, QueryMaxBorrowResponseSDKType, QueryInspect, QueryInspectResponseSDKType } from "./query";
+import { QueryParams, QueryParamsResponseSDKType, QueryRegisteredTokens, QueryRegisteredTokensResponseSDKType, QueryRegisteredTokensWithMarkets, QueryRegisteredTokensWithMarketsResponseSDKType, QuerySpecialAssets, QuerySpecialAssetsResponseSDKType, QueryMarketSummary, QueryMarketSummaryResponseSDKType, QueryAccountBalances, QueryAccountBalancesResponseSDKType, QueryAccountSummary, QueryAccountSummaryResponseSDKType, QueryLiquidationTargets, QueryLiquidationTargetsResponseSDKType, QueryBadDebts, QueryBadDebtsResponseSDKType, QueryMaxWithdraw, QueryMaxWithdrawResponseSDKType, QueryMaxBorrow, QueryMaxBorrowResponseSDKType, QueryInspect, QueryInspectResponseSDKType, QueryInspectAccount, QueryInspectAccountResponseSDKType } from "./query";
 export class LCDQueryClient {
   req: LCDClient;
   constructor({
@@ -10,6 +10,8 @@ export class LCDQueryClient {
     this.req = requestClient;
     this.params = this.params.bind(this);
     this.registeredTokens = this.registeredTokens.bind(this);
+    this.registeredTokensWithMarkets = this.registeredTokensWithMarkets.bind(this);
+    this.specialAssets = this.specialAssets.bind(this);
     this.marketSummary = this.marketSummary.bind(this);
     this.accountBalances = this.accountBalances.bind(this);
     this.accountSummary = this.accountSummary.bind(this);
@@ -18,6 +20,7 @@ export class LCDQueryClient {
     this.maxWithdraw = this.maxWithdraw.bind(this);
     this.maxBorrow = this.maxBorrow.bind(this);
     this.inspect = this.inspect.bind(this);
+    this.inspectAccount = this.inspectAccount.bind(this);
   }
   /* Params queries the parameters of the x/leverage module. */
   async params(_params: QueryParams = {}): Promise<QueryParamsResponseSDKType> {
@@ -34,6 +37,22 @@ export class LCDQueryClient {
     }
     const endpoint = `umee/leverage/v1/registered_tokens`;
     return await this.req.get<QueryRegisteredTokensResponseSDKType>(endpoint, options);
+  }
+  /* RegisteredTokensWithMarkets queries for all the registered tokens and their market summaries. */
+  async registeredTokensWithMarkets(_params: QueryRegisteredTokensWithMarkets = {}): Promise<QueryRegisteredTokensWithMarketsResponseSDKType> {
+    const endpoint = `umee/leverage/v1/registered_tokens_with_markets`;
+    return await this.req.get<QueryRegisteredTokensWithMarketsResponseSDKType>(endpoint);
+  }
+  /* SpecialAssets queries for all special asset pairs. */
+  async specialAssets(params: QuerySpecialAssets): Promise<QuerySpecialAssetsResponseSDKType> {
+    const options: any = {
+      params: {}
+    };
+    if (typeof params?.denom !== "undefined") {
+      options.params.denom = params.denom;
+    }
+    const endpoint = `umee/leverage/v1/special_assets`;
+    return await this.req.get<QuerySpecialAssetsResponseSDKType>(endpoint, options);
   }
   /* MarketSummary queries a base asset's current borrowing and supplying conditions. */
   async marketSummary(params: QueryMarketSummary): Promise<QueryMarketSummaryResponseSDKType> {
@@ -133,5 +152,16 @@ export class LCDQueryClient {
     }
     const endpoint = `umee/leverage/v1/inspect`;
     return await this.req.get<QueryInspectResponseSDKType>(endpoint, options);
+  }
+  /* InspectAccount runs the inspect query on a single address */
+  async inspectAccount(params: QueryInspectAccount): Promise<QueryInspectAccountResponseSDKType> {
+    const options: any = {
+      params: {}
+    };
+    if (typeof params?.address !== "undefined") {
+      options.params.address = params.address;
+    }
+    const endpoint = `umee/leverage/v1/inspect-account`;
+    return await this.req.get<QueryInspectAccountResponseSDKType>(endpoint, options);
   }
 }

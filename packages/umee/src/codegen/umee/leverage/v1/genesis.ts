@@ -1,4 +1,4 @@
-import { Params, ParamsAmino, ParamsSDKType, Token, TokenAmino, TokenSDKType } from "./leverage";
+import { Params, ParamsAmino, ParamsSDKType, Token, TokenAmino, TokenSDKType, SpecialAssetPair, SpecialAssetPairAmino, SpecialAssetPairSDKType } from "./leverage";
 import { Coin, CoinAmino, CoinSDKType, DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
@@ -14,6 +14,7 @@ export interface GenesisState {
   badDebts: BadDebt[];
   interestScalars: InterestScalar[];
   utokenSupply: Coin[];
+  specialPairs: SpecialAssetPair[];
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/umee.leverage.v1.GenesisState";
@@ -22,14 +23,15 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the x/leverage module's genesis state. */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  registry: TokenAmino[];
-  adjusted_borrows: AdjustedBorrowAmino[];
-  collateral: CollateralAmino[];
-  reserves: CoinAmino[];
-  last_interest_time: string;
-  bad_debts: BadDebtAmino[];
-  interest_scalars: InterestScalarAmino[];
-  utoken_supply: CoinAmino[];
+  registry?: TokenAmino[];
+  adjusted_borrows?: AdjustedBorrowAmino[];
+  collateral?: CollateralAmino[];
+  reserves?: CoinAmino[];
+  last_interest_time?: string;
+  bad_debts?: BadDebtAmino[];
+  interest_scalars?: InterestScalarAmino[];
+  utoken_supply?: CoinAmino[];
+  special_pairs?: SpecialAssetPairAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/umee.leverage.v1.GenesisState";
@@ -46,6 +48,7 @@ export interface GenesisStateSDKType {
   bad_debts: BadDebtSDKType[];
   interest_scalars: InterestScalarSDKType[];
   utoken_supply: CoinSDKType[];
+  special_pairs: SpecialAssetPairSDKType[];
 }
 /**
  * AdjustedBorrow is a borrow struct used in the leverage module's genesis
@@ -64,7 +67,7 @@ export interface AdjustedBorrowProtoMsg {
  * state.
  */
 export interface AdjustedBorrowAmino {
-  address: string;
+  address?: string;
   amount?: DecCoinAmino;
 }
 export interface AdjustedBorrowAminoMsg {
@@ -96,7 +99,7 @@ export interface CollateralProtoMsg {
  * state.
  */
 export interface CollateralAmino {
-  address: string;
+  address?: string;
   amount?: CoinAmino;
 }
 export interface CollateralAminoMsg {
@@ -122,8 +125,8 @@ export interface BadDebtProtoMsg {
 }
 /** BadDebt is a bad debt instance used in the leverage module's genesis state. */
 export interface BadDebtAmino {
-  address: string;
-  denom: string;
+  address?: string;
+  denom?: string;
 }
 export interface BadDebtAminoMsg {
   type: "/umee.leverage.v1.BadDebt";
@@ -151,8 +154,8 @@ export interface InterestScalarProtoMsg {
  * state.
  */
 export interface InterestScalarAmino {
-  denom: string;
-  scalar: string;
+  denom?: string;
+  scalar?: string;
 }
 export interface InterestScalarAminoMsg {
   type: "/umee.leverage.v1.InterestScalar";
@@ -176,7 +179,8 @@ function createBaseGenesisState(): GenesisState {
     lastInterestTime: BigInt(0),
     badDebts: [],
     interestScalars: [],
-    utokenSupply: []
+    utokenSupply: [],
+    specialPairs: []
   };
 }
 export const GenesisState = {
@@ -209,6 +213,9 @@ export const GenesisState = {
     for (const v of message.utokenSupply) {
       Coin.encode(v!, writer.uint32(74).fork()).ldelim();
     }
+    for (const v of message.specialPairs) {
+      SpecialAssetPair.encode(v!, writer.uint32(82).fork()).ldelim();
+    }
     return writer;
   },
   fromJSON(object: any): GenesisState {
@@ -221,7 +228,8 @@ export const GenesisState = {
       lastInterestTime: isSet(object.lastInterestTime) ? BigInt(object.lastInterestTime.toString()) : BigInt(0),
       badDebts: Array.isArray(object?.badDebts) ? object.badDebts.map((e: any) => BadDebt.fromJSON(e)) : [],
       interestScalars: Array.isArray(object?.interestScalars) ? object.interestScalars.map((e: any) => InterestScalar.fromJSON(e)) : [],
-      utokenSupply: Array.isArray(object?.utokenSupply) ? object.utokenSupply.map((e: any) => Coin.fromJSON(e)) : []
+      utokenSupply: Array.isArray(object?.utokenSupply) ? object.utokenSupply.map((e: any) => Coin.fromJSON(e)) : [],
+      specialPairs: Array.isArray(object?.specialPairs) ? object.specialPairs.map((e: any) => SpecialAssetPair.fromJSON(e)) : []
     };
   },
   fromPartial(object: Partial<GenesisState>): GenesisState {
@@ -235,20 +243,26 @@ export const GenesisState = {
     message.badDebts = object.badDebts?.map(e => BadDebt.fromPartial(e)) || [];
     message.interestScalars = object.interestScalars?.map(e => InterestScalar.fromPartial(e)) || [];
     message.utokenSupply = object.utokenSupply?.map(e => Coin.fromPartial(e)) || [];
+    message.specialPairs = object.specialPairs?.map(e => SpecialAssetPair.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      registry: Array.isArray(object?.registry) ? object.registry.map((e: any) => Token.fromAmino(e)) : [],
-      adjustedBorrows: Array.isArray(object?.adjusted_borrows) ? object.adjusted_borrows.map((e: any) => AdjustedBorrow.fromAmino(e)) : [],
-      collateral: Array.isArray(object?.collateral) ? object.collateral.map((e: any) => Collateral.fromAmino(e)) : [],
-      reserves: Array.isArray(object?.reserves) ? object.reserves.map((e: any) => Coin.fromAmino(e)) : [],
-      lastInterestTime: BigInt(object.last_interest_time),
-      badDebts: Array.isArray(object?.bad_debts) ? object.bad_debts.map((e: any) => BadDebt.fromAmino(e)) : [],
-      interestScalars: Array.isArray(object?.interest_scalars) ? object.interest_scalars.map((e: any) => InterestScalar.fromAmino(e)) : [],
-      utokenSupply: Array.isArray(object?.utoken_supply) ? object.utoken_supply.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.registry = object.registry?.map(e => Token.fromAmino(e)) || [];
+    message.adjustedBorrows = object.adjusted_borrows?.map(e => AdjustedBorrow.fromAmino(e)) || [];
+    message.collateral = object.collateral?.map(e => Collateral.fromAmino(e)) || [];
+    message.reserves = object.reserves?.map(e => Coin.fromAmino(e)) || [];
+    if (object.last_interest_time !== undefined && object.last_interest_time !== null) {
+      message.lastInterestTime = BigInt(object.last_interest_time);
+    }
+    message.badDebts = object.bad_debts?.map(e => BadDebt.fromAmino(e)) || [];
+    message.interestScalars = object.interest_scalars?.map(e => InterestScalar.fromAmino(e)) || [];
+    message.utokenSupply = object.utoken_supply?.map(e => Coin.fromAmino(e)) || [];
+    message.specialPairs = object.special_pairs?.map(e => SpecialAssetPair.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -256,38 +270,43 @@ export const GenesisState = {
     if (message.registry) {
       obj.registry = message.registry.map(e => e ? Token.toAmino(e) : undefined);
     } else {
-      obj.registry = [];
+      obj.registry = message.registry;
     }
     if (message.adjustedBorrows) {
       obj.adjusted_borrows = message.adjustedBorrows.map(e => e ? AdjustedBorrow.toAmino(e) : undefined);
     } else {
-      obj.adjusted_borrows = [];
+      obj.adjusted_borrows = message.adjustedBorrows;
     }
     if (message.collateral) {
       obj.collateral = message.collateral.map(e => e ? Collateral.toAmino(e) : undefined);
     } else {
-      obj.collateral = [];
+      obj.collateral = message.collateral;
     }
     if (message.reserves) {
       obj.reserves = message.reserves.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.reserves = [];
+      obj.reserves = message.reserves;
     }
-    obj.last_interest_time = message.lastInterestTime ? message.lastInterestTime.toString() : undefined;
+    obj.last_interest_time = message.lastInterestTime !== BigInt(0) ? message.lastInterestTime.toString() : undefined;
     if (message.badDebts) {
       obj.bad_debts = message.badDebts.map(e => e ? BadDebt.toAmino(e) : undefined);
     } else {
-      obj.bad_debts = [];
+      obj.bad_debts = message.badDebts;
     }
     if (message.interestScalars) {
       obj.interest_scalars = message.interestScalars.map(e => e ? InterestScalar.toAmino(e) : undefined);
     } else {
-      obj.interest_scalars = [];
+      obj.interest_scalars = message.interestScalars;
     }
     if (message.utokenSupply) {
       obj.utoken_supply = message.utokenSupply.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.utoken_supply = [];
+      obj.utoken_supply = message.utokenSupply;
+    }
+    if (message.specialPairs) {
+      obj.special_pairs = message.specialPairs.map(e => e ? SpecialAssetPair.toAmino(e) : undefined);
+    } else {
+      obj.special_pairs = message.specialPairs;
     }
     return obj;
   },
@@ -337,14 +356,18 @@ export const AdjustedBorrow = {
     return message;
   },
   fromAmino(object: AdjustedBorrowAmino): AdjustedBorrow {
-    return {
-      address: object.address,
-      amount: object?.amount ? DecCoin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseAdjustedBorrow();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = DecCoin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: AdjustedBorrow): AdjustedBorrowAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     obj.amount = message.amount ? DecCoin.toAmino(message.amount) : undefined;
     return obj;
   },
@@ -394,14 +417,18 @@ export const Collateral = {
     return message;
   },
   fromAmino(object: CollateralAmino): Collateral {
-    return {
-      address: object.address,
-      amount: object?.amount ? Coin.fromAmino(object.amount) : undefined
-    };
+    const message = createBaseCollateral();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    return message;
   },
   toAmino(message: Collateral): CollateralAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
     return obj;
   },
@@ -451,15 +478,19 @@ export const BadDebt = {
     return message;
   },
   fromAmino(object: BadDebtAmino): BadDebt {
-    return {
-      address: object.address,
-      denom: object.denom
-    };
+    const message = createBaseBadDebt();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: BadDebt): BadDebtAmino {
     const obj: any = {};
-    obj.address = message.address;
-    obj.denom = message.denom;
+    obj.address = message.address === "" ? undefined : message.address;
+    obj.denom = message.denom === "" ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: BadDebtAminoMsg): BadDebt {
@@ -508,15 +539,19 @@ export const InterestScalar = {
     return message;
   },
   fromAmino(object: InterestScalarAmino): InterestScalar {
-    return {
-      denom: object.denom,
-      scalar: object.scalar
-    };
+    const message = createBaseInterestScalar();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.scalar !== undefined && object.scalar !== null) {
+      message.scalar = object.scalar;
+    }
+    return message;
   },
   toAmino(message: InterestScalar): InterestScalarAmino {
     const obj: any = {};
-    obj.denom = message.denom;
-    obj.scalar = message.scalar;
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.scalar = message.scalar === "" ? undefined : message.scalar;
     return obj;
   },
   fromAminoMsg(object: InterestScalarAminoMsg): InterestScalar {

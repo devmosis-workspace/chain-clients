@@ -1,5 +1,5 @@
 import { LCDClient } from "@cosmology/lcd";
-import { QueryExchangeRates, QueryExchangeRatesResponseSDKType, QueryActiveExchangeRates, QueryActiveExchangeRatesResponseSDKType, QueryFeederDelegation, QueryFeederDelegationResponseSDKType, QueryMissCounter, QueryMissCounterResponseSDKType, QuerySlashWindow, QuerySlashWindowResponseSDKType, QueryAggregatePrevote, QueryAggregatePrevoteResponseSDKType, QueryAggregatePrevotes, QueryAggregatePrevotesResponseSDKType, QueryAggregateVote, QueryAggregateVoteResponseSDKType, QueryAggregateVotes, QueryAggregateVotesResponseSDKType, QueryParams, QueryParamsResponseSDKType, QueryMedians, QueryMediansResponseSDKType, QueryMedianDeviations, QueryMedianDeviationsResponseSDKType, QueryAvgPrice, QueryAvgPriceResponseSDKType } from "./query";
+import { QueryExchangeRates, QueryExchangeRatesResponseSDKType, QueryActiveExchangeRates, QueryActiveExchangeRatesResponseSDKType, QueryFeederDelegation, QueryFeederDelegationResponseSDKType, QueryMissCounter, QueryMissCounterResponseSDKType, QuerySlashWindow, QuerySlashWindowResponseSDKType, QueryAggregatePrevote, QueryAggregatePrevoteResponseSDKType, QueryAggregatePrevotes, QueryAggregatePrevotesResponseSDKType, QueryAggregateVote, QueryAggregateVoteResponseSDKType, QueryAggregateVotes, QueryAggregateVotesResponseSDKType, QueryParams, QueryParamsResponseSDKType, QueryMedians, QueryMediansResponseSDKType, QueryMedianDeviations, QueryMedianDeviationsResponseSDKType, QueryAvgPrice, QueryAvgPriceResponseSDKType, QueryExgRatesWithTimestamp, QueryExgRatesWithTimestampResponseSDKType, QueryMissCounters, QueryMissCountersResponseSDKType } from "./query";
 export declare class LCDQueryClient {
     req: LCDClient;
     constructor({ requestClient }: {
@@ -18,4 +18,6 @@ export declare class LCDQueryClient {
     medians(params: QueryMedians): Promise<QueryMediansResponseSDKType>;
     medianDeviations(params: QueryMedianDeviations): Promise<QueryMedianDeviationsResponseSDKType>;
     avgPrice(params: QueryAvgPrice): Promise<QueryAvgPriceResponseSDKType>;
+    exgRatesWithTimestamp(params: QueryExgRatesWithTimestamp): Promise<QueryExgRatesWithTimestampResponseSDKType>;
+    missCounters(params: QueryMissCounters): Promise<QueryMissCountersResponseSDKType>;
 }

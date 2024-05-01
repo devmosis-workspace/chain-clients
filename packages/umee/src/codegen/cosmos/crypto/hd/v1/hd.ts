@@ -23,21 +23,21 @@ export interface BIP44ParamsProtoMsg {
 /** BIP44Params is used as path field in ledger item in Record. */
 export interface BIP44ParamsAmino {
   /** purpose is a constant set to 44' (or 0x8000002C) following the BIP43 recommendation */
-  purpose: number;
+  purpose?: number;
   /** coin_type is a constant that improves privacy */
-  coin_type: number;
+  coin_type?: number;
   /** account splits the key space into independent user identities */
-  account: number;
+  account?: number;
   /**
    * change is a constant used for public derivation. Constant 0 is used for external chain and constant 1 for internal
    * chain.
    */
-  change: boolean;
+  change?: boolean;
   /** address_index is used as child index in BIP32 derivation */
-  address_index: number;
+  address_index?: number;
 }
 export interface BIP44ParamsAminoMsg {
-  type: "cosmos-sdk/BIP44Params";
+  type: "crypto/keys/hd/BIP44Params";
   value: BIP44ParamsAmino;
 }
 /** BIP44Params is used as path field in ledger item in Record. */
@@ -96,21 +96,31 @@ export const BIP44Params = {
     return message;
   },
   fromAmino(object: BIP44ParamsAmino): BIP44Params {
-    return {
-      purpose: object.purpose,
-      coinType: object.coin_type,
-      account: object.account,
-      change: object.change,
-      addressIndex: object.address_index
-    };
+    const message = createBaseBIP44Params();
+    if (object.purpose !== undefined && object.purpose !== null) {
+      message.purpose = object.purpose;
+    }
+    if (object.coin_type !== undefined && object.coin_type !== null) {
+      message.coinType = object.coin_type;
+    }
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    if (object.change !== undefined && object.change !== null) {
+      message.change = object.change;
+    }
+    if (object.address_index !== undefined && object.address_index !== null) {
+      message.addressIndex = object.address_index;
+    }
+    return message;
   },
   toAmino(message: BIP44Params): BIP44ParamsAmino {
     const obj: any = {};
-    obj.purpose = message.purpose;
-    obj.coin_type = message.coinType;
-    obj.account = message.account;
-    obj.change = message.change;
-    obj.address_index = message.addressIndex;
+    obj.purpose = message.purpose === 0 ? undefined : message.purpose;
+    obj.coin_type = message.coinType === 0 ? undefined : message.coinType;
+    obj.account = message.account === 0 ? undefined : message.account;
+    obj.change = message.change === false ? undefined : message.change;
+    obj.address_index = message.addressIndex === 0 ? undefined : message.addressIndex;
     return obj;
   },
   fromAminoMsg(object: BIP44ParamsAminoMsg): BIP44Params {
@@ -118,7 +128,7 @@ export const BIP44Params = {
   },
   toAminoMsg(message: BIP44Params): BIP44ParamsAminoMsg {
     return {
-      type: "cosmos-sdk/BIP44Params",
+      type: "crypto/keys/hd/BIP44Params",
       value: BIP44Params.toAmino(message)
     };
   },

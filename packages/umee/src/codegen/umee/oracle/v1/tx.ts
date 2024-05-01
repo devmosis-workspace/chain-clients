@@ -19,10 +19,10 @@ export interface MsgAggregateExchangeRatePrevoteProtoMsg {
  * exchange rate prevote.
  */
 export interface MsgAggregateExchangeRatePrevoteAmino {
-  hash: string;
+  hash?: string;
   /** Feeder is the author and the signer of the message. */
-  feeder: string;
-  validator: string;
+  feeder?: string;
+  validator?: string;
 }
 export interface MsgAggregateExchangeRatePrevoteAminoMsg {
   type: "/umee.oracle.v1.MsgAggregateExchangeRatePrevote";
@@ -80,11 +80,11 @@ export interface MsgAggregateExchangeRateVoteProtoMsg {
  * exchange rate vote.
  */
 export interface MsgAggregateExchangeRateVoteAmino {
-  salt: string;
-  exchange_rates: string;
+  salt?: string;
+  exchange_rates?: string;
   /** Feeder is the author and the signer of the message. */
-  feeder: string;
-  validator: string;
+  feeder?: string;
+  validator?: string;
 }
 export interface MsgAggregateExchangeRateVoteAminoMsg {
   type: "/umee.oracle.v1.MsgAggregateExchangeRateVote";
@@ -142,8 +142,8 @@ export interface MsgDelegateFeedConsentProtoMsg {
  */
 export interface MsgDelegateFeedConsentAmino {
   /** Operator is the author and the signer of the message. */
-  operator: string;
-  delegate: string;
+  operator?: string;
+  delegate?: string;
 }
 export interface MsgDelegateFeedConsentAminoMsg {
   type: "/umee.oracle.v1.MsgDelegateFeedConsent";
@@ -216,17 +216,23 @@ export const MsgAggregateExchangeRatePrevote = {
     return message;
   },
   fromAmino(object: MsgAggregateExchangeRatePrevoteAmino): MsgAggregateExchangeRatePrevote {
-    return {
-      hash: object.hash,
-      feeder: object.feeder,
-      validator: object.validator
-    };
+    const message = createBaseMsgAggregateExchangeRatePrevote();
+    if (object.hash !== undefined && object.hash !== null) {
+      message.hash = object.hash;
+    }
+    if (object.feeder !== undefined && object.feeder !== null) {
+      message.feeder = object.feeder;
+    }
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = object.validator;
+    }
+    return message;
   },
   toAmino(message: MsgAggregateExchangeRatePrevote): MsgAggregateExchangeRatePrevoteAmino {
     const obj: any = {};
-    obj.hash = message.hash;
-    obj.feeder = message.feeder;
-    obj.validator = message.validator;
+    obj.hash = message.hash === "" ? undefined : message.hash;
+    obj.feeder = message.feeder === "" ? undefined : message.feeder;
+    obj.validator = message.validator === "" ? undefined : message.validator;
     return obj;
   },
   fromAminoMsg(object: MsgAggregateExchangeRatePrevoteAminoMsg): MsgAggregateExchangeRatePrevote {
@@ -261,7 +267,8 @@ export const MsgAggregateExchangeRatePrevoteResponse = {
     return message;
   },
   fromAmino(_: MsgAggregateExchangeRatePrevoteResponseAmino): MsgAggregateExchangeRatePrevoteResponse {
-    return {};
+    const message = createBaseMsgAggregateExchangeRatePrevoteResponse();
+    return message;
   },
   toAmino(_: MsgAggregateExchangeRatePrevoteResponse): MsgAggregateExchangeRatePrevoteResponseAmino {
     const obj: any = {};
@@ -325,19 +332,27 @@ export const MsgAggregateExchangeRateVote = {
     return message;
   },
   fromAmino(object: MsgAggregateExchangeRateVoteAmino): MsgAggregateExchangeRateVote {
-    return {
-      salt: object.salt,
-      exchangeRates: object.exchange_rates,
-      feeder: object.feeder,
-      validator: object.validator
-    };
+    const message = createBaseMsgAggregateExchangeRateVote();
+    if (object.salt !== undefined && object.salt !== null) {
+      message.salt = object.salt;
+    }
+    if (object.exchange_rates !== undefined && object.exchange_rates !== null) {
+      message.exchangeRates = object.exchange_rates;
+    }
+    if (object.feeder !== undefined && object.feeder !== null) {
+      message.feeder = object.feeder;
+    }
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = object.validator;
+    }
+    return message;
   },
   toAmino(message: MsgAggregateExchangeRateVote): MsgAggregateExchangeRateVoteAmino {
     const obj: any = {};
-    obj.salt = message.salt;
-    obj.exchange_rates = message.exchangeRates;
-    obj.feeder = message.feeder;
-    obj.validator = message.validator;
+    obj.salt = message.salt === "" ? undefined : message.salt;
+    obj.exchange_rates = message.exchangeRates === "" ? undefined : message.exchangeRates;
+    obj.feeder = message.feeder === "" ? undefined : message.feeder;
+    obj.validator = message.validator === "" ? undefined : message.validator;
     return obj;
   },
   fromAminoMsg(object: MsgAggregateExchangeRateVoteAminoMsg): MsgAggregateExchangeRateVote {
@@ -372,7 +387,8 @@ export const MsgAggregateExchangeRateVoteResponse = {
     return message;
   },
   fromAmino(_: MsgAggregateExchangeRateVoteResponseAmino): MsgAggregateExchangeRateVoteResponse {
-    return {};
+    const message = createBaseMsgAggregateExchangeRateVoteResponse();
+    return message;
   },
   toAmino(_: MsgAggregateExchangeRateVoteResponse): MsgAggregateExchangeRateVoteResponseAmino {
     const obj: any = {};
@@ -424,15 +440,19 @@ export const MsgDelegateFeedConsent = {
     return message;
   },
   fromAmino(object: MsgDelegateFeedConsentAmino): MsgDelegateFeedConsent {
-    return {
-      operator: object.operator,
-      delegate: object.delegate
-    };
+    const message = createBaseMsgDelegateFeedConsent();
+    if (object.operator !== undefined && object.operator !== null) {
+      message.operator = object.operator;
+    }
+    if (object.delegate !== undefined && object.delegate !== null) {
+      message.delegate = object.delegate;
+    }
+    return message;
   },
   toAmino(message: MsgDelegateFeedConsent): MsgDelegateFeedConsentAmino {
     const obj: any = {};
-    obj.operator = message.operator;
-    obj.delegate = message.delegate;
+    obj.operator = message.operator === "" ? undefined : message.operator;
+    obj.delegate = message.delegate === "" ? undefined : message.delegate;
     return obj;
   },
   fromAminoMsg(object: MsgDelegateFeedConsentAminoMsg): MsgDelegateFeedConsent {
@@ -467,7 +487,8 @@ export const MsgDelegateFeedConsentResponse = {
     return message;
   },
   fromAmino(_: MsgDelegateFeedConsentResponseAmino): MsgDelegateFeedConsentResponse {
-    return {};
+    const message = createBaseMsgDelegateFeedConsentResponse();
+    return message;
   },
   toAmino(_: MsgDelegateFeedConsentResponse): MsgDelegateFeedConsentResponseAmino {
     const obj: any = {};

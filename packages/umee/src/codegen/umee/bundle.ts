@@ -7,48 +7,60 @@ import * as _5 from "./leverage/v1/genesis";
 import * as _6 from "./leverage/v1/leverage";
 import * as _7 from "./leverage/v1/query";
 import * as _8 from "./leverage/v1/tx";
-import * as _9 from "./oracle/v1/events";
-import * as _10 from "./oracle/v1/genesis";
-import * as _11 from "./oracle/v1/oracle";
-import * as _12 from "./oracle/v1/query";
-import * as _13 from "./oracle/v1/tx";
-import * as _14 from "./ugov/v1/events";
-import * as _15 from "./ugov/v1/genesis";
-import * as _16 from "./ugov/v1/query";
-import * as _17 from "./ugov/v1/tx";
-import * as _18 from "./uibc/v1/events";
-import * as _19 from "./uibc/v1/genesis";
-import * as _20 from "./uibc/v1/query";
-import * as _21 from "./uibc/v1/quota";
-import * as _22 from "./uibc/v1/tx";
-import * as _138 from "./incentive/v1/tx.amino";
-import * as _139 from "./leverage/v1/tx.amino";
-import * as _140 from "./oracle/v1/tx.amino";
-import * as _141 from "./ugov/v1/tx.amino";
-import * as _142 from "./uibc/v1/tx.amino";
-import * as _143 from "./incentive/v1/tx.registry";
-import * as _144 from "./leverage/v1/tx.registry";
-import * as _145 from "./oracle/v1/tx.registry";
-import * as _146 from "./ugov/v1/tx.registry";
-import * as _147 from "./uibc/v1/tx.registry";
-import * as _148 from "./incentive/v1/query.lcd";
-import * as _149 from "./leverage/v1/query.lcd";
-import * as _150 from "./oracle/v1/query.lcd";
-import * as _151 from "./ugov/v1/query.lcd";
-import * as _152 from "./uibc/v1/query.lcd";
-import * as _153 from "./incentive/v1/query.rpc.Query";
-import * as _154 from "./leverage/v1/query.rpc.Query";
-import * as _155 from "./oracle/v1/query.rpc.Query";
-import * as _156 from "./ugov/v1/query.rpc.Query";
-import * as _157 from "./uibc/v1/query.rpc.Query";
-import * as _158 from "./incentive/v1/tx.rpc.msg";
-import * as _159 from "./leverage/v1/tx.rpc.msg";
-import * as _160 from "./oracle/v1/tx.rpc.msg";
-import * as _161 from "./ugov/v1/tx.rpc.msg";
-import * as _162 from "./uibc/v1/tx.rpc.msg";
-import * as _242 from "./lcd";
-import * as _243 from "./rpc.query";
-import * as _244 from "./rpc.tx";
+import * as _9 from "./metoken/v1/events";
+import * as _10 from "./metoken/v1/genesis";
+import * as _11 from "./metoken/v1/metoken";
+import * as _12 from "./metoken/v1/query";
+import * as _13 from "./metoken/v1/tx";
+import * as _14 from "./oracle/v1/events";
+import * as _15 from "./oracle/v1/genesis";
+import * as _16 from "./oracle/v1/oracle";
+import * as _17 from "./oracle/v1/query";
+import * as _18 from "./oracle/v1/tx";
+import * as _19 from "./ugov/v1/events";
+import * as _20 from "./ugov/v1/genesis";
+import * as _21 from "./ugov/v1/query";
+import * as _22 from "./ugov/v1/tx";
+import * as _23 from "./ugov/v1/ugov";
+import * as _24 from "./uibc/v1/events";
+import * as _25 from "./uibc/v1/genesis";
+import * as _26 from "./uibc/v1/query";
+import * as _27 from "./uibc/v1/quota";
+import * as _28 from "./uibc/v1/tx";
+import * as _29 from "./uibc/v1/uibc";
+import * as _181 from "./incentive/v1/tx.amino";
+import * as _182 from "./leverage/v1/tx.amino";
+import * as _183 from "./metoken/v1/tx.amino";
+import * as _184 from "./oracle/v1/tx.amino";
+import * as _185 from "./ugov/v1/tx.amino";
+import * as _186 from "./uibc/v1/tx.amino";
+import * as _187 from "./incentive/v1/tx.registry";
+import * as _188 from "./leverage/v1/tx.registry";
+import * as _189 from "./metoken/v1/tx.registry";
+import * as _190 from "./oracle/v1/tx.registry";
+import * as _191 from "./ugov/v1/tx.registry";
+import * as _192 from "./uibc/v1/tx.registry";
+import * as _193 from "./incentive/v1/query.lcd";
+import * as _194 from "./leverage/v1/query.lcd";
+import * as _195 from "./metoken/v1/query.lcd";
+import * as _196 from "./oracle/v1/query.lcd";
+import * as _197 from "./ugov/v1/query.lcd";
+import * as _198 from "./uibc/v1/query.lcd";
+import * as _199 from "./incentive/v1/query.rpc.Query";
+import * as _200 from "./leverage/v1/query.rpc.Query";
+import * as _201 from "./metoken/v1/query.rpc.Query";
+import * as _202 from "./oracle/v1/query.rpc.Query";
+import * as _203 from "./ugov/v1/query.rpc.Query";
+import * as _204 from "./uibc/v1/query.rpc.Query";
+import * as _205 from "./incentive/v1/tx.rpc.msg";
+import * as _206 from "./leverage/v1/tx.rpc.msg";
+import * as _207 from "./metoken/v1/tx.rpc.msg";
+import * as _208 from "./oracle/v1/tx.rpc.msg";
+import * as _209 from "./ugov/v1/tx.rpc.msg";
+import * as _210 from "./uibc/v1/tx.rpc.msg";
+import * as _308 from "./lcd";
+import * as _309 from "./rpc.query";
+import * as _310 from "./rpc.tx";
 export namespace umee {
   export namespace incentive {
     export const v1 = {
@@ -56,11 +68,11 @@ export namespace umee {
       ..._1,
       ..._2,
       ..._3,
-      ..._138,
-      ..._143,
-      ..._148,
-      ..._153,
-      ..._158
+      ..._181,
+      ..._187,
+      ..._193,
+      ..._199,
+      ..._205
     };
   }
   export namespace leverage {
@@ -70,57 +82,73 @@ export namespace umee {
       ..._6,
       ..._7,
       ..._8,
-      ..._139,
-      ..._144,
-      ..._149,
-      ..._154,
-      ..._159
+      ..._182,
+      ..._188,
+      ..._194,
+      ..._200,
+      ..._206
     };
   }
-  export namespace oracle {
+  export namespace metoken {
     export const v1 = {
       ..._9,
       ..._10,
       ..._11,
       ..._12,
       ..._13,
-      ..._140,
-      ..._145,
-      ..._150,
-      ..._155,
-      ..._160
+      ..._183,
+      ..._189,
+      ..._195,
+      ..._201,
+      ..._207
     };
   }
-  export namespace ugov {
+  export namespace oracle {
     export const v1 = {
       ..._14,
       ..._15,
       ..._16,
       ..._17,
-      ..._141,
-      ..._146,
-      ..._151,
-      ..._156,
-      ..._161
+      ..._18,
+      ..._184,
+      ..._190,
+      ..._196,
+      ..._202,
+      ..._208
     };
   }
-  export namespace uibc {
+  export namespace ugov {
     export const v1 = {
-      ..._18,
       ..._19,
       ..._20,
       ..._21,
       ..._22,
-      ..._142,
-      ..._147,
-      ..._152,
-      ..._157,
-      ..._162
+      ..._23,
+      ..._185,
+      ..._191,
+      ..._197,
+      ..._203,
+      ..._209
+    };
+  }
+  export namespace uibc {
+    export const v1 = {
+      ..._24,
+      ..._25,
+      ..._26,
+      ..._27,
+      ..._28,
+      ..._29,
+      ..._186,
+      ..._192,
+      ..._198,
+      ..._204,
+      ..._210
     };
   }
   export const ClientFactory = {
-    ..._242,
-    ..._243,
-    ..._244
+    ..._308,
+    ..._309,
+    ..._310
   };
 }

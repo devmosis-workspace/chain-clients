@@ -1,7 +1,149 @@
+import { DenomExchangeRate, DenomExchangeRateAmino, DenomExchangeRateSDKType, AggregateExchangeRatePrevote, AggregateExchangeRatePrevoteAmino, AggregateExchangeRatePrevoteSDKType, AggregateExchangeRateVote, AggregateExchangeRateVoteAmino, AggregateExchangeRateVoteSDKType, Params, ParamsAmino, ParamsSDKType } from "./oracle";
 import { DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { AggregateExchangeRatePrevote, AggregateExchangeRatePrevoteAmino, AggregateExchangeRatePrevoteSDKType, AggregateExchangeRateVote, AggregateExchangeRateVoteAmino, AggregateExchangeRateVoteSDKType, Params, ParamsAmino, ParamsSDKType } from "./oracle";
 import { Price, PriceAmino, PriceSDKType } from "./genesis";
 import { BinaryWriter } from "../../../binary";
+/**
+ * QueryMissCounters is the request type for the Query/MissCounters RPC
+ * method.
+ */
+export interface QueryMissCounters {
+    validator: string;
+}
+export interface QueryMissCountersProtoMsg {
+    typeUrl: "/umee.oracle.v1.QueryMissCounters";
+    value: Uint8Array;
+}
+/**
+ * QueryMissCounters is the request type for the Query/MissCounters RPC
+ * method.
+ */
+export interface QueryMissCountersAmino {
+    validator?: string;
+}
+export interface QueryMissCountersAminoMsg {
+    type: "/umee.oracle.v1.QueryMissCounters";
+    value: QueryMissCountersAmino;
+}
+/**
+ * QueryMissCounters is the request type for the Query/MissCounters RPC
+ * method.
+ */
+export interface QueryMissCountersSDKType {
+    validator: string;
+}
+/** QueryMissCountersResponse is response type for the Query/MissCounters RPC method. */
+export interface QueryMissCountersResponse {
+    missCounters: PriceMissCounter[];
+}
+export interface QueryMissCountersResponseProtoMsg {
+    typeUrl: "/umee.oracle.v1.QueryMissCountersResponse";
+    value: Uint8Array;
+}
+/** QueryMissCountersResponse is response type for the Query/MissCounters RPC method. */
+export interface QueryMissCountersResponseAmino {
+    miss_counters?: PriceMissCounterAmino[];
+}
+export interface QueryMissCountersResponseAminoMsg {
+    type: "/umee.oracle.v1.QueryMissCountersResponse";
+    value: QueryMissCountersResponseAmino;
+}
+/** QueryMissCountersResponse is response type for the Query/MissCounters RPC method. */
+export interface QueryMissCountersResponseSDKType {
+    miss_counters: PriceMissCounterSDKType[];
+}
+/** PriceMissCounter is the validator's oracle price votes missing count. */
+export interface PriceMissCounter {
+    validator: string;
+    /** miss_counter defines the oracle miss counter of a validator */
+    missCounter: bigint;
+}
+export interface PriceMissCounterProtoMsg {
+    typeUrl: "/umee.oracle.v1.PriceMissCounter";
+    value: Uint8Array;
+}
+/** PriceMissCounter is the validator's oracle price votes missing count. */
+export interface PriceMissCounterAmino {
+    validator?: string;
+    /** miss_counter defines the oracle miss counter of a validator */
+    miss_counter?: string;
+}
+export interface PriceMissCounterAminoMsg {
+    type: "/umee.oracle.v1.PriceMissCounter";
+    value: PriceMissCounterAmino;
+}
+/** PriceMissCounter is the validator's oracle price votes missing count. */
+export interface PriceMissCounterSDKType {
+    validator: string;
+    miss_counter: bigint;
+}
+/**
+ * QueryExgRatesWithTimestamp is the request type for the Query/ExchangeRatesWithTimestamp RPC
+ * method.
+ */
+export interface QueryExgRatesWithTimestamp {
+    /** denom defines the denomination to query for. */
+    denom: string;
+}
+export interface QueryExgRatesWithTimestampProtoMsg {
+    typeUrl: "/umee.oracle.v1.QueryExgRatesWithTimestamp";
+    value: Uint8Array;
+}
+/**
+ * QueryExgRatesWithTimestamp is the request type for the Query/ExchangeRatesWithTimestamp RPC
+ * method.
+ */
+export interface QueryExgRatesWithTimestampAmino {
+    /** denom defines the denomination to query for. */
+    denom?: string;
+}
+export interface QueryExgRatesWithTimestampAminoMsg {
+    type: "/umee.oracle.v1.QueryExgRatesWithTimestamp";
+    value: QueryExgRatesWithTimestampAmino;
+}
+/**
+ * QueryExgRatesWithTimestamp is the request type for the Query/ExchangeRatesWithTimestamp RPC
+ * method.
+ */
+export interface QueryExgRatesWithTimestampSDKType {
+    denom: string;
+}
+/**
+ * QueryExgRatesWithTimestampResponse is response type for the
+ * Query/ExchangeRatesWithTimestamp RPC method.
+ */
+export interface QueryExgRatesWithTimestampResponse {
+    /**
+     * exchange_rates defines a list of the exchange rate for all whitelisted
+     * denoms with timestamp
+     */
+    exgRates: DenomExchangeRate[];
+}
+export interface QueryExgRatesWithTimestampResponseProtoMsg {
+    typeUrl: "/umee.oracle.v1.QueryExgRatesWithTimestampResponse";
+    value: Uint8Array;
+}
+/**
+ * QueryExgRatesWithTimestampResponse is response type for the
+ * Query/ExchangeRatesWithTimestamp RPC method.
+ */
+export interface QueryExgRatesWithTimestampResponseAmino {
+    /**
+     * exchange_rates defines a list of the exchange rate for all whitelisted
+     * denoms with timestamp
+     */
+    exg_rates?: DenomExchangeRateAmino[];
+}
+export interface QueryExgRatesWithTimestampResponseAminoMsg {
+    type: "/umee.oracle.v1.QueryExgRatesWithTimestampResponse";
+    value: QueryExgRatesWithTimestampResponseAmino;
+}
+/**
+ * QueryExgRatesWithTimestampResponse is response type for the
+ * Query/ExchangeRatesWithTimestamp RPC method.
+ */
+export interface QueryExgRatesWithTimestampResponseSDKType {
+    exg_rates: DenomExchangeRateSDKType[];
+}
 /**
  * QueryExchangeRates is the request type for the Query/ExchangeRate RPC
  * method.
@@ -20,7 +162,7 @@ export interface QueryExchangeRatesProtoMsg {
  */
 export interface QueryExchangeRatesAmino {
     /** denom defines the denomination to query for. */
-    denom: string;
+    denom?: string;
 }
 export interface QueryExchangeRatesAminoMsg {
     type: "/umee.oracle.v1.QueryExchangeRates";
@@ -57,7 +199,7 @@ export interface QueryExchangeRatesResponseAmino {
      * exchange_rates defines a list of the exchange rate for all whitelisted
      * denoms.
      */
-    exchange_rates: DecCoinAmino[];
+    exchange_rates?: DecCoinAmino[];
 }
 export interface QueryExchangeRatesResponseAminoMsg {
     type: "/umee.oracle.v1.QueryExchangeRatesResponse";
@@ -120,7 +262,7 @@ export interface QueryActiveExchangeRatesResponseAmino {
      * activeRates defines a list of the denomination which oracle prices agreed
      * upon.
      */
-    active_rates: string[];
+    active_rates?: string[];
 }
 export interface QueryActiveExchangeRatesResponseAminoMsg {
     type: "/umee.oracle.v1.QueryActiveExchangeRatesResponse";
@@ -151,7 +293,7 @@ export interface QueryFeederDelegationProtoMsg {
  */
 export interface QueryFeederDelegationAmino {
     /** validator defines the validator address to query for. */
-    validator_addr: string;
+    validator_addr?: string;
 }
 export interface QueryFeederDelegationAminoMsg {
     type: "/umee.oracle.v1.QueryFeederDelegation";
@@ -182,7 +324,7 @@ export interface QueryFeederDelegationResponseProtoMsg {
  */
 export interface QueryFeederDelegationResponseAmino {
     /** feeder_addr defines the feeder delegation of a validator */
-    feeder_addr: string;
+    feeder_addr?: string;
 }
 export interface QueryFeederDelegationResponseAminoMsg {
     type: "/umee.oracle.v1.QueryFeederDelegationResponse";
@@ -213,7 +355,7 @@ export interface QueryMissCounterProtoMsg {
  */
 export interface QueryMissCounterAmino {
     /** validator defines the validator address to query for. */
-    validator_addr: string;
+    validator_addr?: string;
 }
 export interface QueryMissCounterAminoMsg {
     type: "/umee.oracle.v1.QueryMissCounter";
@@ -244,7 +386,7 @@ export interface QueryMissCounterResponseProtoMsg {
  */
 export interface QueryMissCounterResponseAmino {
     /** miss_counter defines the oracle miss counter of a validator */
-    miss_counter: string;
+    miss_counter?: string;
 }
 export interface QueryMissCounterResponseAminoMsg {
     type: "/umee.oracle.v1.QueryMissCounterResponse";
@@ -307,7 +449,7 @@ export interface QuerySlashWindowResponseAmino {
      * window_progress defines the number of voting periods
      * since the last slashing event would have taken place.
      */
-    window_progress: string;
+    window_progress?: string;
 }
 export interface QuerySlashWindowResponseAminoMsg {
     type: "/umee.oracle.v1.QuerySlashWindowResponse";
@@ -338,7 +480,7 @@ export interface QueryAggregatePrevoteProtoMsg {
  */
 export interface QueryAggregatePrevoteAmino {
     /** validator defines the validator address to query for. */
-    validator_addr: string;
+    validator_addr?: string;
 }
 export interface QueryAggregatePrevoteAminoMsg {
     type: "/umee.oracle.v1.QueryAggregatePrevote";
@@ -438,7 +580,7 @@ export interface QueryAggregatePrevotesResponseAmino {
      * aggregate_prevotes defines all oracle aggregate prevotes submitted in the
      * current vote period
      */
-    aggregate_prevotes: AggregateExchangeRatePrevoteAmino[];
+    aggregate_prevotes?: AggregateExchangeRatePrevoteAmino[];
 }
 export interface QueryAggregatePrevotesResponseAminoMsg {
     type: "/umee.oracle.v1.QueryAggregatePrevotesResponse";
@@ -469,7 +611,7 @@ export interface QueryAggregateVoteProtoMsg {
  */
 export interface QueryAggregateVoteAmino {
     /** validator defines the validator address to query for. */
-    validator_addr: string;
+    validator_addr?: string;
 }
 export interface QueryAggregateVoteAminoMsg {
     type: "/umee.oracle.v1.QueryAggregateVote";
@@ -569,7 +711,7 @@ export interface QueryAggregateVotesResponseAmino {
      * aggregate_votes defines all oracle aggregate votes submitted in the current
      * vote period
      */
-    aggregate_votes: AggregateExchangeRateVoteAmino[];
+    aggregate_votes?: AggregateExchangeRateVoteAmino[];
 }
 export interface QueryAggregateVotesResponseAminoMsg {
     type: "/umee.oracle.v1.QueryAggregateVotesResponse";
@@ -638,12 +780,12 @@ export interface QueryMediansProtoMsg {
 /** QueryMedians is the request type for the Query/Medians RPC Response. */
 export interface QueryMediansAmino {
     /** denom defines the denomination to query for. */
-    denom: string;
+    denom?: string;
     /**
      * numStamps defines the number of median stamps to query for. numStamps
      * must be greater than 0.
      */
-    numStamps: number;
+    numStamps?: number;
 }
 export interface QueryMediansAminoMsg {
     type: "/umee.oracle.v1.QueryMedians";
@@ -672,7 +814,7 @@ export interface QueryMediansResponseProtoMsg {
  */
 export interface QueryMediansResponseAmino {
     /** medians defines a list of the medians for all stamped denoms. */
-    medians: PriceAmino[];
+    medians?: PriceAmino[];
 }
 export interface QueryMediansResponseAminoMsg {
     type: "/umee.oracle.v1.QueryMediansResponse";
@@ -697,7 +839,7 @@ export interface QueryMedianDeviationsProtoMsg {
 /** QueryMedianDeviations is the request type for the Query/MedianDeviations RPC Response. */
 export interface QueryMedianDeviationsAmino {
     /** denom defines the denomination to query for. */
-    denom: string;
+    denom?: string;
 }
 export interface QueryMedianDeviationsAminoMsg {
     type: "/umee.oracle.v1.QueryMedianDeviations";
@@ -725,7 +867,7 @@ export interface QueryMedianDeviationsResponseProtoMsg {
  */
 export interface QueryMedianDeviationsResponseAmino {
     /** medians defines a list of the median deviations for all stamped denoms. */
-    medianDeviations: PriceAmino[];
+    medianDeviations?: PriceAmino[];
 }
 export interface QueryMedianDeviationsResponseAminoMsg {
     type: "/umee.oracle.v1.QueryMedianDeviationsResponse";
@@ -748,7 +890,7 @@ export interface QueryAvgPriceProtoMsg {
 }
 /** QueryAvgPrice is a request type for AvgPrice method */
 export interface QueryAvgPriceAmino {
-    denom: string;
+    denom?: string;
 }
 export interface QueryAvgPriceAminoMsg {
     type: "/umee.oracle.v1.QueryAvgPrice";
@@ -768,7 +910,7 @@ export interface QueryAvgPriceResponseProtoMsg {
 }
 /** QueryAvgPriceResponse is a response type for AvgPrice method */
 export interface QueryAvgPriceResponseAmino {
-    price: string;
+    price?: string;
 }
 export interface QueryAvgPriceResponseAminoMsg {
     type: "/umee.oracle.v1.QueryAvgPriceResponse";
@@ -778,6 +920,66 @@ export interface QueryAvgPriceResponseAminoMsg {
 export interface QueryAvgPriceResponseSDKType {
     price: string;
 }
+export declare const QueryMissCounters: {
+    typeUrl: string;
+    encode(message: QueryMissCounters, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryMissCounters;
+    fromPartial(object: Partial<QueryMissCounters>): QueryMissCounters;
+    fromAmino(object: QueryMissCountersAmino): QueryMissCounters;
+    toAmino(message: QueryMissCounters): QueryMissCountersAmino;
+    fromAminoMsg(object: QueryMissCountersAminoMsg): QueryMissCounters;
+    fromProtoMsg(message: QueryMissCountersProtoMsg): QueryMissCounters;
+    toProto(message: QueryMissCounters): Uint8Array;
+    toProtoMsg(message: QueryMissCounters): QueryMissCountersProtoMsg;
+};
+export declare const QueryMissCountersResponse: {
+    typeUrl: string;
+    encode(message: QueryMissCountersResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryMissCountersResponse;
+    fromPartial(object: Partial<QueryMissCountersResponse>): QueryMissCountersResponse;
+    fromAmino(object: QueryMissCountersResponseAmino): QueryMissCountersResponse;
+    toAmino(message: QueryMissCountersResponse): QueryMissCountersResponseAmino;
+    fromAminoMsg(object: QueryMissCountersResponseAminoMsg): QueryMissCountersResponse;
+    fromProtoMsg(message: QueryMissCountersResponseProtoMsg): QueryMissCountersResponse;
+    toProto(message: QueryMissCountersResponse): Uint8Array;
+    toProtoMsg(message: QueryMissCountersResponse): QueryMissCountersResponseProtoMsg;
+};
+export declare const PriceMissCounter: {
+    typeUrl: string;
+    encode(message: PriceMissCounter, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): PriceMissCounter;
+    fromPartial(object: Partial<PriceMissCounter>): PriceMissCounter;
+    fromAmino(object: PriceMissCounterAmino): PriceMissCounter;
+    toAmino(message: PriceMissCounter): PriceMissCounterAmino;
+    fromAminoMsg(object: PriceMissCounterAminoMsg): PriceMissCounter;
+    fromProtoMsg(message: PriceMissCounterProtoMsg): PriceMissCounter;
+    toProto(message: PriceMissCounter): Uint8Array;
+    toProtoMsg(message: PriceMissCounter): PriceMissCounterProtoMsg;
+};
+export declare const QueryExgRatesWithTimestamp: {
+    typeUrl: string;
+    encode(message: QueryExgRatesWithTimestamp, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryExgRatesWithTimestamp;
+    fromPartial(object: Partial<QueryExgRatesWithTimestamp>): QueryExgRatesWithTimestamp;
+    fromAmino(object: QueryExgRatesWithTimestampAmino): QueryExgRatesWithTimestamp;
+    toAmino(message: QueryExgRatesWithTimestamp): QueryExgRatesWithTimestampAmino;
+    fromAminoMsg(object: QueryExgRatesWithTimestampAminoMsg): QueryExgRatesWithTimestamp;
+    fromProtoMsg(message: QueryExgRatesWithTimestampProtoMsg): QueryExgRatesWithTimestamp;
+    toProto(message: QueryExgRatesWithTimestamp): Uint8Array;
+    toProtoMsg(message: QueryExgRatesWithTimestamp): QueryExgRatesWithTimestampProtoMsg;
+};
+export declare const QueryExgRatesWithTimestampResponse: {
+    typeUrl: string;
+    encode(message: QueryExgRatesWithTimestampResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): QueryExgRatesWithTimestampResponse;
+    fromPartial(object: Partial<QueryExgRatesWithTimestampResponse>): QueryExgRatesWithTimestampResponse;
+    fromAmino(object: QueryExgRatesWithTimestampResponseAmino): QueryExgRatesWithTimestampResponse;
+    toAmino(message: QueryExgRatesWithTimestampResponse): QueryExgRatesWithTimestampResponseAmino;
+    fromAminoMsg(object: QueryExgRatesWithTimestampResponseAminoMsg): QueryExgRatesWithTimestampResponse;
+    fromProtoMsg(message: QueryExgRatesWithTimestampResponseProtoMsg): QueryExgRatesWithTimestampResponse;
+    toProto(message: QueryExgRatesWithTimestampResponse): Uint8Array;
+    toProtoMsg(message: QueryExgRatesWithTimestampResponse): QueryExgRatesWithTimestampResponseProtoMsg;
+};
 export declare const QueryExchangeRates: {
     typeUrl: string;
     encode(message: QueryExchangeRates, writer?: BinaryWriter): BinaryWriter;

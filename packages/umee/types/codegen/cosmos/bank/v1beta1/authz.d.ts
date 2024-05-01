@@ -7,8 +7,15 @@ import { BinaryWriter } from "../../../binary";
  * Since: cosmos-sdk 0.43
  */
 export interface SendAuthorization {
-    $typeUrl?: string;
+    $typeUrl?: "/cosmos.bank.v1beta1.SendAuthorization";
     spendLimit: Coin[];
+    /**
+     * allow_list specifies an optional list of addresses to whom the grantee can send tokens on behalf of the
+     * granter. If omitted, any recipient is allowed.
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    allowList: string[];
 }
 export interface SendAuthorizationProtoMsg {
     typeUrl: "/cosmos.bank.v1beta1.SendAuthorization";
@@ -22,6 +29,13 @@ export interface SendAuthorizationProtoMsg {
  */
 export interface SendAuthorizationAmino {
     spend_limit: CoinAmino[];
+    /**
+     * allow_list specifies an optional list of addresses to whom the grantee can send tokens on behalf of the
+     * granter. If omitted, any recipient is allowed.
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    allow_list?: string[];
 }
 export interface SendAuthorizationAminoMsg {
     type: "cosmos-sdk/SendAuthorization";
@@ -34,8 +48,9 @@ export interface SendAuthorizationAminoMsg {
  * Since: cosmos-sdk 0.43
  */
 export interface SendAuthorizationSDKType {
-    $typeUrl?: string;
+    $typeUrl?: "/cosmos.bank.v1beta1.SendAuthorization";
     spend_limit: CoinSDKType[];
+    allow_list: string[];
 }
 export declare const SendAuthorization: {
     typeUrl: string;

@@ -8,6 +8,9 @@ export declare const createLCDClient: ({ restEndpoint }: {
         leverage: {
             v1: import("./leverage/v1/query.lcd").LCDQueryClient;
         };
+        metoken: {
+            v1: import("./metoken/v1/query.lcd").LCDQueryClient;
+        };
         oracle: {
             v1: import("./oracle/v1/query.lcd").LCDQueryClient;
         };
@@ -35,6 +38,9 @@ export declare const createLCDClient: ({ restEndpoint }: {
             tendermint: {
                 v1beta1: import("../cosmos/base/tendermint/v1beta1/query.lcd").LCDQueryClient;
             };
+        };
+        consensus: {
+            v1: import("../cosmos/consensus/v1/query.lcd").LCDQueryClient;
         };
         distribution: {
             v1beta1: import("../cosmos/distribution/v1beta1/query.lcd").LCDQueryClient;

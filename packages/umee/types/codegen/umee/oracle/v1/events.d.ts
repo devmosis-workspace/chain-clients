@@ -13,9 +13,9 @@ export interface EventDelegateFeedConsentProtoMsg {
 /** EventDelegateFeedConsent is emitted on Msg/DelegateFeedConsent */
 export interface EventDelegateFeedConsentAmino {
     /** Operator bech32 address who delegates his feed consent */
-    operator: string;
+    operator?: string;
     /** Delegate bech32 address */
-    delegate: string;
+    delegate?: string;
 }
 export interface EventDelegateFeedConsentAminoMsg {
     type: "/umee.oracle.v1.EventDelegateFeedConsent";
@@ -40,9 +40,9 @@ export interface EventSetFxRateProtoMsg {
 /** EventSetFxRate is emitted on exchange rate update */
 export interface EventSetFxRateAmino {
     /** uToken denom */
-    denom: string;
+    denom?: string;
     /** Exchange rate (based to USD) */
-    rate: string;
+    rate?: string;
 }
 export interface EventSetFxRateAminoMsg {
     type: "/umee.oracle.v1.EventSetFxRate";

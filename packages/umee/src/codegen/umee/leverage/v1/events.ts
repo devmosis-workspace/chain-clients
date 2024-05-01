@@ -17,7 +17,7 @@ export interface EventSupplyProtoMsg {
 /** EventSupply is emitted on Msg/Supply */
 export interface EventSupplyAmino {
   /** Liquidity supplier bech32 address. */
-  supplier: string;
+  supplier?: string;
   /** Liquidity provided to the module. */
   asset?: CoinAmino;
   /** uToken received by the supplier in exchange for the provided liquidity. */
@@ -49,7 +49,7 @@ export interface EventWithdrawProtoMsg {
 /** EventWithdraw is emitted on Msg/Withdraw */
 export interface EventWithdrawAmino {
   /** Liquidity supplier bech32 address. */
-  supplier: string;
+  supplier?: string;
   /** uToken sent to the module in exchange for the underlying asset. */
   utoken?: CoinAmino;
   /** Liquidity received by the supplier. */
@@ -79,7 +79,7 @@ export interface EventCollaterizeProtoMsg {
 /** EventCollaterize is emitted on Msg/Collaterize */
 export interface EventCollaterizeAmino {
   /** Borrower bech32 address. */
-  borrower: string;
+  borrower?: string;
   /** uToken provided as a collateral. */
   utoken?: CoinAmino;
 }
@@ -106,7 +106,7 @@ export interface EventDecollaterizeProtoMsg {
 /** EventDecollaterize is emitted on Msg/Decollateralize */
 export interface EventDecollaterizeAmino {
   /** Borrower bech32 address. */
-  borrower: string;
+  borrower?: string;
   /** utoken removed from collateral. */
   utoken?: CoinAmino;
 }
@@ -133,7 +133,7 @@ export interface EventBorrowProtoMsg {
 /** EventBorrow is emitted on Msg/Borrow */
 export interface EventBorrowAmino {
   /** Borrower bech32 address. */
-  borrower: string;
+  borrower?: string;
   /** Asset borrowed. */
   asset?: CoinAmino;
 }
@@ -160,7 +160,7 @@ export interface EventRepayProtoMsg {
 /** EventRepay is emitted on Msg/Repay */
 export interface EventRepayAmino {
   /** Borrower bech32 address. */
-  borrower: string;
+  borrower?: string;
   /** Asset repaid */
   repaid?: CoinAmino;
 }
@@ -189,9 +189,9 @@ export interface EventLiquidateProtoMsg {
 /** EventLiquidate is emitted on Msg/Liquidate */
 export interface EventLiquidateAmino {
   /** Liquidator bech32 address. */
-  liquidator: string;
+  liquidator?: string;
   /** Borrower bech32 address. */
-  borrower: string;
+  borrower?: string;
   /** Assets liquidated from the borrower */
   liquidated?: CoinAmino;
 }
@@ -219,11 +219,11 @@ export interface EventInterestAccrualProtoMsg {
 }
 /** EventInterestAccrual is emitted when interest accrues in EndBlock */
 export interface EventInterestAccrualAmino {
-  block_height: string;
+  block_height?: string;
   /** Unix timestamp (in seconds) */
-  timestamp: string;
-  total_interest: CoinAmino[];
-  reserved: CoinAmino[];
+  timestamp?: string;
+  total_interest?: CoinAmino[];
+  reserved?: CoinAmino[];
 }
 export interface EventInterestAccrualAminoMsg {
   type: "/umee.leverage.v1.EventInterestAccrual";
@@ -256,7 +256,7 @@ export interface EventRepayBadDebtProtoMsg {
  */
 export interface EventRepayBadDebtAmino {
   /** Borrower bech32 address. */
-  borrower: string;
+  borrower?: string;
   /** Asset repaid */
   asset?: CoinAmino;
 }
@@ -296,7 +296,7 @@ export interface EventReservesExhaustedProtoMsg {
  */
 export interface EventReservesExhaustedAmino {
   /** Borrower bech32 address. */
-  borrower: string;
+  borrower?: string;
   /** Outstanding bad debt */
   outstanding_debt?: CoinAmino;
   /** Module balance remaining */
@@ -330,7 +330,7 @@ export interface EventFundOracleProtoMsg {
 /** EventFundOracle is emitted when sending rewards to oracle module */
 export interface EventFundOracleAmino {
   /** Assets sent to oracle module */
-  assets: CoinAmino[];
+  assets?: CoinAmino[];
 }
 export interface EventFundOracleAminoMsg {
   type: "/umee.leverage.v1.EventFundOracle";
@@ -376,15 +376,21 @@ export const EventSupply = {
     return message;
   },
   fromAmino(object: EventSupplyAmino): EventSupply {
-    return {
-      supplier: object.supplier,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined,
-      utoken: object?.utoken ? Coin.fromAmino(object.utoken) : undefined
-    };
+    const message = createBaseEventSupply();
+    if (object.supplier !== undefined && object.supplier !== null) {
+      message.supplier = object.supplier;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    if (object.utoken !== undefined && object.utoken !== null) {
+      message.utoken = Coin.fromAmino(object.utoken);
+    }
+    return message;
   },
   toAmino(message: EventSupply): EventSupplyAmino {
     const obj: any = {};
-    obj.supplier = message.supplier;
+    obj.supplier = message.supplier === "" ? undefined : message.supplier;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     obj.utoken = message.utoken ? Coin.toAmino(message.utoken) : undefined;
     return obj;
@@ -441,15 +447,21 @@ export const EventWithdraw = {
     return message;
   },
   fromAmino(object: EventWithdrawAmino): EventWithdraw {
-    return {
-      supplier: object.supplier,
-      utoken: object?.utoken ? Coin.fromAmino(object.utoken) : undefined,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseEventWithdraw();
+    if (object.supplier !== undefined && object.supplier !== null) {
+      message.supplier = object.supplier;
+    }
+    if (object.utoken !== undefined && object.utoken !== null) {
+      message.utoken = Coin.fromAmino(object.utoken);
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: EventWithdraw): EventWithdrawAmino {
     const obj: any = {};
-    obj.supplier = message.supplier;
+    obj.supplier = message.supplier === "" ? undefined : message.supplier;
     obj.utoken = message.utoken ? Coin.toAmino(message.utoken) : undefined;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
@@ -500,14 +512,18 @@ export const EventCollaterize = {
     return message;
   },
   fromAmino(object: EventCollaterizeAmino): EventCollaterize {
-    return {
-      borrower: object.borrower,
-      utoken: object?.utoken ? Coin.fromAmino(object.utoken) : undefined
-    };
+    const message = createBaseEventCollaterize();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.utoken !== undefined && object.utoken !== null) {
+      message.utoken = Coin.fromAmino(object.utoken);
+    }
+    return message;
   },
   toAmino(message: EventCollaterize): EventCollaterizeAmino {
     const obj: any = {};
-    obj.borrower = message.borrower;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.utoken = message.utoken ? Coin.toAmino(message.utoken) : undefined;
     return obj;
   },
@@ -557,14 +573,18 @@ export const EventDecollaterize = {
     return message;
   },
   fromAmino(object: EventDecollaterizeAmino): EventDecollaterize {
-    return {
-      borrower: object.borrower,
-      utoken: object?.utoken ? Coin.fromAmino(object.utoken) : undefined
-    };
+    const message = createBaseEventDecollaterize();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.utoken !== undefined && object.utoken !== null) {
+      message.utoken = Coin.fromAmino(object.utoken);
+    }
+    return message;
   },
   toAmino(message: EventDecollaterize): EventDecollaterizeAmino {
     const obj: any = {};
-    obj.borrower = message.borrower;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.utoken = message.utoken ? Coin.toAmino(message.utoken) : undefined;
     return obj;
   },
@@ -614,14 +634,18 @@ export const EventBorrow = {
     return message;
   },
   fromAmino(object: EventBorrowAmino): EventBorrow {
-    return {
-      borrower: object.borrower,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseEventBorrow();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: EventBorrow): EventBorrowAmino {
     const obj: any = {};
-    obj.borrower = message.borrower;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -671,14 +695,18 @@ export const EventRepay = {
     return message;
   },
   fromAmino(object: EventRepayAmino): EventRepay {
-    return {
-      borrower: object.borrower,
-      repaid: object?.repaid ? Coin.fromAmino(object.repaid) : undefined
-    };
+    const message = createBaseEventRepay();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.repaid !== undefined && object.repaid !== null) {
+      message.repaid = Coin.fromAmino(object.repaid);
+    }
+    return message;
   },
   toAmino(message: EventRepay): EventRepayAmino {
     const obj: any = {};
-    obj.borrower = message.borrower;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.repaid = message.repaid ? Coin.toAmino(message.repaid) : undefined;
     return obj;
   },
@@ -734,16 +762,22 @@ export const EventLiquidate = {
     return message;
   },
   fromAmino(object: EventLiquidateAmino): EventLiquidate {
-    return {
-      liquidator: object.liquidator,
-      borrower: object.borrower,
-      liquidated: object?.liquidated ? Coin.fromAmino(object.liquidated) : undefined
-    };
+    const message = createBaseEventLiquidate();
+    if (object.liquidator !== undefined && object.liquidator !== null) {
+      message.liquidator = object.liquidator;
+    }
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.liquidated !== undefined && object.liquidated !== null) {
+      message.liquidated = Coin.fromAmino(object.liquidated);
+    }
+    return message;
   },
   toAmino(message: EventLiquidate): EventLiquidateAmino {
     const obj: any = {};
-    obj.liquidator = message.liquidator;
-    obj.borrower = message.borrower;
+    obj.liquidator = message.liquidator === "" ? undefined : message.liquidator;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.liquidated = message.liquidated ? Coin.toAmino(message.liquidated) : undefined;
     return obj;
   },
@@ -805,26 +839,30 @@ export const EventInterestAccrual = {
     return message;
   },
   fromAmino(object: EventInterestAccrualAmino): EventInterestAccrual {
-    return {
-      blockHeight: BigInt(object.block_height),
-      timestamp: BigInt(object.timestamp),
-      totalInterest: Array.isArray(object?.total_interest) ? object.total_interest.map((e: any) => Coin.fromAmino(e)) : [],
-      reserved: Array.isArray(object?.reserved) ? object.reserved.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseEventInterestAccrual();
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = BigInt(object.block_height);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = BigInt(object.timestamp);
+    }
+    message.totalInterest = object.total_interest?.map(e => Coin.fromAmino(e)) || [];
+    message.reserved = object.reserved?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: EventInterestAccrual): EventInterestAccrualAmino {
     const obj: any = {};
-    obj.block_height = message.blockHeight ? message.blockHeight.toString() : undefined;
-    obj.timestamp = message.timestamp ? message.timestamp.toString() : undefined;
+    obj.block_height = message.blockHeight !== BigInt(0) ? message.blockHeight.toString() : undefined;
+    obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp.toString() : undefined;
     if (message.totalInterest) {
       obj.total_interest = message.totalInterest.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.total_interest = [];
+      obj.total_interest = message.totalInterest;
     }
     if (message.reserved) {
       obj.reserved = message.reserved.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.reserved = [];
+      obj.reserved = message.reserved;
     }
     return obj;
   },
@@ -874,14 +912,18 @@ export const EventRepayBadDebt = {
     return message;
   },
   fromAmino(object: EventRepayBadDebtAmino): EventRepayBadDebt {
-    return {
-      borrower: object.borrower,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseEventRepayBadDebt();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: EventRepayBadDebt): EventRepayBadDebtAmino {
     const obj: any = {};
-    obj.borrower = message.borrower;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -943,16 +985,24 @@ export const EventReservesExhausted = {
     return message;
   },
   fromAmino(object: EventReservesExhaustedAmino): EventReservesExhausted {
-    return {
-      borrower: object.borrower,
-      outstandingDebt: object?.outstanding_debt ? Coin.fromAmino(object.outstanding_debt) : undefined,
-      moduleBalance: object?.module_balance ? Coin.fromAmino(object.module_balance) : undefined,
-      reserves: object?.reserves ? Coin.fromAmino(object.reserves) : undefined
-    };
+    const message = createBaseEventReservesExhausted();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.outstanding_debt !== undefined && object.outstanding_debt !== null) {
+      message.outstandingDebt = Coin.fromAmino(object.outstanding_debt);
+    }
+    if (object.module_balance !== undefined && object.module_balance !== null) {
+      message.moduleBalance = Coin.fromAmino(object.module_balance);
+    }
+    if (object.reserves !== undefined && object.reserves !== null) {
+      message.reserves = Coin.fromAmino(object.reserves);
+    }
+    return message;
   },
   toAmino(message: EventReservesExhausted): EventReservesExhaustedAmino {
     const obj: any = {};
-    obj.borrower = message.borrower;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.outstanding_debt = message.outstandingDebt ? Coin.toAmino(message.outstandingDebt) : undefined;
     obj.module_balance = message.moduleBalance ? Coin.toAmino(message.moduleBalance) : undefined;
     obj.reserves = message.reserves ? Coin.toAmino(message.reserves) : undefined;
@@ -998,16 +1048,16 @@ export const EventFundOracle = {
     return message;
   },
   fromAmino(object: EventFundOracleAmino): EventFundOracle {
-    return {
-      assets: Array.isArray(object?.assets) ? object.assets.map((e: any) => Coin.fromAmino(e)) : []
-    };
+    const message = createBaseEventFundOracle();
+    message.assets = object.assets?.map(e => Coin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: EventFundOracle): EventFundOracleAmino {
     const obj: any = {};
     if (message.assets) {
       obj.assets = message.assets.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.assets = [];
+      obj.assets = message.assets;
     }
     return obj;
   },

@@ -27,14 +27,14 @@ export interface ParamsAmino {
    * max_unbondings is the maximum amount of concurrent unbondings an address can have
    * of each bonded uToken denom. Zero is interpreted as no limit.
    */
-  max_unbondings: number;
+  max_unbondings?: number;
   /** unbonding_duration is the unbonding duration (in seconds). */
-  unbonding_duration: string;
+  unbonding_duration?: string;
   /**
    * emergency_unbond_fee is the portion of a bond that is paid when it is instantly
    * released using MsgEmergencyUnbond. For example, 0.01 is a 1% fee. Ranges 0-1.
    */
-  emergency_unbond_fee: string;
+  emergency_unbond_fee?: string;
 }
 export interface ParamsAminoMsg {
   type: "/umee.incentive.v1.Params";
@@ -110,31 +110,31 @@ export interface IncentiveProgramAmino {
    * It is zero when the program is being proposed by governance, and is set
    * to its final value when the proposal passes.
    */
-  ID: number;
+  ID?: number;
   /**
    * start_time is the unix time (in seconds) at which the incentives begin.
    * If a program is passed after its intended start time, its start time
    * will be increased to the current time, with program duration unchanged.
    */
-  start_time: string;
+  start_time?: string;
   /**
    * duration is the length of the incentive program from start time to
    * completion in seconds.
    */
-  duration: string;
+  duration?: string;
   /**
    * uToken is the incentivized uToken collateral denom. Suppliers who collateralize
    * this asset then bond it to the incentive module are eligible for this program's
    * rewards.
    */
-  uToken: string;
+  uToken?: string;
   /**
    * funded indicates whether a program bas been funded. This can happen when
    * a program passes if funding from community fund, or any time before the
    * program's start time if funding with MsgSponsor. A program that reaches
    * its start time without being funded is cancelled.
    */
-  funded: boolean;
+  funded?: boolean;
   /**
    * total_rewards are total amount of rewards which can be distributed to
    * suppliers by this program. This is set to its final value when the program
@@ -203,17 +203,23 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      maxUnbondings: object.max_unbondings,
-      unbondingDuration: BigInt(object.unbonding_duration),
-      emergencyUnbondFee: object.emergency_unbond_fee
-    };
+    const message = createBaseParams();
+    if (object.max_unbondings !== undefined && object.max_unbondings !== null) {
+      message.maxUnbondings = object.max_unbondings;
+    }
+    if (object.unbonding_duration !== undefined && object.unbonding_duration !== null) {
+      message.unbondingDuration = BigInt(object.unbonding_duration);
+    }
+    if (object.emergency_unbond_fee !== undefined && object.emergency_unbond_fee !== null) {
+      message.emergencyUnbondFee = object.emergency_unbond_fee;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
-    obj.max_unbondings = message.maxUnbondings;
-    obj.unbonding_duration = message.unbondingDuration ? message.unbondingDuration.toString() : undefined;
-    obj.emergency_unbond_fee = message.emergencyUnbondFee;
+    obj.max_unbondings = message.maxUnbondings === 0 ? undefined : message.maxUnbondings;
+    obj.unbonding_duration = message.unbondingDuration !== BigInt(0) ? message.unbondingDuration.toString() : undefined;
+    obj.emergency_unbond_fee = message.emergencyUnbondFee === "" ? undefined : message.emergencyUnbondFee;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {
@@ -292,23 +298,37 @@ export const IncentiveProgram = {
     return message;
   },
   fromAmino(object: IncentiveProgramAmino): IncentiveProgram {
-    return {
-      ID: object.ID,
-      startTime: BigInt(object.start_time),
-      duration: BigInt(object.duration),
-      uToken: object.uToken,
-      funded: object.funded,
-      totalRewards: object?.total_rewards ? Coin.fromAmino(object.total_rewards) : undefined,
-      remainingRewards: object?.remaining_rewards ? Coin.fromAmino(object.remaining_rewards) : undefined
-    };
+    const message = createBaseIncentiveProgram();
+    if (object.ID !== undefined && object.ID !== null) {
+      message.ID = object.ID;
+    }
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = BigInt(object.start_time);
+    }
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = BigInt(object.duration);
+    }
+    if (object.uToken !== undefined && object.uToken !== null) {
+      message.uToken = object.uToken;
+    }
+    if (object.funded !== undefined && object.funded !== null) {
+      message.funded = object.funded;
+    }
+    if (object.total_rewards !== undefined && object.total_rewards !== null) {
+      message.totalRewards = Coin.fromAmino(object.total_rewards);
+    }
+    if (object.remaining_rewards !== undefined && object.remaining_rewards !== null) {
+      message.remainingRewards = Coin.fromAmino(object.remaining_rewards);
+    }
+    return message;
   },
   toAmino(message: IncentiveProgram): IncentiveProgramAmino {
     const obj: any = {};
-    obj.ID = message.ID;
-    obj.start_time = message.startTime ? message.startTime.toString() : undefined;
-    obj.duration = message.duration ? message.duration.toString() : undefined;
-    obj.uToken = message.uToken;
-    obj.funded = message.funded;
+    obj.ID = message.ID === 0 ? undefined : message.ID;
+    obj.start_time = message.startTime !== BigInt(0) ? message.startTime.toString() : undefined;
+    obj.duration = message.duration !== BigInt(0) ? message.duration.toString() : undefined;
+    obj.uToken = message.uToken === "" ? undefined : message.uToken;
+    obj.funded = message.funded === false ? undefined : message.funded;
     obj.total_rewards = message.totalRewards ? Coin.toAmino(message.totalRewards) : undefined;
     obj.remaining_rewards = message.remainingRewards ? Coin.toAmino(message.remainingRewards) : undefined;
     return obj;

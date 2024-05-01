@@ -1,17 +1,19 @@
-import { Params, ParamsAmino, ParamsSDKType, ExchangeRateTuple, ExchangeRateTupleAmino, ExchangeRateTupleSDKType, AggregateExchangeRatePrevote, AggregateExchangeRatePrevoteAmino, AggregateExchangeRatePrevoteSDKType, AggregateExchangeRateVote, AggregateExchangeRateVoteAmino, AggregateExchangeRateVoteSDKType } from "./oracle";
+import { Params, ParamsAmino, ParamsSDKType, DenomExchangeRate, DenomExchangeRateAmino, DenomExchangeRateSDKType, AggregateExchangeRatePrevote, AggregateExchangeRatePrevoteAmino, AggregateExchangeRatePrevoteSDKType, AggregateExchangeRateVote, AggregateExchangeRateVoteAmino, AggregateExchangeRateVoteSDKType, AvgCounterParams, AvgCounterParamsAmino, AvgCounterParamsSDKType, ExchangeRateTuple, ExchangeRateTupleAmino, ExchangeRateTupleSDKType } from "./oracle";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
 /** GenesisState defines the oracle module's genesis state. */
 export interface GenesisState {
   params: Params;
   feederDelegations: FeederDelegation[];
-  exchangeRates: ExchangeRateTuple[];
+  exchangeRates: DenomExchangeRate[];
   missCounters: MissCounter[];
   aggregateExchangeRatePrevotes: AggregateExchangeRatePrevote[];
   aggregateExchangeRateVotes: AggregateExchangeRateVote[];
   medians: Price[];
   historicPrices: Price[];
   medianDeviations: Price[];
+  /** Historic Avg Counter params */
+  avgCounterParams: AvgCounterParams;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/umee.oracle.v1.GenesisState";
@@ -20,14 +22,16 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the oracle module's genesis state. */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  feeder_delegations: FeederDelegationAmino[];
-  exchange_rates: ExchangeRateTupleAmino[];
-  miss_counters: MissCounterAmino[];
-  aggregate_exchange_rate_prevotes: AggregateExchangeRatePrevoteAmino[];
-  aggregate_exchange_rate_votes: AggregateExchangeRateVoteAmino[];
-  medians: PriceAmino[];
-  historic_prices: PriceAmino[];
-  medianDeviations: PriceAmino[];
+  feeder_delegations?: FeederDelegationAmino[];
+  exchange_rates?: DenomExchangeRateAmino[];
+  miss_counters?: MissCounterAmino[];
+  aggregate_exchange_rate_prevotes?: AggregateExchangeRatePrevoteAmino[];
+  aggregate_exchange_rate_votes?: AggregateExchangeRateVoteAmino[];
+  medians?: PriceAmino[];
+  historic_prices?: PriceAmino[];
+  medianDeviations?: PriceAmino[];
+  /** Historic Avg Counter params */
+  avg_counter_params?: AvgCounterParamsAmino;
 }
 export interface GenesisStateAminoMsg {
   type: "/umee.oracle.v1.GenesisState";
@@ -37,13 +41,14 @@ export interface GenesisStateAminoMsg {
 export interface GenesisStateSDKType {
   params: ParamsSDKType;
   feeder_delegations: FeederDelegationSDKType[];
-  exchange_rates: ExchangeRateTupleSDKType[];
+  exchange_rates: DenomExchangeRateSDKType[];
   miss_counters: MissCounterSDKType[];
   aggregate_exchange_rate_prevotes: AggregateExchangeRatePrevoteSDKType[];
   aggregate_exchange_rate_votes: AggregateExchangeRateVoteSDKType[];
   medians: PriceSDKType[];
   historic_prices: PriceSDKType[];
   medianDeviations: PriceSDKType[];
+  avg_counter_params: AvgCounterParamsSDKType;
 }
 /**
  * FeederDelegation is the address for where oracle feeder authority are
@@ -64,8 +69,8 @@ export interface FeederDelegationProtoMsg {
  * default feeder addresses.
  */
 export interface FeederDelegationAmino {
-  feeder_address: string;
-  validator_address: string;
+  feeder_address?: string;
+  validator_address?: string;
 }
 export interface FeederDelegationAminoMsg {
   type: "/umee.oracle.v1.FeederDelegation";
@@ -97,8 +102,8 @@ export interface MissCounterProtoMsg {
  * oracle module's genesis state
  */
 export interface MissCounterAmino {
-  validator_address: string;
-  miss_counter: string;
+  validator_address?: string;
+  miss_counter?: string;
 }
 export interface MissCounterAminoMsg {
   type: "/umee.oracle.v1.MissCounter";
@@ -124,7 +129,7 @@ export interface PriceProtoMsg {
 /** Price is an instance of a price "stamp" */
 export interface PriceAmino {
   exchange_rate_tuple?: ExchangeRateTupleAmino;
-  block_num: string;
+  block_num?: string;
 }
 export interface PriceAminoMsg {
   type: "/umee.oracle.v1.Price";
@@ -145,7 +150,8 @@ function createBaseGenesisState(): GenesisState {
     aggregateExchangeRateVotes: [],
     medians: [],
     historicPrices: [],
-    medianDeviations: []
+    medianDeviations: [],
+    avgCounterParams: AvgCounterParams.fromPartial({})
   };
 }
 export const GenesisState = {
@@ -158,7 +164,7 @@ export const GenesisState = {
       FeederDelegation.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     for (const v of message.exchangeRates) {
-      ExchangeRateTuple.encode(v!, writer.uint32(26).fork()).ldelim();
+      DenomExchangeRate.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     for (const v of message.missCounters) {
       MissCounter.encode(v!, writer.uint32(34).fork()).ldelim();
@@ -178,46 +184,56 @@ export const GenesisState = {
     for (const v of message.medianDeviations) {
       Price.encode(v!, writer.uint32(74).fork()).ldelim();
     }
+    if (message.avgCounterParams !== undefined) {
+      AvgCounterParams.encode(message.avgCounterParams, writer.uint32(82).fork()).ldelim();
+    }
     return writer;
   },
   fromJSON(object: any): GenesisState {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       feederDelegations: Array.isArray(object?.feederDelegations) ? object.feederDelegations.map((e: any) => FeederDelegation.fromJSON(e)) : [],
-      exchangeRates: Array.isArray(object?.exchangeRates) ? object.exchangeRates.map((e: any) => ExchangeRateTuple.fromJSON(e)) : [],
+      exchangeRates: Array.isArray(object?.exchangeRates) ? object.exchangeRates.map((e: any) => DenomExchangeRate.fromJSON(e)) : [],
       missCounters: Array.isArray(object?.missCounters) ? object.missCounters.map((e: any) => MissCounter.fromJSON(e)) : [],
       aggregateExchangeRatePrevotes: Array.isArray(object?.aggregateExchangeRatePrevotes) ? object.aggregateExchangeRatePrevotes.map((e: any) => AggregateExchangeRatePrevote.fromJSON(e)) : [],
       aggregateExchangeRateVotes: Array.isArray(object?.aggregateExchangeRateVotes) ? object.aggregateExchangeRateVotes.map((e: any) => AggregateExchangeRateVote.fromJSON(e)) : [],
       medians: Array.isArray(object?.medians) ? object.medians.map((e: any) => Price.fromJSON(e)) : [],
       historicPrices: Array.isArray(object?.historicPrices) ? object.historicPrices.map((e: any) => Price.fromJSON(e)) : [],
-      medianDeviations: Array.isArray(object?.medianDeviations) ? object.medianDeviations.map((e: any) => Price.fromJSON(e)) : []
+      medianDeviations: Array.isArray(object?.medianDeviations) ? object.medianDeviations.map((e: any) => Price.fromJSON(e)) : [],
+      avgCounterParams: isSet(object.avgCounterParams) ? AvgCounterParams.fromJSON(object.avgCounterParams) : undefined
     };
   },
   fromPartial(object: Partial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     message.feederDelegations = object.feederDelegations?.map(e => FeederDelegation.fromPartial(e)) || [];
-    message.exchangeRates = object.exchangeRates?.map(e => ExchangeRateTuple.fromPartial(e)) || [];
+    message.exchangeRates = object.exchangeRates?.map(e => DenomExchangeRate.fromPartial(e)) || [];
     message.missCounters = object.missCounters?.map(e => MissCounter.fromPartial(e)) || [];
     message.aggregateExchangeRatePrevotes = object.aggregateExchangeRatePrevotes?.map(e => AggregateExchangeRatePrevote.fromPartial(e)) || [];
     message.aggregateExchangeRateVotes = object.aggregateExchangeRateVotes?.map(e => AggregateExchangeRateVote.fromPartial(e)) || [];
     message.medians = object.medians?.map(e => Price.fromPartial(e)) || [];
     message.historicPrices = object.historicPrices?.map(e => Price.fromPartial(e)) || [];
     message.medianDeviations = object.medianDeviations?.map(e => Price.fromPartial(e)) || [];
+    message.avgCounterParams = object.avgCounterParams !== undefined && object.avgCounterParams !== null ? AvgCounterParams.fromPartial(object.avgCounterParams) : undefined;
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      feederDelegations: Array.isArray(object?.feeder_delegations) ? object.feeder_delegations.map((e: any) => FeederDelegation.fromAmino(e)) : [],
-      exchangeRates: Array.isArray(object?.exchange_rates) ? object.exchange_rates.map((e: any) => ExchangeRateTuple.fromAmino(e)) : [],
-      missCounters: Array.isArray(object?.miss_counters) ? object.miss_counters.map((e: any) => MissCounter.fromAmino(e)) : [],
-      aggregateExchangeRatePrevotes: Array.isArray(object?.aggregate_exchange_rate_prevotes) ? object.aggregate_exchange_rate_prevotes.map((e: any) => AggregateExchangeRatePrevote.fromAmino(e)) : [],
-      aggregateExchangeRateVotes: Array.isArray(object?.aggregate_exchange_rate_votes) ? object.aggregate_exchange_rate_votes.map((e: any) => AggregateExchangeRateVote.fromAmino(e)) : [],
-      medians: Array.isArray(object?.medians) ? object.medians.map((e: any) => Price.fromAmino(e)) : [],
-      historicPrices: Array.isArray(object?.historic_prices) ? object.historic_prices.map((e: any) => Price.fromAmino(e)) : [],
-      medianDeviations: Array.isArray(object?.medianDeviations) ? object.medianDeviations.map((e: any) => Price.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.feederDelegations = object.feeder_delegations?.map(e => FeederDelegation.fromAmino(e)) || [];
+    message.exchangeRates = object.exchange_rates?.map(e => DenomExchangeRate.fromAmino(e)) || [];
+    message.missCounters = object.miss_counters?.map(e => MissCounter.fromAmino(e)) || [];
+    message.aggregateExchangeRatePrevotes = object.aggregate_exchange_rate_prevotes?.map(e => AggregateExchangeRatePrevote.fromAmino(e)) || [];
+    message.aggregateExchangeRateVotes = object.aggregate_exchange_rate_votes?.map(e => AggregateExchangeRateVote.fromAmino(e)) || [];
+    message.medians = object.medians?.map(e => Price.fromAmino(e)) || [];
+    message.historicPrices = object.historic_prices?.map(e => Price.fromAmino(e)) || [];
+    message.medianDeviations = object.medianDeviations?.map(e => Price.fromAmino(e)) || [];
+    if (object.avg_counter_params !== undefined && object.avg_counter_params !== null) {
+      message.avgCounterParams = AvgCounterParams.fromAmino(object.avg_counter_params);
+    }
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
@@ -225,43 +241,44 @@ export const GenesisState = {
     if (message.feederDelegations) {
       obj.feeder_delegations = message.feederDelegations.map(e => e ? FeederDelegation.toAmino(e) : undefined);
     } else {
-      obj.feeder_delegations = [];
+      obj.feeder_delegations = message.feederDelegations;
     }
     if (message.exchangeRates) {
-      obj.exchange_rates = message.exchangeRates.map(e => e ? ExchangeRateTuple.toAmino(e) : undefined);
+      obj.exchange_rates = message.exchangeRates.map(e => e ? DenomExchangeRate.toAmino(e) : undefined);
     } else {
-      obj.exchange_rates = [];
+      obj.exchange_rates = message.exchangeRates;
     }
     if (message.missCounters) {
       obj.miss_counters = message.missCounters.map(e => e ? MissCounter.toAmino(e) : undefined);
     } else {
-      obj.miss_counters = [];
+      obj.miss_counters = message.missCounters;
     }
     if (message.aggregateExchangeRatePrevotes) {
       obj.aggregate_exchange_rate_prevotes = message.aggregateExchangeRatePrevotes.map(e => e ? AggregateExchangeRatePrevote.toAmino(e) : undefined);
     } else {
-      obj.aggregate_exchange_rate_prevotes = [];
+      obj.aggregate_exchange_rate_prevotes = message.aggregateExchangeRatePrevotes;
     }
     if (message.aggregateExchangeRateVotes) {
       obj.aggregate_exchange_rate_votes = message.aggregateExchangeRateVotes.map(e => e ? AggregateExchangeRateVote.toAmino(e) : undefined);
     } else {
-      obj.aggregate_exchange_rate_votes = [];
+      obj.aggregate_exchange_rate_votes = message.aggregateExchangeRateVotes;
     }
     if (message.medians) {
       obj.medians = message.medians.map(e => e ? Price.toAmino(e) : undefined);
     } else {
-      obj.medians = [];
+      obj.medians = message.medians;
     }
     if (message.historicPrices) {
       obj.historic_prices = message.historicPrices.map(e => e ? Price.toAmino(e) : undefined);
     } else {
-      obj.historic_prices = [];
+      obj.historic_prices = message.historicPrices;
     }
     if (message.medianDeviations) {
       obj.medianDeviations = message.medianDeviations.map(e => e ? Price.toAmino(e) : undefined);
     } else {
-      obj.medianDeviations = [];
+      obj.medianDeviations = message.medianDeviations;
     }
+    obj.avg_counter_params = message.avgCounterParams ? AvgCounterParams.toAmino(message.avgCounterParams) : undefined;
     return obj;
   },
   fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
@@ -310,15 +327,19 @@ export const FeederDelegation = {
     return message;
   },
   fromAmino(object: FeederDelegationAmino): FeederDelegation {
-    return {
-      feederAddress: object.feeder_address,
-      validatorAddress: object.validator_address
-    };
+    const message = createBaseFeederDelegation();
+    if (object.feeder_address !== undefined && object.feeder_address !== null) {
+      message.feederAddress = object.feeder_address;
+    }
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    return message;
   },
   toAmino(message: FeederDelegation): FeederDelegationAmino {
     const obj: any = {};
-    obj.feeder_address = message.feederAddress;
-    obj.validator_address = message.validatorAddress;
+    obj.feeder_address = message.feederAddress === "" ? undefined : message.feederAddress;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
     return obj;
   },
   fromAminoMsg(object: FeederDelegationAminoMsg): FeederDelegation {
@@ -367,15 +388,19 @@ export const MissCounter = {
     return message;
   },
   fromAmino(object: MissCounterAmino): MissCounter {
-    return {
-      validatorAddress: object.validator_address,
-      missCounter: BigInt(object.miss_counter)
-    };
+    const message = createBaseMissCounter();
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    if (object.miss_counter !== undefined && object.miss_counter !== null) {
+      message.missCounter = BigInt(object.miss_counter);
+    }
+    return message;
   },
   toAmino(message: MissCounter): MissCounterAmino {
     const obj: any = {};
-    obj.validator_address = message.validatorAddress;
-    obj.miss_counter = message.missCounter ? message.missCounter.toString() : undefined;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
+    obj.miss_counter = message.missCounter !== BigInt(0) ? message.missCounter.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: MissCounterAminoMsg): MissCounter {
@@ -424,15 +449,19 @@ export const Price = {
     return message;
   },
   fromAmino(object: PriceAmino): Price {
-    return {
-      exchangeRateTuple: object?.exchange_rate_tuple ? ExchangeRateTuple.fromAmino(object.exchange_rate_tuple) : undefined,
-      blockNum: BigInt(object.block_num)
-    };
+    const message = createBasePrice();
+    if (object.exchange_rate_tuple !== undefined && object.exchange_rate_tuple !== null) {
+      message.exchangeRateTuple = ExchangeRateTuple.fromAmino(object.exchange_rate_tuple);
+    }
+    if (object.block_num !== undefined && object.block_num !== null) {
+      message.blockNum = BigInt(object.block_num);
+    }
+    return message;
   },
   toAmino(message: Price): PriceAmino {
     const obj: any = {};
     obj.exchange_rate_tuple = message.exchangeRateTuple ? ExchangeRateTuple.toAmino(message.exchangeRateTuple) : undefined;
-    obj.block_num = message.blockNum ? message.blockNum.toString() : undefined;
+    obj.block_num = message.blockNum !== BigInt(0) ? message.blockNum.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: PriceAminoMsg): Price {

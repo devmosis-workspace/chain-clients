@@ -1,9 +1,5 @@
 import { BinaryWriter } from "../../../binary";
-/**
- * Params defines the parameters for the leverage module.
- * See https://github.com/umee-network/umee/blob/main/docs/design_docs/010-market-params.md
- * for more details.
- */
+/** Params defines the parameters for the leverage module. */
 export interface Params {
     /**
      * Complete Liquidation Threshold determines how far between
@@ -59,11 +55,7 @@ export interface ParamsProtoMsg {
     typeUrl: "/umee.leverage.v1.Params";
     value: Uint8Array;
 }
-/**
- * Params defines the parameters for the leverage module.
- * See https://github.com/umee-network/umee/blob/main/docs/design_docs/010-market-params.md
- * for more details.
- */
+/** Params defines the parameters for the leverage module. */
 export interface ParamsAmino {
     /**
      * Complete Liquidation Threshold determines how far between
@@ -73,7 +65,7 @@ export interface ParamsAmino {
      * See also `minimum_close_factor` for more information.
      * Valid values: 0-1.
      */
-    complete_liquidation_threshold: string;
+    complete_liquidation_threshold?: string;
     /**
      * Close Factor determines the portion of a borrower's position that can be
      * liquidated in a single event. Minimum Close Factor is Close Factor at
@@ -94,36 +86,32 @@ export interface ParamsAmino {
      *
      * Valid values: 0-1.
      */
-    minimum_close_factor: string;
+    minimum_close_factor?: string;
     /**
      * Oracle Reward Factor determines the portion of interest accrued on
      * borrows that is sent to the oracle module to fund its reward pool.
      * Valid values: 0-1.
      */
-    oracle_reward_factor: string;
+    oracle_reward_factor?: string;
     /**
      * Small Liquidation Size determines the USD value at which a borrow is
      * considered small enough to be liquidated in a single transaction, bypassing
      * dynamic close factor.
      */
-    small_liquidation_size: string;
+    small_liquidation_size?: string;
     /**
      * Direct Liquidation Fee is a reduction factor in liquidation incentive
      * experienced by liquidators who choose to receive base assets instead of
      * uTokens as liquidation rewards.
      * Valid values: 0-1.
      */
-    direct_liquidation_fee: string;
+    direct_liquidation_fee?: string;
 }
 export interface ParamsAminoMsg {
     type: "/umee.leverage.v1.Params";
     value: ParamsAmino;
 }
-/**
- * Params defines the parameters for the leverage module.
- * See https://github.com/umee-network/umee/blob/main/docs/design_docs/010-market-params.md
- * for more details.
- */
+/** Params defines the parameters for the leverage module. */
 export interface ParamsSDKType {
     complete_liquidation_threshold: string;
     minimum_close_factor: string;
@@ -288,13 +276,13 @@ export interface TokenAmino {
      * Base Denom is the denomination of the underlying base token. Must be the base
      * denom as registered in the Bank module (so IBC denom for IBC tokens).
      */
-    base_denom: string;
+    base_denom?: string;
     /**
      * Reserve Factor defines what portion of accrued interest goes to reserves
      * when this token is borrowed.
      * Valid values: 0-1.
      */
-    reserve_factor: string;
+    reserve_factor?: string;
     /**
      * Collateral Weight defines what portion of the total value of the asset
      * can contribute to a users borrowing power. If the collateral weight is
@@ -302,7 +290,7 @@ export interface TokenAmino {
      * Must be smaller than `liquidation_threshold`.
      * Valid values: 0-1.
      */
-    collateral_weight: string;
+    collateral_weight?: string;
     /**
      * Liquidation Threshold defines what amount of the total value of the
      * asset as a collateral can contribute to a user's liquidation threshold
@@ -311,59 +299,59 @@ export interface TokenAmino {
      * Valid values: 0-1.
      * See also: min_close_factor.
      */
-    liquidation_threshold: string;
+    liquidation_threshold?: string;
     /**
      * Base Borrow Rate defines the minimum interest rate for borrowing this
      * asset.
      * Valid values: 0-∞
      */
-    base_borrow_rate: string;
+    base_borrow_rate?: string;
     /**
      * Kink Borrow Rate defines the interest rate for borrowing this
      * asset when supply utilization is equal to 'kink_utilization'.
      * Valid values: 0-∞
      */
-    kink_borrow_rate: string;
+    kink_borrow_rate?: string;
     /**
      * Max Borrow Rate defines the interest rate for borrowing this
      * asset when supply utilization is at its maximum.
      * Valid values: 0-∞
      */
-    max_borrow_rate: string;
+    max_borrow_rate?: string;
     /**
      * Kink Utilization defines the supply utilization value where
      * the kink in the borrow interest rate function occurs.
      * Valid values: 0-1.
      */
-    kink_utilization: string;
+    kink_utilization?: string;
     /**
      * Liquidation Incentive determines the portion of bonus collateral of
      * a token type liquidators receive as a liquidation reward.
      * Valid values: 0-1.
      */
-    liquidation_incentive: string;
+    liquidation_incentive?: string;
     /** Symbol Denom is the human readable denomination of this token. */
-    symbol_denom: string;
+    symbol_denom?: string;
     /**
      * Exponent is the power of ten by which to multiply, in order to convert
      * an amount of the token denoted in its symbol denom to the actual amount
      * of its base denom.
      */
-    exponent: number;
+    exponent?: number;
     /**
      * Enable Msg Supply allows supplying for lending or collateral using this
      * token. `false` means that a token can no longer be supplied.
      * Note that withdrawing is always enabled. Disabling supply would
      * be one step in phasing out an asset type.
      */
-    enable_msg_supply: boolean;
+    enable_msg_supply?: boolean;
     /**
      * Enable Msg Borrow allows borrowing of this token. Note that repaying is
      * always enabled. Disabling borrowing would be one step in phasing out an
      * asset type, but could also be used from the start for asset types meant
      * to be collateral only, like meTokens.
      */
-    enable_msg_borrow: boolean;
+    enable_msg_borrow?: boolean;
     /**
      * Blacklist should only be used to eliminate an asset completely. A blacklisted
      * asset is treated as though its oracle price is zero, and thus ignored by
@@ -372,14 +360,14 @@ export interface TokenAmino {
      * and enable_msg_borrow set to false. Such tokens can be safely removed from the
      * oracle and price feeder as well.
      */
-    blacklist: boolean;
+    blacklist?: boolean;
     /**
      * Max Collateral Share specifies how much of the system's overall collateral
      * can be provided by a given token. 1.0 means that the token has no restriction.
      * 0.1 means maximum 10% of system's total collateral value can be provided by this token.
      * Valid values: 0-1.
      */
-    max_collateral_share: string;
+    max_collateral_share?: string;
     /**
      * Max Supply Utilization specifies the maximum supply utilization a token is
      * allowed to reach as a direct result of user borrowing. New borrows are not allowed when
@@ -387,7 +375,7 @@ export interface TokenAmino {
      *    supply_utilization(token) = total_borrowed(token) / total_supply(token)
      * Valid values: 0-1.
      */
-    max_supply_utilization: string;
+    max_supply_utilization?: string;
     /**
      * Min Collateral Liquidity specifies min limit for the following function:
      *    collateral_liquidity(token) = available(token) / total_collateral(token)
@@ -399,14 +387,14 @@ export interface TokenAmino {
      * withdraw uToken.
      * Valid values: 0 - inf
      */
-    min_collateral_liquidity: string;
+    min_collateral_liquidity?: string;
     /**
      * Max Supply is the maximum amount of tokens the protocol can hold.
      * Adding more supply of the given token to the protocol will return an error.
      * Must be a non negative value. 0 means that there is no limit.
      * To mark a token as not valid for supply, `msg_supply` must be set to false.
      */
-    max_supply: string;
+    max_supply?: string;
     /**
      * Historic Medians is the number of median historic prices to request from
      * the oracle module when evaluating new borrow positions containing this token.
@@ -417,7 +405,7 @@ export interface TokenAmino {
      * The time span covered by the historic median will be:
      *     oracle.Params.median_stamp_period * oracle.Params.historic_stamp_period * historic_medians.
      */
-    historic_medians: number;
+    historic_medians?: number;
 }
 export interface TokenAminoMsg {
     type: "/umee.leverage.v1.Token";
@@ -450,6 +438,130 @@ export interface TokenSDKType {
     max_supply: string;
     historic_medians: number;
 }
+/**
+ * SpecialAssetPair defines a special (increased) CollateralWeight used when a specified Collateral is used
+ * to collateralize a specified Borrow. This association is one-way (so it does not work in reverse).
+ */
+export interface SpecialAssetPair {
+    /** Collateral base token denom. */
+    collateral: string;
+    /** Borrow base token denom. */
+    borrow: string;
+    /**
+     * Collateral Weight defines what portion of the total value of the asset
+     * can contribute to a users borrowing power. For special asset pairs, this
+     * also overrides the borrowed asset's collateral weight when evaluating borrow
+     * factor. Valid values: 0-1.
+     */
+    collateralWeight: string;
+    /**
+     * Liquidation threshold defines what portion of the total value of the assets
+     * can contribute to a users liquidation threshold, when borrowing within the pair.
+     * Valid values in range [collateral_weight,1]
+     */
+    liquidationThreshold: string;
+}
+export interface SpecialAssetPairProtoMsg {
+    typeUrl: "/umee.leverage.v1.SpecialAssetPair";
+    value: Uint8Array;
+}
+/**
+ * SpecialAssetPair defines a special (increased) CollateralWeight used when a specified Collateral is used
+ * to collateralize a specified Borrow. This association is one-way (so it does not work in reverse).
+ */
+export interface SpecialAssetPairAmino {
+    /** Collateral base token denom. */
+    collateral?: string;
+    /** Borrow base token denom. */
+    borrow?: string;
+    /**
+     * Collateral Weight defines what portion of the total value of the asset
+     * can contribute to a users borrowing power. For special asset pairs, this
+     * also overrides the borrowed asset's collateral weight when evaluating borrow
+     * factor. Valid values: 0-1.
+     */
+    collateral_weight?: string;
+    /**
+     * Liquidation threshold defines what portion of the total value of the assets
+     * can contribute to a users liquidation threshold, when borrowing within the pair.
+     * Valid values in range [collateral_weight,1]
+     */
+    liquidation_threshold?: string;
+}
+export interface SpecialAssetPairAminoMsg {
+    type: "/umee.leverage.v1.SpecialAssetPair";
+    value: SpecialAssetPairAmino;
+}
+/**
+ * SpecialAssetPair defines a special (increased) CollateralWeight used when a specified Collateral is used
+ * to collateralize a specified Borrow. This association is one-way (so it does not work in reverse).
+ */
+export interface SpecialAssetPairSDKType {
+    collateral: string;
+    borrow: string;
+    collateral_weight: string;
+    liquidation_threshold: string;
+}
+/**
+ * SpecialAssetSet defines a special (increased) CollateralWeight used when any of a set
+ * of assets are used to borrow each other (except for looping). It is used in gov proposals
+ * to create all the pairs that make up a set at once.
+ */
+export interface SpecialAssetSet {
+    /** Collateral or borrowed base token denoms. */
+    assets: string[];
+    /**
+     * Collateral Weight defines what portion of the total value of the assets
+     * can contribute to a users borrowing power, when borrowing within the set.
+     * Valid values: 0-1.
+     */
+    collateralWeight: string;
+    /**
+     * Liquidation threshold defines what portion of the total value of the assets
+     * can contribute to a users liquidation threshold, when borrowing within the set.
+     * Valid values in range [collateral_weight,1]
+     */
+    liquidationThreshold: string;
+}
+export interface SpecialAssetSetProtoMsg {
+    typeUrl: "/umee.leverage.v1.SpecialAssetSet";
+    value: Uint8Array;
+}
+/**
+ * SpecialAssetSet defines a special (increased) CollateralWeight used when any of a set
+ * of assets are used to borrow each other (except for looping). It is used in gov proposals
+ * to create all the pairs that make up a set at once.
+ */
+export interface SpecialAssetSetAmino {
+    /** Collateral or borrowed base token denoms. */
+    assets?: string[];
+    /**
+     * Collateral Weight defines what portion of the total value of the assets
+     * can contribute to a users borrowing power, when borrowing within the set.
+     * Valid values: 0-1.
+     */
+    collateral_weight?: string;
+    /**
+     * Liquidation threshold defines what portion of the total value of the assets
+     * can contribute to a users liquidation threshold, when borrowing within the set.
+     * Valid values in range [collateral_weight,1]
+     */
+    liquidation_threshold?: string;
+}
+export interface SpecialAssetSetAminoMsg {
+    type: "/umee.leverage.v1.SpecialAssetSet";
+    value: SpecialAssetSetAmino;
+}
+/**
+ * SpecialAssetSet defines a special (increased) CollateralWeight used when any of a set
+ * of assets are used to borrow each other (except for looping). It is used in gov proposals
+ * to create all the pairs that make up a set at once.
+ */
+export interface SpecialAssetSetSDKType {
+    assets: string[];
+    collateral_weight: string;
+    liquidation_threshold: string;
+}
 export declare const Params: {
     typeUrl: string;
     encode(message: Params, writer?: BinaryWriter): BinaryWriter;
@@ -473,4 +585,28 @@ export declare const Token: {
     fromProtoMsg(message: TokenProtoMsg): Token;
     toProto(message: Token): Uint8Array;
     toProtoMsg(message: Token): TokenProtoMsg;
+};
+export declare const SpecialAssetPair: {
+    typeUrl: string;
+    encode(message: SpecialAssetPair, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): SpecialAssetPair;
+    fromPartial(object: Partial<SpecialAssetPair>): SpecialAssetPair;
+    fromAmino(object: SpecialAssetPairAmino): SpecialAssetPair;
+    toAmino(message: SpecialAssetPair): SpecialAssetPairAmino;
+    fromAminoMsg(object: SpecialAssetPairAminoMsg): SpecialAssetPair;
+    fromProtoMsg(message: SpecialAssetPairProtoMsg): SpecialAssetPair;
+    toProto(message: SpecialAssetPair): Uint8Array;
+    toProtoMsg(message: SpecialAssetPair): SpecialAssetPairProtoMsg;
+};
+export declare const SpecialAssetSet: {
+    typeUrl: string;
+    encode(message: SpecialAssetSet, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): SpecialAssetSet;
+    fromPartial(object: Partial<SpecialAssetSet>): SpecialAssetSet;
+    fromAmino(object: SpecialAssetSetAmino): SpecialAssetSet;
+    toAmino(message: SpecialAssetSet): SpecialAssetSetAmino;
+    fromAminoMsg(object: SpecialAssetSetAminoMsg): SpecialAssetSet;
+    fromProtoMsg(message: SpecialAssetSetProtoMsg): SpecialAssetSet;
+    toProto(message: SpecialAssetSet): Uint8Array;
+    toProtoMsg(message: SpecialAssetSet): SpecialAssetSetProtoMsg;
 };

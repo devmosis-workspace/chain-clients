@@ -10,10 +10,10 @@ export interface ProofProtoMsg {
     value: Uint8Array;
 }
 export interface ProofAmino {
-    total: string;
-    index: string;
-    leaf_hash: Uint8Array;
-    aunts: Uint8Array[];
+    total?: string;
+    index?: string;
+    leaf_hash?: string;
+    aunts?: string[];
 }
 export interface ProofAminoMsg {
     type: "/tendermint.crypto.Proof";
@@ -29,7 +29,7 @@ export interface ValueOp {
     /** Encoded in ProofOp.Key. */
     key: Uint8Array;
     /** To encode in ProofOp.Data */
-    proof: Proof;
+    proof?: Proof;
 }
 export interface ValueOpProtoMsg {
     typeUrl: "/tendermint.crypto.ValueOp";
@@ -37,7 +37,7 @@ export interface ValueOpProtoMsg {
 }
 export interface ValueOpAmino {
     /** Encoded in ProofOp.Key. */
-    key: Uint8Array;
+    key?: string;
     /** To encode in ProofOp.Data */
     proof?: ProofAmino;
 }
@@ -47,7 +47,7 @@ export interface ValueOpAminoMsg {
 }
 export interface ValueOpSDKType {
     key: Uint8Array;
-    proof: ProofSDKType;
+    proof?: ProofSDKType;
 }
 export interface DominoOp {
     key: string;
@@ -59,9 +59,9 @@ export interface DominoOpProtoMsg {
     value: Uint8Array;
 }
 export interface DominoOpAmino {
-    key: string;
-    input: string;
-    output: string;
+    key?: string;
+    input?: string;
+    output?: string;
 }
 export interface DominoOpAminoMsg {
     type: "/tendermint.crypto.DominoOp";
@@ -92,9 +92,9 @@ export interface ProofOpProtoMsg {
  * for example neighbouring node hash
  */
 export interface ProofOpAmino {
-    type: string;
-    key: Uint8Array;
-    data: Uint8Array;
+    type?: string;
+    key?: string;
+    data?: string;
 }
 export interface ProofOpAminoMsg {
     type: "/tendermint.crypto.ProofOp";
@@ -120,7 +120,7 @@ export interface ProofOpsProtoMsg {
 }
 /** ProofOps is Merkle proof defined by the list of ProofOps */
 export interface ProofOpsAmino {
-    ops: ProofOpAmino[];
+    ops?: ProofOpAmino[];
 }
 export interface ProofOpsAminoMsg {
     type: "/tendermint.crypto.ProofOps";

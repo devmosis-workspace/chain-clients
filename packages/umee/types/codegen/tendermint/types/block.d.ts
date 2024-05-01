@@ -5,7 +5,7 @@ export interface Block {
     header: Header;
     data: Data;
     evidence: EvidenceList;
-    lastCommit: Commit;
+    lastCommit?: Commit;
 }
 export interface BlockProtoMsg {
     typeUrl: "/tendermint.types.Block";
@@ -25,7 +25,7 @@ export interface BlockSDKType {
     header: HeaderSDKType;
     data: DataSDKType;
     evidence: EvidenceListSDKType;
-    last_commit: CommitSDKType;
+    last_commit?: CommitSDKType;
 }
 export declare const Block: {
     typeUrl: string;

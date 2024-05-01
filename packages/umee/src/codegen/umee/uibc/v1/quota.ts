@@ -75,6 +75,14 @@ export interface Params {
   tokenQuota: string;
   /** quota_duration defines quota expires for each ibc-transfer denom in seconds */
   quotaDuration: Duration;
+  /** inflow_outflow_quota_base defines the inflow outflow quota base of ibc-transfer in USD */
+  inflowOutflowQuotaBase: string;
+  /** inflow_outflow_quota_rate defines the rate of total inflows */
+  inflowOutflowQuotaRate: string;
+  /** inflow_outflow_token_quota_base defines the inflow outflow quota base for token */
+  inflowOutflowTokenQuotaBase: string;
+  /** ics20_hooks enables or disables the ICS20 transfer hooks. */
+  ics20Hooks: boolean;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/umee.uibc.v1.Params";
@@ -83,13 +91,21 @@ export interface ParamsProtoMsg {
 /** Params of x/uibc module */
 export interface ParamsAmino {
   /** ibc_status defines the IBC ICS20 status (transfer quota or transfers disabled). */
-  ibc_status: IBCTransferStatus;
+  ibc_status?: IBCTransferStatus;
   /** total_quota defines the total outflow limit of ibc-transfer in USD */
-  total_quota: string;
+  total_quota?: string;
   /** token_quota defines the outflow limit per token in USD */
-  token_quota: string;
+  token_quota?: string;
   /** quota_duration defines quota expires for each ibc-transfer denom in seconds */
   quota_duration?: DurationAmino;
+  /** inflow_outflow_quota_base defines the inflow outflow quota base of ibc-transfer in USD */
+  inflow_outflow_quota_base?: string;
+  /** inflow_outflow_quota_rate defines the rate of total inflows */
+  inflow_outflow_quota_rate?: string;
+  /** inflow_outflow_token_quota_base defines the inflow outflow quota base for token */
+  inflow_outflow_token_quota_base?: string;
+  /** ics20_hooks enables or disables the ICS20 transfer hooks. */
+  ics20_hooks?: boolean;
 }
 export interface ParamsAminoMsg {
   type: "/umee.uibc.v1.Params";
@@ -101,13 +117,21 @@ export interface ParamsSDKType {
   total_quota: string;
   token_quota: string;
   quota_duration: DurationSDKType;
+  inflow_outflow_quota_base: string;
+  inflow_outflow_quota_rate: string;
+  inflow_outflow_token_quota_base: string;
+  ics20_hooks: boolean;
 }
 function createBaseParams(): Params {
   return {
     ibcStatus: 0,
     totalQuota: "",
     tokenQuota: "",
-    quotaDuration: Duration.fromPartial({})
+    quotaDuration: Duration.fromPartial({}),
+    inflowOutflowQuotaBase: "",
+    inflowOutflowQuotaRate: "",
+    inflowOutflowTokenQuotaBase: "",
+    ics20Hooks: false
   };
 }
 export const Params = {
@@ -125,6 +149,18 @@ export const Params = {
     if (message.quotaDuration !== undefined) {
       Duration.encode(message.quotaDuration, writer.uint32(34).fork()).ldelim();
     }
+    if (message.inflowOutflowQuotaBase !== "") {
+      writer.uint32(42).string(Decimal.fromUserInput(message.inflowOutflowQuotaBase, 18).atomics);
+    }
+    if (message.inflowOutflowQuotaRate !== "") {
+      writer.uint32(50).string(Decimal.fromUserInput(message.inflowOutflowQuotaRate, 18).atomics);
+    }
+    if (message.inflowOutflowTokenQuotaBase !== "") {
+      writer.uint32(58).string(Decimal.fromUserInput(message.inflowOutflowTokenQuotaBase, 18).atomics);
+    }
+    if (message.ics20Hooks === true) {
+      writer.uint32(64).bool(message.ics20Hooks);
+    }
     return writer;
   },
   fromJSON(object: any): Params {
@@ -132,7 +168,11 @@ export const Params = {
       ibcStatus: isSet(object.ibcStatus) ? iBCTransferStatusFromJSON(object.ibcStatus) : -1,
       totalQuota: isSet(object.totalQuota) ? String(object.totalQuota) : "",
       tokenQuota: isSet(object.tokenQuota) ? String(object.tokenQuota) : "",
-      quotaDuration: isSet(object.quotaDuration) ? Duration.fromJSON(object.quotaDuration) : undefined
+      quotaDuration: isSet(object.quotaDuration) ? Duration.fromJSON(object.quotaDuration) : undefined,
+      inflowOutflowQuotaBase: isSet(object.inflowOutflowQuotaBase) ? String(object.inflowOutflowQuotaBase) : "",
+      inflowOutflowQuotaRate: isSet(object.inflowOutflowQuotaRate) ? String(object.inflowOutflowQuotaRate) : "",
+      inflowOutflowTokenQuotaBase: isSet(object.inflowOutflowTokenQuotaBase) ? String(object.inflowOutflowTokenQuotaBase) : "",
+      ics20Hooks: isSet(object.ics20Hooks) ? Boolean(object.ics20Hooks) : false
     };
   },
   fromPartial(object: Partial<Params>): Params {
@@ -141,22 +181,50 @@ export const Params = {
     message.totalQuota = object.totalQuota ?? "";
     message.tokenQuota = object.tokenQuota ?? "";
     message.quotaDuration = object.quotaDuration !== undefined && object.quotaDuration !== null ? Duration.fromPartial(object.quotaDuration) : undefined;
+    message.inflowOutflowQuotaBase = object.inflowOutflowQuotaBase ?? "";
+    message.inflowOutflowQuotaRate = object.inflowOutflowQuotaRate ?? "";
+    message.inflowOutflowTokenQuotaBase = object.inflowOutflowTokenQuotaBase ?? "";
+    message.ics20Hooks = object.ics20Hooks ?? false;
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      ibcStatus: isSet(object.ibc_status) ? iBCTransferStatusFromJSON(object.ibc_status) : -1,
-      totalQuota: object.total_quota,
-      tokenQuota: object.token_quota,
-      quotaDuration: object?.quota_duration ? Duration.fromAmino(object.quota_duration) : undefined
-    };
+    const message = createBaseParams();
+    if (object.ibc_status !== undefined && object.ibc_status !== null) {
+      message.ibcStatus = object.ibc_status;
+    }
+    if (object.total_quota !== undefined && object.total_quota !== null) {
+      message.totalQuota = object.total_quota;
+    }
+    if (object.token_quota !== undefined && object.token_quota !== null) {
+      message.tokenQuota = object.token_quota;
+    }
+    if (object.quota_duration !== undefined && object.quota_duration !== null) {
+      message.quotaDuration = Duration.fromAmino(object.quota_duration);
+    }
+    if (object.inflow_outflow_quota_base !== undefined && object.inflow_outflow_quota_base !== null) {
+      message.inflowOutflowQuotaBase = object.inflow_outflow_quota_base;
+    }
+    if (object.inflow_outflow_quota_rate !== undefined && object.inflow_outflow_quota_rate !== null) {
+      message.inflowOutflowQuotaRate = object.inflow_outflow_quota_rate;
+    }
+    if (object.inflow_outflow_token_quota_base !== undefined && object.inflow_outflow_token_quota_base !== null) {
+      message.inflowOutflowTokenQuotaBase = object.inflow_outflow_token_quota_base;
+    }
+    if (object.ics20_hooks !== undefined && object.ics20_hooks !== null) {
+      message.ics20Hooks = object.ics20_hooks;
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
-    obj.ibc_status = message.ibcStatus;
-    obj.total_quota = message.totalQuota;
-    obj.token_quota = message.tokenQuota;
+    obj.ibc_status = message.ibcStatus === 0 ? undefined : message.ibcStatus;
+    obj.total_quota = message.totalQuota === "" ? undefined : message.totalQuota;
+    obj.token_quota = message.tokenQuota === "" ? undefined : message.tokenQuota;
     obj.quota_duration = message.quotaDuration ? Duration.toAmino(message.quotaDuration) : undefined;
+    obj.inflow_outflow_quota_base = message.inflowOutflowQuotaBase === "" ? undefined : message.inflowOutflowQuotaBase;
+    obj.inflow_outflow_quota_rate = message.inflowOutflowQuotaRate === "" ? undefined : message.inflowOutflowQuotaRate;
+    obj.inflow_outflow_token_quota_base = message.inflowOutflowTokenQuotaBase === "" ? undefined : message.inflowOutflowTokenQuotaBase;
+    obj.ics20_hooks = message.ics20Hooks === false ? undefined : message.ics20Hooks;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

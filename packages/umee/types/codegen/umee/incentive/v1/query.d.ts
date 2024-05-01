@@ -67,7 +67,7 @@ export interface QueryPendingRewardsProtoMsg {
 }
 /** QueryPendingRewards defines the request structure for the PendingRewards gRPC service handler. */
 export interface QueryPendingRewardsAmino {
-    address: string;
+    address?: string;
 }
 export interface QueryPendingRewardsAminoMsg {
     type: "/umee.incentive.v1.QueryPendingRewards";
@@ -87,7 +87,7 @@ export interface QueryPendingRewardsResponseProtoMsg {
 }
 /** QueryPendingRewardsResponse defines the response structure for the PendingRewards gRPC service handler. */
 export interface QueryPendingRewardsResponseAmino {
-    rewards: CoinAmino[];
+    rewards?: CoinAmino[];
 }
 export interface QueryPendingRewardsResponseAminoMsg {
     type: "/umee.incentive.v1.QueryPendingRewardsResponse";
@@ -107,7 +107,7 @@ export interface QueryAccountBondsProtoMsg {
 }
 /** QueryAccountBonds defines the request structure for the AccountBonds gRPC service handler. */
 export interface QueryAccountBondsAmino {
-    address: string;
+    address?: string;
 }
 export interface QueryAccountBondsAminoMsg {
     type: "/umee.incentive.v1.QueryAccountBonds";
@@ -129,9 +129,9 @@ export interface QueryAccountBondsResponseProtoMsg {
 }
 /** QueryAccountBondsResponse defines the response structure for the AccountBonds gRPC service handler. */
 export interface QueryAccountBondsResponseAmino {
-    bonded: CoinAmino[];
-    unbonding: CoinAmino[];
-    unbondings: UnbondingAmino[];
+    bonded?: CoinAmino[];
+    unbonding?: CoinAmino[];
+    unbondings?: UnbondingAmino[];
 }
 export interface QueryAccountBondsResponseAminoMsg {
     type: "/umee.incentive.v1.QueryAccountBondsResponse";
@@ -155,7 +155,7 @@ export interface QueryTotalBondedProtoMsg {
 /** QueryTotalBonded defines the request structure for the TotalBonded gRPC service handler. */
 export interface QueryTotalBondedAmino {
     /** denom is an optional field which causes the query to return the totals of only one uToken */
-    denom: string;
+    denom?: string;
 }
 export interface QueryTotalBondedAminoMsg {
     type: "/umee.incentive.v1.QueryTotalBonded";
@@ -175,7 +175,7 @@ export interface QueryTotalBondedResponseProtoMsg {
 }
 /** QueryTotalBondedResponse defines the response structure for the TotalBonded gRPC service handler. */
 export interface QueryTotalBondedResponseAmino {
-    bonded: CoinAmino[];
+    bonded?: CoinAmino[];
 }
 export interface QueryTotalBondedResponseAminoMsg {
     type: "/umee.incentive.v1.QueryTotalBondedResponse";
@@ -197,7 +197,7 @@ export interface QueryTotalUnbondingProtoMsg {
 /** QueryTotalUnbonding defines the request structure for the TotalUnbonding gRPC service handler. */
 export interface QueryTotalUnbondingAmino {
     /** denom is an optional field which causes the query to return the totals of only one uToken */
-    denom: string;
+    denom?: string;
 }
 export interface QueryTotalUnbondingAminoMsg {
     type: "/umee.incentive.v1.QueryTotalUnbonding";
@@ -217,7 +217,7 @@ export interface QueryTotalUnbondingResponseProtoMsg {
 }
 /** QueryTotalUnbondingResponse defines the response structure for the TotalUnbonding gRPC service handler. */
 export interface QueryTotalUnbondingResponseAmino {
-    unbonding: CoinAmino[];
+    unbonding?: CoinAmino[];
 }
 export interface QueryTotalUnbondingResponseAminoMsg {
     type: "/umee.incentive.v1.QueryTotalUnbondingResponse";
@@ -269,7 +269,7 @@ export interface QueryUpcomingIncentiveProgramsResponseProtoMsg {
  * OngoingIncentivePrograms and UpcomingIncentivePrograms gRPC service handlers.
  */
 export interface QueryUpcomingIncentiveProgramsResponseAmino {
-    programs: IncentiveProgramAmino[];
+    programs?: IncentiveProgramAmino[];
 }
 export interface QueryUpcomingIncentiveProgramsResponseAminoMsg {
     type: "/umee.incentive.v1.QueryUpcomingIncentiveProgramsResponse";
@@ -324,7 +324,7 @@ export interface QueryOngoingIncentiveProgramsResponseProtoMsg {
  * OngoingIncentivePrograms and UpcomingIncentivePrograms gRPC service handlers.
  */
 export interface QueryOngoingIncentiveProgramsResponseAmino {
-    programs: IncentiveProgramAmino[];
+    programs?: IncentiveProgramAmino[];
 }
 export interface QueryOngoingIncentiveProgramsResponseAminoMsg {
     type: "/umee.incentive.v1.QueryOngoingIncentiveProgramsResponse";
@@ -379,7 +379,7 @@ export interface QueryCompletedIncentiveProgramsResponseProtoMsg {
  * CompletedIncentivePrograms gRPC service handler.
  */
 export interface QueryCompletedIncentiveProgramsResponseAmino {
-    programs: IncentiveProgramAmino[];
+    programs?: IncentiveProgramAmino[];
 }
 export interface QueryCompletedIncentiveProgramsResponseAminoMsg {
     type: "/umee.incentive.v1.QueryCompletedIncentiveProgramsResponse";
@@ -410,7 +410,7 @@ export interface QueryIncentiveProgramProtoMsg {
  */
 export interface QueryIncentiveProgramAmino {
     /** ID specifies which program to query for */
-    id: number;
+    id?: number;
 }
 export interface QueryIncentiveProgramAminoMsg {
     type: "/umee.incentive.v1.QueryIncentiveProgram";
@@ -464,7 +464,7 @@ export interface QueryCurrentRatesProtoMsg {
 /** QueryCurrentRates defines the request structure for the CurrentRates gRPC service handler. */
 export interface QueryCurrentRatesAmino {
     /** uToken is the uToken denomination whose current annual rate of rewards is being queried */
-    uToken: string;
+    uToken?: string;
 }
 export interface QueryCurrentRatesAminoMsg {
     type: "/umee.incentive.v1.QueryCurrentRates";
@@ -506,7 +506,7 @@ export interface QueryCurrentRatesResponseAmino {
      * Rewards are the amount of base token rewards that the reference amount of bonded uTokens would earn
      * if current rates continued for a full year.
      */
-    rewards: CoinAmino[];
+    rewards?: CoinAmino[];
 }
 export interface QueryCurrentRatesResponseAminoMsg {
     type: "/umee.incentive.v1.QueryCurrentRatesResponse";
@@ -559,7 +559,7 @@ export interface QueryLastRewardTimeResponseProtoMsg {
  * service handler.
  */
 export interface QueryLastRewardTimeResponseAmino {
-    time: string;
+    time?: string;
 }
 export interface QueryLastRewardTimeResponseAminoMsg {
     type: "/umee.incentive.v1.QueryLastRewardTimeResponse";
@@ -584,7 +584,7 @@ export interface QueryActualRatesProtoMsg {
 /** QueryActualRates defines the request structure for the ActualRates gRPC service handler. */
 export interface QueryActualRatesAmino {
     /** uToken is the uToken denomination whose current annual rate of rewards is being queried */
-    uToken: string;
+    uToken?: string;
 }
 export interface QueryActualRatesAminoMsg {
     type: "/umee.incentive.v1.QueryActualRates";
@@ -606,7 +606,7 @@ export interface QueryActualRatesResponseProtoMsg {
 /** QueryActualRatesResponse defines the response structure for the ActualRates gRPC service handler. */
 export interface QueryActualRatesResponseAmino {
     /** APY is the oracle price-adjusted APY of the bonded uToken. */
-    APY: string;
+    APY?: string;
 }
 export interface QueryActualRatesResponseAminoMsg {
     type: "/umee.incentive.v1.QueryActualRatesResponse";

@@ -1,6 +1,5 @@
 import { Rpc } from "../../../helpers";
-import { QueryClient } from "@cosmjs/stargate";
-import { QueryExchangeRates, QueryExchangeRatesResponse, QueryActiveExchangeRates, QueryActiveExchangeRatesResponse, QueryFeederDelegation, QueryFeederDelegationResponse, QueryMissCounter, QueryMissCounterResponse, QuerySlashWindow, QuerySlashWindowResponse, QueryAggregatePrevote, QueryAggregatePrevoteResponse, QueryAggregatePrevotes, QueryAggregatePrevotesResponse, QueryAggregateVote, QueryAggregateVoteResponse, QueryAggregateVotes, QueryAggregateVotesResponse, QueryParams, QueryParamsResponse, QueryMedians, QueryMediansResponse, QueryMedianDeviations, QueryMedianDeviationsResponse, QueryAvgPrice, QueryAvgPriceResponse } from "./query";
+import { QueryExchangeRates, QueryExchangeRatesResponse, QueryActiveExchangeRates, QueryActiveExchangeRatesResponse, QueryFeederDelegation, QueryFeederDelegationResponse, QueryMissCounter, QueryMissCounterResponse, QuerySlashWindow, QuerySlashWindowResponse, QueryAggregatePrevote, QueryAggregatePrevoteResponse, QueryAggregatePrevotes, QueryAggregatePrevotesResponse, QueryAggregateVote, QueryAggregateVoteResponse, QueryAggregateVotes, QueryAggregateVotesResponse, QueryParams, QueryParamsResponse, QueryMedians, QueryMediansResponse, QueryMedianDeviations, QueryMedianDeviationsResponse, QueryAvgPrice, QueryAvgPriceResponse, QueryExgRatesWithTimestamp, QueryExgRatesWithTimestampResponse, QueryMissCounters, QueryMissCountersResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
     /**
@@ -38,6 +37,13 @@ export interface Query {
     medianDeviations(request: QueryMedianDeviations): Promise<QueryMedianDeviationsResponse>;
     /** QueryAvgPrice returns avg price of a given denom (required). */
     avgPrice(request: QueryAvgPrice): Promise<QueryAvgPriceResponse>;
+    /**
+     * ExgRatesWithTimestamp returns exchange rates of all denoms with timestamp,
+     * or, if specified, returns a single denom
+     */
+    exgRatesWithTimestamp(request: QueryExgRatesWithTimestamp): Promise<QueryExgRatesWithTimestampResponse>;
+    /** MissCounters returns oracle missing votes count of validators. */
+    missCounters(request: QueryMissCounters): Promise<QueryMissCountersResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -55,6 +61,8 @@ export declare class QueryClientImpl implements Query {
     medians(request: QueryMedians): Promise<QueryMediansResponse>;
     medianDeviations(request: QueryMedianDeviations): Promise<QueryMedianDeviationsResponse>;
     avgPrice(request: QueryAvgPrice): Promise<QueryAvgPriceResponse>;
+    exgRatesWithTimestamp(request: QueryExgRatesWithTimestamp): Promise<QueryExgRatesWithTimestampResponse>;
+    missCounters(request: QueryMissCounters): Promise<QueryMissCountersResponse>;
 }
 export declare const createRpcQueryExtension: (base: QueryClient) => {
     exchangeRates(request: QueryExchangeRates): Promise<QueryExchangeRatesResponse>;
@@ -70,4 +78,6 @@ export declare const createRpcQueryExtension: (base: QueryClient) => {
     medians(request: QueryMedians): Promise<QueryMediansResponse>;
     medianDeviations(request: QueryMedianDeviations): Promise<QueryMedianDeviationsResponse>;
     avgPrice(request: QueryAvgPrice): Promise<QueryAvgPriceResponse>;
+    exgRatesWithTimestamp(request: QueryExgRatesWithTimestamp): Promise<QueryExgRatesWithTimestampResponse>;
+    missCounters(request: QueryMissCounters): Promise<QueryMissCountersResponse>;
 };

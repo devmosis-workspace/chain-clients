@@ -1,5 +1,5 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Token, TokenAmino, TokenSDKType } from "./leverage";
+import { Token, TokenAmino, TokenSDKType, SpecialAssetSet, SpecialAssetSetAmino, SpecialAssetSetSDKType, SpecialAssetPair, SpecialAssetPairAmino, SpecialAssetPairSDKType, Params, ParamsAmino, ParamsSDKType } from "./leverage";
 import { BinaryWriter } from "../../../binary";
 /** MsgSupply represents a user's request to supply assets to the module. */
 export interface MsgSupply {
@@ -14,7 +14,7 @@ export interface MsgSupplyProtoMsg {
 /** MsgSupply represents a user's request to supply assets to the module. */
 export interface MsgSupplyAmino {
     /** Supplier is the account address supplying assets and the signer of the message. */
-    supplier: string;
+    supplier?: string;
     asset?: CoinAmino;
 }
 export interface MsgSupplyAminoMsg {
@@ -45,7 +45,7 @@ export interface MsgWithdrawProtoMsg {
  */
 export interface MsgWithdrawAmino {
     /** Supplier is the account address withdrawing assets and the signer of the message. */
-    supplier: string;
+    supplier?: string;
     asset?: CoinAmino;
 }
 export interface MsgWithdrawAminoMsg {
@@ -74,9 +74,9 @@ export interface MsgMaxWithdrawProtoMsg {
 /** MsgMaxWithdraw represents a user's request to withdraw the maximum valid amount of supplied assets. */
 export interface MsgMaxWithdrawAmino {
     /** Supplier is the account address withdrawing assets and the signer of the message. */
-    supplier: string;
+    supplier?: string;
     /** Denom is base token denom to withdraw */
-    denom: string;
+    denom?: string;
 }
 export interface MsgMaxWithdrawAminoMsg {
     type: "/umee.leverage.v1.MsgMaxWithdraw";
@@ -106,7 +106,7 @@ export interface MsgCollateralizeProtoMsg {
  */
 export interface MsgCollateralizeAmino {
     /** Borrower is the account address adding collateral and the signer of the message. */
-    borrower: string;
+    borrower?: string;
     asset?: CoinAmino;
 }
 export interface MsgCollateralizeAminoMsg {
@@ -140,7 +140,7 @@ export interface MsgDecollateralizeProtoMsg {
  */
 export interface MsgDecollateralizeAmino {
     /** Borrower is the account address removing collateral and the signer of the message. */
-    borrower: string;
+    borrower?: string;
     asset?: CoinAmino;
 }
 export interface MsgDecollateralizeAminoMsg {
@@ -180,7 +180,7 @@ export interface MsgBorrowAmino {
      * Borrower is the account address taking a loan and the signer
      * of the message.
      */
-    borrower: string;
+    borrower?: string;
     asset?: CoinAmino;
 }
 export interface MsgBorrowAminoMsg {
@@ -220,8 +220,8 @@ export interface MsgMaxBorrowAmino {
      * Borrower is the account address taking a loan and the signer
      * of the message.
      */
-    borrower: string;
-    denom: string;
+    borrower?: string;
+    denom?: string;
 }
 export interface MsgMaxBorrowAminoMsg {
     type: "/umee.leverage.v1.MsgMaxBorrow";
@@ -260,7 +260,7 @@ export interface MsgRepayAmino {
      * Borrower is the account address repaying a loan and the signer
      * of the message.
      */
-    borrower: string;
+    borrower?: string;
     asset?: CoinAmino;
 }
 export interface MsgRepayAminoMsg {
@@ -310,12 +310,12 @@ export interface MsgLiquidateAmino {
      * Liquidator is the account address performing a liquidation and the signer
      * of the message.
      */
-    liquidator: string;
+    liquidator?: string;
     /**
      * Borrower is the account whose borrow is being repaid, and collateral consumed,
      * by the liquidation. It does not sign the message.
      */
-    borrower: string;
+    borrower?: string;
     /**
      * Repayment is the maximum amount of base tokens that the liquidator is willing
      * to repay.
@@ -327,7 +327,7 @@ export interface MsgLiquidateAmino {
      * collateral. If it is a base token, the uTokens will be redeemed directly at
      * a reduced Liquidation Incentive, and the liquidator will receive base tokens.
      */
-    reward_denom: string;
+    reward_denom?: string;
 }
 export interface MsgLiquidateAminoMsg {
     type: "/umee.leverage.v1.MsgLiquidate";
@@ -362,6 +362,8 @@ export interface MsgLeveragedLiquidate {
      * and immediately collateralize.
      */
     rewardDenom: string;
+    /** MaxRepay optionally limits the USD value to repay. If specified, this cannot be below $1.00 */
+    maxRepay: string;
 }
 export interface MsgLeveragedLiquidateProtoMsg {
     typeUrl: "/umee.leverage.v1.MsgLeveragedLiquidate";
@@ -373,22 +375,24 @@ export interface MsgLeveragedLiquidateAmino {
      * Liquidator is the account address performing a liquidation and the signer
      * of the message.
      */
-    liquidator: string;
+    liquidator?: string;
     /**
      * Borrower is the account whose borrow is being repaid, and collateral consumed,
      * by the liquidation. It does not sign the message.
      */
-    borrower: string;
+    borrower?: string;
     /**
      * RepayDenom is the base token that the liquidator will borrow in order to repay on behalf of
      * the borrower.
      */
-    repay_denom: string;
+    repay_denom?: string;
     /**
      * RewardDenom is the uToken denom that the liquidator will receive as a liquidation reward
      * and immediately collateralize.
      */
-    reward_denom: string;
+    reward_denom?: string;
+    /** MaxRepay optionally limits the USD value to repay. If specified, this cannot be below $1.00 */
+    max_repay?: string;
 }
 export interface MsgLeveragedLiquidateAminoMsg {
     type: "/umee.leverage.v1.MsgLeveragedLiquidate";
@@ -400,6 +404,7 @@ export interface MsgLeveragedLiquidateSDKType {
     borrower: string;
     repay_denom: string;
     reward_denom: string;
+    max_repay: string;
 }
 /** MsgSupplyCollateral represents a user's request to supply and collateralize assets to the module. */
 export interface MsgSupplyCollateral {
@@ -414,7 +419,7 @@ export interface MsgSupplyCollateralProtoMsg {
 /** MsgSupplyCollateral represents a user's request to supply and collateralize assets to the module. */
 export interface MsgSupplyCollateralAmino {
     /** Supplier is the account address supplying assets and the signer of the message. */
-    supplier: string;
+    supplier?: string;
     asset?: CoinAmino;
 }
 export interface MsgSupplyCollateralAminoMsg {
@@ -705,9 +710,12 @@ export interface MsgSupplyCollateralResponseSDKType {
 }
 /** MsgGovUpdateRegistry defines the Msg/GovUpdateRegistry request type. */
 export interface MsgGovUpdateRegistry {
-    /** authority is the address of the governance account. */
+    /** authority is the address of the governance account or the Emergency Group. */
     authority: string;
-    title: string;
+    /**
+     * description motivating the change. Should be used only when executing by the
+     * Emergency Group. Otherwise the x/gov Proposal metadata should be used.
+     */
     description: string;
     /** add_tokens defines new token settings. */
     addTokens: Token[];
@@ -720,14 +728,17 @@ export interface MsgGovUpdateRegistryProtoMsg {
 }
 /** MsgGovUpdateRegistry defines the Msg/GovUpdateRegistry request type. */
 export interface MsgGovUpdateRegistryAmino {
-    /** authority is the address of the governance account. */
-    authority: string;
-    title: string;
-    description: string;
+    /** authority is the address of the governance account or the Emergency Group. */
+    authority?: string;
+    /**
+     * description motivating the change. Should be used only when executing by the
+     * Emergency Group. Otherwise the x/gov Proposal metadata should be used.
+     */
+    description?: string;
     /** add_tokens defines new token settings. */
-    add_tokens: TokenAmino[];
+    add_tokens?: TokenAmino[];
     /** update_tokens defines the new settings for existed tokens. */
-    update_tokens: TokenAmino[];
+    update_tokens?: TokenAmino[];
 }
 export interface MsgGovUpdateRegistryAminoMsg {
     type: "/umee.leverage.v1.MsgGovUpdateRegistry";
@@ -736,7 +747,6 @@ export interface MsgGovUpdateRegistryAminoMsg {
 /** MsgGovUpdateRegistry defines the Msg/GovUpdateRegistry request type. */
 export interface MsgGovUpdateRegistrySDKType {
     authority: string;
-    title: string;
     description: string;
     add_tokens: TokenSDKType[];
     update_tokens: TokenSDKType[];
@@ -757,6 +767,132 @@ export interface MsgGovUpdateRegistryResponseAminoMsg {
 }
 /** MsgGovUpdateRegistryResponse defines the Msg/GovUpdateRegistry response type. */
 export interface MsgGovUpdateRegistryResponseSDKType {
+}
+/** MsgGovUpdateSpecialAssets defines the Msg/GovUpdateSpecialAssets request type. */
+export interface MsgGovUpdateSpecialAssets {
+    /** authority is the address of the governance account or the Emergency Group. */
+    authority: string;
+    /**
+     * description motivating the change. Should be used only when executing by the
+     * Emergency Group. Otherwise the x/gov Proposal metadata should be used.
+     */
+    description: string;
+    /**
+     * sets are bidirectional groups of special asset pairs. Creating a special asset
+     * set causes all assets in the set to have a certain collateral weight when borrowing
+     * against each other (but not looping with themselves). Overrides any existing
+     * special asset pairs between assets in the set. Using both collateral weight
+     * and liquidation theshold of zero will clear all existing special pairs in the set instead.
+     */
+    sets: SpecialAssetSet[];
+    /**
+     * pairs are new or updated special asset pairs. Updating both a special asset pair's
+     * collateral weight and liquidation threshold to zero deletes the pair instead.
+     * These pairs will be applied after any sets above when passing a proposal,
+     * so they can be used to override certain set elements, set directional relationships,
+     * or set an asset's relation to itself (looping).
+     */
+    pairs: SpecialAssetPair[];
+}
+export interface MsgGovUpdateSpecialAssetsProtoMsg {
+    typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssets";
+    value: Uint8Array;
+}
+/** MsgGovUpdateSpecialAssets defines the Msg/GovUpdateSpecialAssets request type. */
+export interface MsgGovUpdateSpecialAssetsAmino {
+    /** authority is the address of the governance account or the Emergency Group. */
+    authority?: string;
+    /**
+     * description motivating the change. Should be used only when executing by the
+     * Emergency Group. Otherwise the x/gov Proposal metadata should be used.
+     */
+    description?: string;
+    /**
+     * sets are bidirectional groups of special asset pairs. Creating a special asset
+     * set causes all assets in the set to have a certain collateral weight when borrowing
+     * against each other (but not looping with themselves). Overrides any existing
+     * special asset pairs between assets in the set. Using both collateral weight
+     * and liquidation theshold of zero will clear all existing special pairs in the set instead.
+     */
+    sets?: SpecialAssetSetAmino[];
+    /**
+     * pairs are new or updated special asset pairs. Updating both a special asset pair's
+     * collateral weight and liquidation threshold to zero deletes the pair instead.
+     * These pairs will be applied after any sets above when passing a proposal,
+     * so they can be used to override certain set elements, set directional relationships,
+     * or set an asset's relation to itself (looping).
+     */
+    pairs?: SpecialAssetPairAmino[];
+}
+export interface MsgGovUpdateSpecialAssetsAminoMsg {
+    type: "/umee.leverage.v1.MsgGovUpdateSpecialAssets";
+    value: MsgGovUpdateSpecialAssetsAmino;
+}
+/** MsgGovUpdateSpecialAssets defines the Msg/GovUpdateSpecialAssets request type. */
+export interface MsgGovUpdateSpecialAssetsSDKType {
+    authority: string;
+    description: string;
+    sets: SpecialAssetSetSDKType[];
+    pairs: SpecialAssetPairSDKType[];
+}
+/** MsgGovUpdateSpecialAssetsResponse defines the Msg/GovUpdateSpecialAssets response type. */
+export interface MsgGovUpdateSpecialAssetsResponse {
+}
+export interface MsgGovUpdateSpecialAssetsResponseProtoMsg {
+    typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssetsResponse";
+    value: Uint8Array;
+}
+/** MsgGovUpdateSpecialAssetsResponse defines the Msg/GovUpdateSpecialAssets response type. */
+export interface MsgGovUpdateSpecialAssetsResponseAmino {
+}
+export interface MsgGovUpdateSpecialAssetsResponseAminoMsg {
+    type: "/umee.leverage.v1.MsgGovUpdateSpecialAssetsResponse";
+    value: MsgGovUpdateSpecialAssetsResponseAmino;
+}
+/** MsgGovUpdateSpecialAssetsResponse defines the Msg/GovUpdateSpecialAssets response type. */
+export interface MsgGovUpdateSpecialAssetsResponseSDKType {
+}
+/** MsgGovSetParams is used by governance to update module parameters. */
+export interface MsgGovSetParams {
+    /** authority must be the address of the governance account. */
+    authority: string;
+    params: Params;
+}
+export interface MsgGovSetParamsProtoMsg {
+    typeUrl: "/umee.leverage.v1.MsgGovSetParams";
+    value: Uint8Array;
+}
+/** MsgGovSetParams is used by governance to update module parameters. */
+export interface MsgGovSetParamsAmino {
+    /** authority must be the address of the governance account. */
+    authority?: string;
+    params?: ParamsAmino;
+}
+export interface MsgGovSetParamsAminoMsg {
+    type: "/umee.leverage.v1.MsgGovSetParams";
+    value: MsgGovSetParamsAmino;
+}
+/** MsgGovSetParams is used by governance to update module parameters. */
+export interface MsgGovSetParamsSDKType {
+    authority: string;
+    params: ParamsSDKType;
+}
+/** MsgGovSetParamsResponse defines the Msg/SetParams response type. */
+export interface MsgGovSetParamsResponse {
+}
+export interface MsgGovSetParamsResponseProtoMsg {
+    typeUrl: "/umee.leverage.v1.MsgGovSetParamsResponse";
+    value: Uint8Array;
+}
+/** MsgGovSetParamsResponse defines the Msg/SetParams response type. */
+export interface MsgGovSetParamsResponseAmino {
+}
+export interface MsgGovSetParamsResponseAminoMsg {
+    type: "/umee.leverage.v1.MsgGovSetParamsResponse";
+    value: MsgGovSetParamsResponseAmino;
+}
+/** MsgGovSetParamsResponse defines the Msg/SetParams response type. */
+export interface MsgGovSetParamsResponseSDKType {
 }
 export declare const MsgSupply: {
     typeUrl: string;
@@ -1045,4 +1181,52 @@ export declare const MsgGovUpdateRegistryResponse: {
     fromProtoMsg(message: MsgGovUpdateRegistryResponseProtoMsg): MsgGovUpdateRegistryResponse;
     toProto(message: MsgGovUpdateRegistryResponse): Uint8Array;
     toProtoMsg(message: MsgGovUpdateRegistryResponse): MsgGovUpdateRegistryResponseProtoMsg;
+};
+export declare const MsgGovUpdateSpecialAssets: {
+    typeUrl: string;
+    encode(message: MsgGovUpdateSpecialAssets, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgGovUpdateSpecialAssets;
+    fromPartial(object: Partial<MsgGovUpdateSpecialAssets>): MsgGovUpdateSpecialAssets;
+    fromAmino(object: MsgGovUpdateSpecialAssetsAmino): MsgGovUpdateSpecialAssets;
+    toAmino(message: MsgGovUpdateSpecialAssets): MsgGovUpdateSpecialAssetsAmino;
+    fromAminoMsg(object: MsgGovUpdateSpecialAssetsAminoMsg): MsgGovUpdateSpecialAssets;
+    fromProtoMsg(message: MsgGovUpdateSpecialAssetsProtoMsg): MsgGovUpdateSpecialAssets;
+    toProto(message: MsgGovUpdateSpecialAssets): Uint8Array;
+    toProtoMsg(message: MsgGovUpdateSpecialAssets): MsgGovUpdateSpecialAssetsProtoMsg;
+};
+export declare const MsgGovUpdateSpecialAssetsResponse: {
+    typeUrl: string;
+    encode(_: MsgGovUpdateSpecialAssetsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgGovUpdateSpecialAssetsResponse;
+    fromPartial(_: Partial<MsgGovUpdateSpecialAssetsResponse>): MsgGovUpdateSpecialAssetsResponse;
+    fromAmino(_: MsgGovUpdateSpecialAssetsResponseAmino): MsgGovUpdateSpecialAssetsResponse;
+    toAmino(_: MsgGovUpdateSpecialAssetsResponse): MsgGovUpdateSpecialAssetsResponseAmino;
+    fromAminoMsg(object: MsgGovUpdateSpecialAssetsResponseAminoMsg): MsgGovUpdateSpecialAssetsResponse;
+    fromProtoMsg(message: MsgGovUpdateSpecialAssetsResponseProtoMsg): MsgGovUpdateSpecialAssetsResponse;
+    toProto(message: MsgGovUpdateSpecialAssetsResponse): Uint8Array;
+    toProtoMsg(message: MsgGovUpdateSpecialAssetsResponse): MsgGovUpdateSpecialAssetsResponseProtoMsg;
+};
+export declare const MsgGovSetParams: {
+    typeUrl: string;
+    encode(message: MsgGovSetParams, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(object: any): MsgGovSetParams;
+    fromPartial(object: Partial<MsgGovSetParams>): MsgGovSetParams;
+    fromAmino(object: MsgGovSetParamsAmino): MsgGovSetParams;
+    toAmino(message: MsgGovSetParams): MsgGovSetParamsAmino;
+    fromAminoMsg(object: MsgGovSetParamsAminoMsg): MsgGovSetParams;
+    fromProtoMsg(message: MsgGovSetParamsProtoMsg): MsgGovSetParams;
+    toProto(message: MsgGovSetParams): Uint8Array;
+    toProtoMsg(message: MsgGovSetParams): MsgGovSetParamsProtoMsg;
+};
+export declare const MsgGovSetParamsResponse: {
+    typeUrl: string;
+    encode(_: MsgGovSetParamsResponse, writer?: BinaryWriter): BinaryWriter;
+    fromJSON(_: any): MsgGovSetParamsResponse;
+    fromPartial(_: Partial<MsgGovSetParamsResponse>): MsgGovSetParamsResponse;
+    fromAmino(_: MsgGovSetParamsResponseAmino): MsgGovSetParamsResponse;
+    toAmino(_: MsgGovSetParamsResponse): MsgGovSetParamsResponseAmino;
+    fromAminoMsg(object: MsgGovSetParamsResponseAminoMsg): MsgGovSetParamsResponse;
+    fromProtoMsg(message: MsgGovSetParamsResponseProtoMsg): MsgGovSetParamsResponse;
+    toProto(message: MsgGovSetParamsResponse): Uint8Array;
+    toProtoMsg(message: MsgGovSetParamsResponse): MsgGovSetParamsResponseProtoMsg;
 };

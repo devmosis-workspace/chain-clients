@@ -1,7 +1,8 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
-import { Token, TokenAmino, TokenSDKType } from "./leverage";
+import { Token, TokenAmino, TokenSDKType, SpecialAssetSet, SpecialAssetSetAmino, SpecialAssetSetSDKType, SpecialAssetPair, SpecialAssetPairAmino, SpecialAssetPairSDKType, Params, ParamsAmino, ParamsSDKType } from "./leverage";
 import { BinaryWriter } from "../../../binary";
 import { isSet } from "../../../helpers";
+import { Decimal } from "@cosmjs/math";
 /** MsgSupply represents a user's request to supply assets to the module. */
 export interface MsgSupply {
   /** Supplier is the account address supplying assets and the signer of the message. */
@@ -15,7 +16,7 @@ export interface MsgSupplyProtoMsg {
 /** MsgSupply represents a user's request to supply assets to the module. */
 export interface MsgSupplyAmino {
   /** Supplier is the account address supplying assets and the signer of the message. */
-  supplier: string;
+  supplier?: string;
   asset?: CoinAmino;
 }
 export interface MsgSupplyAminoMsg {
@@ -46,7 +47,7 @@ export interface MsgWithdrawProtoMsg {
  */
 export interface MsgWithdrawAmino {
   /** Supplier is the account address withdrawing assets and the signer of the message. */
-  supplier: string;
+  supplier?: string;
   asset?: CoinAmino;
 }
 export interface MsgWithdrawAminoMsg {
@@ -75,9 +76,9 @@ export interface MsgMaxWithdrawProtoMsg {
 /** MsgMaxWithdraw represents a user's request to withdraw the maximum valid amount of supplied assets. */
 export interface MsgMaxWithdrawAmino {
   /** Supplier is the account address withdrawing assets and the signer of the message. */
-  supplier: string;
+  supplier?: string;
   /** Denom is base token denom to withdraw */
-  denom: string;
+  denom?: string;
 }
 export interface MsgMaxWithdrawAminoMsg {
   type: "/umee.leverage.v1.MsgMaxWithdraw";
@@ -107,7 +108,7 @@ export interface MsgCollateralizeProtoMsg {
  */
 export interface MsgCollateralizeAmino {
   /** Borrower is the account address adding collateral and the signer of the message. */
-  borrower: string;
+  borrower?: string;
   asset?: CoinAmino;
 }
 export interface MsgCollateralizeAminoMsg {
@@ -141,7 +142,7 @@ export interface MsgDecollateralizeProtoMsg {
  */
 export interface MsgDecollateralizeAmino {
   /** Borrower is the account address removing collateral and the signer of the message. */
-  borrower: string;
+  borrower?: string;
   asset?: CoinAmino;
 }
 export interface MsgDecollateralizeAminoMsg {
@@ -181,7 +182,7 @@ export interface MsgBorrowAmino {
    * Borrower is the account address taking a loan and the signer
    * of the message.
    */
-  borrower: string;
+  borrower?: string;
   asset?: CoinAmino;
 }
 export interface MsgBorrowAminoMsg {
@@ -221,8 +222,8 @@ export interface MsgMaxBorrowAmino {
    * Borrower is the account address taking a loan and the signer
    * of the message.
    */
-  borrower: string;
-  denom: string;
+  borrower?: string;
+  denom?: string;
 }
 export interface MsgMaxBorrowAminoMsg {
   type: "/umee.leverage.v1.MsgMaxBorrow";
@@ -261,7 +262,7 @@ export interface MsgRepayAmino {
    * Borrower is the account address repaying a loan and the signer
    * of the message.
    */
-  borrower: string;
+  borrower?: string;
   asset?: CoinAmino;
 }
 export interface MsgRepayAminoMsg {
@@ -311,12 +312,12 @@ export interface MsgLiquidateAmino {
    * Liquidator is the account address performing a liquidation and the signer
    * of the message.
    */
-  liquidator: string;
+  liquidator?: string;
   /**
    * Borrower is the account whose borrow is being repaid, and collateral consumed,
    * by the liquidation. It does not sign the message.
    */
-  borrower: string;
+  borrower?: string;
   /**
    * Repayment is the maximum amount of base tokens that the liquidator is willing
    * to repay.
@@ -328,7 +329,7 @@ export interface MsgLiquidateAmino {
    * collateral. If it is a base token, the uTokens will be redeemed directly at
    * a reduced Liquidation Incentive, and the liquidator will receive base tokens.
    */
-  reward_denom: string;
+  reward_denom?: string;
 }
 export interface MsgLiquidateAminoMsg {
   type: "/umee.leverage.v1.MsgLiquidate";
@@ -363,6 +364,8 @@ export interface MsgLeveragedLiquidate {
    * and immediately collateralize.
    */
   rewardDenom: string;
+  /** MaxRepay optionally limits the USD value to repay. If specified, this cannot be below $1.00 */
+  maxRepay: string;
 }
 export interface MsgLeveragedLiquidateProtoMsg {
   typeUrl: "/umee.leverage.v1.MsgLeveragedLiquidate";
@@ -374,22 +377,24 @@ export interface MsgLeveragedLiquidateAmino {
    * Liquidator is the account address performing a liquidation and the signer
    * of the message.
    */
-  liquidator: string;
+  liquidator?: string;
   /**
    * Borrower is the account whose borrow is being repaid, and collateral consumed,
    * by the liquidation. It does not sign the message.
    */
-  borrower: string;
+  borrower?: string;
   /**
    * RepayDenom is the base token that the liquidator will borrow in order to repay on behalf of
    * the borrower.
    */
-  repay_denom: string;
+  repay_denom?: string;
   /**
    * RewardDenom is the uToken denom that the liquidator will receive as a liquidation reward
    * and immediately collateralize.
    */
-  reward_denom: string;
+  reward_denom?: string;
+  /** MaxRepay optionally limits the USD value to repay. If specified, this cannot be below $1.00 */
+  max_repay?: string;
 }
 export interface MsgLeveragedLiquidateAminoMsg {
   type: "/umee.leverage.v1.MsgLeveragedLiquidate";
@@ -401,6 +406,7 @@ export interface MsgLeveragedLiquidateSDKType {
   borrower: string;
   repay_denom: string;
   reward_denom: string;
+  max_repay: string;
 }
 /** MsgSupplyCollateral represents a user's request to supply and collateralize assets to the module. */
 export interface MsgSupplyCollateral {
@@ -415,7 +421,7 @@ export interface MsgSupplyCollateralProtoMsg {
 /** MsgSupplyCollateral represents a user's request to supply and collateralize assets to the module. */
 export interface MsgSupplyCollateralAmino {
   /** Supplier is the account address supplying assets and the signer of the message. */
-  supplier: string;
+  supplier?: string;
   asset?: CoinAmino;
 }
 export interface MsgSupplyCollateralAminoMsg {
@@ -697,9 +703,12 @@ export interface MsgSupplyCollateralResponseSDKType {
 }
 /** MsgGovUpdateRegistry defines the Msg/GovUpdateRegistry request type. */
 export interface MsgGovUpdateRegistry {
-  /** authority is the address of the governance account. */
+  /** authority is the address of the governance account or the Emergency Group. */
   authority: string;
-  title: string;
+  /**
+   * description motivating the change. Should be used only when executing by the
+   * Emergency Group. Otherwise the x/gov Proposal metadata should be used.
+   */
   description: string;
   /** add_tokens defines new token settings. */
   addTokens: Token[];
@@ -712,14 +721,17 @@ export interface MsgGovUpdateRegistryProtoMsg {
 }
 /** MsgGovUpdateRegistry defines the Msg/GovUpdateRegistry request type. */
 export interface MsgGovUpdateRegistryAmino {
-  /** authority is the address of the governance account. */
-  authority: string;
-  title: string;
-  description: string;
+  /** authority is the address of the governance account or the Emergency Group. */
+  authority?: string;
+  /**
+   * description motivating the change. Should be used only when executing by the
+   * Emergency Group. Otherwise the x/gov Proposal metadata should be used.
+   */
+  description?: string;
   /** add_tokens defines new token settings. */
-  add_tokens: TokenAmino[];
+  add_tokens?: TokenAmino[];
   /** update_tokens defines the new settings for existed tokens. */
-  update_tokens: TokenAmino[];
+  update_tokens?: TokenAmino[];
 }
 export interface MsgGovUpdateRegistryAminoMsg {
   type: "/umee.leverage.v1.MsgGovUpdateRegistry";
@@ -728,7 +740,6 @@ export interface MsgGovUpdateRegistryAminoMsg {
 /** MsgGovUpdateRegistry defines the Msg/GovUpdateRegistry request type. */
 export interface MsgGovUpdateRegistrySDKType {
   authority: string;
-  title: string;
   description: string;
   add_tokens: TokenSDKType[];
   update_tokens: TokenSDKType[];
@@ -747,6 +758,126 @@ export interface MsgGovUpdateRegistryResponseAminoMsg {
 }
 /** MsgGovUpdateRegistryResponse defines the Msg/GovUpdateRegistry response type. */
 export interface MsgGovUpdateRegistryResponseSDKType {}
+/** MsgGovUpdateSpecialAssets defines the Msg/GovUpdateSpecialAssets request type. */
+export interface MsgGovUpdateSpecialAssets {
+  /** authority is the address of the governance account or the Emergency Group. */
+  authority: string;
+  /**
+   * description motivating the change. Should be used only when executing by the
+   * Emergency Group. Otherwise the x/gov Proposal metadata should be used.
+   */
+  description: string;
+  /**
+   * sets are bidirectional groups of special asset pairs. Creating a special asset
+   * set causes all assets in the set to have a certain collateral weight when borrowing
+   * against each other (but not looping with themselves). Overrides any existing
+   * special asset pairs between assets in the set. Using both collateral weight
+   * and liquidation theshold of zero will clear all existing special pairs in the set instead.
+   */
+  sets: SpecialAssetSet[];
+  /**
+   * pairs are new or updated special asset pairs. Updating both a special asset pair's
+   * collateral weight and liquidation threshold to zero deletes the pair instead.
+   * These pairs will be applied after any sets above when passing a proposal,
+   * so they can be used to override certain set elements, set directional relationships,
+   * or set an asset's relation to itself (looping).
+   */
+  pairs: SpecialAssetPair[];
+}
+export interface MsgGovUpdateSpecialAssetsProtoMsg {
+  typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssets";
+  value: Uint8Array;
+}
+/** MsgGovUpdateSpecialAssets defines the Msg/GovUpdateSpecialAssets request type. */
+export interface MsgGovUpdateSpecialAssetsAmino {
+  /** authority is the address of the governance account or the Emergency Group. */
+  authority?: string;
+  /**
+   * description motivating the change. Should be used only when executing by the
+   * Emergency Group. Otherwise the x/gov Proposal metadata should be used.
+   */
+  description?: string;
+  /**
+   * sets are bidirectional groups of special asset pairs. Creating a special asset
+   * set causes all assets in the set to have a certain collateral weight when borrowing
+   * against each other (but not looping with themselves). Overrides any existing
+   * special asset pairs between assets in the set. Using both collateral weight
+   * and liquidation theshold of zero will clear all existing special pairs in the set instead.
+   */
+  sets?: SpecialAssetSetAmino[];
+  /**
+   * pairs are new or updated special asset pairs. Updating both a special asset pair's
+   * collateral weight and liquidation threshold to zero deletes the pair instead.
+   * These pairs will be applied after any sets above when passing a proposal,
+   * so they can be used to override certain set elements, set directional relationships,
+   * or set an asset's relation to itself (looping).
+   */
+  pairs?: SpecialAssetPairAmino[];
+}
+export interface MsgGovUpdateSpecialAssetsAminoMsg {
+  type: "/umee.leverage.v1.MsgGovUpdateSpecialAssets";
+  value: MsgGovUpdateSpecialAssetsAmino;
+}
+/** MsgGovUpdateSpecialAssets defines the Msg/GovUpdateSpecialAssets request type. */
+export interface MsgGovUpdateSpecialAssetsSDKType {
+  authority: string;
+  description: string;
+  sets: SpecialAssetSetSDKType[];
+  pairs: SpecialAssetPairSDKType[];
+}
+/** MsgGovUpdateSpecialAssetsResponse defines the Msg/GovUpdateSpecialAssets response type. */
+export interface MsgGovUpdateSpecialAssetsResponse {}
+export interface MsgGovUpdateSpecialAssetsResponseProtoMsg {
+  typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssetsResponse";
+  value: Uint8Array;
+}
+/** MsgGovUpdateSpecialAssetsResponse defines the Msg/GovUpdateSpecialAssets response type. */
+export interface MsgGovUpdateSpecialAssetsResponseAmino {}
+export interface MsgGovUpdateSpecialAssetsResponseAminoMsg {
+  type: "/umee.leverage.v1.MsgGovUpdateSpecialAssetsResponse";
+  value: MsgGovUpdateSpecialAssetsResponseAmino;
+}
+/** MsgGovUpdateSpecialAssetsResponse defines the Msg/GovUpdateSpecialAssets response type. */
+export interface MsgGovUpdateSpecialAssetsResponseSDKType {}
+/** MsgGovSetParams is used by governance to update module parameters. */
+export interface MsgGovSetParams {
+  /** authority must be the address of the governance account. */
+  authority: string;
+  params: Params;
+}
+export interface MsgGovSetParamsProtoMsg {
+  typeUrl: "/umee.leverage.v1.MsgGovSetParams";
+  value: Uint8Array;
+}
+/** MsgGovSetParams is used by governance to update module parameters. */
+export interface MsgGovSetParamsAmino {
+  /** authority must be the address of the governance account. */
+  authority?: string;
+  params?: ParamsAmino;
+}
+export interface MsgGovSetParamsAminoMsg {
+  type: "/umee.leverage.v1.MsgGovSetParams";
+  value: MsgGovSetParamsAmino;
+}
+/** MsgGovSetParams is used by governance to update module parameters. */
+export interface MsgGovSetParamsSDKType {
+  authority: string;
+  params: ParamsSDKType;
+}
+/** MsgGovSetParamsResponse defines the Msg/SetParams response type. */
+export interface MsgGovSetParamsResponse {}
+export interface MsgGovSetParamsResponseProtoMsg {
+  typeUrl: "/umee.leverage.v1.MsgGovSetParamsResponse";
+  value: Uint8Array;
+}
+/** MsgGovSetParamsResponse defines the Msg/SetParams response type. */
+export interface MsgGovSetParamsResponseAmino {}
+export interface MsgGovSetParamsResponseAminoMsg {
+  type: "/umee.leverage.v1.MsgGovSetParamsResponse";
+  value: MsgGovSetParamsResponseAmino;
+}
+/** MsgGovSetParamsResponse defines the Msg/SetParams response type. */
+export interface MsgGovSetParamsResponseSDKType {}
 function createBaseMsgSupply(): MsgSupply {
   return {
     supplier: "",
@@ -777,14 +908,18 @@ export const MsgSupply = {
     return message;
   },
   fromAmino(object: MsgSupplyAmino): MsgSupply {
-    return {
-      supplier: object.supplier,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseMsgSupply();
+    if (object.supplier !== undefined && object.supplier !== null) {
+      message.supplier = object.supplier;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: MsgSupply): MsgSupplyAmino {
     const obj: any = {};
-    obj.supplier = message.supplier;
+    obj.supplier = message.supplier === "" ? undefined : message.supplier;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -834,14 +969,18 @@ export const MsgWithdraw = {
     return message;
   },
   fromAmino(object: MsgWithdrawAmino): MsgWithdraw {
-    return {
-      supplier: object.supplier,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseMsgWithdraw();
+    if (object.supplier !== undefined && object.supplier !== null) {
+      message.supplier = object.supplier;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: MsgWithdraw): MsgWithdrawAmino {
     const obj: any = {};
-    obj.supplier = message.supplier;
+    obj.supplier = message.supplier === "" ? undefined : message.supplier;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -891,15 +1030,19 @@ export const MsgMaxWithdraw = {
     return message;
   },
   fromAmino(object: MsgMaxWithdrawAmino): MsgMaxWithdraw {
-    return {
-      supplier: object.supplier,
-      denom: object.denom
-    };
+    const message = createBaseMsgMaxWithdraw();
+    if (object.supplier !== undefined && object.supplier !== null) {
+      message.supplier = object.supplier;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: MsgMaxWithdraw): MsgMaxWithdrawAmino {
     const obj: any = {};
-    obj.supplier = message.supplier;
-    obj.denom = message.denom;
+    obj.supplier = message.supplier === "" ? undefined : message.supplier;
+    obj.denom = message.denom === "" ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: MsgMaxWithdrawAminoMsg): MsgMaxWithdraw {
@@ -948,14 +1091,18 @@ export const MsgCollateralize = {
     return message;
   },
   fromAmino(object: MsgCollateralizeAmino): MsgCollateralize {
-    return {
-      borrower: object.borrower,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseMsgCollateralize();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: MsgCollateralize): MsgCollateralizeAmino {
     const obj: any = {};
-    obj.borrower = message.borrower;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -1005,14 +1152,18 @@ export const MsgDecollateralize = {
     return message;
   },
   fromAmino(object: MsgDecollateralizeAmino): MsgDecollateralize {
-    return {
-      borrower: object.borrower,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseMsgDecollateralize();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: MsgDecollateralize): MsgDecollateralizeAmino {
     const obj: any = {};
-    obj.borrower = message.borrower;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -1062,14 +1213,18 @@ export const MsgBorrow = {
     return message;
   },
   fromAmino(object: MsgBorrowAmino): MsgBorrow {
-    return {
-      borrower: object.borrower,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseMsgBorrow();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: MsgBorrow): MsgBorrowAmino {
     const obj: any = {};
-    obj.borrower = message.borrower;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -1119,15 +1274,19 @@ export const MsgMaxBorrow = {
     return message;
   },
   fromAmino(object: MsgMaxBorrowAmino): MsgMaxBorrow {
-    return {
-      borrower: object.borrower,
-      denom: object.denom
-    };
+    const message = createBaseMsgMaxBorrow();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: MsgMaxBorrow): MsgMaxBorrowAmino {
     const obj: any = {};
-    obj.borrower = message.borrower;
-    obj.denom = message.denom;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
+    obj.denom = message.denom === "" ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: MsgMaxBorrowAminoMsg): MsgMaxBorrow {
@@ -1176,14 +1335,18 @@ export const MsgRepay = {
     return message;
   },
   fromAmino(object: MsgRepayAmino): MsgRepay {
-    return {
-      borrower: object.borrower,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseMsgRepay();
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: MsgRepay): MsgRepayAmino {
     const obj: any = {};
-    obj.borrower = message.borrower;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -1245,19 +1408,27 @@ export const MsgLiquidate = {
     return message;
   },
   fromAmino(object: MsgLiquidateAmino): MsgLiquidate {
-    return {
-      liquidator: object.liquidator,
-      borrower: object.borrower,
-      repayment: object?.repayment ? Coin.fromAmino(object.repayment) : undefined,
-      rewardDenom: object.reward_denom
-    };
+    const message = createBaseMsgLiquidate();
+    if (object.liquidator !== undefined && object.liquidator !== null) {
+      message.liquidator = object.liquidator;
+    }
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.repayment !== undefined && object.repayment !== null) {
+      message.repayment = Coin.fromAmino(object.repayment);
+    }
+    if (object.reward_denom !== undefined && object.reward_denom !== null) {
+      message.rewardDenom = object.reward_denom;
+    }
+    return message;
   },
   toAmino(message: MsgLiquidate): MsgLiquidateAmino {
     const obj: any = {};
-    obj.liquidator = message.liquidator;
-    obj.borrower = message.borrower;
+    obj.liquidator = message.liquidator === "" ? undefined : message.liquidator;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
     obj.repayment = message.repayment ? Coin.toAmino(message.repayment) : undefined;
-    obj.reward_denom = message.rewardDenom;
+    obj.reward_denom = message.rewardDenom === "" ? undefined : message.rewardDenom;
     return obj;
   },
   fromAminoMsg(object: MsgLiquidateAminoMsg): MsgLiquidate {
@@ -1281,7 +1452,8 @@ function createBaseMsgLeveragedLiquidate(): MsgLeveragedLiquidate {
     liquidator: "",
     borrower: "",
     repayDenom: "",
-    rewardDenom: ""
+    rewardDenom: "",
+    maxRepay: ""
   };
 }
 export const MsgLeveragedLiquidate = {
@@ -1299,6 +1471,9 @@ export const MsgLeveragedLiquidate = {
     if (message.rewardDenom !== "") {
       writer.uint32(34).string(message.rewardDenom);
     }
+    if (message.maxRepay !== "") {
+      writer.uint32(42).string(Decimal.fromUserInput(message.maxRepay, 18).atomics);
+    }
     return writer;
   },
   fromJSON(object: any): MsgLeveragedLiquidate {
@@ -1306,7 +1481,8 @@ export const MsgLeveragedLiquidate = {
       liquidator: isSet(object.liquidator) ? String(object.liquidator) : "",
       borrower: isSet(object.borrower) ? String(object.borrower) : "",
       repayDenom: isSet(object.repayDenom) ? String(object.repayDenom) : "",
-      rewardDenom: isSet(object.rewardDenom) ? String(object.rewardDenom) : ""
+      rewardDenom: isSet(object.rewardDenom) ? String(object.rewardDenom) : "",
+      maxRepay: isSet(object.maxRepay) ? String(object.maxRepay) : ""
     };
   },
   fromPartial(object: Partial<MsgLeveragedLiquidate>): MsgLeveragedLiquidate {
@@ -1315,22 +1491,35 @@ export const MsgLeveragedLiquidate = {
     message.borrower = object.borrower ?? "";
     message.repayDenom = object.repayDenom ?? "";
     message.rewardDenom = object.rewardDenom ?? "";
+    message.maxRepay = object.maxRepay ?? "";
     return message;
   },
   fromAmino(object: MsgLeveragedLiquidateAmino): MsgLeveragedLiquidate {
-    return {
-      liquidator: object.liquidator,
-      borrower: object.borrower,
-      repayDenom: object.repay_denom,
-      rewardDenom: object.reward_denom
-    };
+    const message = createBaseMsgLeveragedLiquidate();
+    if (object.liquidator !== undefined && object.liquidator !== null) {
+      message.liquidator = object.liquidator;
+    }
+    if (object.borrower !== undefined && object.borrower !== null) {
+      message.borrower = object.borrower;
+    }
+    if (object.repay_denom !== undefined && object.repay_denom !== null) {
+      message.repayDenom = object.repay_denom;
+    }
+    if (object.reward_denom !== undefined && object.reward_denom !== null) {
+      message.rewardDenom = object.reward_denom;
+    }
+    if (object.max_repay !== undefined && object.max_repay !== null) {
+      message.maxRepay = object.max_repay;
+    }
+    return message;
   },
   toAmino(message: MsgLeveragedLiquidate): MsgLeveragedLiquidateAmino {
     const obj: any = {};
-    obj.liquidator = message.liquidator;
-    obj.borrower = message.borrower;
-    obj.repay_denom = message.repayDenom;
-    obj.reward_denom = message.rewardDenom;
+    obj.liquidator = message.liquidator === "" ? undefined : message.liquidator;
+    obj.borrower = message.borrower === "" ? undefined : message.borrower;
+    obj.repay_denom = message.repayDenom === "" ? undefined : message.repayDenom;
+    obj.reward_denom = message.rewardDenom === "" ? undefined : message.rewardDenom;
+    obj.max_repay = message.maxRepay === "" ? undefined : message.maxRepay;
     return obj;
   },
   fromAminoMsg(object: MsgLeveragedLiquidateAminoMsg): MsgLeveragedLiquidate {
@@ -1379,14 +1568,18 @@ export const MsgSupplyCollateral = {
     return message;
   },
   fromAmino(object: MsgSupplyCollateralAmino): MsgSupplyCollateral {
-    return {
-      supplier: object.supplier,
-      asset: object?.asset ? Coin.fromAmino(object.asset) : undefined
-    };
+    const message = createBaseMsgSupplyCollateral();
+    if (object.supplier !== undefined && object.supplier !== null) {
+      message.supplier = object.supplier;
+    }
+    if (object.asset !== undefined && object.asset !== null) {
+      message.asset = Coin.fromAmino(object.asset);
+    }
+    return message;
   },
   toAmino(message: MsgSupplyCollateral): MsgSupplyCollateralAmino {
     const obj: any = {};
-    obj.supplier = message.supplier;
+    obj.supplier = message.supplier === "" ? undefined : message.supplier;
     obj.asset = message.asset ? Coin.toAmino(message.asset) : undefined;
     return obj;
   },
@@ -1430,9 +1623,11 @@ export const MsgSupplyResponse = {
     return message;
   },
   fromAmino(object: MsgSupplyResponseAmino): MsgSupplyResponse {
-    return {
-      received: object?.received ? Coin.fromAmino(object.received) : undefined
-    };
+    const message = createBaseMsgSupplyResponse();
+    if (object.received !== undefined && object.received !== null) {
+      message.received = Coin.fromAmino(object.received);
+    }
+    return message;
   },
   toAmino(message: MsgSupplyResponse): MsgSupplyResponseAmino {
     const obj: any = {};
@@ -1479,9 +1674,11 @@ export const MsgWithdrawResponse = {
     return message;
   },
   fromAmino(object: MsgWithdrawResponseAmino): MsgWithdrawResponse {
-    return {
-      received: object?.received ? Coin.fromAmino(object.received) : undefined
-    };
+    const message = createBaseMsgWithdrawResponse();
+    if (object.received !== undefined && object.received !== null) {
+      message.received = Coin.fromAmino(object.received);
+    }
+    return message;
   },
   toAmino(message: MsgWithdrawResponse): MsgWithdrawResponseAmino {
     const obj: any = {};
@@ -1534,10 +1731,14 @@ export const MsgMaxWithdrawResponse = {
     return message;
   },
   fromAmino(object: MsgMaxWithdrawResponseAmino): MsgMaxWithdrawResponse {
-    return {
-      withdrawn: object?.withdrawn ? Coin.fromAmino(object.withdrawn) : undefined,
-      received: object?.received ? Coin.fromAmino(object.received) : undefined
-    };
+    const message = createBaseMsgMaxWithdrawResponse();
+    if (object.withdrawn !== undefined && object.withdrawn !== null) {
+      message.withdrawn = Coin.fromAmino(object.withdrawn);
+    }
+    if (object.received !== undefined && object.received !== null) {
+      message.received = Coin.fromAmino(object.received);
+    }
+    return message;
   },
   toAmino(message: MsgMaxWithdrawResponse): MsgMaxWithdrawResponseAmino {
     const obj: any = {};
@@ -1577,7 +1778,8 @@ export const MsgCollateralizeResponse = {
     return message;
   },
   fromAmino(_: MsgCollateralizeResponseAmino): MsgCollateralizeResponse {
-    return {};
+    const message = createBaseMsgCollateralizeResponse();
+    return message;
   },
   toAmino(_: MsgCollateralizeResponse): MsgCollateralizeResponseAmino {
     const obj: any = {};
@@ -1615,7 +1817,8 @@ export const MsgDecollateralizeResponse = {
     return message;
   },
   fromAmino(_: MsgDecollateralizeResponseAmino): MsgDecollateralizeResponse {
-    return {};
+    const message = createBaseMsgDecollateralizeResponse();
+    return message;
   },
   toAmino(_: MsgDecollateralizeResponse): MsgDecollateralizeResponseAmino {
     const obj: any = {};
@@ -1653,7 +1856,8 @@ export const MsgBorrowResponse = {
     return message;
   },
   fromAmino(_: MsgBorrowResponseAmino): MsgBorrowResponse {
-    return {};
+    const message = createBaseMsgBorrowResponse();
+    return message;
   },
   toAmino(_: MsgBorrowResponse): MsgBorrowResponseAmino {
     const obj: any = {};
@@ -1699,9 +1903,11 @@ export const MsgMaxBorrowResponse = {
     return message;
   },
   fromAmino(object: MsgMaxBorrowResponseAmino): MsgMaxBorrowResponse {
-    return {
-      borrowed: object?.borrowed ? Coin.fromAmino(object.borrowed) : undefined
-    };
+    const message = createBaseMsgMaxBorrowResponse();
+    if (object.borrowed !== undefined && object.borrowed !== null) {
+      message.borrowed = Coin.fromAmino(object.borrowed);
+    }
+    return message;
   },
   toAmino(message: MsgMaxBorrowResponse): MsgMaxBorrowResponseAmino {
     const obj: any = {};
@@ -1748,9 +1954,11 @@ export const MsgRepayResponse = {
     return message;
   },
   fromAmino(object: MsgRepayResponseAmino): MsgRepayResponse {
-    return {
-      repaid: object?.repaid ? Coin.fromAmino(object.repaid) : undefined
-    };
+    const message = createBaseMsgRepayResponse();
+    if (object.repaid !== undefined && object.repaid !== null) {
+      message.repaid = Coin.fromAmino(object.repaid);
+    }
+    return message;
   },
   toAmino(message: MsgRepayResponse): MsgRepayResponseAmino {
     const obj: any = {};
@@ -1809,11 +2017,17 @@ export const MsgLiquidateResponse = {
     return message;
   },
   fromAmino(object: MsgLiquidateResponseAmino): MsgLiquidateResponse {
-    return {
-      repaid: object?.repaid ? Coin.fromAmino(object.repaid) : undefined,
-      collateral: object?.collateral ? Coin.fromAmino(object.collateral) : undefined,
-      reward: object?.reward ? Coin.fromAmino(object.reward) : undefined
-    };
+    const message = createBaseMsgLiquidateResponse();
+    if (object.repaid !== undefined && object.repaid !== null) {
+      message.repaid = Coin.fromAmino(object.repaid);
+    }
+    if (object.collateral !== undefined && object.collateral !== null) {
+      message.collateral = Coin.fromAmino(object.collateral);
+    }
+    if (object.reward !== undefined && object.reward !== null) {
+      message.reward = Coin.fromAmino(object.reward);
+    }
+    return message;
   },
   toAmino(message: MsgLiquidateResponse): MsgLiquidateResponseAmino {
     const obj: any = {};
@@ -1868,10 +2082,14 @@ export const MsgLeveragedLiquidateResponse = {
     return message;
   },
   fromAmino(object: MsgLeveragedLiquidateResponseAmino): MsgLeveragedLiquidateResponse {
-    return {
-      repaid: object?.repaid ? Coin.fromAmino(object.repaid) : undefined,
-      reward: object?.reward ? Coin.fromAmino(object.reward) : undefined
-    };
+    const message = createBaseMsgLeveragedLiquidateResponse();
+    if (object.repaid !== undefined && object.repaid !== null) {
+      message.repaid = Coin.fromAmino(object.repaid);
+    }
+    if (object.reward !== undefined && object.reward !== null) {
+      message.reward = Coin.fromAmino(object.reward);
+    }
+    return message;
   },
   toAmino(message: MsgLeveragedLiquidateResponse): MsgLeveragedLiquidateResponseAmino {
     const obj: any = {};
@@ -1919,9 +2137,11 @@ export const MsgSupplyCollateralResponse = {
     return message;
   },
   fromAmino(object: MsgSupplyCollateralResponseAmino): MsgSupplyCollateralResponse {
-    return {
-      collateralized: object?.collateralized ? Coin.fromAmino(object.collateralized) : undefined
-    };
+    const message = createBaseMsgSupplyCollateralResponse();
+    if (object.collateralized !== undefined && object.collateralized !== null) {
+      message.collateralized = Coin.fromAmino(object.collateralized);
+    }
+    return message;
   },
   toAmino(message: MsgSupplyCollateralResponse): MsgSupplyCollateralResponseAmino {
     const obj: any = {};
@@ -1947,7 +2167,6 @@ export const MsgSupplyCollateralResponse = {
 function createBaseMsgGovUpdateRegistry(): MsgGovUpdateRegistry {
   return {
     authority: "",
-    title: "",
     description: "",
     addTokens: [],
     updateTokens: []
@@ -1958,9 +2177,6 @@ export const MsgGovUpdateRegistry = {
   encode(message: MsgGovUpdateRegistry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
-    }
-    if (message.title !== "") {
-      writer.uint32(18).string(message.title);
     }
     if (message.description !== "") {
       writer.uint32(26).string(message.description);
@@ -1976,7 +2192,6 @@ export const MsgGovUpdateRegistry = {
   fromJSON(object: any): MsgGovUpdateRegistry {
     return {
       authority: isSet(object.authority) ? String(object.authority) : "",
-      title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
       addTokens: Array.isArray(object?.addTokens) ? object.addTokens.map((e: any) => Token.fromJSON(e)) : [],
       updateTokens: Array.isArray(object?.updateTokens) ? object.updateTokens.map((e: any) => Token.fromJSON(e)) : []
@@ -1985,35 +2200,36 @@ export const MsgGovUpdateRegistry = {
   fromPartial(object: Partial<MsgGovUpdateRegistry>): MsgGovUpdateRegistry {
     const message = createBaseMsgGovUpdateRegistry();
     message.authority = object.authority ?? "";
-    message.title = object.title ?? "";
     message.description = object.description ?? "";
     message.addTokens = object.addTokens?.map(e => Token.fromPartial(e)) || [];
     message.updateTokens = object.updateTokens?.map(e => Token.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: MsgGovUpdateRegistryAmino): MsgGovUpdateRegistry {
-    return {
-      authority: object.authority,
-      title: object.title,
-      description: object.description,
-      addTokens: Array.isArray(object?.add_tokens) ? object.add_tokens.map((e: any) => Token.fromAmino(e)) : [],
-      updateTokens: Array.isArray(object?.update_tokens) ? object.update_tokens.map((e: any) => Token.fromAmino(e)) : []
-    };
+    const message = createBaseMsgGovUpdateRegistry();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    message.addTokens = object.add_tokens?.map(e => Token.fromAmino(e)) || [];
+    message.updateTokens = object.update_tokens?.map(e => Token.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: MsgGovUpdateRegistry): MsgGovUpdateRegistryAmino {
     const obj: any = {};
-    obj.authority = message.authority;
-    obj.title = message.title;
-    obj.description = message.description;
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.description = message.description === "" ? undefined : message.description;
     if (message.addTokens) {
       obj.add_tokens = message.addTokens.map(e => e ? Token.toAmino(e) : undefined);
     } else {
-      obj.add_tokens = [];
+      obj.add_tokens = message.addTokens;
     }
     if (message.updateTokens) {
       obj.update_tokens = message.updateTokens.map(e => e ? Token.toAmino(e) : undefined);
     } else {
-      obj.update_tokens = [];
+      obj.update_tokens = message.updateTokens;
     }
     return obj;
   },
@@ -2049,7 +2265,8 @@ export const MsgGovUpdateRegistryResponse = {
     return message;
   },
   fromAmino(_: MsgGovUpdateRegistryResponseAmino): MsgGovUpdateRegistryResponse {
-    return {};
+    const message = createBaseMsgGovUpdateRegistryResponse();
+    return message;
   },
   toAmino(_: MsgGovUpdateRegistryResponse): MsgGovUpdateRegistryResponseAmino {
     const obj: any = {};
@@ -2068,6 +2285,230 @@ export const MsgGovUpdateRegistryResponse = {
     return {
       typeUrl: "/umee.leverage.v1.MsgGovUpdateRegistryResponse",
       value: MsgGovUpdateRegistryResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgGovUpdateSpecialAssets(): MsgGovUpdateSpecialAssets {
+  return {
+    authority: "",
+    description: "",
+    sets: [],
+    pairs: []
+  };
+}
+export const MsgGovUpdateSpecialAssets = {
+  typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssets",
+  encode(message: MsgGovUpdateSpecialAssets, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    for (const v of message.sets) {
+      SpecialAssetSet.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    for (const v of message.pairs) {
+      SpecialAssetPair.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgGovUpdateSpecialAssets {
+    return {
+      authority: isSet(object.authority) ? String(object.authority) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      sets: Array.isArray(object?.sets) ? object.sets.map((e: any) => SpecialAssetSet.fromJSON(e)) : [],
+      pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => SpecialAssetPair.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<MsgGovUpdateSpecialAssets>): MsgGovUpdateSpecialAssets {
+    const message = createBaseMsgGovUpdateSpecialAssets();
+    message.authority = object.authority ?? "";
+    message.description = object.description ?? "";
+    message.sets = object.sets?.map(e => SpecialAssetSet.fromPartial(e)) || [];
+    message.pairs = object.pairs?.map(e => SpecialAssetPair.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: MsgGovUpdateSpecialAssetsAmino): MsgGovUpdateSpecialAssets {
+    const message = createBaseMsgGovUpdateSpecialAssets();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    message.sets = object.sets?.map(e => SpecialAssetSet.fromAmino(e)) || [];
+    message.pairs = object.pairs?.map(e => SpecialAssetPair.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: MsgGovUpdateSpecialAssets): MsgGovUpdateSpecialAssetsAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.description = message.description === "" ? undefined : message.description;
+    if (message.sets) {
+      obj.sets = message.sets.map(e => e ? SpecialAssetSet.toAmino(e) : undefined);
+    } else {
+      obj.sets = message.sets;
+    }
+    if (message.pairs) {
+      obj.pairs = message.pairs.map(e => e ? SpecialAssetPair.toAmino(e) : undefined);
+    } else {
+      obj.pairs = message.pairs;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgGovUpdateSpecialAssetsAminoMsg): MsgGovUpdateSpecialAssets {
+    return MsgGovUpdateSpecialAssets.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgGovUpdateSpecialAssetsProtoMsg): MsgGovUpdateSpecialAssets {
+    return MsgGovUpdateSpecialAssets.decode(message.value);
+  },
+  toProto(message: MsgGovUpdateSpecialAssets): Uint8Array {
+    return MsgGovUpdateSpecialAssets.encode(message).finish();
+  },
+  toProtoMsg(message: MsgGovUpdateSpecialAssets): MsgGovUpdateSpecialAssetsProtoMsg {
+    return {
+      typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssets",
+      value: MsgGovUpdateSpecialAssets.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgGovUpdateSpecialAssetsResponse(): MsgGovUpdateSpecialAssetsResponse {
+  return {};
+}
+export const MsgGovUpdateSpecialAssetsResponse = {
+  typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssetsResponse",
+  encode(_: MsgGovUpdateSpecialAssetsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgGovUpdateSpecialAssetsResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgGovUpdateSpecialAssetsResponse>): MsgGovUpdateSpecialAssetsResponse {
+    const message = createBaseMsgGovUpdateSpecialAssetsResponse();
+    return message;
+  },
+  fromAmino(_: MsgGovUpdateSpecialAssetsResponseAmino): MsgGovUpdateSpecialAssetsResponse {
+    const message = createBaseMsgGovUpdateSpecialAssetsResponse();
+    return message;
+  },
+  toAmino(_: MsgGovUpdateSpecialAssetsResponse): MsgGovUpdateSpecialAssetsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgGovUpdateSpecialAssetsResponseAminoMsg): MsgGovUpdateSpecialAssetsResponse {
+    return MsgGovUpdateSpecialAssetsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgGovUpdateSpecialAssetsResponseProtoMsg): MsgGovUpdateSpecialAssetsResponse {
+    return MsgGovUpdateSpecialAssetsResponse.decode(message.value);
+  },
+  toProto(message: MsgGovUpdateSpecialAssetsResponse): Uint8Array {
+    return MsgGovUpdateSpecialAssetsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgGovUpdateSpecialAssetsResponse): MsgGovUpdateSpecialAssetsResponseProtoMsg {
+    return {
+      typeUrl: "/umee.leverage.v1.MsgGovUpdateSpecialAssetsResponse",
+      value: MsgGovUpdateSpecialAssetsResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgGovSetParams(): MsgGovSetParams {
+  return {
+    authority: "",
+    params: Params.fromPartial({})
+  };
+}
+export const MsgGovSetParams = {
+  typeUrl: "/umee.leverage.v1.MsgGovSetParams",
+  encode(message: MsgGovSetParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): MsgGovSetParams {
+    return {
+      authority: isSet(object.authority) ? String(object.authority) : "",
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined
+    };
+  },
+  fromPartial(object: Partial<MsgGovSetParams>): MsgGovSetParams {
+    const message = createBaseMsgGovSetParams();
+    message.authority = object.authority ?? "";
+    message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+  fromAmino(object: MsgGovSetParamsAmino): MsgGovSetParams {
+    const message = createBaseMsgGovSetParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: MsgGovSetParams): MsgGovSetParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgGovSetParamsAminoMsg): MsgGovSetParams {
+    return MsgGovSetParams.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgGovSetParamsProtoMsg): MsgGovSetParams {
+    return MsgGovSetParams.decode(message.value);
+  },
+  toProto(message: MsgGovSetParams): Uint8Array {
+    return MsgGovSetParams.encode(message).finish();
+  },
+  toProtoMsg(message: MsgGovSetParams): MsgGovSetParamsProtoMsg {
+    return {
+      typeUrl: "/umee.leverage.v1.MsgGovSetParams",
+      value: MsgGovSetParams.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgGovSetParamsResponse(): MsgGovSetParamsResponse {
+  return {};
+}
+export const MsgGovSetParamsResponse = {
+  typeUrl: "/umee.leverage.v1.MsgGovSetParamsResponse",
+  encode(_: MsgGovSetParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): MsgGovSetParamsResponse {
+    return {};
+  },
+  fromPartial(_: Partial<MsgGovSetParamsResponse>): MsgGovSetParamsResponse {
+    const message = createBaseMsgGovSetParamsResponse();
+    return message;
+  },
+  fromAmino(_: MsgGovSetParamsResponseAmino): MsgGovSetParamsResponse {
+    const message = createBaseMsgGovSetParamsResponse();
+    return message;
+  },
+  toAmino(_: MsgGovSetParamsResponse): MsgGovSetParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgGovSetParamsResponseAminoMsg): MsgGovSetParamsResponse {
+    return MsgGovSetParamsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgGovSetParamsResponseProtoMsg): MsgGovSetParamsResponse {
+    return MsgGovSetParamsResponse.decode(message.value);
+  },
+  toProto(message: MsgGovSetParamsResponse): Uint8Array {
+    return MsgGovSetParamsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgGovSetParamsResponse): MsgGovSetParamsResponseProtoMsg {
+    return {
+      typeUrl: "/umee.leverage.v1.MsgGovSetParamsResponse",
+      value: MsgGovSetParamsResponse.encode(message).finish()
     };
   }
 };

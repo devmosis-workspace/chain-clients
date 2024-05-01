@@ -199,12 +199,6 @@
 [submodule "packages/umee/umee"]
 	path = packages/umee/umee
 	url = https://github.com/umee-network/umee
-[submodule "packages/umee/cosmos-sdk"]
-	path = packages/umee/cosmos-sdk
-	url = https://github.com/umee-network/cosmos-sdk
-[submodule "packages/umee/cosmos-proto"]
-	path = packages/umee/cosmos-proto
-	url = https://github.com/cosmos/cosmos-proto
 [submodule "packages/gitopia/gitopia"]
 	path = packages/gitopia/gitopia
 	url = https://github.com/gitopia/gitopia
@@ -324,4 +318,10 @@
 	url = https://github.com/cosmos/cosmos-sdk
 [submodule "packages/bostrom/wasmd"]
 	path = packages/bostrom/wasmd
+	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/umee/cosmos-sdk"]
+	path = packages/umee/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/umee/wasmd"]
+	path = packages/umee/wasmd
 	url = https://github.com/CosmWasm/wasmd

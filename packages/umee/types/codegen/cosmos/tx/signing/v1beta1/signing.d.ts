@@ -73,7 +73,7 @@ export interface SignatureDescriptorsProtoMsg {
 /** SignatureDescriptors wraps multiple SignatureDescriptor's. */
 export interface SignatureDescriptorsAmino {
     /** signatures are the signature descriptors */
-    signatures: SignatureDescriptorAmino[];
+    signatures?: SignatureDescriptorAmino[];
 }
 export interface SignatureDescriptorsAminoMsg {
     type: "cosmos-sdk/SignatureDescriptors";
@@ -91,8 +91,8 @@ export interface SignatureDescriptorsSDKType {
  */
 export interface SignatureDescriptor {
     /** public_key is the public key of the signer */
-    publicKey: Any;
-    data: SignatureDescriptor_Data;
+    publicKey?: Any;
+    data?: SignatureDescriptor_Data;
     /**
      * sequence is the sequence of the account, which describes the
      * number of committed transactions signed by a given address. It is used to prevent
@@ -119,7 +119,7 @@ export interface SignatureDescriptorAmino {
      * number of committed transactions signed by a given address. It is used to prevent
      * replay attacks.
      */
-    sequence: string;
+    sequence?: string;
 }
 export interface SignatureDescriptorAminoMsg {
     type: "cosmos-sdk/SignatureDescriptor";
@@ -132,8 +132,8 @@ export interface SignatureDescriptorAminoMsg {
  * clients.
  */
 export interface SignatureDescriptorSDKType {
-    public_key: AnySDKType;
-    data: SignatureDescriptor_DataSDKType;
+    public_key?: AnySDKType;
+    data?: SignatureDescriptor_DataSDKType;
     sequence: bigint;
 }
 /** Data represents signature data */
@@ -177,9 +177,9 @@ export interface SignatureDescriptor_Data_SingleProtoMsg {
 /** Single is the signature data for a single signer */
 export interface SignatureDescriptor_Data_SingleAmino {
     /** mode is the signing mode of the single signer */
-    mode: SignMode;
+    mode?: SignMode;
     /** signature is the raw signature bytes */
-    signature: Uint8Array;
+    signature?: string;
 }
 export interface SignatureDescriptor_Data_SingleAminoMsg {
     type: "cosmos-sdk/Single";
@@ -193,7 +193,7 @@ export interface SignatureDescriptor_Data_SingleSDKType {
 /** Multi is the signature data for a multisig public key */
 export interface SignatureDescriptor_Data_Multi {
     /** bitarray specifies which keys within the multisig are signing */
-    bitarray: CompactBitArray;
+    bitarray?: CompactBitArray;
     /** signatures is the signatures of the multi-signature */
     signatures: SignatureDescriptor_Data[];
 }
@@ -206,7 +206,7 @@ export interface SignatureDescriptor_Data_MultiAmino {
     /** bitarray specifies which keys within the multisig are signing */
     bitarray?: CompactBitArrayAmino;
     /** signatures is the signatures of the multi-signature */
-    signatures: SignatureDescriptor_DataAmino[];
+    signatures?: SignatureDescriptor_DataAmino[];
 }
 export interface SignatureDescriptor_Data_MultiAminoMsg {
     type: "cosmos-sdk/Multi";
@@ -214,7 +214,7 @@ export interface SignatureDescriptor_Data_MultiAminoMsg {
 }
 /** Multi is the signature data for a multisig public key */
 export interface SignatureDescriptor_Data_MultiSDKType {
-    bitarray: CompactBitArraySDKType;
+    bitarray?: CompactBitArraySDKType;
     signatures: SignatureDescriptor_DataSDKType[];
 }
 export declare const SignatureDescriptors: {

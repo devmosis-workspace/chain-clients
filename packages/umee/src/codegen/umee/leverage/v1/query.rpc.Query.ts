@@ -1,13 +1,17 @@
 import { Rpc } from "../../../helpers";
 import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryParams, QueryParamsResponse, QueryRegisteredTokens, QueryRegisteredTokensResponse, QueryMarketSummary, QueryMarketSummaryResponse, QueryAccountBalances, QueryAccountBalancesResponse, QueryAccountSummary, QueryAccountSummaryResponse, QueryLiquidationTargets, QueryLiquidationTargetsResponse, QueryBadDebts, QueryBadDebtsResponse, QueryMaxWithdraw, QueryMaxWithdrawResponse, QueryMaxBorrow, QueryMaxBorrowResponse, QueryInspect, QueryInspectResponse } from "./query";
+import { QueryParams, QueryParamsResponse, QueryRegisteredTokens, QueryRegisteredTokensResponse, QueryRegisteredTokensWithMarkets, QueryRegisteredTokensWithMarketsResponse, QuerySpecialAssets, QuerySpecialAssetsResponse, QueryMarketSummary, QueryMarketSummaryResponse, QueryAccountBalances, QueryAccountBalancesResponse, QueryAccountSummary, QueryAccountSummaryResponse, QueryLiquidationTargets, QueryLiquidationTargetsResponse, QueryBadDebts, QueryBadDebtsResponse, QueryMaxWithdraw, QueryMaxWithdrawResponse, QueryMaxBorrow, QueryMaxBorrowResponse, QueryInspect, QueryInspectResponse, QueryInspectAccount, QueryInspectAccountResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Params queries the parameters of the x/leverage module. */
   params(request?: QueryParams): Promise<QueryParamsResponse>;
   /** RegisteredTokens queries for all the registered tokens. */
   registeredTokens(request: QueryRegisteredTokens): Promise<QueryRegisteredTokensResponse>;
+  /** RegisteredTokensWithMarkets queries for all the registered tokens and their market summaries. */
+  registeredTokensWithMarkets(request?: QueryRegisteredTokensWithMarkets): Promise<QueryRegisteredTokensWithMarketsResponse>;
+  /** SpecialAssets queries for all special asset pairs. */
+  specialAssets(request: QuerySpecialAssets): Promise<QuerySpecialAssetsResponse>;
   /** MarketSummary queries a base asset's current borrowing and supplying conditions. */
   marketSummary(request: QueryMarketSummary): Promise<QueryMarketSummaryResponse>;
   /** AccountBalances queries an account's current supply, collateral, and borrow positions. */
@@ -31,6 +35,8 @@ export interface Query {
    * actual token positions in human-readable symbol denoms instead of uTokens or ibc denoms.
    */
   inspect(request: QueryInspect): Promise<QueryInspectResponse>;
+  /** InspectAccount runs the inspect query on a single address */
+  inspectAccount(request: QueryInspectAccount): Promise<QueryInspectAccountResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
@@ -38,6 +44,8 @@ export class QueryClientImpl implements Query {
     this.rpc = rpc;
     this.params = this.params.bind(this);
     this.registeredTokens = this.registeredTokens.bind(this);
+    this.registeredTokensWithMarkets = this.registeredTokensWithMarkets.bind(this);
+    this.specialAssets = this.specialAssets.bind(this);
     this.marketSummary = this.marketSummary.bind(this);
     this.accountBalances = this.accountBalances.bind(this);
     this.accountSummary = this.accountSummary.bind(this);
@@ -46,6 +54,7 @@ export class QueryClientImpl implements Query {
     this.maxWithdraw = this.maxWithdraw.bind(this);
     this.maxBorrow = this.maxBorrow.bind(this);
     this.inspect = this.inspect.bind(this);
+    this.inspectAccount = this.inspectAccount.bind(this);
   }
   params(request: QueryParams = {}): Promise<QueryParamsResponse> {
     const data = QueryParams.encode(request).finish();
@@ -56,6 +65,16 @@ export class QueryClientImpl implements Query {
     const data = QueryRegisteredTokens.encode(request).finish();
     const promise = this.rpc.request("umee.leverage.v1.Query", "RegisteredTokens", data);
     return promise.then(data => QueryRegisteredTokensResponse.decode(new BinaryReader(data)));
+  }
+  registeredTokensWithMarkets(request: QueryRegisteredTokensWithMarkets = {}): Promise<QueryRegisteredTokensWithMarketsResponse> {
+    const data = QueryRegisteredTokensWithMarkets.encode(request).finish();
+    const promise = this.rpc.request("umee.leverage.v1.Query", "RegisteredTokensWithMarkets", data);
+    return promise.then(data => QueryRegisteredTokensWithMarketsResponse.decode(new BinaryReader(data)));
+  }
+  specialAssets(request: QuerySpecialAssets): Promise<QuerySpecialAssetsResponse> {
+    const data = QuerySpecialAssets.encode(request).finish();
+    const promise = this.rpc.request("umee.leverage.v1.Query", "SpecialAssets", data);
+    return promise.then(data => QuerySpecialAssetsResponse.decode(new BinaryReader(data)));
   }
   marketSummary(request: QueryMarketSummary): Promise<QueryMarketSummaryResponse> {
     const data = QueryMarketSummary.encode(request).finish();
@@ -97,6 +116,11 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("umee.leverage.v1.Query", "Inspect", data);
     return promise.then(data => QueryInspectResponse.decode(new BinaryReader(data)));
   }
+  inspectAccount(request: QueryInspectAccount): Promise<QueryInspectAccountResponse> {
+    const data = QueryInspectAccount.encode(request).finish();
+    const promise = this.rpc.request("umee.leverage.v1.Query", "InspectAccount", data);
+    return promise.then(data => QueryInspectAccountResponse.decode(new BinaryReader(data)));
+  }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {
   const rpc = createProtobufRpcClient(base);
@@ -107,6 +131,12 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     registeredTokens(request: QueryRegisteredTokens): Promise<QueryRegisteredTokensResponse> {
       return queryService.registeredTokens(request);
+    },
+    registeredTokensWithMarkets(request?: QueryRegisteredTokensWithMarkets): Promise<QueryRegisteredTokensWithMarketsResponse> {
+      return queryService.registeredTokensWithMarkets(request);
+    },
+    specialAssets(request: QuerySpecialAssets): Promise<QuerySpecialAssetsResponse> {
+      return queryService.specialAssets(request);
     },
     marketSummary(request: QueryMarketSummary): Promise<QueryMarketSummaryResponse> {
       return queryService.marketSummary(request);
@@ -131,6 +161,9 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     inspect(request: QueryInspect): Promise<QueryInspectResponse> {
       return queryService.inspect(request);
+    },
+    inspectAccount(request: QueryInspectAccount): Promise<QueryInspectAccountResponse> {
+      return queryService.inspectAccount(request);
     }
   };
 };

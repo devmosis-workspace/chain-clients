@@ -1,5 +1,5 @@
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgSupply, MsgWithdraw, MsgMaxWithdraw, MsgCollateralize, MsgDecollateralize, MsgBorrow, MsgMaxBorrow, MsgRepay, MsgLiquidate, MsgLeveragedLiquidate, MsgSupplyCollateral, MsgGovUpdateRegistry } from "./tx";
+import { GeneratedType } from "@cosmjs/proto-signing";
+import { MsgSupply, MsgWithdraw, MsgMaxWithdraw, MsgCollateralize, MsgDecollateralize, MsgBorrow, MsgMaxBorrow, MsgRepay, MsgLiquidate, MsgLeveragedLiquidate, MsgSupplyCollateral, MsgGovUpdateRegistry, MsgGovUpdateSpecialAssets, MsgGovSetParams } from "./tx";
 export declare const registry: ReadonlyArray<[string, GeneratedType]>;
 export declare const load: (protoRegistry: Registry) => void;
 export declare const MessageComposer: {
@@ -49,6 +49,14 @@ export declare const MessageComposer: {
             value: Uint8Array;
         };
         govUpdateRegistry(value: MsgGovUpdateRegistry): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        govUpdateSpecialAssets(value: MsgGovUpdateSpecialAssets): {
+            typeUrl: string;
+            value: Uint8Array;
+        };
+        govSetParams(value: MsgGovSetParams): {
             typeUrl: string;
             value: Uint8Array;
         };
@@ -102,6 +110,14 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgGovUpdateRegistry;
         };
+        govUpdateSpecialAssets(value: MsgGovUpdateSpecialAssets): {
+            typeUrl: string;
+            value: MsgGovUpdateSpecialAssets;
+        };
+        govSetParams(value: MsgGovSetParams): {
+            typeUrl: string;
+            value: MsgGovSetParams;
+        };
     };
     fromJSON: {
         supply(value: any): {
@@ -152,6 +168,14 @@ export declare const MessageComposer: {
             typeUrl: string;
             value: MsgGovUpdateRegistry;
         };
+        govUpdateSpecialAssets(value: any): {
+            typeUrl: string;
+            value: MsgGovUpdateSpecialAssets;
+        };
+        govSetParams(value: any): {
+            typeUrl: string;
+            value: MsgGovSetParams;
+        };
     };
     fromPartial: {
         supply(value: MsgSupply): {
@@ -201,6 +225,14 @@ export declare const MessageComposer: {
         govUpdateRegistry(value: MsgGovUpdateRegistry): {
             typeUrl: string;
             value: MsgGovUpdateRegistry;
+        };
+        govUpdateSpecialAssets(value: MsgGovUpdateSpecialAssets): {
+            typeUrl: string;
+            value: MsgGovUpdateSpecialAssets;
+        };
+        govSetParams(value: MsgGovSetParams): {
+            typeUrl: string;
+            value: MsgGovSetParams;
         };
     };
 };

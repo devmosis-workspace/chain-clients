@@ -1,5 +1,5 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
-import { AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
+import { AminoTypes } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const umeeAminoConverters: {
     "/umee.uibc.v1.MsgGovUpdateQuota": {
@@ -12,10 +12,25 @@ export declare const umeeAminoConverters: {
         toAmino: (message: import("./uibc/v1/tx").MsgGovSetIBCStatus) => import("./uibc/v1/tx").MsgGovSetIBCStatusAmino;
         fromAmino: (object: import("./uibc/v1/tx").MsgGovSetIBCStatusAmino) => import("./uibc/v1/tx").MsgGovSetIBCStatus;
     };
+    "/umee.uibc.v1.MsgGovToggleICS20Hooks": {
+        aminoType: string;
+        toAmino: (message: import("./uibc/v1/tx").MsgGovToggleICS20Hooks) => import("./uibc/v1/tx").MsgGovToggleICS20HooksAmino;
+        fromAmino: (object: import("./uibc/v1/tx").MsgGovToggleICS20HooksAmino) => import("./uibc/v1/tx").MsgGovToggleICS20Hooks;
+    };
     "/umee.ugov.v1.MsgGovUpdateMinGasPrice": {
         aminoType: string;
         toAmino: (message: import("./ugov/v1/tx").MsgGovUpdateMinGasPrice) => import("./ugov/v1/tx").MsgGovUpdateMinGasPriceAmino;
         fromAmino: (object: import("./ugov/v1/tx").MsgGovUpdateMinGasPriceAmino) => import("./ugov/v1/tx").MsgGovUpdateMinGasPrice;
+    };
+    "/umee.ugov.v1.MsgGovSetEmergencyGroup": {
+        aminoType: string;
+        toAmino: (message: import("./ugov/v1/tx").MsgGovSetEmergencyGroup) => import("./ugov/v1/tx").MsgGovSetEmergencyGroupAmino;
+        fromAmino: (object: import("./ugov/v1/tx").MsgGovSetEmergencyGroupAmino) => import("./ugov/v1/tx").MsgGovSetEmergencyGroup;
+    };
+    "/umee.ugov.v1.MsgGovUpdateInflationParams": {
+        aminoType: string;
+        toAmino: (message: import("./ugov/v1/tx").MsgGovUpdateInflationParams) => import("./ugov/v1/tx").MsgGovUpdateInflationParamsAmino;
+        fromAmino: (object: import("./ugov/v1/tx").MsgGovUpdateInflationParamsAmino) => import("./ugov/v1/tx").MsgGovUpdateInflationParams;
     };
     "/umee.oracle.v1.MsgAggregateExchangeRatePrevote": {
         aminoType: string;
@@ -31,6 +46,26 @@ export declare const umeeAminoConverters: {
         aminoType: string;
         toAmino: (message: import("./oracle/v1/tx").MsgDelegateFeedConsent) => import("./oracle/v1/tx").MsgDelegateFeedConsentAmino;
         fromAmino: (object: import("./oracle/v1/tx").MsgDelegateFeedConsentAmino) => import("./oracle/v1/tx").MsgDelegateFeedConsent;
+    };
+    "/umee.metoken.v1.MsgSwap": {
+        aminoType: string;
+        toAmino: (message: import("./metoken/v1/tx").MsgSwap) => import("./metoken/v1/tx").MsgSwapAmino;
+        fromAmino: (object: import("./metoken/v1/tx").MsgSwapAmino) => import("./metoken/v1/tx").MsgSwap;
+    };
+    "/umee.metoken.v1.MsgRedeem": {
+        aminoType: string;
+        toAmino: (message: import("./metoken/v1/tx").MsgRedeem) => import("./metoken/v1/tx").MsgRedeemAmino;
+        fromAmino: (object: import("./metoken/v1/tx").MsgRedeemAmino) => import("./metoken/v1/tx").MsgRedeem;
+    };
+    "/umee.metoken.v1.MsgGovSetParams": {
+        aminoType: string;
+        toAmino: (message: import("./metoken/v1/tx").MsgGovSetParams) => import("./metoken/v1/tx").MsgGovSetParamsAmino;
+        fromAmino: (object: import("./metoken/v1/tx").MsgGovSetParamsAmino) => import("./metoken/v1/tx").MsgGovSetParams;
+    };
+    "/umee.metoken.v1.MsgGovUpdateRegistry": {
+        aminoType: string;
+        toAmino: (message: import("./metoken/v1/tx").MsgGovUpdateRegistry) => import("./metoken/v1/tx").MsgGovUpdateRegistryAmino;
+        fromAmino: (object: import("./metoken/v1/tx").MsgGovUpdateRegistryAmino) => import("./metoken/v1/tx").MsgGovUpdateRegistry;
     };
     "/umee.leverage.v1.MsgSupply": {
         aminoType: string;
@@ -92,6 +127,16 @@ export declare const umeeAminoConverters: {
         toAmino: (message: import("./leverage/v1/tx").MsgGovUpdateRegistry) => import("./leverage/v1/tx").MsgGovUpdateRegistryAmino;
         fromAmino: (object: import("./leverage/v1/tx").MsgGovUpdateRegistryAmino) => import("./leverage/v1/tx").MsgGovUpdateRegistry;
     };
+    "/umee.leverage.v1.MsgGovUpdateSpecialAssets": {
+        aminoType: string;
+        toAmino: (message: import("./leverage/v1/tx").MsgGovUpdateSpecialAssets) => import("./leverage/v1/tx").MsgGovUpdateSpecialAssetsAmino;
+        fromAmino: (object: import("./leverage/v1/tx").MsgGovUpdateSpecialAssetsAmino) => import("./leverage/v1/tx").MsgGovUpdateSpecialAssets;
+    };
+    "/umee.leverage.v1.MsgGovSetParams": {
+        aminoType: string;
+        toAmino: (message: import("./leverage/v1/tx").MsgGovSetParams) => import("./leverage/v1/tx").MsgGovSetParamsAmino;
+        fromAmino: (object: import("./leverage/v1/tx").MsgGovSetParamsAmino) => import("./leverage/v1/tx").MsgGovSetParams;
+    };
     "/umee.incentive.v1.MsgClaim": {
         aminoType: string;
         toAmino: (message: import("./incentive/v1/tx").MsgClaim) => import("./incentive/v1/tx").MsgClaimAmino;
@@ -139,4 +184,4 @@ export declare const getSigningUmeeClient: ({ rpcEndpoint, signer, defaultTypes 
     rpcEndpoint: string | HttpEndpoint;
     signer: OfflineSigner;
     defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
-}) => Promise<SigningStargateClient>;
+}) => Promise<any>;

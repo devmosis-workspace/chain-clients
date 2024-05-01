@@ -1,5 +1,5 @@
 import { LCDClient } from "@cosmology/lcd";
-import { QueryExchangeRates, QueryExchangeRatesResponseSDKType, QueryActiveExchangeRates, QueryActiveExchangeRatesResponseSDKType, QueryFeederDelegation, QueryFeederDelegationResponseSDKType, QueryMissCounter, QueryMissCounterResponseSDKType, QuerySlashWindow, QuerySlashWindowResponseSDKType, QueryAggregatePrevote, QueryAggregatePrevoteResponseSDKType, QueryAggregatePrevotes, QueryAggregatePrevotesResponseSDKType, QueryAggregateVote, QueryAggregateVoteResponseSDKType, QueryAggregateVotes, QueryAggregateVotesResponseSDKType, QueryParams, QueryParamsResponseSDKType, QueryMedians, QueryMediansResponseSDKType, QueryMedianDeviations, QueryMedianDeviationsResponseSDKType, QueryAvgPrice, QueryAvgPriceResponseSDKType } from "./query";
+import { QueryExchangeRates, QueryExchangeRatesResponseSDKType, QueryActiveExchangeRates, QueryActiveExchangeRatesResponseSDKType, QueryFeederDelegation, QueryFeederDelegationResponseSDKType, QueryMissCounter, QueryMissCounterResponseSDKType, QuerySlashWindow, QuerySlashWindowResponseSDKType, QueryAggregatePrevote, QueryAggregatePrevoteResponseSDKType, QueryAggregatePrevotes, QueryAggregatePrevotesResponseSDKType, QueryAggregateVote, QueryAggregateVoteResponseSDKType, QueryAggregateVotes, QueryAggregateVotesResponseSDKType, QueryParams, QueryParamsResponseSDKType, QueryMedians, QueryMediansResponseSDKType, QueryMedianDeviations, QueryMedianDeviationsResponseSDKType, QueryAvgPrice, QueryAvgPriceResponseSDKType, QueryExgRatesWithTimestamp, QueryExgRatesWithTimestampResponseSDKType, QueryMissCounters, QueryMissCountersResponseSDKType } from "./query";
 export class LCDQueryClient {
   req: LCDClient;
   constructor({
@@ -21,6 +21,8 @@ export class LCDQueryClient {
     this.medians = this.medians.bind(this);
     this.medianDeviations = this.medianDeviations.bind(this);
     this.avgPrice = this.avgPrice.bind(this);
+    this.exgRatesWithTimestamp = this.exgRatesWithTimestamp.bind(this);
+    this.missCounters = this.missCounters.bind(this);
   }
   /* ExchangeRates returns exchange rates of all denoms,
    or, if specified, returns a single denom */
@@ -60,7 +62,7 @@ export class LCDQueryClient {
   }
   /* AggregateVote returns an aggregate vote of a validator */
   async aggregateVote(params: QueryAggregateVote): Promise<QueryAggregateVoteResponseSDKType> {
-    const endpoint = `umee/oracle/v1/valdiators/${params.validatorAddr}/aggregate_vote`;
+    const endpoint = `umee/oracle/v1/validators/${params.validatorAddr}/aggregate_vote`;
     return await this.req.get<QueryAggregateVoteResponseSDKType>(endpoint);
   }
   /* AggregateVotes returns aggregate votes of all validators */
@@ -104,5 +106,28 @@ export class LCDQueryClient {
   async avgPrice(params: QueryAvgPrice): Promise<QueryAvgPriceResponseSDKType> {
     const endpoint = `umee/historacle/v1/avg_price/${params.denom}`;
     return await this.req.get<QueryAvgPriceResponseSDKType>(endpoint);
+  }
+  /* ExgRatesWithTimestamp returns exchange rates of all denoms with timestamp,
+   or, if specified, returns a single denom */
+  async exgRatesWithTimestamp(params: QueryExgRatesWithTimestamp): Promise<QueryExgRatesWithTimestampResponseSDKType> {
+    const options: any = {
+      params: {}
+    };
+    if (typeof params?.denom !== "undefined") {
+      options.params.denom = params.denom;
+    }
+    const endpoint = `umee/oracle/v1/denoms/exg_rates_timestamp`;
+    return await this.req.get<QueryExgRatesWithTimestampResponseSDKType>(endpoint, options);
+  }
+  /* MissCounters returns oracle missing votes count of validators. */
+  async missCounters(params: QueryMissCounters): Promise<QueryMissCountersResponseSDKType> {
+    const options: any = {
+      params: {}
+    };
+    if (typeof params?.validator !== "undefined") {
+      options.params.validator = params.validator;
+    }
+    const endpoint = `umee/oracle/v1/miss_counters`;
+    return await this.req.get<QueryMissCountersResponseSDKType>(endpoint, options);
   }
 }

@@ -1,4 +1,4 @@
-import { MsgSupply, MsgWithdraw, MsgMaxWithdraw, MsgCollateralize, MsgDecollateralize, MsgBorrow, MsgMaxBorrow, MsgRepay, MsgLiquidate, MsgLeveragedLiquidate, MsgSupplyCollateral, MsgGovUpdateRegistry } from "./tx";
+import { MsgSupply, MsgWithdraw, MsgMaxWithdraw, MsgCollateralize, MsgDecollateralize, MsgBorrow, MsgMaxBorrow, MsgRepay, MsgLiquidate, MsgLeveragedLiquidate, MsgSupplyCollateral, MsgGovUpdateRegistry, MsgGovUpdateSpecialAssets, MsgGovSetParams } from "./tx";
 export declare const AminoConverter: {
     "/umee.leverage.v1.MsgSupply": {
         aminoType: string;
@@ -59,5 +59,15 @@ export declare const AminoConverter: {
         aminoType: string;
         toAmino: (message: MsgGovUpdateRegistry) => import("./tx").MsgGovUpdateRegistryAmino;
         fromAmino: (object: import("./tx").MsgGovUpdateRegistryAmino) => MsgGovUpdateRegistry;
+    };
+    "/umee.leverage.v1.MsgGovUpdateSpecialAssets": {
+        aminoType: string;
+        toAmino: (message: MsgGovUpdateSpecialAssets) => import("./tx").MsgGovUpdateSpecialAssetsAmino;
+        fromAmino: (object: import("./tx").MsgGovUpdateSpecialAssetsAmino) => MsgGovUpdateSpecialAssets;
+    };
+    "/umee.leverage.v1.MsgGovSetParams": {
+        aminoType: string;
+        toAmino: (message: MsgGovSetParams) => import("./tx").MsgGovSetParamsAmino;
+        fromAmino: (object: import("./tx").MsgGovSetParamsAmino) => MsgGovSetParams;
     };
 };

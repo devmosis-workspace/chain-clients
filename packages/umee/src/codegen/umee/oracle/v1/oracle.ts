@@ -1,4 +1,5 @@
-import { Timestamp, TimestampAmino, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
 import { BinaryWriter } from "../../../binary";
 import { Decimal } from "@cosmjs/math";
 import { isSet, fromJsonTimestamp } from "../../../helpers";
@@ -40,35 +41,35 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the parameters for the oracle module. */
 export interface ParamsAmino {
-  vote_period: string;
-  vote_threshold: string;
-  reward_band: string;
-  reward_distribution_window: string;
-  accept_list: DenomAmino[];
-  slash_fraction: string;
-  slash_window: string;
-  min_valid_per_window: string;
+  vote_period?: string;
+  vote_threshold?: string;
+  reward_band?: string;
+  reward_distribution_window?: string;
+  accept_list?: DenomAmino[];
+  slash_fraction?: string;
+  slash_window?: string;
+  min_valid_per_window?: string;
   /**
    * Historic Stamp Period represents the amount of blocks the oracle
    * module waits before recording a new historic price.
    */
-  historic_stamp_period: string;
+  historic_stamp_period?: string;
   /**
    * Median Stamp Period represents the amount blocks the oracle module
    * waits between calculating and stamping a new median and standard
    * deviation of that median.
    */
-  median_stamp_period: string;
+  median_stamp_period?: string;
   /**
    * Maximum Price Stamps represents the maximum amount of historic prices
    * the oracle module will store before pruning via FIFO.
    */
-  maximum_price_stamps: string;
+  maximum_price_stamps?: string;
   /**
    * Maximum Median Stamps represents the maximum amount of medians the
    * oracle module will store before pruning via FIFO.
    */
-  maximum_median_stamps: string;
+  maximum_median_stamps?: string;
 }
 export interface ParamsAminoMsg {
   type: "/umee.oracle.v1.Params";
@@ -89,6 +90,33 @@ export interface ParamsSDKType {
   maximum_price_stamps: bigint;
   maximum_median_stamps: bigint;
 }
+/** AvgCounterParams - Historic avg counter params */
+export interface AvgCounterParams {
+  /** avg_period */
+  avgPeriod: Duration;
+  /** avg shift */
+  avgShift: Duration;
+}
+export interface AvgCounterParamsProtoMsg {
+  typeUrl: "/umee.oracle.v1.AvgCounterParams";
+  value: Uint8Array;
+}
+/** AvgCounterParams - Historic avg counter params */
+export interface AvgCounterParamsAmino {
+  /** avg_period */
+  avg_period?: DurationAmino;
+  /** avg shift */
+  avg_shift?: DurationAmino;
+}
+export interface AvgCounterParamsAminoMsg {
+  type: "/umee.oracle.v1.AvgCounterParams";
+  value: AvgCounterParamsAmino;
+}
+/** AvgCounterParams - Historic avg counter params */
+export interface AvgCounterParamsSDKType {
+  avg_period: DurationSDKType;
+  avg_shift: DurationSDKType;
+}
 /** Denom - the object to hold configurations of each denom */
 export interface Denom {
   baseDenom: string;
@@ -101,9 +129,9 @@ export interface DenomProtoMsg {
 }
 /** Denom - the object to hold configurations of each denom */
 export interface DenomAmino {
-  base_denom: string;
-  symbol_denom: string;
-  exponent: number;
+  base_denom?: string;
+  symbol_denom?: string;
+  exponent?: number;
 }
 export interface DenomAminoMsg {
   type: "/umee.oracle.v1.Denom";
@@ -139,9 +167,9 @@ export interface AggregateExchangeRatePrevoteProtoMsg {
  * rate}{denom},...,{exchange rate}{denom}:{voter}")
  */
 export interface AggregateExchangeRatePrevoteAmino {
-  hash: string;
-  voter: string;
-  submit_block: string;
+  hash?: string;
+  voter?: string;
+  submit_block?: string;
 }
 export interface AggregateExchangeRatePrevoteAminoMsg {
   type: "/umee.oracle.v1.AggregateExchangeRatePrevote";
@@ -176,8 +204,8 @@ export interface AggregateExchangeRateVoteProtoMsg {
  * the exchange rates of USD denominated in various assets.
  */
 export interface AggregateExchangeRateVoteAmino {
-  exchange_rate_tuples: ExchangeRateTupleAmino[];
-  voter: string;
+  exchange_rate_tuples?: ExchangeRateTupleAmino[];
+  voter?: string;
 }
 export interface AggregateExchangeRateVoteAminoMsg {
   type: "/umee.oracle.v1.AggregateExchangeRateVote";
@@ -202,8 +230,8 @@ export interface ExchangeRateTupleProtoMsg {
 }
 /** ExchangeRateTuple - struct to store interpreted exchange rates data to store */
 export interface ExchangeRateTupleAmino {
-  denom: string;
-  exchange_rate: string;
+  denom?: string;
+  exchange_rate?: string;
 }
 export interface ExchangeRateTupleAminoMsg {
   type: "/umee.oracle.v1.ExchangeRateTuple";
@@ -236,11 +264,11 @@ export interface AvgCounterProtoMsg {
  */
 export interface AvgCounterAmino {
   /** sum of prices in the counter */
-  sum: string;
+  sum?: string;
   /** number of aggregated prices in the counter */
-  num: number;
+  num?: number;
   /** Unix timestamp when the first price was aggregated in the counter */
-  start?: TimestampAmino;
+  start?: string;
 }
 export interface AvgCounterAminoMsg {
   type: "/umee.oracle.v1.AvgCounter";
@@ -254,6 +282,32 @@ export interface AvgCounterSDKType {
   sum: string;
   num: number;
   start: TimestampSDKType;
+}
+/** DenomExchangeRate stores exchange rate with timestamp */
+export interface DenomExchangeRate {
+  denom: string;
+  rate: string;
+  timestamp: Timestamp;
+}
+export interface DenomExchangeRateProtoMsg {
+  typeUrl: "/umee.oracle.v1.DenomExchangeRate";
+  value: Uint8Array;
+}
+/** DenomExchangeRate stores exchange rate with timestamp */
+export interface DenomExchangeRateAmino {
+  denom?: string;
+  rate?: string;
+  timestamp?: string;
+}
+export interface DenomExchangeRateAminoMsg {
+  type: "/umee.oracle.v1.DenomExchangeRate";
+  value: DenomExchangeRateAmino;
+}
+/** DenomExchangeRate stores exchange rate with timestamp */
+export interface DenomExchangeRateSDKType {
+  denom: string;
+  rate: string;
+  timestamp: TimestampSDKType;
 }
 function createBaseParams(): Params {
   return {
@@ -345,39 +399,61 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      votePeriod: BigInt(object.vote_period),
-      voteThreshold: object.vote_threshold,
-      rewardBand: object.reward_band,
-      rewardDistributionWindow: BigInt(object.reward_distribution_window),
-      acceptList: Array.isArray(object?.accept_list) ? object.accept_list.map((e: any) => Denom.fromAmino(e)) : [],
-      slashFraction: object.slash_fraction,
-      slashWindow: BigInt(object.slash_window),
-      minValidPerWindow: object.min_valid_per_window,
-      historicStampPeriod: BigInt(object.historic_stamp_period),
-      medianStampPeriod: BigInt(object.median_stamp_period),
-      maximumPriceStamps: BigInt(object.maximum_price_stamps),
-      maximumMedianStamps: BigInt(object.maximum_median_stamps)
-    };
+    const message = createBaseParams();
+    if (object.vote_period !== undefined && object.vote_period !== null) {
+      message.votePeriod = BigInt(object.vote_period);
+    }
+    if (object.vote_threshold !== undefined && object.vote_threshold !== null) {
+      message.voteThreshold = object.vote_threshold;
+    }
+    if (object.reward_band !== undefined && object.reward_band !== null) {
+      message.rewardBand = object.reward_band;
+    }
+    if (object.reward_distribution_window !== undefined && object.reward_distribution_window !== null) {
+      message.rewardDistributionWindow = BigInt(object.reward_distribution_window);
+    }
+    message.acceptList = object.accept_list?.map(e => Denom.fromAmino(e)) || [];
+    if (object.slash_fraction !== undefined && object.slash_fraction !== null) {
+      message.slashFraction = object.slash_fraction;
+    }
+    if (object.slash_window !== undefined && object.slash_window !== null) {
+      message.slashWindow = BigInt(object.slash_window);
+    }
+    if (object.min_valid_per_window !== undefined && object.min_valid_per_window !== null) {
+      message.minValidPerWindow = object.min_valid_per_window;
+    }
+    if (object.historic_stamp_period !== undefined && object.historic_stamp_period !== null) {
+      message.historicStampPeriod = BigInt(object.historic_stamp_period);
+    }
+    if (object.median_stamp_period !== undefined && object.median_stamp_period !== null) {
+      message.medianStampPeriod = BigInt(object.median_stamp_period);
+    }
+    if (object.maximum_price_stamps !== undefined && object.maximum_price_stamps !== null) {
+      message.maximumPriceStamps = BigInt(object.maximum_price_stamps);
+    }
+    if (object.maximum_median_stamps !== undefined && object.maximum_median_stamps !== null) {
+      message.maximumMedianStamps = BigInt(object.maximum_median_stamps);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
-    obj.vote_period = message.votePeriod ? message.votePeriod.toString() : undefined;
-    obj.vote_threshold = message.voteThreshold;
-    obj.reward_band = message.rewardBand;
-    obj.reward_distribution_window = message.rewardDistributionWindow ? message.rewardDistributionWindow.toString() : undefined;
+    obj.vote_period = message.votePeriod !== BigInt(0) ? message.votePeriod.toString() : undefined;
+    obj.vote_threshold = message.voteThreshold === "" ? undefined : message.voteThreshold;
+    obj.reward_band = message.rewardBand === "" ? undefined : message.rewardBand;
+    obj.reward_distribution_window = message.rewardDistributionWindow !== BigInt(0) ? message.rewardDistributionWindow.toString() : undefined;
     if (message.acceptList) {
       obj.accept_list = message.acceptList.map(e => e ? Denom.toAmino(e) : undefined);
     } else {
-      obj.accept_list = [];
+      obj.accept_list = message.acceptList;
     }
-    obj.slash_fraction = message.slashFraction;
-    obj.slash_window = message.slashWindow ? message.slashWindow.toString() : undefined;
-    obj.min_valid_per_window = message.minValidPerWindow;
-    obj.historic_stamp_period = message.historicStampPeriod ? message.historicStampPeriod.toString() : undefined;
-    obj.median_stamp_period = message.medianStampPeriod ? message.medianStampPeriod.toString() : undefined;
-    obj.maximum_price_stamps = message.maximumPriceStamps ? message.maximumPriceStamps.toString() : undefined;
-    obj.maximum_median_stamps = message.maximumMedianStamps ? message.maximumMedianStamps.toString() : undefined;
+    obj.slash_fraction = message.slashFraction === "" ? undefined : message.slashFraction;
+    obj.slash_window = message.slashWindow !== BigInt(0) ? message.slashWindow.toString() : undefined;
+    obj.min_valid_per_window = message.minValidPerWindow === "" ? undefined : message.minValidPerWindow;
+    obj.historic_stamp_period = message.historicStampPeriod !== BigInt(0) ? message.historicStampPeriod.toString() : undefined;
+    obj.median_stamp_period = message.medianStampPeriod !== BigInt(0) ? message.medianStampPeriod.toString() : undefined;
+    obj.maximum_price_stamps = message.maximumPriceStamps !== BigInt(0) ? message.maximumPriceStamps.toString() : undefined;
+    obj.maximum_median_stamps = message.maximumMedianStamps !== BigInt(0) ? message.maximumMedianStamps.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {
@@ -393,6 +469,67 @@ export const Params = {
     return {
       typeUrl: "/umee.oracle.v1.Params",
       value: Params.encode(message).finish()
+    };
+  }
+};
+function createBaseAvgCounterParams(): AvgCounterParams {
+  return {
+    avgPeriod: Duration.fromPartial({}),
+    avgShift: Duration.fromPartial({})
+  };
+}
+export const AvgCounterParams = {
+  typeUrl: "/umee.oracle.v1.AvgCounterParams",
+  encode(message: AvgCounterParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.avgPeriod !== undefined) {
+      Duration.encode(message.avgPeriod, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.avgShift !== undefined) {
+      Duration.encode(message.avgShift, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): AvgCounterParams {
+    return {
+      avgPeriod: isSet(object.avgPeriod) ? Duration.fromJSON(object.avgPeriod) : undefined,
+      avgShift: isSet(object.avgShift) ? Duration.fromJSON(object.avgShift) : undefined
+    };
+  },
+  fromPartial(object: Partial<AvgCounterParams>): AvgCounterParams {
+    const message = createBaseAvgCounterParams();
+    message.avgPeriod = object.avgPeriod !== undefined && object.avgPeriod !== null ? Duration.fromPartial(object.avgPeriod) : undefined;
+    message.avgShift = object.avgShift !== undefined && object.avgShift !== null ? Duration.fromPartial(object.avgShift) : undefined;
+    return message;
+  },
+  fromAmino(object: AvgCounterParamsAmino): AvgCounterParams {
+    const message = createBaseAvgCounterParams();
+    if (object.avg_period !== undefined && object.avg_period !== null) {
+      message.avgPeriod = Duration.fromAmino(object.avg_period);
+    }
+    if (object.avg_shift !== undefined && object.avg_shift !== null) {
+      message.avgShift = Duration.fromAmino(object.avg_shift);
+    }
+    return message;
+  },
+  toAmino(message: AvgCounterParams): AvgCounterParamsAmino {
+    const obj: any = {};
+    obj.avg_period = message.avgPeriod ? Duration.toAmino(message.avgPeriod) : undefined;
+    obj.avg_shift = message.avgShift ? Duration.toAmino(message.avgShift) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: AvgCounterParamsAminoMsg): AvgCounterParams {
+    return AvgCounterParams.fromAmino(object.value);
+  },
+  fromProtoMsg(message: AvgCounterParamsProtoMsg): AvgCounterParams {
+    return AvgCounterParams.decode(message.value);
+  },
+  toProto(message: AvgCounterParams): Uint8Array {
+    return AvgCounterParams.encode(message).finish();
+  },
+  toProtoMsg(message: AvgCounterParams): AvgCounterParamsProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.AvgCounterParams",
+      value: AvgCounterParams.encode(message).finish()
     };
   }
 };
@@ -432,17 +569,23 @@ export const Denom = {
     return message;
   },
   fromAmino(object: DenomAmino): Denom {
-    return {
-      baseDenom: object.base_denom,
-      symbolDenom: object.symbol_denom,
-      exponent: object.exponent
-    };
+    const message = createBaseDenom();
+    if (object.base_denom !== undefined && object.base_denom !== null) {
+      message.baseDenom = object.base_denom;
+    }
+    if (object.symbol_denom !== undefined && object.symbol_denom !== null) {
+      message.symbolDenom = object.symbol_denom;
+    }
+    if (object.exponent !== undefined && object.exponent !== null) {
+      message.exponent = object.exponent;
+    }
+    return message;
   },
   toAmino(message: Denom): DenomAmino {
     const obj: any = {};
-    obj.base_denom = message.baseDenom;
-    obj.symbol_denom = message.symbolDenom;
-    obj.exponent = message.exponent;
+    obj.base_denom = message.baseDenom === "" ? undefined : message.baseDenom;
+    obj.symbol_denom = message.symbolDenom === "" ? undefined : message.symbolDenom;
+    obj.exponent = message.exponent === 0 ? undefined : message.exponent;
     return obj;
   },
   fromAminoMsg(object: DenomAminoMsg): Denom {
@@ -497,17 +640,23 @@ export const AggregateExchangeRatePrevote = {
     return message;
   },
   fromAmino(object: AggregateExchangeRatePrevoteAmino): AggregateExchangeRatePrevote {
-    return {
-      hash: object.hash,
-      voter: object.voter,
-      submitBlock: BigInt(object.submit_block)
-    };
+    const message = createBaseAggregateExchangeRatePrevote();
+    if (object.hash !== undefined && object.hash !== null) {
+      message.hash = object.hash;
+    }
+    if (object.voter !== undefined && object.voter !== null) {
+      message.voter = object.voter;
+    }
+    if (object.submit_block !== undefined && object.submit_block !== null) {
+      message.submitBlock = BigInt(object.submit_block);
+    }
+    return message;
   },
   toAmino(message: AggregateExchangeRatePrevote): AggregateExchangeRatePrevoteAmino {
     const obj: any = {};
-    obj.hash = message.hash;
-    obj.voter = message.voter;
-    obj.submit_block = message.submitBlock ? message.submitBlock.toString() : undefined;
+    obj.hash = message.hash === "" ? undefined : message.hash;
+    obj.voter = message.voter === "" ? undefined : message.voter;
+    obj.submit_block = message.submitBlock !== BigInt(0) ? message.submitBlock.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: AggregateExchangeRatePrevoteAminoMsg): AggregateExchangeRatePrevote {
@@ -556,19 +705,21 @@ export const AggregateExchangeRateVote = {
     return message;
   },
   fromAmino(object: AggregateExchangeRateVoteAmino): AggregateExchangeRateVote {
-    return {
-      exchangeRateTuples: Array.isArray(object?.exchange_rate_tuples) ? object.exchange_rate_tuples.map((e: any) => ExchangeRateTuple.fromAmino(e)) : [],
-      voter: object.voter
-    };
+    const message = createBaseAggregateExchangeRateVote();
+    message.exchangeRateTuples = object.exchange_rate_tuples?.map(e => ExchangeRateTuple.fromAmino(e)) || [];
+    if (object.voter !== undefined && object.voter !== null) {
+      message.voter = object.voter;
+    }
+    return message;
   },
   toAmino(message: AggregateExchangeRateVote): AggregateExchangeRateVoteAmino {
     const obj: any = {};
     if (message.exchangeRateTuples) {
       obj.exchange_rate_tuples = message.exchangeRateTuples.map(e => e ? ExchangeRateTuple.toAmino(e) : undefined);
     } else {
-      obj.exchange_rate_tuples = [];
+      obj.exchange_rate_tuples = message.exchangeRateTuples;
     }
-    obj.voter = message.voter;
+    obj.voter = message.voter === "" ? undefined : message.voter;
     return obj;
   },
   fromAminoMsg(object: AggregateExchangeRateVoteAminoMsg): AggregateExchangeRateVote {
@@ -617,15 +768,19 @@ export const ExchangeRateTuple = {
     return message;
   },
   fromAmino(object: ExchangeRateTupleAmino): ExchangeRateTuple {
-    return {
-      denom: object.denom,
-      exchangeRate: object.exchange_rate
-    };
+    const message = createBaseExchangeRateTuple();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.exchange_rate !== undefined && object.exchange_rate !== null) {
+      message.exchangeRate = object.exchange_rate;
+    }
+    return message;
   },
   toAmino(message: ExchangeRateTuple): ExchangeRateTupleAmino {
     const obj: any = {};
-    obj.denom = message.denom;
-    obj.exchange_rate = message.exchangeRate;
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.exchange_rate = message.exchangeRate === "" ? undefined : message.exchangeRate;
     return obj;
   },
   fromAminoMsg(object: ExchangeRateTupleAminoMsg): ExchangeRateTuple {
@@ -680,17 +835,23 @@ export const AvgCounter = {
     return message;
   },
   fromAmino(object: AvgCounterAmino): AvgCounter {
-    return {
-      sum: object.sum,
-      num: object.num,
-      start: object.start
-    };
+    const message = createBaseAvgCounter();
+    if (object.sum !== undefined && object.sum !== null) {
+      message.sum = object.sum;
+    }
+    if (object.num !== undefined && object.num !== null) {
+      message.num = object.num;
+    }
+    if (object.start !== undefined && object.start !== null) {
+      message.start = Timestamp.fromAmino(object.start);
+    }
+    return message;
   },
   toAmino(message: AvgCounter): AvgCounterAmino {
     const obj: any = {};
-    obj.sum = message.sum;
-    obj.num = message.num;
-    obj.start = message.start;
+    obj.sum = message.sum === "" ? undefined : message.sum;
+    obj.num = message.num === 0 ? undefined : message.num;
+    obj.start = message.start ? Timestamp.toAmino(message.start) : undefined;
     return obj;
   },
   fromAminoMsg(object: AvgCounterAminoMsg): AvgCounter {
@@ -706,6 +867,77 @@ export const AvgCounter = {
     return {
       typeUrl: "/umee.oracle.v1.AvgCounter",
       value: AvgCounter.encode(message).finish()
+    };
+  }
+};
+function createBaseDenomExchangeRate(): DenomExchangeRate {
+  return {
+    denom: "",
+    rate: "",
+    timestamp: Timestamp.fromPartial({})
+  };
+}
+export const DenomExchangeRate = {
+  typeUrl: "/umee.oracle.v1.DenomExchangeRate",
+  encode(message: DenomExchangeRate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.denom !== "") {
+      writer.uint32(10).string(message.denom);
+    }
+    if (message.rate !== "") {
+      writer.uint32(18).string(Decimal.fromUserInput(message.rate, 18).atomics);
+    }
+    if (message.timestamp !== undefined) {
+      Timestamp.encode(message.timestamp, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): DenomExchangeRate {
+    return {
+      denom: isSet(object.denom) ? String(object.denom) : "",
+      rate: isSet(object.rate) ? String(object.rate) : "",
+      timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined
+    };
+  },
+  fromPartial(object: Partial<DenomExchangeRate>): DenomExchangeRate {
+    const message = createBaseDenomExchangeRate();
+    message.denom = object.denom ?? "";
+    message.rate = object.rate ?? "";
+    message.timestamp = object.timestamp !== undefined && object.timestamp !== null ? Timestamp.fromPartial(object.timestamp) : undefined;
+    return message;
+  },
+  fromAmino(object: DenomExchangeRateAmino): DenomExchangeRate {
+    const message = createBaseDenomExchangeRate();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.rate !== undefined && object.rate !== null) {
+      message.rate = object.rate;
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Timestamp.fromAmino(object.timestamp);
+    }
+    return message;
+  },
+  toAmino(message: DenomExchangeRate): DenomExchangeRateAmino {
+    const obj: any = {};
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.rate = message.rate === "" ? undefined : message.rate;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: DenomExchangeRateAminoMsg): DenomExchangeRate {
+    return DenomExchangeRate.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DenomExchangeRateProtoMsg): DenomExchangeRate {
+    return DenomExchangeRate.decode(message.value);
+  },
+  toProto(message: DenomExchangeRate): Uint8Array {
+    return DenomExchangeRate.encode(message).finish();
+  },
+  toProtoMsg(message: DenomExchangeRate): DenomExchangeRateProtoMsg {
+    return {
+      typeUrl: "/umee.oracle.v1.DenomExchangeRate",
+      value: DenomExchangeRate.encode(message).finish()
     };
   }
 };

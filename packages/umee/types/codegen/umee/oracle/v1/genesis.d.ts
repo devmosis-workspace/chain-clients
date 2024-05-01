@@ -1,16 +1,18 @@
-import { Params, ParamsAmino, ParamsSDKType, ExchangeRateTuple, ExchangeRateTupleAmino, ExchangeRateTupleSDKType, AggregateExchangeRatePrevote, AggregateExchangeRatePrevoteAmino, AggregateExchangeRatePrevoteSDKType, AggregateExchangeRateVote, AggregateExchangeRateVoteAmino, AggregateExchangeRateVoteSDKType } from "./oracle";
+import { Params, ParamsAmino, ParamsSDKType, DenomExchangeRate, DenomExchangeRateAmino, DenomExchangeRateSDKType, AggregateExchangeRatePrevote, AggregateExchangeRatePrevoteAmino, AggregateExchangeRatePrevoteSDKType, AggregateExchangeRateVote, AggregateExchangeRateVoteAmino, AggregateExchangeRateVoteSDKType, AvgCounterParams, AvgCounterParamsAmino, AvgCounterParamsSDKType, ExchangeRateTuple, ExchangeRateTupleAmino, ExchangeRateTupleSDKType } from "./oracle";
 import { BinaryWriter } from "../../../binary";
 /** GenesisState defines the oracle module's genesis state. */
 export interface GenesisState {
     params: Params;
     feederDelegations: FeederDelegation[];
-    exchangeRates: ExchangeRateTuple[];
+    exchangeRates: DenomExchangeRate[];
     missCounters: MissCounter[];
     aggregateExchangeRatePrevotes: AggregateExchangeRatePrevote[];
     aggregateExchangeRateVotes: AggregateExchangeRateVote[];
     medians: Price[];
     historicPrices: Price[];
     medianDeviations: Price[];
+    /** Historic Avg Counter params */
+    avgCounterParams: AvgCounterParams;
 }
 export interface GenesisStateProtoMsg {
     typeUrl: "/umee.oracle.v1.GenesisState";
@@ -19,14 +21,16 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the oracle module's genesis state. */
 export interface GenesisStateAmino {
     params?: ParamsAmino;
-    feeder_delegations: FeederDelegationAmino[];
-    exchange_rates: ExchangeRateTupleAmino[];
-    miss_counters: MissCounterAmino[];
-    aggregate_exchange_rate_prevotes: AggregateExchangeRatePrevoteAmino[];
-    aggregate_exchange_rate_votes: AggregateExchangeRateVoteAmino[];
-    medians: PriceAmino[];
-    historic_prices: PriceAmino[];
-    medianDeviations: PriceAmino[];
+    feeder_delegations?: FeederDelegationAmino[];
+    exchange_rates?: DenomExchangeRateAmino[];
+    miss_counters?: MissCounterAmino[];
+    aggregate_exchange_rate_prevotes?: AggregateExchangeRatePrevoteAmino[];
+    aggregate_exchange_rate_votes?: AggregateExchangeRateVoteAmino[];
+    medians?: PriceAmino[];
+    historic_prices?: PriceAmino[];
+    medianDeviations?: PriceAmino[];
+    /** Historic Avg Counter params */
+    avg_counter_params?: AvgCounterParamsAmino;
 }
 export interface GenesisStateAminoMsg {
     type: "/umee.oracle.v1.GenesisState";
@@ -36,13 +40,14 @@ export interface GenesisStateAminoMsg {
 export interface GenesisStateSDKType {
     params: ParamsSDKType;
     feeder_delegations: FeederDelegationSDKType[];
-    exchange_rates: ExchangeRateTupleSDKType[];
+    exchange_rates: DenomExchangeRateSDKType[];
     miss_counters: MissCounterSDKType[];
     aggregate_exchange_rate_prevotes: AggregateExchangeRatePrevoteSDKType[];
     aggregate_exchange_rate_votes: AggregateExchangeRateVoteSDKType[];
     medians: PriceSDKType[];
     historic_prices: PriceSDKType[];
     medianDeviations: PriceSDKType[];
+    avg_counter_params: AvgCounterParamsSDKType;
 }
 /**
  * FeederDelegation is the address for where oracle feeder authority are
@@ -63,8 +68,8 @@ export interface FeederDelegationProtoMsg {
  * default feeder addresses.
  */
 export interface FeederDelegationAmino {
-    feeder_address: string;
-    validator_address: string;
+    feeder_address?: string;
+    validator_address?: string;
 }
 export interface FeederDelegationAminoMsg {
     type: "/umee.oracle.v1.FeederDelegation";
@@ -96,8 +101,8 @@ export interface MissCounterProtoMsg {
  * oracle module's genesis state
  */
 export interface MissCounterAmino {
-    validator_address: string;
-    miss_counter: string;
+    validator_address?: string;
+    miss_counter?: string;
 }
 export interface MissCounterAminoMsg {
     type: "/umee.oracle.v1.MissCounter";
@@ -123,7 +128,7 @@ export interface PriceProtoMsg {
 /** Price is an instance of a price "stamp" */
 export interface PriceAmino {
     exchange_rate_tuple?: ExchangeRateTupleAmino;
-    block_num: string;
+    block_num?: string;
 }
 export interface PriceAminoMsg {
     type: "/umee.oracle.v1.Price";

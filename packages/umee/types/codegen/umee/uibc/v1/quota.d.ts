@@ -30,6 +30,14 @@ export interface Params {
     tokenQuota: string;
     /** quota_duration defines quota expires for each ibc-transfer denom in seconds */
     quotaDuration: Duration;
+    /** inflow_outflow_quota_base defines the inflow outflow quota base of ibc-transfer in USD */
+    inflowOutflowQuotaBase: string;
+    /** inflow_outflow_quota_rate defines the rate of total inflows */
+    inflowOutflowQuotaRate: string;
+    /** inflow_outflow_token_quota_base defines the inflow outflow quota base for token */
+    inflowOutflowTokenQuotaBase: string;
+    /** ics20_hooks enables or disables the ICS20 transfer hooks. */
+    ics20Hooks: boolean;
 }
 export interface ParamsProtoMsg {
     typeUrl: "/umee.uibc.v1.Params";
@@ -38,13 +46,21 @@ export interface ParamsProtoMsg {
 /** Params of x/uibc module */
 export interface ParamsAmino {
     /** ibc_status defines the IBC ICS20 status (transfer quota or transfers disabled). */
-    ibc_status: IBCTransferStatus;
+    ibc_status?: IBCTransferStatus;
     /** total_quota defines the total outflow limit of ibc-transfer in USD */
-    total_quota: string;
+    total_quota?: string;
     /** token_quota defines the outflow limit per token in USD */
-    token_quota: string;
+    token_quota?: string;
     /** quota_duration defines quota expires for each ibc-transfer denom in seconds */
     quota_duration?: DurationAmino;
+    /** inflow_outflow_quota_base defines the inflow outflow quota base of ibc-transfer in USD */
+    inflow_outflow_quota_base?: string;
+    /** inflow_outflow_quota_rate defines the rate of total inflows */
+    inflow_outflow_quota_rate?: string;
+    /** inflow_outflow_token_quota_base defines the inflow outflow quota base for token */
+    inflow_outflow_token_quota_base?: string;
+    /** ics20_hooks enables or disables the ICS20 transfer hooks. */
+    ics20_hooks?: boolean;
 }
 export interface ParamsAminoMsg {
     type: "/umee.uibc.v1.Params";
@@ -56,6 +72,10 @@ export interface ParamsSDKType {
     total_quota: string;
     token_quota: string;
     quota_duration: DurationSDKType;
+    inflow_outflow_quota_base: string;
+    inflow_outflow_quota_rate: string;
+    inflow_outflow_token_quota_base: string;
+    ics20_hooks: boolean;
 }
 export declare const Params: {
     typeUrl: string;

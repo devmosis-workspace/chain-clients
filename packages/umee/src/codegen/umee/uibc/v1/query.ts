@@ -1,8 +1,86 @@
+import { Timestamp, TimestampSDKType } from "../../../google/protobuf/timestamp";
+import { DecCoinSymbol, DecCoinSymbolAmino, DecCoinSymbolSDKType } from "./uibc";
 import { Params, ParamsAmino, ParamsSDKType } from "./quota";
-import { DecCoin, DecCoinAmino, DecCoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryWriter } from "../../../binary";
-import { isSet } from "../../../helpers";
+import { isSet, fromJsonTimestamp } from "../../../helpers";
 import { Decimal } from "@cosmjs/math";
+/** QueryAllInflows defines request type for query the inflow quota of registered denoms. */
+export interface QueryQuotaExpires {}
+export interface QueryQuotaExpiresProtoMsg {
+  typeUrl: "/umee.uibc.v1.QueryQuotaExpires";
+  value: Uint8Array;
+}
+/** QueryAllInflows defines request type for query the inflow quota of registered denoms. */
+export interface QueryQuotaExpiresAmino {}
+export interface QueryQuotaExpiresAminoMsg {
+  type: "/umee.uibc.v1.QueryQuotaExpires";
+  value: QueryQuotaExpiresAmino;
+}
+/** QueryAllInflows defines request type for query the inflow quota of registered denoms. */
+export interface QueryQuotaExpiresSDKType {}
+/** QueryAllInflowsResponse defines response type of Query/AllInflows */
+export interface QueryQuotaExpiresResponse {
+  endTime: Timestamp;
+}
+export interface QueryQuotaExpiresResponseProtoMsg {
+  typeUrl: "/umee.uibc.v1.QueryQuotaExpiresResponse";
+  value: Uint8Array;
+}
+/** QueryAllInflowsResponse defines response type of Query/AllInflows */
+export interface QueryQuotaExpiresResponseAmino {
+  end_time?: string;
+}
+export interface QueryQuotaExpiresResponseAminoMsg {
+  type: "/umee.uibc.v1.QueryQuotaExpiresResponse";
+  value: QueryQuotaExpiresResponseAmino;
+}
+/** QueryAllInflowsResponse defines response type of Query/AllInflows */
+export interface QueryQuotaExpiresResponseSDKType {
+  end_time: TimestampSDKType;
+}
+/** QueryInflows defines request type for query the inflow quota of denoms */
+export interface QueryInflows {
+  denom: string;
+}
+export interface QueryInflowsProtoMsg {
+  typeUrl: "/umee.uibc.v1.QueryInflows";
+  value: Uint8Array;
+}
+/** QueryInflows defines request type for query the inflow quota of denoms */
+export interface QueryInflowsAmino {
+  denom?: string;
+}
+export interface QueryInflowsAminoMsg {
+  type: "/umee.uibc.v1.QueryInflows";
+  value: QueryInflowsAmino;
+}
+/** QueryInflows defines request type for query the inflow quota of denoms */
+export interface QueryInflowsSDKType {
+  denom: string;
+}
+/** QueryInflowsResponse defines response type of Query/Inflows */
+export interface QueryInflowsResponse {
+  sum: string;
+  inflows: DecCoinSymbol[];
+}
+export interface QueryInflowsResponseProtoMsg {
+  typeUrl: "/umee.uibc.v1.QueryInflowsResponse";
+  value: Uint8Array;
+}
+/** QueryInflowsResponse defines response type of Query/Inflows */
+export interface QueryInflowsResponseAmino {
+  sum?: string;
+  inflows?: DecCoinSymbolAmino[];
+}
+export interface QueryInflowsResponseAminoMsg {
+  type: "/umee.uibc.v1.QueryInflowsResponse";
+  value: QueryInflowsResponseAmino;
+}
+/** QueryInflowsResponse defines response type of Query/Inflows */
+export interface QueryInflowsResponseSDKType {
+  sum: string;
+  inflows: DecCoinSymbolSDKType[];
+}
 /**
  * QueryParams defines the request structure for the Params gRPC service
  * handler.
@@ -65,7 +143,7 @@ export interface QueryOutflowsProtoMsg {
 }
 /** QueryOutflow defines request type for query the quota of denoms */
 export interface QueryOutflowsAmino {
-  denom: string;
+  denom?: string;
 }
 export interface QueryOutflowsAminoMsg {
   type: "/umee.uibc.v1.QueryOutflows";
@@ -85,7 +163,7 @@ export interface QueryOutflowsResponseProtoMsg {
 }
 /** QueryOutflowResponse defines response type of Query/Outflow */
 export interface QueryOutflowsResponseAmino {
-  amount: string;
+  amount?: string;
 }
 export interface QueryOutflowsResponseAminoMsg {
   type: "/umee.uibc.v1.QueryOutflowsResponse";
@@ -111,7 +189,7 @@ export interface QueryAllOutflowsAminoMsg {
 export interface QueryAllOutflowsSDKType {}
 /** QueryOutflowResponse defines response type of Query/Outflow */
 export interface QueryAllOutflowsResponse {
-  outflows: DecCoin[];
+  outflows: DecCoinSymbol[];
 }
 export interface QueryAllOutflowsResponseProtoMsg {
   typeUrl: "/umee.uibc.v1.QueryAllOutflowsResponse";
@@ -119,7 +197,7 @@ export interface QueryAllOutflowsResponseProtoMsg {
 }
 /** QueryOutflowResponse defines response type of Query/Outflow */
 export interface QueryAllOutflowsResponseAmino {
-  outflows: DecCoinAmino[];
+  outflows?: DecCoinSymbolAmino[];
 }
 export interface QueryAllOutflowsResponseAminoMsg {
   type: "/umee.uibc.v1.QueryAllOutflowsResponse";
@@ -127,8 +205,212 @@ export interface QueryAllOutflowsResponseAminoMsg {
 }
 /** QueryOutflowResponse defines response type of Query/Outflow */
 export interface QueryAllOutflowsResponseSDKType {
-  outflows: DecCoinSDKType[];
+  outflows: DecCoinSymbolSDKType[];
 }
+function createBaseQueryQuotaExpires(): QueryQuotaExpires {
+  return {};
+}
+export const QueryQuotaExpires = {
+  typeUrl: "/umee.uibc.v1.QueryQuotaExpires",
+  encode(_: QueryQuotaExpires, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  fromJSON(_: any): QueryQuotaExpires {
+    return {};
+  },
+  fromPartial(_: Partial<QueryQuotaExpires>): QueryQuotaExpires {
+    const message = createBaseQueryQuotaExpires();
+    return message;
+  },
+  fromAmino(_: QueryQuotaExpiresAmino): QueryQuotaExpires {
+    const message = createBaseQueryQuotaExpires();
+    return message;
+  },
+  toAmino(_: QueryQuotaExpires): QueryQuotaExpiresAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryQuotaExpiresAminoMsg): QueryQuotaExpires {
+    return QueryQuotaExpires.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryQuotaExpiresProtoMsg): QueryQuotaExpires {
+    return QueryQuotaExpires.decode(message.value);
+  },
+  toProto(message: QueryQuotaExpires): Uint8Array {
+    return QueryQuotaExpires.encode(message).finish();
+  },
+  toProtoMsg(message: QueryQuotaExpires): QueryQuotaExpiresProtoMsg {
+    return {
+      typeUrl: "/umee.uibc.v1.QueryQuotaExpires",
+      value: QueryQuotaExpires.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryQuotaExpiresResponse(): QueryQuotaExpiresResponse {
+  return {
+    endTime: Timestamp.fromPartial({})
+  };
+}
+export const QueryQuotaExpiresResponse = {
+  typeUrl: "/umee.uibc.v1.QueryQuotaExpiresResponse",
+  encode(message: QueryQuotaExpiresResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.endTime !== undefined) {
+      Timestamp.encode(message.endTime, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryQuotaExpiresResponse {
+    return {
+      endTime: isSet(object.endTime) ? fromJsonTimestamp(object.endTime) : undefined
+    };
+  },
+  fromPartial(object: Partial<QueryQuotaExpiresResponse>): QueryQuotaExpiresResponse {
+    const message = createBaseQueryQuotaExpiresResponse();
+    message.endTime = object.endTime !== undefined && object.endTime !== null ? Timestamp.fromPartial(object.endTime) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryQuotaExpiresResponseAmino): QueryQuotaExpiresResponse {
+    const message = createBaseQueryQuotaExpiresResponse();
+    if (object.end_time !== undefined && object.end_time !== null) {
+      message.endTime = Timestamp.fromAmino(object.end_time);
+    }
+    return message;
+  },
+  toAmino(message: QueryQuotaExpiresResponse): QueryQuotaExpiresResponseAmino {
+    const obj: any = {};
+    obj.end_time = message.endTime ? Timestamp.toAmino(message.endTime) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryQuotaExpiresResponseAminoMsg): QueryQuotaExpiresResponse {
+    return QueryQuotaExpiresResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryQuotaExpiresResponseProtoMsg): QueryQuotaExpiresResponse {
+    return QueryQuotaExpiresResponse.decode(message.value);
+  },
+  toProto(message: QueryQuotaExpiresResponse): Uint8Array {
+    return QueryQuotaExpiresResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryQuotaExpiresResponse): QueryQuotaExpiresResponseProtoMsg {
+    return {
+      typeUrl: "/umee.uibc.v1.QueryQuotaExpiresResponse",
+      value: QueryQuotaExpiresResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryInflows(): QueryInflows {
+  return {
+    denom: ""
+  };
+}
+export const QueryInflows = {
+  typeUrl: "/umee.uibc.v1.QueryInflows",
+  encode(message: QueryInflows, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.denom !== "") {
+      writer.uint32(10).string(message.denom);
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryInflows {
+    return {
+      denom: isSet(object.denom) ? String(object.denom) : ""
+    };
+  },
+  fromPartial(object: Partial<QueryInflows>): QueryInflows {
+    const message = createBaseQueryInflows();
+    message.denom = object.denom ?? "";
+    return message;
+  },
+  fromAmino(object: QueryInflowsAmino): QueryInflows {
+    const message = createBaseQueryInflows();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
+  },
+  toAmino(message: QueryInflows): QueryInflowsAmino {
+    const obj: any = {};
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    return obj;
+  },
+  fromAminoMsg(object: QueryInflowsAminoMsg): QueryInflows {
+    return QueryInflows.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryInflowsProtoMsg): QueryInflows {
+    return QueryInflows.decode(message.value);
+  },
+  toProto(message: QueryInflows): Uint8Array {
+    return QueryInflows.encode(message).finish();
+  },
+  toProtoMsg(message: QueryInflows): QueryInflowsProtoMsg {
+    return {
+      typeUrl: "/umee.uibc.v1.QueryInflows",
+      value: QueryInflows.encode(message).finish()
+    };
+  }
+};
+function createBaseQueryInflowsResponse(): QueryInflowsResponse {
+  return {
+    sum: "",
+    inflows: []
+  };
+}
+export const QueryInflowsResponse = {
+  typeUrl: "/umee.uibc.v1.QueryInflowsResponse",
+  encode(message: QueryInflowsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.sum !== "") {
+      writer.uint32(10).string(Decimal.fromUserInput(message.sum, 18).atomics);
+    }
+    for (const v of message.inflows) {
+      DecCoinSymbol.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  fromJSON(object: any): QueryInflowsResponse {
+    return {
+      sum: isSet(object.sum) ? String(object.sum) : "",
+      inflows: Array.isArray(object?.inflows) ? object.inflows.map((e: any) => DecCoinSymbol.fromJSON(e)) : []
+    };
+  },
+  fromPartial(object: Partial<QueryInflowsResponse>): QueryInflowsResponse {
+    const message = createBaseQueryInflowsResponse();
+    message.sum = object.sum ?? "";
+    message.inflows = object.inflows?.map(e => DecCoinSymbol.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryInflowsResponseAmino): QueryInflowsResponse {
+    const message = createBaseQueryInflowsResponse();
+    if (object.sum !== undefined && object.sum !== null) {
+      message.sum = object.sum;
+    }
+    message.inflows = object.inflows?.map(e => DecCoinSymbol.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryInflowsResponse): QueryInflowsResponseAmino {
+    const obj: any = {};
+    obj.sum = message.sum === "" ? undefined : message.sum;
+    if (message.inflows) {
+      obj.inflows = message.inflows.map(e => e ? DecCoinSymbol.toAmino(e) : undefined);
+    } else {
+      obj.inflows = message.inflows;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryInflowsResponseAminoMsg): QueryInflowsResponse {
+    return QueryInflowsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryInflowsResponseProtoMsg): QueryInflowsResponse {
+    return QueryInflowsResponse.decode(message.value);
+  },
+  toProto(message: QueryInflowsResponse): Uint8Array {
+    return QueryInflowsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryInflowsResponse): QueryInflowsResponseProtoMsg {
+    return {
+      typeUrl: "/umee.uibc.v1.QueryInflowsResponse",
+      value: QueryInflowsResponse.encode(message).finish()
+    };
+  }
+};
 function createBaseQueryParams(): QueryParams {
   return {};
 }
@@ -145,7 +427,8 @@ export const QueryParams = {
     return message;
   },
   fromAmino(_: QueryParamsAmino): QueryParams {
-    return {};
+    const message = createBaseQueryParams();
+    return message;
   },
   toAmino(_: QueryParams): QueryParamsAmino {
     const obj: any = {};
@@ -191,9 +474,11 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
@@ -240,13 +525,15 @@ export const QueryOutflows = {
     return message;
   },
   fromAmino(object: QueryOutflowsAmino): QueryOutflows {
-    return {
-      denom: object.denom
-    };
+    const message = createBaseQueryOutflows();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
   },
   toAmino(message: QueryOutflows): QueryOutflowsAmino {
     const obj: any = {};
-    obj.denom = message.denom;
+    obj.denom = message.denom === "" ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: QueryOutflowsAminoMsg): QueryOutflows {
@@ -289,13 +576,15 @@ export const QueryOutflowsResponse = {
     return message;
   },
   fromAmino(object: QueryOutflowsResponseAmino): QueryOutflowsResponse {
-    return {
-      amount: object.amount
-    };
+    const message = createBaseQueryOutflowsResponse();
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
   },
   toAmino(message: QueryOutflowsResponse): QueryOutflowsResponseAmino {
     const obj: any = {};
-    obj.amount = message.amount;
+    obj.amount = message.amount === "" ? undefined : message.amount;
     return obj;
   },
   fromAminoMsg(object: QueryOutflowsResponseAminoMsg): QueryOutflowsResponse {
@@ -330,7 +619,8 @@ export const QueryAllOutflows = {
     return message;
   },
   fromAmino(_: QueryAllOutflowsAmino): QueryAllOutflows {
-    return {};
+    const message = createBaseQueryAllOutflows();
+    return message;
   },
   toAmino(_: QueryAllOutflows): QueryAllOutflowsAmino {
     const obj: any = {};
@@ -361,31 +651,31 @@ export const QueryAllOutflowsResponse = {
   typeUrl: "/umee.uibc.v1.QueryAllOutflowsResponse",
   encode(message: QueryAllOutflowsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.outflows) {
-      DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
+      DecCoinSymbol.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
   fromJSON(object: any): QueryAllOutflowsResponse {
     return {
-      outflows: Array.isArray(object?.outflows) ? object.outflows.map((e: any) => DecCoin.fromJSON(e)) : []
+      outflows: Array.isArray(object?.outflows) ? object.outflows.map((e: any) => DecCoinSymbol.fromJSON(e)) : []
     };
   },
   fromPartial(object: Partial<QueryAllOutflowsResponse>): QueryAllOutflowsResponse {
     const message = createBaseQueryAllOutflowsResponse();
-    message.outflows = object.outflows?.map(e => DecCoin.fromPartial(e)) || [];
+    message.outflows = object.outflows?.map(e => DecCoinSymbol.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: QueryAllOutflowsResponseAmino): QueryAllOutflowsResponse {
-    return {
-      outflows: Array.isArray(object?.outflows) ? object.outflows.map((e: any) => DecCoin.fromAmino(e)) : []
-    };
+    const message = createBaseQueryAllOutflowsResponse();
+    message.outflows = object.outflows?.map(e => DecCoinSymbol.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: QueryAllOutflowsResponse): QueryAllOutflowsResponseAmino {
     const obj: any = {};
     if (message.outflows) {
-      obj.outflows = message.outflows.map(e => e ? DecCoin.toAmino(e) : undefined);
+      obj.outflows = message.outflows.map(e => e ? DecCoinSymbol.toAmino(e) : undefined);
     } else {
-      obj.outflows = [];
+      obj.outflows = message.outflows;
     }
     return obj;
   },

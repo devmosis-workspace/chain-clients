@@ -22,15 +22,15 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the x/incentive module's genesis state. */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
-  next_program_id: number;
-  last_rewards_time: string;
-  reward_trackers: RewardTrackerAmino[];
-  reward_accumulators: RewardAccumulatorAmino[];
-  upcoming_programs: IncentiveProgramAmino[];
-  ongoing_programs: IncentiveProgramAmino[];
-  completed_programs: IncentiveProgramAmino[];
-  bonds: BondAmino[];
-  account_unbondings: AccountUnbondingsAmino[];
+  next_program_id?: number;
+  last_rewards_time?: string;
+  reward_trackers?: RewardTrackerAmino[];
+  reward_accumulators?: RewardAccumulatorAmino[];
+  upcoming_programs?: IncentiveProgramAmino[];
+  ongoing_programs?: IncentiveProgramAmino[];
+  completed_programs?: IncentiveProgramAmino[];
+  bonds?: BondAmino[];
+  account_unbondings?: AccountUnbondingsAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/umee.incentive.v1.GenesisState";
@@ -66,7 +66,7 @@ export interface BondProtoMsg {
  * by a single account.
  */
 export interface BondAmino {
-  account: string;
+  account?: string;
   uToken?: CoinAmino;
 }
 export interface BondAminoMsg {
@@ -105,9 +105,9 @@ export interface RewardTrackerProtoMsg {
  * tokens. Their pending rewards increase by only the rewards accrued in that time period.
  */
 export interface RewardTrackerAmino {
-  account: string;
-  uToken: string;
-  rewards: DecCoinAmino[];
+  account?: string;
+  uToken?: string;
+  rewards?: DecCoinAmino[];
 }
 export interface RewardTrackerAminoMsg {
   type: "/umee.incentive.v1.RewardTracker";
@@ -149,9 +149,9 @@ export interface RewardAccumulatorProtoMsg {
  * of the associated base token registered with the leverage module.
  */
 export interface RewardAccumulatorAmino {
-  uToken: string;
-  rewards: DecCoinAmino[];
-  exponent: number;
+  uToken?: string;
+  rewards?: DecCoinAmino[];
+  exponent?: number;
 }
 export interface RewardAccumulatorAminoMsg {
   type: "/umee.incentive.v1.RewardAccumulator";
@@ -191,8 +191,8 @@ export interface UnbondingProtoMsg {
  * its original end time or its new one based on the new parameter.
  */
 export interface UnbondingAmino {
-  start: string;
-  end: string;
+  start?: string;
+  end?: string;
   uToken?: CoinAmino;
 }
 export interface UnbondingAminoMsg {
@@ -228,9 +228,9 @@ export interface AccountUnbondingsProtoMsg {
  * for a single bonded uToken denom in both KVStore and genesis state.
  */
 export interface AccountUnbondingsAmino {
-  account: string;
-  uToken: string;
-  unbondings: UnbondingAmino[];
+  account?: string;
+  uToken?: string;
+  unbondings?: UnbondingAmino[];
 }
 export interface AccountUnbondingsAminoMsg {
   type: "/umee.incentive.v1.AccountUnbondings";
@@ -323,58 +323,64 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined,
-      nextProgramId: object.next_program_id,
-      lastRewardsTime: BigInt(object.last_rewards_time),
-      rewardTrackers: Array.isArray(object?.reward_trackers) ? object.reward_trackers.map((e: any) => RewardTracker.fromAmino(e)) : [],
-      rewardAccumulators: Array.isArray(object?.reward_accumulators) ? object.reward_accumulators.map((e: any) => RewardAccumulator.fromAmino(e)) : [],
-      upcomingPrograms: Array.isArray(object?.upcoming_programs) ? object.upcoming_programs.map((e: any) => IncentiveProgram.fromAmino(e)) : [],
-      ongoingPrograms: Array.isArray(object?.ongoing_programs) ? object.ongoing_programs.map((e: any) => IncentiveProgram.fromAmino(e)) : [],
-      completedPrograms: Array.isArray(object?.completed_programs) ? object.completed_programs.map((e: any) => IncentiveProgram.fromAmino(e)) : [],
-      bonds: Array.isArray(object?.bonds) ? object.bonds.map((e: any) => Bond.fromAmino(e)) : [],
-      accountUnbondings: Array.isArray(object?.account_unbondings) ? object.account_unbondings.map((e: any) => AccountUnbondings.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    if (object.next_program_id !== undefined && object.next_program_id !== null) {
+      message.nextProgramId = object.next_program_id;
+    }
+    if (object.last_rewards_time !== undefined && object.last_rewards_time !== null) {
+      message.lastRewardsTime = BigInt(object.last_rewards_time);
+    }
+    message.rewardTrackers = object.reward_trackers?.map(e => RewardTracker.fromAmino(e)) || [];
+    message.rewardAccumulators = object.reward_accumulators?.map(e => RewardAccumulator.fromAmino(e)) || [];
+    message.upcomingPrograms = object.upcoming_programs?.map(e => IncentiveProgram.fromAmino(e)) || [];
+    message.ongoingPrograms = object.ongoing_programs?.map(e => IncentiveProgram.fromAmino(e)) || [];
+    message.completedPrograms = object.completed_programs?.map(e => IncentiveProgram.fromAmino(e)) || [];
+    message.bonds = object.bonds?.map(e => Bond.fromAmino(e)) || [];
+    message.accountUnbondings = object.account_unbondings?.map(e => AccountUnbondings.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
     obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    obj.next_program_id = message.nextProgramId;
-    obj.last_rewards_time = message.lastRewardsTime ? message.lastRewardsTime.toString() : undefined;
+    obj.next_program_id = message.nextProgramId === 0 ? undefined : message.nextProgramId;
+    obj.last_rewards_time = message.lastRewardsTime !== BigInt(0) ? message.lastRewardsTime.toString() : undefined;
     if (message.rewardTrackers) {
       obj.reward_trackers = message.rewardTrackers.map(e => e ? RewardTracker.toAmino(e) : undefined);
     } else {
-      obj.reward_trackers = [];
+      obj.reward_trackers = message.rewardTrackers;
     }
     if (message.rewardAccumulators) {
       obj.reward_accumulators = message.rewardAccumulators.map(e => e ? RewardAccumulator.toAmino(e) : undefined);
     } else {
-      obj.reward_accumulators = [];
+      obj.reward_accumulators = message.rewardAccumulators;
     }
     if (message.upcomingPrograms) {
       obj.upcoming_programs = message.upcomingPrograms.map(e => e ? IncentiveProgram.toAmino(e) : undefined);
     } else {
-      obj.upcoming_programs = [];
+      obj.upcoming_programs = message.upcomingPrograms;
     }
     if (message.ongoingPrograms) {
       obj.ongoing_programs = message.ongoingPrograms.map(e => e ? IncentiveProgram.toAmino(e) : undefined);
     } else {
-      obj.ongoing_programs = [];
+      obj.ongoing_programs = message.ongoingPrograms;
     }
     if (message.completedPrograms) {
       obj.completed_programs = message.completedPrograms.map(e => e ? IncentiveProgram.toAmino(e) : undefined);
     } else {
-      obj.completed_programs = [];
+      obj.completed_programs = message.completedPrograms;
     }
     if (message.bonds) {
       obj.bonds = message.bonds.map(e => e ? Bond.toAmino(e) : undefined);
     } else {
-      obj.bonds = [];
+      obj.bonds = message.bonds;
     }
     if (message.accountUnbondings) {
       obj.account_unbondings = message.accountUnbondings.map(e => e ? AccountUnbondings.toAmino(e) : undefined);
     } else {
-      obj.account_unbondings = [];
+      obj.account_unbondings = message.accountUnbondings;
     }
     return obj;
   },
@@ -424,14 +430,18 @@ export const Bond = {
     return message;
   },
   fromAmino(object: BondAmino): Bond {
-    return {
-      account: object.account,
-      uToken: object?.uToken ? Coin.fromAmino(object.uToken) : undefined
-    };
+    const message = createBaseBond();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    if (object.uToken !== undefined && object.uToken !== null) {
+      message.uToken = Coin.fromAmino(object.uToken);
+    }
+    return message;
   },
   toAmino(message: Bond): BondAmino {
     const obj: any = {};
-    obj.account = message.account;
+    obj.account = message.account === "" ? undefined : message.account;
     obj.uToken = message.uToken ? Coin.toAmino(message.uToken) : undefined;
     return obj;
   },
@@ -487,20 +497,24 @@ export const RewardTracker = {
     return message;
   },
   fromAmino(object: RewardTrackerAmino): RewardTracker {
-    return {
-      account: object.account,
-      uToken: object.uToken,
-      rewards: Array.isArray(object?.rewards) ? object.rewards.map((e: any) => DecCoin.fromAmino(e)) : []
-    };
+    const message = createBaseRewardTracker();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    if (object.uToken !== undefined && object.uToken !== null) {
+      message.uToken = object.uToken;
+    }
+    message.rewards = object.rewards?.map(e => DecCoin.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: RewardTracker): RewardTrackerAmino {
     const obj: any = {};
-    obj.account = message.account;
-    obj.uToken = message.uToken;
+    obj.account = message.account === "" ? undefined : message.account;
+    obj.uToken = message.uToken === "" ? undefined : message.uToken;
     if (message.rewards) {
       obj.rewards = message.rewards.map(e => e ? DecCoin.toAmino(e) : undefined);
     } else {
-      obj.rewards = [];
+      obj.rewards = message.rewards;
     }
     return obj;
   },
@@ -556,21 +570,25 @@ export const RewardAccumulator = {
     return message;
   },
   fromAmino(object: RewardAccumulatorAmino): RewardAccumulator {
-    return {
-      uToken: object.uToken,
-      rewards: Array.isArray(object?.rewards) ? object.rewards.map((e: any) => DecCoin.fromAmino(e)) : [],
-      exponent: object.exponent
-    };
+    const message = createBaseRewardAccumulator();
+    if (object.uToken !== undefined && object.uToken !== null) {
+      message.uToken = object.uToken;
+    }
+    message.rewards = object.rewards?.map(e => DecCoin.fromAmino(e)) || [];
+    if (object.exponent !== undefined && object.exponent !== null) {
+      message.exponent = object.exponent;
+    }
+    return message;
   },
   toAmino(message: RewardAccumulator): RewardAccumulatorAmino {
     const obj: any = {};
-    obj.uToken = message.uToken;
+    obj.uToken = message.uToken === "" ? undefined : message.uToken;
     if (message.rewards) {
       obj.rewards = message.rewards.map(e => e ? DecCoin.toAmino(e) : undefined);
     } else {
-      obj.rewards = [];
+      obj.rewards = message.rewards;
     }
-    obj.exponent = message.exponent;
+    obj.exponent = message.exponent === 0 ? undefined : message.exponent;
     return obj;
   },
   fromAminoMsg(object: RewardAccumulatorAminoMsg): RewardAccumulator {
@@ -625,16 +643,22 @@ export const Unbonding = {
     return message;
   },
   fromAmino(object: UnbondingAmino): Unbonding {
-    return {
-      start: BigInt(object.start),
-      end: BigInt(object.end),
-      uToken: object?.uToken ? Coin.fromAmino(object.uToken) : undefined
-    };
+    const message = createBaseUnbonding();
+    if (object.start !== undefined && object.start !== null) {
+      message.start = BigInt(object.start);
+    }
+    if (object.end !== undefined && object.end !== null) {
+      message.end = BigInt(object.end);
+    }
+    if (object.uToken !== undefined && object.uToken !== null) {
+      message.uToken = Coin.fromAmino(object.uToken);
+    }
+    return message;
   },
   toAmino(message: Unbonding): UnbondingAmino {
     const obj: any = {};
-    obj.start = message.start ? message.start.toString() : undefined;
-    obj.end = message.end ? message.end.toString() : undefined;
+    obj.start = message.start !== BigInt(0) ? message.start.toString() : undefined;
+    obj.end = message.end !== BigInt(0) ? message.end.toString() : undefined;
     obj.uToken = message.uToken ? Coin.toAmino(message.uToken) : undefined;
     return obj;
   },
@@ -690,20 +714,24 @@ export const AccountUnbondings = {
     return message;
   },
   fromAmino(object: AccountUnbondingsAmino): AccountUnbondings {
-    return {
-      account: object.account,
-      uToken: object.uToken,
-      unbondings: Array.isArray(object?.unbondings) ? object.unbondings.map((e: any) => Unbonding.fromAmino(e)) : []
-    };
+    const message = createBaseAccountUnbondings();
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    }
+    if (object.uToken !== undefined && object.uToken !== null) {
+      message.uToken = object.uToken;
+    }
+    message.unbondings = object.unbondings?.map(e => Unbonding.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: AccountUnbondings): AccountUnbondingsAmino {
     const obj: any = {};
-    obj.account = message.account;
-    obj.uToken = message.uToken;
+    obj.account = message.account === "" ? undefined : message.account;
+    obj.uToken = message.uToken === "" ? undefined : message.uToken;
     if (message.unbondings) {
       obj.unbondings = message.unbondings.map(e => e ? Unbonding.toAmino(e) : undefined);
     } else {
-      obj.unbondings = [];
+      obj.unbondings = message.unbondings;
     }
     return obj;
   },

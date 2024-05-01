@@ -1,7 +1,7 @@
 import { Rpc } from "../../../helpers";
 import { BinaryReader } from "../../../binary";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryExchangeRates, QueryExchangeRatesResponse, QueryActiveExchangeRates, QueryActiveExchangeRatesResponse, QueryFeederDelegation, QueryFeederDelegationResponse, QueryMissCounter, QueryMissCounterResponse, QuerySlashWindow, QuerySlashWindowResponse, QueryAggregatePrevote, QueryAggregatePrevoteResponse, QueryAggregatePrevotes, QueryAggregatePrevotesResponse, QueryAggregateVote, QueryAggregateVoteResponse, QueryAggregateVotes, QueryAggregateVotesResponse, QueryParams, QueryParamsResponse, QueryMedians, QueryMediansResponse, QueryMedianDeviations, QueryMedianDeviationsResponse, QueryAvgPrice, QueryAvgPriceResponse } from "./query";
+import { QueryExchangeRates, QueryExchangeRatesResponse, QueryActiveExchangeRates, QueryActiveExchangeRatesResponse, QueryFeederDelegation, QueryFeederDelegationResponse, QueryMissCounter, QueryMissCounterResponse, QuerySlashWindow, QuerySlashWindowResponse, QueryAggregatePrevote, QueryAggregatePrevoteResponse, QueryAggregatePrevotes, QueryAggregatePrevotesResponse, QueryAggregateVote, QueryAggregateVoteResponse, QueryAggregateVotes, QueryAggregateVotesResponse, QueryParams, QueryParamsResponse, QueryMedians, QueryMediansResponse, QueryMedianDeviations, QueryMedianDeviationsResponse, QueryAvgPrice, QueryAvgPriceResponse, QueryExgRatesWithTimestamp, QueryExgRatesWithTimestampResponse, QueryMissCounters, QueryMissCountersResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
   /**
@@ -39,6 +39,13 @@ export interface Query {
   medianDeviations(request: QueryMedianDeviations): Promise<QueryMedianDeviationsResponse>;
   /** QueryAvgPrice returns avg price of a given denom (required). */
   avgPrice(request: QueryAvgPrice): Promise<QueryAvgPriceResponse>;
+  /**
+   * ExgRatesWithTimestamp returns exchange rates of all denoms with timestamp,
+   * or, if specified, returns a single denom
+   */
+  exgRatesWithTimestamp(request: QueryExgRatesWithTimestamp): Promise<QueryExgRatesWithTimestampResponse>;
+  /** MissCounters returns oracle missing votes count of validators. */
+  missCounters(request: QueryMissCounters): Promise<QueryMissCountersResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
@@ -57,6 +64,8 @@ export class QueryClientImpl implements Query {
     this.medians = this.medians.bind(this);
     this.medianDeviations = this.medianDeviations.bind(this);
     this.avgPrice = this.avgPrice.bind(this);
+    this.exgRatesWithTimestamp = this.exgRatesWithTimestamp.bind(this);
+    this.missCounters = this.missCounters.bind(this);
   }
   exchangeRates(request: QueryExchangeRates): Promise<QueryExchangeRatesResponse> {
     const data = QueryExchangeRates.encode(request).finish();
@@ -123,6 +132,16 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("umee.oracle.v1.Query", "AvgPrice", data);
     return promise.then(data => QueryAvgPriceResponse.decode(new BinaryReader(data)));
   }
+  exgRatesWithTimestamp(request: QueryExgRatesWithTimestamp): Promise<QueryExgRatesWithTimestampResponse> {
+    const data = QueryExgRatesWithTimestamp.encode(request).finish();
+    const promise = this.rpc.request("umee.oracle.v1.Query", "ExgRatesWithTimestamp", data);
+    return promise.then(data => QueryExgRatesWithTimestampResponse.decode(new BinaryReader(data)));
+  }
+  missCounters(request: QueryMissCounters): Promise<QueryMissCountersResponse> {
+    const data = QueryMissCounters.encode(request).finish();
+    const promise = this.rpc.request("umee.oracle.v1.Query", "MissCounters", data);
+    return promise.then(data => QueryMissCountersResponse.decode(new BinaryReader(data)));
+  }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {
   const rpc = createProtobufRpcClient(base);
@@ -166,6 +185,12 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     avgPrice(request: QueryAvgPrice): Promise<QueryAvgPriceResponse> {
       return queryService.avgPrice(request);
+    },
+    exgRatesWithTimestamp(request: QueryExgRatesWithTimestamp): Promise<QueryExgRatesWithTimestampResponse> {
+      return queryService.exgRatesWithTimestamp(request);
+    },
+    missCounters(request: QueryMissCounters): Promise<QueryMissCountersResponse> {
+      return queryService.missCounters(request);
     }
   };
 };

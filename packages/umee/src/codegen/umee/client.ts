@@ -3,22 +3,25 @@ import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 import * as umeeIncentiveV1TxRegistry from "./incentive/v1/tx.registry";
 import * as umeeLeverageV1TxRegistry from "./leverage/v1/tx.registry";
+import * as umeeMetokenV1TxRegistry from "./metoken/v1/tx.registry";
 import * as umeeOracleV1TxRegistry from "./oracle/v1/tx.registry";
 import * as umeeUgovV1TxRegistry from "./ugov/v1/tx.registry";
 import * as umeeUibcV1TxRegistry from "./uibc/v1/tx.registry";
 import * as umeeIncentiveV1TxAmino from "./incentive/v1/tx.amino";
 import * as umeeLeverageV1TxAmino from "./leverage/v1/tx.amino";
+import * as umeeMetokenV1TxAmino from "./metoken/v1/tx.amino";
 import * as umeeOracleV1TxAmino from "./oracle/v1/tx.amino";
 import * as umeeUgovV1TxAmino from "./ugov/v1/tx.amino";
 import * as umeeUibcV1TxAmino from "./uibc/v1/tx.amino";
 export const umeeAminoConverters = {
   ...umeeIncentiveV1TxAmino.AminoConverter,
   ...umeeLeverageV1TxAmino.AminoConverter,
+  ...umeeMetokenV1TxAmino.AminoConverter,
   ...umeeOracleV1TxAmino.AminoConverter,
   ...umeeUgovV1TxAmino.AminoConverter,
   ...umeeUibcV1TxAmino.AminoConverter
 };
-export const umeeProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...umeeIncentiveV1TxRegistry.registry, ...umeeLeverageV1TxRegistry.registry, ...umeeOracleV1TxRegistry.registry, ...umeeUgovV1TxRegistry.registry, ...umeeUibcV1TxRegistry.registry];
+export const umeeProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...umeeIncentiveV1TxRegistry.registry, ...umeeLeverageV1TxRegistry.registry, ...umeeMetokenV1TxRegistry.registry, ...umeeOracleV1TxRegistry.registry, ...umeeUgovV1TxRegistry.registry, ...umeeUibcV1TxRegistry.registry];
 export const getSigningUmeeClientOptions = ({
   defaultTypes = defaultRegistryTypes
 }: {
