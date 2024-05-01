@@ -313,3 +313,9 @@
 [submodule "packages/passage/cosmos-sdk"]
 	path = packages/passage/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/saga/cosmos-sdk"]
+	path = packages/saga/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/saga/ssc"]
+	path = packages/saga/ssc
+	url = https://github.com/sagaxyz/ssc
