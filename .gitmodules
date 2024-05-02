@@ -343,3 +343,12 @@
 [submodule "packages/terra2/wasmd"]
 	path = packages/terra2/wasmd
 	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/terra/core"]
+	path = packages/terra/core
+	url = https://github.com/classic-terra/core
+[submodule "packages/terra/cosmos-sdk"]
+	path = packages/terra/cosmos-sdk
+	url = https://github.com/classic-terra/cosmos-sdk
+[submodule "packages/terra/wasmd"]
+	path = packages/terra/wasmd
+	url = https://github.com/classic-terra/wasmd
