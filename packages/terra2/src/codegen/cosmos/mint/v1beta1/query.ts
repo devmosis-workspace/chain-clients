@@ -1,6 +1,6 @@
 import { Params, ParamsAmino, ParamsSDKType } from "./mint";
 import { BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64 } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
@@ -27,7 +27,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
   /** params defines the parameters of the module. */
-  params?: ParamsAmino;
+  params: ParamsAmino;
 }
 export interface QueryParamsResponseAminoMsg {
   type: "cosmos-sdk/QueryParamsResponse";
@@ -69,7 +69,7 @@ export interface QueryInflationResponseProtoMsg {
  */
 export interface QueryInflationResponseAmino {
   /** inflation is the current minting inflation value. */
-  inflation: Uint8Array;
+  inflation: string;
 }
 export interface QueryInflationResponseAminoMsg {
   type: "cosmos-sdk/QueryInflationResponse";
@@ -123,7 +123,7 @@ export interface QueryAnnualProvisionsResponseProtoMsg {
  */
 export interface QueryAnnualProvisionsResponseAmino {
   /** annual_provisions is the current minting annual provisions value. */
-  annual_provisions: Uint8Array;
+  annual_provisions: string;
 }
 export interface QueryAnnualProvisionsResponseAminoMsg {
   type: "cosmos-sdk/QueryAnnualProvisionsResponse";
@@ -152,7 +152,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    return {};
+    const message = createBaseQueryParamsRequest();
+    return message;
   },
   toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
     const obj: any = {};
@@ -204,13 +205,15 @@ export const QueryParamsResponse = {
     return message;
   },
   fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    return {
-      params: object?.params ? Params.fromAmino(object.params) : undefined
-    };
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
   },
   toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
     const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
     return obj;
   },
   fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
@@ -251,7 +254,8 @@ export const QueryInflationRequest = {
     return message;
   },
   fromAmino(_: QueryInflationRequestAmino): QueryInflationRequest {
-    return {};
+    const message = createBaseQueryInflationRequest();
+    return message;
   },
   toAmino(_: QueryInflationRequest): QueryInflationRequestAmino {
     const obj: any = {};
@@ -303,13 +307,15 @@ export const QueryInflationResponse = {
     return message;
   },
   fromAmino(object: QueryInflationResponseAmino): QueryInflationResponse {
-    return {
-      inflation: object.inflation
-    };
+    const message = createBaseQueryInflationResponse();
+    if (object.inflation !== undefined && object.inflation !== null) {
+      message.inflation = bytesFromBase64(object.inflation);
+    }
+    return message;
   },
   toAmino(message: QueryInflationResponse): QueryInflationResponseAmino {
     const obj: any = {};
-    obj.inflation = message.inflation;
+    obj.inflation = message.inflation ? base64FromBytes(message.inflation) : "";
     return obj;
   },
   fromAminoMsg(object: QueryInflationResponseAminoMsg): QueryInflationResponse {
@@ -350,7 +356,8 @@ export const QueryAnnualProvisionsRequest = {
     return message;
   },
   fromAmino(_: QueryAnnualProvisionsRequestAmino): QueryAnnualProvisionsRequest {
-    return {};
+    const message = createBaseQueryAnnualProvisionsRequest();
+    return message;
   },
   toAmino(_: QueryAnnualProvisionsRequest): QueryAnnualProvisionsRequestAmino {
     const obj: any = {};
@@ -402,13 +409,15 @@ export const QueryAnnualProvisionsResponse = {
     return message;
   },
   fromAmino(object: QueryAnnualProvisionsResponseAmino): QueryAnnualProvisionsResponse {
-    return {
-      annualProvisions: object.annual_provisions
-    };
+    const message = createBaseQueryAnnualProvisionsResponse();
+    if (object.annual_provisions !== undefined && object.annual_provisions !== null) {
+      message.annualProvisions = bytesFromBase64(object.annual_provisions);
+    }
+    return message;
   },
   toAmino(message: QueryAnnualProvisionsResponse): QueryAnnualProvisionsResponseAmino {
     const obj: any = {};
-    obj.annual_provisions = message.annualProvisions;
+    obj.annual_provisions = message.annualProvisions ? base64FromBytes(message.annualProvisions) : "";
     return obj;
   },
   fromAminoMsg(object: QueryAnnualProvisionsResponseAminoMsg): QueryAnnualProvisionsResponse {

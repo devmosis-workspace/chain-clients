@@ -6,7 +6,7 @@ export const AminoConverter = {
     fromAmino: MsgCreateVestingAccount.fromAmino
   },
   "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount": {
-    aminoType: "cosmos-sdk/MsgCreatePermanentLockedAccount",
+    aminoType: "cosmos-sdk/MsgCreatePermLockedAccount",
     toAmino: MsgCreatePermanentLockedAccount.toAmino,
     fromAmino: MsgCreatePermanentLockedAccount.fromAmino
   },

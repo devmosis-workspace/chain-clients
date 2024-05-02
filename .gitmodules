@@ -184,9 +184,6 @@
 [submodule "packages/terra2/cosmos-sdk"]
 	path = packages/terra2/cosmos-sdk
 	url = https://github.com/terra-money/cosmos-sdk
-[submodule "packages/terra2/cosmos-proto"]
-	path = packages/terra2/cosmos-proto
-	url = https://github.com/cosmos/cosmos-proto
 [submodule "packages/umee/umee"]
 	path = packages/umee/umee
 	url = https://github.com/umee-network/umee
@@ -342,4 +339,7 @@
 	url = https://github.com/cosmos/cosmos-sdk
 [submodule "packages/stargaze/wasmd"]
 	path = packages/stargaze/wasmd
+	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/terra2/wasmd"]
+	path = packages/terra2/wasmd
 	url = https://github.com/CosmWasm/wasmd

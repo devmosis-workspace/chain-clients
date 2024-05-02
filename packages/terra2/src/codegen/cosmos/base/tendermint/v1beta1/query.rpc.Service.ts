@@ -17,9 +17,9 @@ export interface Service {
   /** GetValidatorSetByHeight queries validator-set at a given height. */
   getValidatorSetByHeight(request: GetValidatorSetByHeightRequest): Promise<GetValidatorSetByHeightResponse>;
   /**
-   * ABCIQuery defines a query handler that supports ABCI queries directly to
-   * the application, bypassing Tendermint completely. The ABCI query must
-   * contain a valid and supported path, including app, custom, p2p, and store.
+   * ABCIQuery defines a query handler that supports ABCI queries directly to the
+   * application, bypassing Tendermint completely. The ABCI query must contain
+   * a valid and supported path, including app, custom, p2p, and store.
    * 
    * Since: cosmos-sdk 0.46
    */
