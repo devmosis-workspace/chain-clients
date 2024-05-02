@@ -67,12 +67,6 @@
 [submodule "packages/cryptoorg/ibc-go"]
 	path = packages/cryptoorg/ibc-go
 	url = https://github.com/cosmos/ibc-go
-[submodule "packages/emoney/em-ledger"]
-	path = packages/emoney/em-ledger
-	url = https://github.com/e-money/em-ledger
-[submodule "packages/emoney/cosmos-sdk"]
-	path = packages/emoney/cosmos-sdk
-	url = https://github.com/cosmos/cosmos-sdk
 [submodule "packages/evmos/evmos"]
 	path = packages/evmos/evmos
 	url = https://github.com/evmos/evmos
