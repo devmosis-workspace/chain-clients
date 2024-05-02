@@ -1,4 +1,4 @@
-import * as _0 from "./amino";
+import * as _4 from "./amino";
 export const amino = {
-  ..._0
+  ..._4
 };
