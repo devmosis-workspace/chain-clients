@@ -334,3 +334,9 @@
 [submodule "packages/sentinel/wasmd"]
 	path = packages/sentinel/wasmd
 	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/shentu/shentu"]
+	path = packages/shentu/shentu
+	url = https://github.com/shentufoundation/shentu
+[submodule "packages/shentu/cosmos-sdk"]
+	path = packages/shentu/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk

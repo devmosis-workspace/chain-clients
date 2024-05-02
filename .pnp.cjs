@@ -146,6 +146,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:packages/sentinel"\
     },\
     {\
+      "name": "@chain-clients/shentu",\
+      "reference": "workspace:packages/shentu"\
+    },\
+    {\
       "name": "@chain-clients/sommelier",\
       "reference": "workspace:packages/sommelier"\
     },\
@@ -202,6 +206,7 @@ const RAW_RUNTIME_STATE =
     ["@chain-clients/saga", ["workspace:packages/saga"]],\
     ["@chain-clients/secretnetwork", ["workspace:packages/secretnetwork"]],\
     ["@chain-clients/sentinel", ["workspace:packages/sentinel"]],\
+    ["@chain-clients/shentu", ["workspace:packages/shentu"]],\
     ["@chain-clients/sommelier", ["workspace:packages/sommelier"]],\
     ["@chain-clients/stargaze", ["workspace:packages/stargaze"]],\
     ["@chain-clients/stride", ["workspace:packages/stride"]],\
@@ -797,6 +802,10 @@ const RAW_RUNTIME_STATE =
     [\
       "@chain-clients/sentinel",\
       "workspace:packages/sentinel"\
+    ],\
+    [\
+      "@chain-clients/shentu",\
+      "workspace:packages/shentu"\
     ],\
     [\
       "@chain-clients/sommelier",\
@@ -8091,6 +8100,49 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/sentinel/",\
         "packageDependencies": [\
           ["@chain-clients/sentinel", "workspace:packages/sentinel"],\
+          ["@babel/cli", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.21.0"],\
+          ["@babel/core", "npm:7.21.4"],\
+          ["@babel/eslint-parser", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.24.5"],\
+          ["@babel/node", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.23.9"],\
+          ["@babel/plugin-proposal-class-properties", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.18.6"],\
+          ["@babel/plugin-proposal-export-default-from", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.18.10"],\
+          ["@babel/plugin-proposal-nullish-coalescing-operator", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.18.6"],\
+          ["@babel/plugin-proposal-numeric-separator", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.18.6"],\
+          ["@babel/plugin-proposal-object-rest-spread", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.20.7"],\
+          ["@babel/plugin-proposal-optional-chaining", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.21.0"],\
+          ["@babel/plugin-transform-runtime", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.21.4"],\
+          ["@babel/preset-env", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.21.4"],\
+          ["@babel/preset-typescript", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.24.1"],\
+          ["@babel/runtime", "npm:7.24.5"],\
+          ["@cosmjs/amino", "npm:0.31.1"],\
+          ["@cosmjs/encoding", "npm:0.31.3"],\
+          ["@cosmjs/math", "npm:0.31.3"],\
+          ["@cosmjs/proto-signing", "npm:0.31.1"],\
+          ["@cosmjs/stargate", "npm:0.31.1"],\
+          ["@cosmjs/tendermint-rpc", "npm:0.31.1"],\
+          ["@cosmology/lcd", "npm:0.13.3"],\
+          ["@cosmology/telescope", "npm:1.5.4"],\
+          ["babel-core", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.0.0-bridge.0"],\
+          ["babel-watch", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.8.1"],\
+          ["cross-env", "npm:7.0.3"],\
+          ["eslint", "npm:8.38.0"],\
+          ["eslint-config-prettier", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:8.10.0"],\
+          ["eslint-plugin-prettier", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:4.2.1"],\
+          ["long", "npm:5.2.3"],\
+          ["prettier", "npm:2.8.8"],\
+          ["protobufjs", "npm:6.11.4"],\
+          ["regenerator-runtime", "npm:0.13.11"],\
+          ["rimraf", "npm:5.0.5"],\
+          ["typescript", "patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=29ae49"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@chain-clients/shentu", [\
+      ["workspace:packages/shentu", {\
+        "packageLocation": "./packages/shentu/",\
+        "packageDependencies": [\
+          ["@chain-clients/shentu", "workspace:packages/shentu"],\
           ["@babel/cli", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.21.0"],\
           ["@babel/core", "npm:7.21.4"],\
           ["@babel/eslint-parser", "virtual:3701443c21a05ee05d74a65cf72d5a7fd75e31bf5e4d4c183228306675756c4774d3c50ccfe78ced1538f956c56fbf6c930dd317f08c68cfabfec0d3aedfb0d6#npm:7.24.5"],\
