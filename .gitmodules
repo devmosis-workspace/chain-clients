@@ -325,3 +325,12 @@
 [submodule "packages/umee/wasmd"]
 	path = packages/umee/wasmd
 	url = https://github.com/CosmWasm/wasmd
+[submodule "packages/sentinel/hub"]
+	path = packages/sentinel/hub
+	url = https://github.com/sentinel-official/hub
+[submodule "packages/sentinel/cosmos-sdk"]
+	path = packages/sentinel/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/sentinel/wasmd"]
+	path = packages/sentinel/wasmd
+	url = https://github.com/CosmWasm/wasmd
