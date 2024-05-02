@@ -20,7 +20,7 @@ export interface DenomAuthorityMetadataProtoMsg {
  */
 export interface DenomAuthorityMetadataAmino {
     /** Can be empty for no admin, or a valid stargaze address */
-    admin: string;
+    admin?: string;
 }
 export interface DenomAuthorityMetadataAminoMsg {
     type: "osmosis/tokenfactory/denom-authority-metadata";
@@ -61,14 +61,14 @@ export interface ParamsAmino {
      * denom. The fee is drawn from the MsgCreateDenom's sender account, and
      * transferred to the community pool.
      */
-    denom_creation_fee: CoinAmino[];
+    denom_creation_fee?: CoinAmino[];
     /**
      * DenomCreationGasConsume defines the gas cost for creating a new denom.
      * This is intended as a spam deterrence mechanism.
      *
      * See: https://github.com/CosmWasm/token-factory/issues/11
      */
-    denom_creation_gas_consume: string;
+    denom_creation_gas_consume?: string;
 }
 export interface ParamsAminoMsg {
     type: "osmosis/tokenfactory/params";

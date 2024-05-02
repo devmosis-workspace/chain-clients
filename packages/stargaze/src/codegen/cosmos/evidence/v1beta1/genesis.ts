@@ -12,7 +12,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the evidence module's genesis state. */
 export interface GenesisStateAmino {
   /** evidence defines all the evidence at genesis. */
-  evidence: AnyAmino[];
+  evidence?: AnyAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "cosmos-sdk/GenesisState";
@@ -46,16 +46,16 @@ export const GenesisState = {
     return message;
   },
   fromAmino(object: GenesisStateAmino): GenesisState {
-    return {
-      evidence: Array.isArray(object?.evidence) ? object.evidence.map((e: any) => Any.fromAmino(e)) : []
-    };
+    const message = createBaseGenesisState();
+    message.evidence = object.evidence?.map(e => Any.fromAmino(e)) || [];
+    return message;
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
     if (message.evidence) {
       obj.evidence = message.evidence.map(e => e ? Any.toAmino(e) : undefined);
     } else {
-      obj.evidence = [];
+      obj.evidence = message.evidence;
     }
     return obj;
   },

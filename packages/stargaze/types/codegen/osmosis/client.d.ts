@@ -1,5 +1,5 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
-import { AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
+import { AminoTypes } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const osmosisAminoConverters: {
     "/osmosis.tokenfactory.v1beta1.MsgCreateDenom": {
@@ -39,4 +39,4 @@ export declare const getSigningOsmosisClient: ({ rpcEndpoint, signer, defaultTyp
     rpcEndpoint: string | HttpEndpoint;
     signer: OfflineSigner;
     defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
-}) => Promise<SigningStargateClient>;
+}) => Promise<any>;

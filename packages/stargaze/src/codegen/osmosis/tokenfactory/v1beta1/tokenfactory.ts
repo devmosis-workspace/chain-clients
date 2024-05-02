@@ -21,7 +21,7 @@ export interface DenomAuthorityMetadataProtoMsg {
  */
 export interface DenomAuthorityMetadataAmino {
   /** Can be empty for no admin, or a valid stargaze address */
-  admin: string;
+  admin?: string;
 }
 export interface DenomAuthorityMetadataAminoMsg {
   type: "osmosis/tokenfactory/denom-authority-metadata";
@@ -62,14 +62,14 @@ export interface ParamsAmino {
    * denom. The fee is drawn from the MsgCreateDenom's sender account, and
    * transferred to the community pool.
    */
-  denom_creation_fee: CoinAmino[];
+  denom_creation_fee?: CoinAmino[];
   /**
    * DenomCreationGasConsume defines the gas cost for creating a new denom.
    * This is intended as a spam deterrence mechanism.
    * 
    * See: https://github.com/CosmWasm/token-factory/issues/11
    */
-  denom_creation_gas_consume: string;
+  denom_creation_gas_consume?: string;
 }
 export interface ParamsAminoMsg {
   type: "osmosis/tokenfactory/params";
@@ -104,13 +104,15 @@ export const DenomAuthorityMetadata = {
     return message;
   },
   fromAmino(object: DenomAuthorityMetadataAmino): DenomAuthorityMetadata {
-    return {
-      admin: object.admin
-    };
+    const message = createBaseDenomAuthorityMetadata();
+    if (object.admin !== undefined && object.admin !== null) {
+      message.admin = object.admin;
+    }
+    return message;
   },
   toAmino(message: DenomAuthorityMetadata): DenomAuthorityMetadataAmino {
     const obj: any = {};
-    obj.admin = message.admin;
+    obj.admin = message.admin === "" ? undefined : message.admin;
     return obj;
   },
   fromAminoMsg(object: DenomAuthorityMetadataAminoMsg): DenomAuthorityMetadata {
@@ -165,19 +167,21 @@ export const Params = {
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
-    return {
-      denomCreationFee: Array.isArray(object?.denom_creation_fee) ? object.denom_creation_fee.map((e: any) => Coin.fromAmino(e)) : [],
-      denomCreationGasConsume: object?.denom_creation_gas_consume ? BigInt(object.denom_creation_gas_consume) : undefined
-    };
+    const message = createBaseParams();
+    message.denomCreationFee = object.denom_creation_fee?.map(e => Coin.fromAmino(e)) || [];
+    if (object.denom_creation_gas_consume !== undefined && object.denom_creation_gas_consume !== null) {
+      message.denomCreationGasConsume = BigInt(object.denom_creation_gas_consume);
+    }
+    return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
     if (message.denomCreationFee) {
       obj.denom_creation_fee = message.denomCreationFee.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
-      obj.denom_creation_fee = [];
+      obj.denom_creation_fee = message.denomCreationFee;
     }
-    obj.denom_creation_gas_consume = message.denomCreationGasConsume ? message.denomCreationGasConsume.toString() : undefined;
+    obj.denom_creation_gas_consume = message.denomCreationGasConsume !== BigInt(0) ? message.denomCreationGasConsume.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

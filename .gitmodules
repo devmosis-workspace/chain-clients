@@ -13,15 +13,6 @@
 [submodule "packages/stargaze/stargaze"]
 	path = packages/stargaze/stargaze
 	url = https://github.com/public-awesome/stargaze
-[submodule "packages/stargaze/cosmos-sdk"]
-	path = packages/stargaze/cosmos-sdk
-	url = https://github.com/cosmos/cosmos-sdk
-[submodule "packages/stargaze/cosmos-proto"]
-	path = packages/stargaze/cosmos-proto
-	url = https://github.com/cosmos/cosmos-proto
-[submodule "packages/stargaze/tendermint"]
-	path = packages/stargaze/tendermint
-	url = https://github.com/tendermint/tendermint
 [submodule "packages/juno/juno"]
 	path = packages/juno/juno
 	url = https://github.com/CosmosContracts/juno
@@ -346,3 +337,9 @@
 [submodule "packages/sifchain/cosmos-sdk"]
 	path = packages/sifchain/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/stargaze/cosmos-sdk"]
+	path = packages/stargaze/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/stargaze/wasmd"]
+	path = packages/stargaze/wasmd
+	url = https://github.com/CosmWasm/wasmd
