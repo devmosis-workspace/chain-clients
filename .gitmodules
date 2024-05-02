@@ -340,3 +340,9 @@
 [submodule "packages/shentu/cosmos-sdk"]
 	path = packages/shentu/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
+[submodule "packages/sifchain/sifnode"]
+	path = packages/sifchain/sifnode
+	url = https://github.com/Sifchain/sifnode
+[submodule "packages/sifchain/cosmos-sdk"]
+	path = packages/sifchain/cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk
