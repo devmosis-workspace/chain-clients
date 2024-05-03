@@ -134,10 +134,10 @@ export const Minter = {
   },
   toAmino(message: Minter): MinterAmino {
     const obj: any = {};
-    obj.inflation_rate = message.inflationRate;
-    obj.annual_provisions = message.annualProvisions;
+    obj.inflation_rate = message.inflationRate === "" ? undefined : message.inflationRate;
+    obj.annual_provisions = message.annualProvisions === "" ? undefined : message.annualProvisions;
     obj.previous_block_time = message.previousBlockTime ? Timestamp.toAmino(message.previousBlockTime) : undefined;
-    obj.bond_denom = message.bondDenom;
+    obj.bond_denom = message.bondDenom === "" ? undefined : message.bondDenom;
     return obj;
   },
   fromAminoMsg(object: MinterAminoMsg): Minter {

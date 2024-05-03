@@ -89,7 +89,7 @@ export const Params = {
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
-    obj.data_commitment_window = message.dataCommitmentWindow ? message.dataCommitmentWindow.toString() : undefined;
+    obj.data_commitment_window = message.dataCommitmentWindow !== BigInt(0) ? message.dataCommitmentWindow.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

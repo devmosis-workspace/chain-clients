@@ -848,13 +848,13 @@ export const MsgCreateGroup = {
   },
   toAmino(message: MsgCreateGroup): MsgCreateGroupAmino {
     const obj: any = {};
-    obj.admin = message.admin;
+    obj.admin = message.admin === "" ? undefined : message.admin;
     if (message.members) {
       obj.members = message.members.map(e => e ? MemberRequest.toAmino(e) : undefined);
     } else {
-      obj.members = [];
+      obj.members = message.members;
     }
-    obj.metadata = message.metadata;
+    obj.metadata = message.metadata === "" ? undefined : message.metadata;
     return obj;
   },
   fromAminoMsg(object: MsgCreateGroupAminoMsg): MsgCreateGroup {
@@ -911,7 +911,7 @@ export const MsgCreateGroupResponse = {
   },
   toAmino(message: MsgCreateGroupResponse): MsgCreateGroupResponseAmino {
     const obj: any = {};
-    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    obj.group_id = message.groupId !== BigInt(0) ? message.groupId.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgCreateGroupResponseAminoMsg): MsgCreateGroupResponse {
@@ -984,12 +984,12 @@ export const MsgUpdateGroupMembers = {
   },
   toAmino(message: MsgUpdateGroupMembers): MsgUpdateGroupMembersAmino {
     const obj: any = {};
-    obj.admin = message.admin;
-    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    obj.group_id = message.groupId !== BigInt(0) ? message.groupId.toString() : undefined;
     if (message.memberUpdates) {
       obj.member_updates = message.memberUpdates.map(e => e ? MemberRequest.toAmino(e) : undefined);
     } else {
-      obj.member_updates = [];
+      obj.member_updates = message.memberUpdates;
     }
     return obj;
   },
@@ -1110,9 +1110,9 @@ export const MsgUpdateGroupAdmin = {
   },
   toAmino(message: MsgUpdateGroupAdmin): MsgUpdateGroupAdminAmino {
     const obj: any = {};
-    obj.admin = message.admin;
-    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
-    obj.new_admin = message.newAdmin;
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    obj.group_id = message.groupId !== BigInt(0) ? message.groupId.toString() : undefined;
+    obj.new_admin = message.newAdmin === "" ? undefined : message.newAdmin;
     return obj;
   },
   fromAminoMsg(object: MsgUpdateGroupAdminAminoMsg): MsgUpdateGroupAdmin {
@@ -1232,9 +1232,9 @@ export const MsgUpdateGroupMetadata = {
   },
   toAmino(message: MsgUpdateGroupMetadata): MsgUpdateGroupMetadataAmino {
     const obj: any = {};
-    obj.admin = message.admin;
-    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
-    obj.metadata = message.metadata;
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    obj.group_id = message.groupId !== BigInt(0) ? message.groupId.toString() : undefined;
+    obj.metadata = message.metadata === "" ? undefined : message.metadata;
     return obj;
   },
   fromAminoMsg(object: MsgUpdateGroupMetadataAminoMsg): MsgUpdateGroupMetadata {
@@ -1363,9 +1363,9 @@ export const MsgCreateGroupPolicy = {
   },
   toAmino(message: MsgCreateGroupPolicy): MsgCreateGroupPolicyAmino {
     const obj: any = {};
-    obj.admin = message.admin;
-    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
-    obj.metadata = message.metadata;
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    obj.group_id = message.groupId !== BigInt(0) ? message.groupId.toString() : undefined;
+    obj.metadata = message.metadata === "" ? undefined : message.metadata;
     obj.decision_policy = message.decisionPolicy ? Cosmos_groupv1DecisionPolicy_ToAmino((message.decisionPolicy as Any)) : undefined;
     return obj;
   },
@@ -1423,7 +1423,7 @@ export const MsgCreateGroupPolicyResponse = {
   },
   toAmino(message: MsgCreateGroupPolicyResponse): MsgCreateGroupPolicyResponseAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     return obj;
   },
   fromAminoMsg(object: MsgCreateGroupPolicyResponseAminoMsg): MsgCreateGroupPolicyResponse {
@@ -1498,9 +1498,9 @@ export const MsgUpdateGroupPolicyAdmin = {
   },
   toAmino(message: MsgUpdateGroupPolicyAdmin): MsgUpdateGroupPolicyAdminAmino {
     const obj: any = {};
-    obj.admin = message.admin;
-    obj.group_policy_address = message.groupPolicyAddress;
-    obj.new_admin = message.newAdmin;
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    obj.group_policy_address = message.groupPolicyAddress === "" ? undefined : message.groupPolicyAddress;
+    obj.new_admin = message.newAdmin === "" ? undefined : message.newAdmin;
     return obj;
   },
   fromAminoMsg(object: MsgUpdateGroupPolicyAdminAminoMsg): MsgUpdateGroupPolicyAdmin {
@@ -1600,15 +1600,15 @@ export const MsgCreateGroupWithPolicy = {
   },
   toAmino(message: MsgCreateGroupWithPolicy): MsgCreateGroupWithPolicyAmino {
     const obj: any = {};
-    obj.admin = message.admin;
+    obj.admin = message.admin === "" ? undefined : message.admin;
     if (message.members) {
       obj.members = message.members.map(e => e ? MemberRequest.toAmino(e) : undefined);
     } else {
-      obj.members = [];
+      obj.members = message.members;
     }
-    obj.group_metadata = message.groupMetadata;
-    obj.group_policy_metadata = message.groupPolicyMetadata;
-    obj.group_policy_as_admin = message.groupPolicyAsAdmin;
+    obj.group_metadata = message.groupMetadata === "" ? undefined : message.groupMetadata;
+    obj.group_policy_metadata = message.groupPolicyMetadata === "" ? undefined : message.groupPolicyMetadata;
+    obj.group_policy_as_admin = message.groupPolicyAsAdmin === false ? undefined : message.groupPolicyAsAdmin;
     obj.decision_policy = message.decisionPolicy ? Cosmos_groupv1DecisionPolicy_ToAmino((message.decisionPolicy as Any)) : undefined;
     return obj;
   },
@@ -1675,8 +1675,8 @@ export const MsgCreateGroupWithPolicyResponse = {
   },
   toAmino(message: MsgCreateGroupWithPolicyResponse): MsgCreateGroupWithPolicyResponseAmino {
     const obj: any = {};
-    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
-    obj.group_policy_address = message.groupPolicyAddress;
+    obj.group_id = message.groupId !== BigInt(0) ? message.groupId.toString() : undefined;
+    obj.group_policy_address = message.groupPolicyAddress === "" ? undefined : message.groupPolicyAddress;
     return obj;
   },
   fromAminoMsg(object: MsgCreateGroupWithPolicyResponseAminoMsg): MsgCreateGroupWithPolicyResponse {
@@ -1796,8 +1796,8 @@ export const MsgUpdateGroupPolicyDecisionPolicy = {
   },
   toAmino(message: MsgUpdateGroupPolicyDecisionPolicy): MsgUpdateGroupPolicyDecisionPolicyAmino {
     const obj: any = {};
-    obj.admin = message.admin;
-    obj.group_policy_address = message.groupPolicyAddress;
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    obj.group_policy_address = message.groupPolicyAddress === "" ? undefined : message.groupPolicyAddress;
     obj.decision_policy = message.decisionPolicy ? Cosmos_groupv1DecisionPolicy_ToAmino((message.decisionPolicy as Any)) : undefined;
     return obj;
   },
@@ -1918,9 +1918,9 @@ export const MsgUpdateGroupPolicyMetadata = {
   },
   toAmino(message: MsgUpdateGroupPolicyMetadata): MsgUpdateGroupPolicyMetadataAmino {
     const obj: any = {};
-    obj.admin = message.admin;
-    obj.group_policy_address = message.groupPolicyAddress;
-    obj.metadata = message.metadata;
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    obj.group_policy_address = message.groupPolicyAddress === "" ? undefined : message.groupPolicyAddress;
+    obj.metadata = message.metadata === "" ? undefined : message.metadata;
     return obj;
   },
   fromAminoMsg(object: MsgUpdateGroupPolicyMetadataAminoMsg): MsgUpdateGroupPolicyMetadata {
@@ -2048,25 +2048,25 @@ export const MsgSubmitProposal = {
     }
     message.messages = object.messages?.map(e => Any.fromAmino(e)) || [];
     if (object.exec !== undefined && object.exec !== null) {
-      message.exec = execFromJSON(object.exec);
+      message.exec = object.exec;
     }
     return message;
   },
   toAmino(message: MsgSubmitProposal): MsgSubmitProposalAmino {
     const obj: any = {};
-    obj.group_policy_address = message.groupPolicyAddress;
+    obj.group_policy_address = message.groupPolicyAddress === "" ? undefined : message.groupPolicyAddress;
     if (message.proposers) {
       obj.proposers = message.proposers.map(e => e);
     } else {
-      obj.proposers = [];
+      obj.proposers = message.proposers;
     }
-    obj.metadata = message.metadata;
+    obj.metadata = message.metadata === "" ? undefined : message.metadata;
     if (message.messages) {
       obj.messages = message.messages.map(e => e ? Any.toAmino(e) : undefined);
     } else {
-      obj.messages = [];
+      obj.messages = message.messages;
     }
-    obj.exec = message.exec;
+    obj.exec = message.exec === 0 ? undefined : message.exec;
     return obj;
   },
   fromAminoMsg(object: MsgSubmitProposalAminoMsg): MsgSubmitProposal {
@@ -2123,7 +2123,7 @@ export const MsgSubmitProposalResponse = {
   },
   toAmino(message: MsgSubmitProposalResponse): MsgSubmitProposalResponseAmino {
     const obj: any = {};
-    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgSubmitProposalResponseAminoMsg): MsgSubmitProposalResponse {
@@ -2189,8 +2189,8 @@ export const MsgWithdrawProposal = {
   },
   toAmino(message: MsgWithdrawProposal): MsgWithdrawProposalAmino {
     const obj: any = {};
-    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
-    obj.address = message.address;
+    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId.toString() : undefined;
+    obj.address = message.address === "" ? undefined : message.address;
     return obj;
   },
   fromAminoMsg(object: MsgWithdrawProposalAminoMsg): MsgWithdrawProposal {
@@ -2316,23 +2316,23 @@ export const MsgVote = {
       message.voter = object.voter;
     }
     if (object.option !== undefined && object.option !== null) {
-      message.option = voteOptionFromJSON(object.option);
+      message.option = object.option;
     }
     if (object.metadata !== undefined && object.metadata !== null) {
       message.metadata = object.metadata;
     }
     if (object.exec !== undefined && object.exec !== null) {
-      message.exec = execFromJSON(object.exec);
+      message.exec = object.exec;
     }
     return message;
   },
   toAmino(message: MsgVote): MsgVoteAmino {
     const obj: any = {};
-    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
-    obj.voter = message.voter;
-    obj.option = message.option;
-    obj.metadata = message.metadata;
-    obj.exec = message.exec;
+    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId.toString() : undefined;
+    obj.voter = message.voter === "" ? undefined : message.voter;
+    obj.option = message.option === 0 ? undefined : message.option;
+    obj.metadata = message.metadata === "" ? undefined : message.metadata;
+    obj.exec = message.exec === 0 ? undefined : message.exec;
     return obj;
   },
   fromAminoMsg(object: MsgVoteAminoMsg): MsgVote {
@@ -2443,8 +2443,8 @@ export const MsgExec = {
   },
   toAmino(message: MsgExec): MsgExecAmino {
     const obj: any = {};
-    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
-    obj.executor = message.executor;
+    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId.toString() : undefined;
+    obj.executor = message.executor === "" ? undefined : message.executor;
     return obj;
   },
   fromAminoMsg(object: MsgExecAminoMsg): MsgExec {
@@ -2495,13 +2495,13 @@ export const MsgExecResponse = {
   fromAmino(object: MsgExecResponseAmino): MsgExecResponse {
     const message = createBaseMsgExecResponse();
     if (object.result !== undefined && object.result !== null) {
-      message.result = proposalExecutorResultFromJSON(object.result);
+      message.result = object.result;
     }
     return message;
   },
   toAmino(message: MsgExecResponse): MsgExecResponseAmino {
     const obj: any = {};
-    obj.result = message.result;
+    obj.result = message.result === 0 ? undefined : message.result;
     return obj;
   },
   fromAminoMsg(object: MsgExecResponseAminoMsg): MsgExecResponse {
@@ -2567,8 +2567,8 @@ export const MsgLeaveGroup = {
   },
   toAmino(message: MsgLeaveGroup): MsgLeaveGroupAmino {
     const obj: any = {};
-    obj.address = message.address;
-    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    obj.address = message.address === "" ? undefined : message.address;
+    obj.group_id = message.groupId !== BigInt(0) ? message.groupId.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgLeaveGroupAminoMsg): MsgLeaveGroup {
@@ -2646,7 +2646,7 @@ export const Cosmos_groupv1DecisionPolicy_InterfaceDecoder = (input: BinaryReade
       return data;
   }
 };
-export const Cosmos_groupv1DecisionPolicy_FromAmino = (content: AnyAmino) => {
+export const Cosmos_groupv1DecisionPolicy_FromAmino = (content: AnyAmino): Any => {
   return Any.fromAmino(content);
 };
 export const Cosmos_groupv1DecisionPolicy_ToAmino = (content: Any) => {

@@ -350,8 +350,8 @@ export const Header = {
   toAmino(message: Header): HeaderAmino {
     const obj: any = {};
     obj.version = message.version ? Consensus.toAmino(message.version) : undefined;
-    obj.chain_id = message.chainId;
-    obj.height = message.height ? message.height.toString() : undefined;
+    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
     obj.time = message.time ? Timestamp.toAmino(message.time) : undefined;
     obj.last_block_id = message.lastBlockId ? BlockID.toAmino(message.lastBlockId) : undefined;
     obj.last_commit_hash = message.lastCommitHash ? base64FromBytes(message.lastCommitHash) : undefined;
@@ -362,7 +362,7 @@ export const Header = {
     obj.app_hash = message.appHash ? base64FromBytes(message.appHash) : undefined;
     obj.last_results_hash = message.lastResultsHash ? base64FromBytes(message.lastResultsHash) : undefined;
     obj.evidence_hash = message.evidenceHash ? base64FromBytes(message.evidenceHash) : undefined;
-    obj.proposer_address = message.proposerAddress;
+    obj.proposer_address = message.proposerAddress === "" ? undefined : message.proposerAddress;
     return obj;
   },
   fromAminoMsg(object: HeaderAminoMsg): Header {

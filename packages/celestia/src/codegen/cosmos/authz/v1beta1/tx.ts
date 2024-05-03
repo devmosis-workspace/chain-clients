@@ -223,8 +223,8 @@ export const MsgGrant = {
   },
   toAmino(message: MsgGrant): MsgGrantAmino {
     const obj: any = {};
-    obj.granter = message.granter;
-    obj.grantee = message.grantee;
+    obj.granter = message.granter === "" ? undefined : message.granter;
+    obj.grantee = message.grantee === "" ? undefined : message.grantee;
     obj.grant = message.grant ? Grant.toAmino(message.grant) : undefined;
     return obj;
   },
@@ -283,7 +283,7 @@ export const MsgExecResponse = {
     if (message.results) {
       obj.results = message.results.map(e => base64FromBytes(e));
     } else {
-      obj.results = [];
+      obj.results = message.results;
     }
     return obj;
   },
@@ -348,11 +348,11 @@ export const MsgExec = {
   },
   toAmino(message: MsgExec): MsgExecAmino {
     const obj: any = {};
-    obj.grantee = message.grantee;
+    obj.grantee = message.grantee === "" ? undefined : message.grantee;
     if (message.msgs) {
       obj.msgs = message.msgs.map(e => e ? Sdk_MsgauthzAuthorization_ToAmino((e as Any)) : undefined);
     } else {
-      obj.msgs = [];
+      obj.msgs = message.msgs;
     }
     return obj;
   },
@@ -473,9 +473,9 @@ export const MsgRevoke = {
   },
   toAmino(message: MsgRevoke): MsgRevokeAmino {
     const obj: any = {};
-    obj.granter = message.granter;
-    obj.grantee = message.grantee;
-    obj.msg_type_url = message.msgTypeUrl;
+    obj.granter = message.granter === "" ? undefined : message.granter;
+    obj.grantee = message.grantee === "" ? undefined : message.grantee;
+    obj.msg_type_url = message.msgTypeUrl === "" ? undefined : message.msgTypeUrl;
     return obj;
   },
   fromAminoMsg(object: MsgRevokeAminoMsg): MsgRevoke {
@@ -553,7 +553,7 @@ export const Sdk_Msg_InterfaceDecoder = (input: BinaryReader | Uint8Array): Any 
       return data;
   }
 };
-export const Sdk_Msg_FromAmino = (content: AnyAmino) => {
+export const Sdk_Msg_FromAmino = (content: AnyAmino): Any => {
   return Any.fromAmino(content);
 };
 export const Sdk_Msg_ToAmino = (content: Any) => {
@@ -567,7 +567,7 @@ export const Authz_Authorization_InterfaceDecoder = (input: BinaryReader | Uint8
       return data;
   }
 };
-export const Authz_Authorization_FromAmino = (content: AnyAmino) => {
+export const Authz_Authorization_FromAmino = (content: AnyAmino): Any => {
   return Any.fromAmino(content);
 };
 export const Authz_Authorization_ToAmino = (content: Any) => {

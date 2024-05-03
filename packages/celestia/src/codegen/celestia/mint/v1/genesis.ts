@@ -54,7 +54,7 @@ export const GenesisState = {
   },
   toAmino(message: GenesisState): GenesisStateAmino {
     const obj: any = {};
-    obj.bond_denom = message.bondDenom;
+    obj.bond_denom = message.bondDenom === "" ? undefined : message.bondDenom;
     return obj;
   },
   fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {

@@ -204,8 +204,8 @@ export const BridgeValidator = {
   },
   toAmino(message: BridgeValidator): BridgeValidatorAmino {
     const obj: any = {};
-    obj.power = message.power ? message.power.toString() : undefined;
-    obj.evm_address = message.evmAddress;
+    obj.power = message.power !== BigInt(0) ? message.power.toString() : undefined;
+    obj.evm_address = message.evmAddress === "" ? undefined : message.evmAddress;
     return obj;
   },
   fromAminoMsg(object: BridgeValidatorAminoMsg): BridgeValidator {
@@ -282,13 +282,13 @@ export const Valset = {
   },
   toAmino(message: Valset): ValsetAmino {
     const obj: any = {};
-    obj.nonce = message.nonce ? message.nonce.toString() : undefined;
+    obj.nonce = message.nonce !== BigInt(0) ? message.nonce.toString() : undefined;
     if (message.members) {
       obj.members = message.members.map(e => e ? BridgeValidator.toAmino(e) : undefined);
     } else {
-      obj.members = [];
+      obj.members = message.members;
     }
-    obj.height = message.height ? message.height.toString() : undefined;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
     obj.time = message.time ? Timestamp.toAmino(message.time) : undefined;
     return obj;
   },
@@ -368,9 +368,9 @@ export const DataCommitment = {
   },
   toAmino(message: DataCommitment): DataCommitmentAmino {
     const obj: any = {};
-    obj.nonce = message.nonce ? message.nonce.toString() : undefined;
-    obj.begin_block = message.beginBlock ? message.beginBlock.toString() : undefined;
-    obj.end_block = message.endBlock ? message.endBlock.toString() : undefined;
+    obj.nonce = message.nonce !== BigInt(0) ? message.nonce.toString() : undefined;
+    obj.begin_block = message.beginBlock !== BigInt(0) ? message.beginBlock.toString() : undefined;
+    obj.end_block = message.endBlock !== BigInt(0) ? message.endBlock.toString() : undefined;
     obj.time = message.time ? Timestamp.toAmino(message.time) : undefined;
     return obj;
   },

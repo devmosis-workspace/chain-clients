@@ -34,12 +34,6 @@ export interface PageRequest {
    * is set.
    */
   countTotal: boolean;
-  /**
-   * reverse is set to true if results are to be returned in the descending order.
-   * 
-   * Since: cosmos-sdk 0.43
-   */
-  reverse: boolean;
 }
 export interface PageRequestProtoMsg {
   typeUrl: "/cosmos.base.query.v1beta1.PageRequest";
@@ -79,12 +73,6 @@ export interface PageRequestAmino {
    * is set.
    */
   count_total?: boolean;
-  /**
-   * reverse is set to true if results are to be returned in the descending order.
-   * 
-   * Since: cosmos-sdk 0.43
-   */
-  reverse?: boolean;
 }
 export interface PageRequestAminoMsg {
   type: "cosmos-sdk/PageRequest";
@@ -104,7 +92,6 @@ export interface PageRequestSDKType {
   offset: bigint;
   limit: bigint;
   count_total: boolean;
-  reverse: boolean;
 }
 /**
  * PageResponse is to be embedded in gRPC response messages where the
@@ -118,8 +105,7 @@ export interface PageRequestSDKType {
 export interface PageResponse {
   /**
    * next_key is the key to be passed to PageRequest.key to
-   * query the next page most efficiently. It will be empty if
-   * there are no more results.
+   * query the next page most efficiently
    */
   nextKey: Uint8Array;
   /**
@@ -144,8 +130,7 @@ export interface PageResponseProtoMsg {
 export interface PageResponseAmino {
   /**
    * next_key is the key to be passed to PageRequest.key to
-   * query the next page most efficiently. It will be empty if
-   * there are no more results.
+   * query the next page most efficiently
    */
   next_key?: string;
   /**
@@ -176,8 +161,7 @@ function createBasePageRequest(): PageRequest {
     key: new Uint8Array(),
     offset: BigInt(0),
     limit: BigInt(0),
-    countTotal: false,
-    reverse: false
+    countTotal: false
   };
 }
 export const PageRequest = {
@@ -195,9 +179,6 @@ export const PageRequest = {
     if (message.countTotal === true) {
       writer.uint32(32).bool(message.countTotal);
     }
-    if (message.reverse === true) {
-      writer.uint32(40).bool(message.reverse);
-    }
     return writer;
   },
   fromJSON(object: any): PageRequest {
@@ -205,8 +186,7 @@ export const PageRequest = {
       key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
       offset: isSet(object.offset) ? BigInt(object.offset.toString()) : BigInt(0),
       limit: isSet(object.limit) ? BigInt(object.limit.toString()) : BigInt(0),
-      countTotal: isSet(object.countTotal) ? Boolean(object.countTotal) : false,
-      reverse: isSet(object.reverse) ? Boolean(object.reverse) : false
+      countTotal: isSet(object.countTotal) ? Boolean(object.countTotal) : false
     };
   },
   fromPartial(object: Partial<PageRequest>): PageRequest {
@@ -215,7 +195,6 @@ export const PageRequest = {
     message.offset = object.offset !== undefined && object.offset !== null ? BigInt(object.offset.toString()) : BigInt(0);
     message.limit = object.limit !== undefined && object.limit !== null ? BigInt(object.limit.toString()) : BigInt(0);
     message.countTotal = object.countTotal ?? false;
-    message.reverse = object.reverse ?? false;
     return message;
   },
   fromAmino(object: PageRequestAmino): PageRequest {
@@ -232,18 +211,14 @@ export const PageRequest = {
     if (object.count_total !== undefined && object.count_total !== null) {
       message.countTotal = object.count_total;
     }
-    if (object.reverse !== undefined && object.reverse !== null) {
-      message.reverse = object.reverse;
-    }
     return message;
   },
   toAmino(message: PageRequest): PageRequestAmino {
     const obj: any = {};
     obj.key = message.key ? base64FromBytes(message.key) : undefined;
-    obj.offset = message.offset ? message.offset.toString() : undefined;
-    obj.limit = message.limit ? message.limit.toString() : undefined;
-    obj.count_total = message.countTotal;
-    obj.reverse = message.reverse;
+    obj.offset = message.offset !== BigInt(0) ? message.offset.toString() : undefined;
+    obj.limit = message.limit !== BigInt(0) ? message.limit.toString() : undefined;
+    obj.count_total = message.countTotal === false ? undefined : message.countTotal;
     return obj;
   },
   fromAminoMsg(object: PageRequestAminoMsg): PageRequest {
@@ -310,7 +285,7 @@ export const PageResponse = {
   toAmino(message: PageResponse): PageResponseAmino {
     const obj: any = {};
     obj.next_key = message.nextKey ? base64FromBytes(message.nextKey) : undefined;
-    obj.total = message.total ? message.total.toString() : undefined;
+    obj.total = message.total !== BigInt(0) ? message.total.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: PageResponseAminoMsg): PageResponse {

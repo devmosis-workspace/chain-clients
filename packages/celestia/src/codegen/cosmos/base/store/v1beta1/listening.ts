@@ -178,8 +178,8 @@ export const StoreKVPair = {
   },
   toAmino(message: StoreKVPair): StoreKVPairAmino {
     const obj: any = {};
-    obj.store_key = message.storeKey;
-    obj.delete = message.delete;
+    obj.store_key = message.storeKey === "" ? undefined : message.storeKey;
+    obj.delete = message.delete === false ? undefined : message.delete;
     obj.key = message.key ? base64FromBytes(message.key) : undefined;
     obj.value = message.value ? base64FromBytes(message.value) : undefined;
     return obj;
@@ -286,7 +286,7 @@ export const BlockMetadata = {
     if (message.deliverTxs) {
       obj.deliver_txs = message.deliverTxs.map(e => e ? BlockMetadata_DeliverTx.toAmino(e) : undefined);
     } else {
-      obj.deliver_txs = [];
+      obj.deliver_txs = message.deliverTxs;
     }
     obj.request_end_block = message.requestEndBlock ? RequestEndBlock.toAmino(message.requestEndBlock) : undefined;
     obj.response_end_block = message.responseEndBlock ? ResponseEndBlock.toAmino(message.responseEndBlock) : undefined;

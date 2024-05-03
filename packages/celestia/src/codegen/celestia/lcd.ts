@@ -8,6 +8,23 @@ export const createLCDClient = async ({
     restEndpoint
   });
   return {
+    celestia: {
+      blob: {
+        v1: new (await import("./blob/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      mint: {
+        v1: new (await import("./mint/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      },
+      qgb: {
+        v1: new (await import("./qgb/v1/query.lcd")).LCDQueryClient({
+          requestClient
+        })
+      }
+    },
     cosmos: {
       auth: {
         v1beta1: new (await import("../cosmos/auth/v1beta1/query.lcd")).LCDQueryClient({
@@ -96,23 +113,6 @@ export const createLCDClient = async ({
       },
       upgrade: {
         v1beta1: new (await import("../cosmos/upgrade/v1beta1/query.lcd")).LCDQueryClient({
-          requestClient
-        })
-      }
-    },
-    celestia: {
-      blob: {
-        v1: new (await import("./blob/v1/query.lcd")).LCDQueryClient({
-          requestClient
-        })
-      },
-      mint: {
-        v1: new (await import("./mint/v1/query.lcd")).LCDQueryClient({
-          requestClient
-        })
-      },
-      qgb: {
-        v1: new (await import("./qgb/v1/query.lcd")).LCDQueryClient({
           requestClient
         })
       }

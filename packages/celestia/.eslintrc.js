@@ -1,6 +1,7 @@
 module.exports = {
   plugins: ['prettier'],
   extends: ['eslint:recommended', 'prettier'],
+  parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaVersion: 11,
     requireConfigFile: false,
@@ -13,7 +14,6 @@ module.exports = {
     es6: true,
     browser: true,
     node: true,
-    jest: true
   },
   rules: {
     'no-debugger': 2,

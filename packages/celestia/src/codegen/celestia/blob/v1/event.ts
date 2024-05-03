@@ -93,16 +93,16 @@ export const EventPayForBlobs = {
   },
   toAmino(message: EventPayForBlobs): EventPayForBlobsAmino {
     const obj: any = {};
-    obj.signer = message.signer;
+    obj.signer = message.signer === "" ? undefined : message.signer;
     if (message.blobSizes) {
       obj.blob_sizes = message.blobSizes.map(e => e);
     } else {
-      obj.blob_sizes = [];
+      obj.blob_sizes = message.blobSizes;
     }
     if (message.namespaces) {
       obj.namespaces = message.namespaces.map(e => base64FromBytes(e));
     } else {
-      obj.namespaces = [];
+      obj.namespaces = message.namespaces;
     }
     return obj;
   },

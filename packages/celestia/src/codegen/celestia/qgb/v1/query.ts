@@ -521,7 +521,7 @@ export const QueryAttestationRequestByNonceRequest = {
   },
   toAmino(message: QueryAttestationRequestByNonceRequest): QueryAttestationRequestByNonceRequestAmino {
     const obj: any = {};
-    obj.nonce = message.nonce ? message.nonce.toString() : undefined;
+    obj.nonce = message.nonce !== BigInt(0) ? message.nonce.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryAttestationRequestByNonceRequestAminoMsg): QueryAttestationRequestByNonceRequest {
@@ -662,7 +662,7 @@ export const QueryLatestAttestationNonceResponse = {
   },
   toAmino(message: QueryLatestAttestationNonceResponse): QueryLatestAttestationNonceResponseAmino {
     const obj: any = {};
-    obj.nonce = message.nonce ? message.nonce.toString() : undefined;
+    obj.nonce = message.nonce !== BigInt(0) ? message.nonce.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryLatestAttestationNonceResponseAminoMsg): QueryLatestAttestationNonceResponse {
@@ -752,7 +752,7 @@ export const QueryEarliestAttestationNonceResponse = {
   },
   toAmino(message: QueryEarliestAttestationNonceResponse): QueryEarliestAttestationNonceResponseAmino {
     const obj: any = {};
-    obj.nonce = message.nonce ? message.nonce.toString() : undefined;
+    obj.nonce = message.nonce !== BigInt(0) ? message.nonce.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryEarliestAttestationNonceResponseAminoMsg): QueryEarliestAttestationNonceResponse {
@@ -803,7 +803,7 @@ export const QueryLatestValsetRequestBeforeNonceRequest = {
   },
   toAmino(message: QueryLatestValsetRequestBeforeNonceRequest): QueryLatestValsetRequestBeforeNonceRequestAmino {
     const obj: any = {};
-    obj.nonce = message.nonce ? message.nonce.toString() : undefined;
+    obj.nonce = message.nonce !== BigInt(0) ? message.nonce.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryLatestValsetRequestBeforeNonceRequestAminoMsg): QueryLatestValsetRequestBeforeNonceRequest {
@@ -944,7 +944,7 @@ export const QueryLatestUnbondingHeightResponse = {
   },
   toAmino(message: QueryLatestUnbondingHeightResponse): QueryLatestUnbondingHeightResponseAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryLatestUnbondingHeightResponseAminoMsg): QueryLatestUnbondingHeightResponse {
@@ -1085,7 +1085,7 @@ export const QueryDataCommitmentRangeForHeightRequest = {
   },
   toAmino(message: QueryDataCommitmentRangeForHeightRequest): QueryDataCommitmentRangeForHeightRequestAmino {
     const obj: any = {};
-    obj.height = message.height ? message.height.toString() : undefined;
+    obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: QueryDataCommitmentRangeForHeightRequestAminoMsg): QueryDataCommitmentRangeForHeightRequest {
@@ -1187,7 +1187,7 @@ export const QueryEVMAddressRequest = {
   },
   toAmino(message: QueryEVMAddressRequest): QueryEVMAddressRequestAmino {
     const obj: any = {};
-    obj.validator_address = message.validatorAddress;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
     return obj;
   },
   fromAminoMsg(object: QueryEVMAddressRequestAminoMsg): QueryEVMAddressRequest {
@@ -1238,7 +1238,7 @@ export const QueryEVMAddressResponse = {
   },
   toAmino(message: QueryEVMAddressResponse): QueryEVMAddressResponseAmino {
     const obj: any = {};
-    obj.evm_address = message.evmAddress;
+    obj.evm_address = message.evmAddress === "" ? undefined : message.evmAddress;
     return obj;
   },
   fromAminoMsg(object: QueryEVMAddressResponseAminoMsg): QueryEVMAddressResponse {
@@ -1269,7 +1269,7 @@ export const AttestationRequestI_InterfaceDecoder = (input: BinaryReader | Uint8
       return data;
   }
 };
-export const AttestationRequestI_FromAmino = (content: AnyAmino) => {
+export const AttestationRequestI_FromAmino = (content: AnyAmino): Any => {
   switch (content.type) {
     case "/celestia.qgb.v1.Valset":
       return Any.fromPartial({

@@ -1,9 +1,8 @@
-const { join } = require('path');
-const telescope = require('@cosmology/telescope').default;
-const rimraf = require('rimraf').rimrafSync;
+import { join } from 'path';
+import telescope from '@cosmology/telescope';
+import { rimrafSync as rimraf } from 'rimraf';
 
-// const protoDirs = [join(__dirname, '/../cosmos-sdk/proto'), join(__dirname, '/../celestia-app/proto'), join(__dirname, '/../cosmos-proto/proto'), join(__dirname, '/../proto'), join(__dirname, '/../celestia-core/proto'), join(__dirname, '/../celestia-core/third_party/proto')];
-const protoDirs = [join(__dirname, '/../cosmos-sdk/proto'), join(__dirname, '/../celestia-app/proto'), join(__dirname, '/../cosmos-proto/proto'), join(__dirname, '/../proto')];
+const protoDirs = [join(__dirname, '/../celestia-app/proto'), join(__dirname, '/../cosmos-sdk/proto'), join(__dirname, '/../proto')];
 const outPath = join(__dirname, '../src/codegen');
 rimraf(outPath);
 

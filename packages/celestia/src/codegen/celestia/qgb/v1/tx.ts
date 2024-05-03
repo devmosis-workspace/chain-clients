@@ -82,8 +82,8 @@ export const MsgRegisterEVMAddress = {
   },
   toAmino(message: MsgRegisterEVMAddress): MsgRegisterEVMAddressAmino {
     const obj: any = {};
-    obj.validator_address = message.validatorAddress;
-    obj.evm_address = message.evmAddress;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
+    obj.evm_address = message.evmAddress === "" ? undefined : message.evmAddress;
     return obj;
   },
   fromAminoMsg(object: MsgRegisterEVMAddressAminoMsg): MsgRegisterEVMAddress {

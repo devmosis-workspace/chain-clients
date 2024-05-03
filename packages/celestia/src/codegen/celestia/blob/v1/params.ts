@@ -64,8 +64,8 @@ export const Params = {
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
-    obj.gas_per_blob_byte = message.gasPerBlobByte;
-    obj.gov_max_square_size = message.govMaxSquareSize ? message.govMaxSquareSize.toString() : undefined;
+    obj.gas_per_blob_byte = message.gasPerBlobByte === 0 ? undefined : message.gasPerBlobByte;
+    obj.gov_max_square_size = message.govMaxSquareSize !== BigInt(0) ? message.govMaxSquareSize.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

@@ -178,7 +178,7 @@ export const GenericAuthorization = {
   },
   toAmino(message: GenericAuthorization): GenericAuthorizationAmino {
     const obj: any = {};
-    obj.msg = message.msg;
+    obj.msg = message.msg === "" ? undefined : message.msg;
     return obj;
   },
   fromAminoMsg(object: GenericAuthorizationAminoMsg): GenericAuthorization {
@@ -329,8 +329,8 @@ export const GrantAuthorization = {
   },
   toAmino(message: GrantAuthorization): GrantAuthorizationAmino {
     const obj: any = {};
-    obj.granter = message.granter;
-    obj.grantee = message.grantee;
+    obj.granter = message.granter === "" ? undefined : message.granter;
+    obj.grantee = message.grantee === "" ? undefined : message.grantee;
     obj.authorization = message.authorization ? Authorization_ToAmino((message.authorization as Any)) : undefined;
     obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
     return obj;
@@ -390,7 +390,7 @@ export const GrantQueueItem = {
     if (message.msgTypeUrls) {
       obj.msg_type_urls = message.msgTypeUrls.map(e => e);
     } else {
-      obj.msg_type_urls = [];
+      obj.msg_type_urls = message.msgTypeUrls;
     }
     return obj;
   },
@@ -430,7 +430,7 @@ export const Authorization_InterfaceDecoder = (input: BinaryReader | Uint8Array)
       return data;
   }
 };
-export const Authorization_FromAmino = (content: AnyAmino) => {
+export const Authorization_FromAmino = (content: AnyAmino): Any => {
   switch (content.type) {
     case "cosmos-sdk/GenericAuthorization":
       return Any.fromPartial({

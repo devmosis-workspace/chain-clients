@@ -4,6 +4,14 @@ export const createRPCMsgClient = async ({
 }: {
   rpc: Rpc;
 }) => ({
+  celestia: {
+    blob: {
+      v1: new (await import("./blob/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    },
+    qgb: {
+      v1: new (await import("./qgb/v1/tx.rpc.msg")).MsgClientImpl(rpc)
+    }
+  },
   cosmos: {
     authz: {
       v1beta1: new (await import("../cosmos/authz/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)
@@ -44,14 +52,6 @@ export const createRPCMsgClient = async ({
     },
     vesting: {
       v1beta1: new (await import("../cosmos/vesting/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc)
-    }
-  },
-  celestia: {
-    blob: {
-      v1: new (await import("./blob/v1/tx.rpc.msg")).MsgClientImpl(rpc)
-    },
-    qgb: {
-      v1: new (await import("./qgb/v1/tx.rpc.msg")).MsgClientImpl(rpc)
     }
   }
 });

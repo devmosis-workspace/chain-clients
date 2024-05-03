@@ -9,8 +9,9 @@ pids
 *.seed
 
 # out
-dist
-mjs
+out
+
+# dist
 main
 module
 

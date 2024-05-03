@@ -8,6 +8,17 @@ export const createRPCQueryClient = async ({
   const tmClient = await Tendermint34Client.connect(rpcEndpoint);
   const client = new QueryClient(tmClient);
   return {
+    celestia: {
+      blob: {
+        v1: (await import("./blob/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      mint: {
+        v1: (await import("./mint/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      },
+      qgb: {
+        v1: (await import("./qgb/v1/query.rpc.Query")).createRpcQueryExtension(client)
+      }
+    },
     cosmos: {
       app: {
         v1alpha1: (await import("../cosmos/app/v1alpha1/query.rpc.Query")).createRpcQueryExtension(client)
@@ -65,17 +76,6 @@ export const createRPCQueryClient = async ({
       },
       upgrade: {
         v1beta1: (await import("../cosmos/upgrade/v1beta1/query.rpc.Query")).createRpcQueryExtension(client)
-      }
-    },
-    celestia: {
-      blob: {
-        v1: (await import("./blob/v1/query.rpc.Query")).createRpcQueryExtension(client)
-      },
-      mint: {
-        v1: (await import("./mint/v1/query.rpc.Query")).createRpcQueryExtension(client)
-      },
-      qgb: {
-        v1: (await import("./qgb/v1/query.rpc.Query")).createRpcQueryExtension(client)
       }
     }
   };

@@ -100,12 +100,12 @@ export const DataAvailabilityHeader = {
     if (message.rowRoots) {
       obj.row_roots = message.rowRoots.map(e => base64FromBytes(e));
     } else {
-      obj.row_roots = [];
+      obj.row_roots = message.rowRoots;
     }
     if (message.columnRoots) {
       obj.column_roots = message.columnRoots.map(e => base64FromBytes(e));
     } else {
-      obj.column_roots = [];
+      obj.column_roots = message.columnRoots;
     }
     return obj;
   },

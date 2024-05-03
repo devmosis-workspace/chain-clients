@@ -1,23 +1,14 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
-        "rootDir": "src",
-        "skipLibCheck": true,
-        "emitDeclarationOnly": false,
         "declaration": true,
-        "esModuleInterop": true,
-        "target": "es2022",
-        "module": "es2022",
-        "lib": [
-            "es2022",
-            "DOM"
-        ],
-        "sourceMap": true,
+        "declarationDir": "./types",
+        "emitDeclarationOnly": true,
         "isolatedModules": true,
+        "esModuleInterop": true,
         "allowJs": true,
-        "downlevelIteration": true,
-        "moduleResolution": "node",
-        "resolveJsonModule": true
+        "lib": [
+            "es2015"
+        ]
     },
     "include": [
         "src/**/*"
